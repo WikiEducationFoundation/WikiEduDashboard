@@ -1,0 +1,33 @@
+name: 'Contributing images and media files'
+id: 6
+description: |
+  This tutorial shows you how to add images and other media to Wikipedia articles,
+  and covers the copyright rules for uploading new images and media files.
+estimated_ttc: 10 minutes
+slides:
+  - slug: finding-an-image-on-wikipedia # 601
+  - slug: what-if-i-cannot-find-an-image # 602
+  - slug: what-is-a-free-license # 603
+  - slug: types-of-licenses # 604
+  - slug: what-about-public-domain # 605
+  - slug: what-media-is-not-allowed # 606
+  - slug: licensing-quiz # 607
+  - slug: an-easy-way-to-find-images # 608
+  - slug: using-cc-search # 609
+  - slug: adding-my-own-images # 610
+  - slug: start-sharing # 611
+  - slug: upload-a-file # 612
+  - slug: name-your-file # 613
+  - slug: it-is-uploaded-what-now # 614
+  - slug: add-an-image-to-wikipedia # 615
+  - slug: final-note-on-licensing # 616
+  - slug: sharing-media-quiz # 617
+  - slug: uploading-work-quiz # 618
+  - slug: online-images-quiz # 619
+  - slug: images-and-media-complete # 620
+
+translations:
+  es:
+    name: Contribuyendo con imágenes y archivos multimedia
+    description: |
+      Este tutorial te muestra cómo añadir imágenes y otros archivos multimedia a los artículos de Wikipedia, y cubre las normas de derechos de autor para subir nuevas imágenes y archivos multimedia.

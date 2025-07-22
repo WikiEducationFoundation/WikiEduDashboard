@@ -1,0 +1,26 @@
+# Messages for Kirmanjki (Kırmancki)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Mirzali
+---
+kiu:
+  application:
+    cancel: Bıtexelne
+    opt_in: Heya
+    opt_out: Nê
+  courses:
+    cancel: Bıtexelne
+  courses_generic:
+    cancel: Bıtexelne
+  editable:
+    cancel: Bıtexelne
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Namê karberi
+  training:
+    page: Pele
+  users:
+    username: Namê karberi
+    username_placeholder: Namê karberi
+...

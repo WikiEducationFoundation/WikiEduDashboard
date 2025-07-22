@@ -1,0 +1,12 @@
+.survey__questions-list.clearfix
+  .survey__admin-actions.clearfix
+    %h3 Questions
+    = link_to "Add New Question", new_question_group_question_path(@question_group), :class => 'button dark button--no-margin'
+  - if @questions.length > 1
+    .survey__admin-tools
+      = link_to "Preview Question Group", new_question_group_answer_group_path(@question_group) + '?preview'
+      %br
+      %span.contextual Drag to reorder questions. (Changes will be saved automatically.)
+  %table.table.list--survey{"data-sortable-questions" => @question_group.id}
+    %tbody
+      = render partial: 'rapidfire/questions/question', collection: @questions

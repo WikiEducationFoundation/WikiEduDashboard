@@ -1,0 +1,458 @@
+# This file is chronological: blocks nearer the top will always appear before
+# blocks nearer the bottom when placed into a course's timeline
+
+# Block kind
+# 0. In class
+# 1. Assignment
+# 2. Milestone
+# 3. Custom
+# 4. Handouts
+
+# Week weight
+# - The app will attempt to evenly distribute weights across the course timeline
+# - Higher weights will be more likely to stand on their own
+# - Weights may be any positive number but 1-10 is recommended
+
+essentials:
+  - # Week one
+    weight: 6
+    blocks:
+      - title: Introduction to the Wikipedia assignment
+        kind: 0
+        content: |
+          <p>
+            Welcome to your Wikipedia assignment's course timeline. This page
+            guides you through the steps you'll need to complete for your
+            Wikipedia assignment, with links to training modules and your
+            classmates' work spaces.
+          </p>
+          <p>
+            Your course has been assigned a Wikipedia Expert. You can reach
+            them through the <strong>Get Help</strong> button at the top of this page.
+          </p>
+          <p>
+            Resources:
+          </p>
+          <ul>
+            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 1–5</li>
+            <li><a href="https://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></li>
+          </ul>
+
+      -
+        title: Get started on Wikipedia
+        kind: 1
+        training_module_ids: [1,29,66] # Wikipedia policies, Sandboxes talk pages and watchlists, Communicating with others
+        content: |
+          <p>
+            Create an account and join this course page, using the  enrollment
+            link your instructor sent you.
+          </p>
+          <p>
+            If you have trouble creating a Wikipedia account, <a href="https://dashboard.wikiedu.org/faq/12" target="_blank">consult this FAQ</a>.
+          </p>
+
+      -
+        if: weekly_journal_assignment
+        title: Wikipedia assignment journal
+        kind: 1
+        content: |
+          <p>
+            <a href="/training/students/assignment-journal/keep-a-journal">Write a weekly journal about your experiences</a>. You can use
+            discussion questions to frame your entries, or reflect on the
+            research and writing process. Create at least one journal entry
+            each week during the Wikipedia assignment.
+          </p>
+
+      -
+        title: Everyone has a Wikipedia account
+        kind: 2
+        content: |
+
+  - # Week two
+    weight: 6
+    blocks:
+      -
+        title: Evaluate Wikipedia
+        kind: 1
+        training_module_ids: [28,7,34,71] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia, Generative AI
+        content: |
+
+      -
+        if: improving_representation
+        title: Improving Representation
+        training_module_ids: [68] # Improving representation
+        content: |
+
+      -
+        if: sources_and_plagiarism_discussion
+        title: "Discussion"
+        kind: 0
+        training_module_ids: [43] # Discussion: Thinking about sources and plagiarism
+        content: |
+
+
+  - # Week three
+    weight: 6
+    blocks:
+      -
+        if: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [65] # Keeping track of work without sandboxes
+        content: |
+
+      -
+        unless: no_sandboxes
+        title: Keeping track of your work
+        kind: 1
+        training_module_ids: [60] # Keeping track of work
+        content: |
+
+      -
+        if: medical_topics
+        title: Review the rules for health topics
+        kind: 1
+        training_module_ids: [11] # Editing health and psychology topics
+        content: |
+
+      -
+        if: explore_to_find_articles
+        title: Choose possible topics
+        kind: 1
+        training_module_ids: [17, 37] # Find Your Article, Exercise: Choose your article
+        content: |
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=6">Editing Wikipedia</a>, page 6</p>
+
+      -
+        if: choose_articles_from_list
+        title: Choose your article
+        kind: 1
+        training_module_ids: [36] # Exercise: Choose your article
+        content: |
+
+      -
+        if: content_gaps_discussion
+        title: "Discussion"
+        kind: 0
+        training_module_ids: [42] # Discussion: What's a content gap?
+        content: |
+
+      -
+        if: choose_articles_from_list
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
+
+  - # Week four
+    weight: 4
+    blocks:
+      -
+        if: add_to_article
+        title: Add a fact to Wikipedia
+        kind: 1
+        training_module_ids: [8, 69] # Adding citations, Exercise: Add a fact to Wikipedia (aka update a bio)
+        graded: true
+        points: 10
+        content: |
+
+      -
+        if: copyedit
+        title: Copyedit an article
+        kind: 1
+        training_module_ids: [27] # Exercise: Copyedit an article
+        graded: true
+        points: 5
+        content: |
+
+      -
+        if: explore_to_find_articles
+        title: Finalize your topic, find sources, plan your changes
+        kind: 1
+        training_module_ids: [72, 73] # Exercise: Bibliography, Exercise: Outline
+        content: |
+
+      -
+        if: choose_articles_from_list
+        title: Find sources, create a bibliography, plan your changes
+        kind: 1
+        training_module_ids: [72, 73] # Exercise: Bibliography, Exercise: Outline
+        content: |
+
+      -
+        if: additional_article_extra_credit
+        title: "Select an additional article for extra credit (Optional)"
+        kind: 1
+        training_module_ids: [70] # Extra credit: choose an additional article
+        content: |
+
+  - # Week five
+    weight: 4
+    blocks:
+      -
+        if: working_individually
+        unless: no_sandboxes
+        title: Start drafting your contributions
+        kind: 1
+        graded: true
+        points: 20
+        training_module_ids: [30,15] # Drafting, Plagiarism
+        content: |
+          <p>
+          Reach out to your Wikipedia Expert if you have questions using the
+          <strong>Get Help</strong> button at the top of this page.
+          </p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
+
+      -
+        if: working_in_groups
+        unless: no_sandboxes
+        title: Start drafting your contributions
+        kind: 1
+        graded: true
+        points: 20
+        training_module_ids: [31,15] # Drafting in groups, Plagiarism
+        content: |
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
+
+      -
+        if: explore_to_find_articles
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
+
+      -
+        if: no_sandboxes
+        title: Start editing your article
+        kind: 1
+        training_module_ids: [64, 15] # Working live, plagiarism
+        content: |
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
+
+      -
+        if: no_sandoxes
+        title: Drafting a new article in a sandbox
+        kind: 1
+        content: |
+          <p>If you are writing a new article, you will begin by drafting a short starter version of it in a sandbox, before
+          moving it live and continuing to expand it from there. Use the "Sandbox Draft" link from the "My Articles" section
+          of the Home tab to open the sandbox page.</p>
+          <p>Resource: <a href="/training/students/drafting-in-sandbox/using-a-sandbox-v2">Drafting in the sandbox</a> training module</p>
+
+      -
+        title: Everyone has started writing
+        kind: 2
+        content: |
+
+  - # Week six
+    weight: 3
+    blocks:
+
+      - # 1 peer review
+        if: 1_peer_reviewers
+        title: Peer review an article
+        kind: 1
+        content: |
+          <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
+
+      - # 2 peer reviews
+        if: 2_peer_reviewers
+        title: Peer review two articles
+        kind: 1
+        content: |
+          <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
+
+      - # 3 peer reviews
+        if: 3_peer_reviewers
+        title: Peer review three articles
+        kind: 1
+        content: |
+          <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
+
+      -
+        if: thinking_about_wikipedia_discussion
+        title: "Discussion"
+        kind: 0
+        training_module_ids: [44] # Discussion: Thinking about Wikipedia
+        content: |
+
+      -
+        title: Peer reviews are complete
+        kind: 2
+        content: |
+          <p>Every student has finished reviewing their assigned articles, making sure that every article has been reviewed.</p>
+
+  - # Week seven
+    weight: 3
+    blocks:
+      -
+        title: Respond to your peer review
+        kind: 1
+        graded: true
+        points: 10
+        content: |
+          <p>You probably have some feedback from other students and possibly
+          other Wikipedians. Consider their suggestions, look for ways to make
+          your work more accurate and complete, and edit your work to make those changes.</p>
+          <ul>
+          <p>
+            Resources:
+          </p>
+          <ul>
+            <li><a href="https://wikiedu.org/editingwikipedia#page=12">Editing Wikipedia</a>, pages 12 and 14</li>
+            <li>Reach out to your Wikipedia Expert if you have any questions.
+          </ul>
+
+  - # Week eight
+    weight: 6
+    blocks:
+      -
+        if: no_sandboxes
+        title: Publishing a new article
+        kind: 1 # Assignment
+        content: |
+          <div style="display: block;">
+            <p>
+              If you're creating a new article, it's time to take the step of making it live. (If you're working on an existing article,
+              you've already been publishing changes to the live article and this step won't be needed.) Consult the <a href="/training/students/moving-to-mainspace/creating-a-new-article-v2">Moving to Mainspace</a>
+              training for additional guidance.
+            </p>
+            <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+            <br />
+            <p>
+              <h4>Demo: publishing a new article</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/gL3jWfMwawE" frameborder="0" allowfullscreen></iframe>
+            </p>
+          </div>
+
+      -
+        if: working_individually
+        unless: no_sandboxes
+        title: Begin moving your work to Wikipedia
+        kind: 1 # Assignment
+        training_module_ids: [32] # Moving work out of the sandbox
+        content: |
+          <div style="display: block;">
+            <p>
+              Now that you've improved your draft based on others' feedback, it's
+              time to move your work live - to the "mainspace."
+            </p>
+            <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+            <br />
+            <p>
+              <h4>Demo: moving work from a sandbox</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/SNUEiF20-R8" frameborder="0" allowfullscreen></iframe>
+            </p>
+            <br />
+            <p>
+              <h4>Demo: publishing a new article</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/gL3jWfMwawE" frameborder="0" allowfullscreen></iframe>
+            </p>
+          </div>
+      -
+        if: working_in_groups
+        unless: no_sandboxes
+        title: Begin moving your work to Wikipedia
+        kind: 1 # Assignment
+        training_module_ids: [33] # Moving work out of the sandbox
+        content: |
+          <div style="display: block;">
+            <p>
+              Now that you've improved your draft based on others' feedback, it's
+              time to move your work live - to the "mainspace."
+            </p>
+            <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
+            <br />
+            <p>
+              <h4>Demo: moving work from a sandbox</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/SNUEiF20-R8" frameborder="0" allowfullscreen></iframe>
+            </p>
+            <br />
+            <p>
+              <h4>Demo: publishing a new article</h4>
+              <iframe width="100%" height="400px" src="https://www.youtube-nocookie.com/embed/gL3jWfMwawE" frameborder="0" allowfullscreen></iframe>
+            </p>
+          </div>
+
+      -
+        if: did_you_know
+        title: Exercise
+        kind: 1
+        training_module_ids: [39] # Exercise: Nominating your article for Did You Know
+        content: |
+
+
+  - # Week nine
+    weight: 2
+    blocks:
+      -
+        title: Continue improving your article
+        kind: 1
+        training_module_ids: [6, 45] # Images and multimedia, Exercise: Link to other articles
+        content: |
+          <p>Now's the time to revisit your text and refine your work. You may
+          do more research and find missing information; rewrite the lead section
+          to represent all major points; reorganize the text to communicate the
+          information better; or add images and other media. </p>
+
+
+  - # Week ten
+    weight: 2
+    blocks:
+      -
+        title: Polish your work
+        kind: 1
+        content: |
+          <p>
+            Continue to expand and improve your work, and format your article to
+            match Wikipedia's tone and standards. Remember to contact your
+            Wikipedia Expert at any time if you need further help!
+          </p>
+
+  - # Week eleven
+    weight: 5
+    blocks:
+      -
+        title: Final article
+        kind: 1
+        graded: true
+        points: 30
+        content: |
+          <p>It's the final week to develop your article.</p>
+          <ul>
+            <li>Read <a href="https://wikiedu.org/editingwikipedia#page=15">Editing Wikipedia</a> page 15 to review a final check-list before completing your assignment.</li>
+            <li>Don't forget that you can ask for help from your Wikipedia Expert at any time!</li>
+          </ul>
+
+      -
+        if: presentation
+        title: In-class presentation
+        kind: 0
+        graded: true
+        points: 10
+        training_module_ids: [40] # Exercise: Present about your Wikipedia editing experience
+        content: |
+
+      -
+        if: reflective_essay
+        title: Reflective essay
+        kind: 1
+        training_module_ids: [41] # Exercise: Reflective essay
+        graded: true
+        points: 10
+        content: |
+
+      -
+        if: original_research_paper
+        title: Original research paper
+        kind: 1
+        graded: true
+        points: 20
+        content: |
+          <p>Write a paper going beyond your Wikipedia article to advance your own ideas, arguments, and original research about your topic.</p>
+
+  - # Week twelve
+    weight: 3
+    blocks:
+      -
+        title: You've finished your Wikipedia assignment!
+        kind: 2
+        content: |
+          <p>Everyone should have finished all of the work they'll do on Wikipedia, and be ready for grading.</p>

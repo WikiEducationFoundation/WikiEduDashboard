@@ -1,0 +1,410 @@
+panel_speed = .4s
+wizard-width = 860px
+
+.wizard-enter
+  opacity 0.01
+  transition opacity .2s ease-in-out
+  &.wizard-enter-active
+    opacity 1
+.wizard-exit
+  opacity 1
+  transition opacity .2s ease-in-out
+  &.wizard-exit-active
+    opacity 0.01
+
+.wizard__panel-enter
+  left 150% !important
+  transition left panel_speed ease-in-out
+
+.wizard
+  background-color rgba(smoke, .95)
+  bottom 0
+  left 0
+  max-height 100%
+  overflow-x hidden
+  overflow-y scroll
+  padding-top 80px
+  position fixed
+  right 0
+  text-align center
+  top 0
+  z-index 11
+  .wizard__panel
+    background-color white
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+    /*@noflip*/ left -150%
+    margin-bottom 20px
+    max-width wizard-width
+    opacity 0
+    padding 20px
+    position absolute
+    text-align left
+    top 100px
+    transform translateX(-50%)
+    transition left panel_speed ease-in-out, opacity .01s ease panel_speed, visibility .01s ease panel_speed
+    width 100%
+    visibility hidden
+    &.active
+      /*@noflip*/ left 50%
+      top 50px
+      opacity 1
+      transition left panel_speed ease-in-out, opacity .01s
+      visibility visible
+    &.active ~ .wizard__panel
+      /*@noflip*/ left 150%
+    &.is-submitting
+      opacity: 0.5
+    > h3
+      font-weight 300
+    p, ul
+      color dove
+      a
+        color blue-violet
+        &:hover
+          border-bottom 2px solid blue-violet
+        &:active
+          color manatee
+          border-bottom 2px solid manatee
+    hr
+      clear both
+      border-top 1px solid border_lt
+      margin 25px 0
+    .section-header
+      padding 0
+      .controls
+        padding 0
+    div.program-description
+      width 80%
+      margin auto
+      border 1px solid #cccccc
+      padding 5px
+      margin-top 25px
+      cursor pointer
+    div.program-description:hover
+      background-color #fcfcfc
+    .wizard__form
+      height 80%
+      display inline-block
+      width 100%
+      .next
+        position absolute;
+        bottom 25px;
+        right 21px;
+      p
+        text-align left
+      textarea
+        height 189px
+      input:not([type=checkbox]):not([type=radio]), textarea
+        width 100%
+      .vertical-form
+        float none
+        margin 0
+        overflow hidden
+        padding-left 20px
+      .terminput
+        .tooltip-trigger
+          position relative
+          display inline-block
+          left 12%
+          top -73px
+          img
+            height 20px
+            width 20px
+
+    .tempCourseIdText, tempEduCourseIdText
+      margin-top 16px
+      display inline-block
+      margin-left 10px
+    
+    .tempEduCourseIdText
+      margin-top: 60px
+
+    .wizard__panel__options
+      padding 20px 0
+      width 100%
+      display inline-block
+      .left, .right
+        column(1/2)
+    .wizard__option
+      border 1px solid mischka
+      cursor pointer
+      margin-bottom 20px
+      position relative
+      text-align left
+      transition all .2s ease-in-out
+      &.disabled
+        button > div, h3:not(:first-child)
+          opacity .5
+        h3:first-child
+          color warning
+          padding 20px
+          text-align center
+      &:hover
+        background smoke
+      &.selected
+        .wizard__option__border
+          border-color transparent
+          box-shadow 0 0 0 4px bayoux inset
+        .wizard__option__checkbox
+          background-color bayoux
+          border-color transparent
+      &.half
+        +above(desktop)
+          column(1/2, cycle: 2)
+      > button
+        padding 20px 20px 55px 20px
+        width 100%
+      &.wizard__option__small
+        > button
+          padding-top 10px
+          padding-bottom 10px
+      &.summary
+        border-top-width 0
+        margin-bottom 0
+        padding 20px
+        width 100%
+        > p:not(:last-child)
+          width 90%
+        &:first-child
+          border-top-width 1px
+      .edit
+        margin-top -10px
+        position absolute
+        right 40px
+        top 50%
+      .wizard__option__border
+        box-shadow 0 0 0 4px transparent inset
+        height 100%
+        left 0
+        pointer-events none
+        position absolute
+        top 0
+        transition all .2s ease-in-out
+        width 100%
+      .wizard__option__checkbox
+        background url("../images/wizard-check.svg")
+        background-position 45%
+        background-repeat no-repeat
+        background-size 60%
+        border 1px solid mischka
+        border-width 0 0 1px 1px
+        height 30px
+        position absolute
+        right 0
+        top 0
+        transition all .2s ease-in-out
+        width 30px
+      .wizard__option__description
+        border-top 1px solid transparent
+        box-sizing content-box
+        overflow hidden
+        height 0px
+        width 100%
+        transition all .2s ease-in-out
+        opacity 0
+        &.open
+          border-color mischka
+      .wizard__option__description.open
+        height 100%
+        margin-top 18px
+        padding 15px 0 0
+        opacity 1
+      
+      .wizard__option__more
+        background athens
+        border-top 1px solid mischka
+        bottom 0
+        left 0
+        padding 5px 0 7px
+        position absolute
+        transition all .2s ease-in-out
+        width 100%
+        &.open p:after
+          transform rotate(-180deg)
+        p
+          color manatee
+          text-align center
+          &:after
+            content "\EA01"
+            display inline-block
+            font-family "icons"
+            line-height 0
+            margin-left 5px
+            transition transform .2s
+            vertical-align middle
+        &:hover
+          background mischka
+      h3
+        font-size 18px
+        line-height 1.4
+        margin-bottom 5px
+        padding-right 30px
+        text-align left
+      p
+        text-align left
+        white-space pre-line
+    .wizard__controls
+      font-size 14px
+      left 20px
+      position absolute
+      top -30px
+      transition all 0.2s
+      width 100%
+      +above(880px)
+        left 0
+      .left, .right
+        column(1/2, cycle: 2)
+        a
+          color dove
+          margin 0 20px
+          &.icon:before
+            margin-right 8px
+            vertical-align middle
+      .right
+        text-align right
+    .wizard__panel__controls
+      margin-top 10px
+      background-color white
+      border-top 1px solid mischka
+      overflow hidden
+      padding 20px 0 0
+      width 100%
+      .left
+        column(1/3)
+        padding 0px 0
+        text-align left
+        p
+          font-size 14px
+      .right
+        column(2/3)
+        text-align right
+        div
+          display inline-block
+          margin-right 10px
+  .section-header
+    margin-bottom 10px
+
+.backButtonContainer
+  display flex
+  align-items flex-end
+  height 70px
+  gap 10px
+  flex-direction row
+
+p.red
+  color warning !important
+
+.new_course
+  .wizard__panel
+    .wizard__panel__controls
+      .left
+        column(3/5)
+      .right
+        column(2/5)
+        text-align right
+
+.wizard__form.course-dates
+  clear both
+  .DayPicker
+    float none
+
+.course-dates__step
+  display inline-block
+  width 100%
+  .vertical-form.full-width
+    padding 0 0 0 35px
+  .WeekdayPicker.DayPicker
+    margin-left 20px
+  h2
+    margin-bottom 15px
+    display inline-block
+    width 100%
+    span
+      float left
+    small
+      text-align left
+      color inherit
+      display inline-block
+      vertical-align middle
+      width 80%
+      margin-left 8px
+      position relative
+      top 3px
+      font-size 15px
+
+.course-dates__calendar-container
+  display inline-block
+  width 100%
+  .DayPicker
+    margin-left 15px
+    float left !important
+    clear none
+  .course-dates__calendar-key
+    float left
+    width 45%
+    clear none
+    margin-left 3.5%
+    list-style none
+    border-left 1px solid border_lt
+    h3
+      margin-left 28px
+    ul
+      padding 25px 0 27px 30px
+    li
+      display inline-block
+      width 100%
+      margin 15px 0
+      .DayPicker-Day
+        position relative
+        float left
+        margin-right 8px
+        position relative
+        bottom 8px
+        height 36px
+        padding 5px 20px
+      span
+        float left
+
+
+.wizard__panel__options .vertical-form
+  width 40%
+  margin-top 15px
+
+.column
+  column(1/2)
+
+
+/* Cloned course modal styles */
+.wizard__panel.active.cloned-course
+  .column:last-of-type
+    margin-right 0
+
+  .WeekdayPicker.DayPicker
+    margin-left 0
+
+  .course-dates__calendar-container
+    .DayPicker.DayPicker--en
+      margin-left 0
+      width 100%
+
+  .course-dates__calendar-key
+    margin-left 0
+    border-left 0
+    width 100%
+    ul
+      padding-left 0
+
+  .button.dark
+    display block
+    float right
+    margin-top 2em
+  
+  .button.light
+    display block
+    float left
+    margin-top 2em
+
+.button.dark.working
+  background url('../images/loader.gif') #fff 99% center no-repeat
+  background-size 15px 15px
+  color dove

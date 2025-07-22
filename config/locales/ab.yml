@@ -1,0 +1,191 @@
+# Messages for Abkhazian (аԥсшәа)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: DDPAT
+# Author: Fraxinus.cs
+# Author: Ice bulldog
+# Author: Irus
+# Author: Pupsik-ipa
+# Author: Surprizi
+# Author: Андрей
+---
+ab:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+  accessibility:
+    number_field: Агәаҭара
+  application:
+    cancel: Аҟәыхра
+    dashboard: Wiki Ed Апанель
+    documentation: Адокументациа
+    error: 'Иҟалеит агха:'
+    explore: Аҭыԥхәаԥшра
+    greeting2: Бзиала шәаабеит!
+    greeting_extended: Бзиала шәаабеит Википедиа ахь
+    greeting: Абзиара шәымаз!
+    help: Аилыркаага
+    log_out: Иҭыҵтәуп
+    my_dashboard: Сара спанель
+    recent_activity: Ааигәатәи аҟаҵарақәа
+    search_results: 'Алҵшәақәа: "%{search_terms}" азы'
+    submit: Идәықәҵатәуп
+    training: Арҵара
+    change: Иԥсахтәуп
+    confirm: OK
+  dashboard:
+    explore_examples: Иҵатәуп аҿырԥштәқәа
+    blog_headline: Wiki Education аҵыхәтәантәи ажәабжьқәа
+  home:
+    explore: Иҭҵаатәуп
+  activity:
+    all: Активра
+    edited_by: И(л)ԥсахит
+    label: Активра
+  articles:
+    deleted: (ианыхуп)
+    edited_mobile: Астатиақәа
+    hide: Иҵәахтәуп
+    label: Астатиақәа
+    loading: Астатиақәа рҭагалара...
+    new: (иҿыцу)
+    rating: Акласс
+    search: Адаҟьа Авикипедиаҿы ԥшаатәуп
+    show_current_version: Иаарԥштәуп уажәтәи аверсиа
+    title: Ахьӡ
+    title_example: Астатиа ахьӡ
+    view: Астатиа ахәаԥшра
+    view_all: Ирыхәаԥштәуп зегьы
+  assignments:
+    title_too_large: Ахьӡ 255 символ иреиҳамзароуп
+    remove: Ианыхтәуп
+    select: Иалхтәуп
+  blocks:
+    milestones:
+      title: Аетапқәа
+  campaign:
+    active_campaigns: Иактиву акомпаниақәа
+    all_campaigns: Акомпаниақәа зегьы
+    campaign: Акомпаниа
+    campaigns: Акомпаниақәа
+    campaign_deleted: Акампаниа "%{title}" аныхын
+    campaign_updated: Акампаниақәа рҿыцуп
+    create_campaign: Иаԥҵатәуп акампаниа ҿыц
+    description: Ахҳәаа
+    delete_campaign: Ианыхтәуп ари акампаниа
+    none: Мап
+    organizers: Аиҿкааҩцәа
+    program_template: Апрограмма ашаблон
+    title: Ахьӡ
+  categories:
+    add_category: Иацҵатәуп акатегориа
+    add_template: Иацҵатәуп ашаблон
+    add_this_template: Иацҵатәуп ари ашаблон
+    name: Ахьӡ
+    category_name: Акатегориа ахьӡ
+    remove: Ианыхтәуп
+  courses:
+    all_courses: Акурсқәа зегьы
+    actions: Аҟаҵарақәа
+    articles: Астатиақәа
+    cancel: Аҟәыхра
+    campaigns: 'Акампаниақәа:'
+    campaign_courses: Акурсқәа %{title}
+    campaign_users: Аредакторцәа %{title}
+    course_description: Акурсқәа
+    courses: Акурсқәа
+    creator:
+      course_description: Акурс ахҳәаа
+      course_title: Акурс ахьӡ
+      create_new: Иаԥҵатәуп акурс ҿыц
+      create_short: Иаԥҵатәуп акурс
+    current: Уажәтәи акурсқәа
+    delete_course: Ианыхтәуп акурс
+    delete_suggestion: Ианыхуп
+    dismiss_survey: Аркра
+    download_stats_data: Иҭыгатәуп астатистика
+    edit_count: Ариашарақәа рхыԥхьаӡара
+    instructor:
+      one: Аинструктор
+      other: Аинструкторцәа
+    instructors: Аинструкторцәа
+    loading: Аҭагалара...
+    my_articles: Сара статиақәа
+    school: Ашкол
+    students: Астудентцәа
+    students_count: '# Астудентцәа'
+    students_short: Астудентцәа
+    user_role: Ароль
+    title: Ахьӡ
+    view: Акурс ахәаԥшра
+    yourcourses: Шәара шәкурсқәа
+  courses_generic:
+    all_courses: Апрограммақәа зегьы
+    cancel: Аҟәыхра
+    courses: Апрограммақәа
+    campaigns: 'Акампаниақәа:'
+    campaign_courses: Апрограммақәа %{title}
+    creator:
+      course_description: Апрограмма ахҳәаа
+      course_term: Ианба
+      course_term_placeholder: Ианба
+      course_title: Апрограмма ахьӡ
+      create_label: Иаԥҵатәуп апрограмма ҿыц
+      create_short: Иаԥҵатәуп апрограмма
+      find: Иԥшаатәуп апрограмма
+      save_cloned_course: Еиқәырхатәуп
+    explore: Иԥшаатәуп апрограммақәа
+    student_editors: Аредакторцәа
+    students: Аредакторцәа
+    students_short: Аредакторцәа
+    term: Ианба
+    yourcourses: Шәара шәпрограммақәа
+  editable:
+    edit: Ириашатәуп
+    cancel: Аҟәыхра
+    save: Еиқәырхатәуп
+  metrics:
+    activity: Ааигәатәи аҟаҵарақәа
+    edit_count_description: Ариашарақәа зынӡа
+    revisions: Аҵыхәтәантәи ариашарақәа
+    tags: Атегқәа
+  recent_activity:
+    article_title: Ахьӡ
+    image: Асахьа
+    file_name: Афаил ахьӡ
+    recent_edits: Аҵыхәтәантәи ариашарақәа
+    uploaded_by: Иҭаигалеит
+    usage_count: Ихархәоуп
+  revisions:
+    diff_show: Иаарԥштәуп
+    diff_hide: Иҵәахтәуп
+    edited_by: И(л)ԥсахит
+    loading: Аверсиақәа рҭагалара...
+    title: Ахьӡ
+  timeline:
+    empty_week_3: ма
+    gradeable_value: Аҵакы
+    save_all_changes: Еиқәырхатәуп зегьы
+    week_number: Амчыбжь %{number}
+  training:
+    start: Иалагатәуп
+    view: Ахәаԥшра
+  uploads:
+    file_name: Афаил ахьӡ
+    image: Асахьа
+    label: Аҭагаламҭақәа
+    uploaded_by: Иҭаигалеит
+    usage_count: Ихархәоуп
+    usages: Ахархәара
+  users:
+    assign_articles_done: Ихиоуп
+    first_name: Ахьӡ
+    last_name: Ажәла
+    name: Ахьӡ
+    none: Алахәылаҩцәа ыҟам.
+    number_of_articles_wikidata:
+      one: '%{count} аелемент'
+      other: '%{count} аелементқәа'
+    recent_revisions: Аҵыхәтәантәи ариашарақәа
+...

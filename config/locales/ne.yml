@@ -1,0 +1,754 @@
+# Messages for Nepali (नेपाली)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bada Kaji
+# Author: Nirajan pant
+# Author: जनक राज भट्ट
+# Author: पर्वत सुबेदी
+# Author: बडा काजी
+# Author: बिप्लब आनन्द
+# Author: सरोज कुमार ढकाल
+# Author: हिमाल सुबेदी
+---
+ne:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: यो संख्या रहने स्थान हो। सबै जसो ब्राउजरहरूले देखाउने बटनले प्रविष्टिलाई
+      बढाउने या घटाउने कार्य गर्दछ।
+  application:
+    back: पछाडि
+    cancel: रद्द गर्नुहोस्
+    cookie_consent: यस साइटले तपाईँलाई लग इन राखी राख्नु कुकी प्रयोग गर्छ र तपाईँको
+      विकिपिडिया खाताबारेमा जानकारी राख्छ। \
+    cookie_consent_acknowledge: मैले बुझेँ
+    cookie_consent_see_more: थप हेर्नुहोस्
+    create_accounts: विकिपिडिया खाताहरू सिर्जना गर्नुहोस्
+    dashboard: विकी एड ड्यासबोर्ड
+    documentation: मिसिलिकरण
+    error: 'त्रुटी भयो:'
+    explore: अन्वेषण
+    field_required: यो फाँट आवश्यक छ
+    field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
+    field_invalid_date: यहाँ YYYY-MM-DD ढाँचामा मिति आवश्यक हुन्छ
+    field_invalid_date_time: अन्त सुरु भन्दा पछिल्लो आउनुपर्छ। (समय 0 देखि 23 सम्म
+      हुनसक्छ।)
+    greeting2: स्वागत!
+    greeting_extended: विकिपिडियामा स्वागत् छ
+    greeting: नमस्ते!
+    help: सहायता
+    home: गृह
+    log_in_extended: विकिपिडियाकाे प्रयाेग गरि प्रवेश गर्नुहाेस्
+    log_in: प्रवेश गर्नुहोस्
+    log_out: निर्गमन
+    my_dashboard: मेरो ड्यसबोर्ड
+    recent_activity: हालको कृयाकलाप
+    report_problem: समस्या प्रतिवेदन पठाउनुहोस्
+    request_account: एउटा खाता अनुरोध गर्नुहोस्
+    request_account_create: कुनै खाता सिर्जना गर्नुहोस्
+    search: प्रश्न सोध्नुहोस्
+    search_results: '%{search_terms} का नतिजाहरू:'
+    no_results: '''%{query}'' को लागि कुनै नतिजा भेटिएन'
+    sign_up_extended: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
+    sign_up_wikipedia: या विकिपिडियामा खाता खाेल्नुहाेस्
+    sign_up_log_in_extended: विकिपिडियासँग
+    sign_up: खाता खाेल्नुहाेस्
+    submit: पेश गर्नुहोस्
+    training: तालिम
+    change: परिवर्तन गर्नुहोस्
+    details: विवरणहरू
+    confirm: हुन्छ
+    opt_in: हो
+    opt_out: होइन
+    opt_yes: छ
+    opt_no: छैन
+  article_statuses:
+    not_yet_started: सुरु हुदैँछ
+    in_progress: प्रयाेगस्थलमा कार्य गर्दै
+    reading_the_article: अध्ययन लेख
+    providing_feedback: सुझाव दिनुहोस्
+    post_to_talk: वार्तालाप पृष्ठमा पेश गरिँदै
+    peer_review_completed: समीक्षा पूरा भयो
+  dashboard:
+    create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्‍मा क्लिक
+      गर्नुहोस्।
+    create_preparation_note: Be sure to have your academic calendar on hand before
+      you begin; the assignment design tool will use the meeting dates of your class
+      — including any school breaks and holidays — to fit your timeline into the date
+      range you choose. याद गर्नुहोला, तपाईँले समय रेखा तपाईँको आवश्यकता पूरा गर्न
+      जहिले पनि सम्पादन गर्न सकिने छ।
+    explore_course_pages: पाठ्यक्रम पृष्ठ हेर्नुहोस्
+    explore_examples: उदाहरणहरू हेर्नुहोस्
+    join_note: तपाईँको प्रशिक्षकबाट पासकोड प्राप्त गर्नुभए पछि, कोर्स भेटाउनुहोस्‍मा
+      क्लिक गर्नुहोस् र भाग लिनुहोस्।
+    no_courses_instructor: तपाईंको कुनै पनि पाठ्यक्रम छैनन्।
+    no_courses_student: तपाईँले कुनै पनि पाठ्यक्रममा भाग लिनु भएको छैन।
+    opt_out: अभिमुखिकरणबाट बाहिरिनको लागि अनुरोध गर्नुहोस्
+    orientation_notice: तपाईँले पाठ्यक्रम निर्माण गर्नु अघि, तपाईँलाई सुरू गर्न सजिलो
+      बनाउन अभिमुखीकरणका केही कुरा बिचार गरौँ। (यो पूरा गर्न ३० मिनेट लाग्छ।)
+    review_orientation: अभिमुखिकरण पुनरावलोकन गर्नुहोस्
+    start_orientation: अभिमुखिकरण सुरु गर्नुहोस्
+    blog_headline: विकी एजुकेसनबाट नयाँ खबरहरू
+  home:
+    explore: अन्वेषण
+    log_in: विकिपिडियाले लग इन गर्नुहोस्
+    sign_up: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
+  alerts:
+    alert_label: सुचनाहरू
+  activity:
+    all: क्रियाकलाप
+    edited_by: सम्पादनकर्ता
+    label: क्रियाकलाप
+  articles:
+    article_development: (लेख विकासक्रम)
+    assigned: निर्दिष्ट गरिएका लेखहरू
+    available: उपलब्ध लेखहरू
+    next: अर्को
+    article_title: लेख शीर्षक
+    assigned_to: निर्दिष्ट गरिएको
+    deleted: (मेटाइयो)
+    edited: सम्पादन गरिएका लेखहरू
+    edited_by: 'सम्पादनकर्ता:'
+    edited_mobile: लेखहरू
+    filter:
+      wiki_all: सबै
+      new: नयाँ
+      existing: पहिले देखि रहेको
+      new_and_existing: नयाँ र पहिले देखि रहेको
+      tracked: ट्रयाक गरिएको
+      untracked: ट्रयाक नगरिएको
+      tracked_and_untracked: ट्रयाक गरिएको र ट्र्याक नगरिएको
+    hide: लुकाउनुहोस्
+    history: (इतिहास)
+    label: लेखहरू
+    loading: लेखहरू खोल्दै...
+    new: (नयाँ)
+    none: यो पाठ्यक्रमले कुनै पनि लेख सम्पादन गरेको छैन।
+    rating: कक्षा
+    rating_docs:
+      b: B-class —  उच्च सामान्य रूपमा विकसित लेख
+      c: C-class — सामान्य रूपमा विकसित लेख जसमा धेरै सुधार सम्भव छ
+      start: Start-class — सुरुवातहुँदै गरेको लेख जसमा सुधारको धेरै सम्भावना छ
+      stub: Stub-class — छोटो सुरुवाती लेख सजमा थप सामग्रीको आवश्यकता छ
+      '?': Unrated — कुनै पनि स्तर निर्धारण नभएको
+    see_more: थप हेर्नुहोस्
+    show_cumulative_changes: सम्पूर्ण क्युमुलेटिभ परिवर्तनहरू
+    show_current_version: हालको संस्करण देखाउनुहोस्
+    title: शीर्षक
+    tracked: ट्रयाक गरिएको
+    title_example: लेख शीर्षक
+    tools: परीक्षण औजारहरू
+    view: लेख हेर्नुहोस्
+    view_all: सबै हेर्नुहोस्
+    view_doc: परियोजना भरी प्रत्येक लेखमा प्राप्त दृष्यको योगफल
+    view_on_wiki: विकीमा हेर्नुहोस्
+    views_added: थपिएको %{count}  %{title} को नयाँ भ्युहरू
+    edit_size: आकार सम्पादन गर्नुहोस्
+    wiki: विकि
+    wp10: स्वरूप पूर्णता
+    wp10_doc: '''स्वरूपमा पूर्णता'' मूल्याङ्कनले बनाइएको लेख विकिपिडियामा बनाइने विकसित
+      लेखहरूको स्वरूपको तुलनामा कति समिप छ भनेर गणना गर्दछ। यो मेसिन लर्निङमा आधारित
+      अब्जेक्टिभ रिभिजन इभ्यालुएसन सर्भिस (https://ores.wikimedia.org/) मार्फत गरिन्छ।
+      यो प्राप्ताङ्क लेखको आकार, सन्दर्भको सङ्ख्या र विकिलिङ्कहरू र साधारण पाठ गुणहरूको
+      आधारमा गणना गरिन्छ। A high score usually indicates that an article follow Wikipedia''s
+      conventions for the structure of a good article, but it does not take into account
+      the content itself. (यो प्राप्ताङ्कहरू अङ्ग्रेजी विकिपिडियामा मात्र उपलब्ध छ।)'
+    articles_short: लेखहरू
+  articles_wikidata:
+    articles_short: सामग्री
+  articles_generic:
+    articles_short: पृष्ठहरू
+  assignments:
+    article: '%{title} लेख अब तपाईँलाई निर्दिष्ट गरिएको छ।'
+    article_link: लेख
+    already_exists: निर्दिष्टता पहिले देखि नै छ!
+    title_too_large: शीर्षक २५५ वर्ण भन्दा लामो हुन सक्दैन
+    assignees: निर्दिष्ट गरिएका(हरू)
+    assign_other: लेख निर्दिष्ट गर्नुहोस्
+    add_available: एक उपलब्ध लेख थप्नुहोस्
+    add_available_placeholder: हरेक हरफमा एक शीर्षक या युआरएल थप्नुहोस्
+    add_available_submit: लेखहरू थप्नुहोस्
+    assign_self: आफूलाई एक लेख असाइन गर्नुहोस्
+    assign_tooltip: निर्दिष्ट गरेको लेख त्यो हो जुन तपाईँले सुधार गर्ने या बनाउने
+      योजना बनाउनु भएको हुन्छ।
+    bibliography: सन्दर्भसूची
+    clone: क्लोन गर्नुहोस्
+    confirm_add_available: यस %{title} थप्न निश्चित हुनुहुन्छ?
+    confirm_addition: '%{title} लाई को लागि %{username} निर्दिष्ट गर्न निश्चित हुनुहुन्छ?'
+    confirm_deletion: यस लेख असाइन्मेन्ट मेट्ने कुरामा निश्चित हुनुहुन्छ?
+    editors: निर्दिष्ट गर्नुहोस्
+    group_members: सदस्यहरूको समूह
+    label: असाइन गर्नुहोस्
+    loading: असाइन्मेन्टहरू खोल्दै...
+    none_short: कुनैपनि लेखहरू असाइन गरिएको छैन
+    none: यो पाठ्यक्रममा कुनै पनि निर्दिष्ट लेखहरू छैनन्।
+    no_available: यस पाठ्यक्रममा कुनै पनि उपलब्ध लेखहरू छैनन्।
+    remove: हटाउनुहोस्
+    reviewers: 'समीक्षक(हरू):'
+    review_other: समीक्षाको लागि ताेक्नुहाेस्
+    review_self: लेखको समीक्षा गर्नुहोस्
+    review_tooltip: यो तपाईँको लेखहरूको लगत राख्नको लागि हो जुनमा तपाईँले पुनरावलोकन
+      गर्ने र सुझाव दिने योजना बनाउनु भएको छ। \
+    select: चयन गर्नुहोस्
+  blocks:
+    milestones:
+      title: कोसेढुङ्गाहरू
+  campaign:
+    active_campaigns: सक्रिय अभियानहरू
+    add_organizer: आयोजक थप्नुहपस्
+    alert_article: लेख शीर्षक
+    alert_type: प्रकार
+    alert_user_id: प्रयोगकर्ता
+    all_campaigns: अभियान थप्नुहोस्
+    already_exists: यो अभियान पहिले देखि नै छ! फरक शीर्षक या स्लगको साथमा पुनः प्रयास
+      गर्नुहोस।
+    campaign: अभियान
+    campaigns: अभियानहरू
+    campaign_deleted: '"%{title}" शीर्षक भएको अभियान मेटियो'
+    campaign_not_updated: अभियान अद्यावधिक गर्न सकिएन
+    campaign_updated: अभियान अद्यावधिक गर्नुहोस्
+    created_at: मिति
+    confirm_campaign_deletion: '"%{title}" शीर्षक भएको अभियान मेट्न निश्चित हुनुहुन्छ?
+      यदि हो भने, अभियानको शीर्षक लेख्नुहोस्'
+    confirm_campaign_deletion_failed: '"%{title}" अभियानको शीर्षक हैन अभियान मेटिएन।'
+    course: पाठ्यक्रम
+    create_campaign: नयाँ अभियान बनाउनुहोस्
+    create_my_campaign: मेरो अभियान बनाउनुहोस्!
+    customize_passcode: पूर्वनिर्धारित पासकोड
+    data_instructors: प्रशिक्षकहरू
+    default_passcode: पूर्वनिर्धारित पासकोड
+    description: वर्णन
+    delete_campaign: यो अभियान मेट्नुहोस्
+    enable_account_requests: खाता अनुरोधहरू सक्षम पार्नुहोस्
+    no_passcode: कुनै पनि पासकोड छैन
+    none: कुनै पनि होइन
+    organizers: आयोजकहरू
+    program_template: कार्यक्रम टेम्पलेट
+    requested_accounts: अनुरोध गरिएका खाताहरू
+    title: शीर्षक
+    use_start_end_dates: शुरू र समाप्ति मितिहरू प्रयोग गर्नुहोस्
+  categories:
+    add_category: श्रेणी थप्नुहोस्
+    add_template: ढाँचा थप्नुहोस्
+    add_this_category: यस श्रेणी थप्नुहोस्
+    add_this_template: यस ढाँचा थप्नुहोस्
+    name: नाम
+    category_name: श्रेणीको नाम
+    template_name: टेम्प्लेट नाम
+    remove: हटाउनुहोस्
+  courses:
+    activity: क्रियाकलाप
+    active_courses: सक्रिय %{course_type}
+    alerts: सुचनाहरू
+    all_courses: सबै पाठ्यक्रमहरू
+    already_enrolled: तपाईँ  पहिले नै '%{title}' मा सहभागी हुनुहुन्छ!
+    archived: अभिलेख गरिएका पाठ्यक्रमहरू
+    actions: विभागहरू
+    articles: लेखहरू
+    assignment_headings:
+      assigned_articles: निर्दिष्ट गरिएका लेखहरू
+      available_articles: उपलब्ध लेखहरू
+    assignment_end: असाइन्मेन्ट अन्त
+    assignment_start: असाइन्मेन्ट सुरु
+    calendar:
+      legend: लेजेन्ड
+      legend_class_canceled: बिदा/बदर गरिएको
+      legend_class_meeting: कक्षा भेटघाट
+      legend_class_not_meeting: कुनै पनि बैठक तय गरिएको छैन
+    cancel: रद्द गर्नुहोस्
+    campaigns: 'अभियानहरू:'
+    campaign_articles: '%{title} लेखहरू'
+    campaign_courses: '%{title} पाठ्यक्रमहरू'
+    campaign_select: एक अभियानमा सहभागीहुनुहोस्
+    campaign_users: '%{title} सम्पादकहरू'
+    course: पाठ्यक्रम
+    course_description: पाठ्यक्रम
+    courses: पाठ्यक्रम
+    courses_taught: पढाइने पाठ्यक्रम
+    creation_date: सिर्जना गरेको मिति
+    creator:
+      assignment_end: असाइन्मेन्ट अन्त
+      assignment_end_placeholder: (वर्ष-महिना-दिन)
+      assignment_start: असाइन्मेन्ट सुरु
+      assignment_start_placeholder: (वर्ष-महिना-दिन)
+      checking_for_uniqueness: यो पाठ्यक्रम नौलोपनाको लागि जाँच गरिदै छ।
+      choose_clone: प्रतिलिपि बनाउनको लगि कुनै पाठ्यक्रम छान्नुहोस्।
+      clone_previous: यो भन्दा अगिको पाठ्यक्रम प्रतिलिपी गर्नुहोस्
+      clone_this: यो पाठ्यक्रमको प्रतिलिपि गर्नुहोस्
+      clone_successful: पाठ्यक्रम सफलतापूर्वक प्रतिलिपी गरियो
+      course_description: पाठ्यक्रम विवरण
+      course_school: पाठ्यक्रम विद्यालय
+      course_subject: पाठ्यक्रम विषय
+      course_term: पाठ्यक्रम सत्र
+      course_term_placeholder: सत्र
+      course_title: पाठ्यक्रमको नाम
+      create_button: मेरो पाठ्यक्रम निर्माण गर्ने!
+      create_label: नयाँ पाठ्यक्रम सिर्जना गर्नुहोस्
+      create_new: नयाँ पाठ्यक्रम सिर्जना गर्नुहोस्
+      create_short: पाठ्यक्रम सिर्जना गर्नुहोस्
+      end_date: अन्त्य मिति
+      end_date_placeholder: (वर्ष-महिना-दिन)
+      expected_number: अपेक्षित विद्यार्थी संख्या
+      find: तपाईँको पाठ्यक्रम भेटाउनुहोस्
+      no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
+      role_description: यस पाठ्यक्रममा तपाईँको भूमिका
+      role_description_options:
+      - प्रशिक्षक
+      role_description_placeholder: प्रशिक्षक, अध्यापन सहायक आदि
+      save_cloned_course: नयाँ पाठ्यक्रम सङ्ग्रह गर्नुहोस्
+      start_date: सुरु मिति
+      start_date_placeholder: (वर्ष-महिना-दिन)
+      subject: विषय
+      update_scheduled: समय तालिका अद्यावधिक भयो। The data will be updated along with
+        all current programs during the next update cycle. यसको लागि केही घन्टा लाग्नेछ।
+    current: हालका पाठ्यक्रमहरू
+    data_articles: लेखहरू डेटा
+    data_download_info: डेटा CSV ढाँचामा डाउनलोड गर्नुहोस्
+    data_overview: शीर्षदर्शन डेटा
+    data_edits: सम्पादन डेटा
+    data_students: सम्पादक डेटा
+    data_uploads: कमन्समा अपलोड गरिएको डेटा
+    delete_course: पाठ्यक्रम मेट्नुहोस्
+    delete_suggestion: हटाउने
+    dismiss_survey: खारेज गर्नुहोस्
+    download_stats_data: डाउनलोड तथ्याङ्क
+    duration: पाठ्यक्रम अवधि
+    edit_count: सम्पादन गणना
+    edit_course_dates: पाठ्यक्रम मितिहरू सम्पादन गर्नुहोस्
+    enable_account_requests: खाता अनुरोधहरू सक्षम पार्नुहोस्
+    end: अन्तिम
+    ended: यो पाठ्यक्रम समाप्त भयो।
+    enroll: समावेस गर्नुहोस्
+    enrollment: समावेशपना
+    courses_enrolled: समावेश भएका पाठ्यक्रमहरू
+    error:
+      exists: यस पाठ्यक्रम पहिले देखि नै रहेको छ! कृपया फरक शीर्षक, विद्यालय या सत्र
+        प्रयास गर्नुहोस्।
+      user_exists: माफ गर्नुहोस्, %{username} अस्तित्वमा रहेको प्रयोगकर्ता हैन।
+      invalid_language_or_project: अमान्य भाषा या आयोजना
+      invalid_slug: पाठ्यक्रमको लागि खाली स्कुल/शीर्षक।
+      duplicate_slug: अर्को %{slug} नाम रहेको कार्यक्रम पहिले देखि नै रहेको छ।
+    expected_students: अपेक्षित विद्यार्थीहरू
+    features_feedback: 'स्वचालित सुझावहरू :'
+    feedback: प्रतिक्रिया
+    gradeables_none: यस पाठ्यक्रममा कुनै पनि संख्याकृत असाइन्मेन्टहरू छैन।
+    instructor:
+      one: प्रशिक्षक
+      other: प्रशिक्षकहरू
+    instructors: प्रशिक्षकहरू
+    join: समावेश हुनुहोस्
+    join_course: पाठ्यक्रममा समावेशहुनुहोस्
+    join_prompt: '''%{title}'' मा समावेश हुनुहुने हो?'
+    join_successful: '%{title} मा सफलता पूर्वक समावेश हुनुभएको छ।'
+    join_failed: भर्ना गर्न सकिएन।
+    join_failure_details:
+      cannot_join_twice: प्रयोगकर्ताहरूले एउटै पाठ्यक्रममा दुइपटक समावेश हुन पाउने
+        छैन।
+    leave_course: पाठ्यक्रम हेर्नुहोस्
+    loading: खुल्दै छ…
+    my_articles: मेरा लेखहरू
+    needs_update: डेटा अद्यावधि मिति तय गर्नुहोस्
+    new_week: नयाँ साता थप्नुहोस्
+    new_account_email: इमेल ठेगाना
+    new_account_email_placeholder: name@example.org
+    new_account_username: अनुरोध गरिएको प्रयोगकर्तानाम
+    new_account_username_invalid: यो मान्य प्रयोगकर्तानाम हैन।
+    new_account_submit: खाता अनुरोध गर्नुहोस्
+    nocourse: कुनै पनि पाठ्यक्रममा भाग लिएको छैन।
+    none: कुनै पनि होइन
+    no_available_actions: कुनै पनि काम बाँकी छैन
+    overview: गृह
+    passcode: 'पासकोड:'
+    passcode_none: कुनै पनि पासकोड छैन
+    passcode_prompt: सामेल हुन पासकोड थप्नुहोस्
+    private: निजी
+    requested_accounts: अनुरोध गरिएका खाताहरू
+    requested_accounts_alert_view: अवलोकन गर्ने
+    school: विद्यालय
+    school_and_term: संस्था/सत्र
+    start: सुरु गर्नुहोस्
+    start_typing: टाइप गर्न सुरुगर्नुहोस्
+    stay_in_sandbox: ड्याण्डबक्समा रहनुहोस्
+    student: विद्यार्थी
+    students: विद्यार्थीहरू
+    students_taught: पढाइएका विद्यार्थीहरू
+    students_count: '# विद्यार्थीहरू'
+    student_editors: विद्यार्थी सम्पादकहरू
+    students_none: यो पाठ्यक्रममा कुनै पनि विद्यार्थीहरू छैनन्।
+    students_short: विद्यार्थीहरू
+    submitted_heading: बुझाइएका पाठ्यक्रमहरू
+    suggestions_sending: प्रतिक्रिया पठाउँदा...
+    user_role: भूमिका
+    course_details: पाठ्यक्रम जानकारी
+    subject: विषय
+    submitted: पेश गरिएको
+    term: सत्र
+    timeline: असाइन्मेन्ट जानकारी
+    timeline_enabled: समयरेखा सक्षम पारिएको
+    timeline_link: समयरेखा
+    title: शीर्षक
+    training_nav: तालिममा जानुहोस्
+    unsubmitted: नबुझाइएका पाठ्यक्रमहरू
+    untrained: तालिम नलिइएको
+    update_stats: तथ्याङ्क अद्यावधिक गर्नुहोस्
+    user_recent_uploads: हालका अपलोडहरू
+    user_suggestions: 'प्रयोगकर्ता सुझावहरू:'
+    view_other: अन्य अभियानहरू हेर्नुहोस्
+    view: पाठ्यक्रम हेर्नुहोस्
+    view_page: पाठ्यक्रम पृष्ठ हेर्नुहोस्
+    view_wiki: विकिपिडियामा हेर्नुहोस्
+    volunteer:
+      one: स्वयंसेवक
+      other: स्वयंसेवकहरू
+    wiki_staff: Wiki Ed कर्मचारी
+    yourcourses: तपाईंको पाठ्यक्रमहरू
+    survey:
+      link: सर्वेक्षण गर्नुहोस्
+  courses_generic:
+    all_courses: सबै कार्यक्रमहरू
+    archived: अभिलेखमा राखिएको कार्यक्रम
+    assignment_end: कार्यक्रम अन्त
+    assignment_start: कार्यक्रम सुरु
+    cancel: रद्द गर्नुहोस्
+    course: कार्यक्रम
+    courses: कार्यक्रम
+    courses_taught: पढाइएको कार्यक्रम
+    campaigns: 'अभियानहरू:'
+    campaign_courses: '%{title} कार्यक्रमहरू'
+    creator:
+      assignment_end: कार्यक्रम अन्त
+      assignment_end_placeholder: (वर्ष-महिना-दिन)
+      assignment_start: कार्यक्रम सुरु
+      assignment_start_placeholder: (वर्ष-महिना-दिन)
+      checking_for_uniqueness: यो कार्यक्रम नौलोपनको लागि जाँच गरिँदै छ।
+      choose_clone: प्रतिलिपि बनाउनको लगि कुनै कार्यक्रम छान्नुहोस्।
+      clone_previous: यो भन्दा अगिको कार्यक्रम प्रतिलिपी गर्नुहोस्
+      clone_this: यस कार्यक्रमलाई प्रतिलिपि गर्नुहोस्
+      clone_successful: कार्यक्रम सफलतापूर्वक प्रतिलिपिकरण गरियो
+      clone_successful_details: तपाईँको कार्यक्रम प्रतिलिपिकरण गरियो, तल 'सङ्ग्रह
+        गर्नुहोस्' मा क्लिक गरेर पूर्णता दिनुहोस्।
+      course_description: कार्यक्रम विवरण
+      course_school: संस्था
+      course_term: कहिले
+      course_term_placeholder: कहिले
+      course_title: कार्यक्रम शीर्षक
+      create_button: मेरो कार्यक्रम सिर्जना गर्ने!
+      create_label: नयाँ कार्यक्रम सिर्जना गर्नुहोस्
+      create_new: स्वतः निर्भर कार्यक्रम सिर्जना गर्नुहोस्
+      create_short: कार्यक्रम सिर्जना गर्नुहोस्
+      find: कार्यक्रम खोज्नुहोस्
+      participate_in_campaign: अभियानमा सहभागी हुनुहोस्
+      save_cloned_course: सङ्ग्रह गर्नुहोस्
+    delete_course: कार्यक्रम मेट्नुहोस्
+    edit_course_dates: आयोजना मितिहरू सम्पादन गर्नुहोस्
+    enroll: सम्पादक थप्नुहोस्
+    enrollment: सहभागिता
+    explore: कार्यक्रम खोज्नुहोस्
+    courses_enrolled: सहभागी कार्यक्रमहरू
+    expected_students: अपेक्षित सम्पादकहरू
+    instructors: सहजकर्ताहरू
+    join_course: कार्यक्रममा सहभागी हुनुहोस्
+    leave_course: कार्यक्रम छोड्नुहोस्
+    milestones_none: यस आयोजनामा कुनै पनि कोसेढुङ्गा छैन।
+    published: 'यो आयोजा प्रकाशित भयो। सम्पादकहरू तलको युआरएलमा गएर सहभागी हुन सक्नेछन्:'
+    revisions_none: यो आयोजनामा कुनै पनि नयाँ सम्पादन कृयाजलाप छैन।
+    school: संस्था
+    school_and_term: संस्था/कहिले
+    student_editors: सम्पादकहरू
+    student: सम्पादक
+    students: सम्पादकहरू
+    students_taught: जम्मा सम्पादकरू
+    students_none: यस आयोजनामा कुनै पनि सम्पादकहरूले भाग लिएका छैनन।
+    students_short: सम्पादकहरू
+    students_count: सहभागीको सङ्ख्या
+    term: कहिले
+    unsubmitted: नबुझाइएका कार्यक्रमहरू
+    view_other: अन्य अभियानहरू हेर्नुहोस्
+    view_page: कार्यक्रम पृष्ठ हेर्नुहोस्
+    yourcourses: तपाईँको कार्यक्रमहरू
+  editable:
+    edit: सम्पादन
+    cancel: रद्द गर्नुहोस्
+    save: सङ्ग्रह गर्नुहोस्
+    edit_description: वर्णन सम्पादन गर्नुहोस्
+    edit_details: जानकारी सम्पादन गर्नुहोस्
+    edit_template: ढाँचा सम्पादन गर्नुहोस्
+  instructor_view:
+    assignments_table:
+      article_name: लेखकाे नाम
+      relevant_links: उपयुक्त सूत्रहरू
+    assigned_articles: निर्दिष्ट गरिएका लेखहरू
+    overview: '%{prefix} अवलाेकन'
+    reviewing_articles: लेखहरूकाे समीक्षा गर्दै
+    select_student:
+      title: छनाेट %{prefix}
+  metrics:
+    label: पाठ्यक्रम गतिविधिहरू
+    last_update: अन्तिम तथ्याङ्क अद्यावधि
+    next_update: अब अर्को अनुमानित अद्यावधि
+    activity: हालको कृयाकलाप
+    are_trained: तालिममा समय अनुरूप रहेका छन्
+    articles_created: सिर्जना गरिएका लेखहरू
+    articles_edited: सम्पादन गरिएका लेखहरू
+    characters: क्यारेक्टरहरू
+    char_added: थपिएका अक्षरहरू
+    char_changed: बदलिएका अक्षरहरू
+    char: थपिएका अक्षरहरू
+    date_time: मिति/समय
+    edit_count_description: जम्मा सम्पादनहरू
+    per_user: '%{number}/प्रयोगकर्ता'
+    revisions: हालका सम्पादनहरू
+    tags: ट्यागहरू
+    upload_count: कमन्स अपलोडहरू
+    view_count_description: लेख अवलोकन
+    view_data_unavailable: कुनै पनि अवलोकन डेटा उपलब्ध छैन
+    view: दृश्यहरू
+    word_count: थपिएका शव्दहरू
+    word_count_average: औसत शव्द गणना
+  namespace:
+    main: मेनस्पेस
+    main_char_added: मेनस्पेसमा थपिएका अक्षरहरू
+    user: युजरस्पेस
+    user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
+    project: परियोजना
+    template: ढाँचा
+    help: सहायता
+    category: श्रेणी
+    page: पृष्ठ
+    book: पुस्तक
+    translation: अनुवाद
+    draft: मस्यौदा
+    query: प्रश्न
+    school: विद्यालय
+    author: लेखक
+    index: अनुक्रम
+  recent_activity:
+    active_courses: लेख निम्नमा सक्रिय छ
+    article_title: लेख शीर्षक
+    datetime: मिति/समय
+    did_you_know_eligible: के तपाईँलाई थाह छ योग्य
+    image: चित्र
+    file_name: फाइल नाम
+    no_edits: हालमा कुनै पनि सम्पादन छैनन् ।
+    plagiarism_report: प्लागरिजम प्रतिबेदन
+    possible_plagiarism: सम्भाविद प्लागारिजम
+    recent_edits: हालका सम्पादनहरू
+    recent_uploads: हालका अपलोडहरू
+    revision_author: 'समीक्षा प्रकाशक:'
+    revision_datetime: समीक्षा  मिति/समय
+    revision_score: समीक्षा नतीजा
+    show_courses: मेरो पाठ्यक्रम मात्र देखाउनुहोस्
+    uploaded_by: अपलोड गर्ने
+    usage_count: उपयोग गणना
+  revisions:
+    chars_added: थपिएका अक्षरहरू
+    class: कक्षा
+    date_time: मिति/समय
+    diff: भिन्नता
+    diff_show: देखाउनुहोस्
+    diff_hide: लुकाउनुहोस्
+    edit_time_span: सम्पादन %{first_time} देखि  %{last_time} सम्म भएको थियो
+    edited_by: सम्पादनकर्ता
+    edited_on: सम्पादन गरिएको मिति %{edit_date}
+    loading: समीक्षाहरू लोड गर्दै...
+    title: शीर्षक
+    view_on_wiki: विकीमा डिफ हेर्नुहोस्
+    see_more: थप हेर्नुहोस्
+  settings:
+    admin_users:
+      new:
+        form_placeholder: प्रयोगकर्ता नाम
+        confirm_add_admin: प्रबन्धक बनाउनुहोस्
+        confirm_remove_admin: प्रबन्धक अधिकार हटाउनुहोस्
+        already_admin: '%{username} पहिले नै प्रबन्धक छन्!'
+        elevate_success: '%{username} लाई प्रबन्धकमा बढुवा गरियो ।'
+      remove:
+        revoke_button: प्रबन्धक अधिकार हटाउनुहोस्
+        revoke_button_confirm: '%{username}बाट प्रबन्धक अधिकार हटाइयो'
+        revoking_button_working: हटाउँदै...
+    special_users:
+      new:
+        form_placeholder: प्रयोगकर्ता नाम
+        confirm_add_special_user: एक विशेष प्रयोगकर्ता थप्नुहोस्
+      remove:
+        revoking_button_working: हटाउँदै...
+  suggestions:
+    editing: सम्पादन सुझावहरू
+    suggestion_docs:
+      does_not_exist: यो लेख विकिपिडियामा छैन
+  tasks:
+    conseq: कार्य %{task} पहिले देखि नै सञ्चालनमा छ।
+  timeline:
+    add_week: हप्ता थप्नुहोस्
+    arrange_timeline: समयरेका मिलाउनुहोस्
+    block_assignment: असाइन्मेन्ट
+    block_custom: अनुकूल
+    block_in_class: कक्षामा
+    block_milestone: कोसेढुङ्गा
+    course_dates: पाठ्यक्रम मितिहरू
+    course_end: पाठ्यक्रम अन्त
+    course_start: पाठ्यक्रम सुरू
+    discard_all_changes: सबै परिवर्तनहरू रद्द गर्नुहोस्
+    delete_timeline_and_start_over: समयरेखा मेट्नुहोस्
+    due_default: अर्को हप्ता बाँकी
+    empty_week_1: सुरु गर्न,
+    empty_week_2: यो हप्ता सम्पादन सुरु गर्नुहोस्
+    empty_week_3: ' या'
+    first_week_title: पहिले सक्रिय हप्ता
+    gradeable_value: मान
+    grading_header: 'ग्रेडिङ (कुल: %{total}%)'
+    move_block_down: यसलाई तल सार्नुहोस्
+    move_block_up: यसलाई माथि सार्नुहोस्
+    no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
+    no_timeline: यो पठ्यक्रमको कुनै पनि समयरेखा छैनन्।
+    no_activity_this_week: यो हप्ता कुनै पनि निर्धारित भेटघाट छैनन्
+    save_all_changes: सबै सङ्ग्रह गर्नुहोस्
+    this_week_title_default: यो साता
+    title: समयरेखा
+    unable_to_add_week: समय रेखा भरिए पछि तपाईँले नयाँ साताहरू तप्न सक्नु हुन्न। Delete
+      at least one week or change your assignment dates to make room for a new one.
+    view_full_timeline: पूर्ण समयरेखा हेर्नुहोस्
+    week_number: साता %{number}
+  training:
+    continue: (%{progress}) जारी राख्नुहोस्
+    start: सुरु गर्नुहोस्
+    view: अवलोकन गर्ने
+    next: अर्को पृष्ठ
+    page: पृष्ठ
+    table_of_contents: विषयसूची
+    training_library: तालिम पुस्तकालय
+    logged_out: तपाईँ लग आउट हुनुभयो। You will not receive credit for completing this
+      module unless you log in.
+    done: सकियो!
+    check_answer: उत्तरको जाँच
+    included_modules: समावेस मोड्युलहरू
+    kind:
+      exercise: अभ्यास
+      discussion: छलफल
+      training: तालिम
+  uploads:
+    file_name: फाइल नाम
+    header: विकिमिडिया कमन्समा अपलोड गरिएका फाइलहरू
+    image: चित्र
+    label: अपलोडहरू
+    loading: अपलोडहरू खोल्दै...
+    uploaded_by: अपलोड कर्ता
+    usage_count: उपयोग गणना
+    usages: उपयोग
+  users:
+    already_enrolled: यो प्रयोग कर्ता पहिले नै समावेश भइसके!
+    assign_articles: लेखहरू असाइन गर्नुहोस्
+    assign_articles_done: सम्पन्न भयो
+    assigned: निर्दिष्ट गरिएका लेखहरू
+    assignees: असाइनी(हरू)
+    contributions: प्रयोगकर्ता योगदान
+    contributions_more: थप योगदानहरू हेर्नुहोस्
+    course_passcode: 'पासकोड:'
+    editors: सम्पादकहरू
+    edits: सम्पादनहरू
+    edits_by: 'सम्पादनकर्ता:'
+    first_name: पहिलो नाम
+    last_name: अन्तिम नाम
+    loading: प्रयोगकर्ताहरू लोड गर्दै...
+    characters_added_mainspace: मेनमेनस्पेसमा थपिएका अक्षरहरू
+    characters_added_short: 'मेनस्पेस: %{mainspace}, युजरस्पेस: %{userspace}'
+    characters_added_userspace: युजरस्पेसमा थपिएका अक्षरहरू
+    my_assigned: 'असाइन गरिएको:'
+    my_reviewing: 'समीक्षा गर्दै:'
+    name: नाम
+    none: कुनै पनि सहभागीहरू छैनन्।
+    no_articles: कुनै लेखहरू छैनन्
+    recent_revisions: हालका सम्पादनहरू
+    requested_account_status:
+      success_message: सम्पन्न %{result_description}
+    reviewers: समीक्षक(हरू)
+    reviewing: समीक्षा गर्दै
+    revisions: संशोधनहरू
+    sub_navigation:
+      editor_overview: सम्पादक अवलाेकन
+      exercises_and_trainings: अभ्यास र प्रशिक्षणहरू
+      student_overview: विद्यार्थी अवलोकन
+    training_incomplete: तालिम अपूर्ण
+    training_module_name: तालिम मोड्युल
+    training_module_status: वस्तुस्थिति
+    up_to_date_with_training: तालिममा अद्यावधिक
+    username: प्रयोगकर्ताको नाम
+    username_placeholder: प्रयोगकर्ताको नाम
+    useremail_placeholder: इमेल
+    userpasscode_placeholder: पासकोड
+    role:
+      visitor: भ्रमणकर्ता
+      student: विद्यार्थी
+      instructor: प्रशिक्षक
+      campus_volunteer: क्याम्पस स्वयंसेवक
+      online_volunteer: अनलाइन स्वयंसेवक
+      wiki_ed_staff: Wiki Ed कर्मचारी
+  user_profiles:
+    bio_placeholder: तपाईँको बारेमा थप्नुहोस् (ऐच्छिक)
+    location_placeholder: तपाईँको ठेगाना(ऐच्छिक)
+    institution_placeholder: संस्थाको नाम(ऐच्छिक)
+  wizard:
+    assignment_dates: असाइन्मेन्ट मितिहरू
+    assignment_type: असाइन्मेन्ट प्रकार
+    course_dates: पाठ्यक्रम मितिहरू
+    read_less: थोरै पढ्नुहोस्
+    read_more: थप पढ्नुहोस्
+    summary: सारांश
+  error:
+    invalid_date: '%{key} मिति अमान्य छ'
+    unsupported_browser:
+      header: असमर्थित ब्राउजर।  :-(
+  error_401:
+    header: अनुमति नभएको। >:-(
+  error_incorrect_passcode:
+    header: गलत पासकोड।  :-(
+  error_404:
+    header: पेज भेटिएन। :-(
+  error_422:
+    header: 422 — प्रोसेस गर्न नसकिने वस्तु।  :-(
+    explanation: केही खराबी भयो । Please contact the maintainers of this dashboard
+      to let them know about the problem.
+  error_500:
+    header: 500 — आन्तरिक सर्भर त्रुटी ।  :-(
+    explanation: केही खराबी भयो । Please contact the maintainers of this dashboard
+      to let them know about the problem.
+  login_error:
+    header: प्रवेश त्रुटी
+    explanation: It looks like there was a problem with the sign in process. (त्यसको
+      लागि माफी चाहन्छौँ! यदि यस्तो भइरहे।) लग इन गर्न पुनः प्रयास गर्नुहोस् या फेरि
+      समावेश हुनुहोस्।
+  survey:
+    login_message: तपाईको समयको निम्ति धन्यवाद! सर्वेक्षण लिन तपाईको विकि शिक्षा सूचकाङ्क
+      पृष्ठमा प्रवेश गर्नुहोस्।
+    email:
+      headline: नमस्ते, %{username}
+      message_line1: हामी आशा गर्छौँ तपाईँको सत्र राम्रो भयो होला! Wiki Ed is seeking
+        your feedback to improve our resources and support for your Wikipedia assignments.
+        Your response is crucial to improving our current offerings.
+      course: 'पाठ्यक्रम: %{course_info}'
+      closing: सधन्यवाद,
+      signed: '- Wiki Ed समूह'
+      link: सर्वेक्षण गर्नुहोस्
+    follow_up:
+      message: यो %{course_title} पाठ्यक्रमको सर्वेक्षण बारेमा स्मरण पत्र हो। यस सर्वेक्षणको
+        सुझावले हामीलाई तपाईँको जस्तै विकिपिडिया असाइनमेन्टहरूको लागि हाम्रो सहायता
+        सुधार गर्न सहयोग गर्छ।
+  feedback_form_responses:
+    no_responses: कुनै पनि प्रतिक्रिया या सुझावहरू छैनन्।
+  article_finder:
+    page_assessment_class: कक्षा
+    search: खोज्नुहोस्
+    submit: पेश गर्नुहोस्
+  training_status:
+    completed: पूर्ण भयो
+    started: सुरुवात
+    not_started: सुरु भएको छैन
+...

@@ -1,0 +1,23 @@
+id: 6616
+title: That's it!
+content: |
+  You’re all set to communicate with others on Wikipedia. Remember, always
+  approach discussions in good faith – everyone is working together to improve
+  Wikipedia for all.
+
+  If you ever feel uncertain or have any trouble when communicating on Wikipedia,
+  we’re here to help! Visit the Dashboard and click the Get Help button in the
+  top right corner.
+
+  More buttons will appear. Click the “question about editing Wikipedia” button
+  to request support from your Wikipedia Expert.
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Get_Help_button.png/628px-Get_Help_button.png" />
+  </figure>
+
+  <div class="training__button-container">
+    <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Submit feedback
+    </a>
+  </div>

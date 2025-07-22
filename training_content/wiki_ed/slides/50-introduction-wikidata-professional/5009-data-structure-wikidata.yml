@@ -1,0 +1,11 @@
+id: 5009
+title: "Data structure"
+summary:
+content: |
+  Wikidata is a document-oriented database. Facts are stored as structured data
+  within documents. Each document is indexed by a unique identifier, the Q-number,
+  which distinguishes it from every other document in the database. This format
+  allows for detailed, expressive querying, and makes the data machine-readable.
+
+  At the heart of each document is the **statement**, a three-part structure
+  that connects an **item**, a **property** and a **value**.

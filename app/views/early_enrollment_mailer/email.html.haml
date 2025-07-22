@@ -1,0 +1,11 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+
+%p
+  One or more students joined this course early: 
+  %a{ href: @course_link }= @course.title
+
+%p
+  Current start date: #{@course.start}
+
+%p
+  (Note: No additional alerts will be created if additional students join before the start date.)

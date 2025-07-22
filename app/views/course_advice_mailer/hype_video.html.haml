@@ -1,0 +1,34 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                Your Wikipedia assignment is about to begin!
+              %p.paragraph
+                To introduce the assignment to your students and explain how their work will improve
+                knowledge equity worldwide, please share this 1 minute video with your class:
+                %a.link{href: 'https://www.youtube.com/watch?v=Fe3uFRCrY1I'} The Wikipedia assignment (YouTube).
+              %p.paragraph
+                We look forward to supporting your course this term.
+              %p.paragraph
+                %br
+                %em
+                  =@staffer.real_name
+                %br
+                %em Senior Program Manager
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help you get students excited about your Wikipedia assignment.
+                If you have thoughts about it, you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Hype-Video-Advice-email'} leave feedback here.
+

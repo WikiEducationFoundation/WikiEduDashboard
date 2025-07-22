@@ -1,0 +1,13 @@
+- content_for :head do
+  = dashboard_stylesheet_tag("main")
+  = dashboard_stylesheet_tag("styleguide")
+
+- content_for :javascripts do
+  = hot_javascript_tag("styleguide")
+
+!!!
+%html{ dir: rtl? ? "rtl" : nil, lang: I18n.locale }
+  = render "shared/head"
+  %body.styleguide
+    = yield
+    = render "shared/foot"

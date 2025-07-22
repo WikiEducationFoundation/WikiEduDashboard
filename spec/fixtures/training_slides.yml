@@ -1,0 +1,57 @@
+# == Schema Information
+#
+# Table name: training_slides
+#
+#  id           :bigint           not null, primary key
+#  title        :string(255)
+#  title_prefix :string(255)
+#  summary      :string(255)
+#  button_text  :string(255)
+#  wiki_page    :string(255)
+#  assessment   :text(16777215)
+#  content      :text(65535)
+#  translations :text(4294967295)
+#  slug         :string(255)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+editing_1:
+  id: 201
+  title: 'Welcome Students'
+  slug: 'welcome-students'
+
+editing_2:
+  id: 202
+  title: 'Get Started'
+  slug: 'get-started-by-getting-started'
+
+editing_3:
+  id: 203
+  title: 'Topics'
+  slug: 'editing-basics-topics'
+
+editing_4:
+  id: 204
+  title: 'Account'
+  slug: 'your-wikipeida-account'
+
+editing_5:
+  id: 205
+  title: 'VE'
+  slug: 'visual-editing-vs-source-editing'
+
+evaluating_end:
+  id: 726
+  title: 'Last slide'
+  slug: 'evaluating-sources-and-articles-finished'
+
+instructor_orientation_feedback:
+  id: 332
+  title: 'Done'
+  slug: 'new-instructor-orientation-complete'
+  content: |
+    <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+      Submit Feedback
+    </a></div>
+

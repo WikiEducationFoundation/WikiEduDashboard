@@ -1,0 +1,35 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+.hidden
+  %p -- REPLY ABOVE THIS LINE --
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %section.message
+                = raw(@message.content)
+                \-
+                =@sender_name
+
+              - successful_replies_in_reverse(@ticket, @recipient)[1..-1].each do |message|
+                %div.blockquote
+                  %p.sender= sender_for_message(message)
+                  %p.date= message.created_at.in_time_zone('America/Los_Angeles').strftime('%b %e, %l:%M %p %Z')
+                  %p= raw(message.content)
+
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link.small{:href => @course_link}
+                      Go to Course
+                  %td.main-content.link-cell
+                    &nbsp; &nbsp;
+                  - if @recipient.admin?
+                    %td.main-content.link-cell
+                      %a.button_link.small{:href => @ticket_dashboard_link}
+                        Go to Ticket Dashboard
+.hidden
+  %p -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+  %p= "ref_#{@ticket.reference_id}_ref"

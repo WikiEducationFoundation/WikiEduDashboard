@@ -1,0 +1,55 @@
+# Messages for Goan Konkani (Latin script) (Gõychi Konknni)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: The Discoverer
+---
+gom-latn:
+  articles:
+    edited: Sompadit lekh
+    edited_mobile: Lekh
+    title: Mathallo
+    view: Lekh polloi
+    view_all: Soglle polloi
+  courses:
+    articles: Lekh
+    my_articles: Mhoje lekh
+    private: Khasgi
+    students: Vidyarthi
+    students_short: Vidyarthi
+    title: Mathallo
+    view_wiki: Wikipidiacher polloi
+  courses_generic:
+    enroll: Sompadok zod
+    enrollment: Sampadokank Zodd/Kadd
+  metrics:
+    articles_created: Rochlele lekh
+    articles_edited: Sompadit Lekh
+    date_time: Tarikh/Vell
+    edit_count_description: Melloun Sompadon
+  revisions:
+    edited_by: 'Sompadon kela:'
+    time_doc: Doreka uzollnecho tumchea thollavea vellapormonnem vell
+  timeline:
+    block_milestone: Milacho fator
+    empty_week_2: hea sumanan sompadon suru kor
+    empty_week_3: vo
+    gradeable_value: Mol
+    save_all_changes: Sogllem Samballat
+    this_week_title_default: Hea sumanan
+  uploads:
+    file_name: Faylichem Nanv
+    image: Chitr
+  users:
+    assign_articles_done: Zalem
+    contributions: Vapurpi Yogdanam
+    contributions_more: Anik Yogdanam Polloi
+    editors: Vidyarthi Sompadok
+    enrolled_success: '%{username} yashasviponnan zoddla!'
+    first_name: Poilem Nanv
+    last_name: Nimannem nanv
+    name: Nanv
+    none: Ekui sahbhagi na.
+    no_articles: Lekh nan
+    username: Vaporpeachem nanv
+    username_placeholder: Vaporpeachem nanv
+...

@@ -1,0 +1,27 @@
+---
+title: Why cite?
+content: |
+  *Everything* you write on Wikipedia must be attributable to a reliable
+  source.
+
+  Wikipedians are working to create an accurate encyclopedia. Adding
+  sources means that your work can be fact-checked by these editors.
+
+  Editors (yourself included) can challenge unreferenced statements by
+  adding a `{{fact}}` tag in wikicode, which adds a *\[citation needed\]*
+  tag to the statement. Some editors remove unreferenced material on
+  sight.
+id: 2407
+
+translations:
+  es:
+    title: ¿Por qué citar?
+    content: |
+      *Todo* lo que escribas en Wikipedia debe atribuirse a una fuente fiable.
+
+      Los wikipedistas trabajan para crear una enciclopedia exacta. Añadir fuentes significa
+      que tu trabajo puede ser verificado por estos editores.
+
+      Los editores (incluyéndote a ti) pueden cuestionar afirmaciones sin referencias añadiendo una
+      etiqueta `{{fact}}` en wikitexto, que agrega una etiqueta *\[cita requerida\]* a la
+      declaración. Algunos editores eliminan el material no referenciado en cuanto lo ven.

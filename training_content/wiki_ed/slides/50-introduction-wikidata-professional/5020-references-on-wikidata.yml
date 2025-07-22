@@ -1,0 +1,14 @@
+id: 5020
+title: "References"
+summary:
+content: |
+  **References** are another important Wikidata element. Every fact you assert
+  should have a supporting reference that can be used to verify the fact. For
+  example, the fact that the population of Uruguay was 3,383,486 in 2011 needs
+  to be backed up by a reference from, say, the World Bank Database.
+
+  <figure class="alt-layout-100">
+    <img src="  https://upload.wikimedia.org/wikipedia/commons/1/12/Uruguay_-_reference_on_Wikidata.png" />
+    <figcaption class="image-credit">The World Bank Database is the reference for this statement.
+    </figcaption>
+  </figure>

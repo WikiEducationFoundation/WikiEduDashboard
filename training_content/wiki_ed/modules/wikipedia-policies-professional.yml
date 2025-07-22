@@ -1,0 +1,38 @@
+name: Wikipedia policies (Professional)
+id: 21
+description: |
+  This module will provide a basic overview of Wikipedia’s core policies and guidelines.
+
+  When you finish, you should be able to answer:
+
+  * What are Wikipedia’s core policies and guidelines?
+  * What are copyright and plagiarism in the context of Wikipedia?
+  * What does "notability" mean on Wikipedia?
+estimated_ttc: 25 minutes
+slides:
+  - slug: policies-and-guidelines-basic-overview-professional # 2101
+  - slug: five-pillars-professional # 2102
+  - slug: pillar-one-professional # 2103
+  - slug: pillar-two-professional # 2104
+  - slug: pillar-three-professional # 2105
+  - slug: pillar-four-professional # 2106
+  - slug: pillar-five-professional # 2107
+  - slug: verifiability-professional # 2108
+  - slug: notability-professional # 2109
+  - slug: notability-continued-professional # 2110
+  - slug: no-original-research-professional # 2111
+  - slug: plagiarism-professional # 2112
+  - slug: copyright-professional # 2113
+  - slug: that-s-it-professional # 2114
+
+translations:
+  es:
+    name: Políticas de Wikipedia (Profesional)
+    description: |
+      Este módulo te dará una descripción básica de las políticas y pautas fundamentales de Wikipedia.
+
+      Cuando termines, sabrás responder:
+
+      * ¿Cuáles son las políticas y pautas fundamentales de Wikipedia?
+      * ¿Qué son los derechos de autor y el plagio en el contexto de Wikipedia?
+      * ¿Qué significa "notabilidad" en Wikipedia?

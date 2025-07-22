@@ -1,0 +1,8 @@
+name: Select an additional article for extra credit
+id: 70
+description: |
+  If you choose to edit an additional article for extra credit, these are the instructions.
+
+slides:
+  - slug: select-extra-credit-article #7001
+  - slug: bibliography-outline-and-edit #7002

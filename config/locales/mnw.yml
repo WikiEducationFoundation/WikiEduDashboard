@@ -1,0 +1,228 @@
+# Messages for Mon (ဘာသာမန်)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aue Nai
+# Author: Htawmonzel
+# Author: Ninjastrikers
+# Author: 咽頭べさ
+---
+mnw:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: တးပါဲ
+    create_accounts: ခၞံကၠောန် အကံက် ဝဳကဳပဳယာ
+    dashboard: ဒၞာဲခတဵုဒေသ်ဗတ် ပလေဝ် ဝဳကဳ
+    documentation: လိက်ပရူပရာ
+    error: အရာမဗၠေတ်ဗၠေင်မွဲ နွံဒၟံင် -
+    explore: စဳစောတ်
+    field_required: တင်ဏအ်ဂှ် ဒးဗပေင်ကဵု ရောင်၊၊
+    field_invalid_characters: မအက္ခရ် ဟွံလုပ်အဝေါင် ပါလုပ်ဒၟံင်
+    field_invalid_date: တင်ဏအ် ဒးဗပေင်စုတ် စၟတ်တ္ၚဲ နကဵုမဂၞန် ဗီုပြင် ၂၀၁၈-၀၈-၂၄၊၊
+      YYYY-MM-DD
+    field_invalid_date_time: ကၞောတ်ဂှ် ဒးနွံ လက္ကရဴ အစ၊၊ (နာဍဳ ဂှ် စနူ ၀ စဵုကဵု ၂၃)
+    greeting2: ဒုင်တၠုင်ရအဴ
+    greeting_extended: ဒုင်တၠုင်ဏာ နူဝဳကဳပဳဒဳယာ၊၊
+    greeting: မ္ၚဵုရအဴ
+    help: ရီု
+    home: မုက်လိက်တမ်
+    log_in_extended: လုပ်လံက်အေန် နကဵု ဝဳကဳပဳဒဳယာ
+    log_in: လုပ်လံက်အေန်
+    log_out: တိတ်
+    my_dashboard: ဒၞာဲခတဵုဒေတ်ဗတ် အဲ
+    recent_activity: အရာမကၠောန်လဝ် ခြာဟွံလအ်
+    report_problem: ပတိုန်ထ္ၜး ပြသၞာ
+    request_account: အာတ်မိက် အကံက်
+    request_account_create: ခၞံကၠောန် အကံက်
+    search: သၟာန် သမာန်မွဲ
+    search_results: သွဟ် မဂွံဆဵုကေတ်ဂမၠိုင် - '%{search_terms}'
+    sign_up_extended: ပတိုန်စၟတ်သမ္တီ နကဵု ဝဳကဳပဳဒဳယာ
+    sign_up_wikipedia: ဟွံသေင်မ္ဂး ပတိုန်စၟတ်သမ္တီ ပ္ဍဲ ဝဳကဳပဳယာ
+    sign_up_log_in_extended: နကဵု ဝဳကဳပဳဒဳယာ
+    sign_up: ပတိုန် စၟတ်သမ္တီ
+    submit: ဗပေင်
+    training: ခန်လ္ၚတ်
+    change: ပြံင်လှာဲ
+    details: ဗွဲမစုင်လေင်
+    confirm: ခိုဟ်
+    opt_in: ယွံ
+    opt_out: ဟအှ်ေ
+    opt_yes: ယွံ
+    opt_no: ဟွံသေၚ်
+  dashboard:
+    create_note: ဍဵု ပ္ဍဲ ခၞံဗဒှ် တန်ဗ္တောန် သွက်ဂွံ ခၞံဗဒှ် တန်ဗ္တောန်မၞး ကိုပ်ကၠာ
+    explore_course_pages: ဂၠာဲသ္ၚေဝ် မုက်လိက် တန်ဗ္တောန်ဂမၠိုင်
+    explore_examples: ဂၠာဲသ္ၚေဝ် ဥပမာဂမၠိုင်
+    join_note: ကာလ မၞး ကလိဂွံဒုင်တဲ မလိက်ဓလုက်/passcode နူ အစာမထ္ၜးနဲမၞးမ္ဂး ဍဵု ပ္ဍဲ
+      ဂၠာဲတန်ဗ္တောန်မၞး (Find Your Course) သွက်ဂွံဂၠာဲ တုဲ ဂွံပံင်တောဲ၊၊
+    no_courses_instructor: တုပ်ညံင်ကဵု မၞး ဟွံကလိဂွံ တန်ဗ္တောန် မွဲမွဲဏီရ၊၊
+    no_courses_student: တုပ်ညံင် မၞးဟွံဂွံပံင်တောဲ တန်ဗ္တောန်မွဲမွဲဏီ ဖိုဟ်ရ၊၊
+  home:
+    log_in: လုပ်လံက်အေန် နကဵု ဝဳကဳပဳဒဳယာ
+    sign_up: ပတိုန်စၟတ်သမ္တီ နကဵု ဝဳကဳပဳဒဳယာ
+  activity:
+    edited_by: ပလေဝ်ဒါန် နကဵု
+  articles:
+    next: ဆက်အာ
+    assigned_to: ပအပ်ကဵုလဝ် ဇရေၚ်
+    deleted: (ပလီု)
+    edited_mobile: လိက်ပရေင်ဂမၠိုင်
+    filter:
+      wiki_all: ' သီုဖအိုတ်'
+      new: တၟိ
+    hide: ဗဒန်
+    history: (လၟေင်မပြံင်လှာဲလဝ်)
+    label: လိက်ပရေင်ဂမၠိုင်
+    new: (တၟိ)
+    title: က္ဍိုပ်လိက်
+    wiki: ဝဳကဳ
+  articles_generic:
+    articles_short: မုက်လိက်ဂမၠိုင်
+  assignments:
+    add_available_submit: စုတ် လိက်ပရေၚ်ဂမၠိုၚ်
+    assign_self: ပအပ်ကဵု အလဵုအဲ လိက်ပရေၚ်
+    label: ပအပ်ကဵု
+    none_short: လိက်ပရေၚ် မပအပ်ကဵုလဝ် ဟွံမွဲ
+    remove: ပတိတ်
+    select: ရုဲ
+  campaign:
+    alert_article: က္ဍိုပ်လိက် မဒှ်လိက်ပရေၚ်
+    alert_type: ဂကူ
+    alert_user_id: ညးလွပ်
+    created_at: စၟတ်တ္ၚဲ
+    data_articles: ပလေပ်ဒါန်မုက်လိက်ဂမၠိုင်
+    description: မဗမံက်ထ္ၜး
+    none: ဟွံသေၚ်
+    organizers: ညးစန်ပ္ကောံဂမၠိုၚ်
+    title: က္ဍိုပ်လိက်
+  categories:
+    add_category: စုတ် ကဏ္ဍ
+    add_template: စုတ် template
+    add_this_category: စုတ် ကဏ္ဍဏအ်
+    add_this_template: စုတ် template ဏအ်
+    name: ယၟု
+    category_name: ယၟုကဏ္ဍ
+    template_name: ယၟု Template
+    remove: ပတိတ်
+  courses:
+    actions: ပွဂမၠိုၚ်
+    articles: လိက်ပရေင်ဂမၠိုင်
+    calendar:
+      legend: ဒဏ္ဍာရဳ
+    cancel: တးပဲါ
+    campaign_articles: '%{title}  လိက်ပရေၚ်ဂမၠိုၚ်'
+    campaign_users: '%{title} ညးဒါန်ဂမၠိုၚ်'
+    creation_date: တ္ၚဲ ခၞံကၠောန်
+    creator:
+      end_date: တ္ၚဲတုဲဒှ်
+      end_date_placeholder: တ္ၚဲတုဲဒှ် (YYYY-MM-DD)
+      start_date: တ္ၚဲစပ္တမ်
+      start_date_placeholder: တ္ၚဲ စပ္တမ် (YYYY-MM-DD)
+      subject: ဘာသာ
+    delete_suggestion: ' ပလီု'
+    edit_count: ရိုဟ်လၟိုဟ် ပလေဝ်ဒါန်
+    end: တုဲ
+    enroll: ကဵုစရၚ်
+    enrollment: စုတ်/ပတိတ် ကွးဘာဂမၠိုၚ်
+    feedback: ကဵုကသပ်
+    join: ပါ
+    loading: ပတိုန်ဒၟံၚ်...
+    my_articles: လိက်ပရေၚ်အဲ ဂမၠိုၚ်
+    new_account_email: ဌာန်အဳမေလ်တအ်
+    new_account_email_placeholder: name@example.org
+    none: ဟွံသေၚ်
+    ores_plot: ORES
+    overview: မုက်လိက်တမ်
+    please_log_in: သ္ပဂုဏ် လုပ်လံက်အေန်အကံက်
+    private: ဗွဲပူဂိုလ်
+    school: ဘာ
+    start: စ
+    students: ကွးဘာဂမၠိုၚ်
+    students_count: '# ကွးဘာဂမၠိုၚ်'
+    student_editors: ညးဒါန် မဒှ်ကွးဘာ
+    students_short: ကွးဘာဂမၠိုၚ်
+    user_role: ဒၟံၚ်
+    subject: ဘာသာ
+    submitted: ပတိုန်တုဲ
+    title: က္ဍိုပ်လိက်
+  courses_generic:
+    assignment_start: သ္ဘၚ် စ
+    cancel: တးပဲါ
+    course: အစဳအဇန်
+    courses: အစဳအဇန်ဂမၠိုၚ်
+    campaign_courses: '%{title} အစဳအဇန်ဂမၠိုၚ်'
+    creator:
+      assignment_end: သ္ဘၚ် တုဲ
+      assignment_end_placeholder: သ္ဘၚ် တုဲ (YYYY-MM-DD)
+      assignment_start: သ္ဘၚ် စ
+      assignment_start_placeholder: သ္ဘၚ် စ (YYYY-MM-DD)
+      course_description: မပံက်ထ္ၜး အစဳအဇန်
+      course_term: ဆလအ်
+      course_term_placeholder: ဆလအ်
+      course_title: က္ဍိုပ်လိက် အစဳအဇန်
+      create_button: ခၞံကၠောန် အစဳအဇန်အဲ !
+      create_label: ခၞံကၠောန် အစဳအဇန်တၟိ
+      create_new: 'ခၞံကၠောန် အစဳအဇန် မဗၠးၜ:'
+      create_short: ခၞံကၠောန် အစဳအဇန်
+      find: ဂၠာဲ အစဳအဇန်မွဲ
+      save_cloned_course: ဂိုင်သိပ်
+    delete_course: ပလီု အစဳအဇန်
+    enroll: စုတ် ညးဒါန်ပလေဝ်
+    enrollment: စုတ်/ပတိတ် ညးဒါန်ဂမၠိုၚ်
+    explore: ဂၠာဲ အစဳအဇန်တအ်
+    instructors: ညးပတဝ်ဂၠံၚ်ဂမၠိုၚ်
+    leave_course: စၞးတိတ်နူ အစဳအဇန်
+    request_accounts: အာတ်အခေါၚ် အကံက်
+    student_editors: ညဒါန်ဂမၠိုၚ်
+    student: ပလေဝ်ဒါန်
+    students: ညဒါန်ဂမၠိုၚ်
+    students_taught: ညးဒါန်ဂမၠိုၚ် သီုဖအိုတ်
+    students_short: ညဒါန်ဂမၠိုၚ်
+    students_count: လၟိုဟ် ညးမပါလုပ်ဂမၠိုၚ်
+    term: ဆလအ်
+    yourcourses: အစဳအဇန် မၞး
+  editable:
+    edit: ပလေဝ်ဒါန်
+    cancel: တးပဲါ
+    save: ဂိုင်သိပ်
+    edit_description: ပလေဝ်ဒါန် မဗၟံက်ထ္ၜး
+    edit_template: ဒါန် Template
+  recent_activity:
+    datetime: စၟတ်တ္ၚဲ/အခိင်
+    image: ဗီုရုပ်
+    file_name: ယၟု ဝှာၚ်
+  revisions:
+    diff_show: ထ္ၜး
+    diff_hide: ပၞုက်
+    title: က္ဍိုပ်လိက်
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ယၟု ညးလွပ်
+    special_users:
+      new:
+        form_placeholder: ယၟု ညးလွပ်
+  training:
+    next: မုက်လိက် ဂတ
+    page: မုက်လိက်
+    done: တုဲရ
+  uploads:
+    file_name: ယၟု ဝှာၚ်
+    image: ဗီုရုပ်
+    label: ပတိုန်ဂမၠိုင်
+    usages: ဒၞဲါသုၚ်စောဲဂမၠိုင်
+  users:
+    assign_articles_done: တုဲဒှ်
+    edits: ပလေဝ်ဒါန်ဂမၠိုၚ်
+    name: ယၟု
+    username_placeholder: ယၟုညးလွပ်
+    useremail_placeholder: အဳမေလ်
+...

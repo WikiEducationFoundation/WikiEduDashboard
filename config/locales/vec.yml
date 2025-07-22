@@ -1,0 +1,131 @@
+# Messages for Venetian (vèneto)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Fierodelveneto
+---
+vec:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Sto cuà el xé on canpo numerego. I botoni vixuałixai da ła major
+      parte dei navegadori web i fa cresare o sbasare el numaro inserìo.
+  application:
+    cancel: Descançełare
+    cookie_consent_acknowledge: Go capìo
+    cookie_consent_see_more: Varda altro
+    create_accounts: Crea utense de Wikipedia
+    dashboard: Casełoto Wiki Ed
+    documentation: Documentasion
+    error: Ghe xé sta on erore
+    explore: Esplora
+    field_required: Sto canpo el xé obligatorio.
+    field_invalid_characters: Sto canpo el ga carateri no vałidi
+    field_invalid_date: Sto canpo el domanda na data im formà YYYY-MM-DD
+    field_invalid_date_time: Ła fin ła ga da esare dopo el scumisio (łe ore łe va
+      da łe 0 a łe 23)
+    greeting2: Benvegnùo/a!
+    greeting_extended: Benvegnuo in Wikipedia
+    greeting: S-ciao!
+    help: Jùtame
+    home: Pàjina prinçipale
+    log_in_extended: Va drento co Wikipedia
+    log_in: Lòghite
+    log_out: Deslòghite
+    my_dashboard: El me casełoto
+    recent_activity: Atività fate in ultima
+    report_problem: Dine on problema
+    request_account: Domanda na utensa
+    request_account_create: Crea utensa
+    search: Fa na domanda
+    search_results:
+      one: '%{count} rexultà par: ''%{search_terms}'''
+      other: '%{count} rexultai par: ''%{search_terms}'''
+    no_results: Nisun rexultà catà par '%{query}'
+    sign_up_extended: Va drento co Wikipedia
+    sign_up_wikipedia: O va drento so Wikipedia
+    sign_up_log_in_extended: co Wikipedia
+    sign_up: Notate
+    submit: Manda
+    training: Formasion
+    change: Modifega
+    details: Detaji
+    confirm: Bona!
+    opt_in: Sì
+    opt_out: "No"
+    opt_yes: sì
+    opt_no: "no"
+  dashboard:
+    create_note: Schicia so "Crea corso" par crear el to primo corso.
+    create_preparation_note: Sigurate de ver el to całendario academego a portada
+      de man prima de scumisiare; el instrumento de projetasion del conpito el dopararà
+      łe date de l'incontro de ła to clase, ciapando drento anca pusìbiłi interusion
+      de ła scoła e festività, par justare el to istorego al laso de date che te deçidarè.
+      Ricordate, te połi senpre modifegare ła secuensa tenporałe baxandote so łe to
+      exijense.
+    explore_course_pages: Varda łe pajine del corso
+    explore_examples: Varda exenpi
+    join_note: Na volta che te riçevarè el codaxe de entrada dal to profesore, schicia
+      so "Cata el to corso" par catarlo e unirte.
+    no_courses_instructor: Pararia che no te gapia algun corso
+    no_courses_student: Pararia che no te te sipia njiancora iscrivesto so on corso
+    opt_out: Domanda de esare includesto da l'orientamento
+    orientation_notice: Prima che ti te crea on corso, pasemo par l'orientamento par
+      jutarte a scumisiare (el domanda on 30 minuti par esare finio)
+    review_orientation: Varda el orientamento
+    start_orientation: Scumisia orientamento
+    blog_headline: Notisie in ultima da Wiki Education
+    about_programs: 'Sto sito el tien conto de łe atività wiki traerso i programi:
+      avegnimenti cofà ła Wikimaratona o on corso scołastego. Ogni programa el fa
+      parte de una o pì canpagne, che łe dà statisteghe so tuti i programi'
+    about_creating_programs: Se te si drio far on soło avegnimento indipendente, te
+      połi crear on programa. Se el to avegnimento el xé on toco de calcosa de pì
+      grando, cata o crea na canpagna par sto cuà; te połi de conseguensa crear on
+      programa novo da ła pajina de ła canpagna.
+  home:
+    explore: Varda
+    log_in: Va drento co Wikipedia
+    sign_up: Nòtate co Wikipedia
+    sign_up_help: Par doparar el casełoto de controło, te garè da ndar drento co Wikipedia
+      e dare l'autorixasion par ndar drento a ła to utensa. Te połi ndar drento co
+      na utensa che xà ła ghe xé so Wikipedia o crearghine una de nova.
+  alerts:
+    alert_label: Avixi
+    no_alerts: Nisun avixo catà
+  activity:
+    all: Atività
+    edited_by: Modifegà da
+    label: Atività
+  articles:
+    article_development: (Sviłupamento de ła voxe)
+    assigned: Voxe dae
+    available: Voxe disponibiłe
+    no_available: No ghe xé voxe disponibiłi
+    next: Suçedore
+    previous: Anteçedore
+    article_title: Titoło de ła voxe
+    assigned_to: Dato a
+    character_doc: Ła soma dei caratari xontai a łe voxe dei editori iscrivesti intrà
+      łe date de scumisio e de fine.
+  courses:
+    calendar:
+      legend: Lejenda
+    data_download_info: Descarga in forma CSV
+  metrics:
+    upload_count: Cargamenti Commons
+  recent_activity:
+    recent_uploads: Cargamenti fati in ultima
+  uploads:
+    label: Cargamenti
+  users:
+    total_uploads: Totałe dei cargamenti
+  training_status:
+    continue: Sèvita
+...

@@ -1,0 +1,21 @@
+id: 5412
+title: "Adding properties (continued)"
+summary:
+content: |
+  So what's next? Adding a statement. But what statement?
+
+  Ideally, you have a data model that tells you where to look, but what happens
+  when there isn't one (or you aren't sure where to look)? Let's look for
+  something similar, but more complete, like "Member of the Legislative Council
+  of Hong Kong" (<code>Q27908372</code>). We've got "instance of" position, and
+  subclass of "member of a legislative assembly".
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Wikidata_item_Q27908372_more.png" />
+    <figcaption class="image-credit">
+      Wikidata recommends properties as you type them into the property field.
+    </figcaption>
+  </figure>
+
+  Note that Wikidata suggests properties as soon as you click "+ add statement".
+  "Instance of" and "subclass of" are the two most common properties.

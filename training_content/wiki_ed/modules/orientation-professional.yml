@@ -1,0 +1,21 @@
+name: Wikipedia course orientation (Professional)
+id: 47
+description: |
+  Welcome to your Wikipedia course! Here's some context for what we'll be doing.
+
+estimated_ttc: 10 minutes
+slides:
+  - slug: welcome # 4701
+  - slug: sign-up # 4702
+  - slug: whats-the-dashboard # 4703
+  - slug: peruse-trainings # 4704
+  - slug: talk-to-each-other # 4705
+  - slug: using-slack # 4706
+  - slug: using-zoom # 4707
+  - slug: what-now # 4708
+
+translations:
+  es:
+    name: Orientación del curso de Wikipedia (Profesional)
+    description: |
+      ¡Bienvenido a tu curso de Wikipedia! Aquí va un poco de contexto sobre lo que vamos a hacer.

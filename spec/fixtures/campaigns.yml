@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: campaigns
+#
+#  id                   :integer          not null, primary key
+#  title                :string(255)
+#  slug                 :string(255)
+#  url                  :string(255)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  description          :text(65535)
+#  start                :datetime
+#  end                  :datetime
+#  template_description :text(65535)
+#  default_course_type  :string(255)
+#  default_passcode     :string(255)
+#  register_accounts    :boolean          default(FALSE)
+#
+
+default:
+  title: 'Spring 2015'
+  slug: 'spring_2015'
+  url: 'Wikipedia:Education_program/Dashboard/course_ids'

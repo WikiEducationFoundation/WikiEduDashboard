@@ -1,0 +1,20 @@
+id: 5419
+title: "Adding sources"
+summary:
+content: |
+  Look back at the statement you just added. Below it, there's a line that says
+  "0 references". We need to fix that.
+
+  Locate a source that supports your statement. Now click on the "+ add reference"
+  link to add a reference. Wikidata will make some suggestions in the property box.
+  Right now we'll look at some of the common ones
+
+  * **reference URL** (<code>P854</code>) – use this if you want to use a URL.
+  Just paste the URL into the value, and click save.
+  * **stated in** (<code>P248</code>) – use this if you want to use a database,
+  a book, a journal article, a newspaper article, or something similar. To use
+  "stated in", the source needs to exist as a Wikidata item. If it doesn't,
+  you'll have to create a new item.
+
+  You can always learn more about sources by visiting
+  <a href="https://www.wikidata.org/wiki/Help:Sources">Help:Sources</a> on Wikidata.

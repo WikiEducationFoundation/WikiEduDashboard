@@ -1,0 +1,68 @@
+.notify_overdue
+  background url('../images/message.svg') no-repeat 50% white
+  border 1px solid mischka
+  cursor pointer
+  float right
+  height 40px
+  margin-left 10px
+  position relative
+  width 64px
+  &.loading
+    background url('../images/loader.gif') no-repeat 50% white
+
+.campaign-select, .sort-select, .filter-select
+  cursor pointer
+  float left
+  margin 10px 10px 10px 0
+  +above(desktop)
+    margin 0
+    position absolute
+    right 0
+    top 20px
+  select
+    cursor pointer
+
+.campaign-select
+  width 190px
+
+.filter-select
+  margin 0
+  position absolute
+  right 100px
+  top 20px
+
+.sort-select
+  width 60px
+  &.inset
+    right 191px
+  select.sorts
+    padding-top 5px
+    padding-bottom 8px
+    background url('../images/sort.svg') no-repeat 48% white
+    -webkit-appearance none
+    text-indent -200px
+    +below(desktop)
+      margin-top -10px
+
+.sort-container
+  display flex
+  justify-content flex-end
+  position absolute
+  float right
+  top 20px
+  right 0px
+  width 60px
+  height 35px
+  background url('../images/sort.svg') no-repeat 48% white
+  border 1px solid #676eb44a
+
+.select-with-button
+  width 400px
+  margin 20px
+  button
+    margin-left 5px
+    margin-top 5px
+
+.wiki-select
+  padding-top 10px
+  max-width 300px

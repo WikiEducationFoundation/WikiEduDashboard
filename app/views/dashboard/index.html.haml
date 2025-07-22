@@ -1,0 +1,92 @@
+- content_for :after_title, " - #{t("application.my_dashboard")}"
+
+.container.dashboard
+  %header
+    %h1= @pres.heading_message
+    - if Features.open_course_creation?
+      = render 'open_course_creation'
+    - else
+      = render 'course_creation'
+
+  - # Show submitted/pending courses (for admins)
+  - if @pres.submitted.any?
+    #submitted-list.expanded
+      %h2{onclick: "toggleAccordian('submitted-list')"}
+        = t("courses.submitted_and_pending_heading") + " (#{@pres.submitted.count})"
+        = hot_javascript_tag 'accordian'
+        .submitted.icon.icon-arrow
+
+      .course-list
+        - @pres.submitted.each do |course|
+          = render "course_row", course: course, assignment_start: true, new_or_returning: true
+
+  - # Orientation block
+  - if @pres.show_orientation_block?
+    %div.empty-state
+      %p
+        = t("dashboard.orientation_notice")
+      %p
+        = link_to @pres.orientation_path, class: 'button dark' do
+          = t("dashboard.start_orientation")
+          %i.icon.icon-rt_arrow
+      %p.small
+        = link_to t('dashboard.opt_out'), @pres.opt_out_path
+
+  - if @pres.show_your_courses_label?
+    %h2
+      = t("#{@pres.course_string_prefix}.yourcourses")
+
+  - # Empty courses state
+  - if @pres.current.empty? && @pres.past.empty?
+    - if @pres.can_create_course? && !Features.open_course_creation?
+      %div.empty-state
+        %p
+          = t("dashboard.no_courses_instructor")
+        %p
+          = t("dashboard.create_note")
+        %p.small
+          = t("dashboard.create_preparation_note")
+        %p.small
+          = link_to t('dashboard.explore_examples'), explore_path
+    - elsif @pres.show_explore_button?
+      %div.empty-state
+        %p
+          = t("dashboard.no_courses_student")
+        %p
+          = t("dashboard.join_note")
+        %p.small
+          = link_to t('dashboard.explore_course_pages'), explore_path
+
+  - else
+    - # Courses list
+    - if @pres.admin?
+      = render "admin_courses"
+    - else
+      - @pres.current.each do |course|
+        = render "course_row", course: course, assignment_start: false, new_or_returning: false
+
+    - # Archived/past courses
+    - if !@pres.admin? && @pres.past.any?
+      %h2
+        = t("#{@pres.course_string_prefix}.archived")
+      - @pres.past.each do |course|
+        = link_to course_slug_path(course.slug), {class: 'course course-past'} do
+          %span.button.border
+            = t("courses.view_page")
+          %h2.course-title
+            = course.title
+            %span.course-term= course.term
+
+  - if @blog_posts.present?
+    = render "blog"
+
+  - if @pres.campaign_organizer? && !request.path.include?('/course_creator')
+    -# this is the react root when at the root page
+    #react_root
+    
+-# this is the react root when the route is /course_creator
+- if request.path.include?('/course_creator')
+  #react_root{data: {default_course_type: @pres.default_course_type,
+                   course_string_prefix: Features.default_course_string_prefix,
+                   course_creation_notice: Deadlines.course_creation_notice,
+                   use_start_and_end_times: @pres.default_use_start_and_end_times ? 'true' : 'false'}}

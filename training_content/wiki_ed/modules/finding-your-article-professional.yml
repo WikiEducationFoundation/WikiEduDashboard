@@ -1,0 +1,19 @@
+name: Finding your article (Professional)
+id: 46
+description: |
+  In this tutorial, you'll learn how to find a good article to work on.
+estimated_ttc: 10 minutes
+slides:
+  - slug: avoid-the-best-articles-professional # 4601
+  - slug: avoid-controversial-topics-professional # 4602
+  - slug: avoid-conflicts-of-interest-professional # 4603
+  - slug: find-articles-using-categories-professional # 4604
+  - slug: find-articles-via-navigation-templates-professional # 4605
+  - slug: find-articles-via-wikiprojects-professional # 4606
+  - slug: using-wikiproject-assessment-tables-professional # 4607
+  - slug: find-articles-via-missing-article-lists-professional # 4608
+  - slug: article-finder-professional #4613
+  - slug: assessing-article-notability-professional # 4612
+  - slug: find-a-notable-topic-professional # 4609
+  - slug: wikipedia-experts-can-help-find-articles-professional # 4610
+  - slug: finding-your-article-summary-professional # 4611

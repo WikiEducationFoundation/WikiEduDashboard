@@ -1,0 +1,20 @@
+.campaign-nav__wrapper
+  .campaign_navigation
+    .container
+      %a
+        %h2.title
+          = "#{t('campaign.campaign')}: #{@campaign.title}"
+      %nav
+        %ul.campaign-nav__ul
+          = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))
+          = nav_link(t("#{@campaign.course_string_prefix}.courses"), programs_campaign_path(@campaign.slug))
+          = nav_link(t('courses.articles'), articles_campaign_path(@campaign.slug))
+          = nav_link(t("#{@campaign.course_string_prefix}.students"), users_campaign_path(@campaign.slug))
+          = nav_link(t('courses.ores_plot'), ores_plot_campaign_path(@campaign.slug))
+          = nav_link(t('courses.alerts'), alerts_campaign_path(@campaign.slug))
+        .campaign-nav__search
+          = form_tag(programs_campaign_path(@campaign.slug), method: "get") do
+            = text_field_tag(:courses_query, '', placeholder: "Search #{@campaign.title}")
+            = hidden_field_tag('source', 'nav_campaign_form')
+            %button{type: 'submit'}
+              %i.icon.icon-search

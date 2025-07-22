@@ -1,0 +1,47 @@
+# Messages for Uyghur (Arabic script) (ئۇيغۇرچە)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Sahran
+# Author: Uzdil
+# Author: چۈشكۈن
+---
+ug-arab:
+  application:
+    create_accounts: ۋىكىپىدىيا ئاكونتى قۇرۇش
+  articles:
+    history: (تارىخ)
+  courses:
+    accounts_generation_enabled: ھېسابات تەلەپ ھاسىل قىلىش قوزغىتىلدى
+    enable_account_requests: ئىشلىتىشكە بولىدىغان ئابونت ھېسابات ئىلتىماس قىلىش
+    new_account_check_username: تەكشۈرۈپ ئابونىت نامى ئىشلىتىلىشچانلىق
+    new_account_email: ئېلخەت ئادرېسى
+    new_account_email_placeholder: name@example.org
+    new_account_info: بىر ھېسابات قىلىشنى تەلەپ قىلىمىز ، سىزنىڭ ئېلىكتىرونلۇق پوچتا
+      يوللانما ئادرېسى كىرگۈزۈڭ سىز ئالماقچى بولغان خېرىدار نامى . ئەگەر ھېسابات بەرپا
+      قىلىش ، مەخپىي نومۇر ئېلخەت ئارقىلىق يوللاش سىزگە .
+    new_account_username: ئابونت نامى ئىلتىماس قىلىش
+    new_account_username_invalid: بۇ ئابونت نامى كۈچكە ئىگە ئەمەس.
+    new_account_username_placeholder: Wiki تەھرىرلىگۈچ 123
+    new_account_username_taken: ئېچىتىلغان يەم - خەشەك ياساش . يەنە بىر تاللاڭ .
+    new_account_submit: ھېسابات ئىلتىماس قىلىش
+    new_account_submitted: سىزنىڭ ھېسابات ئىلتىماس تاپشۇرۇشى كېرەك . بۇ پىلان مۇلازىمەت
+      سودىگىرى ھازىر سىزنىڭ ھېسابات بەرپا قىلىش . بەرپا قىلىش ھامان ، سىز ئېلىكتىرونلۇق
+      پوچتا يوللانما ئارقىلىق يېڭى ھېسابات نومۇرىنىڭ مەخپىي نومۇرى .
+    new_account_submitted_admin: سىز تەلەپ قىلغان ھېسابات بەرپا قىلىش . سىز خەۋەر
+      قىلىڭ ئوقۇغۇچىلار تەكشۈرۈش بىلەن ئۇنىڭ ئېلېكترونلۇق پوچتا يوللانمىسى خەت ساندۇقى
+      ئارقىلىق مەخپىي نومۇرى
+    requested_accounts: ھېسابات ئىلتىماس قىلىش
+  courses_generic:
+    request_accounts: ھېسابات ئىلتىماس قىلىش
+  timeline:
+    empty_week_3: ياكى
+  users:
+    loading_authorship_data: ئاپتور سانلىق مەلۇماتى يۈكلىنىۋاتىدۇ
+    authorship_data_not_fetched: ئاپتور سانلىق مەلۇمات ئىزدەپ تېپىش مۇمكىن ئەمەس
+    edits_by: 'تەھرىرلىگۈچى:'
+    request_confirmation: سىز راستىنلا بۇ ھېسابات نومۇرىنى ئىشلىتەمسىز؟
+    useremail_placeholder: ئېلخەت
+    userpasscode_placeholder: شىفىر
+  wiki_api:
+    create_account_reason: بۇ ئابونت قاتنىشىۋاتىدۇ %{نەتىجە}.
+...

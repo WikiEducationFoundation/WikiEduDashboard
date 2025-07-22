@@ -1,0 +1,23 @@
+id: 5601
+title: "WikiProjects"
+summary:
+content: |
+  WikiProjects are dedicated to addressing information quality, content gaps,
+  maintenance, and building community on Wikidata. Editors join WikiProjects to
+  improve specific areas of Wikidata.
+
+  Like Wikipedia, some topic areas on Wikidata are more comprehensive than others.
+  WikiProjects are the first place to go to learn about the state of whatever
+  topic you are interested in on Wikidata.
+
+  Every WikiProject on Wikidata has its own set of editors and standards to
+  cater to the needs of that particular topic. Typically WikiProjects contain
+  data models, property usage, completion statistics, and a conversation about 
+  that particular topic.
+
+  **Note**: WikiProjects exist on both Wikidata and Wikipedia. They may have
+  the same titles, but they are different WikiProjects. The WikiProjects on
+  Wikidata focus on Wikidata-specific issues like modeling items, creating new
+  properties, and evaluating gaps in the disciplines. WikiProjects on Wikipedia
+  discuss article content, track article statistics (like Good Articles or
+  Featured Articles), and gather Wikipedia-specific templates.

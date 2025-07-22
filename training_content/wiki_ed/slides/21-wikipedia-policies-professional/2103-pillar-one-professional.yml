@@ -1,0 +1,49 @@
+---
+title: Pillar One
+content: |
+  <figure class="alt-layout-40-right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Palace_of_Fine_Arts%2C_one_pillar.jpg/320px-Palace_of_Fine_Arts%2C_one_pillar.jpg" />
+
+  <figcaption class="image-credit">
+  <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_one_pillar.jpg">Photo
+  by Eryk Salvaggio,CC-BY-SA</a>
+
+  </figcaption>
+  </figure>
+
+  **Wikipedia is an online encyclopedia.**
+
+  OK, maybe this seems obvious. But it may be more helpful to think about
+  it as telling you what Wikipedia is NOT.
+
+  It’s not an advertising platform, a personal website, an experiment in
+  anarchy or democracy, a collection of random data, or a search engine.
+
+  It’s not a dictionary, a newspaper, a book or instruction manual, or a
+  collection of found documents.
+
+  It's an encyclopedia, a place where you can go to find a good summary of
+  what's already known about a topic.
+id: 2103
+
+translations:
+  es:
+    title: Pilar Uno
+    content: |
+      <figure class="alt-layout-40-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Palace_of_Fine_Arts%2C_one_pillar.jpg/320px-Palace_of_Fine_Arts%2C_one_pillar.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_one_pillar.jpg">Foto de Eryk Salvaggio,CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      **Wikipedia es una enciclopedia en línea.**
+
+      Bueno, esto puede parecer obvio. Pero puede ser más útil pensar en ello diciéndote lo que Wikipedia NO es.
+
+      No es una plataforma publicitaria, un sitio web personal, un experimento de anarquía o democracia, una colección de datos aleatorios o un buscador.
+
+      No es un diccionario, ni un periódico, ni un libro o manual de instrucciones, ni una colección de documentos encontrados.
+
+      Es una enciclopedia, un lugar al que puedes acudir para encontrar un buen resumen de lo que ya se sabe sobre un tema.

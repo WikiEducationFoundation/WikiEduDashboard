@@ -1,0 +1,8 @@
+name: "What's a content gap?"
+id: 42
+kind: 'discussion'
+description: |
+  Consider these questions about content gaps on Wikipedia as an in-class discussion.
+slides:
+  - slug: gaps-in-wikipedia # #4202
+  - slug: what-is-a-content-gap #4201

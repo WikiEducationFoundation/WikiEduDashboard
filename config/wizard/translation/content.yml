@@ -1,0 +1,231 @@
+# This file is chronological: blocks nearer the top will always appear before
+# blocks nearer the bottom when placed into a course's timeline
+
+# Block kind
+# 0. In class
+# 1. Assignment
+# 2. Milestone
+# 3. Custom
+# 4. Training
+
+# Week weight
+# - The app will attempt to evenly distribute weights across the course timeline
+# - Higher weights will be more likely to stand on their own
+# - Weights may be any positive number but 1-10 is recommended
+
+translation_essentials:
+  - # Week one
+    weight: 3
+    blocks:
+      -
+        title: Introduction to the Wikipedia project
+        kind: 0 # In class
+        content: |
+          <p>
+            Welcome to your Wikipedia project's course timeline. This page will
+            guide you through the Wikipedia project for your course. Be sure to
+            check with your instructor to see if there are other pages you should
+            be following as well.
+          </p>
+          <p>
+            Your course has also been assigned a Wikipedia Expert. Check
+            your Talk page for notes from them. You can also reach them through
+            the "<strong>Get Help</strong>" button on this page.
+          </p>
+          <p>
+            To get started, please review the following handouts:
+          </p>
+          <ul>
+            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 1–5</li>
+            <li><a href="https://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></li>
+          </ul>
+
+      -
+        if: ungraded_training
+        title: Practicing the basics
+        kind: 1
+        training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
+        content: |
+            <ul>
+              <li>
+                Create an account and join this course page, using the  enrollment
+                link your instructor sent you. (To avoid hitting Wikipedia's account
+                creation limits, this is best done outside of class. Only 6 new accounts
+                may be created per day from the same IP address.)
+              </li>
+              <li>
+                It's time to dive into Wikipedia. Below, you'll find the first set
+                of online trainings you'll need to take. New modules will appear
+                on this timeline as you get to new milestones. Be sure to check
+                back and complete them! Incomplete trainings will be reflected in
+                your grade.
+              </li>
+              <li>
+                When you finish the trainings, practice by introducing yourself to
+                a classmate on that classmate’s Talk page.
+              </li>
+            </ul>
+
+      -
+        if: graded_training
+        title: Practicing the basics
+        kind: 1
+        graded: true
+        points: 5
+        training_module_ids: [1,2,7,10] # Wikipedia essentials, Editing basics, Evaluate an article, Translating articles
+        content: |
+          <ul>
+            <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+            <li>
+              It's time to dive into Wikipedia. Below, you'll find the first set
+              of online trainings you'll need to take. New modules will appear
+              on this timeline as you get to new milestones. Be sure to check
+              back and complete them! Incomplete trainings will be reflected in
+              your grade.
+            </li>
+            <li>
+              When you finish the trainings, practice by introducing yourself to
+              a classmate on that classmate’s Talk page.
+            </li>
+          </ul>
+
+translation_explore_to_find_articles:
+  - # Week two
+    weight: 3
+    blocks:
+      -
+        title: Choose an article
+        kind: 0
+        content: |
+          <ul>
+            <li>Choose two articles (a first choice, and a backup) to translate into English. Post the article links on your talk page, and submit them to the instructor for review.</li>
+            <li>Once your instructor has approved one or both of your choices, finalize your choice of which article to translate.</li>
+          </ul>
+
+      -
+        title: Begin translating
+        kind: 1
+        content: |
+          <ul>
+            <li>Copy your article from the target-language Wikipedia into your sandbox.</li>
+            <li>Begin to translate your work.</li>
+          </ul>
+          <hr />
+          <p>Supplementary trainings:</p>
+          <ul>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sources">Sources and Citations</a></li>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sandboxes">Sandboxes and Mainspace</a></li>
+          </ul>
+
+translation_choose_articles_from_list:
+  - # Week two
+    weight: 3
+    blocks:
+      -
+        title: Choose an article
+        kind: 0
+        content: |
+          <ul>
+            <li>Select an article from a list prepared by the instructor. Add it as your assigned article on the course page.</li>
+          </ul>
+          <hr />
+          <p>Supplementary trainings:</p>
+          <ul>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sources">Sources and Citations</a></li>
+            <li><a href="https://dashboard.wikiedu.org/training/students/sandboxes">Sandboxes and Mainspace</a></li>
+          </ul>
+      -
+        title: Begin translating
+        kind: 1
+        content: |
+          <ul>
+            <li>Copy your article from the target-language Wikipedia into your sandbox.</li>
+            <li>Begin to translate your work.</li>
+          </ul>
+
+translation_core:
+  - # Week three
+    weight: 6
+    blocks:
+      - # Week three in-class WITHOUT fact-checking assignment
+        if: no_fact_checking
+        title: Translation
+        kind: 0
+        content: |
+          <ul>
+            <li>Be ready to discuss your progress translating your article.</li>
+          </ul>
+      - # Week three assignment WITHOUT fact-checking assignment
+        if: no_fact_checking
+        title: Translation
+        kind: 1
+        content: |
+          <ul>
+            <li>Continue to translate your work.</li>
+          </ul>
+      - # Week three in-class WITH fact-checking assignment
+        if: fact_checking
+        title: Translation
+        kind: 0
+        content: |
+          <ul>
+            <li>Be ready to discuss your progress translating your article.</li>
+            <li>Carefully note the original citations for facts in your source article.
+            <ul><li>If an original source doesn't seem reliable, feel free to omit it from your translation.</li></ul></li>
+          </ul>
+          <hr />
+          <p>Handouts: <a href="https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf">Citing Sources</a> and <a href="https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf">Avoid Plagiarism</a></p>
+
+      - # Week three assignment WITH fact-checking assignment
+        if: fact_checking
+        title: Translation and fact-checking
+        kind: 1
+        graded: true
+        points: 20
+        content: |
+          <ul>
+            <li>Continue to translate your work.</li>
+            <li>Introduce citations from English-language texts that support the facts stated in your translated article. Adjust your translation if necessary.</li>
+            <li>For each sentence you translate, make a note of the sources used in the original article. Are they good sources? Do they really say what the Wikipedia article describes?</li>
+          </ul>
+  - # Week four
+    weight: 6
+    blocks:
+      -
+        title: Publish your work
+        kind: 0
+        content: |
+          <ul>
+            <li>Discussion of fact-checking translated work, finding English-language sources.</li>
+          </ul>
+      -
+        title: Publish your work
+        kind: 1
+        content: |
+          <ul>
+            <li>Move sandbox articles into main space.
+              <ul><li>If you are expanding an <strong><em>existing</em></strong> article, it's time to add your revised translation (including English sources, when available). Copy your edit into the article. If you are making many small edits, save after each edit before you make the next one. Do <strong>NOT</strong> paste over the entire existing article, or large sections of the existing article. Be sure to check the article's talk page and respond to suggestions from Wikipedians. Don't panic if your edits are removed or changed! Discuss it civilly on the article's talk page, and make a note of it for your report or presentation about your editing experience.</li>
+            <li>If you are creating a <strong><em>new</em></strong> article, <em>do <strong>NOT</strong> copy and paste</em> your text, or there will be no record of your work history. Follow instruction on the "Moving out of your sandbox" handout.</li></ul></li>
+            <li>In your first edit to the article namespace, include a link of the source article (i.e., the article you translated) in the "edit summary" before hitting "save."</li>
+            <li>Copy the code <code>{{Translated page|es|Page Title}}</code> to the bottom of the Wikipedia article, replacing <code>es</code> with the language code of the language you a translating from and replacing <code>Page Title</code> with the title of the source page.</li>
+          </ul>
+          <hr />
+          <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:Moving_out_of_your_sandbox.pdf">Moving out of your sandbox</a></p>
+
+  - # Week five
+    weight: 1
+    blocks:
+      -
+        title: Revise and review
+        kind: 0
+        content: |
+          <ul>
+            <li>Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.</li>
+          </ul>
+      -
+        title: Final translation
+        kind: 2 # Milestone
+        graded: true
+        points: 80
+        content: |
+          <p>Students have finished all their work on Wikipedia that will be considered for grading.</p>

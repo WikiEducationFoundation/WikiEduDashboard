@@ -1,0 +1,29 @@
+---
+title: You're all done!
+content: |+
+  Happy editing!
+
+  We would also appreciate any feedback you have on this orientation
+  module. Click below to tell us what you liked and didn't like about it,
+  and any suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+
+
+
+id: 2413
+
+translations:
+  es:
+    title: ¡Ya terminaste!
+    content: |
+      ¡Que disfrutes editando!
+
+      Nos gustaría recibir tus comentarios sobre este módulo de orientación. Haz clic a continuación para decirnos qué te gustó y qué no, y cualquier sugerencia que tengas para mejorarlo.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+      </div>

@@ -1,0 +1,13 @@
+id: 1
+title: Foo
+summary:
+content: Bar
+slug: a-slug-has-no-name
+introduction: This is an intro
+categories:
+  - dummy: one
+  - dummy: two
+name: Baz
+slides:
+  - slug: sluggo-one
+  - slug: sluggo-two

@@ -1,0 +1,55 @@
+.training__slide__quiz
+  input:focus
+    outline none
+
+  width $slide_inner_content_width
+  +below($desktop)
+    width 100%
+  margin 0 auto
+  h3
+    font-size 24px
+    margin-bottom 20px
+  ul
+    list-style none
+    padding-left 0
+    margin-left 0
+  li
+    margin-left 0
+    padding-left 0
+    margin-bottom 10px
+
+    &.revealed
+      padding 10px
+      position relative
+      right 11px
+      &.correct
+        background $success_bg
+      &.incorrect
+        background $warning_bg
+
+
+  label
+    cursor pointer
+    display flex
+    > div
+      margin-right 8px
+    > span
+      flex 1
+
+  input[type=radio]
+    -webkit-appearance radio
+    position relative
+    top -3px
+
+  button
+    margin-top 20px
+
+.assessment__answer-explanation
+  margin-left 23px
+  font-size 14px
+  &.correct
+    color $success_text
+    font-weight bold
+  &.incorrect
+    color $warning_text
+    font-weight bold

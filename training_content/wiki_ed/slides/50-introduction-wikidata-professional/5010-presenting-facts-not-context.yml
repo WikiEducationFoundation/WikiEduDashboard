@@ -1,0 +1,33 @@
+id: 5010
+title: "Presenting facts, not context"
+summary:
+content: |
+  Wikipedia presents information in a plain language format that's easy to read
+  but difficult to query. Comparisons across a whole range of articles is
+  especially difficult.
+
+  You can read about Marie Curie's occupations in a sentence on Wikipedia.
+  
+  <figure class="alt-layout-100">
+    <img src="  https://upload.wikimedia.org/wikipedia/commons/e/e8/Screenshot_of_Marie_Curie%27s_article.png" />
+    <figcaption class="image-credit">
+    </figcaption>
+  </figure>
+
+  Her Wikipedia biography says:
+
+  <p style="margin-left: 40px">Marie Skłodowska Curie (born Maria Salomea Skłodowska; 7 November 1867 – 4 July 1934) was a Polish and naturalized-French physicist and chemist who conducted pioneering research on radioactivity.</p>
+
+  If we want to translate this into Wikidata, we select an item, Marie Curie,
+  about whom we can make a variety of statements. For example: Marie Curie was
+  a physicist, she was a chemist, and she worked on radioactivity.
+
+  | **item** | **property** | **value**  |
+  | :-------------: |:-------------:| :-----:|
+  | Marie Curie | occupation | physicist |
+  | Marie Curie | occupation | chemist |
+  | Marie Curie| field of work | radioactivity |
+
+
+  Where Wikipedia is great at capturing the context around the subject of an
+  article, Wikidata is designed to express facts.

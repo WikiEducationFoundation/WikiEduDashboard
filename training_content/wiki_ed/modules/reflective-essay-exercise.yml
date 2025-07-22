@@ -1,0 +1,8 @@
+name: 'Reflective essay'
+id: 41
+kind: 'exercise'
+description: |
+  Write a reflective essay (2–5 pages) on your Wikipedia contributions using the
+  following questions as guidance.
+slides:
+  - slug: essay-questions #4101

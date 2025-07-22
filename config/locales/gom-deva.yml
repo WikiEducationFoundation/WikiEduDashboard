@@ -1,0 +1,52 @@
+# Messages for Goan Konkani (Devanagari script) (गोंयची कोंकणी)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: The Discoverer
+# Author: Vaishali Parab
+---
+gom-deva:
+  articles:
+    edited: संपादीत लेख
+    edited_mobile: लेख
+    title: माथाळो
+    view: लेख पळेयात
+    view_all: सगळें पळयात
+  courses:
+    articles: लेख
+    my_articles: म्हजें लेख
+    private: खासगी
+    students: विद्यार्थी
+    students_short: विद्यार्थी
+    view_wiki: विकिपीडियाचेर पळेयात
+  courses_generic:
+    enroll: संपादक जोडात
+    enrollment: सहभाग
+  revisions:
+    edited_by: वरवीं संपादीत
+    time_doc: दरेका उजळणेचो तुमच्या थळाव्या वेळाप्रमाण वेळ
+  timeline:
+    block_assignment: स्वाध्याय
+    block_milestone: मैलाचो फातर
+    empty_week_2: ह्या सप्तकाचे संपादन सुरू करात
+    empty_week_3: वा
+    gradeable_value: मोल
+    save_all_changes: सगळें सांबाळात
+    this_week_title_default: ह्या सप्तकात
+  uploads:
+    file_name: फायलीचें नांव
+    image: चित्र
+  users:
+    assign_articles_done: जालें
+    contributions: उपेगकर्त्यांचीं योगदानां
+    contributions_more: आनीक योगदानां पळेयात
+    editors: विद्यार्थी संपादक
+    enrolled_success: '%{उपेगकर्त्याचें नांव} यशस्वीपणान जोडला!'
+    first_name: पयलें नांव
+    last_name: निमाणे नांव
+    name: नांव
+    none: कोणूच सहभागी ना.
+    no_articles: लेख ना
+    remove_confirmation: उपेगकर्तो
+    username: वापोरप्याचें नांव
+    username_placeholder: वापोरप्याचें नांव
+...

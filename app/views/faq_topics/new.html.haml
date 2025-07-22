@@ -1,0 +1,10 @@
+- content_for :before_title, 'New FAQ Topic'
+.container
+  = form_with url: '/faq_topics', method: :create do
+    = label_tag :slug, 'Slug'
+    = text_field_tag :slug
+    = label_tag :name, 'Name'
+    = text_field_tag :name
+    = label_tag :faqs, 'IDs of FAQs included'
+    = text_field_tag :faqs
+    = submit_tag 'Create FAQ Topic'

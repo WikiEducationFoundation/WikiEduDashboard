@@ -1,0 +1,14 @@
+name: 'Exercise: Finalizing your topic (Professional)'
+id: 58
+description: |
+  Finalize your selection of the first article you would like to make a significant contribution to.
+slides:
+  - slug: assign-yourself-professional # 5801
+  - slug: start-draft-professional #5802
+
+
+translations:
+  es:
+    name: 'Ejercicio: Finalizando tu tema (Profesional)'
+    description: |
+      Finaliza la selección del primer artículo al que te gustaría hacer una contribución significativa.

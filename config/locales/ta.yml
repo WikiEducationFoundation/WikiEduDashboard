@@ -1,0 +1,238 @@
+# Messages for Tamil (தமிழ்)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Balajijagadesh
+# Author: ElangoRamanujam
+# Author: Fahimrazick
+# Author: Info-farmer
+# Author: Nisha
+# Author: Rakeshonwiki
+# Author: Sridhar G
+---
+ta:
+  application:
+    cancel: கைவிடு
+    create_accounts: விக்கிப்பீடியா கணக்குகளை உருவாக்கு
+    documentation: ஆவணமாக்கல்
+    error: 'ஒரு பிழை காணப்பட்டது:'
+    explore: கண்டறிக
+    field_required: இப்புலம் தேவை
+    greeting2: வருக!
+    greeting_extended: விக்கிப்பீடியாவிற்கு வருக
+    greeting: வணக்கம்!
+    help: உதவி
+    home: முகப்பு
+    log_in_extended: விக்கிப்பீடியாவில் புகுபதிக
+    log_in: புகுபதிக
+    log_out: விடுபதிக
+    recent_activity: அண்மைய செயல்கள்
+    request_account_create: ஒரு கணக்கை உருவாக்கு
+    search: ஒரு கேள்வி கேள்
+    sign_up: பதிவு செய்
+    submit: சமர்ப்பி
+    training: பயிற்சி
+    change: மாற்று
+    details: விவரங்கள்
+    confirm: சரி
+    opt_in: ஆம்
+    opt_out: இல்லை
+    opt_yes: ஆம்
+    opt_no: இல்லை
+  home:
+    explore: கண்டறிக
+    log_in: விக்கிப்பீடியாவில் புகுபதிக
+  activity:
+    all: செயற்பாடு
+    label: செயற்பாடு
+  articles:
+    next: அடுத்தது
+    previous: முந்திய
+    article_title: கட்டுரைத் தலைப்பு
+    edited_mobile: கட்டுரைகள்
+    filter:
+      wiki_all: யாவும்
+      new: புதிய
+    hide: மறை
+    history: (வரலாறு)
+    label: கட்டுரைகள்
+    new: (புதிது)
+    see_more: மேலும் பார்
+    title: தலைப்பு
+    title_example: கட்டுரைத் தலைப்பு
+    view: கட்டுரையைப் பார்
+    view_all: யாவையும் பார்
+    view_on_wiki: விக்கியிற் பார்
+    edit_size: தொகுப்பளவு
+    wiki: விக்கி
+  assignments:
+    add_available_submit: கட்டுரைகளைச் சேர்
+    remove: நீக்கு
+    select: தெரிவு செய்
+  blocks:
+    milestones:
+      title: மைல் கல்
+  campaign:
+    add_organizer: ஒழுங்கமைப்பாளரைச் சேர்க்கவும்
+    alert_article: கட்டுரைத் தலைப்பு
+    alert_type: வகை
+    alert_user_id: பயனர்
+    campaign: பரப்புரை
+    campaigns: பரப்புரைகள்
+    created_at: தேதி
+    course: பாடநெறி
+    create_campaign: ஒரு புதிய பரப்புரையை உருவாக்கு
+    create_my_campaign: எனது பரப்புரையை உருவாக்கு!
+    description: விளக்கம்
+    delete_campaign: இப்பரப்புரையை நீக்கு
+    none: எதுவுமில்லை
+    organizers: ஒழுங்கமைப்பாளர்கள்
+    title: தலைப்பு
+  categories:
+    add_category: பகுப்பைச் சேர்
+    add_template: வார்ப்புருவைச் சேர்
+    add_this_category: இப்பகுப்பைச் சேர்
+    name: பெயர்
+    category_name: பகுப்புப் பெயர்
+    template_name: வார்ப்புருப் பெயர்
+    remove: நீக்கு
+  courses:
+    activity: செயற்பாடு
+    all_courses: எல்லாப் பாடநெறிகளும்
+    actions: செயல்கள்
+    articles: கட்டுரைகள்
+    cancel: கைவிடு
+    course: பாடநெறி
+    course_description: பாடநெறிகள்
+    courses: பாடநெறிகள்
+    creation_date: ஆக்கத் தேதி
+    creator:
+      clone_successful_details: காலவரிசையின்  கூற்றுக்களுடன் (வாரங்கள் மற்றும் தொகுதிகள்)
+        உங்களின் சேவை நகலாக்கப்பட்டது. இதுவரை கையாடாத தேதிகளை சேர்க்க வேண்டும். உங்களின்
+        சேவையில் வேறு ஏதேனும் மாற்றம் செய்ய வேண்டுமா ? புதுப்பிக்க தயங்க வேண்டாம்
+      end_date: முடிவுத்தேதி
+      end_date_placeholder: வவவவ-மாமா-தேதே
+      expected_number: எதிர்பார்க்கப்படும் மாணவர் எண்ணிக்கை
+      role_description_options:
+      - பயிற்றுவிப்பாளர்
+      - கற்பித்தல் உதவியாளர்
+      start_date: தொடக்கத் தேதி
+      start_date_placeholder: வவவவ-மாமா-தேதே
+      subject: பொருள்
+    edit_count: மொத்தத் தொகுப்பு
+    end: முடிவு
+    feedback: பின்னூட்டம்
+    join: சேர்க்க
+    my_articles: எனது கட்டுரைகள்
+    new_account_email: மின்னஞ்சல் முகவரி
+    new_account_email_placeholder: name@example.org
+    none: எதுவுமில்லை
+    overview: முகப்பு
+    private: தனிப்பட்ட
+    requested_accounts_alert_view: பார்
+    school: பள்ளி
+    start: தொடங்கு
+    students: மாணவர்கள்
+    students_short: மாணவர்கள்
+    subject: பொருள்
+    submitted: பணிந்தனுப்பப்பட்டது
+    timeline_link: காலவரிசை
+    title: தலைப்பு
+  courses_generic:
+    course: நிகழ்ச்சி
+    courses: நிகழ்ச்சிகள்
+    creator:
+      assignment_end_placeholder: வவவவ-மாமா-தேதே
+      assignment_start_placeholder: வவவவ-மாமா-தேதே
+      course_school: நிறுவனம்
+      course_term: எப்பொழுது
+      course_term_placeholder: எப்பொழுது
+      course_title: நிகழ்ச்சித் தலைப்பு
+      create_button: எனது நிகழ்ச்சியை உருவாக்குக!
+      create_label: புதிய நிகழ்ச்சியை உருவாக்குக
+      create_short: நிகழ்ச்சியை உருவாக்குக
+      save_cloned_course: சேமி
+    instructors: வழிநடத்துபவர்
+    join_course: நிகழ்ச்சியில் இணைக
+    leave_course: நிகழ்ச்சியிலிருந்து விலகுக
+    request_accounts: கணக்குக்களைக் கோருக
+    school: நிறுவனம்
+    search_courses: நிகழ்ச்சிகளில் தேடு
+    student_editors: தொகுப்பாளர்கள்
+    students: தொகுப்பாளர்கள்
+    students_taught: மொத்தத் தொகுப்பாளர்கள்
+    students_short: தொகுப்பாளர்கள்
+    term: எப்பொழுது
+  editable:
+    edit: தொகு
+    cancel: கைவிடுக
+    save: சேமி
+    edit_description: விவரத்தைத் தொகு
+  metrics:
+    activity: அண்மைய செயல்கள்
+    articles_created: உருவாக்கியக் கட்டுரைகள்
+    articles_edited: தொகுத்தக் கட்டுரைகள்
+    bytes_added: சேர்க்கப்பட்ட எண்ணுண்மிகள்
+    characters: உருக்கள்
+    date_time: நாள்/நேரம்
+    edit_count_description: மொத்தத் தொகுப்புக்கள்
+    revisions: அண்மையத் தொகுப்புகள்
+    tags: குறிச்சொற்கள்
+    upload_count: பொதுவகப் பதிவேற்றங்கள்
+    view_count_description: கட்டுரைப் பார்வைகள்
+    view: பார்வைகள்
+    word_count: சேர்க்கப்பட்ட வார்த்தைகள்
+  namespace:
+    main: முதன்மைவெளி
+    user: பயனர்வெளி
+    file: கோப்பு
+    mediaWiki: மீடியாவிக்கி
+    help: உதவி
+    page: பக்கம்
+    translation: மொழிபெயர்ப்பு
+    school: பள்ளி
+  recent_activity:
+    article_title: கட்டுரைத் தலைப்பு
+    datetime: நாள்/நேரம்
+    image: படம்
+  revisions:
+    diff_show: காட்டுக
+    diff_hide: மறை
+    title: தலைப்பு
+    see_more: மேலும் பார்
+  settings:
+    admin_users:
+      new:
+        form_placeholder: பயனர் பெயர்
+    special_users:
+      new:
+        form_placeholder: பயனர் பெயர்
+  training:
+    start: தொடங்குக
+    view: பார்வையிடு
+    next: அடுத்தப் பக்கம்
+    page: பக்கம்
+    done: முடிந்தது !
+  update_username:
+    header: மாற்றிய உங்களது புதிய பயனர் பெயரை இற்றை செய்யவும்.
+    not_found: உள்ளிட்ட பயனர்பெயரில் எந்தப் பயனரும் இல்லை.
+    username_updated: பயனர்பெயர் வெற்றிகரமாக இற்றைப்படுத்தப்பட்டது!
+    info: ஒரு பயனர் தனது விக்கிமீடியா கணக்கிற்கான பயனர்பெயரை மாற்றியிருந்தால், முகப்பலகத்தில்
+      புதுப்பிப்பதற்கு புதிய பெயரை இங்கே உள்ளிடவும்.
+    label: புதிய பயனர் பெயர்
+    button: இற்றைப்படுத்து
+  uploads:
+    file_name: கோப்பின் பெயர்
+    image: படம்
+    label: பதிவேற்றுக
+  users:
+    assign_articles_done: முடிந்தது
+    editors: தொகுப்பாளர்கள்
+    first_name: முதற்பெயர்
+    last_name: கடைசிப் பெயர்
+    name: பெயர்
+    recent_revisions: அண்மையத் தொகுப்புகள்
+    ungreeted: வரவேற்பு மறுக்கப்பட்டோர்
+    username: பயனர் பெயர்
+    username_placeholder: பயனர் பெயர்
+    useremail_placeholder: மின்னஞ்சல்
+...

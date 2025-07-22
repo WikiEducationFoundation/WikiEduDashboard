@@ -1,0 +1,464 @@
+# Messages for Hindi (हिन्दी)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Abijeet Patro
+# Author: Anamdas
+# Author: AnupamM
+# Author: Bhatakati aatma
+# Author: Gopalindians
+# Author: Nitin1485
+# Author: Prong$31
+# Author: Rajat11
+# Author: Rajatkatiyar10
+# Author: Sachinkatiyar
+# Author: Sfic
+# Author: Smtchahal
+# Author: Suyash.dwivedi
+# Author: Swapnil.Karambelkar
+# Author: Upendradutt93
+# Author: Wassan.anmol
+# Author: गोपाल
+# Author: चक्रपाणी
+# Author: जनक राज भट्ट
+---
+hi:
+  accessibility:
+    number_field: यह एक नंबर वाली जगह है। कई ब्राउज़र में निहित बटन से निवेश में बढ़ोतरी
+      या कमी आएगी।
+  application:
+    back: पीछे जाएँ
+    cancel: रद्द करें
+    cookie_consent: यह साइट आपको लॉग इन रखने के लिए कुकीज़ का उपयोग करती है और आपके
+      विकिपीडिया खाते से संबंधित जानकारी संग्रहीत करती है।
+    cookie_consent_see_more: और देखें
+    create_accounts: विकिपीडिया खाते बनाएँ
+    dashboard: विकि शिक्षा डैशबोर्ड
+    documentation: प्रलेखन
+    error: 'एक त्रुटि हुई:'
+    explore: अन्वेषण करें
+    field_required: इस फ़ील्ड की आवश्यकता है
+    field_invalid_characters: इस स्थान पर गलत लिपिचिंह हैं।
+    field_invalid_date: इस जगह पर तारीख YYYY-MM-DD रूप में होगी।
+    field_invalid_date_time: अंत शुरुआत के बाद होगा। (घंटे 0 से 23 में होंगे।)
+    greeting2: स्वागत है!
+    greeting_extended: विकिपीडिया पर आपका स्वागत है
+    greeting: नमस्ते!
+    help: सहायता
+    home: घर
+    log_in_extended: विकिपीडिया में लॉग-इन करें
+    log_in: लॉग-इन करें
+    log_out: लॉग-आउट करें
+    my_dashboard: मेरा डैशबोर्ड
+    recent_activity: हाल की गतिविधि
+    report_problem: समस्या की सूचना दें
+    request_account: अकाउंट हेतु अनुरोध
+    request_account_create: खाता बनायें
+    search: सवाल पूछें
+    sign_up_extended: विकिपीडिया के साथ जुड़ें
+    sign_up_wikipedia: या विकिपीडिया पर साइन-अप करें
+    sign_up_log_in_extended: विकिपीडिया के साथ
+    sign_up: साइन-अप करें
+    submit: जमा करें
+    training: प्रशिक्षण
+    change: बदलें
+    details: विवरण
+    confirm: ठीक है
+    opt_in: हाँ
+    opt_out: नहीं
+    opt_yes: हाँ
+    opt_no: नहीं
+    print: प्रिंट करें
+  article_statuses:
+    not_yet_started: शुरुआत कर रहे हैं
+    reading_the_article: लेख पढ़ रहे हैं
+    providing_feedback: प्रतिक्रिया प्रदान कर रहे हैं
+    post_to_talk: टॉक पेज पर पोस्ट कर रहे हैं
+    peer_review_completed: समीक्षा पूरी की गई
+  dashboard:
+    create_note: अपना पहला पाठ्यक्रम बनाने के लिए पाठ्यक्रम बनाएँ पर क्लिक करें।
+    create_preparation_note: शुरू करने से पहले अपने अकादमिक कैलेंडर को अपने पास रखें;
+      असाइनमेंट डिज़ाइन टूल आपके क्लास की मीटिंग तिथियों का उपयोग करेगा - जिसमें कोई
+      स्कूल ब्रेक और छुट्टियां शामिल हैं - जो आप चुनते हुए समय की तारीख सीमा में फिट
+      करते हैं। याद रखें, आप अपनी आवश्यकताओं को पूरा करने के लिए हमेशा समयरेखा संपादित
+      कर सकते हैं।
+    explore_course_pages: पाठ्यक्रम पन्नों के बारे में खोजें
+    explore_examples: उदाहरण खोजें
+    join_note: एक बार जब आप अपने निर्देशक से पासकोड प्राप्त कर लें, तो उसे ढूंढने
+      और उससे जुड़ने के लिए अपना कोर्स ढूंढें पर क्लिक करें।
+    no_courses_instructor: लगता है कि आप किसी कोर्स से नहीं जुड़े हुए हैं।
+    no_courses_student: लगता है कि आप किसी भी कोर्स से नहीं जुड़े हैं।
+    opt_out: निर्देशन से जुड़ने के लिए अर्जी दें
+    orientation_notice: एक कोर्स बनाने से पहले आप, शुरूआत करने में आपकी सहायता करने
+      के लिए चलें, अपने निर्देशन के माध्यम से चलें। (इसे पूरा होने में लगभग 30 मिनट
+      लगते हैं।)
+    review_orientation: निर्देशन की समीक्षा करें
+    start_orientation: निर्देशन शुरू करें
+    blog_headline: विकिएड की हाल की खबरें
+    about_programs: यह साइट कार्यक्रमों के माध्यम से विकी गतिविधियों को ट्रैक करती
+      है - व्यक्तिगत घटनाएं जैसे कार्यक्रम या विद्यालय पाठ्यक्रम संपादित करें। प्रत्येक
+      कार्यक्रम एक या अधिक अभियान का हिस्सा है, जो सभी कार्यक्रमों में समग्र आंकड़े
+      प्रदान करते हैं
+    about_creating_programs: यदि आप एक एकल, स्वतंत्र घटना को चला रहे हैं, तो आप अब
+      एक कार्यक्रम बना सकते हैं। यदि आपका कार्यक्रम कुछ बड़े का हिस्सा है, तो इसके
+      लिए अभियान ढूंढें या बनाएं। फिर आप अभियान पृष्ठ से एक नया प्रोग्राम बना सकते
+      हैं
+  home:
+    explore: अन्वेषण
+    log_in: विकिपीडिया से लॉग-इन करें
+    sign_up: विकिपीडिया के साथ जुड़ें
+    sign_up_help: डैशबोर्ड का उपयोग करने के लिए, आपको विकिपीडिया के माध्यम से साइन
+      इन करना होगा और इसे अपने खाते तक पहुंचने की अनुमति देना होगा। आप मौजूदा विकिपीडिया
+      खाते से लॉग इन कर सकते हैं, या एक नया खाता बना सकते हैं।
+  alerts:
+    alert_label: सूचना
+  activity:
+    all: गतिविधि
+    edited_by: द्वारा संपादित
+    label: गतिविधि
+  articles:
+    articles: लेख
+    article_not_found: यह लेख अभी तक नहीं बनाया गया है।
+    article_development: |2-
+
+      (लेख का विकास)
+    assigned: निरुपित किए गए लेख
+    available: उपलब्ध लेख
+    no_available: कोई उपलब्ध लेख नहीं है
+    next: अगला
+    previous: पिछला
+    article_title: लेख का शीर्षक
+    assigned_to: को निरूपित
+    character_doc: प्रारंभिक और समाप्ति तिथियों के बीच नामांकित संपादकों के लेखों
+      में वर्णों का योग
+    cross_wiki_tracking: प्रारंभ और समाप्ति तिथियों के बीच संपादित मुख्य पेज को नीचे
+      सूचीबद्ध किया गया है। डैशबोर्ड इस कार्यक्रम को गृह विकी से योगदान में खींचता
+      है, साथ ही किसी अन्य विकी के लिए जिसके लिए सौंपा हुआ कार्य या उपलब्ध लेख है
+    deleted: (हटाया गया)
+    edited: संपादित लेख
+    edited_by: 'संपादनकर्ता:'
+    edited_mobile: लेख
+    edited_none: अभी तक कोई संपादित लेख नहीं हैं।
+    filter:
+      wiki_all: सभी
+      new: नया
+      existing: मौजूदा
+      new_and_existing: नया और मौजूदा
+    find: लेख खोजें
+    how_to_find: लेख कैसे खोजें
+    hide: छिपाएँ
+    history: (इतिहास)
+    label: लेख
+    loading: लेख लोड हो रहे हैं...
+    new: (नया)
+    none: इस कोर्स ने किसी भी लेख को संपादित नहीं किया है।
+    preview: लेख का संक्षिप्त पूर्वावलोकन
+    rating: कक्षा
+    rating_doc: विकीप्रोजेक्ट द्वारा एक लेख को विकिपीडिया पर श्रेणी निर्धारण के लिए
+      सौंपा गया है। ये रेटिंग अधिक पुराने संस्करणों से मेल खा सकते हैं, इसलिए वे लेख
+      परिपक्वता के सिर्फ एक मोटे सूचक हैं
+    rating_docs:
+      fa: प्रधान आलेख - विकिपीडिया की सबसे ऊंची रेटिंग, शायद एक नए संपादक की मुख्य
+        परियोजना के लिए एक पर्याप्त परिपक्व
+      fl: प्रधान सूची - सूची के लिए विकिपीडिया की सर्वोच्च रेटिंग
+      a: ए-क्लास - बहुत विकसित लेख जो कि एक नए संपादक की मुख्य परियोजना के लिए एक
+        पर्याप्त परिपक्व लेख हो सकता है
+      ga: अच्छा लेख - एक अच्छी तरह से विकसित लेख जो एक नए संपादक की मुख्य परियोजना
+        के लिए भी एक परिपक्व लेख हो सकता है
+      b: बी-क्लास - एक मामूली विकसित लेख
+      c: सी-क्लास - सुधार के लिए जगह के साथ एक मध्यवर्ती लेख
+      start: प्रारंभिक-कक्षा - सुधार के लिए बहुत सारी जगह के साथ एक प्रारंभिक लेख
+      stub: टुकड़ी कक्षा - एक लेख की एक छोटी शुरुआत जिसमें अधिक सामग्री की आवश्यकता
+        होती है
+      list: सूची-कक्षा - एक परंपरागत लेख के बजाय एक सूची
+      '?': बिना मूल्यांकन का - एक लेख जिसे अभी तक विकिपीडिया की गुणवत्ता के पैमाने
+        पर मूल्यांकन नहीं किया गया है
+      does_not_exist: यह लेख विकिपीडिया पर मौजूद नहीं है
+    see_more: और देखें
+    show_cumulative_changes: संचयी परिवर्तन दिखाएं
+    show_current_version: वर्तमान संस्करण दिखाएं
+    title: शीर्षक
+    title_example: लेख का शीर्षक
+    view: लेख देखें
+    view_all: सभी देखें
+    view_doc: परियोजना के दौरान प्रत्येक आलेख में सभी दृश्यों का योग
+    view_on_wiki: विकी पर देखें
+    views_added: '%{count} के लिए %{title} नया दृश्य जोड़ा गया'
+    edit_size: आकार संपादित करें
+    wiki: विकी
+    wp10: संरचनात्मक पूर्णता
+    wp10_doc: '''संरचनात्मक पूर्णता'' अंक मशीन सीखने-आधारित उद्देश्य संशोधन मूल्यांकन
+      सेवा (https://ores.wikimedia.org/) के आधार पर, एक परिपक्व विकिपीडिया लेख के
+      ढालने में कितना बारीकी से एक लेख का प्रतिनिधित्व करता है। ये स्कोर एक आलेख के
+      आकार, संदर्भों और विकीलिंक्स की संख्या और अन्य बुनियादी पाठ सुविधाओं के आधार
+      पर गणना किए जाते हैं। एक उच्च अंक आमतौर पर इंगित करता है कि एक लेख एक अच्छा
+      लेख की संरचना के लिए विकिपीडिया के सम्मेलनों का पालन करता है, लेकिन यह सामग्री
+      को अपनेआप ध्यान में नहीं लेता है (ये स्कोर केवल अंग्रेज़ी विकिपीडिया लेखों के
+      लिए उपलब्ध हैं।)'
+    articles_short: लेख
+  items:
+    available: उपलब्ध आइटम
+    find: आइटम ढूंढें
+    how_to_find: आइटम कैसे खोजें
+    search: किसी आइटम के लिए विकिडेटा खोजें
+  articles_generic:
+    articles_short: पृष्ठ
+  assignments:
+    article: लेख %{title} को असाइन किया गया था
+    article_link: लेख
+    already_exists: यह सौंपा गया कार्य पहले से मौजूद है!
+    title_too_large: शीर्षक 255 वर्णों से अधिक नहीं होना चाहिए
+    assignees: अनुदिष्ट(रों)
+    assign_other: एक लेख निर्दिष्ट करें
+    add_available: एक उपलब्ध लेख जोड़ें
+    add_available_submit: लेख जोड़ें
+    assign_self: अपने आप को एक लेख निरुपित करें
+    assign_tooltip: एक निर्धारित लेख वह है जिसे आप बनाने या सुधारने की योजना बनाते
+      हैं।
+    confirm_add_available: क्या आप वाकई %{title} जोड़ना चाहते हैं?
+    confirm_addition: क्या आप वाकई %{title} को %{username} पर निरूपित करना चाहते हैं?
+    confirm_deletion: क्या आप वाकई इस आलेख के सौंपे गए कार्य को हटाना चाहते हैं?
+    label: निर्धारित करें
+    loading: सौंपे गए कार्य भर रहे...
+    none_short: कोई आलेख नहीं सौंपा गया
+    none: इस पाठ्यक्रम में कोई सौंपा गया लेख नहीं है।
+    no_available: इस पाठ्यक्रम में कोई उपलब्ध लेख नहीं है।
+    remove: हटाएं
+    reviewers: समीक्षक(रों)
+    review_other: समीक्षा सौंपे
+    review_self: एक लेख की समीक्षा करें
+    review_tooltip: यह उस लेख पर नजर रखने के लिए है, जिस पर आप समीक्षा करने या प्रतिक्रिया
+      देने की योजना बनाते हैं।
+    select: चयन करें
+    submit: जमा करें
+  blocks:
+    milestones:
+      title: मील के पत्थर
+  campaign:
+    active_campaigns: सक्रिय अभियान
+    add_organizer: आयोजक जोड़ें
+    alert_article: लेख का शीर्षक
+    alert_user_id: सदस्य
+    all_campaigns: सभी अभियान
+    already_exists: वह अभियान पहले से मौजूद है! कृपया एक अलग शीर्षक या स्लग के साथ
+      पुनः प्रयास करें।
+    campaign: अभियान
+    campaigns: अभियान
+    campaign_deleted: अभियान "%{title}" हटा दिया गया है
+    campaign_not_updated: अभियान का नवीनीकरण नहीं किया जा सका
+    campaign_updated: अभियान का नवीनीकरण किया गया
+    created_at: दिनांक
+    confirm_campaign_deletion: क्या आप वाकई "%{title}" नामक अभियान को हटाना चाहते
+      हैं? यदि हां, तो आगे बढ़ने के लिए अभियान का शीर्षक टाइप करें।
+    confirm_campaign_deletion_failed: '"%{title}" इस अभियान का शीर्षक नहीं है। अभियान
+      हटाया नहीं गया है।'
+    confirm_course_removal: क्या आप वाकई "%{campaign_title}" अभियान से "%{title}"
+      निकालना चाहते हैं?
+    course_already_removed: '"%{campaign_title}" अभियान से "%{title}" पहले से ही निकाल
+      दिया गया था'
+    course: कोर्स
+    course_removed: '"%{campaign_title}" अभियान से "%{title}" हटा दिया गया है'
+    create_campaign: नया अभियान बनाए
+    create_my_campaign: अपना अभियान बनाएं!
+    data_wikidata: विकिडेटा आँकड़े
+    data_wikidata_info: संपादन सारांश के आधार पर विकिडेटा गतिविधि का विस्तृत विश्लेषण
+    description: विवरण
+    delete_campaign: यह अभियान हटाएं
+    none: कोई नहीं
+    organizers: व्यवस्थापक
+    organizer_added: '%{user} अब "%{title}" अभियान का एक आयोजक है'
+    organizer_removed: '%{user} को "%{title}" अभियान के एक आयोजक के रूप में हटा दिया
+      गया है'
+    program_template: कार्यक्रम नमूना
+    program_template_tooltip: जब एक आयोजक इस अभियान में एक कार्यक्रम तैयार करता है,
+      तो इस क्षेत्र के पाठ को प्रोग्राम पेज पर वर्णन के रूप में कॉपी किया जाएगा
+    resolve: समाधान करें
+    title: शीर्षक
+    use_start_end_dates: प्रारंभ और समाप्ति तिथियों का उपयोग करें
+    search: खोजें
+  categories:
+    name: नाम
+    category_name: श्रेणी का नाम
+    remove: हटायें
+    timestamp: अन्तिम अद्यतन
+  courses:
+    school_system: शैक्षणिक प्रणाली
+    activity: गतिविधि
+    active_courses: सक्रिय %{course_type}
+    all_courses: सभी पाठ्यक्रम
+    already_enrolled: आप पहले से ही '%{title} का हिस्सा हैं
+    already_exists: यह पहले से ही इस कोर्स के लिए मौजूद है!
+    archived: संग्रहीत पाठ्यक्रम
+    actions: क्रियाएँ
+    articles: लेख
+    article_viewer: लेख जिनकी मेरे सहकर्मी समीक्षा कर रहे हैं
+    assignment_end: सौंपा गया कार्य खत्म
+    assignment_start: सौंपा गया कार्य शुरू करें
+    calendar:
+      legend: कुंजी
+      legend_class_canceled: छुट्टी/रद्द
+      legend_class_meeting: कक्षा की बैठक
+      legend_class_not_meeting: कोई अनुसूचित बैठक नहीं
+      select_meeting_days: उस सप्ताह के दिनों का चयन करें जिस पर आपकी कक्षाएं मिलती
+        हैं।
+    cancel: रद्द करें
+    character_doc: पाठ्यक्रम अवधि के दौरान पाठ्यक्रम के छात्रों द्वारा वर्णों के योग
+      को मुख्य जगह वाले लेखों में जोड़ा गया
+    campaigns: अभियान
+    campaign_articles: '%{title} लेख'
+    campaign_courses: '%{title} पाठ्यक्रम'
+    campaign_select: एक अभियान चुनें
+    campaign_users: '%{title} संपादक'
+    confirm_course_deletion: क्या आप वाकई "%{title}" नामक पाठ्यक्रम को हटाना चाहते
+      हैं? यदि हां, तो आगे बढ़ने के लिए पाठ्यक्रम का शीर्षक टाइप करें।
+    confirm_course_deletion_failed: '"%{title}" इस पाठ्यक्रम का शीर्षक नहीं है। कोर्स
+      हटाया नहीं गया है।'
+    confirm_manual_update: क्या आप वाकई मैन्युअल अपडेट को चलाना चाहते हैं? सबसे हालिया
+      संशोधन लिए जाएंगे और फिर पृष्ठ पुनः लोड होगा। इस प्रक्रिया में कुछ समय लग सकता
+      है|
+    course: पाठ्यक्रम
+    course_type_label: 'प्रकार:'
+    course_dates_calendar_instructions: अनुसूची से उन्हें जोड़ने या निकालने की तिथियों
+      का चयन करें (उदाहरण, छुट्टियां, कोई विद्यालय नहीं)। अचयनित, चयनित और अवकाश राज्य
+      के बीच बदलने के लिए तिथि को क्लिक करें। पाठ्यक्रम की तारीखों की तिथियां उन हफ्तों
+      तक खाते में बदल जाएंगी जिनके पास कोई निर्धारित बैठक नहीं है।
+    course_description: पाठ्यक्रम
+    courses: पाठ्यक्रम
+    courses_taught: पढ़ाए गए पाठ्यक्रम
+    creation_date: बनाने की तिथि
+    creator:
+      already_exists: यह पाठ्यक्रम पहले से मौजूद है। इसे अद्वितीय बनाने के लिए नाम,
+        विद्यालय या शब्द बदलने पर विचार करें।
+      assignment_end: सौंपा गया कार्य खत्म
+      assignment_end_placeholder: सौंपा गया कार्य खत्म(YYYY-MM-DD)
+      assignment_start: सौंपा गया कार्य शुरू
+      assignment_start_placeholder: सौंपा गया कार्य शुरू (YYYY-MM-DD)
+      checking_for_uniqueness: विशिष्टता के लिए इस कोर्स की जांच की जा रही है।
+      choose_clone: क्लोन करने के लिए एक कोर्स चुनें।
+      clone_previous: पिछले कोर्स का क्लोन बनाएं
+      clone_this: इस पाठ्यक्रम का क्लोन बनाएं
+      cloned_course_calendar_instructions: अनुसूची से उन्हें जोड़ने या निकालने की
+        तिथियों का चयन करें (उदाहरण, छुट्टियां, कोई विद्यालय नहीं)। अचयनित, चयनित
+        और अवकाश राज्य के बीच बदलने के लिए तिथि को क्लिक करें। अगर आपके पास छुट्टियां
+        नहीं हैं, तो जांच करें "मेरे पास कक्षा छुट्टियां नहीं हैं"। क्लोन समयरेखा
+        उन तारीखों के लिए स्वचालित रूप से तिथियों को समायोजित कर देगा, जिनके पास कोई
+        निर्धारित बैठक नहीं है।
+      clone_successful: पाठ्यक्रम का सफलतापूर्वक क्लोन बनाया गया
+      course_term_placeholder: अवधि
+      course_types:
+        edit_a_thon_name: एडिट-अ-थॉन
+      start_date: प्रारम्भ तिथि
+      start_date_placeholder: YYYY-MM-DD
+      subject: विषय
+    delete_suggestion: हटाएँ
+    expected_students: अपेक्षित छात्र
+    feedback: आपके सुझाव
+    instructors: शिक्षक
+    join: शामिल हों
+    join_course: पाठ्यक्रम में शामिल हों
+    join_no_passcode: क्या आप वाकई इस पाठ्यक्रम में शामिल होना चाहते हैं?
+    loading: लोड हो रहा है…
+    private: निजी
+    school: विद्यालय
+    start: आरम्भ
+    start_typing: लिखना शुरू करें
+    student_editors: छात्र संपादक
+    subject: विषय
+    term: अवधि
+    update_stats: आँकड़े सुधारे
+    withdrawn: वापस ले लिया
+  courses_generic:
+    school_system: शैक्षणिक प्रणाली
+    add_campaign: अभियान जोड़ें
+    all_courses: सभी पाठ्यक्रम
+    articles_i_am_reviewing: लेख जिनकी मैं समीक्षा कर रहा हूं
+    course: प्रोग्राम
+    creator:
+      assignment_end_placeholder: YYYY-MM-DD
+      scoping_methods:
+        categories: श्रेणियाँ
+    school: संस्थान
+    student_editors: सम्पादक
+    students_short: संपादक
+    view_page: पृष्ठ देखें
+  editable:
+    edit: सम्पादन
+    cancel: रद्द करें
+    save: सहेजें
+  metrics:
+    general: सामान्य
+    created: बनाया गया
+    removed: हटाया गया
+    added: जोड़ा गया
+  namespace:
+    file: फ़ाइल
+    help: सहायता
+    page: पृष्ठ
+    book: पुस्तक
+    property: गुणधर्म
+    school: विद्यालय
+    author: लेखक
+  recent_activity:
+    article_title: लेख शीर्षक
+    datetime: दिनांक/समय
+    did_you_know_eligible: क्या आप योग्य को जानते हैं
+    image: छवि
+    file_name: फ़ाइल का नाम
+    no_dyk_eligible: अभी कोई DYK-योग्य आर्टिकल नहीं है।
+    no_plagiarism: वर्तमान में कोई भी नवीनतम संशोधन साहित्यिक चोरी के संदिग्ध नहीं
+      हैं।
+    no_edits: हाल के कोई संपादन नहीं हैं।
+    possible_plagiarism: संभावित साहित्य चोरी
+    recent_edits: हाल के संपादन
+    show_courses: केवल मेरे पाठ्यक्रम ही दिखाएं
+  revisions:
+    class: कक्षा
+    title: शीर्षक
+  settings:
+    categories:
+      users: सदस्य
+    admin_users:
+      new:
+        form_placeholder: सदस्यनाम
+    special_users:
+      new:
+        form_placeholder: सदस्यनाम
+  timeline:
+    block_resources: संसाधन
+    done: पूर्ण हुआ
+    empty_week_3: या
+  training:
+    next: अगला पृष्ठ
+    page: पृष्ठ
+    training_library: प्रशिक्षण पुस्तकालय
+    done: पूर्ण हुआ!
+  uploads:
+    uploaded_at: अपलोड की गई
+  users:
+    assign_articles_done: पूर्ण हुआ
+    loading_authorship_data: ग्रन्थकारिता डाटा लोड किया जा रहा है
+    authorship_data_not_fetched: ग्रन्थकारिता का डेटा प्राप्त नहीं कर पा रहे हैं
+    edits_by: 'संपादनकर्ता:'
+    exercises_and_trainings: व्यायाम और प्रशिक्षण
+    profile: प्रोफ़ाइल
+    revisions: संशोधन
+    sub_navigation:
+      assignments_and_exercises: कार्य और अभ्यास
+      student_overview: '%{prefix} अवलोकन'
+  training_status:
+    completed: पूर्ण
+    not_started: प्रारम्भ नहीं हुआ
+  news:
+    post_confirmation:
+      confirmation: कृपया पुष्टि करें।
+    options:
+      news_content:
+        cancel_delete: रद्द करें
+  notes:
+    title: शीर्षक
+    cancel_note_creation: रद्द करें
+    save_note: सहेजें
+    admin:
+      aria_label:
+        no_notes_available: पैनल में कोई एडमिन नोट उपलब्ध नहीं है। एडमिन नोट्स पैनल
+          खोलने के लिए रिटर्न दबाएँ।
+...

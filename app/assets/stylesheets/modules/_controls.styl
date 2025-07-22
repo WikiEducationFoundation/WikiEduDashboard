@@ -1,0 +1,251 @@
+// Sub Navigation
+
+nav.sub-navigation
+  background smoke
+  display flex
+  h3
+    margin 10px
+    width 50%
+  ul
+    border-radius 0.5rem
+    text-align right
+    width 100%
+    li
+      display inline-block
+      font-family $header-font
+      font-size 2rem
+      margin-left 20px
+  .button.active
+    background dove
+    color smoke
+    cursor default
+  .button.disabled, a[disabled]
+    pointer-events none
+
+// Controls
+
+.controls
+  padding 20px 0
+  position absolute
+  right 0
+  top 0
+  text-align right
+
+.list__wrapper
+  .controls
+    right 10px
+    +above(desktop)
+      right 74px
+  .wrap-filters
+    margin-top: -10px
+    float right
+    b
+      margin-right: 10px
+      font-size: 14px;
+    select
+      font-size: 13px;
+      font-weight: 600;
+
+  .action-buttons-container
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+  .action-buttons-container > *
+    margin-right: 10px;
+
+// Button
+
+// ensures inline display of a button with a div that contains another button
+.inline-button-peer
+  display inline-block
+
+.button, input.button
+  background-color mercury
+  border 1px solid zircon
+  border-radius 3px
+  color body-color
+  cursor pointer
+  display inline-block
+  font-family body-font
+  font-size 14px
+  line-height 1.5
+  margin-left 0px
+  padding 8px 20px 8px
+  transition all .15s ease-out, color .15s ease-out
+  font-weight 600
+  text-decoration none
+
+  &.margin
+    margin-left 10px
+
+  &.stacked
+    margin-top 10px
+
+  &:hover
+    background-color white
+    border-bottom 1px solid zircon
+    color body-color
+
+  &.disabled,
+  &:disabled
+    cursor default
+    opacity 0.5
+    pointer-events none
+
+  & + &, select + &
+    margin-left 10px
+
+  &.ghost-button
+    background-color #fff
+    &:hover
+      background $border_lt
+
+  &.button--block
+    display block
+    width 100%
+    margin-left 0
+    text-align center
+
+  &.button--no-margin
+    margin-left 0
+
+  &.large
+    padding 18px 27px
+
+  &.border
+    background-color transparent
+    border 1px solid bayoux
+    color bayoux
+    font-weight 600
+    &:hover
+      background-color bayoux
+      color white
+
+  &.inverse-border
+    border none
+    box-shadow inset 0 0 0 1px #fff
+    color #fff
+
+    &:hover
+      background white
+      color $brand_primary
+
+  &.button--clear
+    border none
+    background transparent
+    &:hover
+      background-color rgba(0,0,0,.1)
+      color darken(body-color, 10%)
+
+  &.dark
+    background-color bayoux
+    border-color bayoux
+    color white
+    &:hover
+      background-color saturate(lighten(bayoux, 25%), 20%)
+      border-color saturate(lighten(bayoux, 25%), 20%)
+
+  &.small
+    font-size 12px
+    padding 4px 10px
+
+  &.danger:hover
+    background-color warning
+    border-color warning
+    color white
+
+  &.plus
+    border-radius 25px
+    display inline-block
+    height 25px
+    line-height 1.5
+    margin-left 5px !important
+    padding 0px
+    text-align center
+    width 25px
+
+  &.assign-selection-button
+    font-size 10px
+    padding 5px
+    margin-left 5px
+    border-radius 10px
+
+  &.assign-button
+    margin-left 5px !important
+    &.link
+      height 30px
+      position relative
+      top -1px
+
+  &.add-available-article
+    width 100%
+
+  &.right
+    float right
+
+  &.auth
+    > .icon
+      font-size 28px
+      vertical-align middle
+      margin: -6px -1px -4px -11px;
+      width: 40px;
+      line-height 0
+      display inline-block
+
+      &:before
+        vertical-align bottom
+
+  > .icon
+    vertical-align middle
+    margin 0px 0px 0px 3px
+
+  > .icon2
+    vertical-align middle
+    margin 0px 0px 0px 5px
+
+  > .icon3
+    vertical-align middle
+    margin 0px 0px 0px 20px
+
+tr.students .button.plus
+  width 20px
+  height 20px
+  line-height 10px
+
+
+.button.arrow:hover
+  background-color bayoux
+  border-bottom 1px solid manatee
+  color white
+  font-weight bold
+  &:after
+    content '\003e'
+    margin-left 5px
+
+
+// Link Buttons
+
+.link-button
+  background none
+  border none
+  padding 0
+  margin 0
+  text-decoration underline
+  color $brand_primary
+  &:focus
+    outline 0
+
+.small-block-link
+  display block
+  font-size 12px
+  margin-top 10px
+
+// Course Actions
+
+.sidebar__course-actions span
+  font-size 15px
+  color body-color
+

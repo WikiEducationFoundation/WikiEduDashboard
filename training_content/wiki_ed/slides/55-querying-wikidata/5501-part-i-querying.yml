@@ -1,0 +1,14 @@
+id: 5501
+title: "Part I: Welcome!"
+summary:
+content: |
+  You can read a Wikidata item about a particular person and learn key bits of
+  information about them, but as a human (<code>Q5</code>) it's usually easier
+  to access and piece together that information from a Wikipedia article. There
+  are tools that make Wikidata items easier to interpret
+  (<a href="https://reasonator.toolforge.org/">Reasonator</a> and
+  <a href="https://sqid.toolforge.org/#/">SQID</a> are some tools that Wikidata's
+  information easier to read), but the power of Wikidata doesn't come from
+  reading entries. The real power of Wikidata comes from queries.
+
+  In this training module, we'll explore the world of Wikidata queries.

@@ -1,0 +1,62 @@
+id: 612
+title: Upload a file
+summary:
+content: |
+  How you upload an image will depend on whether it’s your own work, or someone
+  else’s.
+
+  In all cases, go to <a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank">commons.wikimedia.org</a>
+  first, and make sure you are logged in. Click the Upload button (or "Upload file"
+  from the left-hand sidebar).
+
+  ----
+  ## If you find an image through Openverse
+  Download the image, make a note of the author, and a link to the original source.
+
+  * Select "This file is not my own work" when you begin your image upload.
+  * Give the name of the source of the image (a direct link is preferred).
+  * Name the original creator of the image (this can be an agency or organization).
+  * Beneath that, carefully select the source of the image from the options
+    provided, and select the license that matches the way the image is shared.
+
+  If you can't answer these questions, it may mean the image isn't appropriate
+  to use. Never try to work around these questions by claiming an image is yours
+  if it isn't. That's a copyright violation.
+
+  ----
+  ## If the work is your own work
+  If you took a photo of a landscape, person, or non-copyrighted object, that
+  photo is "your own work." Screenshots of copyrighted content are not your own
+  work, nor are images you took of a book page.
+
+  Select “This is my own work,” and enter your username in the blank space.
+  That’s all there is to it!
+
+
+translations:
+  es:
+    title: Empieza a compartir
+    content: |
+      La forma de subir una imagen dependerá de si es obra tuya o de otra persona.
+
+      En todos los casos, ve primero a <a href="https://commons.wikimedia.org/wiki/Main_Page" target="_blank">commons.wikimedia.org</a>
+      y asegúrate de haber iniciado sesión. Haz clic en el botón Subir (o en "Subir archivo" en la barra lateral izquierda).
+
+      ----
+      ## Si encuentras una imagen en Openverse
+      Descarga la imagen, anota el autor y un enlace a la fuente original.
+
+      * Selecciona "Este archivo no es de mi propiedad" cuando empieces a subir la imagen.
+      * Indica el nombre de la fuente de la imagen (es preferible un enlace directo).
+      * Nombra al creador original de la imagen (puede ser una agencia u organización).
+      * Debajo, selecciona cuidadosamente la fuente de la imagen entre las opciones proporcionadas, y selecciona la licencia que coincida con la forma de compartir la imagen.
+
+      Si no puedes responder estas preguntas, es posible que la imagen no sea apropiada para su uso.
+      Nunca intentes evadir estas preguntas afirmando que una imagen es tuya si no lo es.
+      Es una violación de los derechos de autor.
+  
+      ----
+      ## Si la obra es tuya
+      Si tomaste una foto de un paisaje, una persona o un objeto no protegido por derechos de autor, esa foto es "tu propia obra". Las capturas de pantalla de contenidos protegidos por derechos de autor no son obra tuya, como tampoco lo son las imágenes que tomaste de la página de un libro.
+
+      Selecciona "Esta es mi obra" e introduce tu nombre de usuario en el espacio en blanco. ¡Eso es todo!

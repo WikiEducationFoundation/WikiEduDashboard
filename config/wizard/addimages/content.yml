@@ -1,0 +1,94 @@
+# This file is chronological: blocks nearer the top will always appear before
+# blocks nearer the bottom when placed into a course's timeline
+
+# Block kind
+# 0. In class
+# 1. Assignment
+# 2. Milestone
+# 3. Custom
+# 4. Training
+
+# Week weight
+# - The app will attempt to evenly distribute weights across the course timeline
+# - Higher weights will be more likely to stand on their own
+# - Weights may be any positive number but 1-10 is recommended
+
+illustrate:
+  - # generic preparation material
+    weight: 1
+    blocks:
+      - title: Wikipedia essentials
+        kind: 0
+        content: |
+          <p>
+            Welcome to your Wikipedia project's course timeline. This page will
+            guide you through the Wikipedia project for your course. Be sure to
+            check with your instructor to see if there are other pages you should
+            be following as well.
+          </p>
+          <p>
+            Your course has also been assigned a Wikipedia Expert. Check
+            your Talk page for notes from them. You can also reach them through
+            the "<strong>Get Help</strong>" button on this page.
+          </p>
+          <p>
+            To get started, please review the following handouts:
+          </p>
+          <ul>
+            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 1–5</li>
+            <li><a href="https://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></li>
+          </ul>
+
+      - title: Learn the basics
+        kind: 1
+        graded: true
+        training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
+        content: |
+          <ul>
+            <li>
+              Create an account and join this course page, using the  enrollment
+              link your instructor sent you. (To avoid hitting Wikipedia's account
+              creation limits, this is best done outside of class. Only 6 new accounts
+              may be created per day from the same IP address.)
+            </li>
+            <li>
+              It's time to dive into Wikipedia. Below, you'll find the first set
+              of online trainings you'll need to take. New modules will appear
+              on this timeline as you get to new milestones. Be sure to check
+              back and complete them! Incomplete trainings will be reflected in
+              your grade.
+            </li>
+          </ul>
+
+  - # ILLUSTRATE
+    weight: 1
+    blocks:
+      -
+        title: Illustrate an article
+        kind: 1
+        graded: true
+        training_module_ids: [28, 6] # How to edit, Images and media
+        points: 20
+        content: |
+          <p>You'll want to find or create an appropriate photo, illustration, or piece of video/audio to add to an article.</p>
+          <ul>
+            <li>
+              Before you start, review the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook,
+              or see <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 10–11.
+            </li>
+            <li>When you've reviewed those pages, take the training linked below.</li>
+            <li>
+              When you're ready to start finding images, remember: <strong>Never</strong>
+              grab images you find through an image search, or those found on
+              Instagram, Tumblr, Reddit, Imgur, or even so-called "Free image" or
+              "free stock photo" websites. Instead, you'll want to find images
+              with clear proof that the creator has given permission to use their
+              work. Many of these images can be found on
+              <a href="https://wordpress.org/openverse//">wordpress.org/openverse</a>.
+            </li>
+            <li>
+               Don't just upload an image to Wikipedia. Instead, upload it to
+               Wikipedia's sister site for images, Wikimedia Commons. For
+               instructions, read through the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook.
+            </li>
+          </ul>

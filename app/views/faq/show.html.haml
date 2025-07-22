@@ -1,0 +1,10 @@
+= hot_javascript_tag 'accordian'
+- content_for :before_title, "FAQ - #{@faq.title}"
+.container
+  .faq-list
+    %a{href: '/faq'} FAQs
+    =" > #{@faq.title}"
+    = render 'faq', faq: @faq, expanded: true
+  .faq-feedback
+    Can't find what you're looking for? Something wrong, missing, or confusing?
+    %a{href: '/feedback' } Let us know.

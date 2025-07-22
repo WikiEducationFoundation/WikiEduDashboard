@@ -1,0 +1,38 @@
+id: 4702
+title: "Sign up for a Wikipedia account"
+summary:
+content: |
+  Before we continue, you'll need to sign in to a Wikipedia account. **If you
+  already have an accessible account**, skip this slide and click "Log in" in the
+  upper right corner of this window.
+
+  **If you don't yet have a Wikipedia account**, proceed:
+
+  Some people use their real name on Wikipedia, but we recommend using a pseudonym
+  for privacy reasons. All Wikipedia contributions are tied to your username
+  indefinitely, including mistakes and edits to controversial topics.
+
+  In a moment, when you sign up, make sure to associate your account with an email
+  address and respond to the confirmation email. Wikipedians will be able to send emails to you, but your
+  address will *not* be publicly visible. A confirmed email address is the only
+  way to recover an account should you forget the password.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:CreateAccount">
+  Create my account </a>
+
+translations:
+  es:
+    title: Crea una cuenta en Wikipedia
+    content: |
+      Antes de continuar, necesitarás entrar en una cuenta de Wikipedia. **Si ya tienes una cuenta accesible**, ignora esta diapositiva y haz clic en "Acceder/Log in" en la esquina superior derecha de esta ventana.
+
+      **Si todavía no tienes una cuenta de Wikipedia**, continúa:
+
+      Algunas personas utilizan su nombre real en Wikipedia, pero recomendamos usar un seudónimo por razones de privacidad. Todas las contribuciones a Wikipedia quedan vinculadas a tu nombre de usuario indefinidamente, incluyendo errores y ediciones de temas polémicos.
+
+      En un momento, cuando te registres, asegúrate de asociar tu cuenta a una dirección de correo electrónico y responder al correo de confirmación. Los wikipedistas podrán enviarte correos electrónicos, pero tu dirección no será visible públicamente. Una dirección de correo electrónico confirmada es la única forma de recuperar tu cuenta en caso de que olvides la contraseña.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:CreateAccount">
+      Crear mi cuenta </a>

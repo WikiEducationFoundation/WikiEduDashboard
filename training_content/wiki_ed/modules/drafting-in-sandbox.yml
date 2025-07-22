@@ -1,0 +1,12 @@
+name: Drafting in the sandbox
+id: 30
+description: In this module, you'll learn how and where to start drafting.
+estimated_ttc: 5 minutes
+slides:
+  - slug: using-a-sandbox-v2 # 3001
+  - slug: what-s-a-sandbox-v2 # 3002
+  - slug: how-to-find-a-sandbox-v2 # 3003
+  - slug: how-to-create-a-new-sandbox-v2 # 3004
+  - slug: editing-an-existing-article-v2 # 3005
+  - slug: drafting-a-new-article-v2 # 3006
+  - slug: that-s-it-drafting # 3007

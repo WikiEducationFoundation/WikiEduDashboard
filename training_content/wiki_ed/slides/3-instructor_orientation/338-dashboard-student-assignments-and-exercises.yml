@@ -1,0 +1,21 @@
+id: 338
+title_prefix: "Dashboard:"
+title: Assignments & Exercises
+summary:
+content: |
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Wiki_Education_Dashboard_-_Student_Assignments_%26_Exercises_views.png" />
+  </figure>
+
+  When you click a student's row, you'll enter the Assignments & Exercises view, which includes:
+
+  * their progress in the online trainings
+  * details about their assigned articles and associated drafts
+  * links to their peer reviews
+  * a list of their most recent Wikipedia activity
+  * the article viewer tool for each 
+
+  You can manage the student's assigned articles and peer reviews from here.
+
+  You can also use the **Article Viewer** tool for each assigned article to see the latest version
+  of the article, with authorship highlighting to indicate which text added by your students.

@@ -1,0 +1,18 @@
+# Messages for Church Slavic (словѣньскъ / ⰔⰎⰑⰂⰡⰐⰠⰔⰍⰟ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Илья Драконов
+# Author: ОйЛ
+---
+cu:
+  articles:
+    loading: Загрузка статей
+    title: Заголовок
+  assignments:
+    loading: Загрузка...
+    reviewers: Рѣдактор(ы)
+  courses:
+    articles: Статьи
+    students: Студѣнты
+    title: имѧ
+...

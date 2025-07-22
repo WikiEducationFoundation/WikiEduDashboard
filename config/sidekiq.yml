@@ -1,0 +1,30 @@
+---
+defaults: &defaults
+ :concurrency: 2
+ :pidfile: tmp/pids/sidekiq.pid
+ :logfile: log/sidekiq.log
+
+development:
+ <<: *defaults
+ :concurrency: 2
+
+staging:
+ <<: *defaults
+ :concurrency: 2
+
+production:
+ <<: *defaults
+ :concurrency: 2
+
+test:
+ <<: *defaults
+ :concurrency: 2
+
+:queues:
+ - default
+ - short_update
+ - medium_update
+ - long_update
+ - daily_update
+ - constant_update
+ - very_long_update

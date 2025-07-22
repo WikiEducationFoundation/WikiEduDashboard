@@ -1,0 +1,17 @@
+.container.form-container
+  %h1 Add users to #{@course.slug}
+
+  %p Usernames (one per line)
+  %div.input.text.simple_form
+    = form_tag '', method: :post do
+      %div= text_area_tag :usernames
+      %button= submit_tag 'Add users', class: 'button dark'
+
+- if @results
+  .container
+    %h1 Results
+    - @results.each do |username, result|
+      %li #{username}: #{result.flatten[0]} — #{result.flatten[1]}
+
+.container
+  %a.button{href: "/courses/#{@course.slug}"} Return to course page

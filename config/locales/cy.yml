@@ -1,0 +1,857 @@
+# Messages for Welsh (Cymraeg)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Afalau
+# Author: Ajeje Brazorf
+# Author: Ceirios
+# Author: Cymrodor
+# Author: Robin Owain
+# Author: Troswr
+---
+cy:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: Miliwn
+          billion: Biliwn
+          trillion: T
+          quadrillion: Cwadriliwn
+  application:
+    cancel: Canslo
+    cookie_consent: Mae'r wefan yma'n defnyddio cwcis, er mwyn i'ch mewngofnodi barhau
+      ar waith; mae hefyd yn cadw gwybodaeth parthed eich cyfri.
+    cookie_consent_acknowledge: Rwy'n deall
+    cookie_consent_see_more: Gweld rhagor.
+    create_accounts: Creu cyfrifon Wicipedia
+    dashboard: Dashfwrdd Wici Addysg
+    documentation: Dogfennaeth
+    error: 'Cafwyd nam:'
+    explore: Archwilio
+    field_required: Mae'r maes hwn yn angenrheidiol
+    field_invalid_characters: Symbol neu lythyren annilys
+    field_invalid_date: 'Mae''r maes yma angen eu trefnu: BBBB-MM-DD'
+    field_invalid_date_time: Mae'n rhaid i'r diwedd ddod ar ôl y dechrau. Y dull o
+      nodi'r oriau yw 0 i 23.
+    greeting2: Croeso!
+    greeting_extended: Croeso i Wicipedia
+    greeting: Pa hwyl!
+    help: Angen cymorth
+    home: Hafan
+    log_in_extended: Mewngofnodwch gyda Wicipedia
+    log_in: Mewngofnodi
+    log_out: Allgofnodi
+    my_dashboard: Dashfwrdd
+    recent_activity: Gweithgaredd diweddar
+    report_problem: Adrodd am broblem
+    request_account: Gwneud cais am gyfri
+    request_account_create: Creewch gyfri
+    search: gofynwch gwestiwn
+    search_results: 'Chwilio am: ''%{search_terms}'''
+    no_results: Dim canlyniad ar gyfer '%{query}'
+    show_last_revision: Dangos y fersiwn a olygwyd ddiwethaf
+    sign_up_extended: Cofrestrwch gyda Wicipedia
+    sign_up_wikipedia: Neu ewch i Wicipedia i fewngofnodi
+    sign_up_log_in_extended: gyda Wicipedia
+    sign_up: Cofrestru
+    submit: Danfon
+    training: Hyfforddiant
+    change: Newid
+    details: Manylion
+    confirm: Iawn
+    opt_in: Ydw
+    opt_out: Nac ydw
+    opt_yes: Ydw
+    print: Argraffu
+  dashboard:
+    create_note: Cliciwch ar 'Creu Cwrs' i wneud hynny.
+    explore_course_pages: Archwilio Tudalennau'r Cwrs
+    explore_examples: Archwilio Engreifftiau
+    review_orientation: Ailystyried y Gogwydd (Orientation)
+    start_orientation: Dechrau'r Gogwydd
+    blog_headline: Y Newyddion Diweddaraf gan Wici Addysg
+  home:
+    explore: Archwilio
+    log_in: Mewngofnodwch gyda Wicipedia
+    sign_up: Cofrestrwch gyda Wicipedia
+  alerts:
+    alert_label: Rhybuddion
+    no_alerts: Dim rhybuddion.
+  activity:
+    all: Gweithgaredd
+    edited_by: Golygwyd Gan
+    label: Gweithgaredd
+  articles:
+    article_development: (datblygu erthyglau)
+    articles_shown: Yn dangos %{count} allan o %{total}
+    assigned: Erthyglau a aseiniwyd
+    available: Erthyglau Sydd Ar Gael
+    no_available: Dim Erthyglau Ar Gael
+    next: Nesaf
+    previous: Cynt
+    article_title: Teitl yr Erthygl
+    assigned_to: Aseiniwyd I
+    character_doc: Y nifer o lythrennau (a symbolau) a ychwanegwyd at erthyglau'r
+      myfyrwyr cofrestredig yn ystod y cyfnod dan sylw
+    deleted: (dilewyd)
+    edited: Erthyglau a Olygwyd
+    edited_by: 'Golygwyd gan:'
+    edited_mobile: Erthyglau
+    filter:
+      wiki_all: Y Cyfan
+      new: Newydd
+      existing: Yn Bodoli
+      new_and_existing: Newydd ac yn Bodoli
+      tracked: Traciwyd
+      untracked: Heb eu tracio
+      tracked_and_untracked: Wedi a heb eu tracio
+    hide: Cuddio
+    history: (hanes)
+    label: Erthyglau
+    loading: Yn llwytho erthyglau...
+    new: (newydd)
+    none: Ni olygwyd unrhyw erthygl gan y cwrs yma
+    rating: Dosbarth
+    rating_docs:
+      does_not_exist: Nid yw'r  erthygl hon yn bodoli ar Wicipedia
+    see_more: Gweld rhagor
+    show_cumulative_changes: Gweld Newidiadau Cronnus (Cumulative)
+    show_current_version: Dangos y Fersiwn Gyfredol (mwyaf diweddar)
+    show_current_version_with_authorship_highlighting: Fersiwn Gyfredol w/ gan uwchliwio
+      awduron
+    title: Teitl
+    tracked: Traciwyd
+    title_example: Teitl yr erthygl
+    tools: Taclau Asesu
+    view: Gweld yr Erthygl
+    view_all: Gweld y Cyfan
+    view_on_wiki: Gweld ar Wici
+    views_added: Ychwanegwyd %{count} fiw newydd ar gyfer %{title}
+    edit_size: Golygu'r Maint
+    wiki: Wici
+  assignments:
+    article_link: Erthygl
+    already_exists: Mae'r Aseiniad yma'n bodoli'n barod!
+    title_too_large: Uchafswm y llythrennau / symbolau = 255
+    assignees: Neilltuwyd ar gyfer
+    assign_other: Neilltuwch ar gyfer
+    add_available: Ychwanegwch erthyglau sydd ar gael
+    add_available_submit: Ychwanegwch erthyglau
+    assign_self: Neilltuo erthygl i fi fy hun
+    assign_tooltip: Erthygl a neilltuwyd yw un yr ydych yn bwriadur ei chreu neu ei
+      gwella.
+    bibliography: Llyfryddiaeth
+    clone: Cloniwch
+    confirm_add_available: Yn siwr eich bod am ychwanegu %{title}?
+    confirm_addition: Yn siwr eich bod am ychwanegu %{title} i %{username}?
+    confirm_deletion: Ydych chi'n sicr eich bod am ddileu'r erthygl a neilltuwyd?
+    editors: Neilltuwyd ar gyfer
+    label: Neilltuwch (Assign)
+    loading: Yn llwytho aseiniadau...
+    none_short: Dim un erthygl wedi'i neilltuo
+    none: Nid oes gan y cwrs yma erthyglau wedi'u neilltuo.
+    no_available: Nid oes gan y cwrs hwn erthyglau.
+    peer_review_count: '%{currentCount}/%{total} wedi''u dewis'
+    peer_review_count_tooltip: Dylech ddewis %{total} erthygl ar gyfer eu hadolygu
+      gan gyfoedion.
+    peer_review_link: Adolygiad gan Gymar
+    remove: Diddymu
+    reviewers: Adolygwr/wyr
+    review_other: Neilltuo adolygiad (Assign a review)
+    review_self: Adolygwch Erthygl
+    review_tooltip: Drafft Blwch Tywod
+    sandbox_draft_link: Drafft Blwch Tywod
+    select: Dewisiwch
+  blocks:
+    milestones:
+      title: Cerrig milltir
+  campaign:
+    active_campaigns: Ymgyrchoedd ar y gweill
+    add_organizer: Ychwanegwch drefnydd
+    alert_article: Teitl erthygl
+    alert_label: Rhybuddion o ymgyrchoedd
+    alert_select_label: Ffiltro yn ôl rhybuddion (alerts)
+    alert_type: Math
+    alert_user_id: Defnyddiwr
+    all_campaigns: Pob Ymgyrch
+    already_exists: Mae'r ymgyrch yma'n bodoli'n barod. Ceisiwch eto gyda theitl neu
+      slyg gwahanol.
+    campaign: Ymgyrch
+    campaigns: Ymgyrchoedd
+    campaign_deleted: 'Dileewyd yr ymgyrch: "%{title}"'
+    campaign_not_updated: Methwyd diweddaru'r ymgyrch
+    campaign_updated: Diweddarwyd yr ymgyrch
+    created_at: Dyddiad
+    confirm_campaign_deletion: Ydych chi'n sicr eich bod am ddileu'r ymgyrch "%{title}"?
+      Os ydych, yna teipiwch deitl yr ymgyrch i fynd i'r cam nesaf.
+    confirm_campaign_deletion_failed: Nid "%{title}" yw teitl yr ymgyrch hon. Nid
+      ydym wedi dileu'r ymgyrch.
+    confirm_course_removal: 'Ydych chi''n sicr eich bod am ddiddymu "%{title}" o''r
+      ymgyrch: "%{campaign_title}"?'
+    course_already_removed: 'Symudwyd "%{title}" eisioes o''r ymgyrch: "%{campaign_title}".'
+    course: Cwrs
+    course_removed: 'Symudwyd "%{title}" o ymgyrch: "%{campaign_title}".'
+    create_campaign: Creu Ymgyrch Newydd
+    create_my_campaign: Creewch Ymgyrch Newydd!
+    customize_passcode: cod-mynediad diofyn
+    data_download_info: Lawrlwythwch data'r ymgyrch fel ffeil CSV
+    data_courses: Trosolwg o data'r Cwrs
+    data_courses_info: Data bras ar gyfer pob cwrs/rhaglen
+    data_articles: Nifer tudalennau a olygwyd
+    data_revisions: Data o'r adolygiadau
+    data_articles_info: Manylion am bob tudalen a draciwyd gan yr ymgyrch
+    data_revisions_info: Manylion am bob adolygiad a draciwyd gan yr ymgyrch
+    data_instructors: Hyfforddwyr
+    data_instructors_info: Rhestr o hyfforddwyr/hwyluswyr a'u cyrsiau/rhaglenni
+    data_editors_by_course: Golygyddion yn ôl cwrs
+    data_editors_by_course_info: Rhestr o olygyddion cofrestredig a'u cyrsiau/rhaglenni
+    data_editor_usernames: Enwau-defnyddwyr y golygyddion
+    data_editor_usernames_info: Rhestr o enwau'r golygyddion, un ar bob llinell
+    default_course_type: Y Mathau o Gyrsiau Diofyn
+    default_passcode: Y cod-mynediad diofyn
+    default_passcode_explanation: 'Yn ddiofyn, dylai''r rhaglenni newydd yn yr ymgyrch
+      hon gael:'
+    description: Disgrifiad
+    delete_campaign: Dileu'r ymgyrch hon
+    disable_account_requests: Analluogi ceisiadau am gyfrifon
+    enable_account_requests: Galluogi ceisiadau am gyfrifon
+    no_alerts: Nid oes gan yr ymgyrch hon rybuddion
+    no_passcode: dim cod-mynediad
+    none: Dim
+    organizers: Trefnwyr
+    organizer_added: 'Mae %{user} yn drefnydd yr ymgyrch: "%{title}"'
+    organizer_removed: 'Symudwyd %{user} o fod yn drefnydd yr ymgyrch: "%{title}"'
+    program_template: Templad y Rhaglen
+    random_passcode: cod-mynediad ar hap
+    requested_accounts: Cyfrifon a geisir
+    title: Teitl
+    slug: Slyg
+    search_campaigns: Archwilio'r ymgyrchoedd
+    use_start_end_dates: Defnyddiwch y dyddiad cychwyn a'r dyddiad gorffen
+  categories:
+    add_category: Ychwanegwch gategori
+    add_psid: Ychwanegwch PetScan PSID
+    add_template: Ychwanegwch nodyn (templad)
+    add_this_category: Ychwanegu categorïau
+    add_this_psid: Ychwanegwch y PSID hwn
+    add_this_template: Ychwanegwch y templad (Nodyn) hwn
+    articles_count: Nifer o Erthyglau
+    name: Enw
+    category_name: Enw'r categori
+    psid_name: PSID
+    template_name: Enw'r nodyn (templad)
+    none: Dim categoriau'n cael eu tracio.
+    remove: Diddymu
+    timestamp: Diweddariad Diwethaf Ar
+  courses:
+    activity: Gweithgaredd
+    active_courses: Mae %{course_type} yn weithredol
+    alerts: Rhybuddion
+    all_courses: Y Gyrsiau i Gyd
+    already_enrolled: Rydych eisioes yn rhan o '%{title}'!
+    already_exists: Mae hynny'n bodoli'n barod!
+    archived: Cyrsiau a Archifwyd
+    actions: Gweithrediadau
+    articles: Erthyglau
+    assignment_headings:
+      assigned_articles: Erthyglau a aseiniwyd
+      assigned_reviews: Adolygiadau a Neilltuwyd neu Aseiniwyd
+      available_articles: Erthyglau ar Gael
+      available_reviews: Erthyglau'r Dosbarth
+    assignment_end: Diwedd yr Aseiniad
+    assignment_start: Dechrau'r Aseiniad
+    calendar:
+      legend: Allwedd
+      legend_class_canceled: Gwyliau/Gohiriwyd
+      legend_class_meeting: Cyfarfod Dosbarth
+      legend_class_not_meeting: Dim Cyfarfod wedi'i Drefnu
+      select_meeting_days: Dewisiwch ddyddiau'r wythnos mae eich dosbarth yn cyfarfod.
+    cancel: Canslo
+    campaigns: 'Ymgyrchoedd:'
+    campaign_articles: Erthyglau %{title}
+    campaign_courses: Cyrsiau %{title}
+    campaign_select: Dewisiwch ymgyrch (campaign)
+    campaign_users: Golygyddion %{title}
+    course: Cwrs
+    course_description: Cyrsiau
+    courses: Cyrsiau
+    courses_taught: Cyrsiau a Addysgwyd
+    creation_date: Dyddiad Creu
+    creator:
+      already_exists: Mae'r cwrs yma'n bodoli'n barod. Ystyriwch newid ei enw, coleg,
+        cyfnod er mwyn ei wneud yn unigyw.
+      assignment_end: Diwedd yr aseiniad
+      assignment_start: Dechrau'r aseiniad
+      choose_clone: Dewisiwch gwrs i'w glonio (gopio)
+      clone_previous: Cloniwch Gwrs Gynharach
+      clone_this: Cloniwch y Cwrs Yma
+      course_description: Disgrifiad o'r cwrs
+      course_subject: Pwnc y cwrs
+      course_term: Cyfnod y cwrs
+      course_term_placeholder: Y cyfnod
+      course_title: Teitl y cwrs
+      course_types:
+        basic_course_name: Y rhaglen yn fras
+        edit_a_thon_name: Golyg-a-thon
+      create_button: Creu Fy Nghwrs!
+      create_label: Creewch Gwrs Newydd
+      create_new: Creewch Gwrs Newydd
+      create_short: Creewch Gwrs
+      end_date: Dyddiad gorffen
+      expected_number: Y nifer o fyfyrwyr (amcangyfri)
+      find: Canfod Eich Cwrs
+      no_class_holidays: Nid oes gen i wyliau dosbarth
+      role_description: Eich rol ar y cwrs
+      role_description_options:
+      - Hyfforddwr
+      - Cynorthwywr dysgu
+      role_description_placeholder: Hyfforddwr, cynorthwywr dysgu ayb
+      save_cloned_course: Cyhoeddi a chadw'r cwrs newydd
+      start_date: Dyddiad dechrau
+      subject: Pwnc
+    current: Cwrs Cyfredol
+    data_articles: Data am yr erthyglau
+    data_download_info: Lawrlwythwch y data ar fformat CSV.
+    data_overview: Brasolwg o'r data
+    data_edits: Data o'r golygiadau
+    data_students: Data o'r golygyddion
+    data_uploads: Data o'r uwchlwythiadau i Comin
+    data_revisions: Data o'r adolygiadau (Revisions data)
+    delete_course: Dileewch y cwrs
+    delete_suggestion: Dileu
+    delete_course_instructions: Gallwch ddileu'r dudalen hon os yw'r holl ymgyrchoedd
+      wedi'u dileu'n gyntaf.
+    dismiss_survey: Gadael
+    dismiss_survey_confirm: Ydych chi'n siwr eich bod am adael yr arolwg?
+    download_stats_data: Stats o'r lawrwythiadau
+    duration: Hyd y cwrs
+    edit_count: Nifer y Golygiadau
+    edit_course_dates: Golygwch Ddyddiadau'r Cwrs
+    embed_course_stats: Mewnosod Stats y Cwrs
+    enable_account_requests: Caniatau ceisiadau am gyfrifon
+    end: Diwedd
+    ended: Mae'r cwrs yma wedi dod i ben.
+    enroll: Cofrestrwch
+    enrollment: Ychwanegu a Dileu Myfyrwyr
+    error:
+      user_exists: Ymddiheurwn, nid yw %{username} yn ddefnyddiwr cyfredol.
+    expected_students: Myfyrwyr posib
+    features_feedback: 'Awgrymiadau Awtomatig:'
+    feedback: Adborth
+    feedback_loading: Arhoswch tra'n bod yn Llwytho'r awgrymiadau...
+    gradeables_none: Nid oes gan y cwrs yma aseiniadau y gellir eu graddoli.
+    home_wiki: Hafan y Wici
+    multi_wiki: Wicis sy'n cael eu tracio
+    instructor:
+      one: Instructor
+      other: Instructor
+    instructors: Hyfforddwyr
+    invitation: Rydych wedi'ch gwahodd i ymuno a chwrs %{title}. Er mwyn gwneud hynny,
+      dylech fewngofnodi ar eich cyfri Wicipedia.
+    join: Ymuno
+    join_course: Ymuno a'r cwrs
+    join_course_as_volunteer: Gwirfoddoli i gynorthwyo
+    join_prompt: Ymuno gyda '%{title}'?
+    join_successful: Rydych wedi ymuno gyda %{title} yn llwyddiannus! Bydd y dashfwrdd
+      yma'n tracio eich cyfraniadau bob yn hyn a hyn. Dewch nol rybryd eto i weld
+      yr impact rydych wedi'i wneud!
+    join_failed: Methwyd a chofrestru!
+    join_failure_details:
+      cannot_join_twice: Cheith defnyddwyr ddim ymuno a'r un cwrs ddwywaith!
+      not_yet_approved: Nid yw'r cwrs yma wedi cael ei gymeradwyo ar gyfer cofrestru.
+    join_details: I ymuno a'r cwrs yma bydd angen cod-mynediad (passcode) arnoch —
+      neu ddolen sy'n cynnwys y cod-mynediad — gan eich hyfforddwr. Os nad ydych wedi
+      derbyn hyn, cysylltwch a'ch hyfforddwr.
+    join_no_passcode: Gwirwch eich bod am ymuno a'r cwrs yma.
+    launch_wizard: Lawnsio'r Dewin
+    leave_confirmation: Ydych chi'n siwr eich bod am adael y cwrs hwn?
+    leave_course: Gadael y cwrs
+    loading: Wrthi'n llwytho…
+    milestones_none: Nid oes gan y cwrs yma gerrig milltir.
+    my_articles: Fy Erthyglau
+    needs_update: Trefnu Uwchlwytho Data
+    new_week: Ychwanegwch Wythnos Newydd
+    new_account_check_username: Edrychwch os yw'r enw defnyddiwr ar gael
+    new_account_email: Cyfeiriad ebost
+    new_account_email_placeholder: enw@example.org
+    new_account_username: Yr enw-defnyddiwr a geisir
+    new_account_username_invalid: Enw-defnyddiwr annilys.
+    new_account_username_placeholder: Wiki Editor 123
+    new_account_username_taken: Mae'r enw-defnyddiwr yna wedi ei ddefnyddio'n barod!
+      Dewisiwch un arall.
+    new_account_submit: Gwneud gais am gyfri
+    nocourses: Ar hyn o bryd, nid ydych wedi cyfrannu i unrhyw gwrs.
+    nocourse: heb gyfrannu i unrhyw gwrs.
+    none: Dim
+    not_permitted: Nid oes gennych hawl i olygu'r cwrs yma.
+    no_available_actions: Dim gweithredoedd ar gael
+    ores_plot: ORES
+    overview: Hafan
+    passcode: Cod-mynediad
+    passcode_none: Dim cod-mynediad
+    passcode_prompt: 'Nodwch yma''r cod-mynediad er mwyn i chi ymuno:'
+    please_log_in: Mewngofnodwch!
+    private: Preifat
+    requested_accounts: Cyfrifon a geisiwyd
+    requested_accounts_alert:
+      one: '%{count} cyfrif ar y ffordd.'
+      other: '%{count} cyfrif ar y ffordd.'
+    requested_accounts_alert_view: Gweler
+    revisions_doc: Y nifer o olygiadau yn y %{timeframe} diwrnod diwethaf
+    revisions_none: Nid oes gweithgaredd Wicipedia wedi bod ar y cwrs yma, hyd yma.
+    school: Coleg neu ysgol
+    school_and_term: Sefydliad/Cyfnod
+    search_courses: Chwilio am gwrs
+    start: Dechrau
+    start_typing: Dechreuwch deipio
+    students: Myfyrwyr
+    students_taught: Myfyrwyr a addysgir
+    students_count: '# Myfyrwyr'
+    student_editors: Myfyrfwyr-olygwyr
+    students_none: Nid oes gan y cwrs yma unrhyw fyfyrwyr.
+    students_short: Myfyrwyr
+    submitted_and_pending_heading: Cyflwynwyd, Disgwyl Caniatad
+    submitted_heading: Cyrsiau a gyflwynwyd
+    suggestions_sending: Wrthi'n danfon adborth...
+    suggestions_sent: Danfonwwyd adborth. Diolch am gyfrannu!
+    suggestions_failed: Methwyd a danfon eich adborth. Ceisiwch eto!
+    user_role: Rol
+    course_details: Manylion y Cwrs
+    subject: Pwnc
+    submitted: Danfonwyd
+    tag_select: Dewisiwch (neu fe allech greu) tag
+    tags: 'Tagiau:'
+    term: Cyfnod neu dymor
+    timeline: Manylion am yr Aseiniad
+    timeline_enabled: Caniateir llinell amser
+    timeline_link: Llinell amser
+    timeline_nav: Ewch i'r linell amser
+    title: Teitl
+    training_nav: Ewch i'r hyfforddiant
+    untrained: Heb eu hyfforddi
+    update_stats: Diweddaru'r ystadegau
+    uploads_none: Nid yw'r dosbarth hwn wedi cyfrannu dim delweddau na ffeiliau eraill
+      i Gomin Wicimedia.
+    user_uploads_none: Nid yw'r defnyddiwr yma wedi cyfrannu dim delweddau na ffeiliau
+      eraill i Gomin Wicimedia.
+    user_recent_uploads: Uwchlwythiadau Diweddar
+    user_suggestions: 'Awgrymiadau''r Defnyddiwr:'
+    user_suggestions_prompt: Eich awgrymiadau chi - i olygyddion yr erthygl
+    view_other: Gweld ymgyrchoedd eraill
+    view: Gweld y Cyrsiau
+    view_page: Gweld Tudalen y Cwrs
+    view_wiki: Gweld ar Wicipedia
+    volunteer:
+      one: Volunteer
+      other: Volunteer
+    weeks_none: Nid oes gan y cwrs yma linell amser eto.
+    wiki_course_page_enabled: Rhoddwyd tudalen y cwrs ar waith
+    wiki_edits_enabled: Golygiadau ar wici, ar waith
+    wiki_staff: Staff Wici Addysg
+    withdrawn: Ni wnaeth yr aseiniad
+    yourcourses: Eich Cyrsiau
+    survey:
+      notification_message: Cymrwch ein harolwg am y cwrs yma.
+      link: Cymryd yr Arolwg
+  courses_generic:
+    school_system: System Academaidd
+    add_campaign: Ychwanegu ymgyrch
+    all_courses: Yr holl Raglenni
+    archived: Rhaglenni a Archifwyd
+    assignment_headings:
+      available_reviews: Yn Barod ar Gyfer eu Hadolygu
+    assignment_end: Diwedd y Digwyddiad
+    assignments_none: Nid oes gan y prosiect yma erthyglau a aseiniwyd, hyd yma.
+    assignment_start: Dechrau'r Digwyddiad
+    cancel: Canslo
+    course: Rhaglen
+    courses: Rhaglenni
+    courses_taught: Rhaglenni a Addysgwyd
+    campaigns: 'Ymgyrchoedd:'
+    campaign_courses: Rhaglenni %{title}
+    creator:
+      assignment_end: Diwedd y digwyddiad
+      assignment_end_placeholder: BBBB-MM-DD
+      assignment_start: Dechrau'r digwyddiad
+      assignment_start_placeholder: BBBB-MM-DD
+      cancel_course_clone: Diddymu'r rhaglen clonio
+      cancel_course_clone_confirm: Ydych chi'n sicr eich bod am beidio clonio'r rhaglen
+        yma?
+      choose_clone: Dewisiwch raglen i glonio.
+      clone_previous: Cloniwch Raglen Arall
+      clone_this: Cloniwch y Rhaglen
+      clone_successful: Cloniwyd y Rhaglen yn Llwyddiannus
+      clone_successful_details: Cloniwyd eich Rhaglen yn Llwyddiannus. Dewisiwch 'Cyhoeddi'
+        (neu 'Cadw') i gwbwlhau.
+      course_description: Disgrifiad o'r Rhaglen
+      course_school: Sefydliad
+      course_term: Pa bryd?
+      course_term_placeholder: Pa bryd?
+      course_title: Teitl y Rhaglen
+      create_button: Creewch fy Rhaglen!
+      create_label: Creewch Raglen Newydd!
+      create_new: Creewch Raglenn Annibynnol
+      create_short: Creewch Raglen
+      find: Canfod Rhaglen
+      participate_in_campaign: Cymerwch ran mewn Ymgyrch
+      save_cloned_course: Cadw
+      start_date: Cychwyn tracio gweithgaredd
+    delete_course: Dileu'r rhaglen
+    edit_course_dates: Golygu Dyddiadau'r Prosiect
+    end: Diwedd tracio gweithgaredd
+    enroll: Ychwanegu Golygydd
+    enrollment: Ychwanegu/Dileu Golygyddion
+    explore: Canfod Rhaglenni
+    courses_enrolled: Rhaglenni ar y gweill
+    expected_students: Golygyddion posib
+    instructors: Hwyluswyr
+    join_course: Ymunwch â'r rhaglen
+    join_details: I ymuno â'r rhaglen, bydd angen cod-mynediad arnoch — neu ddolen
+      sy'n cynnwys y cod-mynediad — a hynny gan yr hwyluswr (facilitator).
+    leave_course: Gadael y rhaglen
+    milestones_none: Nid oes gan y prosiect yma gerrig milltir, hyd yn hyn.
+    not_permitted: Nid oes gennych yr hawl i olygu'r rhaglen yma.
+    published: 'Cyhoeddwyd y prosiect! Gall golygyddion gofrestru drwy ymweld â''r
+      URL yma:'
+    request_accounts: Gwnewch gais am gyfrifon
+    revisions_none: Nid oes gan y prosiect yma weithgaredd diweddar.
+    school: Sefydliad
+    school_and_term: Sefydliad/Cyfnod
+    search_courses: Archwilio'r rhaglenni
+    start: Cychyn tracio gweithgaredd
+    student_editors: Golygyddion
+    students: Golygyddion
+    students_taught: Cyfanswm nifer y Golygyddion
+    students_none: Nid oes gan y prosiect yma unrhyw olygydd cofrestredig.
+    students_short: Golygyddion
+    students_count: Nifer y rhai sy'n cymryd rhan
+    term: Pa bryd?
+    unsubmitted: Rhaglenni heb eu cyflwyno
+    uploads_none: Nid yw'r prosiect yma wedi cyfrannu unrhyw ddelwedd na chyfryngau
+      eraill i Gomin Wicimedia.
+    user_uploads_none: Nid yw'r Defnyddiwr/wyr a ddewisiwyd wedi cyfrannu unrhyw ddelwedd
+      na chyfryngau eraill i Gomin Wicimedia.
+    view_other: Gweld ymgyrchoedd eraill
+    view_page: Gweld Tudalen y Rhaglen
+    yourcourses: Eich Rhaglenni
+  editable:
+    edit: Golygu
+    cancel: Diddymu
+    save: Cadw
+    edit_description: Golygu'r Disgrifiad
+    edit_details: Golygu'r Manylion
+    edit_template: Golygu'r Templad
+  metrics:
+    label: Gweithgaredd y Cwrs
+    last_update: Ystatedgau diweddaraf
+    next_update: Y diweddariad nesaf
+    activity: Newidiadau Diweddar
+    are_trained: yn gyfredol o ran hyfforddiant
+    articles_created: Erthyglau a Grewyd
+    articles_created_wikidata: Eitemau a Grewyd
+    articles_created_generic: Tudalennau a Grewyd
+    articles_edited: Erthyglau a Olygwyd
+    articles_edited_wikidata: Eitemau a Olygwyd
+    articles_edited_generic: Tudalennau a olygwyd
+    bytes_added: Beits a Ychwanegwyd
+    characters: Llythyrennau/symbolau
+    char_added: Llythyrennau/symbolau a Ychwanegwyd
+    char_changed: Llythrennau a Newidiwyd
+    char: Llythrennau a Ychwanegwyd
+    date_time: Dyddiad/Amser
+    edit_count_description: Cyfanswm y Golygiadau
+    per_user: '%{number}/user'
+    revisions: Newidiadau diweddar
+    references_count: Cyfeiriadau a Ychwanegwyd
+    tags: Tagiau
+    upload_count: Uwchlwythiadau Comin
+    uploads_in_use_count:
+      one: ffeil a ddefnyddir mewn erthygl
+      other: ffeil a ddefnyddir mewn erthygl
+    upload_usages_count:
+      one: 'cyfanswm a ddefnyddir ym mhob iaith '
+      other: cyfanswm a ddefnyddir ym mhob iaith
+    word_count: Geiriau a Ychwanegwyd
+  namespace:
+    main: Prif Barth
+    user: Parth Defnyddiwr
+  recent_activity:
+    active_courses: Mae'r erthygl ar waith yn
+    article_title: Teitl yr Erthygl
+    datetime: Dyddiad/Amser
+    image: Delwedd
+    file_name: Enw'r Ffeil
+    plagiarism_report: Adroddiad ar Lên-ladrad
+    possible_plagiarism: Llên-ladrad Posibl
+    recent_edits: Golygiadau Diweddar
+    recent_uploads: Uwchlwythiadau Diweddar
+    revision_author: Awdur yr Adolygiad
+    revision_datetime: Dyddiad/Amser yr Adolygiad
+    revision_score: Sgor yr Adolygiad
+    show_courses: Dangps fy Nghyrsiau i yn Unig
+    uploaded_by: Uwchlwythwyd gan
+    usage_count: Cyfrif o sawl gwaith mae'n cael ei defnyddio
+  revisions:
+    chars_added: Llythrennau a Ychwanegwyd
+    references: Cyfeiriadau a Ychwanegwyd
+    class: Dosbarth
+    date_time: Dyddiad/Amser
+    diff: gwahaniaeth
+    diff_show: Dangos
+    diff_hide: Cuddio
+    edit_time_span: 'Digwyddodd golygiadau o: %{first_time} i %{last_time}'
+    edited_by: Golygwyd Gan
+    edited_on: Golygwyd ar %{edit_date}
+    loading: Wrthi'n llwytho'r adolygiadau...
+    none: Does dim gweithgaredd / golygiadau hyd yma ar y cwrs hwn.
+    time_doc: Amser pob adolygiad
+    title: Teitl
+    view_on_wiki: Gweld y gwahaniaeth ar Wici
+    see_more: Gweld rhagor
+  resources:
+    label: Adnoddau
+    header: Adnoddau a Hyfforddiant
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Enw Defnyddiwr
+        confirm_remove_admin: Diddymu hawliau gweinyddu ar gyfer
+        already_admin: Mae %{username} eisioes yn weinyddwr!
+        elevate_success: Dyrchafwyd %{username} yn weinyddwr.
+      remove:
+        revoke_button: Diddymu hawliau gweinyddu
+        revoke_button_confirm: Diddymu hawliau gweinyddu %{username}
+        revoking_button_working: Wrthi'n diddymu...
+        already_instructor: Mae %{username} eisioes yn hyfforddwr!
+        demote_success: Newidiwyd %{username} yn hyfforddwr!
+    special_users:
+      new:
+        form_placeholder: 'Enw Defnyddiwr:'
+  suggestions:
+    editing: Awgrymiadau Golygu
+    suggestion_docs:
+      does_not_exist: Nid yw'r  erthygl hon yn bodoli ar Wicipedia
+  tasks:
+    conseq: Mae %{task} yn rhedeg yn barod!
+  tickets:
+    none: Dim ticed
+    chose_search_type: Dewiswch fath o chwiliad
+  timeline:
+    add_week: Ychwanegwch Wythnos
+    arrange_timeline: Trefnwch y linell amser
+    block_assignment: Aseiniad
+    block_in_class: Yn y Dosbarth
+    block_milestone: Carreg Filltir
+    course_dates: Dyddiadau'r Cwrs
+    course_dates_instructions: Dewisiwch y dyddiadau dechrau a gorffen y cwrs cyfan
+      (nid cyfnod yr aseiniad ar Wici).
+    course_end: Diwedd y Cwrs
+    course_start: Dechrau'r Cwrs
+    discard_all_changes: Hepgor / Gwaredu'r Holl Newidiadau
+    delete_timeline_and_start_over: Dileu'r Linell Amser
+    empty_week_1: I gychwyn,
+    empty_week_2: cychwyn golygu yr wythnos hon
+    empty_week_3: neu
+    empty_week_4: defnyddiwch y Dewin i greu llinell amser.
+    first_week_title: Yr Wythnos Weithredol Gyntaf
+    gradeable_value: Gwerth
+    gradeables_none: Nid oes gan y linell amser hon aseiniadau wedi'u graddoli.
+    grading_header: 'Gradd (Cyfanswm: %{total})'
+    move_block_down: Symud bloc i lawr
+    move_block_up: Symud bloc i fyny
+    no_class_holidays: nid oes gen i wyliau ar gyfer y dosbarth
+    no_timeline: Nid oes gan y cwrs yma linell amser.
+    no_activity_this_week: Dim cyfarfodydd wedi'u trefnu yr wythnos hon.
+    nothing_this_week: Dim trefniadau yr wythnos hon.
+    reset_titles: Ailosod fel Diofyn (default)
+    save_all_changes: Cadw Popeth
+    this_week_title_default: Yr Wythnos Hon
+    title: Llinell amser
+    view_full_timeline: Gweld y linell amser llawn
+    week_number: Wythnos %{number}
+  training:
+    continue: Parhau (%{progress})
+    start: Dechrau
+    view: Gweld
+    next: Tudalen nesaf
+    page: Tudalen
+    page_number: Tudalen %{number} allan o %{total}
+    previous: <Cynt
+    table_of_contents: Cynnwys
+    training_library: Llyfrgell Hyfforddi
+    logged_out: Nid ydych wedi mewngofnodi. Ni fyddwch, felly, yn derbyn credyd am
+      gwbwlhau'r modiwl. Mewngofnodwch!
+    done: Wedi cwblhau!
+    invalid: Nid yw'r sleid yna'n bodoli!
+    wait: Peidiwch a gadael y dudalen gan fod eich cynnydd yn cael ei ddiweddaru.
+    check_answer: Gwirwch eich Hateb
+    included_modules: Modiwlau sydd wedi'u Cynnwys
+    view_library_source: gweld adnoddau llyfrgell
+    view_module_source: gweld adnoddau modiwl
+    reload_from_source: ail-lwytho o'r ffynhonnell
+  uploads:
+    credit: Credyd
+    file_name: Enw Ffeil
+    header: Ffeiliau a Uwchlwythwyd i Gomin Wicimedia
+    image: Delwedd
+    label: Uwchlwythiadau
+    loading: Wrthi'n uwchlwytho...
+    none: Nid yw'r dosbarth yma wedi cyfrannu unrhyw ddelwedd na ffeil arall i Comin!
+    select_label: Ffiltrwch yn ôl yr uwchlwythwr
+    time_doc: Amser pob uwchlwythiad
+    uploaded_at: Amser Uwchlwytho
+    uploader: Uwchlwythwr
+    uploaded_by: Uwchlwythwyd gan
+    uploaded_on: Uwchlwythwyd ar
+    usage_count: Nifer a ddefnyddir
+    usage_doc: Nifer erthyglau Wicipedia sy'n defnyddio'r ddelwedd hon.
+    usage_count_gallery_tile: Fe'i defnyddir mewn %{usage_count} erthygl
+    usages: Y Defnydd
+  users:
+    already_enrolled: Mae'r defnyddiwr hwn eisioes wedi cofrestru!
+    assign_articles: Neilltuo Erthyglau
+    assign_articles_done: Wedi cwbwlhau
+    assigned: Erthyglau a aseiniwyd
+    loading_authorship_data: wrthi'n llwytho perchnogaeth y data
+    authorship_data_not_fetched: methwyd a chwbwlhau
+    chars_added: 'Llythrennau/symbolau a ychwanegwyd: <br>(article | user | draft)'
+    contributions: Cyfraniadau'r Defnyddiwr
+    contributions_history_full: Gweld yr holl gyfraniadau
+    contributions_more: Gweld Rhagor o Gyfraniadau
+    contribution_statistics: Ystadegau'r Cyfraniadau
+    course_passcode: 'Cod-mynediad:'
+    editors: Golygyddion
+    edits: golygiadau
+    edits_by: 'Golygiadau gan:'
+    enroll_confirmation: Ydych chi'n sicr eich bod am ychwanegu %{username}?
+    enroll_url: 'Gall defnyddwyr ymuno drwy ymweld â''r URL:'
+    enrolled_success: Ychwanegwyd %{username} yn llwyddiannus!
+    first_name: Enw cyntaf
+    last_name: Enw olaf
+    loading: Wrthi'n llwytho'r defnyddwyr...
+    characters_added_mainspace: Nifer y Lythrennau a Ychwanegwyd (mewn erthyglau)
+    characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
+    characters_added_userspace: Llythrennau a ychwanegwyd
+    characters_added_draftspace: Ychwanegwyd Llythrennau (drafft)
+    my_assigned: 'Neilltuwyd:'
+    my_reviewing: 'Yn adolygu:'
+    name: Enw
+    none: Does dim Cyfranogwyr.
+    no_articles: Dim erthyglau
+    no_revisions: Nid yw'r defnyddiwr hwn wedi creu unrhyw adolygiadau.
+    number_of_articles:
+      one: '%{count} erthygl'
+      other: '%{count} erthygl'
+    recent_revisions: Golygiadau diweddar
+    references_count: Cyfeiriadau a Ychwanegwyd
+    remove_confirmation: Ydych chi'n sicr eich bod am ddileu %{username}?
+    request_confirmation: Ydych chi'n siwr eich bod am wneud cais am y cyfri hwn?
+    revision_characters_and_views: 'Nifer y Llythrennau a Ychwanegwyd: %{characters},
+      Views: %{views}'
+    revisions_doc: Y nifer o olygiadau gan y golygydd hwn yn ystod y 7 diwrnod diwethaf
+    references_doc: Y nifer o gyfeiriadau gan y golygydd hwn
+    reviewers: Adolygydd/ion
+    reviewing: Yn Adolygu
+    sandboxes: blychau tywod
+    total_uploads: Cyfanswm yr Uwchlwythiadau
+    training_incomplete: Heb orffen yr hyfforddiant
+    training_module_name: Modiwl hyfforddi
+    training_module_status: Statws
+    user_training_status: Statws yr hyfforddiant
+    user_no_training_status: Nid yw'r defnyddiwr hwn wedi cwbwlhau unrhyw fodiwlau
+      hyfforddi.
+    uploads_doc: Nifer y ffeiliau a uwchlwythwyd i Comin Wicimedia
+    username: Enw defnyddiwr
+    username_placeholder: Enw defnyddiwr
+    useremail_placeholder: Ebost
+    userpasscode_placeholder: Cod-mynediad
+    role:
+      description: Rol ar y cwrs
+      visitor: Ymwelydd
+      student: Myfyriwr
+      instructor: Hyfforddwr
+      campus_volunteer: Gwirfoddolwr campws
+      online_volunteer: Gwirfoddolwr arlein
+      wiki_ed_staff: Staff Wici Addysg
+  user_profiles:
+    student_impact: Cyfanswm yr impact a wnaed gan %{username} fel myfyriwr
+    instructor_impact: Cyfanswm yr impact a wnaed gan %{username} fel hyfforddwr
+    instructors_student_impact: Cyfanswm yr impact a wnaed gan fyfyrwyr %{username}
+    disclaimer: Bydd yr wybodaeth a ddarperwch yn cael ei roi yn y parth cyhoeddus.
+    bio_placeholder: Ychwanegwch eich Bywgraffiad (opsiynol)
+    location_placeholder: Ychwanegwch eich lleoliad (opsiynol)
+    institution_placeholder: Enw'r sefydliad (opsiynol)
+    image_link_placeholder: Ychwanegwch ddolen i'r ddelwedd (opsiynol)
+  wizard:
+    assignment_dates: Dyddiadau'r Aseiniadau
+    course_dates: Dyddiadau'r Cyrsiau
+    select_one_option: Dewisiwch opsiwn
+    read_less: Darllen llai
+    read_more: Darllen mwy
+    summary: Crynodeb
+  error:
+    form_errors: Gwirwch am gangymeriadau
+    invalid_assignment: Aseiniad annilys
+    invalid_date: Mae'r dyddiad %{key} yn annilys
+    invalid_file_format: Methwyd a chadw'r ffeil. Uwchlwythwch ffeil PDF neu Word.
+    start_date_before_end_date: Mae'n rhaid i'r dyddiad dechrau ddod cyn y dyddiad
+      gorffen
+    unsupported_browser:
+      header: Nid yw'r Porwr hwn yn cael ei gefnogi, ysywaeth.
+  error_404:
+    header: Ni chanfyddwyd y dudalen. :-(
+  login_error:
+    header: Cafwyd nam tra'n ceisio mewngofnodi
+  survey:
+    email:
+      headline: Henffych well, %{username}!
+      course: 'Cyrsiau: %{course_info}'
+      closing: Yn gywir,
+      signed: '- Tim Wici Addysg'
+      link: Cymerwch yr Arolwg
+  feedback_form_responses:
+    no_responses: Does dim adborth hyd yn hyn.
+  wiki_api:
+    create_account_reason: Mae'r defnyddiwr yma'n cymryd rhan mewn %{event}.
+  onboarding:
+    supplementary:
+      header: Sut glywsoch chi amdanom ni?
+      where_did_you_hear: Sut, neu gan bwy y clywsoch am Wici Addysg?
+      why_are_you_here: Beth hoffech ei wneud?
+  article_finder:
+    article_finder: Canfod Erthygl
+    article_quality: Ansawdd Erthygl (0-100)
+    average_views: Cyfartaledd y fiws bob yn ddiwrnod
+    category_search: Chwilio o fewn Categoriau
+    completeness_estimate: Sgor Cyflawnrwydd (Completeness)
+    fetched_articles: Erthyglau a Gynaeafwyd
+    filtered_articles: Erthyglau wedi'u Ffiltro
+    hide_options: Cuddio'r Opsiynau
+    keyword_search: Chwilio gydag Allweddair
+    more_results: Rhagor o Ganlyniadau
+    no_article_found: Dim erthygl yn y categori yma
+    page_assessment_class: Dosbarth
+    remove_article: Tynnu'r erthygl
+    search: Chwilio
+    searching_articles: Chwilio o fewn Erthyglau
+    search_placeholder: Nodwch eich cod-mynediad
+    show_options: Dangos y Dewisiadau
+    submit: Anfon
+    tools: Taclau
+  training_status:
+    completed: Cwbwlhawyd
+    continue: Parhau
+    view: Gweld
+    started: Dechreuwyd
+    not_started: Heb ddechrau
+    due: dyledus erbyn %{due_date}
+    assignment_status: Aseiniad hyfforddi (%{status})
+  news:
+    footer:
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+  notes:
+    cancel_note_creation: Canslo
+...

@@ -1,0 +1,22 @@
+id: 4908
+title: "What now?"
+summary:
+content: |
+  Now you're ready for our first meeting!
+
+  * <a href="https://en.wikipedia.org/wiki/Special:CreateAccount">Sign up</a> for your Wikimedia account, if you haven't already. Make sure to link an email address!
+  * Join your Dashboard course page by clicking the **enrollment link** sent out in
+  the welcome email. Take a look around!
+  * Look out for that invitation to join our Slack channel.
+
+  See you soon!
+
+  We would also appreciate any feedback you have on this orientation module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+
+  </div>

@@ -1,0 +1,16 @@
+id: 5609
+title: "That's all for now!"
+summary:
+content: |
+  In this module we covered...
+
+  * what Wikidata WikiProjects are
+  * what kind of information you can find in WikiProjects
+  * how to find information about data models for specific items
+
+  If you have any feedback about this module, let us know!
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+  </div>

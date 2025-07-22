@@ -1,0 +1,153 @@
+/* /////////////////////////////////////////////////////
+
+BASE STYLES
+Only single elements. No classes or ids.
+
+///////////////////////////////////////////////////// */
+
+
+*
+  box-sizing border-box
+
+:focus, *:focus
+  outline dotted 1px
+
+main
+  :focus, *:focus
+    outline auto 5px
+
+html
+  -webkit-text-size-adjust 100%
+  height 100%
+  font-size 0.938em
+
+body
+  background-color $body_bg
+  font $body_font_size/$body_leading $body_font
+  font-weight $body_font_weight
+  width 100%
+  height 100%
+  color $type_dark
+  &.modal-open
+    overflow hidden
+
+h1
+h2
+h3
+h4
+h5
+  letter-spacing .02em
+  margin 0 0 $body_font_size 0
+  line-height 1.2
+  font-weight 700
+  font-family $headline_font
+
+h1
+  margin 0 0 32px 0
+  font-size 50px
+  font-weight 100
+  small
+    font-size 17px
+    letter-spacing 0.05em
+    text-transform uppercase
+    color $type_dark + 15
+h2
+  font-size 22px
+
+h3
+  font-size 17px
+  margin-bottom 5px
+  small
+    font-size 14.5px
+    font-weight 400
+    text-align inherit
+
+h4
+  font-size $body_font_size
+
+h5
+  font-size 1em
+
+p
+  margin-bottom $body_font_size
+
+small
+  font-size 0.8em
+  display inline-block
+  text-align center
+
+p
+  &:first-child
+    margin-top 0
+  &:last-child
+    margin-bottom 0
+
+i
+  font-style italic
+
+li
+  margin-left 20px
+
+  &:first-child
+    margin-top 0
+
+ul
+  list-style disc
+  margin-bottom $body_font_size
+  margin-left $body_font_size
+  &:last-child
+    margin-bottom 0
+
+ol
+  list-style decimal
+  margin-bottom $body_font_size
+  &:last-child
+    margin-bottom 0
+
+
+blockquote
+  margin-bottom $body_font_size
+  border-left: 4px solid #eee
+  padding 0 1em
+
+code
+  display inline-block
+  font-size 0.8em
+  font-family Courier, monospace
+  background-color rgba(0,0,0,0.04)
+  border-radius 3px
+  line-height 1.4
+  padding .2em
+
+pre > code
+  display block
+  font-size 0.8em
+  padding 1em 1em
+  margin-bottom $body_font_size
+
+hr
+  border 1px solid $border
+  border-width 1px 0 0
+  height 1px
+  clear both
+  margin-bottom $body_font_size
+
+a
+  color $training_primary
+  text-decoration underline
+  outline 0
+  &:hover
+    color $training_primary - 20
+  &:active
+    color $training_primary
+  &.inline
+    color inherit
+
+em
+  font-style italic
+
+select
+  font-size 15px !important
+
+b, strong
+  font-weight 600

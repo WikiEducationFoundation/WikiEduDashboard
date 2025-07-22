@@ -1,0 +1,11 @@
+name: 'Exercise: Add a fact to Wikipedia'
+id: 69
+description: |
+  This exercise will guide you through how to add new information to an existing Wikipedia article.
+slides:
+  - slug: why-update-a-bio # 6901
+  - slug: find-a-bio-to-improve # 6902
+  - slug: identify-a-new-source # 6903
+  - slug: add-missing-information # 6904
+  - slug: check-your-work # 6905
+  - slug: update-a-bio-complete # 6906

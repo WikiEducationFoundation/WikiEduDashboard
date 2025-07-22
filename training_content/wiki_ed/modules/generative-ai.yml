@@ -1,0 +1,17 @@
+name: Using generative AI tools with Wikipedia
+id: 71
+description: |
+  In this module, you'll explore how generative AI tools can support your editing work
+  on Wikipedia when used thoughtfully, critically, and in line with the policies of
+  Wikipedia, your institution, and your course instructor.
+
+slides:
+  - slug: your-institutional-policies #7101
+  - slug: harm-vs-help #7102
+  - slug: a-word-of-caution #7103
+  - slug: identifying-gaps-in-articles #7104
+  - slug: finding-access-to-sources #7105
+  - slug: help-with-copy-editing #7106
+  - slug: do-not-add-ai-images #7107
+  - slug: ai-quiz #7109
+  - slug: ai-feedback #7108

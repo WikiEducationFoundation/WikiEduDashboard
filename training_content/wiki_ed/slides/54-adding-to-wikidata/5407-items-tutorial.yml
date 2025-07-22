@@ -1,0 +1,14 @@
+id: 5407
+title: "Items tutorial"
+summary:
+content: |
+  Are you ready to jump in and try editing an item? The Items tutorial lets you
+  try your hand at creating labels for an item.
+
+  Don't worry about actually changing information on Wikidata during this tutorial;
+  it's just a chance to get a feel for the experience, and your edits won't be saved.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://www.wikidata.org/w/index.php?title=Q16943273&tour=wbitems&data=ok">
+  Tutorial</a>
+  </div>

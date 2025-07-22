@@ -1,0 +1,591 @@
+-
+  key: essentials
+  title: Training
+  description: |
+    To help your students familiarize themselves with the basics of Wikipedia editing
+    and its policy and community norms, we've developed a series of online training modules. 
+
+    Students should create user accounts and complete the core student training modules.
+    This training helps students understand the Wikipedia fundamentals, walks students
+    through their first edits, gives advice for picking articles and drafting revisions,
+    and shows how to find support. Students who complete the training are better prepared
+    to focus on your course's learning outcomes, and generally have better experiences.
+    The training modules are embedded throughout your assignment and provide students with
+    relevant help as they undertake different tasks of their Wikipedia assignment. 
+
+    You can track which training modules your students have taken through your course
+    Dashboard. **Grading students for completing the training is recommended.**
+
+    #### Will you ask students to complete this training as part of their grade?
+  type: 1  # single choice
+  minimum: 1
+  options:
+    -
+      title: Yes, training will be graded.
+      output: essentials
+      logic: graded_training
+    -
+      title: No, training will not be graded.
+      output: essentials
+      logic: ungraded_training
+
+-
+  key: early_editing_tasks
+  title: Getting started with editing
+  description: |
+    It's best for students to start editing Wikipedia early on. We require an evaluation exercise to get you started;
+    we recommend assigning a few additional Wikipedia assignments to ease them in. 
+
+    #### Which introductory assignments would you like to use?
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Evaluate an article (required)
+      required: true # cannot be unselected
+      blurb: Students critically evaluate a Wikipedia article related to their class.
+      # description:
+      logic: critique
+      selected: true # selected by default
+    -
+      title: Add to an article (recommended)
+      blurb: Students help fix Wikipedia's equity gap by adding missing facts to a biography of a diverse person. They learn to add information, including the technical how-tos of citations.
+      # description:
+      logic: add_to_article
+      selected: true # selected by default
+    -
+      title: Copyedit an article (optional)
+      blurb: Students browse Wikipedia until they find an article they'd like to improve. They make edits to improve the language or formatting.
+      # description:
+      logic: copyedit
+
+-
+  key: improving_representation
+  title: Improving representation
+  description: |
+    Wikipedia should provide access to all knowledge – everything and everyone, everywhere.
+    But just like the real world, Wikipedia can fall short, particularly when it comes to
+    accurate, representative content of culturally diverse perspectives and histories. This
+    not only includes gaps in article content but also in areas like the diversity of the
+    authors cited, which means that students across all disciplines have the opportunity to
+    improve equity on Wikipedia.
+ 
+    To help your students understand the impact and challenges of working on articles
+    related to historically underrepresented and misrepresented subjects and groups, or
+    of enhancing representation in articles of any topic, we offer the training module
+    “Improving Representation on Wikipedia.”
+
+    This training explores why this kind of work is important, gives examples of how to
+    identify representation gaps, and offers strategies for enhancing representation in
+    an article’s text, references, images, and image captions.
+
+    #### Would you like your students to take the training module “Improving Representation on Wikipedia”? 
+  type: 1  # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      blurb: I want my students to take this training module.
+      selected: true # selected by default
+      tag: improving_representation
+      logic: improving_representation
+    -
+      title: "No"
+      blurb: I do not want to incorporate this training module.
+
+-
+  key: sandboxes
+  title: Starting in sandboxes
+  # only_if: returning_instructor
+  description: |
+    For improving existing articles, we support two different strategies: have students prepare their initial improvements
+    in a Wikipedia sandbox, or have students directly improve the live versions incrementally. Sandboxes will give you a
+    chance to review student work before it reaches Wikipedia readers, but working live encourages incremental changes, provides
+    more opportunity for community interaction, and eliminates the error-prone step of copying student work from a
+    sandbox into a live article. Most instructors who have tried both strategies find that bypassing sandboxes and
+    working live simplifies the project.
+    
+    Whether students use sandboxes or work on live articles for their main contributions
+    Students creating new articles, rather than improving existing ones, will still prepare
+    their initial drafts in a sandbox. They will also use sandboxes to prepare a bibliography and an outline of proposed changes
+    before changing the live articles.
+
+    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts. If you would like students to work incrementally on
+    the live articles instead, choose 'Work live without sandbox drafts'.
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Prepare drafts in sandboxes
+      tag: yes_sandboxes
+      logic: yes_sandboxes
+    -
+      title: Work live without sandbox drafts
+      tag: no_sandboxes
+      logic: no_sandboxes
+      selected: true # selected by default
+
+-
+  key: working_in_groups
+  title: Working individually or in groups
+  description: |
+    Wikipedia assignments work well as individual or group projects. In either case,
+    students have a chance to make a substantial quality contribution to Wikipedia.
+
+    **Our recommendations:**
+
+    If you’re teaching a class with 40 students or fewer, we recommend that they work individually.
+    If you’re teaching a class with more than 40 students, we recommend they work in groups.
+
+
+    **When students work individually, they can:**
+ 
+      * independently control the way they navigate and participate on Wikipedia.
+      * experience every aspect of contributing to Wikipedia, from choosing their
+      topic and finding sources to updating their chosen entry.
+      * work on the topics they personally care about most.
+      * make a greater impact on Wikipedia.
+
+    **When students work in groups:**
+      * They may have an easier time overcoming some of the first-time challenges of contributing to Wikipedia.
+      * They may focus on one aspect of contributing to Wikipedia (e.g., one student might gather sources, while another writes up the contribution).
+      * They might find it easier to socialize and connect.
+      * They’ll work on fewer articles overall which means you’ll have less content to assess.
+    
+    #### Will your students be working in groups or individually during this Wikipedia assignment?
+ 
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Individually
+      tag: working_individually
+      logic: working_individually
+    -
+      title: In groups
+      tag: working_in_groups
+      logic: working_in_groups
+
+-
+  key: choosing_articles
+  title: Choosing articles
+  description: |
+    Whether your students choose their own topics or you provide them with a pre-selected list,
+    as the instructor, you should apply your own expertise to examining Wikipedia’s coverage of
+    your field. You understand the broader intellectual context where individual topics fit in.
+    Moreover, you have access to knowledge about published information on subjects and can
+    teach students how to access these resources via library and online resources.
+
+    When helping your students to choose articles, you also have a great opportunity to help
+    address Wikipedia's equity gaps. Such practices include:
+
+      * Directing students to consult and cite research published by scholars representing
+      historically marginalized racial/ethnic, gendered, economic, and geographic cultural identities
+      * Showcasing underdeveloped articles involving diverse knowledge and communities
+      * Modeling antidiscrimination editing techniques that describe women in terms other
+      than someone’s wife, mistress, mother, or daughter
+
+    Regardless of your unique method of teaching students to choose articles, you can recognize
+    and identify where Wikipedia falls short in your area of subject-matter expertise. Overall,
+    you know what topics your students should be able to handle within the larger constraints
+    of a typical term. 
+    
+    #### How will your class select articles?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Instructor prepares a list
+      blurb: You (the instructor) prepare a list of appropriate 'non-existent', 'stub' or 'start' articles ahead of time for the students to choose from.
+      description: If possible, you may want to work with an experienced Wikipedian to create the list. Each student chooses an article from the list to work on. Although this requires more preparation, it may help students to start researching and writing their articles sooner.
+      logic: choose_articles_from_list
+    -
+      title: Students find articles
+      blurb: Each student explores Wikipedia and lists 3–5 topics on their Wikipedia user page that they are interested in for their main project. You (the instructor) should approve article choices before students proceed to writing.
+      description: Having students find their own articles provides them with a sense of motivation and ownership over the assignment and exercises their critical thinking skills as they identify content gaps, but it may also lead to choices that are further afield from course material.
+      logic: explore_to_find_articles
+
+-
+  key: tricky_topic_areas
+  title: Medicine and other tricky topics
+  description: |
+    Writing about some topics on Wikipedia can be especially tricky — in particular, topics related to medicine, human health, and psychology. Is there any chance some of your students will work in these topic areas?
+
+    If you expect any of your students to work on medicine-related articles — including psychology — you'll need to familiarize yourself, and those students, with the special sourcing rules for these subject areas. These rules also apply if your students will be adding information on, say, the sociological implications of disease or other ways of looking at medical articles.Even if your course is not directly related to medicine, these rules may be important if your students are choosing their own topics.
+
+    #### Special considerations for medical and psychology topics
+
+    Though it is not a medical resource, many people nonetheless turn to Wikipedia for medical information. Poor medical information on Wikipedia can have terrible consequences. For this reason, the standards for sourcing on medical topics differ from other topic areas. In particular, the use of primary sources is strongly discouraged.
+
+    By Wikipedia's conventions for medical content, inappropriate primary sources include original medical research such as clinical studies, case reports, or animal studies, even if published in respected journals. In general, medical and health-related content should be based on review articles from reputable journals and other professional medical literature. Popular press is not considered a reliable source for medical topics.
+
+    Topics that involve human psychology — in particular, clinical psychology or abnormal psychology — often overlap with medical topics on Wikipedia. In those cases, the same rules about acceptable sources apply.
+
+    **Does your course fall into any of the following subject areas?** (If so, we'll include the training module that covers these special rules.)
+
+    * Medicine/Health
+    * Psychology
+    * Life sciences
+    * Social science fields, such as sociology and anthropology
+    * Women's and gender studies
+    * General composition
+    * Other subjects that could involve human health
+
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Yes. Students might choose a topic related to medicine or psychology.
+      tag: maybe_medical_topics
+      logic: medical_topics
+    -
+      title: No. No one will work on medicine- or psychology-related content.
+      tag: no_medical_topics
+
+- key: topics # This key is special-cased as non-exclusive in WizardTimelineManager
+  title: Subject-specific resources
+  description:
+    In addition to our general editing guidelines, we've created brief reference
+    materials about editing Wikipedia in certain topic areas. Please select all
+    subject-specific guides relevant to your students' work.
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Art History
+      tag: art_history
+      logic: art_history_handout
+      small: true
+    -
+      title: Biographies
+      tag: biographies
+      logic: biographies_handout
+      small: true
+    -
+      title: Books
+      tag: books
+      logic: books_handout
+      small: true
+    -
+      title: Chemistry
+      tag: chemistry
+      logic: chemistry_handout
+      small: true
+    -
+      title: Cultural Anthropology
+      tag: cultural_anthropology
+      logic: cultural_anthropology_handout
+      small: true
+    -
+      title: Ecology
+      tag: ecology
+      logic: ecology_handout
+      small: true
+    -
+      title: Environmental Sciences
+      tag: environmental_sciences
+      logic: environmental_sciences_handout
+      small: true
+    -
+      title: Films
+      tag: films
+      logic: films_handout
+      small: true
+    -
+      title: Genes and Proteins
+      tag: genes_and_proteins
+      logic: genes_and_proteins_handout
+      small: true
+    -
+      title: History
+      tag: history
+      logic: history_handout
+      small: true
+    -
+      title: LGBT+ Studies
+      tag: LGBTplus_studies
+      logic: LGBTplus_studies_handout
+      small: true
+    -
+      title: Linguistics
+      tag: linguistics
+      logic: linguistics_handout
+      small: true
+    -
+      title: Medicine
+      tag: medicine
+      logic: medicine_handout
+      small: true
+    -
+      title: Political Science
+      tag: political_science
+      logic: political_science_handout
+      small: true
+    -
+      title: Psychology
+      tag: psychology
+      logic: psychology_handout
+      small: true
+    -
+      title: Science Communication
+      tag: science_communication
+      logic: science_communication_handout
+      small: true
+    -
+      title: Sociology
+      tag: sociology
+      logic: sociology_handout
+      small: true
+    -
+      title: Species
+      tag: species
+      logic: species_handout
+      small: true
+    -
+      title: Women's Studies
+      tag: womens_studies
+      logic: womens_studies_handout
+      small: true
+
+-
+  key: peer_feedback
+  title: Peer feedback
+  description: |
+    Collaboration is a critical element of contributing to Wikipedia.
+
+    Some students will choose topics that naturally attract interested
+    Wikipedians who will pitch in with ideas, copyedits, or even substantial
+    contributions to the students’ articles. Some topics, however, may not
+    attract much interest. Consider assigning students to review each others’
+    articles soon after full-length drafts are posted, so they have time to act
+    on that advice.
+
+    Peer reviews are another chance for students to practice critical thinking.
+    Since students are usually hesitant to criticize their classmates—and other
+    Wikipedia editors may get annoyed with a stream of praise from students that
+    glosses over an article's shortcomings—it's important to give examples of
+    constructively critical feedback that focus on specific aspects for improvement.
+
+    **How many peer reviews will you ask each student to contribute during the course?**
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: 0 (not recommended)
+      logic: 0_peer_reviewers
+    -
+      title: 1
+      logic: 1_peer_reviewers
+      selected: true # this is the default
+    -
+      title: 2
+      logic: 2_peer_reviewers
+
+-
+  key: in_class_discussions
+  title: Wikipedia discussions
+  description: |
+    Setting aside some class time to discuss your Wikipedia assignment can be a
+    great way to keep your students on track as well as provide them with an
+    opportunity to think more critically about Wikipedia. The following are
+    discussion prompts that you may choose to include in your Wikipedia assignment.
+    You may wish to include these as scheduled in-class discussions or use them
+    as prompts for blog posts, reflection pieces, small break out groups, or as
+    thought pieces for your students to consider throughout their assignment.
+
+    You can always customize the prompts by editing their text, changing their
+    scheduled date, or deleting them all together from your course page timeline.
+
+    **Which discussion prompts would you like to include in your course timeline?**
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Content gaps and equity
+      selected: true
+      blurb: >
+        This prompt will explore how gaps in content arise on Wikipedia and will pay
+        special attention to gaps related to knowledge equity. Students will begin to
+        understand the complex issues surrounding Wikipedia's coverage of women and minorities,
+        why these equity gaps have arisen, and how students can begin to rectify these gaps
+        and address issues related to systemic bias on Wikipedia. 
+      description:
+      logic: content_gaps_discussion
+    -
+      title: Sources and plagiarism
+      selected: true
+      blurb: >
+        This prompt will explore how Wikipedia defines good sources of information
+        and how the community decided on these norms. It will also address close
+        paraphrasing and how to avoid it.
+      description:
+      logic: sources_and_plagiarism_discussion
+    -
+      title: Thinking about Wikipedia
+      selected: true
+      blurb: >
+        This prompt will ask students to think more deeply about Wikipedia,
+        including an exploration of neutrality, notability, and bias.
+      description:
+      logic: thinking_about_wikipedia_discussion
+
+-
+  key: supplementary_assignments
+  title: Supplementary assignments
+  description: |
+    In addition to the Wikipedia article writing itself, you may want to use a
+    supplementary assignment. These assignments can reinforce and deepen your
+    course's learning outcomes, and also help you to understand and evaluate the
+    students' work. Here are some of the effective supplementary assignments that
+    we recommend.
+
+    **Select any that you wish to use for your course.**
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Weekly journal
+      blurb: |
+        Students keep a weekly journal about their Wikipedia assignment. (Recommended)
+
+        Note: Wiki Education does not provide a platform for this activity. We recommend
+        using your LMS discussion board or another platform where students can submit
+        their weekly journal.
+      description: >
+        Weekly journaling about the Wikipedia assignment is a great way for your students
+        to reflect on what they are learning throughout this project and help them stay
+        on task. It also allows you to track their progress and learn about any issues
+        they’ve encountered in a timely way.
+
+      logic: weekly_journal_assignment
+      selected: true # this is a new default for Fall 2024 onward
+
+    -
+      title: Reflective essay
+      blurb: Ask students to write a short reflective essay on their experiences writing for Wikipedia. Not only does this enable students to explore what they learned from editing Wikipedia, but it gives them a chance to summarize their contributions and talk about how they ultimately sought to improve Wikipedia. The reflective essay can be particularly helpful as you assess their work.
+      description:
+      logic: reflective_essay
+      selected: true # this is the new default for Fall 2023 onward
+
+    -
+      title: In-class presentation
+      blurb: Each student or group prepares a short presentation for the class, explaining what they worked on, what went well and what didn't, and what they learned. These presentations can make excellent fodder for class discussions to reinforce your course's learning goals.
+      description:
+      logic: presentation
+
+    -
+      title: Original research paper
+      blurb: In courses that emphasize traditional research skills and the development of original ideas through a term paper, Wikipedia's policy of "no original research" may be too restrictive. Many instructors pair Wikipedia writing with a complementary research paper; students’ Wikipedia articles serve as a literature review, and the students go on to develop their own ideas and arguments in the offline research paper.
+      description:
+      logic: original_research_paper
+
+    -
+      title: Extra credit assignment
+      blurb: You may offer your students the option of editing an additional Wikipedia article for extra credit.
+      description: |
+        Students who choose this option will contribute to a second Wikipedia entry by following the steps outlined
+        on the course timeline for their main entry. Students will be asked to pursue this option early in the course
+        so they have enough time to research and draft their content for the additional contribution. Students should
+        only choose this extra credit option if they have the time and capacity to make a well-thought out and
+        carefully written contribution.
+
+        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.   
+
+        You will decide how much additional credit to offer students who choose this option.
+      logic: additional_article_extra_credit
+# -
+#   key: dyk_and_ga
+#   title: Wikipedia quality review processes
+#   description: |
+#     <br>
+
+#     #### The *Did You Know* process
+
+#     Did You Know (DYK) is a section on Wikipedia’s main page highlighting new content that has been added to Wikipedia in the last seven days. DYK can be a great opportunity to get students excited about their work. A typical DYK article will be viewed hundreds or thousands of times during its 6 hours in the spotlight.
+
+#     The general criteria for DYK eligibility are that an article is larger than 1,500 characters of original, well-sourced content (about four paragraphs) and that it has been created or expanded (by a factor of 5x or more) within the last seven days. Students who meet this criteria may want to nominate their contributions for DYK.
+
+#     The short window of eligibility, and the strict rules of the nomination process, can make it challenging to incorporate DYK into a classroom project. The DYK process should not be a required part of your assignment, as the DYK nomination process can be difficult for newcomers to navigate. However, it makes a great stretch goal when used selectively.
+
+#     #### The *Good Article* process
+
+#     Well-developed articles that have passed a Good Article (GA) review are a substantial achievement in their own right, and can also qualify for DYK. This peer review process involves checking a polished article against Wikipedia's GA criteria: articles must be well-written, verifiable and well-sourced with no original research, broad in coverage, neutral, stable, and appropriately illustrated (when possible). Practically speaking, a potential Good Article should look and sound like other well-developed Wikipedia articles, and it should provide a solid, well-balanced treatment of its subject.
+
+#     The Good Article nominations process generally takes some time — between several days and several weeks, depending on the interest of reviewers and the size of the review backlog in the subject area — and should only be undertaken for articles that are already very well-developed. Typically, reviewers will identify further specific areas for improvement, and the article will be promoted to Good Article status if all the reviewers' concerns are addressed. Because of the uncertain timeline and the frequent need to make substantial changes to articles, Good Article nominations usually only make sense for articles that reach a mature state several weeks before the end of term, and those written by student editors who are already experienced, strong writers and who are willing to come back to address reviewer feedback (even after the term ends).
+#   type: 0 # multiple choice
+#   minimum: 0
+#   options:
+#     -
+#       title: Include DYK as an ungraded option
+#       blurb: The Wiki Ed team can help you and your students during the term to identify work that may be a good candidate for DYK and answer questions you may have about the nomination process.
+#       tag: dyk_and_ga
+#       logic: did_you_know
+#     -
+#       title: Include Good Article nominations as an ungraded option
+#       blurb: The Wiki Ed team can provide advice and support to high-achieving students who are interested in the Good Article process.
+#       tag: dyk_and_ga
+#       logic: good_article_nominations
+
+-
+  key: assignment_expectations
+  title: Assignment expectations
+  description: |
+    What types of contributions do you expect your students to make to Wikipedia?
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: I would like my students to contribute substantially to Wikipedia either by considerably expanding existing articles or creating new articles.
+      tag: expected_contributions_large
+    -
+      title: I expect that my students will make small edits to Wikipedia, such as adding a few sentences to an article.
+      tag: expected_contributions_small
+    -
+      title: I don't know how much content my students will contribute to Wikipedia.
+      tag: expected_contributions_unknown
+
+-
+  key: other_assignments
+  title: What portion of your course will the Wikipedia assignment comprise?
+  description: |
+    We recommend that your Wikipedia assignment make up at minimum 20% of the overall course grade.
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: The Wikipedia assignment will be the only assignment.
+      tag: assignment_portion_only
+    -
+      title: The Wikipedia assignment is a major assignment.
+      tag: assignment_portion_major
+    -
+      title: The Wikipedia assignment is a minor assignment.
+      tag: assignment_portion_minor
+    -
+      title: I don't know.
+      tag: assignment_portion_unknown
+
+# -
+#   key: staying_in_sandboxes
+#   title: Staying in sandboxes
+#   description: |
+#     In Fall 2020, we will be asking many classes to leave student work in draft spaces ("sandboxes") on Wikipedia,
+#     rather than making edits to live articles. Wiki Education staff would then evaluate and move good student work
+#     live in the weeks following the conclusion of the term. This measure will greatly help us support more courses
+#     as we deal with a high demand for support in Fall 2020. How do you feel about this for your class?
+#   type: 1 # single choice
+#   minimum: 1
+#   options:
+#     -
+#       title: I would only be comfortable doing this assignment if my students worked on live articles.
+#       tag: sandboxes_unacceptable
+#     -
+#       title: I would prefer they worked on live articles, but it would be acceptable to leave work in sandboxes if that's what it takes to participate in the program this term.
+#       tag: sandboxes_not_preferred
+#     -
+#       title: I would prefer my students' work stays in sandboxes until it can be evaluated by a Wiki Education staff person.
+#       tag: sandboxes_preferred
+#     -
+#       title: I don't know.
+#       tag: sandboxes_unknown
+      

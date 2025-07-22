@@ -1,0 +1,952 @@
+# Messages for Message documentation (Message documentation)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Adamw
+# Author: Ajeje Brazorf
+# Author: Amire80
+# Author: BaRaN6161 TURK
+# Author: Base
+# Author: Beta16
+# Author: Hamilton Abreu
+# Author: Ixocactus
+# Author: Kizule
+# Author: Liuxinyu970226
+# Author: Macofe
+# Author: MojoMann
+# Author: MuratTheTurkish
+# Author: Nemo bis
+# Author: Ragesoss
+# Author: Raymond
+# Author: Robby
+# Author: Stjn
+# Author: Verdy p
+# Author: Vojtěch Dostál
+# Author: Zoranzoki21
+# Author: Андрей
+# Author: Ата
+---
+qqq:
+  number:
+    human:
+      decimal_units:
+        format: Format for abbreviating a large number. 'n' represents the number
+          and 'u' represents the units.
+        units:
+          thousand: abbreviation for thousand (1000)
+          million: abbreviation for million (1,000,000)
+          billion: abbreviation for billion (1,000,000,000)
+          trillion: abbreviation for trillion (1,000,000,000,000)
+          quadrillion: abbreviation for quadrillion (1,000,000,000,000,000)
+  accessibility:
+    number_field: Descriptive text for screen readers to explain how the number field
+      works
+  application:
+    back: Button to go back
+    cancel: |-
+      Button to cancel an action
+      {{Identical|Cancel}}
+    dashboard: Application name.
+    documentation: '{{Identical|Documentation}}'
+    error: Label for error messages
+    explore: |-
+      Explore link
+      {{Identical|Explore}}
+    field_required: |-
+      Message displayed to a user if a field is required, but not filled out when they try to submit.
+      {{Identical|Required}}
+    field_invalid_characters: Error message shown when a user submits a form with
+      invalid data
+    field_invalid_date: Error message demonstrating the correct format for entering
+      a date.
+    greeting2: |-
+      Enthusiastic greeting
+      {{Identical|Welcome}}
+    greeting_extended: Welcome the user to Wikipedia, which gets posted to a talk
+      page. (Wiki Ed only)
+    greeting: |-
+      Casual greeting
+      {{Identical|Hello}}
+    help: |-
+      Link to frequently asked questions
+      (Wiki Ed only)
+      {{Identical|Help}}
+    home: |-
+      Link to the main page
+      {{Identical|Home}}
+    log_in_extended: |-
+      Short text (< 14 characters) to make clear that authentication is via wikipedia
+      {{Identical|Log in}}
+    log_in: |-
+      Button for logging in (for registered users)
+      {{Identical|Log in}}
+    log_out: |-
+      Button for logging out (for registered users)
+      {{Identical|Log out}}
+    my_dashboard: My Dashboard link
+    recent_activity: Link to recent activity (for registered users)
+    request_account: '{{Identical|Request an account}}'
+    search: Input box for Frequently Asked Questions search (Wiki Ed only)
+    sign_up_extended: Short text (< 14 characters) to make clear that authentication
+      is via wikipedia
+    sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that
+      authentication is via Wikipedia
+    sign_up: |-
+      Sign up (for new users)
+      {{Identical|Sign up}}
+    submit: |-
+      Submit link
+      {{Identical|Submit}}
+    training: '{{Identical|Training}}'
+    change: |-
+      Link to change the language and/or project when inputting an article title
+      {{Identical|Change}}
+    details: |-
+      Heading for part of the interface that shows details about something
+      {{Identical|Details}}
+    confirm: '{{Identical|OK}}'
+    opt_in: '{{Identical|Yes}}'
+    opt_out: '{{Identical|No}}'
+  dashboard:
+    create_note: |-
+      Instructions on how to create a course.
+      (Wiki Ed only)
+
+      See: {{msg-wm|Wikiedudashboard-courses.creator.create short}}
+    create_preparation_note: Message providing advice top instructors before they
+      create their first course. (Wiki Ed only)
+    explore_course_pages: Link to explore courses pages (Wiki Ed only)
+    explore_examples: Link to explore example courses
+    join_note: |-
+      Instructions on how to join a course.
+      (Wiki Ed only)
+
+      See: {{msg-wm|Wikiedudashboard-courses.creator.find}}
+    no_courses_instructor: Note that you can create courses (Wiki Ed only)
+    no_courses_student: Note that you can join courses (Wiki Ed only)
+    opt_out: Link to opt out (Wiki Ed only)
+    orientation_notice: Note suggesting an orientation (Wiki Ed only)
+    review_orientation: Link to return to the new instructor orientation/training
+      after it has been completed. (Wiki Ed only)
+    start_orientation: Link to start orientation (Wiki Ed only)
+    blog_headline: Header for a feed of recent Wiki Ed blog posts. (Wiki Ed only)
+  home:
+    explore: |-
+      Explore button
+      {{Identical|Explore}}
+    log_in: Log in with Wikipedia button
+    sign_up: Sign up with Wikipedia button
+    sign_up_help: Instructions about how to log in via Wikipedia.
+  activity:
+    all: '{{Identical|Activity}}'
+    edited_by: Column label for username of user who made an edit
+    label: |-
+      Short name for activities
+      {{Identical|Activity}}
+  articles:
+    articles: '{{Identical|Article}}'
+    article_development: Label for article development link
+    assigned: Label for a list of assigned articles
+    available: Label for a list of articles not assigned to anyone
+    previous: '{{Identical|Previous}}'
+    assigned_to: Table header for the user who is assigned to work on an article
+    character_doc: Documentation for an article's character total add and remove count.
+    edited: Label for a list of articles edited.
+    edited_by: Label for a list of users who edited an article
+    edited_mobile: '{{Identical|Article}}'
+    edited_none: Label stating that no articles have been edited.
+    filter:
+      wiki_all: '{{Identical|All}}'
+      new: '{{Identical|New}}'
+    hide: '{{Identical|Hide}}'
+    history: |-
+      Label for the history url
+      {{Identical|History}}
+    label: |-
+      Short name for articles
+      {{Identical|Article}}
+    loading: Placeholder message indicating that article data is still loading
+    new: |-
+      Message after an article title indicating that it is a newly-created article
+      {{Identical|New}}
+    none: Message stating that no articles have been edited.
+    rating: |-
+      Label for an article's quality rating on the Wikipedia 1.0 scale
+      {{Identical|Class}}
+    rating_doc: Explanation of where an article's quality rating comes from and what
+      it means
+    rating_docs:
+      fa: Explanation of what a Featured Article is
+      fl: Explanation of what a Featured List is
+      a: Explanation of what an A-class article is
+      ga: Explanation of what a Good Article is
+      b: Explanation of what a B-class article is
+      c: Explanation of what a C-class article is
+      start: Explanation of what a Start-class article is
+      stub: Explanation of what a Stub-class article is
+      list: Explanation of what a List-class page is
+      '?': Explanation of what an unrated article is
+      does_not_exist: Explanation of the Ø  symbol, which indicates than the article
+        does not exist on Wikipedia
+    see_more: Message indicating that there are more articles to load
+    see_more_tooltip: Tooltip message shown when hovering on "See More" button for
+      loading additional articles
+    title: |-
+      Label for an article title.
+      {{Identical|Title}}
+    title_example: Placeholder for article title
+    view: Command to view an article.
+    view_all: |-
+      Command to view all articles.
+      {{Identical|View all}}
+    view_doc: Documentation for the view count.
+    views_added: Maintenance script message stating how many view counts have been
+      added to an article. It just goes into the log files on the server, but no users
+      would see that. (It is there to indicate progress during the update process,
+      when page view data is being imported.)
+    articles_short: '{{identical|Article}}'
+    page_logs: Link to the MediaWiki page logs of an article
+  articles_wikidata:
+    articles_short: '{{identical|Item}}'
+  articles_generic:
+    articles_short: '{{identical|Page}}'
+  assignments:
+    article_link: '{{Identical|Article}}'
+    already_exists: Message displayed when trying to create a duplicate assignment
+    title_too_large: Message displayed when title entered exceeds 255 characters to
+      prevent mysql error
+    assignees: '{{Identical|Assignee}}'
+    assign_other: Button to assign an article to a student
+    add_available: Button to add article titles to the list of articles available
+      for program participants to work on
+    assign_self: Button to assign an article to self
+    confirm_add_available: Confirmation message for adding an article as an assignment
+      that is available for other participants to work on. "title" is a wiki page
+      title.
+    confirm_addition: Confirmation dialog for adding a new assignment. %{title} is
+      the Wikipedia page title. %{username} is the username of the assignee.
+    confirm_deletion: Confirmation dialog for an assignment should be deleted
+    change_sandbox_url: Link to change the sandbox URL
+    label: |-
+      Button to assign an article
+      {{Identical|Assign}}
+    loading: Placeholder message indicating that assignment data is still loading
+    none_short: Short label for an empty list of assignments
+    none: Label for an empty list of assignments
+    no_available: |-
+      Message indicating that there are no articles in the list of "available
+      articles" for participants to select from.
+    random_peer_review:
+      confirm_addition: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
+      confirm_addition_wikidata: '"Assign/remove a peer review" is {{msg-wm|Wikiedudashboard-assignments.review
+        other}}.'
+    remove: |-
+      Button to remove an article from the list of available articles
+      {{Identical|Remove}}
+    reviewers: '{{Identical|Reviewer}}'
+    review_other: Button to assign an article to a student for review
+    review_self: Button to assign an article to self for review
+    select: |-
+      Button to choose an available article to work on. It appears next to the title of the article.
+      {{Identical|Select}}
+    submit: Button to submit sandbox URL change.
+    invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia
+      URL.
+    mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same
+      wiki.
+  blocks:
+    milestones:
+      title: Label for the Milestone section of a course page (Wiki Ed only)
+  campaign:
+    active_campaigns: Heading for the list of active campaigns
+    add_organizer: Button to add an organizer
+    all_campaigns: Button to view the list of all campaigns
+    already_exists: Error shown when a new campaign has the same name or slug of another
+      campaign.
+    campaign: |-
+      Direct translation for campaign. Should be a singilar version of the courses.campaigns message
+      {{Identical|Campaign}}
+    campaigns: |-
+      Plural of 'campaign'
+      {{Identical|Campaign}}
+    campaign_deleted: Message indicating a campaign was successfully deleted. 'title'
+      is the title of the campaign.
+    campaign_not_updated: Message indicating a campaign could not be updated.
+    campaign_updated: Message indicating a campaign was successfully updated
+    confirm_campaign_deletion: Confirmation dialog for deleting a campaign
+    confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
+    confirm_course_removal: |-
+      Confirmation dialog for removing a course from a campaign.
+      'title' is the title of the course, and 'campaign_title' is the title of the campaign.
+    course_removed: Message indicating a course was successfully removed from a campaign.
+    create_campaign: Header for the page to create a new campaign
+    create_my_campaign: Label for the button to create a new campaign
+    description: |-
+      Label for the description field when creating a new campaign
+      {{Identical|Description}}
+    delete_campaign: Button to delete a campaign
+    enable_account_requests_doc: Tooltip explaining what the 'Enable Account Requests'
+      button does
+    none: |-
+      Option for a course with no campaign
+      {{Identical|None}}
+    organizers: |-
+      Label for the list of organizers for a campaign.
+      {{Identical|Organizer}}
+    organizer_added: Message indicating a user was successfully added as an organizer
+      of a campaign
+    organizer_removed: Message indicating a user was successfully removed as an organizer
+      of a campaign
+    program_template: |-
+      Label for the field to enter a default description for a program.
+      A direct translation of 'Program template' should be suitable.
+    program_template_tooltip: Tooltip explaining what the 'program template' of a
+      campaign is.
+    title: |-
+      Label for the input to change the title of a campaign
+      {{Identical|Title}}
+    use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
+  categories:
+    name: '{{Identical|Name}}'
+    category_name: '{{Identical|Category name}}'
+    psid_name: '{{optional}}'
+    template_name: '{{Identical|Template name}}'
+    remove: '{{Identical|Remove}}'
+  courses:
+    activity: Label for link to the 'recent activity' list for a course
+    active_courses: |-
+      Heading for the list of active courses. 'course_type' is one of these messages:
+      * {{msg-wm|Wikiedudashboard-courses.courses}}
+      * {{msg-wm|Wikiedudashboard-campaign.campaigns}}
+
+      So in English, the message would say either 'Active Courses' or 'Active Campaigns'.
+      {{Identical|Active}}
+    all_courses: Button to view the list of all courses
+    already_enrolled: Message displayed when the user attempts to enroll in a course
+      they have already joined.
+    already_exists: Message indicating that whatever was just added by the user already
+      existed
+    archived: Section heading for archived courses
+    actions: |-
+      Header for available actions, such as joining the course
+      {{Identical|Action}}
+    articles: |-
+      Label for link to list of articles worked on by a course
+      {{Identical|Article}}
+    articles_i_am_reviewing: Heading for list of articles that the user is signed
+      up to review
+    articles_i_will_create: Heading for list of a user's assigned article titles that
+      do not exist on-wiki
+    articles_i_am_updating: Heading for list of a user's assigned articles
+    assignment_end: The date on which the planned Wikipedia activities for a course
+      end. (Wiki Ed only)
+    assignment_start: Label for start date of assignment timeline (Wiki Ed only)
+    calendar:
+      legend: |-
+        Label for the legend that explains the course meeting days calendar
+        (Wiki Ed only)
+        {{Identical|Legend}}
+      legend_class_meeting: Label within the legend for the styling of days when the
+        class meets (Wiki Ed only)
+      legend_class_not_meeting: Label within the legend for the styling of days when
+        the does not meet (Wiki Ed only)
+      select_meeting_days: Instructions for using a calendar to select the days that
+        a course meets (Wiki Ed only)
+    cancel: '{{Identical|Cancel}}'
+    character_doc: Explanation of what 'characters added' means
+    campaigns: |-
+      Label for a list of campaigns a program is part of. A "campaign" essentially means a group of courses with something in common, in this context.
+      {{Identical|Campaign}}
+    campaign_courses: |-
+      The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Course}}
+    confirm_course_deletion: Confirmation dialog for deleting a course
+    confirm_course_deletion_failed: Message indicating that a course was not deleted
+    course_description: |-
+      Label for the number of courses in a campaign
+      {{Identical|Course}}
+    courses: |-
+      Label for the number of courses in a campaign
+      {{Identical|Course}}
+    creator:
+      already_exists: Message indicating that a course with the same details already
+        exists
+      assignment_end: Label for end date of assignment timeline (Wiki Ed only)
+      assignment_end_placeholder: Placeholder text for assignment end date field (Wiki
+        Ed only)
+      assignment_start: Label for start date of assignment timeline (Wiki Ed only)
+      assignment_start_placeholder: Placeholder text for assignment start date field
+        (Wiki Ed only)
+      checking_for_uniqueness: Status message while course data is being validated
+        (Wiki Ed only)
+      cloned_course_calendar_instructions: Instructors for using a calendar widget
+        while cloning a course (Wiki Ed only)
+      clone_successful: Message indicating that a course was cloned successfully (Wiki
+        Ed only)
+      clone_successful_details: Message explaining the next steps after a course is
+        cloned (Wiki Ed only)
+      course_description: Label for description field (Wiki Ed only)
+      course_school: Label for the school input field of a course (Wiki Ed only)
+      course_subject: Label for the subject of a course (Wiki Ed only)
+      course_term: Label for the academic term when a course takes place (Wiki Ed
+        only)
+      course_term_placeholder: '{{Identical|Term}}'
+      course_title: Label for the name or title of a course (Wiki Ed only)
+      create_button: Button to submit a new course (Wiki Ed only)
+      create_label: Label for course creation form (Wiki Ed only)
+      create_new: Button to start creating a new course (Wiki Ed only)
+      create_short: Short version of a button to create a new course (Wiki Ed only)
+      end_date: '{{Identical|End date}}'
+      end_date_placeholder: |-
+        Placeholder for course end date input field. This is used as a visual hint in the user interface about the date format that the user should use.
+
+        You may translate/adapt symbols indicating where to input digits, but not change the ISO date format required (keep fields in the same order and length, preserve hyphens).
+      find: Button for finding an existing course that you are participating in (Wiki
+        Ed only)
+      intro: Instructions for filling out the course creation form (Wiki Ed only)
+      no_class_holidays: Assertion that there are no holidays for a course (Wiki Ed
+        only)
+      save_cloned_course: Button to finish cloning a course (Wiki Ed only)
+      start_date: '{{Identical|Start date}}'
+      start_date_placeholder: |-
+        Placeholder for course start date input field. This is used as a visual hint in the user interface about the date format that the user should use.
+
+        You may translate/adapt symbols indicating where to input digits, but not change the ISO date format required (keep fields in the same order and length, preserve hyphens).
+      subject: |-
+        Placeholder text for course subject field
+        (Wiki Ed only)
+        {{Identical|Subject}}
+    current: Label for the list of current courses
+    delete_course: Button to delete a course
+    delete_suggestion: '{{Identical|Delete}}'
+    dismiss_survey: |-
+      Button label for dismissing a survey notification (Wiki Ed only)
+      {{Identical|Dismiss}}
+    dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
+    duration: Label for duration of a course
+    end: |-
+      Label for the end date of a course
+      {{Identical|End}}
+    enroll: '{{Identical|Enroll}}'
+    error:
+      exists: Error message indicating that a course with the same title, school and
+        term already exists.
+      user_exists: Error message indicating an invalid Wikimedia username
+      invalid_language_or_project: Error message indicating the language and project
+        do not correspond to a valid wiki
+      invalid_slug: Error message indicating blank school/title in course slug.
+      duplicate_slug: Error message indicating duplicate course slug.
+    feedback: '{{Identical|Feedback}}'
+    gradeables_none: Message indicating that the course has no gradeable items in
+      the timeline (Wiki Ed only)
+    instructor:
+      one: |-
+        Label for a single instructor of a course (Wiki Ed only)
+        {{Identical|Label for several instructors of a course (Wiki Ed only)
+        {{Identical|Instructor}}}}
+      other: |-
+        Instructor|Label for several instructors of a course (Wiki Ed only)
+        {{Identical|Instructor}}}}
+    instructors: |-
+      Label for the list of instructors for a program.
+      {{Identical|Instructor}}
+    invitation: Message that you have been invited to a course
+    join: |-
+      Button to join a course
+      {{Identical|Join}}
+    join_course: Button to join a course
+    join_prompt: |-
+      Do you want to join this course?
+      {{Identical|Join}}
+    join_successful: |-
+      Message that joining a program was successful,
+      with an explanation of how the Dashboard will track contributions.
+    leave_confirmation: Confirmation asking whether the user would like to unenroll
+      from a course.
+    leave_course: Button for a user to leave the course
+    loading: |-
+      Placeholder message to indicate that content is loading
+      {{Identical|Loading}}
+    new_week: Button for adding a new week to the timeline
+    new_account_email_placeholder: |-
+      Placeholder text shown inside email address field until user taps on it.
+
+      '''Note :''' do not ''translate'' the "<kbd>@example.org</kbd>" part, which is one of the safe domain names specially reserved by IANA for sample documentation published on the web or elsewhere, standardized in Internet [https://tools.ietf.org/html/rfc2606 RFC 2606] (see also [https://en.wikipedia.org/wiki/Example.com Example.com on Wikipedia]) so that it will not reach anyone and will not display or return harmful contents or steal personal data with unfair practices. Sending any email to that address will go instantly to a dust bin (and no one will reply, except if this address is abused). Mails to that fake address may also be blocked instantly by an upstream mail service provider and not delivered.<br />
+      Other ''translated'' domain names may be dangerous (could be hosting scams and malwares), or this could cause spam to be delivered to that target address and could harm an unrelated legitimate user or business.
+    no_campaign: '{{Warning|Don''t translate "Miscellanea". It''s a name that always
+      appears in English.}}'
+    nocourses: Message indicating that the logged in user is not part of any courses
+    none: Default placeholder to indicate that there are no items in a list. Used
+      to indicate that there are no instructors in a course, or the course is part
+      of no campaigns. '{{Identical|None}}'
+    notify_untrained_confirmation: Confirmation message explaning that talk page notification
+      will be posted. (Wiki Ed only)
+    no_available_actions: Placeholder message when no action buttons are available
+    overview: |-
+      Label for link to the overview page for a course
+      {{Identical|Home}}
+    passcode: |-
+      Label for course passcode field
+      {{Identical|Passcode}}
+    passcode_none: Label for courses which don't require a passcode to enroll.
+    passcode_prompt: Prompt for entering the passphrase required to enroll in a protected
+      course.
+    private: '{{Identical|Private}}'
+    published: Message explaining how students can enroll in the course (Wiki Ed only)
+    review_timeline: Message prompting user to review the timeline (Wiki Ed only)
+    revisions_doc: Message explaining the meaning of "Recent edits" 'timeframe' is
+      a number.
+    start: |-
+      Label for the start date of a course
+      {{Identical|Start}}
+    start_typing: Placeholder message in an input, prompting the user to type
+    students: Label for link to the list of students for a course (Wiki Ed only)
+    students_count: |-
+      Column label for number of students in a course
+      {{Identical|Student}}
+    student_editors: |-
+      Label for list of users (Wiki Ed only)
+
+      This is "students who are also editors". It is used as a synonym for "students", but to emphasize that these users are editors as well.
+    students_none: This course has no students. (Wiki Ed only)
+    students_short: |-
+      Label for the number of students in a course, in the mobile layout (Wiki Ed only)
+      {{Identical|Student}}
+    submitted_admin: Admin-only notice that a course is ready for approval
+    submitted_and_pending_heading: Header for list of courses that have been submitted
+      but have not yet been approved. (Wiki Ed only)
+    submitted_note: Message that your course has been successfully submitted
+    user_role: '{{Identical|Role}}'
+    tags: '{{Identical|Tag}}'
+    term: '{{Identical|Term}}'
+    timeline_link: '{{Identical|Timeline}}'
+    timeline_tooltip: Message that explains what timeline is good for
+    time_zone_message: Message explaining that times are shown to the user in their
+      local time zone
+    title: |-
+      Label for the title of each course
+      {{Identical|Title}}
+    training_due: Training is due for this course (Wiki Ed only)
+    training_nav: Link to go to the training page (Wiki Ed only)
+    training_overdue: Training due date has passed for this course (Wiki Ed only)
+    unsubmitted: Name for pseudo-campaign of unsubmitted courses (Wiki Ed only)
+    untrained: '{{Identical|Untrained}}'
+    view: Label for link to a course page
+    view_doc: Explanation of what 'article views' means
+    view_page: Label for link to the course page
+    view_wiki: Label for link to the on-wiki version of a course page
+    volunteer:
+      one: |-
+        Label for a single course volunteer
+        {{Identical|Volunteer}}
+      other: |-
+        Label for multiple course volunteers
+        {{Identical|Volunteer}}
+    weeks_none: Message indicating that a course does not have a timeline (Wiki Ed
+      only)
+    warn_mirrored: Message to alert instructor that their new course will be uploaded
+      to Wikipedia on their behalf (Wiki Ed only)
+    wiki_staff: Label for staff members supporting the course (Wiki Ed only)
+    yourcourses: Label for the list of courses associated with the logged in user
+    survey:
+      notification_message: Message inviting user to take a course survey (Wiki Ed
+        only)
+      link: Link to begin course survey (Wiki Ed only)
+  courses_generic:
+    all_courses: |-
+      Button to view the list of all courses. Uses alternative word for generic courses.
+      {{Identical|Programs}}
+    archived: The alternative wording for generic courses.
+    assignments_none: Message indicating that there are no assigned articles
+    cancel: '{{Identical|Cancel}}'
+    course: '{{Identical|Program}}'
+    courses: '{{Identical|Program}}'
+    campaigns: '{{Identical|Campaign}}'
+    campaign_courses: |-
+      The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Program}}
+    creator:
+      assignment_end_placeholder: 'This is the ISO format: do not change its order
+        or separators, just adapt the placeholder letters abbreviating each digit.'
+      assignment_start_placeholder: 'This is the ISO format: do not change its order
+        or separators, just adapt the placeholder letters abbreviating each digit.'
+      checking_for_uniqueness: Status message while course data is being validated
+      course_description: Label for the description of a course
+      course_school: Label for the "Institution" input field of a program, which is
+        for the name of the institution — such as a university or Wikimedia chapter
+        — that the program is associated with.
+      course_term: '{{Identical|When}}'
+      course_term_placeholder: '{{Identical|When}}'
+      course_title: Label for the name of a course or program
+      create_button: Button to submit a new program
+      create_label: Label for creating a new program
+      create_new: Button to start the program creation process
+      create_short: Short version of link to start a new program
+      find: Button to find an existing program
+      intro: |-
+        Explanation of how to use the program creation form.
+
+        * "Tracked Wikis" is {{msg-wm|Wikiedudashboard-courses.multi wiki}}
+        * "Create my Program!" is {{msg-wm|Wikiedudashboard-courses generic.creator.create button}}
+      save_cloned_course: '{{Identical|Save}}'
+    explore: |-
+      The alternative wording for generic courses.
+      {{Identical|Find programs}}
+    expected_students: Label for expected number of participants
+    instructors: Label for users who are organizing the program
+    milestones_none: Message indicating that there are no timeline milestone to show
+    published: Message indicating how editors can join a program
+    revisions_none: Message indicating that there are no revisions to show
+    student_editors: '{{Identical|Editor}}'
+    students: '{{Identical|Editor}}'
+    students_short: '{{Identical|Editor}}'
+    unsubmitted: Alternative wording for generic courses.
+    uploads_none: Message indicating that there are no Commons contributions to show
+    yourcourses: |-
+      The alternative wording for generic courses.
+      {{Identical|Your Programs}}
+  editable:
+    edit: |-
+      Label for an edit button
+      {{Identical|Edit}}
+    cancel: |-
+      Label for button to cancel an edit
+      {{Identical|Cancel}}
+    save: |-
+      Label for button to save an edit
+      {{Identical|Save}}
+    edit_description: Label for button to edit the description of something
+    edit_details: Label for button to edit the details of something
+  instructor_view:
+    assignments_table:
+      article_name: '{{Identical|Name}}'
+    no_assignments: Message displayed when no assignment is assigned to students
+    can_assign_assignments: Message displayed when the user can assign the assignment
+  metrics:
+    activity: Label for activity feed.
+    are_trained: Label that follows the number of users who are do not have assigned
+      trainings that are incomplete and overdue. (Wiki Ed only)
+    articles_created: Label for the number of articles created.
+    articles_edited: Label for the number of articles edited.
+    characters: Label for the number of characters metric.
+    char_added: Label for the number of characters added.
+    char_changed: Label for the number of characters changed.
+    char: Label for number of characters added and removed.
+    date_time: Label for a revision or activity timestamp.
+    edit_count_description: Label for the number of edits made.
+    per_user: The average number of words contributed to articles per user, for a
+      program. 'number' is a number of words.
+    revisions: Label for the number of recent edits/revisions.
+    tags: '{{Identical|Tag}}'
+    upload_count: Label for the number of files uploaded to Wikimedia Commons
+    uploads_in_use_count: Label for the number of Wikimedia Commons files being used
+      in articles. Preceded by %{count}.
+    upload_usages_count: Label for the number of times Wikimedia Commons files are
+      used across all languages and projects. Preceded by %{count}.
+    view_count_description: Long label for the number of views for the article or
+      articles involved.
+    view: Label for the number of article views.
+    descriptions: '{{identical|Description}}'
+    labels: '{{identical|Label}}'
+  namespace:
+    main: Long label for the Main namespace.
+    main_char_added: Label for number of characters added to the Main namespace.
+    user: Long label for the User namespace.
+    user_char_added: Label for number of characters added to the User namespace.
+  recent_activity:
+    active_courses: Header for a list of courses associated with an article (Wiki
+      Ed only)
+    article_title: |-
+      Label for a table column of article titles
+
+      {{Identical|Title}}
+    datetime: Label for the date and time of an activity
+    did_you_know_eligible: Label for "Did You Know" Eligible tab (Wiki Ed only)
+    image: |-
+      Label for a table column of images
+      {{Identical|Image}}
+    file_name: |-
+      Label for the file name of an image
+      {{Identical|Filename}}
+    no_dyk_eligible: Message stating there are no "Did You Know" eligible articles.
+      (Wiki Ed only)
+    no_plagiarism: Message stating there are no recent revisions suspected of plagiarism.
+      (Wiki Ed only)
+    no_edits: Message stating there are no recent edits.
+    plagiarism_report: Label for link to a plagiarism report (Wiki Ed only)
+    possible_plagiarism: Label for Possible Plagiarism tab (Wiki Ed only)
+    plagiarism_explanation: |-
+      Message that explains that the report might be a false positive.
+      Instructs to review the details before taking action and that if the revision or article is
+      not accessible it might be related to copyright reasons.
+    recent_edits: Label for Recent Edits tab
+    recent_uploads: Label for Recent Uploads tab
+    revision_author: Label for a table column of the user who made each revision
+    revision_datetime: Label for a table column of the date and time of each revision
+    revision_score: Label for a table column of numerical revision scores (Wiki Ed
+      only)
+    show_courses: Checkbox for option to show user courses only (Wiki Ed only)
+    uploaded_by: Label for the user who uploaded a file
+    usage_count: Label for the number of global usages of a file across Wikimedia
+      sites
+  revisions:
+    chars_added: Label for counter of added chars
+    class: |-
+      Label for class of the article
+      {{Identical|Class}}
+    date_time: Label for date and time of revision
+    diff: '{{Identical|Diff}}'
+    diff_show: '{{Identical|Show}}'
+    diff_hide: '{{Identical|Hide}}'
+    edit_time_span: Message with start and end datetimes for edits to article
+    edited_by: Label for author of the last edition
+    edited_on: Label with datetime of edit to article
+    loading: Message about loading revisions
+    none: Message stating there's no editing activity
+    time_doc: Explanation of what 'time' means
+    title: |-
+      Label for title of the article
+      {{Identical|Title}}
+  settings:
+    categories:
+      salesforce: |-
+        {{Optional}}
+
+        The name of a CRM service. See [[:w:en:Salesforce]].
+    admin_users:
+      new:
+        form_placeholder: '{{Identical|User name}}'
+  tasks:
+    conseq: Maintenance script message indicating that a task is already running
+    constant: Maintenance script message indicating that a conflicting task is running
+    paused: Maintenance script message indicating that update tasks are paused
+  timeline:
+    block_assignment: '{{Identical|Assignment}}'
+    block_custom: '{{Identical|Custom}}'
+    block_milestone: '{{Identical|Milestone}}'
+    edit_titles: Edit Week Titles button label
+    edit_titles_info: Information message about editing week titles
+    empty_week_3: '{{Identical|Or}}'
+    gradeable_value: '{{Identical|Value}}'
+    grading_header: Header for Grading section of course timeline. 'total' is a number,
+      the sum of all the values for graded assignments.
+    reset_titles: Reset Titles button label
+    reset_titles_confirmation: Confirmation message upon clicking reset button
+    title: '{{Identical|Timeline}}'
+    week_number: '{{Identical|Week}}'
+  training:
+    continue: Button label for continuing the training (plus percent completion)
+    start: |-
+      Button to start the training sequence
+      {{Identical|Start}}
+    view: |-
+      Button label for viewing training progress
+      {{Identical|View}}
+    page: '{{Identical|Page}}'
+    done: '{{Identical|Done}}'
+    invalid: Alert stating the slide does not exist
+    wait: Alert to not leave the page as the training progress is being updated in
+      the background
+    kind:
+      discussion: '{{identical|Discussion}}'
+  uploads:
+    image: '{{Identical|Image}}'
+    label: |-
+      Short name for uploads
+      {{Identical|Upload}}
+    loading: Placeholder in table of Commons uploads, before data has loaded
+  users:
+    already_enrolled: Message indicating that a user is already enrolled in the course
+      and cannot be enrolled again.
+    assign_articles_done: '{{Identical|Done}}'
+    assigned: Label for articles assigned to a user
+    assignees: Label for list of assigned users for an article
+    loading_authorship_data: Message indicating that authorship data is being loaded
+    authorship_data_not_fetched: Message indicating that authorship data could not
+      be fetched
+    character_doc: Explanation of the characters added for a user
+    contributions: Label for list of contributions by a user
+    contributions_more: Label for a link that loads more of a user's contributions
+    course_passcode: Label for the passphrase needed to enroll in a course.
+    editors: Label for the number of students enrolled in a course
+    edits_by: Label for the list of users who edited an article
+    enroll_confirmation: Confirmation message for adding an user to a project. "username"
+      is the Wikimedia username of the user being added.
+    enroll_url: Label for the enrollment URL.
+    enrolled_success: Confirmation message indicating that a user was successfully
+      added to the program or course. 'username' is the Wikimedia username of the
+      added user.
+    first_name: '{{Identical|First name}}'
+    last_name: '{{Identical|Last name}}'
+    loading: Message indicating that information about users is still loading
+    characters_added_mainspace: '"MS" means Main Space'
+    characters_added_short: The "MS" means Main Space, and the "US" means User Space.
+      Used in mobile view, so the string should be short.
+    characters_added_userspace: '"US" means User Space'
+    characters_added_draftspace: '"DS" means Draft Space'
+    my_assigned: Label for a list of article assignments.
+    my_reviewing: Label for a list of articles to review.
+    name: |-
+      Label for usernames of students
+      {{Identical|Name}}
+    none: Message indicating that a course has no students enrolled
+    no_articles: Label for an empty assignments list.
+    number_of_articles: |-
+      Entry in a table showing the number of articles a user is assigned to work on or review. It is not a complete sentence.
+      {{Identical|Article}}
+    remove_confirmation: Confirmation message for removing a user from a program or
+      course. "username" is the Wikimedia username of the user being added.
+    revision_characters_and_views: The number of characters of articles content added
+      by a user, and the number of pageviews that content has received since the user
+      began working on it. 'characters' is a number of characters, and 'views' is
+      a number of pageviews.
+    reviewers: Label for list of users who are reviewers
+    reviewing: Label for article or articles being reviewed by a user
+    training_complete:
+      one: Label that appears after the number of students who completed training
+      other: Label that appears after the number of students who completed training
+    training_complete_count: Message indicating how many students completed training.
+      %{count} is the number of students.
+    training_doc: Explanation of what it means to have completed training and how
+      completion is measured.
+    training_incomplete: Label that appears for a student who has not completed on-wiki
+      training. This applies only to courses that took place in 2015 or earlier.
+    training_modules_completed: Label indicating how many of the training modules
+      assigned to the course that an editor has completed
+    training_module_status: '{{Identical|Status}}'
+    training_module_time:
+      minutes: Abbrevation for "Minute(s)".
+      seconds: Abbrevation for "second(s)" (unit of measurement of time).
+    user_training_status: |-
+      Link anchor for viewing training status of a user
+      '{{Identical|Training Status}}'
+    user_no_training_status: Explanation that the user hasn't started any training
+      module yet.
+    username: '{{Identical|Username}}'
+    username_placeholder: '{{Identical|Username}}'
+    role:
+      visitor: '{{Identical|Visitor}}'
+      student: '{{Identical|Student}}'
+      instructor: '{{Identical|Instructor}}'
+  wiki_edits:
+    notify_overdue:
+      confirm: Confirmation message explaning that talk page notification will be
+        posted. (Wiki Ed only)
+      header: Section header of wiki talk page section about overdue training(Wiki
+        Ed only)
+      message: Content of wiki talk page section about overdue training (Wiki Ed only)
+      summary: Edit summary for a talk page message about overdue training (Wiki Ed
+        only)
+  wizard:
+    assignment_dates: Header for the assignment dates section of the wizard (Wiki
+      Ed only)
+    assignment_type: Header for the assignment type section of the wizard (Wiki Ed
+      only)
+    confirm_dates: Instructions for inputting assignment date information (Wiki Ed
+      only)
+    min_weeks: Message indicating that an assignment is not available because there
+      is not enough time for it. %{min_weeks} is the minimum number of weeks for the
+      assignment type. (Wiki Ed only)
+    minimum_options: Message indicating that more options must be selected. %{minimum}
+      is the required number of options. (Wiki Ed only)
+    read_less: Button label to collapse an expanded section of addition information
+      (Wiki Ed only)
+    read_more: |-
+      Button label to expand a section with additional information
+      (Wiki Ed only)
+      {{Identical|Read more}}
+    review_selections: Instructions for the summary section (Wiki Ed only)
+    select_assignment: Instructions for the assignment type section (Wiki Ed only)
+    summary: |-
+      Header for the summary section
+      (Wiki Ed only)
+      {{Identical|Summary}}
+  error:
+    form_errors: Generic error for form invalidation
+    invalid_date: |-
+      Error shown when the given date is invalid
+      key is the name of the date field, such as 'start' or 'end'
+    start_date_before_end_date: Error shown when the given start date is after the
+      end date
+    unsupported_browser:
+      header: Error message indicating that the user's browser is not supported
+  error_incorrect_passcode:
+    header: Heading for an alert that the user has provided an incorrect passphrase
+      for enrolling in a course.
+    explanation: Message alerting the user that they've provided an incorrect passphrase
+      for enrolling in a course.
+  error_no_course:
+    explanation: Explanation for a course that does not exist
+  error_404:
+    header: Message indicating that a page doesn't exist.
+    explanation: Message explaining why a user may have reached a page that doesn't
+      exist.
+  error_422:
+    header: Message indicating a 422 unprocessable entity error.
+    explanation: Explanation of what to do after encountering this error.
+  error_500:
+    header: Message indicating a 500 internal server error.
+    explanation: Explanation of what to do after encountering this error.
+  survey:
+    login_message: Message prompting user to log in before taking a survey. (Wiki
+      Ed only)
+    notification_schedule_explanation: Message describing how survey notifications
+      work
+    email:
+      headline: '{{Identical|Hello}}'
+      message_line1: Email text for survey invitation. (Wiki Ed only)
+      message_line2: Email text for survey invitation. (Wiki Ed only)
+      course: '{{Identical|Course}}'
+      closing: Valediction for survey email. (Wiki Ed only)
+      signed: Signature for survey email. (Wiki Ed only)
+      link: Link to take survey from email
+    follow_up:
+      message: Survey invitation email text. (Wiki Ed only)
+    edit_survey: Button label for editing a survey
+  article_finder:
+    add_available_article: Button label to add an article finder result to available
+      articles
+    article_finder: Title heading for article finder
+    article_quality: Slider lable for article quality filter
+    assign_article_self: Button label to assign an article to self
+    average_views: Table header label for average page views of articles
+    category_search: Radio Button label for selecting category based search.
+    completeness_estimate: Table header label for ORES estimation scores of articles
+    fetching_assessments: Loading spinner label indicating fetching of Page Assessment
+      grades for found articles
+    fetching_scores: Loading spinner label indicating fetching of ORES estimation
+      scores for found articles
+    fetching_pageviews: Loading spinner label indicating fetching of Pageviews for
+      found articles
+    fetching_revisions: Loading spinner label indicating fetching of Page revisions
+      for found articles
+    fetched_articles: Label indicating count of fetched results {{Identical|Fetched
+      Articles}}
+    filtered_articles: Label indicating count of filtered results {{Identical|Filtered
+      Articles}}
+    keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
+      Search}}
+    minimum_views_label: Input label for minimum views filter
+    more_results: Button label for fetching more search results {{Identical|More Results}}
+    no_article_found: Message indicating no search results
+    page_assessment_class: |-
+      Table header label for page assessment class of articles
+      {{Identical|Class}}
+    relevanceIndex: Relevance Index table header {{Identical|Relevance Index}}
+    remove_article: Button label for removing an article
+    search: Label for search bar in Article Finder {{Identical|Search}}
+    searching_articles: Loading spinner label indicating fetching of articles
+    search_placeholder: Article finder search bar placeholder
+    subheading_message: Subheading message for the article finder tool
+    submit: Submit button label {{Identical|Submit}}
+    tools: Label for tools table column {{Identical|Tools}}
+    unassign_article_self: Button label to unassign an article to self
+  training_status:
+    continue: '{{Identical/Continue}}'
+  news:
+    footer:
+      wiki_education_dashboard:
+        link_text: '{{optional}}'
+  question_groups:
+    edit_question_group: Button label for editing a question group
+...

@@ -1,0 +1,9 @@
+name: 'Continue improving your article'
+id: 45
+kind: 'exercise'
+description: |
+  Do additional research and writing to make further improvements to your
+  article, based on suggestions and your own critique.
+slides:
+  - slug: link-articles #4501
+  - slug: add-images #4502

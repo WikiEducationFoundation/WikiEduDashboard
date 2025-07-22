@@ -1,0 +1,13 @@
+# Messages for Tsonga (Xitsonga)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Amos Mahonisi
+---
+ts:
+  courses:
+    expected_students: vadyondzi lava languteriweke
+    published: 'khoso ya wena yi kandziyisiwile! vadyondzi va nga nghenela eka khoso
+      hi ku endzela URL leyi:'
+    revisions_none: khoso leyi yi hava minghingiriko ya vuhleri ya Wikipedia ya sweswi
+    student_editors: vahleri va swichudeni
+...

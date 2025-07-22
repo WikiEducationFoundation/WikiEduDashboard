@@ -1,0 +1,38 @@
+id: 5607
+title: "Data models quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 3
+  question: |
+    If you visit a WikiProject and can't find a data model for an item you should...
+  answers:
+    - id: 1
+      text: |
+        start modeling items on your own without sharing that model with anyone
+      explanation: |
+        INCORRECT! Wikidata is a collaborative project. Although we encourage
+        you to be bold and share your expertise, inviting others to participate
+        in the discussion is the best way to approach data models.
+    - id: 2
+      text: |
+        give up on the item and find something with an existing model to work on.
+      explanation: |
+        INCORRECT! Don't give up! It may require extra work to create a data model,
+        but the community benefits from them.
+    - id: 3
+      text: |
+        use the Discussion page of the WikiProject to propose a data model.
+      explanation: |
+        CORRECT! Discussion pages of WikiProjects are the ideal place to go to
+        propose a data model. It's always a good idea to involve the community
+        and WikiProjects are subject-themed, so participants will have some
+        knowledge about the models you're proposing.
+    - id: 4
+      text: |
+        consult the Wikidata manual, which has a section on official data models.
+      explanation: |
+        INCORRECT! All data models are community-produced, established by
+        consensus, so there is no "official" data model. Either data models are
+        documented on WikiProjects or they are not. There is also no Wikidata
+        manual...at least not yet.

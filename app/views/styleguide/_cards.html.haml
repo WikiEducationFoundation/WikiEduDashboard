@@ -1,0 +1,86 @@
+%h5 Module
+
+.module
+  .section-header
+    %h3 Section Header
+    .controls
+      .button.dark A button
+  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam feugiat tincidunt tortor eu iaculis. Sed id urna sem, quis malesuada lacus. Nulla iaculis malesuada libero, id vehicula sapien imperdiet eu.
+
+%br/
+
+%h5 Week
+
+.week
+  .week__week-header
+    .week__week-add-delete.pull-right
+      %span.pull-right.week__add-block Add Block
+      %span.pull-right.week__delete-week Delete Week
+    %span.week__week-dates.pull-right
+      %span 04/17-04/23 (T, Th)
+    %p.week-index Week 1
+  %ul.week__block-list.list-unstyled
+    %li.block
+      .block__edit-button-container
+        %button.pull-right.button.ghost-button.block__edit-block Edit
+      .block__edit-container
+        %h4.block-title
+          %span Wikipedia Assignment Overview
+        .block__block-type.editable
+          %span In Class
+      .block__editor-container
+        .block__block-content
+          %ul
+            %li Overview of the course
+            %li Introduction to how Wikipedia will be used in the course
+          %hr
+            %p
+              Handout:
+              %a{:href => "https://wikiedu.org/editingwikipedia"} Editing Wikipedia
+
+%br/
+
+%h5 Course
+
+%a.course{:href => "#"}
+  %span.button.border
+    View Course Page
+  .course-title
+    Downtime projects
+  .course-details
+    .col
+      .course-details_title
+        Instructors
+      .course-details_value
+        Matt Fordham
+    .col
+      .course-details_title
+        School
+      .course-details_value
+        Wiki University
+    .col
+      .course-details_title
+        Term
+      .course-details_value
+        2016
+    .col
+      .course-details_title
+        \# Students
+      .course-details_value
+        0
+
+%a.course.course-past{:href => ""}
+  %span.button.border
+    View Course Page
+  %h2.course-title
+    Feminist Economics
+    %span.course-term Spring 2016
+
+%br/
+
+.sg-note
+  TODO:
+  %ul
+    %li All examples above should/could be made universal. Currently use different markup and classes.
+    %li Cards for Surveys in separate stylesheet (not yet illustrated here).
+    %li Cards for Training in separate stylesheet (not yet illustrated here).

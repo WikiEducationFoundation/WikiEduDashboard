@@ -1,0 +1,1309 @@
+# Messages for Estonian (eesti)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+# Author: Daniel charms
+# Author: Pikne
+---
+et:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: t
+          million: mln
+          billion: mld
+          trillion: trln
+          quadrillion: kvdr
+  accessibility:
+    number_field: See on arvuväli. Arvu suurendamiseks või vähendamiseks võib kasutada
+      enamikus brauserites kuvatavaid nuppe.
+  application:
+    cancel: Loobu
+    cookie_consent: See leht kasutab kasutaja sisselogituna hoidmiseks küpsiseid ning
+      säilitab teavet sinu Vikipeedia konto kohta.
+    cookie_consent_acknowledge: Saan aru
+    cookie_consent_see_more: Loe lisaks.
+    create_accounts: Loo Vikipeedia kontod
+    dashboard: Wiki Edi töölaud
+    documentation: Dokumentatsioon
+    error: 'Tuvastati viga:'
+    explore: Avasta
+    field_required: See väli on kohustuslik
+    field_invalid_characters: See väli sisaldab mittelubatud märke
+    field_invalid_date: See väli nõuab kuupäeva vormingus AAAA-KK-PP
+    field_invalid_date_time: Lõppaeg peab olema algusajast hilisem. (Tunnid on vahemikus
+      0–23.)
+    greeting2: Tere tulemast!
+    greeting_extended: Tere tulemast Vikipeediasse!
+    greeting: Tere!
+    help: Abi
+    home: Kodu
+    log_in_extended: Logi sisse Vikipeedia kontoga
+    log_in: Logi sisse
+    log_out: Logi välja
+    my_dashboard: Minu töölaud
+    recent_activity: Viimased muudatused
+    report_problem: Teata probleemist
+    request_account: Taotle kontot
+    request_account_create: Loo konto
+    search: Esita küsimus
+    search_results:
+      one: '%{count} tulemus otsingule "%{search_terms}"'
+      other: '%{count} tulemust otingule "%{search_terms}"'
+    no_results: Päringule %{query} vasteid ei leitud
+    sign_up_extended: Registreeru Vikipeedia kontoga
+    sign_up_wikipedia: Või registreeru Vikipeedias
+    sign_up_log_in_extended: Vikipeedia kontoga
+    sign_up: Registreeru
+    submit: Saada
+    training: Õppimine
+    change: Muuda
+    details: Üksikasjad
+    confirm: Sobib
+    opt_in: Jah
+    opt_out: Ei
+    opt_yes: jah
+    opt_no: ei
+  dashboard:
+    create_note: Oma esimese kursuse loomiseks vajuta lingile "Loo uus kursus".
+    create_preparation_note: 'Kursuse loomisega alustades tasub hoida käepärast akadeemiline
+      kalender. Õppetöö planeerimise tööriist paigutab õppetöö toimumiskuupäevade
+      (sh vaheaegade ja pühade) alusel kursuse ajakava valitud ajavahemikku. Märkus:
+      tööriista loodud ajakava on võimalik igal hetkel käsitsi muuta.'
+    explore_course_pages: Tutvu kursuse lehtedega
+    explore_examples: Tutvu näidetega
+    join_note: Kui oled saanud kursuse juhendajalt pääsukoodi, vajuta kursuse leidmiseks
+      ja sellega liitumiseks nuppu "Otsi kursust".
+    no_courses_instructor: Näib, et Sa pole ühegi kursusega liitunud.
+    no_courses_student: Näib, et Sa pole veel ühegi kursusega liitunud.
+    opt_out: Jäta ettevalmistuskursus vahele
+    orientation_notice: Enne kursuse loomist tutvu töö lihtsustamiseks ettevalmistusmaterjalidega.
+      (Selleks kulub umbes pool tundi.)
+    review_orientation: Sirvi ettevalmistusmaterjale
+    start_orientation: Alusta ettevalmistuskursusega
+    blog_headline: Wiki Educationi uudised
+    about_programs: See lehekülg jälgib programmide ehk iseseisvate ürituste nagu
+      sisutalgute või koolikursustega seotud vikiaktiivsust. Iga programm on osa ühest
+      või mitmest kampaaniast, mis võimaldavad vaadata koondstatistikat eri programmide
+      kohta.
+    about_creating_programs: Juhul kui korraldatav üritus on ühekordne ja iseseisev
+      sündmus, võid luua kohe uue programmi. Juhul kui see on osa suuremast ettevõtmisest,
+      loo või leia esmalt sellega seotud kampaania ning loo seejärel uus programm
+      vastava kampaania lehel.
+  home:
+    explore: Avasta
+    log_in: Logi sisse Vikipeedia kontoga
+    sign_up: Registreeru Vikipeedia kontoga
+    sign_up_help: Töölaua kasutamiseks pead logima sellesse sisse Vikipeedia kaudu
+      ning andma töölauale õiguse sinu konto andmete kasutamiseks. Sisselogimiseks
+      võid kasutada kas olemasolevat Vikipeedia kontot või luua uue konto. Kui sul
+      ei õnnestu kontot luua, kirjuta aadressil dashboard@wikiedu.org.
+  activity:
+    all: Täiendused
+    edited_by: Muutnud
+    label: Täiendused
+  articles:
+    article_development: (artikli loomine)
+    assigned: Tegemisel artiklid
+    available: Vabad artiklid
+    no_available: Vabad artiklid puuduvad
+    next: Edasi
+    previous: Tagasi
+    article_title: Artikli pealkiri
+    assigned_to: Kasutaja nimi
+    character_doc: Algus- ja lõppkuupäeva vahel kursusel osalejate lisatud märgid
+      artiklites, summaarne
+    cross_wiki_tracking: Allpool on nimekiri algus- ja lõppkuupäeva vahel muudetud
+      põhinimeruumi artiklitest. Töölaud koondab kaastöid programmi koduvikist ning
+      kõigist teistest vikidest, millega on seotud mõni ülesanne või vaba artikkel.
+    deleted: (kustutatud)
+    does_not_exist: Sellist artiklit ei eksisteeri. Soovituste saamiseks loo lehekülg
+      liivakastis ning määra ennast selle autoriks.
+    edited: Muudetud artiklid
+    edited_by: 'Muutnud:'
+    edited_mobile: Artiklid
+    filter:
+      wiki_all: Kõik
+      new: Uued
+      existing: Olemasolevad
+      new_and_existing: Uued ja olemasolevad
+      tracked: Jälgitavad
+      untracked: Mittejälgitavad
+      tracked_and_untracked: Jälgitavad ja mittejälgitavad
+    hide: Peida
+    history: (ajalugu)
+    label: Artiklid
+    loading: Laadin artikleid...
+    new: (uus)
+    none: Kursusel osalejad ei ole muutnud ühtegi artiklit.
+    rating: Rühm
+    rating_doc: Artikli hinne Vikipeedias. Näidatud hinded võivad käia artiklite palju
+      vanemate versioonide kohta ning kujutavad endast vaid umbkaudset hinnangut artikli
+      valmidusastmele.
+    rating_docs:
+      fa: '%{class} (Hea artikkel) — Vikipeedias kõrgeim artikli kvaliteediklassile
+        antav hinne, mis antakse artiklitele, mis vastavad kõigile esitatud nõuetele
+        ja milles ei leidu ühtegi ilmselget puudust; võib olla uue kaastöölise esimeseks
+        põhiprojektiks liialt suur tükk tööd.'
+      fl: '%{class} (Hea loend) — Vikipeedia kõrgeim hinne loenditele.'
+      a: '%{class}-klass — põhjalikult läbi kirjutatud artikkel, milles leidub vaid
+        pisemaid puudusi, mille leidmine eeldab üldiselt süvenemist teemasse; võib
+        olla uue kaastöölise põhiprojektiks liialt suur tükk tööd.'
+      ga: '%{class} (Põhjalik artikkel) — põhjalikult läbi kirjutatud, potentsiaalselt
+        hea artikli kriteeriumitele vastav artikkel; eesti Vikipeedias vastab A-klassi
+        artiklile. Võib olla uue kaastöölise põhiprojektiks liialt suur tükk tööd.'
+      b: '%{class}-klass — põhjalik, kuid mitmete väiksemate puudustega artikkel,
+        mille mõned osad võivad vajada üle kirjutamist.'
+      c: '%{class}-klass — korralik artikkel, mida on siiski võimalik oluliselt parandada.'
+      start: '%{class}-klass — alustatud artikkel, milles on palju ruumi parandusteks
+        ja täiendusteks.'
+      stub: '%{class}-klass — lühike alustatud artikkel, mis vajab oluliselt rohkem
+        sisu.'
+      list: '%{class}-klass — pigem loend kui tavamõistes artikkel.'
+      '?': Hindamata — artikkel, mida ei ole Vikipeedia kvaliteedikriteeriumite skaalal
+        hinnatud.
+      does_not_exist: Sellist artiklit Vikipeedias ei leidu.
+    see_more: Laadi veel
+    show_cumulative_changes: Näita kõiki muudatusi
+    show_current_version: Näita praegust versiooni
+    show_current_version_with_authorship_highlighting: Praegune versioon, kus on märgistatud
+      muudatuste autor
+    title: Pealkiri
+    tracked: Jälgitav
+    tracked_doc: Programmi statistikasse lähevad kirja ainult jälgitavad artiklid.
+      Artikli märkimisel mittejälgitavaks eemaldatakse see statistikast järgmisel
+      värskendusel.
+    title_example: Artikli pealkiri
+    tools: Hindamistööriistad
+    view: Vaata artiklit
+    view_all: Vaata kõiki
+    view_doc: Iga artikli hinnanguline vaatamiste arv alates esimesest muudatusest
+      kuni andmete viimase uuendamiseni. Täpseid arve saad järele vaadata pageviews.toolforge.org-ist.
+    view_on_wiki: Vaata vikis
+    views_added: Lisatud %{count} uut vaatamiskorda artiklile %{title}
+    edit_size: Muudatuse maht
+    wiki: Viki
+    wp10: Struktuurne valmidus
+    wp10_doc: Struktuurse valmiduse hinne näitab, mil määral vastab artikkel masinõppepõhise
+      algoritmi Objective Revision Evaluation Service (https://ores.wikimedia.org/)
+      järgi valmis vikiartikli nõuetele. Hinde arvutamise aluseks on artikli suurus,
+      viidete ja siselinkide ning muude teksti põhielementide hulk. Kõrge hinne näitab
+      tavaliselt, et artikkel vastab Vikipeedia hea artikli struktuuri nõuetele, kuid
+      ei kajasta mingilgi määral artikli sisu. (Kasutatakse ainult ingliskeelses Vikipeedias.)
+  assignments:
+    article: Artikkel %{title} on nüüd määratud Sulle muutmiseks.
+    article_link: Artikkel
+    already_exists: Artikkel on juba seotud selle kasutajakontoga!
+    title_too_large: Pealkiri ei tohi olla pikem kui 255 märki
+    assignees: Seotud kasutajakonto(d)
+    assign_other: Seo/eemalda artikkel
+    add_available: Lisa valitavaid artikleid
+    add_available_placeholder: Lisa üks artikli pealkiri või URL rea kohta
+    add_available_submit: Lisa artikleid
+    assign_self: Seo artikkel oma kontoga
+    assign_tooltip: Muutmiseks määratud artikkel on artikkel, mida kavatsed luua või
+      täiendada.
+    bibliography: Kasutatud allikad
+    clone: Klooni
+    confirm_add_available: Kas oled kindel, et soovid lisada artikli %{title}?
+    confirm_addition: Kas oled kindel, et soovid siduda artikli %{title} kasutajaga
+      %{username}?
+    confirm_deletion: Kas oled kindel, et tahad selle sidumise tühistada?
+    editors: Määratud kasutajale
+    label: Seo
+    loading: Laadin seotud artikleid...
+    none_short: Muutmiseks määratud artiklid puuduvad
+    none: Kursusel osalejate kontodega ei ole seotud ühtegi artiklit.
+    no_available: Valitavad artiklid puuduvad.
+    peer_review_count_tooltip: Vali retsenseerimiseks %{total} artiklit.
+    peer_review_link: Vastastikune hindamine
+    remove: Eemalda
+    reviewers: Retsensendid
+    review_other: Määra/eemalda retsensent
+    review_self: Retsenseeri artiklit
+    review_tooltip: Siin kuvatakse artikleid, mida kavatsed retsenseerida või mille
+      kohta tagasisidet anda.
+    sandbox_draft_link: Mustand liivakastis
+    select: Vali
+  blocks:
+    milestones:
+      title: Verstapostid
+  campaign:
+    active_campaigns: Aktiivsed kampaaniad
+    add_organizer: Lisa korraldaja
+    alert_article: Artikli pealkiri
+    alert_label: Kampaania märguanded
+    alert_select_label: Filtreeri märguande tüübi järgi
+    alert_type: Tüüp
+    alert_user_id: Kasutaja
+    all_campaigns: Kõik kampaaniad
+    already_exists: Sellise nime või URL-iga kampaania on juba olemas! Proovi uuesti
+      teise nime või URL-iga.
+    campaign: Kampaania
+    campaigns: Kampaaniad
+    campaign_deleted: Kampaania %{title} on kustutatud
+    campaign_not_updated: Kampaaniat ei olnud võimalik uuendada
+    campaign_updated: Kampaania uuendatud
+    created_at: Kuupäev
+    confirm_campaign_deletion: Kas sa oled kindel, et soovid kampaania "%{title}"
+      kustutada? Jätkamiseks sisesta kampaania pealkiri.
+    confirm_campaign_deletion_failed: '%{title} ei ole selle kampaania nimi. Kampaaniat
+      ei kustutatud.'
+    confirm_course_removal: Kas sa oled kindel, et soovid kursuse "%{title}" kampaaniast
+      "%{campaign_title}" eemaldada?
+    course_already_removed: '"%{title}" on juba kampaaniast "%{campaign_title}" eemaldatud'
+    course: Kursus
+    course_removed: '"%{title}" on kampaaniast "%{campaign_title}" eemaldatud'
+    create_campaign: Loo uus kampaania
+    create_my_campaign: Loo kampaania
+    customize_passcode: vaikepääsukood
+    data_download_info: Laadi alla kampaania andmed CSV-vormingus
+    data_courses: Kursuse ülevaade
+    data_courses_info: Iga kursuse/programmi peamised mõõdikud
+    data_articles: Muudetud leheküljed
+    data_revisions: Muudatuste andmed
+    data_articles_info: Andmed kõigi kampaania raames muudetud jälgitavate lehekülgede
+      kohta
+    data_revisions_info: Andmed kõigi kampaania raames tehtud jälgitavate muudatuste
+      kohta
+    data_instructors: Juhendajad
+    data_instructors_info: Õppejõudude/juhendajate ja nende kursuste/programmide loend
+    data_editors_by_course: Toimetajad kursuse kaupa
+    data_editors_by_course_info: Registreerunud toimetajate ja nende kursuste/programmide
+      loend
+    data_editor_usernames: Toimetajate kasutajanimed
+    data_editor_usernames_info: Toimetajate kasutajanimede loend, iga nimi eraldi
+      real
+    default_course_type: Kursuse vaikeliik
+    default_passcode: Vaikepääsukood
+    default_passcode_explanation: 'Vaikimisi peaks kõik kampaaniasse kuuluvad uued
+      programmid olema:'
+    description: Kirjeldus
+    delete_campaign: Kustuta kampaania
+    disable_account_requests: Deaktiveeri kontotaotlused
+    enable_account_requests: Aktiveeri kontotaotlused
+    no_alerts: Kampaaniaga seotud teated puuduvad
+    no_passcode: pääsukood puudub
+    none: Puudub
+    organizers: Korraldajad
+    organizer_added: '%{user} on määratud kampaania "%{title}" korraldajaks'
+    organizer_removed: '%{user} on eemaldatud kampaania "%{title}" korraldajate hulgast'
+    program_template: Programmi mall
+    program_template_tooltip: Kui korraldaja loob kampaania jaoks uue programmi, kopeeritakse
+      kastis olev tekst programmi lehele selle kirjeldusse.
+    random_passcode: Juhuslik pääsukood
+    requested_accounts: Taotletavad kontod
+    title: Pealkiri
+    slug: Selge URL
+    use_start_end_dates: Kasuta algus- ja lõppkuupäeva
+  categories:
+    add_category: Lisa kategooria
+    add_psid: Lisa PetScani PSID
+    add_template: Lisa mall
+    add_this_category: Lisa kategooriad
+    add_this_psid: Lisa PetScani PSID-d
+    add_this_template: Lisa mallid
+    import_articles_description: Kategooriasse kuuluvate artiklite loendit uuendatakse
+      perioodiliselt ning loendi lisamise järel võib kuluda veidi aega, enne kui see
+      täitub.
+    depth: Alamkategooria sügavus
+    articles_count: Artiklite arv
+    name: Nimi
+    category_name: Kategooria nimi
+    psid_name: PSID
+    template_name: Malli nimi
+    none: Jälgitavad kategooriad puuduvad.
+    remove: Eemalda
+    tracked_categories: Jälgitavad kategooriad, PSID-d, PagePile'i identifikaatorid
+      ja mallid
+    timestamp: Viimati uuendatud
+  courses:
+    school_system: Õppesüsteem
+    assignment_edits_enabled: Ülesannete toimetamine aktiveeritud
+    assignment_edits_enabled_tooltip: Toimetuste aktiveerimisel lisab töölaud vastava
+      malli kõigi muutmiseks määratud artiklite arutelulehele.
+    accounts_generation_enabled: Kontotaotluste genereerimine aktiveeritud
+    accounts_generation_explanation: See võimaldab osalejatel ise konto loomise protsessi
+      läbimise asemel sisestada selleks lihtsalt oma e-posti aadressi ja soovitud
+      kasutajanime. Sel teel saad luua töölaual kasutajakontod ning lisada need ühtlasi
+      kohe programmi osaliste hulka.
+    accounts_generation_confirm_message: Kinnita kontotaotluste aktiveerimise soov.
+    activity: Aktiivsus
+    active_courses: Aktiivsed kursused
+    add_trainings: Lisa ülesannete ajakavasse osalejatele mõeldud õppemoodulid. Õppemoodulite
+      läbi viimine on oluline osa Wiki Ed-i heast tavast.
+    alerts: Märguanded
+    all_courses: Kõik kursused
+    already_enrolled: Oled juba kursuse "%{title}" osaleja!
+    already_exists: Lisatud element on juba kursusel olemas!
+    archived: Arhiveeritud kursused
+    actions: Toimingud
+    articles: Artiklid
+    assignment_headings:
+      assigned_articles: Muutmiseks määratud artiklid
+      assigned_reviews: Määratud retsensedid
+      available_articles: Vabad artiklid
+      available_reviews: Rühmakaaslaste artiklid
+    assignment_end: Ülesande lõppkuupäev
+    assignment_start: Ülesande alguskuupäev
+    calendar:
+      legend: Seletus
+      legend_class_canceled: Riigipüha/tühistatud
+      legend_class_meeting: Õppetöö
+      legend_class_not_meeting: Õppetööd ei toimu
+      select_meeting_days: Vali nädalapäevad, millal õppetöö toimub.
+    cancel: Loobu
+    character_doc: Kursusel osalejate poolt kursuse jooksul põhinimeruumi artiklitele
+      lisatud märkide summaarne arv
+    campaigns: 'Kampaaniad:'
+    campaign_articles: Kampaania "%{title}" artiklid
+    campaign_courses: Kampaania "%{title}" kursused
+    campaign_select: Vali kampaania
+    campaign_users: Kampaania "%{title}" kaastöölised
+    confirm_course_deletion: Kas sa oled kindel, et soovid kursuse "%{title}" kustutada?
+      Jätkamiseks sisesta kursuse pealkiri.
+    confirm_course_deletion_failed: '"%{title}" ei ole selle kursuse pealkiri. Kursust
+      ei kustutatud.'
+    confirm_manual_update: Kas oled kindel, et soovid soovid käivitada käsitsi uuenduse?
+      Kõige värskemad täiendused imporditakse süsteemi ning seejärel laaditakse lehekülg
+      uuesti. See võib võtta veidi aega.
+    course: Kursus
+    course_dates_calendar_instructions: Vali kuupäevad, mida ajakavasse lisada või
+      sellest kustutada (nt riigipühad, päevad mil õppetööd ei toimu). Kuupäeva oleku
+      (valimata, valitud, puhkepäev) muutmiseks klõpsa kuupäeval. Õppetööga seotud
+      tegevuste kuupäevad muutuvad automaatselt vastavalt sellele, kas kindlal nädalal
+      õppetööd toimub või mitte.
+    course_description: Kursused
+    courses: Kursused
+    courses_taught: Loetavad kursused
+    creation_date: Loomiskuupäev
+    creator:
+      already_exists: Selline kursus on juba olemas. Muuda selle nime, kooli või toimumisperioodi.
+      assignment_end: Ülesande lõppkuupäev
+      assignment_end_placeholder: AAAA-KK-PP
+      assignment_start: Ülesande alguskuupäev
+      assignment_start_placeholder: AAAA-KK-PP
+      cancel_course_clone: Loobu kursuse kloonimisest
+      cancel_course_clone_confirm: Kas soovid kindlasti kursuse kloonimisest loobuda?
+      checking_for_uniqueness: Kursuse andmete ainukordsuse kontrollimine.
+      choose_clone: Vali kloonitav kursus.
+      clone_previous: Klooni eelmine kursus
+      clone_this: Klooni see kursus
+      cloned_course_calendar_instructions: Vali kuupäevad, mida ajakavasse lisada
+        või sellest kustutada (nt riigipühad, päevad mil õppetööd ei toimu). Kuupäeva
+        oleku (valimata, valitud, puhkepäev) muutmiseks klõpsa kuupäeval. Juhul kui
+        kursusel puhkepäevad puuduvad, vali "Kursusel puhkepäevad puuduvad". Kloonitud
+        ajakava kuupäevad muutuvad automaatselt vastavalt sellele, kas kindlal nädalal
+        õppetööd toimub või mitte.
+      clone_successful: Uuenda kloonitud kursuse andmeid
+      clone_successful_details: Kursus, sealhulgas ajakava (nädalad ja plokid) on
+        kloonitud. Kontrolli, et sellele oleks lisatud kuupäevad, mida automaatselt
+        ei kopeerita. Kas kursusega seoses on toimunud veel mingeid muutusi? Sel juhul
+        on võimalik uuendada ka nendega seotud andmeid.
+      course_dates_info: Sisesta kursuse algus- ja lõppkuupäev. Järgmiseks saad valida,
+        millal algab selles ajavahemikus Vikipeediaga seotud ülesanne.
+      course_description: Kursuse kirjeldus
+      course_description_placeholder: Mida kursus hõlmab ja mida peavad osalejad tegema
+        Vikipeedias? Kirjelda seda piisavalt üksikasjalikult, et teistel Vikipeedia
+        kaastöölistel oleks ülevaade õpilaste tehtava kaastöö kontekstist.
+      course_private: Kinnine programm (nähtav ainult administraatoritele ja korraldajatele)
+      course_school: Kool
+      course_subject: Kursuse teema
+      course_term: Kursuse toimumisperiood
+      course_term_placeholder: Toimumisperiood
+      course_title: Kursuse nimi
+      course_types:
+        basic_course_name: Üldprogramm
+        basic_course_description: Selle programmiliigi puhul jälgitakse kõiki osalejate
+          tehtud muudatusi artikli- ja põhiruumi lehtedel. Juhul kui programmi koduvikis
+          on aktiveeritud automaatsed muudatused, luuakse ja värskendatakse automaatselt
+          ka programmilehe versioon vastavas vikis.
+        edit_a_thon_name: Kirjutamistalgud
+        edit_a_thon_description: Kirjutamistalgute liiki programm jälgib muudatusi
+          artikli- või põhiruumi lehtedel. Automaatsed muudatused on vaikimisi välja
+          lülitatud.
+        article_scoped_program_name: Artikliloendi põhine programm
+        article_scoped_program_description: Seda liiki programmi puhul jälgitakse
+          ainult valitud artiklites või kategooriates tehtud muudatusi. Kasuta seda
+          programmiliiki juhul, kui soovid, et statistikat kogutaks ainult kindlate
+          artiklite või teemade kohta. Automaatsed muudatused on vaikimisi sisse lülitatud.
+      create_button: Loo kursus!
+      create_label: Loo uus kursus
+      create_new: Loo uus kursus
+      create_short: Loo kursus
+      end_date: Lõppkuupäev
+      end_date_placeholder: AAAA-KK-PP
+      expected_number: Oodatav osalejate arv
+      find: Leia kursus
+      intro: Kursuse nimest, kooli nimest ja toimumisperioodist moodustatakse kursuse
+        lehe URL, mida ei ole võimalik muuta. Kõiki muid andmeid on hiljem võimalik
+        muuta. Klõpsa nuppu "Loo kursus!", et alustada Vikipeedia ülesande ajakava
+        koostamist.
+      new_or_clone: Klõpsa nuppu "Loo uus kursus", et kasutada ülesannete loomise
+        viisardit. Sinu ajakava sisaldab Wiki Educationi viimaseid soovitatavaid õppemooduleid
+        ja muid materjale. Juhul kui mõnest varasemast kursusest on alles põhjalikult
+        kohandatud ajakava, mida sooviksid kasutada, on seda võimalik kloonida uute
+        kuupäevadega. Kloonimisfunktsiooni on võimalik kasutada ka juba loodud kursusele
+        täiendavate alaosade lisamiseks.
+      no_class_holidays: Kursusel puhkepäevad puuduvad.
+      role_description: Kursusega seotud roll
+      role_description_options:
+      - Juhendaja
+      - Assistent
+      role_description_placeholder: Kursuse juhendaja, assistent jne
+      separate_event_dates: Märgi eraldi sündmuse algus- ja lõppaeg (valikuline)
+      separate_event_dates_info: Programmiga seotud tegevuste statistikat jälgitakse
+        eespool märgitud kuupäeva- ja kellaajavahemikus, kuid sellele lisaks on võimalik
+        märkida ka kuupäev ja kellaaeg, mil üritus või programm ise algab ja lõpeb
+        (näiteks selleks, et osalejad teaksid, mis ajaks kohale tulla või millal toimumispaik
+        suletakse).
+      save_cloned_course: Salvesta uus kursus
+      start_date: Alguskuupäev
+      start_date_placeholder: AAAA-KK-PP
+      subject: Teema
+      update_scheduled: Uuendus ajastatud. Andmeid uuendatakse koos teiste käimasolevate
+        programmidega järgmise uuendustsükli käigus. Tavaliselt kulub selleks mõni
+        tund.
+    current: Praegused kursused
+    data_articles: Artiklite andmed
+    data_articles_info: Artiklite andmed hõlmavad igal lehel tehtud muudatuste arvu,
+      uusi lehekülgi, ning vaatamiste koguarvu. Lõppenud kursuste puhul ei pruugi
+      lehekülje vaatamiste arv kajastada tegelikku hetkeseisu; seetõttu on andmetele
+      lisatud ka link WMF-i Tool Labsi tööriistale Pageviews.
+    data_revisions_info: Redaktsioonide andmed hõlmavad kursuse käigus tehtud redaktsioonide
+      arvu, redaktsiooni id-d, artikli id-d, uusi lehekülgi ning lehekülgede vaatamiste
+      arvu.
+    data_download_info: Laadi andmed alla CSV-formaadis.
+    data_overview: Ülevaatlikud andmed
+    data_overview_info: Ülevaatlikud andmed sisaldavad kumulatiivset statistikat kogu
+      projekti kohta.
+    data_edits: Muudatuste andmed
+    data_edits_info: Muudatuste andmed näitavad kõigi projekti käigus tehtud muudatuste
+      üksikasju.
+    data_students: Kaastööliste andmed
+    data_students_info: Kaastööliste andmed hõlmavad kõigi osalevate kaastööliste
+      andmeid, nende tehtud kaastöö mahtu ning märget selle kohta, kas kasutajakonto
+      on registreeritud projekti käigus.
+    data_uploads: Commonsisse laaditud failide andmed
+    data_revisions: Redaktsioonide andmed
+    data_uploads_info: Commonsisse laaditud failide andmed hõlmavad kõigi üles laaditud
+      meediumifailide nimesid ja kasutuskordade arvu.
+    delete_course: Kustuta kursus
+    delete_suggestion: Kustuta
+    delete_course_instructions: Võid selle lehekülje kustutada, kui kõik kampaaniad
+      on eemaldatud.
+    dismiss_survey: Peida
+    dismiss_survey_confirm: Kas soovid kindlasti selle küsitluse püsivalt peita?
+    download_stats_data: Allalaadimiste statistika
+    duration: Kursuse kestus
+    edit_count: Muudatuste arv
+    edit_course_dates: Muuda kursuse kuupäevi
+    embed_course_stats: Manusta kursuse statistika
+    embed_course_stats_description: Programmi statistika lisamiseks kopeeri koodilõigend
+    enable_account_requests: Aktiveeri kontotaotlused
+    end: Lõpp
+    ended: Kursus on lõppenud.
+    enroll: Registreeru
+    enrollment: Lisa/eemalda osalejaid
+    enrollment_edits_enabled: Registreerujate teavitamine aktiveeritud
+    enrollment_edits_enabled_tooltip: Aktiveerimisel postitab töölaud vastava malli
+      iga programmiga liituva kaastöölise kasutaja- ja arutelulehele.
+    courses_enrolled: Kursused, millele oled registreerunud
+    error:
+      exists: Selline kursus on juba olemas! Proovi uuesti teise nime, kooli või toimumisperioodiga.
+      user_exists: Kasutajat %{username} ei ole kahjuks olemas.
+      invalid_language_or_project: Vale keel/projekt
+      invalid_slug: Kursuse nime või kooli väli on tühi.
+      duplicate_slug: Kursus selge URL-iga %{slug} on juba olemas.
+    expected_students: Oodatavad osalejad
+    features_feedback: 'Automaatsed soovitused:'
+    feedback: Tagasiside
+    feedback_loading: Palun oota, kuni soovitusi laaditakse.
+    gradeables_none: Hinnatavad ülesanded puuduvad.
+    home_wiki: Koduviki
+    multi_wiki: Jälgitavad vikid
+    instructor:
+      one: Juhendaja
+      other: Juhendajad
+    instructors: Juhendajad
+    invitation: Sind on kutsutud liituma kursusega %{title}. Liitumiseks pead sisse
+      logima Vikipeedia kontoga.
+    invitation_username_advice: Kui Sul Vikipeedia kontot veel ei ole, saad selle
+      registreerida. Sinu kasutajanimi võib olla täpselt nii anonüümne või mitteanonüümne
+      kui ise soovid. Kontode jagamine ei ole lubatud.
+    join: Liitu
+    join_course: Liitu kursusega
+    join_course_as_volunteer: Aita kaasa
+    join_prompt: Liitu kursusega '%{title}'?
+    join_successful: Oled edukalt liitunud kursusega %{title}. Töölaud jälgib automaatselt
+      Sinu kaastöid ning uuendab nende andmeid perioodiliselt, võimaldades Sul näha,
+      kui palju oled panustanud!
+    join_failed: Registreerumine ebaõnnestus.
+    join_failure_details:
+      cannot_join_twice: Kasutajad ei või liituda ühe ja sama kursusega kaks korda.
+      not_yet_approved: Kursus ei ole veel registreerumiseks avatud.
+    join_details: Kursusega liitumiseks on vaja pääsukoodi või seda koodi sisaldavat
+      registreerumislinki, mille saad oma juhendajalt. Juhul kui Sa pole pääsukoodi
+      saanud, võta ühendust oma juhendajaga.
+    join_no_passcode: Kas oled kindel, et soovid kursusega liituda?
+    launch_wizard: Käivita viisard?
+    leave_confirmation: Kas oled kindel, et soovid kursuselt lahkuda?
+    leave_course: Lahku kursuselt
+    loading: Laadimine...
+    milestones_none: Kursuse verstapostid puuduvad.
+    my_articles: Minu artiklid
+    needs_update: Ajasta andmete uuendamine
+    new_week: Lisa uus nädal
+    new_account_check_username: Kontrolli, kas kasutajanimi on vaba
+    new_account_email: E-posti aadress
+    new_account_email_placeholder: nimi@example.org
+    new_account_info: Konto taotlemiseks sisesta oma e-posti aadress ja kasutajanimi,
+      mida soovid kasutada. Kui korraldaja on Sulle konto loonud, saadetakse selle
+      parool Sinu e-posti aadressile.
+    new_account_info_admin: Uue kaastöölise konto loomiseks sisesta tema e-posti aadress
+      ja valitud kasutajanimi. Konto loomise järel saadetakse selle parool märgitud
+      e-posti aadressile.
+    new_account_username: Soovitud kasutajanimi
+    new_account_username_invalid: See ei ole sobiv kasutajanimi.
+    new_account_username_placeholder: Kaastööline123
+    new_account_username_taken: Kasutajanimi on juba kasutusel. Vali uus kasutajanimi.
+    new_account_submit: Taotle kontot
+    new_account_submitted: Sinu kontotaotlus on edastatud. Programmi korraldaja võib
+      nüüd konto loomise lõpule viia. Loodud konto parool saadetakse Sulle e-posti
+      teel.
+    new_account_submitted_admin: Kontotaotlus on loodud. Teavita osalejaid, et oma
+      uue parooli leiavad nad e-postkastist.
+    no_campaign: Programmi aktiveerimiseks ja kasutajate liitumise võimaldamiseks
+      peab see olema märgitud mõne kampaania osaks. Kui Sa ei ole kindel, millisele
+      kampaaniale seda lisada, võid valida kampaania "Miscellanea".
+    nocourses: Sa ei ole märgitud ühegi kursuse osalejaks.
+    nocourse: ei ole osalenud ühelgi kursusel.
+    none: Tühi
+    not_permitted: Kursuse muutmise õigused puuduvad.
+    notify_untrained_confirmation: See käsk postitab meeldetuletuse kõigi osalejate
+      arutelulehtedele, kes ei ole õigeaegselt läbinud ettenähtud õppemoodulit. Kas
+      soovid postitada meeldetuletuse?
+    no_available_actions: Tegevused puuduvad
+    online_volunteers_enabled: Vabatahtlikud aktiveeritud
+    online_volunteers_tooltip: Vabatahtlike aktiveerimine võimaldab viki kaastöölistel
+      osaleda programmis vabatahtlikena. Nende tehtud muudatusi statistikas ei arvestata.
+    ores_plot: ORES
+    overview: Kodu
+    passcode: Pääsukood
+    passcode_none: Pääsukood puudub
+    passcode_prompt: 'Liitumiseks sisesta pääsukood:'
+    please_log_in: Logi sisse.
+    private: Kinnine
+    published: 'Kursus on avaldatud! Osalejad saavad kursusele registreeruda aadressil:'
+    rating_feedback: 'Artikli prognoositav hinne on:'
+    requested_accounts: Taotletavad kontod
+    requested_accounts_alert:
+      one: '%{count} ootel kontotaotlus.'
+      other: '%{count} ootel kontotaotlust.'
+    requested_accounts_alert_view: Vaata
+    review_timeline: 'Vaata ülesannete ajakava üle ning kohanda seda vastavalt vajadusele.
+      Kui oled ajakavaga rahul, võid selle esitada kinnitamiseks Wiki Educationile.
+      Kinnitamise järel saadetakse Sulle registreerimis-URL, mida osalejad võivad
+      kasutada kursusega liitumiseks ning õppemoodulite vaatamiseks. (Märkus: ajakava
+      on võimalik muuta ka pärast kinnitamist.)'
+    revisions_doc: Muudatuste hinnanguline arv viimase %{timeframe} päeva jooksul.
+      Põhineb viimase perioodi päevasel keskmisel muudatuste arvul.
+    revisions_none: Kursusega seotud hiljutised toiminguid Vikipeedias puuduvad.
+    school: Kool
+    school_and_term: Asutus/toimumisperiood
+    search_courses: Otsi kursusi
+    start: Alusta
+    start_typing: Alusta kirjutamist
+    students: Osalejad
+    students_taught: Õpetatavad osalejad
+    students_count: Osalejate arv
+    student_editors: Kaastöölistest osalejad
+    students_none: Kursusel osalejaid ei ole.
+    students_short: Osalejad
+    submitted_admin: Kursuse looja on esitanud selle kinnitamiseks. Kursuse kinnitamiseks
+      lisa see ülevaatelehel kampaaniale.
+    submitted_and_pending_heading: Lisatud ja ootab kinnitamist
+    submitted_heading: Lisatud kursused
+    submitted_note: Sinu kursus on lisatud. Wiki Educationi meeskond vaatab selle
+      üle ning võtab küsimuste korral sinuga ühendust. Kui soovid seni vaadata üle
+      Wiki Educationi õppematerjale, siis saad vaadata juhendajatele ja osalejatele
+      mõeldud materjalide täielikku loendit.
+    suggestions_feedback: Anna meile teada, kuidas võiksime seda funktsiooni veelgi
+      paremaks muuta!
+    suggestions_sending: Tagasiside edastamine...
+    suggestions_sent: Tagasiside edastatud. Täname ettepanekute eest!
+    suggestions_failed: Tagasiside saatmine ebaõnnestus. Proovi hiljem uuesti.
+    user_role: Roll
+    course_details: Kursuse üksikasjad
+    course_submitted: Staatust "Lisatud" kasutatakse ainult haridusprogrammiga seotud
+      kursuste jaoks, mille korral enne projekti algust on nõutav kursuse plaani kinnitamine.
+      See kehtib ainult kursuseliigi ClassroomProgram korral.
+    subject: Teema
+    submitted: Lisatud
+    tag_select: Vali või lisa silt
+    tags: 'Sildid:'
+    term: Toimumisperiood
+    timeline: Ülesande üksikasjad
+    timeline_enabled: Ajakava aktiveeritud
+    timeline_link: Ajakava
+    timeline_tooltip: Ajakava aktiveerimine võimaldab määratleda igal nädalal toimuvaid
+      tegevusi ning määrata õppemooduleid. See on kasulik näiteks haridusprogrammiga
+      seotud kursuste ning muude pikkade ja keeruka struktuuriga programmide puhul.
+    timeline_nav: Mine ajakava lehele
+    time_zone_message: Algus- ja lõppajad on esitatud kohaliku ajavööndi ajas.
+    title: Nimi
+    training_due: Kursuse jaoks on vaja läbida õppemoodul "%{title}", mille tähtaeg
+      on %{date}.
+    training_nav: Mine õppemooduli juurde
+    training_overdue: Kursuse jaoks on vaja läbida õppemoodul "%{title}", mille tähtaeg
+      oli %{date}.
+    unsubmitted: Lisamata kursused
+    untrained: Õpetamata
+    update_stats: Uuenda statistikat
+    uploads_none: Rühm ei ole lisanud Wikimedia Commonsisse ühtegi pildi- ega muud
+      meediumifaili.
+    user_uploads_none: Kasutaja ei ole lisanud Wikimedia Commonsisse ühtegi pildi-
+      ega muud meediumifaili.
+    user_recent_uploads: Hiljutised üleslaadimised
+    user_suggestions: 'Kasutajate ettepanekud:'
+    user_suggestions_prompt: Sinu ettepanekud artikli toimetajatele
+    view_other: Vaata teisi kampaaniaid
+    view: Vaata kursust
+    view_doc: Registreerunud kaastööliste muudetud artiklite vaatamiste hinnanguline
+      arv alates hetkest, mil kaastööline tegi artiklis esimese muudatuse
+    view_page: Vaata kursuse lehekülge
+    view_wiki: Näita Vikipeedias
+    volunteer:
+      one: Vabatahtlik
+      other: Vabatahtlikud
+    weeks_none: Kursuse ajakava puudub.
+    warn_mirrored: Kursuse lisamisel postitatakse see automaatselt sinu kasutajakonto
+      alt Vikipeediasse. Kõik seejärel ajakavas tehtavad muudatused kajastuvad ka
+      Vikipeedias. Kas oled kindel, et soovid kursuse lisada?
+    wiki_course_page_enabled: Viki kursuseleht aktiveeritud
+    wiki_course_page_enabled_tooltip: Aktiveerimise korral uuendatakse vikis asuvat
+      kursuse lehe koopiat iga kord, kui selle osalejate nimekirja ja ülesandeid muudetakse.
+    wiki_edits_enabled: Muudatused vikis aktiveeritud
+    wiki_edits_enabled_tooltip: Juhul kui muudatused vikis on aktiveeritud, tehakse
+      vikis automaatselt programmiga seotud muudatusi. Deaktiveeri see, kui Sa ei
+      soovi mallide automaatset lisamist kasutajalehtedele, osalejatele muutmiseks
+      määratud artiklite arutelulehtedele jne.
+    wiki_staff: Wiki Educationi meeskond
+    withdrawn: Ei teinud üleannet
+    word_count_doc: Umbkaudne kursusel osalejate poolt kursuse jooksul põhinimeruumi
+      artiklitele lisatud sõnade summa
+    yourcourses: Sinu kursused
+    survey:
+      notification_message: Vasta kursusega seotud küsitlusele.
+      link: Küsitlusele vastamine
+  courses_generic:
+    school_system: Õppesüsteem
+    add_campaign: Lisa kampaania
+    all_courses: Kõik programmid
+    archived: Arhiveeritud programmid
+    assignment_headings:
+      available_reviews: Valmis retsenseerimiseks
+    assignment_end: Sündmuse lõpp
+    assignments_none: Projektis osalejatele ei ole muutmiseks määratud ühtegi artiklit.
+    assignment_start: Sündmuse algus
+    cancel: Loobu
+    course: Programm
+    courses: Programmid
+    courses_taught: Juhendatavad programmid
+    campaigns: 'Kampaaniad:'
+    campaign_courses: Kampaania "%{title}" programmid
+    creator:
+      assignment_end: Sündmuse lõpp
+      assignment_end_placeholder: AAAA-KK-PP
+      assignment_start: Sündmuse algus
+      assignment_start_placeholder: AAAA-KK-PP
+      cancel_course_clone: Loobu programmi kloonimisest
+      cancel_course_clone_confirm: Kas soovid kindlasti programmi kloonimisest loobuda?
+      checking_for_uniqueness: Programmi andmete ainukordsuse kontrollimine.
+      choose_clone: Vali kloonitav programm.
+      clone_previous: Klooni eelmine programm
+      clone_this: Klooni see programm
+      clone_successful: Programm edukalt kloonitud
+      clone_successful_details: Programm on kloonitud. Tegevuse lõpule viimiseks klõpsa
+        allpool nuppu 'Salvesta'.
+      course_when: Lisa uue programmi kloonitavast eristamiseks midagi toimumisaja
+        väljale (näiteks kuu ja aasta).
+      course_dates_info: Sisesta programmi algus- ja lõppkuupäev. Soovitame lõppkuupäevaks
+        märkida põhitegevuste lõpuks mõni tund või mõni päev hilisema aja, mis jätaks
+        aega vahetult pärast sündmuse toimumist sellega seotud muudatuste tegemiseks.
+      course_description: Programmi kirjeldus
+      course_description_placeholder: Milline on programmi sisu ja mida teevad selle
+        osalejad viki(de)s? Kirjelda programmi piisavalt üksikasjalikult, et anda
+        teistele kaastöölistele ülevaade osalejate tehtavate muudatuste kontekstist.
+      course_school: Asutus
+      course_term: Toimumisaeg
+      course_term_placeholder: Toimumisaeg
+      course_title: Programmi nimi
+      create_button: Loo programm!
+      create_label: Loo uus programm
+      create_new: Loo iseseisev programm
+      create_short: Loo programm
+      end_date: Tegevuste jälgimise lõpp
+      find: Otsi programmi
+      intro: Programmi nimi ja asutus programmi URL-ist. Koduviki on peamine viki,
+        kus osalejad kaastööd teevad, ning süsteem jälgib vaikimisi selles vikis tehtavaid
+        muudatusi. Juhul kui programm hõlmab mitut keelt või vikiprojekti, jälgitakse
+        muudatusi ka kõigis jälgitavate vikide loetelusse lisatud vikides. Vikiprogrammi
+        lehe loomiseks vajuta nupule "Loo programm!"
+      new_or_clone: Loo uus programm või kasuta kloonimisfunktsiooni kopeerimaks mõni
+        varasem programm, milles oled osalenud.
+      participate_in_campaign: Osale kampaanias
+      save_cloned_course: Salvesta
+      start_date: Tegevuste jälgimise algus
+    delete_course: Kustuta programm
+    edit_course_dates: Muuda projekti kuupäevi
+    end: Tegevuste jälgimise lõpp
+    enroll: Lisa kaastööline
+    enrollment: Lisa/eemalda kaastöölisi
+    explore: Otsi programme
+    courses_enrolled: Varasemad programmid
+    expected_students: Oodatav kaastööliste arv
+    instructors: Korraldajad
+    join_course: Liitu programmiga
+    join_details: Programmiga liitumiseks on Sul vaja korraldajalt saadud pääsukoodi
+      või seda koodi sisaldavat linki.
+    leave_course: Lahku programmist
+    milestones_none: Projekti verstapostid puuduvad.
+    not_permitted: Programmi muutmise õigused puuduvad.
+    published: 'Projekt on avaldatud! Kaastöölised saavad selles osalemiseks registreeruda
+      aadressil:'
+    request_accounts: Taotle kontosid
+    revisions_none: Projektiga seotud hiljutised muudatused puuduvad.
+    school: Asutus
+    school_and_term: Asutus/toimumisaeg
+    search_courses: Otsi programme
+    start: Tegevuste jälgimise algus
+    student_editors: Kaastöölised
+    students: Kaastöölised
+    students_taught: Kaastöölisi kokku
+    students_none: Projektiga liitunud kaastöölised puuduvad.
+    students_short: Kaastöölised
+    students_count: Osalejate arv
+    term: Toimumisaeg
+    unsubmitted: Lisamata programmid
+    uploads_none: Projektis osalejad ei ole lisanud Wikimedia Commonsisse ühtegi pildi-
+      ega muud meediumifaili.
+    user_uploads_none: Valitud kasutajad ei ole projektiga seoses üles laadinud ühtegi
+      pildi- ega muud meediumifaili.
+    view_other: Vaata teisi kampaaniaid
+    view_page: Vaata lehekülge
+    word_count_doc: Umbkaudne projektis osalejate poolt programmi kestel põhinimeruumi
+      artiklitele lisatud sõnade summa
+    yourcourses: Sinu programmid
+  editable:
+    edit: Muuda
+    cancel: Loobu
+    save: Salvesta
+    edit_description: Muuda kirjeldust
+    edit_details: Muuda üksikasju
+    edit_template: Muuda malli
+    rename_confirmation: URL-i moodustamiseks kasutatavate andmeväljade sisu on muutunud.
+      See omakorda tähendab, et muutub ka URL ning sissetulevad lingid enam ei tööta.
+      Kas oled kindel, et soovid andmeid muuta?
+  metrics:
+    label: Kursusega seotud tegevused
+    last_update: Viimane statistika uuendus
+    next_update: Järgmine prognoositav uuendus
+    activity: Hiljutised tegevused
+    are_trained: on läbinud õppemoodulid
+    articles_created: Loodud artikleid
+    articles_edited: Muudetud artikleid
+    bytes_added: Lisatud sisu baitides
+    characters: Märke
+    char_added: Lisatud märke
+    char_changed: Muudetud märke
+    char: Lisatud märke
+    date_time: Kuupäev/kellaaeg
+    edit_count_description: Muudatusi kokku
+    per_user: '%{number}/kasutaja'
+    revisions: Hiljutised muudatused
+    references_count: Lisatud viiteid
+    references_doc: Artiklitele lisatud viitesiltide ja lühendatud joonealuste märkuste
+      mallide arv, mis võib hõlmata mitut viidet samale allikale. Andmed pärinevad
+      viiteloenduri Toolforge'i API-ist.
+    tags: Märgendeid
+    upload_count: Commonsisse laaditud faile
+    uploads_in_use_count:
+      one: artiklis kasutatud fail
+      other: artiklis kasutatud faili
+    upload_usages_count:
+      one: kasutuskord kõigis keeleversioonides
+      other: kasutuskorda kõigis keeleversioonides
+    view_count_description: Artiklite vaatamiskordi
+    view_data_unavailable: Vaatamiskordade andmed puuduvad
+    view: Vaatamisi
+    word_count: Lisatud sõnu
+    word_count_average: Keskmine sõnade arv
+  namespace:
+    main: Põhiruum
+    main_char_added: Põhiruumis lisatud märke
+    user: Kasutajaruum
+    user_char_added: Kasutajaruumis lisatud märke
+  recent_activity:
+    active_courses: Artikliga seotud kursused
+    article_title: Pealkiri
+    datetime: Kuupäev/kellaaeg
+    did_you_know_eligible: Sobib rubriiki "Kas teadsid?"
+    image: Pilt
+    file_name: Failinimi
+    no_dyk_eligible: Rubriiki "Kas teadsid?" sobivad artiklid puuduvad.
+    no_plagiarism: Plagiaadikahtlusega hiljutised muudatused puuduvad.
+    no_edits: Hiljutised muudatused puuduvad.
+    plagiarism_report: Plagiaadist teatamine
+    possible_plagiarism: Võimalik plagiaat
+    recent_edits: Hiljutised muudatused
+    recent_uploads: Hiljutised üleslaadimised
+    revision_author: Redaktsiooni autor
+    revision_datetime: Redaktsiooni kuupäev/kellaaeg
+    revision_score: Redaktsiooni hinne
+    show_courses: Näita ainult minu kursusi
+    uploaded_by: Üleslaadija
+    usage_count: Kasutuskordi
+  revisions:
+    chars_added: Lisatud märke
+    references: Lisatud viiteid
+    class: Rühm
+    date_time: Kuupäev/kellaaeg
+    diff: erin
+    diff_show: Näita
+    diff_hide: Peida
+    edit_time_span: Vahemikus %{first_time} kuni %{last_time} tehtud muudatused
+    edited_by: Muutnud
+    edited_on: Muudetud kuupäeval %{edit_date}
+    loading: Redaktsioonide laadimine...
+    none: Kursusega seotud hiljutised muudatused puuduvad.
+    time_doc: Iga redaktsiooni avaldamisaeg sinu kohaliku aja järgi
+    title: Pealkiri
+    view_on_wiki: Vaata erinevusi vikis
+    see_more: Laadi veel
+  resources:
+    label: Vahendid
+    header: Vahendid ja õppemoodulid
+  settings:
+    admin_users:
+      new:
+        form_label: Administraatoriõiguste andmine
+        form_placeholder: Kasutajanimi
+        confirm_add_admin: Administraatoriõiguste andmine
+        confirm_remove_admin: Võta ära administraatoriõigused kasutajalt
+        already_admin: '%{username} on juba administraator!'
+        elevate_success: '%{username} on tehtud administraatoriks.'
+      remove:
+        revoke_button: Administraatoriõiguste äravõtmine
+        revoke_button_confirm: Võta ära kasutaja %{username} administraatoriõigused
+        revoking_button_working: Eemaldamine...
+        already_instructor: '%{username} on juba juhendaja!'
+        demote_success: '%{username} on tehtud juhendajaks.'
+        no_super_admin: Superadministraatorilt administraatoriõiguste ära võtmine
+          ei ole võimalik
+    special_users:
+      new:
+        form_label: Kasutajale eriõiguste andmine
+        form_placeholder: Kasutajanimi
+        confirm_add_special_user: Lisa eriõigus
+        already_is: '%{username} on juba {position}!'
+        elevate_success: '%{username} on nüüd {position}.'
+      remove:
+        revoke_button: Eriõiguste äravõtmine
+        revoke_button_confirm: Võta ära eriõigused kasutajalt %{username}
+        revoking_button_working: Eemaldamine...
+        already_is_not: '%{username} ei ole eriõigustega kasutaja!'
+        demote_success: '%{username} on nüüd tavaõigustega kasutaja.'
+  suggestions:
+    editing: Muudatusettepanekud
+    suggestion_docs:
+      fa: Artikli sisu ei tohiks enam täiendamist vajada, välja arvatud ehk uue informatsiooni
+        kättesaadavaks muutumisel. Loetavuse huvides võib siiski teha mõningaid keelelisi
+        muudatusi.
+      a: Artikkel võib vajada mõningast erialast täiendamist ning mõned stiiliküsimused
+        lahendamist. Abi võib olla retsensendi tagasisidest.
+      ga: Artikkel võib vajada eriala- ja keeleasjatundjate poolseid täiendusi; puuduliku
+        või puuduva sisuga kohtade leidmisel võib olla kasu olemasolevate sarnaseid
+        teemasid käsitlevate heade artiklite läbitöötamisest.
+      bplus: Artikli täiendamiseks võiks paluda tagasisidet erialaasjatundjatelt,
+        mis võimaldaks tuvastada, millised teemad on veel katmata, ning lisada illustratsioone,
+        ajaloolist tausta ja täiendavaid viiteid. Kaalu artikli retsenseerida andmist
+        või põhjalikuks artikliks nomineerimist.
+      b: Artikli sisu ja stiil vajab kohati parandamist. Tarvis võib olla täiendavaid
+        erialaseid teadmisi. Võimaluse korral tasub kaaluda abimaterjali lisamist
+        ning kontrollida võiks artikli vastavust vormistusnõuetele.
+      c: Sisuliste ja vormiliste puuduste likvideerimine nõuab põhjalikke muudatusi.
+      start: Esmajoones tuleks lisada viiteid usaldusväärsetele allikatele. Neile
+        lisaks vajab olulist täiendamist ka artikli sisu ja ülesehitus. Tegele ka
+        lauseehituse, õigekirja, stiili ja erialakeelega.
+      stub: Artiklit on võimalik parandada kõigis aspektides. Esmajärjekorras tasuks
+        lisada teemat käsitlevat sisu. Lihtsaim viis alustatud või E-klassi artikli
+        kvaliteedi parandamiseks on lisada viiteid teema olulisust põhjendavatele
+        allikatele.
+      fl: Artikli sisu täiendamine ei peaks olema vajalik, välja arvatud uue informatsiooni
+        ilmsiks tulekul.
+      list: Loendid peaksid sisaldama vähemalt viit sobiva pealkirjaga ja sobivalt
+        korrastatud viidet Vikipeedia artiklitele.
+      future: Lisatud materjal võib olla sisult spekulatiivne ning vajab seetõttu
+        põhjalikku viidetega varustamist.
+      disambig: Täiendusi tuleks teha vastavalt uute selle pealkirjaga artiklite lisandumisele.
+        Jälgi lehekülgede pealkirjade nõuetekohasust, kuna sageli ei ole sõna "täpsustusleht"
+        tegelikult vaja pealkirja lisada.
+      '?': Soovitusi ega ettepanekuid ei ole – artiklit ei ole kas hinnatud või sellele
+        antud hindega seotud soovitused puuduvad.
+      does_not_exist: Sellist artiklit Vikipeedias ei leidu.
+  tasks:
+    conseq: Toiming %{task} on juba käivitatud!
+    constant: Toimingut %{task} ei ole võimalik käivitada, kui toiming update_daily
+      on käivitatud.
+    paused: Toimingut %{task} ei ole võimalik käivitada, kuna ajastatud uuendustoiming
+      on peatatud. Uuenduse jätkamiseks kasuta käsku 'rake batch:resume'.
+  tickets:
+    none: Probleemiteated puuduvad
+  timeline:
+    add_week: Lisa nädal
+    arrange_timeline: Korrasta ajakava
+    arrange_timeline_instructions: Ajakava korrastamiseks lohista plokid soovitud
+      kohta või soovitud nädalale või kasuta nende ümberjärjestamiseks kaardil olevaid
+      nooli.
+    assignment_dates_instructions: Vali Vikipeediaga seotud ülesannete algus- ja lõppkuupäev.
+      Alguskuupäeva muutmine muudab vastavalt kõiki ajakava kuupäevi.
+    blackout_week_created: Sellele nädalale on määratud mõni õppeplokk. Liiguta nad
+      enne selle nädala viimase rühmatöö aja eemaldamist mõnele teisele nädalale.
+    block_assignment: Ülesanne
+    block_custom: Kohandatud
+    block_in_class: Rühmas
+    block_milestone: Verstapost
+    block_type: Seda plokiliiki kasutatakse osalejatele ajakavaga seotud info edastamiseks
+      ning eri tööriistade jaoks (nagu verstapostide ülevaade).
+    course_dates: Kursuse kuupäevad
+    course_dates_instructions: Vali kogu kursuse (mitte ainult Vikipeediaga seotud
+      ülesande) algus- ja lõppkuupäev.
+    course_end: Kursuse lõpp
+    course_start: Kursuse algus
+    delete_week_confirmation: |-
+      Kas oled kindel, et soovid selle nädala kustutada? Toiming kustutab ajakavast kogu nädala ning kõik sellega seotud plokid.
+
+      Toimingut ei ole võimalik tühistada.
+    delete_weeks_confirmation: |-
+      Kas oled kindel, et soovid kustutada kogu ajakava ning alustada otsast peale?
+
+      Toimingut ei ole võimalik tühistada.
+    discard_all_changes: Hülga kõik muudatused
+    delete_timeline_and_start_over: Kustuta ajakava
+    due_default: Tähtaeg järgmisel nädalal
+    edit_titles: Muuda nädalate nimetusi
+    edit_titles_info: Muuda ajakavas nädalate nimetusi. Kohandada on võimalik ainult
+      nädalaid, millele on määratud rühmatöö toimumine. Kohandatud nimetuste kasutamise
+      korral tähistatakse nädalaid, mil rühmatööd ei toimu, ainult kuupäevadega ja
+      neid ei nummerdata.
+    empty_week_1: Alustamiseks
+    empty_week_2: muuda selle nädala andmeid
+    empty_week_3: või
+    empty_week_4: kasuta ajakava loomiseks ülesannete loomise viisardit.
+    first_week_title: Esimene aktiivne nädal
+    gradeable_value: Väärtus
+    gradeables_none: Ajakavas puuduvad hinnatuks märgitud ülesanded.
+    grading_header: 'Hindamine (kokku: %{total})'
+    move_block_down: Liiguta plokki alla
+    move_block_up: Liiguta plokki üles
+    no_class_holidays: Kursusel puhkepäevad puuduvad.
+    no_timeline: Kursuse ajakava puudub.
+    no_activity_this_week: Sellele nädalale ei ole rühmatööd määratud
+    nothing_this_week: Selle nädala ajakava on tühi.
+    reset_titles: Taasta vaikeväärtus
+    reset_titles_confirmation: Kas oled kindel, et soovid taastada kõigi nädalate
+      nimede vaikeväärtused? Toimingut ei ole võimalik tühistada.
+    save_all_changes: Salvesta kõik
+    this_week_title_default: See nädal
+    title: Ajakava
+    unable_to_add_week: Uusi nädalaid ei ole võimalik lisada, kuna ajakava on täis.
+      Ruumi tegemiseks kustuta vähemalt üks nädal või muuda ülesandeid.
+    view_full_timeline: Vaata kogu ajakava
+    week_number: Nädal %{number}
+  training:
+    continue: Jätka (%{progress})
+    start: Alusta
+    view: Vaata
+    next: Järgmine lehekülg
+    page: Lehekülg
+    page_number: Lehekülg %{number} %{total}-st
+    previous: < Eelmine
+    table_of_contents: Sisukord
+    training_library: Õpperaamatukogu
+    logged_out: Oled välja logitud. Mooduli läbimist ei hinnata, kui Sa ei ole sisse
+      logitud.
+    done: Valmis!
+    invalid: Sellist slaidi ei ole olemas!
+    wait: Ära lahku lehelt, kuni õppemooduli läbimisandmeid uuendatakse.
+    check_answer: Kontrolli vastust
+    included_modules: Lisatud moodulid
+    view_library_source: vaata raamatukogu lähtekoodi
+    view_module_source: vaata mooduli lähtekoodi
+    reload_from_source: laadi uuesti lähtekoodist
+  uploads:
+    credit: Allikas
+    file_name: Failinimi
+    header: Wikimedia Commonsisse laaditud failid
+    image: Pilt
+    label: Üleslaadimised
+    loading: Üleslaadimiste laadimine...
+    none: Rühm ei ole lisanud Wikimedia Commonsisse ühtegi pildi- ega muud meediumifaili.
+    select_label: Filtreeri üleslaadija järgi
+    time_doc: Iga üleslaaditud faili avaldamisaeg sinu kohaliku aja järgi
+    uploaded_at: Üleslaadimisaeg
+    uploader: Üleslaadija
+    uploaded_by: Üleslaadija
+    uploaded_on: Üles laaditud
+    usage_count: Kasutuskordi
+    usage_doc: Pilti kasutavate Vikipeedia artiklite arv.
+    usage_count_gallery_tile: Kasutatud %{usage_count} artiklis
+    usages: Kasutus
+  users:
+    already_enrolled: Kasutaja on juba registreerunud!
+    assign_articles: Artiklite muutmiseks määramine
+    assign_articles_done: Valmis
+    assigned: Muutmiseks määratud artiklid
+    assignees: Seotud kasutajakonto(d)
+    loading_authorship_data: autori andmete laadimine
+    authorship_data_not_fetched: Autori andmete laadimine ebaõnnestus
+    character_doc: Kasutaja lisatud sisu kogumaht selles nimeruumis arvutatuna liites
+      lehekülje mahtu suurendanud muudatustes lisatud märkide arvud. Saadud väärtus
+      ei peegelda tingimata kasutaja lisatud uue sisu mahtu. Saadud väärtust võib
+      suurendada ka eemaldatud sisu taastamine.
+    chars_added: Lisatud märke<br>(artikkel | kasutaja | mustand)
+    contributions: Kasutaja kaastöö
+    contributions_history_full: Näita kogu kaastööd
+    contributions_more: Näita veel kaastööd
+    contribution_statistics: Kaastöö statistika
+    course_passcode: 'Pääsukood:'
+    editors: Kaastöölised
+    edits: muudatused
+    edits_by: 'Muudatused, mille on teinud kasutaja:'
+    enroll_confirmation: Kas oled kindel, et soovid lisada osalejaks kasutaja %{username}?
+    enroll_url: 'Kasutajad võivad liituda lingi kaudu:'
+    enrolled_success: '%{username} edukalt lisatud!'
+    first_name: Eesnimi
+    last_name: Perekonnanimi
+    loading: Laadin kasutajaid...
+    characters_added_mainspace: Lisatud märke (artikkel)
+    characters_added_short: 'Põhiruum: %{mainspace}, kasutajaruum: %{userspace}'
+    characters_added_userspace: Lisatud märke (kasutaja)
+    characters_added_draftspace: Lisatud märke (mustand)
+    my_assigned: 'Määratud kasutajale:'
+    my_reviewing: 'Retsenseerimisel:'
+    name: Nimi
+    none: Registreerunud osalejad puuduvad.
+    no_articles: Artiklid puuduvad
+    no_revisions: (redaktsioonid puuduvad)
+    number_of_articles:
+      one: '%{count} artikkel'
+      other: '%{count} artiklit'
+    recent_revisions: Hiljutised muudatused
+    references_count: Lisatud viiteid
+    remove_confirmation: Kas oled kindel, et soovid kasutaja %{username} eemaldada?
+    request_confirmation: Kas oled kindel, et soovid taotleda selle nimega kontot?
+    revision_characters_and_views: 'Lisatud märke: %{characters}, vaatamiskordi: %{views}'
+    revisions_doc: Kaastöölise tehtud muudatuste hinnanguline arv viimase seitsme
+      päeva jooksul. Põhineb viimase perioodi päevasel keskmisel muudatuste arvul.
+    references_doc: Kaastöölise lisatud või eemaldatud viidete arv
+    reviewers: Retsensendid
+    reviewing: Retsenseerimisel
+    sandboxes: liivakastid
+    total_uploads: Kokku üleslaadimisi
+    training_complete:
+      one: on läbinud õppemoodulid
+      other: on läbinud õppemoodulid
+    training_complete_count:
+      one: '%{count} on läbinud õppemoodulid'
+      other: '%{count} on läbinud õppemoodulid'
+    training_doc: Õppemoodulid läbinud kasutajate arv tähistab kõik määratud õppemoodulid
+      tähtajaks läbinud kaastööliste arvu.
+    training_incomplete: Õppemoodulid läbimata
+    training_modules_completed:
+      one: läbitud %{completed_count} %{count}-st õppemoodulist
+      other: läbitud %{completed_count} %{count}-st õppemoodulist
+    training_module_name: Õppemoodul
+    training_module_status: Staatus
+    user_training_status: Õppemoodulite staatus
+    user_no_training_status: Kasutaja ei ole läbinud ühtegi õppemoodulit.
+    up_to_date_with_training: on läbinud õppemoodulid
+    uploads_doc: Wikimedia Commonsisse üles laaditud failide arv
+    ungreeted: Tervitamata
+    username: Kasutajanimi
+    username_placeholder: Kasutajanimi
+    useremail_placeholder: E-post
+    userpasscode_placeholder: Pääsukood
+    role:
+      description: Roll kursusel
+      visitor: Külaline
+      student: Osaleja
+      instructor: Juhendaja
+      campus_volunteer: Vabatahtlik õppeasutuses
+      online_volunteer: Vabatahtlik võrgus
+      wiki_ed_staff: Wiki Educationi meeskond
+  user_profiles:
+    student_impact: Kasutaja %{username} kogupanus osalejana
+    instructor_impact: Kasutaja %{username} kogupanus juhendajana
+    instructors_student_impact: Kasutaja %{username} juhendatavate kogupanus
+    disclaimer: Kogu lisatav informatsioon on avalik.
+    bio_placeholder: Lisa elulugu (valikuline)
+    location_placeholder: Lisa asukoht (vabatahtlik)
+    institution_placeholder: Õppeasutuse nimi (valikuline)
+    image_link_placeholder: Lisa link pildile (vabatahtlik)
+  wiki_edits:
+    notify_overdue:
+      confirm: See käsk postitab meeldetuletuse kõigi osalejate arutelulehtedele,
+        kes ei ole õigeaegselt läbinud ettenähtud õppemoodulit. Kas soovid postitada
+        meeldetuletuse?
+      header: Sul on määratud tähtajaks läbimata jäänud õppemooduleid.
+      message: Ole hea ja lõpeta Sulle määratud [%{link} õppemoodulid].
+      summary: läbimata õppemoodulid
+  wizard:
+    assignment_dates: Ülesannete kuupäevad
+    assignment_description: Märgi ülesannete ajakava algus- ja lõppkuupäev. Kui soovid
+      näiteks alustada Vikipeedia projektiga teisel õppenädalal, märgi ülesande alguskuupäevaks
+      esimene nädal pärast kursuse algust. Ülesannete loomisvahend loob seejärel Sinu
+      valitud kuupäevadega sobiva ajakava.
+    assignment_type: Mida peavad osalejad Vikipeediaga seotud ülesande täitmiseks
+      tegema?
+    calendar_instructions: Vali ajakavasse lisatavad või kustutatavad kuupäevad (nt
+      riigipühad, päevad mil õppetööd ei toimu). See võimaldab kursuse loomisvahendil
+      ülesandeid paremini ajakavasse paigutada. Kuupäeva oleku muutmiseks (valimata,
+      valitud, puhkepäev) klõpsa kuupäeval. Juhul kui kursusel puhkepäevad puuduvad,
+      vali "kursusel puhkepäevad puuduvad".
+    confirm_dates: Vali kursuse kuupäevad, iganädalased rühmatöö ajad ning puhkepäevad.
+    course_dates: Kursuse kuupäevad
+    min_weeks: Sellist liiki ülesanne nõuab vähemalt %{min_weeks} nädalat vaba aega.
+      Juhul kui soovid seda liiki ülesannet kasutada, muuda ülesande algus- ja lõppkuupäeva.
+    select_one_option: Vali üks valik.
+    minimum_options:
+      one: Vali vähemalt %{count} valik.
+      other: Vali vähemalt %{count} valikut.
+    read_less: Näita vähem
+    read_more: Näita rohkem
+    review_selections: Vaata allpool tehtud valikud üle. Valiku muutmiseks klõpsa
+      valikul. Kui oled lõpetanud, vajuta viisardi sulgemiseks ja ajakava loomiseks
+      nuppu 'Saada'.
+    select_assignment: Vali ajakavasse lisatava ülesande liik.
+    summary: Kokkuvõte
+  error:
+    form_errors: Kontrolli, ega vorm ei sisalda vigu.
+    invalid_assignment: Vigane ülesanne
+    invalid_date: '%{key} kuupäev on vigane'
+    invalid_file_format: Faili salvestamine ebaõnnestus. Laadi üles kas PDF- või Wordi
+      fail.
+    oauth_invalid: Sinu Vikipeedia sisselogisinfo on aegunud. Logi uuesti sisse.
+    start_date_before_end_date: Alguskuupäev peab olema varasem kui lõppkuupäev
+    unsupported_browser:
+      header: Töölaud ei toeta kasutatavat brauserit :-(
+      explanation: Kasutad töölauga mitteühilduvat brauserit. Lehekülg töötab korralikult
+        Chrome'i, Firefoxi, Edge'i ja muude tänapäevaste brauserite uusimate versioonidega.
+  error_401:
+    header: Õigused puuduvad. >:-(
+    explanation: Sul puuduvad õigused selle toimingu sooritamiseks. Juhul kui oled
+      selle veateate saanud ekslikult, võta ühendust töölaua hooldajatega ning teavita
+      neid probleemist.
+    json_explanation: Näib, et oled leheküljelt välja logitud. Värskenda lehekülge,
+      logi sisse ning proovi uuesti.
+  error_incorrect_passcode:
+    header: Vale pääsukood. :-(
+    explanation: Sisestatud pääsukoodiga ei ole võimalik sellele kursusele registreeruda.
+      Küsi juhendajalt kursusele registreerimiseks õiget pääsukoodi. Uuesti proovimiseks
+      sisesta õige pääsukood.
+  error_no_course:
+    explanation: Kursust %{slug} ei ole olemas.
+  error_404:
+    header: Lehekülge ei leitud. :-(
+    explanation: Otsitud lehekülge ei ole olemas. Juhul kui soovisid avada kursuse
+      töölauda, võib see tähendada, et kursus ei ole töölaua kasutamiseks registreeritud.
+  error_422:
+    header: 422 — töödeldamatu olem. :-(
+    explanation: Midagi läks viltu. Võta ühendust töölaua hooldajatega ning teavita
+      neid probleemist.
+  error_500:
+    header: 500 — serveri sisemine tõrge.  :-(
+    explanation: Midagi läks viltu. Võta ühendust töölaua hooldajatega ning teavita
+      neid probleemist.
+  login_error:
+    header: Viga sisselogimisel
+    explanation: Sisselogimisel läks midagi valesti. Vabandust! Proovi uuesti sisse
+      logida või registreeruda.
+  survey:
+    login_message: Täname panustatud aja eest. Küsitlusele vastamiseks logi sisse
+      töölauale.
+    notification_explanation: Selle valiku märkimise korral saavad osalejad lisaks
+      brauseris kuvatavatele teavitustele ka teavitamisgraafiku järgi teateid e-postiga.
+      Juhul kui valik ei ole märgitud, saavad osalejad ainult brauseris kuvatavaid
+      teavitusi.
+    notification_schedule_explanation: Juhul kui teavitused on aktiveeritud, edastatakse
+      neid nii brauseris kui ka e-posti teel.
+    follow_up_explanation: Jäta tühjaks, kui e-posti teel küsitluse täitmisest teavitamine
+      ei ole vajalik.
+    email:
+      headline: Tere, %{username}!
+      message_line1: Loodame, et Sinu kursus läks hästi! Tööriistade parandamiseks
+        ja ülesannete läbiviimise paremaks toetamiseks on Wiki Educationil vaja Sinu
+        tagasisidet.
+      message_line2: Oleksime tänulikud, kui leiaksid 15 minutit aega meie juhendajate
+        küsitlusele vastamiseks. Küsitlusele vastates aitad meil muuta Vikipeedia
+        abil õpetamise veelgi tänuväärsemaks ja väärtuslikumaks kogemuseks.
+      course: 'Kursus: %{course_info}'
+      closing: Lugupidamisega
+      signed: Wiki Educationi meeskond
+      link: Vasta küsitlusele
+    follow_up:
+      message: Saadame Sulle meeldetuletuse, et vastaksid kursusega %{course_title}
+        seotud küsitlusele. Saadud tagasiside võimaldab meil pakkuda paremat tuge
+        sarnaste kursuste läbiviimisel.
+  feedback_form_responses:
+    no_responses: Tagasiside puudub.
+  wiki_api:
+    create_account_reason: Kasutaja osaleb üritusel %{event}.
+  onboarding:
+    supplementary:
+      header: Kuidas Sa meid leidsid?
+      where_did_you_hear: Kust või kellelt kuulsid või lugesid Sa esimest korda Wiki
+        Educationist?
+      why_are_you_here: Mida Sa sooviksid teha?
+  article_finder:
+    add_available_article: Lisa valitavaks artikliks
+    article_finder: Artikliotsing
+    article_quality: Artikli kvaliteet (0–100)
+    assign_article_self: Määra ennast muutjaks
+    average_views: Keskmiselt vaatamisi päevas
+    category_search: Kategooria otsing
+    completeness_estimate: Täielikkuse hinne
+    fetching_assessments: Lehekülgede hinnete laadimine
+    fetching_scores: Täielikkuse hinnete laadimine
+    fetching_pageviews: Vaatamiskordade arvu laadimine
+    fetching_revisions: Lehekülgede redaktsioonide laadimine
+    fetched_articles: Laaditud artiklid
+    filtered_articles: Filtreeritud artiklid
+    hide_options: Peida suvandid
+    keyword_search: Võtmesõna otsing
+    minimum_views_label: Minimaalselt vaatamisi
+    more_results: Veel tulemusi
+    no_article_found: Sellesse kategooriasse kuuluvad artiklid puuduvad
+    page_assessment_class: Rühm
+    relevanceIndex: Asjakohasuse indeks
+    remove_article: Eemalda artikkel
+    search: Otsi
+    searching_articles: Artiklite otsimine
+    search_placeholder: Sisesta võtmesõna
+    show_options: Näita suvandeid
+    subheading_message: Otsi Vikipeedia artikkel, mida täiendada.
+    submit: Saada
+    tools: Tööriistad
+    unassign_article_self: Tühista muutjaks määramine
+  training_status:
+    completed: Lõpetatud
+    started: Alustatud
+    not_started: Alustamata
+    due: tähtaeg %{due_date}
+    assignment_status: Õppeülesanne (%{status})
+  multi_wiki:
+    selector_placeholder: Alusta vikidomeeni sisestamist
+...

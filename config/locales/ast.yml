@@ -1,0 +1,965 @@
+# Messages for Asturian (asturianu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+# Author: Macofe
+# Author: Tokvo
+# Author: Xuacu
+# Author: YoaR
+---
+ast:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: mil millones
+          trillion: billones
+          quadrillion: trillones
+  accessibility:
+    number_field: Esti ye un campu numbéricu. Los botones representaos pola mayoría
+      de los navegadores van amontar y decrementar la entrada.
+  application:
+    cancel: Zarrar
+    cookie_consent: Esti sitiu usa cookies pa caltener la sesión aniciada, y guarda
+      información relativa a la to cuenta de Wikipedia.
+    cookie_consent_acknowledge: Entiendo
+    cookie_consent_see_more: Ver más
+    create_accounts: Crear cuentes de Wikipedia
+    dashboard: Tableru de Wiki Ed
+    documentation: Documentación
+    error: 'Hebo un error:'
+    explore: Esplorar
+    field_required: Esti campu ye obligatoriu
+    field_invalid_characters: Esti campu tien caráuteres inválidos
+    field_invalid_date: Esti campu rique una fecha en formatu AAAA-MM-DD
+    field_invalid_date_time: El final tien de dir después del principiu. (Les hores
+      van de 0 a 23).
+    greeting2: ¡Bienveníu!
+    greeting_extended: Bienveníu a Wikipedia
+    greeting: Bones
+    help: Ayuda
+    home: Entamu
+    log_in_extended: Aniciar sesión con Wikipedia
+    log_in: Aniciar sesión
+    log_out: Salir
+    my_dashboard: El mio tableru
+    recent_activity: Actividá recién
+    report_problem: Informar d'un problema
+    request_account: Solicita una cuenta
+    request_account_create: Crear una cuenta
+    search: facer una entruga
+    search_results:
+      one: '%{count} Resultancia de: ''%{search_terms}'''
+      other: '%{count} Resultancies de: ''%{search_terms}'''
+    no_results: Nun s’alcontró nengún resultáu pa «%{query}»
+    sign_up_extended: Rexístrate con Wikipedia
+    sign_up_wikipedia: O rexístrate'n Wikipedia
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Date d'alta
+    submit: Unviar
+    training: Prauticar
+    change: Camudar
+    details: Detalles
+    confirm: Aceutar
+    opt_in: Sí
+    opt_out: Non
+    opt_yes: sí
+    opt_no: non
+  article_statuses:
+    not_yet_started: Primeros pasos
+    in_progress: Trabayando nel espaciu de pruebes
+    ready_for_review: Espander borrador
+    ready_for_mainspace: Moviendo'l trabayu al Espaciu principal
+    reading_the_article: Lleyendo artículu
+    providing_feedback: Faciendo comentarios
+    post_to_talk: Espublizando na Páxina d'alderique
+    peer_review_completed: Revisión completada
+  dashboard:
+    create_note: Fai click en Crear cursu pa crear el to primer cursu.
+    create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
+      antes d'empezar; la ferramienta de diseñu de xeres va usar les feches de les
+      xuntes de la to clase, incluyendo vacaciones y pauses escolares, p'afaer la
+      to cronograma al intervalu de feches qu'escueyas. Recuerda que siempres puedes
+      editar el cronograma pa que s'axuste a les tos necesidaes.
+    explore_course_pages: Esplorar les Páxines del cursu
+    explore_examples: Esplorar exemplos
+    join_note: En recibiendo un códigu d'accesu del to monitor, fai click en Alcuentra'l
+      to cursu p'alcontralu y xunite.
+    no_courses_instructor: Paez que nun tienes nengún cursu.
+    no_courses_student: Paez qu'inda nun te xunisti a un cursu.
+    opt_out: Solicitar dar de baxa la orientación
+    orientation_notice: Antes de crear un cursu, vamos pasar a la orientación p'ayudate
+      a empezar. (Tárdase unos 30 minutos en completala.)
+    review_orientation: Ver la orientación
+    start_orientation: Principiar la orientación
+    blog_headline: Noticies recién de Wiki Educación
+    about_programs: Esti sitiu fai el siguimientu d'actividaes wiki mediante Programes,
+      acividaes individuales como una wiquimaratón o un taller nuna escuela. Cada
+      programa forma parte d'una o más Campañes, que proporcionen estadístiques entre
+      los Programes.
+    about_creating_programs: Si tas xestionando una única actividá independiente,
+      puedes  crear un Programa agora. Si l'actividá ye parte de daqué más grande,
+      atopa o crea la Campaña pa ello. Entós puedes crear un Programa nuevu dende
+      la páxina de la Campaña.
+  home:
+    explore: Esplorar
+    log_in: Aniciar sesión con Wikipedia
+    sign_up: Rexístrate con Wikipedia
+    sign_up_help: Pa usar el tableru de control, vas tener qu'aniciar sesión en Wikipiedia
+      y da-y permisu p'aportar a la to cuenta. Puedes aniciar sesión con una cuenta
+      de Wikipedia esistiente o crear una nueva.
+  alerts:
+    alert_label: Alertes
+    no_alerts: Nun s'alcontró nenguna alerta.
+  activity:
+    all: Actividá
+    edited_by: Editáu por
+    label: Actividá
+  articles:
+    article_development: (desendolcu d'artículu)
+    articles_shown: Amuésense %{count} de %{total}
+    assigned: Artículos axudicaos
+    available: Artículos disponibles
+    no_available: Nun hai nengún artículu disponible
+    next: Siguiente
+    previous: Anterior
+    article_title: Títulu del artículu
+    assigned_to: Axudicáu a
+    character_doc: La suma de caráuteres amestaos a los artículos polos editores apuntaos
+      ente la data de principiu y la final
+    cross_wiki_tracking: De siguío ta la llista de páxines del espaciu principal editaes
+      entre les dates de principiu y final. El tableru recueye les contribuciones
+      d'esti programa a la wiki principal, xunto con cualquier otra wiki que tenga
+      un artículu disponible o designáu.
+    deleted: (desaniciáu)
+    edited: Artículos editaos
+    edited_by: 'Editáu por:'
+    edited_mobile: Artículos
+    edited_none: '%{title} nun editó nengún artículu.'
+    filter:
+      wiki_all: Toes
+      new: Nuevos
+      existing: Esistentes
+      new_and_existing: Nuevos y esistentes
+      tracked: Siguío
+      untracked: Ensin siguir
+      tracked_and_untracked: Siguíos y Ensin siguir
+    hide: Anubrir
+    history: (historial)
+    label: Artículos
+    loading: Cargando artículos...
+    new: (nuevu)
+    none: Esti cursu nun editó nengún artículu.
+    rating: Clase
+    rating_doc: La calificación qu'un artículu recibió de Wikiproyeutos en Wikipedia.
+      Estes calificaciones puen corresponder a versiones muncho más antigues, de mou
+      que son sólo un indicador aproximáu de la madurez del artículu.
+    rating_docs:
+      fa: '%{class} (Artículu destacáu) — Calificación más alta de Wikipedia, probablemente
+        ye un artículu demasiao maduru como para ser el proyeutu principal d''un editor
+        nuevu'
+      fl: '%{class} (Llista destacada) — Calificación más alta de Wikipedia pa les
+        llistes'
+      a: Clase %{class} — artículu desendolcáu enforma que puede ser demasiao maduru
+        como para ser el proyeutu principal d'un editor nuevu
+      ga: '%{class} (Artículu bonu) — artículu bien desendolcáu que puede ser demasiao
+        maduru como para ser el proyeutu principal d''un editor nuevu'
+      b: Clase %{class} — un artículu moderadamente desendolcáu
+      c: Clase %{class} — un artículu intermediu con posibilidá d'ameyoramientu
+      start: Clase %{class} — un pre-artículu con muncha posibilidá d'ameyoramientu
+      stub: Clase %{class} — un entamu curtiu d'artículu que necesita más conteníu
+      list: Clase %{class} — una llista, más qu'un artículu convencional
+      '?': Sin calificar — un artículu qu'inda nun se calificó na escala de calidá
+        de Wikipedia
+      does_not_exist: Esti artículu nun esiste'n Wikipedia
+    see_more: Ver más
+    show_cumulative_changes: Amosar cambeos acumulaos
+    show_current_version: Amosar la versión actual
+    show_current_version_with_authorship_highlighting: Versión actual con Resaltáu
+      d'autor
+    title: Títulu
+    tracked: Siguío
+    title_example: Títulu del artículu
+    tools: Ferramientes d'evaluación
+    view: Ver artículu
+    view_all: Ver toos
+    view_doc: Les vistes estimaes de cada artículu dende la primera edición hasta
+      l'anovamientu d'estadístiques más recién. Pues usar pageviews.toolforge.org
+      pa ver los númberos exautos.
+    view_on_wiki: Ver na wiki
+    views_added: Amestáronse %{count} visites nueves a %{title}
+    edit_size: Tamañu d'edición
+    wiki: Wiki
+    wp10: Integridá estructural
+    wp10_doc: La puntuación «Integridá estructural» representa lo averáu qu'un artículu
+      ta al molde d'un artículu maduru de la Wikipedia, basáu nel Serviciu Oxetivu
+      de Valoración de Revisiones (https://ores.wikimedia.org/), una ferramienta automatizada
+      basada'n deprendimientu de máquina. Estes puntuaciones calcúlense basándose
+      nel tamañu d'un artículu, el númberu de referencies y enllaces wiki, y otres
+      carauterístiques básiques del testu. Se vezu una puntuación alta indica qu'un
+      artículu sigue les convenciones de Wikipedia sobre la estructura d'un bon artículu,
+      pero nun toma en cuenta'l propiu conteníu. (Estes resultancies namái tán disponibles
+      pa los artículos de la Wikipedia n'inglés.)
+    articles_short: Artículos
+  articles_wikidata:
+    articles_short: Elementos
+  articles_generic:
+    articles_short: Páxines
+  assignments:
+    article: Asignósete l'artículu %{title}.
+    article_link: Artículu
+    already_exists: ¡Esta xera yá esiste!
+    title_too_large: El títulu nun tendría de pasar los 255 caráuteres
+    assignees: Encargáu(os)
+    assign_other: Asinar un artículu
+    add_available: Añadir artículos disponibles
+    add_available_placeholder: Añade un títulu d'artículu o una URL per llinia
+    add_available_submit: Amestar artículos
+    assign_self: Asiname un artículu
+    assign_tooltip: Un artículu asignáu ye'l que plantees crear o ameyorar.
+    bibliography: Bibliografía
+    clone: Clonar
+    confirm_add_available: ¿Tas seguru de que quieres añadir %{title}?
+    confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
+    confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación d'artículu?
+    editors: Axudicáu a
+    group_members: Miembros del grupu
+    label: Asinar
+    loading: Cargando xeres...
+    none_short: Nun hai artículos asinaos
+    none: Esti cursu nun tien artículos asinaos.
+    no_available: Esti cursu nun tien artículos disponibles.
+    peer_review_count: '%{currentCount}/%{total} seleicionaos'
+    peer_review_link: Revisión per pares
+    peer_review_link_personalized: Revisión per pares de %{username}
+    remove: Desaniciar
+    reviewers: Revisor(es)
+    review_other: Axudicar una revisión per pares
+    review_self: Revisar un artículu
+    select: Seleicionar
+  blocks:
+    milestones:
+      title: Finxos
+  campaign:
+    active_campaigns: Campañes actives
+    add_organizer: Añadir organizador
+    alert_article: Títulu d'artículu
+    alert_label: Alertes de campaña
+    alert_type: Triba
+    alert_user_id: Usuariu
+    all_campaigns: Toles campañes
+    campaign: Campaña
+    campaigns: Campañes
+    campaign_deleted: Desanicióse la campaña «%{title}»
+    campaign_not_updated: Nun pudo actualizase la campaña
+    campaign_updated: Campaña actualizada
+    created_at: Data
+    confirm_campaign_deletion: ¿Tas seguru de que quies desaniciar la campaña titulada
+      "%{title}"? Si ye asina, escribe'l títulu de la campaña pa siguir.
+    confirm_campaign_deletion_failed: «%{title}» nun ye'l títulu d'esta campaña. La
+      campaña nun se desanició.
+    confirm_course_removal: ¿Tas seguru de que quies desaniciar "%{title}" de la campaña
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" yá se desaniciara de la campaña "%{campaign_title}"'
+    course: Cursu
+    course_removed: '"%{title}" desanicióse de la campaña "%{campaign_title}"'
+    create_campaign: Crear una campaña nueva
+    create_my_campaign: ¡Crear la mio campaña!
+    customize_passcode: un códigu d'accesu predetermináu
+    data_articles: Páxines editaes
+    default_course_type: Tipu de cursu predetermináu
+    default_passcode: Códigu d'accesu predetermináu
+    default_passcode_explanation: 'De mou predetermináu, los programes nuevos d''esta
+      campaña tienen de tener:'
+    description: Descripción
+    delete_campaign: Desaniciar esta campaña
+    disable_account_requests: Desactivar les solicitúes de cuentes
+    enable_account_requests: Activar les solicitúes de cuentes
+    no_alerts: Esta campaña nun tien alertes
+    no_passcode: sin códigu d'accesu
+    none: Nengunu
+    organizers: Organizadores
+    organizer_added: '%{user} agora ye un organizador de la campaña «%{title}»'
+    organizer_removed: '%{user} yá nun ye organizador de la campaña «%{title}»'
+    program_template: Plantía de programa
+    program_template_tooltip: Cuando un organizador crea un programa nesta campaña,
+      el testu d'esta área va copiase como descripción na páxina del programa
+    random_passcode: un códigu d'accesu al debalu
+    requested_accounts: Cuentes solicitaes
+    title: Títulu
+    use_start_end_dates: Usar les feches de principiu y fin
+  categories:
+    add_category: Amestar categoría
+    add_template: Añadir plantía
+    add_this_category: Añadir esta categoría
+    add_this_template: Amestar esta plantía
+    depth: Fondura de subcategoríes
+    name: Nome
+    category_name: Nome de la categoría
+    template_name: Nome de la plantía
+    none: Nun hai nenguna categoría en siguimientu.
+    remove: Desaniciar
+    tracked_categories: Categoríes, PSID y y plantíes en siguimientu
+  courses:
+    accounts_generation_enabled: Xeneración de solicitúes de cuenta activada
+    activity: Actividá
+    active_courses: '%{course_type} activos'
+    alerts: Alertes
+    all_courses: Tolos cursos
+    already_enrolled: Yá yes parte de '%{title}'.
+    already_exists: ¡Eso yá esiste pa esti cursu!
+    archived: Cursos archivaos
+    actions: Aiciones
+    articles: Artículos
+    assignment_end: Fin de la xera
+    assignment_start: Entamu de la xera
+    calendar:
+      legend: Lleenda
+      legend_class_canceled: Vacaciones/encaboxada
+      legend_class_meeting: Xunta de la Clase
+      legend_class_not_meeting: Nenguna xunta programada
+      select_meeting_days: Escueye los díes de la selmana en qu'aconceya la to clase.
+    cancel: Zarrar
+    character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
+      polos estudiantes nel periodu del cursu
+    campaigns: 'Campaignes:'
+    campaign_articles: Artículos de %{title}
+    campaign_courses: Cursos de %{title}
+    campaign_select: Seleiciona una campaña
+    campaign_users: Editores de %{title}
+    confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
+      Si ye asina, escribe'l títulu del cursu pa siguir.
+    confirm_course_deletion_failed: '"%{title}" nun ye''l títulu d''esti cursu. El
+      cursu nun se desanició.'
+    course: Cursu
+    course_dates_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
+      (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
+      l'estáu ente ensin escoyer, escoyíu y vacaciones. Les feches de les actividaes
+      del cursu camudarán pa tener en cuenta les selmanes que nun tienen aconceyamientos
+      programaos.
+    course_description: Cursos
+    courses: Cursos
+    courses_taught: Cursos enseñaos
+    creation_date: Data de creación
+    creator:
+      already_exists: Esti cursu yá esiste. Considera camudar el nome, la escuela
+        o'l plazu pa faelu únicu.
+      assignment_end: Fin de la xera
+      assignment_end_placeholder: AAAA-MM-DD
+      assignment_start: Entamu de la xera
+      assignment_start_placeholder: AAAA-MM-DD
+      checking_for_uniqueness: Ta comprobándose qu'esti cursu sía únicu.
+      choose_clone: Escueyi un cursu pa clonar.
+      clone_previous: Clonar el cursu anterior
+      clone_this: Clonar esti cursu
+      cloned_course_calendar_instructions: Escueye dates p'asedir o quitar del calendariu
+        (por casu, vacaciones, cuando nun hai clases). Fai clic na dataa pa camudar
+        ente los estaos «ensin escoyer», «escoyíu» y «vacaciones». Si nun tienes vacaciones,
+        marca «Nun tengo vacaciones de clases». El cronograma copiáu va afaer automáticamente
+        les feches pa dar cuenta de les selmanes que nun tienen aconceyamientos programaos.
+      clone_successful: Actualizar los detalles del cursu clonáu
+      clone_successful_details: El to cursu clonóse, incluyendo los elementos del
+        cronograma (selmanes y bloques). Asegúrate d'añadir les feches, porque nun
+        se treslladen. ¿Camudó daqué más nel to cursu? Actualizalo agora si quies.
+      course_description: Descripción del cursu
+      course_school: Escuela del cursu
+      course_subject: Tema del cursu
+      course_term: Periodu del cursu
+      course_term_placeholder: Periodu
+      course_title: Títulu del cursu
+      course_types:
+        edit_a_thon_name: Editatón
+      create_button: ¡Crear el mio cursu!
+      create_label: Crear un cursu nuevu
+      create_new: Crear un cursu nuevu
+      create_short: Crear cursu
+      end_date: Data final
+      end_date_placeholder: AAAA-MM-DD
+      expected_number: Númberu d'estudiantes esperáu
+      find: Atopa'l to cursu
+      intro: El títulu, la escuela y el plazu creen la dirección URL de la páxina
+        del cursu, y nun pueden camudase. Tolo demás pue editase depués. Fai clic
+        en «Crear el mio cursu» pa empecipiar la construcción del cronograma de la
+        to xera en Wikipedia.
+      no_class_holidays: Nun tengo vacaciones de clases
+      role_description: La to función nel cursu
+      role_description_options:
+      - Monitor
+      - Asistente d'enseñanza
+      role_description_placeholder: Monitor, ayudante d'enseñu, etc.
+      save_cloned_course: Guardar cursu nuevu
+      start_date: Data d'entamu
+      start_date_placeholder: AAAA-MM-DD
+      subject: Asuntu
+    current: Cursos actuales
+    data_articles: Datos de los artículos
+    data_download_info: Descargar los datos en formatu CSV.
+    data_overview: Supervisar los datos
+    data_overview_info: Supervisar los datos ufre estadístiques acumulaes del proyeutu
+      completu.
+    data_edits: Datos d'ediciones
+    data_edits_info: Datos d'ediciones amuesa los detalles de cada edición fecha demientres
+      el proyeutu.
+    data_students: Datos d'editores
+    data_students_info: Datos d'editores amuesa la llista de tolos editores soscritos,
+      cuánto editaron, y si rexistraron les cuentes demientres el proyeutu.
+    data_uploads: Datos de xubíes a Commons
+    data_uploads_info: Datos de xubíes a Commons amuesa'l nome y recuentu d'usu de
+      cada mediu xubíu.
+    delete_course: Desaniciar cursu
+    delete_suggestion: Desaniciar
+    delete_course_instructions: Puedes desaniciar esta páxina si primero se desanicien
+      toles campañes.
+    dismiss_survey: Descartar
+    dismiss_survey_confirm: ¿Tas seguru de descartar permanentemente esta encuesta?
+    download_stats_data: Estadístiques de descargues
+    duration: Duración del cursu
+    edit_count: Recuentu d'ediciones
+    edit_course_dates: Editar les Dates del cursu
+    enable_account_requests: Activar les solicitúes de cuentes
+    end: Fin
+    ended: El cursu terminó.
+    enroll: Inscribise
+    enrollment: Amestar/Desaniciar estudiantes
+    courses_enrolled: Cursos matriculaos
+    error:
+      exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
+        periodu diferentes.
+      user_exists: Sentímoslo, nun esiste l'usuariu %{username}.
+      invalid_language_or_project: Idioma/proyeutu inválidu
+      invalid_slug: Escuela/títulu vacíu pal cursu.
+      duplicate_slug: Yá esiste otru programa llamú %{slug}.
+    expected_students: Estudiantes que s'esperen
+    features_feedback: 'Suxerencies automátiques:'
+    feedback: La to opinión
+    feedback_loading: Espera mientres se carguen les suxerencies...
+    gradeables_none: Esti cursu nun tien xeres calificables.
+    instructor:
+      one: Profesor
+      other: Profesores
+    instructors: Monitores
+    invitation: Te convidaron a xunite a %{title}. Pa participar nel cursu, tienes
+      d'aniciar sesión con una cuenta de Wikipedia.
+    join: Xunise
+    join_course: Xunite al cursu
+    join_prompt: ¿Xunise a '%{title}'?
+    join_successful: Te xunisti correutamente a %{title}. El tableru  rexistrará automáticamente
+      les tos contribuciones con actualizaciones periódiques. Visítalu sero pa ver
+      l'impactu que ficisti.
+    join_failed: Falló la inscripción.
+    join_failure_details:
+      cannot_join_twice: Los usuarios nun pueden matriculase dos veces nel mesmu cursu.
+      not_yet_approved: Esti cursu entá nun s'aprobó pa la inscripción.
+    leave_confirmation: ¿Tas seguru de que quies dexar esti cursu?
+    leave_course: Dexar el cursu
+    loading: Cargando...
+    my_articles: Los mios artículos
+    needs_update: Actualización de datos de la programación
+    new_week: Amestar una selmana más
+    new_account_email: Direición de corréu electrónicu
+    new_account_email_placeholder: nome@example.org
+    new_account_username: Nome d'usuariu solicitáu
+    new_account_username_invalid: Esti nome d'usuariu nun ye válidu.
+    new_account_username_placeholder: Wiki Editor 123
+    new_account_submit: Solicitar una cuenta
+    nocourses: Nun participes en nengún cursu.
+    nocourse: nun participó en nengún cursu.
+    none: Nengunu
+    notify_untrained_confirmation: Esto va publicar un recordatoriu nes páxines d'alderique
+      de tolos estudiantes que tienen los módulos de preparación designaos atrasaos.
+      ¿Tas seguru de que quies faer esto?
+    no_available_actions: Nun hai aiciones disponibles
+    ores_plot: ORES
+    overview: Entamu
+    passcode: Códigu d'accesu
+    passcode_none: Sin códigu d'accesu
+    passcode_prompt: 'Escribe''l códigu d''accesu pa xunite:'
+    please_log_in: Anicia sesión.
+    private: Priváu
+    published: '¡Publicóse''l cursu! Los estudiantes pueden inscribise nel cursu visitando
+      la siguiente URL:'
+    rating_feedback: 'La puntuación prevista pal artículu ye:'
+    requested_accounts: Cuentes solicitaes
+    requested_accounts_alert_view: Ver
+    review_timeline: 'Agora, revisa''l cronograma de trabayu, y personalízalu según
+      necesites. En tando satisfechu col cronograma, puedes unvialu pa que lu apruebe''l
+      personal de Wiki Education. Cuando s''apruebe, recibirás una URL d''inscripción
+      que los estudiantes pueden utilizar pa xunise al cursu y tener accesu a la formación.
+      (Nota: Entá podrás faer cambeos más alantre.)'
+    revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
+    revisions_none: Esti cursu nun tien actividá editorial en Wikipedia recien.
+    school: Escuela
+    school_and_term: Institución/Periodu
+    search_courses: Busca cursos
+    start: Principiu
+    start_typing: Empieza a escribir
+    student: Alumnu
+    students: Estudiantes
+    students_count: '# d''estudiantes'
+    student_editors: Estudiantes editores
+    students_none: Esti cursu nun tien estudiantes.
+    students_short: Estudiantes
+    submitted_and_pending_heading: Presentáu y pendiente d'aprobación
+    submitted_heading: Cursos presentaos
+    submitted_note: Unvióse'l to cursu. El personal de Wiki Education revisarálu y
+      comunicaráse contigo si tien cualquier entruga.
+    suggestions_sending: Unviando comentariu...
+    suggestions_sent: Comentariu unviáu. Gracies pola comunicación.
+    suggestions_failed: Nun pudo unviase'l comentariu. Tenta sero.
+    user_role: Papel
+    course_details: Detalles del cursu
+    subject: Asuntu
+    submitted: Unviáu
+    tags: 'Etiquetes:'
+    term: Periodu
+    timeline: Detalles de la xera
+    timeline_link: Cronograma
+    title: Títulu
+    unsubmitted: Cursos ensin presentar
+    view_other: Ver otres campañes
+    view: Ver el cursu
+    view_doc: El númberu estimáu de visites a los artículos editaos polos editores
+      apuntaos desque ficieron la primera edición en cada artículu
+    view_page: Ver la páxina del cursu
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntariu
+      other: Voluntarios
+    weeks_none: Esti cursu entá nun tien un cronograma.
+    wiki_staff: Personal de Wiki Education
+    word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
+      a los artículos del espaciu principal nel periodu del cursu
+    yourcourses: Los tos cursos
+    survey:
+      notification_message: Participa na encuesta d'esti cursu.
+      link: Contestar la encuesta
+  courses_generic:
+    all_courses: Tolos programes
+    archived: Programes archivaos
+    assignment_end: Fin del socesu
+    assignments_none: Esti proyeutu nun tien artículos asinaos.
+    assignment_start: Principiu del socesu
+    cancel: Zarrar
+    course: Programa
+    courses: Programes
+    courses_taught: Programes enseñaos
+    campaigns: 'Campañes:'
+    campaign_courses: Programación de «%{title}»
+    creator:
+      assignment_end: Fin d'actividá
+      assignment_end_placeholder: AAAA-MM-DD
+      assignment_start: Principiu d'actividá
+      assignment_start_placeholder: AAAA-MM-DD
+      checking_for_uniqueness: Ta comprobándose qu'esti programa sía únicu.
+      choose_clone: Escueyi un programa pa clonar.
+      clone_previous: Clonar el programa anterior
+      clone_this: Clonar esti programa
+      clone_successful: Programa clonáu correutamente
+      clone_successful_details: El to programa clonóse. Primi 'Guardar' más abaxo
+        p'acabar.
+      course_description: Descripción del programa
+      course_school: Institución
+      course_term: Cuándo
+      course_term_placeholder: Cuándo
+      course_title: Títulu del programa
+      create_button: ¡Crear el mio programa!
+      create_label: Crear un programa nuevu
+      create_new: Crear un programa independiente
+      create_short: Crear programa
+      find: Alcontrar un programa
+      participate_in_campaign: Participar nuna campaña
+      save_cloned_course: Guardar
+    delete_course: Desaniciar programa
+    edit_course_dates: Editar les dates de los proyeutos
+    enroll: Añadir editor
+    enrollment: Amestar/Desaniciar editores
+    explore: Alcontrar programes
+    expected_students: Editores esperaos
+    instructors: Facilitadores
+    join_course: Xunise al programa
+    leave_course: Dexar el programa
+    request_accounts: Solicitar cuentes
+    revisions_none: Esti proyeutu nun tien actividá editorial recien.
+    school: Institución
+    school_and_term: Institución/Cuando
+    student_editors: Editores
+    students: Editores
+    students_taught: Total d'editores
+    students_none: Esti proyectu nun tien nengún editor apuntáu.
+    students_short: Editores
+    students_count: Númberu de participantes
+    term: Cuándo
+    unsubmitted: Programes ensin presentar
+    uploads_none: Esti proyeutu nun contribuyó con nenguna imaxe o ficheru multimedia
+      a Wikimedia Commons.
+    view_other: Ver otres campañes
+    view_page: Ver la páxina del programa
+    word_count_doc: Una estimación del númberu de palabres amestaes polos editores
+      del programa a los artículos del espaciu principal nel periodu del cursu
+    yourcourses: Los tos programes
+  editable:
+    edit: Editar
+    cancel: Zarrar
+    save: Guardar
+    edit_description: Editar la descripción
+    edit_details: Editar los detalles
+    edit_template: Editar plantía
+  metrics:
+    label: Actividá del cursu
+    last_update: Última actualización d'estadístiques
+    next_update: Siguiente anovamientu previstu
+    activity: Actividá reciente
+    are_trained: tán al día cola capacitación
+    articles_created: Artículos creaos
+    articles_edited: Artículos editaos
+    characters: Caráuteres
+    char_added: Caráuteres añadíos
+    char_changed: Caráuteres camudaos
+    char: Caráuteres añadíos
+    date_time: Data/Hora
+    edit_count_description: Total d'ediciones
+    per_user: '%{number}/usuariu'
+    revisions: Ediciones recién
+    tags: Etiquetes
+    upload_count: Xubíes a Commons
+    uploads_in_use_count:
+      one: ficheru utilizáu nun artículu
+      other: ficheros utilizaos n'artículos
+    upload_usages_count:
+      one: total d'usu ente toles llingües
+      other: total d'usos ente toles llingües
+    view_count_description: Visites del artículu
+    view_data_unavailable: Nun hai datos de visites disponibles
+    view: Visites
+    word_count: Palabres amestaes
+    word_count_average: Recuentu del promediu de palabres
+  namespace:
+    main: Espaciu principal
+    main_char_added: Caráuteres añadíos nel espaciu principal
+    user: Espaciu d'usuariu
+    user_char_added: Caráuteres añadíos nel espaciu d'usuariu
+    page: Páxina
+    book: Llibru
+  recent_activity:
+    active_courses: L'artículu ta activu en
+    article_title: Títulu del artículu
+    datetime: Data/Hora
+    did_you_know_eligible: Escoyible pa ¿Sabíes que...
+    image: Imaxe
+    file_name: Nome del ficheru
+    no_dyk_eligible: Nesti momentu nun hai nengún artículu escoyible pa ¿Sabíes que...
+    no_plagiarism: Actualmente nun hai nenguna revisión con sospecha de plaxu.
+    no_edits: Nun hai nenguna edición recién.
+    plagiarism_report: Informe de plaxu
+    possible_plagiarism: Posible plaxu
+    recent_edits: Ediciones recién
+    recent_uploads: Xubíes recién
+    revision_author: Autor de la revisión
+    revision_datetime: Fecha/hora de la revisión
+    revision_score: Puntuación de revisión
+    show_courses: Amosar namái los mios cursos
+    uploaded_by: Xubíu por
+    usage_count: Total d'usos
+  revisions:
+    chars_added: Caráuteres añadíos
+    class: Clase
+    date_time: Fecha/hora
+    diff: diff
+    diff_show: Amosar
+    diff_hide: Anubrir
+    edit_time_span: Les ediciones asocedieron del %{first_time} al %{last_time}
+    edited_by: Editáu por
+    edited_on: Editáu el %{edit_date}
+    loading: Cargando revisiones...
+    none: Esti cursu nun tien actividá editorial recien.
+    time_doc: La hora de cada revisión n'hora llocal
+    title: Títulu
+    view_on_wiki: Ver les diferencies na wiki
+    see_more: Ver más
+  settings:
+    admin_users:
+      new:
+        form_label: Dar permisos d'alministrador
+        form_placeholder: Nome d'usuariu
+        confirm_add_admin: Dar permisu d'alministrador
+        confirm_remove_admin: Retirar los permisos d'alministrador a
+        already_admin: '%{username} yá ye un alministrador'
+        elevate_success: '%{username} ascendió a alministrador.'
+      remove:
+        revoke_button: Retirar permisos d'alministrador
+        revoke_button_confirm: Retirar los permisos d'alministrador de %{username}
+        revoking_button_working: Retirando...
+  suggestions:
+    editing: Suxerencies d'edición
+    suggestion_docs:
+      does_not_exist: Esti artículu nun esiste na Wikipedia
+  tasks:
+    conseq: La xera %{task} yá ta n'execución
+    constant: La xera %{task} nun puede executase mentanto tea executándose la xera
+      update_daily.
+    paused: La xera %{task} nun puede executase porque tán posaos los anovamientos
+      programaos. Executa 'rake batch:resume' pa siguir colos anovamientos.
+  timeline:
+    add_week: Añadir selmana
+    arrange_timeline: Organizar cronograma
+    arrange_timeline_instructions: Organiza'l cronograma 'abasnando y soltando' bloques
+      nel allugamientu o selmana deseada, o mueve la posición de los bloques usando
+      les fleches qu'apaecen na tarxeta.
+    assignment_dates_instructions: Escueye les feches de principiu y fin de la xera
+      de Wikipedia. El cambéu de la fecha de principiu moverá les feches del cronograma
+      completu.
+    blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
+      selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
+    block_assignment: Xera
+    block_custom: Personalizáu
+    block_in_class: Na clase
+    block_milestone: Finxu
+    block_type: El tipu bloque úsase pa comunicar a los estudiantes sobro esti elementu
+      nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
+      de finxos de la páxina de resume)
+    course_dates: Feches del cursu
+    course_dates_instructions: Escueye les feches d'entamu y fin del cursu enteru
+      (non sólo la xera de Wikipedia).
+    course_end: Fin del cursu
+    course_start: Principiu del cursu
+    delete_week_confirmation: |-
+      ¿Tas seguro de que quies desaniciar esta selmana? Esto desaniciará la selmana y tolos bloques asociaos.
+
+      Esto nun puede desfacese.
+    discard_all_changes: Descartar tolos cambeos
+    due_default: Previstu pa la selmana viniente
+    empty_week_1: Pa principiar,
+    empty_week_2: empieza editando esta selmana
+    empty_week_3: o
+    empty_week_4: usar l'asistente d'asignaciones pa crear una llinia temporal.
+    first_week_title: Primera selmana activa
+    gradeable_value: Valor
+    gradeables_none: Esti cronograma nun tien xeres marcaes como calificables.
+    grading_header: 'Calificación (Total: %{total})'
+    move_block_down: Baxar el bloque
+    move_block_up: Xubir el bloque
+    no_class_holidays: Nun tengo vacaciones de clases
+    no_timeline: Esti cursu nun tien cronograma.
+    no_activity_this_week: Nun hai reuniones programaes esta selmana
+    nothing_this_week: Nun hai nada nel programao pa esta selmana.
+    save_all_changes: Guardar too
+    this_week_title_default: Esta selmana
+    title: Cronograma
+    unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
+      completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
+      facer sitiu pa la nueva.
+    view_full_timeline: Ver el cronograma completu
+    week_number: Selmana %{number}
+  training:
+    continue: Siguir (%{progress})
+    start: Principiar
+    view: Ver
+    next: Páxina siguiente
+    page: Páxina
+    page_number: Páxina %{number} de %{total}
+    table_of_contents: Índiz
+    logged_out: Zarróse la sesión. Nun vas recibir creitu por completar esti módulu
+      mentanto nun anicies sesión.
+    done: ¡Fecho!
+    check_answer: Comprobar la respuesta
+    included_modules: Módulos incluyíos
+  uploads:
+    file_name: Nome del ficheru
+    header: Ficheros xubíos a Wikimedia Commons
+    image: Imaxe
+    label: Xubíes
+    loading: Cargando xubes...
+    none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
+      Commons.
+    time_doc: La hora de cada xuba n'hora llocal
+    uploaded_at: Fecha de xubida
+    uploaded_by: Xubíu por
+    usage_count: Númberu d'usos
+    usages: Usos
+  users:
+    already_enrolled: Esi usuario yá ta apuntáu.
+    assign_articles: Axudicar artículos
+    assign_articles_done: Fecho
+    assigned: Artículos axudicaos
+    assignees: Encargáu(os)
+    loading_authorship_data: cargando datos d'autoría
+    character_doc: La cantidá total de conteníu qu'un usuariu amestó a esti espaciu
+      de nomes, calculada sumando los caráuteres añadíos de toles ediciones qu'aumentaron
+      el tamañu de la páxina. Esti númberu nun espeya necesariamente la cantidá de
+      conteníu nuevu amestáu pol usuariu. Restaurar conteníu desaniciáu tamién aumentará
+      esti total.
+    chars_added: Caráuteres añadíos<br>(artículu | usuariu | borrador)
+    contributions: Contribuciones del usuariu
+    contributions_history_full: Ver l'historial completu de contribuciones
+    contributions_more: Ver más contribuciones
+    contribution_statistics: Estadístiques de contribución
+    course_passcode: 'Códigu d''accesu:'
+    editors: Editores estudiantes
+    edits_by: 'Ediciones de:'
+    enroll_confirmation: ¿Tas seguru de que quies añadir a %{username}?
+    enroll_url: 'Los usuarios pueden xunise visitando esta URL:'
+    enrolled_success: '%{username} añadióse correutamente'
+    first_name: Nome
+    last_name: Apellíu
+    loading: Cargando usuarios...
+    characters_added_mainspace: Caráuteres añadíos (artículu)
+    characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
+    characters_added_userspace: Caráuteres añadíos (usuariu)
+    characters_added_draftspace: Caráuteres añadíos (borrador)
+    my_assigned: 'Axudicaos:'
+    my_reviewing: 'En revisión:'
+    name: Nome
+    none: Nun hai participantes.
+    no_articles: Nun hai artículos
+    no_revisions: Esti editor nun fixo nenguna revisión.
+    number_of_articles:
+      one: '%{count} artículu'
+      other: '%{count} artículos'
+    recent_revisions: Ediciones recién
+    remove_confirmation: ¿Tas seguru de que quies desaniciar a %{username}?
+    revision_characters_and_views: 'Caráuteres añadíos: %{characters}, Visites: %{views}'
+    revisions_doc: El númberu d'ediciones feches por esti editor nos 7 díes anteriores
+    reviewers: Revisor(es)
+    reviewing: Revisando
+    training_complete:
+      one: ta al día col entrenamientu
+      other: tán al día col entrenamientu
+    training_complete_count:
+      one: '%{count} exerciciu ta al día'
+      other: '%{count} exercicios tán al día'
+    training_doc: Los editores que completaron tolos módulos d'entrenamientu designaos
+      que tean vencíos cuéntense como al día col entrenamientu.
+    training_incomplete: Entrenamientu incompletu
+    training_modules_completed:
+      one: '%{completed_count}/%{count} módulu de capacitación completáu'
+      other: '%{completed_count}/%{count} módulos de capacitación completaos'
+    training_module_name: Módulu de capacitación
+    training_module_status: Estáu
+    up_to_date_with_training: al día col entrenamientu
+    username: Nome d'usuariu
+    username_placeholder: Nome d'usuariu
+    useremail_placeholder: Corréu
+    userpasscode_placeholder: Códigu d'accesu
+    role:
+      visitor: Visitante
+      student: Alumnu
+      instructor: Monitor
+      campus_volunteer: Voluntariu de campus
+      online_volunteer: Voluntariu en llinia
+      wiki_ed_staff: Personal de Wiki Education
+  user_profiles:
+    student_impact: Impactu total de %{username} como alumnu
+    instructor_impact: Impactu total de %{username} como monitor
+    instructors_student_impact: Impactu total de los alumnos de %{username}
+    disclaimer: La información que proporciones va tar disponible públicamente.
+    bio_placeholder: Añade la to biografía (opcional)
+    location_placeholder: Añade'l to allugamientu (opcional)
+    institution_placeholder: Nome de la institución (opcional)
+  wiki_edits:
+    notify_overdue:
+      confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes
+        que tienen la preparación atrasada. ¿Tas seguru de que quies faer esto?
+      header: Tienes una xera d'entrenamientu atrasada.
+      message: Completa los [%{link} módulos d'entrenamientu] designaos.
+      summary: retrasu nel entrenamientu d'estudiante
+  wizard:
+    assignment_dates: Feches de la xera
+    assignment_description: Escueye les feches d'entamu y final del programa d'esta
+      xera. Por exemplu, si quies principiar el proyeutu de Wikipedia la segunda selmana
+      del cursu, conseña la data de principiu de la xera una selmana después de la
+      data de principiu del cursu. Esta ferramienta de diseñu de xeres creará un borrador
+      de cronograma que case coles dates del cronograma qu'escueyas.
+    assignment_type: ¿Qué completarán los estudiantes na so xera pa Wikipedia?
+    calendar_instructions: Escueye feches p'añadir o quitar del calendariu (por casu,
+      vacaciones, cuando nun hai clases). Esto ayuda a la ferramienta de creación
+      de cursos a espaciar con precisión les tos xeres. Fai clic na fecha pa camudar
+      l'estáu ente ensin escoyer, escoyíu y vacaciones. Si nun tienes vacaciones,
+      marca «Nun tengo vacaciones de clase» más abaxo.
+    confirm_dates: Escueye les feches, les xuntes selmanales y les vacaciones pal
+      to cursu.
+    course_dates: Feches del cursu
+    min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
+      les tos feches d'entamu y final si quies usar esti tipu de xera.
+    select_one_option: Escueyi 1 opción.
+    minimum_options:
+      one: Escueye polo menos %{count} opción o más.
+      other: Escueye polo menos %{count} opciones o más.
+    read_less: Lleer menos
+    read_more: Lleer más
+    review_selections: Revisa la to esbilla más abaxo. Fai clic pa editar una selección.
+      En acabando, fai clic en "Unviar" pa rematar l'asistente y crear el cronograma.
+    select_assignment: Escueye'l tipu de xera que quies añadir al cronograma.
+    summary: Resume
+  error:
+    form_errors: Comprueba que'l formulariu nun tenga errores.
+    invalid_assignment: Xera inválida
+    invalid_date: La fecha %{key} ye inválida
+    invalid_file_format: El ficheru nun pudo guardase. Xubi un documentu PDF o Word.
+    oauth_invalid: Caducó la autorización de Wikipedia. Anicia sesión otra vuelta.
+    start_date_before_end_date: La fecha inicial tien de ser anterior a la fecha final.
+    unsupported_browser:
+      header: Navegador ensin encontu. :-(
+      explanation: Tas usando un restolador que nun ye compatible col tableru. Esti
+        sitiu funciona bien con versiones nueves de Chrome, Firefox, Edge y otros
+        restoladores modernos.
+  error_401:
+    header: Non autorizáu. >:-(
+    explanation: Nun tas autorizáu a executar esta solicitú. Si crees que llegasti
+      a esti avisu por error, comunícate colos responsables del mantenimientu d'esti
+      tableru pa informa-yos del problema.
+  error_incorrect_passcode:
+    header: Códigu d'accesu incorreutu. :-(
+    explanation: El códigu d'accesu pa matriculase nesti cursu, ye incorreutu. Entruga
+      al monitor pol códigu d'accesu actual pa inscribise nesti cursu. Puedes volver
+      a tentar escribiendo'l códigu correutu más abaxo.
+  error_404:
+    header: Nun s'alcontró la páxina. :-(
+    explanation: Esta páxina nun esiste. Si tentabes entrar al tableru pa un cursu,
+      seique'l mesmu nun tea rexistráu nesti tableru.
+  error_422:
+    header: 422 — la entidá nun puede procesase. :-(
+    explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de
+      esti tableru pa informa-yos del problema.
+  error_500:
+    header: 500 — error internu del sirvidor. :-(
+    explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de
+      esti tableru pa informa-yos del problema.
+  login_error:
+    header: Error d'aniciu de sesión
+    explanation: Paez qu'hai un problema col procesu d'aniciu de sesión (pasa dacuando;
+      sentímoslo muncho). Intenta volver a aniciar sesión o volver a inscribite.
+  survey:
+    login_message: Gracies pol to tiempu. Anicia sesión nel to tableru de Wiki Education
+      pa facer la encuesta.
+    notification_explanation: Si se marca más abaxo, los usuarios recibirán correos
+      electrónicos acordies cola programación d'avisos, amás de ver los avisos nel
+      navegador. Sinón, los avisos amuésense namái nel navegador.
+    notification_schedule_explanation: Los avisos s'amuesen nel navegador y s'unvien
+      per corréu electrónicu si s'activa más arriba.
+    follow_up_explanation: Déxalo en blanco si nun quies avisos de siguimientu per
+      corréu electrónicu.
+    email:
+      headline: Hola, %{username}
+      message_line1: ¡Esperamos qu'esfrutares del cursu! En Wiki Education queremos
+        recibir los tos comentarios p'ameyorar los nuesos recursos y sofitu pa les
+        xeres de Wikipedia. La to respuesta ye fundamental p'ameyorar la nuesa ufierta
+        actual.
+      message_line2: ¿Querríes tomate 15 minutos pa contestar la nuesa encuesta pa
+        monitores? Fai clic nel botón de más abaxo p'ayudar a faer de la enseñanza
+        con Wikipedia una esperiencia entá más agradable y valoratible.
+      course: 'Cursu: %{course_info}'
+      closing: Candialmente,
+      signed: '- l''equipu de Wiki Education'
+      link: Contestar la encuesta
+    follow_up:
+      message: Esti ye un recordatoriu sobre la encuesta pal to cursu, %{course_title}.
+        Les respuestes d'esta encuesta ayúdennos a ameyorar el nuesu sofitu a xeres
+        como les tuyes na Wikipedia.
+  feedback_form_responses:
+    no_responses: Inda nun hai comentarios de respuesta.
+  article_finder:
+    minimum_views_label: Visites mínimes
+...

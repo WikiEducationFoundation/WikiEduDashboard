@@ -1,0 +1,14 @@
+id: 5503
+title: "What's SPARQL?"
+summary:
+content: |
+  Wikidata uses a query language called SPARQL (pronounced "sparkle"). SPARQL
+  queries allow you to ask very specific questions about information included
+  in Wikidata, and to tap into Wikidata's repository of structure, linked data.
+  **SPARQL** stands for  a "**p**rotocol **a**nd **R**DF **q**uery **l**anguage," which is what SPARQL
+  is. As for the "**S**"...that stands for SPARQL, rounding out a
+  <a href="https://en.wikipedia.org/wiki/Recursive_acronym">recursive acronym</a>
+  joke. Who knew learning to query would be so funny?
+
+  The important thing to know is that SPARQL is a query language for knowledge
+  graphs, which is perfect for linked data.

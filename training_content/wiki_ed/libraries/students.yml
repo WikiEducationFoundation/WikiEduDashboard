@@ -1,0 +1,149 @@
+name: Student Training Modules
+id: 2
+introduction: |
+  This set of modules helps students get started with Wikipedia. This page lists every module, including
+  specialized modules for particular classes. Check your course timeline to see which modules you should take,
+  and when!
+categories:
+  - title: Basics
+    description: |
+      These modules cover the basic rules of Wikipedia.
+    modules:
+      - slug: wikipedia-essentials
+        name: Wikipedia policies
+        description: An overview of Wikipedia's main rules
+      - slug: sandboxes-talk-watchlists
+        name: Sandboxes, talk pages, and watchlists
+        description: A guide to the different types of pages on Wikipedia
+      - slug: how-to-edit
+        name: "How to edit: Wikicode vs Visual Editor"
+        description: An introduction to editing Wikipedia
+      - slug: communicating-with-others
+        name: Communicating with others on Wikipedia
+        description: An overview of how Wikipedians communicate
+      - slug: evaluating-articles
+        name: Evaluating articles and sources
+        description: Advice for thinking critically about Wikipedia article quality
+      - slug: finding-your-article
+        name: Finding your article
+        description: How to find a good article to work on
+      - slug: improving-representation
+        name: Improving representation on Wikipedia
+        description: How to improve the coverage of historically underrepresented people and subjects
+      - slug: working-live
+        name: Working live on Wikipedia
+        description: How to work incrementally to improve a live article
+      - slug: generative-ai
+        name: Using generative AI tools with Wikipedia
+        description: Guidance for using AI tools while working on Wikipedia
+
+  - title: Special topics
+    description: |
+      These modules are for special class projects.
+    modules:
+      - slug: editing-medical-topics
+        name: Editing health and psychology topics
+        description: Special rules and advice for working on content related to medicine or human health (including psychology topics)
+      - slug: images-and-media
+        name: Contributing images and media files
+        description: How to contribute images, video, diagrams, sound files, and other multimedia
+      - slug: translating-articles
+        name: Translating articles
+        description: How to translate an article from Wikipedia in another language into English
+  - title: How-to refreshers
+    description: |
+      These modules cover specific topics, in-depth, with how-to instructions.
+    modules:
+      - slug: keeping-track-of-your-work
+        name: Keeping track of your work on the Dashboard
+        description: How to use My Articles and other assignment-tracking features
+      - slug: keeping-track-of-work-without-sandboxes
+        name: Keeping track of your work on the Dashboard (without sandboxes)
+        description: How to use My Articles and other assignment-tracking features (for courses that don't draft in sandboxes)
+      - slug: sources
+        name: Adding citations
+        description: What makes a good source, and how to create citations
+      - slug: drafting-in-sandbox
+        name: Drafting in the sandbox
+        description: How to use sandboxes effectly to draft articles
+      - slug: drafting-in-sandbox-group
+        name: Drafting in the sandbox (as a group)
+        description: How to use sandboxes effectly to draft articles as a group
+      - slug: moving-to-mainspace
+        name: Moving work out of the sandbox
+        description: How to move a draft into Wikipedia proper
+      - slug: moving-to-mainspace-group
+        name: Moving work out of the sandbox (as a group)
+        description: How to move a draft into Wikipedia proper as a group
+      - slug: plagiarism
+        name: Plagiarism and copyright violation
+        description: A detailed review of plagiarism and how to avoid it
+  - title: Exercises
+    description: |
+      Individual exercises that comprise a Wikipedia writing assignment
+    modules:
+      - slug: evaluate-wikipedia-exercise
+        name: 'Exercise: Evaluate Wikipedia'
+        description: Get to know Wikipedia's standards by evaluating a Wikipedia article.
+      - slug: 'choose-topic-exercise'
+        name: 'Exercise: Choose your article'
+        description: Find possible topics to work on by exploring Wikipedia.
+      - slug: bibliography-exercise
+        name: 'Exercise: Building your bibliography'
+        description: Decide which topic to work on, and begin finding sources.
+      - slug: outline-exercise
+        name: 'Exercise: Outline proposed changes'
+        description: Create a prose outline of the changes you plan to make.
+      - slug: 'choose-topic-from-list-exercise'
+        name: 'Exercise: Choose your article (from a list)'
+        description: Select an article to work on from your class's list, and begin finding sources.
+      - slug: update-a-biography-exercise
+        name: 'Exercise: Add a fact to Wikipedia'
+        description: Add new information to an existing Wikipedia article.
+      - slug: copyedit-exercise
+        name: 'Exercise: Copyedit an article'
+        description: Practice editing by improving an existing article through small copyedits.
+      - slug: cite-systematic-reviews-exercise
+        name: 'Exercise: Cite a systematic review'
+        description: Practice adding citations to medical content using systematic reviews.
+      - slug: peer-review
+        name: 'Exercise: Peer review'
+        description: Review articles drafted by classmates and suggest improvements.
+      - slug: did-you-know-exercise
+        name: 'Exercise: Did You Know'
+        description: Nominate your article for the "Did You Know" section of Wikipedia's main page.
+      - slug: continue-improving-exercise
+        name: 'Exercise: Continue improving your article'
+        description: Polish your article by adding links and images.
+      - slug: in-class-presentation-exercise
+        name: 'Exercise: In-class presentation'
+        description: Present about your Wikipedia editing experience.
+      - slug: reflective-essay-exercise
+        name: 'Exercise: Reflective essay'
+        description: Write a reflective essay about your Wikipedia contributions.
+      - slug: assignment-blog
+        name: 'Exercise: Keep an assignment blog'
+        description: Keep a weekly blog to reflect on the Wikipedia assignment.
+      - slug: assignment-journal
+        name: 'Exercise: Keep weekly journal'
+        description: Keep a weekly journal to reflect on the Wikipedia assignment.
+      - slug: extra-credit-article
+        name: 'Exercise: Select an extra credit article'
+        description: Optionally, choose another article to work on for extra credit.
+  - title: Discussions
+    description: |
+      Prompts for in-class discussions
+    modules:
+      - slug: sources-and-plagiarism-discussion
+        name: 'Discussion: Thinking about sources and plagiarism'
+      - slug: content-gap-discussion
+        name: "Discussion: What's a content gap?"
+      - slug: thinking-about-wikipedia-discussion
+        name: 'Discussion: Thinking about Wikipedia'
+  - title: Additional resources
+    description: |
+      Other useful resources
+    modules:
+      - slug: videos
+        name: Video tutorials
+        description: Key tutorial videos collected into one module

@@ -1,0 +1,27 @@
+# Messages for Pa'O (ပအိုဝ်ႏဘာႏသာႏ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Khun Kt
+# Author: 咽頭べさ
+---
+blk:
+  application:
+    documentation: မုဲင်တန်ꩻစူခြောင်ꩻဖိုင်ႏ
+    help: အစွဲးအကမ်း
+    home: အမွူးနမ်း
+    log_in: နွို့အကောက်
+    log_out: ထန်ႏအကောက်
+    submit: ဒင်ႏသွင်ꩻသော့ꩻ
+  articles:
+    articles: ရောမ်ဖြုဲင်ꩻဖုံႏ
+    title: ကꩻတူႏရဲန်ႏ
+    view_all: ထွားလို့တာႏ
+  assignments:
+    reviewers: ကေားစဲစ်ထွားချာသား
+  courses:
+    alerts: ဖေႏသေချက်ဖုံႏ
+    actions: ခွုမ်မာꩻချက်ဖိုင်ႏ
+    overview: အဓိကလိတ်မဲ့ငါ
+  revisions:
+    title: ကꩻတူႏရဲန်ႏ
+...

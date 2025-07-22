@@ -1,0 +1,128 @@
+name: CI
+
+# Controls when the workflow will run
+on: ['push', 'pull_request', 'workflow_dispatch']
+
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest 
+
+    steps:
+      # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
+      - name: checkout
+        uses: actions/checkout@v2
+      
+      - name: install Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+        with:
+          pandoc-version: '2.9.2.1'
+      
+      - name: install ImageMagick
+        uses: mfinelli/setup-imagemagick@v6
+        with:
+          cache: true
+
+      # Cache ImageMagick binaries
+      - name: Cache Latest ImageMagick
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/bin/magick
+          key: ${{ runner.os }}-imagemagick-latest
+          restore-keys: |
+            ${{ runner.os }}-imagemagick-latest
+
+      # Update PATH for ImageMagick
+      - name: Update PATH for ImageMagick
+        run: echo "/home/runner/bin" >> $GITHUB_PATH
+
+      - name: Create symlink for identify and convert
+        run: |
+          for cmd in identify convert; do
+            if ! [ -x "$(command -v $cmd)" ]; then
+              sudo ln -s $(which magick) /usr/bin/$cmd
+            fi
+          done
+
+      - name: setup Redis
+        uses: supercharge/redis-github-action@1.4.0
+      
+      # Setting up MariaDB based upon 'config/database.example.yml'
+      - name: setup MariaDB server
+        uses: getong/mariadb-action@v1.1  
+        with:
+          host port: 3306 
+          mariadb version: '10.5' 
+          mysql database: 'dashboard_testing' 
+          mysql user: 'wiki'
+          mysql password: 'wikiedu'
+          
+      # Starting ruby 
+      - name: setup Ruby
+        uses: ruby/setup-ruby@v1    
+        with:
+           ruby-version: 3.1.2
+           bundler-cache: true
+     
+      - name: setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+
+      - name: setup Dashboard database
+        env:
+          RAILS_ENV: test
+          DATABASE_PORT: 3306
+        run: |
+            mkdir tmp -m 777
+            cp config/application.example.yml config/application.yml
+            cp config/database.example.yml config/database.yml
+            bin/rails db:migrate RAILS_ENV=test
+        
+      - name: Cache Webpack cache
+        id: cache-webpack
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache/
+          key: ${{ runner.os }}-webpack
+
+      # Create cache or restore cache for Tests
+      - name: Cache VCR cassettes
+        uses: actions/cache@v3
+        with:
+          path: fixtures/vcr_cassettes
+          key: vcr-cached-v1
+          restore-keys: |
+            vcr-cached-
+          
+      #Testing the pushed code onwards
+      - name: JavaScript test suite 
+        run: |
+            yarn install --immutable
+            yarn coverage
+            yarn run test 
+      
+      - name: JavaScript linting
+        run: yarn lint-non-build
+
+      - name: Ruby rspec test suite
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          COVERAGE: true
+          CC_TEST_REPORTER_ID: f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
+        with:
+          coverageCommand: bundle exec rspec spec/ --color --profile --format documentation
+          coverageLocations: |
+            ${{github.workspace}}/public/js_coverage/lcov.info:lcov
+      
+      - name: Archive capybara failure screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: dist-without-markdown
+          path: tmp/screenshots/*.png
+          if-no-files-found: ignore
+            
+      - name: Ruby linting
+        run: bundle exec rubocop

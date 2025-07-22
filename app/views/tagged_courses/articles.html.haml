@@ -1,0 +1,78 @@
+- content_for :before_title, t('courses.campaign_articles', title: "Tag: #{@tag}") + ' — '
+
+= render 'nav'
+
+#react_root{data: {slug: @tag}}
+
+.container
+  %section.overview.container
+
+.container{style: 'top: 28px'}
+  %section#campaign-articles
+    .section-header{style: 'transform: translateX(-40px); width: 110%;'}
+      %h3{style: 'color: #676eb4'}
+        = t('courses.campaign_articles', title: "Tag: #{@tag}")
+      .sort-select
+        %select.sorts{rel: 'campaign-articles'}
+          %option{rel: 'asc', value: 'title'}
+            = t("articles.title")
+          %option{rel: 'desc', value: 'char_added'}
+            = t("metrics.char_added")
+          %option{rel: 'desc', value: 'references'}
+            = t("metrics.references_count")
+          %option{rel: 'desc', value: 'views'}
+            = t("metrics.view")
+          %option{rel: 'asc', value: 'lang_project'}
+            = t("articles.wiki")
+          %option{rel: 'asc', value: 'course_title'}
+            = t("#{@presenter.course_string_prefix}.courses")
+
+    %table.table.table--hoverable.table--sortable{style: 'transform: translateX(-46px); width: 111%;'}
+      %thead
+        %tr
+          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+            = t('articles.title')
+            %span.sortable-indicator
+          %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
+            .tooltip-trigger
+              = t('metrics.char_added')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('articles.character_doc')
+          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references'}
+            .tooltip-trigger
+              = t('metrics.references_count')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.references_doc')
+          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'views'}
+            .tooltip-trigger
+              = t('metrics.view')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('articles.view_doc')
+          %th.sort.sortable{'data-sort' => 'lang_project'}
+            = t('articles.wiki')
+            %span.sortable-indicator
+          %th.sort.sortable{'data-sort' => 'course_title'}
+            = t("#{@presenter.course_string_prefix}.courses")
+            %span.sortable-indicator
+
+      - articles = @presenter.campaign_articles
+
+      = will_paginate articles
+
+      %tbody.list
+        - if articles.empty?
+          %tr.disabled
+            %td{:class => "text-center", :colSpan => 7}
+              %span= I18n.t('articles.none')
+        - else
+          - articles.each do |ac|
+            - cache [ac, locale] do
+              = render 'campaigns/article_row', article: ac.article, article_course: ac
+
+    = will_paginate articles

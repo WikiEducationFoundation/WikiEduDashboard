@@ -1,0 +1,85 @@
+# Messages for Gun (gungbe)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Atej2*
+# Author: Gadarawamo
+# Author: Joshateji
+---
+guw:
+  articles:
+    edited_none: Hosọ he yin vivọjlado lẹ ma tin to ai todin.
+    find: Din hosọ lẹ
+    preview: Nudọnamẹ kleun gando hosọ go
+  items:
+    article_not_found: Hosọ ehe ma ko yin awuwlena todin.
+    assignments_none: Nudepope ma ko yin dide na mẹde todin.
+    character_doc: Sọha wekun he yin yiyidogọ tọn lẹ gbọn vọjlado basitọ he yin dide
+      lẹ dali to bẹjẹeji podọ vivọnu ojlẹ de tọn.
+    does_not_exist: Nuhe dín a te ma  tin todin. Hun ada de he mẹ yè sọgan mọ alọgọ
+      te, bo dè dewe taidi mẹhe na wazọn do e ji nado sọgan mọ alọgọ
+    edited: Nuhe ko yin Vivọjlado lẹ
+    edited_none: Nuhe yin vivọjlado lẹ ma tin to ai todin.
+    find: Din hosọ lẹ
+    preview: Nudọnamẹ kleun gando hosọ ehe go
+    search: Dìn nude to Wikidata ji
+    title_example: Hosọ
+  assignments:
+    article_link_wikidata: Hosọ
+    assign_other_wikidata: Dè ada ehe na mẹde/sunsunin sẹ
+    add_available_placeholder_wikidata: Yi hosọ nudevo tọn dogọ kavi URL na ohù dopodopo
+    add_available_submit_wikidata: Yi nudevo lẹ dogọ
+    none_short_wikidata: Hosọ depope ma ko yin didenamẹ
+    random_peer_review:
+      confirm_addition_wikidata: To ojlẹ voovo lẹ mẹ, whenue nuplọntọ lẹpo ko mọ azọndenamẹ
+        tangan yetọn lẹ yí godo wẹ a sọgan zan ada ehe. A sọgan gbọ bo dọna nuplọntọ
+        lẹ nado de na yede, dopo to hagbẹ yetọn lẹ mẹ he na gbejé azọn yẹtọn lẹ pọn
+        kavi a sọgan sọ de na ye, eyin a zin ada nuplọntọ de tọn, enẹgodo a sọgan
+        zin "De azọn na/gbejé pọn". Eyin a zin "OK"
+    review_self_wikidata: Vọ onu de gbejé pọn
+  courses:
+    article_viewer_wikidata: Nulọ pọntọ
+    articles_i_am_reviewing_wikidata: Hosọ he n'to vivọjlado po hagbẹ lẹ po
+    articles_i_will_create_wikidata: Hosọ he n'jlo na wleawuna
+    articles_i_am_updating_wikidata: Hosọ he n'to vivọjlado lẹ
+    assignment_headings:
+      available_reviews_wikidata: Nuhe tin to aimẹ lẹ
+    my_articles_wikidata: Hosọ ṣie lẹ
+  courses_generic:
+    assignment_headings:
+      available_reviews_wikidata: To aimẹ na vọpọn
+  instructor_view:
+    assignments_table:
+      article_name: Yinkọ
+    assigned_articles_wikidata: Azọn hẹ ko yin didenamẹ lẹ
+    bad_work:
+      learn_more_wikidata: |-
+        Eyin azọn nuplọntọ de tọn hẹn hosọ dé ylan dogọ, mí na tuli we nado vọẹ jlado na dewe.
+        Eyin a ma sọgan wamọ, dọna mí gando nuhahun lọ go na mí nido sọgan basi vọjlado na ẹn to nukọnmẹ.
+      submit_issue_wikidata: Etẹwẹ yin nuhahun tangan he sọgan yin pipehẹ lẹ gando
+        hosọ ehe go?
+    no_assignments_wikidata: Azọndenamẹ depope ma ko yin dide na nuplọntọ ehe. A sọgan
+      de azọn de na ẹn eyin a zin ohia he tin to aga ehe lẹ.
+    reviewing_articles_wikidata: Azọn lẹ gbigbejepọn
+    select_student:
+      content_wikidata: nado dè hosọ bosọ pọn azọndenamẹ lẹ
+  metrics:
+    articles_created_generic_wikidata: Hosọ he ko yin awuwlena lẹ
+    articles_edited_generic_wikidata: Hosọ he ko yin vivọjlado lẹ
+    uploads_in_use_count_wikidata:
+      other: dopo=wepo yin zinzan to nulọ mẹ
+    merged: Ko yin kinkọndopọ
+    changed: Ko yin didiọ
+    removed: Ko yin didesẹ
+    added: Ko yin yiyidogọ na
+  recent_activity:
+    article_title: Hosọ
+  users:
+    assign_articles_wikidata: Dè hosọ lẹ namẹ
+    assigned_wikidata: Hosọ he ko yin didenamẹ lẹ
+  article_finder:
+    article_finder_wikidata: Alọgọ nado mọ nuhe din a te
+    article_quality_wikidata: Lehe e yọn sọ(0-100)
+    fetched_articles_wikidata: Onu he ko yin mimọ lẹ
+    remove_article_wikidata: Dè onù ehe lẹ sẹ̀
+    searching_articles_wikidata: Nuhe sọgan yin dindin lẹ
+...

@@ -1,0 +1,61 @@
+%tr{:class => "#{user ? date_highlight_class(course) : private_highlight_class(course)}", "data-link" => "#{course_slug_path(course.slug)}"}
+  %td{:class => "table-link-cell", :role => "button", :tabindex => "0"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.title
+        = course.title
+  %td{:class => "table-link-cell school"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      = course.school + "/" + course.term
+  %td{:class => "table-link-cell school"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      - expert = @wiki_experts.find { |user| user.course_id == course.id }
+      = expert ? expert.user.username : "N/A"
+  - if Features.wiki_ed?
+    %td{:class => "table-link-cell"}   
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.first_instructor
+          = course.courses_users.where(role: 1).first&.real_name
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.revisions
+        = course.recent_revision_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.characters-human
+        = number_to_human course.word_count
+      %span.characters.hidden
+        = course.word_count
+      %small.average-words-human
+        (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
+      %span.average-words.hidden
+        = course.average_word_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.references-human
+        = number_to_human course.references_count
+      %span.references.hidden
+        = course.references_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.views-human
+        = number_to_human course.view_sum
+      %span.views.hidden
+        = course.view_sum
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.students
+        = course.user_count
+      %small.untrained= t("users.training_complete_count", count: course.trained_count)
+  - unless Features.wiki_ed?
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.creation-date
+          = I18n.localize course.created_at.to_date
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      - if course.start.present?
+        %span.start-date
+          = I18n.localize course.start.to_date
+      - else
+        %span.no-start-date
+          N/A

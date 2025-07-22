@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# -O rsync option doesn't copy modified times of files, which fails on the remote server
+sudo /etc/automysqlbackup/automysqlbackup && sudo rsync -avzO --delete /var/backup/db ragesoss@wmflabsbackups:/var/backup

@@ -1,0 +1,50 @@
+.alert
+  padding 20px
+  text-align center
+  p
+    color warning
+  td
+    text-align left
+
+.notification
+  background-color sprout
+  padding 10px
+  color #fff
+  text-align center
+  font-weight bold
+  > .container
+    display flex
+    align-items center
+    +below(tablet)
+      flex-direction column
+    p
+      flex 1
+      margin-bottom 0
+      white-space pre-line
+      overflow overlay
+
+    .button
+      margin-left 20px
+
+    a:not(.button)
+      color #fff
+
+.notice
+  @extends .notification
+  position relative
+  z-index 9999
+  width 100%
+  text-align left
+  background-color warning
+  color #fff
+  > .container
+   svg
+      &:focus,
+      &:hover
+        cursor pointer
+        color smoke
+        outline none
+
+.notice--error
+  @extends .notice
+  text-align center

@@ -1,0 +1,45 @@
+---
+title: Pillar Three
+content: |
+  <figure class="alt-layout-30-right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Palace_of_Fine_Arts%2C_three_pillars.jpg/320px-Palace_of_Fine_Arts%2C_three_pillars.jpg" />
+
+  <figcaption class="image-credit">
+  <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_three_pillars.jpg">Photo
+  by Eryk Salvaggio, CC-BY-SA</a>
+
+  </figcaption>
+  </figure>
+
+  **Wikipedia is free content that anyone can edit, use, modify, and
+  distribute.**
+
+  Everything on Wikipedia is free to use. So when you contribute
+  information to Wikipedia, you need to make sure it's OK to share freely.
+
+  Copying and pasting copyrighted material into Wikipedia isn't just
+  plagiarism, it's a copyright violation, too. Even when attributing facts
+  to reliable sources, it’s important to avoid close paraphrasing, as
+  well.
+id: 2105
+
+translations:
+  es:
+    title: Pilar Tres
+    content: |
+      <figure class="alt-layout-30-right">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Palace_of_Fine_Arts%2C_three_pillars.jpg/320px-Palace_of_Fine_Arts%2C_three_pillars.jpg" />
+
+      <figcaption class="image-credit">
+      <a href="https://commons.wikimedia.org/wiki/File:Palace_of_Fine_Arts,_three_pillars.jpg">Foto de Eryk Salvaggio, CC-BY-SA</a>
+      </figcaption>
+      </figure>
+
+      **Wikipedia es contenido libre que cualquiera puede editar, usar, modificar y distribuir.**
+
+      Todo en Wikipedia es de uso libre. Por eso, cuando aportes información a Wikipedia,
+      debes asegurarte de que está bien compartirla libremente.
+
+      Copiar y pegar material protegido por derechos de autor en Wikipedia no es sólo plagio,
+      también es una violación de los derechos del autor. Incluso cuando atribuyas hechos a
+      fuentes fiables, es importante evitar también las paráfrasis.

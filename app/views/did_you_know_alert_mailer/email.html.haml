@@ -1,0 +1,24 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%p.paragraph
+  Hello,
+  %p.paragraph
+    The article
+    %a.link{href: @alert.article.url}= '"' + @alert.article.title + '"'
+    that is being worked on as part of
+    %a.link{href: @alert.course_url} your course
+    has received a Did You Know nomination. See the
+    %a.link{href: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Classroom_handout_-_Submitting_an_article_to_the_Did_You_Know_process.pdf"}
+      PDF handout about the Did You Know process
+    for more details.
+
+  %p.paragraph
+    We recommend checking the submission and encouraging your student to monitor the nomination and respond to feedback.
+
+  %p.paragraph
+    Thank you and please let us know if you need any support.
+
+  %p.paragraph
+    Best regards,
+    %br
+    %em
+      The Wiki Education team

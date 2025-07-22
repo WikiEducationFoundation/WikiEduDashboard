@@ -1,0 +1,9 @@
+- content_for :before_title, "Edit FAQ - #{@faq.title}"
+.container
+  = simple_form_for @faq do |f|
+    = f.input :title
+    = f.input :content
+    = f.button :submit
+
+  %hr
+  = button_to 'delete', @faq, method: :delete, data: { confirm: "Are you sure you want to delete this?" }

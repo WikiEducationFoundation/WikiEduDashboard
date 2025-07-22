@@ -1,0 +1,346 @@
+# Messages for Saraiki (Arabic script) (سرائیکی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Rachitrali
+# Author: Saraiki
+---
+skr-arab:
+  application:
+    back: پچھوں
+    cancel: منسوخ
+    create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
+    dashboard: وکی ای ڈی ڈیش بورڈ
+    documentation: دستاویز
+    error: 'اتھ غلطی ہائی:'
+    explore: پھرولو
+    field_required: ایں خانے دی لوڑ ہے
+    field_invalid_characters: ایں خانے وچ غلط حرف ہن۔
+    greeting2: ست بسم اللہ!
+    greeting_extended: وکی پیڈیا وچ ست بسم اللہ
+    greeting: سلام!
+    help: مدد
+    home: گھر
+    log_in_extended: وکی پیڈیا نال لاگ ان تھیوو
+    log_in: لاگ ان تھیوو
+    log_out: لاگ آؤٹ
+    my_dashboard: میݙا ڈیش بورڈ
+    recent_activity: حالیہ سرگرمی
+    report_problem: مسئلے دی رپورٹ کرو
+    request_account: کھاتے دی ارداس
+    search: سوال پُچھو
+    sign_up_extended: وکی پیڈیا نال نواں کھاتہ بݨاؤ
+    sign_up_log_in_extended: وکی پیڈیا نال
+    sign_up: کھاتہ بناؤ
+    submit: جمع کرواؤ
+    training: تربیت
+    change: تبدیل کرو
+    details: تفصیلات
+    confirm: ٹھیک ہے
+    opt_in: جیا
+    opt_out: کو
+    opt_yes: جیا
+    opt_no: کو
+    print: چھاپو
+  dashboard:
+    create_note: آپݨاں پہلا کورس بݨاوݨ کیتے کورس بݨاؤ تے کلک کرو۔
+    explore_examples: مثالاں لبھو
+  home:
+    explore: پھرولو
+    log_in: وکی پیڈیا نال لاگ ان تھیوو
+    sign_up: وکی پیڈیا نال نواں کھاتہ بݨاؤ
+  activity:
+    all: سرگرمی
+    edited_by: لکھݨ آلا
+    label: سرگرمی
+  articles:
+    deleted: (مٹا ݙتے)
+    edited_by: 'لکھݨ آلا:'
+    edited_mobile: مقالے
+    filter:
+      wiki_all: یکے
+      new: نواں
+      existing: زیر ترمیم
+    hide: لُکاؤ
+    history: (تاریخ)
+    label: مقالے
+    new: (نواں)
+    rating: جماعت
+    see_more: ٻئے ݙیکھو
+    title: عنوان
+    title_example: مضمون دا عنوان
+    view: مضمون ݙیکھو
+    view_all: سارے ݙیکھو
+    view_on_wiki: وکی تے ݙکھالا
+    wiki: وکی
+    articles_short: مقالے
+  items:
+    lexeme: مفرد لفظ
+  articles_wikidata:
+    articles_short: آئٹم
+  articles_generic:
+    articles_short: ورقے
+  assignments:
+    article_link: مضمون
+    clone: کلون
+    label: سپرد کرو
+    remove: ہٹاؤ
+    review_self: مضمون تے نظرثانی کرو
+    select: چݨو
+    submit: جمع کرواؤ
+  blocks:
+    milestones:
+      title: سنگ میل
+  campaign:
+    alert_article: مضمون دا عنوان
+    alert_type: قسم
+    alert_user_id: ورتݨ آلا
+    all_campaigns: ساریاں مہماں
+    campaign: مہم
+    campaigns: مہم
+    created_at: تریخ
+    course: کورس
+    description: تفصیل
+    delete_campaign: ایݨ مہم کوں مٹاؤ
+    no_passcode: پاس کوڈ کائنی
+    none: کوئی وی کائنی
+    resolve: حل کرو
+    title: عنوان
+    slug: سلڳ
+  categories:
+    add_category: ونکی شامل کرو
+    add_template: سانچہ شامل کرو
+    add_this_category: ایہ ونکی شامل کرو
+    add_this_template: سان٘چے شامل کرو
+    name: ناں
+    category_name: ونکی دا ناں
+    template_name: سان٘چے دا ناں
+    remove: ہٹاؤ
+  courses:
+    activity: سرگرمی
+    alerts: الرٹ
+    all_courses: سارے کورس
+    articles: مقالے
+    cancel: منسوخ
+    campaigns: 'مہماں:'
+    campaign_articles: مضمون %{title}
+    campaign_courses: '%{title} کورس'
+    campaign_users: ایڈیٹر %{title}
+    course: کورس
+    course_type_label: 'قسم:'
+    course_description: کورسز
+    courses: کورسز
+    courses_taught: پڑھائے ڳئے کورس
+    creation_date: بݨاوݨ دی تریخ
+    creator:
+      course_subject: کورس مضمون
+      course_term_placeholder: ٹرم
+      course_title: کورس دا عنوان
+      create_button: میݙا کورس بݨاؤ!
+      create_label: نواں کورس بݨاؤ
+      create_new: نواں کورس بݨاؤ
+      create_short: کورس بݨاؤ
+      end_date: ختم کرݨ دی تریخ
+      find: آپݨاں کورس ڳولو
+      save_cloned_course: نواں کورس محفوظ کرو
+      start_date: شروع کرݨ دی تریخ
+      subject: موضوع
+    current: حالیہ کورس
+    delete_course: کورس مٹاؤ
+    delete_suggestion: مٹاؤ
+    duration: کورس دا دورانیہ
+    end: چھیکڑ
+    ended: کورس مُک ڳیا
+    enroll: داخلہ گھنو
+    enrollment: طالب علم شامل کرو/ ہٹاؤ
+    features_feedback: 'خود کار تجویزاں:'
+    feedback: تہاڈی رائے
+    join: شامل تھیوو
+    join_course: کورس وچ شامل تھیوو
+    leave_course: کورس چھوڑو
+    loading: لوڈ تھین٘دا پئے۔۔۔
+    my_articles: میݙے مقالے
+    new_week: نواں ہفتہ شامل کرو
+    new_account_email: ای میل پتہ
+    none: کوئی وی کائنی
+    ores_plot: اوآرای ایس
+    overview: گھر
+    passcode: 'پاس کوڈ:'
+    passcode_none: پاس کوڈ کائنی
+    passcode_prompt: 'رلݨ کیتے پاس کوڈ لکھو:'
+    please_log_in: لاگ تھیوو مہربانی ہوسی۔
+    private: ذاتی
+    school: سکول
+    start: شروع
+    start_typing: ٹائپ کرݨ شروع کرو
+    students: شاگرد
+    students_count: '# شاگرد'
+    students_short: شاگرد
+    user_role: رول
+    subject: مضمون
+    submitted: جمع تھی ڳیا
+    term: ٹرم
+    timeline_link: ٹائم لائن
+    timeline_nav: ٹائم لائن تے ون٘ڄو
+    title: عنوان
+    view: کورس ݙیکھو
+    view_page: کورس ورقہ ݙیکھو
+    view_wiki: وکی پیڈیا تے ݙیکھو
+    yourcourses: تہاݙے کورسز
+  courses_generic:
+    all_courses: سارے پروگرام
+    assignment_start: ایونٹ شروع
+    cancel: منسوخ
+    course: پروگرام
+    courses: پروگرام
+    campaigns: 'مہماں:'
+    creator:
+      course_school: ادارہ
+      course_term: کݙݨ
+      course_term_placeholder: کݙݨ
+      course_title: پروگرام دا عنوان
+      create_label: نواں پروگرام بݨاؤ
+      create_new: آزاد پروگرام بݨاؤ
+      create_short: پروگرام بݨاؤ
+      find: پروگرام ڳولو
+      save_cloned_course: بچاؤ
+      scoping_methods:
+        categories: ونکیاں
+        templates: سانچے
+    delete_course: پروگرام مٹاؤ
+    explore: پروگرام ڳولو
+    leave_course: پروگرام چھوڑو
+    school: ادارہ
+    student_editors: ایڈیٹ کرݨ آلے
+    students: ایڈیٹ کرݨ آلے
+    students_short: ایڈیٹ کرݨ آلے
+    term: کݙݨ
+    yourcourses: تہاݙے پروگرام
+  editable:
+    edit: لکھو
+    cancel: منسوخ
+    save: بچاؤ
+    edit_description: وضاحت وچ تبدیلی کرو
+  instructor_view:
+    assignments_table:
+      article_name: ناں
+  metrics:
+    date_time: تریخ/ویلا
+    revisions: حالیہ تبدیلیاں
+    tags: ٹیگ
+    view: ݙکھالے
+  recent_activity:
+    article_title: مضمون دا عنوان
+    datetime: تریخ/ویلا
+    image: تصویر
+    file_name: فائل دا ناں
+    recent_edits: حالیہ تبدیلیاں
+    recent_uploads: حالیہ اپ لوڈ
+  revisions:
+    class: جماعت
+    date_time: تریخ/ویلا
+    diff: فرق
+    diff_show: ݙِکھاؤ
+    diff_hide: لُکاؤ
+    title: عنوان
+    view_on_wiki: وکی تے فرق ݙیکھو
+    see_more: ٻئے ݙیکھو
+  settings:
+    categories:
+      users: ورتݨ آلے
+    admin_users:
+      new:
+        form_placeholder: ورتݨ ناں
+    special_users:
+      new:
+        form_placeholder: ورتݨ ناں
+  status:
+    default: پہلے کنوں طے تھیا ہویا
+    purpose: مقصد
+    queue: قطار
+    size: سائز
+    status: حیثیت
+  timeline:
+    add_week: ہفتہ شامل کرو
+    block_milestone: سنگ میل
+    course_dates: کورس دیاں تریخاں
+    course_end: کورس دا چھیکڑ
+    course_start: کورس شروع
+    delete_timeline_and_start_over: ٹائم لائن مٹاؤ
+    done: تھی ڳیا
+    empty_week_1: شروع کرو
+    empty_week_3: یا
+    gradeable_value: قدر
+    save_all_changes: سارے بچاؤ
+    this_week_title_default: ایں ہفتے
+    title: ٹائم لائن
+    view_full_timeline: پوری ٹائم لائن ݙیکھو
+    week_number: ہفتہ %{number}
+  training:
+    continue: جاری(%{progress})
+    start: شروع
+    view: ݙکھالا
+    next: اڳلا ورقہ
+    page: ورقہ
+    done: مکمل!
+  update_username:
+    label: نواں ورتݨ ناں
+    button: اپ ݙیٹ
+  uploads:
+    author: 'مصنف:'
+    date: 'تریخ:'
+    file_name: فائل دا ناں
+    image: تصویر
+    label: اپلوڈ کردہ
+    original_file: اصل فائل
+    uploaded_at: اپ لوڈ ویلا
+    uploader: اپلوڈ کرݨ آلا
+    gallery_view: گیلری منظر
+    list_view: تندیر منظر
+    source: 'ماخذ:'
+    wiki_big: وکی
+  users:
+    assign_articles_done: مکمل
+    loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ
+    contributions: ورتݨ آلے دیاں ونگاراں
+    course_passcode: 'پاس کوڈ:'
+    editors: ایڈیٹ کرݨ آلے
+    edits_by: 'دے ولوں تبدیلی:'
+    first_name: پہلا ناں
+    last_name: چھیکڑی ناں
+    name: ناں
+    profile: پروفائل
+    training_module_status: حیثیت
+    username: ورتݨ آلا ناں
+    username_placeholder: ورتݨ آلا ناں
+    useremail_placeholder: ای میل
+    userpasscode_placeholder: پاس کوڈ
+  wizard:
+    summary: خلاصہ
+  article_finder:
+    hide_options: اختیارات لُکاؤ
+    page_assessment_class: جماعت
+    search: ڳولو
+    show_options: اختیارات ݙکھاؤ
+    submit: جمع کرواؤ
+    tools: اوزار
+  training_status:
+    started: شروع تھیا
+  news:
+    add_news: خبراں شامل کرو
+    footer:
+      P&E_dashboard:
+        link_text: وکیمیڈیا
+    options:
+      news_content:
+        confirm_delete: تصدیق
+        cancel_delete: منسوخ
+      create_news:
+        cancel_post: پوسٹ منسوخ کرو
+  notes:
+    title: عنوان
+    cancel_note_creation: منسوخ
+    post_note: پوسٹ
+    cancel_edit_note: منسوخ
+    save_note: بچاؤ
+    delete_note: نوٹ مٹاؤ
+...

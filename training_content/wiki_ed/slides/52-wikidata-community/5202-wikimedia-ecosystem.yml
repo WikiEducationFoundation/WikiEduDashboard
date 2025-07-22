@@ -1,0 +1,24 @@
+id: 5202
+title: "The Wikimedia ecosystem"
+summary:
+content: |
+  First, let's define how Wikidata fits into the Wikimedia ecosystem.
+
+  **Wikidata** is the linked data project for Wikimedia projects. **The Wikimedia
+  Foundation** is the organization that runs all Wikimedia projects. The Wikimedia
+  Foundation has chapters all over the world, including Germany. **Wikimedia
+  Deutschland** is the non-profit organization that built and maintains Wikidata.
+
+  There are other Wikimedia projects (sister projects) that you may come across
+  as you edit, such as **Wikipedia**, **Wiktionary**, or **Wikibooks**, among others.
+
+  Since Wikidata items can use media you may also hear about **Wikimedia Commons**,
+  which is the media repository that all Wikimedia projects use. It's similar to
+  Wikidata in that all other Wikimedia projects pull images and other media from this central
+  repository. It is different from Wikidata in that Commons is exclusively for media.
+
+  **Wiki Education** (that's us!) is a non-profit organization, separate from
+  Wikimedia, that teaches individuals how to contribute to Wikimedia projects.
+  We envision a broader and more diverse Wikimedia ecosystem that welcomes
+  public and academic participation, in which students, scholars, and institutions
+  of higher learning are actively engaged in investigating and representing knowledge.

@@ -1,0 +1,92 @@
+# Messages for Central Bikol (Bikol Central)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Brazal.dang
+# Author: Geopoet
+# Author: Macofe
+---
+bcl:
+  activity:
+    edited_by: Pinagliwat ni
+  articles:
+    assigned: Pinagtokang mga Artikulo
+    assigned_to: Naitoka ki
+    edited_mobile: Mga Artikulo
+    loading: Ikinakarga an mga artikulo...
+    none: An kursong ini dae nakapagliwat nin arinman na mga artikulo.
+    rating: Klase
+    rating_docs:
+      start: '%{class}-klase — sarong preliminaryong artikulo na igwa nin kadakol
+        na kuwarto para sa ikapag-gayon'
+      list: '%{class}-klase — sarong listahan kesa baya sa sarong konbensyonal na
+        artikulo'
+    title: Titulo
+    view: Hilingon an Artikulo
+    view_all: Tanawon Gabos
+    views_added: Pinagdugang %{count} baguhong mga pagtanaw para sa %{title}
+  assignments:
+    article_link: Mga Artikulo
+    assignees: Tinokahan
+    bibliography: Bibliograpiya
+    confirm_addition: Segurado ka na muya mong magtoka nin %{title} sa %{username}?
+    confirm_deletion: Segurado ka na muya mong puraon ining katokahan?
+    loading: Ikinakarga an mga katokahan...
+    none: An kursong ini mayo nin pinagtokang mga artikulo sa Wikipidya
+    reviewers: Pararepaso
+  courses:
+    activity: Aktibidad
+    articles: Mga Artikulo
+    course_description: Mga Kurso
+    courses: Mga Kurso
+    current: Presenteng mga Kurso
+    nocourses: Ika dae nagpapartisipar sa arinman na mga kurso.
+    overview: Ginikanan
+    students: Mga Estudyante
+    students_none: Mayo nin siisay man na nakapagpatalang mga estudyante.
+    students_short: Mga Estudyante
+    timeline: Katokahang mga Detalye
+    title: Titulo
+    view: Tanawon an Kurso
+    view_doc: An kabilogan kan gabos na mga hiniling sa mga artikulong pinagliwat
+      nin mga estudyante magpoon na an mga estudyante naghimo kan saindang enot na
+      pagliwat sa lambang artikulo
+    view_wiki: Tanawon sa Wikipedia
+    weeks_none: An kursong ini mayo pa nin oras.
+    yourcourses: An saimong mga Kurso
+  metrics:
+    characters: Mga Letra
+    char_changed: Mga karakter pinagliwat
+    view: Mga tanawon
+  namespace:
+    user_char_added: Espasyo-nin-paragamit na mga tsar pinagdugang
+  revisions:
+    loading: Ikinakarga an mga rebisyon...
+    none: An kursong ini dae nagkaigwa kan pinakahuring aktibidad nin pagliliwat sa
+      Wikipedia.
+    time_doc: An oras kan lambang rebisyon sa saimong lokal na oras
+  uploads:
+    none: An klaseng ini dae nakapag-ambag nin anuman na mga imahe o ibang mga sagunson
+      nin medya sa Wikimania Commons.
+    time_doc: An oras kan lambang pagkarga sa saimong lokal na oras
+  users:
+    already_enrolled: An paragamit na yan nakapagpatala na!
+    assigned: Pinagtokang Artikulo
+    contributions_more: Tanawon an iba pang mga Karambagan
+    editors: Mga Estudyanteng Paraliwat
+    loading: Ikinakarga ang mga paragamit...
+    name: Pangaran
+    reviewers: Tagapagrepaso
+    training_complete:
+      one: is up-to-date with training
+      other: nakakumpleto na nin pagsanay
+    training_complete_count:
+      one: '%{count} training up-to-date'
+      other: '%{count} nakapagkumpleto nin pagsanay'
+    training_incomplete: Pagsanay Bakong Kumpleto
+  error_422:
+    header: 422 — dae maprosesong entidad.  :-(
+    explanation: May bagay na nangyaring sala. Tabi man pakikontak an mga paramantiner
+      kaining tablang-husayan tanganing maaraman ninda an manunungod sa problema.
+  error_500:
+    header: 500 — kasalaan sa panlaog na serbidor.  :-(
+...

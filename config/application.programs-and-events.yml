@@ -1,0 +1,66 @@
+
+  #sitenotice: "NOTICE: We discovered a timezone bug affecting program start and end times, and have adjusted recent programs so that edits don't get excluded from the stats. <a href='https://meta.wikimedia.org/wiki/Talk:Programs_%26_Events_Dashboard/Timezone_bug_March_2019' target='_blank'>See here for more details.</a>"
+  #sitenotice: 'Check out the <a href="https://meta.wikimedia.org/wiki/Programs_%26_Events_Dashboard#News_and_recent_changes" target="_blank">recent improvements and new features on Programs & Events Dashboard</a>.'
+  #sitenotice: 'The Dashboard is <a href="https://phabricator.wikimedia.org/T277651">still having problems with database corruption</a>. Statistics updates are disabled, but you can still create events and add editors.'
+  #sitenotice: 'If you use the Dashboard for photo / media contribution events, <a href="https://meta.wikimedia.org/wiki/Talk:Programs_%26_Events_Dashboard#Request_for_feedback_from_media_contributors" target="_blank">we are looking for feedback from more users</a> about how to improve Commons support.'
+
+  dashboard_title: Programs & Events Dashboard
+  dashboard_url: outreachdashboard.wmflabs.org
+  training_path: 'training_content/none'
+  training_slides_wiki_page: 'Training modules/dashboard/slides'
+  training_modules_wiki_page: 'Training modules/dashboard/modules'
+  training_libraries_wiki_page: 'Training modules/dashboard/libraries'
+
+# Wikimedia OAuth consumer details. Register a consumer at:
+# https://www.mediawiki.org/wiki/Special:OAuthConsumerRegistration/propose
+# No one but the user who registers the consumer will be able to log in until
+# the consumer gets approved by Wikimedia Foundation staff.
+
+# outreachdashboard.wmflabs.org [2.1]
+  wikipedia_token: '****'
+  wikipedia_secret: '****'
+
+  oauth_ids: '271'
+  user_agent: 'Peony Dashboard/1.0 (outreachdashboard.wmflabs.org; sage@wikiedu.org)'
+# Older OAuth IDs
+# oauth_ids: '252,212'
+
+# The default version of Wikipedia, also used for login
+  wiki_language: en
+
+# This is the community discussion page where new courses should be announced.
+# Only used on Wiki Education Dashboard
+# course_announcement_page: 'Wikipedia_talk:Outreach_Dashboard'
+
+# Setting disable_wiki_output to 'true' means course pages will not be mirrored
+# to the wiki.
+  disable_wiki_output: 'false'
+
+# Per-wiki editing configs
+  edit_pt.wikipedia.org: 'true'
+  edit_cs.wikipedia.org: 'true'
+  course_prefix_cs.wikipedia.org: 'Project:Nástěnka'
+
+# To set up error logging via Sentry, add a Sentry project url here:
+  sentry_dsn: 'https://d4898c589b5f47349f4aae14353c541e@sentry.wikiedu.org/4'
+
+# The slug for the default cohort
+  default_campaign: "miscellanea"
+
+# How many days after a course ends should the dashboard continue updating
+# data for it?
+  update_length: "30"
+
+# Uncomment cron_log_debug to use log level 'debug' for update logs. The default is 'info'.
+# cron_log_debug: "true"
+
+# Uncomment no_views to disable view stats updates.
+# no_views: "true"
+
+  logo_file: outreach-logo.png
+  favicon_file: outreach-logo.png
+  favicon_dev_file: favicon_dev.png
+
+  update_debug_DailyUpdate: 'true'
+
+  REDIS_URL: 'redis://p-and-e-dashboard-redis'

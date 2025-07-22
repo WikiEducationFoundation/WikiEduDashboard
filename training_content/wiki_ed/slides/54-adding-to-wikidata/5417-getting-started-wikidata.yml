@@ -1,0 +1,25 @@
+id: 5417
+title: "Getting started"
+summary:
+content: |
+  Now, when you navigate to an item on Wikidata, you'll see "Recoin: Most
+  relevant properties which are absent" with an arrow next to it near the
+  top of the page. You'll also see a status indicator in the top right which
+  gives a sense of how complete the item is.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Elizabeth_Peratrovich_Wikidata_item-recoin_collapsed.png" />
+    <figcaption class="image-credit">
+      Article evaluation using Recoin
+    </figcaption>
+  </figure>
+
+  Clicking the arrow will expand the box and show you the most common properties
+  that are missing from this item.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Elizabeth_Peratrovich_Wikidata_item-recoin_expanded.png" />
+    <figcaption class="image-credit">
+      Expand the window to see a list of recommended properties.
+    </figcaption>
+  </figure>

@@ -1,0 +1,97 @@
+// Tooltip
+.tooltip-trigger
+  position relative
+  &:hover
+    .tooltip
+      opacity 1
+      top 110%
+  .tooltip-indicator
+    &:after
+      font-family 'icons'
+      width 18px
+      height 18px
+      position relative
+      top 2px
+      color $brand_primary
+      margin-left 3px
+  p
+    margin-bottom 0
+  .tooltip
+    min-width 150px;
+    background-color white
+    border 1px solid manatee
+    display block
+    opacity 0
+    padding 10px 15px
+    pointer-events none
+    position absolute
+    top 125%
+    left 15px
+    transform translateZ(0)
+    transition opacity .2s linear, top .2s linear
+    white-space normal
+    z-index 4
+    &.tooltip-title
+      left: +5px
+    &.tooltip-center
+      left -145%
+      min-width 200px !important
+      &:before
+        margin-left 36% !important
+    &.tooltip-see-more
+      left -40%
+      min-width 200px !important
+      &:before
+        margin-left 36% !important
+    &.large
+      min-width 320px
+      p
+        color $text
+        font-size 14px
+    &.dark
+      background-color manatee
+      border 0
+      &:before
+        border-bottom 6px solid manatee
+      p, h4
+        margin-bottom 0
+        color white !important
+      h4
+        font-weight 300
+    h3
+      color: boyoux
+    &:before
+      border-bottom 6px solid white
+      border-right 6px solid transparent
+      border-left 6px solid transparent
+      top -6px
+      content ''
+      display block
+      margin-left -6px
+      position absolute
+
+    h4
+      color dove
+    p
+      color manatee
+      font-size 11px
+      line-height 1.4
+
+@media only screen and (max-width: 500px)
+  .tooltip-trigger
+    .tooltip
+      padding 2px 2px
+      left unset
+      &.large
+        min-width 120px
+        p
+          font-size 10px
+
+.tooltip-trigger.tooltip-small
+  display inline-block
+  position relative
+  img
+    height 20px
+    width 20px
+    margin-left 5px !important
+    margin-bottom -4px

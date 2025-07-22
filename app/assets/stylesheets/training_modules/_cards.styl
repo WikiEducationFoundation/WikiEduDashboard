@@ -1,0 +1,60 @@
+.action-card
+  display block
+  text-decoration none
+  h3
+    letter-spacing 0
+  &:hover
+    header
+      background $training_primary_dk
+    .action-card-icon
+      left 8px
+    p
+      box-shadow 0px 1px 6px rgba(0, 0, 0, 0.25)
+
+.icon-container
+  background $training_primary_dk
+  float right
+  padding 10px 11px
+  width 50px
+  height 50px
+  position absolute
+  right 0px 
+.action-card-icon
+  transition left 0.125s
+  color #fff
+  position relative
+  left 4px
+  &:before
+    right 0
+    position relative
+    top 1px
+.action-card-header
+  padding 0
+  height 50px
+  text-align left
+  background $training_primary
+  transition background 0.075s
+  position relative
+.action-card-title
+  color $btn_text_color
+  font-weight 400
+  float left
+  padding 15px 15px 0px 15px
+  width 89%
+  font-size 18px
+  @extends .truncated-text
+.action-card-title__completion
+  position absolute
+  right 69px
+  +below(tablet)
+    display none
+.action-card-text
+  font-size 16px
+  font-weight 400
+  padding 15px
+  box-shadow 0px 1px 6px rgba(0, 0, 0, 0.1)
+  transition box-shadow 0.075s
+  color $card_type_color
+  background #fff
+  small
+    text-align left

@@ -1,0 +1,21 @@
+%div.form-group
+  %label{for: "sg-form-name"} Normal field
+  %input{id: "sg-form-name", type: "text", placeholder: "Placeholder"}/
+%div.form-group.invalid
+  %label{for: "sg-form-email"} Invalid field
+  %input{id: "sg-form-email", type: "email", value: "invalid@"}/
+%div.form-group
+  %label{for: "sg-form-address"} Disabled field
+  %input{id: "sg-form-address", type: "text", value: "Disabled", disabled: true}/
+%div.form-group
+  %label{for: "sg-form-required"}
+    Required
+    %span.form-required-indicator *
+  %input{id: "sg-form-required", type: "text" }/
+  %p.form-help-text This help text explains the field or requirements
+
+.sg-note
+  TODO:
+  %ul
+    %li Horizontal/inline alignment
+    %li Field group labels (e.g., "Survey Notifications" with 4 subsequent fields related to survey notifications. Used in Survey Assignment form)

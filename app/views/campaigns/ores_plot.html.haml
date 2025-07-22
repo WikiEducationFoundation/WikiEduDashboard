@@ -1,0 +1,13 @@
+- content_for :before_title, t('courses.ores_plot', title: @campaign.title) + ' — '
+
+-# = render 'nav'
+#react_root{data: {slug: @campaign.slug}}
+
+-# .container
+-#   %section.overview.container
+-#     = render 'courses/header_stats', presenter: @presenter
+
+.container
+  %section#ores_plot
+    #react_root{data: {slug: @campaign.slug}}
+

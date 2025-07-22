@@ -1,0 +1,33 @@
+name: Wikidata Professional Development Training Modules
+id: 4
+exclude_from_index: false
+introduction: |
+  This set of modules covers the basics of contributing to Wikidata.
+categories:
+  - title: ''
+    description: ''
+    modules:
+      - slug: orientation-wikidata-professional
+        name: Orientation
+        description: An overview of Wiki Education's Wikidata course
+      - slug: introduction-wikidata-professional
+        name: Introduction to Wikidata
+        description: An introduction to key concepts and vocabulary
+      - slug: databases-and-linked-data
+        name: Databases and Linked Data
+        description: Examples of linked data and why it's useful
+      - slug: wikidata-community
+        name: The Wikidata community
+        description: How to interact and collaborate with the Wikidata community
+      - slug: evaluating-wikidata
+        name: Evaluating Data on Wikidata
+        description: How to evaluate the quality of data within a Wikidata item
+      - slug: adding-to-wikidata
+        name: Adding to Wikidata
+        description: Creating new Wikidata items, properties, and references
+      - slug: querying-wikidata
+        name: Querying Wikidata - SPARQL
+        description: How to query Wikidata and generate query visualizations
+      - slug: wikidata-wikiprojects
+        name: Wikidata WikiProjects
+        description: Coordinating efforts on Wikidata through WikiProjects

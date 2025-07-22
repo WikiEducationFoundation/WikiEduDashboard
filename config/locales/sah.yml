@@ -1,0 +1,19 @@
+# Messages for Yakut (саха тыла)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: HalanTul
+# Author: София
+# Author: Туллук
+---
+sah:
+  application:
+    change: Уларытыы
+  articles:
+    available: Тоҕоостоох Ыстатыйалар
+  assignments:
+    add_available: Тоҕоостоох ыстатыйаны киллэр
+  users:
+    contributions_history_full: Википедиҕа киллэрбит бары кылаатын көрөргө
+    training_module_name: Үөрэнэр модуль
+    training_module_status: Туруга
+...

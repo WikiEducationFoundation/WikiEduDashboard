@@ -1,0 +1,37 @@
+id: 5421
+title: "Adding to Wikidata"
+summary:
+content: |
+assessment:
+  correct_answer_id: 3
+  question: |
+    You should add statements to Wikidata items...
+  answers:
+    - id: 1
+      text: |
+        as fast as you can.
+      explanation: |
+        INCORRECT! It's always a good idea to know what you're talking about.
+        Researching an item before adding a statement to an item is a great idea.
+    - id: 2
+      text: |
+        after obtaining permission from an administrator on Wikidata.
+      explanation: |
+        INCORRECT! Anyone can edit Wikidata. This means you do not need permission
+        from anyone to edit. We do encourage you to practice editing before you
+        start editing items.
+    - id: 3
+      text: |
+        if you notice that something is missing, and you have a reliable source.
+      explanation: |
+        CORRECT! Usually when you notice that something is missing, you have
+        done your research. If you have a source to back up your claim, add that
+        statement.
+    - id: 4
+      text: |
+        only manually, editing one item at a time.
+      explanation: |
+        INCORRECT! You can make automated, batch edits to Wikidata through some
+        tools, software, and bots. Before making batch edits to Wikidata,
+        however, it's a good idea to practice with manual edits to be sure you
+        understand what you are doing.

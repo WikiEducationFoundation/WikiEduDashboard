@@ -1,0 +1,24 @@
+-# = render partial: 'admin_header'
+- @questions = @question_group.questions
+= simple_form_for(@question_group) do |f|
+  = f.error_notification
+  .section-header.surveys__admin-header.surveys__admin-header--question-groups.surveys__admin-header--question-groups--edit
+    .container
+      %div
+        %h1 New Question Group
+      .surveys__admin-header__action
+        .form__actions
+          = f.button :submit, "Save Question Group", class: 'button button--no-margin border'
+
+  .container.survey__admin
+    .form__block.form__block--equal-height
+      .block.form__settings
+        .form__settings__tabs
+          .tab
+            %h3 Settings
+        = f.input :name, label: "Question Group Name", input_html: { class: "input--large", required: true }
+        .form__row
+          = f.association :campaigns, label_method: :title
+        .form__row
+          %label Tags
+          = select_tag "question_group[tags]", options_for_select(@available_tags, @question_group_tags), multiple: true

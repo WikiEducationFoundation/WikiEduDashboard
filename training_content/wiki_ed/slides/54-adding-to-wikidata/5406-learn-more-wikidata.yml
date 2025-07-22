@@ -1,0 +1,26 @@
+id: 5406
+title: "Want to learn more?"
+summary:
+content: |
+  Constraints guide editors to add data correctly by displaying a small icon
+  next to the field that has a constraint. <a href="https://w.wiki/5Q5">Here is a list</a>
+  of constraint descriptions. When they show up on an item they show up as an
+  icon, like this image.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Property_constraint_example_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      This is an example of a property constraint.
+    </figcaption>
+  </figure>
+
+  Interested in learning more about constraints? You can browse items by
+  <a href="https://www.wikidata.org/wiki/Wikidata:Database_reports/Constraint_violations">constraint violations on this page</a>.
+  An example of a constraint violation is distinguishing between two properties.
+  The properties <code>P131</code>, *located in the administrative territorial entity*, and <code>P276</code>, *location*, both represent
+  location in different ways. Constraint reports can help you discover and
+  correct properties that are not used correctly.
+
+  If you want to know if a property requires a constraint,
+  <a href="https://www.wikidata.org/wiki/Special:ConstraintReport">open this link</a>
+  in a new tab.

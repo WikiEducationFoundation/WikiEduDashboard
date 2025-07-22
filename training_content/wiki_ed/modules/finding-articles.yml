@@ -1,0 +1,22 @@
+name: Finding Articles (for instructors)
+id: 16
+description: |
+  If you'd like to find articles for your students to work on, this orientation
+  offers some key information. It's a quick guide to help you find articles
+  relevant to your course.
+estimated_ttc: 10 minutes
+slides:
+  - slug: content-gaps # 1601
+  - slug: avoid-the-best-articles # 1602
+  - slug: avoid-controversial-topics # 1603
+  - slug: avoid-conflicts-of-interest # 1613
+  - slug: using-categories # 1604
+  - slug: navigation-templates # 1605
+  - slug: using-wikiprojects # 1606
+  - slug: wikiproject-assessment-tables # 1607
+  - slug: using-an-existing-list # 1608
+  - slug: article-finder #1615
+  - slug: a-note-on-notability # 1609
+  - slug: assessing-notability # 1614
+  - slug: help-from-content-experts # 1611
+  - slug: finding-articles-summary # 1612

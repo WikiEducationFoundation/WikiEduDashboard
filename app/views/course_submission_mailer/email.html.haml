@@ -1,0 +1,36 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = "#{@course.title}: application submitted."
+              %p.paragraph
+                = "Dear #{@instructor.real_name || @instructor.username},"
+              %p.paragraph
+                Thank you for submitting your application for a spot in our Wikipedia Student Program.
+                We will review your application and notify you if we have a spot for your course in
+                advance of the term for which you are applying. Applications submitted after the deadline
+                will be considered if space allows.
+              %p.paragraph
+                If you have any questions, please reach out to Helaine Blumenthal (helaine@wikiedu.org)
+              %p.paragraph
+                You can access — and continue to edit — your course page here:
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{:href => @course_link}
+                = @course.title
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  The Wiki Ed team

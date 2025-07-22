@@ -1,0 +1,61 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                I'd like to thank you for participating in the Wikipedia Student Program during the
+                #{link_to @campaign.title, "https://#{ENV['dashboard_url']}/campaigns/#{@campaign.slug}", class: 'link'} term.
+              %p.paragraph
+                You and your students are part of a cohort of #{@campaign.courses.count} courses whose #{@campaign.students.count} students
+                contributed #{number_to_human @presenter.word_count, delimiter: ','} words to Wikipedia so far. This is an incredible feat, and we
+                couldn't have done it without you!
+              %p.paragraph
+                Here's a snapshot of what your students did during the term:
+              
+                %ul
+                  %li.paragraph Added #{number_to_human @course.word_count, delimiter: ','} words to Wikipedia
+                  %li.paragraph
+                    %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}/articles/edited"} Edited #{number_to_human @course.article_count} articles
+                  - if @course.new_article_count.positive?
+                    %li.paragraph Created #{number_to_human @course.new_article_count} new entries
+                  - if @course.references_count.positive?
+                    %li.paragraph Added #{number_to_human @course.references_count, delimiter: ','} references
+                  %li.paragraph Received about #{number_to_human @course.view_sum, delimiter: ','} page views
+
+              %p.paragraph
+                Numbers only tell part of the story. I encourage you to share your
+                %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} course page
+                to let others know how your students impacted Wikipedia and how Wikipedia impacted your students.
+
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link.share_button{href: "https://twitter.com/intent/tweet?text=In #{@campaign.title}, my students added to Wikipedia in a @WikiEducation assignment. Check out the amazing work they did. https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}  Share on X
+                    %a.button_link.share_button{href: "https://www.facebook.com/sharer/sharer.php?u=https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} Share on Facebook
+                    %a.button_link.share_button{href: "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//#{ENV['dashboard_url']}/courses/#{@course.slug}"} Share on LinkedIn
+              %p.paragraph
+                If you've taught more than one course with us, just go to
+                %a.link{href: "https://#{ENV['dashboard_url']}/my_account"} your profile page
+                to see your collective impact!
+
+              %p.paragraph
+                If you plan on running a Wikipedia assignment again in an upcoming term, be sure to create and submit your course page on the
+                = succeed '.' do
+                  %a.link{href: "https://#{ENV['dashboard_url']}"} Dashboard
+
+              %p.paragraph
+                Wishing you all the best, 
+                %br
+                %em
+                  Helaine Blumenthal, Senior Program Manager
+
+              %p.info
+                This is an automated email from Wiki Education intended to give you a recap of your students' impact and remind you to submit your course for doing this again next term.
+                If you have thoughts about it you can let us know by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=term-recap-email'} leave feedback here.

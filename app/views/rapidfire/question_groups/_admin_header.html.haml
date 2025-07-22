@@ -1,0 +1,9 @@
+.section-header.surveys__admin-header.surveys__admin-header--question-groups
+  .container
+    %div
+      %h1 Question Groups
+    .surveys__admin-header__action
+      - if params.key?(:cancellable)
+        = link_to "Cancel", @question_group, method: :delete, :class => 'button button--no-margin border', :data => {confirm: "Are you sure you want to delete this Question Group?"}
+      - else
+        = link_to "New Question Group", new_question_group_path, :class => 'button button--no-margin border'

@@ -1,0 +1,32 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%br
+.open-tickets-notifications
+  %section.message
+    %p= "#{@owner.real_name},"
+    %p
+      = "You have #{pluralize(@open_count, 'open ticket')} on the"
+      %a.link{:href => "https://#{ENV['dashboard_url']}/tickets/dashboard"} Ticket Dashboard.
+
+  - @tickets.each do |ticket|
+    - course = ticket.project
+    - sender = ticket.sender
+    %section.ticket
+      %h2.heading= ticket.subject || '<No subject>'
+      %ul
+        %li
+          Sender:
+          - if sender[:username]
+            %a.link{:href => "https://#{ENV['dashboard_url']}/users/#{sender[:username]}"}
+              = sender[:real_name] || sender[:username]
+          - else
+            = sender[:email]
+        %li.center
+          %a.link{:href => "https://#{ENV['dashboard_url']}/tickets/dashboard/#{ticket.id}"}
+            Go to Ticket
+        %li.right
+          - if course
+            %a.link{:href => "https://#{ENV['dashboard_url']}/courses/#{course.slug}"}
+              Go to Course
+      %time= ticket.created_at.in_time_zone('US/Pacific').strftime('%m/%d/%Y at %l:%M %p %Z')
+  .hidden
+    %p ignore_creating_dashboard_ticket

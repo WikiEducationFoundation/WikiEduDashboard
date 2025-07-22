@@ -1,0 +1,21 @@
+id: 5310
+title: "Comparing revisions"
+summary:
+content: |
+  To see the actual change that was made between any two edits, select any pair
+  of edits and then click "Compare selected revisions" (at the top of the list).
+  That will give you something like this:
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Edit_history_comparison_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      You can also compare different versions of that item over time.
+    </figcaption>
+  </figure>
+
+  In this case, you can see how the description in Brazilian Portuguese was changed.
+
+  You can use these comparisons to see what an editor has done to an item you're
+  working on. It's also how your trainer can see what you've contributed to an
+  item, even if another editor removes it. That's why you should never panic if
+  your contributions get removed!

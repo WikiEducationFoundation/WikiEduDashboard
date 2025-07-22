@@ -1,0 +1,31 @@
+id: 1604
+title: Using categories
+summary:
+content: |
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Categories_at_the_bottom_of_page_-_Native_American_Studies.png" />
+    <figcaption>
+      Click one of the categories at the bottom of an article to explore related topics.
+    </figcaption>
+  </figure>
+
+  Wikipedia articles are placed into categories. You can see these categories at
+  the tail end of every article. These categories are arranged into a
+  hierarchical tree.
+
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Native_American_studies_category_page%2C_English_Wikipedia.png" />
+    <figcaption>
+      A sparsely populated category
+    </figcaption>
+  </figure>
+
+  Try going to an article related to your field. Scroll to the very end. You'll
+  see a list of categories. Choose one, and you'll see a list of subcategories
+  and related articles, sorted alphabetically.
+
+  Scanning through these categories can be a quick way to find interesting
+  articles. As you skim through, you can evaluate the article to see what can be
+  improved.
+
+  Categories also offer a good idea of articles you might want to create.

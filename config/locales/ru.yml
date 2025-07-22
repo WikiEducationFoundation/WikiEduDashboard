@@ -1,0 +1,859 @@
+# Messages for Russian (русский)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alexander Yukal
+# Author: Alexandr Efremov
+# Author: Amire80
+# Author: Aram1985
+# Author: Athena Atterdag
+# Author: Av6
+# Author: Cabadeck
+# Author: DDPAT
+# Author: Diralik
+# Author: Dirruw'o
+# Author: Edible Melon
+# Author: Evs
+# Author: Facenapalm
+# Author: Gehhrr
+# Author: Happy13241
+# Author: INS Pirat
+# Author: Ice bulldog
+# Author: Iniquity
+# Author: Irus
+# Author: Kaganer
+# Author: Kareyac
+# Author: Katunchik
+# Author: Link2xt
+# Author: Lizalizaufa
+# Author: Lugimax
+# Author: Mailman
+# Author: Mouse21
+# Author: Movses
+# Author: Nataev
+# Author: Nzeemin
+# Author: Okras
+# Author: Pacha Tchernof
+# Author: Patrick Star
+# Author: Pplex.vhs
+# Author: Putnik
+# Author: Redredsonia
+# Author: Romanko Mikhail
+# Author: Shaleych
+# Author: SmartNart12
+# Author: Tanzun
+# Author: Teretalexev
+# Author: UniCollab
+# Author: Vlad5250
+# Author: Марио
+# Author: Туллук
+# Author: Ядерный Трамвай
+---
+ru:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: К
+          million: М
+          billion: Б
+          trillion: Т
+          quadrillion: Квдрлн
+  accessibility:
+    number_field: Это числовое поле. С помощью кнопок, отображаемых большинством браузеров,
+      можно увеличивать и уменьшать значение.
+  application:
+    back: Назад
+    cancel: Отмена
+    cookie_consent: Этот сайт использует куки-файлы для вашего входа в систему и хранит
+      информацию, относящуюся к вашей учетной записи в Википедии.
+    cookie_consent_acknowledge: Понимаю
+    cookie_consent_see_more: Узнать больше.
+    create_accounts: Создайте учётную запись в Википедии
+    dashboard: Панель Wiki Ed
+    documentation: Документация
+    error: 'Произошла ошибка:'
+    explore: Обзор
+    field_required: Это поле обязательно для заполнения
+    field_invalid_characters: Данное поле содержит недопустимые символы
+    field_invalid_date: Это поле требует дату в формате YYYY-MM-DD
+    field_invalid_date_time: Завершится после старта.(Требуемое время от 0 до 23 часов.)
+    greeting2: Добро пожаловать!
+    greeting_extended: Добро пожаловать в Википедию
+    greeting: Здравствуйте!
+    help: Справка
+    home: Главная
+    log_in_extended: Войти с помощью Википедии
+    log_in: Представиться системе
+    log_out: Выйти
+    my_dashboard: Моя панель
+    recent_activity: Недавние действия
+    report_problem: Сообщить о проблеме
+    request_account: Запросить учётную запись
+    request_account_create: Создать учётную запись
+    search: задать вопрос
+    search_results:
+      one: '%{count} Результат для: ''%{search_terms}'''
+      other: '%{count} Результаты для: ''%{search_terms}'''
+    no_results: Ничего не нашлось по запросу '%{query}'
+    show_current_revision: Показать текущую версию
+    show_last_revision: Просмотр последней правки
+    sign_up_extended: Зарегистрируйтесь в Википедии
+    sign_up_wikipedia: Или войдите в Википедию
+    sign_up_log_in_extended: через Википедию
+    sign_up: Зарегистрироваться
+    submit: Отправить
+    training: Обучение
+    change: Изменить
+    details: Подробности
+    confirm: OK
+    opt_in: Да
+    opt_out: Нет
+    opt_yes: да
+    opt_no: нет
+    print: Печать
+  article_statuses:
+    not_yet_started: Начало работы
+    in_progress: Работа в песочнице
+    ready_for_review: Расширяющийся черновик
+    ready_for_mainspace: Переместить работу в основное пространство
+    assignment_completed: Задание помечено как выполненное
+    reading_the_article: Чтение статьи
+    providing_feedback: Отправка отзыва
+    post_to_talk: Замечание на страницу обсуждения
+    peer_review_completed: Обзор завершён
+  dashboard:
+    create_note: Перейдите по ссылке «Создать курс», чтобы создать свой первый курс.
+    create_preparation_note: Прежде чем начать, убедитесь, что у вас под рукой есть
+      расписание занятий; инструмент проектирования заданий будет использовать даты
+      встречи вашего класса (группы) — в том числе любые перерывы в занятиях и каникулы
+      — чтобы соответствовать вашей временной шкале в выбранном вами диапазоне дат.
+      Помните, что вы всегда можете изменить график в соответствии со своими нуждами.
+    explore_course_pages: Обзор страниц курсов
+    explore_examples: Изучить примеры
+    join_note: После того как вы получите пароль от своего инструктора, нажмите «Найти
+      курс», чтобы найти и присоединиться к нему.
+    no_courses_instructor: Похоже, у вас нет никаких курсов.
+    no_courses_student: Похоже, вы ещё не присоединились к курсу.
+    opt_out: Пропустить курс ознакомления
+    orientation_notice: Прежде чем создать курс, мы предлагаем вам пройти курс ознакомления,
+      чтобы помочь вам начать работу. Он занимает около 30 минут.
+    review_orientation: Пересмотреть курс ознакомления
+    start_orientation: Начать курс ознакомления
+    blog_headline: Последние новости Wiki Education
+    about_programs: Этот сайт отслеживает вики-активность через т.н. «программы» —
+      отдельные мероприятия, такие как семинары по совместному редактированию (edit-a-thon)
+      или учебные курсы. Каждая программа является частью одной или нескольких кампаний,
+      которые обеспечивают агрегированную статистику по программам.
+    about_creating_programs: Если участвуете в единичном независимом событии, то можете
+      создать для него программу. Если ваше событие является частью чего-то большего,
+      найдите или создайте кампанию для него. Затем вы можете создать новую программу
+      на странице кампании.
+  home:
+    explore: Исследовать
+    log_in: Войти с помощью Википедии
+    sign_up: Зарегистрируйтесь с помощью Википедии
+    registration_advice:
+      username_rules:
+        heading: Правила для имён пользователя
+        avoid_offensive_usernames: Не выбирайте имя пользователя, которое является
+          оскорбительным, вводящим в заблуждение, деструктивным или рекламным.
+        represent_individual: Имена пользователей должны обозначать отдельного редактора.
+          Не используйте название школы или организации.
+      additional_advice:
+        heading: Совет
+    sign_up_help: Чтобы использовать панель мониторинга, необходимо войти через Википедию
+      и дать разрешение на доступ к вашей учётной записи. Вы можете войти, используя
+      имеющуюся учётную запись в Википедии, или создав новую. Если вам не удается
+      создать учетную запись, обратитесь по адресу dashboard@wikiedu.org.
+  alerts:
+    alert_label: Оповещения
+    no_alerts: Оповещения не найдены.
+  activity:
+    all: Активность
+    edited_by: Изменил(а)
+    label: Активность
+  articles:
+    articles: Статьи
+    article_not_found: Эта статья пока не создана.
+    article_development: (разработка статьи)
+    assigned: Назначенные статьи
+    assignments_none: Назначенных статей пока нет.
+    available: Доступные статьи
+    no_available: Нет доступных статей
+    next: Следующая
+    previous: Предыдущая
+    article_title: Название статьи
+    assigned_to: Назначено участнику
+    character_doc: Общее число символов, добавленных в статьи участвующими редакторами
+      между датами начала и окончания.
+    deleted: (удалено)
+    does_not_exist: Статья не существует. Создайте черновую страницу и назначьте себя
+      на нее, чтобы получать предложения.
+    edited: Статей отредактировано
+    edited_by: 'Под редакцией:'
+    edited_mobile: Статьи
+    edited_none: Отредактированных статей пока нет.
+    filter:
+      wiki_all: Все
+      new: Новые
+      existing: Существующие
+      new_and_existing: Новые и существующие
+      tracked: Отслеживаемые
+      untracked: Неотслеживаемые
+      tracked_and_untracked: Отслеживаемые и неотслеживаемые
+    filter_text: Фильтры
+    find: Найти статьи
+    how_to_find: Как найти статью
+    hide: Скрыть
+    history: (история)
+    label: Статьи
+    loading: Загрузка статей...
+    new: (новая)
+    none: Этот курс не редактировал никаких статей.
+    rating: Класс
+    rating_doc: Рейтинг статьи был назначен Википедии ВикиПроектом. Эти рейтинги могут
+      быть связаны с намного более старыми версиями, поэтому они являются лишь приблизительным
+      индикатором проработанности статьи.
+    rating_docs:
+      fa: '%{class} (Избранная статья) — высший рейтинг для статей в Википедии, вероятно,
+        она слишком развита для основного проекта новых участников'
+      fl: '%{class} (Избранный список) — высший рейтинг для списков в Википедии.'
+      a: '%{class} (А-класс) — очень развитые статьи, которые могут быть слишком зрелыми
+        для новых редакторов основного проекта'
+      ga: '%{class} (Хорошая статья) — это хорошо развитая статья, которая может быть
+        слишком зрелой для новых редакторов основного проекта'
+      b: '%{class}-класс — умеренно развитая статья.'
+      c: '%{class}-класс — не очень развитая статья, которую можно дополнить.'
+      start: '%{class}-класс — короткая статья, которую нужно дополнить.'
+      stub: '%{class} (заготовка) — очень короткая статья, которую нужно дополнить.'
+      list: '%{class} (Лист-класс) — больше похоже на список, чем на полноценную статью.'
+      '?': Без рейтинга — этой статье ещё не был присвоен рейтинг по шкале Википедии.
+      does_not_exist: Эта статья не существует в Википедии
+    see_more: Узнать больше
+    show_cumulative_changes: Показать сводку изменений
+    show_current_version: Показать текущую версию
+    title: Название
+    title_example: Название статьи
+    view: Просмотр статьи
+    view_all: Просмотреть все
+    view_doc: Предполагаемое количество просмотров каждой статьи с момента ее первого
+      редактирования с учетом последнего обновления статистики. Вы можете использовать
+      pageviews.toolforge.org, чтобы увидеть точные цифры.
+    view_on_wiki: Посмотреть на Вики
+    views_added: '%{count} новых просмотров статьи %{title}'
+    edit_size: Изменить размер
+    wiki: Вики
+    articles_short: Статьи
+    not_choosen_article: Вы не выбрали статью для работы. Когда вы найдете статью
+      для работы, используйте кнопку выше, чтобы назначить ее.
+    use_dashboard: Как использовать панель инструментов
+  items:
+    lexeme: Лексема
+    how_to_find: Как найти предметы
+  articles_wikidata:
+    articles_short: Элементы
+  articles_generic:
+    articles_short: Страницы
+  assignments:
+    article: Вам назначена статья %{title}.
+    article_link: Статья
+    article_link_wikidata: Элемент
+    title_too_large: Название не должно превышать 255 символов
+    assignees: Назначенный(е)
+    add_available: Добавить доступные статьи
+    add_available_submit: Добавить статьи
+    add_available_submit_wikidata: Добавить элементы
+    bibliography: Библиография
+    clone: Клонировать
+    confirm_add_available: Вы уверены, что хотите добавить %{title}?
+    confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
+    confirm_deletion: Вы уверены, что хотите удалить это задание?
+    change_sandbox_url: Изменить песочницу
+    group_members: Участники группы
+    loading: Загрузка заданий...
+    none: Этот курс не имеет назначенных статей.
+    remove: Удалить
+    reviewers: Проверяющий(е)
+    select: Выбрать
+    submit: Отправить
+    invalid_url: Невозможно обновить URL-адрес песочницы. URL %{url} не является допустимым
+      URL-адресом Википедии.
+    mismatched_wiki: Невозможно обновить URL-адрес песочницы. URL %{url} не находится
+      в той же вики.
+    warning_untracked_wiki: 'Обратите внимание, что выбранная вами статья из вики,
+      не отслеживается этим курсом. Чтобы отслеживать вклады в эту статью, инструктор
+      должен добавить к этому курсу следующую вики: %{wiki}'
+  blocks:
+    milestones:
+      title: Этапы
+  campaign:
+    active_campaigns: Активные кампании
+    add_organizer: Добавить организатора
+    alert_article: Название статьи
+    alert_type: Тип
+    alert_user_id: Участник
+    all_campaigns: Все кампании
+    campaign: Кампания
+    campaigns: Кампании
+    campaign_deleted: Кампания "%{title}" была удалена
+    campaign_updated: Кампании обновлены
+    created_at: Дата
+    confirm_campaign_deletion_failed: '"%{title}" - это не название этой кампании.
+      Кампания не была удалена.'
+    confirm_course_removal: Вы уверены, что хотите удалить "%{title}" из кампании
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" уже удалена из кампании "%{campaign_title}"'
+    course: Курс
+    course_removed: '"%{title}" был удалён из кампании "%{campaign_title}"'
+    create_campaign: Создать новую кампанию
+    description: Описание
+    delete_campaign: Удалить эту кампанию
+    disable_account_requests: Отключить запросы учётной записи
+    enable_account_requests: Включить запросы учётной записи
+    featured_campaigns: Избранные компании
+    no_passcode: Нет кода доступа
+    none: Нет
+    organizers: Организаторы
+    organizer_added: '%{user} теперь является организатором "%{title}" кампании'
+    organizer_removed: '%{user} был удалён как организатор "%{title}" кампании'
+    program_template: Шаблон программы
+    random_passcode: Случайный код доступа
+    title: Название
+    slug: Slug
+    use_start_end_dates: Использовать даты начала и окончания
+    search: Найти
+  categories:
+    add_category: Добавить категорию
+    add_template: Добавить шаблон
+    add_this_category: Добавить категории
+    add_this_template: Добавить шаблон
+    depth: Глубина подкатегорий
+    name: Имя
+    category_name: Название категории
+    template_name: Имя шаблона
+    remove: Удалить
+  courses:
+    school_system: Академическая система
+    accounts_generation_explanation: Это позволит участникам ввести свой адрес электронной
+      почты и желаемое имя пользователя, вместо того, чтобы создавать свои новые учетные
+      записи. После этого вы сможете создавать учетные записи с помощью даной панели
+      инструментов, и одновременно добавлять их в качестве участников программы.
+    activity: Деятельность
+    alerts: Оповещения
+    all_courses: Все курсы
+    actions: Действия
+    articles: Статьи
+    add_campaign_aria_label: Добавить кнопку капмании
+    new_tag_button_aria_label: Кнопка «Создать или обновить тег»
+    enroll_button_aria_label: Кнопка регистрации
+    assignment_end: Конец задания
+    assignment_start: Начало задания
+    calendar:
+      legend: Легенда
+    cancel: Отмена
+    character_doc: Сумма символов, добавленных к статьям основного пространства студентами
+      курса в течение семестра
+    campaigns: 'Кампании:'
+    campaign_articles: '%{title} Статьи'
+    campaign_courses: Курсы %{title}
+    campaign_select: Выберите кампанию
+    campaign_users: Редакторы %{title}
+    course: Курс
+    course_description: Курсы
+    courses: Курсы
+    creation_date: Дата создания
+    creator:
+      assignment_end: Конец задания
+      assignment_end_placeholder: ГГГГ-ММ-ДД
+      assignment_start: Начало задания
+      assignment_start_placeholder: ГГГГ-ММ-ДД
+      checking_for_uniqueness: Этот курс проверяется на уникальность.
+      choose_clone: Выберите курс для клонирования.
+      clone_previous: Клонировать предыдущий курс
+      clone_this: Клонировать этот курс
+      clone_successful_details: Ваш курс был клонирован, включая элементы графика
+        времени (недели и блоки). Убедитесь, что вы добавили даты, так как они не
+        переносятся. Если что-нибудь изменилось в вашем курсе, то теперь вы можете
+        его обновить.
+      course_description: Описание курса
+      course_school: Школьный курс
+      course_subject: Предмет курса
+      course_term: Семестр курса
+      course_term_placeholder: Семестр
+      course_title: Название курса
+      create_button: Создать свой курс!
+      create_label: Создать новый курс!
+      create_new: Создать новый курс
+      copy_courses_with_assignments: Клонировать список доступных статей
+      create_short: Создать курс
+      end_date: Дата окончания
+      end_date_placeholder: ГГГГ-ММ-ДД
+      expected_number: Ожидаемое количество студентов
+      find: Найти свой курс
+      role_description_options:
+      - Инструктор
+      start_date: Дата начала
+      start_date_placeholder: ГГГГ-ММ-ДД
+    current: Текущие курсы
+    data_uploads: Данные загрузок на Викисклад
+    delete_course: Удалить курс
+    delete_suggestion: Удалить
+    delete_course_instructions: Эту страницу можно удалить, если будут предварительно
+      удалены все кампании.
+    dismiss_survey: Закрыть
+    download_stats_data: Скачать статистику
+    duration: Продолжительность курса
+    edit_count: Число правок
+    end: Завершение
+    ended: Курс завершен.
+    enroll: Записаться
+    enrollment: Добавить/удалить студентов
+    error:
+      exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
+        школой или семестром.
+      user_exists: К сожалению, участника %{username} не существует.
+      duplicate_slug: Другая программа под названием %{slug} уже существует.
+    feedback: Обратная связь
+    gradeables_none: У этого курса нет оцениваемых заданий.
+    instructor:
+      one: Инструктор
+      other: Инструкторы
+    instructors: Инструкторы
+    join: Присоединиться
+    join_course: Присоединиться к курсу
+    join_prompt: Присоединиться к '%{title}'?
+    join_successful: Вы были успешно присоединились к «%{title}». Ваш вклад будет
+      автоматически обновляться на панели. Чтобы его просмотреть, проверьте панель
+      чуть позже.
+    join_failure_details:
+      not_yet_approved: Этот курс ещё не был одобрен для регистрации.
+    loading: Загружается…
+    my_articles: Мои статьи
+    new_week: Добавить новую неделю
+    new_account_check_username: Проверить доступность имени пользователя
+    new_account_email: Адрес электронной почты
+    new_account_email_placeholder: name@example.org
+    new_account_username_invalid: Введено недействительное имя пользователя.
+    nocourses: Вы не участвуете ни в одном курсе.
+    nocourse: не участвовал в каких-либо курсах.
+    not_permitted: У вас нет разрешения на правку этого курса.
+    ores_plot: ORES
+    overview: В начало
+    passcode: Код доступа
+    passcode_none: Нет кода доступа
+    passcode_prompt: 'Введите пароль, чтобы присоединиться:'
+    please_log_in: Представьтесь, пожалуйста.
+    private: Скрытый
+    requested_accounts_alert_view: Посмотреть
+    revisions_doc: Число правок за последние %{timeframe} дней
+    school: Школа
+    search_courses: Искать курсы
+    start: Начать
+    stay_in_sandbox: Остаться в песочнице
+    student: Студент
+    students: Студенты
+    students_count: '# Студенты'
+    students_none: У этого курса пока нет студентов.
+    students_short: Студенты
+    submitted_note: Ваш курс был успешно отослан. Сотрудники Wiki Education рассмотрят
+      его и свяжутся с вами в случае возникновения вопросов. Во время ожидания, если
+      вы захотите изучить обручающие материалы Wiki Education, вы можете посмотреть
+      полный список ресурсов для инструкторов и студентов.
+    suggestions_sending: Отправка отзыва...
+    suggestions_failed: Невозможно отправить отзыв. Попробуйте позже ещё раз.
+    user_role: Роль
+    tag_select: Выберите или создайте метку
+    tags: 'Метки:'
+    term: Семестр
+    timeline_enabled: Расписание включено
+    time_zone_message: Начало и окончание программы отображается с учётом вашего часового
+      пояса.
+    title: Название
+    user_uploads_none: Этот участник не добавлял никакие изображения или иные медиафайлы
+      на Викисклад.
+    user_recent_uploads: Недавние загрузки
+    view_other: Посмотреть другие кампании
+    view: Просмотр курса
+    view_doc: Ориентировочное количество просмотров статей, редактированных участниками,
+      начиная с момента первой правки участника в каждой из статей.
+    view_page: Посмотреть страницу курса
+    view_wiki: Посмотреть на Википедии
+    volunteer:
+      one: Доброволец
+      other: Добровольцы
+    weeks_none: У этого курса ещё нет расписания.
+    wiki_staff: Сотрудники Wiki Education
+    withdrawn: Задание не сделано
+    yourcourses: Ваши курсы
+  courses_generic:
+    school_system: Академическая система
+    all_courses: Все программы
+    assignment_end: Конец события
+    assignment_start: Начало события
+    cancel: Отмена
+    course: Программа
+    courses: Программы
+    campaigns: 'Кампании:'
+    campaign_courses: Программы %{title}
+    creator:
+      assignment_end: Конец события
+      assignment_end_placeholder: ГГГГ-ММ-ДД
+      assignment_start_placeholder: ГГГГ-ММ-ДД
+      course_description: Описание программы
+      course_school: Учреждение
+      course_term: Когда
+      course_term_placeholder: Когда
+      course_title: Название программы
+      create_button: Создать свою программу!
+      create_label: Создать новую программу
+      create_new: Создать независимую программу
+      create_short: Создать программу
+      find: Найти программу
+      participate_in_campaign: Присоединиться к кампании
+      save_cloned_course: Сохранить
+    delete_course: Удалить программу
+    enroll: Добавить редактора
+    enrollment: Добавить/удалить редакторов
+    explore: Найти программы
+    join_course: Присоединиться к программе
+    join_details: Чтобы присоединиться к этой программе, вам нужно получить от посредника
+      код доступа или ссылку, которая включает пароль.
+    leave_course: Покинуть программу
+    not_permitted: У вас нет разрешения на правку этой программы.
+    request_accounts: Запрос учётных записей
+    school: Учреждение
+    search_courses: Искать программы
+    student_editors: Редакторы
+    students: Редакторы
+    students_short: Редакторы
+    term: Когда
+    user_uploads_none: Выбранные участники не загружали изображений или других медиа-файлов
+      на этот проект.
+    view_other: Посмотреть другие кампании
+    yourcourses: Ваши программы
+  editable:
+    edit: Править
+    cancel: Отмена
+    save: Сохранить
+    edit_description: Редактирование описание
+    edit_details: Редактировать подробности
+    edit_template: Редактировать шаблон
+  metrics:
+    last_update: Последнее обновление статистики
+    activity: Недавние действия
+    articles_created: Статей создано
+    articles_edited: Статей отредактировано
+    bytes_added: Байт добавлено
+    characters: Символов
+    char_added: Символов добавлено
+    char_changed: Символов изменено
+    char: Символов добавлено
+    date_time: Дата/время
+    edit_count_description: Всего правок
+    revisions: Последние правки
+    tags: Теги
+    upload_count: Загружено на Викисклад
+    view_count_description: Просмотров статей
+    view: Просмотров
+    word_count: Слов добавлено
+    word_count_average: Среднее количество слов
+    total_revisions: Всего версий
+    claims: Претензии
+    aliases: Синонимы
+    merged: Объединено
+    created: Создано
+    changed: Изменилось
+    removed: Удалено
+    cleared: Очищено
+    added: Добавлено
+    descriptions: Описания
+    interwiki_links_added: Интервики-ссылок добавлено
+    labels: Метки
+    no_data: Нет данных
+    other_updates: Другие обновления
+    qualifiers_added: Спецификаторов добавлено
+    redirects_created: Перенаправляет созданное
+    restorations_performed: Выполненные восстановления
+    reverts_performed: Выполненные откаты
+  namespace:
+    main: Основное пространство
+    main_char_added: Добавлено символов в основном пространстве
+    user: Пространство участника
+    user_char_added: Добавлено символов в пространстве участника
+    project: Проект
+    file: Файл
+    template: Шаблон
+    help: Справка
+    category: Категория
+    page: Страница
+    book: Книга
+    translation: Перевод
+    property: Свойство
+    query: Запрос
+    lexeme: Лексема
+    appendix: Приложение
+    portal: Портал
+    school: Школа
+    author: Автор
+    cookbook: Кулинарная книга
+    index: Индекс
+    collection: Коллекция
+  recent_activity:
+    article_title: Заголовок
+    datetime: Дата/время
+    image: Изображение
+    file_name: Имя файла
+    recent_edits: Последние правки
+    uploaded_by: Загрузил
+    usage_count: Использовано
+  revisions:
+    chars_added: Символов добавлено
+    class: Класс
+    date_time: Дата/Время
+    diff_show: Показать
+    diff_hide: Скрыть
+    edited_by: Изменил(а)
+    loading: Загрузка версий...
+    none: В последнее время в этом курсе не совершалось правок.
+    time_doc: Время каждой ревизии по вашему местному времени
+    title: Название
+  settings:
+    categories:
+      other_settings: Другие настройки
+      impact_stats: Статистика воздействия
+      featured_campaigns: Избранные компании
+      special_users: 'Служебная: Участники'
+      admin_users: Администраторы
+      users: Участники
+    admin_users:
+      new:
+        form_placeholder: Имя участника
+    featured_campaigns:
+      campaign_not_found: Кампания со слагом «%{campaign_slug}» не найдена
+      no_featured_campaigns: Рекомендуемые кампании не определены
+      update_featured_campaigns_button: Обновить избранные кампании
+      add_button: Добавить уведомление
+      remove_button: Новое переименование компании
+    special_users:
+      new:
+        form_placeholder: Имя участника
+  status:
+    size: Размер
+    status: Статус
+  tasks:
+    conseq: Задача %{task} уже выполняется!
+    constant: Задача %{task} не может быть выполнена, когда происходит ежедневное
+      обновление.
+    paused: Задача %{task} не может быть выполнена, так как запланированные обновления
+      были приостановлены. Запустите 'rake batch:resume', чтобы возобновить обновления.
+  timeline:
+    arrange_timeline: Настроить расписание
+    delete_timeline_and_start_over: Удалить расписание
+    done: Готово
+    empty_week_3: или
+    gradeable_value: Значение
+    no_timeline: У этого курса пока нет расписания.
+    save_all_changes: Сохранить всё
+    title: Расписание
+    week_number: Неделя %{number}
+  training:
+    continue: Продолжить (%{progress})
+    start: Начать
+    view: Посмотреть
+    next: Следующая страница
+    page: Страница
+    previous: < Предыдущая
+    additional_training: Дополнительные учебные модули
+    done: Готово!
+    invalid: Извините, этого слайда не существует!
+    check_answer: Проверить ответ
+    kind:
+      exercise: Упражнение
+    no_training_library_records_wiki_ed_mode: В базе данных нет записей TrainingLibrary.
+      Нажмите <a href="%{url}">здесь</a>, чтобы загрузить данные обучения из файлов
+      training_content/yaml.
+    no_training_library_records_non_wiki_ed_mode: В базе данных нет записей TrainingLibrary.
+    remaining_exercise: Осталось %{count} дополнительных упражнений.
+    view_all: Просмотреть все упражнения
+  update_username:
+    username_updated: Имя участника успешно обновлено!
+    label: Новое имя участника
+    button: Обновить
+  uploads:
+    article_name: Название статьи
+    author: 'Автор:'
+    categories: Категории
+    credit: Создатели
+    date: 'Дата:'
+    description: Описание
+    file_name: Имя файла
+    file_usage: Страница обсуждения в другом вики-проекте
+    header: Файлы, загруженные на Викисклад
+    image: Изображение
+    label: Загрузки
+    license: 'Лицензия:'
+    loading: Загрузка приложений...
+    none: Этот класс не добавлял никакие изображения или иные медиафайлы на Викисклад.
+    original_file: Файл-оригинал
+    time_doc: Время загрузки каждого дополнения по вашему местному времени.
+    uploaded_at: Время загрузки
+    uploader: Загружающий
+    uploaded_by: Загрузил
+    uploaded_on: Загружено
+    usage_count: Использовано
+    usage_doc: Число статей Википедии, в которых используется это изображение.
+    usage_count_gallery_tile: Используется в %{usage_count} статьях
+    usages: Использование
+    source: 'Источник:'
+    views_per_day: Просмотров на правку
+    view_commons: Просмотреть на Коммонс
+    wiki_big: Вики-проект
+  users:
+    already_enrolled: Этот участник уже подписан на курс.
+    assign_articles_done: Готово
+    assigned: Назначенные статьи
+    assignees: Назначение(я)
+    chars_added: Символов добавлено<br>(статья | участник | черновик)
+    contributions: Вклад участника
+    contributions_history_full: Просмотреть полную историю вклада
+    contributions_more: Просмотреть вклад подробнее
+    contribution_statistics: Статистика вклада
+    editors: Редакторов
+    first_name: Имя
+    last_name: Фамилия
+    loading: Загрузка участников...
+    name: Имя
+    none: Нет участников.
+    recent_revisions: Последние правки
+    training_modules: Учебный модуль
+    request_confirmation: Вы уверены, что хотите запросить эту учётную запись?
+    requested_account_status:
+      success_message: 'Успешно: %{result_description}'
+      failure_message: 'Отказ: %{result_description}'
+    revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
+    reviewers: Проверяющий(е)
+    reviewing: Проверка
+    sandboxes: песочницы
+    training_complete:
+      one: завершил обучение
+      other: завершили обучение
+    training_complete_count:
+      one: '%{граф} обучение вверх-к-Дата'
+      other: через%{count} обучение до даты
+    training_incomplete: Тренинг не завершён
+    training_module_name: Учебный модуль
+    training_module_status: Состояние
+    training_module_time:
+      minutes: мин.
+      seconds: сек.
+    uploads_doc: Количество загрузок файлов на Викисклад
+    username: Имя участника
+    username_placeholder: Имя участника
+    useremail_placeholder: Эл. почта
+    userpasscode_placeholder: Код доступа
+    words_added: Добавлено cлов<br>(статья | пользователь | черновик)
+    role:
+      visitor: Посетитель
+      student: Студент
+      instructor: Инструктор
+      wiki_ed_staff: Сотрудники Wiki Education
+  user_profiles:
+    disclaimer: Предоставленная Вами информация будет доступна публично.
+    bio_placeholder: Добавьте свою биографию (необязательно)
+    location_placeholder: Добавить свое местоположение (необязательно)
+  wizard:
+    assignment_dates: Даты заданий
+    assignment_description: Выбрать начальную и конечную даты для любого задания.
+      Например, если вы хотите начать свой проект Википедия второй недели занятий,
+      задать дату начала задания до одной недели после даты начала курса. Этот инструмент
+      проектирования заданий позволит создать график проекта, который вписывается
+      в график времени, который вы выберете.
+    assignment_type: Что студенты сделают в рамках своего задания в Википедии?
+    confirm_dates: Выберите даты проведения, еженедельных обсуждений и каникул для
+      вашего курса.
+    course_dates: Даты проведения курса
+    minimum_options:
+      one: Пожалуйста, выберите через %{count} или другие варианты.
+      other: Пожалуйста, выберите через %{count} или другие варианты.
+    read_less: Кратко
+    read_more: Подробнее
+    review_selections: Пожалуйста, просмотрите выбранные вами опции ниже. Нажмите
+      на опцию, чтобы изменить. После завершения нажмите 'Submit', чтобы завершить
+      выбор и построить ваш список назначений.
+    select_assignment: Выберите вид задания, которое вы хотите добавить в список.
+    summary: Итог
+  error:
+    oauth_invalid: Ваша авторизация в Википедии истекла. Пожалуйста, войдите ещё раз.
+    start_date_before_end_date: Дата начала должна быть раньше даты окончания
+    unsupported_browser:
+      header: Ваш браузер не поддерживается.  :-(
+      explanation: Вы используете браузер, который не совместим с панелью мониторинга.
+        Этот сайт хорошо работает в последних версиях Chrome, Firefox, Edge и в других
+        современных браузерах.
+  error_401:
+    header: Неавторизован. >:-(
+  error_404:
+    header: Страница не найдена. :-(
+  error_500:
+    header: 500 — внутренняя ошибка сервера. :-(
+  login_error:
+    header: Ошибка входа
+  survey:
+    email:
+      headline: Здравствуйте, %{username}
+      course: 'Курс: %{course_info}'
+      closing: С уважением,
+      signed: '- Команда Wiki Education'
+      link: Принять участие в опросе
+    edit_survey: Редактировать опрос
+  wiki_api:
+    create_account_reason: Этот пользователь учавствует в %{event}.
+  article_finder:
+    article_finder: Поиск статьи
+    article_quality: Качество статьи(0-100)
+    assign_article_self: Назначить себя
+    average_views: В среднем просмотров в день
+    category_search: Поиск по категории
+    hide_options: Скрыть параметры
+    more_results: Ещё результаты
+    page_assessment_class: Класс
+    relevanceIndex: Индекс релевантности
+    remove_article_wikidata: Удалить элементы
+    search: Найти
+    show_options: Показать параметры
+    submit: Отправить
+    tools: Инструменты
+    unassign_article_self: Отменить назначение статьи
+  multi_wiki:
+    selector_placeholder: Начните вводить домен wiki
+  news:
+    post_confirmation:
+      confirmation: Пожалуйста, подтвердите
+    delete_confirmation:
+      confirmation: Пожалуйста, подтвердите.
+    footer:
+      P&E_dashboard:
+        link_text: Викимедиа
+    options:
+      news_content:
+        delete_news: Удалить новость
+        confirm_delete: Подтвердить
+        cancel_delete: Отменить
+        cancel_edit: Отменить правку
+        edit_news: Править новость
+      create_news:
+        confirm_post: Подтвердить публикацию
+        discard_post: Отменить новость
+    notification:
+      empty_create_news_content_error: Пожалуйста, введите содержание новости перед
+        публикацией.
+  notes:
+    title: Заголовок
+    note_text: Текст примечания
+    cancel_note_creation: Отмена
+    cancel_edit_note: Отменить
+    save_note: Сохранить
+  question_groups:
+    edit_question_group: Редактировать группу вопросов
+...

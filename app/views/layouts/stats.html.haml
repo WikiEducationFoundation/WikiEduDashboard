@@ -1,0 +1,18 @@
+!!!
+%html{ dir: rtl? ? "rtl" : nil, lang: I18n.locale }
+  %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+  - before = content_for?(:before_title) ? yield(:before_title) : ''
+  - after = content_for?(:after_title) ? yield(:after_title) : ''
+  %title= raw "#{before}#{ENV['dashboard_title']}#{after}"
+  = logo_favicon_tag
+  %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
+
+  = dashboard_stylesheet_tag("main")
+
+  %body
+    %div
+      = yield
+      :css
+        .tooltip-trigger { pointer-events: none }
+        .stat-display { margin-top: 20px }
+        body { height: 0; background: white; }

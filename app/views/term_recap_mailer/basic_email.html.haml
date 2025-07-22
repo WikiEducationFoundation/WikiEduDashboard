@@ -1,0 +1,36 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                I'd like to thank you for participating in the Wikipedia Student Program during the
+                #{link_to @campaign.title, "https://#{ENV['dashboard_url']}/campaigns/#{@campaign.slug}", class: 'link'} term.
+              %p.paragraph
+                You and your students are part of a cohort of #{@campaign.courses.count} courses
+                whose #{@campaign.students.count} students contributed #{number_to_human @presenter.word_count, delimiter: ','} words to Wikipedia so far.
+              %p.paragraph
+                You can always refer back to your
+                %a.link{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"} course page
+                to review your students' work.
+
+              %p.paragraph
+                If you've taught more than one course with us, just go to
+                %a.link{href: "https://#{ENV['dashboard_url']}/my_account"} your profile page
+                to see your collective impact.
+
+              %p.paragraph
+                Wishing you all the best, 
+                %br
+                %em
+                  Helaine Blumenthal, Senior Program Manager
+
+              %p.info
+                This is an automated email from Wiki Education intended to give you a recap of your students' impact.
+                If you have thoughts about it you can let us know by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=basic-term-recap-email'} leave feedback here.

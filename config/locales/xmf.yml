@@ -1,0 +1,51 @@
+# Messages for Mingrelian (მარგალური)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Narazeni
+# Author: Silovan
+---
+xmf:
+  application:
+    cancel: გოუქვაფა
+    cookie_consent_acknowledge: ქეგებგი
+    create_accounts: ვიკიპედია ანგარიშეფიშ გოჭყაფა
+    documentation: დოკუმენტაცია
+    greeting_extended: მოზოჯით ვიკიპედიაშა
+    greeting: გომორძგუა!
+    help: მოხვარა
+    home: დუდხასჷლა
+    log_in_extended: ვიკიპედიაშა მიშულა
+    log_in: მიშულა
+    log_out: გიშულა
+    change: თირუა
+    details: დეტალეფი
+    confirm: OK
+    opt_in: ქო
+    opt_out: ვარი
+    opt_yes: ქო
+    opt_no: ვარი
+  article_statuses:
+    not_yet_started: დოჭყაფა
+    reading_the_article: სტატიაშ კითხირი
+  articles:
+    article_not_found: თე სტატია დიო ვა რე გოჭყაფილი.
+  courses_generic:
+    creator:
+      checking_for_uniqueness: თე პროგრამა უნიკალურობაშ გეშა იმორსებუაფუ.
+      find: პროგრამაშ გორუა
+  instructor_view:
+    bad_work:
+      learn_more_button: ქიგეგით უმოსი
+  revisions:
+    show_all: არძაშ ძირაფა
+  users:
+    assign_articles: მეშანილი სტატიეფი
+    assign_articles_done: ღოლამირჷ რე
+    training_module_time:
+      minutes: წთ
+      seconds: წმ
+  login_error:
+    header: ჩილათა მიშულას
+  training_status:
+    completion_time: თებაშ ბორჯი
+...

@@ -1,0 +1,35 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = t('survey.email.headline', username: @user.real_name || @user.username)
+              %p.paragraph
+                = t('survey.email.message_line1')
+              %p.paragraph
+                = t('survey.email.message_line2')
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{href: "#{course_survey_url(@notification)}"}
+                = t('survey.email.link')
+            %td.expander
+        %table
+          %tr
+            %td.main-content.info-cell
+              %div.info= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
+            %td.expander
+        %br
+        %table
+          %tr
+            %td.main-content
+              .paragraph= t('survey.email.closing')
+          %tr
+            %td.main-content
+              .paragraph= @signed_by || t('survey.email.signed')
+            %td.expander

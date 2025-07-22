@@ -1,0 +1,726 @@
+# Messages for Albanian (shqip)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Arianit
+# Author: Kosovastar
+# Author: Liridon
+# Author: Ritam
+---
+sq:
+  accessibility:
+    number_field: Kjo është një fushë numerike. Butonat e renderuar nga shumica e
+      shfletueseve do e shtojë ose zvogëlojë numrin.
+  application:
+    cancel: Anulo
+    cookie_consent_see_more: Shiko me shumë.
+    dashboard: Paneli Wiki Ed
+    documentation: Dokumentacioni
+    error: 'Aty kishte një gabim:'
+    explore: Eksploro
+    field_required: Kjo fushë është e detyrueshme
+    field_invalid_characters: Kjo fushë ka karaktere të pavlefshme
+    field_invalid_date: Kjo fushë kërkon një datë në formatin VVVV-MM-DD
+    greeting2: Mirësevjen
+    greeting_extended: Mirë se vini në Wikipedia
+    greeting: Tungjatjeta
+    help: Ndihmë
+    home: Faqja kryesore
+    log_in_extended: Hyni në Wikipedia
+    log_in: Hyni
+    log_out: Dil
+    my_dashboard: Paneli im
+    recent_activity: Aktiviteti i fundit
+    report_problem: Raportoni një problem
+    request_account_create: Krijo një llogari
+    search: bëj një pyetje
+    sign_up_extended: Regjistrohu me Wikipedian
+    sign_up_log_in_extended: me Wikipedian
+    sign_up: Krijo llogari
+    submit: Dërgo
+    training: Trajnim
+    change: Ndrysho
+    details: Detaje
+    confirm: Në rregull
+    opt_in: Po
+    opt_out: Jo
+    opt_yes: po
+    opt_no: jo
+  article_statuses:
+    providing_feedback: Ofroni sugjerime
+  dashboard:
+    create_note: Shtyp në Krijo Kurs për të krijuar kursin tuaj të parë.
+    create_preparation_note: Sigurohu që të keni kalendarin tuaj afër para se të filloni;
+      mjeti i projektimit të detyrave do të përdorë datat e takimit të klasës tuaj
+      — duke përfshirë çdo pushim dhe festë — të përshtat afatin tuaj kohor në datat
+      që ju zgjidhni. Mos harroni se ju gjithmonë mund të redaktoni afatet për të
+      përshtatur nevojat tuaja.
+    explore_course_pages: Eksploroni faqet e kursit
+    explore_examples: Eksploroni Shembujt
+    join_note: Pasi të keni marrë një kod kalimi nga instruktori juaj, klikoni mbi
+      Gjeni Kursin Tuaj për të gjetur dhe për t'u bashkuar atij.
+    no_courses_instructor: Duket se ju nuk keni ndonjë kurs.
+    no_courses_student: Duket se ju nuk jeni bashkuar ende në ndonjë kurs.
+    opt_out: Kërkoni që të tejkaloni orientimin
+    orientation_notice: Para se të krijoni një kurs, le të shkojmë nëpër orientimin
+      për t'ju ndihmuar që ju të mund të filloni. (Ajo merr rreth 30 minuta.)
+    review_orientation: Shqyrto Orientimin
+    start_orientation: Fillo Orientimin
+    blog_headline: Lajmet e fundit nga Wiki Education
+  home:
+    explore: Eksploro
+    log_in: Hyni me Wikipedian
+    sign_up: Regjistrohu me Wikipedian
+    sign_up_help: Për të përdorur panelin, ju do duhet të hyni përmes Wikipedias dhe
+      ti lejoni të ketë qasje në llogarinë tuaj. Ju mund të hyni me një llogari ekzistuese
+      të Wikipedias ose të krijoni një të ri.
+  activity:
+    all: Aktiviteti
+    edited_by: Redaktuar nga
+    label: Aktiviteti
+  articles:
+    assigned: Artikujt e caktuar
+    available: Artikujt në dispozicion
+    previous: Paraprake
+    article_title: Titulli i artikullit
+    assigned_to: Caktuar për
+    character_doc: Shuma e shkronjave të shtuara në artikuj nga redaktorët e regjistruar
+      mes fillimit dhe mbarimit të datave
+    edited: Artikuj të redaktuar
+    edited_by: 'Redaktuar nga:'
+    edited_mobile: Artikuj
+    filter:
+      wiki_all: Të gjitha
+      new: E re
+    hide: Fshih
+    history: (historiku)
+    label: Artikuj
+    loading: Duke u ngarkuar artikujt...
+    new: (i ri)
+    none: Kjo lëndë nuk ka redaktuar ndonjë artikull.
+    rating: Klasa
+    rating_doc: Vlerësimi i një artikull është caktuar nga WikiProjektet në Wikipedia.
+      Këto vlerësime mund të korrespondojnë me versione më të vjetra, kështu që ata
+      janë vetëm një tregues i përafërt i pjekurisë së artikullit.
+    rating_docs:
+      fa: Artikull i përkryer — Vlerësimi më i lartë në Wikipedia, me siguri një artikull
+        shumë i pjekur për projekt kryesor të një redaktor të ri.
+      fl: Listë e përkryer — Lista me vlerësimin më të lartë për listat
+      a: Klasë A — artikull shumë i zhvilluar, që mund të jetë artikull shumë i pjekur
+        për projekt kryesor të një redaktori të ri
+      ga: Artikull i mirë — një artikull i mirë-zhvilluar që mund të jetë shumë i
+        pjekur për projekt kryesor të një redaktori të ri
+      b: Klasë B — artikull mesatarisht i zhvilluar
+      c: Klasë C - një artikull i ndërmjetëm me hapësirë për përmirësim
+      start: Klasë fillestare — një artikull paraprak me shumë vend për përmirësim
+      stub: Klasë Cung — një fillim i shkurtë i një artikulli që ka nevojë për më
+        shumë përmbajtje
+      list: Klasë Listë — më tepër një listë se një artikull konvencional
+      '?': I pavlerësuar — një artikull që ende nuk është vlerësuar në shkallët e
+        cilësisë së Wikipedia-s
+      does_not_exist: Ky artikull nuk ekziston në Wikipedia
+    see_more: Shiko me shumë
+    show_cumulative_changes: Trego Ndryshimet Kumulative
+    show_current_version: Trego Versionin Aktual
+    title: Titulli
+    title_example: Titulli i artikullit
+    view: Shiko Artikullin
+    view_all: Shiko të Gjitha
+    view_doc: Shuma e të gjitha shikimeve për çdo artikull gjatë projektit
+    view_on_wiki: Shiko në wiki
+    views_added: Shtuar %{count} shikime të reja për %{title}
+    wp10: Plotënia Strukturore
+    wp10_doc: Rezultati 'Plotënia Strukturore' tregon se si ngushtë një artikull i
+      përshtatet një artikulli të pjekur në Wikipedia, bazuar në në makinën mësuese
+      të Shërbimin e Rishikimit Vlerësues Objektiv (https://ores.wikimedia.org/).
+      Këto rezultate llogaritën bazuar në madhësinë e një artikulli, numrin e referencave
+      dhe wikilidhjet, dhe të tjera tipare themelore të tekstit. Një vlerësim i lartë
+      zakonisht tregon se një artikull ndjekë konventat e Wikipedia-s për strukturën
+      e një artikulli të mirë, por nuk merrë parasysh vetë përmbajtjen. (Këto rezultate
+      janë në dispozicion vetëm për artikujt në anglisht të Wikipedia-s.)
+    articles_short: Artikuj
+  articles_wikidata:
+    articles_short: Objektet
+  articles_generic:
+    articles_short: Faqet
+  assignments:
+    article: Artikulli %{title} është caktuar
+    article_link: Artikull
+    already_exists: Kjo detyrë tashmë ekziston!
+    assignees: I/të caktuari(t)
+    assign_other: Cakto një artikull
+    add_available: Shto një artikull në dispozicion
+    add_available_submit: Shto artikuj
+    assign_self: Caktoja vetes një artikull
+    confirm_add_available: A jeni të sigurt që doni të shtoni %{title}?
+    confirm_addition: A jeni të sigurt që doni të caktoni %{title} për %{username}?
+    confirm_deletion: Jeni i sigurt se doni të fshini këtë artikull detyrë?
+    editors: Caktuar për
+    label: Cakto
+    loading: Po ngarkohen detyrat...
+    none_short: Nuk ka artikuj të caktuar
+    none: Kjo lëndë nuk ka artikuj të caktuar.
+    no_available: Kjo lëndë nuk ka artikuj në dispozicion.
+    remove: Hiqe
+    reviewers: Recensues(it)
+    review_other: Cakto një shqyrtim
+    review_self: Shqyrto një artikull
+    select: Zgjidhni
+  blocks:
+    milestones:
+      title: Objektivat
+  campaign:
+    active_campaigns: Fushatat Aktive
+    add_organizer: Shto organizator
+    alert_article: Titulli i artikullit
+    alert_type: Lloji
+    alert_user_id: Përdorues
+    all_campaigns: Të Gjitha Fushatat
+    already_exists: Ajo fushatë tashmë ekziston! Ju lutemi provoni përsëri me një
+      tjetër titull ose përshkrim.
+    campaign: Fushatë
+    campaigns: Fushata
+    campaign_deleted: Fushata "%{title}" është fshirë
+    campaign_not_updated: Fushata nuk mund të përditësohej
+    campaign_updated: Fushata u përditësua
+    created_at: Data
+    confirm_campaign_deletion: Jeni i sigurt se doni të fshini fushatën e titulluar
+      %{title}? Nëse po, shkruani titullin e fushatës për të vazhduar.
+    confirm_campaign_deletion_failed: '"%{title}" nuk është titull i kësaj fushate.
+      Fushata nuk është fshirë.'
+    course: Lënda
+    create_campaign: Krijo një Fushatë të Re
+    create_my_campaign: Krijo Fushatën time!
+    data_articles: Faqet e redaktuara
+    data_instructors: Instruktorët
+    description: Përshkrimi
+    delete_campaign: Fshini këtë fushatë
+    no_passcode: nuk ka kodkalim
+    none: Asnjë
+    organizers: Organizatorët
+    organizer_added: '%{user} tani është një organizator i fushatës "%{title}"'
+    organizer_removed: '%{user} është hequr si organizator i fushatës "%{title}"'
+    program_template: Programi Shabllon
+    program_template_tooltip: Kur një organizator krijon një program në këtë fushatë,
+      teksti në këtë fushë do të kopjohet si përshkrim në faqen e programit
+    title: Titulli
+    use_start_end_dates: Përdor datat e fillimit dhe mbarimit
+  categories:
+    add_category: Shtoni kategori
+    add_template: Shtoni gjedhe
+    add_this_category: Shtoni këtë kategori
+    add_this_template: Shtoni këtë gjedhe
+    name: Emri
+    category_name: Emri i kategorisë
+    remove: Largo
+  courses:
+    activity: Aktiviteti
+    active_courses: '%{course_type} aktive'
+    all_courses: Të Gjitha Lëndet
+    already_enrolled: Tashmë jeni pjesë e '%{title}'!
+    already_exists: Ajo tashmë ekziston për këtë lëndë!
+    archived: Lëndet e Arkivuara
+    actions: Veprimet
+    articles: Artikujt
+    assignment_headings:
+      assigned_articles: Artikujt e caktuar
+      available_articles: Artikujt në dispozicion
+    assignment_end: Fundi i detyrës
+    assignment_start: Fillimi i Detyrës
+    calendar:
+      legend: Legjenda
+      legend_class_canceled: Festë/Anuluar
+      legend_class_meeting: Takim i Klasës
+      legend_class_not_meeting: Nuk ka Takim të caktuar
+      select_meeting_days: Zgjidhni ditët e javës kur takohet klasa juaj.
+    cancel: Anulo
+    character_doc: Shuma e shkronjave e shtuar në artikuj nga nxënësit gjatë afatit
+    campaigns: 'Fushatat:'
+    campaign_courses: '%{title} Lëndet'
+    confirm_course_deletion: Jeni i sigurt se doni të fshini kursin e titulluar %{title}?
+      Nëse po, shkruani titullin e lëndës për të vazhduar.
+    confirm_course_deletion_failed: '"%{title}" nuk është titulli i kësaj lënde. Lënda
+      nuk është fshirë.'
+    course: Lënda
+    course_dates_calendar_instructions: Zgjidhni datat për të shtuar ose hequr ato
+      nga lista (p.sh., festat, pushimet shkollore). Kliko tani për të ndryshuar në
+      mes të pazgjedhur, zgjedhur, dhe festa shtetërore. Datat e aktiviteteve të lëndës
+      do të ndryshojnë për të dhënë llogari për javët që nuk kanë mësim.
+    course_description: Lëndë
+    courses: Lëndët
+    courses_taught: Lëndët e Dhëna
+    creation_date: Data e Krijimit
+    creator:
+      already_exists: Kjo lëndë tashmë ekziston. Konsideroje ndryshimin e emrit, shkollës,
+        ose periudhës për ta bërë atë unike.
+      assignment_end: Fundi i detyrës
+      assignment_end_placeholder: Fundi i detyrës (VVVV-MM-DD)
+      assignment_start: Fillimi i Detyrës
+      assignment_start_placeholder: Fillimi i detyrës (VVVV-MM-DD)
+      checking_for_uniqueness: Kjo lëndë është duke u kontrolluar për unikalitet.
+      clone_previous: Klono Lëndën e Mëparshme
+      clone_this: Klono Këtë Kurs
+      clone_successful: Lënda u Klonua me Sukses
+      course_description: Përshkrimi i lëndës
+      course_school: Shkolla e lëndës
+      course_subject: Fusha e lëndës
+      course_term: Periudha e lëndës
+      course_term_placeholder: Periudha
+      course_title: Titulli i lëndës
+      create_button: Krijo Lëndën time!
+      create_label: Krijo Lëndë të Re
+      create_new: Krijo një Lëndë të Re
+      create_short: Krijo Lëndë
+      end_date: Data e përfundimit
+      end_date_placeholder: Data e përfundimit (VVVV-MM-DD)
+      expected_number: Numri i pritur i nxënësve
+      find: Gjeni Lëndën Tuaj
+      no_class_holidays: Nuk kam pushim shkollor
+      save_cloned_course: Ruaj Lëndën e Re
+      start_date: Data e fillimit
+      start_date_placeholder: Data e fillimit (VVVV-MM-DD)
+      subject: Fusha e lëndës
+    current: Lëndët Aktuale
+    delete_course: Fshij lëndën
+    dismiss_survey: Largoje
+    dismiss_survey_confirm: A jeni të sigurt që doni përgjithmonë të largoni këtë
+      sondazh?
+    duration: Kohëzgjatja e Lëndës
+    edit_course_dates: Ndrysho Datat e Lëndës
+    end: Fundi
+    enroll: Regjistrohu
+    enrollment: Regjistrimi
+    error:
+      exists: Ajo fushatë tashmë ekziston! Ju lutemi provoni përsëri me një tjetër
+        titull, shkollë ose periudhë.
+      user_exists: Na vjen keq, %{username} nuk është një përdorues ekzistues.
+      invalid_language_or_project: Gjuhë/projekt i pavlefshëm
+    expected_students: Nxënësit e Pritur
+    gradeables_none: Kjo lëndë nuk ka detyra me notë.
+    instructor:
+      one: Instruktori
+      other: Instruktorët
+    instructors: Instruktorët
+    invitation: |-
+      Jeni ftuar për t'u bashkuar me %{title}. Të bëheni pjesë e lëndës, duhet të hyni me një llogari të Wikipedia-s.
+      Nëse nuk keni një llogari në Wikipedia, krijoni një tani.
+    join: Bëhu pjesë
+    join_course: Bëhu pjesë e lëndës
+    join_prompt: Bashkohu '%{title}'?
+    join_successful: Jeni bërë pjesë e lëndës %{title}.
+    join_failed: Regjistrimi dështoi.
+    join_details: Për t'u bashkuar me këtë lëndë, ju duhet të merrni një kod -- apo
+      një lidhje regjistrimi që përfshinë kodin e hyrjes — nga instruktori. Nëse nuk
+      e keni marrë këtë, kontaktoni instruktorin tuaj.
+    leave_confirmation: A jeni të sigurt që doni të leni këtë lëndë?
+    leave_course: Dil nga lënda
+    loading: Duke u ngarkuar...
+    milestones_none: Kjo lëndë aktualisht nuk ka asnjë cak.
+    my_articles: Artikujt e Mi
+    needs_update: Vendos orarin e freskimit të të dhënave
+    new_week: Shto Javë të Re
+    nocourses: Ju nuk po merrni pjesë në ndonjë lëndë.
+    nocourse: nuk ka marrë pjesë në ndonjë lëndë.
+    none: Asnjë
+    no_available_actions: Nuk ka veprime në dispozicion
+    overview: Përmbledhje
+    passcode: Kodkalim
+    passcode_none: Nuk ka kodkalim
+    passcode_prompt: 'Shkruani kodin e hyrjes për t''u bashkuar:'
+    published: 'Lënda juaj është botuar! Studentët mund të regjistrohen në lëndë duke
+      vizituar URL-në e mëposhtme:'
+    revisions_doc: Numri i redaktimeve në %{timeframe} ditët e fundit
+    revisions_none: Kjo lëndë nuk ka aktivitet redaktimi në Wikipedia së fundi.
+    school: Shkolla
+    start: Fillimi
+    start_typing: Filloni të shtypni
+    students: Studentët
+    students_count: '# Studentët'
+    student_editors: Nxënësit Redaktorë
+    students_none: Kjo lëndë nuk ka nxënës.
+    students_short: Studentët
+    submitted_admin: Kjo lëndë është dorëzuar për miratim nga krijuesi i saj. Për
+      ta miratuar atë, shtoni atë në një fushatë në faqen Vështrim.
+    submitted_and_pending_heading: Miratimet e Dorëzuara dhe në Pritje
+    submitted_heading: Lëndët e Dorëzuara
+    submitted_note: Kursi juaj është dorëzuar. Stafi i Wiki Ed do të shqyrtojë atë
+      dhe do t'ju kontaktoj me ndonjë pyetje.
+    user_role: Roli
+    course_details: Detajet e Lëndës
+    term: Periudha
+    timeline: Detajet e Detyrës
+    timeline_link: Periudha e realizimit
+    time_zone_message: Koha e fillimit dhe fundit janë shfaqur në kohën tuaj lokale.
+    title: Titulli
+    training_due: Moduli i trajnimit "%{title}" është caktuar për këtë lëndë, dhe
+      kërkohet deri më %{date}.
+    training_nav: Shko te trajnimi
+    unsubmitted: Lëndët e Padorëzuara
+    untrained: Patrajnuar
+    uploads_none: Kjo klasë nuk ka kontribuar ndonjë fotografi ose skedarë të tjerë
+      medial në Wikimedia Commons.
+    view_other: Shiko fushatat tjera
+    view: Shiko Lëndën
+    view_doc: Shuma e të gjitha shikimeve të artikujve të redaktuar nga redaktorët
+      e regjistruar qysh kur redaktori i tyre ka bërë redaktimin e parë në secilin
+      artikull
+    view_page: Shiko Faqen e Lëndëve
+    view_wiki: Shiko në Wikipedia
+    volunteer:
+      other: një=Vullnetar
+    weeks_none: Kjo lëndë end nuk ka një afat kohor.
+    warn_mirrored: |-
+      Pas dorëzimit, kjo lëndë do të jetë automatikisht e postuar në Wikipedia me llogarinë tuaj. Pas kësaj, redaktimet e reja në kohështrirje do të pasqyrohet në Wikipedia.
+      A jeni të sigurt që ju doni të bëni këtë?
+    wiki_staff: Stafi i Wiki Ed
+    word_count_doc: Përllogaritja e numrit të fjalëve të shtuar në artikuj nga studentët
+      e lëndës gjatë afatit
+    yourcourses: Lëndët Tuaja
+    survey:
+      notification_message: Bëj anketën për këtë lëndë.
+      link: Filloni anketën
+  courses_generic:
+    archived: Programet e Arkivuara
+    assignment_end: Fundi i Afatit Kohor
+    assignments_none: Ky projekt nuk ka artikuj të caktuar.
+    assignment_start: Fillimi i Afatit Kohor
+    cancel: Anulo
+    courses: Programet
+    courses_taught: Programe të Dhëna
+    campaigns: 'Fushatat:'
+    campaign_courses: '%{title} Programet'
+    creator:
+      checking_for_uniqueness: Ky program është duke u kontrolluar për unikalitet.
+      clone_previous: Klono Programin e Mëparshëm
+      clone_this: Klono Këtë Program
+      course_description: Përshkrimi i programit
+      course_school: Institucioni
+      course_title: Titulli i programit
+      create_button: Krijo Programin tim!
+      create_label: Krijo Program të Ri
+      create_new: Krijo një Program të Ri
+      create_short: Krijo Program
+      find: Gjeni një Program
+      intro: Titulli i programit është i nevojshëm, çdo gjë tjetër mund të plotësohet
+        më vonë. Klikoni "Krijo Programin tim!" për të filluar ndërtimin e faqes tuaj
+        të programit wiki.
+    delete_course: Fshini programin
+    edit_course_dates: Ndrysho Datat e Projektit
+    enroll: Shtoni Redaktor
+    enrollment: Pjesëmarrja
+    explore: Gjeni Programet
+    expected_students: Redaktorët e Pritur
+    instructors: Lehtësuesit
+    join_course: Bashkoju programit
+    join_details: Për t'u bashkuar me këtë program, ju duhet të merrni kodin e hyrjes
+      — ose lidhje që përfshinë kodin e hyrjes — nga lehtësuesi.
+    leave_course: Lëre programin
+    milestones_none: Kjo projekt aktualisht nuk ka ndonjë cak.
+    published: 'Ky projekt është botuar! Redaktorët mund të regjistrohen duke vizituar
+      URL-në e mëposhtme:'
+    revisions_none: Ky projekt nuk ka aktivitet redaktimi së fundi.
+    school: Institucioni
+    student_editors: Redaktorët
+    student: Redaktor
+    students: Redaktorët
+    students_none: Ky projekt nuk ka asnjë redaktor të regjistruar.
+    students_short: Redaktorët
+    students_count: Numri i pjesëmarrësve
+    term: Kur
+    unsubmitted: Programet e Padorëzuara
+    uploads_none: Ky projekt nuk ka kontribuar ndonjë fotografi ose skedar tjetër
+      medial në Wikimedia Commons.
+    view_other: Shiko fushatat tjera
+    view_page: Shiko Faqen e Programit
+    word_count_doc: Përllogaritja e numrit të fjalëve të shtuar në artikuj nga redaktorët
+      e programit gjatë afatit
+    yourcourses: Programet Tuaja
+  editable:
+    edit: Redakto
+    cancel: Anulo
+    save: Ruaj
+    edit_description: Ndrysho Përshkrimin
+    edit_details: Redakto Detajet
+  instructor_view:
+    bad_work:
+      learn_more_button: Mëso më shumë
+  metrics:
+    activity: Aktiviteti së fundi
+    are_trained: kanë përfunduar trajnimin
+    articles_created: Artikuj të Krijuar
+    articles_edited: Artikuj të Redaktuar
+    characters: Karakterët
+    char_added: Gërma Shtuar
+    char_changed: Karaktere të Ndryshuara
+    char: Gërma Shtuar
+    date_time: Data/Koha
+    edit_count_description: Gjithsej Redaktime
+    per_user: '%{number}/përdoruesi'
+    revisions: Redaktimet e Fundit
+    tags: Etiketat
+    upload_count: Ngarkimet në Commons
+    uploads_in_use_count:
+      one: skedar i përdorur në një artikull
+      other: skedarë të përdorur në artikuj
+    upload_usages_count:
+      one: përdorimi i përgjithshëm nëpër gjuhë
+      other: gjithsej përdorime nëpër gjuhë
+    view_count_description: Lexime të artikujve
+    view: Shikime
+    word_count: Fjalët e Shtuara
+    word_count_average: Numri Mesatar i Fjalëve
+  namespace:
+    main: Hapësira e Artikujve
+    main_char_added: Gërmat shtuar në hapësirën e artikujve
+    user: Hapësira e përdoruesit
+    user_char_added: Gërma të shtuara në hapësirën e përdoruesit
+  recent_activity:
+    active_courses: Artiulli është aktiv në
+    article_title: Titulli i Artikullit
+    datetime: Data/Koha
+    image: Imazhe
+    file_name: Emri i Skedarit
+    no_edits: Nuk ka redaktime së fundi.
+    plagiarism_report: Raport i Plagjiaturave
+    possible_plagiarism: Mund të jetë Plagjiaturë
+    recent_edits: Redaktimet së fundi
+    recent_uploads: Ngarkimet e Fundit
+    revision_author: Autori i Ndryshimeve
+    revision_datetime: Data/Koha e Ndryshimit
+    revision_score: Rezultati i Recenzionit
+    show_courses: Trego Vetëm Lëndët e Mia
+    uploaded_by: Ngarkuar Nga
+    usage_count: Nunëri i Përdorimeve
+  revisions:
+    chars_added: Gërma Shtuar
+    class: Klasa
+    date_time: Data/Koha
+    diff: ndryshimet
+    diff_show: Trego
+    diff_hide: Fshih
+    edited_by: Redaktuar Nga
+    loading: Ngarkimi i ndryshimeve...
+    none: Kjo lëndë nuk ka aktivitet redaktimi së fundi.
+    time_doc: Koha e çdo ndryshimi në kohën tuaj lokale
+    title: Titulli
+    view_on_wiki: Shiko ndryshimet në wiki
+  tasks:
+    conseq: Detyra %{task} veç po bëhet!
+    constant: Detyra %{task} nuk mund të bëhet ndërsa detyra e freskimit ditor është
+      duke u bërë.
+    paused: Detyra %{task} nuk mund të bëhet sepse freskimet e planifikuara janë ndërprerë.
+      Aktivizo 'rake batch:resume' për të rifilluar freskimet.
+  timeline:
+    add_week: Shtoni Javën
+    arrange_timeline: Organizoni Kohën e Realizimit
+    arrange_timeline_instructions: Caktoni afatin kohor duke 'kapë dhe lëshuar' blloqe
+      në vendndodhjen/javën e dëshiruar, ose ripozicionuar blloqet duke përdorur shigjetat
+      në kartë.
+    assignment_dates_instructions: Zgjidhni datën e fillimit dhe fundit për afatin
+      e detyrës në Wikipedia. Ndryshimi i datës së fillimit do të zhvendosë datat
+      për tërë planin.
+    blackout_week_created: Ka blloqe të planifikuara për këtë javë. Ju lutem lëvizni
+      ato një tjetër javë para se të hiqni takimin e fundit të klasës për këtë javë.
+    block_assignment: Detyra
+    block_custom: E veçantë
+    block_in_class: Në Klasë
+    block_milestone: Objektivë
+    block_type: Lloji i bllokut përdoret për të komunikuar me nxënësit tuaj në lidhje
+      me këtë pikë në objektivat e tyre dhe për të ndërtuar vegla të dobishme për
+      ju (të tilla si lista e objektivave në faqen Pasqyrë)
+    course_dates: Datat e Lëndës
+    course_dates_instructions: Zgjidhni datat e fillimit dhe të mbarimit të tërë lëndës
+      (jo vetëm detyra në Wikipedia).
+    course_end: Fundi i Lëndës
+    course_start: Fillimi i Lëndës
+    delete_week_confirmation: |-
+      Jeni i sigurt që dëshironi të fshini këtë javë? Kjo do të fshijë këtë javë dhe të gjithat blloqet e saj shoqëruese.
+
+      Kjo nuk mund të zhbëhet.
+    discard_all_changes: Hidhni të Gjitha Ndryshimet
+    due_default: Kërkohet javën e ardhshme
+    empty_week_1: Për të filluar,
+    empty_week_2: fillo redaktimin këtë javë
+    empty_week_3: ose
+    empty_week_4: përdorni magjistarin e detyrave për të krijuar një planifikim kohor.
+    first_week_title: Java e Parë Aktive
+    gradeable_value: Vlera
+    gradeables_none: Ky planifikim kohor nuk ka detyra të shënuara si të vlerësuara.
+    grading_header: 'Nota (Totali: %{total}%)'
+    move_block_down: Lëvizni bllokun poshtë
+    move_block_up: Lëvizni bllokun lartë
+    no_class_holidays: Nuk kam pushim shkollor
+    no_timeline: Kjo lëndë nuk ka asnjë afat kohor.
+    no_activity_this_week: Nuk ka takime të planifikuara këtë javë
+    nothing_this_week: Nuk ka asgjë në orar për këtë javë.
+    save_all_changes: Ruaj të Gjtha
+    this_week_title_default: Këtë Javë
+    title: Periudha e realizimit
+    unable_to_add_week: Nuk mund të shtoni javë të reja kur agjenda juaj është e plotë.
+      Fshini të paktën një javë ose ndryshoni datat e detyrave për të bërë vend për
+      një të re.
+    view_full_timeline: Shiko të Plotë Periudhën e Realizimit
+    week_number: Java %{number}
+  training:
+    continue: Vazhdo (%{progress})
+    start: Fillo
+    view: Shiko
+    logged_out: Jeni ç'regjistruar. Nuk do t'ju njihet përfundimi i këtij moduli,
+      nëse nuk kyçeni.
+  uploads:
+    file_name: Emri i Skedarit
+    header: Skedarët Ngarkuar në Wikimedia Commons
+    image: Imazhi
+    label: Ngarkimet
+    loading: Duke shfaqur ngarkimet...
+    none: Kjo klasë nuk ka kontribuar ndonjë fotografi ose skedarë të tjerë medial
+      në Wikimedia Commons.
+    time_doc: Koha e çdo ngarkimi në kohën tuaj lokale
+    uploaded_by: Ngarkuar Nga
+    usage_count: Nunëri i Përdorimeve
+    usages: Përdorimi
+  users:
+    already_enrolled: Ky përdorues tashmë është regjistruar!
+    assign_articles: Cakto Artikuj
+    assign_articles_done: U krye
+    assigned: Artikujt e Caktuar
+    assignees: I/të caktuari(t)
+    character_doc: Shuma e përgjithshme e përmbajtjes që një përdorues ka shtuar në
+      këtë hapësirë, e llogaritur duke mbledhur karakteret nga të gjitha redaktimet
+      që kanë rritur madhësinë e faqes. Ky numër jo domosdoshmërish pasqyron sasinë
+      e përmbajtjes së re që përdoruesi ka shtuar. Rikthimi i përmbajtjes së hequr
+      gjithashtu do të rrisë këtë numër.
+    chars_added: Karakteret e Shtuar<br>(mainspace | userspace)
+    contributions: Kontributet e Përdoruesit
+    contributions_history_full: Pamje e plotë e historisë së kontribuimit në Wikipedia
+    contributions_more: Shiko më shumë Kontribute
+    contribution_statistics: Statistikat e kontribuimit
+    course_passcode: 'Kodkalimi:'
+    editors: Redaktorët
+    enroll_confirmation: A jeni të sigurt që doni të shtoni %{username}?
+    enroll_url: 'Përdoruesit mund të bashkohen duke vizituar këtë URL:'
+    enrolled_success: '%{username} u shtua me sukses!'
+    first_name: Emri
+    last_name: Mbiemri
+    loading: Po ngarkohen përdoruesit...
+    characters_added_mainspace: Gërma Shtuar në Artikuj
+    characters_added_short: 'Artikuj: %{mainspace}, H. e përdoruesit: %{userspace}'
+    characters_added_userspace: Gërma Shtuar në H. e Përdoruesit
+    my_assigned: 'Caktuar:'
+    my_reviewing: 'Duke rishikuar:'
+    name: Emri
+    none: Nuk ka pjesëmarrës të tjerë.
+    no_articles: Nuk ka artikuj
+    no_revisions: Ky redaktor nuk ka bërë asnjë ndryshim.
+    number_of_articles:
+      one: '%{count} artikull'
+      other: '%{count} artikuj'
+    recent_revisions: Redaktimet e Fundit
+    remove_confirmation: A jeni të sigurt që doni të hiqni %{username}?
+    revision_characters_and_views: 'Gërma Shtuar: %{characters}, Shikime: %{views}'
+    revisions_doc: Numri i redaktimeve të bëra nga ky redaktor në 7 ditët e kaluara
+    reviewers: Recensues(it)
+    reviewing: 'Duke rishikuar:'
+    training_complete:
+      one: ka përfunduar trajnimin
+      other: kanë përfunduar trajnimin
+    training_complete_count:
+      one: '%{count} ka përfunduar trajnimin'
+      other: '%{count} kanë përfunduar trajnimin'
+    training_doc: Redaktorët të cilët kanë përfunduar të gjitha modulet e caktuara
+      të trajnimit në afat llogariten që kanë përfunduar trajnimin e tyre.
+    training_incomplete: Trajnimi i Paplotë
+    training_modules_completed:
+      one: '%{completed_count}/%{count} moduli i trajnimi u përfundua'
+      other: '%{completed_count}/%{count} modulet e trajnimit u përfunduan'
+    training_module_name: Modul trajnimi
+    training_module_status: Statusi
+    up_to_date_with_training: trajnimi i përfunduar
+    username: Përdoruesi
+    username_placeholder: Përdoruesi
+    role:
+      visitor: Vizitor
+      student: Nxënës
+      instructor: Instruktor
+      campus_volunteer: Vullnetar i shkollës
+      online_volunteer: Vullnetar Online
+      wiki_ed_staff: Stafi Wiki Ed
+  user_profiles:
+    student_impact: Ndikimi i përgjithshëm i bërë nga studentët e %{username}
+  wiki_edits:
+    notify_overdue:
+      confirm: Kjo do të postoj një përkujtues në faqen e diskutimit të të gjithë
+        studentëve të cilët janë vonuar në trajnim. A jeni i sigurt se dëshironi të
+        bëni këtë?
+  wizard:
+    assignment_description: Zgjidhni datën e fillimit dhe fundit për kohën e zhvillimit
+      të detyrës. Për shembull, nëse doni të filloni projektin tuaj në Wikipedia javën
+      e dytë të mësimit, vendosni datën e fillimisht të detyrës një javë pas datës
+      së fillimit të lëndës. Kjo vegël për dizajnimin e detyrës do të krijojë një
+      propozim-realizim kohor që i përshtatet datave që ju keni zgjedhur.
+    assignment_type: Lloji i përcaktimit
+    calendar_instructions: Zgjidhni datat për të shtuar ose hequr ato nga lista (p.sh.,
+      festat, pushimet shkollore). Kjo ndihmon veglën për krijimin e lëndës që saktë
+      të shpërndajë detyrat. Kliko tani për të ndryshuar në mes të gjendjes pazgjedhur,
+      zgjedhur, dhe festë. Nëse nuk keni festa, kontrolloni "unë nuk kam asnjë pushim
+      shkollor" më poshtë.
+    course_dates: Datat e Lëndës
+    select_one_option: Ju lutem zgjidhni 1 opsion.
+    read_less: Lexo më pak
+    read_more: Lexo më shumë
+    summary: Përmbledhje
+  error:
+    form_errors: Ju lutem shikoni formularin për gabime.
+    invalid_assignment: Detyrë e pavlefshme
+    invalid_date: Data %{key} është e pavlefshme
+    invalid_file_format: Skedari nuk mund të ruhej. Ju lutem ngarkoni një dokument
+      PDF ose Word.
+    oauth_invalid: Autorizimi juaj nga Wikipedia ka skaduar. Ju lutem hyni përsëri.
+    start_date_before_end_date: Data e nisjes duhet të jetë para datës së përfundimit
+    unsupported_browser:
+      header: Shfletues i papërkrahur. :-(
+      explanation: Po përdorni një shfletues që nuk është në përputhje me pultin.
+        Ky sajt punon mirë në Internet Explorer versioni 11 apo më vonë, në versionet
+        e fundit të Chrome dhe Firefox, dhe në të tjerë shfletues modern.
+  error_401:
+    header: I paautorizuar. >:-(
+    explanation: Nuk jeni i autorizuar të ekzekutoni këtë kërkesë. Nëse besoni se
+      keni arritur në këtë njoftim gabimisht, ju lutem njoftoni mirëmbajtësit e këtij
+      pulti për problemin.
+  error_incorrect_passcode:
+    header: Kodkalimi i pasaktë. :-(
+    explanation: Kodkalimi për regjistrim në këtë lëndë është i pasaktë. Ju lutemi
+      pyesni instruktorin për kodkalim aktual që të regjistroheni në këtë lëndë.
+  error_404:
+    header: Faqja nuk u gjet. :-(
+    explanation: Kjo faqe nuk ekziston. Në qoftë se po përpiqeshit të arrini në pult
+      për një lëndë, ajo lëndë mund të mos jetë regjistruar në këtë pult. Në qoftë
+      se u regjistruat kohët e fundit, mund të marrë pak kohë që ta shtoj atë sistemi.
+  error_422:
+    header: 422 — entitet i paprocesuar. :-(
+    explanation: Diçka shkoi keq. Ju lutem kontaktoni mirëmbajtësit e këtij pulti
+      për problemin.
+  error_500:
+    header: 500 — gabim i brendshëm i shërbyesit. :-(
+    explanation: Diçka shkoi keq. Ju lutem kontaktoni mirëmbajtësit e këtij pulti
+      për problemin.
+  login_error:
+    header: Gabim gjatë identifikimit
+    explanation: Duket sikur ka pasur një problem me procesin e kyçjes. (Na vjen keq
+      për këtë! Kjo ndodh herë pas here.) Ju lutemi provoni të hyni ose regjistrohuni
+      përsëri.
+  survey:
+    login_message: Faleminderit për kohën tuaj. Ju lutem, hyni në panelin tuaj të
+      Wiki Ed për të bërë anketën.
+    notification_explanation: Nëse më poshtë është aktive, përdoruesit do të marrin
+      email në bazë të afateve të njoftimit, përveç njoftimeve në shfletues. Nëse
+      jo, vetëm njoftimet në shfletues do të tregohen.
+    notification_schedule_explanation: Njoftimet përfshijnë njoftimet në shfletues
+      dhe me e-mail, nëse është aktivizuar më sipër.
+    follow_up_explanation: Lëreni bosh nëse nuk dëshironi njoftime me email.
+    email:
+      headline: Përshëndetje, %{username}
+      course: 'Lënda: %{course_info}'
+      closing: Sinqerisht,
+      signed: '- ekipi i Wiki Ed'
+      link: Merrni Anketën
+...

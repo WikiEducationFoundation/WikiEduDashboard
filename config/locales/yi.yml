@@ -1,0 +1,130 @@
+# Messages for Yiddish (ייִדיש)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Har-wradim
+# Author: Pacha Tchernof
+# Author: פוילישער
+---
+yi:
+  application:
+    cancel: אַנולירן
+    create_accounts: שאפן וויקיפעדיע־קאנטעס
+    documentation: דאָקומענטאַציע
+    error: 'ס׳האט פאסירט א פֿעלער:'
+    explore: אנטדעקן
+    field_required: דאס פֿעלד איז נויטבאר
+    field_invalid_characters: דאס פֿעלד האט אומגוליטיגע כאראקטערן
+    greeting2: ברוך הבא!
+    greeting_extended: ברוך הבא צו וויקיפעדיע
+    greeting: העלאָ!
+    help: הילף
+    home: היים
+    log_in_extended: אַרײַנלאגירן צו וויקיפעדיע
+    log_in: אַרײנלאגירן
+    log_out: אַרויסלאָגירן
+    my_dashboard: מיין איבערזיכט־טאוול
+    recent_activity: לעצטיקע אקטיוויטעטן
+    report_problem: מעלדן א פראבלעם
+    request_account: בעטן א קאנטע
+    request_account_create: שאַפֿן אַ קאנטע
+    search: פֿרעגן א שאלה
+    sign_up_extended: אַרײַנלאגירן צו וויקיפעדיע
+    sign_up_log_in_extended: מיט וויקיפעדיע
+    sign_up: אײַנשרייבן
+    submit: איינגעבן
+    change: טוישן
+    details: פרטים
+    confirm: יאָ
+    opt_in: יא
+    opt_out: ניין
+    opt_yes: יא
+    opt_no: ניין
+  home:
+    explore: אויספארשן
+    log_in: אַרײנלאגירן צו וויקיפעדיע
+    sign_up: אַרײנלאגירן צו וויקיפעדיע
+  activity:
+    all: אקטיוויטעט
+    edited_by: רעדאקטירט דורך
+    label: אקטיוויטעט
+  articles:
+    articles: אַרטיקלען
+    next: נעקסטער
+    previous: פֿריערדיקער
+    article_title: ארטיקל־טיטל
+    deleted: (אויסגעמעקט)
+    edited: אַרטיקלען רעדאַקטירט
+    edited_by: 'רעדאַקטירט דורך:'
+    edited_mobile: אַרטיקלען
+    filter:
+      wiki_all: אַלע
+      new: ניי
+    hide: באַהאַלטן
+    history: (היסטאָריע)
+    label: אַרטיקלען
+    loading: אנלאדן ארטיקלען…
+    new: (ניי)
+    rating: קלאס
+    title: טיטל
+    title_example: ארטיקל־טיטל
+    view: באַקוקן אַרטיקל
+    view_all: באקוקן אַלע
+    wiki: וויקי
+  articles_generic:
+    articles_short: בלעטער
+  campaign:
+    none: קיין
+    title: טיטל
+  courses:
+    articles: אַרטיקלען
+    calendar:
+      legend_class_canceled: פֿייערטאָג/אַנולירט
+      legend_class_meeting: קלאס באטרעף
+    creator:
+      course_term_placeholder: זמן
+      end_date: סוף דאַטע
+      find: טרעפט אייער קורס
+      start_date: אָנהייב דאַטע
+    feedback: פֿידבעק
+    school: שולע
+    title: טיטל
+  courses_generic:
+    all_courses: אלע פראגראמען
+    cancel: אַנולירן
+    creator:
+      course_school: אַנשטאַלט
+      course_title: פראגראם־טיטל
+      find: טרעפֿן א פראגראם
+      save_cloned_course: אויפֿהיטן
+    school: אנשטאלט
+    student_editors: רעדאַקטאָרן
+    students: רעדאַקטאָרן
+    students_short: רעדאַקטאָרן
+  editable:
+    cancel: אַנולירן
+  metrics:
+    tags: טאַגן
+  namespace:
+    page: בלאַט
+  recent_activity:
+    article_title: טיטל
+  revisions:
+    diff_hide: באַהאַלטן
+    title: טיטל
+  timeline:
+    block_milestone: מיילן־שטיין
+    week_number: וואָך %{number}
+  training:
+    page: בלאַט
+  users:
+    assign_articles_done: ערליידיקט
+    number_of_articles:
+      one: '%{count} אַרטיקל'
+      other: '%{count} אַרטיקלען'
+  survey:
+    email:
+      headline: העלאָ, %{username}
+  article_finder:
+    no_article_found: קיין אַרטיקל נישט געפונען אין דער דאָזיקער קאַטעגאָריע
+    relevanceIndex: שייכדיקייט־אינדעקס
+...

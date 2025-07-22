@@ -1,0 +1,36 @@
+---
+title: That's it!
+content: |+
+  You should now be familiar with the different pages you'll encounter
+  Wikipedia. Feel free to come back to this training at any time for a
+  refresher.
+
+  Next, you'll learn how to edit!
+
+  We would appreciate any feedback you have on this orientation module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+
+  </div>
+
+id: 2209
+
+translations:
+  es:
+    title: ¡Eso es todo!
+    content: |
+      Ya deberías estar familiarizado con las diferentes páginas que encontrarás en Wikipedia. No dudes en volver a esta capacitación en cualquier momento para refrescar tus conocimientos.
+
+      ¡A continuación, aprenderás a editar!
+
+      Apreciaríamos cualquier comentario que tengas sobre este módulo de orientación. Haz clic a continuación para decirnos qué te ha gustado y qué no, y cualquier sugerencia que tengas para mejorarlo.
+
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+      </div>

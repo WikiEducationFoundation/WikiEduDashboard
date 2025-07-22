@@ -1,0 +1,629 @@
+# Messages for Macedonian (македонски)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bjankuloski06
+# Author: Macofe
+# Author: Vlad5250
+---
+mk:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: илј.
+          million: мил.
+          billion: млрд.
+          trillion: бил.
+          quadrillion: блј.
+  accessibility:
+    number_field: Ова е бројно поле. Копчињата, како што се прикажуваат на највеќето
+      прелистувачи, ќе ја зголемуваат и намалуваат вредноста.
+  application:
+    back: Назад
+    cancel: Откажи
+    cookie_consent_acknowledge: Разбирам
+    cookie_consent_see_more: Погледај уште.
+    dashboard: Управувачница на Образовниот програм
+    documentation: Документација
+    error: 'Се појави грешка:'
+    explore: Истражете
+    field_required: Ова поле е задолжително
+    field_invalid_characters: Ова поле има неважечки знаци
+    field_invalid_date: Ова поле бара датум во формат YYYY-MM-DD
+    field_invalid_date_time: Крајот мора да биде после почетокот. (Часовите се во
+      опсег од 0 до 23.)
+    greeting2: Добре дојдовте!
+    greeting_extended: Добре дојдовте на Википедија
+    greeting: Здраво!
+    help: Помош
+    home: Почетна
+    log_in_extended: Најава со Википедија
+    log_in: Најава
+    log_out: Одјава
+    my_dashboard: Моја управувачница
+    recent_activity: Скорешни активности
+    report_problem: Пријави проблем
+    request_account: Побарај сметка
+    request_account_create: Направи сметка
+    search: поставете прашање
+    search_results:
+      one: '%{count} Исходна ставка за: ''%{search_terms}'''
+      other: '%{count} Исходни ставки за: ''%{search_terms}'''
+    no_results: Не најдов ништо за „%{query}“
+    sign_up_extended: Зачленување со Википедија
+    sign_up_wikipedia: Или пак зачленете се на Википедија
+    sign_up_log_in_extended: со Википедија
+    sign_up: Зачленување
+    submit: Поднеси
+    training: Обука
+    change: Смени
+    details: Подробно
+    confirm: ОК
+    opt_in: Да
+    opt_out: Не
+    opt_yes: да
+    opt_no: не
+  dashboard:
+    create_note: Стиснете на „Направи курс“ за да го направите вашиот прв курс.
+    explore_course_pages: Истражете ги курсните страници
+    explore_examples: Истражете примери
+    no_courses_instructor: Изгледа дека немате никакви курсеви.
+    opt_out: Побарај изземање од насочувањето
+  home:
+    explore: Истражете
+    log_in: Најава со Википедија
+    sign_up: Зачленување со Википедија
+  activity:
+    all: Активности
+    edited_by: Уредено од
+    label: Активности
+  articles:
+    article_development: (развој на статија)
+    assigned: Зададени статии
+    next: Следна
+    previous: Претходна
+    article_title: Наслов на статијата
+    assigned_to: Зададено на
+    character_doc: Збирот од знаци додадени во статии од запишани уредници помеѓу
+      почетниот и крајниот датум
+    deleted: (избришана)
+    edited: Уредени статии
+    edited_by: 'Уредено од:'
+    edited_mobile: Статии
+    edited_none: Сè уште нема ниедна уредена статија.
+    filter:
+      wiki_all: Сите
+      new: Нови
+    hide: Скриј
+    history: (историја)
+    label: Статии
+    loading: Ги вчитувам статиите...
+    new: (нова)
+    none: Овој курс засега нема уредени статии.
+    rating: Класа
+    rating_doc: Оценувањето на статија е зададено од ВикиПроекти на Википедија. Овие
+      оценки може да се однесуваат на многу постари верзии, па затоа служат само како
+      показател за напредноста на статијата.
+    rating_docs:
+      fa: '%{class} (Избрана статија) — највисока оценка на Википедија, веројатно
+        пренапредна за главен проект на нов уредник'
+      fl: '%{class} (Избран список) — највисока оценка на Википедија за списоци'
+      a: Класа %{class} — мошне разработена статија која може да биде пренапредна
+        за главен проект на нов уредник
+      ga: '%{class} (Добра статија) — добро разработена статија која може да биде
+        пренапредна за главен проект на нов уредник'
+      b: Класа %{class} — умерено разработена статија
+      c: Класа %{class} — статија од среден квалитет со простор за подобрување
+      start: Класа %{class} — првична статија со доста простор за подобрување
+      stub: Класа %{class} — краткок почеток на статија со потреба од повеќе содржина
+      list: Класа %{class} — список наместо обична статија
+      '?': Неоценета — статија што досега не добила оценка на скалата на квалитет
+      does_not_exist: Оваа статија не постои на Википедија
+    see_more: Уште статии
+    show_cumulative_changes: Прикажи збирни промени
+    show_current_version: Прикажи тековна верзија
+    show_current_version_with_authorship_highlighting: Тековна верзија со истакнато
+      авторство
+    title: Наслов
+    title_example: Наслов на статијата
+    tools: Алатки за оценка
+    view: Погл. статија
+    view_all: Погл. сите
+    view_doc: Збир од сите посети на секоја статија во текот на траењето на проектот
+    view_on_wiki: Погл. на вики
+    views_added: Додадени %{count} нови посети на %{title}
+    edit_size: Големина на уредувањето
+    wiki: Вики
+    wp10: Структурна потполност
+  assignments:
+    article_link: Статија
+    assignees: Зададеник/ци
+    add_available_submit: Додај статии
+    bibliography: Библиографија
+    confirm_addition: Дали сте сигурни дека сакате да му ја зададете статијата %{title}
+      на уредникот %{username}?
+    confirm_deletion: Дали сте сигурни дека сакате да ја избришете задачава?
+    editors: Доделено на
+    label: Додели
+    loading: Ги вчитувам задачите...
+    none_short: Нема доделени задачи
+    none: Овој курс нема зададени статии.
+    no_available: Курсов нема достапни статии.
+    peer_review_link: Оценување
+    remove: Отстрани
+    reviewers: Оценувач(и)
+    review_other: Додели преглед
+    review_self: Прегледај статија
+    select: Избери
+  blocks:
+    milestones:
+      title: Пресвртници
+  campaign:
+    add_organizer: Додај приредувач
+    alert_article: Наслов на статијата
+    alert_type: Вид
+    alert_user_id: Корисник
+    campaign: Поход
+    campaigns: Походи
+    campaign_deleted: Походот „%{title}“ е избришан
+    campaign_updated: Походот е подновен
+    created_at: Датум
+    course: Курс
+    data_articles: Уредени страници
+    data_instructors: Наставници
+    description: Опис
+    none: Нема
+    organizers: Приредувачи
+    requested_accounts: Побарани сметки
+    title: Наслов
+    use_start_end_dates: Користи почетен и завршен датум
+  categories:
+    add_category: Додај категорија
+    add_psid: Додај PetScan PSID
+    add_template: Додај предлошка
+    add_this_category: Додај ја категоријава
+    add_this_psid: Додај го овој PSID
+    add_this_template: Додај ја предлошкава
+    name: Назив
+    category_name: Име на категоријата
+    psid_name: PSID
+    template_name: Назив на предлошката
+    remove: Отстрани
+  courses:
+    activity: Активност
+    alerts: Напомени
+    all_courses: Сите курсеви
+    actions: Дејства
+    articles: Статии
+    assignment_headings:
+      assigned_articles: Зададени статии
+    assignment_end: Крај на задачата
+    assignment_start: Почеток на задачата
+    calendar:
+      legend: Легенда
+    cancel: Откажи
+    character_doc: Збир од сите знаци додадени во статии од главниот именски простор
+      од учениците на курсот во текот на неговото траење
+    campaigns: 'Походи:'
+    campaign_articles: '%{title} Статии'
+    campaign_courses: '%{title} Курсеви'
+    campaign_users: Уредници на %{title}
+    course: Курс
+    course_dates_calendar_instructions: Изберете ги датумите зада ги додадете или
+      отстраните од распоредот (на пр. празници, слободни денови). Стиснете на датумот
+      за да префрлите меѓу неизбрани, избрани и одмори. Датумите на курсот ќе се сменат
+      за да се прилагодат на неделите без закажани часови.
+    course_description: Курсеви
+    courses: Курсеви
+    creation_date: Датум на создавање
+    creator:
+      already_exists: Веќе постои таков курс. Изменете го називот, училиштето, траењето
+        за да го направите единствен.
+      assignment_end: Крај на задачата
+      assignment_end_placeholder: ГГГГ-ММ-ДД
+      assignment_start: Почеток на задачата
+      assignment_start_placeholder: ГГГГ-ММ-ДД
+      checking_for_uniqueness: Се проверува единственоста на курсов.
+      choose_clone: Изберете кој курс да се клонира.
+      clone_previous: Клонирај претходен курс
+      clone_this: Клонирај го курсов
+      course_description: Опис на курсот
+      course_school: Училиште на курсот
+      course_subject: Предмет на курсот
+      course_term: Траење на курсот
+      course_term_placeholder: Траење
+      course_title: Назив на курсот
+      create_button: Создај го курсот!
+      create_label: Направи нов курс
+      create_new: Направи нов курс
+      create_short: Направи курс
+      end_date: Завршен датум
+      end_date_placeholder: ГГГГ-ММ-ДД
+      expected_number: Очекуван број на ученици
+      find: Најдете го вашиот курс
+      role_description_options:
+      - Наставник
+      save_cloned_course: Зачувај нов курс
+      start_date: Почетен датум
+      start_date_placeholder: ГГГГ-ММ-ДД
+      subject: Предмет
+    current: Тековни курсеви
+    data_edits: Податоци за уредувањата
+    data_students: Податоци за уредниците
+    data_revisions: Податоци за преработките
+    delete_course: Избриши го курсот
+    delete_suggestion: Избриши
+    dismiss_survey: Тргни
+    download_stats_data: Преземи статистики
+    duration: Траење на курсот
+    edit_count: Бројач на уредувања
+    edit_course_dates: Измени датуми за курсот
+    end: Крај
+    error:
+      exists: Курсот веќе постои! Обидете се повторно со поинаков наслов, училиште
+        или траење
+      user_exists: За жал, %{username} не е постоечки корисник.
+    expected_students: Очекувани ученици
+    feedback: Мислења
+    gradeables_none: Овој курс нема оценливи задачи.
+    home_wiki: Матично вики
+    instructor:
+      one: Наставник
+      other: Наставници
+    instructors: Наставници
+    join: Приклучи се
+    loading: Вчитувам…
+    milestones_none: Курсов засега нема ниедна пресвртница.
+    my_articles: Моите статии
+    new_week: Додај нова седмица
+    new_account_email: Е-пошта
+    new_account_email_placeholder: name@example.org
+    new_account_username: Побарано корисничко име
+    new_account_username_invalid: Ова не е важечко корисничко име.
+    new_account_submit: Побарај сметка
+    nocourses: Не учствувате во ниеден курс.
+    none: Нема
+    ores_plot: ORES
+    overview: Почетна
+    private: Личен
+    published: 'Вашиот курс е објавен! Учениците можат да се запишат на следнава страница:'
+    requested_accounts: Побарани сметки
+    requested_accounts_alert_view: Преглед
+    revisions_doc: Број на уредувања во изминатите %{timeframe} дена
+    revisions_none: Овој курс нема скорешни уреднички активности.
+    school: Училиште
+    school_and_term: Установа/Траење
+    search_courses: Барај курсеви
+    start: Почни
+    start_typing: Почнете да пишувате
+    students: Ученици
+    student_editors: Ученици што уредуваат
+    students_none: Овој курс нема ученици.
+    students_short: Ученици
+    submitted_and_pending_heading: Поднесено и чека на одобрение
+    user_role: Улога
+    subject: Предмет
+    submitted: Поднесено
+    tags: 'Ознаки:'
+    term: Траење
+    timeline: Подробно за задачата
+    timeline_link: Времеслед
+    title: Наслов
+    uploads_none: Ова одделение нема ставено ниедна слика или снимка на Ризницата.
+    user_recent_uploads: Скорешни подигања
+    user_suggestions: 'Кориснички Предлози:'
+    view: Погл. курс
+    view_doc: Приближните посети на статии уредени од запишани уредници од нивното
+      прво уредување на секоја статија
+    view_wiki: Погл. на Википедија
+    volunteer:
+      one: Доброволец
+      other: Доброволци
+    weeks_none: Овој курс засега нема времеслед.
+    wiki_staff: Персонал на Wiki Education
+    word_count_doc: Проценка за бројот на зборови додадени во статии (главен имен.
+      простор) од учениците на курсот во текот на неговото траење
+    yourcourses: Ваши курсеви
+  courses_generic:
+    add_campaign: Додај поход
+    assignment_end: Крај на временската рамка
+    assignments_none: Овој проект нема зададени статии.
+    assignment_start: Почеток на временската рамка
+    cancel: Откажи
+    course: Програм
+    courses: Програми
+    campaigns: 'Походи:'
+    campaign_courses: Програми од %{title}
+    creator:
+      assignment_end_placeholder: ГГГГ-ММ-ДД
+      assignment_start_placeholder: ГГГГ-ММ-ДД
+      course_description: Опис на програмата
+      course_school: Установа
+      course_term: Кога
+      course_term_placeholder: Кога
+      course_title: Наслов на програмата
+      find: Најди програма
+      save_cloned_course: Зачувај
+    edit_course_dates: Измени датуми за проектот
+    enroll: Додај уредник
+    enrollment: Додај/отстрани уредници
+    expected_students: Очекувани уредници
+    instructors: Помошници
+    milestones_none: Проектов засега нема ниедна пресвртница.
+    published: 'Проектов е објавен! Уредниците можат да се запишат на следнава страница:'
+    request_accounts: Побарани сметки
+    revisions_none: Овој проект нема скорешни уреднички активности.
+    school: Установа
+    student_editors: Уредници
+    students: Уредници
+    students_taught: Вкупно уредници
+    students_none: На проектов нема запишани уредници.
+    students_short: Уредници
+    term: Кога
+    uploads_none: Овој проект нема ставено ниедна слика или снимка на Ризницата.
+  editable:
+    edit: Уреди
+    cancel: Откажи
+    save: Зачувај
+    edit_description: Уреди опис
+    edit_details: Уреди поединости
+    edit_template: Уреди предлошка
+  instructor_view:
+    overview: Преглед на %{prefix}
+  metrics:
+    activity: Скорешни активности
+    articles_created: Создадени статии
+    articles_edited: Уредени статии
+    characters: Знаци
+    char_added: Додадени знаци
+    char_changed: Изменети знаци
+    char: Додадени знаци
+    date_time: Датум/време
+    edit_count_description: Вкупно уредувања
+    revisions: Скорешни уредувања
+    tags: Ознаки
+    view_count_description: Посети на статии
+    view_data_unavailable: Нема податоци за посетите
+    view: Посети
+    word_count: Додадени зборови
+  namespace:
+    main: Главен простор
+    main_char_added: Додадени знаци во главниот простор
+    user: Кориснички простор
+    user_char_added: Додадени знаци во корисничкиот простор
+    project: Проект
+    file: Податотека
+    mediaWiki: МедијаВики
+    template: Предлошка
+    help: Помош
+    category: Категорија
+    page: Страница
+    book: Книга
+    wikijunior: ВикиЈуниор
+    translation: Превод
+    draft: Нацрт
+    property: Својство
+    query: Барање
+    lexeme: Лексема
+    portal: Портал
+    school: Училиште
+    author: Автор
+    index: Индекс
+    collection: Збирка
+  recent_activity:
+    article_title: Наслов на статијата
+    datetime: Датум/време
+    image: Слика
+    file_name: Име на податотека
+    recent_edits: Скорешни уредувања
+    recent_uploads: Скорешни подигања
+    revision_author: Автор на преработката
+    revision_datetime: Датум/време на преработката
+    uploaded_by: Подигната од
+  revisions:
+    chars_added: Додадени знаци
+    class: Одделение
+    date_time: Датум/време
+    diff: разл
+    diff_show: Прикажи
+    diff_hide: Скриј
+    edited_by: Уредено од
+    loading: Ги вчитувам преработките...
+    none: Овој курс нема скорешни уреднички активности.
+    time_doc: Времето на секоја преработка според вашето месно време
+    title: Наслов
+    view_on_wiki: Погледај разлика на викито
+    see_more: Погледај уште
+  resources:
+    label: Ресурси
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Корисничко име
+    special_users:
+      new:
+        form_placeholder: Корисничко име
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Оваа статија не постои на Википедија.
+  tasks:
+    conseq: Задачата е%{task} е веќе во тек!
+    constant: Задачата %{task} не може да започне додека е пуштен update_daily.
+    paused: Задачата %{task} не може да започне бидејќи закажаните подновувања се
+      запреми. Пуштете го „rake batch:resume“ за да продолжат.
+  timeline:
+    blackout_week_created: Неделава има закажано блокови. Преместете ги за друга недела
+      пред да го отстраните последниот час за неделава.
+    block_custom: Прилагодено
+    block_type: Блоковскиот тип се користи за приопштување на вашите ученици за оваа
+      ставка на нивниот времеслед и за градење на корисни алатки (како преглед на
+      пресвртници на страницата „Преглед“)
+    course_dates: Датуми на курсот
+    due_default: За следната недела
+    gradeable_value: Вредност
+    save_all_changes: Зачувај ги сите
+    this_week_title_default: Оваа седмица
+    title: Времеслед
+    unable_to_add_week: Не можете да додадете уште недели бидејќи временскиот распоред
+      ви е полн. Избришете барем една недела или сменете ги датумите за да направите
+      место.
+  training:
+    continue: Продолжи (%{progress})
+    start: Почни
+    view: Преглед
+    next: Следна страница
+    page: Страница
+    previous: < Претходна
+    table_of_contents: Содржина
+    done: Готово!
+    check_answer: Провери одговор
+  uploads:
+    credit: Признанија
+    file_name: Име на податотека
+    image: Слика
+    label: Подигања
+    loading: Го вчитувам подигнатото...
+    none: Ова одделение нема ставено ниедна слика или снимка на Ризницата.
+    time_doc: Времето на секое подигање според вашето месно време
+    uploaded_at: Време на подигање
+    uploader: Подигач
+    uploaded_by: Подигната од
+    uploaded_on: Подигната на
+    usages: Употреби
+  users:
+    already_enrolled: Корисникот е веќе запишан!
+    assign_articles_done: Готово
+    assigned: Зададени статии
+    assignees: Зададеник/ци
+    character_doc: The total amount of content a user has added to this namespace,
+      calculated by adding up the added characters for all edits that increased page
+      size. This number doesn't necessarily reflect the amount of new content the
+      user added. Restoring removed content will also increase this total.
+    chars_added: Додадени знаци<br>(главен прост. | кориснички прост.)
+    contributions: Кориснички придонеси
+    contributions_more: Погл. уште придонеси
+    contribution_statistics: Статистики за придонеси
+    editors: Ученици што уредуваат
+    edits: уредувања
+    edits_by: 'Уредувања од:'
+    first_name: Име
+    last_name: Презиме
+    loading: Ги вчитувам корисниците...
+    my_assigned: 'Доделено:'
+    my_reviewing: 'Оценето:'
+    name: Име
+    none: Овој курс нема ученици.
+    no_articles: Нема статии
+    number_of_articles:
+      one: '%{count} статија'
+      other: '%{count} статии'
+    recent_revisions: Скорешни уредувања
+    remove_confirmation: Дали сте сигурни дека сакате да го отстраните %{username}?
+    request_confirmation: Дали сте сигурни дека сакате да ја побарате оваа сметка?
+    revision_characters_and_views: 'Додадени знаци: %{characters}, Посети: %{views}'
+    revisions_doc: Број на уредувања на уредникот во изминатите 7 дена
+    references_doc: Број на наводи што се додадени или отстранети од овој уредник
+    reviewers: Оценувач(и)
+    reviewing: Оценување
+    sandboxes: песочници
+    training_complete:
+      one: е во тек со обуката
+      other: се во тек со обуката
+    training_complete_count: '%{count} се во тек со обуката'
+    training_doc: Уредниците кои ги имаат звршено сите зададени модули за обука се
+      смета дека се во тек со обуката.
+    training_incomplete: Обуката е недовршена
+    training_module_status: Статус
+    up_to_date_with_training: во тек со обуката
+    username: Корисничко име
+    username_placeholder: Корисничко име
+    useremail_placeholder: Е-пошта
+    role:
+      visitor: Посетител
+      student: Ученик
+      instructor: Наставник
+      wiki_ed_staff: Персонал на Wiki Education
+  wiki_edits:
+    notify_overdue:
+      confirm: Ова ќе им испрати потсетник на разговорните страници на сите ученици
+        што имаат заостаната обука. Дали сте сигурни дека сакате да го испратите?
+      header: Имате заостаната задача за обука.
+      message: Ве молиме, завршете ги зададените [%{link} модули за обука].
+      summary: ученичката обука заостанува
+  wizard:
+    assignment_dates: Датуми за задачите
+    assignment_description: Изберете почетни и завршни датуми за вашите задачи. На
+      пример, сако сакате да го почнете проектот за Википедија во втората недела од
+      полугодието, задајте го датумот една недела по почетокот на курсот. Со оваа
+      алатка ќе добиете нацрт-временски распоред што се вклопува во временскиот период
+      за курсот што сте го одбрале.
+    assignment_type: Вид задача
+    calendar_instructions: Изберете ги датумите зада ги додадете или отстраните од
+      распоредот (на пр. празници, слободни денови). Со помош на ова, алатката за
+      создавање курсеви ќе може точно да ви ги распореди задачите. Стиснете на датумот
+      за да префрлите меѓу неизбрани, избрани и одмори. Ако немате слободни денови,
+      штиклирајте го „Нема слободни денови“.
+    confirm_dates: Изберете ги датумите на курсот, неделните средби и празниците.
+    course_dates: Датуми на курсот
+    min_weeks: На задачава ѝ требаат %{min_weeks} расположливи недели. Прилагодете
+      ги датумите во задачата ако сакате да го користите овој вид задачи.
+    minimum_options: Изберете барем %{minimum} можност(и).
+    read_less: Прочитајте помалку
+    read_more: Прочитајте повеќе
+    review_selections: Прегледајте го избраното подаолу. Стиснете за да уредите избрано.
+      Кога ќе завршите, стиснете на „Поднеси“ за да завршите со помошникот за изградба
+      на времеследот.
+    select_assignment: Изберете го видот задача што сакате да го додадете во времеследот.
+    summary: Краток опис
+  error:
+    oauth_invalid: Вашето овластување за Википедија истече. Најавете се повторно.
+    start_date_before_end_date: Почетниот датум мора да биде пред завршниот датум
+    unsupported_browser:
+      header: Прелистувачот не е поддржан.  :-(
+      explanation: Користете прелистувач што не е складен со таблава. Ова мрежно место
+        работи добро со поновите верзии на Chrome, Firefox, Edge, како и други современи
+        прелистувачи.
+  error_401:
+    header: Не сте овластени. >:-(
+    explanation: Немате овластување да го извршите ова барање. Ако сметате дека стасавте
+      до известувањево по грешка, обратете се кај одржувачите на таблава и соопштете
+      им го проблемот.
+  error_incorrect_passcode:
+    header: Неточна пропусница.  :-(
+    explanation: Пропусницата за запишување на курсов е неточна. Прашајте го наставникот
+      која е точната.
+  error_404:
+    header: Не ја најдов страницата. :-(
+    explanation: Оваа страница не постои. Ако сакате да дојдете до таблата за курс,
+      можеби тој курс не е заведен на оваа табла.
+  error_422:
+    header: 422 — необработлива единица.  :-(
+    explanation: Нешто не е во ред. Обратете се кај одржувачите на таблава и известете
+      ги за проблемот.
+  error_500:
+    header: 500 — внатрешна грешка во опслужувачот.  :-(
+    explanation: Нешто не е во ред. Обратете се кај одржувачите на таблава и известете
+      ги за проблемот.
+  login_error:
+    header: Грешка при најавувањето
+    explanation: Се јави проблем при најавата. (Се извинуваме! Се случува.) Најавете
+      се или запишете се повторно.
+  survey:
+    email:
+      course: 'Курс: %{course_info}'
+  article_finder:
+    category_search: Категориско пребарување
+    filtered_articles: Филтрирани статии
+    no_article_found: Не се пронајдени статии во оваа категорија
+    remove_article: Отстрани статија
+    search: Пребарај
+    submit: Поднеси
+    tools: Алатки
+  training_status:
+    completed: Завршено
+    started: Започнато
+    not_started: Не започнато
+  multi_wiki:
+    selector_placeholder: Почнете со внесување на викидомен
+...

@@ -1,0 +1,160 @@
+.form-group
+  margin-bottom 8px
+  font-size 15px
+  color body-color
+  font-weight 400
+  -webkit-font-smoothing antialiased
+
+.form-group > .inline-label
+  display inline
+
+.form-group > label
+  margin-bottom 4px
+  display block
+  font-weight 600
+
+.form-group--narrow
+  max-width 250px
+
+.form-group--wide
+  max-width 500px
+
+.form-group--block
+  max-width 100%
+
+.form-group.invalid,
+.field_with_errors
+  color warning
+  input
+    border-color warning
+    box-shadow 0 0 0 1px warning
+    color warning
+
+.form-required-indicator
+  color warning
+
+.form-help-text
+  color #808080
+  margin-top 2px
+  font-size 14px
+
+.vertical-form
+  float left
+  margin-top 20px
+  +above(desktop)
+    padding-left 20px
+    margin-top 0
+  label
+    span
+      margin-bottom 2px
+    div
+      clear both
+      input
+        margin-bottom 10px
+        width 200px
+  p
+    span:last-child
+      display inline-block
+      font-weight bold
+      margin-bottom 10px
+
+.form-container
+  margin-top 30px
+
+.simple_form
+  margin 20px 0
+  label
+    display block
+    margin-bottom 5px
+  input[type=text], textarea
+    border 1px solid $border_lt
+  textarea
+    width 600px
+    height 200px
+  input[type=submit].button
+    margin-left 0
+
+.half-width-select-left
+  width 48%
+  float left
+  margin-right 10px
+
+.half-width-select-right
+  margin-left 52%
+
+.form
+  padding-top 75px
+
+  > h1
+    color #fff
+    margin-bottom 40px
+
+  .panel
+    padding 25px
+    background #fff
+    box-shadow 0px 1px 2px rgba(0,0,0,.2)
+    border-radius 3px
+    width 100%
+    max-width 400px
+    display inline-block
+
+  .form-control
+    width 100%
+
+  .form-group
+    padding-bottom 25px
+    margin-bottom 25px
+    border-bottom 2px solid $border_lt
+
+    .no-label
+      display inline
+      font-weight normal
+      color #6a6a6a
+
+    label
+      display block
+      margin-bottom 8px
+      font-weight 600
+      color #2c2c2c
+
+  .radio-group
+    display flex
+    justify-content space-between
+    margin 0 -10px
+
+
+  .radio-wrapped
+    border-radius 2px
+    border 1px solid $border_lt
+    flex 1
+    margin 0 10px
+
+    label
+      margin-bottom 0
+      padding 8px 10px
+      font-weight 400
+      line-height 1
+
+      > input
+        vertical-align middle
+        margin-right 16px
+        position relative
+        top -1px
+
+      > span
+        vertical-align middle
+
+    &.checked
+      background bayoux
+      border-color bayoux
+
+      > label
+        color #fff
+
+.inline-radio
+  width 100%
+  display flex
+  align-items: center;
+
+  input
+    width auto !important

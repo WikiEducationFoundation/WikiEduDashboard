@@ -1,0 +1,72 @@
+# Messages for Urdu (اردو)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: BukhariSaeed
+# Author: Hindustanilanguage
+# Author: Muhammad Shuaib
+# Author: Obaid Raza
+# Author: Sayam Asjad
+# Author: Zainab Meher
+# Author: امین اکبر
+---
+ur:
+  application:
+    greeting2: خوش آمدید!
+    greeting_extended: ویکیپیڈیا میں خوش آمدید
+    greeting: آداب!
+    help: معاونت
+    home: صفحہ اول
+    log_in_extended: ویکیپیڈیا کی مدد سے لاگ ان ہوں
+    log_in: داخل ہوں
+    log_out: خارج ہوں
+    my_dashboard: میرا ڈیش بورڈ
+    recent_activity: حالیہ سرگرمی
+    search: سوال پوچھیں
+    sign_up_extended: ویکیپیڈیا کے ذریعہ کھاتہ بنائیں
+    sign_up_log_in_extended: ویکیپیڈیا کے ذریعہ
+    sign_up: کھاتہ بنائیں
+    submit: روانہ کریں
+    training: تربیت
+    change: تبدیل کریں
+  dashboard:
+    create_note: اپنا پہلا نصاب بنانے کے لیے نصاب بنائیں پر کلک کریں
+  activity:
+    all: سرگرمی
+    edited_by: ترمیم از
+  articles:
+    title: عنوان
+    title_example: مضمون کا عنوان
+    view: مضمون ملاحظہ کریں
+    view_all: سب دیکھیں
+  assignments:
+    label: سپرد کریں
+    review_self: مضمون پر نظر ثانی کریں
+    select: منتخب کریں
+  blocks:
+    milestones:
+      title: سنگ میل
+  campaign:
+    none: کچھ نہیں
+  courses:
+    activity: سرگرمی
+    archived: وثق شدہ نصاب
+    actions: اقدامات
+    articles: مضامین
+    creator:
+      create_short: نصاب بنائیں
+    delete_suggestion: حذف کریں
+    features_feedback: 'خودکار سجھاؤ:'
+    my_articles: میرے مضامین
+    user_suggestions: 'صارف کے سجھاؤ:'
+  metrics:
+    label: دستہ سرگرمی
+  revisions:
+    diff_hide: چھپائیں
+  uploads:
+    label: اپلوڈ کردہ
+  users:
+    loading_authorship_data: مصنفیت ڈیٹا لوڈ کرنا
+    authorship_data_not_fetched: مصنفیت ڈیٹا کو نہیں مل سکا
+    edits_by: 'کی طرف سے ترمیم:'
+    my_assigned: تفویض کردہ
+...

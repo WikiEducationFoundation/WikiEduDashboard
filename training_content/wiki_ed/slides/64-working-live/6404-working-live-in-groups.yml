@@ -1,0 +1,17 @@
+id: 6404
+title: "Working in groups on live articles"
+content: |
+  Here's some additional advice for if you're working in a group:
+
+  * On Wikipedia — unlike Google Docs and some other collaborative editing
+  tools — edits made by others do not show up automatically while you are
+  in edit mode. When you click "Publish" on a new edit, if other edits happened
+  in the meantime, Wikipedia will attempt to incorpate the new changes into the
+  latest version. If the software can't do so, the result is an "edit conflict";
+  your edit will not be saved unless you manually re-incorporate it into the latest version.
+  It is safe to work simulaneously with others if each group member is editing a separate
+  section, but if you are collaborating on the same section of text, make sure you've refreshed
+  to the latest edit before you make a new change.
+
+  * If you've collaboratively prepared an update with a group, and you want to publish in a single
+  edit, you can use the Edit Summary to credit the other editors.

@@ -1,0 +1,56 @@
+.survey-page .block--thank-you__container
+  padding 30px
+  +above(tablet)
+    padding 100px
+
+  h2.big-title
+    text-align center
+    font-weight 300
+    color bayoux
+    +above(tablet)
+      font-size 45px
+
+  p
+    line-height 1.35
+
+.survey-nav
+  background white
+
+.survey-nav strong
+  color $text_dk
+
+.survey-nav .container
+  width 100%
+  max-width 1120px
+  padding $spacer
+  display flex
+  align-items center
+
+[data-survey-form-container]
+  opacity 1
+  transition opacity 300ms linear
+  &.loading
+    opacity 0
+
+[data-question-group="0"] .block__container:first-child .survey__block-nav .button:first-child
+  visibility hidden
+  pointer-events none
+
+.survey-previewing
+  position fixed
+  z-index 99
+  background rgba(white, .8)
+  bottom 0
+  left 0
+  right 0
+  text-align center
+  color sprout
+  font-weight 600
+  padding 5px
+
+.preview-content
+  display flex
+  align-items center
+  justify-content center
+  gap 20px
+

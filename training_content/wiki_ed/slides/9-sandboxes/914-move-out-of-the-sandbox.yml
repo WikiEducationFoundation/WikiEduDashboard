@@ -1,0 +1,25 @@
+id: 914
+title: Move out of the sandbox
+summary:
+content: |
+  If you're editing an existing article, you need to merge your updated content
+  into the article. The procedure is pretty much the same as what you did when
+  you copied material into your sandbox.
+
+  Only copy content you actually updated back into the main article. If you
+  copied sections of the article into your sandbox that you made no changes to,
+  do not copy **the unmodified sections** back into the live version of the article.
+
+  1. Open your sandbox in Edit mode. (References and other templates will break
+  if you copy from Read mode.)
+  2. Select the portion you want to move into the live article in mainspace.
+  3. Open the original article in Edit mode and add your content into the article.
+  4. Add an edit summary that says it copied from your sandbox, and save it.
+  (Include a link to your sandbox, like `[[User:Your Username/sandbox]]`, in the
+  edit summary.)
+  5. Repeat this process for any other parts of the article you worked on.
+  6. Copy-edit the article to ensure that your additions mesh well with the
+  older content.
+
+  Once you've gotten the hang of it you can make further edits directly in the
+  article, or repeat the sandbox procedure one portion at a time.

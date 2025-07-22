@@ -1,0 +1,57 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@instructor.username},"
+              %p.paragraph
+                As part of a research collaboration with Wiki Education, we are
+                enriching the Dashboard training modules with a new discussion
+                service, in which students from classes across North America
+                participate in small-group video sessions, to support each other
+                as they learn how to improve Wikipedia articles. Our pilot last
+                term suggests that students benefit from these sessions, as they
+                not only mastered Wikipedia techniques, but also gained
+                important critical thinking and civil scholarship skills.
+              %p.paragraph
+                We will host three support sessions at appropriate times during the term:
+              %ol.paragraph
+                %li Getting started editing Wikipedia pages (e.g., creating a personal user page)
+                %li Understanding Wikipedia policies (e.g., reliable sources and neutral point of view)
+                %li Peer-reviewing students’ articles
+              %p.paragraph
+                Do you want to offer these discussions sessions to students in your class?
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{:href => @opt_in_link}
+                Yes
+            %td.main-content.link-cell
+              &nbsp; &nbsp; &nbsp;
+            %td.main-content.link-cell
+              %a.button_link{:href => @opt_out_link}
+                No
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                No additional work is needed from you, but it would be
+                great if you can encourage your students to participate by
+                announcing this in your class and providing extra credit to
+                students who participate. You can read more about the service
+                <a href="http://kraut.hciresearch.org/sites/kraut.hciresearch.org/files/open/WP-Instructor-ConsentForm-v3.pdf">here</a>.
+                Feel free to contact us if you have any questions.
+              %p.paragraph
+                Sincerely,
+                %br
+                  Rosta Farzan <a href="mailto:rfarzan@pitt.edu ">rfarzan@pitt.edu </a>, University of Pittsburgh
+                %br
+                  Robert Kraut <a href="mailto:robert.kraut@cmu.edu">robert.kraut@cmu.edu</a>, Carnegie Mellon University
+                %br
+                  Chinmay Kulkarni <a href="mailto:chinmayk@cs.cmu.edu">chinmayk@cs.cmu.edu</a>, Carnegie Mellon University

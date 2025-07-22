@@ -1,0 +1,46 @@
+- if params.key?("preview")
+  .survey-previewing
+    .preview-content
+      Preview Mode
+      = link_to t('survey.edit_survey'), edit_survey_path(params[:id]), class: "button"
+      
+// Used for logging survey data via Sentry
+:javascript
+  SurveyDetails = {
+    id: "#{@survey.id}"
+  }
+
+%p#notice= notice
+
+%div{data: {survey_form_container: true, notification: survey_notification_id(@notification)}, class: 'loading'}
+  - if @survey.intro?
+    .block__container
+      .block.block--text.disabled.not-seen{"data-survey-block" => "0", "data-intro" => true}
+        %h1.survey__title= @survey.name
+        - if @survey.intro?
+          - if @survey.confidential_results
+            = @survey.intro.html_safe
+            .survey__block-nav
+              %a.button.survey__prev.border{"href" => "/surveys/#{@survey.id}/optout"}
+                %span No, I do not agree
+              %button.button.survey__next.dark{"data-next-survey-block" => "", "start-survey" => "", "data-no-validate" => true}
+                %span Yes, I agree
+                %span.icon.icon-rt_arrow
+          - else
+            = @survey.intro.html_safe
+            .survey__block-nav
+              %div
+              %button.button.survey__next.dark{"data-next-survey-block" => "", "start-survey" => "", "data-no-validate" => true}
+                %span Start
+                %span.icon.icon-rt_arrow
+
+
+  - @surveys_question_groups.each_with_index do |group, index|
+    = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: false)
+
+  .block__container
+    .block.block--text.block--clear.block--thank-you.disabled.not-seen{data: {thank_you: true}}
+      .block--thank-you__container
+        %h2.big-title Thank You!
+        - if @survey.thanks?
+          = @survey.thanks.html_safe

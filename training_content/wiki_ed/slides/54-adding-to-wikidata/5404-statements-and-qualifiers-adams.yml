@@ -1,0 +1,21 @@
+id: 5404
+title: "Statements and qualifiers"
+summary:
+content: |
+  <figure class="alt-layout-80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Datamodel_in_Wikidata.svg" />
+    <figcaption class="image-credit">
+      Same image from the previous slide only now we are focusing on statements.
+    </figcaption>
+  </figure>
+
+  Below that, we have **statements**. At minimum, a statement consists of an item,
+  a property and a value associated with it. In this case, in addition to the
+  item is Douglas Adams (<code>Q42</code>), we have the property "educated at" (<code>P69</code>) and
+  the associated value, St John's College (<code>Q691283</code>).
+
+  Below the property and value, you'll see **qualifiers**. Many statements support
+  qualifiers — when did Adams attend St John's College? What degree did he earn?
+  What did he major in? Some of these qualifiers are **constraints** — they're
+  required values — while others are entirely optional. (We'll get back to
+  constraints in another training.)

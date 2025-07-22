@@ -1,0 +1,19 @@
+id: 329
+title_prefix: "Dashboard:"
+title: Uploads and Activity tabs
+summary:
+content: |
+  The **Uploads** tab lists all the images and media files students have
+  uploaded to Wikimedia Commons.
+
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/File_uploads_Dashboard_tab_2019.png" />
+  </figure>
+
+  The **Activity** tab shows you the most recent Wikipedia edits from the class.
+  Bookmark this page to keep your finger on the pulse of the students' activity
+  on Wikipedia.
+
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Recent_activity_Dashboard_tab_2019.png" />
+  </figure>

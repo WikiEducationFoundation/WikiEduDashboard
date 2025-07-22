@@ -1,0 +1,24 @@
+id: 5022
+title: "How do these parts work together?"
+summary:
+content: |
+  Linked data on Wikidata describe things (individuals, organizations, events,
+  concepts) and how they relate to each other. These connections are what make
+  it easy to discover items and associate them with other things.
+
+  If you aren't sure how a property works, you can always click on the
+  "Discussion" tab at the top of a page to learn more. Here is the "Discussion"
+  tab for the Capital property, <code>P36</code>.
+
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Capital_-_discussion_tab_-_Wikidata.png" />
+    <figcaption class="image-credit">
+
+    </figcaption>
+  </figure>
+
+  **Note**: This page documents exactly how to use this property, including
+  domain information, a description, allowed values, and example items, among
+  many other descriptors. We will go into more detail on properties in a later
+  module.

@@ -1,0 +1,42 @@
+# Messages for Standard Moroccan Tamazight (ⵜⴰⵎⴰⵣⵉⵖⵜ ⵜⴰⵏⴰⵡⴰⵢⵜ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Amara-Amaziɣ
+# Author: Aslmad mohamed belarhzali
+# Author: Hakim1bal
+# Author: Mdb897
+# Author: YesIn
+---
+zgh:
+  application:
+    cancel: ⵙⵔ
+    greeting: ⴰⵣⵓⵍ!
+    help: ⵜⵉⵡⵉⵙⵉ
+    home: ⴰⵙⵏⵓⴱⴳ
+    change: ⵙⵏⴼⵍ
+    opt_in: ⵢⴰⵀ
+    opt_out: ⵓⵀⵓ
+    opt_yes: ⵢⴰⵀ
+    opt_no: ⵓⵀⵓ
+  articles:
+    new: (ⴰⵎⴰⵢⵏⵓ)
+    title: ⴰⵣⵡⵍ
+    title_example: ⴰⵣⵡⵍ ⵏ ⵓⵎⴳⵔⴰⴷ
+  courses:
+    my_articles: ⵉⵎⴳⵔⴰⴷⵏ ⵉⵏⵓ
+    title: ⴰⵣⵡⵍ
+  courses_generic:
+    courses: ⵉⵖⴰⵡⴰⵙⵏ
+    user_uploads_none: ⵓⵔ ⴼⴽⵉⵏ ⵉⵏⵙⵙⵎⵔⴰⵙ ⵉⵜⵜⵓⵙⵜⵢⵏ ⴽⵔⴰ ⵏ ⵜⵡⵍⴰⴼⵜ ⵏⵖ ⴰⵎⵉⴷⵢⴰⴼⴰⵢⵍⵓ ⵉ ⵓⵙⵏⴼⴰⵕ
+      ⴰⴷ.
+  recent_activity:
+    article_title: ⴰⵣⵡⵍ ⵏ ⵓⵎⴳⵔⴰⴷ
+    image: ⵜⴰⵡⵍⴰⴼⵜ
+    file_name: ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ
+  revisions:
+    title: ⴰⵣⵡⵍ
+  uploads:
+    credit: ⴰⵎⵔⵡⴰⵙ
+    file_name: ⵉⵙⵎ ⵏ ⵓⴼⴰⵢⵍⵓ
+    image: ⵜⴰⵡⵍⴰⴼⵜ
+...

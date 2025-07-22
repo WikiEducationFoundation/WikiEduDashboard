@@ -1,0 +1,23 @@
+name: Sandboxes, talk pages, and watchlists (Professional)
+id: 22
+description: |
+  In this tutorial, you'll become familiar with the different types of pages
+  found on Wikipedia and how to interact with each of them.
+estimated_ttc: 10 minutes
+slides:
+  - slug: welcome-professional # 2201
+  - slug: getting-to-know-your-sandbox-professional # 2202
+  - slug: sandboxes-continued-professional # 2203
+  - slug: help-i-ve-been-patrolled-professional # 2204
+  - slug: talk-pages-professional # 2205
+  - slug: watchlists-professional # 2206
+  - slug: video-watchlists-professional # 2207
+  - slug: wikiprojects-professional # 2208
+  - slug: user-pages-professional # 2210
+  - slug: thats-it-sandboxes-professional # 2209
+
+translations:
+  es:
+    name: 'Zonas de pruebas, páginas de discusión, y listas de seguimiento (Profesional)'
+    description: |
+      En este tutorial te familiarizarás con los diferentes tipos de páginas que se encuentran en Wikipedia, y cómo interactuar con cada una de ellas.

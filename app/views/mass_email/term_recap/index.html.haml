@@ -1,0 +1,7 @@
+.container
+  %h1 Term Recap Emails
+
+  = form_tag('/mass_email/term_recap/send') do
+    = select_tag 'campaign', options_from_collection_for_select(Campaign.all, 'id', 'title'), prompt: 'Choose campaign'
+    .button
+      = button_tag 'Send recap emails'

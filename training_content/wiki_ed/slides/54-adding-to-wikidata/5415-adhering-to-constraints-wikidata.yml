@@ -1,0 +1,17 @@
+id: 5415
+title: "Adhering to constraints (!)"
+summary:
+content: |
+  Unsure about that edit you just made? Some Wikidata properties have guiding
+  features called **property constraints** to show users how to enter the correct
+  data and ensure that items will be formatted correctly.
+
+  Properties express how two things relate to each other. In some cases, that
+  relationship may be a number; in other cases, it may be another item. **Property
+  constraints** describe the kind of values that properties can have.
+
+  An example of a property constraint is the "allowed units constraint", which
+  requires property values to be a specific unit (as opposed to text). The
+  properties and qualifiers <code>P1082</code> (Population), <code>P2097</code>
+  (term length), and <code>P670</code> (street number) all require a numerical
+  value so they use this constraint.

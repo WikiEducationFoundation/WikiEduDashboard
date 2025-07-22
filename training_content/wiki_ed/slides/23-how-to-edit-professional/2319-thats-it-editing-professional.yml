@@ -1,0 +1,34 @@
+---
+title: That's it!
+content: |+
+  Remember, use the Visual Editor when available, and adding citations and
+  formatting options will be easier than ever.
+
+  Thanks for completing this orientation module! We appreciate any
+  feedback about it. Let us know what you liked, didn't like, and any
+  suggestions you have about how to make it better.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+
+  </div>
+
+id: 2319
+
+translations:
+  es:
+    title: ¡Eso es todo!
+    content: |
+      Recuerda, usa el Editor Visual cuando esté disponible, y agregar
+      citas y opciones de formato te resultará más fácil que nunca.
+
+      ¡Gracias por completar este módulo de orientación! Apreciamos cualquier
+      observación; déjanos saber lo que te gustó, lo que no te gustó,
+      y cualquier sugerencia que tengas sobre cómo mejorarlo.
+
+      <div class="training__button-container">
+      <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+      Enviar comentarios </a>
+
+      </div>

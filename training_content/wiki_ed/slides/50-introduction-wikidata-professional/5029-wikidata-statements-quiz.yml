@@ -1,0 +1,31 @@
+id: 5029
+title: "Statements"
+summary:
+content: |
+assessment:
+  correct_answer_id: 3
+  question: |
+    Which of the following is correct?
+  answers:
+    - id: 1
+      text: |
+        A statement can only include a numeric value.
+      explanation: |
+        INCORRECT!  A statement can contain text, numbers, or another item.
+    - id: 2
+      text: |
+        A statement can only use another item as a value.
+      explanation: |
+        INCORRECT! A statement can contain text, numbers, or another item.
+    - id: 3
+      text: |
+        A statement consists of an item, a property, and a value.
+      explanation: |
+        CORRECT! A statement on Wikidata consists of an item, property, and a
+        value for that property. It's like a sentence in Wikidata.
+    - id: 4
+      text: |
+        A statement consists of a property and a value; the item is separate.
+      explanation: |
+        INCORRECT! Properties and values must refer to an item. Without the item,
+        there is no context for the property.

@@ -1,0 +1,358 @@
+# Messages for Occitan (occitan)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Cedric31
+# Author: Guilhelma
+# Author: Jfblanc
+# Author: Lhanars
+# Author: Quentí
+---
+oc:
+  application:
+    cancel: Anullar
+    cookie_consent_acknowledge: Compreni
+    cookie_consent_see_more: Veire mai.
+    create_accounts: Crear los comptes de la Wikipèdia
+    dashboard: Tablèu de bòrd de modificacion del wiki
+    documentation: Documentacion
+    error: Una error s'es produita
+    explore: Explorar
+    field_required: Aqueste camp es obligatòri
+    field_invalid_characters: Aquel camp a de caractèrs incorrèctes
+    field_invalid_date: Aquel camp requerís una data en format AAAA-MM-DD
+    field_invalid_date_time: La fin li cal èsser après l'inici. (Las oras van de 0
+      a 23.)
+    greeting2: Benvenguda !
+    greeting_extended: Benvenguda dins Wikipèdia
+    greeting: Bonjorn !
+    help: Ajuda
+    home: Acuèlh
+    log_in_extended: Se connectar a Wikipèdia
+    log_in: Connexion
+    log_out: Desconnexion
+    my_dashboard: Mon tablèu de bòrd
+    recent_activity: Activitat recenta
+    report_problem: Senhalar un problèma
+    request_account: Demanda un compte
+    request_account_create: Crear un compte
+    search: pausar una question
+    search_results:
+      one: '%{count} resultat per «%{search_terms}»'
+      other: '%{count} resultats per «%{search_terms}»'
+    no_results: ' S’a pas trobat cap de resultat per «%{query}»'
+    sign_up_extended: S’inscriure amb Wikipèdia
+    sign_up_wikipedia: O enregistratz vos a la Wikipèdia
+    sign_up_log_in_extended: amb Wikipèdia
+    sign_up: S'inscriure
+    submit: Sometre
+    training: Formacion
+    change: Modificar
+    details: Detalhs
+    confirm: D'acòrdi
+    opt_in: Òc
+    opt_out: Non
+    opt_yes: òc
+    opt_no: non
+  article_statuses:
+    not_yet_started: Començar
+    in_progress: Trabalhar dins lo bac de sable
+    ready_for_review: Espandir lo brolhon
+    ready_for_mainspace: Desplaçamentdel trabalh dins l'espaci principal
+    assignment_completed: Afectacion marcada coma acabada
+    reading_the_article: Lectura de l'article
+    providing_feedback: Donatz la vòstra opinion
+    post_to_talk: Publicar sus la pagina de discutida
+    peer_review_completed: Repassada acabada
+  dashboard:
+    create_note: Clicar sus "Crear un cors" per crear lo vòstre primièr cors.
+    create_preparation_note: Asseguratz-vos qu'avètz lo vòstre calendari academic
+      a man abans de començar; l'aisina de prevision dels pòstes  utilizarà  los jorns
+      d'amassada de vòstra classa (los jorns de liura disposicion e las vacanças comprès)
+      per adaptar la planificacion a las datas qu'auretz causidas. Poiretz totjorn
+      modificar la planificacion segon los vòstres besonhs.
+    explore_course_pages: Explorar las paginas de cors
+    explore_examples: Explorar los exemples
+    join_note: Quand avètz recebut lo còdi d'accès mandat per lo vòstre instructor,
+      clicatz sus Trobatz lo vòstre Cors per lo trobar e vos i apuntar.
+    start_orientation: Orientacion al despart
+  home:
+    explore: Explorar
+    log_in: Se connectar amb Wikipèdia
+    sign_up: S’inscriure a Wikipèdia
+  activity:
+    all: Activitat
+    edited_by: Modificat per
+    label: Activitat
+  articles:
+    assigned: Articles afectats
+    assigned_to: Assignat a
+    edited: Articles modificats
+    edited_by: 'Modificat per :'
+    edited_mobile: Articles
+    hide: Amagar
+    label: Articles
+    loading: Cargament dels articles...
+    new: (novèl)
+    rating: Classa
+    title: Títol
+    title_example: Títol de l’article
+    view: Afichar l’article
+    view_all: Afichar tot
+    view_on_wiki: Veire sul wiki
+    views_added: '%{count} novèlas vistas apondudas per %{title}'
+    edit_size: Modificar la talha
+    articles_short: Articles
+  articles_wikidata:
+    articles_short: Elements
+  articles_generic:
+    articles_short: Paginas
+  assignments:
+    assignees: Afectacion(s)
+    assign_other: Afectar un article
+    assign_self: M’afectar un article
+    label: Assignar
+    loading: Cargament de las afectacions…
+    none_short: Cap d'article pas afectat
+    remove: Suprimir
+    reviewers: Relector(s)
+    review_other: Atribuir una revision
+    review_self: Repassar un article
+    select: Seleccionar
+  campaign:
+    active_campaigns: Campanhas activas
+    add_organizer: Apondre un organizator
+    all_campaigns: Totas las campanhas
+    campaign: Campanha
+    campaigns: Campanhas
+    description: Descripcion
+    none: Pas cap
+    organizers: Organizators
+    title: Títol
+  courses:
+    activity: Activitat
+    active_courses: '%{course_type} actius'
+    all_courses: Totes los corses
+    actions: Accions
+    articles: Articles
+    assignment_end: Fin d’afectacion
+    assignment_start: Començament d’afectacion
+    calendar:
+      legend: Legenda
+    cancel: Anullar
+    campaigns: 'Campanhas :'
+    campaign_courses: '%{title} Corses'
+    course_description: Corses
+    courses: Corses
+    courses_taught: Corses ensenhats
+    creation_date: Data de creacion
+    creator:
+      assignment_end: Fin de l’afectacion
+      assignment_end_placeholder: Fin de l’afectacion (AAAA-MM-JJ)
+      assignment_start: Començament de l’afectacion
+      assignment_start_placeholder: Debuta de l’afectacion (AAAA-MM-JJ)
+      course_description: Descripcion del cors
+      course_school: Escòla del cors
+      course_subject: Subjècte del cors
+      course_term: Periòde del cors
+      course_term_placeholder: Periòde
+      course_title: Títol del cors
+      create_button: Crear mon cors !
+      create_label: Crear un cors novèl
+      create_new: ‎Crear un cors novèl
+      create_short: ‎Crear un cors
+      end_date: Data de fin
+      end_date_placeholder: Data de fin (AAAA-MM-JJ)
+      start_date: Data de començament
+      subject: Subjècte
+    current: Corses actuals
+    dismiss_survey: Tampar
+    duration: Durada del cors
+    edit_course_dates: Modificar las datas del cors
+    end: Fin
+    enroll: S’inscriure
+    enrollment: Inscripcion
+    courses_enrolled: Inscrit als corses
+    expected_students: Estudiants esperats
+    instructor:
+      one: Instructor
+      other: Instructors
+    instructors: Formators
+    join: Rejónher
+    join_prompt: Rejónher '%{title}' ?
+    leave_course: Abandonar lo cors
+    loading: Cargament en cors…
+    my_articles: Mos articles
+    new_week: Apondre una novèla setmana
+    none: Pas cap
+    overview: Acuèlh
+    passcode: Senhal
+    school: Escòla
+    start: Aviar
+    students: Estudiants
+    students_count: '# Estudiants'
+    student_editors: Editors estudiants
+    students_short: Estudiants
+    user_role: Ròtle
+    term: Periòde
+    timeline_link: Calendièr
+    title: Títol
+    training_nav: Anar a la formacion
+    unsubmitted: Corses pas someses
+    view: Afichar lo cors
+    view_page: Afichar la pagina del cors
+    view_wiki: Afichar sus Wikipèdia
+    wiki_staff: Equipa d’edicion de wiki
+    yourcourses: Vòstres corses
+    survey:
+      notification_message: Respondètz al sondatge per aqueste cors.
+  courses_generic:
+    assignment_end: Fin de la cronologia
+    assignment_start: Començament de la cronologia
+    cancel: Anullar
+    courses: Programas
+    courses_taught: Programas ensenhats
+    campaigns: 'Campanhas :'
+    campaign_courses: '%{title} Programas'
+    creator:
+      course_school: Institucion
+      course_title: Títol del programa
+      create_button: Crear mon programa !
+    expected_students: Editors esperats
+    instructors: Animators
+    school: Institucion
+    student_editors: Editors
+    students: Editors
+    students_short: Editors
+    term: Quand
+  editable:
+    edit: Modificar
+    cancel: Anullar
+    save: Enregistrar
+    edit_description: Modificar la descripcion
+    edit_details: Modificar los detalhs
+  instructor_view:
+    assignments_table:
+      article_name: Nom de l’article
+  metrics:
+    activity: Activitat recenta
+    articles_created: Articles creats
+    articles_edited: Articles modificats
+    characters: Caractèrs
+    char_added: Caractèrs aponduts
+    char_changed: Caractèrs modificats
+    char: Caractèrs aponduts
+    date_time: Data/Ora
+    edit_count_description: Total de las modificacions
+    last_reviewed: Darrièra relectura
+    per_user: '%{number}/utilizaire'
+    revisions: Darrièrs cambiaments
+    tags: Balisas
+    update_statistics_link: Mòstra'n mai
+    view_count_description: Articles vistes
+    view: Vistas
+    word_count: Mots aponduts
+  namespace:
+    main: Espaci principal
+    user: Espaci utilizaire
+  recent_activity:
+    article_title: Títol de l'article
+    datetime: Data/Ora
+    image: Imatge
+    file_name: Nom del fichièr
+  revisions:
+    chars_added: Caractèrs aponduts
+    class: Classa
+    date_time: Data/Ora
+    diff: dif
+    diff_show: Afichar
+    diff_hide: Amagar
+    edited_by: Modificat per
+    loading: Cargament de las revisions...
+    title: Títol
+  timeline:
+    block_assignment: Afectacion
+    block_custom: Personalizat
+    block_in_class: Dins la classa
+    empty_week_3: o
+    gradeable_value: Valor
+    gradeables_none: Aqueste planning a pas cap d'afectacion de marcada coma evaluada.
+    nothing_this_week: I a pas res de programat per aquesta setmana.
+    save_all_changes: Enregistrar tot
+    this_week_title_default: Aquesta setmana
+    title: Planning
+  training:
+    start: Aviar
+    view: Afichar
+    kind:
+      exercise: Exercici
+      discussion: Discussion
+      training: Formacion
+  uploads:
+    file_name: Nom de fichièr
+    image: Imatge
+    label: Telecargaments
+    usages: Utilizacions
+  users:
+    assign_articles_done: Fait
+    assignees: Afectat(s)
+    contributions: Contribucions de l’utilizaire
+    contributions_more: Afichar mai de contribucions
+    course_passcode: 'Còdi d''accès :'
+    editors: Editors estudiants
+    first_name: Pichon nom
+    last_name: Nom d'ostal
+    my_assigned: 'Assignat :'
+    name: Nom
+    no_articles: Pas cap d'article
+    no_revisions: Aqueste editor a pas fait cap de revision.
+    number_of_articles:
+      one: '%{count} article'
+      other: '%{count} articles'
+    recent_revisions: Darrièrs cambiaments
+    reviewers: Relector(s)
+    reviewing: Relectura
+    training_module_name: Modul de formacion
+    training_module_status: Estat
+    username: Nom d'utilizaire
+    username_placeholder: Nom d'utilizaire
+    role:
+      visitor: Visitor
+      student: Estudiant
+      instructor: Formator
+      campus_volunteer: Benevòl del campus
+      online_volunteer: Benevòl en linha
+      wiki_ed_staff: Equipa d’edicion del wiki
+  wiki_edits:
+    notify_overdue:
+      header: Avètz una afectacion de formacion en retard.
+  wizard:
+    read_less: Legir mens
+    read_more: Legir mai
+    summary: Resumit
+  error:
+    oauth_invalid: Vòstra autorizacion sus Wikipèdia a expirat. Reconnectatz-vos.
+    unsupported_browser:
+      header: Navegador pas suportat. :-(
+  error_401:
+    header: Pas autorizat. >:-(
+  error_incorrect_passcode:
+    header: Senhal erronèu. :-(
+  error_404:
+    header: Pagina pas trobada. :-(
+  error_422:
+    explanation: Quicòm a trucat. Contactatz los manteneires d'aqueste tablèu de bòrd
+      per los informar del problèma.
+  error_500:
+    header: 500 — error intèrna del servidor.  :-(
+    explanation: Quicòm a trucat. Contactatz los manteneires d'aqueste tablèu de bòrd
+      per los informar del problèma.
+  login_error:
+    header: Error de connexion
+  survey:
+    email:
+      headline: Bonjorn, %{username}
+      course: 'Cors : %{course_info}'
+      closing: Sincèrament,
+      signed: '- l’equipa Wiki Ed'
+      link: Participar al sondatge
+...

@@ -1,0 +1,265 @@
+.course_main,
+.campaign_main
+  margin-top 30px
+
+  .stat-display
+    margin-bottom 0px
+    margin-top 0px
+
+.course
+  background #fff
+  border 1px solid $border_lt
+  padding 20px
+  margin-bottom 20px
+  display block
+  text-decoration none
+  color inherit
+  position relative
+
+  &:before
+    content ""
+    position absolute
+    left 0
+    right 0
+    top 0
+    bottom 0
+    box-shadow 0px 2px 4px rgba(0,0,0,1)
+    opacity .1
+    transition all 125ms ease-in-out
+
+  &:hover
+    &:before
+      opacity .3
+      box-shadow 0px 2px 4px $brand_primary
+
+  &.course-past
+    .course-title
+      color $text_med_header
+      margin-bottom 0
+
+    .button
+      position relative
+      top -4px
+      border-color $text_med_header
+      color $text_med_header
+
+  + h2
+    margin-top 60px
+
+  .button
+    float right
+
+  &:hover
+    .button
+      background $brand_primary
+      border-color $brand_primary
+      color #fff
+
+  .course-title
+    font-weight 300
+    font-size 30px
+    margin-bottom 20px
+    color bayoux
+    line-height 1
+    display flex
+    align-items center
+
+    .course-term
+      color $text_med_header
+      margin-left 100px
+      margin-right 20px
+
+    .new_or_returning
+      font-size smaller
+      padding-left 20px
+      color $text_med_header
+
+  .course-details
+    display flex
+
+    .col
+      margin-right 40px
+      &:first-child
+        width: 300px
+      &:nth-child(2)
+        width: 150px
+      &:nth-child(3)
+        width: 100px
+      &:last-child
+        margin-right 0
+
+    .course-details_title
+      color $text_med_header
+
+    .course-details_value
+      font-size 19px
+      color $text
+
+.course-syllabus__uploader
+  position relative
+  background rgba($border_lt, .5)
+  height 250px
+  border 2px dashed $border_lt
+
+  & > div
+    position absolute
+    top 50%
+    left 50%
+    width 100%
+    text-align center
+    padding 1em
+    transform translate(-50%, -50%)
+
+.course__syllabus-upload__inner
+  width 80%
+  max-width 800px
+
+.avatar, .rating
+  margin-left 15px
+  margin-right 15px
+  +above(desktop)
+    display inline-block
+
+.avatar
+  round-placeholder(23)
+  float left
+  img
+    width 46px
+
+rating(color)
+  border 3px solid color
+  p
+    color color
+
+.statistics-update-info
+  a
+    color inherit
+
+.statistics-update-modal-container
+  display flex
+  justify-content center
+  align-items center
+
+.statistics-update-modal
+  background-color white
+  box-shadow 0px 1px 6px rgba(0, 0, 0, 0.1)
+  position absolute
+  z-index 1
+  padding 30px
+  width 90%
+  @media only screen and (min-width: 920px)
+    width 700px
+    margin-top 200px
+
+.event-sync
+  width 100%
+  display inline-flex
+
+.rating
+  round-placeholder(23)
+  rating(#D2D2D2)
+  background-color transparent
+  border 3px solid #D2D2D2
+  text-align center
+  text-transform uppercase
+  float left
+  p
+    font-size 15px
+    font-weight 600
+    line-height 40px
+
+  &.null
+    rating(#D2D2D2)
+  &.fa, &.fl
+    rating(#E36944)
+  &.a
+    rating(#656E92)
+  &.ga
+    rating(#F9C623)
+  &.b
+    rating(#858DAA)
+  &.c
+    rating(#858DAA)
+  &.start
+    rating(#858DAA)
+  &.stub
+    rating(#D2D2D2)
+  &.list
+    rating(#656E92)
+
+.modal-course-details
+  display inline-block
+
+  .wizard
+    z-index 1
+
+  .course-details
+    width 90%
+    top 60px
+    max-width 920px
+
+  .group-left,
+  .group-right
+    width 50%
+    margin 20px
+    text-align left
+
+  .details-form,
+  .course-approval-field
+    display flex
+
+@media only screen and (max-width: 919px)
+  .campaign_main
+    margin-top 163px
+
+  .course
+    padding 3px
+
+    .course-title
+      font-size 15px
+
+    .course-details
+      display inline-block
+
+      .col
+        display flex
+        margin-right unset
+
+      .course-details_title
+        padding-right 5px
+      .course-details_value
+        font-size 15px
+
+  .modal-course-details
+    top 100px
+
+    .group-left,
+    .group-right
+      width 90%
+      margin 10px
+
+    .details-form
+      display block
+
+.multi-wiki [class$='multiValue']:first-of-type svg
+  display: none;
+
+.multi-wiki input[readonly]
+  display: none
+
+.modal-course-details
+    .pop__container
+        form
+          display flex
+          align-items center
+          justify-content center
+        .pop
+          form
+            flex-direction  column
+            input
+              width 200px
+              margin-bottom 10px
+
+@media only screen and (min-width: 919px) and (max-width: 986px)
+  .campaign_main
+    margin-top 60px

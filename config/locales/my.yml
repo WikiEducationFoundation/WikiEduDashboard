@@ -1,0 +1,172 @@
+# Messages for Burmese (မြန်မာဘာသာ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Dr Lotus Black
+# Author: Khinelay
+# Author: Ninjastrikers
+# Author: Teitei Para
+---
+my:
+  application:
+    cancel: မလုပ်တော့ပါ
+    cookie_consent_see_more: ပိုမိုကြည့်ရန်။
+    create_accounts: ဝီကီပီးဒီးယား ပိုင်ရှင်
+    documentation: မှတ်တမ်းမှတ်ရာများ
+    error: အမှားအယွင်းတစ်ခုရှိနေပါသည်။
+    explore: ရှာဖွေစူးစမ်းပါ
+    field_required: ဒီအချက်သည် ဖြည့်သွင်းရမည့်အချက်ဖြစ်ပါသည်။
+    field_invalid_characters: မပါဝင်ရမည့် စာလုံးများပါဝင်နေပါသည်။
+    field_invalid_date: ရက်စွဲကို နှစ်(ဂဏန်း ၄လုံးဖြင့် 2018)၊ လ(ဂဏန်း ၂လုံးဖြင့်
+      'မေ' လဆိုပါက 05)၊ နေ့ရက် (၁ ရက်နေ့ဖြစ်ပါက 01) ဆိုသည့် YYYY-MM-DD format ဖြင့်ရိုက်သွင်းပါ။
+      2018-05-01
+    field_invalid_date_time: အစ နောက်မှာ အဆုံးရှိရမည်။ (အချျိန်ကို  ၀ မှ ၂၃ သို့သတ်မှတ်မည်။)
+    greeting2: ကြိုဆိုပါသည်!
+    greeting_extended: ဝီကီပီးဒီးယားမှ ကြိုဆိုပါသည်။
+    greeting: မင်္ဂလာပါ
+    help: အကူအညီ
+    home: ပင်မ
+    log_in_extended: ဝီကီပီးဒီးယားသို့ ဝင်ရောက်ပါ
+    log_in: အကောင့်ဝင်ရန်
+    log_out: ထွက်ရန်
+    my_dashboard: လုပ်ဆောင်ချက်များ ပြသသည့်နေရာ
+    recent_activity: မကြာသေးမီက လုပ်ခဲ့သည်များ
+    report_problem: အခက်အခဲများ တင်ပြရန်
+    request_account: အကောင့်တစ်ခု တောင်းဆိုရန်
+    request_account_create: အကောင့် ဖန်တီးရန်
+    search: မေးခွန်းမေးရန်
+    search_results: '''%{search_terms}'' အတွက်တွေ့ရှိမှုများ'
+    sign_up_extended: ဝီကီပီးဒီးယားနှင့် မှတ်ပုံတင်ရန်
+    sign_up_wikipedia: ဝီကီပီးဒီးယားတွင် မှတ်ပုံတင်ပါ
+    sign_up_log_in_extended: ဝီကီပီးဒီးယားဖြင့်
+    sign_up: မှတ်ပုံတင်ရန်
+    submit: ထည့်သွင်းရန်
+    training: လေ့ကျင့်ခန်း
+    change: ပြောင်းလဲခြင်း
+    details: အသေးစိတ်များ
+    confirm: အိုကေ
+    opt_in: ဟုတ်ပြီ
+    opt_out: မလုပ်ဘူး
+  dashboard:
+    create_note: သင်ခန်းစာပြုလုပ်မည်ကို ကလစ်နှိပ်ပြီး ပထမဆုံးသင်ခန်းစာကို ပြုလုပ်ပါ။
+    create_preparation_note: လုပ်ငန်းမစခင်မှာ မိတ်ဆွေရဲ့လက်ထဲမှာ သင်ကြားရေးပြက္ခဒိန်
+      ယူထားပါ။ အဆိုင်းမန့် ပြုလုပ်သောအရာသည်  မိတ်ဆွေရဲ့ အစည်းအဝေးရက်စွဲများကို အသုံးပြုပါလိမ့်မည်။
+      မိတ်ဆွေရွေးချယ်ထားသော နေ့ရက်နှင့်ကိုက်ညီသော ကျောင်းပိတ်ချိန် နှင့် အားလပ်ရက်များလည်းပါဝင်ပါသည်။
+      မိတ်ဆွေ လိုအပ်သည့်အတိုင်း မိတ်ဆွေအချိန်ဇယားကိုပြင်ဆင်နိုင်ပါသည်။
+    explore_course_pages: သင်ခန်းစာများကို ကြည့်ရှုပါ
+  home:
+    explore: ရှာဖွေစူးစမ်းပါ
+    log_in: ဝီကီပီးဒီးယားဖြင့် အကောင့်ထဲဝင်ရန်
+    sign_up: ဝီကီပီးဒီးယားနှင့် မှတ်ပုံတင်ရန်
+  articles:
+    available: ရရှိနိုင်သော ဆောင်းပါးများ
+    next: ရှေ့
+    previous: ယခင်
+    deleted: (ဖျက်ထားသော)
+    edited_mobile: ဆောင်းပါးများ
+    hide: ဝှက်
+    history: (ရာဇဝင်)
+    label: ဆောင်းပါးများ
+    new: (အသစ်)
+    rating: အတန်း
+    rating_docs:
+      does_not_exist: ဤဆောင်းပါးသည် ဝီကီပီးဒီးယားတွင် မတည်ရှိပါ
+    see_more: ပို၍ ကြည့်ရန်
+    title: ခေါင်းစဉ်
+    title_example: ဆောင်းပါး ခေါင်းစဉ်
+    view: ဆောင်းပါး ကြည့်ရန်
+    view_all: အကုန် ကြည့်ရန်
+    view_on_wiki: ဝီကီပေါ်တွင် ကြည့်ရန်
+    wiki: ဝီကီ
+  assignments:
+    add_available_submit: ဆောင်းပါး ပေါင်းထည့်ရန်
+    remove: ဖယ်ရှားရန်
+    reviewers: ပြန်လည်ဆန်းစစ်သူများ
+    select: ရွေးချယ်
+  blocks:
+    milestones:
+      title: မှတ်တိုင်များ
+  campaign:
+    alert_article: ဆောင်းပါး ခေါင်းစဉ်
+    alert_type: အမျိုးအစား
+    alert_user_id: အသုံးပြုသူ
+    created_at: ရက်စွဲ
+    course: သင်တန်း
+    description: ဖော်ပြချက်
+    program_template: ပရိုဂရမ် တမ်းပလိပ်
+    requested_accounts: တောင်းဆိုထားသော အကောင့်များ
+    title: ခေါင်းစဉ်
+  categories:
+    add_category: ကဏ္ဍပေါင်းထည့်ရန်
+    add_template: တမ်းပလိတ် ပေါင်းထည့်ရန်
+    add_this_category: ဤကဏ္ဍကို ထည့်ပေါင်းရန်
+    add_this_template: ဤတမ်းပလိတ်ကို ထည့်ပေါင်းရန်
+    name: အမည်
+    category_name: ကဏ္ဍအမည်
+    template_name: တမ်းပလိတ်အမည်
+    remove: ဖယ်ရှားရန်
+  courses:
+    alerts: အသိပေးချက်များ
+    actions: ဆောင်ရွက်ချက်များ
+    articles: ဆောင်းပါးများ
+    calendar:
+      legend: အညွှန်း
+    cancel: ပယ်ဖျက်
+    campaign_articles: '%{title} ဆောင်းပါးများ'
+    campaign_courses: '%{title} သင်တန်းများ'
+    campaign_users: '%{title} တည်းဖြတ်သူများ'
+    course: သင်တန်း
+    course_description: သင်တန်းများ
+    courses: သင်တန်းများ
+    creator:
+      course_description: သင်တန်း ဖော်ပြချက်
+      course_title: သင်တန်းခေါင်းစဉ်
+      end_date: ပြီးဆုံးရက်
+      start_date: စတင်သည့်ရက်စွဲ
+      subject: အကြောင်းအရာ
+    delete_suggestion: ဖျက်ရန်
+    features_feedback: 'အလိုအလျောက် အကြံပေးချက်များ:'
+    feedback: အကြံပေးရန်
+    join: ပါဝင်ပူးပေါင်းရန်
+    loading: ဝန်ဆွဲတင်နေသည်...
+    new_account_email: အီးမေးလ် လိပ်စာ
+    new_account_email_placeholder: name@example.org
+    new_account_submit: အကောင့် တောင်းဆိုရန်
+    overview: ပင်မ
+    please_log_in: ကျေးဇူးပြု၍ အကောင့်ထဲဝင်ပါ။
+    requested_accounts_alert_view: ကြည့်ရန်
+    school: ကျောင်း
+    students_short: ကျောင်းသားများ
+    submitted_at: တင်သွင်းသည့်ရက်
+    view_wiki: ဝီကီပီးဒီးယားတွင်ကြည့်ရန်
+  courses_generic:
+    cancel: မလုပ်တော့ပါ
+    course: ပရိုဂရမ်
+    courses: ပရိုဂရမ်များ
+    creator:
+      save_cloned_course: သိမ်းရန်
+    not_permitted: ဤပရိုဂရမ်ကိုတည်းဖြတ်ရန် ခွင့်ပြုချက်မရှိပါ။
+    student_editors: တည်းဖြတ်သူများ
+    students: တည်းဖြတ်သူများ
+  editable:
+    cancel: မလုပ်တော့ပါ
+    edit_description: ဖော်ပြချက် တည်းဖြတ်ရန်
+  revisions:
+    title: ခေါင်းစဉ်
+    see_more: ပို၍ ကြည့်ရန်
+    show_all: အားလုံးပြရန်
+  resources:
+    label: အရင်းအမြစ်များ
+  timeline:
+    reset_titles: နဂိုအတိုင်း ပြန်သွားရန်
+    this_week_title_default: ဤအပတ်
+  training:
+    page: စာမျက်နှာ
+    previous: « ယခင်က
+  users:
+    name: အမည်
+  article_finder:
+    submit: ထည့်သွင်းရန်
+  training_status:
+    continue: ဆက်လက်
+    view: ကြည့်ရန်
+...

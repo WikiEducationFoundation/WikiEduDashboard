@@ -1,0 +1,21 @@
+id: 5305
+title: "Evaluating a property"
+summary:
+content: |
+  Wikidata is different from many other linked data repositories in that you can
+  contribute to its ontology. If you find that there is a property that doesn't
+  express a relationship in a way you think it should, you can start a conversation
+  on its discussion page to expand or change its definition.
+
+  If you think there should be a property, but it doesn't exist, you can propose
+  one!
+
+  Within property proposals, you can select constraints, data types, and domains to
+  better explain how the property works. It is important to remember that Wikidata
+  is a collaborative effort. Contributors from many countries with diverse backgrounds
+  and areas of expertise all work collaboratively to make Wikidata better. We
+  encourage you to collaborate with these editors to understand how to best edit
+  and update properties.
+
+  **Remember**: You bring your own expertise to Wikidata. Don't be afraid to
+  propose changes. Just make sure you include others in this process.

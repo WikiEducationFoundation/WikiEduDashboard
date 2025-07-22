@@ -1,0 +1,30 @@
+name: "How to edit: Wikicode vs Visual Editor (Professional)"
+id: 23
+description: In this tutorial, you'll be given practical advice on navigating and editing Wikipedia.
+estimated_ttc: 20 minutes
+slides:
+  - slug: welcome-editing-professional # 2301
+  - slug: get-started-by-getting-started-professional # 2302
+  - slug: what-we-ll-review-professional # 2303
+  - slug: your-wikipedia-account-professional # 2304
+  - slug: visual-editor-vs-source-editing-professional # 2305
+  - slug: editing-wikipedia-using-the-visual-editor-professional # 2306
+  - slug: visual-editor-buttons-professional # 2307
+  - slug: adding-citations-professional # 2308
+  - slug: adding-citations-using-wikicode-professional # 2309
+  - slug: leaving-an-edit-summary-professional # 2310
+  - slug: let-s-try-it-professional # 2311
+  - slug: video-boldly-linking-where-no-one-has-linked-before-professional # 2312
+  - slug: take-control-of-the-text-professional # 2313
+  - slug: how-to-edit-a-talk-page-professional # 2314
+  - slug: video-talk-pages-professional # 2315
+  - slug: responding-on-a-talk-page-professional # 2316
+  - slug: talk-page-tutorial-professional # 2317
+  - slug: pinging-another-wikipedian-professional # 2318
+  - slug: thats-it-editing-professional # 2319
+
+translations:
+  es:
+    name: "Cómo editar: Wikitexto vs Editor Visual (Profesional)"
+    description: |
+      En este tutorial, vas a recibir consejos prácticos para navegar y editar Wikipedia.

@@ -1,0 +1,21 @@
+# Messages for Laki (لەکی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Hosseinblue
+# Author: Lakzon
+---
+lki:
+  application:
+    help: راهنما!
+    home: سەر پەڕە
+    log_out: دەرچێن|خروج
+    recent_activity: فعالیت اخیر
+  activity:
+    all: کار-فعالیت
+  articles:
+    edited_mobile: مقالات
+    rating: کلاس
+    title: نؤم سروڵگ
+  courses:
+    activity: کار-فعالیت
+...

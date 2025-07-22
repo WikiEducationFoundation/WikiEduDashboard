@@ -1,0 +1,119 @@
+# Messages for Balinese (Basa Bali)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Chinamoonroll
+# Author: Joseagush
+---
+ban:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: Rb
+          million: Yt
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Wangdé
+    cookie_consent_acknowledge: Titiang uning
+    cookie_consent_see_more: Cingak malih
+    create_accounts: Ngranjing akun Wikipédia
+    dashboard: Papan Utama Wiki Ed
+    documentation: Dokuméntasi
+    explore: Jelajahin
+    greeting2: Rahajeng rauh!
+    greeting_extended: Rahajeng rauh ring Wikipédia
+    greeting: Halo!
+    help: Wantuan
+    home: Umah
+    log_in_extended: Manjing log antuk Wikipédia
+    log_in: Manjing log
+    log_out: Medal log
+    my_dashboard: Papan instrumén titiang
+    report_problem: Parandika pikobet
+    request_account_create: Kardi akun
+    sign_up_log_in_extended: sareng Wikipédia
+    sign_up: Daptar
+    submit: Kirim
+    training: Palatihan
+    change: Uah
+    details: Rerincén
+    confirm: Becik
+    opt_in: Inggih
+    opt_out: Nénten
+    opt_yes: inggih
+    opt_no: nénten
+  dashboard:
+    explore_examples: Conto pajelajahan
+  home:
+    explore: Jelajahin
+    log_in: Manjing log antuk Wikipédia
+    sign_up: Manjing log antuk Wikipédia
+  alerts:
+    alert_label: Pakeling
+  activity:
+    all: Parilaksana
+    edited_by: 'Kauahin olih:'
+    label: Parilaksana
+  articles:
+    articles: Suratan
+    next: Selanturné
+    previous: Sadurungné
+    article_title: Murda suratan
+    deleted: (kausap)
+    edited: Suratan sané kauahin
+    edited_by: 'Kauahin olih:'
+    edited_mobile: Suratan
+    filter:
+      wiki_all: Sinamian
+      new: Anyar
+      new_and_existing: Anyar lan Eksisting
+    hide: Engkebang
+    history: (babad)
+    label: Suratan
+    loading: Ngamuat suratan...
+    new: (anyar)
+    rating: Kelas
+    see_more: Cingak malih
+    title: Murda
+    title_example: Murda suratan
+    view: Cingak Suratan
+    view_all: Cingak Makasami
+    view_on_wiki: Cingak ring wiki
+    wiki: Wiki
+    articles_short: Suratan
+  items:
+    items: Item
+  articles_wikidata:
+    articles_short: Item
+  articles_generic:
+    articles_short: Kaca
+  assignments:
+    article_link: Suratan
+    article_link_wikidata: Item
+    clone: Sineb
+    group_members: Semeton grup
+  campaign:
+    alert_type: Soroh
+    alert_user_id: Sang anganggé
+    created_at: Tanggal
+    description: Panjabaran
+    delete_campaign: Usap proyék puniki
+  courses:
+    cancel: Wangdé
+  metrics:
+    upload_count: Unggah Commons
+  namespace:
+    all: Sinamian
+    article: Suratan
+    talk: Pabligbagan
+  recent_activity:
+    image: Gambar
+  uploads:
+    label: Unggah
+  users:
+    edits: Becikang
+    no_revisions: (tanpa révisi)
+...

@@ -1,0 +1,295 @@
+# Messages for Kurdish (Latin script) (kurdî (latînî))
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Balyozxane
+# Author: Bikarhêner
+# Author: Biyolojiyabikurdi
+# Author: Cûndûllah el-Kurdî
+# Author: George Animal
+# Author: Ghybu
+# Author: Gomada
+# Author: Kur
+# Author: Mirzali
+---
+ku-latn:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: Hzr
+          million: M
+          billion: Milyar
+          trillion: Trilyon
+          quadrillion: Qatrilyon
+  accessibility:
+    number_field: Ev qada hejmarê ye. Bişkokên ko ji aliyê piraniya gerokan ve têne
+      pêşkeşkirin wê têketinê zêde bike û kêm bike.
+  application:
+    cancel: Betal bike
+    cookie_consent: Ev malper kûkiyan bi kar tîne daku te têketî bihêle, û agahiyên
+      eleqedarê hesabê te yê Wîkîpediyayê embar dike.
+    cookie_consent_acknowledge: Ez têgihîştim
+    cookie_consent_see_more: Zêdetir bibîne.
+    create_accounts: Hesabên Wîkîpediyayê çêke
+    dashboard: Panela Wiki Edê
+    documentation: Belgekirin
+    error: 'Çewtiyeke hebû:'
+    explore: Kişf bike
+    field_required: Ev der hewce ye
+    field_invalid_characters: Di vê qadê de hin karekterên nederbasdar hene
+    field_invalid_date: Li vê qadê demê bi formata SSSS-MM-RR binivîse
+    field_invalid_date_time: Dawî divê piştî destpêkê be. (Saet ji 0 heya 23ê ne.)
+    greeting2: Xêr hatî!
+    greeting_extended: Bi xêr hatî Wîkîpediyayê
+    greeting: Silav!
+    help: Alîkarî
+    home: Destpêk
+    log_in_extended: Bi Wîkîpediyayê têkeve
+    log_in: Têkeve
+    log_out: Derkeve
+    my_dashboard: Panela Min a Kontrolê
+    recent_activity: çalakiya Dawî
+    report_problem: Pirsgirêkekê rapor bike
+    request_account: Hesabekî Bixwaze
+    request_account_create: Hesabekî çêke
+    search: pirsekê bike
+    search_results:
+      one: '%{count} Encam ji bo: ''%{search_terms}'''
+      other: '%{count} Encamên ji bo: ''%{search_terms}'''
+    no_results: Ti encameke nehate dîtin ji bo '%{query}'
+    sign_up_extended: Bi Wîkîpediyayê re qeyd bibe
+    sign_up_wikipedia: An jî li ser Wîkîpediyayê qeyd bibe
+    sign_up_log_in_extended: bi Wîkîpediyayê
+    sign_up: Qeyd bibe
+    submit: Tomar bike
+    training: Perwerdehî
+    change: Biguherîne
+    details: Hûrgilî
+    confirm: Baş e
+    opt_in: Erê
+    opt_out: Na
+    opt_yes: erê
+    opt_no: na
+  article_statuses:
+    not_yet_started: Gavên Destpêkê
+    in_progress: Li derdoreke ceribandinê dixebite
+    ready_for_review: Reşnivîs Tê Berfirehkirin
+    ready_for_mainspace: Xebatê diguhazîne bo Qada Esasî
+    assignment_completed: Tayînkirin Wekî Temambûyî Hate Îşaretkirin
+    reading_the_article: Gotar Xwendin
+    providing_feedback: Şandina Paşragihanê
+    post_to_talk: Parvekirina li Gotûbêjê
+    peer_review_completed: Çavlêgerandin Qediya
+  dashboard:
+    create_note: Pêl bike ser Kursê Çêke ji bo ku kursa xwe ya pêşîn çêkî.
+    explore_course_pages: Çav li pelên qûrsê bigerîne
+    explore_examples: Mînakan bîbîne
+    join_note: Gava te ji mamoste(dersdar) koda têperînê wergirt, li ser  “Find Your
+      Cours”e bitikîne ko qûrsê bibînî û tevlê bibî.
+    no_courses_instructor: Wisa dixuyê ko tu qûrsên te nin e.
+    no_courses_student: Wisa dixuye ko tu hê tevlê qûrsek nebûyî.
+    orientation_notice: Berê tu qûrsek çê bikî, de em bi arastekirinê alîkariya te
+      bikin bo destpêkirinê.(Bi qasî 30 xulekan digire)
+    review_orientation: Çav li arastekirinê bigerîne
+    start_orientation: Arastekirinê bide destpêkirin
+    blog_headline: Nûçeyên Dawî ji Perwerdehiya Wiki
+  home:
+    explore: Kişf bike
+    log_in: Bi Wîkîpediyayê têkeve
+    sign_up: Bi Wîkîpediyayê qeyd bibe
+    sign_up_help: Ji bo bikaranîna qontrola panelê, divê hûn bi rêya Wîkîpediyayê
+      têkevinê û destûrê bidin ko bigihîje hesabê we. Hûn dikarin bi hesabek Wîkîpediya
+      ya heyî têkevinê, an jî hesabek nû çêbikin. Ger tu nikaribî hesabekî çêkî, bi
+      dashboard@wikiedu.org re têkiliyê deyne.
+  alerts:
+    alert_label: Alarm
+    no_alerts: Ti alarmekî nehat dîtin.
+  activity:
+    all: Çalakî
+    edited_by: Hat Sererastkirin Ji Aliyê
+    label: Çalakî
+  articles:
+    articles: Gotar
+    article_not_found: Ev gotar hêj nehatiye çêkirin.
+    article_development: (pêşveçûna gotarê)
+    articles_shown: '%{count} ji %{total} nîşan dide'
+    assigned: Gotarên Tayînkirî
+    assignments_none: Hê gotarên tayînkirî nînin.
+    available: Gotarên Berdest
+    no_available: Gotarên berdest nîn e
+    next: Pêşve
+    previous: Yê berê
+    article_title: Sernavê Gotarê
+    character_doc: Hejmara karakterên ku ji hêla edîtorên tomarkirî ve di navbera
+      dîrokên destpêk û dawiyê de li gotaran hatine zêdekirin
+    deleted: (hat jêbirîn)
+    edited: Gotarên sereraskirî
+    edited_by: 'Hat sererastkirin ji aliyê:'
+    edited_mobile: Gotar
+    edited_none: Hê gotarên sererastkrî nîne.
+    filter:
+      wiki_all: Hemû
+      new: Nû
+      existing: Ya heyî
+      new_and_existing: Nû û Ya heyî
+    find: Li Gotaran Bigere
+    hide: Veşêre
+    history: (dîrok)
+    label: Gotar
+    loading: Gotar tên barkirin...
+    new: (nû)
+    none: Vê qursê tu gotar sererast nekiriye.
+    preview: Kurte pêşdîtina Gotarê
+    rating: Cor
+    rating_docs:
+      does_not_exist: Ev gotar li ser wîkîpediyayê tune
+    see_more: Zêdetir bibîne
+    search: Li Wîkîpediyayê li gotarekê bigerin
+    show_cumulative_changes: Guhartinên kelekebûyî nîşan bide
+    show_current_version: Guhartoya Niha Nîşan Bide
+    title: Sernav
+    title_example: Sernavê gotarê
+    tools: Amûrên nirxandinê
+    view: Gotarê Bibîne
+    view_all: Hemûyan Bibîne
+    view_on_wiki: Li ser wîkiyê binêre
+    edit_size: Qebareya sererastkirinê
+    wiki: Wîkî
+    articles_short: Gotar
+  items:
+    article_not_found: Ev mijar hê nehatiye peydakirin.
+    assigned: Mijarên tayinkirî
+    assignments_none: Hê mijarên tayînkirî ninin.
+    available: Mijarên Berdest
+    character_doc: Hejmara karakterên ku ji hêla edîtorên tomarkirî ve di navbera
+      dîrokên destpêk û dawiyê de li mijaran hatine zêdekirin
+  assignments:
+    select: Bibijêre
+  campaign:
+    none: Tune
+  courses:
+    activity: Çalakî
+    actions: Çalakî
+    articles: Gotar
+    cancel: Betal bike
+    course_description: Qurs
+    courses: Kurs
+    creator:
+      start_date: Dema destpêkê
+      subject: Mijar
+    current: Kursên Nûjen
+    delete_suggestion: Jê bibe
+    duration: Maweya Kursê
+    end: Dawî
+    error:
+      invalid_language_or_project: Zimanê/projeya nederbasdar
+    join: Beşdar bibe
+    loading: Tê barkirin...
+    my_articles: Gotarên min
+    new_week: Hefteyeke nû lê zêde bike
+    nocourses: Te beşdarî ti kursekê ne bû.
+    none: Tune
+    requested_accounts_alert_view: Bibîne
+    school: Dibistan
+    students: Xwendekar
+    students_count: '# Xwendekar'
+    students_short: Xwendekar
+    title: Sernav
+    view: Kursê Bibîne
+    view_wiki: Li ser Wîkîpediyayê bibîne
+    yourcourses: Kursên Te
+  courses_generic:
+    cancel: Betal bike
+    courses: Bername
+    creator:
+      course_title: Sernavê bernameyê
+      find: Bernameyekê bibîne
+      save_cloned_course: Tomar bike
+    enrollment: Edîtoran Tevlî bike/Rake
+  editable:
+    edit: Biguherîne
+    cancel: Betal bike
+    save: Tomar bike
+  metrics:
+    activity: Aktîvîteyên Dawî
+    articles_created: Gotar Hate Çêkirin
+    articles_edited: Gotar Hate Sererastkirin
+    characters: Karakter
+    char_changed: Karakter Hate Guhartin
+    date_time: Tarîx/Wext
+    edit_count_description: Hemû Guhartin
+    per_user: '%{number}/bikarhêner'
+    revisions: Guhartinên Dawî
+    view_count_description: Dîtinên Gotara
+    view: Dîtin
+  recent_activity:
+    article_title: Sernavê gotarê
+    datetime: Tarîx/Wext
+    image: Wêne
+  revisions:
+    diff_hide: Veşêre
+    title: Sernav
+    see_more: Zêdetir bibîne
+  timeline:
+    add_week: Hefteyê lê zêde bike
+    empty_week_3: an
+    save_all_changes: Hemûyan Tomar Bike
+    this_week_title_default: Ev Hefte
+    title: Demname
+  training:
+    page: Rûpel
+  uploads:
+    image: Wêne
+    label: Barkirin
+    loading: Barkirin tên bar kirin...
+    none: Ev sinif ti wêne an jî dosyeyek medyayên din li Wikimedia Commonsê zêde
+      nekiriye.
+    usages: Bikaranîn
+  users:
+    assign_articles_done: Çêbû
+    contributions: Beşdariyên Bikarhênerê
+    contributions_more: Zêdetir Beşdariyan Bibîne
+    editors: Edîtorên Xwendekaran
+    last_name: Paşnav
+    loading: Bikarhêner tên barkirin...
+    name: Nav
+    recent_revisions: Guhartinên Dawî
+    username: Navê bikarhêner
+    username_placeholder: Navê bikarhêner
+  wizard:
+    course_dates: Dîroka Kursê
+    read_more: Zêdetir Bixwîne
+    summary: Kurte
+  error:
+    oauth_invalid: Wextê te yê bidestûrbûnê tije bû. Ji kerema xwe dîsa têkeve.
+    unsupported_browser:
+      header: Geroka bêpiştgir. :-(
+  error_401:
+    header: Bêdestûr. >:-(
+  error_404:
+    header: Rûpel nehate dîtin. :-(
+  survey:
+    email:
+      headline: Silav %{username}
+  article_finder:
+    article_finder: Peydakera Gotar
+    article_quality: Kalîteya Gotarê (0-100)
+    average_views: Hejmara lênerîna rojane ya nîvekî
+    category_search: Lêgerîna Kategorî
+    fetching_assessments: Nirxandinên Rûpelan Stendin
+    fetching_scores: Puana Temamkirinê Stendin
+    fetching_pageviews: Lênerîna Rûpelan Standin
+    fetching_revisions: Sererastkirina Rûpelan Stendin
+    fetched_articles: Gotarên Standî
+    filtered_articles: Fîltreyên Gotaran
+    keyword_search: Lêgerîna Peyva Kilîd
+    more_results: Encamên zêdetir
+    page_assessment_class: Pol
+    search: Lêgerîn
+    searching_articles: Lêgerîna Gotaran
+    search_placeholder: Şîfreya xwe binivîse
+    subheading_message: Ka em gotareke Wîkîpediyayê bibînin ji bo li serê bixebitî.
+    submit: Tomar bike
+    tools: Alav
+...

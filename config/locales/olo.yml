@@ -1,0 +1,59 @@
+# Messages for Livvi-Karelian (livvinkarjala)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ilja.mos
+# Author: Mashoi7
+---
+olo:
+  activity:
+    all: Aktiivizus
+    edited_by: Kohendelluh
+  articles:
+    edited: Kohendetut kirjutukset
+    edited_mobile: Kirjutukset
+    edited_none: '%{title} ei ole kohendannuh ni yhty kirjutustu.'
+    rating: Kluassu
+    title: Rubriekku
+    view: Ozuta stuat't'u
+    view_all: Ozuta kai
+    views_added: Ližätty %{count} uuttu kaččokerdua sivule %{title}
+  courses:
+    activity: Aktiivizus
+    articles: Stuat'at
+    course_description: Kursat
+    courses: Kursat
+    current: Nygöizet kursat
+    duration: Kursan piduhus
+    nocourses: Et ole yhtynyh ni yhteh kursah.
+    students: Opastujat
+    students_none: Täl kursal ei ole opastujii.
+    students_short: Opastujat
+    view: Ozuta kursu
+    view_wiki: Kačo Wikipedies
+    wiki_staff: Wiki Ed -ruadajat
+    yourcourses: Sinun kursat
+  metrics:
+    activity: Jälgimäzin toimindu
+    articles_created: Luajitut stuat'at
+    date_time: Päivymiäry/Aigu
+    edit_count_description: Edituičendat kaikkiedah
+    view_count_description: Stuat'oin kaččokerrat
+    view: Kaččokerrat
+  tasks:
+    conseq: Tehtävy %{task} jo ruadau!
+    constant: Tehtävy %{task} ei voi ruadua kuni tehtävy update_daily ruadau.
+  users:
+    name: Nimi
+    none: Täl kursal ei ole ozanottajii.
+    reviewers: Tarkistuslugii(-lugijat)
+    reviewing: Tarkistusluvetah
+  wizard:
+    read_less: Luve vähembi
+    summary: Yhtehvedo
+  error_404:
+    header: Sivuu ei lövvy. :-(
+  error_422:
+    header: 422 — ei-käziteltävis olii entitiettu.  :-(
+  error_500:
+    header: 500 - sižähine palvelinhaireh. :-(
+...

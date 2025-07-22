@@ -1,0 +1,156 @@
+- content_for :before_title, "#{@campaign.title} Overview  — "
+
+#react_root{data: {slug: @campaign.slug}}
+
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
+= hot_javascript_tag 'campaigns'
+
+- if @campaign.errors.any?
+  .notice
+    %strong
+      = t('campaign.campaign_not_updated')
+    %ul
+      - @campaign.errors.messages.each do |_key, message|
+        %li
+          = message.first
+
+.container
+  %section.overview.container#overview-campaign-details
+    .primary
+      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do
+        .section-header
+          %h3
+            = succeed ':' do
+              = t('campaign.campaign')
+            = @campaign.title
+        .module__data.rails_editable-field
+          %p.rails_editable-content
+            = html_from_markdown @campaign.description
+    .sidebar
+      - if current_user && (Features.open_course_creation? || current_user&.admin?)
+        = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
+          = hidden_field_tag(:campaign_slug, @campaign.slug)
+          %button.button.dark.green#low_modal
+            = t('courses_generic.creator.create_short')
+            %i.icon.icon-plus
+      - if @editable
+        = form_tag('./edit', method: :get, class: 'campaign-create') do
+          = hidden_field_tag(:campaign_slug, @campaign.slug)
+          %button.button.dark
+            = t('editable.edit')
+      - if (current_user&.admin?)
+        
+        - if (!@campaign.register_accounts)
+          .tooltip-trigger
+            = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/enable_account_requests", method: :put, class: 'campaign-create') do
+              %button.button.dark
+                = t('campaign.enable_account_requests')
+            .tooltip.dark
+              %p= t('campaign.enable_account_requests_doc')
+        - else
+          .tooltip-trigger
+            = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/disable_account_requests", method: :put, class: 'campaign-create') do
+              %button.button.dark
+                = t('campaign.disable_account_requests')
+            .tooltip.dark
+              %p= t('campaign.enable_account_requests_doc')
+        
+      - if (current_user&.admin? && @campaign.requested_accounts.any?)
+        = form_tag("/requested_accounts_campaigns/#{@campaign.slug}", method: :get, class: 'campaign-create') do
+          %button.button.dark
+            = t('campaign.requested_accounts')
+            %i.icon.icon-rt_arrow
+      .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
+        .section-header
+          %h3
+            = t('application.details')
+        .module__data.extra-line-height
+          %div
+            - if @campaign.organizers.any?
+              %span.campaign-organizers
+                %strong
+                  = succeed ':' do
+                    = t('campaign.organizers')
+                - @campaign.organizers.each_with_index do |organizer, i|
+                  - if i == @campaign.organizers.count - 1
+                    %a{href: "/users/#{organizer.username}"}= organizer.username
+                  - else
+                    = succeed ', ' do
+                      %a{href: "/users/#{organizer.username}"}= organizer.username
+
+                %span.pop__container
+                  %button.button.border.plus +
+                  .pop
+                    %table
+                      %tbody
+                        %tr.edit
+                          %td
+                            = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put) do
+                              = text_field_tag(:username, '', { required: true, placeholder: t('users.username_placeholder') })
+                              %button.button.border.add-organizer-button Add organizer
+                        - @campaign.organizers.each do |organizer|
+                          %tr
+                            %td
+                              - if organizer.username == current_user&.username
+                                %span
+                                  = organizer.username
+                              - else
+                                = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug, id: organizer.id), html: { method: :put, class: 'remove-organizer-form', 'data-username' => organizer.username }) do
+                                  %span
+                                    = organizer.username
+                                  %button.button.border.plus -
+
+          = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_details' }) do
+            .campaign-title.form-group.rails_editable-field
+              %label{for: 'campaign_title'}
+                = succeed ':' do
+                  = t('campaign.title')
+              %span.rails_editable-content
+                = @campaign.title
+
+            .campaign-use-dates.form-group.rails_editable-field
+              - use_dates = @campaign.start || @campaign.end
+              %label
+                = check_box_tag(:use_dates, '1', use_dates)
+                = t('campaign.use_start_end_dates')
+
+            .campaign-dates{class: use_dates ? '' : 'hidden'}
+              .campaign-start.form-group.rails_editable-field
+                %label{for: 'campaign_start'}
+                  = succeed ':' do
+                    = t('courses.creator.start_date')
+                %span.rails_editable-content
+                  = @campaign.start.try(:strftime, '%Y-%m-%d')
+
+              .campaign-end.form-group.rails_editable-field
+                %label{for: 'campaign_end'}
+                  = succeed ':' do
+                    = t('courses.creator.end_date')
+                %span.rails_editable-content
+                  = @campaign.end.try(:strftime, '%Y-%m-%d')
+
+              .campaign-default_course_type.form-group.rails_editable-field
+                %label{for: 'default_course_type'}
+                  = succeed ':' do
+                    = t('campaign.default_course_type')
+                %span.rails_editable-content
+                  = @campaign.default_course_type
+
+              .campaign-default_passcode.form-group.rails_editable-field
+                %label{for: 'default_passcode'}
+                  = succeed ':' do
+                    = t('campaign.default_passcode')
+                %span.rails_editable-content
+                  = @campaign.default_passcode
+      %section#campaign_stats
+      - if @campaign.template_description.present?
+        = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
+          .section-header
+            %span.tooltip-trigger
+              %h3
+                = t('campaign.program_template')
+              .tooltip.dark
+                = t('campaign.program_template_tooltip')
+          .module__data.rails_editable-field
+            %p.rails_editable-content
+              = html_from_markdown @campaign.template_description

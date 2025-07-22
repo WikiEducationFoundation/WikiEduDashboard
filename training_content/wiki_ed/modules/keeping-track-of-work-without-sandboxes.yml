@@ -1,0 +1,11 @@
+name: Keeping track of your work on the Dashboard
+id: 65
+description: |
+  How to use My Articles and other assignment-tracking features
+slides:
+  - slug: add-an-article-to-work-on-no-sandbox # 6501
+  - slug: add-peer-review-articles-no-sandbox # 6502
+  - slug: stage-1-bibliography-no-sandbox # 6503 
+  - slug: stage-2-first-changes # 6504
+  - slug: stage-3-expand-your-article # 6505
+  - slug: tracking-other-exercises-no-sandbox # 6506

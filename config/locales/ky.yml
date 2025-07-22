@@ -1,0 +1,82 @@
+# Messages for Kyrgyz (кыргызча)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bosogo
+---
+ky:
+  application:
+    cancel: Жокко чыгаруу
+    greeting2: Кош келиңиз !
+    help: Жардам
+    log_in_extended: Википедия аркылуу кирүү
+    log_in: Кирүү
+    log_out: Аккаунттан чыгуу
+    sign_up: Катталуу
+    confirm: Макул
+    opt_in: Ооба
+    opt_out: Жок
+  articles:
+    articles: Макалалар
+    edited_mobile: Макалалар
+    history: (тарых)
+    label: Макалалар
+    new: (жаңы)
+    title: Аталыш
+  campaign:
+    description: Сыпаттама
+    title: Аталыш
+  courses:
+    actions: Аракеттер
+    articles: Макалалар
+    dismiss_survey: Жабуу
+    loading: Жүктөлүүдө...
+    title: Аталыш
+  courses_generic:
+    cancel: Жокко чыгаруу
+    course: Программа
+    courses: Программалар
+    campaign_courses: '%{title} программалары'
+    creator:
+      course_term: Качан
+      course_term_placeholder: Качан
+      save_cloned_course: Сактоо
+    student_editors: Түзөтүүчүлөр
+    students: Түзөтүүчүлөр
+    students_short: Түзөтүүчүлөр
+  editable:
+    edit: Түзөтүү
+    cancel: Жокко чыгаруу
+    save: Сактоо
+  metrics:
+    labels: Аталыштар
+  recent_activity:
+    article_title: Аталыш
+    image: Сүрөт
+  revisions:
+    diff: айырма
+    diff_show: Көрсөтүү
+    diff_hide: Жашыруу
+    title: Аталыш
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Колдонуучунун аты
+  timeline:
+    empty_week_3: же
+    week_number: Апта %{number}
+  training:
+    page: Барак
+    done: Даяр !
+  uploads:
+    image: Сүрөт
+    label: Жүктөөлөр
+  users:
+    assign_articles_done: Даяр
+    number_of_articles:
+      one: '%{count} макала'
+      other: '%{count} макала'
+    username: Колдонуучунун аты
+    username_placeholder: Колдонуучунун аты
+  training_status:
+    continue: Улантуу
+...

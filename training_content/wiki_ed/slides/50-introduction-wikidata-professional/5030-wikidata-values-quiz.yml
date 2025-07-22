@@ -1,0 +1,36 @@
+id: 5030
+title: "Values"
+summary:
+content: |
+assessment:
+  correct_answer_id: 4
+  question: |
+    The Wikidata entry for a city includes a statement that gives the population
+    in 2000. You have an updated estimate from 2017. You should:
+  answers:
+    - id: 1
+      text: |
+        Change the value and the reference.
+      explanation: |
+        INCORRECT!  This may seem like the correct thing to do, but adding a
+        qualifier is a better way to express this information.
+    - id: 2
+      text: |
+        Change the value and leave everything else the same.
+      explanation: |
+        INCORRECT! You want to preserve the data that came before, so removing
+        it is not a good option.
+    - id: 3
+      text: |
+        Leave a note on the Discussion page asking someone to update the entry.
+      explanation: |
+        INCORRECT! Although seeking advice and consensus on Discussion pages is
+        always a good idea, you can make this change yourself.
+    - id: 4
+      text: |
+        Add a new qualifier statement that gives the 2017 population and change
+        the rank to reflect that this is the most current value.
+      explanation: |
+        CORRECT! Adding a qualifier is a great way to update populations.
+        Qualifiers allow you to add more values to the same property, in this
+        case, population

@@ -1,0 +1,22 @@
+name: Assigning Medical Topics
+id: 5
+description: |
+  This module discusses best practices and special considerations for
+  assignments that involve editing topics related to medicine and human health,
+  including psychology topics. Wikipedia has special sourcing rules for health
+  content, and it's important to design assignments with these rules in mind, if
+  students will be working on anything health-related.
+estimated_ttc: 10 minutes
+slides:
+  - slug: medical-assignments-introduction # 501
+  - slug: who-should-edit-health-information # 502
+  - slug: identifying-reliable-medical-sources # 503
+  - slug: why-these-sourcing-requirements # 504
+  - slug: avoid-primary-sources # 505
+  - slug: prefer-secondary-sources # 506
+  - slug: further-sourcing-guidelines # 507
+  - slug: style-conventions-for-medicine-and-psychology # 508
+  - slug: working-with-the-community # 509
+  - slug: sources-and-appeal-to-authority # 510
+  - slug: medicine-psychology-review # 511
+  - slug: additional-resources-for-medicine-psychology # 512

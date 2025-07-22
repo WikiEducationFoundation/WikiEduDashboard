@@ -1,0 +1,26 @@
+name: Moving work out of the sandbox (Professional)
+id: 26
+description: In this tutorial, we'll show you the practical steps for moving your work to Wikipedia.
+estimated_ttc: 10 minutes
+slides:
+  - slug: moving-your-work-into-wikipedia-s-mainspace-professional # 2601
+  - slug: adding-content-to-an-existing-article-professional # 2602
+  - slug: editing-an-existing-article-cont-professional # 2603
+  - slug: adding-content-demo-video # 8001
+  - slug: creating-a-new-article-professional # 2604
+  - slug: name-your-article-professional # 2605
+  - slug: moving-a-new-article-out-of-the-sandbox-professional # 2606
+  - slug: move-your-page-professional # 2607
+  - slug: did-it-work-professional # 2608
+  - slug: creating-a-new-article-demo-video # 8002
+  - slug: whoops-i-made-a-mistake-professional # 2609
+  - slug: what-happens-now-professional # 2610
+  - slug: did-you-get-patrolled-professional # 2611
+  - slug: my-work-was-reverted-professional # 2612
+  - slug: that-s-all-professional # 2613
+
+translations:
+  es:
+    name: 'Trasladando tu trabajo fuera de la zona de pruebas (Profesional)'
+    description: |
+      En este tutorial, te mostraremos los pasos prácticos para trasladar tu trabajo a Wikipedia.

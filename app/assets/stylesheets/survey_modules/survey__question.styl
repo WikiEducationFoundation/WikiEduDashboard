@@ -1,0 +1,53 @@
+.new_question_group
+  input[type=text]
+    min-width 300px
+
+.survey__question-text
+  margin-bottom $spacer
+  font-weight 600
+  font-size 18px
+  line-height 28px
+  margin-bottom 20px
+
+.survey__question__assistive-text
+  margin-bottom 5px
+
+.survey__question--followup
+  padding-top 20px
+
+.survey__question-required,
+.survey__question-optional
+  font-weight 400
+  font-size 14px
+
+.survey__question-required
+  color $warning_text
+
+.survey__question-optional
+  color sprout
+
+.survey__question__option-row
+  margin-bottom 1rem
+
+.survey__question__group-title
+  text-transform uppercase
+  border-bottom 1px solid $text_dk
+  font-size 16px
+  line-height 22px
+  color $text_dk
+  margin-bottom $spacer * 2
+  padding-bottom $spacer * .75
+
+.survey__question-text label
+  color $text_dk
+
+.survey__answer-label
+  font-size 16px
+  color $text_dk
+
+[data-errors]
+  display flex
+  align-items center
+  color warning
+  font-weight 600
+  padding-right $spacer * 2

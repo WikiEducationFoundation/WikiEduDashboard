@@ -1,0 +1,520 @@
+# Messages for Lithuanian (lietuvių)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+# Author: Eitvys200
+# Author: GustasMarc
+# Author: Manvydasz
+# Author: Nersip
+# Author: Nokeoo
+# Author: Pavel1513
+# Author: Zygimantus
+---
+lt:
+  application:
+    cancel: Atšaukti
+    create_accounts: Kurti Vikipedijos paskyras
+    dashboard: Viki Ed Prietaisų Skydelis
+    error: 'Įvyko klaida:'
+    explore: Tyrinėti
+    field_required: Šis laukas privalomas
+    field_invalid_characters: Šiame lauke yra neleidžiamų simbolių
+    field_invalid_date: Šiame lauke datos turi būti MMMM-MM-DD formatu
+    greeting2: Sveiki atvykę!
+    greeting_extended: Sveiki atvykę į Vikipediją
+    greeting: Sveiki!
+    help: Pagalba
+    home: Pradžia
+    log_in_extended: Prisijungti su Vikipedija
+    log_in: Prisijungti
+    log_out: Atsijungti
+    my_dashboard: Mano prietaisų skydelis
+    recent_activity: Pastaroji veikla
+    request_account: Prašyti paskyros
+    search: užduoti klausimą
+    search_results: 'Rezultatai: ''%{search_terms}'''
+    sign_up_extended: Prisijungti su Vikipedija
+    sign_up_log_in_extended: su Vikipedija
+    sign_up: Sukurti paskyrą
+    submit: Pateikti
+    training: Mokymas
+    change: Keisti
+    details: Informacija
+  dashboard:
+    explore_course_pages: Naršyti Kurso Puslapius
+    explore_examples: Naršyti Pavyzdžius
+    no_courses_instructor: Atrodo, kad neturite jokių kursų.
+    no_courses_student: Atrodo, kad dar neprisijungėte prie kurso.
+    review_orientation: Peržiūrėti Orientaciją
+    start_orientation: Pradėti Orientaciją
+    blog_headline: Paskutinės Viki Ed naujienos
+  home:
+    explore: Naršyti
+    log_in: Prisijungti su Vikipedija
+    sign_up: Registruotis su Vikipedija
+    sign_up_help: Norėdami naudoti prietaisų skydelį, turėsite prisijungi naudodami
+      "Vikipediją" ir suteikti jai leidimą pasiekti jūsų paskyrą. Galite prisijungti
+      naudodami esamą "Vikipedijos" paskyrą arba sukurti naują. Jei negalite sukurti
+      paskyros, teiraukitės "dashboard@wikiedu.org".
+  alerts:
+    alert_label: Perspėjimai
+    no_alerts: Nerasta jokių perspėjimų.
+  activity:
+    all: Veikla
+    edited_by: Redagavo
+    label: Veikla
+  articles:
+    assigned: Priskirti Straipsniai
+    available: Prieinami Straipsniai
+    assigned_to: Priskirta
+    edited: Redaguoti straipsniai
+    edited_by: 'Redagavo:'
+    edited_mobile: Straipsniai
+    filter:
+      tracked: Sekamas
+      untracked: Nesekamas
+      tracked_and_untracked: Sekami ir Nesekami
+    hide: Slėpti
+    label: Straipsniai
+    loading: Įkeliami straipsniai...
+    new: (naujas)
+    none: Šis kursas neredagavo jokių straipsnių.
+    rating: Klasė
+    rating_docs:
+      does_not_exist: Šis straipsnis neegzistuoja Vikipedijoje
+    show_cumulative_changes: Rodyti Kaupiamuosius Pakeitimus
+    show_current_version: Rodyti Dabartinę Versiją
+    title: Pavadinimas
+    tracked_doc: Tik sekami straipsniai įtraukiami į programos statistiką. Kai straipsniai
+      nėra pažymėti kaip sekasi, jie bus šalinami iš statistikos per sekantį duomenų
+      atnaujinimą.
+    title_example: Straipsnio pavadinimas
+    view: Peržiūrėti straipsnį
+    view_all: Rodyti visus
+    view_on_wiki: Peržiūrėti viki
+  assignments:
+    article: Straipsnis %{title} buvo priskirtas
+    article_link: Straipsnis
+    title_too_large: Pavadinimas neturėtų viršyti 255 simbolių
+    assign_other: Priskirti straipsnį
+    add_available: Pridėti prieinamą straipsnį
+    assign_self: Priskirti straipsnį sau
+    bibliography: Bibliografija
+    confirm_add_available: Ar tikrai norite pridėti %{title}?
+    confirm_addition: Ar tikrai norite paskirti %{title} %{username}?
+    confirm_deletion: Ar tikrai norite ištrinti šią straipsnio užduotį?
+    editors: Priskirta
+    group_members: Grupės nariai
+    label: Paskirti
+    loading: Įkeliamos užduotys...
+    none_short: Nėra priskirtų užduočių
+    none: Šis kursas neturi priskirtų straipsnių.
+    no_available: Šis kursas neturi prieinamų straipsnių.
+    remove: Pašalinti
+    reviewers: Vertintoja(-i)
+    review_other: Priskirti peržiūrą
+    review_self: Peržiūrėti straipsnį
+    sandbox_draft_link: Smėlio Dėžės Šablonas
+    select: Pasirinkti
+  blocks:
+    milestones:
+      title: Gairės
+  campaign:
+    active_campaigns: Aktyvios Kampanijos
+    add_organizer: Pridėti organizatorių
+    all_campaigns: Visos Kampanijos
+    campaign: Kampanija
+    campaigns: Kampanijos
+    campaign_deleted: Kampanija „%{title}“ ištrinta
+    campaign_not_updated: Kampanija negali būti atnaujinta
+    campaign_updated: Kampanija atnaujinta
+    confirm_campaign_deletion: Ar tikrai norite ištrinti kampaniją pavadinimu „%{title}“?
+      Jei taip, įrašykite kampanijos pavadinimą, kad tęstumėte.
+    confirm_campaign_deletion_failed: „%{title}“ nėra šios kampanijos pavadinimas.
+      Kampanija nebuvo ištrinta.
+    create_campaign: Kurti Naują Kampaniją
+    create_my_campaign: Sukurti mano Kampaniją!
+    data_instructors: Instruktoriai
+    description: Aprašymas
+    delete_campaign: Ištrinti šią kampaniją
+    none: Nėra
+    organizers: Organizatoriai
+    organizer_added: '%{user} dabar yra „%{title}“ kampanijos organizatorius'
+    organizer_removed: '%{user} buvo pašalintas kaip „%{title}“ kampanijos organizatorius'
+    program_template: Programos Šablonas
+    title: Pavadinimas
+    use_start_end_dates: Naudoti pradžios ir pabaigos datas
+  categories:
+    searching_for_category: Ieškoma kategorijų
+    add_this_category: Pridėti kategorijas
+    add_this_psid: Pridėkite PetScan PSID
+    add_this_pileid: Pridėkite PagePile id
+    add_this_template: Pridėti šablonus
+    import_articles_description: Straipsnių sąrašas kategorija atnaujinamas periodiškai
+      ir gali užtrukti, kol sąrašas atsinaujins.
+    articles_count: Straipsnių Skaičius
+    timestamp: Paskutinį Kartą Atnaujinta
+  courses:
+    school_system: Akademinė Sistema
+    accounts_generation_enabled: Paskyrų prašymų generavimas įjungtas
+    activity: Veikla
+    active_courses: Aktyvus %{course_type}
+    all_courses: Visi Kursai
+    already_enrolled: Jau esate prisijungęs prie '%{title}'!
+    already_exists: Tai jau kurse egzistuoja!
+    archived: Archyvuoti Kursai
+    actions: Veiksmai
+    articles: Straipsniai
+    assignment_end: Užduoties Pabaiga
+    assignment_start: Užduoties Pradžia
+    calendar:
+      legend: Legenda
+      legend_class_canceled: Atostogos/Atšaukta
+      legend_class_meeting: Klasės Susitikimas
+      legend_class_not_meeting: Nėra Suplanuoto Susitikimo
+      select_meeting_days: Pasirinkite savaitės diena, kada jūsų klasė susitinka.
+    cancel: Atšaukti
+    campaigns: 'Kampanijos:'
+    campaign_articles: '%{title} Straipsniai'
+    campaign_users: '%{title} Redaktoriai'
+    course: Kursas
+    course_description: Kursai
+    courses: Kursai
+    creation_date: Sukūrimo data
+    creator:
+      assignment_end: Užduoties pabaiga
+      assignment_end_placeholder: Užduoties pabaiga (MMMM-MM-DD)
+      assignment_start: Užduoties pradžia
+      assignment_start_placeholder: Užduoties pradžia (MMMM-MM-DD)
+      checking_for_uniqueness: Šis kursas yra tikrinamas dėl jo unikalumo.
+      clone_previous: Klonuoti Ankstesnį Kursą
+      clone_this: Klonuoti Šį Kursą
+      clone_successful: Kursas Sėkmingai Klonuotas
+      course_description: Kurso aprašymas
+      course_subject: Kurso tema
+      course_term: Kurso terminas
+      course_term_placeholder: Terminas
+      course_title: Kurso pavadinimas
+      create_button: Sukurti mano kursąǃ
+      create_label: Sukurti naują kursą
+      create_new: Sukurti naują kursą
+      create_short: Sukurti kursą
+      end_date: Pabaigos data
+      end_date_placeholder: Pabaigos data (MMMM-MM-DD)
+      expected_number: Numatomas studentų skaičius
+      find: Rasti savo kursą
+      no_class_holidays: Aš neturiu klasės atostogų
+      save_cloned_course: Išsaugoti Naują Kursą
+      start_date: Pradžios data
+      start_date_placeholder: Pradžios data (MMMM-MM-DD)
+      subject: Tema
+    current: Dabartiniai kursai
+    delete_course: Ištrinti kursą
+    dismiss_survey: Atmesti
+    dismiss_survey_confirm: Ar esate tikri, kad norite visam laikui atsisakyti šios
+      apklausos?
+    duration: Kurso trukmė
+    edit_count: Pakeitimų skaičius
+    edit_course_dates: Redaguoti Kurso Datą
+    enable_account_requests: Įjungti paskyrų prašymus
+    end: Pabaiga
+    enroll: Registruotis
+    enrollment: Registracija
+    error:
+      user_exists: Atsiprašome, %{username} neegzistuoja.
+      invalid_language_or_project: Negalima kalba/projektas
+      duplicate_slug: Kita programa, pavadinta %{slug}, jau egzistuoja.
+    expected_students: Tikimasi Studentų
+    gradeables_none: Šis kursas neturi vertinamų užduočių.
+    instructor:
+      one: Dėstytojas
+      other: Dėstytojai
+    instructors: Instruktoriai
+    join: Prisijungti
+    join_course: Prisijungti prie kurso
+    join_course_as_volunteer: Savanoriškai padėti
+    join_prompt: Prisijungti prie '%{title}'?
+    join_successful: Sėkmingai prisijungėte prie %{title}.
+    join_details: Kad prisijungtumėte prie šio kurso jums reikia gauti slaptažodį
+      - arba stojimo nuorodos, kurioje yra slaptažodis - iš dėstytojo. Jei jo negavote,
+      susiekite su savo dėstytoju.
+    leave_confirmation: Ar tikrai norite nebedalyvauti šiame kurse?
+    leave_course: Palikti kursą
+    loading: Įkeliama...
+    milestones_none: Kursas šiuo metu neturi jokių gairių.
+    my_articles: Mano Straipsniai
+    needs_update: Suplanuoti Duomenų Atnaujinimą
+    new_week: Pridėti naują savaitę
+    new_account_check_username: Tikrinti vartotojo vardo užimtumą
+    new_account_email: El. pašto adresas
+    new_account_email_placeholder: vardas@example.org
+    new_account_info: Kad paprašytumėte paskyros, įveskite savo el. pašto adresą ir
+      pageidaujamą vartotojo vardą. Slaptažodis bus atsiųstas el. paštu, kai paskyra
+      bus sukurta.
+    new_account_username: Prašomas vartotojo vardas
+    new_account_username_invalid: Tai nėra galimas vartotojo vardas.
+    new_account_username_taken: Šis vartotojo vardas jau užimtas. Prašome pasirinkti
+      kitą.
+    new_account_submit: Prašyti paskyros
+    new_account_submitted_admin: Jūsų paskyros prašymas buvo sukurtas. Prašome informuoti
+      savo studentus, kad pasitikrintų el. paštus, kur jie ras savo naujus slaptažodžius
+    nocourses: Jūs nedalyvaujate jokiuose kursuose.
+    none: Nėra
+    no_available_actions: Nėra galimų veiksmų
+    overview: Pradžia
+    passcode_prompt: 'Įveskite slaptažodį, norėdami prisijungti:'
+    requested_accounts: Prašomos paskyros
+    school: Mokykla
+    start: Pradžia
+    start_typing: Pradėkite rašyti
+    students: Studentai
+    students_count: '# Studentai'
+    students_none: Šis kursas neturi studentų.
+    students_short: Studentai
+    submitted_and_pending_heading: Išsiųstas ir Laukiantis Patvirtinimo
+    submitted_heading: Pateikti Kursai
+    submitted_note: Jūsų kursas buvo išsiųstas. Viki Ed darbuotojai jį peržiūrės ir
+      susisieks su jumis jei kils klausimų.
+    suggestions_feedback: Ar šie pasiūlymai naudingi? Praneškite mums!
+    suggestions_sending: Atsiliepimas Siunčiamas...
+    suggestions_sent: Atsiliepimas išsiųstas. Ačiū už jūsų indėlį.
+    suggestions_failed: Nepavyko išsiųsti atsiliepimo. Prašome bandyti vėliau.
+    user_role: Vaidmuo
+    course_details: Kurso Duomenys
+    term: Terminas
+    timeline: Užduoties detalės
+    timeline_link: Laiko juosta
+    title: Pavadinimas
+    update_stats: Atnaujinti statistiką
+    view_other: Žiūrėti kitas kampanijas
+    view: Žiūrėti Kursą
+    view_page: Žiūrėti Kurso Puslapį
+    view_wiki: Žiūrėti Vikipedijoje
+    volunteer:
+      one: Savanoris
+      other: Savanoriai
+    weeks_none: Šis kursas dar neturi laiko juostos.
+    wiki_staff: Viki Ed Darbuotojai
+    yourcourses: Jūsų kursai
+    survey:
+      notification_message: Atlikite šio kurso apklausą.
+      link: Atlikti apklausą
+  courses_generic:
+    school_system: Akademinė Sistema
+    all_courses: Visos Programos
+    assignment_end: Laiko Juostos Pabaigą
+    assignments_none: Šis projektas neturi priskirtų straipsnių.
+    assignment_start: Laiko Juostos Pradžia
+    cancel: Atšaukti
+    course: Programa
+    courses: Programos
+    campaigns: Kampanijos
+    creator:
+      checking_for_uniqueness: Ši programa yra tikrinama dėl jo unikalumo.
+      clone_previous: Klonuoti Ankstesnę Programą
+      clone_this: Klonuoti Šią Programą
+      course_description: Programos aprašymas
+      course_school: Institucija
+      course_title: Programos pavadinimas
+      create_button: Sukurti mano programąǃ
+      create_label: Sukurti naują programą
+      create_new: Sukurti naują programą
+      create_short: Sukurti programą
+      find: Rasti Programą
+    delete_course: Trinti programą
+    edit_course_dates: Redaguoti Projekto Datas
+    enroll: Pridėti Redaktorių
+    enrollment: Dalyvavimas
+    explore: Rasti Programas
+    courses_enrolled: Dalyvavo programose
+    expected_students: Tikimasi Redaktorių
+    join_course: Prisijungti prie programos
+    join_details: Kad prisijungtumėte prie šios programos jums reikia slaptažodžio
+      - arba stojimo nuorodos, kurioje yra slaptažodis - iš organizatoriaus.
+    leave_course: Palikti programą
+    milestones_none: Projektas šiuo metu neturi jokių gairių.
+    published: 'Šis projektas buvo publikuotas! Redaktoriai gali registruotis apsilankę
+      šiuo URL:'
+    request_accounts: Prašyti paskyrų
+    revisions_none: Šis projektas neturi naujos keitimų veiklos.
+    school: Institucija
+    student_editors: Redaktoriai
+    students: Redaktoriai
+    students_none: Šis projektas neturi prisijungusių redaktorių.
+    students_short: Redaktoriai
+    students_count: Dalyvių skaičius
+    term: Kada
+    view_other: Žiūrėti kitas kampanijas
+    view_page: Žiūrėti Programos Puslapį
+  editable:
+    edit: Redaguoti
+    cancel: Atšaukti
+    save: Išsaugoti
+    edit_description: Redaguoti Aprašymą
+    edit_details: Redaguoti Informaciją
+  metrics:
+    activity: Naujausia Veikla
+    articles_created: Sukurti straipsniai
+    articles_edited: Redaguoti straipsniai
+    characters: Simboliai
+    char_added: Pridėta Simbolių
+    char_changed: Pakeista Simbolių
+    char: Pridėta Simbolių
+    date_time: Data/Laikas
+    edit_count_description: Iš viso pakeitimų
+    per_user: '%{number}/vartotojui'
+    revisions: Naujausi keitimai
+    upload_count: Commons Įkėlimai
+    uploads_in_use_count:
+      one: failas panaudotas straipsnyje
+      other: failai panaudoti straipsniuose
+    view_count_description: Straipsnio Peržiūros
+    view: Peržiūros
+    word_count: Pridėta Žodžių
+    word_count_average: Vidutinis Žodžių Skaičius
+    total_revisions: Iš viso versijų
+    claims: Pretenzijos
+    aliases: Alternatyvūs vardai
+    merged: Sujungta
+    created: Sukurta
+    changed: Pakeista
+    removed: Pašalinta
+    cleared: Išvalyta
+    added: Pridėta
+    descriptions: Aprašymai
+    interwiki_links_added: Pridėtos „Interwiki“ nuorodos
+    labels: Etiketės
+    no_data: Nėra duomenų
+    other_updates: Kiti atnaujinimai
+    qualifiers_added: Kvalifikatoriai pridėti
+    redirects_created: Sukurti peradresavimai
+    restorations_performed: Atliktos restauracijos
+    reverts_performed: Atlikti grąžinimai
+  namespace:
+    main: Pagrindinė sritis
+  recent_activity:
+    active_courses: Straipsnis aktyvus
+    article_title: Straipsnio Pavadinimas
+    datetime: Data/Laikas
+    image: Paveikslėlis
+    file_name: Failo Pavadinimas
+    no_edits: Nėra naujų keitimų.
+    possible_plagiarism: Galimas plagijavimas
+    recent_edits: Naujausi keitimai
+    recent_uploads: Naujausi įkėlimai
+    show_courses: Rodyti tik mano kursus
+    uploaded_by: Įkėlė
+    usage_count: Naudojimų Skaičius
+  revisions:
+    chars_added: Pridėta Simbolių
+    class: Klasė
+    date_time: Data/Laikas
+    diff_show: Rodyti
+    diff_hide: Slėpti
+    edited_by: Redagavo
+    none: Šis kursas neturi naujos keitimų veiklos.
+    title: Pavadinimas
+    see_more: Žiūrėti daugiau
+  resources:
+    label: Ištekliai
+  timeline:
+    add_week: Pridėti Savaitę
+    arrange_timeline: Organizuoti Laiko Juostą
+    block_assignment: Užduotis
+    block_custom: Pasirinktinis
+    block_in_class: Klasėje
+    block_milestone: Gairė
+    course_dates: Kurso Datos
+    course_end: Kurso Pabaiga
+    course_start: Kurso Pradžia
+    discard_all_changes: Atsisakyti Visų Pakeitimų
+    empty_week_1: Norėdami pradėti,
+    empty_week_2: pradėkite redaguoti šią savaitę
+    empty_week_3: arba
+    empty_week_4: naudokite užduočių vedlį, kad sukurtumėte laiko juostą.
+    first_week_title: Pirma Aktyvi Savaitė
+    gradeable_value: Reikšmė
+    grading_header: 'Vertinimas (Viso: %{total}%)'
+    no_class_holidays: Aš neturiu klasės atostogų
+    no_timeline: Šis kursas neturi laiko juostos.
+    no_activity_this_week: Nėra suplanuotų susitikimų šią savaitę
+    nothing_this_week: Darbotvarkėje šiai savaitei nieko nėra.
+    save_all_changes: Išsaugoti Visus
+    this_week_title_default: Šią Savaitę
+    title: Laiko juosta
+    view_full_timeline: Žiūrėti Pilną Laiko Juostą
+    week_number: Savaitė %{number}
+  training:
+    continue: Tęsti (%{progress})
+    start: Pradėti
+    view: Žiūrėti
+    logged_out: Esate neprisijungę. Negausite kredito atlikdami šio modulio užduotys,
+      jei neprisijungsite.
+  uploads:
+    file_name: Failo Pavadinimas
+    header: Failai Įkelti į Vikimedija Commons
+    image: Paveikslėlis
+    label: Įkėlimai
+    loading: Kraunami įkėlimai...
+    none: Ši klasė dar nepridėjo jokių paveikslėlių ar kitų medijos failų į Vikimedija
+      Commons.
+    time_doc: Kiekvieno įkėlimo laikas, jūsų laiku
+    uploaded_by: Įkėlė
+    usage_count: Naudojimų Skaičius
+    usages: Panaudojimai
+  users:
+    already_enrolled: Šis vartotojas jau dalyvauja!
+    assign_articles: Priskirti Straipsnius
+    assign_articles_done: Atlikta
+    assigned: Priskirti Straipsniai
+    contributions: Vartotojo Įnašai
+    contributions_history_full: Peržiūrėti visą indėlio istoriją Vikipedijoje
+    contributions_more: Žiūrėti Daugiau Įnašų
+    editors: Redaktoriai
+    edits: pakeitimai
+    edits_by: 'Pakeitimai:'
+    enroll_confirmation: Ar tikrai norite pridėti %{username}?
+    enroll_url: 'Vartotojai gali prisijungti apsilankę šiuo URL:'
+    enrolled_success: '%{username} buvo pridėtas sėkmingai!'
+    first_name: Vardas
+    last_name: Pavardė
+    loading: Įkeliami vartotojai...
+    my_assigned: 'Priskirta:'
+    name: Pavadinimas
+    none: Nėra dalyvių.
+    no_articles: Nėra straipsnių
+    no_highlighting: Joks tekstas iš dabartinės straipsnio versijos nepriskirtas naudotojui
+      %{editor}. Peržiūrėkite puslapio istoriją, kad pamatytumėte jų pakeitimus.
+    recent_revisions: Naujausi keitimai
+    request_confirmation: Ar tikrai norite prašyti šios paskyros?
+    sandboxes: smėlio dėžės
+    training_module_name: Mokymo modulis
+    training_module_status: Būsena
+    username: Vartotojo vardas
+    username_placeholder: Vartotojo vardas
+    useremail_placeholder: El. paštas
+    role:
+      visitor: Lankytojas
+      student: Studentas
+      instructor: Dėstytojas
+      campus_volunteer: Universiteto Miestelio Savanoris
+      online_volunteer: Internetinis Savanoris
+      wiki_ed_staff: Viki Ed Darbuotojai
+  user_profiles:
+    disclaimer: Jūsų pateikta informacija bus vieša.
+    bio_placeholder: Pridėkite savo biografiją (neprivaloma)
+  wizard:
+    assignment_type: Užduoties tipas
+    course_dates: Kurso datos
+    summary: Apibendrinimas
+  error:
+    invalid_date: '%{key} data yra negalima'
+    start_date_before_end_date: Pradžios data turi būti prieš pabaigos datą
+    unsupported_browser:
+      header: Nepalaikoma naršyklė :-(
+  survey:
+    email:
+      closing: Pagarbiai,
+  wiki_api:
+    create_account_reason: Šis naudotojas dalyvauja %{event}.
+...

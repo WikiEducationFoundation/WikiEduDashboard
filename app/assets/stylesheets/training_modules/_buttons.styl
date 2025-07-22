@@ -1,0 +1,47 @@
+.btn
+  border-radius $btn_border_radius
+  border none
+  color $btn_text_color
+  padding 10px 15px
+  font-size $btn_font_size
+  font-weight 400
+  font-family $headline_font
+  letter-spacing 1px
+  text-decoration none
+  position relative
+  &:hover
+    color $btn_text_color
+  &.icon
+    padding-right 40px
+
+.btn:focus
+  box-shadow 0 0 3px #000
+  border 1px solid #222
+  outline none
+
+
+.icon-rt_arrow:before
+  position absolute
+  right 10px
+  top 30%
+
+.btn.btn-primary
+  background-color $training_primary
+  transition background 0.35s
+  &:hover
+    background-color $training_primary_dk
+
+a[disabled]
+  opacity 0.5
+  pointer-events none
+
+.btn-primary.ghost-button
+  background transparent
+  color $training_primary
+  border 3px solid $training_primary
+  &:hover
+    background $training_primary
+    color #fff
+
+.btn.btn-med
+  font-size $btn_font_size_med

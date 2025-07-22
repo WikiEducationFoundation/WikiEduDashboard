@@ -1,0 +1,9 @@
+- content_for :after_title, ' – Question Groups'
+
+= render 'admin_header'
+.container.survey__edit
+  - if @question_groups.length > 0
+    %ul.list.survey__admin__row-container= render partial: "question_group", collection: @question_groups.reverse
+  - else
+    %p.light-text
+      No Question Groups. #{link_to "Create One", new_question_group_path}

@@ -1,0 +1,13 @@
+id: 6906
+title: "That's it"
+content: |
+  You're a Wikipedian! Welcome, and happy editing!
+
+  We would also appreciate any feedback you have on this exercise.
+  Click below to tell us what you liked and didn't like about it,
+  and any suggestions you have for improving it.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit feedback
+  </a></div>
+  

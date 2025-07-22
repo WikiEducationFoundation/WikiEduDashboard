@@ -1,0 +1,22 @@
+id: 5411
+title: "Adding properties"
+summary:
+content: |
+  Recall that Wikidata uses properties to describe items. The more information
+  there is about an item, the better-connected it will be to other resources.
+  This is where your expertise comes in. You may have some depth of knowledge
+  about the topic that other editors don't. You may also know where to research
+  this topic to add more information.
+
+  The item "Members of the Legislative Council of Trinidad and Tobago" (<code>Q63345382</code>)
+  was created to fill a structural need (linking people
+  who were members of the council). But it's just a bare-bones item — it has a
+  label and a description, but there are no statements. The lack of statements
+  means that other editors may not understand how to use this item.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Wikidata_item_Q63345382.png" />
+    <figcaption class="image-credit">
+      This is a new item without any statements. Time to add some properties.
+    </figcaption>
+  </figure>

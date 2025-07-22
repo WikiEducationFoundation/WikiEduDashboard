@@ -1,0 +1,8 @@
+- if can_administer?
+  .survey__admin__nav
+    %nav.container
+      %div.nav__item= link_to 'Question Groups', rapidfire.question_groups_path, class: survey_class_for_path(request, rapidfire.question_groups_path)
+      %div.nav__item= link_to 'Surveys', main_app.surveys_path, class: survey_class_for_path(request, main_app.surveys_path)
+      %div.nav__item= link_to 'Assignment', main_app.survey_assignments_path, class: survey_class_for_path(request, main_app.survey_assignments_path)
+      %div.nav__item= link_to 'Results', main_app.results_path, class: survey_class_for_path(request, main_app.results_path)
+      %div.nav__item= link_to 'Recent Responses', main_app.survey_responses_path, class: survey_class_for_path(request, main_app.survey_responses_path)

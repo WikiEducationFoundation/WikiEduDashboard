@@ -1,0 +1,38 @@
+%section.dark.hero
+  .container
+    %h1= ENV['dashboard_title']
+
+    .button-container
+      = link_to user_mediawiki_omniauth_authorize_path, {class: 'button auth', method: :post} do
+        %i.icon.icon-wiki-purple
+        = t('home.log_in')
+
+      = link_to user_mediawiki_signup_omniauth_authorize_path, {class: 'button button-inverse auth signup', method: :post} do
+        %i.icon.icon-wiki-purple
+        = t('home.sign_up')
+
+      %span.help{data: { title: t('home.sign_up_help') } }
+        ?
+
+#call_to_action
+  - if Features.wiki_ed?
+    = render :partial => "wiki_ed_call_to_action"
+
+%section
+  - if @presenter.campaign
+    .container.text-center
+      %h2= @presenter.campaign&.title
+
+      // Expire the campaign stats cache every 3 hours
+      - cache "#{Date.today}-#{Time.now.hour / 3}-home-stats-#{locale}" do
+        = render 'courses/header_stats', presenter: @presenter
+
+      = link_to t('home.explore'), '/explore', {class: 'button button-ghost'}
+
+#impact
+  - if Features.wiki_ed?
+    = render :partial => "wiki_ed_impact"
+
+#supporters
+  - if Features.wiki_ed?
+    = render :partial => "wiki_ed_supporters"

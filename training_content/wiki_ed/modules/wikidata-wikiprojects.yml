@@ -1,0 +1,19 @@
+name: Wikidata WikiProjects
+id: 56
+description: |
+  In this module you will...
+
+  * learn where to go to coordinate editing efforts on Wikidata
+  * explore the different parts of a WikiProjects
+  * understand how to join and interact with other editors on WikiProjects
+estimated_ttc: 15 minutes
+slides:
+  - slug: wikidataprojects #5601
+  - slug: wikidataproject-pages #5602
+  - slug: wikidataproject-pages-cont #5603
+  - slug: wikiproject-data-models #5604
+  - slug: joining-a-wikidata-wikiproject #5605
+  - slug: project-chat-wikidataprojects #5606
+  - slug: data-models-quiz-wikidataprojects #5607
+  - slug: activities-wikidata-wikiproject #5608
+  - slug: thats-all-wikidataprojects #5609

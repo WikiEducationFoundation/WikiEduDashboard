@@ -1,0 +1,79 @@
+.faq-header
+  form
+    display flex
+    justify-content center
+    input
+      width 100%
+      max-width 400px
+    button.search
+      right 30px
+      position relative
+      color #888
+    button.search:hover
+      color inherit
+.faq-body
+  display flex
+  justify-content space-between
+  gap 20px
+
+  .faq-list
+    width 70%
+
+  .faq-topic-list
+    width 20%
+
+  @media only screen and (max-width: 500px)
+    flex-direction column-reverse
+    .faq-list
+      width 100%
+
+    .faq-topic-list
+      width 100%
+
+
+.faq-feedback
+  margin-top 20px
+  float left
+
+
+.faq
+  border-bottom 1px solid #ccc
+
+  h2
+    margin 0
+
+  .icon
+    font-size 30px
+    float right
+    transform-origin 50% 45%
+
+  .edit-link
+    font-size 15px
+    float left
+
+  .faq-header
+    padding 12px
+    overflow auto
+    cursor pointer
+
+    .faq-title
+      font-size 30px
+      float left
+
+  .faq-content
+    padding 0 12px
+    overflow hidden
+
+  &.collapsed
+    .icon
+      transition transform 0.2s
+    .faq-content
+      max-height 0
+      transition max-height 0.1s
+
+  &.expanded
+    transition all 0.2s
+    .icon
+      transform rotate(180deg)
+    .faq-content
+      padding-bottom 20px

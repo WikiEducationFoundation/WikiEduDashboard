@@ -1,0 +1,44 @@
+.survey__admin-row.survey__admin-row--assignment
+  .survey__admin-row__title
+    .contextual Target Campaign#{survey_assignment.campaigns.size > 1 ? 's' : ''}:
+    %strong= survey_assignment.campaigns.pluck(:title).join(', ')
+    .contextual Target User:
+    %span.emphasis= user_role(survey_assignment)
+    .contextual Survey:
+    %span.emphasis= survey_assignment.survey.name
+
+  .survey__admin-row__assignment-detail
+    .survey__admin-row__col.border
+      .survey__admin-row__col__detail
+        .contextual Status:
+        %strong.survey-assignment-color= survey_assignment.status
+
+      .survey__admin-row__col__detail
+        .contextual Notification Schedule:
+        %span= notification_schedule_summary(survey_assignment)
+
+      .survey__admin-row__col.survey__admin-row__col--actions
+        = "##{survey_assignment.id}"
+        %div &nbsp;
+        = link_to 'Edit', edit_survey_assignment_path(survey_assignment)
+        %div &nbsp;
+        = link_to 'Send Test Email', test_email_path(survey_assignment.id), data: { method: 'post' }
+
+    .survey__admin-row__col
+
+      .survey__admin-row__col__detail
+        .contextual Responses submitted
+        %span= assignment_response(survey_assignment)
+
+      .survey__admin-row__col__detail
+        .contextual Invitations dismissed
+        %span= assignment_dismissal(survey_assignment)
+
+      .survey__admin-row__col__detail
+        .contextual Number of Courses
+        %span= survey_assignment.courses.size
+      .survey__admin-row__col__detail
+        .contextual Estimated Recipients
+        - total = survey_assignment.target_user_count
+        %span= total
+        %span= user_role(survey_assignment, total)

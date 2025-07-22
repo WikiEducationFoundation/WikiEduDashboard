@@ -1,0 +1,206 @@
+@import './_variables'
+@import './modules/_notifications'
+
+.wiki_training
+
+.container.training
+  +below($desktop)
+    padding-left 20px
+    padding-right 20px
+    margin-top 50px
+
+.training__intro
+  column(8/12)
+  +below(tablet)
+    column(12/12)
+
+.training__toc-container
+  column(7/24, offset: (1/24))
+  position relative
+  bottom 70px
+  padding 45px 25px 0 25px
+  background $light_bg
+  color $type_light
+  ol
+    counter-reset item
+  a
+    text-decoration none
+    color $type_light
+  li
+    margin 0 0 1.5em
+    padding 0 0 0 20px
+    list-style-type none
+    counter-increment item
+    text-indent -20px
+    font-size: 14px
+    &:before
+      display inline-block
+      width 1em
+      padding-right 5px
+      font-weight bold
+      text-align right
+      content counter(item) "."
+    h3
+      display inline
+      color $type_light
+  .ui-text
+    margin-left 20px
+
+.total-slides
+  font-weight 400
+
+.training-intro__cta-container
+  margin-top 30px
+  small
+    text-align left
+
+.training-intro__estimated-ttc
+  background url('../images/clock-icon.svg') left center no-repeat
+  padding-left 37px
+  font-family $headline_font
+  font-size 13px
+  font-weight 400
+  position relative
+  top 5px
+
+.training__toc
+  list-style none
+  li
+    margin 1em 0
+    padding 1em
+    border 1px solid mercury
+
+.training__toc-inner
+  padding-left 4em
+
+.training__toc-progress
+  border 2px solid mercury
+  display block
+  padding-top 1em
+  width 30px
+  height 30px
+  border-radius 100px
+  float left
+  position relative
+  top 20px
+
+.training__header
+  margin 0 0 2em
+  h1
+    margin 0 0 10px 0
+  +below(tablet)
+    margin 10px 10px 20px
+    h1
+      font-size 30px
+    p
+      font-size 18px
+
+.training__categories
+  list-style none
+  margin-left 0
+  padding-left 0
+  column(12/12)
+  & > li
+    border-top 1px solid gray
+    padding 2em 0
+    margin-left 0
+    display inline-block
+    width 100%
+
+.training__category__header
+  column(4/12)
+  h1
+    margin-bottom 10px
+  h2
+    text-transform uppercase
+  p
+    font-size 15px
+    line-height 1.5
+  +below(tablet)
+    column(12/12)
+    margin 10px
+
+.training__category__source
+  a
+    font-size 10px
+
+.training__categories__modules
+  column(8/12)
+  list-style none
+  li
+    margin 0 0 30px
+    background white
+    &:first-of-type
+      margin-top 0
+  +below(tablet)
+    column(12/12)
+    li
+      margin 10px 10px 30px
+
+.training-intro__header
+  text-align left
+
+.container.training header
+  position relative
+  text-align left
+
+.training-libraries
+  margin-top 29px
+  column(12/12)
+.training-libraries__individual-library
+  column(6/12)
+  width 48%
+  margin 0 2% 3% 0
+
+  &.training-library-focus
+    box-shadow 0px 4px 12px rgba(0, 0, 0, 0.5)
+    width 60%
+    clear both
+
+.training-libraries__individual-library:nth-child(odd)
+  clear left
+  float left
+  &.training-library-defocus
+    clear right
+
+.training-libraries__individual-library:nth-child(even)
+  &.training-library-defocus
+    clear left
+    float left
+
+.action-card
+  .overdue, .completed
+    font-weight bold
+
+.action-card-index
+  outline none !important
+
+.overdue
+  color $warning_text
+.completed
+  color $success_text
+
+.training__button-container
+  text-align center
+  margin-bottom 35px
+
+.training-module-source
+  font-size 10px
+  float right
+  a
+    text-decoration underline
+
+.wait
+  padding 2px 5px 2px 5px
+  background url('../images/loader.gif') no-repeat 50% transparent
+
+@media only screen and (max-width: 550px)
+  .training-libraries
+    display flex
+    flex-direction column
+    .training-libraries__individual-library, .training-library-focus
+      width 100%
+
+@media only screen and (min-width: ($desktop))
+  .container.training
+    padding-left 20px

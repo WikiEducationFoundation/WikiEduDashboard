@@ -1,0 +1,29 @@
+id: 1615
+title: Article Finder tool
+summary:
+content: |
+  The <a href="https://dashboard.wikiedu.org/article_finder">Article Finder</a>
+  tool is another way to find articles to work on. The tool can be found on the
+  **Articles** tab of your Dashboard course page, by pressing the
+  "Available Articles" button. Once there, click the "Find Articles" button
+  located at the top right of the page.
+
+    <figure style="width: 100%">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Dashboard_Article_finder_%28instructor_view%29%2C_2019.png" />
+    </figure>
+
+  When you search a keyword, you'll see a list of relevant articles. You can
+  filter the results by quality, completeness, and how many page views the article
+  receives per day. We recommend finding an article related to your topic that is
+  low quality, incomplete, or read by a lot of people. Once you've located an
+  article you want to assign you can add it to your available articles list by
+  selecting the "add as available article" button.
+
+  If you already have some articles you want to add while searching for other
+  articles, you can add them by following these directions on the Available Articles
+  section of the **Articles** tab.
+
+  * Click 'Add an available article'
+  * Enter the title (or paste the url) of the article you want to be available
+  * Click 'Assign'
+  * Repeat for each article.

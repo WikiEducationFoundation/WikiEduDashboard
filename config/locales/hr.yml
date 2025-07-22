@@ -1,0 +1,58 @@
+# Messages for Croatian (hrvatski)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bugoslav
+# Author: Ivi104
+# Author: Neptune, the Mystic
+# Author: Ponor
+# Author: Vrhnje
+---
+hr:
+  application:
+    greeting2: Dobro došli!
+    greeting_extended: Dobro došli na Wikipediju
+    greeting: Pozdrav!
+    help: Pomoć
+    home: Glavna stranica
+    log_in_extended: Prijavi se preko Wikipedije
+    log_in: Prijavi se
+    log_out: Odjavi se
+  articles:
+    articles_shown: Prikazuje se %{count} od ukupno %{total}
+    articles_short: Članci
+  articles_generic:
+    articles_short: Stranice
+  assignments:
+    group_members: Članovi skupine
+  courses:
+    data_wikidata: Wikipodatkovna statistika
+    please_log_in: Molimo Vas, prijavite se.
+    stay_in_sandbox: Ostaje u pješčaniku
+    submitted_at: Podneseno na
+  courses_generic:
+    campaigns: 'Kampanje:'
+    student: Uređivač
+    students_count: Broj sudionika
+  instructor_view:
+    assignments_table:
+      article_name: Ime članka
+    bad_work:
+      learn_more: Ako je studentski rad pogoršao članak, potičemo Vas da ga sami uredite.
+        U suprotnom nas obavijestite o problemima da bismo ih kasnije mogli riješiti.
+      learn_more_button: Saznajte više
+      thank_you: Hvala Vam! Kontaktirajte sa svojim Wikiekspertom ako imate još pitanja.
+  revisions:
+    show_all: Pokaži sve
+    show_course_specific: Pokaži pojedinosti tečaja
+  training:
+    kind:
+      discussion: Rasprava
+  users:
+    training_incomplete: Nepotpun trening
+  error:
+    oauth_invalid: Vaša je autorizacija na Wikipediji istekla. Molimo Vas, prijavite
+      se ponovo.
+  training_status:
+    continue: Nastavi
+    view: Vidi
+...

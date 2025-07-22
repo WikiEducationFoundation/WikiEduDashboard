@@ -1,0 +1,38 @@
+---
+title: Editing an existing article (cont.)
+content: |
+  Here's how to move your drafted content:
+
+  1.  Open your sandbox in Edit mode. (References and other templates will
+      break if you copy from Read mode.)
+  2.  Select the portion you want to move into the live article in
+      mainspace.
+  3.  Open the original article in Edit mode and add your content into the
+      article.
+  4.  Add an edit summary that says it copied from your sandbox, and click
+      'Publish changes'. (Include a link to your sandbox by typing
+      `[[User:Your Username/sandbox]]` in the edit summary.)
+  5.  Repeat this process for any other parts of the article you worked
+      on.
+  6.  Make sure that the lead section reflects the new content you've
+      added. And copy-edit the article to ensure that your additions mesh
+      well with the older content.
+
+  Once you've gotten the hang of it you can make further edits directly in
+  the article, or repeat the sandbox procedure one portion at a time.
+id: 2603
+
+translations:
+  es:
+    title: Editando un artículo existente (cont.)
+    content: |
+        A continuación te explicamos cómo trasladar el contenido redactado:
+
+        1. Abre tu zona de pruebas en modo Edición. (Las referencias y otras plantillas se romperán si copias desde el modo Lectura).
+        2. Selecciona la parte que quieres mover al artículo en vivo en la página principal.
+        3. Abre el artículo original en modo Edición y añade el contenido al artículo.
+        4. Añade un resumen de edición que indique que lo has copiado de tu zona de pruebas y haz clic en “Publicar cambios”. (Incluye un enlace a tu zona de pruebas escribiendo `[[User:TuNombredeUsuario/sandbox]]` en el resumen de edición).
+        5. Repite este proceso para cualquier otra parte del artículo en la que hayas trabajado.
+        6. Asegúrate de que la sección principal refleje el nuevo contenido que añadiste. Y modifica el artículo para asegurarte de que lo que has añadido encaja bien con el contenido anterior.
+
+        Una vez que te hayas familiarizado con el proceso, puedes realizar más modificaciones directamente en el artículo o repetir el procedimiento de la zona de pruebas por partes.

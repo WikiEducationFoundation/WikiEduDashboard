@@ -1,0 +1,104 @@
+.list-search__form
+  margin-bottom $spacer * 2
+  input
+    +above(tablet)
+      width 300px
+
+.survey__admin-row
+  margin-left 0
+  background white
+  position relative
+  box-shadow 0 3px 4px rgba(0,0,0,0.1)
+  margin-bottom $spacer * 1.5
+  border-radius 3px
+  display flex
+
+.survey__admin-row .contextual
+  font-weight 600
+
+.survey__admin-row__title
+  padding 18px 20px 20px
+  margin-right 20px
+  border-right 1px solid $border_lt
+  flex-basis 30%
+  display flex
+  flex-direction column
+  justify-content center
+
+.survey__admin-row__col
+  padding 18px 30px 20px 0
+
+  &.border
+    border-right 1px solid $border_lt
+    margin-right 20px
+
+.survey__admin-row__col--actions
+  margin-left auto
+
+.survey__admin-row__col--actions .course-list__col
+  float left
+  margin-left $spacer
+
+.survey__admin-row__title strong
+  font-size 18px
+  color $text_dk
+
+.survey__admin-row__title .emphasis
+  font-weight 600
+
+.survey__admin-row
+  position relative
+
+.survey__admin-row:before
+  content ''
+  position absolute
+  left 0
+  top 0
+  bottom 0
+  width 6px
+  background $text
+  border-top-left-radius 3px
+  border-bottom-left-radius 3px
+
+.survey__admin-row--survey.survey__admin-row:before
+  background $survey_color
+
+.survey__admin-row--question-group.survey__admin-row:before
+  background $question_group_color
+
+.survey__admin-row--assignment.survey__admin-row:before
+  background $assignment_color
+
+.survey__admin-row--results.survey__admin-row:before
+  background $survey_results_color
+
+.survey__admin-row__expanded
+  flex-basis 100%
+  width 100%
+
+.survey__admin-row__assignment-detail
+  display flex
+  flex-direction column
+  width 100%
+
+.survey__admin-row__assignment-detail .survey__admin-row__col
+  display flex
+  height 50%
+  padding 0
+  border 0
+  &:nth-of-type(2)
+    background $bg_light_gray
+
+.survey__admin-row__assignment-detail .survey__admin-row__col--actions
+  padding 18px 20px 20px
+  span
+    margin-right $spacer*2
+
+.survey__admin-row__col__detail
+  padding $spacer*2 $spacer*3
+
+.survey__admin-row--assignment .survey__admin-row__title
+  margin-right 0px
+
+.surveys__admin-header--question-groups--edit
+  margin-bottom 0 !important

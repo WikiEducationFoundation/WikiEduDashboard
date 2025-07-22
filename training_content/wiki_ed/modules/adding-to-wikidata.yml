@@ -1,0 +1,36 @@
+name: Adding to Wikidata
+id: 54
+description: |
+  This training module shows you how to contribute to Wikidata. You should have
+  completed the *Introduction to Wikidata* training module.
+
+  By the end of this module, you'll be able to create new Wikidata items, add
+  properties to these items, and add supporting references.
+
+estimated_ttc: 20 minutes
+slides:
+  - slug: part-i-wikidata-fundamentals # 5401
+  - slug: minding-ps-and-qs #5402
+  - slug: a-wikidata-item #5403
+  - slug: statements-and-qualifiers-adams #5404
+  - slug: references-adams #5405
+  - slug: items-tutorial #5407
+  - slug: statements-tutorial #5408
+  - slug: part-ii-adding-wikidata #5409
+  - slug: picking-your-item #5410
+  - slug: adding-properties #5411
+  - slug: adding-properties-cont #5412
+  - slug: adding-properties-and-values #5413
+  - slug: add-references-wikidata #5414
+  - slug: adhering-to-constraints-wikidata #5415
+  - slug: learn-more-wikidata #5406
+  - slug: recommended-properties #5416
+  - slug: getting-started-wikidata #5417
+  - slug: add-statement-with-recoin #5418
+  - slug: adding-sources-wikidata #5419
+  - slug: more-on-stated-in #5425
+  - slug: recommendation-note-wikidata #5420
+  - slug: adding-to-wikidata-quiz #5421
+  - slug: adding-statements-quiz #5422
+  - slug: when-to-add-references-quiz #5423
+  - slug: adding-wikidata-thats-it #5424

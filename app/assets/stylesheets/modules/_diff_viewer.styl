@@ -1,0 +1,98 @@
+.diff-viewer
+  background-color white
+  padding 0 10px
+  position fixed
+  top 160px
+  /*@noflip*/ left 50%
+  width 100%
+  max-width 1200px
+  max-height 90vh
+  z-index 1
+  border 1px solid mischka
+  border-radius 3px
+  box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
+  transform translateX(-50%)
+  overflow-x auto
+
+.diff-viewer-header
+  padding 5px 0
+  margin 10px
+
+.diff-viewer-scrollbox-container
+  overflow-y scroll
+
+.diff-viewer-scrollbox
+  max-height: calc(95vh - 350px)
+  overflow-y: scroll
+  overflow-x: hidden
+  +below(tablet)
+    width fit-content
+
+.diff-viewer-scrollbox > table
+  width 100%
+  
+.diff-viewer-footer
+  border-top 1px solid mischka !important
+  font-size 90%
+  overflow-y auto
+  overflow-x hidden
+  max-height 92px
+  width 100%
+  div
+    float left
+
+.user-legend-wrap
+  display flex
+  flex-direction row
+  flex-wrap: wrap
+  width 194.5rem
+  background white
+
+.diff-viewer-legend
+  display flex
+  flex-direction row
+  margin 10px
+  width 33%
+  border-radius 15px
+  padding 2px 5px 2px 5px
+  font-size: 13px;
+  color: #808080;
+
+.diff-viewer-feedback
+  margin-right 15px
+
+.diff-comment
+  text-align center
+
+.diff-header
+  border none !important
+
+.diff-lineno
+  display none
+
+.diff-marker
+  border none !important
+  padding-top 0 !important
+  padding-bottom 0 !important
+  padding-left 12px !important
+  padding-right 12px !important
+
+.diff-empty
+  border none !important
+
+.diff-context
+  display none
+
+.diff-addedline
+  border 2px solid #dff0d8 !important
+  max-width 600px
+  overflow hidden
+  .diffchange-inline
+    background-color #dff0d8
+
+.diff-deletedline
+  border 2px solid #f2dede !important
+  max-width 500px
+  overflow hidden
+  .diffchange-inline
+    background-color #f2dede

@@ -1,0 +1,20 @@
+name: 'Editing health and psychology topics (Professional)'
+id: 48
+description: |
+  This tutorial will take you through the requirements for writing and
+  sourcing medical and psychology articles on Wikipedia.
+estimated_ttc: 10 minutes
+slides:
+  - slug: the-challenge-of-medical-topics-professional # 4801
+  - slug: when-do-medical-guidelines-apply-professional # 4802
+  - slug: when-does-medrs-not-apply-professional # 4803
+  - slug: first-rule-of-reliable-medical-sources-professional # 4804
+  - slug: poor-medical-sources-professional # 4805
+  - slug: good-medical-sources-professional # 4806
+  - slug: style-conventions-for-medical-topics-professional # 4807
+  - slug: medicine-and-original-research-professional # 4808
+  - slug: working-with-the-medrs-community-professional # 4809
+  - slug: medical-topics-best-practices-professional # 4810
+  - slug: medical-editing-video-professional # 4813
+  - slug: medrs-quiz-professional # 4811
+  - slug: medical-topics-complete-professional # 4812

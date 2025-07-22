@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  id="Layer_1" x="0" y="0" enable-background="new 84 2.5 16 16" version="1.1" viewBox="84 2.5 16 16" xml:space="preserve">
+    <style type="text/css">
+        .st0 {
+            fill: #676eb4; /* Updated color */
+        }
+    </style>
+    <g>
+        <path d="M95.6,3.3l3.7,3.7c1-1,1-2.7,0-3.7C98.2,2.2,96.6,2.2,95.6,3.3z" class="st0"/>
+        <path d="M98.2,7.9l-3.7-3.7l-8,8L84,18.5l6.3-2.6L98.2,7.9z M89.9,15.3l-3.6,1.5l-0.6-0.6l1.5-3.6c0,0,0.7,0.1,1,0.5 c0.3,0.3,0.2,1,0.1,1.1c0.1-0.1,0.8-0.2,1.1,0.1C89.8,14.6,89.9,15.3,89.9,15.3z" class="st0"/>
+    </g>
+</svg>

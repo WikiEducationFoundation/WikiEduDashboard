@@ -1,0 +1,49 @@
+# Messages for Western Armenian (Արեւմտահայերէն)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Azniv Stepanian
+# Author: Kareyac
+# Author: Աշոտ1997
+# Author: Դավիթ Սարոյան
+---
+hyw:
+  application:
+    greeting2: Բարի Եկաք
+    greeting_extended: Բարի եկաք Ուիքիփետիա
+    help: Օգնութիւն
+    log_out: Դուրս գալ
+    confirm: Լաւ
+    opt_in: Այո
+    opt_yes: այո
+  articles:
+    articles: Յօդուածներ
+    edited_mobile: Յօդուածներ
+  assignments:
+    article_link: Յօդուած
+  courses:
+    actions: Գործողութիւններ
+    articles: Յօդուածներ
+  metrics:
+    activity: Վերջին փոփոխութիւնները
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Մասնակիցի անուն
+    special_users:
+      new:
+        form_placeholder: Մասնակիցի անուն
+  timeline:
+    empty_week_3: կամ
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Ուիքիմետիա
+    options:
+      news_content:
+        confirm_delete: Հաստատել
+        cancel_delete: Չեղարկել
+  notes:
+    cancel_note_creation: Չեղարկել
+    cancel_edit_note: Չեղարկել
+    save_note: Յիշել
+...

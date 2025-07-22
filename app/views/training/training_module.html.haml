@@ -1,0 +1,22 @@
+- content_for :before_title, "#{@pres.training_module.translated_name} - "
+.training__show.container
+  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
+.container.training
+  .training__intro
+    .training-intro__header
+      %h1= @pres.training_module.translated_name
+      - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      - html = markdown.render(@pres.training_module.translated_description)
+      = raw html
+    .training-intro__cta-container
+      %small.block-element.capitalize{ class: @pres.progress_manager.assignment_status_css_class }
+        = @pres.progress_manager.assignment_status
+      = link_to @pres.cta_button_link, class: @pres.cta_button_classes do
+        = @pres.cta_button_text
+      %h3.py2.pull-left.training-intro__estimated-ttc
+        - if @pres.should_show_ttc?
+          %small
+            Estimated time to complete:
+            %br/
+            = @pres.training_module.estimated_ttc
+  #react_root{ "data-module-id" => params[:module_id] }

@@ -1,0 +1,122 @@
+# Messages for South Azerbaijani (تۆرکجه)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alp Er Tunqa
+# Author: Ilğım
+# Author: Ziraksima
+---
+azb:
+  application:
+    cancel: وازگئچ
+    dashboard: ویکی‌اد داشبوردو
+    error: بیر خطا باش وئردی.
+    explore: آختار
+    field_required: بو مورد گرکدیر
+    greeting2: خوش گلدینیز!
+    greeting_extended: ویکی‌پدیایا خوش گلدینیز
+    greeting: سالام!
+    help: کؤمک
+    home: ائو
+    log_in_extended: ویکی‌پدیایلا گیر
+    log_in: گیریش
+    log_out: چیخیش
+    my_dashboard: داشبوردوم
+    recent_activity: سون چالیشمالار
+    search: بیر سوال سوروش
+    sign_up_extended: ویکی‌پدیا ایله آد یازدیر
+    sign_up_log_in_extended: ویکی‌پدیا ایله
+    sign_up: آد یازدیر
+    submit: گؤندر
+    training: اؤیردیم
+    change: دَییشدیر
+    details: جوزئیات
+    confirm: اوْلسون
+  dashboard:
+    explore_examples: میثاللاردا آختار
+  home:
+    explore: آختار
+    log_in: ویکی‌پدیا ایله گیر
+    sign_up: ویکی‌پدیا ایله آد یازدیر
+  activity:
+    all: چالیشما
+    edited_by: دییشدیرن
+    label: چالیشما
+  articles:
+    edited: مقاله لر دییشدیریلیبدیر
+    edited_by: 'دییشدیرن:'
+    edited_mobile: مقاله‌لر
+    hide: گیزلت
+    label: مقاله‌لر
+    loading: مقاله‌لر یۆکلنیر...
+    new: (یئنی)
+    rating: کیلاس
+    title: باشلیق
+    title_example: مقاله باشلیغی
+    view: مقاله‌یه باخ
+    view_all: هامی‌سینا باخ
+    view_on_wiki: ویکیده باخ
+    edit_size: دییشدیرمه اؤلچوسو
+  assignments:
+    remove: سیل
+    select: سئچ
+  campaign:
+    campaign: کمپین
+    campaigns: کمپینلر
+    create_campaign: یئنی بیر کمپین یارات
+    create_my_campaign: منیم کمپینیمی یارات!
+    description: توضیح
+    delete_campaign: بو کمپینی سیل
+    none: هئچ بیری
+    title: باشلیق
+  courses:
+    activity: چالیشما
+    articles: مقاله‌لر
+    cancel: وازگئچ
+    campaigns: 'کمپینلر:'
+    creator:
+      course_term_placeholder: ترم
+      subject: موضوع
+    end: سوْن
+    error:
+      user_exists_on_wiki: باغیشلایین، ایشلدن آدی %{username}، %{domain} -دا یوخدور.
+    join: قوْشول
+    loading: یوکلنیر...
+    my_articles: منیم مقاله‌لریم
+    none: هئچ بیری
+    overview: ائو
+    school: مدرسه
+    start: باشلا
+    user_role: نقش
+    term: ترم
+    title: باشلیق
+  courses_generic:
+    cancel: وازگئچ
+    campaigns: 'کمپینلر:'
+    student_editors: دَییشدیرنلر
+    students: دَییشدیرنلر
+    students_short: دَییشدیرنلر
+    term: هاچان
+  editable:
+    edit: دَییشدیر
+    cancel: وازگئچ
+    save: ذخیره ائت
+    edit_description: آچیقلامانی دَییشدیر
+  metrics:
+    activity: سوْن چالیشمالار
+    tags: اِتیکتلر
+  recent_activity:
+    image: عکس
+    file_name: فایل آدی
+  revisions:
+    diff: فرق
+    diff_show: گؤستر
+    diff_hide: گیزلت
+    title: باشلیق
+  timeline:
+    gradeable_value: دیر
+  training:
+    start: باشلا
+    view: باخ
+  users:
+    name: آد
+...

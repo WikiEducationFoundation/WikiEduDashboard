@@ -1,0 +1,45 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hi #{@alert.user.username}."
+                Here are all the assigned training modules for&nbsp;
+                %a.link{href: @course_url}> your course
+                , with your status for each one:
+            %td.expander
+          %tr
+            %td
+              %table
+                %tr
+                  %th.trainings-table Module
+                  %th.trainings-table Status
+                  %th.trainings-table Due Date
+                - @alert.details.each do |slug, module_details|
+                  - training = TrainingModule.find_by(slug: slug)
+                  - next unless training
+                  %tr
+                    %td.trainings-table-cell
+                      %a.link.training{href: "https://#{ENV['dashboard_url']}/training/students/#{slug}"}
+                        = training.name
+                    %td{class: "trainings-table-cell #{module_details[:status]}"}= module_details[:status]
+                    %td.trainings-table-cell= module_details[:due_date]
+
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+              %p.paragraph
+                We'll send you another reminder in about
+                = @days_until_next_alert
+                days if you still have overdue training modules.
+                If you don't want to receive any more training reminders,
+                %a.link{href: @alert.opt_out_link} click here
+                to opt out.
+.hidden
+  %p -- DO NOT DELETE ANYTHING BELOW THIS LINE --
+  %p ignore_creating_dashboard_ticket

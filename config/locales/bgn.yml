@@ -1,0 +1,15 @@
+# Messages for Western Balochi (روچ کپتین بلوچی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ibrahim khashrowdi
+---
+bgn:
+  application:
+    greeting: سلام علیکم
+  users:
+    username: کار زوروکین نام
+    username_placeholder: کار زوروکین نام
+  survey:
+    email:
+      headline: سلام علیکم، %{username}
+...

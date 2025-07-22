@@ -1,0 +1,10 @@
+# Messages for Bhojpuri (भोजपुरी)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: SatyamMishra
+---
+bho:
+  courses_generic:
+    courses: प्रोग्राम
+    enrollment: भागीदारी
+...

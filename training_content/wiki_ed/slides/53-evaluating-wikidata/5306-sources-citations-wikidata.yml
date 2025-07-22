@@ -1,0 +1,23 @@
+id: 5306
+title: "Sources and citations"
+summary:
+content: |
+  Statements can be supported by more than one reference.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Two_references_example_on_Wikidata.png" />
+    <figcaption class="image-credit">
+      Statements can contain multiple references. This statement contains two references.
+    </figcaption>
+  </figure>
+
+  Statements can also contain conflicting data. For example, Hurricane Maria
+  (2017) has conflicting numbers of deaths associated with it, depending on
+  what's reported by different references.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Conflicting_values_on_a_Wikidata_item.png" />
+    <figcaption class="image-credit">
+      Although the top value does not yet contain a reference, this number is a total of different agencies from the Wikipedia page.
+    </figcaption>
+  </figure>

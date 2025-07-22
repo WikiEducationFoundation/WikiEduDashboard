@@ -1,0 +1,237 @@
+.my-articles
+  margin-bottom 0
+
+  .peer-review-count
+    border-bottom 1px dashed
+  div.my-articles-header
+    margin-bottom 15px
+
+    .tooltip
+      p
+        font-size 12px
+  .no-assignment-message
+    background rgb(103, 110, 180)
+    border-radius 3px
+    color white
+    padding 15px
+
+.my-assignment
+  border 1px solid #EDEDED
+  border-radius 3px
+  display flex
+  flex-direction column
+  margin 15px 0
+  &.complete
+    border 1px solid rgb(103, 110, 180)
+  .completed-assignment
+    background rgb(103, 110, 180)
+    color white
+    font-size 0.8rem
+    font-weight bold
+    padding 5px 15px
+  .header-wrapper
+    display flex
+    padding 15px
+  .header, .actions
+    flex 1
+  .header
+    font-size 90%
+    display inline
+    text-align left
+    .title
+      padding 0
+      h4
+        color $text
+        display inline
+        font-size 130%
+        font-weight normal
+  .actions
+    align-items center
+    display flex
+    justify-content flex-end
+    text-align right
+    *
+      margin-left 3px
+  .progress-tracker
+    display flex
+    flex-direction column-reverse
+  .toggle-progress-tracker
+    background #EDEDED
+    color rgba(100,100,100,0.6)
+    cursor pointer
+    font-size 0.8rem
+    padding 5px 0
+    text-align left
+    ul
+      display flex
+      flex 1
+      margin 0
+      li
+        display inline-block
+        flex 1
+        font-size 13px
+        text-align left
+        &:first-child
+          margin-left 30px
+        &:last-child
+          margin-right 30px
+          text-align right
+        &.selected
+          color rgb(103, 110, 180)
+          font-weight bold
+  .flow
+    border-top 1px solid #EDEDED
+    display flex
+    .step
+      align-items center
+      border-right 1px solid rgb(225,225,225)
+      color rgba(100,100,100,0.6)
+      display flex
+      flex 1 1 0
+      flex-direction column
+      padding 15px 30px 30px
+      text-align center
+      *
+        flex 1
+      &:last-child
+        border-right none
+        margin-right 0
+      span.step-number
+        border 3px solid rgb(225,225,225)
+        border-radius 50%
+        color rgb(225,225,225)
+        display block
+        flex none
+        font-weight bold
+        padding 10px
+        text-align center
+        height 50px
+        width 50px
+      h3.step-title
+        color rgba(100,100,100,0.6)
+        font-weight 400
+        margin-bottom 0
+        padding 15px 0
+      p.step-description
+        font-size 0.9rem
+      aside.step-links a, section.step-members a
+        color rgba(100,100,100,0.6)
+        font-size 0.9rem
+        white-space nowrap
+      aside.step-links a
+        display block
+        margin-bottom 5px
+      section.step-members
+        font-size 0.9rem
+        margin 15px
+      nav.step-navigation
+        background none
+        display flex
+        flex 1
+        flex-direction column
+        justify-content flex-end
+        margin-top 15px
+        text-align center
+        button
+          display block
+          flex none
+          margin 5px 0 0
+          text-align center
+          width 100%
+      &.active
+        color rgb(100,100,100)
+        span.step-number
+          border-color rgb(103, 110, 180)
+          color rgb(103, 110, 180)
+        h3.step-title
+          color rgb(103, 110, 180)
+        aside.step-links a
+          color rgb(103, 110, 180)
+  .limit-size
+    max-width 30px
+
+.my-assignment-checklist
+  font-size 120%
+  padding 20px 40px
+  overflow-y auto
+  max-height 80%
+  text-align left
+
+  h2
+    text-align center
+
+  dd
+    margin 10px
+
+  button
+    float right
+
+.feedback
+  font-size 120%
+  padding 20px 40px
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  div
+    float none
+
+  h2
+    text-align left
+    display inline
+    width: fit-content;
+    padding-left: 20px
+
+  .feedback-close
+    float left
+    width: fit-content;
+
+  .feedback-close-container
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 10px;
+  
+
+.feedback-body
+  text-align left
+  padding 20px
+  display: flex;
+  align-items flex-start
+  flex-direction: column;
+
+  h5
+    padding-top 5px
+
+  p
+    text-align left
+  
+  ul
+    text-align left
+    padding-left 16px
+
+  .rating-description
+    font-size 75%
+    color bayoux
+
+.feedback-form-container
+  display flex
+  flex-direction column
+  align-items flex-start
+ 
+.feedback-form
+  width 100%
+  margin-top 10px
+  margin-bottom 20px
+
+hr.assignment-divider
+  margin-bottom 4px
+
+@media screen and (max-width: 486px)
+ .controls
+  display flex
+  flex-direction column
+
+ .controls > *
+  margin 5px

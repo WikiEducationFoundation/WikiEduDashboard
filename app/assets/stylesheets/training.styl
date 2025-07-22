@@ -1,0 +1,103 @@
+/* /////////////////////////////////////////////////////
+
+WikiEduDashboard styles
+Author: nate@wintr.us
+
+///////////////////////////////////////////////////// */
+
+/* type */
+$body_font = 'Open Sans', sans-serif
+$headline_font = 'Source Sans Pro', sans-serif
+$body_font_weight = 400
+$body_font_size = 21px
+$body_leading = 1.6
+$body_letter_spacing = 0.01em
+
+/* colors */
+$body_bg = #F7F7F7
+$body_color = $type_dark
+$card_type_color = $type_light
+
+// This is the main base color from the 'main' stylesheet
+$type_medium = #6a6a6a
+
+$type_dark = #324446
+$type_light = #666
+
+$border = #595959
+$border_med = #9E9FA1
+$border_med_lt = #A0A0A0
+$border_lt = #CCC
+$border_lightest = #CFCFCF
+
+$training_primary = #40AD90
+$training_primary_dk = #359178
+$brand_primary = #676EB4
+
+$btn_border_radius = 3px
+$btn_text_color = #FFF
+$btn_font_size = 18px
+$btn_font_size_med = 15px
+
+$success_text = #359178
+$success_bg = #E4ECEA
+$success_border = #82BD86
+
+$warning_text = #B82F61
+$warning_bg = #EFDFE5
+$warning_border = #D6859F
+
+$dark_bg = #3A3D46
+$light_bg = #E8E8E8
+
+$breadcrumb_light_text = #CEEAE3
+
+$slide_inner_content_width = 750px
+
+$nav_height = 55px
+
+/* breakpoints */
+$tablet = 400px
+$desktop = 920px
+$wide-desktop = 1200px
+
+// Responsive switches (overridden in ie.styl)
+fix-mqs ?= false
+old-ie ?= false
+
+@import "_reset"
+@import "../../../node_modules/jeet/jeet.styl"
+@import "_utils"
+@import "_icons"
+@import "_variables"
+@import "_training_base"
+@import "modules/_nav"
+@import "modules/_language_picker"
+@import "modules/_tables"
+@import "training_modules/*"
+
+@import "_base"
+@import "_fonts"
+@import "modules/_inputs"
+@import "modules/_loading"
+@import "modules/_tooltips"
+@import "modules/_popover"
+@import "modules/_nav_news"
+
+// Overwriting some table styles
+.training .training__slide
+  table
+    margin-bottom 20px
+  table td, table th
+    font-size 16px
+  table th
+    background $border_med
+    border 1px solid #ddd
+    border-bottom none
+    color $type_dark
+
+    &:first-child
+      border-left 1px solid #ddd
+    &:last-child
+      border-right 1px solid #ddd
+

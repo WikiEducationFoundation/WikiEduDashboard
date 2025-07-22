@@ -1,0 +1,282 @@
+# Messages for Indonesian (Bahasa Indonesia)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Agam Riyandana
+# Author: Ahmadidwi
+# Author: Arief
+# Author: Arifin.wijaya
+# Author: ArlandGa
+# Author: DARMAS BUDI SANTOSO
+# Author: Daud I.F. Argana
+# Author: Fafau06
+# Author: HaidirAndiNovianto
+# Author: Hidayatsrf
+# Author: Joseagush
+# Author: Masjawad99
+# Author: Mirws
+# Author: Mnam23
+# Author: Pebaryan
+# Author: Presidenvolksraad
+# Author: RXerself
+# Author: Rachmat.Wahidi
+# Author: Rachmat04
+# Author: RaymondSutanto94
+# Author: Sonic Speedy
+# Author: Veracious
+---
+id:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: Rb
+          million: Jt
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Ini merupakan kolom nomor. Tombol yang diberikan oleh kebanyakan
+      peramban akan menambahkan dan mengurangi input.
+  application:
+    back: Kembali
+    cancel: Batal
+    cookie_consent: Situs ini menggunakan kuki untuk memastikan anda tetap berada
+      pada log masuk dan menyimpan informasi yang terkait dengan akun Wikipedia anda.
+    cookie_consent_acknowledge: Saya mengerti
+    cookie_consent_see_more: lihat selengkapnya
+    create_accounts: Buat akun Wikipedia
+    dashboard: Papan Utama Wiki Ed
+    documentation: Dokumentasi
+    error: 'Terjadi kesalahan:'
+    explore: Jelajah
+    field_required: Bidang ini perlu diisi
+    field_invalid_characters: Ada karakter tidak sah di bidang ini
+    field_invalid_date: Bidang ini memerlukan tanggal dalam format YYYY-MM-DD
+    greeting2: Selamat datang!
+    greeting_extended: Selamat datang di Wikipedia
+    greeting: Halo!
+    help: Bantuan
+    home: Beranda
+    log_in_extended: Masuk log dengan Wikipedia
+    log_in: Masuk
+    log_out: Keluar
+    my_dashboard: Papan instrumen saya
+    recent_activity: Aktivitas Terkini
+    report_problem: Laporkan masalah
+    request_account_create: Buat akun baru
+    search: Ajukan pertanyaan
+    show_current_revision: Tampilkan versi terkini
+    show_last_revision: Tampilkan versi yang terakhir disunting
+    sign_up_extended: Masuk dengan Wikipedia
+    sign_up_wikipedia: Atau daftar di Wikipedia
+    sign_up_log_in_extended: dengan Wikipedia
+    sign_up: Daftar
+    submit: Kirim
+    training: Pelatihan
+    change: Ubah
+    details: Rincian
+    confirm: OK
+    opt_in: Ya
+    opt_out: Tidak
+    opt_yes: ya
+    opt_no: tidak
+    print: Cetak
+  article_statuses:
+    not_yet_started: Memulai
+    in_progress: Bekerja di Bak pasir
+  dashboard:
+    explore_course_pages: Jelajahi Course Pages
+    explore_examples: Contoh penjelajahan
+    opt_out: Permintaan untuk memilih keluar dari orientasi
+  home:
+    explore: Jelajah
+    log_in: Masuk dengan Wikipedia
+    sign_up: Masuk dengan Wikipedia
+  alerts:
+    alert_label: Peringatan
+    no_alerts: Peringatan tidak ditemukan.
+  activity:
+    all: Aktivitas
+    edited_by: Disunting Oleh
+    label: Aktivitas
+  articles:
+    articles: Artikel
+    article_not_found: Artikel ini belum dibuat.
+    article_development: (pengembangan artikel)
+    articles_shown: Menampilkan %{count} dari %{total}
+    next: Selanjutnya
+    previous: Sebelumnya
+    article_title: Judul artikel
+    assigned_to: Ditugaskan Kepada
+    deleted: (dihapus)
+    edited: Artikel yang disunting
+    edited_by: 'Disunting oleh:'
+    edited_mobile: Artikel
+    filter:
+      wiki_all: Semua
+      new: Baru
+    hide: Sembunyikan
+    loading: Memuat artikel...
+    rating: Kelas
+    rating_docs:
+      start: Kelas %{class} — artikel awal dengan banyak ruang untuk perbaikan
+    see_more: Lihat selengkapnya
+    title: Judul
+    title_example: Judul artikel
+    view: Lihat Artikel
+    view_all: Tampilkan semua
+    wiki: Wiki
+    articles_short: Artikel
+  items:
+    items: Butir
+    article_not_found: Butir ini belum dibuat.
+  assignments:
+    article_link: Artikel
+    bibliography: Bibliografi
+    confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
+    loading: Memuat tugas...
+    reviewers: Peninjau
+    sandbox_draft_link: Draf Kotak Pasir
+  campaign:
+    created_at: Tanggal
+    confirm_campaign_deletion: Apakah Anda yakin ingin menghapus kampanye berjudul
+      "%{title}"? Jika demikian, ketik judul kampanye untuk melanjutkan.
+    data_articles: Halaman yang disunting
+    description: Keterangan
+    none: Tak satupun
+    organizers: Penyelenggara
+  categories:
+    add_template: Tambahkan templat
+  courses:
+    accounts_generation_confirm_message: Apakah Anda yakin ingin mengaktifkan permintaan
+      pembuatan akun?
+    activity: Aktivitas
+    alerts: Peringatan
+    course_description: Kursus
+    creator:
+      assignment_start: Penugasan dimulai
+      cancel_course_clone: Batal penggandaan kursus
+      cancel_course_clone_confirm: Apakah Anda yakin mau menghentikan penggandaan
+        kursus ini
+      course_types:
+        basic_course_name: Program Dasar
+      expected_number: Jumlah perkiraan siswa
+    edit_count: Jumlah suntingan
+    edit_course_dates: Sunting tanggal kursus
+    needs_update: Jadwalkan Pembaruan Data
+    user_recent_uploads: Unggahan Terkini
+    word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
+      kursus selama jangka kursus
+  courses_generic:
+    courses: Program
+    creator:
+      cancel_course_clone: Batal penggandaan kursus
+      cancel_course_clone_confirm: Apakah anda yakin ingin menghentikan penggandaan
+        program ini?
+      checking_for_uniqueness: Keunikan program akan diperiksa.
+      create_new: Buat Program Independen
+      find: Temukan Program
+      participate_in_campaign: Berpartisipasi dalam Kampanye
+    explore: Temukan Program
+    student_editors: Penyunting
+    students: Penyunting
+    view_other: Lihat kampanye lain
+  editable:
+    save: Simpan
+  metrics:
+    char_added: Karakter Ditambahkan
+    char: Karakter Ditambahkan
+    date_time: Tanggal/Waktu
+    future_updates_remaining:
+      updates_active: Statistik akan terus diperbarui hingga %{date}.
+      updates_inactive: Statistik untuk program ini tidak lagi diperbarui secara berkala.
+    references_count: Referensi Ditambahkan
+    references_doc: Ini adalah jumlah dari tag referensi yang ditambahkan ke artikel,
+      dan bisa memasukkan beberapa referensi ke sumber yang sama. Data diambil dari
+      model kualitas artikel ORES, dan hanya tersedia untuk beberapa bahasa.
+    update_statistics_link: Lihat selengkapnya
+    word_count: Kata ditambahkan
+  namespace:
+    project: Proyek
+    file: Berkas
+    mediaWiki: MediaWiki
+    template: Templat
+    help: Bantuan
+    category: Kategori
+    page: Halaman
+    book: Buku
+    wikijunior: WikiJunior
+    draft: Draf
+    query: Kueri
+    lexeme: Leksem
+    portal: Portal
+    school: Sekolah
+    cookbook: Buku masak
+    index: Indeks
+    collection: Koleksi
+  recent_activity:
+    datetime: Tanggal/Waktu
+    image: Gambar
+    possible_plagiarism: Kemungkinan Plagiarisme
+    recent_uploads: Unggahan Terkini
+    revision_datetime: Tanggal/Waktu Revisi
+  revisions:
+    chars_added: Karakter Ditambahkan
+    references: Referensi Ditambahkan
+    class: Kelas
+    date_time: Tanggal/Waktu
+    diff: beda
+    time_doc: Waktu setiap revisi dalam waktu lokal Anda
+    see_more: Lihat selengkapnya
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nama pengguna
+  tickets:
+    search_bar_placeholder: Cari tiket
+    chose_search_type: Pilih jenis pencarian
+  timeline:
+    blackout_week_created: Ada blok dijadwalkan minggu ini. Silakan pindahkan ke seminggu
+      lagi sebelum Anda menghapus pertemuan kelas terakhir dari minggu ini.
+    unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
+      penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
+      ruang bagi yang baru.
+  training:
+    kind:
+      training: Pelatihan
+  update_username:
+    label: Nama pengguna baru
+  uploads:
+    image: Gambar
+    label: Unggahan
+    none: Kelas ini belum memberikan kontribusi setiap gambar atau file media lainnya
+      untuk Wikimedia Commons.
+  users:
+    contributions_more: Lihat Kontribusi lainnya
+    editors: Penyunting
+    characters_added_short: 'RN: %{mainspace}, RP: %{userspace}'
+    references_count: Referensi Ditambahkan
+    request_confirmation: Apakah anda yakin ingin memohon akun ini?
+    revision_characters_and_views: 'Karakter ditambahkan: %{characters}, Dilihat:
+      %{views}'
+    training_complete:
+      one: telah diperbarui dengan pelatihan
+      other: telah diperbarui dengan pelatihan
+    username: Nama pengguna
+    username_placeholder: Nama pengguna
+  user_profiles:
+    institution_placeholder: Nama institusi (opsional)
+  wizard:
+    assignment_description: Pilih tanggal mulai dan akhir untuk waktu tugas Anda.
+      Sebagai contoh, jika Anda ingin memulai proyek Wikipedia Anda minggu kedua kelas,
+      mengatur tanggal mulai tugas untuk satu minggu setelah tanggal mulai kursus
+      ini. Desain alat tugas ini akan membuat rancangan waktu yang pas timeline tanggal
+      yang Anda pilih.
+  error:
+    invalid_assignment: Tugas tidak sah
+  wiki_api:
+    create_account_reason: Pengguna ini sedang berpartisipasi dalam  %{event}.
+  article_finder:
+    page_assessment_class: Kelas
+...

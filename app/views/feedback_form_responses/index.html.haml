@@ -1,0 +1,18 @@
+- content_for :before_title, 'Feedback — '
+.container
+  %h1 Feedback Form Responses
+
+  - if @responses.empty?
+    %p= I18n.t 'feedback_form_responses.no_responses'
+  - else
+    %table.list-basic
+      %tr
+        %th Date/Time
+        %th Subject
+        %th Body
+      - @responses.each do |response|
+        %tr
+          %td= response.created_at
+          %td= response.topic
+          %td= link_to response.body.truncate(200, separator: ' '), "/feedback_form_responses/#{response.id}"
+    %a.button{href: "/feedback_form_responses?page=#{@page + 1}"} Earlier responses

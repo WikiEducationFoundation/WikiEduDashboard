@@ -1,0 +1,9 @@
+name: Fixing bad articles
+id: 61
+description: |
+  How to clean up major problems in articles that your students worked on
+slides:
+  - slug: instructors-role-in-cleanup
+  - slug: review-article-history
+  - slug: restoring-an-earlier-version
+  - slug: editing-the-live-article

@@ -1,0 +1,19 @@
+- content_for :before_title, 'FAQ Topics'
+.container
+  %h1 FAQ Topics
+  %a.button{href: '/faq_topics/new'} New Topic
+
+  - @faq_topics.each do |topic|
+    .faq
+      %h3
+        = topic.name
+        - if current_user&.admin?
+          .edit-link= link_to 'edit', "/faq_topics/#{topic.slug}/edit"
+      %div
+        Slug:
+        = topic.slug
+        %ul
+          - topic.faqs.each do |faq|
+            %li
+              %a{href: "/faq/#{faq.id}"}= faq.title
+

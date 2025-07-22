@@ -1,0 +1,145 @@
+body.training .breadcrumbs
+  margin 0
+
+body.training nav.top-nav
+  position relative
+  color $type_medium
+
+.training__slide__nav h3 a
+  color #fff
+  text-decoration none
+
+.breadcrumbs
+  list-style none
+  font-size 15px
+  li
+    display inline
+    margin 0
+
+.training__slide-header
+  padding 12px 0 16px 0
+  height auto
+  background $training_primary
+  ol.breadcrumbs 
+    width 85%
+    @extends .breadcrumbs
+    color $breadcrumb_light_text
+    text-align left
+    margin-top 4px
+    padding 0 12px
+    a
+      color #fff
+      text-decoration none
+      font-weight 600
+      letter-spacing 1px
+      &:hover
+        text-decoration underline
+    li
+      color #fff
+      &:first-child a
+        color $breadcrumb_light_text
+        font-weight 400
+        letter-spacing 0
+  +below(tablet)
+    padding 62px 0 16px 0
+
+.training__show
+  ol.breadcrumbs
+    width 66%
+    @extends .breadcrumbs
+    margin-bottom -23px
+    li
+      margin-left 0
+      padding-left 0
+    a
+      color $type_light
+      font-size 15px
+  +below(tablet)
+    margin-top 23px
+    ol.breadcrumbs
+      margin 70px 52px 0px 10px
+      width 100%
+
+
+
+a.slide-nav
+  max-width 45%
+  display block
+  position absolute
+  @extends .truncated-text
+  +below(tablet)
+    max-width 55%
+
+.training__slide__nav
+  cursor pointer
+  display inline-block
+  position absolute
+  right 0px
+  top -90px
+  color #fff
+  height 55px
+  width 192px
+  padding 19px 12px 12px 12px
+  h3
+    font-weight 400
+    font-size 15px
+    letter-spacing 0.35px
+
+.dropdown__close
+  cursor pointer
+  position absolute
+  top 11px
+  right 10px
+  font-size 23px
+  font-weight 600
+
+.hamburger
+  margin 2px 0 0 10px
+
+.hamburger__bar
+  background #fff
+  display block
+  height 2px
+  width 14px
+  margin 2px
+
+.slide__menu__nav__dropdown
+  float left
+  position absolute
+  top -90px
+  right 10px
+  background $light_bg
+  padding 5px 0
+  width 275px
+  box-shadow 3px 3px 6px rgba(0,0,0,0.3)
+  z-index 999
+  h1
+    margin-bottom 15px
+    padding 16px 16px 0
+  ol
+    list-style none
+  li
+    font-size 17px
+    line-height 21px
+    margin 10px 0
+    padding-left 0
+    border-top 2px solid $border_lightest
+    padding 14px 15px 5px 15px
+    color $type_dark
+    font-weight 400
+    &.current
+      font-weight 600
+      color $training_primary
+      a
+        opacity 1
+        color $training_primary
+    a
+      @extends .truncated-text
+      display block
+      color $type_dark
+      text-decoration none
+      &:hover
+        text-decoration underline
+@media only screen and (max-width: 500px)
+  body.training nav.ham-nav
+    position fixed

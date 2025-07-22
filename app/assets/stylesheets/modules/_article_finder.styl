@@ -1,0 +1,222 @@
+.results-loading
+  background url('../images/loader.gif') no-repeat 50% white
+
+.horizontal-flex
+  display flex
+  justify-content space-between
+
+.justify-space-around
+  justify-content space-around !important
+
+.fetch-more
+  height 3rem
+
+.pageviews
+  text-align justify
+
+.revScore
+  text-align center
+
+.article-finder-search-bar.autocomplete-on
+  input[type=text]
+    border-radius 5px 5px 5px 0
+  .autocomplete
+    display block
+
+.article-finder-search-bar
+  display flex
+  flex-direction row
+  align-items end
+  position relative
+
+  input[type=text]
+    font-size 15px
+    width 100%
+    border-radius 5px 5px 5px 5px
+    padding 1rem 11rem 1rem 2rem
+    transition border-radius linear 0.1s
+  button:disabled
+    opacity 50%
+  button
+    position absolute
+    right 0
+    height 100%
+    background #676eb4
+    color white
+    width 8rem
+    border-radius 0 5px 5px 0
+    font-weight bold
+  .loader
+    position absolute
+    right 8rem
+    top 0
+    height 100%
+    padding 5px 10px
+    display flex
+  .loader > div
+    width 20px
+    height 20px
+    margin auto
+  .autocomplete
+    display none
+    font-size 15px
+    border 1px solid #d9d9d9
+    border-top 0
+    position absolute
+    top 100%
+    background white
+    width calc(100% - 8rem)
+    box-shadow 0px 2px 4px rgba(0, 0, 0, 0.1)
+    z-index 5
+    .autocomplete-item
+      padding 0.5rem 2rem
+      cursor pointer
+    .autocomplete-item:hover
+      background  #ecf0f1
+
+.article-finder-options
+  text-align: center
+
+.search-bar
+  display flex
+  flex-direction row
+  align-items end
+  .search-type
+    display flex
+    justify-content space-around
+  input[type=text]
+    width 50rem
+    padding 10px 50px 10px 15px
+  button
+    margin-bottom 8px
+    height 2.8rem
+    margin-left 2rem
+
+.article-wiki-selector-block
+  max-width 250px
+  margin auto
+
+.filter-block
+  .filter-button-block
+    display flex
+    margin 5rem 0 2rem 0
+    button
+        height 3rem
+  .filter-items
+    display flex
+    flex-direction row
+    .filters
+        display flex
+        justify-content space-between
+        width 100%
+
+.options
+  display flex
+  justify-content right
+  margin-top 10px
+  .language-select
+    width 10em
+    margin-right 10px
+  .project-select
+    width 10em
+
+.selector-block
+  margin-right 15.5em
+  display flex
+  flex-direction column
+
+.article-finder-stats
+  display flex
+  align-items center
+  justify-content space-between
+  > div
+    width 20%
+    align-items center
+
+.range-container
+  display: flex
+  align-items: center
+  flex-direction column
+
+.input-range__slider
+    appearance none
+    background #3f51b5
+    border 1px solid #3f51b5
+    border-radius 100%
+    cursor pointer
+    display block
+    height 1rem
+    margin-left -0.5rem
+    margin-top -0.65rem
+    outline none
+    position absolute
+    top 50%
+    transition transform 0.3s ease-out, box-shadow 0.3s ease-out
+    width 1rem
+    &:active
+        transform scale(1.3)
+    &:focus
+        box-shadow 0 0 0 5px rgba(63, 81, 181, 0.2)
+
+.input-range--disabled
+    .input-range__slider
+        background #cccccc
+        border 1px solid #cccccc
+        box-shadow none
+        transform none
+    .input-range__track
+        background #eeeeee
+
+.input-range__slider-container
+    transition left 0.3s ease-out
+
+.input-range__label
+    margin -0.5rem
+    font-size 1rem
+    transform translateZ(0)
+    white-space nowrap
+
+.input-range__label--min,
+.input-range__label--max
+    bottom -1.4rem
+    position absolute
+
+.input-range__label--min
+    left 0
+
+.input-range__label--max
+    right 0
+    .input-range__label-container
+        left 50%
+
+.input-range__label--value
+    position absolute
+    top -1.8rem
+
+.input-range__label-container
+    left -50%
+    position relative
+
+.input-range__track
+    background #eeeeee
+    border-radius 0.3rem
+    cursor pointer
+    display block
+    height 0.3rem
+    position relative
+    transition left 0.3s ease-out, width 0.3s ease-out
+
+.input-range__track--background
+    left 0
+    margin-top -0.15rem
+    position absolute
+    right 0
+    top 50%
+
+.input-range__track--active
+    background #3f51b5
+
+.input-range
+    height 1rem
+    position relative
+    width 20rem

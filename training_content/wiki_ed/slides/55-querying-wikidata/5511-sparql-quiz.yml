@@ -1,0 +1,40 @@
+id: 5511
+title: "Quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 3
+  question: |
+    How do you retrieve information from the Wikidata Query Service?
+  answers:
+    - id: 1
+      text: |
+        Type in a question like you would with a search engine. I can type
+        "give me a list of cats", for example.
+      explanation: |
+        INCORRECT! The query service uses SPARQL, a query language, which means
+        you must use the query language to run a successful query.
+    - id: 2
+      text: |
+        I know SQL and that's a query language, so I can use SQL!
+      explanation: |
+        INCORRECT! Although SQL is a query language, it is not the same as SPARQL,
+        which is what Wikidata Query Service uses to retrieve information from Wikidata.
+    - id: 3
+      text: |
+        I need to use SPARQL to write a query using variables, specific properties,
+        and items in the correct syntax.
+      explanation: |
+        CORRECT! SPARQL is particular and you must express queries explicitly.
+        You can express <code>show me all items that are an instance of a house cat</code> as
+        <code>?item</code> <code>P31</code> <code>Q146</code>. Recall that SPARQL
+        syntax also requires a SELECT statement and WHERE clause and prefixes
+        (<code>wdt:</code> for properties and <code>wd:</code> for items), in order for the query to run.
+    - id: 4
+      text: |
+        I'll use variables like ?item ?cat ?list.
+      explanation: |
+        Close! This is starting to look like some SPARQL variables, but SPARQL
+        requires you to be very clear and follow an explicit syntax. Review this
+        training to ensure you understand some basic ways to form queries using
+        SPARQL.

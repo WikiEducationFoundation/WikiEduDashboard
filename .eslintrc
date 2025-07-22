@@ -1,0 +1,123 @@
+{
+  "root": true,
+  "extends": "airbnb",
+  "rules": {
+    # This makes it easier for Windows users to work on the project. Git automatically
+    # converts between linebreak styles to unix-style should end up in the repo.
+    "camelcase": 0,
+    "func-names": 0,
+    "comma-dangle": 0,
+    "consistent-return": 0,
+    "no-return-assign": 0,
+    "react/prefer-es6-class": 0,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-boolean-value": 0,
+    "arrow-body-style": 0,
+    "max-len": 0,
+    "radix": [2, "as-needed"],
+    "no-param-reassign": 0,
+    "react/jsx-no-bind": 0,
+    "no-alert": 0,
+    "new-cap": [2, { "capIsNew": false }],
+    "no-else-return": [2, { "allowElseIf": true }],
+    "no-use-before-define": 0,
+    "no-trailing-spaces": 2,
+    "no-unused-vars": [2, { "argsIgnorePattern": "^_", "ignoreRestSiblings": true }],
+    # App is using html from an outside source (Wikipedia, eg. for training slides, articles), so
+    # it's going to be 'dangerous' in the sense of injecting whatever html comes from Wikipedia, but that's what is needed
+    "react/no-danger": 0,
+    # Rules below here should be enabled once violations are fixed.
+    "react/forbid-prop-types": 0,
+    "react/no-string-refs": 0,
+    "react/jsx-equals-spacing": 0,
+    "react/jsx-no-target-blank": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/aria-role": 0,
+    "jsx-a11y/anchor-has-content": 0,
+    "jsx-a11y/no-autofocus": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "import/extensions": 0,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-named-as-default": 0,
+    "no-underscore-dangle": 0,
+    "no-empty-pattern": 0,
+    "no-useless-computed-key": 0,
+    "newline-per-chained-call": 0,
+    "class-methods-use-this": 0,
+    "no-prototype-builtins": 0,
+    "global-require": 0,
+    "no-restricted-globals": 0,
+    "indent": 0,
+    "function-paren-newline": 0,
+    "react/no-find-dom-node": 0,
+    "object-curly-newline": 0,
+    "react/jsx-curly-brace-presence": 0,
+    "react/require-default-props": 0,
+    "react/no-unused-prop-types": 0,
+    "react/no-unused-state": 0,
+    "react/no-array-index-key": 0,
+    "react/jsx-max-props-per-line": 0,
+    "react/default-props-match-prop-types": 0,
+    "prefer-destructuring": 0,
+    "react/prop-types": 0,
+    "semi-style": 0,
+    "react/jsx-tag-spacing": 0,
+    "implicit-arrow-linebreak": 0,
+    "react/destructuring-assignment": 0,
+    "react/jsx-one-expression-per-line": 0,
+    "react/button-has-type": 0,
+    "no-multiple-empty-lines": 0,
+    "lines-between-class-members": 0,
+    "import/order": 0,
+    "react/jsx-wrap-multilines": 0,
+    "react/no-access-state-in-setstate": 0,
+    "import/no-useless-path-segments": 0,
+    "react/no-this-in-sfc": 0,
+    "react/jsx-props-no-multi-spaces": 0,
+    "i18next/no-literal-string": [1, { "message": "Use I18n over string literals for localization" }]
+  },
+  "globals": {
+    "I18n": true,
+    "_": true,
+    "Sentry": true,
+    "SurveyDetails": true,
+    "Features": true,
+    "WikiLanguages": true,
+    "WikiProjects": true,
+    "ProjectNamespaces": true
+  },
+  "env": {
+    "jest": true,
+    "jquery": true,
+    "browser": true
+  },
+  "parser": "@babel/eslint-parser",
+  "settings": {
+    "import/resolver": {
+      "babel-plugin-root-import": [
+        {
+          "rootPathPrefix": "~",
+          "rootPathSuffix": "./"
+        },
+        {
+          "rootPathPrefix": "@components",
+          "rootPathSuffix": "./app/assets/javascripts/components"
+        },
+        {
+          "rootPathPrefix": "@constants",
+          "rootPathSuffix": "./app/assets/javascripts/constants"
+        },
+        {
+          "rootPathPrefix": "@actions/",
+          "rootPathSuffix": "./app/assets/javascripts/actions"
+        }
+      ]
+    }
+  },
+  "plugins": ["i18next"]
+}

@@ -1,0 +1,218 @@
+# Messages for Kannada (ಕನ್ನಡ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: AVSmalnad77
+# Author: Nayvik
+# Author: Vikashegde
+# Author: ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ
+---
+kn:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: ಸಾ
+          million: ದ
+          billion: ಶ
+  application:
+    cancel: ರದ್ದುಮಾಡಿ
+    cookie_consent_see_more: ಇನ್ನಷ್ಟು ನೋಡಿ.
+    documentation: ದಾಖಲೀಕರಣ
+    greeting2: ಸುಸ್ವಾಗತ!
+    greeting: ನಮಸ್ಕಾರ!
+    help: ಸಹಾಯ
+    home: ಮುಖ್ಯಪುಟ
+    log_in: ಲಾಗಿನ್
+    log_out: ಲಾಗ್ ಔಟ್
+    recent_activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
+    search: ಒಂದು ಪ್ರಶ್ನೆ ಕೇಳಿ
+    submit: ಸಲ್ಲಿಸಿ
+    change: ಬದಲಾಯಿಸಿ
+    details: ವಿವರಗಳು
+    confirm: ಸರಿ
+    opt_in: ಹೌದು
+    opt_out: ಇಲ್ಲ
+    opt_yes: ಹೌದು
+    opt_no: ಇಲ್ಲ
+  activity:
+    all: ಚಟುವಟಿಕೆ
+    label: ಚಟುವಟಿಕೆ
+  articles:
+    articles: ಲೇಖನಗಳು
+    available: ಲಭ್ಯವಿರುವ ಲೇಖನಗಳು
+    next: ಮುಂದಿನ
+    previous: ಹಿಂದಿನ
+    article_title: ಲೇಖನ ಶೀರ್ಷಿಕೆ
+    edited_mobile: ಲೇಖನಗಳು
+    filter:
+      wiki_all: ಎಲ್ಲಾ
+      new: ಹೊಸ
+    hide: ಮರೆ ಮಾಡಿ
+    history: (ಇತಿಹಾಸ)
+    label: ಲೇಖನಗಳು
+    new: (ಹೊಸ)
+    see_more: ಇನ್ನಷ್ಟು ನೋಡಿ
+    title: ಶೀರ್ಷಿಕೆ
+    title_example: ಲೇಖನ ಶೀರ್ಷಿಕೆ
+    wiki: ವಿಕಿ
+    articles_short: ಲೇಖನಗಳು
+  items:
+    items: ವಸ್ತುಗಳು
+  articles_wikidata:
+    articles_short: ವಸ್ತುಗಳು
+  articles_generic:
+    articles_short: ಪುಟಗಳು
+  assignments:
+    article_link: ಲೇಖನ
+    article_link_wikidata: ವಸ್ತು
+    add_available_submit: ಲೇಖನಗಳನ್ನು ಸೇರಿಸಿ
+    add_available_submit_wikidata: ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ
+    group_members: ಗುಂಪಿನ ಸದಸ್ಯರು
+    remove: ತೆಗೆ
+  blocks:
+    milestones:
+      title: ಮೈಲಿಗಲ್ಲುಗಳು
+  campaign:
+    alert_article: ಲೇಖನ ಶೀರ್ಷಿಕೆ
+    alert_type: ನಮೂನೆ
+    alert_user_id: ಬಳಕೆದಾರ
+    created_at: ದಿನಾಂಕ
+    none: ಯಾವುದೂ ಇಲ್ಲ
+    title: ಶೀರ್ಷಿಕೆ
+    search: ಹುಡುಕು
+  categories:
+    add_category: ವರ್ಗ ಸೇರಿಸಿ
+    name: ಹೆಸರು
+    category_name: ವರ್ಗದ ಹೆಸರು
+    template_name: ಟೆಂಪ್ಲೇಟಿನ ಹೆಸರು
+    remove: ತೆಗೆ
+  courses:
+    activity: ಚಟುವಟಿಕೆ
+    actions: ಕ್ರಿಯೆಗಳು
+    articles: ಲೇಖನಗಳು
+    assignment_headings:
+      available_articles: ಲಭ್ಯವಿರುವ ಲೇಖನಗಳು
+      available_articles_wikidata: ಲಭ್ಯವಿರುವ ವಸ್ತುಗಳು
+    campaign_articles: '%{title} ಲೇಖನಗಳು'
+    campaign_users: '%{title} ಸಂಪಾದಕರು'
+    creator:
+      end_date: ಮುಕ್ತಾಯದ ದಿನಾಂಕ
+      start_date: ಆರಂಭದ ದಿನಾಂಕ
+      subject: ವಿಷಯ
+    delete_suggestion: ಅಳಿಸು
+    error:
+      user_exists: ಕ್ಷಮಿಸಿ, %{username} ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಬಳಕೆದಾರರಲ್ಲ.
+    loading: ತುಂಬಿಸಲಾಗುತ್ತಿದೆ…
+    my_articles: ನನ್ನ ಲೇಖನಗಳು
+    new_week: ಹೊಸ ವಾರ ಸೇರಿಸಿ
+    new_account_email: ಇ-ಅಂಚೆ ವಿಳಾಸ
+    new_account_email_placeholder: name@example.org
+    none: ಯಾವುದೂ ಇಲ್ಲ
+    overview: ಮುಖ್ಯಪುಟ
+    private: ಖಾಸಗಿ
+    requested_accounts_alert_view: ವೀಕ್ಷಿಸಿ
+    school: ಶಾಲೆ
+    student: ವಿದ್ಯಾರ್ಥಿ
+    students: ವಿದ್ಯಾರ್ಥಿಗಳು
+    students_count: '# ವಿದ್ಯಾರ್ಥಿಗಳು'
+    students_none: ಈ ಪಠ್ಯದಲ್ಲಿ ಯಾವುದೇ ವಿದ್ಯಾರ್ಥಿಗಳಿಲ್ಲ.
+    students_short: ವಿದ್ಯಾರ್ಥಿಗಳು
+    title: ಶೀರ್ಷಿಕೆ
+    view: ಪಠ್ಯ ವೀಕ್ಷಿಸು
+    view_wiki: ವಿಕಿಪೀಡಿಯದಲ್ಲಿ ವೀಕ್ಷಿಸು
+    volunteer:
+      one: ಸ್ವಯಂಸೇವಕ
+      other: ಸ್ವಯಂಸೇವಕರು
+    wiki_staff: ವಿಕಿ ಎಜುಕೇಶನ್ ಸಿಬ್ಬಂದಿ
+  courses_generic:
+    creator:
+      course_term: ಯಾವಾಗ
+      course_term_placeholder: ಯಾವಾಗ
+      save_cloned_course: ಉಳಿಸಿ
+    student_editors: ಸಂಪಾದಕರು
+    student: ಸಂಪಾದಕ
+    students: ಸಂಪಾದಕರು
+    students_taught: ಒಟ್ಟು ಸಂಪಾದಕರು
+    students_short: ಸಂಪಾದಕರು
+  editable:
+    edit: ಸಂಪಾದಿಸಿ
+    cancel: ರದ್ದುಮಾಡಿ
+    save: ಉಳಿಸಿ
+  instructor_view:
+    assignments_table:
+      article_name: ಹೆಸರು
+  metrics:
+    activity: ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ
+    articles_created: ಸೃಷ್ಟಿಸಿದ ಲೇಖನಗಳು
+    articles_edited: ಸಂಪಾದಿಸಿದ ಲೇಖನಗಳು
+    date_time: ದಿನಾಂಕ/ಸಮಯ
+    edit_count_description: ಒಟ್ಟು ಸಂಪಾದನೆಗಳು
+    revisions: ಇತ್ತೀಚೆಗಿನ ಸಂಪಾದನೆಗಳು
+    tags: ಟ್ಯಾಗ್‌ಗಳು
+    view: ವೀಕ್ಷಣೆಗಳು
+  recent_activity:
+    article_title: ಶೀರ್ಷಿಕೆ
+    datetime: ದಿನಾಂಕ/ಸಮಯ
+    image: ಚಿತ್ರ
+    file_name: ಕಡತದ ಹೆಸರು
+  revisions:
+    date_time: ದಿನಾಂಕ/ಸಮಯ
+    diff: ವ್ಯತ್ಯಾಸ
+    diff_show: ತೋರಿಸು
+    diff_hide: ಅಡಗಿಸು
+    title: ಶೀರ್ಷಿಕೆ
+    see_more: ಇನ್ನಷ್ಟು ನೋಡಿ
+    show_all: ಎಲ್ಲಾ ತೋರಿಸಿ
+  resources:
+    label: ಸಂಪನ್ಮೂಲಗಳು
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ಬಳಕೆದಾರರ ಹೆಸರು
+    special_users:
+      new:
+        form_placeholder: ಬಳಕೆದಾರರ ಹೆಸರು
+  timeline:
+    empty_week_3: ಅಥವಾ
+    this_week_title_default: ಈ ವಾರ
+  training:
+    next: ಮುಂದಿನ ಪುಟ
+    page: ಪುಟ
+    previous: < ಹಿಂದಿನ
+    table_of_contents: ಪರಿವಿಡಿ
+    done: ಮುಗಿಯಿತು!
+  uploads:
+    file_name: ಕಡತದ ಹೆಸರು
+    image: ಚಿತ್ರ
+  users:
+    contributions: ಬಳಕೆದಾರರ ಕಾಣಿಕೆಗಳು
+    editors: ಸಂಪಾದಕರು
+    edits: ಸಂಪಾದನೆಗಳು
+    first_name: ಮೊದಲ ಹೆಸರು
+    last_name: ಕೊನೆಯ ಹೆಸರು
+    name: ಹೆಸರು
+    number_of_articles:
+      one: '%{count} ಲೇಖನ'
+      other: '%{count} ಲೇಖನಗಳು'
+    username: ಬಳಕೆದಾರರ ಹೆಸರು
+    username_placeholder: ಬಳಕೆದಾರರ ಹೆಸರು
+    useremail_placeholder: ಇ-ಅಂಚೆ
+    role:
+      student: ವಿದ್ಯಾರ್ಥಿ
+  wizard:
+    summary: ಸಾರಾಂಶ
+  error_404:
+    header: ಪುಟ ಸಿಗಲಿಲ್ಲ :-(
+  error_500:
+    header: ಆಂತರಿಕ ಸರ್ವರ್ ದೋಷ. :-(
+  survey:
+    email:
+      headline: ನಮಸ್ಕಾರ, %{username}
+  article_finder:
+    search: ಹುಡುಕು
+    submit: ಸಲ್ಲಿಸಿ
+    tools: ಉಪಕರಣಗಳು
+  training_status:
+    continue: ಮುಂದುವರೆಸಿ
+    view: ವೀಕ್ಷಿಸಿ
+...

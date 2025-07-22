@@ -1,0 +1,248 @@
+# Messages for Pashto (پښتو)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ahmed-Najib-Biabani-Ibrahimkhel
+# Author: شاه زمان پټان
+---
+ps:
+  application:
+    cancel: ناگارل
+    dashboard: ويکي زده کړه ډشبورډ
+    documentation: لاسوندکښنه
+    field_required: دې ډاگي ته اړتيا ده
+    greeting2: ښه راغلئ!
+    greeting_extended: ويکيپېډيا ته ښه راغلئ
+    greeting: سلامونه!
+    help: لارښود
+    home: کور
+    log_in_extended: د ويکيپېډيا له لارې ورننوتل
+    log_in: ننوتل
+    log_out: وتل
+    my_dashboard: زما ډشبورډ
+    recent_activity: تازه فعاليتونه
+    request_account_create: يو گڼون جوړول
+    search: يوه پوښتنه پوښتل
+    sign_up_extended: د ويکيپېډيا له لارې نومليکنه
+    sign_up_log_in_extended: د ويکيپېډيا سره
+    sign_up: نومليکل
+    submit: سپارل
+    training: تمرين
+    change: بدلول
+    confirm: ښه
+    opt_in: هو
+    opt_out: نه
+    opt_yes: هو
+    opt_no: نه
+    print: چاپول
+  article_statuses:
+    not_yet_started: پیل کول
+  home:
+    log_in: د ويکيپېډيا له لارې ورننوتل
+    sign_up: د ويکيپېډيا له لارې نومليکنه
+  activity:
+    all: فعاليت
+    edited_by: سمونگر
+    label: فعاليت
+  articles:
+    edited_mobile: ليکنې
+    filter:
+      wiki_all: ټول
+      new: نوی
+    filter_text: 'چاڼگران:'
+    hide: پټول
+    label: ليکنې
+    loading: ليکنې برسېرېږي...
+    new: (نوی)
+    rating: ټولگی
+    title: سرليک
+    title_example: د ليکنې سرليک
+    view: ليکنه کتل
+    view_all: ټول کتل
+    wiki: ويکي
+    articles_short: ليکنې
+  assignments:
+    remove: غورځول
+    review_self: يوه ليکنه بياکتل
+    select: ټاکل
+  campaign:
+    none: هېڅ
+  courses:
+    activity: فعاليت
+    articles: ليکنې
+    course_description: کورسونه
+    courses: کورسونه
+    creator:
+      course_description: د کورس څرگندونه
+      course_school: د کورس ښوونځی
+      course_subject: د کورس موضوع
+      course_term: د کورس موده
+      course_term_placeholder: موده
+      course_title: کورس سرليک
+      create_button: خپل کورس جوړول!
+      create_label: نوی کورس جوړول
+      create_new: يو نوی کورس جوړول
+      create_short: کورس جوړول
+      end_date: پای نېټه
+      end_date_placeholder: پای نېټه (کال-مياشت-ورځ)
+      find: خپل کورس ومومئ
+      save_cloned_course: نوی کورس خوندي کول
+      start_date: پيل نېټه
+      start_date_placeholder: پيل نېټه (کال-مياشت-ورځ)
+      subject: سکالو
+    current: اوسني کورسونه
+    delete_course: کورس ړنگول
+    duration: کورس موده
+    edit_course_dates: کورس نېټې سمول
+    end: پای
+    enroll: نومليکل
+    enrollment: نومليکنه
+    instructors: ښوونکي
+    join: يوځای کېدل
+    join_course: کورس کې ورگډېدل
+    loading: رابرسېرېږي...
+    my_articles: زما ليکنې
+    none: هېڅ
+    school: ښوونځی
+    start: پيلول
+    students: زده کړيالان
+    students_count: '# زده کړيالان'
+    student_editors: زده کوونکي سمونگران
+    students_none: دا کورس کوم زدکړيال نه لري.
+    students_short: زده کړيالان
+    timeline_link: وخت‌کرښه
+    title: سرليک
+    view: کورس کتل
+    view_page: د کورس مخ کتل
+    view_wiki: په ويکيپېډيا باندې کتل
+    yourcourses: ستاسې کورس
+  courses_generic:
+    assignment_end: د وختکرښې پای
+    assignment_start: د وختکرښې پيل
+    creator:
+      course_term: کله
+      course_term_placeholder: کله
+      save_cloned_course: خوندي کول
+      scoping_methods:
+        templates: کينډۍ
+    edit_course_dates: د پروژې نېټې سمول
+    instructors: اسانتياگران
+    school: انستيتيوت
+    student_editors: سمونگران
+    students: سمونگران
+    students_short: سمونگران
+    term: کله
+  editable:
+    edit: سمول
+    cancel: ناگارل
+    save: خوندي کول
+  instructor_view:
+    assignments_table:
+      article_name: نوم
+  metrics:
+    activity: تازه فعاليتونه
+    articles_created: جوړې شوې ليکنې
+    articles_edited: سمې شوې ليکنې
+    characters: لوښې
+    date_time: نېټه/وخت
+    edit_count_description: ټولټال سمونونه
+    revisions: وروستي سمونونه
+    upload_count: کامنز پورته کېدنې
+    view_count_description: د ليکنې کتنې
+    view: کتنې
+  namespace:
+    user: کارن تشيال
+    help: لارښود
+    category: وېشنيزه
+    page: مخ
+    book: کتاب
+    wikijunior: ویکي‌جونير
+    translation: ژباړه
+    draft: گارليک
+    property: ځانتيا
+    query: پوښتنه
+    portal: تانبه
+    school: ښوونځی
+    author: ليکوال
+    index: ليکلړ
+    collection: غونډ
+  recent_activity:
+    article_title: سرليک
+    datetime: نېټه/وخت
+    image: انځور
+    file_name: د دوتنې نوم
+    recent_edits: وروستي سمونونه
+    recent_uploads: تازه پورته کېدنې
+  revisions:
+    class: ټولگی
+    date_time: نېټه/وخت
+    diff: توپير
+    diff_show: ښکاره کول
+    diff_hide: پټول
+    edited_by: سمونگر
+    title: سرليک
+  settings:
+    categories:
+      users: کارنان
+  timeline:
+    add_week: اوونۍ ورگډول
+    block_in_class: په ټولگي کې
+    course_dates: کورس نېټې
+    empty_week_3: يا
+    gradeable_value: ارزښت
+    save_all_changes: ټول خوندي کول
+    this_week_title_default: دا اوونۍ
+    title: وخت‌کرښه
+    week_number: اوونۍ %{number}
+  training:
+    start: پيلول
+    view: کتل
+    page: مخ
+    done: وشو!
+  uploads:
+    file_name: د دوتنې نوم
+    image: انځور
+    label: پورته کېدنې
+    usages: کارېدنې
+  users:
+    assign_articles_done: ترسره شو
+    contributions: د کارن ونډې
+    contributions_more: نورې ونډې کتل
+    editors: زده کوونکي سمونگران
+    first_name: لومړی نوم
+    last_name: وروستی نوم
+    loading: کارنان برسېرېږي...
+    name: نوم
+    none: دا کورس کوم زدکړيال نه لري.
+    number_of_articles: '%{number} ليکنې'
+    recent_revisions: وروستني بدلونونه
+    username: کارن‌نوم
+    username_placeholder: کارن‌نوم
+  wizard:
+    course_dates: کورس نېټې
+    read_less: لږ لوستل
+    read_more: نور لوستل
+    summary: لنډيز
+  error_404:
+    header: مخ و نه موندل شو. :-(
+  login_error:
+    header: د ننوتلو ستونزه
+  survey:
+    email:
+      headline: سلامونه، %{username}
+      course: 'کورس: %{course_info}'
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: ويکيمېډيا
+        footer_text: خبرونه او وروستي بدلونونه ولولئ
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+  notes:
+    cancel_note_creation: ناگارل
+    save_note: خوندي کول
+  tagged_courses:
+    download_csv: CSV ښکته کول
+  weekday_picker:
+    aria:
+      weekday_unselected: '{{د اوونۍ ورځ}} ناټاکلې'
+...

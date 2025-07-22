@@ -1,0 +1,49 @@
+// Blog Feed
+
+.blog-feed
+  margin-top global-margin * 3
+
+.blog-feed__header
+  margin-top global-margin * 2
+
+  a
+    text-decoration none
+
+  a:hover
+    text-decoration underline
+
+.blog-feed__posts
+  margin-top global-margin
+  display flex
+  flex-flow row wrap
+  margin-left: -20px;
+  margin-right: -20px;
+
+
+// Blog Post
+
+.blog-post
+  flex 0 0 33.333333%
+  padding 0 20px 40px
+
+.blog-post__header
+  text-decoration none
+
+  a
+    text-decoration none
+
+  a:hover
+    text-decoration underline
+
+.blog-post__image
+  height 220px
+  overflow hidden
+  margin-bottom 20px
+  position relative
+
+  img
+    display block
+    position absolute
+    top 50%
+    left 0
+    transform translateY(-50%)

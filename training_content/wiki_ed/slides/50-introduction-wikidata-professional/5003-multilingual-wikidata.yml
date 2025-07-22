@@ -1,0 +1,13 @@
+id: 5003
+title: "Multilingual"
+summary:
+content: |
+  Data entered in any language is immediately available in all other languages.
+  Editing in any language isn't just possible - it's strongly encouraged.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Wikidata_item_chemistry.png" />
+    <figcaption class="image-credit">
+      CC0 license means this data is free and open.
+    </figcaption>
+  </figure>

@@ -1,0 +1,60 @@
+.button
+  font-size 15px
+  color $text
+
+.button.border
+.button.survey__prev.border
+  color $text
+  border-color $text
+  &:hover
+    background athens
+
+  &:focus,
+  &:active
+    background-color athens
+    border-color $survey_color
+
+.button.dark,
+input.button.dark
+  background-color sprout
+  border-color sprout
+
+  &:hover
+    background-color $primary_button_hover
+    border-color $primary_button_hover
+
+  &:focus,
+  &:active
+    background-color darken($primary_button_hover, 10%)
+    border-color darken($primary_button_hover, 10%)
+
+  .icon
+    font-size 12px
+    padding-left 10px
+    margin 0
+
+.button.blue,
+input.button.blue
+  color $action
+  background-color $survey_background
+  border-color $action
+
+  &:hover
+    background-color darken($action, 10%)
+    border-color darken($action, 10%)
+
+  .icon
+    font-size 12px
+    padding-left 10px
+    margin 0
+
+.button.outline--green
+  color sprout
+  background-color none
+  border-color sprout
+
+  &:hover
+    color #fff
+    background-color darken(sprout, 10%)
+    border-color darken(sprout, 10%)
+

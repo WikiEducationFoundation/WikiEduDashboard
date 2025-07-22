@@ -1,0 +1,49 @@
+.pagination
+  text-align center
+  margin 30px 10px
+  display flex
+  list-style none
+  cursor pointer
+
+  li.selected > a
+    background-color #676eb4
+    color #fff
+  li
+    margin 0
+    &.disabled > a, &.disabled > a:hover
+      background-color transparent
+      border 1px solid #e7e7e7
+      color #6a6a6a
+
+  .previous_page, .next_page, .current, a
+    border-radius 3px
+    font-size 14px
+    line-height 1.5
+    background-color #676eb4
+    color #fff
+    text-decoration none
+    padding 8px 20px 8px
+    font-weight 600
+    margin 10px 5px
+
+  .previous_page, .next_page
+    &:hover
+      background-color #878dcd
+      color #fff
+    &.disabled
+      background-color transparent
+      border 1px solid #e7e7e7
+      color #6a6a6a
+
+  .current, .active > a
+    color #6a6a6a
+    background #e7e7e7
+
+  a
+    background transparent
+    color #6a6a6a
+    border 1px solid #e7e7e7
+
+    &:hover
+      color #6a6a6a
+      background #e7e7e7

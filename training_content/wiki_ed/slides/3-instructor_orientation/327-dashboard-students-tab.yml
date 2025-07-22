@@ -1,0 +1,22 @@
+id: 327
+title_prefix: "Dashboard:"
+title: Students tab
+summary:
+content: |
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Wiki_Education_Dashboard_-_Students_overview.png" />
+  </figure>
+
+  The **Students** tab lists all enrolled students and includes:
+
+  * Wikipedia username (and real name, which only you and Wiki Education staff can see)
+  * assigned article(s)
+  * article(s) they’re peer-reviewing
+  * amount of content added to Wikipedia's Mainspace (*i.e.*, live articles) and
+  to Wikipedia's Userspace (sandboxes or user pages)
+
+  You can manually add or remove students from your course through the
+  **Add/Remove Students** button on the Students tab.
+
+  You can click on an individual student's row in the table to see more details about that
+  students' work or assign articles to them.

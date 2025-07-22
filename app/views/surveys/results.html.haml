@@ -1,0 +1,16 @@
+- content_for :before_title, "#{@survey.name} Results"
+
+- content_for :additional_javascripts do
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  = hot_javascript_tag("survey_results")
+
+= render 'results_admin_header'
+.container.survey__admin.survey__results
+  .results__sidebar.block
+    %h1 #{@survey.name} Results
+    = link_to survey_results_path(format: 'csv'), class: 'download-button' do
+      %span Download Survey Results CSV
+
+  .results
+    - @surveys_question_groups.includes(:rapidfire_question_group).each_with_index do |group, index|
+      = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: true)

@@ -1,0 +1,25 @@
+- content_for :after_title, ' – Recent survey responses'
+
+.section-header.surveys__admin-header.surveys__admin-header--assignment
+  .container
+    %div
+      %h1 Recent survey responses
+
+.container.survey__edit
+  %table.table
+    %thead
+      %tr
+        %th User
+        %th Question Group
+        %th Submitted at
+        %th action
+
+    %tbody.list
+      - @responses.each do |response|
+        %tr
+          %td= response[:user].username
+          %td= response[:question_group].name
+          %td= response[:answer_group].created_at
+          %td
+            %a.button.danger{href: "responses/#{response[:answer_group].id}/delete", 'data-method' => :delete, 'data-confirm' => 'Are you sure?'}
+              Delete

@@ -1,0 +1,8 @@
+%body
+  %header.main-page
+    %h1=  ENV['dashboard_title']
+  %section#courses
+    .container.narrow
+      .section-header
+        %h3#heading404= t("error_404.header")
+        %p= @message

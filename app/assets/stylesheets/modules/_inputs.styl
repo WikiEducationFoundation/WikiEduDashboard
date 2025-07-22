@@ -1,0 +1,75 @@
+
+
+// Styling for basic inputs
+input,
+textarea,
+select,
+.form-control
+  background-color #fff
+  border 1px solid $border_lt
+  border-radius 0px
+  font-family body-font
+  color text-dark
+  font-size 15px
+  padding 10px
+  outline none
+  transition border-color 125ms ease
+  -webkit-font-smoothing antialiased
+  max-width 100%
+
+  &:focus
+    border-color $brand_primary
+
+  &:disabled
+    border-color #eee
+    color #aaa
+
+  &::-ms-expand
+    display none
+
+  &::placeholder
+    color: text_lt
+
+// Custom dropdown arrow for selects
+select:not([multiple])
+  -webkit-appearance none
+  -moz-appearance none
+  -ms-appearance none
+  appearance none
+  background-image url('data:image/svg+xml;charset=utf-8;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiM2NjY2NjYiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0Ij4NCiAgICA8cGF0aCBkPSJNNyAxMGw1IDUgNS01eiIvPg0KICAgIDxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz4NCjwvc3ZnPg==')
+  background-position calc(100% - 4px) 9px
+  background-repeat no-repeat
+  padding-right 30px
+
+input.invalid, select.invalid, textarea.invalid, label.invalid input
+  border-color warning
+  box-shadow 0 0 0 1px warning
+
+// default vertical resize for textarea
+textarea
+  resize vertical
+
+p.graded
+  clear both
+
+.expandingArea
+  position relative
+
+  & > pre
+    display none
+    padding 10px
+    visibility hidden
+    white-space pre-wrap
+    word-wrap break-word
+
+  &.active
+    & > textarea
+      overflow hidden
+      top 0
+      left 0
+      height 100%
+      resize none
+      position absolute
+
+    & > pre
+      display block

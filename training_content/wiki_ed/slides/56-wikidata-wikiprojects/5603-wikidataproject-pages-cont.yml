@@ -1,0 +1,28 @@
+id: 5603
+title: "WikiProjects (continued)"
+summary:
+content: |
+  Here are some elements to look for in WikiProjects:
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Wikidata_wikiproject_medicine_queries.png" />
+    <figcaption class="image-credit">
+      WikiProjects contain useful information like common queries.
+  </figure>
+
+  * **Data Models**: A list of the minimum properties required to accurately
+  represent an item. Models come with descriptions as well as examples for
+  better context
+  * **Queries**: Common queries, maintenance queries, interesting queries
+  * **Guidelines**: Scope, depth, and focus of the WikiProject
+  * **Common Properties**: A list of properties that pertain to the topic of the
+  WikiProject; less detailed than a data model
+  * **References**: For disciplines with standardized references, they would be
+  listed on a page like this
+  * **Related tools**: Pages like this contain helpful tools for that WikiProject,
+  common reference links, as well as other resources
+  * **Completeness tracking**: Pages like the <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Universities/External_databases">WikiProject:Universities</a>
+  show what percentage of items have certain properties
+  * **Lists**: This page from <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_every_politician/South_Africa">WikiProject:Every Politician for the country of South Africa</a>
+  shows what exists and what still needs to be added on Wikidata
+  * **To-do lists**: Areas of the project that require attention

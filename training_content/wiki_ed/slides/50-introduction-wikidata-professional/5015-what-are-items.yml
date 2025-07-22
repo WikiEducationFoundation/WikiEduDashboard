@@ -1,0 +1,30 @@
+id: 5015
+title: "Parts of Wikidata: Items"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Uruguay_item_in_Wikidata.png" />
+    <figcaption class="image-credit">
+      This is the item for the country Uruguay.
+    </figcaption>
+  </figure>
+
+  Wikidata contains over 50 million **items** which are described by properties
+  with values. An item is a thing, concept, or entity (like a country, a person,
+  a book, a point in time, a philosophy, or a process). Items are represented
+  with the letter Q followed by a number. For example the country Uruguay's
+  item number is <code>Q77</code>.
+
+  **Note**: You do not have to memorize Q item numbers.
+
+  Items have **labels** which identify the items in terms that humans can understand.
+  Items have labels in multiple languages. The label you see depends on the
+  language settings on your browser. Items also have **descriptions**, which explain
+  what that item is (in more than 300 languages). Items also have **aliases**, which
+  are alternative names for items (for example "Uruguay" could also be "the
+  Republic of Uruguay", or remember the example from a few slides ago of the
+  former Libyan leader).
+
+  **Note**: If the item you're looking at does not have a label in the
+  language you're using, it will show up as that item's Q-number. To add a
+  label in that language, just click "edit" and add the label in that language!

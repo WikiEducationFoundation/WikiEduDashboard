@@ -1,0 +1,9 @@
+- content_for :before_title, 'Surveys — '
+
+= render 'admin_header'
+.container.survey__edit
+  - if @surveys.length > 0
+    %ul.list= render partial: "survey", collection: @surveys.reverse
+  - else
+    %p.light-text
+      No Surveys. #{link_to "Create One", new_survey_path}

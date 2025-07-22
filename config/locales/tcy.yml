@@ -1,0 +1,32 @@
+# Messages for Tulu (ತುಳು)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: BHARATHESHA ALASANDEMAJALU
+# Author: ChiK
+# Author: Ravi Mundkur
+# Author: Vishwanatha Badikana
+---
+tcy:
+  application:
+    search: ಪ್ರಶ್ನೆ ಕೆನ್ಲೇ
+  articles:
+    filter:
+      wiki_all: ಮಾತಾ
+      new: ಪೊಸ
+      existing: ಇಪ್ಪುನ
+      new_and_existing: ಪೊಸ ಬೊಕ ಇತ್ತಿನ
+  courses:
+    enrollment: ಜೋಕ್ಲೆನ್ ಸೇರಲೆ/ದೆತ್ತ್‌ಪಾಡ್ಲೆ
+    requested_accounts_alert:
+      other: ಒಂಜಿ=%{count}ಕೇಣಿನ ಖಾತೆ ಬಾಕಿ ಉಂಡು.
+    requested_accounts_alert_view: ನೋಟ
+  courses_generic:
+    enrollment: ಸಂಪೊಲಿಪುನಕ್ಲೆನ್ ಸೇರಲೆ/ದೆತ್ತ್‌ಪಾಡ್ಲೆ
+  recent_activity:
+    recent_uploads: ಇಂಚಿಪ ಸೇರ್ಸಯಿನವೂ
+  users:
+    contributions_history_full: ಕಾಣಿಕೆಲೆನ ಚರಿತ್ರೆದ ಸಂಪೂರ್ಣ ನೋಟ
+  survey:
+    email:
+      closing: ಪ್ರಾಮಾಣಿಕವಾದ್,
+...

@@ -1,0 +1,35 @@
+id: 5311
+title: "Sourcing quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 4
+  question: |
+    Which of the following is the best source for a statement on Wikidata?
+  answers:
+    - id: 1
+      text: |
+        The subject of an item's webpage on their employer's website.
+      explanation: |
+        INCORRECT! This isn't the best source since it's a primary rather than
+        secondary source.
+    - id: 2
+      text: |
+        "Imported from Wikipedia", because Wikipedia articles are trustworthy.
+      explanation: |
+        INCORRECT! Although many of Wikipedia's articles are well-source, it
+        doesn't mean that all of them are.
+    - id: 3
+      text: |
+        The subject of an article's personal website, because who who knows you
+        better than you know yourself?
+      explanation: |
+        INCORRECT! Anyone can write anything they want about themselves. This is
+        an unreliable source.
+    - id: 4
+      text: |
+        An article about the person published by a newspaper with a reputation
+        for accuracy and fact-checking.
+      explanation: |
+        CORRECT! Newspapers and other secondary sources are ideal sources since
+        they have been verified by multiple sources.

@@ -1,0 +1,59 @@
+dashboard_title: Wiki Education Dashboard
+dashboard_url: dashboard.wikiedu.org
+meta_description: Wiki Education dashboard for Wikipedia editing projects
+wiki_language: en
+
+contact_email: 'contact@wikiedu.org'
+GMAIL_USERNAME: 'dashboard@wikiedu.org'
+GMAIL_PASSWORD: <SECRET>
+SMTP_HOST: 'dashboard.wikiedu.org'
+SENDER_EMAIL_ADDRESS: 'dashboard@wikiedu.org'
+
+mailgun_key: <SECRET>
+mailgun_domain: 'dashboard.wikiedu.org'
+
+enable_get_help_button: 'true'
+
+wikipedia_token: <SECRET>
+wikipedia_secret: <SECRET>
+oauth_ids: '218,306,542'
+user_agent: 'Wiki Education Dashboard/1.0 (dashboard.wikiedu.org; sage@wikiedu.org)'
+
+course_prefix: "Wikipedia:Wiki_Ed"
+course_announcement_page: 'Wikipedia:Education_noticeboard/Wiki_Ed_course_submissions'
+
+sentry_dsn: <SECRET>
+
+default_campaign: "spring_2018"
+edit_en.wikipedia.org: "true"
+update_length: "30"
+cron_log_debug: "true"
+
+logo_file: "wiki-logo.png"
+favicon_file: favicon.ico"
+favicon_dev_file: "favicon_dev.png"
+
+communications_manager: ''
+classroom_program_manager: 'Helaine (Wiki Ed)'
+technical_help_staff: 'Sage (Wiki Ed)'
+survey_alerts_recipient: 'Samantha (Wiki Ed)'
+
+# disable emails for individual Alert types
+ProductiveCourseAlert_emails_disabled: 'true'
+
+SALESFORCE_USERNAME: <SECRET>
+SALESFORCE_PASSWORD: <SECRET>
+SALESFORCE_SECURITY_TOKEN: <SECRET>
+SALESFORCE_CLIENT_ID: <SECRET>
+SALESFORCE_CLIENT_SECRET: <SECRET>
+SALESFORCE_API_VERSION: '38.0'
+SF_SERVER: 'https://na24.salesforce.com/'
+SF_CLASSROOM_PROGRAM_ID: <SECRET>
+SF_VISITING_SCHOLARS_PROGRAM_ID: <SECRET>
+SF_WIKIPEDIA_FELLOWS_PROGRAM_ID: <SECRET>
+bcc_to_salesforce_email: <SECRET>
+
+SKYLIGHT_AUTHENTICATON: <SECRET>
+
+LTIAAS_API_KEY: <SECRET>
+LTIAAS_DOMAIN: <SECRET>

@@ -1,0 +1,23 @@
+id: 337
+title_prefix: "Dashboard:"
+title: Resources tab
+summary:
+content: |
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Resources_tab_on_the_Dashboard%2C_2019.png" />
+  </figure>
+
+  The Resources tab displays all of the assigned training modules and handouts
+  assigned for the class.
+  
+  **Assigned trainings**
+
+  This table shows all of the assigned training modules for the class, beneath
+  which is a button that will bring up the training library.
+
+  **Handouts (PDF)**
+
+  This section displays the assigned handouts such as the general guides for
+  editing, evaluating, and illustrating Wikipedia, as well as any subject specific
+  handouts. Beneath these is a button that will take you to a page containing
+  additional subject specific handouts.

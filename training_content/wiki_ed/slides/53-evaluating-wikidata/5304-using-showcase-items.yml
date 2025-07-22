@@ -1,0 +1,25 @@
+id: 5304
+title: "Using a Showcase Item as a template"
+summary:
+content: |
+  Wikipedia has rating systems to evaluate articles. The best quality (and most
+  well-known) designations are Featured Articles and Good Articles. Wikidata has
+  Showcase items, which are items that are well-referenced, contain at least ten
+  statements, have site links (a link to an item's corresponding Wikipedia page
+  for example), and have labels in multiple languages.
+
+  Showcase items can be great templates to better understand how to build a
+  high-quality Wikidata item.
+
+  **Remember**: Every item is unique. Having ten statements is a starting place. An
+  item can have hundreds of statements. Similarly, some items can be very complete,
+  but out of date. Others still may use a property incorrectly (such as
+  using the property "subclass of" instead of "instance of").
+
+  **Remember**: There are not many Showcase items, so this particular evaluation process
+  will not work for every item on Wikidata, but they should help you start to
+  understand item quality.
+
+  **Note**: Wikipedia has a very well-documented process for article evaluation.
+  Wikidata's process for Showcase items is much newer. <a href="https://www.wikidata.org/wiki/Wikidata:Showcase_items">Bookmark this link</a> to see 
+  Showcase items.

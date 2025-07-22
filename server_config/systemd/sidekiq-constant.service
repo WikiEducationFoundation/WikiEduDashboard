@@ -1,0 +1,22 @@
+# Based on https://github.com/mperham/sidekiq/blob/master/examples/systemd/sidekiq.service
+
+[Unit]
+Description=sidekiq-constant
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/dashboard/current
+ExecStart=/home/ragesoss/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue constant_update --concurrency 1
+User=ragesoss
+Group=project-globaleducation
+UMask=0002
+Environment=MALLOC_ARENA_MAX=2
+RestartSec=1
+Restart=on-failure
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=sidekiq-constant
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+id: 5105
+title: "How linked data works"
+summary:
+content: |
+  Thanks to HTML and the internet, we are accustomed to navigating from page to
+  page through links. The concept of linked data is to extend this principle
+  from pages to a much more detailed level: linking concepts, their relationships,
+  and specific values in a semantic standard. You might have heard the phrase
+  "semantic web" before. Linked data is the key to making these connections happen.
+
+  <figure class="alt-layout-70">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Tim_Berners-Lee_5-star_Open_Data_plan.png"/>
+    <figcaption class="image-credit">
+      <a href="https://5stardata.info/en/">Tim Berners-Lee</a> describes five
+      star data as linked and open for the rest of the web to use.
+    </figcaption>
+  </figure>
+
+  Similar to other kinds of databases, linked data is searchable or queryable.
+  Since linked data can describe things and their relationships, people can use
+  tools to answer questions about these things and relationships.

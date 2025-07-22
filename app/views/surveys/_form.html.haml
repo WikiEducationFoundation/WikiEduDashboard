@@ -1,0 +1,58 @@
+= simple_form_for(@survey) do |f|
+  = f.error_notification
+  = render partial: 'surveys/admin_header_edit', locals: { f: f }
+  .container.survey__admin
+    .form__block.form__block--equal-height
+      .block.form__settings
+        .form__settings__tabs
+          .tab
+            %h3 Settings
+        .form-inputs.light-text.survey__title-input
+          = f.input :name
+
+        .form-inputs.light-text.survey__title-input
+          = f.input :open, label: "Survey Open (Anyone may take it)"
+          = f.input :closed, label: "Close Survey"
+        .form__actions.danger
+          = link_to 'Delete this survey', @survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+      .form__question-group-list
+        .light-text
+          %h3 Survey Question Groups
+          %div.py= link_to "Edit Question Groups", edit_question_groups_path(@survey.id)
+
+        - if @surveys_question_groups.length > 1
+          .survey__admin-tools
+            .contextual Drag to reorder questions. (Changes will be saved automatically.)
+
+        - if @surveys_question_groups.length
+          %table.table.list--survey{'data-sortable-question-groups' => @survey.id}
+            %tbody
+              - @surveys_question_groups.each do |group|
+                - question_group = group.rapidfire_question_group
+                %tr.question-group-row.row.course-list__row.row--survey-question{'data-item-id' => question_group.id}
+                  %td
+                    .course-list__row__title
+                      %strong= question_group.name
+                  %td
+                    %div= link_to "Edit", rapidfire.edit_question_group_path(question_group)
+
+
+        %div.light-text
+          = f.label :intro, "Survey Introduction"
+          = f.hidden_field :intro , id: 'intro', value: @survey.intro
+          = f.text_area :intro
+
+        %div.light-text
+          = f.label :thanks, "Survey Thank You"
+          = f.hidden_field :thanks , id: 'thanks', value: @survey.thanks
+          = f.text_area :thanks
+
+        %div.light-text
+          = f.label :optout, "Opt out message"
+          = f.hidden_field :optout , id: 'optout', value: @survey.optout
+          = f.text_area :optout
+
+        .form__actions
+          = f.button :submit, :class => 'button dark'
+          = link_to "Preview Survey", survey_preview_url(@survey), :class => 'button'

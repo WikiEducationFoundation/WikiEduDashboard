@@ -1,0 +1,51 @@
+name: Professional Development Training Modules
+id: 3
+exclude_from_index: false
+introduction: |
+  This set of modules covers the basics of contributing to Wikipedia.
+categories:
+  - title: ''
+    description: ''
+    modules:
+      - slug: orientation-professional
+        name: Orientation
+        description: An overview of Wiki Education's Wikipedia course
+  - title: How Wikipedia works
+    description: These modules cover the rules and norms of Wikipedia.
+    modules:
+      - slug: wikipedia-policies-professional
+        name: Wikipedia policies
+        description: An overview of Wikipedia's main rules
+      - slug: sandboxes-talk-watchlists-professional
+        name: Sandboxes, talk pages, and watchlists
+        description: The different types of pages found on Wikipedia and how to interact with each of them
+      - slug: evaluating-articles-professional
+        name: Evaluating articles and sources
+        description: How to read Wikipedia articles, and potential sources, with a critical eye
+      - slug: editing-medical-topics-professional
+        name: Editing health and psychology topics
+        description: Special rules and advice for working on content related to medicine or human health (including psychology topics)
+  - title: How to edit
+    description: These modules offer how-to instructions for contributing content to Wikipedia.
+    modules:
+      - slug: how-to-edit-professional
+        name: "How to edit: Wikicode vs Visual Editor"
+        description: An introduction to editing Wikipedia pages
+      - slug: finding-your-article-professional
+        name: Finding your article
+        description: How to find a good article to work on
+      - slug: drafting-professional
+        name: Drafting in the sandbox
+        description: Practical steps for working in a sandbox, and beginning to draft an article
+      - slug: moving-live-professional
+        name: Moving work out of the sandbox
+        description: Practical steps for moving your work to Wikipedia
+  - title: Exercises
+    description: These are exercises that are part of course work.
+    modules:
+      - slug: evaluate-wikipedia-exercise-professional
+        name: 'Exercise: Evaluate Wikipedia'
+        description: A guide in evaluating a Wikipedia article
+      - slug: finalizing-topic-exercise-professional
+        name: 'Exercise: Finalizing your topic'
+        description: Selecting an article to improve

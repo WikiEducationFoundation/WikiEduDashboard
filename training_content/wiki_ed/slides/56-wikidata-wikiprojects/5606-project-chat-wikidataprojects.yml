@@ -1,0 +1,18 @@
+id: 5606
+title: "Project chat"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Wikidata_WikiProject_chat-main_page.png" />
+    <figcaption class="image-credit">
+      Project chat is a great place to ask questions. There are also many useful links on this page.
+  </figure>
+
+  If you find you have more general questions, you may want to visit <a href="https://www.wikidata.org/wiki/Wikidata:Project_chat">Project chat</a>.
+  It is a centralized location for editors to learn about issues, challenges,
+  and updates about Wikidata. The Project chat archive can also be a good place
+  to go to answer questions, catch up on a conversation, or ask questions that
+  the entire Wikidata community can participate in.
+
+  **Note**: There is a box of links to more specific pages on the Project chat
+  page, including Property Proposals, Noticeboards, and Request pages.

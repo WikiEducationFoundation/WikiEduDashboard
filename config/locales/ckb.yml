@@ -1,0 +1,226 @@
+# Messages for Central Kurdish (کوردی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aram
+# Author: Arya sarhan
+# Author: Sakura emad
+# Author: Épine
+# Author: ئارام بکر
+---
+ckb:
+  number:
+    human:
+      decimal_units:
+        format: '%n% u'
+        units:
+          thousand: ک
+          million: م
+          billion: ب
+          trillion: ت
+          quadrillion: کیو
+  application:
+    cancel: ھەڵوەشاندنەوە
+    cookie_consent: ئەم ماڵپەڕە کووکی بەکاردەهێنێت بۆ ئەوەی تۆ بچیتە ژوورەوە، و زانیارییەکانی
+      پەیوەست بە ئەژمێری ویکیپیدیاکەتەوە هەڵدەگرێت.
+    cookie_consent_acknowledge: تێدەگەم.
+    cookie_consent_see_more: زیاتر ببینە.
+    create_accounts: دروستکردنی ھەژماری ویکیپیدیا
+    dashboard: ویکی ئێد داشبۆرد
+    documentation: بەڵگەنامە
+    error: 'هەڵەیەک هەبوو:'
+    explore: بگەڕێ
+    field_required: ئەم خانەیە پێویستە
+    field_invalid_characters: ئەم بەشە پیتی نادروستی هەیە
+    field_invalid_date: ئەم بەشە پێویستی بە ڕێکەوتێک هەیە بە شێوەی YYYY-MM-DD (ساڵ-ڕۆژ-مانگ)
+    field_invalid_date_time: کۆتایی دەبێت دوای دەستپێکردن بێت. (کاتژمێرەکان لە 0 بۆ
+      23 دەڕوات.)
+    greeting2: بەخێربێیت!
+    greeting_extended: بەخێربێیت بۆ ویکیپیدیا
+    greeting: سڵاو!
+    help: یارمەتی
+    home: ماڵەوە
+    log_in_extended: بە ویکیپیدیا بچۆرە ژوورەوە
+    log_in: بچۆ ژوورەوە
+    log_out: بچۆ دەرەوە
+    my_dashboard: داشبۆردی من
+    recent_activity: دوایین چالاکی
+    report_problem: سکاڵا لە کێشەیەک بدە
+    request_account: داخوازی ھەژمار
+    request_account_create: ھەژمار دروست بکە
+    search: پرسیار بکە
+    search_results:
+      one: '%{count} ئەنجام بۆ: '' %{search_terms}'''
+      other: '% {count} ئەنجامەکان بۆ: ''%{search_terms}'''
+    no_results: هیچ ئەنجامێک بۆ '%{query}' نەدۆزرایەوە.
+    sign_up_extended: لەڕێگەی ویکیپیدیا ناوت تۆمار بکە
+    sign_up_wikipedia: یان لەناو ویکیپیدیا ناوت تۆمار بکە
+    sign_up_log_in_extended: لەگەڵ ویکیپیدیا
+    sign_up: خۆ تۆمارکردن
+    submit: ناردن
+    training: ڕاهێنان
+    change: گۆڕین
+    details: وردەکارییەکان
+    confirm: باشە
+    opt_in: بەڵێ
+    opt_out: نەخێر
+    opt_yes: بەڵێ
+    opt_no: نەخێر
+  article_statuses:
+    not_yet_started: دەست پێ کردن
+    in_progress: کارکردن لە خۆڵەپەتانێ
+    ready_for_review: فراوانکردنی ڕەشنووس
+    ready_for_mainspace: گواستنەوەی کار بۆ بۆشایی ناوی سەرەکی
+    assignment_completed: ئەرکەکە وەک تەواوکراو نیشانکرا
+  dashboard:
+    create_note: بۆ دروستکردنی یەکەم کۆرست کرتە لەسەر دروستکردنی کۆرس بکە.
+    explore_course_pages: لاپەڕەکانی کۆرسەکە بگەڕێ
+    explore_examples: نموونەکان بکۆڵەرەوە
+    join_note: کاتێک وشەی نھێنییەکەت لە ڕاهێنەرەکەت وەرگرت، کرتە لەسەر کۆرسەکەت بدۆزەرەوە
+      بکە بۆ دۆزینەوە و بەشداریکردنی لێی.
+    no_courses_instructor: وا دیارە هیچ کۆرسێکت نییە.
+    no_courses_student: وادیارە هێشتا بەشداری ھیچ کۆرسێکت نەکردبێت.
+  home:
+    explore: بگەڕێ
+    log_in: بە ویکیپیدیا بچۆرە ژوورەوە
+    sign_up: لەڕێگەی ویکیپیدیا ناوت تۆمار بکە
+  alerts:
+    alert_label: ھۆشدارەکان
+    no_alerts: ھیچ ھۆشدارێک نەدۆزرایەوە.
+  activity:
+    all: چالاکی
+    edited_by: دەستکاری کراوە لەلایەن
+    label: چالاکی
+  articles:
+    articles: وتارەکان
+    next: دواتر
+    previous: پێشوو
+    article_title: ناونیشانی وتار
+    deleted: (سڕدرایەوە)
+    edited: وتارە دەستکاریکراوەکان
+    edited_mobile: وتارەکان
+    filter:
+      wiki_all: ھەموو
+      new: نوێ
+    hide: شاردنەوە
+    history: (مێژوو)
+    new: (نوێ)
+    rating: پۆل
+    see_more: زیاتر ببینە
+    title: ناونیشان
+  articles_wikidata:
+    articles_short: بەندەکان
+  articles_generic:
+    articles_short: پەڕەکان
+  assignments:
+    remove: لابردن
+    select: ھەڵبژێرە
+  campaign:
+    alert_type: جۆر
+    alert_user_id: بەکارھێنەر
+    created_at: ڕێکەوت
+    none: ھیچ
+    title: ناونیشان
+  courses:
+    alerts: ھۆشدارەکان
+    none: ھیچ
+    overview: ماڵەوە
+    please_log_in: تکایە بچۆ ژوورەوە.
+    private: تایبەتی
+    requested_accounts_alert_view: ببینە
+    school: قوتابخانە
+  courses_generic:
+    creator:
+      save_cloned_course: پاشەکەوت
+    students_short: دەستکاریکەران
+    yourcourses: بەرنامەکانت
+  editable:
+    edit: دەستکاری
+    cancel: ھەڵوەشاندنەوە
+    save: پاشەکەوت
+    edit_template: دەستکاریکردنی داڕێژە
+  instructor_view:
+    assignments_table:
+      article_name: ناوی وتار
+    bad_work:
+      learn_more_button: زیاتر بزانە
+  metrics:
+    last_update: دوایین نوێکردنەوەی ئامارەکان
+    activity: دوایین چالاکی
+    articles_created: وتارە دروستکراوەکان
+    articles_created_wikidata: بەندە دروستکراوەکان
+    articles_created_generic: پەڕە دروستکراوەکان
+    articles_edited: وتارە دەستکاریکراوەکان
+    articles_edited_wikidata: بەندە دەستکاریکراوەکان
+    articles_edited_generic: پەڕە دەستکاریکراوەکان
+    bytes_added: بایتە زیادکراوەکان
+    characters: نووسەکان
+    date_time: ڕێکەوت/کات
+    edit_count_description: سەرجەمی دەستکارییەکان
+    revisions: دوایین دەستکارییەکان
+    tags: تاگەکان
+    view_count_description: بینینەکانی وتار
+    view: بینینەکان
+  recent_activity:
+    article_title: ناونیشانی وتار
+    datetime: ڕێکەوت/کات
+    image: وێنە
+    file_name: ناوی پەڕگە
+    recent_edits: دوایین دەستکارییەکان
+  revisions:
+    date_time: ڕێکەوت/کات
+    diff: جیاوازی
+    diff_show: نیشان بدە
+    diff_hide: بشارەوە
+    title: ناونیشان
+    see_more: زیاتر ببینە
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ناوی بەکارھێنەر
+    special_users:
+      new:
+        form_placeholder: ناوی بەکارھێنەر
+  timeline:
+    empty_week_3: یان
+  training:
+    view: ببینە
+    next: پەڕەی دواتر
+    page: پەڕە
+    done: کرا!
+    kind:
+      exercise: ڕاھێنان
+  uploads:
+    file_name: ناوی پەڕگە
+    image: وێنە
+    label: بارکردنەکان
+    uploader: بارکەر
+    uploaded_on: بارکراوە لە
+  users:
+    assign_articles_done: کرا
+    name: ناو
+    profile: پرۆفایل
+    recent_revisions: دوایین دەستکارییەکان
+    reviewers: بەسەرداچوونەوەکەر(ان)
+    revisions: پێداچوونەوەکان
+    training_module_status: ڕەوش
+    training_module_time:
+      minutes: خولەک
+      seconds: چرکە
+    username: ناوی بەکارھێنەر
+    username_placeholder: ناوی بەکارھێنەر
+    useremail_placeholder: ئیمەیل
+    role:
+      student: قوتابی
+  wizard:
+    read_more: زیاتر بخوێنەوە
+    summary: کورتە
+  article_finder:
+    article_finder: دۆزەرەوەی وتار
+    more_results: ئەنجامی زیاتر
+    search: بگەڕێ
+    submit: ناردن
+    tools: ئامرازەکان
+  training_status:
+    continue: بەردەوام بە
+    view: ببینە
+...

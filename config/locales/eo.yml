@@ -1,0 +1,286 @@
+# Messages for Esperanto (Esperanto)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: 1490493253
+# Author: Fitoschido
+# Author: KuboF
+# Author: Lucas
+# Author: Luis Miguel Obando
+# Author: Mirin
+# Author: Ochilov
+# Author: Rafaneta
+# Author: Robin van der Vliet
+---
+eo:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
+  application:
+    cancel: Nuligi
+    cookie_consent_acknowledge: Mi komprenas
+    cookie_consent_see_more: Vidi pli.
+    create_accounts: Krei Vikipediajn kontojn
+    dashboard: Stirpanelo de Viki-Eduko
+    documentation: Dokumentaro
+    error: 'Eraro okazis:'
+    explore: Esplori
+    field_required: Ĉi tiu kampo estas deviga
+    field_invalid_characters: Ĉi tiu kampo enhavan ne validajn skribsignojn
+    field_invalid_date: Ĉi tiu kampo postulas daton laŭ la aranĝo JJJJ-MM-TT
+    greeting2: Bonvenon!
+    greeting_extended: Bonvenon al Vikipedio
+    greeting: Saluton!
+    help: Helpo
+    home: Hejmo
+    log_in_extended: Ensaluti per Vikipedio
+    log_in: Ensaluti
+    log_out: Elsaluti
+    my_dashboard: Mia Stirpanelo
+    recent_activity: Ĵusa Aktiveco
+    report_problem: Raporti problemon
+    request_account: Peti konton
+    request_account_create: Krei konton
+    search: demandi
+    search_results:
+      one: '%{count} rezulto por: ''%{search_terms}'''
+      other: '%{count} rezultoj por: ''%{search_terms}'''
+    no_results: Neniu rezulto troviĝis pri '%{query}'
+    sign_up_extended: Registriĝi per Vikipedio
+    sign_up_wikipedia: Aŭ registriĝi per Vikipedio
+    sign_up_log_in_extended: kun Vikipedio
+    sign_up: Registriĝi
+    submit: Sendi
+    training: Trejnado
+    change: Ŝanĝi
+    details: Detaloj
+    confirm: Bone
+    opt_in: Jes
+    opt_out: Ne
+    opt_yes: jes
+    opt_no: ne
+  dashboard:
+    create_note: Premu la butonon Krei Kurson por krei vian unua kurson.
+    explore_course_pages: Esplori Kursajn Paĝojn
+    explore_examples: Esplori Ekzemplojn
+  home:
+    explore: Esplori
+    log_in: Ensaluti per Vikipedio
+    sign_up: Registriĝi per Vikipedio
+  alerts:
+    alert_label: Atentigoj
+    no_alerts: Neniu atentigo trovita.
+  activity:
+    all: Aktiveco
+    edited_by: Redaktita De
+    label: Aktiveco
+  articles:
+    articles: Artikoloj
+    article_development: (disvolvado de artikolo)
+    assigned: Asignitaj Artikoloj
+    available: Haveblaj Artikoloj
+    no_available: Neniu Havebla Artikolo
+    next: Sekven
+    previous: Antaŭen
+    article_title: Titolo de Artikolo
+    assigned_to: Asignita Al
+    deleted: (forigita)
+    edited: Redaktitaj Artikoloj
+    edited_by: 'Redaktita De:'
+    edited_mobile: Artikoloj
+    filter:
+      wiki_all: Ĉiuj
+      new: Nova
+      existing: Ekzistanta
+      new_and_existing: Nova aŭ Ekzistanta
+    hide: Kaŝi
+    history: (historio)
+    label: Artikoloj
+    loading: Ŝargante artikolojn...
+    new: (nova)
+    none: Ĉi tiu kurso redaktis neniun artikolon.
+    rating: Klaso
+    rating_docs:
+      does_not_exist: Ĉi tiu artikolo ne ekzistas en Vikipedio
+    see_more: Vidi plu
+    show_current_version: Montri nunan version
+    title: Titolo
+    title_example: Titolo de artikolo
+    tools: Taksiloj
+    view: Vidi Artikolon
+    view_all: Vidi Ĉiujn
+    view_on_wiki: Vidi ĉe vikio
+    views_added: Aldonis %{count} novajn vidojn por %{title}
+    edit_size: Grando de Revizio
+    wiki: Vikio
+    wp10: Struktura Kompleteco
+    articles_short: Artikoloj
+  articles_generic:
+    articles_short: Paĝoj
+  assignments:
+    article_link: Artikolo
+    already_exists: Ĉi tiu asigno jam ekzistas!
+    assign_other: Asigni artikolon
+    add_available: Aldoni haveblajn artikolojn
+    add_available_submit: Aldoni artikolojn
+    assign_self: Asigni artikolon al mi
+    bibliography: Bibliografio
+    clone: Kloni
+    label: Asigni
+    none_short: Neniu artikolo asignita
+    remove: Forigi
+    reviewers: Revizianto(j)
+    review_other: Asigni revizion
+    review_self: Revizii artikolon
+    select: Elekti
+  blocks:
+    milestones:
+      title: Mejloŝtonoj
+  campaign:
+    active_campaigns: Aktivaj kampanjoj
+    add_organizer: Aldoni organizanton
+    alert_article: Titolo de artikolo
+    alert_label: Atentigoj pri Kampanjo
+    alert_type: Tipo
+    alert_user_id: Uzanto
+    all_campaigns: Ĉiuj Kampanjoj
+    campaign: Kampanjo
+    campaigns: Kampanjoj
+    campaign_deleted: Kampanjo "%{title}" foriĝis
+    campaign_not_updated: Ne povis ĝisdatigi kampanjon
+    campaign_updated: Ĝisdatigis kampanjon
+    created_at: Dato
+    course: Kurso
+    create_campaign: Krei Novan Kampanjon
+    create_my_campaign: Krei mian Kampanjon!
+    description: Priskribo
+    none: Nenio
+    organizers: Organizantoj
+    title: Titolo
+  categories:
+    add_category: Aldoni kategorion
+    add_template: Aldoni ŝablonon
+    add_this_category: Aldoni ĉi tiun kategorion
+    add_this_template: Aldoni ĉi tiun ŝablonon
+    name: Nomo
+    category_name: Nomo de kategorio
+    template_name: Nomo de ŝablono
+    remove: Forigi
+  courses:
+    activity: Aktiveco
+    active_courses: Aktiva %{course_type}
+    alerts: Atentigoj
+    all_courses: Ĉiuj Kursoj
+    archived: Enarkivigitaj Kursoj
+    actions: Agoj
+    articles: Artikoloj
+    cancel: Nuligi
+    campaigns: Kampanjoj
+    campaign_articles: '%{title} Artikoloj'
+    campaign_courses: '%{title} Kursoj'
+    course: Kurso
+    course_description: Kursoj
+    courses: Kursoj
+    creator:
+      course_description: Priskribo de kurso
+      course_subject: Temo de kurso
+      course_title: Titolo de kurso
+      create_button: Krei mian kurson!
+      create_label: Krei novan kurson
+      create_new: Krei novan kurson
+      create_short: Krei kurson
+      end_date: Fina dato
+      find: Trovi vian kurson
+      start_date: Komenca dato
+      subject: Temo
+    delete_course: Forigi kurson
+    delete_suggestion: Forigi
+    error:
+      invalid_language_or_project: Nevalida lingvo/projekto
+    leave_course: Forlasi kurson
+    loading: Ŝargado…
+    my_articles: Miaj artikoloj
+    new_week: Aldoni novan semajnon
+    new_account_email: Retpoŝtadreso
+    new_account_email_placeholder: nomo@example.org
+    none: Neniu
+    school: Lernejo
+    student: Studento
+    students: Lernantoj
+    students_count: '# Studentoj'
+    students_short: Studentoj
+    user_role: Rolo
+    subject: Temo
+    tags: 'Etikedoj:'
+    title: Titolo
+    view_wiki: Legi en Vikipedio
+    volunteer:
+      one: Volontulo
+      other: Volontuloj
+    yourcourses: Viaj kursoj
+  courses_generic:
+    add_campaign: Aldoni kampanjon
+    cancel: Nuligi
+    courses: Programoj
+    campaigns: 'Kampanjoj:'
+    creator:
+      course_description: Priskribo de programo
+      course_school: Lernejo
+      course_term: Kiam
+      course_term_placeholder: Kiam
+      create_button: Krei mian programon!
+      create_label: Krei novan programon
+      create_new: Krei sendependan programon
+      create_short: Krei programon
+      find: Trovi programon
+      save_cloned_course: Konservi
+  editable:
+    edit: Redakti
+    cancel: Nuligi
+    save: Konservi
+  instructor_view:
+    assignments_table:
+      article_name: Nomo
+  metrics:
+    date_time: Dato/Tempo
+    per_user: '%{number}/uzanto'
+    tags: Etikedoj
+    view: Vidoj
+  recent_activity:
+    image: Bildo
+    file_name: Dosiernomo
+  revisions:
+    class: Klaso
+    diff: diferencoj
+    title: Titolo
+  timeline:
+    add_week: Aldoni semajnon
+    empty_week_3: aŭ
+    gradeable_value: Valoro
+    save_all_changes: Konservi ĉion
+    this_week_title_default: Ĉi tiu semajno
+    week_number: Semajno %{number}
+  uploads:
+    file_name: Dosiernomo
+    image: Bildo
+  users:
+    assign_articles_done: Farita
+    name: Nomo
+    no_articles: Neniuj artikoloj
+    number_of_articles:
+      one: '%{count} artikolo'
+      other: '%{count} artikoloj'
+    username: Uzantnomo
+    username_placeholder: Uzantnomo
+    role:
+      visitor: Vizitanto
+      student: Studanto
+      instructor: Instruisto
+      online_volunteer: Enreta volontulo
+...

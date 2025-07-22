@@ -1,0 +1,40 @@
+---
+title: Editing an existing article?
+content: |+
+  If you're editing an existing article, a sandbox is a great place to
+  prepare your first updates by copying a *small portion* of the article
+  that you want to change or expand. Do not try to overhaul an entire
+  article from the sandbox.
+
+  Identify what's missing from the current form of the article. Keep
+  reading your sources as you prepare to write the body of the article.
+
+  When you're ready to make edits:
+
+  1.  Open the article you want to change in **Edit** mode. (References
+      and other templates will break if you copy from **Read** mode.)
+  2.  Select the portion you want to work on — a few paragraphs at most —
+      and copy it.
+  3.  Open your sandbox in Edit mode and paste the copied article content.
+  4.  Add an edit summary that says copied from `[[article]]` with the
+      name of the original article, then save it by clicking **Publish changes**.
+  5.  Re-enter Edit mode in your sandbox, make your changes, and save
+      them.
+
+id: 2505
+
+translations:
+  es:
+    title: ¿Estás editando un artículo existente?
+    content: |
+      Si estás editando un artículo existente, un entorno de pruebas es un lugar ideal para preparar tus primeras actualizaciones copiando una pequeña parte del artículo que quieras cambiar o expandir. No trates de revisar un artículo completo desde el entorno de pruebas.
+
+      Identifica lo que falta en la forma actual del artículo. Sigue leyendo tus fuentes mientras te preparas para escribir el cuerpo del artículo.
+
+      Cuando estés listo para editar:
+
+      1.  Abre el artículo que deseas cambiar en modo **Editar**. (Las referencias y otras plantillas se rompen si copias desde el modo **Leer**).
+      2.  Selecciona la parte en la que quieras trabajar, unos pocos párrafos como máximo, y cópiala.
+      3.  Abre tu entorno de pruebas en modo Editar y pega el contenido del artículo copiado.
+      4.  Agrega un resumen de la edición que diga copiado de `[[artículo]]` con el nombre del original, y guárdalo haciendo clic en **Publicar cambios**.
+      5.  Vuelve a entrar a modo edición en tu entorno de pruebas, haz los cambios, y guárdalos.

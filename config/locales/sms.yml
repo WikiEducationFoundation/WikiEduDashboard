@@ -1,0 +1,276 @@
+# Messages for Skolt Sami (nuõrttsääʹmǩiõll)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Yupik
+---
+sms:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+  application:
+    cancel: Jõõsk
+    cookie_consent_acknowledge: Fiʹttjam
+    cookie_consent_see_more: Lââʹssteâđ
+    greeting2: Tiõrvpueʹttem!
+    greeting: Tiõrv!
+    home: Ouddseidd
+    log_in_extended: Ǩeeʹrjtõõđ sizz Wikipediain
+    log_in: Ǩeeʹrjtõõđ sizz
+    log_out: Ǩeeʹrjtõõđ åålǥas
+    report_problem: Iʹlmmet čuõlmâst
+    request_account_create: Raaj tobdldõõǥǥ
+    no_results: Ooccmõʹšše '%{query}' ij käunnʼjam ni mii
+    sign_up: Raaj tobdldõõǥǥ
+    submit: Vuõlttâd
+    change: Muuʹtt
+    details: Teâđ
+  home:
+    log_in: Ǩeeʹrjtõõđ sizz Wikipediain
+  articles:
+    articles: Artikkeeʹl
+    article_title: Artikkeeʹl nõmm
+    deleted: (jaukkuum)
+    edited_mobile: Artikkeeʹl
+    filter:
+      wiki_all: Puk
+      new: Ođđ
+    filter_text: 'Siʹllʼjeei:'
+    find: Ooʒʒ artikkeeʹlid
+    hide: Čiõǥǥ
+    history: (historia)
+    label: Artikkeeʹl
+    new: (ođđ artikkel)
+    see_more: Lââʹssteâđ
+    show_current_version: Čuäʹjet ođđsumus versio
+    title: Nõmm
+    title_example: Artikkeeʹl nõmm
+    view: Čuäʹjet artikkeeʹl
+    view_on_wiki: Čuäʹjet wikist
+    edit_size: Muuʹtt šorradvuõđ
+    articles_short: Artikkeeʹl
+  articles_generic:
+    articles_short: Seeid
+  assignments:
+    article_link: Artikkel
+    add_available_submit: Lââʹzzet artikkeeʹlid
+    bibliography: Bibliografia
+    confirm_add_available: Haaʹlääk-a ton tuõđi artikkeeʹl %{title} lââʹzzted?
+    remove: Jaukkâd
+    select: Vaʹlljed
+    submit: Vuõlttâd
+  campaign:
+    alert_article: Artikkeeʹl nõmm
+    alert_user_id: Õõʹnni
+    campaign: Kampanjj
+    campaign_not_updated: Kampaanj peiʹvvummuš ij oʹnnstam
+    created_at: Peiʹvvmieʹrr
+    course: Kurss
+    create_campaign: Ođđ kampaanj raajjmõš
+    description: Deskriptt
+    delete_campaign: Jaukkâd tän kampaanj
+    newest_campaigns: Ođđsumus kampaanj
+    no_passcode: ij peittsääʹnn
+    title: Kampaanj nõmm
+    search_campaigns: Ooʒʒ kampaanjid
+    search: Ooʒʒ
+  categories:
+    add_category: Lââʹzzet kategoria
+    add_psid: Lââʹzzet PetScan PSID
+    add_template: Lââʹzzet maall
+    add_this_category: Lââʹzzet kategoriaid
+    add_this_psid: Lââʹzzet tän PSID
+    add_this_template: Lââʹzzet maallid
+    articles_count: Artikkelmieʹrr
+    name: Nõmm
+    category_name: Kategorianõmm
+    psid_name: PSID
+    template_name: Maall nõmm
+    remove: Jaukkâd
+  courses:
+    all_courses: Puk kuurs
+    archived: Arkiivõsttum kuurs
+    articles: Artikkeeʹl
+    calendar:
+      legend: Čiʹlǧǧtõs
+    cancel: Jõõsk
+    campaigns: 'Kampanjj-joouk:'
+    campaign_select: Vaʹlljed kampaanj
+    course: Kurss
+    course_description: Kuurs
+    courses: Kuurs
+    creator:
+      course_description: Kuurs deskriptt
+      course_term_placeholder: Lookkâmpââʹjj
+      create_label: Raaj ođđ kuurs
+      create_new: Raaj ođđ kuurs
+      create_short: Raaj kuurs
+      find: Ooʒʒ kuurs
+      save_cloned_course: Ruõkk ođđ kuurs
+      start_date: Äʹlǧǧempeiʹvv
+    data_download_info: Laadd teâđaid CSV-teâttõssân.
+    data_wikidata: Wikidata-statistiikk
+    delete_course: Jaukkâd kuurs
+    delete_suggestion: Jaukkâd
+    download_stats_data: Laadd statistiikkid
+    duration: Kuurs pešttmõš
+    features_feedback: 'Automaattlaž eʹtǩǩõõzz:'
+    feedback: Maacctõs
+    new_week: Lââʹzzet ođđ neäʹttel
+    new_account_email: E-pååʹštaddrõs
+    passcode: Peittsääʹnn
+    passcode_none: Ij peittsääʹnn
+    please_log_in: Ǩeeʹrjtõõđ sizz.
+    requested_accounts_alert_view: Čuäʹjet
+    school: Mättjemstrooiʹtel
+    search_courses: Ooʒʒ kuursid
+    tags: 'Ǩeâlggal:'
+    term: Lookkâmpââʹjj
+    title: Kurssnõmm
+    update_stats: Muʹttemstatistiikk
+    user_suggestions: 'Õõʹnnʼji eʹtǩǩõõzz:'
+    view: Čuäʹjet kuurs
+    view_page: Čuäʹjet kuurs seeid
+    view_wiki: Čuäʹjet Wikipediast
+  course_instructor_notification:
+    send_notification_button_text: Vuõlttâd
+  courses_generic:
+    add_campaign: Lââʹzzet kampaanj
+    all_courses: Puk prograamm
+    archived: Arkiivõsttum prograamm
+    cancel: Jõõsk
+    creator:
+      create_label: Raaj ođđ prograamm
+      create_short: Raaj prograamm
+      find: Ooʒʒ prograamm
+      save_cloned_course: Ruõkk
+      scoping_methods:
+        categories: Kategoria
+        templates: Maall
+    delete_course: Jaukkâd prograamm
+    explore: Ooʒʒ prograammi
+  editable:
+    edit: Muuʹtt
+    cancel: Jõõsk
+    save: Ruõkk
+    edit_description: Muuʹtt deskriipt
+    edit_template: Muuʹtt maall
+  instructor_view:
+    bad_work:
+      learn_more_button: Lââʹssteâđ
+  metrics:
+    characters: Miârk
+    references_count: Lââʹzztum teâttkääiv
+    tags: Ǩeâlggal
+    update_statistics_link: Lââʹssteâđ
+    removed: Jaukkuum
+    descriptions: Deskriipt
+  namespace:
+    article: Artikkel
+    project: Projeʹktt
+    file: Teâttõs
+    category: Kategoria
+    book: Ǩeʹrjj
+  recent_activity:
+    article_title: Nõmm
+    image: Kaart da snimldõõǥǥ
+    file_name: Teâttõsnõmm
+    uploaded_by: 'Ruõkkâm:'
+  revisions:
+    diff: jeäʹrdõs
+    diff_show: Čuäʹjet
+    diff_hide: Čiõǥǥ
+    title: Nõmm
+    see_more: Lââʹssteâđ
+    show_all: Čuäʹjet puk
+  settings:
+    categories:
+      other_settings: Jeeʹres asetõõzz
+      users: Õõʹnni
+    admin_users:
+      new:
+        form_placeholder: Õõʹnninõmm
+    special_users:
+      new:
+        form_placeholder: Õõʹnninõmm
+  suggestions:
+    editing: Muʹttemeʹtǩǩõõzz
+  timeline:
+    add_week: Lââʹzzet neäʹttel
+    discard_all_changes: Tirššâl puk muttsid
+    gradeable_value: Ärvv
+    week_number: Neäʹttel %{number}
+  training:
+    view: Čuäʹjet
+    page: Seidd
+    table_of_contents: Siiskâžlooǥǥtõs
+    view_module_source: čuäʹjet moduulkääiv
+    kind:
+      discussion: Saǥstõõllmõš
+  update_username:
+    label: Ođđ õõʹnninõmm
+  uploads:
+    categories: Kategoria
+    file_name: Teâttõsnõmm
+    image: Kartt leʼbe snimldõk
+    label: Ruõkkmõõžž
+    license: 'Liseʹnss:'
+    uploaded_by: 'Ruõkkâm:'
+  users:
+    contributions: Õõʹnni muttâz
+    contribution_statistics: Muʹttemstatistiikk
+    course_passcode: 'Peittsääʹnn:'
+    edits: muttâz
+    enroll_confirmation: Haaʹlääk-a ton tuõđi õõʹnni %{username} lââʹzzted?
+    first_name: Risttnõmm
+    last_name: Sokknõmm
+    name: Nõmm
+    none: Tän kuursâst ij leäkku ni õhtt vuässõõtti.
+    no_articles: Artikkeeʹl jie leäkku
+    number_of_articles:
+      one: '%{count} artikkel'
+      other: '%{count} artikkeeʹl'
+    references_count: Lââʹzztum teâttkääiv
+    remove_confirmation: Haaʹlääk-a ton tuõđi õõʹnni %{username} jaukkeed?
+    training_module_status: Status
+    username: Õõʹnninõmm
+    username_placeholder: Õõʹnninõmm
+    useremail_placeholder: E-pååʹštaddrõs
+    userpasscode_placeholder: Peittsääʹnn
+  user_profiles:
+    image_link_placeholder: Lââʹzzet kartt- leʹbe snimldõkliiŋk (vaʹlljeemnallšem)
+  wizard:
+    select_one_option: Vaʹlljed õõut vaajtõsmääin.
+    read_more: Čuäʹjet lââʹzz
+    summary: Õʹhtteǩeässmõš
+  error_incorrect_passcode:
+    header: Vââǥǥlaž peittsääʹnn.  :-(
+  error_404:
+    header: Seidd ij käunnʼjam. :-(
+  error_500:
+    header: 500 — siiskâž servervââʹǩǩ.  :-(
+  survey:
+    email:
+      headline: Tiõrv, %{username}
+  article_finder:
+    hide_options: Čiõǥǥ asetõõzzid
+    search: Ooʒʒ
+    show_options: Čuäʹjet asetõõzzid
+    submit: Ruõkk
+  training_status:
+    continue: Jueʹtǩ
+    view: Čuäʹjet
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+    options:
+      news_content:
+        confirm_delete: Priim
+        cancel_delete: Jõõsk
+  notes:
+    title: Nõmm
+    cancel_note_creation: Jõõsk
+    cancel_edit_note: Jõõsk
+    save_note: Ruõkk
+...

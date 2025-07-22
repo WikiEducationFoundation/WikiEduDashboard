@@ -1,0 +1,89 @@
+# Messages for Interlingua (interlingua)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Karmwiki
+# Author: McDutchie
+---
+ia:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: k
+          million: mln
+          billion: mld
+          trillion: bln
+          quadrillion: bld
+  accessibility:
+    number_field: Isto es un campo de numero. Le buttones generate sur le major parte
+      de navigatores incrementa e decrementa le entrata.
+  application:
+    back: Retornar
+    cancel: Cancellar
+    cookie_consent: Iste sito usa cookies pro mantener tu session aperte, e immagazina
+      informationes associate a tu conto de Wikipedia.
+    cookie_consent_acknowledge: Io comprende
+    cookie_consent_see_more: Vider plus.
+    create_accounts: Crear contos de Wikipedia
+    error: 'Un error ha occurrite:'
+    explore: Explorar
+    field_required: Iste campo es obligatori
+    field_invalid_characters: Iste campo ha characteres invalide
+    field_invalid_date: Iste campo require un data in formato AAAA-MM-DD
+    greeting2: Benvenite!
+    greeting_extended: Benvenite a Wikipedia
+    greeting: Salute!
+    help: Adjuta
+    home: Initio
+    log_in_extended: Aperir session con Wikipedia
+    log_in: Aperir session
+    log_out: Clauder session
+    my_dashboard: Mi pannello
+    recent_activity: Activitate recente
+    search: poner un question
+    sign_up_extended: Inscriber te con Wikipedia
+    sign_up_log_in_extended: con Wikipedia
+    change: Cambiar
+    opt_in: Si
+    print: Imprimer
+  articles:
+    article_development: (disveloppamento de articulo)
+    articles_shown: Se monstra %{count} de %{total}
+    history: (historia)
+  assignments:
+    label_all: Assignar totes
+    warning_untracked_wiki: 'Nota ben que le articulo que tu ha seligite es un wiki
+      non traciate per iste curso. Pro traciar le contributiones a iste articulo,
+      un instructor debe adder le sequente wiki a iste curso: %{wiki}'
+  courses:
+    creator:
+      copy_courses_with_assignments: Clonar le lista de articulos disponibile
+    error:
+      invalid_wiki: Non pote connecter a %{domain}. Pote non esser un wiki valide.
+    join_no_passcode: Es tu secur de voler sequer iste curso?
+    search_all_tickets_for_this_course: Cercar tote le billetes pro iste curso
+    timeline_enabled: Chronologia activate
+  metrics:
+    articles_created_generic: Paginas create
+  revisions:
+    see_more: Vider plus
+  tickets:
+    none: Necun billet
+  training:
+    table_of_contents: Tabula de contento
+    kind:
+      discussion: Discussion
+  update_username:
+    header: Actualisar un nomine de usator cambiate
+    not_found: Le usator correspondente al nomine fornite non ha essite trovate.
+    username_updated: Le nomine de usator ha essite actualisate correctemente.
+    info: Si un usator ha cambiate le nomine de usator de su conto Wikimedia, insere
+      le nove nomine de usator hic pro actualisar lo sur le tabuliero de instrumentos.
+    label: Nove nomine de usator
+    button: Actualisar
+  uploads:
+    credit: Credito
+  users:
+    contributions_history_full: Vider le historia complete de contributiones
+...

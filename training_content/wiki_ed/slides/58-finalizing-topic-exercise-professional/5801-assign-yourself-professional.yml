@@ -1,0 +1,27 @@
+id: 5801
+title: "Assign yourself an article"
+summary:
+content: |
+
+  Add the article as one of your "assigned" articles in the **Home** tab of the
+  Dashboard. Next to "My Articles", click the "Assign myself an article" button.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Screenshot_of_Wiki_Education_Dashboard_My_Articles_tab.png" />
+    <figcaption class="image-credit">
+  </figure>
+
+  When you're done, you should see the article name next to your username.
+
+translations:
+  es:
+    title: Asígnate un artículo
+    content: |
+      Añade el artículo como uno de tus artículos "asignados" en la pestaña Inicio del Dashboard. Junto a "Mis artículos", haz clic en el botón "Asignarme un artículo".
+
+      <figure class="alt-layout-100">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Screenshot_of_Wiki_Education_Dashboard_My_Articles_tab.png" />
+        <figcaption class="image-credit">
+      </figure>
+
+      Cuando hayas terminado, deberías ver el nombre del artículo junto a tu nombre de usuario.

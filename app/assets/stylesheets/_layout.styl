@@ -1,0 +1,113 @@
+body > .container
+  +above(desktop)
+    padding-bottom 80px
+
+.container
+  center(1100px)
+  clearfix()
+  padding 0 10px
+  position relative
+  .container
+    padding 0
+
+
+  +above(1140px)
+    padding 0
+
+  &.narrow
+    center(800px)
+
+
+main
+  background-color transparent
+  border-width 0 1px
+  padding-bottom 80px
+  header
+    color bayoux
+    padding 70px 0 70px
+
+header
+  padding 20px
+  text-align center
+  width 100%
+  .title
+    padding 0 20px
+
+.wrapper
+  min-height 100%
+  margin 0 auto -30px
+
+footer
+  padding 10
+  text-align center
+  font-size 65%
+  .container
+    padding-bottom 10px
+
+.footer, .push
+  height 30px
+
+.section-header
+  padding 20px 0 20px
+  position relative
+  clear both
+  h3
+    color body-color
+
+  .section-header__actions
+    //
+
+  +above(tablet)
+    padding 15px 0 0
+
+    .section-header__actions
+      position absolute
+      right 0
+      top 20px
+
+  +above(desktop)
+    padding 15px 0
+
+  +below(tablet)
+    display flex
+    flex-direction column
+    .controls > button
+      font-size 14px
+    a
+      position relative
+
+
+
+section
+  position relative
+
+.details
+  padding-top 20px
+  overflow hidden
+  text-align left
+  span(1)
+  .details__detail
+    span(1/2)
+    padding 20px 0
+    text-align left
+    +above(desktop)
+      span(1/5)
+      text-align left
+    &:last-child
+      span(2/5)
+      text-align left
+    h6
+      font-family body-font
+      font-size 15px
+    p
+      color white
+      font-size 15px
+      font-weight
+      a:hover
+        color white
+
+.hidden
+  display none !important
+
+.text-center
+  text-align center

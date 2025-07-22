@@ -1,0 +1,38 @@
+id: 5505
+title: "Cats?"
+summary:
+content: |
+  Do you want a list of all the known cats in the world (or at least, the ones
+  that have Wikidata items about them)? Click on the **Examples** button and have a
+  look at the first example - Cats.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Wikidata_query_example_-_cats.png" />
+    <figcaption class="image-credit">
+      Example queries are a great way to learn how querying works.
+    </figcaption>
+  </figure>
+
+  In a minute when you click on the word Cats, it will open the query and allow
+  you to run it. Clicking on the pencil icon lets you edit the query. The camera
+  icon lets you preview the results of the query. And the eye icon lets you
+  preview the code.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Example_SPARQL_query_cats.png" />
+  </figure>
+
+  Now click on the word Cats to get started. Then click on the blue arrow in the
+  lower left to run the query.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Screenshot_for_%22A_gentle_introduction_to_the_Wikidata_Query_Service%22_1.png" />
+    <figcaption class="image-credit">
+      Push the play button in the bottom lefthand corner to start your query. Image by <a href="https://commons.wikimedia.org/wiki/File:Screenshot_for_%22A_gentle_introduction_to_the_Wikidata_Query_Service%22_1.png">Jens Ohlig</a>, CC BY-SA 4.0.
+    </figcaption>
+  </figure>
+
+  Your results consist of two columns: one column labeled **item** which consists of
+  Wikidata items (<code>wd:Q28114532</code>, for example) and the other labeled **itemLabel**
+  which lists the label associated with each item. Recall that item labels are
+  what make Wikidata items interpretable to humans.

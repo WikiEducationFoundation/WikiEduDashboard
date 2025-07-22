@@ -1,0 +1,15 @@
+# Messages for Limburgish (Limburgs)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Pahles
+---
+li:
+  revisions:
+    diff_show: Tuin
+  users:
+    role:
+      visitor: Bezeuker
+      student: Sjtudent
+      instructor: Lierer
+      online_volunteer: Online vriewilliger
+...

@@ -1,0 +1,162 @@
+# Messages for Inari Sami (anarâškielâ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Seipinne
+# Author: Yupik
+---
+smn:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: t.
+          million: milj.
+  application:
+    cancel: Jooskâ
+    cookie_consent_acknowledge: Iberdâm
+    cookie_consent_see_more: Lasetiäđuh.
+    create_accounts: Räähti Wikipedia-tubdâlduvâid
+    documentation: Ravvuuh
+    error: 'Šoodâi feilâ:'
+    explore: Tuuđhâ
+    greeting2: Tiervâpuáttim!
+    greeting_extended: Tiervâpuáttim Wikipedian
+    greeting: Tiervâ!
+    help: Iše
+    home: Ovdâsijđo
+    log_in_extended: Čáládât siisâ Wikipediain
+    log_in: Čáládât siisâ
+    log_out: Čáládât olgos
+    recent_activity: Vorâs nubástusah
+    report_problem: Almoot čuolmâst
+    request_account_create: Räähti tubdâlduv
+    search: koijâd koččâmuš
+    sign_up_log_in_extended: Wikipediain
+    confirm: OK
+    opt_in: Joo
+    opt_out: Ij
+  home:
+    log_in: Čáládât siisâ Wikipedia peht
+  articles:
+    articles: Artikkâleh
+    next: Čuávuvâš
+    previous: Oovdeb
+    article_title: Artikkâl paječaalâ
+    deleted: (sikkum)
+    edited_by: 'Hammim:'
+    edited_mobile: Artikkâleh
+    filter:
+      wiki_all: Puoh
+    hide: Čievâ
+    history: (historjá)
+    label: Artikkâleh
+    new: (uđđâ artikkâl)
+    see_more: Lasetiäđuh
+    title_example: Artikkâl nommâ
+    view: Čääiti artikkâl
+    view_all: Čääiti puoh
+    view_on_wiki: Čääiti wikist
+    wiki: Wiki
+    articles_short: Artikkâleh
+  articles_generic:
+    articles_short: Siijđoh
+  assignments:
+    article_link: Artikkâl
+    add_available_submit: Lasseet artikkâlijd
+    remove: Siho
+    submit: Vuolgât
+  campaign:
+    alert_user_id: Kevttee
+    description: Kuvvim
+    search: Uusâ
+  categories:
+    add_category: Lasseet luoka
+    name: Nommâ
+    template_name: Myenster nommâ
+    remove: Siho
+  courses:
+    alerts: Larmâdâsah
+    articles: Artikkâleh
+    delete_suggestion: Siho
+    download_stats_data: Luođii lovottuvâid
+    feedback: Macâttâs
+    home_wiki: Päikkiwiki
+    loading: Luođiimin…
+    new_account_email: Šleđgâpostâčujottâs
+    overview: Päikki
+    please_log_in: Čáládât siisâ.
+    search_courses: Uusâ kuursâid
+    tags: 'Kilgoleh:'
+    view_wiki: Čääiti Wikipediast
+  course_instructor_notification:
+    send_notification_button_text: Vuolgât
+  courses_generic:
+    cancel: Jooskâ
+    creator:
+      save_cloned_course: Vuorkkii
+      scoping_methods:
+        categories: Luokah
+        templates: Myenstereh
+  editable:
+    cancel: Jooskâ
+    save: Vuorkkii
+  metrics:
+    activity: Vorâs nubástusah
+    close_modal: Toopâ
+    revisions: Vorâs nubástusah
+    tags: Kilgoleh
+    upload_count: Vuorkkiimeh Commonsin
+    removed: Sikkum
+  namespace:
+    book: Kirje
+    lexeme: Lekseem
+  recent_activity:
+    image: Kove
+    file_name: Tiätuvuárkkánommâ
+  revisions:
+    diff_show: Čääiti
+    diff_hide: Čievâ
+    see_more: Lasetiäđuh
+    show_all: Čääiti puoh
+  settings:
+    categories:
+      other_settings: Eres asâttâsah
+      users: Kevtteeh
+    admin_users:
+      new:
+        form_placeholder: Kevtteenommâ
+    special_users:
+      new:
+        form_placeholder: Kevtteenommâ
+  timeline:
+    save_all_changes: Vuorkkii puoh
+  training:
+    view: Čääiti
+    next: Čuávuvâš sijđo
+    page: Sijđo
+    kind:
+      discussion: Savâstâllâm
+  update_username:
+    label: Uđđâ kevtteenommâ
+  uploads:
+    categories: Luokah
+    image: Kove
+    license: 'Liiseens:'
+  users:
+    first_name: Ovdânommâ
+    last_name: Suhânommâ
+    name: Nommâ
+    recent_revisions: Vorâs nubástusah
+    username: Kevtteenommâ
+    username_placeholder: Kevtteenommâ
+  wizard:
+    read_more: Čääiti lase
+  article_finder:
+    search: Uusâ
+    submit: Vuorkkii
+  training_status:
+    continue: Juáđhi
+    view: Čääiti
+  tagged_courses:
+    download_csv: Luođii CSV-tiätuvuárhá
+...

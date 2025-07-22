@@ -1,0 +1,26 @@
+id: 5504
+title: "Getting started"
+summary:
+content: |
+  To get started, open a link to <a href="https://query.wikidata.org/">Wikidata's Query Service</a>
+  in a separate browser tab. During this training,
+  it's best if you go back and forth between this tab and that one, so that you
+  can try what we discuss here.
+
+  When you open that link, you should see something like this:
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Wikidata_query_service.png" />
+    <figcaption class="image-credit">
+      This is Wikidata's Query Service (WDQS).
+    </figcaption>
+  </figure>
+
+  Up at the top of the page, there's a button labeled **Examples**. If you don't see
+  it, look for a folder icon. It should appear on the left side of the screen
+  or up at the top toward the left. These will lead you to query **Examples**, which 
+  will give you access to a variety of sample queries that you can use to learn
+  about SPARQL. For now, there's no need to master SPARQL; even very experienced
+  Wikidatans just modify existing queries to find the information they want.
+
+  Let's explore one of these examples together in the next slide.

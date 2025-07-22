@@ -1,0 +1,17 @@
+%tr{:class => "#{user ? date_highlight_class(course) : ''}"}
+  %td.title
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      = course.title
+      %span.creation-date.hidden
+        = course.created_at
+  %td.creation-date
+    = course.created_at.strftime('%Y-%m-%d')
+  %td.instructor
+    = "#{course.instructors.first&.username} - #{course.instructors.first&.real_name}"
+  %td.expected
+    = course.expected_students
+  %td.term
+    = course.term
+  %td.tags
+    - tags = course.tags.map(&:tag)
+    = tags.join(', ')

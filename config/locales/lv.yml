@@ -1,0 +1,442 @@
+# Messages for Latvian (latviešu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Papuass
+# Author: Silraks
+---
+lv:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Atcelt
+    cookie_consent_acknowledge: Es saprotu
+    cookie_consent_see_more: Skatīt vairāk
+    create_accounts: Izveidot Vikipēdijas kontus
+    dashboard: Wiki Ed panelis
+    documentation: Dokumentācija
+    error: 'Kļūda:'
+    field_required: Šis lauks jāaizpilda obligāti.
+    greeting2: Laipni lūdzam!
+    greeting_extended: Laipni lūdzam Vikipēdijā
+    help: Palīdzība
+    home: Sākums
+    log_in_extended: Pieslēgties ar Vikipēdijas kontu
+    log_in: Pieslēgties
+    log_out: Iziet
+    my_dashboard: Mans panelis
+    recent_activity: Nesenās darbības
+    report_problem: Ziņot par problēmu
+    request_account: Pieprasīt kontu
+    request_account_create: Izveidot kontu
+    search: uzdot jautājumu
+    sign_up_extended: Reģistrēties ar Vikipēdijas kontu
+    sign_up_log_in_extended: ar Vikipēdijas kontu
+    sign_up: Reģistrēties
+    submit: Iesniegt
+    training: Apmācības
+    change: Mainīt
+    details: Papildinformācija
+    confirm: Labi
+    opt_in: Jā
+    opt_out: Nē
+    opt_yes: jā
+    opt_no: nē
+    print: Drukāt
+  alerts:
+    alert_label: Brīdinājumi
+  activity:
+    all: Aktivitāte
+    edited_by: Labotājs
+    label: Aktivitāte
+  articles:
+    articles: Raksti
+    article_development: (raksta attīstība)
+    assigned: Piešķirtie raksti
+    available: Pieejamie raksti
+    next: Nākamais
+    previous: Iepriekšējais
+    article_title: Raksta nosaukums
+    assigned_to: Piešķirts
+    deleted: (dzēsts)
+    edited: Labotie raksti
+    edited_by: 'Labotāji:'
+    edited_mobile: Raksti
+    edited_none: '%{title} nav labojis nevienu rakstu.'
+    find: Atrast rakstus
+    hide: Paslēpt
+    history: (vēsture)
+    label: Raksti
+    loading: Ielādē rakstus...
+    new: (jauns)
+    rating: Klase
+    see_more: Skatīt vairāk
+    show_current_version: Rādīt aktuālo versiju
+    title: Nosaukums
+    title_example: Raksta nosaukums
+    view: Apskatīt rakstu
+    view_all: Skatīt visus
+    edit_size: Labojuma izmērs
+    articles_short: Raksti
+  articles_generic:
+    articles_short: Lapas
+  assignments:
+    article_link: Raksts
+    article_link_wikidata: Vienums
+    assign_other: Piešķirt rakstu
+    add_available: Pievienot pieejamos rakstus
+    add_available_submit: Pievienot rakstus
+    add_available_submit_wikidata: Pievienot vienumus
+    assign_self: Piešķirt sev rakstu
+    bibliography: Bibliogrāfija
+    clone: Klonēt
+    label: Piešķirt
+    label_all: Piešķirt visus
+    loading: Ielādē uzdevumus...
+    none_short: Nav piešķirtu rakstu
+    remove: Noņemt
+    review_self: Pārlasīt rakstu
+    select: Izvēlēties
+  blocks:
+    milestones:
+      title: Atskaites punkti
+  campaign:
+    active_campaigns: Aktīvās kampaņas
+    add_organizer: Pievienot organizatoru
+    alert_article: Raksta nosaukums
+    alert_label: Kampaņas brīdinājumi
+    alert_type: Veids
+    alert_user_id: Dalībnieks
+    all_campaigns: Visas kampaņas
+    campaign: Kampaņa
+    campaigns: Kampaņas
+    campaign_updated: Kampaņa atjaunināta
+    created_at: Datums
+    course: Kurss
+    create_campaign: Izveidot jaunu kampaņu
+    create_my_campaign: Izveidot manu kampaņu!
+    data_articles: Labotās lapas
+    data_instructors: Pasniedzēji
+    description: Apraksts
+    delete_campaign: Dzēst šo kampaņu
+    no_alerts: Šajā kampaņā nav brīdinājumu
+    none: Nav
+    organizers: Organizatori
+    program_template: Programmas veidne
+    requested_accounts: Pieprasītie konti
+    title: Nosaukums
+    search_campaigns: Meklēt kampaņas
+  categories:
+    add_category: Pievienot kategoriju
+    add_template: Pievienot veidni
+    add_this_category: Pievienot šo kategoriju
+    add_this_template: Pievienot šo veidni
+    articles_count: Rakstu skaits
+    name: Nosaukums
+    category_name: Kategorijas nosaukums
+    template_name: Veidnes nosaukums
+    remove: Noņemt
+  courses:
+    school_system: Akadēmiskā sistēma
+    activity: Aktivitāte
+    alerts: Brīdinājumi
+    all_courses: Visi kursi
+    archived: Arhivētie kursi
+    actions: Darbības
+    articles: Raksti
+    assignment_headings:
+      assigned_articles: Piešķirtie raksti
+      available_articles: Pieejamie raksti
+    calendar:
+      legend: Apzīmējumi
+      legend_class_canceled: Brīvdiena/atcelts
+      legend_class_meeting: Klases sapulce
+    cancel: Atcelt
+    campaigns: 'Kampaņas:'
+    campaign_articles: '%{title} raksti'
+    campaign_courses: '%{title} kursi'
+    campaign_select: Izvēlies kampaņu
+    campaign_users: '%{title} Dalībnieki'
+    course: Kurss
+    course_description: Kursi
+    courses: Kursi
+    courses_taught: Mācītie kursi
+    creation_date: Izveides datums
+    creator:
+      assignment_end_placeholder: GGGG-MM-DD
+      assignment_start_placeholder: GGGG-MM-DD
+      clone_previous: Klonēt iepriekšējo kursu
+      clone_this: Klonēt šo kursu
+      course_description: Kursa apraksts
+      course_school: Kursa skola
+      course_subject: Kursa temats
+      course_term: Kursa semestris
+      course_term_placeholder: Semestris
+      course_title: Kursa nosaukums
+      create_button: Izveidot manu kursu!
+      create_label: Izveidot jaunu kursu
+      create_new: Izveidot jaunu kursu
+      create_short: Izveidot kursu
+      end_date: Beigu datums
+      end_date_placeholder: GGGG-MM-DD
+      expected_number: Paredzamais studentu skaits
+      find: Atrast savu kursu
+      role_description: Tava loma kursā
+      save_cloned_course: Saglabāt jaunu kursu
+      start_date: Sākuma datums
+      start_date_placeholder: GGGG-MM-DD
+      subject: Temats
+    current: Aktīvie kursi
+    data_articles: Rakstu dati
+    data_download_info: Lejupielādēt datus CSV formātā
+    data_edits: Labojumu dati
+    data_revisions: Versiju dati
+    data_uploads_info: Commons augšupielādes datos parādās katra ielādētā faila nosaukums
+      un lietojumu skaits.
+    delete_course: Dzēst kursu
+    delete_suggestion: Dzēst
+    dismiss_survey: Paslēpt
+    download_stats_data: Lejupielādēt statistiku
+    duration: Kursa ilgums
+    edit_count: Labojumu skaits
+    edit_course_dates: Labot kursa datumus
+    end: Beigas
+    ended: Kurss ir noslēdzies.
+    enroll: Reģistrēties
+    enrollment: Pievienot/noņemt studentus
+    feedback: Atsauksmes
+    instructors: Pasniedzēji
+    join: Pievienoties
+    join_course: Pievienoties kursam
+    join_prompt: Pievienoties '%{title}'?
+    leave_course: Pamest kursu
+    loading: Ielādē…
+    my_articles: Mani raksti
+    needs_update: Ieplānot datu atjaunināšanu
+    new_week: Pievienot jaunu nedēļu
+    new_account_email: E-pasta adrese
+    new_account_submit: Pieprasīt kontu
+    no_available_actions: Nav pieejamu darbību
+    ores_plot: ORES
+    overview: Sākums
+    passcode: Piekļuves kods
+    passcode_none: Nav piekļuves koda
+    passcode_prompt: 'Ievadi piekļuves kodu, lai pievienotos:'
+    private: Privāts
+    requested_accounts_alert_view: Skatīt
+    revisions_doc: Labojumu skaits pēdējās %{timeframe} dienās
+    school: Skola
+    search_courses: Meklēt kursus
+    start: Sākums
+    student: Students
+    students: Studenti
+    students_none: Šim kursam nav studentu.
+    students_short: Studenti
+    submitted_heading: Iesniegti kursi
+    suggestions_sending: Sūta atsauksmi...
+    user_role: Loma
+    course_details: Kursa informācija
+    subject: Temats
+    tags: 'Iezīmes:'
+    term: Semestris
+    title: Nosaukums
+    update_stats: Atjaunināt statistiku
+    user_recent_uploads: Nesenās augšupielādes
+    view_other: Skatīt citas kampaņas
+    view: Apskatīt kursu
+    view_page: Skatīt kursa lapu
+    view_wiki: Skatīt Vikipēdijā
+    volunteer:
+      other: Brīvprātīgie
+  courses_generic:
+    all_courses: Visas programmas
+    archived: Arhivētās programmas
+    cancel: Atcelt
+    course: Programma
+    courses: Programmas
+    campaigns: 'Kampaņas:'
+    creator:
+      clone_previous: Klonēt iepriekšējo programmu
+      clone_this: Klonēt šo programmu
+      course_description: Programmas apraksts
+      course_school: Iestāde
+      course_term: Kad
+      course_term_placeholder: Kad
+      course_title: Programmas nosaukums
+      create_button: Izveidot manu programmu!
+      create_label: Izveidot jaunu programmu
+      create_new: Izveido neatkarīgu programmu
+      end_date: Darbību sekošanas beigas
+      find: Atrodi programmu
+      participate_in_campaign: Piedalies kampaņā
+      save_cloned_course: Saglabāt
+      start_date: Darbību sekošanas sākums
+    delete_course: Dzēst programmu
+    end: Darbību sekošanas beigas
+    enroll: Pievienot dalībnieku
+    enrollment: Pievienot/noņemt dalībniekus
+    explore: Atrast programmas
+    expected_students: Plānotie dalībnieki
+    instructors: Koordinatori
+    join_course: Pievienoties programmai
+    request_accounts: Pieprasīt kontus
+    school: Iestāde
+    search_courses: Meklēt programmas
+    start: Darbību sekošanas sākums
+    student_editors: Redaktori
+    student: Redaktors
+    students: Redaktori
+    students_count: Dalībnieku skaits
+    term: Kad
+    view_page: Skatīt programmas lapu
+    yourcourses: Tavas programmas
+  editable:
+    edit: Labot
+    cancel: Atcelt
+    save: Saglabāt
+    edit_description: Labot aprakstu
+    edit_details: Labot datus
+    edit_template: Labot veidni
+  instructor_view:
+    assignments_table:
+      article_name: Nosaukums
+    assigned_articles: Piešķirtie raksti
+  metrics:
+    label: Kursa aktivitāte
+    last_update: Statistika atjaunināta
+    next_update: Nākamā atjaunināšana
+    activity: Nesenās darbības
+    articles_created: Izveidotie raksti
+    articles_created_generic: Izveidotās lapas
+    articles_edited: Labotie raksti
+    articles_edited_generic: Labotās lapas
+    bytes_added: Pievienotie baiti
+    char_added: Rakstzīmes pievienotas
+    char: Rakstzīmes pievienotas
+    date_time: Datums/laiks
+    edit_count_description: Labojumi kopā
+    revisions: Neseni labojumi
+    references_count: Pievienotās atsauces
+    tags: Iezīmes
+    upload_count: Augšupielādes Vikikrātuvē
+    uploads_in_use_count:
+      other: faili izmantoti rakstos
+    view_count_description: Rakstu skatījumi
+    view: Skatījumi
+    word_count: Pievienotie vārdi
+    word_count_average: Vidējais vārdu skaits
+  namespace:
+    translation: Tulkojums
+  recent_activity:
+    article_title: Raksta nosaukums
+    datetime: Datums/laiks
+    image: Attēls
+    file_name: Faila nosaukums
+    no_edits: Nav nesenu labojumu
+    plagiarism_report: Plaģiātisma ziņojums
+    possible_plagiarism: Iespējams plaģiātisms
+    recent_edits: Neseni labojumi
+    uploaded_by: Augšupielādētājs
+    usage_count: Lietojumu skaits
+  revisions:
+    chars_added: Rakstzīmes pievienotas
+    references: Pievienotās atsauces
+    class: Klase
+    date_time: Datums/laiks
+    diff: izmaiņas
+    diff_show: Rādīt
+    diff_hide: Paslēpt
+    edited_by: Labotājs
+    loading: Ielādē versijas...
+    title: Nosaukums
+    see_more: Skatīt vairāk
+  settings:
+    special_users:
+      new:
+        form_placeholder: Lietotājvārds
+        confirm_add_special_user: Pievienot īpašo lietotāju
+  timeline:
+    add_week: Pievienot nedēļu
+    course_end: Kursa beigas
+    course_start: Kursa sākums
+    empty_week_3: vai
+    save_all_changes: Saglabāt visu
+    this_week_title_default: Šonedēļ
+    week_number: '%{number}. nedēļa'
+  training:
+    continue: Turpināt (%{progress})
+    start: Sākt
+    view: Skatīt
+    next: Nākamā lapa
+    page: Lapa
+    kind:
+      discussion: Diskusija
+  update_username:
+    button: Atjaunināt
+  uploads:
+    file_name: Faila nosaukums
+    header: Wikimedia Commons augšupielādētie faili
+    image: Attēls
+    label: Augšupielādes
+    loading: Ielādē augšupielādes...
+    uploaded_by: Augšupielādētājs
+    usage_count: Lietojumu skaits
+  users:
+    assign_articles: Piešķirt rakstus
+    assigned: Piešķirtie raksti
+    chars_added: Pievienotās rakstzīmes<br>(rakstos | smilškastē)
+    contributions: Dalībnieka devums
+    course_passcode: 'Piekļuves kods:'
+    editors: Redaktori
+    first_name: Vārds
+    last_name: Uzvārds
+    loading: Ielādē lietotājus...
+    name: Nosaukums
+    none: Dalībnieku nav.
+    recent_revisions: Neseni labojumi
+    references_count: Pievienotās atsauces
+    revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
+    references_doc: Šī redaktora pievienotās vai dzēstās atsauces
+    sub_navigation:
+      student_overview: Studenta pārskats
+    total_uploads: Kopējās augšupielādes
+    username: Lietotājvārds
+    username_placeholder: Lietotājvārds
+    useremail_placeholder: E-pasts
+    role:
+      description: Loma kursā
+      visitor: Apmeklētājs
+      student: Students
+      instructor: Pasniedzējs
+      campus_volunteer: Iestādes brīvprātīgais
+      online_volunteer: Tiešsaistes brīvprātīgais
+  user_profiles:
+    institution_placeholder: Iestādes nosaukums (neobligāts)
+  wizard:
+    read_less: Lasīt mazāk
+    read_more: Lasīt vairāk
+  error_incorrect_passcode:
+    header: Nederīgs piekļuves kods.  :-(
+  login_error:
+    header: Pieteikšanās kļūda
+  survey:
+    email:
+      course: 'Kurss: %{course_info}'
+  wiki_api:
+    create_account_reason: Šis dalībnieks piedalās pasākumā "%{event}".
+  article_finder:
+    assign_article_self: Piešķirt sev
+    submit: Iesniegt
+  training_status:
+    completed: Pabeigts
+    continue: Turpināt
+    view: Skatīt
+  multi_wiki:
+    selector_placeholder: Sāc rakstīt vikivietnes domēnvārdu
+...

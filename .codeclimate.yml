@@ -1,0 +1,40 @@
+engines:
+  rubocop:
+    enabled: true
+    channel: rubocop-1-39-0
+  eslint:
+    enabled: true
+    channel: "eslint-7"
+    extensions:
+    - .js
+    - .jsx
+  csslint:
+    enabled: true
+  bundler-audit:
+    enabled: true
+  brakeman:
+    enabled: true
+
+ratings:
+  paths:
+  - "**.rb"
+  - "**.js"
+  - "**.jsx"
+  - "**.css"
+  - Gemfile.lock
+
+# For all languages, we support a standard set of Glob patterns.
+# exclude_paths:
+# - app/helpers/users_helper.php # Exclude a specific file
+# - app/controllers/* # Exclude all contents of a folder (including all subfolders)
+# - app/controllers/*.py # Exclude specific files type within a folder/subfolders
+# - lib/**/*.rb # Recursively ignore all files ending in .rb
+
+exclude_paths:
+- public/*
+- db/*
+- fixtures/*
+- vendor/*
+- spec/*
+- docs/*
+- setup/*

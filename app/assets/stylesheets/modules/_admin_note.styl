@@ -1,0 +1,187 @@
+// Styles for the Admin Note feature 
+// Following the BEM (Block Element Modifier) naming convention
+// https://cssguidelin.es/#bem-like-naming
+
+// Admin Note Creator Styles
+.admin-note-creator
+
+  &__title
+    text-align left
+    min-width 190px
+
+// Table with Admin Note Styles
+.table__admin-note 
+
+  text-align left
+
+  &__th 
+    textarea 
+      width 100%
+    th
+      max-width 100px 
+
+  &__row 
+    .admin-note__edit 
+      width 0% 
+    
+    .admin-note__delete 
+      width 3% 
+    
+    td
+      max-width 100px
+      
+    td.row--border 
+      border-bottom none
+      max-width 100px
+    
+    span.tooltip 
+      left -15px
+      min-width 94px
+      margin-left -21px  
+
+.tooltip-trigger 
+
+  .tooltip.create--admin--note 
+    top 5%
+    left: 112%
+    min-width 95px
+
+    &:before 
+      content none
+    
+  &:hover 
+    .tooltip.create--admin--note 
+      top 5%
+      left: 112%
+      min-width 95px
+
+    .tooltip.cancel--note,
+    .tooltip.post--note 
+      top 103%
+      left -62%
+      min-width 48px
+
+      &:before 
+        content none
+
+  .tooltip.new 
+    top 131%
+
+    &:before 
+      content none
+    
+  &.cancel--note,
+  &.post--note,
+    top 20px
+    left: 50px
+
+  .tooltip.cancel--note,
+  .tooltip.post--note 
+    top 103%
+    left -62%
+    min-width 48px
+
+    &:before 
+      content none
+
+.cancel--note
+  top 3px
+  left -16px
+
+.post--note
+  top 3px
+  left -11px
+
+.admin--note--creator 
+  top -7px
+  left -16px
+
+.admin-action-button
+  width 144px
+
+.admin-notes-modal-trigger
+  margin-left 5px
+
+.admin-focus-highlight:focus
+  outline 2px solid #000 
+  outline-offset 2px
+
+//Admin note Icon Styles
+
+.admin-note-edit-icon 
+  background url('../images/pencil.svg') center no-repeat
+  padding 11px
+
+  &:hover 
+    background url('../images/pencil-blue.svg') center no-repeat
+    padding 11px
+
+.admin-note-delete-icon 
+  background url('../images/trash.svg') center no-repeat
+  background-size 70%
+  padding 11px
+
+  &:hover 
+    background: url('../images/trash-red.svg') center no-repeat
+    background-size 70%
+    padding 11px
+  
+.admin-note-create-icon 
+  background url('../svg/plus.svg') center no-repeat
+  background-size 70%
+  padding 15px
+
+  &:hover 
+    background url('../svg/plus-blue.svg') center no-repeat
+    background-size 70%
+    cursor pointer
+
+.admin-note-cancel-icon 
+  background url('../images/clear.svg') center no-repeat
+  background-size 60%
+  padding 15px
+
+  &:hover 
+    background url('../images/clear-red.svg') center no-repeat
+    background-size 60%
+    padding 15px
+    cursor pointer
+
+.admin-note-post-icon 
+  background url('../images/check-grey.svg') center no-repeat
+  background-size 75%
+  padding 15px
+  cursor pointer
+
+  &:hover 
+    background url('../images/check.svg') center no-repeat
+    background-size 75%
+    padding 15px
+
+.icon-notification_admin--badge
+  background-color #e34444
+  color #fff
+  position relative
+  display block
+  padding 1px 2px
+  min-width 22px
+  max-width 25px
+  height 20px
+  left 208px
+  top -49px
+  border 1px solid #212121
+  border-radius 25px
+  text-align center
+  font-size 16px
+  font-weight 400
+  line-height 1
+
+.sr-admin-note-only 
+  position absolute
+  width 1px
+  height 1px
+  margin -1px
+  padding 0
+  overflow hidden
+  clip rect(0, 0, 0, 0)
+  border 0

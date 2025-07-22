@@ -1,0 +1,4 @@
+- content_for :before_title, "#{@course.title} — "
+
+#react_root{"data-current_user" => user_signed_in? ? current_user.roles(@course).to_json : '{ "admin": false, "id": null }',
+            data: { course_creation_notice: Deadlines.course_creation_notice } }

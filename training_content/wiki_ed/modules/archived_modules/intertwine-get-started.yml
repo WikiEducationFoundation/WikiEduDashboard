@@ -1,0 +1,17 @@
+name: 'Intertwine: Get started on Wikipedia with your peers '
+id: 18
+description: |
+  In this module, you will meet in a small group to learn about and create your Wikipedia’s User Page & User Talk Page.
+
+  When you finish, you should:
+
+  * Have created and deployed your User Page & User Talk Page.
+  * Better understand how to use Wikipedia’s markup language.
+  * Meet other Wikipedia editors and learn from each other's experiences.
+
+  *Note that this training module will introduce Intertwine and help you sign up for a discussion session. You will participate in the discussion later at the time you’ve scheduled.*
+estimated_ttc: 60 minutes
+slides:
+  - slug: intertwine-first-activity-summary # 1801
+  - slug: sign-up-for-first-activity # 1802
+  - slug: intertwine-what-happens-next # 1803

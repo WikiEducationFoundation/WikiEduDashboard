@@ -1,0 +1,539 @@
+# Messages for Bangla (বাংলা)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aftabuzzaman
+# Author: Al Riaz Uddin Ripon
+# Author: Bodhisattwa
+# Author: Elias Ahmmad
+# Author: Kayser Ahmad
+# Author: Mohammed Galib Hasan
+# Author: Nokib Sarkar
+# Author: Rasal Lia
+# Author: RiazACU
+# Author: Sandipan
+# Author: Sibabrata Banerjee
+# Author: Sourav Halder
+# Author: Tahmid
+# Author: Tahmid02016
+# Author: Titodutta
+# Author: Yahya
+# Author: ZI Jony
+# Author: আজিজ
+# Author: আফতাবুজ্জামান
+# Author: খাত্তাব হাসান
+# Author: মোঃ মারুফ হাসান24
+---
+bn:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: হাজার
+          million: মিলিয়ন
+          billion: বিলিয়ন
+          trillion: ট্রিলিয়ন
+          quadrillion: কুয়াড্রিলিয়ন
+  accessibility:
+    number_field: এটি একটি সংখ্যা ক্ষেত্র। বেশিরভাগ ব্রাউজার দ্বারা রেন্ডার করা বোতামগুলি
+      ইনপুট বৃদ্ধি এবং হ্রাস করবে।
+  application:
+    cancel: বাতিল
+    cookie_consent: এই সাইটটি আপনাকে লগ ইন রাখতে কুকিজ ব্যবহার করে এবং আপনার উইকিপিডিয়া
+      অ্যাকাউন্ট সম্পর্কিত তথ্য সংরক্ষণ করে।
+    cookie_consent_acknowledge: আমি বুঝেছি
+    cookie_consent_see_more: আরো দেখুন।
+    create_accounts: উইকিপিডিয়া অ্যাকাউন্ট তৈরি করুন
+    dashboard: উইকি এডু ড্যাশবোর্ড
+    documentation: নথিপত্র
+    error: 'একটি ত্রুটি হয়েছে:'
+    explore: অন্বেষণ করুন
+    field_required: এই ঘরটি পূরণ করা আবশ্যক
+    field_invalid_characters: এখানে অকার্যকর অক্ষর রয়েছে
+    field_invalid_date: এখানে বববব-মম-দদ বিন্যাসে একটি তারিখ প্রয়োজন
+    field_invalid_date_time: সমাপ্তি অবশ্যই শুরুর পরে হতে হবে। (ঘণ্টা ০ থেকে ২৩ পর্যন্ত)
+    greeting2: স্বাগতম!
+    greeting_extended: উইকিপিডিয়ায় স্বাগতম
+    greeting: হ্যালো!
+    help: সাহায্য
+    home: প্রধান পাতা
+    log_in_extended: উইকিপিডিয়া দিয়ে প্রবেশ করুন
+    log_in: প্রবেশ করুন
+    log_out: প্রস্থান
+    my_dashboard: আমার ড্যাশবোর্ড
+    recent_activity: সাম্প্রতিক কার্যকালাপ
+    report_problem: সমস্যার কথা জানান
+    request_account: অ্যাকাউন্টের অনুরোধ করুন
+    request_account_create: অ্যাকাউন্ট তৈরি করুন
+    search: প্রশ্ন থাকলে জিজ্ঞাস করুন
+    search_results:
+      one: '%{count} এর জন্য ফলাফল: '' %{search_terms}'''
+      other: '% {count} এর জন্য ফলাফল: ''%{search_terms}'''
+    no_results: '''%{query}''-এর জন্য কোনো ফলাফল পাওয়া যায়নি'
+    sign_up_extended: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
+    sign_up_wikipedia: অথবা উইকিপিডিয়াতে সাইন আপ করুন
+    sign_up_log_in_extended: উইকিপিডিয়া দিয়ে
+    sign_up: নিবন্ধন
+    submit: জমা দিন
+    training: প্রশিক্ষণ
+    change: পরিবর্তন
+    details: বিস্তারিত
+    confirm: ঠিক আছে
+    opt_in: হ্যাঁ
+    opt_out: না
+    opt_yes: হ্যাঁ
+    opt_no: না
+    print: মুদ্রণ
+  article_statuses:
+    not_yet_started: শুরু করুন
+    in_progress: খেলাঘরে কাজ
+    ready_for_review: খসড়া সম্প্রসারণ
+    ready_for_mainspace: কাজকে মেইনস্পেসে নিয়ে যাওয়া হচ্ছে
+    assignment_completed: চিহ্নিত কার্যভার সম্পূর্ণ
+    reading_the_article: প্রবন্ধ পড়া
+    providing_feedback: প্রতিক্রিয়া প্রদান করা
+    post_to_talk: আলাপ পাতায় পোস্ট করা হচ্ছে
+    peer_review_completed: পর্যালোচনা সম্পন্ন
+  dashboard:
+    create_note: অাপনার প্রথম কোর্স তৈরি করতে কোর্স তৈরী করুনে চাপ দিন।
+    create_preparation_note: শুরুর পূর্বে একাডেমিক পঞ্জিকা হাতে প্রাপ্তির বিষয় নিশ্চিত
+      হউন; এসাইনমেন্ট নকশার সরঞ্জাম অাপনার ক্লাশের তারিখগুলো ব্যবহার করবে - স্কুল
+      বন্ধ ও বন্ধের দিনসহ- অাপনার পছন্দকৃত দিবসসমূহের সাথে সমন্বয় করতে। স্মরণ রাখুন,
+      অাপনি অাপনার সুবিধার্থে সর্বদা সময়সীমা সংশোধন করতে পারেন।
+    explore_course_pages: কোর্সের পৃষ্ঠাগুলো অন্বেষণ করুন
+    explore_examples: উদাহরণগুলি অন্বেষণ করুন
+    join_note: আপনি প্রশিক্ষকের নিকট হতে আপনার পাসওয়ার্ড পেলে, আপনার কোর্স খুঁজুনে
+      চাপ দিয়ে খোঁজ করুন এবং অংশগ্রহণ করুন।
+    no_courses_instructor: মনে হচ্ছে অাপনার কোন কোর্স নেই।
+    no_courses_student: মনে হচ্ছে আপনি এখন পর্যন্ত কোন কোর্সে অংশগ্রহণ করেননি।
+    opt_out: পরিচিত পর্বে অংশ না নেয়ার অনুরোধ
+    orientation_notice: আপনি একটি কোর্স তৈরি করার আগে , আসুন শুরু করতে আপনাকে সহায়তা
+      করার জন্য অভিযোজনটি দেখি। (এটি সম্পূর্ণ হতে প্রায় ৩০ মিনিট সময় নেয়।)
+    review_orientation: অভিযোন পর্যালোনা করুন
+    start_orientation: অভিযোজন শুরু করুন
+    blog_headline: উইকি শিক্ষার সাম্প্রতিক খবর
+  home:
+    explore: অন্বেষণ করুন
+    log_in: উইকিপিডিয়া দিয়ে প্রবেশ করুন
+    sign_up: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
+    sign_up_help: যতিফলক ব্যবহার করতে, আপনাকে উইকিপিডিয়ার মাধ্যমে প্রবেশ করতে হবে
+      ও আপনার অ্যাকাউন্টে প্রবেশ করার অনুমতি দিতে হবে। আপনি একটি বিদ্যমান উইকিপিডিয়া
+      অ্যাকাউন্ট দিয়ে প্রবেশ করুন, অথবা একটি নতুন তৈরি করতে পারেন। আপনি একটি অ্যাকাউন্ট
+      তৈরি করতে অক্ষম হলে, যোগাযোগ করুন dashboard@wikiedu.org
+  alerts:
+    alert_label: অবহিতি
+    no_alerts: কোনো অবহিতি পাওয়া যায়নি।
+  activity:
+    all: কর্মকাণ্ড
+    label: কর্মকাণ্ড
+  articles:
+    articles: নিবন্ধ
+    next: পরবর্তী
+    previous: পূর্ববর্তী
+    article_title: নিবন্ধের শিরোনাম
+    assigned_to: কে নির্ধারিত
+    deleted: (অপসারিত)
+    edited: সম্পাদিত নিবন্ধ
+    edited_by: 'সম্পাদনা করেছেন:'
+    edited_mobile: নিবন্ধ
+    filter:
+      wiki_all: সব
+      new: নতুন
+      existing: বিদ্যমান
+      new_and_existing: নতুন এবং বিদ্যমান
+      tracked: ট্র্যাক করা হয়েছে
+      untracked: ট্র্যাক করা হয়নি
+      tracked_and_untracked: ট্র্যাক করা হয়েছে এবং ট্র্যাক করা হয়নি
+    find: নিবন্ধ খুঁজুন
+    hide: আড়াল করো
+    history: (ইতিহাস)
+    label: নিবন্ধসমূহ
+    loading: নিবন্ধ লোড হচ্ছে...
+    new: (নতুন)
+    none: এই কার্যধারায় কোনো নিবন্ধ সম্পাদনা করা হয়নি।
+    preview: নিবন্ধের সংক্ষিপ্ত পূর্বরূপ
+    rating: শ্রেণী
+    rating_docs:
+      does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই
+    see_more: আরো দেখুন
+    show_current_version: বর্তমান সংস্করণ দেখান
+    title: শিরোনাম
+    title_example: নিবন্ধের শিরোনাম
+    view: নিবন্ধ দেখুন
+    view_all: সব দেখুন
+    view_on_wiki: উইকিতে দেখুন
+    wiki: উইকি
+    wp10: কাঠামোগত সম্পূর্ণতা
+  items:
+    items: আইটেম
+    available: উপলব্ধ আইটেম
+    edited: সম্পাদিত আইটেমসমূহ
+    title_example: আইটেমের শিরোনাম
+  assignments:
+    article_link: নিবন্ধ
+    article_link_wikidata: আইটেম
+    title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
+    add_available_wikidata: উপলব্ধ আইটেমগুলো যুক্ত করুন
+    assign_self: নিজেকে একটি প্রবন্ধে নিয়োজিত করুন
+    assign_tooltip: একটি বরাদ্দকৃত নিবন্ধ হচ্ছে তা যা আপনি তৈরি বা উন্নয়নের পরিকল্পনা
+      করছেন।
+    assign_tooltip_wikidata: একটি বরাদ্দকৃত আইটেম হচ্ছে তা যা আপনি তৈরি বা উন্নয়নের
+      পরিকল্পনা করছেন।
+    confirm_add_available: অাপনি কি নিশ্চিত আপনি %{title} যুক্ত করতে চান?
+    confirm_addition: অাপনি কি নিশ্চিত আপনি এই %{title} %{username} কে বরাদ্দ দিতে
+      চান?
+    confirm_deletion: আপনি কি নিশ্চিত যে আপনি এই কাজটি অপসারণ করতে চান?
+    label: বরাদ্দ করুন
+    loading: কার্যভার লোড হচ্ছে...
+    none_short: কোন নিবন্ধ বরাদ্দ দেয়া হয়নি
+    none: এই কোর্সের কোন নির্ধারিত প্রবন্ধ নেই।
+    no_available: এই কোর্সের কোন উপযুক্ত প্রবন্ধ নেই।
+    remove: অপসারণ করুন
+    reviewers: নিরীক্ষক(গণ)
+    select: নির্বাচন করুন
+  blocks:
+    milestones:
+      title: মাইলফলক
+  campaign:
+    alert_article: নিবন্ধের শিরোনাম
+    alert_type: ধরন
+    alert_user_id: ব্যবহারকারী
+    campaign: প্রচারাভিযান
+    created_at: তারিখ
+    course: কোর্স
+    newest_campaigns: নতুন প্রচারাভিযান
+    no_passcode: কোন পাসকোড নেই
+    none: কোনটিই নয়
+    requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
+  categories:
+    add_template: টেমপ্লেট যোগ করুন
+    add_this_template: টেমপ্লেট যোগ করুন
+    name: নাম
+    category_name: বিষয়শ্রেণীর নাম
+    template_name: টেমপ্লেটের নাম
+  courses:
+    activity: কর্মকাণ্ড
+    alerts: অবহিতি
+    actions: কার্যসমূহ
+    articles: নিবন্ধসমূহ
+    calendar:
+      legend_class_canceled: ছুটি/বাতিল
+    cancel: বাতিল
+    campaign_articles: '%{title} নিবন্ধগুলো'
+    campaign_courses: '%{title} কোর্স'
+    campaign_users: '%{title} সম্পাদকবৃন্দ'
+    course: পথ
+    courses_taught: কোর্সের ধারণা
+    start_date: শুরুর তারিখ
+    creator:
+      assignment_end_placeholder: বববব-মম-দদ
+      assignment_start_placeholder: বববব-মম-দদ
+      course_school: কোর্স বিদ্যালয়
+      course_subject: কোর্সের বিষয়
+      course_title: কোর্স শিরোনাম
+      course_types:
+        edit_a_thon_name: এডিটাথন
+      create_button: আমার কোর্স তৈরি করুন
+      create_label: নতুন কোর্স তৈরি করুন
+      create_new: একটি নতুন কোর্স তৈরি করুন
+      create_short: কোর্স তৈরি
+      end_date: শেষের তারিখ
+      end_date_placeholder: বববব-মম-দদ
+      expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
+      find: আপনার কোর্স খুঁজুন
+      start_date: শুরুর তারিখ
+      start_date_placeholder: বববব-মম-দদ
+      subject: বিষয়
+    data_wikidata: উইকিউপাত্ত পরিসংখ্যান
+    delete_suggestion: অপসারণ
+    dismiss_survey: খারিজ
+    dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
+      ইচ্ছুক?
+    edit_count: সম্পাদনা গণনা
+    end: শেষ
+    ended: কোর্সটি শেষ হয়েছে।
+    courses_enrolled: কোর্সে ভর্তি
+    error:
+      invalid_slug: কোর্সের জন্য ফাঁকা বিদ্যালয়/শিরোনাম।
+    features_feedback: 'স্বয়ংক্রিয় পরামর্শ:'
+    feedback: প্রতিক্রিয়া
+    join: যোগ দিন
+    join_prompt: '''%{title}''-এ যোগ দিবেন?'
+    join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন। যতিফলক স্বয়ংক্রিয়ভাবে
+      পর্যায়ক্রমিক হালনাগাদ সহ আপনার অবদানের উপর নজর রাখবে। আপনি কী প্রভাব ফেলেছেন
+      তা দেখতে পরে আবার দেখুন!
+    my_articles: আমার নিবন্ধ
+    new_week: নতুন সপ্তাহ যোগ করুন
+    new_account_email: ইমেইল ঠিকানা
+    new_account_email_placeholder: নাম@example.org
+    new_account_username_placeholder: উইকি সম্পাদক ১২৩
+    new_account_submit: অ্যাকাউন্ট অনুরোধ করুন
+    nocourse: কোন কোর্সে অংশগ্রহণ করেননি।
+    none: কোনটিই নয়
+    overview: প্রধান পাতা
+    private: ব্যক্তিগত
+    requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
+    requested_accounts_alert_view: দেখুন
+    school: বিদ্যালয়
+    school_and_term: প্রতিষ্ঠান/মেয়াদ
+    start: শুরু করুন
+    stay_in_sandbox: খেলাঘরে থাকুন
+    students: ছাত্রগণ
+    students_count: '# ছাত্রগণ'
+    student_editors: '# ছাত্র সম্পাদকগণ'
+    students_short: ছাত্রগণ
+    suggestions_sending: প্রতিক্রিয়া পাঠানো হচ্ছে...
+    suggestions_sent: প্রতিক্রিয়া পাঠানো হয়েছে। আপনার ইনপুটের জন্য ধন্যবাদ।
+    suggestions_failed: প্রতিক্রিয়া পাঠানো যায়নি। পরে আবার চেষ্টা করুন।
+    user_role: ভূমিকা
+    subject: বিষয়
+    timeline_enabled: সময়ক্রম সক্রিয় আছে
+    timeline_link: সময়ক্রম
+    time_zone_message: আপনার স্থানীয় সময় অঞ্চল অনুসারে শুরুর এবং শেষের সময় প্রদর্শন
+      করা হয়।
+    title: শিরোনাম
+    view_wiki: উইকিপিডিয়ায় দেখুন
+    volunteer:
+      one: স্বেচ্ছাসেবক
+      other: স্বেচ্ছাসেবক
+  course_instructor_notification:
+    write_message_placeholder: বার্তা
+  courses_generic:
+    all_courses: সকল কার্যক্রম
+    cancel: বাতিল
+    course: প্রোগ্রাম
+    courses_taught: প্রোগ্রামের ধারণা
+    campaign_courses: '%{title} প্রোগ্রাম'
+    creator:
+      assignment_end_placeholder: বববব-মম-দদ
+      assignment_start_placeholder: বববব-মম-দদ
+      course_description: প্রকল্পের বর্ণনা
+      course_school: প্রতিষ্ঠান
+      course_term: কখন
+      course_title: প্রোগ্রামের শিরোনাম
+      create_label: নতুন প্রকল্প তৈরি করুন
+      create_new: একটি স্বাধীন প্রোগ্রাম তৈরি করুন
+      create_short: প্রোগ্রাম তৈরি করুন
+      find: একটি প্রোগ্রাম খুঁজুন
+      save_cloned_course: সংরক্ষণ
+      scoping_methods:
+        scoping_methods: স্কোপিং পদ্ধতি
+        configure: স্কোপিং পদ্ধতি কনফিগার করুন
+        categories: বিষয়শ্রেণী
+        categories_short_desc: উইকিতে বিষয়শ্রেণী বৈশিষ্ট্যটি সম্পর্কিত নিবন্ধগুলি
+          সংগ্রহ করতে ব্যবহৃত হয়। আপনি বিষয়শ্রেণীর নাম ব্যবহার করে ড্যাশবোর্ডকে
+          সেই বিভাগের সমস্ত নিবন্ধ ট্র্যাক করতে বলতে পারেন।
+        categories_desc: "একটি বিভাগ ট্র্যাক করার অর্থ হল ড্যাশবোর্ড সেই বিভাগের যেকোনো
+          নিবন্ধের সম্পাদনা গণনা করবে। পূর্বনির্ধারিতভাবে (গভীরতা ০) শুধুমাত্র সেই
+          বিষয়শ্রেণীতে থাকা নিবন্ধগুলিই ট্র্যাক করবে। \nআপনি গভীরতার মান বাড়াতে
+          পারেন (সর্বোচ্চ ৩ পর্যন্ত) যদি আপনি সেই বিষয়শ্রেণীর উপ-বিষয়শ্রেণীর নিবন্ধগুলি
+          অন্তর্ভুক্ত করতে চান। আপনি যা ট্র্যাক করতে চান তার সাথে উপ-বিষয়শ্রেণী মিলে
+          তা নিশ্চিত করতে, প্রথমে বিভাগটি ব্রাউজ করতে ভুলবেন না।"
+        templates: টেমপ্লেট
+        templates_short_desc: আপনি একটি টেমপ্লেটের উপর ভিত্তি করে নিবন্ধগুলিকে ট্র্যাক
+          করতে পারেন যা তারা ধারণ করে, যা টেমপ্লেটটি নিবন্ধে বা সংশ্লিষ্ট আলাপ পাতায়
+          - যেমন উইকিপ্রকল্প টেমপ্লেটগুলিতে ব্যবহৃত হয় কিনা তা কাজ করে।
+        petscan: পেটস্ক্যান
+        petscan_short_desc: পেটস্ক্যান হল একটি টুল যা আপনাকে বিস্তৃত মানদণ্ডের উপর
+          ভিত্তি করে উইকি পৃষ্ঠাগুলি অনুসন্ধান করতে দেয় — বিভাগ, টেমপ্লেট, উইকিসংযোগ
+          এবং আরও অনেক কিছু সহ। ড্যাশবোর্ডে ট্র্যাক করার জন্য নিবন্ধগুলির একটি সেট
+          কনফিগার করতে আপনি একটি পেটস্ক্যান ক্যোয়ারী আইডি ব্যবহার করতে পারেন৷
+        pagepile: পেজপাইল
+        pagepile_short_desc: পেজপাইল হল একটি টুল যা আপনাকে পৃষ্ঠাগুলির একটি তালিকা
+          তৈরি করতে দেয় যা সময়ের সাথে পরিবর্তিত হয় না এবং একটি অনন্য আইডি দ্বারা
+          চিহ্নিত করা হয়।
+        pagepile_desc: পেজপাইল হল উইকিমিডিয়া ক্লাউডের একটি টুল। এটি ব্যবহারকারীদের
+          উইকি পৃষ্ঠাগুলির একটি গ্রুপকে "পাইল" নামে একটি একক বান্ডিলে সংগ্রহ এবং সংগঠিত
+          করার অনুমতি দেয়। এই পাইলে তখন অন্যদের সাথে সহজেই ভাগ করা যেতে পারে, সহযোগী
+          কাজ এবং তথ্য ভাগ করে নেওয়া সক্ষম করে। পেটস্ক্যানের বিপরীতে একটি পাইলের
+          নিবন্ধগুলি সময়ের সাথে পরিবর্তিত হবে না, এমনকি সেই নিবন্ধগুলির সেট তৈরি
+          করতে ব্যবহৃত বিভাগ, টেমপ্লেট বা অন্যান্য ডেটা পরিবর্তিত হলেও।
+        petscan_desc: পেটস্ক্যান হল একটি শক্তিশালী কিন্তু জটিল হাতিয়ার যা বিভিন্ন
+          ধরণের মানদণ্ড এবং ডেটা উৎসের উপর ভিত্তি করে উইকি পৃষ্ঠাগুলির একটি সেট অনুসন্ধান
+          করার জন্য। আপনি ট্র্যাক করতে চান এমন নিবন্ধগুলির একটি সেটের জন্য ক্যোয়ারী
+          তৈরি করতে আপনি সরাসরি পেটস্ক্যান ব্যবহার করতে পারেন, যা আপনাকে আপনার প্রশ্নের
+          খুব নিখুঁতভাবে লক্ষ্য করার জন্য বিকল্পগুলির সম্পূর্ণ সেটে অ্যাক্সেস দেয়।
+          বিকল্পভাবে, আপনি ড্যাশবোর্ড থেকে সরাসরি কিছু সাধারণ বিকল্প থেকে একটি পেটস্ক্যান
+          ক্যোয়ারী তৈরি করতে পারেন। সেই ক্যোয়ারীটির ফলাফল সময়ের সাথে পরিবর্তিত
+          হতে পারে, উদাহরণ স্বরূপ যখন নতুন নিবন্ধগুলি সেই বিষয়শ্রেণীতে যোগ করা হয়
+          যা ক্যোয়ারী অন্তর্ভুক্ত করে। ড্যাশবোর্ড পর্যায়ক্রমে একটি প্রদত্ত আইডির
+          জন্য ক্যোয়ারী ফলাফল রিফ্রেশ করবে, এবং পেটস্ক্যানের তৈরি করা নিবন্ধগুলির
+          সর্বশেষ সেটের উপর ভিত্তি করে এর পরিসংখ্যান হালনাগাদ করবে।
+        petscan_create_psid: অফিশিয়াল পেটস্ক্যান টুল ব্যবহার করে একটি পেটস্ক্যান
+          আইডি তৈরি করুন
+        categories_include_OR: এই বিষয়শ্রেণীগুলির যে কোনো একটি ধারণকারী নিবন্ধ ট্র্যাক
+          করা হবে
+        templates_include_OR: এই বিষয়শ্রেণীগুলির যে কোনো একটি ধারণকারী নিবন্ধ ট্র্যাক
+          করা হবে
+        start_typing_to_search: অনুসন্ধান করতে লেখা শুরু করুন
+    enroll: সম্পাদক যোগ করুন
+    enrollment: সম্পাদক যোগ/অপসারণ করুন
+    courses_enrolled: প্রোগ্রাম অংশগ্রহণ করেছে
+    school: প্রতিষ্ঠান
+    school_and_term: প্রতিষ্ঠান/কখন
+    student_editors: সম্পাদকগণ
+    student: সম্পাদক
+    students: সম্পাদকগণ
+    students_taught: মোট সম্পাদক
+    students_short: সম্পাদকগণ
+  editable:
+    edit: সম্পাদনা
+    cancel: বাতিল
+    save: সংরক্ষণ
+    edit_description: বিবরণ সম্পাদনা করুন
+  instructor_view:
+    assignments_table:
+      article_name: নাম
+    bad_work:
+      learn_more: যদি শিক্ষার্থীদের কাজ নিবন্ধটি আরও খারাপ করে তোলে তবে আমরা আপনাকে
+        এটি সম্পাদনা করতে উত্সাহিত করি।  অন্যথায়, সমস্যাগুলির সম্পর্কে আমাদের জানান
+        যাতে আমরা সেগুলি পরে ঠিক করতে পারি।
+      learn_more_wikidata: যদি শিক্ষার্থীদের কাজ আইটেমট আরও খারাপ করে তোলে তবে আমরা
+        আপনাকে এটি সম্পাদনা করতে উত্সাহিত করি।  অন্যথায়, সমস্যাগুলির সম্পর্কে আমাদের
+        জানান যাতে আমরা সেগুলি পরে ঠিক করতে পারি।
+      learn_more_button: আরও জানুন
+      submit_issue: এই নিবন্ধটির সাথে উল্লেখযোগ্য সমস্যাগুলি কী?
+      submit_issue_placeholder: আপনি যত বেশি বিশেষজ্ঞের দৃষ্টিভঙ্গি এবং বিশদ সরবরাহ
+        করতে পারেন তত ভাল।
+      thank_you: ধন্যবাদ!  আপনার যদি অতিরিক্ত প্রশ্ন থাকে তবে আপনার উইকি বিশেষজ্ঞের
+        সাথে যোগাযোগ করুন।
+  metrics:
+    activity: সাম্প্রতিক কার্যকালাপ
+    articles_edited: সম্পাদিত নিবন্ধসমূহ
+    articles_edited_generic_wikidata: সম্পাদিত আইটেমসমূহ
+    close_modal: বন্ধ করুন
+    date_time: তারিখ/সময়
+    edit_count_description: মোট সম্পাদনা
+    per_user: '%{number}/ব্যবহারকারী'
+    revisions: সাম্প্রতিক সম্পাদনাসমূহ
+    tags: ট্যাগসমূহ
+    word_count: যুক্ত শব্দসমূহ
+    word_count_average: গড় শব্দ গণনা
+    general: সাধারণ
+    references_added: তথ্যসূত্র যুক্ত হয়েছে
+  namespace:
+    main: নামস্থান
+    user: ব্যবহারকারীস্থান
+    project: প্রকল্প
+    file: ফাইল
+    mediaWiki: মিডিয়াউইকি
+    template: টেমপ্লেট
+    help: সাহায্য
+    category: বিষয়শ্রেণী
+    page: পাতা
+    book: বই
+    wikijunior: উইকিশৈশব
+    translation: অনুবাদ
+    draft: খসড়া
+    property: বৈশিষ্ট্য
+    query: কোয়েরি
+    lexeme: লেক্সিম
+    appendix: পরিশিষ্ট
+    portal: প্রবেশদ্বার
+    school: বিদ্যালয়
+    author: লেখক
+    cookbook: রান্নার বই
+    rhymes: ছড়া
+    index: নির্ঘণ্ট
+    collection: সংগ্রহ
+  recent_activity:
+    article_title: শিরোনাম
+    datetime: তারিখ/সময়
+    image: চিত্র
+    file_name: ফাইলের নাম
+    recent_edits: সাম্প্রতিক সম্পাদনাসমূহ
+    recent_uploads: সাম্প্রতিক আপলোডসমূহ
+    revision_author: সংশোধন লেখক
+  revisions:
+    date_time: তারিখ/সময়
+    diff: পার্থক্য
+    diff_show: দেখাও
+    diff_hide: আড়াল করো
+    title: শিরোনাম
+    view_on_wiki: উইকিতে পার্থক্য দেখুন
+    see_more: আরো দেখুন
+    show_all: সব দেখান
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ব্যবহারকারী নাম
+  suggestions:
+    suggestion_docs:
+      does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।
+  timeline:
+    add_week: সপ্তাহ যোগ করুন
+    empty_week_3: অথবা
+    no_activity_this_week: এই সপ্তাহে কোনও বৈঠকের সময়সূচী নেয়
+  training:
+    start: শুরু করুন
+    view: দেখুন
+    page: পাতা
+    previous: < পূর্ববর্তী
+    done: সম্পন্ন!
+    check_answer: উত্তর যাচাই করুন
+  update_username:
+    label: নতুন ব্যবহারকারী নাম
+    button: হালনাগাদ করুন
+  uploads:
+    credit: কৃতিত্ব
+    file_name: ফাইলের নাম
+    header: উইকিমিডিয়া কমন্সে আপলোডকৃত ফাইল
+    image: চিত্র
+    label: আপলোডসমূহ
+    uploaded_at: আপলোডের সময়
+    uploader: আপলোডকারী
+    uploaded_on: আপলোডের তারিখ
+    usage_count_gallery_tile: '%{usage_count}টি নিবন্ধে ব্যবহৃত হয়েছে'
+  users:
+    assign_articles_done: সম্পন্ন
+    contributions: ব্যবহারকারীর অবদানসমূহ
+    contributions_history_full: অবদানের পূর্ণ ইতিহাস দেখুন
+    contribution_statistics: অবদানের পরিসংখ্যান
+    editors: সম্পাদকগণ
+    first_name: প্রথম নাম
+    last_name: শেষ নাম
+    name: নাম
+    recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
+    reviewers: নিরীক্ষক(গণ)
+    reviewing: নিরীক্ষণ চলছে
+    total_uploads: মোট আপলোড
+    training_module_status: অবস্থা
+    username: ব্যবহারকারী নাম
+    username_placeholder: ব্যবহারকারী নাম
+    useremail_placeholder: ইমেইল
+    role:
+      student: ছাত্র
+      online_volunteer: অনলাইন স্বেচ্ছাসেবক
+  user_profiles:
+    bio_placeholder: আপনার জীবনী যোগ করুন (ঐচ্ছিক)
+    location_placeholder: আপনার অবস্থান যোগ করুন (ঐচ্ছিক)
+    institution_placeholder: ইনস্টিটিউটের নাম (ঐচ্ছিক)
+  wizard:
+    read_more: আরও পড়ুন
+    summary: সারাংশ
+  error:
+    unsupported_browser:
+      explanation: আপনি এমন একটি ব্রাউজার ব্যবহার করছেন যা এই যতিফলকের সাথে সামঞ্জস্যপূর্ণ
+        নয়। এই সাইটটি ক্রম, ফায়ারফক্স, এজ এবং অন্যান্য আধুনিক ব্রাউজারগুলির সাম্প্রতিক
+        সংস্করণগুলিতে ভাল কাজ করে৷
+  error_500:
+    header: ৫০০ — আভ্যন্তরীণ সার্ভার ত্রুটি। :-(
+  login_error:
+    header: প্রবেশ ত্রুটি
+  survey:
+    email:
+      headline: প্রিয়, %{username}
+  onboarding:
+    supplementary:
+      why_are_you_here: আপনি কী করতে চান?
+  article_finder:
+    more_results: আরও ফলাফল
+    page_assessment_class: শ্রেণী
+    search: অনুসন্ধান
+    submit: জমা দিন
+    tools: সরঞ্জাম
+  training_status:
+    continue: অব্যাহত
+    view: দেখুন
+  multi_wiki:
+    selector_placeholder: একটি উইকি ডোমেইন লিখা শুরু করুন
+...

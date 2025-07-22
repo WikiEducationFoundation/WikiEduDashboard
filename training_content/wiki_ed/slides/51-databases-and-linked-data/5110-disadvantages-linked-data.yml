@@ -1,0 +1,11 @@
+id: 5110
+title: "Disadvantages of linked data"
+summary:
+content: |
+  * Schemas, ontologies, and taxonomies are inconsistent, which is confusing to
+  experts, newcomers, and regular users.
+  * It is complicated, which takes time to learn, use, and maintain.
+  * Organizations must invest in staff to learn how linked data works.
+  * There is a lot of data that is not linked yet.
+  * Since there isn't an established schema, trust becomes very important
+  (which is built into Wikidata!).

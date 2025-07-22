@@ -1,0 +1,46 @@
+# Messages for Lombard (lombard)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Salvemm el lombard
+---
+lmo:
+  articles:
+    articles: Articoi
+    assignments_none: Per intanta a gh'è minga de vos assegnade.
+    edited_none: Gh'è nan'mò de vos modifegade.
+  items:
+    items: Element
+    assigned: Element assegnad
+    assignments_none: Gh'è nanamò de element de assegnad
+    available: Element disponibil
+    character_doc: La soma di carater sgiontad ai element di editor registrad in fra
+      i date de inviada e de fin
+    cross_wiki_tracking: Chì de sota a gh'è la lista di pagine del spazzi di nom principal
+      modifegade in fra i date de principi e de fin. L'interfacia de controll la tira
+      a man i contribuzzion da la wiki principal de 'sto programa chì, insiema a qualsessia
+      altra wiki per la qual a ghe sia un'assegnazzion o on element disponibil.
+    does_not_exist: L'element l'esist minga. Crea ona pagina Sabion e assegnes ti
+      medem a lee per ricever di sugeriment.
+    edited: Element modeifegad
+    edited_none: Gh'è nan'mò de element modifegad.
+    tracked_doc: Domà i element seguid i ghe contribuissen ai statisteghe de quell
+      programa chì. Quand che i element a inn marcad 'me minga seguid, i sarann tolt
+      via di statisteghe in del cors de l'atualizazzion che la vegnarà.
+    view_doc: Le dogiade stimade per ogni element da quand che l'è stad modifegad
+      la prima voeulta, a travers de l'atualizazzion di statisteghe pussee recente.
+      Te podet drovà pageviews.toolforge.org per vardà i numer pontoai.
+  assignments:
+    assign_other: Assegna/toeu via on articol
+    add_available_wikidata: Sgionta di vos disponibil
+    random_peer_review:
+      confirm_addition: |-
+        In la pussee part di casi, te gh'havarisset de drovàll de poeu che a tucc i student a inn stad assegnad i so articoi principai.
+        Diversament, te podet domandàgh ai to student de catà foeura i so version de lor uguai opur te podet assegnà  i version uguai cont el clicà in su la riga d'on student e doncas drovà el buton "Assegna/toeu via una version ugual".
+        El clicà in su "OK" l'assegnarà on total de %{count} version uguai an'mò, con un massim de %{maximum} per ogni student, catad foeura in fra i articoi di compagn de class.
+  courses:
+    word_count_doc_wikidata: Una stima del numer de parolle sgiontade di student del
+      cors ai element del spazzi di nom principal adree a la session de cors medemma.
+  courses_generic:
+    word_count_doc_wikidata: Una stima del numer di parolle sgiontade di editor del
+      programa ai element del spazzi principal in del cors de la sezzion del programa
+...

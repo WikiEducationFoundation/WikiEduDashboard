@@ -1,0 +1,24 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+  This site is a project of Wiki Education Foundation and WINTR.
+
+/* TEAM */
+  Product Manager: Sage Ross
+  Username: ragesoss
+  Site: http://ragesoss.com
+  Location: Seattle, Washington
+
+  Interactive Developer: Nate Bailey
+  Location: Seattle, Washington
+
+  Creative Lead: Ivan Cruz
+  Location: Seattle, Washington
+
+  Creative: Riley Hollobaugh
+  Location: Seattle, Washington
+
+  Creative: Jenna Simmons
+  Location: Seattle, Washington
+
+/* SOURCE CODE */
+  https://github.com/WikiEducationFoundation/WikiEduDashboard

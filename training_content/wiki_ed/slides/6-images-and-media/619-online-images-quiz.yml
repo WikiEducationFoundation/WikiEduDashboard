@@ -1,0 +1,67 @@
+id: 619
+title: Test your knowledge!
+summary:
+content:
+assessment:
+  correct_answer_id: 3
+  question: |
+    Which of the following statements is true?
+  answers:
+    - id: 1
+      text: |
+        Free image websites are good sources of images for Wikipedia articles,
+        because they have a professional quality and don't charge for their images.
+      explanation: |
+        Incorrect! Free image websites don't always share their images with the
+        correct license, and they may not even attribute the creator of the
+        images themselves. That makes them an inappropriate source of images for
+        Wikipedia articles.
+    - id: 2
+      text: |
+        If the image creator posts an image to an online forum and says "I
+        don't care what people do with this," you can use the image on Wikipedia.
+      explanation: |
+        Incorrect! The creator of the image needs to link to an appropriate
+        Creative Commons license in order to use the image on Wikipedia.
+    - id: 3
+      text: |
+        Openverse, with the appropriate filters, is an ideal way to find images,
+        because it only shows images that already fit Wikipedia's criteria.
+      explanation: |
+        Correct! The material that Openverse returns to you will be OK to use in
+        your Wikipedia article.
+    - id: 4
+      text: |
+        The best source of images is scanning material from your textbook.
+      explanation: |
+        Incorrect! Textbooks are not appropriate, as most are under a restrictive copyright.
+
+translations:
+  es:
+    title: ¡Pon a prueba tus conocimientos!
+    content: ""
+    assessment:
+      correct_answer_id: 3
+      question: |
+        ¿Cuál de las siguientes afirmaciones es cierta?
+      answers:
+        - id: 1
+          text: |
+            Las páginas web de imágenes gratuitas son una buena fuente de imágenes para los artículos de Wikipedia, porque tienen una calidad profesional y no cobran por sus imágenes.
+          explanation: |
+            ¡Incorrecto!
+        - id: 2
+          text: |
+            Si el creador de la imagen publica una imagen en un foro en línea y dice "No me importa lo que la gente haga con esto", puedes usar la imagen en Wikipedia.
+          explanation: |
+            ¡Incorrecto!
+        - id: 3
+          text: |
+            Openverse, con los filtros adecuados, es una forma ideal de encontrar imágenes porque sólo muestra imágenes que ya se ajustan a los criterios de Wikipedia.
+          explanation: |
+            ¡Correcto!
+        - id: 4
+          text: |
+            La mejor fuente de imágenes es escanear el material de tu libro.
+          explanation: |
+            ¡Incorrecto!

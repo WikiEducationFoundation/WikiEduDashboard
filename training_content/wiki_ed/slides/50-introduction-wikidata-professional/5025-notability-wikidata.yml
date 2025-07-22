@@ -1,0 +1,22 @@
+id: 5025
+title: "Notability"
+summary:
+content:
+  To be included in Wikidata, items need to meet the project's criteria for
+  inclusion. The term "notability" is inherited from Wikipedia, where it has a
+  more restrictive meaning.
+
+  If the item you're trying to describe actually exists — either materially or
+  conceptually — and it can be clearly distinguished from similar items, and you
+  can have reliable sources that you can use to describe it, then it probably
+  meets the criteria for inclusion. Recall that you need to be able to describe
+  the item using the item-property-value triples, and you need sources to support
+  those statements. If you're having a problem finding sources for something, it
+  may not be a viable item.
+
+  Items that fill a structural role on Wikidata are also allowed, even if you
+  don't have sources that describe them in any depth. For example, you may not
+  be able to find any information about a person beyond the fact that they're
+  listed as the author of three books which have items. Creating an item for
+  that author fills a structural need because it makes it possible for queries
+  to connect those three books together.

@@ -1,0 +1,19 @@
+.container.form-container
+  - if @is_training_module
+    %h1 Training module feedback
+    %p How was the training module you just completed? What did you like? What didn't you like?
+    %p Was there something you wanted to know about that was missing? Did anything feel unnecessary?
+    %p Any feedback you have will be very helpful!
+  - elsif @has_explicit_subject
+    %h1 #{@main_subject} feedback
+    %p #{@main_subject} is a new feature of this website, and we're asking for feedback.
+    %p How is this feature working for you? How could it be improved?
+    %p Any ideas you have will be very helpful!
+  - else
+    %h1 Dashboard feedback
+    %p If you ran into a problem or have ideas for how to improve this site, please leave a detailed message.
+
+  = simple_form_for @feedback_form_response do |f|
+    = f.input :subject,  as: :hidden, input_html: { value: @subject }
+    = f.input :body, label: false, required: true
+    = f.submit 'Submit', class: 'button dark'

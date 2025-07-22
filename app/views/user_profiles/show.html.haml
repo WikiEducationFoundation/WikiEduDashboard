@@ -1,0 +1,31 @@
+- content_for :before_title, "#{@user.username} – "
+
+.container
+  .profile_container
+    = render 'user_profiles/user_form'
+
+    #userprofile_navbar
+      - if @last_courses_user
+        = render 'user_profiles/profile_nav'
+
+    #profile_details
+      - if @last_courses_user
+        #react_root{"data-isstudent" =>  @user.course_student? ? '{ "student": true }' : '{ "student": false }' , "data-isinstructor" =>  @user.course_instructor? ? '{ "instructor": true }' : '{ "instructor": false }'}
+
+      - unless @last_courses_user
+        %br/
+        %h4
+          #{@user.username}
+          = t("courses.nocourse")
+
+  - if @user == current_user
+    .personal_data
+      %small
+        =  'Download personal data as'
+      %small
+        = link_to 'json', '/download_personal_data.json'
+      %small
+        =  'or'
+      %small
+        = link_to 'csv', '/download_personal_data_csv'
+

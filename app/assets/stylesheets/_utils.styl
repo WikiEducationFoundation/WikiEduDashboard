@@ -1,0 +1,220 @@
+round-placeholder(radius)
+  background-color zircon
+  border-radius (radius)px
+  height (radius * 2)px
+  width (radius * 2)px
+
+// Equal-height children
+equal-height(vcenter=false)
+  display flex
+  align-items stretch
+  align-content stretch
+
+  > div
+    align-content space-between
+    display flex
+    flex-flow wrap
+    justify-content center
+    height auto
+    margin-bottom 0
+    if vcenter
+      align-items center
+      flex-direction row
+    else
+      align-items flex-end
+      flex-direction column
+    *
+      -ms-flex 0 1 auto
+
+.clearfix
+  overflow hidden
+
+.screen-reader
+  position absolute
+  left -10000px
+  top auto
+  width 1px
+  height 1px
+  overflow hidden
+  flex 0
+
+/* Responsive Mixins
+// see: http://jakearchibald.github.com/sass-ie
+--------------------------------------------- */
+
+// To create min-width media queries
+above(width)
+  if fix-mqs
+    if fix-mqs >= width
+      {block}
+  else
+    @media screen and (min-width: width)
+      {block}
+
+// To create max-width media queries
+below(width)
+  if fix-mqs
+    if fix-mqs <= width
+      {block}
+  else
+    @media screen and (max-width: width)
+      {block}
+
+show-under(breakpoint, display)
+  display display !important
+  +above(breakpoint)
+    display none !important
+
+show-over(breakpoint, display)
+  display none !important
+  +above(breakpoint)
+    display display !important
+
+.mobile-only
+  show-over(tablet, block)
+
+.tablet-only
+  show-under(desktop, block)
+
+.desktop-only
+  show-over(desktop, block)
+
+.tablet-only-flex
+  show-under(desktop, flex)
+
+.tablet-only-tc
+  show-under(desktop, table-cell)
+
+.tablet-only-ib
+  show-under(desktop, inline-block)
+
+.desktop-only-flex
+  show-over(desktop, flex)
+
+.desktop-only-tc
+  show-over(desktop, table-cell)
+
+.pull-right
+  float right !important
+
+.pull-left
+  float left !important
+
+.py2
+  margin-top 22px
+
+.mx2
+  margin-right 22px
+
+.ml0
+  margin-left 0 !important
+
+.ml1
+  margin-left 10px !important
+
+.ml2
+  margin-left 22px !important
+
+.mt0
+  margin-top 0 !important
+
+.mt1
+  margin-top 10px !important
+
+.mt2
+  margin-top 22px !important
+
+.mt3
+  margin-top 30px !important
+
+.mt4
+  margin-top 44px !important
+
+.mb0
+  margin-bottom 0 !important
+
+.mb1
+  margin-bottom 10px !important
+
+.mb2
+  margin-bottom 22px !important
+
+.w100
+  width 100%
+
+.w75
+  width 75%
+  +below(tablet)
+    width 100%
+
+.w50
+  width 50%
+
+.w30
+  width 30%
+
+.w25
+  width 25%
+
+.w20
+  width 20%
+
+.w15
+  width 15%
+
+.w10
+  width 10%
+
+.hidden
+  display none !important
+
+.shown
+  display block
+
+.overflow-hidden
+  overflow hidden
+
+.truncated-text
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+
+.text-center
+  text-align center
+
+.text-left
+  text-align left
+
+.top2
+  position relative
+  top 2px
+
+.no-bullets
+  list-style none
+  &.no-margin
+    padding-left 0
+    margin-left 0
+
+.no-left-margin
+  margin-left 0
+  padding-left 0
+
+.block-element
+  display block !important
+
+.float-container
+  width 100%
+  display inline-block
+
+.no-clear
+  clear none
+
+.unselectable
+  user-select none
+
+.extra-line-height
+  line-height 1.9
+
+.empty
+  z-index -1
+  position absolute

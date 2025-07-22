@@ -1,0 +1,26 @@
+id: 5031
+title: "You're done!"
+summary:
+content: |
+  In this module, you have learned...
+
+  * how Wikidata works
+  * common Wikidata terms
+  * why Wikidata is important
+  * how to ethically contribute to and use Wikidata
+
+  Now, you can...
+
+  * take what you have learned from this module and explore Wikidata
+  * review names and terms
+  * see how items and properties connect to each other
+
+  We would also appreciate any feedback you have on this orientation module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+
+  </div>

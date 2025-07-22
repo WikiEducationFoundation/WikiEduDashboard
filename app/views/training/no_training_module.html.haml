@@ -1,0 +1,4 @@
+- if Features.wiki_ed?
+  = sanitize t("training.no_training_library_records_wiki_ed_mode", url: '/reload_trainings?module=all')
+- else
+  = t("training.no_training_library_records_non_wiki_ed_mode")

@@ -1,0 +1,102 @@
+// Interactive popover
+.pop__container
+  text-align left
+  display inline-block
+  position relative
+
+  .pop
+    background white
+    border 1px solid mischka
+    border-radius 3px
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+    left 50%
+    opacity 0
+    display none
+    pointer-events none
+    position absolute
+    top calc(100% + 14px)
+    /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ transform translateX(0px) translateY(0) scale(.7, .7)
+    /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ -webkit-transform translateX(0px) translateY(0) scale(.7, .7)
+    transition all .2s
+    z-index 10
+    left auto
+    right 0
+    &.right
+      right auto
+      left 0
+    &.open
+      opacity 1
+      display block
+      pointer-events all
+      /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ transform translateX(0px) translateY(0) scale(1, 1)
+      /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ -webkit-transform translateX(0px) translateY(0) scale(1, 1)
+    &:before
+      border-bottom 6px solid white
+      border-right 6px solid transparent
+      border-left 6px solid transparent
+      content ''
+      display block
+      left 50%
+      margin-left -3px
+      position absolute
+      top -6px
+      left auto
+      right 5px
+    &.open:before
+      left auto
+      right 5px
+
+    &.right:before
+      right auto
+      left 5px
+    &.open.right:before
+      right auto
+      left 5px
+    tr.edit
+      border-bottom 1px solid $border_lt
+    tr:last-child
+      border-bottom none !important
+    td
+      height auto
+      padding 20px
+      white-space nowrap
+      p
+        margin-right 10px
+        margin-top 10px
+        white-space normal
+      input
+        margin-right 10px
+        margin-top 0
+        width inherit
+      > *
+        vertical-align middle
+      &.admin-note-create {
+       text-align: center
+      }
+
+  .button + &
+    margin-left 10px
+
+.selectPosition
+  margin-bottom 7px
+  width 275px
+
+.pop__padded-content
+  padding 20px
+  min-width 330px
+
+  form
+    margin-bottom 16px
+
+  input, form, textarea
+    width 100%
+    position relative
+
+  .icon-search
+    position absolute
+    right 12px
+    top 9px
+
+  textarea
+    height 180px
+

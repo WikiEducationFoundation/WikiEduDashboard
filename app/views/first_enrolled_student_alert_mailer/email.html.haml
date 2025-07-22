@@ -1,0 +1,51 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = "The first student has joined #{@course.title}!"
+              %p.paragraph
+                = "Hi #{@greeted_users}."
+              %p.paragraph
+                It looks like your class is getting started with the Wikipedia signup process.
+                You can view a list of the enrolled students, and see which articles they are assigned
+                to write or review, in the <strong>Students tab</strong> of your dashboard.wikiedu.org
+                course page.
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{:href => @students_link}
+                = @course.title + " Students"
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Use the dropdown for each student to see their progress through the training modules
+                and view their recent edits.
+              %p.paragraph
+                The interface for your students is largely the same as it is for you. The key
+                differences are that students may not edit the course details or the Timeline,
+                students may only add assignments and reviews for themselves, and the Home tab
+                includes the additional <strong>My Articles section</strong> highlighting their
+                own assigned articles. It also highlights the due date of the first
+                of the #{link_to 'assigned training modules', @timeline_link, class: 'link'}
+                that the student hasn't yet completed.
+        %table
+          %tr
+            %td.main-content
+              %figure{style: "width: 100%;"}
+                %img{src: "https://upload.wikimedia.org/wikipedia/commons/6/60/Home_tab_of_Wiki_Education_Dashboard_course_page%2C_student_view.png"}
+
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  The Wiki Education team

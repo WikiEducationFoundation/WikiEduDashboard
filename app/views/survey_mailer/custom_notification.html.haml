@@ -1,0 +1,29 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = @headline
+              - @body_paragraphs.each do |graf|
+                %p.paragraph=graf
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{href: "#{course_survey_url(@notification)}"}
+                = t('survey.email.link')
+            %td.expander
+        %table
+          %tr
+            %td.main-content.info-cell
+              %div.info= t('survey.email.course', course_info: "#{@course.school} - #{@course.title} (#{@course.term})")
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %em.paragraph= @signature
+            %td.expander

@@ -1,0 +1,56 @@
+name: How to teach with Wikipedia
+id: 3
+description: |
+  Welcome to Wiki Education's orientation for instructors about how to teach
+  with Wikipedia in our Student Program.
+
+  Completing this orientation is required for instructors joining Wiki
+  Education's Student Program for the first time. Formally joining the program
+  is the only way to receive Wiki Education staff support during the Wikipedia
+  assignment. Make sure you're logged in to verify completion.
+estimated_ttc: 30 minutes
+slides:
+  - slug: wiki-ed-support-criteria # 301
+  - slug: application-process # 342
+  - slug: welcome-new-instructors # 302
+  - slug: about-wiki-education # 339
+  - slug: course-page-approval #336
+  - slug: course-dashboards # 303
+  - slug: features-of-the-dashboard # 333
+  - slug: what-makes-wikipedia-work # 304
+  - slug: concerning-original-research # 305
+  - slug: neutrality # 307
+  - slug: concerning-notability # 311
+  - slug: concerning-conflicts-of-interest # 309
+  - slug: student-learning-outcomes # 340
+  - slug: digital-literacy # 341
+  - slug: writing-and-communication # 306
+  - slug: npov-and-critical-thinking # 308
+  - slug: designing-a-wikipedia-assignment # 313
+  - slug: create-or-expand-an-article # 314
+  - slug: translate-an-article # 315
+  - slug: create-images-and-multimedia # 316
+  - slug: setting-expectations # 319
+  - slug: avoiding-plagiarism # 310
+  - slug: responding-to-plagiarism # 343
+  - slug: grading-your-assignment # 335
+  - slug: avoid-minimum-requirements # 318
+  - slug: never-grade-on-what-sticks # 317
+  - slug: when-student-work-gets-removed # 312
+  - slug: help-and-support # 320
+  - slug: training-for-students # 321
+  - slug: guidebooks-and-handouts # 322
+  - slug: ask-dot-wikiedu-dot-org # 323
+  - slug: wiki-ed-staff # 324
+  - slug: finding-articles-to-work-on # 330
+  - slug: orientation-for-health-related-content # 331
+  - slug: dashboard-home-tab # 325
+  - slug: dashboard-timeline-tab # 326
+  - slug: dashboard-students-tab # 327
+  - slug: dashboard-student-assignments-and-exercises # 338
+  - slug: dashboard-articles-tab # 328
+  - slug: authorship-highlighting # 334
+  - slug: dashboard-resources-tab #337
+  - slug: dashboard-uploads-and-activity-tabs # 329
+  - slug: anonymity-and-transparency # 344
+  - slug: new-instructor-orientation-complete # 332

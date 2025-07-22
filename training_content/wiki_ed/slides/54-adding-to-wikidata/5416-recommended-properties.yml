@@ -1,0 +1,17 @@
+id: 5416
+title: "Recommended properties"
+summary:
+content: |
+  Wikidata has thousands of properties you may use to describe things. You are
+  not expected to memorize all of the properties, but it can be overwhelming to
+  know where to begin. A data model is the best way to know what properties to
+  add to an item. If there is no data model, there are tools to see recommended
+  properties.
+
+  One of these tools is called *Recoin*. To get started, we need to enable a
+  gadget on Wikidata that will recommend how we can add to items. Follow
+  <a href="https://www.wikidata.org/wiki/Special:Preferences#mw-prefsection-gadgets">this link</a>
+  to Wikidata's preferences page and scroll down to the gadget called Recoin.
+  Click the box next to it, scroll down to the bottom of the page, and click "Save".
+
+  Make sure you are logged in to Wikidata to make these changes.

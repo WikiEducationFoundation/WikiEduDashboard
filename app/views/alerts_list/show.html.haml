@@ -1,0 +1,22 @@
+.container
+  %h1= @alert.type
+
+  %h3 Timestamp
+  %p= @alert.created_at
+
+  %h3 User
+  %p= link_to @alert.user.username, "/users/#{@alert.user.url_encoded_username}" if @alert.user
+
+  %h3 Subject
+  %p= @alert.main_subject
+
+  - if @alert.article
+    %h3 Article link
+    %p= link_to @alert.article.title, @alert.article.url if @alert.article
+
+  %h3 message
+  %p= @alert.message
+
+  -if @alert.resolvable?
+    %h3 Resolve Status
+    %p= @alert.resolved? ? 'Resolved' : link_to('Resolve', resolve_alert_path(@alert.id), method: :put)

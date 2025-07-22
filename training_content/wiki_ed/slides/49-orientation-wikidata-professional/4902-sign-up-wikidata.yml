@@ -1,0 +1,22 @@
+id: 4902
+title: "Sign up for a Wikidata account"
+summary:
+content: |
+  Before we continue, you'll need to sign in to a Wikimedia account. **If you
+  already have an accessible account**, skip this slide and click "Log in" in the
+  upper right corner of this window. (Note: If you have a Wikipedia account, you can use that for this course).
+
+  **If you don't yet have a Wikimedia account**, proceed:
+
+  First, decide if you want your username to be a pseudonym or a
+  version of your real name. Keep in mind that all Wikidata contributions are
+  tied to your username indefinitely, including mistakes.
+
+  In a moment, when you sign up, make sure to associate your account with an email
+  address and respond to the confirmation email. Other Wikidata editors will be able to send emails to you, but your
+  address will *not* be publicly visible. A confirmed email address is the only
+  way to recover an account should you forget the password.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:CreateAccount">
+  Create my account </a>

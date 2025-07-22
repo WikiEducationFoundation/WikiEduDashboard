@@ -1,0 +1,26 @@
+= hot_javascript_tag 'accordian'
+- content_for :before_title, "Frequently Asked Questions(FAQs)"
+%header
+  .container.faq-header
+    %h1 Frequently Asked Questions
+    = form_tag '/faq', method: :get do
+      = text_field_tag(:search, @query, placeholder: 'search', id: 'faq_search')
+      %button.search#submit_search{type: 'submit'}
+        %i.icon.icon-search
+.container.faq-body
+  .faq-list
+    - @faqs.each do |faq|
+      = render 'faq', faq: faq, expanded: @faqs.one?
+  .faq-topic-list
+    %h3 Topics
+    - FaqTopic.all.each do |topic|
+      %hr
+      - if topic.slug == @topic_slug
+        = topic.name
+      - else
+        %a.topic-link{href: "/faq?topic=#{topic.slug}"}= topic.name
+    %hr
+      - if params[:all]
+        All questions
+      - else
+        %a.topic-link{href: "/faq?all=true"} All questions

@@ -1,0 +1,22 @@
+name: 'Querying Wikidata: SPARQL'
+id: 55
+description: |
+  In this training we will cover...
+
+  * how to use the Wikidata Query Service (WDQS)
+  * how to find SPARQL query examples
+  * how to generate query visualizations
+estimated_ttc: 15 minutes
+slides:
+  - slug: part-i-querying #5501
+  - slug: whats-a-query #5502
+  - slug: whats-sparql #5503
+  - slug: getting-started-querying #5504
+  - slug: wikidata-cats #5505
+  - slug: modifying-queries #5506
+  - slug: more-queries #5507
+  - slug: query-structure #5508
+  - slug: query-structure-cont #5509
+  - slug: wikidata-visualizations #5510
+  - slug: sparql-quiz #5511
+  - slug: thats-it-querying #5512

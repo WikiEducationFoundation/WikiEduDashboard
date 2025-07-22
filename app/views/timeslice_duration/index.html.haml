@@ -1,0 +1,16 @@
+- content_for :before_title, "Timeslice duration"
+.container.dashboard
+  %header
+    %h1
+      = 'View and update timeslice duration'
+
+%section
+  .container
+    %hr
+
+.container
+  %form#course-form{action: '/timeslice_duration/update', method: 'get'}
+    %label{for: "course-id"} Enter Course ID:
+    %input#course-id{type: "text", name: "course_id"}
+    %button{type: 'submit'}
+      %div.button.dark View timeslice duration

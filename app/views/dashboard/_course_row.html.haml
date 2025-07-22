@@ -1,0 +1,41 @@
+= link_to course_slug_path(course.slug), class: 'course' do
+  %span.button.border
+    = course_i18n('view_page', course)
+  .course-title
+    = course.title
+    - if new_or_returning
+      %span.new_or_returning
+        = course.tag?('returning_instructor') ? '(returning)' : '(first time)'
+  .course-details
+    .col
+      .course-details_title
+        = course_i18n('instructors', course)
+      .course-details_value
+        - course.instructors.each do |user|
+          = Features.wiki_ed? ? user.real_name : user.username
+    .col
+      .course-details_title
+        = course_i18n('school', course)
+      .course-details_value
+        = course.school
+    .col
+      .course-details_title
+        = course_i18n('term', course)
+      .course-details_value
+        = course.term
+    .col
+      .course-details_title
+        = course_i18n('students_count', course)
+      .course-details_value
+        = course.students.length
+    - if assignment_start
+      .col
+        .course-details_title
+          = course_i18n('creator.assignment_start', course)
+        .course-details_value
+          = course.timeline_start
+      .col
+        .course-details_title
+          = course_i18n('submitted_at', course)
+        .course-details_value
+          = course.submitted_at

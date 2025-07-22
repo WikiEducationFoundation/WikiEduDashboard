@@ -1,0 +1,39 @@
+- content_for :before_title, t('courses.campaign_users', title: @campaign.title) + ' — '
+
+#react_root{data: {slug: @campaign.slug}}
+
+.container
+  %section.overview.container
+
+.container
+  %section#users
+    .section-header
+      %h3
+        = t("#{@presenter.course_string_prefix}.students")
+      .sort-select
+        %select.sorts{rel: "users"}
+          %option{rel: "asc", value: "username"}= t('users.username')
+          %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
+          %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
+    %table.table.table--hoverable.table--sortable
+      %thead
+        %tr
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "username"}
+            = t('users.username')
+            %span.sortable-indicator
+          %th.sort.sortable.desc{"data-default-order" => "desc", "data-sort" => "revision-count"}
+            = t('courses.edit_count')
+            %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "title"}
+            = t("#{@presenter.course_string_prefix}.course")
+            %span.sortable-indicator
+      %tbody.list
+        - @courses_users.each do |cu|
+          %tr
+            %td.username
+              = link_to cu.user.username, "/users/#{cu.user.username}"
+            %td.revision-count
+              = cu.revision_count
+            %td.title
+              %small
+                = link_to cu.course.title, course_slug_path(cu.course.slug)

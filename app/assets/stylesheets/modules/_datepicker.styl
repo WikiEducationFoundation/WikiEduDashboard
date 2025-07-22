@@ -1,0 +1,49 @@
+// align date and time controls side by side
+.datetime-control
+  display flex
+
+  .date-picker--form-group
+    width auto
+
+  .form-group
+    display inline-block
+
+    .date-input
+      max-width 120px
+      margin-right 20px
+
+    .time-input
+      white-space nowrap
+
+      // specificity to override overview/sidebar rules
+      select
+        width auto
+
+.date-input
+  position relative
+
+.date-input input
+  width 100%;
+
+.date-input .DayPicker
+  display none
+  width 350px
+  background white
+  position absolute
+  border-color #b8b8b8
+  top -2px
+  left 100%
+  z-index 10
+  box-shadow 0 0 10px rgba(0,0,0,0.2)
+
+.date-input .DayPicker--visible
+  display block
+
+.time-picker--form-group
+  display inline-block
+
+.time-input__hour
+  margin-right 5px
+
+.time-input__minute
+  margin-left 5px

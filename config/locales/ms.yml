@@ -1,0 +1,408 @@
+# Messages for Malay (Bahasa Melayu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+# Author: Anakmalaysia
+# Author: CyberTroopers
+# Author: EmpAhmadK
+# Author: Hakimi97
+# Author: SNN95
+# Author: Tofeiku
+# Author: Yusozim
+---
+ms:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: ribu
+          million: juta
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Ini merupakan medan nombor. Butang yang diterap dari kebanyakan
+      pelayar akan menambah dan mengurangkan input.
+  application:
+    back: Kembali
+    cancel: Batal
+    cookie_consent: Tapak ini menggunakan kuki untuk memastikan anda tetap log masuk,
+      dan menyimpan maklumat yang berkaitan dengan akaun Wikipedia anda.
+    cookie_consent_acknowledge: Saya faham
+    cookie_consent_see_more: Lihat lagi.
+    create_accounts: Cipta akaun Wikipedia
+    dashboard: Papan Pemuka Wiki Ed
+    documentation: Pendokumenan
+    error: 'Terdapat ralat:'
+    explore: Jelajah
+    field_required: Medan ini diperlukan.
+    field_invalid_characters: Medan ini mempunyai aksara tidak sah
+    field_invalid_date: Medan ini memerlukan tarikh dalam format YYYY-MM-DD
+    field_invalid_date_time: Pengakhiran mestilah selepas permulaan. (Jam pergi dari
+      0 hingga 23.)
+    greeting2: Selamat datang!
+    greeting_extended: Selamat datang ke Wikipedia
+    greeting: Helo!
+    help: Bantuan
+    home: Laman Utama
+    log_in_extended: Log masuk dengan Wikipedia
+    log_in: Log masuk
+    log_out: Log keluar
+    my_dashboard: Papan Pemuka Saya
+    recent_activity: Kegiatan Terbaru
+    report_problem: Laporkan masalah
+    request_account: Mohon akaun
+    request_account_create: Buka akaun
+    search: tanyakan soalan
+    search_results:
+      one: '%{count} Keputusan untuk: '' %{search_terms}'''
+      other: '% {count} Keputusan untuk: ''%{search_terms}'''
+    no_results: Tiada hasil ditemui untuk '%{query}'
+    sign_up_extended: Daftar masuk dengan Wikipedia
+    sign_up_wikipedia: Atau daftar di Wikipedia
+    sign_up_log_in_extended: dengan Wikipedia
+    sign_up: Daftar
+    submit: Hantar
+    training: Latihan
+    change: Ubah
+    details: Butiran
+    confirm: Baik
+    opt_in: Ya
+    opt_out: Tidak
+    opt_yes: ya
+    opt_no: tidak
+    print: Cetak
+  article_statuses:
+    not_yet_started: Permulaan
+    in_progress: Menyunting di Kotak Pasir
+    ready_for_review: Mengembangkan Draf
+    ready_for_mainspace: Memindahkan Kerja ke Ruang Utama
+    assignment_completed: Tugasan Ditanda Selesai
+    reading_the_article: Membaca Rencana
+    providing_feedback: Memberi Maklum Balas
+    post_to_talk: Mengulas di Laman Perbincangan
+    peer_review_completed: Semakan Selesai
+  dashboard:
+    create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
+    create_preparation_note: Pastikan anda mempunyai kalendar akademik anda sebelum
+      anda mula; alat reka bentuk tugasan akan menggunakan tarikh mesyuarat kelas
+      anda — termasuk sebarang cuti sekolah dan hari perayaan — untuk menyesuaikan
+      garis masa anda dengan julat tarikh yang anda pilih. Ingat, anda sentiasa boleh
+      mengedit garis masa untuk memenuhi keperluan anda.
+    explore_course_pages: Jelajah Laman Kursus
+    explore_examples: Jelajah Contoh Kursus
+    join_note: Sesudah anda menerima kod laluan dari pengajar, klik Cari Kursus Anda
+      untuk mencari dan menyertainya.
+    no_courses_instructor: Nampaknya anda tidak mempunyai kursus.
+    no_courses_student: Nampaknya anda belum menyertai kursus.
+    opt_out: Permintaan untuk tidak menyertai orientasi
+    orientation_notice: Sebelum anda mencipta kursus, mari melalui proses orientasi
+      untuk membantu anda mula. (Lebih kurang 30 minit untuk disiapkan)
+    start_orientation: Mula Orientasi
+  home:
+    explore: Jelajah
+    log_in: Log masuk dengan Wikipedia
+    sign_up: Daftar masuk dengan Wikipedia
+  activity:
+    all: Kegiatan
+    edited_by: Disunting oleh
+    label: Aktiviti
+  articles:
+    articles: Rencana
+    articles_shown: Menunjukkan %{count} daripada %{total}
+    assigned: Rencana Ditugaskan
+    available: Rencana Tersedia
+    no_available: Tiada Rencana Tersedia
+    next: Seterusnya
+    previous: Sebelumnya
+    article_title: Tajuk Rencana
+    assigned_to: Ditugaskan Kepada
+    deleted: (dihapuskan)
+    edited: Rencana Disunting
+    edited_by: 'Disunting oleh:'
+    edited_mobile: Rencana
+    filter:
+      wiki_all: Semua
+      new: Baru
+      tracked: Dijejak
+      untracked: Tidak dijejak
+    filter_text: 'Penapis:'
+    find: Cari Rencana
+    hide: Sorokkan
+    history: (sejarah)
+    label: Rencana
+    loading: Memuatkan rencana...
+    new: (baru)
+    none: Kursus ini belum menyunting sebarang rencana.
+    rating: Kelas
+    see_more: Lihat lagi
+    title: Tajuk
+    tracked: Dijejak
+    title_example: Tajuk rencana
+    tools: Alat penilaian
+    view: Lihat Rencana
+    view_all: Paparkan Semua
+    view_on_wiki: Papar di wiki
+    edit_size: Saiz Suntingan
+    wiki: Wiki
+    articles_short: Rencana
+    page_logs: (log laman)
+  items:
+    items: Butir
+    lexeme: Leksem
+  articles_wikidata:
+    articles_short: Butir
+  articles_generic:
+    articles_short: Laman
+  assignments:
+    article_link: Rencana
+    article_link_wikidata: Butir
+    title_too_large: Panjangnya tajuk tidak melebihi 255 aksara
+    assign_other: Tugaskan rencana
+    add_available_submit: Tambah rencana
+    assign_self: Tugaskan diri saya sebuah rencana
+    bibliography: Bibliografi
+    editors: Ditugaskan kepada
+    label: Tugaskan
+    loading: Memuatkan tugasan...
+    none_short: Tiada rencana ditugaskan
+    none: Kursus ini tiada rencana yang ditugaskan.
+    random_peer_review:
+      heading: Tugaskan ulasan rakan rawak
+    remove: Buang
+    review_self: Ulas rencana
+    sandbox_draft_link: Draf Kotak Pasir
+    select: Pilih
+  campaign:
+    active_campaigns: Kempen Aktif
+    alert_article: Tajuk rencana
+    alert_type: Jenis
+    alert_user_id: Pengguna
+    all_campaigns: Semua Kempen
+    campaign: Kempen
+    campaigns: Kempen
+    campaign_updated: Kempen dikemas kini
+    created_at: Tarikh
+    course: Kursus
+    create_campaign: Cipta Kempen Baru
+    create_my_campaign: Cipta Kempen saya!
+    data_courses: Data gambaran keseluruhan kursus
+    data_articles: Laman disunting
+    data_revisions: Data semakan
+    data_editors_by_course: Penyunting mengikut kursus
+    data_editor_usernames: Nama pengguna penyunting
+    description: Keterangan
+    delete_campaign: Hapuskan kempen ini
+    enable_account_requests: Dayakan permohonan akaun
+    newest_campaigns: Kempen Terbaru
+    no_passcode: tiada kod laluan
+    none: Tiada
+    random_passcode: kod laluan rawak
+    title: Tajuk
+    search_campaigns: Cari kempen
+    use_start_end_dates: Guna tarikh mula dan tamat
+  categories:
+    add_category: Tambahkan kategori
+    add_template: Tambah templat
+    add_this_category: Tambah kategori ini
+    add_this_template: Tambah templat ini
+    articles_count: Kiraan Rencana
+    name: Nama
+    category_name: Nama kategori
+    template_name: Nama templat
+    remove: Buang
+    timestamp: Kali Terakhir Dikemas Kini Pada
+  courses:
+    school_system: Sistem Akademik
+    assignment_edits_enabled: Suntingan tugasan dibolehkan
+    activity: Aktiviti
+    all_courses: Semua Kursus
+    archived: Kursus Arkib
+    actions: Tindakan
+    articles: Rencana
+    article_viewer: Pemapar Rencana
+    assignment_headings:
+      assigned_articles: Rencana Ditugaskan
+      available_articles: Rencana Tersedia
+    calendar:
+      legend: Petunjuk
+    cancel: Batalkan
+    campaigns: 'Kempen:'
+    campaign_select: Pilih kempen
+    campaign_users: '%{title} Penyunting'
+    course: Kursus
+    course_description: Kursus
+    courses: Kursus
+    creation_date: Tarikh Penciptaan
+    creator:
+      course_title: Tajuk kursus
+      course_types:
+        basic_course_name: Program Asas
+        edit_a_thon_name: Lumba Sunting
+      create_button: Cipta Kursus saya!
+      create_label: Cipta Kursus Baru
+      create_new: Cipta Kursus Baru
+      create_short: Cipta Kursus
+      end_date: Tarikh tamat
+      find: Cari Kursus Anda
+      start_date: Tarikh mula
+      subject: Subjek
+    data_articles: Data rencana
+    data_overview: Data gambaran keseluruhan
+    data_edits: Data suntingan
+    data_students: Data Penyunting
+    data_uploads: Data muat naik Commons
+    data_revisions: Data semakan
+    data_uploads_info: Data muat naik Commons menunjukkan nama dan kiraan penggunaan
+      setiap muat naik media.
+    data_wikidata: Statistik Wikidata
+    delete_suggestion: Hapuskan
+    download_stats_data: Muat turut perangkaan
+    edit_count: Kiraan Suntingan
+    edit_course_dates: Sunting Tarikh Kursus
+    embed_course_stats: Benamkan Perangkaan Kursus
+    enable_account_requests: Dayakan permohonan akaun
+    end: Tamat
+    error:
+      invalid_language_or_project: Bahasa/Projek tidak sah
+    feedback: Maklum balas
+    home_wiki: Wiki Rumah
+    multi_wiki: Wiki Dijejak
+    namespaces: Ruang Nama Terjejak
+    join: Sertai
+    join_course: Sertai kursus
+    join_course_as_volunteer: Sukarela membantu
+    join_prompt: Sertai '%{title}'?
+    leave_course: Tinggalkan kursus
+    loading: Sedang dimuatkan...
+    my_articles: Rencana Saya
+    new_week: Tambah Minggu Baru
+    new_account_email: Alamat e-mel
+    new_account_email_placeholder: nama@example.org
+    new_account_username_placeholder: Penyunting Wiki 123
+    none: Tiada
+    overview: Laman Utama
+    passcode: Kod laluan
+    passcode_prompt: 'Masukkan kod laluan untuk sertai:'
+    school: Sekolah
+    school_and_term: Institusi/Penggal
+    search_all_tickets_for_this_course: Cari semua tiket untuk kursus ini
+    start: Mula
+    students: Pelajar
+    student_editors: Penyunting Pelajar
+    students_short: Pelajar
+    user_role: Peranan
+    user_recent_uploads: Muat Naik Terkini
+    view_other: Lihat kempen lain
+  courses_generic:
+    articles_i_am_reviewing: Rencana yang saya meninjau semula
+    course: Program
+    courses: Program
+    campaigns: 'Kempen:'
+    creator:
+      course_school: Institusi
+      create_label: Cipta Program Baru
+      end_date: Tamat penjejakan kegiatan
+      intro: Tajuk program dan institusi mebentuk URL program. Wiki rumah ialah wiki
+        utama tempat peserta akan bekerja, dan suntingan di wiki ini akan dijejak
+        dengan lalai. Jika program anda menjangkau pelbagai bahasa atau projek, sumbangan
+        juga akan dijejak bagi mana-mana wiki yang telah terang-terang ditambah ke
+        "Wiki Dijejak". Klik "Cipta Program saya!" untuk mula membangun laman untuk
+        program wiki anda.
+      start_date: Mula penjejakan kegiatan
+    delete_course: Hapuskan program
+    end: Tamat penjejakan kegiatan
+    enroll: Tambah Penyunting
+    enrollment: Tambah/Buang Penyunting
+    instructors: Pemudah cara
+    school: Institusi
+    start: Mula penjejakan kegiatan
+    student_editors: Penyunting
+    students: Penyunting
+    students_taught: Jumlah Penyunting
+    uploads_none: Projek ini tidak menyumbang sebarang imej atau fail media lain kepada
+      Wikimedia Commons.
+  editable:
+    edit_description: Sunting Keterangan
+    edit_details: Sunting Butiran
+  instructor_view:
+    assigned_articles: Rencana Ditugaskan
+    reviewing_articles: Meninjau Semula Rencana
+  metrics:
+    last_update: Kemas kini perangkaan terakhir
+    next_update: Kemas kini anggaran seterusnya
+    enqueued_update: Program ini telah ditambahkan ke baris gilir kemas kini.
+    first_update: Anggaran mula kemas kini perangkaan
+    articles_created: Rencana Dicipta
+    articles_created_wikidata: Item Tercipta
+    articles_created_generic: Rencana Tercipta
+    articles_edited: Rencana Disunting
+    articles_edited_wikidata: Item Tersunting
+    articles_edited_generic: Laman Tersunting
+    bytes_added: Bait Ditambah
+    char_added: Aks Ditambah
+    char: Aks Ditambah
+    edit_count_description: Jumlah Suntingan
+    revisions: Suntingan Terkini
+    references_count: Rujukan Ditambah
+    update_statistics_link: Lihat lagi
+    upload_count: Muat Naik Commons
+    view_count_description: Paparan Rencana
+    view: Paparan
+  namespace:
+    author: Pengarang
+    index: Indeks
+  recent_activity:
+    no_edits: Tiada suntingan terkini.
+    possible_plagiarism: Kemungkinan Plagiarisme
+    recent_edits: Suntingan Terkini
+    recent_uploads: Muat Naik Terkini
+    uploaded_by: Dimuat Naik Oleh
+  revisions:
+    chars_added: Aks Ditambah
+    references: Rujukan Ditambah
+    none: Kursus ini tiada kegiatan menyunting terkini.
+    see_more: Lihat lagi
+    show_course_specific: Tunjuk Khusus Kursus
+  update_username:
+    label: Nama pengguna baru
+    button: Kemas kini
+  uploads:
+    author: 'Pengarang:'
+    header: Fail Dimuat Naik ke Wikimedia Commons
+    label: Muat Naik
+    loading: Memuatkan muat naik...
+    select_label: Penapis mengikut pemuat naik
+    time_doc: Masa setiap muat naik dalam waktu tempatan anda
+    uploader: Pemuat naik
+    uploaded_on: Dimuat Naik Pada
+  users:
+    assigned: Rencana Ditugaskan
+    chars_added: Aksara Ditambah<br>(rencana | pengguna | draf)
+    course_passcode: 'Kod laluan:'
+    editors: Penyunting
+    enrolled_success: '%{username} telah berjaya ditambahkan!'
+    characters_added_draftspace: Aksara Ditambah (draf)
+    my_assigned: 'Ditugaskan:'
+    my_reviewing: 'Meninjau semula:'
+    no_revisions: Penyunting ini tidak membuat semakan.
+    recent_revisions: Suntingan Terkini
+    references_count: Rujukan Ditambah
+    references_doc: Bilangan rujukan ditambah atau dibuang oleh penyunting ini
+    reviewing: Mengulas
+    sub_navigation:
+      assignments_and_exercises: Tugasan & Latihan
+      editor_overview: Gambaran Keseluruhan Penyunting
+    total_uploads: Jumlah Muat Naik
+    uploads_doc: Bilangan muat naik fail ke Wikimedia Commons
+    userpasscode_placeholder: Kod laluan
+    words_added: Perkataan Ditambah<br>(rencana | pengguna | draf)
+  user_profiles:
+    institution_placeholder: Nama institusi (pilihan)
+  error:
+    invalid_file_format: Fail tidak dapat disimpan. Sila muat naik PDF atau dokumen
+      Word.
+  error_incorrect_passcode:
+    header: Kod laluan tidak betul.  :-(
+...

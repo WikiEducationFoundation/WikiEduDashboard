@@ -1,0 +1,75 @@
+# Messages for Eastern Pwo (ဖၠုံလိက်)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Rul1902
+---
+kjp:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: မာလိုင်အေး
+    greeting2: အင်းၯးလင်ဖဝ်ႋ!
+    greeting_extended: အင်းၯးလင်ဖဝ့် လ်ုဝီးကေဝ်ပီဍီယာႋခဝ့်
+    greeting: အှ်ဆံင်လာႋဆာ်
+    help: မာၜိုင်မာဆိုင်
+    home: အ်ုထိုဝ်ခေါဟ်
+    log_in_extended: မ်ုအွးလင်ႋ ဝီးကေဝ်ပီဍီယာႋ
+    log_in: အွးလင်
+    log_out: တါ်ထင်း
+    my_dashboard: ဟ်ုမာဆိုင်သယ် ၮဲဖှ်ေအ်ုလင်ႋအ်ုကၠယ်
+    recent_activity: လ်ုယိက်လ်ုမဝ်ခါ့ဆ်ုအင်းမာ
+    report_problem: မ်ုသုံႋ ဆ်ုကးဆ်ုၯယ်
+    search: မ်ုအင်းကိင်ဆ်ုအင်းစာ
+    sign_up: မ်ုပ္တိင့်ဏင့်ဆာႋဏါင်း
+    change: အင်းလယ်
+    confirm: အိုဝ်ကေ
+    opt_in: မွာဲ
+    opt_out: မွာဲအေး
+  articles:
+    edited_mobile: လိက်သာထိင်ႋသယ်
+    filter:
+      wiki_all: လုက်ဆိင့်
+      new: အ်ုသင့်
+    hide: အှ်သူး
+    history: (မေင်ႋစိင်)
+    label: လိက်သာထိင်ႋသယ်
+    new: (အ်ုသင့်)
+    rating: အ်ုထဝ်
+    title: ခေါဟ်တင်
+    title_example: လိက်သာထိင်ႋ ခေါဟ်တင်
+    view: မ်ုယောဝ်ႋ လိက်သာထိင်ႋ
+    view_all: မ်ုယောဝ်ႋလုက်ဆိင့်
+    wiki: ဝီးကေဝ်
+  assignments:
+    remove: မ်ုထုဂ်ဆိင့်
+    select: အင်းလုဲႋ
+  blocks:
+    milestones:
+      title: ၮါင်းတိုင်လ်ုဖး
+  campaign:
+    created_at: မူႋၮီ
+    description: ဆ်ုဏဲဖၠဟ်
+  courses:
+    creator:
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start_placeholder: YYYY-MM-DD
+      end_date_placeholder: YYYY-MM-DD
+      start_date_placeholder: YYYY-MM-DD
+    delete_suggestion: ထုဂ်ဆိင့်
+    overview: ဗဟိုစာမျက်နှာ
+    timeline_nav: မ်ုလေဝ်လူႋအ်ုခါ့ဖၠံင်
+    volunteer:
+      one: သုဂ်ထျာႋဆ်ုၜုံးဆါႋ
+      other: သုဂ်ထျာႋဆ်ုၜုံးဆါႋလ်ုဖး
+  courses_generic:
+    creator:
+      assignment_start_placeholder: YYYY-MM-DD
+...

@@ -1,0 +1,112 @@
+---
+title: Visual Editor buttons
+content: |
+  <figure class="alt-layout-100">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/VisualEditor_toolbar_isolated-en.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_toolbar_isolated-en.png"></a>
+
+  </figcaption>
+  </figure>
+
+  It can be helpful to copy and paste the text below into [a
+  sandbox](/redirect/sandbox/sandbox?veaction=edit)
+  (a type of page on Wikipedia used for drafting), and apply all of the
+  options directly to this text to see what it does.
+
+  <figure class="alt-layout-30-right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/VisualEditor_Toolbar_Formatting-en.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_Toolbar_Formatting-en.png"></a>
+
+  </figcaption>
+  </figure>
+
+  **Paragraph**: Set the style of your text. For example, make a header or
+  plain paragraph text. You can also use it to offset block quotes.
+
+  <u>***A***</u> : Highlight your text, then click here to format it with
+  bold, italics, etc. The “More” options allows you to underline
+  (<u>U</u>), cross-out text (~~S~~), add code snippets ({}), change
+  language keyboards (Aあ), and clear all formatting (<img style="width:13px;" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Prohibition_sign_%28black%29.svg" />).
+
+  **Links**: Highlight text and push this button to make it a link. The
+  Visual Editor will automatically suggest related Wikipedia articles for
+  that word or phrase. This is a great way to connect your article to more
+  Wikipedia content. You only have to link important words once, usually
+  during the first time they appear. If you want to link to pages outside
+  of Wikipedia (for an “external links” section, for example) click on the
+  “External link” tab.
+
+  **Cite**: The citation tool in the Visual Editor helps format your
+  citations. You can simply paste a DOI or URL, and the Visual Editor will
+  try to sort out all of the fields you need. Be sure to review it,
+  however, and apply missing fields manually (if you know them). You can
+  also add books, journals, news, and websites manually. That opens up a
+  quick guide for inputting your citations. Once you've added a source,
+  you can click the “re-use” tab to cite it again.
+
+  **Bullets**: To add bullet points or a numbered list, click here.
+
+  **Insert**: This tab lets you add media, images, or tables.
+
+  **Ω**: This tab allows you to add special characters, such as those
+  found in non-English words, scientific notation, and a handful of
+  language extensions.
+id: 2307
+
+translations:
+  es:
+    title: Botones del Editor Visual
+    content: |
+        <figure class="alt-layout-100">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/VisualEditor_toolbar_isolated-en.png" />
+
+        <figcaption class="">
+        <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_toolbar_isolated-en.png"></a>
+
+        </figcaption>
+        </figure>
+
+        Puede ser útil copiar y pegar el texto de abajo en [un entorno de pruebas](/redirect/sandbox/sandbox?veaction=edit)
+        (un tipo de página en Wikipedia que se usa para hacer borradores), y
+        aplicar todas las opciones directamente a este texto para ver qué hace.
+
+        <figure class="alt-layout-30-right">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/VisualEditor_Toolbar_Formatting-en.png" />
+
+        <figcaption class="">
+        <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_Toolbar_Formatting-en.png"></a>
+
+        </figcaption>
+        </figure>
+
+        **Párrafo**: Establece el estilo de tu texto. Por ejemplo, hacer un encabezado o un
+        texto de párrafo simple. También puedes usarlo para desplazar las comillas de bloque.
+
+        <u>**A**</u>: Resalta tu texto y haz clic aquí para formatearlo con negrita,
+        itálicas, etc. Las opciones "Más" te permiten subrayar (<u>U</u>), tachar texto (~~S~~),
+        añadir fragmentos de código ({}), cambiar el idioma del teclado (Aあ) y borrar todo el formato (<img style="width:13px;" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Prohibition_sign_%28black%29.svg" />).
+
+        **Enlaces**: Resalta un texto y presiona este botón para convertirlo en un enlace.
+        El Editor Visual automáticamente sugerirá artículos de Wikipedia relacionados para
+        esa palabra o frase. Esta es una buena forma de conectar tu artículo con más contenido
+        de Wikipedia. Sólo tienes que enlazar las palabras importantes una vez, generalmente
+        durante la primera vez que aparecen. Si quieres enlazar a páginas fuera de Wikipedia
+        (para una sección de "enlaces externos", por ejemplo) haz clic en la pestaña "Enlace externo".
+
+        **Citar**: La herramienta de citas del Editor Visual te ayuda a formatear tus citas.
+        Puedes simplemente pegar un DOI o URL, y el Editor Visual tratará de ordenar todos
+        los campos que necesites. Sin embargo, asegúrate de revisarlo y aplicar manualmente
+        los campos que falten (si los conoces). También puedes añadir libros, revistas, noticias
+        y sitios web manualmente. Esto abre una guía rápida para introducir tus citas. Cuando
+        hayas añadido una fuente, puedes hacer clic en la pestaña "reutilizar" para citarla de nuevo.
+
+        **Viñetas**: Para agregar viñetas o una lista numerada, haz clic aquí.
+
+        **Insertar**: Esta pestaña te permite añadir multimedia, imágenes o tablas.
+
+        **Ω**: Esta pestaña te permite añadir caracteres especiales, como los que se encuentran
+        en palabras no inglesas, notación científica y algunas extensiones de idioma.

@@ -1,0 +1,7 @@
+id: 1902
+title: "Sign up for a session now!"
+summary:
+content: |
+  Sign up for a session! Pick a date & time that works for you, and sign up for a session <a href="https://mentorhub-app.herokuapp.com/login-wiki?next_hash=K9xhpY7mnXSymC49xsQb7X" target="_blank">here</a>!
+
+  *If you aren’t currently logged in using your Wikipedia account, you will first be redirected to Wikipedia’s login page. After logging in using your Wikipedia credentials, you will be able to sign up for the Intertwine session.*

@@ -1,0 +1,38 @@
+# Messages for Odia (ଓଡ଼ିଆ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: DareDevil
+# Author: Gayatree Tripathy
+# Author: Psubhashish
+---
+or:
+  application:
+    cancel: ନାକଚ
+    create_accounts: ଉଇକିପିଡ଼ିଆ ଖାତାଟିଏ ଖୋଲିବେ
+    error: 'ଗୋଟିଏ ତ୍ରୁଟି ଥିଲା:'
+    explore: ଅଧିକ ଦେଖନ୍ତୁ
+    field_required: ଏ ଘରଟି ଦରକାରୀ
+    field_invalid_characters: ଏହି ସ୍ଥାନରେ ନୀତିଵିରୁଦ୍ଧ ଅକ୍ଷରସବୁ ଅଛି
+    field_invalid_date_time: ଆରମ୍ଭ ହେବା ପରେ ଶେଷ ହେବ (୦ରୁ ୨୩ ଘଣ୍ଟା ପର୍ଯ୍ୟନ୍ତ ଚାଲିବ)
+    greeting2: ସ୍ଵାଗତ!
+    greeting_extended: ଉଇକିପିଡ଼ିଆକୁ ସ୍ଵାଗତ!
+    greeting: ନମସ୍କାର!
+    help: ସାହାଯ୍ୟ
+    home: ମୂଳ ଜାଗା
+    log_in_extended: ଉଇକିପିଡ଼ିଆରେ ଲଗ ଇନ କରନ୍ତୁ
+    log_in: ଲଗ-ଇନ (Log in)
+    log_out: ଲଗ ଆଉଟ
+    recent_activity: ନଗଦ ବଦଳ
+    report_problem: ସମସ୍ୟା ଜଣାଇବେ
+    request_account: ଖାତାଟିଏ ଅନୁରୋଧ କରିବେ
+    request_account_create: ଖାତାଟିଏ ଖୋଲନ୍ତୁ
+    search: ପ୍ରଶ୍ନଟିଏ ପଚାରିବେ
+    sign_up_extended: ଉଇକିପିଡ଼ିଆରେ ନୂଆ ଖାତାଟିଏ ଖୋଲନ୍ତୁ
+    sign_up_wikipedia: କିମ୍ବା ଉଇକିପିଡ଼ିଆରେ ନୂଆ ଖାତାଟିଏ ଖୋଲନ୍ତୁ
+    sign_up_log_in_extended: ଉଇକିପିଡ଼ିଆରେ
+    sign_up: ନାମ ଲେଖାଇବେ
+    submit: ଦାଖଲ କରିବା
+    training: ପ୍ରଶିକ୍ଷଣ
+  courses:
+    dismiss_survey: ଖାରଜ
+...

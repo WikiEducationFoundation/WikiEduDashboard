@@ -1,0 +1,104 @@
+# Messages for Tajik (Cyrillic script) (тоҷикӣ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: AryanSogd
+# Author: ToJack
+# Author: Vashgird
+---
+tg-cyrl:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: Ҳаз.
+          million: Млн.
+          billion: Млрд
+          trillion: Трлн
+          quadrillion: Квлн
+  application:
+    cancel: Лағв
+    create_accounts: Эҷоди ҳисоби Википедиа
+    documentation: Ҳуҷҷатгузорӣ
+    greeting2: Хуш омадед!
+    greeting_extended: Ба Википедиа хуш омадед
+    greeting: Ассалому алекум!
+    help: Роҳнамо
+    home: Хона
+    log_in_extended: Вуруд бо ёрии Википедиа
+    log_in: Вуруд ба система
+    log_out: Хуруҷ аз система
+  articles:
+    wiki: вики
+  assignments:
+    article_link: Мақола
+    bibliography: Китобшиносӣ
+    sandbox_draft_link: Пешнависи сиёҳнавис
+  campaign:
+    alert_type: Навъ
+    alert_user_id: Корбар
+    data_revisions: Маълумот оиди тағйирот
+    description: Тавсифот
+    none: Ҳеҷ
+    title: Унвон
+  categories:
+    add_category: Илова кардани гурӯҳ
+    add_template: Иловаи шаблон
+    add_this_category: Илова кардани ин гурӯҳ
+    add_this_template: Иловаи ин шаблон
+    name: Ном
+    category_name: Номи гурӯҳ
+    template_name: Номи шаблон
+    remove: Ҳазф
+  courses:
+    activity: Фаъолият
+    actions: Амалкардҳо
+    articles: Мақолаҳо
+    calendar:
+      legend: Легенда
+    cancel: Лағв
+    campaign_articles: '%{title} Мақолот'
+    campaign_users: '%{title} Вироишгар'
+    creation_date: Санаи эҷод
+    creator:
+      assignment_end_placeholder: СССС-ММ-РР
+      end_date_placeholder: СССС-ММ-РР
+    data_revisions: Маълумот оиди тағйирот
+    enroll: Ба рӯйхат даровардан
+    home_wiki: Викии худ
+    overview: Хона
+    school: Мактаб
+    start: Шурӯъ
+  courses_generic:
+    cancel: Тамом кардан
+    course: Барнома
+    courses: Барномаҳо
+    campaign_courses: '%{title} Барномаҳо'
+    creator:
+      assignment_end_placeholder: СССС-ММ-РР
+      assignment_start_placeholder: СССС-ММ-РР
+      course_term: Кай
+      course_term_placeholder: Кай
+      course_title: Унвони барнома
+      create_button: Эҷоди барномаи худам
+      create_label: Эҷҷоди барномаи нав
+      create_short: Эҷоди барнома
+      find: Ёфтани барнома
+      save_cloned_course: Захира кардан
+    enroll: Иловаи муҳаррир
+    enrollment: Иштирок
+  metrics:
+    date_time: Сана/Соат
+    edit_count_description: Тамоми вироишот
+    per_user: '%{number}/корбар'
+    revisions: Вироишоти охир
+  training:
+    page: Саҳифа
+  users:
+    course_passcode: 'Рамзи дохилшавӣ:'
+    enroll_url: 'Истифодабарандагон метавонанд ҳамроҳ шаванд бо роҳи боздид аз ин
+      URL:'
+    username: Номи корбар
+    username_placeholder: Номи корбарӣ
+  multi_wiki:
+    selector_placeholder: Викиро интихоб намед
+...

@@ -1,0 +1,11 @@
+.survey__admin__nav
+  %nav.container
+    %div.nav__item= link_to t('application.recent_activity'), recent_activity_path, class: class_for_path(request, recent_activity_path)
+    %div.nav__item= link_to 'Surveys', surveys_path, class: survey_class_for_path(request, surveys_path)
+    %div.nav__item= link_to 'Campaigns', campaigns_path, class: class_for_path(request, campaigns_path)
+    %div.nav__item= link_to 'Analytics', '/analytics', class: class_for_path(request, '/analytics')
+    %div.nav__item= link_to 'Feedback', '/feedback_form_responses', class: class_for_path(request, '/feedback_form_responses')
+    %div.nav__item= link_to 'Alerts', '/alerts_list', class: class_for_path(request, '/alerts_list')
+    %div.nav__item= link_to 'Users', users_path, class: class_for_path(request, users_path)
+    %div.nav__item= link_to 'Account Requests', '/requested_accounts'
+    %div.nav__item= link_to 'Tickets', '/tickets/dashboard'

@@ -1,0 +1,61 @@
+# Messages for Tornedalen Finnish (meänkieli)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Pyscowicz
+---
+fit:
+  application:
+    cancel: Lopeta
+    greeting_extended: Tervetuloa Wikipeetihaan
+    home: Alkusivu
+    log_in_extended: Lokkaa sisäle Wikipeetialla
+    log_in: Lokkaa sisäle
+    log_out: Lokkaa ulos
+    request_account: Pyyä konttua
+    request_account_create: Luo konttu
+    sign_up_log_in_extended: Wikipeetialla
+    sign_up: Luo konttu
+    submit: Lähätä
+    details: Tieot
+    confirm: OK
+    opt_in: Joo
+    opt_out: Ei
+    opt_yes: joo
+    opt_no: ei
+  articles:
+    loading: Ladathaan artikkeleita...
+    edit_size: Mookkaa kokoa
+  assignments:
+    remove: Ota poies
+  campaign:
+    created_at: Taatumi
+    description: Kuvvaus
+    delete_campaign: Ota poies tämä kampanja
+  categories:
+    add_category: Lissää katekuuri
+    add_psid: Lissää PetScan PSID
+    add_template: Lissää malli
+    add_this_category: Lissää tämä katekuuri
+    add_this_psid: Lissää tämä PSID
+    add_this_template: Lissää tämä malli
+    category_name: Katekuurin nimi
+    remove: Ota poies
+  courses:
+    cancel: Lopeta
+    creator:
+      end_date: Päättymistaatumi
+      start_date: Alkamistaatumi
+    delete_suggestion: Ota poies
+    loading: Ladathaan...
+    please_log_in: Lokkaa sisäle.
+  courses_generic:
+    cancel: Lopeta
+    creator:
+      save_cloned_course: Säästä
+  editable:
+    edit: Mookkaa
+    cancel: Lopeta
+    save: Säästä
+    edit_description: Mookkaa kuvvausta
+    edit_template: Mookkaa mallia
+...

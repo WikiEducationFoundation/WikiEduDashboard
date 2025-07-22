@@ -1,0 +1,10 @@
+%nav.survey-nav
+  .container
+    %div
+      %strong= survey_course_title
+
+    .survey__progress__container
+      .progress-label Progress
+      %div.survey__progress
+        .survey__progress-bar{data: {survey_progress: true}}
+        .survey__progress-percentage 0%

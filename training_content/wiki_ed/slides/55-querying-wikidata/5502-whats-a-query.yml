@@ -1,0 +1,8 @@
+id: 5502
+title: "What's a query?"
+summary:
+content: |
+  A query is a precise request for information from a database. Since Wikidata
+  contains so much information, you want to be sure you are querying and receiving
+  the exact information you asked for. Query languages allow you to describe to
+  databases exactly what you want (and what you don't want).

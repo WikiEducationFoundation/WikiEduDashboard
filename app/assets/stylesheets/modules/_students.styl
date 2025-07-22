@@ -1,0 +1,98 @@
+.redlink
+  color $warning_text
+
+.sandbox-link
+  font-size: 80%
+
+.users-control
+  text-align right
+
+.students, .students-exercise
+  .completeness
+    display block
+    font-size 0.8rem
+  .modules-complete
+    color $text
+
+.users-articles
+  align-items flex-start
+  display flex
+  width 100%
+  aside.student-selection
+    border-bottom 1px solid #DDDDDD
+    border-top 1px solid #DDDDDD
+    flex 1
+    overflow hidden scroll
+    margin-top 5px
+    max-height 60vh
+    ul
+      list-style none
+      li.student
+        background white
+        border 1px solid #DDDDDD
+        border-right none
+        margin 5px 0
+        padding 15px
+        &:first-child
+          border-top none
+          margin-top 0
+        &:last-child
+          border-bottom none
+          margin-bottom 0
+        &.selected
+          background #676eb4
+          color white
+        p
+          margin-bottom 0
+        .real-name
+          font-weight bold
+  article.student-details
+    flex 4
+    padding 5px 0px 5px 30px
+    section.assignments
+      h4
+        color #6A6A6A
+      p.assignment-links
+        margin-bottom 3px
+    .no-selected-student
+      background #EEEEEE
+      border 1px solid #DDDDDD
+      display flex
+      flex-direction column
+      padding 45px 15px
+      text-align center
+      h4
+        margin-bottom 5px
+  article.assignments-list
+    .article-title, .current-status, .assignment-links
+      font-size 12px
+    aside.header
+      display flex
+      flex-direction row
+      h3
+        flex 1
+        font-size 18px
+        margin 10px 0 5px
+      .button-actions
+        flex 2
+        text-align right
+    .no-assignments
+      font-size 14px
+      padding 30px 30px 0
+    h4.assignments-list-title
+      margin 30px 0 0
+    .current-status span
+      color #676eb4
+      font-weight bold
+      padding 3px
+    tr.article-row
+      .article-title
+        max-width 200px
+        overflow-wrap anywhere
+      &:hover
+        cursor default
+.sort-select.users
+  display inline-block
+  float none
+  margin 0 10px
+  position static

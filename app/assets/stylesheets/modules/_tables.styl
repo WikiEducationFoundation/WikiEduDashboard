@@ -1,0 +1,246 @@
+.persist-area
+  tbody
+    tr
+      td
+        width 20%
+
+  .floatingHeader
+    position sticky
+    top 50px
+    background-color white
+    z-index 2
+    border-bottom 1px solid lightgray
+
+    tr
+      width inherit
+
+      th
+        width 20%
+
+.campaign_main.alerts
+  thead
+    th
+      background: transparent
+      &:before
+        display: none
+  td
+    max-width 400px
+    overflow hidden
+    padding 12px
+    text-overflow ellipsis
+
+.table, .training table
+  width 100%
+  border-collapse separate
+
+  thead,
+  tbody
+    tr
+      background-color #fff
+
+      th,
+      td
+        // border-top 1px solid #ddd
+        border-bottom 1px solid #ddd
+        vertical-align middle
+        padding 12px 24px
+
+        &:first-child
+          border-left 1px solid #ddd
+
+        &:last-child
+          border-right 1px solid #ddd
+
+        @media only screen and (max-width: 919px)
+          &.alert-type
+            border-left 1px solid #ddd
+
+      // Table cell with links
+      .table-link-cell
+        padding 0px 0px
+        a
+          color #6a6a6a
+          display block
+          margin 0
+          text-decoration none
+          text-align left
+          padding 12px 24px
+
+      &:first-child td
+        border-top 1px solid #ddd
+
+  // Transparent header
+  thead
+    tr
+      border none
+      background none
+
+      th
+        border none
+        text-align left
+        font-size 13px
+        font-weight 800
+        vertical-align bottom
+        color #808080
+
+        &:first-child, &:last-child
+          border-left none
+          border-right none
+
+  tr.drawer > td
+    padding-bottom 0
+  tr.drawer thead tr th
+    &:first-child
+      border-left 1px solid $brand_primary
+
+    &:last-child
+      border-right 1px solid $brand_primary
+
+// Smaller variant
+.table--small
+  > thead,
+  > tbody
+    > tr
+      > td,
+      > th
+        padding 6px 12px
+      > td
+        font-size 15px
+
+
+// Expandable variant
+.table--expandable
+  // Rows immediately following a .closed row are hidden
+  > tbody > tr.closed + tr
+    display none
+
+  // Open rows are highlighted
+  > tbody > tr.open
+    position relative
+    box-shadow 0px 1px 5px rgba(0,0,0,0.3)
+    &, &:hover
+      background-color athens
+
+      .table-expandable-indicator
+        transform rotateZ(180deg)
+
+    td
+      border-top 1px solid $brand_primary
+
+      &:first-child
+        border-left-color $brand_primary
+
+      &:last-child
+        border-right-color $brand_primary
+
+  > tbody .drawer > td
+    box-shadow 0px -1px 5px rgba(0,0,0,0.3)
+    position relative
+    z-index 1
+
+    &:first-child, &:last-child
+      border-left none
+      border-right none
+
+  > tbody .drawer table:last-child tr:last-child
+    td
+      border-bottom 1px solid $brand_primary
+
+  > tbody .drawer > td td
+    &:first-child
+      border-left-color $brand_primary
+
+    &:last-child
+      border-right-color $brand_primary
+
+  .table-expandable-indicator
+    position relative
+    top 2px
+    transform-origin 50% 15%
+    transition transform 250ms ease
+    transform rotateZ(0)
+
+
+// Hover state applied to rows
+.table--hoverable
+  > tbody > tr:hover
+    cursor pointer
+    background-color #fafafa
+
+// Alternating row background colors
+.table--striped
+  > tbody > tr:nth-child(even)
+    background-color #fafafa
+
+
+
+// Sortable variant
+.table--sortable
+  > thead > tr > th.sortable
+    &:hover
+      cursor pointer
+      color $brand_primary
+
+    .sortable-indicator:before
+      font-size 16px
+      font-weight 800
+      vertical-align middle
+      margin-top -3px
+
+    &.asc
+      color #222
+      // .sortable-indicator-asc
+    &.desc
+      color #24px
+      // .sortable-indicator-desc
+  +below(tablet)
+    width max-content
+
+.revision-list-container
+  +below(tablet)
+    overflow-y: scroll
+
+// Contextual background colors for rows
+.table > tbody > .table-row--info
+  background-color #d9edf7
+
+.table > tbody > .table-row--warning
+  background-color #fcf8e3
+
+.table > tbody > .table-row--danger
+  background-color #f2dede
+
+.table > tbody > .table-row--success
+  background-color #dff0d8
+
+.table > tbody > .table-row--faded
+  background-color #fafafa
+
+.table > tbody > .table-row--closed
+  background-color: #f8d7da;
+  color: #721c24;
+  font-weight: bold;
+
+
+// Align buttons/text to the right of the action cell
+.table .table-action-cell
+  text-align right
+
+
+
+// Give nested table negative margin to fit flush with cell padding
+.table .table
+  margin -13px -24px
+  width calc(100% + 48px)
+
+  // Give nested tables darker row colors
+  > tbody
+    > tr.due-training
+      background-color #f0f0f0
+
+  &:first-child
+    margin-bottom 0
+
+.table .table + .table
+  &:last-child
+    margin-top 0

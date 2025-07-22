@@ -1,0 +1,19 @@
+name: Drafting in the sandbox (Professional)
+id: 25
+description: In this tutorial, we'll show you the practical steps for working in a sandbox, and beginning to draft an article.
+estimated_ttc: 10 minutes
+slides:
+  - slug: using-a-sandbox-professional # 2501
+  - slug: what-s-a-sandbox-professional # 2502
+  - slug: how-to-find-a-sandbox-professional # 2503
+  - slug: how-to-create-a-new-sandbox-professional # 2504
+  - slug: editing-an-existing-article-professional # 2505
+  - slug: drafting-a-new-article-professional # 2506
+  - slug: avoiding-edit-conflicts-professional # 2507
+  - slug: thats-it-drafting-professional # 2508
+
+translations:
+  es:
+    name: Haciendo borradores en el entorno de pruebas (Profesional)
+    description: |
+      En este tutorial, te mostraremos los pasos prácticos para trabajar en un entorno de pruebas y comenzar a redactar un artículo.

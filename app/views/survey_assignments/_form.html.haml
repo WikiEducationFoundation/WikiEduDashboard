@@ -1,0 +1,74 @@
+= simple_form_for(@survey_assignment) do |f|
+  .block.survey-assignments.block--clear.default-form
+    = f.error_notification
+    .form__row
+      %h4 Survey
+      = f.select :survey_id, options_from_collection_for_select(Survey.all, 'id', 'name', {selected: @survey_assignment.survey_id } ), {}
+
+    .form__row
+      %h4 Distribution Target
+      = f.select :campaign_ids, options_from_collection_for_select(Campaign.all, 'id', 'title', {selected: @survey_assignment.campaigns.pluck(:id) }), {}, { multiple: true }
+
+    .form__row
+      = f.label :courses_user_role
+      = user_role_select(f, selected: @survey_assignment.courses_user_role)
+
+    .form__row
+      = f.check_box :published
+      = f.label :published, "Publish this assignment", class: "inline-label"
+
+    %h3 Survey Notifications
+    .form_row
+      %small.block-element.text-left.form__small-dark
+        %em= t('survey.notification_explanation')
+      = f.input :send_email, label: 'Send email notifications?'
+
+    .form__row
+      %h4 Notification Schedule
+      %small.block-element.text-left.form__small-dark
+        %em= t('survey.notification_schedule_explanation')
+      = f.number_field :send_date_days
+      = f.label :send_date_days, "Days", class: 'inline-label'
+      = f.select :send_before, options_for_select([['Before', true], ['After', false]], selected: @survey_assignment.send_before)
+      = f.select :send_date_relative_to, options_for_select(@send_relative_to_options, selected: @survey_assignment.send_date_relative_to)
+
+    .form__row
+      %h4 Follow-up Email Notification Schedule
+      %small.block-element.text-left.form__small-dark
+        %em= t('survey.follow_up_explanation')
+      = f.number_field :follow_up_days_after_first_notification, label: false
+      = f.label :send_date_days, "days after first notification", class: 'inline-label'
+
+    .form_row
+      = f.label :custom_banner_message
+      = f.text_field :custom_banner_message
+
+    .form_row
+      = f.label :email_template
+      = email_template_select(f, selected: @survey_assignment.email_template)
+
+    .form_row
+      = f.label :custom_email_subject
+      = f.text_field :custom_email_subject
+
+    .form_row
+      = f.label :custom_email_headline
+      = f.text_field :custom_email_headline
+
+    .form_row
+      = f.label :custom_email_body
+      = f.text_area :custom_email_body
+
+    .form_row
+      = f.label :custom_email_signature
+      = f.text_field :custom_email_signature
+
+    .form__row
+      = f.label :notes
+      = f.text_area :notes
+
+    = f.button :submit, class: "button dark"
+
+    .form__actions.danger
+      - unless @survey_assignment.new_record?
+        = link_to "Delete Survey Assignment", @survey_assignment, method: :delete, data: {confirm: "Are you sure you want to delete this assignment?"}

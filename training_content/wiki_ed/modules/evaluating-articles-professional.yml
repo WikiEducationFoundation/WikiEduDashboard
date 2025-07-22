@@ -1,0 +1,24 @@
+name: Evaluating articles and sources (Professional)
+id: 24
+description: In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye.
+estimated_ttc: 10 minutes
+slides:
+  - slug: evaluating-sources-and-articles-professional # 2401
+  - slug: what-makes-a-good-article-professional # 2402
+  - slug: evaluating-article-quality-professional # 2403
+  - slug: elements-of-quality-articles-professional # 2404
+  - slug: elements-of-not-so-great-articles-professional # 2405
+  - slug: sources-and-citations-professional # 2406
+  - slug: why-cite-professional # 2407
+  - slug: when-should-you-cite-professional # 2408
+  - slug: what-s-a-good-source-professional # 2409
+  - slug: what-s-not-a-good-source-professional # 2410
+  - slug: reading-history-professional # 2411
+  - slug: past-versions-professional # 2412
+  - slug: you-re-all-done-professional # 2413
+
+translations:
+  es:
+    name: Evaluando artículos y fuentes (Profesional)
+    description: |
+      En este tutorial vamos a explorar cómo leer artículos de Wikipedia, y las fuentes potenciales, con un ojo crítico.

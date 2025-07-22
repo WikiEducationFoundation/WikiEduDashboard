@@ -1,0 +1,49 @@
+%tr{:class => "#{user ? date_highlight_class(course) : ''}"}
+  %td{:class => "table-link-cell", :role => "button", :tabindex => "0"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.title
+        = course.title
+      %span.creation-date.hidden
+        = course.created_at
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.revisions
+        = course.recent_revision_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.characters-human
+        = number_to_human course.word_count
+      %span.characters.hidden
+        = course.character_sum
+      %small.average-words-human
+        (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
+      %span.average-words.hidden
+        = course.average_word_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.references-human
+        = number_to_human course.references_count
+      %span.views.hidden
+        = course.references_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.views-human
+        = number_to_human course.view_sum
+      %span.views.hidden
+        = course.view_sum
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.students-human
+        = "#{course.user_count}/#{course.expected_students}"
+      %small.untrained= t("users.training_complete_count", count: course.trained_count)
+      %span.students.hidden
+        = course.user_count
+  - if Features.wiki_ed?
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.ungreeted
+          = @pres.ungreeted_students(course)
+    %td{:class => "table-link-cell"}
+      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+        %span.reviewed
+          = @pres.last_reviewed_date(course)

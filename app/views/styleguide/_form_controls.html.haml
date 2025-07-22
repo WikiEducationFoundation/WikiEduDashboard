@@ -1,0 +1,155 @@
+%h5 Input
+%input{type: "text", placeholder: "Input"}/
+
+%br/
+%br/
+
+%h5 Textarea
+%textarea{placeholder: "Texatrea"}
+
+%br/
+%br/
+
+%h5 Radio buttons
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option1", checked: true} Checked
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option2"}  Unchecked
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option3", disabled: true} Disabled
+
+%br/
+%br/
+
+%h5 Checkboxes
+%label
+  %input{type: "checkbox", value: "option1", checked: true} Checked
+%label
+  %input{type: "checkbox", value: "option2"}  Unchecked
+%label
+  %input{type: "checkbox", value: "option3", disabled: true} Disabled
+
+%br/
+%br/
+
+%h5 Vanilla select
+%select
+  %option{value: "Option 1"} Option 1
+  %option{value: "Option 2"} Option 2
+  %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Vanilla multiselect
+%select{multiple: "multiple"}
+  %option{value: "Option 1"} Option 1
+  %option{value: "Option 2"} Option 2
+  %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Select2
+
+%br/
+%br/
+
+%h5 Date picker
+#date-picker-enabled
+.form-group.datetime-control.exp-datetime-control
+  %span.form-group.date-picker--form-group
+    .date-input
+      %input#exp.start{:value => "2022-02-12"}/
+#date-picker-disabled
+.form-group.datetime-control.exp-datetime-control
+  %span.form-group.date-picker--form-group
+    .date-input
+      %input#exp.start{:disabled => "disabled", :value => "2022-02-12"}/
+%br/
+
+%h5 Calendar
+#calendar
+  .DayPicker
+    .DayPicker-wrapper
+      .DayPicker-NavBar
+        %span.DayPicker-NavButton.DayPicker-NavButton--prev
+        %span.DayPicker-NavButton.DayPicker-NavButton--next
+      .DayPicker-Months
+        .DayPicker-Month{:role => "grid"}
+          .DayPicker-Caption{:role => "heading"}
+            %div February 2022
+          .DayPicker-Weekdays{:role => "rowgroup"}
+            .DayPicker-WeekdaysRow{:role => "row"}
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Sunday"} Su
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Monday"} Mo
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Tuesday"} Tu
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Wednesday"} We
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Thursday"} Th
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Friday"} Fr
+              .DayPicker-Weekday{:role => "columnheader"}
+                %abbr{:title => "Saturday"} Sa
+        .DayPicker-Body{:role => "rowgroup"}
+          .DayPicker-Week{:role => "row"}
+            .DayPicker-Day.DayPicker-Day--outside
+            .DayPicker-Day.DayPicker-Day--outside
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 1
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 2
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 3
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 4
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 5
+          .DayPicker-Week{:role => "row"}
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 6
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 7
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 8
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 9
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 10
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 11
+            .DayPicker-Day.DayPicker-Day--selected{:role => "gridcell", "aria-state" => "true", "role" => "button"} 12
+          .DayPicker-Week{:role => "row"}
+            .DayPicker-Day.DayPicker-Day--today{:role => "gridcell", "aria-state" => "mixed", "role" => "button"} 13
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 14
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 15
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 16
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 17
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 18
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 19
+          .DayPicker-Week{:role => "row"}
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 20
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 21
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 22
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 23
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 24
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 25
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 26
+          .DayPicker-Week{:role => "row"}
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 27
+            .DayPicker-Day{:role => "gridcell", "aria-state" => "false", "role" => "button"} 28
+            .DayPicker-Day.DayPicker-Day--outside
+            .DayPicker-Day.DayPicker-Day--outside
+            .DayPicker-Day.DayPicker-Day--outside
+            .DayPicker-Day.DayPicker-Day--outside
+            .DayPicker-Day.DayPicker-Day--outside
+
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+%br/
+
+%h5 Rich text editor
+#rich-text

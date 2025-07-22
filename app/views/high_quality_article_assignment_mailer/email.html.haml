@@ -1,0 +1,25 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%p.paragraph
+  = "Dear #{@greeted_names},"
+  %p.paragraph
+    It looks like you added the article 
+    %a.link{href: @alert.article.url}= '"' + @alert.article.title + '"'
+    as an assignment for
+    %a.link{href: @alert.course_url} your course.
+    This article is a Good or Featured Article, which means that it is among Wikipedia's best work.
+    While there might be room to make a few small improvements to such articles, they are going to be more
+    complete, overall, and harder to work on as your first major contribution to Wikipedia.
+    For that reason, we typically recommend that you pick a different article to work on - one that has more scope for improvement.
+  %p.paragraph
+    Thank you and please let us know if you have any questions or need additional support.
+  %p.paragraph
+    Best regards,
+    %br
+    %em
+      The Wiki Education team
+
+  %p.info
+    This is an automated email from Wiki Education intended to help you avoid problems with your Wikipedia assignment.
+    If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+    by replying, or
+    %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=high-quality-article-assignment-email'} leave feedback here.

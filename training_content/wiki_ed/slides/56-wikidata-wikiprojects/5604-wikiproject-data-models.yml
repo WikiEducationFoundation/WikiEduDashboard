@@ -1,0 +1,34 @@
+id: 5604
+title: "Data models"
+summary:
+content: |
+  WikiProjects are where you can go to find information about which properties to
+  use to describe an item. You will notice that some WikiProjects have a lot of
+  documentation about data models, whereas other projects have very little. Creating
+  data models is a great way to teach new editors how to properly model items
+  and help evaluate item quality.
+
+  In order to create a data model, you need to be familiar with properties that
+  are relevant to that particular topic. Visiting item pages within that topic
+  is a great way to see which properties an item might use. Here is an example
+  of <a href="https://www.wikidata.org/wiki/Wikidata:WikiProject_Medicine/Properties">common properties from WikiProject: Medicine</a>,
+  grouped by popular topics.
+
+  Be sure to provide descriptions for the models you create so other users can
+  follow your logic.
+
+  In the process of creating a data model, you may also discover that an entire
+  property is missing and does not yet exist on Wikidata. You may
+  <a href="https://www.wikidata.org/wiki/Wikidata:Property_proposal">propose a property</a>.
+  Property proposals go through a community approval process to ensure the
+  property doesn't already exist yet, the property contributes to Wikidata in a
+  meaningful way, and the property is formatted correctly.
+
+  **Remember**: Anyone can create a data model, so if you see that a model is
+  missing, feel free to propose one.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Wikidata_wikiproject_medicine_-_data_model_for_trials.png" />
+    <figcaption class="image-credit">
+      This is what a data model looks like on a WikiProject.
+  </figure>

@@ -1,0 +1,19 @@
+id: 5424
+title: "That's it!"
+summary:
+content: |
+  You've learned...
+
+  * how to add a statement on your own
+  * how to add a reference to a statement
+  * how to enable a property recommendation tool, Recoin
+  * how to add a statement using Recoin
+
+  We appreciate any feedback you have about this training module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+  </div>

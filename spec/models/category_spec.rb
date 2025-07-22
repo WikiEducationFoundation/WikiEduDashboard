@@ -1,0 +1,262 @@
+# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: categories
+#
+#  id             :bigint           not null, primary key
+#  wiki_id        :integer
+#  article_titles :text(16777215)
+#  name           :string(255)
+#  depth          :integer          default(0)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  source         :string(255)      default("category")
+#
+
+require 'rails_helper'
+
+RSpec.describe Category, type: :model do
+  describe '.refresh_categories_for' do
+    before do
+      course.categories << category
+    end
+
+    context 'for newly added category' do
+      let(:category) { create(:category, name: 'Sports') }
+      let(:course) { create(:course) }
+
+      it 'updates the category' do
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.article_titles).not_to be_empty
+        end
+      end
+    end
+
+    context 'for category updated more than one day ago' do
+      let(:category) do
+        create(:category, name: 'Films', created_at: 5.days.ago, updated_at: 2.days.ago)
+      end
+      let(:course) { create(:course) }
+
+      it 'updates the category' do
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.updated_at > 30.seconds.ago).to eq(true)
+        end
+      end
+    end
+
+    context 'for category updated less than one day ago' do
+      let(:category) do
+        create(:category, name: 'Animals', created_at: 5.days.ago, updated_at: 12.hours.ago)
+      end
+      let(:course) { create(:course) }
+
+      it 'does not update the category' do
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.updated_at <= 12.hours.ago).to eq(true)
+        end
+      end
+    end
+
+    context 'for a category labeled with error' do
+      let(:category) do
+        create(:category, name: 'Harvard_University', source: 'categoryError')
+      end
+      let(:course) { create(:course) }
+
+      it 'does not try to update the category' do
+        expect(ArticleUtils).not_to receive(:format_article_title)
+        described_class.refresh_categories_for(course)
+      end
+    end
+
+    context 'for a category with too many articles' do
+      let(:category) do
+        create(:category, name: 9964305, source: 'psid', article_titles: ['Q0'])
+      end
+      let(:course) { create(:course) }
+
+      it 'labels the source with error and article_titles is not cleared' do
+        allow_any_instance_of(PetScanApi).to receive(:page_titles_for_psid).and_return(%w[Q1 Q2])
+        call_count = 0
+        allow_any_instance_of(described_class).to receive(:save)
+          .and_wrap_original do |original_method, *args, &block|
+          if call_count == 0
+            call_count += 1
+            raise ActiveRecord::ValueTooLong
+          else
+            original_method.call(*args, &block)
+          end
+        end
+
+        described_class.refresh_categories_for(course)
+        expect(category.reload.source).to eq('psidError')
+        expect(category.article_titles).to eq(['Q0'])
+      end
+    end
+
+    context 'for category-source Category' do
+      let(:category) { create(:category, name: 'Homo sapiens fossils') }
+      let(:course) { create(:course) }
+      let!(:article) { create(:article, title: 'Manot_1') }
+
+      it 'updates article titles for categories associated with courses' do
+        expect(described_class.last.article_titles).to be_empty
+
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
+        end
+      end
+    end
+
+    context 'for psid-source Category' do
+      let(:category) { create(:category, name: 9964305, source: 'psid') }
+      let(:course) { create(:course) }
+      let!(:article) { create(:article, title: 'A cappella') }
+      let(:error_response) { { 'error' => 'PageList::run_batch_query: SQL query error[1]' } }
+
+      it 'updates article titles for categories associated with courses' do
+        # Pending is used here to make sure that the build passes when PetScan is down
+        pending 'Fails when PetScan is down.'
+        expect(described_class.last.article_titles).to be_empty
+
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
+        end
+        pass_pending_spec
+      end
+
+      it 'fails when PetScan is unreachable but article_titles is not cleared' do
+        category.update(article_titles: ['Q0'])
+        expect(category.article_titles).to eq(['Q0'])
+        expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
+        described_class.refresh_categories_for(course)
+        expect(described_class.last.article_titles).to eq(['Q0'])
+      end
+
+      it 'fails when PetScan is invalid but article_titles is not cleared' do
+        category.update(article_titles: ['Q0'])
+        expect(category.article_titles).to eq(['Q0'])
+        expect_any_instance_of(PetScanApi).to receive(:get_data).and_return(error_response)
+        described_class.refresh_categories_for(course)
+        expect(described_class.last.article_titles).to eq(['Q0'])
+      end
+    end
+
+    # Pagepile is a tool for representing a static list of articles —
+    # both existing and not — on a single wiki: https://pagepile.toolforge.org/
+    context 'for pileid-source Category' do
+      # Example pile from `lawiktionary`: https://pagepile.toolforge.org/api.php?action=get_data&format=json&id=28301
+      let(:category) { create(:category, name: 28301, source: 'pileid') }
+      let(:course) { create(:course) }
+      let(:lawiktionary) { Wiki.get_or_create(language: 'la', project: 'wiktionary') }
+      let(:article) { create(:article, wiki: lawiktionary, title: 'America') }
+
+      it 'updates article titles and wiki for categories associated with courses' do
+        pending 'Fails when PagePile is down.'
+        expect(described_class.last.article_titles).to be_empty
+        expect(described_class.last.wiki.language).to eq('en')
+
+        VCR.use_cassette 'categories' do
+          expect(article.wiki.language).to eq('la')
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
+          expect(described_class.last.wiki).to eq(lawiktionary)
+        end
+        pass_pending_spec
+      end
+
+      it 'fails when fetching a PagePile errors but article_titles is not cleared' do
+        category.update(article_titles: ['Q0'])
+        expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
+        expect(Sentry).to receive(:capture_exception)
+        described_class.refresh_categories_for(course)
+        expect(described_class.last.article_titles).to eq(['Q0'])
+      end
+    end
+
+    context 'for template-source Category' do
+      let(:category) { create(:category, name: 'Malaysia-sport-bio-stub', source: 'template') }
+      let(:course) { create(:course) }
+      let!(:article) { create(:article, title: 'Nur_Shazrin_Mohd_Latif') }
+
+      it 'updates article titles for categories associated with courses' do
+        expect(described_class.last.article_titles).to be_empty
+
+        VCR.use_cassette 'categories' do
+          described_class.refresh_categories_for(course)
+          expect(described_class.last.article_titles).not_to be_empty
+          expect(described_class.last.article_ids).to include(article.id)
+        end
+      end
+    end
+  end
+
+  context 'when the requested page is missing' do
+    let(:mr_wiki) { create(:wiki, language: 'mr', project: 'wikipedia') }
+    let(:category) do
+      # This is a template that mistakenly includes the localized template prefix,
+      # so it ends up double-prefixed in the search, and is thus not found.
+      create(:category, name: 'साचा:स्वातंत्र्यलढा_अभियान_२०१८',
+                        wiki: mr_wiki, source: 'template')
+    end
+
+    before do
+      stub_wiki_validation
+    end
+
+    it 'works without error' do
+      VCR.use_cassette 'categories/mr_wiki' do
+        category.refresh_titles
+        expect(category.article_titles).to eq([])
+      end
+    end
+  end
+
+  describe '.refresh_titles' do
+    let(:pt_wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
+    # Portuguese language category with 'Discussão:' in prefixes
+    let(:category1) do
+      create(:category, name: '!Artigos de importância 1 sobre Museu Paulista',
+             wiki: pt_wiki, source: 'category')
+    end
+    # English language template-source category with several 'Talk:' in prefixes
+    let(:category2) do
+      create(:category, name: 'WikiProject Punjab', wiki: Wiki.find(1), source: 'template')
+    end
+
+    let(:emoji_cat) do
+      create(:category, name: 'Redirects from emoji', wiki: Wiki.find(1), source: 'category')
+    end
+
+    it 'escapes four-byte emoji titles' do
+      VCR.use_cassette 'categories' do
+        emoji_cat.refresh_titles
+        expect(emoji_cat.article_titles).not_to include '💫'
+        expect(emoji_cat.article_titles).to include '%F0%9F%92%AB'
+      end
+    end
+
+    it 'does not include Discussão: prefix in titles' do
+      VCR.use_cassette 'categories' do
+        category1.refresh_titles
+        expect(category1.article_titles.select { |title| title.include? 'Discussão:' }).to eq([])
+      end
+    end
+
+    it 'does not include Talk: prefix in titles' do
+      VCR.use_cassette 'categories' do
+        category2.refresh_titles
+        expect(category2.article_titles.select { |title| title.include? 'Talk:' }).to eq([])
+      end
+    end
+  end
+end

@@ -1,0 +1,18 @@
+id: 5512
+title: "That's it for now!"
+summary:
+content: |
+  We are just scratching the surface of what you can do with queries, but now
+  we are familiar with the basic steps of Wikidata queries. Go ahead and play with some
+  more of the examples in the example folder.
+
+  Don't forget: Querying is the best way to find meaning from linked data. Keep
+  in mind that it's well-modeled data that makes querying useful. This is why
+  properties are so important.
+
+  If you have any feedback about this module, let us know!
+
+    <div class="training__button-container">
+    <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+    Submit feedback </a>
+    </div>

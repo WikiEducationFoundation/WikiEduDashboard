@@ -1,0 +1,23 @@
+id: 5309
+title: "Checking an item's history"
+summary:
+content: |
+  Wikidata maintains a record of every edit that was ever made to an item.
+  Wikidata's edit history is a very useful tool for tracing the way that
+  information about an item has been changed over time.
+
+  Clicking on the "View history" link at the top of any page will show you a
+  list of changes to the item.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Edit_history_on_a_Wikidata_item.png" />
+    <figcaption class="image-credit">
+      You can see the edit history of an item.
+    </figcaption>
+  </figure>
+
+  You can see the date the edit was made, the editor who made the edit, the
+  current size of the page (in bytes), the size of the change made, and an edit
+  summary that briefly describes what was done. If you're familiar with edit
+  summaries in Wikipedia, you'll notice that these are a little different in
+  that the edit summaries on items are automated.

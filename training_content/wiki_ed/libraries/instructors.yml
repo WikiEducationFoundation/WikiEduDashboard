@@ -1,0 +1,45 @@
+name: Instructor Orientation Modules
+id: 1
+introduction: |
+  This page contains a variety of modules intended to help instructors get
+  started with Wikipedia-based classroom assignments in higher education.
+categories:
+  - title: Assignment Design and Best Practices
+    description: Guidance for building a great Wikipedia classroom assignment
+    modules:
+      - slug: new-instructor-orientation
+        name: How to teach with Wikipedia
+        description: |
+          What to expect from your first Wikipedia project. New instructors
+          should complete this module before creating their first course
+          project.
+      - slug: designing-a-writing-assignment
+        name: 'Designing a Wikipedia Writing and Research Assignment'
+        description: 'A case study of the "classic" Wikipedia assignment'
+      - slug: designing-a-translation-assignment
+        name: Designing a Translation Assignment
+        description: |
+          A case study of an assignment to translate article from French
+          Wikipedia to English Wikipedia
+      - slug: illustration-assignment
+        name: Designing a Media Contribution Assignment
+        description: |
+          A case study of an assignment to illustrate Wikipedia with photos and
+          other media contributions
+      - slug: assigning-medical-topics
+        name: Assigning Medical and Psychology Topics
+        description: |
+          Special considerations for Wikipedia projects involving medicine- and
+          health-related topics
+      - slug: finding-articles
+        name: Finding Articles
+        description: |
+          If you'd like to find articles for your students to work on, this
+          orientation offers some key information. It's a quick guide to help
+          you find articles relevant to your course.
+      - slug: fixing-bad-articles
+        name: Fixing bad articles
+        description: |
+          How to clean up major problems in articles that your students worked
+          on
+  

@@ -1,0 +1,22 @@
+- content_for :before_title, 'Campaigns — '
+
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
+= hot_javascript_tag 'campaigns'
+
+.container.dashboard
+  %header
+    %h1
+      = t('campaign.campaigns')
+
+%section
+  .container
+    %hr
+    - if current_user && (current_user.admin? || Features.open_course_creation?)
+      %div
+        %button.button.dark.create-campaign-button
+          = t('campaign.create_campaign')
+
+    %div.create-modal-wrapper{class: @campaign.errors.any? || params[:create] ? 'show-create-modal' : 'hidden'}
+      = render 'create_modal'
+
+%div#react_root

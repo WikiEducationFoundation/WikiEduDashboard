@@ -1,0 +1,18 @@
+id: 5113
+title: "That's all for now!"
+summary:
+content: |
+  In this training you learned...
+
+  * the basic principles behind databases and linked data
+  * why linked data and Wikidata are so important
+  * some basic vocabulary around databases, querying, and formatting
+
+  We appreciate any feedback you have about this training module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+  </div>

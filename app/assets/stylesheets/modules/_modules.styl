@@ -1,0 +1,139 @@
+@import './_notifications'
+
+.module
+  background-color white
+  border 1px solid zircon
+  margin 20px auto
+  padding 20px
+
+  .section-header
+    min-height 40px
+    padding 0
+    h3
+      color bayoux
+    .controls
+      padding 0
+
+  .module__data
+    textarea
+      width 100%
+    p > .button
+      margin-left 0
+      text-align center
+      width 100%
+
+  .week
+    margin-bottom 0 !important
+
+.module.course-approval
+  .course-approval-form
+    margin-top 20px
+
+    .course-approval-field
+      display flex
+      .group-left
+        width 30%
+      .group-right
+        width 70%
+        input
+          width 100%
+          border-radius 4px
+
+  .course-approval-loader
+    color bayoux
+    display flex
+    position absolute
+    top 0
+    right 0
+    .loading__spinner__small
+      margin-left 20px
+
+.heading-advice
+  display: inline-block
+
+.subheading-advice
+  margin: 0 0 0 10px
+
+.list-advice
+  margin: 0 0 5px 10px
+  
+.list-advice2
+  margin: 0 0 16px 10px
+
+.close-icon-advice
+  display: inline-block
+  float: right
+
+.module.enroll
+  position relative
+  padding 30px 40px 40px 40px
+
+  h1
+    font-weight 300
+    margin-bottom 20px
+
+  .button
+    margin-left 0
+    margin-right 10px
+
+  .close
+    position absolute
+    top 20px
+    right 20px
+
+.module.actions
+  z-index 0
+
+.module.course-details
+  p
+    margin 0
+
+  .tooltip-trigger
+    display inline-block
+    position relative
+    img
+      height 20px
+      width 20px
+      margin-left 5px !important
+      margin-bottom -4px
+
+.module.course-description,
+.module.campaign-description
+  table
+    margin-bottom 16px
+    border 1px solid border_lt
+    &:last-child
+      margin-bottom 0
+    td, th
+      vertical-align top
+      padding .5em .75em
+      height auto
+      border 1px solid border_lt
+      white-space normal
+    thead
+      background smoke
+
+.module__controls
+  overflow hidden
+
+.module__controls .button
+  float right
+
+.notification--survey .container
+  justify-content space-between
+
+  & > div
+    flex 1
+
+  .dismiss
+    font-size 2em
+
+.course-alerts .notification:nth-of-type(n+2)
+  border-top 2px solid darken(sprout, 20%)
+
+@media only screen and (max-width: 920px)
+  .course-alerts
+    margin-top -30px
+    +below(desktop)
+      margin-top: 0px
+

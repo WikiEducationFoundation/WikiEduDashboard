@@ -1,0 +1,27 @@
+# Messages for Doteli (डोटेली)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nirajan pant
+# Author: जनक राज भट्ट
+---
+dty:
+  articles:
+    rating_docs:
+      does_not_exist: यो लेख विकिपिडियामी उपलब्ध आथिन
+    wp10: संरचनात्मक पूर्णता
+  courses:
+    overview: घर
+    students: इस्कुल्या
+    students_short: इस्कुल्या
+  users:
+    name: नाऊ
+  user_profiles:
+    student_impact: '%{username}ले विद्यार्थीया रूपमी पाण्याऽ कूल प्रभाव'
+    instructor_impact: '%{username}ले प्रशिक्षकाः रूपमी पाण्याऽ कूल प्रभाव'
+    instructors_student_impact: '%{username}का विद्यार्थीइनले पाण्याऽ कूल प्रभाव'
+  wizard:
+    select_one_option: कृपया १ विकल्प छानअ।
+  error:
+    invalid_file_format: फाइल सुरक्षित अद्द सकिएन। कृपया PDF या Word कागजात अपलोड
+      अरअ।
+...

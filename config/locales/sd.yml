@@ -1,0 +1,440 @@
+# Messages for Sindhi (سنڌي)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aursani
+# Author: BukhariSaeed
+# Author: Indus Asia
+# Author: JogiAsad
+# Author: Macofe
+# Author: Mehtab ahmed
+# Author: Tweety
+---
+sd:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: هزار
+          million: ملين
+          billion: بلين
+          trillion: ٽريلين
+          quadrillion: ڪواڊريلين
+  accessibility:
+    number_field: هي هڪ انگ جي جڳھ آهي. گهڻي ريت برائوزر وسيلي پيش ڪيل بٽڻ اِن پُٽِ
+      کي وَڌائڻ يا گهٽ ڪري سگهن ٿا.
+  application:
+    cancel: رد
+    cookie_consent: هيءَ سائيٽ توهان کي لاگ اِن (داخل رکڻ) لاءِ ڪوڪيز استعمال ڪندي
+      آهي، ۽ توهان جي وڪيپيڊيا کاتو يا اڪائونٽ بابت معلومات جمع ڪندي آهي.
+    cookie_consent_acknowledge: مان سمجهان ٿو
+    cookie_consent_see_more: وڌيڪ ڏسو
+    create_accounts: وڪيپيڊيا کاتا کوليو
+    dashboard: وڪي تعليم ڊيشبورڊ
+    documentation: دستاويزسازي
+    error: 'ڪا خرابي ھئي:'
+    explore: کوجيو
+    field_required: ھي جڳھ گهربل آھي
+    field_invalid_characters: ھن جڳھ ۾ ناقلِڪار حرف آھن
+    field_invalid_date: ھن جڳھ تي YYYY-MM-DD فارميٽ ۾ تاريخ گهرجي ٿي.
+    field_invalid_date_time: پڇاڙي شروع کانپوءِ ٿيڻ گهرجي. (0 کان 23 تائين ڪلاڪ وڃن
+      ٿا.)
+    greeting2: ڀليڪار!
+    greeting_extended: وڪيپيڊيا ۾ ڀليڪار
+    greeting: سلام!
+    help: مدد
+    home: مک صفحو
+    log_in_extended: وڪيپيڊيا سان داخل ٿيو
+    log_in: داخل ٿيو
+    log_out: ٻاھر نڪرو
+    my_dashboard: منھنجو ڊيش-بورڊ
+    recent_activity: تازي سرگرمي
+    report_problem: مسئلو رپورٽ ڪريو
+    request_account: کاتي لاءِ درخواست ڪيو
+    request_account_create: کاتو کوليو
+    search: ڪو سوال پڇو
+    search_results: ' نتيجن لاءِ: ''٪ {search_terms}'''
+    no_results: '''٪{query}'' لاءِ ڪي بہ نتيجا نه مليا'
+    sign_up_extended: وڪيپيڊيا ۾ کاتو کوليو
+    sign_up_wikipedia: يا وڪيپيڊيا تي سائن اَپ ڪيو
+    sign_up_log_in_extended: وڪيپيڊيا سان
+    sign_up: کاتو کوليو
+    submit: اماڻيو
+    training: تربيت
+    change: بدلايو
+    details: تفصيلَ
+    confirm: ٺيڪ
+    opt_in: ها
+    opt_out: نہ
+    opt_yes: ھا
+    opt_no: نہ
+  article_statuses:
+    not_yet_started: شروع ڪريو
+    in_progress: مشق پٽي ۾ ڪم ڪرڻ
+    ready_for_review: ڊرافٽ کي وَڌائڻ
+    ready_for_mainspace: ڪم کي مُک اسپيس ڏانهن موڪلڻ
+    assignment_completed: ذميواري ڪم لڳل نشان پورو ڪيو ويو
+    reading_the_article: پڙهڻ جو مضمون
+    providing_feedback: فيڊ بئڪ (سُڌ سماءُ) پھچايو
+    post_to_talk: بحث صفحي ۾ درج ڪندي
+    peer_review_completed: پرک، ورجاءُ پورو ٿيو
+  dashboard:
+    create_note: پنهنجو پهريون اڀياس (ڪورس) ٺاهڻ لاءِ ڪورس ٺاهڻ تي ٺِڙڪ (ڪلڪ) ڪريو.
+    explore_course_pages: ڪورس جا صفحا کوجيو
+    explore_examples: مثالَ ڳوليو
+    no_courses_instructor: لڳي ٿو توھان وٽ ڪي بہ ڪورس نہ آھن.
+    no_courses_student: لڳي ٿو توھان اڃان ڪو ڪورس جوائن نہ ڪيو آھي.
+    review_orientation: واقفيت جو جائزو وٺو
+    start_orientation: اوريئنٽيشن شروع ڪيو
+    blog_headline: وڪي ايڊيوڪيشن مان تازيون خبرون
+  home:
+    explore: کوجيو
+    log_in: وڪيپيڊيا سان داخل ٿيو
+    sign_up: وڪيپيڊيا ۾ کاتو کوليو
+    sign_up_help: To use the dashboard, you'll need to sign in through Wikipiedia
+      and give it permission to access your account. You can log in with an existing
+      Wikipedia account, or create a new one.
+  alerts:
+    alert_label: چِتاوڻيون
+    no_alerts: ڪي بہ چِتاوڻيون نہ لڌيون.
+  activity:
+    all: سرگرمي
+    edited_by: سنواريندڙ
+    label: سرگرمي
+  articles:
+    article_development: (مضمون جي ترقي)
+    assigned: تخصيصيل مضمون
+    available: موجود مضمون
+    no_available: موجود مضمونَ ڪونھن
+    next: اڳيون
+    previous: پويون
+    article_title: مضمون جو عنوان
+    assigned_to: تخصيصدار
+    character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
+      ڪيل حرفن جو ڪل تعداد
+    deleted: ڊاٿل
+    edited: سنواريل مضمون
+    edited_by: جي طرفان سنواريو ويو
+    edited_mobile: مضمون
+    filter:
+      wiki_all: سڀ
+      new: نئون
+      existing: موجوده
+      new_and_existing: نئون ۽ موجوده
+      tracked: پيرو کنيو ويو
+      untracked: اڻ ٽريڪ ڪيل
+      tracked_and_untracked: ٽريڪ ڪيل ۽ اڻ ٽريڪ ڪيل
+    hide: لڪايو
+    history: اڳوڻا تفصيل
+    label: مضمون
+    loading: مضمون اتارجي رهيا آهن...
+    new: (نئون)
+    none: هن ڪورس ڪي بہ مضمون نہ سنواريا آهن.
+    rating: درجو
+    rating_docs:
+      a: '%{class}-درجو — تفصيلي ۽ ڀرپور مضمون، جيڪو ڪنھن نئين ايڊيٽر جي مکيہ رٿا
+        لاءِ هيڪاندو اُسريل هجي'
+      ga: '%{class} (سٺو مضمون) — ڀليءَ ڀت تحريريل مضمون، جيڪو ڪنھن نئين ايڊيٽر جي
+        مکيہ رٿا لاءِ هيڪاندو اُسريل هجي'
+      b: '%{class}-درجو — ٺيڪ ٺاڪ لکيل مضمون'
+      c: '%{class}-درجو —  هڪ درميانہ مضمون، جنھن ۾ سڌاري جي گنجائش موجود آهي'
+      start: '%{class}-آغازي درجو — هڪ ابتدائي مضمون، جنھن ۾ سڌاري جي تمام گھڻي گنجائش
+        موجود آهي'
+      stub: '%{class}-ڪچو درجو — ڪنھن مضمون جي مختصر شروعات جيڪو وڌيڪ مواد گھري'
+      list: '%{class}-فھرست درجو — ڪنھن روايتي مضمون بدران هڪ فھرست'
+    see_more: وڌيڪ ڏسو
+    show_current_version: تازو ورجاءُ ڏيکاريو
+    title: عنوان
+    tracked: پيرو کنيو ويو
+    title_example: مضمون جو عنوان
+    tools: تشخيص جا اوزار
+    view: مضمون ڏسو
+    view_all: سڀ ڏسو
+    view_on_wiki: وڪيءَ تي ڏسو
+    edit_size: سنوار جي ماپ
+    wiki: وڪي
+  assignments:
+    article_link: مضمون
+    already_exists: هيءُ سونپيل ڪم اڳ ئي موجود آهي!
+    assignees: تخصيصدار
+    assign_other: مضمون سونپيو
+    add_available: موجود مضمون وجهو
+    add_available_submit: مضمونَ شامل ڪريو
+    assign_self: مون کي مضمون سونپيو
+    bibliography: ببلوگرافي
+    clone: ڪِلون
+    confirm_deletion: پڪ سان توهان هيءَ مضمون مشق ڊاهڻ گھرو ٿا؟
+    editors: کي حوالي ڪيو ويو
+    group_members: گروپ رُڪنَ
+    label: سونپيو
+    loading: مشقون اتاري رهيا آهيون...
+    none_short: ڪوبہ مضمون سونپيل ناھي
+    none: هن ڪورس لاءِ ڪو بہ مضمون سونپيل نہ آهي.
+    no_available: ھن ڪورس ۾ ڪي بہ مضمون موجود نہ آھن.
+    peer_review_link: شريڪ نظرثاني
+    peer_review_link_personalized: '%{username}''جي شريڪ نظرثاني'
+    remove: هٽايو
+    reviewers: تجزيو ڪندڙ
+    review_other: شريڪ پاران نظرثاني لاءِ سونپيو
+    review_self: ڪنھن مضمون جي نظرثاني ڪريو
+    sandbox_draft_link: مشق پَٽي ڊرافٽ
+    select: چونڊيو
+  blocks:
+    milestones:
+      title: سنگ-ميلَ
+  campaign:
+    active_campaigns: هلندڙ مهم
+    add_organizer: انتظام ڪندڙ شامل ڪريو
+    alert_article: مضمون جو عنوان
+    alert_label: اطلاع مهم
+    alert_type: قِسم
+    alert_user_id: واپرائيندڙ
+    all_campaigns: سڀ مھمون
+    already_exists: ان نالي سان مهم اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، يا سُرخي آزمايو.
+    campaign: مهم (Campaign)
+    campaigns: مهم (Campaign)
+    campaign_updated: مهم تازي ڪئي وئي
+    created_at: تاريخ
+    course: ڪورس
+    description: تفصيل
+    delete_campaign: هيءَ ڪئيمپين ڊاهيو
+    none: ڪوبہ نہ
+    organizers: سرپرستَ (Organizers)
+    title: عنوان
+  categories:
+    add_category: زمرو وجهو
+    add_template: سانچو وجهو
+    add_this_category: هي زمرو وجهو
+    add_this_template: ھي سانچو وجهو
+    name: نالو
+    category_name: ڏَسان (زمري) جو نالو
+    template_name: سانچي جو نالو
+    remove: هٽايو
+  courses:
+    activity: سرگرمي
+    alerts: تاڪيدون
+    all_courses: سڀئي ڪورسَ
+    archived: آرڪائيوو ٿيل ڪورسَ
+    actions: عمل
+    articles: مضمون
+    calendar:
+      legend: ڪنجي
+      legend_class_canceled: موڪل/ردٿيل
+      legend_class_not_meeting: ڪابہ طي شده گڏجاڻي ناھي
+      select_meeting_days: ھفتي جا اھي ڏينھن چونڊيو جن تي اوھان جي ڪلاس جي گڏجاڻي
+        ٿئي ٿي.
+    cancel: رد
+    course: ڪورس
+    course_description: ' ڪورسز'
+    courses: ڪورسز
+    creation_date: ٺاهڻ جي تاريخ
+    creator:
+      course_description: ڪورس جو تفصيل
+      course_subject: ڪورس جو سبجيڪٽ
+      course_title: ڪورس جو عنوان
+      create_button: منھنجو ڪورس سرجيو!
+      create_label: نئون ڪورس ٺاهيو
+      create_new: نئون ڪورس ٺاهيو
+      create_short: ڪورس ٺاهيو
+      end_date: پڄاڻيءَ جي تاريخ
+      end_date_placeholder: YYYY-MM-DD
+      expected_number: شاگردن جو گُهربل تعداد
+      find: پنھنجو ڪورس ڳولھيو
+      save_cloned_course: نئون ڪورس سانڍيو
+      start_date: شروع ڪرڻ جي تاريخ
+      start_date_placeholder: YYYY-MM-DD
+      subject: موضوع
+    current: حاليہ ڪورسز
+    data_articles: مضمونن جي ڊيٽا
+    data_overview: انگ اکرَ ڏسو
+    delete_course: ڪورس ڊاهيو
+    delete_suggestion: ڊاھيو
+    dismiss_survey: برخواست ڪريو
+    duration: ڪورس جو دورانيو
+    edit_count: سنوارن جو ڳاڻيٽو
+    end: پُڄاڻي
+    ended: ڪورس ختم ٿي ويو آهي.
+    error:
+      exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
+      user_exists: معاف ڪندا، %{username} نالي واپرائيندڙ وجود نٿو رکي.
+    feedback: اوهان جي راءِ
+    instructor:
+      one: استادُ
+      other: استادَ
+    instructors: سکيا ڏيندڙ
+    join: شامل ٿيو
+    my_articles: منهنجا مضمونَ
+    new_week: نئون هفتو وجهو
+    new_account_email: ايميل پتو
+    new_account_username: گهريل واپرائيندڙنانءُ
+    new_account_username_placeholder: وڪي سنواريندڙ 123
+    nocourses: توهان ڪنھن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
+    none: ڪوبہ نہ
+    overview: مک صفحو
+    private: ذاتي
+    revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
+    school: اسڪول
+    students: شاگرد
+    students_count: '# شاگردَ'
+    students_none: هن ڪورس ۾ ڪي بہ شاگرد نہ آهن.
+    students_short: شاگرد
+    user_role: ڪردار
+    subject: موضوع
+    timeline: مشق جا تفصيل
+    title: عنوان
+    training_nav: تربيت لاءِ وڃو
+    user_suggestions: 'واپرائيندڙ جا مشورا:'
+    view: ڪورس ڏسو
+    view_wiki: وڪي‌پيڊيا تي ڏسو
+    weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
+    wiki_edits_enabled: وڪي سوارڻ کيل آهي
+    wiki_staff: وڪي تعليم عملو
+    yourcourses: توهان جا ڪورسز
+  courses_generic:
+    all_courses: سڀ سٽاءَ (پروگرام)
+    course: پروگرام
+    courses: پروگرامَ
+    creator:
+      course_term: ڪڏهن
+      course_term_placeholder: ڪڏهن
+      course_title: پروگرام جو عنوان
+      create_button: منھنجو پروگرام سرجيو!
+      create_label: نئون پروگرام ٺاهيو
+      save_cloned_course: سانڍيو
+      scoping_methods:
+        categories: زمرا
+    delete_course: پروگرام ڊاهيو
+    edit_course_dates: رٿا جون تاريخون سنواريو
+    enroll: سنواريندڙ شامل ڪريو
+    explore: پروگرامَ ڳوليو
+    school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
+    student_editors: سنواريندڙَ
+    students: ايڊيٽرَ
+    students_taught: ڪُل سنواريندڙَ
+    term: ڪڏهن
+    yourcourses: توهان جا پروگرامَ
+  editable:
+    edit: سانڍيو
+    save: سانڍيو
+  instructor_view:
+    assignments_table:
+      article_name: نالو
+    bad_work:
+      learn_more_button: وڌيڪ ڄاڻيو
+  metrics:
+    activity: تازي سرگرمي
+    articles_created: سرجيل مضمون
+    articles_edited: سنواريل مضمون
+    characters: حرفَ
+    char_added: شامل ڪيل اکرن جو تعداد
+    char_changed: بدلايل نشانيون
+    char: شامل ڪيل اکرن جو تعداد
+    date_time: تاريخ/وقت
+    edit_count_description: ڪل سنوارون
+    revisions: تازيون سنوارون
+    view_count_description: مضمون جون ڏيٿون
+    view: ڏيٺون
+    general: عام
+    redirects_created: چورڻا سرجيا ويا
+  namespace:
+    all: سڀ
+    main: مک پولار
+    article: مضمون
+    user: يُوزرپولار
+    category: زمرو
+  recent_activity:
+    article_title: مضمون جو عنوان
+    datetime: تاريخ/وقت
+    no_edits: ڪي بہ تازيون سنوارون ناھن.
+    recent_edits: تازيون سنوارون
+  revisions:
+    chars_added: شامل ڪيل اکر
+    class: درجو
+    date_time: تاريخ / وقت
+    diff: فرق
+    diff_show: ڏيکاريو
+    diff_hide: لڪايو
+    edited_by: سنواريندڙ
+    loading: ڀيرا اتاريندي ...
+    none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
+    time_doc: توهان جي مقامي وقت مطابق هر هڪ ورجاءَ جو وقت
+    title: عنوان
+  timeline:
+    add_week: هفتو شامل ڪريو
+    block_in_class: ڪلاس ۾
+    block_milestone: سنگ-ميلَ
+    due_default: مٿين هفتي واجب
+    empty_week_3: يا
+    reset_titles: پاڻمرادوڏنل طرف ٻيھر مرتب ڪريو
+    save_all_changes: سڀ سانڍيو
+    this_week_title_default: هن هفتي
+    title: اوقاتي خط
+  training:
+    view: ڏسو
+    page: صفحو
+  uploads:
+    file_name: فائيل جو نالو
+    header: وڪيپيڊيا العام تي فائيل چاڙهيا ويا
+    image: عڪس
+    label: چڙهيل
+    loading: چاڙھون چڙهي رهيون آهن...
+    none: هن ڪلاس وڪي‌ذريعات اشتراڪ ۾ ڪي بہ عڪس يا ٻي ذريعات شامل ڪرڻ واري ڀاڱيداري
+      نہ نڀائي آهي.
+    time_doc: توهان جي مقامي وقت مطابق هر هڪ چاڙهہ جو وقت
+    uploaded_by: جي طرفان چاڙهيل
+    usages: استعمال
+  users:
+    already_enrolled: اهو واپرائيندڙ اڳ ئي داخل ٿيل آهي!
+    assigned: تخصيصيل مضمون
+    assignees: تخصيصدار
+    contributions: واپرائيندڙ جون ڀاڱيداريون
+    contributions_more: وڌيڪ ڀاڱيداريون ڏسو
+    editors: شاگرد سنواريندڙ
+    edits: سنواريو
+    loading: واپرائيندڙَ اتاري رهيا آهيون...
+    name: نالو
+    none: ڪي بہ شرڪت ڪندڙ نہ آهن.
+    number_of_articles:
+      one: '%{count} مضمون'
+      other: '%{count} مضمونَ'
+    recent_revisions: تازيون سنوارون
+    revisions_doc: هن سنواريندڙ پاران گذريل 7 ڏينھن ۾ ڪيل سنوارن جو انگ
+    reviewers: نظرثاني ڪندڙ
+    reviewing: نظرثاني ڪندي
+    training_complete_count: '%{count} تربيت حاصل ڪئي'
+    training_incomplete: تربيت نامڪمل
+  user_profiles:
+    location_placeholder: پنھنجي مڪانيت شامل ڪريو (اختياري)
+    institution_placeholder: اداري (انسٽيٽيوشن) جو نالو (اختياري)
+  wizard:
+    assignment_dates: مشقن جون تاريخون
+    assignment_description: هن مشق جون آغازي ۽ انجامي تاريخون چونڊيو
+    assignment_type: مشق جو قسم
+    course_dates: ڪورس جون تاريخون
+    read_less: گھٽ پڙهو
+    read_more: وڌيڪ پڙهو
+    select_assignment: پنھنجي وقت-پٽي ۾ رکڻ لاءِ مشقن جو قسم چونڊيو.
+    summary: تَتُ
+  error:
+    oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
+    unsupported_browser:
+      header: سپورٽ-نہ-ٿيل برائوزر.  :-(
+      explanation: توهان اهڙو جھانگُو استعمال ڪري رهيا آهيو، جيڪو ڊيشبورڊ سان موافق
+        نہ آهي. هيءَ سرزمين انٽرنيت ايڪسپلورر جي 11هين يا اڃا نئين ورزن، ڪروم ۽ فائرفاڪس
+        جي نون ورزنس، ۽ ڪن ٻين جديد جھانگُوئن تي ٺيڪ نظر ايندي آهي.
+  error_401:
+    header: غير منظور شده. >:-(
+  error_404:
+    header: صفحو نہ لڌو. :-(
+    explanation: هيءُ صفحو وجود نٿو رکي. جيڪڏهن توهان ڪنھن ڪورس لاءِ ڊيشبورڊ تائين
+      رسائيءَ جي ڪوشش ڪري رهيا هئا، تہ ممڪن آهي اهو ڪورس هن ڊيشبورڊ تي رجسٽر ٿيل نہ
+      هجي.
+  error_500:
+    explanation: ڪا خرابي ٿي وئي. هن ڊيشبورڊ جو رک رکاءُ ڪندڙن سان رابطو ڪريو ۽ کين
+      اهڙي آگاهي ڏيو.
+  login_error:
+    header: داخل ٿيڻ چڪ
+  article_finder:
+    tools: اوزارَ
+  training_status:
+    completed: مڪمل
+...

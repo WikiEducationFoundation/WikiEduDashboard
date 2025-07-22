@@ -1,0 +1,21 @@
+name: 'Peer review'
+id: 12
+description: |
+  How do you critique an article created by a peer or classmate? This exercise
+  will provide you with a framework to improve your classmates' articles.
+estimated_ttc: 7 minutes
+slides:
+  - slug: peer-review-welcome # 1201
+  - slug: getting-started-with-peer-reviews # 1212
+  - slug: finding-the-work-to-review # 1214
+  - slug: posting-your-review # 1213
+  - slug: share-the-love # 1209
+  - slug: what-is-good # 1202
+  - slug: follow-their-lead # 1203
+  - slug: a-clear-structure # 1204
+  - slug: a-balancing-act # 1205
+  - slug: neutral-content # 1206
+  - slug: check-for-reliable-sources # 1207
+  - slug: start-your-review # 1208
+  - slug: peer-review-quiz # 1210
+  - slug: peer-review-complete # 1211

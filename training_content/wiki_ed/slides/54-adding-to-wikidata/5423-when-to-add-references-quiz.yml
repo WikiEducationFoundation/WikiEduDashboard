@@ -1,0 +1,36 @@
+id: 5423
+title: "References quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 1
+  question: |
+    When should you add references?
+  answers:
+    - id: 1
+      text: |
+        You should add references to controversial statements.
+      explanation: |
+        CORRECT! All statements should have a reference - regardless of whether
+        or not they are controversial.
+    - id: 2
+      text: |
+        If an item already has a reference you can't add additional references.
+      explanation: |
+        INCORRECT! Statements can have multiple references. Note: If a new
+        reference causes a statement to not be true, you will want to create a
+        qualifier for that statement to distinguish the different values from
+        one another.
+    - id: 3
+      text: |
+        If the source you want to reference does not exist as a Wikidata item
+        already, you cannot add it as a reference.
+      explanation: |
+        INCORRECT! You can add references that are external to Wikidata. You can
+        also create Wikidata items and add them as sources.
+    - id: 4
+      text: |
+        You can't add references that are "imported from Wikipedia."
+      explanation: |
+        INCORRECT! "Imported from Wikipedia" is a valid reference since all
+        Wikipedia articles (should) contain references themselves.

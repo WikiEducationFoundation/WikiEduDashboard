@@ -1,0 +1,29 @@
+id: 5509
+title: "Structure (continued)"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Query_example_-_cats.png" />
+    <figcaption class="image-credit">
+      A little more about the parts of SPARQL.
+    </figcaption>
+  </figure>
+
+  <code>WHERE</code>
+
+  The <code>WHERE</code> statement tells the query which kinds of values it wants to attach
+  to the variables. The curly brackets <code>{</code> and <code>}</code> enclose
+  the instructions - or clause - applied to the variables of the <code>WHERE</code> statement.
+
+  <code>?item wdt:P31 wd:Q146 .</code>
+
+  This is the core element of our query. We're telling the query service which
+  pieces of information we're looking for. <code>P31</code> is the "instance of" property,
+  while <code>Q146</code> is the value associated with it. In this case, the value is house
+  cat. This is where we're telling the service "to give us the Wikidata items
+  where "instance of" equals "house cat".
+
+  <code>SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }</code>
+
+  This next line tells the query to use a service that will assign the property
+  "label" (recall that it's the human-readable value associated with an item).

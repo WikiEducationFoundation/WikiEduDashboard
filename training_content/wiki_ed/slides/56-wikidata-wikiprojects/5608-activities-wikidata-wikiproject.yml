@@ -1,0 +1,20 @@
+id: 5608
+title: "Activities"
+summary:
+content: |
+  * Explore this <a href="https://www.wikidata.org/wiki/Wikidata:WikiProjects">list of WikiProjects</a>
+  to familiarize yourself with the various projects on Wikidata. You'll find
+  data models for every subject-area on this page.
+  * Join a WikiProject that interests you.
+  * Evaluate a data model and suggest adding some properties that may be missing
+  from it. Don't forget that you can find data models on WikiProjects. In the
+  event they don't exist, you will have to create them yourself.
+  * Propose a property that doesn't exist on Wikidata yet. Think about how to
+  describe important concepts in your field. Is there something that expresses
+  important connections between these concepts and others? When you try to add
+  more information to items are you frustrated because a current property is not
+  the best fit? This could be a candidate for a new property.
+  * Propose an entire data model for a concept or thing that does not exist yet.
+  The more well-documented data models Wikidata has, the easier it will be for
+  editors to contribute in a meaningful way and the easier it will be for users
+  to understand how Wikidata works.

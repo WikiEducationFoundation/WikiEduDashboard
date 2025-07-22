@@ -1,0 +1,35 @@
+id: 5422
+title: "Statements quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 4
+  question: |
+    When adding statements you should...
+  answers:
+    - id: 1
+      text: |
+        just make a guess.
+      explanation: |
+        INCORRECT! You should never guess. Please do some research and be well
+        informed when you edit.
+    - id: 2
+      text: |
+        rely on Recoin to suggest statements to add.
+      explanation: |
+        INCORRECT! Although Recoin is very useful, it is based off of the most
+        common properties - not all properties.
+    - id: 3
+      text: |
+        find a relevant data model and, if it doesn't exist, give up.
+      explanation: |
+        INCORRECT! Never give up.
+    - id: 4
+      text: |
+        find a relevant data model and, if it doesn't exist, combine your expert
+        knowledge with existing, more complete items
+      explanation: |
+        CORRECT! Data models point out essential properties which describe items.
+        In the event they are not yet documented, finding more complete items as
+        templates is a clever way to find out what statements you can add to a
+        similar item.

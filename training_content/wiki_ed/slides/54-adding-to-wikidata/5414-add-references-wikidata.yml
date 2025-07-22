@@ -1,0 +1,22 @@
+id: 5414
+title: "Add a reference"
+summary:
+content: |
+  We added a statement that seems like common sense — a member of an assembly is
+  a member of an assembly. But what's obvious to you may not be obvious to others.
+  There's a source, an academic book called *Politics in a Half Made Society*
+  that's perfect for this.
+
+  Click "+ add reference". Wikidata allows you to be specific in describing how
+  you are referencing something. In this case we know this fact is **stated in**
+  *Politics in a Half Made Society*. We can click in the property box and pick
+  "stated in", and start typing.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Adding_a_reference_to_a_Wikidata_item.png" />
+    <figcaption class="image-credit">
+      After you have a statement, you need to add a reference.
+    </figcaption>
+  </figure>
+
+  And we're done.

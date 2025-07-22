@@ -1,0 +1,83 @@
+# Messages for Talysh (tolışi)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Patriot Kor
+# Author: Patriot Kur
+# Author: Гусейн
+---
+tly:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: H
+          million: M
+          billion: Mly
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Ləğv karde
+    greeting: Səlom!
+    help: Dastək
+    home: Sərlovhə
+    log_out: Beši
+    confirm: COK
+    opt_in: Ha
+    opt_out: Ne
+    opt_yes: ha
+    opt_no: ne
+  articles:
+    filter:
+      wiki_all: Həmmə
+      new: Tojə
+    hide: Niyon bıkə
+    history: (torix)
+    new: (nuə)
+    wiki: Viki
+  articles_generic:
+    articles_short: Səhifə
+  campaign:
+    all_campaigns: Həmə Kampaniyə
+    created_at: Taryx
+    description: Təsvir
+  categories:
+    name: Nom
+  courses:
+    cancel: Ləğv karde
+    creator:
+      assignment_end_placeholder: SSSS-MM-RR
+      assignment_start_placeholder: SSSS-MM-RR
+      end_date_placeholder: SSSS-MM-RR
+      start_date_placeholder: SSSS-MM-RR
+      subject: Myžor
+  courses_generic:
+    all_courses: Həmə Proqramon
+    cancel: Ləğv karde
+    creator:
+      assignment_end_placeholder: SSSS-MM-RR
+      assignment_start_placeholder: SSSS-MM-RR
+      course_term: Kenə
+      course_term_placeholder: Kenə
+    term: Kenə
+  metrics:
+    added: Əlovə be
+  namespace:
+    template: Šablon
+    category: Kategorijə
+  revisions:
+    date_time: Torix/Zəmon
+    diff: fərğ
+  uploads:
+    image: Šikil
+  users:
+    name: Nom
+    training_module_time:
+      minutes: Dəğ
+      seconds: San
+    useremail_placeholder: Enomə
+    role:
+      student: Tələbə
+  wizard:
+    read_more: Hande Dəvom karde
+...

@@ -1,0 +1,231 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+Style/Documentation:
+  Enabled: false
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'db/*'
+    - 'db/**/*'
+    - 'node_modules/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'app/views/**/**/*.haml'
+    - 'docs/**/*'
+    - 'setup/*'
+  TargetRubyVersion: 3.1
+
+Layout/LineLength:
+  Max: 100
+
+Metrics/ClassLength:
+  Max: 130 # We should bring this down, ideally to the default of 100
+  Exclude: # These are too big, and should be shrunk if feasible.
+    - 'app/models/alert.rb'
+    - 'app/models/course.rb'
+    - 'app/models/wiki.rb'
+    - 'app/models/user.rb'
+    - 'app/presenters/courses_presenter.rb'
+    - 'app/controllers/surveys_controller.rb'
+    - 'app/controllers/campaigns_controller.rb'
+    - 'app/controllers/courses_controller.rb'
+    - 'app/controllers/users_controller.rb'
+    - 'app/controllers/assignments_controller.rb'
+    - 'lib/course_creation_manager.rb'
+    - 'lib/course_clone_manager.rb'
+    - 'lib/importers/revision_score_importer.rb'
+    - 'lib/wizard_timeline_manager.rb'
+    - 'lib/wiki_course_edits.rb'
+    - 'lib/training/wiki_slide_parser.rb'
+    - 'lib/wiki_assignment_output.rb'
+    - 'lib/course_training_progress_manager.rb'
+    - 'lib/timeslice_manager.rb'
+
+Metrics/AbcSize:
+  Max: 23 # We should bring this down, ideally to the default of 15
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper methods
+
+Style/NumericPredicate:
+  Exclude:
+    - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*' # pretty much impossible with RSpec
+    - 'lib/tasks/*' # also impractical for Rake tasks
+    - 'app/views/**/*' # jbuilder requires long blocks for large json views
+Metrics/MethodLength:
+  Max: 16 # We should bring this down, ideally to the default of 10
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper methods
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper module
+    - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
+
+Rails/EnvironmentVariableAccess:
+  AllowReads: true
+
+########################
+# Permanent exceptions #
+########################
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ColonMethodCall:
+  Enabled: false
+Style/NumericLiterals:
+  # We should use underscores when the number is meaningful. But when it's
+  # an arbitrary number like a user id, underscores are just clutter.
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false # We need non-ascii characters to document Wikipedia stuff.
+Style/ParallelAssignment:
+  Enabled: false # We generally use this only to initialize empty variables.
+Style/RedundantAssignment: # Same as Style/RedundantReturn, sometimes enhances clarity
+  Enabled: false
+Style/RedundantReturn:
+  Enabled: false # Sometimes a redundant return enhances clarity.
+Style/SymbolArray:
+  Enabled: false # Rare syntax that is potentially confusing to newcomers.
+Naming/VariableNumber:
+  Enabled: false # Not very helpful, and conflicts with wp10-related names
+Rails/Blank:
+  Enabled: false # Sometimes unless foo.present? is more expressive.
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false # These get removed whenever 'annotate' updates a file anyway.
+Naming/MethodParameterName:
+  Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false # Not very helpful
+Layout/HashAlignment:
+  Enabled: false # Hashes look uglier when corrected
+Rails/I18nLocaleTexts:
+  Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
+Style/StringConcatenation:
+  Enabled: false
+
+########################
+# Temporary exceptions #
+########################
+
+# These should be enabled once violations are fixed,
+# or they should be moved to the 'Permanent' section
+# if we decide they shouldn't be fixed.
+
+Rails/FilePath:
+  Enabled: false
+Performance/UnfreezeString:
+  Enabled: false
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+Rails/InverseOf:
+  Enabled: false
+Rails/Delegate:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/Validation:
+  Enabled: false
+Rails/FindBy:
+  Enabled: false
+Rails/Output:
+  Enabled: false
+Rails/RakeEnvironment:
+  Enabled: false
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/ContextWording:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/BeforeAfterAll:
+  Enabled: false
+RSpec/ScatteredLet:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/MessageSpies:
+  Enabled: false
+RSpec/DescribeClass:
+  Enabled: false
+RSpec/ExpectInHook:
+  Enabled: false
+Style/DateTime:
+  Enabled: false
+Rails/ContentTag:
+  Enabled: false
+Style/OptionalBooleanParameter:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Style/KeywordParametersOrder:
+  Enabled: false
+RSpec/StubbedMock:
+  Enabled: false
+Lint/DuplicateRegexpCharacterClassElement:
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
+Lint/EmptyBlock:
+  Enabled: false
+Style/SingleArgumentDig:
+  Enabled: false
+Rails/PluckInWhere:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+Style/SoleNestedConditional:
+  Enabled: false
+Rails/I18nLocaleAssignment:
+  Enabled: false
+RSpec/SubjectDeclaration:
+  Enabled: false
+Rails/RedundantTravelBack:
+  Enabled: false
+Rails/DurationArithmetic:
+  Enabled: false
+Layout/LineContinuationSpacing:
+  Enabled: false
+Style/FetchEnvVar:
+  Enabled: false
+RSpec/BeEq:
+  Enabled: false
+Style/OpenStructUse:
+  Enabled: false
+Layout/LineContinuationLeadingSpace:
+  Enabled: false
+RSpec/VerifiedDoubleReference:
+  Enabled: false
+RSpec/ChangeByZero:
+  Enabled: false
+RSpec/BeNil:
+  Enabled: false
+RSpec/Capybara/SpecificMatcher:
+  Enabled: false
+RSpec/Rails/HaveHttpStatus:
+  Enabled: false
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false
+Rails/CompactBlank:
+  Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false

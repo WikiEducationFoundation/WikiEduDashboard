@@ -1,0 +1,46 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %h1.headline
+                = "Hello, #{@user.username}!"
+              %h1.headline
+                = "Welcome to #{@course.title}."
+              %p.paragraph
+                The Wiki Education Foundation is conducting a research project about the types of skills students learn from Wikipedia-based assignments, and we're asking for your help.
+              %p.paragraph
+                When you take our brief online survey at the start and end of your
+                assignment, we’ll provide you with personal feedback for you to
+                compare what you know now with what you'll know then. Nobody
+                else will see your personal info. Your instructor won't see the
+                survey, and it will not be part of your grade.
+              %p.paragraph
+                Student participants in the research will be entered into a
+                drawing for a $50 USD Amazon Gift card. Four $50 USD Amazon gift
+                cards will be given out randomly for every 100 participants in
+                the research study. To enter, you must complete both the pre and
+                post course assessments, available on the Wiki Ed Dashboard.
+                You may gain an additional entry to win (increasing your odds)
+                by completing the additional qualitative post-course survey
+                that will be made available after completion of your Wikipedia
+                assignment. No more than one gift card will be awarded per
+                student entrant. Drawing will take place on January 17th, 2017.
+              %p.paragraph
+                Click below to take the survey!
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %em.paragraph
+                Best, Zach McDowell
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{href: "#{course_survey_url(@notification)}"}
+                = t('survey.email.link')
+            %td.expander

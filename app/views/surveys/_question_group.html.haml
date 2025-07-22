@@ -1,0 +1,57 @@
+- content_for :after_title, ' – Question Groups'
+
+= form_for(Rapidfire::AnswerGroup.new,
+    :url => rapidfire.question_group_answer_groups_path(question_group),
+    :html => {:'data-survey-form' => true, :'data-question-group' => question_group_index, :tabindex => -1 }) do |f|
+
+  - group_index_data = results ? '' : question_group_index
+  %div{:'data-question-group-blocks' => group_index_data}
+    - @answer_group_builder.answers.each_with_index do |answer, index|
+      - question_presenter = RapidfireQuestionPresenter.new(answer, index: index,
+          answer_group_builder: @answer_group_builder, is_results_view: results)
+      - next if question_presenter.results_view? && question_presenter.text_only?
+      - is_start_of_group = question_presenter.start_of_group?
+      - is_end_of_group = question_presenter.end_of_group?
+
+      - if is_start_of_group
+        <div class="block__container" data-block-index="#{index}" data-survey-index=""><div class="block not-seen disabled survey__question--matrix #{question_presenter.question_type}">
+
+      = f.fields_for("#{answer.question.id}", answer) do |answer_form|
+        = render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name}
+
+        - if !question_presenter.grouped_question?
+          <div class="block__container"><div data-survey-block="#{index + 1}" id="question_#{answer.question.id}" class="block disabled not-seen question-type--#{question_presenter.question_type} #{answer.errors.any? ? block--errors : ''} #{question_presenter.required_class}"> 
+
+        - if question_presenter.start_of_radio_matrix?
+          %div{:class => "survey__question-row first matrix-row", :'data-block-index' => "#{index}"}
+            = render_matrix_answer_labels(answer)
+
+        %div{:'data-question-group' => "#{question_group_index}",
+         :'data-conditional-question' => conditional_attribute(answer),
+         :id => question_presenter.grouped_question? ? "question_#{answer.question.id}" : "",
+         :class => "survey__question-row #{question_presenter.grouped_question? ? 'matrix-row' : ''} " + |
+                   "#{question_presenter.required_class} " +               |
+                   "#{index.even? ? '' : 'odd'} #{is_end_of_group ? 'last' : ''}" }
+
+          - if results
+            = render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer}
+            = render partial: "question_results", locals: { question: @id_to_question[answer.question.id], answers: @rapidfire_answers_by_question_id[answer.question.id], id_to_answer_groups: @rapidfire_answer_groups_by_id, users: @users_by_id  }
+          - else
+            = render_answer_form_helper(answer, answer_form)
+
+        / After single question or final grouped question
+        - if is_end_of_group && !results
+          - if question_presenter.follow_up_question?
+            = render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer }
+
+          / Prev/Next/Submit
+          %div{:class => "survey__block-nav"}
+            %button{:tabindex => "-1", :class => "button survey__prev border", :'data-prev-survey-block' => ""}= "Previous"
+            %div{:class => "survey__block-nav__next-container"}
+              %div{:'data-errors' => ""}
+              %button{:tabindex => "-1", :class => "button survey__next dark", :'data-next-survey-block' => ""}
+                %span{:class => "survey__next-text"}= "Next"
+                %span{:class => "icon icon-rt_arrow"}
+
+      - if is_end_of_group
+        </div></div>

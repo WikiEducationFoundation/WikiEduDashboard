@@ -1,0 +1,50 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@instructor.username},"
+              %p.paragraph
+                As part of the Wiki Education initiative, we are piloting a new
+                discussion service in which students from classes at different
+                universities participate in small-group video discussions, to support
+                each other as they learn how to improve Wikipedia articles. This
+                service should help your students without adding work for you.
+              %p.paragraph
+                We will host three support sessions:
+              %ol.paragraph
+                %li Getting started editing Wikipedia pages
+                %li Understanding Wikipedia policies
+                %li Peer-reviewing students’ articles
+              %p.paragraph
+                Do you want to offer these sessions to students in your class?
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{:href => @opt_in_link}
+                Yes
+            %td.main-content.link-cell
+              &nbsp; &nbsp; &nbsp;
+            %td.main-content.link-cell
+              %a.button_link{:href => @opt_out_link}
+                No
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                You can read more about the service <a href="http://kraut.hciresearch.org/sites/kraut.hciresearch.org/files/open/WP-Instructor-ConsentForm-v3.pdf">here</a>.
+                Feel free to contact us if you have any questions.
+              %p.paragraph
+                Sincerely,
+                %br
+                  Rosta Farzan <a href="mailto:rfarzan@pitt.edu ">rfarzan@pitt.edu </a>, University of Pittsburgh
+                %br
+                  Robert Kraut <a href="mailto:robert.kraut@cmu.edu">robert.kraut@cmu.edu</a>, Carnegie Mellon University
+                %br
+                  Chinmay Kulkarni <a href="mailto:chinmayk@cs.cmu.edu">chinmayk@cs.cmu.edu</a>, Carnegie Mellon University

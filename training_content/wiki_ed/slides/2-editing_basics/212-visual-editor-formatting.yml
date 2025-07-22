@@ -1,0 +1,31 @@
+id: 212
+title: Visual editor formatting
+summary:
+content: |
+  <figure class="alt-layout-30-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/VisualEditor_Toolbar_Formatting-en.png" />
+  </figure>
+
+  To format text in the visual editor, click the "<span style="text-decoration: underline">***A***</span>"
+  button, highlight your text, and choose the format.
+
+  * The "Bold" item (**B**) bolds the selected text.
+  * The "Italic" item (*<span style="font-family: serif">I</span>*) italicizes the selected text.
+  * The "Superscript" item (x<span style="vertical-align: super; font-size: 80%; font-family: serif">I</span>) causes the selected text to appear smaller than
+  surrounding text and to be slightly higher than the surrounding text.
+  * The "Subscript" item (x<span style="vertical-align: sub; font-size: 80%; font-family: serif">I</span>) causes the selected text to appear smaller than
+  surrounding text and slightly lower than the surrounding text.
+  * The "Strikethrough" item (<span style="text-decoration: line-through">S</span>) adds a solid bar through the selected text.
+  * The "Computer code" item (a set of curly brackets: {}) changes the font of
+  the selected text to a monospaced font, which sets it apart from surrounding
+  (proportionally spaced) text.
+  * The "Underline" item (<span style="text-decoration: underline">U</span>) adds a solid line beneath the selected text.
+  * The "Language" item (Aあ) allows you to label the language (for example,
+  Japanese) and direction (for example, right-to-left) of the selected text.
+  * The final item, "Clear styling" (<img style="width:13px;" src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Prohibition_sign_%28black%29.svg" />), 
+  removes all character formatting from the
+  selected text, including links.
+
+  If you have not selected any text, then when you click the "<span style="text-decoration: underline">***A***</span>"
+  to open the menu, and then select an item, that formatting will apply to the
+  text that you start typing, from wherever your cursor is located.

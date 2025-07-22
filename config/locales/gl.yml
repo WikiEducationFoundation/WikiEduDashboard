@@ -1,0 +1,241 @@
+# Messages for Galician (galego)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Banjo
+# Author: Elisardojm
+# Author: Fitoschido
+# Author: Macofe
+# Author: Maria zaos
+# Author: Toliño
+---
+gl:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Trillóns
+  accessibility:
+    number_field: Este é un campo numérico. Os botóns mostrados pola maioría dos navegadoras
+      incrementarán ou disminuirán os valores introducidos.
+  application:
+    cancel: Cancelar
+    cookie_consent: Este sitio web usa "cookies" para manter a súa sesión activa e
+      garda información relacionada coa súa conta en Wikipedia.
+    cookie_consent_acknowledge: Entendo
+    cookie_consent_see_more: Ver máis.
+    create_accounts: Crear contas en Wikipedia
+    dashboard: Panel de Wiki Ed
+    documentation: Documentación
+    error: Houbo un erroː
+    explore: Explorar
+    field_required: Este campo é obrigatorio
+    field_invalid_characters: Este campo ten caracteres non válidos
+    field_invalid_date: Este campo require unha data en formato AAAA-MM-DD
+    field_invalid_date_time: A fin debe ser despois do inicio. (As horas van de 0
+      a 23).
+    greeting2: Benvido!
+    greeting_extended: Benvido a Wikipedia
+    greeting: Ola!
+    help: Axuda
+    home: Inicio
+    log_in_extended: Iniciar sesión na Wikipedia
+    log_in: Acceder ao sistema
+    log_out: Saír
+    my_dashboard: O meu panel de control
+    recent_activity: Actividade recente
+    report_problem: Informar sobre un problema
+    request_account: Solicitar unha conta
+    request_account_create: Crear unha conta
+    search: facer unha pregunta
+    search_results:
+      one: '%{count} Resultado para: ''%{search_terms}'''
+      other: '%{count} Resultados para: ''%{search_terms}'''
+    no_results: Non se atoparon resultados para '%{query}'
+    sign_up_extended: Rexistrarse en Wikipedia
+    sign_up_wikipedia: Ou rexístrese en Wikipedia
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Rexístrese
+    submit: Enviar
+    training: Formación
+    change: Cambiar
+    details: Detalles
+    confirm: Aceptar
+    opt_in: Si
+    opt_out: Non
+    opt_yes: Si
+    opt_no: non
+  article_statuses:
+    not_yet_started: Primeiros pasos
+    in_progress: Traballar na zona de probas
+    ready_for_review: Ampliar o borrador
+    ready_for_mainspace: Mover o traballo ao espazo principal
+    assignment_completed: Tarefa marcada como completa
+    reading_the_article: Lectura do artigo
+    providing_feedback: Facer comentarios
+    post_to_talk: Publicar na páxina de conversa
+    peer_review_completed: Revisión completada
+  dashboard:
+    create_note: Prema en "Crear Curso" para crear o seu primeiro curso.
+    create_preparation_note: Aseguúrese de ter a man o seu calendario académico antes
+      de comezar; a ferramenta de deseño de tarefas usará as datas das sesións  (incluídas
+      as vacacións e os días non lectivos)para axustar o seu cronograma dentro do
+      rango de datas que escolla. Lembre que sempre poderá editar o seu cronograma
+      para que se axuste ás súas necesidades.
+    explore_course_pages: Explorar as páxinas de Curso
+    explore_examples: Explorar exemplos
+    join_note: Cando reciba un contrasinal do/a docente, prema en "Busque o seu curso"
+      para localizalo e unirse a el.
+    no_courses_instructor: Semella que non ten ningún curso.
+    no_courses_student: Semella que  aínda non se inscribiu a ningún curso.
+    opt_out: Solicitude para que non se lle inclúa na orientación
+    orientation_notice: Antes de crear un curso, vexamos unha introdución para axudalo
+      a comezar. (Leva uns 30 minutos aproximadamente)
+    review_orientation: Revisar a orientación
+    start_orientation: Comezar a orientación
+    blog_headline: Novas recentes de Wiki Educación
+    about_programs: Este sitio web traza as actividades a traves de programas (eventos
+      individuais como editatóns ou proxectos pedagóxicos). Cada programa forma parte
+      dunha ou máis campañas, que propocionan estatísticas conxuntas de todos os programas.
+    about_creating_programs: Se está coordinando un único evento independente, pode
+      crear un Programa agora. Se o seu evento é parte de algo máis grande, busque
+      ou cree unha campaña para el. Logo de facelo poderá crear un novo programa dende
+      a páxina da campaña.
+  home:
+    explore: Explorar
+    log_in: Iniciar sesión na Wikipedia
+    sign_up: Rexistrarse en Wikipedia
+    sign_up_help: Para usar o panel de control é preciso que inicie sesión en Wikipedia
+      e lle dea permiso para acceder á súa conta. Pode iniciar sesión cunha conta
+      de Wikipedia existente ou crear unha nova.
+  alerts:
+    alert_label: Alertas
+    no_alerts: Non hai alertas.
+  activity:
+    all: Actividade
+    edited_by: Modificado por
+    label: Actividade
+  articles:
+    articles: Artigos
+    article_not_found: Este artigo aínda non foi creado .
+    article_development: (desenvolvemento do artigo)
+    articles_shown: Mostrando %{count} de %{total}
+    assigned: Artigos asignados
+    assignments_none: Aínda non hai ningún artigo asignado.
+    available: Artigos dispoñíbeis
+    no_available: Non hai ningún artigo dispoñible
+    next: Seguinte
+    previous: Anterior
+    article_title: Título do artigo
+    assigned_to: Asignado a
+    character_doc: A suma de caracteres engadidos a artigos polos editores inscritos
+      entre as datas de comezo e fin.
+    edited: Artigos editados
+    edited_mobile: Artigos
+    loading: Cargando artigos...
+    none: Este curso non editou ningún artigo.
+    rating: Clase
+    rating_docs:
+      fl: Lista destacada - a maior calificación para unha lista na Wikipedia
+    title: Título
+    view: Ver artigo
+    view_all: Ver todos
+    view_doc: Suma de todas as vistas a cada artigo durante o curso
+  assignments:
+    confirm_addition: Está seguro de que quere asignar %{title} a %{username}?
+    confirm_deletion: Está seguro de que quere borrar esta asignación?
+    label: Asignar
+    loading: Cargando asignacións...
+    none: Este curso non ten artigos de Wikipedia asignados.
+  blocks:
+    milestones:
+      title: Fitos
+  courses:
+    activity: Actividade
+    articles: Artigos
+    courses: Cursos
+    creator:
+      end_date: Data de fin
+      start_date: Data de inicio
+    current: Cursos actuais
+    duration: Duración do curso
+    error:
+      exists: Este curso xa existe! Por favor, inténteo de novo cun título diferente,
+        escola, ou termo.
+      user_exists: Sentímolo, o usuario %{username} non existe.
+    instructor:
+      one: Monitor
+      other: Monitores
+    join_prompt: Unirse a '%{title}'?
+    new_week: Engadir nova semana
+    nocourses: Non está a participar en ningún curso.
+    revisions_doc: O número estimado de edicións nos pasados %{timeframe} días, en
+      base á media de edicións ao día durante o último período.
+    students: Estudantes
+    students_none: Este curso non ten estudantes.
+    students_short: Estudantes
+    timeline: Detalles de asignación
+    title: Título
+    view: Ver curso
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntario
+      other: Voluntarios
+    yourcourses: Os seus cursos
+  courses_generic:
+    creator:
+      course_school: Institución
+    school: Institución
+    student_editors: Editores
+    students: Editores
+    students_short: Editores
+    term: Cando
+  metrics:
+    activity: Actividade recente
+    articles_created: Artigos creados
+    articles_edited: Artigos editados
+    characters: Caracteres
+    char_added: Caracteres engadidos
+    char_changed: Caracteres cambiados
+    char: Caracteres engadidos
+    date_time: Data/Hora
+    edit_count_description: Total de edicións
+    revisions: Revisións recentes
+    view_count_description: Visualizacións do artigo
+    view: Vistas
+  namespace:
+    main: Espazo principal
+    main_char_added: Caracteres engadidos ó espazo principal
+    user: Espazo de usuario
+    user_char_added: Caracteres engadidos ó espazo de usuario
+  revisions:
+    loading: Cargando revisións...
+    none: Este curso non ten actividade recente de edición na Wikipedia.
+    time_doc: A hora de cada revisión no seu tempo local
+    title: Título
+  tasks:
+    conseq: A tarefa %{task} está en execución!
+  training:
+    view: Ver
+  uploads:
+    label: Cargas
+  users:
+    editors: Editores
+    name: Nome
+  wizard:
+    read_less: Ler menos
+    read_more: Ler máis
+    summary: Resumo
+  error_401:
+    header: Sen permiso. >:-(
+  error_404:
+    header: Páxina non atopada :-(
+  error_422:
+    header: 422 — non se pode procesar a entidade.  :-(
+  error_500:
+    header: 500 — erro interno do servidor.  :-(
+...

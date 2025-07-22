@@ -1,0 +1,18 @@
+id: 5007
+title: "This makes Wikidata important to the internet..."
+summary:
+content: |
+  Machine-readability allows digital assistants (Siri, Alexa, Google) and bots
+  to add and pull information from Wikidata and present it to their users.
+  Human-readability allows people to do this as well.
+
+  This can make data from libraries, cultural institutions, and civic organizations
+  more accessible.
+
+  Since Wikidata uses a CC0 license, a lot of companies developing AI use Wikidata
+  as part of their AI's knowledge base. Just as you can think of Wikipedia as an
+  encyclopedia of encyclopedias, you can think of Wikidata as a database of
+  databases. Other databases are linking their items to Wikidata items though
+  identifiers (more on those in a few slides), allowing more than 700 other
+  databases to help describe items. This creates a centralized location of
+  information about the same concepts, things, or people.

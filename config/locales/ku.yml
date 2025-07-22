@@ -1,0 +1,29 @@
+# Messages for Kurdish (kurdî)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bikarhêner
+---
+ku:
+  application:
+    dashboard: Panela Wiki Ed'ê
+  activity:
+    all: Çalakî
+    edited_by: Hat Sererastkirin Ji Alî
+  metrics:
+    activity: Aktîvîteyên Dawî
+    articles_created: Gotar Hate Çêkirin
+    articles_edited: Gotar Hate Sererastkirin
+    characters: Karakter
+    char_changed: Karakter Hate Guhertin
+    date_time: Dîrok/Katjimêr
+    edit_count_description: Hemû Guherandin
+    view_count_description: Dîtinên Gotara
+    view: Dîtin
+  uploads:
+    none: Pel nehatiye barkirin
+    usages: Bikaranîn
+  error_401:
+    header: Bêdestûr. >:-(
+  error_404:
+    header: Rûpel nehate dîtin. :-(
+...

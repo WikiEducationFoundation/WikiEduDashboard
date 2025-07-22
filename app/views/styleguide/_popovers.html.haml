@@ -1,0 +1,35 @@
+#popover
+
+.pop__container{style: "margin-left: 20rem;" }
+  %button.button.border.small.assign-button.dark
+    Done
+  .pop.open
+    %table
+      %tbody
+        %tr.edit
+          %td
+            %form
+              %input
+                %button.button.border
+                  Assign
+                .small-block-link
+                  en.wikipedia.org
+                  %a
+                    Change
+%br
+%br
+%br
+%br
+%br
+%br
+%br
+
+.sg-note
+  TODO
+  %ul
+    %li
+      Popover React component requires a wrapping .pop__container div.
+      The component should possibly contain this wrapper.
+    %li
+      Currently the Popover component expects table rows to be passed in as
+      content. Perhaps a more generic content-agnostic popover should be created?

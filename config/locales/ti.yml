@@ -1,0 +1,64 @@
+# Messages for Tigrinya (ትግርኛ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Joanmp17
+---
+ti:
+  application:
+    cancel: ኣትርፍ
+    explore: ዳህስስ
+    greeting2: እንቋዕ ብደሓን መጻእካ!
+    greeting: ሰላም!
+    help: ሓገዝ
+    home: መበገሲ
+    log_in: ብመንነት እተው
+    log_out: ብመንነት ውጻእ
+    confirm: ሕራይ
+    opt_in: እወ
+    opt_out: ኣይፋል
+    opt_yes: እወ
+    opt_no: ኣይፋል
+  home:
+    explore: ዳህስስ
+  activity:
+    all: ንጥፈት
+    label: ንጥፈት
+  articles:
+    filter:
+      new: ሓድሽ
+    hide: ከውል
+    history: (ታሪኽ)
+    new: (ሓዳሽ)
+  articles_wikidata:
+    articles_short: ውልቀ ነገራት
+  articles_generic:
+    articles_short: ገጻት
+  assignments:
+    remove: ኣልግስ
+  campaign:
+    alert_user_id: ተጠቃሚ
+    created_at: ዕለት
+    description: መግለጺ
+  categories:
+    remove: ኣልግስ
+  courses:
+    activity: ንጥፈት
+    cancel: ኣትርፍ
+    delete_suggestion: ሰርዝ
+    dismiss_survey: ስጎግ
+    loading: ይጽዕን ኣሎ...
+    private: ብሕታዊ
+  courses_generic:
+    student_editors: ኣርታዕቲ
+    students: ኣርታዕቲ
+  metrics:
+    date_time: ዕለት/ሰዓት
+    tags: መፈለጥታታት
+    view: ትርኢታት
+  recent_activity:
+    datetime: ዕለት/ሰዓት
+  revisions:
+    date_time: ዕለት/ሰዓት
+  users:
+    edits: ኣርትዖታት
+...

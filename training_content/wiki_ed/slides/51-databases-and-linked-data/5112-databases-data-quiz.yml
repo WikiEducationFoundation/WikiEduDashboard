@@ -1,0 +1,30 @@
+id: 5112
+title: "Data Quiz"
+summary:
+content: |
+assessment:
+  correct_answer_id: 2
+  question: |
+    Wikidata has...
+  answers:
+    - id: 1
+      text: |
+        linked data but does not follow open data standards.
+      explanation: |
+        INCORRECT! All of the data on Wikidata is CC0, which is an open data standard.
+    - id: 2
+      text: |
+        open data standards and linked data.
+      explanation: |
+        CORRECT! Wikidata has both open and linked data.
+    - id: 3
+      text: |
+        open data standards, but no linked data.
+      explanation: |
+        INCORRECT! Wikidata items are linked to each other through properties,
+        qualifiers, and other items.
+    - id: 4
+      text: |
+        closed data standards and no linked data.
+      explanation: |
+        INCORRECT! This is the opposite of what Wikidata is.

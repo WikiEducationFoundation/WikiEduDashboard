@@ -1,0 +1,25 @@
+id: 5026
+title: "Some data ethics"
+summary:
+content: |
+  Wikidata is a powerful resource that connects data from all over the world.
+  Since Wikidata is open to everyone, anyone can use the data on Wikidata as
+  they see fit. When aggregating and linking data, it is important that we
+  strive to use the insights that these data produce for good purposes.
+
+  Wikidata presents facts. These facts *should* contain references. Although you
+  may not agree with a source someone uses, as long as a fact is added that is
+  cited to a source it is okay to add.
+
+  Some examples of facts **not** to include:
+
+  * Sensitive personal information (especially for living persons)
+  * Information irrelevant to that item
+
+  **Note**: These rules also apply on Wikipedia.
+
+  Although Wikidata has tens of millions of items, they mostly reflect what is
+  on Wikipedia. This means that the same biases that exist on Wikipedia exist on
+  Wikidata as well. As you explore Wikidata you may notice glaring gaps. Wikidata
+  is neither exhaustive nor complete. There is a lot more to add, connect, and
+  clean up.

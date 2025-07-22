@@ -1,0 +1,19 @@
+id: 5313
+title: "You're all done!"
+summary:
+content: |
+  Happy evaluating!
+
+  In this module you've learned...
+
+  * how to evaluate data quality on Wikidata
+  * how to use some tools to evaluate data quality
+
+  We appreciate any feedback you have on this training module. Click below to
+  tell us what you liked and didn't like about it, and any suggestions you have
+  for improving it.
+
+  <div class="training__button-container">
+  <a target="_blank" class="btn btn-primary" href="https://dashboard.wikiedu.org/feedback">
+  Submit feedback </a>
+  </div>

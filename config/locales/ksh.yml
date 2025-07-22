@@ -1,0 +1,199 @@
+# Messages for Colognian (Ripoarisch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Purodha
+---
+ksh:
+  application:
+    error: 'Ene Fähler es opjetrodde:'
+    field_required: Dat Fäld moß aanjejovve sin.
+    field_invalid_date: Dat Väld bruch e Dattom em Fommaht JJJJ-MM-DD
+    help: Hölp!
+    log_out: Ußlogge
+    search: Schtäll en Frohch
+    change: Änndere
+  dashboard:
+    opt_out: Donn noh_m Affschallde vun dä Ennföhrog frohre
+    review_orientation: Donn de Ennföhrong norr_ens dorschlohre
+  activity:
+    all: Aktivitäht
+    edited_by: Jeändert Vum
+    label: Aktivitäht
+  articles:
+    available: Atikelle, di noch keine zohjedeijlt hät
+    assigned_to: Zohjedeijlt aan
+    edited: Jeännderte Atikelle
+    edited_mobile: Atikele
+    loading: Ben Atikelle aam Lahde&nbsp;&hellip;
+    new: (Neu)
+    title: Övverschreff
+    view: Atikel belohre
+    view_all: Alle belohre
+  assignments:
+    add_available: Donn ene Atikkel derbei, dä et ald jitt
+    confirm_add_available: Wells De di Sigg „%{title}“ verhaftesch derbei donn?
+    confirm_addition: Wells De verhaftesch %{title} aan der Metmaacher %{username}
+      zohwihse?
+    loading: Ben de Aufjahbe aam Lahde&nbsp;&hellip;
+    none: För dä Lihrjang sin kein Atikelle zohjedeijlt
+    no_available: För dä Lihrjang sin kein Atikelle ze han.
+    remove: Nemm fott!
+    select: Ußsöhke
+  blocks:
+    milestones:
+      title: Meijleschtein
+  courses:
+    activity: Aktivitäht
+    actions: Akßjuhne
+    articles: Atikele
+    calendar:
+      legend_class_not_meeting: Keij Träfe es jeplahnt
+    course_description: Korse för em Wikki ze liehre.
+    creator:
+      assignment_end: Et Ängk vun dä Zohdeijlong
+      assignment_end_placeholder: Ängk vun dä Zohdeijlong (Johr-MM-DD)
+      assignment_start: ejenn vun dä Zohdeijlong
+      course_subject: Et Tehma vum Kochs
+      course_title: Övverschreff vum Kochs
+      create_label: Lääsch ene neuje Kochs aan
+      create_new: Lääsch ene neuje Kochs aan
+      create_short: Lääsch ene Kochs aan
+      end_date: Et Dattum vum Engk
+      end_date_placeholder: Dattom vum Ängk (Johr-MM-DD)
+      find: Fengk Dinge Kochs
+      start_date: Et Dattom vum Aanfang
+      start_date_placeholder: Dattom um Bejenn (Yohr-MM-DD)
+      subject: Tehma
+    dismiss_survey: Maach fott, ha_sch jelässe
+    dismiss_survey_confirm: Wells De verhaftesch heh di Ömfrohch op Dooer ußblännde?
+    end: Ängk
+    error:
+      invalid_language_or_project: De Schproch odder dat Projäk sin onjöltesch.
+    loading: Aam lahde&nbsp;…
+    my_articles: Ming Atikelle
+    none: Keine
+    no_available_actions: Keinjn Axjuhne müjjelesch
+    overview: Övverblek
+    start: Bejenn
+    start_typing: Fang et Tippe aan
+    title: Övverschreff
+  courses_generic:
+    assignments_none: Heh dat Projäk hät kein Atikkelle zohjedeijlt.
+    courses: Projramm
+    creator:
+      course_school: Ennschtetuzjohn
+      course_title: Övverschreff vum Projramm
+      create_short: Lääsch e Projramm aan
+      find: Fengk Di Projramm
+    enroll: Schrihver derbei donn
+  editable:
+    edit: Änndere
+    cancel: Ophühre
+    save: Faßhalde
+  metrics:
+    activity: Zeläz jedonn
+    articles_created: Aanjelahte Atikelle
+    articles_edited: Jeännderte Atikelle
+    characters: Zeijsche
+    char_added: Zeijsche derbei jedonn
+    char_changed: Zeijsche jetusch
+    char: Zeijsche derbei jedonn
+    date_time: Dattum un Zigg
+    edit_count_description: Änderonge ensjesamp
+    revisions: Köözlesche Änderonge
+    uploads_in_use_count:
+      zero: Dattei weeed en enem Atikel jebruch
+      one: Dattei weeed en enem Atikel jebruch
+      other: Dateije wähde en Atikele jebruch
+    upload_usages_count: Wi öff jebruch en alle Schprohche un Projäkte zesamme jenumme
+    view_count_description: Aanzahl Affrohfe vun Atikelle
+    view: Aanzahl Affrohfe
+  namespace:
+    main: Houp_Appachemang
+    main_char_added: Zeijsche em Houp_Appachemang derbei jedonn
+    user: Appachtemang för de Metmaacher
+    user_char_added: Zeijsche em Appachtemang för de Metmaacher derbei jedonn
+  recent_activity:
+    datetime: Dattum un Zigg
+    did_you_know_eligible: Ußwählbaa för „Had_Er ald jewoß?“
+    image: Beld
+    file_name: Dä Dattei iehre Nahme
+    no_dyk_eligible: Mer han kein Atikelle, di för „Had_Er ald jewoß?“ ußjewählt wähde
+      künnte.
+    no_plagiarism: Mer han em mmang kein älldere Väsjohne, di em Verdaach schtonn
+      künnte, dat se jekleut wöhre.
+    no_edits: Mer han kein köözlesche Änderonge
+    possible_plagiarism: Velleijsch jekleut?
+    recent_edits: Köözlesche Änderonge
+    recent_uploads: Köözlesch huhjelahde
+    revision_author: Dä Väsion iere Schriever
+    show_courses: Zeijsch blohß ming Korse aan
+    uploaded_by: Huhjelahde Vum
+  revisions:
+    diff: Ongerscheid
+    edited_by: Jeändert Vum
+    time_doc: De Zigg vun jehde Väsjohn en Dinge Ziggzohn
+  timeline:
+    add_week: Donn en Woch derbei
+    empty_week_1: För aanzefange,
+    empty_week_3: udder
+    gradeable_value: Wäät
+    move_block_down: Don dä Blok noh onge
+    move_block_up: Don dä Blok noh bovve
+    save_all_changes: Alle faßhallde
+    this_week_title_default: Dis Woch
+    week_number: Woch %{number}
+  uploads:
+    file_name: Dä Dattei iehre Nahme
+    image: Beld
+    loading: Ben huhjelahde Dahte aam Lahde&nbsp;&hellip;
+    none: Kein datteije wodt huhjelahde
+  users:
+    assign_articles_done: Jedonn
+    assigned: Uohjedeijlte Atikelle
+    assignees: Zohjedeijlt
+    contributions_more: Belohr mih Beijdrähsch
+    enroll_confirmation: Wells De dä/dat %{username} verhaftesch derei donn?
+    first_name: Vörnahme
+    last_name: Nohnahme
+    my_assigned: 'Zohjedeijlt:'
+    name: Nahme
+    no_articles: Kein Atikelle
+    number_of_articles:
+      zero: Keine Atikel
+      one: Eine Atikel
+      other: '%{count} Atikele'
+    recent_revisions: Köözlesche Änderonge
+    revision_characters_and_views: 'Zeijsche derbei jedonn: %{characters}, Aanseschte:
+      %{views}'
+    training_modules_completed:
+      zero: Kein Moduhl affjeschloße
+      one: Eij Moduhl affjeschloße
+      other: '%{count} Moduhle affjeschloße'
+    username: Metmaacher_Nahme
+    username_placeholder: Metmaacher_Nahme
+  wizard:
+    summary: Zosammejefaß
+  error:
+    invalid_assignment: Onjölltijje Zohdeijlong
+    unsupported_browser:
+      explanation: Do bes ene Brauser aam bruche, dä mem <i lang="en" xml:lang="en"
+        dir="ltr" title="„Enstromäntebrätt“">Dashboard</i> nit zosamme jeiht. Heh
+        di ẞait deihd et johd em <i lang="en" xml:lang="en" dir="ltr" title="„Et Internet
+        ußfochsche“ - ene Brauser vun Microsoft">Internet Explorer</i> en dä Väsjohn
+        11 udder schpähder, un neije Väsjohne vum <i lang="en" xml:lang="en" dir="ltr"
+        title="Google Chrome -- ene Brauser">Chrome</i> un <i lang="en" xml:lang="en"
+        dir="ltr" title="Mozilla Firefox - „der Führ-Fußß“ - ene Brauser">Firefox</i>,
+        un anndere neujere Brausere.
+  error_401:
+    header: Kei Berääschtejong.
+  error_404:
+    header: Di Sigg wohd nit jefonge.
+  error_500:
+    header: Ene entärne Fähler em ẞööver.
+  login_error:
+    header: Fähler beim Enlogge
+  survey:
+    email:
+      closing: Med schöhne Jröhß,
+...

@@ -1,0 +1,33 @@
+# Messages for Ghanaian Pidgin (Ghanaian Pidgin)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: DaSupremo
+---
+gpe:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: Dis be number field. De buttons render by chaw browsers go increment
+      den decrement de input.
+  application:
+    back: Back
+    cancel: Cancel am
+    cookie_consent: Dis site dey use cookies make e keep you logged insyd, den dey
+      store information wey dey relate to your Wikipedia account.
+    cookie_consent_acknowledge: I barb
+    cookie_consent_see_more: Spy more.
+    create_accounts: Create Wikipedia accounts
+    dashboard: Wiki Ed Dashboard
+    documentation: Documentation
+    error: 'Na der be error:'
+    explore: Explore
+    field_required: Dem dey require dis field
+...

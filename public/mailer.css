@@ -1,0 +1,173 @@
+.headline {
+  font-family: "Open Sans", sans-serif;
+  color: #676EB4;
+  font-size: 34px;
+  font-weight: 300;
+  text-align:left;
+}
+
+section.message, section.message p, .paragraph {
+  font-family: "Open Sans", sans-serif;
+  color: #666666;
+  font-size: 18px;
+  line-height: 1.5;
+  font-weight: 300;
+  text-align:left;
+}
+
+li.numbered-item {
+  color: #666666;
+}
+
+.date {
+  text-align: right;
+}
+
+.sender {
+  float: left;
+}
+
+.blockquote {
+  border-left: 3px solid #CCC;
+  padding-left: 1rem;
+  margin: 2rem 0;
+}
+
+.blockquote p {
+  color: grey;
+}
+
+.preserve-whitespace {
+  white-space: pre;
+}
+
+.link-cell {
+  padding: 20px 0 20px;
+}
+
+.info-cell {
+  padding: 20px 0 0;
+}
+
+.link {
+  color: #676EB4;
+  text-decoration: underline;
+}
+
+.center {
+  text-align: center;
+}
+
+.button_link {
+  padding: 15px 20px;
+  max-width: 600px;
+  display: block;
+  text-decoration: none;
+  border:0;
+  text-align:center;
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 1px;
+  font-weight:300;
+  font-size: 18px;
+  color: #ffffff;
+  background: #40AD90;
+  border: 1px solid #359178;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  line-height:17px;
+}
+
+.share_button {
+  float: right;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.button_link.small {
+  padding: 7px 14px;
+  font-size: 14px;
+}
+
+.info {
+  font-family: "Open Sans", sans-serif;
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align:left;
+  font-weight: 300;
+}
+
+.trainings-table-cell {
+  border: 1px solid #999999;
+  padding: 10px;
+}
+
+th.trainings-table, td.trainings-table {
+  padding: 10px;
+  color: #666666;
+}
+
+td.overdue {
+  background: #F2D2D2 !important;
+}
+
+td.complete {
+  background: #75dfc0 !important;
+}
+
+td.trainings-table {
+  background: #eeeeee;
+}
+
+a.training {
+  font-weight: bolder;
+}
+
+.hidden p {
+  color: white;
+  font-size: 10px;
+}
+
+.ticket {
+  background: rgba(200, 200, 200, 0.3);
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.ticket h2 { font-size: 16px; }
+
+.ticket h2.heading {
+  color: #222222;
+  font-weight: bold;
+}
+
+.ticket ul {
+  display: flex;
+  padding-left: 0;
+  text-align: left;
+}
+
+.ticket ul li {
+  display: inline-block;
+  flex: 1;
+}
+
+.ticket ul li.center { text-align: center; }
+.ticket ul li.right { text-align: right; }
+
+.ticket time {
+  clear: both;
+  color: #666666;
+  display: block;
+  text-align: left;
+}
+
+.footer {
+  color: #666666;
+  font-size: 14px;
+}
+
+.main-content{
+  margin: 20px 0;
+}

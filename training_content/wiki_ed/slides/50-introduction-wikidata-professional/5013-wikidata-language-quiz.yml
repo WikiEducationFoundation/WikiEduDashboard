@@ -1,0 +1,36 @@
+id: 5013
+title: "Language"
+summary:
+content:
+assessment:
+  correct_answer_id: 3
+  question: |
+    Wikidata is a multilingual project. That means...
+  answers:
+    - id: 1
+      text: |
+        Each language has its own, independent set of facts just like Wikipedia.
+      explanation: |
+        INCORRECT! Although users can choose from over 300 languages to view Wikidata,
+        all languages use and see the same data.
+    - id: 2
+      text: |
+        Entries to Wikidata are in English, but the labels should be translated by hand
+        into other languages.
+      explanation: |
+        INCORRECT! You can view Wikidata entries in any language. Labels are
+        tied to the language you use to read Wikidata.
+    - id: 3
+      text: |
+        You can work in the language of your choice since the underlying data
+        is independent of your Wikidata language preference.
+      explanation: |
+        CORRECT! This is one of the most exciting things about Wikidata - since
+        it's language-agnostic, you can easily switch between languages and
+        enter data in any language you like.
+    - id: 4
+      text: |
+        To contribute to Wikidata you need to be able to speak all the languages
+        used in the project.
+      explanation: |
+        INCORRECT! That would be very cool, but is not necessary.

@@ -1,0 +1,14 @@
+{
+  "name": "WikiEduDashboard",
+  "description": "Dashboard application facilitating Wikiedu-powered courses",
+  "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
+  "keywords": [
+    "RSpec",
+    "Ruby",
+    "Rails"
+  ],
+  "scripts": {},
+  "env": {
+    "RAILS_ENV": "production"
+  }
+}

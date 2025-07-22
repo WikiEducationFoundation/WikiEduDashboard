@@ -1,0 +1,7 @@
+- content_for :before_title, "New FAQ"
+.container
+  %h1 Add new FAQ
+  = simple_form_for @faq, url: '/faq' do |f|
+    = f.input :title
+    = f.input :content
+    = f.button :submit

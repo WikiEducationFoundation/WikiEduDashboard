@@ -1,0 +1,83 @@
+body.onboarding
+  background-color #7177C7
+  background-image url("../images/waves.svg")
+  background-repeat no-repeat
+  background-position center 75%
+  background-size cover
+
+  color #fff
+  a
+    color #fff
+
+  .fade-enter
+    position absolute
+    opacity 0.01
+    transition opacity 250ms ease-in-out
+    &.fade-enter-active
+      opacity 1
+  .fade-exit
+    opacity 1
+    transition opacity 250ms ease-in-out
+    &.fade-exit-active
+      opacity 0.01
+
+  h1
+    font-size 50px
+    font-weight 300
+
+  .button
+    .icon-rt_arrow
+      vertical-align middle
+      margin-left 20px
+
+
+  // Minimal nav with only log out button
+  .top-nav
+    background transparent
+    border none
+
+    .top-nav__login-links
+      margin-left auto
+      b
+        display none
+      a
+        color #fff
+
+    .top-nav__main-links,
+    .top-nav__faq-search
+      display none
+
+  // Intro and permissions pages
+  .intro, .permissions
+    padding-top 75px
+    width 100%
+    font-size 19px
+
+    h1, h2
+      font-weight 300
+      margin-bottom 40px
+      color #fff
+      line-height 1
+
+    h1
+      font-size 50px
+
+    h2
+      font-size 30px
+      opacity .6
+
+    p, ul
+      margin-bottom 40px
+      color #fff
+      font-size 19px
+
+  .permissions
+    max-width 600px
+
+    li
+      margin-bottom 10px
+
+  // hide news and admin bell icon on onboarding page
+  .notifications
+      display: none
+

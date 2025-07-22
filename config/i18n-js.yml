@@ -1,0 +1,13 @@
+translations:
+  - file: "public/assets/javascripts/i18n/:locale.json"
+    patterns: 
+      - "*"
+
+export_files:
+  enabled: true
+  files:
+    - template: template.erb
+      output: "%{dir}/%{base_name}.js"
+
+embed_fallback_translations:
+  enabled: true

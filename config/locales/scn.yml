@@ -1,0 +1,211 @@
+# Messages for Sicilian (sicilianu)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ajeje Brazorf
+# Author: GianAntonucci
+# Author: Gmelfi
+---
+scn:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  application:
+    cancel: Annulla
+    cookie_consent_see_more: Talìa àutru.
+    create_accounts: Crea cunti di Wikipedia
+    documentation: Ducumintazzioni
+    field_invalid_characters: Stu campu cunteni carattiri nun vàlidi
+    greeting2: Bimminutu!
+    greeting_extended: Bommegna supra Wikipedia
+    greeting: Ciau!
+    help: Aiutu
+    home: Pàggina principali
+    log_in_extended: Trasi supra Wikipedia
+    log_in: Trasi
+    log_out: Nesci
+    recent_activity: Attività ricenti
+    report_problem: Signala nu prubblema
+    request_account_create: Crea nu cuntu
+    search_results:
+      one: '%{count} risurtatu pi: ''%{search_terms}'''
+      other: '%{count} risurtati pi: ''%{search_terms}'''
+    sign_up_log_in_extended: cu Wikipedia
+    submit: Manna
+    change: Cancia
+    details: Dittagghî
+    confirm: OK
+    opt_in: Sì
+    opt_out: "No"
+    opt_yes: sì
+    opt_no: "no"
+  article_statuses:
+    not_yet_started: Guida ntruduttiva
+  home:
+    registration_advice:
+      username_rules:
+        heading: Règuli di nomu utenti
+  activity:
+    all: Attivitati
+    label: Attivitati
+  articles:
+    articles: Vuci
+    available: Vuci dispunìbbili
+    no_available: Nuḍḍa vuci dispunìbbili
+    article_title: Tìtulu dâ vuci
+    deleted: (cancillatu)
+    edited: Vuci canciati
+    edited_mobile: Vuci
+    filter:
+      wiki_all: Tuttu
+      new: Novu
+    find: Attrova vuci
+    hide: Ammuccia
+    history: (crunuluggìa)
+    label: Vuci
+    new: (novu)
+    rating: Classi
+    see_more: Talìa àutru
+    show_current_version: Ammustra la virsioni attuali
+    title: Tìtulu
+    title_example: Tìtulu dâ vuci
+    view: Talìa vuci
+    view_all: Talìa tuttu
+    view_on_wiki: Talìa supra lu wiki
+    wiki: Wiki
+    articles_short: Vuci
+  articles_generic:
+    articles_short: Pàggini
+  assignments:
+    article_link: Vuci
+    add_available: Agghiunci vuci dispunìbbili
+    add_available_placeholder: Agghiunca nu tìtulu di na vuce o n'URL pi lìnia
+    add_available_submit: Agghiunci vuci
+    bibliography: Bibliugrafìa
+    confirm_add_available: Sî sìcuru di vuliri agghiunciri %{title}?
+    label: Assigna
+    remove: Leva
+  campaign:
+    alert_article: Tìtulu dâ vuci
+    alert_type: Tipu
+    alert_user_id: Utenti
+    created_at: Data
+    description: Discrizzioni
+    none: Nuḍḍu
+    title: Tìtulu
+  categories:
+    add_category: Agghiunci catigurìa
+    add_psid: Agghiunci lu PSID PetScan
+    add_pileid: Agghiunci l'ID PagePile
+    add_template: Agghiunci template
+    add_this_category: Agghiunci sta catigurìa
+    add_this_psid: Agghiunci stu PSID
+    add_this_pileid: Agghiunci st'ID PagePile
+    add_this_template: Agghiunci stu template
+    depth: Profunnità dî suttacatigurìi
+    name: Nomu
+    category_name: Nomu dâ catigurìa
+    pileid_name: ID PagePile
+    template_name: Nomu dû template
+    remove: Leva
+  courses:
+    activity: Attività
+    active_courses: '%{course_type} attivu/a'
+    actions: Azzioni
+    articles: Vuci
+    articles_i_will_create: Vuci chi crirò
+    cancel: Annulla
+    campaign_articles: '%{title} vuci'
+    creation_date: Data di criazzioni
+    creator:
+      end_date: Data di fini
+      subject: Uggettu
+    data_wikidata: Statìstichi di Wikidata
+    delete_suggestion: Cancella
+    download_stats_data: Scàrrica li statìstchi
+    end: Fini
+    my_articles: Li mè vuci
+    new_week: Agghiunci simana nova
+    new_account_email: Nnirizzu email
+    new_account_email_placeholder: nomu@example.org
+    none: Nuḍḍu
+    ores_plot: ORES
+    overview: Pàggina principali
+    please_log_in: Pi favuri trasi.
+    private: Privatu
+    requested_accounts_alert_view: Talìa
+    school: Scola
+    tags: 'Etichetti:'
+    title: Tìtulu
+    update_stats: Statìstichi aggiurnati
+    view_wiki: Talìa supra Wikipedia
+  courses_generic:
+    cancel: Annulla
+    creator:
+      assignment_end_placeholder: AAAA-MM-JJ
+      assignment_start_placeholder: AAAA-MM-JJ
+      course_term: Quannu
+      course_term_placeholder: Quannu
+      save_cloned_course: Sarva
+  editable:
+    cancel: Annulla
+    save: Sarva
+    edit_details: Cancia li dittagghî
+  instructor_view:
+    assignments_table:
+      article_name: Nomu
+  metrics:
+    general: Ginirali
+    aliases: Alias
+    merged: Junciutu
+    created: Criatu
+    changed: Canciatu
+    removed: Livatu
+    added: Agghiunciutu
+    descriptions: Discrizzioni
+    labels: Etichetti
+    redirects_created: Rimanni criati
+  recent_activity:
+    article_title: Tìtulu
+    image: Mmàggini
+    file_name: Nomu dû file
+  revisions:
+    class: Classi
+    diff_show: Ammustra
+    diff_hide: Ammuccia
+    title: Tìtulu
+    show_all: Ammustra tutti
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nomu utenti
+  timeline:
+    block_assignment: Assignazzioni
+    block_custom: Pirsunalizzatu
+    empty_week_3: o
+    week_number: Simana %{number}
+  training:
+    page: Pàggina
+    done: Fattu!
+  uploads:
+    image: Mmàggini
+  users:
+    assign_articles_done: Fattu
+    contributions: Cuntribbuti di l'utenti
+    last_name: Cognomu
+    name: Nomu
+    training_module_status: Statu
+    username: Nomu utenti
+    username_placeholder: Nomu utenti
+  survey:
+    email:
+      headline: Ciau, %{username}
+  article_finder:
+    show_options: Ammustra opzioni
+...

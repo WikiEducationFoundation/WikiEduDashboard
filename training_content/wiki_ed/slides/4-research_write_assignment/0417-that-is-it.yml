@@ -1,0 +1,16 @@
+id: 417
+title: "That's it!"
+summary:
+content: |
+  You've just seen a sample timeline for a Wikipedia writing assignment. If you
+  have any questions, browse our [FAQ page](https://dashboard.wikiedu.org/faq) to find
+  answers to common questions. If you don't find the answer you're looking for,
+  <a target="_blank" href="https://dashboard.wikiedu.org/feedback">let us know</a>.
+
+  ----
+  If you came here from the **New Instructor Orientation** module, close this
+  tab and continue where you left off, or click below:
+
+  <div class="training__button-container"><a class="btn btn-primary" href="/training/instructors/new-instructor-orientation/create-or-expand-an-article">
+    Return to New Instructor Orientation
+  </a></div>

@@ -1,0 +1,28 @@
+name: The Wikidata community
+id: 52
+description: |
+  This module will introduce you to...
+
+  * the community that contributes to, edits, and manages Wikidata
+  * community etiquette and policies
+  * how to interact with the community (of which you are now a part!) for the
+  best possible results
+
+estimated_ttc: 15 minutes
+slides:
+  - slug: part-i-the-community #5201
+  - slug: wikimedia-ecosystem #5202
+  - slug: terms-wikidata-community #5203
+  - slug: community-of-editors #5204
+  - slug: wikidata-etiquette #5205
+  - slug: how-to-help #5206
+  - slug: finding-your-way-around #5207
+  - slug: part-ii-communicating-wikidata #5208
+  - slug: wikidata-communication-tools #5209
+  - slug: wikidata-watchlists #5210
+  - slug: wikidata-project-chat #5211
+  - slug: leaving-a-message-project-chat #5212
+  - slug: how-to-leave-message-wikidata #5213
+  - slug: wikidata-editing-styles #5214
+  - slug: community-quiz #5215
+  - slug: community-thats-all #5216

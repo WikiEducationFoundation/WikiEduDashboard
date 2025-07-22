@@ -1,0 +1,13 @@
+id: 5602
+title: "WikiProject pages"
+summary:
+content: |
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Wikidata_wikiproject_medicine_screenshot.png" />
+    <figcaption class="image-credit">
+      The main page of WikiProject:Medicine.
+  </figure>
+
+  Every WikiProject on Wikidata is maintained by a group of volunteers.
+  This means that every WikiProject is **not** standardized, especially in content
+  and presentation. Best practices are emerging and you may help shape some of them.

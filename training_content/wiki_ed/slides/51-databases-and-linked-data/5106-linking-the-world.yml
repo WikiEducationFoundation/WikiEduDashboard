@@ -1,0 +1,33 @@
+id: 5106
+title: "Linking the world"
+summary:
+content: |
+  <figure class="alt-layout-30-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Amazon_Echo_2_2017-02-23.jpg/768px-Amazon_Echo_2_2017-02-23.jpg" />
+    <figcaption class="image-credit">
+      Alexa, Siri, and other personal digital assistants use Wikidata as one of
+      the databases that supplies answers. <a href="https://commons.wikimedia.org/wiki/File:Amazon_Echo_2_2017-02-23.jpg">Photo by Fastily</a>, CC BY-SA 4.0.
+    </figcaption>
+  </figure>
+
+  The fact that linked data is machine readable has far-reaching implications —
+  from digital assistants to transparency to artificial intelligence.
+
+  Imagine being able to not only link to a website, but be able to link to
+  specific concepts, individuals, media, and relationships *within a website*.
+
+  Wikipedia aims to share the sum of the world's knowledge. Imagine if you could
+  organize that sum into similar concepts, values, and relationships. What if
+  you could make all of Wikipedia a queryable database so that it could answer
+  any questions you ask of it?
+
+  What if you wanted to know every single city that currently has a mayor who
+  identifies as a woman? To do this on Wikipedia editors would have to do the
+  research and manually make a list of these mayors, then they would have to
+  manually update it when a woman is newly elected...in every language version
+  of Wikipedia. Shouldn't there be an easier way to do this?
+
+  Wikidata, the linked data repository for all Wikimedia projects, can do this!
+  For the answer to this question, click on <a href="https://w.wiki/4iR">this link</a>. This link is to a query
+  of Wikidata. We will discuss queries in depth later, but they allow you to
+  pull out specific pieces of data from Wikidata.

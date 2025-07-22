@@ -1,0 +1,287 @@
+# Messages for British English (British English)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ahecht
+# Author: Amjad Khan
+# Author: Baloch Khan
+# Author: Bjh21
+# Author: Chase me ladies, I'm the Cavalry
+# Author: Codynguyen1116
+# Author: MxYamato
+# Author: Pierpao
+# Author: Samwilson
+# Author: Sau226
+# Author: TheSkull28870
+# Author: Valentine Badu
+---
+en-gb:
+  application:
+    cancel: Cancel
+    dashboard: Wiki Ed Dashboard
+    error: 'There was an error:'
+    explore: Explore
+    field_required: This field is required
+    field_invalid_characters: This field has invalid characters
+    field_invalid_date: This field requires a date in YYYY-MM-DD format
+    greeting2: Welcome!
+    greeting_extended: Welcome to Wikipedia
+    greeting: Hello!
+    help: Help
+    home: Home
+    log_in_extended: Log in with Wikipedia
+    log_in: Log in
+    log_out: Log out
+    my_dashboard: My Dashboard
+    recent_activity: Recent Activity
+    search: ask a question
+    sign_up_extended: Sign up with Wikipedia
+    sign_up_log_in_extended: with Wikipedia
+    sign_up: Sign up
+    submit: Submit
+    training: Training
+    change: Change
+  dashboard:
+    create_note: Click on Create Course to create your first course.
+    create_preparation_note: Be sure to have your academic calendar on hand before
+      you begin; the assignment design tool will use the meeting dates of your class
+      — including any school breaks and holidays — to fit your timeline into the date
+      range you choose. Remember, you can always edit the timeline to fit your needs.
+    explore_course_pages: Explore the Course Pages
+    explore_examples: Explore Examples
+    join_note: Once you receive a passcode from your instructor, click on Find Your
+      Course to find and join it.
+    no_courses_instructor: Looks like you don't have any courses.
+    no_courses_student: Looks like you haven't joined a course yet.
+    opt_out: Request to opt out of orientation
+    orientation_notice: Before you create a course, let's go through orientation to
+      help you get started. (It takes about 30 minutes to complete.)
+    review_orientation: Review Orientation
+    start_orientation: Start Orientation
+    blog_headline: Recent News from Wiki Education
+  home:
+    explore: Explore
+    log_in: Log in with Wikipedia
+    sign_up: Sign up with Wikipedia
+    sign_up_help: To use the dashboard, you'll need to sign in through Wikipedia and
+      give it permission to access your account. You can log in with an existing Wikipedia
+      account, or create a new one.
+  activity:
+    all: Activity
+    edited_by: Edited By
+    label: Activity
+  articles:
+    assigned: Assigned Articles
+    available: Available Articles
+    assigned_to: Assigned To
+    character_doc: The sum of characters added to articles by enrolled editors between
+      the start and end dates
+    edited: Articles Edited
+    edited_mobile: Articles
+    label: Articles
+    loading: Loading articles...
+    new: (new)
+    none: This course has not edited any articles.
+    rating: Class
+    rating_docs:
+      fa: '%{class} (Featured article) — Wikipedia''s highest rating, probably too
+        mature an article for a new editor''s main project'
+      fl: '%{class} (Featured list) — Wikipedia''s highest rating for lists'
+      a: '%{class}-class — very developed article that may be too mature an article
+        for a new editor''s main project'
+      ga: '%{class} (Good article) — a well-developed article that may be too mature
+        an article for a new editor''s main project'
+      b: '%{class}-class — a moderately developed article'
+      c: '%{class}-class — an intermediate article with room for improvement'
+      start: '%{class}-class — a preliminary article with plenty of room for improvement'
+      stub: '%{class}-class — a short beginning of an article that needs more content'
+      list: '%{class}-class — a list rather than a conventional article'
+      '?': Unrated — an article that hasn't yet been rated on Wikipedia's quality
+        scale
+    title: Title
+    title_example: Article title
+    view: View Article
+    view_all: View All
+    view_doc: The estimated views to each article since it was first edited, through
+      the most recent stats update. You can use pageviews.toolforge.org to see the
+      exact numbers.
+    views_added: Added %{count} new views for %{title}
+    wiki: Wiki
+  assignments:
+    already_exists: This assignment already exists!
+    assignees: Assignee(s)
+    assign_other: Assign/remove an article
+    add_available: Add available articles
+    assign_self: Assign myself an article
+    confirm_add_available: Are you sure you want to add %{title}?
+    confirm_addition: Are you sure you want to assign %{title} to %{username}?
+    label: Assign
+    loading: Loading assignments...
+    none_short: No articles assigned
+    none: This course has no assigned articles.
+    no_available: This course has no available articles.
+    remove: Remove
+    reviewers: Reviewer(s)
+    review_other: Assign/remove a peer review
+    review_self: Review an article
+    select: Select
+  blocks:
+    milestones:
+      title: Milestones
+  campaign:
+    newest_campaigns: Newest Campaigns
+    none: None
+    too_many_articles: The edited article list for this campaign is too long to be
+      displayed. Please view individual courses/programs/events to see the articles
+      edited.
+  courses:
+    activity: Activity
+    already_enrolled: You are already a part of '%{title}'!
+    already_exists: That already exists for this course!
+    archived: Archived Courses
+    actions: Actions
+    articles: Articles
+    enroll_button_aria_label: Enrol Button
+    assignment_end: Assignment End
+    assignment_start: Assignment Start
+    calendar:
+      legend: Legend
+      legend_class_canceled: Holiday/Cancelled
+      legend_class_meeting: Class Meeting
+      legend_class_not_meeting: No Scheduled Meeting
+      select_meeting_days: Select the days of the week on which your class meets.
+    character_doc: The sum of characters added to mainspace articles by the course's
+      students during the course term
+    campaigns: 'Campaigns:'
+    confirm_course_deletion: Are you sure you want to delete the course titled %{title}?
+      If so, type the title of the course to proceed.
+    confirm_course_deletion_failed: '"%{title}" is not the title of this course. The
+      course has not been deleted.'
+    controlled_by_event_center: Enrolment in this event is controlled by Wikimedia
+      Event Center. It cannot be joined from the Dashboard.
+    course_dates_calendar_instructions: Select dates to add or remove them from the
+      schedule (e.g., holidays, no school). Click the date to change between unselected,
+      selected, and holiday state. The dates of course activities will change to account
+      for weeks that have no scheduled meetings.
+    course_description: Courses
+    courses: Courses
+    creator:
+      already_exists: This course already exists. Consider changing the name, school,
+        or term to make it unique.
+      assignment_end: Assignment end
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start: Assignment start
+      assignment_start_placeholder: YYYY-MM-DD
+      checking_for_uniqueness: This course is being checked for uniqueness.
+      cloned_course_calendar_instructions: Select dates to add or remove them from
+        the schedule (e.g., holidays, no school). Click the date to change between
+        unselected, selected, and holiday state. If you have no holidays, check "I
+        have no class holidays". The cloned timeline will automatically adjust the
+        dates to account for weeks that have no scheduled meetings.
+      clone_successful: Update Details for Cloned Course
+      clone_successful_details: Your course has been cloned, including the elements
+        of the timeline (weeks and blocks). Be sure to add the dates, which are not
+        carried over. Has anything else about your course changed? Feel free to update
+        it now.
+      course_description: Course description
+      course_school: Course school
+      course_subject: Course subject
+      course_term: Course term
+      course_term_placeholder: Term
+      course_title: Course title
+      create_button: Create my Course!
+      create_label: Create New Course
+      create_new: Create a New Course
+      create_short: Create Course
+      end_date: End date
+      end_date_placeholder: YYYY-MM-DD
+      expected_number: Expected number of students
+      find: Find Your Course
+      intro: The title, school, and term create your course page’s URL, and can't
+        be changed. Everything else, you can edit later. Click “Create my Course!”
+        to start building the timeline for your Wikipedia assignment.
+      no_class_holidays: I have no class holidays
+      save_cloned_course: Save New Course
+      start_date: Start date
+      start_date_placeholder: YYYY-MM-DD
+      subject: Subject
+    current: Current Courses
+    delete_course: Delete course
+    duration: Course Duration
+    edit_course_dates: Edit Course Dates
+    end: End
+    enroll: Enrol
+    enrollment: Add/Remove Students
+    enrollment_edits_enabled: Enrolment edits enabled
+    enrollment_edits_enabled_tooltip: If enabled, the dashboard will post a template
+      to the userpage and talk page of each editor who joins the program.
+    error:
+      exists: That course already exists! Please try again with a different title,
+        school, or term.
+      user_exists: Sorry, %{username} is not an existing user.
+      invalid_language_or_project: Invalid language/project
+    expected_students: Expected Students
+    gradeables_none: This course has no gradeable assignments.
+    instructor:
+      one: Instructor
+      other: Instructors
+    instructors: Instructors
+    join: Join
+    join_course: Join course
+    join_prompt: Join '%{title}'?
+    join_successful: You’ve successfully joined %{title}. The dashboard will automatically
+      keep track of your contributions with periodic updates. Check back later to
+      see what impact you've made!
+    join_failed: Enrolment failed.
+    join_failure_details:
+      not_yet_approved: This course has not yet been approved for enrolment.
+      invalid_sync: Enrolment in this event is controlled by Wikimedia Event Center.
+        It cannot be joined from the Dashboard.
+    join_details: To join this course, you need to get the passcode — or an enrolment
+      link that includes the passcode — from the instructor. If you haven't received
+      this, contact your instructor.
+    leave_confirmation: Are you sure you want to leave this course?
+    leave_course: Leave course
+    loading: Cargando...
+    milestones_none: This course does not currently have any milestones.
+    my_articles: My Articles
+    new_week: Add New Week
+    nocourses: You are not participating in any courses.
+    none: None
+    notify_untrained_confirmation: This will post a reminder on the talk pages for
+      all students who overdue for completing assigned training modules. Are you sure
+      you want to do this?
+    no_available_actions: No available actions
+    overview: Home
+    passcode: Passcode
+    passcode_none: No passcode
+    passcode_prompt: 'Enter the passcode to join:'
+    published: 'Your course has been published! Students may enrol in the course by
+      visiting the following URL:'
+    retain_available_articles_wikidata: Retain Available Items
+    retain_available_articles_info_wikidata: When enabled, selecting an Available
+      Item does not remove it from the list, allowing a group of students to select
+      the same item.
+    review_timeline: 'Now, review your assignment timeline, customising it to fit
+      your needs. Once you''re satisfied, you can submit it for approval by Wiki Education
+      staff. Once approved, you''ll receive an enrolment URL that students can use
+      to join the course and access the trainings. (Note: You''ll still be able to
+      make edits later.)'
+    revisions_doc: The number of edits in the past %{timeframe} days
+    revisions_none: This course has no recent Wikipedia editing activity.
+    school: School
+    start: Start
+    start_typing: Start typing
+    students: Students
+    students_count: '# Students'
+    student_editors: Student Editors
+    timeline_enabled: Timeline enabled
+  courses_generic:
+    published: 'This project has been published! Editors may enrol by visiting the
+      following URL:'
+  recent_activity:
+    active_courses: Article is active in
+    datetime: Date/Time
+    image: Image
+  article_finder:
+    assign_article_self: Assign yourself
+...

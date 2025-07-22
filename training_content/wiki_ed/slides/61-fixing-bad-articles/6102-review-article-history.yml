@@ -1,0 +1,31 @@
+id: 6102
+title: "Review the article's history"
+summary:
+content: |
+  Looking at the edit history of a bad article can give important
+  context for how to go about fixing it. From the live article on
+  Wikipedia, click "View history" at the upper right.
+
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/View_history_button_on_English_Wikipedia.png" />
+  </figure>
+
+  The history page shows the timestamp of each edit, the username
+  of the editor, the size of the article and how much it changed by,
+  and the edit summary that (ideally) describes what was changed.
+
+  The history lets you view older versions and to see what changed
+  between different versions. Click a timestamp to view the article
+  at that point. Click **prev** to compare that version to the one
+  immediately previous, which shows exactly what was changed in that
+  single edit. Click **cur** to see cumulative changes between that
+  version and the current one. You can also select any two versions
+  and then click **Compare selected revisions** to see what changed
+  between them.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Multiple_revisions_in_Nellie_Bly_article_history.png" />
+  </figure>
+
+  Have all the recent edits come from students, or have other
+  editors been active on the article as well?

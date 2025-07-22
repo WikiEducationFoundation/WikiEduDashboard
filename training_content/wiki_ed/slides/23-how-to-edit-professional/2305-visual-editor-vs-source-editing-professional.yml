@@ -1,0 +1,56 @@
+---
+title: Visual Editor vs Source editing
+content: |
+  Wikipedia gives you two options for editing. The **Visual Editor** lets
+  you edit the text on the screen just as it appears on a Wikipedia page,
+  similar to other word processing applications and websites. **Source
+  editing** lets you see the underlying Wikicode, which resembles HTML.
+
+  When you're using the Visual Editor, you can switch to source editing
+  (and back to visual editing) by clicking the **pencil icon** at the top
+  right.
+
+  <figure class="alt-layout-100">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Visual_editing_and_Source_editing_toggle.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:Visual_editing_and_Source_editing_toggle.png"></a>
+
+  </figcaption>
+  </figure>
+
+  The Visual Editor simplifies the process of adding text, citing sources,
+  linking to other Wikipedia articles, and formatting your article. Wiki
+  Education highly recommends you use the Visual Editor when writing
+  Wikipedia articles. However, this tool is only available for
+  **articles**. To talk to other Wikipedians, you'll use Wikicode.
+id: 2305
+
+translations:
+  es:
+    title: Editor visual vs Edición de fuente
+    content: |
+      Wikipedia te ofrece dos opciones de edición. El editor visual
+      te permite editar el texto en la pantalla tal y como aparece
+      en una página de Wikipedia, de forma similar a otras aplicaciones
+      de procesamiento de textos y páginas web. La edición de fuente te
+      permite ver el Wikitexto subyacente, que se asemeja al HTML.
+
+      Cuando usas el Editor Visual, puedes cambiar a la edición de fuente
+      (y volver a la edición visual) haciendo clic en el icono del lápiz
+      en la parte superior derecha.
+
+      <figure class="alt-layout-100">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Visual_editing_and_Source_editing_toggle.png" />
+
+      <figcaption class="">
+      <a href="https://commons.wikimedia.org/wiki/File:Visual_editing_and_Source_editing_toggle.png"></a>
+
+      </figcaption>
+      </figure>
+
+      El Editor Visual simplifica el proceso de agregar texto, citar referencias,
+      enlazar a otros artículos de Wikipedia y formatear tu artículo. Wiki Educación
+      te recomienda enfáticamente que uses el Editor Visual cuando escribas artículos
+      de Wikipedia. Sin embargo, esta herramienta sólo está disponible para **artículos**.
+      Para hablar con otros Wikipedistas, usarás Wikitexto.

@@ -1,0 +1,61 @@
+%head 
+  %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
+  - before = content_for?(:before_title) ? yield(:before_title) : ''
+  - after = content_for?(:after_title) ? yield(:after_title) : ''
+  - title= raw "#{ENV['dashboard_title']}"
+  %title= raw "#{before}#{title}#{after}"
+  = logo_favicon_tag
+  %meta{content: ENV['meta_description'] || 'Wiki Dashboard', name: "description"}
+  - if Features.wiki_ed?
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600', media: 'all'
+    = stylesheet_link_tag 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700', media: 'all'
+
+  = content_for :head
+
+  = hot_javascript_tag "vendors"
+  = i18n_javascript_tag I18n.locale.to_s
+  %meta{name: "data-projects", content: Wiki::PROJECTS.to_json}
+  %meta{name: "data-languages", content: Wiki::LANGUAGES.to_json}
+  %meta{name: "data-namespaces", content: Wiki::PROJECTS_NAMESPACES.to_json}
+  :javascript
+    defaultLocale = "#{en_if_invalid I18n.default_locale.to_s}";
+    locale = "#{en_if_invalid I18n.locale.to_s}";
+    availableLocales = #{I18n.available_locales.to_json.html_safe};
+
+    currentUser = {
+      id: "#{current_user&.id || ''}",
+      username: "#{current_user&.username || ''}"
+    }
+
+    Features = {
+      wikiEd: #{Features.wiki_ed?},
+      enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
+      enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
+      consentBanner: #{user_signed_in? && !Rails.env.test?},
+      user_signed_in: #{user_signed_in?},
+      open_course_creation: #{Features.open_course_creation?},
+      default_course_string_prefix: "#{Features.default_course_string_prefix}",
+      default_campaign_slug: "#{CampaignsPresenter.default_campaign_slug}",
+      course_string_prefix: "#{Features.default_course_string_prefix}"
+    }
+
+    WikiProjects = document.querySelector('meta[name="data-projects"]').content
+    WikiLanguages = document.querySelector('meta[name="data-languages"]').content
+    ProjectNamespaces = document.querySelector('meta[name="data-namespaces"]').content
+
+    SentryDsn = "#{ENV['sentry_dsn']}"
+    SalesforceServer = "#{ENV['SF_SERVER']}"
+    dashboardTitle = "#{title}"
+
+  - if Features.sentry?
+    = hot_javascript_tag("sentry")
+    // Sentry logging
+    %script
+      Sentry.init({ dsn: SentryDsn, autoSessionTracking: false});
+      Sentry.setContext(currentUser);
+
+  -# = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  // The following path will be only available when a user is logged in
+  // and is used to load tinymce dynamically.
+  = content_for :javascripts
+  = csrf_meta_tags

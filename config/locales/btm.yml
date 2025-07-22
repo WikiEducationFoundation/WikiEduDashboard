@@ -1,0 +1,74 @@
+# Messages for Batak Mandailing (Batak Mandailing)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Simartampua
+---
+btm:
+  accessibility:
+    number_field: On ima bidang angko. Tombol-tombol na ilehen ni ampir sude browser
+      nangkan manamba dot manguraki input.
+  application:
+    cancel: Botalkon
+    create_accounts: Baen akun Wikipedia
+    dashboard: Wiki Ed Dashboard
+    documentation: Dokumentasi
+    error: 'Adong na sega:'
+    explore: Jojori
+    field_required: Bagian on iporluon
+    field_invalid_characters: Bidang on puna karakter naso valid
+    field_invalid_date: Kolom on mamorluon tanggal i format YYYY-MM-DD
+    field_invalid_date_time: Ujung angkon na pangkal parjolo. (Jom tingon 0 tu 23)
+    greeting2: Horas!
+    greeting_extended: Horas tu Wikepedia
+    greeting: Hallo!
+    help: Tolong
+    home: Bagas
+    log_in_extended: Masuk tu Wikipedia
+    log_in: Masuk
+    log_out: Kaluar
+    my_dashboard: Dashboardku
+    recent_activity: Aktivitas tarbaru
+    report_problem: Laporkon masalah
+    request_account: Paido sada akun
+    search: Alusi sada parsapaan
+    search_results: 'Hasil ni: ''%{search_terms}'''
+    sign_up_extended: Daftar dohot Wikipedia
+    sign_up_wikipedia: Sanga daftar i Wikipedia
+    sign_up_log_in_extended: Dohot Wikipedia
+    sign_up: Daftar
+    submit: Lehen
+    training: Latihan
+    change: Uba
+    details: Singkop
+    confirm: Olo
+    opt_in: Olo
+    opt_out: Inda
+  dashboard:
+    create_note: Klik Baen pangkajoan tuna mambaen pangkajoan parjolomu
+    create_preparation_note: Pastion anso puna kalender akademismy i tangan dompak
+      so imuloi ho; alat desain tugas nangkan mamake tanggal rapat kalas mu - tarmasuk
+      satiop tempo sikola dot ari tempo - anso manyasueon woktu mu tu bagasan rentang
+      tanggal na ipilimu. Ingot, Amu totop bisa mangedit timeline sasue dohot kaporluan
+      Muyu.
+    explore_course_pages: Jojori alaman pangkajoan
+    explore_examples: Jojori sude contoh
+    join_note: Sidung Amu manarimo kode sandi tingon instruktur mu, klik Jalaki Pangkajoanmu
+      anso pasuo dot martop dohot ia.
+    no_courses_instructor: Songon naso malo dope ho.
+    no_courses_student: Songon naso unjung dope ho martop tu pangkajoan.
+    opt_out: Pangidoan kaluar tingon orientasi
+    orientation_notice: Dompak Amu marsiajar, keta lewat orientasi anso pamomo Amu
+      mamuloi. (Porlu sakitar 30 minit tuna manyaloseonna.)
+    review_orientation: Pareso Orientasi
+    start_orientation: Muloi Orientasi
+    blog_headline: Jalaki Obar tingon Wiki Sikola
+  home:
+    explore: Jojori
+    log_in: Masuk dot Wikipedia
+    sign_up: Daftar dot Wikipedia
+  courses:
+    withdrawn: Inda na ibaenna
+  onboarding:
+    supplementary:
+      why_are_you_here: Aha do get baenonmu?
+...

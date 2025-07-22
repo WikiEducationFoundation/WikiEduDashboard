@@ -1,0 +1,352 @@
+# Messages for Bulgarian (български)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kareyac
+# Author: Pelajanela
+# Author: Spiritia
+# Author: StanProg
+# Author: Ted Masters
+# Author: Termininja
+# Author: V111P
+# Author: Лорд Бъмбъри
+---
+bg:
+  application:
+    cancel: Отказ
+    dashboard: Табло на Wiki Ed
+    documentation: Документация
+    error: 'Възникна грешка:'
+    explore: Разгледайте!
+    field_required: Това поле е задължително
+    field_invalid_characters: Това поле има невалидни знаци
+    field_invalid_date: Това поле изисква дата във формат YYYY-MM-DD
+    field_invalid_date_time: Краят трябва да бъде след началото. (Часовете са от 0
+      до 23.)
+    greeting2: Добре дошли!
+    greeting_extended: Добре дошли в Уикипедия
+    greeting: Здравейте!
+    help: Помощ
+    home: Начало
+    log_in_extended: Влизане с помощ на Уикипедия
+    log_in: Влизане
+    log_out: Излизане
+    my_dashboard: Моето табло
+    recent_activity: Последни действия
+    report_problem: Докладване за проблем
+    search: задайте въпрос
+    sign_up_extended: Регистрация с помощ на Уикипедия
+    sign_up_log_in_extended: чрез Уикипедия
+    sign_up: Регистриране
+    submit: Изпращане
+    training: Обучение
+    change: Промяна
+    details: Подробности
+    confirm: Добре
+    opt_in: Да
+    opt_out: Не
+    opt_yes: да
+    opt_no: не
+  dashboard:
+    create_note: Щракнете на „Създаване на курс“, за да стартирате първия си курс.
+    explore_examples: Разгледай примерите
+    join_note: Щом получите парола от инструктора си, щракнете върху „Намери своя
+      курс“ и се включете към курса.
+    no_courses_instructor: Изглежда, че нямате никакви курсове.
+    no_courses_student: Изглежда, че все още не сте се включили в курс.
+  home:
+    explore: Разгледайте!
+    log_in: Влизане с помощ на Уикипедия
+    sign_up: Регистрация с помощ на Уикипедия
+  alerts:
+    alert_label: Известия
+  activity:
+    all: Дейност
+    edited_by: Редактирано от
+    label: Дейност
+  articles:
+    articles: Статии
+    assigned: Възложени статии
+    available: Налични статии
+    next: Следваща
+    deleted: (изтрито)
+    edited: Редактирани статии
+    edited_by: 'Редактирано от:'
+    edited_mobile: Статии
+    edited_none: Все още няма редактирани статии.
+    filter:
+      tracked: Под наблюдение
+      untracked: Не е под наблюдение
+      tracked_and_untracked: Наблюдавани и ненаблюдавани
+    find: Намиране на статии
+    hide: Скриване
+    history: (история)
+    label: Статии
+    loading: Зареждане на статии...
+    new: (нова)
+    none: До момента в този курс няма редактирани статии.
+    preview: Бърз преглед на статия
+    rating: Клас
+    rating_doc: Оценката, дадена на съответната статия от Уикипроекти в Уикипедия.
+      Тези оценки може да се отнасят до много по-стари версии, така че те дават само
+      относителна представа за прогреса на статията.
+    rating_docs:
+      fa: '%{class} (Избрана статия) — най-високата оценка в Уикипедия; най-вероятно
+        статия, развита твърде добре, за да бъде основен проект на начинаещ редактор'
+      fl: '%{class} (Избран списък) — най-високата оценка в Уикипедия за списъци'
+    show_current_version: Показване на текущата версия
+    title: Заглавие
+    title_example: Заглавие на статията
+    tools: Инструменти за оценка
+    view_doc: Приблизителни преглеждания на всяка статия, откакто е била първоначално
+      редактирана, чрез най-новата актуализация на статистиката. Можете да използвате
+      pageviews.toolforge.org, за да видите точните данни.
+    view_on_wiki: Вижте на Уики
+    views_added: Добавени %{count} нови посещения на %{title}
+    wiki: Уики
+  assignments:
+    loading: Зареждане на заданията...
+    remove: Премахване
+    select: Избиране
+  campaign:
+    active_campaigns: Активни кампании
+    add_organizer: Добавяне на организатор
+    alert_user_id: Потребител
+    all_campaigns: Всички кампании
+    campaign: Кампания
+    campaigns: Кампании
+    campaign_deleted: Кампания „%{title}“ беше изтрита
+    campaign_not_updated: Кампанията не може да бъде актуализирана
+    campaign_updated: Кампанията е обновена
+    confirm_course_removal: Сигурни ли сте, че искате да изтриете „%{title}“ от кампания
+      „%{campaign_title}“?
+    course_already_removed: „%{title}“ вече е изтрита от кампания „%{campaign_title}“
+    course_removed: „%{title}“ е отстранен от кампания „%{campaign_title}“
+    create_campaign: Създаване на нова кампания
+    data_instructors_info: Списък на инструкторите/ръководителите и техните курсове/програми
+    data_editors_by_course_info: Списък с редактори и курсовете/програмите, в които
+      участват
+    description: Описание
+    delete_campaign: Изтриване на кампанията
+    none: Няма
+    organizers: Организатори
+    title: Заглавие
+    use_start_end_dates: Използване на начална и крайна дата
+    search: Търсене
+  categories:
+    add_category: Добавяне на категория
+    add_template: Добавяне на шаблон
+    add_this_category: Добавяне на категории
+    add_this_template: Добавяне на шаблони
+    category_name: Име на категорията
+    template_name: Име на шаблона
+    remove: Премахване
+  courses:
+    activity: Дейност
+    all_courses: Всички курсове
+    actions: Действия
+    articles: Статии
+    articles_i_am_reviewing: Статии, които оценявам
+    articles_i_am_updating: Статии, които редактирам
+    assignment_end: Края на заданието
+    assignment_start: Начало на заданието
+    calendar:
+      legend: Легенда
+    cancel: Отказ
+    campaigns: 'Кампании:'
+    campaign_courses: Курсове от %{title}
+    campaign_users: Редактори от %{title}
+    course: Курс
+    course_description: Курсове
+    courses: Курсове
+    creation_date: Дата на създаване
+    creator:
+      assignment_end: Край на заданието
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start: Начало на заданието
+      assignment_start_placeholder: YYYY-MM-DD
+      clone_previous: Клониране на предишния курс
+      clone_this: Клониране на този курс
+      clone_successful: Обновена информация за клониран курс
+      course_description: Описание на курса
+      course_private: Частна програма (видима само от администратори и ръководители)
+      course_title: Заглавие на курса
+      create_button: Създай курса ми!
+      create_label: Създаване на нов курс
+      create_new: Създай нов курс
+      create_short: Създаване на курс
+      end_date: Крайна дата
+      end_date_placeholder: YYYY-MM-DD
+      expected_number: Очакван брой обучаеми
+      find: Намери курса си
+      intro: Заглавието на курса, името на учебното заведение и периода определят
+        уникалния адрес на курса ви. Те не подлежат на промяна. Всичко друго можете
+        да редактирате впоследствие. Щракнете на „Create my Course“, за да започнете
+        със създаването на графика за вашите уики задания.
+      start_date: Начална дата
+      start_date_placeholder: YYYY-MM-DD
+      subject: Тема
+    current: Текущи курсове
+    delete_course: Изтриване на курс
+    delete_suggestion: Изтриване
+    duration: Продължителност на курса
+    edit_course_dates: Редактиране на датите на курса
+    end: Край
+    ended: Курсът е приключил.
+    enroll: Записване
+    error:
+      exists: Такъв курс вече съществува. Моля, опитайте с различно заглавие, училище
+        или семестър.
+      invalid_language_or_project: Невалиден език/проект
+    join_prompt: Включване в '%{title}'?
+    join_successful: Успешно се включихте в %{title}. Приносите Ви ще бъдат автоматично
+      обновени в таблото, чрез периодични актуализации. Проверете по-късно, за да
+      видите как са отразени промените Ви.
+    loading: Зареждане…
+    my_articles: Моите статии
+    new_week: Добавяне на нова седмица
+    overview: Начало
+    revisions_doc: Брой редакции в изминалите %{timeframe} дни
+    school: Училище
+    school_and_term: Институция/Семестър
+    start: Начало
+    term: Семестър
+    title: Заглавие
+    view_other: Преглед на други кампании
+    view_doc: Приблизителни преглеждания на статиите, редактирани от записани редактори
+      от тяхното първо редактиране на всяка статия
+    yourcourses: Вашите курсове
+  courses_generic:
+    articles_i_am_reviewing: Статии, които преглеждам
+    cancel: Отказ
+    courses: Програми
+    campaigns: 'Кампании:'
+    campaign_courses: Програми от %{title}
+    creator:
+      course_school: Институция
+      course_title: Заглавие на програмата
+      find: Намери програма
+      save_cloned_course: Съхраняване
+    enrollment: Добавяне/отстраняване на редактори
+    explore: Търсене на програми
+    expected_students: Очаквани редактори
+    instructors: Ръководители
+    school: Институция
+    student_editors: Редактори
+    students: Редактори
+    students_taught: Всички редактори
+    view_other: Преглед на други кампании
+  editable:
+    edit: Редактиране
+    cancel: Отказ
+    save: Съхраняване
+    edit_description: Редактиране на описанието
+  metrics:
+    activity: Последна активност
+    articles_created: Създадени статии
+    articles_edited: Редактирани статии
+    bytes_added: Добавени байта
+    char_added: Добавени знаци
+    char: Добавени знаци
+    date_time: Дата/Час
+    edit_count_description: Общо редакции
+    revisions: Скорошни редакции
+    references_count: Добавени източници
+    upload_count: Качвания в Общомедия
+    view_count_description: Посетени статии
+    view: Посещения
+    word_count: Добавени думи
+    references_added: Добавени източници
+  namespace:
+    main_char_added: Добавени знаци в основното пространство
+    user_char_added: Добавени знаци в потребителското пространство
+    project: Проект
+    file: Файл
+    template: Шаблон
+    help: Помощ
+    category: Категория
+    page: Страница
+    book: Книга
+    translation: Превод
+    property: Свойство
+    portal: Портал
+    school: Училище
+    author: Автор
+    cookbook: Готварска книга
+    index: Индекс
+  recent_activity:
+    article_title: Заглавие
+    datetime: Дата/Час
+    image: Изображение
+    no_edits: Няма скорошни редакции.
+    recent_edits: Скорошни редакции
+    recent_uploads: Последни качвания
+    revision_datetime: Дата/Час на версията
+    show_courses: Показване само на моите курсове
+  revisions:
+    chars_added: Добавени знаци
+    date_time: Дата/Час
+    diff_show: Показване
+    diff_hide: Скриване
+    loading: Зареждане на версии...
+    title: Заглавие
+  resources:
+    label: Ресурси
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Потребителско име
+    special_users:
+      new:
+        form_placeholder: Потребителско име
+  timeline:
+    add_week: Добавяне на седмица
+    gradeable_value: Стойност
+    this_week_title_default: Тази седмица
+    title: График
+    week_number: Седмица %{number}
+  training:
+    start: Начало
+    page: Страница
+    table_of_contents: Съдържание
+  uploads:
+    header: Качени файлове в Общомедия
+    image: Изображение
+    label: Качвания
+    loading: Зареждане на качвания...
+  users:
+    assign_articles_done: Готово
+    editors: Редактори
+    loading: Зареждане на потребители...
+    no_articles: Няма статии
+    recent_revisions: Скорошни редакции
+    revision_characters_and_views: 'Добавени знаци: %{characters}, Посещения: %{views}'
+    revisions_doc: Брой редакции на редактора в изминалите 7 дни
+    username: Потребителско име
+    username_placeholder: Потребителско име
+    role:
+      instructor: Инструктор
+  user_profiles:
+    location_placeholder: Добавяне на местоположение (незадължително)
+    institution_placeholder: Име на институцията (незадължително)
+  wizard:
+    read_more: Прочетете повече
+  error:
+    start_date_before_end_date: Началната дата трябва да бъде по-ранна от крайната
+      дата
+  login_error:
+    header: Грешка при влизане
+  survey:
+    email:
+      headline: Здравейте, %{username}
+  article_finder:
+    search: Търсене
+    submit: Изпращане
+    tools: Инструменти
+  news:
+    footer:
+      P&E_dashboard:
+        link_text: Уикимедия
+    options:
+      news_content:
+        confirm_delete: Потвърждаване
+...
