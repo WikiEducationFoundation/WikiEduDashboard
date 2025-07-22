@@ -162,14 +162,5 @@ class UpdateWikidataStatsTimeslice
     Wiki.get_or_create(language: nil, project: 'wikidata')
   end
 
-  # This function parses the serialized stats saved in the summary field, in case of any errors
-  # it returns nil meaning the field contains an edit summary
-  def summary(revision)
-    summary = revision.summary
-    JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
-  rescue JSON::ParserError
-    nil # Return nil if parsing fails (i.e., not diff_stats)
-  end
-
   class WikidataDiffAnalyzerError < StandardError; end
 end
