@@ -1,6 +1,8 @@
 # frozen_string_literal: true
+
 require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 # require the installed wikidata-diff-analyzer gem
 require 'wikidata-diff-analyzer'
 
