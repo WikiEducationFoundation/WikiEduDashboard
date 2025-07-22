@@ -286,7 +286,6 @@ Rails.application.routes.draw do
       get 'courses'
       get 'ores_plot'
       get 'articles_csv'
-      get 'revisions_csv'
       get 'alerts'
       get 'wikidata'
       put 'add_organizer'

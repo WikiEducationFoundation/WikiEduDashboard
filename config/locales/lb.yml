@@ -62,9 +62,9 @@ lb:
     details: Detailer
     confirm: OK
     opt_in: Jo
-    opt_out: Neen
+    opt_out: Nee
     opt_yes: jo
-    opt_no: neen
+    opt_no: nee
     print: Drécken
   article_statuses:
     not_yet_started: Fir unzefänken

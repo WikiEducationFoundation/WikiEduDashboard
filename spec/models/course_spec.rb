@@ -273,11 +273,9 @@ describe Course, type: :model do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       # mainspace article
       article = create(:article, namespace: Article::Namespaces::MAINSPACE)
-      create(:revision, article_id: article.id, user_id: student.id)
       create(:articles_course, article_id: article.id, course_id: course.id)
       # non-mainspace page
-      sandbox = create(:article, namespace: Article::Namespaces::TALK)
-      create(:revision, article_id: sandbox.id, user_id: student.id)
+      create(:article, namespace: Article::Namespaces::TALK)
 
       course.update_cache_from_timeslices
       expect(course.article_count).to eq(1)
@@ -293,12 +291,10 @@ describe Course, type: :model do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       # mainspace article
       article = create(:article, namespace: Article::Namespaces::MAINSPACE)
-      create(:revision, article_id: article.id, user_id: student.id)
       create(:articles_course, article_id: article.id, course_id: course.id,
                                new_article: true)
       # non-mainspace page
-      sandbox = create(:article, namespace: Article::Namespaces::TALK)
-      create(:revision, article_id: sandbox.id, user_id: student.id)
+      create(:article, namespace: Article::Namespaces::TALK)
 
       course.update_cache_from_timeslices
       expect(course.new_article_count).to eq(1)

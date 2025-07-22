@@ -55,14 +55,14 @@ describe RevisionScoreApiHandler do
 
           expect(subject.dig('829840090', 'wp10').to_f).to be_within(0.01).of(62.81)
           expect(subject.dig('829840090')).to have_key('features')
-          expect(subject.dig('829840090', 'features')).to be_nil
+          expect(subject.dig('829840090', 'features')).to eq({})
           expect(subject.dig('829840090', 'deleted')).to eq(false)
           expect(subject.dig('829840090', 'prediction')).to eq('B')
           expect(subject.dig('829840090', 'error')).to eq(true)
 
           expect(subject.dig('829840091', 'wp10').to_f).to be_within(0.01).of(39.51)
           expect(subject.dig('829840091')).to have_key('features')
-          expect(subject.dig('829840091', 'features')).to be_nil
+          expect(subject.dig('829840091', 'features')).to eq({})
           expect(subject.dig('829840091', 'deleted')).to eq(false)
           expect(subject.dig('829840091', 'prediction')).to eq('C')
           expect(subject.dig('829840091', 'error')).to eq(true)
@@ -76,9 +76,9 @@ describe RevisionScoreApiHandler do
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
         expect(subject.dig('829840090')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => nil, 'deleted' => false, 'prediction' => nil })
+        'features' => {}, 'deleted' => false, 'prediction' => nil })
         expect(subject.dig('829840091')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => nil, 'deleted' => false, 'prediction' => nil })
+        'features' => {}, 'deleted' => false, 'prediction' => nil })
       end
     end
   end
@@ -122,9 +122,9 @@ describe RevisionScoreApiHandler do
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
         expect(subject.dig('144495297')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => nil, 'deleted' => false, 'prediction' => nil })
+        'features' => {}, 'deleted' => false, 'prediction' => nil })
         expect(subject.dig('144495298')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => nil, 'deleted' => false, 'prediction' => nil })
+        'features' => {}, 'deleted' => false, 'prediction' => nil })
       end
     end
   end
@@ -153,9 +153,9 @@ describe RevisionScoreApiHandler do
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
         expect(subject.dig('157412237')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => nil, 'deleted' => false, 'prediction' => nil })
+        'features' => {}, 'deleted' => false, 'prediction' => nil })
         expect(subject.dig('157417768')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => nil, 'deleted' => false, 'prediction' => nil })
+        'features' => {}, 'deleted' => false, 'prediction' => nil })
       end
     end
   end

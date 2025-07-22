@@ -151,10 +151,10 @@ describe TimesliceManager do
 
   describe '#update_last_mw_rev_datetime' do
     context 'when there were updates' do
-      let(:revision1) { create(:revision, date: '2024-01-01 15:45:53') }
-      let(:revision2) { create(:revision, date: '2024-01-01 19:40:45') }
-      let(:revision3) { create(:revision, date: '2024-01-01 13:40:45') }
-      let(:revision4) { create(:revision, date: '2024-01-03 03:09:10') }
+      let(:revision1) { build(:revision_on_memory, date: '2024-01-01 15:45:53') }
+      let(:revision2) { build(:revision_on_memory, date: '2024-01-01 19:40:45') }
+      let(:revision3) { build(:revision_on_memory, date: '2024-01-01 13:40:45') }
+      let(:revision4) { build(:revision_on_memory, date: '2024-01-03 03:09:10') }
       let(:revisions) { [revision1, revision2, revision3, revision4] }
       let(:new_fetched_data) do
         { enwiki => { start: '20240101090035', end: '20240104101340', revisions: } }

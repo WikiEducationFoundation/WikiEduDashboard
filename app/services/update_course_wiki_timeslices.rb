@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
-class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
+class UpdateCourseWikiTimeslices
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)

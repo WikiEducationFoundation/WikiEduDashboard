@@ -25,7 +25,6 @@ class Alert < ApplicationRecord
   belongs_to :course
   belongs_to :user
   belongs_to :target_user, class_name: 'User'
-  belongs_to :revision
 
   include ArticleHelper
 
@@ -116,6 +115,15 @@ class Alert < ApplicationRecord
 
   def user_contributions_url
     courses_user&.contribution_url
+  end
+
+  # Returns the web diff url for the revision, e.g.,
+  # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
+  # Note: this assumes revision_id field contains a mediawiki revision id
+  def revision_url
+    return if article.nil? || revision_id.nil?
+    title = article.escaped_full_title
+    "#{article.wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{revision_id}"
   end
 
   def content_experts
