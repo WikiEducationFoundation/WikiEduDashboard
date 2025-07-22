@@ -1,8 +1,13 @@
 # frozen_string_literal: true
+
+require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 # require the installed wikidata-diff-analyzer gem
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStatsTimeslice
+  include ApiErrorHandling
   # This hash contains the keys of the wikidata-diff-analyzer output hash
   # and maps them to the values used in the UI and CourseStat Hash
   STATS_CLASSIFICATION = {
@@ -76,15 +81,18 @@ class UpdateWikidataStatsTimeslice
   # Returns the updated array.
   def update_revisions_with_stats(revisions)
     # We will only use the diff stats for in-scope revisions, and this is very slow.
-    revision_ids = revisions.select(&:scoped).map(&:mw_rev_id)
-    analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
-    revisions.each do |revision|
-      next unless revision.scoped
+    scoped_revisions = revisions.select(&:scoped)
+    analyzed_revisions = analyze_revisions(scoped_revisions.map(&:mw_rev_id))
+    scoped_revisions.each do |revision|
       rev_id = revision.mw_rev_id
       individual_stat = analyzed_revisions[rev_id]
       serialized_stat = individual_stat.to_json
       revision.summary = serialized_stat
     end
+    revisions
+  rescue WikidataDiffAnalyzerError
+    # If the request to WikidataDiffAnalyzer failed, mark scoped revisions with error
+    scoped_revisions.each { |rev| rev.error = true }
     revisions
   end
 
@@ -121,6 +129,20 @@ class UpdateWikidataStatsTimeslice
 
   private
 
+  TYPICAL_ERRORS = [].freeze
+
+  RETRY_COUNT = 3
+
+  def analyze_revisions(revision_ids)
+    tries ||= RETRY_COUNT
+    WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+  rescue StandardError => e
+    tries -= 1
+    retry unless tries.zero?
+    log_error(e, sentry_extra: { revision_ids: })
+    raise WikidataDiffAnalyzerError
+  end
+
   def sum_up_stats(individual_stats)
     total_stats = {}
     STATS_CLASSIFICATION.each_key do |key|
@@ -141,4 +163,6 @@ class UpdateWikidataStatsTimeslice
   def wikidata
     Wiki.get_or_create(language: nil, project: 'wikidata')
   end
+
+  class WikidataDiffAnalyzerError < StandardError; end
 end
