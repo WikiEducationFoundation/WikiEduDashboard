@@ -16,7 +16,7 @@ export class URLBuilder {
       const query = `${base}/w/api.php?action=parse&oldid=${lastRevisionId}&disableeditsection=true&format=json`;
       url = `${query}`;
     } else {
-      const query = `${base}/w/api.php?action=parse&disableeditsection=true&format=json`;
+      const query = `${base}/w/api.php?action=parse&disableeditsection=true&format=json&redirects=true`;
       url = `${query}&page=${encodeURIComponent(title)}`;
     }
     return url;

@@ -76,6 +76,31 @@ export class ArticleViewerAPI {
     }).then(response => this.__handleFetchResponse(response))
       .then((response) => {
         if (response.error) throw new Error(this.__setException({ status: 404 }));
+        // Check if this is a redirect page
+        if (response.parse.redirects && response.parse.redirects.length > 0) {
+          const redirectTarget = response.parse.redirects[response.parse.redirects.length - 1].to;
+          // Make a new request for the redirect target
+          const redirectUrl = this.builder.parsedArticleURL().replace(
+            `page=${encodeURIComponent(this.builder.article.title)}`,
+            `page=${encodeURIComponent(redirectTarget)}`
+          );
+
+          return fetch(`${redirectUrl}&origin=*`, {
+            headers: {
+              'Content-Type': 'application/javascript'
+            }
+          }).then(redirectRes => this.__handleFetchResponse(redirectRes))
+            .then((redirectResponse) => {
+              if (redirectResponse.error) throw new Error(this.__setException({ status: 404 }));
+              return {
+                articlePageId: redirectResponse.parse.pageid,
+                fetched: true,
+                parsedArticle: this.__processHtml(redirectResponse.parse.text['*']),
+                redirectedFrom: this.builder.article.title,
+                redirectedTo: redirectTarget
+              };
+            });
+        }
         return {
           articlePageId: response.parse.pageid,
           fetched: true,
