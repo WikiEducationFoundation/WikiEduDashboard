@@ -13,7 +13,7 @@ describe('URLBuilder', () => {
   describe('#parsedArticleURL', () => {
     it('should create a parsedArticleURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });
-      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&page=Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F';
+      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&redirects=true&page=Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F';
       expect(helper.parsedArticleURL()).toEqual(expected);
     });
     it('should throw an error if the project is missing', () => {
@@ -29,7 +29,7 @@ describe('URLBuilder', () => {
     it('should correctly encode page titles as URL parameters', () => {
       const article = { language: 'en', project: 'wikipedia', title: 'Bed Bath & Beyond' };
       const helper = new URLBuilder({ article });
-      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&page=Bed%20Bath%20%26%20Beyond';
+      const expected = 'https://en.wikipedia.org/w/api.php?action=parse&disableeditsection=true&format=json&redirects=true&page=Bed%20Bath%20%26%20Beyond';
       expect(helper.parsedArticleURL()).toEqual(expected);
     });
   });
