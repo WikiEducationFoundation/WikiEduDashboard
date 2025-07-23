@@ -1,7 +1,7 @@
 # Now we operate on the spreadsheet from csv_of_new_articles_by_term.rb,
 # copied to development environment.
 
-load 'docs/analytics_scripts/ai_usage_research/rev_analyzer.rb'
+load 'docs/analytics_scripts/ai_usage_research/initial_exploration/rev_analyzer.rb'
 
 articles_to_analyze = CSV.read 'new_articles_by_term_since_2022.csv'
 

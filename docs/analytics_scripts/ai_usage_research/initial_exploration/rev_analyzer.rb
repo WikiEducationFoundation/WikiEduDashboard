@@ -8,7 +8,7 @@ class RevAnalyzer
   attr_reader :plain_text, :html, :rev_id, :redirect,
               :zero_max_generated_prob, :zero_suspected_sentence_count, :zero_most_suspect_sentence,
               :pangram_ai_likelihood, :pangram_average_ai_likelihood, :pangram_max_ai_likelihood, :pangram_fraction_ai_content,
-              :pangram_predicted_ai_window_count, :pangram_predicted_llm
+              :pangram_predicted_ai_window_count, :pangram_predicted_llm, :pangram_result
   EN_WIKI = Wiki.get_or_create(language: 'en', project: 'wikipedia')
 
   def initialize(mw_page_id, timestamp)
@@ -40,6 +40,7 @@ class RevAnalyzer
     return unless @plain_text
     pangram = PangramApi.new
     pangram.inference @plain_text
+    @pangram_result = pangram.result
     @pangram_ai_likelihood = pangram.ai_likelihood
     @pangram_average_ai_likelihood = pangram.average_ai_likelihood
     @pangram_max_ai_likelihood = pangram.max_ai_likelihood

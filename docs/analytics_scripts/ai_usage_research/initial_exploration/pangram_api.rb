@@ -1,5 +1,6 @@
 # requests to pangram.com Inference API
 class PangramApi
+  attr_reader :result
   def initialize
     @api_key = ENV['pangram_api_key']
   end
@@ -14,7 +15,7 @@ class PangramApi
     response = conn.post('') do |req| 
       req.body = { text: text }.to_json
     end
-
+    puts response
     @response = response
     @result = JSON.parse @response.body
   end
