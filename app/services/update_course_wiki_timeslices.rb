@@ -15,15 +15,15 @@ class UpdateCourseWikiTimeslices
     @update_service = update_service
     @revision_updater = CourseRevisionUpdater.new(@course, update_service:)
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
-    @processed_timeslices = 0
-    @reprocessed_timeslices = 0
+    @processed_timeslices_count = 0
+    @reprocessed_timeslices = []
   end
 
   def run(all_time:)
     pre_update(all_time)
     @course.update(needs_update: false)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    [@processed_timeslices, @reprocessed_timeslices]
+    [@processed_timeslices_count, @reprocessed_timeslices.count]
   end
 
   private
@@ -61,13 +61,16 @@ class UpdateCourseWikiTimeslices
       end_date = [current_start + @timeslice_manager.timeslice_duration(wiki) - 1.second,
                   @course.end].min
 
+      current_start += @timeslice_manager.timeslice_duration(wiki)
+      # If the timeslice was reprocessed in this update, then skip it
+      next if timeslice_reprocessed?(wiki.id, start_date)
+
       log_processing(wiki, start_date, end_date)
 
       fetch_data(wiki, start_date, end_date, only_new: true)
       # Only process timeslices if there is new data
       process_timeslices(wiki) if new_data?(wiki)
-      current_start += @timeslice_manager.timeslice_duration(wiki)
-      @processed_timeslices += 1
+      @processed_timeslices_count += 1
     end
   end
 
@@ -87,7 +90,7 @@ class UpdateCourseWikiTimeslices
 
       fetch_data(wiki, start_date, end_date, only_new: false)
       process_timeslices(wiki)
-      @reprocessed_timeslices += 1
+      @reprocessed_timeslices << { wiki_id: t.wiki_id, start: t.start }
     end
   end
 
@@ -101,6 +104,10 @@ class UpdateCourseWikiTimeslices
     )
     # Only fetch wikidata stats if wikidata and there is new data
     fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && new_data?(wiki)
+  end
+
+  def timeslice_reprocessed?(wiki_id, start_date)
+    @reprocessed_timeslices.include?({ wiki_id:, start: start_date })
   end
 
   def new_data?(wiki)

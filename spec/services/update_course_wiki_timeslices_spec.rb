@@ -196,6 +196,30 @@ describe UpdateCourseWikiTimeslices do
         updater.run(all_time: false)
       end
     end
+
+    it 'never process the same timeslice twice' do
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+
+      # Set one timeslice with last_mw_rev_datetime different from nil to be the ingestion start
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-26 00:00:00')
+                         .update(last_mw_rev_datetime: '2018-11-26 14:05:30')
+
+      # Set current and past timeslices as needs_update
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-26 00:00:00')
+                         .update(needs_update: true)
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-25 00:00:00')
+                         .update(needs_update: true)
+
+      # fetch_data_for_course_wiki gets called 13 times:
+      # 2 for reprocessing + 4 from [2018-11-27, 2018-11-30] for wikipedia
+      # + 7 from [2018-11-24, 2018-11-30] for wikidata
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+        .exactly(13).times.and_call_original
+
+      VCR.use_cassette 'course_update' do
+        updater.run(all_time: false)
+      end
+    end
   end
 
   context 'when there is no point in importing revisions' do
