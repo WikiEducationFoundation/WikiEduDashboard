@@ -47,7 +47,7 @@ describe UpdateCourseWikiTimeslices do
 
   context 'when there are revisions' do
     it 'updates article course timeslices caches' do
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         subject
       end
 
@@ -69,7 +69,7 @@ describe UpdateCourseWikiTimeslices do
     end
 
     it 'updates course user wiki timeslices caches' do
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         subject
       end
 
@@ -101,7 +101,7 @@ describe UpdateCourseWikiTimeslices do
     end
 
     it 'updates course wiki timeslices caches' do
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         subject
       end
       # 14 course wiki timeslices records were created: 7 for enwiki and 7 for wikidata
@@ -133,7 +133,7 @@ describe UpdateCourseWikiTimeslices do
       allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
         .and_raise(StandardError, 'Simulated failure')
 
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         subject
       end
 
@@ -168,7 +168,7 @@ describe UpdateCourseWikiTimeslices do
         end
       end
 
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         subject
       end
     end
@@ -192,7 +192,7 @@ describe UpdateCourseWikiTimeslices do
       expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
         .exactly(12).times.and_call_original
 
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         updater.run(all_time: false)
       end
     end
@@ -216,7 +216,7 @@ describe UpdateCourseWikiTimeslices do
       expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
         .exactly(13).times.and_call_original
 
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         updater.run(all_time: false)
       end
     end
@@ -240,14 +240,14 @@ describe UpdateCourseWikiTimeslices do
     end
 
     it 'does not fail and logs no errors' do
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         expect(Sentry).not_to receive(:capture_message)
         subject
       end
     end
 
     it 'cleans old caches' do
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         subject
         enwiki_timeslice = course.course_wiki_timeslices.where(wiki: enwiki).first
         expect(enwiki_timeslice.revision_count).to eq(0)
@@ -283,7 +283,7 @@ describe UpdateCourseWikiTimeslices do
     end
 
     it 'sets needs_update to false if update is successful' do
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'course_wiki_timeslices_update' do
         updater.run(all_time: true)
       end
       expect(course.needs_update).to eq(false)

@@ -64,7 +64,7 @@ describe VisitingScholarship, type: :model do
 
       allow(Replica).to receive(:new).and_return(replica_instance)
       allow(replica_instance).to receive(:get_revisions).and_return(revisions)
-      VCR.use_cassette 'course_update' do
+      VCR.use_cassette 'visiting_scholarship_update' do
         UpdateCourseStatsTimeslice.new(vs)
       end
     end
