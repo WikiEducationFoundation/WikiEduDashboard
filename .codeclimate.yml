@@ -1,3 +1,5 @@
+version: "2"
+
 engines:
   rubocop:
     enabled: true
@@ -23,13 +25,6 @@ ratings:
   - "**.css"
   - Gemfile.lock
 
-# For all languages, we support a standard set of Glob patterns.
-# exclude_paths:
-# - app/helpers/users_helper.php # Exclude a specific file
-# - app/controllers/* # Exclude all contents of a folder (including all subfolders)
-# - app/controllers/*.py # Exclude specific files type within a folder/subfolders
-# - lib/**/*.rb # Recursively ignore all files ending in .rb
-
 exclude_paths:
 - public/*
 - db/*
@@ -38,3 +33,28 @@ exclude_paths:
 - spec/*
 - docs/*
 - setup/*
+- node_modules/*
+- tmp/*
+- coverage/*
+
+# Essential quality checks - these prevent major code quality issues
+checks:
+  # Prevents overly complex methods (most important)
+  method-complexity:
+    config:
+      threshold: 8
+  
+  # Prevents methods from becoming too long (crucial for maintainability)
+  method-lines:
+    config:
+      threshold: 50
+  
+  # Prevents files from becoming massive (important for team collaboration)
+  file-lines:
+    config:
+      threshold: 400
+  
+  # Prevents too many parameters (reduces complexity)
+  argument-count:
+    config:
+      threshold: 5

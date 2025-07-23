@@ -1,7 +1,14 @@
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-  collectCoverage: false,
+  collectCoverage: true,
+  coverageDirectory: 'public/js_coverage',
+  coverageReporters: ['lcov', 'text-summary'],
+  collectCoverageFrom: [
+    'app/assets/javascripts/**/*.{js,jsx}',
+    '!app/assets/javascripts/**/*.spec.{js,jsx}',
+    '!app/assets/javascripts/**/__tests__/**'
+  ],
   roots: [
     'test',
     'app/assets/javascripts'

@@ -105,23 +105,20 @@ jobs:
       
       - name: JavaScript linting
         run: yarn lint-non-build
-           
-      #temporarily disabling Code Climate coverage upload to fix failing CI builds.   
-      # - name: Ruby rspec test suite
-      #   uses: paambaati/codeclimate-action@v3.0.0
-      #   env:
-      #     COVERAGE: true
-      #     CC_TEST_REPORTER_ID: f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
-      #   with:
-      #     coverageCommand: bundle exec rspec spec/ --color --profile --format documentation
-      #     coverageLocations: |
-      #       ${{github.workspace}}/public/js_coverage/lcov.info:lcov
 
-      #Keep all tests and local coverage generation intact
       - name: Ruby rspec test suite
         env:
           COVERAGE: true
         run: bundle exec rspec spec/ --color --profile --format documentation
+
+      - name: Upload coverage to Code Climate
+        uses: paambaati/codeclimate-action@v5.0.0
+        env:
+          CC_TEST_REPORTER_ID: f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
+        with:
+          coverageLocations: |
+            ${{github.workspace}}/public/js_coverage/lcov.info:lcov
+        continue-on-error: true
       
       - name: Archive capybara failure screenshots
         uses: actions/upload-artifact@v4
