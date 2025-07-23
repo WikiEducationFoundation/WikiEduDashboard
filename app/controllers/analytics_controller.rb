@@ -48,8 +48,7 @@ class AnalyticsController < ApplicationController
   end
 
   def course_csv
-    send_data CourseCsvBuilder.new(@course, per_wiki: true).generate_csv,
-              filename: "#{@course.slug}-#{Time.zone.today}.csv"
+    csv_of('overview')
   end
 
   def tagged_courses_csv
@@ -59,23 +58,19 @@ class AnalyticsController < ApplicationController
   end
 
   def course_uploads_csv
-    send_data CourseUploadsCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-uploads-#{Time.zone.today}.csv"
+    csv_of('uploads')
   end
 
   def course_students_csv
-    send_data CourseStudentsCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-editors-#{Time.zone.today}.csv"
+    csv_of('editors')
   end
 
   def course_articles_csv
-    send_data CourseArticlesCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-articles-#{Time.zone.today}.csv"
+    csv_of('articles')
   end
 
   def course_wikidata_csv
-    send_data CourseWikidataCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-wikidata-#{Time.zone.today}.csv"
+    csv_of('wikidata')
   end
 
   def all_courses_csv
@@ -127,5 +122,18 @@ class AnalyticsController < ApplicationController
   def set_campaigns
     @campaign_1 = Campaign.find(params[:campaign_1][:id])
     @campaign_2 = Campaign.find(params[:campaign_2][:id])
+  end
+
+  CSV_PATH = '/system/analytics'
+
+  def csv_of(type)
+    # Filename does not have to contain '/' char because it's interpreted as a route
+    filename = "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-')
+    if File.exist? "public#{CSV_PATH}/#{filename}"
+      redirect_to "#{CSV_PATH}/#{filename}"
+    else
+      CourseCsvWorker.generate_csv(course: @course, filename:, type:)
+      render plain: 'This file is being generated. Please try again shortly.', status: :ok
+    end
   end
 end
