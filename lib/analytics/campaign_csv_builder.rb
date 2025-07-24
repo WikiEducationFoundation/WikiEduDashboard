@@ -3,7 +3,7 @@
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/app/workers/campaign_csv_worker"
+require_dependency "#{Rails.root}/app/workers/report_csv_worker"
 require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
