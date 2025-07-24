@@ -2,11 +2,6 @@
 
 require_dependency "#{Rails.root}/lib/analytics/monthly_report"
 require_dependency "#{Rails.root}/lib/analytics/course_statistics"
-require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
 require_dependency "#{Rails.root}/lib/analytics/tagged_courses_csv_builder"
@@ -16,9 +11,6 @@ class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
-  before_action :set_course, only: %i[course_csv course_uploads_csv
-                                      course_students_csv course_articles_csv
-                                      course_wikidata_csv]
 
   ########################
   # Routing entry points #
@@ -47,30 +39,10 @@ class AnalyticsController < ApplicationController
               filename: "ungreeted-#{current_user.username}-#{Time.zone.today}.csv"
   end
 
-  def course_csv
-    csv_of('overview')
-  end
-
   def tagged_courses_csv
     tag = params[:tag]
     send_data TaggedCoursesCsvBuilder.new(tag).generate_csv,
               filename: "#{tag}-courses-#{Time.zone.today}.csv"
-  end
-
-  def course_uploads_csv
-    csv_of('uploads')
-  end
-
-  def course_students_csv
-    csv_of('editors')
-  end
-
-  def course_articles_csv
-    csv_of('articles')
-  end
-
-  def course_wikidata_csv
-    csv_of('wikidata')
   end
 
   def all_courses_csv
@@ -115,25 +87,8 @@ class AnalyticsController < ApplicationController
 
   private
 
-  def set_course
-    @course = find_course_by_slug(params[:course])
-  end
-
   def set_campaigns
     @campaign_1 = Campaign.find(params[:campaign_1][:id])
     @campaign_2 = Campaign.find(params[:campaign_2][:id])
-  end
-
-  CSV_PATH = '/system/analytics'
-
-  def csv_of(type)
-    # Filename does not have to contain '/' char because it's interpreted as a route
-    filename = "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-')
-    if File.exist? "public#{CSV_PATH}/#{filename}"
-      redirect_to "#{CSV_PATH}/#{filename}"
-    else
-      CourseCsvWorker.generate_csv(course: @course, filename:, type:)
-      render plain: 'This file is being generated. Please try again shortly.', status: :ok
-    end
   end
 end
