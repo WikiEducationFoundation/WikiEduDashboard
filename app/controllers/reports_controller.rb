@@ -11,7 +11,8 @@ require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 # This is used for CSV reports that may be too heavy to be generated during a web request
 class ReportsController < ApplicationController
   include CourseHelper
-  before_action :require_signed_in, only: %i[campaign_courses_csv campaign_articles_csv]
+  before_action :require_signed_in,
+                only: %i[campaign_instructors_csv campaign_courses_csv campaign_articles_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
