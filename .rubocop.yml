@@ -32,6 +32,7 @@ Metrics/ClassLength:
     - 'app/models/wiki.rb'
     - 'app/models/user.rb'
     - 'app/presenters/courses_presenter.rb'
+    - 'app/services/update_course_wiki_timeslices.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
