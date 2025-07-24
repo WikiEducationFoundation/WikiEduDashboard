@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
+require_dependency "#{Rails.root}/app/workers/report_csv_worker"
 
 #= Controller for report CSV generation (asynchronously)
 # This is used for CSV reports that may be too heavy to be generated during a web request

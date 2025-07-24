@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/app/controllers/reports_controller"
 require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
 
