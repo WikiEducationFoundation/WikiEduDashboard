@@ -68,51 +68,6 @@ describe AnalyticsController, type: :request do
     end
   end
 
-  describe '#course_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_csv', params: { course: course.slug }
-      expect(response.body).to include(course.slug)
-    end
-  end
-
-  describe '#course_uploads_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_uploads_csv', params: { course: course.slug }
-      expect(response.body).to include('filename')
-    end
-  end
-
-  describe '#course_students_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_students_csv', params: { course: course.slug }
-      expect(response.body).to include('username')
-    end
-  end
-
-  describe '#course_articles_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_articles_csv', params: { course: course.slug }
-      expect(response.body).to include('pageviews_link')
-    end
-  end
-
-  describe '#course_wikidata_csv' do
-    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
-
-    it 'returns a CSV' do
-      get '/course_wikidata_csv', params: { course: course.slug }
-      expect(response.body).to include('total revisions')
-    end
-  end
-
   describe '#all_courses_csv' do
     it 'returns a CSV' do
       get '/all_courses_csv'

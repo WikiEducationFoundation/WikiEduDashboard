@@ -2,11 +2,6 @@
 
 require_dependency "#{Rails.root}/lib/analytics/monthly_report"
 require_dependency "#{Rails.root}/lib/analytics/course_statistics"
-require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
 require_dependency "#{Rails.root}/lib/analytics/tagged_courses_csv_builder"
@@ -16,9 +11,6 @@ class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
-  before_action :set_course, only: %i[course_csv course_uploads_csv
-                                      course_students_csv course_articles_csv
-                                      course_wikidata_csv]
 
   ########################
   # Routing entry points #
@@ -47,35 +39,10 @@ class AnalyticsController < ApplicationController
               filename: "ungreeted-#{current_user.username}-#{Time.zone.today}.csv"
   end
 
-  def course_csv
-    send_data CourseCsvBuilder.new(@course, per_wiki: true).generate_csv,
-              filename: "#{@course.slug}-#{Time.zone.today}.csv"
-  end
-
   def tagged_courses_csv
     tag = params[:tag]
     send_data TaggedCoursesCsvBuilder.new(tag).generate_csv,
               filename: "#{tag}-courses-#{Time.zone.today}.csv"
-  end
-
-  def course_uploads_csv
-    send_data CourseUploadsCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-uploads-#{Time.zone.today}.csv"
-  end
-
-  def course_students_csv
-    send_data CourseStudentsCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-editors-#{Time.zone.today}.csv"
-  end
-
-  def course_articles_csv
-    send_data CourseArticlesCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-articles-#{Time.zone.today}.csv"
-  end
-
-  def course_wikidata_csv
-    send_data CourseWikidataCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-wikidata-#{Time.zone.today}.csv"
   end
 
   def all_courses_csv
@@ -119,10 +86,6 @@ class AnalyticsController < ApplicationController
   end
 
   private
-
-  def set_course
-    @course = find_course_by_slug(params[:course])
-  end
 
   def set_campaigns
     @campaign_1 = Campaign.find(params[:campaign_1][:id])

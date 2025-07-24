@@ -262,15 +262,24 @@ Rails.application.routes.draw do
   post 'analytics(/*any)' => 'analytics#results'
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
-  get 'course_csv' => 'analytics#course_csv'
-  get 'course_uploads_csv' => 'analytics#course_uploads_csv'
-  get 'course_students_csv' => 'analytics#course_students_csv'
-  get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
-  get 'course_wikidata_csv' => 'analytics#course_wikidata_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
+
+  # Reports generated in background
+  # Course reports
+  get 'course_csv' => 'reports#course_csv'
+  get 'course_uploads_csv' => 'reports#course_uploads_csv'
+  get 'course_students_csv' => 'reports#course_students_csv'
+  get 'course_articles_csv' => 'reports#course_articles_csv'
+  get 'course_wikidata_csv' => 'reports#course_wikidata_csv'
+  # Campaign reports
+  get 'campaigns/:slug/students' => 'reports#campaign_students_csv'
+  get 'campaigns/:slug/instructors' => 'reports#campaign_instructors_csv'
+  get 'campaigns/:slug/courses' => 'reports#campaign_courses_csv'
+  get 'campaigns/:slug/articles_csv' => 'reports#campaign_articles_csv'
+  get 'campaigns/:slug/wikidata' => 'reports#campaign_wikidata_csv'
 
   # Campaigns
   get 'campaigns/current/alerts' => 'campaigns#current_alerts', defaults: { format: 'html' }
@@ -281,13 +290,8 @@ Rails.application.routes.draw do
       get 'articles'
       get 'users'
       get 'assignments'
-      get 'students'
-      get 'instructors'
-      get 'courses'
       get 'ores_plot'
-      get 'articles_csv'
       get 'alerts'
-      get 'wikidata'
       put 'add_organizer'
       put 'remove_organizer'
       put 'remove_course'
