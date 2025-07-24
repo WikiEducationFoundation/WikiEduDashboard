@@ -2,7 +2,6 @@
 
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
-require_dependency "#{Rails.root}/app/presenters/query/ranked_articles_courses_query"
 
 #= Presenter for courses / campaign view
 class CoursesPresenter
@@ -65,7 +64,7 @@ class CoursesPresenter
   def articles_courses_scope
     return @articles_courses_scope unless @articles_courses_scope.nil?
 
-    @articles_courses_scope = RankedArticlesCoursesQuery.new(
+    @articles_courses_scope = Query::RankedArticlesCoursesQuery.new(
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
