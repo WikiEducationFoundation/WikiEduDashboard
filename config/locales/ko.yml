@@ -300,9 +300,9 @@ ko:
   categories:
     add_category: 분류 추가
     add_template: 틀 추가
-    add_this_category: 이 분류 추가
-    add_this_psid: 이 PSID 추가
-    add_this_template: 이 틀 추가
+    add_this_category: 분류 추가
+    add_this_psid: PSID 추가
+    add_this_template: 틀 추가
     articles_count: 문서 수
     name: 이름
     category_name: 분류 이름
@@ -518,7 +518,7 @@ ko:
       other: 지원자
     wiki_edits_enabled: 위키 편집 사용
     wiki_staff: 위키 교육 직원
-    withdrawn: 탈퇴
+    withdrawn: 과제를 제출하지 않았습니다
     yourcourses: 내 과정
     survey:
       link: 설문 조사 참가
@@ -602,7 +602,7 @@ ko:
   instructor_view:
     article_assignments: '%{prefix} 할당'
     assignments_table:
-      article_name: 문서 이름
+      article_name: 이름
       relevant_links: 관련 링크
     assigned_articles: 할당된 문서
     assigned_articles_wikidata: 할당된 항목
