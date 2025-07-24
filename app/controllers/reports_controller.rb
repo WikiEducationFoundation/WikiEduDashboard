@@ -66,10 +66,6 @@ class ReportsController < ApplicationController
     csv_of('course_wikidata')
   end
 
-  def course_report?(type)
-    type.start_with?('course')
-  end
-
   private
 
   def set_course
@@ -105,5 +101,9 @@ class ReportsController < ApplicationController
 
   def csv_params
     params.permit(:slug, :course)
+  end
+
+  def course_report?(type)
+    type.start_with?('course')
   end
 end
