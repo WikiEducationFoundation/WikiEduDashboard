@@ -4,7 +4,7 @@
 # with optional ordering, pagination, and filtering for tracked articles only.
 # This is used to cleanly separate query logic from presenter code.
 # It uses a deferred join via a subquery for improved performance on large datasets.
-class RankedArticlesCoursesQuery
+class Query::RankedArticlesCoursesQuery
   def initialize(courses:, per_page:, offset:, too_many:)
     @courses = courses
     @per_page = per_page
