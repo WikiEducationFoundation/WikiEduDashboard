@@ -4,9 +4,12 @@ import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import NoMeetingDaysSwitch from '@components/common/no_meeting_days_switch.jsx';
 
 const FormPanel = (props) => {
   const noDates = useRef();
+  const noMeetingDates = useRef();
+
 
   const setNoBlackoutDatesChecked = () => {
     const { checked } = noDates.current;
@@ -30,8 +33,7 @@ const FormPanel = (props) => {
   };
 
   const nextEnabled = () => {
-    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0
-      && (__guard__(props.course.day_exceptions, x1 => x1.length) > 0 || props.course.no_day_exceptions)) {
+    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 || props.course.no_meeting_days) {
       return true;
     }
     return false;
@@ -43,11 +45,33 @@ const FormPanel = (props) => {
     ? <h2><span>1.</span><small> {I18n.t('wizard.confirm_course_dates')} </small></h2>
     : <p>{I18n.t('wizard.confirm_course_dates')}</p>;
 
+  const meetingDays = (
+    <>
+      <hr/>
+      <div className="wizard__form course-dates course-dates__step">
+        <Calendar
+          course={props.course}
+          editable={true}
+          save={true}
+          calendarInstructions={I18n.t('wizard.calendar_instructions')}
+          updateCourse={props.updateCourse}
+        />
+        <label> {I18n.t('wizard.no_class_holidays')}
+          <input
+            type="checkbox"
+            onChange={setNoBlackoutDatesChecked}
+            ref={noDates}
+          />
+        </label>
+      </div>
+    </>
+  );
+
   const rawOptions = (
     <div>
       <div className="course-dates__step">
         {step1}
-        <div className="vertical-form full-width">
+        <div className="vertical-form" >
           <DatePicker
             onChange={updateCourseDates}
             value={props.course.start}
@@ -71,7 +95,7 @@ const FormPanel = (props) => {
       <hr />
       <div className="course-dates__step">
         <p>{I18n.t('wizard.assignment_description')}</p>
-        <div className="vertical-form full-width">
+        <div className="vertical-form">
           <DatePicker
             onChange={updateCourseDates}
             value={props.course.timeline_start}
@@ -93,23 +117,13 @@ const FormPanel = (props) => {
           />
         </div>
       </div>
-      <hr />
-      <div className="wizard__form course-dates course-dates__step">
-        <Calendar
-          course={props.course}
-          editable={true}
-          save={true}
-          calendarInstructions={I18n.t('wizard.calendar_instructions')}
-          updateCourse={props.updateCourse}
-        />
-        <label> {I18n.t('wizard.no_class_holidays')}
-          <input
-            type="checkbox"
-            onChange={setNoBlackoutDatesChecked}
-            ref={noDates}
-          />
-        </label>
-      </div>
+      <hr/>
+      <NoMeetingDaysSwitch
+        noMeetingDates={noMeetingDates}
+        course={props.course}
+        updateCourse={props.updateCourse}
+      />
+      {!props.course.no_meeting_days && meetingDays}
     </div>
   );
 
