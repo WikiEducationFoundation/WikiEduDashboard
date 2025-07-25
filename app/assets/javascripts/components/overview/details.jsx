@@ -127,6 +127,20 @@ const Details = createReactClass({
     this.props.updateCourse({ ...this.props.course, namespaces });
   },
 
+  termValidation(value) {
+      // First check basic slug regex
+      if (!CourseUtils.courseSlugRegex().test(value)) {
+        return false;
+      }
+
+     if (value) {
+      const hasYear = /\d{2,}/.test(value);
+      return hasYear;
+     }
+
+      return true;
+    },
+
   poll() {
     return setInterval(() => {
       const documentHidden = document.hidden;
@@ -243,7 +257,8 @@ const Details = createReactClass({
             onChange={this.updateSlugPart}
             value={this.props.course.term}
             value_key="term"
-            validation={CourseUtils.courseSlugRegex()}
+            validation={this.termValidation}
+            invalidMessage={I18n.t('application.field_invalid_term')}
             editable= {eventSync ? false : canRename}
             type="text"
             label={CourseUtils.i18n('term', this.props.course.string_prefix)}
