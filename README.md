@@ -6,8 +6,6 @@
 [![Open Source Helpers](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard/badges/users.svg)](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard)
 
 
-
-
 [![🚀 Join Slack Now](https://img.shields.io/badge/🚀%20Join%20Slack%20Now-Click%20Here-ff6b6b?style=for-the-badge&logo=slack&logoColor=white)](https://mail.google.com/mail/?view=cm&fs=1&to=sage@wikiedu.org&su=Request%20to%20join%20Slack%20Community&body=Hey%20Sage%2C%0AI%20hope%20you're%20doing%20well.%0AI%20would%20like%20to%20join%20the%20Slack%20community.%20Kindly%20send%20me%20an%20invite%20at%20your%20convenience.%0AThank%20you!)
 
 
