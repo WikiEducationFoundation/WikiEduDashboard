@@ -4,6 +4,8 @@
 [![Test Coverage](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard/badges/coverage.svg)](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard)
 [![Code Climate](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard/badges/gpa.svg)](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard)
 [![Open Source Helpers](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard/badges/users.svg)](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard)
+[![🚀 Join Slack Now](https://img.shields.io/badge/🚀%20Join%20Slack%20Now-Click%20Here-ff6b6b?style=for-the-badge&logo=slack&logoColor=white)](https://mail.google.com/mail/?view=cm&fs=1&to=sage@wikiedu.org&su=Request%20to%20join%20Slack%20Community&body=Hey%20Sage%2C%0AI%20hope%20you're%20doing%20well.%0AI%20would%20like%20to%20join%20the%20Slack%20community.%20Kindly%20send%20me%20an%20invite%20at%20your%20convenience.%0AThank%20you!)
+
 
 The Wiki Education Dashboard is a web application that supports Wikipedia education assignments, edit-a-thons, and other editing projects. It provides data and course management features for groups of editors — instructors, students, and others — who are working on Wikipedia, Wikidata, and other Wikimedia wikis. Users log in with their Wikipedia accounts (through OAuth) and allow the Dashboard to make edits on their behalf. The Dashboard automates many of the standard elements of organizing and participating in a Wikipedia classroom assignment, edit-a-thon, or other wiki contribution campaign.
 
