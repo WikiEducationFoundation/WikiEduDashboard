@@ -150,7 +150,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row">
-          <h5 className="stats-label">Descriptions</h5>
+          <h5 className="stats-label">{I18n.t('metrics.descriptions')}</h5>
           <div className="stat-display__value-group">
             <OverviewStat
               id="descriptions-added"
@@ -176,7 +176,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row">
-          <h5 className="stats-label">Aliases</h5>
+          <h5 className="stats-label">{I18n.t('metrics.aliases')}</h5>
           <div className="stat-display__value-group">
             <OverviewStat
               id="aliases-added"
@@ -202,7 +202,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row double-row">
-          <h5 className="stats-label">Other</h5>
+          <h5 className="stats-label">{I18n.t('metrics.other')}</h5>
           <div className="stat-display__value-group double">
             <OverviewStat
               id="qualifiers-added"
