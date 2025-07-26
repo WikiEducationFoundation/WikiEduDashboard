@@ -35,8 +35,8 @@ describe CoursesPresenter do
     end
 
     it 'only includes tracked articles' do
-      expect(subject[:articles_courses].count).to eq(1)
-      expect(subject[:articles].first[1].title).to eq(article.title)
+      expect(subject.count).to eq(1)
+      expect(subject.first.article.title).to eq(article.title)
     end
   end
 

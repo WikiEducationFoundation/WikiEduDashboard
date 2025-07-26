@@ -59,23 +59,18 @@
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
 
-      -  result = @presenter.campaign_articles
-      -  articles_courses = result[:articles_courses]
-      -  courses = result[:courses]
-      -  articles = result[:articles]
+      - articles = @presenter.campaign_articles
 
-      = will_paginate articles_courses
+      = will_paginate articles
 
       %tbody.list
-        - if articles_courses.empty?
+        - if articles.empty?
           %tr.disabled
             %td{:class => "text-center", :colSpan => 7}
               %span= I18n.t('articles.none')
         - else
-          - articles_courses.each do |ac|
-            - course = courses[ac.course_id]
-            - article = articles[ac.article_id]
+          - articles.each do |ac|
             - cache [ac, locale] do
-              = render 'campaigns/article_row', article:, article_course: ac, course:
+              = render 'campaigns/article_row', article: ac.article, article_course: ac
 
-    = will_paginate articles_courses
+    = will_paginate articles
