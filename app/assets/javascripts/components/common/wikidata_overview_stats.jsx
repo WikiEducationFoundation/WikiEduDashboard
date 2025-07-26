@@ -3,6 +3,45 @@ import PropTypes from 'prop-types';
 import OverviewStat from './OverviewStats/overview_stat';
 
 const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
+  // Helper function to check if all stats are zero
+  const allStatsAreZero = () => {
+    const statsToCheck = [
+      'total revisions',
+      'merged to',
+      'interwiki links added',
+      'items created',
+      'items cleared',
+      'claims created',
+      'claims changed',
+      'claims removed',
+      'labels added',
+      'labels changed',
+      'labels removed',
+      'descriptions added',
+      'descriptions changed',
+      'descriptions removed',
+      'aliases added',
+      'aliases changed',
+      'aliases removed',
+      'qualifiers added',
+      'references added',
+      'redirects created',
+      'reverts performed',
+      'restorations performed',
+      'other updates',
+      'lexeme items created'
+    ];
+
+    return statsToCheck.every(statKey =>
+      !statistics[statKey] || statistics[statKey] === 0
+    );
+  };
+
+  // If all stats are zero, don't render the component
+  if (allStatsAreZero()) {
+    return null;
+  }
+
   let containerClass = 'wikidata-stats-container';
   let title = 'Wikidata stats';
   if (isCourseOverview) {
@@ -26,14 +65,14 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
             <OverviewStat
               id="merged"
               className="stat-display__value-small"
-              stat = {statistics['merged to']}
+              stat={statistics['merged to']}
               statMsg={I18n.t('metrics.merged')}
               renderZero={true}
             />
             <OverviewStat
               id="interwiki-links"
               className="stat-display__value-small"
-              stat = {statistics['interwiki links added']}
+              stat={statistics['interwiki links added']}
               statMsg={I18n.t('metrics.interwiki_links_added')}
               renderZero={true}
             />
@@ -227,7 +266,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 WikidataOverviewStats.propTypes = {
@@ -235,4 +274,4 @@ WikidataOverviewStats.propTypes = {
   isCourseOverview: PropTypes.bool
 };
 
-  export default WikidataOverviewStats;
+export default WikidataOverviewStats;
