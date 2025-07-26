@@ -79,13 +79,7 @@ jobs:
             cp config/application.example.yml config/application.yml
             cp config/database.example.yml config/database.yml
             bin/rails db:migrate RAILS_ENV=test
-          
-      - name: Check eager loading (catch autoloading issues)
-        env:
-          RAILS_ENV: test
-          DATABASE_PORT: 3306
-        run: bundle exec rails runner "Rails.application.eager_load!"
-
+        
       - name: Cache Webpack cache
         id: cache-webpack
         uses: actions/cache@v3

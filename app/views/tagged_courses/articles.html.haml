@@ -72,8 +72,7 @@
               %span= I18n.t('articles.none')
         - else
           - articles.each do |ac|
-            - course = ac.course
             - cache [ac, locale] do
-              = render 'campaigns/article_row', article: ac.article, article_course: ac, course:
+              = render 'campaigns/article_row', article: ac.article, article_course: ac
 
     = will_paginate articles
