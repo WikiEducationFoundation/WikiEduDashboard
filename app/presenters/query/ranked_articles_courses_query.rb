@@ -16,7 +16,7 @@ class Query::RankedArticlesCoursesQuery
   def scope
     ArticlesCourses
       .joins("INNER JOIN (#{subquery.to_sql}) AS ranked_articles USING (id)")
-      .select(:article_id, :course_id, :character_sum, :references_count, :view_count)
+      .select(:article_id, :course_id, :character_sum, :references_count, :view_count, :updated_at)
   end
 
   private
