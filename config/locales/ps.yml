@@ -5,11 +5,35 @@
 # Author: شاه زمان پټان
 ---
 ps:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: زر
+          million: ميليون
+          billion: ميليارد
+          trillion: تريليون
+          quadrillion: کوادريليون
+  accessibility:
+    number_field: دا د شمېرې ډگر دی. هغه تڼۍ چې د ډېری ښوونگرو له خوا وړاندې کېږي
+      د ننوتلو کچه به لوړه او لږه کړي.
   application:
+    back: پر شا کېدل
     cancel: ناگارل
+    cookie_consent: دا وېبځی ستاسو د ننوتلي ساتلو لپاره کوکيز کاروي، او ستاسو د ويکيپېډيا
+      گڼون پورې اړوند مالومات ساتي.
+    cookie_consent_acknowledge: زه پوهېږم
+    cookie_consent_see_more: نور وگورئ
+    create_accounts: ويکيپېډيا گڼون جوړول
     dashboard: ويکي زده کړه ډشبورډ
     documentation: لاسوندکښنه
+    error: 'یوه تېروتنه وه:'
+    explore: سپړل
     field_required: دې ډاگي ته اړتيا ده
+    field_invalid_characters: دا ډگر ناسمې لوښې لري
+    field_invalid_date: دې ډگر کې YYYY-MM-DD بڼې نېټه اړينه ده
+    field_invalid_date_time: پای بايد له پيل وروسته وي. (له ۰ تر ۲۳ گړيو پورې.)
     greeting2: ښه راغلئ!
     greeting_extended: ويکيپېډيا ته ښه راغلئ
     greeting: سلامونه!
@@ -20,14 +44,24 @@ ps:
     log_out: وتل
     my_dashboard: زما ډشبورډ
     recent_activity: تازه فعاليتونه
+    report_problem: د ستونزې خبر ورکول
+    request_account: د گڼون غوښتنه‌کول
     request_account_create: يو گڼون جوړول
     search: يوه پوښتنه پوښتل
+    search_results:
+      one: '%{count} لپاره پايلې: ''%{search_terms}'''
+      other: '%{count} لپاره پايلې: ''%{search_terms}'''
+    no_results: د '%{query}' لپاره هېڅ پايلې ونه موندل شوې
+    show_current_revision: اوسنۍ بلبڼه ښودل
+    show_last_revision: وروستۍ سمه‌شوې بلبڼه ښودل
     sign_up_extended: د ويکيپېډيا له لارې نومليکنه
+    sign_up_wikipedia: يا په ويکيپېډيا کې لاسليکنه وکړئ
     sign_up_log_in_extended: د ويکيپېډيا سره
     sign_up: نومليکل
     submit: سپارل
     training: تمرين
     change: بدلول
+    details: سپيناوي
     confirm: ښه
     opt_in: هو
     opt_out: نه
@@ -36,35 +70,178 @@ ps:
     print: چاپول
   article_statuses:
     not_yet_started: پیل کول
+    in_progress: په شگبکس کې کار کول
+    ready_for_review: گارليک غځول
+    ready_for_mainspace: ارنوم‌تشيال ته کار لېږدول
+    assignment_completed: دنده بشپړه شوې نښه شوې
+    reading_the_article: ليکنه لوستل
+    providing_feedback: غبرگون چمتو کول
+    post_to_talk: د خبرو اترو مخ کې خپرول
+    peer_review_completed: بياکتنه بشپړه شوه
+  dashboard:
+    create_note: د خپلې لومړۍ لوست‌دورې جوړولو لپاره په لوست جوړول باندې کليک کړئ.
+    explore_course_pages: د لوست‌دورې مخونه سپړل
+    explore_examples: بېلگې سپړل
+    join_note: کله چې تاسو له خپل روزنکي نه پاس‌کوډ ترلاسه کړئ؛ نو په خپله لوست‌دوره
+      ومومئ باندې کليک وکړئ او ورسره يوځای شئ.
+    no_courses_instructor: داسې ښکاري چې تاسو هېڅ لوست‌دورې نه لرئ.
+    no_courses_student: داسې ښکاري چې تاسو تراوسه هېڅ کومې لوست‌دورې سره يوځای شوي
+      نه ياست.
+    opt_out: له لارښوونې څخه د وتلو غوښتنه
+    orientation_notice: مخکې له دې چې تاسو يوه لوست‌دوره جوړه کړئ؛ راځئ چې پيلولو
+      کې ستاسو سره د مرستې لپاره لارښوونو ته ورشو. (د دې بشپړېدل شاوخوا ۳۰ دقيقې وخت
+      نيسي.)
+    review_orientation: د لارښوونې بياکتنه
+    start_orientation: لارښوونه پيلول
+    blog_headline: له ويکي زده کړې څخه وروستي خبرونه
   home:
+    explore: سپړل
     log_in: د ويکيپېډيا له لارې ورننوتل
     sign_up: د ويکيپېډيا له لارې نومليکنه
+    registration_advice:
+      username_rules:
+        heading: کارن‌نوم مقررات
+        avoid_offensive_usernames: داسې کارن‌نوم مه غوره کوئ چې کنځونکی، تېرويستونکی،
+          ځانځاني اچوونکی، يا تبليغاتي وي.
+        represent_individual: کارن‌نوم بايد د سمونگر څاني استازيتوب وکړي. د ښوونځي
+          يا سازمان نوم مه کاروئ.
+      additional_advice:
+        heading: سلا
+  alerts:
+    alert_label: خبرونې
+    no_alerts: هېڅ خبرونې ونه موندل شوې.
   activity:
     all: فعاليت
     edited_by: سمونگر
     label: فعاليت
   articles:
+    articles: ليکنې
+    article_not_found: دا ليکنه لاتراوسه نه ده ليکل شوې.
+    article_development: (ليکنې پراختيا)
+    articles_shown: د %{count} ښودل %{total}
+    available: ‌ لاسرسي وړ ليکنې
+    no_available: ليکنې چې د لاسرسي وړ نه دي
+    next: راتلونکی
+    previous: پخوانی
+    article_title: د ليکنې سرليک
+    deleted: (ړنگول)
+    edited: سمې شوې ليکنې
+    edited_by: 'سموونکی:'
     edited_mobile: ليکنې
+    edited_none: دلته تراوسه پورې هېڅ سمې شوې ليکنې نشته.
     filter:
       wiki_all: ټول
       new: نوی
+      existing: شته
+      new_and_existing: نوې او شته
+      tracked: څارل‌شوې
+      untracked: ناڅارل‌شوې
+      tracked_and_untracked: څارل‌شوې او ناڅارل‌شوې
     filter_text: 'چاڼگران:'
+    find: ليکنې موندل
+    how_to_find: څنگه يوه ليکنه ومومو
     hide: پټول
+    history: (پېښليک)
     label: ليکنې
     loading: ليکنې برسېرېږي...
+    mark_as_complete: د بشپړ په توگه نښه کول
     new: (نوی)
+    preview: د ليکنې لنډه مخکتنه
     rating: ټولگی
+    see_more: نور وگورئ
+    search: د يوې ليکنې لپاره په ويکيپېډيا کې لټون
+    show_cumulative_changes: د ټوليزو بدلونونو ښودل
+    show_current_version: اوسنۍ بلبڼه ښودل
     title: سرليک
+    tracked: څارل‌شوې
     title_example: د ليکنې سرليک
+    tools: د ارزونې توکي
     view: ليکنه کتل
     view_all: ټول کتل
+    view_on_wiki: په ويکي کتل
+    edit_size: سمون کچه
     wiki: ويکي
+    wp10: ساختماني بشپړتیا
     articles_short: ليکنې
+    page_logs: (مخ يادښتونه)
+    tracked_articles: څارل‌شوې ليکنې
+    view_articles: ليکنې کتل
+    no_tracked_articles: په دې وېشنيزه کې هېڅ څارل‌شوې ليکنې نشته
+  items:
+    items: توکي
+    lexeme: پيل‌ويوکی
+    article_not_found: دا ليکنه لاتراوسه نه ده ليکل شوې.
+    available: د لاسرسي وړ توکي
+    edited: سم شوي توکي
+    edited_none: دلته تراوسه پورې هېڅ سم شوي توکي نشته.
+    find: توکي موندل
+    how_to_find: توکي څنگه ومومو
+    preview: د توکي لنډه مخکتنه
+    search: دريو توکي لپاره ويکيي‌اومتوک پلټل
+    title_example: توکي سرليک
+  articles_wikidata:
+    articles_short: توکي
+  articles_generic:
+    articles_short: مخونه
   assignments:
+    article: ليکنه %{title} اوس تاسو ته سپارل شوې.
+    article_link: ليکنه
+    article_link_wikidata: توکی
+    add_available: د لاسرسي وړ ليکنې ورگډول
+    add_available_wikidata: د لاسرسي وړ توکي ورگډول
+    add_available_placeholder: په هره کرښه کې يو ليکنې سرليک يا وېنړ ورگډول
+    add_available_placeholder_wikidata: په هره کرښه کې يو توکي سرليک يا وېنړ ورگډول
+    add_available_submit: ليکنې ورگډول
+    add_available_submit_wikidata: توکي ورگډول
+    delete: لرې‌کول او ړنگول
+    change_sandbox_url: شگبکس بدلول
+    group_members: ډلې غړي
+    label: ټاکل
+    label_all: ټول ټاکل
+    peer_review_link: ملگرو بياکتنه
     remove: غورځول
+    reviewers: بياکتونکی(ي)
+    review_other: د ملگرو بياکتنه اخيستل/لرې‌کول
     review_self: يوه ليکنه بياکتل
+    review_self_wikidata: د يو توکي بياکتنه
+    sandbox_draft_link: شگبکس گارليک
     select: ټاکل
+    submit: سپارل
+  blocks:
+    milestones:
+      title: پړاوونه
   campaign:
+    active_campaigns: چارن شوې ټاکنيزې سيالۍ
+    add_organizer: مهاروونکی ورگډول
+    alert_article: د ليکنې سرليک
+    alert_label: ټاکنيزې‌سيالۍ خبرونې
+    alert_select_label: د خبرونې ډول له مخې چاڼول
+    alert_type: ډول
+    alert_user_id: کارن
+    all_campaigns: ټولې ټاکنيزې سيالۍ
+    campaign: ټاکنيزه‌سيالۍ
+    campaigns: ټاکنيزې‌سيالۍ
+    campaign_deleted: '"%{title}" ټاکنيزه‌سيالۍ ړنگه‌شوې ده'
+    campaign_not_updated: ټاکنيزه‌سيالۍ نشي هم‌مهاله کېدای
+    campaign_updated: ټاکنيزه‌سيالۍ هم‌مهاله‌شوه
+    created_at: نېټه
+    course: لوست‌دوره
+    course_data: لوست‌دورې اومتوک
+    course_removed: '"%{title}" له "campaign_title}" ټاکنيزې‌سيالۍ څخه لرې شو'
+    create_campaign: يو نوې ټاکنيزه‌سيالۍ جوړول
+    create_my_campaign: زما ټاکنيزه‌سيالۍ جوړول!
+    customize_passcode: تلواليز پاس‌کوډ
+    data_download_info: د ټاکنيزې‌سيالۍ اومتوک په سي‌اېس‌وي بڼه راکښته‌کول
+    data_articles: سم‌شوي مخونه
+    data_revisions: بياکتنو اومتوک
+    data_instructors: روزونکي
+    data_editor_usernames: د سمونگر کارن‌نومونه
+    data_editor_usernames_info: د سمونگر کارن‌نومونو لړليک، په هره کرښه کې يو
+    data_wikidata: ويکي‌اومتوک شمارنې
+    description: څرگنداوی
+    delete_campaign: دا ټاکنيزه‌سيالۍ ړنگول
+    delete_course_tooltip: له ټاکنيزې‌سيالۍ ړنگول يا لرې‌کول.
+    disable_account_requests: گڼون غوښتنې ناچارنول
     none: هېڅ
   courses:
     activity: فعاليت
