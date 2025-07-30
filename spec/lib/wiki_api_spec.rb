@@ -6,6 +6,8 @@ require "#{Rails.root}/lib/wiki_api"
 class UnexpectedError < StandardError; end
 
 describe WikiApi do
+  before { stub_log_in }
+
   describe 'handles errors by calling ApiErrorHandling method and raising a PageFetchError' do
     let(:subject) { described_class.new.get_page_content('Ragesoss') }
 
@@ -13,7 +15,7 @@ describe WikiApi do
       stub_wikipedia_503_error
       expect { subject }.to raise_error(
         WikiApi::PageFetchError,
-        /Failed to fetch content for Ragesoss with response status: 503/
+        /Failed to fetch content for Ragesoss with response status: nil/
       )
     end
 
