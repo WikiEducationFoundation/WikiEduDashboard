@@ -828,6 +828,8 @@ nb:
     included_modules: Inkluderte moduler
     view_module_source: vis modulkilde
     reload_from_source: last inn igjen fra kilde
+  update_username:
+    label: Nytt brukernavn
   uploads:
     credit: Kreditering
     file_name: Filnavn
