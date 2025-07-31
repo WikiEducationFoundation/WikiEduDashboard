@@ -314,13 +314,13 @@ const Survey = {
             answerGroup[answerId] = val;
           }
         } else if (value !== '0') { // Multi-Select (Checkbox)
-            if (typeof answerGroup[answerId] !== 'undefined') {
-              answerGroup[answerId][answerKey].push('0');
-              answerGroup[answerId][answerKey].push(value);
-            } else {
-              answerText[answerKey] = ['0', value];
-              answerGroup[answerId] = answerText;
-            }
+          if (typeof answerGroup[answerId] !== 'undefined') {
+            answerGroup[answerId][answerKey].push('0');
+            answerGroup[answerId][answerKey].push(value);
+          } else {
+            answerText[answerKey] = ['0', value];
+            answerGroup[answerId] = answerText;
+          }
         }
       } else {
         _postData[name] = value;
@@ -358,7 +358,7 @@ const Survey = {
 
     // Validate Checkbox
     if ($block.find('[data-required-checkbox]').length
-        && $block.find('input[type="checkbox"]:checked').length === 0) {
+      && $block.find('input[type="checkbox"]:checked').length === 0) {
       validation = false;
     }
 
@@ -625,50 +625,37 @@ const Survey = {
       // this.indexBlocks();
     });
   },
-
   handleParentConditionalChange(value, conditionalGroup, $parent) {
-    let { currentAnswers } = conditionalGroup;
     let conditional;
-    // let resetQuestions = false;
 
-    if (Array.isArray(value)) {
-      // Check if empty
-      if (value.length === 0 && currentAnswers) {
-        conditionalGroup.currentAnswers = [];
-      }
-
-      // Check if conditional was present and is no longer
-      currentAnswers.forEach((a) => {
-        if (value.indexOf(a) === -1) {
-          const index = currentAnswers.indexOf(a);
-          if (currentAnswers.length === 1) {
-            currentAnswers = [];
-          } else {
-            currentAnswers = currentAnswers.slice(index, index + 1);
-          }
-        }
-      });
-      // Check if value matches a conditional question
-      value.forEach((v) => {
-        if (conditionalGroup[v] !== undefined
-            && currentAnswers.indexOf(v) === -1) {
-          conditional = conditionalGroup[v];
-          currentAnswers.push(v);
-          conditionalGroup.currentAnswers = currentAnswers;
-        }
-      });
-
-      if (currentAnswers.length === 0) {
-        conditionalGroup.currentAnswers = [];
-      }
-    } else {
-      conditional = conditionalGroup[value];
-    }
-
+    // Always reset all conditional questions first to clear any previously shown conditionals
     this.resetConditionalGroupChildren(conditionalGroup);
 
-    if (typeof conditional !== 'undefined' && conditional !== null) {
-      this.activateConditionalQuestion($(conditional), $parent);
+    if (Array.isArray(value)) {
+      // Handle multi-select (checkbox) values
+      conditionalGroup.currentAnswers = [];
+
+      if (value.length === 0) {
+        return; // No values selected, all conditionals already reset
+      }
+
+      // Show conditionals for all selected values
+      value.forEach((v) => {
+        if (conditionalGroup[v] !== undefined) {
+          conditional = conditionalGroup[v];
+          conditionalGroup.currentAnswers.push(v);
+          this.activateConditionalQuestion($(conditional), $parent);
+        }
+      });
+    } else {
+      // Handle single-select (radio/dropdown) values
+      conditionalGroup.currentAnswers = [];
+
+      if (value && conditionalGroup[value] !== undefined) {
+        conditional = conditionalGroup[value];
+        conditionalGroup.currentAnswers = [value];
+        this.activateConditionalQuestion($(conditional), $parent);
+      }
     }
 
     // this.indexBlocks();
@@ -702,27 +689,10 @@ const Survey = {
 
   // To remove a conditional question from the flow if the condition that it depends on has changed.
   resetConditionalGroupChildren(conditionalGroup) {
-    const { children, currentAnswers } = conditionalGroup;
+    const { children } = conditionalGroup;
 
-    if ((typeof currentAnswers !== 'undefined' && currentAnswers !== null) && currentAnswers.length) {
-      const excludeFromReset = [];
-      currentAnswers.forEach((a) => { excludeFromReset.push(a); });
-      children.forEach((question) => {
-        const $question = $(question);
-        let string;
-        if ($question.data('conditional-question')) {
-          string = $question.data('conditional-question');
-        } else {
-          string = $question.find('[data-conditional-question]').data('conditional-question');
-        }
-        const { value } = Utils.parseConditionalString(string);
-        if (excludeFromReset.indexOf(value) === -1) {
-          this.resetConditionalQuestion($question);
-        } else {
-          $question.removeClass('hidden');
-        }
-      });
-    } else {
+    // Reset all conditional children - they will be re-activated if needed
+    if (children && children.length) {
       children.forEach((question) => {
         this.resetConditionalQuestion($(question));
         if ($(question).hasClass('survey__question-row')) {
@@ -740,7 +710,6 @@ const Survey = {
       });
     }
   },
-
   removeSlide($block) {
     const $slider = $(this.$currentSlider);
     $slider.slick('slickRemove', $block.data('slick-index') + 1);
