@@ -96,7 +96,7 @@ Below is a breakdown of the key servers and their roles within the infrastructur
    **[[Source Code](https://github.com/wikimedia/wikiwho_api), [Documentation](https://wikiwho-api.wmcloud.org/gesis_home)]**
 
 - **[WikidataDiffAnalyzer](https://github.com/WikiEducationFoundation/wikidata-diff-analyzer)**  
-   The WikidataDiffAnalyzer gem is used to analyze differences between Wikidata revisions. It is utilized by the [`update_wikidata_stats.rb`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/services/update_wikidata_stats.rb#L91) service to process a list of revision IDs and determine the changes made between them, such as diffs added, removed, or changed claims, references, and labels. The results of the analysis are serialized and stored in the summary field of Wikidata revisions, providing detailed statistics about the nature of the edits. This enables the Dashboard to track and display revision-level changes.
+   The WikidataDiffAnalyzer gem is used to analyze differences between Wikidata revisions. It is utilized by the [`update_wikidata_stats_timeslice.rb`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/services/update_wikidata_stats_timeslice.rb) service to process a list of revision IDs and determine the changes made between them, such as diffs added, removed, or changed claims, references, and labels. The results of the analysis are serialized and stored in the summary field of Wikidata revisions, providing detailed statistics about the nature of the edits. This enables the Dashboard to track and display revision-level changes.
 
    **[[Source Code and Documentation](https://github.com/WikiEducationFoundation/wikidata-diff-analyzer)]**
 
