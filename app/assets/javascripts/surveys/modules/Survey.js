@@ -314,13 +314,13 @@ const Survey = {
             answerGroup[answerId] = val;
           }
         } else if (value !== '0') { // Multi-Select (Checkbox)
-           if (typeof answerGroup[answerId] !== 'undefined') {
-             answerGroup[answerId][answerKey].push('0');
-             answerGroup[answerId][answerKey].push(value);
-           } else {
-             answerText[answerKey] = ['0', value];
-             answerGroup[answerId] = answerText;
-           }
+            if (typeof answerGroup[answerId] !== 'undefined') {
+              answerGroup[answerId][answerKey].push('0');
+              answerGroup[answerId][answerKey].push(value);
+            } else {
+              answerText[answerKey] = ['0', value];
+              answerGroup[answerId] = answerText;
+            }
         }
       } else {
         _postData[name] = value;
