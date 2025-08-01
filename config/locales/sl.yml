@@ -272,6 +272,7 @@ sl:
     add_this_template: Dodaj predloge
     confirm_add_n_scoping_method: Želite dodati metod(e) obsega %{n}?
     name: Ime
+    category_name: Ime kategorije
     template_name: Ime predloge
     none: Ni sledenih kategorij.
     remove: Odstrani
@@ -501,6 +502,7 @@ sl:
     all: Vsi
     project: Projekt
     template: Predloga
+    category: Kategorija
     page: Stran
     translation: Prevod
     query: Poizvedba

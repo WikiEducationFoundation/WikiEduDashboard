@@ -13,6 +13,7 @@
 # Author: Sturban
 # Author: Umeaboy
 # Author: WikiPhoenix
+# Author: Yupik
 ---
 sv:
   number:
@@ -650,6 +651,8 @@ sv:
       exercise: Övning
       discussion: Diskussion
       training: Träning
+  update_username:
+    label: Nytt användarnamn
   uploads:
     credit: Erkännande
     file_name: Filnamn

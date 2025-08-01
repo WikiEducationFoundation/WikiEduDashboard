@@ -44,6 +44,7 @@
 # Author: Wizardeck
 # Author: Yllelder
 # Author: YoViajo
+# Author: Yupik
 ---
 es:
   number:
@@ -1084,6 +1085,9 @@ es:
       update_featured_campaigns_button: Actualizar campañas destacadas
       add_button: Añadir campaña
       remove_button: Eliminar campaña
+    special_users:
+      new:
+        form_placeholder: Nombre de usuario
   suggestions:
     editing: Editar sugerencias
     suggestion_docs:
