@@ -110,6 +110,7 @@ class CourseCsvBuilder
   end
 
   def per_wiki_counts
-    @per_wiki_counts ||= PerWikiCourseStats.new(@course).stats
+    namespace = [Article::Namespaces::MAINSPACE]
+    @per_wiki_counts ||= PerWikiCourseStats.new(@course, namespace).stats
   end
 end

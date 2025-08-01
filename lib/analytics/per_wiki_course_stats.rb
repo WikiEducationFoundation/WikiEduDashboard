@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class PerWikiCourseStats
-  def initialize(course)
+  def initialize(course, namespace)
     @course = course
     @wikis = @course.wikis
+    @namespace = namespace
   end
 
   def stats
@@ -22,7 +23,8 @@ class PerWikiCourseStats
                                        .joins(:article)
                                        .where(articles: { wiki: })
                                        .sum(&:revision_count),
-      "#{wiki.domain}_articles_edited" => @course.articles.where(wiki:).count,
+      "#{wiki.domain}_articles_edited" => @course.articles.where(wiki:,
+                                                                 namespace: @namespace).count,
       "#{wiki.domain}_articles_created" => @course.new_articles_on(wiki).count
     }
   end
