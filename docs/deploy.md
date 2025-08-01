@@ -6,7 +6,7 @@ For deployment, the Dashboard uses [Capistrano](https://en.wikipedia.org/wiki/Ca
 
 The standard deployment process is as follows:
 
-1. Work through the [pre-push checklist](contributing.md#pre-push-checklist)
+1. Work through the [contributing checklist](contributing.md)
 2. Push/merge updates to the master branch in the repository (Github)
 3. If your code includes a migration you must pause CRON jobs on your target server in order to prevent database block. Run the following task and wait long enough to allow any existing updates to end. (As of October 2016, updates take a little more than 2 hours.)
 
@@ -21,6 +21,9 @@ The standard deployment process is as follows:
 5. If you paused CRON jobs before deployment, unpause them when you're done:
 
 		$ cap <staging or production or wmflabs> sake task="batch:resume"
+6. If your changes include code that runs through Sidekiq, you may need to manually restart the relevant Sidekiq queue to ensure the new code is properly loaded. We've encountered errors related to this in the past.
+
+		$ sudo systemctl restart <sidekiq-queue>
 
 ## Running rake tasks remotely
 
