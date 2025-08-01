@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/category_utils"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
-#= Imports articles for a category, along with view data and revision scores
+#= Imports article titles for a category
 class CategoryImporter
   ################
   # Entry points #
