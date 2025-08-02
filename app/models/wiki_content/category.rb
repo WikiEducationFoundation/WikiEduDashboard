@@ -77,7 +77,7 @@ class Category < ApplicationRecord
     return unless VALID_SOURCES.include? source
     self.article_titles = title_list_from_wiki(update_service:).map do |title|
       sanitize_4_byte_string ArticleUtils.format_article_title(title)
-    end
+    end.uniq
     save
     # rubocop:disable Rails/SkipsModelValidations
     # Using touch to update the timestamps even when there is actually no
