@@ -331,4 +331,109 @@ describe CampaignsController, type: :request do
       expect(response).to redirect_to '/campaigns/spring_2015/articles'
     end
   end
+
+  describe 'CampaignsController#articles' do
+    let(:campaign) { create(:campaign) }
+    let(:course) { create(:course) }
+    let(:article) { create(:article) }
+
+    before do
+      create(:campaigns_course, campaign:, course:)
+      create(:articles_course, course:, article:, tracked: true)
+    end
+
+    describe 'GET #articles' do
+      context 'when caching is enabled' do
+        before do
+          # Enable caching to reproduce production behavior
+          Rails.application.config.action_controller.perform_caching = true
+          ActionController::Base.perform_caching = true
+        end
+
+        after do
+          # Restore original caching setting
+          Rails.application.config.action_controller.perform_caching = false
+          ActionController::Base.perform_caching = false
+        end
+
+        it 'renders articles page successfully with caching enabled' do
+          get "/campaigns/#{campaign.slug}/articles"
+
+          expect(response).to be_successful
+          expect(response).to render_template(:articles)
+          expect(assigns(:presenter)).to be_present
+        end
+
+        it 'does not raise missing attribute error when fragment caching is used' do
+          expect do
+            get "/campaigns/#{campaign.slug}/articles"
+          end.not_to raise_error
+        end
+
+        it 'includes required attributes for caching in articles_courses data' do
+          get "/campaigns/#{campaign.slug}/articles"
+
+          result = assigns(:presenter).campaign_articles
+          articles_courses = result[:articles_courses]
+
+          # Ensure the first article_course has the required attributes for caching
+          expect(articles_courses.first).to respond_to(:updated_at)
+          expect(articles_courses.first).to respond_to(:id)
+          expect(articles_courses.first).to respond_to(:article_id)
+          expect(articles_courses.first).to respond_to(:course_id)
+        end
+      end
+
+      context 'when too_many_articles is true' do
+        before do
+          allow_any_instance_of(CoursesPresenter).to receive(:too_many_articles?).and_return(true)
+        end
+
+        it 'renders too_many_articles template' do
+          get "/campaigns/#{campaign.slug}/articles"
+
+          expect(response).to render_template(:too_many_articles)
+          expect(assigns(:too_many_message)).to be_present
+        end
+      end
+
+      context 'when requesting JSON format' do
+        it 'returns campaign articles as JSON' do
+          get "/campaigns/#{campaign.slug}/articles.json"
+
+          expect(response).to be_successful
+          expect(response.content_type).to include('application/json')
+
+          json_response = JSON.parse(response.body)
+          expect(json_response['campaign']).to eq(campaign.slug)
+          expect(json_response).to have_key('articles')
+        end
+      end
+
+      context 'with pagination' do
+        before do
+          # Create more articles to test pagination
+          10.times do |i|
+            article = create(:article, title: "Test Article #{i}")
+            create(:articles_course, course:, article:, tracked: true)
+          end
+        end
+
+        it 'handles pagination correctly' do
+          get "/campaigns/#{campaign.slug}/articles?page=2"
+
+          expect(response).to be_successful
+          expect(assigns(:page)).to eq(2)
+        end
+      end
+
+      context 'when campaign does not exist' do
+        it 'raises routing error' do
+          expect do
+            get '/campaigns/non-existent-campaign/articles'
+          end.to raise_error(ActionController::RoutingError)
+        end
+      end
+    end
+  end
 end
