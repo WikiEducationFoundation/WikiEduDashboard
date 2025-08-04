@@ -194,6 +194,7 @@ en:
     label: Articles
     loading: Loading articles...
     mark_as_complete: Mark as Complete
+    mark_as_incomplete: Mark as Incomplete
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
@@ -298,6 +299,7 @@ en:
     add_available_placeholder_wikidata: Add one item title or URL per line
     add_available_submit: Add articles
     add_available_submit_wikidata: Add items
+    add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
@@ -318,6 +320,7 @@ en:
     none_short_wikidata: No items assigned
     none: This course has no assigned articles.
     no_available: This course has no available articles.
+    outline: Outline
     peer_review_count: "%{currentCount}/%{total} selected"
     peer_review_count_tooltip: You should select %{total} articles to peer review.
     peer_review_link: Peer Review

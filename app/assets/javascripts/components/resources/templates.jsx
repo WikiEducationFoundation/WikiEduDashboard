@@ -15,6 +15,7 @@ const Row = ({ link, title }) => (
 export default () => {
   const rows = [
     { title: 'Bibliography Template', link: 'https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_bibliography' },
+    { title: 'Outline Template', link: 'https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_outline' },
     { title: 'Evaluate an Article Template', link: 'https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_evaluate_article' },
     { title: 'Choose an Article Template', link: 'https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_choose_article' },
     { title: 'Article Draft Template', link: 'https://en.wikipedia.org/wiki/Template:Dashboard.wikiedu.org_draft_template' },
