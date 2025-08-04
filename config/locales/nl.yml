@@ -321,6 +321,7 @@ nl:
     review_other: Een peerreview toewijzen/verwijderen
     review_self: Controleer een pagina
     review_self_wikidata: Item controleren
+    sandbox_draft_link: Kladblokconcept
     select: Selecteren
     submit: Opslaan
   blocks:
@@ -447,6 +448,7 @@ nl:
     confirm_course_deletion_failed: '"%{title}" is niet de titel van deze cursus.
       De cursus is niet verwijderd.'
     course: Cursus
+    course_type_label: 'Type:'
     course_dates_calendar_instructions: Selecteer datums om ze toe te voegen of te
       verwijderen uit het schema, bijvoorbeeld vakantie of geen onderwijs. Klik op
       de datum om te wisselen tussen niet geselecteerd, geselecteerd en vakantiestatus.
@@ -462,6 +464,9 @@ nl:
       assignment_start: Begin opdracht
       assignment_start_placeholder: JJJJ-MM-DD
       checking_for_uniqueness: Deze cursus wordt gecontroleerd op uniciteit.
+      choose_clone: Kies een cursus om te klonen.
+      clone_previous: Kloon vorige cursus
+      clone_this: Kloon deze cursus
       cloned_course_calendar_instructions: Selecteer data om deze van het schema te
         verwijderen (feestdagen, vakantie, etc.). Klik op de datum om de status van
         niet-geselecteerd, geselecteerd en vakantie aan te passen. Indien je geen
@@ -551,6 +556,7 @@ nl:
       hen worden gemaild zodra het account is aangemaakt.
     new_account_username: Gevraagde gebruikersnaam
     new_account_username_invalid: Dit is geen geldige gebruikersnaam.
+    no_sandboxes: Geen kladblokken
     nocourses: Je neemt niet deel aan een cursus.
     none: Geen
     no_available_actions: Geen beschikbare handelingen
@@ -558,8 +564,10 @@ nl:
     passcode: Wachtwoord
     passcode_none: Geen wachtwoord
     passcode_prompt: 'Voer de toegangscode in om deel te nemen:'
+    please_log_in: Log alstublieft in.
     published: 'Je cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
       de cursus door een bezoek aan de volgende URL:'
+    requested_accounts: Aangevraagde accounts
     requested_accounts_alert_view: Weergeven
     review_timeline: Bekijk nu de tijdlijn van uw opdracht en pas deze aan uw behoeften
       aan. Zodra u tevreden bent kunt u de tijdlijn ter goedkeuring voorleggen aan
@@ -571,8 +579,10 @@ nl:
     revisions_none: Deze cursus heeft geen recente bijbehorende Wikipediabewerkingen.
     school: School
     search_all_tickets_for_this_course: Alle tickets voor deze cursus zoeken
+    search_courses: Zoek cursussen
     start: Start
     start_typing: Start met typen
+    stay_in_sandbox: Blijf in het kladblok
     student: Student
     students: Studenten
     students_count: '# Studenten'
@@ -644,17 +654,25 @@ nl:
       notification_message: Vul onze enquête in voor deze cursus.
       link: Neem deel aan enquête
   course_instructor_notification:
+    send_notification_button_text: Verzenden
+    write_subject: Onderwerp
     write_message_placeholder: Bericht
     sending_notification: Bezig met verzenden
   courses_generic:
     school_system: Academisch systeem
     add_campaign: Campagne toevoegen
     all_courses: Alle programma's
+    archived: Gearchiveerde programma's
+    articles_i_am_reviewing: Artikelen die ik aan het beoordelen ben
+    assignment_headings:
+      available_reviews: Beschikbaar voor beoordeling
+      available_reviews_wikidata: Beschikbaar voor beoordeling
     assignment_end: Einde gebeurtenis
     assignments_none: Aan dit project zijn geen artikelen toegewezen.
     assignment_start: Begin gebeurtenis
     cancel: Annuleren
     creator:
+      assignment_end_placeholder: JJJJ-MM-DD
       assignment_start_placeholder: YYYY-MM-DD
       checking_for_uniqueness: Dit programma wordt gecontroleerd op uniciteit.
       choose_clone: Kies een programma om te klonen.
@@ -700,6 +718,7 @@ nl:
     uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
       aan Wikimedia Commons.
     view_other: Bekijk andere campagnes
+    view_page: Pagina bekijken
   editable:
     edit: Bewerken
     cancel: Annuleren
@@ -807,6 +826,8 @@ nl:
     chars_added: Toegevoegde tekens
     class: Klas
     date_time: Datum/tijd
+    diff_show: Weergeven
+    diff_hide: Verbergen
     edited_by: Bewerkt door
     loading: Bezig met het laden van versies...
     none: Aan deze cursus zijn recent geen wijzigingen aangebracht.
@@ -815,6 +836,9 @@ nl:
     see_more: Bekijk meer
     show_all: Alles weergeven
   settings:
+    categories:
+      other_settings: Andere instellingen
+      users: Gebruikers
     admin_users:
       new:
         form_label: Verleen beheerdersrechten
@@ -836,7 +860,17 @@ nl:
         revoking_button_working: Intrekken...
         already_is_not: '%{username} is geen bijzondere gebruiker!'
         demote_success: '%{username} is vanaf nu een gebruiker.'
+  status:
+    daily_update: Dagelijkse update
+    default: Standaard
+    no_info: Geen informatie beschikbaar.
+    purpose: Doel
+    queue: Wachtrij
+    short_update: Korte update
+    size: Grootte
+    status: Status
   suggestions:
+    editing: Suggesties bewerken
     suggestion_docs:
       a: Deskundige kennis kan nodig zijn om het artikel te tweaken en stijlproblemen
         moeten mogelijk worden opgelost. Peer review kan helpen.
@@ -853,26 +887,40 @@ nl:
     paused: 'De taak %{task} kan niet uitgevoerd worden omdat geplande taken gepauzeerd
       zijn. Voer het volgende commando uit om bijwerken te hervatten: ''rake batch:resume''.'
   timeline:
+    add_week: Week toevoegen
     blackout_week_created: Er zijn blokken gepland voor deze week. Verplaats deze
       naar een andere week, voordat je de laatste klasbijeenkomst van deze week verwijderd.
+    block_assignment: Opdracht
+    block_custom: Aangepast
+    block_in_class: In de klas
     block_milestone: Mijlpaal
     block_type: Het type blok wordt gebruikt om te communiceren met je studenten over
       dit item op hun tijdlijn en om handige hulpmiddelen voor je te bouwen (zoals
       het mijlpaaloverzicht op de pagina Overzicht)
+    done: Afgerond
     due_default: Volgende week af te ronden
+    empty_week_3: of
+    gradeable_value: Waarde
     no_timeline: Deze cursus heeft geen tijdlijn.
     no_activity_this_week: Geen geplande vergaderingen deze week.
     nothing_this_week: Er staat niets op de planning voor deze week.
+    save_all_changes: Alles opslaan
+    this_week_title_default: Deze week
     title: Tijdlijn
     unable_to_add_week: Je kunt geen nieuwe weken toevoegen als de tijdlijn vol is.
       Verwijder minstens één week of wijzig de opdrachtdatums om ruimte te maken voor
       een nieuwe.
+    view_full_timeline: Bekijk de volledige tijdlijn
+    week_number: Week %{number}
   training:
     continue: Doorgaan (%{progress})
     start: Start
     view: Bekijken
     next: Volgende pagina
     page: Pagina
+    page_number: Pagina %{number} van %{total}
+    previous: < Vorige
+    table_of_contents: Inhoudsopgave
     logged_out: Je bent afgemeld. Je ontvangt geen krediet voor het voltooien van
       deze module, tenzij je je aanmeldt.
     done: Klaar!
@@ -880,6 +928,7 @@ nl:
     kind:
       exercise: Oefening
       discussion: Overleg
+    view_all: Bekijk alle oefeningen
   update_username:
     header: Een wijziging van gebruikersnaam doorvoeren
     not_found: Gebruiker niet gevonden voor ingevoerde gebruikersnaam.
@@ -889,10 +938,19 @@ nl:
     label: Nieuwe gebruikersnaam
     button: Bijwerken
   uploads:
+    author: 'Auteur:'
+    categories: Categorieën
+    date: 'Datum:'
+    description: Beschrijving
+    file_name: Bestandsnaam
+    file_usage: Bestandsgebruik op andere wiki's
+    image: Afbeelding
     label: Uploads
+    license: 'Licentie:'
     loading: Bezig met het laden van uploads...
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
+    original_file: Oorspronkelijk bestand
     select_label: Filteren op uploader
     time_doc: De tijd van iedere upload in je lokale tijd
     uploaded_at: Uploadtijd
@@ -903,11 +961,20 @@ nl:
     usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
     usage_count_gallery_tile: Gebruikt op %{usage_count} artikelen.
     usages: Gebruik
+    gallery_view: Galerijweergave
+    list_view: Lijstweergave
+    source: 'Bron:'
+    tile_view: Tegelweergave
+    views_per_day: Weergaven per dag
+    view_commons: Bekijk op Commons
+    wiki_big: Wiki
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!
     assign_articles: Artikelen toewijzen
+    assign_articles_wikidata: Items toewijzen
     assign_articles_done: Afgerond
     assigned: Toegewezen pagina's
+    assigned_wikidata: Toegewezen items
     assignees: Toegewezen aan
     character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
@@ -952,6 +1019,8 @@ nl:
       other: '%{completed_count} trainingsmodules voltooid van %{count}'
     training_module_status: Status
     up_to_date_with_training: up-to-date met de training
+    username: Gebruikersnaam
+    username_placeholder: Gebruikersnaam
     useremail_placeholder: E-mail
     userpasscode_placeholder: Toegangscode
   wiki_edits:
@@ -1072,4 +1141,19 @@ nl:
     due: vervalt %{due_date}
   multi_wiki:
     selector_placeholder: Wikidomein invoeren
+  news:
+    options:
+      news_content:
+        delete_news: Verwijder nieuws
+        confirm_delete: Bevestigen
+        cancel_delete: Annuleren
+        cancel_edit: Bewerking annuleren
+        edit_news: Nieuws bewerken
+        update_news: Nieuws bijwerken
+  notes:
+    title: Titel
+    edited_by: Bewerkt door
+    cancel_note_creation: Annuleren
+    cancel_edit_note: Annuleren
+    save_note: Opslaan
 ...

@@ -5,6 +5,7 @@
 # Author: Kosovastar
 # Author: Liridon
 # Author: Ritam
+# Author: Xhulianoo
 ---
 sq:
   accessibility:
@@ -205,10 +206,10 @@ sq:
     title: Titulli
     use_start_end_dates: Përdor datat e fillimit dhe mbarimit
   categories:
-    add_category: Shtoni kategori
-    add_template: Shtoni gjedhe
-    add_this_category: Shtoni këtë kategori
-    add_this_template: Shtoni këtë gjedhe
+    add_category: Shto kategori
+    add_template: Shto stampë
+    add_this_category: Shto kategori
+    add_this_template: Shto Stampa
     name: Emri
     category_name: Emri i kategorisë
     remove: Largo
@@ -405,7 +406,7 @@ sq:
         të programit wiki.
     delete_course: Fshini programin
     edit_course_dates: Ndrysho Datat e Projektit
-    enroll: Shtoni Redaktor
+    enroll: Shto Redaktor
     enrollment: Pjesëmarrja
     explore: Gjeni Programet
     expected_students: Redaktorët e Pritur
@@ -510,7 +511,7 @@ sq:
     paused: Detyra %{task} nuk mund të bëhet sepse freskimet e planifikuara janë ndërprerë.
       Aktivizo 'rake batch:resume' për të rifilluar freskimet.
   timeline:
-    add_week: Shtoni Javën
+    add_week: Shto Javë
     arrange_timeline: Organizoni Kohën e Realizimit
     arrange_timeline_instructions: Caktoni afatin kohor duke 'kapë dhe lëshuar' blloqe
       në vendndodhjen/javën e dëshiruar, ose ripozicionuar blloqet duke përdorur shigjetat
