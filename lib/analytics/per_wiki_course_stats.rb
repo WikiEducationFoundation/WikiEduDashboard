@@ -23,7 +23,10 @@ class PerWikiCourseStats
                                        .where(articles: { wiki: })
                                        .sum(&:revision_count),
       "#{wiki.domain}_articles_edited" => @course.articles.where(wiki:).count,
-      "#{wiki.domain}_articles_created" => @course.new_articles_on(wiki).count
+      "#{wiki.domain}_articles_created" => ArticlesCourses.joins(:article)
+                                                          .where(course_id: 10000, tracked: true, new_article: true) # rubocop:disable Layout/LineLength
+                                                          .where(articles: { namespace: @namespace, wiki:, deleted: false }) # rubocop:disable Layout/LineLength
+                                                          .count
     }
   end
 end
