@@ -627,54 +627,44 @@ const Survey = {
   },
 
   handleParentConditionalChange(value, conditionalGroup, $parent) {
-    let { currentAnswers } = conditionalGroup;
-    let conditional;
-    // let resetQuestions = false;
-
+    // For tracking which conditionals need to be activated
+    const conditionalsToActivate = [];
     if (Array.isArray(value)) {
-      // Check if empty
-      if (value.length === 0 && currentAnswers) {
+      // Check if empty array (all unchecked)
+      if (value.length === 0) {
         conditionalGroup.currentAnswers = [];
+        this.resetConditionalGroupChildren(conditionalGroup);
+        return;
       }
 
-      // Check if conditional was present and is no longer
-      currentAnswers.forEach((a) => {
-        if (value.indexOf(a) === -1) {
-          const index = currentAnswers.indexOf(a);
-          if (currentAnswers.length === 1) {
-            currentAnswers = [];
-          } else {
-            currentAnswers = currentAnswers.slice(index, index + 1);
-          }
-        }
-      });
-      // Check if value matches a conditional question
+      // Track which values from the current selection match existing conditionals
+      const updatedAnswers = [];
+      // Check each selected value
       value.forEach((v) => {
-        if (conditionalGroup[v] !== undefined
-            && currentAnswers.indexOf(v) === -1) {
-          conditional = conditionalGroup[v];
-          currentAnswers.push(v);
-          conditionalGroup.currentAnswers = currentAnswers;
+        if (conditionalGroup[v] !== undefined) {
+          updatedAnswers.push(v);
+          conditionalsToActivate.push(conditionalGroup[v]);
         }
       });
-
-      if (currentAnswers.length === 0) {
-        conditionalGroup.currentAnswers = [];
-      }
+      // Update the currentAnswers
+      conditionalGroup.currentAnswers = updatedAnswers;
     } else {
-      conditional = conditionalGroup[value];
+      // Single value case
+      conditionalGroup.currentAnswers = [];
+      if (conditionalGroup[value] !== undefined) {
+        conditionalsToActivate.push(conditionalGroup[value]);
+        conditionalGroup.currentAnswers = [value];
+      }
     }
 
+    // First reset all conditionals
     this.resetConditionalGroupChildren(conditionalGroup);
-
-    if (typeof conditional !== 'undefined' && conditional !== null) {
+    // Then activate each conditional that should be shown
+    conditionalsToActivate.forEach((conditional) => {
       this.activateConditionalQuestion($(conditional), $parent);
-    }
-
-    // this.indexBlocks();
-
-    // $parent.find('.survey__next.hidden').removeClass('hidden');
+    });
   },
+
 
   conditionalPresenceListeners(id, question) {
     this.surveyConditionals[id].present = false;
