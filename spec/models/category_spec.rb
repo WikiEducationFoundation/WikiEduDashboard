@@ -237,6 +237,11 @@ RSpec.describe Category, type: :model do
       create(:category, name: 'Redirects from emoji', wiki: Wiki.find(1), source: 'category')
     end
 
+    let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
+    let(:duplicate_cat) do
+      create(:category, name: 'Lesbianas', wiki: es_wiki, source: 'category', depth: 2)
+    end
+
     it 'escapes four-byte emoji titles' do
       VCR.use_cassette 'categories' do
         emoji_cat.refresh_titles
@@ -256,6 +261,13 @@ RSpec.describe Category, type: :model do
       VCR.use_cassette 'categories' do
         category2.refresh_titles
         expect(category2.article_titles.select { |title| title.include? 'Talk:' }).to eq([])
+      end
+    end
+
+    it 'does not include duplicate titles' do
+      VCR.use_cassette 'categories' do
+        duplicate_cat.refresh_titles
+        expect(duplicate_cat.article_titles.count).to eq(duplicate_cat.article_titles.uniq.count)
       end
     end
   end

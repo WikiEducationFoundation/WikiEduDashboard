@@ -354,12 +354,12 @@ class Course < ApplicationRecord
   end
 
   def scoped_article_titles(wiki)
-    assigned_article_titles(wiki) + category_article_titles(wiki)
+    (assigned_article_titles(wiki) + category_article_titles(wiki)).uniq
   end
 
   def assigned_article_titles(wiki)
     @assigned_article_titles ||= {}
-    @assigned_article_titles[wiki] ||= assignments.where(wiki:).pluck(:article_title)
+    @assigned_article_titles[wiki] ||= assignments.where(wiki:).pluck(:article_title).uniq
   end
 
   def category_article_titles(wiki)
