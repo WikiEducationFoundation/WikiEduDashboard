@@ -50,11 +50,10 @@ class IndividualStatisticsTimeslicePresenter
     @course_user_data = {}
     @course_user_data[:characters] = 0
     @course_user_data[:references] = 0
-    individual_courses.each do |course|
-      course_user_records(course).each do |course_user|
-        @course_user_data[:characters] += course_user.character_sum_ms
-        @course_user_data[:references] += course_user.references_count
-      end
+
+    course_user_records(individual_courses.pluck(:id)).each do |course_user|
+      @course_user_data[:characters] += course_user.character_sum_ms
+      @course_user_data[:references] += course_user.references_count
     end
   end
 
@@ -84,7 +83,8 @@ class IndividualStatisticsTimeslicePresenter
           .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
   end
 
-  def course_user_records(course)
-    course.courses_users.where(user: @user)
+  def course_user_records(course_id)
+    @course_user_records ||= CoursesUsers.where(course_id:, user: @user).select(:character_sum_ms,
+                                                                                :references_count)
   end
 end
