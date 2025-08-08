@@ -14,6 +14,7 @@ class WikiCourseOutput
     @dashboard_url = ENV['dashboard_url']
     @all_instructor_course_users = @course
                                    .courses_users
+                                   .includes(:user)
                                    .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @first_instructor_course_user = @all_instructor_course_users.first
     @first_instructor = @first_instructor_course_user&.user
