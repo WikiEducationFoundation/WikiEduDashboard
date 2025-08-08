@@ -60,10 +60,8 @@ class IndividualStatisticsTimeslicePresenter
 
   def set_data_from_article_course
     @article_course_data = {}
-    individual_courses.each do |course|
-      article_course_records(course).each do |article_course|
-        @article_course_data[article_course.article_id] = 1
-      end
+    article_course_records(individual_courses.pluck(:id)).each do |article_course|
+      @article_course_data[article_course.article_id] = 1
     end
   end
 
@@ -76,12 +74,13 @@ class IndividualStatisticsTimeslicePresenter
     end
   end
 
-  def article_course_records(course)
-    course.articles_courses
-          .where('user_ids LIKE ?', "%- #{@user.id}\n%")
-          .joins(:article)
-          .includes(:article)
-          .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+  def article_course_records(course_id)
+    ArticlesCourses
+      .where('user_ids LIKE ?', "%- #{@user.id}\n%")
+      .where(course_id:)
+      .joins(:article)
+      .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+      .select(:article_id)
   end
 
   def course_user_records(course)
