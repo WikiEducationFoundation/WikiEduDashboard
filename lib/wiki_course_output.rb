@@ -14,6 +14,7 @@ class WikiCourseOutput
     @dashboard_url = ENV['dashboard_url']
     @all_instructor_course_users = @course
                                    .courses_users
+                                   .includes(:user)
                                    .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @first_instructor_course_user = @all_instructor_course_users.first
     @first_instructor = @first_instructor_course_user&.user
@@ -114,7 +115,7 @@ class WikiCourseOutput
   end
 
   def students_table
-    students = @course.students
+    students = @course.students.includes(:assignments)
     return '' if students.blank?
     table = "{{#{template_name(@templates, 'table')}}}\r"
     students.each do |student|
@@ -126,9 +127,11 @@ class WikiCourseOutput
 
   def student_row(student)
     username = student.username
-    assignments = student.assignments.where(course_id: @course.id)
-    assigned = Wikitext.assignments_to_wikilinks(assignments.assigned, @course.home_wiki)
-    reviewing = Wikitext.assignments_to_wikilinks(assignments.reviewing, @course.home_wiki)
+    assignments = student.assignments.select { |a| a.course_id == @course.id }
+    assigned = Wikitext.assignments_to_wikilinks(assignments.select(&:editing?),
+                                                 @course.home_wiki)
+    reviewing = Wikitext.assignments_to_wikilinks(assignments.select(&:reviewing?),
+                                                  @course.home_wiki)
 
     "{{#{template_name(@templates, 'table_row')}|#{username}|#{assigned}|#{reviewing}}}\r"
   end

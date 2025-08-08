@@ -90,6 +90,10 @@ class Assignment < ApplicationRecord
     role == Roles::ASSIGNED_ROLE
   end
 
+  def reviewing?
+    role == Roles::REVIEWING_ROLE
+  end
+
   def sandbox_pagename
     URI.decode_www_form_component sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
   # Fallback for cases where the URL doesn't match URI's requirements
