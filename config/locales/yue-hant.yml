@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Winston Sung
+# Author: Yueman
 ---
 yue-hant:
   number:
@@ -26,7 +27,7 @@ yue-hant:
     submit: 遞交
     change: 改動
     details: 細節
-    confirm: OK
+    confirm: 好
     opt_in: 係
     opt_out: 唔係
     opt_yes: 係

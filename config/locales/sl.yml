@@ -548,6 +548,8 @@ sl:
     featured_campaigns:
       no_featured_campaigns: Ni določenih izbranih kampanj
       update_featured_campaigns_button: Posodobi izbrane kampanje
+  status:
+    queue: Čakalna vrsta
   suggestions:
     editing: Predlogi za urejanje
     suggestion_docs:
