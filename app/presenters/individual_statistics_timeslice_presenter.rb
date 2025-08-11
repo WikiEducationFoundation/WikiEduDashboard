@@ -66,6 +66,7 @@ class IndividualStatisticsTimeslicePresenter
 
   def set_upload_usage_counts
     @upload_usage_counts = {}
+    return unless individual_courses.any?
 
     # Get the earliest start date from all individual courses
     start_date = individual_courses.map(&:start).min.strftime('%Y-%m-%d %H:%M:%S')
