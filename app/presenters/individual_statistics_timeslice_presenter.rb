@@ -13,7 +13,7 @@ class IndividualStatisticsTimeslicePresenter
   end
 
   def individual_courses
-    @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
+    @individual_courses ||= @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE }) # rubocop:disable Layout/LineLength
   end
 
   def course_string_prefix
@@ -66,10 +66,19 @@ class IndividualStatisticsTimeslicePresenter
 
   def set_upload_usage_counts
     @upload_usage_counts = {}
-    individual_courses.each do |course|
-      course.uploads.where(user_id: @user.id).each do |upload|
-        @upload_usage_counts[upload.id] = upload.usage_count || 0
-      end
+
+    # Get the earliest start date from all individual courses
+    start_date = individual_courses.map(&:start).min.strftime('%Y-%m-%d %H:%M:%S')
+    # Get the latest end date from all individual courses
+    end_date = individual_courses.map(&:end).max.strftime('%Y-%m-%d %H:%M:%S')
+
+    # Query all uploads for this user within the combined date range
+    common_upload_data = CommonsUpload.where(user_id: @user.id)
+                                      .where('uploaded_at >= ? AND uploaded_at <= ?', start_date, end_date) # rubocop:disable Layout/LineLength
+                                      .select(:id, :usage_count)
+
+    common_upload_data.each do |upload|
+      @upload_usage_counts[upload.id] = upload.usage_count || 0
     end
   end
 
