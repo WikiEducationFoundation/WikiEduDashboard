@@ -88,7 +88,7 @@ class Course < ApplicationRecord
   end, through: :students)
 
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
-  has_many :articles, -> { distinct }, through: :articles_courses
+  has_many :articles, through: :articles_courses
   has_many :assignments, dependent: :destroy
 
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
