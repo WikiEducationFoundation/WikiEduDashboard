@@ -29,7 +29,7 @@ class CourseArticlesCsvBuilder
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
-    @course.scoped_article_timeslices.includes(article: :wiki).each do |act|
+    @course.scoped_article_timeslices.includes(article: :wiki).find_each do |act|
       next unless valid_timeslice(act)
 
       article_edits = @articles_edited[act.article_id] || new_article_entry(act)
