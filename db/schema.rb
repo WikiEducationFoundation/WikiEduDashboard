@@ -93,7 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_28_182700) do
     t.text "user_ids"
     t.datetime "first_revision"
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
-    t.index ["course_id"], name: "index_articles_courses_on_course_id"
+    t.index ["course_id", "article_id"], name: "index_articles_courses_on_course_id_and_article_id", unique: true
   end
 
   create_table "assignment_suggestions", charset: "utf8mb4", force: :cascade do |t|
