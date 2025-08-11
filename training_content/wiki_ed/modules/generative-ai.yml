@@ -11,6 +11,8 @@ slides:
   - slug: a-word-of-caution #7103
   - slug: identifying-gaps-in-articles #7104
   - slug: finding-access-to-sources #7105
+  - slug: hallucinating-sources #7110
+  - slug: mismatching-sources-and-facts #7111
   - slug: help-with-copy-editing #7106
   - slug: do-not-add-ai-images #7107
   - slug: ai-quiz #7109

@@ -1,0 +1,21 @@
+id: 7111
+title: "Harm: Mismatching sources and facts"
+content: |
+  Another reason to always read your sources carefully? AI tools may cite a real source — but
+  the source may not have anything to do with the fact or topic itself.
+
+  For example, the highlighted information below (which had to be deleted from a live Wikipedia article)
+  cites a real source. However, the cited research article doesn’t mention azo dyes or connect them to
+  inflammation in the gut, as the text explains.
+
+  *... however, they are all known to contain carcinogens<sup>[1]</sup>. <mark>The gut microbiota is
+  crucial for metabolizing compounds, such as azo dyes. The enyzmes used to metabolize these compounds split
+  the azo bonds to form metabolites. These metabolites can generate reactive oxygen species, which foster
+  oxidative stress and inflammation<sup>[2]</sup>.</mark> Inflammation in the tissues with the ...*
+
+  Cited source [2]: [Pugliese, Susan E. W. Spencer and Kaylee (2024-05-07). "Science for Living:
+  Gut microbiome offers clues to chronic disease". **UMass Chan Medical School**.](https://www.umassmed.edu/news/news-archives/2024/05/science-for-living-gut-microbiome-offers-clues-to-chronic-disease/)
+
+  So, even if an AI tool directs you to a real source, you can’t trust the tool to correctly
+  use that source in a citation. Always take the time to carefully verify every source/citation
+  yourself when contributing to Wikipedia!
