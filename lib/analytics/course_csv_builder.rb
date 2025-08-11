@@ -101,7 +101,7 @@ class CourseCsvBuilder
            .where(tracked: true)
            .joins(:article)
            .where(articles: { namespace: })
-           .sum(&:revision_count)
+           .sum(:revision_count)
   end
 
   def training_completion_rate
