@@ -13,7 +13,7 @@ class IndividualStatisticsTimeslicePresenter
   end
 
   def individual_courses
-    @individual_courses ||= @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
+    @individual_courses ||= @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE }) # rubocop:disable Layout/LineLength
   end
 
   def course_string_prefix
