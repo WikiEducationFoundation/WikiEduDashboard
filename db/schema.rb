@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_03_195934) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -598,7 +598,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.string "owner_type"
     t.string "fuzzy_field"
     t.index ["owner_id", "owner_type", "fuzzy_field", "trigram", "score"], name: "index_for_match"
-    t.index ["owner_id", "owner_type"], name: "index_by_owner"
   end
 
   create_table "user_profiles", id: :integer, charset: "utf8mb4", force: :cascade do |t|
