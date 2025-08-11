@@ -54,6 +54,7 @@ class Assignment < ApplicationRecord
   delegate :all_statuses, to: :assignment_pipeline
   delegate :draft_sandbox_status, to: :assignment_pipeline
   delegate :bibliography_sandbox_status, to: :assignment_pipeline
+  delegate :outline_sandbox_status, to: :assignment_pipeline
   delegate :update_sandbox_status, to: :assignment_pipeline
   delegate :peer_review_sandbox_status, to: :assignment_pipeline
 
@@ -103,6 +104,10 @@ class Assignment < ApplicationRecord
 
   def bibliography_pagename
     "#{sandbox_pagename}/Bibliography"
+  end
+
+  def outline_pagename
+    "#{sandbox_pagename}/Outline"
   end
 
   def peer_review_pagename

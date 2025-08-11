@@ -89,9 +89,7 @@ class ClassroomProgramCourse < Course
     'students'
   end
 
-  # Disable progress tracker for 'no_sandboxes' courses
-  # since it is designed around a sandbox drafting stage.
   def progress_tracker_enabled?
-    !flags[:no_sandboxes].present?
+    true
   end
 end
