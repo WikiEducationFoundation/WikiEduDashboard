@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_02_174753) do
   create_table "alerts", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "course_id"
     t.integer "user_id"
@@ -117,7 +117,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_15_163420) do
     t.text "sandbox_url"
     t.text "flags"
     t.index ["course_id", "user_id"], name: "index_assignments_on_course_id_and_user_id"
-    t.index ["course_id"], name: "index_assignments_on_course_id"
   end
 
   create_table "blocks", id: :integer, charset: "utf8mb4", force: :cascade do |t|
