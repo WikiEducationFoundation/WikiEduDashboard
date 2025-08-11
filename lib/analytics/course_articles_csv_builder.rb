@@ -7,6 +7,7 @@ class CourseArticlesCsvBuilder
 
   def initialize(course)
     @course = course
+    set_users
     set_articles_edited
   end
 
@@ -25,6 +26,10 @@ class CourseArticlesCsvBuilder
   end
 
   private
+
+  def set_users
+    @usernames = @course.users.pluck(:id, :username).to_h
+  end
 
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
@@ -100,7 +105,9 @@ class CourseArticlesCsvBuilder
   end
 
   def to_usernames(user_ids)
-    User.where(id: user_ids).pluck(:username).join(', ')
+    user_ids.map do |user_id|
+      @usernames[user_id]
+    end.join(', ')
   end
 
   # Example:
