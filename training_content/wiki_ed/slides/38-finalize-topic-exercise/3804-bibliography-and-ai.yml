@@ -1,0 +1,10 @@
+title: "A note on Generative AI"
+id: 3804
+button_text: 'Okay'
+content: |
+  Generative AI tools (like ChatGPT or Gemini) can sometimes be useful to help search for sources,
+  but their results should also be evaluated carefully. Generative AI can falsely attribute
+  claims to sources , or “hallucinate” sources that don’t exist.
+
+  Another AI issue to watch out for? AI tools will often point to sources that don’t fit
+  Wikipedia’s definition of reliable sources.

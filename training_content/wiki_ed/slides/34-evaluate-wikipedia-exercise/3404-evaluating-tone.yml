@@ -4,3 +4,5 @@ content: |
   * Is the article neutral? Are there any claims that appear heavily biased
   toward a particular position?
   * Are there viewpoints that are overrepresented, or underrepresented?
+  * Is the text padded with “filler language” or extra words to inflate
+  the length? (AI tools often write like this!)
