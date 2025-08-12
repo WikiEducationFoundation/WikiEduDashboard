@@ -21,6 +21,7 @@ class UntrainedStudentsAlertMailer < ApplicationMailer
 
   def set_course_and_users
     @course = @alert.course
+    @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @admins = @course.nonstudents.where(permissions: 1)
     @instructors = @course.instructors
     # eg, "Full Name, User2, and Other Fullname"
