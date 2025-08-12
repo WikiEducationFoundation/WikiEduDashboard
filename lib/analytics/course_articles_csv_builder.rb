@@ -105,7 +105,7 @@ class CourseArticlesCsvBuilder
   end
 
   def to_usernames(user_ids)
-    user_ids.map do |user_id|
+    user_ids.uniq.map do |user_id|
       @usernames[user_id]
     end.join(', ')
   end
