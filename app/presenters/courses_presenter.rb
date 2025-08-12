@@ -85,14 +85,9 @@ class CoursesPresenter
 
   # Create paginated collection for articles_courses data
   def paginated_articles_courses
-    WillPaginate::Collection.create(current_page, PER_PAGE, total_articles_count) do |pager|
+    WillPaginate::Collection.create(current_page, PER_PAGE, campaign_articles_count) do |pager|
       pager.replace(articles_courses_scope)
     end
-  end
-
-  # Count total articles for pagination metadata
-  def total_articles_count
-    ArticlesCourses.where(course_id: course_ids_and_slugs.map(&:id), tracked: true).count
   end
 
   # Current page number with fallback to 1
@@ -108,7 +103,11 @@ class CoursesPresenter
   # If there are too many articles, rendering a page of them can take a very long time.
   ARTICLE_LIMIT = 50000
   def too_many_articles?
-    @too_many ||= campaign.articles_courses.count > ARTICLE_LIMIT
+    @too_many ||= campaign_articles_count > ARTICLE_LIMIT
+  end
+
+  def campaign_articles_count
+    @campaign_articles_count ||= campaign.articles_courses.where(tracked: true).count
   end
 
   def tag_articles
