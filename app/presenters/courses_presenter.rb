@@ -167,10 +167,15 @@ class CoursesPresenter
                     'SUM(new_article_count), ' \
                     'SUM(view_sum), ' \
                     'SUM(user_count), ' \
-                    'SUM(courses.references_count)'
+                    'SUM(courses.references_count), ' \
+                    'SUM(uploads_in_use_count), ' \
+                    'SUM(upload_usages_count), ' \
+                    'SUM(trained_count), ' \
+                    'SUM(upload_count), ' \
+                    'COUNT(*)'
   def course_sums
     @course_sums ||= if campaign
-                       Rails.cache.fetch("#{campaign.slug}-course_sums", expires_in: 3.hours) do
+                       Rails.cache.fetch("#{campaign.slug}-course_sums_v2", expires_in: 1.day) do
                          courses.pick(Arel.sql(COURSE_SUMS_SQL))
                        end
                      else
@@ -180,10 +185,6 @@ class CoursesPresenter
 
   def word_count
     @word_count ||= WordCount.from_characters(course_sums[0] || 0)
-  end
-
-  def references_count
-    course_sums[5] || 0
   end
 
   def article_count
@@ -202,20 +203,32 @@ class CoursesPresenter
     course_sums[4] || 0
   end
 
-  def course_string_prefix
-    campaign&.course_string_prefix || Features.default_course_string_prefix
+  def references_count
+    course_sums[5] || 0
   end
 
   def uploads_in_use_count
-    @uploads_in_use_count ||= courses.sum(:uploads_in_use_count)
+    course_sums[6] || 0
   end
 
   def upload_usage_count
-    @upload_usage_count ||= courses.sum(:upload_usages_count)
+    course_sums[7] || 0
   end
 
   def trained_count
-    courses.sum(:trained_count)
+    course_sums[8] || 0
+  end
+
+  def upload_count
+    course_sums[9] || 0
+  end
+
+  def courses_count
+    course_sums[10] || 0
+  end
+
+  def course_string_prefix
+    campaign&.course_string_prefix || Features.default_course_string_prefix
   end
 
   def trained_percent
