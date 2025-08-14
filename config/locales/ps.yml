@@ -227,7 +227,7 @@ ps:
     created_at: نېټه
     course: لوست‌دوره
     course_data: لوست‌دورې اومتوک
-    course_removed: '"%{title}" له "campaign_title}" ټاکنيزې‌سيالۍ څخه لرې شو'
+    course_removed: '"%{title}" له "%{campaign_title}" ټاکنيزې‌سيالۍ څخه لرې شو'
     create_campaign: يو نوې ټاکنيزه‌سيالۍ جوړول
     create_my_campaign: زما ټاکنيزه‌سيالۍ جوړول!
     customize_passcode: تلواليز پاس‌کوډ
@@ -246,8 +246,13 @@ ps:
   courses:
     activity: فعاليت
     articles: ليکنې
+    course: لوست‌دوره
+    course_type_label: 'ډول:'
     course_description: کورسونه
     courses: کورسونه
+    courses_taught: تدريس‌شوي لوست‌دورې
+    creation_date: پنځولو نېټه
+    start_date: پيل نېټه
     creator:
       course_description: د کورس څرگندونه
       course_school: د کورس ښوونځی
@@ -272,7 +277,7 @@ ps:
     edit_course_dates: کورس نېټې سمول
     end: پای
     enroll: نومليکل
-    enrollment: نومليکنه
+    enrollment: زده کوونکي ورگډول/لرې‌کول
     instructors: ښوونکي
     join: يوځای کېدل
     join_course: کورس کې ورگډېدل
@@ -293,8 +298,8 @@ ps:
     view_wiki: په ويکيپېډيا باندې کتل
     yourcourses: ستاسې کورس
   courses_generic:
-    assignment_end: د وختکرښې پای
-    assignment_start: د وختکرښې پيل
+    assignment_end: د پېښې پای
+    assignment_start: د پېښې پيل
     creator:
       course_term: کله
       course_term_placeholder: کله
@@ -389,8 +394,10 @@ ps:
     last_name: وروستی نوم
     loading: کارنان برسېرېږي...
     name: نوم
-    none: دا کورس کوم زدکړيال نه لري.
-    number_of_articles: '%{number} ليکنې'
+    none: دا لوست‌دوره کوم گډونوال نه لري.
+    number_of_articles:
+      one: '%{count} ليکنه'
+      other: '%{count} ليکنې'
     recent_revisions: وروستني بدلونونه
     username: کارن‌نوم
     username_placeholder: کارن‌نوم

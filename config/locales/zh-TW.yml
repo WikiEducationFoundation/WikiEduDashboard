@@ -167,6 +167,7 @@ zh-TW:
     label: 條目
     loading: 讀取條目中...
     mark_as_complete: 標記為完成
+    mark_as_incomplete: 標記為未完成
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
@@ -253,6 +254,7 @@ zh-TW:
     add_available_placeholder_wikidata: 在每行添加一個項目標題或 URL
     add_available_submit: 添加條目
     add_available_submit_wikidata: 添加項目
+    add_placeholder: 輸入條目標題或 URL
     assign_self: 指定自己一個條目
     assign_self_wikidata: 給自己分配一個項目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
@@ -273,6 +275,7 @@ zh-TW:
     none_short_wikidata: 沒有已分配的項目
     none: 這個課程還沒有任何條目被分派。
     no_available: 此課程沒有任何尚待分配的條目。
+    outline: 大綱
     peer_review_count: '%{currentCount}/%{total} 已選'
     peer_review_count_tooltip: 您必須選擇 %{total} 個條目來同行評審。
     peer_review_link: 同行評審

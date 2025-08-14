@@ -1,6 +1,7 @@
 # Messages for Cantonese (Traditional Han script) (粵語（繁體）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: JeffreyKim
 # Author: Winston Sung
 # Author: Yueman
 ---
@@ -48,7 +49,11 @@ yue-hant:
     hide: 收埋
     history: (歷史)
     label: 文章
+    mark_as_incomplete: 標記為未完成
     title: 標題
+  assignments:
+    add_placeholder: 輸入文章標題或者網址
+    outline: 大綱
   courses:
     creation_date: 創建嘅日期
   wizard:
