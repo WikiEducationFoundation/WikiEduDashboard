@@ -408,3 +408,91 @@ p.red
   background url('../images/loader.gif') #fff 99% center no-repeat
   background-size 15px 15px
   color dove
+
+// Variables
+transition_speed = .4s
+active_color = #676Eb4
+inactive_color = #ccc
+handle_color = white
+switch_width = 46px
+switch_height = 26px
+handle_size = 20px
+handle_padding = 3px
+
+// Styles
+.switch
+  position relative
+  display inline-block
+  width switch_width
+  height switch_height
+  margin-left 10px
+
+  input
+    opacity 0
+    width 0
+    height 0
+
+  .slider
+    position absolute
+    cursor pointer
+    top 0
+    left 0
+    right 0
+    bottom 0
+    background-color inactive_color
+    -webkit-transition transition_speed
+    transition transition_speed
+
+    &:before
+      position absolute
+      content ""
+      height handle_size
+      width handle_size
+      left handle_padding
+      bottom handle_padding
+      background-color handle_color
+      -webkit-transition transition_speed
+      transition transition_speed
+
+    // Rounded variant
+    &.round
+      border-radius switch_height
+      &:before
+        border-radius 50%
+
+  // States based on the input sibling
+  input:checked + .slider
+    background-color active_color
+    &:before
+      -webkit-transform translateX(handle_size)
+      -ms-transform translateX(handle_size)
+      transform translateX(handle_size)
+
+  input:focus + .slider
+    box-shadow 0 0 1px active_color
+
+.switch-container
+  width auto
+  display flex
+  justify-content flex-start
+  gap 20px
+  aling-items center
+  margin-bottom 15px
+
+.no-meeting-notes
+  font-weight bold
+  margin-bottom 10px
+
+.vertical-form
+  display flex
+  flex-direction row
+  justify-content space-between
+  align-items flex-start
+  width 40%
+  marginTop 10px
+
+.wizard__panel__controls
+  display flex
+  flex-direction row
+  justify-content space-between
+  align-items center
