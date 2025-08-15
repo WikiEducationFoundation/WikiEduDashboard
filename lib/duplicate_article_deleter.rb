@@ -35,14 +35,15 @@ class DuplicateArticleDeleter
 
   def articles_grouped_by_title_and_namespace(articles)
     article_group = {}
+    namespaces = articles.pluck(:namespace).uniq
     titles = articles.pluck(:title)
-    namespace = articles.pluck(:namespace).uniq
-    titles.each_slice(30000) do |title_batch|
-      article_group.merge!(Article
-                   .where(namespace:, wiki_id: @wiki.id, title: title_batch)
-                   .group(%w[namespace wiki_id title])
-                   .count)
+
+    titles.each_slice(30_000) do |title_batch|
+      article_group.merge!(Article.where(namespace: namespaces, wiki_id: @wiki.id, title: title_batch) # rubocop:disable Layout/LineLength
+                                  .group(%w[namespace wiki_id title])
+                                  .count)
     end
+
     article_group
   end
 
