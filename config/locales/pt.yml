@@ -195,6 +195,7 @@ pt:
     label: Artigos
     loading: A carregar artigos...
     mark_as_complete: Marcar como Concluído
+    mark_as_incomplete: Marcar como Incompleto
     new: (novo)
     none: Este curso não editou nenhum artigo.
     preview: Pré-visualização breve do Artigo
@@ -316,6 +317,7 @@ pt:
       por linha
     add_available_submit: Adicionar artigos
     add_available_submit_wikidata: Adicionar elementos
+    add_placeholder: Insira um título de artigo ou URL
     assign_self: Atribuir-me um artigo
     assign_self_wikidata: Atribuir-me um elemento
     assign_tooltip: Um artigo atribuído é aquele que planeia criar ou melhorar.

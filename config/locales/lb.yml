@@ -119,6 +119,7 @@ lb:
     history: (Versiounen)
     label: Artikelen
     loading: Artikele lueden...
+    mark_as_incomplete: Als Onvollstänneg markéieren
     new: (nei)
     none: An dësem Cours goufe keng Artikele geännert.
     rating: Klass
@@ -170,6 +171,7 @@ lb:
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
     add_available: Disponibel Artikelen derbäisetzen
     add_available_submit: Artikelen derbäisetzen
+    add_placeholder: Gitt den Titel oder d'URL vun engem Artikel an
     bibliography: Bibliographie
     clone: Eng Kopie maachen
     delete: Entfernen a Läschen

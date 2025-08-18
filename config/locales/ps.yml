@@ -243,6 +243,14 @@ ps:
     delete_course_tooltip: له ټاکنيزې‌سيالۍ ړنگول يا لرې‌کول.
     disable_account_requests: گڼون غوښتنې ناچارنول
     none: هېڅ
+    resolve: اوار‌ول
+    revision_data: بياليدنې اومتوک
+    students_small: زده کوونکي
+    student_course: د لوست‌دورې له مخې زده کوونکي
+    title: سرليک
+    search: پلټل
+  categories:
+    add_category: وېشنيزه ورگډول
   courses:
     activity: فعاليت
     articles: ليکنې

@@ -17,6 +17,7 @@
 # Author: Killarnee
 # Author: Metalhead64
 # Author: Ngschaider
+# Author: Russianbabe1978
 # Author: Sebastian Wallroth
 # Author: SergeCroise
 # Author: Taresi
@@ -186,6 +187,7 @@ de:
     history: (Versionsgeschichte)
     label: Artikel
     loading: Lade Artikel …
+    mark_as_incomplete: Als unvollständig markieren
     new: (neu)
     none: Dieser Kurs hat keine Artikel bearbeitet.
     preview: Kurze Artikelvorschau
@@ -262,6 +264,7 @@ de:
       hinzufügen
     add_available_submit: Artikel hinzufügen
     add_available_submit_wikidata: Element hinzufügen
+    add_placeholder: Geben Sie einen Artikeltitel oder eine URL ein
     assign_self: Einen Artikel selbst zuweisen
     assign_self_wikidata: Einen Element selbst zuweisen
     assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
@@ -280,6 +283,7 @@ de:
     none_short: Keine zugewiesenen Artikel
     none: Dieser Kurs hat keine zugewiesenen Artikel.
     no_available: Dieser Kurs hat keine verfügbaren Artikel.
+    outline: Gliederung
     peer_review_count: '%{currentCount}/%{total} ausgewählt'
     peer_review_count_tooltip: Du solltest %{total} Artikel für den Peer Review auswählen.
     peer_review_link: Peer Review
