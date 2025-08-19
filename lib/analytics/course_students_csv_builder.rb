@@ -61,8 +61,10 @@ class CourseStudentsCsvBuilder
 
   def populate_edited_articles
     # A user has edited an article if the user is in the user_ids list of edited_articles_courses
-    @course.edited_articles_courses.pluck(:article_id, :user_ids).each do |_article_id, user_ids|
-      user_ids.each { |user_id| @edited_articles[user_id] += 1 }
+    @course.edited_articles_courses.in_batches do |batch|
+      batch.pluck(:article_id, :user_ids).each do |_article_id, user_ids|
+        user_ids.each { |user_id| @edited_articles[user_id] += 1 }
+      end
     end
   end
 
