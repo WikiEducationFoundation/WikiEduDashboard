@@ -98,8 +98,11 @@ class WikiCourseEdits
   # is to use this for each assignment update to ensure that on-wiki assignment
   # templates remain accurate and up-to-date.
   def update_assignments(*)
-    homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
-      article = Article.find(article_id)
+    assignments_by_article = homewiki_assignments_grouped_by_article
+    articles = Article.where(id: assignments_by_article.keys)
+                      .index_by(&:id)
+    assignments_by_article.each do |article_id, assignments_for_same_article|
+      article = articles[article_id]
       next unless article.namespace == Article::Namespaces::MAINSPACE
       next if article.deleted
       update_assignments_for_article(title: article.title,
