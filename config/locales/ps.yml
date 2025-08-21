@@ -26,8 +26,8 @@ ps:
     cookie_consent_acknowledge: زه پوهېږم
     cookie_consent_see_more: نور وگورئ
     create_accounts: ويکيپېډيا گڼون جوړول
-    dashboard: ويکي زده کړه ډشبورډ
-    documentation: لاسوندکښنه
+    dashboard: ويکي زده کړې ټينگدړه
+    documentation: لاسوند
     error: 'یوه تېروتنه وه:'
     explore: سپړل
     field_required: دې ډاگي ته اړتيا ده
@@ -36,14 +36,14 @@ ps:
     field_invalid_date_time: پای بايد له پيل وروسته وي. (له ۰ تر ۲۳ گړيو پورې.)
     greeting2: ښه راغلئ!
     greeting_extended: ويکيپېډيا ته ښه راغلئ
-    greeting: سلامونه!
+    greeting: سلام!
     help: لارښود
     home: کور
     log_in_extended: د ويکيپېډيا له لارې ورننوتل
     log_in: ننوتل
     log_out: وتل
-    my_dashboard: زما ډشبورډ
-    recent_activity: تازه فعاليتونه
+    my_dashboard: زما ټينگدړه
+    recent_activity: وروستۍ چاره
     report_problem: د ستونزې خبر ورکول
     request_account: د گڼون غوښتنه‌کول
     request_account_create: يو گڼون جوړول
@@ -111,9 +111,9 @@ ps:
     alert_label: خبرونې
     no_alerts: هېڅ خبرونې ونه موندل شوې.
   activity:
-    all: فعاليت
+    all: چاره
     edited_by: سمونگر
-    label: فعاليت
+    label: چاره
   articles:
     articles: ليکنې
     article_not_found: دا ليکنه لاتراوسه نه ده ليکل شوې.
@@ -251,9 +251,25 @@ ps:
     search: پلټل
   categories:
     add_category: وېشنيزه ورگډول
+    add_template: کينډۍ ورگډول
+    add_this_category: وېشنيزې ورگډول
+    add_this_template: کينډۍ ورگډول
+    articles_count: ليکنو شمېر
+    name: نوم
+    category_name: وېشنيزې نوم
+    template_name: کينډۍ نوم
+    none: هېڅ وېشنيزې نه څارل کېږي.
+    remove: لرې کول
+    timestamp: وروستۍ هممهالېدنه په
   courses:
-    activity: فعاليت
+    activity: چاره
+    active_courses: کارنده لوست‌دورې
+    alerts: خبرونې
+    all_courses: ټولې لوست‌دورې
     articles: ليکنې
+    article_viewer: ليکنې کتونکی
+    article_viewer_wikidata: توکي کتونکی
+    articles_i_will_create: ليکنې چې زه به يې جوړوم
     course: لوست‌دوره
     course_type_label: 'ډول:'
     course_description: کورسونه
@@ -263,48 +279,52 @@ ps:
     start_date: پيل نېټه
     creator:
       course_description: د کورس څرگندونه
-      course_school: د کورس ښوونځی
-      course_subject: د کورس موضوع
-      course_term: د کورس موده
+      course_school: لوست‌دورې ښوونځی
+      course_subject: لوست‌دورې سکالو
+      course_term: لوست‌دورې موده
       course_term_placeholder: موده
-      course_title: کورس سرليک
-      create_button: خپل کورس جوړول!
-      create_label: نوی کورس جوړول
-      create_new: يو نوی کورس جوړول
-      create_short: کورس جوړول
+      course_title: لوست‌دورې سرليک
+      course_types:
+        basic_course_name: بنسټيز پروگرام
+      create_button: خپله لوست‌دوره جوړول!
+      create_label: نوی لوست‌دوره جوړول
+      create_new: يو نوې لوست‌دوره جوړول
+      create_short: لوست‌دوره جوړول
       end_date: پای نېټه
       end_date_placeholder: پای نېټه (کال-مياشت-ورځ)
-      find: خپل کورس ومومئ
-      save_cloned_course: نوی کورس خوندي کول
+      find: خپله لوست‌دوره موندل
+      save_cloned_course: نوې لوست‌دوره خوندي‌کول
       start_date: پيل نېټه
       start_date_placeholder: پيل نېټه (کال-مياشت-ورځ)
       subject: سکالو
-    current: اوسني کورسونه
-    delete_course: کورس ړنگول
-    duration: کورس موده
-    edit_course_dates: کورس نېټې سمول
+    current: اوسنۍ لوست‌دورې
+    data_articles: ليکنو اومتوکي
+    delete_course: لوست‌دوره ړنگول
+    duration: لوست‌دورې موده
+    edit_count: سمون شمېر
+    edit_course_dates: لوست‌دورې نېټې سمول
     end: پای
     enroll: نومليکل
     enrollment: زده کوونکي ورگډول/لرې‌کول
     instructors: ښوونکي
     join: يوځای کېدل
-    join_course: کورس کې ورگډېدل
+    join_course: لوست‌دورې کې ورگډېدل
     loading: رابرسېرېږي...
     my_articles: زما ليکنې
     none: هېڅ
     school: ښوونځی
     start: پيلول
-    students: زده کړيالان
-    students_count: '# زده کړيالان'
+    students: زده کوونکي
+    students_count: '# زده کوونکي'
     student_editors: زده کوونکي سمونگران
-    students_none: دا کورس کوم زدکړيال نه لري.
-    students_short: زده کړيالان
+    students_none: دا لوست دوه هېڅ زده کوونکی نه لري.
+    students_short: زده کوونکي
     timeline_link: وخت‌کرښه
     title: سرليک
-    view: کورس کتل
-    view_page: د کورس مخ کتل
+    view: لوست‌دوره کتل
+    view_page: لوست‌دورې مخ کتل
     view_wiki: په ويکيپېډيا باندې کتل
-    yourcourses: ستاسې کورس
+    yourcourses: ستاسې لوست‌دوره
   courses_generic:
     assignment_end: د پېښې پای
     assignment_start: د پېښې پيل
@@ -316,8 +336,9 @@ ps:
         templates: کينډۍ
     edit_course_dates: د پروژې نېټې سمول
     instructors: اسانتياگران
-    school: انستيتيوت
+    school: اداره
     student_editors: سمونگران
+    student: سمونگر
     students: سمونگران
     students_short: سمونگران
     term: کله
@@ -329,7 +350,7 @@ ps:
     assignments_table:
       article_name: نوم
   metrics:
-    activity: تازه فعاليتونه
+    activity: وروستۍ چاره
     articles_created: جوړې شوې ليکنې
     articles_edited: سمې شوې ليکنې
     characters: لوښې
@@ -340,7 +361,11 @@ ps:
     view_count_description: د ليکنې کتنې
     view: کتنې
   namespace:
-    user: کارن تشيال
+    user: کارن‌تشيال
+    project: پروژه
+    file: دوتنه
+    mediaWiki: مېډياويکي
+    template: کينډۍ
     help: لارښود
     category: وېشنيزه
     page: مخ
@@ -350,6 +375,7 @@ ps:
     draft: گارليک
     property: ځانتيا
     query: پوښتنه
+    lexeme: پيل‌ويوکی
     portal: تانبه
     school: ښوونځی
     author: ليکوال
