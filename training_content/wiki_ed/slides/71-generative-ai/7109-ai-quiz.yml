@@ -13,15 +13,18 @@ assessment:
         Wikipedia article using high-quality sources it finds online.
       explanation:
         INCORRECT. Generative AI tools can fabricate “facts” and
-        hallucinate “sources” — and adding text written by AI
-        could get you blocked as an editor!
+        hallucinate “sources” — do NOT add text written by AI to a
+        Wikipedia article!
     - id: 2
       text: |
-        Ask an AI tool to see if any facts lack citations
-        in the text you’ve written for Wikipedia.
+        Compile a list of sources you want to use for a Wikipedia
+        article, then ask an AI tool if there are any other related
+        secondary sources you should read. 
       explanation: |
-        CORRECT. Using an AI tool to review your writing and
-        identify any problem areas can be helpful.
+        CORRECT. Using an AI tool to find additional secondary
+        sources in line with Wikipedia’s
+        [source policy](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source)
+        can be helpful — just be sure to read them all carefully!
     - id: 3
       text: |
         If a Wikipedia article doesn’t include an image and you can’t
@@ -35,6 +38,6 @@ assessment:
         to find any information gaps in the Wikipedia article you want to improve.
       explanation: |
         INCORRECT: Using an AI tool to search for gaps can be helpful, but
-        only  _after_ you have researched the topic thoroughly yourself and
+        only _after_ you have researched the topic thoroughly yourself and
         are confident you know what’s missing from the article — you can ask
         the AI tool to double-check for you, just in case!

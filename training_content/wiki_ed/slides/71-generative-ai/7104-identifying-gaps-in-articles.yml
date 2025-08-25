@@ -7,7 +7,7 @@ content: |
   gaps, you can ask a generative AI tool if it can find anything else that is
   missing from the article, just in case.
 
-  *Example: I’m reviewing this Wikipedia article about chemist Jane Smith and
+  *Example, using the fictional chemist “Jane Smith”: I’m reviewing this Wikipedia article about chemist Jane Smith and
   noticed that it lacks details about her educational background, early career,
   and scientific collaborations. Based on Wikipedia’s guidelines for biographical
   coverage, what additional verifiable information might be missing that would
@@ -16,4 +16,4 @@ content: |
 
   Then, use your own knowledge of the topic from your research to decide if the
   AI tool correctly identified any additional gaps. It won’t always get it right,
-  so be sure to use ***your own*** critical thinking skills!
+  so be sure to use **your own** critical thinking skills!

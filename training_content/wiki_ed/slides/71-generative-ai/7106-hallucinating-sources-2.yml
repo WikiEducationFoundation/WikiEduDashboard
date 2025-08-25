@@ -1,0 +1,19 @@
+id: 7106
+title: "Harm: Hallucinating sources (example 2)"
+content: |
+  Here’s another real-life example of how AI made a bad recommendation to a student
+  working on their Wikipedia assignment. An AI chatbot suggested this source:
+
+  * Shaw, Charles Thurstan (1971). "The Lejja excavations". *The Journal of African History*. 12 (3): 365–384.
+
+  It looks like a legitimate peer-reviewed journal article, doesn’t it? Charles Thurstan Shaw
+  was a real archeologist and he did publish research about present day Nigeria during the
+  early 1970s. But guess what? He never wrote the paper in the citation above — it was
+  completely made up by the AI chatbot!
+
+  Every fact added to Wikipedia needs to cite a valid, reliable source in line with Wikipedia’s
+  [source policy](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source),
+  so accidentally using fake sources provided by AI tools is incredibly harmful.
+  Be sure to thoroughly review all of your sources when editing Wikipedia.
+
+  Never cite a source you haven’t read yourself!

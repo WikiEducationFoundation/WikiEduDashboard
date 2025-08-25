@@ -1,19 +1,15 @@
 id: 7110
-title: "Harm: Hallucinating sources"
+title: "Harm: Hallucinating sources (example 1)"
 content: |
   While AI tools may help find access to sources you’d like to explore, it is
   critically important to always read through any sources before adding them to Wikipedia.
 
   Remember, AI tools can make up or “hallucinate” sources, giving you something that looks
-  real at first glance, but is actually fake. Check out the links below to “sources” an
-  AI tool provided — they look pretty real, right?
+  real at first glance, but is actually fake. Check out the link below to a “source” an
+  AI tool recommended to a student doing a Wikipedia assignment, just like you.
+  It looks pretty real, right?
 
   * https://www.nytimes.com/2005/09/06/national/nationalspecial/floodwaters-leave-jails-awash-in-chaos.html
-  * https://www.hrw.org/report/2006/09/21/custody-and-control/conditions-detention-new-orleans-post-katrina
-  * https://www.splcenter.org/resources/stories/report-details-horrors-orp-katrina/
 
-  The URLs appear to lead to news articles and reports, but they actually go nowhere!
-
-  Every fact added to Wikipedia needs to cite a reliable source, so accidentally using
-  fake sources provided by AI tools is incredibly harmful. Be sure to thoroughly review
-  all of your sources when editing Wikipedia!
+  The URL appears to lead to a New York Times news article, but it actually goes
+  nowhere – and it’s not a broken link, this article simply doesn’t exist!
