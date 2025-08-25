@@ -267,9 +267,9 @@ nb:
     add_category: Legg til kategori
     add_psid: Legg til PetScan PSID
     add_template: Legg til mal
-    add_this_category: Legg til kategori
-    add_this_psid: Legg til PSID-en
-    add_this_template: Legg til malen
+    add_this_category: Legg til kategorier
+    add_this_psid: Legg til PetScan PSID-er
+    add_this_template: Legg til maler
     depth: Underkategoridydbe
     name: Navn
     category_name: Kategorinavn
@@ -426,8 +426,8 @@ nb:
       one: Instruktør
       other: Instruktører
     instructors: Instruktører
-    invitation: Du har blitt invitert til å bli med i %{title}. For å bli med i kurset
-      må du logge inn med en Wikipedia-konto.
+    invitation: Du har blitt invitert til å bli med i %{title}. For å bli med må du
+      logge inn med en Wikipedia-konto.
     invitation_username_advice: Om du ikke har en Wikipedia-konto ennå, registrer
       deg nå. Brukernavnet ditt kan være så anonymt – eller personlig – som du ønsker.
       (Delte kontoer tillates ikke.)
@@ -538,8 +538,8 @@ nb:
       one: Frivillig
       other: Frivillige
     weeks_none: Dette kurset har ingen tidslinje ennå.
-    warn_mirrored: |-
-      Ved innsending vil kurset automatisk postes på Wikipedia med din brukerkonto. Etter det vil nye redigeringer i tidslinja speiles på Wikipedia.
+    warn_mirrored: Ved innsending vil kurset automatisk postes på Wikipedia med din
+      brukerkonto. Etter det vil nye redigeringer i tidslinja speiles på Wikipedia.
       Er du sikker på at du vil gjøre dette?
     wiki_staff: Wiki Education-ansatte
     word_count_doc: Et estimat for antall ord lagt til i artikler av kursets studenter
@@ -683,7 +683,7 @@ nb:
     user_char_added: Tegn lagt til i brukernavnerommet
   recent_activity:
     active_courses: Artikkelen er aktiv på
-    article_title: Artikkeltittel
+    article_title: Tittel
     datetime: Dato/tid
     did_you_know_eligible: Er skikket for «Visste du at ...?»
     image: Bilde
@@ -749,6 +749,8 @@ nb:
         revoking_button_working: Fjerner…
         already_is_not: '%{username} er ikke en spesialbruker!'
         demote_success: '%{username} er nå bare en vanlig bruker.'
+  status:
+    size: Størrelse
   suggestions:
     editing: Redigeringsforslag
     suggestion_docs:
@@ -1005,8 +1007,7 @@ nb:
     explanation: Det ser ut som om det var et problem med innloggingsprosessen. (Beklager!
       Sånt skjer av og til.) PRøv å logge inn eller melde deg på igjen.
   survey:
-    login_message: Takk for tiden din. Logg inn på Wiki Education-dashbordet for å
-      ta undersøkelsen.
+    login_message: Takk for tiden din. Logg inn på dashbordet for å ta undersøkelsen.
     notification_explanation: Om boksen nedenfor er merket av vil brukerne få e-post
       i følge varselplanen, i tillegg til å få varsel i nettleseren. Om den ikke er
       merket av vil kun varsler i nettleseren vises.

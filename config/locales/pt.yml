@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: Albertoleoncio
 # Author: Andrekowacs
 # Author: Athena in Wonderland
 # Author: B3rnas
@@ -289,7 +290,7 @@ pt:
     find: Encontrar elementos
     how_to_find: Como encontrar itens
     preview: Pré-visualização breve do Item
-    search: Pesquisar por um Item na Wikidados
+    search: Pesquisar um elemento na wiki Wikidata
     tracked_doc: Só os elementos monitorizados contribuem para as estatísticas deste
       programa. Quando os elementos forem marcados como não monitorizados, serão removidos
       das estatísticas na próxima atualização dos dados.
@@ -1045,7 +1046,7 @@ pt:
           de navegação, modelos do Projeto Wiki e modelos de Infobox específicos de
           tópicos são particularmente úteis quando utilizar um Modelo para configurar
           um "Programa com Âmbito de Artigo".
-        pagepile_desc: PagePile é uma ferramenta na Nuvem da Wikimédia. Ele permite
+        pagepile_desc: PagePile é uma ferramenta na Nuvem da Wikimedia. Ele permite
           que os utilizadores recolham e organizem um grupo de páginas wiki num único
           pacote chamado "pilha". Estas pilhas podem ser facilmente partilhadas com
           as outras pessoas, permitindo o trabalho colaborativo e a partilha de informação.
@@ -1912,7 +1913,7 @@ pt:
       wiki_education_dashboard_title: Notícias do Painel de Wiki Educação
     footer:
       P&E_dashboard:
-        link_text: Wikimédia
+        link_text: Wikimedia
         footer_text: Ler Notícias e Alterações Recentes
       wiki_education_dashboard:
         link_text: wikiedu.org/blog

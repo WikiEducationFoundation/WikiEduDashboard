@@ -109,20 +109,20 @@ nl:
     post_to_talk: Posten op de overlegpagina
     peer_review_completed: Beoordeling voltooid
   dashboard:
-    create_note: Klik op "Cursus aanmaken" om je eerste cursus aan te maken.
+    create_note: Klik op “Cursus aanmaken” om uw eerste cursus aan te maken.
     create_preparation_note: Houd uw academische kalender bij de hand voordat u begint;
       de opdrachtontwerper gebruikt de vergaderdata van uw klas - met inbegrip van
       eventuele schoolpauzes en vakanties - om uw tijdlijn in het door u gekozen datumbereik
       in te passen. U kunt de tijdlijn altijd aanpassen aan uw behoeften.
     explore_course_pages: Verken de cursuspagina's
     explore_examples: Verken voorbeelden
-    join_note: Als je een wachtwoord van je instructeur krijgt, klik dan op "Vind
-      je cursus" om deze te vinden en aan deel te nemen.
-    no_courses_instructor: Je hebt nog geen cursussen.
-    no_courses_student: Je neemt nog geen deel aan een cursus.
+    join_note: Als u een wachtwoord van uw instructeur krijgt, klik dan op “Uw cursus
+      vinden” om deze te vinden en eraan deel te nemen.
+    no_courses_instructor: U hebt nog geen cursussen.
+    no_courses_student: U neemt nog geen deel aan een cursus.
     opt_out: Verzoek af te zien van de training
-    orientation_notice: Voordat je een cursus aanmaakt, volg je een training die helpt
-      om de slag te gaan. Dit duurt ongeveer 30 minuten om deze te voltooien.
+    orientation_notice: Voordat u een cursus aanmaakt, nemen we eerst een introductie
+      door om u op weg te helpen. (Het duurt ongeveer 30 minuten om deze te voltooien.)
     review_orientation: Review oriëntatie
     start_orientation: Training beginnen
     blog_headline: Actualiteiten van Wiki Education
@@ -299,7 +299,7 @@ nl:
     bibliography: Bibliografie
     clone: Kopiëren
     confirm_add_available: Weet u zeker dat u %{title} wilt toevoegen?
-    confirm_addition: Weet je zeker dat je %{title} wilt toewijzen aan %{username}?
+    confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
     delete: Verwijderen
     editors: Toegewezen aan
@@ -412,7 +412,7 @@ nl:
     active_courses: Actieve cursussen
     alerts: Meldingen
     all_courses: Alle cursussen
-    already_enrolled: Je bent onderdeel van "%{title}"!
+    already_enrolled: U bent al ingeschreven bij “%{title}”!
     already_exists: Dat bestaat al in voor deze cursus!
     archived: Gearchiveerde cursussen
     actions: Handelingen
@@ -442,9 +442,8 @@ nl:
     campaigns: 'Campaignen:'
     campaign_articles: '%{title} Artikelen'
     campaign_courses: '%{title} Cursussen'
-    confirm_course_deletion: Weet je zeker dat je de cursus met de titel %{title}
-      wilt verwijderen? Als dat zo is, typ dan de titel van de cursus om verder te
-      gaan.
+    confirm_course_deletion: Weet u zeker dat u de cursus met de titel %{title} wilt
+      verwijderen? Zo ja, typ dan de titel van de cursus om verder te gaan.
     confirm_course_deletion_failed: '"%{title}" is niet de titel van deze cursus.
       De cursus is niet verwijderd.'
     course: Cursus
@@ -467,11 +466,11 @@ nl:
       choose_clone: Kies een cursus om te klonen.
       clone_previous: Kloon vorige cursus
       clone_this: Kloon deze cursus
-      cloned_course_calendar_instructions: Selecteer data om deze van het schema te
-        verwijderen (feestdagen, vakantie, etc.). Klik op de datum om de status van
-        niet-geselecteerd, geselecteerd en vakantie aan te passen. Indien je geen
-        vakantie hebt, vink dan "Ik heb geen vakantie met de klas" aan. De gekloonde
-        tijdlijn zal automatisch de data aanpassen voor weken waarin er geen bijeenkomsten
+      cloned_course_calendar_instructions: Selecteer datums om deze van het schema
+        te verwijderen (bv. feestdagen of vakantie). Klik op de datum om de status
+        op niet-geselecteerd, geselecteerd en vakantie te zetten. Indien u geen vakantie
+        hebt, vink dan "Ik heb geen vakantie met de klas" aan. De gekloonde tijdlijn
+        zal automatisch de datums aanpassen voor weken waarin er geen bijeenkomsten
         gepland staan.
       clone_successful: Gegevens bijwerken voor gekloonde cursus
       clone_successful_details: Uw cursus is gekloond, ook de elementen van de tijdlijn
@@ -493,10 +492,10 @@ nl:
       end_date: Einddatum
       end_date_placeholder: JJJJ-MM-DD
       expected_number: Het verwachte aantal studenten
-      find: Vind je cursus
+      find: Uw cursus vinden
       intro: De titel, school en periode zijn onderdeel van de URL van de cursuspagina
-        en kan niet gewijzigd worden. Al het andere kan later aangepast worden. Klik
-        "Maak mijn cursus aan!" om te beginnen met de tijdlijn voor de Wikipedia-opdracht.
+        en kunnen niet gewijzigd worden. Al het andere kan later aangepast worden.
+        Klik op “Maak mijn cursus aan!” om te beginnen met de tijdlijn voor de Wikipedia-opdracht.
       no_class_holidays: Ik heb geen vakantie met de klas
       role_description_options:
       - Instructeur
@@ -539,7 +538,7 @@ nl:
     join_successful: U neemt nu deel aan %{title}. Het dashboard houdt automatisch
       uw bijdragen bij met periodieke updates. Kom later terug om te zien hoeveel
       voortgang u heeft gemaakt!
-    leave_confirmation: Weet je zeker dat je deze cursus wilt verlaten?
+    leave_confirmation: Weet u zeker dat u deze cursus wilt verlaten?
     leave_course: Verlaat cursus
     loading: Bezig met laden...
     milestones_none: Deze cursus heeft nog geen mijlpalen.
@@ -557,7 +556,7 @@ nl:
     new_account_username: Gevraagde gebruikersnaam
     new_account_username_invalid: Dit is geen geldige gebruikersnaam.
     no_sandboxes: Geen kladblokken
-    nocourses: Je neemt niet deel aan een cursus.
+    nocourses: U neemt aan geen enkele cursus deel.
     none: Geen
     no_available_actions: Geen beschikbare handelingen
     overview: Startpagina
@@ -565,8 +564,8 @@ nl:
     passcode_none: Geen wachtwoord
     passcode_prompt: 'Voer de toegangscode in om deel te nemen:'
     please_log_in: Log alstublieft in.
-    published: 'Je cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
-      de cursus door een bezoek aan de volgende URL:'
+    published: 'Uw cursus is gepubliceerd! Studenten kunnen zich inschrijven voor
+      de cursus via de volgende URL:'
     requested_accounts: Aangevraagde accounts
     requested_accounts_alert_view: Weergeven
     review_timeline: Bekijk nu de tijdlijn van uw opdracht en pas deze aan uw behoeften
@@ -649,7 +648,7 @@ nl:
     withdrawn: Opdracht niet gedaan
     word_count_doc: Een schatting van het aantal woorden toegevoegd aan artikelen
       van de cursus in de artikelnaamruimte door de studenten tijdens de cursusperiode
-    yourcourses: Je cursussen
+    yourcourses: Uw cursussen
     survey:
       notification_message: Vul onze enquête in voor deze cursus.
       link: Neem deel aan enquête
@@ -804,7 +803,7 @@ nl:
     active_courses: Artikel is actief in
     article_title: Titel
     datetime: Datum/tijd
-    did_you_know_eligible: In aanmerking voor Wist-Je-Dat
+    did_you_know_eligible: Komt in aanmerking voor “Wist u dat”
     image: Afbeelding
     file_name: Bestandsnaam
     no_dyk_eligible: Er zijn momenteel geen voor Wist-je-dat in aanmerking komende
@@ -831,7 +830,7 @@ nl:
     edited_by: Bewerkt door
     loading: Bezig met het laden van versies...
     none: Aan deze cursus zijn recent geen wijzigingen aangebracht.
-    time_doc: De tijd van iedere versie in je lokale tijd
+    time_doc: De tijd van iedere versie in uw lokale tijd
     title: Naam
     see_more: Bekijk meer
     show_all: Alles weergeven
@@ -888,14 +887,14 @@ nl:
       zijn. Voer het volgende commando uit om bijwerken te hervatten: ''rake batch:resume''.'
   timeline:
     add_week: Week toevoegen
-    blackout_week_created: Er zijn blokken gepland voor deze week. Verplaats deze
-      naar een andere week, voordat je de laatste klasbijeenkomst van deze week verwijderd.
+    blackout_week_created: Er zijn blokken ingepland voor deze week. Verplaats deze
+      naar een andere week voordat u de laatste klasbijeenkomst uit deze week verwijdert.
     block_assignment: Opdracht
     block_custom: Aangepast
     block_in_class: In de klas
     block_milestone: Mijlpaal
-    block_type: Het type blok wordt gebruikt om te communiceren met je studenten over
-      dit item op hun tijdlijn en om handige hulpmiddelen voor je te bouwen (zoals
+    block_type: Het type blok wordt gebruikt om te communiceren met uw studenten over
+      dit item op hun tijdlijn en om handige hulpmiddelen voor u te bouwen (zoals
       het mijlpaaloverzicht op de pagina Overzicht)
     done: Afgerond
     due_default: Volgende week af te ronden
@@ -907,7 +906,7 @@ nl:
     save_all_changes: Alles opslaan
     this_week_title_default: Deze week
     title: Tijdlijn
-    unable_to_add_week: Je kunt geen nieuwe weken toevoegen als de tijdlijn vol is.
+    unable_to_add_week: U kunt geen nieuwe weken toevoegen als de tijdlijn vol is.
       Verwijder minstens één week of wijzig de opdrachtdatums om ruimte te maken voor
       een nieuwe.
     view_full_timeline: Bekijk de volledige tijdlijn
@@ -921,8 +920,8 @@ nl:
     page_number: Pagina %{number} van %{total}
     previous: < Vorige
     table_of_contents: Inhoudsopgave
-    logged_out: Je bent afgemeld. Je ontvangt geen krediet voor het voltooien van
-      deze module, tenzij je je aanmeldt.
+    logged_out: U bent afgemeld. U krijgt geen naamsvermelding voor het voltooien
+      van deze module, tenzij u zich aanmeldt.
     done: Klaar!
     check_answer: Antwoord nakijken
     kind:
@@ -952,7 +951,7 @@ nl:
       aan Wikimedia Commons.
     original_file: Oorspronkelijk bestand
     select_label: Filteren op uploader
-    time_doc: De tijd van iedere upload in je lokale tijd
+    time_doc: De tijd van iedere upload in uw lokale tijdzone
     uploaded_at: Uploadtijd
     uploader: Uploader
     uploaded_by: Geüpload door
@@ -1025,44 +1024,46 @@ nl:
     userpasscode_placeholder: Toegangscode
   wiki_edits:
     notify_overdue:
-      confirm: Dit plaatst een herinnering op de overlegpagina's van alle studenten
-        die overtijd zijn met hun training. Weet je zeker dat je dit wilt doen?
-      header: Je hebt een achterstallige trainingsopdracht.
+      confirm: Hierdoor wordt een herinnering geplaatst op de overlegpagina’s van
+        alle studenten die achterlopen met hun training. Weet u zeker dat u dit wilt
+        doen?
+      header: U hebt een achterstallige trainingsopdracht.
       message: Voltooi alsjeblieft de toegewezen [%{link} trainingmodules].
       summary: training studenten is overtijd
   wizard:
     assignment_dates: Opdrachtdatums
-    assignment_description: Kies de begin- en einddatums voor deze opdracht. Als je
-      bijvoorbeeld in de tweede week wilt starten met je Wikipedia-project, stel je
-      de startdatum van de opdracht in op een week na het begin van de startdatum
+    assignment_description: Kies de begin- en einddatums voor deze opdracht. Als u
+      bijvoorbeeld in de tweede week wilt starten met uw Wikipedia-project, stelt
+      u de startdatum van de opdracht in op een week na het begin van de startdatum
       van de cursus. Deze tool zal een tijdlijn maken die past bij de datums in de
-      tijdlijn die je aangegeven hebt.
+      tijdlijn die u aangegeven hebt.
     assignment_type: Waar gaan studenten aan werken voor hun Wikipedia-opdracht?
-    calendar_instructions: Selecteer data om deze toe te voegen aan of te verwijderen
-      uit het schema (vakantie, feestdag, etc.). Dit helpt de tool om preciezer ruimte
-      in te plannen voor je opdrachten. Klik op de datum om de status van niet-geselecteerd,
-      geselecteerd en vakantie aan te passen. Indien je geen vakantie hebt, vink dan
-      "Ik heb geen vakantie met de klas" aan.
-    confirm_dates: Kies de cursusdatums, wekelijkse oplevermomenten en vakanties voor
-      je cursus.
+    calendar_instructions: Selecteer datums om deze toe te voegen aan of te verwijderen
+      uit het schema (bv. vakantie of feestdag). Zo kan de tool uw opdrachten gelijker
+      over de tijd verdelen. Klik op de datum om de status op niet-geselecteerd, geselecteerd
+      en vakantie te zetten. Indien u geen vakantie hebt, vink dan “Ik heb geen vakantie
+      met de klas” aan.
+    confirm_dates: Kies de cursusdatums, wekelijkse bijeenkomsten en vakanties voor
+      uw cursus.
     course_dates: Cursusdatums
     min_weeks: Voor deze opdracht zijn ten minste %{min_weeks} beschikbare weken nodig.
-      Pas de begin- en einddatum aan als je dit type opdracht wilt gebruiken.
+      Pas de begin- en einddatum aan als u dit type opdracht wilt gebruiken.
     minimum_options:
       one: Selecteer ten minste %{count} optie.
       other: Selecteer ten minste %{count} opties.
     read_less: Minder lezen
     read_more: Meer lezen
-    review_selections: Controleer je keuzes. Klik om een keuze te bewerken. Klik op
-      "Opslaan" als je klaar bent om je tijdlijn op te bouwen.
-    select_assignment: Selecteer het soort opdracht dat je wilt toevoegen aan je tijdlijn.
+    review_selections: Controleer hieronder uw keuzes. Klik om een keuze te bewerken.
+      Als u klaar bent, klikt u op  ‘Opslaan’ om de wizard af te sluiten en uw tijdlijn
+      samen te stellen.
+    select_assignment: Selecteer het soort opdracht dat u wilt toevoegen aan uw tijdlijn.
     summary: Samenvatting
   error:
     invalid_assignment: Ongeldige opdracht
     invalid_date: '%{key} datum is ongeldig'
     invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
       Word-document.
-    oauth_invalid: Je toegang tot Wikipedia is verlopen. Meld je opnieuw aan.
+    oauth_invalid: Uw Wikipedia-autorisatie is verlopen. Meld u opnieuw aan.
     start_date_before_end_date: De begindatum moet voor de einddatum liggen
     unsupported_browser:
       header: De browser wordt niet ondersteund
@@ -1071,9 +1072,9 @@ nl:
         moderne browsers.
   error_401:
     header: Geen rechten
-    explanation: Je kunt dit verzoek niet uitvoeren. Als je denkt dat deze foutmelding
-      onterecht is, neem dan contact op met de beheerders van dit dashboard en stel
-      ze op de hoogte van het probleem.
+    explanation: U bent niet bevoegd om dit verzoek uit te voeren. Als u vindt dat
+      deze foutmelding onterecht is, neem dan contact op met de beheerders van dit
+      dashboard en stel ze op de hoogte van het probleem.
   error_incorrect_passcode:
     header: Onjuist wachtwoord. :-(
     explanation: De toegangscode voor het inschrijven in deze cursus is onjuist. Gelieve
@@ -1111,21 +1112,21 @@ nl:
       message_line1: We hopen dat u de cursus fijn hebt gevonden! Wiki Education ontvangt
         graag uw feedback over onze cursusmaterialen en de ondersteuning van Wikipedia-opdrachten.
         Uw reactie is van groot belang voor het verbeteren van ons huidige aanbod.
-      message_line2: Ben je bereid om in 15 minuten de instructeur-enquête in te vullen?
-        Klik op de knop hieronder om ons te helpen om het onderwijzen met Wikipedia
-        nog meer een lonende en waardevolle ervaring te maken.
+      message_line2: Wilt u voor ons 15 minuten nemen om onze instructeursenquête
+        in te vullen? Klik op de knop hieronder en help ons om lesgeven met Wikipedia
+        nog leuker en waardevoller te maken.
       course: 'Cursus: %{course_info}'
       closing: Met vriendelijke groet,
       signed: '- het team van Wiki Education'
       link: Neem deel aan de enquête
     follow_up:
-      message: Dit is een herinnering over de enquête over je cursus %{course_title}.
+      message: Dit is een herinnering over de enquête over uw cursus %{course_title}.
         De feedback van deze enquête helpt ons bij het verbeteren van onze steun aan
-        Wikipedia-opdrachten zoals de jouwe.
+        Wikipedia-opdrachten zoals de uwe.
   onboarding:
     supplementary:
-      where_did_you_hear: Waar of van wie hoorde je voor het eerst over Wiki Education?
-      why_are_you_here: Wat zou je willen doen?
+      where_did_you_hear: Waar of van wie hoorde u voor het eerst over Wiki Education?
+      why_are_you_here: Wat wilt u doen?
   article_finder:
     search: Zoeken
     searching_articles: Artikelen zoeken

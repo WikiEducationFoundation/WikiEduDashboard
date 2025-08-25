@@ -218,6 +218,7 @@ fr:
     label: Articles
     loading: Chargement des articles...
     mark_as_complete: Marquer comme terminé
+    mark_as_incomplete: Marquer comme incomplet
     new: (nouveau)
     none: Ce cours n’a modifié aucun article.
     preview: Bref aperçu de l’article
@@ -345,6 +346,7 @@ fr:
     add_available_placeholder_wikidata: Ajouter un titre d’élément ou un URL par ligne
     add_available_submit: Ajouter des articles
     add_available_submit_wikidata: Ajouter des éléments
+    add_placeholder: Saisir un titre d’article ou une URL
     assign_self: M’affecter un article
     assign_self_wikidata: M’affecter un élément
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
@@ -367,6 +369,7 @@ fr:
     none_short_wikidata: Aucun élément affecté
     none: Ce cours n’a aucun article affecté.
     no_available: Ce cours n’a aucun article disponible.
+    outline: Vue d’ensemble
     peer_review_count: '%{currentCount} / %{total} sélectionnés'
     peer_review_count_tooltip: Vous devez sélectionner %{total} articles pour une
       relecture par des pairs.

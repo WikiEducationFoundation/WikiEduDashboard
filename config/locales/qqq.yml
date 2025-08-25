@@ -12,6 +12,7 @@
 # Author: Kizule
 # Author: Liuxinyu970226
 # Author: Macofe
+# Author: McDutchie
 # Author: MojoMann
 # Author: MuratTheTurkish
 # Author: Nemo bis
@@ -403,7 +404,10 @@ qqq:
         You may translate/adapt symbols indicating where to input digits, but not change the ISO date format required (keep fields in the same order and length, preserve hyphens).
       find: Button for finding an existing course that you are participating in (Wiki
         Ed only)
-      intro: Instructions for filling out the course creation form (Wiki Ed only)
+      intro: |-
+        Instructions for filling out the course creation form (Wiki Ed only)
+
+        "Create my Course!" should be translated as in {{msg-wm|Wikiedudashboard-courses.creator.create button}}
       no_class_holidays: Assertion that there are no holidays for a course (Wiki Ed
         only)
       save_cloned_course: Button to finish cloning a course (Wiki Ed only)
@@ -661,7 +665,10 @@ qqq:
 
       {{Identical|Title}}
     datetime: Label for the date and time of an activity
-    did_you_know_eligible: Label for "Did You Know" Eligible tab (Wiki Ed only)
+    did_you_know_eligible: |-
+      Label for "Did You Know" Eligible tab (Wiki Ed only)
+
+      "Did You Know" should be translated as in {{msg-wm|Wikipedia-android-strings-description edit success did you know}} or {{msg-wm|Wikipedia-ios-article-tabs-did-you-know-title}}
     image: |-
       Label for a table column of images
       {{Identical|Image}}

@@ -193,6 +193,8 @@ sms:
     special_users:
       new:
         form_placeholder: Õõʹnninõmm
+  status:
+    size: Šorradvuõtt
   suggestions:
     editing: Muʹttemeʹtǩǩõõzz
   timeline:

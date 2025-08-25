@@ -594,6 +594,8 @@ sv:
     special_users:
       new:
         form_placeholder: Användarnamn
+  status:
+    size: Storlek
   suggestions:
     editing: Redigeringsförslag
     suggestion_docs:

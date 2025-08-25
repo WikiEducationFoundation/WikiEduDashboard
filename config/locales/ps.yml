@@ -319,7 +319,7 @@ ps:
     student_editors: زده کوونکي سمونگران
     students_none: دا لوست دوه هېڅ زده کوونکی نه لري.
     students_short: زده کوونکي
-    timeline_link: وخت‌کرښه
+    timeline_link: مهالوېش
     title: سرليک
     view: لوست‌دوره کتل
     view_page: لوست‌دورې مخ کتل
@@ -407,7 +407,7 @@ ps:
     gradeable_value: ارزښت
     save_all_changes: ټول خوندي کول
     this_week_title_default: دا اوونۍ
-    title: وخت‌کرښه
+    title: مهالوېش
     week_number: اوونۍ %{number}
   training:
     start: پيلول

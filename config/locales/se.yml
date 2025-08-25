@@ -145,6 +145,8 @@ se:
     special_users:
       new:
         form_placeholder: Geavaheaddjinamma
+  status:
+    size: Sturrodat
   timeline:
     add_week: Lasit vahkku
     arrange_timeline: Ordne áigelinnjá

@@ -38,7 +38,7 @@ gl:
     field_invalid_date: Este campo require unha data en formato AAAA-MM-DD
     field_invalid_date_time: A fin debe ser despois do inicio. (As horas van de 0
       a 23).
-    greeting2: Benvido!
+    greeting2: Recibe a nosa benvida!
     greeting_extended: Benvido a Wikipedia
     greeting: Ola!
     help: Axuda
