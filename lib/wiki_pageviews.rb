@@ -26,6 +26,12 @@ class WikiPageviews
     calculate_average_views(daily_view_data)
   end
 
+  # Returns the daily average views based on the views in the range [start_date, yesterday]
+  def average_views_from_date(start_date)
+    daily_view_data = views_from_date(start_date)
+    calculate_average_views(daily_view_data)
+  end
+
   ##################
   # Helper methods #
   ##################
@@ -34,6 +40,14 @@ class WikiPageviews
   def recent_views
     start_date = 50.days.ago
     end_date = 1.day.ago
+    url = query_url(start_date:, end_date:)
+    parse_results(api_get(url))
+  end
+
+  def views_from_date(start_date)
+    end_date = 1.day.ago
+    # Do not query views for an empty period of time
+    return no_results if start_date > end_date
     url = query_url(start_date:, end_date:)
     parse_results(api_get(url))
   end
