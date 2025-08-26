@@ -20,24 +20,7 @@ class WikiPageviews
   # it becomes available. The exception is when old pages get moved into
   # mainspace.
 
-  # Given an article title and a date, return the number of page views for every
-  # day from that date until today.
-  #
-  # [title]  title of a Wikipedia page (including namespace prefix, if applicable)
-  def views_for_article(opts = {})
-    start_date = opts[:start_date] || 1.month.ago
-    end_date = opts[:end_date] || Time.zone.today
-    daily_view_data = fetch_view_data(start_date, end_date)
-    return unless daily_view_data
-
-    views = {}
-    daily_view_data.each do |day_data|
-      date = day_data['timestamp'][0..7]
-      views[date] = day_data['views']
-    end
-    views
-  end
-
+  # Returns the daily average views based on the views for the last 50 days
   def average_views
     daily_view_data = recent_views
     calculate_average_views(daily_view_data)
@@ -63,12 +46,6 @@ class WikiPageviews
     end_param = end_date.strftime('%Y%m%d')
     title_and_date_params = "#{title}/daily/#{start_param}00/#{end_param}00"
     base_url + configuration_params + title_and_date_params
-  end
-
-  def fetch_view_data(start_date, end_date)
-    url = query_url(start_date:, end_date:)
-    data = api_get url
-    parse_results(data)
   end
 
   def calculate_average_views(daily_view_data)
