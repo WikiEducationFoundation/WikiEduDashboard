@@ -5,35 +5,8 @@ import OverviewStat from './OverviewStats/overview_stat';
 const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
   // Helper function to check if all stats are zero
   const allStatsAreZero = () => {
-    const statsToCheck = [
-      'total revisions',
-      'merged to',
-      'interwiki links added',
-      'items created',
-      'items cleared',
-      'claims created',
-      'claims changed',
-      'claims removed',
-      'labels added',
-      'labels changed',
-      'labels removed',
-      'descriptions added',
-      'descriptions changed',
-      'descriptions removed',
-      'aliases added',
-      'aliases changed',
-      'aliases removed',
-      'qualifiers added',
-      'references added',
-      'redirects created',
-      'reverts performed',
-      'restorations performed',
-      'other updates',
-      'lexeme items created'
-    ];
-
-    return statsToCheck.every(statKey =>
-      !statistics[statKey] || statistics[statKey] === 0
+    return Object.keys(statistics).every(key => 
+      !statistics[key] || statistics[key] === 0
     );
   };
 
