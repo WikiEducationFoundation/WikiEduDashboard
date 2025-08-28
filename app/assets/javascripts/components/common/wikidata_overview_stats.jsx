@@ -5,7 +5,7 @@ import OverviewStat from './OverviewStats/overview_stat';
 const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
   // Helper function to check if all stats are zero
   const allStatsAreZero = () => {
-    return Object.keys(statistics).every(key => 
+    return Object.keys(statistics).every(key =>
       !statistics[key] || statistics[key] === 0
     );
   };
