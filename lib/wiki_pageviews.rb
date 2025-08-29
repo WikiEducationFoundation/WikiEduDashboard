@@ -20,12 +20,6 @@ class WikiPageviews
   # it becomes available. The exception is when old pages get moved into
   # mainspace.
 
-  # Returns the daily average views based on the views for the last 50 days
-  def average_views
-    daily_view_data = recent_views
-    calculate_average_views(daily_view_data)
-  end
-
   # Returns the daily average views based on the views in the range [start_date, yesterday]
   def average_views_from_date(start_date)
     daily_view_data = views_from_date(start_date)
@@ -36,13 +30,6 @@ class WikiPageviews
   # Helper methods #
   ##################
   private
-
-  def recent_views
-    start_date = 50.days.ago
-    end_date = 1.day.ago
-    url = query_url(start_date:, end_date:)
-    parse_results(api_get(url))
-  end
 
   def views_from_date(start_date)
     end_date = 1.day.ago
