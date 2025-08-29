@@ -23,7 +23,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
 
 describe ArticlesCourses, type: :model do
-  let(:article) { create(:article, average_views: 1234) }
+  let(:article) { create(:article) }
   let(:article_id) { article.id }
   let(:user) { create(:user, id: 1) }
   let(:user_id) { user.id }
