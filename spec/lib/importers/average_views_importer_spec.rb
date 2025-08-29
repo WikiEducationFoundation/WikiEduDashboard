@@ -48,6 +48,12 @@ describe AverageViewsImporter do
       average_views_updated_at: 2.months.ago, first_revision: 10.days.ago)
     end
 
+    let(:article3) { create(:article, title: 'History') }
+
+    let!(:article_without_first_revision) do
+      create(:articles_course, course:, article_id: article3.id)
+    end
+
     it 'does not update recently-updated records' do
       VCR.use_cassette 'average_views' do
         described_class.update_outdated_average_views(course)
@@ -55,6 +61,14 @@ describe AverageViewsImporter do
       expect(articles_course.reload.average_views).to eq(1)
       expect(article_course_never_updated.reload.average_views).to be > 1400
       expect(article_course_very_old.reload.average_views).to eq(0)
+    end
+
+    it 'does not update AC record if no first_revision' do
+      VCR.use_cassette 'average_views' do
+        described_class.update_outdated_average_views(course)
+      end
+      expect(article_without_first_revision.reload.average_views).to be_nil
+      expect(article_without_first_revision.reload.average_views_updated_at).to be_nil
     end
   end
 end

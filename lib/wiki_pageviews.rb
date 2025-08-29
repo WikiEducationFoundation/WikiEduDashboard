@@ -47,7 +47,7 @@ class WikiPageviews
   def views_from_date(start_date)
     end_date = 1.day.ago
     # Do not query views for an empty period of time
-    return no_results if start_date > end_date
+    return no_results if start_date.nil? || start_date > end_date
     url = query_url(start_date:, end_date:)
     parse_results(api_get(url))
   end

@@ -207,9 +207,16 @@ describe WikiPageviews do
       let(:start_date) { Date.new(2025, 8, 23) }
 
       it 'returns 0' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(0)
-        end
+        expect(subject).to eq(0)
+      end
+    end
+
+    context 'for a nil start date' do
+      let(:title) { 'Facebook' }
+      let(:start_date) { nil }
+
+      it 'returns 0' do
+        expect(subject).to eq(0)
       end
     end
   end

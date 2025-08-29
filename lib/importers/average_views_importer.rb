@@ -29,6 +29,7 @@ class AverageViewsImporter
 
     # Get the average views data and put it into a concurrency-safe datastructure
     articles_courses.each do |article_course|
+      next if article_course.first_revision.nil?
       pool.post { update_average_views_for_article(article_course, average_views, time) }
     end
 
