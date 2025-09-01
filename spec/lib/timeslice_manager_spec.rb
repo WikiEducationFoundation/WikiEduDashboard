@@ -105,6 +105,29 @@ describe TimesliceManager do
     end
   end
 
+  describe '#create_wiki_timeslices_for_period' do
+    let(:start_period) { DateTime.new(2024, 3, 22) }
+    let(:end_period) { DateTime.new(2024, 3, 23) }
+
+    before do
+      create(:courses_wikis, wiki: wikibooks, course:)
+      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
+      # Delete a random timeslice
+      CourseWikiTimeslice.where(course:, wiki: wikibooks, start: start_period,
+                                end: end_period).delete_all
+    end
+
+    it 'creates timeslices for the period' do
+      expect(course.course_wiki_timeslices.size).to eq(110)
+
+      timeslice_manager.create_wiki_timeslices_for_period(wikibooks, start_period, end_period)
+      course.reload
+      # Create missing course wiki timeslice
+      expect(course.course_wiki_timeslices.size).to eq(111)
+      expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(1)
+    end
+  end
+
   describe '#get_ingestion_start_time_for_wiki' do
     context 'when no course wiki timeslices' do
       it 'returns course start date' do
