@@ -307,7 +307,7 @@ nl:
     group_members: Groepsleden
     label: Toewijzen
     label_all: Allemaal toewijzen
-    loading: Bezig met het laden van opdrachten...
+    loading: Opdrachten worden geladen…
     none_short: Geen pagina's toegewezen
     none_short_wikidata: Geen items toegewezen
     none: Aan deze cursus zijn geen artikelen toegewezen.
@@ -828,7 +828,7 @@ nl:
     diff_show: Weergeven
     diff_hide: Verbergen
     edited_by: Bewerkt door
-    loading: Bezig met het laden van versies...
+    loading: Versies worden geladen…
     none: Aan deze cursus zijn recent geen wijzigingen aangebracht.
     time_doc: De tijd van iedere versie in uw lokale tijd
     title: Naam
@@ -946,7 +946,7 @@ nl:
     image: Afbeelding
     label: Uploads
     license: 'Licentie:'
-    loading: Bezig met het laden van uploads...
+    loading: Uploads worden geladen…
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
     original_file: Oorspronkelijk bestand
@@ -988,7 +988,7 @@ nl:
     exercises_and_trainings: Oefeningen & Opleidingen
     first_name: Voornaam
     last_name: Achternaam
-    loading: Bezig met het laden van gebruikers...
+    loading: Gebruikers worden geladen…
     my_assigned: 'Toegewezen:'
     name: Naam
     none: Er zijn geen deelnemers.

@@ -113,6 +113,7 @@ lb:
     filter:
       wiki_all: All
       new: Nei
+      new_and_existing: Nei a besteeënd
     filter_text: 'Filteren:'
     find: Artikele sichen
     hide: Verstoppen
