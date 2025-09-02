@@ -49,6 +49,11 @@ class UpdateTimeslicesCourseWiki
   end
 
   def update_timeslices_durations
+    recreate_unprocessed_timeslices
+    recreate_timeslices_needing_update
+  end
+
+  def recreate_unprocessed_timeslices
     @course.wikis.each do |wiki|
       start = @timeslice_manager.get_ingestion_start_time_for_wiki wiki
       timeslice = @course.course_wiki_timeslices.where(wiki:, start:).first
@@ -62,5 +67,28 @@ class UpdateTimeslicesCourseWiki
       @timeslice_cleaner.delete_article_course_timeslices_after_date([wiki], start - 1.second)
       @timeslice_manager.create_wiki_timeslices_up_to_new_course_end_date(wiki)
     end
+  end
+
+  def recreate_timeslices_needing_update
+    @course.wikis.each do |wiki|
+      new_duration = @timeslice_manager.timeslice_duration(wiki)
+
+      CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update.find_each do |timeslice|
+        next unless needs_recreate?(timeslice, new_duration)
+
+        @timeslice_cleaner.delete_timeslices_for_period([wiki], timeslice.start, timeslice.end)
+        @timeslice_manager.create_wiki_timeslices_for_period(wiki, timeslice.start,
+                                                             timeslice.end - 1.second)
+      end
+    end
+  end
+
+  def needs_recreate?(timeslice, new_duration)
+    effective_duration = timeslice.end - timeslice.start
+    # No need to recreate if duration didn't change
+    return false if effective_duration == new_duration
+    # Recreate only if the new duration evenly divides the effective duration
+    return false if (effective_duration % new_duration).nonzero?
+    true
   end
 end
