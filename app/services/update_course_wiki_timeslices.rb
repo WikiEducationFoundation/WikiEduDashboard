@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
+require_dependency "#{Rails.root}/lib/revision_scanner"
 
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
@@ -137,6 +138,10 @@ class UpdateCourseWikiTimeslices
   def update_timeslices(wiki)
     update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
     update_article_course_timeslices_for_wiki(@revisions[wiki])
+
+    revs_to_scan = @revisions[wiki][:revisions]
+    RevisionScanner.schedule_revision_checks(wiki:, revisions: revs_to_scan, course: @course)
+
     CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
   end
 
