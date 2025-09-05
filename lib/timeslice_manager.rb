@@ -36,6 +36,16 @@ class TimesliceManager
                                         needs_update: true)
   end
 
+  # Creates course wiki timeslice records for the period [start_period, end_period].
+  # In other words, it creates all timeslices whose start date falls within that range,
+  # using the configured timeslice duration for the given course and wiki.
+  # Note that this may include a timeslice starting exactly at end_period.
+  def create_wiki_timeslices_for_period(wiki, start_period, end_period)
+    create_empty_course_wiki_timeslices(start_dates_for_period(wiki, start_period, end_period),
+                                        wiki,
+                                        needs_update: true)
+  end
+
   # Returns a datetime with the date to start getting revisions.
   def get_ingestion_start_time_for_wiki(wiki)
     non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
@@ -114,17 +124,23 @@ class TimesliceManager
     end
   end
 
-  # Returns start dates from the course start to the course end,
+  # Returns start dates for the period [start, end],
   # ensuring they align with the timeslice duration for the given wiki.
-  def start_dates(wiki)
+  def start_dates_for_period(wiki, start_period, end_period)
     start_dates = []
-    current_start = @course.start
-    while current_start <= @course.end
+    current_start = start_period
+    while current_start <= end_period
       start_dates << current_start
       current_start += timeslice_duration(wiki)
     end
 
     start_dates
+  end
+
+  # Returns start dates from the course start to the course end,
+  # ensuring they align with the timeslice duration for the given wiki.
+  def start_dates(wiki)
+    start_dates_for_period(wiki, @course.start, @course.end)
   end
 
   # Returns start dates from the old course start up to the new (previous) course start,
