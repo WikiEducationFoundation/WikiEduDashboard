@@ -70,12 +70,12 @@ describe 'campaign overview page', type: :feature, js: true do
         article = create(:article,
                          id: i,
                          title: 'Selfie',
-                         namespace: 0,
-                         average_views: 5)
+                         namespace: 0)
         create(:articles_course,
                course_id: course1.id,
                article_id: article.id,
-               first_revision: 6.days.ago)
+               first_revision: 6.days.ago,
+               average_views: 5)
       end
       Course.all.each(&:update_cache_from_timeslices)
     end
