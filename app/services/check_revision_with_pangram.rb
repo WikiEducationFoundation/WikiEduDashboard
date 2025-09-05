@@ -9,7 +9,7 @@ class CheckRevisionWithPangram
     @user_id = user_id
     @course_id = course_id
 
-    check
+    check unless already_checked?
   end
 
   def check
@@ -18,9 +18,23 @@ class CheckRevisionWithPangram
     fetch_pangram_inference
 
     generate_alert if ai_likely?
+
+    cache_pangram_check_timestamp
   end
 
   private
+
+  def cache_key
+    "pangram_#{@wiki.domain}_#{@mw_rev_id}"
+  end
+
+  def already_checked?
+    Rails.cache.read(cache_key).present?
+  end
+
+  def cache_pangram_check_timestamp
+    Rails.cache.write(cache_key, Time.current.to_s, expires_in: 7.days)
+  end
 
   def fetch_revision_html
     # https://en.wikipedia.org/w/api.php?action=parse&oldid=952185129
