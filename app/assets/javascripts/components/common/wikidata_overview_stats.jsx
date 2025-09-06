@@ -175,7 +175,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row double-row">
-          <h5 className="stats-label">{I18n.t('metrics.other')}</h5>
+          <h5 className="stats-label">{I18n.t('metrics.other_updates')}</h5>
           <div className="stat-display__value-group double">
             <OverviewStat
               id="qualifiers-added"
