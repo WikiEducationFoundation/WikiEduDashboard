@@ -7,13 +7,14 @@ describe AverageViewsImporter do
   let(:article) { create(:article, title: 'Selfie') }
   let(:course) { create(:course) }
 
-  let!(:articles_course) do
+  let(:articles_course) do
     create(:articles_course, course:, article_id: article.id, average_views: 1,
     average_views_updated_at: 1.day.ago, first_revision: 10.days.ago)
   end
 
   before do
     travel_to Date.new(2025, 8, 28)
+    articles_course
   end
 
   after do
