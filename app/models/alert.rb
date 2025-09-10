@@ -32,6 +32,7 @@ class Alert < ApplicationRecord
 
   ALERT_TYPES = %w[
     ActiveCourseAlert
+    AiEditAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert

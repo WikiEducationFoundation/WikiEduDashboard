@@ -213,7 +213,7 @@ class WikiAssignmentOutput
   end
 
   def en_wiki?
-    @wiki.language == 'en' && @wiki.project == 'wikipedia'
+    @wiki.en_wiki?
   end
 
   # This is what do on wikis other than English Wikipedia

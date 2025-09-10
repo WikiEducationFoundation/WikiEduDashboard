@@ -231,3 +231,5 @@ Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
+Performance/StringIdentifierArgument:
+  Enabled: false

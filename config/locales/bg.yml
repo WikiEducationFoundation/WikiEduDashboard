@@ -247,6 +247,7 @@ bg:
     bytes_added: Добавени байта
     char_added: Добавени знаци
     char: Добавени знаци
+    close_modal: Затваряне
     date_time: Дата/Час
     edit_count_description: Общо редакции
     revisions: Скорошни редакции
@@ -349,4 +350,5 @@ bg:
     options:
       news_content:
         confirm_delete: Потвърждаване
+        cancel_delete: Отказ
 ...
