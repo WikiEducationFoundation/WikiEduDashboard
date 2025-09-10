@@ -48,6 +48,9 @@ class TimesliceManager
 
   # Returns a datetime with the date to start getting revisions.
   def get_ingestion_start_time_for_wiki(wiki)
+    # Timeslices may have changed, so we need to ensure we return the actual
+    # ingestion start time
+    @course.course_wiki_timeslices.reload
     non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
       ts.last_mw_rev_datetime.nil?
     end
@@ -162,7 +165,8 @@ class TimesliceManager
   # ensuring they align with the timeslice duration for the given wiki.
   def start_dates_from_old_end(wiki)
     start_dates = []
-    current_start = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).maximum(:end)
+    current_start = CourseWikiTimeslice.for_course_and_wiki(@course,
+                                                            wiki).maximum(:end) || @course.start
     while current_start <= @course.end
       start_dates << current_start
       current_start += timeslice_duration(wiki)

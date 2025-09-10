@@ -49,8 +49,8 @@ class UpdateTimeslicesCourseWiki
   end
 
   def update_timeslices_durations
-    recreate_unprocessed_timeslices
     recreate_timeslices_needing_update
+    recreate_unprocessed_timeslices
   end
 
   def recreate_unprocessed_timeslices
