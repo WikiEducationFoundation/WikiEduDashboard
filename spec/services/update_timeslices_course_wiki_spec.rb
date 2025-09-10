@@ -90,6 +90,8 @@ describe UpdateTimeslicesCourseWiki do
       manager.create_timeslices_for_new_course_wiki_records([enwiki])
       timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
       timeslice.update(last_mw_rev_datetime: '2018-11-26 00:45:45'.to_datetime)
+      timeslice = course.course_wiki_timeslices.where(start: '2018-11-25'.to_datetime).first
+      timeslice.update(last_mw_rev_datetime: '2018-11-25 00:45:45'.to_datetime)
 
       first_timeslice = course.course_wiki_timeslices.where(start: '2018-11-24'.to_datetime).first
       expect(first_timeslice.end - first_timeslice.start).to eq(86400)
@@ -120,7 +122,7 @@ describe UpdateTimeslicesCourseWiki do
     end
 
     context 'new timeslice duration is smaller' do
-      it 'updates current and future timeslices if' do
+      it 'updates current and future timeslices' do
         # Update timeslice duration to 12 hours
         course.flags = { timeslice_duration: { default: 43200 } }
         course.save
@@ -140,6 +142,42 @@ describe UpdateTimeslicesCourseWiki do
         expect(limit_cuwt).to be_empty
         limit_act = course.article_course_timeslices.where(start: '2018-11-26'.to_datetime)
         expect(limit_act).to be_empty
+
+        last_cwt = course.course_wiki_timeslices.where(start: '2018-11-30'.to_datetime).first
+        expect(last_cwt.end - last_cwt.start).to eq(43200)
+        # Following timeslices were deleted
+        last_cuwt = course.course_user_wiki_timeslices.where(start: '2018-11-30'.to_datetime)
+        expect(last_cuwt).to be_empty
+        last_act = course.article_course_timeslices.where(start: '2018-11-30'.to_datetime)
+        expect(last_act).to be_empty
+      end
+
+      it 'updates current and future timeslices even if timeslices needing update' do
+        # Update timeslice duration to 12 hours
+        course.flags = { timeslice_duration: { default: 43200 } }
+        course.save
+
+        # Set timeslice as needs_update
+        timeslice = course.course_wiki_timeslices.where(start: '2018-11-26'.to_datetime).first
+        timeslice.update(needs_update: true)
+
+        described_class.new(course).run
+        limit_cwt = course.course_wiki_timeslices.where(start: '2018-11-25'.to_datetime).first
+        expect(limit_cwt.end - limit_cwt.start).to eq(43200)
+        limit_cuwt = course.course_user_wiki_timeslices.where(start: '2018-11-25'.to_datetime)
+        expect(limit_cuwt).to be_empty
+        limit_act = course.article_course_timeslices.where(start: '2018-11-25'.to_datetime)
+        expect(limit_act).to be_empty
+
+        needs_update_cwt = course.course_wiki_timeslices
+                                 .where(start: '2018-11-26'.to_datetime).first
+        expect(needs_update_cwt.end - needs_update_cwt.start).to eq(43200)
+        # Following timeslices were deleted
+        needs_update_cuwt = course.course_user_wiki_timeslices
+                                  .where(start: '2018-11-26'.to_datetime)
+        expect(needs_update_cuwt).to be_empty
+        needs_update_act = course.article_course_timeslices.where(start: '2018-11-26'.to_datetime)
+        expect(needs_update_act).to be_empty
 
         last_cwt = course.course_wiki_timeslices.where(start: '2018-11-30'.to_datetime).first
         expect(last_cwt.end - last_cwt.start).to eq(43200)
