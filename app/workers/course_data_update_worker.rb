@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/app/services/update_course_stats_timeslice"
+require_dependency "#{Rails.root}/app/services/update_course_stats"
 
 class CourseDataUpdateWorker
   THIRTY_DAYS = 60 * 60 * 24 * 30
@@ -18,7 +18,7 @@ class CourseDataUpdateWorker
     return if course.very_long_update?
 
     logger.info "Updating course timeslice version: #{course.slug}"
-    UpdateCourseStatsTimeslice.new(course)
+    UpdateCourseStats.new(course)
   rescue StandardError => e
     Sentry.capture_exception e
   end
