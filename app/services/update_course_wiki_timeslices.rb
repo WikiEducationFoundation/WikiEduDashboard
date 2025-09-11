@@ -97,7 +97,7 @@ class UpdateCourseWikiTimeslices
 
   def fetch_data(wiki, timeslice_start, timeslice_end, only_new:)
     # Fetches revision for wiki
-    @revisions = @revision_updater.fetch_data_for_course_wiki(
+    @revisions = @revision_updater.fetch_full_data_for_course_wiki(
       wiki,
       timeslice_start.strftime('%Y%m%d%H%M%S'),
       timeslice_end.strftime('%Y%m%d%H%M%S'),
