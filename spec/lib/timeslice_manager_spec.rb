@@ -130,6 +130,28 @@ describe TimesliceManager do
     end
   end
 
+  describe '#maybe_create_course_wiki_timeslice' do
+    let(:start_date) { DateTime.new(2024, 3, 22) }
+    let(:end_date) { DateTime.new(2024, 3, 23) }
+
+    it 'creates timeslice if it does not exist' do
+      expect(course.course_wiki_timeslices.size).to eq(0)
+
+      timeslice_manager.maybe_create_course_wiki_timeslice(wikibooks.id, start_date, end_date)
+      course.reload
+      expect(course.course_wiki_timeslices.size).to eq(1)
+    end
+
+    it 'does not fail if it already exists' do
+      CourseWikiTimeslice.create(course:, wiki_id: wikibooks.id, start: start_date, end: end_date)
+      expect(course.course_wiki_timeslices.size).to eq(1)
+
+      timeslice_manager.maybe_create_course_wiki_timeslice(wikibooks.id, start_date, end_date)
+      course.reload
+      expect(course.course_wiki_timeslices.size).to eq(1)
+    end
+  end
+
   describe '#get_ingestion_start_time_for_wiki' do
     context 'when no course wiki timeslices' do
       it 'returns course start date' do
