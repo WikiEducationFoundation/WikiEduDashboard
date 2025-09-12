@@ -1,0 +1,10 @@
+.container.form-container
+  %p #{@alert.followup}
+
+  %form_with{url: "/alert_followup/#{@alert.id}", method: "post"} do |f|
+    %label{for: "name"} Name:
+    %input{type: "text", name: "name", id: "name"}
+    %label{for: "email"} Email:
+    %input{type: "email", name: "email", id: "email"}
+    = form.submit 'Submit'
+
