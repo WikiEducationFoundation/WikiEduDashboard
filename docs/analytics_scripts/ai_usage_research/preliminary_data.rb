@@ -58,3 +58,21 @@ CSV.open("/home/sage/articles_edited_by_course-#{Date.today}.csv", 'wb') do |csv
     csv << line
   end
 end; nil
+
+# Assignments by course
+csv_data = [['course_slug', 'username', 'assigned_title', 'assignment_type']]
+ClassroomProgramCourse.nonprivate.each do |course|
+  next if course.user_count.zero?
+  course.assignments.includes(:user).each do |assignment|
+    next unless assignment.user_id # Skip available articles
+    next unless assignment.wiki_id == 1 # Skip non-en.wiki assignments
+    assignment_type = assignment.role.zero? ? 'Editing' : 'Reviewing'
+    csv_data << [course.slug, assignment.user.username, assignment.article_title, assignment_type]
+  end
+end; nil
+
+CSV.open("/home/sage/assignments_by_course-#{Date.today}.csv", 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end; nil
