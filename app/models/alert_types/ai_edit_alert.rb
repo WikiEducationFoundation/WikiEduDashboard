@@ -28,4 +28,12 @@ class AiEditAlert < Alert
   def url
     "#{article&.wiki&.base_url}/w/index.php?diff=#{revision_id}"
   end
+
+  def followup_template
+    'ai_edit_alert'
+  end
+
+  def followup
+    'tell us more'
+  end
 end

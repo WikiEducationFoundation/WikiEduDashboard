@@ -252,6 +252,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'alert_followup/:id' => 'alert_followup#show'
+  post 'alert_followup/:id' => 'alert_followup#update'
+
   put 'greeting' => 'greeting#greet_course_students'
 
   # Article Finder
