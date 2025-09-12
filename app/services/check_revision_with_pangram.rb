@@ -91,7 +91,8 @@ class CheckRevisionWithPangram
       max_ai_likelihood:,
       fraction_ai_content:,
       predicted_ai_window_count:,
-      predicted_llm:
+      predicted_llm:,
+      pangram_share_link:
     }
   end
 
@@ -124,5 +125,9 @@ class CheckRevisionWithPangram
   def predicted_llm
     return nil if fraction_ai_content.zero?
     @pangram_result['llm_prediction'].key(@pangram_result['llm_prediction'].values.max)
+  end
+
+  def pangram_share_link
+    @pangram_result['dashboard_link']
   end
 end
