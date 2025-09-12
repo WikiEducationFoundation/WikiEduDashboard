@@ -15,7 +15,7 @@ describe UpdateWikiNamespaceStatsTimeslice do
   let(:enwiki_course_wiki) { course.courses_wikis.find_by(wiki: enwiki) }
 
   before do
-    skip('Skipping this test due to failures in UpdateCourseStatsTimeslice. TODO: fix me')
+    skip('Skipping this test due to failures in UpdateCourseStats. TODO: fix me')
     stub_wiki_validation
     course.campaigns << Campaign.first
 
@@ -26,7 +26,7 @@ describe UpdateWikiNamespaceStatsTimeslice do
     JoinCourse.new(course:, user: user2, role: 0)
     course.reload
     VCR.use_cassette 'course_update_timeslices' do
-      UpdateCourseStatsTimeslice.new(course)
+      UpdateCourseStats.new(course)
     end
   end
 

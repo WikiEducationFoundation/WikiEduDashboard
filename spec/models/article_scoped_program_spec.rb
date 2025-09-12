@@ -65,7 +65,7 @@ describe ArticleScopedProgram, type: :model do
       allow(Replica).to receive(:new).and_return(replica_instance)
       allow(replica_instance).to receive(:get_revisions).and_return(revisions)
       VCR.use_cassette 'article_scoped_update' do
-        UpdateCourseStatsTimeslice.new(asp)
+        UpdateCourseStats.new(asp)
       end
     end
 

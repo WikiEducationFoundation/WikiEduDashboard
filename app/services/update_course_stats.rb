@@ -13,8 +13,10 @@ require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 require_dependency "#{Rails.root}/app/services/update_course_wiki_timeslices"
 
-#= Pulls in new revisions for a single course wiki timeslice and updates the corresponding records
-class UpdateCourseStatsTimeslice
+#= Updates stats for a specific course. This includes importing data (revisions, uploads,
+# Wikidata stats, categories, article views), processing it (mostly through timeslices
+# records), and updating cached stats.
+class UpdateCourseStats
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
