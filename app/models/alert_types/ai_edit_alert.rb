@@ -25,15 +25,78 @@ class AiEditAlert < Alert
     "Suspected AI edit: #{article&.title} — #{course&.slug}"
   end
 
+  def wiki
+    article&.wiki || Wiki.default_wiki
+  end
+
   def url
-    "#{article&.wiki&.base_url}/w/index.php?diff=#{revision_id}"
+    "#{wiki.base_url}/w/index.php?diff=#{revision_id}"
+  end
+
+  def page_url
+    article&.url || url
+  end
+
+  def pangram_url
+    details[:pangram_share_link]
+  end
+
+  def pangram_prediction
+    details[:pangram_prediction]
+  end
+
+  def average_ai_likelihood
+    details[:average_ai_likelihood]
+  end
+
+  def max_ai_likelihood
+    details[:max_ai_likelihood]
+  end
+
+  def predicted_ai_window_count
+    details[:predicted_ai_window_count]
+  end
+
+  def predicted_llm
+    details[:predicted_llm]
   end
 
   def followup_template
     'ai_edit_alert'
   end
 
-  def followup
-    'tell us more'
+  def followup_link
+    "https://#{ENV['dashboard_url']}/alert_followup/#{id}"
+  end
+
+  def article_title
+    details[:article_title]
+  end
+
+  def send_alert_emails
+    # Lists of references are where we see
+    # false positives, so we won't send
+    # emails for the Bibliography exercise sandbox
+    return if page_type == :bibliography
+
+    AiEditAlertMailer.send_emails(self)
+    update(email_sent_at: Time.zone.now)
+  end
+
+  def page_type
+    case article_title
+    when /Choose an Article/
+      :choose_an_article
+    when /Evaluate an Article/
+      :evaluate_an_article
+    when %r{/Bibliography}
+      :bibliography
+    when %r{/Outline}
+      :outline
+    when /^User:/ # catchall for other sandboxes
+      :sandbox
+    else
+      :unknown
+    end
   end
 end

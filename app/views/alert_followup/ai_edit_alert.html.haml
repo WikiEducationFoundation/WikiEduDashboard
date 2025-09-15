@@ -1,10 +1,99 @@
-.container.form-container
-  %p #{@alert.followup}
+.container
+  .form.alert-followup
+    = form_with(url: "/alert_followup/#{@alert.id}", method: "post") do |f|
+      %p
+        Wiki Education Dashboard uses the AI detector Pangram to screen for
+        AI-generated text (which should generally not be added to Wikipedia).
+        Pangram classified text from the following page as like AI-generated:
+      %p
+        %strong
+          %a{href: @alert.page_url}= @alert.article_title
+      - if @alert.pangram_url
+        %p
+          %a{href: @alert.pangram_url} View the Pangram report.
+      %p
+        We want to collect some additional information
+        from you, to help us improve how we handle AI text in Wikipedia assignments
+        and to better understand the reliability of this AI detection system.
+      .form-group
+        %label How did you use AI?
+        %label.no-label
+          = f.radio_button :validation, 'AI text generation'
+          I used an AI tool to generate text.
+        %br
+        %label.no-label
+          = f.radio_button :validation, 'AI copyediting'
+          I used an AI tool for editing text I wrote.
+        %br  
+        %label.no-label
+          = f.radio_button :validation, 'AI not used'
+          FALSE POSITIVE: I didn't use any AI tool. (<em>Skip to the end and Submit.</em>)
+      .form-group
+        %label Which AI tool(s) did you use:
+        %label.no-label
+          = f.check_box 'ChatGPT'
+          ChatGPT
+        %br
+        %label.no-label
+          = f.check_box 'Perplexity'
+          Perplexity
+        %br
+        %label.no-label
+          = f.check_box 'Google Gemini'
+          Google Gemini
+        %br
+        %label.no-label
+          = f.check_box 'Grammarly'
+          Grammarly
+        %br
+        %label.no-label
+          = f.check_box 'Google NotebookLM'
+          Google Gemini
+        %br
+        %label.no-label
+          = f.check_box 'Other'
+          Other:
+        %br
+        %label.no-label
+          = f.text_field :tools_other, size: 50
+      .form-group
+        %label What did you use AI for?
+        %label.no-label
+          = f.check_box :initial_draft
+          to generate an initial draft
+        %br
+        %label.no-label
+          = f.check_box :evaluate
+          to evaluate existing content or plan improvements
+        %br
+        %label.no-label
+          = f.check_box :copyedit
+          to copyedit what I wrote
+        %br
+        %label.no-label
+          = f.check_box :find_sources
+          to find sources
+        %br
+        %label.no-label
+          = f.check_box :summarize
+          to summarize sources or other text
+        %br
+        %label.no-label
+          = f.check_box :fact_check
+          to fact check and identify problems
+        %br
+        %label.no-label
+          = f.check_box :other_use
+          Other:
+        %br
+        %label.no-label
+          = f.text_field :use_other, size: 50
+      .form-group
+        %label
+          Please share any additional context, such as specific prompts,
+          advanced features you used, or any techniques you employed to 
+          to improve the AI output.
 
-  %form_with{url: "/alert_followup/#{@alert.id}", method: "post"} do |f|
-    %label{for: "name"} Name:
-    %input{type: "text", name: "name", id: "name"}
-    %label{for: "email"} Email:
-    %input{type: "email", name: "email", id: "email"}
-    = form.submit 'Submit'
-
+        = f.text_area :additional_context, size: '100x5'
+      %div
+        .button.dark= f.submit 'Submit'
