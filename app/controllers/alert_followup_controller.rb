@@ -12,9 +12,9 @@ class AlertFollowupController < ApplicationController
   def update
     response_hash = {
       validation: params['validation'],
-      AIs_used: [], # TODO
+      AIs_used: params['ai_tools'],
       AI_other: params['tools_other'],
-      used_for: [], # TODO
+      used_for: params['ai_used_for'],
       used_for_other: params['use_other'],
       additional_context: params['additional_context']
     }

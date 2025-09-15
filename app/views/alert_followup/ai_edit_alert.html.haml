@@ -31,62 +31,56 @@
       .form-group
         %label Which AI tool(s) did you use:
         %label.no-label
-          = f.check_box 'ChatGPT'
+          = f.check_box(:ai_tools, { multiple: true }, :ChatGPT, nil)
           ChatGPT
         %br
         %label.no-label
-          = f.check_box 'Perplexity'
+          = f.check_box(:ai_tools, { multiple: true }, :Perplexity, nil)
           Perplexity
         %br
         %label.no-label
-          = f.check_box 'Google Gemini'
+          = f.check_box(:ai_tools, { multiple: true }, :GoogleGemini, nil)
           Google Gemini
         %br
         %label.no-label
-          = f.check_box 'Grammarly'
+          = f.check_box(:ai_tools, { multiple: true }, :Grammarly, nil)
           Grammarly
         %br
         %label.no-label
-          = f.check_box 'Google NotebookLM'
-          Google Gemini
+          = f.check_box(:ai_tools, { multiple: true }, :NotebookLM, nil)
+          NotebookLM
         %br
         %label.no-label
-          = f.check_box 'Other'
-          Other:
-        %br
-        %label.no-label
+          other:
           = f.text_field :tools_other, size: 50
       .form-group
         %label What did you use AI for?
         %label.no-label
-          = f.check_box :initial_draft
+          = f.check_box(:ai_used_for, { multiple: true }, :initial_draft, nil) 
           to generate an initial draft
         %br
         %label.no-label
-          = f.check_box :evaluate
+          = f.check_box(:ai_used_for, { multiple: true }, :evaluate, nil)
           to evaluate existing content or plan improvements
         %br
         %label.no-label
-          = f.check_box :copyedit
+          = f.check_box(:ai_used_for, { multiple: true }, :copyedit, nil)
           to copyedit what I wrote
         %br
         %label.no-label
-          = f.check_box :find_sources
+          = f.check_box(:ai_used_for, { multiple: true }, :find_sources, nil)
           to find sources
         %br
         %label.no-label
-          = f.check_box :summarize
+          = f.check_box(:ai_used_for, { multiple: true }, :summarize, nil)
           to summarize sources or other text
         %br
         %label.no-label
-          = f.check_box :fact_check
+          = f.check_box(:ai_used_for, { multiple: true }, :fact_check, nil)
           to fact check and identify problems
         %br
         %label.no-label
-          = f.check_box :other_use
-          Other:
-        %br
-        %label.no-label
+          other:
           = f.text_field :use_other, size: 50
       .form-group
         %label
