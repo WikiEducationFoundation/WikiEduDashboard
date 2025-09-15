@@ -7,11 +7,21 @@ class AlertFollowupController < ApplicationController
 
   def show
     render @alert.followup_template
-    # display form
   end
 
   def update
-    # update record
+    response_hash = {
+      validation: params['validation'],
+      AIs_used: [], # TODO
+      AI_other: params['tools_other'],
+      used_for: [], # TODO
+      used_for_other: params['use_other'],
+      additional_context: params['additional_context']
+    }
+    @alert.details["followup_#{current_user.username}"] = response_hash
+    @alert.save
+    flash[:notice] = 'Response saved. Thank you!'
+    redirect_to "/alert_followup/#{@alert.id}"
   end
 
   private
