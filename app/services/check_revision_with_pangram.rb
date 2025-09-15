@@ -46,8 +46,18 @@ class CheckRevisionWithPangram
   end
 
   def generate_plaintext_from_html
+    # First remove the <table> elements, which contain template content in exercise sandboxes
+    # and are likely to contain non-prose in other cases.
+    @cleaned_html = remove_html_tables(@rev_html)
     # Convert the HTML to plain text, then remove the edit button leftovers
-    @plain_text = ActionView::Base.full_sanitizer.sanitize(@rev_html).gsub('[edit]', '')
+    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html).gsub('[edit]', '')
+  end
+
+  def remove_html_tables(html)
+    doc = Nokogiri::HTML(html)
+    tables = doc.xpath('//table')
+    tables.each(&:remove)
+    doc.to_html
   end
 
   def fetch_pangram_inference
