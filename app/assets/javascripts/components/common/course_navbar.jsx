@@ -5,7 +5,7 @@ import GetHelpButton from './get_help_button.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
 
-const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
+const CourseNavbar = ({ course, courseSlug, location, currentUser, courseLink }) => {
   // ///////////////
   // Course title //
   // ///////////////
@@ -75,7 +75,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   if (Features.enableGetHelpButton) {
     getHelp = (
       <div className="nav__button" id="get-help-button">
-        <GetHelpButton course={course} currentUser={currentUser} key="get_help" />
+        <GetHelpButton key="get_help" onTrainingPage={false} {...{ course, currentUser, courseSlug }} />
       </div>
     );
   }
