@@ -83,6 +83,14 @@ class AiEditAlert < Alert
     update(email_sent_at: Time.zone.now)
   end
 
+  # Is there another alert for the same
+  # course and article? If so, this could
+  # might have triggered from a different
+  # edit but with the same AI-detected text.
+  def repeat?
+    AiEditAlert.where(course_id:, article_id:).count > 1
+  end
+
   def page_type
     case article_title
     when /Choose an Article/

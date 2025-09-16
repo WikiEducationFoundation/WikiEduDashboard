@@ -10,7 +10,13 @@ class AiEditAlertMailer < ApplicationMailer
     @alert = alert
     @course = @alert.course
     return unless @course
-    to_email = @alert.content_experts # TODO: Add student, instructors
+
+    to_email = @alert.content_experts.to_a
+    # TODO: enable for student, instructors
+    # unless @alert.repeat?
+    #   to_email += [@alert.user]
+    #   to_email += @alert.course.instructors.to_a
+    # end
     emails = to_email.filter_map(&:email)
     return if emails.empty?
 

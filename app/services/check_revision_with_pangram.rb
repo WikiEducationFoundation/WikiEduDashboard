@@ -81,7 +81,7 @@ class CheckRevisionWithPangram
                           course_id: @course_id,
                           article_id: @article&.id,
                           details: pangram_details)
-    alert.email_content_expert
+    alert.send_alert_emails
   end
 
   def alert_already_exists?
