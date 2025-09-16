@@ -10,7 +10,8 @@
                 The Wiki Education Dashboard detected text that may be AI-generated, on a page edited by
                 a student in your
                 %a.link{href: @course_link}= @course.title
-                course.
+                course:
+                #{link_to @alert.user.username, "#{@course_link}/students/#{@alert.user.url_encoded_username}", class: 'link'}.
               %h2.headline Pangram report
               %p.paragraph
                 We use the AI detector Pangram to check Wikipedia edits for AI-generated text.
@@ -41,28 +42,28 @@
                 As part of our effort to better understand how AI is affecting Wikipedia, we are seeking followup information related to this report
                 with a brief questionnaire.
                 %a.link{href: @alert.followup_link} Please submit your response!
-
-              %h2.headline About AI detection
               %p.paragraph
+                Best,
+                %br
+                %em Wiki Education
+
+              %hr
+              %h2.info About AI detection
+              %p.info
                 AI detectors are not foolproof, but Pangram is reliable enough to catch many cases of AI-generated text (which
                 generally should not be added to Wikipedia).
-              %p.paragraph
+              %p.info
                 We've noted that Pangram sometimes reports false positives by flagging lists of references. Using
                 an AI copyediting tool (like Grammarly) can also also result in text that Pangram detects as
                 AI-generated, but such AI copyediting can also introduce factual errors and distortions of meaning,
                 and we strongly recommend avoiding such tools when writing for Wikipedia.
-              %p.paragraph
+              %p.info
                 Pangram analyzes text in segments of approximately 400 words at a time, assigning an "AI likelihood"
                 to each segment. The resulting report includes an overall "AI likelihood", as well as individual
                 likelihoods for each segment. Based on Wiki Education's experience so far, AI-generated text that has
                 been significantly edited is often detected as "possibly AI" with an intermediate likelihood, while
                 most text copied directly from common AI tools as of September 2025 is flagged as nearly 100% AI likelihood,
                 and most Wikipedia text with no AI involvement is flagged close to 0% AI likelihood.
-              %p.paragraph
+              %p.info
                 Pangram also predict which Large Language Model (LLM) was used, although with significant uncertainty. Note
                 that many AI tools use one of the leading commercial LLMs under the hood.
-
-              %p.paragraph
-                Best,
-                %br
-                %em Wiki Education
