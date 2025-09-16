@@ -11,7 +11,7 @@
                 a student in your
                 %a.link{href: @course_link}= @course.title
                 course:
-                #{link_to @alert.user.username, "#{@course_link}/students/#{@alert.user.url_encoded_username}", class: 'link'}.
+                #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}.
               %h2.headline Pangram report
               %p.paragraph
                 We use the AI detector Pangram to check Wikipedia edits for AI-generated text.
