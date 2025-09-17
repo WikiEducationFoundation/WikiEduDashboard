@@ -75,13 +75,11 @@ class CheckRevisionWithPangram
     return if alert_already_exists?
 
     find_article
-    alert = Alert.create!(type: 'AiEditAlert',
-                          revision_id: @mw_rev_id,
-                          user_id: @user_id,
-                          course_id: @course_id,
-                          article_id: @article&.id,
-                          details: pangram_details)
-    alert.send_alert_emails
+    AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
+                                            user_id: @user_id,
+                                            course_id: @course_id,
+                                            article_id: @article&.id,
+                                            details: pangram_details)
   end
 
   def alert_already_exists?
