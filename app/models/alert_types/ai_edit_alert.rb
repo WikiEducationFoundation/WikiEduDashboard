@@ -21,8 +21,26 @@
 
 # Alert for when an article has been nominated for deletion on English Wikipedia
 class AiEditAlert < Alert
+  def self.generate_alert_from_pangram(revision_id:, user_id:, course_id:,
+                                       article_id:, pangram_details:)
+    alert = create!(revision_id:,
+                    user_id:,
+                    course_id:,
+                    article_id:,
+                    details: pangram_details)
+    alert.send_alert_emails
+  end
+
   def main_subject
-    "Suspected AI edit: #{article&.title} — #{course&.slug}"
+    "Suspected AI edit: #{article&.title} — #{course&.title}"
+  end
+
+  def repeat_page_subject
+    "Same-page AI edit alert: #{article&.title} — #{course&.title}"
+  end
+
+  def repeat_user_subject
+    "Another suspected AI edit: #{user.username} — #{course&.title}"
   end
 
   def wiki
@@ -79,7 +97,9 @@ class AiEditAlert < Alert
     # emails for the Bibliography exercise sandbox
     return if page_type == :bibliography
 
-    AiEditAlertMailer.send_emails(self)
+    AiEditAlertMailer.send_emails(self,
+                                  page_repeat: same_page_repeat?,
+                                  user_repeat: same_user_repeat?)
     update(email_sent_at: Time.zone.now)
   end
 
@@ -87,8 +107,16 @@ class AiEditAlert < Alert
   # course and article? If so, this could
   # might have triggered from a different
   # edit but with the same AI-detected text.
-  def repeat?
+  def same_page_repeat?
     AiEditAlert.where(course_id:, article_id:).count > 1
+  end
+
+  # Is there another alert for the same
+  # course and user, long enough ago that they
+  # should have gotten an earlier message
+  # telling them to avoid AI?
+  def same_user_repeat?
+    AiEditAlert.where(course_id:, user_id:).first.created_at < 1.day.ago
   end
 
   def page_type
