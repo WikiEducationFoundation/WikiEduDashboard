@@ -7,19 +7,20 @@
           %tr
             %td.main-content
               %p.paragraph
-                The Wiki Education Dashboard detected text that may be AI-generated, on a page edited by
-                a student in your
+                The Wiki Education Dashboard detected text that may be AI-generated
+                on a page edited by a student in your
                 %a.link{href: @course_link}= @course.title
                 course:
-                #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}.
+              %p.paragraph
+                %ul
+                  %li
+                    #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
               %h2.headline Pangram report
               %p.paragraph
-                We use the AI detector Pangram to check Wikipedia edits for AI-generated text.
+                We use the AI detector Pangram to check Wikipedia edits for AI-generated text.<sup>†</sup>
               %p.paragraph
                 Page:
                 %a.link{href: @alert.page_url}= @alert.article_title
-              %p.paragraph
-                %a.link{href: @alert.pangram_url} View the Pangram report.
               %ul.paragraph
                 %li
                   Pangram prediction:
@@ -28,19 +29,28 @@
                   Average AI likelihood:
                   %strong= number_to_percentage @alert.average_ai_likelihood*100, precision: 2
                 %li
-                  Maximum AI likelihood from a segment:
+                  Maximum AI likelihood from any segment:
                   %strong= number_to_percentage @alert.max_ai_likelihood*100, precision: 2
                 %li
-                  Segments with over 50% AI likelihood:
+                  400-word segments with over 50% AI likelihood:
                   %strong= @alert.predicted_ai_window_count
                 %li
                   Predicted LLM:
                   %strong= @alert.predicted_llm
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link{href: @alert.pangram_url}
+                      %strong View the Pangram report.
+              %p.paragraph
+                As a reminder,
+                %strong you should NEVER copy and paste any AI-generated content into Wikipedia.
+                If you used AI for any text generation (including copyediting), please delete the text
+                and re-do the work without AI text generation.
 
               %h2.headline Request for additional information
               %p.paragraph
-                As part of our effort to better understand how AI is affecting Wikipedia, we are seeking followup information related to this report
-                with a brief questionnaire.
+                Help us learn more about AI's impact on Wikipedia by completing a brief follow-up questionnaire.
                 %a.link{href: @alert.followup_link} Please submit your response!
               %p.paragraph
                 Best,
@@ -48,15 +58,15 @@
                 %em Wiki Education
 
               %hr
-              %h2.info About AI detection
+              %h2.info † About AI detection
               %p.info
-                AI detectors are not foolproof, but Pangram is reliable enough to catch many cases of AI-generated text (which
-                generally should not be added to Wikipedia).
+                AI detectors are not foolproof, but Pangram is reliable enough to catch many cases of AI-generated text
+                (which should not be added to Wikipedia).
               %p.info
                 We've noted that Pangram sometimes reports false positives by flagging lists of references. Using
                 an AI copyediting tool (like Grammarly) can also result in text that Pangram detects as
                 AI-generated, but such AI copyediting can also introduce factual errors and distortions of meaning,
-                and we strongly recommend avoiding such tools when writing for Wikipedia.
+                so you should not use such tools when writing for Wikipedia.
               %p.info
                 Pangram analyzes text in segments of approximately 400 words at a time, assigning an "AI likelihood"
                 to each segment. The resulting report includes an overall "AI likelihood", as well as individual
