@@ -28,7 +28,7 @@ class SplitTimeslices
   # start_date and end_date are the limits of the timeslice records
   def handle(wiki, start_date, end_date, only_new: true)
     fetch_only_revisions(wiki, start_date, end_date)
-    if too_many_revisions?(wiki)
+    if too_many_revisions?(wiki) && splittable?(start_date, end_date)
       split_timeslice(wiki, start_date, end_date)
     else
       log_processing(wiki, start_date, end_date, only_new)
@@ -45,6 +45,14 @@ class SplitTimeslices
 
   def too_many_revisions?(wiki)
     @revisions[wiki][:revisions].count(&:scoped) > REVISION_THRESHOLD
+  end
+
+  # A timeslice is not split if its duration is an odd number of seconds.
+  # This is because the revisions API expects start and end times in
+  # YYYY-MM-DD HH:MM:SS format, which does not allow fractions of a second.
+  def splittable?(start_date, end_date)
+    seconds = ((end_date - start_date) * 24 * 60 * 60).to_i
+    seconds.even?
   end
 
   def split_timeslice(wiki, start_date, end_date)
