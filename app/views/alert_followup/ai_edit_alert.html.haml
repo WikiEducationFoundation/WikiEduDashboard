@@ -2,9 +2,9 @@
   .form.alert-followup
     = form_with(url: "/alert_followup/#{@alert.id}", method: "post") do |f|
       %p
-        Wiki Education Dashboard uses the AI detector Pangram to screen for
-        AI-generated text (which should generally not be added to Wikipedia).
-        Pangram classified text from the following page as like AI-generated:
+        Wiki Education Dashboard uses the AI detector Pangram to screen for AI-generated text.
+        As a reminder, AI text should not be added to Wikipedia. Pangram classified text from
+        the following page as likely AI-generated:
       %p
         %strong
           %a{href: @alert.page_url}= @alert.article_title
@@ -15,6 +15,10 @@
         We want to collect some additional information
         from you, to help us improve how we handle AI text in Wikipedia assignments
         and to better understand the reliability of this AI detection system.
+      %p
+        Thanks for answering the following questions to help us improve our approach to
+        AI text in Wikipedia assignments and to better understand the reliability of
+        this AI detection system.
       .form-group
         %label How did you use AI?
         %label.no-label
