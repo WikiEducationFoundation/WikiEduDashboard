@@ -10,8 +10,13 @@ class AlertFollowupController < ApplicationController
   end
 
   def update
+    # This implementation is specific to the
+    # AiEditAlert followup questionnaire.
+    # If other alert types are supported for
+    # followups, the update logic should
+    # be delegated to the idividual alert types.
     response_hash = {
-      validation: params['validation'],
+      AI_how_used: params['ai_how_used'],
       AIs_used: params['ai_tools'],
       AI_other: params['tools_other'],
       used_for: params['ai_used_for'],
