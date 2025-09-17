@@ -22,21 +22,25 @@
       .form-group
         %label How did you use AI?
         %label.no-label
-          = f.radio_button :validation, 'AI text generation'
+          = f.check_box(:ai_how_used, { multiple: true }, :generate_text, nil)
           I used an AI tool to generate text.
         %br
         %label.no-label
-          = f.radio_button :validation, 'AI copyediting'
+          = f.check_box(:ai_how_used, { multiple: true }, :copyedit_text, nil)
           I used an AI tool for editing text I wrote.
         %br  
         %label.no-label
-          = f.radio_button :validation, 'AI not used'
+          = f.check_box(:ai_how_used, { multiple: true }, :false_positive, nil)
           FALSE POSITIVE: I didn't use any AI tool. (<em>Skip to the end and Submit.</em>)
       .form-group
         %label Which AI tool(s) did you use:
         %label.no-label
           = f.check_box(:ai_tools, { multiple: true }, :ChatGPT, nil)
           ChatGPT
+        %br
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :Claude, nil)
+          Claude
         %br
         %label.no-label
           = f.check_box(:ai_tools, { multiple: true }, :Perplexity, nil)
