@@ -40,7 +40,7 @@ describe SplitTimeslices do
           ts.attributes.slice(
             'start', 'end',
             'character_sum', 'references_count',
-            'revision_count',
+            'revision_count', 'stats',
             'last_mw_rev_datetime', 'needs_update'
           )
         end
@@ -80,7 +80,7 @@ describe SplitTimeslices do
           ts.attributes.slice(
             'start', 'end',
             'character_sum', 'references_count',
-            'revision_count',
+            'revision_count', 'stats',
             'last_mw_rev_datetime', 'needs_update'
           )
         end
