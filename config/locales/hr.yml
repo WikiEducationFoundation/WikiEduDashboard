@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Bugoslav
 # Author: Ivi104
+# Author: MaGa
 # Author: Neptune, the Mystic
 # Author: Ponor
 # Author: Vrhnje
@@ -47,6 +48,8 @@ hr:
   training:
     kind:
       discussion: Rasprava
+  uploads:
+    file_usage: Uporaba datoteke na drugim wikijima
   users:
     training_incomplete: Nepotpun trening
   error:
