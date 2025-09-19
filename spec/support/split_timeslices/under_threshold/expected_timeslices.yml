@@ -1,0 +1,71 @@
+timeslice_1:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 23522
+  references_count: 52
+  revision_count: 28
+  stats:
+    merged to: 0
+    interwiki links added: 0
+    claims created: 5
+    claims removed: 1
+    claims changed: 22
+    items cleared: 0
+    items created: 0
+    labels added: 0
+    labels removed: 0
+    labels changed: 0
+    descriptions added: 0
+    descriptions removed: 0
+    descriptions changed: 0
+    aliases added: 0
+    aliases removed: 0
+    aliases changed: 0
+    references added: 27
+    qualifiers added: 0
+    redirects created: 0
+    reverts performed: 0
+    restorations performed: 0
+    references removed: 1
+    references changed: 0
+    qualifiers removed: 0
+    qualifiers changed: 0
+    interwiki links removed: 0
+    interwiki links updated: 0
+    merged from: 0
+    lemmas added: 0
+    lemmas removed: 0
+    lemmas changed: 0
+    forms added: 0
+    forms removed: 0
+    forms changed: 0
+    senses added: 0
+    senses removed: 0
+    senses changed: 0
+    properties created: 0
+    lexeme items created: 0
+    representations added: 0
+    representations removed: 0
+    representations changed: 0
+    glosses added: 0
+    glosses removed: 0
+    glosses changed: 0
+    form claims added: 0
+    form claims removed: 0
+    form claims changed: 0
+    sense claims added: 0
+    sense claims removed: 0
+    sense claims changed: 0
+    total revisions: 28
+  last_mw_rev_datetime: 2025-08-26 22:57:06 UTC
+  needs_update: false
+
+timeslice_2:
+  start: 2025-08-27 17:00:00 UTC
+  end: 2025-08-28 17:00:00 UTC
+  character_sum: 0
+  references_count: 0
+  revision_count: 0
+  stats: {}
+  last_mw_rev_datetime: 
+  needs_update: false

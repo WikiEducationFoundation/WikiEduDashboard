@@ -3,7 +3,7 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
 
-describe UpdateCourseStatsTimeslice do
+describe UpdateCourseStats do
   before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
 
   let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30', flags:) }
@@ -173,7 +173,7 @@ describe UpdateCourseStatsTimeslice do
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
       # one error for each timeslice that tried to update
-      expect(course.flags['update_logs'][1]['error_count']).to eq 5
+      expect(course.flags['update_logs'][1]['error_count']).to eq 10
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
     end
 

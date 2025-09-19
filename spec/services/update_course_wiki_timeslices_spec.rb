@@ -161,7 +161,7 @@ describe UpdateCourseWikiTimeslices do
 
       expected_dates.each do |start_time, end_time|
         expected_wikis.each do |wiki|
-          expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+          expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_full_data_for_course_wiki)
             .with(wiki, start_time, end_time, only_new: true)
             .once
             .and_call_original
@@ -186,10 +186,10 @@ describe UpdateCourseWikiTimeslices do
       CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-30 00:00:00')
                          .update(needs_update: true)
 
-      # fetch_data_for_course_wiki gets called 12 times:
+      # fetch_full_data_for_course_wiki gets called 12 times:
       # 0 for reprocessing + 5 from [2018-11-26, 2018-11-30] for wikipedia
       # + 7 from [2018-11-24, 2018-11-30] for wikidata
-      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_full_data_for_course_wiki)
         .exactly(12).times.and_call_original
 
       VCR.use_cassette 'course_wiki_timeslices_update' do
@@ -210,10 +210,10 @@ describe UpdateCourseWikiTimeslices do
       CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-25 00:00:00')
                          .update(needs_update: true)
 
-      # fetch_data_for_course_wiki gets called 13 times:
+      # fetch_full_data_for_course_wiki gets called 13 times:
       # 2 for reprocessing + 4 from [2018-11-27, 2018-11-30] for wikipedia
       # + 7 from [2018-11-24, 2018-11-30] for wikidata
-      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_full_data_for_course_wiki)
         .exactly(13).times.and_call_original
 
       VCR.use_cassette 'course_wiki_timeslices_update' do
@@ -292,7 +292,7 @@ describe UpdateCourseWikiTimeslices do
 
     it 'sets needs_update to false even if the update fails' do
       # Stub something to raise an error
-      allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_data_for_course_wiki)
+      allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_full_data_for_course_wiki)
         .and_raise(StandardError, 'simulate failure')
 
       # Rescue the expected error to prevent spec from failing

@@ -16,7 +16,7 @@ make_copy_of 'https://outreachdashboard.wmflabs.org/courses/CodeTheCity/WODD-Wik
 puts 'Warmup...'
 ActiveRecord::Base.transaction do
   # Warmup
-  UpdateCourseStatsTimeslice.new(@course)
+  UpdateCourseStats.new(@course)
   raise ActiveRecord::Rollback
 end
 
@@ -31,7 +31,7 @@ result = Benchmark.measure do
   10.times do
     printf('.')
     ActiveRecord::Base.transaction do
-      UpdateCourseStatsTimeslice.new(@course)
+      UpdateCourseStats.new(@course)
       raise ActiveRecord::Rollback
     end
   end
@@ -43,12 +43,12 @@ raise unless Article.count.zero?
 puts '### Hot Database'
 
 ActiveRecord::Base.transaction do
-  UpdateCourseStatsTimeslice.new(@course)
+  UpdateCourseStats.new(@course)
 
   result = Benchmark.measure do
     10.times do
       printf('.')
-      UpdateCourseStatsTimeslice.new(@course)
+      UpdateCourseStats.new(@course)
     end
   end
   puts result

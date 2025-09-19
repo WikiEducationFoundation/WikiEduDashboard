@@ -30,7 +30,7 @@ class CourseRevisionUpdater
   # If the only_new argument is true, revisions scores will only be fetched if there are new
   # revisions for that timeslice. The new_data field is true if new revisions were found.
   # This optimization was added to improve performance.
-  def fetch_data_for_course_wiki(wiki, ts_start, ts_end, only_new: false)
+  def fetch_full_data_for_course_wiki(wiki, ts_start, ts_end, only_new: false)
     return empty_response(wiki, ts_start, ts_end) if no_point_in_importing_revisions?
     revision_data, new_revisions = fetch_data(wiki, ts_start, ts_end, only_new:)
     response = format_revision_response(wiki, ts_start, ts_end, revision_data, new_revisions)
@@ -38,6 +38,13 @@ class CourseRevisionUpdater
     revisions = response.values.flat_map { |data| data[:revisions] }.flatten
     ArticlesCourses.update_from_course_revisions(@course, revisions)
     response
+  end
+
+  # Same as fetch_full_data_for_course_wiki but without fetching revision scores.
+  def fetch_revisions_for_course_wiki(wiki, ts_start, ts_end)
+    return empty_response(wiki, ts_start, ts_end) if no_point_in_importing_revisions?
+    revision_data = fetch_revisions(wiki, ts_start, ts_end)
+    format_revision_response(wiki, ts_start, ts_end, revision_data, false)
   end
 
   private
@@ -57,6 +64,11 @@ class CourseRevisionUpdater
   def empty_response(wiki, timeslice_start, timeslice_end)
     new_revisions = new_revisions?([], wiki, timeslice_start)
     format_revision_response(wiki, timeslice_start, timeslice_end, [], new_revisions)
+  end
+
+  def fetch_revisions(wiki, timeslice_start, timeslice_end)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
+    manager.fetch_revision_data_for_course(timeslice_start, timeslice_end)
   end
 
   # Fetches revisions and maybe scores for them.
