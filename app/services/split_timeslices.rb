@@ -51,7 +51,9 @@ class SplitTimeslices
   # This is because the revisions API expects start and end times in
   # YYYY-MM-DD HH:MM:SS format, which does not allow fractions of a second.
   def splittable?(start_date, end_date)
-    seconds = ((end_date - start_date) * 24 * 60 * 60).to_i
+    # Ensure start and end are times here, since otherwise the substraction
+    # works differently.
+    seconds = (end_date.to_time - start_date.to_time).to_i
     seconds.even?
   end
 
