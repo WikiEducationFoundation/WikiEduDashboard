@@ -21,7 +21,7 @@ describe SplitTimeslices do
 
   describe '#handle' do
     context 'when revisions exceed threshold' do
-      let(:path) { 'spec/support/split_timeslices/over_threshold/expected_timeslices.yml' }
+      let(:path) { 'spec/support/split_timeslices/over_threshold/' }
 
       before do
         stub_const('SplitTimeslices::REVISION_THRESHOLD', 10)
@@ -36,7 +36,7 @@ describe SplitTimeslices do
           expect(dates.size).to eq(9)
         end
 
-        actual = course.course_wiki_timeslices.map do |ts|
+        cw_actual = course.course_wiki_timeslices.map do |ts|
           ts.attributes.slice(
             'start', 'end',
             'character_sum', 'references_count',
@@ -45,9 +45,9 @@ describe SplitTimeslices do
           )
         end
 
-        expected = YAML.load_file(Rails.root + path)
+        cw_expected = YAML.load_file(Rails.root + path + 'expected_timeslices.yml')
 
-        expected.each_value do |ts|
+        cw_expected.each_value do |ts|
           # Ensure dates are timezone and not strings
           ts['start'] = ts['start'].in_time_zone
           ts['end'] = ts['end'].in_time_zone
@@ -57,12 +57,48 @@ describe SplitTimeslices do
           end
         end
 
-        expect(actual).to match_array(expected.values)
+        expect(cw_actual).to match_array(cw_expected.values)
+
+        ac_actual = course.article_course_timeslices.map do |ts|
+          ts.attributes.slice(
+            'start', 'end', 'character_sum', 'references_count',
+            'revision_count', 'new_article', 'tracked', 'first_revision', 'user_ids'
+          )
+        end
+
+        ac_expected = YAML.load_file(Rails.root + path + 'expected_ac_timeslices.yml')
+
+        ac_expected.each_value do |ts|
+          # Ensure dates are timezone and not strings
+          ts['start'] = ts['start'].in_time_zone
+          ts['end'] = ts['end'].in_time_zone
+          ts['first_revision'] = ts['first_revision'].in_time_zone
+          ts['user_ids'] = [user.id]
+        end
+
+        expect(ac_actual).to match_array(ac_expected.values)
+
+        cuw_actual = course.course_user_wiki_timeslices.map do |ts|
+          ts.attributes.slice(
+            'start', 'end', 'character_sum_ms', 'character_sum_us',
+            'character_sum_draft', 'references_count', 'revision_count'
+          )
+        end
+
+        cuw_expected = YAML.load_file(Rails.root + path + 'expected_cuw_timeslices.yml')
+
+        cuw_expected.each_value do |ts|
+          # Ensure dates are timezone and not strings
+          ts['start'] = ts['start'].in_time_zone
+          ts['end'] = ts['end'].in_time_zone
+        end
+
+        expect(cuw_actual).to match_array(cuw_expected.values)
       end
     end
 
     context 'when revisions do not exceed threshold' do
-      let(:path) { 'spec/support/split_timeslices/under_threshold/expected_timeslices.yml' }
+      let(:path) { 'spec/support/split_timeslices/under_threshold/' }
 
       before do
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
@@ -76,7 +112,7 @@ describe SplitTimeslices do
           expect(dates.size).to eq(1)
         end
 
-        actual = course.course_wiki_timeslices.map do |ts|
+        cw_actual = course.course_wiki_timeslices.map do |ts|
           ts.attributes.slice(
             'start', 'end',
             'character_sum', 'references_count',
@@ -85,9 +121,9 @@ describe SplitTimeslices do
           )
         end
 
-        expected = YAML.load_file(Rails.root + path)
+        cw_expected = YAML.load_file(Rails.root + path + 'expected_timeslices.yml')
 
-        expected.each_value do |ts|
+        cw_expected.each_value do |ts|
           # Ensure dates are timezone and not strings
           ts['start'] = ts['start'].in_time_zone
           ts['end'] = ts['end'].in_time_zone
@@ -97,7 +133,43 @@ describe SplitTimeslices do
           end
         end
 
-        expect(actual).to match_array(expected.values)
+        expect(cw_actual).to match_array(cw_expected.values)
+
+        ac_actual = course.article_course_timeslices.map do |ts|
+          ts.attributes.slice(
+            'start', 'end', 'character_sum', 'references_count',
+            'revision_count', 'new_article', 'tracked', 'first_revision', 'user_ids'
+          )
+        end
+
+        ac_expected = YAML.load_file(Rails.root + path + 'expected_ac_timeslices.yml')
+
+        ac_expected.each_value do |ts|
+          # Ensure dates are timezone and not strings
+          ts['start'] = ts['start'].in_time_zone
+          ts['end'] = ts['end'].in_time_zone
+          ts['first_revision'] = ts['first_revision'].in_time_zone
+          ts['user_ids'] = [user.id]
+        end
+
+        expect(ac_actual).to match_array(ac_expected.values)
+
+        cuw_actual = course.course_user_wiki_timeslices.map do |ts|
+          ts.attributes.slice(
+            'start', 'end', 'character_sum_ms', 'character_sum_us',
+            'character_sum_draft', 'references_count', 'revision_count'
+          )
+        end
+
+        cuw_expected = YAML.load_file(Rails.root + path + 'expected_cuw_timeslices.yml')
+
+        cuw_expected.each_value do |ts|
+          # Ensure dates are timezone and not strings
+          ts['start'] = ts['start'].in_time_zone
+          ts['end'] = ts['end'].in_time_zone
+        end
+
+        expect(cuw_actual).to match_array(cuw_expected.values)
       end
     end
   end
