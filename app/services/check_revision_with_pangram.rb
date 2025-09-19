@@ -79,7 +79,7 @@ class CheckRevisionWithPangram
                                             user_id: @user_id,
                                             course_id: @course_id,
                                             article_id: @article&.id,
-                                            details: pangram_details)
+                                            pangram_details:)
   end
 
   def alert_already_exists?
