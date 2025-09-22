@@ -155,13 +155,13 @@ class SplitTimeslices
     @course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
-  def log_processing(wiki, start_date, end_date, reprocessing)
-    if reprocessing
+  def log_processing(wiki, start_date, end_date, processing)
+    if processing
       Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
-      Reprocessing timeslice [#{start_date}, #{end_date}]"
+      Processing timeslice [#{start_date}, #{end_date}]"
     else
       Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
-      Proprocessing timeslice [#{start_date}, #{end_date}]"
+      Reprocessing timeslice [#{start_date}, #{end_date}]"
     end
   end
 end
