@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Malikxan
+# Author: Mirishkorlik
 # Author: Nataev
 # Author: Sociologist
 ---
@@ -9,17 +10,33 @@ uz:
   number:
     human:
       decimal_units:
+        format: '%n%u'
         units:
           thousand: K
           million: M
           billion: M
           trillion: T
           quadrillion: K
+  accessibility:
+    number_field: Bu raqamli maydon. Ko‘pchilik brauzerlar tomonidan ko‘rsatiladigan
+      tugmalar kiritilgan qiymatni oshirish va kamaytirish imkonini beradi.
   application:
+    back: Orqaga
     cancel: Bekor qilish
+    cookie_consent: Bu sayt hisobingizga kirishda davom etish uchun cookie fayllaridan
+      foydalanadi va Vikipediya hisobingizga tegishli ma’lumotlarni saqlaydi.
+    cookie_consent_acknowledge: Tushundim
+    cookie_consent_see_more: Batafsil.
+    create_accounts: Vikipediya hisoblarini yaratish
     dashboard: Vikipediya Taʼlim dasturi paneli
     documentation: Hujjat
+    error: 'Xatolik yuz berdi:'
+    explore: Kezish
     field_required: Ushbu qator toʻldirilishi shart
+    field_invalid_characters: Bu maydonda yaroqsiz belgilar mavjud
+    field_invalid_date: Ushbu maydon uchun YYYY-MM-DD formatidagi sana talab qilinadi
+    field_invalid_date_time: Oxiri boshlanishidan keyin bo‘lishi shart. (Soatlar 0
+      dan 23 gacha hisoblanadi.)
     greeting2: Xush kelibsiz!
     greeting_extended: Vikipediyaga xush kelibsiz
     greeting: Salom!
@@ -34,6 +51,12 @@ uz:
     request_account: Hisob yaratilishini iltimos qilish
     request_account_create: Hisob yaratish
     search: Savol berish
+    search_results:
+      one: '%{count} Natija: '' %{search_terms}'''
+      other: '% {count} Natijalar: ''%{search_terms}'''
+    no_results: '''%{query}'' uchun hech qanday natija topilmadi'
+    show_current_revision: Joriy versiyani ko'rsatish
+    show_last_revision: Oxirgi tahrirlangan versiyani ko'rsatish
     sign_up_extended: Vikipediya hisobi yordamida roʻyxatdan oʻtish
     sign_up_wikipedia: yoki Vikipediyada roʻyxatdan oʻtish
     sign_up_log_in_extended: Vikipediya hisobi bilan
@@ -47,9 +70,11 @@ uz:
     opt_out: Yoʻq
     opt_yes: ha
     opt_no: yoʻq
+    print: Chop etish
   article_statuses:
     not_yet_started: Boshlash
     in_progress: Qumloqda ishlash
+    ready_for_review: Qoralama kengaytirilmoqda
     ready_for_mainspace: Ishni asosiy nomfazoga oʻtkazish
     assignment_completed: Topshiriq tugallangan deb belgilandi
     reading_the_article: Maqolani oʻqish
@@ -58,12 +83,23 @@ uz:
     peer_review_completed: Koʻrib chiqish yakunlandi
   dashboard:
     create_note: Ilk kursingizni yaratish uchun „Kurs yaratish“ tugmasini bosing
+    create_preparation_note: Ishni boshlashdan oldin qo‘lingizda akademik taqvimingiz
+      bo‘lishi kerak; topshiriqlarni loyihalash vositasi sinfingizning uchrashuv sanalari,
+      jumladan, maktabdagi har qanday tanaffus va ta’tillardan foydalanib, vaqt jadvalingizni
+      o‘zingiz tanlagan sanalar oralig‘iga moslashtiradi. Yodda tuting, istalgan vaqtda
+      vaqt jadvalini ehtiyojlaringizga moslab tahrirlashingiz mumkin.
     explore_course_pages: Kurs sahifalarini koʻrib chiqish
     explore_examples: Misollarni koʻrib chiqish
     join_note: Oʻqituvchingizdan kod olganingizdan keyin, kursni topish va unga qoʻshilish
       uchun „Kursingizni topish“ tugmasini bosing.
     no_courses_instructor: Aftidan, sizda hali hech qanday kurs yoʻq.
     no_courses_student: Aftidan, hali siz kursga qoʻshilganingiz yoʻq.
+    opt_out: Yo‘nalishdan voz kechish so‘rovi
+    orientation_notice: Kurs yaratishdan oldin, keling, sizga boshlashda yordam berish
+      uchun yo‘riqnoma bilan tanishib chiqaylik. (Buning uchun taxminan 30 daqiqa
+      vaqt ketadi.)
+    review_orientation: Yo‘nalishni ko‘rib chiqish
+    start_orientation: Yo‘nalishni boshlash
   home:
     log_in: Vikipediya hisobi bilan kirish
     sign_up: Vikipediya hisobi yordamida roʻyxatdan oʻtish

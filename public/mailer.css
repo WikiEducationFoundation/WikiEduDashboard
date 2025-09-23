@@ -98,6 +98,10 @@ li.numbered-item {
   font-weight: 300;
 }
 
+h2.info {
+  font-size: 18px;
+}
+
 .trainings-table-cell {
   border: 1px solid #999999;
   padding: 10px;

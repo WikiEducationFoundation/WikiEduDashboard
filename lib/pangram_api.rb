@@ -8,7 +8,7 @@ class PangramApi
     @api_key = ENV['pangram_api_key']
   end
 
-  SLIDING_WINDOW_URL = 'https://text-sliding.api.pangramlabs.com'
+  SLIDING_WINDOW_URL = 'https://dashboard-text.api.pangram.com'
   def inference(text)
     conn = Faraday.new(
       url: SLIDING_WINDOW_URL,

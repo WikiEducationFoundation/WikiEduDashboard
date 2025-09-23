@@ -46,8 +46,18 @@ class CheckRevisionWithPangram
   end
 
   def generate_plaintext_from_html
+    # First remove the <table> elements, which contain template content in exercise sandboxes
+    # and are likely to contain non-prose in other cases.
+    @cleaned_html = remove_html_tables(@rev_html)
     # Convert the HTML to plain text, then remove the edit button leftovers
-    @plain_text = ActionView::Base.full_sanitizer.sanitize(@rev_html).gsub('[edit]', '')
+    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html).gsub('[edit]', '')
+  end
+
+  def remove_html_tables(html)
+    doc = Nokogiri::HTML(html)
+    tables = doc.xpath('//table')
+    tables.each(&:remove)
+    doc.to_html
   end
 
   def fetch_pangram_inference
@@ -65,13 +75,11 @@ class CheckRevisionWithPangram
     return if alert_already_exists?
 
     find_article
-    alert = Alert.create!(type: 'AiEditAlert',
-                          revision_id: @mw_rev_id,
-                          user_id: @user_id,
-                          course_id: @course_id,
-                          article_id: @article&.id,
-                          details: pangram_details)
-    alert.email_content_expert
+    AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
+                                            user_id: @user_id,
+                                            course_id: @course_id,
+                                            article_id: @article&.id,
+                                            pangram_details:)
   end
 
   def alert_already_exists?
@@ -91,7 +99,8 @@ class CheckRevisionWithPangram
       max_ai_likelihood:,
       fraction_ai_content:,
       predicted_ai_window_count:,
-      predicted_llm:
+      predicted_llm:,
+      pangram_share_link:
     }
   end
 
@@ -124,5 +133,9 @@ class CheckRevisionWithPangram
   def predicted_llm
     return nil if fraction_ai_content.zero?
     @pangram_result['llm_prediction'].key(@pangram_result['llm_prediction'].values.max)
+  end
+
+  def pangram_share_link
+    @pangram_result['dashboard_link']
   end
 end
