@@ -3,7 +3,7 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
 
-describe UpdateCourseStatsTimeslice do
+describe UpdateCourseStats do
   before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
 
   let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30', flags:) }
