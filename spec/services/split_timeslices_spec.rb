@@ -17,11 +17,11 @@ def compare_course_wiki_timeslices(course, path)
 
   cw_expected.each_value do |ts|
     # Ensure dates are timezone and not strings
-    ts['start'] = ts['start'].in_time_zone
-    ts['end'] = ts['end'].in_time_zone
+    ts['start'] = ts['start'].to_time.in_time_zone('UTC')
+    ts['end'] = ts['end'].to_time.in_time_zone('UTC')
     if ts['last_mw_rev_datetime']
       ts['last_mw_rev_datetime'] =
-        ts['last_mw_rev_datetime'].in_time_zone
+        ts['last_mw_rev_datetime'].to_time.in_time_zone('UTC')
     end
   end
 
@@ -40,9 +40,9 @@ def compare_article_course_timeslices(course, path)
 
   ac_expected.each_value do |ts|
     # Ensure dates are timezone and not strings
-    ts['start'] = ts['start'].in_time_zone
-    ts['end'] = ts['end'].in_time_zone
-    ts['first_revision'] = ts['first_revision'].in_time_zone
+    ts['start'] = ts['start'].to_time.in_time_zone('UTC')
+    ts['end'] = ts['end'].to_time.in_time_zone('UTC')
+    ts['first_revision'] = ts['first_revision'].to_time.in_time_zone('UTC')
     ts['user_ids'] = [user.id]
   end
 
@@ -61,8 +61,8 @@ def compare_course_user_wiki_timeslices(course, path)
 
   cuw_expected.each_value do |ts|
     # Ensure dates are timezone and not strings
-    ts['start'] = ts['start'].in_time_zone
-    ts['end'] = ts['end'].in_time_zone
+    ts['start'] = ts['start'].to_time.in_time_zone('UTC')
+    ts['end'] = ts['end'].to_time.in_time_zone('UTC')
   end
 
   expect(cuw_actual).to match_array(cuw_expected.values)
@@ -95,9 +95,9 @@ describe SplitTimeslices do
       it 'splits the timeslice recursively' do
         expect(course.course_wiki_timeslices.count).to eq(2)
         VCR.use_cassette 'split_timeslices/over_threshold' do
-          dates = splitter.handle(wiki, start, end_date)
-          expect(dates).to all(be_a(DateTime))
-          expect(dates.size).to eq(9)
+          dates = splitter.handle(wiki, course.start, course.end)
+          expect(dates).to all(be_a(Time))
+          expect(dates.size).to eq(10)
         end
         compare_course_wiki_timeslices(course, path)
         compare_article_course_timeslices(course, path)
@@ -115,8 +115,8 @@ describe SplitTimeslices do
       it 'does not split the timeslice' do
         expect(course.course_wiki_timeslices.count).to eq(2)
         VCR.use_cassette 'split_timeslices/under_threshold' do
-          dates = splitter.handle(wiki, start, end_date)
-          expect(dates).to all(be_a(DateTime))
+          dates = splitter.handle(wiki, course.start, course.end)
+          expect(dates).to all(be_a(Time))
           expect(dates.size).to eq(1)
         end
         compare_course_wiki_timeslices(course, path)

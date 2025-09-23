@@ -28,7 +28,7 @@ class SplitTimeslices
   # start_date and end_date are the limits of the timeslice records
   def handle(wiki, start_date, end_date, only_new: true)
     fetch_only_revisions(wiki, start_date, end_date)
-    if too_many_revisions?(wiki) && splittable?(start_date, end_date)
+    if too_many_revisions?(wiki)
       split_timeslice(wiki, start_date, end_date)
     else
       log_processing(wiki, start_date, end_date, only_new)
@@ -47,23 +47,20 @@ class SplitTimeslices
     @revisions[wiki][:revisions].count(&:scoped) > REVISION_THRESHOLD
   end
 
-  # A timeslice is not split if its duration is an odd number of seconds.
-  # This is because the revisions API expects start and end times in
-  # YYYY-MM-DD HH:MM:SS format, which does not allow fractions of a second.
-  def splittable?(start_date, end_date)
-    # Ensure start and end are times here, since otherwise the substraction
-    # works differently.
-    seconds = (end_date.to_time - start_date.to_time).to_i
-    seconds.even?
-  end
-
   def split_timeslice(wiki, start_date, end_date)
     # Delete course wiki timeslice that exceeds REVISION_THRESHOLD. Note this timeslice
     # may not exist. We also need to delete ACT and CUWT associated to that wiki and dates.
     @timeslice_cleaner.delete_timeslices_for_period([wiki], start_date, end_date)
 
-    middle_point = start_date + ((end_date - start_date) / 2)
-    handle(wiki, start_date, middle_point) + handle(wiki, middle_point, end_date)
+    period_in_seconds = (end_date - start_date) / 2.0
+    midpoint = start_date + period_in_seconds
+    # Adjust midpoint if the number of seconds between start_data and end_date is
+    # an odd number. This is because the revisions API expects start and end times in
+    # YYYY-MM-DD HH:MM:SS format, which does not allow fractions of a second. Therefore,
+    # if we have a fraction of a second at the midpoint, we add half a second to complete it.
+    midpoint += 0.5.seconds unless (period_in_seconds.to_i - period_in_seconds).zero?
+
+    handle(wiki, start_date, midpoint) + handle(wiki, midpoint, end_date)
   end
 
   def fetch_revisions(wiki, timeslice_start, timeslice_end, only_new:)
