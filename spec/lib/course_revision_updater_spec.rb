@@ -4,7 +4,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/course_revision_updater"
 
 describe CourseRevisionUpdater do
-  describe '#fetch_full_data_for_course_wiki' do
+  describe '#fetch_scores_for_revisions' do
     let(:user) { create(:user, username: 'Tedholtby') }
     let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:start_date) { '20160320000000' }
@@ -24,11 +24,12 @@ describe CourseRevisionUpdater do
         end: end_date.to_datetime + 1.day)
       end
 
-      it 'fetches all the revisions with scores if only_new is false' do
+      it 'fetches all the scores if only_new is false' do
         VCR.use_cassette 'course_revision_updater' do
-          revision_data = instance_class.fetch_full_data_for_course_wiki(wiki, start_date, end_date)
-          expect(revision_data[wiki][:new_data]).to eq(true)
-          revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
+          revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions)
+          expect(revisions_with_scores[wiki][:new_data]).to eq(true)
+          revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
 
           expected_article = Article.find_by(wiki_id: 1,
@@ -50,12 +51,13 @@ describe CourseRevisionUpdater do
         end
       end
 
-      it 'fetches all the revisions with scoress if only_new is true and new revisions' do
+      it 'fetches all the scores if only_new is true and new revisions' do
         VCR.use_cassette 'course_revision_updater' do
-          revision_data = instance_class.fetch_full_data_for_course_wiki(wiki, start_date, end_date,
-                                                                         only_new: true)
-          expect(revision_data[wiki][:new_data]).to eq(true)
-          revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
+          revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions,
+                                                                            only_new: true)
+          expect(revisions_with_scores[wiki][:new_data]).to eq(true)
+          revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
 
           expected_article = Article.find_by(wiki_id: 1,
@@ -83,10 +85,11 @@ describe CourseRevisionUpdater do
         course.course_wiki_timeslices.update(revision_count: 3,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
-          revision_data = instance_class.fetch_full_data_for_course_wiki(wiki, start_date, end_date,
-                                                                         only_new: true)
-          expect(revision_data[wiki][:new_data]).to eq(false)
-          revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
+          revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions,
+                                                                            only_new: true)
+          expect(revisions_with_scores[wiki][:new_data]).to eq(false)
+          revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
 
           expected_article = Article.find_by(wiki_id: 1,
@@ -115,11 +118,12 @@ describe CourseRevisionUpdater do
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
-          revision_data = instance_class.fetch_full_data_for_course_wiki(wiki, '20160331092530',
-                                                                         '20160331225055',
-                                                                         only_new: true)
-          expect(revision_data[wiki][:new_data]).to eq(false)
-          revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, '20160331092530',
+                                                                     '20160331225055')
+          revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions,
+                                                                            only_new: true)
+          expect(revisions_with_scores[wiki][:new_data]).to eq(false)
+          revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
 
           expected_article = Article.find_by(wiki_id: 1,
@@ -152,8 +156,8 @@ describe CourseRevisionUpdater do
       end
 
       it 'skips import if no tracked articles' do
-        expect(scoped_instance_class).not_to receive(:fetch_data)
-        response = scoped_instance_class.fetch_full_data_for_course_wiki(wiki, start_date, end_date)
+        expect(scoped_instance_class).not_to receive(:fetch_revisions)
+        response = scoped_instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
         expect(response[wiki][:revisions]).to eq([])
       end
     end
@@ -182,7 +186,7 @@ describe CourseRevisionUpdater do
       it 'fetches all the revisions without scores' do
         VCR.use_cassette 'course_revision_updater' do
           revision_data = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
-          expect(revision_data[wiki][:new_data]).to eq(false)
+          expect(revision_data[wiki][:new_data]).to eq(true)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
 
@@ -248,7 +252,7 @@ describe CourseRevisionUpdater do
       end
 
       it 'skips import if no tracked articles' do
-        expect(scoped_instance_class).not_to receive(:fetch_data)
+        expect(scoped_instance_class).not_to receive(:fetch_revisions)
         response = scoped_instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
         expect(response[wiki][:revisions]).to eq([])
       end
