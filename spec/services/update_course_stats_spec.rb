@@ -173,7 +173,7 @@ describe UpdateCourseStats do
       end
       sentry_tag_uuid = subject.sentry_tag_uuid
       # one error for each timeslice that tried to update
-      expect(course.flags['update_logs'][1]['error_count']).to eq 10
+      expect(course.flags['update_logs'][1]['error_count']).to eq 5
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
     end
 

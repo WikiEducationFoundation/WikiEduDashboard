@@ -515,7 +515,7 @@ describe 'the course page', type: :feature, js: true do
       login_as(super_admin)
       stub_oauth_edit
 
-      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_full_data_for_course_wiki)
+      expect_any_instance_of(CourseRevisionUpdater).to receive(:fetch_revisions_for_course_wiki)
         .at_least(1)
         .and_call_original
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
