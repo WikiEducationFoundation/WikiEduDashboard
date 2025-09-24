@@ -34,7 +34,7 @@ class SplitTimeslices
       log_processing(wiki, start_date, end_date, only_new)
       # Ensure course wiki timeslice exists for course, wiki and dates
       @timeslice_manager.maybe_create_course_wiki_timeslice(wiki.id, start_date, end_date)
-      fetch_revisions(wiki, start_date, end_date, only_new:)
+      add_scores(only_new:)
       maybe_fetch_wikidata_stats(wiki)
       process_timeslices(wiki) if !only_new | new_data?(wiki)
       [start_date]
@@ -63,14 +63,8 @@ class SplitTimeslices
     handle(wiki, start_date, midpoint) + handle(wiki, midpoint, end_date)
   end
 
-  def fetch_revisions(wiki, timeslice_start, timeslice_end, only_new:)
-    # Fetches revision for wiki
-    @revisions = @revision_updater.fetch_full_data_for_course_wiki(
-      wiki,
-      real_start(timeslice_start).strftime('%Y%m%d%H%M%S'),
-      real_end(timeslice_end).strftime('%Y%m%d%H%M%S'),
-      only_new:
-    )
+  def add_scores(only_new:)
+    @revision_updater.fetch_scores_for_revisions(@revisions, only_new:)
   end
 
   def fetch_only_revisions(wiki, timeslice_start, timeslice_end)
