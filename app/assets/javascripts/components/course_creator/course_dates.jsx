@@ -11,6 +11,12 @@ const CourseDates = (props) => {
     props.updateCourseProps(updatedCourse);
     setHasUpdatedDateProps(true);
   };
+
+  const handleCalendarStartDayChange = (e) => {
+    const value = e.target.value === '1';
+    props.updateCourseProps({ is_monday_start: value });
+    props.updateCourseAction('is_monday_start', value);
+  };
   const dateProps = CourseDateUtils.dateProps(props.course);
   const timeZoneMessage = (
     <p className="form-help-text">
@@ -34,6 +40,7 @@ const CourseDates = (props) => {
         id="course_timeline_start"
         onChange={updateCourseDates}
         value={props.course.timeline_start}
+        isMondayStart={props.course.is_monday_start}
         value_key="timeline_start"
         editable
         label={CourseUtils.i18n('creator.assignment_start', props.stringPrefix)}
@@ -51,6 +58,7 @@ const CourseDates = (props) => {
         id="course_timeline_end"
         onChange={updateCourseDates}
         value={props.course.timeline_end}
+        isMondayStart={props.course.is_monday_start}
         value_key="timeline_end"
         editable
         label={CourseUtils.i18n('creator.assignment_end', props.stringPrefix)}
@@ -64,11 +72,26 @@ const CourseDates = (props) => {
       />
     );
   }
+
+  const calendarStartDaySelector = (
+    <div className="form-group">
+      <label htmlFor="course_start_day">{I18n.t('courses.creator.weeks_start_on')}:</label>
+      <select id="course_start_day" onChange={handleCalendarStartDayChange} value={props.course.is_monday_start ? '1' : '0'} aria-labelledby="course_start_day">
+        <option value="0">{I18n.t('courses.creator.sunday_to_saturday')}</option>
+        <option value="1">{I18n.t('courses.creator.monday_to_sunday')}</option>
+      </select>
+    </div>
+  );
+
+
   return (
     <div className={props.courseDateClass}>
       <p>{CourseUtils.i18n('creator.course_dates_info', props.stringPrefix)}</p>
+      {calendarStartDaySelector}
+      {/*  The key ensures the component re-renders when the is_monday_start value changes */}
       <DatePicker
         id="course_start"
+        key={`course_start_${props.course.is_monday_start}`}
         onChange={updateCourseDates}
         value={props.course.start}
         value_key="start"
@@ -79,9 +102,11 @@ const CourseDates = (props) => {
         blank
         isClearable={false}
         showTime={props.showTimeValues}
+        is_monday_start={props.course.is_monday_start}
       />
       <DatePicker
         id="course_end"
+        key={`course_end_${props.course.is_monday_start}`}
         onChange={updateCourseDates}
         value={props.course.end}
         value_key="end"
@@ -95,6 +120,7 @@ const CourseDates = (props) => {
         isClearable={false}
         showTime={props.showTimeValues}
         rerenderHoc={hasUpdatedDateProps}
+        is_monday_start={props.course.is_monday_start}
       />
       {timelineText}
       {timelineStart}
@@ -115,7 +141,7 @@ const CourseDates = (props) => {
             id="back"
             className="dark button button__submit next"
           >
-            Back
+            {I18n.t('application.back')}
           </button>
         )}
         {props.firstErrorMessage && (
@@ -134,7 +160,7 @@ const CourseDates = (props) => {
             id="next"
             className="dark button button__submit next"
           >
-            Next
+            {I18n.t('articles.next')}
           </button>
         )}
       </div>
