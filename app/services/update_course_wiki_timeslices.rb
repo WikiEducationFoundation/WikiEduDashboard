@@ -76,15 +76,14 @@ class UpdateCourseWikiTimeslices
   def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
-      start_date = [t.start, @course.start].max
       # Never reprocess a future timeslice
-      if start_date > ingestion_start
+      if t.start > ingestion_start
         t.update(needs_update: false)
         next
       end
 
       ActiveRecord::Base.transaction do
-        reprocessed_dates = @splitter.handle(wiki, start_date, t.end, only_new: false)
+        reprocessed_dates = @splitter.handle(wiki, t.start, t.end, only_new: false)
         @reprocessed_timeslices[wiki.id] += reprocessed_dates
       rescue StandardError => e
         log_error(e)
