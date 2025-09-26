@@ -105,53 +105,6 @@ describe TimesliceManager do
     end
   end
 
-  describe '#create_wiki_timeslices_for_period' do
-    let(:start_period) { DateTime.new(2024, 3, 22) }
-    let(:end_period) { DateTime.new(2024, 3, 23) }
-
-    before do
-      create(:courses_wikis, wiki: wikibooks, course:)
-      timeslice_manager.create_timeslices_for_new_course_wiki_records([wikibooks])
-      # Delete two timeslices
-      CourseWikiTimeslice.where(course:, wiki: wikibooks, start: start_period,
-                                end: end_period).delete_all
-      CourseWikiTimeslice.where(course:, wiki: wikibooks, start: end_period,
-                                end: end_period + 1.day).delete_all
-    end
-
-    it 'creates timeslices for the period' do
-      expect(course.course_wiki_timeslices.size).to eq(109)
-
-      timeslice_manager.create_wiki_timeslices_for_period(wikibooks, start_period, end_period)
-      course.reload
-      # Create two missing course wiki timeslice
-      expect(course.course_wiki_timeslices.size).to eq(111)
-      expect(course.course_wiki_timeslices.where(needs_update: true).size).to eq(2)
-    end
-  end
-
-  describe '#maybe_create_course_wiki_timeslice' do
-    let(:start_date) { DateTime.new(2024, 3, 22) }
-    let(:end_date) { DateTime.new(2024, 3, 23) }
-
-    it 'creates timeslice if it does not exist' do
-      expect(course.course_wiki_timeslices.size).to eq(0)
-
-      timeslice_manager.maybe_create_course_wiki_timeslice(wikibooks.id, start_date, end_date)
-      course.reload
-      expect(course.course_wiki_timeslices.size).to eq(1)
-    end
-
-    it 'does not fail if it already exists' do
-      CourseWikiTimeslice.create(course:, wiki_id: wikibooks.id, start: start_date, end: end_date)
-      expect(course.course_wiki_timeslices.size).to eq(1)
-
-      timeslice_manager.maybe_create_course_wiki_timeslice(wikibooks.id, start_date, end_date)
-      course.reload
-      expect(course.course_wiki_timeslices.size).to eq(1)
-    end
-  end
-
   describe '#get_ingestion_start_time_for_wiki' do
     context 'when no course wiki timeslices' do
       it 'returns course start date' do
