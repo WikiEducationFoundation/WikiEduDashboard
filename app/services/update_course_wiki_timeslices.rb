@@ -11,7 +11,7 @@ class UpdateCourseWikiTimeslices
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
-    @splitter = SplitTimeslices.new(@course, update_service:)
+    @splitter = SplitTimeslice.new(@course, update_service:)
     @debugger = debugger
     @update_service = update_service
     @processed_timeslices_count = 0

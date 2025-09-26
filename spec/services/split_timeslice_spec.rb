@@ -67,7 +67,7 @@ def compare_course_user_wiki_timeslices(course, path)
 
   expect(cuw_actual).to match_array(cuw_expected.values)
 end
-describe SplitTimeslices do
+describe SplitTimeslice do
   let(:start) { '2025-08-26 17:00:00'.to_datetime }
   let(:end_date) { '2025-08-27 17:00:00'.to_datetime }
   # Use basic_course to not override dates
@@ -88,7 +88,7 @@ describe SplitTimeslices do
       let(:path) { 'spec/support/split_timeslices/over_threshold/' }
 
       before do
-        stub_const('SplitTimeslices::REVISION_THRESHOLD', 10)
+        stub_const('SplitTimeslice::REVISION_THRESHOLD', 10)
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
       end
 

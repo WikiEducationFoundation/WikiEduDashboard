@@ -10,7 +10,7 @@ require_dependency "#{Rails.root}/lib/revision_scanner"
 # The algorithm starts with a default timeslice, fetches revisions for that period
 # and, if the timeslice exceeds the threshold, recursively splits it until all
 # timeslices are within limits.
-class SplitTimeslices
+class SplitTimeslice
   def initialize(course, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
