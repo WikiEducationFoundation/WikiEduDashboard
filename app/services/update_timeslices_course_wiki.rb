@@ -24,9 +24,6 @@ class UpdateTimeslicesCourseWiki
 
     new_wiki_ids = current_course_wiki_ids - processed_courses_wikis
     add_courses_wikis(new_wiki_ids)
-
-    # Check if some wiki changes timeslice duration
-    update_timeslices_durations
   end
 
   private
@@ -46,53 +43,5 @@ class UpdateTimeslicesCourseWiki
     Rails.logger.info { "UpdateTimeslicesCourseWiki: Adding wikis: #{wiki_ids}" }
     # Create course wiki timeslice records for new wikis
     @timeslice_manager.create_timeslices_for_new_course_wiki_records(wikis)
-  end
-
-  def update_timeslices_durations
-    recreate_timeslices_needing_update
-    recreate_unprocessed_timeslices
-  end
-
-  def recreate_unprocessed_timeslices
-    @course.wikis.each do |wiki|
-      start = @timeslice_manager.get_ingestion_start_time_for_wiki wiki
-      timeslice = @course.course_wiki_timeslices.where(wiki:, start:).first
-      next unless timeslice && needs_recreate?(timeslice,
-                                               @timeslice_manager.timeslice_duration(wiki))
-
-      @timeslice_cleaner.delete_course_wiki_timeslices_after_date([wiki], start - 1.second)
-      @timeslice_cleaner.delete_course_user_wiki_timeslices_after_date([wiki], start - 1.second)
-      @timeslice_cleaner.delete_article_course_timeslices_after_date([wiki], start - 1.second)
-      @timeslice_manager.create_wiki_timeslices_up_to_new_course_end_date(wiki)
-    end
-  end
-
-  def recreate_timeslices_needing_update
-    @course.wikis.each do |wiki|
-      CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update.find_each do |timeslice|
-        next unless needs_recreate?(timeslice,
-                                    @timeslice_manager.timeslice_duration(wiki),
-                                    needs_update: true)
-
-        @timeslice_cleaner.delete_timeslices_for_period([wiki], timeslice.start, timeslice.end)
-        @timeslice_manager.create_wiki_timeslices_for_period(wiki, timeslice.start,
-                                                             timeslice.end - 1.second)
-      end
-    end
-  end
-
-  # Determines whether a timeslice should be recreated.
-  # The criteria is:
-  # - For current or future timeslices: recreate if the new duration differs
-  #   from the effective duration.
-  # - For timeslices marked as needs_update:
-  #   recreate only if the new duration differs and evenly divides the effective duration.
-  def needs_recreate?(timeslice, new_duration, needs_update: false)
-    effective_duration = timeslice.end - timeslice.start
-    # No need to recreate if duration didn't change
-    return false if effective_duration == new_duration
-    return true unless needs_update
-    # Recreate only if the new duration evenly divides the effective duration
-    (effective_duration % new_duration).zero?
   end
 end
