@@ -54,17 +54,15 @@ class UpdateCourseWikiTimeslices
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-    current_start = first_start
-    while current_start <= latest_start
-      start_date = current_start
-      end_date = current_start + @timeslice_manager.timeslice_duration(wiki)
-
-      current_start += @timeslice_manager.timeslice_duration(wiki)
+    to_process = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                    .where('start >= ?', first_start)
+                                    .where('start <= ?', latest_start)
+    to_process.each do |t|
       # If the timeslice was reprocessed in this update, then skip it
-      next if timeslice_reprocessed?(wiki.id, start_date)
+      next if timeslice_reprocessed?(wiki.id, t.start)
 
       ActiveRecord::Base.transaction do
-        processed = @splitter.handle(wiki, start_date, end_date, only_new: true)
+        processed = @splitter.handle(wiki, t.start, t.end, only_new: true)
         @processed_timeslices_count += processed.count
       rescue StandardError => e
         log_error(e)
