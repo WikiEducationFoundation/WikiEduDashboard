@@ -175,8 +175,11 @@ class RevisionDataManager
   # only_scoped_articles_course? set to true).
   # Returns [scoped_revisions_in_spaces, non_scoped_revisions_or_out_spaces]
   def partition_revisions
+    articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                             mw_page_id: @revisions.map(&:mw_page_id))
+
     # Calculate articles out of mainspace/userspace/draftspace
-    excluded_articles = @articles
+    excluded_articles = articles
                         .reject { |article| INCLUDED_NAMESPACES.include?(article.namespace) }
                         .map(&:mw_page_id).freeze
 
