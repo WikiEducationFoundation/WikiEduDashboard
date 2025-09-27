@@ -61,12 +61,14 @@ class UpdateCourseWikiTimeslices
       # If the timeslice was reprocessed in this update, then skip it
       next if timeslice_reprocessed?(wiki.id, t.start)
 
-      ActiveRecord::Base.transaction do
-        processed = @splitter.handle(wiki, t.start, t.end, only_new: true)
-        @processed_timeslices_count += processed.count
+      begin
+        ActiveRecord::Base.transaction do
+          processed = @splitter.handle(wiki, t.start, t.end, only_new: true)
+          @processed_timeslices_count += processed.count
+        end
       rescue StandardError => e
         log_error(e)
-        raise ActiveRecord::Rollback
+        t.update(needs_update: true)
       end
     end
   end

@@ -142,8 +142,30 @@ describe UpdateCourseWikiTimeslices do
 
       # last_mw_rev_datetime wasn't updated
       timeslice = course.course_wiki_timeslices.where(wiki: enwiki, start: '2018-11-29').first
-
       expect(timeslice.last_mw_rev_datetime).to be_nil
+      # timeslice was set as needs_update
+      expect(timeslice.needs_update).to eq(true)
+      # course user wiki timeslice was rolled backed
+      cuw_timeslice = course.course_user_wiki_timeslices.where(wiki: enwiki, start: '2018-11-29')
+      expect(cuw_timeslice.size).to eq(0)
+
+      # last_mw_rev_datetime wasn't updated
+      timeslice = course.course_wiki_timeslices.where(wiki: enwiki, start: '2018-11-24').first
+      expect(timeslice.last_mw_rev_datetime).to be_nil
+      # timeslice was set as needs_update
+      expect(timeslice.needs_update).to eq(true)
+      # course user wiki timeslice was rolled backed
+      cuw_timeslice = course.course_user_wiki_timeslices.where(wiki: enwiki, start: '2018-11-24')
+      expect(cuw_timeslice.size).to eq(0)
+
+      # last_mw_rev_datetime wasn't updated
+      timeslice = course.course_wiki_timeslices.where(wiki: wikidata, start: '2018-11-24').first
+      expect(timeslice.last_mw_rev_datetime).to be_nil
+      # timeslice was set as needs_update
+      expect(timeslice.needs_update).to eq(true)
+      # course user wiki timeslice was rolled backed
+      cuw_timeslice = course.course_user_wiki_timeslices.where(wiki: wikidata, start: '2018-11-24')
+      expect(cuw_timeslice.size).to eq(0)
     end
 
     it 'fetches revisions up to end date' do
