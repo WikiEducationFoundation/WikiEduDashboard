@@ -67,7 +67,7 @@ class UpdateCourseWikiTimeslices
           @processed_timeslices_count += processed.count
         end
       rescue StandardError => e
-        log_error(e)
+        log_error(e, t.start, t.end, wiki.id)
         t.update(needs_update: true)
       end
     end
@@ -86,7 +86,7 @@ class UpdateCourseWikiTimeslices
         reprocessed_dates = @splitter.handle(wiki, t.start, t.end, only_new: false)
         @reprocessed_timeslices[wiki.id] += reprocessed_dates
       rescue StandardError => e
-        log_error(e)
+        log_error(e, t.start, t.end, wiki.id)
         raise ActiveRecord::Rollback
       end
     end
@@ -96,8 +96,13 @@ class UpdateCourseWikiTimeslices
     @reprocessed_timeslices[wiki_id].include?(start_date)
   end
 
-  def log_error(error)
+  def log_error(error, start_date, end_date, wiki_id)
     Sentry.capture_message "#{@course.slug} update timeslices error: #{error}",
-                           level: 'error'
+                           level: 'error',
+                            extra: {
+                              start: start_date,
+                              end: end_date,
+                              wiki_id:
+                           }
   end
 end
