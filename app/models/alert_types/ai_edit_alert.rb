@@ -91,11 +91,12 @@ class AiEditAlert < Alert
     details[:article_title]
   end
 
+  NO_EMAIL_TYPES = [
+    :bibliography, # Lists of references are where we see false positives
+    :peer_review # This is intended for a fellow student so no need to flag it
+  ].freeze
   def send_alert_emails
-    # Lists of references are where we see
-    # false positives, so we won't send
-    # emails for the Bibliography exercise sandbox
-    return if page_type == :bibliography
+    return if NO_EMAIL_TYPES.include? page_type
 
     AiEditAlertMailer.send_emails(self,
                                   page_repeat: same_page_repeat?,
@@ -129,6 +130,8 @@ class AiEditAlert < Alert
       :bibliography
     when %r{/Outline}
       :outline
+    when /Peer Review/
+      :peer_review
     when /^User:/ # catchall for other sandboxes
       :sandbox
     else
