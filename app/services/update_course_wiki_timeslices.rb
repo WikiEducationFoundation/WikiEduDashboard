@@ -102,7 +102,7 @@ class UpdateCourseWikiTimeslices
   # (maybe splitting the timeslice if too many revisions) and
   # returns an array with start dates for timeslices that were processed.
   # start_date and end_date are the limits of the timeslice records
-  def handle_timeslice(wiki, start_date, end_date, only_new: false)
+  def handle_timeslice(wiki, start_date, end_date, only_new:)
     fetch_only_revisions(wiki, start_date, end_date)
     split, dates = @splitter.maybe_split(wiki, start_date, end_date, @revisions)
     if split
