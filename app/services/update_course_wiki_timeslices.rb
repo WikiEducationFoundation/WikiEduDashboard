@@ -2,7 +2,6 @@
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
-require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 require_dependency "#{Rails.root}/lib/revision_scanner"
 

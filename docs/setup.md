@@ -122,6 +122,11 @@ If you know your way around Rails, here's the very short version. Some additiona
         - Windows: `C:\xampp\mysql\bin\mysql -u root`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';`
+    - `GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost';`
+    - `GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost';`
+    - `FLUSH PRIVILEGES;` # reload privilege tables so the new user/permissions take effect
+    - `SELECT User, Host FROM mysql.user WHERE User = 'wiki';`
     - `exit`
 
 - Install Gems:
