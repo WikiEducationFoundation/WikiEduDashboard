@@ -19,17 +19,51 @@
 #  details        :text(65535)
 #
 
-# Alert for when an article has been nominated for deletion on English Wikipedia
+# Alert for suspected AI-generated text on edited pages
 class AiEditAlert < Alert
+  ####################
+  # Alert generation #
+  ####################
+
   def self.generate_alert_from_pangram(revision_id:, user_id:, course_id:,
                                        article_id:, pangram_details:)
+    details = pangram_details
+    add_same_page_alert(course_id, article_id, details)
+    add_same_user_alert(course_id, user_id, details)
     alert = create!(revision_id:,
                     user_id:,
                     course_id:,
                     article_id:,
-                    details: pangram_details)
+                    details:)
+
     alert.send_alert_emails
   end
+
+  # Is there another alert for the same
+  # course and article? If so, this could
+  # might have triggered from a different
+  # edit but with the same AI-detected text.
+  def self.add_same_page_alert(course_id, article_id, details)
+    prior_alert = AiEditAlert.find_by(course_id:, article_id:)
+    return unless prior_alert
+
+    details[:prior_alert_for_page] = prior_alert.id
+  end
+
+  # Is there another alert for the same
+  # course and user, long enough ago that they
+  # should have gotten an earlier message
+  # telling them to avoid AI?
+  def self.add_same_user_alert(course_id, user_id, details)
+    prior_alerts = AiEditAlert.where(course_id:, user_id:).where('created_at < ?', 1.day.ago)
+    return unless prior_alerts.any?
+
+    details[:prior_alert_for_user] = prior_alerts.last.id
+  end
+
+  ####################
+  # Instance methods #
+  ####################
 
   def main_subject
     "Suspected AI edit: #{article&.title} — #{course&.title}"
@@ -98,26 +132,16 @@ class AiEditAlert < Alert
   def send_alert_emails
     return if NO_EMAIL_TYPES.include? page_type
 
-    AiEditAlertMailer.send_emails(self,
-                                  page_repeat: same_page_repeat?,
-                                  user_repeat: same_user_repeat?)
+    AiEditAlertMailer.send_emails(self)
     update(email_sent_at: Time.zone.now)
   end
 
-  # Is there another alert for the same
-  # course and article? If so, this could
-  # might have triggered from a different
-  # edit but with the same AI-detected text.
-  def same_page_repeat?
-    AiEditAlert.where(course_id:, article_id:).count > 1
+  def prior_alert_id_for_page
+    details[:prior_alert_for_page]
   end
 
-  # Is there another alert for the same
-  # course and user, long enough ago that they
-  # should have gotten an earlier message
-  # telling them to avoid AI?
-  def same_user_repeat?
-    AiEditAlert.where(course_id:, user_id:).first.created_at < 1.day.ago
+  def prior_alert_id_for_user
+    details[:prior_alert_for_user]
   end
 
   def page_type

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class AiEditAlertMailer < ApplicationMailer
-  def self.send_emails(alert, page_repeat:, user_repeat:)
+  def self.send_emails(alert)
     return unless Features.email?
+    page_repeat = alert.prior_alert_id_for_page.present?
+    user_repeat = alert.prior_alert_id_for_user.present?
     email(alert, page_repeat:, user_repeat:).deliver_now
   end
 
