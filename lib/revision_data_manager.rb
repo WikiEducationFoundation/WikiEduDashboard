@@ -25,7 +25,6 @@ class RevisionDataManager
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
     all_sub_data = get_course_revisions(@course.students, timeslice_start,
                                         timeslice_end)
-    @revisions = []
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
     articles = sub_data_to_article_attributes(all_sub_data)
@@ -40,20 +39,18 @@ class RevisionDataManager
     # Now get all the revisions
     # We need a slightly different article dictionary format here
     article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
-    @revisions = sub_data_to_revision_attributes(all_sub_data,
+    revisions = sub_data_to_revision_attributes(all_sub_data,
                                                  users,
                                                  articles: article_dict)
-    return @revisions
+    return revisions
   end
 
   # This method gets scores for specific revisions from different APIs.
   # Returns an array of Revision records with completed scores.
   def fetch_score_data_for_course(revisions)
-    @revisions = revisions
-
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
-    (revisions_in_spaces, revisions_out_spaces) = partition_revisions
+    (revisions_in_spaces, revisions_out_spaces) = partition_revisions(revisions)
 
     revisions_out_spaces.concat @importer.get_revision_scores(revisions_in_spaces)
   end
@@ -174,9 +171,9 @@ class RevisionDataManager
   # for revisions which are not scoped (this is only important for articles with
   # only_scoped_articles_course? set to true).
   # Returns [scoped_revisions_in_spaces, non_scoped_revisions_or_out_spaces]
-  def partition_revisions
+  def partition_revisions(revisions)
     articles = Article.where(wiki_id: @wiki.id, deleted: false,
-                             mw_page_id: @revisions.map(&:mw_page_id))
+                             mw_page_id: revisions.map(&:mw_page_id))
 
     # Calculate articles out of mainspace/userspace/draftspace
     excluded_articles = articles
@@ -184,9 +181,9 @@ class RevisionDataManager
                         .map(&:mw_page_id).freeze
 
     # Note that scoped is always true for non-only-scoped-articles courses
-    scoped_revisions_in_spaces = @revisions.select do |rev|
+    scoped_revisions_in_spaces = revisions.select do |rev|
       (excluded_articles.exclude?(rev.mw_page_id) && rev.scoped)
     end
-    [scoped_revisions_in_spaces, @revisions - scoped_revisions_in_spaces]
+    [scoped_revisions_in_spaces, revisions - scoped_revisions_in_spaces]
   end
 end
