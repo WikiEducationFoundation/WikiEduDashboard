@@ -1,0 +1,31 @@
+id: 7409
+title: LLMs-to-Wikipedia
+content: |
+  On the whole, AI tools are quite bad at making new content for
+  Wikipedia. Some problems depend heavily on prompt strategy and
+  on which AI tools are used, while others are systemic, based on
+  the way that LLMs work.
+
+  Some common patterns with AI-generated “Wikipedia articles” are
+  easy to spot:
+    * Essay-like style and tone that don’t match Wikipedia’s just-the-facts encyclopedia style
+    * Inappropriate section headers, especially ones like a “Summary”, “Legacy” or “Conclusion” at the end
+    * Fabricated references to sources that don’t exist
+    * Overuse of generalizations and broad claims
+    * Promotional language and “puffery”
+
+  Other problems go deeper and are harder to spot, but are more
+  fundamentally harmful to Wikipedia’s reliability:
+    * Hallucinations in the small details
+    * Statements that come from a different but related context
+    * Citations for facts that don’t actually appear in the cited course
+    * Content that is extremely hard to fact-check (in violation of
+    Wikipedia’s “Verifiability” policy)
+    * Summarization that goes beyond what individual sources say
+    (in violation of Wikipedia’s “No Original Research” policy)
+
+  Most of these problems are connected to the probabilistic nature of LLMs;
+  they generate text based on probabilities across their entire set of
+  training data, not specific information from specific sources. In general,
+  as of 2025, it’s essentially impossible to create reliable Wikipedia content
+  via AI.

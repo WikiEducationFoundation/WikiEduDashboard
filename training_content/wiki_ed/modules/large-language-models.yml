@@ -1,0 +1,15 @@
+name: Large Language Models
+id: 74
+description: A primer on how AI large language models work
+slides:
+  - slug: what-is-an-llm # 7401
+  - slug: context-window # 7402
+  - slug: hallucination # 7403
+  - slug: reasoning-models # 7404
+  - slug: ai-systems-are-black-boxes # 7405
+  - slug: thumbs-on-the-scale # 7406
+  - slug: effects-on-users # 7407
+  - slug: wikipedia-to-llms # 7408
+  - slug: llms-to-wikipedia # 7409
+  - slug: detection-of-ai-generated-text # 7410
+  - slug: llm-training-feedback # 7411

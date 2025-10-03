@@ -1,0 +1,22 @@
+id: 7401
+title: "What is an LLM?"
+content: |
+  The core components of AI services — like ChatGPT, Claude and Gemini,
+  as well as copyediting tools like Grammarly — are
+  "[language language models](https://en.wikipedia.org/wiki/Large_language_model)" (LLMs).
+  These LLMs are created by applying statistical algorithms to large collections of
+  text — the training data. The models capture probabilistic data about how small
+  pieces of text (like words and phrases) relate to each other in the training data,
+  and they can be used to generate new text based on those probabilities. When a
+  chatbot generates a response, it uses the set of probabilities from the LLM, along
+  with some amount of randomness, to pick a plausible next bit of text. It does this
+  over and over again until it has generated the full response.
+
+  The resulting text can be surprisingly understandable and believable. The LLMs
+  capture enough patterns of grammar, word choice and conceptual similarity that
+  generated text can be very hard to tell from human writing. In many cases, the
+  text is so plausible that it's easy to imagine it as the result of a thinking
+  mind — which is what many chatbot user interfaces encourage us to do. However,
+  LLMs are fundamentally not *thinking* or *reasoning* in the ways that people
+  do; it's more accurate to think of them as very sophisticated versions of
+  autocomplete.

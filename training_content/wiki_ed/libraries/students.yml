@@ -78,6 +78,9 @@ categories:
       - slug: plagiarism
         name: Plagiarism and copyright violation
         description: A detailed review of plagiarism and how to avoid it
+      - slug: large-language-models
+        name: Large Language Models
+        description: A primer on how AI Large Language Models work
   - title: Exercises
     description: |
       Individual exercises that comprise a Wikipedia writing assignment
