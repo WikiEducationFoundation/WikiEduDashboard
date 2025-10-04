@@ -11,7 +11,7 @@ import withRouter from '../../../../../util/withRouter.jsx';
 
 const EditedUnassignedArticles = ({
   articles, course, current_user, showArticleId, title, user,
-  fetchArticleDetails, ...props
+  fetchArticleDetails, wikidataLabels, ...props
 }) => {
   const rows = articles.map(article => (
     <EditedUnassignedArticleRow
@@ -22,6 +22,7 @@ const EditedUnassignedArticles = ({
       fetchArticleDetails={fetchArticleDetails}
       showArticleId={showArticleId}
       user={user}
+      wikidataLabel={wikidataLabels[article.title]}
     />
   ));
   const options = { desktop_only: false, sortable: false };
