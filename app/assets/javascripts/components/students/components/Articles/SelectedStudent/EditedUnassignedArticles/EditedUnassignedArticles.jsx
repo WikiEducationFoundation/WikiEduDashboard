@@ -20,9 +20,9 @@ const EditedUnassignedArticles = ({
       course={course}
       current_user={current_user}
       fetchArticleDetails={fetchArticleDetails}
-      wikidataLabel={wikidataLabels[article.title]}
       showArticleId={showArticleId}
       user={user}
+      wikidataLabel={wikidataLabels[article.title]}
     />
   ));
   const options = { desktop_only: false, sortable: false };
