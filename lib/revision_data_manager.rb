@@ -27,21 +27,27 @@ class RevisionDataManager
                                         timeslice_end)
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
-    articles = sub_data_to_article_attributes(all_sub_data)
+    article_attributes = sub_data_to_article_attributes(all_sub_data)
 
     # Import articles. We do this here to avoid saving article data in memory.
     # Note that we create articles for all sub data (not only for scoped revisions).
-    import_and_resolve_duplicate_articles articles
+    import_articles(article_attributes)
+
+    # Retrieve article records
+    articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                             mw_page_id: article_attributes.map { |a| a['mw_page_id'] })
+
+    resolve_duplicate_articles(articles)
 
     # Prep: get a user dictionary for all users referred to by revisions.
     users = user_dict_from_sub_data(all_sub_data)
 
     # Now get all the revisions
     # We need a slightly different article dictionary format here
-    article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
+    article_dict = articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
     revisions = sub_data_to_revision_attributes(all_sub_data,
-                                                 users,
-                                                 articles: article_dict)
+                                                users,
+                                                articles: article_dict)
     return revisions
   end
 
@@ -69,11 +75,12 @@ class RevisionDataManager
   ###########
   private
 
-  def import_and_resolve_duplicate_articles(articles)
-    ArticleImporter.new(@wiki, @course).import_articles_from_revision_data(articles)
-    @articles = Article.where(wiki_id: @wiki.id, deleted: false,
-                              mw_page_id: articles.map { |a| a['mw_page_id'] })
-    DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
+  def import_articles(attributes)
+    ArticleImporter.new(@wiki, @course).import_articles_from_revision_data(attributes)
+  end
+
+  def resolve_duplicate_articles(articles)
+    DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(articles)
   end
 
   # Returns revisions for users during the given period.
