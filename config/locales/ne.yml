@@ -516,6 +516,7 @@ ne:
   namespace:
     main: मेनस्पेस
     main_char_added: मेनस्पेसमा थपिएका अक्षरहरू
+    talk: वार्तालाप
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
     project: परियोजना
