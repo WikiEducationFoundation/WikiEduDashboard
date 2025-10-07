@@ -167,6 +167,10 @@ class Alert < ApplicationRecord
     ENV['bcc_to_salesforce_email']
   end
 
+  def to_partial_path
+    'alerts_list/alert'
+  end
+
   #########################
   # Type-specific methods #
   #########################
