@@ -1,0 +1,13 @@
+- if !@alert.details_to_show.empty?
+  %h3 Details
+  %table.table.table--striped
+    - @alert.details_to_show.each do |key, value|
+      %tr
+        %th= key.to_s.humanize
+        %td
+          - if value.is_a?(Array)
+            = value.map { |v| v.to_s.humanize }.join(', ')
+          - elsif value.blank?
+            %em none
+          - else
+            = value
