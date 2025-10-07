@@ -1,0 +1,33 @@
+.container
+  %h1= @alert.type
+
+  %h3 Timestamp
+  %p= @alert.created_at
+
+  - if @alert.course
+    %h3 Course
+    %p= link_to @alert.course.slug, "/courses/#{@alert.course.slug}"
+
+  %h3 User
+  %p= link_to @alert.user.username, "/users/#{@alert.user.url_encoded_username}" if @alert.user
+
+  %h3 Subject
+  %p= @alert.main_subject
+
+  - if @alert.article
+    %h3 Article link
+    %p= link_to @alert.article.title, @alert.article.url if @alert.article
+    - if @alert.type == 'AiEditAlert'
+      %h3 Article type
+      %p= @alert.page_type
+
+  %h3 message
+  %p= @alert.message
+
+  = render 'details'
+  
+  = render 'followup'
+
+  -if @alert.resolvable?
+    %h3 Resolve Status
+    %p= @alert.resolved? ? 'Resolved' : link_to('Resolve', resolve_alert_path(@alert.id), method: :put)
