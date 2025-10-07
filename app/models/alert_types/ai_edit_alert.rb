@@ -137,6 +137,10 @@ class AiEditAlert < Alert
              .transform_keys { |k| k.delete_prefix('followup_') }
   end
 
+  def details_to_show
+    details.reject { |k, _| k.to_s.include?('followup') }
+  end
+
   def article_title
     details[:article_title]
   end
