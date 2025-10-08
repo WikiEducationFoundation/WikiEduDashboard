@@ -7,7 +7,5 @@
         %td
           - if value.is_a?(Array)
             = value.map { |v| v.to_s.humanize }.join(', ')
-          - elsif value.blank?
-            %em none
           - else
             = value
