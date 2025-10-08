@@ -10,7 +10,7 @@
 
   - if @alert.user
     %h3 User
-    %p= link_to @alert.user.username, "/users/#{@alert.user.url_encoded_username}" if @alert.user
+    %p= link_to @alert.user.username, "/users/#{@alert.user.url_encoded_username}"
 
   - if @alert.main_subject
     %h3 Subject
