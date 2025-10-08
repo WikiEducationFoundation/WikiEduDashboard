@@ -30,7 +30,7 @@ const YesNoSelector = (props) => {
     if (props.tooltip) {
       tooltip = (
         <div className="tooltip-trigger">
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <img src="/assets/images/info.svg" alt="tooltip default logo" />
           <div className="tooltip large dark">
             <p>
               {props.tooltip}
