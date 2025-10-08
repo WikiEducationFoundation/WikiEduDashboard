@@ -167,6 +167,11 @@ class Alert < ApplicationRecord
     ENV['bcc_to_salesforce_email']
   end
 
+  # Used when rendering individual views for alerts.
+  def details_to_show
+    details
+  end
+
   def to_partial_path
     'alerts_list/alert'
   end
