@@ -184,6 +184,6 @@ class AiEditAlert < Alert
   end
 
   def to_partial_path
-    "alerts_list/#{self.class.name.underscore}"
+    'alerts_list/ai_edit_alert'
   end
 end
