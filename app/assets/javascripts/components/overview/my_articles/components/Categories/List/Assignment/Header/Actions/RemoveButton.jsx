@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 export const RemoveButton = ({ assignment, unassign }) => (
   <div>
     <button
+      type="button"
       onClick={() => unassign(assignment)}
       className="button danger small"
     >

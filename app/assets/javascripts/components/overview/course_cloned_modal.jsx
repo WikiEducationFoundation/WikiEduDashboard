@@ -29,9 +29,9 @@ const CourseClonedModal = createReactClass({
 
   statics: {
     getDerivedStateFromProps(props, state) {
-        return {
-          tempCourseId: CourseUtils.generateTempId(state.course)
-        };
+      return {
+        tempCourseId: CourseUtils.generateTempId(state.course)
+      };
     }
   },
 
@@ -285,11 +285,11 @@ const CourseClonedModal = createReactClass({
           </label>
         </div>
       );
-    // Specific to non-ClassroomProgramCourse
+      // Specific to non-ClassroomProgramCourse
     } else {
       infoIcon = (
         <div className="tooltip-trigger">
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <img src="/assets/images/info.svg" alt="tooltip default logo" />
           <div className="tooltip large dark">
             <p>
               {CourseUtils.i18n('creator.course_when', i18nPrefix)}
@@ -405,8 +405,8 @@ const CourseClonedModal = createReactClass({
                 />
               </div>
               {rightColumn}
-              <button onClick={this.cancelCloneCourse} className="button light">{CourseUtils.i18n('creator.cancel_course_clone', i18nPrefix)}</button>
-              <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
+              <button type="button" onClick={this.cancelCloneCourse} className="button light">{CourseUtils.i18n('creator.cancel_course_clone', i18nPrefix)}</button>
+              <button type="button" onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
             </div>
           </div>
         </div>

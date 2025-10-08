@@ -73,13 +73,13 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
   let actionRemove;
   if (current_user.isStudent && selectable) {
     actionSelect = (
-      <button className="button dark" onClick={onSelectHandler}>{I18n.t('assignments.select')}</button>
+      <button type="button" className="button dark" onClick={onSelectHandler}>{I18n.t('assignments.select')}</button>
     );
   }
 
   if (current_user.isAdvancedRole) {
     actionRemove = (
-      <button className="button dark" onClick={onRemoveHandler}>{I18n.t('assignments.remove')}</button>
+      <button type="button" className="button dark" onClick={onRemoveHandler}>{I18n.t('assignments.remove')}</button>
     );
   }
 

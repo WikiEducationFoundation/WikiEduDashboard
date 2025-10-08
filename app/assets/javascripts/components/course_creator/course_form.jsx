@@ -134,8 +134,8 @@ const CourseForm = (props) => {
         <CreatableInput
           id="role_description"
           onChange={({ value }) =>
-        props.updateCourseAction('role_description', value)
-      }
+            props.updateCourseAction('role_description', value)
+          }
           label={I18n.t('courses.creator.role_description')}
           placeholder={I18n.t('courses.creator.role_description_placeholder')}
           options={options}
@@ -209,9 +209,9 @@ const CourseForm = (props) => {
   // Displays "Back" button if the user has clonable courses or is on the P&E dashboard; otherwise shows "Cancel" link.
   if (props.hasClonableCourses || props.defaultCourse !== 'ClassroomProgramCourse') {
     backOrCancelButton = (
-      <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+      <button type="button" onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
     );
-    } else {
+  } else {
     backOrCancelButton = (
       <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     );
@@ -259,7 +259,7 @@ const CourseForm = (props) => {
           {backOrCancelButton}
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
-          &nbsp;
+            &nbsp;
             <span className="red">{props.firstErrorMessage || '\xa0'}</span>
           </p>
         </div>
@@ -284,12 +284,13 @@ const CourseForm = (props) => {
           placeholder={CourseUtils.i18n(
             'creator.course_description_placeholder',
             props.stringPrefix
-            )}
+          )}
         />
         {roleDescription}
         {taSupportCheckbox}
         {privacyCheckbox}
         <button
+          type="button"
           onClick={props.next}
           id="next"
           className="dark button button__submit next"

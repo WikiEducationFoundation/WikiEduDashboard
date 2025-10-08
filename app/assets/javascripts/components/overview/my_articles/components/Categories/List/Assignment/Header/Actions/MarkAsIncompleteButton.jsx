@@ -16,6 +16,7 @@ export const MarkAsIncompleteButton = (props) => {
   return (
     <div>
       <button
+        type="button"
         className="button danger small"
         onClick={update({ ...props, dispatch })}
       >

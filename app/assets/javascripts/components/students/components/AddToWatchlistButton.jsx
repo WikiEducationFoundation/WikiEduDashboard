@@ -10,23 +10,23 @@ const AddToWatchlistButton = ({ slug, prefix = 'Students' }) => {
   const notificationMessage = (type) => {
     return {
       message: I18n.t(`users.sub_navigation.watch_list.${type === 'Success' ? 'success_message' : 'error_message'}`,
-      { prefix }
-     ),
+        { prefix }
+      ),
       closable: true,
       type: type === 'Success' ? 'success' : 'error'
     };
- };
+  };
 
- const addToWatchlist = () => {
+  const addToWatchlist = () => {
     request(`/courses/${slug}/students/add_to_watchlist`, { method: 'POST' })
-     .then(res => res.json())
-     .then((data) => {
+      .then(res => res.json())
+      .then((data) => {
         if (data.message.status === 'Success') {
-        dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('Success') });
+          dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('Success') });
         } else {
           return Promise.reject(data);
         }
-     })
+      })
       .catch((error) => {
         dispatch({ type: ADD_NOTIFICATION, notification: notificationMessage('error') });
         logErrorMessage(error);
@@ -46,7 +46,7 @@ const AddToWatchlistButton = ({ slug, prefix = 'Students' }) => {
 
   return (
     <div className="tooltip-trigger" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      <button className="button border small watchlist-button" onClick={addToWatchlistHandler}>
+      <button type="button" className="button border small watchlist-button" onClick={addToWatchlistHandler}>
         {I18n.t('users.sub_navigation.watch_list.students_add', { prefix })} {<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`} />}
       </button>
       <div className="tooltip">

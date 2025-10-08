@@ -17,7 +17,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   let checkAvailabilityButton;
   if (!newAccount.usernameValid || !newAccount.emailValid) {
     checkAvailabilityButton = (
-      <button onClick={checkAvailability} disabled={!newAccount.username || !newAccount.emailValid} className="button">
+      <button type="button" onClick={checkAvailability} disabled={!newAccount.username || !newAccount.emailValid} className="button">
         {I18n.t('courses.new_account_check_username')}
       </button>
     );
@@ -29,7 +29,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   let requestAccountButton;
   if (newAccount.usernameValid && newAccount.emailValid && !newAccount.submitted) {
     requestAccountButton = (
-      <button onClick={requestAccount} className="button dark">
+      <button type="button" onClick={requestAccount} className="button dark">
         {I18n.t('courses.new_account_submit')}
       </button>
     );
@@ -50,7 +50,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
 
   return (
     <div className="basic-modal left">
-      <button onClick={closeModal} className="pull-right article-viewer-button icon-close" />
+      <button type="button" onClick={closeModal} className="pull-right article-viewer-button icon-close" />
       {newAccountInfo}
 
       <TextInput
@@ -74,7 +74,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         placeholder={I18n.t('courses.new_account_email_placeholder')}
       />
       <div>
-        <div className = "left">
+        <div className="left">
           <p className="red" dangerouslySetInnerHTML={{ __html: newAccount.error }} />
           {checkingSpinner}
           {wikipediaAccountCreation}

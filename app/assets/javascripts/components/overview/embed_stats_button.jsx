@@ -13,14 +13,14 @@ const EmbedStatsButton = ({ title }) => {
   };
 
   if (!show) {
-    return (<button onClick={() => setShow(true)} className="button">{I18n.t('courses.embed_course_stats')}</button>);
+    return (<button type="button" onClick={() => setShow(true)} className="button">{I18n.t('courses.embed_course_stats')}</button>);
   }
 
   const url = location.href.replace('courses', 'embed/course_stats');
 
   return (
     <div className="basic-modal course-stats-download-modal embed_stats">
-      <button onClick={() => setShow(false)} className="pull-right article-viewer-button icon-close" />
+      <button type="button" onClick={() => setShow(false)} className="pull-right article-viewer-button icon-close" />
       <h4>{I18n.t('courses.embed_course_stats_description')} <code>&lt;body&gt;</code></h4>
       <textarea
         id="embed"

@@ -37,7 +37,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
       id="articles-view-controls"
       className={`${hasLimitReached} ${hideNextButton} ${hidePrevButton}`}
     >
-      { totalPages ? (<ReactPaginate
+      {totalPages ? (<ReactPaginate
         pageCount={totalPages}
         nextLabel={nextLabel}
         previousLabel={previousLabel}
@@ -45,11 +45,12 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
         containerClassName={'pagination'}
         onPageChange={handlePageChange}
         forcePage={currentPage - 1}
-      />) : null }
+      />) : null}
       {!limitReached
         && (
           <div className={'tooltip-trigger'}>
             <button
+              type="button"
               style={{ width: 'max-content', height: 'max-content' }}
               className="button ghost articles-see-more-btn" onClick={showMore}
             >
@@ -62,7 +63,7 @@ export const PaginatedArticleControls = ({ showMore, limitReached }) => {
         )
       }
       <p className="articles-shown-label">
-        { totalPages ? I18n.t('articles.articles_shown', { count: pageRange, total: totalFilteredArticles }) : null}
+        {totalPages ? I18n.t('articles.articles_shown', { count: pageRange, total: totalFilteredArticles }) : null}
       </p>
     </div>
   );

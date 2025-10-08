@@ -13,7 +13,7 @@ const UpdateSalesforceCredentials = () => {
   const form = <SalesforceCredentialsForm handlePopoverClose={open} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>Update Salesforce Credentials</button>
+      <button type="button" className="button dark" onClick={open}>Update Salesforce Credentials</button>
       <Popover
         is_open={isOpen}
         edit_row={form}

@@ -58,13 +58,13 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   let usageTableElements;
   if (globalUsage && pageViews !== undefined) {
     usageTableElements = globalUsage.map((usage, index) => {
-        return (
-          <tr className="view-file-details" key={usage.url}>
-            <td className="row-details">{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
-            <td className="row-details"><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
-            <td className="text-right row-details">{pageViews[index]}</td>
-          </tr>
-        );
+      return (
+        <tr className="view-file-details" key={usage.url}>
+          <td className="row-details">{usage.wiki}&nbsp;&nbsp;&nbsp;</td>
+          <td className="row-details"><a href={usage.url}>{usage.title}</a>&nbsp;&nbsp;&nbsp;</td>
+          <td className="text-right row-details">{pageViews[index]}</td>
+        </tr>
+      );
     });
   }
 
@@ -109,7 +109,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   return (
     <div className="module upload-viewer" ref={ref}>
       <div className="modal-header">
-        <button className="pull-right icon-close" onClick={handleClickOutside} />
+        <button type="button" className="pull-right icon-close" onClick={handleClickOutside} />
         <h3>{upload.file_name}</h3>
       </div>
       <div className="modal-body">

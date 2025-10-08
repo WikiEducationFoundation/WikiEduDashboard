@@ -41,6 +41,7 @@ const ArticleTitlesModal = ({ setShowModal, category, course, lastUpdateMessage 
             >
               <Loading text="Loading articles" />
               <button
+                type="button"
                 className="button dark"
                 onClick={() => setShowModal(false)}
               >
@@ -85,29 +86,30 @@ const ArticleTitlesModal = ({ setShowModal, category, course, lastUpdateMessage 
               {filteredArticles.length ? (
                 <ul
                   style={{
-                  maxHeight: '300px',
-                  overflowY: 'scroll',
-                }}
+                    maxHeight: '300px',
+                    overflowY: 'scroll',
+                  }}
                 >
                   {filteredArticles.map(articleTitle => (
                     <li key={articleTitle}>
                       <a
                         href={getArticleUrl(wiki, articleTitle)}
                         style={{
-                        textTransform: 'capitalize',
-                        textDecoration: 'none',
-                      }}
+                          textTransform: 'capitalize',
+                          textDecoration: 'none',
+                        }}
                         target="_blank"
                       >
                         {articleTitle.replaceAll('_', ' ')}
                       </a>
                     </li>
-                ))}
+                  ))}
                 </ul>
               ) : (
                 <p>{I18n.t('articles.no_tracked_articles')}</p>
               )}
               <button
+                type="button"
                 className="button dark"
                 onClick={() => setShowModal(false)}
               >

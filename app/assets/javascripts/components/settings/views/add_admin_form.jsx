@@ -59,6 +59,7 @@ const AddAdminForm = ({ submittingNewAdmin, upgradeAdmin, handlePopoverClose }) 
     } else {
       buttonContent = (
         <button
+          type="submit"
           onClick={handleConfirm}
           className="button border"
           value="confirm"

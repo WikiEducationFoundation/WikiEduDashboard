@@ -35,14 +35,16 @@ export const ScopingMethod = ({
           }}
         >
           <button
+            type="button"
             onClick={() => {
-                prevPage(index);
+              prevPage(index);
             }}
             className="dark button button__submit"
           >
             Back
           </button>
           <button
+            type="button"
             onClick={nextPage.bind(null, index)}
             className="dark button button__submit"
           >

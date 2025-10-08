@@ -32,6 +32,7 @@ export const ButtonNavigation = (props) => {
       {
         index ? (
           <button
+            type="button"
             className="button small"
             disabled={!active}
             onClick={update({ ...props, dispatch }, 'undo')}
@@ -41,6 +42,7 @@ export const ButtonNavigation = (props) => {
         ) : null
       }
       <button
+        type="button"
         className="button dark small"
         disabled={!active}
         onClick={update({ ...props, dispatch })}

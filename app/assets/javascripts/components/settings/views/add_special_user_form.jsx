@@ -77,6 +77,7 @@ const AddSpecialUserForm = ({ submittingNewSpecialUser, upgradeSpecialUser: upgr
               <div className="loading__spinner" />
             ) : (
               <button
+                type="button"
                 onClick={handleConfirm}
                 className="button border"
                 value="confirm"

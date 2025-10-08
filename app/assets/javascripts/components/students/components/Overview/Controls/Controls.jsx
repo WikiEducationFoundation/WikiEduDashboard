@@ -19,7 +19,7 @@ export const Controls = (props) => {
   // This corresponds to CoursesController#notify_untrained
   let notifyOverdueButton;
   if (Features.wikiEd && students.length > 0 && (course.student_count - course.trained_count) > 0) {
-    notifyOverdueButton = <button className="notify_overdue" title={I18n.t('wiki_edits.notify_overdue.button_label')} onClick={notify} key="notify" />;
+    notifyOverdueButton = <button type="button" className="notify_overdue" title={I18n.t('wiki_edits.notify_overdue.button_label')} onClick={notify} key="notify" />;
   }
 
   return (

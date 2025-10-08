@@ -15,7 +15,7 @@ const PeerReviewChecklist = () => {
 
   let button;
   if (isVisible) {
-    button = <button onClick={hide} className="button dark small">Okay</button>;
+    button = <button type="button" onClick={hide} className="button dark small">Okay</button>;
   } else {
     button = <a onClick={show} className="button dark small">Peer review checklist</a>;
   }

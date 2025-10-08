@@ -36,7 +36,7 @@ const CourseType = ({ back, hasClonableCourses, wizardClass, wizardAction }) => 
           );
         })}
       </div>
-      { hasClonableCourses && <button className="button dark" onClick={back}>{I18n.t('application.back')}</button> }
+      {hasClonableCourses && <button type="button" className="button dark" onClick={back}>{I18n.t('application.back')}</button>}
       <Link style={{ marginRight: !hasClonableCourses ? '6em' : '' }} className="button right" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
     </div>
   );

@@ -16,6 +16,7 @@ const FeaturedCampaign = ({ slug, title, removeFeaturedCampaign }) => {
       <td className="campaign_remove">
         <p>
           <button
+            type="button"
             className="button danger"
             onClick={handleClick}
           >

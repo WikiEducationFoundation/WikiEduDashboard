@@ -67,8 +67,8 @@ const Confirm = () => {
         )}
         {!showInput && <br />}
         <div className="pop_container pull-right">
-          <button className="button ghost-button" onClick={onCancel}>{I18n.t('application.cancel')}</button>
-          <button autoFocus className="button dark" onClick={onConfirmClick}>{I18n.t('application.confirm')}</button>
+          <button type="button" className="button ghost-button" onClick={onCancel}>{I18n.t('application.cancel')}</button>
+          <button type="button" autoFocus className="button dark" onClick={onConfirmClick}>{I18n.t('application.confirm')}</button>
         </div>
       </div>
     </Modal>

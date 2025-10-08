@@ -29,15 +29,16 @@ const ConfigureSiteNotice = (props) => {
 
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>Update Site Notice</button>
+      <button type="button" className="button dark" onClick={open}>Update Site Notice</button>
       <button
+        type="button"
         className="button dark"
         disabled={isSiteNotice || props.currentSiteNotice.message === null}
         onClick={toggleHandler}
       >
         Enable
       </button>
-      <button className="button dark" disabled={!isSiteNotice} onClick={toggleHandler}>Disable</button>
+      <button type="button" className="button dark" disabled={!isSiteNotice} onClick={toggleHandler}>Disable</button>
       <Popover
         is_open={isOpen}
         edit_row={form}

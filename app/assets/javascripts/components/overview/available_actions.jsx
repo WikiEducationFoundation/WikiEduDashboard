@@ -103,7 +103,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
       // 'Leave' is not available if the course is controlled by Event Center.
       if (!course.flags.event_sync) {
         controls.push((
-          <div key="leave" className="available-action"><button onClick={leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
+          <div key="leave" className="available-action"><button type="button" onClick={leave} className="button">{CourseUtils.i18n('leave_course', course.string_prefix)}</button></div>
         ));
       }
     }
@@ -115,7 +115,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
       controls.push((
         <div title={Features.wikiEd ? I18n.t('courses.delete_course_instructions') : undefined} key="delete" className="available-action">
-          <button className="button danger" onClick={deleteCourseFunc}>
+          <button type="button" className="button danger" onClick={deleteCourseFunc}>
             {CourseUtils.i18n('delete_course', course.string_prefix)}
           </button>
         </div>
@@ -124,21 +124,21 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     // If the course is ended, show the 'needs update' button.
     if (CourseDateUtils.isEnded(course)) {
       controls.push((
-        <div key="needs_update" className="available-action"><button className="button" onClick={needsUpdateFunc}>{I18n.t('courses.needs_update')}</button></div>
+        <div key="needs_update" className="available-action"><button type="button" className="button" onClick={needsUpdateFunc}>{I18n.t('courses.needs_update')}</button></div>
       ));
     }
-  // If user has no role and is logged in, and if he is not on enrollment page, show 'Join course' button.
-  // On enrollment page, 'Join course' button is not shown in Actions component to avoid confusion.
-  // The 'Join course' button is not shown for courses controlled by Wikimedia Event Center.
-  // The 'Join course' button is not shown on Wiki Education Dashboard.
+    // If user has no role and is logged in, and if he is not on enrollment page, show 'Join course' button.
+    // On enrollment page, 'Join course' button is not shown in Actions component to avoid confusion.
+    // The 'Join course' button is not shown for courses controlled by Wikimedia Event Center.
+    // The 'Join course' button is not shown on Wiki Education Dashboard.
   } else if (!course.ended && !isEnrollmentURL && !course.flags.event_sync && user.id && !Features.wikiEd) {
     controls.push(
-      <div key="join" className="available-action"><button onClick={() => join()} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
+      <div key="join" className="available-action"><button type="button" onClick={() => join()} className="button">{CourseUtils.i18n('join_course', course.string_prefix)}</button></div>
     );
     // On P&E Dashboard, offer option to join as online volunteer
     if (!Features.wikiEd && course.online_volunteers_enabled) {
       controls.push(
-        <div key="volunteer" className="available-action"><button onClick={() => join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
+        <div key="volunteer" className="available-action"><button type="button" onClick={() => join('online_volunteer')} className="button">{CourseUtils.i18n('join_course_as_volunteer', course.string_prefix)}</button></div>
       );
     }
   }
@@ -146,7 +146,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   // NOTE: This is disabled until we have a better way to prevent manual updates from overloading the system.
   // if ((user.isEnrolled || user.isAdmin) && (course.type === 'Editathon' && !course.ended)) {
   //   controls.push((
-  //     <div key="updateStats" className="available-action"><button className="button" onClick={updateStats}>{I18n.t('courses.update_stats')}</button></div>
+  //     <div key="updateStats" className="available-action"><button type="button" className="button" onClick={updateStats}>{I18n.t('courses.update_stats')}</button></div>
   //   ));
   // }
 
@@ -156,7 +156,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     // Enable account requests if allowed
     if (!course.account_requests_enabled) {
       controls.push((
-        <div key="enable_account_requests" className="available-action"><button onClick={enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></div>
+        <div key="enable_account_requests" className="available-action"><button type="button" onClick={enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></div>
       ));
     }
   }
@@ -174,7 +174,7 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
 
   if (user.admin) {
     controls.push((
-      <div key="clone_course" className="available-action"><CloneCourseButton courseId={course.id} courseCreationNotice={courseCreationNotice}/></div>
+      <div key="clone_course" className="available-action"><CloneCourseButton courseId={course.id} courseCreationNotice={courseCreationNotice} /></div>
     ));
   }
 

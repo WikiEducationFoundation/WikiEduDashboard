@@ -18,7 +18,7 @@ const SyllabusUpload = ({ course }) => {
   };
 
   const Uploader = () => {
-    const cancelButton = <button className="link-button" onClick={() => dispatch(toggleEditingSyllabus())}>cancel</button>;
+    const cancelButton = <button type="button" className="link-button" onClick={() => dispatch(toggleEditingSyllabus())}>cancel</button>;
     const loadingAnimation = <Loading message={false} />;
     const dropzone = (
       <Dropzone onDrop={onDrop} multiple={false}>
@@ -26,7 +26,7 @@ const SyllabusUpload = ({ course }) => {
           <div {...getRootProps()} className="course-syllabus__uploader">
             <input {...getInputProps()} />
             <div>
-              Drag and Drop or <button id="browse_files" className="link-button">Browse Files</button>
+              Drag and Drop or <button type="button" id="browse_files" className="link-button">Browse Files</button>
             </div>
           </div>
         )}
@@ -56,7 +56,7 @@ const SyllabusUpload = ({ course }) => {
     }));
   };
   const { syllabus, canUploadSyllabus, editingSyllabus } = course;
-  const editButton = canUploadSyllabus ? <button className="link-button" onClick={() => dispatch(toggleEditingSyllabus())}>edit</button> : null;
+  const editButton = canUploadSyllabus ? <button type="button" className="link-button" onClick={() => dispatch(toggleEditingSyllabus())}>edit</button> : null;
   return (
     <div className="module course-description course__syllabus-upload__inner">
       <div className="module__data">
@@ -65,7 +65,7 @@ const SyllabusUpload = ({ course }) => {
         {' '}
         {(canUploadSyllabus && editingSyllabus ? <Uploader /> : editButton)}
         {' '}
-        {(syllabus !== undefined ? <button className="link-button" onClick={removeSyllabus}>remove</button> : null)}
+        {(syllabus !== undefined ? <button type="button" className="link-button" onClick={removeSyllabus}>remove</button> : null)}
         {' '}
         <a className="link-button" href={`/courses/${course.slug}`}>save</a>
       </div>

@@ -38,7 +38,7 @@ const FinalArticleChecklist = () => {
 
   let button;
   if (isVisible) {
-    button = <button onClick={hide} className="button dark small">Okay</button>;
+    button = <button type="button" onClick={hide} className="button dark small">Okay</button>;
   } else {
     button = <a onClick={show} className="button dark small">Quality checklist</a>;
   }
@@ -63,7 +63,7 @@ const FinalArticleChecklist = () => {
               />
               {item.label}
             </dd>
-        ))}
+          ))}
         </dl>
         {button}
       </div>

@@ -47,7 +47,7 @@ export const Header = ({
         wikidataLabels={wikidataLabels}
       />
       <Link to={`/courses/${course.slug}/article_finder`}>
-        <button className="button border small assign-button link">{ArticleUtils.I18n('find', course.home_wiki.project)}</button>
+        <button type="button" className="button border small assign-button link">{ArticleUtils.I18n('find', course.home_wiki.project)}</button>
       </Link>
     </div>
   </div>

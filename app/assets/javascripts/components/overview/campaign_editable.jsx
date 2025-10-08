@@ -78,7 +78,7 @@ const CampaignEditable = ({ course_id }) => {
 
   const campaignList = campaigns.map((campaign) => {
     const removeButton = (
-      <button className="button border plus" aria-label="Remove campaign" onClick={() => removeCampaignHandler(campaign.title)}>-</button>
+      <button type="button" className="button border plus" aria-label="Remove campaign" onClick={() => removeCampaignHandler(campaign.title)}>-</button>
     );
     return (
       <tr key={`${campaign.id}_campaign`}>
@@ -125,6 +125,7 @@ const CampaignEditable = ({ course_id }) => {
   return (
     <div key="campaigns" className="pop__container campaigns open" ref={ref}>
       <button
+        type="button"
         className="button border plus open" onClick={openPopover}
         aria-label={I18n.t('courses.add_campaign_aria_label')}
       >+

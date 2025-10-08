@@ -8,7 +8,7 @@ const GreetStudentsButton = ({ greetStudents, current_user, course }) => {
   }
 
   return (
-    <div key="greet_students"><button onClick={() => greetStudents(course.id)} className="button">Greet students</button></div>
+    <div key="greet_students"><button type="button" onClick={() => greetStudents(course.id)} className="button">Greet students</button></div>
   );
 };
 

@@ -57,6 +57,7 @@ const EditedUnassignedArticles = ({
         {!props.limitReached
           && (
             <button
+              type="button"
               style={{ width: 'max-content', height: 'max-content', marginTop: '20px' }}
               className="button ghost articles-see-more-btn " onClick={showMore}
             >

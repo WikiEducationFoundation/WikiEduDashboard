@@ -11,8 +11,8 @@ const CampaignOresPlot = (props) => {
   const [filePath, setFilePath] = useState(null);
 
   useEffect(() => {
-     // This clears Rails parts of the previous pages, when changing Campagn tabs
-     if (document.getElementById('users')) {
+    // This clears Rails parts of the previous pages, when changing Campagn tabs
+    if (document.getElementById('users')) {
       document.getElementById('users').innerHTML = '';
     }
     if (document.getElementById('campaign-articles')) {
@@ -67,7 +67,7 @@ const CampaignOresPlot = (props) => {
     return <div>No Structural Completeness data available</div>;
   }
   return (
-    <button className="button small" onClick={showHandler}>Change in Structural Completeness</button>
+    <button type="button" className="button small" onClick={showHandler}>Change in Structural Completeness</button>
   );
 };
 

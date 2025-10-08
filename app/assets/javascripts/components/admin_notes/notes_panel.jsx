@@ -102,7 +102,7 @@ const NotesPanel = () => {
 
   // Conditionally render a button if modalType is null
   if (!isModalOpen) {
-    return (<NotesModalTrigger setIsModalOpen={setIsModalOpen} notesList={notesList} setNoteFetchTimestamp={setNoteFetchTimestamp}/>);
+    return (<NotesModalTrigger setIsModalOpen={setIsModalOpen} notesList={notesList} setNoteFetchTimestamp={setNoteFetchTimestamp} />);
   }
 
   return (
@@ -110,6 +110,7 @@ const NotesPanel = () => {
       <div className="basic-modal">
         {/* Add a close button to the modal */}
         <button
+          type="button"
           onClick={closeModalAndHandleNoteCreation}
           aria-label={I18n.t('notes.admin.aria_label.close_admin')}
           className="pull-right article-viewer-button icon-close admin-focus-highlight"
@@ -122,6 +123,7 @@ const NotesPanel = () => {
             {/* Render the "Create Note" functionality */}
             {!isNoteCreationActive && (
               <button
+                type="button"
                 className="tooltip-trigger admin--note--creator admin-focus-highlight"
                 onClick={() => setIsNoteCreationActive(true)}
                 aria-label={I18n.t('notes.admin.aria_label.create_note')}
@@ -137,6 +139,7 @@ const NotesPanel = () => {
             {isNoteCreationActive && (
               <div role="group" aria-label={I18n.t('notes.admin.aria_label.note_action_button')}>
                 <button
+                  type="button"
                   className="tooltip-trigger cancel--note admin-focus-highlight"
                   onClick={() => setIsNoteCreationActive(false)}
                   aria-label={I18n.t('notes.admin.aria_label.cancel_note_creation')}
@@ -147,6 +150,7 @@ const NotesPanel = () => {
                   </span>
                 </button>
                 <button
+                  type="button"
                   className="tooltip-trigger post--note admin-focus-highlight"
                   onClick={() => onClickPostNotesHandler(course.id)}
                   aria-label={I18n.t('notes.admin.aria_label.post_created_note')}

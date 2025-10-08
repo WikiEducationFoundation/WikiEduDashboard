@@ -12,13 +12,13 @@ const CampaignStatsDownloadModal = ({ campaign_slug }) => {
 
   if (!show) {
     return (
-      <button onClick={() => setShow(true)} className="button">{I18n.t('courses.download_stats_data')}</button>
+      <button type="button" onClick={() => setShow(true)} className="button">{I18n.t('courses.download_stats_data')}</button>
     );
   }
 
   return (
     <div className="basic-modal course-stats-download-modal">
-      <button onClick={() => setShow(false)} className="pull-right article-viewer-button icon-close" />
+      <button type="button" onClick={() => setShow(false)} className="pull-right article-viewer-button icon-close" />
       <h2>{I18n.t('campaign.data_download_info')}</h2>
       <hr />
       <p>

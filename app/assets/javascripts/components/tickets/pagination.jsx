@@ -6,6 +6,7 @@ export default ({ currentPage, goToPage, length }) => {
     return (
       <li key={i}>
         <button
+          type="button"
           className={className}
           onClick={() => goToPage(i)}
         >
@@ -17,7 +18,7 @@ export default ({ currentPage, goToPage, length }) => {
 
   return (
     <ul className="tickets-pagination">
-      { pages }
+      {pages}
     </ul>
   );
 };

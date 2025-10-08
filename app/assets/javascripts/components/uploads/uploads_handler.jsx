@@ -42,8 +42,8 @@ const UploadsHandler = createReactClass({
       }
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
-      data,
-      pageCount: Math.ceil(this.props.selectedUploads.length / UPLOADS_PER_PAGE),
+        data,
+        pageCount: Math.ceil(this.props.selectedUploads.length / UPLOADS_PER_PAGE),
       });
     }
   },
@@ -116,13 +116,13 @@ const UploadsHandler = createReactClass({
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
           <div className="view-buttons">
-            <button id="gallery-view" className={galleryClass} onClick={() => { this.setView(GALLERY_VIEW); }}>
+            <button type="button" id="gallery-view" className={galleryClass} onClick={() => { this.setView(GALLERY_VIEW); }}>
               <p className="tooltip dark">{I18n.t('uploads.gallery_view')}</p>
             </button>
-            <button id="list-view" className={listClass} onClick={() => { this.setView(LIST_VIEW); }}>
+            <button type="button" id="list-view" className={listClass} onClick={() => { this.setView(LIST_VIEW); }}>
               <p className="tooltip dark">{I18n.t('uploads.list_view')}</p>
             </button>
-            <button id="tile-view" className={tileClass} onClick={() => { this.setView(TILE_VIEW); }}>
+            <button type="button" id="tile-view" className={tileClass} onClick={() => { this.setView(TILE_VIEW); }}>
               <p className="tooltip dark">{I18n.t('uploads.tile_view')}</p>
             </button>
           </div>

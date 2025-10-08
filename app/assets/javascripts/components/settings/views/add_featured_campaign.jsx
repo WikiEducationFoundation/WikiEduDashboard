@@ -11,7 +11,7 @@ const AddFeaturedCampaign = () => {
   const form = <ConnectedFeaturedCampaignForm handlePopoverClose={open} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>{I18n.t('settings.featured_campaigns.update_featured_campaigns_button')}</button>
+      <button type="button" className="button dark" onClick={open}>{I18n.t('settings.featured_campaigns.update_featured_campaigns_button')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}

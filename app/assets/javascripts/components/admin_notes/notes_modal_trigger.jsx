@@ -33,6 +33,7 @@ const NotesModalTrigger = ({ setIsModalOpen, notesList, setNoteFetchTimestamp })
   return (
     <div className="admin-notes-modal-trigger">
       <button
+        type="button"
         onClick={onClickAdminButton}
         className="button admin-focus-highlight admin-action-button"
         aria-haspopup="dialog"
@@ -42,10 +43,10 @@ const NotesModalTrigger = ({ setIsModalOpen, notesList, setNoteFetchTimestamp })
       </button>
       {
         (notificationCount > 0) && (
-        <div className="icon-notification_admin--badge">
-          {notificationCount}
-        </div>
-      )}
+          <div className="icon-notification_admin--badge">
+            {notificationCount}
+          </div>
+        )}
     </div>
   );
 };

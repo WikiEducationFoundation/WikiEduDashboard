@@ -28,6 +28,7 @@ const ProgressTracker = ({ assignment, course }) => {
   return (
     <div className="progress-tracker">
       <button
+        type="button"
         className="screen-reader"
         onClick={toggle}
       >

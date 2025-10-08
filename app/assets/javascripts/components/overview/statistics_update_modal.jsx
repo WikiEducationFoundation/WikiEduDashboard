@@ -35,24 +35,24 @@ const StatisticsUpdateModal = (props) => {
     <div className="statistics-update-modal-container">
       <div className="statistics-update-modal">
         <b>{I18n.t('metrics.update_status_heading')}</b>
-        <br/>
-        { lastUpdateSummary }
+        <br />
+        {lastUpdateSummary}
         <ul>
-          <li>{ recentUpdatesSummary }</li>
-          <li>{ totalUpdatesMessage }</li>
+          <li>{recentUpdatesSummary}</li>
+          <li>{totalUpdatesMessage}</li>
           <li>{nextUpdateMessage}</li>
           <li>{futureUpdatesMessage} {additionalUpdateMessage}</li>
         </ul>
         <b>{I18n.t('metrics.missing_data_heading')}</b>
-        <br/>
-        { I18n.t('metrics.missing_data_info') }:
+        <br />
+        {I18n.t('metrics.missing_data_info')}:
         <ul>
-          <li>{ I18n.t('metrics.replag_info') } <a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a></li>
-          { course.type === 'ArticleScopedProgram' && <li>{ I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'article_scoped_program_info')}`) }</li> }
+          <li>{I18n.t('metrics.replag_info')} <a href="https://replag.toolforge.org/" target="_blank">{I18n.t('metrics.replag_link')}</a></li>
+          {course.type === 'ArticleScopedProgram' && <li>{I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'article_scoped_program_info')}`)}</li>}
         </ul>
-        <small>{ helpMessage }</small>
-        <br/>
-        <button className="button dark" onClick={props.toggleModal}>{I18n.t('metrics.close_modal')}</button>
+        <small>{helpMessage}</small>
+        <br />
+        <button type="button" className="button dark" onClick={props.toggleModal}>{I18n.t('metrics.close_modal')}</button>
       </div>
     </div>
   );

@@ -63,7 +63,7 @@ const TagEditable = ({ course_id }) => {
   // In editable mode we'll show a list of tags and a remove button plus a selector to add new tags
   const tagList = tags.map((tag) => {
     const removeButton = (
-      <button className="button border plus" aria-label="Remove tag" onClick={() => removeTagHandler(tag.tag)}>-</button>
+      <button type="button" className="button border plus" aria-label="Remove tag" onClick={() => removeTagHandler(tag.tag)}>-</button>
     );
     return (
       <tr key={`${tag.id}_tag`}>
@@ -106,6 +106,7 @@ const TagEditable = ({ course_id }) => {
   return (
     <div key="tags" className="pop__container tags open" ref={ref}>
       <button
+        type="button"
         className="button border plus open" onClick={openPopover}
         aria-label={I18n.t('courses.new_tag_button_aria_label')}
       >+

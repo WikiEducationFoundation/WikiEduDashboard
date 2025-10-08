@@ -75,7 +75,7 @@ const CourseCreator = createReactClass({
       this.props.fetchCampaign(campaignParam);
     }
     this.props.fetchCoursesForUser(window.currentUser.id);
-    },
+  },
 
   onDropdownChange(event) {
     this.setState({
@@ -93,13 +93,13 @@ const CourseCreator = createReactClass({
     return (
       <div className={`wizard__panel__controls ${hidden ? 'hidden' : ''}`}>
         <div className="left">
-          <button onClick={backFunction || this.backToCourseForm} className="dark button">{I18n.t('application.back')}</button>
+          <button type="button" onClick={backFunction || this.backToCourseForm} className="dark button">{I18n.t('application.back')}</button>
           <p className="tempCourseIdText">{this.state.tempCourseId}</p>
         </div>
         <div className="right">
           <div><p className="red">{this.props.firstErrorMessage}</p></div>
           <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-          <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+          <button type="button" onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
         </div>
       </div>
     );
@@ -304,7 +304,7 @@ const CourseCreator = createReactClass({
   },
 
   hideCourseForm() {
-   return this.setState({ showCourseForm: false });
+    return this.setState({ showCourseForm: false });
   },
 
   hideWizardForm() {
@@ -418,7 +418,7 @@ const CourseCreator = createReactClass({
     }
     const checkBoxLabel = (
       <span style={{ marginTop: '1vh' }}>
-        <input id="copy_cloned_articles" type="checkbox" onChange={this.setCopyCourseAssignments}/>
+        <input id="copy_cloned_articles" type="checkbox" onChange={this.setCopyCourseAssignments} />
         <label htmlFor="checkbox_id">{I18n.t('courses.creator.copy_courses_with_assignments')}</label>
       </span>
     );
@@ -443,7 +443,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
-              back = {this.hideWizardForm}
+              back={this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
               hasClonableCourses={hasClonableCourses}

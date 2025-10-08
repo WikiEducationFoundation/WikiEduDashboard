@@ -102,7 +102,7 @@ const CourseOresPlot = ({ course }) => {
     }
     loadgraph();
   }
-  return (<button className="button small" onClick={showHandler}>Change in Structural Completeness</button>);
+  return (<button type="button" className="button small" onClick={showHandler}>Change in Structural Completeness</button>);
 };
 
 export default CourseOresPlot;

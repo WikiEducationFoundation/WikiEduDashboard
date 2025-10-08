@@ -37,16 +37,16 @@ const SalesforceLink = ({
     const openLink = window.SalesforceServer + course.flags.salesforce_id;
     return (
       <div>
-        <div key="link_salesforce" className="available-action"><button onClick={linkToSalesforceHandler} className="button">Update Salesforce ID</button></div>
+        <div key="link_salesforce" className="available-action"><button type="button" onClick={linkToSalesforceHandler} className="button">Update Salesforce ID</button></div>
         <div key="open_salesforce" className="available-action"><a href={openLink} className="button" target="_blank">Open in Salesforce</a></div>
-        <div key="update_salesforce" className="available-action"><button onClick={updateSalesforceRecordHandler} className="button" target="_blank">Update Salesforce record</button></div>
+        <div key="update_salesforce" className="available-action"><button type="button" onClick={updateSalesforceRecordHandler} className="button" target="_blank">Update Salesforce record</button></div>
       </div>
     );
   }
 
   // If no Salesforce ID is present, show the "Link to Salesforce" button
   return (
-    <p key="link_salesforce"><button onClick={linkToSalesforceHandler} className="button">Link to Salesforce</button></p>
+    <p key="link_salesforce"><button type="button" onClick={linkToSalesforceHandler} className="button">Link to Salesforce</button></p>
   );
 };
 

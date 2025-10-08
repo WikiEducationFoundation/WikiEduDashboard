@@ -56,14 +56,14 @@ const EditableRedux = (Component, Label) => {
       if (editable) {
         return (
           <div className="controls">
-            <button onClick={cancelChanges} className="button">{I18n.t('editable.cancel')}</button>
-            <button onClick={saveChanges} className="dark button">{I18n.t('editable.save')}</button>
+            <button type="button" onClick={cancelChanges} className="button">{I18n.t('editable.cancel')}</button>
+            <button type="button" onClick={saveChanges} className="dark button">{I18n.t('editable.save')}</button>
           </div>
         );
       } else if (props.editable === undefined || props.editable) {
         return (
           <div className="controls">
-            <button onClick={toggleEditable} className="dark button">{Label}</button>
+            <button type="button" onClick={toggleEditable} className="dark button">{Label}</button>
           </div>
         );
       }

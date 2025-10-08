@@ -9,7 +9,7 @@ const Category = ({ course, category, remove, editable }) => {
   let removeButton;
   if (editable) {
     removeButton = (
-      <button className="button pull-right small danger" onClick={remove}>
+      <button type="button" className="button pull-right small danger" onClick={remove}>
         {I18n.t('categories.remove')}
       </button>
     );
@@ -54,8 +54,8 @@ const Category = ({ course, category, remove, editable }) => {
     lastUpdateMessage = !beenUpdated
       ? '---'
       : `${I18n.t('metrics.last_update')}: ${formatDistanceToNow(lastUpdate, {
-          addSuffix: true,
-        })}`;
+        addSuffix: true,
+      })}`;
   }
   return (
     <>
@@ -81,7 +81,7 @@ const Category = ({ course, category, remove, editable }) => {
             </p>
             {beenUpdated && (
               <small>
-                <button onClick={() => setShowModal(true)}>
+                <button type="button" onClick={() => setShowModal(true)}>
                   {I18n.t('articles.view_articles')}
                 </button>
               </small>
@@ -104,8 +104,8 @@ const Category = ({ course, category, remove, editable }) => {
             category={category}
             course={course}
             lastUpdateMessage={`${I18n.t(
-            'metrics.last_articles_update'
-          )}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`}
+              'metrics.last_articles_update'
+            )}: ${formatDistanceToNow(lastUpdate, { addSuffix: true })}`}
           />, document.body)
       )}
     </>

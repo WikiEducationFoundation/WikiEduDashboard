@@ -70,7 +70,7 @@ const Feedback = ({ assignment, username, current_user }) => {
 
   let button;
   if (show) {
-    button = <div className="feedback-close-container"><button onClick={hide} className="feedback-close icon-close" /></div>;
+    button = <div className="feedback-close-container"><button type="button" onClick={hide} className="feedback-close icon-close" /></div>;
   } else {
     button = <a onClick={showHandler} className="button dark small">{I18n.t('courses.feedback')}</a>;
   }

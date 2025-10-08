@@ -40,6 +40,7 @@ export const Footer = ({
       {
         !showArticleFinder && (
           <button
+            type="button"
             className="button dark small"
             style={{
               height: 'max-content',
@@ -59,10 +60,10 @@ export const Footer = ({
     <div
       className="article-footer"
       style={{
-      display: 'flex',
-      alignItems: 'center',
-      padding: '0 1em',
-    }}
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 1em',
+      }}
     >
       {articleViewerLegend}
       <div
@@ -88,6 +89,7 @@ export const Footer = ({
           {I18n.t('articles.view_on_wiki')}
         </a>
         <button
+          type="button"
           className="button dark small"
           style={{
             height: 'max-content',

@@ -96,13 +96,13 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
   const loaded = (!isCourseScoped && revisionsLoaded) || (isCourseScoped && courseScopedRevisionsLoaded);
   const metaDataLoading = (!isCourseScoped ? (!referencesLoaded || !assessmentsLoaded) : (!courseSpecificReferencesLoaded || !courseSpecificAssessmentsLoaded));
   const showMoreButton = ((!isCourseScoped && !limitReached) || (isCourseScoped && !courseScopedLimitReached)) ? (
-    <div><button className="button ghost stacked right" onClick={showMore}>{I18n.t('revisions.see_more')}</button></div>
+    <div><button type="button" className="button ghost stacked right" onClick={showMore}>{I18n.t('revisions.see_more')}</button></div>
   ) : null;
 
   // we only fetch articles data for a max of 500 articles(for course specific revisions).
   // If there are more than 500 articles, the toggle button is not shown
   const revisionFilterButton = (
-    <div><button className="button ghost stacked right" onClick={toggleCourseSpecific}>{revisionFilterButtonText()}</button></div>
+    <div><button type="button" className="button ghost stacked right" onClick={toggleCourseSpecific}>{revisionFilterButtonText()}</button></div>
   );
 
   const options = [

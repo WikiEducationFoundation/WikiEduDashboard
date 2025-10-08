@@ -53,11 +53,11 @@ const CourseAlerts = ({
           const url = `/alerts_list/${onboardingAlert.id}`;
           newAlerts.push(<CourseAlert key="supplementary" message={message} buttonLink={url} actionMessage={'Go to Alert'} />);
         }
-      // When the course has been submitted
+        // When the course has been submitted
         if (course.submitted) {
           // Show instructors the 'submitted' notice.
           if (!userRoles.isAdmin) {
-            newAlerts.push(<CourseAlert key="submit" message={I18n.t('courses.submitted_note')} buttonLink="/training" actionMessage={'View Training Modules'}/>);
+            newAlerts.push(<CourseAlert key="submit" message={I18n.t('courses.submitted_note')} buttonLink="/training" actionMessage={'View Training Modules'} />);
             // Instruct admins to approve the course by adding a campaign.
           } else {
             const homeLink = `${courseLinkParams}/home`;
@@ -113,6 +113,7 @@ const CourseAlerts = ({
           const dismissOnClick = () => dismissSurvey(notification.id);
           const components = (
             <button
+              type="button"
               className="button small pull-right border inverse-border"
               onClick={dismissOnClick}
             >

@@ -81,11 +81,11 @@ const AvailableArticles = (props) => {
     availableArticles = (
       <div id="available-articles" className="mt4">
         <div className="section-header">
-          <h3>{ ArticleUtils.I18n('available', project)}</h3>
+          <h3>{ArticleUtils.I18n('available', project)}</h3>
           <div className="section-header__actions">
             {findingArticlesTraining}
             {assignCell}
-            <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">{ArticleUtils.I18n('find', project)}</button></Link>
+            <Link to={`/courses/${course_id}/article_finder`}><button type="button" className="button border small ml2">{ArticleUtils.I18n('find', project)}</button></Link>
           </div>
         </div>
         <AvailableArticlesList {...props} elements={elements} />

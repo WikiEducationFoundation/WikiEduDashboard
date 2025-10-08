@@ -165,35 +165,35 @@ const DiffViewer = createReactClass({
 
   fetchDiff(diffUrl) {
     fetch(diffUrl)
-    .then(resp => resp.json())
-    .then((data) => {
-      let firstRevisionData;
-      try {
-        firstRevisionData = data.query.pages[this.props.revision.pageid].revisions[0];
-      } catch (_err) {
-        firstRevisionData = {};
-      }
-      let lastRevisionData;
-      try {
-        lastRevisionData = data.query.pages[this.props.revision.pageid].revisions[1];
-      } catch (_err) { /* noop */ }
+      .then(resp => resp.json())
+      .then((data) => {
+        let firstRevisionData;
+        try {
+          firstRevisionData = data.query.pages[this.props.revision.pageid].revisions[0];
+        } catch (_err) {
+          firstRevisionData = {};
+        }
+        let lastRevisionData;
+        try {
+          lastRevisionData = data.query.pages[this.props.revision.pageid].revisions[1];
+        } catch (_err) { /* noop */ }
 
-      // Data may or may not include the diff.
-      let diff;
-      if (firstRevisionData.diff) {
-        diff = firstRevisionData.diff['*'];
-      } else {
-        diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
-      }
+        // Data may or may not include the diff.
+        let diff;
+        if (firstRevisionData.diff) {
+          diff = firstRevisionData.diff['*'];
+        } else {
+          diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
+        }
 
-      this.setState({
-        diff,
-        comment: firstRevisionData.comment,
-        fetched: true,
-        firstRevDateTime: firstRevisionData.timestamp,
-        lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : firstRevisionData.timestamp
+        this.setState({
+          diff,
+          comment: firstRevisionData.comment,
+          fetched: true,
+          firstRevDateTime: firstRevisionData.timestamp,
+          lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : firstRevisionData.timestamp
+        });
       });
-    });
   },
 
   previousArticle() {
@@ -202,6 +202,7 @@ const DiffViewer = createReactClass({
     }
     return (
       <button
+        type="button"
         onClick={this.showPreviousArticle}
         className="button pull-right dark small"
       >
@@ -215,7 +216,7 @@ const DiffViewer = createReactClass({
       return null;
     }
     return (
-      <button onClick={this.showNextArticle} className="pull-right margin button dark small">{I18n.t('articles.next')}</button>
+      <button type="button" onClick={this.showNextArticle} className="pull-right margin button dark small">{I18n.t('articles.next')}</button>
     );
   },
 
@@ -231,7 +232,7 @@ const DiffViewer = createReactClass({
     if (!this.shouldShowDiff(this.props) || !this.props.revision) {
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
-          <button onClick={this.showDiff} aria-label="Open Diff Viewer" className="icon icon-diff-viewer"/>
+          <button type="button" onClick={this.showDiff} aria-label="Open Diff Viewer" className="icon icon-diff-viewer" />
           <div className="tooltip tooltip-center dark large">
             <p>{this.showButtonLabel()}</p>
           </div>
@@ -248,12 +249,12 @@ const DiffViewer = createReactClass({
     let diff;
     if (!this.state.fetched) {
       // div cannot appear as a child of tbody
-      diff = <tbody><tr><td><Loading/></td></tr></tbody>;
+      diff = <tbody><tr><td><Loading /></td></tr></tbody>;
     } else if (this.state.diff === '') {
       diff = <tbody><tr><td> —</td></tr></tbody>;
     } else {
       // adds a ref for the diff, used to format parts of diff element above
-      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} ref={this.setDiffBodyRef}/>;
+      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} ref={this.setDiffBodyRef} />;
     }
 
     const wikiDiffUrl = this.webDiffUrl();
@@ -310,7 +311,7 @@ const DiffViewer = createReactClass({
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            <button onClick={this.hideDiff} aria-label="Close Diff Viewer" className="pull-right icon-close"/>
+            <button type="button" onClick={this.hideDiff} aria-label="Close Diff Viewer" className="pull-right icon-close" />
           </div>
           <div className="diff-viewer-header">
             {this.nextArticle()}

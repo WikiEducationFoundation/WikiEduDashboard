@@ -63,7 +63,7 @@ const NotesRow = ({ notesList }) => {
 
   // Function to handle clicking on the cancel note button
   const onNotesEditCancelButtonClickHandler = () => {
-     setEditNoteId(null);
+    setEditNoteId(null);
   };
 
   // Handles Enter key to toggle note expansion in the table row
@@ -91,17 +91,19 @@ const NotesRow = ({ notesList }) => {
         // Render the edit button or cancel button based on the editing state
         const notesEditButton = !isEditing ? (
           <button
+            type="button"
             className="tooltip-trigger admin-focus-highlight"
             aria-label={I18n.t('notes.admin.aria_label.note_edit_button_focused', { title: note.title })}
             onClick={() => onNotesEditButtonClickHandler(note.id, note.title, note.text)}
           >
-            <span className="icon admin-note-edit-icon"/>
+            <span className="icon admin-note-edit-icon" />
             <span className="tooltip new">
               <p>{I18n.t('notes.edit_note')}</p>
             </span>
           </button>
         ) : (
           <button
+            type="button"
             className="tooltip-trigger cancel--note admin-focus-highlight"
             aria-label={I18n.t('notes.admin.aria_label.note_edit_cancel_button_focused', { title: note.title })}
             onClick={() => onNotesEditCancelButtonClickHandler()}
@@ -116,6 +118,7 @@ const NotesRow = ({ notesList }) => {
         // Render the save button
         const notesEditSaveButton = (
           <button
+            type="button"
             className="tooltip-trigger post--note admin-focus-highlight"
             onClick={() => onNotesEditSaveButtonClickHandler(note.id)}
             aria-label={I18n.t('notes.admin.aria_label.note_edit_save_button_focused', { title: noteTitle })}
@@ -159,6 +162,7 @@ const NotesRow = ({ notesList }) => {
               <td className={`${rowClassName} admin-note__delete`} onClick={e => e.stopPropagation()}>
                 {!isEditing ? (
                   <button
+                    type="button"
                     className="tooltip-trigger admin-focus-highlight"
                     aria-label={I18n.t('notes.admin.aria_label.note_delete_button_focused', { title: note.title })}
                     onClick={() => deleteNote(note.id)}

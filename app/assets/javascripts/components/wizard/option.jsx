@@ -50,7 +50,7 @@ const Option = ({
       </div>
     );
     expandLink = (
-      <button className={moreClassName} onClick={expand}><p>{expandText}</p></button>
+      <button type="button" className={moreClassName} onClick={expand}><p>{expandText}</p></button>
     );
   }
 
@@ -75,7 +75,7 @@ const Option = ({
 
   return (
     <div className={className}>
-      <button onClick={onClick} role="checkbox" aria-checked={option.selected || false}>
+      <button type="button" onClick={onClick} role="checkbox" aria-checked={option.selected || false}>
         {checkbox}
         {notice}
         <h3>{option.title}</h3>

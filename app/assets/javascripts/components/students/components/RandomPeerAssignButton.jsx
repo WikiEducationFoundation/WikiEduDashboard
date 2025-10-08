@@ -24,7 +24,7 @@ const RandomPeerAssignButton = ({
     let onConfirm;
     if (randomAssignmentsCount <= 0) {
       confirmMessage = I18n.t(`assignments.random_peer_review.${ArticleUtils.projectSuffix(course.home_wiki.project, 'limit_exceeded')}`, { maximum: peerReviewCount });
-      onConfirm = () => {};
+      onConfirm = () => { };
     } else {
       confirmMessage = I18n.t(`assignments.random_peer_review.${ArticleUtils.projectSuffix(course.home_wiki.project, 'confirm_addition')}`, { count: randomAssignmentsCount, maximum: peerReviewCount });
       onConfirm = () => assignRandomPeer({ course_slug: course.slug });
@@ -39,8 +39,8 @@ const RandomPeerAssignButton = ({
 
   return (
     <div className="tooltip-trigger" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      <button className="button border small assign-button" onClick={randomPeerAssign}>
-        {I18n.t('assignments.random_peer_review.heading')} {<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`}/>}
+      <button type="button" className="button border small assign-button" onClick={randomPeerAssign}>
+        {I18n.t('assignments.random_peer_review.heading')} {<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`} />}
       </button>
       <div className="tooltip">
         <p>

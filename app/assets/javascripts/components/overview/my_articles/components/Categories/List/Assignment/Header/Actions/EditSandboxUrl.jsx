@@ -6,74 +6,74 @@ import PopoverExpandable from '../../../../../../../../high_order/popover_expand
 import { updateSandboxUrl } from '../../../../../../../../../actions/assignment_actions';
 
 export class EditSandboxUrl extends React.Component {
-constructor(props) {
-  super(props);
-  this.toggle = this.toggle.bind(this);
-  this.handleNewUrlChange = this.handleNewUrlChange.bind(this);
-  this.submit = this.submit.bind(this);
-  this.state = {
-    newUrl: props.assignment.sandbox_url,
-  };
-}
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.handleNewUrlChange = this.handleNewUrlChange.bind(this);
+    this.submit = this.submit.bind(this);
+    this.state = {
+      newUrl: props.assignment.sandbox_url,
+    };
+  }
 
-getKey() {
-  let tag = 'open_edit_sandbox_url_input_';
-  return tag += this.props.assignment.id;
-}
+  getKey() {
+    let tag = 'open_edit_sandbox_url_input_';
+    return tag += this.props.assignment.id;
+  }
 
-handleNewUrlChange(e) {
-  this.setState({
-    newUrl: e.target.value,
-  });
-}
+  handleNewUrlChange(e) {
+    this.setState({
+      newUrl: e.target.value,
+    });
+  }
 
-stop(e) {
-  e.stopPropagation();
-}
+  stop(e) {
+    e.stopPropagation();
+  }
 
-toggle(e) {
-  e.preventDefault();
-  this.props.open();
-  this.setState({
-    newUrl: this.props.assignment.sandbox_url
-  });
-}
-
-submit(e) {
-  if (this.state.newUrl !== '') {
-    const { assignment } = this.props;
-    this.toggle(e);
-    this.props.updateSandboxUrl(assignment, this.state.newUrl);
-  } else {
+  toggle(e) {
     e.preventDefault();
+    this.props.open();
+    this.setState({
+      newUrl: this.props.assignment.sandbox_url
+    });
   }
-}
 
-render() {
-  const { is_open } = this.props;
-  const editRow = (
-    <tr className="edit">
-      <td>
-        <EditSandboxUrlInput
-          submit={this.submit}
-          onChange={this.handleNewUrlChange}
-          value={this.state.newUrl}
-        />
-      </td>
-    </tr>
-  );
-  if (is_open) {
-    return (
-      <div className="pop__container" onClick={this.stop}>
-        <Popover
-          is_open={is_open}
-          edit_row={editRow}
-        />
-      </div>
-    );
+  submit(e) {
+    if (this.state.newUrl !== '') {
+      const { assignment } = this.props;
+      this.toggle(e);
+      this.props.updateSandboxUrl(assignment, this.state.newUrl);
+    } else {
+      e.preventDefault();
+    }
   }
+
+  render() {
+    const { is_open } = this.props;
+    const editRow = (
+      <tr className="edit">
+        <td>
+          <EditSandboxUrlInput
+            submit={this.submit}
+            onChange={this.handleNewUrlChange}
+            value={this.state.newUrl}
+          />
+        </td>
+      </tr>
+    );
+    if (is_open) {
+      return (
+        <div className="pop__container" onClick={this.stop}>
+          <Popover
+            is_open={is_open}
+            edit_row={editRow}
+          />
+        </div>
+      );
+    }
     return (
-      <button onClick={this.toggle} className="button dark small">
+      <button type="button" onClick={this.toggle} className="button dark small">
         {I18n.t('assignments.change_sandbox_url')}
       </button>
     );

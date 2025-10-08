@@ -13,7 +13,7 @@ const CourseStatsDownloadModal = ({ course }) => {
   };
 
   if (!show) {
-    return <button onClick={showStats} className="button">{I18n.t('courses.download_stats_data')}</button>;
+    return <button type="button" onClick={showStats} className="button">{I18n.t('courses.download_stats_data')}</button>;
   }
 
   const overviewCsvLink = `/course_csv?course=${course.slug}`;
@@ -42,7 +42,7 @@ const CourseStatsDownloadModal = ({ course }) => {
 
   return (
     <div className="basic-modal course-stats-download-modal">
-      <button onClick={hideStats} className="pull-right article-viewer-button icon-close" />
+      <button type="button" onClick={hideStats} className="pull-right article-viewer-button icon-close" />
       <h2>{I18n.t('courses.data_download_info')}</h2>
       {warning}
       <hr />

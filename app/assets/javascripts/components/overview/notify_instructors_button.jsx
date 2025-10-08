@@ -29,13 +29,13 @@ const NotifyInstructorsButton = (props) => {
 
   return (
     <>
-      <button onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_VISIBLE })} className="button">
+      <button type="button" onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_VISIBLE })} className="button">
         {I18n.t('course_instructor_notification.notify_instructors')}
       </button>
 
       {visible && (
         <div className="basic-modal">
-          <button onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_HIDDEN })} className="pull-right article-viewer-button icon-close" />
+          <button type="button" onClick={() => dispatch({ type: ALERT_INSTRUCTOR_MODAL_HIDDEN })} className="pull-right article-viewer-button icon-close" />
           <h2>{I18n.t('course_instructor_notification.notify_instructors')}</h2>
           <p>{I18n.t('course_instructor_notification.notify_instructors_feature_description')}</p>
           <hr />
@@ -65,7 +65,7 @@ const NotifyInstructorsButton = (props) => {
           </div>
 
           <label className="inline-radio">
-            { I18n.t('course_instructor_notification.bcc_to_salesforce')}
+            {I18n.t('course_instructor_notification.bcc_to_salesforce')}
             <input
               checked={notification.bccToSalesforce}
               className="ml1"
@@ -79,7 +79,7 @@ const NotifyInstructorsButton = (props) => {
           {notification.status === 'PENDING' ? (
             <Loading text={I18n.t('course_instructor_notification.sending_notification')} />
           ) : (
-            <button className="button border pull-right mt1" onClick={sendNotificationHandler}>
+            <button type="button" className="button border pull-right mt1" onClick={sendNotificationHandler}>
               {I18n.t('course_instructor_notification.send_notification_button_text')}
             </button>
           )}

@@ -70,7 +70,7 @@ const AddAvailableArticles = ({
         editable
         placeholder={inputPlaceholder}
       />
-      <button className="button border pull-right" onClick={submit}>
+      <button type="submit" className="button border pull-right" onClick={submit}>
         {I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'add_available_submit')}`)}
       </button>
     </div>

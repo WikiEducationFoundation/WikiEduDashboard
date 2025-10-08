@@ -59,7 +59,7 @@ const NewAccountButton = ({ course, passcode, currentUser }) => {
     buttonOrModal = <NewAccountModal course={course} passcode={passcode} closeModal={closeModal} currentUser={currentUser} />;
   } else {
     buttonOrModal = (
-      <button onClick={openModal} key="request_account" className="button auth signup border margin request_accounts">
+      <button type="button" onClick={openModal} key="request_account" className="button auth signup border margin request_accounts">
         <i className="icon-wiki-purple icon" /> {currentUser.isInstructor ? I18n.t('application.request_account_create') : I18n.t('application.request_account')}
       </button>
     );

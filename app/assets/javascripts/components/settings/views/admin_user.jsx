@@ -69,7 +69,7 @@ const AdminUser = ({ user, downgradeAdmin, revokingAdmin }) => {
       </td>
       <td className="user__revoke">
         <p>
-          <button className={buttonClass} onClick={handleClick}>
+          <button type="button" className={buttonClass} onClick={handleClick}>
             {buttonText}
           </button>
         </p>

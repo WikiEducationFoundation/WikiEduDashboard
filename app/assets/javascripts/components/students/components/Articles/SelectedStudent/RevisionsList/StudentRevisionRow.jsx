@@ -24,7 +24,7 @@ export const StudentRevisionRow = ({ course, isOpen, toggleDrawer, student, uplo
           {student.total_uploads || 0}
         </Link>
       </td>
-      <td><button className="icon icon-arrow-toggle table-expandable-indicator" /></td>
+      <td><button type="button" className="icon icon-arrow-toggle table-expandable-indicator" /></td>
     </tr>
   );
 };

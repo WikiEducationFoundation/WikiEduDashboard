@@ -75,6 +75,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
             <NoDetailsText />
           )}
           <button
+            type="button"
             className="button mark-as-review"
             onClick={() => {
               dispatch(updateCourse({
