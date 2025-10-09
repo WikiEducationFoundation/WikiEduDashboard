@@ -121,6 +121,26 @@ class AiEditAlert < Alert
     "https://#{ENV['dashboard_url']}/alert_followup/#{id}"
   end
 
+  # Returns the responses from the student, or nil if they never responded
+  def followup_student
+    details["followup_#{user.username}"]
+  end
+
+  def followups
+    details.select { |k, _| k.to_s.include?('followup') }
+  end
+
+  # Returns the responses from non-students, or an empty hash if none responded.
+  # The hash keys are the username who responded the questionnaire.
+  def followup_non_student
+    followups.reject { |k, _| k.to_s.include?(user.username) }
+             .transform_keys { |k| k.delete_prefix('followup_') }
+  end
+
+  def details_to_show
+    details.reject { |k, _| k.to_s.include?('followup') }
+  end
+
   def article_title
     details[:article_title]
   end
@@ -161,5 +181,9 @@ class AiEditAlert < Alert
     else
       :unknown
     end
+  end
+
+  def to_partial_path
+    'alerts_list/ai_edit_alert'
   end
 end
