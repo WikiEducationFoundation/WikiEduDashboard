@@ -11,9 +11,9 @@ const QuestionResults = (props) => {
       case 'radio':
       case 'checkbox':
       case 'select':
-        return <BarGraph answer_options = {question.answer_options} answers = {question.answers} />;
+        return <BarGraph answer_options={question.answer_options} answers={question.answers} />;
       case 'rangeinput':
-        return <RangeGraph question = {question.question} answers = {question.answers} />;
+        return <RangeGraph question={question.question} answers={question.answers} />;
       case 'text':
       case 'long':
         return (

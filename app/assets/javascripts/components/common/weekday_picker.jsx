@@ -171,7 +171,7 @@ const WeekdayPicker = ({
         key={weekday}
         className={dayClassName}
         tabIndex={tabIndexValue}
-        aria-label= {ariaLabelMessage}
+        aria-label={ariaLabelMessage}
         onClick={onClickHandler}
         onKeyDown={e => handleDayKeyDown(e, weekday, customModifiers)}
         onMouseEnter={onMouseEnterHandler}
