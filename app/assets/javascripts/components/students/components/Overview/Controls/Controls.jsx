@@ -8,7 +8,12 @@ import NewAccountButton from '@components/enroll/new_account_button.jsx';
 
 export const Controls = (props) => {
   const {
-    course, current_user, students, notify, showOverviewFilters, sortSelect
+    course,
+    current_user,
+    students,
+    // notify,
+    showOverviewFilters,
+    sortSelect
   } = props;
 
   let requestAccountsButton;
@@ -17,10 +22,11 @@ export const Controls = (props) => {
   }
 
   // This corresponds to CoursesController#notify_untrained
-  let notifyOverdueButton;
-  if (Features.wikiEd && students.length > 0 && (course.student_count - course.trained_count) > 0) {
-    notifyOverdueButton = <button className="notify_overdue" title={I18n.t('wiki_edits.notify_overdue.button_label')} onClick={notify} key="notify" />;
-  }
+  // Disabled October 2025. It is rarely used, but can trigger edit filters for new users when it is used.
+  // let notifyOverdueButton;
+  // if (Features.wikiEd && students.length > 0 && (course.student_count - course.trained_count) > 0) {
+  //   notifyOverdueButton = <button className="notify_overdue" title={I18n.t('wiki_edits.notify_overdue.button_label')} onClick={notify} key="notify" />;
+  // }
 
   return (
     <div className="users-control">
@@ -42,7 +48,7 @@ export const Controls = (props) => {
         ) : null
       }
       {requestAccountsButton}
-      {notifyOverdueButton}
+      {/* notifyOverdueButton */}
     </div>
   );
 };

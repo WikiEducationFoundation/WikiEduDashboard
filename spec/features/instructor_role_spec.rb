@@ -177,17 +177,5 @@ describe 'Instructor users', :js, type: :feature do
       sleep 1
       expect(page).to have_no_content 'Student A'
     end
-
-    it 'is able to notify users with overdue training' do
-      visit "/courses/#{Course.first.slug}/students/overview"
-
-      sleep 1
-      # Notify users with overdue training
-      accept_alert do
-        accept_confirm do
-          find('button.notify_overdue').click
-        end
-      end
-    end
   end
 end
