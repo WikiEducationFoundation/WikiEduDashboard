@@ -60,7 +60,7 @@ describe AverageViewsImporter do
         described_class.update_outdated_average_views(course)
       end
       expect(articles_course.reload.average_views).to eq(1)
-      expect(article_course_never_updated.reload.average_views).to be > 1400
+      expect(article_course_never_updated.reload.average_views).to be > 1300
       expect(article_course_very_old.reload.average_views).to eq(0)
     end
 

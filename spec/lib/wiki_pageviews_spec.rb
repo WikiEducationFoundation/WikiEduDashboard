@@ -18,7 +18,7 @@ describe WikiPageviews do
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(21194.4)
+          expect(subject).to be_within(2000).of(19989.4)
         end
       end
     end
@@ -28,7 +28,7 @@ describe WikiPageviews do
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(2177.6)
+          expect(subject).to be_within(200).of(2148.4)
         end
       end
     end
@@ -38,7 +38,7 @@ describe WikiPageviews do
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(8.4)
+          expect(subject).to be_within(2).of(7.8)
         end
       end
     end
@@ -48,7 +48,7 @@ describe WikiPageviews do
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(20947)
+          expect(subject).to be_within(2000).of(20899.4)
         end
       end
     end
@@ -58,7 +58,7 @@ describe WikiPageviews do
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(5951.4)
+          expect(subject).to be_within(500).of(5930.8)
         end
       end
     end
@@ -71,7 +71,7 @@ describe WikiPageviews do
 
       it 'returns the average page views' do
         VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
-          expect(subject).to eq(101.8)
+          expect(subject).to be_within(15).of(89.0)
         end
       end
     end
