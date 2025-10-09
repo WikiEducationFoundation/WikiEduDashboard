@@ -3,7 +3,7 @@ title: "What is an LLM?"
 content: |
   The core components of AI services — like ChatGPT, Claude and Gemini,
   as well as copyediting tools like Grammarly — are
-  "[language language models](https://en.wikipedia.org/wiki/Large_language_model)" (LLMs).
+  **[large language models](https://en.wikipedia.org/wiki/Large_language_model) (LLMs)**.
   These LLMs are created by applying statistical algorithms to large collections of
   text — the training data. The models capture probabilistic data about how small
   pieces of text (like words and phrases) relate to each other in the training data,
