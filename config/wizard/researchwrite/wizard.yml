@@ -569,27 +569,29 @@
       title: I don't know.
       tag: assignment_portion_unknown
 
-# -
-#   key: staying_in_sandboxes
-#   title: Staying in sandboxes
-#   description: |
-#     In Fall 2020, we will be asking many classes to leave student work in draft spaces ("sandboxes") on Wikipedia,
-#     rather than making edits to live articles. Wiki Education staff would then evaluate and move good student work
-#     live in the weeks following the conclusion of the term. This measure will greatly help us support more courses
-#     as we deal with a high demand for support in Fall 2020. How do you feel about this for your class?
-#   type: 1 # single choice
-#   minimum: 1
-#   options:
-#     -
-#       title: I would only be comfortable doing this assignment if my students worked on live articles.
-#       tag: sandboxes_unacceptable
-#     -
-#       title: I would prefer they worked on live articles, but it would be acceptable to leave work in sandboxes if that's what it takes to participate in the program this term.
-#       tag: sandboxes_not_preferred
-#     -
-#       title: I would prefer my students' work stays in sandboxes until it can be evaluated by a Wiki Education staff person.
-#       tag: sandboxes_preferred
-#     -
-#       title: I don't know.
-#       tag: sandboxes_unknown
-      
+
+-
+  key: mentoring
+  title: Mentorship program
+  only_if: '!returning_instructor'
+  description: |
+    Each term, Wiki Education runs a small mentorship program to match faculty new
+    to the Wikipedia assignment with faculty experienced with the project. It’s a
+    great opportunity for the program’s veteran faculty to share their expertise and
+    guidance, and to build community among faculty teaching with Wikipedia.
+
+    Our mentorship program is relatively informal; we ask that mentors meet with
+    their mentees at least twice in the term. As space is limited, spots are not
+    guaranteed.
+
+    Are you interested in being matched with a mentor this term?
+
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Yes.
+      tag: mentor_requested
+    -
+      title: No.
+      tag: no_mentor_requested
