@@ -31,6 +31,8 @@ en:
           billion: B
           trillion: T
           quadrillion: Q
+  button:
+      okay: "Okay"
 
   accessibility:
     number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
