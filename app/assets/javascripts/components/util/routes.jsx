@@ -10,6 +10,7 @@ const Onboarding = lazy(() => import('../onboarding/index.jsx'));
 const ConnectedCourseCreator = lazy(() => import('../course_creator/course_creator.jsx'));
 const ArticleFinder = lazy(() => import('../article_finder/article_finder.jsx'));
 const AdminAlerts = lazy(() => import('../alerts/admin_alerts.jsx'));
+const AlertsStats = lazy(() => import('../alerts/alerts_stats.jsx'));
 const RecentActivityHandler = lazy(() => import('../activity/recent_activity_handler.jsx'));
 const UserProfile = lazy(() => import('../user_profiles/user_profile.jsx'));
 const SettingsHandler = lazy(() => import('../settings/settings_handler.jsx'));
@@ -59,6 +60,7 @@ const routes = () => {
         <Route path="/course_creator" element={<ConnectedCourseCreator />} />
         <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/alerts_list" element={<AdminAlerts />} />
+        <Route path="/alerts_stats" element={<AlertsStats />} />
         <Route path="/settings" element={<SettingsHandler />} />
         <Route path="/article_finder" element={<ArticleFinder />} />
         <Route path="/training/*" element={<TrainingApp />} />
