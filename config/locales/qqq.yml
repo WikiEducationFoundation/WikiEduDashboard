@@ -57,6 +57,7 @@ qqq:
       {{Identical|Required}}
     field_invalid_characters: Error message shown when a user submits a form with
       invalid data
+    field_invalid_term: Error message shown when a user submits form without mentioning the term year.
     field_invalid_date: Error message demonstrating the correct format for entering
       a date.
     greeting2: |-
