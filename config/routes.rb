@@ -470,6 +470,7 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :alerts_stats
 
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
