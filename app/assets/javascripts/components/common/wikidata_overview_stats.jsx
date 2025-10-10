@@ -3,6 +3,18 @@ import PropTypes from 'prop-types';
 import OverviewStat from './OverviewStats/overview_stat';
 
 const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
+  // Helper function to check if all stats are zero
+  const allStatsAreZero = () => {
+    return Object.keys(statistics).every(key =>
+      !statistics[key] || statistics[key] === 0
+    );
+  };
+
+  // If all stats are zero, don't render the component
+  if (allStatsAreZero()) {
+    return null;
+  }
+
   let containerClass = 'wikidata-stats-container';
   let title = 'Wikidata stats';
   if (isCourseOverview) {
@@ -111,7 +123,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row">
-          <h5 className="stats-label">Descriptions</h5>
+          <h5 className="stats-label">{I18n.t('metrics.descriptions')}</h5>
           <div className="stat-display__value-group">
             <OverviewStat
               id="descriptions-added"
@@ -137,7 +149,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row">
-          <h5 className="stats-label">Aliases</h5>
+          <h5 className="stats-label">{I18n.t('metrics.aliases')}</h5>
           <div className="stat-display__value-group">
             <OverviewStat
               id="aliases-added"
@@ -163,7 +175,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
           </div>
         </div>
         <div className="stat-display__row double-row">
-          <h5 className="stats-label">Other</h5>
+          <h5 className="stats-label">{I18n.t('metrics.other_updates')}</h5>
           <div className="stat-display__value-group double">
             <OverviewStat
               id="qualifiers-added"
@@ -227,7 +239,7 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 WikidataOverviewStats.propTypes = {
@@ -235,4 +247,4 @@ WikidataOverviewStats.propTypes = {
   isCourseOverview: PropTypes.bool
 };
 
-  export default WikidataOverviewStats;
+export default WikidataOverviewStats;
