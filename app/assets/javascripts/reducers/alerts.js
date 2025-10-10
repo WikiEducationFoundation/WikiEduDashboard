@@ -1,4 +1,4 @@
-import { RECEIVE_ALERTS, SORT_ALERTS, FILTER_ALERTS, RESOLVE_ALERT } from '../constants';
+import { RECEIVE_ALERTS, RECEIVE_ALERTS_STATS, SORT_ALERTS, FILTER_ALERTS, RESOLVE_ALERT } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -18,6 +18,11 @@ export default function alerts(state = initialState, action) {
       const sortedAlerts = sortByKey(action.data.alerts, 'created_at', null, SORT_DESCENDING.created_at);
       newState.alerts = sortedAlerts.newModels;
       newState.sortKey = sortedAlerts.newKey;
+      return newState;
+    }
+    case RECEIVE_ALERTS_STATS: {
+      const newState = { ...state };
+      newState.alerts_stats = action.data;
       return newState;
     }
     case SORT_ALERTS: {
