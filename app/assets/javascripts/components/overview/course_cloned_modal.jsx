@@ -125,6 +125,20 @@ const CourseClonedModal = createReactClass({
       course: updatedCourse
     });
   },
+  termValidation(value) {
+    // First check basic slug regex
+    if (!CourseUtils.courseSlugRegex().test(value)) {
+      return false;
+    }
+
+   if (value) {
+    // Check if term contains a 4-digit year
+    const hasYear = /\d{4}/.test(value);
+    return hasYear;
+   }
+
+    return true;
+  },
 
   saveCourse() {
     this.props.activateValidations();
@@ -190,7 +204,7 @@ const CourseClonedModal = createReactClass({
         <TextInput
           id="course_expected_students"
           onChange={this.updateCourse}
-          value={this.state.course.expected_students.toString()}
+          value={this.state.course.expected_students ? this.state.course.expected_students.toString() : ''}
           value_key="expected_students"
           editable={true}
           type="number"
@@ -341,7 +355,9 @@ const CourseClonedModal = createReactClass({
           value={this.state.course.term}
           value_key="term"
           required={isRequiredTermField}
-          validation={CourseUtils.courseSlugRegex()}
+          validation={this.termValidation}
+          validateOnBlur={true}
+          invalidMessage={I18n.t('courses.creator.field_invalid_term')}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
           placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
