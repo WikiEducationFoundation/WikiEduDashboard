@@ -66,6 +66,7 @@ class CheckRevisionWithPangram
     diff_params = { torev: @mw_rev_id, fromrev: @parentid, difftype: 'table' }
     resp = @wiki_api.send(:api_client).send('action', 'compare', diff_params)
     @article_title = resp.data.dig('totitle')
+    @mw_page_id = resp.data.dig('toid')
     @diff_table = resp.data['*']
   end
 
