@@ -132,7 +132,8 @@ const CourseClonedModal = createReactClass({
     }
 
    if (value) {
-    const hasYear = /\d{2,}/.test(value);
+    // Check if term contains a 4-digit year
+    const hasYear = /\d{4}/.test(value);
     return hasYear;
    }
 
@@ -203,7 +204,7 @@ const CourseClonedModal = createReactClass({
         <TextInput
           id="course_expected_students"
           onChange={this.updateCourse}
-          value={this.state.course.expected_students.toString()}
+          value={this.state.course.expected_students ? this.state.course.expected_students.toString() : ''}
           value_key="expected_students"
           editable={true}
           type="number"
@@ -355,6 +356,7 @@ const CourseClonedModal = createReactClass({
           value_key="term"
           required={isRequiredTermField}
           validation={this.termValidation}
+          validateOnBlur={true}
           invalidMessage={I18n.t('courses.creator.field_invalid_term')}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}

@@ -48,8 +48,8 @@ const CourseForm = (props) => {
   }
 
   if (props.defaultCourse === 'ClassroomProgramCourse') {
-    // Check if term contains at least 2 consecutive digits (indicating year)
-    const hasYear = /\d{2,}/.test(value);
+    // Check if term contains a 4-digit year
+    const hasYear = /\d{4}/.test(value);
     return hasYear;
   }
 
@@ -78,6 +78,7 @@ const CourseForm = (props) => {
         value_key="term"
         required
         validation={termValidation}
+        validateOnBlur={true}
         invalidMessage={I18n.t('application.field_invalid_term')}
         editable
         label={CourseUtils.i18n('creator.course_term', props.stringPrefix)}
