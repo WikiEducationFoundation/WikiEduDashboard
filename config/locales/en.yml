@@ -473,6 +473,8 @@ en:
     category_error: This scoping method has too many items to be updated. Please try using smaller ones.
 
   courses:
+    quality_checklist:
+      okay: Okay
     school_system: Academic System
     assignment_edits_enabled: Assignment edits enabled
     assignment_edits_enabled_tooltip: >
