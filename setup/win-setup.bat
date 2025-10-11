@@ -3,7 +3,7 @@ echo Setting up your developmental environment. This may take a while.
 
 echo [*] Installing chocolatey...
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
-echo [+] Chco installed!
+echo [+] Choco installed!
 
 echo [*] Installing ruby+devkit...
 choco install ruby2.devkit --version 4.7.2.2013022403 -y
