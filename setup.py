@@ -42,7 +42,7 @@ if platform.platform().lower().find('ubuntu') != -1 \
         or platform.platform().lower().find('elementary') != -1 \
         or platform.uname().version.lower().find('ubuntu') != -1:
     deb_setup()
-elif platform.platform().lower().find('fedora') != -1:
+elif platform.platform().lower().find('fedora') != -1 or platform.platform().lower().find('fc') != -1:
     dnf_setup()
 elif platform.platform().lower().find('darwin') != -1 \
         or platform.platform().lower().find('mac') != -1: 
