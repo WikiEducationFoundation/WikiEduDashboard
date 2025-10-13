@@ -72,8 +72,6 @@ en:
     show_last_revision: Show last edited version
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
-    button: 
-       okay: "Okay"
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
     sign_up: Sign up
