@@ -30,6 +30,42 @@
       logic: ungraded_training
 
 -
+  key: generative_ai
+  title: Generative AI and the Wikipedia assignment
+  description: |
+    Many of our training modules include guidance for students on how to thoughtfully and critically
+    use generative AI tools to support their work on Wikipedia – **and only if permitted by your own
+    course policies.**
+    
+    All students will be assigned to take the training module
+    “[Using generative AI tools with Wikipedia](https://dashboard.wikiedu.org/training/students/generative-ai),”
+    which explains why AI-generated text is bad for Wikipedia and offers tips for using AI tools in
+    limited and specific ways during the research phase of the Wikipedia assignment (again, if permitted
+    by your course policies).
+
+    Key highlights:
+      * Students should not use generative AI output for _**any part**_ of their Wikipedia assignment. **This includes all exercises.**
+      * The “No generative AI output” policy also includes text copyedited by AI tools like Grammarly. 
+      * Student work on Wikipedia will be monitored by Pangram, an AI detector.
+
+    All materials have been developed to create a more rewarding experience for you, your students, and
+    the Wikipedia editing community. *Explore our [FAQ on Gen AI](https://dashboard.wikiedu.org/faq/24).*
+
+    We also offer a second, optional
+    [training module about large language models (LLMS)](https://dashboard.wikiedu.org/training/students/large-language-models)
+    that provides more background information on how chatbots like ChatGPT work, and how they relate to Wikipedia.
+    
+    #### In addition to the required Generative AI training, would you like to assign your students the supplemental training module on LLMs?
+  options:
+    -
+      title: "Yes"
+      tag: llm_training
+      logic: llm_training
+    -
+      title: "No"
+      logic: no_llm_training
+
+-
   key: early_editing_tasks
   title: Getting started with editing
   description: |

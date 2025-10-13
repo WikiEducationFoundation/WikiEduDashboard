@@ -44,6 +44,10 @@ def go_through_researchwrite_wizard(returning_instructor: true)
   click_button 'Next'
   sleep 1
 
+  find('.wizard__option', match: :first).find('button', match: :first).click # Yes "LLMs" training
+  click_button 'Next'
+  sleep 1
+
   click_button 'Next' # Default getting started options
   sleep 1
 
