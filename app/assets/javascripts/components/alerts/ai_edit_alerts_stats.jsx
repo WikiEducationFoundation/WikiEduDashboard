@@ -25,7 +25,7 @@ const AiEditAlertsStats = () => {
         <h1>AI Edit Alerts Stats</h1>
 
         <h2>
-          AI edit alerts in the last 30 days: <strong>{stats.total_alerts}</strong>.
+          AI edit alerts in the current term: <strong>{stats.total_alerts}</strong>.
           See a list of <a href={'/alerts_list/'}> individual alerts </a>.
         </h2>
 
@@ -49,7 +49,7 @@ const AiEditAlertsStats = () => {
           </tbody>
         </table>
 
-        <h2>AI edit alerts in the last 30 days with at least one followup: <strong>{stats.total_followups}</strong></h2>
+        <h2>AI edit alerts in the current term with at least one followup: <strong>{stats.total_followups}</strong></h2>
 
         <h3>False Positives</h3>
         <table className="table table--striped">

@@ -25,7 +25,7 @@ class AiEditAlertsStatsController < ApplicationController
   DAYS = 30
 
   def set_alerts
-    @alerts = Alert.where(type: 'AiEditAlert').where('created_at > ?', DAYS.days.ago)
+    @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert')
   end
 
   def set_followups
