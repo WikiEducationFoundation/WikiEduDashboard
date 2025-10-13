@@ -617,6 +617,7 @@ en:
         to re-use, you can clone a copy of it with new dates. You can also
         use the clone option to create additional sections for a course you
         already set up.
+      next: Next
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
       role_description_options:
