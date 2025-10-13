@@ -42,21 +42,19 @@ const CourseForm = (props) => {
   }, []);
 
   const termValidation = (value) => {
-  // First check basic slug regex
-  if (!CourseUtils.courseSlugRegex().test(value)) {
-    return false;
-  }
+    // First check basic slug regex
+    if (!CourseUtils.courseSlugRegex().test(value)) {
+      return false;
+    }
 
-  if (props.defaultCourse === 'ClassroomProgramCourse') {
-    // Check if term contains a 4-digit year
-    const hasYear = /\d{4}/.test(value);
-    return hasYear;
-  }
+    if (props.defaultCourse === 'ClassroomProgramCourse') {
+      // Check if term contains a 4-digit year
+      const hasYear = /\d{4}/.test(value);
+      return hasYear;
+    }
 
-  return true;
-};
-
-
+    return true;
+  };
 
   let term;
   let courseSubject;
