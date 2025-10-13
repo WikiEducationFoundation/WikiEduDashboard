@@ -92,7 +92,7 @@ const fetchAlertsPromise = (url) => {
 
 const fetchAdminAlertsPromise = () => fetchAlertsPromise('/alerts_list.json');
 
-const fetchAlertsStatsPromise = () => fetchAlertsPromise('/alerts_stats.json');
+const fetchAlertsStatsPromise = () => fetchAlertsPromise('/ai_edit_alerts_stats.json');
 
 const fetchCampaignAlertsPromise = slug => fetchAlertsPromise(`/campaigns/${slug}/alerts.json`);
 
