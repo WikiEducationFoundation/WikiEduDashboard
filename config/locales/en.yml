@@ -31,7 +31,7 @@ en:
           billion: B
           trillion: T
           quadrillion: Q
-
+  
   accessibility:
     number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
 
@@ -72,7 +72,6 @@ en:
     show_last_revision: Show last edited version
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
-
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
     sign_up: Sign up
@@ -86,6 +85,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
+    
 
   article_statuses:
     not_yet_started: Getting Started
@@ -471,6 +471,8 @@ en:
     category_error: This scoping method has too many items to be updated. Please try using smaller ones.
 
   courses:
+    quality_checklist:
+      okay: Okay
     school_system: Academic System
     assignment_edits_enabled: Assignment edits enabled
     assignment_edits_enabled_tooltip: >
