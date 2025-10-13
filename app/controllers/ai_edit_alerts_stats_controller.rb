@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # Controller for showing AI Alert stats
-class AlertsStatsController < ApplicationController
+class AiEditAlertsStatsController < ApplicationController
   layout 'admin'
   before_action :check_user_auth
   def index
