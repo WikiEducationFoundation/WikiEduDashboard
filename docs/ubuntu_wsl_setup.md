@@ -1,26 +1,36 @@
+# Ubuntu WSL Setup Guide
+
+This docs simply explain how Windows users can set up their environment using WSL
+
 1. Enable WSL and virtual machines (via "Turn Windows features on or off")
-   1. Open "Turn Windows features on or off" from the control panel
-   2. Select "Windows Subsystem for Linux" and "Virtual Machine Platform"
-   3. Windows will prompt you to restart your system to enable these.
+    (a) Open "Turn Windows features on or off" from the control panel
+    (b) Select "Windows Subsystem for Linux" and "Virtual Machine Platform"
+    (c) Windows will prompt you to restart your system to enable these.
+
 2. Install "Ubuntu" app
-   1. Open "Microsoft Store", search for and install the app "Ubuntu"
-   2. Optional: install Windows Terminal from the Microsoft Store as well
-   3. Check whether you are on WSL 2: open a Windows PowerShell or Terminal as Admin and enter `wsl --list --verbose`. If your system is on WSL 1, try the upgrade command `wsl --set-version Ubuntu 2`. You may need to take additional steps to enable WSL 2, such as installing a kernel upgrade and enabling virtualization in your BIOS. See [Microsoft WSL installation guide](https://learn.microsoft.com/en-us/windows/wsl/install)
+     (a) install ubuntu here: <https://apps.microsoft.com/detail/9pdxgncfsczv?hl=en-us&gl=US>
+     (b) install windows terminal here (optional): <https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-us&gl=US>
+     (b) if you encounter any problem in step (a) and (b) visit here <https://learn.microsoft.com/en-us/windows/wsl/install> for more guides
+
 3. Launch the Ubuntu app, which opens an Ubuntu terminal, and then:
-   1. Create your Ubuntu username and password (if this is the first time using the Ubuntu system)
-   2. Add the RVM repo so you can install Ruby: `sudo apt-add-repository -y ppa:rael-gc/rvm`
-   3. Install RVM: `sudo apt install rvm`
-   4. Add your user to the rvm group: `sudo usermod -a -G rvm [your username]`
-   5. Close and reopen the Ubuntu terminal to activate RVM
+      (a) Create Your Ubuntu username and password (if this is the first time using the Ubuntu system)
+      (b) copy and paste this: "sudo apt-add-repository -y ppa:rael-gc/rvm" to create RVM repo
+      (c) copy and paste this: "sudo apt install rvm" to install RVM
+      (d) "sudo usermod -a -G rvm [your username]" copy and paste this to add your user to the rvm group
+      (e) Close and reopen the Ubuntu terminal to activate RVM
+
 4. Get the Dashboard code and install Ruby and other prerequisites.
-   1. If you haven't done so already, fork this repo, see [GitHub Forking Documentation](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
-   2. From Ubuntu terminal, clone your forked repo by replacing the URL in this command: `git clone https://github.com/{your-github-username}/WikiEducationFoundation/WikiEduDashboard.git`. For performance, it's important to install this in the WSL filesystem (`cd ~`).
-   3. Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.1.2`.
-   5. Update system packages: `sudo apt-get update`
-   6. Install MariaDB: `sudo apt-get install -y mariadb-server libmariadb-dev`
-   7. Start the database: `sudo /etc/init.d/mariadb start`
-5. The rest of the installation process should work the same way as a normal Linux installation, and the setup script can automate most of it. Run setup script: `python3 setup.py`. If it fails, refer to the manual setup procedures in [`setup.md`](./setup.md) to continue.
+     (a) fork WikiEduDashBoard repo here: <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo> if you have not done so.
+     (b) From Ubuntu terminal,  clone your forked repo by replacing the URL in this command: `git clone https://github.com/{your-github-username}/WikiEducationFoundation/WikiEduDashboard.git`
+     (d) Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.1.2`.
+     (e) Update system packages: `sudo apt-get update`
+     (f) Install MariaDB: `sudo apt-get install -y mariadb-server libmariadb-dev`
+     (g) Start the database: `sudo /etc/init.d/mariadb start`
+
+5. Run setup script: `python3 setup.py`. If it fails, refer to the manual setup procedures in [`setup.md`](./setup.md) to continue.
+
 6. Build the assets: `yarn build`
+
 7. Run `rails s`. Now you should have a development running and accessible via web browser at localhost:3000.
 
 For troubleshooting, look at the end of the document: [Troubleshooting](./troubleshooting.md)
