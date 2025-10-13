@@ -779,9 +779,9 @@ en:
     ores_plot_description: >
       This graph visualizes, in aggregate, how much articles developed from
       before students first edited them until their most recent edits. The Structural Completeness
-      rating is based on a machine learning project (ORES)
+      rating is based on a machine learning project (%{ores_link})
       that estimates an article's quality rating based on the amount of
-      prose, the number of wikilinks, images and section headers, and other features.
+      prose, the number of wikilinks, images and section headers, and other features. (%{refresh_link})
     ores_plot_description_link: "https://www.mediawiki.org/wiki/ORES/FAQ"
     ores_plot_no_data: No Structural Completeness data available
     ores_plot_refresh_data: Refresh Cached Data

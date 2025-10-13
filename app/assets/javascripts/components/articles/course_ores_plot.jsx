@@ -63,12 +63,19 @@ const CourseOresPlot = ({ course }) => {
     return (
       <div className="ores-plot">
         <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={data} />
-        <p>
-          {I18n.t('courses.ores_plot_description').split('(ORES)')[0]}
-          (<a href={I18n.t('courses.ores_plot_description_link')} target="_blank">ORES</a>)
-          {I18n.t('courses.ores_plot_description').split('(ORES)')[1]}
-          {' ('}<a href="#" onClick={refreshHandler}>{I18n.t('courses.ores_plot_refresh_data')}</a>{')'}
-        </p>
+        <p
+          dangerouslySetInnerHTML={{
+          __html: I18n.t('courses.ores_plot_description', {
+            ores_link: `<a href="${I18n.t('courses.ores_plot_description_link')}" target="_blank">ORES</a>`,
+            refresh_link: `<a href="#" class="refresh-link">${I18n.t('courses.ores_plot_refresh_data')}</a>`
+          })
+        }} onClick={(e) => {
+          if (e.target.classList.contains('refresh-link')) {
+            e.preventDefault();
+            refreshHandler();
+          }
+        }}
+        />
       </div>
     );
   };
