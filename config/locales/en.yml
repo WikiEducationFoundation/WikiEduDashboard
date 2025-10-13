@@ -776,6 +776,16 @@ en:
     online_volunteers_enabled: Online Volunteers enabled
     online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
     ores_plot: ORES
+    ores_plot_description: >
+      This graph visualizes, in aggregate, how much articles developed from
+      before students first edited them until their most recent edits. The Structural Completeness
+      rating is based on a machine learning project (ORES)
+      that estimates an article's quality rating based on the amount of
+      prose, the number of wikilinks, images and section headers, and other features.
+    ores_plot_description_link: "https://www.mediawiki.org/wiki/ORES/FAQ"
+    ores_plot_no_data: No Structural Completeness data available
+    ores_plot_refresh_data: Refresh Cached Data
+    ores_plot_show_button: Change in Structural Completeness
     overview: Home
     passcode: Passcode
     passcode_none: No passcode

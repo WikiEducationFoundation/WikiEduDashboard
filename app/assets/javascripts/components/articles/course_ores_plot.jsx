@@ -64,11 +64,10 @@ const CourseOresPlot = ({ course }) => {
       <div className="ores-plot">
         <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={data} />
         <p>
-          This graph visualizes, in aggregate, how much articles developed from
-          before students first edited them until their most recent edits. The <em>Structural Completeness </em>
-          rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
-          that estimates an article&apos;s quality rating based on the amount of
-          prose, the number of wikilinks, images and section headers, and other features. (<a href="#" onClick={refreshHandler}>Refresh Cached Data</a>)
+          {I18n.t('courses.ores_plot_description').split('(ORES)')[0]}
+          (<a href={I18n.t('courses.ores_plot_description_link')} target="_blank">ORES</a>)
+          {I18n.t('courses.ores_plot_description').split('(ORES)')[1]}
+          {' ('}<a href="#" onClick={refreshHandler}>{I18n.t('courses.ores_plot_refresh_data')}</a>{')'}
         </p>
       </div>
     );
@@ -78,7 +77,7 @@ const CourseOresPlot = ({ course }) => {
     if (loading) {
       return <div onClick={hide}><Loading /></div>;
     }
-    return <div>No Structural Completeness data available</div>;
+    return <div>{I18n.t('courses.ores_plot_no_data')}</div>;
   };
 
   if (!shouldShowButton()) {
@@ -102,7 +101,7 @@ const CourseOresPlot = ({ course }) => {
     }
     loadgraph();
   }
-  return (<button className="button small" onClick={showHandler}>Change in Structural Completeness</button>);
+  return (<button className="button small" onClick={showHandler}>{I18n.t('courses.ores_plot_show_button')}</button>);
 };
 
 export default CourseOresPlot;
