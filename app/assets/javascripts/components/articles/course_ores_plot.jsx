@@ -66,7 +66,7 @@ const CourseOresPlot = ({ course }) => {
         <p
           dangerouslySetInnerHTML={{
           __html: I18n.t('courses.ores_plot_description', {
-            ores_link: `<a href="${I18n.t('courses.ores_plot_description_link')}" target="_blank">ORES</a>`,
+            ores_link: '<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>',
             refresh_link: `<a href="#" class="refresh-link">${I18n.t('courses.ores_plot_refresh_data')}</a>`
           })
         }} onClick={(e) => {
