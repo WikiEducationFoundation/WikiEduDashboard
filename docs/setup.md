@@ -51,7 +51,7 @@ You can also contact us on slack for any further queries.
   - Please confirm your Password for MySQL
   - Delete `config/Database.yml`
   - Run the script again.
-- If you face the error that `Sorry! Your operating is not supported by this script`
+- If you face the error that `Sorry! Your operating system is not supported by this script`
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
 - If you're running Windows and experience `RUNAS ERROR`
