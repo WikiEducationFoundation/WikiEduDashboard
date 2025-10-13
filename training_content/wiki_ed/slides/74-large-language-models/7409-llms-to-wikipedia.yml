@@ -26,6 +26,6 @@ content: |
 
   Most of these problems are connected to the probabilistic nature of LLMs;
   they generate text based on probabilities across their entire set of
-  training data, not specific information from specific sources. In general,
-  as of 2025, it’s essentially impossible to create reliable Wikipedia content
-  via AI.
+  training data, not specific information from specific sources. (Because 
+  of these problems, you should not add any AI-generated text to articles
+  or sandboxes during your Wikipedia editing project.)
