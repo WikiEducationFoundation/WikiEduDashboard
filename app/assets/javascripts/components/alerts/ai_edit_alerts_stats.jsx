@@ -4,7 +4,7 @@ import Loading from '../common/loading';
 
 import { fetchAlertsStats } from '../../actions/alert_actions';
 
-const AlertsStats = () => {
+const AiEditAlertsStats = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -75,4 +75,4 @@ const AlertsStats = () => {
   );
 };
 
-export default AlertsStats;
+export default AiEditAlertsStats;
