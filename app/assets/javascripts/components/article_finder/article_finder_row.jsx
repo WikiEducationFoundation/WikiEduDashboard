@@ -125,7 +125,7 @@ const ArticleFinderRow = (props) => {
         const className = `button small add-available-article ${isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={() => assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'add_available_article')}`)}</button>
+            <button type="button" className={className} onClick={() => assignArticle()}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'add_available_article')}`)}</button>
           </td>
         );
       }
@@ -134,14 +134,14 @@ const ArticleFinderRow = (props) => {
         const className = `button small add-available-article ${isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className={className} onClick={() => unassignArticle(props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'unassign_article_self')}`)}</button>
+            <button type="button" className={className} onClick={() => unassignArticle(props.current_user.id)}>{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'unassign_article_self')}`)}</button>
           </td>
         );
       } else {
       const className = `button small add-available-article ${isLoading ? 'disabled' : 'dark'}`;
       button = (
         <td>
-          <button className={className} onClick={() => assignArticle(props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
+          <button type="button" className={className} onClick={() => assignArticle(props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
         </td>
       );
       }
