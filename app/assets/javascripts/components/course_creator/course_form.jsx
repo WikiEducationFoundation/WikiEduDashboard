@@ -312,7 +312,7 @@ const CourseForm = (props) => {
           id="next"
           className="dark button button__submit next"
         >
-          {I18n.t('courses.creator.next')}
+          {I18n.t('application.next')}
         </button>
       </div>
     </div>

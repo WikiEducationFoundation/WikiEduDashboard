@@ -38,6 +38,7 @@ en:
   application:
     back: Back
     cancel: Cancel
+    next: Next
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -617,7 +618,6 @@ en:
         to re-use, you can clone a copy of it with new dates. You can also
         use the clone option to create additional sections for a course you
         already set up.
-      next: Next
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
       role_description_options:
