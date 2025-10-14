@@ -25,7 +25,7 @@ class AiEditAlertsStatsController < ApplicationController
 
   private
 
-  DAYS = 30
+  RECENT_ALERTS_DAYS = 14
 
   def set_alerts
     @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert')
@@ -51,6 +51,12 @@ class AiEditAlertsStatsController < ApplicationController
   # Returns the number of unique pages with multiple alerts
   def page_count_with_multiple_alerts
     @alerts.filter(&:prior_alert_id_for_page).map(&:article_id).uniq.count
+  end
+
+  # Returns a list of alerts with a followup completed in the last RECENT_ALERTS_DAYS days.
+  # For now, we rely on the updated_at alert field to detrmine when a followup was answered.
+  def alerts_with_recent_followup
+    @alerts.where('alerts.updated_at > ?', RECENT_ALERTS_DAYS.days.ago).filter(&:followup?)
   end
 
   # Returns a hash of counts of false positives/ total followups.
