@@ -163,11 +163,11 @@ const ArticleFinder = (props) => {
     let filterButton;
     if (!showFilters) {
       filterButton = (
-        <button className="button dark" onClick={toggleFilter}>{I18n.t('article_finder.show_options')}</button>
+        <button type="button" className="button dark" onClick={toggleFilter}>{I18n.t('article_finder.show_options')}</button>
       );
     } else {
       filterButton = (
-        <button className="button" onClick={toggleFilter}>{I18n.t('article_finder.hide_options')}</button>
+        <button type="button" className="button" onClick={toggleFilter}>{I18n.t('article_finder.hide_options')}</button>
       );
     }
 

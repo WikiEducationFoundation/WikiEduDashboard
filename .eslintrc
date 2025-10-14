@@ -70,7 +70,7 @@
     "implicit-arrow-linebreak": 0,
     "react/destructuring-assignment": 0,
     "react/jsx-one-expression-per-line": 0,
-    "react/button-has-type": 0,
+    "react/button-has-type": ["error"],
     "no-multiple-empty-lines": 0,
     "lines-between-class-members": 0,
     "import/order": 0,
