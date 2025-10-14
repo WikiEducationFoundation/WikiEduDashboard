@@ -43,10 +43,12 @@ class AiEditAlertsStatsController < ApplicationController
     @alerts.group_by(&:page_type).transform_values(&:count)
   end
 
+  # Returns the number of unique students with multiple alerts
   def student_count_with_multiple_alerts
     @alerts.filter(&:prior_alert_id_for_user).map(&:user_id).uniq.count
   end
 
+  # Returns the number of unique pages with multiple alerts
   def page_count_with_multiple_alerts
     @alerts.filter(&:prior_alert_id_for_page).map(&:article_id).uniq.count
   end
