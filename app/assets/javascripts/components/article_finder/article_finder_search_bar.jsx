@@ -79,7 +79,7 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
         isAutocompleteLoading && <div className="loader"><div className="loading__spinner" /></div>
       }
 
-      <button onClick={searchHandler} disabled={disabled}>
+      <button type="button" onClick={searchHandler} disabled={disabled}>
         {I18n.t('article_finder.search')}
       </button>
 

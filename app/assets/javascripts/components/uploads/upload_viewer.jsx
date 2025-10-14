@@ -109,7 +109,7 @@ const UploadViewer = ({ closeUploadViewer, upload, imageFile }) => {
   return (
     <div className="module upload-viewer" ref={ref}>
       <div className="modal-header">
-        <button className="pull-right icon-close" onClick={handleClickOutside} />
+        <button type="button" className="pull-right icon-close" onClick={handleClickOutside} />
         <h3>{upload.file_name}</h3>
       </div>
       <div className="modal-body">

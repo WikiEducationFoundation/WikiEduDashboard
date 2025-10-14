@@ -75,7 +75,7 @@ const Option = ({
 
   return (
     <div className={className}>
-      <button onClick={onClick} role="checkbox" aria-checked={option.selected || false}>
+      <button type="buton" onClick={onClick} role="checkbox" aria-checked={option.selected || false}>
         {checkbox}
         {notice}
         <h3>{option.title}</h3>

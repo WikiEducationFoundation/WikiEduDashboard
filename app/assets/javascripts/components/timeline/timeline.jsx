@@ -293,17 +293,17 @@ const Timeline = createReactClass({
     }
 
     const saveChangesButton = (
-      <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
+      <button type="button" className="button dark button--block" onClick={this.props.saveGlobalChanges}>
         {I18n.t('timeline.save_all_changes')}
       </button>
     );
     const cancelChangesButton = (
-      <button className="button button--clear button--block" onClick={this.props.cancelGlobalChanges}>
+      <button type="button" className="button button--clear button--block" onClick={this.props.cancelGlobalChanges}>
         {I18n.t('timeline.discard_all_changes')}
       </button>
     );
     const resetTitlesButton = (
-      <button className="button button--clear button--block" onClick={this.props.resetTitles}>
+      <button type="button" className="button button--clear button--block" onClick={this.props.resetTitles}>
         {I18n.t('timeline.reset_titles')}
       </button>
     );
@@ -336,7 +336,7 @@ const Timeline = createReactClass({
       } else if (this.props.editableBlockIds.length === 0) {
         reorderableControls = (
           <div className="reorderable-controls">
-            <button className="button border button--block" onClick={this.props.enableReorderable}>{I18n.t('timeline.arrange_timeline')}</button>
+            <button type="button" className="button border button--block" onClick={this.props.enableReorderable}>{I18n.t('timeline.arrange_timeline')}</button>
           </div>
         );
       }
@@ -352,7 +352,7 @@ const Timeline = createReactClass({
       } else {
         editWeekTitles = (
           <div className="edit-week-titles">
-            <button className="button border button--block" onClick={this.props.enableEditTitles}>{I18n.t('timeline.edit_titles')}</button>
+            <button type="button" className="button border button--block" onClick={this.props.enableEditTitles}>{I18n.t('timeline.edit_titles')}</button>
           </div>
         );
       }
@@ -377,7 +377,7 @@ const Timeline = createReactClass({
         </li>
       ) : (
         <li>
-          <button className="week-nav__add-week" onClick={this.addWeek}>Add Week</button>
+          <button type="button" className="week-nav__add-week" onClick={this.addWeek}>Add Week</button>
         </li>
       );
     }
@@ -423,7 +423,7 @@ const Timeline = createReactClass({
     // and the timeline is not already empty.
     if (this.props.edit_permissions && !this.props.course.submitted && this.hasTimeline()) {
       restartTimeline = (
-        <button className="button border danger button--block" onClick={this.deleteAllWeeks}>
+        <button type="button" className="button border danger button--block" onClick={this.deleteAllWeeks}>
           {I18n.t('timeline.delete_timeline_and_start_over')}
         </button>
       );
