@@ -53,7 +53,7 @@ const SummaryPanel = (props) => {
       details = answer.selections.map((selection, j) => <p key={`detail${i}${j}`}>{selection}</p>);
     }
     return (
-      <button key={`answer${i}`} className="wizard__option summary" onClick={rewind.bind(this, i)}>
+      <button type="button" key={`answer${i}`} className="wizard__option summary" onClick={rewind.bind(this, i)}>
         <h3>{answer.title}</h3>
         {details}
         <p className="edit">Edit</p>
