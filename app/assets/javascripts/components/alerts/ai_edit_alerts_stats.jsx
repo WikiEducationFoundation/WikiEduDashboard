@@ -35,12 +35,12 @@ const AiEditAlertsStats = () => {
             </tr>
           </thead>
           <tbody>
-              <tr>
-                <td>{stats.total_alerts}</td>
-                <td>{stats.total_followups}</td>
-                <td>{stats.students_with_multiple_alerts}</td>
-                <td>{stats.pages_with_multiple_alerts}</td>
-              </tr>
+            <tr>
+              <td>{stats.total_alerts}</td>
+              <td>{stats.total_followups}</td>
+              <td>{stats.students_with_multiple_alerts}</td>
+              <td>{stats.pages_with_multiple_alerts}</td>
+            </tr>
           </tbody>
         </table>
 
