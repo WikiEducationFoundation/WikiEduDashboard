@@ -11,9 +11,12 @@ class AiEditAlertsStatsController < ApplicationController
       format.html
       format.json do
         render json: {
+          current_term: Campaign.default_campaign.slug,
           total_alerts: @alerts.count,
           by_page_type: count_by_page_type,
           total_followups: @followups.count,
+          students_with_multiple_alerts: student_count_with_multiple_alerts,
+          pages_with_multiple_alerts: page_count_with_multiple_alerts,
           false_positives: count_by_false_positives
         }
       end
@@ -38,6 +41,14 @@ class AiEditAlertsStatsController < ApplicationController
   # {:choose_an_article=>1, :evaluate_an_article=>2, :bibliography=>1, :outline=>1, :sandbox=>2}
   def count_by_page_type
     @alerts.group_by(&:page_type).transform_values(&:count)
+  end
+
+  def student_count_with_multiple_alerts
+    @alerts.filter(&:prior_alert_id_for_user).map(&:user_id).uniq.count
+  end
+
+  def page_count_with_multiple_alerts
+    @alerts.filter(&:prior_alert_id_for_page).map(&:article_id).uniq.count
   end
 
   # Returns a hash of counts of false positives/ total followups.

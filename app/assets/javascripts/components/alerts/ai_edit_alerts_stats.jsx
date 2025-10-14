@@ -24,10 +24,25 @@ const AiEditAlertsStats = () => {
       <div className="alerts-stats">
         <h1>AI Edit Alerts Stats</h1>
 
-        <h2>
-          AI edit alerts in the current term: <strong>{stats.total_alerts}</strong>.
-          See a list of <a href={'/alerts_list/'}> individual alerts </a>.
-        </h2>
+        <h3>General Stats for {stats.current_term} Campaign</h3>
+        <table style={{ marginBottom: '40px' }} className="table table--striped">
+          <thead>
+            <tr>
+              <th>Total AI Edit Alerts</th>
+              <th>With followup</th>
+              <th>Students with multiple alerts</th>
+              <th>Pages with multiple alerts</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>{stats.total_alerts}</td>
+                <td>{stats.total_followups}</td>
+                <td>{stats.students_with_multiple_alerts}</td>
+                <td>{stats.pages_with_multiple_alerts}</td>
+              </tr>
+          </tbody>
+        </table>
 
         <h3>By Page Type</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
@@ -44,28 +59,6 @@ const AiEditAlertsStats = () => {
                 <td>{pageType}</td>
                 <td>{count}</td>
                 <td>{Math.round(count * 100 / stats.total_alerts)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <h2>AI edit alerts in the current term with at least one followup: <strong>{stats.total_followups}</strong></h2>
-
-        <h3>False Positives</h3>
-        <table className="table table--striped">
-          <thead>
-            <tr>
-              <th>How Used It</th>
-              <th>Count</th>
-              <th>%</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats.false_positives).map(([pageType, count]) => (
-              <tr key={pageType}>
-                <td>{pageType}</td>
-                <td>{count}</td>
-                <td>{Math.round(count * 100 / stats.total_followups)}</td>
               </tr>
             ))}
           </tbody>
