@@ -76,10 +76,10 @@ const Sidebar = ({ createdAt, currentUser, ticket }) => {
         }
       </section>
       <section>
-        <button className="button info" onClick={() => notifyOwner()}>Email Ticket Owner</button>
+        <button type="button" className="button info" onClick={() => notifyOwner()}>Email Ticket Owner</button>
       </section>
       <section>
-        <button className="button danger" onClick={() => deleteSelectedTicket()}>Delete Ticket</button>
+        <button type="button" className="button danger" onClick={() => deleteSelectedTicket()}>Delete Ticket</button>
       </section>
     </section>
   );

@@ -39,7 +39,7 @@ const RandomPeerAssignButton = ({
 
   return (
     <div className="tooltip-trigger" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
-      <button className="button border small assign-button" onClick={randomPeerAssign}>
+      <button type="button" className="button border small assign-button" onClick={randomPeerAssign}>
         {I18n.t('assignments.random_peer_review.heading')} {<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`}/>}
       </button>
       <div className="tooltip">

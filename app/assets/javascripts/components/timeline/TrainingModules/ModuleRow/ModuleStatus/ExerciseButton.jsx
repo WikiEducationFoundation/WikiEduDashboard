@@ -6,7 +6,7 @@ export const ExerciseButton = ({
   complete, fetchExercises, incomplete
 }) => {
   let button = (
-    <button className="button small left dark" disabled>
+    <button type="button" className="button small left dark" disabled>
       Mark Complete
     </button>
   );
@@ -17,7 +17,7 @@ export const ExerciseButton = ({
       button = (
         <div>
           Status: Complete!
-          <button className="button small left" onClick={onClick}>
+          <button type="button" className="button small left" onClick={onClick}>
             Mark Incomplete
           </button>
         </div>
@@ -25,7 +25,7 @@ export const ExerciseButton = ({
     } else {
       const onClick = () => complete(block_id, slug).then(() => fetchExercises(course.id));
       button = (
-        <button className="button small left dark" onClick={onClick}>
+        <button type="button" className="button small left dark" onClick={onClick}>
           Mark Complete
         </button>
       );

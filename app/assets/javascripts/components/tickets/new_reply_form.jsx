@@ -121,6 +121,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
       <h3>
         Send a Reply{toAddress}
         <button
+          type="button"
           alt="Show BCC"
           title="Show BCC"
           className="button border plus"

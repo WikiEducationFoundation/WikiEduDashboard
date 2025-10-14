@@ -159,6 +159,7 @@ const TicketsHandler = () => {
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
           <button
+            type="button"
             onClick={doSearch}
             className="button dark"
             name="search_tickets"
@@ -167,6 +168,7 @@ const TicketsHandler = () => {
             {I18n.t('tickets.search_bar_placeholder')}
           </button>
           <button
+
             onClick={clearSearch}
             className="button"
             name="clear_search"
