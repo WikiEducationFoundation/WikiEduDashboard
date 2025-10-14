@@ -31,7 +31,6 @@ en:
           billion: B
           trillion: T
           quadrillion: Q
-  
   accessibility:
     number_field: This is a number field. The buttons rendered by most browsers will increment and decrement the input.
 
@@ -86,6 +85,7 @@ en:
     opt_no: "no"
     print: Print
     okay: Okay 
+    quality_checklist: Quality checklist
   article_statuses:
     not_yet_started: Getting Started
     in_progress: Working in Sandbox
