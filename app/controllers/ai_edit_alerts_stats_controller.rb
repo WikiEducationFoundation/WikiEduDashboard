@@ -59,6 +59,13 @@ class AiEditAlertsStatsController < ApplicationController
     @alerts.where('alerts.updated_at > ?', RECENT_ALERTS_DAYS.days.ago).filter(&:followup?)
   end
 
+  # Returns a list of alerts created in the last RECENT_ALERTS_DAYS days
+  # for students with previous alerts in the same campaign.
+  def recent_alerts_for_students_with_multiple_alerts
+    @alerts.where('alerts.created_at > ?', RECENT_ALERTS_DAYS.days.ago)
+           .filter(&:prior_alert_id_for_user)
+  end
+
   # Returns a hash of counts of false positives/ total followups.
   # If an alert didn't have a followup, it doesnt count at all in this metric.
   # Example:
