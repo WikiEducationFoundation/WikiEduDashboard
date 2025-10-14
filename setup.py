@@ -50,6 +50,6 @@ elif platform.platform().lower().find('darwin') != -1 \
 elif platform.platform().lower().find('windows') != -1:
     win_setup()
 else:
-    print ("Sorry! Your operating is not supported by this script. Please refer \
+    print ("Sorry! Your operating system is not supported by this script. Please refer \
 https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/master/\
 docs/setup.md for manual setup instructions.")

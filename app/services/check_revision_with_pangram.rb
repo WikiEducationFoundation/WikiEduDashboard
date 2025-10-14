@@ -8,12 +8,28 @@ class CheckRevisionWithPangram
     @mw_rev_id = mw_rev_id
     @user_id = user_id
     @course_id = course_id
+    @wiki_api = WikiApi.new(@wiki)
 
     check unless already_checked?
   end
 
   def check
-    fetch_revision_html
+    fetch_parent_revision
+
+    if @parentid.zero?
+      # If it's first revision, we just
+      # get the HTML for it.
+      fetch_revision_html
+    else
+      # If it's not the first revision, we want
+      # to isolate the new content. Strategy here
+      # is to get the diff table, extracted the added
+      # wikitext and combine it into one string,
+      # then send that through Wikipedia's parser to get HTML
+      fetch_diff_table
+      generate_wikitext_from_diff_table
+      fetch_parsed_changed_wikitext
+    end
     generate_plaintext_from_html
     fetch_pangram_inference
 
@@ -36,10 +52,43 @@ class CheckRevisionWithPangram
     Rails.cache.write(cache_key, Time.current.to_s, expires_in: 7.days)
   end
 
+  def fetch_parent_revision
+    # https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=1315427810&rvprop=ids&format=json
+    parentid_params = { prop: 'revisions', revids: @mw_rev_id, rvprop: 'ids' }
+    resp = @wiki_api.query parentid_params
+    page_id = resp.data['pages'].keys.first
+    @parentid = resp.data.dig('pages', page_id, 'revisions').first['parentid']
+  end
+
+  # Use action=compare to get a diff table
+  # https://en.wikipedia.org/w/api.php?action=compare&torev=1315427810&fromrev=1315426424&difftype=table
+  def fetch_diff_table
+    diff_params = { torev: @mw_rev_id, fromrev: @parentid, difftype: 'table' }
+    resp = @wiki_api.send(:api_client).send('action', 'compare', diff_params)
+    @article_title = resp.data.dig('totitle')
+    @mw_page_id = resp.data.dig('toid')
+    @diff_table = resp.data['*']
+  end
+
+  def generate_wikitext_from_diff_table
+    doc = Nokogiri::HTML(@diff_table)
+    # Collect all the '.diff-addedline' table cells.
+    # These represent all the sections of wikitext that were either added or changed,
+    # IE, the right side of a traditional wikitext diff table without the unchanged
+    # .diff-context cells.
+    @changed_wikitext = doc.css('.diff-addedline').map(&:text).reject(&:empty?).join("\n\n")
+  end
+
+  def fetch_parsed_changed_wikitext
+    parse_params = { text: @changed_wikitext, contentmodel: 'wikitext' }
+    resp = @wiki_api.send(:api_client).send('action', 'parse', parse_params)
+    @diff_html = resp.data.dig('text', '*')
+  end
+
   def fetch_revision_html
     # https://en.wikipedia.org/w/api.php?action=parse&oldid=952185129
     params = { oldid: @mw_rev_id }
-    resp = WikiApi.new(@wiki).send(:api_client).send('action', 'parse', params)
+    resp = @wiki_api.send(:api_client).send('action', 'parse', params)
     @rev_html = resp.data.dig('text', '*')
     @article_title = resp.data.dig('title')
     @mw_page_id = resp.data.dig('pageid')
@@ -48,15 +97,17 @@ class CheckRevisionWithPangram
   def generate_plaintext_from_html
     # First remove the <table> elements, which contain template content in exercise sandboxes
     # and are likely to contain non-prose in other cases.
-    @cleaned_html = remove_html_tables(@rev_html)
+    @cleaned_html = remove_html_tables_and_citations(@diff_html || @rev_html)
     # Convert the HTML to plain text, then remove the edit button leftovers
-    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html).gsub('[edit]', '')
+    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html).gsub('[edit]', '').strip
   end
 
-  def remove_html_tables(html)
+  def remove_html_tables_and_citations(html)
     doc = Nokogiri::HTML(html)
-    tables = doc.xpath('//table')
-    tables.each(&:remove)
+    doc.xpath('//table').each(&:remove) # Exclude tables, like infoboxes
+    doc.xpath('//cite').each(&:remove) # Exclude `cite` tags, which usually appear at the end
+    doc.css('.mw-cite-backlink').each(&:remove) # Exclude backlinks that precede `cite` tags.
+
     doc.to_html
   end
 

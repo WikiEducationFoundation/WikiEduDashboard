@@ -31,7 +31,7 @@ def go_through_course_dates_and_timeline_dates
   sleep 1
 end
 
-def go_through_researchwrite_wizard
+def go_through_researchwrite_wizard(returning_instructor: true)
   go_through_course_dates_and_timeline_dates
 
   # Choose researchwrite option
@@ -41,6 +41,10 @@ def go_through_researchwrite_wizard
 
   # Click through the offered choices
   find('.wizard__option', match: :first).find('button', match: :first).click # Training not graded
+  click_button 'Next'
+  sleep 1
+
+  find('.wizard__option', match: :first).find('button', match: :first).click # Yes "LLMs" training
   click_button 'Next'
   sleep 1
 
@@ -102,6 +106,13 @@ def go_through_researchwrite_wizard
   # omniclick find('.wizard__option', match: :first).find('button', match: :first)
   # click_button 'Next'
   sleep 1
+
+  # "Mentorship program" panel that only appears for new instructor
+  unless returning_instructor
+    omniclick find('.wizard__option', match: :first).find('button', match: :first)
+    click_button 'Next'
+    sleep 1
+  end
 
   click_button 'Generate Timeline'
   sleep 1
@@ -312,7 +323,7 @@ describe 'New course creation and editing', type: :feature do
       visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
-      go_through_researchwrite_wizard
+      go_through_researchwrite_wizard(returning_instructor: false)
 
       sleep 1
 
@@ -328,6 +339,7 @@ describe 'New course creation and editing', type: :feature do
         expect(week.order).to eq(i + 1)
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
+      expect(Course.first.tag?('mentor_requested')).to be true
     end
 
     it 'squeezes assignments into the course dates' do
@@ -348,11 +360,11 @@ describe 'New course creation and editing', type: :feature do
              course_id: 10001,
              role: 1)
 
-      # Visit timline and open wizard
+      # Visit timeline and open wizard
       visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
-      go_through_researchwrite_wizard
+      go_through_researchwrite_wizard(returning_instructor: false)
 
       expect(page).to have_content 'Week 6'
       expect(page).not_to have_content 'Week 7'

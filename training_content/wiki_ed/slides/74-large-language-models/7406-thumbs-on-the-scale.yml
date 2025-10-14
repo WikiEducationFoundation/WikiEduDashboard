@@ -1,22 +1,13 @@
 id: 7406
 title: Thumbs on the scale
 content: |
-  In some cases — like with xAI’s [Grok chatbot](https://en.wikipedia.org/wiki/Grok_(chatbot))
-  — we know that developers are working to bias their AI systems in a particular way. Elon Musk
-  (CEO of xAI) has positioned Grok as an AI based on a right-wing worldview that avoids “woke”
-  ideology, with a training strategy intended to minimize left-wing influence. While the details
-  of that strategy are not public, xAI does publish some of the “[system prompts](https://github.com/xai-org/grok-prompts)” it uses to
-  direct the kinds of responses it produces. These system prompts are combined with user prompts
-  as part of the context window that Grok’s LLM takes as input.
-
-  In one widely-reported incident, a [change to the system prompt](https://github.com/xai-org/grok-prompts/commit/535aa67a6221ce4928761335a38dea8e678d8501)
-  — with an instruction to “not shy away from making claims which are politically incorrect”
-  — contributed to dramatic behavior change, with Grok referring to itself as "MechaHitler"
-  and producing many antisemitic responses.
-
-  In another case, a system prompt change that was not published led to Grok repeatedly
-  referencing the “white genocide in South Africa” conspiracy theory (which Musk has
-  frequently promoted).
-
-  More generally, AI developers have considerable control over the typical types of responses
+  AI developers have considerable control over the typical types of responses
   their systems produce, with few safeguards against intentional manipulation.
+
+  In some cases — like with xAI’s [Grok chatbot](https://en.wikipedia.org/wiki/Grok_(chatbot))
+  — we know that developers are working to bias their AI systems in particular ways.
+
+  In other cases, researchers study different aspects of [algorithmic bias](https://en.wikipedia.org/wiki/Algorithmic_bias)
+  in AI systems, but can't easily tell which systemic biases are intentional versus accidental.
+  AI companies are subject to tremendous economic and political pressures, but we don't get
+  to see how those pressures reshape AI responses.
