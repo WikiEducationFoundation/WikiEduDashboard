@@ -85,8 +85,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
-    
-
+    okay: Okay 
   article_statuses:
     not_yet_started: Getting Started
     in_progress: Working in Sandbox
@@ -471,8 +470,6 @@ en:
     category_error: This scoping method has too many items to be updated. Please try using smaller ones.
 
   courses:
-    quality_checklist:
-      okay: Okay
     school_system: Academic System
     assignment_edits_enabled: Assignment edits enabled
     assignment_edits_enabled_tooltip: >
