@@ -84,7 +84,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
-    okay: Okay 
+    okay: Okay
     quality_checklist: Quality checklist
   article_statuses:
     not_yet_started: Getting Started
@@ -154,6 +154,7 @@ en:
     label: Activity
 
   articles:
+    quality_checklist: Quality checklist
     articles: Articles
     article_not_found: "This article has not been created yet."
     article_development: (article development)
