@@ -28,7 +28,7 @@ class AiEditAlertsStatsController < ApplicationController
   RECENT_ALERTS_DAYS = 14
 
   def set_alerts
-    @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert')
+    @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert').includes(:article)
   end
 
   def set_followups
@@ -59,11 +59,19 @@ class AiEditAlertsStatsController < ApplicationController
     @alerts.where('alerts.updated_at > ?', RECENT_ALERTS_DAYS.days.ago).filter(&:followup?)
   end
 
+  def recent_alerts
+    @alerts.where('alerts.created_at > ?', RECENT_ALERTS_DAYS.days.ago)
+  end
+
   # Returns a list of alerts created in the last RECENT_ALERTS_DAYS days
   # for students with previous alerts in the same campaign.
   def recent_alerts_for_students_with_multiple_alerts
-    @alerts.where('alerts.created_at > ?', RECENT_ALERTS_DAYS.days.ago)
-           .filter(&:prior_alert_id_for_user)
+    recent_alerts.filter(&:prior_alert_id_for_user)
+  end
+
+  # Returns alerts for articles in mainspace created in the last RECENT_ALERTS_DAYS days.
+  def recent_alerts_for_mainspace
+    recent_alerts.where('article.namespace': Article::Namespaces::MAINSPACE)
   end
 
   # Returns a hash of counts of false positives/ total followups.
