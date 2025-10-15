@@ -85,7 +85,6 @@ en:
     opt_no: "no"
     print: Print
     okay: Okay
-    quality_checklist: Quality checklist
   article_statuses:
     not_yet_started: Getting Started
     in_progress: Working in Sandbox
