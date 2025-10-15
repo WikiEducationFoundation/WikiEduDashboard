@@ -237,6 +237,7 @@ const CourseForm = (props) => {
 
   return (
     <div className={props.courseFormClass}>
+      {props.firstErrorMessage && <div className="warning"><p style={{ color: '#7c1c1c' }}>{props.firstErrorMessage}</p></div>}
       <div className="column">
         {campaign}
         <TextInput
@@ -277,8 +278,6 @@ const CourseForm = (props) => {
           {backOrCancelButton}
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
-          &nbsp;
-            <span className="red">{props.firstErrorMessage || '\xa0'}</span>
           </p>
         </div>
 
