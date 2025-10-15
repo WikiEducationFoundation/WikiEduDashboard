@@ -74,13 +74,13 @@ Metrics/ModuleLength:
 
 Rails/EnvironmentVariableAccess:
   AllowReads: true
-
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+  
 ########################
 # Permanent exceptions #
 ########################
 
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/ColonMethodCall:
