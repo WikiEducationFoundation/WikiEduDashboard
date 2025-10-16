@@ -74,7 +74,7 @@ Metrics/ModuleLength:
 
 Rails/EnvironmentVariableAccess:
   AllowReads: true
-  
+
 ########################
 # Permanent exceptions #
 ########################
