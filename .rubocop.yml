@@ -74,8 +74,6 @@ Metrics/ModuleLength:
 
 Rails/EnvironmentVariableAccess:
   AllowReads: true
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: true
   
 ########################
 # Permanent exceptions #
