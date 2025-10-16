@@ -38,6 +38,7 @@ en:
   application:
     back: Back
     cancel: Cancel
+    next: Next
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -48,6 +49,7 @@ en:
     explore: Explore
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
+    field_invalid_term: Term must include year (e.g., "Spring 2025")
     field_invalid_date: This field requires a date in YYYY-MM-DD format
     field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
     greeting2: Welcome!
@@ -583,7 +585,7 @@ en:
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
-      course_term_placeholder: Term
+      course_term_placeholder: Term (including year)
       course_title: Course title
       course_types:
         basic_course_name: Basic Program
@@ -602,6 +604,7 @@ en:
       end_date: End date
       end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
+      field_invalid_term: Term must include year (e.g., "Spring 2025")
       find: Find Your Course
       intro: >
         The title, school, and term create your course page’s URL, and can't be
