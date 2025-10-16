@@ -606,6 +606,8 @@ it:
       assegnati?
     no_available_actions: Nessuna azione disponibile
     ores_plot: ORES
+    ores_plot_no_data: Nessun dato disponibile sulla completezza strutturale
+    ores_plot_show_button: Cambiamento nella completezza strutturale
     overview: Pagina principale
     passcode: Codice di accesso
     private: Privato

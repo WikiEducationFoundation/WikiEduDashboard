@@ -651,6 +651,10 @@ zh-TW:
     online_volunteers_enabled: 線上志工已啟用
     online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
     ores_plot: ORES
+    ores_plot_description: 此圖表視覺化展示出學生首次編輯條目之前到最近一次編輯期間條目的擴充進度。結構完整性評級是基於機器學習專案（%{ores_link}），該專案根據條目內文數量、維基連結數量、圖片和章節標題、以及其他特徵來評估條目的品質評級。（%{refresh_link}）
+    ores_plot_no_data: 沒有可用的結構完整性資料
+    ores_plot_refresh_data: 重整快取資料
+    ores_plot_show_button: 結構完整性的變化
     overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
