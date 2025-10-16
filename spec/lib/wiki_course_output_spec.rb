@@ -34,8 +34,8 @@ describe WikiCourseOutput do
              content: 'block 1 content',
              week: week1)
       html_with_link = '<ul>\n  <li>Overview of the course</li>\n  <li>Introduction'\
-                       ' to how Wikipedia will be used in the course</li>\n  <li>Understanding'\
-                       ' Wikipedia as a community, we\'ll discuss its expectations and etiquette.'\
+                       'to how Wikipedia will be used in the course</li>\n  <li>Understanding'\
+                       'Wikipedia as a community, we\'ll discuss its expectations and etiquette.'\
                        '</li>\n</ul>\n<hr />\n<p>Handout: <a href="http://wikiedu.org/editingwikipedia">'\
                        'Editing Wikipedia</a></p>\n'
       create(:block,

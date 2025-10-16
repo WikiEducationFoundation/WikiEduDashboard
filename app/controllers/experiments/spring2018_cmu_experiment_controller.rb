@@ -10,8 +10,8 @@ module Experiments
     def opt_in
       Spring2018CmuExperiment.new(@course).opt_in
       flash[:notice] = 'Thank you for opting in. We will add the video sessions'\
-                       ' to the relevant assignments on the timeline for your'\
-                       ' WikiEd dashboard and send you an email about next steps.'
+                       'to the relevant assignments on the timeline for your'\
+                       'WikiEd dashboard and send you an email about next steps.'
       redirect_to course_slug_path(@course.slug)
     end
 

@@ -205,7 +205,7 @@ class WikiCourseEdits
   def add_course_template_to_instructor_userpage(instructor)
     user_page = "User:#{instructor.username}"
     template = "{{#{template_name(@templates, 'instructor')}"\
-               " | course = [[#{@course.wiki_title}]] }}\n"
+               "| course = [[#{@course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)

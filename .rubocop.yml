@@ -214,8 +214,6 @@ RSpec/BeEq:
   Enabled: false
 Style/OpenStructUse:
   Enabled: false
-Layout/LineContinuationLeadingSpace:
-  Enabled: false
 RSpec/VerifiedDoubleReference:
   Enabled: false
 RSpec/ChangeByZero:
