@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
     Rack::MiniProfiler.authorize_request
   end
 
-  def course_slug_path(slug, args={})
+  def course_slug_path(slug, args = {})
     slug_parts = slug.split('/')
     show_path(args.merge(school: slug_parts[0], titleterm: slug_parts[1]))
   end

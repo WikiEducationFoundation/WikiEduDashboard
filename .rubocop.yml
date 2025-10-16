@@ -79,8 +79,6 @@ Rails/EnvironmentVariableAccess:
 # Permanent exceptions #
 ########################
 
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/ColonMethodCall:

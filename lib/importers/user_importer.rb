@@ -27,7 +27,7 @@ class UserImporter
   RTL_MARK = 8207.chr # right-to-left mark, Ruby character 8207
   CHARACTERS_TO_TRIM = [LTR_MARK, RTL_MARK].freeze
 
-  def self.new_from_username(username, home_wiki=nil)
+  def self.new_from_username(username, home_wiki = nil)
     username = sanitize_username(username)
     user = User.find_by(username:)
     return user if user
@@ -49,7 +49,7 @@ class UserImporter
   # There are some users who have a local wiki account, but do not have one
   # on MetaWiki, so this can be used to check for registration date on MetaWiki by default,
   # but also for other wikis if needed.
-  def self.update_users(users=nil, wiki=nil)
+  def self.update_users(users = nil, wiki = nil)
     wiki ||= MetaWiki.new
     users ||= User.where(registered_at: nil)
     users.each do |user|

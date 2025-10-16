@@ -12,7 +12,7 @@ class CategoryImporter
   ################
   # Entry points #
   ################
-  def initialize(wiki, opts={}, update_service: nil)
+  def initialize(wiki, opts = {}, update_service: nil)
     @wiki = wiki
     @depth = opts[:depth] || 0
     @min_views = opts[:min_views] || 0
@@ -20,17 +20,17 @@ class CategoryImporter
     @update_service = update_service
   end
 
-  def mainspace_page_titles_for_category(category, depth=0)
+  def mainspace_page_titles_for_category(category, depth = 0)
     CategoryUtils.get_titles_without_prefixes(page_data_for_category(category, depth))
   end
 
-  def page_titles_for_category(category, depth=0, namespace=nil)
+  def page_titles_for_category(category, depth = 0, namespace = nil)
     CategoryUtils.get_titles(page_data_for_category(category, depth, namespace))
   end
 
   private
 
-  def page_data_for_category(category, depth=0, namespace=nil)
+  def page_data_for_category(category, depth = 0, namespace = nil)
     cat_query = category_query(category, namespace)
     page_data = get_category_member_data(cat_query)
     if depth.positive?

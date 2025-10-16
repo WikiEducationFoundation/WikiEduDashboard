@@ -10,7 +10,7 @@ MILESTONE_BLOCK_KIND = 2
 # Wait one second after loading a path
 # Allows React to properly load the page
 # Remove this after implementing server-side rendering
-def js_visit(path, count=3)
+def js_visit(path, count = 3)
   visit path
   expect(page).to have_content('Help').or have_content('My Dashboard')
 

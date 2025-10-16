@@ -232,7 +232,7 @@ class User < ApplicationRecord
   end
 
   # Exclude tokens/secrets from json output
-  def to_json(options={})
+  def to_json(options = {})
     options[:except] ||= %i[wiki_token wiki_secret remember_token]
     super(options)
   end
