@@ -76,6 +76,11 @@ export class ArticleViewerAPI {
     }).then(response => this.__handleFetchResponse(response))
       .then((response) => {
         if (response.error) throw new Error(this.__setException({ status: 404 }));
+        // If this was a redirect, update the article title for subsequent API calls
+        if (response.parse.redirects && response.parse.redirects.length > 0) {
+          const redirectTarget = response.parse.redirects[0].to;
+          this.builder.article.title = redirectTarget;
+        }
         return {
           articlePageId: response.parse.pageid,
           fetched: true,

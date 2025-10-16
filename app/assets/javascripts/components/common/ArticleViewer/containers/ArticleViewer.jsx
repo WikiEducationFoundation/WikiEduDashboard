@@ -137,10 +137,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     } else if (!userIdsFetched && !showArticleFinder) {
       fetchUserIds();
     }
-    // WhoColor is only available for some languages
-    if (isWhocolorLang()) {
-      fetchWhocolorHtml();
-    }
+    // WhoColor is now called from fetchParsedArticle after redirects are handled
     // Add article id in the URL
     addParamToURL(article.id);
   };
@@ -246,6 +243,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       .then((response) => {
         setParsedArticle(response.parsedArticle.html);
         setFetched(response.fetched);
+        // After parse API completes (and potentially updates the article title for redirects),
+        // fetch WhoColor data if supported for this language
+        if (isWhocolorLang()) {
+          fetchWhocolorHtml();
+        }
       }).catch((error) => {
         setFailureMessage(error.message);
         setFetched(true);
