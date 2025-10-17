@@ -40,7 +40,7 @@ class AverageViewsImporter
   end
 
   def self.update_average_views_for_article(article_course, average_views, time)
-    can_update = (Time.zone.now - article_course.first_revision) > 3.days
+    can_update = (1.day.ago - article_course.first_revision) > 1.day
 
     return unless can_update
 
