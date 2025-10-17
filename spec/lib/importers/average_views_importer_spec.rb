@@ -34,6 +34,12 @@ describe AverageViewsImporter do
         described_class.update_average_views(ArticlesCourses.all)
       end
       expect(articles_course.reload.average_views).to be > 50
+    end
+
+    it 'does not save average views when insufficient time has passed since first revision' do
+      VCR.use_cassette 'average_views' do
+        described_class.update_average_views(ArticlesCourses.all)
+      end
       expect(article_course_with_insufficient_rev_time.reload.average_views).to eq(10)
     end
   end
