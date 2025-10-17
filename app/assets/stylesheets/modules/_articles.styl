@@ -6,6 +6,7 @@
     flex-direction row
     flex-wrap nowrap
     align-items center
+    gap 12px
     b
       margin-right: 10px
     select
@@ -17,6 +18,24 @@
       height 40px
       +below(tablet)
         position absolute
+    .pageview-toggle-container
+      display flex
+      align-items center
+      margin-left 8px
+      .pageview-toggle-label
+        display flex
+        align-items center
+        gap 8px
+        font-size 12px
+        font-weight 500
+        color #444
+        cursor default
+        span
+          white-space nowrap
+          color #666
+          font-size 11px
+        .pageview-toggle-switch
+          margin 0 2px
       
   .see-more
     p

@@ -187,6 +187,8 @@ en:
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
     filter_text: "Filters:"
+    cumulative_pageviews: "Cumulative"
+    average_pageviews_per_day: "Daily Avg"
     find: Find Articles
     how_to_find: How to find articles
     hide: Hide

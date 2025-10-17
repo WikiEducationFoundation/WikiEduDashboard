@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
@@ -8,7 +9,7 @@ import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
 
 const Article = ({ article, index, course, fetchArticleDetails, updateArticleTrackedStatus, articleDetails, wikidataLabel,
-  showOnMount, setSelectedIndex, lastIndex, selectedIndex, pageLogsMessage, deletedMessage, current_user }) => {
+  showOnMount, setSelectedIndex, lastIndex, selectedIndex, pageLogsMessage, deletedMessage, current_user, pageviewDisplayMode }) => {
   const [tracked, setTracked] = useState(article.tracked);
 
   const fetchMissingArticleDetails = () => {
@@ -60,6 +61,13 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
   if (project === 'wikidata') language = 'www';
   const pageviewUrl = `https://pageviews.toolforge.org/?project=${language}.${project}.org&platform=all-access&agent=user&range=latest-90&pages=${title}`;
 
+  const getPageviewDisplay = () => {
+    if (pageviewDisplayMode === 'average') {
+      return article.average_views ? Math.round(article.average_views) : '-';
+    }
+    return article.view_count || 0;
+  };
+
   const isWikipedia = project === 'wikipedia';
 
   return (
@@ -101,7 +109,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
       {contentAdded}
       <td className="desktop-only-tc">{article.references_count || ''}</td>
       <td className="desktop-only-tc">
-        <a href={pageviewUrl} target="_blank" className="inline">{article.view_count}</a>
+        <a href={pageviewUrl} target="_blank" className="inline">{getPageviewDisplay()}</a>
       </td>
       <td className="article-diff-icons">
         <ArticleViewer
@@ -147,7 +155,12 @@ Article.propTypes = {
   setSelectedIndex: PropTypes.func,
   lastIndex: PropTypes.number,
   selectedIndex: PropTypes.number,
-  deletedMessage: PropTypes.string
+  deletedMessage: PropTypes.string,
+  pageviewDisplayMode: PropTypes.string
 };
 
-export default Article;
+const mapStateToProps = state => ({
+  pageviewDisplayMode: state.articles.pageviewDisplayMode
+});
+
+export default connect(mapStateToProps)(Article);

@@ -13,6 +13,7 @@ import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
 import { PaginatedArticleControls } from './PaginatedArticleControls';
 import Select from 'react-select';
+import Switch from 'react-switch';
 import sortSelectStyles from '../../styles/sort_select';
 
 const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
@@ -28,7 +29,9 @@ const ArticleList = createReactClass({
     articleDetails: PropTypes.object,
     sortArticles: PropTypes.func,
     wikidataLabels: PropTypes.object,
-    sort: PropTypes.object
+    sort: PropTypes.object,
+    pageviewDisplayMode: PropTypes.string,
+    setPageviewDisplayMode: PropTypes.func
   },
 
   getInitialState() {
@@ -96,6 +99,11 @@ const ArticleList = createReactClass({
   onTrackedFilterChange(e) {
     this.updateParams('tracked', e.target.value);
     return this.props.filterTrackedStatus(e.target.value);
+  },
+
+  onPageviewDisplayModeChange(checked) {
+    const mode = checked ? 'average' : 'cumulative';
+    return this.props.setPageviewDisplayMode(mode);
   },
 
   updateParams(filter, value) {
@@ -251,6 +259,21 @@ const ArticleList = createReactClass({
       );
     }
 
+    const pageviewToggle = (
+      <div className="pageview-toggle-container">
+        <label className="pageview-toggle-label">
+          <span>{I18n.t('articles.cumulative_pageviews')}</span>
+          <Switch
+            onChange={this.onPageviewDisplayModeChange}
+            checked={this.props.pageviewDisplayMode === 'average'}
+            onColor="#676eb4"
+            className="pageview-toggle-switch"
+          />
+          <span>{I18n.t('articles.average_pageviews_per_day')}</span>
+        </label>
+      </div>
+    );
+
     let filterLabel;
     if (!!filterWikis || !!filterArticlesSelect || !!filterTracked) {
       filterLabel = <b>{I18n.t('articles.filter_text')}</b>;
@@ -284,6 +307,7 @@ const ArticleList = createReactClass({
           {filterTracked}
           {filterArticlesSelect}
           {filterWikis}
+          {pageviewToggle}
           {articleSort}
         </div>
       </div>
@@ -317,11 +341,13 @@ const mapStateToProps = (state) => {
   return ({
     articleDetails: state.articleDetails,
     sort: state.articles.sort,
+    pageviewDisplayMode: state.articles.pageviewDisplayMode,
   });
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...ArticleActions }, dispatch)
+  actions: bindActionCreators({ ...ArticleActions }, dispatch),
+  setPageviewDisplayMode: mode => dispatch(ArticleActions.setPageviewDisplayMode(mode))
 });
 
 
