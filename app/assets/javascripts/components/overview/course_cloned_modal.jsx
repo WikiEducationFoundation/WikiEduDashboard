@@ -125,6 +125,19 @@ const CourseClonedModal = createReactClass({
       course: updatedCourse
     });
   },
+  termValidation(value) {
+    // First check basic slug regex
+    if (!CourseUtils.courseSlugRegex().test(value)) {
+      return false;
+    }
+
+   if (value) {
+    const hasYear = /\d{2,}/.test(value);
+    return hasYear;
+   }
+
+    return true;
+  },
 
   saveCourse() {
     this.props.activateValidations();
@@ -341,7 +354,8 @@ const CourseClonedModal = createReactClass({
           value={this.state.course.term}
           value_key="term"
           required={isRequiredTermField}
-          validation={CourseUtils.courseSlugRegex()}
+          validation={this.termValidation}
+          invalidMessage={I18n.t('courses.creator.field_invalid_term')}
           editable={true}
           label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
           placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
