@@ -4,28 +4,23 @@ class AiEditAlertsStatsController < ApplicationController
   layout 'admin'
   before_action :check_user_auth
   def index
-    set_alerts
-    set_followups
-
-    respond_to do |format|
-      format.html
-      format.json do
-        render json: {
-          current_term: Campaign.default_campaign.slug,
-          total_alerts: @alerts.count,
-          by_page_type: count_by_page_type,
-          total_followups: @followups.count,
-          students_with_multiple_alerts: student_count_with_multiple_alerts,
-          pages_with_multiple_alerts: page_count_with_multiple_alerts,
-          false_positives: count_by_false_positives
-        }
-      end
-    end
+    set_data
   end
 
   private
 
   RECENT_ALERTS_DAYS = 14
+
+  def set_data
+    set_alerts
+    set_followups
+    set_count_by_page_type
+    set_student_count_with_multiple_alerts
+    set_page_count_with_multiple_alerts
+    set_alerts_with_recent_followup
+    set_recent_alerts_for_students_with_multiple_alerts
+    set_recent_alerts_for_mainspace
+  end
 
   def set_alerts
     @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert').includes(:article)
@@ -39,24 +34,30 @@ class AiEditAlertsStatsController < ApplicationController
   # Returns a hash of counts by page types.
   # Example:
   # {:choose_an_article=>1, :evaluate_an_article=>2, :bibliography=>1, :outline=>1, :sandbox=>2}
-  def count_by_page_type
-    @alerts.group_by(&:page_type).transform_values(&:count)
+  def set_count_by_page_type
+    @count_by_page_type = @alerts.group_by(&:page_type).transform_values(&:count)
   end
 
   # Returns the number of unique students with multiple alerts
-  def student_count_with_multiple_alerts
-    @alerts.filter(&:prior_alert_id_for_user).map(&:user_id).uniq.count
+  def set_student_count_with_multiple_alerts
+    @student_count_with_multiple_alerts = @alerts
+                                          .filter(&:prior_alert_id_for_user)
+                                          .map(&:user_id).uniq.count
   end
 
   # Returns the number of unique pages with multiple alerts
-  def page_count_with_multiple_alerts
-    @alerts.filter(&:prior_alert_id_for_page).map(&:article_id).uniq.count
+  def set_page_count_with_multiple_alerts
+    @page_count_with_multiple_alerts = @alerts
+                                       .filter(&:prior_alert_id_for_page)
+                                       .map(&:article_id).uniq.count
   end
 
   # Returns a list of alerts with a followup completed in the last RECENT_ALERTS_DAYS days.
   # For now, we rely on the updated_at alert field to detrmine when a followup was answered.
-  def alerts_with_recent_followup
-    @alerts.where('alerts.updated_at > ?', RECENT_ALERTS_DAYS.days.ago).filter(&:followup?)
+  def set_alerts_with_recent_followup
+    @alerts_with_recent_followup = @alerts.where('alerts.updated_at > ?',
+                                                 RECENT_ALERTS_DAYS.days.ago)
+                                          .filter(&:followup?)
   end
 
   def recent_alerts
@@ -65,13 +66,15 @@ class AiEditAlertsStatsController < ApplicationController
 
   # Returns a list of alerts created in the last RECENT_ALERTS_DAYS days
   # for students with previous alerts in the same campaign.
-  def recent_alerts_for_students_with_multiple_alerts
-    recent_alerts.filter(&:prior_alert_id_for_user)
+  def set_recent_alerts_for_students_with_multiple_alerts
+    @recent_alerts_for_students_with_multiple_alerts =
+      recent_alerts.filter(&:prior_alert_id_for_user)
   end
 
   # Returns alerts for articles in mainspace created in the last RECENT_ALERTS_DAYS days.
-  def recent_alerts_for_mainspace
-    recent_alerts.where('article.namespace': Article::Namespaces::MAINSPACE)
+  def set_recent_alerts_for_mainspace
+    @recent_alerts_for_mainspace = recent_alerts
+                                   .where('article.namespace': Article::Namespaces::MAINSPACE)
   end
 
   # Returns a hash of counts of false positives/ total followups.
