@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../common/loading';
+import AiAlertsList from './ai_alerts_list.jsx';
 
-import { fetchAlertsStats } from '../../actions/alert_actions';
+import { sortAlerts, fetchAlertsStats } from '../../actions/alert_actions';
 
 const AiEditAlertsStats = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // This adds alerts stats to the state
     dispatch(fetchAlertsStats());
   }, [dispatch]);
 
@@ -48,7 +48,7 @@ const AiEditAlertsStats = () => {
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
             <tr>
-              <th>Page Type</th>
+              <th>Page</th>
               <th>Count</th>
               <th>%</th>
             </tr>
@@ -63,6 +63,27 @@ const AiEditAlertsStats = () => {
             ))}
           </tbody>
         </table>
+        <h3 style={{ marginTop: '40px' }}>Alerts with recent followup</h3>
+        <AiAlertsList
+          alerts={stats.recent_alerts_followup}
+          sortBy={key => dispatch(sortAlerts(key))}
+          noAlertsLabel={I18n.t('alerts.no_alerts')}
+          adminAlert={false}
+        />
+        <h3 style={{ marginTop: '40px' }}>Recent alerts for students with multiple alerts</h3>
+        <AiAlertsList
+          alerts={stats.recent_alerts_for_students_with_multiple_alerts}
+          sortBy={key => dispatch(sortAlerts(key))}
+          noAlertsLabel={I18n.t('alerts.no_alerts')}
+          adminAlert={false}
+        />
+        <h3 style={{ marginTop: '40px' }}>Recent alerts in mainspace</h3>
+        <AiAlertsList
+          alerts={stats.recent_alerts_for_mainspace}
+          sortBy={key => dispatch(sortAlerts(key))}
+          noAlertsLabel={I18n.t('alerts.no_alerts')}
+          adminAlert={false}
+        />
       </div>
     </div>
   );
