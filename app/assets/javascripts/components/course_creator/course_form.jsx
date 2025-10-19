@@ -209,7 +209,7 @@ const CourseForm = (props) => {
   // Displays "Back" button if the user has clonable courses or is on the P&E dashboard; otherwise shows "Cancel" link.
   if (props.hasClonableCourses || props.defaultCourse !== 'ClassroomProgramCourse') {
     backOrCancelButton = (
-      <button onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
+      <button type="button" onClick={backCondition} className="button dark">{I18n.t('application.back')}</button>
     );
     } else {
     backOrCancelButton = (
