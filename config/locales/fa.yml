@@ -15,6 +15,7 @@
 # Author: GMozafarian
 # Author: Jeeputer
 # Author: Ladsgroup
+# Author: LordProfo
 # Author: Mardetanha
 # Author: Mohammad ebz
 # Author: Mojtabakd
@@ -215,7 +216,7 @@ fa:
     alert_user_id: کاربر
     campaign: کمپین
     campaigns: کمپین‌ها
-    customize_passcode: رمز عبور پیش‌فرض
+    customize_passcode: گذرواژهٔ پیش‌فرض
     data_articles: صفحه‌های ویرایش‌شده
     default_passcode: رمز عبور پیش‌فرض
     description: توضیحات
@@ -506,6 +507,7 @@ fa:
     main_char_added: کاراکترهای افزوده‌شده فضای اصلی
     user: فضای نام کاربر
     user_char_added: کاراکترهای افزوده‌شده فضای کاربر
+    project: پروژه
   recent_activity:
     active_courses: مقاله فعال است در
     article_title: عنوان مقاله
