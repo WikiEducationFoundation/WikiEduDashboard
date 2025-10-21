@@ -19,6 +19,7 @@ const CourseStatsDownloadModal = ({ course }) => {
   const overviewCsvLink = `/course_csv?course=${course.slug}`;
   const uploadsCsvLink = `/course_uploads_csv?course=${course.slug}`;
   const studentsCsvLink = `/course_students_csv?course=${course.slug}`;
+  const studentsAssignmentsCsvLink = `/course_students_assignments_csv?course=${course.slug}`;
   const articlesCsvLink = `/course_articles_csv?course=${course.slug}`;
   const wikidataCsvLink = `/course_wikidata_csv?course=${course.slug}`;
 
@@ -59,6 +60,11 @@ const CourseStatsDownloadModal = ({ course }) => {
       <p>
         <a href={studentsCsvLink} className="button right">{I18n.t('courses.data_students')}</a>
         {I18n.t('courses.data_students_info')}
+      </p>
+      <hr />
+      <p>
+        <a href={studentsAssignmentsCsvLink} className="button right">{I18n.t('courses.data_students_assignments')}</a>
+        {I18n.t('courses.data_students_assignments_info')}
       </p>
       <hr />
       <p>

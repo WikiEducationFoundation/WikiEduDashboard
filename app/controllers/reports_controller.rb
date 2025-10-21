@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
   before_action :set_course, only: %i[course_csv course_uploads_csv
-                                      course_students_csv course_articles_csv
+                                      course_students_csv course_students_assignments_csv course_articles_csv
                                       course_wikidata_csv]
 
   #######################
@@ -51,6 +51,10 @@ class ReportsController < ApplicationController
 
   def course_students_csv
     csv_of('course_editors')
+  end
+
+  def course_students_assignments_csv
+    csv_of('course_students_assignments')
   end
 
   def course_articles_csv
