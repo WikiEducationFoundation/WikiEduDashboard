@@ -42,6 +42,7 @@ it:
   application:
     back: Indietro
     cancel: Annulla
+    next: Successivo
     cookie_consent_acknowledge: Ho capito
     cookie_consent_see_more: Vedi altro.
     create_accounts: Crea utenze di Wikipedia
@@ -51,6 +52,7 @@ it:
     explore: Esplora
     field_required: Questo campo è obbligatorio
     field_invalid_characters: Questo campo contiene caratteri non validi
+    field_invalid_term: Il termine deve includere l'anno (ad esempio, "Primavera 2025")
     field_invalid_date: Questo campo richiede una data nel formato YYYY-MM-DD
     field_invalid_date_time: La fine deve essere dopo l'inizio (le ore vanno di 0
       a 23.)
@@ -454,7 +456,7 @@ it:
       course_school: Scuola del corso
       course_subject: Oggetto del corso
       course_term: Termine del corso
-      course_term_placeholder: Termine
+      course_term_placeholder: Termine (compreso l'anno)
       course_title: Titolo del corso
       course_types:
         basic_course_name: Programma di base
