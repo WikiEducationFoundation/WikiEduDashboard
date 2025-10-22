@@ -114,7 +114,7 @@ const StyleguideExamples = {
   }
 };
 
-$(() => {
+document.addEventListener('DOMContentLoaded', () => {
   Object.keys(StyleguideExamples).forEach((example) => {
     StyleguideExamples[example]();
   });
