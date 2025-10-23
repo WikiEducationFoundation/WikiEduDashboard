@@ -22,6 +22,7 @@ lb:
   application:
     back: Zeréck
     cancel: Ofbriechen
+    next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
     create_accounts: Wikipedia-Benotzerkonten uleeën
