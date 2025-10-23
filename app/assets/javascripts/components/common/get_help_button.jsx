@@ -180,8 +180,8 @@ const GetHelpButton = createReactClass({
                 <textarea name="message" className="mb1" onChange={this.updateMessage} value={this.state.message} />
               </label>
             </fieldset>
-            <button className="button dark ml0" value="Submit">Send</button>
-            <button className="button" onClick={this.clearHelper}>Cancel</button>
+            <button type="button" className="button dark ml0" value="Submit">Send</button>
+            <button type="button" className="button" onClick={this.clearHelper}>Cancel</button>
           </form>
         </div>
       );
@@ -237,7 +237,7 @@ const GetHelpButton = createReactClass({
 
     return (
       <div className="pop__container">
-        <button className="dark button small" onClick={this.props.open}>Get Help</button>
+        <button type="button" className="dark button small" onClick={this.props.open}>Get Help</button>
         <div className={`pop ${this.props.is_open ? 'open' : ''}`}>
           <div className="pop__padded-content">
             {content}
