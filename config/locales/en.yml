@@ -59,6 +59,7 @@ en:
     log_in: Log in
     log_out: Log out
     my_dashboard: My Dashboard
+    okay: Okay
     recent_activity: Recent Activity
     report_problem: Report a problem
     request_account: Request an account
@@ -198,6 +199,7 @@ en:
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
+    quality_checklist: Quality checklist
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may correspond to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
