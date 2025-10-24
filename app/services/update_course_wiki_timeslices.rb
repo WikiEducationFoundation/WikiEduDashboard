@@ -116,7 +116,7 @@ class UpdateCourseWikiTimeslices
       log_processing(wiki, start_date, end_date, only_new)
       add_scores(only_new:)
       maybe_fetch_wikidata_stats(wiki)
-      process_timeslices(wiki) if !only_new | new_data?(wiki)
+      process_timeslices(wiki) if !only_new || new_data?(wiki)
       [start_date]
     end
   end
