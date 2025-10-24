@@ -573,7 +573,7 @@ course_slug: course.slug }
     end
 
     context 'updating sandbox url with invalid url format' do
-      let(:preferred_sandbox_url) { 'anyGebberishURL' }
+      let(:preferred_sandbox_url) { 'Invalid:Username' }
       let!(:request_params) do
         { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json,
 course_slug: course.slug }
@@ -590,6 +590,77 @@ course_slug: course.slug }
       it 'does not update url and send response with status: bad request example 2' do
         preferred_sandbox_url = "#{base_url}/#{new_username}/Article_name"
         request_params[:newUrl] = preferred_sandbox_url
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+    end
+
+    context 'updating sandbox url with username input' do
+      let(:new_user) { create(:user, username: 'NewStudentUsername') }
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: new_user.username, format: :json,
+          course_slug: course.slug }
+      end
+
+      it 'generates and updates sandbox url from username successfully' do
+        # Extract the article title from existing sandbox URL
+        existing_url = assignment.sandbox_url
+        article_title = existing_url.match(%r{/wiki/User:[^/]+/(.+)})[1]
+        expected_url = "#{base_url}/User:#{new_user.username}/#{article_title}"
+
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(expected_url)
+        expect(response.status).to eq(200)
+      end
+
+      it 'handles username with spaces correctly' do
+        new_user_with_spaces = create(:user, username: 'New Student Username')
+        request_params[:newUrl] = new_user_with_spaces.username
+        
+        existing_url = assignment.sandbox_url
+        article_title = existing_url.match(%r{/wiki/User:[^/]+/(.+)})[1]
+        expected_url = "#{base_url}/User:#{new_user_with_spaces.username}/#{article_title}"
+
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(expected_url)
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'updating sandbox url with invalid username' do
+      let!(:request_params) do
+        { id: assignment.id, user_id: user.id, newUrl: 'Invalid:Username', format: :json,
+          course_slug: course.slug }
+      end
+
+      it 'rejects username with colon' do
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+
+      it 'rejects username with invalid characters' do
+        request_params[:newUrl] = 'Invalid/Username'
+        
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+
+      it 'rejects username with brackets' do
+        request_params[:newUrl] = 'Invalid[Username]'
+        
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
 
