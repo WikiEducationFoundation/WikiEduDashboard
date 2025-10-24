@@ -41,17 +41,18 @@ class SandboxUrlUpdator
   end
 
   def extract_username(input)
-    # Try to extract username from a URL pattern if provided
-    # e.g., "User:Username/Article" or just "Username"
-    username_match = input.match(%r{(?:User:)?([^/#<>\[\]|{}:@]+)})
+    # Username should not contain any invalid characters
+    # First validate the entire input, then extract if it's in User: format
+    username = input.strip
     
-    if username_match && username_match[1]
-      username = username_match[1].strip
-      validate_username(username)
-      return username
+    # If input is in "User:Username" format, extract just the username part
+    if username.start_with?('User:')
+      username = username.sub(/^User:/, '')
     end
     
-    raise InvalidUsernameError, I18n.t('assignments.invalid_username', username: input)
+    # Validate the username
+    validate_username(username)
+    return username
   end
 
   def validate_username(username)
