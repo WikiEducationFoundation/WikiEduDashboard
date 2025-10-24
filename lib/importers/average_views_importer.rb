@@ -40,9 +40,15 @@ class AverageViewsImporter
   end
 
   def self.update_average_views_for_article(article_course, average_views, time)
+    can_update = (1.day.ago - article_course.first_revision) > 1.day
+
+    return unless can_update
+
+    views_since_revision = WikiPageviews.new(article_course.article)
+                                        .average_views_from_date(article_course.first_revision)
+
     average_views[article_course.id] = {
-      average_views: WikiPageviews.new(article_course.article)
-                                  .average_views_from_date(article_course.first_revision),
+      average_views: views_since_revision,
       average_views_updated_at: time
     }
   end
