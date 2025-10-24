@@ -32,9 +32,9 @@ export const Actions = ({
 
   const actions = [];
 
-  if (!course.no_sandboxes) {
-    actions.push(<EditSandboxUrl key="edit-sandbox-url-button" user={current_user} assignment={assignment} />);
-  }
+  // Enable sandbox URL editing for all courses, including no_sandboxes courses
+  // since they still use Bibliography and Outline sandboxes
+  actions.push(<EditSandboxUrl key="edit-sandbox-url-button" user={current_user} assignment={assignment} course={course} />);
 
   if (assignment.article_id) {
     actions.push(<PageViews key="pageviews-button" article={article} />);
