@@ -621,7 +621,7 @@ course_slug: course.slug }
       it 'handles username with spaces correctly' do
         new_user_with_spaces = create(:user, username: 'New Student Username')
         request_params[:newUrl] = new_user_with_spaces.username
-        
+
         existing_url = assignment.sandbox_url
         article_title = existing_url.match(%r{/wiki/User:[^/]+/(.+)})[1]
         expected_url = "#{base_url}/User:#{new_user_with_spaces.username}/#{article_title}"
@@ -650,7 +650,7 @@ course_slug: course.slug }
 
       it 'rejects username with invalid characters' do
         request_params[:newUrl] = 'Invalid/Username'
-        
+
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
 
@@ -660,7 +660,7 @@ course_slug: course.slug }
 
       it 'rejects username with brackets' do
         request_params[:newUrl] = 'Invalid[Username]'
-        
+
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
 
