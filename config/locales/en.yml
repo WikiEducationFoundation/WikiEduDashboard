@@ -360,6 +360,8 @@ en:
     change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
     username_label: Wikipedia Username
     username_placeholder: 'Enter username (e.g., YourUsername)'
+    username_or_url_label: Wikipedia Username or URL
+    username_or_url_placeholder: 'Enter username or full sandbox URL'
     preview_label: 'Preview of new URLs:'
     sandbox_label: Sandbox
     bibliography_label: Bibliography

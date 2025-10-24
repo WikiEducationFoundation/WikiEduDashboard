@@ -67,15 +67,19 @@ class SandboxUrlUpdator
   def generate_sandbox_url(username)
     existing_url = @assignment.sandbox_url
     
+    # Existing URL must be present to extract wiki information
+    raise InvalidUrlError, I18n.t('assignments.invalid_url', url: @input) unless existing_url
+    
     # Extract the article title from the existing sandbox URL
     article_title = 'sandbox'
-    if existing_url
-      match = existing_url.match(%r{/wiki/User:[^/]+/(.+)})
-      article_title = match[1] if match && match[1]
-    end
+    match = existing_url.match(%r{/wiki/User:[^/]+/(.+)})
+    article_title = match[1] if match && match[1]
 
     # Get wiki information from existing URL
-    existing_language, existing_project = existing_url.match(%r{https://([^.]*)\.([^.]*)\.org}).captures
+    wiki_match = existing_url.match(%r{https://([^.]*)\.([^.]*)\.org})
+    raise InvalidUrlError, I18n.t('assignments.invalid_url', url: existing_url) unless wiki_match
+    
+    existing_language, existing_project = wiki_match.captures
     
     # Generate new URL with the new username
     base_url = "https://#{existing_language}.#{existing_project}.org/wiki"
@@ -84,7 +88,12 @@ class SandboxUrlUpdator
 
   def validate_new_url
     existing_url = @assignment.sandbox_url
-    existing_language, existing_project = existing_url.match(%r{https://([^.]*)\.([^.]*)\.org}).captures
+    raise InvalidUrlError, I18n.t('assignments.invalid_url', url: @new_url) unless existing_url
+    
+    wiki_match = existing_url.match(%r{https://([^.]*)\.([^.]*)\.org})
+    raise InvalidUrlError, I18n.t('assignments.invalid_url', url: existing_url) unless wiki_match
+    
+    existing_language, existing_project = wiki_match.captures
     new_url_match = @new_url.match(%r{^https://([^./]++)\.([^./]++)\.org/wiki/User:([^/#<>\[\]|{}:.]+)/([^/#<>\[\]|{}:.]+)})
 
     # Handle invalid url
