@@ -10,8 +10,11 @@ class CourseStudentsAssignmentsCsvBuilder
   def generate_csv
     csv_data = [CSV_HEADERS]
 
+    # Eager load all assignments for all students to avoid N+1 queries
+    student_assignments_map = preload_student_assignments
+
     students.each do |courses_user|
-      process_student_assignments(csv_data, courses_user)
+      process_student_assignments(csv_data, courses_user, student_assignments_map)
     end
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
@@ -32,10 +35,21 @@ class CourseStudentsAssignmentsCsvBuilder
            .includes(:user)
   end
 
-  def process_student_assignments(csv_data, courses_user)
-    assignments = get_student_assignments(courses_user)
-    assigned_articles = assignments.where(role: Assignment::Roles::ASSIGNED_ROLE)
-    reviewing_articles = assignments.where(role: Assignment::Roles::REVIEWING_ROLE)
+  def preload_student_assignments
+    # Fetch all assignments for all students in a single query
+    student_user_ids = students.pluck(:user_id)
+    assignments = @course.assignments
+                         .where(user_id: student_user_ids)
+                         .includes(:article)
+
+    # Group assignments by user_id for O(1) lookup
+    assignments.group_by(&:user_id)
+  end
+
+  def process_student_assignments(csv_data, courses_user, student_assignments_map)
+    assignments = student_assignments_map[courses_user.user_id] || []
+    assigned_articles = assignments.select { |a| a.role == Assignment::Roles::ASSIGNED_ROLE }
+    reviewing_articles = assignments.select { |a| a.role == Assignment::Roles::REVIEWING_ROLE }
 
     real_name = courses_user.real_name.presence || courses_user.user.real_name
     formatted_name = format_real_name(real_name)
@@ -51,12 +65,6 @@ class CourseStudentsAssignmentsCsvBuilder
       create_assignment_rows(csv_data, formatted_name, courses_user.user.username,
                              assigned_articles, reviewing_articles)
     end
-  end
-
-  def get_student_assignments(courses_user)
-    @course.assignments
-           .where(user: courses_user.user)
-           .includes(:article)
   end
 
   def format_real_name(real_name)
