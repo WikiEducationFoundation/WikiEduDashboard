@@ -40,76 +40,62 @@ tr.assignment-section-header h3
   min-width: 30rem;
 
 .edit-sandbox-username-form
-  display flex
-  flex-direction column
-  gap 15px
   padding 10px 0
 
-  .edit-sandbox-instructions
-    margin-bottom 5px
-    
-    .instruction-text
-      font-size 14px
-      color #444
-      line-height 1.4
-      margin 0
+  .instruction-text
+    font-size 14px
+    color $text
+    line-height 1.4
+    margin-bottom 10px
 
   .input-group
     display flex
     flex-direction column
     gap 5px
 
-    .input-label
-      font-weight 600
-      font-size 13px
-      color #333
+  .input-label
+    font-weight 600
+    font-size 13px
+    color $text_dk
 
   .error-message
-    color #d33
+    color warning
     font-size 13px
     padding 8px 12px
-    background-color #fee
-    border-left 3px solid #d33
-    border-radius 3px
+    background-color $warning-background
+    border-left 3px solid warning
+    margin-top 5px
 
   .preview-section
-    background-color #f5f5f5
+    background-color smoke
     padding 12px
-    border-radius 4px
-    border 1px solid #ddd
+    border 1px solid $border_lt
+    margin-top 10px
 
     .preview-label
       font-weight 600
       font-size 13px
-      color #333
-      margin 0 0 8px 0
+      margin-bottom 8px
 
-    .preview-urls
-      display flex
-      flex-direction column
-      gap 8px
+    .preview-url
+      margin-top 8px
+      
+      .url-type
+        font-size 12px
+        font-weight 600
+        color $text
 
-      .preview-url
-        display flex
-        flex-direction column
-        gap 2px
-        
-        .url-type
-          font-size 12px
-          font-weight 600
-          color #666
-
-        .url-value
-          font-size 11px
-          color #0645ad
-          word-break break-all
-          font-family monospace
-          padding 4px
-          background-color white
-          border-radius 2px
+      .url-value
+        font-size 11px
+        color $action
+        word-break break-all
+        font-family monospace
+        padding 4px
+        background-color white
+        margin-top 2px
 
   button[type="submit"]
-    align-self flex-start
+    margin-top 10px
     
     &:disabled
       opacity 0.5

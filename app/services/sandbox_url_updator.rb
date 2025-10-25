@@ -2,7 +2,7 @@
 class SandboxUrlUpdator
   class InvalidUrlError < StandardError; end
   class MismatchedWikiError < StandardError; end
-  class InvalidUsernameError < StandardError; end
+  class UserNotFoundError < StandardError; end
 
   def initialize(new_url = nil, assignment = nil)
     @input = new_url
@@ -17,7 +17,7 @@ class SandboxUrlUpdator
     return { partial: 'updated_assignment', locals: { assignment: @assignment } }
   rescue StandardError => e
     case e
-    when SandboxUrlUpdator::InvalidUrlError, SandboxUrlUpdator::InvalidUsernameError
+    when SandboxUrlUpdator::InvalidUrlError, SandboxUrlUpdator::UserNotFoundError
       { json: { errors: e, message: e.message }, status: :bad_request }
     when SandboxUrlUpdator::MismatchedWikiError
       { json: { errors: e, message: e.message }, status: :unprocessable_entity }
@@ -29,44 +29,24 @@ class SandboxUrlUpdator
   private
 
   def process_input
-    # Check if input is a full URL or just a username
-    if @input.start_with?('http://', 'https://')
-      # It's a full URL, use it as is
-      @new_url = @input
-    else
-      # It's a username (or extracted from a URL), generate the sandbox URL
-      username = extract_username(@input)
-      @new_url = generate_sandbox_url(username)
-    end
+    # Accept only username input
+    user = find_user_by_username(@input.strip)
+    @new_url = generate_sandbox_url_for_user(user)
   end
 
-  def extract_username(input)
-    # Username should not contain any invalid characters
-    # First validate the entire input, then extract if it's in User: format
-    username = input.strip
-
-    # If input is in "User:Username" format, extract just the username part
+  def find_user_by_username(username)
+    # Remove "User:" prefix if present
     username = username.sub(/^User:/, '') if username.start_with?('User:')
 
-    # Validate the username
-    validate_username(username)
-    username
+    # Find the user in the database
+    user = User.find_by(username: username)
+    return user if user
+
+    raise UserNotFoundError, I18n.t('assignments.invalid_username', username: username)
   end
 
-  def validate_username(username)
-    # Validate that username doesn't contain invalid characters
-    # Wikipedia usernames cannot contain: # < > [ ] | { } @ / :
-    invalid_chars = %r{[#<>\[\]|{}@/:]}
-
-    return unless username.empty? || invalid_chars.match?(username)
-
-    raise InvalidUsernameError, I18n.t('assignments.invalid_username', username:)
-  end
-
-  def generate_sandbox_url(username)
+  def generate_sandbox_url_for_user(user)
     existing_url = @assignment.sandbox_url
-
-    # Existing URL must be present to extract wiki information
     raise InvalidUrlError, I18n.t('assignments.invalid_url', url: @input) unless existing_url
 
     # Extract the article title from the existing sandbox URL
@@ -80,9 +60,9 @@ class SandboxUrlUpdator
 
     existing_language, existing_project = wiki_match.captures
 
-    # Generate new URL with the new username
+    # Generate new URL with the user's username
     base_url = "https://#{existing_language}.#{existing_project}.org/wiki"
-    "#{base_url}/User:#{username}/#{article_title}"
+    "#{base_url}/User:#{user.username}/#{article_title}"
   end
 
   def validate_new_url

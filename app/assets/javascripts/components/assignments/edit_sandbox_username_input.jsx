@@ -23,30 +23,17 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
   // Update preview URLs whenever username changes
   useEffect(() => {
     if (username.trim()) {
-      // Check if input is a full URL
-      if (username.startsWith('http://') || username.startsWith('https://')) {
-        // It's a full URL, validate and use it directly
-        const urlPattern = /^https:\/\/[^./]+\.[^./]+\.org\/wiki\/User:[^/#<>[\]|{}:.]+\/[^/#<>[\]|{}:.]+$/;
-        if (urlPattern.test(username)) {
-          setPreviewUrls({ sandbox: username, bibliography: '', outline: '' });
-          setError('');
-          onChange({ target: { value: username } });
-        } else {
-          setError(I18n.t('assignments.invalid_url'));
-          setPreviewUrls({ sandbox: '', bibliography: '', outline: '' });
-        }
+      // Validate username and generate preview URLs
+      const isValid = validateUsername(username);
+      if (isValid) {
+        const urls = generatePreviewUrls(username);
+        setPreviewUrls(urls);
+        setError('');
+        // Send the username to backend for validation
+        onChange({ target: { value: username.trim() } });
       } else {
-        // It's a username
-        const isValid = validateUsername(username);
-        if (isValid) {
-          const urls = generatePreviewUrls(username);
-          setPreviewUrls(urls);
-          setError('');
-          onChange({ target: { value: urls.sandbox } });
-        } else {
-          setError(I18n.t('assignments.invalid_username'));
-          setPreviewUrls({ sandbox: '', bibliography: '', outline: '' });
-        }
+        setError(I18n.t('assignments.invalid_username'));
+        setPreviewUrls({ sandbox: '', bibliography: '', outline: '' });
       }
     } else {
       setPreviewUrls({ sandbox: '', bibliography: '', outline: '' });
@@ -110,7 +97,7 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
 
       <div className="input-group">
         <label htmlFor="username-input" className="input-label">
-          {I18n.t('assignments.username_or_url_label')}
+          {I18n.t('assignments.username_label')}
         </label>
         <input
           id="username-input"
@@ -118,7 +105,7 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
           value={username}
           onChange={handleUsernameChange}
           className="edit_sandbox_url_input"
-          placeholder={I18n.t('assignments.username_or_url_placeholder')}
+          placeholder={I18n.t('assignments.username_placeholder')}
         />
       </div>
 

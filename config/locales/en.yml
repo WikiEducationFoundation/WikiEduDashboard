@@ -356,7 +356,7 @@ en:
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
     mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
-    invalid_username: 'The username "%{username}" is invalid. Usernames cannot contain the following characters: # < > [ ] | { } @ / :'
+    invalid_username: 'The username "%{username}" is invalid Or the username does not exist.'
     change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
     username_label: Wikipedia Username
     username_placeholder: 'Enter username (e.g., YourUsername)'
