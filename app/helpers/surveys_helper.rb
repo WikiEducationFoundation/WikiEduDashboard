@@ -25,6 +25,14 @@ module SurveysHelper
     "#{survey_url(survey)}?preview"
   end
 
+  # Generate preview links for courses that match question group conditions
+  def survey_preview_links(survey)
+    tags_with_groups = collect_tags_from_question_groups(survey.rapidfire_question_groups)
+    links = generate_preview_links_for_tags(survey, tags_with_groups)
+    add_generic_preview_if_needed(survey, links)
+    links
+  end
+
   def question_answer_field_name(form, multiple)
     name = "answer_group[#{form.object.question_id}][answer_text]"
     if multiple
@@ -233,6 +241,64 @@ module SurveysHelper
   end
 
   private
+
+  # Collect all unique tags from question groups and map them to group names
+  def collect_tags_from_question_groups(question_groups)
+    tags_with_groups = {}
+    question_groups.each do |qg|
+      next if qg.tags.blank?
+
+      tag_list = qg.tags.split(',').map(&:strip)
+      tag_list.each do |tag|
+        tags_with_groups[tag] ||= []
+        tags_with_groups[tag] << qg.name
+      end
+    end
+    tags_with_groups
+  end
+
+  # Generate preview links for each tag by finding recent courses with that tag
+  def generate_preview_links_for_tags(survey, tags_with_groups)
+    links = []
+    tags_with_groups.each do |tag, group_names|
+      course = find_recent_course_with_tag(tag)
+      next unless course
+
+      links << build_preview_link(survey, tag, course, group_names)
+    end
+    links
+  end
+
+  # Find a recent course (within last 6 months) with the given tag
+  def find_recent_course_with_tag(tag)
+    Course.joins(:tags)
+          .where(tags: { tag: })
+          .where('courses.end >= ?', 6.months.ago)
+          .order('courses.end DESC')
+          .first
+  end
+
+  # Build a preview link object with all necessary details
+  def build_preview_link(survey, tag, course, group_names)
+    {
+      url: "#{survey_url(survey)}?preview&course_slug=#{course.slug}",
+      label: "Preview with '#{tag}' tag",
+      course_title: course.title,
+      question_groups: group_names.uniq.join(', ')
+    }
+  end
+
+  # Add a generic preview link if no tag-specific links were generated
+  def add_generic_preview_if_needed(survey, links)
+    return unless links.empty?
+
+    links << {
+      url: survey_preview_url(survey),
+      label: 'Preview (select course)',
+      course_title: nil,
+      question_groups: 'All'
+    }
+  end
 
   def survey_notification_id(notification)
     return nil if notification == false || notification.nil?

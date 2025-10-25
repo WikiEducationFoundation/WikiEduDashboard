@@ -19,7 +19,20 @@
   .survey__admin-row__col.survey__admin-row__col--actions
     = link_to 'Edit', edit_survey_path(survey)
     - if survey.rapidfire_question_groups.length > 0
-      = link_to 'Preview', "#{survey_url(survey)}?preview"
+      - preview_links = survey_preview_links(survey)
+      - if preview_links.length == 1
+        = link_to 'Preview', preview_links.first[:url]
+      - else
+        .preview-dropdown
+          %button.button.small Preview ▾
+          .preview-dropdown__menu
+            - preview_links.each do |link|
+              .preview-link-item
+                = link_to link[:label], link[:url], class: 'preview-link', target: '_blank'
+                - if link[:course_title]
+                  .preview-link-detail
+                    %span.course-name= link[:course_title]
+                    %span.question-groups Shows: #{link[:question_groups]}
     = link_to 'Results', survey_results_path(survey)
     -# .course-list__col
     -#   = link_to 'Delete', survey, :method => :delete, :data => { :confirm => 'Are you sure?' }
