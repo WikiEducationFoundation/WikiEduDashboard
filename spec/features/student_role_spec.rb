@@ -269,6 +269,9 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'my articles section' do
     it 'lets a student assign an article and update a sandbox' do
+      # Create a user that will be used as the new sandbox owner
+      classmate = create(:user, username: 'Classmate')
+      
       login_as(user, scope: :user)
       create(:courses_user,
              course:,
@@ -282,7 +285,7 @@ describe 'Student users', type: :feature, js: true do
       click_button 'Done'
       expect(page).to have_text 'Sandbox Draft'
       click_button 'Change sandbox'
-      find('input.edit_sandbox_url_input').fill_in with: 'https://en.wikipedia.org/wiki/User:Classmate/selfie'
+      find('input.edit_sandbox_url_input').fill_in with: classmate.username
       click_button 'Submit'
       expect(page).to have_text 'Sandbox url updated successfully.'
     end
