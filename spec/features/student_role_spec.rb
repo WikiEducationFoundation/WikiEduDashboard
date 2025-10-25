@@ -269,9 +269,6 @@ describe 'Student users', type: :feature, js: true do
 
   describe 'my articles section' do
     it 'lets a student assign an article and update a sandbox' do
-      # Create a user that will be used as the new sandbox owner
-      classmate = create(:user, username: 'Classmate')
-      
       login_as(user, scope: :user)
       create(:courses_user,
              course:,
