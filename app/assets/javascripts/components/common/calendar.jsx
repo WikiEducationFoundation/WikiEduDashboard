@@ -64,7 +64,10 @@ const Calendar = createReactClass({
       }
     }
 
-    return this.props.updateCourse({ ...course, day_exceptions: exceptions.join(','), no_day_exceptions: (compact(exceptions).length === 0) });
+    const toPass = course;
+    toPass.day_exceptions = exceptions.join(',');
+    toPass.no_day_exceptions = compact(exceptions).length === 0;
+    return this.props.updateCourse(toPass);
   },
   selectWeekday(e, weekday) {
     let weekdays;
