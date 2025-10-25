@@ -39,10 +39,10 @@ class SandboxUrlUpdator
     username = username.sub(/^User:/, '') if username.start_with?('User:')
 
     # Find the user in the database
-    user = User.find_by(username: username)
+    user = User.find_by(username:)
     return user if user
 
-    raise UserNotFoundError, I18n.t('assignments.invalid_username', username: username)
+    raise UserNotFoundError, I18n.t('assignments.invalid_username', username:)
   end
 
   def generate_sandbox_url_for_user(user)
