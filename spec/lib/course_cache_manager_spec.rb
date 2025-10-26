@@ -5,8 +5,8 @@ require "#{Rails.root}/lib/course_cache_manager"
 
 describe CourseCacheManager do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
-  let(:article1) { create(:article, namespace: 0, average_views: 10) }
-  let(:article2) { create(:article, namespace: 0, average_views: 5) }
+  let(:article1) { create(:article, namespace: 0) }
+  let(:article2) { create(:article, namespace: 0) }
   let(:course) do
     create(:course, start: Time.zone.today - 1.month, end: Time.zone.today + 1.month)
   end
@@ -16,8 +16,9 @@ describe CourseCacheManager do
     create(:user, id: 2, username: 'Gatoespecie')
 
     create(:articles_course, article: article1, course:,
-           first_revision: 10.days.ago, new_article: true)
-    create(:articles_course, article: article2, course:, first_revision: 8.days.ago)
+           first_revision: 10.days.ago, new_article: true, average_views: 10)
+    create(:articles_course, article: article2, course:, first_revision: 8.days.ago,
+           average_views: 5)
 
     create(:courses_user, course:, user_id: 1)
     create(:courses_user, course:, user_id: 2)

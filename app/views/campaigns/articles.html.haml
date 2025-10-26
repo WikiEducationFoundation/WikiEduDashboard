@@ -75,7 +75,7 @@
           - articles_courses.each do |ac|
             - course = courses[ac.course_id]
             - article = articles[ac.article_id]
-            - cache [ac, locale] do
+            - cache ["article_row", ac.article_id, ac.course_id, ac.updated_at, locale] do
               = render 'campaigns/article_row', article:, article_course: ac, course:
 
     = will_paginate articles_courses

@@ -1,0 +1,101 @@
+.container
+  .form.alert-followup
+    = form_with(url: "/alert_followup/#{@alert.id}", method: "post") do |f|
+      %p
+        Wiki Education Dashboard uses the AI detector Pangram to screen for AI-generated text.
+        As a reminder, AI text should not be added to Wikipedia. Pangram classified text from
+        the following page as likely AI-generated:
+      %p
+        %strong
+          %a{href: @alert.page_url}= @alert.article_title
+      - if @alert.pangram_url
+        %p
+          %a{href: @alert.pangram_url} View the Pangram report.
+      %p
+        We want to collect some additional information
+        from you, to help us improve how we handle AI text in Wikipedia assignments
+        and to better understand the reliability of this AI detection system.
+      %p
+        Thanks for answering the following questions to help us improve our approach to
+        AI text in Wikipedia assignments and to better understand the reliability of
+        this AI detection system.
+      .form-group
+        %label How did you use AI?
+        %label.no-label
+          = f.check_box(:ai_how_used, { multiple: true }, :generate_text, nil)
+          I used an AI tool to generate text.
+        %br
+        %label.no-label
+          = f.check_box(:ai_how_used, { multiple: true }, :copyedit_text, nil)
+          I used an AI tool for editing text I wrote.
+        %br  
+        %label.no-label
+          = f.check_box(:ai_how_used, { multiple: true }, :false_positive, nil)
+          FALSE POSITIVE: I didn't use any AI tool. (<em>Skip to the end and Submit.</em>)
+      .form-group
+        %label Which AI tool(s) did you use:
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :ChatGPT, nil)
+          ChatGPT
+        %br
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :Claude, nil)
+          Claude
+        %br
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :Perplexity, nil)
+          Perplexity
+        %br
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :GoogleGemini, nil)
+          Google Gemini
+        %br
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :Grammarly, nil)
+          Grammarly
+        %br
+        %label.no-label
+          = f.check_box(:ai_tools, { multiple: true }, :NotebookLM, nil)
+          NotebookLM
+        %br
+        %label.no-label
+          other:
+          = f.text_field :tools_other, size: 50
+      .form-group
+        %label What did you use AI for?
+        %label.no-label
+          = f.check_box(:ai_used_for, { multiple: true }, :initial_draft, nil) 
+          to generate an initial draft
+        %br
+        %label.no-label
+          = f.check_box(:ai_used_for, { multiple: true }, :evaluate, nil)
+          to evaluate existing content or plan improvements
+        %br
+        %label.no-label
+          = f.check_box(:ai_used_for, { multiple: true }, :copyedit, nil)
+          to copyedit what I wrote
+        %br
+        %label.no-label
+          = f.check_box(:ai_used_for, { multiple: true }, :find_sources, nil)
+          to find sources
+        %br
+        %label.no-label
+          = f.check_box(:ai_used_for, { multiple: true }, :summarize, nil)
+          to summarize sources or other text
+        %br
+        %label.no-label
+          = f.check_box(:ai_used_for, { multiple: true }, :fact_check, nil)
+          to fact check and identify problems
+        %br
+        %label.no-label
+          other:
+          = f.text_field :use_other, size: 50
+      .form-group
+        %label
+          Please share any additional context, such as specific prompts,
+          advanced features you used, or any techniques you employed to 
+          improve the AI output.
+
+        = f.text_area :additional_context, size: '100x5'
+      %div
+        .button.dark= f.submit 'Submit'

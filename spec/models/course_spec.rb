@@ -76,7 +76,6 @@ describe Course, type: :model do
     build(:article,
           id: 1,
           title: 'Selfie',
-          average_views: 1234,
           namespace: 0).save
 
     create(:course_wiki_timeslice,
@@ -107,6 +106,7 @@ describe Course, type: :model do
           id: 1,
           article_id: 1,
           course_id: 1,
+          average_views: 1234,
           first_revision: 1.day.ago).save
 
     # Update caches

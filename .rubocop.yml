@@ -46,7 +46,9 @@ Metrics/ClassLength:
     - 'lib/training/wiki_slide_parser.rb'
     - 'lib/wiki_assignment_output.rb'
     - 'lib/course_training_progress_manager.rb'
+    - 'lib/timeslice_cleaner.rb'
     - 'lib/timeslice_manager.rb'
+    - 'app/services/check_revision_with_pangram.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
@@ -77,8 +79,6 @@ Rails/EnvironmentVariableAccess:
 # Permanent exceptions #
 ########################
 
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/ColonMethodCall:
@@ -194,8 +194,6 @@ Rails/PluckInWhere:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
-Style/SoleNestedConditional:
-  Enabled: false
 Rails/I18nLocaleAssignment:
   Enabled: false
 RSpec/SubjectDeclaration:
@@ -229,4 +227,6 @@ RSpec/FactoryBot/SyntaxMethods:
 Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:
+  Enabled: false
+Performance/StringIdentifierArgument:
   Enabled: false

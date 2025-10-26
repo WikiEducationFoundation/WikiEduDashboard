@@ -48,10 +48,19 @@ module ArticleHelper
     return nil
   end
 
-  def calculate_view_count(first_revision, average_views, view_count)
-    # view_count AC Field is no longer used in the timeslice system
-    # however, this is a hack to display article views for historical courses
-    # that will not receive a new update
+  def calculate_view_count(first_revision, ac_views, article_views, view_count)
+    # There are currently three different methods to count article views. Two of them
+    # are legacy. This method tries to be backward compatible.
+    #
+    # The view_count AC field is no longer used in the timeslice system.
+    # We use it as a hack to display article views for historical courses
+    # that will not receive a new update in the timeslice system.
+    #
+    # Note also that average_views from ArticlesCourses records takes precedence over
+    # average_views from Articles. However, for courses where the ArticlesCourses.average_views
+    # field is not populated, we fall back to using average_views from the Articles table.
+
+    average_views = ac_views || article_views
     return view_count if first_revision.nil? || average_views.nil?
     days = (Time.now.utc.to_date - first_revision.to_date).to_i
     (days * average_views).to_i

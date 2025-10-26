@@ -155,6 +155,12 @@ class Wiki < ApplicationRecord
     WordCount::BYTES_PER_WORD[domain]
   end
 
+  # Helper for guard statements for features
+  # that are only for English Wikipedia
+  def en_wiki?
+    language == 'en' && project == 'wikipedia'
+  end
+
   private
 
   def template_file_path

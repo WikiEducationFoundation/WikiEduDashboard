@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: GilPe
 # Author: Les Meloures
 # Author: Robby
 # Author: Soued031
@@ -19,8 +20,9 @@ lb:
           trillion: B
           quadrillion: Brd
   application:
-    back: Zréck
+    back: Zeréck
     cancel: Ofbriechen
+    next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
     create_accounts: Wikipedia-Benotzerkonten uleeën
@@ -711,7 +713,7 @@ lb:
       other: Sicht wgl. eng oder méi Optiounen. Optioun(en).
     read_less: Manner liesen
     read_more: Liest méi
-    summary: Resumé
+    summary: Resümmee
   error:
     form_errors: Kuckt de Formulaire wgl. no Feeler no.
     invalid_date: De %{key}datum ass ongülteg

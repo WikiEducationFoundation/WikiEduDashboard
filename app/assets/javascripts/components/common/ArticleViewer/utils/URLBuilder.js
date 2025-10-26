@@ -13,10 +13,10 @@ export class URLBuilder {
     const base = this.wikiURL();
     let url;
     if (lastRevisionId) {
-      const query = `${base}/w/api.php?action=parse&oldid=${lastRevisionId}&disableeditsection=true&format=json`;
+      const query = `${base}/w/api.php?action=parse&oldid=${lastRevisionId}&disableeditsection=true&redirects=true&format=json`;
       url = `${query}`;
     } else {
-      const query = `${base}/w/api.php?action=parse&disableeditsection=true&format=json`;
+      const query = `${base}/w/api.php?action=parse&disableeditsection=true&redirects=true&format=json`;
       url = `${query}&page=${encodeURIComponent(title)}`;
     }
     return url;

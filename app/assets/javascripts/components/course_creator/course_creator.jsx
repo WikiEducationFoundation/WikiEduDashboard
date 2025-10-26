@@ -206,6 +206,17 @@ const CourseCreator = createReactClass({
       this.props.setInvalid('description', I18n.t('application.field_required'));
       return false;
     }
+    // For ClassroomProgramCourse, validate that term contains a 4-digit year
+    if (this.state.default_course_type === 'ClassroomProgramCourse') {
+      if (!this.props.course.term || this.props.course.term === '') {
+        this.props.setInvalid('term', I18n.t('application.field_required'));
+        return false;
+      }
+      if (!this.termHasValidYear()) {
+        this.props.setInvalid('term', I18n.t('application.field_invalid_term'));
+        return false;
+      }
+    }
     return true;
   },
 
@@ -214,6 +225,12 @@ const CourseCreator = createReactClass({
     if (!this.props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
     if (this.props.course.term && !this.props.course.term.match(CourseUtils.courseSlugRegex())) { return false; }
     return true;
+  },
+
+  termHasValidYear() {
+    if (!this.props.course.term) { return false; }
+    // Check if term contains a 4-digit year
+    return /\d{4}/.test(this.props.course.term);
   },
 
   dateTimesAreValid() {
@@ -443,7 +460,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
-              back = {this.hideWizardForm}
+              back={this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
               hasClonableCourses={hasClonableCourses}

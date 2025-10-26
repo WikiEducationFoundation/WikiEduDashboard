@@ -17,9 +17,9 @@ const MainspaceChecklist = () => {
 
   let button;
   if (isVisible) {
-    button = <button type="button" onClick={hide} className="button dark small">Okay</button>;
+    button = <button type="button" onClick={hide} className="button dark small">{I18n.t('application.okay')}</button>;
   } else {
-    button = <a onClick={show} className="button dark small">Quality checklist</a>;
+    button = <a onClick={show} className="button dark small">{I18n.t('application.quality_checklist')}</a>;
   }
 
   let modal;

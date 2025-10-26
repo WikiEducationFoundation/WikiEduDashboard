@@ -79,7 +79,7 @@ class CoursesPresenter
     @fetched_articles = Article
                         .includes(:wiki)
                         .where(id: articles_courses_scope.map(&:article_id).uniq)
-                        .select(:id, :title, :deleted, :wiki_id, :namespace)
+                        .select(:id, :title, :deleted, :wiki_id, :namespace, :average_views)
                         .index_by(&:id)
   end
 

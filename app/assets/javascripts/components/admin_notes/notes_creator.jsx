@@ -27,14 +27,14 @@ const NotesCreator = ({ noteTitle, setTitle, noteText, setText }) => {
 
   const textAreaInputComponent = (onChange, placeHolder, key) => (
     <TextAreaInput
-      onChange = {onChange}
-      value = {key === 'note_text' ? noteText : noteTitle}
-      placeholder = {placeHolder}
-      value_key = {key}
-      editable = {true}
-      markdown = {true}
-      autoExpand = {true}
-      onFocus = {() => handleFocus(key)} // Announce on focus
+      onChange={onChange}
+      value={key === 'note_text' ? noteText : noteTitle}
+      placeholder={placeHolder}
+      value_key={key}
+      editable={true}
+      markdown={true}
+      autoExpand={true}
+      onFocus={() => handleFocus(key)} // Announce on focus
     />
   );
 

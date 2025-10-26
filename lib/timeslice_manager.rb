@@ -38,6 +38,9 @@ class TimesliceManager
 
   # Returns a datetime with the date to start getting revisions.
   def get_ingestion_start_time_for_wiki(wiki)
+    # Timeslices may have changed, so we need to ensure we return the actual
+    # ingestion start time
+    @course.course_wiki_timeslices.reload
     non_empty_timeslices = @course.course_wiki_timeslices.where(wiki:).reject do |ts|
       ts.last_mw_rev_datetime.nil?
     end
@@ -96,6 +99,11 @@ class TimesliceManager
     CourseWikiTimeslice.where(id: timeslice_ids).update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
+  def maybe_create_course_wiki_timeslice(wiki_id, start_date, end_date)
+    CourseWikiTimeslice
+      .find_or_create_by(course_id: @course.id, wiki_id:, start: start_date, end: end_date)
+  end
+
   TIMESLICE_DURATION = ENV['TIMESLICE_DURATION'].to_i
 
   private
@@ -114,17 +122,23 @@ class TimesliceManager
     end
   end
 
-  # Returns start dates from the course start to the course end,
+  # Returns start dates for the period [start, end],
   # ensuring they align with the timeslice duration for the given wiki.
-  def start_dates(wiki)
+  def start_dates_for_period(wiki, start_period, end_period)
     start_dates = []
-    current_start = @course.start
-    while current_start <= @course.end
+    current_start = start_period
+    while current_start <= end_period
       start_dates << current_start
       current_start += timeslice_duration(wiki)
     end
 
     start_dates
+  end
+
+  # Returns start dates from the course start to the course end,
+  # ensuring they align with the timeslice duration for the given wiki.
+  def start_dates(wiki)
+    start_dates_for_period(wiki, @course.start, @course.end)
   end
 
   # Returns start dates from the old course start up to the new (previous) course start,
@@ -146,7 +160,8 @@ class TimesliceManager
   # ensuring they align with the timeslice duration for the given wiki.
   def start_dates_from_old_end(wiki)
     start_dates = []
-    current_start = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).maximum(:end)
+    current_start = CourseWikiTimeslice.for_course_and_wiki(@course,
+                                                            wiki).maximum(:end) || @course.start
     while current_start <= @course.end
       start_dates << current_start
       current_start += timeslice_duration(wiki)

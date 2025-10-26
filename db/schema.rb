@@ -92,6 +92,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_28_182700) do
     t.boolean "tracked", default: true
     t.text "user_ids"
     t.datetime "first_revision"
+    t.float "average_views"
+    t.date "average_views_updated_at"
     t.index ["article_id"], name: "index_articles_courses_on_article_id"
     t.index ["course_id", "article_id"], name: "index_articles_courses_on_course_id_and_article_id", unique: true
   end
