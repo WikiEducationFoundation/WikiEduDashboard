@@ -20,7 +20,7 @@ describe 'ticket system', type: :feature, js: true do
     click_link 'question about editing Wikipedia'
     fill_in 'message', with: 'I need some help with adding a photo to my article.'
     click_button 'Send'
-    click_link 'Ok'
+    click_button 'Okay'
 
     # Find the ticket
     click_link 'Admin'
