@@ -109,7 +109,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
     let removeButton;
     if (role !== INSTRUCTOR_ROLE || users.length >= 2 || current_user.admin) {
       removeButton = (
-        <button className="button border plus" aria-label="Remove user" onClick={() => unenroll(user.id)}>-</button>
+        <button type="button" className="button border plus" aria-label="Remove user" onClick={() => unenroll(user.id)}>-</button>
       );
     }
     return (
@@ -181,6 +181,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
   const button = (
     <button
+      type="button"
       aria-label={I18n.t('courses.enroll_button_aria_label')}
       className={buttonClass}
       onClick={() => {
