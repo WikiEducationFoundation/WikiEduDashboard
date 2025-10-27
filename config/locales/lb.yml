@@ -44,6 +44,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     my_dashboard: Meng Iwwersiichtssäit
+    okay: OK
     recent_activity: Rezent Aktivitéit
     report_problem: E Probleem mellen
     request_account: E Benotzerkont ufroen
@@ -183,7 +184,7 @@ lb:
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
-    sandbox_draft_link: Sandkëscht Brouillon
+    sandbox_draft_link: Sandkëschte-Brouillon
     select: Eraussichen
   blocks:
     milestones:

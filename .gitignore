@@ -32,7 +32,7 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 config/secrets.yml
-
+db/schema.rb
 ## Environment normalisation:
 /.bundle
 

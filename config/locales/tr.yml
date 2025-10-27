@@ -518,7 +518,7 @@ tr:
       course_school: Kurs okulu
       course_subject: Kurs konusu
       course_term: Kurs dönemi
-      course_term_placeholder: Dönem
+      course_term_placeholder: Dönem (yıl dahil)
       course_title: Kurs başlığı
       course_types:
         basic_course_name: Temel Program
