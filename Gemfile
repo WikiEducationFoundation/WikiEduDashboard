@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.3.3'
+ruby '3.1.2'
 
 ### Basic Framework
 gem 'rails', '7.0.7'
@@ -9,7 +9,6 @@ gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
-gem 'logger', '~> 1.6'
 
 ### Database and caching
 gem 'mysql2' # MariaDB integration for ActiveRecord

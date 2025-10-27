@@ -142,7 +142,7 @@ GEM
       msgpack (~> 1.2)
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
-    browser (6.2.0)
+    browser (5.3.1)
     builder (3.3.0)
     byebug (12.0.0)
     capistrano (3.19.2)
@@ -172,7 +172,7 @@ GEM
     capybara-screenshot (1.0.26)
       capybara (>= 1.0, < 4)
       launchy
-    chartkick (5.2.1)
+    chartkick (5.1.5)
     childprocess (5.1.0)
       logger (~> 1.5)
     choice (0.2.0)
@@ -401,7 +401,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
-    openssl (3.3.1)
+    openssl (3.3.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     pandoc-ruby (2.1.10)
@@ -409,7 +409,7 @@ GEM
       activerecord (>= 6.1)
       request_store (~> 1.4)
     parallel (1.27.0)
-    parser (3.3.9.0)
+    parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
     premailer (1.27.0)
@@ -566,12 +566,12 @@ GEM
       rexml
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
-    rubyzip (3.2.1)
-    selenium-webdriver (4.38.0)
+    rubyzip (2.4.1)
+    selenium-webdriver (4.32.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 4.0)
+      rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     sentimental (1.5.0)
     sentry-rails (6.0.0)
@@ -642,7 +642,7 @@ GEM
     version_gem (1.1.9)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webmock (3.25.2)
+    webmock (3.26.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -655,10 +655,10 @@ GEM
     x25519 (1.0.10)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.3)
+    zeitwerk (2.6.18)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
   activerecord-import
@@ -698,7 +698,6 @@ DEPENDENCIES
   i18n-js
   jbuilder
   kt-paperclip
-  logger (~> 1.6)
   mailgun-ruby
   mediawiki_api!
   memory_profiler
@@ -754,7 +753,7 @@ DEPENDENCIES
   x25519
 
 RUBY VERSION
-   ruby 3.3.3p89
+   ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.22
+   2.3.7
