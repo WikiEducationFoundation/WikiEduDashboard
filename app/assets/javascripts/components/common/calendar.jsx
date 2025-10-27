@@ -61,7 +61,7 @@ const Calendar = ({
       toPass.no_day_exceptions = compact(exceptions).length === 0;
       return updateCourse(toPass);
     },
-    [course, updateCourse, inrange, CourseDateUtils]
+    [course, updateCourse, inrange]
   );
 
   const selectWeekday = useCallback(
