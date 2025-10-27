@@ -102,3 +102,57 @@
 
 .surveys__admin-header--question-groups--edit
   margin-bottom 0 !important
+
+// Preview dropdown styles
+.preview-dropdown
+  position relative
+  display inline-block
+
+.preview-dropdown__menu
+  display none
+  position absolute
+  right 0
+  top 100%
+  min-width 280px
+  background white
+  box-shadow 0 4px 12px rgba(0,0,0,0.15)
+  border-radius 4px
+  margin-top 4px
+  padding 8px 0
+  z-index 1000
+
+.preview-dropdown:hover .preview-dropdown__menu
+  display block
+
+.preview-link-item
+  padding 10px 16px
+  border-bottom 1px solid $border_lightest
+  &:last-child
+    border-bottom none
+  &:hover
+    background-color rgba(103, 110, 180, 0.05)
+
+.preview-link
+  display block
+  text-decoration none
+  color $brand_primary
+  font-weight 500
+  margin-bottom 4px
+  &:hover
+    text-decoration underline
+
+.preview-link-detail
+  display flex
+  flex-direction column
+  margin-top 4px
+  font-size 13px
+  color $text_lt
+
+.preview-link-detail .course-name
+  color $text_dk
+  font-weight 500
+  margin-bottom 2px
+
+.preview-link-detail .question-groups
+  color $text_lt
+  font-size 12px
