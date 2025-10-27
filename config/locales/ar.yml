@@ -73,6 +73,7 @@ ar:
     log_in: تسجيل الدخول
     log_out: تسجيل الخروج
     my_dashboard: لوحتي
+    okay: حسنًا
     recent_activity: النشاطات الحديثة
     report_problem: أبلغ عن مشكلة
     request_account: اطلب حسابًا
@@ -201,6 +202,7 @@ ar:
     new: (جديد)
     none: هذه الدورة لم تحرر أية مقالات.
     preview: معاينة موجزة للمادة
+    quality_checklist: قائمة التحقق من الجودة
     rating: رتبة
     rating_doc: تم تعيين تصنيف مقال بواسطة WikiProjects على ويكيبيديا. قد تتوافق هذه
       التصنيفات مع الإصدارات الأقدم بكثير ، لذا فهي مجرد مؤشر تقريبي لنضج المقالة.
@@ -590,7 +592,7 @@ ar:
       course_school: مدرسة المساق
       course_subject: موضوع المساق
       course_term: مدة المقرر الدراسي
-      course_term_placeholder: المدة
+      course_term_placeholder: المدة (بما في ذلك السنة)
       course_title: عنوان المساق
       course_types:
         basic_course_name: البرنامج الأساسي

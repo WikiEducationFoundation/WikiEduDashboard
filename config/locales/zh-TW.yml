@@ -59,6 +59,7 @@ zh-TW:
     log_in: 登入
     log_out: 登出
     my_dashboard: 我的功能面板
+    okay: 了解
     recent_activity: 最近活動
     report_problem: 回報問題
     request_account: 申請帳號
@@ -173,6 +174,7 @@ zh-TW:
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
+    quality_checklist: 品質檢查表
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:

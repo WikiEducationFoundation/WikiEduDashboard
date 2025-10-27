@@ -415,7 +415,7 @@ zh-CN:
       course_school: 课程学校
       course_subject: 课程科目
       course_term: 课程学期
-      course_term_placeholder: 学期
+      course_term_placeholder: 学期（含年份）
       course_title: 课程标题
       create_button: 创建我的课程！
       create_label: 创建新的课程

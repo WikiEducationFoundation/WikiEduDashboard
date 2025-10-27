@@ -65,6 +65,7 @@ it:
     log_in: Accedi
     log_out: Esci
     my_dashboard: Il mio cruscotto
+    okay: Ok
     recent_activity: Attività recente
     report_problem: Segnala un problema
     request_account: Richiedi un'utenza
@@ -173,6 +174,7 @@ it:
     mark_as_complete: Contrassegna come completato
     new: (nuovo)
     none: Questo corso non ha modificato alcuna voce.
+    quality_checklist: Lista di controllo della qualità
     rating: Classe
     rating_doc: La valutazione che è stata assegnata a una voce dai wiki-Progetti
       su Wikipedia. Queste valutazioni possono corrispondere a versioni molto più
