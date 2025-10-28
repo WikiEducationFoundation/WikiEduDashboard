@@ -25,6 +25,7 @@ import { fetchTags } from '../../actions/tag_actions';
 import { addValidation, setValid, setInvalid, activateValidations } from '../../actions/validation_actions';
 import { getStudentUsers, getWeeksArray, getAllWeeksArray, firstValidationErrorMessage, isValid, getAllWeekDates } from '../../selectors';
 import OverviewStatsTabs from '../common/overview_stats_tabs';
+import TrackingDescription from './tracking_description.jsx';
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -174,7 +175,7 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         {syllabusUpload}
-        <p>{course.tracking_description}</p>
+        <TrackingDescription trackingDescription={course.tracking_description} />
         <OverviewStats course={course} />
         {overviewStatsTabs}
         <StatisticsUpdateInfo course={course} />
