@@ -266,7 +266,7 @@ describe WikiCourseEdits do
       )
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).with(
         user, 'User:Belajane41', 'Any other user page content',
-        'User has disenrolled in [[Wikipedia:Wiki_Ed/Missouri_SandT/'\
+        'User has disenrolled in [[Wikipedia:Wiki_Ed/Missouri_SandT/' \
         'History_of_Science_(Fall_2019)]].'
       )
       described_class.new(action: :disenroll_from_course,

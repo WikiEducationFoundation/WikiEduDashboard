@@ -236,7 +236,7 @@ describe TrainingModuleDueDateManager do
         context 'one block has a due date, the other does not' do
           let(:due_date2) { nil }
 
-          it 'uses the earlier of the existent block due date '\
+          it 'uses the earlier of the existent block due date ' \
              'or the end of the week of the block without a date' do
             expect(subject).to eq(Time.zone.today.end_of_week(:sunday))
           end

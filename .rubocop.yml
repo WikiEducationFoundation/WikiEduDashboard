@@ -202,8 +202,6 @@ Rails/RedundantTravelBack:
   Enabled: false
 Rails/DurationArithmetic:
   Enabled: false
-Layout/LineContinuationSpacing:
-  Enabled: false
 Style/FetchEnvVar:
   Enabled: false
 RSpec/BeEq:
