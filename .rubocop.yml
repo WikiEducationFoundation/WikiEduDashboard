@@ -172,8 +172,6 @@ RSpec/ExpectInHook:
   Enabled: false
 Style/DateTime:
   Enabled: false
-Rails/ContentTag:
-  Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
