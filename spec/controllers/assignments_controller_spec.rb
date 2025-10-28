@@ -624,21 +624,21 @@ course_slug: course.slug }
         student1 = create(:user, username: 'Student1')
         student2 = create(:user, username: 'Student2')
 
-        create(:assignment,
-               course:,
-               user: student1,
-               article_title:,
-               wiki:,
-               role: Assignment::Roles::ASSIGNED_ROLE)
+        # Create assignments using the API to ensure proper formatting
+        [student1, student2].each do |student|
+          post '/assignments', params: {
+            course_slug: course.slug,
+            user_id: student.id,
+            title: article_title,
+            role: Assignment::Roles::ASSIGNED_ROLE,
+            language: 'en',
+            project: 'wikipedia',
+            format: :json
+          }
+          expect(response.status).to eq(200)
+        end
 
-        create(:assignment,
-               course:,
-               user: student2,
-               article_title:,
-               wiki:,
-               role: Assignment::Roles::ASSIGNED_ROLE)
-
-        # Try to add third student
+        # Try to add third student - should fail
         student3 = create(:user, username: 'Student3')
         post '/assignments', params: {
           course_slug: course.slug,
@@ -659,14 +659,19 @@ course_slug: course.slug }
       it 'allows assignment when under group size limit' do
         student1 = create(:user, username: 'Student1')
 
-        create(:assignment,
-               course:,
-               user: student1,
-               article_title:,
-               wiki:,
-               role: Assignment::Roles::ASSIGNED_ROLE)
+        # Create first assignment
+        post '/assignments', params: {
+          course_slug: course.slug,
+          user_id: student1.id,
+          title: article_title,
+          role: Assignment::Roles::ASSIGNED_ROLE,
+          language: 'en',
+          project: 'wikipedia',
+          format: :json
+        }
+        expect(response.status).to eq(200)
 
-        # Add second student should work
+        # Add second student should work (max is 2)
         student2 = create(:user, username: 'Student2')
         post '/assignments', params: {
           course_slug: course.slug,
@@ -679,7 +684,9 @@ course_slug: course.slug }
         }
 
         expect(response.status).to eq(200)
-        expect(course.reload.assignments.assigned.where(article_title:).count).to eq(2)
+        # Use the formatted title from the first assignment to count
+        formatted_title = course.reload.assignments.first.article_title
+        expect(course.assignments.assigned.where(article_title: formatted_title).count).to eq(2)
       end
     end
 
