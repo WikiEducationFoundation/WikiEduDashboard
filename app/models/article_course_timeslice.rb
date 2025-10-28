@@ -22,6 +22,9 @@ class ArticleCourseTimeslice < ApplicationRecord
   belongs_to :article
   belongs_to :course
 
+  # Validate that article_id is not nil to prevent MySQL strict mode errors
+  validates :article_id, presence: true
+
   scope :non_empty, -> { where.not(user_ids: nil) }
   scope :for_course_and_article, ->(course, article) { where(course:, article:) }
   # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
@@ -49,6 +52,15 @@ class ArticleCourseTimeslice < ApplicationRecord
   # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
   # updates the article course timeslices based on the revisions.
   def self.update_article_course_timeslices(course, article_id, revisions)
+    # Validate that article_id is not nil to prevent MySQL errors in strict mode
+    if article_id.nil?
+      Rails.logger.warn "ArticleCourseTimeslice.update_article_course_timeslices: " \
+                         "Skipping timeslice update for course #{course.slug} " \
+                         "due to nil article_id. This may indicate a missing article " \
+                         "in the articles dictionary."
+      return
+    end
+
     rev_start = revisions[:start]
     rev_end = revisions[:end]
     wiki_id = revisions[:revisions].first.wiki_id
@@ -62,12 +74,19 @@ class ArticleCourseTimeslice < ApplicationRecord
       end
       # Get or create article course timeslice based on course, article_id,
       # timeslice.start and timeslice.end
-      ac_timeslice = ArticleCourseTimeslice.find_or_create_by(course:,
-                                                              article_id:,
-                                                              start: timeslice.start,
-                                                              end: timeslice.end)
-      # Update cache for ArticleCourseTimeslice
-      ac_timeslice.update_cache_from_revisions revisions_in_timeslice
+      begin
+        ac_timeslice = ArticleCourseTimeslice.find_or_create_by(course:,
+                                                                article_id:,
+                                                                start: timeslice.start,
+                                                                end: timeslice.end)
+        # Update cache for ArticleCourseTimeslice
+        ac_timeslice.update_cache_from_revisions revisions_in_timeslice
+      rescue ActiveRecord::RecordInvalid, ActiveRecord::NotNullViolation => e
+        Rails.logger.error "ArticleCourseTimeslice creation failed for course #{course.slug}, " \
+                           "article_id #{article_id}, timeslice #{timeslice.start} - #{timeslice.end}: #{e.message}"
+        # Skip this timeslice and continue processing others
+        next
+      end
     end
   end
 

@@ -164,11 +164,22 @@ class RevisionDataManager
   # Creates a revision record for the given revision data.
   def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
+    article_id = articles.nil? ? nil : articles[mw_page_id]
+    
+    # Log a warning if we can't find the article_id for a revision
+    # This helps with debugging the original issue #6470
+    if !articles.nil? && article_id.nil?
+      Rails.logger.debug "RevisionDataManager: Could not find article_id for " \
+                          "mw_page_id #{mw_page_id} in articles dictionary. " \
+                          "This revision will be created with nil article_id and " \
+                          "may be filtered out during timeslice processing."
+    end
+    
     RevisionOnMemory.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
           characters: rev_data['characters'] || 0,
-          article_id: articles.nil? ? nil : articles[mw_page_id],
+          article_id:,
           mw_page_id:,
           user_id: users[rev_data['username']],
           new_article: string_to_boolean(rev_data['new_article']),

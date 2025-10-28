@@ -21,6 +21,15 @@
 
 FactoryBot.define do
   factory :article_course_timeslice, class: 'ArticleCourseTimeslice' do
-    nil
+    association :course
+    association :article
+    start { 1.day.ago }
+    end { Time.zone.now }
+    character_sum { 0 }
+    references_count { 0 }
+    revision_count { 0 }
+    user_ids { [] }
+    new_article { false }
+    tracked { true }
   end
 end
