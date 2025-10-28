@@ -132,7 +132,7 @@ describe CampaignsController, type: :request do
       expect(Campaign.find_by(slug: campaign.slug)).not_to be_nil
     end
 
-    it 'adds the given user as an organizer of the campaign '\
+    it 'adds the given user as an organizer of the campaign ' \
        'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
@@ -162,7 +162,7 @@ describe CampaignsController, type: :request do
       expect(CampaignsUsers.find_by(id: organizer.id)).not_to be_nil
     end
 
-    it 'removes the given organizer from the campaign '\
+    it 'removes the given organizer from the campaign ' \
        'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)

@@ -28,10 +28,10 @@ describe BlockedEditsReporter do
                 'blockexpiry' => 'infinite'
               },
             '*' =>
-              'See https://en.wikipedia.org/w/api.php for API usage.'\
-              ' Subscribe to the mediawiki-api-announce mailing list at '\
-              '&lt;https://lists.wikimedia.org/mailman/listinfo/'\
-              'mediawiki-api-announce&gt; '\
+              'See https://en.wikipedia.org/w/api.php for API usage.' \
+              ' Subscribe to the mediawiki-api-announce mailing list at ' \
+              '&lt;https://lists.wikimedia.org/mailman/listinfo/' \
+              'mediawiki-api-announce&gt; ' \
               'for notice of API deprecations and breaking changes.',
             'code' => 'blocked'
           }
