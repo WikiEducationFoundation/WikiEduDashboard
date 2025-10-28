@@ -365,6 +365,7 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_last_reviewed
+    update_assignment_settings
   end
 
   UPDATABLE_FLAGS = [
@@ -424,6 +425,16 @@ class CoursesController < ApplicationController
       'username' => username,
       'timestamp' => timestamp
     }
+    @course.save
+  end
+
+  def update_assignment_settings
+    max_group_size = params.dig(:course, :flags, :max_group_size)
+    peer_review_count = params.dig(:course, :flags, :peer_review_count)
+
+    @course.flags[:max_group_size] = max_group_size.to_i if max_group_size.present?
+    @course.flags[:peer_review_count] = peer_review_count.to_i if peer_review_count.present?
+
     @course.save
   end
 

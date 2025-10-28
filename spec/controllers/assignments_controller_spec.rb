@@ -598,4 +598,103 @@ course_slug: course.slug }
       end
     end
   end
+
+  describe 'POST #create with max_group_size' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:article_title) { 'Climate_Change' }
+
+    before do
+      stub_wiki_validation
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+    end
+
+    context 'when max_group_size is set to 2' do
+      before do
+        course.flags[:max_group_size] = 2
+        course.save
+      end
+
+      it 'returns error when trying to exceed group size' do
+        # Create two assignments
+        student1 = create(:user, username: 'Student1')
+        student2 = create(:user, username: 'Student2')
+
+        create(:assignment,
+               course:,
+               user: student1,
+               article_title:,
+               wiki:,
+               role: Assignment::Roles::ASSIGNED_ROLE)
+
+        create(:assignment,
+               course:,
+               user: student2,
+               article_title:,
+               wiki:,
+               role: Assignment::Roles::ASSIGNED_ROLE)
+
+        # Try to add third student
+        student3 = create(:user, username: 'Student3')
+        post '/assignments', params: {
+          course_slug: course.slug,
+          user_id: student3.id,
+          title: article_title,
+          role: Assignment::Roles::ASSIGNED_ROLE,
+          language: 'en',
+          project: 'wikipedia'
+        }
+
+        expect(response.status).to eq(422)
+        json_response = JSON.parse(response.body)
+        expect(json_response['message']).to include('already has 2 student')
+        expect(json_response['message']).to include('Maximum group size')
+      end
+
+      it 'allows assignment when under group size limit' do
+        student1 = create(:user, username: 'Student1')
+
+        create(:assignment,
+               course:,
+               user: student1,
+               article_title:,
+               wiki:,
+               role: Assignment::Roles::ASSIGNED_ROLE)
+
+        # Add second student should work
+        student2 = create(:user, username: 'Student2')
+        post '/assignments', params: {
+          course_slug: course.slug,
+          user_id: student2.id,
+          title: article_title,
+          role: Assignment::Roles::ASSIGNED_ROLE,
+          language: 'en',
+          project: 'wikipedia'
+        }
+
+        expect(response.status).to eq(200)
+        expect(course.assignments.assigned.where(article_title:).count).to eq(2)
+      end
+    end
+
+    context 'when max_group_size is not set' do
+      it 'allows unlimited students on the same article' do
+        # Create 3 assignments - should all work
+        3.times do |i|
+          student = create(:user, username: "Student#{i}")
+          post '/assignments', params: {
+            course_slug: course.slug,
+            user_id: student.id,
+            title: article_title,
+            role: Assignment::Roles::ASSIGNED_ROLE,
+            language: 'en',
+            project: 'wikipedia'
+          }
+          expect(response.status).to eq(200)
+        end
+
+        expect(course.assignments.assigned.where(article_title:).count).to eq(3)
+      end
+    end
+  end
 end

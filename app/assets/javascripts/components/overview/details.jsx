@@ -90,6 +90,16 @@ const Details = createReactClass({
     return this.props.updateCourse(updatedCourse);
   },
 
+  updateFlags(flagKey, value) {
+    const updatedCourse = this.props.course;
+    if (!updatedCourse.flags) {
+      updatedCourse.flags = {};
+    }
+    // Convert empty string to null for numeric fields
+    updatedCourse.flags[flagKey] = value === '' ? null : value;
+    return this.props.updateCourse(updatedCourse);
+  },
+
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
     return this.props.updateCourse(updatedCourse);
@@ -361,6 +371,7 @@ const Details = createReactClass({
     let stayInSandboxToggle;
     let noSandboxesToggle;
     let retainAvailableArticlesToggle;
+    let maxGroupSizeInput;
     let wikiSelector;
     let multiWikiSelector;
     let namespaceSelector;
@@ -416,6 +427,17 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+        />
+      );
+      maxGroupSizeInput = (
+        <TextInput
+          onChange={this.updateFlags}
+          value={this.props.course.flags.max_group_size || ''}
+          value_key="max_group_size"
+          editable={this.props.editable}
+          type="number"
+          label={I18n.t('courses.max_group_size')}
+          placeholder={I18n.t('courses.max_group_size_tooltip')}
         />
       );
     }
@@ -624,6 +646,7 @@ const Details = createReactClass({
               {stayInSandboxToggle}
               {noSandboxesToggle}
               {retainAvailableArticlesToggle}
+              {maxGroupSizeInput}
               {privacySelector}
               {timelineToggle}
               {onlineVolunteersToggle}
