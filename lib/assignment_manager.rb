@@ -8,10 +8,10 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 class AssignmentManager
   def initialize(course:, user_id: nil, wiki: nil, title: nil, role: nil)
     @course = course
-    @user_id = user_id
+    @user_id = user_id&.to_i
     @wiki = wiki
     @title = title
-    @role = role
+    @role = role&.to_i
   end
 
   def create_random_peer_reviews
@@ -123,7 +123,7 @@ class AssignmentManager
 
   def check_max_group_size
     # Only check for assigned articles (not reviews), and only if user_id is present
-    return unless @role == Assignment::Roles::ASSIGNED_ROLE && @user_id.present?
+    return unless @role == Assignment::Roles::ASSIGNED_ROLE && !@user_id.nil?
 
     max_size = @course.max_group_size
     return unless max_size # If no max set, allow unlimited
