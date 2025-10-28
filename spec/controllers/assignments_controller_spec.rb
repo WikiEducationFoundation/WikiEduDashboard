@@ -609,6 +609,8 @@ course_slug: course.slug }
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       # Make the current user an instructor so they can create assignments for students
       create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      # Stub article import to avoid API calls
+      allow_any_instance_of(ArticleImporter).to receive(:import_articles_by_title)
     end
 
     context 'when max_group_size is set to 2' do
@@ -644,7 +646,8 @@ course_slug: course.slug }
           title: article_title,
           role: Assignment::Roles::ASSIGNED_ROLE,
           language: 'en',
-          project: 'wikipedia'
+          project: 'wikipedia',
+          format: :json
         }
 
         expect(response.status).to eq(422)
@@ -671,7 +674,8 @@ course_slug: course.slug }
           title: article_title,
           role: Assignment::Roles::ASSIGNED_ROLE,
           language: 'en',
-          project: 'wikipedia'
+          project: 'wikipedia',
+          format: :json
         }
 
         expect(response.status).to eq(200)
@@ -690,7 +694,8 @@ course_slug: course.slug }
             title: article_title,
             role: Assignment::Roles::ASSIGNED_ROLE,
             language: 'en',
-            project: 'wikipedia'
+            project: 'wikipedia',
+            format: :json
           }
           expect(response.status).to eq(200)
         end
