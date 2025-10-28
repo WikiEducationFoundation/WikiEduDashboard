@@ -13,6 +13,8 @@ module WikiEduDashboard
     config.eager_load_paths += Dir[Rails.root.join("app", "models", "{*/}")]
     config.eager_load_paths += Dir[Rails.root.join("app", "workers", "{*/}")]
 
+    config.active_support.cache_format_version = 7.1
+
     config.generators do |g|
       g.test_framework :rspec,
         fixtures: true,
@@ -54,12 +56,11 @@ module WikiEduDashboard
     config.exceptions_app = self.routes
 
     # Rails cache with Dalli/memcached
-    config.cache_store = :mem_cache_store, 'localhost', { pool_size: 5, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
+    config.cache_store = :mem_cache_store, 'localhost', { pool: {size: 5}, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
 
     # Handle YAML safe loading of serialized Ruby objects
     config.active_record.yaml_column_permitted_classes = [Symbol, BigDecimal, DateTime, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
-    config.active_record.legacy_connection_handling = false
 
     config.action_dispatch.return_only_media_type_on_content_type = false
 
