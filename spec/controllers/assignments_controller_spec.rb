@@ -616,10 +616,13 @@ course_slug: course.slug }
     context 'when max_group_size is set to 2' do
       before do
         course.flags[:max_group_size] = 2
-        course.save
+        course.save!
+        course.reload
       end
 
       it 'returns error when trying to exceed group size' do
+        # Verify max_group_size is set
+        expect(course.reload.max_group_size).to eq(2)
         # Create two assignments
         student1 = create(:user, username: 'Student1')
         student2 = create(:user, username: 'Student2')
@@ -638,6 +641,12 @@ course_slug: course.slug }
           expect(response.status).to eq(200)
         end
 
+        # Verify we have 2 assignments for this article
+        course.reload
+        formatted_title = course.assignments.first.article_title
+        assigned_count = course.assignments.assigned.where(article_title: formatted_title).where.not(user_id: nil).count
+        expect(assigned_count).to eq(2), "Expected 2 assignments but found #{assigned_count}"
+
         # Try to add third student - should fail
         student3 = create(:user, username: 'Student3')
         post '/assignments', params: {
@@ -650,7 +659,7 @@ course_slug: course.slug }
           format: :json
         }
 
-        expect(response.status).to eq(422)
+        expect(response.status).to eq(422), "Expected 422 but got #{response.status}. Response body: #{response.body}"
         json_response = JSON.parse(response.body)
         expect(json_response['message']).to include('already has 2 student(s) assigned')
         expect(json_response['message']).to include('maximum group size')
