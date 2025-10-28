@@ -50,12 +50,33 @@ module CourseHelper
     wiki_namespaces.map do |wiki_ns|
       wiki_domain = wiki_ns.courses_wikis.wiki.domain
       namespace = wiki_ns.namespace
-      "#{wiki_domain}-namespace-#{namespace}"
+      "#{wiki_domain}-namespace/doc-#{namespace}"
     end
   end
 
   def closed_course_class(course)
     return 'table-row--closed' if course.flags&.dig(:closed_date)
     return ''
+  end
+
+  def tracking_description(course)
+    return '' unless course
+
+    # Format home wiki name safely
+    home = "#{course.home_wiki.language}.#{course.home_wiki.project}.org"
+
+    # Format other wikis, excluding duplicates
+    other_wikis = course.wikis.reject { |w| w == course.home_wiki }.map do |w|
+    "#{w.language}.#{w.project}.org"
+  end
+    wikis_list = ([home] + other_wikis).uniq.to_sentence
+
+    # Format dates
+    end_date = course.end&.strftime('%B %e, %Y')
+    update_until = course.update_until&.strftime('%B %e, %Y')
+
+    # Compose message
+    "Edits for this program from #{wikis_list} will be tracked through #{end_date}. " \
+    "The dashboard will continue updating stats until #{update_until}."
   end
 end

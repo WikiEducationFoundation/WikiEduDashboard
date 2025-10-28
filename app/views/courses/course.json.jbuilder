@@ -84,4 +84,5 @@ json.course do
     json.passcode @course.passcode.blank? ? '' : '****'
     json.canUploadSyllabus false
   end
+  json.tracking_description tracking_description(@course)
 end

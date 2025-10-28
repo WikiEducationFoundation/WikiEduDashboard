@@ -174,6 +174,7 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         {syllabusUpload}
+        <p>{course.tracking_description}</p>
         <OverviewStats course={course} />
         {overviewStatsTabs}
         <StatisticsUpdateInfo course={course} />
