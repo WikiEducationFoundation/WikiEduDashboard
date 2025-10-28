@@ -607,6 +607,8 @@ course_slug: course.slug }
       stub_wiki_validation
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+      # Make the current user an instructor so they can create assignments for students
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     end
 
     context 'when max_group_size is set to 2' do
@@ -647,8 +649,8 @@ course_slug: course.slug }
 
         expect(response.status).to eq(422)
         json_response = JSON.parse(response.body)
-        expect(json_response['message']).to include('already has 2 student')
-        expect(json_response['message']).to include('Maximum group size')
+        expect(json_response['message']).to include('already has 2 student(s) assigned')
+        expect(json_response['message']).to include('maximum group size')
       end
 
       it 'allows assignment when under group size limit' do
@@ -673,7 +675,7 @@ course_slug: course.slug }
         }
 
         expect(response.status).to eq(200)
-        expect(course.assignments.assigned.where(article_title:).count).to eq(2)
+        expect(course.reload.assignments.assigned.where(article_title:).count).to eq(2)
       end
     end
 
@@ -693,7 +695,7 @@ course_slug: course.slug }
           expect(response.status).to eq(200)
         end
 
-        expect(course.assignments.assigned.where(article_title:).count).to eq(3)
+        expect(course.reload.assignments.assigned.where(article_title:).count).to eq(3)
       end
     end
   end
