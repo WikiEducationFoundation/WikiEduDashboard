@@ -29,7 +29,7 @@ module SurveysHelper
   def survey_preview_links(survey)
     tags_with_groups = collect_tags_from_question_groups(survey.rapidfire_question_groups)
     links = generate_preview_links_for_tags(survey, tags_with_groups)
-    add_generic_preview_if_needed(survey, links)
+    add_generic_preview_if_needed(survey, links) if links.empty?
     links
   end
 
@@ -290,8 +290,6 @@ module SurveysHelper
 
   # Add a generic preview link if no tag-specific links were generated
   def add_generic_preview_if_needed(survey, links)
-    return unless links.empty?
-
     links << {
       url: survey_preview_url(survey),
       label: 'Preview (select course)',
