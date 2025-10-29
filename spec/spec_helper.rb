@@ -19,6 +19,7 @@ SimpleCov.start 'rails' do
   add_filter 'lib/development'
 end
 
+require 'active_support/all'
 require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
 require 'webmock/rspec'

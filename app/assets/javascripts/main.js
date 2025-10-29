@@ -8,9 +8,11 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import i18n from './i18n';
+import Rails from '@rails/ujs';
 
 require('location-origin');
-require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
+
+Rails.start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 window.List = require('list.js'); // List is used for sorting tables outside of React
 
 document.addEventListener('DOMContentLoaded', () => {

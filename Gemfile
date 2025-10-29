@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 ### Basic Framework
-gem 'rails', '7.0.7'
+gem 'rails', '~> 7.1.4'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -16,7 +16,7 @@ gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
 # convenient cloning of ActiveRecord objects along with child records
 # Used for cloning surveys and courses.
 gem 'deep_cloneable'
-gem 'paper_trail' # Save histories of record changes related to surveys
+gem 'paper_trail', '~> 16.0' # Save histories of record changes related to surveys
 gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
@@ -26,7 +26,7 @@ gem 'connection_pool'
 gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 
 ### Login, authentication, browser support
-gem 'devise' # user session management
+gem 'devise', '~> 4.9.3' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
 gem "omniauth-rails_csrf_protection" # Makes Rails work with Omniauth 2
