@@ -200,15 +200,8 @@ class UpdateCourseWikiTimeslices
       # Update cache for ArticleCourseTimeslice
       article_revisions_data = { start: start_period, end: end_period,
                                  revisions: article_revisions }
-      begin
-        ArticleCourseTimeslice.update_article_course_timeslices(@course, article_id,
-                                                                article_revisions_data)
-      rescue StandardError => e
-        Rails.logger.error "UpdateCourseWikiTimeslices: Failed to update timeslices for " \
-                           "course #{@course.slug}, article_id #{article_id}: #{e.message}"
-        # Continue processing other articles
-        next
-      end
+      ArticleCourseTimeslice.update_article_course_timeslices(@course, article_id,
+                                                              article_revisions_data)
     end
   end
 

@@ -74,19 +74,12 @@ class ArticleCourseTimeslice < ApplicationRecord
       end
       # Get or create article course timeslice based on course, article_id,
       # timeslice.start and timeslice.end
-      begin
-        ac_timeslice = ArticleCourseTimeslice.find_or_create_by(course:,
-                                                                article_id:,
-                                                                start: timeslice.start,
-                                                                end: timeslice.end)
-        # Update cache for ArticleCourseTimeslice
-        ac_timeslice.update_cache_from_revisions revisions_in_timeslice
-      rescue ActiveRecord::RecordInvalid, ActiveRecord::NotNullViolation => e
-        Rails.logger.error "ArticleCourseTimeslice creation failed for course #{course.slug}, " \
-                           "article_id #{article_id}, timeslice #{timeslice.start} - #{timeslice.end}: #{e.message}"
-        # Skip this timeslice and continue processing others
-        next
-      end
+      ac_timeslice = ArticleCourseTimeslice.find_or_create_by(course:,
+                                                              article_id:,
+                                                              start: timeslice.start,
+                                                              end: timeslice.end)
+      # Update cache for ArticleCourseTimeslice
+      ac_timeslice.update_cache_from_revisions(revisions_in_timeslice)
     end
   end
 

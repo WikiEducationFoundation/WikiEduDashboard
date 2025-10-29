@@ -24,7 +24,7 @@ FactoryBot.define do
     association :course
     association :article
     start { 1.day.ago }
-    end { Time.zone.now }
+    add_attribute(:end) { Time.zone.now }
     character_sum { 0 }
     references_count { 0 }
     revision_count { 0 }

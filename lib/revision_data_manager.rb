@@ -168,7 +168,7 @@ class RevisionDataManager
     
     # Log a warning if we can't find the article_id for a revision
     # This helps with debugging the original issue #6470
-    if !articles.nil? && article_id.nil?
+    if article_id.nil?
       Rails.logger.debug "RevisionDataManager: Could not find article_id for " \
                           "mw_page_id #{mw_page_id} in articles dictionary. " \
                           "This revision will be created with nil article_id and " \
