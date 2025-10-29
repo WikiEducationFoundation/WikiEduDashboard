@@ -77,15 +77,6 @@ class AiEditAlertsStatsController < ApplicationController
                                    .where('article.namespace': Article::Namespaces::MAINSPACE)
   end
 
-  # Returns a hash of counts of false positives/ total followups.
-  # If an alert didn't have a followup, it doesnt count at all in this metric.
-  # Example:
-  # {:false_positive=>2, :other=>2}
-  def count_by_false_positives
-    false_positive = @followups.count { |r| r[:AI_how_used]&.include?('false_positive') }
-    return { false_positive:, other: @followups.count - false_positive }
-  end
-
   def check_user_auth
     return if current_user&.admin?
     flash[:notice] = "You don't have access to that page."
