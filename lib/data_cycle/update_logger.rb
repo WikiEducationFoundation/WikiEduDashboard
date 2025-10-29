@@ -5,7 +5,7 @@ class UpdateLogger
   # Entry points #
   ################
   def self.update_course(course, new_logs)
-    course.reload if course.respond_to?(:reload)
+    course.reload
 
     logs = course.flags['update_logs']
     updater = new(logs)
@@ -33,7 +33,7 @@ class UpdateLogger
   end
 
   def self.update_course_with_unfinished_update(course, new_logs)
-    course.reload if course.respond_to?(:reload)
+    course.reload
 
     logs = course.flags['unfinished_update_logs']
     updated_logs = new(logs).update(new_logs)
