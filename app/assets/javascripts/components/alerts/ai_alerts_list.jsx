@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
 import AiAlert from './ai_alert.jsx';
 
-const AiAlertsList = ({ alerts, sortBy, noAlertsLabel, adminAlert }) => {
+const AiAlertsList = ({ alerts, noAlertsLabel, adminAlert }) => {
   const elements = alerts.map((alert) => {
     return <AiAlert alert={alert} key={alert.id}/>;
   });
@@ -44,8 +44,6 @@ const AiAlertsList = ({ alerts, sortBy, noAlertsLabel, adminAlert }) => {
       keys={keys}
       table_key="alerts"
       none_message={noAlertsLabel}
-      sortable={true}
-      sortBy={sortBy}
       stickyHeader={true}
     />
   );

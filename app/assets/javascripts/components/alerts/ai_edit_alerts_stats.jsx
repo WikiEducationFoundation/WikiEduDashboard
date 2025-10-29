@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loading from '../common/loading';
 import AiAlertsList from './ai_alerts_list.jsx';
 
-import { sortAlerts, fetchAlertsStats } from '../../actions/alert_actions';
+import { fetchAlertsStats } from '../../actions/alert_actions';
 
 const AiEditAlertsStats = () => {
   const dispatch = useDispatch();
@@ -66,21 +66,18 @@ const AiEditAlertsStats = () => {
         <h3 style={{ marginTop: '40px' }}>Alerts with recent followup</h3>
         <AiAlertsList
           alerts={stats.recent_alerts_followup}
-          sortBy={key => dispatch(sortAlerts(key))}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
         />
         <h3 style={{ marginTop: '40px' }}>Recent alerts for students with multiple alerts</h3>
         <AiAlertsList
           alerts={stats.recent_alerts_for_students_with_multiple_alerts}
-          sortBy={key => dispatch(sortAlerts(key))}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
         />
         <h3 style={{ marginTop: '40px' }}>Recent alerts in mainspace</h3>
         <AiAlertsList
           alerts={stats.recent_alerts_for_mainspace}
-          sortBy={key => dispatch(sortAlerts(key))}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
         />
