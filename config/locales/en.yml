@@ -148,6 +148,10 @@ en:
   alerts:
     alert_label: Alerts
     no_alerts: No alerts found.
+    ai_stats:
+      pangram_url: Pangram URL
+      revision_diff: Revision diff
+      single_alert_view: Alert
 
   activity:
     all: Activity
