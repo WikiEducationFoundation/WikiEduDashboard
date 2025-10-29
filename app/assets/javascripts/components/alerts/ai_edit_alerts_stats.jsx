@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import Loading from '../common/loading';
 import AiAlertsList from './ai_alerts_list.jsx';
-
-import { fetchAlertsStats } from '../../actions/alert_actions';
+import request from '../../utils/request';
 
 const AiEditAlertsStats = () => {
-  const dispatch = useDispatch();
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchAlertsStats());
-  }, [dispatch]);
-
-  const alerts = useSelector(state => state.alerts);
-  const stats = alerts.alerts_stats;
+      const fetchAlertsStats = async () => {
+        const response = await request(
+          'ai_edit_alerts_stats.json'
+        );
+        const data = await response.json();
+        setStats(data);
+      };
+      fetchAlertsStats();
+    }, []);
 
   if (!stats) {
     return <Loading/>;
