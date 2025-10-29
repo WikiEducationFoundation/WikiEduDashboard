@@ -67,8 +67,8 @@ module CourseHelper
 
     # Format other wikis, excluding duplicates
     other_wikis = course.wikis.reject { |w| w == course.home_wiki }.map do |w|
-    "#{w.language}.#{w.project}.org"
-  end
+      "#{w.language}.#{w.project}.org"
+    end
     wikis_list = ([home] + other_wikis).uniq.to_sentence
 
     # Format dates
@@ -77,6 +77,6 @@ module CourseHelper
 
     # Compose message
     "Edits for this program from #{wikis_list} will be tracked through #{end_date}. " \
-    "The dashboard will continue updating stats until #{update_until}."
+      "The dashboard will continue updating stats until #{update_until}."
   end
 end
