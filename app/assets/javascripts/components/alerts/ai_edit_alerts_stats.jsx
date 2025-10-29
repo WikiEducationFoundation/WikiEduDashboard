@@ -24,16 +24,16 @@ const AiEditAlertsStats = () => {
   return (
     <div className="container">
       <div className="alerts-stats">
-        <h1>AI Edit Alerts Stats</h1>
+        <h1>{I18n.t('alerts.ai_stats.title')}</h1>
 
-        <h3>General Stats for {stats.current_term} Campaign</h3>
+        <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.current_term })}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
             <tr>
-              <th>Total AI Edit Alerts</th>
-              <th>With followup</th>
-              <th>Students with multiple alerts</th>
-              <th>Pages with multiple alerts</th>
+              <th>{I18n.t('alerts.ai_stats.total_alerts')}</th>
+              <th>{I18n.t('alerts.ai_stats.with_followup')}</th>
+              <th>{I18n.t('alerts.ai_stats.multiple_alerts_students')}</th>
+              <th>{I18n.t('alerts.ai_stats.multiple_alerts_pages')}</th>
             </tr>
           </thead>
           <tbody>
@@ -46,12 +46,12 @@ const AiEditAlertsStats = () => {
           </tbody>
         </table>
 
-        <h3>By Page Type</h3>
+        <h3>{I18n.t('alerts.ai_stats.by_page_type')}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
             <tr>
-              <th>Page</th>
-              <th>Count</th>
+              <th>{I18n.t('alerts.ai_stats.page_type')}</th>
+              <th>{I18n.t('alerts.ai_stats.count')}</th>
               <th>%</th>
             </tr>
           </thead>
@@ -65,19 +65,19 @@ const AiEditAlertsStats = () => {
             ))}
           </tbody>
         </table>
-        <h3 style={{ marginTop: '40px' }}>Alerts with recent followup</h3>
+        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h3>
         <AiAlertsList
           alerts={stats.recent_alerts_followup}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
         />
-        <h3 style={{ marginTop: '40px' }}>Recent alerts for students with multiple alerts</h3>
+        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}</h3>
         <AiAlertsList
           alerts={stats.recent_alerts_for_students_with_multiple_alerts}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
         />
-        <h3 style={{ marginTop: '40px' }}>Recent alerts in mainspace</h3>
+        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.in_mainspace')}</h3>
         <AiAlertsList
           alerts={stats.recent_alerts_for_mainspace}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
