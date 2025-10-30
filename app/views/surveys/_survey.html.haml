@@ -23,8 +23,9 @@
       - if preview_links.length == 1
         = link_to 'Preview', preview_links.first[:url]
       - else
-        .preview-dropdown
-          %button.button.small Preview ▾
+        .preview-dropdown.collapsed{id: "preview-dropdown-#{survey.id}"}
+          %button.button.small.preview-dropdown__button{onclick: "toggleSurveyPreviewDropdown('preview-dropdown-#{survey.id}'); event.preventDefault();"}
+            Preview ▾
           .preview-dropdown__menu
             - preview_links.each do |link|
               .preview-link-item

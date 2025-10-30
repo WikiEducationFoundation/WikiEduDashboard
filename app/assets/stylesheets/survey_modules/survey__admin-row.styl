@@ -103,13 +103,15 @@
 .surveys__admin-header--question-groups--edit
   margin-bottom 0 !important
 
-// Preview dropdown styles
+// Preview dropdown styles (accordion-style like FAQ)
 .preview-dropdown
   position relative
   display inline-block
 
+.preview-dropdown__button
+  cursor pointer
+
 .preview-dropdown__menu
-  display none
   position absolute
   right 0
   top 100%
@@ -120,9 +122,17 @@
   margin-top 4px
   padding 8px 0
   z-index 1000
+  overflow hidden
 
-.preview-dropdown:hover .preview-dropdown__menu
-  display block
+.preview-dropdown.collapsed .preview-dropdown__menu
+  max-height 0
+  padding 0
+  box-shadow none
+  transition max-height 0.2s, padding 0.2s
+
+.preview-dropdown.expanded .preview-dropdown__menu
+  max-height 500px
+  transition max-height 0.3s
 
 .preview-link-item
   padding 10px 16px
