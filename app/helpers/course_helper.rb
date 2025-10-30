@@ -66,7 +66,8 @@ module CourseHelper
     home = "#{course.home_wiki.language}.#{course.home_wiki.project}.org"
 
     # Format other wikis, excluding duplicates
-    other_wikis = course.wikis.reject { |w| w == course.home_wiki }.map do |w|
+    other_wikis = course.wikis.filter_map do |w|
+      next if w == course.home_wiki
       "#{w.language}.#{w.project}.org"
     end
     wikis_list = ([home] + other_wikis).uniq.to_sentence
