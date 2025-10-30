@@ -78,25 +78,34 @@ const Details = createReactClass({
   },
 
   updateDetails(valueKey, value) {
-    const updatedCourse = this.props.course;
-    updatedCourse[valueKey] = value;
+    // Create a shallow copy to avoid state mutation
+    const updatedCourse = {
+      ...this.props.course,
+      [valueKey]: value
+    };
     return this.props.updateCourse(updatedCourse);
   },
 
   updateSlugPart(valueKey, value) {
-    const updatedCourse = this.props.course;
-    updatedCourse[valueKey] = value;
+    // Create a shallow copy with updated slug to avoid state mutation
+    const updatedCourse = {
+      ...this.props.course,
+      [valueKey]: value
+    };
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
     return this.props.updateCourse(updatedCourse);
   },
 
   updateFlags(flagKey, value) {
-    const updatedCourse = this.props.course;
-    if (!updatedCourse.flags) {
-      updatedCourse.flags = {};
-    }
-    // Convert empty string to null for numeric fields
-    updatedCourse.flags[flagKey] = value === '' ? null : value;
+    // Create a shallow copy with updated flags to avoid state mutation
+    const updatedCourse = {
+      ...this.props.course,
+      flags: {
+        ...this.props.course.flags,
+        // Convert empty string to null for numeric fields
+        [flagKey]: value === '' ? null : value
+      }
+    };
     return this.props.updateCourse(updatedCourse);
   },
 
