@@ -226,3 +226,75 @@ Layout/FirstHashElementIndentation:
   Enabled: false
 Performance/StringIdentifierArgument:
   Enabled: false
+Lint/UselessConstantScoping:
+  Enabled: false
+Style/RedundantParentheses:
+  Enabled: false
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: false
+Layout/SpaceAroundOperators:
+  Enabled: false
+Style/ArrayIntersect:
+  Enabled: false
+Style/RedundantInterpolationUnfreeze:
+  Enabled: false
+Naming/PredicateMethod:
+  Enabled: false
+Style/YodaCondition:
+  Enabled: false
+Style/YAMLFileRead:
+  Enabled: false
+Style/EmptyStringInsideInterpolation:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: false
+Style/ZeroLengthPredicate:
+  Enabled: false
+Style/SuperArguments:
+  Enabled: false
+Metrics/CollectionLiteralLength:
+  Enabled: false
+Style/MultipleComparison:
+  Enabled: false
+Style/MinMaxComparison:
+  Enabled: false
+Lint/DuplicateMagicComment:
+  Enabled: false
+Lint/SymbolConversion:
+  Enabled: false
+Style/CollectionQuerying:
+  Enabled: false
+Style/RedundantEach:
+  Enabled: false
+Style/ComparableBetween:
+  Enabled: false
+Style/RedundantCurrentDirectoryInPath:
+  Enabled: false
+Style/ClassEqualityComparison:
+  Enabled: false
+Style/MapIntoArray:
+  Enabled: false
+Style/RedundantSelfAssignmentBranch:
+  Enabled: false
+Lint/LiteralAsCondition:
+  Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: false
+Lint/AmbiguousRange:
+  Enabled: false
+Style/RedundantStringEscape:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Style/RedundantConstantBase:
+  Enabled: false
+Lint/RedundantCopDisableDirective:
+  Enabled: false
+Style/SafeNavigation:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+Style/RedundantRegexpArgument:
+  Enabled: false
+
+  
