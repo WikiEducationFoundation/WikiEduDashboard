@@ -133,6 +133,9 @@ it:
   alerts:
     alert_label: Avvisi
     no_alerts: Nessun avviso trovato.
+    ai_stats:
+      page_type: Tipo di pagina
+      single_alert_view: Avviso
   activity:
     all: Attività
     edited_by: Modificato da

@@ -546,13 +546,13 @@ tr:
       intro: Başlık, okul ve dönem, kurs sayfanızın URL'sini oluşturur ve değiştirilemez.
         Diğer her şey, daha sonra düzenleyebilirsiniz. Vikipedi göreviniz için zaman
         çizelgesini oluşturmaya başlamak için "Kursumu Oluştur!"u tıklayın.
-      new_or_clone: Atama tasarım sihirbazını kullanarak şimdi yeni bir kurs oluşturabilirsiniz.
-        Yeniden kullanmak istediğiniz önceki bir kursun son derece özelleştirilmiş
-        bir zaman çizelgesine sahipseniz, bir kopyasını yeni tarihlerle kopyalayabilirsiniz.
-        (Daha önce zaman çizelgenizi önemli ölçüde özelleştirmediyseniz, atama seçeneklerinin
-        en güncel sürümlerini alabilmeniz için yeni bir kursa başlamanızı öneririz.)
-        Ayrıca, klon seçeneğini kullanarak ek bölümler oluşturabilirsiniz. Elbette
-        çoktan kurdunuz.
+      new_or_clone: Atama tasarım sihirbazına geçmek için 'Yeni Ders Oluştur' düğmesine
+        tıklayın. Zaman çizelgeniz, Wiki Education'ın önerdiği eğitim modülleri ve
+        diğer kaynaklar için en güncel seçenekleri içerecektir. Yeniden kullanmak
+        istediğiniz önceki bir dersten oldukça özelleştirilmiş bir zaman çizelgeniz
+        varsa, yeni tarihlerle birlikte bir kopyasını klonlayabilirsiniz. Ayrıca,
+        hâlihazırda oluşturduğunuz bir ders için ek bölümler oluşturmak üzere klonlama
+        seçeneğini de kullanabilirsiniz.
       no_class_holidays: Sınıf tatilim yok
       role_description: Kurstaki rolünüz
       role_description_options:
@@ -727,7 +727,8 @@ tr:
       için gönderebilirsiniz. Onaylandıktan sonra, öğrencilerin kursa katılmak ve
       eğitimlere erişmek için kullanabilecekleri bir kayıt URL’si alacaksınız. (Not:
       Daha sonra hala düzenlemeler yapabileceksiniz.)'
-    revisions_doc: Son %{timeframe} gün içindeki düzenleme sayısı
+    revisions_doc: Geçtiğimiz %{timeframe} gündeki tahmini değişiklik sayısı, son
+      dönemdeki günlük ortalama değişiklikler dayanmaktadır.
     revisions_none: Bu dersin Vikipedi düzenleme faaliyeti bulunmamaktadır.
     school: Okul
     school_and_term: Kurum/Dönem
@@ -918,7 +919,7 @@ tr:
     user_uploads_none: Seçilen kullanıcılar bu projeye hiçbir resim veya başka medya
       dosyası eklememişlerdir.
     view_other: Diğer kampanyaları görüntüle
-    view_page: Program Sayfasını Görüntüle
+    view_page: Sayfayı Görüntüle
     word_count_doc: Program döneminde programın editörleri tarafından makalelere eklenen
       tahmini kelime sayısı
     yourcourses: Programlarınız
@@ -1270,7 +1271,7 @@ tr:
     assigned_wikidata: Atanan Ögeler
     assignees: Devredilen(ler)
     loading_authorship_data: yazarlık verileri yükleniyor
-    authorship_data_not_fetched: yazarlık verileri alınamadı
+    authorship_data_not_fetched: Yazarlık verileri alınamadı
     character_doc: Bir kullanıcının bu ad alanına eklediği toplam sayfa miktarı, sayfa
       boyutunu artıran tüm düzenlemeler için eklenen karakterler eklenerek hesaplanır.
       Bu sayı, kullanıcının eklediği yeni içerik miktarını yansıtmaz. Kaldırılan içeriğin
@@ -1306,9 +1307,9 @@ tr:
     none: Katılımcı yok.
     no_articles: Madde yok
     no_articles_wikidata: Öge yok
-    no_revisions: Bu düzenleyici hiçbir revizyon yapmadı.
-    no_highlighting: Maddenin mevcut sürümünden hiçbir metin bu editöre atfedilmemiştir.
-      Düzenlemelerini görmek için sayfa geçmişini kontrol edin.
+    no_revisions: (revizyon yok)
+    no_highlighting: Maddenin bu sürümündeki hiçbir metin %{editor} kullanıcısına
+      atfedilmemiştir. Değişiklerini görmek için sayfa geçmişini kontrol edin.
     number_of_articles:
       one: '%{count} madde'
       other: '%{count} madde'
@@ -1322,7 +1323,8 @@ tr:
       failure_message: 'Başarısızlık: %{result_description}'
     revision_characters_and_views: 'Eklenen Karakter: %{characters}, Görüntüleme:
       %{views}'
-    revisions_doc: Bu editör tarafından son 7 günde yapılan düzenlemelerin sayısı
+    revisions_doc: Bu editörün son 7 günde yaptığı tahmini değişik sayısı, son dönemdeki
+      günlük ortalama değişiklikler dayanmaktadır.
     references_doc: Bu editör tarafından eklenen veya kaldırılan referansların sayısı
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
@@ -1501,8 +1503,8 @@ tr:
     add_available_article_wikidata: Kullanılabilir öge olarak ekle
     article_finder: Madde Bulucu
     article_finder_wikidata: Öge Bulucu
-    article_quality: Madde Kalitesi(0-100)
-    article_quality_wikidata: Öge Kalitesi(0-100)
+    article_quality: Madde Kalitesi (0-100)
+    article_quality_wikidata: Öge Kalitesi (0-100)
     assign_article_self: Kendini ata
     average_views: Günlük ortalama görüntüleme sayısı
     category_search: Kategori Arama
