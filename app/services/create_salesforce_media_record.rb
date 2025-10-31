@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 #= Creates a new Media record in Salesforce, returning the URL of the new record
 class CreateSalesforceMediaRecord
