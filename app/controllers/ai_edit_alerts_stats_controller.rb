@@ -20,6 +20,7 @@ class AiEditAlertsStatsController < ApplicationController
     set_alerts_with_recent_followup
     set_recent_alerts_for_students_with_multiple_alerts
     set_recent_alerts_for_mainspace
+    set_historical_alerts
   end
 
   def set_alerts
@@ -75,6 +76,32 @@ class AiEditAlertsStatsController < ApplicationController
   def set_recent_alerts_for_mainspace
     @recent_alerts_for_mainspace = recent_alerts
                                    .where('article.namespace': Article::Namespaces::MAINSPACE)
+  end
+
+  # Sets an array of hashes with date, page_type, and count for historical alerts.
+  # The array covers the full date range and all page types,
+  # even if the count is zero for some combinations.
+  def set_historical_alerts
+    count_by_date_and_type = @alerts.group_by { |a| [a.created_at.to_date, a.page_type] }
+                                    .transform_values(&:count)
+
+    # Ensure all date and page type combinations exist, even when count is zero.
+    @historical_alerts = complete_hash(count_by_date_and_type)
+  end
+
+  def complete_hash(partial_stats)
+    page_types = partial_stats.keys.map(&:second).uniq
+    start_date = partial_stats.keys.map(&:first).min
+    end_date   = partial_stats.keys.map(&:first).max
+
+    # Create complete array
+    (start_date..end_date).flat_map do |created_at|
+      page_types.map do |page_type|
+        { created_at: created_at.to_s,
+          page_type:,
+          count: partial_stats.fetch([created_at, page_type], 0) }
+      end
+    end
   end
 
   def check_user_auth
