@@ -168,6 +168,7 @@ en:
         recent_followup: Alerts with recent followup
         multiple_alerts_students: Recent alerts for students with multiple alerts
         in_mainspace: Recent alerts in mainspace
+        alerts_trend_over_time: AI alerts trends over time
 
   activity:
     all: Activity
