@@ -258,8 +258,6 @@ Style/MultipleComparison:
   Enabled: false
 Style/MinMaxComparison:
   Enabled: false
-Lint/DuplicateMagicComment:
-  Enabled: false
 Lint/SymbolConversion:
   Enabled: false
 Style/CollectionQuerying:
@@ -291,8 +289,6 @@ Style/RedundantConstantBase:
 Lint/RedundantCopDisableDirective:
   Enabled: false
 Style/SafeNavigation:
-  Enabled: false
-Layout/ExtraSpacing:
   Enabled: false
 Style/RedundantRegexpArgument:
   Enabled: false
