@@ -6,6 +6,7 @@ json.by_page_type @count_by_page_type
 json.total_followups @followups.count
 json.students_with_multiple_alerts @student_count_with_multiple_alerts
 json.pages_with_multiple_alerts @page_count_with_multiple_alerts
+json.historical_alerts @historical_alerts
 
 json.recent_alerts_followup do
   json.partial! 'ai_edit_alerts_stats/ai_edit_alerts',
