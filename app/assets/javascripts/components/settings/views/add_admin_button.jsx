@@ -13,7 +13,7 @@ const AddAdminButton = () => {
   const form = <AddAdminForm handlePopoverClose={open} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>Add Admin</button>
+      <button type="button" className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.add_admin_button')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}

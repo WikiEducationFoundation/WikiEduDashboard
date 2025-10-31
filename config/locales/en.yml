@@ -1298,6 +1298,22 @@ en:
     header: Resources and Training
 
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Course creation
+        default_campaign_setting: Default Campaign
+        site_notice_setting: Site Notice
+      buttons:
+        add_admin_button: Add Admin
+        add_special_user_button: Add Special User
+        configure_site_notice:
+          update_site_notice_button: Update Site Notice
+          enable_button: Enable
+          disable_button: Disable
+        update_course_creation_settings: Update course creation settings
+        update_default_campaign_setting: Update Default Campaign
+        update_impact_stats: Update Impact Stats
+        update_salesforce_credentials: Update Salesforce Credentials
     categories:
       other_settings: Other settings
       impact_stats: Impact Stats

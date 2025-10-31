@@ -13,7 +13,7 @@ const UpdateDefaultCampaignSetting = () => {
   const form = <DefaultCampaignForm handlePopoverClose={open} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>Update Default Campaign</button>
+      <button type="button" className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.update_default_campaign_setting')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}
