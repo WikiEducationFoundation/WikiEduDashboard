@@ -220,12 +220,16 @@ const DiffViewer = createReactClass({
   },
 
   articleDetails() {
-    return (
-      <div className="diff-viewer-header">
-        <p>{this.props.articleTitle}</p>
-      </div>
-    );
-  },
+  const editCount = this.props.article?.edit_count ?? 0;
+  return (
+    <>
+      {this.props.articleTitle}
+      <span style={{ marginLeft: '8px', color: '#777', fontSize: '0.9em' }}>
+        ({editCount} edits)
+      </span>
+    </>
+  );
+},
 
   render() {
     if (!this.shouldShowDiff(this.props) || !this.props.revision) {
@@ -308,10 +312,7 @@ const DiffViewer = createReactClass({
     return (
       <div>
         <div className={className}>
-          <div className="diff-viewer-header">
-            <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            <button onClick={this.hideDiff} aria-label="Close Diff Viewer" className="pull-right icon-close"/>
-          </div>
+          
           <div className="diff-viewer-header">
             {this.nextArticle()}
             {this.previousArticle()}
