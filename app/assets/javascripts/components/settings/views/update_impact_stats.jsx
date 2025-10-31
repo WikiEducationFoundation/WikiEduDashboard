@@ -13,7 +13,7 @@ const UpdateImpactStats = () => {
   const form = <ImpactStatsForm handlePopoverClose={open} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button type="button" className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.update_impact_stats')}</button>
+      <button className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.update_impact_stats')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}

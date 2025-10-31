@@ -14,7 +14,7 @@ const UpdateCourseCreationSettings = ({ settings }) => {
   const form = <CourseCreationSettingsForm handlePopoverClose={open} settings={settings} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button type="button" className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.update_course_creation_settings')}</button>
+      <button className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.update_course_creation_settings')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}

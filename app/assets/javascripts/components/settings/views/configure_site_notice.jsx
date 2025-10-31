@@ -32,7 +32,6 @@ const ConfigureSiteNotice = (props) => {
       <button className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.configure_site_notice.update_site_notice_button')}</button>
       <button
         className="button dark"
-        type="button"
         disabled={isSiteNotice || props.currentSiteNotice.message === null}
         onClick={toggleHandler}
       >
