@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../common/loading';
 import AiAlertsList from './ai_alerts_list.jsx';
 import request from '../../utils/request';
+import AlertsTrendsGraph from './graphs/alerts_trends_graph.jsx';
 
 const AiEditAlertsStats = () => {
   const [stats, setStats] = useState(null);
@@ -82,6 +83,10 @@ const AiEditAlertsStats = () => {
           alerts={stats.recent_alerts_for_mainspace}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
+        />
+        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
+        <AlertsTrendsGraph
+          statsData={stats.historical_alerts}
         />
       </div>
     </div>
