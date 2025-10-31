@@ -14,11 +14,9 @@ class AiEditAlertMailer < ApplicationMailer
     return unless @course
 
     to_email = @alert.content_experts.to_a
+    to_email += [@alert.user]
+    to_email += @alert.course.instructors.to_a
 
-    unless page_repeat
-      to_email += [@alert.user]
-      to_email += @alert.course.instructors.to_a
-    end
     emails = to_email.filter_map(&:email)
     return if emails.empty?
 
