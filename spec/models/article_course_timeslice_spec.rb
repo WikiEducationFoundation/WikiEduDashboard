@@ -201,4 +201,47 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.first_revision).to be_nil
     end
   end
+
+  # Test for fix of issue #6470: MySQL error when article_id is nil
+  describe '.update_article_course_timeslices with nil article_id' do
+    it 'handles nil article_id gracefully without raising MySQL error' do
+      expect(Rails.logger).to receive(:warn).with(/Skipping timeslice update/)
+      
+      # This should not raise an error
+      expect do
+        described_class.update_article_course_timeslices(course, nil, {
+          start: '20160320',
+          end: '20160401',
+          revisions: [revision1]
+        })
+      end.not_to raise_error
+    end
+
+    it 'handles database constraint violations gracefully' do
+      # Mock a scenario where find_or_create_by might still fail
+      allow(described_class).to receive(:find_or_create_by)
+        .and_raise(ActiveRecord::NotNullViolation.new('NOT NULL constraint failed'))
+      
+      expect(Rails.logger).to receive(:error).with(/ArticleCourseTimeslice creation failed/)
+      
+      create(:course_wiki_timeslice, course:, wiki:, start:, end: start + 1.day)
+      
+      # This should not raise an error, should log and continue
+      expect do
+        described_class.update_article_course_timeslices(course, article.id, {
+          start: start.strftime('%Y%m%d%H%M%S'),
+          end: (start + 1.day).strftime('%Y%m%d%H%M%S'),
+          revisions: [revision1]
+        })
+      end.not_to raise_error
+    end
+  end
+
+  describe 'validation' do
+    it 'validates presence of article_id' do
+      timeslice = build(:article_course_timeslice, article_id: nil)
+      expect(timeslice).not_to be_valid
+      expect(timeslice.errors[:article_id]).to include("can't be blank")
+    end
+  end
 end

@@ -381,4 +381,45 @@ describe UpdateCourseWikiTimeslices do
       end
     end
   end
+
+  # Test for fix of issue #6470: MySQL error when article_id is nil
+  describe 'handling revisions with nil article_id' do
+    let(:course) { create(:course, start: '2018-01-01', end: '2018-12-31') }
+    let(:service) { described_class.new(course, double('debugger')) }
+    
+    it 'filters out revisions with nil article_id' do
+      revisions_with_nil = [
+        double('revision1', article_id: 1, date: Time.zone.now),
+        double('revision2', article_id: nil, date: Time.zone.now),
+        double('revision3', article_id: 2, date: Time.zone.now)
+      ]
+      
+      expect(Rails.logger).to receive(:warn).with(/Filtered out 1 revisions with nil article_id/)
+      
+      service.send(:update_article_course_timeslices_for_wiki, {
+        start: '20180101000000',
+        end: '20181231235959',
+        revisions: revisions_with_nil
+      })
+    end
+
+    it 'handles exceptions during timeslice update gracefully' do
+      revision = double('revision', article_id: 1, date: Time.zone.now)
+      
+      # Mock ArticleCourseTimeslice to raise an exception
+      allow(ArticleCourseTimeslice).to receive(:update_article_course_timeslices)
+        .and_raise(StandardError.new('Database error'))
+      
+      expect(Rails.logger).to receive(:error).with(/Failed to update timeslices/)
+      
+      # Should not raise an error, should log and continue
+      expect do
+        service.send(:update_article_course_timeslices_for_wiki, {
+          start: '20180101000000',
+          end: '20181231235959',
+          revisions: [revision]
+        })
+      end.not_to raise_error
+    end
+  end
 end
