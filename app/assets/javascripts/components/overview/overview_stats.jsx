@@ -143,6 +143,17 @@ const OverviewStats = ({ course }) => {
         info={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_doc')}`)}
         infoId="view-count-info"
       />
+      {course.view_count_created && (
+        <OverviewStat
+          id="view-count-created"
+          className={valueClass('view_count_created')}
+          stat={course.view_count_created}
+          statMsg={I18n.t('metrics.view_count_created')}
+          renderZero={false}
+          info={I18n.t('metrics.view_count_created_doc')}
+          infoId="view-count-created-info"
+        />
+      )}
       {uploadCount}
     </div>
   );

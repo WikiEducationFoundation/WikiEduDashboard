@@ -614,6 +614,24 @@ class Course < ApplicationRecord
     CourseCacheManager.new(self).update_cache_from_timeslices course_wiki_timeslices
   end
 
+  # Calculates an on-the-fly estimate of cumulative pageviews but
+  # restricted to articles that were created by participants in this course.
+  # Mirrors the logic used for overall view_sum estimation, but filters for
+  # tracked, live, created articles only.
+  def view_sum_created
+    articles_courses
+      .tracked
+      .live
+      .new_article
+      .where.not(average_views: nil)
+      .where.not(first_revision: nil)
+      .sum(
+        Arel.sql(
+          "FLOOR(DATEDIFF(UTC_TIMESTAMP(), articles_courses.first_revision) * articles_courses.average_views)"
+        )
+      )
+  end
+
   # Ensures weeks for a course have order 1..weeks.count
   # This is dangerous if creating or reordering timeline content except via
   # TimelineController, where every week is processed from the submitted params,

@@ -54,6 +54,7 @@ json.course do
   json.word_count number_to_human @course.word_count
   json.references_count number_to_human @course.references_count
   json.view_count number_to_human @course.view_sum
+  json.view_count_created number_to_human @course.view_sum_created
   json.character_sum_human number_to_human @course.character_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.updates average_delay: @course.flags['average_update_delay'],
