@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course }) => {
   const [username, setUsername] = useState('');
+  const [originalUsername, setOriginalUsername] = useState('');
   const [previewUrls, setPreviewUrls] = useState({ sandbox: '', bibliography: '', outline: '' });
   const [error, setError] = useState('');
 
@@ -12,7 +13,9 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
       try {
         const match = value.match(/\/wiki\/User:([^/]+)\//);
         if (match && match[1]) {
-          setUsername(decodeURIComponent(match[1]));
+          const extractedUsername = decodeURIComponent(match[1]);
+          setUsername(extractedUsername);
+          setOriginalUsername(extractedUsername);
         }
       } catch (e) {
         // Ignore errors in parsing
@@ -82,10 +85,16 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!error && username.trim() && previewUrls.sandbox) {
+    // Normalize usernames for comparison (trim and case-sensitive compare)
+    const currentNormalized = username.trim();
+    const originalNormalized = originalUsername.trim();
+    if (!error && currentNormalized && previewUrls.sandbox && currentNormalized !== originalNormalized) {
       submit(e);
     }
   };
+
+  // Check if the username has changed from original
+  const hasChanged = username.trim() && username.trim() !== originalUsername.trim();
 
   return (
     <form onSubmit={handleSubmit} className="edit-sandbox-username-form">
@@ -119,12 +128,14 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
         <div className="preview-section">
           <p className="preview-label">{I18n.t('assignments.preview_label')}</p>
           <div className="preview-urls">
-            <div className="preview-url">
-              <span className="url-type">{I18n.t('assignments.sandbox_label')}:</span>
-              <span className="url-value" title={previewUrls.sandbox}>
-                {previewUrls.sandbox}
-              </span>
-            </div>
+            {!course?.no_sandboxes && (
+              <div className="preview-url">
+                <span className="url-type">{I18n.t('assignments.sandbox_label')}:</span>
+                <span className="url-value" title={previewUrls.sandbox}>
+                  {previewUrls.sandbox}
+                </span>
+              </div>
+            )}
             {(assignment.bibliography_sandbox_status || course?.no_sandboxes) && (
               <div className="preview-url">
                 <span className="url-type">{I18n.t('assignments.bibliography_label')}:</span>
@@ -148,7 +159,7 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
       <button
         className="button border"
         type="submit"
-        disabled={!username.trim() || !!error || !previewUrls.sandbox}
+        disabled={!username.trim() || !!error || !previewUrls.sandbox || !hasChanged}
       >
         {I18n.t('assignments.submit')}
       </button>
@@ -161,7 +172,8 @@ EditSandboxUsernameInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   assignment: PropTypes.object.isRequired,
-  course: PropTypes.object
+  course: PropTypes.object,
+  originalUrl: PropTypes.string
 };
 
 export default EditSandboxUsernameInput;
