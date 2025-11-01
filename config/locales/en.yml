@@ -387,6 +387,15 @@ en:
       title: Milestones
 
   campaign:
+    campaign_ores_plot:
+      change_button: "Change in Structural Completeness"
+      no_data: "No Structural Completeness data available"
+      graph_description_html: >
+        This graph visualizes, in aggregate, how much articles developed from 
+        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em> 
+        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>) 
+        that estimates an article&apos;s quality rating based on the amount of 
+        prose, the number of wikilinks, images and section headers, and other features.
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
     alert_article: Article title
