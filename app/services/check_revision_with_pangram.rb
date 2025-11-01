@@ -10,7 +10,11 @@ class CheckRevisionWithPangram
     @course_id = course_id
     @wiki_api = WikiApi.new(@wiki)
 
-    check unless already_checked?
+    begin
+      check unless already_checked?
+    rescue StandardError => e
+      handle_check_failure(e)
+    end
   end
 
   def check
@@ -39,6 +43,19 @@ class CheckRevisionWithPangram
   end
 
   private
+
+  def handle_check_failure(error)
+    Sentry.capture_message(
+      "CheckRevisionWithPangram failed for revision #{@mw_rev_id}: #{error.message}",
+      extra: {
+        wiki_id: @wiki.id,
+        user_id: @user_id,
+        course_id: @course_id,
+        backtrace: error.backtrace.take(5)
+      }
+    )
+    Rails.logger.warn("Skipping Pangram check for revision #{@mw_rev_id}: #{error.message}")
+  end
 
   def cache_key
     "pangram_#{@wiki.domain}_#{@mw_rev_id}"

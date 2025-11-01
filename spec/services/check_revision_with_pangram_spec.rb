@@ -82,4 +82,36 @@ describe CheckRevisionWithPangram do
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
     end
   end
+
+  context 'when the revision is missing on Wikipedia' do
+    before do
+      mock_api = instance_double('WikiApi')
+      allow(WikiApi).to receive(:new).and_return(mock_api)
+
+      mock_response = instance_double(
+        MediawikiApi::Response,
+        data: { 'pages' => { '-1' => { 'missing' => true } } }
+      )
+
+      allow(mock_api).to receive(:query).and_return(mock_response)
+
+      allow(Sentry).to receive(:capture_message)
+      allow(Rails.logger).to receive(:warn)
+    end
+
+    it 'logs the failure to Sentry and does not raise' do
+      expect do
+        described_class.new(en_wiki.id, 999_999_999, user.id, course.id)
+      end.not_to raise_error
+
+      expect(Sentry).to have_received(:capture_message).with(
+        a_string_matching(/CheckRevisionWithPangram failed for revision 999999999/),
+        hash_including(:extra)
+      )
+
+      expect(Rails.logger).to have_received(:warn).with(
+        a_string_matching(/Skipping Pangram check for revision 999999999/)
+      )
+    end
+  end
 end
