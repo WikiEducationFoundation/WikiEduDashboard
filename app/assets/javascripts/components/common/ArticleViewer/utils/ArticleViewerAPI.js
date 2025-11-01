@@ -1,5 +1,11 @@
 import fetch from 'cross-fetch';
 
+// Simple in-memory cooldown cache to avoid hammering the WhoColor API when
+// data is not yet available. Keyed by language|title|revision.
+// Values are timestamps (ms) of last terminal failure.
+const WHO_COLOR_FAILURE_CACHE = new Map();
+const WHO_COLOR_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes
+
 export class ArticleViewerAPI {
   constructor({ builder }) {
     this.builder = builder;
@@ -102,10 +108,25 @@ export class ArticleViewerAPI {
     let attempts = 0;
     const MAX_RETRY_ATTEMPTS = 5;
 
+    // Before attempting network calls, short-circuit if we recently exhausted retries
+    // for the same article+revision.
+    const language = this.builder.article?.language;
+    const title = this.builder.article?.title;
+    const revisionKey = `${language}|${title}|${lastRevisionId || 0}`;
+    const lastFailureAt = WHO_COLOR_FAILURE_CACHE.get(revisionKey);
+    if (lastFailureAt && (Date.now() - lastFailureAt) < WHO_COLOR_COOLDOWN_MS) {
+      return Promise.reject(new Error('WhoColor temporarily unavailable; retry later (cooldown active).'));
+    }
+
     // This function is defined in this way so that the variable name
     // will be hoisted, allowing it to call itself.
-    function colorURLRequest(timeout = 0) {
-      return this.__wikiwhoColorURLTimedRequestPromise(timeout, lastRevisionId)
+    function colorURLRequest(attempt = 0) {
+      // Exponential backoff with jitter (in seconds). First attempt has no delay.
+      const baseDelay = attempt === 0 ? 0 : Math.min(30, 2 ** (attempt - 1));
+      const jitter = attempt === 0 ? 0 : Math.random() * 0.5; // up to 0.5s extra
+      const delaySeconds = baseDelay + jitter;
+
+      return this.__wikiwhoColorURLTimedRequestPromise(delaySeconds, lastRevisionId)
         .then(response => response.json())
         .then((response) => {
           if (response.success) return Promise.resolve(response);
@@ -118,6 +139,9 @@ export class ArticleViewerAPI {
 
           // Handle the case when the key 'info' is not present in response.
           const info = response.info ? response.info : '';
+
+          // Record terminal failure to cooldown subsequent attempts for this revision.
+          WHO_COLOR_FAILURE_CACHE.set(revisionKey, Date.now());
 
           const err = `Request failed after ${MAX_RETRY_ATTEMPTS} attempts. ${info}`;
           throw new Error(err);
