@@ -11,7 +11,16 @@ import {
   ARTICLES_PER_PAGE,
   RESET_PAGES,
   UPDATE_ARTICLE_TITLE_AND_URL,
+  SET_PAGEVIEW_DISPLAY_MODE,
 } from '../constants';
+
+const getStoredPageviewDisplayMode = () => {
+  try {
+    return localStorage.getItem('pageviewDisplayMode') || 'cumulative';
+  } catch (e) {
+    return 'cumulative';
+  }
+};
 
 const initialState = {
   articles: [],
@@ -30,7 +39,8 @@ const initialState = {
   loading: true,
   newnessFilterEnabled: false,
   trackedStatusFilterEnabled: false,
-  lastRequestTimestamp: 0 // UNIX timestamp of last request - in milliseconds
+  lastRequestTimestamp: 0, // UNIX timestamp of last request - in milliseconds
+  pageviewDisplayMode: getStoredPageviewDisplayMode()
 };
 
 const SORT_DESCENDING = {
@@ -156,6 +166,15 @@ export default function articles(state = initialState, action) {
           ? { ...article, title: action.payload.title, url: action.payload.url }
           : article))
       };
+    }
+
+    case SET_PAGEVIEW_DISPLAY_MODE: {
+      try {
+        localStorage.setItem('pageviewDisplayMode', action.mode);
+      } catch (e) {
+        // localStorage not available
+      }
+      return { ...state, pageviewDisplayMode: action.mode };
     }
 
     default:

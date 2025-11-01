@@ -111,3 +111,8 @@ export const crossCheckArticleTitle = (articleId, articleTitle, article_mw_page_
     }
   };
 };
+
+export const setPageviewDisplayMode = mode => ({
+  type: types.SET_PAGEVIEW_DISPLAY_MODE,
+  mode
+});
