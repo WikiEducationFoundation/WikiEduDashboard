@@ -6,8 +6,8 @@ const ReuseExistingCourse = ({ selectClassName, courseSelect, useThisClassAction
     <div className={selectClassName}>
       <div>
         {courseSelect}
-        <button className="button dark" onClick={useThisClassAction}>{CourseUtils.i18n('creator.clone_this', stringPrefix)}</button>
-        <button className="button dark right" onClick={cancelCloneAction}>{CourseUtils.i18n('cancel', stringPrefix)}</button>
+        <button type="button" className="button dark" onClick={useThisClassAction}>{CourseUtils.i18n('creator.clone_this', stringPrefix)}</button>
+        <button type="button" className="button dark right" onClick={cancelCloneAction}>{CourseUtils.i18n('cancel', stringPrefix)}</button>
       </div>
       {assignmentsWithoutUsers && checkBoxLabel}
     </div>

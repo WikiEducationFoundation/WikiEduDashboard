@@ -111,6 +111,7 @@ const CourseDates = (props) => {
       >
         {props.back && (
           <button
+            type="button"
             onClick={props.back}
             id="back"
             className="dark button button__submit next"
@@ -130,6 +131,7 @@ const CourseDates = (props) => {
         )}
         {props.next && (
           <button
+            type="button"
             onClick={props.next}
             id="next"
             className="dark button button__submit next"
