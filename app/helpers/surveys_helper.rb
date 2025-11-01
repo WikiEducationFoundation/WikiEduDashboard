@@ -290,12 +290,52 @@ module SurveysHelper
 
   # Add a generic preview link if no tag-specific links were generated
   def add_generic_preview_if_needed(survey, links)
-    links << {
-      url: survey_preview_url(survey),
-      label: 'Preview (select course)',
-      course_title: nil,
-      question_groups: 'All'
-    }
+    # Try to find a default course with edited articles
+    default_course = find_default_preview_course
+
+    preview_link = if default_course
+                     {
+                       url: "#{survey_url(survey)}?preview&course_slug=#{default_course.slug}",
+                       label: 'Preview (default course)',
+                       course_title: default_course.title,
+                       question_groups: 'All'
+                     }
+                   else
+                     # Fallback to manual selection if no suitable course found
+                     {
+                       url: survey_preview_url(survey),
+                       label: 'Preview (select course)',
+                       course_title: nil,
+                       question_groups: 'All'
+                     }
+                   end
+    links << preview_link
+  end
+
+  # Find a recent course with edited articles for use as a default preview
+  def find_default_preview_course
+    # Try to find a recent course with articles (last 6 months)
+    course = Course.joins(:articles_courses)
+                   .where('courses.end >= ?', 6.months.ago)
+                   .distinct
+                   .order('courses.end DESC')
+                   .first
+
+    # Fallback: any course with articles (no time limit)
+    course ||= Course.joins(:articles_courses)
+                     .distinct
+                     .order('courses.end DESC')
+                     .first
+
+    # Last resort: just get any recent course
+    course ||= Course.where('courses.end >= ?', 6.months.ago)
+                     .order('courses.end DESC')
+                     .first
+
+    # Absolute fallback: any course at all
+    course ||= Course.order('courses.end DESC').first
+
+    course
   end
 
   def survey_notification_id(notification)
