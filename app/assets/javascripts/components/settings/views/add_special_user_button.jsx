@@ -13,7 +13,7 @@ const AddSpecialUserButton = () => {
   const form = <AddSpecialUserForm handlePopoverClose={open} />;
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>Add Special User</button>
+      <button className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.add_special_user_button')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}
