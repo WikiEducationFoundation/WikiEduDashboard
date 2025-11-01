@@ -13,6 +13,34 @@ const OverviewStats = ({ course }) => {
     return course.newStats[stat] ? 'stat-display__value stat-change' : 'stat-display__value';
   };
 
+  const buildPageviewsBreakdown = (courseData) => {
+    // Check if breakdown data is available
+    const hasBreakdown = (courseData.view_count_created !== undefined
+      && courseData.view_count_created !== null
+      && courseData.view_count_existing !== undefined
+      && courseData.view_count_existing !== null);
+
+    // If breakdown data is not available, fall back to simple doc
+    if (!hasBreakdown) {
+      return I18n.t(`metrics.${ArticleUtils.projectSuffix(courseData.home_wiki.project, 'view_count_doc')}`);
+    }
+
+    // Build breakdown array using the readable values from backend
+    const breakdown = [
+      [
+        courseData.view_count_created,
+        I18n.t('metrics.pageviews_breakdown.new_articles')
+      ],
+      [
+        courseData.view_count_existing,
+        I18n.t('metrics.pageviews_breakdown.existing_articles')
+      ]
+    ];
+
+    // Return breakdown array (OverviewStatInfo will handle rendering)
+    return breakdown;
+  };
+
   let editedLabel;
   let createdLabel;
   if (isWikidata) {
@@ -140,7 +168,7 @@ const OverviewStats = ({ course }) => {
         stat={course.view_count}
         statMsg={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_description')}`)}
         renderZero={false}
-        info={I18n.t(`metrics.${ArticleUtils.projectSuffix(course.home_wiki.project, 'view_count_doc')}`)}
+        info={buildPageviewsBreakdown(course)}
         infoId="view-count-info"
       />
       {uploadCount}

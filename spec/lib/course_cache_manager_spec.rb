@@ -68,6 +68,22 @@ describe CourseCacheManager do
       expect(course.new_article_count).to eq(1)
     end
 
+    it 'updates view_sum_created for newly created articles only' do
+      # article1 is new_article: true, created 10 days ago, average_views: 10
+      # Expected: 10 days * 10 views = 100
+      described_class.new(course).update_cache_from_timeslices []
+      expect(course.view_sum_created).to eq(100)
+    end
+
+    it 'does not include existing articles in view_sum_created' do
+      # article2 is new_article: false (default), created 8 days ago, average_views: 5
+      # Should not be included in view_sum_created
+      described_class.new(course).update_cache_from_timeslices []
+      # view_sum_created should only include article1 (100), not article2
+      expect(course.view_sum_created).to eq(100)
+      expect(course.view_sum).to eq(140) # Both articles: 100 + 40 = 140
+    end
+
     it 'updates user_count based on existing course students' do
       described_class.new(course).update_cache_from_timeslices []
       expect(course.user_count).to eq(2)
