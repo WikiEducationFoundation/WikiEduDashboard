@@ -3,11 +3,13 @@
 #= Helpers for tickets
 module TicketsHelper
   def sender_for_message(message)
+    message.details ||= {}
     message.sender&.real_name || message.sender&.username || message.details[:sender_email]
   end
 
   def successful_replies_in_reverse(ticket, recipient)
     successful_messages = ticket.messages.reject do |message|
+      message.details ||= {}
       message.details[:delivered].nil? && message.details[:delivery_failed]
     end
 

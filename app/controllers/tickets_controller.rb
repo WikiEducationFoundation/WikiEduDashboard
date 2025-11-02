@@ -46,6 +46,7 @@ class TicketsController < ApplicationController
 
   def set_ticket_details
     @message = TicketDispenser::Message.find(notification_params[:message_id])
+    @message.details ||= {} 
     @sender = User.find(notification_params[:sender_id])
     @ticket = @message.ticket
     @course = @ticket.project
