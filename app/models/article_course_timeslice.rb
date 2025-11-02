@@ -52,15 +52,6 @@ class ArticleCourseTimeslice < ApplicationRecord
   # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
   # updates the article course timeslices based on the revisions.
   def self.update_article_course_timeslices(course, article_id, revisions)
-    # Validate that article_id is not nil to prevent MySQL errors in strict mode
-    if article_id.nil?
-      Rails.logger.warn "ArticleCourseTimeslice.update_article_course_timeslices: " \
-                         "Skipping timeslice update for course #{course.slug} " \
-                         "due to nil article_id. This may indicate a missing article " \
-                         "in the articles dictionary."
-      return
-    end
-
     rev_start = revisions[:start]
     rev_end = revisions[:end]
     wiki_id = revisions[:revisions].first.wiki_id

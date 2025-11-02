@@ -182,20 +182,7 @@ class UpdateCourseWikiTimeslices
     end_period = revisions[:end]
     revs = revisions[:revisions]
     
-    # Filter out revisions with nil article_id to prevent MySQL errors in strict mode
-    # This can happen when the mw_page_id cannot be found in the articles dictionary
-    valid_revisions = revs.reject { |rev| rev.article_id.nil? }
-    
-    # Log if we're filtering out any revisions for debugging purposes
-    if valid_revisions.count < revs.count
-      filtered_count = revs.count - valid_revisions.count
-      Rails.logger.warn "UpdateCourseWikiTimeslices: Course #{@course.slug} - " \
-                         "Filtered out #{filtered_count} revisions with nil article_id " \
-                         "out of #{revs.count} total revisions. " \
-                         "This may indicate missing articles in the articles dictionary."
-    end
-    
-    valid_revisions.group_by(&:article_id).each do |article_id, article_revisions|
+    revs.group_by(&:article_id).each do |article_id, article_revisions|
       # We create articles courses timeslices for every article
       # Update cache for ArticleCourseTimeslice
       article_revisions_data = { start: start_period, end: end_period,
