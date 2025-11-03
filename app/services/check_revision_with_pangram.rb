@@ -98,8 +98,12 @@ class CheckRevisionWithPangram
     # First remove the <table> elements, which contain template content in exercise sandboxes
     # and are likely to contain non-prose in other cases.
     @cleaned_html = remove_html_tables_and_citations(@diff_html || @rev_html)
-    # Convert the HTML to plain text, then remove the edit button leftovers
-    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html).gsub('[edit]', '').strip
+    # Convert the HTML to plain text
+    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html)
+    # Remove the edit button leftovers
+    @plain_text = @plain_text.gsub('[edit]', '').strip
+    # Remove inline citation leftovers
+    @plain_text = @plain_text.gsub(/\[\d+\]/, '')
   end
 
   def remove_html_tables_and_citations(html)
