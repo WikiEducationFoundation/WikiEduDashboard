@@ -128,6 +128,23 @@ zh-TW:
   alerts:
     alert_label: 提醒
     no_alerts: 找不到提醒。
+    ai_stats:
+      title: AI 編輯提醒統計
+      general_stats: '%{campaign_name}競賽的總體統計數據'
+      total_alerts: 全面 AI 編輯提醒
+      with_followup: 後續跟進
+      multiple_alerts_students: 收到多項提醒的學生
+      multiple_alerts_pages: 包含多項提醒的頁面
+      by_page_type: 按頁面類型
+      count: 總數
+      page_type: 頁面類型
+      pangram_url: 全字母句網址
+      revision_diff: 修訂差異
+      single_alert_view: 提醒
+      sections:
+        recent_followup: 近期跟進的提醒
+        multiple_alerts_students: 近期有多項提醒的學生提醒
+        in_mainspace: 主空間近期提醒
   activity:
     all: 活動
     edited_by: 編輯自

@@ -50,6 +50,7 @@ nl:
   application:
     back: Terug
     cancel: Annuleren
+    next: Volgende
     cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
       op met betrekking tot uw Wikipedia-account.
     cookie_consent_acknowledge: Ik begrijp het
@@ -61,6 +62,7 @@ nl:
     explore: Verkennen
     field_required: Dit veld is verplicht
     field_invalid_characters: Dit veld heeft ongeldige tekens
+    field_invalid_term: De termijn moet het jaartal bevatten (bv. ‘Lente 2025’)
     field_invalid_date: Dit veld vereist een datum in JJJJ-MM-DD-indeling
     field_invalid_date_time: Het einde moet na het begin zijn. (Uren gaan van 0 tot
       23.)
@@ -73,6 +75,7 @@ nl:
     log_in: Aanmelden
     log_out: Afmelden
     my_dashboard: Mijn dashboard
+    okay: OK
     recent_activity: Recente activiteit
     report_problem: Een probleem melden
     request_account: Account aanvragen
@@ -157,6 +160,23 @@ nl:
   alerts:
     alert_label: Meldingen
     no_alerts: Geen meldingen gevonden.
+    ai_stats:
+      title: AI Bewerkingswaarschuwingenstatistieken
+      general_stats: Algemene statistieken voor campagne %{campaign_name}
+      total_alerts: Totaal aantal AI-bewerkingsmeldingen
+      with_followup: Met opvolging
+      multiple_alerts_students: Studenten met meerdere meldingen
+      multiple_alerts_pages: Pagina's met meerdere meldingen
+      by_page_type: Op paginasoort
+      count: Aantal
+      page_type: Paginasoort
+      pangram_url: Pangram-URL
+      revision_diff: Versiediff
+      single_alert_view: Melding
+      sections:
+        recent_followup: Meldingen met recente opvolging
+        multiple_alerts_students: Recente meldingen voor studenten met meerdere meldingen
+        in_mainspace: Recente meldingen in de hoofdnaamruimte
   activity:
     all: Activiteit
     edited_by: Bewerkt door
@@ -203,9 +223,11 @@ nl:
     label: Pagina's
     loading: Bezig met pagina's laden...
     mark_as_complete: Markeer als voltooid
+    mark_as_incomplete: Als onvolledig markeren
     new: (nieuw)
     none: Deze cursus heeft geen bewerkte pagina's.
     preview: Korte samenvatting van het artikel
+    quality_checklist: Kwaliteitschecklist
     rating: Klasse
     rating_doc: De waardering van een artikel is toegekend door WikiProjecten op Wikipedia.
       Deze waarderingen kunnen gebaseerd zijn op veel oudere versies en zijn dus maar
@@ -481,7 +503,7 @@ nl:
       course_school: School waar cursus plaatsvindt
       course_subject: Onderwerp van cursus
       course_term: Periode van cursus
-      course_term_placeholder: Periode
+      course_term_placeholder: Termijn (inclusief jaar)
       course_title: Cursustitel
       course_types:
         basic_course_name: Basisprogramma

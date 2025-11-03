@@ -93,6 +93,10 @@ lb:
   alerts:
     alert_label: Meldungen
     no_alerts: Keng Warnunge fonnt.
+    ai_stats:
+      by_page_type: No Säitentyp
+      count: Zuel
+      page_type: Säitentyp
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
