@@ -36,6 +36,7 @@ zh-TW:
   application:
     back: 返回
     cancel: 取消
+    next: 下一個
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解
     cookie_consent_see_more: 查看更多。
@@ -46,6 +47,7 @@ zh-TW:
     explore: 探索
     field_required: 此為必填欄位
     field_invalid_characters: 此欄位的字元無效
+    field_invalid_term: 學期必須包含年份（例如：2025 年春季）
     field_invalid_date: 此欄位需要以年-月-日 (YYYY-MM-DD) 格式填入日期
     field_invalid_date_time: 結束必須晚於起始。（時刻從 0 至 23。）
     greeting2: 歡迎！
@@ -57,6 +59,7 @@ zh-TW:
     log_in: 登入
     log_out: 登出
     my_dashboard: 我的功能面板
+    okay: 了解
     recent_activity: 最近活動
     report_problem: 回報問題
     request_account: 申請帳號
@@ -125,6 +128,23 @@ zh-TW:
   alerts:
     alert_label: 提醒
     no_alerts: 找不到提醒。
+    ai_stats:
+      title: AI 編輯提醒統計
+      general_stats: '%{campaign_name}競賽的總體統計數據'
+      total_alerts: 全面 AI 編輯提醒
+      with_followup: 後續跟進
+      multiple_alerts_students: 收到多項提醒的學生
+      multiple_alerts_pages: 包含多項提醒的頁面
+      by_page_type: 按頁面類型
+      count: 總數
+      page_type: 頁面類型
+      pangram_url: 全字母句網址
+      revision_diff: 修訂差異
+      single_alert_view: 提醒
+      sections:
+        recent_followup: 近期跟進的提醒
+        multiple_alerts_students: 近期有多項提醒的學生提醒
+        in_mainspace: 主空間近期提醒
   activity:
     all: 活動
     edited_by: 編輯自
@@ -171,6 +191,7 @@ zh-TW:
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
+    quality_checklist: 品質檢查表
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
@@ -500,7 +521,7 @@ zh-TW:
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
-      course_term_placeholder: 學期
+      course_term_placeholder: 學期（含年份）
       course_title: 課程名稱
       course_types:
         basic_course_name: 基本方案
@@ -521,6 +542,7 @@ zh-TW:
       end_date: 結束日期
       end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
+      field_invalid_term: 學期必須包含年份（例如：2025 年春季）
       find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
@@ -651,6 +673,10 @@ zh-TW:
     online_volunteers_enabled: 線上志工已啟用
     online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
     ores_plot: ORES
+    ores_plot_description: 此圖表視覺化展示出學生首次編輯條目之前到最近一次編輯期間條目的擴充進度。結構完整性評級是基於機器學習專案（%{ores_link}），該專案根據條目內文數量、維基連結數量、圖片和章節標題、以及其他特徵來評估條目的品質評級。（%{refresh_link}）
+    ores_plot_no_data: 沒有可用的結構完整性資料
+    ores_plot_refresh_data: 重整快取資料
+    ores_plot_show_button: 結構完整性的變化
     overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼

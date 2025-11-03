@@ -3,18 +3,20 @@
 #
 # Table name: articles_courses
 #
-#  id               :integer          not null, primary key
-#  created_at       :datetime
-#  updated_at       :datetime
-#  article_id       :integer
-#  course_id        :integer
-#  view_count       :bigint           default(0)
-#  character_sum    :integer          default(0)
-#  new_article      :boolean          default(FALSE)
-#  references_count :integer          default(0)
-#  tracked          :boolean          default(TRUE)
-#  user_ids         :text(65535)
-#  first_revision   :datetime
+#  id                       :integer          not null, primary key
+#  created_at               :datetime
+#  updated_at               :datetime
+#  article_id               :integer
+#  course_id                :integer
+#  view_count               :bigint           default(0)
+#  character_sum            :integer          default(0)
+#  new_article              :boolean          default(FALSE)
+#  references_count         :integer          default(0)
+#  tracked                  :boolean          default(TRUE)
+#  user_ids                 :text(65535)
+#  first_revision           :datetime
+#  average_views            :float(24)
+#  average_views_updated_at :date
 #
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"

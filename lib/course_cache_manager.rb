@@ -46,11 +46,10 @@ class CourseCacheManager
     view_sum = @course.articles_courses
                       .tracked
                       .live
-                      .joins(:article)
-                      .where.not(articles: { average_views: nil })
+                      .where.not(average_views: nil)
                       .where.not(first_revision: nil)
                       .sum('FLOOR(DATEDIFF(UTC_TIMESTAMP(),
-                      articles_courses.first_revision) * articles.average_views)')
+                      articles_courses.first_revision) * articles_courses.average_views)')
     @course.view_sum = view_sum
   end
 

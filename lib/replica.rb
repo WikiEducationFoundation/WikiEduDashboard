@@ -119,7 +119,7 @@ class Replica
   #   "new_article"=>"false",
   #   "byte_change"=>"-50"
   #  }]
-  def api_get(endpoint, query='')
+  def api_get(endpoint, query = '')
     tries ||= 3
     response = do_query(endpoint, query)
     raise unless response.code == '200'

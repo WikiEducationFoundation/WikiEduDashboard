@@ -93,7 +93,7 @@ const StyleguideExamples = {
 
         return (
           <div className="pop__container">
-            <button className="button dark" onClick={this.toggleOpen}>Toggle popover</button>
+            <button type="button" className="button dark" onClick={this.toggleOpen}>Toggle popover</button>
             <Popover
               is_open={this.state.open}
               edit_row={editRow}
@@ -114,7 +114,7 @@ const StyleguideExamples = {
   }
 };
 
-$(() => {
+document.addEventListener('DOMContentLoaded', () => {
   Object.keys(StyleguideExamples).forEach((example) => {
     StyleguideExamples[example]();
   });

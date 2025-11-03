@@ -29,7 +29,7 @@ const Alert = ({ alert, adminAlert, resolveAlert }) => {
       </td>
     );
   } else {
-    alertTypeCell = <td className="alert-type">{alert.type}</td>;
+    alertTypeCell = <td className="alert-type"><a href={`/alerts_list/${alert.id}`} >{alert.type}</a></td>;
   }
 
   return (

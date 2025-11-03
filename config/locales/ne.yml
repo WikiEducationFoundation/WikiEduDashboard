@@ -50,6 +50,7 @@ ne:
     log_in: प्रवेश गर्नुहोस्
     log_out: निर्गमन
     my_dashboard: मेरो ड्यसबोर्ड
+    okay: ठीक
     recent_activity: हालको कृयाकलाप
     report_problem: समस्या प्रतिवेदन पठाउनुहोस्
     request_account: एउटा खाता अनुरोध गर्नुहोस्
@@ -61,7 +62,7 @@ ne:
     sign_up_wikipedia: या विकिपिडियामा खाता खाेल्नुहाेस्
     sign_up_log_in_extended: विकिपिडियासँग
     sign_up: खाता खाेल्नुहाेस्
-    submit: पेश गर्नुहोस्
+    submit: पेस गर्नुहोस्
     training: तालिम
     change: परिवर्तन गर्नुहोस्
     details: विवरणहरू
@@ -516,6 +517,7 @@ ne:
   namespace:
     main: मेनस्पेस
     main_char_added: मेनस्पेसमा थपिएका अक्षरहरू
+    talk: वार्तालाप
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
     project: परियोजना

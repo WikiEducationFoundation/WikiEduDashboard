@@ -18,7 +18,7 @@ const CourseCreationSettings = ({ defaultCampaign }) => {
 
   return (
     <div className="default-campaign-setting">
-      <h2 className="mx2">Default Campaign</h2>
+      <h2 className="mx2">{I18n.t('settings.common_settings_components.headings.default_campaign_setting')}</h2>
       <UpdateDefaultCampaignSetting defaultCampaign={defaultCampaign} />
       <List
         elements={[settingRow]}

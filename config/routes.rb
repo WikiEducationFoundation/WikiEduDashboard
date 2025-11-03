@@ -252,6 +252,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'alert_followup/:id' => 'alert_followup#show'
+  post 'alert_followup/:id' => 'alert_followup#update'
+
   put 'greeting' => 'greeting#greet_course_students'
 
   # Article Finder
@@ -467,6 +470,7 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :ai_edit_alerts_stats
 
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'

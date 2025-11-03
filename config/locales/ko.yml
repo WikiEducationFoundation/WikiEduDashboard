@@ -61,6 +61,7 @@ ko:
     log_in: 로그인
     log_out: 로그아웃
     my_dashboard: 나의 대시보드
+    okay: Okay
     recent_activity: 최근 활동
     report_problem: 문제점 보고
     request_account: 계정 요청
@@ -150,6 +151,7 @@ ko:
     new: (새)
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     preview: 문서의 간략한 미리보기
+    quality_checklist: 품질 체크리스트
     rating: 문서 등급
     rating_doc: 이 등급은 위키백과의 위키프로젝트에서 할당된 문서 등급입니다. 이러한 등급은 현재의 문서 상태가 아닌 평가 시점의 문서
       상태를 나타내므로, 문서 완성도를 나타내는 대략적인 지표입니다.

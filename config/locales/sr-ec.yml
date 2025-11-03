@@ -36,6 +36,7 @@ sr-ec:
   application:
     back: Назад
     cancel: Откажи
+    next: Следеће
     cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним, и чувао
       информације везаних за ваш налог на Википедији.
     cookie_consent_acknowledge: Разумем.

@@ -1,0 +1,362 @@
+<!-- Based on https://meta.wikimedia.org/w/index.php?title=MediaWiki:Centralnotice-template-Community_banner_templatev2&oldid=27704056 -->
+
+<style>
+
+/* Main banner container. Banner: background, border colour and width and adding a margin between banner and article header*/
+.cnotice {
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+    color: #202122;
+    border: 1px solid #a2a9b1;
+    border-radius: 2px;
+    margin-bottom: 1em;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.cnotice a {
+    color: inherit;
+}
+.cnotice a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Sets the minimum banner height. If img + logo-container margins > height. Banner will be larger*/
+#cnotice-main {
+    display: table;
+    width: 100%;
+    height: 80px; /* need to set height for height 100% to work on elements within it */
+}
+
+/*MOBILE - Adjust mobile height of banner*/
+body.skin-minerva #cnotice-main {
+    height: 100px;
+}
+
+/*IMPORTANT - don't touch*/
+.cnotice-message-container,
+.cnotice-logo-container,
+.cnotice-misc-container {
+    display: table-cell;
+    height: 100%;
+    vertical-align: middle;
+}
+
+/* --- Main message --- */
+.cnotice-message {
+    position: relative;
+    margin: 0;
+    line-height: 1.2;
+    padding: 5px 5px 5px 5px;
+}
+
+@media (min-width: 1200px) {
+    .cnotice-message {
+        padding: 15px 0px 11px 30px;
+    }
+}
+
+body.rtl .cnotice-message {
+    padding: 5px 5px 5px 5px;
+}
+
+.cnotice-message p {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 100%;
+    opacity: 1;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+@media (min-width: 1200px) {
+    .cnotice-message p { font-size: 120%; }
+}
+
+
+/* --- Logo Image text --- */
+.cnotice-logo-container {
+    width: 10%;
+}
+
+body.rtl .cnotice-logo-container {
+    padding: 0 .25em 0 .9em;
+}
+
+.cnotice-logo-container img {
+    opacity: 1;
+    display: block;
+    margin-left: 15%;
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+/*Misc containter stuff starts here*/
+.cnotice-misc-container {
+    width: 10%;
+    padding-right: 40px;
+}
+
+/*Detects and adjusts for mobile skin */
+body.skin-minerva .cnotice-misc-container {
+    padding-right: 10px;
+}
+
+
+/* --- Close Options --- */
+
+#cnotice-toggle-box-options {
+    display: table-cell;
+    font-size: .8em;
+    text-transform: uppercase;
+    width: 38px;
+    height: 38px;
+    border-radius: 19px;
+    vertical-align: middle;
+}
+
+#cnotice-toggle-box {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    z-index: 1;
+    opacity: .8;
+}
+
+body.rtl #cnotice-toggle-box {
+    left: 3px;
+    right: unset;
+}
+
+#cnotice-toggle-box:hover { 
+    opacity: 1;
+}
+
+#cnotice-toggle-icon{
+    background: 
+       linear-gradient(transparent,transparent),
+       url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3Eclose%3C/title%3E%3Cpath d=%22M4.34 2.93l12.73 12.73-1.41 1.41L2.93 4.35z%22/%3E%3Cpath d=%22M17.07 4.34L4.34 17.07l-1.41-1.41L15.66 2.93z%22/%3E%3C/svg%3E");
+    height: 100%;
+    width: 17px;
+    min-width: 17px;
+    min-height: 17px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+}
+
+#cnotice-toggle-icon:hover { 
+    opacity: 1;
+}
+
+/* --- Full Banner Link --- */
+.cnotice a.cnotice-full-banner-click {
+    display: block;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cnotice a.cnotice-full-banner-click:hover {
+    text-decoration: underline;
+}
+
+.cnotice-button {
+    display: inline-block;
+    border: 2px solid #36c;
+    border-radius: 2px;
+    color: #fff;
+    padding: 5px 5px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 4px 2px;
+    -moz-transition-duration: 100ms; /* Firefox */
+    -webkit-transition-duration: 100ms; /* Safari */
+    transition-duration: 100ms;
+    cursor: pointer;
+    z-index: 1;
+    min-width: 80px;
+}
+
+@media (min-width: 1100px) {
+    .cnotice-button {
+        min-width: 110px;
+        width: 25%;
+        margin: auto;
+    }
+}
+
+/* --- Buttons --- */
+.cnotice a.cnotice-buttonlink {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.cnotice a.cnotice-buttonlink:hover {
+    color: #fff;
+}
+
+.cnotice-button1 {
+    background-color: #36c;
+    border-color: #36c;
+    color: #fff;
+}
+
+.cnotice-button1:hover {
+    background-color: #447ff5;
+    border-color: #447ff5;
+}
+
+.cnotice-button1:active {
+    background-color: #2a4b8d;
+    border-color: #2a4b8d;
+}
+
+.rtl .cnotice-button1 {
+    left: 23px;
+    right: auto;
+    margin-left: 20px;
+}
+
+#cnotice-translation-link {
+    position: absolute;
+    right: 65px;
+    bottom: 0px;
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+#cnotice-translation-link:hover {
+    text-decoration: underline;
+}
+
+.rtl #cnotice-translation-link {
+    text-align: left;
+    left: 65px;
+}
+
+/* --- Dark mode --- */
+html.skin-theme-clientpref-night .cnotice {
+    color: #eaecf0;
+    background: #202122;
+    border-color: #72777d;
+}
+html.skin-theme-clientpref-night #cnotice-toggle-box {
+    filter: invert(1);
+}
+
+@media (prefers-color-scheme: dark) {
+    html.skin-theme-clientpref-os .cnotice {
+        color: #eaecf0;
+        background: #202122;
+        border-color: #72777d;
+    }
+    html.skin-theme-clientpref-os #cnotice-toggle-box {
+        filter: invert(1);
+    }
+}
+
+#WikiEducation2025 {
+  display: none;
+}
+
+#WikiEducation2025.show {
+  display: block;
+}
+
+</style>
+
+<!-- N.B.! Make sure that dir="ltr" is explicitly written here, even if the text is written in a left-to-right language like English or Russian! Otherwise, it will be displayed incorrectly when the banners is shown in a wiki in an RTL language. If the banner is in an RTL language, change dir="ltr" to dir="rtl". -->
+<div class="cnotice" id="WikiEducation2025" dir="ltr">
+    <a class="cnotice-full-banner-click external text" href="//en.wikipedia.org/wiki/Wikipedia:Teach_with_Wiki_Education">
+        <div id="cnotice-main">
+            <div class="cnotice-logo-container">
+                <img src="//upload.wikimedia.org/wikipedia/commons/2/23/Mortarboard_%2850352%29_-_The_Noun_Project.svg" alt="graduation cap logo" width="55px" height="55px">
+            </div>
+            <div class="cnotice-message-container">
+                <div class="cnotice-message">
+                    <p>"The most transformative assignment ever" — bring Wikipedia into your next college course!</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    <div id="cnotice-toggle-box">
+        <a href="#" title="{{int:centralnotice-shared-hide}}" onclick="mw.centralNotice.hideBanner();return false;">
+            <div id="cnotice-toggle-icon" href="#" title="{{int:centralnotice-shared-hide}}" onclick="mw.centralNotice.hideBanner();return false;"></div>
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function(){
+  var inGeoRegion = false;
+
+  var geotargets = [
+    [42.0888, -75.967] // Binghamton University, Binghamton, NY
+    [39.73, -121.8475] // Chico State University, Chico, CA
+    [34.6783, -82.8392] // Clemson University, Clemson, SC
+    [40.5762, -105.0808] // Colorado State University, Fort Collins, CO
+    [42.4492, -76.4839] // Cornell University, Ithica, NY
+    [42.0262, -93.648] // Iowa State University, Ames, IA
+    [42.725, -84.48] // Michigan State University, East Lansing, MI
+    [45.6683, -111.05] // Montana State University, Bozeman, MT
+    [35.1875, -111.655] // Northern Arizona University, Flagstaff, AZ
+    [39.324, -82.102] // Ohio University, Athens, OH
+    [40.7983, -77.86] // Penn State, State College, PA
+    [40.425, -86.9231] // Purdue University, Lafayette, IN
+    [43.0376, -76.134] // Syracuse University, Syracuse, NY
+    [46.726, -117.011] // University of Idaho, Moscow, ID
+    [41.8717, -87.6492] // University of Illinois, Champaign-Urbana, IL
+    [38.9584, -95.2478] // University of Kansas, Lawrence, KS
+    [42.3889, -72.5278] // University of Massachusetts, Amherst, MA
+    [34.3663, -89.5383] // University of Mississippi, Oxford, MS
+    [38.9453, -92.3288] // University of Missouri, Colombia, MO
+    [42.515, -92.460556] // University of Northern Iowa, Waterloo-Cedar Falls, IA
+    [44.476, -73.195] // University of Vermont, Burlington, VT
+    [38.0356, -78.5033] // University of Virginia, Charlottesville, VA
+    [43.0753, -89.4042] // University of Wisconsin, Madison, WI
+    [37.225, -80.425] // Virginia Tech, Blacksburg, VA
+    [39.6458, -79.9697] // West Virginia University, Morgantown, WV
+    [42.3175, -72.6375] // Smith College, Northampton, MA
+    [40.2967, -83.0667] // Ohio Wesleyan University, Delaware, OH
+    [42.2561, -72.5728] // Mount Holyoke College, South Hadley, MA
+    [41.2931, -82.2217] // Oberlin College, Oberlin, OH
+    [30.6103, -96.3436] // Texas A&M, College Station, TX
+    [29.6475, -82.345] // University of Florida, Gainesville, FL
+    [47.9222, -97.0734] // University of North Dakota, Grand Forks, ND
+    [46.86, -113.985] // University of Montana, Missoula, MT
+    [41.313, -105.581] // University of Wyoming, Laramie, WY
+    // [47.6061, -122.3328] // Seattle, for testing
+    // [37.7749, -122.4194] // San Francisco, for testing
+  ];
+
+  geotargets.forEach((coordinates, index) => {
+    var lat = coordinates[0];
+    var lon = coordinates[1];
+    // 0.1 degrees latitude is about 7 miles
+    // and in the contintental US, 0.14 degrees longitude is about the same,
+    // give or take a mile depending on latitude.
+    if (Geo.lat <= lat + 0.1 && Geo.lat >= lat - 0.1 && Geo.lon <= lon + 0.14 && Geo.lon >= lon - 0.14) {
+      inGeoRegion = true;
+    }
+  });
+
+  if ( inGeoRegion ) {
+    var bannerDiv = document.getElementById('WikiEducation2025');
+    bannerDiv.classList.add('show');
+  } else {
+    mw.centralNotice.bannerData.hideResult = true;
+    mw.centralNotice.bannerData.hideReason = 'outofscope';
+  }
+})()
+</script>

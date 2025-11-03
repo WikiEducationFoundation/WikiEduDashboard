@@ -1,0 +1,13 @@
+id: 7406
+title: Thumbs on the scale
+content: |
+  AI developers have considerable control over the typical types of responses
+  their systems produce, with few safeguards against intentional manipulation.
+
+  In some cases — like with xAI’s [Grok chatbot](https://en.wikipedia.org/wiki/Grok_(chatbot))
+  — we know that developers are working to bias their AI systems in particular ways.
+
+  In other cases, researchers study different aspects of [algorithmic bias](https://en.wikipedia.org/wiki/Algorithmic_bias)
+  in AI systems, but can't easily tell which systemic biases are intentional versus accidental.
+  AI companies are subject to tremendous economic and political pressures, but we don't get
+  to see how those pressures reshape AI responses.

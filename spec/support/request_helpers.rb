@@ -31,7 +31,7 @@ module RequestHelpers
   end
 
   def stub_wikimedia_error(code: 503)
-    wikimedia_error = '<!DOCTYPE html><html lang=en><meta charset=utf-8>'\
+    wikimedia_error = '<!DOCTYPE html><html lang=en><meta charset=utf-8>' \
                       '<title>Wikimedia Error</title></html>'
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: code, body: wikimedia_error, headers: {})
@@ -204,7 +204,7 @@ module RequestHelpers
 
   def stub_oauth_options_warning
     stub_token_request
-    success = '{"warnings":{"options":{"*":"Validation error for \'visualeditor-enable\': not a v'\
+    success = '{"warnings":{"options":{"*":"Validation error for \'visualeditor-enable\': not a v' \
               'alid preference"}}, "options":"success"}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: success, headers: {})

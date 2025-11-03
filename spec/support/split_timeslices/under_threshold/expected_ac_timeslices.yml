@@ -1,0 +1,129 @@
+timeslice_1:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 3579
+  references_count: 6
+  revision_count: 5
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:23:34 UTC
+
+timeslice_2:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 1596
+  references_count: 4
+  revision_count: 2
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:28:10 UTC
+
+timeslice_3:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 1586
+  references_count: 4
+  revision_count: 2
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:30:01 UTC
+
+timeslice_4:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 1203
+  references_count: 2
+  revision_count: 1
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:32:26 UTC
+
+timeslice_5:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 1590
+  references_count: 4
+  revision_count: 2
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:33:42 UTC
+
+timeslice_6:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 795
+  references_count: 2
+  revision_count: 1
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:34:46 UTC
+
+timeslice_7:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 1586
+  references_count: 4
+  revision_count: 2
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:36:13 UTC
+
+timeslice_8:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 2798
+  references_count: 6
+  revision_count: 3
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:43:25 UTC
+
+timeslice_9:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 2391
+  references_count: 6
+  revision_count: 3
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:48:25 UTC
+
+timeslice_10:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 797
+  references_count: 2
+  revision_count: 1
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:50:28 UTC
+
+timeslice_11:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 1208
+  references_count: 2
+  revision_count: 1
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:51:51 UTC
+
+timeslice_12:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 2002
+  references_count: 4
+  revision_count: 2
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:53:43 UTC
+
+timeslice_13:
+  start: 2025-08-26 17:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 2391
+  references_count: 6
+  revision_count: 3
+  new_article: false
+  tracked: true
+  first_revision: 2025-08-26 22:56:47 UTC

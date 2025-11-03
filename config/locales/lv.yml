@@ -84,6 +84,8 @@ lv:
     view_all: Skatīt visus
     edit_size: Labojuma izmērs
     articles_short: Raksti
+  items:
+    lexeme: Leksēma
   articles_generic:
     articles_short: Lapas
   assignments:
@@ -333,6 +335,7 @@ lv:
     word_count_average: Vidējais vārdu skaits
   namespace:
     translation: Tulkojums
+    lexeme: Leksēma
   recent_activity:
     article_title: Raksta nosaukums
     datetime: Datums/laiks

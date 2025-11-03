@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ajeje Brazorf
+# Author: GilPe
 # Author: Les Meloures
 # Author: Robby
 # Author: Soued031
@@ -19,8 +20,9 @@ lb:
           trillion: B
           quadrillion: Brd
   application:
-    back: Zréck
+    back: Zeréck
     cancel: Ofbriechen
+    next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
     create_accounts: Wikipedia-Benotzerkonten uleeën
@@ -42,6 +44,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     my_dashboard: Meng Iwwersiichtssäit
+    okay: OK
     recent_activity: Rezent Aktivitéit
     report_problem: E Probleem mellen
     request_account: E Benotzerkont ufroen
@@ -90,6 +93,10 @@ lb:
   alerts:
     alert_label: Meldungen
     no_alerts: Keng Warnunge fonnt.
+    ai_stats:
+      by_page_type: No Säitentyp
+      count: Zuel
+      page_type: Säitentyp
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -181,7 +188,7 @@ lb:
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
-    sandbox_draft_link: Sandkëscht Brouillon
+    sandbox_draft_link: Sandkëschte-Brouillon
     select: Eraussichen
   blocks:
     milestones:
@@ -711,7 +718,7 @@ lb:
       other: Sicht wgl. eng oder méi Optiounen. Optioun(en).
     read_less: Manner liesen
     read_more: Liest méi
-    summary: Resumé
+    summary: Resümmee
   error:
     form_errors: Kuckt de Formulaire wgl. no Feeler no.
     invalid_date: De %{key}datum ass ongülteg

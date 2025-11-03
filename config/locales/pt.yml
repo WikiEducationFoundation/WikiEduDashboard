@@ -42,6 +42,7 @@ pt:
   application:
     back: Anterior
     cancel: Cancelar
+    next: Seguinte
     cookie_consent: Este ''site'' utiliza ''cookies'' para o manter autenticado, e
       guarda a informação relacionada com a sua conta da Wikipédia.
     cookie_consent_acknowledge: Eu compreendo
@@ -607,7 +608,7 @@ pt:
       course_school: Escola do curso
       course_subject: Tema do curso
       course_term: Semestre do curso
-      course_term_placeholder: Semestre
+      course_term_placeholder: Termo (incluindo ano)
       course_title: Título do curso
       course_types:
         basic_course_name: Programa básico

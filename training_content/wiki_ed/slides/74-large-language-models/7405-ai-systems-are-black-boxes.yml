@@ -1,0 +1,20 @@
+id: 7405
+title: AI systems are black boxes
+content: |
+  As of 2025, the leading AI systems are all black boxes to varying extents.
+  We know broadly how the underlying technology works, but the companies
+  that create them don’t share much detail about how their LLMs are trained
+  or what additional components their systems include.
+
+  We don’t know:
+    * What collections of text were used to train the models, which sources
+    were weighted more heavily, and what steps were taken to measure or
+    account for biases in the training data
+    * What transformations happen between a user’s prompt and the text that
+    is sent to the LLM as a context window
+    * What algorithms are used for censorship or safeguards to limit harmful
+    responses
+
+  This lack of transparency makes it difficult to predict how any given AI
+  system will behave, how reliable it might be for a given purpose, or what
+  problems to be on the lookout for.

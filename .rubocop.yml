@@ -46,7 +46,9 @@ Metrics/ClassLength:
     - 'lib/training/wiki_slide_parser.rb'
     - 'lib/wiki_assignment_output.rb'
     - 'lib/course_training_progress_manager.rb'
+    - 'lib/timeslice_cleaner.rb'
     - 'lib/timeslice_manager.rb'
+    - 'app/services/check_revision_with_pangram.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
@@ -77,8 +79,6 @@ Rails/EnvironmentVariableAccess:
 # Permanent exceptions #
 ########################
 
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/ColonMethodCall:
@@ -172,8 +172,6 @@ RSpec/ExpectInHook:
   Enabled: false
 Style/DateTime:
   Enabled: false
-Rails/ContentTag:
-  Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
@@ -194,8 +192,6 @@ Rails/PluckInWhere:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
-Style/SoleNestedConditional:
-  Enabled: false
 Rails/I18nLocaleAssignment:
   Enabled: false
 RSpec/SubjectDeclaration:
@@ -203,8 +199,6 @@ RSpec/SubjectDeclaration:
 Rails/RedundantTravelBack:
   Enabled: false
 Rails/DurationArithmetic:
-  Enabled: false
-Layout/LineContinuationSpacing:
   Enabled: false
 Style/FetchEnvVar:
   Enabled: false
@@ -230,3 +224,73 @@ Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
+Performance/StringIdentifierArgument:
+  Enabled: false
+Lint/UselessConstantScoping:
+  Enabled: false
+Style/RedundantParentheses:
+  Enabled: false
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: false
+Layout/SpaceAroundOperators:
+  Enabled: false
+Style/ArrayIntersect:
+  Enabled: false
+Style/RedundantInterpolationUnfreeze:
+  Enabled: false
+Naming/PredicateMethod:
+  Enabled: false
+Style/YodaCondition:
+  Enabled: false
+Style/YAMLFileRead:
+  Enabled: false
+Style/EmptyStringInsideInterpolation:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: false
+Style/ZeroLengthPredicate:
+  Enabled: false
+Style/SuperArguments:
+  Enabled: false
+Metrics/CollectionLiteralLength:
+  Enabled: false
+Style/MultipleComparison:
+  Enabled: false
+Style/MinMaxComparison:
+  Enabled: false
+Lint/SymbolConversion:
+  Enabled: false
+Style/CollectionQuerying:
+  Enabled: false
+Style/RedundantEach:
+  Enabled: false
+Style/ComparableBetween:
+  Enabled: false
+Style/RedundantCurrentDirectoryInPath:
+  Enabled: false
+Style/ClassEqualityComparison:
+  Enabled: false
+Style/MapIntoArray:
+  Enabled: false
+Style/RedundantSelfAssignmentBranch:
+  Enabled: false
+Lint/LiteralAsCondition:
+  Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: false
+Lint/AmbiguousRange:
+  Enabled: false
+Style/RedundantStringEscape:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Style/RedundantConstantBase:
+  Enabled: false
+Lint/RedundantCopDisableDirective:
+  Enabled: false
+Style/SafeNavigation:
+  Enabled: false
+Style/RedundantRegexpArgument:
+  Enabled: false
+
+  
