@@ -152,6 +152,7 @@ class CheckRevisionWithPangram
       headline_result:,
       average_ai_likelihood:,
       max_ai_likelihood:,
+      fraction_human_content:,
       fraction_ai_content:,
       fraction_mixed_content:,
       window_likelihoods:,
@@ -171,6 +172,10 @@ class CheckRevisionWithPangram
 
   def max_ai_likelihood
     @pangram_result['max_ai_likelihood']
+  end
+
+  def fraction_human_content
+    @pangram_result['fraction_human']
   end
 
   def fraction_ai_content
