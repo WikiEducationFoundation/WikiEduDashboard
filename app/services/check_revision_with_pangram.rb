@@ -154,6 +154,7 @@ class CheckRevisionWithPangram
       max_ai_likelihood:,
       fraction_ai_content:,
       fraction_mixed_content:,
+      window_likelihoods:,
       predicted_ai_window_count:,
       pangram_share_link:,
       pangram_version:
@@ -186,6 +187,10 @@ class CheckRevisionWithPangram
 
   def pangram_version
     @pangram_result['version']
+  end
+
+  def window_likelihoods
+    @pangram_result['window_likelihoods']
   end
 
   def predicted_ai_window_count
