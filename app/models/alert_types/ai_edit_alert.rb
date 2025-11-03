@@ -168,7 +168,7 @@ class AiEditAlert < Alert
     details[:prior_alert_for_user]
   end
 
-  def page_type
+  def page_type # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
     case article_title
     when /Choose an Article/
       :choose_an_article
@@ -182,6 +182,10 @@ class AiEditAlert < Alert
       :peer_review
     when /^User:/ # catchall for other sandboxes
       :sandbox
+    when /^Draft:/
+      :draft
+    when /^[^:]+$/ # match titles without ':'
+      :mainspace
     else
       :unknown
     end
