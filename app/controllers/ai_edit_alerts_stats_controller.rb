@@ -57,6 +57,7 @@ class AiEditAlertsStatsController < ApplicationController
   def set_alerts_with_recent_followup
     @alerts_with_recent_followup =
       @alerts.filter { |a| a.followup_timestamp&.> RECENT_ALERTS_DAYS.days.ago }
+             .sort_by { |a| -a.followup_timestamp.to_i } # newest followups first
   end
 
   def recent_alerts
@@ -68,12 +69,14 @@ class AiEditAlertsStatsController < ApplicationController
   def set_recent_alerts_for_students_with_multiple_alerts
     @recent_alerts_for_students_with_multiple_alerts =
       recent_alerts.filter(&:prior_alert_id_for_user)
+                   .sort_by { |a| -a.created_at.to_i } # newest alerts first
   end
 
   # Sets alerts for articles in mainspace created in the last RECENT_ALERTS_DAYS days.
   def set_recent_alerts_for_mainspace
     @recent_alerts_for_mainspace = recent_alerts
                                    .where('article.namespace': Article::Namespaces::MAINSPACE)
+                                   .order(created_at: :desc)
   end
 
   # Sets an array of hashes with date, page_type, and count for historical alerts.
