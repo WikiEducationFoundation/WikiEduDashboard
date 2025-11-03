@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatDateWithTime } from '../../utils/date_utils';
 
 const AiAlert = ({ alert }) => {
   return (
     <tr className="alert">
       <td className="desktop-only-tc"><a target="_blank" href={`/alerts_list/${alert.id}`}>{alert.id}</a></td>
+      <td className="desktop-only-tc">{formatDateWithTime(alert.timestamp)}</td>
       <td className="desktop-only-tc"><a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
       <td className="desktop-only-tc"><a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a></td>
       <td className="desktop-only-tc"><a target="_blank" href={`${alert.diff_url}`}>{alert.article}</a></td>
