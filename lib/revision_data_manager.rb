@@ -47,12 +47,6 @@ class RevisionDataManager
 
     resolve_duplicate_articles(articles)
 
-    # Re-query articles after duplicate resolution to get updated deleted status
-    # This ensures we don't create revisions for articles that were marked as deleted
-    # during duplicate resolution (fixes issue #6470)
-    articles = Article.where(wiki_id: @wiki.id, deleted: false,
-                             mw_page_id: article_attributes.map { |a| a['mw_page_id'] })
-
     # Prep: get a user dictionary for all users referred to by revisions.
     users = user_dict_from_sub_data(all_sub_data)
 
@@ -169,22 +163,35 @@ class RevisionDataManager
   end
 
   # Creates a revision record for the given revision data.
-  # Returns nil if the article is not found (deleted or missing), preventing
-  # MySQL "Field 'article_id' doesn't have a default value" errors (issue #6470).
+  # Logs to Sentry if article_id is nil to help debug missing article records.
+  # Returns nil for revisions without article records to prevent MySQL errors.
   def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
     article_id = articles.nil? ? nil : articles[mw_page_id]
     
-    # Skip revisions for articles that don't exist or were marked as deleted
-    # This can happen when:
-    # 1. Articles are deleted/merged on Wikipedia
-    # 2. Duplicate articles are resolved and marked as deleted
-    # 3. Articles haven't been imported yet for some reason
+    # Log to Sentry when we encounter a revision without an associated article record
+    # This helps us investigate why some revisions don't have corresponding articles
     if article_id.nil? && !articles.nil?
-      Rails.logger.warn "RevisionDataManager: Skipping revision #{rev_data['mw_rev_id']} - " \
-                        "article with mw_page_id #{mw_page_id} (#{article_data['title']}) " \
-                        "not found or marked as deleted. This may occur if the article was " \
-                        "deleted on Wikipedia or removed during duplicate resolution."
+      mw_rev_id = rev_data['mw_rev_id']
+      article_title = article_data['title']
+      
+      Sentry.capture_message(
+        'Revision without associated article record',
+        level: :warning,
+        extra: {
+          mw_rev_id:,
+          mw_page_id:,
+          article_title:,
+          wiki_id: @wiki.id,
+          course_id: @course.id,
+          namespace: article_data['namespace']
+        }
+      )
+      
+      Rails.logger.warn "RevisionDataManager: Missing article record for revision #{mw_rev_id} " \
+                        "with mw_page_id #{mw_page_id} (#{article_title})"
+      
+      # Skip this revision to prevent MySQL "Field 'article_id' doesn't have a default value" error
       return nil
     end
     
