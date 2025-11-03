@@ -34,9 +34,6 @@
                 %li
                   400-word segments with over 50% AI likelihood:
                   %strong= @alert.predicted_ai_window_count
-                %li
-                  Predicted LLM:
-                  %strong= @alert.predicted_llm
               %table
                 %tr
                   %td.main-content.link-cell
@@ -77,3 +74,6 @@
               %p.info
                 Pangram also predicts which Large Language Model (LLM) was used, although with significant uncertainty. Note
                 that many AI tools use one of the leading commercial LLMs under the hood.
+
+  .hidden
+    %p Alert ID: @alert.id
