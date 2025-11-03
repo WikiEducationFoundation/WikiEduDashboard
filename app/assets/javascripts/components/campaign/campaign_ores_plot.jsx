@@ -51,23 +51,17 @@ const CampaignOresPlot = (props) => {
       return (
         <div id="ores" className="ores-plot">
           <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={400} articleData={filePath} />
-          <p>
-            This graph visualizes, in aggregate, how much articles developed from
-            before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em>
-            rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
-            that estimates an article&apos;s quality rating based on the amount of
-            prose, the number of wikilinks, images and section headers, and other features.
-          </p>
+          <p dangerouslySetInnerHTML={{ __html: I18n.t('campaign.campaign_ores_plot.graph_description_html') }} />
         </div>
       );
     }
     if (loading) {
       return <div onClick={hideHandler}><Loading /></div>;
     }
-    return <div>No Structural Completeness data available</div>;
+    return <div>{I18n.t('campaign.campaign_ores_plot.no_data')}</div>;
   }
   return (
-    <button className="button small" onClick={showHandler}>Change in Structural Completeness</button>
+    <button className="button small" onClick={showHandler}>{I18n.t('campaign.campaign_ores_plot.change_button')}</button>
   );
 };
 
