@@ -2,7 +2,7 @@
 
 json.array! alerts do |alert|
   json.id alert.id
-  json.timestamp alert.created_at
+  json.timestamp alert.followup_timestamp
   json.course alert.course&.title
   json.course_slug alert.course&.slug
   json.article alert.article&.title
