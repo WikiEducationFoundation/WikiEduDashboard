@@ -8,23 +8,24 @@ describe CheckRevisionWithPangram do
   let(:user) { create(:user) }
   let(:simplified_pangram_response) do
     { 'text' => 'example',
-      'ai_likelihood' => 1.0,
       'avg_ai_likelihood' => 1.0,
       'max_ai_likelihood' => 1.0,
-      'prediction' => 'Fully AI-generated (or AI-assisted)',
+      'prediction' => 'Fully AI-Generated',
       'short_prediction' => 'AI',
-      'human_readable_ai_likelihood' => '99.9%',
-      'fraction_ai_content' => 1.0,
-      'llm_prediction' =>
-      { 'GPT35' => 0.005551519061757998,
-        'GPT4' => 0.6903335884752343 },
+      'headline' => 'AI Detected',
       'windows' =>
         [{ 'text' => 'first window',
            'ai_likelihood' => 1.0 },
          { 'text' => 'second window',
            'ai_likelihood' => 1.0 }],
       'window_likelihoods' => [1.0, 1.0],
-      'dashboard_link' => 'https://www.pangram.com/history/example' }
+      'window_indices' => [[0, 2270], [2270, 2550]],
+      'fraction_human' => 0.0,
+      'fraction_ai' => 1.0,
+      'fraction_mixed' => 0.0,
+      'metadata' => { 'request_id' => '2e183f04-eea4' },
+      'version' => 'adaptive_boundaries',
+      'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
 
   context 'when it is the first revision' do
