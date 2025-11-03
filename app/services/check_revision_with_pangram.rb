@@ -149,22 +149,19 @@ class CheckRevisionWithPangram
     {
       article_title: @article_title,
       pangram_prediction:,
-      ai_likelihood:,
+      headline_result:,
       average_ai_likelihood:,
       max_ai_likelihood:,
       fraction_ai_content:,
+      fraction_mixed_content:,
       predicted_ai_window_count:,
-      predicted_llm:,
-      pangram_share_link:
+      pangram_share_link:,
+      pangram_version:
     }
   end
 
   def pangram_prediction
     @pangram_result['prediction']
-  end
-
-  def ai_likelihood
-    @pangram_result['ai_likelihood']
   end
 
   def average_ai_likelihood
@@ -176,18 +173,23 @@ class CheckRevisionWithPangram
   end
 
   def fraction_ai_content
-    @pangram_result['fraction_ai_content']
+    @pangram_result['fraction_ai']
+  end
+
+  def fraction_mixed_content
+    @pangram_result['fraction_mixed']
+  end
+
+  def headline_result
+    @pangram_result['headline']
+  end
+
+  def pangram_version
+    @pangram_result['version']
   end
 
   def predicted_ai_window_count
     @pangram_result['window_likelihoods'].count { |likelihood| likelihood > 0.5 }
-  end
-
-  # TODO: Handle unclear results where Pangram is has multiple
-  # similarly-likely predictions.
-  def predicted_llm
-    return nil if fraction_ai_content.zero?
-    @pangram_result['llm_prediction'].key(@pangram_result['llm_prediction'].values.max)
   end
 
   def pangram_share_link

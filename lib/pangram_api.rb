@@ -8,7 +8,7 @@ class PangramApi
     @api_key = ENV['pangram_api_key']
   end
 
-  SLIDING_WINDOW_URL = 'https://dashboard-text.api.pangram.com'
+  SLIDING_WINDOW_URL = 'https://text-extended.api.pangram.com'
   def inference(text)
     conn = Faraday.new(
       url: SLIDING_WINDOW_URL,
@@ -17,7 +17,10 @@ class PangramApi
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
 
     response = conn.post('') do |req|
-      req.body = { text: }.to_json
+      req.body = {
+        text:,
+        dashboard: true
+      }.to_json
     end
 
     @response = response
