@@ -15,14 +15,6 @@ class AlertFollowupController < ApplicationController
     # If other alert types are supported for
     # followups, the update logic should
     # be delegated to the idividual alert types.
-    response_hash = {
-      AI_how_used: params['ai_how_used'],
-      AIs_used: params['ai_tools'],
-      AI_other: params['tools_other'],
-      used_for: params['ai_used_for'],
-      used_for_other: params['use_other'],
-      additional_context: params['additional_context']
-    }
     @alert.details["followup_#{current_user.username}"] = response_hash
     @alert.save
     flash[:notice] = 'Response saved. Thank you!'
@@ -33,6 +25,18 @@ class AlertFollowupController < ApplicationController
 
   def set_alert
     @alert = Alert.find params[:id]
+  end
+
+  def response_hash
+    {
+      AI_how_used: params['ai_how_used'],
+      AIs_used: params['ai_tools'],
+      AI_other: params['tools_other'],
+      used_for: params['ai_used_for'],
+      used_for_other: params['use_other'],
+      additional_context: params['additional_context'],
+      timestamp: Time.zone.now
+    }
   end
 
   def check_permission
