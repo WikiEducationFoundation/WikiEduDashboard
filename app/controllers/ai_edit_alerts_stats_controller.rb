@@ -54,11 +54,9 @@ class AiEditAlertsStatsController < ApplicationController
   end
 
   # Sets a list of alerts with a followup completed in the last RECENT_ALERTS_DAYS days.
-  # For now, we rely on the updated_at alert field to detrmine when a followup was answered.
   def set_alerts_with_recent_followup
-    @alerts_with_recent_followup = @alerts.where('alerts.updated_at > ?',
-                                                 RECENT_ALERTS_DAYS.days.ago)
-                                          .filter(&:followup?)
+    @alerts_with_recent_followup =
+      @alerts.filter { |a| a.followup_timestamp&.> RECENT_ALERTS_DAYS.days.ago }
   end
 
   def recent_alerts
