@@ -13,6 +13,10 @@ const AiAlertsList = ({ alerts, noAlertsLabel, adminAlert }) => {
       label: I18n.t('alerts.ai_stats.single_alert_view'),
       desktop_only: false
     },
+    timestamp: {
+      label: I18n.t('alerts.ai_stats.timestamp'),
+      desktop_only: false
+    },
     course2: {
       label: I18n.t('campaign.course'),
       desktop_only: true

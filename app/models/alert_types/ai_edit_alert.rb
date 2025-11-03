@@ -141,6 +141,13 @@ class AiEditAlert < Alert
     !followups.empty?
   end
 
+  # Returns the latest followup timestamp, or falls back to updated_at if no
+  # followup includes a :timestamp field.
+  def followup_timestamp
+    return nil unless followup?
+    followups.map { |_k, v| v[:timestamp] }.max || updated_at
+  end
+
   def details_to_show
     details.reject { |k, _| k.to_s.include?('followup') }
   end

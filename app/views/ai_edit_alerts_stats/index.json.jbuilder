@@ -9,7 +9,7 @@ json.pages_with_multiple_alerts @page_count_with_multiple_alerts
 json.historical_alerts @historical_alerts
 
 json.recent_alerts_followup do
-  json.partial! 'ai_edit_alerts_stats/ai_edit_alerts',
+  json.partial! 'ai_edit_alerts_stats/recent_followup_ai_edit_alerts',
                 alerts: @alerts_with_recent_followup
 end
 

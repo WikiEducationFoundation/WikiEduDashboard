@@ -152,6 +152,7 @@ en:
     alert_label: Alerts
     no_alerts: No alerts found.
     ai_stats:
+      timestamp: Timestamp
       title: AI Edit Alerts Stats
       general_stats: General Stats for %{campaign_name} Campaign
       total_alerts: Total AI Edit Alerts
