@@ -70,7 +70,7 @@ render() {
         <Popover
           is_open={is_open}
           edit_row={editRow}
-          styles={{ minWidth: '500px' }}
+          styles={{ width: '500px', tableLayout: 'fixed' }}
         />
       </div>
     );

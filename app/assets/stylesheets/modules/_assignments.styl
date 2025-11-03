@@ -37,10 +37,14 @@ tr.assignment-section-header h3
   flex-direction column
 
 .edit_sandbox_url_input
-  min-width: 30rem;
+  width 100%
+  max-width 100%
+  box-sizing border-box
 
 .edit-sandbox-username-form
   padding 10px 0
+  max-width 460px
+  box-sizing border-box
 
   .instruction-text
     font-size 14px
@@ -71,6 +75,8 @@ tr.assignment-section-header h3
     padding 12px
     border 1px solid $border_lt
     margin-top 10px
+    max-width 460px
+    box-sizing border-box
 
     .preview-label
       font-weight 600
@@ -79,11 +85,15 @@ tr.assignment-section-header h3
 
     .preview-url
       margin-top 8px
+      width 100%
+      overflow hidden
       
       .url-type
         font-size 12px
         font-weight 600
         color $text
+        display block
+        margin-bottom 2px
 
       .url-value
         font-size 11px
@@ -92,7 +102,11 @@ tr.assignment-section-header h3
         font-family monospace
         padding 4px
         background-color white
-        margin-top 2px
+        display block
+        width 100%
+        box-sizing border-box
+        overflow-wrap break-word
+        white-space pre-wrap
 
   button[type="submit"]
     margin-top 10px
