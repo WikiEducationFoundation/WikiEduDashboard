@@ -115,7 +115,7 @@ class Alert < ApplicationRecord
   end
 
   def alert_list_url
-    "https://#{ENV['dashboard_url']}/alert_list/#{id}"
+    "https://#{ENV['dashboard_url']}/alerts_list/#{id}"
   end
 
   def user_contributions_url
