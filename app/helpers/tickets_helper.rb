@@ -9,7 +9,7 @@ module TicketsHelper
   def successful_replies_in_reverse(ticket, recipient)
     successful_messages = ticket.messages.reject do |message|
       details = message.details || {}
-      message.details[:delivered].nil? && message.details[:delivery_failed]
+      details[:delivered].nil? && details[:delivery_failed]
     end
 
     reversed_messages = successful_messages.reverse
