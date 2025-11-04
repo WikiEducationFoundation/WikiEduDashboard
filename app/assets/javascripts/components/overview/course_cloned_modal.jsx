@@ -115,6 +115,9 @@ const CourseClonedModal = createReactClass({
     if (__guard__(updatedCourse.day_exceptions, x => x.length) > 0 || updatedCourse.no_day_exceptions) {
       this.props.setValid('holidays');
     }
+
+    this.setState({ course: updatedCourse });
+
     return this.props.updateCourse(updatedCourse);
   },
 
