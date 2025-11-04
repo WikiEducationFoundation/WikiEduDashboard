@@ -27,6 +27,10 @@ const AiEditAlertsStats = () => {
       <div className="alerts-stats">
         <h1>{I18n.t('alerts.ai_stats.title')}</h1>
 
+        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
+        <AlertsTrendsGraph
+          statsData={stats.historical_alerts}
+        />
         <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.current_term })}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
@@ -66,27 +70,60 @@ const AiEditAlertsStats = () => {
             ))}
           </tbody>
         </table>
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h3>
+
+        <h3 id="contents" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.contents')}</h3>
+        <table className="table table--striped" style={{ marginTop: '20px' }}>
+          <thead>
+            <tr>
+              <th>{I18n.t('alerts.ai_stats.sections.name')}</th>
+              <th>{I18n.t('alerts.ai_stats.sections.description')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <a href="#recent_followup">
+                  {I18n.t('alerts.ai_stats.sections.recent_followup')}
+                </a>
+              </td>
+              <td>{I18n.t('alerts.ai_stats.sections.descriptions.recent_followup')}</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#multiple_alerts">
+                  {I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}
+                </a>
+              </td>
+              <td>{I18n.t('alerts.ai_stats.sections.descriptions.multiple_alerts_students')}</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#in_mainspace">
+                  {I18n.t('alerts.ai_stats.sections.in_mainspace')}
+                </a>
+              </td>
+              <td>{I18n.t('alerts.ai_stats.sections.descriptions.in_mainspace')}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 id="recent_followup" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h3>
+        <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
         <AiAlertsList
           alerts={stats.recent_alerts_followup}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
-          adminAlert={false}
         />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}</h3>
+        <h3 id="multiple_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}</h3>
+        <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
         <AiAlertsList
           alerts={stats.recent_alerts_for_students_with_multiple_alerts}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
-          adminAlert={false}
         />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.in_mainspace')}</h3>
+        <h3 id="in_mainspace" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.in_mainspace')}</h3>
+        <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
         <AiAlertsList
           alerts={stats.recent_alerts_for_mainspace}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
-          adminAlert={false}
-        />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
-        <AlertsTrendsGraph
-          statsData={stats.historical_alerts}
         />
       </div>
     </div>
