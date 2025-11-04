@@ -10,28 +10,22 @@ const AiAlertsList = ({ alerts, noAlertsLabel }) => {
 
   const keys = {
     single_alert_view: {
-      label: I18n.t('alerts.ai_stats.single_alert_view'),
-      desktop_only: false
+      label: I18n.t('alerts.ai_stats.single_alert_view')
     },
     timestamp: {
-      label: I18n.t('alerts.ai_stats.timestamp'),
-      desktop_only: false
+      label: I18n.t('alerts.ai_stats.timestamp')
     },
     course2: {
-      label: I18n.t('campaign.course'),
-      desktop_only: true
+      label: I18n.t('campaign.course')
     },
     user: {
-      label: I18n.t('campaign.alert_user_id'),
-      desktop_only: true
+      label: I18n.t('campaign.alert_user_id')
     },
     revision_diff: {
-      label: I18n.t('alerts.ai_stats.revision_diff'),
-      desktop_only: false
+      label: I18n.t('alerts.ai_stats.revision_diff')
     },
     pangram_url: {
-      label: I18n.t('alerts.ai_stats.pangram_url'),
-      desktop_only: true
+      label: I18n.t('alerts.ai_stats.pangram_url')
     }
   };
 
