@@ -27,6 +27,10 @@ const AiEditAlertsStats = () => {
       <div className="alerts-stats">
         <h1>{I18n.t('alerts.ai_stats.title')}</h1>
 
+        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
+        <AlertsTrendsGraph
+          statsData={stats.historical_alerts}
+        />
         <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.current_term })}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
@@ -83,10 +87,6 @@ const AiEditAlertsStats = () => {
           alerts={stats.recent_alerts_for_mainspace}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
           adminAlert={false}
-        />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
-        <AlertsTrendsGraph
-          statsData={stats.historical_alerts}
         />
       </div>
     </div>
