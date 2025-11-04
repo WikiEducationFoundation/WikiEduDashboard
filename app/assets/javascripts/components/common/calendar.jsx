@@ -56,9 +56,11 @@ const Calendar = ({
           return;
         }
       }
-      const toPass = course;
-      toPass.day_exceptions = exceptions.join(',');
-      toPass.no_day_exceptions = compact(exceptions).length === 0;
+      const toPass = {
+        ...course,
+        day_exceptions: exceptions.join(','),
+        no_day_exceptions: compact(exceptions).length === 0,
+      };
       return updateCourse(toPass);
     },
     [course, updateCourse, inrange]
@@ -68,8 +70,10 @@ const Calendar = ({
     (e, weekday) => {
       const weekdays = course.weekdays ? course.weekdays.split('') : [];
       weekdays[weekday] = weekdays[weekday] === '1' ? '0' : '1';
-      const toPass = course;
-      toPass.weekdays = weekdays.join('');
+      const toPass = {
+        ...course,
+        weekdays: weekdays.join(''),
+      };
       return updateCourse(toPass);
     },
     [course, updateCourse]
