@@ -3,7 +3,7 @@
 class AiEditAlertMailer < ApplicationMailer
   def self.send_emails(alert)
     return unless Features.email?
-    email(alert, page_repeat:, user_repeat:).deliver_now
+    email(alert).deliver_now
   end
 
   def email(alert)
