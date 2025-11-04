@@ -145,7 +145,7 @@ GEM
     browser (6.2.0)
     builder (3.3.0)
     byebug (12.0.0)
-    capistrano (3.19.2)
+    capistrano (3.17.1)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)

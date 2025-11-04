@@ -131,6 +131,7 @@ VCR.configure do |c|
   c.hook_into :webmock # or :fakeweb
   c.default_cassette_options = { record: :new_episodes }
   c.configure_rspec_metadata!
+  c.ignore_hosts 'fonts.googleapis.com', 'fonts.gstatic.com'
   # Allows RSPEC to test the availability of the Wikimedia Tools
   c.ignore_hosts '127.0.0.1'
   # c.allow_http_connections_when_no_cassette = true
