@@ -58,12 +58,11 @@ class CheckRevisionWithPangram
     resp = @wiki_api.query parentid_params
     page_id = resp.data['pages'].keys.first
     @parentid = resp.data.dig('pages', page_id, 'revisions').first['parentid']
-    if resp.data['badrevids'].present?
-      Sentry.capture_message(
-        "CheckRevisionWithPangram: revision #{@mw_rev_id} missing or deleted"
-      )
-      return
-    end
+    return unless resp.data['badrevids'].present?
+    Sentry.capture_message(
+      "CheckRevisionWithPangram: revision #{@mw_rev_id} missing or deleted"
+    )
+    return
   end
 
   # Use action=compare to get a diff table
