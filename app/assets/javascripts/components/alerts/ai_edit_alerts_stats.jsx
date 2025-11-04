@@ -112,21 +112,18 @@ const AiEditAlertsStats = () => {
         <AiAlertsList
           alerts={stats.recent_alerts_followup}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
-          adminAlert={false}
         />
         <h3 id="multiple_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}</h3>
         <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
         <AiAlertsList
           alerts={stats.recent_alerts_for_students_with_multiple_alerts}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
-          adminAlert={false}
         />
         <h3 id="in_mainspace" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.in_mainspace')}</h3>
         <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
         <AiAlertsList
           alerts={stats.recent_alerts_for_mainspace}
           noAlertsLabel={I18n.t('alerts.no_alerts')}
-          adminAlert={false}
         />
       </div>
     </div>

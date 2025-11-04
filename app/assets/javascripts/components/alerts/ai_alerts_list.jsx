@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
 import AiAlert from './ai_alert.jsx';
 
-const AiAlertsList = ({ alerts, noAlertsLabel, adminAlert }) => {
+const AiAlertsList = ({ alerts, noAlertsLabel }) => {
   const elements = alerts.map((alert) => {
     return <AiAlert alert={alert} key={alert.id}/>;
   });
@@ -35,13 +35,6 @@ const AiAlertsList = ({ alerts, noAlertsLabel, adminAlert }) => {
     }
   };
 
-  if (adminAlert) {
-    keys.resolve = {
-      label: 'Resolve',
-      desktop_only: false
-    };
-  }
-
   return (
     <List
       elements={elements}
@@ -56,7 +49,6 @@ const AiAlertsList = ({ alerts, noAlertsLabel, adminAlert }) => {
 AiAlertsList.propTypes = {
   alerts: PropTypes.array,
   noAlertsLabel: PropTypes.string,
-  adminAlert: PropTypes.bool,
 };
 
 export default AiAlertsList;
