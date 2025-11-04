@@ -3,12 +3,10 @@
 class AiEditAlertMailer < ApplicationMailer
   def self.send_emails(alert)
     return unless Features.email?
-    page_repeat = alert.prior_alert_id_for_page.present?
-    user_repeat = alert.prior_alert_id_for_user.present?
     email(alert, page_repeat:, user_repeat:).deliver_now
   end
 
-  def email(alert, page_repeat:, user_repeat:) # rubocop:disable Metrics/MethodLength
+  def email(alert)
     @alert = alert
     @course = @alert.course
     return unless @course
@@ -20,13 +18,7 @@ class AiEditAlertMailer < ApplicationMailer
     emails = to_email.filter_map(&:email)
     return if emails.empty?
 
-    subject = if page_repeat
-                @alert.repeat_page_subject
-              elsif user_repeat
-                @alert.repeat_user_subject
-              else
-                @alert.main_subject
-              end
+    subject = @alert.main_subject
 
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
 

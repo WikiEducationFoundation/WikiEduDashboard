@@ -66,15 +66,11 @@ class AiEditAlert < Alert
   ####################
 
   def main_subject
-    "Suspected AI edit: #{article&.title} — #{course&.title}"
-  end
+    mainspace = article&.mainspace? ? ' (to live article)' : ''
+    repeat_page = prior_alert_id_for_page.present? ? ' (again)' : ''
+    repeat_user = prior_alert_id_for_user.present? ? ' (same user)' : ''
 
-  def repeat_page_subject
-    "Same-page AI edit alert: #{article&.title} — #{course&.title}"
-  end
-
-  def repeat_user_subject
-    "Another suspected AI edit: #{user.username} — #{course&.title}"
+    "Suspected AI edit#{mainspace}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
   end
 
   def wiki

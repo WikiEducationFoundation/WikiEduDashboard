@@ -21,6 +21,9 @@
               %p.paragraph
                 Page:
                 %a.link{href: @alert.page_url}= @alert.article_title
+                (
+                %a.link{href: @alert.url} diff
+                )
               %ul.paragraph
                 %li
                   Pangram prediction:
@@ -45,10 +48,17 @@
                 If you used AI for any text generation (including copyediting), please delete the text
                 and re-do the work without AI text generation.
 
-              %h2.headline Request for additional information
+              %h2.headline= "#{@alert.user.username}: Please fill out follow-up questionnaire"
               %p.paragraph
-                Help us learn more about AI's impact on Wikipedia by completing a brief follow-up questionnaire.
-                %a.link{href: @alert.followup_link} Please submit your response!
+                Is the Pangram report it accurate? Was this a false positive?
+                Help us improve our AI detection system and get better at keeping
+                AI slop off Wikipedia without flagging authentic writing incorrectly.
+              %table
+                %tr
+                  %td.main-content.link-cell
+                    %a.button_link{href: @alert.followup_link}
+                      %strong Follow-up questionnaire
+
               %p.paragraph
                 Best,
                 %br
