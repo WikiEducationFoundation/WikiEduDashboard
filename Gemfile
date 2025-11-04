@@ -46,7 +46,7 @@ gem 'griddler-mailgun'
 
 ### Survey and Ticketing features, implemented as a rails engines
 # If you want to be able to hack locally on rapidfire or ticket_dispenser, use `path:` instead of `git:`.
-gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
+gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git', branch: 'master'
 # gem 'ticket_dispenser', path: '../TicketDispenser'
 gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
 # gem 'rapidfire', path: './vendor/rapidfire'
