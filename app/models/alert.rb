@@ -114,6 +114,10 @@ class Alert < ApplicationRecord
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
+  def alert_list_url
+    "https://#{ENV['dashboard_url']}/alert_list/#{id}"
+  end
+
   def user_contributions_url
     courses_user&.contribution_url
   end

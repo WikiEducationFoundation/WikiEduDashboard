@@ -75,5 +75,7 @@
                 Pangram also predicts which Large Language Model (LLM) was used, although with significant uncertainty. Note
                 that many AI tools use one of the leading commercial LLMs under the hood.
 
-  .hidden
-    %p Alert ID: @alert.id
+.hidden
+  %p
+    Alert ID:
+    %a{href: "#{@alert.alert_list_url}"}= @alert.id
