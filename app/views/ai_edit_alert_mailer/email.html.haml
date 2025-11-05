@@ -12,18 +12,16 @@
                 %a.link{href: @course_link}= @course.title
                 course:
               %p.paragraph
-                %ul
-                  %li
-                    #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
-              %h2.headline Pangram report
-              %p.paragraph
-                We use the AI detector Pangram to check Wikipedia edits for AI-generated text.<sup>†</sup>
+                User: #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
               %p.paragraph
                 Page:
                 %a.link{href: @alert.page_url}= @alert.article_title
                 (
                 %a.link{href: @alert.url} diff
                 )
+              %h2.headline Pangram report
+              %p.paragraph
+                We use the AI detector Pangram to check Wikipedia edits for AI-generated text.<sup>†</sup>
               %ul.paragraph
                 %li
                   Pangram prediction:
