@@ -22,6 +22,6 @@ class AiEditAlertMailer < ApplicationMailer
 
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
 
-    mail(to: emails, subject:)
+    mail(template_name: @alert.email_template_name, to: emails, subject:)
   end
 end
