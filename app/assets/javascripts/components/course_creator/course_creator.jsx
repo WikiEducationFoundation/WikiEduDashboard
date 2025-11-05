@@ -440,7 +440,7 @@ const CourseCreator = createReactClass({
       </span>
     );
 
-    // set hasClonableCourses to true if the user has a clonable course
+    // set hasClonableCourses to true if the user has a cloneable course
     let hasClonableCourses;
     if (this.props.cloneableCourses.length > 0) {
       hasClonableCourses = true;
