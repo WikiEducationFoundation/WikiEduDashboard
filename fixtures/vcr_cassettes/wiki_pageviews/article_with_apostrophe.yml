@@ -1,0 +1,89 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Broussard's/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Wed, 05 Nov 2025 16:49:54 GMT
+      Content-Length:
+      - '737'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '451'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp5022 miss, cp5022 hit/1
+      X-Cache-Status:
+      - hit-front
+      Server-Timing:
+      - cache;desc="hit-front", host;desc="cp5022"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=IN:UP:Bareilly:28.37:79.43:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=05-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sun,
+        07 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=05-Nov-2025;Path=/;HttpOnly;secure;Expires=Sun, 07 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 137.97.131.26
+      X-Request-Id:
+      - 94ad3f55-2d93-4dcf-82f5-13421da9cedb
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081500","access":"all-access","agent":"user","views":9},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081600","access":"all-access","agent":"user","views":6},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081700","access":"all-access","agent":"user","views":6},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081800","access":"all-access","agent":"user","views":7},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081900","access":"all-access","agent":"user","views":11}]}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+recorded_with: VCR 6.1.0
