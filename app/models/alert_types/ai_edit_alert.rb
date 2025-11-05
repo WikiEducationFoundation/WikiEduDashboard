@@ -73,6 +73,14 @@ class AiEditAlert < Alert
     "Suspected AI edit#{mainspace}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
   end
 
+  def email_template_name
+    if course.type == 'ClassroomProgramCourse'
+      'student_program_email'
+    else
+      'email'
+    end
+  end
+
   def wiki
     article&.wiki || Wiki.default_wiki
   end
