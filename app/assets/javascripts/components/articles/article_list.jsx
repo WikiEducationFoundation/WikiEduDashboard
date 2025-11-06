@@ -262,6 +262,7 @@ const ArticleList = createReactClass({
     const pageviewToggle = (
       <div className="pageview-toggle-container">
         <label className="pageview-toggle-label">
+          <span className="pageview-label">{I18n.t('articles.pageviews_label')}</span>
           <span>{I18n.t('articles.cumulative_pageviews')}</span>
           <Switch
             onChange={this.onPageviewDisplayModeChange}
