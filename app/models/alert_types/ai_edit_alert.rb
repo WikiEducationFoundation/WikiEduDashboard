@@ -195,6 +195,12 @@ class AiEditAlert < Alert
       :sandbox
     when /^Draft:/
       :draft
+    when /^Talk:/
+      :talk_page
+    when /^User talk:/
+      :user_talk
+    when /^Template talk:/
+      :template_talk
     when /^[^:]+$/ # match titles without ':'
       :mainspace
     else
