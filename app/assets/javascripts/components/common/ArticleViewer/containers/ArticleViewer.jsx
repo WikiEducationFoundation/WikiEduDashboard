@@ -266,8 +266,17 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       }).catch((error) => {
         setWhoColorFailed(true);
         setFailureMessage(error.message);
-        // Set flag to verify and fetch the article title if the fetch failed, possibly due to the article being moved
-        setCheckArticleTitle(true);
+        // Only trigger title verification for failures that may be caused by title changes.
+        // If WhoColor is simply not ready/available (our API throws a specific message),
+        // do NOT re-verify the title to avoid infinite re-requests.
+        const unavailablePattern = /^Request failed after \d+ attempts/;
+        const cooldownPattern = /WhoColor temporarily unavailable; retry later/;
+        if (unavailablePattern.test(error.message) || cooldownPattern.test(error.message)) {
+          setCheckArticleTitle(false);
+        } else {
+          // For other errors (eg, 404s after redirects), allow one title verification pass
+          setCheckArticleTitle(true);
+        }
       });
   };
 
