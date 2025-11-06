@@ -386,6 +386,16 @@ en:
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
     mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    invalid_username: 'The username "%{username}" is invalid Or the username does not exist.'
+    change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
+    username_label: Wikipedia Username
+    username_placeholder: 'Enter username (e.g., YourUsername)'
+    username_or_url_label: Wikipedia Username or URL
+    username_or_url_placeholder: 'Enter username or full sandbox URL'
+    preview_label: 'Preview of new URLs:'
+    sandbox_label: Sandbox
+    bibliography_label: Bibliography
+    outline_label: Outline
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor

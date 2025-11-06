@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Popover from '../../../../../../../../common/popover';
-import EditSandboxUrlInput from '../../../../../../../../assignments/edit_sandbox_url_input';
+import EditSandboxUsernameInput from '../../../../../../../../assignments/edit_sandbox_username_input';
 import PopoverExpandable from '../../../../../../../../high_order/popover_expandable';
 import { updateSandboxUrl } from '../../../../../../../../../actions/assignment_actions';
 
@@ -50,14 +50,16 @@ submit(e) {
 }
 
 render() {
-  const { is_open } = this.props;
+  const { is_open, assignment, course } = this.props;
   const editRow = (
     <tr className="edit">
       <td>
-        <EditSandboxUrlInput
+        <EditSandboxUsernameInput
           submit={this.submit}
           onChange={this.handleNewUrlChange}
           value={this.state.newUrl}
+          assignment={assignment}
+          course={course}
         />
       </td>
     </tr>
@@ -68,6 +70,7 @@ render() {
         <Popover
           is_open={is_open}
           edit_row={editRow}
+          styles={{ width: '500px', tableLayout: 'fixed' }}
         />
       </div>
     );
