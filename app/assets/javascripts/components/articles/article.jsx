@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
@@ -9,7 +9,8 @@ import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
 
 const Article = ({ article, index, course, fetchArticleDetails, updateArticleTrackedStatus, articleDetails, wikidataLabel,
-  showOnMount, setSelectedIndex, lastIndex, selectedIndex, pageLogsMessage, deletedMessage, current_user, pageviewDisplayMode }) => {
+  showOnMount, setSelectedIndex, lastIndex, selectedIndex, pageLogsMessage, deletedMessage, current_user }) => {
+  const pageviewDisplayMode = useSelector(state => state.articles.pageviewDisplayMode);
   const [tracked, setTracked] = useState(article.tracked);
 
   const fetchMissingArticleDetails = () => {
@@ -155,12 +156,7 @@ Article.propTypes = {
   setSelectedIndex: PropTypes.func,
   lastIndex: PropTypes.number,
   selectedIndex: PropTypes.number,
-  deletedMessage: PropTypes.string,
-  pageviewDisplayMode: PropTypes.string
+  deletedMessage: PropTypes.string
 };
 
-const mapStateToProps = state => ({
-  pageviewDisplayMode: state.articles.pageviewDisplayMode
-});
-
-export default connect(mapStateToProps)(Article);
+export default Article;
