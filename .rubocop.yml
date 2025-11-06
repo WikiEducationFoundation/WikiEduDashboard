@@ -28,6 +28,7 @@ Metrics/ClassLength:
   Max: 130 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'app/models/alert.rb'
+    - 'app/models/alert_types/ai_edit_alert.rb'
     - 'app/models/course.rb'
     - 'app/models/wiki.rb'
     - 'app/models/user.rb'
