@@ -12,8 +12,8 @@ describe DeUserfyingEditAlertMonitor do
   let(:mntor) { described_class.new }
   let(:course1) { create(:course, slug: 'slug-one') }
   let(:course2) { create(:course, slug: 'slug-two') }
-  let(:student1) { create(:user, username: 'alice', email: 'student1@example.edu') }
-  let(:student2) { create(:user, username: 'bob', email: 'student2@example.edu') }
+  let(:student1) { create(:user, username: 'Alice', email: 'student1@example.edu') }
+  let(:student2) { create(:user, username: 'Bob', email: 'student2@example.edu') }
   let(:student3) { create(:user, username: 'carol', email: 'student3@example.edu') }
   let(:instructor1) { create(:user, username: 'sidney', email: 'instructor1@example.edu') }
   let(:article1) { create(:article, title: 'my title 1', mw_page_id: 111) }
@@ -91,6 +91,7 @@ describe DeUserfyingEditAlertMonitor do
       unlinked_alert = DeUserfyingAlert.all.detect { |a| a.details[:ai_edit_alert_ids].nil? }
       expect(linked_alert).not_to be_nil
       expect(linked_alert.details[:ai_edit_alert_ids]).to include(ai_alert1.id, ai_alert2.id)
+      expect(linked_alert.main_subject).to include('(2 AI alerts)')
       expect(unlinked_alert).not_to be_nil
       expect(unlinked_alert.details[:ai_edit_alert_ids]).to be_nil
     end
@@ -162,9 +163,9 @@ describe DeUserfyingEditAlertMonitor do
   end
 
   def editsfeed
-    [{ 'user' => 'alice', 'revid' => 12, 'pageid' => 111,
+    [{ 'user' => 'Alice', 'revid' => 12, 'pageid' => 111, 'title' => 'User:Alice/sandbox',
        'logparams' => { 'target_title' => 'my title 1' } },
-     { 'user' => 'bob', 'revid' => 447, 'pageid' => 222,
+     { 'user' => 'Bob', 'revid' => 447, 'pageid' => 222, 'title' => 'User:Bob/sandbox',
        'logparams' => { 'target_title' => 'my title 2' } }]
   end
 
