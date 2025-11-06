@@ -22,3 +22,8 @@ json.recent_alerts_for_mainspace do
   json.partial! 'ai_edit_alerts_stats/ai_edit_alerts',
                 alerts: @recent_alerts_for_mainspace
 end
+
+json.courses_with_ai_edit_alerts do
+  json.partial! 'ai_edit_alerts_stats/courses_with_ai_edit_alerts',
+                courses: @courses
+end
