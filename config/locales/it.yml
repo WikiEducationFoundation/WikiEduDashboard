@@ -136,6 +136,9 @@ it:
     ai_stats:
       page_type: Tipo di pagina
       single_alert_view: Avviso
+      sections:
+        name: Nome
+        description: Descrizione
   activity:
     all: Attività
     edited_by: Modificato da

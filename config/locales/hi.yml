@@ -112,6 +112,10 @@ hi:
       खाते से लॉग इन कर सकते हैं, या एक नया खाता बना सकते हैं।
   alerts:
     alert_label: सूचना
+    ai_stats:
+      sections:
+        name: नाम
+        description: विवरण
   activity:
     all: गतिविधि
     edited_by: द्वारा संपादित

@@ -54,6 +54,7 @@ pt:
     explore: Explorar
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem carateres inválidos
+    field_invalid_term: O termo deve incluir o ano (por exemplo, "Primavera de 2025").
     field_invalid_date: Este campo requer uma data no formato AAAA-MM-DD
     field_invalid_date_time: O fim deve ser depois do início (as horas vão de 0 a
       23).
@@ -66,6 +67,7 @@ pt:
     log_in: Iniciar sessão
     log_out: Terminar sessão
     my_dashboard: Meu Painel
+    okay: OK
     recent_activity: Atividade Recente
     report_problem: Reportar um problema
     request_account: Pedir uma conta
@@ -151,6 +153,24 @@ pt:
   alerts:
     alert_label: Alertas
     no_alerts: Não foi encontrado nenhum alerta.
+    ai_stats:
+      timestamp: Data e hora
+      title: Estatísticas de Alertas de Edição com IA
+      general_stats: Estatísticas Gerais para a Campanha %{campaign_name}
+      total_alerts: Total de Alertas de Edição com IA
+      with_followup: Com acompanhamento
+      multiple_alerts_students: Estudantes com várias alertas
+      multiple_alerts_pages: Páginas com vários alertas
+      by_page_type: Por Tipo de Ppágina
+      count: Contagem
+      page_type: Tipo de página
+      pangram_url: URL de Pangram
+      single_alert_view: Alerta
+      sections:
+        contents: Tabela de conteúdos para as Listas de Alertas de IA
+        go_back: Voltar aos conteúdos
+        name: Nome
+        description: Descrição
   activity:
     all: Atividade
     edited_by: Editado por

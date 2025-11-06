@@ -12,6 +12,8 @@
 ta:
   application:
     cancel: கைவிடு
+    next: அடுத்து
+    cookie_consent_see_more: மேலும் காண்க.
     create_accounts: விக்கிப்பீடியா கணக்குகளை உருவாக்கு
     documentation: ஆவணமாக்கல்
     error: 'ஒரு பிழை காணப்பட்டது:'
@@ -25,9 +27,11 @@ ta:
     log_in_extended: விக்கிப்பீடியாவில் புகுபதிக
     log_in: புகுபதிக
     log_out: விடுபதிக
+    okay: சரி
     recent_activity: அண்மைய செயல்கள்
     request_account_create: ஒரு கணக்கை உருவாக்கு
     search: ஒரு கேள்வி கேள்
+    sign_up_log_in_extended: விக்கிபீடியாவுடன்
     sign_up: பதிவு செய்
     submit: சமர்ப்பி
     training: பயிற்சி
@@ -38,9 +42,17 @@ ta:
     opt_out: இல்லை
     opt_yes: ஆம்
     opt_no: இல்லை
+  article_statuses:
+    peer_review_completed: மதிப்பாய்வு முடிந்தது
   home:
     explore: கண்டறிக
     log_in: விக்கிப்பீடியாவில் புகுபதிக
+    registration_advice:
+      username_rules:
+        heading: பயனர்பெயர் விதிகள்
+  alerts:
+    ai_stats:
+      by_page_type: பக்க வகையின்படி
   activity:
     all: செயற்பாடு
     label: செயற்பாடு
@@ -112,6 +124,7 @@ ta:
       end_date: முடிவுத்தேதி
       end_date_placeholder: வவவவ-மாமா-தேதே
       expected_number: எதிர்பார்க்கப்படும் மாணவர் எண்ணிக்கை
+      find: உங்கள் பாடத்திட்டத்தைக் கண்டறியவும்
       role_description_options:
       - பயிற்றுவிப்பாளர்
       - கற்பித்தல் உதவியாளர்
@@ -182,6 +195,7 @@ ta:
     view: பார்வைகள்
     word_count: சேர்க்கப்பட்ட வார்த்தைகள்
   namespace:
+    all: அனைத்தும்
     main: முதன்மைவெளி
     user: பயனர்வெளி
     file: கோப்பு
@@ -191,7 +205,7 @@ ta:
     translation: மொழிபெயர்ப்பு
     school: பள்ளி
   recent_activity:
-    article_title: கட்டுரைத் தலைப்பு
+    article_title: தலைப்பு
     datetime: நாள்/நேரம்
     image: படம்
   revisions:
@@ -206,6 +220,11 @@ ta:
     special_users:
       new:
         form_placeholder: பயனர் பெயர்
+  status:
+    purpose: நோக்கம்
+  timeline:
+    add_week: வாரத்தைச் சேர்
+    course_end: பாடத்திட்டம் முடிவு
   training:
     start: தொடங்குக
     view: பார்வையிடு
@@ -231,6 +250,7 @@ ta:
     last_name: கடைசிப் பெயர்
     name: பெயர்
     recent_revisions: அண்மையத் தொகுப்புகள்
+    training_module_status: நிலை
     ungreeted: வரவேற்பு மறுக்கப்பட்டோர்
     username: பயனர் பெயர்
     username_placeholder: பயனர் பெயர்

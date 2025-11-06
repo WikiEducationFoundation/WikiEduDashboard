@@ -94,9 +94,13 @@ lb:
     alert_label: Meldungen
     no_alerts: Keng Warnunge fonnt.
     ai_stats:
+      timestamp: Zäitstempel
       by_page_type: No Säitentyp
       count: Zuel
       page_type: Säitentyp
+      sections:
+        name: Numm
+        description: Beschreiwung
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -552,6 +556,17 @@ lb:
     see_more: Méi gesinn
     show_all: All weisen
   settings:
+    common_settings_components:
+      headings:
+        default_campaign_setting: Standardcampagne
+      buttons:
+        add_admin_button: Admin derbäisetzen
+        add_special_user_button: Spezielle Benotzer derbäisetzen
+        configure_site_notice:
+          enable_button: Aktivéieren
+          disable_button: Desaktivéiert
+        update_default_campaign_setting: Standardcampagne aktualiséieren
+        update_impact_stats: Impaktstatistiken aktualiséieren
     categories:
       other_settings: Aner Astellungen
       users: Benotzer
