@@ -165,16 +165,20 @@ en:
       pangram_url: Pangram URL
       revision_diff: Revision diff
       single_alert_view: Alert
+      alerts_in_mainspace: Alerts in mainspace
+      users_involved: Users involved
       sections:
-        contents: Table of contents for AI Alerts Lists
+        contents: Table of contents for lists
         go_back: Go back to contents
         name: Name
         description: Description
+        courses_with_ai_alerts: Courses with multiple AI alerts
         recent_followup: Alerts with recent followup
         multiple_alerts_students: Recent alerts for students with multiple alerts
         in_mainspace: Recent alerts in mainspace
         alerts_trend_over_time: AI alerts trends over time
         descriptions:
+          courses_with_ai_alerts: Courses with more than 3 AI alerts over the entire course period (not necessarily recent).
           recent_followup: Alerts with followup responses submitted within the last 14 days, ordered by the date of the followup response.
           multiple_alerts_students: Alerts created within the last 14 days for students with multiple alerts, ordered by creation date.
           in_mainspace: Alerts created within the last 14 days for articles in mainspace, ordered by creation date.

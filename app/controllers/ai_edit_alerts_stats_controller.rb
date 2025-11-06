@@ -10,9 +10,11 @@ class AiEditAlertsStatsController < ApplicationController
   private
 
   RECENT_ALERTS_DAYS = 14
+  MIN_ALERTS_COUNT_PER_COURSE = 3
 
   def set_data
     set_alerts
+    set_courses
     set_followups
     set_count_by_page_type
     set_student_count_with_multiple_alerts
@@ -25,6 +27,19 @@ class AiEditAlertsStatsController < ApplicationController
 
   def set_alerts
     @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert').includes(:article)
+  end
+
+  # Sets a hash of courses in default campaign with more than MIN_ALERTS_COUNT_PER_COURSE
+  def set_courses
+    @courses = @alerts.group_by(&:course_id).values
+                      .select { |alerts| alerts.count > MIN_ALERTS_COUNT_PER_COURSE }
+                      .map do |alerts|
+      {
+        course: alerts.first.course,
+        mainspace_count: alerts.count { |a| a.article.namespace == Article::Namespaces::MAINSPACE },
+        users_count: alerts.map(&:user_id).uniq.count
+      }
+    end
   end
 
   def set_followups
