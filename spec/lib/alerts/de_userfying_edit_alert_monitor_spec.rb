@@ -31,6 +31,12 @@ describe DeUserfyingEditAlertMonitor do
       { course_id: course2.id, user_id: instructor1.id, role: instructor_role }
     ]
   end
+  let(:ai_alert1) do
+    create(:ai_edit_alert, user: student1, course: course1, article: article1, revision_id: 5)
+  end
+  let(:ai_alert2) do
+    create(:ai_edit_alert, user: student1, course: course1, article: article1, revision_id: 6)
+  end
 
   before do
     populate_users
@@ -78,21 +84,32 @@ describe DeUserfyingEditAlertMonitor do
       expect(Alert.all.pluck(:email_sent_at).compact.count).to eq editsfeed.count
     end
 
+    it 'connects alerts to AiEditAlert records for the same page' do
+      populate_ai_alerts
+      described_class.create_alerts_for_deuserfying_edits
+      linked_alert = DeUserfyingAlert.all.detect { |a| a.details[:ai_edit_alert_ids].present? }
+      unlinked_alert = DeUserfyingAlert.all.detect { |a| a.details[:ai_edit_alert_ids].nil? }
+      expect(linked_alert).not_to be_nil
+      expect(linked_alert.details[:ai_edit_alert_ids]).to include(ai_alert1.id, ai_alert2.id)
+      expect(unlinked_alert).not_to be_nil
+      expect(unlinked_alert.details[:ai_edit_alert_ids]).to be_nil
+    end
+
     it 'does not create a third Alert' do
       Alert.create(type: 'DeUserfyingAlert',
                    course_id: course1.id,
                    article_id: article1.id,
                    revision_id: editsfeed.first['revid'])
-      expect(Alert.count).to eq(1)
+      expect(DeUserfyingAlert.count).to eq(1)
       mntor.create_alerts
-      expect(Alert.count).to eq editsfeed.count
+      expect(DeUserfyingAlert.count).to eq editsfeed.count
     end
 
     context 'When neither article fetch or created' do
       it 'creates an alert with nil article' do
         allow(mntor).to receive(:article_by_mw_page_id)
         mntor.create_alerts
-        expect(Alert.first.article_id).to eq nil
+        expect(DeUserfyingAlert.first.article_id).to eq nil
       end
     end
   end
@@ -165,5 +182,10 @@ describe DeUserfyingEditAlertMonitor do
   def populate_articles
     article1
     article2
+  end
+
+  def populate_ai_alerts
+    ai_alert1
+    ai_alert2
   end
 end
