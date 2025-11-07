@@ -828,8 +828,8 @@ en:
     start: Start
     start_typing: Start typing
     stay_in_sandbox: Stay in sandbox
-    max_group_size: Maximum group size
-    max_group_size_tooltip: Max. number of students who can work on the same article. Leave blank for unlimited.
+    max_group_size: Max. group size
+    max_group_size_tooltip: Maximum number of students who can work on the same article. Leave blank for unlimited.
     student: Student
     students: Students
     students_taught: Students Taught
