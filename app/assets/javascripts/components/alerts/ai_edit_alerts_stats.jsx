@@ -3,6 +3,7 @@ import Loading from '../common/loading';
 import AiAlertsList from './ai_alerts_list.jsx';
 import request from '../../utils/request';
 import AlertsTrendsGraph from './graphs/alerts_trends_graph.jsx';
+import CoursesWithAiAlertsList from './courses_with_ai_alerts_list.jsx';
 
 const AiEditAlertsStats = () => {
   const [stats, setStats] = useState(null);
@@ -117,24 +118,7 @@ const AiEditAlertsStats = () => {
 
         <h3 id="courses_with_ai_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.courses_with_ai_alerts')}</h3>
         <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
-        <table style={{ marginBottom: '40px' }} className="table table--striped">
-          <thead>
-            <tr>
-              <th>{I18n.t('campaign.course')}</th>
-              <th>{I18n.t('alerts.ai_stats.alerts_in_mainspace')}</th>
-              <th>{I18n.t('alerts.ai_stats.users_involved')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats.courses_with_ai_edit_alerts).map(([_, data]) => (
-              <tr key={data.course}>
-                <td><a target="_blank" href={`/courses/${data.course_slug}`}>{data.course}</a></td>
-                <td>{data.mainspace_count}</td>
-                <td>{data.users_count}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <CoursesWithAiAlertsList stats={stats.courses_with_ai_edit_alerts}/>
 
         <h3 id="recent_followup" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h3>
         <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
