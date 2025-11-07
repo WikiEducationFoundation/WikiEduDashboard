@@ -51,7 +51,7 @@ const CoursesWithAiAlertsList = ({ stats }) => {
       elements={elements}
       keys={keys}
       table_key="courses_with_ai_alerts"
-      none_message={I18n.t('alerts.no_alerts')}
+      none_message={I18n.t('alerts.no_data')}
       sortable={true}
       sortBy={sortBy}
     />

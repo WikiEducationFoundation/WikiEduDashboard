@@ -150,7 +150,7 @@ en:
       contact dashboard@wikiedu.org.
   alerts:
     alert_label: Alerts
-    no_alerts: No alerts found.
+    no_data: No data found.
     ai_stats:
       timestamp: Timestamp
       title: AI Edit Alerts Stats
