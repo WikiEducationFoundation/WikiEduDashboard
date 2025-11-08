@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
 
 const CoursesWithAiAlertsList = ({ stats }) => {
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
 
   const courses = Object.values(stats);
 
@@ -19,7 +19,7 @@ const CoursesWithAiAlertsList = ({ stats }) => {
       if (prev.key === key) {
         return { key, direction: prev.direction === 'asc' ? 'desc' : 'asc' };
       }
-      return { key, direction: 'asc' };
+      return { key, direction: 'desc' };
     });
   };
 
