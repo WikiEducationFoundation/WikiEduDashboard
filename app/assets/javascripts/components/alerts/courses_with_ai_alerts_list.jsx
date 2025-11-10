@@ -39,7 +39,7 @@ const CoursesWithAiAlertsList = ({ stats }) => {
   };
 
   const elements = sortedCourses.map(data => (
-    <tr key={data.course}>
+    <tr key={data.course_slug}>
       <td><a target="_blank" href={`/courses/${data.course_slug}`}>{data.course}</a></td>
       <td>{data.mainspace_count}</td>
       <td>{data.users_count}</td>
