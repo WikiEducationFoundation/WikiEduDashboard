@@ -194,6 +194,8 @@ lb:
     review_self: En Artikel nokucken
     sandbox_draft_link: Sandkëschte-Brouillon
     select: Eraussichen
+    username_label: Wikipedia-Benotzernumm
+    username_or_url_label: Wikipedia-Benotzernumm oder URL
   blocks:
     milestones:
       title: Kilometersténg

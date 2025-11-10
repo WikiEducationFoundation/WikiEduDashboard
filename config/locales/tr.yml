@@ -24,6 +24,7 @@
 # Author: MuratTheTurkish
 # Author: Rapsar
 # Author: RuzDD
+# Author: Sakblue
 # Author: SaldırganSincap
 # Author: Sayginer
 # Author: Suvarioglu
@@ -152,6 +153,21 @@ tr:
   alerts:
     alert_label: Uyarılar
     no_alerts: Uyarı bulunamadı.
+    ai_stats:
+      timestamp: Tarih bilgisi
+      title: AI Düzenleme Uyarıları İstatistikleri
+      total_alerts: Toplam AI Düzenleme Uyarıları
+      with_followup: Takip ile
+      multiple_alerts_pages: Birden fazla uyarı içeren sayfalar
+      by_page_type: Sayfa Türüne Göre
+      page_type: Sayfa türü
+      single_alert_view: Uyarı
+      sections:
+        contents: Yapay Zeka Uyarı Listeleri için içerik tablosu
+        go_back: İçeriğe geri dön
+        name: İsim
+        description: Açıklama
+        in_mainspace: Ana alandaki son uyarılar
   activity:
     all: Etkinlik
     edited_by: Düzenleyen
@@ -323,6 +339,9 @@ tr:
     milestones:
       title: Kilometre taşları
   campaign:
+    campaign_ores_plot:
+      change_button: Yapısal Tamamlıktaki Değişim
+      no_data: Yapısal Tamamlanma verisi mevcut değil
     active_campaigns: Aktif Kampanyalar
     add_organizer: Organizatör ekle
     alert_article: Madde başlığı
@@ -1083,6 +1102,19 @@ tr:
     label: Kaynaklar
     header: Kaynaklar ve Eğitim
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Kurs oluşturma
+        site_notice_setting: Site Bildirimi
+      buttons:
+        add_admin_button: Yönetici Ekle
+        add_special_user_button: Özel Kullanıcı Ekleyin
+        configure_site_notice:
+          enable_button: Etkinleştir
+          disable_button: Devredışı bırak
+        update_course_creation_settings: Kurs oluşturma ayarlarını güncelle
+        update_impact_stats: Etki İstatistiklerini Güncelle
+        update_salesforce_credentials: Salesforce Kimlik Bilgilerini Güncelle
     admin_users:
       new:
         form_label: Yönetici ayrıcalıkları ver

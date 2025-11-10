@@ -208,6 +208,7 @@ ta:
     article_title: தலைப்பு
     datetime: நாள்/நேரம்
     image: படம்
+    report: அறிக்கை
   revisions:
     diff_show: காட்டுக
     diff_hide: மறை
@@ -222,6 +223,7 @@ ta:
         form_placeholder: பயனர் பெயர்
   status:
     purpose: நோக்கம்
+    status: நிலை
   timeline:
     add_week: வாரத்தைச் சேர்
     course_end: பாடத்திட்டம் முடிவு
@@ -243,6 +245,7 @@ ta:
     file_name: கோப்பின் பெயர்
     image: படம்
     label: பதிவேற்றுக
+    license: உரிமம்
   users:
     assign_articles_done: முடிந்தது
     editors: தொகுப்பாளர்கள்
@@ -255,4 +258,20 @@ ta:
     username: பயனர் பெயர்
     username_placeholder: பயனர் பெயர்
     useremail_placeholder: மின்னஞ்சல்
+    role:
+      student: மாணவர்
+  wizard:
+    read_less: குறைவாகப் படியுங்கள்
+  login_error:
+    header: உள்நுழைவு பிழை
+  article_finder:
+    more_results: மேலும் முடிவுகள்
+  training_status:
+    not_started: தொடங்கப்படவில்லை
+  news:
+    options:
+      create_news:
+        discard_post: செய்திகளை நீக்கவும்
+  notes:
+    save_note: சேமிக்கவும்
 ...

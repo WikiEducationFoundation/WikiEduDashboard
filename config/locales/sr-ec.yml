@@ -140,6 +140,9 @@ sr-ec:
   alerts:
     alert_label: Обавештења
     no_alerts: Ниједно упозорење није пронађено.
+    ai_stats:
+      sections:
+        description: Опис
   activity:
     all: Активност
     edited_by: Уредио корисник
@@ -303,6 +306,8 @@ sr-ec:
     sandbox_draft_link: Нацрт песка
     select: Изабери
     submit: Пошаљи
+    sandbox_label: Песак
+    bibliography_label: Библиографија
   blocks:
     milestones:
       title: Миљоказ

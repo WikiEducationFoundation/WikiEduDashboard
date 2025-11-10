@@ -165,12 +165,23 @@ pt:
       count: Contagem
       page_type: Tipo de página
       pangram_url: URL de Pangram
+      revision_diff: Diferença de revisão
       single_alert_view: Alerta
+      alerts_in_mainspace: Alertas no espaço principal
+      users_involved: Utilizadores envolvidos
       sections:
-        contents: Tabela de conteúdos para as Listas de Alertas de IA
+        contents: Tabela de conteúdos para as listas
         go_back: Voltar aos conteúdos
         name: Nome
         description: Descrição
+        courses_with_ai_alerts: Cursos com múltiplos alertas de IA
+        recent_followup: Alertas com acompanhamento recente
+        multiple_alerts_students: Alertas recentes para alunos com múltiplos alertas
+        in_mainspace: Alertas recentes no espaço principal
+        alerts_trend_over_time: A IA alerta para tendências ao longo do tempo
+        descriptions:
+          courses_with_ai_alerts: Cursos com mais de 3 alertas de IA durante todo
+            o período do curso (não necessariamente recentes).
   activity:
     all: Atividade
     edited_by: Editado por
@@ -221,6 +232,7 @@ pt:
     new: (novo)
     none: Este curso não editou nenhum artigo.
     preview: Pré-visualização breve do Artigo
+    quality_checklist: Lista de verificação de qualidade
     rating: Qualidade
     rating_doc: A avaliação que um artigo recebeu de Projetos Wiki na Wikipédia. Estas
       avaliações podem corresponder a versões muito mais antigas, logo são apenas
@@ -399,6 +411,14 @@ pt:
     sandbox_draft_link: Rascunho de teste
     select: Selecionar
     submit: Submeter
+    username_label: Nome de utilizador da Wikipédia
+    username_placeholder: Inserir nome de utilizador (exemplo, OSeuNomedeUtilizador)
+    username_or_url_label: Nome de utilizador ou URL da Wikipédia
+    username_or_url_placeholder: Insira o nome de utilizador ou o URL completo dárea
+      de testes
+    preview_label: 'Pré-visualização de novos URLs:'
+    sandbox_label: Área de Testes
+    bibliography_label: Bibliografia
     warning_untracked_wiki: 'Note que o artigo que escolheu está numa wiki que não
       é monitorizada por este curso. Para acompanhar as contribuições deste artigo,
       um instrutor tem de adicionar a seguinte wiki a este curso: %{wiki}'
@@ -1365,6 +1385,20 @@ pt:
     label: Recursos
     header: Recursos e formação
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Criação de curso
+        default_campaign_setting: Campanha Predefinida
+        site_notice_setting: Aviso do Site
+      buttons:
+        add_admin_button: Adicionar Administrador
+        add_special_user_button: Adicionar Utilizador Especial
+        configure_site_notice:
+          update_site_notice_button: Aviso de Atualização do Site
+          enable_button: Ativar
+          disable_button: Desativar
+        update_course_creation_settings: Atualizar definições da criação de curso
+        update_default_campaign_setting: Atualizar Campanha Predefinida
     categories:
       other_settings: Outras definições
       impact_stats: Estatísticas de Impacto
@@ -1475,6 +1509,7 @@ pt:
       foram colocadas em pausa. Execute 'rake batch:resume' para retomar as atualizações.
   tickets:
     none: Não existem entradas
+    chose_search_type: Escolher um tipo de procura
   timeline:
     add_week: Adicionar Semana
     arrange_timeline: Organizar Calendário
@@ -1548,6 +1583,8 @@ pt:
     previous: < Anterior
     table_of_contents: Tabela de conteúdos
     training_library: Biblioteca de formações
+    additional_training: Módulos de treino adicionais
+    orientation_modules: Módulos de orientação do instrutor
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
       a menos que entre com a sua conta.
     done: Concluído!
@@ -1571,7 +1608,11 @@ pt:
     search_training_resources: Pesquisar recursos de formação
     no_training_resource_match_your_search: Nenhum recurso de formação corresponde
       à sua pesquisa
+    view_all: Ver todos os exercícios
   update_username:
+    header: Atualizar um nome de utilizador alterado
+    not_found: Utilizador não encontrado para o nome de utilizador inserido.
+    username_updated: Nome de Utilizador Atualizado com Sucesso!
     label: Novo nome de utilizador
     button: Atualizar
   uploads:
@@ -1970,4 +2011,23 @@ pt:
     admin:
       button_text: Notas de Administração
       header_text: Painel de Notas do Administrador
+      aria_label:
+        note_action_button: Botão de ação de notas
+        create_note: Botão de criar nota
+        note_creation: A área de criação de nota está agora disponível.
+        cancel_note_creation: Cancelar criação de nota.
+        note_details_focused: Detalhes da nota {{title}}
+        note_edit_button_focused: Editar os detalhes da nota {{title}}
+        note_edit_save_button_focused: Guardar a nota editada {{title}}
+        note_edit_cancel_button_focused: Cancelar a edição da nota {{title}}
+        note_delete_button_focused: Eliminar a nota {{title}}
+  tagged_courses:
+    download_csv: Transferir CSV
+  weekday_picker:
+    aria:
+      weekday_select: Pressione a tecla Enter para selecionar {{weekday}}
+      weekday_selected: Selecionado {{weekday}}. Pressione a tecla Enter para desselecionar.
+      weekday_unselected: Desselecionado {{weekday}}
+  question_groups:
+    edit_question_group: Editar Grupo de Perguntas
 ...

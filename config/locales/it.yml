@@ -136,6 +136,7 @@ it:
     ai_stats:
       page_type: Tipo di pagina
       single_alert_view: Avviso
+      users_involved: Utenti coinvolti
       sections:
         name: Nome
         description: Descrizione
