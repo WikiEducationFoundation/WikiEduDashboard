@@ -15,6 +15,7 @@ class CheckRevisionWithPangram
 
   def check
     fetch_parent_revision
+    return if @parentid.nil?
 
     if @parentid.zero?
       # If it's first revision, we just
@@ -56,13 +57,17 @@ class CheckRevisionWithPangram
     # https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=1315427810&rvprop=ids&format=json
     parentid_params = { prop: 'revisions', revids: @mw_rev_id, rvprop: 'ids' }
     resp = @wiki_api.query parentid_params
+
+    if resp.data['badrevids'].present?
+      Sentry.capture_message(
+        "CheckRevisionWithPangram: revision #{@mw_rev_id} missing or deleted"
+      )
+      @parentid = nil # Indicate that the revision is missing
+      return
+    end
+
     page_id = resp.data['pages'].keys.first
     @parentid = resp.data.dig('pages', page_id, 'revisions').first['parentid']
-    return unless resp.data['badrevids'].present?
-    Sentry.capture_message(
-      "CheckRevisionWithPangram: revision #{@mw_rev_id} missing or deleted"
-    )
-    return
   end
 
   # Use action=compare to get a diff table
