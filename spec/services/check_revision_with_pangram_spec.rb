@@ -87,7 +87,9 @@ describe CheckRevisionWithPangram do
 
     it 'logs a message to Sentry and exits gracefully' do
       allow_any_instance_of(WikiApi).to receive(:query).and_return(
-        OpenStruct.new(data: { 'badrevids' => { missing_revision_id.to_s => { 'revid' => missing_revision_id, 'missing' => '' } } })
+        OpenStruct.new(data: { 'badrevids' => { missing_revision_id.to_s => {
+'revid' => missing_revision_id, 'missing' => ''
+} } })
       )
 
       expect(Sentry).to receive(:capture_message)
