@@ -420,6 +420,22 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_28_182700) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "revision_ai_scores", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "revision_id", null: false
+    t.integer "wiki_id", null: false
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.integer "article_id"
+    t.datetime "revision_datetime"
+    t.float "avg_ai_likelihood"
+    t.float "max_ai_likelihood"
+    t.text "details"
+    t.string "check_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wiki_id", "revision_id"], name: "revision_ai_scores_by_wiki_rev"
+  end
+
   create_table "revisions", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "characters", default: 0
     t.datetime "created_at"
