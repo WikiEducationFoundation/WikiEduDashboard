@@ -4,7 +4,11 @@
 module UsersHelper
   def contribution_link(courses_user, text = nil, css_class = nil)
     options = { target: '_blank', class: css_class }
-    link_to((text || courses_user.user.username), courses_user.contribution_url, options)
+    link_to(
+      (text || courses_user.user.username),
+      contribution_link_redirect(courses_user),
+      options
+    )
   end
 
   COURSE_ROLE_MESSAGE_STRINGS = {
@@ -16,5 +20,11 @@ module UsersHelper
   }.freeze
   def course_role_name(courses_users_role)
     t("users.role.#{COURSE_ROLE_MESSAGE_STRINGS[courses_users_role]}")
+  end
+
+  private
+
+  def contribution_link_redirect(courses_user)
+    Features.wiki_ed? ? courses_user.contribution_url : courses_user.global_contribution_url
   end
 end
