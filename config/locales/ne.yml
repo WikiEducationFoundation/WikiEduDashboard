@@ -104,6 +104,7 @@ ne:
     sign_up: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
   alerts:
     alert_label: सुचनाहरू
+    no_data: कुनै डेटा फेला परेन।
     ai_stats:
       timestamp: समयछाप
   activity:
@@ -201,6 +202,10 @@ ne:
     review_tooltip: यो तपाईँको लेखहरूको लगत राख्नको लागि हो जुनमा तपाईँले पुनरावलोकन
       गर्ने र सुझाव दिने योजना बनाउनु भएको छ। \
     select: चयन गर्नुहोस्
+    username_label: विकिपिडिया प्रयोगकर्ता नाम
+    sandbox_label: प्रयोगस्थल
+    bibliography_label: ग्रन्थसूची
+    outline_label: रूपरेखा
   blocks:
     milestones:
       title: कोसेढुङ्गाहरू
@@ -758,7 +763,7 @@ ne:
   article_finder:
     page_assessment_class: कक्षा
     search: खोज्नुहोस्
-    submit: पेश गर्नुहोस्
+    submit: पेस गर्नुहोस्
   training_status:
     completed: पूर्ण भयो
     started: सुरुवात

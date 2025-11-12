@@ -169,7 +169,6 @@ pt-br:
       contato com dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
-    no_alerts: Nenhum alerta encontrado.
   activity:
     all: Atividade
     edited_by: Editado por

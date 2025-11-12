@@ -152,7 +152,6 @@ tr:
       dashboard@wikiedu.org ile iletişime geçiniz.
   alerts:
     alert_label: Uyarılar
-    no_alerts: Uyarı bulunamadı.
     ai_stats:
       timestamp: Tarih bilgisi
       title: AI Düzenleme Uyarıları İstatistikleri

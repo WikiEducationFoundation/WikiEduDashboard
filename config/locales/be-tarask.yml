@@ -5,6 +5,7 @@
 # Author: Nieszczarda2
 # Author: Red Winged Duck
 # Author: Renessaince
+# Author: Ucukor
 ---
 be-tarask:
   number:
@@ -132,7 +133,7 @@ be-tarask:
       зьвяжыцеся з dashboard@wikiedu.org.
   alerts:
     alert_label: Паведамленьні
-    no_alerts: Паведамленьні ня знойдзеныя.
+    no_data: Дадзеныя ня знойдзены.
   activity:
     all: Актыўнасьць
     edited_by: Рэдагавалася

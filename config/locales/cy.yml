@@ -78,7 +78,6 @@ cy:
     sign_up: Cofrestrwch gyda Wicipedia
   alerts:
     alert_label: Rhybuddion
-    no_alerts: Dim rhybuddion.
   activity:
     all: Gweithgaredd
     edited_by: Golygwyd Gan

@@ -142,7 +142,6 @@ de:
       Wenn du kein Konto erstellen kannst, wende dich an dashboard@wikiedu.org.
   alerts:
     alert_label: Meldungen
-    no_alerts: Keine Meldungen gefunden
   activity:
     all: Aktivität
     edited_by: Bearbeitet von

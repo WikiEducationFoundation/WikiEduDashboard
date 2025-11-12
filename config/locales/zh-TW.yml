@@ -127,7 +127,7 @@ zh-TW:
       dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
-    no_alerts: 找不到提醒。
+    no_data: 查無資料。
     ai_stats:
       timestamp: 時間戳記
       title: AI 編輯提醒統計

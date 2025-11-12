@@ -114,7 +114,6 @@ gl:
       de Wikipedia existente ou crear unha nova.
   alerts:
     alert_label: Alertas
-    no_alerts: Non hai alertas.
   activity:
     all: Actividade
     edited_by: Modificado por
