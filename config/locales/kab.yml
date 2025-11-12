@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Belkacem77
+# Author: ButterflyOfFire
 # Author: K Messaoudi
 # Author: Mastanabal
 # Author: Sayem AtVkm
@@ -41,6 +42,12 @@ kab:
     explore: Snirem
     log_in: Qqen s Wikipedia
     sign_up: Jerred ar Wikipedia
+  alerts:
+    ai_stats:
+      sections:
+        go_back: Uɣal ar ugbur
+        name: Isem
+        description: Aglam
   activity:
     all: Armud
     edited_by: Yesnafel-it
@@ -71,6 +78,7 @@ kab:
   assignments:
     article: Amagrad %{title} yettwaɣ
     select: Fren
+    username_label: Isem n useqdac n Wikipedia
   campaign:
     add_organizer: Rnu amsuddes
     description: Aglam
@@ -142,6 +150,12 @@ kab:
     articles_created_generic: Isebtar yettwarnan
     articles_edited_wikidata: Iferdisen yettwabeddlen
     articles_edited_generic: Isebtar yettwabeddlen
+  settings:
+    common_settings_components:
+      buttons:
+        add_admin_button: Rnu anedbal
+        configure_site_notice:
+          enable_button: Rmed
   users:
     contribution_statistics: Tidaddanin n uttekki
 ...

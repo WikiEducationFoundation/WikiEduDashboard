@@ -28,19 +28,20 @@ fi:
         format: '%n%u'
         units:
           thousand: t.
-          million: milj.
-          billion: mrd.
-          trillion: .t
-          quadrillion: .k
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
       suurentavat ja pienentävät syötettä.
   application:
     back: Takaisin
     cancel: Peruuta
+    next: Seuraava
     cookie_consent_acknowledge: Ymmärrän
     cookie_consent_see_more: Lisätietoa.
-    create_accounts: Luo Wikipedia-tilit
+    create_accounts: Luo Wikipedia-tunnukset
     dashboard: Wiki Ed -ohjausnäkymä
     documentation: Ohjeet
     error: 'Tapahtui virhe:'
@@ -59,6 +60,7 @@ fi:
     log_in: Kirjaudu sisään
     log_out: Kirjaudu ulos
     my_dashboard: Oma ohjausnäkymä
+    okay: Ok
     recent_activity: Tuoreet muutokset
     report_problem: Ilmoita ongelmasta
     request_account: Pyydä tiliä
@@ -122,12 +124,16 @@ fi:
     sign_up_help: Sinun täytyy kirjautua Wikipedian kautta, ja antaa ohjausnäkymälle
       oikeus käyttää tiliäsi. Voit käyttää olemassa olevaa Wikipedia-tunnusta tai
       luoda uuden. Jos et pysty luomaan tunnusta, ota yhteyttä dashboard@wikiedu.org.
+  alerts:
+    alert_label: Hälytykset
+    no_alerts: Ei hälytyksiä.
   activity:
     all: Toiminta
     edited_by: Muokannut
     label: Toiminta
   articles:
     articles: Artikkelit
+    article_not_found: Tätä artikkelia ei ole vielä luotu.
     article_development: (artikkelin kehittäminen)
     assigned: Tehtäväksi annetut artikkelit
     available: Käytettävissä olevat artikkelit
@@ -150,6 +156,7 @@ fi:
       existing: Olemassaoleva
       new_and_existing: Uudet ja olemassaolevat
     find: Löydä artikkeleita
+    how_to_find: Kuinka löytää artikkeli
     hide: Piilota
     history: (historia)
     label: Artikkelit
@@ -203,6 +210,8 @@ fi:
     page_logs: (sivun lokit)
   items:
     items: Kohteet
+    lexeme: Lekseemi
+    article_not_found: Tätä kohdetta ei ole vielä luotu.
     assigned: Määritetyt kohteet
     available: Saatavilla olevat kohteet
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän

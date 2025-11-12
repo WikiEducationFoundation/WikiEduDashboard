@@ -7,6 +7,11 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     return unless Features.email?
     content_experts = content_experts_for(alert.user)
     return if content_experts.empty?
+    # Don't send email if it was the content expert who triggered the alert.
+    # This happened once (a false positive) and was confusing for the instructor
+    # to receive.
+    return if content_experts.include?(alert.user)
+
     content_expert_email(alert, content_experts).deliver_now
   end
 

@@ -28,6 +28,7 @@ hi:
   application:
     back: पीछे जाएँ
     cancel: रद्द करें
+    next: अगला
     cookie_consent: यह साइट आपको लॉग इन रखने के लिए कुकीज़ का उपयोग करती है और आपके
       विकिपीडिया खाते से संबंधित जानकारी संग्रहीत करती है।
     cookie_consent_see_more: और देखें
@@ -111,6 +112,10 @@ hi:
       खाते से लॉग इन कर सकते हैं, या एक नया खाता बना सकते हैं।
   alerts:
     alert_label: सूचना
+    ai_stats:
+      sections:
+        name: नाम
+        description: विवरण
   activity:
     all: गतिविधि
     edited_by: द्वारा संपादित

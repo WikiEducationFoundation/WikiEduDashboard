@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/wiki_edits"
 class WatchlistEdits < WikiEdits
-  def initialize(wiki = nil, current_user= nil)
+  def initialize(wiki = nil, current_user = nil)
     super(wiki)
     @current_user = current_user
   end

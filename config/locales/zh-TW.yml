@@ -36,6 +36,7 @@ zh-TW:
   application:
     back: 返回
     cancel: 取消
+    next: 下一個
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解
     cookie_consent_see_more: 查看更多。
@@ -46,6 +47,7 @@ zh-TW:
     explore: 探索
     field_required: 此為必填欄位
     field_invalid_characters: 此欄位的字元無效
+    field_invalid_term: 學期必須包含年份（例如：2025 年春季）
     field_invalid_date: 此欄位需要以年-月-日 (YYYY-MM-DD) 格式填入日期
     field_invalid_date_time: 結束必須晚於起始。（時刻從 0 至 23。）
     greeting2: 歡迎！
@@ -57,6 +59,7 @@ zh-TW:
     log_in: 登入
     log_out: 登出
     my_dashboard: 我的功能面板
+    okay: 了解
     recent_activity: 最近活動
     report_problem: 回報問題
     request_account: 申請帳號
@@ -125,6 +128,37 @@ zh-TW:
   alerts:
     alert_label: 提醒
     no_alerts: 找不到提醒。
+    ai_stats:
+      timestamp: 時間戳記
+      title: AI 編輯提醒統計
+      general_stats: '%{campaign_name}競賽的總體統計數據'
+      total_alerts: 全面 AI 編輯提醒
+      with_followup: 後續跟進
+      multiple_alerts_students: 收到多項提醒的學生
+      multiple_alerts_pages: 包含多項提醒的頁面
+      by_page_type: 按頁面類型
+      count: 總數
+      page_type: 頁面類型
+      pangram_url: 全字母句網址
+      revision_diff: 修訂差異
+      single_alert_view: 提醒
+      alerts_in_mainspace: 主空間提醒
+      users_involved: 參與使用者
+      sections:
+        contents: 清單目錄
+        go_back: 返回目錄
+        name: 名稱
+        description: 描述
+        courses_with_ai_alerts: 具有多樣 AI 提醒的課程
+        recent_followup: 近期跟進的提醒
+        multiple_alerts_students: 近期有多項提醒的學生提醒
+        in_mainspace: 主空間近期提醒
+        alerts_trend_over_time: AI 提醒隨時間變化的趨勢
+        descriptions:
+          courses_with_ai_alerts: 整個課程期間（不一定是最近的）發出超過 3 次 AI 提醒的課程。
+          recent_followup: 過去 14 天內提交後續回覆的提醒，按後續回覆日期排序。
+          multiple_alerts_students: 過去 14 天內為收到多個提醒的學生建立的提醒，按建立日期排序。
+          in_mainspace: 過去 14 天內為主空間條目建立的提醒，按建立日期排序。
   activity:
     all: 活動
     edited_by: 編輯自
@@ -171,6 +205,7 @@ zh-TW:
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
+    quality_checklist: 品質檢查表
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
@@ -303,12 +338,28 @@ zh-TW:
     submit: 提交
     invalid_url: 無法更新沙盒的 URL。%{url} 不是有效的維基百科 URL。
     mismatched_wiki: 無法更新沙盒的 URL。%{url} 不在相同的 wiki 上。
+    invalid_username: 使用者名稱「%{username}」無效或該使用者名稱不存在。
+    change_sandbox_instructions: 輸入維基百科使用者名稱來更新此分配的沙盒網址。這會把目前使用者名稱的沙盒更改為您指定的內容。
+    username_label: 維基百科使用者名稱
+    username_placeholder: 請輸入使用者名稱（例如：您的使用者名稱）
+    username_or_url_label: 維基百科使用者名稱或網址
+    username_or_url_placeholder: 輸入使用者名稱或完整的沙盒網址
+    preview_label: 新網址預覽：
+    sandbox_label: 沙盒
+    bibliography_label: 參考書目
+    outline_label: 大綱
     warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下 wiki
       到此課程裡：%{wiki}
   blocks:
     milestones:
       title: 里程碑
   campaign:
+    campaign_ores_plot:
+      change_button: 結構完整性的變化
+      no_data: 無可用的結構完整性資料
+      graph_description_html: 此圖表以匯總形式視覺化條目從競賽參與者的首次編輯，到最近一次編輯期間的變化歷程。<em>結構完整性</em>評估是基於一個機器學習專案（<a
+        href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a> ），該專案根據條目的文字量、wiki
+        連結數量、圖片、章節標題數量以及其他特徵來評估條目的品質。
     active_campaigns: 活躍競賽
     add_organizer: 新增籌辦人員
     alert_article: 條目標題
@@ -500,7 +551,7 @@ zh-TW:
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
-      course_term_placeholder: 學期
+      course_term_placeholder: 學期（含年份）
       course_title: 課程名稱
       course_types:
         basic_course_name: 基本方案
@@ -521,6 +572,7 @@ zh-TW:
       end_date: 結束日期
       end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
+      field_invalid_term: 學期必須包含年份（例如：2025 年春季）
       find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
@@ -651,6 +703,10 @@ zh-TW:
     online_volunteers_enabled: 線上志工已啟用
     online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
     ores_plot: ORES
+    ores_plot_description: 此圖表視覺化展示出學生首次編輯條目之前到最近一次編輯期間條目的擴充進度。結構完整性評級是基於機器學習專案（%{ores_link}），該專案根據條目內文數量、維基連結數量、圖片和章節標題、以及其他特徵來評估條目的品質評級。（%{refresh_link}）
+    ores_plot_no_data: 沒有可用的結構完整性資料
+    ores_plot_refresh_data: 重整快取資料
+    ores_plot_show_button: 結構完整性的變化
     overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
@@ -1086,6 +1142,22 @@ zh-TW:
     label: 資源
     header: 資源與培訓
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: 課程建立
+        default_campaign_setting: 預設競賽
+        site_notice_setting: 網站通知
+      buttons:
+        add_admin_button: 新增管理員
+        add_special_user_button: 新增特殊使用者
+        configure_site_notice:
+          update_site_notice_button: 更新網站通知
+          enable_button: 啟用
+          disable_button: 停用
+        update_course_creation_settings: 更新課程建立設定
+        update_default_campaign_setting: 更新預設競賽
+        update_impact_stats: 更新影響統計數據
+        update_salesforce_credentials: 更新 Salesforce 憑證
     categories:
       other_settings: 其他設定
       impact_stats: 影響統計

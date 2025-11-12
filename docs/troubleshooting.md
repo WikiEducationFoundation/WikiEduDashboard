@@ -58,3 +58,22 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 - **rvm install 3.1.2' command error** (`cannot create directory...: Permission denied`): Try using `rvm fix-permissions system; rvm fix-permissions user`
    	
 - **error: `usermod: group 'rvm' does not exist:`** Try `sudo groupadd rvm`
+
+
+### Selenium/Chrome Driver issue on ARM64 Ubuntu VM (UTM)
+If your development environment is on an Ubuntu virtual machine running on Apple Silicon (Arm64) using UTM, you might encounter `NoSuchDriverError` when running rspec like
+
+`Selenium::WebDriver::Error::NoSuchDriverError Unable to obtain chromedriver using Selenium Manager`
+
+This error is as a result of Selenium Manager not having support for the ARM64 architecture hence not being able to automatically locate a compatible ChromeDriver binary.
+
+**Fix**:
+
+- **Manually install Chrome and ChromeDriver**:
+
+    `sudo apt install chromium-browser chromium-chromedriver`
+
+- **Open `spec/rails_helper.rb` and paste the code below just above this line of code `Capybara.register_driver :selenium do |app|` to specify the location of your chrome driver**:
+    `Selenium::WebDriver::Chrome::Service.driver_path = '/usr/bin/chromedriver'`
+
+*Note: Do not commit this fix to git as it is environment specific.*

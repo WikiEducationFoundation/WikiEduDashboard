@@ -282,7 +282,7 @@ describe 'Student users', type: :feature, js: true do
       click_button 'Done'
       expect(page).to have_text 'Sandbox Draft'
       click_button 'Change sandbox'
-      find('input.edit_sandbox_url_input').fill_in with: 'https://en.wikipedia.org/wiki/User:Classmate/selfie'
+      find('input.edit_sandbox_url_input').fill_in with: classmate.username
       click_button 'Submit'
       expect(page).to have_text 'Sandbox url updated successfully.'
     end

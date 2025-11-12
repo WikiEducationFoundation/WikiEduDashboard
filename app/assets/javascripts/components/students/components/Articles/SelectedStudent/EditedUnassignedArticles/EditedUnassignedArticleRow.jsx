@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 
 export const EditedUnassignedArticleRow = ({
-  article, course, current_user, fetchArticleDetails, showArticleId, user
+  article, course, current_user, fetchArticleDetails, showArticleId, user, wikidataLabel
 }) => (
   <tr className="article-row">
-    <td className="article-title">{article.title}</td>
+    <td className="article-title">{wikidataLabel ?? article.title}</td>
     <td>
       <p className="assignment-links">
         <a href={article.url} target="_blank">

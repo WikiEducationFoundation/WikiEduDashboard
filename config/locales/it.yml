@@ -42,6 +42,7 @@ it:
   application:
     back: Indietro
     cancel: Annulla
+    next: Successivo
     cookie_consent_acknowledge: Ho capito
     cookie_consent_see_more: Vedi altro.
     create_accounts: Crea utenze di Wikipedia
@@ -51,6 +52,7 @@ it:
     explore: Esplora
     field_required: Questo campo è obbligatorio
     field_invalid_characters: Questo campo contiene caratteri non validi
+    field_invalid_term: Il termine deve includere l'anno (ad esempio, "Primavera 2025")
     field_invalid_date: Questo campo richiede una data nel formato YYYY-MM-DD
     field_invalid_date_time: La fine deve essere dopo l'inizio (le ore vanno di 0
       a 23.)
@@ -63,6 +65,7 @@ it:
     log_in: Accedi
     log_out: Esci
     my_dashboard: Il mio cruscotto
+    okay: Ok
     recent_activity: Attività recente
     report_problem: Segnala un problema
     request_account: Richiedi un'utenza
@@ -130,6 +133,13 @@ it:
   alerts:
     alert_label: Avvisi
     no_alerts: Nessun avviso trovato.
+    ai_stats:
+      page_type: Tipo di pagina
+      single_alert_view: Avviso
+      users_involved: Utenti coinvolti
+      sections:
+        name: Nome
+        description: Descrizione
   activity:
     all: Attività
     edited_by: Modificato da
@@ -171,6 +181,7 @@ it:
     mark_as_complete: Contrassegna come completato
     new: (nuovo)
     none: Questo corso non ha modificato alcuna voce.
+    quality_checklist: Lista di controllo della qualità
     rating: Classe
     rating_doc: La valutazione che è stata assegnata a una voce dai wiki-Progetti
       su Wikipedia. Queste valutazioni possono corrispondere a versioni molto più
@@ -454,7 +465,7 @@ it:
       course_school: Scuola del corso
       course_subject: Oggetto del corso
       course_term: Termine del corso
-      course_term_placeholder: Termine
+      course_term_placeholder: Termine (compreso l'anno)
       course_title: Titolo del corso
       course_types:
         basic_course_name: Programma di base
@@ -606,6 +617,8 @@ it:
       assegnati?
     no_available_actions: Nessuna azione disponibile
     ores_plot: ORES
+    ores_plot_no_data: Nessun dato disponibile sulla completezza strutturale
+    ores_plot_show_button: Cambiamento nella completezza strutturale
     overview: Pagina principale
     passcode: Codice di accesso
     private: Privato

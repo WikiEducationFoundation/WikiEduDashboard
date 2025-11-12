@@ -4,10 +4,10 @@ import ArticleUtils from '../../utils/article_utils';
 
 const StudentStats = ({ username, stats, maxProject }) => {
   return (
-    <div className= "user_stats">
+    <div className="user_stats">
       <h5> {I18n.t('user_profiles.student_impact', { username })} </h5>
-      <div className= "stat-display">
-        <div className= "stat-display__stat">
+      <div className="stat-display">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.individual_courses_count}
           </div>
@@ -15,10 +15,10 @@ const StudentStats = ({ username, stats, maxProject }) => {
             {I18n.t(`${stats.course_string_prefix}.courses_enrolled`)}
           </small>
         </div>
-        <div className= "stat-display__stat tooltip-trigger">
+        <div className="stat-display__stat tooltip-trigger">
           <div className="stat-display__value">
             {stats.individual_word_count}
-            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+            <img src="/assets/images/info.svg" alt="tooltip default logo" />
           </div>
           <small>
             {I18n.t('metrics.word_count')}
@@ -30,10 +30,10 @@ const StudentStats = ({ username, stats, maxProject }) => {
             </p>
           </div>
         </div>
-        <div className= "stat-display__stat tooltip-trigger">
+        <div className="stat-display__stat tooltip-trigger">
           <div className="stat-display__value">
             {stats.individual_references_count}
-            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+            <img src="/assets/images/info.svg" alt="tooltip default logo" />
           </div>
           <small>
             {I18n.t('metrics.references_count')}
@@ -45,7 +45,7 @@ const StudentStats = ({ username, stats, maxProject }) => {
             </p>
           </div>
         </div>
-        <div className= "stat-display__stat">
+        <div className="stat-display__stat">
           <div className="stat-display__value">
             {stats.individual_article_count}
           </div>
@@ -53,10 +53,10 @@ const StudentStats = ({ username, stats, maxProject }) => {
             {I18n.t(`metrics.${ArticleUtils.projectSuffix(maxProject, 'articles_edited')}`)}
           </small>
         </div>
-        <div className ="stat-display__stat tooltip-trigger">
+        <div className="stat-display__stat tooltip-trigger">
           <div className="stat-display__value">
             {stats.individual_upload_count}
-            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+            <img src="/assets/images/info.svg" alt="tooltip default logo" />
           </div>
           <small>
             {I18n.t('metrics.upload_count')}

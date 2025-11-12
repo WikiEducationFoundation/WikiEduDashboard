@@ -1,0 +1,15 @@
+id: 7403
+title: Hallucination
+content: |
+  When an AI response includes false or misleading information,
+  this is commonly referred to as “[hallucination](https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence))”.
+  **Hallucinations are inherent to the way LLMs work**, as they generate
+  text based on probabilities and the statistical relationships between
+  words, not specific facts or concrete sources.
+
+  Those statistical relationships capture many facts and elements of
+  common knowledge that were repeated frequently in the training data.
+  LLMs can create plausible and understandable text even when they get
+  out of the realm of common knowledge, but the farther away from common
+  knowledge you go, the more it becomes just statistical noise when it
+  comes to factual accuracy.

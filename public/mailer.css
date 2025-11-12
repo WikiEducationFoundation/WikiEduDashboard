@@ -133,6 +133,10 @@ a.training {
   font-size: 10px;
 }
 
+.hidden a {
+  color: white;
+}
+
 .ticket {
   background: rgba(200, 200, 200, 0.3);
   margin: 1rem 0;

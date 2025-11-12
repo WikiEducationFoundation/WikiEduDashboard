@@ -37,4 +37,80 @@ tr.assignment-section-header h3
   flex-direction column
 
 .edit_sandbox_url_input
-  min-width: 30rem;
+  width 100%
+  max-width 100%
+  box-sizing border-box
+
+.edit-sandbox-username-form
+  padding 10px 0
+  max-width 460px
+  box-sizing border-box
+
+  .instruction-text
+    font-size 14px
+    color $text
+    line-height 1.4
+    margin-bottom 10px
+
+  .input-group
+    display flex
+    flex-direction column
+    gap 5px
+
+  .input-label
+    font-weight 600
+    font-size 13px
+    color $text_dk
+
+  .error-message
+    color warning
+    font-size 13px
+    padding 8px 12px
+    background-color $warning-background
+    border-left 3px solid warning
+    margin-top 5px
+
+  .preview-section
+    background-color smoke
+    padding 12px
+    border 1px solid $border_lt
+    margin-top 10px
+    max-width 460px
+    box-sizing border-box
+
+    .preview-label
+      font-weight 600
+      font-size 13px
+      margin-bottom 8px
+
+    .preview-url
+      margin-top 8px
+      width 100%
+      overflow hidden
+      
+      .url-type
+        font-size 12px
+        font-weight 600
+        color $text
+        display block
+        margin-bottom 2px
+
+      .url-value
+        font-size 11px
+        color $action
+        word-break break-all
+        font-family monospace
+        padding 4px
+        background-color white
+        display block
+        width 100%
+        box-sizing border-box
+        overflow-wrap break-word
+        white-space pre-wrap
+
+  button[type="submit"]
+    margin-top 10px
+    
+    &:disabled
+      opacity 0.5
+      cursor not-allowed

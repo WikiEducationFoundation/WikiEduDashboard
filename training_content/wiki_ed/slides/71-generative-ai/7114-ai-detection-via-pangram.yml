@@ -1,6 +1,10 @@
 id: 7114
 title: "AI detection tool"
 content: |
+  <div class="youtube-short-right">
+    <iframe class="youtube-short" width="270" height="480" src="https://www.youtube-nocookie.com/embed/f3yxtwjmZhE" frameborder="0" allowfullscreen></iframe>
+  </div>
+
   Heads up! Throughout your Wikipedia assignment, we’re using an **AI detection
   tool called Pangram** to check your work on Wikipedia for generative AI output,
   including all exercises.

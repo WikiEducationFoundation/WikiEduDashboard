@@ -22,6 +22,7 @@ lb:
   application:
     back: Zeréck
     cancel: Ofbriechen
+    next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
     create_accounts: Wikipedia-Benotzerkonten uleeën
@@ -43,6 +44,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     my_dashboard: Meng Iwwersiichtssäit
+    okay: OK
     recent_activity: Rezent Aktivitéit
     report_problem: E Probleem mellen
     request_account: E Benotzerkont ufroen
@@ -91,6 +93,14 @@ lb:
   alerts:
     alert_label: Meldungen
     no_alerts: Keng Warnunge fonnt.
+    ai_stats:
+      timestamp: Zäitstempel
+      by_page_type: No Säitentyp
+      count: Zuel
+      page_type: Säitentyp
+      sections:
+        name: Numm
+        description: Beschreiwung
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -182,8 +192,10 @@ lb:
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
-    sandbox_draft_link: Sandkëscht Brouillon
+    sandbox_draft_link: Sandkëschte-Brouillon
     select: Eraussichen
+    username_label: Wikipedia-Benotzernumm
+    username_or_url_label: Wikipedia-Benotzernumm oder URL
   blocks:
     milestones:
       title: Kilometersténg
@@ -546,6 +558,17 @@ lb:
     see_more: Méi gesinn
     show_all: All weisen
   settings:
+    common_settings_components:
+      headings:
+        default_campaign_setting: Standardcampagne
+      buttons:
+        add_admin_button: Admin derbäisetzen
+        add_special_user_button: Spezielle Benotzer derbäisetzen
+        configure_site_notice:
+          enable_button: Aktivéieren
+          disable_button: Desaktivéiert
+        update_default_campaign_setting: Standardcampagne aktualiséieren
+        update_impact_stats: Impaktstatistiken aktualiséieren
     categories:
       other_settings: Aner Astellungen
       users: Benotzer

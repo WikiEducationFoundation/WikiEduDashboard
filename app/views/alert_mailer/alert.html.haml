@@ -38,6 +38,12 @@
     Alert details:
     = @details
 
+- if @details[:ai_edit_alert_ids]
+  %p.paragraph.preserve-whitespace
+    AI Edit Alerts:
+    - @details[:ai_edit_alert_ids].each do |id|
+      %a.link{href: "https://#{ENV['dashboard_url']}/alerts_list/#{id}"}= id
+
 - if @recipient.admin? && @resolvable
   %table.row
     %tbody

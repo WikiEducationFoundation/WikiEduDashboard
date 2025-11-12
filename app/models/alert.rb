@@ -114,6 +114,10 @@ class Alert < ApplicationRecord
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
+  def alert_list_url
+    "https://#{ENV['dashboard_url']}/alerts_list/#{id}"
+  end
+
   def user_contributions_url
     courses_user&.contribution_url
   end
@@ -165,6 +169,15 @@ class Alert < ApplicationRecord
   # This can be used to copy dashboard emails to Salesforce
   def bcc_to_salesforce_email
     ENV['bcc_to_salesforce_email']
+  end
+
+  # Used when rendering individual views for alerts.
+  def details_to_show
+    details
+  end
+
+  def to_partial_path
+    'alerts_list/alert'
   end
 
   #########################

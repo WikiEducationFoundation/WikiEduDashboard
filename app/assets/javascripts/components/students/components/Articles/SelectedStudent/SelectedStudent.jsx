@@ -96,6 +96,7 @@ export const SelectedStudent = ({
             showArticleId={showArticleId}
             fetchArticleDetails={fetchArticleDetails}
             title="Other Edited Articles"
+            wikidataLabels={wikidataLabels}
           />
         )
       }

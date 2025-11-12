@@ -4,18 +4,29 @@
   %h3 Timestamp
   %p= @alert.created_at
 
-  %h3 User
-  %p= link_to @alert.user.username, "/users/#{@alert.user.url_encoded_username}" if @alert.user
+  - if @alert.course
+    %h3 Course
+    %p= link_to @alert.course.slug, "/courses/#{@alert.course.slug}"
 
-  %h3 Subject
-  %p= @alert.main_subject
+  - if @alert.user
+    %h3 User
+    %p= link_to @alert.user.username, "/users/#{@alert.user.url_encoded_username}"
+
+  - if @alert.main_subject
+    %h3 Subject
+    %p= @alert.main_subject
+
+  - if @alert.message
+    %h3 message
+    %p= @alert.message
 
   - if @alert.article
     %h3 Article link
     %p= link_to @alert.article.title, @alert.article.url if @alert.article
 
-  %h3 message
-  %p= @alert.message
+  = render @alert
+
+  = render 'details'
 
   -if @alert.resolvable?
     %h3 Resolve Status

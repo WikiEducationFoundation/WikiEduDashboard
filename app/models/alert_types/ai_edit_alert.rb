@@ -66,15 +66,19 @@ class AiEditAlert < Alert
   ####################
 
   def main_subject
-    "Suspected AI edit: #{article&.title} — #{course&.title}"
+    mainspace = article&.mainspace? ? ' (to live article)' : ''
+    repeat_page = prior_alert_id_for_page.present? ? ' (again)' : ''
+    repeat_user = prior_alert_id_for_user.present? ? ' (same user)' : ''
+
+    "Suspected AI edit#{mainspace}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
   end
 
-  def repeat_page_subject
-    "Same-page AI edit alert: #{article&.title} — #{course&.title}"
-  end
-
-  def repeat_user_subject
-    "Another suspected AI edit: #{user.username} — #{course&.title}"
+  def email_template_name
+    if course.type == 'ClassroomProgramCourse'
+      'student_program_email'
+    else
+      'email'
+    end
   end
 
   def wiki
@@ -121,6 +125,37 @@ class AiEditAlert < Alert
     "https://#{ENV['dashboard_url']}/alert_followup/#{id}"
   end
 
+  # Returns the responses from the student, or nil if they never responded
+  def followup_student
+    details["followup_#{user.username}"]
+  end
+
+  def followups
+    details.select { |k, _| k.to_s.include?('followup') }
+  end
+
+  # Returns the responses from non-students, or an empty hash if none responded.
+  # The hash keys are the username who responded the questionnaire.
+  def followup_non_student
+    followups.reject { |k, _| k.to_s.include?(user.username) }
+             .transform_keys { |k| k.delete_prefix('followup_') }
+  end
+
+  def followup?
+    !followups.empty?
+  end
+
+  # Returns the latest followup timestamp, or falls back to updated_at if no
+  # followup includes a :timestamp field.
+  def followup_timestamp
+    return nil unless followup?
+    followups.map { |_k, v| v[:timestamp] }.max || updated_at
+  end
+
+  def details_to_show
+    details.reject { |k, _| k.to_s.include?('followup') }
+  end
+
   def article_title
     details[:article_title]
   end
@@ -144,7 +179,7 @@ class AiEditAlert < Alert
     details[:prior_alert_for_user]
   end
 
-  def page_type
+  def page_type # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
     case article_title
     when /Choose an Article/
       :choose_an_article
@@ -158,8 +193,22 @@ class AiEditAlert < Alert
       :peer_review
     when /^User:/ # catchall for other sandboxes
       :sandbox
+    when /^Draft:/
+      :draft
+    when /^Talk:/
+      :talk_page
+    when /^User talk:/
+      :user_talk
+    when /^Template talk:/
+      :template_talk
+    when /^[^:]+$/ # match titles without ':'
+      :mainspace
     else
       :unknown
     end
+  end
+
+  def to_partial_path
+    'alerts_list/ai_edit_alert'
   end
 end
