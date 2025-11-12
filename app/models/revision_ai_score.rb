@@ -18,4 +18,10 @@
 #  updated_at        :datetime         not null
 #
 class RevisionAiScore < ApplicationRecord
+  belongs_to :wiki
+  belongs_to :article
+  belongs_to :course
+  belongs_to :user
+
+  serialize :details, Hash
 end
