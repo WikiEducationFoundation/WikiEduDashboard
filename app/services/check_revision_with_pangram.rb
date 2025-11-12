@@ -34,6 +34,7 @@ class CheckRevisionWithPangram
     end
     generate_plaintext_from_html
     fetch_pangram_inference
+    create_revision_ai_score
 
     generate_alert if ai_likely?
 
@@ -41,6 +42,8 @@ class CheckRevisionWithPangram
   end
 
   private
+
+  PANGRAM_CHECK_TYPE = 'Pangram 2.0'
 
   def cache_key
     "pangram_#{@wiki.domain}_#{@mw_rev_id}"
@@ -140,7 +143,6 @@ class CheckRevisionWithPangram
   def generate_alert
     return if alert_already_exists?
 
-    find_article
     AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
                                             user_id: @user_id,
                                             course_id: @course_id,
@@ -215,5 +217,31 @@ class CheckRevisionWithPangram
 
   def pangram_share_link
     @pangram_result['dashboard_link']
+  end
+
+  # Deletes text field from the pangram response to avoid storing that into the db
+  def clean_pangram_result
+    result = @pangram_result.dup
+    result.delete('text')
+    if result['windows'].is_a?(Array)
+      result['windows'] = result['windows'].map { |w| w.except('text') }
+    end
+    result
+  end
+
+  # Imports data into the RevisionAiScores table
+  def create_revision_ai_score
+    find_article
+
+    RevisionAiScore.create(revision_id: @mw_rev_id,
+                           wiki_id: @wiki.id,
+                           article_id:  @article&.id,
+                           course_id: @course_id,
+                           user_id: @user_id,
+                           revision_datetime: @rev_date,
+                           avg_ai_likelihood: average_ai_likelihood,
+                           max_ai_likelihood: max_ai_likelihood,
+                           details: clean_pangram_result,
+                           check_type: PANGRAM_CHECK_TYPE)
   end
 end

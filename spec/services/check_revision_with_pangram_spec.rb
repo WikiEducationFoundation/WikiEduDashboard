@@ -27,6 +27,24 @@ describe CheckRevisionWithPangram do
       'version' => 'adaptive_boundaries',
       'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
+  let(:stored_simplified_pangram_response) do
+    { 'avg_ai_likelihood' => 1.0,
+      'max_ai_likelihood' => 1.0,
+      'prediction' => 'Fully AI-Generated',
+      'short_prediction' => 'AI',
+      'headline' => 'AI Detected',
+      'windows' =>
+        [{ 'ai_likelihood' => 1.0 },
+         { 'ai_likelihood' => 1.0 }],
+      'window_likelihoods' => [1.0, 1.0],
+      'window_indices' => [[0, 2270], [2270, 2550]],
+      'fraction_human' => 0.0,
+      'fraction_ai' => 1.0,
+      'fraction_mixed' => 0.0,
+      'metadata' => { 'request_id' => '2e183f04-eea4' },
+      'version' => 'adaptive_boundaries',
+      'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
+  end
   let(:date) { '2018-07-06T16:59:37+00:00' }
 
   context 'when it is the first revision' do
@@ -53,6 +71,10 @@ describe CheckRevisionWithPangram do
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(sandbox_article.id)
+
+      expect(RevisionAiScore.count).to eq(1)
+      expect(RevisionAiScore.last.article_id).to eq(sandbox_article.id)
+      expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
     end
   end
 
@@ -81,6 +103,10 @@ describe CheckRevisionWithPangram do
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
+
+      expect(RevisionAiScore.count).to eq(1)
+      expect(RevisionAiScore.last.article_id).to eq(live_article.id)
+      expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
     end
   end
 
