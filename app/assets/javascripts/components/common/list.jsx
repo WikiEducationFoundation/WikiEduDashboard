@@ -92,9 +92,15 @@ const List = ({
       )];
     }
     const order = (keyObj.order) ? keyObj.order : '';
+
+    // Support both string labels and React element labels
+    const labelContent = typeof keyObj.label === 'string'
+      ? <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+      : keyObj.label;
+
     headers.push((
       <th onClick={headerOnClick} className={`${headerClass} ${order}`} key={key}>
-        <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+        {labelContent}
         <span className={`sortable-indicator-${order} ${order}`} />
         {tooltip}
       </th>

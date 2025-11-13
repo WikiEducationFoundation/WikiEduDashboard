@@ -18,29 +18,46 @@
       height 40px
       +below(tablet)
         position absolute
-    .pageview-toggle-container
+
+  // View column header with segmented control toggle
+  .view-column-header
+    display flex
+    flex-direction column
+    align-items center
+    gap 4px
+
+    > span
+      font-size 12px
+      font-weight 600
+
+    .view-mode-toggle
       display flex
-      align-items center
-      margin-left 8px
-      .pageview-toggle-label
-        display flex
-        align-items center
-        gap 8px
-        font-size 12px
+      background #f0f0f0
+      border-radius 4px
+      overflow hidden
+      border 1px solid #d0d0d0
+
+      .view-mode-btn
+        padding 2px 8px
+        font-size 10px
         font-weight 500
-        color #444
-        cursor default
-        span
-          white-space nowrap
-          color #666
-          font-size 11px
-        .pageview-label
-          font-weight 600
-          color #444
-          margin-right 4px
-        .pageview-toggle-switch
-          margin 0 2px
-      
+        border none
+        background transparent
+        cursor pointer
+        color #666
+        transition all 0.2s ease
+        white-space nowrap
+
+        &:hover
+          background #e5e5e5
+
+        &.active
+          background #676eb4
+          color white
+
+        &:first-child
+          border-right 1px solid #d0d0d0
+
   .see-more
     p
       padding-top :12px
