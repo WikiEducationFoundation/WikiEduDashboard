@@ -85,7 +85,6 @@ sk:
     sign_up: Zaregistrovať sa pomocou Wikipédie
   alerts:
     alert_label: Upozornenia
-    no_alerts: Neboli nájdené žiadne upozornenia.
   activity:
     all: Aktivita
     edited_by: Upravil(a)

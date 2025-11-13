@@ -126,7 +126,6 @@ fi:
       luoda uuden. Jos et pysty luomaan tunnusta, ota yhteyttä dashboard@wikiedu.org.
   alerts:
     alert_label: Hälytykset
-    no_alerts: Ei hälytyksiä.
   activity:
     all: Toiminta
     edited_by: Muokannut

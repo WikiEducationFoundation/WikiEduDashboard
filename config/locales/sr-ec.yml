@@ -139,7 +139,7 @@ sr-ec:
       налог, контактирајте dashboard@wikiedu.org.
   alerts:
     alert_label: Обавештења
-    no_alerts: Ниједно упозорење није пронађено.
+    no_data: Нису пронађени подаци.
     ai_stats:
       sections:
         description: Опис

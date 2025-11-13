@@ -125,7 +125,6 @@ be:
       запіс, звярніцеся на dashboard@wikiedu.org.
   alerts:
     alert_label: Заўвагі
-    no_alerts: Заўваг няма
   activity:
     all: Актыўнасць
     edited_by: Праўлена

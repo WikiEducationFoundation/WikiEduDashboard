@@ -169,7 +169,6 @@ ru:
       создать учетную запись, обратитесь по адресу dashboard@wikiedu.org.
   alerts:
     alert_label: Оповещения
-    no_alerts: Оповещения не найдены.
     ai_stats:
       timestamp: Метка времени
       sections:

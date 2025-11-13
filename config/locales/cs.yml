@@ -1,6 +1,7 @@
 # Messages for Czech (čeština)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: . M .
 # Author: Aktron
 # Author: Clon
 # Author: Dominikmatus
@@ -123,7 +124,8 @@ cs:
       kontaktujte dashboard@wikiedu.org.
   alerts:
     alert_label: Upozornění
-    no_alerts: Nenalezena žádná upozornění.
+    ai_stats:
+      users_involved: Zapojení uživatelé
   activity:
     all: Aktivita
     edited_by: Editoval(a)

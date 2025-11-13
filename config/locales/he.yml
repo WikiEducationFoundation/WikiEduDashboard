@@ -145,7 +145,6 @@ he:
       ישנה בעיה ביצירת החשבון החדש, יש ליצור קשר עם dashboard@wikiedu.org.
   alerts:
     alert_label: התראות
-    no_alerts: לא נמצאו התראות.
   activity:
     all: פעילות
     edited_by: נערך על-ידי
