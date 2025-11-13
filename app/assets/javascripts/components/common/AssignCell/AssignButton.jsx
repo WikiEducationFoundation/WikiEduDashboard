@@ -14,6 +14,8 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constant
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
+import { verifyMainSpaceArticle } from '@actions/article_actions.js';
+import { addNotification } from '@actions/notification_actions.js';
 
 
 // Helper Components
@@ -306,28 +308,44 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     return dispatch(initiateConfirm({ confirmMessage, onConfirm, warningMessage }));
   };
 
-  const assign = (e) => {
+  const assign = async (e) => {
     e.preventDefault();
-    title.split('\n').filter(Boolean).forEach((assignment_title) => {
-      const assignment = {
-        title: decodeURIComponent(assignment_title).trim(),
-        project,
-        language,
-        course_slug: course.slug,
-        role
-      };
+    // for (const assignment_title of title.split('\n').filter(Boolean))
+    const lines = title.split('\n').filter(Boolean);
 
-      if (!assignment.title || assignment.title === 'undefined') return;
-      if (assignment.title.length > 255) {
-        // Title shouldn't exceed 255 chars to prevent mysql errors
-        return alert(I18n.t('assignments.title_too_large'));
-      }
-      const studentId = (student && student.id) || null;
-      dispatch(addAssignment({
-        ...assignment,
-        user_id: studentId
-      }));
-    });
+    await Promise.all(
+      lines.map(async (assignment_title) => {
+        const assignment = {
+          title: decodeURIComponent(assignment_title).trim(),
+          project,
+          language,
+          course_slug: course.slug,
+          role
+        };
+
+        if (!assignment.title || assignment.title === 'undefined') return;
+        if (assignment.title.length > 255) {
+          // Title shouldn't exceed 255 chars to prevent mysql errors
+          return alert(I18n.t('assignments.title_too_large'));
+        }
+        const studentId = (student && student.id) || null;
+
+        if (course.type === 'ClassroomProgramCourse') {
+          const result = await dispatch(verifyMainSpaceArticle(assignment.title, assignment.language, assignment.project));
+          if (!result?.valid) {
+            return dispatch(addNotification({
+              message: result?.error,
+              type: 'error',
+              closable: true
+            }));
+          }
+        }
+        dispatch(addAssignment({
+          ...assignment,
+          user_id: studentId
+        }));
+      })
+    );
   };
 
   const review = (e, assignment) => {
