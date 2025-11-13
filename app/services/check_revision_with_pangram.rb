@@ -3,13 +3,15 @@
 require_dependency "#{Rails.root}/lib/pangram_api"
 
 class CheckRevisionWithPangram
-  def initialize(wiki_id, mw_rev_id, user_id, course_id, rev_date)
-    @wiki = Wiki.find wiki_id
-    @mw_rev_id = mw_rev_id
-    @user_id = user_id
-    @course_id = course_id
+  def initialize(attrs)
+    @wiki = Wiki.find attrs['wiki_id']
+    @mw_rev_id = attrs['mw_rev_id']
+    @user_id = attrs['user_id']
+    @course_id = attrs['course_id']
     @wiki_api = WikiApi.new(@wiki)
-    @rev_date = Time.zone.at(rev_date)
+    @rev_date = Time.zone.at(attrs['date'])
+    article_id = attrs['article_id']
+    @article = article_id.nil? ? nil : Article.find(article_id)
 
     check unless already_checked?
   end
@@ -37,24 +39,23 @@ class CheckRevisionWithPangram
     create_revision_ai_score
 
     generate_alert if ai_likely?
-
-    cache_pangram_check_timestamp
   end
 
   private
 
   PANGRAM_CHECK_TYPE = 'Pangram 2.0'
 
-  def cache_key
-    "pangram_#{@wiki.domain}_#{@mw_rev_id}"
-  end
-
+  # Determines whether the check was already performed for the given revision,
+  # based on the existence of a record in the data table with the same revision, wiki, and article,
+  # where the details field is not nil.
+  # A nil details field may indicate an error occurred when calling the API, so we want
+  # to retrieve it again.
   def already_checked?
-    Rails.cache.read(cache_key).present?
-  end
-
-  def cache_pangram_check_timestamp
-    Rails.cache.write(cache_key, Time.current.to_s, expires_in: 7.days)
+    RevisionAiScore.where(
+      revision_id: @mw_rev_id,
+      wiki_id: @wiki.id,
+      article_id: @article&.id
+    ).where.not(details: nil).exists?
   end
 
   def fetch_parent_revision

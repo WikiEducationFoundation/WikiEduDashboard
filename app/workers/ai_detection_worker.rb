@@ -7,10 +7,16 @@ class AiDetectionWorker
   sidekiq_options lock: :until_executed
 
   def self.schedule_check(wiki:, revision:, course:)
-    perform_async(wiki.id, revision.mw_rev_id, revision.user_id, course.id, revision.date.to_i)
+    attributes = { mw_rev_id: revision.mw_rev_id,
+                   wiki_id: wiki.id,
+                   article_id: revision.article_id,
+                   course_id: course.id,
+                   user_id: revision.user_id,
+                   date: revision.date.to_i }
+    perform_async(attributes)
   end
 
-  def perform(wiki_id, mw_rev_id, user_id, course_id, rev_date)
-    CheckRevisionWithPangram.new(wiki_id, mw_rev_id, user_id, course_id, rev_date)
+  def perform(attributes)
+    CheckRevisionWithPangram.new(attributes)
   end
 end

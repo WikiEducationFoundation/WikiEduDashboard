@@ -67,7 +67,14 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram' do
-        described_class.new(en_wiki.id, sandbox_creation_revision_id, user.id, course.id, date)
+        described_class.new(
+          { 'mw_rev_id' => sandbox_creation_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => sandbox_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'date' => date }
+        )
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(sandbox_article.id)
@@ -99,7 +106,14 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram_2' do
-        described_class.new(en_wiki.id, live_article_revision_id, user.id, course.id, date)
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => live_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'date' => date }
+        )
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
@@ -120,8 +134,62 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(described_class).not_to receive(:fetch_revision_html)
 
       VCR.use_cassette 'pangram_missing_revision' do
-        described_class.new(en_wiki.id, missing_revision_id, user.id, course.id, date)
+        described_class.new(
+          { 'mw_rev_id' => missing_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => nil,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'date' => date }
+        )
       end
+    end
+  end
+
+  context 'when the revision was already checked' do
+    let!(:live_article) do
+      create(:article, title: '3M_contamination_of_Minnesota_groundwater',
+                       mw_page_id: 68907377)
+    end
+    let(:live_article_revision_id) { 1315795891 }
+    let!(:revision_ai_score) do
+      create(:revision_ai_score, revision_id: live_article_revision_id,
+             wiki_id: en_wiki.id, course:, user:, article: live_article,
+             details: stored_simplified_pangram_response)
+    end
+
+    it 'returns prematurely if the record is found' do
+      expect_any_instance_of(described_class).not_to receive(:check)
+
+      VCR.use_cassette 'pangram_missing_revision' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => live_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'date' => date }
+        )
+      end
+    end
+
+    it 'checks the revision again if no details' do
+      revision_ai_score.update(details: nil)
+      expect_any_instance_of(described_class).to receive(:check).and_call_original
+
+      VCR.use_cassette 'pangram_missing_revision' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => live_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'date' => date }
+        )
+      end
+
+      expect(RevisionAiScore.count).to eq(2)
+      expect(RevisionAiScore.last.details).not_to be_nil
     end
   end
 end
