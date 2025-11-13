@@ -170,7 +170,6 @@ es:
       crear una cuenta, contacta a dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
-    no_alerts: No se encontró ninguna alerta.
   activity:
     all: Actividad
     edited_by: Editado por

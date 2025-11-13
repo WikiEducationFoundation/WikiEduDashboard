@@ -144,7 +144,6 @@ bn:
       তৈরি করতে অক্ষম হলে, যোগাযোগ করুন dashboard@wikiedu.org
   alerts:
     alert_label: অবহিতি
-    no_alerts: কোনো অবহিতি পাওয়া যায়নি।
   activity:
     all: কর্মকাণ্ড
     edited_by: সম্পাদক

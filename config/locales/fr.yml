@@ -171,7 +171,6 @@ fr:
       ne parvenez pas à créer de compte, contactez dashboard@wikiedu.org.
   alerts:
     alert_label: Alertes
-    no_alerts: Aucune alerte trouvée.
   activity:
     all: Activité
     edited_by: Modifié par

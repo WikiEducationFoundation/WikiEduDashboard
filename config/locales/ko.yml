@@ -109,7 +109,6 @@ ko:
       새 계정을 만들 수 있습니다.
   alerts:
     alert_label: 경보
-    no_alerts: 경보가 없습니다.
   activity:
     all: 활동
     edited_by: '편집자 :'

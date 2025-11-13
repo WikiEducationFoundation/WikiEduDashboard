@@ -130,7 +130,6 @@ eu:
       erregistratu zaitezke, ala kontu berri bat sortu.
   alerts:
     alert_label: Alertak
-    no_alerts: Ez da alertarik aurkitu.
   activity:
     all: Jarduera
     edited_by: Nork editatua

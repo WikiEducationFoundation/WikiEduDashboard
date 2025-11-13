@@ -131,7 +131,6 @@ uk:
       ви не можете створити обліковий запис, зверніться за адресою dashboard@wikiedu.org.
   alerts:
     alert_label: Сповіщення
-    no_alerts: Не знайдено сповіщень.
   activity:
     all: Активність
     edited_by: Редаговано

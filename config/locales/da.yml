@@ -135,7 +135,6 @@ da:
       Wikipedia-konto eller oprette en ny.
   alerts:
     alert_label: Alarmer
-    no_alerts: Ingen alarmer fundet.
   activity:
     all: Aktivitet
     edited_by: Redigeret af

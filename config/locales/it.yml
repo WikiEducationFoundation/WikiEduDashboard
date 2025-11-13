@@ -132,7 +132,7 @@ it:
       un'utenza, contatta dashboard@wikiedu.org.
   alerts:
     alert_label: Avvisi
-    no_alerts: Nessun avviso trovato.
+    no_data: Nessun dato trovato.
     ai_stats:
       page_type: Tipo di pagina
       single_alert_view: Avviso

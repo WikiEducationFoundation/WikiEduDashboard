@@ -113,7 +113,6 @@ ast:
       de Wikipedia esistiente o crear una nueva.
   alerts:
     alert_label: Alertes
-    no_alerts: Nun s'alcontró nenguna alerta.
   activity:
     all: Actividá
     edited_by: Editáu por

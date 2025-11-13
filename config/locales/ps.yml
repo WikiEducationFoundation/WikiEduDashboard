@@ -109,7 +109,6 @@ ps:
         heading: سلا
   alerts:
     alert_label: خبرونې
-    no_alerts: هېڅ خبرونې ونه موندل شوې.
   activity:
     all: چاره
     edited_by: سمونگر

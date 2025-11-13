@@ -90,7 +90,6 @@ io:
     sign_up: Registragez uzanta Wikipedio
   alerts:
     alert_label: Avizi
-    no_alerts: Nula avizi trovesis.
   activity:
     all: Aktiveso
     edited_by: Redaktita da

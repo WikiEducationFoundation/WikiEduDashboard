@@ -92,7 +92,6 @@ lb:
         heading: Benotzernumm-Reegelen
   alerts:
     alert_label: Meldungen
-    no_alerts: Keng Warnunge fonnt.
     ai_stats:
       timestamp: Zäitstempel
       by_page_type: No Säitentyp

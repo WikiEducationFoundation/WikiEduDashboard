@@ -110,7 +110,6 @@ el:
         heading: Συμβουλή
   alerts:
     alert_label: Ειδοποιήσεις
-    no_alerts: Δεν βρέθηκαν ειδοποιήσεις.
   activity:
     all: Δραστηριότητα
     edited_by: Επεξεργάστηκε από

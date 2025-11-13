@@ -82,7 +82,6 @@ pa:
         heading: ਸਲਾਹ
   alerts:
     alert_label: ਚੇਤਾਵਨੀਆਂ
-    no_alerts: ਕੋਈ ਚਿਤਾਵਨੀਆਂ ਨਹੀਂ ਮਿਲੀਆਂ।
   activity:
     all: ਸਰਗਰਮੀ
     edited_by: ਵੱਲੋਂ ਸੋਧਿਆ

@@ -113,7 +113,6 @@ fa:
       نیستید، با dashboard@wikiedu.org تماس بگیرید.
   alerts:
     alert_label: هشدارها
-    no_alerts: هشداری یافت نشد.
     ai_stats:
       timestamp: برچسب زمان
   activity:
@@ -212,6 +211,7 @@ fa:
     review_self: بازبینی یک مقاله
     review_self_wikidata: بازبینی یک آیتم
     select: انتخاب
+    sandbox_label: صفحهٔ تمرین
   blocks:
     milestones:
       title: نقاط عطف

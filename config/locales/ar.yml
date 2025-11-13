@@ -153,7 +153,6 @@ ar:
       ، أو إنشاء حساب جديد. إذا لم تتمكن من إنشاء حساب ، فاتصل بـ dashboard@wikiedu.org.
   alerts:
     alert_label: تنبيهات
-    no_alerts: لم يتم العثور على تنبيهات.
   activity:
     all: النشاط
     edited_by: تم التعديل بواسطة

@@ -159,7 +159,6 @@ nl:
       om een account aan te maken, neem dan contact op met dashboard@wikiedu.org.
   alerts:
     alert_label: Meldingen
-    no_alerts: Geen meldingen gevonden.
     ai_stats:
       title: AI Bewerkingswaarschuwingenstatistieken
       general_stats: Algemene statistieken voor campagne %{campaign_name}

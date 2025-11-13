@@ -123,7 +123,6 @@ hu:
       létrehozni, lépj kapcsolatba velünk a dashboard@wikiedu.org címen.
   alerts:
     alert_label: Értesítések
-    no_alerts: Nem található értesítés.
   activity:
     all: Tevékenység
     edited_by: Szerkesztette
