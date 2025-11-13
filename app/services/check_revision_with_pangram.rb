@@ -9,7 +9,7 @@ class CheckRevisionWithPangram
     @user_id = user_id
     @course_id = course_id
     @wiki_api = WikiApi.new(@wiki)
-    @rev_date = rev_date
+    @rev_date = Time.zone.at(rev_date)
 
     check unless already_checked?
   end

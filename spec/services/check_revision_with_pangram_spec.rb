@@ -45,7 +45,7 @@ describe CheckRevisionWithPangram do
       'version' => 'adaptive_boundaries',
       'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
-  let(:date) { '2018-07-06T16:59:37+00:00' }
+  let(:date) { 1757359506 }
 
   context 'when it is the first revision' do
     # https://en.wikipedia.org/w/index.php?title=User:Resekorynta/Evaluate_an_Article&oldid=1315967896
