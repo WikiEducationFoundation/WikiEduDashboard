@@ -13,7 +13,6 @@ import ArticleUtils from '../../utils/article_utils.js';
 import { parse, stringify } from 'query-string';
 import { PaginatedArticleControls } from './PaginatedArticleControls';
 import Select from 'react-select';
-import Switch from 'react-switch';
 import sortSelectStyles from '../../styles/sort_select';
 
 const defaults_params = { wiki: 'all', tracked: 'tracked', newness: 'both' };
@@ -101,10 +100,6 @@ const ArticleList = createReactClass({
     return this.props.filterTrackedStatus(e.target.value);
   },
 
-  onPageviewDisplayModeChange(checked) {
-    const mode = checked ? 'average' : 'cumulative';
-    return this.props.setPageviewDisplayMode(mode);
-  },
 
   updateParams(filter, value) {
     // instead of using React Router's location, we must use window.location
@@ -161,6 +156,27 @@ const ArticleList = createReactClass({
         info_key: `${ArticleUtils.articlesOrItems(project)}.tracked_doc`
       };
     }
+
+    // Add custom label for view_count column with inline toggle
+    keys.view_count.label = (
+      <div className="view-column-header">
+        <span>{I18n.t('metrics.view')}</span>
+        <div className="view-mode-toggle">
+          <button
+            className={`view-mode-btn ${this.props.pageviewDisplayMode === 'cumulative' ? 'active' : ''}`}
+            onClick={(e) => { e.stopPropagation(); this.props.setPageviewDisplayMode('cumulative'); }}
+          >
+            {I18n.t('articles.cumulative')}
+          </button>
+          <button
+            className={`view-mode-btn ${this.props.pageviewDisplayMode === 'average' ? 'active' : ''}`}
+            onClick={(e) => { e.stopPropagation(); this.props.setPageviewDisplayMode('average'); }}
+          >
+            {I18n.t('articles.daily_avg')}
+          </button>
+        </div>
+      </div>
+    );
 
     const sort = this.props.sort;
     if (sort.key) {
@@ -259,22 +275,6 @@ const ArticleList = createReactClass({
       );
     }
 
-    const pageviewToggle = (
-      <div className="pageview-toggle-container">
-        <label className="pageview-toggle-label">
-          <span className="pageview-label">{I18n.t('articles.pageviews_label')}</span>
-          <span>{I18n.t('articles.cumulative_pageviews')}</span>
-          <Switch
-            onChange={this.onPageviewDisplayModeChange}
-            checked={this.props.pageviewDisplayMode === 'average'}
-            onColor="#676eb4"
-            className="pageview-toggle-switch"
-          />
-          <span>{I18n.t('articles.average_pageviews_per_day')}</span>
-        </label>
-      </div>
-    );
-
     let filterLabel;
     if (!!filterWikis || !!filterArticlesSelect || !!filterTracked) {
       filterLabel = <b>{I18n.t('articles.filter_text')}</b>;
@@ -308,7 +308,6 @@ const ArticleList = createReactClass({
           {filterTracked}
           {filterArticlesSelect}
           {filterWikis}
-          {pageviewToggle}
           {articleSort}
         </div>
       </div>
