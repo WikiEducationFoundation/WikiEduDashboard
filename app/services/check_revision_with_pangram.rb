@@ -3,12 +3,13 @@
 require_dependency "#{Rails.root}/lib/pangram_api"
 
 class CheckRevisionWithPangram
-  def initialize(wiki_id, mw_rev_id, user_id, course_id)
+  def initialize(wiki_id, mw_rev_id, user_id, course_id, rev_date)
     @wiki = Wiki.find wiki_id
     @mw_rev_id = mw_rev_id
     @user_id = user_id
     @course_id = course_id
     @wiki_api = WikiApi.new(@wiki)
+    @rev_date = rev_date
 
     check unless already_checked?
   end

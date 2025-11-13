@@ -27,6 +27,7 @@ describe CheckRevisionWithPangram do
       'version' => 'adaptive_boundaries',
       'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
+  let(:date) { '2018-07-06T16:59:37+00:00' }
 
   context 'when it is the first revision' do
     # https://en.wikipedia.org/w/index.php?title=User:Resekorynta/Evaluate_an_Article&oldid=1315967896
@@ -48,7 +49,7 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram' do
-        described_class.new(en_wiki.id, sandbox_creation_revision_id, user.id, course.id)
+        described_class.new(en_wiki.id, sandbox_creation_revision_id, user.id, course.id, date)
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(sandbox_article.id)
@@ -76,7 +77,7 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram_2' do
-        described_class.new(en_wiki.id, live_article_revision_id, user.id, course.id)
+        described_class.new(en_wiki.id, live_article_revision_id, user.id, course.id, date)
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
@@ -93,7 +94,7 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(described_class).not_to receive(:fetch_revision_html)
 
       VCR.use_cassette 'pangram_missing_revision' do
-        described_class.new(en_wiki.id, missing_revision_id, user.id, course.id)
+        described_class.new(en_wiki.id, missing_revision_id, user.id, course.id, date)
       end
     end
   end
