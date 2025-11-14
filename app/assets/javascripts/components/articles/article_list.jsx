@@ -158,9 +158,16 @@ const ArticleList = createReactClass({
     }
 
     // Add custom label for view_count column with inline toggle
+    const articlesOrItems = ArticleUtils.articlesOrItems(project);
     keys.view_count.label = (
       <div className="view-column-header">
-        <span>{I18n.t('metrics.view')}</span>
+        <span className="tooltip-trigger">
+          {I18n.t('metrics.view')}
+          <span className="tooltip-indicator-list" />
+          <div className="tooltip dark">
+            <p>{I18n.t(`${articlesOrItems}.view_doc`)}</p>
+          </div>
+        </span>
         <div className="view-mode-toggle">
           <button
             className={`view-mode-btn ${this.props.pageviewDisplayMode === 'cumulative' ? 'active' : ''}`}
@@ -177,6 +184,8 @@ const ArticleList = createReactClass({
         </div>
       </div>
     );
+    // Remove info_key since we're manually rendering the tooltip
+    delete keys.view_count.info_key;
 
     const sort = this.props.sort;
     if (sort.key) {
