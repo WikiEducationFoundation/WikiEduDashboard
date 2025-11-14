@@ -155,10 +155,6 @@ class CheckRevisionWithPangram
     AiEditAlert.exists?(revision_id: @mw_rev_id)
   end
 
-  def find_article
-    @article = Article.find_by(mw_page_id: @mw_page_id, wiki: @wiki)
-  end
-
   def pangram_details
     {
       article_title: @article_title,
@@ -232,8 +228,6 @@ class CheckRevisionWithPangram
 
   # Imports data into the RevisionAiScores table
   def create_revision_ai_score
-    find_article
-
     RevisionAiScore.create(revision_id: @mw_rev_id,
                            wiki_id: @wiki.id,
                            article_id:  @article&.id,
