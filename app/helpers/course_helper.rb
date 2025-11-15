@@ -58,26 +58,4 @@ module CourseHelper
     return 'table-row--closed' if course.flags&.dig(:closed_date)
     return ''
   end
-
-  def tracking_description(course)
-    return '' unless course
-
-    # Format home wiki name safely
-    home = "#{course.home_wiki.language}.#{course.home_wiki.project}.org"
-
-    # Format other wikis, excluding duplicates
-    other_wikis = course.wikis.filter_map do |w|
-      next if w == course.home_wiki
-      "#{w.language}.#{w.project}.org"
-    end
-    wikis_list = ([home] + other_wikis).uniq.to_sentence
-
-    # Format dates
-    end_date = course.end&.strftime('%B %e, %Y')
-    update_until = course.update_until&.strftime('%B %e, %Y')
-
-    # Compose message
-    "Edits for this program from #{wikis_list} will be tracked through #{end_date}. " \
-      "The dashboard will continue updating stats until #{update_until}."
-  end
 end

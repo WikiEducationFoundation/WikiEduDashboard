@@ -70,6 +70,7 @@ class CoursesController < ApplicationController
     protect_privacy
     verify_edit_credentials { return }
     set_enrollment_details_in_session
+    @tracking_description = TrackingDescriptionBuilder.new(@course).call
 
     # Only responds to HTML, so spiders fetching index.php will get a 404.
     respond_to do |format|
@@ -99,6 +100,7 @@ class CoursesController < ApplicationController
   def course
     set_course
     verify_edit_credentials { return }
+    @tracking_description = TrackingDescriptionBuilder.new(@course).call
   end
 
   def articles

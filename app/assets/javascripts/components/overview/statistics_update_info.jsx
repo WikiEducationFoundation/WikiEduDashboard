@@ -13,7 +13,6 @@ const StatisticsUpdateInfo = ({ course }) => {
   if (Features.wikiEd && !course.ended) {
     return <div />;
   }
-
   const [lastUpdateMessage, nextUpdateMessage, isNextUpdateAfter] = getUpdateMessage(course);
 
   if (showModal) {
@@ -32,7 +31,10 @@ const StatisticsUpdateInfo = ({ course }) => {
   return (
     <div className="statistics-update-info pull-right mb2">
       <small>
-        {updateTimesMessage} {(course.flags.first_update || course.flags.update_logs) && <a onClick={toggleModal} href="#">{I18n.t('metrics.update_statistics_link')}</a>}
+        {updateTimesMessage}
+        <a onClick={toggleModal} href="#">
+          {I18n.t('metrics.update_statistics_link')}
+        </a>
       </small>
     </div>
   );
