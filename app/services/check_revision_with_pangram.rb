@@ -35,6 +35,8 @@ class CheckRevisionWithPangram
       fetch_parsed_changed_wikitext
     end
     generate_plaintext_from_html
+    # Skip the API call if the plain text is too short.
+    return if @plain_text.length < MIN_PLAIN_TEXT_LENGTH
     fetch_pangram_inference
     create_revision_ai_score
 
@@ -42,6 +44,8 @@ class CheckRevisionWithPangram
   end
 
   private
+
+  MIN_PLAIN_TEXT_LENGTH = 500
 
   PANGRAM_CHECK_TYPE = 'Pangram 2.0'
 

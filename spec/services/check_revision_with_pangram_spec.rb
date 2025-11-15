@@ -161,7 +161,7 @@ describe CheckRevisionWithPangram do
     it 'returns prematurely if the record is found' do
       expect_any_instance_of(described_class).not_to receive(:check)
 
-      VCR.use_cassette 'pangram_missing_revision' do
+      VCR.use_cassette 'pangram_revision_found' do
         described_class.new(
           { 'mw_rev_id' => live_article_revision_id,
            'wiki_id' => en_wiki.id,
@@ -177,7 +177,7 @@ describe CheckRevisionWithPangram do
       revision_ai_score.update(details: nil)
       expect_any_instance_of(described_class).to receive(:check).and_call_original
 
-      VCR.use_cassette 'pangram_missing_revision' do
+      VCR.use_cassette 'pangram_revision_no_details' do
         described_class.new(
           { 'mw_rev_id' => live_article_revision_id,
            'wiki_id' => en_wiki.id,
@@ -190,6 +190,29 @@ describe CheckRevisionWithPangram do
 
       expect(RevisionAiScore.count).to eq(2)
       expect(RevisionAiScore.last.details).not_to be_nil
+    end
+  end
+
+  context 'when the revision has empty plain text' do
+    let!(:article) do
+      create(:article, title: 'محمد_أمين_الطرابلسي/sandbox3',
+                       mw_page_id: 76107536)
+    end
+    let(:revision_id) { 1318180742 }
+
+    it 'does not fail' do
+      VCR.use_cassette 'pangram_empty_plain_text' do
+        expect_any_instance_of(described_class).not_to receive(:fetch_pangram_inference)
+
+        described_class.new(
+          { 'mw_rev_id' => revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'date' => date }
+        )
+      end
     end
   end
 end
