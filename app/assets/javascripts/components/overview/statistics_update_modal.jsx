@@ -4,12 +4,17 @@ import ArticleUtils from '../../utils/article_utils';
 import { isAfter, format } from 'date-fns';
 import { getUTCDate, toDate } from '../../utils/date_utils';
 import TrackingDescription from './tracking_description';
+import UpdateLogs from './update_logs';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
   const helpMessage = Features.wikiEd
     ? I18n.t('metrics.wiki_ed_help')
     : I18n.t('metrics.outreach_help');
+
+  const updateLogs = getUpdateLogs(course) || [];
+  const lastUpdateSummary = getLastUpdateSummary(course);
+  const totalUpdatesMessage = getTotaUpdatesMessage(course);
 
   const updatesEndMoment = toDate(course.update_until);
   const futureUpdatesRemaining = isAfter(updatesEndMoment, new Date());
@@ -23,26 +28,6 @@ const StatisticsUpdateModal = (props) => {
   const additionalUpdateMessage = course.needs_update
     ? I18n.t('metrics.non_updating_course_update')
     : '';
-
-  const lastUpdateSummary = getLastUpdateSummary(course);
-  const updateLogs = getUpdateLogs(course) || [];
-  const hasNoUpdates = updateLogs.length === 0;
-
-  const failureUpdatesCount = updateLogs.filter(
-    log => log.orphan_lock_failure !== undefined
-  ).length;
-
-  const erroredUpdatesCount = updateLogs.filter(
-    log => log.error_count !== undefined && log.error_count > 0
-  ).length;
-
-  const recentUpdatesSummary = I18n.t('metrics.recent_updates_summary', {
-    total: updateLogs.length,
-    failure_count: failureUpdatesCount,
-    error_count: erroredUpdatesCount
-  });
-
-  const totalUpdatesMessage = getTotaUpdatesMessage(course);
 
   const isNextUpdateAfter = props.isNextUpdateAfter;
   let nextUpdateMessage = props.nextUpdateMessage;
@@ -58,32 +43,29 @@ const StatisticsUpdateModal = (props) => {
       <div className="statistics-update-modal">
         <b>{I18n.t('metrics.update_status_heading')}</b>
         <br />
-        {hasNoUpdates ? (
-          <p>
-            {I18n.t('metrics.no_updates_yet', {
-              defaultValue: 'No updates for this program yet.'
-            })}
-          </p>
-        ) : (
+
+        {/* Log and Summary Section */}
+        <UpdateLogs
+          course={course}
+          updateLogs={updateLogs}
+          isNextUpdateAfter={isNextUpdateAfter}
+          nextUpdateMessage={nextUpdateMessage}
+        />
+
+        {/* Tracking Description */}
+        {course.tracking_description && (
           <>
-            {lastUpdateSummary}
-            <ul>
-              <li>{recentUpdatesSummary}</li>
-              <li>{totalUpdatesMessage}</li>
-              <li>{nextUpdateMessage}</li>
-              <li>
-                {futureUpdatesMessage} {additionalUpdateMessage}
-              </li>
-            </ul>
+            <b>
+              {I18n.t('metrics.tracking_status_title', {
+                defaultValue: 'Tracking Status'
+              })}
+              :
+            </b>
+            <TrackingDescription trackingDescription={course.tracking_description} />
           </>
         )}
 
-        {course.tracking_description && (
-        <>
-          <b>{I18n.t('metrics.tracking_status_title', { defaultValue: 'Tracking Status' })}:</b>
-          <TrackingDescription trackingDescription={course.tracking_description} />
-        </>
-        )}
+        {/* Missing Data Section */}
         <b>{I18n.t('metrics.missing_data_heading')}</b>
         <br />
         {I18n.t('metrics.missing_data_info')}:
@@ -98,6 +80,8 @@ const StatisticsUpdateModal = (props) => {
               {I18n.t('metrics.replag_link')}
             </a>
           </li>
+
+          {/* ArticleScopedProgram note */}
           {course.type === 'ArticleScopedProgram' && (
             <li>
               {I18n.t(
@@ -112,6 +96,7 @@ const StatisticsUpdateModal = (props) => {
 
         <small>{helpMessage}</small>
         <br />
+
         <button className="button dark" onClick={props.toggleModal}>
           {I18n.t('metrics.close_modal')}
         </button>
