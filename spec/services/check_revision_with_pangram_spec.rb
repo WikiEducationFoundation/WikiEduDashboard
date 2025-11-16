@@ -161,23 +161,30 @@ describe CheckRevisionWithPangram do
     it 'returns prematurely if the record is found' do
       expect_any_instance_of(described_class).not_to receive(:check)
 
-      VCR.use_cassette 'pangram_revision_found' do
-        described_class.new(
-          { 'mw_rev_id' => live_article_revision_id,
-           'wiki_id' => en_wiki.id,
-           'article_id' => live_article.id,
-           'course_id' => course.id,
-           'user_id' => user.id,
-           'date' => date }
-        )
-      end
+      described_class.new(
+        { 'mw_rev_id' => live_article_revision_id,
+         'wiki_id' => en_wiki.id,
+         'article_id' => live_article.id,
+         'course_id' => course.id,
+         'user_id' => user.id,
+         'date' => date }
+      )
     end
 
     it 'checks the revision again if no details' do
       revision_ai_score.update(details: nil)
-      expect_any_instance_of(described_class).to receive(:check).and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_parent_revision).and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_diff_table).and_call_original
+      expect_any_instance_of(described_class).to receive(:generate_wikitext_from_diff_table)
+                                             .and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_parsed_changed_wikitext)
+                                             .and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_pangram_inference).and_call_original
+      expect_any_instance_of(described_class).to receive(:generate_alert).and_call_original
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
 
-      VCR.use_cassette 'pangram_revision_no_details' do
+      VCR.use_cassette 'pangram_2' do
         described_class.new(
           { 'mw_rev_id' => live_article_revision_id,
            'wiki_id' => en_wiki.id,
