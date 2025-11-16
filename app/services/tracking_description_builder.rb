@@ -32,12 +32,16 @@ class TrackingDescriptionBuilder
   languages.any? ? languages.join(', ') : 'no wikis configured'
 end
 
-  # NEW — always show something, but clarify that tracking begins later
- def no_updates_message
-  start_date = @course.start&.strftime('%B %d, %Y') || "a future date"
-  "This program is scheduled to begin on #{start_date}. " \
-  "When it starts, edits from #{wiki_list} will be tracked automatically. "
-end
+   def not_started_message
+    start_date = @course.start.strftime('%B %d, %Y')
+    "This program is scheduled to begin on #{start_date}. " \
+    "When it starts, edits from #{wiki_list} will be tracked automatically."
+  end
+
+  def no_updates_message
+    "This program currently has no students or campaigns, so no edits can be tracked. " \
+    "Please add students and campaigns to enable tracking."
+  end
 
   def active_tracking_message
     end_date = @course.end.strftime('%B %d, %Y')

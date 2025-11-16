@@ -83,7 +83,7 @@ const StatisticsUpdateModal = (props) => {
           <b>{I18n.t('metrics.tracking_status_title', { defaultValue: 'Tracking Status' })}:</b>
           <TrackingDescription trackingDescription={course.tracking_description} />
         </>
-)}
+        )}
         <b>{I18n.t('metrics.missing_data_heading')}</b>
         <br />
         {I18n.t('metrics.missing_data_info')}:
