@@ -19,34 +19,34 @@ class TrackingDescriptionBuilder
   end
 
   def wiki_list
-  wikis =
-    if @course.respond_to?(:all_wikis)
-      @course.all_wikis
-    elsif @course.respond_to?(:wikis)
-      @course.wikis
-    else
-      []
-    end
+    wikis =
+      if @course.respond_to?(:all_wikis)
+        @course.all_wikis
+      elsif @course.respond_to?(:wikis)
+        @course.wikis
+      else
+        []
+      end
 
-  languages = wikis.map(&:language).compact
-  languages.any? ? languages.join(', ') : 'no wikis configured'
-end
+    languages = wikis.filter_map(&:language)
+    languages.any? ? languages.join(', ') : 'no wikis configured'
+  end
 
-   def not_started_message
+  def not_started_message
     start_date = @course.start.strftime('%B %d, %Y')
     "This program is scheduled to begin on #{start_date}. " \
-    "When it starts, edits from #{wiki_list} will be tracked automatically."
+      "When it starts, edits from #{wiki_list} will be tracked automatically."
   end
 
   def no_updates_message
-    "This program currently has no students or campaigns, so no edits can be tracked. " \
-    "Please add students and campaigns to enable tracking."
+    'This program currently has no students or campaigns, so no edits can be tracked. ' \
+      'Please add students and campaigns to enable tracking.'
   end
 
   def active_tracking_message
     end_date = @course.end.strftime('%B %d, %Y')
     update_until = (@course.end + 1.week).strftime('%B %d, %Y')
     "Edits for this program from #{wiki_list} will be tracked through #{end_date}. " \
-    "The dashboard will continue updating statistics until #{update_until}."
+      "The dashboard will continue updating statistics until #{update_until}."
   end
 end

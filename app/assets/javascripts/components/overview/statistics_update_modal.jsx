@@ -9,8 +9,7 @@ const StatisticsUpdateModal = (props) => {
   const course = props.course;
 
   const helpMessage = Features.wikiEd
-    ? I18n.t('metrics.wiki_ed_help')
-    : I18n.t('metrics.outreach_help');
+    ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
   const updatesEndMoment = toDate(course.update_until);
   const futureUpdatesRemaining = isAfter(updatesEndMoment, new Date());

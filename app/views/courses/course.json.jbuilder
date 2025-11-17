@@ -58,17 +58,17 @@ json.course do
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   update_logs = @course.flags['update_logs']
 
-if update_logs.present?
-  json.updates do
-    json.average_delay @course.flags['average_update_delay']
-    json.last_update update_logs.values.last
-    json.logs update_logs
+  if update_logs.present?
+    json.updates do
+      json.average_delay @course.flags['average_update_delay']
+      json.last_update update_logs.values.last
+      json.logs update_logs
+    end
+  else
+    json.updates do
+      json.message 'No updates for this course yet.'
+    end
   end
-else
-  json.updates do
-    json.message 'No updates for this course yet.'
-  end
-end
 
   if [CoursesUsers::Roles::STUDENT_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE].include? user_role
     json.incomplete_assigned_modules @course.training_progress_manager
