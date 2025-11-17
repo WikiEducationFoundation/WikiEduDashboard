@@ -11,19 +11,31 @@ yue-hant:
       decimal_units:
         format: '%n%u'
   application:
+    back: 返去
+    cancel: 取消
+    next: 下一個
     cookie_consent_acknowledge: 我明白
     cookie_consent_see_more: 睇多啲。
     create_accounts: 開維基百科戶口
     documentation: 文檔
     explore: 探索
+    field_invalid_date: 呢個欄位需要 YYYY-MM-DD 格式嘅日期
     greeting2: 歡迎！
     greeting_extended: 歡迎嚟到維基百科
     greeting: 哈佬！
     help: 幫手
     home: 頭版
+    log_in_extended: 用維基百科簽到
     log_in: 簽到
     log_out: 簽走
+    okay: 好
+    recent_activity: 最近活動
+    report_problem: 報告問題
+    request_account_create: 開戶口
     search: 問問題
+    sign_up_extended: 用維基百科註冊
+    sign_up_wikipedia: 或者喺維基百科註冊
+    sign_up_log_in_extended: 同維基百科
     sign_up: 開戶口
     submit: 遞交
     change: 改動
@@ -34,6 +46,20 @@ yue-hant:
     opt_yes: 係
     opt_no: 唔係
     print: 打印
+  dashboard:
+    explore_course_pages: 瀏覽課程頁面
+    explore_examples: 探索例子
+    about_programs: 呢個網站透過計劃追蹤維基活動——例如編輯馬拉松或者學校課程嘅個別活動。每個計劃都係一個或多個活動嘅一部分，活動會提供跨計劃嘅總計統計。
+  home:
+    explore: 探索
+    log_in: 用維基百科簽到
+    sign_up: 用維基百科註冊
+    sign_up_help: 要用儀表板，你要透過維基百科簽到同畀佢權限存取你嘅帳戶。你可以用現有維基百科帳戶簽到，或者開一個新帳戶。如果你開唔到帳戶，唔該聯絡dashboard@wikiedu.org。
+  alerts:
+    ai_stats:
+      sections:
+        descriptions:
+          multiple_alerts_students: 最近14日內為有多個警示嘅學生建立嘅警示，按建立日期排序。
   activity:
     all: 活動
     label: 活動
@@ -43,6 +69,7 @@ yue-hant:
     previous: 上一個
     article_title: 文章標題
     deleted: (刪咗)
+    edited: 編輯條目
     filter:
       wiki_all: 全部
       new: 新
@@ -51,13 +78,114 @@ yue-hant:
     label: 文章
     mark_as_incomplete: 標記為未完成
     title: 標題
+    use_dashboard: 點樣用儀表板
   assignments:
     add_placeholder: 輸入文章標題或者網址
     outline: 大綱
+  campaign:
+    created_at: 日期
+    create_campaign: 建立新活動
+    data_instructors_info: 導師／帶領者同佢哋課程／計劃一覽
+    data_editors_by_course_info: 已註冊編輯同佢哋嘅課程／計劃一覽
+    default_passcode_explanation: 預設嚟講，呢個活動入面嘅新計劃應該有：
+    newest_campaigns: 最新活動
+    too_many_articles: 呢個活動嘅編輯條目清單太長，唔可以顯示。請檢視個別課程／計劃／活動，先至睇到編輯過嘅條目。
   courses:
+    article_viewer: 條目檢視器
+    campaign_users: '%{title} 編輯者'
     creation_date: 創建嘅日期
+    creator:
+      update_scheduled: 更新已排期。數據會喺下一個更新週期，同所有現有計劃一齊更新。通常需要幾個鐘。
+    data_uploads: 共享資源上載數據
+    invitation: 你收到邀請加入 %{title}。要加入，你要用維基百科帳戶簽到。
+    invitation_username_advice: 如果你仲未有維基百科帳戶，立即註冊一個。你嘅用戶名可以隨你喜好——匿名或者真實身份都得。（唔准用共享帳戶。）
+    no_campaign: 要啟用呢個計劃同容許用戶加入，必須將佢加到一個活動。如果唔肯定加邊個活動，就用「Miscellanea」。
+    please_log_in: 唔該簽到。
+    timeline_tooltip: 啟用時間線可以畀你指定每週活動同分配訓練模組。呢個功能對教育計劃課程同其他長時間、高度結構化嘅計劃好有用。
+    view_doc: 註冊編輯自首次編輯每篇條目以嚟，條目嘅估計瀏覽量
+    word_count_doc: 課程期間，學生喺主命名空間條目新增嘅字數估計
+    word_count_doc_wikidata: 課程期間，學生喺主命名空間項目新增嘅字數估計
+  courses_generic:
+    all_courses: 所有計劃
+    archived: 封存咗嘅計劃
+    courses: 計劃
+    courses_taught: 計劃教咗
+    campaign_courses: '%{title}計劃'
+    explore: 搵計劃
+    courses_enrolled: 計劃參與咗
+    search_courses: 搵計劃
+    unsubmitted: 未提交嘅計劃
+    word_count_doc: 計劃期間，計劃編輯喺主命名空間條目新增嘅字數估計
+    word_count_doc_wikidata: 計劃期間，編輯喺主命名空間項目新增嘅字數估計
+    yourcourses: 您嘅計劃
+  instructor_view:
+    bad_work:
+      submit_issue: 呢篇條目有邊啲重大問題？
+      submit_issue_wikidata: 呢個項目有邊啲重大問題？
+  metrics:
+    are_trained: 已經完成訓練最新內容
+    articles_created: 建立條目
+    articles_created_wikidata: 建立項目
+    articles_created_generic: 建立頁面
+    articles_created_generic_wikidata: 建立項目
+    references_count: 新增參考
+    references_doc: 呢個係條目新增嘅參考標籤同簡化腳註模板數目，可以包括多次引用同一來源。數據嚟自 reference-counter Toolforge
+      API。
+    references_doc_wikidata: 呢個係項目新增嘅參考標籤數目，可以包括多次引用同一來源。數據來自 ORES 項目質素模型，只適用於部分語言。
+    upload_count: 共享資源上載
+    uploads_in_use_count:
+      one: 用喺條目入面嘅檔案
+      other: 用喺條目入面嘅檔案
+    uploads_in_use_count_wikidata:
+      one: 用喺項目嘅檔案
+      other: 用喺項目嘅檔案
+    upload_usages_count:
+      one: 跨語言總用量
+      other: 跨語言總用量
+    view_count_description: 條目瀏覽次數
+    view_count_doc: 呢個係根據每篇條目最近 30 日平均數估計嘅瀏覽量，計至最新統計更新。假如更新後平均數低過之前，瀏覽量可能會減少。
+    view_count_doc_wikidata: 呢個係根據每篇條目最近 30 日平均數估計嘅瀏覽量，計至最新統計更新。假如更新後平均數低過之前，瀏覽量可能會減少。
+    word_count: 新增字數
+    created: 建立
+    redirects_created: 建立跳轉
+    references_added: 新增參考
+  namespace:
+    tracked_namespaces_info: 只有對應追蹤命名空間嘅條目，先至會計入頂層概覽統計，例如「編輯條目」、「總編輯次數」、「新增字數」等等。所以，只追蹤你計劃目標改善嘅命名空間。
+  revisions:
+    references: 新增參考
+  suggestions:
+    suggestion_docs:
+      stub: 任何編輯或者額外材料都可以幫到手。提供有意義內容應該係首要任務。將短存根級條目升級到起始級條目嘅最佳方法，係加入有參考來源嘅理由，解釋點解呢個主題重要。
+  training:
+    logged_out: 你而家簽走咗。除非你簽到，否則完成呢個模組唔會有記錄。
+  uploads:
+    header: 上載到維基共享資源嘅檔案
+    view_commons: 喺共享資源檢視
+  users:
+    references_count: 新增參考
+    training_complete:
+      one: is up-to-date with training
+      other: 已經完成訓練最新內容
+    training_complete_count:
+      one: '%{count} training up-to-date'
+      other: '%{count} 個訓練已最新'
+    training_doc: 完成咗所有到期指定訓練模組嘅編輯，會被計為訓練保持最新。
+    up_to_date_with_training: 訓練嘅最新內容
+    words_added: 新增字數<br>（條目｜用戶｜草稿）
+    word_count_doc: 用戶喺正式條目、用戶空間頁面（沙盒）同草稿命名空間新增內容嘅總量估計。字數估計係由所有新增多過刪除嘅編輯引起嘅頁面大小變化總和計算出嚟。呢個數字唔一定反映用戶實際新增嘅新內容。恢復已刪除內容都會令呢個總數上升。
+  user_profiles:
+    words_added_disclaimer: 如果同一用戶編輯被計入多個課程，新增字數可能會被重複計算。
   wizard:
     select_one_option: 請揀一項
   error:
     invalid_file_format: 文件無法保存。請上傳PDF或者Word文檔。
+    oauth_invalid: 你嘅維基百科授權已經過期。請重新簽到。
+  error_401:
+    json_explanation: 睇嚟你已經簽走咗。請重新載入、簽到，之後再試一次。
+  login_error:
+    explanation: 睇嚟簽到過程出咗問題。（唔好意思！呢啲情況偶爾會發生。）請再試簽到或者註冊一次。
+  survey:
+    login_message: 多謝你嘅時間。唔該簽到儀表板填寫調查。
+    email:
+      signed: '- 維基教育團隊'
 ...
