@@ -111,3 +111,47 @@ export const crossCheckArticleTitle = (articleId, articleTitle, article_mw_page_
     }
   };
 };
+
+export const verifyMainSpaceArticle = (articleTitle, language = 'en', project = 'wikipedia') => {
+  return async (dispatch) => {
+    try {
+      const cleanTitle = articleTitle.trim();
+
+      if (!cleanTitle) {
+        return { valid: false, error: 'Article title is required' };
+      }
+
+      let domain;
+
+      if (project === 'wikimedia' && cleanTitle.startsWith('Wp/')) {
+        domain = 'incubator.wikimedia.org';
+      } else if (['wikimedia', 'wikisource', 'wiktionary'].includes(project)) {
+        domain = (language === 'www' || language === 'meta' || project === 'wikimedia')
+          ? `${project}.org`
+          : `${language}.${project}.org`;
+      } else {
+        domain = `${language}.${project}.org`;
+      }
+      const apiUrl = `https://${domain}/w/api.php?action=query&titles=${encodeURIComponent(cleanTitle)}&format=json&origin=*`;
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error(`API request failed with status ${response.status}`);
+
+      const data = await response.json();
+      const pages = data?.query?.pages;
+      const page = pages ? Object.values(pages)[0] : null;
+
+      if (!page || page.missing) {
+        return { valid: false, error: `${cleanTitle} does not exist on ${domain}` };
+      }
+
+      if (page.ns !== 0 && !cleanTitle.startsWith('Wp/')) {
+        return { valid: false, error: `${cleanTitle} is not a mainspace article` };
+      }
+
+      return { valid: true };
+    } catch (error) {
+      dispatch({ type: types.API_FAIL, data: error });
+      return { valid: false, error: 'Unable to verify article' };
+    }
+  };
+};

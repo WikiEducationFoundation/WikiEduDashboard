@@ -36,6 +36,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
         )
       end
       click_button 'Assign'
+      expect(page).to have_selector('.assignment-links a')
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -66,6 +67,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
 
       click_button 'Assign'
+      expect(page).to have_selector('.assignment-links a')
 
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
@@ -90,6 +92,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
         first('input').set('https://wikisource.org/wiki/Heyder_Cansa', rapid: false)
       end
       click_button 'Assign'
+      expect(page).to have_selector('.assignment-links a')
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -114,6 +117,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
                            rapid: false)
       end
       click_button 'Assign'
+      expect(page).to have_selector('.assignment-links a')
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
