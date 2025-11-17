@@ -92,6 +92,7 @@ lb:
         heading: Benotzernumm-Reegelen
   alerts:
     alert_label: Meldungen
+    no_data: Keng Donnéeë fonnt.
     ai_stats:
       timestamp: Zäitstempel
       by_page_type: No Säitentyp
