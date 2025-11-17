@@ -54,7 +54,8 @@ def go_through_researchwrite_wizard(returning_instructor: true)
   click_button 'Next' # Default "Improving representation" option
   sleep 1
 
-  click_button 'Next' # Default "Sandboxes" option
+  find('.wizard__option', match: :first).find('button', match: :first).click # Work in sandboxes
+  click_button 'Next'
   sleep 1
 
   # Working in groups
