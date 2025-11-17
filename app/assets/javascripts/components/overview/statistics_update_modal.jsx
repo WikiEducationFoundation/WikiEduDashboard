@@ -1,5 +1,4 @@
 import React from 'react';
-import { nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs } from '../../utils/statistic_update_info_utils';
 import ArticleUtils from '../../utils/article_utils';
 import { isAfter, format } from 'date-fns';
 import { getUTCDate, toDate } from '../../utils/date_utils';
@@ -8,13 +7,10 @@ import UpdateLogs from './update_logs';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
+
   const helpMessage = Features.wikiEd
     ? I18n.t('metrics.wiki_ed_help')
     : I18n.t('metrics.outreach_help');
-
-  const updateLogs = getUpdateLogs(course) || [];
-  const lastUpdateSummary = getLastUpdateSummary(course);
-  const totalUpdatesMessage = getTotaUpdatesMessage(course);
 
   const updatesEndMoment = toDate(course.update_until);
   const futureUpdatesRemaining = isAfter(updatesEndMoment, new Date());
@@ -29,27 +25,19 @@ const StatisticsUpdateModal = (props) => {
     ? I18n.t('metrics.non_updating_course_update')
     : '';
 
-  const isNextUpdateAfter = props.isNextUpdateAfter;
-  let nextUpdateMessage = props.nextUpdateMessage;
-
-  if (!isNextUpdateAfter) {
-    nextUpdateMessage = I18n.t('metrics.late_update', {
-      late_update_time: nextUpdateExpected(course)
-    });
-  }
-
   return (
     <div className="statistics-update-modal-container">
       <div className="statistics-update-modal">
         <b>{I18n.t('metrics.update_status_heading')}</b>
         <br />
 
-        {/* Log and Summary Section */}
+        {/* Logs have been fully moved out */}
         <UpdateLogs
           course={course}
-          updateLogs={updateLogs}
-          isNextUpdateAfter={isNextUpdateAfter}
-          nextUpdateMessage={nextUpdateMessage}
+          isNextUpdateAfter={props.isNextUpdateAfter}
+          nextUpdateMessage={props.nextUpdateMessage}
+          futureUpdatesMessage={futureUpdatesMessage}
+          additionalUpdateMessage={additionalUpdateMessage}
         />
 
         {/* Tracking Description */}
@@ -59,7 +47,6 @@ const StatisticsUpdateModal = (props) => {
               {I18n.t('metrics.tracking_status_title', {
                 defaultValue: 'Tracking Status'
               })}
-              :
             </b>
             <TrackingDescription trackingDescription={course.tracking_description} />
           </>

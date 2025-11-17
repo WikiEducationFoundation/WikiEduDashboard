@@ -1,11 +1,22 @@
 import React from 'react';
-import { getLastUpdateSummary, getTotaUpdatesMessage } from '../../utils/statistic_update_info_utils';
+import {
+  getLastUpdateSummary,
+  getTotaUpdatesMessage,
+  getUpdateLogs,
+  nextUpdateExpected
+} from '../../utils/statistic_update_info_utils';
 
-const UpdateLogs = ({ course, updateLogs, isNextUpdateAfter, nextUpdateMessage }) => {
+const UpdateLogs = ({
+  course,
+  isNextUpdateAfter,
+  nextUpdateMessage,
+  futureUpdatesMessage,
+  additionalUpdateMessage
+}) => {
+  const updateLogs = getUpdateLogs(course) || [];
   const hasNoUpdates = updateLogs.length === 0;
-  const lastUpdateSummary = getLastUpdateSummary(course);
-  const totalUpdatesMessage = getTotaUpdatesMessage(course);
 
+  // Per-log calculations
   const failureUpdatesCount = updateLogs.filter(
     log => log.orphan_lock_failure !== undefined
   ).length;
@@ -14,11 +25,22 @@ const UpdateLogs = ({ course, updateLogs, isNextUpdateAfter, nextUpdateMessage }
     log => log.error_count !== undefined && log.error_count > 0
   ).length;
 
+  const lastUpdateSummary = getLastUpdateSummary(course);
+  const totalUpdatesMessage = getTotaUpdatesMessage(course);
+
   const recentUpdatesSummary = I18n.t('metrics.recent_updates_summary', {
     total: updateLogs.length,
     failure_count: failureUpdatesCount,
     error_count: erroredUpdatesCount
   });
+
+  // Handle next update message override
+  let displayNextUpdateMessage = nextUpdateMessage;
+  if (!isNextUpdateAfter) {
+    displayNextUpdateMessage = I18n.t('metrics.late_update', {
+      late_update_time: nextUpdateExpected(course)
+    });
+  }
 
   return (
     <div className="update-logs-section">
@@ -34,7 +56,10 @@ const UpdateLogs = ({ course, updateLogs, isNextUpdateAfter, nextUpdateMessage }
           <ul>
             <li>{recentUpdatesSummary}</li>
             <li>{totalUpdatesMessage}</li>
-            <li>{nextUpdateMessage}</li>
+            <li>{displayNextUpdateMessage}</li>
+            <li>
+              {futureUpdatesMessage} {additionalUpdateMessage}
+            </li>
           </ul>
         </>
       )}
