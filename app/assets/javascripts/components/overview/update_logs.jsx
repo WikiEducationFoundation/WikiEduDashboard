@@ -17,13 +17,9 @@ const UpdateLogs = ({
   const hasNoUpdates = updateLogs.length === 0;
 
   // Per-log calculations
-  const failureUpdatesCount = updateLogs.filter(
-    log => log.orphan_lock_failure !== undefined
-  ).length;
+  const failureUpdatesCount = updateLogs.filter(log => log.orphan_lock_failure !== undefined).length;
 
-  const erroredUpdatesCount = updateLogs.filter(
-    log => log.error_count !== undefined && log.error_count > 0
-  ).length;
+  const erroredUpdatesCount = updateLogs.filter(log => log.error_count !== undefined && log.error_count > 0).length;
 
   const lastUpdateSummary = getLastUpdateSummary(course);
   const totalUpdatesMessage = getTotaUpdatesMessage(course);
