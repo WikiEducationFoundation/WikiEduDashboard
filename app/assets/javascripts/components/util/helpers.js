@@ -93,13 +93,15 @@ export const getModulesAndBlocksFromWeeks = (weeks) => {
 export const selectUserByUsernameParam = (users, usernameParam) => {
   if (!usernameParam) return null;
 
-  let selectedUser = users.find(({ username }) => username === usernameParam);
+  // Handle URLs that use an underscore instead of a space in the username.
+  const normalizedUsernameParam = usernameParam.replace('_', ' ');
+  let selectedUser = users.find(({ username }) => username === normalizedUsernameParam);
   if (selectedUser) return selectedUser;
 
-  selectedUser = users.find(({ username }) => username.replace(',', '%2C') === usernameParam);
+  selectedUser = users.find(({ username }) => username.replace(',', '%2C') === normalizedUsernameParam);
   if (selectedUser) return selectedUser;
 
-  selectedUser = users.find(({ username }) => username.replace('?', '%3F') === usernameParam);
+  selectedUser = users.find(({ username }) => username.replace('?', '%3F') === normalizedUsernameParam);
   return selectedUser;
 };
 
