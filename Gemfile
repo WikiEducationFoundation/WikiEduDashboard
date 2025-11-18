@@ -122,6 +122,9 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rspec_rails'
+  gem 'rubocop-factory_bot'
+  gem 'rubocop-capybara'
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'rack-proxy', '~> 0.7.6'
 end
