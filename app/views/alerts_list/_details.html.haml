@@ -7,7 +7,7 @@
         %td
           - if key == :pangram_share_link
             %a{ href: value }= value
-          - elsif key.match? /prior_alert_id/
+          - elsif key.match? /prior_alert/
             %a{ href: "/alerts_list/#{value}" }= value
           - elsif value.is_a?(Array)
             = value.map { |v| v.to_s.humanize }.join(', ')
