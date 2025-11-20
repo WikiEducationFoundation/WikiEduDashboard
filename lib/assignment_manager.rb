@@ -8,10 +8,10 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 class AssignmentManager
   def initialize(course:, user_id: nil, wiki: nil, title: nil, role: nil)
     @course = course
-    @user_id = user_id
+    @user_id = user_id&.to_i
     @wiki = wiki
     @title = title
-    @role = role
+    @role = role&.to_i
   end
 
   def create_random_peer_reviews
@@ -29,10 +29,12 @@ class AssignmentManager
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create_assignment
     set_clean_title
     set_article_from_database
     check_wiki_edu_discouraged_article
+    check_max_group_size
     set_available_article_flag
     import_article_from_wiki unless @article
     # TODO: update rating via Sidekiq worker
@@ -48,6 +50,7 @@ class AssignmentManager
               end
     raise DuplicateAssignmentError, message
   end
+  # rubocop:enable Metrics/MethodLength
 
   def claim_assignment(claimed_assignment)
     @wiki = claimed_assignment.wiki
@@ -56,6 +59,8 @@ class AssignmentManager
     if @course.retain_available_articles?
       create_assignment
     else
+      set_clean_title
+      check_max_group_size
       claimed_assignment.update(user_id: @user_id)
       claimed_assignment
     end
@@ -116,6 +121,30 @@ class AssignmentManager
     raise DiscouragedArticleError, I18n.t('assignments.blocked_assignment', title: @clean_title)
   end
 
+  def check_max_group_size
+    # Only check for assigned articles (not reviews), and only if user_id is present
+    return unless @role == Assignment::Roles::ASSIGNED_ROLE && !@user_id.nil?
+
+    max_size = @course.max_group_size
+    return unless max_size # If no max set, allow unlimited
+
+    # Count existing students assigned to this article (exclude available articles)
+    current_group_size = @course.assignments
+                                .assigned
+                                .where(article_title: @clean_title, wiki_id: @wiki.id)
+                                .where.not(user_id: nil)
+                                .count
+
+    # Check if adding this student would exceed the max
+    return unless current_group_size >= max_size
+
+    raise MaxGroupSizeExceededError,
+          I18n.t('assignments.max_group_size_exceeded',
+                 title: @clean_title,
+                 current: current_group_size,
+                 max: max_size)
+  end
+
   def set_available_article_flag
     @flags = @user_id.nil? ? { available_article: true } : nil
   end
@@ -140,4 +169,5 @@ class AssignmentManager
 
   class DuplicateAssignmentError < StandardError; end
   class DiscouragedArticleError < StandardError; end
+  class MaxGroupSizeExceededError < StandardError; end
 end
