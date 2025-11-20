@@ -33,6 +33,7 @@ class Alert < ApplicationRecord
   ALERT_TYPES = %w[
     ActiveCourseAlert
     AiEditAlert
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert
@@ -69,6 +70,7 @@ class Alert < ApplicationRecord
   validates_inclusion_of :type, in: ALERT_TYPES
 
   RESOLVABLE_ALERT_TYPES = %w[
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     CheckTimelineAlert
