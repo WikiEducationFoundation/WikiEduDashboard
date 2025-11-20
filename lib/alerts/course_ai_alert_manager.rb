@@ -43,8 +43,9 @@ class CourseAiAlertManager
       recent_priority_alert_ids:,
       recent_alert_tally_by_type:
     }
-    AiSpikeAlert.create(course:,
-                        details:)
+
+    alert = AiSpikeAlert.create(course:, details:)
+    alert.send_email
   end
 
   # Using the same recency window as for the AiEditAlerts themselves, so a second

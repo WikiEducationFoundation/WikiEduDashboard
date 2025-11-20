@@ -33,4 +33,8 @@ class AiSpikeAlert < Alert
   def resolvable?
     !resolved
   end
+
+  def send_email
+    email_classroom_program_manager
+  end
 end

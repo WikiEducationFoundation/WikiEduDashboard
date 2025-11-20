@@ -8,6 +8,11 @@ describe CourseAiAlertManager do
   let(:subject) { described_class.new([course]) }
   let(:mainspace_details) { { article_title: 'Selfie' } }
   let(:evaluate_details) { { article_title: 'User:Ragesoss/Evaluate an Article' } }
+  let(:cpm) { create(:user, email: 'cpm@wikiedu.org') }
+
+  before do
+    allow(SpecialUsers).to receive(:classroom_program_manager).and_return(cpm)
+  end
 
   context 'when there are few priority AiEditAlerts' do
     before do
@@ -35,9 +40,11 @@ describe CourseAiAlertManager do
       end
     end
 
-    it 'creates an AiSpikeAlert' do
+    it 'creates an AiSpikeAlert and emails classroom program manager' do
+      expect(AlertMailer).to receive(:send_alert_email).and_call_original
       subject.create_alerts
       expect(AiSpikeAlert.count).to eq(1)
+      expect(AiSpikeAlert.last.email_sent_at).not_to be_nil
     end
   end
 end
