@@ -162,7 +162,7 @@ tr:
       page_type: Sayfa türü
       single_alert_view: Uyarı
       sections:
-        contents: Yapay Zeka Uyarı Listeleri için içerik tablosu
+        contents: Listeler için içerik tablosu
         go_back: İçeriğe geri dön
         name: İsim
         description: Açıklama
