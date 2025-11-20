@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/lib/alerts/continued_course_activity_alert_man
 require_dependency "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
 require_dependency "#{Rails.root}/lib/alerts/sandboxed_course_mainspace_monitor"
+require_dependency "#{Rails.root}/lib/alerts/course_ai_alert_manager"
 
 class CourseAlertManager
   def self.generate_course_alerts
@@ -26,6 +27,7 @@ class CourseAlertManager
     course_alert_manager.create_continued_course_activity_alerts
     course_alert_manager.create_submitted_course_alerts
     course_alert_manager.create_sandboxed_course_mainspace_alerts
+    course_alert_manager.create_ai_usage_alerts
   end
 
   def initialize
@@ -76,5 +78,9 @@ class CourseAlertManager
 
   def create_sandboxed_course_mainspace_alerts
     SandboxedCourseMainspaceMonitor.create_alerts_for_active_courses
+  end
+
+  def create_ai_usage_alerts
+    CourseAiAlertManager.new(@courses_to_check).create_alerts
   end
 end
