@@ -126,6 +126,7 @@ describe CheckRevisionWithPangram do
 
   context 'when the revision is missing or deleted' do
     let(:missing_revision_id) { 999999999999 }
+    let(:article) { create(:article) }
 
     it 'logs a message to Sentry and exits gracefully' do
       expect(Sentry).to receive(:capture_message)
@@ -137,7 +138,7 @@ describe CheckRevisionWithPangram do
         described_class.new(
           { 'mw_rev_id' => missing_revision_id,
            'wiki_id' => en_wiki.id,
-           'article_id' => nil,
+           'article_id' => article.id,
            'course_id' => course.id,
            'user_id' => user.id,
            'revision_timestamp' => timestamp }

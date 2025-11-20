@@ -10,8 +10,7 @@ class CheckRevisionWithPangram
     @course_id = attrs['course_id']
     @wiki_api = WikiApi.new(@wiki)
     @rev_datetime = Time.zone.at(attrs['revision_timestamp'])
-    article_id = attrs['article_id']
-    @article = article_id.nil? ? nil : Article.find(article_id)
+    @article = Article.find(attrs['article_id'])
 
     check unless already_checked?
   end
@@ -66,7 +65,7 @@ class CheckRevisionWithPangram
     RevisionAiScore.where(
       revision_id: @mw_rev_id,
       wiki_id: @wiki.id,
-      article_id: @article&.id
+      article_id: @article.id
     ).where.not(details: nil).exists?
   end
 
@@ -159,7 +158,7 @@ class CheckRevisionWithPangram
     AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
                                             user_id: @user_id,
                                             course_id: @course_id,
-                                            article_id: @article&.id,
+                                            article_id: @article.id,
                                             pangram_details:)
   end
 
@@ -242,7 +241,7 @@ class CheckRevisionWithPangram
   def create_revision_ai_score
     RevisionAiScore.create(revision_id: @mw_rev_id,
                            wiki_id: @wiki.id,
-                           article_id:  @article&.id,
+                           article_id:  @article.id,
                            course_id: @course_id,
                            user_id: @user_id,
                            revision_datetime: @rev_datetime,
