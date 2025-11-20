@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Loading from '../common/loading';
 import AiAlertsList from './ai_alerts_list.jsx';
 import request from '../../utils/request';
@@ -7,17 +8,18 @@ import CoursesWithAiAlertsList from './courses_with_ai_alerts_list.jsx';
 
 const AiEditAlertsStats = () => {
   const [stats, setStats] = useState(null);
+  const { campaign_id } = useParams();
 
   useEffect(() => {
       const fetchAlertsStats = async () => {
         const response = await request(
-          'ai_edit_alerts_stats.json'
+          `ai_edit_alerts_stats.json?campaign_id=${campaign_id}`
         );
         const data = await response.json();
         setStats(data);
       };
       fetchAlertsStats();
-    }, []);
+    }, [campaign_id]);
 
   if (!stats) {
     return <Loading/>;

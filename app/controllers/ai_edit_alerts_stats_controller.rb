@@ -3,7 +3,17 @@
 class AiEditAlertsStatsController < ApplicationController
   layout 'admin'
   before_action :check_user_auth
+
+  def select_campaign
+    @campaigns = Campaign.all
+  end
+
+  def choose_campaign
+    redirect_to "/ai_edit_alerts_stats/#{params[:campaign_id]}"
+  end
+
   def index
+    @campaign_id = params[:campaign_id]
     set_data
   end
 
@@ -26,7 +36,8 @@ class AiEditAlertsStatsController < ApplicationController
   end
 
   def set_alerts
-    @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert').includes(:article)
+    campaign = Campaign.find(@campaign_id)
+    @alerts = campaign.alerts.where(type: 'AiEditAlert').includes(:article)
   end
 
   # Sets a hash of courses in default campaign with more than MIN_ALERTS_COUNT_PER_COURSE
