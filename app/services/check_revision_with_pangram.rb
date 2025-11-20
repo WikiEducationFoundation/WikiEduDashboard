@@ -3,12 +3,14 @@
 require_dependency "#{Rails.root}/lib/pangram_api"
 
 class CheckRevisionWithPangram
-  def initialize(wiki_id, mw_rev_id, user_id, course_id)
-    @wiki = Wiki.find wiki_id
-    @mw_rev_id = mw_rev_id
-    @user_id = user_id
-    @course_id = course_id
+  def initialize(attrs)
+    @wiki = Wiki.find attrs['wiki_id']
+    @mw_rev_id = attrs['mw_rev_id']
+    @user_id = attrs['user_id']
+    @course_id = attrs['course_id']
     @wiki_api = WikiApi.new(@wiki)
+    @rev_datetime = Time.zone.at(attrs['revision_timestamp'])
+    @article = Article.find(attrs['article_id'])
 
     check unless already_checked?
   end
@@ -32,25 +34,39 @@ class CheckRevisionWithPangram
       fetch_parsed_changed_wikitext
     end
     generate_plaintext_from_html
+    # Skip the API call if the plain text is too short.
+    return if @plain_text.length < MIN_PLAIN_TEXT_LENGTH
     fetch_pangram_inference
+    create_revision_ai_score
 
     generate_alert if ai_likely?
-
-    cache_pangram_check_timestamp
   end
 
   private
+
+  MIN_PLAIN_TEXT_LENGTH = 500
+
+  PANGRAM_CHECK_TYPE = 'Pangram 2.0'
 
   def cache_key
     "pangram_#{@wiki.domain}_#{@mw_rev_id}"
   end
 
+  # Determines whether the check was already performed for the given revision,
+  # based on the existence of a record in the data table with the same revision, wiki, and article,
+  # where the details field is not nil.
+  # A nil details field may indicate an error occurred when calling the API, so we want
+  # to retrieve it again.
   def already_checked?
-    Rails.cache.read(cache_key).present?
-  end
+    # Keep this check for an initial period to avoid rechecking the revisions that were
+    # checked before the table was deployed.
+    return true if Rails.cache.read(cache_key).present?
 
-  def cache_pangram_check_timestamp
-    Rails.cache.write(cache_key, Time.current.to_s, expires_in: 7.days)
+    RevisionAiScore.where(
+      revision_id: @mw_rev_id,
+      wiki_id: @wiki.id,
+      article_id: @article.id
+    ).where.not(details: nil).exists?
   end
 
   def fetch_parent_revision
@@ -139,20 +155,15 @@ class CheckRevisionWithPangram
   def generate_alert
     return if alert_already_exists?
 
-    find_article
     AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
                                             user_id: @user_id,
                                             course_id: @course_id,
-                                            article_id: @article&.id,
+                                            article_id: @article.id,
                                             pangram_details:)
   end
 
   def alert_already_exists?
     AiEditAlert.exists?(revision_id: @mw_rev_id)
-  end
-
-  def find_article
-    @article = Article.find_by(mw_page_id: @mw_page_id, wiki: @wiki)
   end
 
   def pangram_details
@@ -214,5 +225,29 @@ class CheckRevisionWithPangram
 
   def pangram_share_link
     @pangram_result['dashboard_link']
+  end
+
+  # Deletes text field from the pangram response to avoid storing that into the db
+  def clean_pangram_result
+    result = @pangram_result.dup
+    result.delete('text')
+    if result['windows'].is_a?(Array)
+      result['windows'] = result['windows'].map { |w| w.except('text') }
+    end
+    result
+  end
+
+  # Imports data into the RevisionAiScores table
+  def create_revision_ai_score
+    RevisionAiScore.create(revision_id: @mw_rev_id,
+                           wiki_id: @wiki.id,
+                           article_id:  @article.id,
+                           course_id: @course_id,
+                           user_id: @user_id,
+                           revision_datetime: @rev_datetime,
+                           avg_ai_likelihood: average_ai_likelihood,
+                           max_ai_likelihood: max_ai_likelihood,
+                           details: clean_pangram_result,
+                           check_type: PANGRAM_CHECK_TYPE)
   end
 end

@@ -7,6 +7,7 @@ class RevisionOnMemory
   include ActiveModel::Attributes
   # Helps with importing data
   alias_attribute :rev_id, :mw_rev_id
+  alias_attribute :rev_datetime, :date
 
   attribute :mw_rev_id, :integer
   attribute :features, default: -> { {} }
@@ -51,5 +52,10 @@ class RevisionOnMemory
     JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
   rescue JSON::ParserError
     nil # Return nil if parsing fails (i.e., not diff_stats)
+  end
+
+  # Useful when passing the revision datetime as a parameter to Sidekiq jobs
+  def timestamp
+    rev_datetime.to_i
   end
 end
