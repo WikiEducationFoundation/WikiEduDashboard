@@ -162,6 +162,14 @@ class Alert < ApplicationRecord
     update(email_sent_at: Time.zone.now)
   end
 
+  def email_classroom_program_manager
+    return if emails_disabled?
+    recipient = SpecialUsers.classroom_program_manager
+    # return unless recipient
+    AlertMailer.send_alert_email(self, recipient)
+    update(email_sent_at: Time.zone.now)
+  end
+
   # Disable emails for specific alert types in application.yml, like so:
   #   ProductiveCourseAlert_email_disabled: 'true'
   def emails_disabled?
