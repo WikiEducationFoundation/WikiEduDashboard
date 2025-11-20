@@ -49,12 +49,20 @@ class CheckRevisionWithPangram
 
   PANGRAM_CHECK_TYPE = 'Pangram 2.0'
 
+  def cache_key
+    "pangram_#{@wiki.domain}_#{@mw_rev_id}"
+  end
+
   # Determines whether the check was already performed for the given revision,
   # based on the existence of a record in the data table with the same revision, wiki, and article,
   # where the details field is not nil.
   # A nil details field may indicate an error occurred when calling the API, so we want
   # to retrieve it again.
   def already_checked?
+    # Keep this check for an initial period to avoid rechecking the revisions that were
+    # checked before the table was deployed.
+    return true if Rails.cache.read(cache_key).present?
+
     RevisionAiScore.where(
       revision_id: @mw_rev_id,
       wiki_id: @wiki.id,
