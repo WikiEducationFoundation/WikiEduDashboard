@@ -9,7 +9,7 @@ class CheckRevisionWithPangram
     @user_id = attrs['user_id']
     @course_id = attrs['course_id']
     @wiki_api = WikiApi.new(@wiki)
-    @rev_date = Time.zone.at(attrs['date'])
+    @rev_datetime = Time.zone.at(attrs['revision_timestamp'])
     article_id = attrs['article_id']
     @article = article_id.nil? ? nil : Article.find(article_id)
 
@@ -245,7 +245,7 @@ class CheckRevisionWithPangram
                            article_id:  @article&.id,
                            course_id: @course_id,
                            user_id: @user_id,
-                           revision_datetime: @rev_date,
+                           revision_datetime: @rev_datetime,
                            avg_ai_likelihood: average_ai_likelihood,
                            max_ai_likelihood: max_ai_likelihood,
                            details: clean_pangram_result,

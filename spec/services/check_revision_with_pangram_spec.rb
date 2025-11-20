@@ -45,7 +45,7 @@ describe CheckRevisionWithPangram do
       'version' => 'adaptive_boundaries',
       'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
-  let(:date) { 1757359506 }
+  let(:timestamp) { 1757359506 }
 
   context 'when it is the first revision' do
     # https://en.wikipedia.org/w/index.php?title=User:Resekorynta/Evaluate_an_Article&oldid=1315967896
@@ -73,7 +73,7 @@ describe CheckRevisionWithPangram do
            'article_id' => sandbox_article.id,
            'course_id' => course.id,
            'user_id' => user.id,
-           'date' => date }
+           'revision_timestamp' => timestamp }
         )
       end
       expect(AiEditAlert.count).to eq(1)
@@ -112,7 +112,7 @@ describe CheckRevisionWithPangram do
            'article_id' => live_article.id,
            'course_id' => course.id,
            'user_id' => user.id,
-           'date' => date }
+           'revision_timestamp' => timestamp }
         )
       end
       expect(AiEditAlert.count).to eq(1)
@@ -140,7 +140,7 @@ describe CheckRevisionWithPangram do
            'article_id' => nil,
            'course_id' => course.id,
            'user_id' => user.id,
-           'date' => date }
+           'revision_timestamp' => timestamp }
         )
       end
     end
@@ -167,7 +167,7 @@ describe CheckRevisionWithPangram do
          'article_id' => live_article.id,
          'course_id' => course.id,
          'user_id' => user.id,
-         'date' => date }
+         'revision_timestamp' => timestamp }
       )
     end
 
@@ -191,7 +191,7 @@ describe CheckRevisionWithPangram do
            'article_id' => live_article.id,
            'course_id' => course.id,
            'user_id' => user.id,
-           'date' => date }
+           'revision_timestamp' => timestamp }
         )
       end
 
@@ -217,7 +217,7 @@ describe CheckRevisionWithPangram do
            'article_id' => article.id,
            'course_id' => course.id,
            'user_id' => user.id,
-           'date' => date }
+           'revision_timestamp' => timestamp }
         )
       end
     end
