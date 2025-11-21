@@ -4,6 +4,7 @@
 
   = form_with url: "choose_campaign", method: :post do
     = label_tag :campaign_id, 'Campaign'
-    = select_tag :campaign_id, options_from_collection_for_select(@campaigns, :id, :slug)
+    = select_tag :campaign_id,
+      options_for_select([['All campaigns', 0]] + @campaigns.map { |c| [c.slug, c.id] })
     %br/
     = submit_tag "Continue"

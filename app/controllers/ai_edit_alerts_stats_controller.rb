@@ -36,8 +36,13 @@ class AiEditAlertsStatsController < ApplicationController
   end
 
   def set_alerts
-    campaign = Campaign.find(@campaign_id)
-    @alerts = campaign.alerts.where(type: 'AiEditAlert').includes(:article)
+    if @campaign_id.to_i.zero?
+      # campaign id 0 means selecting all alerts without campaign scoping
+      @alerts = Alert.where(type: 'AiEditAlert').includes(:article)
+    else
+      campaign = Campaign.find(@campaign_id)
+      @alerts = campaign.alerts.where(type: 'AiEditAlert').includes(:article)
+    end
   end
 
   # Sets a hash of courses in default campaign with more than MIN_ALERTS_COUNT_PER_COURSE
