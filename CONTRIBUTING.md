@@ -11,7 +11,13 @@ Sage Ross (`ragesoss`). Our main venue for collaboration is Slack; ask Sage (sag
 
 * Set up a dev environment. Follow the [setup docs](docs/setup.md). Try the automatic scripts, and report any problems that force you to use the manual instructions. For Windows, use WSL 2 (not RubyInstaller or RailsInstaller).
 * Explore the issues, choose one to work on, and leave a comment. Work on only one issue at a time. We do not assign issues, but if it looks like someone else is working on one you are interested, give them a ping to ask if they are still active on it.
-* Open a Pull Request. Mark it as a draft if you know it is not ready to merge. Small change sets are preferred; the fewer lines changed per PR, the easier it is to think about, provide feedback on, and review. Make sure only changes related to the main issure are included; unrelated changes can be made in a separate PR. Include before/after screenshots or videos, if applicable. If you have many commits, consider squashing them into one or a few commits with well-written commit messages.
+* Open a Pull Request.
+  * Mark it as a draft if you know it is not ready to merge. A reviewer may mark your PR as draft if it requires changes; you should mark it as ready for review if you've completed those changes.
+  * Small change sets are preferred; the fewer lines changed per PR, the easier it is to think about, provide feedback on, and review.
+  * Make sure only changes related to the main issure are included; unrelated changes (including whitespace and formatting changes to that don't affect functionality) can be made in a separate PR.
+  * Include before/after screenshots or videos, if applicable.
+  * Curate the commits in your git branch. (`git commit --amend` and `git force-push` are your friends!) If you have many commits, consider squashing them into one or a few commits with well-written commit messages, or recreating the final version in a clean branch. Each commit should stand on its own as a step towards the complete PR.
+  * Close your pull request if you are no longer want to work on it.
 * If you are stuck, ask on Slack.
 * If you are here because you want to apply for Google Summer of Code or Outreachy, read the [students and interns doc](docs/students_and_interns.md) too.
 
@@ -66,7 +72,7 @@ If your changes modify the model schema, please regenerate `erd.pdf` and regener
 
 Also, ensure that the corresponding schema.rb changes only reflect the new migrations.
 
-## Pull request process
+## Pull Request process
 
 ### Before opening a PR
 - Create a git branch for the issue you are working on, rather than working directly on `master`.
@@ -79,8 +85,8 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
 ### PR format
 - Title your pull request to indicate its purpose. (This will likely be similar to the title of the issue it addresses.)
 - Include a reference to the issue(s).
-- If it is a work-in-progress, include `[WIP]` in the title. Remove this and leave a message once the PR is complete and ready for review.
-- Include before-and-after screenshots (or animations) for user interface changes.
+- If it is a work-in-progress, include `[WIP]` in the title and mark it as a draft. Remove this and leave a message once the PR is complete and ready for review.
+- Include before-and-after screenshots (or animations) for user interface changes. Update them to reflect the latest version after making changes.
 
 ### After opening a PR
 - Check the travis-ci continuous integration build once it completes. This usually takes about 30 minutes, and if any tests fail you can find details in the build log.

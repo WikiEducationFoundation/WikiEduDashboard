@@ -72,6 +72,16 @@ essentials:
     weight: 6
     blocks:
       -
+        if: llm_training
+        title: Generative AI
+        kind: 1
+        training_module_ids: [71,74] # Generative AI, LLMs
+        content: |
+          <p>
+            Learn about Generative AI in the Wikipedia context and why you should NEVER copy and paste AI-generated text into Wikipedia.
+          </p>
+      -
+        if: no_llm_training
         title: Generative AI
         kind: 1
         training_module_ids: [71] # Generative AI

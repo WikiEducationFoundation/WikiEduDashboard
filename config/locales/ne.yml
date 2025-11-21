@@ -44,12 +44,13 @@ ne:
     greeting2: स्वागत!
     greeting_extended: विकिपिडियामा स्वागत् छ
     greeting: नमस्ते!
-    help: सहायता
+    help: सहयोग
     home: गृह
     log_in_extended: विकिपिडियाकाे प्रयाेग गरि प्रवेश गर्नुहाेस्
     log_in: प्रवेश गर्नुहोस्
     log_out: निर्गमन
     my_dashboard: मेरो ड्यसबोर्ड
+    okay: ठीक
     recent_activity: हालको कृयाकलाप
     report_problem: समस्या प्रतिवेदन पठाउनुहोस्
     request_account: एउटा खाता अनुरोध गर्नुहोस्
@@ -61,7 +62,7 @@ ne:
     sign_up_wikipedia: या विकिपिडियामा खाता खाेल्नुहाेस्
     sign_up_log_in_extended: विकिपिडियासँग
     sign_up: खाता खाेल्नुहाेस्
-    submit: पेश गर्नुहोस्
+    submit: पेस गर्नुहोस्
     training: तालिम
     change: परिवर्तन गर्नुहोस्
     details: विवरणहरू
@@ -103,6 +104,8 @@ ne:
     sign_up: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
   alerts:
     alert_label: सुचनाहरू
+    ai_stats:
+      timestamp: समयछाप
   activity:
     all: क्रियाकलाप
     edited_by: सम्पादनकर्ता
@@ -516,11 +519,12 @@ ne:
   namespace:
     main: मेनस्पेस
     main_char_added: मेनस्पेसमा थपिएका अक्षरहरू
+    talk: वार्तालाप
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
     project: परियोजना
     template: ढाँचा
-    help: सहायता
+    help: सहयोग
     category: श्रेणी
     page: पृष्ठ
     book: पुस्तक
@@ -563,6 +567,14 @@ ne:
     view_on_wiki: विकीमा डिफ हेर्नुहोस्
     see_more: थप हेर्नुहोस्
   settings:
+    common_settings_components:
+      headings:
+        site_notice_setting: साइट सूचना
+      buttons:
+        add_special_user_button: एक विशेष प्रयोगकर्ता थप्नुहोस्
+        configure_site_notice:
+          enable_button: सक्षम पार्नुहोस्
+          disable_button: असक्षम पार्नुहाेस्
     admin_users:
       new:
         form_placeholder: प्रयोगकर्ता नाम

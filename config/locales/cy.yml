@@ -290,7 +290,7 @@ cy:
       course_description: Disgrifiad o'r cwrs
       course_subject: Pwnc y cwrs
       course_term: Cyfnod y cwrs
-      course_term_placeholder: Y cyfnod
+      course_term_placeholder: Tymor (gan gynnwys blwyddyn)
       course_title: Teitl y cwrs
       course_types:
         basic_course_name: Y rhaglen yn fras

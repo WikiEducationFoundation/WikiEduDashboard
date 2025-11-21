@@ -42,7 +42,9 @@ if platform.platform().lower().find('ubuntu') != -1 \
         or platform.platform().lower().find('elementary') != -1 \
         or platform.uname().version.lower().find('ubuntu') != -1:
     deb_setup()
-elif platform.platform().lower().find('fedora') != -1:
+# If the current operating system is Fedora (identified by 'fedora' or 'fc' in the platform string),
+# then run the dnf_setup() function to configure dependencies specific to Fedora-based systems.
+elif platform.platform().lower().find('fedora') != -1 or platform.platform().lower().find('fc') != -1:
     dnf_setup()
 elif platform.platform().lower().find('darwin') != -1 \
         or platform.platform().lower().find('mac') != -1: 
@@ -50,6 +52,6 @@ elif platform.platform().lower().find('darwin') != -1 \
 elif platform.platform().lower().find('windows') != -1:
     win_setup()
 else:
-    print ("Sorry! Your operating is not supported by this script. Please refer \
+    print ("Sorry! Your operating system is not supported by this script. Please refer \
 https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/master/\
 docs/setup.md for manual setup instructions.")

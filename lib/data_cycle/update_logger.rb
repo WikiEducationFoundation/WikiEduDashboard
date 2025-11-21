@@ -5,6 +5,8 @@ class UpdateLogger
   # Entry points #
   ################
   def self.update_course(course, new_logs)
+    course.reload
+
     logs = course.flags['update_logs']
     updater = new(logs)
     updated_logs = updater.update(new_logs)
@@ -31,6 +33,8 @@ class UpdateLogger
   end
 
   def self.update_course_with_unfinished_update(course, new_logs)
+    course.reload
+
     logs = course.flags['unfinished_update_logs']
     updated_logs = new(logs).update(new_logs)
     course.flags['unfinished_update_logs'] = updated_logs

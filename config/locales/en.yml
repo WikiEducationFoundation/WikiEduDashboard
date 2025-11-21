@@ -38,6 +38,7 @@ en:
   application:
     back: Back
     cancel: Cancel
+    next: Next
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -48,6 +49,7 @@ en:
     explore: Explore
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
+    field_invalid_term: Term must include year (e.g., "Spring 2025")
     field_invalid_date: This field requires a date in YYYY-MM-DD format
     field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
     greeting2: Welcome!
@@ -59,6 +61,7 @@ en:
     log_in: Log in
     log_out: Log out
     my_dashboard: My Dashboard
+    okay: Okay
     recent_activity: Recent Activity
     report_problem: Report a problem
     request_account: Request an account
@@ -147,8 +150,38 @@ en:
       contact dashboard@wikiedu.org.
   alerts:
     alert_label: Alerts
-    no_alerts: No alerts found.
-
+    no_data: No data found.
+    ai_stats:
+      timestamp: Timestamp
+      title: AI Edit Alerts Stats
+      general_stats: General Stats for %{campaign_name} Campaign
+      total_alerts: Total AI Edit Alerts
+      with_followup: With followup
+      multiple_alerts_students: Students with multiple alerts
+      multiple_alerts_pages: Pages with multiple alerts
+      by_page_type: By Page Type
+      count: Count
+      page_type: Page type
+      pangram_url: Pangram URL
+      revision_diff: Revision diff
+      single_alert_view: Alert
+      alerts_in_mainspace: Alerts in mainspace
+      users_involved: Users involved
+      sections:
+        contents: Table of contents for lists
+        go_back: Go back to contents
+        name: Name
+        description: Description
+        courses_with_ai_alerts: Courses with multiple AI alerts
+        recent_followup: Alerts with recent followup
+        multiple_alerts_students: Recent alerts for students with multiple alerts
+        in_mainspace: Recent alerts in mainspace
+        alerts_trend_over_time: AI alerts trends over time
+        descriptions:
+          courses_with_ai_alerts: Courses with more than 3 AI alerts over the entire course period (not necessarily recent).
+          recent_followup: Alerts with followup responses submitted within the last 14 days, ordered by the date of the followup response.
+          multiple_alerts_students: Alerts created within the last 14 days for students with multiple alerts, ordered by creation date.
+          in_mainspace: Alerts created within the last 14 days for articles in mainspace, ordered by creation date.
   activity:
     all: Activity
     edited_by: Edited By
@@ -198,6 +231,7 @@ en:
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
+    quality_checklist: Quality checklist
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may correspond to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -356,6 +390,16 @@ en:
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
     mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    invalid_username: 'The username "%{username}" is invalid Or the username does not exist.'
+    change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
+    username_label: Wikipedia Username
+    username_placeholder: 'Enter username (e.g., YourUsername)'
+    username_or_url_label: Wikipedia Username or URL
+    username_or_url_placeholder: 'Enter username or full sandbox URL'
+    preview_label: 'Preview of new URLs:'
+    sandbox_label: Sandbox
+    bibliography_label: Bibliography
+    outline_label: Outline
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
@@ -365,6 +409,15 @@ en:
       title: Milestones
 
   campaign:
+    campaign_ores_plot:
+      change_button: "Change in Structural Completeness"
+      no_data: "No Structural Completeness data available"
+      graph_description_html: >
+        This graph visualizes, in aggregate, how much articles developed from 
+        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em> 
+        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>) 
+        that estimates an article&apos;s quality rating based on the amount of 
+        prose, the number of wikilinks, images and section headers, and other features.
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
     alert_article: Article title
@@ -583,7 +636,7 @@ en:
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
-      course_term_placeholder: Term
+      course_term_placeholder: Term (including year)
       course_title: Course title
       course_types:
         basic_course_name: Basic Program
@@ -602,6 +655,7 @@ en:
       end_date: End date
       end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
+      field_invalid_term: Term must include year (e.g., "Spring 2025")
       find: Find Your Course
       intro: >
         The title, school, and term create your course page’s URL, and can't be
@@ -776,6 +830,15 @@ en:
     online_volunteers_enabled: Online Volunteers enabled
     online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
     ores_plot: ORES
+    ores_plot_description: >
+      This graph visualizes, in aggregate, how much articles developed from
+      before students first edited them until their most recent edits. The Structural Completeness
+      rating is based on a machine learning project (%{ores_link})
+      that estimates an article's quality rating based on the amount of
+      prose, the number of wikilinks, images and section headers, and other features. (%{refresh_link})
+    ores_plot_no_data: No Structural Completeness data available
+    ores_plot_refresh_data: Refresh Cached Data
+    ores_plot_show_button: Change in Structural Completeness
     overview: Home
     passcode: Passcode
     passcode_none: No passcode
@@ -1267,6 +1330,22 @@ en:
     header: Resources and Training
 
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Course creation
+        default_campaign_setting: Default Campaign
+        site_notice_setting: Site Notice
+      buttons:
+        add_admin_button: Add Admin
+        add_special_user_button: Add Special User
+        configure_site_notice:
+          update_site_notice_button: Update Site Notice
+          enable_button: Enable
+          disable_button: Disable
+        update_course_creation_settings: Update course creation settings
+        update_default_campaign_setting: Update Default Campaign
+        update_impact_stats: Update Impact Stats
+        update_salesforce_credentials: Update Salesforce Credentials
     categories:
       other_settings: Other settings
       impact_stats: Impact Stats

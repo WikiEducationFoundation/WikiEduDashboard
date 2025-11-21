@@ -128,6 +128,16 @@ class Assignment < ApplicationRecord
     editing_user.can_edit?(course)
   end
 
+  def default_sandbox_url(username = nil)
+    language = wiki.language || 'www'
+    project = wiki.project || 'wikipedia'
+    base_url = "https://#{language}.#{project}.org/wiki"
+    encoded_title = url_encoded_mediawiki_title(article_title)
+    username_to_use = username || user.username
+
+    "#{base_url}/User:#{username_to_use}/#{encoded_title}"
+  end
+
   private
 
   def assignment_pipeline
@@ -148,14 +158,5 @@ class Assignment < ApplicationRecord
                          .where.not(user:).first
 
     self.sandbox_url = existing&.sandbox_url || default_sandbox_url
-  end
-
-  def default_sandbox_url
-    language = wiki.language || 'www'
-    project = wiki.project || 'wikipedia'
-    base_url = "https://#{language}.#{project}.org/wiki"
-    encoded_title = url_encoded_mediawiki_title(article_title)
-
-    "#{base_url}/User:#{user.username}/#{encoded_title}"
   end
 end

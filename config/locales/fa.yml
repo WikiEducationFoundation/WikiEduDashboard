@@ -15,6 +15,7 @@
 # Author: GMozafarian
 # Author: Jeeputer
 # Author: Ladsgroup
+# Author: LordProfo
 # Author: Mardetanha
 # Author: Mohammad ebz
 # Author: Mojtabakd
@@ -23,6 +24,7 @@
 # Author: Reza1615
 # Author: Sunfyre
 # Author: درفش کاویانی
+# Author: محک
 ---
 fa:
   number:
@@ -112,6 +114,8 @@ fa:
   alerts:
     alert_label: هشدارها
     no_alerts: هشداری یافت نشد.
+    ai_stats:
+      timestamp: برچسب زمان
   activity:
     all: فعالیت
     edited_by: ویراستهٔ
@@ -215,7 +219,7 @@ fa:
     alert_user_id: کاربر
     campaign: کمپین
     campaigns: کمپین‌ها
-    customize_passcode: رمز عبور پیش‌فرض
+    customize_passcode: گذرواژهٔ پیش‌فرض
     data_articles: صفحه‌های ویرایش‌شده
     default_passcode: رمز عبور پیش‌فرض
     description: توضیحات
@@ -434,7 +438,7 @@ fa:
         برای ایجاد صفحهٔ برنامه، روی «ایجاد برنامه!» کلیک کنید.
     edit_course_dates: ویرایش تاریخ‌های پروژه
     enroll: افزودن ویراستار
-    enrollment: مشارکت
+    enrollment: افزودن/حذف ویرایشگران
     expected_students: ویراستاران موردِ انتظار
     instructors: تسهیل‌کنندگان
     join_course: به برنامه بپیوندید
@@ -506,6 +510,7 @@ fa:
     main_char_added: کاراکترهای افزوده‌شده فضای اصلی
     user: فضای نام کاربر
     user_char_added: کاراکترهای افزوده‌شده فضای کاربر
+    project: پروژه
   recent_activity:
     active_courses: مقاله فعال است در
     article_title: عنوان مقاله
@@ -538,6 +543,14 @@ fa:
     none: این دوره فعالیت‌های اخیر ویرایشی ویکی‌پدیایی ندارد.
     time_doc: زمان هر بازبینی به وقت محلی‌تان
     title: عنوان
+  settings:
+    common_settings_components:
+      buttons:
+        add_admin_button: افزودن مدیر
+        add_special_user_button: افزودن کاربر ویژه
+        configure_site_notice:
+          enable_button: فعال‌سازی
+          disable_button: غیرفعال‌سازی
   status:
     active_jobs: کارهای فعال
     default: پیش‌فرض

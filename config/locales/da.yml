@@ -121,6 +121,15 @@ da:
     registration_advice:
       username_rules:
         heading: Regler for brugernavne
+        avoid_offensive_usernames: Vælg ikke et brugernavn, der er stødende, vildledende,
+          forstyrrende eller salgsfremmende.
+        represent_individual: Brugernavne skal repræsentere en individuel redaktør.
+          Brug ikke navnet på en skole eller organisation.
+      additional_advice:
+        heading: Råd
+        anonymous_username_recommendation: Wiki Education anbefaler at vælge et anonymt
+          brugernavn, ikke et der indeholder dit rigtige navn eller andre identificerende
+          oplysninger.
     sign_up_help: For at bruge dashboardet skal du logge ind via Wikipedia og give
       det tilladelse til at få adgang til din konto. Du kan logge ind med en eksisterende
       Wikipedia-konto eller oprette en ny.
@@ -164,11 +173,15 @@ da:
       tracked: Tracked
       untracked: Ikke tracked
       tracked_and_untracked: Tracked og ikke-tracked
+    filter_text: 'Filtre:'
     find: Find artikler
+    how_to_find: Sådan finder du en artikel
     hide: Skjul
     history: (historik)
     label: Artikler
     loading: Indlæser artikler ...
+    mark_as_complete: Markér som fuldført
+    mark_as_incomplete: Markér som ufuldstændig
     new: (ny)
     none: Dette kursus har ikke redigeret artikler.
     preview: Kort forhåndsvisning af artiklen
@@ -192,6 +205,8 @@ da:
       '?': Unrated — en artikel som endnu ikke er blevet rated på Wikipedias kvalitetsskala
       does_not_exist: Denne artikel findes ikke på Wikipedia
     see_more: Se mere
+    see_more_tooltip: Kun de første 500 redigerede artikler indlæses i første omgang.
+      Klik for at indlæse yderligere artikler.
     search: Søg på Wikipedia efter en artikel
     show_cumulative_changes: Vis kumulative ændringer
     show_current_version: Vis nuværende version
@@ -232,6 +247,10 @@ da:
     tracked_articles: Sporede artikler
     view_articles: Vis artikler
     no_tracked_articles: Denne kategori har ingen sporede artikler
+    not_choosen_article: Du har ikke valgt en artikel at arbejde på. Når du har fundet
+      en artikel at arbejde på, skal du bruge knappen ovenfor til at tildele den.
+    use_dashboard: Sådan bruger du dashboardet
+    evaluate_and_source: Evaluering af artikler og kilder
   items:
     items: Elementer
     lexeme: Lexeme
@@ -249,6 +268,7 @@ da:
     edited: Objekter redigeret
     edited_none: Der er endnu ingen redigerede elementer.
     find: Find elementer
+    how_to_find: Sådan finder du emner
     preview: Kort forhåndsvisning af elementet
     search: Søg Wikidata for et element
     tracked_doc: Kun sporede elementer bidrager til statistikken for dette program.
@@ -266,6 +286,8 @@ da:
     article: Artiklen %{title} er nu tildelt dig.
     article_link: Artikel
     article_link_wikidata: Element
+    blocked_assignment: '%{title} kunne ikke tildeles, fordi den er på Wikipedia-fællesskabets
+      blokeringsliste for Dashboard-opgaver.'
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assignees: Tildelt til
@@ -277,6 +299,7 @@ da:
     add_available_placeholder_wikidata: Tilføj en elementtitel eller URL pr linje
     add_available_submit: Tilføj artikler
     add_available_submit_wikidata: Tilføj elementer
+    add_placeholder: Indtast en artikeltitel eller URL
     assign_self: Tildel mig selv en artikel
     assign_self_wikidata: Tilføj mig selv et element
     assign_tooltip: En tildelt artikel er en artikel, som du planlægger at oprette
@@ -288,7 +311,9 @@ da:
     confirm_add_available: Er du sikker på du vil tilføje %{title}?
     confirm_addition: Er du sikker på du vil tildele %{title} til %{username}?
     confirm_deletion: Er du sikker på, at du vil slette denne tildeling?
+    delete: Fjern og slet
     editors: Tildelt til
+    change_sandbox_url: Skift sandkasse
     group_members: Gruppemedlemmer
     label: Tildel
     label_all: Tildel alle
@@ -297,6 +322,7 @@ da:
     none_short_wikidata: Ingen elementer tildelt
     none: Dette kursus har ingen tildelte artikler.
     no_available: Dette kursus har ingen tilgængelige artikler.
+    outline: Disposition
     peer_review_count: '%{currentCount}/%{total} valgt'
     peer_review_count_tooltip: Du bør vælge %{total} artikler til gennemsyn.
     peer_review_link: Gennemsyn
@@ -338,6 +364,11 @@ da:
       (Hvis den blev oprettet for nylig, vil Dashboard også snart få opdateret sine
       data.)
     select: Vælg
+    submit: Indsend
+    invalid_url: Sandbox-URL'en kan ikke opdateres. URL'en %{url} er ikke en gyldig
+      Wikipedia-URL.
+    mismatched_wiki: Sandbox-URL'en kan ikke opdateres. URL'en %{url} er ikke på den
+      samme wiki.
     warning_untracked_wiki: 'Vær opmærksom på at den artikel som du netop har valgt,
       er på en wiki, der ikke spores af dette kursus. For at spore bidrag til denne
       artikel, skal en instruktør tilføje følgende wiki til dette kursus: %{wiki}'
@@ -369,6 +400,7 @@ da:
       "%{campaign_title}"?
     course_already_removed: '"%{title}" er allerede fjernet fra kampagnen "%{campaign_title}"'
     course: Kursus
+    course_data: kursusdata
     course_removed: '"%{title}" er blevet fjernet fra kampagnen "%{campaign_title}"'
     create_campaign: Opret en ny kampagne
     create_my_campaign: Opret min kampagne!
@@ -408,7 +440,10 @@ da:
       vil tekst i dette felt blive kopieret over til programmets beskrivelsesside.
     random_passcode: en tilfældig adgangskode
     requested_accounts: Anmodede konti
+    students_small: deltagere
+    student_course: deltagere efter kursus
     title: Titel
+    too_large: Denne kampagne er for stor til at de ønskede data kan vises.
     too_many_articles: Den redigerede artikelliste for denne kampagne er for lang
       til at blive vist. Se venligst individuelle kurser/programmer/begivenheder for
       at se artiklerne redigeret.
@@ -514,6 +549,7 @@ da:
     courses: Kurser
     courses_taught: Underviste kurser
     creation_date: Oprettelsesdato
+    start_date: Startdato
     creator:
       already_exists: Dette kursus eksisterer allerede. Overvej at ændre navnet, skolen
         eller andet for at gøre kurset unikt.
@@ -876,6 +912,11 @@ da:
     survey:
       notification_message: Deltag i vores undersøgelse for dette kursus.
       link: Tag undersøgelse
+  course_instructor_notification:
+    write_subject: Emne
+    write_message_placeholder: Besked
+    sending_notification: Sender
+    bcc_to_salesforce: BCC til Salesforce
   courses_generic:
     school_system: Akademisk system
     add_campaign: Tilføj en kampagne
@@ -940,6 +981,9 @@ da:
       participate_in_campaign: Deltag i en kampagne
       save_cloned_course: Gem
       start_date: Start på aktivitets-tracking
+      scoping_methods:
+        categories: Kategorier
+        templates: Skabeloner
     delete_course: Slet program
     edit_course_dates: Rediger projektdatoer
     end: Slut aktivitets-tracking
@@ -977,7 +1021,7 @@ da:
     user_uploads_none: De valgte brugere har ikke bidraget med billeder eller andre
       medier til dette projekt.
     view_other: Vis andre kampagner
-    view_page: Vis programside
+    view_page: Vis side
     word_count_doc: Et anslået antal ord tilføjet til hovedområdets artikler af deltagerne
       under kursus
     word_count_doc_wikidata: Et anslået antal ord tilføjet til hovedområdets artikler
@@ -1181,6 +1225,7 @@ da:
       af ophavsretslige grunde).
     recent_edits: Seneste redigeringer
     recent_uploads: Seneste uploads
+    report: Rapportér
     revision_author: Forfatter af denne revision
     revision_datetime: Revisionstidspunkt
     revision_score: Revisionsresultat
@@ -1195,7 +1240,7 @@ da:
     diff: forskel
     diff_show: Vis
     diff_hide: Skjul
-    edit_time_span: Redigeringer der optræder fra %{first_time} til %{last_time}
+    edit_time_span: 'Rettelser fandt sted fra: %{first_time} til %{last_time}'
     edited_by: Redigeret af
     edited_on: Blev redigeret den %{edit_date}
     loading: Indlæser revisioner...
@@ -1210,6 +1255,12 @@ da:
     label: Ressourcer
     header: Ressourcer & Træning
   settings:
+    categories:
+      other_settings: Andre indstillinger
+      impact_stats: Effektstatistik
+      featured_campaigns: Udvalgte kampagner
+      special_users: Særlige brugere
+      users: Brugere
     admin_users:
       new:
         form_label: Tildel administrator-rettigheder
@@ -1679,4 +1730,33 @@ da:
     assignment_status: Træningsopgave (%{status})
   multi_wiki:
     selector_placeholder: Start med at skrive et wiki-domæne
+  news:
+    add_news: Tilføj nyheder
+    post_confirmation:
+      confirmation: Bekræft venligst.
+    delete_confirmation:
+      confirmation: Bekræft venligst.
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+        footer_text: Læs nyheder og seneste ændringer
+    options:
+      news_content:
+        delete_news: Slet nyheder
+        confirm_delete: Bekræft
+        cancel_delete: Annullér
+        cancel_edit: Fortryd redigering
+        edit_news: Rediger nyheder
+        update_news: Opdater nyheder
+      create_news:
+        cancel_post: Annuller indlæg
+        confirm_post: Bekræft indlæg
+        discard_post: Kassér nyheder
+  notes:
+    title: Titel
+    edited_by: Redigeret af
+    cancel_note_creation: Annullér
+    cancel_edit_note: Annullér
+    save_note: Gem
+    delete_note: Slet note
 ...

@@ -22,6 +22,7 @@
 # Author: Joalpe
 # Author: Jurema Oliveira
 # Author: Lc97
+# Author: Leosls
 # Author: LucyDiniz
 # Author: Luk3
 # Author: Macofe
@@ -60,6 +61,7 @@ pt-br:
   application:
     back: Voltar
     cancel: Cancelar
+    next: Próximo
     cookie_consent: Este site usa cookies para mantê-lo conectado e armazena informações
       relacionadas à sua conta da Wikipédia.
     cookie_consent_acknowledge: Compreendo
@@ -71,6 +73,7 @@ pt-br:
     explore: Explorar
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem caracteres inválidos
+    field_invalid_term: O termo deve incluir o ano (por exemplo, "Primavera de 2025").
     field_invalid_date: Este campo requer a data no formato AAAA-MM-DD
     field_invalid_date_time: O fim deve vir após o início. (Horas vão de 0 a 23.)
     greeting2: Bem-vindo(a)!
@@ -82,6 +85,7 @@ pt-br:
     log_in: Entrar
     log_out: Sair
     my_dashboard: Meu painel
+    okay: Entendi
     recent_activity: Atividade recente
     report_problem: Informar um problema
     request_account: Pedir uma conta
@@ -212,9 +216,11 @@ pt-br:
     label: Artigos
     loading: Carregando artigos...
     mark_as_complete: Marcar como Completado
+    mark_as_incomplete: Marcar como Incompleto
     new: (novo)
     none: Este curso não editou nenhum artigo.
     preview: Antevisão breve do artigo
+    quality_checklist: Lista de verificação de qualidade
     rating: Qualidade
     rating_doc: A avaliação que um artigo recebeu por um WikiProjeto na Wikipédia.
       Essas avaliações podem corresponder a versões muito antigas, então elas são
@@ -334,6 +340,7 @@ pt-br:
     add_available_placeholder_wikidata: Adicione um título de item ou URL por linha
     add_available_submit: Adicionar artigos
     add_available_submit_wikidata: Adicionar itens
+    add_placeholder: Digite o título ou o URL do artigo.
     assign_self: Atribuir um artigo a mim mesmo
     assign_self_wikidata: Atribuir um item a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
@@ -355,6 +362,7 @@ pt-br:
     none_short_wikidata: Nenhum item atribuído
     none: Este curso não possui artigos atribuídos.
     no_available: Este curso não tem artigos disponíveis.
+    outline: Contorno
     peer_review_count: '%{currentCount}/%{total} selecionado'
     peer_review_count_tooltip: Você deve selecionar %{total} artigos para revisão
       por pares.
@@ -466,6 +474,12 @@ pt-br:
     delete_course_tooltip: Deletar e remover da campanha
     disable_account_requests: Desativar solicitações de conta
     enable_account_requests: Ativar as solicitações de contas
+    enable_account_requests_doc: O recurso de solicitação de conta adiciona um formulário
+      de solicitação de conta ao link de inscrição para um evento. Usuários que ainda
+      não possuem uma conta podem inserir seu e-mail e nome de usuário desejado, e
+      os organizadores do evento podem usar o Painel de Controle para criar as contas
+      solicitadas. Os usuários que solicitam contas são adicionados automaticamente
+      ao evento após a criação da conta.
     newest_campaigns: Campanhas mais recentes
     featured_campaigns: Campanhas em destaque
     instructors_course: instrutores por curso
@@ -520,6 +534,8 @@ pt-br:
     remove: Remover
     tracked_categories: Categorias rastreadas, PSID, pilha de páginas e predefinições
     timestamp: Última atualização
+    category_error: Este método de seleção de escopo contém muitos itens para serem
+      atualizados. Por favor, tente usar escopos menores.
   courses:
     school_system: Sistema acadêmico
     assignment_edits_enabled: Edições de atribuição ativadas
@@ -641,7 +657,7 @@ pt-br:
       course_school: Escola do curso
       course_subject: Tema do curso
       course_term: Prazo do curso
-      course_term_placeholder: Prazo
+      course_term_placeholder: Prazo (incluindo ano)
       course_title: Título do curso
       course_types:
         basic_course_name: Programa básico
@@ -660,6 +676,9 @@ pt-br:
           a um determinado conjunto de artigos ou assuntos. Por padrão, as edições
           automatizadas do wiki estão ativadas.
         single_user_name: Editor individual
+        single_user_description: Este tipo de programa destina-se ao acompanhamento
+          das suas próprias contribuições, com uma interface simplificada. Utilize
+          este tipo se não precisar acompanhar as edições feitas por outros usuários.
       create_button: Criar meu curso!
       create_label: Criar novo curso
       create_new: Criar um novo curso
@@ -668,18 +687,19 @@ pt-br:
       end_date: Data de término
       end_date_placeholder: AAAA-MM-DD
       expected_number: Número experado de estudantes
+      field_invalid_term: O termo deve incluir o ano (por exemplo, "Primavera de 2025").
       find: Encontre seu curso
       intro: O título, a escola e o prazo criam a URL da página de seu curso e não
         podem ser alterado. Todo o resto, você pode editar mais tarde. Clique em "Criar
         meu curso!" Para começar a construir a linha do tempo para a sua atribuição
         Wikipedia.
-      new_or_clone: Você pode criar um novo curso agora, utilizando o assistente estético
-        de atribuição. Se possuir um cronograma fortemente personalizado de um curso
-        anterior que deseja reutilizar, pode duplicá-lo com novas datas. (Se não personalizou
-        significativamente o seu cronograma anteriormente, nós recomendamos que inicie
-        um novo curso para que tenha as versões mais atualizadas das opções de atribuição.)
-        Também pode utilizar a opção de duplicar para criar secções adicionais para
-        um curso que já definiu.
+      new_or_clone: Clique em 'Criar Novo Curso' para prosseguir para o assistente
+        de criação de tarefas. Sua linha do tempo incluirá as opções mais recentes
+        para os módulos de treinamento recomendados da Wiki Education e outros recursos.
+        Se você tiver uma linha do tempo altamente personalizada de um curso anterior
+        que deseja reutilizar, poderá clonar uma cópia dela com novas datas. Você
+        também pode usar a opção de clonar para criar seções adicionais para um curso
+        que você já configurou.
       no_class_holidays: Não há férias
       role_description: A sua função no curso
       role_description_options:
@@ -845,6 +865,8 @@ pt-br:
       ele deve ser adicionado a uma campanha. Se não tiver certeza de qual campanha
       adicionar, use "Miscelânea".
     no_sandboxes: Sem ambientes de teste isolados
+    no_sandboxes_info: Quando ativado, o curso estará no modo Sem Sandbox. Certifique-se
+      de alterar também as tags e o conteúdo da linha do tempo, se necessário.
     nocourses: Você não está participando em nenhum curso
     nocourse: Não participou de nenhum curso.
     none: Nenhum
@@ -857,6 +879,15 @@ pt-br:
     online_volunteers_tooltip: Ativar Voluntários On-line permite que editores de
       usuários participem como voluntários. Suas edições não serão rastreadas.
     ores_plot: ORES
+    ores_plot_description: Este gráfico visualiza, de forma agregada, o quanto os
+      artigos evoluíram desde antes de os alunos os editarem pela primeira vez até
+      suas edições mais recentes. A classificação de Completude Estrutural é baseada
+      em um projeto de aprendizado de máquina (%{ores_link}) que estima a qualidade
+      de um artigo com base na quantidade de texto, no número de links internos, imagens
+      e títulos de seção, entre outros recursos. (%{refresh_link})
+    ores_plot_no_data: Não há dados disponíveis sobre a integridade estrutural.
+    ores_plot_refresh_data: Atualizar Dados em Cache
+    ores_plot_show_button: Mudança na Completude Estrutural
     overview: Início
     passcode: Código de acesso
     passcode_none: Sem senha
@@ -1064,6 +1095,9 @@ pt-br:
       scoping_methods:
         scoping_methods: Métodos de escopo
         configure: Configurar métodos de escopo
+        about: |-
+          Para um programa com escopo definido por artigos, o painel de controle rastreará apenas as edições nos artigos que você configurou. Depois que sua página for criada, você poderá adicionar artigos individualmente para rastreamento, atribuindo-os a editores específicos ou adicionando-os como Artigos Disponíveis. Para conjuntos maiores de artigos, você pode usar qualquer uma dessas ferramentas para definir os artigos que deseja rastrear.
+          Selecione agora os métodos de definição de escopo que deseja configurar. Você também pode adicionar métodos de definição de escopo posteriormente na guia Artigos.
         categories: Categorias
         categories_short_desc: O recurso de categoria na wiki é usado para coletar
           artigos relacionados. Você pode usar o nome da categoria para dizer ao Dashboard
@@ -1072,6 +1106,10 @@ pt-br:
           Acompanhar uma categoria significa que o Dashboard contará as edições para qualquer artigo naquela categoria. Por definição (profundidade 0), somente os artigos que estão inseridos diretamente naquela categoria serão acompanhados.
           Você pode aumentar o valor da profundidade (até no máximo 3) se você quiser incluir artigos que estão em subcategorias daquela categoria. Certifique-se de procurar a categoria primeiro para ter certeza que as subcategorias correspondem ao que você pretende acompanhar.
         templates: Predefinições
+        templates_short_desc: É possível rastrear artigos com base em uma predefinição
+          que eles contenham, o que funciona independentemente de a predefinição ser
+          usada no próprio artigo ou na página de discussão correspondente, como é
+          o caso das predefinições de WikiProject.
         petscan: PetScan
         petscan_short_desc: PetScan é uma ferramenta que habilita você a consultar
           páginas wiki com base em uma ampla gama de critérios - incluindo categorias,

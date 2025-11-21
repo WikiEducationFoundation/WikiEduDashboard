@@ -5,6 +5,7 @@ class RevisionScanner
   def self.schedule_revision_checks(wiki:, revisions:, course:)
     return unless Features.wiki_ed?
     return unless wiki.en_wiki?
+    return unless course.end > Time.current # Only generate alerts is course is ongoing
 
     new(wiki:, revisions:, course:).schedule_ai_detection
   end

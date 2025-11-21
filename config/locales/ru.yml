@@ -12,6 +12,7 @@
 # Author: Diralik
 # Author: Dirruw'o
 # Author: Edible Melon
+# Author: EneshTranslates
 # Author: Evs
 # Author: Facenapalm
 # Author: Gehhrr
@@ -169,6 +170,20 @@ ru:
   alerts:
     alert_label: Оповещения
     no_alerts: Оповещения не найдены.
+    ai_stats:
+      timestamp: Метка времени
+      sections:
+        contents: Содержание для списков оповещений ИИ
+        go_back: Вернуться к содержанию
+        name: Имя
+        description: Описание
+        descriptions:
+          recent_followup: Оповещения с ответами на последующие действия, отправленными
+            за последние 14 дней, упорядоченные по дате ответа.
+          multiple_alerts_students: Оповещения, созданные за последние 14 дней для
+            студентов с несколькими оповещениями, упорядоченные по дате создания.
+          in_mainspace: Оповещения, созданные за последние 14 дней для статей в основном
+            пространстве, упорядоченные по дате создания.
   activity:
     all: Активность
     edited_by: Изменил(а)
@@ -288,6 +303,15 @@ ru:
     milestones:
       title: Этапы
   campaign:
+    campaign_ores_plot:
+      no_data: Данные о структурной полноте недоступны
+      graph_description_html: Этот график показывает в целом, насколько развивались
+        статьи с момента, когда участники кампании впервые их редактировали, до самых
+        последних изменений в кампании. Рейтинг <em>Структурная полнота</em> основан
+        на проекте машинного обучения (<a href="https://www.mediawiki.org/wiki/ORES/FAQ"
+        target="_blank">ORES</a>), который оценивает качество статьи на основе объёма
+        текста, количества вики-ссылок, изображений, заголовков разделов и других
+        характеристик.
     active_campaigns: Активные кампании
     add_organizer: Добавить организатора
     alert_article: Название статьи
@@ -619,6 +643,16 @@ ru:
     time_doc: Время каждой ревизии по вашему местному времени
     title: Название
   settings:
+    common_settings_components:
+      headings:
+        default_campaign_setting: Кампания по умолчанию
+      buttons:
+        add_special_user_button: Добавить специального пользователя
+        configure_site_notice:
+          enable_button: Включить
+          disable_button: Отключить
+        update_course_creation_settings: Обновить настройки создания курса
+        update_salesforce_credentials: Обновить данные для входа в Salesforce
     categories:
       other_settings: Другие настройки
       impact_stats: Статистика воздействия

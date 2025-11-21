@@ -36,6 +36,7 @@ sr-ec:
   application:
     back: Назад
     cancel: Откажи
+    next: Следеће
     cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним, и чувао
       информације везаних за ваш налог на Википедији.
     cookie_consent_acknowledge: Разумем.
@@ -139,6 +140,9 @@ sr-ec:
   alerts:
     alert_label: Обавештења
     no_alerts: Ниједно упозорење није пронађено.
+    ai_stats:
+      sections:
+        description: Опис
   activity:
     all: Активност
     edited_by: Уредио корисник
@@ -302,6 +306,8 @@ sr-ec:
     sandbox_draft_link: Нацрт песка
     select: Изабери
     submit: Пошаљи
+    sandbox_label: Песак
+    bibliography_label: Библиографија
   blocks:
     milestones:
       title: Миљоказ
@@ -489,7 +495,7 @@ sr-ec:
       course_school: Школа курса
       course_subject: Предмет курса
       course_term: Полугодиште курса
-      course_term_placeholder: Полугодиште
+      course_term_placeholder: Полугодиште (укључујући годину)
       course_title: Назив курса
       course_types:
         basic_course_name: Основни програм
@@ -998,6 +1004,11 @@ sr-ec:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
+    common_settings_components:
+      buttons:
+        configure_site_notice:
+          enable_button: Омогући
+          disable_button: Онемогући
     categories:
       other_settings: Остала подешавања
       featured_campaigns: Истакнуте кампање

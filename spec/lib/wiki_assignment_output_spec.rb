@@ -98,9 +98,9 @@ describe WikiAssignmentOutput do
         let(:talk_title) { 'Talk:South_Efate_language' }
 
         it 'removes the existing assignment template if the new tag is blank' do
-          old_content = '{{dashboard.wikiedu.org assignment'\
-                        ' | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/'\
-                        'Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)'\
+          old_content = '{{dashboard.wikiedu.org assignment' \
+                        ' | course = Wikipedia:Wiki_Ed/University_of_Hawaiʻi_at_Mānoa/' \
+                        'Language_in_Hawaiʻi_and_the_Pacific_(Fall_2016)' \
                         ' | assignments = [[User:Keï|Keï]] }}
 
   {{WP Languages|class=Stub}}
@@ -191,7 +191,7 @@ describe WikiAssignmentOutput do
 
       it 'does not mess things up when the talk page content is not a simple template line' do
         assignment_tag = '{{template|foo=bar}}'
-        initial_talk_page_content = '{{ping|Johnjes6}} Greetings! Good start on an article!'\
+        initial_talk_page_content = '{{ping|Johnjes6}} Greetings! Good start on an article!' \
                                     ' I had some concrete feedback.\n'
 
         output = wiki_assignment_output
@@ -213,7 +213,7 @@ describe WikiAssignmentOutput do
         expect(output).to eq(expected_output)
       end
 
-      it 'puts assignment templates after a nested template '\
+      it 'puts assignment templates after a nested template ' \
          'like {{WikiProject banner shell}} ends' do
         assignment_tag = '{{template|foo=bar}}'
         initial_talk_page_content = <<~KANYEWESTTALK

@@ -34,6 +34,7 @@ const DiffViewer = createReactClass({
   getInitialState() {
     return {
       fetched: false,
+      changeCount: 0 // Starting count for counting the highlighted changes
     };
   },
 
@@ -47,16 +48,27 @@ const DiffViewer = createReactClass({
     if (this.shouldShowDiff(this.props) && !prevState.fetched) {
       this.fetchRevisionDetails(this.props);
     }
+    if (prevState.diff !== this.state.diff && this.diffBody) { // if this.state.diff changes, number of highlights recounts to keep frontend in sync
+      this.updateChangeCount();
+    }
   },
 
   // sets the ref for the diff, calls method to resize first empty diff
   setDiffBodyRef(element) {
     this.diffBody = element;
     this.resizeFirstEmptyDiff();
+    if (element) this.updateChangeCount(); // if there is a reference to the diff <tbody>, add to counter
   },
 
   setSelectedIndex(index) {
     this.props.setSelectedIndex(index);
+  },
+
+  // Change summary: relocated to satisfy sort-comp rule and count highlights off the diffBody ref.
+  updateChangeCount() { // New helper to count the highlighted words when HTML gets inserted
+    if (!this.diffBody) return;
+    const nodes = this.diffBody.querySelectorAll('.diff-addedline .diffchange');
+    this.setState({ changeCount: nodes.length });
   },
 
   // resizes first empty diff element to 50% width in table
@@ -220,16 +232,21 @@ const DiffViewer = createReactClass({
   },
 
   articleDetails() {
-  const editCount = this.props.article?.edit_count ?? 0;
-  return (
-    <>
-      {this.props.articleTitle}
-      <span style={{ marginLeft: '8px', color: '#777', fontSize: '0.9em' }}>
-        ({editCount} edits)
-      </span>
-    </>
-  );
-},
+    const editCount = this.state.changeCount ?? 0; // used to be this.props.article?.edit_count ?? 0, switched so it's the live version instead
+    return (
+      <>
+        {this.props.articleTitle}
+        {/* Change summary: display the live highlight count with a localized label. */}
+        <span style={{ marginLeft: '8px', color: '#777', fontSize: '0.9em' }}>
+          (
+          {editCount}
+          {' '}
+          {I18n.t('users.edits')}
+          )
+        </span>
+      </>
+    );
+  },
 
   render() {
     if (!this.shouldShowDiff(this.props) || !this.props.revision) {
@@ -259,8 +276,6 @@ const DiffViewer = createReactClass({
       // adds a ref for the diff, used to format parts of diff element above
       diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} ref={this.setDiffBodyRef}/>;
     }
-
-    const wikiDiffUrl = this.webDiffUrl();
 
     let diffComment;
     let firstRevTime;
@@ -312,7 +327,7 @@ const DiffViewer = createReactClass({
     return (
       <div>
         <div className={className}>
-          
+
           <div className="diff-viewer-header">
             {this.nextArticle()}
             {this.previousArticle()}
