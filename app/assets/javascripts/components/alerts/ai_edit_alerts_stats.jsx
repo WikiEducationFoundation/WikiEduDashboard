@@ -34,7 +34,7 @@ const AiEditAlertsStats = () => {
         <AlertsTrendsGraph
           statsData={stats.historical_alerts}
         />
-        <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.current_term })}</h3>
+        <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.campaign_name })}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
             <tr>
