@@ -3,7 +3,17 @@
 class AiEditAlertsStatsController < ApplicationController
   layout 'admin'
   before_action :check_user_auth
+
+  def select_campaign
+    @campaigns = Campaign.all
+  end
+
+  def choose_campaign
+    redirect_to "/ai_edit_alerts_stats/#{params[:campaign_id]}"
+  end
+
   def index
+    @campaign_id = params[:campaign_id]
     set_data
   end
 
@@ -13,6 +23,8 @@ class AiEditAlertsStatsController < ApplicationController
   MIN_ALERTS_COUNT_PER_COURSE = 3
 
   def set_data
+    set_campaign
+    set_campaign_name
     set_alerts
     set_courses
     set_followups
@@ -25,11 +37,25 @@ class AiEditAlertsStatsController < ApplicationController
     set_historical_alerts
   end
 
-  def set_alerts
-    @alerts = Campaign.default_campaign.alerts.where(type: 'AiEditAlert').includes(:article)
+  def set_campaign
+    @campaign = @campaign_id.to_i.zero? ? nil : Campaign.find(@campaign_id)
   end
 
-  # Sets a hash of courses in default campaign with more than MIN_ALERTS_COUNT_PER_COURSE
+  # If a campaign is specified, uses its slug. Otherwise, uses 'all campaigns'
+  # because the stats are computed across all alerts without campaign scoping.
+  def set_campaign_name
+    @campaign_name = @campaign ? @campaign.slug : 'all campaigns'
+  end
+
+  def set_alerts
+    @alerts = if @campaign
+                @campaign.alerts.where(type: 'AiEditAlert').includes(:article)
+              else
+                Alert.where(type: 'AiEditAlert').includes(:article)
+              end
+  end
+
+  # Sets a hash of courses with more than MIN_ALERTS_COUNT_PER_COURSE
   def set_courses
     @courses = @alerts.group_by(&:course_id).values
                       .select { |alerts| alerts.count > MIN_ALERTS_COUNT_PER_COURSE }

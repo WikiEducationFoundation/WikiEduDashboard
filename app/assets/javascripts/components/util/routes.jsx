@@ -60,7 +60,7 @@ const routes = () => {
         <Route path="/course_creator" element={<ConnectedCourseCreator />} />
         <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/alerts_list" element={<AdminAlerts />} />
-        <Route path="/ai_edit_alerts_stats" element={<AlertsStats />} />
+        <Route path="/ai_edit_alerts_stats/:campaign_id" element={<AlertsStats />} />
         <Route path="/settings" element={<SettingsHandler />} />
         <Route path="/article_finder" element={<ArticleFinder />} />
         <Route path="/training/*" element={<TrainingApp />} />

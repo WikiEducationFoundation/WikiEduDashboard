@@ -154,7 +154,7 @@ en:
     ai_stats:
       timestamp: Timestamp
       title: AI Edit Alerts Stats
-      general_stats: General Stats for %{campaign_name} Campaign
+      general_stats: General Stats for %{campaign_name}
       total_alerts: Total AI Edit Alerts
       with_followup: With followup
       multiple_alerts_students: Students with multiple alerts

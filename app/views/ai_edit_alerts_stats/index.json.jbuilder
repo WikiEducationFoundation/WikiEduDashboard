@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.current_term Campaign.default_campaign.slug
+json.campaign_name @campaign_name
 json.total_alerts @alerts.count
 json.by_page_type @count_by_page_type
 json.total_followups @followups.count
