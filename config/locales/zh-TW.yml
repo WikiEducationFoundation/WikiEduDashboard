@@ -127,7 +127,7 @@ zh-TW:
       dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
-    no_alerts: 找不到提醒。
+    no_data: 查無資料。
     ai_stats:
       timestamp: 時間戳記
       title: AI 編輯提醒統計
@@ -194,6 +194,9 @@ zh-TW:
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
     filter_text: 篩選：
+    pageviews_label: 頁面瀏覽量：
+    cumulative: 累計
+    daily_avg: 每日平均
     find: 尋找條目
     how_to_find: 如何查找條目
     hide: 隱藏

@@ -58,7 +58,6 @@ lt:
       paskyros, teiraukitės "dashboard@wikiedu.org".
   alerts:
     alert_label: Perspėjimai
-    no_alerts: Nerasta jokių perspėjimų.
   activity:
     all: Veikla
     edited_by: Redagavo

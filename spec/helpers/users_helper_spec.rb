@@ -9,8 +9,15 @@ describe UsersHelper, type: :helper do
     let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
 
     it 'returns a link to a user\'s contributions page' do
+      allow(Features).to receive(:wiki_ed?).and_return(true)
       link = contribution_link(courses_user)
-      expect(link).to match(/<a.*href=/)
+      expect(link).to match(/Special:Contributions/)
+    end
+
+    it 'returns a link to a user\'s global contributions page' do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      link = contribution_link(courses_user)
+      expect(link).to match(/guc.toolforge.org/)
     end
   end
 end

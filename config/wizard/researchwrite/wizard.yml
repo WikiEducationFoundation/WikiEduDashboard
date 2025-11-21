@@ -135,35 +135,46 @@
 
 -
   key: sandboxes
-  title: Starting in sandboxes
+  title: Sandboxes or edit live?
   # only_if: returning_instructor
   description: |
-    For improving existing articles, we support two different strategies: have students prepare their initial improvements
-    in a Wikipedia sandbox, or have students directly improve the live versions incrementally. Sandboxes will give you a
-    chance to review student work before it reaches Wikipedia readers, but working live encourages incremental changes, provides
-    more opportunity for community interaction, and eliminates the error-prone step of copying student work from a
-    sandbox into a live article. Most instructors who have tried both strategies find that bypassing sandboxes and
-    working live simplifies the project.
+    All students will use drafting spaces called sandboxes to prepare their bibliographies
+    and outlines of their proposed changes before they edit any live articles.
+    Additionally, any student creating a new article instead of improving an existing
+    article will need to first draft their text in their sandbox.
     
-    Whether students use sandboxes or work on live articles for their main contributions
-    Students creating new articles, rather than improving existing ones, will still prepare
-    their initial drafts in a sandbox. They will also use sandboxes to prepare a bibliography and an outline of proposed changes
-    before changing the live articles.
+    But heads up, you still have a decision to make about sandboxes!
 
-    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts. If you would like students to work incrementally on
-    the live articles instead, choose 'Work live without sandbox drafts'.
+    For **improving existing Wikipedia articles**, you’ll need to **choose between two different methods**:
+
+    1. Students draft their text in a Wikipedia sandbox (not directly within the live article) 
+
+    OR
+
+    2. Students incrementally make direct edits to the live versions of Wikipedia articles
+  
+    #### How to decide?
+
+    When students draft in sandboxes, you get the chance to review their text before it reaches
+    Wikipedia readers. However, editing directly in live articles encourages them to make incremental
+    changes, provides more opportunity for community interaction, and eliminates the error-prone step
+    of copying work from a sandbox into a live article.
+
+    Choose 'Draft text for articles in sandboxes' if you would like students to draft their text
+    for articles in sandboxes. If you would like students to work incrementally on live articles
+    instead, choose 'Edit directly in live articles'.
+
   type: 1 # single choice
   minimum: 1
   options:
     -
-      title: Prepare drafts in sandboxes
+      title: Draft text for articles in sandboxes, then copy over to article
       tag: yes_sandboxes
       logic: yes_sandboxes
     -
-      title: Work live without sandbox drafts
+      title: Edit directly in live articles 
       tag: no_sandboxes
       logic: no_sandboxes
-      selected: true # selected by default
 
 -
   key: working_in_groups

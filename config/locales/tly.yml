@@ -27,6 +27,10 @@ tly:
     opt_out: Ne
     opt_yes: ha
     opt_no: ne
+  alerts:
+    ai_stats:
+      sections:
+        description: Nom-nyšon
   articles:
     filter:
       wiki_all: Həmmə
@@ -37,6 +41,8 @@ tly:
     wiki: Viki
   articles_generic:
     articles_short: Səhifə
+  assignments:
+    bibliography_label: Bibliografijə
   campaign:
     all_campaigns: Həmə Kampaniyə
     created_at: Taryx

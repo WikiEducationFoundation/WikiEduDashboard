@@ -82,4 +82,19 @@ describe CheckRevisionWithPangram do
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
     end
   end
+
+  context 'when the revision is missing or deleted' do
+    let(:missing_revision_id) { 999999999999 }
+
+    it 'logs a message to Sentry and exits gracefully' do
+      expect(Sentry).to receive(:capture_message)
+        .with("CheckRevisionWithPangram: revision #{missing_revision_id} missing or deleted")
+      expect_any_instance_of(described_class).not_to receive(:fetch_diff_table)
+      expect_any_instance_of(described_class).not_to receive(:fetch_revision_html)
+
+      VCR.use_cassette 'pangram_missing_revision' do
+        described_class.new(en_wiki.id, missing_revision_id, user.id, course.id)
+      end
+    end
+  end
 end

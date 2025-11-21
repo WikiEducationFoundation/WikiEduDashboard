@@ -7,6 +7,7 @@ json.course do
     json.call(article, :id, :namespace, :rating, :deleted, :mw_page_id, :url)
     json.view_count calculate_view_count(ac.first_revision, ac.average_views, article.average_views,
                                          ac.view_count)
+    json.average_views ac.average_views || article.average_views
     json.title article.full_title
     json.language article.wiki.language
     json.project article.wiki.project

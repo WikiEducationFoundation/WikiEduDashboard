@@ -125,7 +125,6 @@ sr-el:
       nalog, kontaktirajte dashboard@wikiedu.org.
   alerts:
     alert_label: Obaveštenja
-    no_alerts: Nijedno upozorenje nije pronađeno.
   activity:
     all: Aktivnost
     edited_by: Uredio korisnik

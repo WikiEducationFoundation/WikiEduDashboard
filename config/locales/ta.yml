@@ -51,6 +51,7 @@ ta:
       username_rules:
         heading: பயனர்பெயர் விதிகள்
   alerts:
+    no_data: தரவு ஏதும் காணப்படவில்லை.
     ai_stats:
       by_page_type: பக்க வகையின்படி
   activity:

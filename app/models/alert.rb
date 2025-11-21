@@ -33,6 +33,7 @@ class Alert < ApplicationRecord
   ALERT_TYPES = %w[
     ActiveCourseAlert
     AiEditAlert
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert
@@ -69,6 +70,7 @@ class Alert < ApplicationRecord
   validates_inclusion_of :type, in: ALERT_TYPES
 
   RESOLVABLE_ALERT_TYPES = %w[
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     CheckTimelineAlert
@@ -157,6 +159,14 @@ class Alert < ApplicationRecord
     return if emails_disabled?
     return if target_user.nil?
     AlertMailer.send_alert_email(self, target_user)
+    update(email_sent_at: Time.zone.now)
+  end
+
+  def email_classroom_program_manager
+    return if emails_disabled?
+    recipient = SpecialUsers.classroom_program_manager
+    # return unless recipient
+    AlertMailer.send_alert_email(self, recipient)
     update(email_sent_at: Time.zone.now)
   end
 

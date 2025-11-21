@@ -48,7 +48,7 @@ ne:
     home: गृह
     log_in_extended: विकिपिडियाकाे प्रयाेग गरि प्रवेश गर्नुहाेस्
     log_in: प्रवेश गर्नुहोस्
-    log_out: निर्गमन
+    log_out: निर्गमन गर्नुहोस्
     my_dashboard: मेरो ड्यसबोर्ड
     okay: ठीक
     recent_activity: हालको कृयाकलाप
@@ -104,6 +104,7 @@ ne:
     sign_up: विकिपिडियाकाे प्रयोग गरि खाता खाेल्नुहाेस्
   alerts:
     alert_label: सुचनाहरू
+    no_data: कुनै डेटा फेला परेन।
     ai_stats:
       timestamp: समयछाप
   activity:
@@ -201,6 +202,10 @@ ne:
     review_tooltip: यो तपाईँको लेखहरूको लगत राख्नको लागि हो जुनमा तपाईँले पुनरावलोकन
       गर्ने र सुझाव दिने योजना बनाउनु भएको छ। \
     select: चयन गर्नुहोस्
+    username_label: विकिपिडिया प्रयोगकर्ता नाम
+    sandbox_label: प्रयोगस्थल
+    bibliography_label: ग्रन्थसूची
+    outline_label: रूपरेखा
   blocks:
     milestones:
       title: कोसेढुङ्गाहरू
@@ -241,8 +246,8 @@ ne:
   categories:
     add_category: श्रेणी थप्नुहोस्
     add_template: ढाँचा थप्नुहोस्
-    add_this_category: यस श्रेणी थप्नुहोस्
-    add_this_template: यस ढाँचा थप्नुहोस्
+    add_this_category: श्रेणीहरू थप्नुहोस्
+    add_this_template: ढाँचाहरू थप्नुहोस्
     name: नाम
     category_name: श्रेणीको नाम
     template_name: टेम्प्लेट नाम
@@ -291,7 +296,7 @@ ne:
       course_school: पाठ्यक्रम विद्यालय
       course_subject: पाठ्यक्रम विषय
       course_term: पाठ्यक्रम सत्र
-      course_term_placeholder: सत्र
+      course_term_placeholder: सत्र (वर्ष सहित)
       course_title: पाठ्यक्रमको नाम
       create_button: मेरो पाठ्यक्रम निर्माण गर्ने!
       create_label: नयाँ पाठ्यक्रम सिर्जना गर्नुहोस्
@@ -330,7 +335,7 @@ ne:
     end: अन्तिम
     ended: यो पाठ्यक्रम समाप्त भयो।
     enroll: समावेस गर्नुहोस्
-    enrollment: समावेशपना
+    enrollment: विद्यार्थीहरू थप्नुहोस्/हटाउनुहोस्
     courses_enrolled: समावेश भएका पाठ्यक्रमहरू
     error:
       exists: यस पाठ्यक्रम पहिले देखि नै रहेको छ! कृपया फरक शीर्षक, विद्यालय या सत्र
@@ -411,7 +416,7 @@ ne:
     volunteer:
       one: स्वयंसेवक
       other: स्वयंसेवकहरू
-    wiki_staff: Wiki Ed कर्मचारी
+    wiki_staff: विकि शिक्षा कर्मचारी
     yourcourses: तपाईंको पाठ्यक्रमहरू
     survey:
       link: सर्वेक्षण गर्नुहोस्
@@ -453,7 +458,7 @@ ne:
     delete_course: कार्यक्रम मेट्नुहोस्
     edit_course_dates: आयोजना मितिहरू सम्पादन गर्नुहोस्
     enroll: सम्पादक थप्नुहोस्
-    enrollment: सहभागिता
+    enrollment: सम्पादकहरू थप्नुहोस्/हटाउनुहोस्
     explore: कार्यक्रम खोज्नुहोस्
     courses_enrolled: सहभागी कार्यक्रमहरू
     expected_students: अपेक्षित सम्पादकहरू
@@ -475,7 +480,7 @@ ne:
     term: कहिले
     unsubmitted: नबुझाइएका कार्यक्रमहरू
     view_other: अन्य अभियानहरू हेर्नुहोस्
-    view_page: कार्यक्रम पृष्ठ हेर्नुहोस्
+    view_page: पृष्ठ हेर्नुहोस्
     yourcourses: तपाईँको कार्यक्रमहरू
   editable:
     edit: सम्पादन
@@ -486,7 +491,7 @@ ne:
     edit_template: ढाँचा सम्पादन गर्नुहोस्
   instructor_view:
     assignments_table:
-      article_name: लेखकाे नाम
+      article_name: नाम
       relevant_links: उपयुक्त सूत्रहरू
     assigned_articles: निर्दिष्ट गरिएका लेखहरू
     overview: '%{prefix} अवलाेकन'
@@ -536,7 +541,7 @@ ne:
     index: अनुक्रम
   recent_activity:
     active_courses: लेख निम्नमा सक्रिय छ
-    article_title: लेख शीर्षक
+    article_title: शीर्षक
     datetime: मिति/समय
     did_you_know_eligible: के तपाईँलाई थाह छ योग्य
     image: चित्र
@@ -559,7 +564,7 @@ ne:
     diff: भिन्नता
     diff_show: देखाउनुहोस्
     diff_hide: लुकाउनुहोस्
-    edit_time_span: सम्पादन %{first_time} देखि  %{last_time} सम्म भएको थियो
+    edit_time_span: '%{first_time} देखि %{last_time}सम्म भएका सम्पादनहरू'
     edited_by: सम्पादनकर्ता
     edited_on: सम्पादन गरिएको मिति %{edit_date}
     loading: समीक्षाहरू लोड गर्दै...
@@ -613,10 +618,10 @@ ne:
     due_default: अर्को हप्ता बाँकी
     empty_week_1: सुरु गर्न,
     empty_week_2: यो हप्ता सम्पादन सुरु गर्नुहोस्
-    empty_week_3: ' या'
+    empty_week_3: ' वा'
     first_week_title: पहिले सक्रिय हप्ता
     gradeable_value: मान
-    grading_header: 'ग्रेडिङ (कुल: %{total}%)'
+    grading_header: 'ग्रेडिङ (कुल: %{total})'
     move_block_down: यसलाई तल सार्नुहोस्
     move_block_up: यसलाई माथि सार्नुहोस्
     no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
@@ -670,9 +675,9 @@ ne:
     first_name: पहिलो नाम
     last_name: अन्तिम नाम
     loading: प्रयोगकर्ताहरू लोड गर्दै...
-    characters_added_mainspace: मेनमेनस्पेसमा थपिएका अक्षरहरू
+    characters_added_mainspace: थपिएका अक्षरहरू (लेख)
     characters_added_short: 'मेनस्पेस: %{mainspace}, युजरस्पेस: %{userspace}'
-    characters_added_userspace: युजरस्पेसमा थपिएका अक्षरहरू
+    characters_added_userspace: थपिएका अक्षरहरू (प्रयोगकर्ता)
     my_assigned: 'असाइन गरिएको:'
     my_reviewing: 'समीक्षा गर्दै:'
     name: नाम
@@ -687,7 +692,7 @@ ne:
     sub_navigation:
       editor_overview: सम्पादक अवलाेकन
       exercises_and_trainings: अभ्यास र प्रशिक्षणहरू
-      student_overview: विद्यार्थी अवलोकन
+      student_overview: '%{prefix} रूपरेखा'
     training_incomplete: तालिम अपूर्ण
     training_module_name: तालिम मोड्युल
     training_module_status: वस्तुस्थिति
@@ -702,14 +707,14 @@ ne:
       instructor: प्रशिक्षक
       campus_volunteer: क्याम्पस स्वयंसेवक
       online_volunteer: अनलाइन स्वयंसेवक
-      wiki_ed_staff: Wiki Ed कर्मचारी
+      wiki_ed_staff: विकि शिक्षा कर्मचारी
   user_profiles:
     bio_placeholder: तपाईँको बारेमा थप्नुहोस् (ऐच्छिक)
     location_placeholder: तपाईँको ठेगाना(ऐच्छिक)
     institution_placeholder: संस्थाको नाम(ऐच्छिक)
   wizard:
     assignment_dates: असाइन्मेन्ट मितिहरू
-    assignment_type: असाइन्मेन्ट प्रकार
+    assignment_type: विद्यार्थीहरूले आफ्नो विकिपिडिया असाइनमेन्टका लागि के पूरा गर्नेछन्?
     course_dates: पाठ्यक्रम मितिहरू
     read_less: थोरै पढ्नुहोस्
     read_more: थप पढ्नुहोस्
@@ -747,7 +752,7 @@ ne:
         Your response is crucial to improving our current offerings.
       course: 'पाठ्यक्रम: %{course_info}'
       closing: सधन्यवाद,
-      signed: '- Wiki Ed समूह'
+      signed: '- विकि शिक्षा टोली'
       link: सर्वेक्षण गर्नुहोस्
     follow_up:
       message: यो %{course_title} पाठ्यक्रमको सर्वेक्षण बारेमा स्मरण पत्र हो। यस सर्वेक्षणको
@@ -758,7 +763,7 @@ ne:
   article_finder:
     page_assessment_class: कक्षा
     search: खोज्नुहोस्
-    submit: पेश गर्नुहोस्
+    submit: पेस गर्नुहोस्
   training_status:
     completed: पूर्ण भयो
     started: सुरुवात
