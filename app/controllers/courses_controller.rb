@@ -100,7 +100,6 @@ class CoursesController < ApplicationController
   def course
     set_course
     verify_edit_credentials { return }
-    @tracking_description = TrackingDescriptionBuilder.new(@course).call
   end
 
   def articles

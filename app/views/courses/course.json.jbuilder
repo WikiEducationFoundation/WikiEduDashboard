@@ -56,19 +56,8 @@ json.course do
   json.view_count number_to_human @course.view_sum
   json.character_sum_human number_to_human @course.character_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
-  update_logs = @course.flags['update_logs']
-
-  if update_logs.present?
-    json.updates do
-      json.average_delay @course.flags['average_update_delay']
-      json.last_update update_logs.values.last
-      json.logs update_logs
-    end
-  else
-    json.updates do
-      json.message 'No updates for this course yet.'
-    end
-  end
+  json.updates average_delay: @course.flags['average_update_delay'],
+               last_update: @course.flags['update_logs']&.values&.last
 
   if [CoursesUsers::Roles::STUDENT_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE].include? user_role
     json.incomplete_assigned_modules @course.training_progress_manager
@@ -95,5 +84,4 @@ json.course do
     json.passcode @course.passcode.blank? ? '' : '****'
     json.canUploadSyllabus false
   end
-  json.tracking_description @tracking_description
 end

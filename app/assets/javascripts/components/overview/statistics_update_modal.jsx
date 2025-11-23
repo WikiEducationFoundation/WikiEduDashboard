@@ -2,12 +2,12 @@ import React from 'react';
 import ArticleUtils from '../../utils/article_utils';
 import { isAfter, format } from 'date-fns';
 import { getUTCDate, toDate } from '../../utils/date_utils';
+import { computeTrackingDescription } from '../../utils/statistic_update_info_utils';
 import TrackingDescription from './tracking_description';
 import UpdateLogs from './update_logs';
 
 const StatisticsUpdateModal = (props) => {
   const course = props.course;
-
   const helpMessage = Features.wikiEd
     ? I18n.t('metrics.wiki_ed_help') : I18n.t('metrics.outreach_help');
 
@@ -24,13 +24,14 @@ const StatisticsUpdateModal = (props) => {
     ? I18n.t('metrics.non_updating_course_update')
     : '';
 
+  const trackingDescription = computeTrackingDescription(course);
+
   return (
     <div className="statistics-update-modal-container">
       <div className="statistics-update-modal">
         <b>{I18n.t('metrics.update_status_heading')}</b>
         <br />
 
-        {/* Logs have been fully moved out */}
         <UpdateLogs
           course={course}
           isNextUpdateAfter={props.isNextUpdateAfter}
@@ -40,18 +41,17 @@ const StatisticsUpdateModal = (props) => {
         />
 
         {/* Tracking Description */}
-        {course.tracking_description && (
+        {trackingDescription && (
           <>
             <b>
               {I18n.t('metrics.tracking_status_title', {
                 defaultValue: 'Tracking Status'
               })}
             </b>
-            <TrackingDescription trackingDescription={course.tracking_description} />
+            <TrackingDescription trackingDescription={trackingDescription} />
           </>
         )}
 
-        {/* Missing Data Section */}
         <b>{I18n.t('metrics.missing_data_heading')}</b>
         <br />
         {I18n.t('metrics.missing_data_info')}:
@@ -67,7 +67,6 @@ const StatisticsUpdateModal = (props) => {
             </a>
           </li>
 
-          {/* ArticleScopedProgram note */}
           {course.type === 'ArticleScopedProgram' && (
             <li>
               {I18n.t(

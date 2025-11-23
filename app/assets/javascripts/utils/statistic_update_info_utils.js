@@ -1,5 +1,6 @@
-import { addSeconds, formatDistanceToNow, isAfter } from 'date-fns';
+import { addSeconds, formatDistanceToNow, isAfter, format } from 'date-fns';
 import { toDate } from './date_utils';
+import { useSelector } from 'react-redux';
 
 const firstUpdateTime = (first_update) => {
   if (!first_update) return null;
@@ -123,4 +124,43 @@ const getUpdateLogs = (course) => {
   }
   return [];
 };
-export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs };
+
+// Tracking Description
+const computeTrackingDescription = (course) => {
+  if (!course) return null;
+
+  const start = new Date(course.start);
+  const end = new Date(course.end);
+  const now = new Date();
+
+  const wikiList = (() => {
+    const wikis = course.all_wikis || course.wikis || [];
+    if (!Array.isArray(wikis) || wikis.length === 0) return 'no wikis configured';
+    const languages = wikis.map(w => w.language).filter(Boolean);
+    return languages.length > 0 ? languages.join(', ') : 'no wikis configured';
+  })();
+
+  if (start > now) {
+    const startDate = format(start, 'MMMM d, yyyy');
+    return `This program is scheduled to begin on ${startDate}. `
+      + `When it starts, edits from ${wikiList} will be tracked automatically.`;
+  }
+
+  const noStudents = course.student_count === 0;
+  const campaigns = useSelector(state => state.campaigns);
+  const noCampaigns = campaigns.length === 0;
+
+  if (noStudents || noCampaigns) {
+    return 'This program currently has no students or campaigns, so no edits can be tracked. '
+     + 'Please add students and campaigns to enable tracking.';
+  }
+
+  const endDate = format(end, 'MMMM d, yyyy');
+  const updateUntil = new Date(end.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const updateUntilFormatted = format(updateUntil, 'MMMM d, yyyy');
+
+  return `Edits for this program from ${wikiList} will be tracked through ${endDate}. `
+   + `The dashboard will continue updating statistics until ${updateUntilFormatted}.`;
+};
+
+export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs, computeTrackingDescription };
