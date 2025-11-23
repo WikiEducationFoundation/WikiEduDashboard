@@ -33,6 +33,8 @@ const AiEditAlertsStats = () => {
         <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
         <AlertsTrendsGraph
           statsData={stats.historical_alerts}
+          countByPage={stats.by_page_type}
+          total={stats.total_alerts}
         />
         <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.campaign_name })}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
