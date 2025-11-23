@@ -28,7 +28,6 @@ describe 'AI edit alerts stats', type: :feature, js: true do
     it 'has sections' do
       visit "/ai_edit_alerts_stats/#{campaign.id}"
       expect(page).to have_content 'General Stats'
-      expect(page).to have_content 'By Page Type'
       expect(page).to have_content 'Alerts with recent followup'
       expect(page).to have_content 'Recent alerts for students with multiple alerts'
       expect(page).to have_content 'Recent alerts in mainspace'

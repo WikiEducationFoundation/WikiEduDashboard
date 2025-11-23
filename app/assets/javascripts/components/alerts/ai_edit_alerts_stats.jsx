@@ -56,26 +56,6 @@ const AiEditAlertsStats = () => {
           </tbody>
         </table>
 
-        <h3>{I18n.t('alerts.ai_stats.by_page_type')}</h3>
-        <table style={{ marginBottom: '40px' }} className="table table--striped">
-          <thead>
-            <tr>
-              <th>{I18n.t('alerts.ai_stats.page_type')}</th>
-              <th>{I18n.t('alerts.ai_stats.count')}</th>
-              <th>%</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats.by_page_type).map(([pageType, count]) => (
-              <tr key={pageType}>
-                <td>{pageType}</td>
-                <td>{count}</td>
-                <td>{Math.round(count * 100 / stats.total_alerts)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
         <h3 id="contents" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.contents')}</h3>
         <table className="table table--striped" style={{ marginTop: '20px' }}>
           <thead>
