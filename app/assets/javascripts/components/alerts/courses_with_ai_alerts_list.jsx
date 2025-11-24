@@ -4,8 +4,9 @@ import List from '../common/list.jsx';
 
 const CoursesWithAiAlertsList = ({ stats }) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const [mode, setMode] = useState('total');
 
-  const courses = Object.values(stats);
+  const courses = Object.values(stats[mode]);
 
   const sortedCourses = [...courses].sort((a, b) => {
     const { key, direction } = sortConfig;
@@ -47,19 +48,30 @@ const CoursesWithAiAlertsList = ({ stats }) => {
   ));
 
   return (
-    <List
-      elements={elements}
-      keys={keys}
-      table_key="courses_with_ai_alerts"
-      none_message={I18n.t('alerts.no_data')}
-      sortable={true}
-      sortBy={sortBy}
-    />
+    <>
+      <div>
+        <button className="button right small dark" onClick={() => setMode('last_week')} disabled={mode === 'last_week'}>
+          {I18n.t('alerts.ai_stats.last_week')}
+        </button>
+        <button style={{ marginRight: '8px' }} className="button right small dark" onClick={() => setMode('total')} disabled={mode === 'total'}>
+          {I18n.t('alerts.ai_stats.total')}
+        </button>
+      </div>
+
+      <List
+        elements={elements}
+        keys={keys}
+        table_key="courses_with_ai_alerts"
+        none_message={I18n.t('alerts.no_data')}
+        sortable={true}
+        sortBy={sortBy}
+      />
+    </>
   );
 };
 
 CoursesWithAiAlertsList.propTypes = {
-  stats: PropTypes.array
+  stats: PropTypes.object
 };
 
 export default CoursesWithAiAlertsList;

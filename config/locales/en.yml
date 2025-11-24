@@ -164,6 +164,8 @@ en:
       single_alert_view: Alert
       alerts_in_mainspace: Alerts in mainspace
       users_involved: Users involved
+      total: Total
+      last_week: Last week
       sections:
         contents: Table of contents for lists
         go_back: Go back to contents
