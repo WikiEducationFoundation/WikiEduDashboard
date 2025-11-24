@@ -27,6 +27,25 @@ describe CheckRevisionWithPangram do
       'version' => 'adaptive_boundaries',
       'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
+  let(:stored_simplified_pangram_response) do
+    { 'avg_ai_likelihood' => 1.0,
+      'max_ai_likelihood' => 1.0,
+      'prediction' => 'Fully AI-Generated',
+      'short_prediction' => 'AI',
+      'headline' => 'AI Detected',
+      'windows' =>
+        [{ 'ai_likelihood' => 1.0 },
+         { 'ai_likelihood' => 1.0 }],
+      'window_likelihoods' => [1.0, 1.0],
+      'window_indices' => [[0, 2270], [2270, 2550]],
+      'fraction_human' => 0.0,
+      'fraction_ai' => 1.0,
+      'fraction_mixed' => 0.0,
+      'metadata' => { 'request_id' => '2e183f04-eea4' },
+      'version' => 'adaptive_boundaries',
+      'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
+  end
+  let(:timestamp) { 1757359506 }
 
   context 'when it is the first revision' do
     # https://en.wikipedia.org/w/index.php?title=User:Resekorynta/Evaluate_an_Article&oldid=1315967896
@@ -48,10 +67,21 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram' do
-        described_class.new(en_wiki.id, sandbox_creation_revision_id, user.id, course.id)
+        described_class.new(
+          { 'mw_rev_id' => sandbox_creation_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => sandbox_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'revision_timestamp' => timestamp }
+        )
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(sandbox_article.id)
+
+      expect(RevisionAiScore.count).to eq(1)
+      expect(RevisionAiScore.last.article_id).to eq(sandbox_article.id)
+      expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
     end
   end
 
@@ -76,15 +106,27 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram_2' do
-        described_class.new(en_wiki.id, live_article_revision_id, user.id, course.id)
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => live_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'revision_timestamp' => timestamp }
+        )
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
+
+      expect(RevisionAiScore.count).to eq(1)
+      expect(RevisionAiScore.last.article_id).to eq(live_article.id)
+      expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
     end
   end
 
   context 'when the revision is missing or deleted' do
     let(:missing_revision_id) { 999999999999 }
+    let(:article) { create(:article) }
 
     it 'logs a message to Sentry and exits gracefully' do
       expect(Sentry).to receive(:capture_message)
@@ -93,7 +135,91 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(described_class).not_to receive(:fetch_revision_html)
 
       VCR.use_cassette 'pangram_missing_revision' do
-        described_class.new(en_wiki.id, missing_revision_id, user.id, course.id)
+        described_class.new(
+          { 'mw_rev_id' => missing_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'revision_timestamp' => timestamp }
+        )
+      end
+    end
+  end
+
+  context 'when the revision was already checked' do
+    let!(:live_article) do
+      create(:article, title: '3M_contamination_of_Minnesota_groundwater',
+                       mw_page_id: 68907377)
+    end
+    let(:live_article_revision_id) { 1315795891 }
+    let!(:revision_ai_score) do
+      create(:revision_ai_score, revision_id: live_article_revision_id,
+             wiki_id: en_wiki.id, course:, user:, article: live_article,
+             details: stored_simplified_pangram_response)
+    end
+
+    it 'returns prematurely if the record is found' do
+      expect_any_instance_of(described_class).not_to receive(:check)
+
+      described_class.new(
+        { 'mw_rev_id' => live_article_revision_id,
+         'wiki_id' => en_wiki.id,
+         'article_id' => live_article.id,
+         'course_id' => course.id,
+         'user_id' => user.id,
+         'revision_timestamp' => timestamp }
+      )
+    end
+
+    it 'checks the revision again if no details' do
+      revision_ai_score.update(details: nil)
+      expect_any_instance_of(described_class).to receive(:fetch_parent_revision).and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_diff_table).and_call_original
+      expect_any_instance_of(described_class).to receive(:generate_wikitext_from_diff_table)
+                                             .and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_parsed_changed_wikitext)
+                                             .and_call_original
+      expect_any_instance_of(described_class).to receive(:fetch_pangram_inference).and_call_original
+      expect_any_instance_of(described_class).to receive(:generate_alert).and_call_original
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
+
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => live_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'revision_timestamp' => timestamp }
+        )
+      end
+
+      expect(RevisionAiScore.count).to eq(2)
+      expect(RevisionAiScore.last.details).not_to be_nil
+    end
+  end
+
+  context 'when the revision has empty plain text' do
+    let!(:article) do
+      create(:article, title: 'محمد_أمين_الطرابلسي/sandbox3',
+                       mw_page_id: 76107536)
+    end
+    let(:revision_id) { 1318180742 }
+
+    it 'does not fail' do
+      VCR.use_cassette 'pangram_empty_plain_text' do
+        expect_any_instance_of(described_class).not_to receive(:fetch_pangram_inference)
+
+        described_class.new(
+          { 'mw_rev_id' => revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'revision_timestamp' => timestamp }
+        )
       end
     end
   end
