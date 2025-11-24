@@ -25,5 +25,10 @@ end
 
 json.courses_with_ai_edit_alerts do
   json.partial! 'ai_edit_alerts_stats/courses_with_ai_edit_alerts',
-                courses: @courses
+                courses: @courses_with_ai_alerts
+end
+
+json.courses_with_ai_edit_alerts_last_week do
+  json.partial! 'ai_edit_alerts_stats/courses_with_ai_edit_alerts',
+                courses: @courses_with_last_week_alerts
 end
