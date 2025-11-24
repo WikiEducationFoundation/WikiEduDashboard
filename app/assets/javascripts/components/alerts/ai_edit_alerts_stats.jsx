@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Loading from '../common/loading';
 import AiAlertsList from './ai_alerts_list.jsx';
 import request from '../../utils/request';
@@ -7,17 +8,18 @@ import CoursesWithAiAlertsList from './courses_with_ai_alerts_list.jsx';
 
 const AiEditAlertsStats = () => {
   const [stats, setStats] = useState(null);
+  const { campaign_id } = useParams();
 
   useEffect(() => {
       const fetchAlertsStats = async () => {
         const response = await request(
-          'ai_edit_alerts_stats.json'
+          `ai_edit_alerts_stats.json?campaign_id=${campaign_id}`
         );
         const data = await response.json();
         setStats(data);
       };
       fetchAlertsStats();
-    }, []);
+    }, [campaign_id]);
 
   if (!stats) {
     return <Loading/>;
@@ -31,8 +33,10 @@ const AiEditAlertsStats = () => {
         <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
         <AlertsTrendsGraph
           statsData={stats.historical_alerts}
+          countByPage={stats.by_page_type}
+          total={stats.total_alerts}
         />
-        <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.current_term })}</h3>
+        <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.campaign_name })}</h3>
         <table style={{ marginBottom: '40px' }} className="table table--striped">
           <thead>
             <tr>
@@ -49,26 +53,6 @@ const AiEditAlertsStats = () => {
               <td>{stats.students_with_multiple_alerts}</td>
               <td>{stats.pages_with_multiple_alerts}</td>
             </tr>
-          </tbody>
-        </table>
-
-        <h3>{I18n.t('alerts.ai_stats.by_page_type')}</h3>
-        <table style={{ marginBottom: '40px' }} className="table table--striped">
-          <thead>
-            <tr>
-              <th>{I18n.t('alerts.ai_stats.page_type')}</th>
-              <th>{I18n.t('alerts.ai_stats.count')}</th>
-              <th>%</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(stats.by_page_type).map(([pageType, count]) => (
-              <tr key={pageType}>
-                <td>{pageType}</td>
-                <td>{count}</td>
-                <td>{Math.round(count * 100 / stats.total_alerts)}</td>
-              </tr>
-            ))}
           </tbody>
         </table>
 

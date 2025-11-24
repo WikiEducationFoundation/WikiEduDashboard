@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const renderGraph = (statsData) => {
+const renderGraph = (statsData, pageTypes, labels) => {
   const vegaSpec = {
     width: 800,
     height: 250,
@@ -14,8 +14,19 @@ const renderGraph = (statsData) => {
     legends: [
       {
         fill: 'color',
-        labelFontSize: 12,
+        labelFontSize: 16,
         title: 'Page type',
+        titleFontSize: 16,
+        titlePadding: 16,
+        rowPadding: 8,
+        labelLimit: 2000,
+        encode: {
+          labels: {
+            update: {
+              text: { scale: 'legend_scale', field: 'value' }
+            }
+          }
+        }
       }
     ],
 
@@ -63,6 +74,12 @@ const renderGraph = (statsData) => {
         type: 'ordinal',
         domain: { data: 'data', field: 'page_type' },
         range: 'category'
+      },
+      {
+        name: 'legend_scale',
+        type: 'ordinal',
+        domain: pageTypes,
+        range: labels
       }
     ],
 
@@ -122,7 +139,16 @@ const renderGraph = (statsData) => {
 
 const AlertsTrendsGraph = (props) => {
   useEffect(() => {
-    renderGraph(props.statsData);
+    // Format the labels for the chart
+    const legendLabels = Object.entries(props.countByPage).map(([key, count]) => {
+      const pct = Math.round((count / props.total) * 100);
+      return {
+        page_type: key,
+        label: `${key}: ${count} (${pct}%)`
+      };
+    });
+
+    renderGraph(props.statsData, legendLabels.map(e => e.page_type), legendLabels.map(e => e.label));
   }, []);
     return (
       <div id="AlertsTrendsGraph" />
@@ -131,7 +157,9 @@ const AlertsTrendsGraph = (props) => {
 
 AlertsTrendsGraph.displayName = 'AlertsTrendsGraph';
 AlertsTrendsGraph.propTypes = {
-  statsData: PropTypes.array
+  statsData: PropTypes.array,
+  countByPage: PropTypes.object,
+  total: PropTypes.number,
 };
 
 export default AlertsTrendsGraph;

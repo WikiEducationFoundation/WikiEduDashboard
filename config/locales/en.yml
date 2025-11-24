@@ -154,14 +154,11 @@ en:
     ai_stats:
       timestamp: Timestamp
       title: AI Edit Alerts Stats
-      general_stats: General Stats for %{campaign_name} Campaign
+      general_stats: General Stats for %{campaign_name}
       total_alerts: Total AI Edit Alerts
       with_followup: With followup
       multiple_alerts_students: Students with multiple alerts
       multiple_alerts_pages: Pages with multiple alerts
-      by_page_type: By Page Type
-      count: Count
-      page_type: Page type
       pangram_url: Pangram URL
       revision_diff: Revision diff
       single_alert_view: Alert
