@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Aram
 # Author: Arya sarhan
+# Author: Ayub Abdulla
 # Author: Sakura emad
 # Author: Épine
 # Author: ئارام بکر
@@ -100,6 +101,7 @@ ckb:
     filter:
       wiki_all: ھەموو
       new: نوێ
+    pageviews_label: 'بینینی لاپەڕەکان:'
     hide: شاردنەوە
     history: (مێژوو)
     new: (نوێ)
