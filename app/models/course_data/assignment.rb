@@ -153,10 +153,17 @@ class Assignment < ApplicationRecord
   def set_sandbox_url
     return unless user
     return if sandbox_url.present?
+    return unless mainspace_article?
     # If the sandbox already exists, use that URL instead
     existing = Assignment.where(course:, article_title:, wiki:)
                          .where.not(user:).first
 
     self.sandbox_url = existing&.sandbox_url || default_sandbox_url
+  end
+
+  def mainspace_article?
+    return false if article_title.blank?
+
+    article_title.exclude?(':')
   end
 end
