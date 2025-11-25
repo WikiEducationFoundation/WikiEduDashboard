@@ -39,6 +39,7 @@ class TicketsController < ApplicationController
     @message.save
     render json: { success: :ok }
   rescue StandardError => e
+    @message.details ||= {}
     @message.details[:delivery_failed] = Time.zone.now
     @message.save
     raise e
