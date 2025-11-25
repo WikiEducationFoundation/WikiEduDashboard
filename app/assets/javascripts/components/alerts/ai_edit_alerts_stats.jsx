@@ -102,7 +102,7 @@ const AiEditAlertsStats = () => {
 
         <h3 id="courses_with_ai_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.courses_with_ai_alerts')}</h3>
         <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>
-        <CoursesWithAiAlertsList stats={stats.courses_with_ai_edit_alerts}/>
+        <CoursesWithAiAlertsList stats={{ total: stats.courses_with_ai_edit_alerts, last_week: stats.courses_with_ai_edit_alerts_last_week }}/>
 
         <h3 id="recent_followup" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h3>
         <a href="#contents">{I18n.t('alerts.ai_stats.sections.go_back')}</a>

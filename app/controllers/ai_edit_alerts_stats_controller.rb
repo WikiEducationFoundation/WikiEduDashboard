@@ -19,6 +19,7 @@ class AiEditAlertsStatsController < ApplicationController
 
   private
 
+  LAST_WEEK_DAYS = 7
   RECENT_ALERTS_DAYS = 14
   MIN_ALERTS_COUNT_PER_COURSE = 3
 
@@ -55,17 +56,25 @@ class AiEditAlertsStatsController < ApplicationController
               end
   end
 
-  # Sets a hash of courses with more than MIN_ALERTS_COUNT_PER_COURSE
-  def set_courses
-    @courses = @alerts.group_by(&:course_id).values
-                      .select { |alerts| alerts.count > MIN_ALERTS_COUNT_PER_COURSE }
-                      .map do |alerts|
+  # Calculates courses with more than MIN_ALERTS_COUNT_PER_COURSE in the last days.
+  # If days is nil, it considers all alerts regardless of when they occurred.
+  def courses_with_alerts_in_days(days)
+    alerts = days.nil? ? @alerts : @alerts.where('alerts.created_at > ?', days.days.ago)
+    alerts.group_by(&:course_id).values
+          .select { |alerts| alerts.count > MIN_ALERTS_COUNT_PER_COURSE }
+          .map do |alerts|
       {
         course: alerts.first.course,
         mainspace_count: alerts.count { |a| a.article.namespace == Article::Namespaces::MAINSPACE },
         users_count: alerts.map(&:user_id).uniq.count
       }
     end
+  end
+
+  # Sets a hash of courses with more than MIN_ALERTS_COUNT_PER_COURSE
+  def set_courses
+    @courses_with_ai_alerts = courses_with_alerts_in_days(nil)
+    @courses_with_last_week_alerts = courses_with_alerts_in_days(LAST_WEEK_DAYS)
   end
 
   def set_followups
