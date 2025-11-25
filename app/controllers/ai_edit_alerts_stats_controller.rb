@@ -17,6 +17,10 @@ class AiEditAlertsStatsController < ApplicationController
     set_data
   end
 
+  def redirect_to_default
+    redirect_to "/ai_edit_alerts_stats/#{Campaign.default_campaign.slug}"
+  end
+
   private
 
   RECENT_ALERTS_DAYS = 14
