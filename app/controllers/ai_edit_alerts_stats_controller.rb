@@ -5,7 +5,7 @@ class AiEditAlertsStatsController < ApplicationController
   before_action :check_user_auth
 
   def select_campaign
-    @campaigns = Campaign.all
+    @campaigns = Campaign.where('created_at > ?', CAMPAIGN_CREATION_CUTOFF_DATE)
   end
 
   def choose_campaign
@@ -26,6 +26,8 @@ class AiEditAlertsStatsController < ApplicationController
   RECENT_ALERTS_DAYS = 14
   MIN_ALERTS_COUNT_PER_COURSE = 3
   ALL_CAMPAIGNS = 'all_campaigns'
+  # Hard-coded cutoff date chosen to ensure the fall_2025 campaign is included.
+  CAMPAIGN_CREATION_CUTOFF_DATE = '2025-06-24'
 
   def set_data
     set_campaign
