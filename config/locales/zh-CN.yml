@@ -8,6 +8,7 @@
 # Author: BlackShadowG
 # Author: Camilali0609
 # Author: Endermoon
+# Author: ExoHyper2026
 # Author: GuoPC
 # Author: Hanyanbo98
 # Author: Interestinghe
@@ -141,6 +142,8 @@ zh-CN:
     sign_up_help: 要使用面板，您需要通过维基百科登录，并提供权限以访问您的账户。您可以使用现有的维基百科账户登录，或创建一个新账户。如果您无法创建账户，请联系dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
+    ai_stats:
+      total: 总计
   activity:
     all: 活跃
     edited_by: 编辑自

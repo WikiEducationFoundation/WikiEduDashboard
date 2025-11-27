@@ -160,9 +160,6 @@ pt:
       with_followup: Com acompanhamento
       multiple_alerts_students: Estudantes com várias alertas
       multiple_alerts_pages: Páginas com vários alertas
-      by_page_type: Por Tipo de Ppágina
-      count: Contagem
-      page_type: Tipo de página
       pangram_url: URL de Pangram
       revision_diff: Diferença de revisão
       single_alert_view: Alerta

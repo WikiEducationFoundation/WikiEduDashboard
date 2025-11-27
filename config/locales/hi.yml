@@ -113,6 +113,8 @@ hi:
   alerts:
     alert_label: सूचना
     ai_stats:
+      total: कुल
+      last_week: पिछला हफ़्ता
       sections:
         name: नाम
         description: विवरण

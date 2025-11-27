@@ -134,9 +134,10 @@ it:
     alert_label: Avvisi
     no_data: Nessun dato trovato.
     ai_stats:
-      page_type: Tipo di pagina
       single_alert_view: Avviso
       users_involved: Utenti coinvolti
+      total: Totale
+      last_week: Ultima settimana
       sections:
         name: Nome
         description: Descrizione

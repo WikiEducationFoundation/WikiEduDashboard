@@ -141,6 +141,7 @@ sr-ec:
     alert_label: Обавештења
     no_data: Нису пронађени подаци.
     ai_stats:
+      total: Укупно
       sections:
         description: Опис
   activity:

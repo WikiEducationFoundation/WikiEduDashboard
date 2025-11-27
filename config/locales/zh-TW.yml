@@ -131,19 +131,18 @@ zh-TW:
     ai_stats:
       timestamp: 時間戳記
       title: AI 編輯提醒統計
-      general_stats: '%{campaign_name}競賽的總體統計數據'
+      general_stats: '%{campaign_name}的總體統計數據'
       total_alerts: 全面 AI 編輯提醒
       with_followup: 後續跟進
       multiple_alerts_students: 收到多項提醒的學生
       multiple_alerts_pages: 包含多項提醒的頁面
-      by_page_type: 按頁面類型
-      count: 總數
-      page_type: 頁面類型
       pangram_url: 全字母句網址
       revision_diff: 修訂差異
       single_alert_view: 提醒
       alerts_in_mainspace: 主空間提醒
       users_involved: 參與使用者
+      total: 總計
+      last_week: 上週
       sections:
         contents: 清單目錄
         go_back: 返回目錄

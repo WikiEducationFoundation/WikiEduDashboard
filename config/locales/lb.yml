@@ -95,9 +95,7 @@ lb:
     no_data: Keng Donnéeë fonnt.
     ai_stats:
       timestamp: Zäitstempel
-      by_page_type: No Säitentyp
-      count: Zuel
-      page_type: Säitentyp
+      last_week: Lescht Woch
       sections:
         name: Numm
         description: Beschreiwung
@@ -126,6 +124,7 @@ lb:
       new: Nei
       new_and_existing: Nei a besteeënd
     filter_text: 'Filteren:'
+    cumulative: Kumulativ
     find: Artikele sichen
     hide: Verstoppen
     history: (Versiounen)

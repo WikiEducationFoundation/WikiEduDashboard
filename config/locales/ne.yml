@@ -130,6 +130,9 @@ ne:
       tracked: ट्रयाक गरिएको
       untracked: ट्रयाक नगरिएको
       tracked_and_untracked: ट्रयाक गरिएको र ट्र्याक नगरिएको
+    pageviews_label: 'पूर्वालोकनहरू:'
+    cumulative: सञ्चित
+    daily_avg: दैनिक औसत
     hide: लुकाउनुहोस्
     history: (इतिहास)
     label: लेखहरू

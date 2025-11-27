@@ -166,9 +166,6 @@ nl:
       with_followup: Met opvolging
       multiple_alerts_students: Studenten met meerdere meldingen
       multiple_alerts_pages: Pagina's met meerdere meldingen
-      by_page_type: Op paginasoort
-      count: Aantal
-      page_type: Paginasoort
       pangram_url: Pangram-URL
       revision_diff: Versiediff
       single_alert_view: Melding
