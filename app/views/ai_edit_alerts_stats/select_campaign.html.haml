@@ -3,8 +3,8 @@
   %h1 Select a campaign
 
   = form_with url: "choose_campaign", method: :post do
-    = label_tag :campaign_id, 'Campaign'
-    = select_tag :campaign_id,
-      options_for_select([['All campaigns', 0]] + @campaigns.map { |c| [c.slug, c.id] })
+    = label_tag :campaign_slug, 'Campaign'
+    = select_tag :campaign_slug,
+      options_for_select([['All campaigns', 'all_campaigns']] + @campaigns.map { |c| [c.slug, c.slug] })
     %br/
     = submit_tag "Continue"
