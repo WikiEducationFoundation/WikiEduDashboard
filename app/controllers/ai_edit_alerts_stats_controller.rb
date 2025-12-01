@@ -5,16 +5,20 @@ class AiEditAlertsStatsController < ApplicationController
   before_action :check_user_auth
 
   def select_campaign
-    @campaigns = Campaign.all
+    @campaigns = Campaign.where('created_at > ?', CAMPAIGN_CREATION_CUTOFF_DATE)
   end
 
   def choose_campaign
-    redirect_to "/ai_edit_alerts_stats/#{params[:campaign_id]}"
+    redirect_to "/ai_edit_alerts_stats/#{params[:campaign_slug]}"
   end
 
   def index
-    @campaign_id = params[:campaign_id]
+    @campaign_slug = params[:campaign_slug]
     set_data
+  end
+
+  def redirect_to_default
+    redirect_to "/ai_edit_alerts_stats/#{Campaign.default_campaign.slug}"
   end
 
   private
@@ -22,6 +26,9 @@ class AiEditAlertsStatsController < ApplicationController
   LAST_WEEK_DAYS = 7
   RECENT_ALERTS_DAYS = 14
   MIN_ALERTS_COUNT_PER_COURSE = 3
+  ALL_CAMPAIGNS = 'all_campaigns'
+  # Hard-coded cutoff date chosen to ensure the fall_2025 campaign is included.
+  CAMPAIGN_CREATION_CUTOFF_DATE = '2025-06-24'
 
   def set_data
     set_campaign
@@ -38,14 +45,18 @@ class AiEditAlertsStatsController < ApplicationController
     set_historical_alerts
   end
 
+  def all_campaigns?
+    @campaign_slug == ALL_CAMPAIGNS
+  end
+
   def set_campaign
-    @campaign = @campaign_id.to_i.zero? ? nil : Campaign.find(@campaign_id)
+    @campaign = all_campaigns? ? nil : Campaign.find_by(slug: @campaign_slug)
   end
 
   # If a campaign is specified, uses its slug. Otherwise, uses 'all campaigns'
   # because the stats are computed across all alerts without campaign scoping.
   def set_campaign_name
-    @campaign_name = @campaign ? @campaign.slug : 'all campaigns'
+    @campaign_name = @campaign ? @campaign.slug : ALL_CAMPAIGNS
   end
 
   def set_alerts

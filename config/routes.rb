@@ -474,7 +474,8 @@ Rails.application.routes.draw do
   # AI alerts stats
   get 'ai_edit_alerts_stats/select_campaign' => 'ai_edit_alerts_stats#select_campaign'
   post 'ai_edit_alerts_stats/choose_campaign' => 'ai_edit_alerts_stats#choose_campaign'
-  get 'ai_edit_alerts_stats/:campaign_id' => 'ai_edit_alerts_stats#index'
+  get 'ai_edit_alerts_stats' => 'ai_edit_alerts_stats#redirect_to_default', constraints: { format: 'html' }
+  get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
   resources :ai_edit_alerts_stats, only: [:index]
 
   namespace :mass_email do

@@ -8,18 +8,18 @@ import CoursesWithAiAlertsList from './courses_with_ai_alerts_list.jsx';
 
 const AiEditAlertsStats = () => {
   const [stats, setStats] = useState(null);
-  const { campaign_id } = useParams();
+  const { campaign_slug } = useParams();
 
   useEffect(() => {
       const fetchAlertsStats = async () => {
         const response = await request(
-          `ai_edit_alerts_stats.json?campaign_id=${campaign_id}`
+          `ai_edit_alerts_stats.json?campaign_slug=${campaign_slug}`
         );
         const data = await response.json();
         setStats(data);
       };
       fetchAlertsStats();
-    }, [campaign_id]);
+    }, [campaign_slug]);
 
   if (!stats) {
     return <Loading/>;
