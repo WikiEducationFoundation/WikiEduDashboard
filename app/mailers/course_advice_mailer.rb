@@ -11,12 +11,12 @@ class CourseAdviceMailer < ApplicationMailer
 
   # rubocop:disable Layout/LineLength
   SUBJECT_LINES = {
-    'biographies' => '[Wiki Education] Tips for working on Wikipedia biography articles',
+    'biographies' => '[Wiki Education] Tips for Wikipedia biography articles',
     'hype_video' => '[Wiki Education] Video for students: The Wikipedia assignment',
-    'preliminary_work' => '[Wiki Education] Tips for navigating the early weeks of your Wikipedia assignment',
+    'preliminary_work' => '[Wiki Education] Tips for early weeks of Wikipedia assignment',
     'choosing_an_article' => '[Wiki Education] Student success on Wikipedia starts with article choice!',
-    'bibliographies' => '[Wiki Education] Compiling a good bibliography is the key to success!',
-    'drafting_and_moving' => '[Wiki Education] Tips for drafting work and moving it into the article main space',
+    'bibliographies' => '[Wiki Education] The bibliography is key to success!',
+    'drafting_and_moving' => '[Wiki Education] Tips for drafting, moving work to live article',
     'peer_review' => '[Wiki Education] Tips for peer review',
     'assessing_contributions' => '[Wiki Education] Student work: The good, the bad, and the AI generated'
   }.freeze
