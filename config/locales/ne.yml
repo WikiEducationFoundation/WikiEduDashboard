@@ -107,6 +107,7 @@ ne:
     no_data: कुनै डेटा फेला परेन।
     ai_stats:
       timestamp: समयछाप
+      last_week: पछिल्लो हप्ता
   activity:
     all: क्रियाकलाप
     edited_by: सम्पादनकर्ता

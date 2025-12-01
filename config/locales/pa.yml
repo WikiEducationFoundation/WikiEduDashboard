@@ -82,6 +82,10 @@ pa:
         heading: ਸਲਾਹ
   alerts:
     alert_label: ਚੇਤਾਵਨੀਆਂ
+    ai_stats:
+      general_stats: '%{campaign_name} ਲਈ ਆਮ ਅੰਕੜੇ'
+      total: ਕੁੱਲ
+      last_week: ਪਿਛਲੇ ਹਫ਼ਤੇ
   activity:
     all: ਸਰਗਰਮੀ
     edited_by: ਵੱਲੋਂ ਸੋਧਿਆ

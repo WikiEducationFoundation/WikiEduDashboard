@@ -120,7 +120,7 @@ gl:
     label: Actividade
   articles:
     articles: Artigos
-    article_not_found: Este artigo aínda non foi creado .
+    article_not_found: Este artigo aínda non se creou.
     article_development: (desenvolvemento do artigo)
     articles_shown: Mostrando %{count} de %{total}
     assigned: Artigos asignados

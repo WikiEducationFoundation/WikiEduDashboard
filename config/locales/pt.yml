@@ -19,6 +19,7 @@
 # Author: Macofe
 # Author: Mansil
 # Author: Mansil alfalb
+# Author: Maria Manuela Silva
 # Author: MokaAkashiyaPT
 # Author: RogueScholar
 # Author: Ruila
@@ -155,7 +156,7 @@ pt:
     ai_stats:
       timestamp: Data e hora
       title: Estatísticas de Alertas de Edição com IA
-      general_stats: Estatísticas Gerais para a Campanha %{campaign_name}
+      general_stats: Estatísticas Gerais para %{campaign_name}
       total_alerts: Total de Alertas de Edição com IA
       with_followup: Com acompanhamento
       multiple_alerts_students: Estudantes com várias alertas
@@ -165,6 +166,8 @@ pt:
       single_alert_view: Alerta
       alerts_in_mainspace: Alertas no espaço principal
       users_involved: Utilizadores envolvidos
+      total: Total
+      last_week: Semana passada
       sections:
         contents: Tabela de conteúdos para as listas
         go_back: Voltar aos conteúdos
