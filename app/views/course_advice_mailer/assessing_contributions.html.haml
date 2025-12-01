@@ -9,61 +9,59 @@
               %p.paragraph
                 = "Dear #{@greeted_users},"
               %p.paragraph
-                - if @course.stay_in_sandbox?
-                  As your students put the finishing touches on their final contributions,
-                  we want to make sure you know how to find and assess those contributions.
-                - else
-                  As your students move their work into the article main space and put the
-                  finishing touches on their final contributions, we want to make sure you
-                  know how to find and assess those contributions.
+                As your students move their work into the live article and finalize their
+                contributions, we want to make sure you know how to find and assess their edits.
+              %p.paragraph
+                Quick resources:
               %ul.paragraph
                 %li
-                  Here are some
-                  %a.link{href: 'https://wikiedu.org/blog/2017/11/15/tips-for-grading-a-wikipedia-assignment/'} general tips for grading and assessing student work.
+                  %a.link{href: 'https://dashboard.wikiedu.org/faq/1/'} How to use the dashboard to see student contributions
                 %li
-                  You may wish to use our sample grading rubric. (
-                  %a.link{href: 'https://wikiedu.org/wp-content/uploads/2020/07/Example-grading-rubric-for-a-Wikipedia-assignment.docx'} .doc
+                  %a.link{href: 'https://wikiedu.org/blog/2017/11/15/tips-for-grading-a-wikipedia-assignment/'} Tips for grading and assessing student work
+                %li
+                  Sample grading rubric (
+                  %a.link{href: 'https://wikiedu.org/wp-content/uploads/2020/07/Example-grading-rubric-for-a-Wikipedia-assignment.docx'} .docx
                   ,
                   %a.link{href: 'https://commons.wikimedia.org/wiki/File:Wiki_Education_Classroom_Program_example_grading_rubric.pdf'} PDF  
                   )
                 %li
-                  Here's a guide on
-                  %a.link{href: 'https://dashboard.wikiedu.org/faq/1/'} how to use the dashboard to see your student contributions.
+                  Remember,
+                  %strong never grade on whether student work remains on Wikipedia;
+                  instead, assess the quality of their contribution.
+                  If their work has been removed, look for it on the Wikipedia article's 'View history' tab.
                 %li
-                  Remember, never base grades on whether student work remains on Wikipedia; instead, assess the quality of their contribution.
-                  If their work has been removed, it will still be available via the Wikipedia page's 'View history' tab in most cases.
-                  If you run into trouble, reach out to your Wikipedia Expert.
-                %li
-                  Ideally you'll be able to use the Dashboard's
-                  %a.link{href: "#{@course_link}/students/articles"} Students Assignments view
-                  to find each student's contributions, but in case their work isn't where the Dashboard expects it to be, the most useful
-                  tools for tracking down a student's contributions are a student's 'sandboxes' link — which goes to a page listing every
-                  sandbox page associated with their username — and the 'edits' link, which goes to the full list of every edit they've made on
-                  Wikipedia.
+                  %strong Can’t find a contribution?
+                  Check the student’s 'sandboxes' link to see all sandbox pages tied to their
+                  username, and the ‘edits’ link to view their complete edit history on
+                  Wikipedia. Still no luck? Reach out to us for help.
               %h2.headline Dealing with problematic contributions
               %p.paragraph
-                If a student has done a poor job with their contributions to a live article, make sure they aren't making
-                Wikipedia worse. Ideally, you can guide students to correct major problems with their work before the assignment ends.
-                If it's too late for that, there are a few options:
+                The goal of this project is to make Wikipedia content better. Ideally, you can guide students to correct major
+                problems with their work before the assignment ends. If it's too late for that, there are a few options:
               %ul.paragraph
                 %li
-                  Fix the article yourself. If there's a good way to salvage the good parts of a problematic article by correcting mistakes,
+                  %strong Fix the article yourself.
+                  If there's a good way to salvage the good parts of a problematic article by correcting mistakes,
                   improving the language, or removing some of the content, go for it!
                   %a.link{href: 'https://dashboard.wikiedu.org/training/instructors/fixing-bad-articles/instructors-role-in-cleanup'} This training module
-                  offers a quick overview of how to fix an article that's in a bad state.
+                  offers a quick overview of how to fix a rough article.
                 %li
-                  Undo the student work. Especially if no one else has been changing an article lately, rolling it back to its state just before
-                  the first student edit can be an efficient solution.
+                  %strong Undo the student work.
+                  Especially if no one else has made recent changes to the article, rolling it back to its
+                  state just before the first student edit can be an efficient solution.
                 %li
-                  Notify Wiki Education so that we can clean it up. When using the Article Viewer to review one of the edited articles, you can click
-                  the 'Quality Problems?' button at the upper right, explain what's wrong, and Wiki Education staff will take care of it.
+                  %strong Notify Wiki Education so that we can clean it up.
+                  When using the Article Viewer to review one of the edited articles,
+                  you can click the 'Quality Problems?' button at the upper right,
+                  explain what's wrong, and Wiki Education staff will take care of it.
               %h2.headline Dealing with AI-generated text
               %p.paragraph
-                If a student has used ChatGPT or a similar generative text tool to produce Wikipedia content, it's likely to have significant problems —
-                especially when it comes to factual accuracy and use of references (which ChatGPT often simply fabricates). As of early 2023, Wikipedia does
-                not explicitly disallow text from ChatGPT, but it should be handled like other problematic content (unless it's been carefully checked against
-                real sources with citations added). For more, see
-                %a.link{href: 'https://en.wikipedia.org/wiki/Wikipedia:Large_language_models'} "Wikipedia:Large language models".
+                Our training modules explain why students should NOT use AI tools
+                to generate new text for Wikipedia — the resulting content is likely
+                to have significant problems, including use of fake sources, mismatched
+                citations, language that too closely paraphrases the source, non-neutral
+                writing, and much more. These kinds of harmful contributions should be
+                handled like any other problematic content as outlined above.
               %p.paragraph.center — — —
               %p.paragraph
                 You can always refer to our
