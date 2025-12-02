@@ -8,7 +8,6 @@ class CheckRevisionWithPangram
     @mw_rev_id = attrs['mw_rev_id']
     @user_id = attrs['user_id']
     @course_id = attrs['course_id']
-    @wiki_api = WikiApi.new(@wiki)
     @rev_datetime = Time.zone.at(attrs['revision_timestamp'])
     @article = Article.find(attrs['article_id'])
 
