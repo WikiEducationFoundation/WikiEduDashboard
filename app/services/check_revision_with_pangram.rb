@@ -18,6 +18,7 @@ class CheckRevisionWithPangram
   def check
     fetch_title_and_plaintext
     # Skip the API call if the plain text is too short.
+    return if @plain_text.nil?
     return if @plain_text.length < MIN_PLAIN_TEXT_LENGTH
     fetch_pangram_inference
     create_revision_ai_score
