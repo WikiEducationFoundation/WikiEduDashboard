@@ -1,0 +1,172 @@
+/* global vegaEmbed */
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import ArticleUtils from '../../../utils/article_utils';
+
+const renderGraph = (id, statsData, pageTypes, labels) => {
+  const vegaSpec = {
+    width: 800,
+    height: 250,
+    padding: { top: 40, left: 70, right: 20, bottom: 50 },
+
+    // //////////
+    // Legends //
+    // //////////
+    legends: [
+      {
+        fill: 'color',
+        labelFontSize: 16,
+        title: 'Namespaces',
+        titleFontSize: 16,
+        titlePadding: 16,
+        rowPadding: 8,
+        labelLimit: 2000,
+        encode: {
+          labels: {
+            update: {
+              text: { scale: 'legend_scale', field: 'value' }
+            }
+          }
+        }
+      }
+    ],
+
+    // ///////////////
+    // Data Sources //
+    // ///////////////
+    data: [
+      {
+        name: 'data',
+        values: statsData,
+        format: {
+          type: 'json',
+          parse: { created_at: 'date', count: 'number', value: 'string' }
+        },
+        transform: [
+          {
+            type: 'stack',
+            groupby: ['created_at'],
+            field: 'count'
+          }
+        ]
+      }
+    ],
+
+    // //////////////////
+    // Scales and Axes //
+    // //////////////////
+    scales: [
+      {
+        name: 'x',
+        type: 'time',
+        domain: { data: 'data', field: 'created_at' },
+        range: 'width'
+      },
+      {
+        name: 'y',
+        type: 'linear',
+        domain: { data: 'data', field: 'y1' },
+        range: 'height',
+        nice: true,
+        zero: true
+      },
+      {
+        name: 'color',
+        type: 'ordinal',
+        domain: { data: 'data', field: 'value' },
+        range: 'category'
+      },
+      {
+        name: 'legend_scale',
+        type: 'ordinal',
+        domain: pageTypes,
+        range: labels
+      }
+    ],
+
+    axes: [
+      {
+        scale: 'x',
+        orient: 'bottom',
+        title: 'Revision creation date',
+        format: '%b %d %Y',
+        tickCount: 'day',
+        tickOffset: -5,
+        labelAngle: -20,
+        labelOverlap: 'greedy',
+        labelPadding: 10
+      },
+      {
+        scale: 'y',
+        orient: 'left',
+        title: 'Check count'
+      }
+    ],
+
+    // //////////////
+    // Mark layers //
+    // //////////////
+    marks: [
+      {
+        type: 'group',
+        from: {
+          facet: {
+            name: 'series',
+            data: 'data',
+            groupby: 'value'
+          }
+        },
+        marks: [
+          {
+            type: 'rect',
+            from: { data: 'series' },
+            encode: {
+              enter: {
+                interpolate: { value: 'monotone' },
+                x: { scale: 'x', field: 'created_at' },
+                x2: { scale: 'x', field: 'created_at', offset: 30 },
+                y: { scale: 'y', field: 'y0' },
+                y2: { scale: 'y', field: 'y1' },
+                fill: { scale: 'color', field: 'value' }
+              },
+              update: { fillOpacity: { value: 1 } },
+              hover: { fillOpacity: { value: 0.5 } }
+            }
+          }
+        ]
+      }
+    ]
+  };
+
+  vegaEmbed(`#${id}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
+};
+
+const ScoresTrendsGraph = (props) => {
+  const id = `ScoresTrendsGraph${props.id}`;
+
+  useEffect(() => {
+    // Format the labels for the chart
+    const legendLabels = Object.entries(props.countByPage).map(([key, count]) => {
+      const pct = Math.round((count / props.total) * 100);
+      return {
+        value: key,
+        label: `${ArticleUtils.NamespaceIdMapping[key]}: ${count} (${pct}%)`
+      };
+    });
+
+    renderGraph(id, props.statsData, legendLabels.map(e => e.value), legendLabels.map(e => e.label));
+  }, []);
+    return (
+      <div id={id} />
+    );
+};
+
+ScoresTrendsGraph.displayName = 'ScoresTrendsGraph';
+ScoresTrendsGraph.propTypes = {
+  id: PropTypes.string,
+  statsData: PropTypes.array,
+  countByPage: PropTypes.object,
+  total: PropTypes.number,
+};
+
+export default ScoresTrendsGraph;
