@@ -681,6 +681,7 @@ nb:
     main_char_added: Tegn lagt til i hovednavnerommet
     user: Brukernavnerommet
     user_char_added: Tegn lagt til i brukernavnerommet
+    category: Kategori
   recent_activity:
     active_courses: Artikkelen er aktiv på
     article_title: Tittel
