@@ -50,6 +50,7 @@ Metrics/ClassLength:
     - 'lib/timeslice_cleaner.rb'
     - 'lib/timeslice_manager.rb'
     - 'app/services/check_revision_with_pangram.rb'
+    - 'app/services/push_course_to_salesforce.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
