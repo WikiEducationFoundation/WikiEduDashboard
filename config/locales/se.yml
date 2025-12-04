@@ -125,6 +125,7 @@ se:
   namespace:
     article: Artihkal
     file: Fiila
+    category: Kategoriija
     page: Siidu
     book: Girji
   recent_activity:

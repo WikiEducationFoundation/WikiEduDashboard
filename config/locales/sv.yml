@@ -243,7 +243,7 @@ sv:
   categories:
     add_category: Lägg till kategori
     add_template: Lägg till mall
-    add_this_category: Lägg till denna kategori
+    add_this_category: Lägg till kategorier
     add_this_template: Lägg till denna mall
     depth: Underkategoridjup
     articles_count: Antal artiklar
@@ -549,6 +549,7 @@ sv:
   namespace:
     main: Huvudnamnrymd
     user: Användarnamnrymd
+    category: Kategori
   recent_activity:
     article_title: Artikeltitel
     datetime: Datum/tid
