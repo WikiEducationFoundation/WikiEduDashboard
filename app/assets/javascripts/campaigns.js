@@ -1,4 +1,5 @@
 import './utils/editable';
+import 'jquery-ui/ui/widgets/autocomplete';
 
 window.onload = () => {
   const createCampaignButton = document.querySelector('.create-campaign-button');
@@ -95,4 +96,24 @@ window.onload = () => {
   if (createModalWrapper?.classList.contains('show-create-modal')) {
     createCampaignButton.click();
   }
+
+  // Course Title Autocomplete
+  $('#course_title').autocomplete({
+    source: (request, response) => {
+      $.ajax({
+        url: '/courses/search.json',
+        dataType: 'json',
+        data: {
+          search: request.term
+        },
+        success: (data) => {
+          response($.map(data.courses, item => ({
+            label: item.title,
+            value: item.title
+          })));
+        }
+      });
+    },
+    minLength: 3
+  });
 };

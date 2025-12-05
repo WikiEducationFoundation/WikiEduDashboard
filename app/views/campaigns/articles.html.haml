@@ -1,3 +1,7 @@
+- content_for :javascripts do
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  = hot_javascript_tag("campaigns")
+
 - content_for :before_title, t('courses.campaign_articles', title: @campaign.title) + ' — '
 
 #react_root{data: {slug: @campaign.slug}}
@@ -24,7 +28,14 @@
             = t("articles.wiki")
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
-
+      = form_tag(articles_campaign_path(@campaign.slug), method: :get, class: 'course-filters') do
+        %div
+          = text_field_tag :title, params[:title], placeholder: t('articles.article_title'), class: 'form-control input-sm'
+        %div
+          = text_field_tag :course_title, params[:course_title], placeholder: t('courses.title'), class: 'form-control input-sm'
+        %div
+          = submit_tag t('form_search.search'), class: 'button'
+          = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
     %table.table.table--hoverable.table--sortable
       %thead
         %tr

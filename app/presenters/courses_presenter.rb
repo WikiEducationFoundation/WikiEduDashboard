@@ -7,11 +7,14 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil, tag: nil)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil, tag: nil,
+                 articles_title: nil, course_title: nil)
     @current_user = current_user
     @campaign_param = campaign_param
     @page = page
     @tag = tag
+    @articles_title = articles_title
+    @course_title = course_title
     @courses_list = courses_list || campaign_courses
   end
 
@@ -68,7 +71,9 @@ class CoursesPresenter
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
-      too_many: too_many_articles?
+      too_many: too_many_articles?,
+      article_title: @articles_title,
+      course_title: @course_title
     ).scope
   end
 

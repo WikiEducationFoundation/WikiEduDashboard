@@ -5,11 +5,13 @@
 # This is used to cleanly separate query logic from presenter code.
 # It uses a deferred join via a subquery for improved performance on large datasets.
 class Query::RankedArticlesCoursesQuery
-  def initialize(courses:, per_page:, offset:, too_many:)
+  def initialize(courses:, per_page:, offset:, too_many:, article_title: nil, course_title: nil)
     @courses = courses
     @per_page = per_page
     @offset = offset
     @too_many = too_many
+    @article_title = article_title
+    @course_title = course_title
   end
 
   # Builds the final scope by joining the subquery on ID, used to fetch paginated and ranked results. # rubocop:disable Layout/LineLength
@@ -25,8 +27,10 @@ class Query::RankedArticlesCoursesQuery
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
   def subquery
     ArticlesCourses
-      .includes(:article)
+      .includes(:article, :course)
       .where(course_id: @courses.map(&:id), tracked: true)
+      .then { |q| @article_title ? q.where('articles.title LIKE ?', "%#{@article_title}%") : q }
+      .then { |q| @course_title ? q.where('courses.title LIKE ?', "%#{@course_title}%") : q }
       .select(:id)
       .then do |q|
         @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')

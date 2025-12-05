@@ -427,6 +427,43 @@ describe CampaignsController, type: :request do
         end
       end
 
+      context 'when searching by title' do
+        let(:article) { create(:article, title: 'Test Article') }
+        let(:article2) { create(:article, title: 'Another Article') }
+
+        before do
+          create(:articles_course, course:, article: article2, tracked: true)
+        end
+
+        it 'filters articles by title' do
+          get "/campaigns/#{campaign.slug}/articles", params: { title: 'Test' }
+
+          articles_courses = assigns(:presenter).campaign_articles[:articles_courses]
+          expect(articles_courses.length).to eq(1)
+          expect(articles_courses.first.article.title).to eq(article.title)
+        end
+      end
+
+      context 'when searching by course title' do
+        let(:other_course) { create(:course, title: 'Other Course', slug: 'Other_Course') }
+        let(:article) { create(:article) }
+
+        before do
+          create(:articles_course, course: other_course, article: article, tracked: true)
+          create(:courses_user, course: other_course, user: @organizer, role: 1)
+          create(:campaigns_course, campaign: campaign, course: other_course)
+        end
+
+        it 'filters articles by course title' do
+          get "/campaigns/#{campaign.slug}/articles", params: { course_title: other_course.title }
+
+          articles_courses = assigns(:presenter).campaign_articles[:articles_courses]
+          expect(response).to be_successful
+          expect(articles_courses).not_to be_empty
+          expect(articles_courses.first.course.title).to eq(other_course.title)
+        end
+      end
+
       context 'when campaign does not exist' do
         it 'raises routing error' do
           expect do
