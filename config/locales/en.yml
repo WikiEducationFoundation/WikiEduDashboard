@@ -181,6 +181,14 @@ en:
           recent_followup: Alerts with followup responses submitted within the last 14 days, ordered by the date of the followup response.
           multiple_alerts_students: Alerts created within the last 14 days for students with multiple alerts, ordered by creation date.
           in_mainspace: Alerts created within the last 14 days for articles in mainspace, ordered by creation date.
+  ai_scores_stats:
+    title: Revision AI Scores Stats
+    graphs:
+      daily_checks: Daily checks by namespace
+      avg_likelihood: Avg AI likelihood distribution per day
+      max_likelihood: Max AI likelihood distribution per day
+      overall_avg_likelihood: Overall avg AI likelihood distribution
+      overall_max_likelihood: Overall max AI likelihood distribution
   activity:
     all: Activity
     edited_by: Edited By

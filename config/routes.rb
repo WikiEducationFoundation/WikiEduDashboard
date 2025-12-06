@@ -470,6 +470,7 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :revision_ai_scores_stats
 
   # AI alerts stats
   get 'ai_edit_alerts_stats/select_campaign' => 'ai_edit_alerts_stats#select_campaign'
