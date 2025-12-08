@@ -108,7 +108,7 @@ window.onload = () => {
         },
         success: (data) => {
           response($.map(data.courses, item => ({
-            label: item.title,
+            label: `${item.title}, ${item.school}`,
             value: item.title
           })));
         }
