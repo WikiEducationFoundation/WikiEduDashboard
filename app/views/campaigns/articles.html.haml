@@ -32,7 +32,19 @@
         %div
           = text_field_tag :title, params[:title], placeholder: t('articles.article_title'), class: 'form-control input-sm'
         %div
-          = text_field_tag :course_title, params[:course_title], placeholder: t('courses.title'), class: 'form-control input-sm'
+          %button.button.dark{type: 'button', onclick: "var el = document.getElementById('advanced-search-inputs'); el.style.display = el.style.display === 'none' ? 'block' : 'none';"}= t('form_search.advanced_search')
+        #advanced-search-inputs{style: params.slice(:course_title, :char_added_from, :char_added_to, :references_count_from, :references_count_to, :view_count_from, :view_count_to).values.any?(&:present?) ? '' : 'display: none;'}
+          %div
+            = text_field_tag :course_title, params[:course_title], placeholder: t('courses.title'), class: 'form-control input-sm'
+          %div{style: 'display: flex; gap: 5px;'}
+            = number_field_tag :char_added_from, params[:char_added_from], placeholder: 'Char Added From', class: 'form-control input-sm'
+            = number_field_tag :char_added_to, params[:char_added_to], placeholder: 'Char Added To', class: 'form-control input-sm'
+          %div{style: 'display: flex; gap: 5px;'}
+            = number_field_tag :references_count_from, params[:references_count_from], placeholder: 'References Count From', class: 'form-control input-sm'
+            = number_field_tag :references_count_to, params[:references_count_to], placeholder: 'References Count To', class: 'form-control input-sm'
+          %div{style: 'display: flex; gap: 5px;'}
+            = number_field_tag :view_count_from, params[:view_count_from], placeholder: 'View Count From', class: 'form-control input-sm'
+            = number_field_tag :view_count_to, params[:view_count_to], placeholder: 'View Count To', class: 'form-control input-sm'
         %div
           = submit_tag t('form_search.search'), class: 'button'
           = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
