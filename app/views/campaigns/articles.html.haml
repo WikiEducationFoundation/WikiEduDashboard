@@ -52,9 +52,9 @@
             = number_field_tag :view_count_from, params[:view_count_from], class: 'form-control input-sm'
             %label{for: 'view_count_to'}= t('form_search.and')
             = number_field_tag :view_count_to, params[:view_count_to], class: 'form-control input-sm'
-          .form-row
-            = submit_tag t('form_search.search'), class: 'button'
-            = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
+        .form-actions
+          = submit_tag t('form_search.search'), class: 'button'
+          = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
