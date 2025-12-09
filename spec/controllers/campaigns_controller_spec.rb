@@ -464,6 +464,49 @@ describe CampaignsController, type: :request do
         end
       end
 
+      context 'when searching by references count' do
+        let(:article1) { create(:article, title: 'Article 1') }
+        let(:article2) { create(:article, title: 'Article 2') }
+
+        before do
+          create(:articles_course, course: course, article: article1, references_count: 5,
+tracked: true)
+          create(:articles_course, course: course, article: article2, references_count: 15,
+tracked: true)
+        end
+
+        it 'filters articles by references count' do
+          get "/campaigns/#{campaign.slug}/articles",
+              params: { references_count_from: 10, references_count_to: 20 }
+
+          articles_courses = assigns(:presenter).campaign_articles[:articles_courses]
+          expect(response).to be_successful
+          expect(articles_courses.count).to eq(1)
+          expect(articles_courses.first.article.title).to eq(article2.title)
+        end
+      end
+
+      context 'when searching by view count' do
+        let(:article1) { create(:article, title: 'Article 1') }
+        let(:article2) { create(:article, title: 'Article 2') }
+
+        before do
+          create(:articles_course, course: course, article: article1, view_count: 50, tracked: true)
+          create(:articles_course, course: course, article: article2, view_count: 150,
+tracked: true)
+        end
+
+        it 'filters articles by view count' do
+          get "/campaigns/#{campaign.slug}/articles",
+              params: { view_count_from: 100, view_count_to: 200 }
+
+          articles_courses = assigns(:presenter).campaign_articles[:articles_courses]
+          expect(response).to be_successful
+          expect(articles_courses.count).to eq(1)
+          expect(articles_courses.first.article.title).to eq(article2.title)
+        end
+      end
+
       context 'when campaign does not exist' do
         it 'raises routing error' do
           expect do
