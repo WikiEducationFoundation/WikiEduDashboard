@@ -1,6 +1,8 @@
+import $ from 'jquery';
 import './utils/editable';
 
-window.onload = () => {
+
+document.addEventListener('DOMContentLoaded', () => {
   const createCampaignButton = document.querySelector('.create-campaign-button');
   const createModalWrapper = document.querySelector('.create-modal-wrapper');
   const wizardPanel = document.querySelector('.wizard__panel');
@@ -95,4 +97,79 @@ window.onload = () => {
   if (createModalWrapper?.classList.contains('show-create-modal')) {
     createCampaignButton.click();
   }
-};
+
+  // Course Title Autocomplete
+  const courseTitleInput = document.getElementById('course_title_search');
+  const resultsContainer = document.getElementById('course_search_results');
+
+  if (courseTitleInput && resultsContainer) {
+    let timeout = null;
+
+    courseTitleInput.addEventListener('input', (e) => {
+      const query = e.target.value;
+      if (timeout) clearTimeout(timeout);
+
+      if (query.length < 3) {
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.add('hidden');
+        return;
+      }
+
+      timeout = setTimeout(() => {
+        fetch(`/courses/search.json?search=${encodeURIComponent(query)}`)
+          .then(response => response.json())
+          .then((data) => {
+            resultsContainer.innerHTML = '';
+            if (data.courses && data.courses.length > 0) {
+              resultsContainer.classList.remove('hidden');
+              data.courses.forEach((course) => {
+                const div = document.createElement('div');
+                div.textContent = course.title;
+                div.style.padding = '8px';
+                div.style.cursor = 'pointer';
+                div.style.borderBottom = '1px solid #eee';
+                div.addEventListener('mouseover', () => div.style.backgroundColor = '#f0f0f0');
+                div.addEventListener('mouseout', () => div.style.backgroundColor = 'white');
+                div.addEventListener('click', () => {
+                  courseTitleInput.value = course.title;
+                  resultsContainer.innerHTML = '';
+                  resultsContainer.classList.add('hidden');
+                });
+                resultsContainer.appendChild(div);
+              });
+            } else {
+              resultsContainer.classList.add('hidden');
+            }
+          })
+          .catch(() => {
+            resultsContainer.classList.add('hidden');
+          });
+      }, 300);
+    });
+
+    // Hide results when clicking outside
+    document.addEventListener('click', (e) => {
+      if (e.target !== courseTitleInput && e.target !== resultsContainer) {
+        resultsContainer.classList.add('hidden');
+      }
+    });
+  }
+
+  // Advanced Search Toggle
+  const toggleAdvancedSearchBtn = document.getElementById('toggle_advanced_search');
+  const advancedSearchFields = document.getElementById('advanced_search_fields');
+
+  if (toggleAdvancedSearchBtn && advancedSearchFields) {
+    toggleAdvancedSearchBtn.addEventListener('click', () => {
+      advancedSearchFields.classList.toggle('hidden');
+      const icon = toggleAdvancedSearchBtn.querySelector('.icon');
+      if (advancedSearchFields.classList.contains('hidden')) {
+        icon.classList.remove('icon-arrow-up');
+        icon.classList.add('icon-arrow-down');
+      } else {
+        icon.classList.remove('icon-arrow-down');
+        icon.classList.add('icon-arrow-up');
+      }
+    });
+  }
+});
