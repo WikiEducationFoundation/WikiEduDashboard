@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const renderGraph = (id, statsData, bins, labels) => {
+const renderGraph = (id, statsData, bins, labels, days) => {
   const vegaSpec = {
     width: 800,
     height: 250,
@@ -101,7 +101,6 @@ const renderGraph = (id, statsData, bins, labels) => {
         title: 'Revision creation date',
         format: '%b %d %Y',
         tickCount: 'day',
-        tickOffset: -5,
         labelAngle: -20,
         labelOverlap: 'greedy',
         labelPadding: 10
@@ -134,7 +133,7 @@ const renderGraph = (id, statsData, bins, labels) => {
               enter: {
                 interpolate: { value: 'monotone' },
                 x: { scale: 'x', field: 'created_at' },
-                x2: { scale: 'x', field: 'created_at', offset: 30 },
+                x2: { scale: 'x', field: 'created_at', offset: 800 / days },
                 y: { scale: 'y', field: 'y0' },
                 y2: { scale: 'y', field: 'y1' },
                 fill: { scale: 'color', field: 'value' }
@@ -173,7 +172,13 @@ const ScoresTrendsGraph = (props) => {
       };
     });
 
-    renderGraph(id, props.statsData, bins, legendLabels);
+    // Calculate number of days in the period
+    const days = props.statsData.map(s => new Date(s.created_at).getTime());
+    const minDay = Math.min(...days);
+    const maxDay = Math.max(...days);
+    const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
+
+    renderGraph(id, props.statsData, bins, legendLabels, numberOfdays);
   }, []);
     return (
       <div id={id} />
