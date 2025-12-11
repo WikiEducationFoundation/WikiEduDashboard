@@ -120,6 +120,50 @@ describe Course, type: :model do
     expect(course.article_count).to eq(1)
   end
 
+  describe '#view_sum_created' do
+    let(:course) { create(:course) }
+    let(:article) { create(:article, namespace: 0) }
+
+    it 'returns cached value when set' do
+      course.update(view_sum_created: 100)
+      expect(course.view_sum_created).to eq(100)
+    end
+
+    it 'returns 0 when cached value is nil and course never updated' do
+      course.update(view_sum_created: nil)
+      expect(course.view_sum_created).to eq(0)
+    end
+
+    it 'calculates on-the-fly when course updated but view_sum_created is 0 and has new articles' do
+      # Create a new article with average_views and first_revision
+      create(:articles_course,
+             article: article,
+             course: course,
+             first_revision: 10.days.ago,
+             new_article: true,
+             average_views: 10,
+             tracked: true)
+      course.update(view_sum: 140, view_sum_created: 0, new_article_count: 1)
+      course.flags['update_logs'] = { 'test' => { 'start_time' => 1.day.ago } }
+      course.save
+      # Should calculate: 10 days * 10 views = 100
+      expect(course.view_sum_created).to eq(100)
+    end
+
+    it 'returns 0 when course never updated even if has new articles' do
+      create(:articles_course,
+             article: article,
+             course: course,
+             first_revision: 10.days.ago,
+             new_article: true,
+             average_views: 10,
+             tracked: true)
+      course.update(view_sum: 140, view_sum_created: 0)
+      # No update_logs, so was_course_ever_updated? returns false
+      expect(course.view_sum_created).to eq(0)
+    end
+  end
+
   it 'returns a valid course slug for ActiveRecord' do
     course = build(:course,
                    title: 'History Class',
