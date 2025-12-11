@@ -239,14 +239,9 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   
   # Use OmniAuth's built-in CSRF protection (replaces omniauth-rails_csrf_protection gem)
-  # Skip in test mode because Capybara doesn't preserve CSRF tokens through OAuth redirects
-  if Rails.env.test?
-    OmniAuth.config.request_validation_phase = nil
-  else
-    OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(
-      key: :_csrf_token
-    )
-  end
+  OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(
+    key: :_csrf_token
+  )
   
   config.omniauth :mediawiki,
                   ENV['wikipedia_token'],

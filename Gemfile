@@ -29,7 +29,6 @@ gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 gem 'devise' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
-# gem "omniauth-rails_csrf_protection" # Replaced with OmniAuth's built-in CSRF protection
 # Parses user agent strings to determine which browser is in use.
 # Used for browser support warnings.
 gem 'browser'
