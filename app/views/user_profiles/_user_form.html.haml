@@ -2,7 +2,7 @@
 = hot_javascript_tag 'editable'
 #profile
   = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: "rails_editable #{('rails_editable-editing' if @user_profile.errors.any? || @user.errors.any?)}",
-    multipart: true, 'data-is-instructor' => @user&.course_instructor? }) do
+    multipart: true, 'data-is-instructor' => @user&.active_course_instructor? }) do
     #disclaimer
       .module
         .module__data
