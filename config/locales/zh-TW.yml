@@ -158,6 +158,14 @@ zh-TW:
           recent_followup: 過去 14 天內提交後續回覆的提醒，按後續回覆日期排序。
           multiple_alerts_students: 過去 14 天內為收到多個提醒的學生建立的提醒，按建立日期排序。
           in_mainspace: 過去 14 天內為主空間條目建立的提醒，按建立日期排序。
+  ai_scores_stats:
+    title: 修訂版 AI 分數統計
+    graphs:
+      daily_checks: 依命名空間每日檢查
+      avg_likelihood: 每日平均 AI 可能性分佈
+      max_likelihood: 每日最大 AI 可能性分佈
+      overall_avg_likelihood: 整體平均 AI 可能性分佈
+      overall_max_likelihood: 整體最大 AI 可能性分佈
   activity:
     all: 活動
     edited_by: 編輯自
