@@ -1,7 +1,8 @@
 = javascript_include_tag '/assets/javascripts/jquery.min.js'
 = hot_javascript_tag 'editable'
 #profile
-  = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: 'rails_editable',  multipart: true }) do
+  = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: "rails_editable #{('rails_editable-editing' if @user_profile.errors.any? || @user.errors.any?)}",
+    multipart: true, 'data-is-instructor' => @user&.course_instructor? }) do
     #disclaimer
       .module
         .module__data
@@ -50,7 +51,10 @@
                   - if @user.email.present?
                     %p.rails_editable-content
                       = @user.email
-                  = text_area(:email, :email, class: 'rails_editable-input', placeholder: t("users.useremail_placeholder"))
+                  = text_field(:email, :email, class: 'rails_editable-input', placeholder: t("users.useremail_placeholder"))
+                  - if @user.errors[:email].any?
+                    .email-error-message{ style: 'color: red; font-size: 12px; margin-top: 2px;' }
+                      = @user.errors[:email].to_sentence
 
           .section
             #user_location
@@ -61,7 +65,7 @@
                 - if @user&.user_profile&.location.present?
                   %p.rails_editable-content
                     = @user.user_profile.location
-                = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
+                = text_field(:user_profile, :location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
 
           .section
             #user_institution
@@ -72,7 +76,7 @@
                 - if @user&.user_profile&.institution.present?
                   %p.rails_editable-content
                     = @user.user_profile.institution
-                = text_area(:user_profile, :institution, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
+                = text_field(:user_profile, :institution, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
 
           .section
             #profile_user_contributions

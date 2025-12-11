@@ -40,7 +40,8 @@ class UserProfilesController < ApplicationController
       flash[:notice] = 'Profile Updated'
       redirect_to controller: 'user_profiles', action: 'show'
     else
-      flash.now[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
+      flash.now[:error] =
+        (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
       @user_profile.reload
       render :show, status: :unprocessable_entity
     end
