@@ -267,19 +267,79 @@ describe User do
   end
 
   describe 'email validation' do
-    context 'when email is valid' do
-      it 'saves the email' do
-        user = described_class.new(username: 'foo', email: 'me@foo.com')
-        user.save
-        expect(user.email).to eq('me@foo.com')
+    let(:user) { build(:user, username: 'testuser') }
+
+    describe 'users who have never been instructors' do
+      it 'allows saving a valid email' do
+        user.email = 'good@example.com'
+        expect(user.save).to be true
+        expect(user.email).to eq('good@example.com')
+      end
+
+      it 'allows saving a blank email' do
+        user.email = ''
+        expect(user.save).to be true
+        expect(user.email).to be_blank
+      end
+
+      it 'block an invalid email' do
+        user.email = 'not-even-an-email'
+        expect(user.save).to be false
+        expect(user.errors[:email]).to include(I18n.t('users.email_invalid'))
       end
     end
 
-    context 'when email is not valid' do
-      it 'sets email to nil and saves' do
-        user = described_class.new(username: 'foo', email: 'me@foo')
-        user.save
-        expect(user.email).to be_nil
+    describe 'users who have been instructors (but no active courses)' do
+      before do
+        course = create(:course, start: 2.years.ago, end: 1.year.ago)
+        create(:courses_user, user: user, role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+          course: course)
+        user.reload
+      end
+
+      it 'allows blank email when courses are over' do
+        user.email = ''
+        expect(user.save).to be true
+        expect(user.email).to be_blank
+      end
+
+      it 'blocks invalid email format' do
+        user.email = 'test.com'
+        expect(user.save).to be false
+        expect(user.errors[:email]).to include(I18n.t('users.email_invalid'))
+      end
+
+      it 'allows valid email' do
+        user.email = 'past-instructor@wiki.edu'
+        expect(user.save).to be true
+        expect(user.email).to eq('past-instructor@wiki.edu')
+      end
+    end
+
+    describe 'users who are currently instructors in an active course' do
+      before do
+        course = create(:course, start: 1.month.ago, end: 1.month.from_now)
+        create(:courses_user, user: user, role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+               course: course)
+        user.reload
+      end
+
+      it 'blocks blank email' do
+        user.email = ''
+        expect(user.save).to be false
+        expect(user.errors[:email]).to include(I18n.t('users.email_required_instructor'))
+      end
+
+      it 'blocks invalid email format' do
+        user.email = 'notvalid@'
+        expect(user.save).to be false
+        expect(user.errors[:email]).to include(I18n.t('users.email_invalid'))
+      end
+
+      it 'allows valid email' do
+        user.email = 'active-instructor@example.com'
+        expect(user.save).to be true
+        expect(user.email).to eq('active-instructor@example.com')
       end
     end
   end
