@@ -6,6 +6,11 @@ require_dependency "#{Rails.root}/lib/importers/user_importer"
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Devise::Controllers::Rememberable
 
+  # Skip CSRF protection in test mode
+  # In test mode, Capybara doesn't preserve CSRF tokens through OAuth redirects
+  # OmniAuth's built-in CSRF protection is disabled in test mode via initializer
+  skip_before_action :verify_authenticity_token, if: -> { Rails.env.test? }
+
   def mediawiki
     set_user_from_auth_hash { return }
 

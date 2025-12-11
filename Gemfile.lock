@@ -375,9 +375,6 @@ GEM
     omniauth-oauth (1.2.0)
       oauth
       omniauth (>= 1.0, < 3)
-    omniauth-rails_csrf_protection (2.0.0)
-      actionpack (>= 4.2)
-      omniauth (~> 2.0)
     openssl (3.0.0)
     orm_adapter (0.5.0)
     pandoc-ruby (2.1.6)
@@ -661,7 +658,6 @@ DEPENDENCIES
   nokogiri
   oj
   omniauth-mediawiki!
-  omniauth-rails_csrf_protection
   openssl (~> 3)
   pandoc-ruby
   paper_trail
