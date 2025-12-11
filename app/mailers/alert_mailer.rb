@@ -15,8 +15,12 @@ class AlertMailer < ApplicationMailer
     @resolvable = @alert.resolvable?
     @details = @alert.details
     params = { to: @recipient.email,
-               subject: "#{@type}: #{@alert.main_subject}" }
+               subject: "#{@type}: #{@alert.main_subject}", bcc: [] }
     params[:reply_to] = @alert.reply_to unless @alert.reply_to.nil?
+
+    if Features.salesforce_bcc? && ENV['SALESFORCE_BCC_EMAIL'].present?
+      params[:bcc] = [ENV['SALESFORCE_BCC_EMAIL']]
+    end
     mail(params)
   end
 end
