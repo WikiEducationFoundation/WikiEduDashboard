@@ -32,10 +32,18 @@ class UserProfilesController < ApplicationController
       @user_profile.image.destroy
       @user_profile.image_file_link = nil
     end
-    @user_profile.update! user_profile_params
-    @user.update! user_email_params if valid_email?
-    flash[:notice] = 'Profile Updated'
-    redirect_to controller: 'user_profiles', action: 'show'
+    validate_update
+  end
+
+  def validate_update
+    if @user_profile.update(user_profile_params) && @user.update(user_email_params)
+      flash[:notice] = 'Profile Updated'
+      redirect_to controller: 'user_profiles', action: 'show'
+    else
+      flash.now[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
+      @user_profile.reload
+      render :show, status: :unprocessable_entity
+    end
   end
 
   def stats
@@ -111,10 +119,5 @@ class UserProfilesController < ApplicationController
   def set_user_profile
     @user_profile = @user.user_profile
     @user_profile = @user.create_user_profile if @user_profile.nil?
-  end
-
-  def valid_email?
-    return true if user_email_params['email'].blank? # allow deleting email
-    ValidatesEmailFormatOf::validate_email_format(user_email_params['email']).nil?
   end
 end
