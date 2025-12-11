@@ -77,9 +77,19 @@ $(() => {
         $emailSection.find(`.${errorClass}`).remove();
 
         if (isInstructor && (email === '' || !valid)) {
-          const msg = email === '' ? 'Email required for instructors' : 'Invalid email';
+          const msg = email === '' ? I18n.t('users.email_required_instructor') : I18n.t('users.email_invalid');
           $saveButton.prop('disabled', true).addClass('disabled');
-          $emailSection.append(`<span class="${errorClass}" style="color:red;font-size:12px;margin-left:20px">${msg}</span>`);
+          $emailSection.append(`
+                 <div style="margin-left: 20px;">
+                   <span class="${errorClass}" style="color: red; font-size: 12px;">${msg}</span>
+                 </div>`);
+        } else if (!valid) {
+          $saveButton.prop('disabled', true).addClass('disabled');
+          const msg = I18n.t('users.email_invalid');
+          $emailSection.append(`
+                 <div style="margin-left: 20px;">
+                   <span class="${errorClass}" style="color: red; font-size: 12px;">${msg}</span>
+                 </div>`);
         } else {
           $saveButton.prop('disabled', false).removeClass('disabled');
         }
