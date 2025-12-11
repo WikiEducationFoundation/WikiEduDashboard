@@ -39,14 +39,14 @@ class CheckRevisionWithPangram
   # Determines whether the check was already performed for the given revision,
   # based on the existence of a record in the data table with the same revision, wiki, and article,
   # where the details field is not nil.
-  # A nil details field may indicate an error occurred when calling the API, so we want
+  # A nil avg_ai_likelihood field may indicate an error occurred when calling the API, so we want
   # to retrieve it again.
   def already_checked?
     RevisionAiScore.where(
       revision_id: @mw_rev_id,
       wiki_id: @wiki.id,
       article_id: @article.id
-    ).where.not(details: nil).exists?
+    ).where.not(avg_ai_likelihood: nil).exists?
   end
 
   def fetch_pangram_inference
