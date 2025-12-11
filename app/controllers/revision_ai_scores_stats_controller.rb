@@ -26,6 +26,7 @@ class RevisionAiScoresStatsController < ApplicationController
 
   def set_scores
     @scores = RevisionAiScore.all.includes(:article)
+    @scores_with_likelihood = @scores.where.not(avg_ai_likelihood: nil)
   end
 
   def set_avg_likelihoods
@@ -45,7 +46,9 @@ class RevisionAiScoresStatsController < ApplicationController
 
   # Sets a hash of counts by bins according to max likelihood.
   def set_count_by_max_likelihood
-    by_bin = @scores.group_by { |s| bin(s.max_ai_likelihood) }.transform_values(&:count)
+    by_bin = @scores_with_likelihood.group_by do |s|
+      bin(s.max_ai_likelihood)
+    end.transform_values(&:count)
 
     # Guarantee that all bins have a key
     @count_by_max = {}
@@ -56,7 +59,9 @@ class RevisionAiScoresStatsController < ApplicationController
 
   # Sets a hash of counts by bins according to average likelihood.
   def set_count_by_avg_likelihood
-    by_bin = @scores.group_by { |s| bin(s.avg_ai_likelihood) }.transform_values(&:count)
+    by_bin = @scores_with_likelihood.group_by do |s|
+      bin(s.avg_ai_likelihood)
+    end.transform_values(&:count)
 
     # Guarantee that all bins have a key
     @count_by_avg = {}
@@ -83,26 +88,26 @@ class RevisionAiScoresStatsController < ApplicationController
   # scores. The array covers the full date range and all bins, even if the count is zero for
   # some combinations.
   def set_historical_scores_by_max_values
-    count_by_date_and_bin = @scores.group_by do |s|
+    count_by_date_and_bin = @scores_with_likelihood.group_by do |s|
       [s.revision_datetime.to_date, bin(s.max_ai_likelihood)]
     end
                                     .transform_values(&:count)
 
     # Ensure all date and bins combinations exist, even when count is zero.
-    @historical_scores_by_max= complete_hash((0..NUMBER_OF_BINS).to_a, count_by_date_and_bin)
+    @historical_scores_by_max = complete_hash((0..NUMBER_OF_BINS).to_a, count_by_date_and_bin)
   end
 
   # Sets an array of hashes with date, bins based on avg likelihood, and count for historical
   # scores. The array covers the full date range and all bins, even if the count is zero for
   # some combinations.
   def set_historical_scores_by_avg_values
-    count_by_date_and_bin = @scores.group_by do |s|
+    count_by_date_and_bin = @scores_with_likelihood.group_by do |s|
       [s.revision_datetime.to_date, bin(s.avg_ai_likelihood)]
     end
                                     .transform_values(&:count)
 
     # Ensure all date and bins combinations exist, even when count is zero.
-    @historical_scores_by_avg= complete_hash((0..NUMBER_OF_BINS).to_a, count_by_date_and_bin)
+    @historical_scores_by_avg = complete_hash((0..NUMBER_OF_BINS).to_a, count_by_date_and_bin)
   end
 
   # Given a partial array of hashes and an array of values, returns a complete array of hashes
