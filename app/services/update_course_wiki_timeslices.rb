@@ -181,6 +181,7 @@ class UpdateCourseWikiTimeslices
     start_period = revisions[:start]
     end_period = revisions[:end]
     revs = revisions[:revisions]
+    
     revs.group_by(&:article_id).each do |article_id, article_revisions|
       # We create articles courses timeslices for every article
       # Update cache for ArticleCourseTimeslice
