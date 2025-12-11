@@ -160,7 +160,7 @@ describe CheckRevisionWithPangram do
     let!(:revision_ai_score) do
       create(:revision_ai_score, revision_id: live_article_revision_id,
              wiki_id: en_wiki.id, course:, user:, article: live_article,
-             details: stored_simplified_pangram_response)
+             details: stored_simplified_pangram_response, avg_ai_likelihood: 0.5)
     end
 
     it 'returns prematurely if the record is found' do
@@ -176,8 +176,8 @@ describe CheckRevisionWithPangram do
       )
     end
 
-    it 'checks the revision again if no details' do
-      revision_ai_score.update(details: nil)
+    it 'checks the revision again if nil avg_ai_likelihood' do
+      revision_ai_score.update(avg_ai_likelihood: nil)
       expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision)
                                                   .and_call_original
       expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_diff_table).and_call_original
@@ -202,7 +202,7 @@ describe CheckRevisionWithPangram do
       end
 
       expect(RevisionAiScore.count).to eq(2)
-      expect(RevisionAiScore.last.details).not_to be_nil
+      expect(RevisionAiScore.last.avg_ai_likelihood).not_to be_nil
     end
   end
 
