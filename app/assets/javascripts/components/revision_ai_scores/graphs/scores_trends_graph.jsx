@@ -146,7 +146,7 @@ const ScoresTrendsGraph = (props) => {
   useEffect(() => {
     // Format the labels for the chart
     const legendLabels = Object.entries(props.countByPage).map(([key, count]) => {
-      const pct = Math.round((count / props.total) * 100);
+      const pct = ((count / props.total) * 100).toFixed(2);
       return {
         value: key,
         label: `${ArticleUtils.NamespaceIdMapping[key]}: ${count} (${pct}%)`

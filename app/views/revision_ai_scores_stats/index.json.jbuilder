@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 json.total_scores @scores.count
+json.total_scores_with_likelihood @scores_with_likelihood.count
 json.avg_likelihoods @avg_likelihoods
 json.max_likelihoods @max_likelihoods
 json.count_by_namespace @count_by_namespace
