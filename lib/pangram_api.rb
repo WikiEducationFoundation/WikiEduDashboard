@@ -19,7 +19,8 @@ class PangramApi
     response = conn.post('') do |req|
       req.body = {
         text:,
-        dashboard: true
+        dashboard: true,
+        is_public: true
       }.to_json
     end
 
