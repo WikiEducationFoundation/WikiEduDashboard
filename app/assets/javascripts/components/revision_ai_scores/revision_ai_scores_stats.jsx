@@ -40,14 +40,14 @@ const RevisionAiScoresStats = () => {
           id="AvgLikelihood"
           statsData={stats.historical_scores_by_avg}
           countByBin={stats.count_by_avg}
-          total={stats.total_scores}
+          total={stats.total_scores_with_likelihood}
         />
         <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.max_likelihood')}</h3>
         <ScoresTrendsInBinsGraph
           id="MaxLikelihood"
           statsData={stats.historical_scores_by_max}
           countByBin={stats.count_by_max}
-          total={stats.total_scores}
+          total={stats.total_scores_with_likelihood}
         />
         <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.overall_avg_likelihood')}</h3>
         <LikelihoodDistributionGraph
