@@ -135,6 +135,8 @@ VCR.configure do |c|
   c.ignore_hosts '127.0.0.1'
   # c.allow_http_connections_when_no_cassette = true
   c.ignore_hosts 'codeclimate.com'
+  # Ignore Google Fonts requests made during email rendering (premailer-rails)
+  c.ignore_hosts 'fonts.googleapis.com'
   # for controller test
   c.ignore_localhost = true
 end
