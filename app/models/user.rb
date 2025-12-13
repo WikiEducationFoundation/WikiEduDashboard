@@ -31,8 +31,7 @@ require_dependency "#{Rails.root}/lib/utils"
 #= User model
 class User < ApplicationRecord
   alias_attribute :wiki_id, :username
-  before_validation :ensure_valid_email
-
+  before_validation :ensure_valid_email, :email_must_be_present_for_instructors
   include MediawikiUrlHelper
 
   #############
@@ -143,6 +142,14 @@ class User < ApplicationRecord
     @course_instructor ||= courses_users.exists?(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
+  def active_course_instructor?
+    courses_users
+      .joins(:course)
+      .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      .merge(Course.current)
+      .exists?
+  end
+
   def instructor?(course)
     courses_users.exists?(role: CoursesUsers::Roles::INSTRUCTOR_ROLE, course_id: course.id)
   end
@@ -244,7 +251,15 @@ class User < ApplicationRecord
 
   private
 
+  def email_must_be_present_for_instructors
+    return unless active_course_instructor? && email.blank?
+    errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
+  end
+
   def ensure_valid_email
-    self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
+    return if email.blank?
+
+    return unless ValidatesEmailFormatOf.validate_email_format(email).present?
+    errors.add(:email, :invalid, message: I18n.t('users.email_invalid'))
   end
 end

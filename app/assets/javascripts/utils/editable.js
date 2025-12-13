@@ -39,45 +39,85 @@ $(() => {
   const editMode = (e) => {
     e.preventDefault();
     const $parent = $(e.target).parents('.rails_editable');
+
     $parent.addClass('rails_editable-editing');
     $(e.target).hide();
+
     $parent.find('#disclaimer').css({ display: 'unset' });
     $parent.find('#profile_left #user_image').css({ height: '150px' });
+
     $(e.target).parent().append(`
       <button class='rails_editable rails_editable-cancel button'>${I18n.t('editable.cancel')}</button>
       <button class='rails_editable rails_editable-save button dark'>${I18n.t('editable.save')}</button>
     `);
 
-    $.each($parent.find('.rails_editable-field'), (_i, field) => {
-      const $content = $(field).find('.rails_editable-content');
-      const $input = $(field).find('.rails_editable-input');
-      const text = $content.text().trim();
+    $parent.find('.rails_editable-field').each(function () {
+      const $field = $(this);
+      const $content = $field.find('.rails_editable-content');
+      const $input = $field.find('.rails_editable-input');
+
+      const text = $content.length ? $content.text().trim() : '';
       $content.hide();
-      $input.val(text);
-      if ($input.prop('type') === 'textarea') {
-        $input.height('400px');
-      }
-      $input.show();
+      $input.val(text).show();
+
+      if ($input.is('textarea')) $input.height('400px');
     });
+
+    const $emailInput = $parent.find('#user_email .rails_editable-input');
+    if ($emailInput.length) {
+      const isInstructor = $parent.attr('data-is-instructor') === 'true';
+      const $saveButton = $parent.find('.rails_editable-save');
+      const $emailSection = $parent.find('#user_email');
+      const errorClass = 'email-error-message';
+
+      const validateEmail = () => {
+        const email = $emailInput.val().trim();
+        const valid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+
+        $emailSection.find(`.${errorClass}`).remove();
+
+        if (isInstructor && (email === '' || !valid)) {
+          const msg = email === '' ? I18n.t('users.email_required_instructor') : I18n.t('users.email_invalid');
+          $saveButton.prop('disabled', true).addClass('disabled');
+          $emailSection.append(`
+                 <div style="margin-left: 20px;">
+                   <span class="${errorClass}" style="color: red; font-size: 12px;">${msg}</span>
+                 </div>`);
+        } else if (email !== '' && !valid) {
+          $saveButton.prop('disabled', true).addClass('disabled');
+          const msg = I18n.t('users.email_invalid');
+          $emailSection.append(`
+                 <div style="margin-left: 20px;">
+                   <span class="${errorClass}" style="color: red; font-size: 12px;">${msg}</span>
+                 </div>`);
+        } else {
+          $saveButton.prop('disabled', false).removeClass('disabled');
+        }
+      };
+
+      $emailInput.on('input', validateEmail);
+      validateEmail();
+    }
 
     $parent.find('.rails_editable-cancel').on('click', () => {
       $parent.find('#disclaimer').css({ display: 'none' });
       $parent.find('#profile_left #user_image').css({ height: 'unset' });
-      $parent.trigger('editable:cancel');
-      readMode.call(this, $parent);
+      $parent.find('.email-error-message').remove();
+      readMode($parent);
     });
 
     $parent.find('.rails_editable-save').on('click', () => {
-      $parent.trigger('editable:save');
+      if (!$parent.find('.rails_editable-save').is(':disabled')) {
+        $parent.trigger('editable:save');
+      }
     });
-
+    $parent.find('.email-error-message').remove();
     $parent.trigger('editable:edit');
   };
 
   $('.rails_editable-edit').on('click', editMode);
 
-  // if rails_editable-editing is present, enable edit mode on that element
-  $.each($('.rails_editable-editing'), (_i, field) => {
-    $(field).find('.rails_editable-edit').trigger('click');
+  $('.rails_editable-editing').each(function () {
+    $(this).find('.rails_editable-edit').trigger('click');
   });
 });
