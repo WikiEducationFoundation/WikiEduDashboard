@@ -83,7 +83,7 @@ $(() => {
                  <div style="margin-left: 20px;">
                    <span class="${errorClass}" style="color: red; font-size: 12px;">${msg}</span>
                  </div>`);
-        } else if (!valid) {
+        } else if (email !== '' && !valid) {
           $saveButton.prop('disabled', true).addClass('disabled');
           const msg = I18n.t('users.email_invalid');
           $emailSection.append(`
@@ -111,7 +111,7 @@ $(() => {
         $parent.trigger('editable:save');
       }
     });
-
+    $parent.find('.email-error-message').remove();
     $parent.trigger('editable:edit');
   };
 
