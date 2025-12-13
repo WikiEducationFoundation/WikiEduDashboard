@@ -162,6 +162,12 @@ describe 'Student users', type: :feature, js: true do
   end
 
   describe 'visiting the ?enroll=passcode url' do
+    # Disable OmniAuth's CSRF protection in tests because Capybara doesn't preserve
+    # CSRF tokens through OAuth redirects
+    before do
+      OmniAuth.config.request_validation_phase = nil
+    end
+
     it 'joins a course' do
       login_as(user, scope: :user)
       stub_oauth_edit
