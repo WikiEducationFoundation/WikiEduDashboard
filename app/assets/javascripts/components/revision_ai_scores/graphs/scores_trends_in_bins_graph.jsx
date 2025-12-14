@@ -47,7 +47,7 @@ const renderGraph = (id, statsData, bins, labels, days) => {
         values: statsData,
         format: {
           type: 'json',
-          parse: { created_at: 'date', count: 'number', value: 'number' }
+          parse: { created_at: 'date', count: 'number', namespace: 'string', bin: 'number' }
         },
         transform: [
           {
@@ -122,7 +122,7 @@ const renderGraph = (id, statsData, bins, labels, days) => {
           facet: {
             name: 'series',
             data: 'data',
-            groupby: 'value'
+            groupby: 'bin'
           }
         },
         marks: [
@@ -136,7 +136,8 @@ const renderGraph = (id, statsData, bins, labels, days) => {
                 x2: { scale: 'x', field: 'created_at', offset: 800 / days },
                 y: { scale: 'y', field: 'y0' },
                 y2: { scale: 'y', field: 'y1' },
-                fill: { scale: 'color', field: 'value' }
+                fill: { scale: 'color', field: 'bin' },
+                fillOpacity: { value: 1 }
               },
               update: { fillOpacity: { value: 1 } },
               hover: { fillOpacity: { value: 0.5 } }

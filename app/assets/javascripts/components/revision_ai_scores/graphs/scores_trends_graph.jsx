@@ -40,7 +40,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
         values: statsData,
         format: {
           type: 'json',
-          parse: { created_at: 'date', count: 'number', value: 'string' }
+          parse: { created_at: 'date', count: 'number', namespace: 'string', bin: 'number' }
         },
         transform: [
           {
@@ -73,7 +73,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
       {
         name: 'color',
         type: 'ordinal',
-        domain: { data: 'data', field: 'value' },
+        domain: { data: 'data', field: 'namespace' },
         range: 'category'
       },
       {
@@ -112,7 +112,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
           facet: {
             name: 'series',
             data: 'data',
-            groupby: 'value'
+            groupby: 'namespace'
           }
         },
         marks: [
@@ -126,7 +126,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
                 x2: { scale: 'x', field: 'created_at', offset: 800 / days },
                 y: { scale: 'y', field: 'y0' },
                 y2: { scale: 'y', field: 'y1' },
-                fill: { scale: 'color', field: 'value' }
+                fill: { scale: 'color', field: 'namespace' }
               },
               update: { fillOpacity: { value: 1 } },
               hover: { fillOpacity: { value: 0.5 } }
