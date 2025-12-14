@@ -198,6 +198,15 @@
   .navbox
     display none
 
+  // Focus styles for per-word navigation
+  .article-chunk
+    display inline-block
+    outline none
+    &:focus
+      outline 2px solid #2b79ff
+      outline-offset 2px
+      border-radius 2px
+
   sup
     vertical-align super
     font-size smaller

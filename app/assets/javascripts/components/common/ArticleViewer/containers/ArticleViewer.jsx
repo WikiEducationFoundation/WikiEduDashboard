@@ -414,7 +414,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
         }
         <div id="article-scrollbox-id" className="article-scrollbox">
           {
-            fetched ? <ParsedArticle highlightedHtml={highlightedHtml} whocolorHtml={whoColorHtml} parsedArticle={parsedArticle} /> : <Loading />
+            fetched ? <ParsedArticle highlightedHtml={highlightedHtml} whocolorHtml={whoColorHtml} parsedArticle={parsedArticle} language={article.language} /> : <Loading />
           }
         </div>
         <Footer
