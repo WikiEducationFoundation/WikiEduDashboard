@@ -232,7 +232,7 @@ id:
     class: Kelas
     date_time: Tanggal/Waktu
     diff: beda
-    time_doc: Waktu setiap revisi dalam waktu setempat Anda
+    time_doc: Waktu tiap revisi dalam waktu setempat Anda
     see_more: Lihat selengkapnya
   settings:
     admin_users:
