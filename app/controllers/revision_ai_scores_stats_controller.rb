@@ -16,9 +16,6 @@ class RevisionAiScoresStatsController < ApplicationController
     set_scores
     set_avg_likelihoods
     set_max_likelihoods
-    set_count_by_namespace
-    set_count_by_max_likelihood
-    set_count_by_avg_likelihood
     set_historical_scores_by_namespaces
     set_historical_scores_by_max_values
     set_historical_scores_by_avg_values
@@ -37,90 +34,66 @@ class RevisionAiScoresStatsController < ApplicationController
     @max_likelihoods = @scores.map { |s| { value: s.max_ai_likelihood } }
   end
 
-  # Sets a hash of counts by namespace id.
-  # Example:
-  # {0=>1, 1=>2, :2=>1, ...}
-  def set_count_by_namespace
-    @count_by_namespace = @scores.group_by { |s| s.article.namespace }.transform_values(&:count)
-  end
-
-  # Sets a hash of counts by bins according to max likelihood.
-  def set_count_by_max_likelihood
-    by_bin = @scores_with_likelihood.group_by do |s|
-      bin(s.max_ai_likelihood)
-    end.transform_values(&:count)
-
-    # Guarantee that all bins have a key
-    @count_by_max = {}
-    (0..NUMBER_OF_BINS).each do |bin|
-      @count_by_max[bin] = by_bin[bin] || 0
-    end
-  end
-
-  # Sets a hash of counts by bins according to average likelihood.
-  def set_count_by_avg_likelihood
-    by_bin = @scores_with_likelihood.group_by do |s|
-      bin(s.avg_ai_likelihood)
-    end.transform_values(&:count)
-
-    # Guarantee that all bins have a key
-    @count_by_avg = {}
-    (0..NUMBER_OF_BINS).each do |bin|
-      @count_by_avg[bin] = by_bin[bin] || 0
-    end
-  end
-
   # Sets an array of hashes with date, namespace, and count for historical scores.
-  # The array covers the full date range and all namespaces,
-  # even if the count is zero for some combinations.
+  # The array covers the full date range and all namespaces, even if the count is zero
+  # for some combinations.
+  # The array also contains a bin field that always has the value -1, since it’s not
+  # really necessary in this case.
   def set_historical_scores_by_namespaces
     count_by_date_and_namespace = @scores.group_by do |s|
-      [s.revision_datetime.to_date, s.article.namespace]
+      # -1 represents an invalid bin
+      [s.revision_datetime.to_date, s.article.namespace, -1]
     end
                                     .transform_values(&:count)
 
-    # Ensure all date and page type combinations exist, even when count is zero.
+    # Ensure all date and namespace combinations exist, even when count is zero.
     namespaces = count_by_date_and_namespace.keys.map(&:second).uniq
-    @historical_scores_by_namespace = complete_hash(namespaces, count_by_date_and_namespace)
+    @historical_scores_by_namespace = complete_hash(namespaces, [-1], count_by_date_and_namespace)
   end
 
-  # Sets an array of hashes with date, bins based on max likelihood, and count for historical
-  # scores. The array covers the full date range and all bins, even if the count is zero for
-  # some combinations.
+  # Sets an array of hashes with date, namespace, bins based on max likelihood, and count for
+  # historical scores. The array covers the full date range and all bins, even if the count is zero
+  # for some combinations.
   def set_historical_scores_by_max_values
-    count_by_date_and_bin = @scores_with_likelihood.group_by do |s|
-      [s.revision_datetime.to_date, bin(s.max_ai_likelihood)]
+    count_by_date_ns_and_bin = @scores_with_likelihood.group_by do |s|
+      [s.revision_datetime.to_date, s.article.namespace, bin(s.max_ai_likelihood)]
     end
                                     .transform_values(&:count)
 
-    # Ensure all date and bins combinations exist, even when count is zero.
-    @historical_scores_by_max = complete_hash((0..NUMBER_OF_BINS).to_a, count_by_date_and_bin)
+    # Ensure all date, namespace and bin combinations exist, even when count is zero.
+    namespaces = count_by_date_ns_and_bin.keys.map(&:second).uniq
+    @historical_scores_by_max = complete_hash(namespaces, (0..NUMBER_OF_BINS).to_a,
+                                              count_by_date_ns_and_bin)
   end
 
-  # Sets an array of hashes with date, bins based on avg likelihood, and count for historical
-  # scores. The array covers the full date range and all bins, even if the count is zero for
-  # some combinations.
+  # Sets an array of hashes with date, namespace, bins based on avg likelihood, and count for
+  # historical scores. The array covers the full date range and all bins, even if the count is zero
+  # for some combinations.
   def set_historical_scores_by_avg_values
-    count_by_date_and_bin = @scores_with_likelihood.group_by do |s|
-      [s.revision_datetime.to_date, bin(s.avg_ai_likelihood)]
+    count_by_date_ns_and_bin = @scores_with_likelihood.group_by do |s|
+      [s.revision_datetime.to_date, s.article.namespace, bin(s.avg_ai_likelihood)]
     end
                                     .transform_values(&:count)
 
-    # Ensure all date and bins combinations exist, even when count is zero.
-    @historical_scores_by_avg = complete_hash((0..NUMBER_OF_BINS).to_a, count_by_date_and_bin)
+    namespaces = count_by_date_ns_and_bin.keys.map(&:second).uniq
+    @historical_scores_by_avg = complete_hash(namespaces, (0..NUMBER_OF_BINS).to_a,
+                                              count_by_date_ns_and_bin)
   end
 
-  # Given a partial array of hashes and an array of values, returns a complete array of hashes
-  # that includes all dates and values based on the partial one.
-  def complete_hash(values, partial_stats)
+  # Given arrays of possible namespaces and bins, and a partial array of hashes, returns a complete
+  # array of hashes that includes all dates, namespaces and bins based on the partial one.
+  def complete_hash(namespaces, bins, partial_stats)
     start_date = partial_stats.keys.map(&:first).min
     end_date   = partial_stats.keys.map(&:first).max
 
     (start_date..end_date).flat_map do |created_at|
-      values.map do |value|
-        { created_at: created_at.to_s,
-          value:,
-          count: partial_stats.fetch([created_at, value], 0) }
+      bins.flat_map do |bin|
+        namespaces.map do |namespace|
+          { created_at: created_at.to_s,
+            namespace:,
+            bin:,
+            count: partial_stats.fetch([created_at, namespace, bin], 0) }
+        end
       end
     end
   end
