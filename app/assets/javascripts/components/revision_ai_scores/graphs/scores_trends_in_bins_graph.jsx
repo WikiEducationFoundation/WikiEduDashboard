@@ -45,7 +45,7 @@ const renderGraph = (id, statsData, bins, labels, days) => {
             labels: {
                 update: {
                     text: {
-                        signal: "data('labels')[datum.value].label + ' ' +data('totalByBin')[datum.value].total_by_bin + ' (' + round(data('totalByBin')[datum.value].total_by_bin * 100 / data('total')[0].total) + '%)'"
+                        signal: "data('labels')[datum.value].label + ' ' +data('totalByBin')[datum.value].total_by_bin + ' (' + round(data('totalByBin')[datum.value].total_by_bin * 10000 / data('total')[0].total) / 100 + '%)'"
                     }
                 }
             }
