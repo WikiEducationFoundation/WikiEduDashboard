@@ -3,9 +3,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ArticleUtils from '../../../utils/article_utils';
 
-const renderGraph = (id, statsData, bins, labels, days) => {
-  const namespaces = [...new Set(statsData.map(d => d.namespace))];
-
+const renderGraph = (id, statsData, bins, labels, days, namespaces) => {
   const vegaSpec = {
     width: 800,
     height: 250,
@@ -195,49 +193,51 @@ const renderGraph = (id, statsData, bins, labels, days) => {
   vegaEmbed(`#${id}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
 };
 
-const ScoresTrendsGraph = (props) => {
-  const id = `ScoresTrendsGraph${props.id}`;
+const ScoresTrendsInBinsGraph = (props) => {
+  const id = `ScoresTrendsInBinsGraph${props.id}`;
   // Calculate the number of bins to create labels
   const bins = Math.max(...new Set(props.statsData.map(d => d.bin)));
 
-  useEffect(() => {
-    const formatLabel = (key) => {
-      const start = Math.round((key / bins) * 100) / 100;
-      const end = Math.round(((key / bins) + (1 / bins)) * 100) / 100;
-      // The last bin has to use a closed interval (']')
-      const bracket = Number(key) === bins - 1 ? ']' : ')';
-      return { label: `[${start}, ${end}${bracket}:` };
+  const formatLabel = (key) => {
+    const start = Math.round((key / bins) * 100) / 100;
+    const end = Math.round(((key / bins) + (1 / bins)) * 100) / 100;
+    // The last bin has to use a closed interval (']')
+    const bracket = Number(key) === bins - 1 ? ']' : ')';
+    return { label: `[${start}, ${end}${bracket}:` };
+  };
+
+  // Format the labels for the chart
+  const legendLabels = Array.from({ length: bins }, (_, i) => i).map(e => formatLabel(e));
+
+  // Calculate number of days in the period
+  const days = props.statsData.map(s => new Date(s.created_at).getTime());
+  const minDay = Math.min(...days);
+  const maxDay = Math.max(...days);
+  const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
+
+  const statsDataWithNamespaces = props.statsData.map((s) => {
+    return {
+      created_at: s.created_at,
+      namespace: ArticleUtils.NamespaceIdMapping[s.namespace],
+      bin: s.bin,
+      count: s.count
     };
-    // Format the labels for the chart
-    const legendLabels = Array.from({ length: bins }, (_, i) => i).map(e => formatLabel(e));
-
-    // Calculate number of days in the period
-    const days = props.statsData.map(s => new Date(s.created_at).getTime());
-    const minDay = Math.min(...days);
-    const maxDay = Math.max(...days);
-    const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
-
-    const statsDataWithNamespaces = props.statsData.map((s) => {
-      return {
-        created_at: s.created_at,
-        namespace: ArticleUtils.NamespaceIdMapping[s.namespace],
-        bin: s.bin,
-        count: s.count
-      };
   });
-    renderGraph(id, statsDataWithNamespaces, bins, legendLabels, numberOfdays);
+  const namespaces = [...new Set(statsDataWithNamespaces.map(d => d.namespace))];
+  useEffect(() => {
+    renderGraph(id, statsDataWithNamespaces, bins, legendLabels, numberOfdays, namespaces);
   }, []);
     return (
       <div id={id} />
     );
 };
 
-ScoresTrendsGraph.displayName = 'ScoresTrendsGraph';
-ScoresTrendsGraph.propTypes = {
+ScoresTrendsInBinsGraph.displayName = 'ScoresTrendsInBinsGraph';
+ScoresTrendsInBinsGraph.propTypes = {
   id: PropTypes.string,
   statsData: PropTypes.array,
   countByBin: PropTypes.object,
   total: PropTypes.number,
 };
 
-export default ScoresTrendsGraph;
+export default ScoresTrendsInBinsGraph;
