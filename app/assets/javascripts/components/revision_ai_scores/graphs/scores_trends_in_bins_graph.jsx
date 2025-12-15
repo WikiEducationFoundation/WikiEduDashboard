@@ -1,12 +1,27 @@
 /* global vegaEmbed */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import ArticleUtils from '../../../utils/article_utils';
 
 const renderGraph = (id, statsData, bins, labels, days) => {
+  const namespaces = [...new Set(statsData.map(d => d.namespace))];
+
   const vegaSpec = {
     width: 800,
     height: 250,
     padding: { top: 40, left: 70, right: 20, bottom: 50 },
+
+    signals: [
+        {
+          name: 'namespace',
+          value: 'all',
+          bind: {
+            input: 'select',
+            options: ['all'].concat(namespaces),
+            name: 'Namespace:',
+          },
+        },
+      ],
 
     // //////////
     // Legends //
@@ -30,7 +45,7 @@ const renderGraph = (id, statsData, bins, labels, days) => {
             labels: {
                 update: {
                     text: {
-                        signal: "data('labels')[datum.value].label"
+                        signal: "data('labels')[datum.value].label + ' ' +data('totalByBin')[datum.value].total_by_bin + ' (' + round(data('totalByBin')[datum.value].total_by_bin * 100 / data('total')[0].total) + '%)'"
                     }
                 }
             }
@@ -51,9 +66,39 @@ const renderGraph = (id, statsData, bins, labels, days) => {
         },
         transform: [
           {
+            type: 'filter',
+            expr: "(namespace === 'all') ? true : datum.namespace === namespace"
+          },
+          {
             type: 'stack',
             groupby: ['created_at'],
-            field: 'count'
+            field: 'count',
+            sort: { field: 'bin', order: 'ascending' }
+          },
+        ]
+      },
+      {
+        name: 'total',
+        source: 'data',
+        transform: [
+          {
+            type: 'aggregate',
+            ops: ['sum'],
+            fields: ['count'],
+            as: ['total']
+          }
+        ]
+      },
+      {
+        name: 'totalByBin',
+        source: 'data',
+        transform: [
+          {
+            type: 'aggregate',
+            groupby: ['bin'],
+            ops: ['sum'],
+            fields: ['count'],
+            as: ['total_by_bin']
           }
         ]
       },
@@ -62,7 +107,7 @@ const renderGraph = (id, statsData, bins, labels, days) => {
         values: labels,
         format: {
           type: 'json',
-          parse: { value: 'string', label: 'string' }
+          parse: { label: 'string' }
         },
       }
     ],
@@ -130,7 +175,7 @@ const renderGraph = (id, statsData, bins, labels, days) => {
             type: 'rect',
             from: { data: 'series' },
             encode: {
-              enter: {
+              update: {
                 interpolate: { value: 'monotone' },
                 x: { scale: 'x', field: 'created_at' },
                 x2: { scale: 'x', field: 'created_at', offset: 800 / days },
@@ -139,7 +184,6 @@ const renderGraph = (id, statsData, bins, labels, days) => {
                 fill: { scale: 'color', field: 'bin' },
                 fillOpacity: { value: 1 }
               },
-              update: { fillOpacity: { value: 1 } },
               hover: { fillOpacity: { value: 0.5 } }
             }
           }
@@ -154,24 +198,18 @@ const renderGraph = (id, statsData, bins, labels, days) => {
 const ScoresTrendsGraph = (props) => {
   const id = `ScoresTrendsGraph${props.id}`;
   // Calculate the number of bins to create labels
-  const bins = Math.max(...Object.keys(props.countByBin).map(Number));
+  const bins = Math.max(...new Set(props.statsData.map(d => d.bin)));
 
   useEffect(() => {
-    const formatLabel = (key, count, pct) => {
+    const formatLabel = (key) => {
       const start = Math.round((key / bins) * 100) / 100;
       const end = Math.round(((key / bins) + (1 / bins)) * 100) / 100;
       // The last bin has to use a closed interval (']')
       const bracket = Number(key) === bins - 1 ? ']' : ')';
-      return `[${start}, ${end}${bracket}: ${count} (${pct}%)`;
+      return { label: `[${start}, ${end}${bracket}:` };
     };
     // Format the labels for the chart
-    const legendLabels = Object.entries(props.countByBin).map(([key, count]) => {
-      const pct = ((count / props.total) * 100).toFixed(2);
-      return {
-        value: key,
-        label: formatLabel(key, count, pct),
-      };
-    });
+    const legendLabels = Array.from({ length: bins }, (_, i) => i).map(e => formatLabel(e));
 
     // Calculate number of days in the period
     const days = props.statsData.map(s => new Date(s.created_at).getTime());
@@ -179,7 +217,15 @@ const ScoresTrendsGraph = (props) => {
     const maxDay = Math.max(...days);
     const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
 
-    renderGraph(id, props.statsData, bins, legendLabels, numberOfdays);
+    const statsDataWithNamespaces = props.statsData.map((s) => {
+      return {
+        created_at: s.created_at,
+        namespace: ArticleUtils.NamespaceIdMapping[s.namespace],
+        bin: s.bin,
+        count: s.count
+      };
+  });
+    renderGraph(id, statsDataWithNamespaces, bins, legendLabels, numberOfdays);
   }, []);
     return (
       <div id={id} />
