@@ -32,22 +32,16 @@ const RevisionAiScoresStats = () => {
         <ScoresTrendsGraph
           id="Namespaces"
           statsData={stats.historical_scores_by_namespace}
-          countByPage={stats.count_by_namespace}
-          total={stats.total_scores}
         />
         <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.avg_likelihood')}</h3>
         <ScoresTrendsInBinsGraph
           id="AvgLikelihood"
           statsData={stats.historical_scores_by_avg}
-          countByBin={stats.count_by_avg}
-          total={stats.total_scores}
         />
         <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.max_likelihood')}</h3>
         <ScoresTrendsInBinsGraph
           id="MaxLikelihood"
           statsData={stats.historical_scores_by_max}
-          countByBin={stats.count_by_max}
-          total={stats.total_scores}
         />
         <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.overall_avg_likelihood')}</h3>
         <LikelihoodDistributionGraph
