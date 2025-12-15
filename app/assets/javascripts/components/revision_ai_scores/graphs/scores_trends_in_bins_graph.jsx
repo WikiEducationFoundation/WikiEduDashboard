@@ -236,8 +236,6 @@ ScoresTrendsInBinsGraph.displayName = 'ScoresTrendsInBinsGraph';
 ScoresTrendsInBinsGraph.propTypes = {
   id: PropTypes.string,
   statsData: PropTypes.array,
-  countByBin: PropTypes.object,
-  total: PropTypes.number,
 };
 
 export default ScoresTrendsInBinsGraph;

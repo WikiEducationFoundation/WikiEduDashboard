@@ -179,8 +179,6 @@ ScoresTrendsGraph.displayName = 'ScoresTrendsGraph';
 ScoresTrendsGraph.propTypes = {
   id: PropTypes.string,
   statsData: PropTypes.array,
-  countByPage: PropTypes.object,
-  total: PropTypes.number,
 };
 
 export default ScoresTrendsGraph;
