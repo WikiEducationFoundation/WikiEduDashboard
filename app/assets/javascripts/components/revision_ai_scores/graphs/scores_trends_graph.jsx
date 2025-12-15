@@ -40,7 +40,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
         values: statsData,
         format: {
           type: 'json',
-          parse: { created_at: 'date', count: 'number', value: 'string' }
+          parse: { created_at: 'date', count: 'number', namespace: 'string', bin: 'number' }
         },
         transform: [
           {
@@ -73,7 +73,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
       {
         name: 'color',
         type: 'ordinal',
-        domain: { data: 'data', field: 'value' },
+        domain: { data: 'data', field: 'namespace' },
         range: 'category'
       },
       {
@@ -112,7 +112,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
           facet: {
             name: 'series',
             data: 'data',
-            groupby: 'value'
+            groupby: 'namespace'
           }
         },
         marks: [
@@ -126,7 +126,7 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
                 x2: { scale: 'x', field: 'created_at', offset: 800 / days },
                 y: { scale: 'y', field: 'y0' },
                 y2: { scale: 'y', field: 'y1' },
-                fill: { scale: 'color', field: 'value' }
+                fill: { scale: 'color', field: 'namespace' }
               },
               update: { fillOpacity: { value: 1 } },
               hover: { fillOpacity: { value: 0.5 } }
@@ -142,24 +142,32 @@ const renderGraph = (id, statsData, pageTypes, labels, days) => {
 
 const ScoresTrendsGraph = (props) => {
   const id = `ScoresTrendsGraph${props.id}`;
+  // Calculate count by page type
+  const countByPage = props.statsData.reduce((acc, s) => {
+    acc[s.namespace] = (acc[s.namespace] || 0) + s.count;
+    return acc;
+  }, {});
+
+  const total = props.statsData.reduce((acc, s) => {
+    return acc + s.count;
+  }, 0);
+
+  // Format the labels for the chart
+  const legendLabels = Object.entries(countByPage).map(([key, count]) => {
+    const pct = ((count / total) * 100).toFixed(2);
+    return {
+      value: key,
+      label: `${ArticleUtils.NamespaceIdMapping[key]}: ${count} (${pct}%)`
+    };
+  });
+
+  // Calculate number of days in the period
+  const days = props.statsData.map(s => new Date(s.created_at).getTime());
+  const minDay = Math.min(...days);
+  const maxDay = Math.max(...days);
+  const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
 
   useEffect(() => {
-    // Format the labels for the chart
-    const legendLabels = Object.entries(props.countByPage).map(([key, count]) => {
-      const pct = Math.round((count / props.total) * 100);
-      return {
-        value: key,
-        label: `${ArticleUtils.NamespaceIdMapping[key]}: ${count} (${pct}%)`
-      };
-    });
-
-    // Calculate number of days in the period
-    const days = props.statsData.map(s => new Date(s.created_at).getTime());
-    const minDay = Math.min(...days);
-    const maxDay = Math.max(...days);
-    const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
-
-
     renderGraph(id, props.statsData, legendLabels.map(e => e.value), legendLabels.map(e => e.label), numberOfdays);
   }, []);
     return (
@@ -171,8 +179,6 @@ ScoresTrendsGraph.displayName = 'ScoresTrendsGraph';
 ScoresTrendsGraph.propTypes = {
   id: PropTypes.string,
   statsData: PropTypes.array,
-  countByPage: PropTypes.object,
-  total: PropTypes.number,
 };
 
 export default ScoresTrendsGraph;
