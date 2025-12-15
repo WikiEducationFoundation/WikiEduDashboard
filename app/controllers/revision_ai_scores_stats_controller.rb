@@ -16,9 +16,6 @@ class RevisionAiScoresStatsController < ApplicationController
     set_scores
     set_avg_likelihoods
     set_max_likelihoods
-    set_count_by_namespace
-    set_count_by_max_likelihood
-    set_count_by_avg_likelihood
     set_historical_scores_by_namespaces
     set_historical_scores_by_max_values
     set_historical_scores_by_avg_values
@@ -35,39 +32,6 @@ class RevisionAiScoresStatsController < ApplicationController
 
   def set_max_likelihoods
     @max_likelihoods = @scores.map { |s| { value: s.max_ai_likelihood } }
-  end
-
-  # Sets a hash of counts by namespace id.
-  # Example:
-  # {0=>1, 1=>2, :2=>1, ...}
-  def set_count_by_namespace
-    @count_by_namespace = @scores.group_by { |s| s.article.namespace }.transform_values(&:count)
-  end
-
-  # Sets a hash of counts by bins according to max likelihood.
-  def set_count_by_max_likelihood
-    by_bin = @scores_with_likelihood.group_by do |s|
-      bin(s.max_ai_likelihood)
-    end.transform_values(&:count)
-
-    # Guarantee that all bins have a key
-    @count_by_max = {}
-    (0..NUMBER_OF_BINS).each do |bin|
-      @count_by_max[bin] = by_bin[bin] || 0
-    end
-  end
-
-  # Sets a hash of counts by bins according to average likelihood.
-  def set_count_by_avg_likelihood
-    by_bin = @scores_with_likelihood.group_by do |s|
-      bin(s.avg_ai_likelihood)
-    end.transform_values(&:count)
-
-    # Guarantee that all bins have a key
-    @count_by_avg = {}
-    (0..NUMBER_OF_BINS).each do |bin|
-      @count_by_avg[bin] = by_bin[bin] || 0
-    end
   end
 
   # Sets an array of hashes with date, namespace, and count for historical scores.
