@@ -18,12 +18,6 @@ end
 describe 'logging in', type: :feature, js: true do
   # Capybara.server_port = 3333
 
-  # Disable OmniAuth's CSRF protection in tests because Capybara doesn't preserve
-  # CSRF tokens through OAuth redirects
-  before do
-    OmniAuth.config.request_validation_phase = nil
-  end
-
   context 'without a stubbed OAuth flow' do
     it 'sends the user to log in on Wikipedia and allow the app' do
       pending 'This started failing in CI.'

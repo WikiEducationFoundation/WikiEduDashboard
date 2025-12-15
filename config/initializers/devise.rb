@@ -237,12 +237,6 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  
-  # Use OmniAuth's built-in CSRF protection (replaces omniauth-rails_csrf_protection gem)
-  OmniAuth.config.request_validation_phase = OmniAuth::AuthenticityTokenProtection.new(
-    key: :_csrf_token
-  )
-  
   config.omniauth :mediawiki,
                   ENV['wikipedia_token'],
                   ENV['wikipedia_secret'],
