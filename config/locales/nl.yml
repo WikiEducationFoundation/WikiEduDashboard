@@ -161,7 +161,7 @@ nl:
     alert_label: Meldingen
     ai_stats:
       title: AI Bewerkingswaarschuwingenstatistieken
-      general_stats: Algemene statistieken voor campagne %{campaign_name}
+      general_stats: Algemene statistieken voor %{campaign_name}
       total_alerts: Totaal aantal AI-bewerkingsmeldingen
       with_followup: Met opvolging
       multiple_alerts_students: Studenten met meerdere meldingen
