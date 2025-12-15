@@ -59,6 +59,7 @@ ta:
     next: அடுத்தது
     previous: முந்திய
     article_title: கட்டுரைத் தலைப்பு
+    deleted: (நீக்கப்பட்டது)
     edited_mobile: கட்டுரைகள்
     filter:
       wiki_all: யாவும்
@@ -97,6 +98,7 @@ ta:
     delete_campaign: இப்பரப்புரையை நீக்கு
     none: எதுவுமில்லை
     organizers: ஒழுங்கமைப்பாளர்கள்
+    students_small: மாணவர்கள்
     title: தலைப்பு
   categories:
     add_category: பகுப்பைச் சேர்
@@ -134,7 +136,9 @@ ta:
     end: முடிவு
     feedback: பின்னூட்டம்
     join: சேர்க்க
+    loading: ஏற்றுகிறது...
     my_articles: எனது கட்டுரைகள்
+    new_week: புதிய வாரத்தைச் சேர்க்கவும்
     new_account_email: மின்னஞ்சல் முகவரி
     new_account_email_placeholder: name@example.org
     none: எதுவுமில்லை
@@ -149,11 +153,16 @@ ta:
     submitted: பணிந்தனுப்பப்பட்டது
     timeline_link: காலவரிசை
     title: தலைப்பு
+    survey:
+      link: கணக்கெடுப்பு எடுக்கவும்
+  course_instructor_notification:
+    send_notification_button_text: அனுப்பு
   courses_generic:
     course: நிகழ்ச்சி
     courses: நிகழ்ச்சிகள்
     creator:
       assignment_end_placeholder: வவவவ-மாமா-தேதே
+      assignment_start: நிகழ்வுத் தொடக்கம்
       assignment_start_placeholder: வவவவ-மாமா-தேதே
       course_school: நிறுவனம்
       course_term: எப்பொழுது
@@ -179,6 +188,11 @@ ta:
     cancel: கைவிடுக
     save: சேமி
     edit_description: விவரத்தைத் தொகு
+  instructor_view:
+    assignments_table:
+      relevant_links: தொடர்புடைய இணைப்புகள்
+    assigned_articles: ஒதுக்கப்பட்ட கட்டுரைகள்
+    assigned_articles_wikidata: ஒதுக்கப்பட்ட பொருட்கள்
   metrics:
     activity: அண்மைய செயல்கள்
     articles_created: உருவாக்கியக் கட்டுரைகள்
@@ -193,6 +207,7 @@ ta:
     view_count_description: கட்டுரைப் பார்வைகள்
     view: பார்வைகள்
     word_count: சேர்க்கப்பட்ட வார்த்தைகள்
+    changed: மாற்றப்பட்டது
   namespace:
     all: அனைத்தும்
     main: முதன்மைவெளி
@@ -201,6 +216,7 @@ ta:
     mediaWiki: மீடியாவிக்கி
     help: உதவி
     page: பக்கம்
+    book: புத்தகம்
     translation: மொழிபெயர்ப்பு
     school: பள்ளி
   recent_activity:
