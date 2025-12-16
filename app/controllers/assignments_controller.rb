@@ -36,7 +36,8 @@ class AssignmentsController < ApplicationController
     set_new_assignment
     update_onwiki_course_and_assignments
     render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
-  rescue AssignmentManager::DiscouragedArticleError => e
+  rescue AssignmentManager::DiscouragedArticleError,
+         AssignmentManager::MaxGroupSizeExceededError => e
     render json: { errors: e, message: e.message },
            status: :unprocessable_entity
   rescue AssignmentManager::DuplicateAssignmentError => e
@@ -56,6 +57,7 @@ class AssignmentsController < ApplicationController
   end
 
   # Select an Available Article as a new Assignment for a user
+  # rubocop:disable Metrics/MethodLength
   def claim
     @claimed_assignment = Assignment.find(params[:assignment_id])
     @course = @claimed_assignment.course
@@ -72,7 +74,11 @@ class AssignmentsController < ApplicationController
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: I18n.t('assignments.already_exists') },
            status: :conflict
+  rescue AssignmentManager::MaxGroupSizeExceededError => e
+    render json: { errors: e, message: e.message },
+           status: :unprocessable_entity
   end
+  # rubocop:enable Metrics/MethodLength
 
   def update_status
     @assignment = Assignment.find(assignment_params[:id])

@@ -538,6 +538,10 @@ class Course < ApplicationRecord
     flags[:very_long_update].present?
   end
 
+  def max_group_size
+    flags[:max_group_size]
+  end
+
   # TODO: find a better way to check if the course was already updated
   def was_course_ever_updated?
     flags['update_logs'].present?
