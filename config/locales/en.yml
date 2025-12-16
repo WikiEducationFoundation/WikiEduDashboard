@@ -334,6 +334,7 @@ en:
     blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
+    max_group_size_exceeded: "%{title} already has %{current} student(s) assigned. The maximum group size for this course is %{max}."
     assignees: Assignee(s)
     assign_other: Assign/remove an article
     assign_other_wikidata: Assign/remove an item
@@ -886,6 +887,8 @@ en:
     start: Start
     start_typing: Start typing
     stay_in_sandbox: Stay in sandbox
+    max_group_size: Max. group size
+    max_group_size_tooltip: Maximum number of students who can work on the same article. Leave blank for unlimited.
     student: Student
     students: Students
     students_taught: Students Taught
