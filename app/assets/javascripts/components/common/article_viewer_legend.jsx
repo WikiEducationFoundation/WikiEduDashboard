@@ -11,41 +11,124 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
   const Scroller = new ArticleScroll();
 
   useEffect(() => {
-    if (users) {
-      const scrollBox = document.querySelector('#article-scrollbox-id');
-      let titles = null;
-      if (scrollBox !== null) {
-        titles = scrollBox.querySelectorAll('p, li, h2, h3');
-      }
-
-      if (titles !== null) {
-        Scroller.createScrollObject(titles, users);
-      }
-
-      setUserLinks(users.map((user, i) => {
-        let res;
-        // The 'unhighlightedContributions' keeps track of the userids of users whose contributions
-        // were not successfully highlighted in the article viewer.
-        const UnhighlightedContributions = unhighlightedContributors?.find(x => x === user.userid);
-        const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
-        const fullUserRecord = allUsers.find(_user => _user.username === user.name);
-        const realName = fullUserRecord && fullUserRecord.real_name;
-        if (status === 'loading') {
-          res = <div key={`legend-${user.name}`} className={'article-viewer-legend'}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
-        } else if (user.activeRevision === true) {
-          res = <div key={`legend-${user.name}`} className={`article-viewer-legend user-legend-name ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
-        } else if (UnhighlightedContributions) {
-          res = <div key={`legend-${user.name}`} className={'article-viewer-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'} >{I18n.t('users.contributions_not_highlighted', { username: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator-article-viewer" />}</div>;
-        } else {
-          res = <div key={`legend-${user.name}`} className={'article-viewer-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'}>{I18n.t('users.no_highlighting', { editor: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator-article-viewer" />}</div>;
-        }
-
-        return res;
-      }));
-    } else {
-      setUserLinks(<div className="article-viewer-legend authorship-loading"> &nbsp; &nbsp; </div>);
+  if (users) {
+    const scrollBox = document.querySelector('#article-scrollbox-id');
+    let titles = null;
+    if (scrollBox !== null) {
+      titles = scrollBox.querySelectorAll('p, li, h2, h3');
     }
-  }, [users, status, unhighlightedContributors]);
+
+    if (titles !== null) {
+      Scroller.createScrollObject(titles, users);
+    }
+
+    setUserLinks(users.map((user, i) => {
+      // The 'unhighlightedContributions' keeps track of the userids of users whose contributions
+      // were not successfully highlighted in the article viewer.
+      const UnhighlightedContributions = unhighlightedContributors?.find(x => x === user.userid);
+      const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
+      const fullUserRecord = allUsers.find(_user => _user.username === user.name);
+      const realName = fullUserRecord && fullUserRecord.real_name;
+      const colorClass = colors[i];
+
+      const handleScroll = () => {
+        if (!scrollBox) return;
+
+        const target = Scroller.scrollTo(user.name, scrollBox);
+
+        if (target && typeof target.focus === 'function') {
+          // Make sure it can receive programmatic focus
+          if (!target.hasAttribute('tabindex')) {
+            target.setAttribute('tabindex', '-1');
+          }
+          target.focus();
+        }
+      };
+
+      // Accessible label for the scroll button, tailored by state
+      let scrollAriaLabel;
+      if (status === 'loading') {
+        scrollAriaLabel = I18n.t('users.loading_authorship_for', { username: user.name });
+      } else if (user.activeRevision === true) {
+        scrollAriaLabel = I18n.t('users.scroll_to_users_edits', { username: user.name });
+      } else if (UnhighlightedContributions) {
+        scrollAriaLabel = I18n.t('users.contributions_not_highlighted', { username: user.name });
+      } else {
+        scrollAriaLabel = I18n.t('users.no_highlighting', { editor: user.name });
+      }
+
+      const isClickable = status !== 'loading' && user.activeRevision === true;
+
+      // Common wrapper class
+      const wrapperClassNames = [
+        'article-viewer-legend',
+        'user-legend-name',
+        (user.activeRevision === true ? colorClass : ''),
+        (UnhighlightedContributions || (!user.activeRevision && status !== 'loading') ? 'tooltip-trigger' : '')
+      ].filter(Boolean).join(' ');
+
+      // Base button element: focusable, screen-reader friendly
+      const scrollButton = isClickable && (
+        <button
+          type="button"
+          className="article-viewer-legend-button"
+          onClick={handleScroll}
+          aria-label={scrollAriaLabel}
+        >
+          <span aria-hidden="false">{user.name}</span>
+          <img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="" width="30px" height="20px" />
+        </button>
+      );
+
+      let tooltip = null;
+      if (status === 'loading') {
+        // No tooltip; message handled in usersStatus
+        tooltip = null;
+      } else if (user.activeRevision === true) {
+        // Active user — no tooltip needed, label explains behavior
+        tooltip = null;
+      } else if (UnhighlightedContributions) {
+        tooltip = (
+          <p className="tooltip large" id="popup-style">
+            {I18n.t('users.contributions_not_highlighted', { username: user.name })}
+          </p>
+        );
+      } else {
+        tooltip = (
+          <p className="tooltip large" id="popup-style">
+            {I18n.t('users.no_highlighting', { editor: user.name })}
+          </p>
+        );
+      }
+
+      // Separate link to user talk page for mouse / keyboard / SR users
+      const talkLink = (
+        <a
+          href={userLink}
+          title={realName || user.name}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="user-legend-talk-link"
+          aria-label="View User Page"
+        >
+          {/* Simple visual hint; marked aria-hidden so SR users rely on sr-only text */}
+          <span aria-hidden="true">↗</span>
+        </a>
+      );
+
+      return (
+        <div key={`legend-${user.name}`} className={wrapperClassNames}>
+          {tooltip}
+          {scrollButton}
+          {talkLink}
+        </div>
+      );
+    }));
+  } else {
+    setUserLinks(<div className="article-viewer-legend authorship-loading"> &nbsp; &nbsp; </div>);
+  }
+}, [users, status, unhighlightedContributors, allUsers, article.language, article.project]);
+
 
   useEffect(() => {
     if (status === 'loading') {
