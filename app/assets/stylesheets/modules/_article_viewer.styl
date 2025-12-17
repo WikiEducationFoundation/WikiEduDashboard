@@ -200,8 +200,11 @@
 
   // Focus styles for per-word navigation
   .article-chunk
-    display inline-block
+    display inline
+    vertical-align baseline
     outline none
+    line-height inherit
+    white-space pre-wrap
     &:focus
       outline 2px solid #2b79ff
       outline-offset 2px
