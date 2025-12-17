@@ -39,6 +39,7 @@ LoadModule passenger_module /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.1
 <IfModule mod_passenger.c>
   PassengerRoot /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.14
   PassengerDefaultRuby /home/sage/.rvm/gems/ruby-3.1.2/wrappers/ruby
+  PassengerPreloadBundler on
 </IfModule>
 
 ```
@@ -49,32 +50,7 @@ On non-web application servers (ie, servers just running Sidekiq processes):
 * pull the latest code and run `bundle install` (with the new Ruby version)
 * restart the Sidekiq processes
 
-### Note:
 
-When running under Passenger, Ruby may activate its default gems
-before Bundler is loaded. This differs from local development, where
-the app is usually started with `bundle exec` and Bundler controls
-gem activation from the beginning.
-
-If a default Ruby gem (for example `base64`) is explicitly listed
-in the Gemfile with a different version, Bundler cannot replace the
-already-activated version. In production this causes the application
-to fail during boot with a `Gem::LoadError`, and Passenger reports a
-"spawning error".
-
-This issue may not appear in local development or CI, but only when
-deploying under Passenger.
-
-#### Mitigation
-
-To avoid this issue when deploying with Passenger:
-
-- Avoid explicitly pinning default Ruby gems in the Gemfile unless required
-- Ensure Bundler is loaded before application boot by enabling:
-
-```apache
-PassengerPreloadBundler on
-```
 
 ### Deploy
 

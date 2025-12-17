@@ -71,6 +71,7 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6
 <IfModule mod_passenger.c>
   PassengerRoot /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6.0.8
   PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-2.7.1/wrappers/ruby
+  PassengerPreloadBundler on
 </IfModule>
 ```
 
