@@ -42,13 +42,13 @@ describe TicketsController, type: :request do
     it 'renders the main tickets dashboard URL' do
       get '/tickets/dashboard'
       expect(response.status).to eq(200)
-      expect(response.body).to include("id='react_root'")
+      expect(response.body).to include('id="react_root"')
     end
 
     it 'renders a ticket show path' do
       get "/tickets/dashboard/#{ticket.id}"
       expect(response.status).to eq(200)
-      expect(response.body).to include("id='react_root'")
+      expect(response.body).to include('id="react_root"')
     end
   end
 

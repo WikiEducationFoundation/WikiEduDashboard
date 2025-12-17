@@ -54,6 +54,7 @@ class TicketNotificationMailer < ApplicationMailer
   end
 
   def carbon_copy
+    details = @message.details || {}
     cc = @message.details[:cc]
     cc&.map { |entry| entry[:email] }
   end

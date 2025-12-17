@@ -5,6 +5,10 @@ module ApplicationHelper
   def logo_path
     "/assets/images/#{ENV['logo_file']}"
   end
+   
+  def page_class
+    "#{controller_name} #{action_name}"
+  end
 
   def language_switcher_enabled
     # If the language switcher is not enabled site-wide, show it anyway for users
