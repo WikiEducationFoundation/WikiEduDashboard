@@ -36,16 +36,13 @@ class UserProfilesController < ApplicationController
   end
 
   def validate_update
-    if @user_profile.update(user_profile_params) && @user.update(user_email_params)
+    email_must_be_present_for_instructors
+    if @user.errors.empty? && @user_profile.update(user_profile_params) && @user.update(user_email_params)
       flash[:notice] = 'Profile Updated'
     else
       flash[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
     end
     user_profile_redirect
-  end
-
-  def user_profile_redirect
-    return redirect_to controller: 'user_profiles', action: 'show'
   end
 
   def stats
@@ -109,6 +106,16 @@ class UserProfilesController < ApplicationController
 
   def user_email_params
     params.require(:email).permit(:email)
+  end
+
+  def email_must_be_present_for_instructors
+    return unless current_user.active_course_instructor? && user_email_params[:email].blank?
+    @user.errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
+    flash[:error] = I18n.t('users.email_required_instructor')
+  end
+
+  def user_profile_redirect
+    return redirect_to controller: 'user_profiles', action: 'show'
   end
 
   def set_user

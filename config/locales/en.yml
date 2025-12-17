@@ -1731,8 +1731,8 @@ en:
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Education Staff
     useremail_placeholder: "Enter Email Address"
-    email_required_instructor: "is required for Instructors."
-    email_invalid: "Invalid:  Please enter a valid email"
+    email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
+    email_invalid: "Invalid: Please enter a valid email"
   user_profiles:
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor
