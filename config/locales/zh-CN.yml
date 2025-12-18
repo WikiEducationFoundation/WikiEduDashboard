@@ -21,6 +21,7 @@
 # Author: NACHOgao3
 # Author: NeverBehave
 # Author: Njzjz
+# Author: Pawsdt
 # Author: PexEric
 # Author: Phenolla
 # Author: Shizhao
@@ -541,6 +542,7 @@ zh-CN:
     start: 开始
     start_typing: 开始输入
     stay_in_sandbox: 留在沙盒
+    max_group_size: 最大小组人数
     student: 学生
     students: 学生
     students_taught: 所教学生
