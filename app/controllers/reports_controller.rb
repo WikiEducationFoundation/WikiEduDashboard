@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
                                       course_students_csv course_articles_csv
                                       course_wikidata_csv]
 
-  before_action :set_current_attributes
+  before_action :set_sidekiq_job_context
 
   #######################
   # CSV-related actions #
@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
 
   CSV_PATH = '/system/analytics'
 
-  def set_current_attributes
+  def set_sidekiq_job_context
     SidekiqJobContext.username = current_user.username if current_user
   end
 
