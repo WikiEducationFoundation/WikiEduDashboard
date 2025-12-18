@@ -37,7 +37,8 @@ class UserProfilesController < ApplicationController
 
   def validate_update
     email_must_be_present_for_instructors
-    if @user.errors.empty? && @user_profile.update(user_profile_params) && @user.update(user_email_params)
+    if @user.errors.empty? &&
+       @user_profile.update(user_profile_params) && @user.update(user_email_params)
       flash[:notice] = 'Profile Updated'
     else
       flash[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
