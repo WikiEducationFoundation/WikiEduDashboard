@@ -290,6 +290,7 @@ zh-TW:
     blocked_assignment: 無法分配%{title}，因為這在維基百科社群的 Wiki 教育分配黑名單中。
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
+    max_group_size_exceeded: 課程%{title}已分配給 %{current} 名學生。該課程的群組最多人數為 %{max}。
     assignees: 被分配者
     assign_other: 分配/移除條目
     assign_other_wikidata: 分配/移除項目
@@ -749,6 +750,8 @@ zh-TW:
     start: 開始日
     start_typing: 開始輸入
     stay_in_sandbox: 留在沙盒
+    max_group_size: 群組最多人數
+    max_group_size_tooltip: 同一篇條目可讓多名學生共同協作的最多人數。留空表示人數不限。
     student: 學生
     students: 學生
     students_taught: 學生教導

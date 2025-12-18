@@ -631,6 +631,7 @@ it:
     start: Inizio
     start_typing: Inizia a digitare
     stay_in_sandbox: Resta nella sandbox
+    max_group_size: Dimensione massima del gruppo
     student: Studente
     students: Studenti
     students_count: Numero studenti
