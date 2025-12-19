@@ -1,0 +1,32 @@
+id: 7117
+title: "More on AI detection"
+content: |
+  AI detection isn't perfect, but it's in important signal to help
+  us keep slop out of Wikipedia. The detector we use, Pangram, works
+  consistently for prose — like Wikipedia article content — but is less
+  reliable for highly formatted non-prose content, like a bulleted list
+  in a bibliography or outline.
+
+  When we check Wikipedia edits for AI, we try to convert it to as plain
+  a version as possible and isolate the prose. We extract the text added
+  in an edit, but include surrounding context in cases where an existing
+  sentence or paragraph is edited (so that we aren't analyzing sentence
+  fragments and single words).
+
+  Here are a few situations to watch out for:
+
+    * If you copy content from an existing Wikipedia into your sandbox,
+    that content may trigger the AI detector. In this case, you should be
+    highly skeptical of that content! If it's bad or you can't easily verify
+    it from cited sources, you should delete it from the live article.
+    * Text transformed by Grammarly and other AI copyediting tools will
+    trigger AI detection, depending on how significantly it was transformed.
+    If you use Grammarly, the "Fix any mistakes" option is fairly safe,
+    but other options like "Sound fluent" and "Make it more detailed" should
+    be avoided. (Other Wikipedia editors can easily fix up the text if the
+    facts are accurate and precise, but AI copyediting introduces subtle
+    distortions in meaning, so it's untrustworthy for the same reasons as
+    chatbot output when it comes to Wikipedia.)
+    * If you save an empty outline (for example, with just short bullet points
+    or empty section headers), there's a chance your edit will trigger the AI
+    detector.
