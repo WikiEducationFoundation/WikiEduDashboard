@@ -60,7 +60,10 @@ class CheckRevisionWithPangram
     max_ai_likelihood > 0.9
   end
 
+  # Don't generate an alert for old edits.
+  MAX_DAYS_FOR_ALERT = 14
   def generate_alert
+    return if @rev_datetime < MAX_DAYS_FOR_ALERT.days.ago
     return if alert_already_exists?
 
     AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
