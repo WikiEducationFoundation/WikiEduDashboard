@@ -59,7 +59,7 @@ class DuplicateArticleDeleter
   # and namespace except for the most recently created
   def delete_duplicates(title, ns)
     articles = Article.where(title:, namespace: ns, wiki_id: @wiki.id, deleted: false)
-                      .order(:created_at)
+                      .order(:updated_at)
     # Default order is ascendent, so we want to keep the last article
     keeper = articles.last
     return [] if keeper.nil?
