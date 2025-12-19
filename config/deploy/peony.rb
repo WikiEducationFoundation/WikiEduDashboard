@@ -6,6 +6,7 @@ role :web, %w(peony-web.globaleducation.eqiad1.wikimedia.cloud)
 role :db, %w(peony-web.globaleducation.eqiad1.wikimedia.cloud)
 
 set :address, 'peony-web.globaleducation.eqiad1.wikimedia.cloud'
+set :repo_url, 'https://github.com/WikiEducationFoundation/WikiEduDashboard.git'
 
 set :user, File.read('.deploy_user').strip
 set :deploy_to, '/var/www/dashboard'
