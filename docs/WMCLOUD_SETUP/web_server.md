@@ -39,6 +39,7 @@ These are notes from setting up a fresh web server on the newest Debian, July 2,
    <IfModule mod_passenger.c>
      PassengerRoot /home/ragesoss/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.22
      PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-3.1.2/wrappers/ruby
+     PassengerPreloadBundler on
    </IfModule>
 
 ```
