@@ -39,6 +39,7 @@ LoadModule passenger_module /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.1
 <IfModule mod_passenger.c>
   PassengerRoot /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.14
   PassengerDefaultRuby /home/sage/.rvm/gems/ruby-3.1.2/wrappers/ruby
+  PassengerPreloadBundler on
 </IfModule>
 
 ```
@@ -48,6 +49,8 @@ On non-web application servers (ie, servers just running Sidekiq processes):
 * install Ruby and Bundler, and set the default
 * pull the latest code and run `bundle install` (with the new Ruby version)
 * restart the Sidekiq processes
+
+
 
 ### Deploy
 
