@@ -1602,7 +1602,7 @@ en:
     assigned: Assigned Articles
     assigned_wikidata: Assigned Items
     assignees: Assignee(s)
-    loading_authorship_data: loading authorship data
+    loading_authorship_data: loading authorship data for %{username}
     authorship_data_not_fetched: Could not fetch authorship data
     character_doc: >
       The total amount of content a user has added to this namespace,
@@ -1650,6 +1650,7 @@ en:
     number_of_articles_wikidata:
       one: "%{count} items"
       other: "%{count} items"
+    loading_authorship_for: loading authorship data
     profile: profile
     recent_revisions: Recent Edits
     references_count: References Added
@@ -1668,6 +1669,7 @@ en:
     reviewing: Reviewing
     revisions: Revisions
     sandboxes: sandboxes
+    scroll_to_users_edits: Scroll to Next Edit by %{username}
     sub_navigation:
       assignments_and_exercises: Assignments & Exercises
       editor_overview: Editor Overview
