@@ -34,7 +34,7 @@ class ArticleCourseTimeslice < ApplicationRecord
     in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
   }
 
-  serialize :user_ids, Array # This text field only stores user ids as text
+  serialize :user_ids, type: Array # This text field only stores user ids as text
 
   #################
   # Class methods #

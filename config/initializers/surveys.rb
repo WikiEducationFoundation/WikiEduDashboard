@@ -124,7 +124,7 @@ Rails.application.config.to_prepare do
   Rapidfire::Question.class_eval do
     has_paper_trail
     scope :course_data_questions, ->{where("course_data_type <> ''")}
-    serialize :alert_conditions, Hash
+    serialize :alert_conditions, type: Hash
 
     def self.for_conditionals(question_id)
       where.not(id: question_id).where("conditionals IS NULL OR conditionals = ''")
