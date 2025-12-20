@@ -132,6 +132,8 @@ describe CheckRevisionWithPangram do
     let(:timestamp) { 15.days.ago.to_i }
 
     it 'does not create an alert' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram_2' do
         described_class.new(
           { 'mw_rev_id' => live_article_revision_id,
