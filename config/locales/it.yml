@@ -134,9 +134,10 @@ it:
     alert_label: Avvisi
     no_data: Nessun dato trovato.
     ai_stats:
-      page_type: Tipo di pagina
       single_alert_view: Avviso
       users_involved: Utenti coinvolti
+      total: Totale
+      last_week: Ultima settimana
       sections:
         name: Nome
         description: Descrizione
@@ -630,6 +631,7 @@ it:
     start: Inizio
     start_typing: Inizia a digitare
     stay_in_sandbox: Resta nella sandbox
+    max_group_size: Dimensione massima del gruppo
     student: Studente
     students: Studenti
     students_count: Numero studenti

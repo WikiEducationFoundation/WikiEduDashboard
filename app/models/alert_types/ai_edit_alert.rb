@@ -166,6 +166,7 @@ class AiEditAlert < Alert
   ].freeze
   def send_alert_emails
     return if NO_EMAIL_TYPES.include? page_type
+    return if course&.private # Don't send emails for private courses.
 
     AiEditAlertMailer.send_emails(self)
     update(email_sent_at: Time.zone.now)

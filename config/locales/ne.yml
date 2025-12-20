@@ -107,6 +107,7 @@ ne:
     no_data: कुनै डेटा फेला परेन।
     ai_stats:
       timestamp: समयछाप
+      last_week: पछिल्लो हप्ता
   activity:
     all: क्रियाकलाप
     edited_by: सम्पादनकर्ता
@@ -130,6 +131,9 @@ ne:
       tracked: ट्रयाक गरिएको
       untracked: ट्रयाक नगरिएको
       tracked_and_untracked: ट्रयाक गरिएको र ट्र्याक नगरिएको
+    pageviews_label: 'पूर्वालोकनहरू:'
+    cumulative: सञ्चित
+    daily_avg: दैनिक औसत
     hide: लुकाउनुहोस्
     history: (इतिहास)
     label: लेखहरू
@@ -177,7 +181,7 @@ ne:
     title_too_large: शीर्षक २५५ वर्ण भन्दा लामो हुन सक्दैन
     assignees: निर्दिष्ट गरिएका(हरू)
     assign_other: लेख निर्दिष्ट गर्नुहोस्
-    add_available: एक उपलब्ध लेख थप्नुहोस्
+    add_available: उपलब्ध लेखहरू थप्नुहोस्
     add_available_placeholder: हरेक हरफमा एक शीर्षक या युआरएल थप्नुहोस्
     add_available_submit: लेखहरू थप्नुहोस्
     assign_self: आफूलाई एक लेख असाइन गर्नुहोस्

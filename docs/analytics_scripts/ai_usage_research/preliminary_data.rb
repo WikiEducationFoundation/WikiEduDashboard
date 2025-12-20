@@ -76,3 +76,48 @@ CSV.open("/home/sage/assignments_by_course-#{Date.today}.csv", 'wb') do |csv|
     csv << line
   end
 end; nil
+
+# Course metadata - supplementary data late November 2025
+csv_data = [['course_slug', 'course_level', 'academic_system', 'format']]
+ClassroomProgramCourse.nonprivate.each do |course|
+  next if course.user_count.zero?
+  csv_data << [course.slug, course.level, course.academic_system, course.format]
+end; nil
+
+CSV.open("/home/sage/course_level-#{Date.today}.csv", 'wb') do |csv|
+  csv_data.each do |line|
+    csv << line
+  end
+end; nil
+
+# Course demographics
+# These are the student demographic surveys, which started in Spring 2020
+demographic_survey_ids = [49, 47, 44, 42, 39, 37, 34, 32, 30, 28, 26, 22]
+# Each survey has just one question group.
+question_group_ids = demographic_survey_ids.map { |s_id| Survey.find(s_id).rapidfire_question_groups.first.id }
+# => [80, 77, 74, 72, 70, 68, 66, 63, 61, 59, 55, 47] 
+# First question of every question group is "What is your classification?"
+# classification_q_ids = question_group_ids.map { |qg_id| Rapidfire::QuestionGroup.find(qg_id).questions.first.id }
+# => [1921, 1860, 1802, 1756, 1706, 1652, 1605, 1512, 1450, 1382, 1262, 1002] 
+# Second question of every question group is "What is your age"
+# age_q_ids = question_group_ids.map { |qg_id| Rapidfire::QuestionGroup.find(qg_id).questions.second.id }
+# => [1922, 1861, 1803, 1757, 1707, 1653, 1606, 1513, 1451, 1383, 1263, 1003] 
+
+answer_groups = Rapidfire::AnswerGroup.where(question_group_id: question_group_ids); nil
+responses_by_course = [['course_slug', 'response_date', 'classification', 'age', 'user_id']]
+i = 0
+answer_groups.each do |ag|
+  puts i += 1
+  next unless ag.course_id
+  course_slug = Course.find(ag.course_id).slug
+  response_date = ag.created_at
+  classification = ag.answers.first.answer_text
+  age = ag.answers.second.answer_text
+  responses_by_course << [course_slug, response_date, classification, age, ag.user_id]
+end; nil
+
+CSV.open("/home/sage/student_demographics_by_course-#{Date.today}.csv", 'wb') do |csv|
+  responses_by_course.each do |line|
+    csv << line
+  end
+end; nil

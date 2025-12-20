@@ -14,13 +14,13 @@
 * Attach volume to p-and-e-dashboard-database instance
 
 == Server
-* sudo prepare_cinder_volume
+* sudo wmcs-prepare-cinder-volume
   now it shows /dev/sdb mounted on /srv with 168G free.
 * copy database backup to /srv/database-dump/2021-03-23_22h10m_12.sql.gz
 
 - configure mariaDB to use /srv as the location of database files:
   - `sudo systemctl stop mysql`
-  - `sudo mv /var/lib/msyql /srv/mysql`
+  - `sudo mv /var/lib/mysql /srv/mysql`
   - `sudo mkdir /srv/tmp`
   - `sudo chown mysql:mysql /srv/tmp`
 
@@ -28,7 +28,7 @@
     ```
     [mysqld]
     datadir=/srv/mysql
-    tmpdir/srv/tmp
+    tmpdir=/srv/tmp
     socket=/srv/mysql/mysql.sock
     bind-address=0.0.0.0
     max_allowed_packet=1073741824

@@ -24,6 +24,7 @@ const Explore = lazy(() => import('../explore/explore.jsx'));
 const TrainingApp = lazy(() => import('../../training/components/training_app.jsx'));
 const ActiveCoursesHandler = lazy(() => import('../active_courses/active_courses_handler.jsx'));
 const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wiki_handler.jsx'));
+const RevisionAiScoresStats = lazy(() => import('../revision_ai_scores/revision_ai_scores_stats.jsx'));
 
 const routes = () => {
   const location = useLocation();
@@ -60,7 +61,7 @@ const routes = () => {
         <Route path="/course_creator" element={<ConnectedCourseCreator />} />
         <Route path="/users/:username" element={<UserProfile />} />
         <Route path="/alerts_list" element={<AdminAlerts />} />
-        <Route path="/ai_edit_alerts_stats" element={<AlertsStats />} />
+        <Route path="/ai_edit_alerts_stats/:campaign_slug" element={<AlertsStats />} />
         <Route path="/settings" element={<SettingsHandler />} />
         <Route path="/article_finder" element={<ArticleFinder />} />
         <Route path="/training/*" element={<TrainingApp />} />
@@ -74,6 +75,7 @@ const routes = () => {
         <Route path="/explore" element={<Explore dashboardTitle={window.dashboardTitle}/>} />
         <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
         <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
+        <Route path="/revision_ai_scores_stats" element={<RevisionAiScoresStats />} />
 
         {/* this prevents the "route not found" warning for pages which are server rendered */}
         <Route path="*" element={<div style={{ display: 'none' }}/>} />

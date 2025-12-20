@@ -141,6 +141,7 @@ sr-ec:
     alert_label: Обавештења
     no_data: Нису пронађени подаци.
     ai_stats:
+      total: Укупно
       sections:
         description: Опис
   activity:
@@ -182,6 +183,8 @@ sr-ec:
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
     filter_text: 'Филтери:'
+    pageviews_label: 'Прегледа:'
+    daily_avg: Дневни просек
     find: Пронађи чланке
     how_to_find: Како пронаћи чланке
     hide: Сакриј

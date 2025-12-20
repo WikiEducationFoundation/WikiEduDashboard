@@ -48,6 +48,10 @@ skr-arab:
     explore: پھرولو
     log_in: وکی پیڈیا نال لاگ ان تھیوو
     sign_up: وکی پیڈیا نال نواں کھاتہ بݨاؤ
+  alerts:
+    ai_stats:
+      total: میزان
+      last_week: پچھلا ہفتہ
   activity:
     all: سرگرمی
     edited_by: لکھݨ آلا
@@ -60,6 +64,7 @@ skr-arab:
       wiki_all: یکے
       new: نواں
       existing: زیر ترمیم
+    cumulative: مجموعی
     hide: لُکاؤ
     history: (تاریخ)
     label: مقالے

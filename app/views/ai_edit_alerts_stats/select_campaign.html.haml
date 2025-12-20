@@ -1,0 +1,10 @@
+- content_for :before_title, "Select a campaign — "
+.container
+  %h1 Select a campaign
+
+  = form_with url: "choose_campaign", method: :post do
+    = label_tag :campaign_slug, 'Campaign'
+    = select_tag :campaign_slug,
+      options_for_select([['All campaigns', 'all_campaigns']] + @campaigns.map { |c| [c.slug, c.slug] })
+    %br/
+    = submit_tag "Continue"

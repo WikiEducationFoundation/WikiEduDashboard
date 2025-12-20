@@ -158,8 +158,6 @@ tr:
       total_alerts: Toplam AI Düzenleme Uyarıları
       with_followup: Takip ile
       multiple_alerts_pages: Birden fazla uyarı içeren sayfalar
-      by_page_type: Sayfa Türüne Göre
-      page_type: Sayfa türü
       single_alert_view: Uyarı
       sections:
         contents: Listeler için içerik tablosu

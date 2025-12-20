@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.current_term Campaign.default_campaign.slug
+json.campaign_name @campaign_name
 json.total_alerts @alerts.count
 json.by_page_type @count_by_page_type
 json.total_followups @followups.count
@@ -25,5 +25,10 @@ end
 
 json.courses_with_ai_edit_alerts do
   json.partial! 'ai_edit_alerts_stats/courses_with_ai_edit_alerts',
-                courses: @courses
+                courses: @courses_with_ai_alerts
+end
+
+json.courses_with_ai_edit_alerts_last_week do
+  json.partial! 'ai_edit_alerts_stats/courses_with_ai_edit_alerts',
+                courses: @courses_with_last_week_alerts
 end

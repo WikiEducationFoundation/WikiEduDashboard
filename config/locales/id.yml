@@ -9,6 +9,7 @@
 # Author: DARMAS BUDI SANTOSO
 # Author: Daud I.F. Argana
 # Author: Fafau06
+# Author: Felianiwiki
 # Author: HaidirAndiNovianto
 # Author: Hidayatsrf
 # Author: Joseagush
@@ -16,6 +17,7 @@
 # Author: Mirws
 # Author: Mnam23
 # Author: Pebaryan
+# Author: Penyuwangi
 # Author: Presidenvolksraad
 # Author: RXerself
 # Author: Rachmat.Wahidi
@@ -95,6 +97,10 @@ id:
     sign_up: Masuk dengan Wikipedia
   alerts:
     alert_label: Peringatan
+  ai_scores_stats:
+    title: Statistik Revisi Skor AI
+    graphs:
+      max_likelihood: Pengedaran kemungkinan AI maksimum per hari
   activity:
     all: Aktivitas
     edited_by: Disunting Oleh
@@ -148,7 +154,7 @@ id:
   categories:
     add_template: Tambahkan templat
   courses:
-    accounts_generation_confirm_message: Apakah Anda yakin ingin mengaktifkan permintaan
+    accounts_generation_confirm_message: Apakah Anda yakin ingin menyalakan permintaan
       pembuatan akun?
     activity: Aktivitas
     alerts: Peringatan
@@ -226,7 +232,7 @@ id:
     class: Kelas
     date_time: Tanggal/Waktu
     diff: beda
-    time_doc: Waktu setiap revisi dalam waktu lokal Anda
+    time_doc: Waktu tiap revisi dalam waktu setempat Anda
     see_more: Lihat selengkapnya
   settings:
     admin_users:

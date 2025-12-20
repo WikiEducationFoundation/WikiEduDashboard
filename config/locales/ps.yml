@@ -137,6 +137,8 @@ ps:
       untracked: ناڅارل‌شوې
       tracked_and_untracked: څارل‌شوې او ناڅارل‌شوې
     filter_text: 'چاڼگران:'
+    pageviews_label: 'مخليدنې:'
+    daily_avg: ورځنی منځگوړی
     find: ليکنې موندل
     how_to_find: څنگه يوه ليکنه ومومو
     hide: پټول

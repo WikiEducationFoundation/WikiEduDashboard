@@ -154,19 +154,18 @@ en:
     ai_stats:
       timestamp: Timestamp
       title: AI Edit Alerts Stats
-      general_stats: General Stats for %{campaign_name} Campaign
+      general_stats: General Stats for %{campaign_name}
       total_alerts: Total AI Edit Alerts
       with_followup: With followup
       multiple_alerts_students: Students with multiple alerts
       multiple_alerts_pages: Pages with multiple alerts
-      by_page_type: By Page Type
-      count: Count
-      page_type: Page type
       pangram_url: Pangram URL
       revision_diff: Revision diff
       single_alert_view: Alert
       alerts_in_mainspace: Alerts in mainspace
       users_involved: Users involved
+      total: Total
+      last_week: Last week
       sections:
         contents: Table of contents for lists
         go_back: Go back to contents
@@ -182,6 +181,14 @@ en:
           recent_followup: Alerts with followup responses submitted within the last 14 days, ordered by the date of the followup response.
           multiple_alerts_students: Alerts created within the last 14 days for students with multiple alerts, ordered by creation date.
           in_mainspace: Alerts created within the last 14 days for articles in mainspace, ordered by creation date.
+  ai_scores_stats:
+    title: Revision AI Scores Stats
+    graphs:
+      daily_checks: Daily checks by namespace
+      avg_likelihood: Avg AI likelihood distribution per day
+      max_likelihood: Max AI likelihood distribution per day
+      overall_avg_likelihood: Overall avg AI likelihood distribution
+      overall_max_likelihood: Overall max AI likelihood distribution
   activity:
     all: Activity
     edited_by: Edited By
@@ -327,6 +334,7 @@ en:
     blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
+    max_group_size_exceeded: "%{title} already has %{current} student(s) assigned. The maximum group size for this course is %{max}."
     assignees: Assignee(s)
     assign_other: Assign/remove an article
     assign_other_wikidata: Assign/remove an item
@@ -879,6 +887,8 @@ en:
     start: Start
     start_typing: Start typing
     stay_in_sandbox: Stay in sandbox
+    max_group_size: Max. group size
+    max_group_size_tooltip: Maximum number of students who can work on the same article. Leave blank for unlimited.
     student: Student
     students: Students
     students_taught: Students Taught

@@ -131,19 +131,18 @@ zh-TW:
     ai_stats:
       timestamp: 時間戳記
       title: AI 編輯提醒統計
-      general_stats: '%{campaign_name}競賽的總體統計數據'
+      general_stats: '%{campaign_name}的總體統計數據'
       total_alerts: 全面 AI 編輯提醒
       with_followup: 後續跟進
       multiple_alerts_students: 收到多項提醒的學生
       multiple_alerts_pages: 包含多項提醒的頁面
-      by_page_type: 按頁面類型
-      count: 總數
-      page_type: 頁面類型
       pangram_url: 全字母句網址
       revision_diff: 修訂差異
       single_alert_view: 提醒
       alerts_in_mainspace: 主空間提醒
       users_involved: 參與使用者
+      total: 總計
+      last_week: 上週
       sections:
         contents: 清單目錄
         go_back: 返回目錄
@@ -159,6 +158,14 @@ zh-TW:
           recent_followup: 過去 14 天內提交後續回覆的提醒，按後續回覆日期排序。
           multiple_alerts_students: 過去 14 天內為收到多個提醒的學生建立的提醒，按建立日期排序。
           in_mainspace: 過去 14 天內為主空間條目建立的提醒，按建立日期排序。
+  ai_scores_stats:
+    title: 修訂版 AI 分數統計
+    graphs:
+      daily_checks: 依命名空間每日檢查
+      avg_likelihood: 每日平均 AI 可能性分佈
+      max_likelihood: 每日最大 AI 可能性分佈
+      overall_avg_likelihood: 整體平均 AI 可能性分佈
+      overall_max_likelihood: 整體最大 AI 可能性分佈
   activity:
     all: 活動
     edited_by: 編輯自
@@ -283,6 +290,7 @@ zh-TW:
     blocked_assignment: 無法分配%{title}，因為這在維基百科社群的 Wiki 教育分配黑名單中。
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
+    max_group_size_exceeded: 課程%{title}已分配給 %{current} 名學生。該課程的群組最多人數為 %{max}。
     assignees: 被分配者
     assign_other: 分配/移除條目
     assign_other_wikidata: 分配/移除項目
@@ -742,6 +750,8 @@ zh-TW:
     start: 開始日
     start_typing: 開始輸入
     stay_in_sandbox: 留在沙盒
+    max_group_size: 群組最多人數
+    max_group_size_tooltip: 同一篇條目可讓多名學生共同協作的最多人數。留空表示人數不限。
     student: 學生
     students: 學生
     students_taught: 學生教導
