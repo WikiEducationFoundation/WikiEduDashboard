@@ -88,9 +88,9 @@ describe TrainingModuleDueDateManager do
                      .overdue?
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before(:each) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after(:each) { travel_back }
 
     context 'module is not complete' do
       context "today's date is before computed_due_date" do
@@ -144,9 +144,9 @@ describe TrainingModuleDueDateManager do
                      .deadline_status
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before(:each) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after(:each) { travel_back }
 
     let(:completed_at) { 1.day.ago }
 
@@ -191,9 +191,9 @@ describe TrainingModuleDueDateManager do
                      .overall_due_date
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before(:each) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after(:each) { travel_back }
 
     let!(:cu) { create(:courses_user, user_id: user&.id, course_id: course.id) }
 
@@ -238,13 +238,25 @@ describe TrainingModuleDueDateManager do
 
           it 'uses the earlier of the existent block due date ' \
              'or the end of the week of the block without a date' do
-            expect(subject).to eq(Time.zone.today.end_of_week(:sunday))
+            # Block 1: due_date = t_start + 1.week = Sept 1, 2015
+            # Block 2: due_date = nil, calculated_due_date = course2.timeline_start.end_of_week
+            # course2.timeline_start = Time.zone.today (frozen to Aug 25, 2015)
+            # So block2's calculated_due_date = Aug 30, 2015 (Saturday)
+            # Minimum should be Aug 30, 2015
+            frozen_date = Date.new(2015, 8, 25)
+            expected_date = frozen_date.end_of_week(:sunday).to_date
+            expect(subject).to eq(expected_date)
           end
         end
 
         context 'both blocks have a due date' do
           it 'uses earliest date' do
-            expect(subject).to eq(due_date2)
+            # Block 1: due_date = t_start + 1.week = Sept 1, 2015
+            # Block 2: due_date2 = 1.week.ago = Aug 18, 2015 (from frozen date Aug 25)
+            # Minimum should be Aug 18, 2015
+            frozen_date = Date.new(2015, 8, 25)
+            expected_date2 = (frozen_date - 1.week).to_date
+            expect(subject).to eq(expected_date2)
           end
         end
       end
