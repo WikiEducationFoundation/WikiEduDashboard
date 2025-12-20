@@ -232,20 +232,12 @@ const DiffViewer = createReactClass({
   },
 
   articleDetails() {
-    const editCount = this.state.changeCount ?? 0; // used to be this.props.article?.edit_count ?? 0, switched so it's the live version instead
     return (
-      <>
-        {this.props.articleTitle}
-        {/* Change summary: display the live highlight count with a localized label. */}
-        <span style={{ marginLeft: '8px', color: '#777', fontSize: '0.9em' }}>
-          (
-          {editCount}
-          {' '}
-          {I18n.t('users.edits')}
-          )
-        </span>
-      </>
+      <div className="diff-viewer-header">
+        <p>{this.props.articleTitle}</p>
+      </div>
     );
+  },
   },
 
   render() {
