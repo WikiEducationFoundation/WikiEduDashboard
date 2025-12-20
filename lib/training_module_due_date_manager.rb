@@ -34,7 +34,12 @@ class TrainingModuleDueDateManager
   # courses where module is assigned)
   def overall_due_date
     blocks = blocks_with_module_assigned(@training_module)
-    blocks.collect(&:calculated_due_date).min
+    return nil if blocks.empty?
+    # Ensure course associations are loaded before calculating due dates
+    blocks.each { |block| block.week&.course }
+    due_dates = blocks.collect(&:calculated_due_date).compact
+    return nil if due_dates.empty?
+    due_dates.min
   end
 
   def blocks_with_module_assigned(training_module)
@@ -64,7 +69,7 @@ class TrainingModuleDueDateManager
     return [] unless @user.present?
     Block.joins(week: { course: :courses_users })
          .where(courses_users: { user_id: @user.id, role: CoursesUsers::Roles::STUDENT_ROLE })
-         .where.not('training_module_ids = ?', [].to_yaml).includes(:week)
+         .where.not('training_module_ids = ?', [].to_yaml).includes(week: :course)
   end
 
   def module_completed?

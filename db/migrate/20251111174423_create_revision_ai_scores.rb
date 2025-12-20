@@ -1,5 +1,6 @@
 class CreateRevisionAiScores < ActiveRecord::Migration[7.0]
   def change
+    unless table_exists?(:revision_ai_scores)
     create_table :revision_ai_scores do |t|
       t.integer :revision_id, null: false
       t.integer :wiki_id, null: false
@@ -18,5 +19,6 @@ class CreateRevisionAiScores < ActiveRecord::Migration[7.0]
     add_index :revision_ai_scores,
         [:wiki_id, :revision_id],
         name: 'revision_ai_scores_by_wiki_rev'
+    end
   end
 end

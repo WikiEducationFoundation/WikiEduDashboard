@@ -71,4 +71,12 @@ module ApplicationHelper
     return 'survey-page' if survey_paths.include?(base_path)
     return 'fixed-nav'
   end
+
+  def page_class
+    return nil unless defined?(controller_name) && defined?(action_name)
+    # Return 'surveys results' for survey results page to match layout check
+    return 'surveys results' if controller_name == 'survey_results' && action_name == 'results'
+    # Return default class string for other pages
+    "#{controller_name} #{action_name}"
+  end
 end
