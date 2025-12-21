@@ -22,7 +22,7 @@ const OverviewStatsTabs = ({ course, statistics }) => {
   const tabsList = [];
 
   let index = 0;
-  Object.keys(statistics).forEach((wiki_ns_key) => {
+  Object.keys(statistics).sort().forEach((wiki_ns_key) => {
     let statsTitle;
     if (wiki_ns_key.includes('namespace')) {
       const wiki = wiki_ns_key.split('-')[0];
