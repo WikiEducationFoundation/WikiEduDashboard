@@ -16,6 +16,7 @@ class CourseCacheManager
     @course.references_count = course_wiki_timeslices.sum(&:references_count)
     @course.revision_count = course_wiki_timeslices.sum(&:revision_count)
     update_view_sum_based_on_first_revision
+    update_view_sum_created_based_on_first_revision
     update_user_count
     update_trained_count
     update_recent_revision_count_from_timeslices
@@ -51,6 +52,33 @@ class CourseCacheManager
                       .sum('FLOOR(DATEDIFF(UTC_TIMESTAMP(),
                       articles_courses.first_revision) * articles_courses.average_views)')
     @course.view_sum = view_sum
+  end
+
+  def update_view_sum_created_based_on_first_revision
+    # This query calculates the views for the entire course based on the first revision for
+    # every article course and the average views, but restricted to articles that were created
+    # by participants in this course (new_article scope).
+    # The view count for a single article is: (days from first revision to today) * average views
+    # It's entirely done on the SQL side because is much faster that way.
+    @course.view_sum_created = calculate_view_sum_created_for_course(@course)
+  end
+
+  # Shared calculation method used by both CourseCacheManager and Course model
+  # to avoid code duplication
+  def self.calculate_view_sum_created_for_course(course)
+    course.articles_courses
+          .tracked
+          .live
+          .new_article
+          .where.not(average_views: nil)
+          .where.not(first_revision: nil)
+          .sum('FLOOR(DATEDIFF(UTC_TIMESTAMP(),
+                  articles_courses.first_revision) * articles_courses.average_views)')
+  end
+  private_class_method :calculate_view_sum_created_for_course
+
+  def calculate_view_sum_created_for_course(course)
+    self.class.calculate_view_sum_created_for_course(course)
   end
 
   def update_trained_count
