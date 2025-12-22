@@ -126,6 +126,12 @@ describe CoursesController, type: :request do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
     end
 
+    it 'does not post the instructor userpage template' do
+      params = { id: course.slug, course: course_params }
+      expect(AnnounceCourseWorker).not_to receive(:schedule_announcement)
+      put "/courses/#{course.slug}", params: params, as: :json
+    end
+
     it 'updates all values' do
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
@@ -307,11 +313,13 @@ describe CoursesController, type: :request do
     context 'course is new' do
       let(:submitted_2) { true }
 
-      it 'announces course and emails the instructor' do
+      it 'emails the instructor but does not announce course' do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
         headers = { 'HTTP_ACCEPT' => 'application/json' }
-        expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
+        # Course announcement (including userpage template) is now posted at approval time,
+        # not submission time
+        expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
         put "/courses/#{course.slug}", params:, headers:, as: :json
@@ -562,6 +570,12 @@ describe CoursesController, type: :request do
           create(:courses_user, user_id: teaching_assistant.id,
                                 course_id: course.id,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
+        it 'posts the instructor userpage template' do
+          params = { id: course.slug, campaign: { title: campaign.title } }
+          expect(AnnounceCourseWorker).to receive(:schedule_announcement)
+          post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
 
         it 'creates a CampaignsCourse' do
