@@ -43,15 +43,15 @@ describe 'Detailed course overview stats', type: :feature, js: true do
     # Clicking other tabs renders the respective stats data
     page.find('.tab', text: 'www.wikidata.org').click
     expect(page.find('.tab.active')).to have_content('www.wikidata.org')
-    expect(page.find('.content-container .title')).not_to have_content('en.wikibooks.org - Cookbook')
+    expect(page.find('.content-container .title'))
+      .not_to have_content('en.wikibooks.org - Cookbook')
     expect(page.find('.content-container .title')).to have_content('www.wikidata.org')
     expect(page.find('.content-container')).to have_content("Claims\n35")
 
     page.find('.tab', text: 'en.wikipedia.org - Mainspace').click
     expect(page.find('.tab.active')).to have_content('en.wikipedia.org - Mainspace')
-    # rubocop:disable Layout/LineLength
-    expect(page.find('.content-container .title')).not_to have_content('en.wikibooks.org - Cookbook')
-    # rubocop:enable Layout/LineLength
+    expect(page.find('.content-container .title'))
+      .not_to have_content('en.wikibooks.org - Cookbook')
     expect(page.find('.content-container .title')).to have_content('en.wikipedia.org - Mainspace')
     expect(page.find('.content-container')).to have_content("16\nArticles Created")
   end
