@@ -67,6 +67,7 @@ class ListCourseManager
     editing_user = SpecialUsers.classroom_program_manager 
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user:,
-                                               instructor:)
+                                               instructor:,
+                                               action: 'add_course_template_to_instructor_userpage')
   end
 end

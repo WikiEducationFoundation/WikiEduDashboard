@@ -289,6 +289,10 @@ class CoursesController < ApplicationController
     @course.update(submitted: true)
     AddSubmittedTag.new(@course)
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
+    AnnounceCourseWorker.schedule_announcement(course: @course,
+                                               editing_user: current_user,
+                                               instructor:,
+                                               action: 'announce_course_on_announcement_page')
   end
 
   def should_set_slug?
