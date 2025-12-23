@@ -6,6 +6,7 @@
 # Author: Arief
 # Author: Arifin.wijaya
 # Author: ArlandGa
+# Author: Bennylin
 # Author: DARMAS BUDI SANTOSO
 # Author: Daud I.F. Argana
 # Author: Fafau06
@@ -142,7 +143,7 @@ id:
     confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
     loading: Memuat tugas...
     reviewers: Peninjau
-    sandbox_draft_link: Draf Kotak Pasir
+    sandbox_draft_link: Draf Bak Pasir
   campaign:
     created_at: Tanggal
     confirm_campaign_deletion: Apakah Anda yakin ingin menghapus kampanye berjudul
