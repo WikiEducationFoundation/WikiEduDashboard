@@ -123,6 +123,7 @@ GEM
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
