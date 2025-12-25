@@ -88,9 +88,9 @@ describe TrainingModuleDueDateManager do
                      .overdue?
     end
 
-    before(:each) { travel_to Date.new(2015, 8, 25) }
+    before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:each) { travel_back }
+    after(:all) { travel_back }
 
     context 'module is not complete' do
       context "today's date is before computed_due_date" do
@@ -144,9 +144,9 @@ describe TrainingModuleDueDateManager do
                      .deadline_status
     end
 
-    before(:each) { travel_to Date.new(2015, 8, 25) }
+    before(:all) { travel_to Date.new(2015, 8, 25) }
 
-    after(:each) { travel_back }
+    after(:all) { travel_back }
 
     let(:completed_at) { 1.day.ago }
 
