@@ -8,6 +8,8 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import i18n from './i18n';
+// Christmas theme animation - import early so it can initialize
+import './christmas.js';
 
 require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
