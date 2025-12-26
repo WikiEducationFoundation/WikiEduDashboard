@@ -1,5 +1,5 @@
 id: 7115
-title: Why not let AI do the writing?
+title: Why not let AI do the copyediting?
 content: |
   You may already use AI tools like Grammarly to suggest edits
   for your writing. Please **do NOT use Grammarly or other AI tools
@@ -12,10 +12,15 @@ content: |
   errors. (They don’t try to make the text accurate, they try to
   make it look good!)
 
-  If you use Grammarly, please toggle off the “Check for writing
-  suggestions” in your Grammarly settings while working on your
-  Wikipedia assignment (including exercises), or simply ignore
-  any suggestions that appear.
+  If you use Grammarly, it can be useful for identifying areas
+  for improvement or outright grammatical errors, but suggestions
+  beyond simple spelling and grammar fixes very often
+  change the intended meaning (and also make it harder for AI detectors
+  to distinguish your writing from AI-generated text).
+
+  Similarly, you should not use ChatGPT or similar tools to copyedit
+  your Wikipedia content (although it's fine to help you identify
+  problems).
 
   Now that we know why AI-generated or AI-edited text should NOT
   be pasted into Wikipedia, let’s look at other ways AI tools can
