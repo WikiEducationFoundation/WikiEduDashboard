@@ -5,7 +5,8 @@ require 'sidekiq/api'
 class SystemMetrics
   def initialize
     # 'very_long_update' queue is excluded as it is intentionally never processed
-    @queues = YAML.load_file('config/sidekiq.yml')[:queues]
+    # Rails 7.1/Psych: Enable aliases to support YAML anchors (e.g., &defaults, *defaults)
+    @queues = YAML.load(File.read('config/sidekiq.yml'), aliases: true)[:queues]
                   .reject { |queue_name| queue_name == 'very_long_update' }
     fetch_sidekiq_stats
   end

@@ -17,7 +17,7 @@
 .container
   %section.overview.container#overview-campaign-details
     .primary
-      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do
+      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_description', class: 'module campaign-description rails_editable' }) do
         .section-header
           %h3
             = succeed ':' do
@@ -85,7 +85,7 @@
                       %tbody
                         %tr.edit
                           %td
-                            = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put) do
+                            = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put, html: { id: 'add_organizer_form' }) do
                               = text_field_tag(:username, '', { required: true, placeholder: t('users.username_placeholder') })
                               %button.button.border.add-organizer-button Add organizer
                         - @campaign.organizers.each do |organizer|
@@ -95,7 +95,7 @@
                                 %span
                                   = organizer.username
                               - else
-                                = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug, id: organizer.id), html: { method: :put, class: 'remove-organizer-form', 'data-username' => organizer.username }) do
+                                = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug, id: organizer.id), html: { id: "remove_organizer_#{organizer.id}", method: :put, class: 'remove-organizer-form', 'data-username' => organizer.username }) do
                                   %span
                                     = organizer.username
                                   %button.button.border.plus -
@@ -144,7 +144,7 @@
                   = @campaign.default_passcode
       %section#campaign_stats
       - if @campaign.template_description.present?
-        = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
+        = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_template', class: 'module campaign-template-description rails_editable' }) do
           .section-header
             %span.tooltip-trigger
               %h3

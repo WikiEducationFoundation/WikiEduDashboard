@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
@@ -216,12 +216,8 @@ RSpec/ChangeByZero:
   Enabled: false
 RSpec/BeNil:
   Enabled: false
-RSpec/Capybara/SpecificMatcher:
-  Enabled: false
-RSpec/Rails/HaveHttpStatus:
-  Enabled: false
-RSpec/FactoryBot/SyntaxMethods:
-  Enabled: false
+# RSpec/Capybara/*, RSpec/Rails/*, and RSpec/FactoryBot/* have been extracted to separate gems
+# These cops are no longer available in rubocop-rspec
 Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:

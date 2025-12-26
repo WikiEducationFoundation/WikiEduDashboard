@@ -26,7 +26,7 @@ class Category < ApplicationRecord
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
   has_many :courses, through: :categories_courses
 
-  serialize :article_titles, Array
+  serialize :article_titles, type: Array
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :name, numericality: { only_integer: true }, on: :create,
