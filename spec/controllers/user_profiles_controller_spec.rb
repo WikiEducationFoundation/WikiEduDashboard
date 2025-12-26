@@ -254,5 +254,82 @@ describe UserProfilesController, type: :request do
         expect(user.user_profile.image_file_link).not_to eq(file_link)
       end
     end
+
+    context 'when updating as an instructor' do
+      let(:user) { create(:user, email: 'instructor@example.com') }
+      let(:course) { create(:course, start: 1.day.ago, end: 1.day.from_now) }
+      let!(:courses_user) do
+        create(:courses_user, user: user, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+      let(:profile) { create(:user_profile, user: user) }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'prevents update with blank email' do
+        post route, params: {
+          username: user.username,
+          email: { email: '' },
+          user_profile: { bio: 'New bio' }
+        }
+        expect(response).to redirect_to("/users/#{user.username}")
+        expect(flash[:error]).to match('Email Is required for current instructors')
+      end
+
+      it 'prevent update with invalid email' do
+        post route, params: {
+          username: user.username,
+          email: { email: 'email'},
+          user_profile: {bio: 'Bio'}
+        }
+        expect(response).to redirect_to("/users/#{user.username}")
+        expect(flash[:error]).to eq('Email Invalid: Please enter a valid email')
+      end
+
+      it 'allows update with valid email' do
+        post route, params: {
+          username: user.username,
+          email: { email: 'new@email.com' },
+          user_profile: { bio: 'New bio' }
+        }
+        expect(flash[:notice]).to eq('Profile Updated')
+        expect(user.reload.email).to eq('new@email.com')
+        expect(user.user_profile.bio).to eq('New bio')
+      end
+
+      context 'when instructor has an expired course' do
+        let(:course) { create(:course, start: 2.months.ago, end: 1.month.ago) }
+
+        it 'does not require an email because they are not currently active' do
+          post route, params: {
+            email: { email: '' },
+            user_profile: { bio: 'Old bio' }
+          }
+
+          expect(flash[:error]).not_to match('Email Is required for current instructors')
+        end
+      end
+    end
+
+    context 'when updating as a non-instructor' do
+      let(:user) { create(:user, email: 'student@example.com') }
+      let(:profile) { create(:user_profile, user: user) }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'allows update with blank email' do
+        post route, params: {
+          username: user.username,
+          email: { email: '' },
+          user_profile: { bio: 'New bio' }
+        }
+        expect(flash[:notice]).to eq('Profile Updated')
+        expect(user.user_profile.bio).to eq('New bio')
+      end
+    end
   end
 end
