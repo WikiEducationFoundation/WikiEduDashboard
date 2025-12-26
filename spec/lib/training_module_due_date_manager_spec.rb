@@ -191,9 +191,9 @@ describe TrainingModuleDueDateManager do
                      .overall_due_date
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before(:each) { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after(:each) { travel_back }
 
     let!(:cu) { create(:courses_user, user_id: user&.id, course_id: course.id) }
 
