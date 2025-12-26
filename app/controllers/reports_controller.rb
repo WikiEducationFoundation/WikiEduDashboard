@@ -15,11 +15,17 @@ class ReportsController < ApplicationController
                                       course_students_csv course_articles_csv
                                       course_wikidata_csv]
 
+  before_action :set_sidekiq_job_context
+
   #######################
   # CSV-related actions #
   #######################
 
   CSV_PATH = '/system/analytics'
+
+  def set_sidekiq_job_context
+    SidekiqJobContext.username = current_user.username if current_user
+  end
 
   def campaign_students_csv
     csv_of('campaign_students')
