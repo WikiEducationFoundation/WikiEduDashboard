@@ -202,7 +202,7 @@ class WikiCourseEdits
     @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end
 
-  def add_course_template_to_instructor_userpage(instructor)
+  def add_course_template_to_instructor_userpage(instructor:)
     user_page = "User:#{instructor.username}"
     template = "{{#{template_name(@templates, 'instructor')}" \
                " | course = [[#{@course.wiki_title}]] }}\n"
@@ -211,7 +211,7 @@ class WikiCourseEdits
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
   end
 
-  def announce_course_on_announcement_page(instructor)
+  def announce_course_on_announcement_page(instructor:)
     announcement_page = ENV['course_announcement_page']
     # rubocop:disable Layout/LineLength
     announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"

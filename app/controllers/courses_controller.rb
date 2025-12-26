@@ -279,8 +279,9 @@ class CoursesController < ApplicationController
   end
 
   def handle_course_announcement(instructor)
-    # Course announcements aren't particularly necessary, but we'll keep them on
-    # for Wiki Ed for now.
+    # Only send submission emails at submission time.
+    # Instructor userpage templates are now posted when the course is approved
+    # (via ListCourseManager) instead of at submission time.
     return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
@@ -290,7 +291,8 @@ class CoursesController < ApplicationController
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
-                                               instructor:)
+                                               instructor:,
+                                               action: 'announce_course_on_announcement_page')
   end
 
   def should_set_slug?
