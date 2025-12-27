@@ -22,7 +22,7 @@ const OverviewStatsTabs = ({ course, statistics }) => {
   const tabsList = [];
 
   let index = 0;
-  Object.keys(statistics).forEach((wiki_ns_key) => {
+  Object.keys(statistics).sort().forEach((wiki_ns_key) => {
     let statsTitle;
     if (wiki_ns_key.includes('namespace')) {
       const wiki = wiki_ns_key.split('-')[0];
@@ -30,6 +30,12 @@ const OverviewStatsTabs = ({ course, statistics }) => {
       statsTitle = wikiNamespaceLabel(wiki, namespace);
     } else { statsTitle = wiki_ns_key; }
     const statsData = statistics[wiki_ns_key];
+
+    if (wiki_ns_key === 'www.wikidata.org') {
+      const wikidata = course.wikis.find(wiki => wiki.project === 'wikidata');
+      if (!wikidata) return;
+      if (Object.values(statsData).every(val => Number(val) === 0)) return;
+    }
 
     statsList.push({ statsTitle, statsData });
     tabsList.push(
@@ -44,7 +50,10 @@ const OverviewStatsTabs = ({ course, statistics }) => {
     index += 1;
   });
 
-  const content = <OverviewStatsContent course={course} content={statsList[currentTabId]} />;
+  const selectedTab = statsList[currentTabId] || statsList[0];
+  if (!selectedTab) return null;
+
+  const content = <OverviewStatsContent course={course} content={selectedTab} />;
   // Hide tabs container if there is only one tab
   const tabsClass = `tabs-container${(tabsList.length === 1) ? ' hide' : ''}`;
 
