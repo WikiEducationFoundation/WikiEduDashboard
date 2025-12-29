@@ -10,6 +10,7 @@
 # Author: Pyscowicz
 # Author: Rockyfelle
 # Author: Sabelöga
+# Author: Stefan2255
 # Author: Sturban
 # Author: Umeaboy
 # Author: WikiPhoenix
@@ -159,6 +160,8 @@ sv:
   assignments:
     article: Artikeln %{title} har tilldelats dig
     article_link: Artikel
+    max_group_size_exceeded: '%{title} har redan %{current} student(er) tilldelad.
+      Den maximala gruppstorleken för den här kursen är %{max}.'
     assign_other: Tilldela en artikel
     add_available: Lägg till tillgängliga artiklar
     add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
@@ -408,6 +411,9 @@ sv:
     search_courses: Sök i kurser
     start: Starta
     start_typing: Börja skriva
+    max_group_size: Max gruppstorlek
+    max_group_size_tooltip: Det maximala antalet studenter som kan arbeta med samma
+      artikel. Lämna tomt för obegränsad.
     student: Student
     students: Studenter
     students_taught: Undervisade studenter
