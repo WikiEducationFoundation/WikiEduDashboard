@@ -216,4 +216,42 @@ describe ReportsController, type: :request do
       expect(csv).to include('course name,claims created')
     end
   end
+
+  describe '#set_sidekiq_job_context' do
+    context 'when user is signed in' do
+      let(:signed_in_user) { create(:user, username: 'wiki_edu_') }
+
+      before do
+        login_as signed_in_user
+      end
+
+      it 'sets the SidekiqJobContext username to current user username' do
+        expect(SidekiqJobContext).to receive(:username=).with(signed_in_user.username)
+        get '/course_csv', params: { course: course.slug }
+      end
+
+      context 'with non-ASCII usernames' do
+        UsernameTestHelper.test_usernames.each do |test_username|
+          it "handles username '#{test_username}' correctly" do
+            user_with_special_chars = create(:user, username: test_username)
+            login_as user_with_special_chars
+
+            expect(SidekiqJobContext).to receive(:username=).with(test_username)
+            get '/course_csv', params: { course: course.slug }
+          end
+        end
+      end
+    end
+
+    context 'when user is not signed in' do
+      before do
+        logout
+      end
+
+      it 'does not set the SidekiqJobContext username' do
+        expect(SidekiqJobContext).not_to receive(:username=)
+        get '/course_csv', params: { course: course.slug }
+      end
+    end
+  end
 end
