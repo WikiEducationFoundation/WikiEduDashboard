@@ -54,21 +54,6 @@ require "#{Rails.root}/lib/replica"
 
 describe ArticleScopedProgram, type: :model do
   describe 'update caches' do
-    before do
-      create(:courses_user,
-             user_id: editor.id,
-             course_id: asp.id,
-             role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:assignment, user_id: editor.id, course_id: asp.id,
-                          article_id: 2, article_title: 'Assigned')
-
-      allow(Replica).to receive(:new).and_return(replica_instance)
-      allow(replica_instance).to receive(:get_revisions).and_return(revisions)
-      VCR.use_cassette 'article_scoped_update' do
-        UpdateCourseStats.new(asp)
-      end
-    end
-
     let(:asp) do
       create(:article_scoped_program,
              start: 2.days.ago,
@@ -76,7 +61,22 @@ describe ArticleScopedProgram, type: :model do
     end
     let(:editor) { create(:user) }
     let(:random_article) { create(:article, title: 'Random', namespace: 0) }
-    let(:assigned_article) { create(:article, title: 'Assigned', namespace: 0) }
+    let!(:assigned_article) { create(:article, title: 'Assigned', namespace: 0) }
+
+    before do
+      create(:courses_user,
+             user_id: editor.id,
+             course_id: asp.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:assignment, user_id: editor.id, course_id: asp.id,
+                          article_id: assigned_article.id, article_title: 'Assigned')
+
+      allow(Replica).to receive(:new).and_return(replica_instance)
+      allow(replica_instance).to receive(:get_revisions).and_return(revisions)
+      VCR.use_cassette 'article_scoped_update' do
+        UpdateCourseStats.new(asp)
+      end
+    end
     let(:replica_instance) { instance_double(Replica) }
     let(:chars) { 1234 }
     let(:revisions) do
