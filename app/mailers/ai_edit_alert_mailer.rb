@@ -11,6 +11,19 @@ class AiEditAlertMailer < ApplicationMailer
     @course = @alert.course
     return unless @course
 
+    @intro_variant = case @alert.page_type
+                     when :choose_an_article, :evaluate_an_article, :outline
+                       :exercise
+                     when :sandbox
+                       :sandbox
+                     else
+                       :default
+                     end
+
+    pp 'WATWATWAT'
+    pp @alert.page_type
+    pp @intro_variant
+
     to_email = @alert.content_experts.to_a
     to_email += [@alert.user]
     to_email += @alert.course.instructors.to_a
