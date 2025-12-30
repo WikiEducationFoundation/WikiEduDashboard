@@ -198,9 +198,9 @@ id:
       updates_active: Statistik akan terus diperbarui hingga %{date}.
       updates_inactive: Statistik untuk program ini tidak lagi diperbarui secara berkala.
     references_count: Referensi Ditambahkan
-    references_doc: Ini adalah jumlah dari tag referensi yang ditambahkan ke artikel,
-      dan bisa memasukkan beberapa referensi ke sumber yang sama. Data diambil dari
-      model kualitas artikel ORES, dan hanya tersedia untuk beberapa bahasa.
+    references_doc: Ini adalah jumlah tanda referensi dan templat catatan kaki yang
+      dipersingkat yang ditambahkan ke artikel, dan dapat mencakup beberapa referensi
+      ke sumber yang sama. Data ini berasal dari API penghitung referensi Toolforge.
     update_statistics_link: Lihat selengkapnya
     word_count: Kata ditambahkan
   namespace:
