@@ -4,10 +4,10 @@ module UsernameTestHelper
   def self.test_usernames
     [
       # Non-ASCII characters - Latin with diacritics
-      'josé',
-      'françois',
-      'müller',
-      'søren',
+      'José',
+      'François',
+      'Müller',
+      'Søren',
       'Łukasz',
       'İbrahim',
       'Αλέξανδρος',
