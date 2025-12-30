@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/errors/rescue_development_errors"
 require_dependency "#{Rails.root}/lib/errors/rescue_errors"
 
 class ApplicationController < ActionController::Base
-  include Errors::RescueDevelopmentErrors if Rails.env.development? || Rails.env.test?
+  include Errors::RescueDevelopmentErrors if Rails.env.local?
   include Errors::RescueErrors
   include Errors::AuthenticationErrors
   # Prevent CSRF attacks by raising an exception.
