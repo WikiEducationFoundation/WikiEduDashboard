@@ -15,61 +15,67 @@ describe ReportsController, type: :request do
     FileUtils.remove_dir('public/system/analytics')
   end
 
-  it '#course_csv returns a CSV' do
-    expect(CsvCleanupWorker).to receive(:perform_at)
-    get '/course_csv', params: { course: course.slug }
-    expect(response.body).to include('file is being generated')
-    get '/course_csv', params: { course: course.slug }
-    follow_redirect!
-    csv = response.body.force_encoding('utf-8')
-    expect(csv).to include(course.title)
-  end
+  describe 'authenticated course CSV endpoints' do
+    before do
+      login_as user
+    end
 
-  it '#course_uploads_csv returns a CSV' do
-    expect(CsvCleanupWorker).to receive(:perform_at)
-    get '/course_uploads_csv', params: { course: course.slug }
-    expect(response.body).to include('file is being generated')
-    get '/course_uploads_csv', params: { course: course.slug }
-    follow_redirect!
-    csv = response.body.force_encoding('utf-8')
-    expect(csv).to include('filename')
-  end
+    it '#course_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.title)
+    end
 
-  it '#course_students_csv returns a CSV' do
-    expect(CsvCleanupWorker).to receive(:perform_at)
-    get '/course_students_csv', params: { course: course.slug }
-    expect(response.body).to include('file is being generated')
-    get '/course_students_csv', params: { course: course.slug }
-    follow_redirect!
-    csv = response.body.force_encoding('utf-8')
-    expect(csv).to include('username')
-  end
+    it '#course_uploads_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_uploads_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_uploads_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('filename')
+    end
 
-  it '#course_articles_csv returns a CSV' do
-    expect(CsvCleanupWorker).to receive(:perform_at)
-    get '/course_articles_csv', params: { course: course.slug }
-    expect(response.body).to include('file is being generated')
-    get '/course_articles_csv', params: { course: course.slug }
-    follow_redirect!
-    csv = response.body.force_encoding('utf-8')
-    expect(csv).to include('pageviews_link')
-  end
+    it '#course_students_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_students_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_students_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('username')
+    end
 
-  it '#course_wikidata_csv returns a CSV' do
-    expect(CsvCleanupWorker).to receive(:perform_at)
-    get '/course_wikidata_csv', params: { course: course.slug }
-    expect(response.body).to include('file is being generated')
-    get '/course_wikidata_csv', params: { course: course.slug }
-    follow_redirect!
-    csv = response.body.force_encoding('utf-8')
-    expect(csv).to include('total revisions')
+    it '#course_articles_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_articles_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_articles_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('pageviews_link')
+    end
+
+    it '#course_wikidata_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_wikidata_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_wikidata_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('total revisions')
+    end
   end
 
   describe '#campaign_students_csv' do
     let(:student) { create(:user) }
 
     before do
-      login_as build(:user)
+      login_as student
       create(:courses_user, course_id: course.id, user_id: student.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
