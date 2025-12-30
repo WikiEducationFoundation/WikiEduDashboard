@@ -1,6 +1,13 @@
-.christmas-banner
-  .christmas-banner-content
-    %span.christmas-emoji 🎄
-    %span.christmas-message Happy Holidays! Wishing you a joyful and successful New Year ahead.
-    %span.christmas-emoji ✨
+- celebration = CelebrationBanner.current_celebration
+- if celebration && CelebrationBanner.should_show?(user: current_user)
+  .celebration-banner{data: {celebration_type: celebration[:type], auto_hide: celebration[:auto_hide_after_seconds], show_snowfall: celebration[:show_snowfall]}}
+    .celebration-banner-content
+      - if celebration[:emoji].present? && celebration[:emoji].length > 0
+        %span.celebration-emoji= celebration[:emoji].first
+      %span.celebration-message= celebration[:message]
+      - if celebration[:emoji].present? && celebration[:emoji].length > 1
+        %span.celebration-emoji= celebration[:emoji].last
+      - elsif celebration[:emoji].present? && celebration[:emoji].length == 1
+        %span.celebration-emoji= celebration[:emoji].first
+  #snowfall-container
 

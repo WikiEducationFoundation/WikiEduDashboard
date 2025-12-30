@@ -1401,6 +1401,27 @@ en:
         revoking_button_working: "Revoking..."
         already_is_not: "%{username} is not a Special User!"
         demote_success: "%{username} is now just a user."
+    celebration_banner:
+      heading: "Celebration Banner"
+      enabled: "Enable celebration banner"
+      visibility: "Visibility:"
+      visibility_options:
+        disabled: "Disabled"
+        all_users: "All users"
+        logged_in: "Logged-in users only"
+        admins_only: "Admins only"
+      celebration_type: "Celebration type:"
+      celebration_types:
+        christmas: "Christmas & New Year"
+        new_year: "New Year"
+        generic: "Generic Celebration"
+      custom_message: "Custom message:"
+      custom_message_placeholder: "Leave empty to use default message"
+      custom_emoji: "Custom emoji:"
+      custom_emoji_hint: "(space-separated, e.g., 🎄 ✨)"
+      show_snowfall: "Show snowfall animation"
+      auto_hide_seconds: "Auto-hide after (seconds):"
+      save_button: "Save Settings"
 
   status:
     active_jobs: Active jobs

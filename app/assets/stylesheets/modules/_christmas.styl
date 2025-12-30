@@ -1,6 +1,6 @@
-// Christmas Theme Styles
+// Celebration Banner Styles (generic for holidays and celebrations)
 
-.christmas-banner
+.celebration-banner
   position: fixed
   top: 0
   left: 0
@@ -32,7 +32,7 @@
     border-top: 10px solid #ffd700
     margin-top: -10px
 
-.christmas-banner-content
+.celebration-banner-content
   display: flex
   align-items: center
   justify-content: center
@@ -41,11 +41,11 @@
   font-weight: 600
   letter-spacing: 0.5px
 
-.christmas-emoji
+.celebration-emoji
   font-size: 22px
   animation: bounce 2s infinite
 
-.christmas-message
+.celebration-message
   font-family: 'Source Sans Pro', 'Open Sans', sans-serif
 
 @keyframes slideDown
@@ -62,7 +62,10 @@
 
 // Adjust body padding to account for fixed banner
 // Add padding to wrapper when banner is present
-body .christmas-wrapper
+body .celebration-wrapper
+  padding-top: 0
+
+body .celebration-wrapper:has(.celebration-banner)
   padding-top: 50px
 
 // Snowfall container
