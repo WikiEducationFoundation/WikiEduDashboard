@@ -12,7 +12,7 @@ describe ReportsController, type: :request do
   end
 
   after do
-    FileUtils.remove_dir('public/system/analytics')
+    FileUtils.remove_dir('public/system/analytics') if File.directory?('public/system/analytics')
   end
 
   describe 'authenticated course CSV endpoints' do
@@ -257,6 +257,8 @@ describe ReportsController, type: :request do
       it 'does not set the SidekiqJobContext username' do
         expect(SidekiqJobContext).not_to receive(:username=)
         get '/course_csv', params: { course: course.slug }
+        unauthorized = '401'
+        expect(response).to have_http_status(unauthorized)
       end
     end
   end
