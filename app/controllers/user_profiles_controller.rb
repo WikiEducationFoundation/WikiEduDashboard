@@ -110,9 +110,13 @@ class UserProfilesController < ApplicationController
   end
 
   def email_must_be_present_for_instructors
-    return unless current_user.active_course_instructor? && user_email_params[:email].blank?
-    @user.errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
-    flash[:error] = I18n.t('users.email_required_instructor')
+    return unless current_user.active_course_instructor?
+    submitted_email = user_email_params[:email].to_s.strip
+
+    if submitted_email.blank?
+        @user.errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
+        flash[:error] = I18n.t('users.email_required_instructor')
+    end
   end
 
   def user_profile_redirect

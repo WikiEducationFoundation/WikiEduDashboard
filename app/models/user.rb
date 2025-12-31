@@ -252,9 +252,6 @@ class User < ApplicationRecord
   private
 
   def ensure_valid_email
-    return if email.blank?
-
-    return unless ValidatesEmailFormatOf.validate_email_format(email).present?
-    errors.add(:email, :invalid, message: I18n.t('users.email_invalid'))
+    self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
   end
 end

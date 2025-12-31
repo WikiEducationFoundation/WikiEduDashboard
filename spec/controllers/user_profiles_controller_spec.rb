@@ -278,14 +278,14 @@ describe UserProfilesController, type: :request do
         expect(flash[:error]).to match('Email Is required for current instructors')
       end
 
-      it 'prevent update with invalid email' do
+      it 'when updating with an invalid email' do
         post route, params: {
           username: user.username,
           email: { email: 'email'},
           user_profile: {bio: 'Bio'}
         }
         expect(response).to redirect_to("/users/#{user.username}")
-        expect(flash[:error]).to eq('Email Invalid: Please enter a valid email')
+        expect(flash[:error]).to be_nil
       end
 
       it 'allows update with valid email' do

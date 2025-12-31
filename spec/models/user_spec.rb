@@ -279,7 +279,7 @@ describe User do
       it 'sets email to nil and saves' do
         user = described_class.new(username: 'foo', email: 'me@foo')
         user.save
-        expect(user.errors[:email]).to include(I18n.t('users.email_invalid'))
+        expect(user.email).to be_nil
       end
     end
   end
