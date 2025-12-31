@@ -11,18 +11,7 @@ class AiEditAlertMailer < ApplicationMailer
     @course = @alert.course
     return unless @course
 
-    @intro_variant = case @alert.page_type
-                     when :choose_an_article, :evaluate_an_article, :outline
-                       :exercise
-                     when :sandbox
-                       :sandbox
-                     else
-                       :default
-                     end
-
-    pp 'WATWATWAT'
-    pp @alert.page_type
-    pp @intro_variant
+    set_intro_variant
 
     to_email = @alert.content_experts.to_a
     to_email += [@alert.user]
@@ -36,5 +25,22 @@ class AiEditAlertMailer < ApplicationMailer
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
 
     mail(template_name: @alert.email_template_name, to: emails, subject:)
+  end
+
+  private
+
+  def set_intro_variant
+    @intro_variant = case @alert.page_type
+                     when :choose_an_article, :evaluate_an_article, :outline
+                       :exercise
+                     when :sandbox
+                       :sandbox
+                     else
+                       :default
+                     end
+
+    pp 'WATWATWAT'
+    pp @alert.page_type
+    pp @intro_variant
   end
 end
