@@ -17,6 +17,10 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
     AiEditAlertMailer.email(example_scholars_alert)
   end
 
+  def instructor_guidance_for_first_alert
+    AiEditAlertMailer.instructor_advice_email(example_student_program_alert(exercise_page))
+  end
+
   private
 
   def example_alert_details(title)
@@ -31,7 +35,8 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
       window_likelihoods: [1.0, 1.0],
       predicted_ai_window_count: 2,
       pangram_share_link: 'https://www.pangram.com/history/88ba317f-8572-4000-911f-2aa8fbea68fa',
-      pangram_version: 'adaptive_boundaries' }
+      pangram_version: 'adaptive_boundaries',
+      prior_alert_count_for_course: 0 }
   end
 
   def example_student_program_alert(article)

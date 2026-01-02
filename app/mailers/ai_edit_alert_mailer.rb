@@ -3,7 +3,23 @@
 class AiEditAlertMailer < ApplicationMailer
   def self.send_emails(alert)
     return unless Features.email?
+
     email(alert).deliver_now
+    # return unless alert.details[:prior_alert_count_for_course]&.zero?
+    # instructor_advice_email(alert).deliver_now
+  end
+
+  def instructor_advice_email(alert)
+    @alert = alert
+    @course = @alert.course
+    return unless @course
+    @instructors = @alert.course.instructors
+    emails = @instructors.map(&:email)
+    return if emails.empty?
+
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    subject = 'Suspected AI edit — instructor next steps'
+    mail(template_name: 'instructor_advice', to: emails, subject:)
   end
 
   def email(alert) # rubocop:disable Metrics/MethodLength

@@ -102,6 +102,10 @@ h2.info {
   font-size: 18px;
 }
 
+.subhead {
+  color: #585858;
+}
+
 .trainings-table-cell {
   border: 1px solid #999999;
   padding: 10px;
