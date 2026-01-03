@@ -317,7 +317,8 @@ describe CoursesController, type: :request do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
         headers = { 'HTTP_ACCEPT' => 'application/json' }
-        # Course announcement is posted at submission time, but userpage template is at approval time
+        # Course announcement is posted at submission time, but
+        # userpage template is at approval time
         expect(AnnounceCourseWorker).to receive(:schedule_announcement)
           .with(hash_including(action: 'announce_course_on_announcement_page'))
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
