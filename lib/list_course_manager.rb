@@ -64,7 +64,8 @@ class ListCourseManager
     # Post instructor userpage template and course announcement when course is approved
     return unless @course.instructors.any?
     instructor = @course.instructors.first
-    editing_user = SpecialUsers.classroom_program_manager 
+    editing_user = SpecialUsers.classroom_program_manager
+    return unless editing_user
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user:,
                                                instructor:,

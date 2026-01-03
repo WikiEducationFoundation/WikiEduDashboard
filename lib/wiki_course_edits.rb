@@ -50,9 +50,9 @@ class WikiCourseEdits
     return unless @course.wiki_title # Don't post for courses that lack a wiki course page
 
     instructor ||= @current_user
-    add_course_template_to_instructor_userpage(instructor)
+    add_course_template_to_instructor_userpage(instructor:)
     # Announce the course on the Education Noticeboard or equivalent.
-    announce_course_on_announcement_page(instructor)
+    announce_course_on_announcement_page(instructor:)
   end
 
   # Adds a template to the enrolling student's userpage, and also
