@@ -502,6 +502,11 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  # Backup system
+  namespace :system do
+    get 'can_start_backup.json' => 'backups#can_start_backup'
+  end
+
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'
 
