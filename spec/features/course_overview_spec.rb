@@ -68,7 +68,6 @@ describe 'course overview page', type: :feature, js: true do
     end
   end
 
-
   context 'when course starts in future' do
     let(:course_start) { '2055-02-11'.to_date }
     let(:course_end) { course_start + 6.months }
