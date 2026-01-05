@@ -4,9 +4,14 @@ require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
 
 class CourseCsvBuilder
-  def initialize(course, per_wiki: false)
+  # rubocop:disable Metrics/ParameterLists
+  def initialize(course, per_wiki: false, tag: nil, revision: nil, new_editors: nil, home_wiki: nil)
     @course = course
     @per_wiki = per_wiki
+    @tag = tag
+    @revisions = revision
+    @new_editors = new_editors
+    @home_wiki = home_wiki
   end
 
   CSV_HEADERS = %w[
@@ -42,13 +47,13 @@ class CourseCsvBuilder
     row << @course.title
     row << @course.school
     row << @course.term
-    row << @course.home_wiki.domain
+    row << (@home_wiki || @course.home_wiki&.domain)
     row << @course.created_at
     row << @course.start
     row << @course.end
-    row << new_or_returning_tag
+    row << (@tag || new_or_returning_tag)
     row << @course.user_count
-    row << new_editors.count
+    row << (@new_editors || new_editors)
     row << @course.article_count
     row << @course.new_article_count
     row << @course.character_sum
@@ -97,6 +102,8 @@ class CourseCsvBuilder
   end
 
   def revisions_by_namespace(namespace)
+    return @revisions[[@course.id, namespace]] if @revisions
+
     @course.scoped_article_timeslices
            .where(tracked: true)
            .joins(:article)
