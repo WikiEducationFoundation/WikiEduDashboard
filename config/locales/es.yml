@@ -5,6 +5,7 @@
 # Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Avengium
 # Author: Canaan9801
 # Author: Carlosmg.dg
 # Author: Cgalindo
@@ -327,6 +328,8 @@ es:
       de la comunidad Wikipedia para tareas de Wiki Education.
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
+    max_group_size_exceeded: '%{title} ya tiene %{current} estudiantes asignados.
+      El tamaño máximo del grupo para este curso es %{max}.'
     assignees: Asignado(s)
     assign_other: Asignar/desasignar un artículo
     assign_other_wikidata: Asignar/desasignar un elemento
@@ -765,6 +768,9 @@ es:
     start: Inicio
     start_typing: Empieza a escribir
     stay_in_sandbox: Permanecer en entorno seguro
+    max_group_size: Tamaño máximo del grupo
+    max_group_size_tooltip: Número máximo de estudiantes que pueden trabajar en el
+      mismo artículo. Dejar en blanco para un número ilimitado.
     students: Estudiantes
     students_count: '# Estudiantes'
     student_editors: Editores estudiantiles

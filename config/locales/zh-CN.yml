@@ -954,7 +954,7 @@ zh-CN:
     uploads_doc: 上传到维基共享资源的文件数量
     username: 用户名
     username_placeholder: 用户名
-    useremail_placeholder: 电子邮件
+    useremail_placeholder: 请输入电子邮件地址
     userpasscode_placeholder: 密码
     role:
       description: 课程中的角色
