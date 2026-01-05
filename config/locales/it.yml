@@ -1033,7 +1033,7 @@ it:
     uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
     username_placeholder: Nome utente
-    useremail_placeholder: Email
+    useremail_placeholder: Inserisci l'indirizzo di posta elettronica
     userpasscode_placeholder: Codice di accesso
     role:
       description: Ruolo nel corso
