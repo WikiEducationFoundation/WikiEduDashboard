@@ -4,8 +4,7 @@ require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
 
 class CourseCsvBuilder
-  # rubocop:disable Metrics/ParameterLists
-  def initialize(course, per_wiki: false, tag: nil, revision: nil, new_editors: nil, home_wiki: nil)
+  def initialize(course, per_wiki: false, tag: nil, revision: nil, new_editors: nil, home_wiki: nil) # rubocop:disable Metrics/ParameterLists
     @course = course
     @per_wiki = per_wiki
     @tag = tag

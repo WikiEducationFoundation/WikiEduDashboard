@@ -10,8 +10,7 @@ class CampaignCsvBuilder
     @campaign = campaign || AllCourses
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  def courses_to_csv
+  def courses_to_csv # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
     csv_data = [CourseCsvBuilder::CSV_HEADERS]
 
     preload_course_data if @campaign.courses.size > 1
