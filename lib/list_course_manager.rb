@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/app/workers/announce_course_worker"
+require_dependency "#{Rails.root}/app/workers/list_course_worker"
 
 #= Routines for adding or removing a course to/from a campaign
 class ListCourseManager
@@ -66,9 +66,8 @@ class ListCourseManager
     instructor = @course.instructors.first
     editing_user = SpecialUsers.classroom_program_manager
     return unless editing_user
-    AnnounceCourseWorker.schedule_announcement(course: @course,
-                                               editing_user:,
-                                               instructor:,
-                                               action: 'add_course_template_to_instructor_userpage')
+    ListCourseWorker.schedule_edits(course: @course,
+                                    editing_user:,
+                                    instructor:)
   end
 end

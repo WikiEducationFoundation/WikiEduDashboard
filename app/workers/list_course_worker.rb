@@ -2,11 +2,11 @@
 
 require_dependency "#{Rails.root}/lib/wiki_course_edits"
 
-class AnnounceCourseWorker
+class ListCourseWorker
   include Sidekiq::Worker
   sidekiq_options lock: :until_executed
 
-  def self.schedule_announcement(course:, editing_user:, instructor:)
+  def self.schedule_edits(course:, editing_user:, instructor:)
     perform_async(course.id, editing_user.id, instructor.id)
   end
 
@@ -14,7 +14,7 @@ class AnnounceCourseWorker
     course = Course.find(course_id)
     editing_user = User.find(editing_user_id)
     instructor = User.find(instructor_id)
-    WikiCourseEdits.new(action: 'announce_course_on_announcement_page',
+    WikiCourseEdits.new(action: 'add_course_template_to_instructor_userpage',
                         course:,
                         current_user: editing_user,
                         instructor:)

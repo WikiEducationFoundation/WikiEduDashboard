@@ -320,7 +320,6 @@ describe CoursesController, type: :request do
         # Course announcement is posted at submission time, but
         # userpage template is at approval time
         expect(AnnounceCourseWorker).to receive(:schedule_announcement)
-          .with(hash_including(action: 'announce_course_on_announcement_page'))
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
         put "/courses/#{course.slug}", params:, headers:, as: :json
@@ -576,8 +575,7 @@ describe CoursesController, type: :request do
 
         it 'posts the instructor userpage template' do
           params = { id: course.slug, campaign: { title: campaign.title } }
-          expect(AnnounceCourseWorker).to receive(:schedule_announcement)
-            .with(hash_including(action: 'add_course_template_to_instructor_userpage'))
+          expect(ListCourseWorker).to receive(:schedule_edits)
           post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
 
