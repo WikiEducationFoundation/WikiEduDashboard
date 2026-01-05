@@ -7,11 +7,11 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil, tag: nil)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil, **options)
     @current_user = current_user
     @campaign_param = campaign_param
-    @page = page
-    @tag = tag
+    @page = options[:page]
+    @tag = options[:tag]
     @courses_list = courses_list || campaign_courses
   end
 
@@ -174,7 +174,7 @@ class CoursesPresenter
                     'COUNT(*)'
   def course_sums
     @course_sums ||= if campaign
-                       Rails.cache.fetch("#{campaign.slug}-course_sums_v2", expires_in: 1.day) do
+                       Rails.cache.fetch(campaign.course_sums_cache_key, expires_in: 1.day) do
                          courses.pick(Arel.sql(COURSE_SUMS_SQL))
                        end
                      else
