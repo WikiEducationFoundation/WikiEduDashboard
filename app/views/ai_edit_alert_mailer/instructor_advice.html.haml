@@ -1,0 +1,143 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                You've received a message with your student on copy that Pangram has
+                automatically detected that your student pasted a generative AI
+                chatbot output into a Wikipedia page, against Wiki Education's rules.
+                This message provides more details for you as the instructor. We
+                recommend keeping it in your inbox for future reference, as many
+                instructors receive multiple alerts throughout the term.
+              %h2.headline If it's an exercise (evaluate an article, outline, etc.)
+              %p.paragraph
+                Our goal for these alert emails for exercises is to head off future
+                copying-and-pasting from generative AI chatbots or writing support
+                features on Grammarly. Please have a 1:1 conversation with the student
+                to understand their perspective as soon as possible.
+              %h4.subhead If your student used a generative AI tool
+              %p.paragraph
+                Please reiterate they are not allowed to use these for Wikipedia in the
+                future, even Grammarly, as the training they were assigned says. We
+                encourage you to ask your student to re-do the assignment without gen AI,
+                as these exercises have been designed to give students skills that set
+                them up for success on the full assignment, but ultimately this is your
+                decision as instructor.
+              %h4.subhead If your student says they didn’t use a generative AI tool
+              %p.paragraph
+                Pangram may flag edits in scenarios like:
+                %ul.paragarph
+                  %li.paragraph
+                    If a student saves an empty outline (for example, with just short
+                    bullet points or empty section headers), or includes a significant
+                    amount of non-prose text (like sentence fragments or bibliographic
+                    entries) this might trigger the AI detector. Non-prose text is a
+                    common factor in most of the confirmed false positives we’ve seen.
+                    In this case, please encourage the student to fill out the feedback
+                    form and indicate a false positive so we know how many occur each term.
+                  %li.paragraph
+                    Text transformed by Grammarly and other AI copyediting tools can
+                    trigger AI detection, depending on how significantly it was
+                    transformed. Simple grammar fixes in Grammarly will not typically
+                    trigger Pangram, but use of writing suggestions may. If the student
+                    says they "only used Grammarly" please make sure they turn off anything
+                    but basic grammar fixes (and they should ensure those don't change
+                    the meaning of the sentence, something critical for Wikipedia). Other
+                    Wikipedia editors can easily improve the readability of the text if
+                    the facts are accurate and precise, but AI copyediting introduces
+                    distortions in meaning, so it's untrustworthy for the same reasons
+                    as chatbot output when it comes to Wikipedia.
+              %p.paragraph
+                If neither of these seems to be the case but the student still says
+                they didn’t use generative AI, use your best judgment, but please
+                reiterate to the student that copying and pasting from a generative
+                AI chatbot is unacceptable.
+              %h2.headline If it's a sandbox draft
+              %p.paragraph
+                When you set up your course page, you selected whether you wanted
+                to have your students work directly in the main article space or
+                draft in a sandbox first. If you selected sandboxes, your students
+                will draft their contributions in a sandbox first. Since this text
+                is intended to be moved to the article space, it is critical that
+                none of this text was written by generative AI chatbots. Please have
+                a 1:1 conversation with the student to understand their perspective
+                as soon as possible.
+              %h4.subhead If your student used a generative AI tool
+              %p.paragraph
+                The student must redo the assignment without using generative AI to
+                draft or edit text (even Grammarly). If they do not redo the assignment,
+                they may not move the text to Wikipedia's mainspace, and must leave it
+                in the sandbox for you to assess there. 
+              %h4.subhead If your student says they didn’t use a generative AI tool
+              %p.paragraph
+                Generative AI tools are particularly bad at creating text for Wikipedia that is verifiable.
+                Ideally, a reader should be able to quickly confirm the accuracy by checking the source, so
+                if it's not straightforward to confirm where information came from, that's an area for
+                improvement (even it AI wasn't involved).
+                We recommend the following steps to assess text:
+                %ol.paragraph
+                  %li Identify a sentence or paragraph the student has cited to a source. Open the source in a separate window.
+                  %li Check the source, looking for the information from the sentence or paragraph the student cited it to.
+                  %li If you can easily verify the fact is true according to that source, move on to the next one. Plausible information that seems generally consistent with a cited source but doesn't seem like it actually came from there is a hallmark of AI-created Wikipedia content. (If the citations are not specific enough to easily verify, ask the student to add page numbers to the citations.)
+                  %li If all information the student has included is verifiable in the sources they have cited, they can move the work live. Please report this case to us as a false positive. (These are rare, so knowing when they occur helps us improve our detection).
+                  %li If any of the information fails verification, ask the student to rewrite their Wikipedia contribution without the help of generative AI. Do not let them move information that fails verification to Wikipedia.
+              %p.paragraph
+                In addition to the false positives we referenced in the prior section, students who copy and paste
+                existing text from a Wikipedia article into their sandbox will occasionally have the pre-existing
+                text flagged. In this case, they’ve probably discovered some extant AI slop, and your student should
+                be highly skeptical of that content! If it's bad or they can't easily verify it from cited sources,
+                they should delete it from the live article. 
+              %h2.headline If it's a live article
+              %p.paragraph
+                Please immediately revert the students' work if it hasn't yet been removed by Wiki Education
+                staff or other Wikipedia editors. (Their contribution will still be visible in the page history,
+                so this will just remove it from readers' views, not remove it entirely.) Please have a 1:1
+                conversation with the student to understand their perspective as soon as possible.
+              %h4.subhead If your student used a generative AI tool
+              %p.paragraph
+                Make sure the generative AI-written or -edited content is already out of the live Wikipedia
+                article. You may then allow the student to re-do the assignment without using AI, if that
+                fits into your course policies. Do not allow the student to move the AI content live again;
+                doing so will likely result in the student being technically blocked from editing.
+              %h4.subhead If your student says they didn’t use a generative AI tool
+              %p.paragraph
+                Find the content your student edited. (If it’s already been reverted, you can use the “View
+                history” tab to see the last version from your student.)
+              %p.paragraph
+                Once you have a copy of their text, follow the steps listed above in the "sandbox" section
+                to assess whether the text is verifiable or not. Non-verifiable text may NOT be added back to
+                Wikipedia; doing so will likely result in the student being technically blocked from editing.
+              %p.paragraph
+                If you are able to verify the information the student has added, and you are confident as a
+                subject matter expert that they didn't use Grammarly or another tool that introduced
+                subtle errors in meaning, the student may move the work live again. Please communicate
+                directly with the Wiki Expert assigned to your course to personally confirm your assessment
+                that the text is accurate. Your domain expertise in your course subject is critical input
+                for us, as our staff's expertise is in Wikipedia, not the content of the article your student
+                edited.
+              %h2.headline Need more help?
+              %p.paragraph
+                You’re not alone in navigating these AI detection incidents — other instructors are also
+                developing approaches for communicating with their students.
+                %strong
+                  %a.link{ href: 'https://docs.google.com/document/d/1TN8LuWqQKRECvTlwUnvlNxingr7-bdpKGOvCLRbGeFw/edit?usp=sharing' } Explore sample communications
+                  from instructors to students.
+              %p.paragraph
+                As always, we’re here if you have any questions. Thank you for helping protect the content of
+                Wikipedia and partnering with us to provide a high-quality learning experience for your students!
+              %p.paragraph
+                Best,
+                %br
+                %em Wiki Education
+
+
+.hidden
+  %p
+    Alert ID:
+    %a{href: "#{@alert.alert_list_url}"}= @alert.id
