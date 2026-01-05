@@ -227,6 +227,14 @@ class CampaignsController < ApplicationController
     redirect_to "/campaigns/#{Campaign.default_campaign.slug}/#{params[:subpage]}"
   end
 
+  def refresh_stats
+    set_campaign
+    @campaign.clear_course_sums_cache
+
+    flash[:notice] = t('campaign.refresh_campaign_stats')
+    redirect_to overview_campaign_path(@campaign.slug)
+  end
+
   private
 
   def require_create_permissions
