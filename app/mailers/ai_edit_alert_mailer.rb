@@ -5,8 +5,8 @@ class AiEditAlertMailer < ApplicationMailer
     return unless Features.email?
 
     email(alert).deliver_now
-    # return unless alert.details[:prior_alert_count_for_course]&.zero?
-    # instructor_advice_email(alert).deliver_now
+    return unless alert.details[:prior_alert_count_for_course]&.zero?
+    instructor_advice_email(alert).deliver_now
   end
 
   def instructor_advice_email(alert)
