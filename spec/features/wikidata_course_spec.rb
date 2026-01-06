@@ -41,4 +41,12 @@ describe 'A Wikidata course', type: :feature, js: true do
     visit "/campaigns/#{Campaign.first.slug}/overview"
     expect(page).to have_content('Wikidata stats')
   end
+
+  it 'hides Wikidata stats when they are all zero' do
+    course.course_stat.update(stats_hash: { 'www.wikidata.org' => {
+      'claims created' => 0, 'other updates' => 0, 'unknown' => 0
+    } })
+    visit "/courses/#{course.slug}"
+    expect(page).not_to have_selector('.overview-stats-tabs-container')
+  end
 end

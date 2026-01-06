@@ -296,11 +296,11 @@ be-tarask:
     campaigns: Кампаніі
     create_campaign: Стварыць новую кампанію
     create_my_campaign: Стварыць сваю кампанію!
-    customize_passcode: дапомны код доступу
-    default_course_type: Дапомны тып курсу
-    default_passcode: Дапомны код доступу
-    default_passcode_explanation: 'Дапомна новыя праграмы ў гэтай кампаніі мусяць
-      мець:'
+    customize_passcode: перадвызначаны код доступу
+    default_course_type: Перадвызначаны тып курсу
+    default_passcode: Перадвызначаны код доступу
+    default_passcode_explanation: 'Перадвызначана новыя праграмы ў гэтай кампаніі
+      мусяць мець:'
     description: Апісаньне
     delete_campaign: Выдаліць гэтую кампанію
     disable_account_requests: Адключыць запыты ўліковых запісаў
