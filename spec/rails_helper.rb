@@ -8,6 +8,7 @@ require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'active_support/testing/time_helpers'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
@@ -56,8 +57,9 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
+  config.include ActiveSupport::Testing::TimeHelpers
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_paths = ["#{::Rails.root}/spec/fixtures"]
 
   config.use_transactional_fixtures = true # This enables transactions for all tests
   config.global_fixtures = :all
