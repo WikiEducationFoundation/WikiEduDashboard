@@ -11,7 +11,7 @@ class ScheduleCourseAdviceEmails
     return unless @course.tag?('research_write_assignment')
 
     schedule_biographies_email
-    # schedule_generative_ai_email
+    schedule_generative_ai_email
     schedule_hype_video_email
     schedule_preliminary_work_email
     schedule_choosing_an_article_email
@@ -34,9 +34,8 @@ class ScheduleCourseAdviceEmails
   end
 
   def schedule_generative_ai_email
-    # Just before the course starts
+    # A little before the assignment starts
     send_date = @course.timeline_start - 7.days
-    return if send_date.past?
 
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
