@@ -28,7 +28,7 @@ class Alert < ApplicationRecord
 
   include ArticleHelper
 
-  serialize :details, Hash
+  serialize :details, type: Hash
 
   ALERT_TYPES = %w[
     ActiveCourseAlert

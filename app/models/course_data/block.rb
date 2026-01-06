@@ -22,7 +22,7 @@ require_dependency "#{Rails.root}/lib/block_date_manager"
 class Block < ApplicationRecord
   belongs_to :week
   has_one :course, through: :week
-  serialize :training_module_ids, Array
+  serialize :training_module_ids, type: Array
   default_scope { includes(:week, :course) }
 
   KINDS = {
