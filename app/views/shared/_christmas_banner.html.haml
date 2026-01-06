@@ -1,6 +1,6 @@
 - celebration = CelebrationBanner.current_celebration
 - if celebration && CelebrationBanner.should_show?(user: current_user)
-  .celebration-banner{data: {celebration_type: celebration[:type], auto_hide: celebration[:auto_hide_after_seconds], show_snowfall: celebration[:show_snowfall]}}
+  .celebration-banner{data: {celebration_type: celebration[:type], auto_hide: celebration[:auto_hide_after_seconds], show_snowfall: celebration[:show_snowfall].to_s}}
     .celebration-banner-content
       - if celebration[:emoji].present? && celebration[:emoji].length > 0
         %span.celebration-emoji= celebration[:emoji].first
