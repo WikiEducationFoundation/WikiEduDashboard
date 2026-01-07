@@ -12,6 +12,10 @@ class CourseDataUpdateWorker
     CourseDataUpdateWorker.set(queue:).perform_async(course_id)
   end
 
+  def self.skippable_during_backup?
+    true
+  end
+
   def perform(course_id)
     course = Course.find(course_id)
     logger.info "Ignoring #{course.slug} update" if course.very_long_update?

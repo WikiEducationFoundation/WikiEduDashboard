@@ -1,13 +1,14 @@
+# frozen_string_literal: true
 class BackupPauseMiddleware
-  RESCHEDULE_DELAY = 1.hour
-
   def call(worker, job, queue)
-    if Backup.in_process?
-      worker.class.perform_in(RESCHEDULE_DELAY, *job['args'])
-      return
-    end
+    return if skippable?(worker) && Backup.in_process?
 
     yield
+  end
+
+  def skippable?(worker)
+    worker.class.respond_to?(:skippable_during_backup?) &&
+      worker.class.skippable_during_backup?
   end
 end
 
