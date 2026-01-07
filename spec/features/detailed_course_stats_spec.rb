@@ -21,33 +21,37 @@ describe 'Detailed course overview stats', type: :feature, js: true do
           'new_count' => 16,
           'edited_count' => 103
         }
-      })
+    })
+
+    stub_wiki_validation
+    course.wikis << Wiki.get_or_create(language: nil, project: 'wikidata')
+
     visit "/courses/#{course.slug}"
   end
 
   it 'shows all the course_stat objects in a tabbed UI layout' do
     # Tabs corresponding to all the stats are rendered
-    expect(page.find('#tab-0')).to have_content('www.wikidata.org')
-    expect(page.find('#tab-1')).to have_content('en.wikibooks.org - Cookbook')
-    expect(page.find('#tab-2')).to have_content('en.wikipedia.org - Mainspace')
+    expect(page.find('#tab-0')).to have_content('en.wikibooks.org - Cookbook')
+    expect(page.find('#tab-1')).to have_content('en.wikipedia.org - Mainspace')
+    expect(page.find('#tab-2')).to have_content('www.wikidata.org')
 
     # Default tab's content matches first course_stat object's stats
-    expect(page.find('.tab.active')).to have_content('www.wikidata.org')
-    expect(page.find('.content-container .title')).to have_content('www.wikidata.org')
-    expect(page.find('.content-container')).to have_content("Claims\n35")
-
-    # Clicking other tabs renders the respective stats data
-    page.find('.tab', text: 'en.wikibooks.org - Cookbook').click
     expect(page.find('.tab.active')).to have_content('en.wikibooks.org - Cookbook')
-    expect(page.find('.content-container .title')).not_to have_content('www.wikidata.org')
     expect(page.find('.content-container .title')).to have_content('en.wikibooks.org - Cookbook')
     expect(page.find('.content-container')).to have_content("72\nArticles Edited")
 
+    # Clicking other tabs renders the respective stats data
+    page.find('.tab', text: 'www.wikidata.org').click
+    expect(page.find('.tab.active')).to have_content('www.wikidata.org')
+    expect(page.find('.content-container .title'))
+      .not_to have_content('en.wikibooks.org - Cookbook')
+    expect(page.find('.content-container .title')).to have_content('www.wikidata.org')
+    expect(page.find('.content-container')).to have_content("Claims\n35")
+
     page.find('.tab', text: 'en.wikipedia.org - Mainspace').click
     expect(page.find('.tab.active')).to have_content('en.wikipedia.org - Mainspace')
-    # rubocop:disable Layout/LineLength
-    expect(page.find('.content-container .title')).not_to have_content('en.wikibooks.org - Cookbook')
-    # rubocop:enable Layout/LineLength
+    expect(page.find('.content-container .title'))
+      .not_to have_content('en.wikibooks.org - Cookbook')
     expect(page.find('.content-container .title')).to have_content('en.wikipedia.org - Mainspace')
     expect(page.find('.content-container')).to have_content("16\nArticles Created")
   end

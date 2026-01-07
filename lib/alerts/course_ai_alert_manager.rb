@@ -52,6 +52,6 @@ class CourseAiAlertManager
   # alert for the same course would cover a non-overlapping window.
   def recent_unresolved_alert_exists?(course)
     AiSpikeAlert.where(course_id: course.id, resolved: false)
-                .exists?(['created_at > ?', RECENT_DAYS])
+                .exists?(['created_at > ?', RECENT_DAYS.days.ago])
   end
 end

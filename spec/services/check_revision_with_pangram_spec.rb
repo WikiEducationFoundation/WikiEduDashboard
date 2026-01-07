@@ -45,7 +45,14 @@ describe CheckRevisionWithPangram do
       'version' => 'adaptive_boundaries',
       'dashboard_link' => 'https://www.pangram.com/history/2e183f04-eea4' }
   end
-  let(:timestamp) { 1757359506 }
+  let(:timestamp) { 5.minutes.ago.to_i }
+
+  let!(:live_article) do
+    create(:article, title: '3M_contamination_of_Minnesota_groundwater',
+                     mw_page_id: 68907377)
+  end
+  # https://en.wikipedia.org/w/index.php?title=3M_contamination_of_Minnesota_groundwater&diff=prev&oldid=https://en.wikipedia.org/w/index.php?title=3M_contamination_of_Minnesota_groundwater&diff=prev&oldid=1315795891
+  let(:live_article_revision_id) { 1315795891 }
 
   context 'when it is the first revision' do
     # https://en.wikipedia.org/w/index.php?title=User:Resekorynta/Evaluate_an_Article&oldid=1315967896
@@ -88,13 +95,6 @@ describe CheckRevisionWithPangram do
   end
 
   context 'when there is a parent revision' do
-    let!(:live_article) do
-      create(:article, title: '3M_contamination_of_Minnesota_groundwater',
-                       mw_page_id: 68907377)
-    end
-    # https://en.wikipedia.org/w/index.php?title=3M_contamination_of_Minnesota_groundwater&diff=prev&oldid=https://en.wikipedia.org/w/index.php?title=3M_contamination_of_Minnesota_groundwater&diff=prev&oldid=1315795891
-    let(:live_article_revision_id) { 1315795891 }
-
     it 'fetches the diff table and checks based on that' do
       expect(AiEditAlert.count).to eq(0)
       expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision)
@@ -128,6 +128,26 @@ describe CheckRevisionWithPangram do
     end
   end
 
+  context 'when the revision more than 2 weeks old' do
+    let(:timestamp) { 15.days.ago.to_i }
+
+    it 'does not create an alert' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+           'wiki_id' => en_wiki.id,
+           'article_id' => live_article.id,
+           'course_id' => course.id,
+           'user_id' => user.id,
+           'revision_timestamp' => timestamp }
+        )
+      end
+      expect(AiEditAlert.count).to eq(0)
+    end
+  end
+
   context 'when the revision is missing or deleted' do
     let(:missing_revision_id) { 999999999999 }
     let(:article) { create(:article) }
@@ -156,7 +176,6 @@ describe CheckRevisionWithPangram do
       create(:article, title: '3M_contamination_of_Minnesota_groundwater',
                        mw_page_id: 68907377)
     end
-    let(:live_article_revision_id) { 1315795891 }
     let!(:revision_ai_score) do
       create(:revision_ai_score, revision_id: live_article_revision_id,
              wiki_id: en_wiki.id, course:, user:, article: live_article,
