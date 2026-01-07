@@ -46,7 +46,7 @@ class CampaignCsvBuilder
     return @tags if @tags
 
     @tags = Tag
-            .where(course_id: @course_ids, tag: %w[first_time_instructor returning_instructor])
+            .where(course_id: course_ids, tag: %w[first_time_instructor returning_instructor])
             .select(:tag, :course_id)
             .group_by(&:course_id)
   end
@@ -55,7 +55,7 @@ class CampaignCsvBuilder
     return @revision_counts if @revision_counts
 
     @revision_counts = ArticleCourseTimeslice
-                       .where(tracked: true, course_id: @course_ids)
+                       .where(tracked: true, course_id: course_ids)
                        .select(:revision_count, :course_id)
                        .joins(:article)
                        .where(articles: { namespace: [0, 1, 2] })
@@ -69,7 +69,7 @@ class CampaignCsvBuilder
     @new_editor_counts = User
                          .where(registered_at: @campaign.courses.minimum(:start)..@campaign.courses.maximum(:end)) # rubocop:disable Layout/LineLength
                          .joins(:courses_users)
-                         .where(courses_users: { course_id: @course_ids, role: CoursesUsers::Roles::STUDENT_ROLE }) # rubocop: disable Layout/LineLength
+                         .where(courses_users: { course_id: course_ids, role: CoursesUsers::Roles::STUDENT_ROLE }) # rubocop: disable Layout/LineLength
                          .group(:course_id)
                          .count
   end
