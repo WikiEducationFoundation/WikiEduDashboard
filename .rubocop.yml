@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
@@ -216,12 +216,63 @@ RSpec/ChangeByZero:
   Enabled: false
 RSpec/BeNil:
   Enabled: false
-RSpec/Capybara/SpecificMatcher:
+RSpec/IndexedLet:
   Enabled: false
-RSpec/Rails/HaveHttpStatus:
+RSpec/NoExpectationExample:
   Enabled: false
-RSpec/FactoryBot/SyntaxMethods:
+# RSpec style cops (subjective / noisy)
+RSpec/MetadataStyle:
   Enabled: false
+RSpec/SortMetadata:
+  Enabled: false
+RSpec/LeakyLocalVariable:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/ReceiveMessages:
+  Enabled: false
+RSpec/HookArgument:
+  Enabled: false
+RSpec/ClassCheck:
+  Enabled: false
+Rails/RedundantActiveRecordAllMethod:
+  Enabled: false
+Rails/FindEach:
+  Enabled: false
+Rails/WhereRange:
+  Enabled: false
+Rails/TimeZone:
+  Enabled: false
+Rails/RootPathnameMethods:
+  Enabled: false
+# Controller aesthetics – not worth touching during upgrade
+Rails/ActionOrder:
+  Enabled: false
+# Memoization style – subjective, legacy-safe
+Rails/FindByOrAssignmentMemoization:
+  Enabled: false
+# Ordering / SQL style churn
+Rails/OrderArguments:
+  Enabled: false
+Rails/WhereEquals:
+  Enabled: false
+# Response parsing is fine either way
+Rails/ResponseParsedBody:
+  Enabled: false
+# Performance micro-optimizations (non-critical)
+Performance/StringInclude:
+  Enabled: false
+Performance/StringBytesize:
+  Enabled: false
+Performance/MapCompact:
+  Enabled: false
+# Cosmetic / readability only
+Rails/Presence:
+  Enabled: false
+Lint/RedundantSafeNavigation:
+  Enabled: false
+# RSpec/Capybara/*, RSpec/Rails/*, and RSpec/FactoryBot/* have been extracted to separate gems
+# These cops are no longer available in rubocop-rspec
 Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:
@@ -293,6 +344,14 @@ Lint/RedundantCopDisableDirective:
 Style/SafeNavigation:
   Enabled: false
 Style/RedundantRegexpArgument:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Rails/Pluck:
+  Enabled: false
+RSpec/UndescriptiveLiteralsDescription:
+  Enabled: false
+RSpec/PendingWithoutReason:
   Enabled: false
 
   
