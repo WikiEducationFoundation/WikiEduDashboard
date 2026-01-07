@@ -30,6 +30,7 @@ class AiEditAlert < Alert
     details = pangram_details
     add_same_page_alert(course_id, article_id, details)
     add_same_user_alert(course_id, user_id, details)
+    add_prior_alert_count_for_course(course_id, details)
     alert = create!(revision_id:,
                     user_id:,
                     course_id:,
@@ -59,6 +60,15 @@ class AiEditAlert < Alert
     return unless prior_alerts.any?
 
     details[:prior_alert_for_user] = prior_alerts.last.id
+  end
+
+  # This will track the total number of AiEditAlerts for
+  # this course. If this is the first one, the mailer
+  # will send an additional email to the instructor with
+  # extra info on how to respond.
+  def self.add_prior_alert_count_for_course(course_id, details)
+    prior_alert_count = AiEditAlert.where(course_id:).count
+    details[:prior_alert_count_for_course] = prior_alert_count
   end
 
   ####################

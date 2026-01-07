@@ -25,7 +25,11 @@ class RevisionScanner
   # Approximately 6% of revisions in the dashboard.wikedu.org
   # database between January 2024 and February 2025 were
   # over 2000 characters.
-  TEXT_DUMP_CHARACTERS = 2000
+  # 2000 worked well in Fall 2025, but enough hits at the lower
+  # end suggest that it's worthwhile to drop the threshold for
+  # Spring 2025.
+  # The more important limit is CheckRevisionWithPangram::MIN_PLAIN_TEXT_LENGTH
+  TEXT_DUMP_CHARACTERS = 1000
 
   # Adding a large amounts of text in one edit
   # is a simple signal to prioritize edits

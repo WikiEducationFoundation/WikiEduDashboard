@@ -32,10 +32,18 @@ class UserProfilesController < ApplicationController
       @user_profile.image.destroy
       @user_profile.image_file_link = nil
     end
-    @user_profile.update! user_profile_params
-    @user.update! user_email_params if valid_email?
-    flash[:notice] = 'Profile Updated'
-    redirect_to controller: 'user_profiles', action: 'show'
+    validate_update
+  end
+
+  def validate_update
+    email_must_be_present_for_instructors
+    if @user.errors.empty? &&
+       @user_profile.update(user_profile_params) && @user.update(user_email_params)
+      flash[:notice] = 'Profile Updated'
+    else
+      flash[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
+    end
+    user_profile_redirect
   end
 
   def stats
@@ -101,6 +109,20 @@ class UserProfilesController < ApplicationController
     params.require(:email).permit(:email)
   end
 
+  def email_must_be_present_for_instructors
+    return unless current_user.active_course_instructor?
+    submitted_email = user_email_params[:email].to_s.strip
+
+    return if submitted_email.present?
+
+    @user.errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
+    flash[:error] = I18n.t('users.email_required_instructor')
+  end
+
+  def user_profile_redirect
+    return redirect_to controller: 'user_profiles', action: 'show'
+  end
+
   def set_user
     # Per MediaWiki convention, underscores in username urls represent spaces
     username = CGI.unescape(params[:username]).tr('_', ' ')
@@ -111,10 +133,5 @@ class UserProfilesController < ApplicationController
   def set_user_profile
     @user_profile = @user.user_profile
     @user_profile = @user.create_user_profile if @user_profile.nil?
-  end
-
-  def valid_email?
-    return true if user_email_params['email'].blank? # allow deleting email
-    ValidatesEmailFormatOf::validate_email_format(user_email_params['email']).nil?
   end
 end

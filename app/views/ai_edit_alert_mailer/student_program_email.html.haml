@@ -6,20 +6,96 @@
         %table
           %tr
             %td.main-content
-              %p.paragraph
-                The Wiki Education Dashboard detected text that may be AI-generated
-                on a page edited by a student in your
-                %a.link{href: @course_link}= @course.title
-                course:
-              %p.paragraph
-                User: #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
-              %p.paragraph
-                Page:
-                %a.link{href: @alert.page_url}= @alert.article_title
-                (
-                %a.link{href: @alert.url} diff
-                )
-              %h2.headline Pangram report
+              - if @intro_variant == :exercise
+                %p.paragraph
+                  Heads up! The Wiki Education Dashboard detected that text
+                  #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
+                  - if @alert.user.real_name
+                    %strong (#{@alert.user.real_name})
+                  added to Wikipedia as an exercise in the course
+                  %a.link{href: @course_link}= @course.title
+                  may be AI-generated.
+                %p.paragraph
+                  Wikipedia page:
+                  %a.link{href: @alert.page_url}= @alert.article_title
+                  (
+                  %a.link{href: @alert.url} diff
+                  )
+                %p.paragraph
+                  Remember,
+                  %strong you should NEVER copy and paste any AI-generated content into Wikipedia.
+                  This includes copyediting tools like Grammarly. All text added to Wikipedia should
+                  be written by a human. Make sure to never use tools like ChatGPT or Grammarly to
+                  draft or edit text you’re creating for Wikipedia. We encourage you to refresh yourself on the rules for
+                  %a.link{href: "https://dashboard.wikiedu.org/training/students/generative-ai"} Wikipedia and generative AI in our training.
+              - if @intro_variant == :sandbox
+                %p.paragraph
+                  The Wiki Education Dashboard detected that text
+                  #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
+                  - if @alert.user.real_name
+                    %strong (#{@alert.user.real_name})
+                  drafted for Wikipedia in the course
+                  %a.link{href: @course_link}= @course.title
+                  may be AI-generated.
+                %p.paragraph
+                  Wikipedia page:
+                  %a.link{href: @alert.page_url}= @alert.article_title
+                  (
+                  %a.link{href: @alert.url} diff
+                  )
+                %p.paragraph
+                  Remember,
+                  %strong you should NEVER copy and paste any AI-generated content into Wikipedia.
+                  This includes copyediting tools like Grammarly. All text added to Wikipedia should
+                  be written by a human. Make sure to never use tools like ChatGPT or Grammarly to
+                  draft or edit text you’re creating for Wikipedia. We encourage you to refresh yourself on the rules for
+                  %a.link{href: "https://dashboard.wikiedu.org/training/students/generative-ai"} Wikipedia and generative AI in our training.
+                %p.paragraph
+                  If you used AI to write text (including copyediting), please delete the text and re-do
+                  the work without AI text generation before you move your draft live to Wikipedia.
+                  AI-generated text will be deleted from Wikipedia.
+              - if @intro_variant == :default
+                %p.paragraph
+                  The Wiki Education Dashboard detected that text
+                  #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
+                  - if @alert.user.real_name
+                    %strong (#{@alert.user.real_name})
+                  added to Wikipedia in the course
+                  %a.link{href: @course_link}= @course.title
+                  may be AI-generated.
+                %p.paragraph
+                  Wikipedia page:
+                  %a.link{href: @alert.page_url}= @alert.article_title
+                  (
+                  %a.link{href: @alert.url} diff
+                  )
+                %p.paragraph
+                  If you used AI to write text (including copyediting), please immediately delete the text
+                  from Wikipedia. If the text is still live in the article when your instructor or Wiki
+                  Education staff read this alert (or other Wikipedians see the text), they will delete it.
+                %p.paragraph
+                  Remember,
+                  %strong you should NEVER copy and paste any AI-generated content into Wikipedia.
+                  This includes copyediting tools like Grammarly. All text added to Wikipedia should
+                  be written by a human. Make sure to never use tools like ChatGPT or Grammarly to
+                  draft or edit text you’re creating for Wikipedia. We encourage you to refresh yourself on the rules for
+                  %a.link{href: "https://dashboard.wikiedu.org/training/students/generative-ai"} Wikipedia and generative AI in our training.
+                %p.paragraph
+                  Please work directly with your instructor to ensure every sentence you’ve added
+                  is fully accurate and verifiable. This means a reader should be able to open
+                  the source you’ve cited (with an exact page number, if applicable) and find the
+                  fact in that source. (AI-written text often attributes information to sources
+                  that are relevant but do not contain that specific fact; copyeditors like
+                  Grammarly often distort meaning.) Once your instructor has agreed that the
+                  text is fully accurate and verifiable, you may make the contribution live on
+                  Wikipedia again.
+                %p.paragraph
+                  If you believe this is a false positive (meaning you did not use any editing
+                  or drafting tools on your text), carefully confirm that everything you've written
+                  is easy to verify in the cited sources, then follow the instructions regarding the
+                  %em questionnaire
+                  below.
+              %h2.headline Detection report
               %p.paragraph
                 We use the AI detector Pangram to check Wikipedia edits for AI-generated text.<sup>†</sup>
               %ul.paragraph
@@ -28,10 +104,10 @@
                   %strong= @alert.pangram_prediction
                 %li
                   Average AI likelihood:
-                  %strong= number_to_percentage @alert.average_ai_likelihood*100, precision: 2
+                  %strong= number_to_percentage @alert.average_ai_likelihood*100, precision: 0
                 %li
                   Maximum AI likelihood from any segment:
-                  %strong= number_to_percentage @alert.max_ai_likelihood*100, precision: 2
+                  %strong= number_to_percentage @alert.max_ai_likelihood*100, precision: 0
                 %li
                   400-word segments with over 50% AI likelihood:
                   %strong= @alert.predicted_ai_window_count
@@ -39,18 +115,13 @@
                 %tr
                   %td.main-content.link-cell
                     %a.button_link{href: @alert.pangram_url}
-                      %strong View the Pangram report.
-              %p.paragraph
-                As a reminder,
-                %strong you should NEVER copy and paste any AI-generated content into Wikipedia.
-                If you used AI for any text generation (including copyediting), please delete the text
-                and re-do the work without AI text generation.
+                      %strong View Pangram report
 
               %h2.headline= "#{@alert.user.username}: Please fill out follow-up questionnaire"
               %p.paragraph
-                Is the Pangram report it accurate? Was this a false positive?
-                Help us improve our AI detection system and get better at keeping
-                AI slop off Wikipedia without flagging authentic writing incorrectly.
+                Is the Pangram report accurate? Was this a false positive? Help us improve our
+                AI detection system to get better at keeping unverifiable, inaccurate
+                AI-generated content off Wikipedia without flagging authentic writing incorrectly.
               %table
                 %tr
                   %td.main-content.link-cell
@@ -68,17 +139,29 @@
                 AI detectors are not foolproof, but Pangram is reliable enough to catch many cases of AI-generated text
                 (which should not be added to Wikipedia).
               %p.info
-                We've noted that Pangram sometimes reports false positives by flagging lists of references. Using
-                an AI copyediting tool (like Grammarly) can also result in text that Pangram detects as
-                AI-generated, but such AI copyediting can also introduce factual errors and distortions of meaning,
-                so you should not use such tools when writing for Wikipedia.
+                We've found that Pangram is highly reliable when it comes to Wikipedia article prose. It is less reliable —
+                resulting in false positives — when there are significant non-prose elements, such as bibliographic citations,
+                bullet lists, fragmentary outlines, and other formatting-heavy content. Before analyzing an edit,
+                the Dashboard attempts to isolate the prose portions and convert it to plaintext. The Pangram report shows
+                this isolated plaintext, which in most cases excludes citations, Wikipedia templates, and other common non-prose
+                elements. Let us know if significant non-prose elements remain that you suspect resulted in a false positive.
+              %p.info
+                In broad strokes, Pangram is designed to detect the statistical fingerprint of text generated by a
+                Large Language Model (LLM). It can't easily differentiate between text that was generated directly from a
+                chatbot prompt versus human text that was rewritten by an LLM-driven copyediting tool or chatbot. Extensive use of
+                an AI copyediting tool — including Grammarly — can result in text that Pangram detects as AI-generated, but such
+                AI copyediting can also introduce factual errors and distortions of meaning, so editors should not use such tools
+                when writing for Wikipedia. Mixed writing — where LLM-generated text and human-written text are combined —
+                typically results in an intermediate AI likelihood in Pangram's results, roughly corresponding to the portion of
+                the text that came from an LLM. Simple spelling or grammar fixes typically do not trigger Pangram (although
+                LLM-driven grammar fixes still often change the intended meaning in subtle ways).
               %p.info
                 Pangram analyzes text in segments of approximately 400 words at a time, assigning an "AI likelihood"
-                to each segment. The resulting report includes an overall "AI likelihood", as well as individual
-                likelihoods for each segment. Based on Wiki Education's experience so far, AI-generated text that has
-                been significantly edited is often detected as "possibly AI" with an intermediate likelihood, while
-                most text copied directly from common AI tools as of September 2025 is flagged as nearly 100% AI likelihood,
-                and most Wikipedia text with no AI involvement is flagged close to 0% AI likelihood.
+                to each segment. (It is less reliable on very short segments.) The resulting report includes an overall
+                "AI likelihood", as well as individual likelihoods for each segment. Based on Wiki Education's experience so far,
+                AI-generated text that has been significantly edited is often detected as "possibly AI" with an intermediate
+                likelihood, while most text copied directly from common AI tools as of late 2025 is flagged as nearly 100% AI
+                likelihood, and most Wikipedia text with no AI involvement is flagged close to 0% AI likelihood.
 
 .hidden
   %p

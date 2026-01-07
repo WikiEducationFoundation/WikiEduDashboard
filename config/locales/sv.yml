@@ -10,6 +10,7 @@
 # Author: Pyscowicz
 # Author: Rockyfelle
 # Author: Sabelöga
+# Author: Stefan2255
 # Author: Sturban
 # Author: Umeaboy
 # Author: WikiPhoenix
@@ -159,7 +160,9 @@ sv:
   assignments:
     article: Artikeln %{title} har tilldelats dig
     article_link: Artikel
-    assign_other: Tilldela en artikel
+    max_group_size_exceeded: '%{title} har redan %{current} student(er) tilldelad.
+      Den maximala gruppstorleken för den här kursen är %{max}.'
+    assign_other: Tilldela/ta bort en artikel
     add_available: Lägg till tillgängliga artiklar
     add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
     add_available_submit: Lägg till artikel
@@ -178,7 +181,7 @@ sv:
     peer_review_count: '%{currentCount}/%{total} valt'
     remove: Ta bort
     reviewers: Granskare
-    review_other: Tilldela en granskning
+    review_other: Tilldela/ta bort en expertgranskning
     review_self: Granska en artikel
     sandbox_draft_link: Sandlådeutkast
     select: Välj
@@ -194,7 +197,7 @@ sv:
     alert_type: Typ
     alert_user_id: Användare
     all_campaigns: Alla kampanjer
-    already_exists: Denna kampanjen finns redan! Försök igen med en annan titel eller
+    already_exists: Den kampanjen finns redan! Försök igen med en annan titel eller
       slug.
     campaign: Kampanj
     campaigns: Kampanjer
@@ -244,7 +247,7 @@ sv:
     add_category: Lägg till kategori
     add_template: Lägg till mall
     add_this_category: Lägg till kategorier
-    add_this_template: Lägg till denna mall
+    add_this_template: Lägg till mallar
     depth: Underkategoridjup
     articles_count: Antal artiklar
     name: Namn
@@ -252,7 +255,7 @@ sv:
     template_name: Mallnamn
     none: Det är inga kategorier som spåras.
     remove: Ta bort
-    tracked_categories: Spårade kategorier & mallar
+    tracked_categories: Spårade kategorier, PSID, PagePile-ID & mallar
     timestamp: Senast uppdaterad
   courses:
     activity: Aktivitet
@@ -302,14 +305,14 @@ sv:
       course_school: Kursskola
       course_subject: Kursämne
       course_term: Kurstermin
-      course_term_placeholder: Termin
+      course_term_placeholder: Termin (inklusive år)
       course_title: Kurstitel
       course_types:
         basic_course_name: Grundläggande program
         edit_a_thon_name: Skrivstuga
-        edit_a_thon_description: Programmet redigeringsmaraton kommer spåra redigeringar
-          på alla artiklar eller namnrymdssidor. Inga automatiserade redigeringar
-          kommer att göras för detta program.
+        edit_a_thon_description: Ett Edit-A-Thon-programmet spårar redigeringar av
+          artiklar eller huvudsidor. Som standard görs inga automatiska redigeringar
+          för detta program.
       create_button: Skapa min Kurs!
       create_label: Skapa ny kurs
       create_new: Skapa en ny kurs
@@ -371,7 +374,9 @@ sv:
     join: Gå med
     join_course: Delta i kurs
     join_prompt: Gå med i '%{title}'?
-    join_successful: Du har framgångsrikt gått med i %{title}.
+    join_successful: Du har nu gått med i %{title}. Instrumentpanelen kommer automatiskt
+      att hålla reda på dina bidrag med regelbundna uppdateringar. Kom tillbaka senare
+      för att se vilken inverkan du har gjort!
     leave_confirmation: Är du säker på att du vill lämna denna kurs?
     leave_course: Lämna kurs
     loading: Läser in...
@@ -382,7 +387,8 @@ sv:
     new_account_email: E-postadress
     new_account_email_placeholder: namn@example.org
     new_account_info: För att begära ett konto, ange din e-postadress och ditt önskade
-      användarnamn. Ett lösenord kommer att e-postas till dig när kontot har skapats.
+      användarnamn. Ett lösenord kommer att mejlas till dig när kontot har skapats
+      av en av arrangörerna.
     new_account_username: Begärt användarnamn
     new_account_username_invalid: Detta är inte ett giltigt användarnamn.
     new_account_username_placeholder: Wikiredigerare 123
@@ -408,6 +414,9 @@ sv:
     search_courses: Sök i kurser
     start: Starta
     start_typing: Börja skriva
+    max_group_size: Max gruppstorlek
+    max_group_size_tooltip: Det maximala antalet studenter som kan arbeta med samma
+      artikel. Lämna tomt för obegränsad.
     student: Student
     students: Studenter
     students_taught: Undervisade studenter
@@ -481,14 +490,18 @@ sv:
       create_new: Skapa ett oberoende program
       create_short: Skapa program
       find: Hitta ett program
-      intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
-        mitt Program!" för att börja bygga sidan för ditt wiki program.
+      intro: Programtiteln och institutionen utgör programmets URL. Hemwikin är den
+        huvudsakliga wikin där deltagarna kommer att arbeta, och redigeringar på denna
+        wiki spåras som standard. Om ditt program omfattar flera språk eller projekt
+        spåras även bidrag för alla wikis som uttryckligen har lagts till i "Spårade
+        wikis". Klicka på "Skapa mitt program!" för att börja bygga sidan för ditt
+        wikiprogram.
       participate_in_campaign: Delta i en kampanj
       save_cloned_course: Spara
     delete_course: Radera program
     edit_course_dates: Redigera projektdatum
     enroll: Lägg till redigerare
-    enrollment: Deltagande
+    enrollment: Lägga till/ta bort redigerare
     explore: Hitta program
     expected_students: Förväntade redigerare
     join_course: Gå med i program
@@ -506,7 +519,7 @@ sv:
     user_uploads_none: Valda användare har inte bidragit några bilder eller mediafiler
       till detta projekt.
     view_other: Visa andra kampanjer
-    view_page: Visa programsida
+    view_page: Visa sida
     yourcourses: Dina program
   editable:
     edit: Redigera
@@ -517,10 +530,10 @@ sv:
     edit_template: Redigera mall
   instructor_view:
     assignments_table:
-      article_name: Artikelnamn
+      article_name: Namn
   metrics:
     label: Kursaktivitet
-    last_update: Senast uppdaterad
+    last_update: Senaste statistikuppdatering
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
     articles_created_wikidata: Skapade objekt
@@ -567,7 +580,7 @@ sv:
     diff: skillnad
     diff_show: Visa
     diff_hide: Dölj
-    edit_time_span: Redigeringar skedde från %{first_time} till %{last_time}
+    edit_time_span: 'Redigeringar skedde från: %{first_time} till %{last_time}'
     edited_by: Redigerad av
     edited_on: Redigerades %{edit_date}
     loading: Laddar versioner...
@@ -663,7 +676,8 @@ sv:
     image: Bild
     label: Uppladdningar
     loading: Laddar uppladdning...
-    none: Inga filer har laddats upp
+    none: Denna klassen har inte bidragit med några bilder eller andra mediefiler
+      till Wikimedia Commons.
     select_label: Filtrera efter uppladdare
     uploaded_at: Uppladdningstid
     uploader: Uppladdare
@@ -699,7 +713,7 @@ sv:
     name: Namn
     none: Det finns inga deltagare.
     no_articles: Inga artiklar
-    no_revisions: Den här redigeraren har inte gjort några ändringar.
+    no_revisions: (inga revideringar)
     number_of_articles:
       one: '%{count} artikel'
       other: '%{count} artiklar'
@@ -707,8 +721,9 @@ sv:
     recent_revisions: Senaste redigeringar
     remove_confirmation: Är du säker på att du vill ta bort %{username}?
     request_confirmation: Är du säker på att du vill begära detta konto?
-    revisions_doc: Antal redigeringar som gjorts av denna bidragsgivare de sista 7
-      dagarna
+    revisions_doc: Det uppskattade antalet redigeringar som gjorts av den här redigeraren
+      under de senaste 7 dagarna, baserat på det genomsnittliga antalet redigeringar
+      per dag under den senaste perioden.
     reviewers: Granskare
     reviewing: Granskar
     revisions: Versioner
@@ -728,7 +743,7 @@ sv:
       instructor: Instruktör
       campus_volunteer: Campusvolontär
       online_volunteer: Onlineambassadör
-      wiki_ed_staff: Wiki Ed-anställda
+      wiki_ed_staff: Wiki Education-personal
   user_profiles:
     disclaimer: Informationen du uppger kommer att vara offentlig.
     bio_placeholder: Lägg till din bio (valfritt)

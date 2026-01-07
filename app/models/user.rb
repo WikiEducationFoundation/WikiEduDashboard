@@ -32,7 +32,6 @@ require_dependency "#{Rails.root}/lib/utils"
 class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
-
   include MediawikiUrlHelper
 
   #############
@@ -141,6 +140,14 @@ class User < ApplicationRecord
 
   def course_instructor?
     @course_instructor ||= courses_users.exists?(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+  end
+
+  def active_course_instructor?
+    courses_users
+      .joins(:course)
+      .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      .merge(Course.strictly_current)
+      .exists?
   end
 
   def instructor?(course)

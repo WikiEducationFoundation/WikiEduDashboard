@@ -13,6 +13,7 @@ class CourseAdviceMailer < ApplicationMailer
   SUBJECT_LINES = {
     'biographies' => '[Wiki Education] Tips for Wikipedia biography articles',
     'hype_video' => '[Wiki Education] Video for students: The Wikipedia assignment',
+    'generative_ai' => '[Wiki Education] Generative AI and the Wikipedia assignment',
     'preliminary_work' => '[Wiki Education] Tips for early weeks of Wikipedia assignment',
     'choosing_an_article' => '[Wiki Education] Student success on Wikipedia starts with article choice!',
     'bibliographies' => '[Wiki Education] The bibliography is key to success!',

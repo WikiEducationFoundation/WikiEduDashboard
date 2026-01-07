@@ -57,11 +57,11 @@ class CheckRevisionWithPangram
     # As a start, we'll just look at the most-likely window.
     # In many cases, the max is 1.0, but we'll be a little
     # more conservative.
-    max_ai_likelihood > 0.9
+    max_ai_likelihood > 0.75
   end
 
   # Don't generate an alert for old edits.
-  MAX_DAYS_FOR_ALERT = 14
+  MAX_DAYS_FOR_ALERT = 7
   def generate_alert
     return if @rev_datetime < MAX_DAYS_FOR_ALERT.days.ago
     return if alert_already_exists?
