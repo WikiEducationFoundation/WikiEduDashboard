@@ -60,7 +60,7 @@ describe ArticleScopedProgram, type: :model do
              course_id: asp.id,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:assignment, user_id: editor.id, course_id: asp.id,
-                          article_id: 2, article_title: 'Assigned')
+                          article_id: assigned_article.id, article_title: 'Assigned')
 
       allow(Replica).to receive(:new).and_return(replica_instance)
       allow(replica_instance).to receive(:get_revisions).and_return(revisions)
