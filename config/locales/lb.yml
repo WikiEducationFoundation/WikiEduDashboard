@@ -711,7 +711,7 @@ lb:
       seconds: Sek
     username: Benotzernumm
     username_placeholder: Benotzernumm
-    useremail_placeholder: E-Mail
+    useremail_placeholder: E-Mail-Adress aginn
     role:
       visitor: Visiteur
       student: Student
