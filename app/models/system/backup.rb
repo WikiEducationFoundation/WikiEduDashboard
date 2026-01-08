@@ -13,4 +13,9 @@
 #  updated_at   :datetime         not null
 #
 class Backup < ApplicationRecord
+  IN_PROCESS = %w[waiting running].freeze
+
+  def self.current_backup
+    Backup.find_by(status: IN_PROCESS)
+  end
 end
