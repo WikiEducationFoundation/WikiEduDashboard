@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
+require_dependency "#{Rails.root}/lib/data_cycle/backup_pause"
 require_dependency "#{Rails.root}/app/services/update_course_wiki_timeslices"
 
 #= Updates stats for a specific course. This includes importing data (revisions, uploads,
@@ -19,8 +20,10 @@ require_dependency "#{Rails.root}/app/services/update_course_wiki_timeslices"
 class UpdateCourseStats
   include UpdateServiceErrorHelper
   include CourseQueueSorting
+  include BackupPause
 
-  def initialize(course)
+  def initialize(course) # rubocop:disable Metrics/MethodLength
+    pause_until_no_backup
     @course = course
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
