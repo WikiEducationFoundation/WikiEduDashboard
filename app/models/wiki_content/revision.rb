@@ -36,6 +36,6 @@ class Revision < ApplicationRecord
   validates :mw_page_id, presence: true
   validates :mw_rev_id, presence: true
 
-  serialize :features, type: Hash
-  serialize :features_previous, type: Hash
+  serialize :features, type: Hash, coder: YAML, default: {}
+  serialize :features_previous, type: Hash, coder: YAML, default: {}
 end

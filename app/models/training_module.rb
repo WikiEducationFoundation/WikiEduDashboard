@@ -23,9 +23,9 @@ require_dependency "#{Rails.root}/lib/training/training_base"
 class TrainingModule < ApplicationRecord
   attr_accessor :status
 
-  serialize :slide_slugs, type: Array
-  serialize :translations, type: Hash
-  serialize :settings, type: Hash
+  serialize :slide_slugs, type: Array, coder: YAML, default: []
+  serialize :translations, type: Hash, coder: YAML, default: {}
+  serialize :settings, type: Hash, coder: YAML, default: {}
 
   validates_uniqueness_of :slug, case_sensitive: false
 

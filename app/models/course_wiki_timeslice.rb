@@ -22,7 +22,7 @@ class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
   belongs_to :wiki
 
-  serialize :stats, type: Hash
+  serialize :stats, type: Hash, coder: YAML, default: {}
 
   scope :for_course_and_wiki, ->(course, wiki) { where(course:, wiki:) }
   # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
