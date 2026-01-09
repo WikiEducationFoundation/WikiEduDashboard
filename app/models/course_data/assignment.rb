@@ -47,7 +47,7 @@ class Assignment < ApplicationRecord
   before_validation :set_defaults_and_normalize
   before_save :set_sandbox_url
 
-  serialize :flags, type: Hash, coder: YAML, default: {}
+  serialize :flags, type: Hash, default: {}
 
   delegate :status, to: :assignment_pipeline
   delegate :update_status, to: :assignment_pipeline

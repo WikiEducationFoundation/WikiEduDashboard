@@ -120,7 +120,7 @@ class Course < ApplicationRecord
     distinct.sandbox
   }, source: :article, through: :article_course_timeslices
 
-  serialize :flags, type: Hash, coder: YAML, default: {}
+  serialize :flags, type: Hash, default: {}
 
   module ClonedStatus
     NOT_A_CLONE = 0

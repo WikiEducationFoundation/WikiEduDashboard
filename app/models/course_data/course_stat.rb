@@ -12,5 +12,5 @@
 
 class CourseStat < ApplicationRecord
   belongs_to :course
-  serialize :stats_hash, type: Hash, coder: YAML, default: {}
+  serialize :stats_hash, type: Hash, default: {}
 end
