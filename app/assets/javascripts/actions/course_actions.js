@@ -99,7 +99,10 @@ const needsUpdateNotification = (response) => {
 export function needsUpdate(courseSlug) {
   return function (dispatch) {
     return needsUpdatePromise(courseSlug)
-      .then(resp => dispatch({ type: ADD_NOTIFICATION, notification: needsUpdateNotification(resp) }))
+      .then((resp) => {
+        dispatch({ type: ADD_NOTIFICATION, notification: needsUpdateNotification(resp) });
+        dispatch({ type: UPDATE_COURSE, course: { needs_update: true } });
+      })
       .catch(data => dispatch({ type: API_FAIL, data }));
   };
 }

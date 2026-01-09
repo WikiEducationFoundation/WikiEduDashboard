@@ -44,6 +44,28 @@ describe 'course overview page', type: :feature, js: true do
         expect(page).to have_content 'This Week'
       end
     end
+
+    it 'shows the "Needs Update" button for admin' do
+      expect(page).to have_content 'Schedule Data Update'
+    end
+
+    context 'when update is scheduled' do
+      before do
+        course.update(needs_update: true)
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'shows "Update Scheduled" button as disabled' do
+        expect(page).to have_content 'Update Scheduled'
+        expect(page).to have_selector('button.disabled', text: 'Update Scheduled')
+      end
+    end
+
+    it 'updates the button immediately after clicking' do
+      find('button', text: 'Schedule Data Update').click
+      expect(page).to have_content 'Update Scheduled'
+      expect(page).to have_selector('button.disabled', text: 'Update Scheduled')
+    end
   end
 
   context 'when course starts in future' do
