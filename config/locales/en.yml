@@ -803,6 +803,7 @@ en:
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update
+    update_scheduled_label: Update Scheduled
     new_week: Add New Week
     new_account_check_username: Check username availability
     new_account_email: Email address
