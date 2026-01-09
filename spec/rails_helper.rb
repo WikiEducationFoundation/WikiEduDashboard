@@ -83,10 +83,10 @@ RSpec.configure do |config|
 
   config.before do
     stub_request(:get, 'https://wikiedu.org/feed')
-      .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
+      .with(headers: { 'Accept' => '*/*', 'User-Agent' => ENV['user_agent'] })
       .to_return(status: 200, body: '<rss version="2.0" />', headers: {})
     stub_request(:get, /fonts.googleapis.com/)
-      .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
+      .with(headers: { 'Accept' => '*/*', 'User-Agent' => ENV['user_agent'] })
       .to_return(status: 200, body: +'@font-face {}', headers: {})
   end
 

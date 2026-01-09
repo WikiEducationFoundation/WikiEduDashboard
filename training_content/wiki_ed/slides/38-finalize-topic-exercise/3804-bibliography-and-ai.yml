@@ -2,9 +2,19 @@ title: "A note on Generative AI"
 id: 3804
 button_text: 'Okay'
 content: |
-  Generative AI tools (like ChatGPT or Gemini) can sometimes be useful to help search for sources,
-  but their results should also be evaluated carefully. Generative AI can falsely attribute
-  claims to sources , or “hallucinate” sources that don’t exist.
+  Generative AI-powered chatbots (like ChatGPT, Gemini, or Claude) can sometimes
+  be useful to help search for sources. If you do use them, however, keep in mind:
 
-  Another AI issue to watch out for? AI tools will often point to sources that don’t fit
-  Wikipedia’s definition of reliable sources.
+  * Make sure you read the source yourself and pull facts from it, rather than
+  relying on the chatbot's summary of the article. Frequently, chatbots will
+  falsely attribute claims to sources. Adding unchecked information damages
+  Wikipedia, so please don't add any information you haven't personally verified
+  is in the source you've cited it to.
+  * AI tools will occasionally "hallucinate" sources that don't exist; if you're
+  reading them thoroughly, you won't get caught by this, so make sure you find
+  and read every source a chatbot suggests citing!
+  * AI chatbots may point to sources that don’t fit Wikipedia’s definition of
+  reliable sources, even if you prompt them not to. Review the
+  "[Evaluating articles and sources](/training/students/evaluating-articles)"
+  training to remind yourself of Wikipedia's sourcing rules, and use those
+  to evaluate anything you plan to cite.

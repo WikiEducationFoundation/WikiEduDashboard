@@ -122,9 +122,12 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
       ));
     }
     // If the course is ended, show the 'needs update' button.
-    if (CourseDateUtils.isEnded(course)) {
+    // Admins can also schedule a full update for any course.
+    if (CourseDateUtils.isEnded(course) || user.admin) {
+      const label = course.needs_update ? I18n.t('courses.update_scheduled_label') : I18n.t('courses.needs_update');
+      const className = course.needs_update ? 'button disabled' : 'button';
       controls.push((
-        <div key="needs_update" className="available-action"><button className="button" onClick={needsUpdateFunc}>{I18n.t('courses.needs_update')}</button></div>
+        <div key="needs_update" className="available-action"><button className={className} onClick={needsUpdateFunc} disabled={course.needs_update}>{label}</button></div>
       ));
     }
   // If user has no role and is logged in, and if he is not on enrollment page, show 'Join course' button.

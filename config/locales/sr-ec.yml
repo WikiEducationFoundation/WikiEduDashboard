@@ -1303,7 +1303,7 @@ sr-ec:
     ungreeted: Непријављен
     username: Корисничко име
     username_placeholder: Корисничко име
-    useremail_placeholder: Имејл
+    useremail_placeholder: Унесите имејл-адресу
     userpasscode_placeholder: Лозинка
     words_added: Речи додато<br>(чланак | корисник | скица)
     role:

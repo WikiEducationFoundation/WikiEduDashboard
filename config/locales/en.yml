@@ -803,6 +803,7 @@ en:
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update
+    update_scheduled_label: Update Scheduled
     new_week: Add New Week
     new_account_check_username: Check username availability
     new_account_email: Email address
@@ -1733,7 +1734,9 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Education Staff
-
+    useremail_placeholder: "Enter Email Address"
+    email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
+    email_invalid: "Invalid: Please enter a valid email"
   user_profiles:
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor

@@ -156,6 +156,9 @@ class AiEditAlertsStatsController < ApplicationController
     start_date = partial_stats.keys.map(&:first).min
     end_date   = partial_stats.keys.map(&:first).max
 
+    # return empty hash if there are no partial stats
+    return {} if start_date.nil?
+
     # Create complete array
     (start_date..end_date).flat_map do |created_at|
       page_types.map do |page_type|

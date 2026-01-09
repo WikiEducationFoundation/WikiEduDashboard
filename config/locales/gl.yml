@@ -7,6 +7,7 @@
 # Author: Macofe
 # Author: Maria zaos
 # Author: Toliño
+# Author: Xosecalvo
 ---
 gl:
   number:
@@ -225,6 +226,7 @@ gl:
   users:
     editors: Editores
     name: Nome
+    useremail_placeholder: Introduza o enderezo de correo electrónico
   wizard:
     read_less: Ler menos
     read_more: Ler máis
