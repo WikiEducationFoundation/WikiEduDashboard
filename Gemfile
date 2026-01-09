@@ -21,6 +21,7 @@ gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'sidekiq-cron' # Plugin for cron-style recurring jobs in Sidekiq
+gem 'sidekiq-status' # Plugin for tracking information about Sidekiq
 gem 'dalli' # Caching
 gem 'connection_pool'
 gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
