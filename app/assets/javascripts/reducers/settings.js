@@ -4,7 +4,7 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SET_COURSE_CREATION_SETTINGS, SET_FEATURED_CAMPAIGNS,
   SET_DEFAULT_CAMPAIGN, REMOVE_FEATURED_CAMPAIGN, ADD_FEATURED_CAMPAIGN,
-  SET_SITE_NOTICE
+  SET_SITE_NOTICE, SET_CELEBRATION_BANNER
 } from '../constants/settings';
 
 const initialState = {
@@ -25,6 +25,15 @@ const initialState = {
   siteNotice: {
     status: false,
     message: null,
+  },
+  celebrationBanner: {
+    enabled: false,
+    visibility: 'disabled',
+    celebration_type: 'christmas',
+    custom_message: '',
+    custom_emoji: [],
+    show_snowfall: true,
+    auto_hide_after_seconds: 7
   }
 };
 
@@ -54,6 +63,8 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { revokingSpecialUser: action.data.revoking });
     case SET_SITE_NOTICE:
       return Object.assign({}, state, { siteNotice: action.data.site_notice });
+    case SET_CELEBRATION_BANNER:
+      return Object.assign({}, state, { celebrationBanner: action.data.celebration_banner });
     default:
       return state;
   }
