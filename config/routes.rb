@@ -314,6 +314,7 @@ Rails.application.routes.draw do
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
   get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
   get 'current_term(/:subpage)' => 'campaigns#current_term'
+  get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
   resources :tagged_courses, param: :tag, except: :show do
