@@ -34,7 +34,7 @@ class CheckRevisionWithPangram
     @plain_text = plaintext_service.plain_text
   end
 
-  PANGRAM_CHECK_TYPE = 'Pangram 2.0'
+  PANGRAM_CHECK_TYPE = 'Pangram 3.0'
 
   # Determines whether the check was already performed for the given revision,
   # based on the existence of a record in the data table with the same revision, wiki, and article,
@@ -77,6 +77,12 @@ class CheckRevisionWithPangram
     AiEditAlert.exists?(revision_id: @mw_rev_id)
   end
 
+  # This data structure was created based on Pangram v2,
+  # and has been adapted to work for Pangram v3 by
+  # switching to analogous renamed fields and/or
+  # implementing calculations to derive a closely
+  # analagous field from v3 results.
+  # See https://www.pangram.com/blog/v3-api-migration-guide
   def pangram_details
     {
       article_title: @article_title,
@@ -99,11 +105,11 @@ class CheckRevisionWithPangram
   end
 
   def average_ai_likelihood
-    @pangram_result['avg_ai_likelihood']
+    window_likelihoods.sum.fdiv(window_likelihoods.count)
   end
 
   def max_ai_likelihood
-    @pangram_result['max_ai_likelihood']
+    window_likelihoods.max
   end
 
   def fraction_human_content
@@ -115,7 +121,7 @@ class CheckRevisionWithPangram
   end
 
   def fraction_mixed_content
-    @pangram_result['fraction_mixed']
+    @pangram_result['fraction_ai_assisted']
   end
 
   def headline_result
@@ -127,11 +133,11 @@ class CheckRevisionWithPangram
   end
 
   def window_likelihoods
-    @pangram_result['window_likelihoods']
+    @pangram_result['windows'].map { |window| window['ai_assistance_score'] }
   end
 
   def predicted_ai_window_count
-    @pangram_result['window_likelihoods'].count { |likelihood| likelihood > 0.5 }
+    window_likelihoods.count { |likelihood| likelihood > 0.5 }
   end
 
   def pangram_share_link

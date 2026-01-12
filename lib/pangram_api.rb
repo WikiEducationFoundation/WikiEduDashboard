@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # requests to pangram.com Inference API
+
+# API docs: https://pangram.readthedocs.io/en/stable/api/rest.html
 class PangramApi
   attr_reader :result
 
@@ -8,7 +10,7 @@ class PangramApi
     @api_key = ENV['pangram_api_key']
   end
 
-  SLIDING_WINDOW_URL = 'https://text-extended.api.pangram.com'
+  SLIDING_WINDOW_URL = 'https://text.api.pangram.com/v3'
   def inference(text)
     conn = Faraday.new(
       url: SLIDING_WINDOW_URL,
@@ -19,8 +21,7 @@ class PangramApi
     response = conn.post('') do |req|
       req.body = {
         text:,
-        dashboard: true,
-        is_public: true
+        public_dashboard_link: true
       }.to_json
     end
 
