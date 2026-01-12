@@ -31,7 +31,9 @@ sv:
     number_field: Detta är ett sifferfält. Knapparna renderas av de flesta webbläsare
       kommer att öka och minska inmatningen.
   application:
+    back: Tillbaka
     cancel: Avbryt
+    next: Nästa
     cookie_consent: Denna sida använder kakor för att hålla dig inloggad, och sparar
       information relaterad till ditt Wikipediakonto.
     cookie_consent_acknowledge: Jag förstår
@@ -43,6 +45,7 @@ sv:
     explore: Utforska
     field_required: Detta fält är obligatoriskt
     field_invalid_characters: Detta fält har ogiltiga tecken
+    field_invalid_term: Terminen måste innehålla år (t.ex. "Våren 2025")
     field_invalid_date: Detta fält kräver ett datum i formatet ÅÅÅÅ-MM-DD
     field_invalid_date_time: Slutet måste vara efter starten. (Timmar går från 0 till
       23.)
@@ -55,6 +58,7 @@ sv:
     log_in: Logga in
     log_out: Logga ut
     my_dashboard: Min kontrollpanel
+    okay: Okej
     recent_activity: Senaste aktivitet
     report_problem: Rapportera ett problem
     request_account: Begär ett konto
@@ -64,6 +68,8 @@ sv:
       one: '%{count} Resultat för: ''%{search_terms}'''
       other: '%{count} Resultat för: ''%{search_terms}'''
     no_results: Inga resultat hittades för '%{query}'
+    show_current_revision: Visa nuvarande version
+    show_last_revision: Visa senast redigerade version
     sign_up_extended: Skapa ett konto med Wikipedia
     sign_up_wikipedia: Eller registrera dig på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -77,20 +83,31 @@ sv:
     opt_out: Nej
     opt_yes: ja
     opt_no: nej
+    print: Skriv ut
   article_statuses:
     not_yet_started: Komma igång
     in_progress: Att arbeta i sandlådan
+    ready_for_review: Expanderande utkast
     ready_for_mainspace: Flytta artikel till huvudnamnrymden
+    assignment_completed: Uppgift markerad som klar
     reading_the_article: Läser artikel
     providing_feedback: Ger återkoppling
     post_to_talk: Posta på diskussionssidan
     peer_review_completed: Bedömning avslutad
   dashboard:
     create_note: Klicka på "Skapa kurs" för att skapa din första kurs.
+    create_preparation_note: Se till att ha din akademiska kalender till hands innan
+      du börjar. Uppgiftsdesignverktyget använder mötesdatumen för din kurs – inklusive
+      eventuella skollov och helgdagar – för att passa din tidslinje in i det datumintervall
+      du väljer. Kom ihåg att du alltid kan redigera tidslinjen så att den passar
+      dina behov.
     explore_course_pages: Utforska kursussidorna
     explore_examples: Utforska exempel
+    join_note: När du har fått ett lösenord från din lärare klickar du på Hitta din
+      kurs för att hitta och gå med i den.
     no_courses_instructor: Det ser ut som om du inte har några kurser.
     no_courses_student: Det ser ut som om du ännu inte är med i en kurs.
+    opt_out: Begäran om att avanmäla sig från orientering
   home:
     explore: Utforska
     log_in: Logga in med Wikipedia
@@ -734,7 +751,7 @@ sv:
     user_training_status: Träningsstatus
     username: Användarnamn
     username_placeholder: Användarnamn
-    useremail_placeholder: E-post
+    useremail_placeholder: Ange e-postadress
     userpasscode_placeholder: Lösenkod
     role:
       description: Roll i kursen
