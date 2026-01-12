@@ -107,3 +107,5 @@ RequestHeader set X-Request-Start "%t"
   - $ `sudo systemctl reload apache2`
   - $ `sudo service apache2 restart`
 
+- Deploy again with Capistrano:
+  - $ `bundle exec cap peony deploy`
