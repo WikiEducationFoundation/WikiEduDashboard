@@ -248,30 +248,32 @@ describe WikiSlideParser do
     WIKISLIDE
   end
 
-  let(:buggy_wikitext) do
+  # https://meta.wikimedia.org/w/index.php?title=Training_modules/dashboard/slides/12312-after-the-event&action=edit&oldid=29790789
+  let(:unbound_languages_tag) do
     <<~WIKISLIDE
-      <languages />
-      == After the event! ==
+      <languages/>
+      <translate>
+      ==After the event!== <!--T:1-->
 
+      <!--T:4-->
       Success! You made it through your editing event! There are a lot of opportunities for overlooking things or making mistakes, but you learned from them, and all in all it was a successful event! Now for a bit more communications and tracking!
 
+      <!--T:2-->
       Beyond running the event, there are a few steps that you may want to use to ensure that everyone (you, your partners and the participants), get the most from the editathon:
-
-      * Make sure to integrate any user names into the Programs and Events dashboard, so to generate metrics on the event. Note: if participants did not sign up with their user names on a public sign up page by either signing into the Programs and Events Dashboard and registering themselves, or listing their usernames on a public event page, it's important to get consent to publicly associate the editor's User ID with the event in order to protect privacy.
-
+      * Make sure to integrate any user names into the Programs and Events dashboard, so to generate metrics on the event. ''Note: if participants did not sign up with their user names on a public sign up page by either signing into the Programs and Events Dashboard and registering themselves, or listing their usernames on a public event page, it's important to get consent to publicly associate the editor's User ID with the event in order to protect privacy.''
       * Report outcomes and metrics to your participants and partners who supported the event. It may be useful to evaluate these outcomes in light of the goals you set at the beginning of the program. Reporting outcomes can help remind folks of the impact of the event, and that you still are interested in supporting their participation in the Wikimedia Community.
-
       * Share impact and outcomes on easy-to-initate communication channels, like social media, on-wiki talk pages of participants in the event, and with Wikimedia affiliates in your context. Even though not everyone on those channels attended the event, finding out about its impact might encourage folks to continue participating in future events or to clean up pages created by the event.
+      * Use the "Thank" button to thank participants in the event for their useful edits. Additionally, consider giving [<tvar name="1">https://en.wikipedia.org/wiki/Wikipedia:Barnstars</tvar> barnstars] or other [<tvar name="2">https://en.wikipedia.org/wiki/WP:WikiLove</tvar> WikiLove] to those who helped train or otherwise put in unusual effort.
 
-      * Use the "Thank" button to thank participants in the event for their useful edits. Additionally, consider giving barnstars or other WikiLove to those who helped train or otherwise put in unusual effort.
-
-      Additionally, consider taking these more extensive steps:
-
-      * Uploading event photos to Wikimedia Commons in "Category:Wikimedia editathons" (or a subcategory).
-
-      * Writing a blog post, report for the Signpost, and/or the GLAM newsletter talking about who attended, what was accomplished, and how it generally went. When you share your experience with the broader Wikimedia movement, make sure that you write about what you learned, what you would do differently, and why this event mattered.
-
+      <!--T:3-->
+      Additionally, consider taking these more extensive steps:#{' '}
+      * Uploading event photos to [https://commons.wikimedia.org/wiki/Main_Page Wikimedia Commons] in "Category:Wikimedia editathons" (or a subcategory).
+      * Writing a blog post, report for the [https://en.wikipedia.org/wiki/Wikipedia:Wikipedia_Signpost Signpost], and/or [https://outreach.wikimedia.org/wiki/GLAM/Newsletter the GLAM newsletter] talking about who attended, what was accomplished, and how it generally went. When you share your experience with the broader Wikimedia movement, make sure that you write about what you learned, what you would do differently, and why this event mattered.#{' '}
       * Send a follow up email. Invite participants to relevant future events or tell them about wikiprojects that are relevant to their interests.
+      </translate>
+      <noinclude>#{' '}
+      [[Category:Editathon training slides]]
+      </noinclude>
     WIKISLIDE
   end
 
@@ -396,14 +398,14 @@ describe WikiSlideParser do
 
   describe 'Replace <language/> tags and prevent duplicate headings' do
     it 'extracts title correctly from wikitext with stray <languages /> tag (with space)' do
-      parser = described_class.new(buggy_wikitext.dup)
+      parser = described_class.new(unbound_languages_tag.dup)
       content = parser.content.strip
       expect(content).to start_with('Success! You made it through your editing event!')
       expect(content).not_to include('After the event!')
     end
 
     it 'extracts title correctly from wikitext with stray <languages/> tag (no space)' do
-      variant_wikitext = buggy_wikitext.gsub('<languages />', '<languages/>')
+      variant_wikitext = unbound_languages_tag.gsub('<languages />', '<languages/>')
       parser = described_class.new(variant_wikitext.dup)
       content = parser.content.strip
       expect(content).to start_with('Success! You made it through your editing event!')
@@ -411,7 +413,7 @@ describe WikiSlideParser do
     end
 
     it 'extracts title correctly from wikitext with stray <languages></languages> tag' do
-      variant_wikitext = buggy_wikitext.gsub('<languages />', '<languages></languages>')
+      variant_wikitext = unbound_languages_tag.gsub('<languages />', '<languages></languages>')
       parser = described_class.new(variant_wikitext.dup)
       content = parser.content.strip
       expect(content).to start_with('Success! You made it through your editing event!')
@@ -419,7 +421,7 @@ describe WikiSlideParser do
     end
 
     it 'extracts title correctly from wikitext with stray <LANGUAGES /> tag (case-insensitive)' do
-      variant_wikitext = buggy_wikitext.gsub('<languages />', '<LANGUAGES />')
+      variant_wikitext = unbound_languages_tag.gsub('<languages />', '<LANGUAGES />')
       parser = described_class.new(variant_wikitext.dup)
       content = parser.content.strip
       expect(content).to start_with('Success! You made it through your editing event!')
@@ -427,7 +429,7 @@ describe WikiSlideParser do
     end
 
     it 'extracts title correctly from wikitext with stray <languages /> and extra newlines' do
-      variant_wikitext = '<languages />' + buggy_wikitext.sub('<languages />', '')
+      variant_wikitext = '<languages />' + unbound_languages_tag.sub('<languages />', '')
       parser = described_class.new(variant_wikitext.dup)
       content = parser.content.strip
       expect(content).to start_with('Success! You made it through your editing event!')
@@ -435,7 +437,7 @@ describe WikiSlideParser do
     end
 
     it 'extracts title correctly from wikitext with standard tag' do
-      variant_wikitext = "<noinclude><languages /></noinclude>\n" + buggy_wikitext.sub(
+      variant_wikitext = "<noinclude><languages /></noinclude>\n" + unbound_languages_tag.sub(
         '<languages />', ''
       )
       parser = described_class.new(variant_wikitext.dup)
