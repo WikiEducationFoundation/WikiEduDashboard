@@ -107,24 +107,24 @@ class AiEditAlert < Alert
     details[:pangram_share_link]
   end
 
+  def pangram_headline
+    details[:headline_result]
+  end
+
   def pangram_prediction
     details[:pangram_prediction]
   end
 
-  def average_ai_likelihood
-    details[:average_ai_likelihood]
+  def fraction_ai_generated
+    details[:fraction_ai_content]
   end
 
-  def max_ai_likelihood
-    details[:max_ai_likelihood]
+  def fraction_ai_assisted
+    details[:fraction_mixed_content]
   end
 
   def predicted_ai_window_count
     details[:predicted_ai_window_count]
-  end
-
-  def predicted_llm
-    details[:predicted_llm]
   end
 
   def followup_template
