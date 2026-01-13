@@ -8,6 +8,7 @@ class WikiSlideParser
     @wikitext = wikitext&.dup || +''
     set_utf8_encoding
     remove_noinclude
+    remove_languages_tag
     remove_translation_markers
     remove_translate_tags
     remove_span_tags
@@ -59,6 +60,11 @@ class WikiSlideParser
 
   def remove_noinclude
     @wikitext.gsub!(%r{<noinclude>.*?</noinclude>\n*}m, '')
+  end
+
+  def remove_languages_tag
+    @wikitext.gsub!(%r{<languages\s*/>\n*}i, '')
+    @wikitext.gsub!(%r{<languages>\s*</languages>\n*}i, '')
   end
 
   def remove_translation_markers

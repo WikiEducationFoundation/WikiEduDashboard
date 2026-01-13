@@ -689,6 +689,7 @@ zh-TW:
     my_articles: 我的所有條目。
     my_articles_wikidata: 我的項目
     needs_update: 行事曆資料更新
+    update_scheduled_label: 更新行事
     new_week: 新增新的一週
     new_account_check_username: 檢查用戶名可用性
     new_account_email: 電子郵件地址
