@@ -38,7 +38,7 @@ class CelebrationBanner
   end
 
   def self.get
-    setting.value || default_settings
+    Features.celebration_banner
   end
 
   def self.update(params)

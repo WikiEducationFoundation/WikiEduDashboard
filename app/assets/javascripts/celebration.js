@@ -28,8 +28,8 @@ if (typeof window !== 'undefined') {
   window.clearCelebrationBannerFlags = clearAllBannerFlags;
 }
 
-// Initialize Christmas animations when DOM is ready
-function initChristmasAnimations() {
+// Initialize celebration animations when DOM is ready
+function initCelebrationAnimations() {
   // Small delay to ensure DOM is fully ready
   setTimeout(() => {
     const snowfallContainer = document.getElementById('snowfall-container');
@@ -131,7 +131,7 @@ function initCelebrationTheme() {
   markBannerAsShown(celebrationType);
 
   if (showSnowfall && snowfallContainer) {
-    initChristmasAnimations();
+    initCelebrationAnimations();
   }
 
   setTimeout(() => hideCelebrationBanner(autoHideSeconds), autoHideSeconds * 1000);
