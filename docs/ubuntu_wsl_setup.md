@@ -22,7 +22,7 @@ This docs simply explain how Windows users can set up their environment using WS
 4. Get the Dashboard code and install Ruby and other prerequisites.
      (a) fork WikiEduDashBoard repo here: <https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo> if you have not done so.
      (b) From Ubuntu terminal,  clone your forked repo by replacing the URL in this command: `git clone https://github.com/{your-github-username}/WikiEducationFoundation/WikiEduDashboard.git`
-     (d) Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.1.2`.
+     (d) Enter the Dashboard directory, then attempt to install the Dashboard's current Ruby version (updating the version number in this command if necessary): `rvm install 3.2.9`.
      (e) Update system packages: `sudo apt-get update`
      (f) Install MariaDB: `sudo apt-get install -y mariadb-server libmariadb-dev`
      (g) Start the database: `sudo /etc/init.d/mariadb start`

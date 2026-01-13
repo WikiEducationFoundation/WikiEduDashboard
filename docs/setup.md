@@ -26,7 +26,7 @@ There are some basic requirements for the script to work:
 - git (to clone the repository)
 - node version 14 or newer
 - python 3.5 or newer
-- ruby 3.1.2
+- ruby 3.2.9
 - apt (debian) or homebrew (MacOS)
 
 ## Instructions
@@ -96,11 +96,11 @@ If you know your way around Rails, here's the very short version. Some additiona
 - In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub username.
 - Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
 - On OSX/Debian, make sure you are in the "sudo" group.
-- Install Ruby 3.1.2 (RVM is documented here; rbenv also works fine.)
+- Install Ruby 3.2.9 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - Use **rvm:** `rvm install 3.1.2` followed by `rvm use 3.1.2`
-       - or use **rbenv:** `rbenv install 3.1.2` followed by `rbenv local 3.1.2`
+       - Use **rvm:** `rvm install 3.2.9` followed by `rvm use 3.2.9`
+       - or use **rbenv:** `rbenv install 3.2.9` followed by `rbenv local 3.2.9`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
