@@ -138,7 +138,7 @@ class Campaign < ApplicationRecord
   end
 
   def course_sums_cache_key
-    "#{slug}-course_sums_v2"
+    "#{slug}-course_sums"
   end
 
   def clear_course_sums_cache
