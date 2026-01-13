@@ -217,6 +217,7 @@ pa:
     mediaWiki: ਮੀਡੀਆਵਿਕੀ
     template: ਫਰਮਾ
     help: ਮਦਦ
+    page: ਵਰਕਾ
     translation: ਤਰਜਮਾ
     draft: ਖਰੜਾ
     query: ਪੁੱਛਗਿੱਛ
@@ -239,6 +240,8 @@ pa:
     empty_week_3: ਜਾਂ
     gradeable_value: ਮੁੱਲ
     save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
+  training:
+    page: ਵਰਕਾ
   update_username:
     label: ਨਵਾਂ ਵਰਤੋਂਕਾਰ-ਨਾਂ
   uploads:

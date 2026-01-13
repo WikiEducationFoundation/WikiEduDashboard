@@ -53,4 +53,9 @@ During the internship period, we try to establish a cadence of frequent communic
 
 Your project plan will guide you through the main goals of the project, but it's often just a rough guess and may evolve considerably. We'll do our best to provide a good learning experience, give you the chance to make a meaningful contribution, and ensure a supportive environment. You'll do your best to accomplish the project goals (and hopefully surpass them) and build your skills.
 
-After your internship is over, we hope you'll stick around and keep contributing as a volunteer (but of course, that's completely up to you). Some of our interns have: returned for a second internship; returned as mentors; and become involved in other aspects of the Wikimedia technical and research ecosystem. You'll get in touch if we can help with advice or letters of recommendation. We'll brag about your future accomplishments.
+After your internship is over, we hope you'll stick around and keep contributing as a volunteer (but of course, that's completely up to you). You'll get in touch if we can help with advice or letters of recommendation. We'll brag about your future accomplishments. Some of our interns have:
+* returned for a second internship
+* returned as mentors
+* become involved in other aspects of the Wikimedia technical and research ecosystem
+* gone on to graduate school to study wiki-related topics
+* worked as contractors on the Dashboard and other Wiki Education projects

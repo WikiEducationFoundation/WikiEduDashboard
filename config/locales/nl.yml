@@ -1038,7 +1038,7 @@ nl:
     up_to_date_with_training: up-to-date met de training
     username: Gebruikersnaam
     username_placeholder: Gebruikersnaam
-    useremail_placeholder: E-mail
+    useremail_placeholder: Voer e-mailadres in
     userpasscode_placeholder: Toegangscode
   wiki_edits:
     notify_overdue:
