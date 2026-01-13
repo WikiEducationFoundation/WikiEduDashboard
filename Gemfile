@@ -95,7 +95,6 @@ gem 'stackprof'
 
 group :development do
   gem 'better_errors'
-  gem 'binding_of_caller', platforms: [:mri_21]
   gem 'faker', require: false # Generates random data for example records
   gem 'guard-bundler'
   gem 'guard-rails'
