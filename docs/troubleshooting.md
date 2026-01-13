@@ -55,7 +55,7 @@ Your system has cmdtest installed, which provides a different program as yarn. U
 - **npm error**(`unmet dependencies`): Try using `aptitude`.
    	`sudo apt-get install aptitude`
    	`sudo aptitude install npm`
-- **rvm install 3.1.2' command error** (`cannot create directory...: Permission denied`): Try using `rvm fix-permissions system; rvm fix-permissions user`
+- **rvm install 3.2.9' command error** (`cannot create directory...: Permission denied`): Try using `rvm fix-permissions system; rvm fix-permissions user`
    	
 - **error: `usermod: group 'rvm' does not exist:`** Try `sudo groupadd rvm`
 

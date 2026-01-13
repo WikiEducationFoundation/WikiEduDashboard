@@ -37,12 +37,12 @@ echo '[+] Creating log file...'
 touch setup/log.txt
 print_success '[+] Log File created'
 
-printf '[*] Checking for Ruby-3.1.2...\n'
-if ruby -v | grep "ruby 3.1.2" >/dev/null; then
+printf '[*] Checking for Ruby-3.2.9...\n'
+if ruby -v | grep "ruby 3.2.9" >/dev/null; then
   printf "${CLEAR_LINE}Ruby already installed\n"
 else
-  print_error "Ruby-3.1.2 not found. Please install ruby-3.1.2 and run this script again."
-  echo "One way to install ruby-3.1.2 is through RVM, Visit: https://rvm.io/"
+  print_error "Ruby-3.2.9 not found. Please install ruby-3.2.9 and run this script again."
+  echo "One way to install ruby-3.2.9 is through RVM, Visit: https://rvm.io/"
   exit 0;
 fi
 

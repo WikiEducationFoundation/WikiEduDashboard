@@ -24,8 +24,8 @@ These are notes from setting up a fresh web server on the newest Debian, July 2,
   - $ `\curl -sSL https://get.rvm.io | bash -s stable`
   - $ `source /home/ragesoss/.rvm/scripts/rvm`
   - logout and back in again so that these settings take effect
-  - $ `rvm install 3.1.2`
-  - $ `rvm --default use 3.1.2`
+  - $ `rvm install 3.2.9`
+  - $ `rvm --default use 3.2.9`
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`
