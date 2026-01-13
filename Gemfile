@@ -109,8 +109,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
-  gem 'openssl', '~> 3'
-  gem 'x25519' # workaround for openssl bug: https://github.com/ruby/openssl/issues/489
   gem 'rails-erd' # Generates`erd.pdf`
   gem 'annotate' # Generates automatic schema notations on model files
   gem 'memory_profiler' # Unsafe for production use

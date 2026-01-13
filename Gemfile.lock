@@ -706,7 +706,6 @@ DEPENDENCIES
   nokogiri
   oj
   omniauth-mediawiki!
-  openssl (~> 3)
   pandoc-ruby
   paper_trail
   premailer-rails
@@ -752,7 +751,6 @@ DEPENDENCIES
   webmock
   wikidata-diff-analyzer!
   will_paginate
-  x25519
 
 RUBY VERSION
    ruby 3.1.2p20
