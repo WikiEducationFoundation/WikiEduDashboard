@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq-status/web'
+
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
