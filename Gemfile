@@ -5,8 +5,6 @@ ruby '3.1.2'
 gem 'rails', '7.0.10'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
-gem 'bootsnap', require: false # Makes rails boot faster via caching
-gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
 
@@ -98,6 +96,7 @@ gem 'stackprof'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'faker', require: false # Generates random data for example records
   gem 'guard-bundler'
   gem 'guard-rails'
   gem 'guard-rspec'

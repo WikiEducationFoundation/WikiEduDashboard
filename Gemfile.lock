@@ -133,8 +133,6 @@ GEM
     bigdecimal (4.0.1)
     binding_of_caller (1.0.0)
       debug_inspector (>= 0.0.1)
-    bootsnap (1.13.0)
-      msgpack (~> 1.2)
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
     browser (5.3.1)
@@ -324,7 +322,6 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.9)
     minitest (5.25.4)
-    msgpack (1.5.4)
     multipart-post (2.2.3)
     mutex_m (0.3.0)
     mysql2 (0.5.4)
@@ -608,7 +605,6 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
-  bootsnap
   breadcrumbs_on_rails
   browser
   byebug
