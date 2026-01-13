@@ -1,6 +1,6 @@
 [Back to README](../README.md)
 
-There is ongoing work to integrate the Dashboard with the widely-used **[Canvas LMS](https://community.instructure.com/en/kb/articles/662716-what-is-canvas)**. This integration is possible using the **[IMS LTI Standard](https://www.1edtech.org/standards/lti)**.
+There is ongoing work to integrate the Dashboard with the widely-used **[Canvas LMS](https://community.instructure.com/en/kb/articles/662716-what-is-canvas)**. This integration is made possible using the **[IMS LTI Standard](https://www.1edtech.org/standards/lti)**.
 
 The dashboard has integrated the third-party **[LTIAAS API](https://docs.ltiaas.com/guides/introduction)** (see [LTIAAS Integration PR](https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/6201)) and is configured on the LTIAAS portal allowing the codebase act as a LTI 1.3 compliant learning tool.
 
@@ -9,10 +9,11 @@ To use the tool, a Canvas admin installs the Dashboard's LTIAAS tool into their 
 ## Basic LTI Launch
 Once a canvas dev environment is running locally and the LTIAAS tool is installed in it, the integration is successful if a basic LTI launch can be completed:
 
-1. User (student/admin) logs into Canvas LMS
+1. User (student/admin/other role) logs into Canvas LMS
 2. User clicks on the tool link (displayed as a course assignment or as configured in Canvas)
-3. LTIAAS begins OAuth with Canvas; uses LTI protocol to confirm user identity
-4. If OAuth successful, LTIAAS redirects user to Dashboard's lti route; currently just the home page
+3. Canvas initiates login with LTIAAS using an OIDC flow; uses LTI protocol to confirm user identity (see: [LTI Launch Overview](https://developerdocs.instructure.com/services/canvas/external-tools/lti/file.lti_launch_overview))
+4. If successful, LTIAAS redirects user to Dashboard's lti route; currently just the home page
+
 
 ## Table of Contents
 - [Basic LTI Launch](#basic-lti-launch)
@@ -33,7 +34,7 @@ Once a canvas dev environment is running locally and the LTIAAS tool is installe
    - [Install and configure Rich Content Editor API](#7-installing-and-configuring-rich-content-editor-api)
    - [Start Docker/Canvas on instance startup (optional)](#8-starting-dockercanvas-on-instance-startup-optional)
    - [Configure Apache](#9-configuring-apache)
-   - [Tunnel local Canvas](#tunneling-your-local-canvas)
+   - [Tunnel local Canvas](#10-tunneling-your-local-canvas)
 - [Integrate the Dashboard into Canvas](#integrate-the-dashboard-into-canvas)
    - [Install the Dashboard's LTIAAS tool in your canvas environment](#install-the-dashboards-ltiaas-tool-in-your-canvas-environment)
    - [Test Launch](#test-launch)
@@ -99,6 +100,8 @@ For steps with nothing extra stated, simply follow the instructions in the paren
 ### 6. Configure Canvas
 ### 7. Install and configure Rich Content Editor API
 - You can change the port from `3000` to  `3100` for example if another process / service / app is already using port `3000`
+
+- Further configuration such as cloning and installing RCE standalone might be needed if the rich content editor is not fully functional in Canvas after following the stated steps. See the [official docs](https://github.com/instructure/canvas-rce-api/blob/master/README.md) for guidance.
 ### 8. Start Docker/Canvas on instance startup (optional)
 ### 9. Configure Apache 
 At this point, skip the nginx section and follow the below instructions to configure Apache:
@@ -264,17 +267,21 @@ sudo systemctl restart apache2
 
 At this stage your Canvas environment should be accessible via http://canvas.docker and visiting http://canvas.docker/rce/ should display a blank page with the text: `Hello, from RCE Service`.
 
+**Note:** RCE is not fully configured unless you can successfully use its editing features and upload media. Further configuration such as cloning and installing RCE standalone might be needed if the rich content editor is not fully functional in Canvas after following the stated steps. See the [official docs](https://github.com/instructure/canvas-rce-api/blob/master/README.md) for guidance.
+
 
 ### 10. Tunneling your local Canvas
 `canvas.docker` only exists on your machine and isn’t resolvable from the internet meaning a LTI launch cannot be completed as the first step is for Canvas to initiate a login request as part of the OAuth flow.
 
-One solution to this is connecting localhost to the internet via tunneling. There are a bunch of options like ngrok, cloudfared, localtunnel, playit(.)gg, zrok(.)io and so on. The main requirement is a service that grants **a static url that will not change with every run of the service**. 
+One solution to this is connecting localhost to the internet via tunneling. There are a bunch of options like ngrok, cloudfared, localtunnel, playit(.)gg, zrok(.)io and so on. The main requirement is a service that grants **a static public url that will not change with every run of the service**. 
 
-Note that this differs from offering custom subdomains as we do not want to create one but simply expose localhost to the internet
+Note that this differs from services offering custom subdomains as we do not want to create one but rather use the static public url provided to expose localhost to the internet.
+
 #### a. Installing and setting up tunneling service: 
-I settled on using Zrok as it is open-source. To set it up, follow the steps in this [guide](https://docs.zrok.io/docs/getting-started/), taking note to create a [reserved public share](https://docs.zrok.io/docs/concepts/sharing-reserved/) specifically (to get a static url).
+I settled on using Zrok as it is open-source and also available as SaaS or self hosted. To set it up, follow the steps in this [guide](https://docs.zrok.io/docs/getting-started/), taking note to create a [reserved public share](https://docs.zrok.io/docs/concepts/sharing-reserved/) specifically (to get a static url).
 
 Whatever service you choose, take note of the provided url as it will be used in the next steps.
+
 #### b. Add public url as a ServerAlias in the Apache virtual host file:
 In your `/etc/apache2/sites-available/` directory, open the `canvas.conf` file and edit it:
 ```
@@ -284,6 +291,7 @@ In your `/etc/apache2/sites-available/` directory, open the `canvas.conf` file a
    ...
 ```
 Save your changes and restart apache: `sudo systemctl restart apache2`
+
 #### c. Add additional host to Canvas:
 Go to `docker-compose.override.yml` and add the `ADDITIONAL_ALLOWED_HOSTS` variable and then the url:
 
@@ -305,7 +313,6 @@ Save your changes and restart the docker containers: `docker compose down` and `
 At this stage, you should be able to access the canvas environment via the public url. 
 
 ## Integrate the Dashboard into Canvas
-
 
 ### Install the Dashboard's LTIAAS tool in your canvas environment
 The first step is installing the Dashboard's LTIAAS tool into the canvas environment / instance and then registering your canvas instance in LTIAAS.
@@ -346,7 +353,6 @@ development:
   domain: "your-public-url"
 ```
 This is needed because the domain set here is what Canvas claims its identity is and uses for OAuth, the LTI flow, JWKS endpoints and absolute URL generation. `canvas.docker` fails here because it is http only and OAuth and LTI 1.3 require https.
-
 
 
 ## Other Guides, References and Sources
