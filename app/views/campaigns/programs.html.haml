@@ -1,5 +1,9 @@
 - content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
-
+- content_for :head do
+  %link{rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css'}
+  %script{src: 'https://cdn.jsdelivr.net/npm/flatpickr'}
+  %link{rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.css'}
+  %script{src:'https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js'}
 #react_root{data: {slug: @campaign.slug}}
 
 .container
@@ -16,7 +20,16 @@
           .advanced-search#advanced_search_fields{style: 'display:none;'}
             .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
               %label{for: 'school_select'}= t('courses.school')
-              = select_tag :school, options_for_select(@presenter.school_options, params[:school]), include_blank: true, id: 'school_select', style: 'grid-column: 2 / span 3;'
+              .school-select-wrapper{style: 'grid-column: 2 / span 3;'}
+                = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select'
+                :javascript
+                  if (typeof TomSelect !== 'undefined') {
+                    new TomSelect('#school_select', {
+                      plugins: ['remove_button'],
+                      placeholder: 'Select schools...',
+                      allowEmptyOption: true
+                    });
+                  }
             .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
               %label{for: 'creation_start'}= t("courses.creation_date") + ' ' + t('form_search.between')
               = date_field_tag :creation_start, params[:creation_start], id: 'creation_start', style: 'width: 60%'
