@@ -30,14 +30,29 @@
                   });
             .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
               %label{for: 'creation_start'}= t("courses.creation_date") + ' ' + t('form_search.between')
-              = date_field_tag :creation_start, params[:creation_start], id: 'creation_start', style: 'width: 60%'
+              = text_field_tag :creation_start, params[:creation_start], id: 'creation_start', style: 'width: 60%'
               %label{for: 'creation_end'}= t('form_search.and')
-              = date_field_tag :creation_end, params[:creation_end], id: 'creation_end', style: 'width: 60%'
+              = text_field_tag :creation_end, params[:creation_end], id: 'creation_end', style: 'width: 60%'
             .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
               %label{for: 'start_date_start'}= t("courses.start_date") + ' ' + t('form_search.between')
-              = date_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start', style: 'width: 60%'
+              = text_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start', style: 'width: 60%'
               %label{for: 'start_date_end'}= t('form_search.and')
-              = date_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end', style: 'width: 60%'
+              = text_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end', style: 'width: 60%'
+            :javascript
+              document.addEventListener('DOMContentLoaded', () => {
+                const isLatin = ['es', 'pt'].some(l => locale.startsWith(l));
+                const dateFormat = isLatin ? 'd/m/Y' : 'm/d/Y';
+                const dateFields = ['#creation_start', '#creation_end', '#start_date_start', '#start_date_end'];
+
+                dateFields.forEach(selector => {
+                  flatpickr(selector, {
+                    altInput: true,
+                    altFormat: dateFormat,
+                    dateFormat: 'Y-m-d',
+                    allowInput: true
+                  });
+                });
+              });
             .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
               %label{for: 'revisions_min'}= t("metrics.revisions") + ' ' + t('form_search.between')
               = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, style: 'width: 60%'
