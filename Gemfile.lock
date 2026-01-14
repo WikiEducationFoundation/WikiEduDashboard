@@ -366,7 +366,6 @@ GEM
     omniauth-oauth (1.2.0)
       oauth
       omniauth (>= 1.0, < 3)
-    openssl (3.0.0)
     orm_adapter (0.5.0)
     pandoc-ruby (2.1.6)
     paper_trail (16.0.0)
@@ -596,7 +595,6 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (3.3.1)
-    x25519 (1.0.10)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.1)
@@ -650,7 +648,6 @@ DEPENDENCIES
   nokogiri
   oj
   omniauth-mediawiki!
-  openssl (~> 3)
   pandoc-ruby
   paper_trail
   premailer-rails
@@ -693,10 +690,9 @@ DEPENDENCIES
   webmock
   wikidata-diff-analyzer!
   will_paginate
-  x25519
 
 RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.22
+   2.4.22

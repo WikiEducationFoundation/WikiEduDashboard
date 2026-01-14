@@ -6,10 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-# Set our default user agent for all the gems and places in our code that
-# use Faraday for requests
-Faraday.default_connection_options = { headers: { user_agent: ENV['user_agent'] } }
-
 module WikiEduDashboard
   class Application < Rails::Application
     config.autoload_paths += Dir[Rails.root.join("app", "models", "{*/}")]
