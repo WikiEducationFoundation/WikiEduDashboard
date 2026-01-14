@@ -28,30 +28,51 @@
                       });
                     }
                   });
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'creation_start'}= t("courses.creation_date") + ' ' + t('form_search.between')
-              = text_field_tag :creation_start, params[:creation_start], id: 'creation_start', style: 'width: 60%'
-              %label{for: 'creation_end'}= t('form_search.and')
-              = text_field_tag :creation_end, params[:creation_end], id: 'creation_end', style: 'width: 60%'
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'start_date_start'}= t("courses.start_date") + ' ' + t('form_search.between')
-              = text_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start', style: 'width: 60%'
-              %label{for: 'start_date_end'}= t('form_search.and')
-              = text_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end', style: 'width: 60%'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'creation_date_range'}= t("courses.creation_date")
+              = text_field_tag :creation_date_range, nil, id: 'creation_date_range', style: 'width: 100%', placeholder: t('courses.creation_date')
+              = hidden_field_tag :creation_start, params[:creation_start], id: 'creation_start'
+              = hidden_field_tag :creation_end, params[:creation_end], id: 'creation_end'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'start_date_range'}= t("courses.start_date")
+              = text_field_tag :start_date_range, nil, id: 'start_date_range', style: 'width: 100%', placeholder: t('courses.start_date')
+              = hidden_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start'
+              = hidden_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end'
             :javascript
               document.addEventListener('DOMContentLoaded', () => {
                 const isLatin = ['es', 'pt'].some(l => locale.startsWith(l));
+                const currentLocale = locale.split('-')[0];
                 const dateFormat = isLatin ? 'd/m/Y' : 'm/d/Y';
-                const dateFields = ['#creation_start', '#creation_end', '#start_date_start', '#start_date_end'];
 
-                dateFields.forEach(selector => {
-                  flatpickr(selector, {
+                const setupRangePicker = (rangeSelector, startSelector, endSelector) => {
+                  const startInput = document.querySelector(startSelector);
+                  const endInput = document.querySelector(endSelector);
+                  const startVal = startInput.value;
+                  const endVal = endInput.value;
+                  const defaultDate = (startVal && endVal) ? [startVal, endVal] : null;
+
+                  flatpickr(rangeSelector, {
+                    mode: 'range',
                     altInput: true,
                     altFormat: dateFormat,
                     dateFormat: 'Y-m-d',
-                    allowInput: true
+                    defaultDate: defaultDate,
+                    locale: isLatin ? currentLocale : 'default',
+                    allowInput: true,
+                    onClose: function(selectedDates, dateStr, instance) {
+                      if (selectedDates.length === 2) {
+                        startInput.value = instance.formatDate(selectedDates[0], 'Y-m-d');
+                        endInput.value = instance.formatDate(selectedDates[1], 'Y-m-d');
+                      } else {
+                        startInput.value = '';
+                        endInput.value = '';
+                      }
+                    }
                   });
-                });
+                };
+
+                setupRangePicker('#creation_date_range', '#creation_start', '#creation_end');
+                setupRangePicker('#start_date_range', '#start_date_start', '#start_date_end');
               });
             .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
               %label{for: 'revisions_min'}= t("metrics.revisions") + ' ' + t('form_search.between')
