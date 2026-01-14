@@ -74,31 +74,36 @@
                 setupRangePicker('#creation_date_range', '#creation_start', '#creation_end');
                 setupRangePicker('#start_date_range', '#start_date_start', '#start_date_end');
               });
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'revisions_min'}= t("metrics.revisions") + ' ' + t('form_search.between')
-              = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, style: 'width: 60%'
-              %label{for: 'revisions_max'}= t('form_search.and')
-              = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, style: 'width: 60%'
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'word_count_min'}= t("metrics.word_count") + ' ' + t('form_search.between')
-              = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, style: 'width: 60%'
-              %label{for: 'word_count_max'}= t('form_search.and')
-              = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, style: 'width: 60%'
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'references_min'}= t("metrics.references_count") + ' ' + t('form_search.between')
-              = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, style: 'width: 60%'
-              %label{for: 'references_max'}= t('form_search.and')
-              = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, style: 'width: 60%'
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'views_min'}= t("metrics.view") + ' ' + t('form_search.between')
-              = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, style: 'width: 60%'
-              %label{for: 'views_max'}= t('form_search.and')
-              = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, style: 'width: 60%'
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 60px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'users_min'}= t("users.editors") + ' ' + t('form_search.between')
-              = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, style: 'width: 60%'
-              %label{for: 'users_max'}= t('form_search.and')
-              = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, style: 'width: 60%'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'revisions_min'}= t("metrics.revisions")
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, style: 'width: 100%', placeholder: 'Min'
+                %span -
+                = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, style: 'width: 100%', placeholder: 'Max'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'word_count_min'}= t("metrics.word_count")
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, style: 'width: 100%', placeholder: 'Min'
+                %span -
+                = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, style: 'width: 100%', placeholder: 'Max'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'references_min'}= t("metrics.references_count")
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, style: 'width: 100%', placeholder: 'Min'
+                %span -
+                = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, style: 'width: 100%', placeholder: 'Max'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'views_min'}= t("metrics.view")
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, style: 'width: 100%', placeholder: 'Min'
+                %span -
+                = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, style: 'width: 100%', placeholder: 'Max'
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'users_min'}= t("users.editors")
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, style: 'width: 100%', placeholder: 'Min'
+                %span -
+                = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, style: 'width: 100%', placeholder: 'Max'
         .form-actions
           %button.button{type: 'submit'}= t('campaign.search')
           %button.button.button--clear{type: 'button', onclick: 'document.getElementById("title_query").value=""; document.getElementById("creation_start").value=""; document.getElementById("creation_end").value=""; document.getElementById("start_date_start").value=""; document.getElementById("start_date_end").value=""; document.getElementById("school_select").value=""; document.getElementById("revisions_min").value=""; document.getElementById("revisions_max").value=""; document.getElementById("word_count_min").value=""; document.getElementById("word_count_max").value=""; document.getElementById("references_min").value=""; document.getElementById("references_max").value=""; document.getElementById("views_min").value=""; document.getElementById("views_max").value=""; document.getElementById("users_min").value=""; document.getElementById("users_max").value=""; this.form.action = this.form.action.replace(/#.*$/, "") + "#courses_table"; this.form.submit();'}= t('form_search.clear')
