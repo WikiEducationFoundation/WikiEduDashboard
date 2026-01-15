@@ -277,6 +277,51 @@ describe WikiSlideParser do
     WIKISLIDE
   end
 
+  # https://outreachdashboard.wmflabs.org/training/wikidata/introduction-to-wikidata/and-by-machines
+  let(:onwiki_page_with_unmatched_curly_braces) do
+    <<~WIKISLIDE
+      <noinclude><languages/></noinclude>
+      <translate>
+      == ...and machines == <!--T:1-->
+
+      <!--T:2-->
+      Every item is known by its '''Q-number''' as a unique identifier, and labeled in different languages and variations. Wikidata records 220 variations of the former Libyan leader's name, but because they're all tied to a single Q number, there's no confusion.
+
+      <!--T:3-->
+      Machine-readability also allows bots to edit Wikidata.
+      </translate>
+      {{Training module image
+        | image =  File:Muammar_al-Gaddafi_Wikidata_items.png
+        | source = https://upload.wikimedia.org/wikipedia/commons/e/ee/Muammar_al-Gaddafi_Wikidata_items.png
+        | layout = alt-layout-100
+        | caption = <translate><!--T:4--> Because of its data structure, Wikidata is machine readable too.</translate>
+      }}
+    WIKISLIDE
+  end
+
+  # https://outreachdashboard.wmflabs.org/training/wikidata/introduction-to-wikidata/wikidata-values-quiz
+  let(:onwiki_questions_with_unmatched_curly_braces) do
+    <<~WIKISLIDE
+      <noinclude><languages/></noinclude>
+      <translate>
+      == Values == <!--T:1-->
+      </translate>
+      {{Training module quiz
+        | question = <translate><!--T:2--> The Wikidata entry for a city includes a statement that gives the population in 2000. You have an updated estimate from 2017. You should:</translate>
+        | correct_answer_id = 4
+        | answer_1 = <translate><!--T:3--> Change the value and the reference.</translate>
+        | explanation_1 = <translate><!--T:4--> INCORRECT!  This may seem like the correct thing to do, but adding a qualifier is a better way to express this information.</translate>
+        | answer_2 = <translate><!--T:5--> Change the value and leave everything else the same.</translate>
+        | explanation_2 = <translate><!--T:6--> INCORRECT! You want to preserve the data that came before, so removing it is not a good option.</translate>
+        | answer_3 = <translate><!--T:7--> Leave a note on the Discussion page asking someone to update the entry.</translate>
+        | explanation_3 = <translate><!--T:8--> INCORRECT! Although seeking advice and consensus on Discussion pages is always a good idea, you can make this change yourself.</translate>
+        | answer_4 = <translate><!--T:9--> Add a new value that gives the 2017 population, add a qualifier to indicate the point in time, and change the ranks to reflect that this is the most current value.</translate>
+        | explanation_4 = <translate><!--T:10--> CORRECT! Adding new values with a qualifier is a great way to update populations. Qualifiers and ranks allow you to distinguish multiple values on the same property, in this case, population</translate>
+
+      }}
+    WIKISLIDE
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = described_class.new(source_wikitext.dup).title
@@ -444,6 +489,26 @@ describe WikiSlideParser do
       content = parser.content.strip
       expect(content).to start_with('Success! You made it through your editing event!')
       expect(content).not_to include('After the event!')
+    end
+  end
+
+  describe 'handling template boundaries' do
+    it 'does not include trailing template braces in media captions' do
+      parser = described_class.new(onwiki_page_with_unmatched_curly_braces)
+
+      expect(parser.content).to include('Because of its data structure, ' \
+                                        'Wikidata is machine readable too.')
+      expect(parser.content).not_to include('}}')
+    end
+
+    it 'strips trailing braces from the final parameter of a quiz template' do
+      parser = described_class.new(onwiki_questions_with_unmatched_curly_braces)
+
+      # Testing the quiz object because it is extracted from the main content
+      last_explanation = parser.quiz[:answers].last[:explanation]
+
+      expect(last_explanation).to include('CORRECT! Adding new values with a qualifier')
+      expect(last_explanation).not_to include('}}')
     end
   end
 end
