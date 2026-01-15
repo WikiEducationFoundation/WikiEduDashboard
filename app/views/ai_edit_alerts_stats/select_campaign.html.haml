@@ -7,4 +7,4 @@
     = select_tag :campaign_slug,
       options_for_select([['All campaigns', 'all_campaigns']] + @campaigns.map { |c| [c.slug, c.slug] })
     %br/
-    = submit_tag "Continue"
+    .button= submit_tag "Continue"
