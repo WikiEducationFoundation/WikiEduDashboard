@@ -304,6 +304,7 @@ it:
     campaign_deleted: La Campagna "%{title}" è stata cancellata
     campaign_not_updated: Non è stato possibile aggiornare la campagna
     campaign_updated: Campagna aggiornata
+    refresh_campaign_stats: Statistiche della campagna aggiornate correttamente
     created_at: Data
     confirm_campaign_deletion: Sei sicura/o di voler cancellare la campagna chiamata
       %{title}? Se è così, scrivi il titolo della campagna per procedere.
@@ -605,6 +606,7 @@ it:
     milestones_none: Questo corso attualmente non ha pietre miliari.
     my_articles: Le mie voci
     needs_update: Aggiornamento dati programmato
+    update_scheduled_label: Aggiornamento programmato
     new_week: Aggiungi nuova settimana
     new_account_email: Indirizzo email
     new_account_email_placeholder: nome@example.org

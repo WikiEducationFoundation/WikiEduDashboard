@@ -443,6 +443,7 @@ en:
     campaign_deleted: Campaign "%{title}" has been deleted
     campaign_not_updated: Campaign could not be updated
     campaign_updated: Campaign updated
+    refresh_campaign_stats: Campaign stats refreshed successfully
     created_at: Date
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
@@ -803,6 +804,7 @@ en:
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update
+    update_scheduled_label: Update Scheduled
     new_week: Add New Week
     new_account_check_username: Check username availability
     new_account_email: Email address
