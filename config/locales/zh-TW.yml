@@ -385,6 +385,7 @@ zh-TW:
     campaign_deleted: 競賽「%{title}」已被刪除
     campaign_not_updated: 不能更新競賽
     campaign_updated: 競賽已更新
+    refresh_campaign_stats: 競賽統計內容重整成功
     created_at: 日期
     confirm_campaign_deletion: 確定要刪除比賽「%{title}」？是就輸入比賽標題繼續。
     confirm_campaign_deletion_failed: 「%{title}」不是此競賽的標題。競賽未被刪除
