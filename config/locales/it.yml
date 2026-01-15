@@ -304,6 +304,7 @@ it:
     campaign_deleted: La Campagna "%{title}" è stata cancellata
     campaign_not_updated: Non è stato possibile aggiornare la campagna
     campaign_updated: Campagna aggiornata
+    refresh_campaign_stats: Statistiche della campagna aggiornate correttamente
     created_at: Data
     confirm_campaign_deletion: Sei sicura/o di voler cancellare la campagna chiamata
       %{title}? Se è così, scrivi il titolo della campagna per procedere.
