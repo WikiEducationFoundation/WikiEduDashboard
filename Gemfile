@@ -52,7 +52,8 @@ gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', br
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
-gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master' # Library for querying mediawiki API
+gem 'mediawiki_api' # Library for querying mediawiki API'
+# gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master'
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 gem 'rss' # Standard RSS library
@@ -119,10 +120,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'byebug'
   gem 'rspec-rails'
-  gem 'rubocop',  require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
-  gem 'rubocop-performance', require: false
+  gem 'rubocop', '~> 1.60', require: false
+  gem 'rubocop-rails', '~> 2.25', require: false
+  gem 'rubocop-rspec', '~> 3.8', require: false
+  gem 'rubocop-performance', '~> 1.21', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'rack-proxy', '~> 0.7.6'
 end
