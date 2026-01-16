@@ -11,12 +11,12 @@ class RequestedAccountsCampaignsController < ApplicationController
   # modal instead of redirecting to the mediawiki account creation flow.
   def enable_account_requests
     @campaign.update(register_accounts: true)
-    redirect_back(fallback_location: root_path)
+    redirect_back_or_to(root_path)
   end
 
   def disable_account_requests
     @campaign.update(register_accounts: false)
-    redirect_back(fallback_location: root_path)
+    redirect_back_or_to(root_path)
   end
 
   # List of requested accounts for a course.
