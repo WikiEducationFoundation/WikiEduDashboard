@@ -278,6 +278,7 @@ describe WikiSlideParser do
   end
 
   # https://outreachdashboard.wmflabs.org/training/wikidata/introduction-to-wikidata/and-by-machines
+  # https://meta.wikimedia.org/w/index.php?title=Training_modules/dashboard/slides/12406-and-by-machines&oldid=29578464
   let(:onwiki_page_with_unmatched_curly_braces) do
     <<~WIKISLIDE
       <noinclude><languages/></noinclude>
@@ -300,6 +301,7 @@ describe WikiSlideParser do
   end
 
   # https://outreachdashboard.wmflabs.org/training/wikidata/introduction-to-wikidata/wikidata-values-quiz
+  # https://meta.wikimedia.org/w/index.php?title=Training_modules/dashboard/slides/12430-wikidata-values-quiz&oldid=29346717
   let(:onwiki_questions_with_unmatched_curly_braces) do
     <<~WIKISLIDE
       <noinclude><languages/></noinclude>
