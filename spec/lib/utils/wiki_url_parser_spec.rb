@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/utils/wiki_url_parser"
 describe WikiUrlParser do
   let(:revision_url) { 'https://en.wikipedia.org/w/index.php?title=List_of_the_busiest_airports_in_Malaysia&oldid=1276659876' }
   let(:prev_url) { 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512' }
-  let(:diff_range_url) { 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=1178859026&oldid=711811679'}
+  let(:diff_range_url) { 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=1178859026&oldid=711811679' }
 
   it 'handles a view url for a single revision' do
     parser = described_class.new(revision_url)
