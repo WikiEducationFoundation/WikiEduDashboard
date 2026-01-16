@@ -60,7 +60,7 @@ class RequestedAccountsController < ApplicationController
     requested_account = RequestedAccount.find_by(id: params[:id])
     raise_unauthorized_exception unless @course.id == requested_account.course_id
     requested_account.delete
-    redirect_back fallback_location: '/'
+    redirect_back_or_to('/')
   end
 
   # Try to create each of the requested accounts for a course, and show the
