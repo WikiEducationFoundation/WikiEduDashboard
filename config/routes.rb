@@ -480,6 +480,10 @@ Rails.application.routes.draw do
   get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
   resources :ai_edit_alerts_stats, only: [:index]
 
+  # AI tools for admins
+  get 'ai_tools' => 'ai_tools#show'
+  post 'ai_tools/compare_pangrams' => 'ai_tools#compare_pangrams'
+
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
     post 'term_recap/send' => 'term_recap#send_recap_emails'

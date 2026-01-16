@@ -65,7 +65,7 @@ describe CheckRevisionWithPangram do
 
     it 'fetches the page HTML and checks based on that' do
       expect(AiEditAlert.count).to eq(0)
-      expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision)
+      expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision_id)
                                                   .and_call_original
       expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_revision_html)
                                                   .and_call_original
@@ -97,7 +97,7 @@ describe CheckRevisionWithPangram do
   context 'when there is a parent revision' do
     it 'fetches the diff table and checks based on that' do
       expect(AiEditAlert.count).to eq(0)
-      expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision)
+      expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision_id)
                                                   .and_call_original
       expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_diff_table)
                                                   .and_call_original
@@ -154,7 +154,7 @@ describe CheckRevisionWithPangram do
 
     it 'logs a message to Sentry and exits gracefully' do
       expect(Sentry).to receive(:capture_message)
-        .with("CheckRevisionWithPangram: revision #{missing_revision_id} missing or deleted")
+        .with("GetRevisionPlaintext: revision #{missing_revision_id} missing or deleted")
       expect_any_instance_of(GetRevisionPlaintext).not_to receive(:fetch_diff_table)
       expect_any_instance_of(GetRevisionPlaintext).not_to receive(:fetch_revision_html)
 
@@ -197,7 +197,7 @@ describe CheckRevisionWithPangram do
 
     it 'checks the revision again if nil avg_ai_likelihood' do
       revision_ai_score.update(avg_ai_likelihood: nil)
-      expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision)
+      expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_parent_revision_id)
                                                   .and_call_original
       expect_any_instance_of(GetRevisionPlaintext).to receive(:fetch_diff_table).and_call_original
       expect_any_instance_of(GetRevisionPlaintext).to receive(:generate_wikitext_from_diff_table)

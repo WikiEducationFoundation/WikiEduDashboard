@@ -50,7 +50,7 @@ class CheckRevisionWithPangram
   end
 
   def fetch_pangram_inference
-    @pangram_result = PangramApi.new.inference @plain_text
+    @pangram_result = PangramApi.v2.inference @plain_text
   end
 
   def ai_likely?
