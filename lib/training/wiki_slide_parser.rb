@@ -230,9 +230,10 @@ class WikiSlideParser
     # - #{parameter}:  Inserts the parameter name to match.
     # - \s*=\s*:       Matches the equals sign with optional whitespace around it.
     # - (?<value>.*?): Captures the value after the equals sign into a named group 'value'.
-    # - (?=\||\Z):     Positive lookahead to ensure the match ends at the next pipe
-    #                   or the end of the string.
-    match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*?)(?=\||\Z)/m)
+    # - (?=\||\}\}|\Z): Positive lookahead to ensure the match ends at the next pipe
+    #                   or the end of the string or the end of the template (}}).
+
+    match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*?)\s*(?=\||\}\}|\Z)/m)
 
     # Check if match is present and value is not nil
     value = match && match['value']
