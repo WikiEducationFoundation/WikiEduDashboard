@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const CampaignRow = ({ campaign }) => {
   const handleStatsDownload = (e) => {
@@ -10,7 +11,7 @@ const CampaignRow = ({ campaign }) => {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('text/plain')) {
         response.text().then((text) => {
-          alert(text);
+          toast(text, { position: 'bottom-center', type: 'info', autoClose: 3000, icon: false });
         });
       } else {
         // Otherwise, proceed with the download
