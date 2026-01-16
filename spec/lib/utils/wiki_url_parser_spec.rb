@@ -14,7 +14,7 @@ describe WikiUrlParser do
     expect(wiki.language).to eq 'en'
     expect(wiki.project).to eq 'wikipedia'
     expect(parser.title).to eq 'List_of_the_busiest_airports_in_Malaysia'
-    expect(parser.oldid).to eq '1276659876'
+    expect(parser.oldid).to eq 1276659876
     expect(parser.diff).to be_nil
   end
 
@@ -24,7 +24,7 @@ describe WikiUrlParser do
     expect(wiki.language).to eq 'en'
     expect(wiki.project).to eq 'wikipedia'
     expect(parser.title).to eq 'Richard_G._F._Uniacke'
-    expect(parser.oldid).to eq '936368512'
+    expect(parser.oldid).to eq 936368512
     expect(parser.diff).to be_nil
   end
 
@@ -34,10 +34,10 @@ describe WikiUrlParser do
     expect(wiki.language).to eq 'en'
     expect(wiki.project).to eq 'wikipedia'
     expect(parser.title).to eq 'Richard_G._F._Uniacke'
-    expect(parser.oldid).to eq '711811679'
-    expect(parser.diff).to eq '1178859026'
+    expect(parser.oldid).to eq 711811679
+    expect(parser.diff).to eq 1178859026
   end
-  
+
   it 'returns nils if it is not a valid wiki' do
     parser = described_class.new('https://www.wikiedu.org/')
     expect(parser.wiki).to be_nil
