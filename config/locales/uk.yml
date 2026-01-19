@@ -407,8 +407,8 @@ uk:
     add_psid: Додати PetScan PSID
     add_pileid: Додати PagePile id
     add_template: Додати шаблон
-    add_this_category: Додати цю категорію
-    add_this_psid: Додати цей PSID
+    add_this_category: Додати категорії
+    add_this_psid: Додати ідентифікатори PetScan PSID
     add_this_pileid: Додати цей PagePile id
     add_this_template: Додати цей шаблон
     import_articles_description: Список статей у категорії періодично оновлюється,
@@ -531,7 +531,7 @@ uk:
       course_school: Навчальний заклад курсу
       course_subject: Тема курсу
       course_term: Семестр курсу
-      course_term_placeholder: Семестр
+      course_term_placeholder: Семестр (включно з роком)
       course_title: Назва курсу
       course_types:
         basic_course_name: Звичайна програма
@@ -753,7 +753,7 @@ uk:
     revisions_doc: Число змін за останні %{timeframe} днів
     revisions_none: У цьому курсі немає недавньої активності з редагування Вікіпедії.
     school: Школа
-    school_and_term: Установа/Термін
+    school_and_term: Установа/Семестр
     search_courses: Шукати курси
     start: Початок
     start_typing: Почніть вводити текст
@@ -942,7 +942,7 @@ uk:
     user_uploads_none: Вибрані користувачі ще завантажили жодних зображень чи інших
       медіафайлів у цей проєкт.
     view_other: Переглянути інші кампанії
-    view_page: Переглянути сторінку програми
+    view_page: Переглянути сторінку
     word_count_doc: Приблизна кількість слів, доданих до статей в основному просторі
       назв редакторами програми протягом терміну дії програми
     word_count_doc_wikidata: Оцінка кількості слів, доданих редакторами програми до
@@ -980,8 +980,7 @@ uk:
       thank_you: Дякуємо! Зв'яжіться із вашим експертом по вікі, якщо у вас є додаткові
         запитання.
     exercises_and_trainings: '%{prefix} вправи й тренінги'
-    no_assignments: Цей студент наразі не має призначених статей. Можете призначити
-      статтю за допомогою кнопок вище.
+    no_assignments: Цей студент наразі не має призначених статей.
     no_assignments_wikidata: Цей студент наразі не має призначених елементів. Ви можете
       призначити елемент за допомогою кнопок вище.
     overview: '%{prefix} огляд'
@@ -1333,7 +1332,7 @@ uk:
     assigned_wikidata: Призначені елементи
     assignees: Задано
     loading_authorship_data: завантаження даних про авторство
-    authorship_data_not_fetched: не вдалося дістати даних про авторство
+    authorship_data_not_fetched: Не вдалося дістати даних про авторство
     character_doc: Сумарна кількість вмісту, який користувачем було додано до цього
       простору назв, обчислена шляхом підсумування доданих символів в усіх редагуваннях,
       що збільшували розмір статті. Це число не обов'язково відображає обсяг нового
@@ -1575,7 +1574,7 @@ uk:
     article_finder: Пошук статті
     article_finder_wikidata: Пошук предметів
     article_quality: Якість статті (0-100)
-    article_quality_wikidata: Якість елементу(0-100)
+    article_quality_wikidata: Якість елементу (0-100)
     assign_article_self: Призначити себе
     average_views: Середня кількість переглядів на день
     category_search: Шукати в категорії
