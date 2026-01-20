@@ -1,3 +1,7 @@
+- content_for :javascripts do
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  = hot_javascript_tag("campaigns")
+
 - content_for :before_title, t('courses.campaign_articles', title: @campaign.title) + ' — '
 
 #react_root{data: {slug: @campaign.slug}}
@@ -24,7 +28,34 @@
             = t("articles.wiki")
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
-
+      = form_tag(articles_campaign_path(@campaign.slug), method: :get, class: 'course-filters') do
+        .form-fields
+          .form-row
+            = text_field_tag :title, params[:title], placeholder: t('form_search.search') + ' ' + t('articles.article_title'), class: 'form-control input-sm', style: 'width: 100%'
+          .form-row
+            %button.button.border.small{type: 'button', onclick: "var el = document.getElementById('advanced-search-inputs'); el.style.display = el.style.display === 'none' ? 'block' : 'none';"}= t('form_search.advanced_search')
+        #advanced-search-inputs{style: params.slice(:course_title, :char_added_from, :char_added_to, :references_count_from, :references_count_to, :view_count_from, :view_count_to).values.any?(&:present?) ? '' : 'display: none;'}
+          .form-row.relative
+            = text_field_tag :course_title, params[:course_title], placeholder: t("#{@presenter.course_string_prefix}.courses") + ' ' + t('courses.title'), class: 'form-control input-sm', style: 'width: 100%', autocomplete: "off", id: "course_title_search"
+            #course_search_results.absolute.hidden.bg-white.border.z-10{style: "position: absolute; background: white; border: 1px solid #ccc; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto;"}
+          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
+            %label{for: 'char_added_from'}= t("metrics.char_added") + ' ' + t('form_search.between')
+            = number_field_tag :char_added_from, params[:char_added_from], class: 'form-control input-sm'
+            %label{for: 'char_added_to'}= t('form_search.and')
+            = number_field_tag :char_added_to, params[:char_added_to], class: 'form-control input-sm'
+          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
+            %label{for: 'references_count_from'}= t("metrics.references_count") + ' ' + t('form_search.between')
+            = number_field_tag :references_count_from, params[:references_count_from], class: 'form-control input-sm'
+            %label{for: 'references_count_to'}= t('form_search.and')
+            = number_field_tag :references_count_to, params[:references_count_to], class: 'form-control input-sm'
+          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
+            %label{for: 'view_count_from'}= t("metrics.view") + ' ' + t('form_search.between')
+            = number_field_tag :view_count_from, params[:view_count_from], class: 'form-control input-sm'
+            %label{for: 'view_count_to'}= t('form_search.and')
+            = number_field_tag :view_count_to, params[:view_count_to], class: 'form-control input-sm'
+        .form-actions
+          = submit_tag t('form_search.search'), class: 'button'
+          = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
     %table.table.table--hoverable.table--sortable
       %thead
         %tr

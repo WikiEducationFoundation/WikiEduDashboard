@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import './utils/editable';
+import 'jquery-ui/ui/widgets/autocomplete';
 
 
 document.addEventListener('DOMContentLoaded', () => {

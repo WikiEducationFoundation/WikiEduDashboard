@@ -7,11 +7,22 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user:, campaign_param: nil, courses_list: nil, **options)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil, tag: nil,
+                 articles_title: nil, course_title: nil, char_added_from: nil, char_added_to: nil,
+                 references_count_from: nil, references_count_to: nil,
+                 view_count_from: nil, view_count_to: nil)
     @current_user = current_user
     @campaign_param = campaign_param
-    @page = options[:page]
-    @tag = options[:tag]
+    @page = page
+    @tag = tag
+    @articles_title = articles_title
+    @course_title = course_title
+    @char_added_from = char_added_from
+    @char_added_to = char_added_to
+    @references_count_from = references_count_from
+    @references_count_to = references_count_to
+    @view_count_from = view_count_from
+    @view_count_to = view_count_to
     @courses_list = courses_list || campaign_courses
   end
 
@@ -68,7 +79,15 @@ class CoursesPresenter
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
-      too_many: too_many_articles?
+      too_many: too_many_articles?,
+      article_title: @articles_title,
+      course_title: @course_title,
+      char_added_from: @char_added_from,
+      char_added_to: @char_added_to,
+      references_count_from: @references_count_from,
+      references_count_to: @references_count_to,
+      view_count_from: @view_count_from,
+      view_count_to: @view_count_to
     ).scope
   end
 
