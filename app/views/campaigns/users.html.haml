@@ -24,7 +24,6 @@
           - has_advanced_params = params[:min_revision_count].present? || params[:max_revision_count].present? || params[:course_title].present?
           %button.button.border.small#toggle_advanced_search{type: "button", style: "margin-top: 10px; margin-bottom: 10px;"}
             = t('form_search.advanced_search')
-            %i.icon.icon-arrow-down
           #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
             .form-row.relative
               = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', style: "width: 100%;"

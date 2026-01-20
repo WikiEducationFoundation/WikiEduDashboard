@@ -164,12 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleAdvancedSearchBtn.addEventListener('click', () => {
       advancedSearchFields.classList.toggle('hidden');
       const icon = toggleAdvancedSearchBtn.querySelector('.icon');
-      if (advancedSearchFields.classList.contains('hidden')) {
-        icon.classList.remove('icon-arrow-up');
-        icon.classList.add('icon-arrow-down');
-      } else {
-        icon.classList.remove('icon-arrow-down');
-        icon.classList.add('icon-arrow-up');
+      if (icon) {
+        if (advancedSearchFields.classList.contains('hidden')) {
+          icon.classList.remove('icon-arrow-up');
+          icon.classList.add('icon-arrow-down');
+        } else {
+          icon.classList.remove('icon-arrow-down');
+          icon.classList.add('icon-arrow-up');
+        }
       }
     });
   }
