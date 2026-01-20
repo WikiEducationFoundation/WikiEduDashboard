@@ -329,7 +329,8 @@ class CampaignsController < ApplicationController
                                       references_count_from: params[:references_count_from],
                                       references_count_to: params[:references_count_to],
                                       view_count_from: params[:view_count_from],
-                                      view_count_to: params[:view_count_to])
+                                      view_count_to: params[:view_count_to],
+                                      school: params[:school])
   end
 
   def add_organizer_to_campaign(user)

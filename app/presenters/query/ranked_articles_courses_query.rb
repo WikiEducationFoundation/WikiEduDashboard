@@ -8,13 +8,14 @@ class Query::RankedArticlesCoursesQuery
   def initialize(courses:, per_page:, offset:, too_many:, article_title: nil, course_title: nil,
                  char_added_from: nil, char_added_to: nil,
                  references_count_from: nil, references_count_to: nil,
-                 view_count_from: nil, view_count_to: nil)
+                 view_count_from: nil, view_count_to: nil, school: nil)
     @courses = courses
     @per_page = per_page
     @offset = offset
     @too_many = too_many
     @article_title = article_title
     @course_title = course_title
+    @school = school
     @char_added_from = char_added_from
     @char_added_to = char_added_to
     @references_count_from = references_count_from
@@ -40,6 +41,7 @@ class Query::RankedArticlesCoursesQuery
       .where(course_id: @courses.map(&:id), tracked: true)
       .then { |q| @article_title ? q.where('articles.title LIKE ?', "%#{@article_title}%") : q }
       .then { |q| @course_title ? q.where('courses.title LIKE ?', "%#{@course_title}%") : q }
+      .then { |q| @school ? q.where(courses: { school: @school }) : q }
       .then do |q|
       if @char_added_from.present?
         q.where('articles_courses.character_sum >= ?',
