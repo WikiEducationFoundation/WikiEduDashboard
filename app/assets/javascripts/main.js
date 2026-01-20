@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // This is the main React entry point. It renders the navbar throughout the app, and
   // renders other components depending on the route.
   import('./components/app.jsx');
-  import('events').then(({default: events}) => {
+  import('events').then(({ default: events }) => {
     events.EventEmitter.defaultMaxListeners = 30;
   });
 

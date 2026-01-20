@@ -89,7 +89,28 @@ class CampaignsController < ApplicationController
 
         @courses_users = CoursesUsers.where(
           course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
-        ).eager_load(:user, :course).order(revision_count: :desc)
+        ).eager_load(:user, :course)
+
+        if params[:username].present?
+          @courses_users = @courses_users.where('users.username LIKE ?', "%#{params[:username]}%")
+        end
+
+        if params[:min_revision_count].present?
+          @courses_users = @courses_users.where('courses_users.revision_count >= ?',
+                                                params[:min_revision_count])
+        end
+
+        if params[:max_revision_count].present?
+          @courses_users = @courses_users.where('courses_users.revision_count <= ?',
+                                                params[:max_revision_count])
+        end
+
+        if params[:course_title].present?
+          @courses_users = @courses_users.where('courses.title LIKE ?',
+                                                "%#{params[:course_title]}%")
+        end
+
+        @courses_users = @courses_users.order(revision_count: :desc)
       end
 
       format.json do

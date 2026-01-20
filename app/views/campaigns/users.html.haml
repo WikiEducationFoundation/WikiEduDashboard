@@ -1,4 +1,6 @@
 - content_for :before_title, t('courses.campaign_users', title: @campaign.title) + ' — '
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
+= hot_javascript_tag 'campaigns'
 
 #react_root{data: {slug: @campaign.slug}}
 
@@ -15,6 +17,28 @@
           %option{rel: "asc", value: "username"}= t('users.username')
           %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
           %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
+      = form_tag users_campaign_path(@campaign.slug), method: :get do
+        .form-fields
+          .form-row
+            = text_field_tag :username, params[:username], placeholder: t('users.username'), style: "width: 100%;"
+          - has_advanced_params = params[:min_revision_count].present? || params[:max_revision_count].present? || params[:course_title].present?
+          %button.button.border.small#toggle_advanced_search{type: "button", style: "margin-top: 10px; margin-bottom: 10px;"}
+            = t('form_search.advanced_search')
+            %i.icon.icon-arrow-down
+          #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
+            .form-row
+              %label
+                = t('courses.edit_count')
+                = t('form_search.between')
+              = number_field_tag :min_revision_count, params[:min_revision_count], placeholder: "0", min: 0
+              %span= t('form_search.and')
+              = number_field_tag :max_revision_count, params[:max_revision_count], min: 0
+            .form-row.relative
+              = text_field_tag :course_title, params[:course_title], placeholder: t("#{@presenter.course_string_prefix}.course"), autocomplete: "off", id: "course_title_search", style: "width: 100%;"
+              #course_search_results.absolute.hidden.bg-white.border.z-10{style: "position: absolute; background: white; border: 1px solid #ccc; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto;"}
+          .form-actions
+            = submit_tag t('form_search.search'), class: 'button'
+            = link_to t('form_search.clear'), users_campaign_path(@campaign.slug), class: 'button'
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
