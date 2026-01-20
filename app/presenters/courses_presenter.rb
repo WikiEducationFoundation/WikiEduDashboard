@@ -232,6 +232,10 @@ class CoursesPresenter
     courses.where.not(school: [nil, '']).group(:school).order(:school).pluck(:school)
   end
 
+  def course_title_options
+    courses.order(:title).pluck(:title).uniq
+  end
+
   def search_courses_by_revisions(min_str, max_str)
     min_val = begin
       Integer(min_str)

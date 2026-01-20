@@ -106,8 +106,12 @@ class CampaignsController < ApplicationController
         end
 
         if params[:course_title].present?
-          @courses_users = @courses_users.where('courses.title LIKE ?',
-                                                "%#{params[:course_title]}%")
+          @courses_users = if params[:course_title].is_a?(Array)
+                             @courses_users.where(courses: { title: params[:course_title] })
+                           else
+                             @courses_users.where('courses.title LIKE ?',
+                                                  "%#{params[:course_title]}%")
+                           end
         end
 
         @courses_users = @courses_users.order(revision_count: :desc)

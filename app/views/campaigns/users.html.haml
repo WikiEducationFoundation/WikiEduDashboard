@@ -26,16 +26,24 @@
             = t('form_search.advanced_search')
             %i.icon.icon-arrow-down
           #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
-            .form-row
-              %label
-                = t('courses.edit_count')
-                = t('form_search.between')
-              = number_field_tag :min_revision_count, params[:min_revision_count], placeholder: "0", min: 0
-              %span= t('form_search.and')
-              = number_field_tag :max_revision_count, params[:max_revision_count], min: 0
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'min_revision_count'}= t('courses.edit_count')
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :min_revision_count, params[:min_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+                %span -
+                = number_field_tag :max_revision_count, params[:max_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Max'
             .form-row.relative
-              = text_field_tag :course_title, params[:course_title], placeholder: t("#{@presenter.course_string_prefix}.course"), autocomplete: "off", id: "course_title_search", style: "width: 100%;"
-              #course_search_results.absolute.hidden.bg-white.border.z-10{style: "position: absolute; background: white; border: 1px solid #ccc; z-index: 1000; width: 100%; max-height: 200px; overflow-y: auto;"}
+              = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', style: "width: 100%;"
+              :javascript
+                document.addEventListener('DOMContentLoaded', () => {
+                  if (typeof TomSelect !== 'undefined') {
+                    new TomSelect('#course_title_search', {
+                      plugins: ['remove_button'],
+                      placeholder: "#{t(@presenter.course_string_prefix + '.course')}...",
+                      allowEmptyOption: true
+                    });
+                  }
+                });
           .form-actions
             = submit_tag t('form_search.search'), class: 'button'
             = link_to t('form_search.clear'), users_campaign_path(@campaign.slug), class: 'button'
