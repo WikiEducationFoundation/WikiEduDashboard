@@ -484,7 +484,7 @@ class CoursesPresenter
   end
 
   def combined_wikidata_stats
-    @stats ||= courses.includes(:course_stat).where.not(course_stats: nil).filter_map do |course|
+    @stats ||= courses.includes(:course_stat).where.not(course_stat: nil).filter_map do |course|
       course.course_stat&.stats_hash&.[]('www.wikidata.org')
     end
 
