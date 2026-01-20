@@ -26,12 +26,6 @@
             = t('form_search.advanced_search')
             %i.icon.icon-arrow-down
           #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
-              %label{for: 'min_revision_count'}= t('courses.edit_count')
-              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
-                = number_field_tag :min_revision_count, params[:min_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Min'
-                %span -
-                = number_field_tag :max_revision_count, params[:max_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Max'
             .form-row.relative
               = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', style: "width: 100%;"
               :javascript
@@ -44,6 +38,12 @@
                     });
                   }
                 });
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'min_revision_count'}= t('courses.edit_count')
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :min_revision_count, params[:min_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+                %span -
+                = number_field_tag :max_revision_count, params[:max_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Max'
           .form-actions
             = submit_tag t('form_search.search'), class: 'button'
             = link_to t('form_search.clear'), users_campaign_path(@campaign.slug), class: 'button'
