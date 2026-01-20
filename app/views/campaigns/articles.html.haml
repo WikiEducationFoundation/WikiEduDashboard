@@ -47,21 +47,24 @@
                   });
                 }
               });
-          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
-            %label{for: 'char_added_from'}= t("metrics.char_added") + ' ' + t('form_search.between')
-            = number_field_tag :char_added_from, params[:char_added_from], class: 'form-control input-sm'
-            %label{for: 'char_added_to'}= t('form_search.and')
-            = number_field_tag :char_added_to, params[:char_added_to], class: 'form-control input-sm'
-          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
-            %label{for: 'references_count_from'}= t("metrics.references_count") + ' ' + t('form_search.between')
-            = number_field_tag :references_count_from, params[:references_count_from], class: 'form-control input-sm'
-            %label{for: 'references_count_to'}= t('form_search.and')
-            = number_field_tag :references_count_to, params[:references_count_to], class: 'form-control input-sm'
-          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr 80px 1fr; column-gap: 10px; align-items: center;'}
-            %label{for: 'view_count_from'}= t("metrics.view") + ' ' + t('form_search.between')
-            = number_field_tag :view_count_from, params[:view_count_from], class: 'form-control input-sm'
-            %label{for: 'view_count_to'}= t('form_search.and')
-            = number_field_tag :view_count_to, params[:view_count_to], class: 'form-control input-sm'
+          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+            %label{for: 'char_added_from'}= t("metrics.char_added")
+            .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+              = number_field_tag :char_added_from, params[:char_added_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+              %span -
+              = number_field_tag :char_added_to, params[:char_added_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+            %label{for: 'references_count_from'}= t("metrics.references_count")
+            .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+              = number_field_tag :references_count_from, params[:references_count_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+              %span -
+              = number_field_tag :references_count_to, params[:references_count_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+            %label{for: 'view_count_from'}= t("metrics.view")
+            .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+              = number_field_tag :view_count_from, params[:view_count_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+              %span -
+              = number_field_tag :view_count_to, params[:view_count_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
         .form-actions
           = submit_tag t('form_search.search'), class: 'button'
           = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
