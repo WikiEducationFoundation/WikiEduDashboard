@@ -2043,4 +2043,11 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
+
+  form_search:
+    search: "Search"
+    advanced_search: "Advanced Search"
+    clear: "Clear"
+    between: "between"
+    and: "and"
       

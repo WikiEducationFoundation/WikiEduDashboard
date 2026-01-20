@@ -46,6 +46,7 @@
 # Author: Yllelder
 # Author: YoViajo
 # Author: Yupik
+# Author: Jose Gonzalez
 ---
 es:
   number:
@@ -1443,4 +1444,12 @@ es:
     view: Ver
   multi_wiki:
     selector_placeholder: Empieza a escribir un dominio wiki
+
+  form_search:
+    search: "Buscar"
+    advanced_search: "Búsqueda avanzada"
+    clear: "Limpiar"    
+    between: "entre"
+    and: "y"
 ...
+      

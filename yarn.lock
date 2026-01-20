@@ -1948,6 +1948,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@orchidjs/sifter@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@orchidjs/sifter@npm:1.1.0"
+  dependencies:
+    "@orchidjs/unicode-variants": ^1.1.2
+  checksum: affe38c1b9017f2a98384ba1e79af3b3a08575dcfa34856eb5654008ffb186da5f1168eaa79dd4be21111bd62d127d6f1140ce5400b6fd47f4ca6fa9bc3d4beb
+  languageName: node
+  linkType: hard
+
+"@orchidjs/unicode-variants@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@orchidjs/unicode-variants@npm:1.1.2"
+  checksum: 2b643dfbc67e88158340df8448b065a022a521788b00f648b33ccef6152af8ebb99f91250d80289fbbaecabcd5cacc26b2f7c17aeb525c5922f9ea97b98e0c4d
+  languageName: node
+  linkType: hard
+
 "@pmmmwh/react-refresh-webpack-plugin@npm:^0.5.7":
   version: 0.5.7
   resolution: "@pmmmwh/react-refresh-webpack-plugin@npm:0.5.7"
@@ -2816,6 +2832,7 @@ __metadata:
     eslint-plugin-react: ^7.20.5
     eslint-webpack-plugin: ^3.1.1
     fetch-jsonp: ^1.2.1
+    flatpickr: ^4.6.13
     i18n-js: ^4.2.2
     immer: ^10.1.1
     jeet: ^7.2.0
@@ -2874,6 +2891,7 @@ __metadata:
     stylus: ^0.54.8
     stylus-native-loader: ^1.1.2
     tinymce: ^5.2.2
+    tom-select: ^2.4.3
     uuid: ^3.4.0
     velocity-animate: ^1.5.1
     webpack: ^5.72.1
@@ -6123,6 +6141,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"flatpickr@npm:^4.6.13":
+  version: 4.6.13
+  resolution: "flatpickr@npm:4.6.13"
+  checksum: 2cca1b8dc974e7673b51174ee3f0679ae3a6b79525a0c53bf49b87455ef358354e64acfd60b312e44cef208aab9750a1a48df32a0914046a53de6d9403742304
+  languageName: node
+  linkType: hard
+
 "flatted@npm:^2.0.0":
   version: 2.0.2
   resolution: "flatted@npm:2.0.2"
@@ -8262,7 +8287,7 @@ __metadata:
   resolution: "list.js@https://github.com/WikiEducationFoundation/list.js.git#commit=3be71e3414d60e8a40b41a0ca8d582f2f40f9308"
   dependencies:
     string-natural-compare: ^2.0.2
-  checksum: b853ac7141ebd1bf530ca6104950c0ec0f43b1b4d791db8488ba4523011c72301f62e344e1b8aaf060f69fbd93207826ab4ece0a40c99f6c1c929af417e2f9ec
+  checksum: ea0e976ceae4ddc2b7c78ec41214ceabc4e65368261cc635324b1ef0b7fb67cfca0de6f9af0eb6399da08f31480a5804a2927496ea3b238544b6317f2ad0f687
   languageName: node
   linkType: hard
 
@@ -11506,7 +11531,7 @@ __metadata:
   resolution: "slick-carousel@https://github.com/cfoehrdes/slick.git#commit=a4d85536c42951933e1d887bcc013615e25b03e7"
   dependencies:
     jquery: ">=1.7.2"
-  checksum: 30b5f877b84b8edd48ea7bfb39813c95622cb8f0351956b2398b42b092eca5eeaf593482b904010d77360e04c7a2f5d76e06ba642847450e334368a01f100022
+  checksum: cfa2527b8425260101f0232d5f0aa4c20b8e9b3954ec82a5c006ddd0b3e682b82e696fa6180eff8c7076a07dc6be15f57168247a1383bd7a706d569385e0599e
   languageName: node
   linkType: hard
 
@@ -12304,6 +12329,16 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 952c29e2a85d7123239b5cfdd889a0dde47ab0497f0913d70588f19c53f7e0b5327c95f4651e413c74b785147f9637b17410ac8c846d5d4a20a5a33eb6dc3a45
+  languageName: node
+  linkType: hard
+
+"tom-select@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "tom-select@npm:2.4.3"
+  dependencies:
+    "@orchidjs/sifter": ^1.1.0
+    "@orchidjs/unicode-variants": ^1.1.2
+  checksum: 85f01549d6a8e10b3ae2da40fa76271efefba8b888f39a242860f35a8923d5d9f04f932012ac77014d52ab459c81f0e80d5fa1106e89ada73d3bf9bb6f3140d9
   languageName: node
   linkType: hard
 

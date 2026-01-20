@@ -61,8 +61,23 @@ def populate_dashboard
   example_courses = [
     'https://outreachdashboard.wmflabs.org/courses/Uffizi/WDG_-_AF_2018_Florence',
     'https://outreachdashboard.wmflabs.org/courses/QCA/Brisbane_QCA_ArtandFeminism_2018',
-    'https://dashboard.wikiedu.org/courses/Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)'
+    'https://dashboard.wikiedu.org/courses/Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)',
+    'https://dashboard.wikiedu.org/courses/Department_of_History,_University_of_California,_Los_Angeles/Global_Feminisms,_1850_to_Present_(Fall_2025)',
+    'https://dashboard.wikiedu.org/courses/University_of_Notre_Dame/Multimedia_Writing_and_Rhetoric_(Fall_2025)',
+    'https://dashboard.wikiedu.org/courses/University_of_New_Hampshire/BIOL_412_HONORS_(Fall_2025)',
+    'https://dashboard.wikiedu.org/courses/New_York_University/Intro_to_Psychology_(Fall)',
+    'https://dashboard.wikiedu.org/courses/University_of_Washington/Online_Communities_(Fall_2025)',
+    'https://dashboard.wikiedu.org/courses/Wiki_Education/250_by_2026-6_(Fall_2025)',
+    'https://dashboard.wikiedu.org/courses/Wiki_Education/250_by_2026-7',
+    'https://dashboard.wikiedu.org/courses/Wiki_Education/Anthology_of_Latino_Poets_(Spring_2025)',
+    'https://dashboard.wikiedu.org/courses/Wiki_Education/WITH_Wiki_Scientists_7_(Spring_2025)',
+    'https://dashboard.wikiedu.org/courses/Boston_College/African_Politics_(Fall_2025)'
+
+
+
+
   ]
+
   
   example_courses.each do |url|
     begin
