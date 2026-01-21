@@ -14,6 +14,8 @@ class LogSidekiqStatus
     @store.call phase: 'woke_up'
   end
 
+  private
+
   def pause
     @sleep_count += 1
     @store.call phase: "sleeping_#{@sleep_count}"
