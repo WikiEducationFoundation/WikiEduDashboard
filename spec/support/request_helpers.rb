@@ -253,47 +253,63 @@ module RequestHelpers
       .to_return(status: 503, body: '', headers: {})
   end
 
-  def stub_wiki_validation
-    wikis = [
-      'incubator.wikimedia.org',
-      'es.wikipedia.org',
-      'pt.wikipedia.org',
-      'zh.wikipedia.org',
-      'mr.wikipedia.org',
-      'eu.wikipedia.org',
-      'fa.wikipedia.org',
-      'fr.wikipedia.org',
-      'ru.wikipedia.org',
-      'simple.wikipedia.org',
-      'tr.wikipedia.org',
-      'en.wiktionary.org',
-      'es.wiktionary.org',
-      'ta.wiktionary.org',
-      'es.wikibooks.org',
-      'en.wikibooks.org',
-      'ar.wikibooks.org',
-      'en.wikivoyage.org',
-      'wikisource.org',
-      'es.wikisource.org',
-      'www.wikidata.org',
-      'en.wikinews.org',
-      'pl.wikiquote.org',
-      'de.wikiversity.org',
-      'commons.wikimedia.org',
-      'de.wikipedia.org',
-      'en.wikipedia.org',
-      'gl.wikipedia.org',
-      'nl.wikipedia.org',
-      'sv.wikipedia.org',
-      'uk.wikipedia.org',
-      'kn.wikipedia.org'
-    ]
+  WIKIS = %w[
+    incubator.wikimedia.org
+    es.wikipedia.org
+    pt.wikipedia.org
+    zh.wikipedia.org
+    mr.wikipedia.org
+    eu.wikipedia.org
+    fa.wikipedia.org
+    fr.wikipedia.org
+    ru.wikipedia.org
+    simple.wikipedia.org
+    tr.wikipedia.org
+    en.wiktionary.org
+    es.wiktionary.org
+    ta.wiktionary.org
+    es.wikibooks.org
+    en.wikibooks.org
+    ar.wikibooks.org
+    en.wikivoyage.org
+    wikisource.org
+    es.wikisource.org
+    www.wikidata.org
+    en.wikinews.org
+    pl.wikiquote.org
+    de.wikiversity.org
+    commons.wikimedia.org
+    de.wikipedia.org
+    en.wikipedia.org
+    gl.wikipedia.org
+    nl.wikipedia.org
+    sv.wikipedia.org
+    uk.wikipedia.org
+    kn.wikipedia.org
+  ].freeze
 
-    wikis.each do |wiki|
+  def stub_wiki_validation
+    WIKIS.each do |wiki|
       stub_request(:get, "https://#{wiki}/w/api.php?action=query&format=json&meta=siteinfo")
         .to_return(status: 200,
                    body: "{\"query\":{\"general\":{\"servername\":\"#{wiki}\"}}}",
                    headers: {})
+    end
+  end
+
+  def stub_get_token(wiki)
+    fake_tokens = '{"query":{"tokens":{"logintoken":"faketoken+\\\\"}}}'
+    stub_request(:get, "https://#{wiki}/w/api.php?action=query&format=json&meta=tokens&type=login")
+      .to_return(status: 200, body: fake_tokens, headers: {})
+  end
+
+  def stub_log_in
+    WIKIS.each do |wiki|
+      stub_get_token(wiki)
+      success = '{"login":{"result":"Success","lguserid":92487,"lgusername":"Ragesoss"}}'
+      stub_request(:post, "https://#{wiki}/w/api.php")
+        .with(body: hash_including('action' => 'login'))
+        .to_return(status: 200, body: success, headers: {})
     end
   end
 
