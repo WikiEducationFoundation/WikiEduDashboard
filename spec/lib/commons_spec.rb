@@ -145,17 +145,19 @@ describe Commons do
       end
     end
 
-    it 'does not fail for files that have placeholder thumbnails' do
+    it 'assigns a placeholder thumbnail for pdf and djvu files' do
       VCR.use_cassette 'commons/get_urls_with_placeholder_thumbnails' do
-        # MediaWiki can't generate a real thumbnail of this file.
-        # It used to cause a 'iiurlparamnormal' error, but since late February
-        # 2016, it fails gracefully with a placeholder image.
-        create(:commons_upload,
-               id: 28591020,
-               file_name: 'File:Jewish Encyclopedia Volume 6.pdf',
-               thumburl: nil)
-        response = described_class.get_urls(CommonsUpload.all)
-        expect(response).not_to be_empty
+        # MediaWiki can't generate thumbnails of .pdf / .djvu files,
+        # which causes a 'iiurlparamnormal' error, so placeholder
+        # thumbnail values are assigned to it instead
+        pdf_file = create(:commons_upload,
+                          id: 28591020,
+                          file_name: 'File:Jewish Encyclopedia Volume 6.pdf')
+        described_class.get_urls(CommonsUpload.all)
+        pdf_file.reload # ensures changes are saved to the database
+        expect(pdf_file.thumburl).to eq('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/200px-No_image_3x4.svg.png')
+        expect(pdf_file.thumbwidth).to eq('200')
+        expect(pdf_file.thumbheight).to eq('150')
       end
     end
   end
