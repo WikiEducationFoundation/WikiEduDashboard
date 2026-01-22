@@ -11,7 +11,7 @@ const CampaignsHandler = () => {
       desktop_only: false,
     },
     csv: {
-      label: 'CSVs',
+      label: 'CSVs Prueba',
       desktop_only: false,
       sortable: false
     },
