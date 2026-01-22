@@ -13,6 +13,7 @@
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
 #  view_sum              :bigint           default(0)
+#  view_sum_created      :bigint           default(0)
 #  user_count            :integer          default(0)
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
@@ -616,6 +617,27 @@ class Course < ApplicationRecord
 
   def update_cache_from_timeslices
     CourseCacheManager.new(self).update_cache_from_timeslices course_wiki_timeslices
+  end
+
+  # Returns the cached estimate of cumulative pageviews for articles that were
+  # created by participants in this course. This value is updated by
+  # CourseCacheManager during course cache updates, not calculated on-the-fly
+  # for performance reasons (courses can have up to 100K articles).
+  # The calculation mirrors view_sum but filters for tracked, live, created articles only.
+  #
+  # For courses that have been updated but view_sum_created is still 0 (likely
+  # because it wasn't populated during the first update after migration), we calculate
+  # on-the-fly. For historical courses that haven't been updated, we return the cached
+  # value to avoid performance issues.
+  def view_sum_created
+    cached_value = self[:view_sum_created] || 0
+    # If course has been updated but view_sum_created is 0 and we have new articles,
+    # calculate on-the-fly (this handles courses updated before view_sum_created was added)
+    if cached_value.zero? && was_course_ever_updated? && new_article_count.positive?
+      CourseCacheManager.calculate_view_sum_created_for_course(self)
+    else
+      cached_value
+    end
   end
 
   # Ensures weeks for a course have order 1..weeks.count

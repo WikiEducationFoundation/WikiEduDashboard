@@ -1224,8 +1224,11 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
-    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
-    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc: Estimated total views calculated from each article's first revision during this course up to the present. The daily average is computed from all daily view counts during this period, and the total is estimated as (days from first revision to present) × daily average. Each course calculates its own average for the same article based on when it was first edited in that course.
+    view_count_doc_wikidata: Estimated total views calculated from each item's first revision during this course up to the present. The daily average is computed from all daily view counts during this period, and the total is estimated as (days from first revision to present) × daily average. Each course calculates its own average for the same item based on when it was first edited in that course.
+    pageviews_breakdown:
+      new_articles: "from new articles"
+      existing_articles: "from existing articles"
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.

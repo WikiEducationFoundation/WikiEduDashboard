@@ -54,6 +54,17 @@ json.course do
   json.word_count number_to_human @course.word_count
   json.references_count number_to_human @course.references_count
   json.view_count number_to_human @course.view_sum
+  # Only include breakdown if:
+  # 1. Course has been updated (timeslice_update_ran? or was_course_ever_updated?)
+  #    OR course has valid cached data (view_sum > 0 indicates it was updated at some point)
+  # 2. view_sum_created doesn't exceed view_sum (to avoid negative existing count)
+  # Note: view_sum_created can be 0 (meaning all views are from existing articles)
+  course_updated = @course.timeslice_update_ran? || @course.was_course_ever_updated?
+  has_valid_cache = @course.view_sum.positive? # If view_sum > 0, course was updated at some point
+  if (course_updated || has_valid_cache) && @course.view_sum_created <= @course.view_sum
+    json.view_count_created number_to_human @course.view_sum_created
+    json.view_count_existing number_to_human(@course.view_sum - @course.view_sum_created)
+  end
   json.character_sum_human number_to_human @course.character_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.updates average_delay: @course.flags['average_update_delay'],
