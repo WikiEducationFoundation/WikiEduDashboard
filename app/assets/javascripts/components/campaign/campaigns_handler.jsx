@@ -7,11 +7,11 @@ import CampaignRow from './campaign_row';
 const CampaignsHandler = () => {
   const keys = {
     title: {
-      label: 'Title',
+      label: I18n.t('campaign.title'),
       desktop_only: false,
     },
     csv: {
-      label: 'CSVs Prueba',
+      label: 'CSVs',
       desktop_only: false,
       sortable: false
     },

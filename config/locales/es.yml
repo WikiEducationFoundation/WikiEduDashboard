@@ -501,6 +501,7 @@ es:
     search_campaigns: Buscar campañas
     use_start_end_dates: Usar fechas de inicio y fin
     search: Buscar
+    download_csvs_data: Descargar CSVs
   categories:
     searching_for_category: Buscando categorías en
     add_category: Añadir categoría
