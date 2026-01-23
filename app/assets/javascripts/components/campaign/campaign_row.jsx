@@ -22,6 +22,9 @@ const CampaignRow = ({ campaign }) => {
     <>
       <tr>
         <td className="title"><a href={`/campaigns/${campaign.slug}/overview`} >{campaign.title}</a></td>
+        <td className="courses">
+          {campaign.courses}
+        </td>
         <td className="csv">
           <button onClick={() => setShowDownloadModal(true)} className="button">{I18n.t('campaign.download_csvs_data')}</button>
         </td>
