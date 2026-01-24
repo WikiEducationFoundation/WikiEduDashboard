@@ -648,7 +648,7 @@ DEPENDENCIES
   jbuilder
   kt-paperclip
   mailgun-ruby
-  mediawiki_api
+  mediawiki_api (~> 0.9.0)
   memory_profiler
   mysql2
   newrelic_rpm

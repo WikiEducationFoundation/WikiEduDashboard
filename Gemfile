@@ -52,7 +52,7 @@ gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', br
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
-gem 'mediawiki_api' # Library for querying mediawiki API'
+gem 'mediawiki_api', '~> 0.9.0' # Library for querying mediawiki API'
 # gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master'
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
