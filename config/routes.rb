@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq-status/web'
+
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
@@ -505,6 +508,11 @@ Rails.application.routes.draw do
   require 'sidekiq/cron/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+  end
+
+  # Backup system
+  namespace :system do
+    get 'can_start_backup.json' => 'backups#can_start_backup'
   end
 
   get '/private_information' => 'about_this_site#private_information'

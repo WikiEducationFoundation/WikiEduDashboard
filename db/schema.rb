@@ -122,7 +122,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_11_174423) do
     t.index ["course_id"], name: "index_assignments_on_course_id"
   end
 
-  create_table "blocks", id: :integer, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "backups", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.datetime "scheduled_at"
+    t.datetime "start"
+    t.datetime "end"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "blocks", id: :integer, charset: "utf8mb4", force: :cascade do |t|
     t.integer "kind"
     t.text "content"
     t.integer "week_id"
