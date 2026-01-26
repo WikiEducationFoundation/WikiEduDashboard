@@ -191,9 +191,9 @@ describe TrainingModuleDueDateManager do
                      .overall_due_date
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after { travel_back }
 
     let!(:cu) { create(:courses_user, user_id: user&.id, course_id: course.id) }
 
@@ -238,13 +238,17 @@ describe TrainingModuleDueDateManager do
 
           it 'uses the earlier of the existent block due date ' \
              'or the end of the week of the block without a date' do
-            expect(subject).to eq(Time.zone.today.end_of_week(:sunday))
+            frozen_date = Date.new(2015, 8, 25)
+            expected_date = frozen_date.end_of_week(:sunday).to_date
+            expect(subject).to eq(expected_date)
           end
         end
 
         context 'both blocks have a due date' do
           it 'uses earliest date' do
-            expect(subject).to eq(due_date2)
+            frozen_date = Date.new(2015, 8, 25)
+            expected_date2 = (frozen_date - 1.week).to_date
+            expect(subject).to eq(expected_date2)
           end
         end
       end

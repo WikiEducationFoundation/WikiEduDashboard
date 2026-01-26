@@ -526,6 +526,13 @@ describe 'the course page', type: :feature, js: true do
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"
       expect(page).to have_content 'This Week'
     end
+
+    it 'returns 503 when backup is running' do
+      create(:backup, status: 'running')
+      login_as(super_admin)
+      visit "/courses/#{slug}/manual_update"
+      expect(page).to have_content 'not_ready'
+    end
   end
 
   describe 'timeline' do
