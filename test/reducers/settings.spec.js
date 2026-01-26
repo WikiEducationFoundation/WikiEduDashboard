@@ -23,6 +23,15 @@ describe('Settings reducer', () => {
       siteNotice: {
         status: false,
         message: null,
+      },
+      celebrationBanner: {
+        enabled: false,
+        visibility: 'disabled',
+        celebration_type: 'christmas',
+        custom_message: '',
+        custom_emoji: [],
+        show_snowfall: true,
+        auto_hide_after_seconds: 7
       }
     };
     expect(reducer(undefined, {})).toEqual(initialState);
