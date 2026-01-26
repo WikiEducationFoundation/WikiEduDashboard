@@ -23,7 +23,6 @@ require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
 require 'webmock/rspec'
 require './spec/support/request_helpers'
-require 'active_support/testing/time_helpers'
 
 # Peform all Sidekiq worker tasks immediately during testing
 require 'sidekiq/testing'
@@ -50,7 +49,6 @@ Sidekiq.logger.level = Logger::WARN
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  config.include ActiveSupport::Testing::TimeHelpers
   config.include RequestHelpers
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
