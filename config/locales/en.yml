@@ -271,7 +271,7 @@ en:
     view_all: View All
     view_doc: The estimated views to each article since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
     view_on_wiki: View on wiki
-    # This is a maintence script message
+    # This is a maintenance script message
     views_added: "Added %{count} new views for %{title}"
     edit_size: Edit Size
     wiki: Wiki
@@ -560,6 +560,9 @@ en:
     actions: Actions
     articles: Articles
     article_viewer: Article Viewer
+    article_viewer_settings:
+      title: settings
+      show_fullname: Show Editors Fullnames
     article_viewer_wikidata: Item Viewer
     articles_i_am_reviewing_wikidata: Items I'm peer reviewing
     articles_i_am_reviewing: Articles I'm peer reviewing

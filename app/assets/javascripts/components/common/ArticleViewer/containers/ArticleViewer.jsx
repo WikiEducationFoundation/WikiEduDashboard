@@ -17,6 +17,7 @@ import BadWorkAlert from '../components/BadWorkAlert/BadWorkAlert';
 import BadWorkAlertButton from '@components/common/ArticleViewer/components/BadWorkAlertButton.jsx';
 import ParsedArticle from '@components/common/ArticleViewer/components/ParsedArticle.jsx';
 import Footer from '@components/common/ArticleViewer/components/Footer.jsx';
+import SettingsModal from '@components/overview/settings_modal.jsx';
 
 // Helpers
 import URLBuilder from '@components/common/ArticleViewer/utils/URLBuilder';
@@ -56,6 +57,10 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
   const [revisionId, setRevisionId] = useState(null);
   const [pendingRequest, setPendingRequest] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [articleViewerSettings, setArticleViewerSettings] = useState({
+    showUserFullNames: false,
+  });
   const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
 
   // State to track whether the article title needs to be verified and updated
@@ -360,6 +365,13 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   };
 
+  const setArticleViewerSettingsOption = (option, value) => {
+    setArticleViewerSettings(prevSettings => ({
+      ...prevSettings,
+      [option]: value
+    }));
+  };
+
   // If the article viewer is hidden, show the icon instead.
   if (!showArticle) {
     // If a title was provided, show the article viewer with the title.
@@ -387,18 +399,24 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     <div ref={ref}>
       <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
         <div className="article-header">
-          <p>
-            <span className="article-viewer-title">{trunc(article.title, 56)}</span>
-            {
-              showPermalink && <Permalink articleId={article.id} />
-            }
-            <CloseButton hideArticle={hideArticle} />
-            {
-              current_user.isAdvancedRole && !showArticleFinder ? (
+          <div className="article-sub-header">
+            <span className="article-viewer-title">{trunc(article.title, 56)}
+              <span> {showPermalink && <Permalink articleId={article.id} />}</span>
+            </span>
+            {current_user.isAdvancedRole && !showArticleFinder
+              ? (
                 <BadWorkAlertButton showBadArticleAlert={() => setShowBadArticleAlert(true)} /> // Passed as a function for onclick
               ) : ''
             }
-          </p>
+          </div>
+          <div>
+            <button
+              aria-label="Article Viewer Settings"
+              className="pull-left icon-settings_view icon-settings"
+              onClick={() => setModalOpen(true)}
+            />
+            <CloseButton hideArticle={hideArticle} />
+          </div>
         </div>
         {
           showBadArticleAlert && (
@@ -412,6 +430,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
             />
           )
         }
+        {modalOpen && <SettingsModal
+          toggleModal={() => setModalOpen(false)}
+          setArticleViewerSettingsOption={setArticleViewerSettingsOption}
+          articleViewerSettingsOption={articleViewerSettings}
+        />}
         <div id="article-scrollbox-id" className="article-scrollbox">
           {
             fetched ? <ParsedArticle highlightedHtml={highlightedHtml} whocolorHtml={whoColorHtml} parsedArticle={parsedArticle} /> : <Loading />

@@ -27,10 +27,23 @@
   width: 100%
 
 .article-header
+  display flex
+  flex-direction row
+  justify-content space-between
+  align-items center
+  gap 5px
+  height 100px
   border none !important
   padding 5px 10px 5px 10px
   padding-left 30px
   border-bottom 1px solid mischka !important
+
+.article-sub-header
+  display flex
+  flex-direction row
+  justify-content flex-start
+  align-items center
+  gap 10px
 
 .tooltip
   position: relative
@@ -285,3 +298,10 @@ wikibase-snakview-value
     & > .wikibase-sitelinkgroupview
       float left
 
+.check-container
+  width auto
+  display flex
+  justify-content space-between
+  gap 20px
+  aling-items center
+  margin-bottom 15px
