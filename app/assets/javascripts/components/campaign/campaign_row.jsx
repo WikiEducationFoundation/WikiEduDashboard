@@ -25,20 +25,20 @@ const CampaignRow = ({ campaign }) => {
         <td className="courses">
           {campaign.courses}
         </td>
-        <td className="articlesCreated">
+        <td className="articles_created">
           {campaign.articles_created}
         </td>
-        <td className="articlesEdited">
+        <td className="articles_edited">
           {campaign.articles_edited}
         </td>
-        <td className="wordsAdded">
-          {campaign.words_added}
+        <td className="words_added">
+          {typeof campaign.words_added === 'number' ? new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(campaign.words_added) : campaign.words_added}
         </td>
-        <td className="referencesAdded">
+        <td className="references_added">
           {campaign.references_added}
         </td>
         <td className="views">
-          {campaign.views}
+          {typeof campaign.views === 'number' ? new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(campaign.views) : campaign.views}
         </td>
         <td className="editors">
           {campaign.editors}

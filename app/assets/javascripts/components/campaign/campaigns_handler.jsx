@@ -14,19 +14,19 @@ const CampaignsHandler = () => {
       label: I18n.t('courses.current'),
       desktop_only: false,
     },
-    articlesCreated: {
+    articles_created: {
       label: I18n.t('metrics.articles_created'),
       desktop_only: false,
     },
-    articlesEdit: {
+    articles_edited: {
       label: I18n.t('metrics.articles_edited'),
       desktop_only: false,
     },
-    wordsAdded: {
+    words_added: {
       label: I18n.t('metrics.word_count'),
       desktop_only: false,
     },
-    referencesAdded: {
+    references_added: {
       label: I18n.t('metrics.references_count'),
       desktop_only: false,
     },
