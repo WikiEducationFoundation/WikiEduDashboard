@@ -23,6 +23,7 @@ require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
 require 'webmock/rspec'
 require './spec/support/request_helpers'
+require 'active_support'
 
 # Peform all Sidekiq worker tasks immediately during testing
 require 'sidekiq/testing'
