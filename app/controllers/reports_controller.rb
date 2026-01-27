@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
                 only: %i[campaign_instructors_csv campaign_courses_csv campaign_articles_csv
                          campaign_students_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
-                         course_wikidata_csv]
+                         course_wikidata_csv all_courses_and_instructors_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
@@ -19,6 +19,7 @@ class ReportsController < ApplicationController
                                       course_wikidata_csv]
 
   before_action :set_sidekiq_job_context
+  before_action :require_admin_permissions, only: [:all_courses_and_instructors_csv]
 
   #######################
   # CSV-related actions #
@@ -68,6 +69,22 @@ class ReportsController < ApplicationController
 
   def course_wikidata_csv
     csv_of('course_wikidata')
+  end
+
+  def all_courses_and_instructors_csv
+    filename = "all-courses-and-instructors-#{Time.zone.today}.csv"
+
+    if File.exist?("public#{CSV_PATH}/#{filename}")
+      redirect_to "#{CSV_PATH}/#{filename}"
+    else
+      ReportCsvWorker.generate_csv(
+        source: nil,
+        filename: filename,
+        type: 'all_courses_and_instructors',
+        include_course: nil
+      )
+      render plain: 'This file is being generated. Please try again shortly.', status: :ok
+    end
   end
 
   private
