@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { fetchAllCampaigns, fetchCampaignStatistics, sortCampaigns } from '../../actions/campaign_actions';
@@ -36,6 +37,13 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, show
     }
   };
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [search]);
+
   useEffect(() => {
     if (showStatistics) {
       dispatch(fetchCampaignStatistics(userOnly));
@@ -48,7 +56,16 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, show
   if (!all_campaigns_loaded) {
     return <Loading/>;
   }
-  const campaignElements = filteredCampaigns.map(campaign => <RowElement campaign={campaign} key={campaign.slug}/>);
+
+  const offset = currentPage * itemsPerPage;
+  const currentCampaigns = filteredCampaigns.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(filteredCampaigns.length / itemsPerPage);
+
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
+  const campaignElements = currentCampaigns.map(campaign => <RowElement campaign={campaign} key={campaign.slug}/>);
 
   return (
     <div className="container">
@@ -73,6 +90,22 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, show
         sortBy={sortBy}
         className="table--expandable table--hoverable"
       />
+      {filteredCampaigns.length > itemsPerPage && (
+        <div style={{ textAlign: 'center' }}>
+          <ReactPaginate
+            previousLabel={I18n.t('articles.previous')}
+            nextLabel={I18n.t('articles.next')}
+            breakLabel={'...'}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination'}
+            activeClassName={'selected'}
+            forcePage={currentPage}
+          />
+        </div>
+      )}
     </div>
   );
 };
