@@ -26,22 +26,22 @@ const CampaignRow = ({ campaign }) => {
           {campaign.courses}
         </td>
         <td className="articlesCreated">
-          13
+          {campaign.articles_created}
         </td>
         <td className="articlesEdited">
-          35
+          {campaign.articles_edited}
         </td>
         <td className="wordsAdded">
-          {'61.4K'}
+          {campaign.words_added}
         </td>
         <td className="referencesAdded">
-          768
+          {campaign.references_added}
         </td>
         <td className="views">
-          0
+          {campaign.views}
         </td>
         <td className="editors">
-          38
+          {campaign.editors}
         </td>
         <td className="csv">
           <button onClick={() => setShowDownloadModal(true)} className="button">{I18n.t('campaign.download_csvs_data')}</button>
