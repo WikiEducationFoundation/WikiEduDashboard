@@ -126,6 +126,12 @@ describe CoursesController, type: :request do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
     end
 
+    it 'does not post the details to the announcement page or the userpage' do
+      params = { id: course.slug, course: course_params }
+      expect(AnnounceCourseWorker).not_to receive(:schedule_announcement)
+      put "/courses/#{course.slug}", params: params, as: :json
+    end
+
     it 'updates all values' do
       params = { id: course.slug, course: course_params }
       put "/courses/#{course.slug}", params: params, as: :json
@@ -307,11 +313,13 @@ describe CoursesController, type: :request do
     context 'course is new' do
       let(:submitted_2) { true }
 
-      it 'announces course and emails the instructor' do
+      it 'emails the instructor but does not announce course' do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
         headers = { 'HTTP_ACCEPT' => 'application/json' }
-        expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
+        # Course announcement is posted at submission time, but
+        # userpage template is at approval time
+        expect(AnnounceCourseWorker).to receive(:schedule_announcement)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
         put "/courses/#{course.slug}", params:, headers:, as: :json
@@ -538,6 +546,7 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
       allow(SpecialUsers).to receive(:classroom_program_manager).and_return(user)
+      allow_any_instance_of(WikiCourseEdits).to receive(:add_course_template_to_instructor_userpage)
       # Make it look like a typical full assignment, so that
       # course advice emails get scheduled
       course.tags << Tag.new(tag: 'research_write_assignment')
@@ -562,6 +571,12 @@ describe CoursesController, type: :request do
           create(:courses_user, user_id: teaching_assistant.id,
                                 course_id: course.id,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
+        it 'posts the instructor userpage template' do
+          params = { id: course.slug, campaign: { title: campaign.title } }
+          expect(ListCourseWorker).to receive(:schedule_edits)
+          post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
 
         it 'creates a CampaignsCourse' do

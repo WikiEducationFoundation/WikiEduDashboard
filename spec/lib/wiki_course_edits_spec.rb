@@ -64,13 +64,24 @@ describe WikiCourseEdits do
 
   describe '#announce_course' do
     # Posts to the Wiki Education dashboard by default in tests
-    it 'posts to the userpage of the instructor and a noticeboard' do
-      expect_any_instance_of(WikiEdits).to receive(:add_to_page_top) # userpage edit
+    it 'posts to a noticeboard' do
       expect_any_instance_of(WikiEdits).to receive(:add_new_section) # noticeboard edit
+      expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top) # userpage edit
       described_class.new(action: :announce_course,
                           course:,
                           current_user: user,
                           instructor: nil) # defaults to current user
+    end
+  end
+
+  describe '#add_course_template_to_instructor_userpage' do
+    it 'posts to the userpage of the instructor' do
+      expect_any_instance_of(WikiEdits).to receive(:add_to_page_top) # userpage edit
+      expect_any_instance_of(WikiEdits).not_to receive(:add_new_section) # noticeboard edit
+      described_class.new(action: :add_course_template_to_instructor_userpage,
+                          course:,
+                          current_user: user,
+                          instructor: user)
     end
 
     context 'makes correct edits on the Wiki Education Dashboard' do
@@ -80,10 +91,10 @@ describe WikiCourseEdits do
                 user,
                 "{{course instructor | course = [[#{course.wiki_title}]] }}\n",
                 "New course announcement: [[#{course.wiki_title}]].")
-        described_class.new(action: :announce_course,
+        described_class.new(action: :add_course_template_to_instructor_userpage,
                             course:,
                             current_user: user,
-                            instructor: nil)
+                            instructor: user)
       end
     end
 
@@ -111,8 +122,8 @@ describe WikiCourseEdits do
 
       context 'for enabled projects' do
         it 'posts to P&E Dashboard' do
-          expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           expect_any_instance_of(WikiEdits).to receive(:add_new_section)
+          expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
           described_class.new(action: :announce_course,
                               course:,
                               current_user: user,
@@ -125,10 +136,10 @@ describe WikiCourseEdits do
                   user,
                   "{{program instructor | course = [[#{course.wiki_title}]] }}\n",
                   "New course announcement: [[#{course.wiki_title}]].")
-          described_class.new(action: :announce_course,
+          described_class.new(action: :add_course_template_to_instructor_userpage,
                               course:,
                               current_user: user,
-                              instructor: nil)
+                              instructor: user)
         end
       end
 
