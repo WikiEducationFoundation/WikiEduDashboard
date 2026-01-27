@@ -218,7 +218,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     # Check if the user already has the position
     unless SpecialUsers.is?(@user, @position)
       message = I18n.t(
-        'settings.special_users.new.already_is_not',
+        'settings.special_users.remove.already_is_not',
         username: @user.username,
         position: @position
       )
