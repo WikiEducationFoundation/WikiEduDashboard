@@ -57,6 +57,53 @@ export default class CourseUtils {
   static articleFromTitleInput(articleTitleInput) {
     const articleTitle = articleTitleInput;
     if (!/http/.test(articleTitle)) {
+      // Check for interwiki format like "en:Article" or "en:wiktionary:Article"
+      const interwikiMatch = /^(:)?([a-z]{2,3}(?:-[a-z]+)?)(?::([a-z]+))?:(.+)$/.exec(articleTitle);
+      if (interwikiMatch) {
+        const [, , language, projectCode] = interwikiMatch;
+        let title = interwikiMatch[4];
+
+        // Standard project abbreviations from wikitext.rb
+        const projectMap = {
+          w: 'wikipedia',
+          wikt: 'wiktionary',
+          n: 'wikinews',
+          b: 'wikibooks',
+          q: 'wikiquote',
+          s: 'wikisource',
+          v: 'wikiversity',
+          voy: 'wikivoyage',
+          c: 'commons',
+          wmf: 'wikimedia',
+          m: 'metawikipedia',
+          species: 'wikispecies',
+          mw: 'mediawiki'
+        };
+
+        const validProjects = ['wikipedia', 'wiktionary', 'wikinews', 'wikibooks', 'wikiquote',
+                               'wikisource', 'wikiversity', 'wikivoyage', 'commons', 'wikimedia',
+                               'wikidata', 'metawikipedia', 'wikispecies', 'mediawiki'];
+
+        let resolvedProject;
+        if (projectCode) {
+          resolvedProject = projectMap[projectCode] || (validProjects.includes(projectCode) ? projectCode : null);
+          // If we can't resolve the project code, it might be part of the title (e.g., "en:User:Example")
+          if (!resolvedProject) {
+            title = `${projectCode}:${title}`;
+            resolvedProject = 'wikipedia';
+          }
+        } else {
+          resolvedProject = 'wikipedia';
+        }
+
+        return {
+          title: title.replace(/_/g, ' '),
+          project: resolvedProject,
+          language: language === 'commons' ? 'commons' : language,
+          article_url: null
+        };
+      }
+
       const title = articleTitle.replace(/_/g, ' ');
       return {
         title,
