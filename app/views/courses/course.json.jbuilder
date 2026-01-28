@@ -41,14 +41,8 @@ json.course do
   json.returning_instructor @course.returning_instructor?
 
   if @course&.course_stat&.stats_hash.present?
-    # Use .dup to avoid mutating the original hash. Format the stats for JSON output
-    # without assigning back to the ActiveRecord attribute to prevent serialization
-    # issues with ActiveSupport::SafeBuffer objects (which can't be serialized by Psych).
-    formatted_stats = format_course_stats(@course.course_stat.stats_hash.dup)
-    json.course_stats do
-      json.id @course.course_stat.id
-      json.stats_hash formatted_stats
-    end
+    @course.course_stat.stats_hash = format_course_stats(@course.course_stat.stats_hash)
+    json.course_stats @course.course_stat, :id, :stats_hash
   end
 
   json.created_count number_to_human @course.new_article_count
