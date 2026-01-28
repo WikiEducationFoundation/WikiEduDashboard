@@ -222,6 +222,72 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.language).toBe('en');
     expect(output.article_url).toBe(input);
   });
+
+  // Handle interwiki link format
+  test('parses interwiki format with language only (en:Article)', () => {
+    const input = 'en:Slavonic Library in Prague';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Slavonic Library in Prague');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+    expect(output.article_url).toBe(null);
+  });
+
+  test('parses interwiki format with underscores (en:Article_Title)', () => {
+    const input = 'en:Slavonic_Library_in_Prague';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Slavonic Library in Prague');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+  });
+
+  test('parses interwiki format with language and project (es:wiktionary:Article)', () => {
+    const input = 'es:wiktionary:palabra';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('palabra');
+    expect(output.project).toBe('wiktionary');
+    expect(output.language).toBe('es');
+  });
+
+  test('parses interwiki format with project abbreviation (en:wikt:Article)', () => {
+    const input = 'en:wikt:hello';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('hello');
+    expect(output.project).toBe('wiktionary');
+    expect(output.language).toBe('en');
+  });
+
+  test('parses interwiki format for different wikis (fr:Article)', () => {
+    const input = 'fr:Paris';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Paris');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('fr');
+  });
+
+  test('parses interwiki format for wikibooks (de:b:Article)', () => {
+    const input = 'de:b:Mathematik';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Mathematik');
+    expect(output.project).toBe('wikibooks');
+    expect(output.language).toBe('de');
+  });
+
+  test('does not parse article titles with colons that are not interwiki format', () => {
+    const input = 'Engineer:Something';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Engineer:Something');
+    expect(output.project).toBe(null);
+    expect(output.language).toBe(null);
+  });
+
+  test('does not parse Category:Something as interwiki format', () => {
+    const input = 'Category:Photography';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Category:Photography');
+    expect(output.project).toBe(null);
+    expect(output.language).toBe(null);
+  });
 });
 
 describe('courseUtils.articleFromAssignment', () => {
