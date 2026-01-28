@@ -445,32 +445,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_28_182700) do
     t.index ["wiki_id", "revision_id"], name: "revision_ai_scores_by_wiki_rev"
   end
 
-  create_table "revisions", id: :integer, charset: "utf8mb4", force: :cascade do |t|
-    t.integer "characters", default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer "user_id"
-    t.integer "article_id"
-    t.bigint "views", default: 0
-    t.datetime "date"
-    t.boolean "new_article", default: false
-    t.boolean "deleted", default: false
-    t.float "wp10"
-    t.float "wp10_previous"
-    t.boolean "system", default: false
-    t.integer "ithenticate_id"
-    t.integer "wiki_id"
-    t.bigint "mw_rev_id"
-    t.integer "mw_page_id"
-    t.text "features"
-    t.text "features_previous"
-    t.text "summary"
-    t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
-    t.index ["article_id"], name: "index_revisions_on_article_id"
-    t.index ["user_id"], name: "index_revisions_on_user_id"
-    t.index ["wiki_id", "mw_rev_id"], name: "index_revisions_on_wiki_id_and_mw_rev_id", unique: true
-  end
-
   create_table "settings", charset: "utf8mb4", force: :cascade do |t|
     t.string "key"
     t.text "value"
