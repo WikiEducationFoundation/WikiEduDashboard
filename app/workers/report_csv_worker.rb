@@ -13,16 +13,22 @@ class ReportCsvWorker
   sidekiq_options lock: :until_executed
 
   # Generate the csv for the given source (course or campaign)
+  # if type is global, then can access source as nil
   def self.generate_csv(source:, filename:, type:, include_course:)
-    perform_async(source.id, filename, type, include_course)
+    perform_async(source&.id, filename, type, include_course)
   end
 
   def perform(id, filename, type, include_course)
-    data = if course_report?(type)
-             to_course_csv(type, id)
-           else
-             to_campaign_csv(type, id, include_course)
-           end
+    data =
+      if type == 'all_courses_and_instructors'
+        all_courses_and_instructors_to_csv
+      elsif course_report?(type)
+        to_course_csv(type, id)
+      else
+        to_campaign_csv(type, id, include_course)
+      end
+
+    raise "CSV data was nil for type=#{type}" if data.nil?
 
     write_csv(filename, data)
     CsvCleanupWorker.perform_at(1.week.from_now, filename)
@@ -71,5 +77,75 @@ class ReportCsvWorker
 
   def course_report?(type)
     type.start_with?('course')
+  end
+
+  def all_courses_and_instructors_to_csv
+    CSV.generate do |csv|
+      write_all_courses_headers(csv)
+      each_public_course do |course|
+        write_course_rows(csv, course)
+      end
+    end
+  end
+
+  def write_all_courses_headers(csv)
+    csv << all_courses_headers
+  end
+
+  def all_courses_headers
+    [
+      'Course ID',
+      'Created At',
+      'Slug',
+      'Title',
+      'Institution',
+      'Start',
+      'End',
+      'Facilitator',
+      'Wiki'
+    ]
+  end
+
+  def public_courses_scope
+    Course
+      .where(private: false)
+      .preload(:instructors, :wikis)
+      .order(:id)
+  end
+
+  def each_public_course
+    public_courses_scope.find_each(batch_size: 1000) do |course|
+      yield course
+    end
+  end
+
+  def write_course_rows(csv, course)
+    base_row = base_course_row(course)
+    write_facilitator_rows(csv, base_row, course)
+    write_wiki_rows(csv, base_row, course)
+  end
+
+  def base_course_row(course)
+    [
+      course.id,
+      course.created_at&.utc&.iso8601,
+      course.slug,
+      course.title,
+      course.school,
+      course.start.to_s,
+      course.end.to_s
+    ]
+  end
+
+  def write_facilitator_rows(csv, base_row, course)
+    course.instructors.each do |facilitator|
+      csv << (base_row + [facilitator.username, nil])
+    end
+  end
+
+  def write_wiki_rows(csv, base_row, course)
+    course.wikis.each do |wiki|
+      csv << (base_row + [nil, wiki.domain])
+    end
   end
 end
