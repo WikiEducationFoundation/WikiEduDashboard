@@ -7,11 +7,23 @@ require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user:, campaign_param: nil, courses_list: nil, **options)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil, page: nil, tag: nil,
+                 articles_title: nil, course_title: nil, char_added_from: nil, char_added_to: nil,
+                 references_count_from: nil, references_count_to: nil,
+                 view_count_from: nil, view_count_to: nil, school: nil)
     @current_user = current_user
     @campaign_param = campaign_param
-    @page = options[:page]
-    @tag = options[:tag]
+    @page = page
+    @tag = tag
+    @articles_title = articles_title
+    @course_title = course_title
+    @school = school
+    @char_added_from = char_added_from
+    @char_added_to = char_added_to
+    @references_count_from = references_count_from
+    @references_count_to = references_count_to
+    @view_count_from = view_count_from
+    @view_count_to = view_count_to
     @courses_list = courses_list || campaign_courses
   end
 
@@ -68,7 +80,16 @@ class CoursesPresenter
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
-      too_many: too_many_articles?
+      too_many: too_many_articles?,
+      article_title: @articles_title,
+      course_title: @course_title,
+      char_added_from: @char_added_from,
+      char_added_to: @char_added_to,
+      references_count_from: @references_count_from,
+      references_count_to: @references_count_to,
+      view_count_from: @view_count_from,
+      view_count_to: @view_count_to,
+      school: @school
     ).scope
   end
 
@@ -150,6 +171,250 @@ class CoursesPresenter
       'OR lower(term) like ? OR lower(username) like ?',
       "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
     ).distinct
+  end
+
+  def search_courses_by_title(q)
+    courses.where('lower(title) like ?', "%#{q.downcase}%").distinct
+  end
+
+  def search_courses_by_creation_date(start_str, end_str)
+    start_time = begin
+      Time.zone.parse(start_str)&.beginning_of_day
+    rescue StandardError
+      nil
+    end
+    end_time = begin
+      Time.zone.parse(end_str)&.end_of_day
+    rescue StandardError
+      nil
+    end
+
+    if start_time && end_time
+      courses.where('courses.created_at BETWEEN ? AND ?', start_time, end_time).distinct
+    elsif start_time
+      courses.where('courses.created_at >= ?', start_time).distinct
+    elsif end_time
+      courses.where('courses.created_at <= ?', end_time).distinct
+    else
+      courses.none
+    end
+  end
+
+  def search_courses_by_start_date(start_str, end_str)
+    start_time = begin
+      Time.zone.parse(start_str)&.beginning_of_day
+    rescue StandardError
+      nil
+    end
+    end_time = begin
+      Time.zone.parse(end_str)&.end_of_day
+    rescue StandardError
+      nil
+    end
+
+    if start_time && end_time
+      courses.where('courses.start BETWEEN ? AND ?', start_time, end_time).distinct
+    elsif start_time
+      courses.where('courses.start >= ?', start_time).distinct
+    elsif end_time
+      courses.where('courses.start <= ?', end_time).distinct
+    else
+      courses.none
+    end
+  end
+
+  def search_courses_by_school(school)
+    return courses.none if school.blank?
+    courses.where(school: school).distinct
+  end
+
+  def school_options
+    courses.where.not(school: [nil, '']).group(:school).order(:school).pluck(:school)
+  end
+
+  def course_title_options
+    courses.order(:title).pluck(:title).uniq
+  end
+
+  def search_courses_by_revisions(min_str, max_str)
+    min_val = begin
+      Integer(min_str)
+    rescue StandardError
+      nil
+    end
+    max_val = begin
+      Integer(max_str)
+    rescue StandardError
+      nil
+    end
+
+    if min_val && max_val
+      courses.where('courses.recent_revision_count BETWEEN ? AND ?', min_val, max_val).distinct
+    elsif min_val
+      courses.where('courses.recent_revision_count >= ?', min_val).distinct
+    elsif max_val
+      courses.where('courses.recent_revision_count <= ?', max_val).distinct
+    else
+      courses.none
+    end
+  end
+
+  def filter_courses(filters)
+    scope = courses
+
+    if filters[:title_query].present?
+      q = filters[:title_query].downcase
+      scope = scope.joins(:instructors).includes(:instructors).where(
+        'lower(title) like ? OR lower(school) like ? OR lower(term) like ? OR lower(username) like ?',
+        "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
+      )
+    end
+
+    scope = scope.where(school: filters[:school]) if filters[:school].present?
+
+    if filters[:revisions_min].present? || filters[:revisions_max].present?
+      min_val = begin
+        Integer(filters[:revisions_min])
+      rescue StandardError
+        nil
+      end
+      max_val = begin
+        Integer(filters[:revisions_max])
+      rescue StandardError
+        nil
+      end
+      if min_val && max_val
+        scope = scope.where('courses.recent_revision_count BETWEEN ? AND ?', min_val, max_val)
+      elsif min_val
+        scope = scope.where('courses.recent_revision_count >= ?', min_val)
+      elsif max_val
+        scope = scope.where('courses.recent_revision_count <= ?', max_val)
+      end
+    end
+
+    if filters[:word_count_min].present? || filters[:word_count_max].present?
+      w_min = begin
+        Integer(filters[:word_count_min])
+      rescue StandardError
+        nil
+      end
+      w_max = begin
+        Integer(filters[:word_count_max])
+      rescue StandardError
+        nil
+      end
+      c_min = (w_min.to_f * WordCount::HALFAK_EN_WIKI_ESTIMATE).to_i if w_min
+      c_max = (w_max.to_f * WordCount::HALFAK_EN_WIKI_ESTIMATE).to_i if w_max
+      if c_min && c_max
+        scope = scope.where('courses.character_sum BETWEEN ? AND ?', c_min, c_max)
+      elsif c_min
+        scope = scope.where('courses.character_sum >= ?', c_min)
+      elsif c_max
+        scope = scope.where('courses.character_sum <= ?', c_max)
+      end
+    end
+
+    if filters[:references_min].present? || filters[:references_max].present?
+      r_min = begin
+        Integer(filters[:references_min])
+      rescue StandardError
+        nil
+      end
+      r_max = begin
+        Integer(filters[:references_max])
+      rescue StandardError
+        nil
+      end
+      if r_min && r_max
+        scope = scope.where('courses.references_count BETWEEN ? AND ?', r_min, r_max)
+      elsif r_min
+        scope = scope.where('courses.references_count >= ?', r_min)
+      elsif r_max
+        scope = scope.where('courses.references_count <= ?', r_max)
+      end
+    end
+
+    if filters[:views_min].present? || filters[:views_max].present?
+      v_min = begin
+        Integer(filters[:views_min])
+      rescue StandardError
+        nil
+      end
+      v_max = begin
+        Integer(filters[:views_max])
+      rescue StandardError
+        nil
+      end
+      if v_min && v_max
+        scope = scope.where('courses.view_sum BETWEEN ? AND ?', v_min, v_max)
+      elsif v_min
+        scope = scope.where('courses.view_sum >= ?', v_min)
+      elsif v_max
+        scope = scope.where('courses.view_sum <= ?', v_max)
+      end
+    end
+
+    if filters[:users_min].present? || filters[:users_max].present?
+      u_min = begin
+        Integer(filters[:users_min])
+      rescue StandardError
+        nil
+      end
+      u_max = begin
+        Integer(filters[:users_max])
+      rescue StandardError
+        nil
+      end
+      if u_min && u_max
+        scope = scope.where('courses.user_count BETWEEN ? AND ?', u_min, u_max)
+      elsif u_min
+        scope = scope.where('courses.user_count >= ?', u_min)
+      elsif u_max
+        scope = scope.where('courses.user_count <= ?', u_max)
+      end
+    end
+
+    if filters[:creation_start].present? || filters[:creation_end].present?
+      c_start = begin
+        Time.zone.parse(filters[:creation_start])&.beginning_of_day
+      rescue StandardError
+        nil
+      end
+      c_end = begin
+        Time.zone.parse(filters[:creation_end])&.end_of_day
+      rescue StandardError
+        nil
+      end
+      if c_start && c_end
+        scope = scope.where('courses.created_at BETWEEN ? AND ?', c_start, c_end)
+      elsif c_start
+        scope = scope.where('courses.created_at >= ?', c_start)
+      elsif c_end
+        scope = scope.where('courses.created_at <= ?', c_end)
+      end
+    end
+
+    if filters[:start_date_start].present? || filters[:start_date_end].present?
+      s_start = begin
+        Time.zone.parse(filters[:start_date_start])&.beginning_of_day
+      rescue StandardError
+        nil
+      end
+      s_end = begin
+        Time.zone.parse(filters[:start_date_end])&.end_of_day
+      rescue StandardError
+        nil
+      end
+      if s_start && s_end
+        scope = scope.where('courses.start BETWEEN ? AND ?', s_start, s_end)
+      elsif s_start
+        scope = scope.where('courses.start >= ?', s_start)
+      elsif s_end
+        scope = scope.where('courses.start <= ?', s_end)
+      end
+    end
+
+    scope.distinct
   end
 
   def courses_by_recent_edits

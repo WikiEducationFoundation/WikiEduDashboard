@@ -11,6 +11,7 @@ import { sortByKey } from '../utils/model_utils';
 
 // these keys are to be sorted in descending order on first click
 const SORT_DESCENDING = {
+  courses: true,
   course_count: true,
   new_article_count: true,
   article_count: true,

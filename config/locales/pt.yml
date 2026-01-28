@@ -2029,4 +2029,12 @@ pt:
       weekday_unselected: Desselecionado {{weekday}}
   question_groups:
     edit_question_group: Editar Grupo de Perguntas
+  
+  form_search:
+    search: "Pesquisar"
+    advanced_search: "Pesquisa Avançada"
+    clear: "Limpar"
+    between: "entre"
+    and: "e"
+      
 ...

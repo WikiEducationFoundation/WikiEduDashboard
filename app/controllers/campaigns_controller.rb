@@ -89,7 +89,32 @@ class CampaignsController < ApplicationController
 
         @courses_users = CoursesUsers.where(
           course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
-        ).eager_load(:user, :course).order(revision_count: :desc)
+        ).eager_load(:user, :course)
+
+        if params[:username].present?
+          @courses_users = @courses_users.where('users.username LIKE ?', "%#{params[:username]}%")
+        end
+
+        if params[:min_revision_count].present?
+          @courses_users = @courses_users.where('courses_users.revision_count >= ?',
+                                                params[:min_revision_count])
+        end
+
+        if params[:max_revision_count].present?
+          @courses_users = @courses_users.where('courses_users.revision_count <= ?',
+                                                params[:max_revision_count])
+        end
+
+        if params[:course_title].present?
+          @courses_users = if params[:course_title].is_a?(Array)
+                             @courses_users.where(courses: { title: params[:course_title] })
+                           else
+                             @courses_users.where('courses.title LIKE ?',
+                                                  "%#{params[:course_title]}%")
+                           end
+        end
+
+        @courses_users = @courses_users.order(revision_count: :desc)
       end
 
       format.json do
@@ -130,8 +155,45 @@ class CampaignsController < ApplicationController
   def programs
     set_page
     set_presenter
-    @search_terms = params[:courses_query]
-    @results = @presenter.search_courses(@search_terms) if @search_terms.present?
+    filters = params.slice(:title_query, :creation_start, :creation_end,
+                           :start_date_start, :start_date_end,
+                           :school, :revisions_min, :revisions_max,
+                           :word_count_min, :word_count_max,
+                           :references_min, :references_max,
+                           :views_min, :views_max,
+                           :users_min, :users_max)
+
+    if filters.values.any?(&:present?)
+      parts = []
+      parts << "title: #{filters[:title_query]}" if filters[:title_query].present?
+      if filters[:creation_start].present? || filters[:creation_end].present?
+        parts << "creation: #{filters[:creation_start]} - #{filters[:creation_end]}"
+      end
+      if filters[:start_date_start].present? || filters[:start_date_end].present?
+        parts << "start: #{filters[:start_date_start]} - #{filters[:start_date_end]}"
+      end
+      parts << "school: #{filters[:school]}" if filters[:school].present?
+      if filters[:revisions_min].present? || filters[:revisions_max].present?
+        parts << "revisions: #{filters[:revisions_min]} - #{filters[:revisions_max]}"
+      end
+      if filters[:word_count_min].present? || filters[:word_count_max].present?
+        parts << "word_count: #{filters[:word_count_min]} - #{filters[:word_count_max]}"
+      end
+      if filters[:references_min].present? || filters[:references_max].present?
+        parts << "references: #{filters[:references_min]} - #{filters[:references_max]}"
+      end
+      if filters[:views_min].present? || filters[:views_max].present?
+        parts << "views: #{filters[:views_min]} - #{filters[:views_max]}"
+      end
+      if filters[:users_min].present? || filters[:users_max].present?
+        parts << "editors: #{filters[:users_min]} - #{filters[:users_max]}"
+      end
+      @search_terms = parts.join(', ')
+      @results = @presenter.filter_courses(filters)
+    else
+      @search_terms = params[:courses_query]
+      @results = @presenter.search_courses(@search_terms) if @search_terms.present?
+    end
   end
 
   def ores_plot
@@ -262,7 +324,17 @@ class CampaignsController < ApplicationController
 
   def set_presenter
     @presenter = CoursesPresenter.new(current_user:,
-                                      campaign_param: @campaign.slug, page: @page)
+                                      campaign_param: @campaign.slug,
+                                      page: @page,
+                                      articles_title: params[:title],
+                                      course_title: params[:course_title],
+                                      char_added_from: params[:char_added_from],
+                                      char_added_to: params[:char_added_to],
+                                      references_count_from: params[:references_count_from],
+                                      references_count_to: params[:references_count_to],
+                                      view_count_from: params[:view_count_from],
+                                      view_count_to: params[:view_count_to],
+                                      school: params[:school])
   end
 
   def add_organizer_to_campaign(user)
