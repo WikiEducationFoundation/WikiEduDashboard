@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Cookies } from 'react-cookie-consent';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Utilities
@@ -17,6 +18,7 @@ import BadWorkAlert from '../components/BadWorkAlert/BadWorkAlert';
 import BadWorkAlertButton from '@components/common/ArticleViewer/components/BadWorkAlertButton.jsx';
 import ParsedArticle from '@components/common/ArticleViewer/components/ParsedArticle.jsx';
 import Footer from '@components/common/ArticleViewer/components/Footer.jsx';
+import SettingsModal from '@components/overview/settings_modal.jsx';
 
 // Helpers
 import URLBuilder from '@components/common/ArticleViewer/utils/URLBuilder';
@@ -56,6 +58,12 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
   const [revisionId, setRevisionId] = useState(null);
   const [pendingRequest, setPendingRequest] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [articleViewerSettings, setArticleViewerSettings] = useState({
+    showUserFullNames: Cookies.get('articleViewerSetting')
+      ? JSON.parse(Cookies.get('articleViewerSetting')).showUserFullNames
+      : false,
+  });
   const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
 
   // State to track whether the article title needs to be verified and updated
@@ -64,10 +72,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
 
   const dispatch = useDispatch();
   const ref = useRef();
+  const hasAdvancedAccess = current_user.isAdvancedRole && !showArticleFinder;
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (showArticle && users) {
+    if (showArticle || users) {
       fetchUserIds();
     }
   }, [showArticle]);
@@ -209,12 +218,12 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
 
     // Fetch wikitext metadata for the current article revision
     api.fetchWikitextMetaData()
-       .then((response) => {
-         // Extract the tokensForRevision data from the response
-         const { tokensForRevision } = response;
+      .then((response) => {
+        // Extract the tokensForRevision data from the response
+        const { tokensForRevision } = response;
 
-         // Iterate through the list of user IDs whose contributions couldn't be highlighted
-         usersID.forEach((userID) => {
+        // Iterate through the list of user IDs whose contributions couldn't be highlighted
+        usersID.forEach((userID) => {
           // Find a token in the metadata with a matching editor ID
           const foundToken = tokensForRevision.find(token => token.editor === userID.toString());
 
@@ -231,8 +240,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           }
         });
       }).catch((error) => {
-      setFailureMessage(error.message);
-    });
+        setFailureMessage(error.message);
+      });
   };
 
   const fetchParsedArticle = () => {
@@ -360,6 +369,15 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   };
 
+
+  const setArticleViewerSettingsOption = (key, value) => {
+    const newSettings = { ...articleViewerSettings, [key]: value };
+    setArticleViewerSettings(newSettings);
+
+    Cookies.set('articleViewerSetting', JSON.stringify(newSettings));
+    window.location.reload();
+  };
+
   // If the article viewer is hidden, show the icon instead.
   if (!showArticle) {
     // If a title was provided, show the article viewer with the title.
@@ -387,18 +405,27 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     <div ref={ref}>
       <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
         <div className="article-header">
-          <p>
-            <span className="article-viewer-title">{trunc(article.title, 56)}</span>
-            {
-              showPermalink && <Permalink articleId={article.id} />
-            }
-            <CloseButton hideArticle={hideArticle} />
-            {
-              current_user.isAdvancedRole && !showArticleFinder ? (
+          <div className="article-sub-header">
+            <span className="article-viewer-title">{trunc(article.title, 56)}
+              <span> {showPermalink && <Permalink articleId={article.id} />}</span>
+            </span>
+            {hasAdvancedAccess
+              ? (
                 <BadWorkAlertButton showBadArticleAlert={() => setShowBadArticleAlert(true)} /> // Passed as a function for onclick
               ) : ''
             }
-          </p>
+          </div>
+          <div>
+            {hasAdvancedAccess && (
+              <button
+                aria-label="Article Viewer Settings"
+                className="pull-left icon-settings_view icon-settings"
+                onClick={() => setModalOpen(true)}
+              />
+            )}
+
+            <CloseButton hideArticle={hideArticle} />
+          </div>
         </div>
         {
           showBadArticleAlert && (
@@ -412,6 +439,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
             />
           )
         }
+        {modalOpen && <SettingsModal
+          toggleModal={() => setModalOpen(false)}
+          setArticleViewerSettingsOption={setArticleViewerSettingsOption}
+          articleViewerSettingsOption={articleViewerSettings}
+        />}
         <div id="article-scrollbox-id" className="article-scrollbox">
           {
             fetched ? <ParsedArticle highlightedHtml={highlightedHtml} whocolorHtml={whoColorHtml} parsedArticle={parsedArticle} /> : <Loading />
@@ -430,6 +462,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           unhighlightedContributors={unhighlightedContributors}
           revisionId={revisionId}
           toggleRevisionHandler={toggleRevisionHandler}
+          viewerSettings={articleViewerSettings}
         />
       </div>
     </div>
