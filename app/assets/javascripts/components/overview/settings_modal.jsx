@@ -13,6 +13,7 @@ const SettingsModal = (props) => {
           <span>{I18n.t('courses.article_viewer_settings.show_fullname')}</span>
           <input
             type="checkbox"
+            checked={props.articleViewerSettingsOption.showUserFullNames}
             onChange={() => props.setArticleViewerSettingsOption(
               'showUserFullNames', !props.articleViewerSettingsOption.showUserFullNames)}
           />

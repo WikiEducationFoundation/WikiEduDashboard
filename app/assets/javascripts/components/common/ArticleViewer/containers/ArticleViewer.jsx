@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Cookies } from 'react-cookie-consent';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Utilities
@@ -59,7 +60,9 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [pendingRequest, setPendingRequest] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [articleViewerSettings, setArticleViewerSettings] = useState({
-    showUserFullNames: false,
+    showUserFullNames: Cookies.get('articleViewerSetting')
+      ? JSON.parse(Cookies.get('articleViewerSetting')).showUserFullNames
+      : false,
   });
   const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
 
@@ -72,7 +75,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (showArticle && users) {
+    if (showArticle || users) {
       fetchUserIds();
     }
   }, [showArticle]);
@@ -214,12 +217,12 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
 
     // Fetch wikitext metadata for the current article revision
     api.fetchWikitextMetaData()
-       .then((response) => {
-         // Extract the tokensForRevision data from the response
-         const { tokensForRevision } = response;
+      .then((response) => {
+        // Extract the tokensForRevision data from the response
+        const { tokensForRevision } = response;
 
-         // Iterate through the list of user IDs whose contributions couldn't be highlighted
-         usersID.forEach((userID) => {
+        // Iterate through the list of user IDs whose contributions couldn't be highlighted
+        usersID.forEach((userID) => {
           // Find a token in the metadata with a matching editor ID
           const foundToken = tokensForRevision.find(token => token.editor === userID.toString());
 
@@ -236,8 +239,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           }
         });
       }).catch((error) => {
-      setFailureMessage(error.message);
-    });
+        setFailureMessage(error.message);
+      });
   };
 
   const fetchParsedArticle = () => {
@@ -365,11 +368,14 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   };
 
-  const setArticleViewerSettingsOption = (option, value) => {
-    setArticleViewerSettings(prevSettings => ({
-      ...prevSettings,
-      [option]: value
-    }));
+  const saveSettingInCookie = (newSettings) => {
+    setArticleViewerSettings(newSettings);
+    Cookies.set('articleViewerSetting', JSON.stringify(newSettings));
+  };
+
+  const setArticleViewerSettingsOption = (key, value) => {
+    const newSettings = { ...articleViewerSettings, [key]: value };
+    saveSettingInCookie(newSettings);
   };
 
   // If the article viewer is hidden, show the icon instead.
@@ -453,6 +459,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           unhighlightedContributors={unhighlightedContributors}
           revisionId={revisionId}
           toggleRevisionHandler={toggleRevisionHandler}
+          viewerSettings={articleViewerSettings}
         />
       </div>
     </div>
