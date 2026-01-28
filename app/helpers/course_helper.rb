@@ -40,7 +40,7 @@ module CourseHelper
       end
       # convert stats to human readable values
       course_stats[wiki_ns_key].each do |stat_key, stat|
-        course_stats[wiki_ns_key][stat_key] = number_to_human(stat).to_s
+        course_stats[wiki_ns_key][stat_key] = number_to_human(stat)
       end
     end
     course_stats
