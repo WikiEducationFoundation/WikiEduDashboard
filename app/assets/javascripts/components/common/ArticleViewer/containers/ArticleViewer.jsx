@@ -72,6 +72,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
 
   const dispatch = useDispatch();
   const ref = useRef();
+  const hasAdvancedAccess = current_user.isAdvancedRole && !showArticleFinder;
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -368,14 +369,13 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     }
   };
 
-  const saveSettingInCookie = (newSettings) => {
-    setArticleViewerSettings(newSettings);
-    Cookies.set('articleViewerSetting', JSON.stringify(newSettings));
-  };
 
   const setArticleViewerSettingsOption = (key, value) => {
     const newSettings = { ...articleViewerSettings, [key]: value };
-    saveSettingInCookie(newSettings);
+    setArticleViewerSettings(newSettings);
+
+    Cookies.set('articleViewerSetting', JSON.stringify(newSettings));
+    window.location.reload();
   };
 
   // If the article viewer is hidden, show the icon instead.
@@ -409,18 +409,21 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
             <span className="article-viewer-title">{trunc(article.title, 56)}
               <span> {showPermalink && <Permalink articleId={article.id} />}</span>
             </span>
-            {current_user.isAdvancedRole && !showArticleFinder
+            {hasAdvancedAccess
               ? (
                 <BadWorkAlertButton showBadArticleAlert={() => setShowBadArticleAlert(true)} /> // Passed as a function for onclick
               ) : ''
             }
           </div>
           <div>
-            <button
-              aria-label="Article Viewer Settings"
-              className="pull-left icon-settings_view icon-settings"
-              onClick={() => setModalOpen(true)}
-            />
+            {hasAdvancedAccess && (
+              <button
+                aria-label="Article Viewer Settings"
+                className="pull-left icon-settings_view icon-settings"
+                onClick={() => setModalOpen(true)}
+              />
+            )}
+
             <CloseButton hideArticle={hideArticle} />
           </div>
         </div>
