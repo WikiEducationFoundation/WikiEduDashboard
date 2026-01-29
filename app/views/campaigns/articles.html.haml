@@ -28,15 +28,15 @@
             = t("articles.wiki")
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
-      = form_tag(articles_campaign_path(@campaign.slug), method: :get, class: 'course-filters') do
+      = form_tag(articles_campaign_path(@campaign.slug), method: :get, class: 'course-filters campaign-articles-search-form') do
         .form-fields
           .form-row
-            = text_field_tag :title, params[:title], placeholder: t('form_search.search') + ' ' + t('articles.article_title'), class: 'form-control input-sm', style: 'width: 100%'
+            = text_field_tag :title, params[:title], placeholder: t('form_search.search') + ' ' + t('articles.article_title'), class: 'form-control input-sm input-full-width'
           .form-row
-            %button.button.border.small{type: 'button', style: 'margin-top: 10px; margin-bottom: 10px;', onclick: "var el = document.getElementById('advanced-search-inputs'); el.style.display = el.style.display === 'none' ? 'block' : 'none';"}= t('form_search.advanced_search')
+            %button.button.border.small.advanced-search-toggle{type: 'button', onclick: "var el = document.getElementById('advanced-search-inputs'); el.style.display = el.style.display === 'none' ? 'block' : 'none';"}= t('form_search.advanced_search')
         #advanced-search-inputs{style: params.slice(:school, :course_title, :char_added_from, :char_added_to, :references_count_from, :references_count_to, :view_count_from, :view_count_to).values.any?(&:present?) ? '' : 'display: none;'}
           .form-row.relative
-            = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select', style: 'width: 100%'
+            = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select', class: 'school-select-wrapper'
             :javascript
               document.addEventListener('DOMContentLoaded', () => {
                 if (typeof TomSelect !== 'undefined') {
@@ -47,21 +47,21 @@
                   });
                 }
               });
-          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+          .form-row.advanced-search-grid-small
             %label{for: 'char_added_from'}= t("metrics.char_added")
-            .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+            .input-group.flex-input-group
               = number_field_tag :char_added_from, params[:char_added_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
               %span -
               = number_field_tag :char_added_to, params[:char_added_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
-          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+          .form-row.advanced-search-grid-small
             %label{for: 'references_count_from'}= t("metrics.references_count")
-            .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+            .input-group.flex-input-group
               = number_field_tag :references_count_from, params[:references_count_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
               %span -
               = number_field_tag :references_count_to, params[:references_count_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
-          .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+          .form-row.advanced-search-grid-small
             %label{for: 'view_count_from'}= t("metrics.view")
-            .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+            .input-group.flex-input-group
               = number_field_tag :view_count_from, params[:view_count_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
               %span -
               = number_field_tag :view_count_to, params[:view_count_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
