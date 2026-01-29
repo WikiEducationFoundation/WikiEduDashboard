@@ -17,16 +17,16 @@
           %option{rel: "asc", value: "username"}= t('users.username')
           %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
           %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
-      = form_tag users_campaign_path(@campaign.slug), method: :get do
+      = form_tag users_campaign_path(@campaign.slug), method: :get, class: 'users-search-form' do
         .form-fields
           .form-row
-            = text_field_tag :username, params[:username], placeholder: t('users.username'), style: "width: 100%;"
+            = text_field_tag :username, params[:username], placeholder: t('users.username'), class: 'input-full-width'
           - has_advanced_params = params[:min_revision_count].present? || params[:max_revision_count].present? || params[:course_title].present?
-          %button.button.border.small#toggle_advanced_search{type: "button", style: "margin-top: 10px; margin-bottom: 10px;"}
+          %button.button.border.small.advanced-search-toggle#toggle_advanced_search{type: "button"}
             = t('form_search.advanced_search')
           #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
             .form-row.relative
-              = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', style: "width: 100%;"
+              = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', class: 'course-title-select-wrapper'
               :javascript
                 document.addEventListener('DOMContentLoaded', () => {
                   if (typeof TomSelect !== 'undefined') {
@@ -37,9 +37,9 @@
                     });
                   }
                 });
-            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+            .form-row.advanced-search-grid-small
               %label{for: 'min_revision_count'}= t('courses.edit_count')
-              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+              .input-group.flex-input-group
                 = number_field_tag :min_revision_count, params[:min_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Min'
                 %span -
                 = number_field_tag :max_revision_count, params[:max_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Max'
