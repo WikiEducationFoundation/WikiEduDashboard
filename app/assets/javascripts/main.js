@@ -13,17 +13,23 @@ require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 window.List = require('list.js'); // List is used for sorting tables outside of React
 
+import flatpickr from 'flatpickr';
+import TomSelect from 'tom-select';
+
+window.flatpickr = flatpickr;
+window.TomSelect = TomSelect;
+
 document.addEventListener('DOMContentLoaded', () => {
   /* eslint-disable */
   import('./utils/course.js'); // This adds jquery features for some views outside of React
-  
+
   // This is the main React entry point. It renders the navbar throughout the app, and
   // renders other components depending on the route.
   import('./components/app.jsx');
-  import('events').then(({default: events}) => {
+  import('events').then(({ default: events }) => {
     events.EventEmitter.defaultMaxListeners = 30;
   });
-    
+
 });
 
 i18n.defaultLocale = defaultLocale;

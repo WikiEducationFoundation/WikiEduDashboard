@@ -1,4 +1,6 @@
 - content_for :before_title, t('courses.campaign_users', title: @campaign.title) + ' — '
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
+= hot_javascript_tag 'campaigns'
 
 #react_root{data: {slug: @campaign.slug}}
 
@@ -15,6 +17,35 @@
           %option{rel: "asc", value: "username"}= t('users.username')
           %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
           %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
+      = form_tag users_campaign_path(@campaign.slug), method: :get do
+        .form-fields
+          .form-row
+            = text_field_tag :username, params[:username], placeholder: t('users.username'), style: "width: 100%;"
+          - has_advanced_params = params[:min_revision_count].present? || params[:max_revision_count].present? || params[:course_title].present?
+          %button.button.border.small#toggle_advanced_search{type: "button", style: "margin-top: 10px; margin-bottom: 10px;"}
+            = t('form_search.advanced_search')
+          #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
+            .form-row.relative
+              = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', style: "width: 100%;"
+              :javascript
+                document.addEventListener('DOMContentLoaded', () => {
+                  if (typeof TomSelect !== 'undefined') {
+                    new TomSelect('#course_title_search', {
+                      plugins: ['remove_button'],
+                      placeholder: "#{t(@presenter.course_string_prefix + '.course')}...",
+                      allowEmptyOption: true
+                    });
+                  }
+                });
+            .form-row{style: 'display: grid; grid-template-columns: 180px 1fr; column-gap: 10px; align-items: center;'}
+              %label{for: 'min_revision_count'}= t('courses.edit_count')
+              .input-group{style: 'display: flex; align-items: center; gap: 10px;'}
+                = number_field_tag :min_revision_count, params[:min_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+                %span -
+                = number_field_tag :max_revision_count, params[:max_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+          .form-actions
+            = submit_tag t('form_search.search'), class: 'button'
+            = link_to t('form_search.clear'), users_campaign_path(@campaign.slug), class: 'button'
     %table.table.table--hoverable.table--sortable
       %thead
         %tr

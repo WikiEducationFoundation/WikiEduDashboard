@@ -3,6 +3,7 @@
 #= Controller for user functionality
 class LookupsController < ApplicationController
   include CourseHelper
+  require_dependency "#{Rails.root}/lib/word_count"
 
   respond_to :json
 
