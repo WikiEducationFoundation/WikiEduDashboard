@@ -1,3 +1,4 @@
+import $ from 'jquery';
 /**
  * Editable - a tiny jQuery plugin to turn blocks of text into inputs
  *

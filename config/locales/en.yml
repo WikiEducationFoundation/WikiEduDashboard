@@ -424,10 +424,10 @@ en:
       change_button: "Change in Structural Completeness"
       no_data: "No Structural Completeness data available"
       graph_description_html: >
-        This graph visualizes, in aggregate, how much articles developed from 
-        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em> 
-        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>) 
-        that estimates an article&apos;s quality rating based on the amount of 
+        This graph visualizes, in aggregate, how much articles developed from
+        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em>
+        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
+        that estimates an article&apos;s quality rating based on the amount of
         prose, the number of wikilinks, images and section headers, and other features.
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
@@ -509,6 +509,7 @@ en:
     search_campaigns: Search campaigns
     use_start_end_dates: Use start and end dates
     search: Search
+    download_csvs_data: Download CSVs
 
   categories:
     searching_for_category: Searching for categories in
@@ -1411,7 +1412,7 @@ en:
     all_queues_not_operational: All Queues Operational except
     constant_update: Constant update
     constant_update_description: Constant updates are independent of the main course stats, pulling in revision metadata, generating alerts, and doing other data and network-intensive tasks, for all current courses.
-    constant_update_doc: Handles transactional jobs like wiki edits and sending email. 
+    constant_update_doc: Handles transactional jobs like wiki edits and sending email.
     daily_update: Daily update
     daily_update_description: This pulls in additional data and performs other tasks that do not need to be done many times per day.
     daily_update_doc: Handles once-daily long-running data update tasks.
@@ -2028,7 +2029,7 @@ en:
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
         note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
-  
+
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
 
@@ -2043,4 +2044,10 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
-      
+
+  form_search:
+    search: "Search"
+    advanced_search: "Advanced Search"
+    clear: "Clear"
+    between: "between"
+    and: "and"
