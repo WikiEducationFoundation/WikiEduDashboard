@@ -157,7 +157,7 @@
   background-color #b026c0
 
 .article-viewer-title
-  font-size 200%
+  font-size 20px
   color bayoux
 
 .article-scrollbox
@@ -298,10 +298,39 @@ wikibase-snakview-value
     & > .wikibase-sitelinkgroupview
       float left
 
-.check-container
+.viewer_setting_input_container
   width auto
   display flex
-  justify-content space-between
-  gap 20px
+  justify-content flex-start
+  gap 10px
   aling-items center
   margin-bottom 15px
+  & > input
+    width 15px
+    height 15px
+
+.viewer_overlay 
+  position fixed
+  inset 0
+  top 0
+  right 0
+  background-color rgba(0, 0, 0, 0.45)
+  z-index 9999
+  transition opacity 0.4s ease
+
+.viewer_setting_container
+  position fixed
+  top 0
+  right 0
+  width 400px
+  height 99vh
+  margin-bottom 10px
+  border-top-left-radius 10px
+  border-bottom-left-radius 10px
+  background-color white
+  box-shadow -12px 0 32px rgba(0, 0, 0, 0.22)
+  z-index 10000
+  overflowY auto
+  padding 32px 24px
+  display flex
+  flex-direction column

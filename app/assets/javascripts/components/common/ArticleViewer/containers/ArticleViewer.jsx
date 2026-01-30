@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Cookies } from 'react-cookie-consent';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, connect } from 'react-redux';
 
 // Utilities
 import { forEach, union } from 'lodash-es';
@@ -18,7 +18,7 @@ import BadWorkAlert from '../components/BadWorkAlert/BadWorkAlert';
 import BadWorkAlertButton from '@components/common/ArticleViewer/components/BadWorkAlertButton.jsx';
 import ParsedArticle from '@components/common/ArticleViewer/components/ParsedArticle.jsx';
 import Footer from '@components/common/ArticleViewer/components/Footer.jsx';
-import SettingsModal from '@components/overview/settings_modal.jsx';
+import SettingsSidebar from '@components/overview/settings_sidebar.jsx';
 
 // Helpers
 import URLBuilder from '@components/common/ArticleViewer/utils/URLBuilder';
@@ -44,7 +44,7 @@ import { crossCheckArticleTitle } from '@actions/article_actions';
 */
 const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   fetchArticleDetails, assignedUsers, article, course, current_user = {},
-  showButtonClass, showPermalink = true, title }) => {
+  showButtonClass, showPermalink = true, title, allAssignedUsers }) => {
   const [failureMessage, setFailureMessage] = useState(null);
   const [fetched, setFetched] = useState(false);
   const [highlightedHtml, setHighlightedHtml] = useState(null);
@@ -74,6 +74,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const ref = useRef();
   const hasAdvancedAccess = current_user.isAdvancedRole && !showArticleFinder;
   const isFirstRender = useRef(true);
+  const editorsHaveRealnames = allAssignedUsers.some(user => user.real_name);
 
   useEffect(() => {
     if (showArticle || users) {
@@ -101,11 +102,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   }, [showOnMount, users]);
 
   useEffect(() => {
-    if (showArticle) {
+    if (showArticle && !modalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [showArticle]);
+  }, [showArticle, modalOpen]);
 
   const getShowButtonLabel = () => {
     if (showArticleFinder) return ArticleUtils.I18n('preview', article.project);
@@ -415,17 +416,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
               ) : ''
             }
           </div>
-          <div>
-            {hasAdvancedAccess && (
-              <button
-                aria-label="Article Viewer Settings"
-                className="pull-left icon-settings_view icon-settings"
-                onClick={() => setModalOpen(true)}
-              />
-            )}
-
-            <CloseButton hideArticle={hideArticle} />
-          </div>
+          <CloseButton hideArticle={hideArticle} />
         </div>
         {
           showBadArticleAlert && (
@@ -439,7 +430,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
             />
           )
         }
-        {modalOpen && <SettingsModal
+        {modalOpen && <SettingsSidebar
+          modalOpen={modalOpen}
           toggleModal={() => setModalOpen(false)}
           setArticleViewerSettingsOption={setArticleViewerSettingsOption}
           articleViewerSettingsOption={articleViewerSettings}
@@ -463,6 +455,8 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
           revisionId={revisionId}
           toggleRevisionHandler={toggleRevisionHandler}
           viewerSettings={articleViewerSettings}
+          setModalOpen={setModalOpen}
+          showViewerSettings={hasAdvancedAccess && editorsHaveRealnames}
         />
       </div>
     </div>
@@ -491,4 +485,8 @@ ArticleViewer.propTypes = {
   users: PropTypes.array,
 };
 
-export default (ArticleViewer);
+const mapStateToProps = state => ({
+  allAssignedUsers: state.users.users
+});
+
+export default connect(mapStateToProps)(ArticleViewer);
