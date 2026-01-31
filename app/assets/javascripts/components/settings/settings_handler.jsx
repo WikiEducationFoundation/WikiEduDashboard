@@ -5,7 +5,7 @@ import AddAdminButton from './views/add_admin_button';
 import AddSpecialUserButton from './views/add_special_user_button';
 import AdminUserList from './admin_users_list';
 import Notifications from '../common/notifications';
-import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign, fetchFeaturedCampaigns } from '../../actions/settings_actions';
+import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign, fetchFeaturedCampaigns, fetchDisallowedUsers, fetchHighEditCountUsers } from '../../actions/settings_actions';
 import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
@@ -14,6 +14,9 @@ import UpdateImpactStats from './views/update_impact_stats';
 import AddFeaturedCampaign from './views/add_featured_campaign';
 import FeaturedCampaignsList from './featured_campaigns_list';
 import SiteNoticeSetting from './site_notice_setting';
+import AddDisallowedUserButton from './views/add_disallowed_user_button';
+import DisallowedUsersList from './disallowed_users_list';
+import HighEditCountUsersList from './high_edit_count_users_list';
 
 const SettingsHandler = () => {
   const dispatch = useDispatch();
@@ -23,6 +26,8 @@ const SettingsHandler = () => {
   const courseCreation = useSelector(state => state.settings.courseCreation);
   const defaultCampaign = useSelector(state => state.settings.defaultCampaign);
   const featuredCampaigns = useSelector(state => state.settings.featuredCampaigns);
+  const disallowedUsers = useSelector(state => state.settings.disallowedUsers);
+  const highEditCountUsers = useSelector(state => state.settings.highEditCountUsers);
 
   useEffect(() => {
     dispatch(fetchAdminUsers());
@@ -30,6 +35,8 @@ const SettingsHandler = () => {
     dispatch(fetchCourseCreationSettings());
     dispatch(fetchDefaultCampaign());
     dispatch(fetchFeaturedCampaigns());
+    dispatch(fetchDisallowedUsers());
+    dispatch(fetchHighEditCountUsers());
   }, [dispatch]);
 
   let otherSettings;
@@ -68,6 +75,10 @@ const SettingsHandler = () => {
       <h2 className="mx2">{I18n.t('settings.categories.special_users')}</h2>
       <AddSpecialUserButton />
       <SpecialUserList specialUsers={specialUsers} />
+      <h2 className="mx2">{I18n.t('settings.disallowed_users.title')} <AddDisallowedUserButton /></h2>
+      <DisallowedUsersList disallowedUsers={disallowedUsers} />
+      <h2 className="mx2">{I18n.t('settings.high_edit_count_users.title')}</h2>
+      <HighEditCountUsersList highEditCountUsers={highEditCountUsers} />
       {otherSettings}
     </div>
   );
@@ -85,7 +96,10 @@ SettingsHandler.propTypes = {
   specialUsers: PropTypes.object,
   courseCreation: PropTypes.object,
   defaultCampaign: PropTypes.string,
-  featuredCampaigns: PropTypes.array
+  featuredCampaigns: PropTypes.array,
+  disallowedUsers: PropTypes.array,
+  highEditCountUsers: PropTypes.array
 };
 
 export default SettingsHandler;
+

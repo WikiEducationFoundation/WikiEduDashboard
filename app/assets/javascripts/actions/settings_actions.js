@@ -4,7 +4,8 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
   SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
-  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE
+  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_DISALLOWED_USERS,
+  SUBMITTING_DISALLOWED_USER, SET_HIGH_EDIT_COUNT_USERS
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -574,3 +575,134 @@ export const getSiteNotice = () => (dispatch) => {
   })
   .catch(data => dispatch({ type: API_FAIL, data }));
 };
+
+// Disallowed Users Actions
+const fetchDisallowedUsersPromise = async () => {
+  const response = await request('/settings/disallowed_users');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export function fetchDisallowedUsers() {
+  return (dispatch) => {
+    return fetchDisallowedUsersPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_DISALLOWED_USERS,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+const addDisallowedUserPromise = async (username) => {
+  const response = await request('/settings/add_disallowed_user', {
+    method: 'POST',
+    body: JSON.stringify({ username })
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const addDisallowedUser = username => (dispatch) => {
+  dispatch({
+    type: SUBMITTING_DISALLOWED_USER,
+    data: { submitting: true },
+  });
+
+  return addDisallowedUserPromise(username)
+    .then((resp) => {
+      dispatch({
+        type: SUBMITTING_DISALLOWED_USER,
+        data: { submitting: false },
+      });
+      dispatch(addNotification({
+        type: 'success',
+        message: resp.message,
+        closable: true
+      }));
+      dispatch({
+        type: SET_DISALLOWED_USERS,
+        data: resp,
+      });
+    })
+    .catch((response) => {
+      dispatch({
+        type: SUBMITTING_DISALLOWED_USER,
+        data: { submitting: false },
+      });
+      dispatch({ type: API_FAIL, data: response });
+    });
+};
+
+const removeDisallowedUserPromise = async (username) => {
+  const response = await request('/settings/remove_disallowed_user', {
+    method: 'POST',
+    body: JSON.stringify({ username })
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const removeDisallowedUser = username => (dispatch) => {
+  return removeDisallowedUserPromise(username)
+    .then((resp) => {
+      dispatch(addNotification({
+        type: 'success',
+        message: resp.message,
+        closable: true
+      }));
+      dispatch({
+        type: SET_DISALLOWED_USERS,
+        data: resp,
+      });
+    })
+    .catch((response) => {
+      dispatch({ type: API_FAIL, data: response });
+    });
+};
+
+// High Edit Count Users Actions
+const fetchHighEditCountUsersPromise = async () => {
+  const response = await request('/settings/high_edit_count_users');
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export function fetchHighEditCountUsers() {
+  return (dispatch) => {
+    return fetchHighEditCountUsersPromise()
+      .then((resp) => {
+        dispatch({
+          type: SET_HIGH_EDIT_COUNT_USERS,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}

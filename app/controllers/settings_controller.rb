@@ -7,6 +7,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   before_action :require_super_admin_permissions,
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
+                       :add_disallowed_user, :remove_disallowed_user,
+                       :high_edit_count_users,
                        :update_salesforce_credentials, :update_impact_stats,
                        :update_site_notice]
 
@@ -65,6 +67,43 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def special_users
     @special_users = SpecialUsers.special_users.transform_values do |username|
       User.where(username:)
+    end
+  end
+
+  def disallowed_users
+    respond_to do |format|
+      format.json do
+        render json: { disallowed_users: DisallowedUsers.disallowed_usernames }
+      end
+    end
+  end
+
+  def add_disallowed_user
+    respond_to do |format|
+      format.json do
+        @user = User.find_by(username: params[:username])
+        ensure_user_exists(params[:username]) { return }
+        result = DisallowedUsers.add_user(params[:username])
+        render_disallowed_user_response(result, :add, params[:username])
+      end
+    end
+  end
+
+  def remove_disallowed_user
+    respond_to do |format|
+      format.json do
+        result = DisallowedUsers.remove_user(params[:username])
+        render_disallowed_user_response(result, :remove, params[:username])
+      end
+    end
+  end
+
+  def high_edit_count_users
+    respond_to do |format|
+      format.json do
+        users = high_edit_count_users_query
+        render json: { high_edit_count_users: format_high_edit_count_users(users) }
+      end
     end
   end
 
@@ -274,5 +313,36 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: I18n.t('courses.error.user_exists', username:) },
            status: :not_found
     yield
+  end
+
+  def render_disallowed_user_response(success, action, username)
+    if success
+      render json: {
+        message: I18n.t("settings.disallowed_users.#{action}.success", username:),
+        disallowed_users: DisallowedUsers.disallowed_usernames
+      }, status: :ok
+    else
+      error_key = action == :add ? 'already_exists' : 'not_found'
+      render json: {
+        message: I18n.t("settings.disallowed_users.#{action}.#{error_key}", username:)
+      }, status: :unprocessable_entity
+    end
+  end
+
+  def high_edit_count_users_query
+    # Aggregate revision_count by user across all courses
+    CoursesUsers
+      .joins(:user)
+      .group(:user_id)
+      .select('courses_users.user_id, users.username, ' \
+              'SUM(courses_users.revision_count) as total_revisions')
+      .order('total_revisions DESC')
+      .limit(30)
+  end
+
+  def format_high_edit_count_users(users)
+    users.map do |u|
+      { username: u.username, total_revisions: u.total_revisions.to_i }
+    end
   end
 end
