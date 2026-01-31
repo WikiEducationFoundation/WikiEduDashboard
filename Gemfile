@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '3.1.2'
+ruby '3.4.8'
 
 ### Basic Framework
 gem 'rails', '7.0.10'
@@ -9,6 +9,7 @@ gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
+gem 'csv' # CSV library (required for Ruby 3.4+ as it's no longer a default gem)
 
 ### Database and caching
 gem 'mysql2' # MariaDB integration for ActiveRecord
@@ -123,6 +124,9 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-capybara', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'rack-proxy', '~> 0.7.6'
 end
