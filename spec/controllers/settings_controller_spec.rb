@@ -601,6 +601,13 @@ describe SettingsController, type: :request do
       expect(response.status).to eq(200)
       expect(JSON.parse(response.body)['disallowed_users']).to include('TestBot')
     end
+
+    it 'returns 401 for non-admin' do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:user))
+      get '/settings/disallowed_users', params: { format: :json }
+      expect(response.status).to eq(401)
+    end
   end
 
   describe '#add_disallowed_user' do
@@ -629,6 +636,14 @@ describe SettingsController, type: :request do
       post '/settings/add_disallowed_user',
            params: { username: 'ExistingBot', format: :json }
       expect(response.status).to eq(422)
+    end
+
+    it 'denies access for regular admins' do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:admin))
+      post '/settings/add_disallowed_user',
+           params: { username: 'NewBot', format: :json }
+      expect(response.status).not_to eq(200)
     end
   end
 

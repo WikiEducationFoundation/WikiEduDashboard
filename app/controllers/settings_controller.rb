@@ -7,6 +7,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   before_action :require_super_admin_permissions,
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
+                       :add_disallowed_user, :remove_disallowed_user,
+                       :high_edit_count_users,
                        :update_salesforce_credentials, :update_impact_stats,
                        :update_site_notice]
 
