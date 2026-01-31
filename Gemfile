@@ -10,6 +10,7 @@ gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
 gem 'csv' # CSV library (required for Ruby 3.4+ as it's no longer a default gem)
+gem 'observer' # Observer library (required for Ruby 3.1+ as it's no longer in standard library)
 
 ### Database and caching
 gem 'mysql2' # MariaDB integration for ActiveRecord
@@ -38,7 +39,7 @@ gem 'browser'
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
-gem 'nokogiri' # expected by premailer-rails but not required
+gem 'nokogiri', '>= 1.16.0' # expected by premailer-rails but not required
 gem 'mailgun-ruby' # email sending service
 
 ### Incoming Mail
