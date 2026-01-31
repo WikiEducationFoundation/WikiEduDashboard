@@ -81,23 +81,10 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def add_disallowed_user
     respond_to do |format|
       format.json do
-        username = params[:username]
-        user = User.find_by(username: username)
-        if user.nil?
-          render json: { message: I18n.t('courses.error.user_exists', username: username) },
-                 status: :not_found
-          return
-        end
-        if DisallowedUsers.add_user(username)
-          render json: {
-            message: I18n.t('settings.disallowed_users.add.success', username:),
-            disallowed_users: DisallowedUsers.disallowed_usernames
-          }, status: :ok
-        else
-          render json: {
-            message: I18n.t('settings.disallowed_users.add.already_exists', username:)
-          }, status: :unprocessable_entity
-        end
+        @user = User.find_by(username: params[:username])
+        ensure_user_exists(params[:username]) { return }
+        result = DisallowedUsers.add_user(params[:username])
+        render_disallowed_user_response(result, :add, params[:username])
       end
     end
   end
@@ -105,17 +92,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def remove_disallowed_user
     respond_to do |format|
       format.json do
-        username = params[:username]
-        if DisallowedUsers.remove_user(username)
-          render json: {
-            message: I18n.t('settings.disallowed_users.remove.success', username:),
-            disallowed_users: DisallowedUsers.disallowed_usernames
-          }, status: :ok
-        else
-          render json: {
-            message: I18n.t('settings.disallowed_users.remove.not_found', username:)
-          }, status: :unprocessable_entity
-        end
+        result = DisallowedUsers.remove_user(params[:username])
+        render_disallowed_user_response(result, :remove, params[:username])
       end
     end
   end
@@ -123,21 +101,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   def high_edit_count_users
     respond_to do |format|
       format.json do
-        # Aggregate revision_count by user across all courses
-        users = CoursesUsers
-          .joins(:user)
-          .group(:user_id)
-          .select('courses_users.user_id, users.username, SUM(courses_users.revision_count) as total_revisions')
-          .order('total_revisions DESC')
-          .limit(30)
-        render json: {
-          high_edit_count_users: users.map do |u|
-            {
-              username: u.username,
-              total_revisions: u.total_revisions.to_i
-            }
-          end
-        }
+        users = high_edit_count_users_query
+        render json: { high_edit_count_users: format_high_edit_count_users(users) }
       end
     end
   end
@@ -348,5 +313,36 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: I18n.t('courses.error.user_exists', username:) },
            status: :not_found
     yield
+  end
+
+  def render_disallowed_user_response(success, action, username)
+    if success
+      render json: {
+        message: I18n.t("settings.disallowed_users.#{action}.success", username:),
+        disallowed_users: DisallowedUsers.disallowed_usernames
+      }, status: :ok
+    else
+      error_key = action == :add ? 'already_exists' : 'not_found'
+      render json: {
+        message: I18n.t("settings.disallowed_users.#{action}.#{error_key}", username:)
+      }, status: :unprocessable_entity
+    end
+  end
+
+  def high_edit_count_users_query
+    # Aggregate revision_count by user across all courses
+    CoursesUsers
+      .joins(:user)
+      .group(:user_id)
+      .select('courses_users.user_id, users.username, ' \
+              'SUM(courses_users.revision_count) as total_revisions')
+      .order('total_revisions DESC')
+      .limit(30)
+  end
+
+  def format_high_edit_count_users(users)
+    users.map do |u|
+      { username: u.username, total_revisions: u.total_revisions.to_i }
+    end
   end
 end
