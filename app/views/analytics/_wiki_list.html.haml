@@ -1,0 +1,51 @@
+.wiki-view-selector
+  %label{for: 'wiki-view-dropdown'} View:
+  %select#wiki-view-dropdown.wiki-dropdown
+    %option{value: 'all', selected: true} All Wikis (by Activity)
+    %option{value: 'top10'} Top 10 Most Active Wikis
+    %option{value: 'project'} Sort by Project Type
+    %option{value: 'language'} Sort by Language
+
+#wiki-list-all.wiki-sort-section{style: 'display: block;'}
+  %ul.wiki-list.all-wikis
+    - @wiki_data[:all].each do |item|
+      %li
+        %a{href: "/courses_by_wiki/#{item[:domain]}"}
+          = "#{item[:domain]}"
+        %span.count= "(#{item[:course_count]} courses)"
+
+#wiki-list-top10.wiki-sort-section{style: 'display: none;'}
+  %ol.wiki-list.top-wikis
+    - @wiki_data[:top_wikis].each_with_index do |item, index|
+      %li
+        %a{href: "/courses_by_wiki/#{item[:domain]}"}
+          = "#{item[:domain]}"
+        %span.count= "(#{item[:course_count]} courses)"
+
+#wiki-list-project.wiki-sort-section{style: 'display: none;'}
+  - @wiki_data[:by_project].each do |project, wikis|
+    .project-group
+      %h3.project-title
+        = "#{project.capitalize}"
+        %span.project-count= "(#{wikis.size} wikis, #{wikis.sum { |w| w[:course_count] }} courses)"
+      %ul.wiki-list
+        - wikis.each do |item|
+          %li
+            %a{href: "/courses_by_wiki/#{item[:domain]}"}
+              = "#{item[:domain]}"
+            %span.count= "(#{item[:course_count]})"
+
+#wiki-list-language.wiki-sort-section{style: 'display: none;'}
+  - @wiki_data[:by_language].each do |language, wikis|
+    .language-group
+      %h3.language-title
+        = "#{language}"
+        %span.language-count= "(#{wikis.size} projects, #{wikis.sum { |w| w[:course_count] }} courses)"
+      %ul.wiki-list
+        - wikis.each do |item|
+          %li
+            %a{href: "/courses_by_wiki/#{item[:domain]}"}
+              = "#{item[:domain]}"
+            %span.count= "(#{item[:course_count]})"
+  - if @wiki_data[:by_language].empty?
+    %p.no-data No languages with multiple projects found.
