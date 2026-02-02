@@ -1,6 +1,22 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const CampaignStatsDownloadModal = ({ campaign_slug }) => {
+  const handleStatsDownload = (e) => {
+    e.preventDefault();
+    const url = e.currentTarget.href;
+    fetch(url, { method: 'GET' }).then((response) => {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('text/plain')) {
+        response.text().then((text) => {
+          toast(text, { position: 'bottom-center', type: 'info', autoClose: 3000, icon: false });
+        });
+      } else {
+        window.location.href = url;
+      }
+    });
+    };
+
   const [show, setShow] = useState(false);
 
   const courseDataLink = `/campaigns/${campaign_slug}/courses.csv`;
@@ -22,32 +38,32 @@ const CampaignStatsDownloadModal = ({ campaign_slug }) => {
       <h2>{I18n.t('campaign.data_download_info')}</h2>
       <hr />
       <p>
-        <a href={courseDataLink} className="button right">{I18n.t('campaign.data_courses')}</a>
+        <a onClick={handleStatsDownload} href={courseDataLink} className="button right">{I18n.t('campaign.data_courses')}</a>
         {I18n.t('campaign.data_courses_info')}
       </p>
       <hr />
       <p>
-        <a href={articlesEditedLink} className="button right">{I18n.t('campaign.data_articles')}</a>
+        <a onClick={handleStatsDownload} href={articlesEditedLink} className="button right">{I18n.t('campaign.data_articles')}</a>
         {I18n.t('campaign.data_articles_info')}
       </p>
       <hr />
       <p>
-        <a href={editorsLink} className="button right">{I18n.t('campaign.data_editor_usernames')}</a>
+        <a onClick={handleStatsDownload} href={editorsLink} className="button right">{I18n.t('campaign.data_editor_usernames')}</a>
         {I18n.t('campaign.data_editor_usernames_info')}
       </p>
       <hr />
       <p>
-        <a href={editorsByCourseLink} className="button right">{I18n.t('campaign.data_editors_by_course')}</a>
+        <a onClick={handleStatsDownload} href={editorsByCourseLink} className="button right">{I18n.t('campaign.data_editors_by_course')}</a>
         {I18n.t('campaign.data_editors_by_course_info')}
       </p>
       <hr />
       <p>
-        <a href={instructorsLink} className="button right">{I18n.t('campaign.data_instructors')}</a>
+        <a onClick={handleStatsDownload} href={instructorsLink} className="button right">{I18n.t('campaign.data_instructors')}</a>
         {I18n.t('campaign.data_instructors_info')}
       </p>
       <hr />
       <p>
-        <a href={wikidataLink} className="button right">{I18n.t('campaign.data_wikidata')}</a>
+        <a onClick={handleStatsDownload} href={wikidataLink} className="button right">{I18n.t('campaign.data_wikidata')}</a>
         {I18n.t('campaign.data_wikidata_info')}
       </p>
     </div>

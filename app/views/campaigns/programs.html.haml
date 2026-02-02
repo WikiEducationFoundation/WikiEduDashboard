@@ -7,6 +7,106 @@
     .section-header
       %h3
         = t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title)
+      = form_tag programs_campaign_path(@campaign.slug, anchor: 'courses_table'), method: :get, accept_charset: 'UTF-8', id: 'campaign_search_form', onsubmit: 'this.action = this.action.replace(/#.*$/, "") + "#courses_table";' do
+        .form-fields
+          .form-row
+            = text_field_tag :title_query, params[:title_query], placeholder: t('form_search.search') + ' ' + t('courses_generic.course'), id: 'title_query', class: 'w100'
+          .form-row
+            %button.button.border.small.advanced-search-button{type: 'button', onclick: 'var el=document.getElementById("advanced_search_fields"); var expanded=this.getAttribute("aria-expanded")==="true"; this.setAttribute("aria-expanded", (!expanded).toString()); el.style.display = expanded ? "none" : "block";'}= t('form_search.advanced_search')
+          .advanced-search.advanced-search-container#advanced_search_fields
+            .form-row.relative.advanced-search-grid-large
+              %label{for: 'school_select'}= t('courses.school')
+              .school-select-wrapper.grid-span-3
+                = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select'
+                :javascript
+                  document.addEventListener('DOMContentLoaded', () => {
+                    if (typeof TomSelect !== 'undefined') {
+                      new TomSelect('#school_select', {
+                        plugins: ['remove_button'],
+                        placeholder: 'Select schools...',
+                        allowEmptyOption: true
+                      });
+                    }
+                  });
+            .form-row.advanced-search-grid-small
+              %label{for: 'creation_date_range'}= t("courses.creation_date")
+              = text_field_tag :creation_date_range, nil, id: 'creation_date_range', class: 'w100', placeholder: t('courses.creation_date')
+              = hidden_field_tag :creation_start, params[:creation_start], id: 'creation_start'
+              = hidden_field_tag :creation_end, params[:creation_end], id: 'creation_end'
+            .form-row.advanced-search-grid-small
+              %label{for: 'start_date_range'}= t("courses.start_date")
+              = text_field_tag :start_date_range, nil, id: 'start_date_range', class: 'w100', placeholder: t('courses.start_date')
+              = hidden_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start'
+              = hidden_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end'
+            :javascript
+              document.addEventListener('DOMContentLoaded', () => {
+                const isLatin = ['es', 'pt'].some(l => locale.startsWith(l));
+                const currentLocale = locale.split('-')[0];
+                const dateFormat = isLatin ? 'd/m/Y' : 'm/d/Y';
+
+                const setupRangePicker = (rangeSelector, startSelector, endSelector) => {
+                  const startInput = document.querySelector(startSelector);
+                  const endInput = document.querySelector(endSelector);
+                  const startVal = startInput.value;
+                  const endVal = endInput.value;
+                  const defaultDate = (startVal && endVal) ? [startVal, endVal] : null;
+
+                  flatpickr(rangeSelector, {
+                    mode: 'range',
+                    altInput: true,
+                    altFormat: dateFormat,
+                    dateFormat: 'Y-m-d',
+                    defaultDate: defaultDate,
+                    locale: isLatin ? currentLocale : 'default',
+                    allowInput: true,
+                    onClose: function(selectedDates, dateStr, instance) {
+                      if (selectedDates.length === 2) {
+                        startInput.value = instance.formatDate(selectedDates[0], 'Y-m-d');
+                        endInput.value = instance.formatDate(selectedDates[1], 'Y-m-d');
+                      } else {
+                        startInput.value = '';
+                        endInput.value = '';
+                      }
+                    }
+                  });
+                };
+
+                setupRangePicker('#creation_date_range', '#creation_start', '#creation_end');
+                setupRangePicker('#start_date_range', '#start_date_start', '#start_date_end');
+              });
+            .form-row.advanced-search-grid-small
+              %label{for: 'revisions_min'}= t("metrics.revisions")
+              .input-group.flex-input-group
+                = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, class: 'w100', placeholder: 'Min'
+                %span -
+                = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, class: 'w100', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'word_count_min'}= t("metrics.word_count")
+              .input-group.flex-input-group
+                = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, class: 'w100', placeholder: 'Min'
+                %span -
+                = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, class: 'w100', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'references_min'}= t("metrics.references_count")
+              .input-group.flex-input-group
+                = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, class: 'w100', placeholder: 'Min'
+                %span -
+                = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, class: 'w100', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'views_min'}= t("metrics.view")
+              .input-group.flex-input-group
+                = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, class: 'w100', placeholder: 'Min'
+                %span -
+                = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, class: 'w100', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'users_min'}= t("users.editors")
+              .input-group.flex-input-group
+                = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, class: 'w100', placeholder: 'Min'
+                %span -
+                = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, class: 'w100', placeholder: 'Max'
+        .form-actions
+          %button.button{type: 'submit'}= t('campaign.search')
+          %button.button.button--clear{type: 'button', onclick: 'document.getElementById("title_query").value=""; document.getElementById("creation_start").value=""; document.getElementById("creation_end").value=""; document.getElementById("start_date_start").value=""; document.getElementById("start_date_end").value=""; document.getElementById("school_select").value=""; document.getElementById("revisions_min").value=""; document.getElementById("revisions_max").value=""; document.getElementById("word_count_min").value=""; document.getElementById("word_count_max").value=""; document.getElementById("references_min").value=""; document.getElementById("references_max").value=""; document.getElementById("views_min").value=""; document.getElementById("views_max").value=""; document.getElementById("users_min").value=""; document.getElementById("users_max").value=""; this.form.action = this.form.action.replace(/#.*$/, "") + "#courses_table"; this.form.submit();'}= t('form_search.clear')
       .sort-select
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}
@@ -33,7 +133,7 @@
           %option{rel: 'asc', value: 'start-date'}
             = t("courses.start_date")
 
-    %table.table.table--hoverable.table--sortable
+    %table.table.table--hoverable.table--sortable{ id: 'courses_table' }
       %thead
         %tr
           %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
@@ -83,7 +183,7 @@
           %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date'}
             = t('courses.start_date')
             %span.sortable-indicator
-          
+
           - if @presenter.can_remove_course?
             %th{style: 'width:100px'}
               = t('courses.actions')

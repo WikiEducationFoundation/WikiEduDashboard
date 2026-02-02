@@ -104,7 +104,7 @@ class ReportsController < ApplicationController
   end
 
   def csv_params
-    params.permit(:slug, :course)
+    params.permit(:slug, :course, :format)
   end
 
   def course_report?(type)
