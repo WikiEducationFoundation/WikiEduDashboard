@@ -51,4 +51,27 @@
 
   %section
     .section-header
-      %a.button.dark{href: '/all_courses_csv'} Generate CSV of all programs
+      %a.button.dark#csv-btn{href: '/all_courses_csv'} Generate CSV of all programs
+
+  :javascript
+    document.addEventListener("click", function (e) {
+      const btn = e.target.closest("#csv-btn");
+      if (!btn) return;
+
+      if (btn.dataset.locked === "true") {
+        e.preventDefault();
+        return;
+      }
+
+      btn.dataset.locked = "true";
+      btn.textContent = "Generating CSV. This may take a while...";
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = "0.6";
+
+      setTimeout(function () {
+        btn.dataset.locked = "false";
+        btn.textContent = "Generate CSV of all programs";
+        btn.style.pointerEvents = "";
+        btn.style.opacity = "";
+      }, 300000);
+    });
