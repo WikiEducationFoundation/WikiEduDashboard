@@ -13,6 +13,7 @@
 # Author: Mr. Zabej
 # Author: Plaga med
 # Author: Svetit
+# Author: Ucukor
 # Author: Visem
 # Author: ZlyiLev
 ---
@@ -1315,4 +1316,8 @@ be:
     assignment_status: Заданне (%{status})
   multi_wiki:
     selector_placeholder: Пачніце ўводзіць дамен Вікі
+  news:
+    options:
+      news_content:
+        cancel_delete: Скасаваць
 ...
