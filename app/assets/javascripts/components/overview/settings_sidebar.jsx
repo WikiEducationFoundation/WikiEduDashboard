@@ -7,19 +7,19 @@ const SettingsSidebar = (props) => {
   useEffect(() => {
     if (!modalOpen) return;
 
-    const handleEsc = (e) => {
+    const handleEscape = (e) => {
       if (e.key === 'Escape') {
         toggleModal();
       }
     };
 
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
   }, [modalOpen, toggleModal]);
 
   if (!modalOpen) return null;
 
-  const handleBackdropClick = (e) => {
+  const handleOutsideClick = (e) => {
     e.stopPropagation();
     toggleModal();
   };
@@ -27,7 +27,7 @@ const SettingsSidebar = (props) => {
   const sidebarContent = (
     <>
       <div
-        onClick={handleBackdropClick}
+        onClick={handleOutsideClick}
         className="viewer_overlay"
       />
       <div

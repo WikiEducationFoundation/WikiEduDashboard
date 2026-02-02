@@ -77,7 +77,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const editorsHaveRealnames = allAssignedUsers.some(user => user.real_name);
 
   useEffect(() => {
-    if (showArticle || users) {
+    if (showArticle && users) {
       fetchUserIds();
     }
   }, [showArticle]);
