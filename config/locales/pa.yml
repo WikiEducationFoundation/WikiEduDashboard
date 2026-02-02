@@ -111,7 +111,7 @@ pa:
     article_title: ਲੇਖ ਦਾ ਸਿਰਲੇਖ
     assigned_to: ਨੂੰ ਸੌਂਪਿਆ ਗਿਆ
     deleted: (ਮਿਟਾਏ)
-    edited: ਸੰਪਾਦਿਤ ਲੇਖ
+    edited: ਲੇਖ ਸੋਧੋ
     edited_by: 'ਵੱਲੋਂ ਸੋਧਿਆ:'
     edited_mobile: ਲੇਖ
     edited_none: ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੰਪਾਦਿਤ ਲੇਖ ਨਹੀਂ ਹਨ।
@@ -215,7 +215,7 @@ pa:
     articles_created_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
     articles_created_generic: ਸਫ਼ੇ ਬਣਾਏ
     articles_created_generic_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
-    articles_edited: ਸੰਪਾਦਿਤ ਲੇਖ
+    articles_edited: ਲੇਖ ਸੋਧੋ
     articles_edited_wikidata: ਸੋਧਿਆ ਵਸਤਾਂ
     articles_edited_generic: ਸੰਪਾਦਿਤ ਸਫ਼ੇ
     articles_edited_generic_wikidata: ਸੋਧਿਆ ਵਸਤਾਂ

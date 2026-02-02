@@ -45,6 +45,7 @@ el:
     explore: Εξερεύνηση
     field_required: Αυτό το πεδίο απαιτείται
     field_invalid_characters: Αυτό το πεδίο έχει μη έγκυρους χαρακτήρες
+    field_invalid_term: Η περίοδος πρέπει να περιλαμβάνει το έτος (π.χ., "Άνοιξη 2025")
     field_invalid_date: Αυτό το πεδίο απαιτεί μια ημερομηνία σε μορφή έτους-μήνα-ημέρας
     field_invalid_date_time: Το τέλος πρέπει να είναι μετά την αρχή. (Οι ώρες πάνε
       από τις 0 έως τις 23.)
@@ -110,6 +111,20 @@ el:
         heading: Συμβουλή
   alerts:
     alert_label: Ειδοποιήσεις
+    no_data: Δεν βρέθηκαν δεδομένα.
+    ai_stats:
+      timestamp: Χρονική σήμανση
+      general_stats: Γενικά Στατιστικά για %{campaign_name}
+      multiple_alerts_pages: Σελίδες με πολλαπλές ειδοποιήσεις
+      users_involved: Εμπλεκόμενοι χρήστες
+      total: Σύνολο
+      last_week: Τελευταία εβδομάδα
+      sections:
+        contents: Πίνακας περιεχομένων για λίστες
+        go_back: Επιστροφή στα περιεχόμενα
+        name: Όνομα
+        description: Περιγραφή
+        courses_with_ai_alerts: Μαθήματα με πολλαπλές ειδοποιήσεις AI
   activity:
     all: Δραστηριότητα
     edited_by: Επεξεργάστηκε από
@@ -137,6 +152,9 @@ el:
       existing: Υπάρχοντα
       new_and_existing: Νέα και υπάρχοντα
     filter_text: 'Φίλτρα:'
+    pageviews_label: 'Προβολές σελίδας:'
+    cumulative: Συσσωρευτικά
+    daily_avg: Ημερήσιος μέσος όρος
     find: Βρείτε Άρθρα
     how_to_find: Πως να βρείτε ένα άρθρο
     hide: Απόκρυψη
@@ -154,8 +172,13 @@ el:
       b: '%{class} — ένα μέτρια ανεπτυγμένο άρθρο'
       does_not_exist: Αυτό το άρθρο δεν υπάρχει στο Wikipedia
     see_more: Δείτε περισσότερα
+    see_more_tooltip: Μόνο τα πρώτα 500 επεξεργασμένα άρθρα φορτώνται αρχικά. Κάντε
+      κλικ για να φορτώσετε πρόσθετα άρθρα.
+    search: Αναζήτηση στη Βικιπαίδεια για άρθρο
     show_cumulative_changes: Εμφάνιση αθροιστικών αλλαγών
     show_current_version: Εμφάνιση τρέχουσας έκδοσης
+    show_current_version_with_authorship_highlighting: Τρέχουσα έκδοση με επισήμανση
+      συγγραφέων
     title: Τίτλος
     title_example: Τίτλος άρθρου
     tools: Εργαλεία αξιολόγησης
@@ -167,6 +190,7 @@ el:
     wiki: Βίκι
     wp10: Δομική Ολοκληρωτικότητα
     articles_short: Άρθρα
+    page_logs: (καταγραφές σελίδας)
     view_articles: Προβολή άρθρων
     no_tracked_articles: Αυτή η κατηγορία δεν έχει παρακολουθούμενα άρθρα
     use_dashboard: Πως να χρησιμοποιήσετε τον Πίνακα εργασίας
@@ -232,6 +256,12 @@ el:
     sandbox_draft_link: Πρόχειρο Αμμοδοχείου
     select: Διαλέξτε
     submit: Υποβολή
+    username_label: Όνομα χρήστη στη Βικιπαίδεια
+    username_placeholder: Εισαγάγετε όνομα χρήστη (π.χ., YourUsername)
+    username_or_url_label: Όνομα χρήστη ή URL στη Wikipedia
+    preview_label: 'Προεπισκόπηση νέων URL:'
+    bibliography_label: Βιβλιογραφία
+    outline_label: Περίγραμμα
   blocks:
     milestones:
       title: Ορόσημα
@@ -251,6 +281,7 @@ el:
     campaign_deleted: Η καμπάνια "%{title}" έχει διαγραφεί
     campaign_not_updated: Δεν ήταν δυνατή η ενημέρωση της καμπάνιας
     campaign_updated: Η καμπάνια ενημερώθηκε
+    refresh_campaign_stats: Τα στατιστικά της εκστρατείας ανανεώθηκαν με επιτυχία
     created_at: Ημερομηνία
     course: Μάθημα
     course_data: δεδομένα μαθήματος
@@ -373,6 +404,7 @@ el:
       course_title: Τίτλος μαθήματος
       course_types:
         basic_course_name: Βασικό Πρόγραμμα
+        edit_a_thon_name: Edit-A-Thon
         single_user_name: Μεμονωμένος Συντάκτης
       create_button: Δημιουργία του μαθήματός μου!
       create_label: Δημιουργία νέου μαθήματος
