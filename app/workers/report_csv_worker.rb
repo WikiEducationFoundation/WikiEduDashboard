@@ -7,22 +7,27 @@ require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/app/controllers/reports_controller"
 require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
+require_dependency "#{Rails.root}/lib/analytics/all_courses_and_instructors_csv_builder"
 
 class ReportCsvWorker
   include Sidekiq::Worker
   sidekiq_options lock: :until_executed
 
   # Generate the csv for the given source (course or campaign)
+  # if type is global, then can access source as nil
   def self.generate_csv(source:, filename:, type:, include_course:)
-    perform_async(source.id, filename, type, include_course)
+    perform_async(source&.id, filename, type, include_course)
   end
 
   def perform(id, filename, type, include_course)
-    data = if course_report?(type)
-             to_course_csv(type, id)
-           else
-             to_campaign_csv(type, id, include_course)
-           end
+    data =
+      if type == 'all_courses_and_instructors'
+        all_courses_and_instructors_csv
+      elsif course_report?(type)
+        to_course_csv(type, id)
+      else
+        to_campaign_csv(type, id, include_course)
+      end
 
     write_csv(filename, data)
     CsvCleanupWorker.perform_at(1.week.from_now, filename)
@@ -60,6 +65,10 @@ class ReportCsvWorker
     when 'course_wikidata'
       CourseWikidataCsvBuilder.new(course).generate_csv
     end
+  end
+
+  def all_courses_and_instructors_csv
+    AllCoursesAndInstructorsCsvBuilder.new.generate_csv
   end
 
   private
