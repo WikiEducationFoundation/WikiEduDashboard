@@ -54,11 +54,13 @@ class CampaignCsvBuilder
   def revision_counts
     return @revision_counts if @revision_counts
 
+    namespaces = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK, Article::Namespaces::USER]
+
     @revision_counts = ArticleCourseTimeslice
                        .where(tracked: true, course_id: course_ids)
                        .select(:revision_count, :course_id)
                        .joins(:article)
-                       .where(articles: { namespace: [0, 1, 2] })
+                       .where(articles: { namespace: namespaces })
                        .group(:course_id, :namespace)
                        .sum(:revision_count)
   end
