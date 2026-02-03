@@ -67,7 +67,8 @@ class AiEditAlert < Alert
   # will send an additional email to the instructor with
   # extra info on how to respond.
   def self.add_prior_alert_count_for_course(course_id, details)
-    prior_alert_count = AiEditAlert.where(course_id:).count
+    # We're only counting alerts that had sent emails.
+    prior_alert_count = AiEditAlert.where(course_id:).where.not(email_sent_at: nil).count
     details[:prior_alert_count_for_course] = prior_alert_count
   end
 
