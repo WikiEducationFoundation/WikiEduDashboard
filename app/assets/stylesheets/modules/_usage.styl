@@ -1,170 +1,169 @@
-.usage-chart
-  padding 25px
-  border 5px solid #6464640f
-  margin-bottom 10px
+.usage-stats-page
+  .usage-chart
+    padding 25px
+    border 5px solid #6464640f
+    margin-bottom 10px
 
-.chart-container
-  margin-bottom 30px
-  
-  .chart-title
-    color #333
-    font-size 1.3em
-    font-weight 600
-    margin-bottom 15px
-    padding-bottom 8px
-    border-bottom 2px solid #e0e0e0
-
-.stats-grid
-  display grid !important
-  grid-template-columns repeat(3, 1fr) !important
-  gap 15px !important
-  margin 20px 0 !important
-  max-width 800px !important
-
-.stats-card
-  text-align center !important
-  padding 15px !important
-  margin 0 !important
-  
-  h3
-    font-size 1.8em !important
-    font-weight 700 !important
-    color #2c5aa0 !important
-    margin 0 0 8px 0 !important
+  .chart-container
+    margin-bottom 30px
     
-  p
-    color #666 !important
-    font-size 0.85em !important
-    margin 0 !important
-    text-transform uppercase
-    letter-spacing 0.5px
+    .chart-title
+      color #333
+      font-size 1.3em
+      font-weight 600
+      margin-bottom 15px
+      padding-bottom 8px
+      border-bottom 2px solid #e0e0e0
 
-.section-header
-  margin-bottom 20px
-  
-  h2
-    color #333
-    font-size 1.8em
-    margin-bottom 5px
-    
-  .subtitle
-    color #666
-    font-size 1em
-    margin 5px 0 0 0
-    font-style italic
+  .stats-grid
+    display grid
+    grid-template-columns repeat(3, 1fr)
+    gap 15px
+    margin 20px 0
+    max-width 800px
 
-
-
-.wiki-list
-  padding 0
-  margin 0
-  list-style-type disc
-  padding-left 20px
-  
-  li
-    margin-bottom 8px
-    
-    a
-      color #007bff
-      text-decoration none
-      
-      &:hover
-        text-decoration underline
-    
-    .count
-      color #666
-      font-size 0.9em
-      margin-left 5px
-  
-  &.all-wikis
-    li
-      font-size 0.95em
-  
-  &.top-wikis
-    list-style-type decimal
-    
-    li
-      .rank
-        font-weight 700
-        color #2c5aa0
-        margin-right 8px
-
-.project-group, .language-group
-  margin 0
-  padding 0
-
-h3.project-title, h3.language-title
-  margin 0 !important
-  margin-bottom 0 !important
-  padding 0 !important
-  color #333
-  font-size 1.1em
-  font-weight 600
-  
-  .project-count, .language-count
-    color #666
-    font-size 0.85em
-    font-weight 400
-    margin-left 8px
-
-h3.project-title + ul.wiki-list,
-h3.language-title + ul.wiki-list
-  margin 0 !important
-  margin-top 0 !important
-  margin-bottom 24px !important
-  padding 0 !important
-  
-  li
-    margin-bottom 4px
-    padding 0
-    font-size 0.95em
-
-.wiki-view-selector
-  margin-bottom 20px
-  
-  label
-    margin-right 10px
-  
-  .wiki-dropdown
-    padding 5px 10px
-    border 1px solid #ccc
-    background white
-    font-size 1em
-
-.wiki-sort-section
-  .no-data
-    color #666
-    font-style italic
-    padding 20px
+  .stats-card
     text-align center
-
-@media (max-width: 768px)
-  .stats-grid
-    grid-template-columns repeat(2, 1fr)
-    gap 12px
-    
-  .stats-card
-    padding 12px
+    padding 15px
+    margin 0
     
     h3
-      font-size 1.6em
+      font-size 1.8em
+      font-weight 700
+      color #2c5aa0
+      margin 0 0 8px 0
       
+    p
+      color #666
+      font-size 0.85em
+      margin 0
+      text-transform uppercase
+      letter-spacing 0.5px
+
+  .section-header
+    margin-bottom 20px
+    
+    h2
+      color #333
+      font-size 1.8em
+      margin-bottom 5px
+      
+    .subtitle
+      color #666
+      font-size 1em
+      margin 5px 0 0 0
+      font-style italic
+
   .wiki-list
-    columns 1
-
-@media (max-width: 480px)
-  .stats-grid
-    grid-template-columns 1fr
+    padding 0
+    margin 0
+    list-style-type disc
+    padding-left 20px
     
-  .stats-card
-    padding 12px
+    li
+      margin-bottom 8px
+      
+      a
+        color #007bff
+        text-decoration none
+        
+        &:hover
+          text-decoration underline
+      
+      .count
+        color #666
+        font-size 0.9em
+        margin-left 5px
     
-    h3
-      font-size 1.4em
+    &.all-wikis
+      li
+        font-size 0.95em
+    
+    &.top-wikis
+      list-style-type decimal
+      
+      li
+        .rank
+          font-weight 700
+          color #2c5aa0
+          margin-right 8px
 
-h3
-  margin 0 !important
+  .project-group, .language-group
+    margin 0
+    padding 0
 
-ul
-  margin 0 !important
-  padding 0 !important
+  h3.project-title, h3.language-title
+    margin 0
+    margin-bottom 0
+    padding 0
+    color #333
+    font-size 1.1em
+    font-weight 600
+    
+    .project-count, .language-count
+      color #666
+      font-size 0.85em
+      font-weight 400
+      margin-left 8px
+
+  h3.project-title + ul.wiki-list,
+  h3.language-title + ul.wiki-list
+    margin 0
+    margin-top 0
+    margin-bottom 24px
+    padding 0
+    
+    li
+      margin-bottom 4px
+      padding 0
+      font-size 0.95em
+
+  .wiki-view-selector
+    margin-bottom 20px
+    
+    label
+      margin-right 10px
+    
+    .wiki-dropdown
+      padding 5px 10px
+      border 1px solid #ccc
+      background white
+      font-size 1em
+
+  .wiki-sort-section
+    .no-data
+      color #666
+      font-style italic
+      padding 20px
+      text-align center
+
+  @media (max-width: 768px)
+    .stats-grid
+      grid-template-columns repeat(2, 1fr)
+      gap 12px
+      
+    .stats-card
+      padding 12px
+      
+      h3
+        font-size 1.6em
+        
+    .wiki-list
+      columns 1
+
+  @media (max-width: 480px)
+    .stats-grid
+      grid-template-columns 1fr
+      
+    .stats-card
+      padding 12px
+      
+      h3
+        font-size 1.4em
+
+  h3
+    margin 0
+
+  ul
+    margin 0
+    padding 0
