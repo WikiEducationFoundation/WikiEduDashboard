@@ -14,7 +14,14 @@ const ConfigureSiteNotice = (props) => {
   };
 
   const { isOpen, ref, open } = useExpandablePopover(getKey);
-  const form = <SiteNoticeForm handlePopoverClose={open} updateSiteNotice={updateSiteNotice} currentStatus={props.currentSiteNotice.status} />;
+  const form = (
+    <SiteNoticeForm
+      handlePopoverClose={open}
+      updateSiteNotice={updateSiteNotice}
+      currentStatus={props.currentSiteNotice.status}
+      currentSiteNotice={props.currentSiteNotice}
+    />
+  );
 
   const toggleHandler = (e) => {
     e.preventDefault();

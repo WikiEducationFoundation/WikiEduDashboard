@@ -1350,6 +1350,7 @@ en:
         course_creation_settings: Course creation
         default_campaign_setting: Default Campaign
         site_notice_setting: Site Notice
+        site_notice_preview: Live Preview
       buttons:
         add_admin_button: Add Admin
         add_special_user_button: Add Special User
