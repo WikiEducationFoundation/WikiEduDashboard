@@ -713,6 +713,8 @@ qqq:
     title: |-
       Label for title of the article
       {{Identical|Title}}
+    show_all: Label for button to show all revisions and all editors of an article
+    show_only_new_editors: Label for button to show only new editors 
   settings:
     categories:
       salesforce: |-
