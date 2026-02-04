@@ -58,8 +58,8 @@ function fetchArticleDetailsAgain(crossCheckedArticleTitle, articleId, courseId,
         details.startDate,
         details.endDate
       ).then((revisionRange) => {
-          // Dispatch the updated article details and revision range to Redux.
-          dispatch({ type: types.RECEIVE_ARTICLE_DETAILS, articleId, details, revisionRange });
+        // Dispatch the updated article details and revision range to Redux.
+        dispatch({ type: types.RECEIVE_ARTICLE_DETAILS, articleId, details, revisionRange });
       });
     })
     .catch((response) => {
@@ -108,6 +108,53 @@ export const crossCheckArticleTitle = (articleId, articleTitle, article_mw_page_
       return articleTitle;
     } catch (error) {
       dispatch({ type: types.API_FAIL, data: error });
+    }
+  };
+};
+
+export const verifyMainSpaceArticle = (articleTitle, language = 'en', project = 'wikipedia') => {
+  return async (dispatch) => {
+    try {
+      const title = articleTitle.trim();
+
+      if (!title) {
+        return { valid: false, error: 'Article title is required.' };
+      }
+
+      let domain;
+      if (project === 'wikimedia' && title.toLowerCase().startsWith('wp/')) {
+        domain = 'incubator.wikimedia.org';
+      } else if (['wikimedia', 'wikisource', 'wiktionary'].includes(project)) {
+        domain = (language === 'wwww' || language === 'meta' || project === 'wikimedia')
+          ? `${project}.org`
+          : `${language}.${project}.org`;
+      } else {
+        domain = `${language}.${project}.org`;
+      }
+
+      const apiUrl = `https://${domain}/w/api.php?action=query&titles=${encodeURIComponent(title)}&format=json&origin=*`;
+
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+      const data = await response.json();
+      const pages = data?.query?.pages;
+      const page = pages ? Object.values(pages)[0] : null;
+
+      if (!page || page.missing) {
+        return { valid: false, message: `The article does not exist on ${domain}` };
+      }
+
+      if (page.ns !== 0 || (project === 'wikimedia' && title.toLowerCase().startsWith('wp/'))) {
+        return { valid: false, message: `${title} is not a mainspace article (only regular article pages are allowed)` };
+      }
+
+      return { valid: true };
+    } catch (error) {
+      dispatch({ type: types.API_FAIL, data: error });
+      return { valid: false, message: 'Unable to verify article' };
     }
   };
 };

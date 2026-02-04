@@ -14,7 +14,8 @@ import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constant
 import SelectedWikiOption from '../selected_wiki_option';
 import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
-
+import { verifyMainSpaceArticle } from '@actions/article_actions.js';
+import { addNotification } from '@actions/notification_actions.js';
 
 // Helper Components
 // Button to show the static list
@@ -306,28 +307,97 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     return dispatch(initiateConfirm({ confirmMessage, onConfirm, warningMessage }));
   };
 
-  const assign = (e) => {
-    e.preventDefault();
-    title.split('\n').filter(Boolean).forEach((assignment_title) => {
-      const assignment = {
-        title: decodeURIComponent(assignment_title).trim(),
-        project,
-        language,
-        course_slug: course.slug,
-        role
-      };
+  const validateMainspaceArticles = async (assignment) => {
+    if (course.type !== 'ClassroomProgramCourse') {
+      return { valid: true };
+    }
 
-      if (!assignment.title || assignment.title === 'undefined') return;
-      if (assignment.title.length > 255) {
-        // Title shouldn't exceed 255 chars to prevent mysql errors
-        return alert(I18n.t('assignments.title_too_large'));
-      }
-      const studentId = (student && student.id) || null;
-      dispatch(addAssignment({
-        ...assignment,
-        user_id: studentId
+    const result = await dispatch(
+      verifyMainSpaceArticle(assignment.title, assignment.language, assignment.project)
+    );
+
+    if (!result?.valid) {
+      return {
+        valid: false,
+        error: result?.message || I18n.t('assignments.invalid_mainspace_article'),
+      };
+    }
+
+    return { valid: true };
+  };
+
+
+  const assign = async (e) => {
+    e.preventDefault();
+    const articles = title.split('\n').filter(Boolean);
+    if (articles.length === 0) return;
+
+    const notifications = [];
+
+    await Promise.all(
+      articles.map(async (assignment_title) => {
+        const assignment = {
+          title: decodeURIComponent(assignment_title).trim(),
+          project,
+          language,
+          course_slug: course.slug,
+          role
+        };
+
+        if (!assignment.title || assignment.title === 'undefined') return;
+        if (assignment.title.length > 255) {
+          notifications.push({
+            message: I18n.t('assignments.title_too_large'),
+            type: 'error',
+            closable: true,
+          });
+          return;
+        }
+
+        const studentId = student?.id ?? null;
+
+        const validation = await validateMainspaceArticles(assignment);
+
+        if (!validation.valid) {
+          notifications.push({
+            message: validation.error,
+            type: 'error',
+            closable: true,
+          });
+          return;
+        }
+
+        dispatch(addAssignment({
+          ...assignment,
+          user_id: studentId
+        }));
+      })
+    );
+
+    // Show all errors immediately after all validations
+    if (notifications.length > 0) {
+      notifications.forEach(n => dispatch(addNotification(n)));
+    }
+
+    // Clear input only if no errors
+    if (notifications.length === 0) {
+      setTitle('');
+    }
+  };
+
+  const assignAvailableArticles = async (assignment) => {
+    const validation = await validateMainspaceArticles(assignment);
+
+    if (validation.valid) {
+      dispatch(addAssignment(assignment));
+    } else {
+      // Show error right away for single assignment
+      dispatch(addNotification({
+        message: validation.error,
+        type: 'error',
+        closable: true,
       }));
-    });
+    }
   };
 
   const review = (e, assignment) => {
@@ -385,7 +455,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     let tooltip;
     let tooltipIndicator;
     if (tooltip_message && !isOpen) {
-      tooltipIndicator = (<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`}/>);
+      tooltipIndicator = (<span className={`${hover ? 'tooltip-indicator-hover' : 'tooltip-indicator'}`} />);
       tooltip = (<Tooltip message={tooltip_message} />);
     }
 
@@ -417,7 +487,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
         <td>
           <AddAvailableArticles
             language={language} project={project} title={title} role={role}
-            course_id={course_id} addAssignment={assignment => dispatch(addAssignment(assignment))} open={open}
+            course_id={course_id} addAssignment={assignment => assignAvailableArticles(assignment)} open={open}
           />
           <br />
           <SelectedWikiOption

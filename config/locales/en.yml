@@ -346,6 +346,7 @@ en:
     add_available_submit_wikidata: Add items
     add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
+    invalid_mainspace_article: This must be a valid mainspace article.
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
