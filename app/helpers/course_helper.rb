@@ -40,7 +40,8 @@ module CourseHelper
       end
       # convert stats to human readable values
       course_stats[wiki_ns_key].each do |stat_key, stat|
-        course_stats[wiki_ns_key][stat_key] = number_to_human(stat)
+        # Convert to string to avoid Psych 5.x disallowed class error with ActiveSupport::SafeBuffer
+        course_stats[wiki_ns_key][stat_key] = number_to_human(stat).to_s
       end
     end
     course_stats
