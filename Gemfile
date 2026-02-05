@@ -37,7 +37,7 @@ gem 'browser'
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
-gem 'nokogiri' # expected by premailer-rails but not required
+gem 'nokogiri', '>= 1.15.7', '< 1.16.0' # expected by premailer-rails but not required
 gem 'mailgun-ruby' # email sending service
 
 ### Incoming Mail
@@ -118,7 +118,7 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'byebug'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '6.1.0'
   gem 'rubocop',  require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false

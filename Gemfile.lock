@@ -140,7 +140,7 @@ GEM
     brpoplpush-redis_script (0.1.2)
       concurrent-ruby (~> 1.0, >= 1.0.5)
       redis (>= 1.0, <= 5.0)
-    builder (3.2.4)
+    builder (3.3.0)
     byebug (11.1.3)
     capistrano (3.20.0)
       airbrussh (>= 1.0.0)
@@ -177,7 +177,7 @@ GEM
     climate_control (1.2.0)
     coderay (1.1.3)
     concurrent-ruby (1.3.6)
-    connection_pool (2.3.0)
+    connection_pool (2.5.5)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -194,7 +194,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    diff-lcs (1.5.0)
+    diff-lcs (1.6.2)
     digest (3.1.0)
     docile (1.4.0)
     domain_name (0.5.20190701)
@@ -202,7 +202,7 @@ GEM
     drb (2.2.3)
     erb (4.0.4)
       cgi (>= 0.3.3)
-    erubi (1.11.0)
+    erubi (1.13.1)
     et-orbi (1.2.7)
       tzinfo
     factory_bot (6.2.1)
@@ -332,8 +332,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2025.0107)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.9)
-    minitest (5.25.4)
+    minitest (5.27.0)
     msgpack (1.5.4)
     multipart-post (2.2.3)
     mutex_m (0.3.0)
@@ -363,8 +362,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (8.13.1)
     nio4r (2.5.8)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.15.7)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -413,8 +411,8 @@ GEM
     puma (5.6.5)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.7.1)
-    rack (2.2.7)
+    racc (1.8.1)
+    rack (2.2.21)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-mini-profiler (3.0.0)
@@ -425,7 +423,7 @@ GEM
       rack
     rack-session (1.0.2)
       rack (< 3)
-    rack-test (2.1.0)
+    rack-test (2.2.0)
       rack (>= 1.3)
     rackup (1.0.1)
       rack (< 3)
@@ -457,9 +455,9 @@ GEM
       activesupport (>= 4.2)
       choice (~> 0.2.0)
       ruby-graphviz (~> 1.2)
-    rails-html-sanitizer (1.6.0)
+    rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
-      nokogiri (~> 1.14)
+      nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     railties (7.1.0)
       actionpack (= 7.1.0)
       activesupport (= 7.1.0)
@@ -502,27 +500,27 @@ GEM
       hashie (>= 1.2.0, < 6.0)
       jwt (>= 1.5.6)
     rexml (3.4.4)
-    rspec (3.11.0)
-      rspec-core (~> 3.11.0)
-      rspec-expectations (~> 3.11.0)
-      rspec-mocks (~> 3.11.0)
-    rspec-core (3.11.0)
-      rspec-support (~> 3.11.0)
-    rspec-expectations (3.11.1)
+    rspec (3.13.2)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.6)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-mocks (3.11.1)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.7)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.11.0)
-    rspec-rails (6.0.1)
+      rspec-support (~> 3.13.0)
+    rspec-rails (6.1.0)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
-      rspec-core (~> 3.11)
-      rspec-expectations (~> 3.11)
-      rspec-mocks (~> 3.11)
-      rspec-support (~> 3.11)
-    rspec-support (3.11.1)
+      rspec-core (~> 3.12)
+      rspec-expectations (~> 3.12)
+      rspec-mocks (~> 3.12)
+      rspec-support (~> 3.12)
+    rspec-support (3.13.7)
     rss (0.2.9)
       rexml
     rubocop (1.81.7)
@@ -654,7 +652,7 @@ GEM
     will_paginate (3.3.1)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.1)
+    zeitwerk (2.6.18)
 
 PLATFORMS
   ruby
@@ -702,7 +700,7 @@ DEPENDENCIES
   memory_profiler
   mysql2
   newrelic_rpm
-  nokogiri
+  nokogiri (>= 1.15.7, < 1.16.0)
   oj
   omniauth-mediawiki!
   pandoc-ruby
@@ -723,7 +721,7 @@ DEPENDENCIES
   rb-inotify
   redcarpet
   restforce
-  rspec-rails
+  rspec-rails (= 6.1.0)
   rss
   rubocop
   rubocop-capybara
