@@ -7,6 +7,11 @@
 # Author: ਪ੍ਰਚਾਰਕ
 ---
 pa:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: ਹਜਾਰ
   application:
     back: ਪਿਛਾਂਹ
     cancel: ਰੱਦ ਕਰੋ
@@ -191,6 +196,7 @@ pa:
     view_wiki: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਦੇਖੋ
   courses_generic:
     creator:
+      save_cloned_course: ਸਾਂਭੋ
       scoping_methods:
         templates: ਫਰਮੇ
     enrollment: ਸੰਪਾਦਕਾਂ ਨੂੰ ਜੋੜੋ/ਹਟਾਓ
@@ -236,6 +242,8 @@ pa:
     image: ਤਸਵੀਰ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
     recent_edits: ਹਾਲੀਆ ਸੋਧਾਂ
+  revisions:
+    diff_hide: ਓਹਲੇ
   settings:
     categories:
       users: ਵਰਤੋਂਕਾਰ
