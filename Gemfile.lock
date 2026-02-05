@@ -514,7 +514,7 @@ GEM
     rspec-mocks (3.13.7)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (6.1.1)
+    rspec-rails (6.1.0)
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       railties (>= 6.1)
@@ -723,7 +723,7 @@ DEPENDENCIES
   rb-inotify
   redcarpet
   restforce
-  rspec-rails (= 6.1.1)
+  rspec-rails (= 6.1.0)
   rss
   rubocop
   rubocop-capybara
