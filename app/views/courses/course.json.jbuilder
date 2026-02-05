@@ -41,8 +41,21 @@ json.course do
   json.returning_instructor @course.returning_instructor?
 
   if @course&.course_stat&.stats_hash.present?
-    @course.course_stat.stats_hash = format_course_stats(@course.course_stat.stats_hash)
-    json.course_stats @course.course_stat, :id, :stats_hash
+    formatted_stats = format_course_stats(@course.course_stat.stats_hash)
+    # Deep convert all SafeBuffer objects to plain strings for Psych 5.x compatibility
+    # Create a new hash with plain strings to avoid Psych::DisallowedClass errors
+    stats_hash_plain = {}
+    formatted_stats.each do |wiki_ns_key, wiki_ns_stats|
+      stats_hash_plain[wiki_ns_key] = {}
+      wiki_ns_stats.each do |stat_key, stat_value|
+        # Convert SafeBuffer to plain String for Psych 5.x compatibility
+        stats_hash_plain[wiki_ns_key][stat_key] = stat_value.is_a?(ActiveSupport::SafeBuffer) ? String.new(stat_value) : stat_value.to_s
+      end
+    end
+    json.course_stats do
+      json.id @course.course_stat.id
+      json.stats_hash stats_hash_plain
+    end
   end
 
   json.created_count number_to_human @course.new_article_count
