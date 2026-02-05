@@ -12,6 +12,7 @@ import { ADD_NOTIFICATION } from '../constants/notifications';
 import { addNotification } from '../actions/notification_actions';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
+import API from '../utils/api';
 
 const fetchAdminUsersPromise = async () => {
   const response = await request('/settings/all_admins');
@@ -577,20 +578,9 @@ export const getSiteNotice = () => (dispatch) => {
 };
 
 // Disallowed Users Actions
-const fetchDisallowedUsersPromise = async () => {
-  const response = await request('/settings/disallowed_users');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
-  return response.json();
-};
-
 export function fetchDisallowedUsers() {
   return (dispatch) => {
-    return fetchDisallowedUsersPromise()
+    return API.fetchDisallowedUsers()
       .then((resp) => {
         dispatch({
           type: SET_DISALLOWED_USERS,
@@ -603,27 +593,13 @@ export function fetchDisallowedUsers() {
   };
 }
 
-const addDisallowedUserPromise = async (username) => {
-  const response = await request('/settings/add_disallowed_user', {
-    method: 'POST',
-    body: JSON.stringify({ username })
-  });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
-  return response.json();
-};
-
 export const addDisallowedUser = username => (dispatch) => {
   dispatch({
     type: SUBMITTING_DISALLOWED_USER,
     data: { submitting: true },
   });
 
-  return addDisallowedUserPromise(username)
+  return API.addDisallowedUser(username)
     .then((resp) => {
       dispatch({
         type: SUBMITTING_DISALLOWED_USER,
@@ -648,22 +624,8 @@ export const addDisallowedUser = username => (dispatch) => {
     });
 };
 
-const removeDisallowedUserPromise = async (username) => {
-  const response = await request('/settings/remove_disallowed_user', {
-    method: 'POST',
-    body: JSON.stringify({ username })
-  });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
-  return response.json();
-};
-
 export const removeDisallowedUser = username => (dispatch) => {
-  return removeDisallowedUserPromise(username)
+  return API.removeDisallowedUser(username)
     .then((resp) => {
       dispatch(addNotification({
         type: 'success',
@@ -681,20 +643,9 @@ export const removeDisallowedUser = username => (dispatch) => {
 };
 
 // High Edit Count Users Actions
-const fetchHighEditCountUsersPromise = async () => {
-  const response = await request('/settings/high_edit_count_users');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
-  return response.json();
-};
-
 export function fetchHighEditCountUsers() {
   return (dispatch) => {
-    return fetchHighEditCountUsersPromise()
+    return API.fetchHighEditCountUsers()
       .then((resp) => {
         dispatch({
           type: SET_HIGH_EDIT_COUNT_USERS,
