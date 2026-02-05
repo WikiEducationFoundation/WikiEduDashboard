@@ -23,7 +23,6 @@ require 'vcr'
 require 'rspec/core' unless defined? RSpec.configure
 require 'webmock/rspec'
 require './spec/support/request_helpers'
-# active_support/testing/time_helpers moved to rails_helper.rb (after Rails loads)
 
 # Peform all Sidekiq worker tasks immediately during testing
 require 'sidekiq/testing'

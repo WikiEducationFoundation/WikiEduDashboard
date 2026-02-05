@@ -1,14 +1,16 @@
 plugins:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-performance
   - rubocop-rspec_rails
   - rubocop-factory_bot
   - rubocop-capybara
-  - rubocop-performance
 Style/Documentation:
   Enabled: false
 AllCops:
+  DisabledByDefault: true
   NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'Gemfile'
     - 'Guardfile'
@@ -78,7 +80,7 @@ Metrics/ModuleLength:
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
 Rails/EnvironmentVariableAccess:
-  AllowReads: true
+  Enabled: false
 
 ########################
 # Permanent exceptions #
@@ -201,6 +203,10 @@ Rails/I18nLocaleAssignment:
   Enabled: false
 RSpec/SubjectDeclaration:
   Enabled: false
+RSpec/IndexedLet:
+  Enabled: false
+RSpec/Output:
+  Enabled: false
 Rails/RedundantTravelBack:
   Enabled: false
 Rails/DurationArithmetic:
@@ -297,97 +303,5 @@ Style/SafeNavigation:
   Enabled: false
 Style/RedundantRegexpArgument:
   Enabled: false
-Style/IfUnlessModifier:
-  Enabled: false
-Rails/Pluck:
-  Enabled: false
-RSpec/UndescriptiveLiteralsDescription:
-  Enabled: false
-RSpec/PendingWithoutReason:
-  Enabled: false
-RSpec/IndexedLet:
-  Enabled: false
-RSpec/NoExpectationExample:
-  Enabled: false
-RSpec/MetadataStyle:
-  Enabled: false
-RSpec/SortMetadata:
-  Enabled: false
-RSpec/LeakyLocalVariable:
-  Enabled: false
-RSpec/ExampleWording:
-  Enabled: false
-RSpec/ReceiveMessages:
-  Enabled: false
-RSpec/HookArgument:
-  Enabled: false
-RSpec/ClassCheck:
-  Enabled: false
-Rails/RedundantActiveRecordAllMethod:
-  Enabled: false
-Rails/FindEach:
-  Enabled: false
-Rails/WhereRange:
-  Enabled: false
-Rails/TimeZone:
-  Enabled: false
-Rails/RootPathnameMethods:
-  Enabled: false
-Rails/ActionOrder:
-  Enabled: false
-Rails/FindByOrAssignmentMemoization:
-  Enabled: false
-Rails/OrderArguments:
-  Enabled: false
-Rails/WhereEquals:
-  Enabled: false
-Rails/ResponseParsedBody:
-  Enabled: false
-Performance/StringInclude:
-  Enabled: false
-Performance/StringBytesize:
-  Enabled: false
-Performance/MapCompact:
-  Enabled: false
-Rails/Presence:
-  Enabled: false
-Lint/RedundantSafeNavigation:
-  Enabled: false
-Capybara/RSpec/HaveSelector:
-  Enabled: false
-Capybara/SpecificActions:
-  Enabled: false
-Capybara/NegationMatcher:
-  Enabled: false
-RSpecRails/InferredSpecType:
-  Enabled: false
-Capybara/SpecificFinders:
-  Enabled: false
-Capybara/NegationMatcherAfterVisit:
-  Enabled: false
-Capybara/FindAllFirst:
-  Enabled: false
-RSpec/Output:
-  Enabled: false
-RSpecRails/NegationBeValid:
-  Enabled: false
-Rails/HttpStatusNameConsistency:
-  Enabled: false
-Layout/IndentationWidth:
-  Enabled: false
-Rails/EnvLocal:
-  Enabled: false
-Rails/RedirectBackOrTo:
-  Enabled: false
-Rails/ActionControllerFlashBeforeRender:
-  Enabled: false
-Metrics/AbcSize:
-  Enabled: false
-Metrics/CyclomaticComplexity:
-  Enabled: false
-RSpecRails/HttpStatusNameConsistency:
-  Enabled: false
-FactoryBot/AssociationStyle:
-  Enabled: false
-FactoryBot/RedundantFactoryOption:
-  Enabled: false
+
+  

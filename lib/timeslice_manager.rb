@@ -225,7 +225,7 @@ class TimesliceManager
     Sentry.capture_message 'No timeslice found for revision date',
                            level: 'warning',
                            extra: { course_name: @course.slug,
-                                   wiki: revision.wiki_id,
+                                   wiki: revision.wiki.id,
                                    date: revision.date }
   end
 end

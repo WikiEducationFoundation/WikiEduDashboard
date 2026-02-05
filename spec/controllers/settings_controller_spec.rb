@@ -430,7 +430,7 @@ describe SettingsController, type: :request do
       it 'returns the right message' do
         expect(response.body).to include(
           I18n.t(
-            'settings.special_users.remove.already_is_not',
+            'settings.special_users.new.already_is_not',
             username: @user.username,
             position: @position
           )

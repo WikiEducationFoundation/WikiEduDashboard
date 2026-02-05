@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 ### Basic Framework
-gem 'rails', '7.1.0'
+gem 'rails', '7.0.10'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -122,10 +122,10 @@ group :development, :test do
   gem 'rubocop',  require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-performance', require: false
   gem 'rubocop-rspec_rails', require: false
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-capybara', require: false
-  gem 'rubocop-performance', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'rack-proxy', '~> 0.7.6'
 end
