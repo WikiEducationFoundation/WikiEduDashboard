@@ -397,7 +397,6 @@ en:
     review_tooltip_wikidata: This is for item(s) you plan to peer review or provide feedback on.
     sandbox_draft_link: Sandbox Draft
     sandbox_redlink_info: This link is red because the page has not been created yet. (If it was created recently, the Dashboard will update its data soon.)
-    sandbox_link_disabled_tooltip: This link is disabled because this is a user sandbox.
     select: Select
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
