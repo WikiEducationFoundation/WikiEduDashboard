@@ -1421,11 +1421,6 @@ en:
         success: "%{username} removed from disallowed users list."
         not_found: "%{username} is not in the disallowed users list."
         confirm: "Are you sure you want to remove %{username} from the disallowed users list?"
-    high_edit_count_users:
-      none: No high edit count users found.
-      title: High Edit Count Users
-      description: Users with the highest revision counts across all courses. Review these for potential bot accounts.
-      total_revisions: Total Revisions
     actions: Actions
 
 

@@ -5,7 +5,7 @@ import {
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
   SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
   ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_DISALLOWED_USERS,
-  SUBMITTING_DISALLOWED_USER, SET_HIGH_EDIT_COUNT_USERS
+  SUBMITTING_DISALLOWED_USER
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -641,19 +641,3 @@ export const removeDisallowedUser = username => (dispatch) => {
       dispatch({ type: API_FAIL, data: response });
     });
 };
-
-// High Edit Count Users Actions
-export function fetchHighEditCountUsers() {
-  return (dispatch) => {
-    return API.fetchHighEditCountUsers()
-      .then((resp) => {
-        dispatch({
-          type: SET_HIGH_EDIT_COUNT_USERS,
-          data: resp,
-        });
-      })
-      .catch((response) => {
-        dispatch({ type: API_FAIL, data: response });
-      });
-  };
-}

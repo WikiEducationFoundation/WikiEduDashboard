@@ -667,17 +667,4 @@ describe SettingsController, type: :request do
       expect(response.status).to eq(422)
     end
   end
-
-  describe '#high_edit_count_users' do
-    before do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(create(:super_admin))
-    end
-
-    it 'returns users sorted by revision count' do
-      get '/settings/high_edit_count_users', params: { format: :json }
-      expect(response.status).to eq(200)
-      expect(JSON.parse(response.body)).to have_key('high_edit_count_users')
-    end
-  end
 end

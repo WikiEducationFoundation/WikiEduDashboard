@@ -39,7 +39,6 @@ Rails.application.routes.draw do
   get '/settings/disallowed_users' => 'settings#disallowed_users'
   post '/settings/add_disallowed_user' => 'settings#add_disallowed_user'
   post '/settings/remove_disallowed_user' => 'settings#remove_disallowed_user'
-  get '/settings/high_edit_count_users' => 'settings#high_edit_count_users'
 
 
   post '/settings/update_salesforce_credentials' => 'settings#update_salesforce_credentials'

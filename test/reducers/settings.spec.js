@@ -9,7 +9,6 @@ describe('Settings reducer', () => {
       adminUsers: [],
       specialUsers: {},
       disallowedUsers: [],
-      highEditCountUsers: [],
       fetchingUsers: false,
       submittingNewAdmin: false,
       submittingNewSpecialUser: false,
