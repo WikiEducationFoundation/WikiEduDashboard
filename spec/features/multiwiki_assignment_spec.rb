@@ -36,6 +36,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
         )
       end
       click_button 'Assign'
+      sleep 1
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -66,7 +67,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
 
       click_button 'Assign'
-
+      sleep 1
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -87,14 +88,16 @@ describe 'multiwiki assignments', type: :feature, js: true do
       expect(button).to have_content 'Assign/remove an article'
       button.click
       within('#users') do
-        first('input').set('https://wikisource.org/wiki/Heyder_Cansa', rapid: false)
+        first('input').set('https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland', 
+rapid: false)
       end
       click_button 'Assign'
+      sleep 1
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
       within('#users') do
-        expect(page).to have_content 'Heyder Cansa'
+        expect(page).to have_content "Alice's Adventures in Wonderland"
         link = first('.assignment-links a')
         expect(link[:href]).to include('wikisource')
       end
@@ -114,6 +117,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
                            rapid: false)
       end
       click_button 'Assign'
+      sleep 1
       visit "/courses/#{course.slug}/students/articles"
       first('.student-selection .student').click
 
@@ -124,4 +128,28 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
     end
   end
+
+  it 'prevents assignment of non-mainspace articles' do
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students/articles"
+      find('.student-selection .student').click
+
+      find('.assign-button', text: 'Assign/remove an article').click
+
+      within('#users') do
+        find('input').set('https://en.wikipedia.org/wiki/Category:1993_in_sports_in_Alberta', 
+rapid: false)
+      end
+
+      click_button 'Assign'
+      sleep 1
+      visit "/courses/#{course.slug}/students/articles"
+      find('.student-selection .student').click
+
+      within('#users') do
+        expect(page).to have_no_content('Category:1993 in sports in Alberta')
+      end
+    end
+  end
+
 end

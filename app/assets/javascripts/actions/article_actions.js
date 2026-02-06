@@ -147,7 +147,7 @@ export const verifyMainSpaceArticle = (articleTitle, language = 'en', project = 
         return { valid: false, message: `The article does not exist on ${domain}` };
       }
 
-      if (page.ns !== 0 || (project === 'wikimedia' && title.toLowerCase().startsWith('wp/'))) {
+      if (page.ns !== 0) {
         return { valid: false, message: `${title} is not a mainspace article (only regular article pages are allowed)` };
       }
 
