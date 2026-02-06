@@ -4,6 +4,7 @@ import Popover from '../../../../../../../../common/popover';
 import EditSandboxUsernameInput from '../../../../../../../../assignments/edit_sandbox_username_input';
 import PopoverExpandable from '../../../../../../../../high_order/popover_expandable';
 import { updateSandboxUrl } from '../../../../../../../../../actions/assignment_actions';
+import { isUserSandbox } from '@components/overview/my_articles/utils/processAssignments';
 
 export class EditSandboxUrl extends React.Component {
 constructor(props) {
@@ -75,11 +76,13 @@ render() {
       </div>
     );
   }
-    return (
-      <button onClick={this.toggle} className="button dark small">
-        {I18n.t('assignments.change_sandbox_url')}
-      </button>
-    );
+  if (!isUserSandbox(this.props.assignment)) {
+        return (
+          <button onClick={this.toggle} className="button dark small">
+            {I18n.t('assignments.change_sandbox_url')}
+          </button>
+        );
+  }
   }
 }
 

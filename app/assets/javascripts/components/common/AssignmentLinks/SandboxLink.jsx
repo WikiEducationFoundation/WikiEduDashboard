@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isUserSandbox } from '@components/overview/my_articles/utils/processAssignments';
 
 export const SandboxLink = ({ assignment, editMode }) => {
   const sandboxExists = assignment.draft_sandbox_status !== 'does_not_exist';
@@ -11,6 +12,11 @@ export const SandboxLink = ({ assignment, editMode }) => {
     if (editMode) { url += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_draft_template'; }
     linkClass += 'redlink';
     mouseoverText = I18n.t('assignments.sandbox_redlink_info');
+  }
+
+  if (isUserSandbox(assignment)) {
+    linkClass += ' disabled-link';
+    mouseoverText = I18n.t('assignments.sandbox_link_disabled_tooltip');
   }
 
   return (
