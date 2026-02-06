@@ -344,22 +344,16 @@ describe CampaignsController, type: :request do
 
     describe 'GET #articles' do
       context 'when caching is enabled' do
-        around do |example|
-          original_cache = Rails.cache
+        before do
           # Enable caching to reproduce production behavior
           Rails.application.config.action_controller.perform_caching = true
           ActionController::Base.perform_caching = true
-          # Configure a memory store for tests (required for fragment caching)
-          Rails.cache = ActiveSupport::Cache::MemoryStore.new
-          Rails.cache.clear
+        end
 
-          example.run
-        ensure
+        after do
           # Restore original caching setting
           Rails.application.config.action_controller.perform_caching = false
           ActionController::Base.perform_caching = false
-          # Restore original cache store
-          Rails.cache = original_cache
         end
 
         it 'renders articles page successfully with caching enabled' do
