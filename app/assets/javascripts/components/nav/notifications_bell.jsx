@@ -1,11 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import request from '../../utils/request';
 
+// Routes where notification data is not contextually relevant
+export const SKIP_NOTIFICATION_ROUTES = ['/survey', '/faq', '/training', '/onboarding'];
+
+// Helper function to check if current route should skip notifications
+export const shouldSkipNotificationFetch = (pathname) => {
+  return SKIP_NOTIFICATION_ROUTES.some(route => pathname.startsWith(route));
+};
+
 const NotificationsBell = () => {
   const [hasOpenTickets, setHasOpenTickets] = useState(false);
   const [hasRequestedAccounts, setHasRequestedAccounts] = useState(false);
 
   useEffect(() => {
+    // Skip fetching notifications on irrelevant routes
+    if (shouldSkipNotificationFetch(window.location.pathname)) {
+      return;
+    }
+
     const main = document.getElementById('main');
     const userId = main ? main.dataset.userId : null;
     if (Features.wikiEd && userId) {
