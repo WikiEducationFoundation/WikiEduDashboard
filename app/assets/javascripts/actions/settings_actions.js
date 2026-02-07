@@ -4,8 +4,8 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
   SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
-  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_DISALLOWED_USERS,
-  SUBMITTING_DISALLOWED_USER
+  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_CELEBRATION_BANNER,
+  SET_DISALLOWED_USERS, SUBMITTING_DISALLOWED_USER
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -632,6 +632,8 @@ export const updateCelebrationBanner = celebrationBanner => (dispatch) => {
       dispatch(getCelebrationBanner());
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
 // Disallowed Users Actions
 export function fetchDisallowedUsers() {
   return (dispatch) => {
