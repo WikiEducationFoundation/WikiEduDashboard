@@ -32,6 +32,7 @@ class AnalyticsController < ApplicationController
     @course_instructor_count = CoursesUsers.with_instructor_role.pluck(:user_id).uniq.count
     @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
     @total_wikis_touched = Wiki.count
+    @wiki_data = organize_wiki_data
   end
 
   def ungreeted
@@ -60,15 +61,58 @@ class AnalyticsController < ApplicationController
   def all_courses
     # Anyone can get data for nonprivate courses; only admins can private course data.
     @courses = current_user&.admin? ? Course.all : Course.nonprivate
+    respond_to do |format|
+      format.json
+    end
   end
 
   def all_campaigns
     @campaigns = Campaign.all
+    respond_to do |format|
+      format.json
+    end
   end
+
+  private
 
   ###################
   # Output builders #
   ###################
+
+  def organize_wiki_data
+    wikis_with_counts = build_wikis_with_counts
+    wikis_with_counts.sort_by! { |w| -w[:course_count] }
+
+    {
+      all: wikis_with_counts,
+      by_project: wikis_with_counts.group_by { |w| w[:project] },
+      by_language: group_by_language(wikis_with_counts),
+      top_wikis: wikis_with_counts.first(10),
+      summary: build_wiki_summary(wikis_with_counts)
+    }
+  end
+
+  def build_wikis_with_counts
+    course_counts = Course.group(:home_wiki_id).count
+    Wiki.where(id: course_counts.keys).map do |wiki|
+      { wiki: wiki, domain: wiki.domain, language: wiki.language,
+        project: wiki.project, course_count: course_counts[wiki.id] || 0 }
+    end
+  end
+
+  def group_by_language(wikis_with_counts)
+    wikis_with_counts.group_by { |w| w[:language] }
+                     .select { |lang, wikis| lang.present? && wikis.size > 1 }
+  end
+
+  def build_wiki_summary(wikis_with_counts)
+    {
+      total_wikis: wikis_with_counts.size,
+      total_courses: wikis_with_counts.sum { |w| w[:course_count] },
+      total_languages: wikis_with_counts.pluck(:language).compact.uniq.size,
+      total_projects: wikis_with_counts.pluck(:project).uniq.size
+    }
+  end
 
   def monthly_report
     @monthly_report = MonthlyReport.run
@@ -84,8 +128,6 @@ class AnalyticsController < ApplicationController
     @campaign_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
   end
-
-  private
 
   def set_campaigns
     @campaign_1 = Campaign.find(params[:campaign_1][:id])
