@@ -141,4 +141,20 @@ describe JoinCourse do
       expect(result['success']).not_to be_nil
     end
   end
+
+  context 'for a disallowed user' do
+    let(:course) { basic_course }
+    let(:disallowed_user) { create(:user, username: 'DisallowedBot') }
+
+    before do
+      DisallowedUsers.add_user(disallowed_user.username)
+    end
+
+    it 'does not allow joining' do
+      result = described_class.new(course:, user: disallowed_user,
+                                   role: CoursesUsers::Roles::STUDENT_ROLE).result
+      expect(result['failure']).to eq('disallowed_user')
+      expect(result['success']).to be_nil
+    end
+  end
 end

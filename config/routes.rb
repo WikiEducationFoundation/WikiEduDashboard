@@ -35,6 +35,12 @@ Rails.application.routes.draw do
   post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
 
+
+  get '/settings/disallowed_users' => 'settings#disallowed_users'
+  post '/settings/add_disallowed_user' => 'settings#add_disallowed_user'
+  post '/settings/remove_disallowed_user' => 'settings#remove_disallowed_user'
+
+
   post '/settings/update_salesforce_credentials' => 'settings#update_salesforce_credentials'
 
   get '/settings/course_creation' => 'settings#course_creation'

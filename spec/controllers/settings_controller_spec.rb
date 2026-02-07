@@ -588,4 +588,83 @@ describe SettingsController, type: :request do
       end
     end
   end
+
+  describe '#disallowed_users' do
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:super_admin))
+    end
+
+    it 'returns the list of disallowed usernames' do
+      DisallowedUsers.add_user('TestBot')
+      get '/settings/disallowed_users', params: { format: :json }
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['disallowed_users']).to include('TestBot')
+    end
+
+    it 'returns 401 for non-admin' do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:user))
+      get '/settings/disallowed_users', params: { format: :json }
+      expect(response.status).to eq(401)
+    end
+  end
+
+  describe '#add_disallowed_user' do
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:super_admin))
+    end
+
+    it 'adds a user to the disallowed list' do
+      create(:user, username: 'NewBot')
+      post '/settings/add_disallowed_user',
+           params: { username: 'NewBot', format: :json }
+      expect(response.status).to eq(200)
+      expect(DisallowedUsers.disallowed?('NewBot')).to be true
+    end
+
+    it 'returns 404 if user does not exist' do
+      post '/settings/add_disallowed_user',
+           params: { username: 'NonExistentUser', format: :json }
+      expect(response.status).to eq(404)
+    end
+
+    it 'returns error if user already exists' do
+      create(:user, username: 'ExistingBot')
+      DisallowedUsers.add_user('ExistingBot')
+      post '/settings/add_disallowed_user',
+           params: { username: 'ExistingBot', format: :json }
+      expect(response.status).to eq(422)
+    end
+
+    it 'denies access for regular admins' do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:admin))
+      post '/settings/add_disallowed_user',
+           params: { username: 'NewBot', format: :json }
+      expect(response.status).not_to eq(200)
+    end
+  end
+
+  describe '#remove_disallowed_user' do
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:super_admin))
+      DisallowedUsers.add_user('BotToRemove')
+    end
+
+    it 'removes a user from the disallowed list' do
+      post '/settings/remove_disallowed_user',
+           params: { username: 'BotToRemove', format: :json }
+      expect(response.status).to eq(200)
+      expect(DisallowedUsers.disallowed?('BotToRemove')).to be false
+    end
+
+    it 'returns error if user not found' do
+      post '/settings/remove_disallowed_user',
+           params: { username: 'NonExistent', format: :json }
+      expect(response.status).to eq(422)
+    end
+  end
 end
