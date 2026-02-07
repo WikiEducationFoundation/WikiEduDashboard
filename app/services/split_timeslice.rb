@@ -13,8 +13,9 @@ class SplitTimeslice
   REVISION_THRESHOLD = 10000
 
   # Determines whether a timeslice needs to be split for a given wiki and date range.
-  # - If splitting is required, ensures the timeslice for the given wiki and dates exists.
-  # - If not, ensures the timeslice for the given wiki and dates is removed (if present).
+  # - If splitting is required, ensures the timeslice for the given wiki and wrong dates
+  # is removed (if present).
+  # - If not, ensures the timeslice for the given wiki and dates exists.
   # Returns:
   # - A boolean indicating whether the timeslice should be split.
   # - If true, also returns an array containing the new split dates. Otherwise, it returns
