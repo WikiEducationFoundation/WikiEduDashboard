@@ -3,9 +3,11 @@
 class GetRevisionPlaintext
   attr_reader :plain_text, :article_title
 
-  def initialize(mw_rev_id, wiki)
+  def initialize(mw_rev_id, wiki, diff_mode: true, from_rev: nil)
     @wiki = wiki
     @mw_rev_id = mw_rev_id
+    @diff_mode = diff_mode
+    @from_rev = from_rev
     @wiki_api = WikiApi.new(@wiki)
 
     generate_plaintext
@@ -14,15 +16,20 @@ class GetRevisionPlaintext
   private
 
   def generate_plaintext
-    fetch_parent_revision
-    return if @parentid.nil?
+    # In Diff Mode, by default we are getting the diff for a single edit,
+    # so we fetch the mw_rev_id of the parent revision.
+    if @diff_mode && !@from_rev
+      fetch_parent_revision_id
+      return if @parentid.nil?
+      @from_rev = @parentid
+    end
 
-    if @parentid.zero?
-      # If it's first revision, we just
-      # get the HTML for it.
+    if !@diff_mode || @from_rev.zero?
+      # If there's no `from_rev`, we just
+      # get the HTML for the requested revision.
       fetch_revision_html
     else
-      # If it's not the first revision, we want
+      # If it's diff mode and not the first revision, we want
       # to isolate the new content. Strategy here
       # is to get the diff table, extracted the added
       # wikitext and combine it into one string,
@@ -34,14 +41,14 @@ class GetRevisionPlaintext
     generate_plaintext_from_html
   end
 
-  def fetch_parent_revision
+  def fetch_parent_revision_id
     # https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=1315427810&rvprop=ids&format=json
     parentid_params = { prop: 'revisions', revids: @mw_rev_id, rvprop: 'ids' }
     resp = @wiki_api.query parentid_params
 
     if resp.data['badrevids'].present?
       Sentry.capture_message(
-        "CheckRevisionWithPangram: revision #{@mw_rev_id} missing or deleted"
+        "GetRevisionPlaintext: revision #{@mw_rev_id} missing or deleted"
       )
       @parentid = nil # Indicate that the revision is missing
       return
@@ -63,7 +70,7 @@ class GetRevisionPlaintext
   # Use action=compare to get a diff table
   # https://en.wikipedia.org/w/api.php?action=compare&torev=1315427810&fromrev=1315426424&difftype=table
   def fetch_diff_table
-    diff_params = { torev: @mw_rev_id, fromrev: @parentid, difftype: 'table' }
+    diff_params = { torev: @mw_rev_id, fromrev: @from_rev, difftype: 'table' }
     resp = @wiki_api.send(:api_client).send('action', 'compare', diff_params)
     @article_title = resp.data.dig('totitle')
     @mw_page_id = resp.data.dig('toid')

@@ -231,6 +231,12 @@ class CoursesController < ApplicationController
   def manual_update
     require_super_admin_permissions
     @course = find_course_by_slug(params[:id])
+    # This is not completely safe, as there is always the possibility that the backup
+    # starts right after this check. However, it is an easy way to avoid running a
+    # manual update when we already know a backup is waiting or running.
+    if Backup.current_backup
+      return render json: { message: 'not_ready' }, status: :service_unavailable
+    end
     UpdateCourseStats.new(@course)
     redirect_to "/courses/#{@course.slug}"
   end
@@ -279,8 +285,9 @@ class CoursesController < ApplicationController
   end
 
   def handle_course_announcement(instructor)
-    # Course announcements aren't particularly necessary, but we'll keep them on
-    # for Wiki Ed for now.
+    # Only send submission emails at submission time.
+    # Instructor userpage templates are now posted when the course is approved
+    # (via ListCourseManager) instead of at submission time.
     return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted

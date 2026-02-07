@@ -436,4 +436,37 @@ describe CampaignsController, type: :request do
       end
     end
   end
+
+  describe 'Clear Campaign cache and recalculate stats' do
+    let(:campaign) { create(:campaign, slug: 'test-refresh') }
+
+    it 'clears the course sums cache and redirects to overview with notice' do
+      original_cache = Rails.cache
+      # Use MemoryStore in since default tests uses NullStore which (ignores writes)
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+
+      begin
+        key = campaign.course_sums_cache_key
+
+        Rails.cache.write(key, { courses_count: 42 })
+        expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
+
+        # Trigger the refresh (should clear)
+        get "/campaigns/#{campaign.slug}/refresh"
+
+        expect(response).to redirect_to(overview_campaign_path(campaign.slug))
+        expect(flash[:notice]).to eq('Campaign stats refreshed successfully')
+
+        expect(Rails.cache.read(key)).to be_nil
+      ensure
+        Rails.cache = original_cache
+      end
+    end
+
+    it 'returns 404 if campaign does not exists' do
+      expect do
+        get '/campaigns/non-existent-slug/refresh'
+      end.to raise_error(ActionController::RoutingError)
+    end
+  end
 end

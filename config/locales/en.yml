@@ -443,6 +443,7 @@ en:
     campaign_deleted: Campaign "%{title}" has been deleted
     campaign_not_updated: Campaign could not be updated
     campaign_updated: Campaign updated
+    refresh_campaign_stats: Campaign stats refreshed successfully
     created_at: Date
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
@@ -803,6 +804,7 @@ en:
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update
+    update_scheduled_label: Update Scheduled
     new_week: Add New Week
     new_account_check_username: Check username availability
     new_account_email: Email address
@@ -1222,8 +1224,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
-    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
-    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc: This is the estimated number of views based on the daily average from the article's first revision during the course up to the most recent stats update.
+    view_count_doc_wikidata: This is the estimated number of views based on the daily average from the item's first revision during the course up to the most recent stats update.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1337,6 +1339,7 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    show_only_new_editors: Show Only New Editors
 
   resources:
     label: Resources
@@ -1754,7 +1757,9 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Education Staff
-
+    useremail_placeholder: "Enter Email Address"
+    email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
+    email_invalid: "Invalid: Please enter a valid email"
   user_profiles:
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor

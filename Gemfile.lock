@@ -19,24 +19,11 @@ GIT
 
 GIT
   remote: https://github.com/WikiEducationFoundation/wikidata-diff-analyzer
-  revision: 22e5dbe0de3584ec8858ce2058e6f97cfc9d2f77
+  revision: ea5fc43538ba16dba65ba4a62f5565a035f63969
   specs:
-    wikidata-diff-analyzer (2.0.3)
+    wikidata-diff-analyzer (2.0.4)
       json (~> 2.1)
-      mediawiki_api (~> 0.7.0)
-      rake (~> 13.0)
-      rspec (~> 3.0)
-      rubocop (~> 1.21)
-
-GIT
-  remote: https://github.com/ragesoss/mediawiki-ruby-api
-  revision: f91ca9e7940a5ad22282d5fe714fbf2160815be2
-  branch: master
-  specs:
-    mediawiki_api (0.7.1)
-      faraday (>= 0.9.0)
-      faraday-cookie_jar (>= 0.0.6)
-      faraday_middleware (>= 0.10.0)
+      mediawiki_api
 
 GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
@@ -130,7 +117,7 @@ GEM
       activerecord (>= 4.2)
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
-    airbrussh (1.4.1)
+    airbrussh (1.6.0)
       sshkit (>= 1.6.1, != 1.7.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
@@ -156,7 +143,7 @@ GEM
       redis (>= 1.0, <= 5.0)
     builder (3.2.4)
     byebug (11.1.3)
-    capistrano (3.17.1)
+    capistrano (3.20.0)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -185,9 +172,11 @@ GEM
       launchy
     chartkick (4.2.1)
     choice (0.2.0)
+    chronic_duration (0.10.6)
+      numerizer (~> 0.1.1)
     climate_control (1.2.0)
     coderay (1.1.3)
-    concurrent-ruby (1.3.4)
+    concurrent-ruby (1.3.6)
     connection_pool (2.3.0)
     crack (0.4.5)
       rexml
@@ -220,36 +209,20 @@ GEM
       railties (>= 5.0.0)
     faker (2.23.0)
       i18n (>= 1.8.11, < 2)
-    faraday (1.10.2)
-      faraday-em_http (~> 1.0)
-      faraday-em_synchrony (~> 1.0)
-      faraday-excon (~> 1.1)
-      faraday-httpclient (~> 1.0)
-      faraday-multipart (~> 1.0)
-      faraday-net_http (~> 1.0)
-      faraday-net_http_persistent (~> 1.0)
-      faraday-patron (~> 1.0)
-      faraday-rack (~> 1.0)
-      faraday-retry (~> 1.0)
-      ruby2_keywords (>= 0.0.4)
-    faraday-cookie_jar (0.0.7)
+    faraday (2.14.0)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-cookie_jar (0.0.8)
       faraday (>= 0.8.0)
-      http-cookie (~> 1.0.0)
-    faraday-em_http (1.0.0)
-    faraday-em_synchrony (1.0.0)
-    faraday-excon (1.1.0)
-    faraday-follow_redirects (0.3.0)
+      http-cookie (>= 1.0.0)
+    faraday-follow_redirects (0.5.0)
       faraday (>= 1, < 3)
-    faraday-httpclient (1.0.1)
     faraday-multipart (1.0.4)
       multipart-post (~> 2)
-    faraday-net_http (1.0.1)
-    faraday-net_http_persistent (1.2.0)
-    faraday-patron (1.0.0)
-    faraday-rack (1.0.0)
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     faraday-retry (1.0.3)
-    faraday_middleware (1.2.0)
-      faraday (~> 1.0)
     ffi (1.15.4)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
@@ -304,7 +277,7 @@ GEM
     http-cookie (1.0.5)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    i18n (1.14.6)
+    i18n (1.14.8)
       concurrent-ruby (~> 1.0)
     i18n-js (4.2.2)
       glob (>= 0.4.0)
@@ -338,6 +311,12 @@ GEM
       rest-client (>= 2.0.2)
     marcel (1.0.4)
     matrix (0.4.2)
+    mediawiki_api (0.9.0)
+      faraday (>= 2.7.0)
+      faraday-cookie_jar
+      faraday-follow_redirects
+      faraday-multipart
+      faraday-retry
     memory_profiler (1.0.0)
     method_source (1.0.0)
     mime-types (3.6.0)
@@ -352,6 +331,8 @@ GEM
     mutex_m (0.3.0)
     mysql2 (0.5.4)
     nenv (0.3.0)
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -362,13 +343,15 @@ GEM
       timeout
     net-protocol (0.1.3)
       timeout
-    net-scp (4.0.0)
+    net-scp (4.1.0)
       net-ssh (>= 2.6.5, < 8.0.0)
+    net-sftp (4.0.0)
+      net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.3.1)
       digest
       net-protocol
       timeout
-    net-ssh (7.0.1)
+    net-ssh (7.3.0)
     netrc (0.11.0)
     newrelic_rpm (8.13.1)
     nio4r (2.5.8)
@@ -378,6 +361,7 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    numerizer (0.1.1)
     oauth (0.5.6)
     oj (3.13.23)
     omniauth (2.0.4)
@@ -387,8 +371,8 @@ GEM
     omniauth-oauth (1.2.0)
       oauth
       omniauth (>= 1.0, < 3)
-    openssl (3.0.0)
     orm_adapter (0.5.0)
+    ostruct (0.6.3)
     pandoc-ruby (2.1.6)
     paper_trail (16.0.0)
       activerecord (>= 6.1)
@@ -463,7 +447,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
+    rake (13.3.1)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.11.2)
@@ -482,11 +466,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    restforce (6.0.0)
-      faraday (>= 1.1.0, < 2.5.0)
-      faraday-follow_redirects (<= 0.3.0, < 1.0.0)
+    restforce (8.0.1)
+      faraday (>= 1.1.0, < 3.0.0)
+      faraday-follow_redirects (< 0.6.0)
       faraday-multipart (>= 1.0.0, < 2.0.0)
-      faraday-net_http (< 3.0.0)
+      faraday-net_http (< 4.0.0)
       hashie (>= 1.2.0, < 6.0)
       jwt (>= 1.5.6)
     rexml (3.4.4)
@@ -513,7 +497,7 @@ GEM
     rspec-support (3.11.1)
     rss (0.2.9)
       rexml
-    rubocop (1.81.6)
+    rubocop (1.81.7)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -527,19 +511,32 @@ GEM
     rubocop-ast (1.47.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
-    rubocop-performance (1.15.0)
-      rubocop (>= 1.7.0, < 2.0)
-      rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.16.0)
+    rubocop-capybara (2.22.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
+    rubocop-factory_bot (2.28.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
+    rubocop-performance (1.26.1)
+      lint_roller (~> 1.1)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.47.1, < 2.0)
+    rubocop-rails (2.34.3)
       activesupport (>= 4.2.0)
+      lint_roller (~> 1.1)
       rack (>= 1.1)
-      rubocop (>= 1.33.0, < 2.0)
-    rubocop-rspec (2.12.1)
-      rubocop (~> 1.31)
+      rubocop (>= 1.75.0, < 2.0)
+      rubocop-ast (>= 1.44.0, < 2.0)
+    rubocop-rspec (3.9.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.81)
+    rubocop-rspec_rails (2.32.0)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
+      rubocop-rspec (~> 3.5)
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
-    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     securerandom (0.4.1)
     selenium-webdriver (4.15.0)
@@ -569,6 +566,9 @@ GEM
       fugit (~> 1.8)
       globalid (>= 1.0.1)
       sidekiq (>= 6)
+    sidekiq-status (3.0.3)
+      chronic_duration
+      sidekiq (>= 6.0, < 8)
     sidekiq-unique-jobs (7.1.27)
       brpoplpush-redis_script (> 0.1.1, <= 2.0.0)
       concurrent-ruby (~> 1.0, >= 1.0.5)
@@ -583,9 +583,13 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.3)
-    sshkit (1.21.3)
+    sshkit (1.25.0)
+      base64
+      logger
       net-scp (>= 1.1.2)
+      net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
+      ostruct
     stackprof (0.2.23)
     strscan (3.0.1)
     temple (0.8.2)
@@ -602,6 +606,7 @@ GEM
     unicode-display_width (3.2.0)
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
+    uri (1.1.1)
     validates_email_format_of (1.7.2)
       i18n
     vcr (6.1.0)
@@ -617,7 +622,6 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (3.3.1)
-    x25519 (1.0.10)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.1)
@@ -664,14 +668,13 @@ DEPENDENCIES
   jbuilder
   kt-paperclip
   mailgun-ruby
-  mediawiki_api!
+  mediawiki_api
   memory_profiler
   mysql2
   newrelic_rpm
   nokogiri
   oj
   omniauth-mediawiki!
-  openssl (~> 3)
   pandoc-ruby
   paper_trail
   premailer-rails
@@ -693,9 +696,12 @@ DEPENDENCIES
   rspec-rails
   rss
   rubocop
+  rubocop-capybara
+  rubocop-factory_bot
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  rubocop-rspec_rails
   selenium-webdriver
   sentimental
   sentry-rails
@@ -704,6 +710,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq-cron
+  sidekiq-status
   sidekiq-unique-jobs
   simple_form
   simplecov
@@ -714,10 +721,9 @@ DEPENDENCIES
   webmock
   wikidata-diff-analyzer!
   will_paginate
-  x25519
 
 RUBY VERSION
    ruby 3.1.2p20
 
 BUNDLED WITH
-   2.3.22
+   2.4.22

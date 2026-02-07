@@ -21,6 +21,7 @@ gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'sidekiq-cron' # Plugin for cron-style recurring jobs in Sidekiq
+gem 'sidekiq-status' # Plugin for tracking information about Sidekiq
 gem 'dalli' # Caching
 gem 'connection_pool'
 gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
@@ -52,7 +53,8 @@ gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', br
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
-gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master' # Library for querying mediawiki API
+gem 'mediawiki_api' # Library for querying mediawiki API'
+# gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master'
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 gem 'rss' # Standard RSS library
@@ -108,8 +110,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
-  gem 'openssl', '~> 3'
-  gem 'x25519' # workaround for openssl bug: https://github.com/ruby/openssl/issues/489
   gem 'rails-erd' # Generates`erd.pdf`
   gem 'annotate' # Generates automatic schema notations on model files
   gem 'memory_profiler' # Unsafe for production use
@@ -123,6 +123,9 @@ group :development, :test do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-capybara', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'rack-proxy', '~> 0.7.6'
 end

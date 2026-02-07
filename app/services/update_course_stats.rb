@@ -20,7 +20,8 @@ class UpdateCourseStats
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course)
+  def initialize(course, sidekiq_status_logger: nil) # rubocop:disable Metrics/MethodLength
+    sidekiq_status_logger.pause_until_no_backup unless sidekiq_status_logger.nil?
     @course = course
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.

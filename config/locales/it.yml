@@ -304,6 +304,7 @@ it:
     campaign_deleted: La Campagna "%{title}" è stata cancellata
     campaign_not_updated: Non è stato possibile aggiornare la campagna
     campaign_updated: Campagna aggiornata
+    refresh_campaign_stats: Statistiche della campagna aggiornate correttamente
     created_at: Data
     confirm_campaign_deletion: Sei sicura/o di voler cancellare la campagna chiamata
       %{title}? Se è così, scrivi il titolo della campagna per procedere.
@@ -605,6 +606,7 @@ it:
     milestones_none: Questo corso attualmente non ha pietre miliari.
     my_articles: Le mie voci
     needs_update: Aggiornamento dati programmato
+    update_scheduled_label: Aggiornamento programmato
     new_week: Aggiungi nuova settimana
     new_account_email: Indirizzo email
     new_account_email_placeholder: nome@example.org
@@ -612,7 +614,7 @@ it:
     new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
-    not_permitted: Non sei autorizzato a modificare questo corso.
+    not_permitted: Non hai l'autorizzazione di modificare questo corso.
     notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
@@ -747,7 +749,7 @@ it:
     join_course: Partecipa al programma
     leave_course: Lascia il programma
     milestones_none: Questo progetto attualmente non ha pietre miliari.
-    not_permitted: Non sei autorizzato a modificare questo programma.
+    not_permitted: Non hai l'autorizzazione di modificare questo programma.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
     revisions_none: Questo progetto non ha attività di modifica recenti.
@@ -1033,7 +1035,7 @@ it:
     uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
     username_placeholder: Nome utente
-    useremail_placeholder: Email
+    useremail_placeholder: Inserisci l'indirizzo di posta elettronica
     userpasscode_placeholder: Codice di accesso
     role:
       description: Ruolo nel corso

@@ -1,0 +1,131 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                Please read this message carefully, as it contains important information about Wiki Education’s
+                explicit guidance on using AI for Wikipedia edits. The core of it is:
+                %strong don't add any AI-generated text to Wikipedia
+                (including all exercises). This includes the output of AI-powered copyediting tools like Grammarly.
+                Please help us ensure that your students follow this rule.
+              %p.paragraph
+                %em
+                  When content is created or edited by generative AI, it will be removed from Wikipedia.
+                  Students who continue to use generative AI to add content to Wikipedia may be
+                  blocked from editing.
+              %h2.headline Your role as instructor
+              %ol.paragraph
+                %li
+                  Your Dashboard Timeline includes our
+                  %a.link{href: 'http://dashboard.wikiedu.org/training/students/generative-ai'} "Using generative AI tools with Wikipedia"
+                  training module. Please require that your students take it and stress its importance. 
+                %li
+                  In class, please emphasize to students that they should never copy and paste the
+                  output from generative AI chatbots into any part of their Wikipedia assignment.
+                  This means:
+                  %ul
+                    %li Do not copy and paste generative AI output into any of the early exercises (evaluate an article, bibliography, etc.).
+                    %li Do not copy and paste generative AI output into any draft space students may work in before moving to Wikipedia, including Google Docs or a Wikipedia sandbox. It is still unacceptable even if they make substantial edits to the text afterward. All content added to Wikipedia should be originally written by a human.
+                    %li Do not copy and paste generative AI output directly into Wikipedia.
+                    %li Do not ask generative AI to copyedit any original writing. Gen AI-powered copyediting can introduce factual errors or change meaning.
+                %li
+                  Wiki Education uses an AI detection tool called Pangram to check student edits to Wikipedia,
+                  including all exercises, for generative AI output. When it detects possible AI usage, you
+                  and your student will receive an email. If you receive a detection email, please reiterate
+                  the importance of not using AI for text generation 1:1 with your student as soon as possible,
+                  so as to head off future use of generative AI for text generation. The email will contain a
+                  link for your student to report more information about this case to us, including whether it
+                  was a false positive. Please encourage your student to fill out this form.
+                %li
+                  If students express discomfort with writing on Wikipedia without using generative AI, please
+                  allow them to submit an alternative assignment (for example, a Wikipedia-like article in a
+                  Google Doc shared only with you).
+              %p.paragraph
+                %em
+                  The rest of this email will provide more background information on these points. If you're
+                  interested, feel free to keep reading, but if you're pressed for time, you can stop here.
+              %h2.headline Why prohibit AI-generated content?
+              %p.paragraph
+                Wiki Education staff have tracked AI tools and their potential effects on Wikipedia since the
+                launch of ChatGPT in November 2022. In summer 2025, we systematically analyzed how
+                AI-generated text added by students in recent terms holds up to fact-checking. The important
+                conclusion we've come to is: it doesn’t.
+              %p.paragraph
+                Even when edited and sourced conscientiously, AI-generated Wikipedia content has pervasive
+                quality problems and is much more difficult to verify and fix than real writing.
+              %p.paragraph
+                We explored several AI detectors and settled on Pangram, which we've found to be far more
+                accurate for analyzing Wikipedia article content than the earlier generation of AI detectors.
+                In particular, Pangram has a very low rate of false positives on pre-ChatGPT Wikipedia
+                articles. The most capable chatbots of 2025 are much better at generating Wikipedia content
+                that seems plausibly real to Wiki Education staff, but Pangram still detects unedited
+                AI-generated text from these tools very consistently. Pangram is also fairly effective at detecting
+                mixed writing (either AI-generated text that was edited by a human, or human-written text
+                that was significantly copyedited via AI), and is not easily fooled by “humanizer” tools.
+              %p.paragraph
+                We closely examined many of these articles — the ones that pass the "smell test" and represent
+                a best-case scenario for AI-assisted Wikipedia writing. We found that they systematically hide,
+                but do not eliminate, the fundamental LLM problem of "hallucinations" (factual errors) and
+                that they are consistently bad when it comes to sources and citations. While many facts are
+                correct in broad strokes, AI text often transposes details and context, especially content
+                that isn't already well-represented on Wikipedia in other articles. Recent chatbots seem
+                less likely to invent references, but even when they cite real and relevant sources, the
+                cited source text doesn't actually support the facts being claimed. These factors make
+                AI-generated content extremely tedious to verify —
+                %strong consistently violating Wikipedia's core policy of Verifiability.
+              %p.paragraph
+                We see similar problems — subtle distortions of meaning that introduce factual errors —
+                when Wikipedia content is copyedited by LLM-driven tools like Grammarly.
+              %p.paragraph
+                Given these limitations, students should not use generative AI to create or edit content
+                that they add to Wikipedia. If they do, they will likely have their work deleted, and
+                continued use of AI may lead to them being blocked from editing Wikipedia.
+              %h2.headline AI detection emails
+              %p.paragraph
+                Wiki Education uses the AI detection service Pangram to check new edits as they happen.
+                When Pangram detects suspected AI-generated content added to Wikipedia by a student,
+                the student and their instructor will receive an automated email from the Dashboard.
+              %p.paragraph
+                Please note that Pangram isn’t perfect. Pangram sometimes incorrectly flags a list of
+                references as AI-generated, and doesn't definitely prove that any piece of text is or
+                isn't AI-generated. But we believe it's important to flag cases of likely AI usage as
+                quickly as possible, while students still have plenty of time to change course. Many
+                students will claim they did not use AI when they receive an email like this; if that
+                is the case, please carefully review the verifiability of the information. That means
+                you should open the sources the student cites and attempt to find the information the
+                student has cited to that source. The core problem we are trying to prevent is
+                information that looks plausible and is cited to a real, relevant source, but that
+                source does not actually contain that fact — a hallmark of AI-generated Wikipedia article text. 
+              %p.paragraph
+                These detection emails will also include a request for feedback from the student, so
+                that we can collect information about false positives and improve the detection
+                process. We welcome that feedback from you and/or your students, and we'll use it to
+                improve our AI-related training, guidance and detection system in the future.
+              %h2.headline Questions?
+              %p.paragraph
+                We are happy to help! Please reach out via email or stop by our office hours
+                on Zoom throughout the term. 
+              %p.paragraph
+                We appreciate your partnership in providing a high-quality learning experience
+                for your students while protecting the integrity of Wikipedia’s content.
+              %p.paragraph
+                %br
+                %em
+                  =@staffer.real_name
+                %br
+                %em Senior Program Manager
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help you with assessing student work for your Wikipedia assignment.
+                If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Generative-AI-Advice-email'} leave feedback here.

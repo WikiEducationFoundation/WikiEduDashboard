@@ -7,9 +7,15 @@
 # Author: ਪ੍ਰਚਾਰਕ
 ---
 pa:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: ਹਜਾਰ
   application:
     back: ਪਿਛਾਂਹ
     cancel: ਰੱਦ ਕਰੋ
+    next: ਅਗਲਾ
     cookie_consent_acknowledge: ਮੈਂ ਸਮਝ ਗਿਆ(ਗਈ)।
     cookie_consent_see_more: ਹੋਰ ਵੇਖੋ।
     create_accounts: ਵਿਕੀਪੀਡੀਆ ਖ਼ਾਤੇ ਬਣਾਓ
@@ -31,6 +37,7 @@ pa:
     log_in: ਦਾਖ਼ਲ ਹੋਵੋ
     log_out: ਬਾਹਰ ਆਉ
     my_dashboard: ਮੇਰਾ ਡੈਸ਼ਬੋਰਡ
+    okay: ਠੀਕ ਏ
     recent_activity: ਹਾਲੀਆ ਸਰਗਰਮੀ
     report_problem: ਸਮੱਸਿਆ ਦੀ ਇਤਲਾਹ ਦਿਓ
     request_account: ਇੱਕ ਖਾਤੇ ਲਈ ਬੇਨਤੀ ਕਰੋ
@@ -82,10 +89,15 @@ pa:
         heading: ਸਲਾਹ
   alerts:
     alert_label: ਚੇਤਾਵਨੀਆਂ
+    no_data: ਕੋਈ ਡਾਟਾ ਨਹੀੰ ਲੱਭਾ।
     ai_stats:
+      timestamp: ਵਕਤ ਦੀ ਮੋਹਰ
       general_stats: '%{campaign_name} ਲਈ ਆਮ ਅੰਕੜੇ'
       total: ਕੁੱਲ
       last_week: ਪਿਛਲੇ ਹਫ਼ਤੇ
+      sections:
+        name: ਨਾਂ
+        description: ਵੇਰਵਾ
   activity:
     all: ਸਰਗਰਮੀ
     edited_by: ਵੱਲੋਂ ਸੋਧਿਆ
@@ -104,7 +116,7 @@ pa:
     article_title: ਲੇਖ ਦਾ ਸਿਰਲੇਖ
     assigned_to: ਨੂੰ ਸੌਂਪਿਆ ਗਿਆ
     deleted: (ਮਿਟਾਏ)
-    edited: ਸੰਪਾਦਿਤ ਲੇਖ
+    edited: ਲੇਖ ਸੋਧੋ
     edited_by: 'ਵੱਲੋਂ ਸੋਧਿਆ:'
     edited_mobile: ਲੇਖ
     edited_none: ਹਾਲੇ ਤੱਕ ਕੋਈ ਸੰਪਾਦਿਤ ਲੇਖ ਨਹੀਂ ਹਨ।
@@ -114,6 +126,7 @@ pa:
       existing: ਮੌਜੂਦਾ
       new_and_existing: ਨਵਾਂ ਅਤੇ ਮੌਜੂਦਾ
     filter_text: 'ਛਾਨਣੀ:'
+    pageviews_label: 'ਵਰਕੇ ਦੀਆਂ ਝਾਤਾਂ:'
     find: ਲੇਖ ਲੱਭੋ
     how_to_find: ਇੱਕ ਲੇਖ ਕਿਵੇਂ ਲੱਭਣਾ ਹੈ
     hide: ਲੁਕਾਓ
@@ -183,6 +196,7 @@ pa:
     view_wiki: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਦੇਖੋ
   courses_generic:
     creator:
+      save_cloned_course: ਸਾਂਭੋ
       scoping_methods:
         templates: ਫਰਮੇ
     enrollment: ਸੰਪਾਦਕਾਂ ਨੂੰ ਜੋੜੋ/ਹਟਾਓ
@@ -195,10 +209,10 @@ pa:
   editable:
     edit: ਸੋਧੋ
     cancel: ਰੱਦ ਕਰੋ
-    save: ਸੰਭਾਲੋ
+    save: ਸਾਂਭੋ
   instructor_view:
     assignments_table:
-      article_name: ਨਾਮ
+      article_name: ਨਾਂ
     assigned_articles: ਸੌਂਪੇ ਗਏ ਲੇਖ
   metrics:
     last_articles_update: ਪਿਛਲੇ ਲੇਖ ਅੱਪਡੇਟ
@@ -207,16 +221,18 @@ pa:
     articles_created_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
     articles_created_generic: ਸਫ਼ੇ ਬਣਾਏ
     articles_created_generic_wikidata: ਆਈਟਮਾਂ ਬਣਾਈਆਂ
-    articles_edited: ਸੰਪਾਦਿਤ ਲੇਖ
+    articles_edited: ਲੇਖ ਸੋਧੋ
     articles_edited_wikidata: ਸੋਧਿਆ ਵਸਤਾਂ
     articles_edited_generic: ਸੰਪਾਦਿਤ ਸਫ਼ੇ
     articles_edited_generic_wikidata: ਸੋਧਿਆ ਵਸਤਾਂ
+    close_modal: ਬੰਦ ਕਰੋ
     revisions: ਹਾਲੀਆ ਸੋਧਾਂ
   namespace:
     article: ਲੇਖ
     mediaWiki: ਮੀਡੀਆਵਿਕੀ
     template: ਫਰਮਾ
     help: ਮਦਦ
+    page: ਵਰਕਾ
     translation: ਤਰਜਮਾ
     draft: ਖਰੜਾ
     query: ਪੁੱਛਗਿੱਛ
@@ -226,6 +242,8 @@ pa:
     image: ਤਸਵੀਰ
     file_name: ਫ਼ਾਈਲ ਦਾ ਨਾਂ
     recent_edits: ਹਾਲੀਆ ਸੋਧਾਂ
+  revisions:
+    diff_hide: ਓਹਲੇ
   settings:
     categories:
       users: ਵਰਤੋਂਕਾਰ
@@ -239,6 +257,8 @@ pa:
     empty_week_3: ਜਾਂ
     gradeable_value: ਮੁੱਲ
     save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
+  training:
+    page: ਵਰਕਾ
   update_username:
     label: ਨਵਾਂ ਵਰਤੋਂਕਾਰ-ਨਾਂ
   uploads:

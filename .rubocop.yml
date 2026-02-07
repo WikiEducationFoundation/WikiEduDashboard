@@ -1,11 +1,16 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
+  - rubocop-rspec_rails
+  - rubocop-factory_bot
+  - rubocop-capybara
 Style/Documentation:
   Enabled: false
 AllCops:
+  DisabledByDefault: true
   NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'Gemfile'
     - 'Guardfile'
@@ -75,7 +80,7 @@ Metrics/ModuleLength:
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
 Rails/EnvironmentVariableAccess:
-  AllowReads: true
+  Enabled: false
 
 ########################
 # Permanent exceptions #
@@ -198,6 +203,10 @@ Rails/I18nLocaleAssignment:
   Enabled: false
 RSpec/SubjectDeclaration:
   Enabled: false
+RSpec/IndexedLet:
+  Enabled: false
+RSpec/Output:
+  Enabled: false
 Rails/RedundantTravelBack:
   Enabled: false
 Rails/DurationArithmetic:
@@ -216,11 +225,11 @@ RSpec/ChangeByZero:
   Enabled: false
 RSpec/BeNil:
   Enabled: false
-RSpec/Capybara/SpecificMatcher:
+Capybara/SpecificMatcher:
   Enabled: false
-RSpec/Rails/HaveHttpStatus:
+RSpecRails/HaveHttpStatus:
   Enabled: false
-RSpec/FactoryBot/SyntaxMethods:
+FactoryBot/SyntaxMethods:
   Enabled: false
 Rails/CompactBlank:
   Enabled: false

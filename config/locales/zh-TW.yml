@@ -385,6 +385,7 @@ zh-TW:
     campaign_deleted: 競賽「%{title}」已被刪除
     campaign_not_updated: 不能更新競賽
     campaign_updated: 競賽已更新
+    refresh_campaign_stats: 競賽統計內容重整成功
     created_at: 日期
     confirm_campaign_deletion: 確定要刪除比賽「%{title}」？是就輸入比賽標題繼續。
     confirm_campaign_deletion_failed: 「%{title}」不是此競賽的標題。競賽未被刪除
@@ -689,6 +690,7 @@ zh-TW:
     my_articles: 我的所有條目。
     my_articles_wikidata: 我的項目
     needs_update: 行事曆資料更新
+    update_scheduled_label: 更新行事
     new_week: 新增新的一週
     new_account_check_username: 檢查用戶名可用性
     new_account_email: 電子郵件地址
@@ -1501,7 +1503,7 @@ zh-TW:
     ungreeted: 不歡迎
     username: 使用者名稱
     username_placeholder: 使用者名稱
-    useremail_placeholder: 電子郵件
+    useremail_placeholder: 請輸入電子郵件
     userpasscode_placeholder: 選課代碼
     words_added: 已增加詞<br>（條目|使用者|草稿）
     word_count_doc: 使用者添加到現存條目、使用者空間頁面（沙盒）、和草稿命名空間的總容量估計值。字數估計值是根據所有多於刪除內容的添加編輯內容之頁面大小變化總和計算出的。此數字不一定會精確反應出使用者所添加的新內容的數量。恢復移除的內容也會增加到總數裡。
@@ -1513,6 +1515,8 @@ zh-TW:
       campus_volunteer: 校園志工
       online_volunteer: 線上志工
       wiki_ed_staff: 維基教育成員
+    email_required_instructor: 僅限現有導師使用。課程結束後，您可以移除您的電子郵件地址。
+    email_invalid: 無效：請輸入有效的電子郵件
   user_profiles:
     student_impact: 由%{username}以學生身份做出的所有影響
     instructor_impact: 由%{username}以導師身份做出的所有影響

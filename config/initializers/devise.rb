@@ -1,3 +1,27 @@
+# Monkey patching Net::HTTP so that OmniAuth will use our user agent.
+# This is a terrible idea, but OmniAuth and the related libraries
+# do not support setting a user agent, and Wikimedia will rate-limit
+# us severely if we don't follow their UA policy.
+# FIXME: Implement OAuth2 and make sure it supports setting the User Agent.
+require 'net/http'
+
+class Net::HTTPRequest < Net::HTTPGenericRequest
+  # Creates an HTTP request object for +path+.
+  #
+  # +initheader+ are the default headers to use.  Net::HTTP adds
+  # Accept-Encoding to enable compression of the response body unless
+  # Accept-Encoding or Range are supplied in +initheader+.
+
+  def initialize(path, initheader = nil)
+    initheader ||= {}
+    initheader['User-Agent'] = ENV['user_agent']
+    super self.class::METHOD,
+          self.class::REQUEST_HAS_BODY,
+          self.class::RESPONSE_HAS_BODY,
+          path, initheader
+  end
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|

@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq-status/web'
+
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
@@ -317,6 +320,7 @@ Rails.application.routes.draw do
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
   get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
   get 'current_term(/:subpage)' => 'campaigns#current_term'
+  get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
   resources :tagged_courses, param: :tag, except: :show do
@@ -482,6 +486,10 @@ Rails.application.routes.draw do
   get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
   resources :ai_edit_alerts_stats, only: [:index]
 
+  # AI tools for admins
+  get 'ai_tools' => 'ai_tools#show'
+  post 'ai_tools/compare_pangrams' => 'ai_tools#compare_pangrams'
+
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
     post 'term_recap/send' => 'term_recap#send_recap_emails'
@@ -503,6 +511,11 @@ Rails.application.routes.draw do
   require 'sidekiq/cron/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+  end
+
+  # Backup system
+  namespace :system do
+    get 'can_start_backup.json' => 'backups#can_start_backup'
   end
 
   get '/private_information' => 'about_this_site#private_information'

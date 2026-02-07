@@ -71,7 +71,7 @@ lb:
     print: Drécken
   article_statuses:
     not_yet_started: Fir unzefänken
-    in_progress: An enger Sandkëscht schaffen
+    in_progress: An enger Sandkaul schaffen
     ready_for_review: Schabloun erweideren
     ready_for_mainspace: Aarbecht an den Haaptnummraum réckelen
     reading_the_article: Artikel liesen
@@ -191,10 +191,11 @@ lb:
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
-    sandbox_draft_link: Sandkëschte-Brouillon
+    sandbox_draft_link: Sandkaul-Brouillon
     select: Eraussichen
     username_label: Wikipedia-Benotzernumm
     username_or_url_label: Wikipedia-Benotzernumm oder URL
+    sandbox_label: Sandkaul
   blocks:
     milestones:
       title: Kilometersténg
@@ -350,7 +351,7 @@ lb:
     new_account_username_taken: Dëse Benotzernumm ass scho verginn. Sicht Iech wgl.
       een aneren aus.
     new_account_submit: Benotzerkont ufroen
-    no_sandboxes: Keng Sandkëschten
+    no_sandboxes: Keng Sandkaulen
     nocourses: Dir maacht bei kengem Cours mat.
     nocourse: huet bei kengem Cours matgemaach.
     none: Keng
@@ -367,7 +368,7 @@ lb:
     school_and_term: Institutioun/Dauer
     start: Ufank
     start_typing: Fänkt u mat Tippen
-    stay_in_sandbox: An der Sandkëscht bleiwen
+    stay_in_sandbox: An der Sandkaul bleiwen
     student: Student
     students: Studenten
     students_count: '# Studenten'
@@ -637,7 +638,7 @@ lb:
       exercise: Exercice
       discussion: Diskussioun
       training: Formatioun
-    exercise_sandbox: Übungssandbox
+    exercise_sandbox: Übungssandkaul
   update_username:
     label: Neie Benotzernumm
     button: Aktualiséieren
@@ -695,7 +696,7 @@ lb:
     remove_confirmation: Sidd Dir sécher, datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher, datt Dir dëse Benotzerkont ufroe wëllt?
     revisions: Versiounen
-    sandboxes: Sandkëschten
+    sandboxes: Sandkaulen
     sub_navigation:
       exercises_and_trainings: Exercicen & Formatiounen
       student_overview: Iwwersiicht %{prefix}
@@ -710,7 +711,7 @@ lb:
       seconds: Sek
     username: Benotzernumm
     username_placeholder: Benotzernumm
-    useremail_placeholder: E-Mail
+    useremail_placeholder: E-Mail-Adress aginn
     role:
       visitor: Visiteur
       student: Student
@@ -805,6 +806,7 @@ lb:
       news_content:
         confirm_delete: Confirméieren
         cancel_delete: Ofbriechen
+        cancel_edit: Ännerung ofbriechen
   notes:
     title: Titel
     failure: Feeler! Probéiert wgl. méi spéit nach eng Kéier.
