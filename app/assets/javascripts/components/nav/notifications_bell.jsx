@@ -42,11 +42,11 @@ const NotificationsBell = () => {
         (hasRequestedAccounts || hasOpenTickets)
           ? (
             <span className="bubble red">
-              <span id="notification-message" className="screen-reader">You have new notifications.</span>
+              <span id="notification-message" className="screen-reader">{I18n.t('notifications.new_notifications')}</span>
             </span>
           )
           : (
-            <span id="notification-message" className="screen-reader">You have no new notifications.</span>
+            <span id="notification-message" className="screen-reader">{I18n.t('notifications.no_notifications')}</span>
           )
       }
     </li>
