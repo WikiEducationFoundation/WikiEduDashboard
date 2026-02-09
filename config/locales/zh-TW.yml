@@ -8,6 +8,7 @@
 # Author: Kly
 # Author: LNDDYL
 # Author: Liuxinyu970226
+# Author: LowensteinYang
 # Author: Reke
 # Author: S8321414
 # Author: Shangkuanlc
@@ -680,6 +681,7 @@ zh-TW:
       not_yet_approved: 此課程尚未批准開放登記。
       withdrawn: 此課程已被標記為撤銷 — 這可能是出自於錯誤。請聯絡 Wiki 教育成員來重新啟動。
       invalid_sync: 此事項的登記由維基媒體活動中心控制。它不能從功能面板加入。
+      disallowed_user: 該使用者已被列入禁止使用者清單，無法登記課程。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
     join_no_passcode: 您確定要加入這個課程嗎？
     launch_wizard: 啟動精靈
@@ -1052,8 +1054,8 @@ zh-TW:
       other: 跨語言項目使用總計
     view_count_description: 條目檢視數
     view_count_description_wikidata: 項目查看
-    view_count_doc: 這是根據近期統計更新，平均30天每篇文章的平均瀏覽次數所推估的瀏覽次數。瀏覽次數可能因為更新後的次數比先前少而減少。
-    view_count_doc_wikidata: 這是根據近期統計更新，平均30天每個項目的平均瀏覽次數所推估的瀏覽次數。瀏覽次數可能因為更新後的次數比先前少而減少。
+    view_count_doc: 此為根據該條目自課程期間首次修訂至最近一次統計更新期間的每日平均值所估算的瀏覽次數。
+    view_count_doc_wikidata: 此為根據該項目自課程期間首次修訂至最近一次統計更新期間的每日平均值所估算的瀏覽次數。
     view_data_unavailable: 沒有可用的檢視資料
     view: 檢視數
     wiki_ed_help: 使用「取得協助」按鈕來回報問題。
@@ -1153,6 +1155,7 @@ zh-TW:
     see_more: 查看更多
     show_all: 顯示全部
     show_course_specific: 顯示課程規格
+    show_only_new_editors: 僅顯示新編輯者
   resources:
     label: 資源
     header: 資源與培訓
@@ -1214,6 +1217,23 @@ zh-TW:
         revoking_button_working: 正在撤回…
         already_is_not: '%{username} 不是特殊使用者！'
         demote_success: '%{username} 現在僅是一般使用者。'
+    disallowed_users:
+      none: 未配置任何禁止使用者。
+      already_disallowed: 已被禁止
+      add_to_list: 添加到禁止
+      add_button: 新增使用者
+      remove_button: 移除
+      submit_button: 提交
+      title: 已禁止的使用者
+      description: 機器人帳號和其他不應登記課程的使用者名稱。
+      add:
+        success: 已新增%{username}至禁止使用者清單。
+        already_exists: '%{username}已在禁止使用者清單中。'
+      remove:
+        success: 已將%{username}從禁止使用者清單移除。
+        not_found: '%{username}不在禁止使用者清單中。'
+        confirm: 您確定要從禁止使用者清單中移除%{username}嗎？
+    actions: 操作
   status:
     active_jobs: 有效任務
     active_jobs_doc: 目前正在處理的任務數量。

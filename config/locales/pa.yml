@@ -174,25 +174,25 @@ pa:
     bibliography: ਗ੍ਰੰਥ-ਸੂਚੀ
     sandbox_draft_link: ਕੱਚੇ ਖ਼ਾਕੇ ਦਾ ਖਰੜਾ
   campaign:
-    data_editors_by_course: ਪਾਠਕ੍ਰਮ ਅਨੁਸਾਰ ਸੰਪਾਦਕ
+    data_editors_by_course: ਪਾਠਕ੍ਰਮ ਮੁਤਾਬਕ ਸੋਧਕ
     none: ਕੋਈ ਨਹੀਂ
   categories:
     add_this_template: ਫਰਮੇ ਜੋੜੋ
     template_name: ਫ਼ਰਮੇ ਦਾ ਨਾਂ
   courses:
     actions: ਕਾਰਵਾਈਆਂ
-    campaign_users: '%{title} ਸੰਪਾਦਕ'
+    campaign_users: '%{title} ਸੋਧਕ'
     creator:
       subject: ਵਿਸ਼ਾ
     data_articles: ਲੇਖ ਡਾਟਾ
-    data_students: ਸੰਪਾਦਕ ਡਾਟਾ
+    data_students: ਸੋਧਕਾਂ ਦਾ ਡਾਟਾ
     loading: ਲੱਦ ਰਿਹਾ ਹੈ...
     my_articles: ਮੇਰੇ ਲੇਖ
     none: ਕੋਈ ਵੀ ਨਹੀਂ
     please_log_in: ਕਿਰਪਾ ਕਰਕੇ ਦਾਖ਼ਲ ਹੋਵੋ।
     start: ਸ਼ੁਰੂ ਕਰੋ
     start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
-    student_editors: ਵਿਦਿਆਰਥੀ ਸੰਪਾਦਕ
+    student_editors: ਸਿੱਖਿਆਰਥੀ ਸੋਧਕ
     view_wiki: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਦੇਖੋ
   courses_generic:
     creator:
@@ -200,10 +200,10 @@ pa:
       scoping_methods:
         templates: ਫਰਮੇ
     enrollment: ਸੰਪਾਦਕਾਂ ਨੂੰ ਜੋੜੋ/ਹਟਾਓ
-    expected_students: ਸੰਭਾਵਿਤ ਸੰਪਾਦਕ
+    expected_students: ਉਮੀਦ ਕੀਤੇ ਸੋਧਕ
     student_editors: ਸੋਧਕ
     students: ਸੋਧਕ
-    students_taught: ਕੁੱਲ ਸੰਪਾਦਕ
+    students_taught: ਕੁੱਲ ਸੋਧਕ
     students_short: ਸੋਧਕ
     view_page: ਸਫ਼ਾ ਵੇਖੋ
   editable:
