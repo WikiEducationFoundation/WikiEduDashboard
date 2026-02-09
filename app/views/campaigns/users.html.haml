@@ -21,10 +21,9 @@
         .form-fields
           .form-row
             = text_field_tag :username, params[:username], placeholder: t('users.username'), class: 'input-full-width'
-          - has_advanced_params = params[:min_revision_count].present? || params[:max_revision_count].present? || params[:course_title].present?
-          %button.button.border.small.advanced-search-toggle#toggle_advanced_search{type: "button"}
+          %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: "button"}
             = t('form_search.advanced_search')
-          #advanced_search_fields{class: has_advanced_params ? '' : 'hidden'}
+          #advanced_search_fields.hidden
             .form-row.relative
               = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', class: 'course-title-select-wrapper'
               :javascript

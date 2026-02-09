@@ -33,8 +33,9 @@
           .form-row
             = text_field_tag :title, params[:title], placeholder: t('form_search.search') + ' ' + t('articles.article_title'), class: 'form-control input-sm input-full-width'
           .form-row
-            %button.button.border.small.advanced-search-toggle{type: 'button', onclick: "var el = document.getElementById('advanced-search-inputs'); el.style.display = el.style.display === 'none' ? 'block' : 'none';"}= t('form_search.advanced_search')
-        #advanced-search-inputs{style: params.slice(:school, :course_title, :char_added_from, :char_added_to, :references_count_from, :references_count_to, :view_count_from, :view_count_to).values.any?(&:present?) ? '' : 'display: none;'}
+            %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: 'button'}
+              = t('form_search.advanced_search')
+        #advanced_search_fields.hidden
           .form-row.relative
             = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select', class: 'school-select-wrapper'
             :javascript

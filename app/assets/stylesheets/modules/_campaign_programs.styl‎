@@ -1,6 +1,5 @@
-.advanced-search-button
-  margin-top 10px
-  margin-bottom 10px
+.advanced-search-toggle-button
+  margin 10px 0 !important
 
 .advanced-search-container
   display none
