@@ -1871,6 +1871,10 @@ en:
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
+  notifications:
+    new_notifications: You have new notifications.
+    no_notifications: You have no new notifications.
+
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
     notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
