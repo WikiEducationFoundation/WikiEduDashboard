@@ -1987,4 +1987,10 @@ pt-br:
           editar o título e o conteúdo.
   tagged_courses:
     download_csv: Baixar CSV
+  form_search:
+    search: "Buscar"
+    advanced_search: "Busca avançada"
+    clear: "Limpar"
+    between: "entre"
+    and: "e"
 ...
