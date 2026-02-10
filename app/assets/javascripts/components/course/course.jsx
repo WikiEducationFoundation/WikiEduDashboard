@@ -111,6 +111,7 @@ const Course = withRouter((props) => {
         <Affix className="course_navigation" offset={57}>
           <CourseNavbar
             course={course}
+            courseSlug={courseSlug}
             location={props.router.location}
             currentUser={props.currentUser}
             courseLink={_courseLinkParams()}

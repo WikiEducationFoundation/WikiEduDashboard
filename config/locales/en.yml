@@ -1581,6 +1581,7 @@ en:
     no_training_library_records_non_wiki_ed_mode: There are no TrainingLibrary records in the database.
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
+    wiki_source: wiki source
     exercise_sandbox: Exercise Sandbox
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises

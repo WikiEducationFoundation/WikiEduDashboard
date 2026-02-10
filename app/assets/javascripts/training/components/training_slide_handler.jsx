@@ -8,6 +8,11 @@ import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
 import { FastTrainingAlert, fastTrainingAlertHandler } from './fast_training_alert';
+import GetHelpButton from '../../components/common/get_help_button.jsx';
+import TrainingNavbar from './navbar_training.jsx';
+import { fetchCourse } from '../../actions/course_actions.js';
+import { fetchUsers } from '../../actions/user_actions.js';
+import { getCurrentUser } from '../../selectors/index.js';
 
 
 
@@ -62,12 +67,20 @@ const getSlideInfo = (training, locale) => {
 
 const keys = { rightKey: 39, leftKey: 37 };
 
-const TrainingSlideHandler = () => {
+const TrainingSlideHandler = ({ navBreadcrumbHandler }) => {
   const training = useSelector(state => state.training);
+  const course = useSelector(state => state.course);
+  const currentUser = useSelector(state => getCurrentUser(state));
   const routeParams = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
+  const [navBreadcrumb, setNavBreadcrumb] = useState(null);
+  const courseSlug = (() => {
+    // Retrieve the courseSlug from sessionStorage
+    const storedSlug = sessionStorage.getItem('courseSlug');
+    return storedSlug ? JSON.parse(storedSlug) : undefined;
+  })();
 
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
@@ -97,10 +110,15 @@ const TrainingSlideHandler = () => {
   // fetches the initial data and sets the base title
   useEffect(() => {
     setBaseTitle(document.title);
+    navBreadcrumbHandler(setNavBreadcrumb);
+    if (courseSlug) {
+      dispatch(fetchCourse(courseSlug));
+      dispatch(fetchUsers(courseSlug));
+    }
     const slideId = __guard__(routeParams, x => x.slide_id);
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     dispatch(fetchTrainingModule({ module_id: moduleId(routeParams), slide_id: slideId, user_id: userId }));
-  }, []);
+  }, [courseSlug]);
 
   // runs whenever the training from the redux store changes
   // which means its run essentially when the user goes from one slide to another
@@ -136,7 +154,7 @@ const TrainingSlideHandler = () => {
   if (training.loading === true) {
     return (
       <div className="training-loader">
-        <h1 className="h2">Loading…</h1>
+        <h1 className="h2">{I18n.t('courses.loading')}</h1>
         <div className="training-loader__spinner" />
       </div>
     );
@@ -239,7 +257,7 @@ const TrainingSlideHandler = () => {
 
  let sourceLink;
  if (training.currentSlide.wiki_page) {
-   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">{I18n.t('training.wiki_source')}</a></span>;
  }
 
 
@@ -255,44 +273,60 @@ const TrainingSlideHandler = () => {
     }
   };
 
+  let getHelp;
+  if (userLoggedIn() && Features.enableGetHelpButton) {
+    getHelp = (
+      <div className="nav_getHelp_button" id="get-help-training">
+        <GetHelpButton course={course} currentUser={currentUser} key="get_help" onTrainingPage={true} />
+      </div>
+    );
+  }
+
   return (
     <div>
-      <Notifications />
-      <header>
-        <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
-          <div className="pull-right hamburger">
-            <span className="hamburger__bar" />
-            <span className="hamburger__bar" />
-            <span className="hamburger__bar" />
+      <div className="training__slide-header">
+        <TrainingNavbar navBreadcrumb={navBreadcrumb}/>
+      </div>
+      <div className="container training">
+        <Notifications />
+        <header>
+          <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
+            <div className="pull-right hamburger">
+              <span className="hamburger__bar" />
+              <span className="hamburger__bar" />
+              <span className="hamburger__bar" />
+            </div>
+            <h3 className="pull-right">
+              <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
+            </h3>
           </div>
-          <h3 className="pull-right">
-            <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
-          </h3>
-        </div>
-        <SlideMenu
-          closeMenu={closeMenu_FC}
-          onClick={toggleMenuOpen_FC}
-          menuClass={menuClass}
-          currentSlide={training.currentSlide}
-          params={routeParams}
-          enabledSlides={training.enabledSlides}
-          slides={training.slides}
-        />
-      </header>
-      {loginWarning}
-      {pendingWarning}
-      <article className="training__slide">
-        {titlePrefix}
-        <h1>{slideTitle}</h1>
-        <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
-        {quiz}
-        <footer className="training__slide__footer">
-          <span className="pull-left">{previousLink}</span>
-          {sourceLink}
-          <span className="pull-right">{nextLink}</span>
-        </footer>
-      </article>
+          <SlideMenu
+            closeMenu={closeMenu_FC}
+            onClick={toggleMenuOpen_FC}
+            menuClass={menuClass}
+            currentSlide={training.currentSlide}
+            params={routeParams}
+            enabledSlides={training.enabledSlides}
+            slides={training.slides}
+          />
+          {getHelp}
+        </header>
+        {loginWarning}
+        {pendingWarning}
+        <article className="training__slide">
+          {titlePrefix}
+          <h1>{slideTitle}</h1>
+          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+          {quiz}
+          <footer className="training__slide__footer">
+            <span className="pull-left">{previousLink}</span>
+            {sourceLink}
+            <span className="pull-right">{nextLink}</span>
+          </footer>
+        </article>
+      </div>
     </div>
+
   );
 };
 

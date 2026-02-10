@@ -45,3 +45,38 @@ a[disabled]
 
 .btn.btn-med
   font-size $btn_font_size_med
+
+.button
+  border-radius 3px
+  cursor pointer
+  display inline-block
+  line-height 1.5
+  font-weight 600
+  text-decoration none
+  font-size 14px
+  padding 8px 20px
+  transition all 0.15s ease-out, color 0.15s ease-out
+  &:focus
+    outline none
+
+.button.dark
+  background-color #676eb4
+  border-color #676eb4
+  color #fff
+  &:hover
+    background-color #595f9b
+    border-color #595f9b
+
+.button.small
+  font-size 12px
+  padding 4px 10px
+
+.button.stacked
+  margin-top 10px
+
+.pop__padded-content
+  font-size 15px
+  color #6a6a6a
+
+.button.no-margin
+  margin 0
