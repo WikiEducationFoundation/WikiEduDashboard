@@ -159,7 +159,9 @@ nl:
       om een account aan te maken, neem dan contact op met dashboard@wikiedu.org.
   alerts:
     alert_label: Meldingen
+    no_data: Geen gegevens gevonden.
     ai_stats:
+      timestamp: Tijdstip
       title: AI Bewerkingswaarschuwingenstatistieken
       general_stats: Algemene statistieken voor %{campaign_name}
       total_alerts: Totaal aantal AI-bewerkingsmeldingen
@@ -169,7 +171,16 @@ nl:
       pangram_url: Pangram-URL
       revision_diff: Versiediff
       single_alert_view: Melding
+      alerts_in_mainspace: Meldingen in de hoofdruimte
+      users_involved: Betrokken gebruikers
+      total: Totaal
+      last_week: Afgelopen week
       sections:
+        contents: Inhoudsopgave voor lijsten
+        go_back: Terug naar de inhoud
+        name: Naam
+        description: Beschrijving
+        courses_with_ai_alerts: Cursussen met meerdere AI-waarschuwingen
         recent_followup: Meldingen met recente opvolging
         multiple_alerts_students: Recente meldingen voor studenten met meerdere meldingen
         in_mainspace: Recente meldingen in de hoofdnaamruimte
