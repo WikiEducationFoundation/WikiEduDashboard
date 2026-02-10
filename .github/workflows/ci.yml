@@ -63,6 +63,14 @@ jobs:
         with:
            ruby-version: 3.1.2
            bundler-cache: true
+      
+      - name: Install system libraries for nokogiri
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-dev libxslt1-dev zlib1g-dev
+      
+      - name: Configure nokogiri to use system libraries
+        run: bundle config set --local build.nokogiri --use-system-libraries
      
       - name: setup Node
         uses: actions/setup-node@v3
