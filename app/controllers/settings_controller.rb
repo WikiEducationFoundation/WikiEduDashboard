@@ -191,6 +191,31 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: 'Site Notice Configured Successfully.' }, status: :ok
   end
 
+  def fetch_celebration_banner
+    render json: { celebration_banner: CelebrationBanner.get }, status: :ok
+  end
+
+  def update_celebration_banner
+    permitted_params = celebration_banner_params
+    # Convert to plain hash with string keys to match default_settings format
+    # JSON round-trip ensures we get a plain Hash (not HashWithIndifferentAccess)
+    # which is required for YAML serialization in newer Rails versions
+    settings = JSON.parse(permitted_params.to_json)
+    # Handle boolean values
+    if settings.key?('enabled')
+      settings['enabled'] = ActiveModel::Type::Boolean.new.cast(settings['enabled'])
+    end
+    if settings.key?('show_snowfall')
+      settings['show_snowfall'] = ActiveModel::Type::Boolean.new.cast(settings['show_snowfall'])
+    end
+    # Handle integer values
+    if settings.key?('auto_hide_after_seconds')
+      settings['auto_hide_after_seconds'] = settings['auto_hide_after_seconds'].to_i
+    end
+    CelebrationBanner.update(settings)
+    render json: { message: 'Celebration Banner Configured Successfully.' }, status: :ok
+  end
+
   private
 
   def current_site_notice
@@ -206,6 +231,13 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
 
   def special_user_params
     params.require(:special_user).permit(:username, :position)
+  end
+
+  def celebration_banner_params
+    params.require(:celebration_banner).permit(
+      :enabled, :visibility, :celebration_type, :custom_message,
+      :show_snowfall, :auto_hide_after_seconds, custom_emoji: []
+    )
   end
 
   ##

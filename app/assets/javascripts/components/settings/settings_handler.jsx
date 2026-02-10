@@ -14,6 +14,7 @@ import UpdateImpactStats from './views/update_impact_stats';
 import AddFeaturedCampaign from './views/add_featured_campaign';
 import FeaturedCampaignsList from './featured_campaigns_list';
 import SiteNoticeSetting from './site_notice_setting';
+import CelebrationBannerSetting from './celebration_banner_setting';
 import AddDisallowedUserButton from './views/add_disallowed_user_button';
 import DisallowedUsersList from './disallowed_users_list';
 
@@ -63,6 +64,8 @@ const SettingsHandler = () => {
     <div id="settings" className="mt4 container">
       <Notifications />
       <SiteNoticeSetting />
+      <br />
+      <CelebrationBannerSetting />
       <br />
       <h1 className="mx2">{I18n.t('settings.categories.users')}</h1>
       <hr />
