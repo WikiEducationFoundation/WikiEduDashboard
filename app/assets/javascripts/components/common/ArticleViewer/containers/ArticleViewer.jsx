@@ -59,10 +59,9 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   const [revisionId, setRevisionId] = useState(null);
   const [pendingRequest, setPendingRequest] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [articleViewerSettings, setArticleViewerSettings] = useState({
-    showUserFullNames: Cookies.get('articleViewerSetting')
-      ? JSON.parse(Cookies.get('articleViewerSetting')).showUserFullNames
-      : false,
+  const [articleViewerSettings, setArticleViewerSettings] = useState(() => {
+    const saved = Cookies.get('articleViewerSetting');
+    return saved ? JSON.parse(saved) : { showUserFullNames: false };
   });
   const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
 
@@ -87,7 +86,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     if (whoColorHtml) {
       highlightAuthors();
     }
-  }, [whoColorHtml]);
+  }, [whoColorHtml, articleViewerSettings]);
 
   // This runs when the user accesses the articleViewer directly from a permalink
   useEffect(() => {
@@ -177,16 +176,27 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     if (!html) { return; }
     // Array to store user IDs whose contributions couldn't be highlighted
     const unHighlightedUsers = [];
+    const showFullNames = articleViewerSettings?.showUserFullNames ?? false;
 
+    // Build lookup map ONCE before loop - O(n) instead of O(n*m)
+    const assignedUsersByName = new Map(
+      allAssignedUsers.map(author => [author.username, author])
+    );
     forEach(usersState, (user, i) => {
       // Move spaces inside spans, so that background color is continuous
       html = html.replace(/ (<span class="editor-token.*?>)/g, '$1 ');
+
+      // Lookup with proper null safety using pre-built map for O(1) performance
+      const assignedAuthor = assignedUsersByName.get(user.name);
+      const userName = (showFullNames && assignedAuthor?.real_name)
+        ? assignedAuthor.real_name
+        : user.name;
 
       // Replace each editor span for this user with one that includes their
       // username and color class.
       const prevHtml = html;
       const colorClass = colors[i];
-      const styledAuthorSpan = `<span title="${user.name}" class="editor-token token-editor-${user.userid} ${colorClass}`;
+      const styledAuthorSpan = `<span title="${userName}" class="editor-token token-editor-${user.userid} ${colorClass}`;
       const authorSpanMatcher = new RegExp(`<span class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
 
@@ -376,7 +386,6 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     setArticleViewerSettings(newSettings);
 
     Cookies.set('articleViewerSetting', JSON.stringify(newSettings));
-    window.location.reload();
   };
 
   // If the article viewer is hidden, show the icon instead.

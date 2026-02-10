@@ -39,7 +39,7 @@ const SettingsSidebar = (props) => {
       >
         <div className="mb2 display between">
           <div >
-            <span className="article-viewer-title">{I18n.t('courses.article_viewer_settings.title')}</span>
+            <span className="article-viewer-title font medium">{I18n.t('courses.article_viewer_settings.title')}</span>
           </div>
 
           <button

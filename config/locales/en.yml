@@ -562,8 +562,8 @@ en:
     article_viewer: Article Viewer
     article_viewer_settings:
       title: Settings
-      show_fullname: Show  Editors Real Names
-      show_username: Show Editors Username
+      show_fullname: Show  editors real names
+      show_username: Show editors username
     article_viewer_wikidata: Item Viewer
     articles_i_am_reviewing_wikidata: Items I'm peer reviewing
     articles_i_am_reviewing: Articles I'm peer reviewing
