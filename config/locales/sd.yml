@@ -261,6 +261,9 @@ sd:
       other: استادَ
     instructors: سکيا ڏيندڙ
     join: شامل ٿيو
+    join_failure_details:
+      disallowed_user: هي واپرائيندڙ واپرائيندڙن جي فهرست ۾ جهليل آهي ۽ ڪورسن ۾ داخلا
+        نٿو وٺي سگهي.
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو وجهو
     new_account_email: ايميل پتو
@@ -357,6 +360,10 @@ sd:
     none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
     time_doc: توهان جي مقامي وقت مطابق هر هڪ ورجاءَ جو وقت
     title: عنوان
+  settings:
+    disallowed_users:
+      remove:
+        success: '%{username} کي اجازت نه ڏنل واپرائيندڙن جي فهرست مان هٽايو ويو.'
   timeline:
     add_week: هفتو شامل ڪريو
     block_in_class: ڪلاس ۾

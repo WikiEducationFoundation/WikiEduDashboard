@@ -54,6 +54,10 @@ export const addAssignmentCategory = (assignment) => {
   return result;
 };
 
+export const isUserSandbox = (assignment) => {
+  return assignment.article_title.split(':')[0].toLowerCase() === 'user';
+};
+
 export const addSandboxUrl = (assignments, course, user_id) => {
   return (assignment) => {
     const result = {

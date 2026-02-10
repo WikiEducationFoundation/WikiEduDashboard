@@ -794,6 +794,8 @@ en:
       not_yet_approved: This course has not yet been approved for enrollment.
       withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
       invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
+      disallowed_user: This user is on the disallowed users list and cannot be enrolled in courses.
+
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
     launch_wizard: Launch the Wizard
@@ -1339,6 +1341,7 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    show_only_new_editors: Show Only New Editors
 
   resources:
     label: Resources
@@ -1403,6 +1406,24 @@ en:
         revoking_button_working: "Revoking..."
         already_is_not: "%{username} is not a Special User!"
         demote_success: "%{username} is now just a user."
+    disallowed_users:
+      none: No disallowed users configured.
+      already_disallowed: Already disallowed
+      add_to_list: Add to Disallowed
+      add_button: Add User
+      remove_button: Remove
+      submit_button: Submit
+      title: Disallowed Users
+      description: Bot accounts and other usernames that should not be enrolled in courses.
+      add:
+        success: "%{username} added to disallowed users list."
+        already_exists: "%{username} is already in the disallowed users list."
+      remove:
+        success: "%{username} removed from disallowed users list."
+        not_found: "%{username} is not in the disallowed users list."
+        confirm: "Are you sure you want to remove %{username} from the disallowed users list?"
+    actions: Actions
+
 
   status:
     active_jobs: Active jobs
@@ -1849,6 +1870,10 @@ en:
       It looks like there was a problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
+
+  notifications:
+    new_notifications: You have new notifications.
+    no_notifications: You have no new notifications.
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."

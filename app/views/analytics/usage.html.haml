@@ -4,76 +4,37 @@
 %header.main-page
   .container
     %h1 Usage Stats
-.container
-  %section
+
+.container.usage-stats-page
+  %section.module
     .section-header
-      %h3
-        = "Total users: #{@user_count}"
-        %br
-        = "OAuth users: #{@logged_in_count}"
-        %br
-        = "Unique program facilitators / course instructors: #{@course_instructor_count}"
-        %br
-        = "Unique project home wikis: #{@home_wiki_count}"
-        %br
-        = "Unique wikis interacted with: #{@total_wikis_touched}"
-      %div.section-header
-        Courses / Programs over time
-        - i = 0
-        - data = Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
-        .usage-chart= line_chart([{ name: 'count', data: data }], legend: false)
+      %h2 Overview Statistics
+    = render 'overview_stats'
 
-      %div.section-header
-
-        - years = 2015..Time.now.year
-        - courses_data, editors_data, leaders_data, created_data, edited_data, revisions_data = [], [], [], [], [], []
-        - data = years.map do |year|
-          - courses = Course.where("year(created_at) = #{year}")
-          - courses_data << [year.to_s, courses.count]
-          - editors_data << [year.to_s, CoursesUsers.with_student_role.where(course: courses).pluck(:user_id).uniq.count]
-          - leaders_data << [year.to_s, CoursesUsers.with_instructor_role.where(course: courses).pluck(:user_id).uniq.count]
-          - created_data << [year.to_s, courses.sum(:new_article_count)]
-          - edited_data << [year.to_s, courses.sum(:article_count)]
-          - revisions_data << [year.to_s, courses.sum(:revision_count)] 
-
-        Yearly stats (by program creation date)
-        .usage-chart= column_chart([{ name: 'Program leaders', data: leaders_data }, { name: 'Events', data: courses_data }])
-        .usage-chart= column_chart([{ name: 'Event participants', data: editors_data }])
-        .usage-chart= column_chart([{ name: 'Pages Created', data: created_data }, { name: 'Pages Edited', data: edited_data }])
-        .usage-chart= column_chart([{ name: 'Revisions', data: revisions_data }])
-
-  %section
+  %section.module
     .section-header
-      Courses / Programs per wiki:
-      - Wiki.all.order(:language, :project).each do |wiki|
-        %li
-          %a{href: "/courses_by_wiki/#{wiki.domain}"}= "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
+      %h2 Courses / Programs Over Time
+    = render 'courses_over_time'
 
-  %section
+  %section.module
+    .section-header
+      %h2 Yearly Statistics
+      %p.subtitle (by program creation date)
+    = render 'yearly_stats'
+
+  %section.module
+    .section-header
+      %h2 Wiki Activity Overview
+    = render 'wiki_activity_stats'
+
+  %section.module
+    .section-header
+      %h2 Wiki List
+      %p.subtitle= "#{@wiki_data[:summary][:total_wikis]} wikis with #{@wiki_data[:summary][:total_courses]} courses total"
+    = render 'wiki_list'
+
+  %section.module
     .section-header
       %a.button.dark#csv-btn{href: '/all_courses_csv'} Generate CSV of all programs
       
       %a.button.dark{href: '/all_courses_and_instructors_csv'} Generate CSV of all courses and instructors
-
-  :javascript
-    document.addEventListener("click", function (e) {
-      const btn = e.target.closest("#csv-btn");
-      if (!btn) return;
-
-      if (btn.dataset.locked === "true") {
-        e.preventDefault();
-        return;
-      }
-
-      btn.dataset.locked = "true";
-      btn.textContent = "Generating CSV. This may take a while...";
-      btn.style.pointerEvents = "none";
-      btn.style.opacity = "0.6";
-
-      setTimeout(function () {
-        btn.dataset.locked = "false";
-        btn.textContent = "Generate CSV of all programs";
-        btn.style.pointerEvents = "";
-        btn.style.opacity = "";
-      }, 300000);
-    });
