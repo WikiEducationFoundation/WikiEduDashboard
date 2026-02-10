@@ -45,3 +45,105 @@ a[disabled]
 
 .btn.btn-med
   font-size $btn_font_size_med
+
+.training-modification
+  .button
+    border-radius 3px
+    cursor pointer
+    display inline-block
+    line-height 1.5
+    font-weight 600
+    text-decoration none
+    font-size 14px
+    padding 8px 20px
+    transition all 0.15s ease-out, color 0.15s ease-out
+    &:focus
+      outline none
+    &:disabled
+      opacity: 0.5;
+      pointer-events: none;
+  .button.border
+    background-color: transparent;
+    border-color: rgb(56, 61, 114);
+    color: rgb(114, 143, 186);
+    border: 1px solid #676eb4;
+    &:hover
+      background-color: rgb(62, 68, 125);
+      color: rgb(232, 230, 227);
+  .button.reordering_icons
+    padding-left: 2px;
+    margin-left: 10px;
+    line-height: 0.6;
+    border-radius: 2px;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    font-size: 25px;
+  .button.dark
+    background-color #676eb4
+    border-color #676eb4
+    color #fff
+    &:hover
+      background-color #595f9b
+      border-color #595f9b
+  .button.right
+    float right
+    margin-left 10px
+  .button.down
+    float down
+    margin-top 10px
+  .button.light
+    background-color: #e7e7e7;
+    border: 1px solid #e2e2e2;
+    color: #6a6a6a;
+    padding: 8px 20px 8px;
+    &:hover
+      background-color: #e2e2e2;
+      border: 1px solid #dcdcdc;
+      color: #6a6a6a;
+  .button.danger
+    background-color: #d95757;
+    border-color: #d95757;
+    color: #fff;
+    &:hover
+      background-color: #c54f4f;
+      border-color: #c54f4f;
+
+  .reorder-slide-buttons
+    display: flex
+    gap: 0.25rem
+    justify-content: space-between
+    align-items: center
+    margin-right: 10px
+
+.lib-container
+  position relative
+  .training_content_page_btn_container
+    position absolute
+    top 3rem
+    right 0
+    display flex
+    gap 1rem
+  .library-page-btn-container
+    position absolute
+    top 2rem
+    right 0
+    display flex
+    gap 1rem
+
+.training-modification-buttons
+  display: flex
+  flex-direction: row-reverse
+  justify-content: flex-start
+  gap: 2rem
+
+.training_slide_modification_buttons
+  display: flex
+  flex-wrap: wrap; 
+  justify-content: space-between
+  margin-top: 60px
+  margin-bottom: 20px
+  color red
+  .button
+    flex: 1 1 auto;
+    margin: 5px; 

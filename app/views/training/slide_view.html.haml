@@ -3,4 +3,5 @@
   .container
     %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
 .container.training
-  #react_root{ "data-module-id" => params[:module_id], "data-return-to" => session[:training_return_to] }
+  #react_root{ "data-module-id" => params[:module_id], "data-return-to" => session[:training_return_to], "data-current_user" => current_user ? { admin: current_user.admin?, id: current_user.id }.to_json : '{ "admin": false, "id": null }'  
+  }

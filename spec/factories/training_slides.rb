@@ -19,7 +19,6 @@
 
 FactoryBot.define do
   factory :training_slide do
-    id { 456875 }
     title { 'How to create a slide' }
     slug { 'how-to-create-a-slide' }
   end

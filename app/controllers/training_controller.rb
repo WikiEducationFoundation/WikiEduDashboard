@@ -7,6 +7,7 @@ require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 class TrainingController < ApplicationController
   layout 'training'
   before_action :init_query_object, only: :index
+  before_action :fetch_current_training_mode, only: [:index, :show, :training_module, :slide_view]
 
   def index
     if @search
@@ -68,7 +69,21 @@ class TrainingController < ApplicationController
     redirect_to "/training/#{training_library.slug}/#{training_module.slug}/#{training_slide.slug}"
   end
 
+  def update_training_mode
+    edit_mode_value = params[:edit_mode]
+    store_training_mode_in_session(edit_mode_value)
+    render json: { message: 'Training Mode Updated Successfully.' }, status: :ok
+  end
+
   private
+
+  def fetch_current_training_mode
+    @current_training_mode = session[:training_mode] || { 'editMode' => false }
+  end
+
+  def store_training_mode_in_session(edit_mode_value)
+    session[:training_mode] = { 'editMode' => ActiveModel::Type::Boolean.new.cast(edit_mode_value) }
+  end
 
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path
