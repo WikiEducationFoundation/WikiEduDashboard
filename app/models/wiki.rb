@@ -137,21 +137,22 @@ class Wiki < ApplicationRecord
     prefix2 = match[2]&.downcase
     title = match[3]
 
-    if INTERWIKI_PREFIXES.key?(prefix1)
-      project = INTERWIKI_PREFIXES[prefix1]
-      language = prefix2
-    elsif Wiki::LANGUAGES.include?(prefix1)
-      project = 'wikipedia'
-      language = prefix1
-    elsif Wiki::PROJECTS.include?(prefix1)
-      project = prefix1
-      language = prefix2
-    else
-      return
-    end
+    project, language = identify_wiki_from_prefixes(prefix1, prefix2)
+    return unless project
 
     [title, project, language]
   end
+
+  def self.identify_wiki_from_prefixes(prefix1, prefix2)
+    if INTERWIKI_PREFIXES.key?(prefix1)
+      [INTERWIKI_PREFIXES[prefix1], prefix2]
+    elsif Wiki::LANGUAGES.include?(prefix1)
+      ['wikipedia', prefix1]
+    elsif Wiki::PROJECTS.include?(prefix1)
+      [prefix1, prefix2]
+    end
+  end
+  private_class_method :identify_wiki_from_prefixes
 
   def domain
     if language
