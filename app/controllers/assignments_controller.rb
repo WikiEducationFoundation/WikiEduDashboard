@@ -155,9 +155,17 @@ class AssignmentsController < ApplicationController
   end
 
   def set_new_assignment
+    title = assignment_params[:title].strip
+    # Check for interwiki prefix format and update wiki/title if found
+    parsed_title, project, language = Wiki.parse_interwiki_format(title)
+    if parsed_title
+      title = parsed_title
+      @wiki = Wiki.get_or_create(language: language, project: project)
+    end
+
     @assignment = AssignmentManager.new(user_id: assignment_params[:user_id],
                                         course: @course, wiki: @wiki,
-                                        title: assignment_params[:title].strip,
+                                        title: title,
                                         role: assignment_params[:role]).create_assignment
   end
 

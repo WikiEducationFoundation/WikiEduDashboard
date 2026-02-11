@@ -97,6 +97,13 @@ class AssignmentManager
   end
 
   def set_clean_title
+    # Check for interwiki prefix format
+    parsed_title, project, language = Wiki.parse_interwiki_format(@title)
+    if parsed_title
+      @title = parsed_title
+      @wiki = Wiki.get_or_create(language: language, project: project)
+    end
+
     # Wiktionary allows titles that begin lower case.
     # Other projects enforce capitalization of the first letter.
     @clean_title = ArticleUtils.format_article_title(@title, @wiki)

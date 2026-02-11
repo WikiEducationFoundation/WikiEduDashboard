@@ -104,7 +104,14 @@ const Feedback = ({ assignment, username, current_user }) => {
   if (assignment.article_id) {
     titleElement = <a className="my-assignment-title" target="_blank" href={assignment.article_url}>{assignment.article_title}</a>;
   } else {
-    titleElement = <a className="my-assignment-title" target="_blank" href={`https://en.wikipedia.org/wiki/User:${username}/sandbox`}>{`User:${username}/sandbox`}</a>;
+    const { username: user } = assignment;
+    let { language, project } = assignment;
+    if (!language || !project) {
+      language = 'en';
+      project = 'wikipedia';
+    }
+    const sandboxUrl = `https://${language}.${project}.org/wiki/User:${user}/sandbox`;
+    titleElement = <a className="my-assignment-title" target="_blank" href={sandboxUrl}>{`User:${user}/sandbox`}</a>;
   }
 
   if (data) {

@@ -108,9 +108,50 @@ class Wiki < ApplicationRecord
     language
   end
 
-  ####################
-  # Instance methods #
-  ####################
+  INTERWIKI_PREFIXES = {
+    'w' => 'wikipedia',
+    'wikt' => 'wiktionary',
+    'q' => 'wikiquote',
+    'b' => 'wikibooks',
+    'n' => 'wikinews',
+    's' => 'wikisource',
+    'v' => 'wikiversity',
+    'voy' => 'wikivoyage',
+    'c' => 'wikimedia',
+    'wmf' => 'wikimedia',
+    'm' => 'metawikipedia'
+  }.freeze
+
+  # This method takes a title and if it is in an interwiki format,
+  # it returns the title, project, and language.
+  # e.g. "en:Article" => ["Article", "wikipedia", "en"]
+  # e.g. "wikt:fr:Word" => ["Word", "wiktionary", "fr"]
+  def self.parse_interwiki_format(article_title)
+    # Check for interwiki prefix format (e.g., 'en:Article' or 'wikt:fr:Word')
+    # Supports project:language:title or language:title or project:title
+    interwiki_regex = /^:?([a-z-]{2,10}):(?:([a-z-]+):)?(.+)$/i
+    match = interwiki_regex.match(article_title)
+    return unless match
+
+    prefix1 = match[1].downcase
+    prefix2 = match[2]&.downcase
+    title = match[3]
+
+    if INTERWIKI_PREFIXES.key?(prefix1)
+      project = INTERWIKI_PREFIXES[prefix1]
+      language = prefix2
+    elsif Wiki::LANGUAGES.include?(prefix1)
+      project = 'wikipedia'
+      language = prefix1
+    elsif Wiki::PROJECTS.include?(prefix1)
+      project = prefix1
+      language = prefix2
+    else
+      return
+    end
+
+    [title, project, language]
+  end
 
   def domain
     if language

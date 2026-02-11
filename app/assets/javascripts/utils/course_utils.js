@@ -55,8 +55,61 @@ export default class CourseUtils {
   // and returns an article object, including the project and language
   // if that can be pattern matched from URL input.
   static articleFromTitleInput(articleTitleInput) {
-    const articleTitle = articleTitleInput;
+    const articleTitle = articleTitleInput.trim();
     if (!/http/.test(articleTitle)) {
+      // Check for interwiki prefix format (e.g., 'en:Article' or 'wikt:fr:Word')
+      // Supports project:language:title or language:title or project:title
+      const interwikiRegex = /^(:)?([a-z]{2,3}(?:-[a-z]+)?)(?::([a-z]+))?:(.*)$/i;
+      const interwikiMatch = interwikiRegex.exec(articleTitle);
+
+      if (interwikiMatch) {
+        let language = interwikiMatch[2].toLowerCase();
+        let project = interwikiMatch[3] ? interwikiMatch[3].toLowerCase() : null;
+        const title = interwikiMatch[4];
+
+        const projectMappings = {
+          w: 'wikipedia',
+          wikt: 'wiktionary',
+          q: 'wikiquote',
+          b: 'wikibooks',
+          n: 'wikinews',
+          s: 'wikisource',
+          v: 'wikiversity',
+          voy: 'wikivoyage',
+          c: 'wikimedia',
+          wmf: 'wikimedia',
+          m: 'metawikipedia'
+        };
+
+        // If the first part is a known project shorthand, resolve it.
+        if (projectMappings[language]) {
+          project = projectMappings[language];
+          language = interwikiMatch[3] || null;
+        } else if (WikiLanguages && JSON.parse(WikiLanguages).includes(language)) {
+          // If the first part is a known language, default project to wikipedia if not specified.
+          project = project || 'wikipedia';
+        } else if (WikiProjects && JSON.parse(WikiProjects).includes(language)) {
+          // If the first part is a known project name (e.g., 'wikivoyage:fr:Paris')
+          project = language;
+          language = interwikiMatch[3] || null;
+        } else {
+          // If nothing matches, treat it as a standard title.
+          return {
+            title: articleTitle.replace(/_/g, ' '),
+            project: null,
+            language: null,
+            article_url: null
+          };
+        }
+
+        return {
+          title: title.replace(/_/g, ' '),
+          project,
+          language,
+          article_url: null
+        };
+      }
+
       const title = articleTitle.replace(/_/g, ' ');
       return {
         title,
@@ -94,16 +147,16 @@ export default class CourseUtils {
 
     const indexphpFormatUrlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([\w%]*)[^a-zA-Z0-9%](?:[^#]*)/.exec(articleTitle);
     if (indexphpFormatUrlParts) {
-        const title = decodeURIComponent(indexphpFormatUrlParts[3]).replace(/_/g, ' ');
-        const project = indexphpFormatUrlParts[2];
-        const language = indexphpFormatUrlParts[1];
-        return {
-          title,
-          project,
-          language,
-           article_url: articleTitle,
-        };
-      }
+      const title = decodeURIComponent(indexphpFormatUrlParts[3]).replace(/_/g, ' ');
+      const project = indexphpFormatUrlParts[2];
+      const language = indexphpFormatUrlParts[1];
+      return {
+        title,
+        project,
+        language,
+        article_url: articleTitle,
+      };
+    }
 
     return {
       title: articleTitleInput,

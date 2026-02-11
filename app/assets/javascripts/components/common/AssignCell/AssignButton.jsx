@@ -52,11 +52,11 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
   return (
     <span>
       <button
-        aria-label="Remove"
+        aria-label={I18n.t('assignments.remove')}
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
       >
-        Remove
+        {I18n.t('assignments.remove')}
       </button>
     </span>
   );
@@ -256,14 +256,14 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
       }
 
       const article = CourseUtils.articleFromTitleInput(articleTitle);
-      articlesTitles.push(article.title);
+      articlesTitles.push(article.article_url ? article.title : articleTitle);
       articleLanguage = article.language;
       articleProject = article.project;
     });
 
-    setTitle(articlesTitles.join('\n'));
-    setProject(articleProject || project);
-    setLanguage(articleLanguage || language);
+    setTitle(text);
+    setProject(articleProject || course.home_wiki.project);
+    setLanguage(articleLanguage || (course.home_wiki.language || 'www'));
   };
 
   const handleWikiChange = (chosenWiki) => {
