@@ -155,7 +155,7 @@ class AssignmentsController < ApplicationController
   end
 
   def set_new_assignment
-    title = assignment_params[:title].strip
+    title = CGI.unescape(assignment_params[:title].strip)
     # Check for interwiki prefix format and update wiki/title if found
     parsed_title, project, language = Wiki.parse_interwiki_format(title)
     if parsed_title

@@ -148,13 +148,7 @@ class Assignment < ApplicationRecord
     self.wiki_id ||= course.home_wiki.id
     return if article_title.nil?
 
-    # Check for interwiki prefix format
-    parsed_title, project, language = Wiki.parse_interwiki_format(article_title)
-    if parsed_title
-      self.article_title = parsed_title
-      self.wiki_id = Wiki.get_or_create(language: language, project: project).id
-    end
-
+    self.article_title = CGI.unescape(article_title)
     self.article_title = ArticleUtils.format_article_title(article_title, wiki)
   end
 
