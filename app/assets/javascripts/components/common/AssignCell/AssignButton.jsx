@@ -16,6 +16,7 @@ import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
 import { verifyMainSpaceArticle } from '@actions/article_actions.js';
 import { addNotification } from '@actions/notification_actions.js';
+import { safeDecodeURIComponent } from '../../../utils/strings';
 
 // Helper Components
 // Button to show the static list
@@ -308,6 +309,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   };
 
 
+
   // Validates if Course type is ClassroomProgramCourse and verify articles using verifyMainSpaceArticle
   const validateMainspaceArticles = async (assignment) => {
     if (course.type !== 'ClassroomProgramCourse') {
@@ -340,7 +342,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
       articles.map(async (assignment_title) => {
         // Create an assignment for the User using the Course home_wiki project and language
         const assignment = {
-          title: decodeURIComponent(assignment_title).trim(),
+          title: safeDecodeURIComponent(assignment_title).trim(),
           project,
           language,
           course_slug: course.slug,

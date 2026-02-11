@@ -1,3 +1,4 @@
+import { safeDecodeURIComponent } from './strings';
 import { find } from 'lodash-es';
 import ArrayUtils from './array_utils';
 
@@ -104,7 +105,7 @@ export default class CourseUtils {
         }
 
         return {
-          title: title.replace(/_/g, ' '),
+          title,
           project,
           language,
           article_url: null
@@ -122,7 +123,7 @@ export default class CourseUtils {
 
     const urlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
     if (urlParts && urlParts.length > 3) {
-      const title = decodeURIComponent(urlParts[3]).replace(/_/g, ' ');
+      const title = safeDecodeURIComponent(urlParts[3]).replace(/_/g, ' ');
       const project = urlParts[2];
       const language = urlParts[1];
       return {
