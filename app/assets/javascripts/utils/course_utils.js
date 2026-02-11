@@ -60,14 +60,18 @@ export default class CourseUtils {
     const articleTitle = articleTitleInput.trim();
     if (!/http/.test(articleTitle)) {
       // Check for interwiki prefix format (e.g., 'en:Article' or 'wikt:fr:Word')
-      // Supports project:language:title or language:title or project:title
-      const interwikiRegex = /^(:)?([a-z]{2,3}(?:-[a-z]+)?)(?::([a-z]+))?:(.*)$/i;
-      const interwikiMatch = interwikiRegex.exec(articleTitle);
+      // Strip an optional leading colon
+      let normalizedInput = articleTitle.trim();
+      if (normalizedInput.startsWith(':')) {
+        normalizedInput = normalizedInput.slice(1);
+      }
 
-      if (interwikiMatch) {
-        let language = interwikiMatch[2].toLowerCase();
-        let project = interwikiMatch[3] ? interwikiMatch[3].toLowerCase() : null;
-        const title = interwikiMatch[4];
+      const parts = normalizedInput.split(':');
+      if (parts.length >= 2) {
+        const prefix1 = parts[0].toLowerCase();
+        let project = null;
+        let language = null;
+        let title = null;
 
         const projectMappings = {
           w: 'wikipedia',
@@ -80,36 +84,53 @@ export default class CourseUtils {
           voy: 'wikivoyage',
           c: 'wikimedia',
           wmf: 'wikimedia',
-          m: 'metawikipedia'
+          m: 'wikimedia'
         };
 
-        // If the first part is a known project shorthand, resolve it.
-        if (projectMappings[language]) {
-          project = projectMappings[language];
-          language = interwikiMatch[3] || null;
-        } else if (WikiLanguages && JSON.parse(WikiLanguages).includes(language)) {
-          // If the first part is a known language, default project to wikipedia if not specified.
-          project = project || 'wikipedia';
-        } else if (WikiProjects && JSON.parse(WikiProjects).includes(language)) {
-          // If the first part is a known project name (e.g., 'wikivoyage:fr:Paris')
-          project = language;
-          language = interwikiMatch[3] || null;
-        } else {
-          // If nothing matches, treat it as a standard title.
-          return {
-            title: articleTitle.replace(/_/g, ' '),
-            project: null,
-            language: null,
-            article_url: null
-          };
+        const languages = WikiLanguages ? JSON.parse(WikiLanguages) : [];
+        const projects = WikiProjects ? JSON.parse(WikiProjects) : [];
+
+        // Special case for Meta and Commons shorthands
+        if (prefix1 === 'm') {
+          project = 'wikimedia';
+          language = 'meta';
+          title = parts.slice(1).join(':');
+        } else if (prefix1 === 'c') {
+          project = 'wikimedia';
+          language = 'commons';
+          title = parts.slice(1).join(':');
+        } else if (projectMappings[prefix1]) {
+          project = projectMappings[prefix1];
+          // Check for language in next part
+          if (parts.length >= 3 && languages.includes(parts[1].toLowerCase())) {
+            language = parts[1].toLowerCase();
+            title = parts.slice(2).join(':');
+          } else {
+            title = parts.slice(1).join(':');
+          }
+        } else if (languages.includes(prefix1) && !projects.includes(prefix1)) {
+          project = 'wikipedia';
+          language = prefix1;
+          title = parts.slice(1).join(':');
+        } else if (projects.includes(prefix1)) {
+          project = prefix1;
+          // Check for language in next part
+          if (parts.length >= 3 && languages.includes(parts[1].toLowerCase())) {
+            language = parts[1].toLowerCase();
+            title = parts.slice(2).join(':');
+          } else {
+            title = parts.slice(1).join(':');
+          }
         }
 
-        return {
-          title,
-          project,
-          language,
-          article_url: null
-        };
+        if (project) {
+          return {
+            title: title.replace(/_/g, ' '),
+            project,
+            language,
+            article_url: articleTitle
+          };
+        }
       }
 
       const title = articleTitle.replace(/_/g, ' ');

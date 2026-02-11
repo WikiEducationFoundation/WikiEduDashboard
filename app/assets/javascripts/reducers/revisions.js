@@ -42,7 +42,11 @@ const initialState = {
 };
 
 const isLimitReached = (course_start, last_date) => {
-  return isAfter(toDate(course_start), toDate(last_date, true)) || isBefore(toDate(last_date, true), subYears(new Date(), 5));
+  const lastDate = toDate(last_date, true);
+  // If last_date is missing or invalid, we cannot have reached the limit yet.
+  if (!lastDate) return false;
+  const courseStartDate = toDate(course_start);
+  return isAfter(courseStartDate, lastDate) || isBefore(lastDate, subYears(new Date(), 5));
 };
 
 export default function revisions(state = initialState, action) {

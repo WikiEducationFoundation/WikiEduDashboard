@@ -7,8 +7,9 @@ import { format, isValid, parseISO } from 'date-fns';
 // this exists because unlike moment-js, date-fns doesn't have a generalized toDate function
 /**
  * @param  {Date|string} date
- * @param {boolean} suppressError
-*/
+ * @param {boolean} [suppressError] - if true, returns null for invalid/missing dates instead of current date
+ * @returns {Date|null}
+ */
 export const toDate = (date, suppressError) => {
   if (date instanceof Date) {
     return date;

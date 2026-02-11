@@ -60,7 +60,7 @@ export const TrainingModuleRows = ({ trainings }) => {
       <tr className={trainingModule.due_date && isTrainingDue(trainingModule.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={trainingModule.id}>
         <td>{trainingModule.module_name}
           {/* Only display the date if it is valid. On the users page, we don't fetch the due date so this is expected */}
-          {dueDateFormatted && <small>Due by { dueDateFormatted }</small>}
+          {dueDateFormatted && <small>{I18n.t('training_status.due_by', { due_date: dueDateFormatted })} </small>}
         </td>
         <td>
           { moduleStatus }

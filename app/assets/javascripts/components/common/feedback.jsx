@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchFeedback, postUserFeedback, deleteUserFeedback } from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
 import useOutsideClick from '../../hooks/useOutsideClick.js';
+import CourseUtils from '../../utils/course_utils.js';
 
 const Feedback = ({ assignment, username, current_user }) => {
   const [show, setShow] = useState(false);
@@ -104,14 +105,9 @@ const Feedback = ({ assignment, username, current_user }) => {
   if (assignment.article_id) {
     titleElement = <a className="my-assignment-title" target="_blank" href={assignment.article_url}>{assignment.article_title}</a>;
   } else {
-    const { username: user } = assignment;
-    let { language, project } = assignment;
-    if (!language || !project) {
-      language = 'en';
-      project = 'wikipedia';
-    }
-    const sandboxUrl = `https://${language}.${project}.org/wiki/User:${user}/sandbox`;
-    titleElement = <a className="my-assignment-title" target="_blank" href={sandboxUrl}>{`User:${user}/sandbox`}</a>;
+    const wikiDomain = CourseUtils.toWikiDomain(assignment.wiki || {});
+    const sandboxUrl = `https://${wikiDomain}/wiki/User:${username}/sandbox`;
+    titleElement = <a className="my-assignment-title" target="_blank" href={sandboxUrl}>{`User:${username}/sandbox`}</a>;
   }
 
   if (data) {

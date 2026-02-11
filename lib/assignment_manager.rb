@@ -98,7 +98,8 @@ class AssignmentManager
 
   def set_clean_title
     # Check for interwiki prefix format
-    parsed_title, project, language = Wiki.parse_interwiki_format(CGI.unescape(@title))
+    unescaped_title = @title.include?('%') ? CGI.unescape(@title.gsub('+', '%2B')) : @title
+    parsed_title, project, language = Wiki.parse_interwiki_format(unescaped_title)
     if parsed_title
       @title = parsed_title
       @wiki = Wiki.get_or_create(language: language, project: project)

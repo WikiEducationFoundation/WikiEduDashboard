@@ -310,6 +310,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
 
 
+
   // Validates if Course type is ClassroomProgramCourse and verify articles using verifyMainSpaceArticle
   const validateMainspaceArticles = async (assignment) => {
     if (course.type !== 'ClassroomProgramCourse') {

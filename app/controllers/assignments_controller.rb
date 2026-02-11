@@ -155,7 +155,8 @@ class AssignmentsController < ApplicationController
   end
 
   def set_new_assignment
-    title = CGI.unescape(assignment_params[:title].strip)
+    raw_title = assignment_params[:title].strip
+    title = raw_title.include?('%') ? CGI.unescape(raw_title.gsub('+', '%2B')) : raw_title
     # Check for interwiki prefix format and update wiki/title if found
     parsed_title, project, language = Wiki.parse_interwiki_format(title)
     if parsed_title
@@ -167,6 +168,8 @@ class AssignmentsController < ApplicationController
                                         course: @course, wiki: @wiki,
                                         title: title,
                                         role: assignment_params[:role]).create_assignment
+  rescue Wiki::InvalidWikiError
+    render json: { message: I18n.t('error.invalid_assignment') }, status: :unprocessable_entity
   end
 
   def claim_assignment

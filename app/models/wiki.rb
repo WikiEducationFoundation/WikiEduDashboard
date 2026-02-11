@@ -119,7 +119,7 @@ class Wiki < ApplicationRecord
     'voy' => 'wikivoyage',
     'c' => 'wikimedia',
     'wmf' => 'wikimedia',
-    'm' => 'metawikipedia'
+    'm' => 'wikimedia'
   }.freeze
 
   # This method takes a title and if it is in an interwiki format,
@@ -127,32 +127,62 @@ class Wiki < ApplicationRecord
   # e.g. "en:Article" => ["Article", "wikipedia", "en"]
   # e.g. "wikt:fr:Word" => ["Word", "wiktionary", "fr"]
   def self.parse_interwiki_format(article_title)
-    # Check for interwiki prefix format (e.g., 'en:Article' or 'wikt:fr:Word')
-    # Supports project:language:title or language:title or project:title
-    interwiki_regex = /^:?([a-z-]{2,10}):(?:([a-z-]+):)?(.+)$/i
-    match = interwiki_regex.match(article_title)
-    return unless match
+    return if article_title.nil?
+    # Strip an optional leading colon, which in MediaWiki disables
+    # category/image behavior but keeps the interwiki semantics.
+    normalized = article_title.to_s
+    normalized = normalized[1..] if normalized.start_with?(':')
 
-    prefix1 = match[1].downcase
-    prefix2 = match[2]&.downcase
-    title = match[3]
+    # Split once at the first colon into prefix and the rest.
+    first_split = normalized.split(':', 2)
+    return if first_split.length < 2
+    prefix1 = first_split[0].downcase
+    rest = first_split[1]
 
-    project, language = identify_wiki_from_prefixes(prefix1, prefix2)
-    return unless project
-
-    [title, project, language]
-  end
-
-  def self.identify_wiki_from_prefixes(prefix1, prefix2)
-    if INTERWIKI_PREFIXES.key?(prefix1)
-      [INTERWIKI_PREFIXES[prefix1], prefix2]
-    elsif Wiki::LANGUAGES.include?(prefix1)
-      ['wikipedia', prefix1]
-    elsif Wiki::PROJECTS.include?(prefix1)
-      [prefix1, prefix2]
+    # Special case for Meta-Wiki and Commons shorthands
+    if prefix1 == 'm'
+      return [rest, 'wikimedia', 'meta']
+    elsif prefix1 == 'c'
+      return [rest, 'wikimedia', 'commons']
     end
+
+    # Case 1: language:title (eg, "en:Foo" or "fr:Category:Physics").
+    lang_match = parse_language_prefix(prefix1, rest)
+    return lang_match if lang_match
+
+    # Case 2: project shorthand or project name.
+    parse_project_prefix(prefix1, rest)
   end
-  private_class_method :identify_wiki_from_prefixes
+
+  def self.parse_language_prefix(prefix1, rest)
+    # We exclude project names here so that "Wikipedia:Foo" isn't treated
+    # as an interwiki link with language "wikipedia".
+    return [rest, 'wikipedia', prefix1] if Wiki::LANGUAGES.include?(prefix1) && !Wiki::PROJECTS.include?(prefix1)
+  end
+  private_class_method :parse_language_prefix
+
+  def self.parse_project_prefix(prefix1, rest)
+    return unless INTERWIKI_PREFIXES.key?(prefix1) || Wiki::PROJECTS.include?(prefix1)
+    project = INTERWIKI_PREFIXES[prefix1] || prefix1
+
+    # Multilingual projects (eg, wikidata) don't require a language.
+    return [rest, project, nil] if MULTILINGUAL_PROJECTS.key?(project)
+
+    # For language-specific projects (eg, wikipedia), try to parse a language
+    # code as the next segment.
+    second_split = rest.split(':', 2)
+    return if second_split.empty?
+    potential_lang = second_split[0].downcase
+
+    if Wiki::LANGUAGES.include?(potential_lang) && second_split.length == 2
+      return [second_split[1], project, potential_lang]
+    end
+
+    # If the project is wikimedia and we didn't match a language above,
+    # it might be something like incubator or just a page on meta.
+    return [rest, 'wikimedia', nil] if project == 'wikimedia'
+  end
+  private_class_method :parse_project_prefix
 
   def domain
     if language
