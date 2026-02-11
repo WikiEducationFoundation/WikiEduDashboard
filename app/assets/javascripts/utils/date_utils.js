@@ -19,8 +19,9 @@ export const toDate = (date, suppressError) => {
     if (!suppressError) {
       // eslint-disable-next-line no-console
       console.error('date is null or undefined');
+      return new Date();
     }
-    return new Date();
+    return null;
   }
 
   const parsedDate = parseISO(date);

@@ -55,6 +55,7 @@ export default class CourseUtils {
   // and returns an article object, including the project and language
   // if that can be pattern matched from URL input.
   static articleFromTitleInput(articleTitleInput) {
+    if (typeof articleTitleInput !== 'string') { return { title: '', project: null, language: null }; }
     const articleTitle = articleTitleInput.trim();
     if (!/http/.test(articleTitle)) {
       // Check for interwiki prefix format (e.g., 'en:Article' or 'wikt:fr:Word')
@@ -154,7 +155,7 @@ export default class CourseUtils {
         title,
         project,
         language,
-        article_url: articleTitle,
+        article_url: articleTitleInput,
       };
     }
 
