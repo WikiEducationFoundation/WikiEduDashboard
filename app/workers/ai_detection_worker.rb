@@ -9,7 +9,10 @@ class AiDetectionWorker
   def self.schedule_check(wiki:, revision:, course:)
     # Sidekiq good practices suggest keeping job parameters small, simple, and JSON-compatible.
     # We pass IDs and integer timestamps instead of objects or hashes with symbol keys.
-    perform_async(revision.mw_rev_id, wiki.id, revision.article_id, course.id, revision.user_id, revision.timestamp)
+    perform_async(
+      revision.mw_rev_id, wiki.id, revision.article_id,
+      course.id, revision.user_id, revision.timestamp
+    )
   end
 
   def perform(mw_rev_id, wiki_id, article_id, course_id, user_id, revision_timestamp)
