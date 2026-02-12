@@ -8,9 +8,11 @@ describe('Settings reducer', () => {
     const initialState = {
       adminUsers: [],
       specialUsers: {},
+      disallowedUsers: [],
       fetchingUsers: false,
       submittingNewAdmin: false,
       submittingNewSpecialUser: false,
+      submittingDisallowedUser: false,
       featuredCampaigns: [],
       revokingAdmin: {
         status: false,

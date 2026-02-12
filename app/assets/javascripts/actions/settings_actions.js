@@ -4,13 +4,15 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
   SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
-  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE
+  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_DISALLOWED_USERS,
+  SUBMITTING_DISALLOWED_USER
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
 import { addNotification } from '../actions/notification_actions';
 import logErrorMessage from '../utils/log_error_message';
 import request from '../utils/request';
+import API from '../utils/api';
 
 const fetchAdminUsersPromise = async () => {
   const response = await request('/settings/all_admins');
@@ -573,4 +575,69 @@ export const getSiteNotice = () => (dispatch) => {
     }
   })
   .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+// Disallowed Users Actions
+export function fetchDisallowedUsers() {
+  return (dispatch) => {
+    return API.fetchDisallowedUsers()
+      .then((resp) => {
+        dispatch({
+          type: SET_DISALLOWED_USERS,
+          data: resp,
+        });
+      })
+      .catch((response) => {
+        dispatch({ type: API_FAIL, data: response });
+      });
+  };
+}
+
+export const addDisallowedUser = username => (dispatch) => {
+  dispatch({
+    type: SUBMITTING_DISALLOWED_USER,
+    data: { submitting: true },
+  });
+
+  return API.addDisallowedUser(username)
+    .then((resp) => {
+      dispatch({
+        type: SUBMITTING_DISALLOWED_USER,
+        data: { submitting: false },
+      });
+      dispatch(addNotification({
+        type: 'success',
+        message: resp.message,
+        closable: true
+      }));
+      dispatch({
+        type: SET_DISALLOWED_USERS,
+        data: resp,
+      });
+    })
+    .catch((response) => {
+      dispatch({
+        type: SUBMITTING_DISALLOWED_USER,
+        data: { submitting: false },
+      });
+      dispatch({ type: API_FAIL, data: response });
+    });
+};
+
+export const removeDisallowedUser = username => (dispatch) => {
+  return API.removeDisallowedUser(username)
+    .then((resp) => {
+      dispatch(addNotification({
+        type: 'success',
+        message: resp.message,
+        closable: true
+      }));
+      dispatch({
+        type: SET_DISALLOWED_USERS,
+        data: resp,
+      });
+    })
+    .catch((response) => {
+      dispatch({ type: API_FAIL, data: response });
+    });
 };

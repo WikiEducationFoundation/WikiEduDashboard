@@ -9,6 +9,7 @@
 # Author: Camilali0609
 # Author: Endermoon
 # Author: ExoHyper2026
+# Author: Gsdn
 # Author: GuoPC
 # Author: Hanyanbo98
 # Author: Interestinghe
@@ -765,6 +766,7 @@ zh-CN:
     see_more: 查看更多
     show_all: 全部显示
     show_course_specific: 显示具体的课程
+    show_only_new_editors: 仅显示新编者
   settings:
     admin_users:
       new:
@@ -791,6 +793,16 @@ zh-CN:
         revoking_button_working: 正在移除……
         already_is_not: '%{username}还不是特别用户！'
         demote_success: '%{username}现在仅仅是普通用户。'
+    disallowed_users:
+      already_disallowed: 已被禁止
+      add_to_list: 添加到禁止列表
+      add_button: 添加用户
+      submit_button: 提交
+      title: 禁止用户
+      add:
+        success: '%{username} 已被添加到禁止用户列表。'
+      remove:
+        confirm: 您确定要从禁止用户列表中删除 %{username} 吗？
   suggestions:
     editing: 编辑建议
     suggestion_docs:
@@ -1026,6 +1038,9 @@ zh-CN:
   login_error:
     header: 登录错误
     explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
+  notifications:
+    new_notifications: 您有新的通知。
+    no_notifications: 您没有新的通知。
   survey:
     login_message: 感谢您的时间。请登录您的维基教育控制面板以参与调查。
     notification_explanation: 如果下面被勾选，用户将根据通知安排接收电子邮件，此外还可以在浏览器看见通知。如果不勾选，将只在浏览器上显示通知。

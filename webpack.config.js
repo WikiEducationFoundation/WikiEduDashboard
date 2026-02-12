@@ -124,9 +124,11 @@ module.exports = (env) => {
           return file;
         }
       }),
-      (env.development && !env.coverage) && new ReactRefreshWebpackPlugin({ overlay: {
-        sockPort: 8080
-      } }),
+      (env.development && !env.coverage) && new ReactRefreshWebpackPlugin({
+        overlay: {
+          sockPort: 8080
+        }
+      }),
       (env.analyze && new BundleAnalyzerPlugin())
     ].filter(Boolean),
 
