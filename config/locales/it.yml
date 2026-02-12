@@ -599,6 +599,9 @@ it:
     join_successful: Hai aderito con successo a %{title}. Il cruscotto terrà automaticamente
       traccia dei tuoi contributi con aggiornamenti periodici. Torna più tardi per
       vedere quale impatto hai fatto!
+    join_failure_details:
+      disallowed_user: Quest'utente è nell'elenco degli utenti non autorizzati e non
+        può essere iscritto/a ai corsi.
     join_no_passcode: Sei sicuro di voler entrare in questo corso?
     launch_wizard: Avvia la procedura guidata
     leave_confirmation: Sei sicuro di voler lasciare questo corso?
@@ -887,6 +890,20 @@ it:
         form_placeholder: Nome utente
       remove:
         already_is_not: '%{username} non è un utente speciale!'
+    disallowed_users:
+      already_disallowed: Già non autorizzato/a
+      add_to_list: Aggiungi a "Non autorizzati"
+      remove_button: Rimuovi
+      submit_button: Invia
+      title: Utenti non autorizzati
+      add:
+        success: '%{username} aggiunto/a all''elenco degli utenti non autorizzati.'
+        already_exists: '%{username} è già nell''elenco degli utenti non autorizzati.'
+      remove:
+        success: '%{username} rimosso/a dall''elenco degli utenti non autorizzati.'
+        not_found: '%{username} non è nell''elenco degli utenti non autorizzati.'
+        confirm: Vuoi davvero rimuovere %{username} dall'elenco degli utenti non autorizzati?
+    actions: Azioni
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
@@ -1095,6 +1112,9 @@ it:
     header: Errore durante l'accesso
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
+  notifications:
+    new_notifications: Hai nuove notifiche.
+    no_notifications: Non hai nuove notifiche.
   survey:
     login_message: Grazie per il tuo tempo. Accedi al cruscotto per partecipare al
       sondaggio.

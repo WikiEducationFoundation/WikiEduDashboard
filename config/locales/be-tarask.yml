@@ -509,4 +509,7 @@ be-tarask:
     options:
       news_content:
         cancel_delete: Скасаваць
+  notes:
+    cancel_note_creation: Скасаваць
+    cancel_edit_note: Скасаваць
 ...
