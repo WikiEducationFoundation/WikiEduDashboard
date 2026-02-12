@@ -341,11 +341,12 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     await Promise.all(
       articles.map(async (assignment_title) => {
-        // Create an assignment for the User using the Course home_wiki project and language
+        // Parse the input — could be a URL or a plain title
+        const parsed = CourseUtils.articleFromTitleInput(assignment_title);
         const assignment = {
-          title: safeDecodeURIComponent(assignment_title).trim(),
-          project,
-          language,
+          title: parsed.title || safeDecodeURIComponent(assignment_title).trim(),
+          project: parsed.project || project,
+          language: parsed.language || language,
           course_slug: course.slug,
           role
         };
