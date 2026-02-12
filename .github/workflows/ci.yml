@@ -49,7 +49,7 @@ jobs:
       
       # Setting up MariaDB based upon 'config/database.example.yml'
       - name: setup MariaDB server
-        uses: getong/mariadb-action@v1.1  
+        uses: getong/mariadb-action@v1.11
         with:
           host port: 3306 
           mariadb version: '10.5' 
