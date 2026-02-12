@@ -307,6 +307,8 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     return dispatch(initiateConfirm({ confirmMessage, onConfirm, warningMessage }));
   };
 
+
+  // Validates if Course type is ClassroomProgramCourse and verify articles using verifyMainSpaceArticle
   const validateMainspaceArticles = async (assignment) => {
     if (course.type !== 'ClassroomProgramCourse') {
       return { valid: true };
@@ -336,6 +338,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     await Promise.all(
       articles.map(async (assignment_title) => {
+        // Create an assignment for the User using the Course home_wiki project and language
         const assignment = {
           title: decodeURIComponent(assignment_title).trim(),
           project,

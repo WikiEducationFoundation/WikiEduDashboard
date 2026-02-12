@@ -112,15 +112,31 @@ export const crossCheckArticleTitle = (articleId, articleTitle, article_mw_page_
   };
 };
 
-export const verifyMainSpaceArticle = (articleTitle, language = 'en', project = 'wikipedia') => {
+/**
+ * Verifies if a given title is a valid mainspace page (existing or potential).
+ *
+ * Strategy:
+ * 1. Build the domain based on the wiki language/project provided by the UI.
+ * 2. Query MediaWiki API (action=query).
+ * 3. If 'invalid' is present: The title contains illegal characters.
+ * 4. Check 'ns' (namespace): Must be 0 for mainspace.
+ * 5. 'missing' is ALLOWED: This supports assigning articles that don't exist yet.
+ */
+
+export const verifyMainSpaceArticle = (articleTitle, language, project) => {
   return async (dispatch) => {
     try {
+      // Logic check: The UI should always provide these from the course settings or picker
+      if (!language || !project) {
+        return { valid: false, error: 'Language and project must be provided for article validation' };
+      }
       const title = articleTitle.trim();
 
       if (!title) {
         return { valid: false, error: 'Article title is required.' };
       }
 
+      // Handle Incubator and multi-domain logic
       let domain;
       if (project === 'wikimedia' && title.toLowerCase().startsWith('wp/')) {
         domain = 'incubator.wikimedia.org';
@@ -132,6 +148,7 @@ export const verifyMainSpaceArticle = (articleTitle, language = 'en', project = 
         domain = `${language}.${project}.org`;
       }
 
+      // Query article information from mediawiki based on the project home_wiki
       const apiUrl = `https://${domain}/w/api.php?action=query&titles=${encodeURIComponent(title)}&format=json&origin=*`;
 
       const response = await fetch(apiUrl);
@@ -140,13 +157,18 @@ export const verifyMainSpaceArticle = (articleTitle, language = 'en', project = 
         throw new Error(`API request failed with status ${response.status}`);
       }
       const data = await response.json();
+      // Extract the page information for the specific revision
       const pages = data?.query?.pages;
       const page = pages ? Object.values(pages)[0] : null;
 
-      if (!page || page.missing) {
-        return { valid: false, message: `The article does not exist on ${domain}` };
+      if (!page) return { valid: false, message: 'Unable to reach the Wiki API.' };
+
+      // Check for illegal characters (e.g. [ ] { } | )
+      if (page.invalid !== undefined) {
+        return { valid: false, message: `"${title}" is not a valid title format.` };
       }
 
+      // Block non-mainspace (Categories, User pages, etc.)
       if (page.ns !== 0) {
         return { valid: false, message: `${title} is not a mainspace article (only regular article pages are allowed)` };
       }
