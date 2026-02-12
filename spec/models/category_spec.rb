@@ -177,7 +177,7 @@ RSpec.describe Category, type: :model do
       it 'fails when fetching a PagePile errors but article_titles is not cleared' do
         category.update(article_titles: ['Q0'])
         expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
-        expect(Sentry).to receive(:capture_exception)
+        expect(Sentry).to receive(:capture_exception).twice
         described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to eq(['Q0'])
       end
