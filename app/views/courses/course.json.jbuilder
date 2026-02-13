@@ -41,8 +41,11 @@ json.course do
   json.returning_instructor @course.returning_instructor?
 
   if @course&.course_stat&.stats_hash.present?
-    @course.course_stat.stats_hash = format_course_stats(@course.course_stat.stats_hash)
-    json.course_stats @course.course_stat, :id, :stats_hash
+    formatted_stats = format_course_stats(@course.course_stat.stats_hash)
+    json.course_stats do
+      json.id @course.course_stat.id
+      json.stats_hash formatted_stats
+    end
   end
 
   json.created_count number_to_human @course.new_article_count
