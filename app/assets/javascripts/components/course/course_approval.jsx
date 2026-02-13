@@ -339,7 +339,7 @@ const CourseApproval = (props) => {
     </div>
     ) : (
       <div className="controls">
-        <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>Approve Course</button>
+        <button type="button" className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>Approve Course</button>
       </div>);
 
   return (
