@@ -8,15 +8,14 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import i18n from './i18n';
-
-require('location-origin');
-require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
-window.List = require('list.js'); // List is used for sorting tables outside of React
-
 import flatpickr from 'flatpickr';
 import TomSelect from 'tom-select';
 import Spanish from 'flatpickr/dist/l10n/es.js';
 import Portuguese from 'flatpickr/dist/l10n/pt.js';
+
+require('location-origin');
+require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
+window.List = require('list.js'); // List is used for sorting tables outside of React
 
 window.flatpickr = flatpickr;
 window.TomSelect = TomSelect;
