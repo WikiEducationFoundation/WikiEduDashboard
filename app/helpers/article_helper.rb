@@ -39,13 +39,32 @@ module ArticleHelper
     return rating[0] # use the first letter of the rating as the abbreviated version
   end
 
+  # Maps international rating strings to standardized article classes.
+  # Covers: French, Turkish, Hungarian, Arabic, Russian wikis.
+  INTERNATIONAL_RATING_MAP = {
+    # A-class composite
+    'a/ga' => 'a',
+    # Featured article equivalents
+    'adq' => 'fa', 'ис' => 'fa', 'sm' => 'fa', 'избранная_статья' => 'fa',
+    'seçkin_madde' => 'fa', 'kitüntetett' => 'fa', 'م.مخ' => 'fa',
+    # Good article equivalents
+    'ba' => 'ga', 'дс' => 'ga', 'хс' => 'ga', 'km' => 'ga',
+    'хорошая_статья' => 'ga', 'kaliteli_madde' => 'ga', 'színvonalas' => 'ga', 'أ' => 'ga',
+    # B-class equivalents
+    'bplus' => 'b', 'ii' => 'b', 'teljes' => 'b', 'ب' => 'b',
+    # C-class equivalents
+    'iii' => 'c', 'jól használható' => 'c', 'ج' => 'c',
+    # Start-class equivalents
+    'bd' => 'start', 'iv' => 'start', 'vázlatos' => 'start', 'بداية' => 'start',
+    # Stub-class equivalents
+    'taslak' => 'stub', 'e' => 'stub', 's' => 'stub', 'születő' => 'stub', 'بذرة' => 'stub',
+    # List-class equivalents
+    'al' => 'list', 'bl' => 'list', 'cl' => 'list', 'sl' => 'list', 'список' => 'list'
+  }.freeze
+
   def default_class(rating)
-    # Handles the different article classes and returns a known article class
     return rating if %w[fa fl a ga b c start stub list].include? rating
-    return 'b' if rating.eql? 'bplus'
-    return 'a' if rating.eql? 'a/ga'
-    return 'list' if %w[al bl cl sl].include? rating
-    return nil
+    INTERNATIONAL_RATING_MAP[rating]
   end
 
   def calculate_view_count(first_revision, ac_views, article_views, view_count)

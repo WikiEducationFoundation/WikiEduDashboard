@@ -49,7 +49,8 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
   const className = 'assignment';
 
   const article = CourseUtils.articleFromAssignment(assignment, course.home_wiki);
-  const ratingClass = `rating ${assignment.article_rating}`;
+  const baseRating = article.rating_class || article.rating;
+  const ratingClass = baseRating ? `rating ${baseRating}` : 'rating';
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const articleLink = (
     <a
@@ -91,7 +92,7 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
         {isWikipedia && (
           <div className="tooltip dark">
             <p>
-              {I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`, { class: assignment.article_rating || '' })}
+              {I18n.t(`articles.rating_docs.${article.rating_class || assignment.article_rating || '?'}`, { class: article.pretty_rating || assignment.article_rating || '' })}
             </p>
           </div>
         )}

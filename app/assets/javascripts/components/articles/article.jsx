@@ -24,7 +24,8 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
     setTracked(checked);
   };
 
-  const ratingClass = `rating ${article.rating}`;
+  const baseRating = article.rating_class || article.rating;
+  const ratingClass = baseRating ? `rating ${baseRating}` : 'rating';
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const isDeleted = article.deleted;
   const wiki = {
@@ -79,7 +80,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
         {isWikipedia && <div className="tooltip dark">
           <p>
             {
-              !isDeleted ? I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' }) : deletedMessage
+              !isDeleted ? I18n.t(`articles.rating_docs.${article.rating_class || article.rating || '?'}`, { class: article.pretty_rating || article.rating || '' }) : deletedMessage
             }
           </p>
           {/* eslint-disable-next-line */}

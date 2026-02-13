@@ -45,4 +45,38 @@ describe ArticleHelper, type: :helper do
       expect(output).to eq('l')
     end
   end
+
+  describe '.default_class' do
+    it 'returns standard ratings as-is' do
+      %w[fa fl a ga b c start stub list].each do |rating|
+        expect(default_class(rating)).to eq(rating)
+      end
+    end
+
+    it 'maps a/ga composite rating to a' do
+      expect(default_class('a/ga')).to eq('a')
+    end
+
+    it 'maps French ratings correctly' do
+      expect(default_class('adq')).to eq('fa')
+      expect(default_class('ba')).to eq('ga')
+      expect(default_class('bd')).to eq('start')
+      expect(default_class('e')).to eq('stub')
+    end
+
+    it 'maps Turkish ratings correctly' do
+      expect(default_class('sm')).to eq('fa')
+      expect(default_class('km')).to eq('ga')
+      expect(default_class('taslak')).to eq('stub')
+    end
+
+    it 'maps Hungarian ratings correctly' do
+      expect(default_class('teljes')).to eq('b')
+    end
+
+    it 'returns nil for unknown ratings' do
+      expect(default_class('unknown')).to be_nil
+      expect(default_class('xyz')).to be_nil
+    end
+  end
 end
