@@ -58,12 +58,21 @@
             = t("#{@presenter.course_string_prefix}.course")
             %span.sortable-indicator
       %tbody.list
-        - @courses_users.each do |cu|
+        - @courses_users.to_a.uniq(&:user_id).each do |cu|
+          - courses_list = cu.user.courses_users.where(role: 0).includes(:course)
           %tr
             %td.username
               = link_to cu.user.username, "/users/#{cu.user.username}"
             %td.revision-count
-              = cu.revision_count
+              - if courses_list.length > 1
+                = courses_list.sum(&:revision_count)
+              - else
+                = cu.revision_count
             %td.title
               %small
-                = link_to cu.course.title, course_slug_path(cu.course.slug)
+                - if courses_list.length > 1
+                  - courses_list.each do |uc|
+                    = link_to uc.course.title, course_slug_path(uc.course.slug)
+                    %br
+                - else
+                  = link_to cu.course.title, course_slug_path(cu.course.slug)
