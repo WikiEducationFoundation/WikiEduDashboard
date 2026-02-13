@@ -2,6 +2,7 @@ import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
 import request from '../utils/request';
+import { triggerNotificationsBellRefresh } from '../components/nav/notifications_bell';
 
 const _checkAvailability = async (newAccount) => {
   const response = await request(`https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json&origin=*`);
@@ -75,6 +76,8 @@ export function requestAccount(passcode, course, newAccount, createAccountNow = 
       .then((data) => {
         dispatch({ type: types.NEW_ACCOUNT_REQUEST_SUBMITTED });
         dispatch({ type: types.ADD_NOTIFICATION, notification: { type: 'success', message: data.message, closable: true } });
+        // Trigger notification bell refresh to reflect the new account request
+        triggerNotificationsBellRefresh();
       })
       .catch(data => (dispatch({ type: types.API_FAIL, data })));
   };

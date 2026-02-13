@@ -38,6 +38,22 @@ export const setCache = (key, value, storage = sessionStorage) => {
   storage.setItem(CACHE_KEYS.TIMESTAMP, String(Date.now()));
 };
 
+// Custom event name for dynamic updates
+export const ACCOUNT_REQUESTS_UPDATED_EVENT = 'accountRequestsUpdated';
+
+
+export const triggerNotificationsBellRefresh = () => {
+  // Clear cache to ensure fresh fetch
+  try {
+    sessionStorage.removeItem(CACHE_KEYS.REQUESTED_ACCOUNTS);
+    sessionStorage.removeItem(CACHE_KEYS.OPEN_TICKETS);
+    sessionStorage.removeItem(CACHE_KEYS.TIMESTAMP);
+  } catch (e) {
+    // Ignore sessionStorage errors
+  }
+  window.dispatchEvent(new CustomEvent(ACCOUNT_REQUESTS_UPDATED_EVENT));
+};
+
 // Export for testing
 export { CACHE_KEYS, CACHE_TTL_MS };
 
@@ -45,14 +61,19 @@ const NotificationsBell = () => {
   const [hasOpenTickets, setHasOpenTickets] = useState(false);
   const [hasRequestedAccounts, setHasRequestedAccounts] = useState(false);
 
-  useEffect(() => {
-    // Skip fetching notifications on irrelevant routes
-    if (shouldSkipNotificationFetch(window.location.pathname)) {
+  // Extracted fetch logic for reuse
+  const fetchNotifications = (forceRefresh = false) => {
+    // Skip fetching notifications on irrelevant routes (unless forced)
+    if (!forceRefresh && shouldSkipNotificationFetch(window.location.pathname)) {
       return;
     }
 
-    // Check cache first and use cached values if valid
-    if (isCacheValid()) {
+    // Check if we are on an admin page to ensure fresh data for actions like "Delete"
+    const isAdminPage = /^\/(requested_accounts|tickets|td)/.test(window.location.pathname);
+    const shouldIgnoreCache = forceRefresh || isAdminPage;
+
+    // Check cache first and use cached values if valid and not forced
+    if (!shouldIgnoreCache && isCacheValid()) {
       const cachedRequestedAccounts = getCached(CACHE_KEYS.REQUESTED_ACCOUNTS);
       const cachedOpenTickets = getCached(CACHE_KEYS.OPEN_TICKETS);
 
@@ -86,6 +107,22 @@ const NotificationsBell = () => {
         setCache(CACHE_KEYS.REQUESTED_ACCOUNTS, requested_accounts);
       })
       .catch(err => err); // If this errors, we're going to ignore it
+  };
+
+  useEffect(() => {
+    // Initial fetch
+    fetchNotifications();
+
+    // Listen for dynamic update events
+    const handleRefreshEvent = () => {
+      fetchNotifications(true); // Force refresh
+    };
+
+    window.addEventListener(ACCOUNT_REQUESTS_UPDATED_EVENT, handleRefreshEvent);
+
+    return () => {
+      window.removeEventListener(ACCOUNT_REQUESTS_UPDATED_EVENT, handleRefreshEvent);
+    };
   }, []);
 
   const path = Features.wikiEd ? '/admin' : '/requested_accounts';
