@@ -37,7 +37,15 @@ class RatingImporter
   end
 
   def self.update_rating_for_article(article)
-    return unless article.wiki_id == en_wiki.id # English Wikipedia only, see above.
+    # We support multi-wiki updates on-demand, but bulk updates are still
+    # limited to English Wikipedia for performance reasons.
+    # To avoid excessive load from frequent on-demand updates on non-English
+    # wikis, skip the update if the rating was refreshed very recently.
+    if article.wiki_id != en_wiki.id &&
+       article.rating_updated_at.present? &&
+       article.rating_updated_at > 5.minutes.ago
+      return
+    end
     update_ratings([[article]])
   end
 
@@ -48,8 +56,8 @@ class RatingImporter
     require "#{Rails.root}/lib/wiki_api"
     article_groups.each do |articles|
       titles = articles.map(&:title)
-      # NOTE: English Wikipedia only, per above.
-      ratings = WikiApi.new(en_wiki).get_article_rating(titles)
+      wiki = articles.first.wiki
+      ratings = WikiApi.new(wiki).get_article_rating(titles)
       next if ratings.blank?
       update_article_ratings(articles, ratings)
     end

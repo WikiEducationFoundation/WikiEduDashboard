@@ -9,6 +9,7 @@ if assignment.article
   json.article_rating assignment.article.rating
   json.article_rating_num rating_priority(assignment.article.rating)
   json.article_pretty_rating rating_display(assignment.article.rating)
+  json.article_rating_class default_class(assignment.article.rating)
 else
   json.article_rating 'does_not_exist'
   json.article_rating_num nil
