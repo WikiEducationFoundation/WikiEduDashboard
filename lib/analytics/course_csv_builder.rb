@@ -96,8 +96,8 @@ class CourseCsvBuilder
   end
 
   def new_editors
-    # A user counts as a new editor if they registered during the course.
-    @course.students.where(registered_at: @course.start..@course.end)
+    # A user counts as a new editor if they registered during the course.( specifically returns count of new editors )
+    @course.students.where(registered_at: @course.start..@course.end).count
   end
 
   def revisions_by_namespace(namespace)
