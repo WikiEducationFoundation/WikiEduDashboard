@@ -81,33 +81,33 @@
             .form-row.advanced-search-grid-small
               %label{for: 'revisions_min'}= t("metrics.revisions")
               .input-group.flex-input-group
-                = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, class: 'w100', placeholder: 'Min'
+                = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
                 %span -
-                = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, class: 'w100', placeholder: 'Max'
+                = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
             .form-row.advanced-search-grid-small
               %label{for: 'word_count_min'}= t("metrics.word_count")
               .input-group.flex-input-group
-                = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, class: 'w100', placeholder: 'Min'
+                = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
                 %span -
-                = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, class: 'w100', placeholder: 'Max'
+                = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
             .form-row.advanced-search-grid-small
               %label{for: 'references_min'}= t("metrics.references_count")
               .input-group.flex-input-group
-                = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, class: 'w100', placeholder: 'Min'
+                = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
                 %span -
-                = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, class: 'w100', placeholder: 'Max'
+                = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
             .form-row.advanced-search-grid-small
               %label{for: 'views_min'}= t("metrics.view")
               .input-group.flex-input-group
-                = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, class: 'w100', placeholder: 'Min'
+                = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
                 %span -
-                = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, class: 'w100', placeholder: 'Max'
+                = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
             .form-row.advanced-search-grid-small
               %label{for: 'users_min'}= t("users.editors")
               .input-group.flex-input-group
-                = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, class: 'w100', placeholder: 'Min'
+                = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
                 %span -
-                = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, class: 'w100', placeholder: 'Max'
+                = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
         .form-actions
           %button.button{type: 'submit'}= t('campaign.search')
           %button.button.button--clear{type: 'button', onclick: 'document.getElementById("title_query").value=""; document.getElementById("creation_start").value=""; document.getElementById("creation_end").value=""; document.getElementById("start_date_start").value=""; document.getElementById("start_date_end").value=""; document.getElementById("school_select").value=""; document.getElementById("revisions_min").value=""; document.getElementById("revisions_max").value=""; document.getElementById("word_count_min").value=""; document.getElementById("word_count_max").value=""; document.getElementById("references_min").value=""; document.getElementById("references_max").value=""; document.getElementById("views_min").value=""; document.getElementById("views_max").value=""; document.getElementById("users_min").value=""; document.getElementById("users_max").value=""; this.form.action = this.form.action.replace(/#.*$/, "") + "#courses_table"; this.form.submit();'}= t('form_search.clear')
