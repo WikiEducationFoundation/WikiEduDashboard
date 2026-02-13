@@ -70,7 +70,16 @@
                 = cu.revision_count
             %td.title
               %small
-                - if courses_list.length > 1
+                - if courses_list.length > 2
+                  - courses_list.first(2).each do |uc|
+                    = link_to uc.course.title, course_slug_path(uc.course.slug)
+                    %br
+                  %details
+                    %summary See more
+                    - courses_list.drop(2).each do |uc|
+                      = link_to uc.course.title, course_slug_path(uc.course.slug)
+                      %br
+                - elsif courses_list.length > 1
                   - courses_list.each do |uc|
                     = link_to uc.course.title, course_slug_path(uc.course.slug)
                     %br
