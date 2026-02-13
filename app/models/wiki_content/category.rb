@@ -91,8 +91,9 @@ class Category < ApplicationRecord
     # Update source to indicate it's a source with error
     self.source = source + 'Error'
     save
-  rescue StandardError
+  rescue StandardError => e
     # If something went wrong when refresing titles, we don't want to replace article_titles field.
+    Sentry.capture_exception(e)
   end
 
   def article_ids

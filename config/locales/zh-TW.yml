@@ -1606,6 +1606,9 @@ zh-TW:
   login_error:
     header: 登入錯誤
     explanation: "登入過程似乎發生了一些問題 (抱歉，這種事情偶而會發生！) \n請嘗試再次登入或登記。"
+  notifications:
+    new_notifications: 您有新的通知。
+    no_notifications: 你沒有新的通知。
   survey:
     login_message: 感謝您挪出時間。請登入教育功能面板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不，僅會顯示訊息於瀏覽器裡。

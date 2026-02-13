@@ -7,6 +7,7 @@
 # Author: Jopparn
 # Author: Josefine Hellroth Larsson (WMSE)
 # Author: Josve05a
+# Author: Michael FOSS
 # Author: Pyscowicz
 # Author: Rockyfelle
 # Author: Sabelöga
@@ -793,6 +794,9 @@ sv:
     header: 500 — internt serverfel.  :-(
   login_error:
     header: Inloggningsproblem
+  notifications:
+    new_notifications: Du har nya aviseringar.
+    no_notifications: Du har inga nya aviseringar.
   survey:
     email:
       headline: Hej, %{username}

@@ -585,6 +585,7 @@ lb:
         already_is: '%{username} ass schonn e(n) {position}!'
       remove:
         demote_success: '%{username} ass elo just e Benotzer.'
+    actions: Aktiounen
   status:
     default: Standard
     latency: Latenz
@@ -756,6 +757,9 @@ lb:
     header: 500 - Interne Feeler vum Server. :-(
   login_error:
     header: Feeler beim Aloggen
+  notifications:
+    new_notifications: Dir hutt nei Notifikatiounen.
+    no_notifications: Dir hutt keng nei Notifikatiounen.
   survey:
     email:
       headline: Bonjour %{username}
