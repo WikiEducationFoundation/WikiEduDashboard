@@ -95,7 +95,7 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
           <br />
         </>
       )}
-      {current_user.admin && <div><NotesPanel /><AdminStatusPanel course={course} /></div>}
+      {current_user.admin && <div><NotesPanel current_user={current_user} /><AdminStatusPanel course={course} /></div>}
     </div>
   );
 };
