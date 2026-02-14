@@ -17,7 +17,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   let checkAvailabilityButton;
   if (!newAccount.usernameValid || !newAccount.emailValid) {
     checkAvailabilityButton = (
-      <button onClick={checkAvailability} disabled={!newAccount.username || !newAccount.emailValid} className="button">
+      <button type="button" onClick={checkAvailability} disabled={!newAccount.username || !newAccount.emailValid} className="button">
         {I18n.t('courses.new_account_check_username')}
       </button>
     );
@@ -29,7 +29,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   let requestAccountButton;
   if (newAccount.usernameValid && newAccount.emailValid && !newAccount.submitted) {
     requestAccountButton = (
-      <button onClick={requestAccount} className="button dark">
+      <button type="button" onClick={requestAccount} className="button dark">
         {I18n.t('courses.new_account_submit')}
       </button>
     );
