@@ -724,6 +724,10 @@ en:
     data_students_info: >
       Editors data lists all the enrolled editors, how much they edited, and
       whether they registered their accounts during the project.
+    data_students_assignments: Student assignments
+    data_students_assignments_info: >
+      Student assignments data lists all students with their real names, usernames,
+      and assigned articles for editing and peer review.
     data_uploads: Commons uploads data
     data_revisions: Revisions data
     data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
