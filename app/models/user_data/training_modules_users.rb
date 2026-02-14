@@ -18,7 +18,7 @@ class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
   belongs_to :training_module
 
-  serialize :flags, Hash
+  serialize :flags, type: Hash
 
   def furthest_slide?(slide_slug)
     return true if last_slide_completed.nil?

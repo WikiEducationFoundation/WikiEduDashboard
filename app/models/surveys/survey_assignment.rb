@@ -42,7 +42,7 @@ class SurveyAssignment < ApplicationRecord
   ###########################
   # Custom email attributes #
   ###########################
-  serialize :custom_email, Hash
+  serialize :custom_email, type: Hash
 
   def custom_email_subject
     custom_email[:subject]
