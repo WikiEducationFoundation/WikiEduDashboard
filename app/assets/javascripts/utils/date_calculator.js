@@ -11,7 +11,7 @@ class DateCalculator {
 
   startDate() {
     const index = this.opts.zeroIndexed === true ? this.loopIndex : this.loopIndex - 1;
-    return addDays(startOfWeek(toDate(this.beginning)), 7 * (index || 0));
+    return addDays(startOfWeek(toDate(this.beginning), { weekStartsOn: 0 }), 7 * (index || 0));
   }
 
   start() {
