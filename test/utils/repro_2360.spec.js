@@ -1,7 +1,5 @@
 import '../testHelper';
 import CourseDateUtils from '../../app/assets/javascripts/utils/course_date_utils';
-import { startOfWeek } from 'date-fns';
-import { toDate } from '../../app/assets/javascripts/utils/date_utils';
 
 describe('Issue #2360: Sunday Timeline Start', () => {
     // This is the EXACT scenario from the user's test course
