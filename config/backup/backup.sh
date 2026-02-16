@@ -85,3 +85,12 @@ mariadb-dump --single-transaction --routines --databases dashboard | gzip > $BAC
 log "Finishing"
 # Update running backup record to 'finished'
 mysql < $QUERY_ROUTE/finished.sql
+
+# Remove oldest backup if there are more than three
+MIN_BACKUPS_NUMBER=3
+CURRENT_BACKUPS_NUMBER=$(ls -1d "$BACKUP_ROUTE"/*/ | wc -l)
+if [ $CURRENT_BACKUPS_NUMBER -gt $MIN_BACKUPS_NUMBER ]; then
+  OLDEST_BACKUP=$(ls -1d "$BACKUP_ROUTE"/*/ | sort | head -1)
+  log "Removing $OLDEST_BACKUP"
+  rm -r $OLDEST_BACKUP
+fi
