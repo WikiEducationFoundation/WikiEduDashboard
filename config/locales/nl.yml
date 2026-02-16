@@ -1100,7 +1100,6 @@ nl:
         Deze site werkt goed met recente versies van Chrome, Firefox, Edge en andere
         moderne browsers.
   error_401:
-    header: Geen rechten
     explanation: U bent niet bevoegd om dit verzoek uit te voeren. Als u vindt dat
       deze foutmelding onterecht is, neem dan contact op met de beheerders van dit
       dashboard en stel ze op de hoogte van het probleem.

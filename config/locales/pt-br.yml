@@ -1857,7 +1857,6 @@ pt-br:
       pode ocorrer se seu endereço IP estiver bloqueado pela Wikipédia ou se o limite
       diário de contas novas foi alcançado. Tente conectar-se de uma rede diferente.
   error_401:
-    header: Não autorizado. >:-(
     explanation: Você não está autorizado a executar este requerimento. Se você acredita
       que chegou a este aviso por engano, por favor, entre em contato com os responsáveis
       pela manutenção do painel de controle para avisá-los do problema.

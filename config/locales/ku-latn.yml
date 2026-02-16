@@ -265,8 +265,6 @@ ku-latn:
     oauth_invalid: Wextê te yê bidestûrbûnê tije bû. Ji kerema xwe dîsa têkeve.
     unsupported_browser:
       header: Geroka bêpiştgir. :-(
-  error_401:
-    header: Bêdestûr. >:-(
   error_404:
     header: Rûpel nehate dîtin. :-(
   survey:

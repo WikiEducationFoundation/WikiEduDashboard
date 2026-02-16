@@ -303,6 +303,7 @@ zh-TW:
     add_available_submit_wikidata: 添加項目
     add_placeholder: 輸入條目標題或 URL
     assign_self: 指定自己一個條目
+    invalid_mainspace_article: 這必須是一篇有效的主空間條目。
     assign_self_wikidata: 給自己分配一個項目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     assign_tooltip_wikidata: 分配的是您計劃建立或改善的項目。
@@ -1586,7 +1587,6 @@ zh-TW:
       explanation: 您使用的瀏覽器與此功能面板不相容。此網站在 Chrome、Firefox、Egde，等其它新型瀏覽器的最新版本下可正常運作。
     ip_blocked: 您目前無法從此設備建立帳號。如果您的 IP 位址被維基百科封鎖，或是達到用同一 IP 位址建立新帳號的每日限制，就會發生這種情況。請嘗試從不同的網路連線。
   error_401:
-    header: 未授權。 :-(
     explanation: 您未被授權執行此請求。如果您認為您會遇到此通知是因為有錯誤發生，請聯繫此功能面板的維護人員讓他們知道此問題。
     json_explanation: 看起來您似乎有退出。請重整、登入並再試一次。
   error_incorrect_passcode:
