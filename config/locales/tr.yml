@@ -1463,7 +1463,6 @@ tr:
         Bu site, Internet Explorer 11 veya sonraki sürümlerinde, Edge, Chrome ve Firefox'un
         son sürümlerinde ve diğer modern tarayıcılarda iyi çalışır.
   error_401:
-    header: Yetkisiz. >:-(
     explanation: Bu isteği yürütme yetkiniz yok. Bu bildirime yanlışlıkla ulaştığınızı
       düşünüyorsanız sorun hakkında bilgi vermek için lütfen bu gösterge panosundaki
       bakım görevlilerine başvurun.

@@ -905,7 +905,6 @@ ast:
         sitiu funciona bien con versiones nueves de Chrome, Firefox, Edge y otros
         restoladores modernos.
   error_401:
-    header: Non autorizáu. >:-(
     explanation: Nun tas autorizáu a executar esta solicitú. Si crees que llegasti
       a esti avisu por error, comunícate colos responsables del mantenimientu d'esti
       tableru pa informa-yos del problema.

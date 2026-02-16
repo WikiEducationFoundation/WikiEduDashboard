@@ -185,8 +185,6 @@ ksh:
         title="Google Chrome -- ene Brauser">Chrome</i> un <i lang="en" xml:lang="en"
         dir="ltr" title="Mozilla Firefox - „der Führ-Fußß“ - ene Brauser">Firefox</i>,
         un anndere neujere Brausere.
-  error_401:
-    header: Kei Berääschtejong.
   error_404:
     header: Di Sigg wohd nit jefonge.
   error_500:

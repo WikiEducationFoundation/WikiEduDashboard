@@ -1467,7 +1467,6 @@ de:
         ist. Diese Website funktioniert gut auf aktuellen Versionen von Chrome, Firefox,
         Edge und auf anderen modernen Browsern.
   error_401:
-    header: Nicht berechtigt. >:-(
     explanation: Du bist nicht berechtigt, diese Anfrage auszuführen. Falls du denkst,
       dass diese Meldung ein Fehler ist, kontaktiere bitte die Instandhalter dieses
       Dashboards, damit sie über das Problem Bescheid wissen.

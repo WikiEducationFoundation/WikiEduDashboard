@@ -1836,7 +1836,6 @@ pt:
         de controlo. Este sítio funciona bem com versões recentes do Chrome, Firefox,
         Edge e outros navegadores modernos.
   error_401:
-    header: Não autorizado. >:-(
     explanation: Não está autorizado a executar este solicitação. Se acredita que
       chegou a este aviso por engano, por favor, entre em contacto com os responsáveis
       pela manutenção do painel de controlo para avisá-los do problema.

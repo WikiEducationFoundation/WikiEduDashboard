@@ -5,6 +5,7 @@
 # Author: Alexmar983
 # Author: Annibale covini gerolamo
 # Author: Anto
+# Author: Asteralee
 # Author: Beta16
 # Author: Camillo Pellizzari
 # Author: Dream Indigo
@@ -893,6 +894,7 @@ it:
     disallowed_users:
       already_disallowed: Già non autorizzato/a
       add_to_list: Aggiungi a "Non autorizzati"
+      add_button: Aggiungi utente
       remove_button: Rimuovi
       submit_button: Invia
       title: Utenti non autorizzati
@@ -1091,8 +1093,6 @@ it:
       Word.
     unsupported_browser:
       header: Browser non supportato. :-(
-  error_401:
-    header: Non autorizzato. >:-(
   error_incorrect_passcode:
     header: Codice di accesso non corretto. :-(
     explanation: Il codice per iscriversi a questo corso non è corretto. Chiedi all'insegnate

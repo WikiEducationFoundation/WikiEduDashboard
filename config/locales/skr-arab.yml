@@ -259,6 +259,9 @@ skr-arab:
     special_users:
       new:
         form_placeholder: ورتݨ ناں
+    disallowed_users:
+      remove_button: ہٹاؤ
+    actions: عمل
   status:
     default: پہلے کنوں طے تھیا ہویا
     purpose: مقصد

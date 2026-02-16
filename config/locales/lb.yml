@@ -746,7 +746,6 @@ lb:
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:
-    header: Net autoriséiert.>:-(
     json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
       wgl., loggt Iech an a probéiert nach eng Kéier.
   error_no_course:

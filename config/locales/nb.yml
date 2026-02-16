@@ -979,7 +979,6 @@ nb:
         siden fungerer bra i nyere versjoner av Chrome, Firefox, Edge og andre moderne
         nettlesere.
   error_401:
-    header: Uautorisert. >:-(
     explanation: Du er ikke autorisert til å utføre denne forespørselen. Om du tror
       du har fått denne beskjeden ved en feil, kontakt dashbordets vedlikeholdere
       for å la dem vite om feilen.

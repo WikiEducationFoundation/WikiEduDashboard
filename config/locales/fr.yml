@@ -1970,7 +1970,6 @@ fr:
       la limite quotidienne de nouveaux comptes. Essayez de vous connecter à partir
       d’un autre réseau.
   error_401:
-    header: Non autorisé. >:-(
     explanation: Vous n’avez pas l’autorisation d’exécuter cette requête. Si vous
       pensez avoir reçu cet avis par erreur, veuillez contacter les mainteneurs de
       ce tableau de bord pour les informer du problème.

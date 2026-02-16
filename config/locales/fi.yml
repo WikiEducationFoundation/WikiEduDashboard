@@ -997,7 +997,6 @@ fi:
         Sivusto toimii hyvin viimeisimpien Chromen, Firefoxin ja Edgen versioiden
         kanssa sekä muilla nykyaikaisilla selaimilla.
   error_401:
-    header: Ei lupaa. >:-(
     explanation: Sinulla ei ole lupaa suorittaa tätä pyyntöä. Jos uskot, että ilmoitus
       on virheellinen, kerro ongelmasta ohjauspaneelin ylläpitäjille.
   error_incorrect_passcode:

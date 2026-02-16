@@ -1612,7 +1612,6 @@ da:
         site fungerer fint med de seneste versioner af Chrome, Firefox, Edge og andre
         moderne browsere.
   error_401:
-    header: Uautoriseret >:-(
     explanation: Du er ikke godkendt til at udføre denne forespørgsel. Hvis du mener
       at du har fået denne besked på grund af en teknisk fejl kontakt da dem, der
       vedligeholder dette værktøj, og fortæl dem om dit problem.
