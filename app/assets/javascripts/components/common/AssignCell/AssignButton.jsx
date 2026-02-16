@@ -16,6 +16,7 @@ import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
 import { verifyMainSpaceArticle } from '@actions/article_actions.js';
 import { addNotification } from '@actions/notification_actions.js';
+import { safeDecodeURIComponent } from '../../../utils/strings';
 
 // Helper Components
 // Button to show the static list
@@ -52,11 +53,11 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
   return (
     <span>
       <button
-        aria-label="Remove"
+        aria-label={I18n.t('assignments.remove')}
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
       >
-        Remove
+        {I18n.t('assignments.remove')}
       </button>
     </span>
   );
@@ -256,14 +257,14 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
       }
 
       const article = CourseUtils.articleFromTitleInput(articleTitle);
-      articlesTitles.push(article.title);
+      articlesTitles.push(article.article_url ? article.title : articleTitle);
       articleLanguage = article.language;
       articleProject = article.project;
     });
 
-    setTitle(articlesTitles.join('\n'));
-    setProject(articleProject || project);
-    setLanguage(articleLanguage || language);
+    setTitle(text);
+    setProject(articleProject || course.home_wiki.project);
+    setLanguage(articleLanguage || (course.home_wiki.language || 'www'));
   };
 
   const handleWikiChange = (chosenWiki) => {
@@ -308,6 +309,8 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   };
 
 
+
+
   // Validates if Course type is ClassroomProgramCourse and verify articles using verifyMainSpaceArticle
   const validateMainspaceArticles = async (assignment) => {
     if (course.type !== 'ClassroomProgramCourse') {
@@ -338,11 +341,12 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     await Promise.all(
       articles.map(async (assignment_title) => {
-        // Create an assignment for the User using the Course home_wiki project and language
+        // Parse the input — could be a URL or a plain title
+        const parsed = CourseUtils.articleFromTitleInput(assignment_title);
         const assignment = {
-          title: decodeURIComponent(assignment_title).trim(),
-          project,
-          language,
+          title: parsed.title || safeDecodeURIComponent(assignment_title).trim(),
+          project: parsed.project || project,
+          language: parsed.language || language,
           course_slug: course.slug,
           role
         };

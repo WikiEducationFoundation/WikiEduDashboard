@@ -1959,6 +1959,7 @@ en:
     started: "Started"
     not_started: "Not started"
     due: "due %{due_date}"
+    due_by: "Due by %{due_date}"
     assignment_status: "Training Assignment (%{status})"
 
   multi_wiki:

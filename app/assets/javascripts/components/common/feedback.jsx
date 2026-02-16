@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchFeedback, postUserFeedback, deleteUserFeedback } from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
 import useOutsideClick from '../../hooks/useOutsideClick.js';
+import { toWikiDomain } from '../../utils/wiki_utils.js';
 
 const Feedback = ({ assignment, username, current_user }) => {
   const [show, setShow] = useState(false);
@@ -104,7 +105,9 @@ const Feedback = ({ assignment, username, current_user }) => {
   if (assignment.article_id) {
     titleElement = <a className="my-assignment-title" target="_blank" href={assignment.article_url}>{assignment.article_title}</a>;
   } else {
-    titleElement = <a className="my-assignment-title" target="_blank" href={`https://en.wikipedia.org/wiki/User:${username}/sandbox`}>{`User:${username}/sandbox`}</a>;
+    const wikiDomain = toWikiDomain(assignment.wiki || {});
+    const sandboxUrl = `https://${wikiDomain}/wiki/User:${username}/sandbox`;
+    titleElement = <a className="my-assignment-title" target="_blank" href={sandboxUrl}>{`User:${username}/sandbox`}</a>;
   }
 
   if (data) {
