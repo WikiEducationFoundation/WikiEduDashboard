@@ -1202,7 +1202,6 @@ et:
       explanation: Kasutad töölauga mitteühilduvat brauserit. Lehekülg töötab korralikult
         Chrome'i, Firefoxi, Edge'i ja muude tänapäevaste brauserite uusimate versioonidega.
   error_401:
-    header: Õigused puuduvad. >:-(
     explanation: Sul puuduvad õigused selle toimingu sooritamiseks. Juhul kui oled
       selle veateate saanud ekslikult, võta ühendust töölaua hooldajatega ning teavita
       neid probleemist.

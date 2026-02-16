@@ -231,8 +231,6 @@ gl:
     read_less: Ler menos
     read_more: Ler máis
     summary: Resumo
-  error_401:
-    header: Sen permiso. >:-(
   error_404:
     header: Páxina non atopada :-(
   error_422:
