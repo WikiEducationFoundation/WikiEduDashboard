@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import TextInput from '../../common/text_input';
 import { useDispatch } from 'react-redux';
 import SiteNoticePreview from './site_notice_preview';
+import TextAreaInput from '../../common/text_area_input';
 
 const SiteNoticeForm = (props) => {
   const [siteNotice, setSiteNotice] = useState(props.currentSiteNotice?.message || '');
@@ -25,14 +25,16 @@ const SiteNoticeForm = (props) => {
     <tr>
       <td>
         <form onSubmit={handleSubmit}>
-          <TextInput
+          <TextAreaInput
             id="site_notice"
-            editable
-            onChange={handleChange}
+            editable={true}
             value={siteNotice}
+            onChange={handleChange}
+            placeholder="Enter site notice"
+            autoExpand={true}
+            rows="1"
+            wysiwyg={false}
             value_key="site_notice"
-            type="text"
-            label="Site Notice"
             maxLength="255"
           />
 

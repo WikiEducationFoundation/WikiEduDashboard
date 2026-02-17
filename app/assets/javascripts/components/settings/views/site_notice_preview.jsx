@@ -4,7 +4,7 @@ const SiteNoticePreview = ({ message, enabled }) => {
     const hasMessage = !!message && message.trim().length > 0;
 
     return (
-      <div style={{ marginTop: 10 }}>
+      <div style={{ marginTop: 10, marginBottom: 10 }}>
         <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 6 }}>
           {I18n.t('settings.common_settings_components.headings.site_notice_preview')}
         </div>
