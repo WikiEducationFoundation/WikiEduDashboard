@@ -99,9 +99,9 @@ class TimesliceManager
     CourseWikiTimeslice.where(id: timeslice_ids).update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
-  def maybe_create_course_wiki_timeslice(wiki_id, start_date, end_date)
+  def create_course_wiki_timeslice(wiki_id, start_date, end_date)
     CourseWikiTimeslice
-      .find_or_create_by(course_id: @course.id, wiki_id:, start: start_date, end: end_date)
+    .create(course_id: @course.id, wiki_id:, start: start_date, end: end_date, needs_update: true)
   end
 
   TIMESLICE_DURATION = ENV['TIMESLICE_DURATION'].to_i

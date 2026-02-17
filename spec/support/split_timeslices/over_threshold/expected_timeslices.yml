@@ -5,40 +5,60 @@ timeslice_1:
   references_count: 0
   revision_count: 0
   stats: {}
-  last_mw_rev_datetime: 
+  last_mw_rev_datetime:
   needs_update: false
 
 timeslice_2:
+  start: 2025-08-27 05:00:00 UTC
+  end: 2025-08-27 17:00:00 UTC
+  character_sum: 0
+  references_count: 0
+  revision_count: 0
+  stats: {}
+  last_mw_rev_datetime:
+  needs_update: true
+
+timeslice_3:
+  start: 2025-08-26 23:00:00 UTC
+  end: 2025-08-27 05:00:00 UTC
+  character_sum: 0
+  references_count: 0
+  revision_count: 0
+  stats: {}
+  last_mw_rev_datetime:
+  needs_update: true
+
+timeslice_4:
   start: 2025-08-26 17:00:00 UTC
   end: 2025-08-26 20:00:00 UTC
   character_sum: 0
   references_count: 0
   revision_count: 0
   stats: {}
-  last_mw_rev_datetime: 
-  needs_update: false
+  last_mw_rev_datetime:
+  needs_update: true
 
-timeslice_3:
+timeslice_5:
   start: 2025-08-26 20:00:00 UTC
   end: 2025-08-26 21:30:00 UTC
   character_sum: 0
   references_count: 0
   revision_count: 0
   stats: {}
-  last_mw_rev_datetime: 
-  needs_update: false
+  last_mw_rev_datetime:
+  needs_update: true
 
-timeslice_4:
+timeslice_6:
   start: 2025-08-26 21:30:00 UTC
   end: 2025-08-26 22:15:00 UTC
   character_sum: 0
   references_count: 0
   revision_count: 0
   stats: {}
-  last_mw_rev_datetime: 
-  needs_update: false
+  last_mw_rev_datetime:
+  needs_update: true
 
-timeslice_5: 
+timeslice_7:
   start: 2025-08-26 22:15:00 UTC
   end: 2025-08-26 22:26:15 UTC
   character_sum: 3579
@@ -100,7 +120,7 @@ timeslice_5:
   last_mw_rev_datetime: 2025-08-26 22:25:45 UTC
   needs_update: false
 
-timeslice_6:
+timeslice_8:
   start: 2025-08-26 22:26:15 UTC
   end: 2025-08-26 22:31:53 UTC
   character_sum: 3182
@@ -162,7 +182,7 @@ timeslice_6:
   last_mw_rev_datetime: 2025-08-26 22:30:18 UTC
   needs_update: false
 
-timeslice_7:
+timeslice_9:
   start: 2025-08-26 22:31:53 UTC
   end: 2025-08-26 22:37:30 UTC
   character_sum: 5174
@@ -224,8 +244,7 @@ timeslice_7:
   last_mw_rev_datetime: 2025-08-26 22:36:16 UTC
   needs_update: false
 
-
-timeslice_8:
+timeslice_10:
   start: 2025-08-26 22:37:30 UTC
   end: 2025-08-26 22:48:45 UTC
   character_sum: 5189
@@ -287,7 +306,7 @@ timeslice_8:
   last_mw_rev_datetime: 2025-08-26 22:48:41 UTC
   needs_update: false
 
-timeslice_9:
+timeslice_11:
   start: 2025-08-26 22:48:45 UTC
   end: 2025-08-26 23:00:00 UTC
   character_sum: 6398
@@ -347,24 +366,4 @@ timeslice_9:
     sense claims changed: 0
     total revisions: 7
   last_mw_rev_datetime: 2025-08-26 22:57:06 UTC
-  needs_update: false
-
-timeslice_10:
-  start: 2025-08-26 23:00:00 UTC
-  end: 2025-08-27 05:00:00 UTC
-  character_sum: 0
-  references_count: 0
-  revision_count: 0
-  stats: {}
-  last_mw_rev_datetime: 
-  needs_update: false
-
-timeslice_11:
-  start: 2025-08-27 05:00:00 UTC
-  end: 2025-08-27 17:00:00 UTC
-  character_sum: 0
-  references_count: 0
-  revision_count: 0
-  stats: {}
-  last_mw_rev_datetime: 
   needs_update: false

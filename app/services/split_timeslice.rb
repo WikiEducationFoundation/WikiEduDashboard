@@ -13,19 +13,23 @@ class SplitTimeslice
   REVISION_THRESHOLD = 10000
 
   # Determines whether a timeslice needs to be split for a given wiki and date range.
-  # - If splitting is required, ensures the timeslice for the given wiki and dates exists.
-  # - If not, ensures the timeslice for the given wiki and dates is removed (if present).
+  # - If splitting is required, it removes the timeslice for the old dates and
+  # creates the two timeslices for the new dates.
   # Returns:
   # - A boolean indicating whether the timeslice should be split.
   # - If true, also returns an array containing the new split dates. Otherwise, it returns
   # an empty array.
   # start_date and end_date are the limits of the timeslice records
   def maybe_split(wiki, start_date, end_date, revisions)
-    @revisions = revisions
-    return true, split_timeslice(wiki, start_date, end_date) if too_many_revisions?(wiki)
-    # Ensure course wiki timeslice exists for course, wiki and dates
-    @timeslice_manager.maybe_create_course_wiki_timeslice(wiki.id, start_date, end_date)
-    return false, []
+    ActiveRecord::Base.transaction do
+      @revisions = revisions
+      if too_many_revisions?(wiki)
+        result = true, split_timeslice(wiki, start_date, end_date)
+      else
+        result = false, []
+      end
+      result
+    end
   end
 
   private
@@ -46,6 +50,10 @@ class SplitTimeslice
     # YYYY-MM-DD HH:MM:SS format, which does not allow fractions of a second. Therefore,
     # if we have a fraction of a second at the midpoint, we add half a second to complete it.
     midpoint += 0.5.seconds unless (period_in_seconds.to_i - period_in_seconds).zero?
+
+    # Create new timeslices with needs_update set to 1
+    @timeslice_manager.create_course_wiki_timeslice(wiki.id, start_date, midpoint)
+    @timeslice_manager.create_course_wiki_timeslice(wiki.id, midpoint, end_date)
 
     return [start_date, midpoint, end_date]
   end
