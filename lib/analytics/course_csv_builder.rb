@@ -2,6 +2,7 @@
 
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
+require_dependency "#{Rails.root}/lib/analytics/retained_new_editors_stats"
 
 class CourseCsvBuilder
   def initialize(course, per_wiki: false, tag: nil, revision: nil, new_editors: nil, home_wiki: nil) # rubocop:disable Metrics/ParameterLists
@@ -38,6 +39,7 @@ class CourseCsvBuilder
     uploads_used_in_articles
     upload_usage_count_across_all_wikis
     training_completion_rate
+    retained_new_editors
   ].freeze
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
@@ -66,6 +68,7 @@ class CourseCsvBuilder
     row << @course.uploads_in_use_count
     row << @course.upload_usages_count
     row << training_completion_rate
+    row << retained_new_editors
     row += per_wiki_counts.values if @per_wiki
     row
   end
@@ -117,5 +120,9 @@ class CourseCsvBuilder
 
   def per_wiki_counts
     @per_wiki_counts ||= PerWikiCourseStats.new(@course).stats
+  end
+
+  def retained_new_editors
+    @retained_new_editors ||= RetainedNewEditorsStats.new(@course).count
   end
 end
