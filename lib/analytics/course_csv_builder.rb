@@ -39,7 +39,6 @@ class CourseCsvBuilder
     uploads_used_in_articles
     upload_usage_count_across_all_wikis
     training_completion_rate
-    retained_new_editors
   ].freeze
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
@@ -68,7 +67,7 @@ class CourseCsvBuilder
     row << @course.uploads_in_use_count
     row << @course.upload_usages_count
     row << training_completion_rate
-    row << retained_new_editors
+    row << retained_new_editors if @per_wiki
     row += per_wiki_counts.values if @per_wiki
     row
   end
@@ -77,7 +76,7 @@ class CourseCsvBuilder
 
   def headers
     if @per_wiki
-      CSV_HEADERS + per_wiki_counts.keys
+      CSV_HEADERS + ['retained_new_editors'] + per_wiki_counts.keys
     else
       CSV_HEADERS
     end

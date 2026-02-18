@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/analytics/retained_new_editors_stats"
 
 describe CourseCsvBuilder do
   let(:course) { create(:course) }
-  let(:subject) { described_class.new(course).generate_csv }
+  let(:subject) { described_class.new(course, per_wiki: true).generate_csv }
   let(:manager) { instance_double(RetainedNewEditorsStats, count: 5) }
 
   before do
