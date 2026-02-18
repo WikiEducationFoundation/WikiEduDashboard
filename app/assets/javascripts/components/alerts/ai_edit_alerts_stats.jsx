@@ -5,6 +5,7 @@ import AiAlertsList from './ai_alerts_list.jsx';
 import request from '../../utils/request';
 import AlertsTrendsGraph from './graphs/alerts_trends_graph.jsx';
 import CoursesWithAiAlertsList from './courses_with_ai_alerts_list.jsx';
+import OverviewStat from '../common/OverviewStats/overview_stat';
 
 const AiEditAlertsStats = () => {
   const [stats, setStats] = useState(null);
@@ -28,7 +29,38 @@ const AiEditAlertsStats = () => {
   return (
     <div className="container">
       <div className="alerts-stats">
-        <h1>{I18n.t('alerts.ai_stats.title')}</h1>
+        <h1>{I18n.t('alerts.ai_stats.title', { campaign_name: stats.campaign_name })}</h1>
+
+        <div className="stat-display">
+          <OverviewStat
+            id="total-alerts"
+            className={'stat-display__value'}
+            stat={stats.total_alerts}
+            statMsg={I18n.t('alerts.ai_stats.total_alerts')}
+            renderZero={true}
+          />
+          <OverviewStat
+            id="total-followups"
+            className={'stat-display__value'}
+            stat={stats.total_followups}
+            statMsg={I18n.t('alerts.ai_stats.with_followup')}
+            renderZero={true}
+          />
+          <OverviewStat
+            id="mutiple-alerts-students"
+            className={'stat-display__value'}
+            stat={stats.students_with_multiple_alerts}
+            statMsg={I18n.t('alerts.ai_stats.multiple_alerts_students')}
+            renderZero={true}
+          />
+          <OverviewStat
+            id="multiple-alerts-pages"
+            className={'stat-display__value'}
+            stat={stats.pages_with_multiple_alerts}
+            statMsg={I18n.t('alerts.ai_stats.multiple_alerts_pages')}
+            renderZero={true}
+          />
+        </div>
 
         <h3 style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
         <AlertsTrendsGraph
@@ -36,25 +68,6 @@ const AiEditAlertsStats = () => {
           countByPage={stats.by_page_type}
           total={stats.total_alerts}
         />
-        <h3>{I18n.t('alerts.ai_stats.general_stats', { campaign_name: stats.campaign_name })}</h3>
-        <table style={{ marginBottom: '40px' }} className="table table--striped">
-          <thead>
-            <tr>
-              <th>{I18n.t('alerts.ai_stats.total_alerts')}</th>
-              <th>{I18n.t('alerts.ai_stats.with_followup')}</th>
-              <th>{I18n.t('alerts.ai_stats.multiple_alerts_students')}</th>
-              <th>{I18n.t('alerts.ai_stats.multiple_alerts_pages')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{stats.total_alerts}</td>
-              <td>{stats.total_followups}</td>
-              <td>{stats.students_with_multiple_alerts}</td>
-              <td>{stats.pages_with_multiple_alerts}</td>
-            </tr>
-          </tbody>
-        </table>
 
         <h3 id="contents" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.contents')}</h3>
         <table className="table table--striped" style={{ marginTop: '20px' }}>
