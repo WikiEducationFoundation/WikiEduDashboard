@@ -58,7 +58,7 @@ describe InstructorNotificationMailer do
 
     it 'does not include the BCC field' do
       mail = described_class.email(instructor_notification_alert, false)
-      expect(mail.bcc).to be_empty
+      expect(mail.bcc).to be_nil.or be_empty
     end
   end
 

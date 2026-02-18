@@ -429,9 +429,8 @@ describe CampaignsController, type: :request do
 
       context 'when campaign does not exist' do
         it 'raises routing error' do
-          expect do
-            get '/campaigns/non-existent-campaign/articles'
-          end.to raise_error(ActionController::RoutingError)
+          get '/campaigns/non-existent-campaign/articles'
+          expect(response.status).to eq(404)
         end
       end
     end
@@ -464,9 +463,8 @@ describe CampaignsController, type: :request do
     end
 
     it 'returns 404 if campaign does not exists' do
-      expect do
-        get '/campaigns/non-existent-slug/refresh'
-      end.to raise_error(ActionController::RoutingError)
+      get '/campaigns/non-existent-slug/refresh'
+      expect(response.status).to eq(404)
     end
   end
 end
