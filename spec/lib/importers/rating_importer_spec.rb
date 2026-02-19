@@ -4,6 +4,16 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/rating_importer"
 
 describe RatingImporter do
+  describe '.update_rating_for_article' do
+    it 'skips updates for unsupported wikis' do
+      unsupported_wiki = Wiki.get_or_create(language: 'de', project: 'wikipedia')
+      article = create(:article, wiki: unsupported_wiki, title: 'Berlin', namespace: 0)
+
+      expect(WikiApi).not_to receive(:new)
+      described_class.update_rating_for_article(article)
+    end
+  end
+
   describe '.update_ratings' do
     it 'handles MediaWiki API errors' do
       error = MediawikiApi::ApiError.new
