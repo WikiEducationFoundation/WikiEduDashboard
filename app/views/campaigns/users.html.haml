@@ -74,8 +74,9 @@
                   - courses_list.first(2).each do |uc|
                     = link_to uc.course.title, course_slug_path(uc.course.slug)
                     %br
-                  %details
-                    %summary See more
+                  %details.course-list-details
+                    %summary{data: {see_more: t('application.see_more'), see_less: t('application.see_less')}}
+                      = t('application.see_more')
                     - courses_list.drop(2).each do |uc|
                       = link_to uc.course.title, course_slug_path(uc.course.slug)
                       %br
@@ -85,3 +86,15 @@
                     %br
                 - else
                   = link_to cu.course.title, course_slug_path(cu.course.slug)
+
+:javascript
+  document.addEventListener('toggle', function(e) {
+    if (e.target.classList.contains('course-list-details')) {
+      var summary = e.target.querySelector('summary');
+      if (summary) {
+        var seeMore = summary.getAttribute('data-see-more');
+        var seeLess = summary.getAttribute('data-see-less');
+        summary.innerText = e.target.open ? seeLess : seeMore;
+      }
+    }
+  }, true);
