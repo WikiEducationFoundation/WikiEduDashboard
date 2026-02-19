@@ -1350,7 +1350,6 @@ sr-el:
         Ovaj sajt radi dobro na poslednjim verzijama Chrome-a, Firefox-a, Edge-a i
         ostalim savremenim veb-pregledačima.
   error_401:
-    header: Neovlašćeno. >:-(
     explanation: Niste ovlašćeni da izvršite ovaj zahtev. Ako smatrate da ste ovde
       došli greškom, kontaktirajte održavatelje ove kontrolne table kako biste ih
       obavestili o ovom problemu.

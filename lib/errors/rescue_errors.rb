@@ -36,8 +36,9 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          session[:return_to] = request.fullpath
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
@@ -47,8 +48,8 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
@@ -58,8 +59,8 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
@@ -69,8 +70,8 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end

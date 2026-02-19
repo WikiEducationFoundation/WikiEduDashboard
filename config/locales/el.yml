@@ -14,6 +14,7 @@
 # Author: Norhorn
 # Author: SkarletWitch
 # Author: Spyridon Eftychios Kokotos
+# Author: Warudo
 # Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
@@ -45,7 +46,7 @@ el:
     explore: Εξερεύνηση
     field_required: Αυτό το πεδίο απαιτείται
     field_invalid_characters: Αυτό το πεδίο έχει μη έγκυρους χαρακτήρες
-    field_invalid_term: Η περίοδος πρέπει να περιλαμβάνει το έτος (π.χ., "Άνοιξη 2025")
+    field_invalid_term: Η περίοδος πρέπει να περιλαμβάνει το έτος (π.χ., «Άνοιξη 2025»)
     field_invalid_date: Αυτό το πεδίο απαιτεί μια ημερομηνία σε μορφή έτους-μήνα-ημέρας
     field_invalid_date_time: Το τέλος πρέπει να είναι μετά την αρχή. (Οι ώρες πάνε
       από τις 0 έως τις 23.)

@@ -1,0 +1,15 @@
+- content_for :after_title, " - #{t('home.log_in')}"
+
+%section.unauthorized-error
+  .container.narrow
+    .error-card
+      %i.icon.icon-wiki-purple
+      %p.explanation= flash[:alert] || t('error_401.explanation')
+      
+      .actions
+        = link_to user_mediawiki_omniauth_authorize_path, method: :post, class: 'button dark auth big' do
+          %i.icon.icon-wiki-white
+          = t('home.log_in')
+        
+        %a.button.border.big(href="/")
+          = t('application.home')

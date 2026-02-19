@@ -1161,7 +1161,6 @@ cs:
       explanation: Váš prohlížeč není kompatibilní s Nástěnkou. Tato stránka funguje
         v nedávných verzích Chromu, Firefoxu, Edge i dalších moderních prohlížečů.
   error_401:
-    header: Nepovoleno. >:-(
     explanation: Nemáte dostatečná práva pro spuštění tohoto požadavku. Pokud jste
       přesvědčeni, že chyba není na vaší straně, prosím, kontaktujte správce této
       nástěnky a sdělte jim, k čemu konkrétně došlo.

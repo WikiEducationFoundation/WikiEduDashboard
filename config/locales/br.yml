@@ -609,7 +609,6 @@ br:
     unsupported_browser:
       header: N'eo ket embreget ar merdeer :-(
   error_401:
-    header: Nann aotreet >:-(
     explanation: N'oc'h aotreet da seveniñ ar reked-mañ. Ma soñjit ho peus resevet
       ar c'hemenn-mañ dre fazi, kit e darempred, mar plij, gant dalc'herien an daolenn
       stur-mañ evit kelaouiñ anezho ez eus ur gudenn.

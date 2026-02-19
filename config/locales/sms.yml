@@ -67,6 +67,7 @@ sms:
     created_at: Peiʹvvmieʹrr
     course: Kurss
     create_campaign: Ođđ kampaanj raajjmõš
+    data_wikidata: Wikidata-statistiikk
     description: Deskriptt
     delete_campaign: Jaukkâd tän kampaanj
     newest_campaigns: Ođđsumus kampaanj
@@ -160,6 +161,7 @@ sms:
       learn_more_button: Lââʹssteâđ
   metrics:
     characters: Miârk
+    close_modal: Piij ǩidd
     references_count: Lââʹzztum teâttkääiv
     tags: Ǩeâlggal
     update_statistics_link: Lââʹssteâđ
