@@ -8,6 +8,11 @@ import { formatCategoryName } from '../components/util/scoping_methods';
 
 const SentryLogger = {};
 
+// Throttle cache for fetchNews to avoid duplicate API calls
+const FETCH_NEWS_THROTTLE_MS = 5000; // 5-second throttle window
+let _lastFetchNewsTime = 0;
+let _lastFetchNewsResult = null;
+
 /* eslint-disable */
 const API = {
   // /////////
@@ -222,11 +227,20 @@ const API = {
   },
 
   async fetchNews() {
+    // Return cached result if within throttle window to avoid duplicate calls
+    const now = Date.now();
+    if (_lastFetchNewsResult && (now - _lastFetchNewsTime) < FETCH_NEWS_THROTTLE_MS) {
+      return _lastFetchNewsResult;
+    }
+
     // Determine the type of newsTitle content to fetch based on the `Features.wikiEd` flag
     const newsTitle = Features.wikiEd ? 'Wiki Education News' : 'Programs & Events Dashboard News';
      try {
          const response = await request(`/faq/${newsTitle}/handle_special_faq_query`);
          const { newsDetails } = await response.json();
+      // Update throttle cache
+      _lastFetchNewsTime = Date.now();
+      _lastFetchNewsResult = newsDetails;
          return newsDetails;
      } catch (error) {
          logErrorMessage('Error creating news:', error)
