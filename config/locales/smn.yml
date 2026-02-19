@@ -67,6 +67,7 @@ smn:
     submit: Vuolgât
   campaign:
     alert_user_id: Kevttee
+    data_wikidata: Wikidata-statistiik
     description: Kuvvim
     search: Uusâ
   categories:
