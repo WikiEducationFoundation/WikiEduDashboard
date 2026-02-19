@@ -284,6 +284,7 @@ fi:
     create_campaign: Uuden kampanjan luonti
     create_my_campaign: Luo kampanja!
     data_articles: Sivuja muokattu
+    data_wikidata: Wikidatan tilastot
     default_course_type: Kurssityypin oletus
     default_passcode: Pääsykoodin oletus
     default_passcode_explanation: 'Oletusarvoisesti tämän kampanjan uusilla ohjelmilla
