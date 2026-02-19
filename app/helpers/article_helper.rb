@@ -40,26 +40,31 @@ module ArticleHelper
   end
 
   # Maps international rating strings to standardized article classes.
-  # Covers: French, Turkish, Hungarian, Arabic, Russian wikis.
+  # Covers wikis with confirmed PageAssessments API support:
+  # Arabic, Chinese, French, Hungarian, Turkish.
   INTERNATIONAL_RATING_MAP = {
     # A-class composite
     'a/ga' => 'a',
     # Featured article equivalents
-    'adq' => 'fa', 'ис' => 'fa', 'sm' => 'fa', 'избранная_статья' => 'fa',
-    'seçkin_madde' => 'fa', 'kitüntetett' => 'fa', 'م.مخ' => 'fa',
+    'adq' => 'fa', 'sm' => 'fa', 'seçkin_madde' => 'fa',
+    'kitüntetett' => 'fa', 'م.مخ' => 'fa', '典范条目' => 'fa',
+    # Featured list equivalents
+    '特色列表' => 'fl',
     # Good article equivalents
-    'ba' => 'ga', 'дс' => 'ga', 'хс' => 'ga', 'km' => 'ga',
-    'хорошая_статья' => 'ga', 'kaliteli_madde' => 'ga', 'színvonalas' => 'ga', 'أ' => 'ga',
+    'ba' => 'ga', 'km' => 'ga', 'kaliteli_madde' => 'ga',
+    'színvonalas' => 'ga', 'أ' => 'ga', '优良条目' => 'ga',
+    # A-class equivalents
+    '甲级条目' => 'a',
     # B-class equivalents
-    'bplus' => 'b', 'ii' => 'b', 'teljes' => 'b', 'ب' => 'b',
+    'bplus' => 'b', 'ii' => 'b', 'teljes' => 'b', 'ب' => 'b', '乙级条目' => 'b',
     # C-class equivalents
-    'iii' => 'c', 'jól használható' => 'c', 'ج' => 'c',
+    'iii' => 'c', 'jól használható' => 'c', 'ج' => 'c', '丙级条目' => 'c',
     # Start-class equivalents
-    'bd' => 'start', 'iv' => 'start', 'vázlatos' => 'start', 'بداية' => 'start',
+    'bd' => 'start', 'iv' => 'start', 'vázlatos' => 'start', 'بداية' => 'start', '初级条目' => 'start',
     # Stub-class equivalents
-    'taslak' => 'stub', 'e' => 'stub', 's' => 'stub', 'születő' => 'stub', 'بذرة' => 'stub',
+    'taslak' => 'stub', 'e' => 'stub', 's' => 'stub', 'születő' => 'stub', 'بذرة' => 'stub', '小作品级条目' => 'stub',
     # List-class equivalents
-    'al' => 'list', 'bl' => 'list', 'cl' => 'list', 'sl' => 'list', 'список' => 'list'
+    'al' => 'list', 'bl' => 'list', 'cl' => 'list', 'sl' => 'list', '列表级条目' => 'list'
   }.freeze
 
   def default_class(rating)

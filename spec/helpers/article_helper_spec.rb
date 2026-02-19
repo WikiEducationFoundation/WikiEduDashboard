@@ -74,6 +74,27 @@ describe ArticleHelper, type: :helper do
       expect(default_class('teljes')).to eq('b')
     end
 
+    it 'maps Arabic ratings correctly' do
+      expect(default_class('م.مخ')).to eq('fa')
+      expect(default_class('أ')).to eq('ga')
+      expect(default_class('ب')).to eq('b')
+      expect(default_class('ج')).to eq('c')
+      expect(default_class('بداية')).to eq('start')
+      expect(default_class('بذرة')).to eq('stub')
+    end
+
+    it 'maps Chinese ratings correctly' do
+      expect(default_class('典范条目')).to eq('fa')
+      expect(default_class('特色列表')).to eq('fl')
+      expect(default_class('优良条目')).to eq('ga')
+      expect(default_class('甲级条目')).to eq('a')
+      expect(default_class('乙级条目')).to eq('b')
+      expect(default_class('丙级条目')).to eq('c')
+      expect(default_class('初级条目')).to eq('start')
+      expect(default_class('小作品级条目')).to eq('stub')
+      expect(default_class('列表级条目')).to eq('list')
+    end
+
     it 'returns nil for unknown ratings' do
       expect(default_class('unknown')).to be_nil
       expect(default_class('xyz')).to be_nil
