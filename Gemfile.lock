@@ -183,6 +183,7 @@ GEM
     crass (1.0.6)
     css_parser (1.14.0)
       addressable
+    csv (3.3.5)
     dalli (3.2.3)
     date (3.5.1)
     debug_inspector (1.1.0)
@@ -372,6 +373,7 @@ GEM
       shellany (~> 0.0)
     numerizer (0.1.1)
     oauth (0.5.6)
+    observer (0.1.2)
     oj (3.13.23)
     omniauth (2.0.4)
       hashie (>= 3.4.6)
@@ -679,6 +681,7 @@ DEPENDENCIES
   capybara-screenshot
   chartkick
   connection_pool
+  csv
   dalli
   deep_cloneable
   devise
@@ -704,6 +707,7 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   nokogiri
+  observer
   oj
   omniauth-mediawiki!
   pandoc-ruby
@@ -754,7 +758,7 @@ DEPENDENCIES
   will_paginate
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 3.4.8p72
 
 BUNDLED WITH
    2.4.22
