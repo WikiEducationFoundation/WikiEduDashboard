@@ -60,11 +60,14 @@ module ArticleHelper
     # C-class equivalents
     'iii' => 'c', 'jól használható' => 'c', 'ج' => 'c', '丙级条目' => 'c',
     # Start-class equivalents
-    'bd' => 'start', 'iv' => 'start', 'vázlatos' => 'start', 'بداية' => 'start', '初级条目' => 'start',
+    'bd' => 'start', 'iv' => 'start', 'vázlatos' => 'start',
+    'بداية' => 'start', '初级条目' => 'start',
     # Stub-class equivalents
-    'taslak' => 'stub', 'e' => 'stub', 's' => 'stub', 'születő' => 'stub', 'بذرة' => 'stub', '小作品级条目' => 'stub',
+    'taslak' => 'stub', 'e' => 'stub', 's' => 'stub', 'születő' => 'stub',
+    'بذرة' => 'stub', '小作品级条目' => 'stub',
     # List-class equivalents
-    'al' => 'list', 'bl' => 'list', 'cl' => 'list', 'sl' => 'list', '列表级条目' => 'list'
+    'al' => 'list', 'bl' => 'list', 'cl' => 'list', 'sl' => 'list',
+    '列表级条目' => 'list'
   }.freeze
 
   def default_class(rating)
