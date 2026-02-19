@@ -9,6 +9,13 @@ class RatingImporter
   # MediaWiki allows a maximum of 50 values in the "titles" parameter.
   API_MAX_TITLES = 50
 
+  # Wikis where the PageAssessments extension is enabled and we have
+  # visual mappings in ArticleHelper.
+  SUPPORTED_LANGUAGES = %w[en ar fr hu tr zh].freeze
+
+  # Minimum interval between on-demand rating refreshes for a single article.
+  RATING_UPDATE_COOLDOWN = 5.minutes
+
   def self.update_all_ratings
     # Since the rating scraper is only based on the English Wikipedia 1.0 rating
     # system, we only include articles from en.wiki.
@@ -37,7 +44,14 @@ class RatingImporter
   end
 
   def self.update_rating_for_article(article)
-    return unless article.wiki_id == en_wiki.id # English Wikipedia only, see above.
+    # Only fetch ratings for wikis where the PageAssessments API is enabled.
+    return unless SUPPORTED_LANGUAGES.include?(article.wiki.language)
+
+    # Skip if the rating was refreshed very recently to avoid excessive load.
+    if article.rating_updated_at.present? &&
+       article.rating_updated_at > RATING_UPDATE_COOLDOWN.ago
+      return
+    end
     update_ratings([[article]])
   end
 
@@ -48,8 +62,8 @@ class RatingImporter
     require "#{Rails.root}/lib/wiki_api"
     article_groups.each do |articles|
       titles = articles.map(&:title)
-      # NOTE: English Wikipedia only, per above.
-      ratings = WikiApi.new(en_wiki).get_article_rating(titles)
+      wiki = articles.first.wiki
+      ratings = WikiApi.new(wiki).get_article_rating(titles)
       next if ratings.blank?
       update_article_ratings(articles, ratings)
     end

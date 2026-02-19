@@ -39,13 +39,40 @@ module ArticleHelper
     return rating[0] # use the first letter of the rating as the abbreviated version
   end
 
+  # Maps international rating strings to standardized article classes.
+  # Covers wikis with confirmed PageAssessments API support:
+  # Arabic, Chinese, French, Hungarian, Turkish.
+  INTERNATIONAL_RATING_MAP = {
+    # A-class composite
+    'a/ga' => 'a',
+    # Featured article equivalents
+    'adq' => 'fa', 'sm' => 'fa', 'seçkin_madde' => 'fa',
+    'kitüntetett' => 'fa', 'م.مخ' => 'fa', '典范条目' => 'fa',
+    # Featured list equivalents
+    '特色列表' => 'fl',
+    # Good article equivalents
+    'ba' => 'ga', 'km' => 'ga', 'kaliteli_madde' => 'ga',
+    'színvonalas' => 'ga', 'أ' => 'ga', '优良条目' => 'ga',
+    # A-class equivalents
+    '甲级条目' => 'a',
+    # B-class equivalents
+    'bplus' => 'b', 'ii' => 'b', 'teljes' => 'b', 'ب' => 'b', '乙级条目' => 'b',
+    # C-class equivalents
+    'iii' => 'c', 'jól használható' => 'c', 'ج' => 'c', '丙级条目' => 'c',
+    # Start-class equivalents
+    'bd' => 'start', 'iv' => 'start', 'vázlatos' => 'start',
+    'بداية' => 'start', '初级条目' => 'start',
+    # Stub-class equivalents
+    'taslak' => 'stub', 'e' => 'stub', 's' => 'stub', 'születő' => 'stub',
+    'بذرة' => 'stub', '小作品级条目' => 'stub',
+    # List-class equivalents
+    'al' => 'list', 'bl' => 'list', 'cl' => 'list', 'sl' => 'list',
+    '列表级条目' => 'list'
+  }.freeze
+
   def default_class(rating)
-    # Handles the different article classes and returns a known article class
     return rating if %w[fa fl a ga b c start stub list].include? rating
-    return 'b' if rating.eql? 'bplus'
-    return 'a' if rating.eql? 'a/ga'
-    return 'list' if %w[al bl cl sl].include? rating
-    return nil
+    INTERNATIONAL_RATING_MAP[rating]
   end
 
   def calculate_view_count(first_revision, ac_views, article_views, view_count)
