@@ -1491,7 +1491,10 @@ es:
     json_explanation: Parece que tu sesión ha finalizado. Vuelve a cargar la página, accede e inténtalo de nuevo.
   error_incorrect_passcode:
     header: Código de acceso incorrecto. :-(
-    explanation: El código de acceso para inscribirse en este curso es incorrecta. Pregunta al instructor por el código de acceso actual para inscribirte en este curso.
+    explanation:
+      El código de acceso para inscribirse en este curso es incorrecta.
+      Pregunta al instructor por el código de acceso actual para inscribirte en este
+      curso.
   error_404:
     header: No se encontró la página. :-(
     explanation:
