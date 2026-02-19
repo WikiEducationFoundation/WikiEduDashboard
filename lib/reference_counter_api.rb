@@ -37,6 +37,7 @@ class ReferenceCounterApi
   def get_number_of_references_from_revision_ids(rev_ids)
     # Restart errors array
     @errors = []
+    @non_200_responses = {}
     results = {}
     rev_ids.each do |rev_id|
       results.deep_merge!({ rev_id.to_s => get_number_of_references_from_revision_id(rev_id) })
@@ -60,16 +61,29 @@ class ReferenceCounterApi
     return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
     # Leave the error empty if it is not a transient error.
     return { 'num_ref' => nil } if non_transient_error? response.status
-    # Log the error and return empty hash
-    # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
-    # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
-    #                        status_code: response.status, content: parsed_response }
+
+    # Track non-200 responses for batch logging
+    track_non_200_response(response.status, rev_id, parsed_response)
+
     return { 'num_ref' => nil, 'error' => parsed_response }
   rescue StandardError => e
     tries -= 1
     retry unless tries.zero?
     @errors << e
     return { 'num_ref' => nil, 'error' => e }
+  end
+
+  # Tracks non-200 responses for batch logging
+  def track_non_200_response(status, rev_id, parsed_response)
+    status_key = status.to_s
+    @non_200_responses[status_key] ||= { count: 0, examples: [] }
+    @non_200_responses[status_key][:count] += 1
+
+    return unless @non_200_responses[status_key][:examples].length < 5
+    @non_200_responses[status_key][:examples] << {
+      rev_id:,
+      content: parsed_response
+    }
   end
 
   class InvalidProjectError < StandardError
@@ -102,6 +116,21 @@ class ReferenceCounterApi
                     Faraday::ConnectionFailed].freeze
 
   def log_error_batch(rev_ids)
+    # Log consolidated non-200 responses
+    unless @non_200_responses.empty?
+      log_error(
+        StandardError.new('Non-200 responses hitting references counter API'),
+        update_service: @update_service,
+        sentry_extra: {
+          project_code: @project_code,
+          language_code: @language_code,
+          rev_id_count: rev_ids.length,
+          response_stats: @non_200_responses
+        }
+      )
+    end
+
+    # Log other errors
     return if @errors.empty?
 
     log_error(@errors.first, update_service: @update_service,
