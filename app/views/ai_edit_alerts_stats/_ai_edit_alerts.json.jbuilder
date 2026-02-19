@@ -5,7 +5,7 @@ json.array! alerts do |alert|
   json.timestamp alert.created_at
   json.course alert.course&.title
   json.course_slug alert.course&.slug
-  json.article alert.article&.title
+  json.article alert.article&.title.humanize
   json.user alert.user&.username
   json.diff_url alert.url
   json.pangram_url alert.pangram_url
