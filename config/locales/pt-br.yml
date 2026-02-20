@@ -1,6 +1,7 @@
 # Messages for Brazilian Portuguese (português do Brasil)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: ACheJu
 # Author: Ajeje Brazorf
 # Author: Andrekowacs
 # Author: AndroidOSUser
@@ -182,6 +183,35 @@ pt-br:
       contato com dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
+    no_data: Nenhum dado encontrado.
+    ai_stats:
+      timestamp: Carimbo de tempo
+      title: Estatísticas de Alertas de Edição com IA
+      general_stats: Estatísticas Gerais para %{campaign_name}
+      total_alerts: Total de Alertas de Edição com IA
+      with_followup: Com acompanhamento
+      multiple_alerts_students: Estudantes com várias alertas
+      multiple_alerts_pages: Páginas com vários alertas
+      pangram_url: URL de Pangram
+      revision_diff: Diferença de revisão
+      single_alert_view: Alerta
+      alerts_in_mainspace: Alertas no espaço principal
+      users_involved: Usuários(as) envolvidos(as)
+      total: Total
+      last_week: Semana passada
+      sections:
+        contents: Tabela de conteúdos para as listas
+        go_back: Voltar aos conteúdos
+        name: Nome
+        description: Descrição
+        courses_with_ai_alerts: Cursos com múltiplos alertas de IA
+        recent_followup: Alertas com acompanhamento recente
+        multiple_alerts_students: Alertas recentes para estudantes com múltiplos alertas
+        in_mainspace: Alertas recentes no espaço principal
+        alerts_trend_over_time: A IA alerta para tendências ao longo do tempo
+        descriptions:
+          courses_with_ai_alerts: Cursos com mais de 3 alertas de IA durante todo
+            o período do curso (não necessariamente recentes).
   activity:
     all: Atividade
     edited_by: Editado por
@@ -366,6 +396,8 @@ pt-br:
       da comunidade da Wikipedia para tarefas de Wiki Education"
     already_exists: Essa atribuição já existe!
     title_too_large: O título não deve exceder 255 caracteres
+    max_group_size_exceeded: '%{title} já tem %{current} estudantes registrados(as).
+      O tamanho máximo do grupo para este curso é de %{max}.'
     assignees: Assinante(s)
     assign_other: Atribuir/remover um artigo
     assign_other_wikidata: Atribuir/remover um item

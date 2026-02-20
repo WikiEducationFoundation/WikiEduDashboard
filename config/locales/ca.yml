@@ -1040,7 +1040,6 @@ ca:
         de control. Aquesta pàgina funciona bé a les versions recents de Chrome, Firefox,
         Edge,  i altres navegadors moderns.
   error_401:
-    header: No autoritzat. >:-(
     explanation: No estàs autoritzat a executar aquesta petició. Si creus que t'ha
       arribat aquest missatge per error, si us plau contacta amb els mantenidors d'aquest
       tauler de control per a fer-lis saber sobre aquest problema.

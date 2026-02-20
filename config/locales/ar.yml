@@ -1226,6 +1226,7 @@ ar:
     see_more: طالع المزيد
     show_all: اعرض الكل
     show_course_specific: عرض خاص بالمقرر الدراسي
+    show_only_new_editors: عرض المحررين الجدد فقط
   resources:
     label: مصادر
     header: الموارد والتدريب
@@ -1261,6 +1262,11 @@ ar:
         revoking_button_working: يجري الإبطال...
         already_is_not: '%{username} ليس مستخدما خاصا!'
         demote_success: '%{username} الآن مجرد مستخدم.'
+    disallowed_users:
+      add_button: إضافة مستخدم
+      remove_button: إزالة
+      submit_button: إرسال
+    actions: الإجراءات
   suggestions:
     editing: تحرير الاقتراحات
     suggestion_docs:
@@ -1604,7 +1610,6 @@ ar:
       IP الخاص بك بواسطة Wikipedia أو وصل بالفعل إلى الحد اليومي للحسابات الجديدة.  حاول
       الاتصال من شبكة مختلفة.
   error_401:
-    header: غير مصرح. >:-(
     explanation: غير مسموح لك لتنفيذ هذا الطلب، إذا كنت تعتقد أنه قد وصل إليك هذا
       الإشعار عن طريق الخطأ، يُرجَى الاتصال بمشرفي اللوحة ليحلوا هذه المشكلة.
     json_explanation: يبدو أنك قمت بتسجيل الخروج; يُرجَى التحديث وتسجيل الدخول والمحاولة

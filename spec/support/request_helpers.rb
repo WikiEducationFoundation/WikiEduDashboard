@@ -286,7 +286,8 @@ module RequestHelpers
       'nl.wikipedia.org',
       'sv.wikipedia.org',
       'uk.wikipedia.org',
-      'kn.wikipedia.org'
+      'kn.wikipedia.org',
+      'en.wikisource.org'
     ]
 
     wikis.each do |wiki|

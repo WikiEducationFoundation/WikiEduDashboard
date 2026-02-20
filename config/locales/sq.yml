@@ -683,7 +683,6 @@ sq:
         Ky sajt punon mirë në Internet Explorer versioni 11 apo më vonë, në versionet
         e fundit të Chrome dhe Firefox, dhe në të tjerë shfletues modern.
   error_401:
-    header: I paautorizuar. >:-(
     explanation: Nuk jeni i autorizuar të ekzekutoni këtë kërkesë. Nëse besoni se
       keni arritur në këtë njoftim gabimisht, ju lutem njoftoni mirëmbajtësit e këtij
       pulti për problemin.

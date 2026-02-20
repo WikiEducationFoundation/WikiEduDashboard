@@ -8,6 +8,33 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest 
 
+    # Use native service containers instead of standalone actions
+    # to avoid Docker Hub rate limits and Docker client version mismatches.
+    services:
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      mariadb:
+        image: mariadb:10.5
+        env:
+          MARIADB_DATABASE: dashboard_testing
+          MARIADB_USER: wiki
+          MARIADB_PASSWORD: wikiedu
+          MARIADB_ROOT_PASSWORD: wikiedu
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "healthcheck.sh --connect --innodb_initialized"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
       - name: checkout
@@ -43,20 +70,7 @@ jobs:
               sudo ln -s $(which magick) /usr/bin/$cmd
             fi
           done
-
-      - name: setup Redis
-        uses: supercharge/redis-github-action@1.4.0
       
-      # Setting up MariaDB based upon 'config/database.example.yml'
-      - name: setup MariaDB server
-        uses: getong/mariadb-action@v1.1  
-        with:
-          host port: 3306 
-          mariadb version: '10.5' 
-          mysql database: 'dashboard_testing' 
-          mysql user: 'wiki'
-          mysql password: 'wikiedu'
-          
       # Starting ruby 
       - name: setup Ruby
         uses: ruby/setup-ruby@v1    

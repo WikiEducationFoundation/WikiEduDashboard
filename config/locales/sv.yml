@@ -7,6 +7,7 @@
 # Author: Jopparn
 # Author: Josefine Hellroth Larsson (WMSE)
 # Author: Josve05a
+# Author: Michael FOSS
 # Author: Pyscowicz
 # Author: Rockyfelle
 # Author: Sabelöga
@@ -780,7 +781,6 @@ sv:
     unsupported_browser:
       header: Webbläsaren stöds inte. :-(
   error_401:
-    header: Obehörig. >:-(
     json_explanation: Det ser ut som att du har blivit utloggad. Uppdatera sidan,
       logga in och försök igen.
   error_incorrect_passcode:
@@ -793,6 +793,9 @@ sv:
     header: 500 — internt serverfel.  :-(
   login_error:
     header: Inloggningsproblem
+  notifications:
+    new_notifications: Du har nya aviseringar.
+    no_notifications: Du har inga nya aviseringar.
   survey:
     email:
       headline: Hej, %{username}

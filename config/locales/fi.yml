@@ -284,6 +284,7 @@ fi:
     create_campaign: Uuden kampanjan luonti
     create_my_campaign: Luo kampanja!
     data_articles: Sivuja muokattu
+    data_wikidata: Wikidatan tilastot
     default_course_type: Kurssityypin oletus
     default_passcode: Pääsykoodin oletus
     default_passcode_explanation: 'Oletusarvoisesti tämän kampanjan uusilla ohjelmilla
@@ -997,7 +998,6 @@ fi:
         Sivusto toimii hyvin viimeisimpien Chromen, Firefoxin ja Edgen versioiden
         kanssa sekä muilla nykyaikaisilla selaimilla.
   error_401:
-    header: Ei lupaa. >:-(
     explanation: Sinulla ei ole lupaa suorittaa tätä pyyntöä. Jos uskot, että ilmoitus
       on virheellinen, kerro ongelmasta ohjauspaneelin ylläpitäjille.
   error_incorrect_passcode:

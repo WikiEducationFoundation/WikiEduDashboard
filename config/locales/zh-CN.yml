@@ -1,6 +1,7 @@
 # Messages for Simplified Chinese (中文（简体）)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 0x48fe75df30
 # Author: 500000000006城
 # Author: A Chinese Wikipedian
 # Author: A Retired User
@@ -9,6 +10,7 @@
 # Author: Camilali0609
 # Author: Endermoon
 # Author: ExoHyper2026
+# Author: Gsdn
 # Author: GuoPC
 # Author: Hanyanbo98
 # Author: Interestinghe
@@ -265,6 +267,7 @@ zh-CN:
     add_available_submit: 添加条目
     add_available_submit_wikidata: 添加项目
     assign_self: 给我自己分配一个条目
+    invalid_mainspace_article: 这必须是有效的主命名空间条目。
     assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
     bibliography: 参考文献
     clone: 复制
@@ -497,6 +500,7 @@ zh-CN:
     join_failure_details:
       cannot_join_twice: 用户不可以2次加入同一课程。
       not_yet_approved: 此课程尚未批准登记。
+      disallowed_user: 该用户已被列入封禁名单，无法注册课程。
     join_details: 要加入该程序，您需要获取密码——或包含密码的登记链接——来自导师。如果您尚未接收到密码，请联络您的导师。
     join_no_passcode: 您确定要加入这个课程么？
     leave_confirmation: 您确定要离开这个课程么？
@@ -765,6 +769,7 @@ zh-CN:
     see_more: 查看更多
     show_all: 全部显示
     show_course_specific: 显示具体的课程
+    show_only_new_editors: 仅显示新编者
   settings:
     admin_users:
       new:
@@ -791,6 +796,23 @@ zh-CN:
         revoking_button_working: 正在移除……
         already_is_not: '%{username}还不是特别用户！'
         demote_success: '%{username}现在仅仅是普通用户。'
+    disallowed_users:
+      none: 未配置任何禁止用户。
+      already_disallowed: 已被禁止
+      add_to_list: 添加到禁止列表
+      add_button: 添加用户
+      remove_button: 移除
+      submit_button: 提交
+      title: 禁止用户
+      description: 机器人账号与其他不应注册课程的用户名。
+      add:
+        success: '%{username} 已被添加到禁止用户列表。'
+        already_exists: '%{username}已在禁止用户列表中。'
+      remove:
+        success: '%{username} 已从禁止用户列表移除。'
+        not_found: '%{username} 不在禁止用户列表中。'
+        confirm: 您确定要从禁止用户列表中删除 %{username} 吗？
+    actions: 操作
   suggestions:
     editing: 编辑建议
     suggestion_docs:
@@ -1006,7 +1028,6 @@ zh-CN:
       header: 浏览器不受支持。:-(
       explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Chrome，Firefox，EDGE以及其他现代浏览器的最新版本上能正常工作。
   error_401:
-    header: 未获授权。>:-(
     explanation: 您未被授权执行此请求。如果您相信看见此通知是个错误，请联络此控制面板的维护人员以让他们了解有关问题的详情。
     json_explanation: 看起来您已经退出。请刷新登录并重试。
   error_incorrect_passcode:
@@ -1026,6 +1047,9 @@ zh-CN:
   login_error:
     header: 登录错误
     explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
+  notifications:
+    new_notifications: 您有新的通知。
+    no_notifications: 您没有新的通知。
   survey:
     login_message: 感谢您的时间。请登录您的维基教育控制面板以参与调查。
     notification_explanation: 如果下面被勾选，用户将根据通知安排接收电子邮件，此外还可以在浏览器看见通知。如果不勾选，将只在浏览器上显示通知。
