@@ -178,49 +178,15 @@ class CoursesPresenter
   end
 
   def search_courses_by_creation_date(start_str, end_str)
-    start_time = begin
-      Time.zone.parse(start_str)&.beginning_of_day
-    rescue StandardError
-      nil
-    end
-    end_time = begin
-      Time.zone.parse(end_str)&.end_of_day
-    rescue StandardError
-      nil
-    end
-
-    if start_time && end_time
-      courses.where('courses.created_at BETWEEN ? AND ?', start_time, end_time).distinct
-    elsif start_time
-      courses.where('courses.created_at >= ?', start_time).distinct
-    elsif end_time
-      courses.where('courses.created_at <= ?', end_time).distinct
-    else
-      courses.none
-    end
+    start_time = parse_time(start_str, :beginning_of_day)
+    end_time = parse_time(end_str, :end_of_day)
+    apply_required_range_filter(courses, 'courses.created_at', start_time, end_time)
   end
 
   def search_courses_by_start_date(start_str, end_str)
-    start_time = begin
-      Time.zone.parse(start_str)&.beginning_of_day
-    rescue StandardError
-      nil
-    end
-    end_time = begin
-      Time.zone.parse(end_str)&.end_of_day
-    rescue StandardError
-      nil
-    end
-
-    if start_time && end_time
-      courses.where('courses.start BETWEEN ? AND ?', start_time, end_time).distinct
-    elsif start_time
-      courses.where('courses.start >= ?', start_time).distinct
-    elsif end_time
-      courses.where('courses.start <= ?', end_time).distinct
-    else
-      courses.none
-    end
+    start_time = parse_time(start_str, :beginning_of_day)
+    end_time = parse_time(end_str, :end_of_day)
+    apply_required_range_filter(courses, 'courses.start', start_time, end_time)
   end
 
   def search_courses_by_school(school)
@@ -237,182 +203,29 @@ class CoursesPresenter
   end
 
   def search_courses_by_revisions(min_str, max_str)
-    min_val = begin
-      Integer(min_str)
-    rescue StandardError
-      nil
-    end
-    max_val = begin
-      Integer(max_str)
-    rescue StandardError
-      nil
-    end
-
-    if min_val && max_val
-      courses.where('courses.recent_revision_count BETWEEN ? AND ?', min_val, max_val).distinct
-    elsif min_val
-      courses.where('courses.recent_revision_count >= ?', min_val).distinct
-    elsif max_val
-      courses.where('courses.recent_revision_count <= ?', max_val).distinct
-    else
-      courses.none
-    end
+    min_val = parse_int(min_str)
+    max_val = parse_int(max_str)
+    apply_required_range_filter(courses, 'courses.recent_revision_count', min_val, max_val)
   end
 
   def filter_courses(filters)
     scope = courses
 
-    if filters[:title_query].present?
-      q = filters[:title_query].downcase
-      scope = scope.joins(:instructors).includes(:instructors).where(
-        'lower(title) like ? OR lower(school) like ? OR lower(term) like ? OR lower(username) like ?',
-        "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
-      )
-    end
-
+    scope = filter_title(scope, filters[:title_query])
     scope = scope.where(school: filters[:school]) if filters[:school].present?
 
-    if filters[:revisions_min].present? || filters[:revisions_max].present?
-      min_val = begin
-        Integer(filters[:revisions_min])
-      rescue StandardError
-        nil
-      end
-      max_val = begin
-        Integer(filters[:revisions_max])
-      rescue StandardError
-        nil
-      end
-      if min_val && max_val
-        scope = scope.where('courses.recent_revision_count BETWEEN ? AND ?', min_val, max_val)
-      elsif min_val
-        scope = scope.where('courses.recent_revision_count >= ?', min_val)
-      elsif max_val
-        scope = scope.where('courses.recent_revision_count <= ?', max_val)
-      end
-    end
+    scope = filter_integer_range(scope, filters, :revisions_min, :revisions_max,
+                                 'courses.recent_revision_count')
+    scope = filter_integer_range(scope, filters, :word_count_min, :word_count_max,
+                                 'courses.character_sum',
+                                 multiplier: WordCount::HALFAK_EN_WIKI_ESTIMATE)
+    scope = filter_integer_range(scope, filters, :references_min, :references_max,
+                                 'courses.references_count')
+    scope = filter_integer_range(scope, filters, :views_min, :views_max, 'courses.view_sum')
+    scope = filter_integer_range(scope, filters, :users_min, :users_max, 'courses.user_count')
 
-    if filters[:word_count_min].present? || filters[:word_count_max].present?
-      w_min = begin
-        Integer(filters[:word_count_min])
-      rescue StandardError
-        nil
-      end
-      w_max = begin
-        Integer(filters[:word_count_max])
-      rescue StandardError
-        nil
-      end
-      c_min = (w_min.to_f * WordCount::HALFAK_EN_WIKI_ESTIMATE).to_i if w_min
-      c_max = (w_max.to_f * WordCount::HALFAK_EN_WIKI_ESTIMATE).to_i if w_max
-      if c_min && c_max
-        scope = scope.where('courses.character_sum BETWEEN ? AND ?', c_min, c_max)
-      elsif c_min
-        scope = scope.where('courses.character_sum >= ?', c_min)
-      elsif c_max
-        scope = scope.where('courses.character_sum <= ?', c_max)
-      end
-    end
-
-    if filters[:references_min].present? || filters[:references_max].present?
-      r_min = begin
-        Integer(filters[:references_min])
-      rescue StandardError
-        nil
-      end
-      r_max = begin
-        Integer(filters[:references_max])
-      rescue StandardError
-        nil
-      end
-      if r_min && r_max
-        scope = scope.where('courses.references_count BETWEEN ? AND ?', r_min, r_max)
-      elsif r_min
-        scope = scope.where('courses.references_count >= ?', r_min)
-      elsif r_max
-        scope = scope.where('courses.references_count <= ?', r_max)
-      end
-    end
-
-    if filters[:views_min].present? || filters[:views_max].present?
-      v_min = begin
-        Integer(filters[:views_min])
-      rescue StandardError
-        nil
-      end
-      v_max = begin
-        Integer(filters[:views_max])
-      rescue StandardError
-        nil
-      end
-      if v_min && v_max
-        scope = scope.where('courses.view_sum BETWEEN ? AND ?', v_min, v_max)
-      elsif v_min
-        scope = scope.where('courses.view_sum >= ?', v_min)
-      elsif v_max
-        scope = scope.where('courses.view_sum <= ?', v_max)
-      end
-    end
-
-    if filters[:users_min].present? || filters[:users_max].present?
-      u_min = begin
-        Integer(filters[:users_min])
-      rescue StandardError
-        nil
-      end
-      u_max = begin
-        Integer(filters[:users_max])
-      rescue StandardError
-        nil
-      end
-      if u_min && u_max
-        scope = scope.where('courses.user_count BETWEEN ? AND ?', u_min, u_max)
-      elsif u_min
-        scope = scope.where('courses.user_count >= ?', u_min)
-      elsif u_max
-        scope = scope.where('courses.user_count <= ?', u_max)
-      end
-    end
-
-    if filters[:creation_start].present? || filters[:creation_end].present?
-      c_start = begin
-        Time.zone.parse(filters[:creation_start])&.beginning_of_day
-      rescue StandardError
-        nil
-      end
-      c_end = begin
-        Time.zone.parse(filters[:creation_end])&.end_of_day
-      rescue StandardError
-        nil
-      end
-      if c_start && c_end
-        scope = scope.where('courses.created_at BETWEEN ? AND ?', c_start, c_end)
-      elsif c_start
-        scope = scope.where('courses.created_at >= ?', c_start)
-      elsif c_end
-        scope = scope.where('courses.created_at <= ?', c_end)
-      end
-    end
-
-    if filters[:start_date_start].present? || filters[:start_date_end].present?
-      s_start = begin
-        Time.zone.parse(filters[:start_date_start])&.beginning_of_day
-      rescue StandardError
-        nil
-      end
-      s_end = begin
-        Time.zone.parse(filters[:start_date_end])&.end_of_day
-      rescue StandardError
-        nil
-      end
-      if s_start && s_end
-        scope = scope.where('courses.start BETWEEN ? AND ?', s_start, s_end)
-      elsif s_start
-        scope = scope.where('courses.start >= ?', s_start)
-      elsif s_end
-        scope = scope.where('courses.start <= ?', s_end)
-      end
-    end
+    scope = filter_time_range(scope, filters, :creation_start, :creation_end, 'courses.created_at')
+    scope = filter_time_range(scope, filters, :start_date_start, :start_date_end, 'courses.start')
 
     scope.distinct
   end
@@ -518,5 +331,76 @@ class CoursesPresenter
 
   def creation_date
     I18n.l campaign.created_at.to_date
+  end
+
+  private
+
+  def parse_int(int_str)
+    return nil if int_str.blank?
+    Integer(int_str)
+  rescue StandardError
+    nil
+  end
+
+  def parse_time(time_str, method)
+    return nil if time_str.blank?
+    Time.zone.parse(time_str)&.public_send(method)
+  rescue StandardError
+    nil
+  end
+
+  def apply_required_range_filter(scope, column, min_val, max_val)
+    if min_val && max_val
+      scope.where("#{column} BETWEEN ? AND ?", min_val, max_val).distinct
+    elsif min_val
+      scope.where("#{column} >= ?", min_val).distinct
+    elsif max_val
+      scope.where("#{column} <= ?", max_val).distinct
+    else
+      scope.none
+    end
+  end
+
+  def apply_optional_range_filter(scope, column, min_val, max_val)
+    if min_val && max_val
+      scope.where("#{column} BETWEEN ? AND ?", min_val, max_val)
+    elsif min_val
+      scope.where("#{column} >= ?", min_val)
+    elsif max_val
+      scope.where("#{column} <= ?", max_val)
+    else
+      scope
+    end
+  end
+
+  def filter_title(scope, title_query)
+    return scope unless title_query.present?
+
+    q = title_query.downcase
+    scope.joins(:instructors).includes(:instructors).where(
+      'lower(title) like ? OR lower(school) like ? OR lower(term) like ? OR ' \
+      'lower(username) like ?', "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
+    )
+  end
+
+  def filter_integer_range(scope, filters, min_key, max_key, column, multiplier: 1)
+    return scope unless filters[min_key].present? || filters[max_key].present?
+
+    min_val = parse_int(filters[min_key])
+    max_val = parse_int(filters[max_key])
+
+    min_val = (min_val.to_f * multiplier).to_i if min_val && multiplier != 1
+    max_val = (max_val.to_f * multiplier).to_i if max_val && multiplier != 1
+
+    apply_optional_range_filter(scope, column, min_val, max_val)
+  end
+
+  def filter_time_range(scope, filters, start_key, end_key, column)
+    return scope unless filters[start_key].present? || filters[end_key].present?
+
+    start_val = parse_time(filters[start_key], :beginning_of_day)
+    end_val = parse_time(filters[end_key], :end_of_day)
+
+    apply_optional_range_filter(scope, column, start_val, end_val)
   end
 end
