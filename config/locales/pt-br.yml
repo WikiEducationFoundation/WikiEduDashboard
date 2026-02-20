@@ -494,7 +494,7 @@ pt-br:
       A URL %{url} não é da mesma wiki.
     username_label: Nome de usuário(a) na Wikipédia
     username_or_url_label: Nome de usuário(a) ou URL da Wikipédia
-    username_or_url_placeholder: Insira o nome de usuário(a) ou o URL completo da
+    username_or_url_placeholder: Insira o nome de usuário(a) o URL completo da
       página de testes
     preview_label: 'Pré-visualização de novos URLs:'
     sandbox_label: Página de testes
