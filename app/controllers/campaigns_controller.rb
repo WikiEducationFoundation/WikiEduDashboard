@@ -75,46 +75,13 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def users
     respond_to do |format|
       format.html do
         set_presenter
+        return render_too_many_users if @presenter.too_large?
 
-        if @presenter.too_large?
-          @too_many_message = t('campaign.too_large')
-          render 'too_many_articles'
-          return
-        end
-
-        @courses_users = CoursesUsers.where(
-          course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
-        ).eager_load(:user, :course)
-
-        if params[:username].present?
-          @courses_users = @courses_users.where('users.username LIKE ?', "%#{params[:username]}%")
-        end
-
-        if params[:min_revision_count].present?
-          @courses_users = @courses_users.where('courses_users.revision_count >= ?',
-                                                params[:min_revision_count])
-        end
-
-        if params[:max_revision_count].present?
-          @courses_users = @courses_users.where('courses_users.revision_count <= ?',
-                                                params[:max_revision_count])
-        end
-
-        if params[:course_title].present?
-          @courses_users = if params[:course_title].is_a?(Array)
-                             @courses_users.where(courses: { title: params[:course_title] })
-                           else
-                             @courses_users.where('courses.title LIKE ?',
-                                                  "%#{params[:course_title]}%")
-                           end
-        end
-
-        @courses_users = @courses_users.order(revision_count: :desc)
+        @courses_users = fetch_and_filter_courses_users
       end
 
       format.json do
@@ -123,7 +90,6 @@ class CampaignsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   def assignments
     set_campaign
@@ -155,40 +121,10 @@ class CampaignsController < ApplicationController
   def programs
     set_page
     set_presenter
-    filters = params.slice(:title_query, :creation_start, :creation_end,
-                           :start_date_start, :start_date_end,
-                           :school, :revisions_min, :revisions_max,
-                           :word_count_min, :word_count_max,
-                           :references_min, :references_max,
-                           :views_min, :views_max,
-                           :users_min, :users_max)
+    filters = extract_program_filters
 
     if filters.values.any?(&:present?)
-      parts = []
-      parts << "title: #{filters[:title_query]}" if filters[:title_query].present?
-      if filters[:creation_start].present? || filters[:creation_end].present?
-        parts << "creation: #{filters[:creation_start]} - #{filters[:creation_end]}"
-      end
-      if filters[:start_date_start].present? || filters[:start_date_end].present?
-        parts << "start: #{filters[:start_date_start]} - #{filters[:start_date_end]}"
-      end
-      parts << "school: #{filters[:school]}" if filters[:school].present?
-      if filters[:revisions_min].present? || filters[:revisions_max].present?
-        parts << "revisions: #{filters[:revisions_min]} - #{filters[:revisions_max]}"
-      end
-      if filters[:word_count_min].present? || filters[:word_count_max].present?
-        parts << "word_count: #{filters[:word_count_min]} - #{filters[:word_count_max]}"
-      end
-      if filters[:references_min].present? || filters[:references_max].present?
-        parts << "references: #{filters[:references_min]} - #{filters[:references_max]}"
-      end
-      if filters[:views_min].present? || filters[:views_max].present?
-        parts << "views: #{filters[:views_min]} - #{filters[:views_max]}"
-      end
-      if filters[:users_min].present? || filters[:users_max].present?
-        parts << "editors: #{filters[:users_min]} - #{filters[:users_max]}"
-      end
-      @search_terms = parts.join(', ')
+      @search_terms = build_search_terms(filters)
       @results = @presenter.filter_courses(filters)
     else
       @search_terms = params[:courses_query]
@@ -298,6 +234,86 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def extract_program_filters
+    params.slice(:title_query, :creation_start, :creation_end,
+                 :start_date_start, :start_date_end,
+                 :school, :revisions_min, :revisions_max,
+                 :word_count_min, :word_count_max,
+                 :references_min, :references_max,
+                 :views_min, :views_max,
+                 :users_min, :users_max)
+  end
+
+  RANGE_FILTERS = {
+    'creation'   => %i[creation_start creation_end],
+    'start'      => %i[start_date_start start_date_end],
+    'revisions'  => %i[revisions_min revisions_max],
+    'word_count' => %i[word_count_min word_count_max],
+    'references' => %i[references_min references_max],
+    'views'      => %i[views_min views_max],
+    'editors'    => %i[users_min users_max]
+  }.freeze
+
+  def build_search_terms(filters)
+    parts = []
+    parts << "title: #{filters[:title_query]}" if filters[:title_query].present?
+    parts << "school: #{filters[:school]}" if filters[:school].present?
+
+    RANGE_FILTERS.each do |label, (min, max)|
+      parts << build_range_term(label, filters[min], filters[max])
+    end
+
+    parts.compact.join(', ')
+  end
+
+  def build_range_term(label, min, max)
+    return nil if min.blank? && max.blank?
+    "#{label}: #{min} - #{max}"
+  end
+
+  def render_too_many_users
+    @too_many_message = t('campaign.too_large')
+    render 'too_many_articles'
+  end
+
+  def fetch_and_filter_courses_users
+    courses_users = CoursesUsers.where(
+      course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
+    ).eager_load(:user, :course)
+
+    courses_users = filter_by_username(courses_users)
+    courses_users = filter_by_revision_count(courses_users)
+    courses_users = filter_by_course_title(courses_users)
+
+    courses_users.order(revision_count: :desc)
+  end
+
+  def filter_by_username(courses_users)
+    return courses_users unless params[:username].present?
+    courses_users.where('users.username LIKE ?', "%#{params[:username]}%")
+  end
+
+  def filter_by_revision_count(courses_users)
+    if params[:min_revision_count].present?
+      courses_users = courses_users.where('courses_users.revision_count >= ?',
+                                          params[:min_revision_count])
+    end
+    if params[:max_revision_count].present?
+      courses_users = courses_users.where('courses_users.revision_count <= ?',
+                                          params[:max_revision_count])
+    end
+    courses_users
+  end
+
+  def filter_by_course_title(courses_users)
+    return courses_users unless params[:course_title].present?
+    if params[:course_title].is_a?(Array)
+      courses_users.where(courses: { title: params[:course_title] })
+    else
+      courses_users.where('courses.title LIKE ?', "%#{params[:course_title]}%")
+    end
+  end
 
   def require_create_permissions
     require_signed_in
