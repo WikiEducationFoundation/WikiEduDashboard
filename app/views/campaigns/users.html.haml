@@ -1,4 +1,6 @@
 - content_for :before_title, t('courses.campaign_users', title: @campaign.title) + ' — '
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
+= hot_javascript_tag 'campaigns'
 
 #react_root{data: {slug: @campaign.slug}}
 
@@ -15,6 +17,34 @@
           %option{rel: "asc", value: "username"}= t('users.username')
           %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
           %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
+      = form_tag users_campaign_path(@campaign.slug), method: :get, class: 'users-search-form' do
+        .form-fields
+          .form-row
+            = text_field_tag :username, params[:username], placeholder: t('users.username'), class: 'input-full-width'
+          %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: "button"}
+            = t('form_search.advanced_search')
+          #advanced_search_fields.hidden
+            .form-row.relative
+              = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', class: 'course-title-select-wrapper'
+              :javascript
+                document.addEventListener('DOMContentLoaded', () => {
+                  if (typeof TomSelect !== 'undefined') {
+                    new TomSelect('#course_title_search', {
+                      plugins: ['remove_button'],
+                      placeholder: "#{t(@presenter.course_string_prefix + '.course')}...",
+                      allowEmptyOption: true
+                    });
+                  }
+                });
+            .form-row.advanced-search-grid-small
+              %label{for: 'min_revision_count'}= t('courses.edit_count')
+              .input-group.flex-input-group
+                = number_field_tag :min_revision_count, params[:min_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+                %span -
+                = number_field_tag :max_revision_count, params[:max_revision_count], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+          .form-actions
+            = submit_tag t('form_search.search'), class: 'button'
+            = link_to t('form_search.clear'), users_campaign_path(@campaign.slug), class: 'button'
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
@@ -28,12 +58,43 @@
             = t("#{@presenter.course_string_prefix}.course")
             %span.sortable-indicator
       %tbody.list
-        - @courses_users.each do |cu|
+        - @courses_users.to_a.uniq(&:user_id).each do |cu|
+          - courses_list = cu.user.courses_users.where(role: 0).includes(:course)
           %tr
             %td.username
               = link_to cu.user.username, "/users/#{cu.user.username}"
             %td.revision-count
-              = cu.revision_count
+              - if courses_list.length > 1
+                = courses_list.sum(&:revision_count)
+              - else
+                = cu.revision_count
             %td.title
               %small
-                = link_to cu.course.title, course_slug_path(cu.course.slug)
+                - if courses_list.length > 2
+                  - courses_list.first(2).each do |uc|
+                    = link_to uc.course.title, course_slug_path(uc.course.slug)
+                    %br
+                  %details.course-list-details
+                    %summary{data: {see_more: t('application.see_more'), see_less: t('application.see_less')}}
+                      = t('application.see_more')
+                    - courses_list.drop(2).each do |uc|
+                      = link_to uc.course.title, course_slug_path(uc.course.slug)
+                      %br
+                - elsif courses_list.length > 1
+                  - courses_list.each do |uc|
+                    = link_to uc.course.title, course_slug_path(uc.course.slug)
+                    %br
+                - else
+                  = link_to cu.course.title, course_slug_path(cu.course.slug)
+
+:javascript
+  document.addEventListener('toggle', function(e) {
+    if (e.target.classList.contains('course-list-details')) {
+      var summary = e.target.querySelector('summary');
+      if (summary) {
+        var seeMore = summary.getAttribute('data-see-more');
+        var seeLess = summary.getAttribute('data-see-less');
+        summary.innerText = e.target.open ? seeLess : seeMore;
+      }
+    }
+  }, true);

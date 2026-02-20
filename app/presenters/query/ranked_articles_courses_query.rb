@@ -5,11 +5,23 @@
 # This is used to cleanly separate query logic from presenter code.
 # It uses a deferred join via a subquery for improved performance on large datasets.
 class Query::RankedArticlesCoursesQuery
-  def initialize(courses:, per_page:, offset:, too_many:)
+  def initialize(courses:, per_page:, offset:, too_many:, article_title: nil, course_title: nil,
+                 char_added_from: nil, char_added_to: nil,
+                 references_count_from: nil, references_count_to: nil,
+                 view_count_from: nil, view_count_to: nil, school: nil)
     @courses = courses
     @per_page = per_page
     @offset = offset
     @too_many = too_many
+    @article_title = article_title
+    @course_title = course_title
+    @school = school
+    @char_added_from = char_added_from
+    @char_added_to = char_added_to
+    @references_count_from = references_count_from
+    @references_count_to = references_count_to
+    @view_count_from = view_count_from
+    @view_count_to = view_count_to
   end
 
   # Builds the final scope by joining the subquery on ID, used to fetch paginated and ranked results. # rubocop:disable Layout/LineLength
@@ -24,14 +36,41 @@ class Query::RankedArticlesCoursesQuery
 
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
   def subquery
-    ArticlesCourses
-      .includes(:article)
-      .where(course_id: @courses.map(&:id), tracked: true)
-      .select(:id)
-      .then do |q|
-        @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')
-      end
-      .limit(@per_page)
-      .offset(@offset)
+    q = ArticlesCourses
+        .includes(:article, :course)
+        .where(course_id: @courses.map(&:id), tracked: true)
+
+    q = apply_text_filters(q)
+    q = apply_range_filters(q)
+
+    q = q.select(:id)
+    q = @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')
+    q.limit(@per_page).offset(@offset)
+  end
+
+  private
+
+  def apply_text_filters(query)
+    q = query
+    q = q.where('articles.title LIKE ?', "%#{@article_title}%") if @article_title
+    q = q.where('courses.title LIKE ?', "%#{@course_title}%") if @course_title
+    q = q.where(courses: { school: @school }) if @school
+    q
+  end
+
+  def apply_range_filters(query)
+    q = query
+    q = apply_min_max(q, 'articles_courses.character_sum', @char_added_from, @char_added_to)
+    q = apply_min_max(q, 'articles_courses.references_count', @references_count_from,
+                      @references_count_to)
+    q = apply_min_max(q, 'articles_courses.view_count', @view_count_from, @view_count_to)
+    q
+  end
+
+  def apply_min_max(query, column, min_val, max_val)
+    q = query
+    q = q.where("#{column} >= ?", min_val) if min_val.present?
+    q = q.where("#{column} <= ?", max_val) if max_val.present?
+    q
   end
 end

@@ -8,22 +8,34 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import i18n from './i18n';
+import flatpickr from 'flatpickr';
+import TomSelect from 'tom-select';
+import Spanish from 'flatpickr/dist/l10n/es.js';
+import Portuguese from 'flatpickr/dist/l10n/pt.js';
 
 require('location-origin');
 require('@rails/ujs').start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 window.List = require('list.js'); // List is used for sorting tables outside of React
 
+window.flatpickr = flatpickr;
+window.TomSelect = TomSelect;
+
+window.flatpickrLocales = {
+  es: Spanish.es,
+  pt: Portuguese.pt
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   /* eslint-disable */
   import('./utils/course.js'); // This adds jquery features for some views outside of React
-  
+
   // This is the main React entry point. It renders the navbar throughout the app, and
   // renders other components depending on the route.
   import('./components/app.jsx');
-  import('events').then(({default: events}) => {
+  import('events').then(({ default: events }) => {
     events.EventEmitter.defaultMaxListeners = 30;
   });
-    
+
 });
 
 i18n.defaultLocale = defaultLocale;
