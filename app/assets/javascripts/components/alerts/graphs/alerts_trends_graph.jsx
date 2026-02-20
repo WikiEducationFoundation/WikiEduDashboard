@@ -6,17 +6,19 @@ const renderGraph = (statsData, pageTypes, labels) => {
   const vegaSpec = {
     width: 800,
     height: 250,
-    padding: { top: 40, left: 70, right: 20, bottom: 50 },
+    padding: { top: 40, left: 0, right: 20, bottom: 50 },
 
     // //////////
     // Legends //
     // //////////
     legends: [
       {
+        orient: 'top',
+        columns: 4,
         fill: 'color',
-        labelFontSize: 16,
+        labelFontSize: 14,
         title: 'Page type',
-        titleFontSize: 16,
+        titleFontSize: 14,
         titlePadding: 16,
         rowPadding: 8,
         labelLimit: 2000,
