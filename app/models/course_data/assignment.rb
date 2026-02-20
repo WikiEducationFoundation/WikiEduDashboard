@@ -47,7 +47,7 @@ class Assignment < ApplicationRecord
   before_validation :set_defaults_and_normalize
   before_save :set_sandbox_url
 
-  serialize :flags, Hash
+  serialize :flags, type: Hash
 
   delegate :status, to: :assignment_pipeline
   delegate :update_status, to: :assignment_pipeline

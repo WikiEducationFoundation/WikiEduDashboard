@@ -49,8 +49,8 @@ describe OnboardingController, type: :request do
     end
 
     it 'does not onboard with invalid params' do
-      expect { put '/onboarding/onboard', params: { real_name: 'Name', email: 'email@email.org' } }
-        .to raise_error ActionController::ParameterMissing
+      put '/onboarding/onboard', params: { real_name: 'Name', email: 'email@email.org' }
+      expect(response.status).to eq(400).or eq(422)
     end
 
     it 'remains an admin regardless of instructor param' do

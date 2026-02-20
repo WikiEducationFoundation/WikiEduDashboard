@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 ### Basic Framework
-gem 'rails', '7.1.0'
+gem 'rails', '7.2.0'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -46,7 +46,7 @@ gem 'griddler-mailgun'
 
 ### Survey and Ticketing features, implemented as a rails engines
 # If you want to be able to hack locally on rapidfire or ticket_dispenser, use `path:` instead of `git:`.
-gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git'
+gem 'ticket_dispenser', git: 'https://github.com/WikiEducationFoundation/TicketDispenser.git', ref: 'fb9f737'
 # gem 'ticket_dispenser', path: '../TicketDispenser'
 gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', branch: 'master'
 # gem 'rapidfire', path: './vendor/rapidfire'

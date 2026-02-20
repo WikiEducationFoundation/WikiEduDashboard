@@ -29,7 +29,8 @@ describe TrainingController, type: :request do
       let(:library_id) { 'lolnotareallibrary' }
 
       it 'raises a module not found error' do
-        expect { subject }.to raise_error ActionController::RoutingError
+        subject
+        expect(response.status).to eq(404)
       end
     end
   end
@@ -59,7 +60,8 @@ describe TrainingController, type: :request do
       let(:module_id) { 'lolnotarealmodule' }
 
       it 'raises a module not found error' do
-        expect { subject }.to raise_error ActionController::RoutingError
+        subject
+        expect(response.status).to eq(404)
       end
     end
   end
@@ -166,7 +168,8 @@ describe TrainingController, type: :request do
       let(:module_id) { 128456 }
 
       it 'raises a module not found error' do
-        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+        subject
+        expect(response.status).to eq(404)
       end
     end
   end
@@ -188,7 +191,8 @@ describe TrainingController, type: :request do
       let(:slide_id) { slide.id }
 
       it 'raises a routing error' do
-        expect { subject }.to raise_error ActionController::RoutingError, 'module not found'
+        subject
+        expect(response.status).to eq(404)
       end
     end
 
@@ -205,7 +209,8 @@ describe TrainingController, type: :request do
       let(:slide_id) { 128456 }
 
       it 'raises a module not found error' do
-        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+        subject
+        expect(response.status).to eq(404)
       end
     end
   end
