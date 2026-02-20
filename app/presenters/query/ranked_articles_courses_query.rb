@@ -36,65 +36,41 @@ class Query::RankedArticlesCoursesQuery
 
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
   def subquery
-    ArticlesCourses
-      .includes(:article, :course)
-      .where(course_id: @courses.map(&:id), tracked: true)
-      .then { |q| @article_title ? q.where('articles.title LIKE ?', "%#{@article_title}%") : q }
-      .then { |q| @course_title ? q.where('courses.title LIKE ?', "%#{@course_title}%") : q }
-      .then { |q| @school ? q.where(courses: { school: @school }) : q }
-      .then do |q|
-      if @char_added_from.present?
-        q.where('articles_courses.character_sum >= ?',
-                @char_added_from)
-      else
-        q
-      end
-    end
-      .then do |q|
-      if @char_added_to.present?
-        q.where('articles_courses.character_sum <= ?',
-                @char_added_to)
-      else
-        q
-      end
-    end
-      .then do |q|
-      if @references_count_from.present?
-        q.where('articles_courses.references_count >= ?',
-                @references_count_from)
-      else
-        q
-      end
-    end
-      .then do |q|
-      if @references_count_to.present?
-        q.where('articles_courses.references_count <= ?',
-                @references_count_to)
-      else
-        q
-      end
-    end
-      .then do |q|
-      if @view_count_from.present?
-        q.where('articles_courses.view_count >= ?',
-                @view_count_from)
-      else
-        q
-      end
-    end
-      .then do |q|
-      if @view_count_to.present?
-        q.where('articles_courses.view_count <= ?',
-                @view_count_to)
-      else
-        q
-      end
-    end
-      .select(:id)
-      .then do |q|
-        @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')
-      end
-      .limit(@per_page)
-      .offset(@offset)
+    q = ArticlesCourses
+        .includes(:article, :course)
+        .where(course_id: @courses.map(&:id), tracked: true)
+
+    q = apply_text_filters(q)
+    q = apply_range_filters(q)
+
+    q = q.select(:id)
+    q = @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')
+    q.limit(@per_page).offset(@offset)
+  end
+
+  private
+
+  def apply_text_filters(query)
+    q = query
+    q = q.where('articles.title LIKE ?', "%#{@article_title}%") if @article_title
+    q = q.where('courses.title LIKE ?', "%#{@course_title}%") if @course_title
+    q = q.where(courses: { school: @school }) if @school
+    q
+  end
+
+  def apply_range_filters(query)
+    q = query
+    q = apply_min_max(q, 'articles_courses.character_sum', @char_added_from, @char_added_to)
+    q = apply_min_max(q, 'articles_courses.references_count', @references_count_from,
+                      @references_count_to)
+    q = apply_min_max(q, 'articles_courses.view_count', @view_count_from, @view_count_to)
+    q
+  end
+
+  def apply_min_max(query, column, min_val, max_val)
+    q = query
+    q = q.where("#{column} >= ?", min_val) if min_val.present?
+    q = q.where("#{column} <= ?", max_val) if max_val.present?
+    q
   end
 end
