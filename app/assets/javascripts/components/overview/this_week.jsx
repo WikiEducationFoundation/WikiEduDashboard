@@ -62,7 +62,7 @@ const ThisWeek = ({ course, weeks, current_user }) => {
     weekComponent = (
       <Week
         week={week}
-        timeline_start={course.timeline_start}
+        timeline_start={CourseDateUtils.effectiveTimelineStart(course)}
         timeline_end={course.timeline_end}
         index={weekIndex}
         key={week.id}

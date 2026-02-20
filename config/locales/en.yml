@@ -1493,6 +1493,7 @@ en:
     chose_search_type: Choose a search type
 
   timeline:
+    add_assignment: Add Assignment
     add_week: Add Week
     arrange_timeline: Arrange Timeline
     arrange_timeline_instructions: >
@@ -1547,6 +1548,8 @@ en:
     save_all_changes: Save All
     this_week_title_default: This Week
     title: Timeline
+    too_many_weeks_warning: >
+      WARNING! There are not enough non-holiday weeks before the assignment end date! You can click 'Edit Course Dates' to set the meeting dates and holiday dates.
     unable_to_add_week: >
       You cannot add new weeks when your timeline is full. Delete at least one
       week or change your assignment dates to make room for a new one.

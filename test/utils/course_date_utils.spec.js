@@ -124,10 +124,11 @@ describe('courseDateUtils.weeksBeforeTimeline', () => {
     const output = CourseDateUtils.weeksBeforeTimeline(course);
     expect(output).toBe(1);
   });
-  test('counts partial weeks if they cross between Sunday-bounded weeks', () => {
+  test('does not count partial weeks as full weeks for short gaps', () => {
+    // Thu Jul 6 → Mon Jul 10: only 4 days apart, should not create a phantom week
     const course = { start: '2017-07-06', timeline_start: '2017-07-10' };
     const output = CourseDateUtils.weeksBeforeTimeline(course);
-    expect(output).toBe(1);
+    expect(output).toBe(0);
   });
   test('rounds down to the number of week boundaries crossed', () => {
     const course = { start: '2017-07-02', timeline_start: '2017-07-13' };
@@ -136,9 +137,10 @@ describe('courseDateUtils.weeksBeforeTimeline', () => {
   });
   test('works for longer stretches', () => {
     // Example dates from a Fall 2017 course
+    // Aug 29 → Oct 23 = 55 days = 7 full weeks
     const course = { start: '2017-08-29', timeline_start: '2017-10-23' };
     const output = CourseDateUtils.weeksBeforeTimeline(course);
-    expect(output).toBe(8);
+    expect(output).toBe(7);
   });
 });
 

@@ -113,7 +113,7 @@ const CourseDateUtils = {
     const selectedDay = toDate(day);
     let noMeetingsThisWeek = true;
     [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
-      const wkDay = format(addDays(startOfWeek(selectedDay), i), 'yyyyMMdd');
+      const wkDay = format(addDays(startOfWeek(selectedDay, { weekStartsOn: 0 }), i), 'yyyyMMdd');
       if (this.courseMeets(course.weekdays, i, wkDay, exceptions.join(','))) {
         return (noMeetingsThisWeek = false);
       }
@@ -122,25 +122,44 @@ const CourseDateUtils = {
   },
 
   weeksBeforeTimeline(course) {
-    const courseStart = startOfWeek(toDate(course.start));
-    const timelineStart = startOfWeek(toDate(course.timeline_start));
+    const courseStart = toDate(course.start);
+    const timelineStart = toDate(this.effectiveTimelineStart(course));
     return differenceInWeeks(timelineStart, courseStart);
+  },
+
+  // If the timeline starts mid-week and there are no meetings in
+  // that first partial week, advance the effective start to the next
+  // Sunday so we don't generate an empty "Week 1". (#2360)
+  effectiveTimelineStart(course) {
+    const ts = toDate(course.timeline_start);
+    const dayOfWeek = getDay(ts);
+    if (dayOfWeek === 0 || !course.weekdays) return course.timeline_start;
+
+    const weekStart = startOfWeek(ts, { weekStartsOn: 0 });
+    for (let i = dayOfWeek; i <= 6; i += 1) {
+      const day = addDays(weekStart, i);
+      if (this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), course.day_exceptions || '')) {
+        return course.timeline_start;
+      }
+    }
+    return format(addDays(weekStart, 7), 'yyyy-MM-dd');
   },
 
   // Returns array describing weekday meetings for each week
   // Ex: [["Sunday (01/09)"], ["Sunday (01/16)", "Wednesday (01/19)", "Thursday (01/20)"], []]
   weekMeetings(course, exceptions) {
-    const weekEnd = endOfWeek(toDate(course.timeline_end));
-    let weekStart = startOfWeek(toDate(course.timeline_start));
-    const firstWeekStart = getDay(toDate(course.timeline_start));
+    const effectiveStart = this.effectiveTimelineStart(course);
+    const weekEnd = endOfWeek(toDate(course.timeline_end), { weekStartsOn: 0 });
+    let weekStart = startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 });
+    const firstWeekStart = getDay(toDate(effectiveStart));
     const courseWeeks = differenceInWeeks(weekEnd, weekStart, { roundingMethod: 'round' });
     const meetings = [];
 
     // eslint-disable-next-line no-restricted-syntax
     for (const week of range(0, (courseWeeks - 1), true)) {
-      weekStart = addWeeks(startOfWeek(toDate(course.timeline_start)), week);
+      weekStart = addWeeks(startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 }), week);
 
-      let weekendDate = endOfWeek(toDate(weekStart));
+      let weekendDate = endOfWeek(toDate(weekStart), { weekStartsOn: 0 });
       if (isAfter(weekendDate, toDate(course.end))) {
         weekendDate = toDate(course.end);
       }
