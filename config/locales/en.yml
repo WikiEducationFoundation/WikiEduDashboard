@@ -167,8 +167,8 @@ en:
       total: Total
       last_week: Last week
       sections:
-        contents: Table of contents for lists
-        go_back: Go back to contents
+        contents: Page contents
+        general_stats: General stats
         name: Name
         description: Description
         courses_with_ai_alerts: Courses with multiple AI alerts
