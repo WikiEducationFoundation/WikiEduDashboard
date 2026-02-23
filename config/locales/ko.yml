@@ -756,6 +756,10 @@ ko:
         elevate_success: '%{username}님은 {position}(으)로 승격되었습니다.'
       remove:
         already_is_not: '%{username}님은 특수 사용자가 아닙니다!'
+    disallowed_users:
+      add_button: 사용자 추가
+      remove_button: 제거
+      submit_button: 제출
   status:
     daily_update: 일일 업데이트
     default: 기본값
@@ -966,6 +970,9 @@ ko:
   login_error:
     header: 로그인 오류
     explanation: 로그인 과정에 문제가 있는 것 같습니다(가끔씩 발생하는 오류입니다). 로그인이나 등록을 다시 시도해 주세요.
+  notifications:
+    new_notifications: 새로운 알림이 있습니다.
+    no_notifications: 새로운 알림이 없습니다.
   survey:
     login_message: 시간 내 주셔서 고맙습니다. 설문 조사에 참여하려면 대시보드에 로그인 해주세요,
     follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
