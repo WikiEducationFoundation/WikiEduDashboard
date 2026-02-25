@@ -325,6 +325,22 @@ describe CoursesController, type: :request do
         put "/courses/#{course.slug}", params:, headers:, as: :json
       end
     end
+
+    context 'when a slug collision occurs at the database level' do
+      let!(:course1) { create(:course, slug: 'Mongolia-Outreach') }
+      let!(:course2) { create(:course, slug: 'Summer-Camp') }
+
+      it 'rescues from RecordNotUnique and returns a 409 Conflict with a helpful message' do
+        # Force a collision by attempting to set course2's slug to match course1
+        params = { course: { slug: course1.slug } }
+        put "/courses/#{course2.slug}", params: params, as: :json
+
+        expect(response).to have_http_status(:conflict) 
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['message']).to include('already taken')
+      end
+    end
   end
 
   describe '#create' do
