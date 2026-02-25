@@ -32,6 +32,7 @@ require_dependency "#{Rails.root}/lib/utils"
 class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
+  after_save :update_assignment_sandbox_urls, if: :saved_change_to_username?
   include MediawikiUrlHelper
 
   #############
@@ -102,6 +103,21 @@ class User < ApplicationRecord
   def self.search_by_real_name(real_name)
     User.where('lower(real_name) like ?', "%#{real_name}%")
   end
+
+  private
+
+  def update_assignment_sandbox_urls
+    old_username, new_username = saved_change_to_username
+    return unless old_username
+
+    assignments.each do |assignment|
+      next unless assignment.sandbox_url == assignment.default_sandbox_url(old_username)
+
+      assignment.update(sandbox_url: assignment.default_sandbox_url(new_username))
+    end
+  end
+
+  public
 
   ####################
   # Instance methods #

@@ -373,4 +373,41 @@ describe User do
       expect(result).to eq([search_user, similar_search_user])
     end
   end
+
+  describe '#update_assignment_sandbox_urls' do
+    let(:course) { create(:course) }
+    let(:wiki) { Wiki.default_wiki }
+    let(:user) { create(:user, username: 'Original_Username') }
+    let!(:assignment) do
+      create(:assignment,
+             user:,
+             course:,
+             wiki:,
+             article_title: 'Test_Article',
+             sandbox_url: "#{wiki.base_url}/wiki/User:Original_Username/Test_Article")
+    end
+
+    context 'when the username changes' do
+      it 'updates the sandbox_url to use the new username' do
+        user.update!(username: 'New_Username')
+        expect(assignment.reload.sandbox_url)
+          .to eq("#{wiki.base_url}/wiki/User:New_Username/Test_Article")
+      end
+
+      it 'does not update sandbox_url if it was manually customised' do
+        custom_url = "#{wiki.base_url}/wiki/User:Original_Username/My_Custom_Sandbox"
+        assignment.update_column(:sandbox_url, custom_url)
+        user.update!(username: 'New_Username')
+        expect(assignment.reload.sandbox_url).to eq(custom_url)
+      end
+    end
+
+    context 'when the username does not change' do
+      it 'does not alter the sandbox_url' do
+        original_url = assignment.sandbox_url
+        user.update!(email: 'new@example.com')
+        expect(assignment.reload.sandbox_url).to eq(original_url)
+      end
+    end
+  end
 end
