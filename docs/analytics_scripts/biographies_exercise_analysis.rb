@@ -29,14 +29,33 @@ aa_scientists_cat.refresh_titles # 507 titles in March, 508 in April, 509 in Jun
 hla_scientists_cat = Category.get_or_create(wiki: en_wiki, name: 32906566, depth: 0, source: 'psid' )
 hla_scientists_cat.refresh_titles # 271 titles in March and April; 275 in June; 284 in November 2025
 
+# More general cats added in late 2025
+# https://en.wikipedia.org/wiki/Category:American_social_scientists
+# https://en.wikipedia.org/wiki/Category:American_scientists
+# https://en.wikipedia.org/wiki/Category:American_humanities_academics
+# https://en.wikipedia.org/wiki/Category:Canadian_academics
+# Depth 4 (probably good enough)
+# https://petscan.wmcloud.org/?psid=43287394
+newer_cats = Category.get_or_create(wiki: en_wiki, name: 43287394, depth: 0, source: 'psid' )
+newer_cats.refresh_titles
+
 exercise_biographies = wikidata_cat.article_titles + aa_scientists_cat.article_titles + hla_scientists_cat.article_titles
+newer_biographies = newer_cats.article_titles - exercise_biographies
 
 bio_article_ids = Article.where(title: exercise_biographies, namespace: 0, wiki_id: 1).map(&:id)
 # 1667 ids in April; 1678 in June; 1910 in November 2025
+newer_article_ids = Article.where(title: newer_biographies, namespace: 0, wiki_id: 1).map(&:id)
+# 15383 in February 2026
 
 spring_2025 = Campaign.find_by_slug 'spring_2025'
 spring_2025_ac = ArticlesCourses.where(course: spring_2025.courses, article_id: bio_article_ids)
 # 464 in March, 630 in April, 666 in June
+
+spring_2026 = Campaign.find_by_slug 'spring_2026'
+spring_2026_ac = ArticlesCourses.where(course: spring_2026.courses, article_id: bio_article_ids)
+# 249 as of February 25 2026
+spring_2026_newer_ac = ArticlesCourses.where(course: spring_2026.courses, article_id: newer_article_ids)
+# 240 as of February 25 2026
 
 CSV.open("/home/sage/broadcom_bios_june_13.csv", 'wb') do |csv|
   csv << %w[article_title course student references_added bytes_added from_wikidata_list from_aa_scientists_cat from_hla_scientists_cat]
@@ -63,3 +82,4 @@ CSV.open("/home/sage/broadcom_bios_november_24_2025.csv", 'wb') do |csv|
     csv << [title, ac.course.slug, student&.username, ac.references_count, ac.character_sum, wikidata_cat.article_titles.include?(title), aa_scientists_cat.article_titles.include?(title), hla_scientists_cat.article_titles.include?(title)]
   end
 end; nil
+
