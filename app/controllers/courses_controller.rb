@@ -521,7 +521,8 @@ rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique_slug_error
   end
 
   def record_not_unique_slug_error(e)
-    message = I18n.t('courses.error.duplicate_course_slug', slug: params[:course][:slug])
+    slug = @course&.slug || ''
+    message = I18n.t('courses.error.duplicate_course_slug', slug: slug)
     render json: { message: message, error: e.message }, status: :conflict
   end
 end

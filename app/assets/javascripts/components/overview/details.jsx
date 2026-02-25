@@ -33,7 +33,6 @@ import NamespaceSelect from '../common/namespace_select.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
-import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
@@ -681,7 +680,6 @@ const Details = createReactClass({
     return (
       <div className="modal-course-details">
         <Modal>
-          <Notifications />
           {shared}
         </Modal>
       </div>
