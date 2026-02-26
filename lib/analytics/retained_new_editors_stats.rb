@@ -6,24 +6,27 @@ class RetainedNewEditorsStats
     @course = course
   end
 
-  def count
-    return 0 if @course.end.nil? || new_editors.empty?
+  def count 
 
-    threshold = (@course.end + DAYS_AFTER_END.days)
+    return 0 if new_editors.empty?
 
-    retained = 0
+    result = Rails.cache.fetch("retained_new_editors_#{@course.id}", expires_in: 7.days) do
 
-    # Current implementation is limited to home_wiki
-    # does not aggregate across all course wikis
+      retained = 0      
+      threshold = @course.end + DAYS_AFTER_END.days
 
-    wiki = @course.home_wiki || @course.wikis.first
+      # Current implementation is limited to home_wiki
+      # does not aggregate across all course wikis
+      wiki = @course.home_wiki
 
-    new_editors.pluck(:username).in_groups_of(40, false) do |batch|
-      next if batch.empty?
-      retained += count_retained_in_batch(batch, threshold, wiki)
+      new_editors.pluck(:username).in_groups_of(40, false) do |batch|
+        next if batch.empty?
+        retained += count_retained_in_batch(batch, threshold, wiki)
+      end
+      retained
     end
 
-    retained
+    result
   end
 
   private
