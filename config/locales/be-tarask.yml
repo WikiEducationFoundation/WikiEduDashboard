@@ -423,6 +423,7 @@ be-tarask:
     course_details: Дэталі курсу
     term: Тэрмін
     timeline: Дэталі заданьня
+    timeline_enabled: Расклад увамкнёны
     timeline_link: Расклад
     title: Назва
     training_due: Навучальны модуль «%{title}» прызначаны да гэтага курсу і павінен
