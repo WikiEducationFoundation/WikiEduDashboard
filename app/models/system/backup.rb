@@ -16,6 +16,8 @@ class Backup < ApplicationRecord
   IN_PROCESS = %w[waiting running].freeze
 
   def self.current_backup
+    # Force uncaching because otherwise pause_until_no_backup may sleep more
+    # than necessary since it doesn't detect the backup finished.
     ActiveRecord::Base.uncached do
       Backup.find_by(status: IN_PROCESS)
     end
