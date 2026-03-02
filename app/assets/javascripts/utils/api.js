@@ -238,9 +238,9 @@ const API = {
      try {
          const response = await request(`/faq/${newsTitle}/handle_special_faq_query`);
          const { newsDetails } = await response.json();
-      // Update throttle cache
-      _lastFetchNewsTime = Date.now();
-      _lastFetchNewsResult = newsDetails;
+        // Update throttle cache
+        _lastFetchNewsTime = Date.now();
+        _lastFetchNewsResult = newsDetails;
          return newsDetails;
      } catch (error) {
          logErrorMessage('Error creating news:', error)
