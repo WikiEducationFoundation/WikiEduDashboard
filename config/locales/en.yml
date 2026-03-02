@@ -153,13 +153,13 @@ en:
     no_data: No data found.
     ai_stats:
       timestamp: Timestamp
-      title: AI Edit Alerts Stats
-      general_stats: General Stats for %{campaign_name}
+      title: AI Edit Alerts Stats for %{campaign_name}
       total_alerts: Total AI Edit Alerts
-      with_followup: With followup
+      with_followup: AI Edit Alerts with followup
       multiple_alerts_students: Students with multiple alerts
       multiple_alerts_pages: Pages with multiple alerts
       pangram_url: Pangram URL
+      go_to_pangram: Go to Pangram
       revision_diff: Revision diff
       single_alert_view: Alert
       alerts_in_mainspace: Alerts in mainspace
@@ -167,8 +167,8 @@ en:
       total: Total
       last_week: Last week
       sections:
-        contents: Table of contents for lists
-        go_back: Go back to contents
+        contents: Page contents
+        general_stats: General stats
         name: Name
         description: Description
         courses_with_ai_alerts: Courses with multiple AI alerts
