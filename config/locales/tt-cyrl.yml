@@ -2,10 +2,26 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ерней
+# Author: Ильгиз
 # Author: Ильнар
 ---
 tt-cyrl:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: К
+          million: М
+          billion: Млрд
+          trillion: Трлн
+          quadrillion: Квдрлн
+  accessibility:
+    number_field: Монда саннар кертелә. Күпчелек браузерларда күрсәтелә торган төймәләр
+      ярдәмендә кыйммәте арттырырга һәм киметергә була.
   application:
+    back: Кирегә
+    cancel: Баш тарту
     help: Ярдәм
     home: Баш
     change: Үзгәртү
