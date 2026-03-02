@@ -23,5 +23,5 @@ class RevisionAiScore < ApplicationRecord
   belongs_to :course
   belongs_to :user
 
-  serialize :details, Hash
+  serialize :details, type: Hash
 end
