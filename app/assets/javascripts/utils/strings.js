@@ -8,3 +8,10 @@ export function trunc(str, truncation = 15) {
   }
   return str.valueOf();
 }
+export function safeDecodeURIComponent(str) {
+  try {
+    return decodeURIComponent(str);
+  } catch (e) {
+    return str;
+  }
+}

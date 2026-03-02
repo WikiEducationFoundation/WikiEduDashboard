@@ -10,11 +10,11 @@ export const TrainingModuleRows = ({ trainings }) => {
   return trainings.map((trainingModule) => {
     // due_date is not defined for the user profile page. This prevents the error from toDate if due_date is not defined
     const dueDate = toDate(trainingModule.due_date, !trainingModule.due_date);
-    const dueDateFormatted = format(dueDate, 'MMM do, yyyy');
-    const overdue = trainingModule.overdue || isBefore(
+    const dueDateFormatted = isValid(dueDate) ? format(dueDate, 'MMM do, yyyy') : null;
+    const overdue = trainingModule.overdue || (isValid(dueDate) && isBefore(
       endOfDay(dueDate),
       toDate(trainingModule.completion_date)
-    );
+    ));
     let moduleStatus;
     if (trainingModule.completion_date) {
       // Only display completion times under 1 hour, since
@@ -23,13 +23,19 @@ export const TrainingModuleRows = ({ trainings }) => {
       // was actually spent on it.
       let completionTime = '';
       if (trainingModule.completion_time <= 60 * 60) {
-        const completion_time_duration = intervalToDuration({ start: 0, end: trainingModule.completion_time * 1000 });
-        completionTime = `${I18n.t('training_status.completion_time')}: ${completion_time_duration.minutes} ${I18n.t('users.training_module_time.minutes')} ${completion_time_duration.seconds} ${I18n.t('users.training_module_time.seconds')}`;
+        const completionTimeDuration = intervalToDuration({ start: 0, end: trainingModule.completion_time * 1000 });
+        completionTime = `${I18n.t('training_status.completion_time')}: ${completionTimeDuration.minutes} ${I18n.t('users.training_module_time.minutes')} ${completionTimeDuration.seconds} ${I18n.t('users.training_module_time.seconds')}`;
       }
+
+      const completionDate = toDate(trainingModule.completion_date, true);
+      const completionDateLabel = isValid(completionDate)
+        ? `${I18n.t('training_status.completed_at')}: ${formatDateWithTime(trainingModule.completion_date)}`
+        : '';
+
       moduleStatus = (
         <>
           <span className="completed">
-            {I18n.t('training_status.completed_at')}: {formatDateWithTime(trainingModule.completion_date)}
+            {completionDateLabel}
           </span>
           { overdue && <span> ({I18n.t('training_status.late')})</span> }
           <br/>
@@ -54,7 +60,7 @@ export const TrainingModuleRows = ({ trainings }) => {
       <tr className={trainingModule.due_date && isTrainingDue(trainingModule.due_date) ? 'student-training-module due-training' : 'student-training-module'} key={trainingModule.id}>
         <td>{trainingModule.module_name}
           {/* Only display the date if it is valid. On the users page, we don't fetch the due date so this is expected */}
-          {isValid(dueDateFormatted) && <small>Due by { dueDateFormatted }</small>}
+          {dueDateFormatted && <small>{I18n.t('training_status.due_by', { due_date: dueDateFormatted })} </small>}
         </td>
         <td>
           { moduleStatus }
