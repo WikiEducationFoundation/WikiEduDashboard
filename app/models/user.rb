@@ -104,21 +104,6 @@ class User < ApplicationRecord
     User.where('lower(real_name) like ?', "%#{real_name}%")
   end
 
-  private
-
-  def update_assignment_sandbox_urls
-    old_username, new_username = saved_change_to_username
-    return unless old_username
-
-    assignments.each do |assignment|
-      next unless assignment.sandbox_url == assignment.default_sandbox_url(old_username)
-
-      assignment.update(sandbox_url: assignment.default_sandbox_url(new_username))
-    end
-  end
-
-  public
-
   ####################
   # Instance methods #
   ####################
@@ -269,5 +254,16 @@ class User < ApplicationRecord
 
   def ensure_valid_email
     self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
+  end
+
+  def update_assignment_sandbox_urls
+    old_username, new_username = saved_change_to_username
+    return unless old_username
+
+    assignments.each do |assignment|
+      next unless assignment.sandbox_url == assignment.default_sandbox_url(old_username)
+
+      assignment.update(sandbox_url: assignment.default_sandbox_url(new_username))
+    end
   end
 end
