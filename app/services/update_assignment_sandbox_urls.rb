@@ -6,16 +6,17 @@ class UpdateAssignmentSandboxUrls
     # saved_change_to_username is a Rails Dirty method that returns [old, new]
     # values for the username attribute after it has been saved to the database.
     # https://api.rubyonrails.org/classes/ActiveRecord/AttributeMethods/Dirty.html#method-i-saved_change_to_attribute
-    @old_username, @new_username = user.saved_change_to_username
+    # We use a fallback to saved_changes[:username] for extra robustness.
+    @old_username, @new_username = user.saved_change_to_username || user.saved_changes[:username]
   end
 
   def update
     return unless @old_username && @new_username
 
-    # We search through all assignments in all courses the user is part of.
-    # This ensures that if the user is part of a group assignment where others'
-    # assignments point to this user's sandbox, those are also updated.
-    Assignment.where(course: @user.courses).each do |assignment|
+    # We search globally for any assignments whose sandbox_url matches the old 
+    # username's userspace pattern. This handles group assignments more reliably
+    # and ensures we don't miss assignments in courses where the user isn't joining records.
+    Assignment.where('sandbox_url LIKE ?', "%User:#{@old_username}/%").each do |assignment|
       # 1. Safety Guard: Only update if the current URL matches the default pattern 
       # for the old username. This ensures we don't overwrite manual customizations.
       next unless assignment.sandbox_url == assignment.default_sandbox_url(@old_username)
