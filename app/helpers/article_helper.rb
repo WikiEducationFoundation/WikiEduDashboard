@@ -42,6 +42,12 @@ module ArticleHelper
   # Maps international rating strings to standardized article classes.
   # Covers wikis with confirmed PageAssessments API support:
   # Arabic, Chinese, French, Hungarian, Turkish.
+  # Source mappings:
+  # - Arabic: https://ar.wikipedia.org/wiki/ويكيبيديا:مقياس_الجودة
+  # - Chinese: https://zh.wikipedia.org/wiki/Wikipedia:条目质量评级标准
+  # - French: https://fr.wikipedia.org/wiki/Projet:Évaluation/Avancement
+  # - Hungarian: https://hu.wikipedia.org/wiki/Wikipédia:Cikkértékelés
+  # - Turkish: https://tr.wikipedia.org/wiki/Vikipedi:Madde_değerlendirmesi
   INTERNATIONAL_RATING_MAP = {
     # A-class composite
     'a/ga' => 'a',
