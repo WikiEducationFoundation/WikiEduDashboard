@@ -384,6 +384,7 @@ describe User do
              course:,
              wiki:,
              article_title: 'Test_Article',
+             role: Assignment::Roles::ASSIGNED_ROLE,
              sandbox_url: "#{wiki.base_url}/wiki/User:Original_Username/Test_Article")
     end
 
@@ -418,6 +419,7 @@ describe User do
 
       it 'does not update sandbox_url if the sandbox already exists on the wiki' do
         # Simulate that the sandbox has already been created (exists_in_userspace)
+        # AssignmentPipeline uses :assignment key for role 0 (ASSIGNED_ROLE)
         assignment.flags[:assignment] = { draft: 'exists_in_userspace' }
         assignment.save!
 
