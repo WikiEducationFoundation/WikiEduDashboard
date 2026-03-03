@@ -400,6 +400,31 @@ describe User do
         user.update!(username: 'New_Username')
         expect(assignment.reload.sandbox_url).to eq(custom_url)
       end
+
+      it 'updates sandbox_url for group members if it points to the renamed userspace' do
+        other_user = create(:user, username: 'Other_User')
+        create(:courses_user, user: other_user, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+        group_assignment = create(:assignment,
+                                  user: other_user,
+                                  course:,
+                                  wiki:,
+                                  article_title: 'Test_Article',
+                                  sandbox_url: assignment.sandbox_url)
+
+        user.update!(username: 'New_Username')
+        expect(group_assignment.reload.sandbox_url)
+          .to eq("#{wiki.base_url}/wiki/User:New_Username/Test_Article")
+      end
+
+      it 'does not update sandbox_url if the sandbox already exists on the wiki' do
+        # Simulate that the sandbox has already been created (exists_in_userspace)
+        assignment.flags[:assignment] = { draft: 'exists_in_userspace' }
+        assignment.save!
+
+        original_url = assignment.sandbox_url
+        user.update!(username: 'New_Username')
+        expect(assignment.reload.sandbox_url).to eq(original_url)
+      end
     end
 
     context 'when the username does not change' do

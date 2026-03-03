@@ -256,14 +256,10 @@ class User < ApplicationRecord
     self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
   end
 
+  # After a user's name is changed on the wiki, we may need to update their
+  # assignment sandbox URLs so that they don't point to the old, now-defunct userspace.
+  # https://api.rubyonrails.org/classes/ActiveRecord/AttributeMethods/Dirty.html#method-i-saved_change_to_attribute
   def update_assignment_sandbox_urls
-    old_username, new_username = saved_change_to_username
-    return unless old_username
-
-    assignments.each do |assignment|
-      next unless assignment.sandbox_url == assignment.default_sandbox_url(old_username)
-
-      assignment.update(sandbox_url: assignment.default_sandbox_url(new_username))
-    end
+    UpdateAssignmentSandboxUrls.new(self).update
   end
 end
