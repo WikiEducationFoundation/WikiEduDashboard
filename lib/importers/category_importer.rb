@@ -47,7 +47,7 @@ class CategoryImporter
     pages = []
     continue = true
     until continue.nil?
-      cat_response = WikiApi.new(@wiki, update_service: @update_service).query query
+      cat_response = WikiApi.new(@wiki, @update_service).query query
       pages_batch = cat_response.data['categorymembers']
       pages += pages_batch
       continue = cat_response['continue']
