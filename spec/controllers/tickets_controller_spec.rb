@@ -78,9 +78,8 @@ describe TicketsController, type: :request do
     it 'updates the message record when email delivery fails' do
       allow(TicketNotificationMailer).to receive(:notify_of_message).and_raise('failed')
 
-      expect do
-        post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
-      end.to raise_error('failed')
+      post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
+      expect(response.status).to eq(500)
 
       expect(message.reload.details[:delivery_failed]).not_to be_nil
     end
@@ -100,7 +99,8 @@ describe TicketsController, type: :request do
       post '/tickets/reply', params: params
 
       delivery = ActionMailer::Base.deliveries.first
-      expect(delivery.bcc).not_to include(ENV['SALESFORCE_BCC_EMAIL'])
+      expect(delivery.bcc).to be_nil.or(be_empty)
+      expect(Array(delivery.bcc)).not_to include(ENV['SALESFORCE_BCC_EMAIL'])
     end
 
     it 'works even when user is not known' do
