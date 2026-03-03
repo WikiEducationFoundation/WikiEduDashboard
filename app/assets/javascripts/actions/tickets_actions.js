@@ -18,6 +18,7 @@ import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
 import request from '../utils/request';
 import logErrorMessage from '../utils/log_error_message';
+import { triggerNotificationsBellRefresh } from '../components/nav/notifications_bell';
 
 export const notifyOfMessage = body => async (dispatch) => {
   try {
@@ -147,6 +148,9 @@ const updateTicket = async (id, ticket, dispatch) => {
   });
   const json = await response.json();
   dispatch({ type: UPDATE_TICKET, id, data: json });
+
+  // Trigger notification bell refresh to reflect updated ticket status
+  triggerNotificationsBellRefresh();
 };
 
 export const updateTicketStatus = (id, status) => (dispatch) => {
