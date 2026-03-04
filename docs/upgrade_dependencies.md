@@ -35,10 +35,10 @@ On the server where the dashboard is already running, in `/var/www/dashboard/cur
 Passenger should now be ready. Copy the output for updating the apache config.
 It will be something like this:
 ```
-LoadModule passenger_module /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.14/buildout/apache2/mod_passenger.so
+LoadModule passenger_module /home/sage/.rvm/gems/ruby-3.4.8/gems/passenger-6.1.2/buildout/apache2/mod_passenger.so
 <IfModule mod_passenger.c>
-  PassengerRoot /home/sage/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.14
-  PassengerDefaultRuby /home/sage/.rvm/gems/ruby-3.1.2/wrappers/ruby
+  PassengerRoot /home/sage/.rvm/gems/ruby-3.4.8/gems/passenger-6.1.2
+  PassengerDefaultRuby /home/sage/.rvm/gems/ruby-3.4.8/wrappers/ruby
   PassengerPreloadBundler on
 </IfModule>
 
@@ -50,8 +50,6 @@ On non-web application servers (ie, servers just running Sidekiq processes):
 * pull the latest code and run `bundle install` (with the new Ruby version)
 * restart the Sidekiq processes
 
-
-
 ### Deploy
 
 Change the Apache configuration to use it as soon a version of the dashboard gets deployed.
@@ -62,10 +60,10 @@ Now deploy as usual with the upgraded Ruby version. This will break the app unti
 
 * `sudo service apache2 restart`
 
-
 ### Post-deployment
 
 * Sidekiq processes should have restarted during deployment.
+* Update references throughout the documentation to replace the old Ruby version with the new one.
 
 ### Troubleshooting
 
