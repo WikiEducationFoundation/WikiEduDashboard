@@ -47,6 +47,7 @@ class UserProfilesController < ApplicationController
   end
 
   def stats
+    return render json: { error: 'User not found' }, status: :not_found unless @user
     @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
     @individual_stats_presenter = IndividualStatisticsTimeslicePresenter.new(user: @user)
     @courses_list = public_courses
