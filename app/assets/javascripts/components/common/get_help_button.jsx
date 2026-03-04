@@ -180,8 +180,8 @@ const GetHelpButton = createReactClass({
                 <textarea name="message" className="mb1" onChange={this.updateMessage} value={this.state.message} />
               </label>
             </fieldset>
-            <button className="button dark ml0" value="Submit">Send</button>
-            <button className="button" onClick={this.clearHelper}>Cancel</button>
+            <button type="button" className="button dark ml0" value="Submit">Send</button>
+            <button type="button" className="button" onClick={this.clearHelper}>Cancel</button>
           </form>
         </div>
       );
