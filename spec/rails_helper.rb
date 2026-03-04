@@ -84,12 +84,6 @@ RSpec.configure do |config|
   Warden.test_mode!
 
   config.before do
-    WebMock.disable_net_connect!(allow_localhost: true)
-    WebMock.stub_request(:any, /wikipedia\.org/).to_return(
-      status: 200,
-      body: '{"query": {"usercontribs": []}}',
-      headers: { 'Content-Type' => 'application/json' }
-    )
     stub_request(:get, 'https://wikiedu.org/feed')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => ENV['user_agent'] })
       .to_return(status: 200, body: '<rss version="2.0" />', headers: {})
