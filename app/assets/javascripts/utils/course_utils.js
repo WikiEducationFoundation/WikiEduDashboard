@@ -122,7 +122,6 @@ export default class CourseUtils {
       rating: assignment.article_rating,
       rating_num: assignment.article_rating_num,
       pretty_rating: assignment.article_pretty_rating,
-      rating_class: assignment.article_rating_class,
       url: articleUrl,
       title: assignment.article_title,
       article_id: assignment.article_id,
