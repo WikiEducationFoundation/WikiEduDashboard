@@ -54,7 +54,7 @@ On non-web application servers (ie, servers just running Sidekiq processes):
 
 Change the Apache configuration to use it as soon a version of the dashboard gets deployed.
 * `sudo nano /etc/apache2/apache2.conf`
-* Change the PassengerDefaultRuby path, the PassengerRoot path, and the passenger_module path in the apache configuration, per the output of the passenger installation command. (Leave PassengerDefaultUser and PassengerInstanceRegisteryDir as they are.)
+* Change the PassengerDefaultRuby path, the PassengerRoot path, and the passenger_module path in the apache configuration, per the output of the passenger installation command. (Leave PassengerDefaultUser and PassengerInstanceRegistryDir as they are.)
 
 Now deploy as usual with the upgraded Ruby version. This will break the app until you restart apache:
 
