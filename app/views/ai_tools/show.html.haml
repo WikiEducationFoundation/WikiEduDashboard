@@ -21,8 +21,10 @@
     - if @pangram_v3_result
       = render 'pangram_3'
     - if @originality_turbo_result
+      %br
       %h4 Originality Turbo Result:
       = render 'originality', originality_result: @originality_turbo_result
     - if @originality_academic_result
+      %br
       %h4 Originality Academic Result:
       = render 'originality', originality_result: @originality_academic_result
