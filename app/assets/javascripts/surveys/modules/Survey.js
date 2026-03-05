@@ -108,6 +108,20 @@ const Survey = {
     } catch (e) {
       // nothing
     }
+
+    // Record survey start time for duration tracking
+    if (!this.previewMode) {
+      request('/survey/start', {
+        method: 'POST',
+        body: JSON.stringify({
+          survey_id: SurveyDetails.id,
+          survey_notification_id: this.surveyNotificationId
+        })
+      })
+        .then(res => res.json())
+        .then((data) => { this.trackingId = data.tracking_id; })
+        .catch(() => { /* silently fail — don't block the survey */ });
+    }
   },
 
   indexQuestionGroups() {
@@ -243,6 +257,14 @@ const Survey = {
       this.updateSurveyNotification();
       this.$surveyForm.each(this.submitQuestionGroup.bind(this));
       this.submittedAll = true;
+
+      // Record survey completion time for duration tracking
+      if (this.trackingId) {
+        request('/survey/complete', {
+          method: 'PUT',
+          body: JSON.stringify({ tracking_id: this.trackingId })
+        }).catch(() => { /* silently fail */ });
+      }
     }
   },
 
