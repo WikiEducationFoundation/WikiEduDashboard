@@ -8,7 +8,24 @@ class OriginalityApi
   
   API_URL = 'https://api.originality.ai/api/v3/scan'
 
-  def initialize
+  # Originality Models descriptions:
+  # Very hard to bypass (higher False Positive rate).
+  # Use when you want to be certain AI was not used
+  TURBO_MODEL = 'turbo'
+  # Ideal for teachers and students.
+  # Accurate for STEM answers (Code and Formulas).
+  ACADEMIC_MODEL = 'academic'
+
+  def self.turbo
+    new(model: TURBO_MODEL)
+  end
+
+  def self.academic
+    new(model: ACADEMIC_MODEL)
+  end
+
+  def initialize(model:)
+    @model = model
     @api_key = ENV['originality_api_key']
   end
 
@@ -36,7 +53,7 @@ class OriginalityApi
       check_grammar: false,
       check_contentOptimizer: false,
       storeScan: true,
-      aiModelVersion: "turbo",
+      aiModelVersion: @model,
       content: text
     }
   end

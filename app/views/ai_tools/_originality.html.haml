@@ -1,6 +1,4 @@
-%h4 Originality Result:
-
-%p Prediction: #{@originality_result['results']['ai']['classification']}
-%p AI Confidence: #{@originality_result['results']['ai']['confidence']['AI']}
-%p Original Confidence: #{@originality_result['results']['ai']['confidence']['Original']}
-%a.button{ href: @originality_result['results']['properties']['publicLink'], target: '_blank' } Originality Report
+%p Prediction: #{originality_result['results']['ai']['classification']}
+%p AI Confidence: #{originality_result['results']['ai']['confidence']['AI']}
+%p Original Confidence: #{originality_result['results']['ai']['confidence']['Original']}
+%a.button{ href: originality_result['results']['properties']['publicLink'], target: '_blank' } Originality Report
