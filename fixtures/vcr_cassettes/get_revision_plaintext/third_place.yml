@@ -1,0 +1,654 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&revids=1340536495&rvprop=ids
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 Mar 2026 16:23:38 GMT
+      Server:
+      - mw-api-ext.codfw.main-5d4597bd74-2w5v8
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp5021 miss, cp5021 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp5021"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=IN:KA:Bengaluru:12.98:77.59:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=10-Mar-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Sat,
+        11 Apr 2026 12:00:00 GMT
+      - WMF-Last-Access=10-Mar-2026;Path=/;HttpOnly;secure;Expires=Sat, 11 Apr 2026
+        12:00:00 GMT
+      - WMF-Uniq=dEBD7XPXWvJjjzowXVaPzgMfAAAAAFvdcxF4ahY8Ugp_bwWv1TStCcM4VG_meCRH;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Wed,
+        10 Mar 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 203.92.58.30
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '155'
+      X-Request-Id:
+      - 4f8b95b2-6633-4c36-8301-e379111166ef
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"pages":{"5348896":{"pageid":5348896,"ns":0,"title":"Third
+        place","revisions":[{"revid":1340536495,"parentid":1337277248}]}}}}'
+  recorded_at: Tue, 10 Mar 2026 16:23:38 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&meta=tokens&type=csrf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 Mar 2026 16:23:39 GMT
+      Server:
+      - mw-api-ext.codfw.main-5d4597bd74-bwzrw
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp5021 miss, cp5021 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp5021"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=IN:KA:Bengaluru:12.98:77.59:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=10-Mar-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Sat,
+        11 Apr 2026 12:00:00 GMT
+      - WMF-Last-Access=10-Mar-2026;Path=/;HttpOnly;secure;Expires=Sat, 11 Apr 2026
+        12:00:00 GMT
+      - WMF-Uniq=B3ipdAU5ru8Hrrt9nxmLlAMfAAAAAFvd61fKtOC9moqC45iGa4dnHu2TULQyMx2-;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Wed,
+        10 Mar 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 203.92.58.30
+      Vary:
+      - Accept-Encoding,User-Agent
+      Content-Length:
+      - '59'
+      X-Request-Id:
+      - 61a459af-fc5d-4fa5-a067-56e28ef95b17
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"tokens":{"csrftoken":"+\\"}}}'
+  recorded_at: Tue, 10 Mar 2026 16:23:39 GMT
+- request:
+    method: post
+    uri: https://en.wikipedia.org/w/api.php
+    body:
+      encoding: UTF-8
+      string: action=compare&difftype=table&format=json&fromrev=1337277248&token=%2B%5C&torev=1340536495
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - GeoIP=IN:KA:Bengaluru:12.98:77.59:v4; NetworkProbeLimit=0.001; WMF-Last-Access=10-Mar-2026;
+        WMF-Last-Access-Global=10-Mar-2026; WMF-Uniq=B3ipdAU5ru8Hrrt9nxmLlAMfAAAAAFvd61fKtOC9moqC45iGa4dnHu2TULQyMx2-
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 Mar 2026 16:23:39 GMT
+      Server:
+      - mw-api-ext.codfw.main-5d4597bd74-mwgwp
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp5021 miss, cp5021 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp5021"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      X-Client-Ip:
+      - 203.92.58.30
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Set-Cookie:
+      - WMF-Uniq=B3ipdAU5ru8Hrrt9nxmLlAMfAAEBAFvdmDNWCA2xes72_flJY1E0ytjz-JgrxKo3;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Wed,
+        10 Mar 2027 00:00:00 GMT
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - 8396069b-ec12-4ab6-acee-5b51fd19b436
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"warnings":{"main":{"*":"Unrecognized parameter: token."}},"compare":{"fromid":5348896,"fromrevid":1337277248,"fromns":0,"fromtitle":"Third
+        place","toid":5348896,"torevid":1340536495,"tons":0,"totitle":"Third place","*":"<tr>\n  <td
+        colspan=\"2\" class=\"diff-lineno\">Line 4:</td>\n  <td colspan=\"2\" class=\"diff-lineno\">Line
+        4:</td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context
+        diff-side-deleted\"><div>&lt;!-- Deleted image removed: [[File:Ray Oldenburg
+        and Karen Christensen.jpeg|thumb|Ray Oldenburg and Karen Christensen, coauthors
+        of the sequel to The Great Good Place, in 2012.]] --&gt;</div></td>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-added\"><div>&lt;!--
+        Deleted image removed: [[File:Ray Oldenburg and Karen Christensen.jpeg|thumb|Ray
+        Oldenburg and Karen Christensen, coauthors of the sequel to The Great Good
+        Place, in 2012.]] --&gt;</div></td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"></td>\n  <td
+        class=\"diff-context diff-side-deleted\"><div>[[File:Barbearia.jpg|thumb|This
+        [[barber]] shop in Brazil is an example of a third place. In many societies,
+        barber shops and [[beauty salon]]s are traditional areas to congregate separate
+        from work or home.]]</div></td>\n  <td class=\"diff-marker\"></td>\n  <td
+        class=\"diff-context diff-side-added\"><div>[[File:Barbearia.jpg|thumb|This
+        [[barber]] shop in Brazil is an example of a third place. In many societies,
+        barber shops and [[beauty salon]]s are traditional areas to congregate separate
+        from work or home.]]</div></td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"
+        data-marker=\"\u2212\"></td>\n  <td class=\"diff-deletedline diff-side-deleted\"><div>In
+        sociology, the ''''''third place'''''' refers to the social surroundings that
+        are separate from the two usual social environments of [[home]] (\"first place\")
+        and [[workplace]] (\"second place\"). Examples of third places include [[Church
+        (building)|churches]], [[Coffeehouse|cafes]], [[Bar (establishment)|bars]],
+        [[Club (organization)|clubs]], [[Public library|libraries]], [[gym]]s, [[Bookselling|bookstores]],
+        [[hackerspace]]s, [[stoop (architecture)|stoop]]s, [[park]]s, and [[theater
+        (structure)|theaters]], among others. In his book ''''[[The Great Good Place
+        (Oldenburg)|The Great Good Place]]'''' (1989), [[Ray Oldenburg]] argues that
+        third places are important for [[democracy]], [[civic engagement]], and a
+        [[sense of place]]. Oldenburg''s coauthor [[Karen Christensen]] argues in
+        the 2023 edition that third places are the answer to loneliness, political
+        polarization, and climate resilience. She also clarifies the difference between
+        third places and [[public spaces]].&lt;ref&gt;{{Cite book |last=Oldenburg
+        |first=Ray |title=The great good place: cafes, coffee shops, bookstores, bars,
+        hair salons, and other hangouts at the heart of a community |date=2023 |publisher=Berkshire
+        Publishing Group LLC |isbn=978-1-61472-097-3 |edition=2nd |location=Great
+        Barrington, Massachusetts}}&lt;/ref&gt;</div></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><div>In
+        sociology, the ''''''third place'''''' refers to the social surroundings that
+        are separate from the two usual social environments of [[home]] (\"first place\")
+        and [[workplace]] (\"second place\"). Examples of third places include [[Church
+        (building)|churches]], [[Coffeehouse|cafes]], [[Bar (establishment)|bars]],
+        [[Club (organization)|clubs]], [[Public library|libraries]], [[gym]]s, [[Bookselling|bookstores]],
+        [[hackerspace]]s, [[stoop (architecture)|stoop]]s, [[park]]s, and [[theater
+        (structure)|theaters]], among others. In his book ''''[[The Great Good Place
+        (Oldenburg)|The Great Good Place]]'''' (1989), [[Ray Oldenburg]] argues that
+        third places are important for [[democracy]], [[civic engagement]], and a
+        [[sense of place]]. Oldenburg''s coauthor [[Karen Christensen]] argues in
+        the 2023 edition that third places are the answer to loneliness, political
+        polarization, and climate resilience. She also clarifies the difference between
+        third places and [[public spaces]].&lt;ref&gt;{{Cite book |last=Oldenburg
+        |first=Ray |title=The great good place: cafes, coffee shops, bookstores, bars,
+        hair salons, and other hangouts at the heart of a community |date=2023 |publisher=Berkshire
+        Publishing Group LLC |isbn=978-1-61472-097-3 |edition=2nd |location=Great
+        Barrington, Massachusetts}}&lt;/ref&gt;<ins class=\"diffchange diffchange-inline\">Scholars
+        have noted that online forums, social media platforms, and virtual communities
+        can function as third places by facilitating informal interaction and community
+        building without physical proximity. These digital environments often replicate
+        characteristics such as regular participants, conversational exchange, and
+        shared norms, though researchers debate whether they provide the same depth
+        of social bonding as physical spaces.</ins></div></td>\n</tr>\n<tr>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-deleted\"><br
+        /></td>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context
+        diff-side-deleted\"><div>== Oldenburg and Christensen''s characteristics of
+        third places==</div></td>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context
+        diff-side-added\"><div>== Oldenburg and Christensen''s characteristics of
+        third places==</div></td>\n</tr>\n<tr>\n  <td colspan=\"2\" class=\"diff-lineno\">Line
+        75:</td>\n  <td colspan=\"2\" class=\"diff-lineno\">Line 75:</td>\n</tr>\n<tr>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-deleted\"><br
+        /></td>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context
+        diff-side-deleted\"><div>As online technologies advance, these online video
+        games become more accessible to individuals across all backgrounds. While
+        these games are often played on traditional [[video game console]]s or on
+        [[Personal computer|PC]]s (which often requires purchasing the [[Video game|video
+        game software]]), there are many [[Browser game|web browser based games]]
+        (such as ''''[[RuneScape]]'''' and ''''[[FarmVille|Farmville]]'''') that allow
+        anyone with Internet access to play for free. This widens the variety of individuals
+        that are entering into the community.&lt;ref&gt;{{Cite journal|last1=Han|first1=Xiao|last2=Cao|first2=Shinan|last3=Shen|first3=Zhesi|last4=Zhang|first4=Boyu|last5=Wang|first5=Wen-Xu|last6=Cressman|first6=Ross|last7=Stanley|first7=H.
+        Eugene|date=2017-03-14|title=Emergence of communities and diversity in social
+        networks|journal=Proceedings of the National Academy of Sciences of the United
+        States of America|volume=114|issue=11|pages=2887\u20132891|doi=10.1073/pnas.1608164114|issn=0027-8424|pmc=5358344|pmid=28235785|bibcode=2017PNAS..114.2887H|doi-access=free}}&lt;/ref&gt;</div></td>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-added\"><div>As
+        online technologies advance, these online video games become more accessible
+        to individuals across all backgrounds. While these games are often played
+        on traditional [[video game console]]s or on [[Personal computer|PC]]s (which
+        often requires purchasing the [[Video game|video game software]]), there are
+        many [[Browser game|web browser based games]] (such as ''''[[RuneScape]]''''
+        and ''''[[FarmVille|Farmville]]'''') that allow anyone with Internet access
+        to play for free. This widens the variety of individuals that are entering
+        into the community.&lt;ref&gt;{{Cite journal|last1=Han|first1=Xiao|last2=Cao|first2=Shinan|last3=Shen|first3=Zhesi|last4=Zhang|first4=Boyu|last5=Wang|first5=Wen-Xu|last6=Cressman|first6=Ross|last7=Stanley|first7=H.
+        Eugene|date=2017-03-14|title=Emergence of communities and diversity in social
+        networks|journal=Proceedings of the National Academy of Sciences of the United
+        States of America|volume=114|issue=11|pages=2887\u20132891|doi=10.1073/pnas.1608164114|issn=0027-8424|pmc=5358344|pmid=28235785|bibcode=2017PNAS..114.2887H|doi-access=free}}&lt;/ref&gt;</div></td>\n</tr>\n<tr>\n  <td
+        colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td
+        class=\"diff-marker\" data-marker=\"+\"></td>\n  <td class=\"diff-addedline
+        diff-side-added\"><div>== Criticism ==</div></td>\n</tr>\n<tr>\n  <td colspan=\"2\"
+        class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><div>Some
+        researchers argue that the concept of third places can be overly idealized,
+        noting that many such spaces are shaped by [[economic inequality]], commercialization,
+        and patterns of [[social exclusion]]. Critics suggest that while third places
+        are often portrayed as open and accessible to all, in practice they may privilege
+        certain social groups over others due to differences in income, education,
+        [[cultural capital]], or neighborhood resources.&lt;ref&gt;{{Cite book |last=Putnam
+        |first=Robert D. |title=Bowling Alone: The Collapse and Revival of American
+        Community |date=2000 |publisher=Simon &amp; Schuster}}&lt;/ref&gt;</div></td>\n</tr>\n<tr>\n  <td
+        colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td
+        class=\"diff-marker\" data-marker=\"+\"></td>\n  <td class=\"diff-addedline
+        diff-side-added\"><div>Scholars have also pointed out that the increasing
+        [[commercialization]] of public gathering spaces such as cafes, [[coworking]]
+        environments, and entertainment venues can limit participation by introducing
+        financial barriers. This shift has led some commentators to argue that modern
+        third places may function less as neutral social grounds and more as consumer-oriented
+        environments, potentially reducing their role in fostering broad civic engagement.</div></td>\n</tr>\n<tr>\n  <td
+        colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><div>[[File:Coworking
+        Space in Berlin.jpg|thumb|178x178px|Coworking Space in Berlin]]</div></td>\n</tr>\n<tr>\n  <td
+        colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><div>In
+        addition, [[urban studies]] researchers note that access to third places can
+        vary significantly across geographic regions. Communities experiencing disinvestment,
+        suburban sprawl, or limited [[Infrastructure|public infrastructure]] may have
+        fewer opportunities for informal social interaction. As a result, the benefits
+        associated with third places such as social cohesion, community identity,
+        and civic participation may not be distributed evenly across populations.&lt;ref&gt;{{Cite
+        book |last=Zukin |first=Sharon |title=Naked City: The Death and Life of Authentic
+        Urban Places |date=2010 |publisher=Oxford University Press}}&lt;/ref&gt;</div></td>\n</tr>\n<tr>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-deleted\"><br
+        /></td>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context
+        diff-side-deleted\"><div>== Internet access ==</div></td>\n  <td class=\"diff-marker\"></td>\n  <td
+        class=\"diff-context diff-side-added\"><div>== Internet access ==</div></td>\n</tr>\n"}}'
+  recorded_at: Tue, 10 Mar 2026 16:23:40 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&meta=tokens&type=csrf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 Mar 2026 16:23:40 GMT
+      Server:
+      - mw-api-ext.codfw.main-5d4597bd74-s24lz
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp5021 miss, cp5021 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp5021"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=IN:KA:Bengaluru:12.98:77.59:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=10-Mar-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Sat,
+        11 Apr 2026 12:00:00 GMT
+      - WMF-Last-Access=10-Mar-2026;Path=/;HttpOnly;secure;Expires=Sat, 11 Apr 2026
+        12:00:00 GMT
+      - WMF-Uniq=xEMHfar2rdSVO7iAxwAmaQMfAAAAAFvdhIOz2E0BN14ChPIO-ZeCVV9qebO7LA6R;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Wed,
+        10 Mar 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 203.92.58.30
+      Vary:
+      - Accept-Encoding,User-Agent
+      Content-Length:
+      - '59'
+      X-Request-Id:
+      - 218628e0-81a6-42ba-ba56-bb1e2bb6ec63
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"tokens":{"csrftoken":"+\\"}}}'
+  recorded_at: Tue, 10 Mar 2026 16:23:40 GMT
+- request:
+    method: post
+    uri: https://en.wikipedia.org/w/api.php
+    body:
+      encoding: UTF-8
+      string: action=parse&contentmodel=wikitext&format=json&text=Scholars+have+noted+that+online+forums%2C+social+media+platforms%2C+and+virtual+communities+can+function+as+third+places+by+facilitating+informal+interaction+and+community+building+without+physical+proximity.+These+digital+environments+often+replicate+characteristics+such+as+regular+participants%2C+conversational+exchange%2C+and+shared+norms%2C+though+researchers+debate+whether+they+provide+the+same+depth+of+social+bonding+as+physical+spaces.%0A%0A%3D%3D+Criticism+%3D%3D%0A%0ASome+researchers+argue+that+the+concept+of+third+places+can+be+overly+idealized%2C+noting+that+many+such+spaces+are+shaped+by+%5B%5Beconomic+inequality%5D%5D%2C+commercialization%2C+and+patterns+of+%5B%5Bsocial+exclusion%5D%5D.+Critics+suggest+that+while+third+places+are+often+portrayed+as+open+and+accessible+to+all%2C+in+practice+they+may+privilege+certain+social+groups+over+others+due+to+differences+in+income%2C+education%2C+%5B%5Bcultural+capital%5D%5D%2C+or+neighborhood+resources.%3Cref%3E%7B%7BCite+book+%7Clast%3DPutnam+%7Cfirst%3DRobert+D.+%7Ctitle%3DBowling+Alone%3A+The+Collapse+and+Revival+of+American+Community+%7Cdate%3D2000+%7Cpublisher%3DSimon+%26+Schuster%7D%7D%3C%2Fref%3E%0A%0AScholars+have+also+pointed+out+that+the+increasing+%5B%5Bcommercialization%5D%5D+of+public+gathering+spaces+such+as+cafes%2C+%5B%5Bcoworking%5D%5D+environments%2C+and+entertainment+venues+can+limit+participation+by+introducing+financial+barriers.+This+shift+has+led+some+commentators+to+argue+that+modern+third+places+may+function+less+as+neutral+social+grounds+and+more+as+consumer-oriented+environments%2C+potentially+reducing+their+role+in+fostering+broad+civic+engagement.%0A%0A%5B%5BFile%3ACoworking+Space+in+Berlin.jpg%7Cthumb%7C178x178px%7CCoworking+Space+in+Berlin%5D%5D%0A%0AIn+addition%2C+%5B%5Burban+studies%5D%5D+researchers+note+that+access+to+third+places+can+vary+significantly+across+geographic+regions.+Communities+experiencing+disinvestment%2C+suburban+sprawl%2C+or+limited+%5B%5BInfrastructure%7Cpublic+infrastructure%5D%5D+may+have+fewer+opportunities+for+informal+social+interaction.+As+a+result%2C+the+benefits+associated+with+third+places+such+as+social+cohesion%2C+community+identity%2C+and+civic+participation+may+not+be+distributed+evenly+across+populations.%3Cref%3E%7B%7BCite+book+%7Clast%3DZukin+%7Cfirst%3DSharon+%7Ctitle%3DNaked+City%3A+The+Death+and+Life+of+Authentic+Urban+Places+%7Cdate%3D2010+%7Cpublisher%3DOxford+University+Press%7D%7D%3C%2Fref%3E&token=%2B%5C
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - GeoIP=IN:KA:Bengaluru:12.98:77.59:v4; NetworkProbeLimit=0.001; WMF-Last-Access=10-Mar-2026;
+        WMF-Last-Access-Global=10-Mar-2026; WMF-Uniq=xEMHfar2rdSVO7iAxwAmaQMfAAAAAFvdhIOz2E0BN14ChPIO-ZeCVV9qebO7LA6R
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 10 Mar 2026 16:23:40 GMT
+      Server:
+      - mw-api-ext.codfw.main-5d4597bd74-mwgwp
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '2'
+      X-Cache:
+      - cp5021 miss, cp5021 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp5021"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      X-Client-Ip:
+      - 203.92.58.30
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Set-Cookie:
+      - WMF-Uniq=xEMHfar2rdSVO7iAxwAmaQMfAAEBAFvdSdv3LIWpT_v3aFVa2CcIWWVPtf33rry_;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Wed,
+        10 Mar 2027 00:00:00 GMT
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - 026fae79-79b8-4e6f-8a5f-bd4681cc0ce8
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"warnings":{"main":{"*":"Unrecognized parameter: token."}},"parse":{"title":"API","pageid":27697009,"text":{"*":"<div
+        class=\"mw-content-ltr mw-parser-output\" lang=\"en\" dir=\"ltr\"><p>Scholars
+        have noted that online forums, social media platforms, and virtual communities
+        can function as third places by facilitating informal interaction and community
+        building without physical proximity. These digital environments often replicate
+        characteristics such as regular participants, conversational exchange, and
+        shared norms, though researchers debate whether they provide the same depth
+        of social bonding as physical spaces.\n</p>\n<div class=\"mw-heading mw-heading2\"><h2
+        id=\"Criticism\">Criticism</h2><span class=\"mw-editsection\"><span class=\"mw-editsection-bracket\">[</span><a
+        href=\"/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit
+        section: Criticism\"><span>edit</span></a><span class=\"mw-editsection-bracket\">]</span></span></div>\n<p>Some
+        researchers argue that the concept of third places can be overly idealized,
+        noting that many such spaces are shaped by <a href=\"/wiki/Economic_inequality\"
+        title=\"Economic inequality\">economic inequality</a>, commercialization,
+        and patterns of <a href=\"/wiki/Social_exclusion\" title=\"Social exclusion\">social
+        exclusion</a>. Critics suggest that while third places are often portrayed
+        as open and accessible to all, in practice they may privilege certain social
+        groups over others due to differences in income, education, <a href=\"/wiki/Cultural_capital\"
+        title=\"Cultural capital\">cultural capital</a>, or neighborhood resources.<sup
+        id=\"cite&#95;ref-1\" class=\"reference\"><a href=\"#cite_note-1\"><span class=\"cite-bracket\">&#91;</span>1<span
+        class=\"cite-bracket\">&#93;</span></a></sup>\n</p><p>Scholars have also pointed
+        out that the increasing <a href=\"/wiki/Commercialization\" title=\"Commercialization\">commercialization</a>
+        of public gathering spaces such as cafes, <a href=\"/wiki/Coworking\" title=\"Coworking\">coworking</a>
+        environments, and entertainment venues can limit participation by introducing
+        financial barriers. This shift has led some commentators to argue that modern
+        third places may function less as neutral social grounds and more as consumer-oriented
+        environments, potentially reducing their role in fostering broad civic engagement.\n</p>\n<figure
+        typeof=\"mw:File/Thumb\"><a href=\"/wiki/File:Coworking_Space_in_Berlin.jpg\"
+        class=\"mw-file-description\"><img src=\"//upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Coworking_Space_in_Berlin.jpg/250px-Coworking_Space_in_Berlin.jpg\"
+        decoding=\"async\" width=\"178\" height=\"119\" class=\"mw-file-element\"
+        srcset=\"//upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Coworking_Space_in_Berlin.jpg/330px-Coworking_Space_in_Berlin.jpg
+        1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Coworking_Space_in_Berlin.jpg/500px-Coworking_Space_in_Berlin.jpg
+        2x\" data-file-width=\"700\" data-file-height=\"467\" /></a><figcaption>Coworking
+        Space in Berlin</figcaption></figure>\n<p>In addition, <a href=\"/wiki/Urban_studies\"
+        title=\"Urban studies\">urban studies</a> researchers note that access to
+        third places can vary significantly across geographic regions. Communities
+        experiencing disinvestment, suburban sprawl, or limited <a href=\"/wiki/Infrastructure\"
+        title=\"Infrastructure\">public infrastructure</a> may have fewer opportunities
+        for informal social interaction. As a result, the benefits associated with
+        third places such as social cohesion, community identity, and civic participation
+        may not be distributed evenly across populations.<sup id=\"cite&#95;ref-2\"
+        class=\"reference\"><a href=\"#cite_note-2\"><span class=\"cite-bracket\">&#91;</span>2<span
+        class=\"cite-bracket\">&#93;</span></a></sup>\n</p>\n<div class=\"mw-references-wrap\"><ol
+        class=\"references\">\n<li id=\"cite&#95;note-1\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-1\">^</a></b></span> <span class=\"reference-text\"><style
+        data-mw-deduplicate=\"TemplateStyles:r1333433106\">.mw-parser-output cite.citation{font-style:inherit;word-wrap:break-word}.mw-parser-output
+        .citation q{quotes:\"\\\"\"\"\\\"\"\"''\"\"''\"}.mw-parser-output .citation:target{background-color:rgba(0,127,255,0.133)}.mw-parser-output
+        .id-lock-free.id-lock-free a{background:url(\"//upload.wikimedia.org/wikipedia/commons/6/65/Lock-green.svg\")right
+        0.1em center/9px no-repeat}.mw-parser-output .id-lock-limited.id-lock-limited
+        a,.mw-parser-output .id-lock-registration.id-lock-registration a{background:url(\"//upload.wikimedia.org/wikipedia/commons/d/d6/Lock-gray-alt-2.svg\")right
+        0.1em center/9px no-repeat}.mw-parser-output .id-lock-subscription.id-lock-subscription
+        a{background:url(\"//upload.wikimedia.org/wikipedia/commons/a/aa/Lock-red-alt-2.svg\")right
+        0.1em center/9px no-repeat}.mw-parser-output .cs1-ws-icon a{background:url(\"//upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg\")right
+        0.1em center/12px no-repeat}body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-free a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-limited a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-registration a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-subscription a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .cs1-ws-icon a{background-size:contain;padding:0 1em 0 0}.mw-parser-output
+        .cs1-code{color:inherit;background:inherit;border:none;padding:inherit}.mw-parser-output
+        .cs1-hidden-error{display:none;color:var(--color-error,#bf3c2c)}.mw-parser-output
+        .cs1-visible-error{color:var(--color-error,#bf3c2c)}.mw-parser-output .cs1-maint{display:none;color:#085;margin-left:0.3em}.mw-parser-output
+        .cs1-kern-left{padding-left:0.2em}.mw-parser-output .cs1-kern-right{padding-right:0.2em}.mw-parser-output
+        .citation .mw-selflink{font-weight:inherit}@media screen{.mw-parser-output
+        .cs1-format{font-size:95%}html.skin-theme-clientpref-night .mw-parser-output
+        .cs1-maint{color:#18911f}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os
+        .mw-parser-output .cs1-maint{color:#18911f}}</style><cite id=\"CITEREFPutnam2000\"
+        class=\"citation book cs1\">Putnam, Robert D. (2000). <i>Bowling Alone: The
+        Collapse and Revival of American Community</i>. Simon &amp; Schuster.</cite><span
+        title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Bowling+Alone%3A+The+Collapse+and+Revival+of+American+Community&amp;rft.pub=Simon+%26+Schuster&amp;rft.date=2000&amp;rft.aulast=Putnam&amp;rft.aufirst=Robert+D.&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span></span>\n</li>\n<li id=\"cite&#95;note-2\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-2\">^</a></b></span> <span class=\"reference-text\"><link
+        rel=\"mw-deduplicated-inline-style\" href=\"mw-data:TemplateStyles:r1333433106\"
+        /><cite id=\"CITEREFZukin2010\" class=\"citation book cs1\">Zukin, Sharon
+        (2010). <i>Naked City: The Death and Life of Authentic Urban Places</i>. Oxford
+        University Press.</cite><span title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Naked+City%3A+The+Death+and+Life+of+Authentic+Urban+Places&amp;rft.pub=Oxford+University+Press&amp;rft.date=2010&amp;rft.aulast=Zukin&amp;rft.aufirst=Sharon&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span></span>\n</li>\n</ol></div>\n<!-- \nNewPP limit report\nParsed
+        by mw\u2010api\u2010ext.codfw.main\u20105d4597bd74\u2010mwgwp\nCached time:
+        20260310162341\nCache expiry: 27384\nReduced expiry: true\nComplications:
+        [vary\u2010revision\u2010sha1, vary\u2010revision\u2010exists]\nCPU time usage:
+        0.144 seconds\nReal time usage: 0.161 seconds\nPreprocessor visited node count:
+        70/1000000\nRevision size: 2238/2097152 bytes\nPost\u2010expand include size:
+        2110/2097152 bytes\nTemplate argument size: 0/2097152 bytes\nHighest expansion
+        depth: 4/100\nExpensive parser function count: 1/500\nUnstrip recursion depth:
+        0/20\nUnstrip post\u2010expand size: 4722/5000000 bytes\nLua time usage: 0.104/10.000
+        seconds\nLua memory usage: 3034351/52428800 bytes\nNumber of Wikibase entities
+        loaded: 0/500\n-->\n<!--\nTransclusion expansion time report (%,ms,calls,template)\n100.00%  139.721      1
+        -total\n 99.86%  139.521      2 Template:Cite_book\n-->\n</div>"},"langlinks":[{"lang":"ar","url":"https://ar.wikipedia.org/wiki/%D9%88%D8%A7%D8%AC%D9%87%D8%A9_%D8%A8%D8%B1%D9%85%D8%AC%D8%A9_%D8%A7%D9%84%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%D8%A7%D8%AA","langname":"Arabic","autonym":"\u0627\u0644\u0639\u0631\u0628\u064a\u0629","*":"\u0648\u0627\u062c\u0647\u0629
+        \u0628\u0631\u0645\u062c\u0629 \u0627\u0644\u062a\u0637\u0628\u064a\u0642\u0627\u062a"},{"lang":"ast","url":"https://ast.wikipedia.org/wiki/Interfaz_de_programaci%C3%B3n_d%27aplicaciones","langname":"Asturian","autonym":"asturianu","*":"Interfaz
+        de programaci\u00f3n d''aplicaciones"},{"lang":"az","url":"https://az.wikipedia.org/wiki/T%C9%99tbiqi_proqramla%C5%9Fd%C4%B1rma_interfeysi","langname":"Azerbaijani","autonym":"az\u0259rbaycanca","*":"T\u0259tbiqi
+        proqramla\u015fd\u0131rma interfeysi"},{"lang":"bar","url":"https://bar.wikipedia.org/wiki/API","langname":"Bavarian","autonym":"Boarisch","*":"API"},{"lang":"be","url":"https://be.wikipedia.org/wiki/API","langname":"Belarusian","autonym":"\u0431\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f","*":"API"},{"lang":"bg","url":"https://bg.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%BD%D0%BE-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%B5%D0%BD_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81","langname":"Bulgarian","autonym":"\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438","*":"\u041f\u0440\u0438\u043b\u043e\u0436\u043d\u043e-\u043f\u0440\u043e\u0433\u0440\u0430\u043c\u0435\u043d
+        \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441"},{"lang":"bn","url":"https://bn.wikipedia.org/wiki/%E0%A6%85%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%AA%E0%A7%8D%E0%A6%B2%E0%A6%BF%E0%A6%95%E0%A7%87%E0%A6%B6%E0%A6%A8_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%8B%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE%E0%A6%BF%E0%A6%82_%E0%A6%87%E0%A6%A8%E0%A7%8D%E0%A6%9F%E0%A6%BE%E0%A6%B0%E0%A6%AB%E0%A7%87%E0%A6%B8","langname":"Bangla","autonym":"\u09ac\u09be\u0982\u09b2\u09be","*":"\u0985\u09cd\u09af\u09be\u09aa\u09cd\u09b2\u09bf\u0995\u09c7\u09b6\u09a8
+        \u09aa\u09cd\u09b0\u09cb\u0997\u09cd\u09b0\u09be\u09ae\u09bf\u0982 \u0987\u09a8\u09cd\u099f\u09be\u09b0\u09ab\u09c7\u09b8"},{"lang":"bs","url":"https://bs.wikipedia.org/wiki/Aplikativni_programski_interfejs","langname":"Bosnian","autonym":"bosanski","*":"Aplikativni
+        programski interfejs"},{"lang":"ca","url":"https://ca.wikipedia.org/wiki/Interf%C3%ADcie_de_programaci%C3%B3_d%27aplicacions","langname":"Catalan","autonym":"catal\u00e0","*":"Interf\u00edcie
+        de programaci\u00f3 d''aplicacions"},{"lang":"ckb","url":"https://ckb.wikipedia.org/wiki/%D9%86%D8%A7%D9%88%D8%A8%DB%95%D8%B3%D8%AA%DB%8C_%D8%A8%DB%95%D8%B1%D9%86%D8%A7%D9%85%DB%95%D8%B3%D8%A7%D8%B2%DB%8C%DB%8C_%D8%A8%DB%95%D8%B1%D9%86%D8%A7%D9%85%DB%95%DB%8C_%D8%A8%DB%95%DA%A9%D8%A7%D8%B1%D8%A8%DB%95%D8%B1%DB%8C","langname":"Central
+        Kurdish","autonym":"\u06a9\u0648\u0631\u062f\u06cc","*":"\u0646\u0627\u0648\u0628\u06d5\u0633\u062a\u06cc
+        \u0628\u06d5\u0631\u0646\u0627\u0645\u06d5\u0633\u0627\u0632\u06cc\u06cc \u0628\u06d5\u0631\u0646\u0627\u0645\u06d5\u06cc
+        \u0628\u06d5\u06a9\u0627\u0631\u0628\u06d5\u0631\u06cc"},{"lang":"cs","url":"https://cs.wikipedia.org/wiki/API","langname":"Czech","autonym":"\u010de\u0161tina","*":"API"},{"lang":"da","url":"https://da.wikipedia.org/wiki/Application_programming_interface","langname":"Danish","autonym":"dansk","*":"Application
+        programming interface"},{"lang":"de","url":"https://de.wikipedia.org/wiki/Programmierschnittstelle","langname":"German","autonym":"Deutsch","*":"Programmierschnittstelle"},{"lang":"el","url":"https://el.wikipedia.org/wiki/%CE%94%CE%B9%CE%B5%CF%80%CE%B1%CF%86%CE%AE_%CF%80%CF%81%CE%BF%CE%B3%CF%81%CE%B1%CE%BC%CE%BC%CE%B1%CF%84%CE%B9%CF%83%CE%BC%CE%BF%CF%8D_%CE%B5%CF%86%CE%B1%CF%81%CE%BC%CE%BF%CE%B3%CF%8E%CE%BD","langname":"Greek","autonym":"\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac","*":"\u0394\u03b9\u03b5\u03c0\u03b1\u03c6\u03ae
+        \u03c0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03bf\u03cd
+        \u03b5\u03c6\u03b1\u03c1\u03bc\u03bf\u03b3\u03ce\u03bd"},{"lang":"eo","url":"https://eo.wikipedia.org/wiki/Aplikprograma_interfaco","langname":"Esperanto","autonym":"Esperanto","*":"Aplikprograma
+        interfaco"},{"lang":"es","url":"https://es.wikipedia.org/wiki/API","langname":"Spanish","autonym":"espa\u00f1ol","*":"API"},{"lang":"et","url":"https://et.wikipedia.org/wiki/Rakendusliides","langname":"Estonian","autonym":"eesti","*":"Rakendusliides"},{"lang":"eu","url":"https://eu.wikipedia.org/wiki/API","langname":"Basque","autonym":"euskara","*":"API"},{"lang":"fa","url":"https://fa.wikipedia.org/wiki/%D9%88%D8%A7%D8%B3%D8%B7_%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87%E2%80%8C%D9%86%D9%88%DB%8C%D8%B3%DB%8C_%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%D8%AF%DB%8C","langname":"Persian","autonym":"\u0641\u0627\u0631\u0633\u06cc","*":"\u0648\u0627\u0633\u0637
+        \u0628\u0631\u0646\u0627\u0645\u0647\u200c\u0646\u0648\u06cc\u0633\u06cc \u06a9\u0627\u0631\u0628\u0631\u062f\u06cc"},{"lang":"fi","url":"https://fi.wikipedia.org/wiki/Ohjelmointirajapinta","langname":"Finnish","autonym":"suomi","*":"Ohjelmointirajapinta"},{"lang":"fr","url":"https://fr.wikipedia.org/wiki/Interface_de_programmation","langname":"French","autonym":"fran\u00e7ais","*":"Interface
+        de programmation"},{"lang":"frr","url":"https://frr.wikipedia.org/wiki/API","langname":"Northern
+        Frisian","autonym":"Nordfriisk","*":"API"},{"lang":"ga","url":"https://ga.wikipedia.org/wiki/Comh%C3%A9adan_feidhmchl%C3%A1ir","langname":"Irish","autonym":"Gaeilge","*":"Comh\u00e9adan
+        feidhmchl\u00e1ir"},{"lang":"gl","url":"https://gl.wikipedia.org/wiki/Interface_de_programaci%C3%B3n_de_aplicaci%C3%B3n","langname":"Galician","autonym":"galego","*":"Interface
+        de programaci\u00f3n de aplicaci\u00f3n"},{"lang":"ha","url":"https://ha.wikipedia.org/wiki/API","langname":"Hausa","autonym":"Hausa","*":"API"},{"lang":"he","url":"https://he.wikipedia.org/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%AA%D7%9B%D7%A0%D7%95%D7%AA_%D7%99%D7%99%D7%A9%D7%95%D7%9E%D7%99%D7%9D","langname":"Hebrew","autonym":"\u05e2\u05d1\u05e8\u05d9\u05ea","*":"\u05de\u05de\u05e9\u05e7
+        \u05ea\u05db\u05e0\u05d5\u05ea \u05d9\u05d9\u05e9\u05d5\u05de\u05d9\u05dd"},{"lang":"hi","url":"https://hi.wikipedia.org/wiki/%E0%A4%8F%E0%A4%AA%E0%A5%80%E0%A4%86%E0%A4%88","langname":"Hindi","autonym":"\u0939\u093f\u0928\u094d\u0926\u0940","*":"\u090f\u092a\u0940\u0906\u0908"},{"lang":"hr","url":"https://hr.wikipedia.org/wiki/API","langname":"Croatian","autonym":"hrvatski","*":"API"},{"lang":"hu","url":"https://hu.wikipedia.org/wiki/Alkalmaz%C3%A1sprogramoz%C3%A1si_fel%C3%BClet","langname":"Hungarian","autonym":"magyar","*":"Alkalmaz\u00e1sprogramoz\u00e1si
+        fel\u00fclet"},{"lang":"hy","url":"https://hy.wikipedia.org/wiki/Application_Programming_Interface_(API)","langname":"Armenian","autonym":"\u0570\u0561\u0575\u0565\u0580\u0565\u0576","*":"Application
+        Programming Interface (API)"},{"lang":"id","url":"https://id.wikipedia.org/wiki/Antarmuka_pemrograman_aplikasi","langname":"Indonesian","autonym":"Bahasa
+        Indonesia","*":"Antarmuka pemrograman aplikasi"},{"lang":"ig","url":"https://ig.wikipedia.org/wiki/API","langname":"Igbo","autonym":"Igbo","*":"API"},{"lang":"io","url":"https://io.wikipedia.org/wiki/Aplikala_programif-interkonekto","langname":"Ido","autonym":"Ido","*":"Aplikala
+        programif-interkonekto"},{"lang":"it","url":"https://it.wikipedia.org/wiki/Application_programming_interface","langname":"Italian","autonym":"italiano","*":"Application
+        programming interface"},{"lang":"ja","url":"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9","langname":"Japanese","autonym":"\u65e5\u672c\u8a9e","*":"\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u30d7\u30ed\u30b0\u30e9\u30df\u30f3\u30b0\u30a4\u30f3\u30bf\u30d5\u30a7\u30fc\u30b9"},{"lang":"ka","url":"https://ka.wikipedia.org/wiki/%E1%83%90%E1%83%9E%E1%83%9A%E1%83%98%E1%83%99%E1%83%90%E1%83%AA%E1%83%98%E1%83%98%E1%83%A1_%E1%83%9E%E1%83%A0%E1%83%9D%E1%83%92%E1%83%A0%E1%83%90%E1%83%9B%E1%83%98%E1%83%A0%E1%83%94%E1%83%91%E1%83%98%E1%83%A1_%E1%83%98%E1%83%9C%E1%83%A2%E1%83%94%E1%83%A0%E1%83%A4%E1%83%94%E1%83%98%E1%83%A1%E1%83%98","langname":"Georgian","autonym":"\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8","*":"\u10d0\u10de\u10da\u10d8\u10d9\u10d0\u10ea\u10d8\u10d8\u10e1
+        \u10de\u10e0\u10dd\u10d2\u10e0\u10d0\u10db\u10d8\u10e0\u10d4\u10d1\u10d8\u10e1
+        \u10d8\u10dc\u10e2\u10d4\u10e0\u10e4\u10d4\u10d8\u10e1\u10d8"},{"lang":"kk","url":"https://kk.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D0%BB%D1%8B%D2%9B_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81","langname":"Kazakh","autonym":"\u049b\u0430\u0437\u0430\u049b\u0448\u0430","*":"\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430\u043b\u044b\u049b
+        \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441"},{"lang":"ko","url":"https://ko.wikipedia.org/wiki/API","langname":"Korean","autonym":"\ud55c\uad6d\uc5b4","*":"API"},{"lang":"lt","url":"https://lt.wikipedia.org/wiki/Aplikacij%C5%B3_programavimo_s%C4%85saja","langname":"Lithuanian","autonym":"lietuvi\u0173","*":"Aplikacij\u0173
+        programavimo s\u0105saja"},{"lang":"lv","url":"https://lv.wikipedia.org/wiki/Lietojumprogrammas_saskarne","langname":"Latvian","autonym":"latvie\u0161u","*":"Lietojumprogrammas
+        saskarne"},{"lang":"ml","url":"https://ml.wikipedia.org/wiki/%E0%B4%86%E0%B4%AA%E0%B5%8D%E0%B4%B2%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%87%E0%B4%B7%E0%B5%BB_%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B5%8B%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%BE%E0%B4%AE%E0%B4%BF%E0%B4%99%E0%B5%8D_%E0%B4%87%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%BC%E0%B4%AB%E0%B5%87%E0%B4%B8%E0%B5%8D","langname":"Malayalam","autonym":"\u0d2e\u0d32\u0d2f\u0d3e\u0d33\u0d02","*":"\u0d06\u0d2a\u0d4d\u0d32\u0d3f\u0d15\u0d4d\u0d15\u0d47\u0d37\u0d7b
+        \u0d2a\u0d4d\u0d30\u0d4b\u0d17\u0d4d\u0d30\u0d3e\u0d2e\u0d3f\u0d19\u0d4d \u0d07\u0d28\u0d4d\u0d31\u0d7c\u0d2b\u0d47\u0d38\u0d4d"},{"lang":"mn","url":"https://mn.wikipedia.org/wiki/API","langname":"Mongolian","autonym":"\u043c\u043e\u043d\u0433\u043e\u043b","*":"API"},{"lang":"ms","url":"https://ms.wikipedia.org/wiki/Antara_muka_pengaturcaraan_aplikasi","langname":"Malay","autonym":"Bahasa
+        Melayu","*":"Antara muka pengaturcaraan aplikasi"},{"lang":"nl","url":"https://nl.wikipedia.org/wiki/Application_programming_interface","langname":"Dutch","autonym":"Nederlands","*":"Application
+        programming interface"},{"lang":"nn","url":"https://nn.wikipedia.org/wiki/Programmeringsgrensesnitt","langname":"Norwegian
+        Nynorsk","autonym":"norsk nynorsk","*":"Programmeringsgrensesnitt"},{"lang":"no","url":"https://no.wikipedia.org/wiki/Programmeringsgrensesnitt","langname":"Norwegian","autonym":"norsk","*":"Programmeringsgrensesnitt"},{"lang":"pl","url":"https://pl.wikipedia.org/wiki/Interfejs_programowania_aplikacji","langname":"Polish","autonym":"polski","*":"Interfejs
+        programowania aplikacji"},{"lang":"pms","url":"https://pms.wikipedia.org/wiki/API","langname":"Piedmontese","autonym":"Piemont\u00e8is","*":"API"},{"lang":"pt","url":"https://pt.wikipedia.org/wiki/Interface_de_programa%C3%A7%C3%A3o_de_aplica%C3%A7%C3%B5es","langname":"Portuguese","autonym":"portugu\u00eas","*":"Interface
+        de programa\u00e7\u00e3o de aplica\u00e7\u00f5es"},{"lang":"qu","url":"https://qu.wikipedia.org/wiki/API","langname":"Quechua","autonym":"Runa
+        Simi","*":"API"},{"lang":"ro","url":"https://ro.wikipedia.org/wiki/Application_Programming_Interface","langname":"Romanian","autonym":"rom\u00e2n\u0103","*":"Application
+        Programming Interface"},{"lang":"ru","url":"https://ru.wikipedia.org/wiki/API","langname":"Russian","autonym":"\u0440\u0443\u0441\u0441\u043a\u0438\u0439","*":"API"},{"lang":"sh","url":"https://sh.wikipedia.org/wiki/API","langname":"Serbo-Croatian","autonym":"srpskohrvatski
+        / \u0441\u0440\u043f\u0441\u043a\u043e\u0445\u0440\u0432\u0430\u0442\u0441\u043a\u0438","*":"API"},{"lang":"simple","url":"https://simple.wikipedia.org/wiki/Application_programming_interface","langname":"Simple
+        English","autonym":"Simple English","*":"Application programming interface"},{"lang":"sk","url":"https://sk.wikipedia.org/wiki/Application_programming_interface","langname":"Slovak","autonym":"sloven\u010dina","*":"Application
+        programming interface"},{"lang":"sl","url":"https://sl.wikipedia.org/wiki/Vmesnik_za_namensko_programiranje","langname":"Slovenian","autonym":"sloven\u0161\u010dina","*":"Vmesnik
+        za namensko programiranje"},{"lang":"sq","url":"https://sq.wikipedia.org/wiki/Interfejsi_p%C3%ABr_programimin_e_aplikacioneve","langname":"Albanian","autonym":"shqip","*":"Interfejsi
+        p\u00ebr programimin e aplikacioneve"},{"lang":"sr","url":"https://sr.wikipedia.org/wiki/API","langname":"Serbian","autonym":"\u0441\u0440\u043f\u0441\u043a\u0438
+        / srpski","*":"API"},{"lang":"sv","url":"https://sv.wikipedia.org/wiki/Applikationsprogrammeringsgr%C3%A4nssnitt","langname":"Swedish","autonym":"svenska","*":"Applikationsprogrammeringsgr\u00e4nssnitt"},{"lang":"sw","url":"https://sw.wikipedia.org/wiki/Kikusa_cha_Uprogramishaji_cha_Programu_tumizi","langname":"Swahili","autonym":"Kiswahili","*":"Kikusa
+        cha Uprogramishaji cha Programu tumizi"},{"lang":"ta","url":"https://ta.wikipedia.org/wiki/%E0%AE%9A%E0%AF%86%E0%AE%AF%E0%AE%B2%E0%AE%BF_%E0%AE%A8%E0%AE%BF%E0%AE%B0%E0%AE%B2%E0%AE%BE%E0%AE%95%E0%AF%8D%E0%AE%95_%E0%AE%87%E0%AE%9F%E0%AF%88%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AE%AE%E0%AF%8D","langname":"Tamil","autonym":"\u0ba4\u0bae\u0bbf\u0bb4\u0bcd","*":"\u0b9a\u0bc6\u0baf\u0bb2\u0bbf
+        \u0ba8\u0bbf\u0bb0\u0bb2\u0bbe\u0b95\u0bcd\u0b95 \u0b87\u0b9f\u0bc8\u0bae\u0bc1\u0b95\u0bae\u0bcd"},{"lang":"th","url":"https://th.wikipedia.org/wiki/%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B2%E0%B8%99%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%81%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%95%E0%B9%8C","langname":"Thai","autonym":"\u0e44\u0e17\u0e22","*":"\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e48\u0e2d\u0e1b\u0e23\u0e30\u0e2a\u0e32\u0e19\u0e42\u0e1b\u0e23\u0e41\u0e01\u0e23\u0e21\u0e1b\u0e23\u0e30\u0e22\u0e38\u0e01\u0e15\u0e4c"},{"lang":"tl","url":"https://tl.wikipedia.org/wiki/Application_programming_interface","langname":"Tagalog","autonym":"Tagalog","*":"Application
+        programming interface"},{"lang":"tr","url":"https://tr.wikipedia.org/wiki/Uygulama_programlama_aray%C3%BCz%C3%BC","langname":"Turkish","autonym":"T\u00fcrk\u00e7e","*":"Uygulama
+        programlama aray\u00fcz\u00fc"},{"lang":"uk","url":"https://uk.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B8%D0%B9_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BD%D0%B8%D0%B9_%D1%96%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81","langname":"Ukrainian","autonym":"\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430","*":"\u041f\u0440\u0438\u043a\u043b\u0430\u0434\u043d\u0438\u0439
+        \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043d\u0438\u0439 \u0456\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441"},{"lang":"ur","url":"https://ur.wikipedia.org/wiki/%D8%A7%DB%8C%D9%BE%D9%84%DB%8C%DA%A9%DB%8C%D8%B4%D9%86_%D9%BE%D8%B1%D9%88%DA%AF%D8%B1%D8%A7%D9%85%D9%86%DA%AF_%D8%A7%D9%86%D9%B9%D8%B1%D9%81%DB%8C%D8%B3","langname":"Urdu","autonym":"\u0627\u0631\u062f\u0648","*":"\u0627\u06cc\u067e\u0644\u06cc\u06a9\u06cc\u0634\u0646
+        \u067e\u0631\u0648\u06af\u0631\u0627\u0645\u0646\u06af \u0627\u0646\u0679\u0631\u0641\u06cc\u0633"},{"lang":"uz","url":"https://uz.wikipedia.org/wiki/API","langname":"Uzbek","autonym":"o\u02bbzbekcha
+        / \u045e\u0437\u0431\u0435\u043a\u0447\u0430","*":"API"},{"lang":"vi","url":"https://vi.wikipedia.org/wiki/Giao_di%E1%BB%87n_l%E1%BA%ADp_tr%C3%ACnh_%E1%BB%A9ng_d%E1%BB%A5ng","langname":"Vietnamese","autonym":"Ti\u1ebfng
+        Vi\u1ec7t","*":"Giao di\u1ec7n l\u1eadp tr\u00ecnh \u1ee9ng d\u1ee5ng"},{"lang":"wuu","url":"https://wuu.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3","langname":"Wu","autonym":"\u5434\u8bed","*":"\u5e94\u7528\u7a0b\u5e8f\u63a5\u53e3"},{"lang":"xmf","url":"https://xmf.wikipedia.org/wiki/%E1%83%90%E1%83%9E%E1%83%9A%E1%83%98%E1%83%99%E1%83%90%E1%83%AA%E1%83%98%E1%83%90%E1%83%A8_%E1%83%9E%E1%83%A0%E1%83%9D%E1%83%92%E1%83%A0%E1%83%90%E1%83%9B%E1%83%98%E1%83%A0%E1%83%94%E1%83%91%E1%83%90%E1%83%A8_%E1%83%98%E1%83%9C%E1%83%A2%E1%83%94%E1%83%A0%E1%83%A4%E1%83%94%E1%83%98%E1%83%A1%E1%83%98","langname":"Mingrelian","autonym":"\u10db\u10d0\u10e0\u10d2\u10d0\u10da\u10e3\u10e0\u10d8","*":"\u10d0\u10de\u10da\u10d8\u10d9\u10d0\u10ea\u10d8\u10d0\u10e8
+        \u10de\u10e0\u10dd\u10d2\u10e0\u10d0\u10db\u10d8\u10e0\u10d4\u10d1\u10d0\u10e8
+        \u10d8\u10dc\u10e2\u10d4\u10e0\u10e4\u10d4\u10d8\u10e1\u10d8"},{"lang":"zh-yue","url":"https://zh-yue.wikipedia.org/wiki/%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%BB%8B%E9%9D%A2","langname":"Cantonese","autonym":"\u7cb5\u8a9e","*":"\u61c9\u7528\u7a0b\u5f0f\u4ecb\u9762"},{"lang":"zh","url":"https://zh.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3","langname":"Chinese","autonym":"\u4e2d\u6587","*":"\u5e94\u7528\u7a0b\u5e8f\u63a5\u53e3"}],"categories":[],"links":[{"ns":0,"exists":"","*":"Commercialization"},{"ns":0,"exists":"","*":"Coworking"},{"ns":0,"exists":"","*":"Cultural
+        capital"},{"ns":0,"exists":"","*":"Economic inequality"},{"ns":0,"exists":"","*":"Infrastructure"},{"ns":0,"exists":"","*":"Social
+        exclusion"},{"ns":0,"exists":"","*":"Urban studies"}],"templates":[{"ns":10,"exists":"","*":"Template:Cite
+        book"},{"ns":828,"exists":"","*":"Module:Citation/CS1"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Configuration"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Whitelist"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Utilities"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Date
+        validation"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Identifiers"},{"ns":828,"exists":"","*":"Module:Citation/CS1/COinS"},{"ns":828,"exists":"","*":"Module:Citation/CS1/styles.css"}],"images":["Coworking_Space_in_Berlin.jpg"],"externallinks":[],"sections":[{"toclevel":1,"level":"2","line":"Criticism","number":"1","index":"1","fromtitle":"API","byteoffset":438,"anchor":"Criticism","linkAnchor":"Criticism"}],"tocdata":{"sections":[{"tocLevel":1,"hLevel":2,"line":"Criticism","number":"1","index":"1","fromTitle":"API","codepointOffset":438,"anchor":"Criticism"}],"extensionData":[]},"parsewarnings":[],"displaytitle":"<span
+        class=\"mw-page-title-main\">API</span>","iwlinks":[],"properties":[{"name":"wikibase_item","*":"Q165194"}]}}'
+  recorded_at: Tue, 10 Mar 2026 16:23:41 GMT
+recorded_with: VCR 6.1.0
