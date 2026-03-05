@@ -156,7 +156,6 @@ pt:
     ai_stats:
       timestamp: Data e hora
       title: Estatísticas de Alertas de Edição com IA
-      general_stats: Estatísticas Gerais para %{campaign_name}
       total_alerts: Total de Alertas de Edição com IA
       with_followup: Com acompanhamento
       multiple_alerts_students: Estudantes com várias alertas
@@ -170,7 +169,6 @@ pt:
       last_week: Semana passada
       sections:
         contents: Tabela de conteúdos para as listas
-        go_back: Voltar aos conteúdos
         name: Nome
         description: Descrição
         courses_with_ai_alerts: Cursos com múltiplos alertas de IA

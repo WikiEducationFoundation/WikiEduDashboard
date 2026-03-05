@@ -161,7 +161,6 @@ tr:
       single_alert_view: Uyarı
       sections:
         contents: Listeler için içerik tablosu
-        go_back: İçeriğe geri dön
         name: İsim
         description: Açıklama
         in_mainspace: Ana alandaki son uyarılar

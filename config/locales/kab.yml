@@ -45,7 +45,6 @@ kab:
   alerts:
     ai_stats:
       sections:
-        go_back: Uɣal ar ugbur
         name: Isem
         description: Aglam
   activity:
