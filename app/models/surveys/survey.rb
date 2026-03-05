@@ -49,7 +49,8 @@ class Survey < ApplicationRecord
       csv << csv_header
       respondents.each do |respondent|
         duration = completion_times_by_user_id[respondent.id]&.duration_in_seconds
-        response_row = [respondent.username, course_slug(respondent)] + response(respondent) + [duration]
+        response_row = [respondent.username, course_slug(respondent)]
+        response_row += response(respondent) + [duration]
         csv << response_row
       end
     end
