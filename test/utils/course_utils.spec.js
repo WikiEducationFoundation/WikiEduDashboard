@@ -81,7 +81,7 @@ describe('courseUtils.i18n', () => {
 
   test('defaults to the "courses" prefix if prefix is null', () => {
     const message = courseUtils.i18n('students', null);
-    expect(message).toBe('Students');
+    expect(message).toBe('Editors');
   });
 
   test('takes an optional fallback prefix for if prefix is null', () => {

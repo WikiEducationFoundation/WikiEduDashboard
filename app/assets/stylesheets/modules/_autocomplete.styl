@@ -1,0 +1,40 @@
+// Styling for jQuery UI Autocomplete
+.ui-autocomplete
+  position absolute
+  top 100%
+  left 0
+  z-index 1000
+  float left
+  display none
+  min-width 160px
+  padding 4px 0
+  margin 2px 0 0
+  list-style none
+  background-color #fff
+  border 1px solid #ccc
+  border 1px solid rgba(0,0,0,0.15)
+  border-radius 4px
+  box-shadow 0 6px 12px rgba(0,0,0,0.175)
+  background-clip padding-box
+  max-height 200px
+  overflow-y auto
+  overflow-x hidden
+
+  .ui-menu-item
+    display block
+    padding 3px 20px
+    clear both
+    font-weight normal
+    line-height 1.42857143
+    color #333
+    white-space nowrap
+    cursor pointer
+
+    &.ui-state-focus,
+    &:hover
+      color #262626
+      text-decoration none
+      background-color #f5f5f5
+
+  .ui-helper-hidden-accessible
+    display none

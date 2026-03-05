@@ -17,8 +17,21 @@ document.onreadystatechange = () => {
   }
   // Course sorting
   // only sort if there are tables to sort
+  // let courseList;
+  // if (isTableValid('#courses')) {
+  //   courseList = new List('courses', {
+  //     page: 500,
+  //     valueNames: [
+  //       'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
+  //       'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained', 'start-date'
+  //     ]
+  //   });
+  // }
+
   let courseList;
-  if (isTableValid('#courses')) {
+  if (window.DISABLE_COURSES_LISTJS) {
+    // List.js is disabled for courses, likely because of performance issues. In this case, we won't initialize List.js for the courses table.
+  } else if (isTableValid('#courses')) {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
@@ -55,8 +68,20 @@ document.onreadystatechange = () => {
 
   // Article sorting
   // only sort if there are tables to sort
+  // let articlesList;
+  // if (isTableValid('#campaign-articles')) {
+  //   articlesList = new List('campaign-articles', {
+  //     page: 10000,
+  //     valueNames: [
+  //       'title', 'views', 'char_added', 'references', 'lang_project', 'course_title'
+  //     ]
+  //   });
+  // }
+
   let articlesList;
-  if (isTableValid('#campaign-articles')) {
+  if (window.DISABLE_ARTICLES_LISTJS) {
+    // List.js is disabled for articles, likely because of performance issues. In this case, we won't initialize List.js for the campaign articles table.
+  } else if (isTableValid('#campaign-articles')) {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [

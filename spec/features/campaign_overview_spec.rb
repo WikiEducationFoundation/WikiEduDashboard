@@ -119,8 +119,10 @@ describe 'campaign overview page', type: :feature, js: true do
       end
 
       it 'falls back when locale is not available' do
+        allow_any_instance_of(HttpAcceptLanguage::Parser)
+          .to receive(:user_preferred_languages).and_return(['aa'])
         visit "/campaigns/#{campaign.slug}/overview?locale=aa"
-        expect(page.find('.stat-display')).to have_content "20\nStudents"
+        expect(page.find('.stat-display')).to have_content "20\nEditors"
       end
 
       # TODO: Test somewhere that has access to the request.

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe 'course deletion', type: :feature, js: true do
   let(:course) { create(:course) }
-  let(:admin) { create(:admin) }
+  let(:admin) { create(:admin, locale: 'en') }
   let(:second_campaign) { create(:campaign, slug: 'second_campaign') }
 
   it 'destroys the course and redirects to the home page' do
@@ -33,11 +33,13 @@ describe 'course deletion', type: :feature, js: true do
       login_as admin
       stub_oauth_edit
       visit "campaigns/#{Campaign.first.slug}/programs"
-      expect(page).to have_content "1\nCourses"
+      expect(page).to have_content course.title
       accept_prompt(with: course.title) do
         click_button 'Remove and Delete'
       end
-      expect(page).to have_content "0\nCourses"
+      expect(page).to have_content 'has been deleted and removed'
+      sleep 1
+      expect(Course.count).to eq(0)
     end
   end
 
@@ -51,11 +53,12 @@ describe 'course deletion', type: :feature, js: true do
       login_as admin
       stub_oauth_edit
       visit "campaigns/#{Campaign.first.slug}/programs"
-      expect(page).to have_content "1\nCourses"
+      expect(page).to have_content course.title
       accept_prompt(with: course.title) do
         click_button 'Remove and Delete'
       end
-      expect(page).to have_content "0\nCourses"
+      expect(page).to have_content 'but has not been deleted'
+      sleep 1
       expect(course.reload.campaigns.count).to eq(1)
     end
   end

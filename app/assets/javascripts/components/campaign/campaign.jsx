@@ -36,12 +36,14 @@ export const Campaign = () => {
         campaign={campaign}
       />
       <div className="container campaign_main">
-        <section className="overview container">
-          <CampaignStats campaign={campaign} />
-          {campaign.course_stats && <WikidataOverviewStats
-            statistics={campaign.course_stats['www.wikidata.org']}
-          />}
-        </section>
+        {window.location.href.match(/overview/) && (
+          <section className="overview container">
+            <CampaignStats campaign={campaign} />
+            {campaign.course_stats && <WikidataOverviewStats
+              statistics={campaign.course_stats['www.wikidata.org']}
+            />}
+          </section>
+        )}
         {campaignHandler}
         <Routes>
           <Route path="ores_plot" element={<CampaignOresPlot />} />

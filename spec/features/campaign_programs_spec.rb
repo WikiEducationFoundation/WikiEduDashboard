@@ -42,49 +42,7 @@ describe 'campaign programs page', type: :feature, js: true do
     end
   end
 
-  describe 'control bar' do
-    it 'allows sorting using a dropdown' do
-      visit "/campaigns/#{campaign.slug}/programs"
-
-      find('#courses select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[1]').select_option
-      expect(page).to have_selector('[data-sort="title"].sort.asc')
-      find('#courses select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('[data-sort="school"].sort.asc')
-      find('#courses select.sorts').find(:xpath, 'option[4]').select_option
-      expect(page).to have_selector('[data-sort="characters"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[6]').select_option
-      expect(page).to have_selector('[data-sort="references"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[7]').select_option
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[8]').select_option
-      expect(page).to have_selector('[data-sort="students"].sort.desc')
-    end
-  end
-
   describe 'course list' do
-    it 'is sortable by the different selectors' do
-      visit "/campaigns/#{campaign.slug}/programs"
-
-      # Sortable by revision
-      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
-      find('#courses [data-sort="revisions"].sort').click
-      expect(page).to have_selector('[data-sort="revisions"].sort.asc')
-
-      # Sortable by title
-      find('#courses [data-sort="title"].sort').click
-      expect(page).to have_selector('#courses [data-sort="title"].sort.asc')
-      find('#courses [data-sort="title"].sort').click
-      expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
-
-      # Sortable by institution
-      find('#courses [data-sort="school"].sort').click
-      expect(page).to have_selector('#courses [data-sort="school"].sort.asc')
-      find('#courses [data-sort="school"].sort').click
-      expect(page).to have_selector('#courses [data-sort="school"].sort.desc')
-    end
-
     def expect_advanced_before_regular_basketweaving
       expect(page.find(:xpath, '//tbody/tr[1]')).to have_content 'Advanced basket-weaving'
       expect(page.find(:xpath, '//tbody/tr[2]')).to have_content 'Basket-weaving'

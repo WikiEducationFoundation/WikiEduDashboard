@@ -1,3 +1,7 @@
+- content_for :javascripts do
+  = javascript_include_tag '/assets/javascripts/jquery.min.js'
+  = hot_javascript_tag("campaigns")
+
 - content_for :before_title, t('courses.campaign_articles', title: @campaign.title) + ' — '
 
 #react_root{data: {slug: @campaign.slug}}
@@ -24,28 +28,109 @@
             = t("articles.wiki")
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
+      = form_tag(articles_campaign_path(@campaign.slug), method: :get, class: 'course-filters campaign-articles-search-form') do
+        = hidden_field_tag :sort, params[:sort]
+        = hidden_field_tag :direction, params[:direction]
+        .form-fields
+          .form-row
+            = text_field_tag :title, params[:title], placeholder: t('form_search.search') + ' ' + t('articles.article_title'), class: 'form-control input-sm input-full-width'
+          .form-row
+            %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: 'button'}
+              = t('form_search.advanced_search')
+        #advanced_search_fields.hidden
+          .form-row.relative
+            = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select', class: 'school-select-wrapper'
+            :javascript
+              document.addEventListener('DOMContentLoaded', () => {
+                if (typeof TomSelect !== 'undefined') {
+                  new TomSelect('#school_select', {
+                    plugins: ['remove_button'],
+                    placeholder: "#{t('assignments.select')} #{t('courses.school')}...",
+                    allowEmptyOption: true
+                  });
+                }
+              });
+          .form-row.advanced-search-grid-small
+            %label{for: 'char_added_from'}= t("metrics.char_added")
+            .input-group.flex-input-group
+              = number_field_tag :char_added_from, params[:char_added_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+              %span -
+              = number_field_tag :char_added_to, params[:char_added_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+          .form-row.advanced-search-grid-small
+            %label{for: 'references_count_from'}= t("metrics.references_count")
+            .input-group.flex-input-group
+              = number_field_tag :references_count_from, params[:references_count_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+              %span -
+              = number_field_tag :references_count_to, params[:references_count_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+          .form-row.advanced-search-grid-small
+            %label{for: 'view_count_from'}= t("metrics.view")
+            .input-group.flex-input-group
+              = number_field_tag :view_count_from, params[:view_count_from], class: 'form-control input-sm', min: 0, placeholder: 'Min'
+              %span -
+              = number_field_tag :view_count_to, params[:view_count_to], class: 'form-control input-sm', min: 0, placeholder: 'Max'
+        .form-actions
+          = submit_tag t('form_search.search'), class: 'button'
+          = link_to t('form_search.clear'), articles_campaign_path(@campaign.slug), class: 'button'
+
+    -  result = @presenter.campaign_articles
+    -  articles_courses = result[:articles_courses]
+    -  courses = result[:courses]
+    -  articles = result[:articles]
+    :javascript
+      window.DISABLE_ARTICLES_LISTJS = true;
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const headers = document.querySelectorAll('#campaign-articles table th.sortable');
+
+        headers.forEach(function(th) {
+          th.style.cursor = 'pointer';
+
+          th.onclick = function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const backendColumn = th.getAttribute('data-backend-column');
+            const defaultOrder = th.getAttribute('data-default-order') || 'asc';
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentSort = urlParams.get('sort');
+            const currentDirection = urlParams.get('direction');
+
+            let newDirection = defaultOrder;
+            if (currentSort === backendColumn) {
+              newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+            }
+
+            urlParams.set('sort', backendColumn);
+            urlParams.set('direction', newDirection);
+            urlParams.delete('page');
+
+            window.location.href = window.location.pathname + '?' + urlParams.toString();
+          };
+        });
+      });
 
     %table.table.table--hoverable.table--sortable
       %thead
         %tr
-          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title', 'data-backend-column' => 'title'}
             = t('articles.title')
             %span.sortable-indicator
-          %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
+          %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added', 'data-backend-column' => 'char_added'}
             .tooltip-trigger
               = t('metrics.char_added')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('articles.character_doc')
-          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references'}
+          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references', 'data-backend-column' => 'references'}
             .tooltip-trigger
               = t('metrics.references_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('metrics.references_doc')
-          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'views'}
+          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'views', 'data-backend-column' => 'views'}
             .tooltip-trigger
               = t('metrics.view')
               %span.sortable-indicator
@@ -59,13 +144,6 @@
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
 
-      -  result = @presenter.campaign_articles
-      -  articles_courses = result[:articles_courses]
-      -  courses = result[:courses]
-      -  articles = result[:articles]
-
-      = will_paginate articles_courses
-
       %tbody.list
         - if articles_courses.empty?
           %tr.disabled
@@ -78,4 +156,6 @@
             - cache ["article_row", ac.article_id, ac.course_id, ac.updated_at, locale] do
               = render 'campaigns/article_row', article:, article_course: ac, course:
 
-    = will_paginate articles_courses
+    = will_paginate articles_courses, renderer: WillPaginate::LinkRenderer, previous_label: t('articles.previous'), next_label: t('articles.next'), inner_window: 1, outer_window: 1
+    .page-entries-info{style: 'text-align: center; color: #666; font-size: 14px; margin-top: 10px;'}
+      = t('articles.page_info', current: articles_courses.current_page, total_pages: articles_courses.total_pages, count: articles_courses.length, total: articles_courses.total_entries)
