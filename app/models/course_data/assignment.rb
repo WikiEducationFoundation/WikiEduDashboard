@@ -145,6 +145,20 @@ class Assignment < ApplicationRecord
   end
 
   def set_defaults_and_normalize
+    # Check if article_title contains interwiki format and update wiki accordingly
+    if article_title.present?
+      interwiki_info = ArticleUtils.parse_interwiki_format(article_title)
+      if interwiki_info
+        # Parse interwiki format and update wiki_id accordingly
+        target_wiki = Wiki.get_or_create(
+          language: interwiki_info[:language],
+          project: interwiki_info[:project]
+        )
+        self.wiki_id = target_wiki.id
+        self.article_title = interwiki_info[:title]
+      end
+    end
+
     self.wiki_id ||= course.home_wiki.id
     return if article_title.nil?
     self.article_title = ArticleUtils.format_article_title(article_title, wiki)
