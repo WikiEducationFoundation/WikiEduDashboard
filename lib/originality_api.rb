@@ -44,6 +44,8 @@ class OriginalityApi
     @result = JSON.parse @response.body
   end
 
+  private
+
   def base_request_body(text)
     {
       check_ai: true,
