@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/pangram_api"
+require_dependency "#{Rails.root}/lib/originality_api"
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
 
 class AiToolsController < ApplicationController
@@ -14,6 +15,8 @@ class AiToolsController < ApplicationController
     @plain = GetRevisionPlaintext.new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
     @pangram_v2_result = PangramApi.v2.inference @plain.plain_text
     @pangram_v3_result = PangramApi.v3.inference @plain.plain_text
+    @originality_turbo_result = OriginalityApi.turbo.inference @plain.plain_text
+    @originality_academic_result = OriginalityApi.academic.inference @plain.plain_text
 
     render 'show'
   end

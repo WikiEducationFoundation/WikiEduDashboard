@@ -140,3 +140,5 @@
 # Default timeslice duration (in seconds) used for processing course updates
   TIMESLICE_DURATION: '86400'
 
+# Originality.ai API key
+  originality_api_key: 'example_api_key'
