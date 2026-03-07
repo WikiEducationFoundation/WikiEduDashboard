@@ -79,11 +79,50 @@ class GetRevisionPlaintext
 
   def generate_wikitext_from_diff_table
     doc = Nokogiri::HTML(@diff_table)
-    # Collect all the '.diff-addedline' table cells.
-    # These represent all the sections of wikitext that were either added or changed,
-    # IE, the right side of a traditional wikitext diff table without the unchanged
-    # .diff-context cells.
-    @changed_wikitext = doc.css('.diff-addedline').map(&:text).reject(&:empty?).join("\n\n")
+    @changed_wikitext = extract_changed_parts(doc).reject(&:empty?).join("\n\n")
+  end
+
+  # Iterates over diff table rows and extracts the relevant new content
+  # from each row, depending on whether it is an independent addition
+  # or a rewrite.
+  def extract_changed_parts(doc)
+    doc.css('tr').filter_map do |row|
+      extract_row_content(row)
+    end
+  end
+
+  # Extracts the new content from a single diff table row.
+  # Returns nil if the row has no added content.
+  def extract_row_content(row)
+    added = row.at_css('.diff-addedline')
+    deleted = row.at_css('.diff-deletedline')
+    return nil if added.nil? || added.text.strip.empty?
+
+    ins_elements = added.css('ins.diffchange')
+
+    if independent_addition?(added, deleted, ins_elements)
+      ins_elements.map(&:text).join(' ')
+    else
+      added.text
+    end
+  end
+
+  # Determines whether the new content in a diff row is an independent
+  # prose addition — meaning the pre-existing text is unchanged and the
+  # new text is purely additive.
+  def independent_addition?(added, deleted, ins_elements)
+    return false unless ins_elements.any?
+    return false if deleted.nil? || deleted.text.strip.empty?
+
+    text_without_ins(added).strip == deleted.text.strip
+  end
+
+  # Returns the text of an added line with all <ins> elements removed,
+  # leaving only the pre-existing content.
+  def text_without_ins(added)
+    clone = added.dup
+    clone.css('ins.diffchange').each(&:remove)
+    clone.text
   end
 
   def fetch_parsed_changed_wikitext
