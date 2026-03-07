@@ -106,6 +106,9 @@ show-over(breakpoint, display)
 .mx2
   margin-right 22px
 
+.mr1
+  margin-right 10px !important
+
 .ml0
   margin-left 0 !important
 
@@ -165,6 +168,12 @@ show-over(breakpoint, display)
 .w10
   width 10%
 
+.w5
+  width 5%
+
+.h5
+  height 5%
+
 .hidden
   display none !important
 
@@ -218,3 +227,15 @@ show-over(breakpoint, display)
 .empty
   z-index -1
   position absolute
+
+.display
+  display flex
+  align-items center
+
+  &.between
+    justify-content space-between
+    align-content center
+
+  &.cursor-pointer
+    cursor pointer
+  

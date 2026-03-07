@@ -5,7 +5,7 @@ import UserUtils from '../../utils/user_utils.js';
 
 import ArticleScroll from '@components/common/ArticleViewer/utils/ArticleScroll';
 
-const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage, unhighlightedContributors }) => {
+const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage, unhighlightedContributors, viewerSettings }) => {
   const [userLinks, setUserLinks] = useState('');
   const [usersStatus, setUsersStatus] = useState('');
   const Scroller = new ArticleScroll();
@@ -24,20 +24,27 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
 
       setUserLinks(users.map((user, i) => {
         let res;
+        let displayName = user.name;
         // The 'unhighlightedContributions' keeps track of the userids of users whose contributions
         // were not successfully highlighted in the article viewer.
         const UnhighlightedContributions = unhighlightedContributors?.find(x => x === user.userid);
         const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
         const fullUserRecord = allUsers.find(_user => _user.username === user.name);
         const realName = fullUserRecord && fullUserRecord.real_name;
+
+        const showFullNames = viewerSettings?.showUserFullNames ?? false;
+
+        if (showFullNames && fullUserRecord?.real_name) {
+          displayName = fullUserRecord.real_name;
+        }
         if (status === 'loading') {
-          res = <div key={`legend-${user.name}`} className={'article-viewer-legend'}><a href={userLink} title={realName} target="_blank">{user.name}</a></div>;
+          res = <div key={`legend-${user.name}`} className={'article-viewer-legend'}><a href={userLink} title={realName} target="_blank">{displayName}</a></div>;
         } else if (user.activeRevision === true) {
-          res = <div key={`legend-${user.name}`} className={`article-viewer-legend user-legend-name ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{user.name}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
+          res = <div key={`legend-${user.name}`} className={`article-viewer-legend user-legend-name ${colors[i]}`}><a href={userLink} title={realName} target="_blank">{displayName}</a><img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="scroll to users revisions" width="30px" height="20px" onClick={() => Scroller.scrollTo(user.name, scrollBox)} /></div >;
         } else if (UnhighlightedContributions) {
-          res = <div key={`legend-${user.name}`} className={'article-viewer-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'} >{I18n.t('users.contributions_not_highlighted', { username: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator-article-viewer" />}</div>;
+          res = <div key={`legend-${user.name}`} className={'article-viewer-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'} >{I18n.t('users.contributions_not_highlighted', { username: user.name })}</p><a href={userLink} title={realName} target="_blank">{displayName}</a>{<span className="tooltip-indicator-article-viewer" />}</div>;
         } else {
-          res = <div key={`legend-${user.name}`} className={'article-viewer-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'}>{I18n.t('users.no_highlighting', { editor: user.name })}</p><a href={userLink} title={realName} target="_blank">{user.name}</a>{<span className="tooltip-indicator-article-viewer" />}</div>;
+          res = <div key={`legend-${user.name}`} className={'article-viewer-legend tooltip-trigger'}><p className={'tooltip large'} id={'popup-style'}>{I18n.t('users.no_highlighting', { editor: user.name })}</p><a href={userLink} title={realName} target="_blank">{displayName}</a>{<span className="tooltip-indicator-article-viewer" />}</div>;
         }
 
         return res;
@@ -76,7 +83,8 @@ ArticleViewerLegend.propTypes = {
   article: PropTypes.object,
   users: PropTypes.array,
   colors: PropTypes.array,
-  status: PropTypes.string
+  status: PropTypes.string,
+  viewerSettings: PropTypes.object
 };
 
 const mapStateToProps = state => ({
