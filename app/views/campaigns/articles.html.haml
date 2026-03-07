@@ -25,57 +25,58 @@
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
 
-    %table.table.table--hoverable.table--sortable
-      %thead
-        %tr
-          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
-            = t('articles.title')
-            %span.sortable-indicator
-          %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
-            .tooltip-trigger
-              = t('metrics.char_added')
+    .table-responsive
+      %table.table.table--hoverable.table--sortable
+        %thead
+          %tr
+            %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+              = t('articles.title')
               %span.sortable-indicator
-              %span.tooltip-indicator
-              .tooltip.dark
-                %p= t('articles.character_doc')
-          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references'}
-            .tooltip-trigger
-              = t('metrics.references_count')
+            %th.sort.sortable.desc{'data-default-order' => 'desc', 'data-sort' => 'char_added'}
+              .tooltip-trigger
+                = t('metrics.char_added')
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t('articles.character_doc')
+            %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'references'}
+              .tooltip-trigger
+                = t('metrics.references_count')
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t('metrics.references_doc')
+            %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'views'}
+              .tooltip-trigger
+                = t('metrics.view')
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t('articles.view_doc')
+            %th.sort.sortable{'data-sort' => 'lang_project'}
+              = t('articles.wiki')
               %span.sortable-indicator
-              %span.tooltip-indicator
-              .tooltip.dark
-                %p= t('metrics.references_doc')
-          %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'views'}
-            .tooltip-trigger
-              = t('metrics.view')
+            %th.sort.sortable{'data-sort' => 'course_title'}
+              = t("#{@presenter.course_string_prefix}.courses")
               %span.sortable-indicator
-              %span.tooltip-indicator
-              .tooltip.dark
-                %p= t('articles.view_doc')
-          %th.sort.sortable{'data-sort' => 'lang_project'}
-            = t('articles.wiki')
-            %span.sortable-indicator
-          %th.sort.sortable{'data-sort' => 'course_title'}
-            = t("#{@presenter.course_string_prefix}.courses")
-            %span.sortable-indicator
 
-      -  result = @presenter.campaign_articles
-      -  articles_courses = result[:articles_courses]
-      -  courses = result[:courses]
-      -  articles = result[:articles]
+        -  result = @presenter.campaign_articles
+        -  articles_courses = result[:articles_courses]
+        -  courses = result[:courses]
+        -  articles = result[:articles]
+
+        = will_paginate articles_courses
+
+        %tbody.list
+          - if articles_courses.empty?
+            %tr.disabled
+              %td{:class => "text-center", :colSpan => 7}
+                %span= I18n.t('articles.none')
+          - else
+            - articles_courses.each do |ac|
+              - course = courses[ac.course_id]
+              - article = articles[ac.article_id]
+              - cache ["article_row", ac.article_id, ac.course_id, ac.updated_at, locale] do
+                = render 'campaigns/article_row', article:, article_course: ac, course:
 
       = will_paginate articles_courses
-
-      %tbody.list
-        - if articles_courses.empty?
-          %tr.disabled
-            %td{:class => "text-center", :colSpan => 7}
-              %span= I18n.t('articles.none')
-        - else
-          - articles_courses.each do |ac|
-            - course = courses[ac.course_id]
-            - article = articles[ac.article_id]
-            - cache ["article_row", ac.article_id, ac.course_id, ac.updated_at, locale] do
-              = render 'campaigns/article_row', article:, article_course: ac, course:
-
-    = will_paginate articles_courses

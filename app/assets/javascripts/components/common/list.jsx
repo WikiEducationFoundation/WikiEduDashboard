@@ -145,7 +145,7 @@ const List = ({
     fixedHeader += ` ${fixheader}`;
   }
   return (
-    <div className={fixedArea}>
+    <div className={`${fixedArea || ''} table-responsive`.trim()}>
       <table className={defaultClassName}>
         <thead className={fixedHeader}>
           <tr>
