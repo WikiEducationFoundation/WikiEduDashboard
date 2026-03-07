@@ -2,6 +2,7 @@
 
 module.exports = {
   collectCoverage: false,
+  testEnvironment: 'jsdom',
   roots: [
     'test',
     'app/assets/javascripts'
