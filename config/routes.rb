@@ -131,6 +131,10 @@ Rails.application.routes.draw do
       constraints: { course_id: /.*/ }
 
   # Courses
+  controller :courses_update do
+    put 'courses/:id' => 'courses_update#update', constraints: { id: /.*/ },
+        :as => :courses
+  end
   controller :courses do
     get 'courses/new' => 'courses#new',
         constraints: { id: /.*/ } # repeat of resources
@@ -233,7 +237,7 @@ Rails.application.routes.draw do
   get 'lookups/tag(.:format)' => 'lookups#tag'
 
   # Timeline
-  resources :courses, constraints: { id: /.*/ } do
+  resources :courses, except: :update, constraints: { id: /.*/ } do
     resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
     # get 'courses' => 'courses#index'
   end
