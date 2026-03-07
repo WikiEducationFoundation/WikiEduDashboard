@@ -234,17 +234,6 @@ const API = {
      }
   },
 
-  async fetchAllAdminCourseNotes(courseId) {
-    try {
-      const response = await request(`/admin_course_notes/${courseId}`);
-      const data = await response.json();
-      return data.AdminCourseNotes;
-    } catch (error) {
-      logErrorMessage('Error fetching course notes:', error);
-      throw error;
-    }
-  },
-
   // /////////
   // Setters #
   // /////////
@@ -322,51 +311,6 @@ const API = {
       throw response;
     }
     return response.json();
-  },
-
-  async saveUpdatedAdminCourseNote(adminCourseNoteDetails) {
-    try {
-        const response = await request(`/admin_course_notes/${adminCourseNoteDetails.id}`, {
-            method: 'PUT',
-            body: JSON.stringify(adminCourseNoteDetails)
-        });
-
-        const status = await response.json();
-        return status;
-    } catch (error) {
-        logErrorMessage('Error fetching course notes:', error);
-        throw error;
-    }
-  },
-
-  async createAdminCourseNote(courseId, adminCourseNoteDetails) {
-     const modifiedDetails = { ...adminCourseNoteDetails, courses_id: courseId };
-     try {
-         const response = await request('/admin_course_notes', {
-             method: 'POST',
-             body: JSON.stringify(modifiedDetails)
-         });
-
-         const { created_admin_course_note } = await response.json();
-         return created_admin_course_note;
-     } catch (error) {
-         logErrorMessage('Error saving course notes:', error)
-         throw error;
-     }
-  },
-
-  async deleteAdminCourseNote(adminCourseNoteId) {
-     try {
-         const response = await request(`/admin_course_notes/${adminCourseNoteId}`, {
-             method: 'DELETE',
-         });
-
-         const status = await response.json();
-         return status;
-     } catch (error) {
-         logErrorMessage('Error Deleting course notes:', error)
-         throw error;
-     }
   },
 
   async deleteCourse(courseId) {
