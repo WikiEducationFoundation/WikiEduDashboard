@@ -68,4 +68,6 @@ module SurveysAnalyticsHelper
     percent = (action_taken / notified.to_f) * 100 if action_taken.positive?
     "#{percent.round(2)}% (#{action_taken}/#{notified})"
   end
+
+
 end

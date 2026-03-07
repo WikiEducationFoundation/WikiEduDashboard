@@ -48,7 +48,9 @@ class Survey < ApplicationRecord
     CSV.generate do |csv|
       csv << csv_header
       respondents.each do |respondent|
-        response_row = [respondent.username, course_slug(respondent)] + response(respondent)
+        duration = completion_times_by_user_id[respondent.id]&.duration_in_seconds
+        response_row = [respondent.username, course_slug(respondent)]
+        response_row += response(respondent) + [duration]
         csv << response_row
       end
     end
@@ -80,7 +82,7 @@ class Survey < ApplicationRecord
       column_name += ": #{question_text}" unless question_text.empty?
       column_name
     end
-    %w[username course] + question_headers
+    %w[username course] + question_headers + %w[duration_seconds]
   end
 
   def answer_groups_by_user_id
@@ -132,6 +134,14 @@ class Survey < ApplicationRecord
   def course_slug(user)
     # If there's no course from a notification, fall back to the user's latest course
     user.survey_notifications.first&.course&.slug || user.courses.last&.slug
+  end
+
+  def completion_times_by_user_id
+    @completion_times_by_user_id ||= SurveyCompletionTime
+                                      .where(survey_id: id)
+                                      .completed
+                                      .order(created_at: :desc)
+                                      .index_by(&:user_id)
   end
 
   def question_groups_in_order

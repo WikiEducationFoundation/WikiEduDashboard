@@ -11,6 +11,41 @@
     = link_to survey_results_path(format: 'csv'), class: 'download-button' do
       %span Download Survey Results CSV
 
+    %h3{style: 'margin-top: 20px;'} Completion Time Statistics
+    %table.table{style: 'width: 100%; margin-bottom: 15px;'}
+      %tbody
+        %tr
+          %td
+            %strong Average
+          %td= average_duration(@survey)
+        %tr
+          %td
+            %strong Median
+          %td= median_duration(@survey)
+        %tr
+          %td
+            %strong Fastest
+          %td= fastest_duration(@survey)
+        %tr
+          %td
+            %strong Slowest
+          %td= slowest_duration(@survey)
+        %tr
+          %td
+            %strong Completion Rate
+          %td= completion_rate(@survey)
+
+    - distribution = duration_distribution(@survey)
+    - unless distribution.empty?
+      %h3 Time Distribution
+      - max_count = [distribution.values.max, 1].max
+      .duration-distribution{style: 'margin-bottom: 15px;'}
+        - distribution.each do |bucket, count|
+          .distribution-row{style: 'display: flex; align-items: center; margin-bottom: 4px;'}
+            %span{style: 'width: 80px; font-size: 12px; text-align: right; padding-right: 8px;'}= bucket
+            .distribution-bar{style: "background: #676eb4; height: 18px; border-radius: 3px; width: #{(count.to_f / max_count * 200).to_i}px; min-width: #{count > 0 ? 4 : 0}px;"}
+            %span{style: 'padding-left: 6px; font-size: 12px;'}= count
+
   .results
     - @surveys_question_groups.each_with_index do |group, index|
       = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: true)
