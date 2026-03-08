@@ -2,9 +2,9 @@
 
 module SurveyDurationsHelper
   def average_duration(survey)
-    times = SurveyCompletionTime.where(survey: survey).completed
-    return '--' if times.empty?
-    avg = times.average(:duration_in_seconds).to_i
+    durations = completed_durations(survey)
+    return '--' if durations.empty?
+    avg = durations.sum / durations.size
     format_duration(avg)
   end
 
@@ -71,7 +71,7 @@ module SurveyDurationsHelper
   def completed_durations(survey)
     SurveyCompletionTime.where(survey: survey)
                         .completed
-                        .pluck(:duration_in_seconds)
+                        .map(&:duration_in_seconds)
                         .compact
   end
 end

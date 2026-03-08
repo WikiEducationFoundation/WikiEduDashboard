@@ -41,7 +41,7 @@ describe SurveyCompletionTimesController, type: :request do
               started_at: 5.minutes.ago)
     end
 
-    it 'sets completed_at and computes duration' do
+    it 'sets completed_at and returns computed duration' do
       put '/survey/complete', params: { tracking_id: completion_record.id }
       expect(response).to have_http_status(:ok)
 

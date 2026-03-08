@@ -6,24 +6,22 @@ describe SurveyCompletionTime do
   let(:user) { create(:user) }
   let(:survey) { create(:survey) }
 
-  describe '#compute_duration!' do
-    it 'computes duration when both started_at and completed_at are set' do
+  describe '#duration_in_seconds' do
+    it 'returns the duration when both started_at and completed_at are set' do
       record = create(:survey_completion_time,
                        survey: survey,
                        user: user,
                        started_at: 10.minutes.ago,
                        completed_at: Time.zone.now)
-      record.compute_duration!
       expect(record.duration_in_seconds).to be_within(2).of(600)
     end
 
-    it 'does not compute duration when completed_at is nil' do
+    it 'returns nil when completed_at is nil' do
       record = create(:survey_completion_time,
                        survey: survey,
                        user: user,
                        started_at: 10.minutes.ago,
                        completed_at: nil)
-      record.compute_duration!
       expect(record.duration_in_seconds).to be_nil
     end
   end

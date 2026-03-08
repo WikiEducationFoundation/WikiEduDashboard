@@ -14,7 +14,6 @@ class SurveyCompletionTimesController < ApplicationController
   def complete
     record = SurveyCompletionTime.find(params[:tracking_id])
     record.update!(completed_at: Time.zone.now)
-    record.compute_duration!
     render json: { duration_in_seconds: record.duration_in_seconds }
   end
 end

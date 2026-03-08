@@ -22,8 +22,8 @@ class SurveyCompletionTime < ApplicationRecord
 
   scope :completed, -> { where.not(completed_at: nil) }
 
-  def compute_duration!
-    return unless completed_at && started_at
-    update(duration_in_seconds: (completed_at - started_at).to_i)
+  def duration_in_seconds
+    return nil unless completed_at && started_at
+    (completed_at - started_at).to_i
   end
 end

@@ -8,7 +8,7 @@ class CreateSurveyCompletionTimes < ActiveRecord::Migration[7.0]
       t.integer :survey_notification_id
       t.datetime :started_at, null: false
       t.datetime :completed_at
-      t.integer :duration_in_seconds
+
 
       t.timestamps
     end
