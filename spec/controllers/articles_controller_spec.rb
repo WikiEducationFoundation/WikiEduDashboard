@@ -17,7 +17,7 @@ describe ArticlesController, type: :request do
 
   describe '#revision_score' do
     it 'sets the article from the id' do
-      get "/articles/#{article.id}/revision_score", params: { format: :json }
+      get "/articles/#{article.id}/revision_score", params: { course_id: course.id, format: :json }
       expect(assigns(:article)).to eq(article)
     end
   end

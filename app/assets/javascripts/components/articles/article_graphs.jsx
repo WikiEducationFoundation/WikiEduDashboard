@@ -4,7 +4,7 @@ import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
 import request from '../../utils/request.js';
 
-const ArticleGraphs = ({ article }) => {
+const ArticleGraphs = ({ article, course_id }) => {
   const { id: article_id } = article;
 
   const [showGraph, setShowGraph] = useState(false);
@@ -35,15 +35,15 @@ const ArticleGraphs = ({ article }) => {
     };
   }, []);
 
-  function getData() {
+  async function getData() {
     if (articleData) {
       return;
     }
-    const articledataUrl = `/articles/article_data.json?article_id=${article_id}`;
+    const articledataUrl = `/articles/${article_id}/revision_score?course_id=${course_id}`;
     request(articledataUrl)
       .then(resp => resp.json())
       .then((data) => {
-        setArticleData(data);
+        setArticleData(data?.articles);
       });
   }
 
