@@ -10,6 +10,13 @@
         = label_tag :article_or_diff_url, 'Diff URL:'
         = text_field_tag :article_or_diff_url 
         = hidden_field_tag :diff_mode, 'true'
+        %hr
+        %h4 Models
+        - AiToolsController::MODELS_KEY.each do |key|
+          %div.checkbox-group
+            = check_box_tag(key.to_sym, '1', true)
+            %label{for: key}= key
+        %br
         .button= submit_tag 'Submit'
       %hr
     - if @url

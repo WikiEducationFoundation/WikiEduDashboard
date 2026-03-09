@@ -17,14 +17,21 @@ class AiToolsController < ApplicationController
     render 'show'
   end
 
-  private
-
-  MAX_CONCURRENCY = 4
-
   PANGRAM_V2_KEY = 'pangram_v2'
   PANGRAM_V3_KEY = 'pangram_v3'
   ORIGINALITY_TURBO_KEY = 'originality_turbo'
   ORIGINALITY_ACADEMIC_KEY = 'originality_academic'
+
+  MODELS_KEY = [
+    PANGRAM_V2_KEY,
+    PANGRAM_V3_KEY,
+    ORIGINALITY_TURBO_KEY,
+    ORIGINALITY_ACADEMIC_KEY
+  ].freeze
+
+  private
+
+  MAX_CONCURRENCY = 4
 
   DETECTORS = {
     PANGRAM_V2_KEY => PangramApi.v2,
@@ -38,7 +45,7 @@ class AiToolsController < ApplicationController
     results = Concurrent::Hash.new
 
     DETECTORS.each do |key, detector|
-      pool.post { detect_ai(key, detector, text, results) }
+      pool.post { detect_ai(key, detector, text, results) } if params[key.to_sym]
     end
     pool.shutdown && pool.wait_for_termination
 
