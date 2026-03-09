@@ -95,6 +95,8 @@ class CourseStudentsAssignmentsCsvBuilder
                                    assigned_articles, reviewing_articles)
     process_assigned_articles(csv_data, real_name, username,
                               assigned_articles, reviewing_articles)
+    return if assigned_articles.count >= reviewing_articles.count
+
     create_reviewing_article_rows(csv_data, real_name, username,
                                   reviewing_articles, assigned_articles.count)
   end
@@ -115,8 +117,6 @@ class CourseStudentsAssignmentsCsvBuilder
   def create_reviewing_article_rows(csv_data, real_name, username,
                                     reviewing_articles, start_index = 0)
     # Create rows for reviewing articles starting from the specified index
-    return if start_index >= reviewing_articles.count
-
     reviewing_articles[start_index..].each do |reviewing_article|
       csv_data << [
         real_name,
