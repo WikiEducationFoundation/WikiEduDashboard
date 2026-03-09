@@ -1,0 +1,26 @@
+id: 7118
+title: 'How to respond to "Suspected AI edit" emails'
+content: |
+  If you get an email about a "Suspected AI edit", it will
+  include a link to the Pangram report. This report shows
+  exactly what text was analyzed, which sections
+  were flagged as likely AI-generated, which sections were
+  marked as fully human, and which sections were somewhere
+  in-between.
+
+  Have a look at the report, then **fill out the follow-up
+  questionnaire before you continue editing Wikipedia**.
+  (Your response will only be available to Wiki Education staff.)
+  If you used copyediting tools like Grammarly that may have
+  contributed to the edit getting flagged as AI, provide as
+  much detail as you can about what tools you used, how you
+  used them, and which options were enabled. This information
+  will help Wiki Education refine our detection system and
+  make it more reliable for catching bad edits without flagging
+  good ones.
+
+  If you did use AI to generate some or all of the content that
+  was flagged, you should edit that page to remove it as soon
+  as possible. Purported encyclopedic content from AI is almost
+  always unverifiable and doesn't match up to the cited sources,
+  so it's not acceptable for Wikipedia.

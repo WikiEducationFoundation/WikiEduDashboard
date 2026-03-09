@@ -61,6 +61,7 @@ ko:
     log_in: 로그인
     log_out: 로그아웃
     my_dashboard: 나의 대시보드
+    okay: Okay
     recent_activity: 최근 활동
     report_problem: 문제점 보고
     request_account: 계정 요청
@@ -108,7 +109,6 @@ ko:
       새 계정을 만들 수 있습니다.
   alerts:
     alert_label: 경보
-    no_alerts: 경보가 없습니다.
   activity:
     all: 활동
     edited_by: '편집자 :'
@@ -150,6 +150,7 @@ ko:
     new: (새)
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     preview: 문서의 간략한 미리보기
+    quality_checklist: 품질 체크리스트
     rating: 문서 등급
     rating_doc: 이 등급은 위키백과의 위키프로젝트에서 할당된 문서 등급입니다. 이러한 등급은 현재의 문서 상태가 아닌 평가 시점의 문서
       상태를 나타내므로, 문서 완성도를 나타내는 대략적인 지표입니다.
@@ -755,6 +756,10 @@ ko:
         elevate_success: '%{username}님은 {position}(으)로 승격되었습니다.'
       remove:
         already_is_not: '%{username}님은 특수 사용자가 아닙니다!'
+    disallowed_users:
+      add_button: 사용자 추가
+      remove_button: 제거
+      submit_button: 제출
   status:
     daily_update: 일일 업데이트
     default: 기본값
@@ -909,7 +914,7 @@ ko:
     uploads_doc: 위키미디어 공용에 올린 파일 수
     username: 사용자 이름
     username_placeholder: 사용자 이름
-    useremail_placeholder: 이메일
+    useremail_placeholder: 이메일 주소 입력
     userpasscode_placeholder: 패스코드
     role:
       visitor: 방문자
@@ -946,8 +951,8 @@ ko:
       header: 지원되지 않는 브라우저입니다. :-(
       explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 인터넷 익스플로러 버전 11 이상, 최신 버전의
         크롬과 파이어폭스, 그 밖의 현대의 브라우저에서 잘 동작합니다.
+    download_here: 파일을 다운로드하려면 여기를 클릭하세요
   error_401:
-    header: 인증되지 않음. >:-(
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
       알도록 하세요.
     json_explanation: 로그아웃한 것으로 보입니다. 새로 고친 다음 로그인하고 다시 시도해 주십시오.
@@ -966,6 +971,9 @@ ko:
   login_error:
     header: 로그인 오류
     explanation: 로그인 과정에 문제가 있는 것 같습니다(가끔씩 발생하는 오류입니다). 로그인이나 등록을 다시 시도해 주세요.
+  notifications:
+    new_notifications: 새로운 알림이 있습니다.
+    no_notifications: 새로운 알림이 없습니다.
   survey:
     login_message: 시간 내 주셔서 고맙습니다. 설문 조사에 참여하려면 대시보드에 로그인 해주세요,
     follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.

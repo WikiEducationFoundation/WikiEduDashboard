@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq-status/web'
+
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
@@ -31,6 +34,12 @@ Rails.application.routes.draw do
   get '/settings/special_users' => 'settings#special_users'
   post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
+
+
+  get '/settings/disallowed_users' => 'settings#disallowed_users'
+  post '/settings/add_disallowed_user' => 'settings#add_disallowed_user'
+  post '/settings/remove_disallowed_user' => 'settings#remove_disallowed_user'
+
 
   post '/settings/update_salesforce_credentials' => 'settings#update_salesforce_credentials'
 
@@ -278,6 +287,8 @@ Rails.application.routes.draw do
   get 'course_students_assignments_csv' => 'reports#course_students_assignments_csv'
   get 'course_articles_csv' => 'reports#course_articles_csv'
   get 'course_wikidata_csv' => 'reports#course_wikidata_csv'
+  get "all_courses_and_instructors_csv" => "reports#all_courses_and_instructors_csv"
+
   # Campaign reports
   get 'campaigns/:slug/students' => 'reports#campaign_students_csv'
   get 'campaigns/:slug/instructors' => 'reports#campaign_instructors_csv'
@@ -315,6 +326,7 @@ Rails.application.routes.draw do
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
   get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
   get 'current_term(/:subpage)' => 'campaigns#current_term'
+  get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
   resources :tagged_courses, param: :tag, except: :show do
@@ -471,6 +483,18 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :revision_ai_scores_stats
+
+  # AI alerts stats
+  get 'ai_edit_alerts_stats/select_campaign' => 'ai_edit_alerts_stats#select_campaign'
+  post 'ai_edit_alerts_stats/choose_campaign' => 'ai_edit_alerts_stats#choose_campaign'
+  get 'ai_edit_alerts_stats' => 'ai_edit_alerts_stats#redirect_to_default', constraints: { format: 'html' }
+  get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
+  resources :ai_edit_alerts_stats, only: [:index]
+
+  # AI tools for admins
+  get 'ai_tools' => 'ai_tools#show'
+  post 'ai_tools/compare_pangrams' => 'ai_tools#compare_pangrams'
 
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
@@ -493,6 +517,11 @@ Rails.application.routes.draw do
   require 'sidekiq/cron/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
+  end
+
+  # Backup system
+  namespace :system do
+    get 'can_start_backup.json' => 'backups#can_start_backup'
   end
 
   get '/private_information' => 'about_this_site#private_information'

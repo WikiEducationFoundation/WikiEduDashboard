@@ -9,7 +9,7 @@ content: |
   tool called Pangram** to check your work on Wikipedia for generative AI output,
   including all exercises.
 
-  Every time the tool detects possible AI text, you and your instructor will
+  If our system detects new high likelihood AI text, you and your instructor will
   receive an email. This email will contain a link to tell us more about the situation,
   including whether it was a false positive – when the AI tool incorrectly identifies
   the text as generative AI output.

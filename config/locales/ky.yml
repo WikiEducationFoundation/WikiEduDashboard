@@ -16,6 +16,10 @@ ky:
     confirm: Макул
     opt_in: Ооба
     opt_out: Жок
+  alerts:
+    ai_stats:
+      sections:
+        description: Сыпаттама
   articles:
     articles: Макалалар
     edited_mobile: Макалалар
@@ -23,9 +27,13 @@ ky:
     label: Макалалар
     new: (жаңы)
     title: Аталыш
+  assignments:
+    remove: Алып салуу
   campaign:
     description: Сыпаттама
     title: Аталыш
+  categories:
+    remove: Алып салуу
   courses:
     actions: Аракеттер
     articles: Макалалар
@@ -53,6 +61,7 @@ ky:
   recent_activity:
     article_title: Аталыш
     image: Сүрөт
+    file_name: Файлдын аталышы
   revisions:
     diff: айырма
     diff_show: Көрсөтүү

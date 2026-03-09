@@ -154,6 +154,10 @@ class Article < ApplicationRecord
     prefix[wiki.project == 'wikimedia' ? wiki.language : wiki.project]
   end
 
+  def mainspace?
+    namespace == Namespaces::MAINSPACE
+  end
+
   def fetch_page_content
     WikiApi.new(wiki).get_page_content(escaped_full_title)
   end

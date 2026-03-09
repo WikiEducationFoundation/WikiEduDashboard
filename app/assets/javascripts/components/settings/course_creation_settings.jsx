@@ -30,7 +30,7 @@ const CourseCreationSettings = ({ settings }) => {
 
   return (
     <div className="course-creation-settings">
-      <h2 className="mx2">Course creation</h2>
+      <h2 className="mx2">{I18n.t('settings.common_settings_components.headings.course_creation_settings')}</h2>
       <UpdateCourseCreationSettings settings={settings} />
       <List
         elements={[settingRow]}

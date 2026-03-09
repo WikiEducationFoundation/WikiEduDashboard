@@ -81,5 +81,5 @@ Rails.application.configure do
     password: ENV['GMAIL_PASSWORD']
   }
   config.action_mailer.show_previews = true
-  config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+  config.action_mailer.preview_paths << "#{Rails.root}/spec/mailers/previews"
 end

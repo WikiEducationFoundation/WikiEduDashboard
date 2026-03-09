@@ -8,6 +8,7 @@
 # Author: Minisarm
 # Author: NGC 54
 # Author: Paloi Sciurala
+# Author: SZ475
 # Author: Strainu
 # Author: Trotinel Iftode
 # Author: Valentin JJ.
@@ -18,6 +19,9 @@ ro:
     greeting: Bună ziua!
     sign_up_extended: Înregistrare prin Wikipedia
     submit: Trimite
+  alerts:
+    ai_stats:
+      total: Total
   articles:
     edited: Articole modificate
     edited_mobile: Articole

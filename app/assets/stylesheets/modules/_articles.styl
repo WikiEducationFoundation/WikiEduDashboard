@@ -6,6 +6,7 @@
     flex-direction row
     flex-wrap nowrap
     align-items center
+    gap 12px
     b
       margin-right: 10px
     select
@@ -17,7 +18,46 @@
       height 40px
       +below(tablet)
         position absolute
-      
+
+  // View column header with segmented control toggle
+  .view-column-header
+    display flex
+    flex-direction column
+    align-items center
+    gap 4px
+
+    > span
+      font-size 12px
+      font-weight 800
+
+    .view-mode-toggle
+      display flex
+      background #f0f0f0
+      border-radius 4px
+      overflow hidden
+      border 1px solid #d0d0d0
+
+      .view-mode-btn
+        padding 2px 8px
+        font-size 10px
+        font-weight 500
+        border none
+        background transparent
+        cursor pointer
+        color #666
+        transition all 0.2s ease
+        white-space nowrap
+
+        &:hover
+          background #e5e5e5
+
+        &.active
+          background #676eb4
+          color white
+
+        &:first-child
+          border-right 1px solid #d0d0d0
+
   .see-more
     p
       padding-top :12px

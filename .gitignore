@@ -3,7 +3,6 @@
 /config/newrelic.yml
 /config/secrets.yml
 /dockerAuth.json
-/fixtures
 /node_modules
 /js_coverage
 /vendor/*
@@ -62,4 +61,6 @@ stats.json
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
+/fixtures/vcr_cassettes/*
+!/fixtures/vcr_cassettes/cached/
+!/fixtures/vcr_cassettes/cached/*

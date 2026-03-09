@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+json.avg_likelihoods @avg_likelihoods
+json.max_likelihoods @max_likelihoods
+json.historical_scores_by_namespace @historical_scores_by_namespace
+json.historical_scores_by_max @historical_scores_by_max
+json.historical_scores_by_avg @historical_scores_by_avg

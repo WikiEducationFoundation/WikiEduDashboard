@@ -482,10 +482,25 @@ describe Course, type: :model do
       end
     end
 
-    context 'for a ClassroomProgramCourse without the cloneable tag' do
+    context 'for an unapproved ClassroomProgramCourse without the cloneable tag' do
       let(:course) { build(:course) }
 
+      it 'returns true' do
+        expect(course.approved?).to be false
+        expect(subject).to be true
+      end
+    end
+
+    context 'for an approved ClassroomProgramCourse without the cloneable tag' do
+      let(:course) { build(:course) }
+      let(:campaign) { create(:campaign, title: 'Test', slug: 'test') }
+
+      before do
+        course.campaigns << campaign
+      end
+
       it 'returns false' do
+        expect(course.approved?).to be true
         expect(subject).to be false
       end
     end

@@ -7,6 +7,7 @@
 # Author: Macofe
 # Author: Maria zaos
 # Author: Toliño
+# Author: Xosecalvo
 ---
 gl:
   number:
@@ -114,14 +115,13 @@ gl:
       de Wikipedia existente ou crear unha nova.
   alerts:
     alert_label: Alertas
-    no_alerts: Non hai alertas.
   activity:
     all: Actividade
     edited_by: Modificado por
     label: Actividade
   articles:
     articles: Artigos
-    article_not_found: Este artigo aínda non foi creado .
+    article_not_found: Este artigo aínda non se creou.
     article_development: (desenvolvemento do artigo)
     articles_shown: Mostrando %{count} de %{total}
     assigned: Artigos asignados
@@ -226,12 +226,11 @@ gl:
   users:
     editors: Editores
     name: Nome
+    useremail_placeholder: Introduza o enderezo de correo electrónico
   wizard:
     read_less: Ler menos
     read_more: Ler máis
     summary: Resumo
-  error_401:
-    header: Sen permiso. >:-(
   error_404:
     header: Páxina non atopada :-(
   error_422:

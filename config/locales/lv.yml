@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Papuass
+# Author: Rusjanis
 # Author: Silraks
 ---
 lv:
@@ -411,7 +412,7 @@ lv:
     total_uploads: Kopējās augšupielādes
     username: Lietotājvārds
     username_placeholder: Lietotājvārds
-    useremail_placeholder: E-pasts
+    useremail_placeholder: Ievadiet e-pasta adresi
     role:
       description: Loma kursā
       visitor: Apmeklētājs

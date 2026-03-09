@@ -28,7 +28,9 @@ const ArticleList = createReactClass({
     articleDetails: PropTypes.object,
     sortArticles: PropTypes.func,
     wikidataLabels: PropTypes.object,
-    sort: PropTypes.object
+    sort: PropTypes.object,
+    pageviewDisplayMode: PropTypes.string,
+    setPageviewDisplayMode: PropTypes.func
   },
 
   getInitialState() {
@@ -98,6 +100,7 @@ const ArticleList = createReactClass({
     return this.props.filterTrackedStatus(e.target.value);
   },
 
+
   updateParams(filter, value) {
     // instead of using React Router's location, we must use window.location
     // this is because v6 of React Router doesn't have a mutable history object
@@ -153,6 +156,36 @@ const ArticleList = createReactClass({
         info_key: `${ArticleUtils.articlesOrItems(project)}.tracked_doc`
       };
     }
+
+    // Add custom label for view_count column with inline toggle
+    const articlesOrItems = ArticleUtils.articlesOrItems(project);
+    keys.view_count.label = (
+      <div className="view-column-header">
+        <span className="tooltip-trigger">
+          {I18n.t('metrics.view')}
+          <span className="tooltip-indicator-list" />
+          <div className="tooltip dark">
+            <p>{I18n.t(`${articlesOrItems}.view_doc`)}</p>
+          </div>
+        </span>
+        <div className="view-mode-toggle">
+          <button
+            className={`view-mode-btn ${this.props.pageviewDisplayMode === 'cumulative' ? 'active' : ''}`}
+            onClick={(e) => { e.stopPropagation(); this.props.setPageviewDisplayMode('cumulative'); }}
+          >
+            {I18n.t('articles.cumulative')}
+          </button>
+          <button
+            className={`view-mode-btn ${this.props.pageviewDisplayMode === 'average' ? 'active' : ''}`}
+            onClick={(e) => { e.stopPropagation(); this.props.setPageviewDisplayMode('average'); }}
+          >
+            {I18n.t('articles.daily_avg')}
+          </button>
+        </div>
+      </div>
+    );
+    // Remove info_key since we're manually rendering the tooltip
+    delete keys.view_count.info_key;
 
     const sort = this.props.sort;
     if (sort.key) {
@@ -317,11 +350,13 @@ const mapStateToProps = (state) => {
   return ({
     articleDetails: state.articleDetails,
     sort: state.articles.sort,
+    pageviewDisplayMode: state.articles.pageviewDisplayMode,
   });
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...ArticleActions }, dispatch)
+  actions: bindActionCreators({ ...ArticleActions }, dispatch),
+  setPageviewDisplayMode: mode => dispatch(ArticleActions.setPageviewDisplayMode(mode))
 });
 
 

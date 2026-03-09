@@ -123,7 +123,6 @@ hu:
       létrehozni, lépj kapcsolatba velünk a dashboard@wikiedu.org címen.
   alerts:
     alert_label: Értesítések
-    no_alerts: Nem található értesítés.
   activity:
     all: Tevékenység
     edited_by: Szerkesztette
@@ -1576,7 +1575,6 @@ hu:
       hogy a Wikipédia blokkolta az IP-címed, vagy elérted az egy nap alatt létrehozható
       új fiókok maximális számát. Próbálj csatlakozni egy másik hálózatról!
   error_401:
-    header: Jogosulatlan. >:-(
     explanation: Nincs jogosultságod ennek a kérésnek a végrehajtására. Ha úgy gondolod,
       hogy tévedésből kaptad meg ezt az értesítést, kérjük, fordulj az irányítópult
       karbantartóihoz, és tájékoztassad őket a problémáról.

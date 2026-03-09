@@ -17,7 +17,7 @@ describe WikiPageviews do
       let(:title) { 'Facebook' }
 
       it 'returns the average page views' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to be_within(2000).of(19989.4)
         end
       end
@@ -27,7 +27,7 @@ describe WikiPageviews do
       let(:title) { 'HIV/AIDS' }
 
       it 'returns the average page views' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to be_within(200).of(2148.4)
         end
       end
@@ -37,7 +37,7 @@ describe WikiPageviews do
       let(:title) { "Broussard's" }
 
       it 'returns the average page views' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to be_within(2).of(7.8)
         end
       end
@@ -47,7 +47,7 @@ describe WikiPageviews do
       let(:title) { '"Weird_Al"_Yankovic' }
 
       it 'returns the average page views' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to be_within(2000).of(20899.4)
         end
       end
@@ -57,7 +57,7 @@ describe WikiPageviews do
       let(:title) { 'André_the_Giant' }
 
       it 'returns the average page views' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to be_within(500).of(5930.8)
         end
       end
@@ -70,7 +70,7 @@ describe WikiPageviews do
       before { stub_wiki_validation }
 
       it 'returns the average page views' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to be_within(15).of(89.0)
         end
       end
@@ -80,7 +80,7 @@ describe WikiPageviews do
       let(:title) { 'THIS_IS_NOT_A_REAL_ARTICLE' }
 
       it 'returns 0' do
-        VCR.use_cassette 'wiki_pageviews/average_views_from_date' do
+        VCR.use_cassette 'cached/wiki_pageviews/average_views_from_date' do
           expect(subject).to eq(0)
         end
       end
@@ -99,7 +99,7 @@ describe WikiPageviews do
       end
 
       it 'returns 0' do
-        VCR.use_cassette 'wiki_pageviews/404_handling' do
+        VCR.use_cassette 'cached/wiki_pageviews/404_handling' do
           expect(subject).to eq(0)
         end
       end

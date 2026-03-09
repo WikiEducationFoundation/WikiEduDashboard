@@ -30,6 +30,7 @@ class AiEditAlert < Alert
     details = pangram_details
     add_same_page_alert(course_id, article_id, details)
     add_same_user_alert(course_id, user_id, details)
+    add_prior_alert_count_for_course(course_id, details)
     alert = create!(revision_id:,
                     user_id:,
                     course_id:,
@@ -61,20 +62,34 @@ class AiEditAlert < Alert
     details[:prior_alert_for_user] = prior_alerts.last.id
   end
 
+  # This will track the total number of AiEditAlerts for
+  # this course. If this is the first one, the mailer
+  # will send an additional email to the instructor with
+  # extra info on how to respond.
+  def self.add_prior_alert_count_for_course(course_id, details)
+    # We're only counting alerts that had sent emails.
+    prior_alert_count = AiEditAlert.where(course_id:).where.not(email_sent_at: nil).count
+    details[:prior_alert_count_for_course] = prior_alert_count
+  end
+
   ####################
   # Instance methods #
   ####################
 
   def main_subject
-    "Suspected AI edit: #{article&.title} — #{course&.title}"
+    mainspace = article&.mainspace? ? ' (to live article)' : ''
+    repeat_page = prior_alert_id_for_page.present? ? ' (again)' : ''
+    repeat_user = prior_alert_id_for_user.present? ? ' (same user)' : ''
+
+    "Suspected AI edit#{mainspace}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
   end
 
-  def repeat_page_subject
-    "Same-page AI edit alert: #{article&.title} — #{course&.title}"
-  end
-
-  def repeat_user_subject
-    "Another suspected AI edit: #{user.username} — #{course&.title}"
+  def email_template_name
+    if course.type == 'ClassroomProgramCourse'
+      'student_program_email'
+    else
+      'email'
+    end
   end
 
   def wiki
@@ -137,6 +152,17 @@ class AiEditAlert < Alert
              .transform_keys { |k| k.delete_prefix('followup_') }
   end
 
+  def followup?
+    !followups.empty?
+  end
+
+  # Returns the latest followup timestamp, or falls back to updated_at if no
+  # followup includes a :timestamp field.
+  def followup_timestamp
+    return nil unless followup?
+    followups.map { |_k, v| v[:timestamp] }.max || updated_at
+  end
+
   def details_to_show
     details.reject { |k, _| k.to_s.include?('followup') }
   end
@@ -151,6 +177,7 @@ class AiEditAlert < Alert
   ].freeze
   def send_alert_emails
     return if NO_EMAIL_TYPES.include? page_type
+    return if course&.private # Don't send emails for private courses.
 
     AiEditAlertMailer.send_emails(self)
     update(email_sent_at: Time.zone.now)
@@ -164,7 +191,7 @@ class AiEditAlert < Alert
     details[:prior_alert_for_user]
   end
 
-  def page_type
+  def page_type # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
     case article_title
     when /Choose an Article/
       :choose_an_article
@@ -178,6 +205,16 @@ class AiEditAlert < Alert
       :peer_review
     when /^User:/ # catchall for other sandboxes
       :sandbox
+    when /^Draft:/
+      :draft
+    when /^Talk:/
+      :talk_page
+    when /^User talk:/
+      :user_talk
+    when /^Template talk:/
+      :template_talk
+    when /^[^:]+$/ # match titles without ':'
+      :mainspace
     else
       :unknown
     end

@@ -55,9 +55,9 @@ ON THE SERVER
   - $ `\curl -sSL https://get.rvm.io | bash -s stable`
   - $ `source /home/ragesoss/.rvm/scripts/rvm`
   - logout and back in again so that these settings take effect
-  - $ `rvm install 3.1.2`
+  - $ `rvm install 3.4.8`
     - This will probably report that ruby is already installed, but we do this just in case.
-  - $ `rvm --default use 3.1.2`
+  - $ `rvm --default use 3.4.8`
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`
@@ -71,6 +71,7 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6
 <IfModule mod_passenger.c>
   PassengerRoot /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6.0.8
   PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-2.7.1/wrappers/ruby
+  PassengerPreloadBundler on
 </IfModule>
 ```
 

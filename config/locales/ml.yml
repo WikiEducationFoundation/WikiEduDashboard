@@ -83,7 +83,6 @@ ml:
     sign_up: വിക്കിപീഡിയയിൽ പ്രവേശിക്കുക
   alerts:
     alert_label: അറിയിപ്പുകൾ
-    no_alerts: അറിയിപ്പുകളൊന്നുമില്ല.
   activity:
     all: പ്രവൃത്തി
     edited_by: തിരുത്തിയത്

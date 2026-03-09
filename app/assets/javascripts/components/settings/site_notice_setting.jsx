@@ -24,7 +24,7 @@ const SiteNoticeSetting = () => {
   );
   return (
     <div className="site_notice_setting">
-      <h2 className="mx2">Site Notice</h2>
+      <h2 className="mx2">{I18n.t('settings.common_settings_components.headings.site_notice_setting')}</h2>
       <ConfigureSiteNotice currentSiteNotice={siteNotice}/>
       <List
         elements={[settingRow]}

@@ -1,0 +1,16 @@
+.stats-grid
+  .stats-card.module
+    %h3= @wiki_data[:summary][:total_wikis]
+    %p Active Wikis
+  
+  .stats-card.module
+    %h3= @wiki_data[:summary][:total_courses]
+    %p Total Courses
+  
+  .stats-card.module
+    %h3= @wiki_data[:summary][:total_languages]
+    %p Languages
+  
+  .stats-card.module
+    %h3= @wiki_data[:summary][:total_projects]
+    %p Project Types

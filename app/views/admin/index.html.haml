@@ -11,8 +11,22 @@
       = TicketDispenser::Ticket.where(status: TicketDispenser::Ticket::Statuses::OPEN).count
 
 .container
-  %h2 Useful links
+  %h2 AI-related tools
   %ul
+    %li
+      %a{href: '/ai_edit_alerts_stats'} AI alert dashboard (CURRENT TERM)
+    %li
+      %a{href: '/ai_edit_alerts_stats/select_campaign'} AI alert dashboard (by campaign)
+    %li
+      %a{href: '/revision_ai_scores_stats'} AI checks over time
+    %li
+      %a{href: '/ai_tools'} Pangram 2 vs 3 comparison tool
+  %h2 Other Useful links
+  %ul
+    %li
+      %a{href: '/settings'} Manage Site Settings 
+    %li
+      %a{href: '/faq_topics'} FAQ Topics
     %li
       %a{href: '/faq/new'} Add new FAQ
     %li
@@ -21,8 +35,6 @@
       %a{href: '/copy_course'} Copy course from another server
     %li
       %a{href: 'https://dashboard-testing.wikiedu.org/rails/mailers'} Email templates
-    %li
-      %a{href: '/faq_topics'} FAQ Topics
     %li
       %a{href: '/feedback_form_responses'} Feedback Form Responses
     %li
@@ -34,6 +46,4 @@
     %li
       %a{href: '/update_username'} Update username
     %li
-      %a{href: '/usage'} Usage
-    %li
-      %a{href: '/settings'} Manage Site Settings 
+      %a{href: '/usage'} Usage stats

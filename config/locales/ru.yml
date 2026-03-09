@@ -12,6 +12,7 @@
 # Author: Diralik
 # Author: Dirruw'o
 # Author: Edible Melon
+# Author: EneshTranslates
 # Author: Evs
 # Author: Facenapalm
 # Author: Gehhrr
@@ -26,6 +27,7 @@
 # Author: Link2xt
 # Author: Lizalizaufa
 # Author: Lugimax
+# Author: Lvova
 # Author: Mailman
 # Author: Mouse21
 # Author: Movses
@@ -168,7 +170,19 @@ ru:
       создать учетную запись, обратитесь по адресу dashboard@wikiedu.org.
   alerts:
     alert_label: Оповещения
-    no_alerts: Оповещения не найдены.
+    ai_stats:
+      timestamp: Метка времени
+      sections:
+        contents: Содержание для списков оповещений ИИ
+        name: Имя
+        description: Описание
+        descriptions:
+          recent_followup: Оповещения с ответами на последующие действия, отправленными
+            за последние 14 дней, упорядоченные по дате ответа.
+          multiple_alerts_students: Оповещения, созданные за последние 14 дней для
+            студентов с несколькими оповещениями, упорядоченные по дате создания.
+          in_mainspace: Оповещения, созданные за последние 14 дней для статей в основном
+            пространстве, упорядоченные по дате создания.
   activity:
     all: Активность
     edited_by: Изменил(а)
@@ -281,6 +295,7 @@ ru:
       URL-адресом Википедии.
     mismatched_wiki: Невозможно обновить URL-адрес песочницы. URL %{url} не находится
       в той же вики.
+    bibliography_label: Библиография
     warning_untracked_wiki: 'Обратите внимание, что выбранная вами статья из вики,
       не отслеживается этим курсом. Чтобы отслеживать вклады в эту статью, инструктор
       должен добавить к этому курсу следующую вики: %{wiki}'
@@ -288,6 +303,15 @@ ru:
     milestones:
       title: Этапы
   campaign:
+    campaign_ores_plot:
+      no_data: Данные о структурной полноте недоступны
+      graph_description_html: Этот график показывает в целом, насколько развивались
+        статьи с момента, когда участники кампании впервые их редактировали, до самых
+        последних изменений в кампании. Рейтинг <em>Структурная полнота</em> основан
+        на проекте машинного обучения (<a href="https://www.mediawiki.org/wiki/ORES/FAQ"
+        target="_blank">ORES</a>), который оценивает качество статьи на основе объёма
+        текста, количества вики-ссылок, изображений, заголовков разделов и других
+        характеристик.
     active_campaigns: Активные кампании
     add_organizer: Добавить организатора
     alert_article: Название статьи
@@ -478,7 +502,7 @@ ru:
     view_doc: Ориентировочное количество просмотров статей, редактированных участниками,
       начиная с момента первой правки участника в каждой из статей.
     view_page: Посмотреть страницу курса
-    view_wiki: Посмотреть на Википедии
+    view_wiki: Посмотреть в Википедии
     volunteer:
       one: Доброволец
       other: Добровольцы
@@ -619,6 +643,16 @@ ru:
     time_doc: Время каждой ревизии по вашему местному времени
     title: Название
   settings:
+    common_settings_components:
+      headings:
+        default_campaign_setting: Кампания по умолчанию
+      buttons:
+        add_special_user_button: Добавить специального пользователя
+        configure_site_notice:
+          enable_button: Включить
+          disable_button: Отключить
+        update_course_creation_settings: Обновить настройки создания курса
+        update_salesforce_credentials: Обновить данные для входа в Salesforce
     categories:
       other_settings: Другие настройки
       impact_stats: Статистика воздействия
@@ -791,8 +825,6 @@ ru:
       explanation: Вы используете браузер, который не совместим с панелью мониторинга.
         Этот сайт хорошо работает в последних версиях Chrome, Firefox, Edge и в других
         современных браузерах.
-  error_401:
-    header: Неавторизован. >:-(
   error_404:
     header: Страница не найдена. :-(
   error_500:

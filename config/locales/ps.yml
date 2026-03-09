@@ -109,7 +109,6 @@ ps:
         heading: سلا
   alerts:
     alert_label: خبرونې
-    no_alerts: هېڅ خبرونې ونه موندل شوې.
   activity:
     all: چاره
     edited_by: سمونگر
@@ -138,6 +137,8 @@ ps:
       untracked: ناڅارل‌شوې
       tracked_and_untracked: څارل‌شوې او ناڅارل‌شوې
     filter_text: 'چاڼگران:'
+    pageviews_label: 'مخليدنې:'
+    daily_avg: ورځنی منځگوړی
     find: ليکنې موندل
     how_to_find: څنگه يوه ليکنه ومومو
     hide: پټول
@@ -451,7 +452,7 @@ ps:
   news:
     footer:
       P&E_dashboard:
-        link_text: ويکيمېډيا
+        link_text: ويکي‌رسنۍ
         footer_text: خبرونه او وروستي بدلونونه ولولئ
       wiki_education_dashboard:
         link_text: wikiedu.org/blog

@@ -192,9 +192,11 @@ describe ApplicationController do
     end
 
     context 'when user is not signed in' do
-      it 'returns an html 401' do
+      it 'returns an html 401 and stores the return path' do
         get :index
         expect(response.status).to eq(401)
+        expect(session[:return_to]).to eq('/anonymous')
+        expect(flash[:alert]).to eq('Please sign in.')
       end
 
       it 'returns a json 401' do
@@ -234,6 +236,45 @@ describe ApplicationController do
     it 'falls back to a default if locale is not available' do
       get :index, params: { locale: 'not-a-real-locale' }
       expect(I18n.locale).to eq(:en)
+    end
+  end
+
+  describe '#after_sign_in_path_for' do
+    it 'prioritizes session[:return_to]' do
+      session[:return_to] = '/protected'
+      expect(controller.after_sign_in_path_for(user)).to eq('/protected')
+      expect(session[:return_to]).to be_nil
+    end
+
+    it 'falls back to omniauth.origin' do
+      request.env['omniauth.origin'] = '/origin'
+      expect(controller.after_sign_in_path_for(user)).to eq('/origin')
+    end
+
+    it 'defaults to root path' do
+      expect(controller.after_sign_in_path_for(user)).to eq('/')
+    end
+
+    it 'prevents open redirects by extracting only the path from a full URL' do
+      session[:return_to] = 'http://evil.com/malicious'
+      expect(controller.after_sign_in_path_for(user)).to eq('/malicious')
+    end
+
+    it 'falls back to root path if return_to is an invalid or non-relative string' do
+      session[:return_to] = 'not-a-valid-path'
+      expect(controller.after_sign_in_path_for(user)).to eq('/')
+    end
+
+    it 'handles download safety for ungreeted' do
+      session[:return_to] = '/ungreeted'
+      expect(controller.after_sign_in_path_for(user)).to eq('/')
+      expect(flash[:notice]).to include('/ungreeted')
+    end
+
+    it 'handles download safety for csv' do
+      session[:return_to] = '/data.csv'
+      expect(controller.after_sign_in_path_for(user)).to eq('/')
+      expect(flash[:notice]).to include('/data.csv')
     end
   end
 end

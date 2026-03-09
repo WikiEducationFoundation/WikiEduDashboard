@@ -203,6 +203,10 @@ scn:
     training_module_status: Statu
     username: Nomu utenti
     username_placeholder: Nomu utenti
+    useremail_placeholder: Nzirisci lu nnirizzu email
+    email_required_instructor: È nicissariu pi l'istruttura attuali. Puoi livari lu
+      to indirizzu email doppu ca li cursi attuali finìsciunu.
+    email_invalid: 'Nun validu: Digita n''email vàlida'
   survey:
     email:
       headline: Ciau, %{username}

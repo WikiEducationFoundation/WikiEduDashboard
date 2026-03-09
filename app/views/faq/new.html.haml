@@ -1,7 +1,15 @@
+= hot_javascript_tag 'faq_editor'
 - content_for :before_title, "New FAQ"
-.container
-  %h1 Add new FAQ
-  = simple_form_for @faq, url: '/faq' do |f|
-    = f.input :title
-    = f.input :content
-    = f.button :submit
+.container.faq-editor
+  .editor-pane
+    %h1 Add new FAQ
+    = simple_form_for @faq, url: '/faq' do |f|
+      = f.input :title, input_html: { class: 'faq-editor__title' }
+      = f.input :content, as: :text,
+                 input_html: { id: 'faq_content', class: 'faq-editor__textarea', rows: 16, 'data-preview-target': '#faq_preview' }
+      = f.button :submit, class: 'button'
+
+  .preview-pane
+    %h3 Preview
+    .faq-preview.markdown#faq_preview
+      %em Start typing to see a live preview…

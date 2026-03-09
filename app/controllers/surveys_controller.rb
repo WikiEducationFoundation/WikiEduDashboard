@@ -142,13 +142,14 @@ class SurveysController < ApplicationController
   def set_question_groups
     @question_groups = Rapidfire::QuestionGroup.all
     @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+                                                   .includes(:rapidfire_question_group).to_a
   end
 
   # This removes the question groups that do not apply to the course, because
   # of the 'tags' parameter that makes the question group apply only to courses
   # with (all) those tags, or to courses in all the specified campaigns.
   def filter_inapplicable_question_groups
-    @surveys_question_groups.to_a.select! do |survey_question_group|
+    @surveys_question_groups.select! do |survey_question_group|
       next false if survey_question_group.question_group.questions.empty?
       # via QuestionGroupsHelper
       course_meets_conditions_for_question_group?(survey_question_group.question_group)

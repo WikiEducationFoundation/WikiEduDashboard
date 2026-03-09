@@ -1,0 +1,4 @@
+.usage-chart
+  - i = 0
+  - data = Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
+  = line_chart([{ name: 'count', data: data }], legend: false)

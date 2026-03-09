@@ -34,16 +34,17 @@ class TagManager
           end
     add(tag:, key: 'course_creator')
     add(tag: 'ta_support') if ta_support
-    add(tag: 'cloneable') if cloneable?
+    # add(tag: 'cloneable') if cloneable?
   end
 
   private
 
   # Starting in Summer 2018, old Wiki Education courses must be explicitly tagged to be cloneable,
   # but all newly-created courses will be tagged cloneable by default.
-  def cloneable?
-    @course.type == 'ClassroomProgramCourse'
-  end
+  # Starting in late 2025, we are not enabling cloning by default.
+  # def cloneable?
+  #   @course.type == 'ClassroomProgramCourse'
+  # end
 
   def handle_post
     return if Tag.find_by(@tag_params).present?

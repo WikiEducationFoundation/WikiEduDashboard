@@ -18,6 +18,7 @@
 
   .faq-list
     width 70%
+    
 
   .faq-topic-list
     width 20%
@@ -77,3 +78,79 @@
       transform rotate(180deg)
     .faq-content
       padding-bottom 20px
+
+.faq-editor
+  display: flex
+  gap: 30px
+  margin-top: 20px
+  @media only screen and (max-width: 768px)
+    flex-direction: column
+
+  .editor-pane
+    flex 1
+    min-width 0
+
+    form
+      .string, .text
+        margin-bottom 5px
+
+      .faq-editor__title
+        width 100%
+        border-radius 4px
+
+        &:focus
+          outline none
+          border-color #676eb4
+
+      .faq-editor__textarea
+        width 100%
+        padding 12px
+        font-size 14px
+        font-family 'Monaco', 'Menlo', 'Ubuntu Mono', monospace
+        line-height 1.6
+        border 1px solid #ddd
+        border-radius 4px
+        box-sizing border-box
+        resize vertical
+        min-height 400px
+
+        &:focus
+          outline none
+          border-color #676eb4
+          box-shadow 0 0 0 3px rgba(103, 110, 180, 0.1)
+
+      .button, input[type="submit"]
+        display inline-block
+        padding 10px 20px
+        background-color #676eb4
+        color white
+        border none
+        border-radius 4px
+        font-size 14px
+        font-weight 600
+        cursor pointer
+        text-decoration none
+        transition background-color 0.2s
+
+        &:hover
+          background-color #5558a0
+
+        &:active
+          background-color #4a4d8a
+
+  .preview-pane
+    flex: 1
+    min-width: 0
+    h3
+      margin-bottom: 15px
+    .faq-preview
+        padding: 20px
+        background-color: rgba(0,0,0,0.03)
+        border: 1px solid $border
+        border-radius: 4px
+        overflow-y: auto
+        max-height: 50vh 
+        min-height: 400px
+        overflow-wrap: break-word
+        scrollbar-color: #8e8e8eff #8f8f8fff
+        scrollbar-width: thin

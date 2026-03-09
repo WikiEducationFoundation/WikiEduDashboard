@@ -3,25 +3,32 @@ const { List } = window;
 const SurveyAssignmentAdmin = {
   init() {
     this.sortableTables();
-    return this.listeners();
+    this.listeners();
   },
 
   listeners() {
-    return $('[data-toggle-courses-table]').on('click', $.proxy(this, 'toggleCoursesTable'));
-  },
-
-  sortableTables() {
-    return $('[data-sortable-courses]').each((i, sortableCourses) => {
-      const options = {
-        valueNames: ['title', 'id']
-      };
-
-      return new List(sortableCourses, options);
+    document.querySelectorAll('[data-toggle-courses-table]').forEach((button) => {
+      button.addEventListener('click', e => this.toggleCoursesTable(e));
     });
   },
 
-  toggleCoursesTable({ target }) {
-    return $(target).parents('.block').find('[data-sortable-courses]').toggleClass('active');
+  sortableTables() {
+    document.querySelectorAll('[data-sortable-courses]').forEach((sortableCourses) => {
+      const options = {
+        valueNames: ['title', 'id']
+      };
+      // eslint-disable-next-line no-new
+      new List(sortableCourses, options);
+    });
+  },
+
+    toggleCoursesTable(event) {
+    const target = event.currentTarget;
+    const block = target.closest('.block');
+    const table = block?.querySelector('[data-sortable-courses]');
+    if (table) {
+      table.classList.toggle('active');
+    }
   }
 };
 

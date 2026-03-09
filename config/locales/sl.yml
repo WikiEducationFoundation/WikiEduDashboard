@@ -129,7 +129,6 @@ sl:
       na dashboard@wikiedu.org.
   alerts:
     alert_label: Opomniki
-    no_alerts: Ni najdenih opomnikov.
   activity:
     all: Dejavnost
     edited_by: Uredil

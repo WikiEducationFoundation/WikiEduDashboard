@@ -38,6 +38,7 @@ en:
   application:
     back: Back
     cancel: Cancel
+    next: Next
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -48,6 +49,7 @@ en:
     explore: Explore
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
+    field_invalid_term: Term must include year (e.g., "Spring 2025")
     field_invalid_date: This field requires a date in YYYY-MM-DD format
     field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
     greeting2: Welcome!
@@ -59,6 +61,7 @@ en:
     log_in: Log in
     log_out: Log out
     my_dashboard: My Dashboard
+    okay: Okay
     recent_activity: Recent Activity
     report_problem: Report a problem
     request_account: Request an account
@@ -147,8 +150,45 @@ en:
       contact dashboard@wikiedu.org.
   alerts:
     alert_label: Alerts
-    no_alerts: No alerts found.
-
+    no_data: No data found.
+    ai_stats:
+      timestamp: Timestamp
+      title: AI Edit Alerts Stats for %{campaign_name}
+      total_alerts: Total AI Edit Alerts
+      with_followup: AI Edit Alerts with followup
+      multiple_alerts_students: Students with multiple alerts
+      multiple_alerts_pages: Pages with multiple alerts
+      pangram_url: Pangram URL
+      go_to_pangram: Go to Pangram
+      revision_diff: Revision diff
+      single_alert_view: Alert
+      alerts_in_mainspace: Alerts in mainspace
+      users_involved: Users involved
+      total: Total
+      last_week: Last week
+      sections:
+        contents: Page contents
+        general_stats: General stats
+        name: Name
+        description: Description
+        courses_with_ai_alerts: Courses with multiple AI alerts
+        recent_followup: Alerts with recent followup
+        multiple_alerts_students: Recent alerts for students with multiple alerts
+        in_mainspace: Recent alerts in mainspace
+        alerts_trend_over_time: AI alerts trends over time
+        descriptions:
+          courses_with_ai_alerts: Courses with more than 3 AI alerts over the entire course period (not necessarily recent).
+          recent_followup: Alerts with followup responses submitted within the last 14 days, ordered by the date of the followup response.
+          multiple_alerts_students: Alerts created within the last 14 days for students with multiple alerts, ordered by creation date.
+          in_mainspace: Alerts created within the last 14 days for articles in mainspace, ordered by creation date.
+  ai_scores_stats:
+    title: Revision AI Scores Stats
+    graphs:
+      daily_checks: Daily checks by namespace
+      avg_likelihood: Avg AI likelihood distribution per day
+      max_likelihood: Max AI likelihood distribution per day
+      overall_avg_likelihood: Overall avg AI likelihood distribution
+      overall_max_likelihood: Overall max AI likelihood distribution
   activity:
     all: Activity
     edited_by: Edited By
@@ -187,6 +227,9 @@ en:
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
     filter_text: "Filters:"
+    pageviews_label: "Pageviews:"
+    cumulative: "Cumulative"
+    daily_avg: "Daily Avg"
     find: Find Articles
     how_to_find: How to find articles
     hide: Hide
@@ -198,6 +241,7 @@ en:
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
+    quality_checklist: Quality checklist
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may correspond to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -290,6 +334,7 @@ en:
     blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
+    max_group_size_exceeded: "%{title} already has %{current} student(s) assigned. The maximum group size for this course is %{max}."
     assignees: Assignee(s)
     assign_other: Assign/remove an article
     assign_other_wikidata: Assign/remove an item
@@ -301,6 +346,7 @@ en:
     add_available_submit_wikidata: Add items
     add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
+    invalid_mainspace_article: This must be a valid mainspace article.
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
@@ -356,6 +402,16 @@ en:
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
     mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    invalid_username: 'The username "%{username}" is invalid Or the username does not exist.'
+    change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
+    username_label: Wikipedia Username
+    username_placeholder: 'Enter username (e.g., YourUsername)'
+    username_or_url_label: Wikipedia Username or URL
+    username_or_url_placeholder: 'Enter username or full sandbox URL'
+    preview_label: 'Preview of new URLs:'
+    sandbox_label: Sandbox
+    bibliography_label: Bibliography
+    outline_label: Outline
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
@@ -365,6 +421,15 @@ en:
       title: Milestones
 
   campaign:
+    campaign_ores_plot:
+      change_button: "Change in Structural Completeness"
+      no_data: "No Structural Completeness data available"
+      graph_description_html: >
+        This graph visualizes, in aggregate, how much articles developed from 
+        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em> 
+        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>) 
+        that estimates an article&apos;s quality rating based on the amount of 
+        prose, the number of wikilinks, images and section headers, and other features.
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
     alert_article: Article title
@@ -379,6 +444,7 @@ en:
     campaign_deleted: Campaign "%{title}" has been deleted
     campaign_not_updated: Campaign could not be updated
     campaign_updated: Campaign updated
+    refresh_campaign_stats: Campaign stats refreshed successfully
     created_at: Date
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
@@ -583,7 +649,7 @@ en:
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
-      course_term_placeholder: Term
+      course_term_placeholder: Term (including year)
       course_title: Course title
       course_types:
         basic_course_name: Basic Program
@@ -602,6 +668,7 @@ en:
       end_date: End date
       end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
+      field_invalid_term: Term must include year (e.g., "Spring 2025")
       find: Find Your Course
       intro: >
         The title, school, and term create your course page’s URL, and can't be
@@ -732,6 +799,8 @@ en:
       not_yet_approved: This course has not yet been approved for enrollment.
       withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
       invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
+      disallowed_user: This user is on the disallowed users list and cannot be enrolled in courses.
+
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
     launch_wizard: Launch the Wizard
@@ -742,6 +811,7 @@ en:
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update
+    update_scheduled_label: Update Scheduled
     new_week: Add New Week
     new_account_check_username: Check username availability
     new_account_email: Email address
@@ -826,6 +896,8 @@ en:
     start: Start
     start_typing: Start typing
     stay_in_sandbox: Stay in sandbox
+    max_group_size: Max. group size
+    max_group_size_tooltip: Maximum number of students who can work on the same article. Leave blank for unlimited.
     student: Student
     students: Students
     students_taught: Students Taught
@@ -1159,8 +1231,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
-    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
-    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc: This is the estimated number of views based on the daily average from the article's first revision during the course up to the most recent stats update.
+    view_count_doc_wikidata: This is the estimated number of views based on the daily average from the item's first revision during the course up to the most recent stats update.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1274,12 +1346,30 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    show_only_new_editors: Show Only New Editors
 
   resources:
     label: Resources
     header: Resources and Training
 
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Course creation
+        default_campaign_setting: Default Campaign
+        site_notice_setting: Site Notice
+        site_notice_preview: Live Preview
+      buttons:
+        add_admin_button: Add Admin
+        add_special_user_button: Add Special User
+        configure_site_notice:
+          update_site_notice_button: Update Site Notice
+          enable_button: Enable
+          disable_button: Disable
+        update_course_creation_settings: Update course creation settings
+        update_default_campaign_setting: Update Default Campaign
+        update_impact_stats: Update Impact Stats
+        update_salesforce_credentials: Update Salesforce Credentials
     categories:
       other_settings: Other settings
       impact_stats: Impact Stats
@@ -1322,6 +1412,24 @@ en:
         revoking_button_working: "Revoking..."
         already_is_not: "%{username} is not a Special User!"
         demote_success: "%{username} is now just a user."
+    disallowed_users:
+      none: No disallowed users configured.
+      already_disallowed: Already disallowed
+      add_to_list: Add to Disallowed
+      add_button: Add User
+      remove_button: Remove
+      submit_button: Submit
+      title: Disallowed Users
+      description: Bot accounts and other usernames that should not be enrolled in courses.
+      add:
+        success: "%{username} added to disallowed users list."
+        already_exists: "%{username} is already in the disallowed users list."
+      remove:
+        success: "%{username} removed from disallowed users list."
+        not_found: "%{username} is not in the disallowed users list."
+        confirm: "Are you sure you want to remove %{username} from the disallowed users list?"
+    actions: Actions
+
 
   status:
     active_jobs: Active jobs
@@ -1390,6 +1498,7 @@ en:
     chose_search_type: Choose a search type
 
   timeline:
+    add_assignment: Add Assignment
     add_week: Add Week
     arrange_timeline: Arrange Timeline
     arrange_timeline_instructions: >
@@ -1444,6 +1553,8 @@ en:
     save_all_changes: Save All
     this_week_title_default: This Week
     title: Timeline
+    too_many_weeks_warning: >
+      WARNING! There are not enough non-holiday weeks before the assignment end date! You can click 'Edit Course Dates' to set the meeting dates and holiday dates.
     unable_to_add_week: >
       You cannot add new weeks when your timeline is full. Delete at least one
       week or change your assignment dates to make room for a new one.
@@ -1654,7 +1765,9 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Education Staff
-
+    useremail_placeholder: "Enter Email Address"
+    email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
+    email_invalid: "Invalid: Please enter a valid email"
   user_profiles:
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor
@@ -1727,9 +1840,10 @@ en:
         site works well on recent versions of Chrome, Firefox, Edge, and other modern browsers.
     ip_blocked: >
       You cannot currently create an account from this device. This my happen if your IP address is blocked by Wikipedia or has already reached the daily limit for new accounts. Try connecting from a different network.
+    login_success_download_html: "Successfully signed in! %{link}."
+    download_here: Click here to download your file
 
   error_401:
-    header: "Unauthorized. >:-("
     explanation: >
       You are not authorized to execute this request. If you believe you have
       reached this notice in error, please contact the maintainers of this
@@ -1766,6 +1880,10 @@ en:
       It looks like there was a problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
+
+  notifications:
+    new_notifications: You have new notifications.
+    no_notifications: You have no new notifications.
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."

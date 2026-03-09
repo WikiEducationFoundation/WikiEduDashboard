@@ -688,6 +688,49 @@ const API = {
         label,
       };
     });
+  },
+
+  // Disallowed Users API 
+  // Fetches list of usernames blocked from enrolling in any course
+  async fetchDisallowedUsers() {
+    const response = await request('/settings/disallowed_users');
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
+  },
+
+  // Adds a user to the disallowed list, preventing them from enrolling in courses
+  async addDisallowedUser(username) {
+    const response = await request('/settings/add_disallowed_user', {
+      method: 'POST',
+      body: JSON.stringify({ username })
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
+  },
+
+  // Removes a user from the disallowed list, allowing them to enroll again
+  async removeDisallowedUser(username) {
+    const response = await request('/settings/remove_disallowed_user', {
+      method: 'POST',
+      body: JSON.stringify({ username })
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
   }
 };
 

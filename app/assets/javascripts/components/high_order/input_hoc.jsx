@@ -61,7 +61,10 @@ const InputHOC = (Component) => {
       if (value !== this.state.value) {
         return this.setState({ value }, function () {
           this.props.onChange(this.props.value_key, value, originalEvent);
-          return this.validate();
+          // Only validate on change if validateOnBlur is not set
+          if (!this.props.validateOnBlur) {
+            return this.validate();
+          }
         });
       }
     },
@@ -109,12 +112,16 @@ const InputHOC = (Component) => {
     },
 
     blur() {
+      // Validate on blur if validateOnBlur prop is set
+      if (this.props.validateOnBlur) {
+        this.validate();
+      }
       if (this.props.onBlur) { return this.props.onBlur(); }
     },
 
     render() {
       // Don't allow uneccessary props to pass through
-      const { value, validation, onChange, invalidMessage, required, ...passThroughProps } = this.props;
+      const { value, validation, onChange, invalidMessage, required, validateOnBlur, ...passThroughProps } = this.props;
       return (<Component {...passThroughProps} {...this.state} onChange={this.onChange} onFocus={this.focus} onBlur={this.blur} />);
     }
   });

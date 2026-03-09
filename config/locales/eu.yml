@@ -130,7 +130,6 @@ eu:
       erregistratu zaitezke, ala kontu berri bat sortu.
   alerts:
     alert_label: Alertak
-    no_alerts: Ez da alertarik aurkitu.
   activity:
     all: Jarduera
     edited_by: Nork editatua
@@ -1132,7 +1131,6 @@ eu:
         Webgune hau ondo doa Internet Explorer 11 bertsio edo gerokoekin, baita Chrome
         eta Firefox bertsio berrienekin eta beste nabigatzaile modernoekin ere.
   error_401:
-    header: Ez duzu baimenik. >:-(
     explanation: Ez duzu baimenik eskaera hori exekutatzeko. Ohar honetara errorez
       heldu zarela uste baduzu, mesedez jarri harremanetan arbel honen zaintzaileekin
       arazoaren berri haiei emateko.

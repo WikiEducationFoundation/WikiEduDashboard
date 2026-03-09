@@ -1,0 +1,9 @@
+%h4 Pangram v3 Result:
+
+%p Headline: #{@pangram_v3_result['headline']}
+%p Prediction: #{@pangram_v3_result['prediction']}
+%p Fraction human: #{@pangram_v3_result['fraction_human']}
+%p Fraction AI-assisted: #{@pangram_v3_result['fraction_ai_assisted']}
+%p Fraction AI: #{@pangram_v3_result['fraction_ai']}
+%p Window AI assistance scores: #{@pangram_v3_result['windows'].map { |window| window['ai_assistance_score'] }}
+%a.button{ href: @pangram_v3_result['dashboard_link'], target: '_blank' } Pangram v3 Report

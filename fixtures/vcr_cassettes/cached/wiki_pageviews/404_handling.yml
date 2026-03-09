@@ -1,0 +1,80 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://fr.wikisource.org/w/api.php?action=query&format=json&meta=siteinfo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v1.10.2
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 04 Nov 2025 21:08:06 GMT
+      Server:
+      - mw-api-ext.eqiad.main-8ddc5dd6b-2d7xs
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6009 miss, cp6016 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikisource.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikisource.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      - WMF-Uniq=xY8KHOFLHgxEh4WxC4RzWAKhAAAAAFvd0-36uT533AWSwH1cosx8aq_Jrj8whx-3;Domain=.wikisource.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Wed,
+        04 Nov 2026 00:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - 29c20c15-d0ea-4add-b248-ee6186637527
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"general":{"mainpage":"Wikisource:Accueil","base":"https://fr.wikisource.org/wiki/Wikisource:Accueil","sitename":"Wikisource","logo":"//fr.wikisource.org/static/images/project-logos/frwikisource.png","generator":"MediaWiki
+        1.45.0-wmf.25","phpversion":"8.1.33","phpsapi":"fpm-fcgi","dbtype":"mysql","dbversion":"10.11.13-MariaDB-log","langconversion":"","linkconversion":"","titleconversion":"","linkprefixcharset":"","linkprefix":"","linktrail":"/^([a-z\u00e0\u00e2\u00e7\u00e9\u00e8\u00ea\u00ee\u00f4\u00fb\u00e4\u00eb\u00ef\u00f6\u00fc\u00f9\u00c7\u00c9\u00c2\u00ca\u00ce\u00d4\u00db\u00c4\u00cb\u00cf\u00d6\u00dc\u00c0\u00c8\u00d9]+)(.*)$/sDu","legaltitlechars":"
+        %!\"$&''()*,\\-.\\/0-9:;=?@A-Z\\\\^_`a-z~\\x80-\\xFF+","invalidusernamechars":"@:>=","git-hash":"10ca5eb9d83d4bea805b075d3271102414d3baec","git-branch":"wmf/1.45.0-wmf.25","case":"first-letter","lang":"fr","fallback":[{"code":"en"}],"fallback8bitEncoding":"windows-1252","writeapi":"","maxarticlesize":2097152,"timezone":"UTC","timeoffset":0,"articlepath":"/wiki/$1","scriptpath":"/w","script":"/w/index.php","variantarticlepath":false,"server":"//fr.wikisource.org","servername":"fr.wikisource.org","wikiid":"frwikisource","time":"2025-11-04T21:08:06Z","misermode":"","uploadsenabled":"","maxuploadsize":5368709120,"minuploadchunksize":1024,"galleryoptions":{"imagesPerRow":0,"imageWidth":120,"imageHeight":120,"captionLength":"","showBytes":"","mode":"traditional","showDimensions":""},"thumblimits":[120,150,180,200,220,250,300,400],"imagelimits":[{"width":320,"height":240},{"width":640,"height":480},{"width":800,"height":600},{"width":1024,"height":768},{"width":1280,"height":1024},{"width":2560,"height":2048}],"favicon":"https://fr.wikisource.org/static/favicon/wikisource.ico","centralidlookupprovider":"CentralAuth","allcentralidlookupproviders":["CentralAuth","local"],"interwikimagic":"","magiclinks":{"ISBN":"","PMID":"","RFC":""},"categorycollation":"uppercase","nofollowlinks":"","nofollownsexceptions":[],"nofollowdomainexceptions":["mediawiki.org","wikibooks.org","wikimedia.com","wikimedia.org","wikinews.org","wikipedia.org","wikiquote.org","wikisource.org","wikiversity.org","wiktionary.org","wikivoyage.org","wikidata.org","wikifunctions.org","tools.wmflabs.org","toolforge.org","etherpad.wmflabs.org"],"wmf-config":{"wmfMasterDatacenter":"codfw","wmfEtcdLastModifiedIndex":3646121},"max-page-id":4729618,"linter":{"high":["deletable-table-tag","duplicate-ids","html5-misnesting","misc-tidy-replacement-issues","multiline-html-table-in-list","multiple-unclosed-formatting-tags","pwrap-bug-workaround","self-closed-tag","tidy-font-bug","tidy-whitespace-bug","unclosed-quotes-in-heading"],"medium":["bogus-image-options","fostered","misnested-tag","multi-colon-escape","wikilink-in-extlink"],"low":["empty-heading","missing-end-tag","missing-end-tag-in-heading","night-mode-unaware-background-color","obsolete-tag","stripped-tag"]},"mobileserver":"https://fr.wikisource.org","pageviewservice-supported-metrics":{"pageviews":{"pageviews":""},"siteviews":{"pageviews":"","uniques":""},"mostviewed":{"pageviews":""}},"readinglists-config":{"maxListsPerUser":100,"maxEntriesPerList":5000,"deletedRetentionDays":30}}}}'
+  recorded_at: Wed, 18 Oct 2023 00:00:00 GMT
+recorded_with: VCR 6.1.0

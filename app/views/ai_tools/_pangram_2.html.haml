@@ -1,0 +1,9 @@
+%h4 Pangram v2 Result:
+
+%p Headline: #{@pangram_v2_result['headline']}
+%p Prediction: #{@pangram_v2_result['prediction']}
+%p Fraction human: #{@pangram_v2_result['fraction_human']}
+%p Fraction mixed: #{@pangram_v2_result['fraction_mixed']}
+%p Fraction AI: #{@pangram_v2_result['fraction_ai']}
+%p Window Likelihoods: #{@pangram_v2_result['window_likelihoods']}
+%a.button{ href: @pangram_v2_result['dashboard_link'], target: '_blank' } Pangram v2 Report

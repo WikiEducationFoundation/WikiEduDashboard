@@ -1,0 +1,22 @@
+- content_for :before_title, 'AI Tools — '
+%header.main-page
+  .container
+    %h1 AI Tools
+.container
+  %section
+    .section-header
+      %h3= "Compare Pangram versions 2 and 3 — diff"
+      = form_with url: "/ai_tools/compare_pangrams", method: :post do |form|
+        = label_tag :article_or_diff_url, 'Diff URL:'
+        = text_field_tag :article_or_diff_url 
+        = hidden_field_tag :diff_mode, 'true'
+        .button= submit_tag 'Submit'
+      %hr
+    - if @url
+      %br
+      %a{ href: @url, target: '_blank' }= @url
+      %br
+    - if @pangram_v2_result
+      = render 'pangram_2'
+    - if @pangram_v3_result
+      = render 'pangram_3'

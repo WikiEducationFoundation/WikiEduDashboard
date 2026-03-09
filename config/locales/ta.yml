@@ -12,6 +12,8 @@
 ta:
   application:
     cancel: கைவிடு
+    next: அடுத்து
+    cookie_consent_see_more: மேலும் காண்க.
     create_accounts: விக்கிப்பீடியா கணக்குகளை உருவாக்கு
     documentation: ஆவணமாக்கல்
     error: 'ஒரு பிழை காணப்பட்டது:'
@@ -25,9 +27,11 @@ ta:
     log_in_extended: விக்கிப்பீடியாவில் புகுபதிக
     log_in: புகுபதிக
     log_out: விடுபதிக
+    okay: சரி
     recent_activity: அண்மைய செயல்கள்
     request_account_create: ஒரு கணக்கை உருவாக்கு
     search: ஒரு கேள்வி கேள்
+    sign_up_log_in_extended: விக்கிபீடியாவுடன்
     sign_up: பதிவு செய்
     submit: சமர்ப்பி
     training: பயிற்சி
@@ -38,9 +42,16 @@ ta:
     opt_out: இல்லை
     opt_yes: ஆம்
     opt_no: இல்லை
+  article_statuses:
+    peer_review_completed: மதிப்பாய்வு முடிந்தது
   home:
     explore: கண்டறிக
     log_in: விக்கிப்பீடியாவில் புகுபதிக
+    registration_advice:
+      username_rules:
+        heading: பயனர்பெயர் விதிகள்
+  alerts:
+    no_data: தரவு ஏதும் காணப்படவில்லை.
   activity:
     all: செயற்பாடு
     label: செயற்பாடு
@@ -48,6 +59,7 @@ ta:
     next: அடுத்தது
     previous: முந்திய
     article_title: கட்டுரைத் தலைப்பு
+    deleted: (நீக்கப்பட்டது)
     edited_mobile: கட்டுரைகள்
     filter:
       wiki_all: யாவும்
@@ -86,6 +98,7 @@ ta:
     delete_campaign: இப்பரப்புரையை நீக்கு
     none: எதுவுமில்லை
     organizers: ஒழுங்கமைப்பாளர்கள்
+    students_small: மாணவர்கள்
     title: தலைப்பு
   categories:
     add_category: பகுப்பைச் சேர்
@@ -112,6 +125,7 @@ ta:
       end_date: முடிவுத்தேதி
       end_date_placeholder: வவவவ-மாமா-தேதே
       expected_number: எதிர்பார்க்கப்படும் மாணவர் எண்ணிக்கை
+      find: உங்கள் பாடத்திட்டத்தைக் கண்டறியவும்
       role_description_options:
       - பயிற்றுவிப்பாளர்
       - கற்பித்தல் உதவியாளர்
@@ -122,7 +136,9 @@ ta:
     end: முடிவு
     feedback: பின்னூட்டம்
     join: சேர்க்க
+    loading: ஏற்றுகிறது...
     my_articles: எனது கட்டுரைகள்
+    new_week: புதிய வாரத்தைச் சேர்க்கவும்
     new_account_email: மின்னஞ்சல் முகவரி
     new_account_email_placeholder: name@example.org
     none: எதுவுமில்லை
@@ -137,11 +153,16 @@ ta:
     submitted: பணிந்தனுப்பப்பட்டது
     timeline_link: காலவரிசை
     title: தலைப்பு
+    survey:
+      link: கணக்கெடுப்பு எடுக்கவும்
+  course_instructor_notification:
+    send_notification_button_text: அனுப்பு
   courses_generic:
     course: நிகழ்ச்சி
     courses: நிகழ்ச்சிகள்
     creator:
       assignment_end_placeholder: வவவவ-மாமா-தேதே
+      assignment_start: நிகழ்வுத் தொடக்கம்
       assignment_start_placeholder: வவவவ-மாமா-தேதே
       course_school: நிறுவனம்
       course_term: எப்பொழுது
@@ -167,6 +188,11 @@ ta:
     cancel: கைவிடுக
     save: சேமி
     edit_description: விவரத்தைத் தொகு
+  instructor_view:
+    assignments_table:
+      relevant_links: தொடர்புடைய இணைப்புகள்
+    assigned_articles: ஒதுக்கப்பட்ட கட்டுரைகள்
+    assigned_articles_wikidata: ஒதுக்கப்பட்ட பொருட்கள்
   metrics:
     activity: அண்மைய செயல்கள்
     articles_created: உருவாக்கியக் கட்டுரைகள்
@@ -181,19 +207,23 @@ ta:
     view_count_description: கட்டுரைப் பார்வைகள்
     view: பார்வைகள்
     word_count: சேர்க்கப்பட்ட வார்த்தைகள்
+    changed: மாற்றப்பட்டது
   namespace:
+    all: அனைத்தும்
     main: முதன்மைவெளி
     user: பயனர்வெளி
     file: கோப்பு
     mediaWiki: மீடியாவிக்கி
     help: உதவி
     page: பக்கம்
+    book: புத்தகம்
     translation: மொழிபெயர்ப்பு
     school: பள்ளி
   recent_activity:
-    article_title: கட்டுரைத் தலைப்பு
+    article_title: தலைப்பு
     datetime: நாள்/நேரம்
     image: படம்
+    report: அறிக்கை
   revisions:
     diff_show: காட்டுக
     diff_hide: மறை
@@ -206,6 +236,12 @@ ta:
     special_users:
       new:
         form_placeholder: பயனர் பெயர்
+  status:
+    purpose: நோக்கம்
+    status: நிலை
+  timeline:
+    add_week: வாரத்தைச் சேர்
+    course_end: பாடத்திட்டம் முடிவு
   training:
     start: தொடங்குக
     view: பார்வையிடு
@@ -224,6 +260,7 @@ ta:
     file_name: கோப்பின் பெயர்
     image: படம்
     label: பதிவேற்றுக
+    license: உரிமம்
   users:
     assign_articles_done: முடிந்தது
     editors: தொகுப்பாளர்கள்
@@ -231,8 +268,25 @@ ta:
     last_name: கடைசிப் பெயர்
     name: பெயர்
     recent_revisions: அண்மையத் தொகுப்புகள்
+    training_module_status: நிலை
     ungreeted: வரவேற்பு மறுக்கப்பட்டோர்
     username: பயனர் பெயர்
     username_placeholder: பயனர் பெயர்
     useremail_placeholder: மின்னஞ்சல்
+    role:
+      student: மாணவர்
+  wizard:
+    read_less: குறைவாகப் படியுங்கள்
+  login_error:
+    header: உள்நுழைவு பிழை
+  article_finder:
+    more_results: மேலும் முடிவுகள்
+  training_status:
+    not_started: தொடங்கப்படவில்லை
+  news:
+    options:
+      create_news:
+        discard_post: செய்திகளை நீக்கவும்
+  notes:
+    save_note: சேமிக்கவும்
 ...

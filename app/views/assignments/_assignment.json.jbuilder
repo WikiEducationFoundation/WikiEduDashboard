@@ -6,7 +6,7 @@ json.call(assignment, :id, :user_id, :article_id, :role, :article_url, :sandbox_
 json.assignment_id assignment.id
 json.article_title assignment.article_title.tr('_', ' ')
 if assignment.article
-  json.article_rating assignment.article.rating
+  json.article_rating default_class(assignment.article.rating)
   json.article_rating_num rating_priority(assignment.article.rating)
   json.article_pretty_rating rating_display(assignment.article.rating)
 else

@@ -124,7 +124,6 @@ ja:
       までメールで連絡してください。
   alerts:
     alert_label: 通知
-    no_alerts: 通知は届いていません。
   activity:
     all: 活動
     edited_by: 編集担当

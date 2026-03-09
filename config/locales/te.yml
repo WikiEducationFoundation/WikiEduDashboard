@@ -131,7 +131,6 @@ te:
       dashboard@wikiedu.org ని సంప్రదించండి.
   alerts:
     alert_label: హెచ్చరికలు
-    no_alerts: హెచ్చరికలు ఏవీ కనుగొనబడలేదు.
   activity:
     all: కలాపం
     edited_by: సవరించినవారు

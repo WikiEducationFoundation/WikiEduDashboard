@@ -137,10 +137,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
     } else if (!userIdsFetched && !showArticleFinder) {
       fetchUserIds();
     }
-    // WhoColor is only available for some languages
-    if (isWhocolorLang()) {
-      fetchWhocolorHtml();
-    }
+    // WhoColor is now called from fetchParsedArticle after redirects are handled
     // Add article id in the URL
     addParamToURL(article.id);
   };
@@ -246,6 +243,11 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       .then((response) => {
         setParsedArticle(response.parsedArticle.html);
         setFetched(response.fetched);
+        // After parse API completes (and potentially updates the article title for redirects),
+        // fetch WhoColor data if supported for this language
+        if (isWhocolorLang()) {
+          fetchWhocolorHtml();
+        }
       }).catch((error) => {
         setFailureMessage(error.message);
         setFetched(true);
@@ -264,8 +266,17 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
       }).catch((error) => {
         setWhoColorFailed(true);
         setFailureMessage(error.message);
-        // Set flag to verify and fetch the article title if the fetch failed, possibly due to the article being moved
-        setCheckArticleTitle(true);
+        // Only trigger title verification for failures that may be caused by title changes.
+        // If WhoColor is simply not ready/available (our API throws a specific message),
+        // do NOT re-verify the title to avoid infinite re-requests.
+        const unavailablePattern = /^Request failed after \d+ attempts/;
+        const cooldownPattern = /WhoColor temporarily unavailable; retry later/;
+        if (unavailablePattern.test(error.message) || cooldownPattern.test(error.message)) {
+          setCheckArticleTitle(false);
+        } else {
+          // For other errors (eg, 404s after redirects), allow one title verification pass
+          setCheckArticleTitle(true);
+        }
       });
   };
 

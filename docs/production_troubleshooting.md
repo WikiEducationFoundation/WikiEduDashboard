@@ -51,3 +51,11 @@ MariaDB has a feature to log all queries or all slow queries to provide for many
   * Check the last slow queries logged: `sudo tail -300 /srv/mysql/peony-database-slow.log`.
 
 Note: changes require a MariaDB server restart to take effect.
+
+## Managing Sidekiq queues
+
+* If you need to manually remove some jobs from Sidekiq without deleting the whole queue, you can iterate through them and delete the ones you want, like this:
+  
+```
+Sidekiq::Queue.new('default').each { |j| next unless j.klass == 'AiDetectionWorker'; next unless j.args.first["course_id"] = 19655; j.delete }
+```

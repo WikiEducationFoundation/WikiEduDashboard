@@ -102,3 +102,56 @@
 
 .surveys__admin-header--question-groups--edit
   margin-bottom 0 !important
+
+// Preview dropdown - extends existing .pop styles
+.preview-dropdown
+  position relative
+  display inline-block
+
+.preview-dropdown__button
+  cursor pointer
+
+.preview-dropdown__menu
+  position absolute
+  right 0
+  top 100%
+  min-width 280px
+  background white
+  box-shadow 0 4px 12px rgba(0,0,0,0.15)
+  border-radius 4px
+  margin-top 4px
+  z-index 1000
+
+.preview-dropdown.collapsed .preview-dropdown__menu
+  display none
+
+.preview-dropdown.expanded .preview-dropdown__menu
+  display block
+
+.preview-link-item
+  padding 10px 16px
+  border-bottom 1px solid $border_lightest
+  &:last-child
+    border-bottom none
+  &:hover
+    background-color rgba(103, 110, 180, 0.05)
+
+.preview-link
+  color $brand_primary
+  font-weight 500
+  &:hover
+    text-decoration underline
+
+.preview-link-detail
+  margin-top 4px
+  font-size 13px
+
+  .course-name
+    color $text_dk
+    font-weight 500
+
+  .question-groups
+    display block
+    color $text_dk
+    font-size 12px
+    margin-top 4px

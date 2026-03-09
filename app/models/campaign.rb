@@ -137,6 +137,14 @@ class Campaign < ApplicationRecord
     @course_string_prefix ||= default_course_type.constantize.new.string_prefix
   end
 
+  def course_sums_cache_key
+    "#{slug}-course_sums"
+  end
+
+  def clear_course_sums_cache
+    Rails.cache.delete(course_sums_cache_key)
+  end
+
   private
 
   def validate_dates

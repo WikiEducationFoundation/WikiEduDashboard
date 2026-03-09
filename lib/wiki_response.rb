@@ -16,7 +16,7 @@ class WikiResponse
   # Main routines #
   #################
 
-  def initialize(response_data, opts={})
+  def initialize(response_data, opts = {})
     @response_data = response_data
     @edit_data = response_data['edit']
     @current_user = opts[:current_user] || {}

@@ -82,7 +82,11 @@ class ClassroomProgramCourse < Course
   end
 
   def cloneable?
-    tag?('cloneable')
+    return true if tag?('cloneable')
+    # Allow cloning of courses that haven't yet been approved,
+    # so that an instructor can use cloning to create course pages
+    # for separate sections of the same course.
+    !approved?
   end
 
   def training_library_slug

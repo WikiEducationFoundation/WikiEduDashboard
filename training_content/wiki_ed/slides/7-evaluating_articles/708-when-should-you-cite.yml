@@ -9,6 +9,9 @@ content: |
   Basically, whenever you add information to an article, be sure to include
   references.
 
-  Using AI tools? Remember, AI may give you fake references, or incorrectly
-  cite a source for an unrelated fact. Always read through sources yourself
-  before citing them on Wikipedia.
+  Using AI tools? Remember, chatbots like ChatGPT, Gemini, or Claude will
+  provide a citation if you ask them to, but it's rare for the fact to
+  actually be contained in the citation the chatbot gives you, even if the
+  source is real. Always read through sources yourself  to ensure
+  information is verifiable (meaning you can find that fact in the source
+  you're citing it to) before citing them on Wikipedia.

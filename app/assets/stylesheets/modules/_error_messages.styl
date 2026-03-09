@@ -7,5 +7,48 @@ div.warning
   &.slim
     margin 1em 2em
 
+
 .warning-background
   background-color $warning-light !important
+
+.unauthorized-error
+  margin-top 100px
+  margin-bottom 100px
+  .error-card
+    background white
+    padding 50px
+    border 1px solid $border_lt
+    border-radius 6px
+    box-shadow 0 4px 15px rgba(0,0,0,0.05)
+    text-align center
+    
+    .icon-wiki-purple
+      background-size 60px
+      height 80px
+      width 80px
+      margin 0 auto 20px
+      display block
+      padding 0
+      
+    p.explanation
+      font-size 1.2em
+      color $text
+      margin-bottom 40px
+      line-height 1.6
+      max-width 500px 
+      margin-left auto
+      margin-right auto
+      
+    .actions
+      display flex
+      justify-content center
+      flex-wrap wrap
+      gap 20px
+      
+      .button
+        margin-top 0 // Override default button margins
+        &.big
+          padding 12px 30px
+          font-size 1.1em
+          height auto
+          line-height inherit

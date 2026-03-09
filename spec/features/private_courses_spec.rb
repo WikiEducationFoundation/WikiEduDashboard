@@ -34,8 +34,8 @@ describe 'Private courses' do
 
   context 'when the user is not participating in the course' do
     it 'raises a 404 error' do
-      expect { visit "/courses/#{escaped_slug course.slug}" }
-        .to raise_error(ActionController::RoutingError)
+      visit "/courses/#{escaped_slug course.slug}"
+      expect(page.status_code).to eq(404)
     end
   end
 end

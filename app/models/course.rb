@@ -120,7 +120,7 @@ class Course < ApplicationRecord
     distinct.sandbox
   }, source: :article, through: :article_course_timeslices
 
-  serialize :flags, Hash
+  serialize :flags, type: Hash
 
   module ClonedStatus
     NOT_A_CLONE = 0
@@ -536,6 +536,10 @@ class Course < ApplicationRecord
 
   def very_long_update?
     flags[:very_long_update].present?
+  end
+
+  def max_group_size
+    flags[:max_group_size]
   end
 
   # TODO: find a better way to check if the course was already updated

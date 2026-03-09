@@ -43,7 +43,7 @@ ms:
       0 hingga 23.)
     greeting2: Selamat datang!
     greeting_extended: Selamat datang ke Wikipedia
-    greeting: Helo!
+    greeting: Apa khabar!
     help: Bantuan
     home: Laman Utama
     log_in_extended: Log masuk dengan Wikipedia
@@ -396,6 +396,7 @@ ms:
       editor_overview: Gambaran Keseluruhan Penyunting
     total_uploads: Jumlah Muat Naik
     uploads_doc: Bilangan muat naik fail ke Wikimedia Commons
+    useremail_placeholder: Masukkan Alamat E-Mel
     userpasscode_placeholder: Kod laluan
     words_added: Perkataan Ditambah<br>(rencana | pengguna | draf)
   user_profiles:

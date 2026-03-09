@@ -1,6 +1,7 @@
 # Messages for Czech (čeština)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: . M .
 # Author: Aktron
 # Author: Clon
 # Author: Dominikmatus
@@ -123,7 +124,8 @@ cs:
       kontaktujte dashboard@wikiedu.org.
   alerts:
     alert_label: Upozornění
-    no_alerts: Nenalezena žádná upozornění.
+    ai_stats:
+      users_involved: Zapojení uživatelé
   activity:
     all: Aktivita
     edited_by: Editoval(a)
@@ -1159,7 +1161,6 @@ cs:
       explanation: Váš prohlížeč není kompatibilní s Nástěnkou. Tato stránka funguje
         v nedávných verzích Chromu, Firefoxu, Edge i dalších moderních prohlížečů.
   error_401:
-    header: Nepovoleno. >:-(
     explanation: Nemáte dostatečná práva pro spuštění tohoto požadavku. Pokud jste
       přesvědčeni, že chyba není na vaší straně, prosím, kontaktujte správce této
       nástěnky a sdělte jim, k čemu konkrétně došlo.

@@ -28,11 +28,12 @@ class Alert < ApplicationRecord
 
   include ArticleHelper
 
-  serialize :details, Hash
+  serialize :details, type: Hash
 
   ALERT_TYPES = %w[
     ActiveCourseAlert
     AiEditAlert
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert
@@ -69,6 +70,7 @@ class Alert < ApplicationRecord
   validates_inclusion_of :type, in: ALERT_TYPES
 
   RESOLVABLE_ALERT_TYPES = %w[
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     CheckTimelineAlert
@@ -114,6 +116,10 @@ class Alert < ApplicationRecord
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
+  def alert_list_url
+    "https://#{ENV['dashboard_url']}/alerts_list/#{id}"
+  end
+
   def user_contributions_url
     courses_user&.contribution_url
   end
@@ -153,6 +159,14 @@ class Alert < ApplicationRecord
     return if emails_disabled?
     return if target_user.nil?
     AlertMailer.send_alert_email(self, target_user)
+    update(email_sent_at: Time.zone.now)
+  end
+
+  def email_classroom_program_manager
+    return if emails_disabled?
+    recipient = SpecialUsers.classroom_program_manager
+    # return unless recipient
+    AlertMailer.send_alert_email(self, recipient)
     update(email_sent_at: Time.zone.now)
   end
 

@@ -26,7 +26,7 @@ class Category < ApplicationRecord
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
   has_many :courses, through: :categories_courses
 
-  serialize :article_titles, Array
+  serialize :article_titles, type: Array
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :name, numericality: { only_integer: true }, on: :create,
@@ -91,8 +91,9 @@ class Category < ApplicationRecord
     # Update source to indicate it's a source with error
     self.source = source + 'Error'
     save
-  rescue StandardError
+  rescue StandardError => e
     # If something went wrong when refresing titles, we don't want to replace article_titles field.
+    Sentry.capture_exception(e)
   end
 
   def article_ids

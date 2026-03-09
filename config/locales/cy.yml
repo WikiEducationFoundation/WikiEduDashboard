@@ -78,7 +78,6 @@ cy:
     sign_up: Cofrestrwch gyda Wicipedia
   alerts:
     alert_label: Rhybuddion
-    no_alerts: Dim rhybuddion.
   activity:
     all: Gweithgaredd
     edited_by: Golygwyd Gan
@@ -236,12 +235,12 @@ cy:
     add_template: Ychwanegwch nodyn (templad)
     add_this_category: Ychwanegu categorïau
     add_this_psid: Ychwanegwch y PSID hwn
-    add_this_template: Ychwanegwch y templad (Nodyn) hwn
+    add_this_template: Ychwanegu Templedi
     articles_count: Nifer o Erthyglau
     name: Enw
     category_name: Enw'r categori
     psid_name: PSID
-    template_name: Enw'r nodyn (templad)
+    template_name: Enw'r templed
     none: Dim categoriau'n cael eu tracio.
     remove: Diddymu
     timestamp: Diweddariad Diwethaf Ar
@@ -290,7 +289,7 @@ cy:
       course_description: Disgrifiad o'r cwrs
       course_subject: Pwnc y cwrs
       course_term: Cyfnod y cwrs
-      course_term_placeholder: Y cyfnod
+      course_term_placeholder: Tymor (gan gynnwys blwyddyn)
       course_title: Teitl y cwrs
       course_types:
         basic_course_name: Y rhaglen yn fras

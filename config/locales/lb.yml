@@ -22,6 +22,7 @@ lb:
   application:
     back: Zeréck
     cancel: Ofbriechen
+    next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
     create_accounts: Wikipedia-Benotzerkonten uleeën
@@ -43,8 +44,9 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     my_dashboard: Meng Iwwersiichtssäit
+    okay: OK
     recent_activity: Rezent Aktivitéit
-    report_problem: E Probleem mellen
+    report_problem: E Problem mellen
     request_account: E Benotzerkont ufroen
     request_account_create: E Benotzerkont opmaachen
     search: eng Fro stellen
@@ -69,7 +71,7 @@ lb:
     print: Drécken
   article_statuses:
     not_yet_started: Fir unzefänken
-    in_progress: An enger Sandkëscht schaffen
+    in_progress: An enger Sandkaul schaffen
     ready_for_review: Schabloun erweideren
     ready_for_mainspace: Aarbecht an den Haaptnummraum réckelen
     reading_the_article: Artikel liesen
@@ -90,7 +92,13 @@ lb:
         heading: Benotzernumm-Reegelen
   alerts:
     alert_label: Meldungen
-    no_alerts: Keng Warnunge fonnt.
+    no_data: Keng Donnéeë fonnt.
+    ai_stats:
+      timestamp: Zäitstempel
+      last_week: Lescht Woch
+      sections:
+        name: Numm
+        description: Beschreiwung
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -116,6 +124,7 @@ lb:
       new: Nei
       new_and_existing: Nei a besteeënd
     filter_text: 'Filteren:'
+    cumulative: Kumulativ
     find: Artikele sichen
     hide: Verstoppen
     history: (Versiounen)
@@ -182,8 +191,11 @@ lb:
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
-    sandbox_draft_link: Sandkëscht Brouillon
+    sandbox_draft_link: Sandkaul-Brouillon
     select: Eraussichen
+    username_label: Wikipedia-Benotzernumm
+    username_or_url_label: Wikipedia-Benotzernumm oder URL
+    sandbox_label: Sandkaul
   blocks:
     milestones:
       title: Kilometersténg
@@ -339,7 +351,7 @@ lb:
     new_account_username_taken: Dëse Benotzernumm ass scho verginn. Sicht Iech wgl.
       een aneren aus.
     new_account_submit: Benotzerkont ufroen
-    no_sandboxes: Keng Sandkëschten
+    no_sandboxes: Keng Sandkaulen
     nocourses: Dir maacht bei kengem Cours mat.
     nocourse: huet bei kengem Cours matgemaach.
     none: Keng
@@ -356,7 +368,7 @@ lb:
     school_and_term: Institutioun/Dauer
     start: Ufank
     start_typing: Fänkt u mat Tippen
-    stay_in_sandbox: An der Sandkëscht bleiwen
+    stay_in_sandbox: An der Sandkaul bleiwen
     student: Student
     students: Studenten
     students_count: '# Studenten'
@@ -546,6 +558,17 @@ lb:
     see_more: Méi gesinn
     show_all: All weisen
   settings:
+    common_settings_components:
+      headings:
+        default_campaign_setting: Standardcampagne
+      buttons:
+        add_admin_button: Admin derbäisetzen
+        add_special_user_button: Spezielle Benotzer derbäisetzen
+        configure_site_notice:
+          enable_button: Aktivéieren
+          disable_button: Desaktivéiert
+        update_default_campaign_setting: Standardcampagne aktualiséieren
+        update_impact_stats: Impaktstatistiken aktualiséieren
     categories:
       other_settings: Aner Astellungen
       users: Benotzer
@@ -562,6 +585,7 @@ lb:
         already_is: '%{username} ass schonn e(n) {position}!'
       remove:
         demote_success: '%{username} ass elo just e Benotzer.'
+    actions: Aktiounen
   status:
     default: Standard
     latency: Latenz
@@ -615,7 +639,7 @@ lb:
       exercise: Exercice
       discussion: Diskussioun
       training: Formatioun
-    exercise_sandbox: Übungssandbox
+    exercise_sandbox: Übungssandkaul
   update_username:
     label: Neie Benotzernumm
     button: Aktualiséieren
@@ -673,7 +697,7 @@ lb:
     remove_confirmation: Sidd Dir sécher, datt Dir %{username} ewechhuele wëllt?
     request_confirmation: Sidd Dir sécher, datt Dir dëse Benotzerkont ufroe wëllt?
     revisions: Versiounen
-    sandboxes: Sandkëschten
+    sandboxes: Sandkaulen
     sub_navigation:
       exercises_and_trainings: Exercicen & Formatiounen
       student_overview: Iwwersiicht %{prefix}
@@ -688,7 +712,7 @@ lb:
       seconds: Sek
     username: Benotzernumm
     username_placeholder: Benotzernumm
-    useremail_placeholder: E-Mail
+    useremail_placeholder: E-Mail-Adress aginn
     role:
       visitor: Visiteur
       student: Student
@@ -722,7 +746,6 @@ lb:
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:
-    header: Net autoriséiert.>:-(
     json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
       wgl., loggt Iech an a probéiert nach eng Kéier.
   error_no_course:
@@ -733,6 +756,9 @@ lb:
     header: 500 - Interne Feeler vum Server. :-(
   login_error:
     header: Feeler beim Aloggen
+  notifications:
+    new_notifications: Dir hutt nei Notifikatiounen.
+    no_notifications: Dir hutt keng nei Notifikatiounen.
   survey:
     email:
       headline: Bonjour %{username}
@@ -783,6 +809,7 @@ lb:
       news_content:
         confirm_delete: Confirméieren
         cancel_delete: Ofbriechen
+        cancel_edit: Ännerung ofbriechen
   notes:
     title: Titel
     failure: Feeler! Probéiert wgl. méi spéit nach eng Kéier.

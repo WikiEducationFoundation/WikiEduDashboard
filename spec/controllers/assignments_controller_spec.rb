@@ -528,73 +528,198 @@ describe AssignmentsController, type: :request do
   describe 'PATCH #update_sanbox_url' do
     let!(:assignment) { create(:assignment, course:, user_id: user.id, role: 0) }
     let!(:base_url) { "https://#{assignment.wiki.language}.#{assignment.wiki.project}.org/wiki" }
-    let(:test_user) { create(:user, username: 'testUser') }
     let(:existing_sandbox_url) { assignment.sandbox_url }
-    let(:new_username) { test_user.username }
 
-    context 'updating sandbox url with valid urls' do
-      let(:preferred_sandbox_url) { "#{base_url}/User:#{new_username}/testingArticle" }
+    context 'updating sandbox url with username input' do
+      let(:new_user) { create(:user, username: 'NewStudentUsername') }
       let!(:request_params) do
-        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json,
-course_slug: course.slug }
+        { id: assignment.id, user_id: user.id, newUrl: new_user.username, format: :json,
+          course_slug: course.slug }
       end
 
-      it 'update sandbox url successfully with example 1' do
+      it 'generates and updates sandbox url from username successfully' do
+        # Extract the article title from existing sandbox URL
+        existing_url = assignment.sandbox_url
+        article_title = existing_url.match(%r{/wiki/User:[^/]+/(.+)})[1]
+        expected_url = "#{base_url}/User:#{new_user.username}/#{article_title}"
+
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
 
-        expect(assignment.reload.sandbox_url).to eq(preferred_sandbox_url)
+        expect(assignment.reload.sandbox_url).to eq(expected_url)
+        expect(response.status).to eq(200)
       end
 
-      it 'update sandbox url successfully with example 2' do
-        preferred_sandbox_url = "#{base_url}/User:#{new_username}/Any_Article!@$%^&*()_+\`~"
-        request_params[:newUrl] = preferred_sandbox_url
+      it 'handles username with spaces correctly' do
+        new_user_with_spaces = create(:user, username: 'New Student Username')
+        request_params[:newUrl] = new_user_with_spaces.username
+
+        existing_url = assignment.sandbox_url
+        article_title = existing_url.match(%r{/wiki/User:[^/]+/(.+)})[1]
+        expected_url = "#{base_url}/User:#{new_user_with_spaces.username}/#{article_title}"
+
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
 
-        expect(assignment.reload.sandbox_url).to eq(preferred_sandbox_url)
+        expect(assignment.reload.sandbox_url).to eq(expected_url)
+        expect(response.status).to eq(200)
       end
     end
 
-    context 'updating sandbox url with valid format but belongs to different wiki' do
-      let(:preferred_sandbox_url) { "https://www.wikipedia.org/wiki/User:#{new_username}/testingArticle" }
+    context 'updating sandbox url with invalid username' do
       let!(:request_params) do
-        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json,
-course_slug: course.slug }
+        { id: assignment.id, user_id: user.id, newUrl: 'Invalid:Username', format: :json,
+          course_slug: course.slug }
       end
 
-      it 'does not update url and send response with status: unprocessable entity' do
+      it 'rejects username with colon' do
         patch "/assignments/#{assignment.id}/update_sandbox_url",
               params: request_params
 
         expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+
+      it 'rejects username with invalid characters' do
+        request_params[:newUrl] = 'Invalid/Username'
+
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+
+      it 'rejects username with brackets' do
+        request_params[:newUrl] = 'Invalid[Username]'
+
+        patch "/assignments/#{assignment.id}/update_sandbox_url",
+              params: request_params
+
+        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
+        expect(response.status).to eq(400)
+      end
+    end
+  end
+
+  describe 'POST #create with max_group_size' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:article_title) { 'Climate_Change' }
+
+    before do
+      stub_wiki_validation
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+      # Make the current user an instructor so they can create assignments for students
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      # Stub article import to avoid API calls
+      allow_any_instance_of(ArticleImporter).to receive(:import_articles_by_title)
+    end
+
+    context 'when max_group_size is set to 2' do
+      before do
+        course.flags[:max_group_size] = 2
+        course.save!
+        course.reload
+      end
+
+      it 'returns error when trying to exceed group size' do
+        # Create two assignments
+        student1 = create(:user, username: 'Student1')
+        student2 = create(:user, username: 'Student2')
+
+        # Create assignments using the API to ensure proper formatting
+        [student1, student2].each do |student|
+          post '/assignments', params: {
+            course_slug: course.slug,
+            user_id: student.id,
+            title: article_title,
+            role: Assignment::Roles::ASSIGNED_ROLE,
+            language: 'en',
+            project: 'wikipedia',
+            format: :json
+          }
+          expect(response.status).to eq(200)
+        end
+
+        # Verify we have 2 assignments for this article
+        course.reload
+        formatted_title = course.assignments.assigned.first.article_title
+        assigned_count = course.assignments.assigned
+                               .where(article_title: formatted_title)
+                               .where.not(user_id: nil).count
+        expect(assigned_count).to eq(2)
+
+        # Try to add third student - should fail
+        student3 = create(:user, username: 'Student3')
+        post '/assignments', params: {
+          course_slug: course.slug,
+          user_id: student3.id,
+          title: article_title,
+          role: Assignment::Roles::ASSIGNED_ROLE,
+          language: 'en',
+          project: 'wikipedia',
+          format: :json
+        }
+
         expect(response.status).to eq(422)
+        json_response = JSON.parse(response.body)
+        expect(json_response['message']).to include('already has 2 student(s) assigned')
+        expect(json_response['message']).to include('maximum group size')
+      end
+
+      it 'allows assignment when under group size limit' do
+        student1 = create(:user, username: 'Student1')
+
+        # Create first assignment
+        post '/assignments', params: {
+          course_slug: course.slug,
+          user_id: student1.id,
+          title: article_title,
+          role: Assignment::Roles::ASSIGNED_ROLE,
+          language: 'en',
+          project: 'wikipedia',
+          format: :json
+        }
+        expect(response.status).to eq(200)
+
+        # Add second student should work (max is 2)
+        student2 = create(:user, username: 'Student2')
+        post '/assignments', params: {
+          course_slug: course.slug,
+          user_id: student2.id,
+          title: article_title,
+          role: Assignment::Roles::ASSIGNED_ROLE,
+          language: 'en',
+          project: 'wikipedia',
+          format: :json
+        }
+
+        expect(response.status).to eq(200)
+        # Use the formatted title from the first assignment to count
+        formatted_title = course.reload.assignments.first.article_title
+        expect(course.assignments.assigned.where(article_title: formatted_title).count).to eq(2)
       end
     end
 
-    context 'updating sandbox url with invalid url format' do
-      let(:preferred_sandbox_url) { 'anyGebberishURL' }
-      let!(:request_params) do
-        { id: assignment.id, user_id: user.id, newUrl: preferred_sandbox_url, format: :json,
-course_slug: course.slug }
-      end
+    context 'when max_group_size is not set' do
+      it 'allows unlimited students on the same article' do
+        # Create 3 assignments - should all work
+        3.times do |i|
+          student = create(:user, username: "Student#{i}")
+          post '/assignments', params: {
+            course_slug: course.slug,
+            user_id: student.id,
+            title: article_title,
+            role: Assignment::Roles::ASSIGNED_ROLE,
+            language: 'en',
+            project: 'wikipedia',
+            format: :json
+          }
+          expect(response.status).to eq(200)
+        end
 
-      it 'does not update url and send response with status: bad request example 1' do
-        patch "/assignments/#{assignment.id}/update_sandbox_url",
-              params: request_params
-
-        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
-        expect(response.status).to eq(400)
-      end
-
-      it 'does not update url and send response with status: bad request example 2' do
-        preferred_sandbox_url = "#{base_url}/#{new_username}/Article_name"
-        request_params[:newUrl] = preferred_sandbox_url
-        patch "/assignments/#{assignment.id}/update_sandbox_url",
-              params: request_params
-
-        expect(assignment.reload.sandbox_url).to eq(existing_sandbox_url)
-        expect(response.status).to eq(400)
+        expect(course.reload.assignments.assigned.where(article_title:).count).to eq(3)
       end
     end
   end

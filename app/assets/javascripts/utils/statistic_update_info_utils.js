@@ -1,20 +1,24 @@
-import { addSeconds, formatDistanceToNow, isAfter } from 'date-fns';
+import { addSeconds, formatDistanceToNow, isAfter, format } from 'date-fns';
 import { toDate } from './date_utils';
+import { useSelector } from 'react-redux';
 
 const firstUpdateTime = (first_update) => {
+  if (!first_update) return null;
   const latency = Math.round(first_update.queue_latency);
   const enqueuedAt = toDate(first_update.enqueued_at);
   return addSeconds(enqueuedAt, latency);
 };
 
 const lastSuccessfulUpdateMoment = (update_logs) => {
+  if (!update_logs) return null;
   const updateTimesLogs = Object.values(update_logs).filter(log => log.end_time !== undefined);
   if (updateTimesLogs.length === 0) return null;
   const lastSuccessfulUpdateTime = updateTimesLogs[updateTimesLogs.length - 1].end_time;
   return new Date(lastSuccessfulUpdateTime);
 };
 
-const isNextUpdateAfterUpdatesEnd = (nextUpdateExpectedTime, updatesEndMoment) => {
+const isNextUpdateAfterUpdatesEnd = (course, nextUpdateExpectedTime, updatesEndMoment) => {
+  if (!course?.flags?.update_logs) return [];
   return isAfter(nextUpdateExpectedTime, new Date()) && isAfter(updatesEndMoment, new Date());
 };
 
@@ -35,20 +39,36 @@ const getLastUpdateMessage = (course) => {
 };
 
 const nextUpdateExpected = (course) => {
-  if (!course.flags.update_logs) {
-   return formatDistanceToNow(firstUpdateTime(course.flags.first_update), { addSuffix: true });
+  if (!course?.flags?.update_logs) {
+    const firstUpdate = course?.flags?.first_update;
+    if (!firstUpdate) {
+      return I18n.t('metrics.no_update_yet', { defaultValue: 'No updates available yet.' });
+    }
+    try {
+      return formatDistanceToNow(firstUpdateTime(firstUpdate), { addSuffix: true });
+    } catch {
+      return I18n.t('metrics.no_update_yet', { defaultValue: 'No updates available yet.' });
+    }
   }
-  if (lastSuccessfulUpdateMoment(course.flags.update_logs) === null) {
-    return 'unknown';
-  }
+
   const lastUpdateMoment = lastSuccessfulUpdateMoment(course.flags.update_logs);
-  const averageDelay = course.updates.average_delay || 0;
+  if (!lastUpdateMoment) {
+    return I18n.t('metrics.no_update_yet', { defaultValue: 'No updates available yet.' });
+  }
+
+  const averageDelay = course?.updates?.average_delay || 0;
   const nextUpdateTime = addSeconds(lastUpdateMoment, averageDelay);
+
+  if (isNaN(nextUpdateTime)) {
+    return I18n.t('metrics.no_update_yet', { defaultValue: 'No updates available yet.' });
+  }
+
   return formatDistanceToNow(nextUpdateTime, { addSuffix: true });
 };
 
 
 const getUpdateMessage = (course) => {
+  if (!course?.flags) return [`${I18n.t('metrics.no_update')}`, '', ''];
   if (!course.flags.update_logs) {
     return getFirstUpdateMessage(course);
   }
@@ -104,4 +124,43 @@ const getUpdateLogs = (course) => {
   }
   return [];
 };
-export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs };
+
+// Tracking Description
+const computeTrackingDescription = (course) => {
+  if (!course) return null;
+
+  const start = new Date(course.start);
+  const end = new Date(course.end);
+  const now = new Date();
+
+  const wikiList = (() => {
+    const wikis = course.all_wikis || course.wikis || [];
+    if (!Array.isArray(wikis) || wikis.length === 0) return 'no wikis configured';
+    const languages = wikis.map(w => w.language).filter(Boolean);
+    return languages.length > 0 ? languages.join(', ') : 'no wikis configured';
+  })();
+
+  if (start > now) {
+    const startDate = format(start, 'MMMM d, yyyy');
+    return `This program is scheduled to begin on ${startDate}. `
+      + `When it starts, edits from ${wikiList} will be tracked automatically.`;
+  }
+
+  const noStudents = course.student_count === 0;
+  const campaigns = useSelector(state => state.campaigns);
+  const noCampaigns = campaigns.length === 0;
+
+  if (noStudents || noCampaigns) {
+    return 'This program currently has no students or campaigns, so no edits can be tracked. '
+     + 'Please add students and campaigns to enable tracking.';
+  }
+
+  const endDate = format(end, 'MMMM d, yyyy');
+  const updateUntil = new Date(end.getTime() + 7 * 24 * 60 * 60 * 1000);
+  const updateUntilFormatted = format(updateUntil, 'MMMM d, yyyy');
+
+  return `Edits for this program from ${wikiList} will be tracked through ${endDate}. `
+   + `The dashboard will continue updating statistics until ${updateUntilFormatted}.`;
+};
+
+export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs, computeTrackingDescription };

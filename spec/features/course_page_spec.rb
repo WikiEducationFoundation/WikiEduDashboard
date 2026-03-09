@@ -10,7 +10,7 @@ MILESTONE_BLOCK_KIND = 2
 # Wait one second after loading a path
 # Allows React to properly load the page
 # Remove this after implementing server-side rendering
-def js_visit(path, count=3)
+def js_visit(path, count = 3)
   visit path
   expect(page).to have_content('Help').or have_content('My Dashboard')
 
@@ -525,6 +525,13 @@ describe 'the course page', type: :feature, js: true do
       updated_user_count = user_count + 2
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"
       expect(page).to have_content 'This Week'
+    end
+
+    it 'returns 503 when backup is running' do
+      create(:backup, status: 'running')
+      login_as(super_admin)
+      visit "/courses/#{slug}/manual_update"
+      expect(page).to have_content 'not_ready'
     end
   end
 

@@ -132,7 +132,7 @@ describe CampaignsController, type: :request do
       expect(Campaign.find_by(slug: campaign.slug)).not_to be_nil
     end
 
-    it 'adds the given user as an organizer of the campaign '\
+    it 'adds the given user as an organizer of the campaign ' \
        'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
@@ -162,7 +162,7 @@ describe CampaignsController, type: :request do
       expect(CampaignsUsers.find_by(id: organizer.id)).not_to be_nil
     end
 
-    it 'removes the given organizer from the campaign '\
+    it 'removes the given organizer from the campaign ' \
        'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
@@ -429,11 +429,42 @@ describe CampaignsController, type: :request do
 
       context 'when campaign does not exist' do
         it 'raises routing error' do
-          expect do
-            get '/campaigns/non-existent-campaign/articles'
-          end.to raise_error(ActionController::RoutingError)
+          get '/campaigns/non-existent-campaign/articles'
+          expect(response.status).to eq(404)
         end
       end
+    end
+  end
+
+  describe 'Clear Campaign cache and recalculate stats' do
+    let(:campaign) { create(:campaign, slug: 'test-refresh') }
+
+    it 'clears the course sums cache and redirects to overview with notice' do
+      original_cache = Rails.cache
+      # Use MemoryStore in since default tests uses NullStore which (ignores writes)
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+
+      begin
+        key = campaign.course_sums_cache_key
+
+        Rails.cache.write(key, { courses_count: 42 })
+        expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
+
+        # Trigger the refresh (should clear)
+        get "/campaigns/#{campaign.slug}/refresh"
+
+        expect(response).to redirect_to(overview_campaign_path(campaign.slug))
+        expect(flash[:notice]).to eq('Campaign stats refreshed successfully')
+
+        expect(Rails.cache.read(key)).to be_nil
+      ensure
+        Rails.cache = original_cache
+      end
+    end
+
+    it 'returns 404 if campaign does not exists' do
+      get '/campaigns/non-existent-slug/refresh'
+      expect(response.status).to eq(404)
     end
   end
 end

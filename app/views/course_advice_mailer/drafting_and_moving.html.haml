@@ -9,68 +9,81 @@
               %p.paragraph
                 = "Dear #{@greeted_users},"
               %p.paragraph
-                Once your students have selected an article to work on and have gathered sources to
-                improve their chosen topic, it will be time to begin drafting their main contribution!
+                After choosing an article and gathering sources, students are ready
+                to begin drafting their main contribution to Wikipedia!
               %h2.headline Drafting in the sandbox
               %p.paragraph
-                Students should take the training module on
+                For guidance, students should take the training module on
                 - if @group_work
-                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/drafting-in-sandbox-group'} 'Drafting as a group'
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/drafting-in-sandbox-group'} "Drafting as a group."
                 - else
-                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/drafting-in-sandbox'} 'Drafting in the sandbox'
-                for guidance on the best way to draft their contribution.
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/drafting-in-sandbox'} "Drafting in the sandbox."
               %p.paragraph
                 Once students have assigned themselves their main article(s), the Dashboard will provide links to the
-                specific sandbox page where each article's draft should be prepared. Students can find these links in
-                My Articles section of the Home tab, and you can find them under 'Assigned Articles' in the
+                specific sandbox pages where articles should be drafted.
+                %strong Each article will have its own sandbox page for drafting.
+                Students can find these links in the “My Articles” section of the “Home” tab,
+                and you can find them under “Assigned Articles” in the
                 %a.link{href: "#{@course_link}/students/articles"} Students Assignments view
                 when you select an individual student.
               %p.paragraph
-                Sometimes students end up doing work in a place other than where the Dashboard recommends. You can see a
-                list of any student's sandbox pages by navigating to the Students tab of your course page and clicking
-                on the 'sandboxes' link for their account.
+                Sometimes students draft outside the Dashboard’s recommended location.
+                To view the student’s sandbox pages, head to the “Students” tab and
+                click on the “sandboxes” link for their account.
               %p.paragraph
-                A few things to remember:
+                %em Things to remember:
                 %ul.paragraph
                   %li
-                    Sandboxes are considered draft spaces on Wikipedia, but they are still publicly accessible like all
-                    Wikipedia pages. Students must adhere to Wikipedia policies in their sandboxes.
+                    %strong Sandboxes are draft spaces, but they are still public.
+                    Students must adhere to Wikipedia policies in their sandboxes.
                   %li
-                    If students are working on existing articles, they should not copy over the whole article into their
-                    sandbox. Rather, they should only copy over the section(s) they're working on.
-                  - unless @course.stay_in_sandbox?
-                    %li
-                      While the sandbox is a great place to experiment and get your draft ready, students shouldn't spend
-                      too long there. A few weeks should be enough for them to get their contribution up and ready for
-                      Wikipedia's live article space.
-              - unless @course.stay_in_sandbox?
-                %h2.headline Moving work out of the sandbox
-                %p.paragraph
-                  When students are ready to move their work into the article main space, they should take the
-                  - if @group_work
-                    %a.link{href: 'https://dashboard.wikiedu.org/training/students/moving-to-mainspace-group'} 'Moving group work live'
-                  - else
-                    %a.link{href: 'https://dashboard.wikiedu.org/training/students/moving-to-mainspace'} 'Moving work out of the sandbox'
-                  training module.
-                %p.paragraph
-                  A few critical points:
-                  %ul.paragraph
-                    %li
-                      After students move their work, they should be sure to pay attention to any feedback from community members.
-                      They are now members of the Wikipedia community and have a responsibility toward that community.
-                    %li
-                      If student work is removed, students should reach out to the editor who removed the work to try
-                      to understand why, and how they can improve it. They should NEVER just put the work back
-                      into the article without discussion. This type of activity — an "edit war" — may lead them to getting blocked.
-                    %li
-                      Stress to your students that their grade is not dependent on whether the work remains on Wikipedia
-                      and that you will always be able to see their contributions in their edit history.
-                    %li
-                      %a.link{href: 'https://dashboard.wikiedu.org/faq/1/'} Here are the various ways you can use the dashboard to keep track of your students' contributions.
+                    When editing existing articles, students should
+                    %strong copy only the sections they’re working on into their sandbox,
+                    not the entire article.
+                  %li
+                    The sandbox is a great place to experiment and draft, but
+                    %strong students shouldn't stay there long
+                    — a few weeks is enough before moving work into the live article space.
+                  %li
+                    %strong If possible, review drafts before they go live,
+                    checking for neutral tone and proper in-line citations for each
+                    fact. Student work is most commonly reverted due to tone and
+                    sourcing issues. Early review helps prevent this!
+              %h2.headline Moving work out of the sandbox
+              %p.paragraph
+                Before moving work to the article mainspace, students should complete the
+                - if @group_work
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/moving-to-mainspace-group'} "Moving group work live"
+                - else
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/moving-to-mainspace'} "Moving work out of the sandbox"
+                training module and can also consult our
+                %a.link{href: 'https://dashboard.wikiedu.org/training/students/videos'} videos
+                on adding to existing articles or creating new ones.
+              %p.paragraph
+                %em Key points:
+                %ul.paragraph
+                  %li
+                    After students move their work live, they should
+                    %strong pay attention to any feedback
+                    from other Wikipedia editors. They are now members of the Wikipedia
+                    community and have a responsibility to engage.
+                  %li
+                    %strong If student work is removed,
+                    students should contact the editor who removed the work to
+                    try to understand why, and how they can improve it. They should
+                    NEVER restore it back into the article without discussion, as
+                    this "edit war" behavior can lead to getting blocked.
+                  %li
+                    Remind students that
+                    %strong their grade doesn’t depend on whether their work stays
+                    on Wikipedia. They and you will always be able to see their
+                    contributions in their edit history.
+                  %li
+                    %a.link{href: 'https://dashboard.wikiedu.org/faq/1/'} Explore how the Dashboard tracks your students’ contributions.
               %p.paragraph.center — — —
               %p.paragraph
                 You can always refer to our
-                %a.link{href: 'https://dashboard.wikiedu.org/faq?topic=instructor_faq'}Instructor FAQs
+                %a.link{href: 'https://dashboard.wikiedu.org/faq?topic=instructor_faq'} Instructor FAQs
                 for more information.
               %p.paragraph
                 Good luck!

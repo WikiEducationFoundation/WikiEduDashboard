@@ -109,8 +109,6 @@ mr:
     form_errors: फॉर्म त्रुटींसाठी तपासून बघा.
     unsupported_browser:
       header: असाहाय्यीकृत न्याहाळक. :-(
-  error_401:
-    header: अनधिकृत.>:-(
   error_404:
     header: पान सापडले नाही.:-(
 ...

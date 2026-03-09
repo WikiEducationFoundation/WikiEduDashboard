@@ -5,6 +5,7 @@
 # Author: Alcarazzam
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Avengium
 # Author: Canaan9801
 # Author: Carlosmg.dg
 # Author: Cgalindo
@@ -36,6 +37,7 @@
 # Author: Lemondoge
 # Author: Macofe
 # Author: MarcoAurelio
+# Author: Monicapozo03
 # Author: Samthony
 # Author: Silverie04
 # Author: Themasterriot
@@ -170,7 +172,6 @@ es:
       crear una cuenta, contacta a dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
-    no_alerts: No se encontró ninguna alerta.
   activity:
     all: Actividad
     edited_by: Editado por
@@ -327,6 +328,8 @@ es:
       de la comunidad Wikipedia para tareas de Wiki Education.
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
+    max_group_size_exceeded: '%{title} ya tiene %{current} estudiantes asignados.
+      El tamaño máximo del grupo para este curso es %{max}.'
     assignees: Asignado(s)
     assign_other: Asignar/desasignar un artículo
     assign_other_wikidata: Asignar/desasignar un elemento
@@ -765,6 +768,9 @@ es:
     start: Inicio
     start_typing: Empieza a escribir
     stay_in_sandbox: Permanecer en entorno seguro
+    max_group_size: Tamaño máximo del grupo
+    max_group_size_tooltip: Número máximo de estudiantes que pueden trabajar en el
+      mismo artículo. Dejar en blanco para un número ilimitado.
     students: Estudiantes
     students_count: '# Estudiantes'
     student_editors: Editores estudiantiles
@@ -1058,6 +1064,9 @@ es:
     label: Recursos
     header: Recursos y capacitación
   settings:
+    common_settings_components:
+      headings:
+        site_notice_preview: Vista previa en vivo
     categories:
       other_settings: Otras configuraciones
       impact_stats: Estadísticas de impacto
@@ -1099,6 +1108,7 @@ es:
     paused: La tarea %{task} no se puede ejecutar porque se han pausado las actualizaciones
       programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
   timeline:
+    add_assignment: Añadir tarea
     add_week: Añadir semana
     arrange_timeline: Organizar cronograma
     arrange_timeline_instructions: Organiza el cronograma 'arrastrando y soltando'
@@ -1144,6 +1154,9 @@ es:
     save_all_changes: Guardar todo
     this_week_title_default: Esta semana
     title: Cronograma
+    too_many_weeks_warning: ¡ADVERTENCIA! ¡No hay suficientes semanas libres de vacaciones
+      antes de la fecha de finalización de la tarea! Puedes hacer clic en "Editar
+      fechas del curso" para configurar las fechas de las reuniones y las vacaciones.
     unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
       espacio para una nueva.
@@ -1352,7 +1365,6 @@ es:
         de control. Este sitio funciona bien en Internet Explorer versión 10 o posterior,
         en versiones recientes de Chrome y Firefox, y en otros navegadores modernos.
   error_401:
-    header: No autorizado. >:-(
     explanation: No tienes autorización para ejecutar esta solicitud. Si crees que
       has llegado a este aviso por error, pónte en contacto con los responsables del
       mantenimiento de este panel para informarles sobre el problema.
