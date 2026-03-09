@@ -6,7 +6,7 @@ describe ArticlesController, type: :request do
   let(:article) { create(:article) }
   let(:user) { create(:user) }
   let(:second_user) { create(:user, username: 'SecondUser') }
-  let(:course) { create(:course) }
+  let(:course) { create(:course, start: Time.zone.now, end: Time.zone.now + 1.week) }
 
   before do
     create(:courses_user, user_id: user.id, course_id: course.id)
@@ -15,9 +15,9 @@ describe ArticlesController, type: :request do
                              user_ids: [user.id, second_user.id])
   end
 
-  describe '#article_data' do
+  describe '#revision_score' do
     it 'sets the article from the id' do
-      get '/articles/article_data', params: { article_id: article.id, format: :json }
+      get "/articles/#{article.id}/revision_score", params: { format: :json }
       expect(assigns(:article)).to eq(article)
     end
   end
