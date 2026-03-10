@@ -8,7 +8,7 @@ end
 
 describe 'students with assigned exercise modules', type: :feature, js: true do
   let(:student) { create(:user) }
-  let(:course) { create(:course, weekdays: '1111111') }
+  let(:course) { create(:course, weekdays: '1111111', start: '2025-01-01') }
   let(:week) { create(:week, course:) }
   let(:evaluate_exercise_id) { 34 }
   let(:presentation_exercise_id) { 40 }

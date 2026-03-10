@@ -30,7 +30,6 @@ export const StudentExerciseList = (props) => {
   // Don't render this component if we don't have training data
   if (!selected.course_exercise_progress_description && !selected.course_training_progress_description) return null;
 
-
   const row = (
     <StudentExerciseRow
       assignments={assignments}
