@@ -109,7 +109,7 @@ describe('CourseDateUtils.formattedDateTime', () => {
   test('returns a datetime string with timezone if showTime is true', () => {
     const input = new Date(2016, 10, 19, 17, 15, 14);
     const output = CourseDateUtils.formattedDateTime(input, true);
-    expect(output).toContain(['2016-11-19 17:15']);
+    expect(output).toContain('2016-11-19 17:15');
   });
 });
 
