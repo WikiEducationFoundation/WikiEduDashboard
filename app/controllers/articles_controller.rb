@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
   #  { rev_id: 123, characters: 1000, wp10: 0.5, date: '2021-01-01', username: 'Example' }
 def revision_score
   @article = Article.find(params[:article_id])
-  manager = ArticleRevisionScoreManager.new(@article, @course)
+  manager = RevisionScoreManager.new(@article, @course)
 
   # Check threshold to avoid timing out the request
   unless manager.within_revision_limit?

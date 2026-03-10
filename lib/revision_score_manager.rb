@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/lift_wing_api"
 
-class ArticleRevisionScoreManager
+class RevisionScoreManager
   # Handles fetching and scoring article revisions for course-specific graphs.
   def initialize(article, course)
     @article = article
