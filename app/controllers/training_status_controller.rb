@@ -12,6 +12,7 @@ class TrainingStatusController < ApplicationController
 
   def user
     @user = User.find_by(username: params[:username])
+    render json: {} and return unless can_see_training_status?
   end
 
   private

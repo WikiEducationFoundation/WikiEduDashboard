@@ -193,6 +193,7 @@ class User < ApplicationRecord
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
+    return false if course.nil?
     return true if course_roles(course).any? { |role| EDITING_ROLES.include?(role) }
     return true if campaign_organizer?(course)
     false
