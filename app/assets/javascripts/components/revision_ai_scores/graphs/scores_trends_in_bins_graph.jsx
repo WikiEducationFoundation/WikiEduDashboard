@@ -210,7 +210,7 @@ const ScoresTrendsInBinsGraph = (props) => {
   const legendLabels = Array.from({ length: bins }, (_, i) => i).map(e => formatLabel(e));
 
   // Calculate number of days in the period
-  const days = props.statsData.map(s => new Date(s.created_at).getTime());
+  const days = [...new Set(props.statsData.map(s => new Date(s.created_at).getTime()))];
   const minDay = Math.min(...days);
   const maxDay = Math.max(...days);
   const numberOfdays = Math.round((maxDay - minDay) / (1000 * 60 * 60 * 24));
