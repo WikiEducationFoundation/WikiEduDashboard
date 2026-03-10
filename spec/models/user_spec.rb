@@ -161,6 +161,12 @@ describe User do
       permission = user.can_edit?(course)
       expect(permission).to be true
     end
+
+    it 'returns false for non-admins when course is nil' do
+      user = create(:user)
+      permission = user.can_edit?(nil)
+      expect(permission).to be false
+    end
   end
 
   describe '#nonvisitor' do
