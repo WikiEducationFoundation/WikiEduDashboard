@@ -88,8 +88,6 @@ class Article < ApplicationRecord
     Namespaces::WIKIJUNIOR => 'Wikijunior:',
     Namespaces::TRANSLATION => 'Translation:',
     Namespaces::PAGE_A => 'Page:',
-    
-   
     # The following namespace index are spread over
     # several wikis and needs to be additionally
     # namespaced via project
