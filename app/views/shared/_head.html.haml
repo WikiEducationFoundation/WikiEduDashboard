@@ -23,8 +23,8 @@
     availableLocales = #{I18n.available_locales.to_json.html_safe};
 
     currentUser = {
-      id: "#{current_user&.id || ''}",
-      username: "#{current_user&.username || ''}"
+      id: "#{current_user&.id}",
+      username: #{(current_user&.username || '').to_json}
     }
 
     Features = {
