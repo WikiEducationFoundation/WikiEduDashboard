@@ -40,6 +40,8 @@ class ArticlesCourses < ApplicationRecord
 
   serialize :user_ids, type: Array # This text field only stores user ids as text
 
+  include ArticleViewerLinker
+
   ####################
   # Instance methods #
   ####################
