@@ -95,7 +95,7 @@ class GetRevisionPlaintext
   def generate_plaintext_from_html
     # First remove the <table> elements, which contain template content in exercise sandboxes
     # and are likely to contain non-prose in other cases.
-    @cleaned_html = remove_html_tables_and_citations(@diff_html || @rev_html)
+    @cleaned_html = remove_non_prose_html_elements(@diff_html || @rev_html)
     # Convert the HTML to plain text
     @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html)
     # Remove the edit button leftovers
@@ -104,11 +104,14 @@ class GetRevisionPlaintext
     @plain_text = @plain_text.gsub(/\[\d+\]/, '')
   end
 
-  def remove_html_tables_and_citations(html)
+  def remove_non_prose_html_elements(html)
     doc = Nokogiri::HTML(html)
     doc.xpath('//table').each(&:remove) # Exclude tables, like infoboxes
     doc.xpath('//cite').each(&:remove) # Exclude `cite` tags, which usually appear at the end
     doc.css('.mw-cite-backlink').each(&:remove) # Exclude backlinks that precede `cite` tags.
+
+    doc.xpath('//figure').each(&:remove) # Exclude figure elements (images + captions)
+    doc.xpath('//img').each(&:remove) # Exclude any remaining image elements
 
     doc.to_html
   end
