@@ -59,40 +59,6 @@ class RevisionScoreImporter
     revisions.each_slice(BATCH_SIZE).to_a
   end
 
-  def get_and_save_scores(rev_batch)
-    scores = @api_handler.get_revision_data rev_batch.map(&:mw_rev_id)
-    save_scores(scores)
-  end
-
-  def get_and_save_previous_scores(rev_batch)
-    parent_revisions = get_parent_revisions(rev_batch)
-    return unless parent_revisions&.any?
-
-    scores = @api_handler.get_revision_data parent_revisions.values.map(&:to_i)
-    save_parent_scores(parent_revisions, scores)
-  end
-
-  def save_scores(scores)
-    scores.each do |mw_rev_id, score|
-      revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
-      next unless revision
-      revision.wp10 = score.dig('wp10')
-      revision.features = score.dig('features')
-      # only modify the existing deleted value if revision was deleted
-      revision.deleted = true if score.dig('deleted')
-      revision.save
-    end
-  end
-
-  def save_parent_scores(parent_revisions, scores)
-    parent_revisions.each do |mw_rev_id, parent_id|
-      next unless scores.key? parent_id
-      wp10_previous = scores.dig(parent_id, 'wp10')
-      features_previous = scores.dig(parent_id, 'features')
-      Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
-              .update(wp10_previous:, features_previous:)
-    end
-  end
 
   def get_parent_revisions(rev_batch)
     rev_query = parent_revisions_query non_new_revisions(rev_batch)
