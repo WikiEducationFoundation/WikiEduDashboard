@@ -9,7 +9,6 @@
       = form_with url: "/ai_tools/compare_pangrams", method: :post do |form|
         = label_tag :article_or_diff_url, 'Diff URL:'
         = text_field_tag :article_or_diff_url 
-        = hidden_field_tag :diff_mode, 'true'
         %hr
         %h4 Models
         - AiToolsController::MODELS_KEY.each do |key|
