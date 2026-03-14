@@ -1592,7 +1592,7 @@ en:
     view_all: View all exercises
     fast_alert_title: "Please take your time!"
     fast_alert_content: "It is very important that you learn the training content thoroughly."
-    fast_alert_close: "Close"
+    fast_alert_close: "CLOSE"
 
   update_username:
     header: Update a changed username
