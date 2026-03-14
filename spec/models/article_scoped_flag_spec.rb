@@ -36,7 +36,8 @@ describe 'Article scoped flag behavior', type: :model do
     before do
       create(:article, title: 'Category_article')
       create(:article, title: 'Unassigned_article', mw_page_id: 400)
-      create(:assignment, course: course, article: article, article_title: article.title, wiki: wiki)
+      create(:assignment, course: course, article: article, article_title: article.title,
+                          wiki: wiki)
       create(:categories_courses, course: course, category: category)
     end
 
@@ -106,7 +107,8 @@ describe 'Article scoped flag behavior', type: :model do
     end
 
     it 'returns all timeslices when flag is not set' do
-      expect(course.scoped_article_timeslices.pluck(:article_id)).to include(article.id, other_article.id)
+      expect(course.scoped_article_timeslices.pluck(:article_id))
+        .to include(article.id, other_article.id)
     end
   end
 end
