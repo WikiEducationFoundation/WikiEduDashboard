@@ -20,8 +20,7 @@ const Assignment = (props) => {
       article.formatted_title = CourseUtils.formattedArticleTitle(article, props.course.home_wiki, props.wikidataLabel);
     }
     const className = 'assignment';
-    const baseRating = article.rating;
-    const ratingClass = baseRating ? `rating ${baseRating}` : 'rating';
+    const ratingClass = `rating ${article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
     const assignees = [];

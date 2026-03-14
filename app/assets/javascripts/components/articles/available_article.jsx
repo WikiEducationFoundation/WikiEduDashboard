@@ -49,8 +49,7 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
   const className = 'assignment';
 
   const article = CourseUtils.articleFromAssignment(assignment, course.home_wiki);
-  const baseRating = article.rating;
-  const ratingClass = baseRating ? `rating ${baseRating}` : 'rating';
+  const ratingClass = `rating ${assignment.article_rating}`;
   const ratingMobileClass = `${ratingClass} tablet-only`;
   const articleLink = (
     <a
