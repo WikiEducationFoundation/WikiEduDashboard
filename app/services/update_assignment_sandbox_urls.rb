@@ -19,15 +19,25 @@ class UpdateAssignmentSandboxUrls
     Assignment.where('sandbox_url LIKE ?', "%User:#{@old_username}/%").each do |assignment|
       # 1. Safety Guard: Only update if the current URL matches the default pattern 
       # for the old username. This ensures we don't overwrite manual customizations.
-      next unless assignment.sandbox_url == assignment.default_sandbox_url(@old_username)
+      expected_old_url = assignment.default_sandbox_url(@old_username)
+      expected_old_url += "/#{assignment.user.username}_Peer_Review" if assignment.reviewing?
+      next unless assignment.sandbox_url == expected_old_url
 
       # 2. Existence Check: Only update if the sandbox has not been created on the wiki yet.
-      # If work has already started (status is not 'does_not_exist'), we skip the update
-      # to avoid disrupting the user's workflow.
-      next unless assignment.draft_sandbox_status == 'does_not_exist'
+      # If work has already started on ANY related sandbox (draft, bibliography, outline, 
+      # or peer review), we skip the update to avoid disrupting the user's workflow or links.
+      status_checks = [
+        assignment.draft_sandbox_status,
+        assignment.bibliography_sandbox_status,
+        assignment.outline_sandbox_status,
+        assignment.peer_review_sandbox_status
+      ]
+      next if status_checks.any? { |status| status != 'does_not_exist' }
 
       # 3. Apply the update using the new username's default pattern.
-      assignment.update(sandbox_url: assignment.default_sandbox_url(@new_username))
+      new_url = assignment.default_sandbox_url(@new_username)
+      new_url += "/#{assignment.user.username}_Peer_Review" if assignment.reviewing?
+      assignment.update(sandbox_url: new_url)
     end
   end
 end

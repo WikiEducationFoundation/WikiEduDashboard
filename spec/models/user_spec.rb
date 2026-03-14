@@ -436,5 +436,34 @@ describe User do
         expect(assignment.reload.sandbox_url).to eq(original_url)
       end
     end
+
+    context 'for REVIEWING_ROLE assignments' do
+      let(:reviewer) { create(:user, username: 'Classmate') }
+      let!(:review_assignment) do
+        create(:assignment,
+               user: reviewer,
+               course:,
+               wiki:,
+               article_title: 'Test_Article',
+               role: Assignment::Roles::REVIEWING_ROLE,
+               sandbox_url: "#{wiki.base_url}/wiki/User:Original_Username/Test_Article/Classmate_Peer_Review")
+      end
+
+      it 'updates the sandbox_url to use the new username' do
+        user.update!(username: 'New_Username')
+        expect(review_assignment.reload.sandbox_url)
+          .to eq("#{wiki.base_url}/wiki/User:New_Username/Test_Article/Classmate_Peer_Review")
+      end
+
+      it 'does not update sandbox_url if the peer review sandbox already exists' do
+        # AssignmentPipeline uses :review key for peer review sandboxes
+        review_assignment.flags[:review] = { draft: 'exists_in_userspace' }
+        review_assignment.save!
+
+        original_url = review_assignment.sandbox_url
+        user.update!(username: 'New_Username')
+        expect(review_assignment.reload.sandbox_url).to eq(original_url)
+      end
+    end
   end
 end
