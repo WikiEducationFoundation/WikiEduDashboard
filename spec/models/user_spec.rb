@@ -446,13 +446,17 @@ describe User do
                wiki:,
                article_title: 'Test_Article',
                role: Assignment::Roles::REVIEWING_ROLE,
-               sandbox_url: "#{wiki.base_url}/wiki/User:Original_Username/Test_Article/Classmate_Peer_Review")
+               sandbox_url: "#{wiki.base_url}/wiki/" \
+                            'User:Original_Username/Test_Article/' \
+                            'Classmate_Peer_Review')
       end
 
       it 'updates the sandbox_url to use the new username' do
         user.update!(username: 'New_Username')
         expect(review_assignment.reload.sandbox_url)
-          .to eq("#{wiki.base_url}/wiki/User:New_Username/Test_Article/Classmate_Peer_Review")
+          .to eq("#{wiki.base_url}/wiki/" \
+                 'User:New_Username/Test_Article/' \
+                 'Classmate_Peer_Review')
       end
 
       it 'does not update sandbox_url if the peer review sandbox already exists' do
