@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class SurveyCompletionTimesController < ApplicationController
+class SurveySessionsController < ApplicationController
   def start
-    record = SurveyCompletionTime.create!(
+    record = SurveySession.create!(
       survey_id: params[:survey_id],
       user_id: current_user.id,
       survey_notification_id: params[:survey_notification_id],
@@ -12,7 +12,7 @@ class SurveyCompletionTimesController < ApplicationController
   end
 
   def complete
-    record = SurveyCompletionTime.find(params[:tracking_id])
+    record = SurveySession.find(params[:tracking_id])
     record.update!(completed_at: Time.zone.now)
     render json: { duration_in_seconds: record.duration_in_seconds }
   end

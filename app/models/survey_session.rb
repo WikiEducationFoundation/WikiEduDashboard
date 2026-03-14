@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: survey_completion_times
+# Table name: survey_sessions
 #
 #  id                     :bigint           not null, primary key
 #  survey_id              :integer          not null
@@ -15,7 +15,7 @@
 #  updated_at             :datetime         not null
 #
 
-class SurveyCompletionTime < ApplicationRecord
+class SurveySession < ApplicationRecord
   belongs_to :survey
   belongs_to :user
   belongs_to :survey_notification, optional: true

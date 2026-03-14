@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SurveyDurationsHelper
+module SurveySessionsHelper
   def average_duration(survey)
     durations = completed_durations(survey)
     return '--' if durations.empty?
@@ -30,9 +30,9 @@ module SurveyDurationsHelper
   end
 
   def completion_rate(survey)
-    total_started = SurveyCompletionTime.where(survey: survey).count
+    total_started = SurveySession.where(survey: survey).count
     return '--' if total_started.zero?
-    total_completed = SurveyCompletionTime.where(survey: survey).completed.count
+    total_completed = SurveySession.where(survey: survey).completed.count
     percent = (total_completed.to_f / total_started * 100).round(1)
     "#{percent}% (#{total_completed}/#{total_started})"
   end
@@ -69,7 +69,7 @@ module SurveyDurationsHelper
   end
 
   def completed_durations(survey)
-    SurveyCompletionTime.where(survey: survey)
+    SurveySession.where(survey: survey)
                         .completed
                         .map(&:duration_in_seconds)
                         .compact

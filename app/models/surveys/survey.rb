@@ -48,7 +48,7 @@ class Survey < ApplicationRecord
     CSV.generate do |csv|
       csv << csv_header
       respondents.each do |respondent|
-        duration = completion_times_by_user_id[respondent.id]&.duration_in_seconds
+        duration = completion_sessions_by_user_id[respondent.id]&.duration_in_seconds
         response_row = [respondent.username, course_slug(respondent)]
         response_row += response(respondent) + [duration]
         csv << response_row
@@ -136,12 +136,12 @@ class Survey < ApplicationRecord
     user.survey_notifications.first&.course&.slug || user.courses.last&.slug
   end
 
-  def completion_times_by_user_id
-    @completion_times_by_user_id ||= SurveyCompletionTime
-                                      .where(survey_id: id)
-                                      .completed
-                                      .order(created_at: :desc)
-                                      .index_by(&:user_id)
+  def completion_sessions_by_user_id
+    @completion_sessions_by_user_id ||= SurveySession
+                                       .where(survey_id: id)
+                                       .completed
+                                       .order(created_at: :desc)
+                                       .index_by(&:user_id)
   end
 
   def question_groups_in_order

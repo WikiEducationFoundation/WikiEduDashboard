@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe SurveyCompletionTimesController, type: :request do
+describe SurveySessionsController, type: :request do
   let(:user) { create(:user) }
   let(:survey) { create(:survey) }
 
@@ -11,14 +11,14 @@ describe SurveyCompletionTimesController, type: :request do
   end
 
   describe '#start' do
-    it 'creates a completion time record and returns tracking_id' do
+    it 'creates a session record and returns tracking_id' do
       post '/survey/start', params: { survey_id: survey.id }
       expect(response).to have_http_status(:ok)
 
       json = JSON.parse(response.body)
       expect(json['tracking_id']).to be_present
 
-      record = SurveyCompletionTime.find(json['tracking_id'])
+      record = SurveySession.find(json['tracking_id'])
       expect(record.survey_id).to eq(survey.id)
       expect(record.user_id).to eq(user.id)
       expect(record.started_at).to be_present
@@ -28,29 +28,29 @@ describe SurveyCompletionTimesController, type: :request do
     it 'accepts an optional survey_notification_id' do
       post '/survey/start', params: { survey_id: survey.id, survey_notification_id: 42 }
       json = JSON.parse(response.body)
-      record = SurveyCompletionTime.find(json['tracking_id'])
+      record = SurveySession.find(json['tracking_id'])
       expect(record.survey_notification_id).to eq(42)
     end
   end
 
   describe '#complete' do
-    let!(:completion_record) do
-      create(:survey_completion_time,
+    let!(:session_record) do
+      create(:survey_session,
               survey: survey,
               user: user,
               started_at: 5.minutes.ago)
     end
 
     it 'sets completed_at and returns computed duration' do
-      put '/survey/complete', params: { tracking_id: completion_record.id }
+      put '/survey/complete', params: { tracking_id: session_record.id }
       expect(response).to have_http_status(:ok)
 
       json = JSON.parse(response.body)
       expect(json['duration_in_seconds']).to be_within(2).of(300)
 
-      completion_record.reload
-      expect(completion_record.completed_at).to be_present
-      expect(completion_record.duration_in_seconds).to be_within(2).of(300)
+      session_record.reload
+      expect(session_record.completed_at).to be_present
+      expect(session_record.duration_in_seconds).to be_within(2).of(300)
     end
   end
 end
