@@ -10,7 +10,6 @@
 #  survey_notification_id :integer
 #  started_at             :datetime         not null
 #  completed_at           :datetime
-#  duration_in_seconds    :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
