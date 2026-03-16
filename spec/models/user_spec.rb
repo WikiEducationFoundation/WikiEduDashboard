@@ -379,4 +379,101 @@ describe User do
       expect(result).to eq([search_user, similar_search_user])
     end
   end
+
+  describe '#update_assignment_sandbox_urls' do
+    let(:course) { create(:course) }
+    let(:wiki) { Wiki.default_wiki }
+    let(:user) { create(:user, username: 'Original_Username') }
+    let!(:assignment) do
+      create(:assignment,
+             user:,
+             course:,
+             wiki:,
+             article_title: 'Test_Article',
+             role: Assignment::Roles::ASSIGNED_ROLE,
+             sandbox_url: "#{wiki.base_url}/wiki/User:Original_Username/Test_Article")
+    end
+
+    context 'when the username changes' do
+      it 'updates the sandbox_url to use the new username' do
+        user.update!(username: 'New_Username')
+        expect(assignment.reload.sandbox_url)
+          .to eq("#{wiki.base_url}/wiki/User:New_Username/Test_Article")
+      end
+
+      it 'does not update sandbox_url if it was manually customised' do
+        custom_url = "#{wiki.base_url}/wiki/User:Original_Username/My_Custom_Sandbox"
+        assignment.update_column(:sandbox_url, custom_url)
+        user.update!(username: 'New_Username')
+        expect(assignment.reload.sandbox_url).to eq(custom_url)
+      end
+
+      it 'updates sandbox_url for group members if it points to the renamed userspace' do
+        other_user = create(:user, username: 'Other_User')
+        create(:courses_user, user: other_user, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+        group_assignment = create(:assignment,
+                                  user: other_user,
+                                  course:,
+                                  wiki:,
+                                  article_title: 'Test_Article',
+                                  sandbox_url: assignment.sandbox_url)
+
+        user.update!(username: 'New_Username')
+        expect(group_assignment.reload.sandbox_url)
+          .to eq("#{wiki.base_url}/wiki/User:New_Username/Test_Article")
+      end
+
+      it 'does not update sandbox_url if the sandbox already exists on the wiki' do
+        # Simulate that the sandbox has already been created (exists_in_userspace)
+        # AssignmentPipeline uses :assignment key for role 0 (ASSIGNED_ROLE)
+        assignment.flags[:assignment] = { draft: 'exists_in_userspace' }
+        assignment.save!
+
+        original_url = assignment.sandbox_url
+        user.update!(username: 'New_Username')
+        expect(assignment.reload.sandbox_url).to eq(original_url)
+      end
+    end
+
+    context 'when the username does not change' do
+      it 'does not alter the sandbox_url' do
+        original_url = assignment.sandbox_url
+        user.update!(email: 'new@example.com')
+        expect(assignment.reload.sandbox_url).to eq(original_url)
+      end
+    end
+
+    context 'for REVIEWING_ROLE assignments' do
+      let(:reviewer) { create(:user, username: 'Classmate') }
+      let!(:review_assignment) do
+        create(:assignment,
+               user: reviewer,
+               course:,
+               wiki:,
+               article_title: 'Test_Article',
+               role: Assignment::Roles::REVIEWING_ROLE,
+               sandbox_url: "#{wiki.base_url}/wiki/" \
+                            'User:Original_Username/Test_Article/' \
+                            'Classmate_Peer_Review')
+      end
+
+      it 'updates the sandbox_url to use the new username' do
+        user.update!(username: 'New_Username')
+        expect(review_assignment.reload.sandbox_url)
+          .to eq("#{wiki.base_url}/wiki/" \
+                 'User:New_Username/Test_Article/' \
+                 'Classmate_Peer_Review')
+      end
+
+      it 'does not update sandbox_url if the peer review sandbox already exists' do
+        # AssignmentPipeline uses :review key for peer review sandboxes
+        review_assignment.flags[:review] = { draft: 'exists_in_userspace' }
+        review_assignment.save!
+
+        original_url = review_assignment.sandbox_url
+        user.update!(username: 'New_Username')
+        expect(review_assignment.reload.sandbox_url).to eq(original_url)
+      end
+    end
+  end
 end
