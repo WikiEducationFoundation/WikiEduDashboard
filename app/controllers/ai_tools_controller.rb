@@ -10,9 +10,7 @@ class AiToolsController < ApplicationController
   def show; end
 
   def compare_ai_detectors
-    parse_url
-    @plain = GetRevisionPlaintext.new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
-    detect_ai_from_multiple_resources @plain.plain_text
+    detect_ai_from_multiple_resources extract_plain_text
     render 'show'
   end
 
@@ -76,6 +74,16 @@ class AiToolsController < ApplicationController
       # Example: https://en.wikipedia.org/wiki/Greater_Cooch_Behar_People%27s_Association
       @rev_id = parser.oldid || latest_revision
     end
+  end
+
+  def extract_plain_text
+    # If there is plain_text param, just return that
+    return params[:plain_text] if params[:plain_text].present?
+    # Get plain text from the url
+    parse_url
+    GetRevisionPlaintext
+      .new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
+      .plain_text
   end
 
   def latest_revision
