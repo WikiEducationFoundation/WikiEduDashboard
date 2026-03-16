@@ -59,7 +59,7 @@ const Assignment = (props) => {
           {isWikipedia && <p className="rating_num hidden">{article.rating_num}</p>}
           {isWikipedia && <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>}
           {isWikipedia && <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.pretty_rating || article.rating || '' })}</p>
+            <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' })}</p>
             {/* eslint-disable-next-line */}
           </div>}
         </td>

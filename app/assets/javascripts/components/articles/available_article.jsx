@@ -91,7 +91,7 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
         {isWikipedia && (
           <div className="tooltip dark">
             <p>
-              {I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`, { class: article.pretty_rating || assignment.article_rating || '' })}
+              {I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`, { class: assignment.article_rating || '' })}
             </p>
           </div>
         )}
