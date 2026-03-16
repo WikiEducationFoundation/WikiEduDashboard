@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe AiToolsController, type: :request do
-  describe '#compare_pangrams' do
+  describe '#compare_ai_detectors' do
     let(:admin) { create(:admin) }
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
 
@@ -22,7 +22,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
 
@@ -40,7 +40,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
 
@@ -55,7 +55,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
 
@@ -70,7 +70,7 @@ describe AiToolsController, type: :request do
           from_rev: 0
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
 
@@ -85,7 +85,7 @@ describe AiToolsController, type: :request do
           from_rev: 711811679
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
 
@@ -100,7 +100,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
 
@@ -115,7 +115,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
       end
     end
   end

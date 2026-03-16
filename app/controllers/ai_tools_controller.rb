@@ -9,7 +9,7 @@ class AiToolsController < ApplicationController
 
   def show; end
 
-  def compare_pangrams
+  def compare_ai_detectors
     parse_url
     @plain = GetRevisionPlaintext.new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
     detect_ai_from_multiple_resources @plain.plain_text
