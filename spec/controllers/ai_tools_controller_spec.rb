@@ -11,6 +11,16 @@ describe AiToolsController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
     end
 
+    context 'when plain text' do
+      let(:plain_text) { 'Example text...' }
+
+      it 'does not call GetRevisionPlaintext' do
+        expect(GetRevisionPlaintext).not_to receive(:new)
+
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:, article_or_diff_url: "" }
+      end
+    end
+
     context 'when revision title URL' do
       let(:url) { 'https://en.wikipedia.org/w/index.php?title=List_of_the_busiest_airports_in_Malaysia&oldid=1276659876' }
 
@@ -22,7 +32,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -40,7 +50,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -55,7 +65,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -70,7 +80,7 @@ describe AiToolsController, type: :request do
           from_rev: 0
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -85,7 +95,7 @@ describe AiToolsController, type: :request do
           from_rev: 711811679
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -100,7 +110,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -115,7 +125,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_ai_detectors', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
   end
