@@ -41,7 +41,6 @@ describe AiToolsController, type: :request do
       let(:content) { { 'pages' => { '45' => { 'revisions' => [ { 'revid' => 45 } ] } } } }
       let(:response) { instance_double(MediawikiApi::Response, data: content) }
       it 'calls GetRevisionPlaintext with diff_mode true and rev_id set' do
-        # response.data['pages'].values.first['revisions'].first['revid']
         allow_any_instance_of(WikiApi).to receive(:query).and_return(response)
         expect(GetRevisionPlaintext).to receive(:new).with(
           45,
