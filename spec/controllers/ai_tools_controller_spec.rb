@@ -3,12 +3,22 @@
 require 'rails_helper'
 
 describe AiToolsController, type: :request do
-  describe '#compare_pangrams' do
+  describe '#compare_ai_detectors' do
     let(:admin) { create(:admin) }
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+    end
+
+    context 'when plain text' do
+      let(:plain_text) { 'Example text...' }
+
+      it 'does not call GetRevisionPlaintext' do
+        expect(GetRevisionPlaintext).not_to receive(:new)
+
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:, article_or_diff_url: "" }
+      end
     end
 
     context 'when revision title URL' do
@@ -22,7 +32,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -31,7 +41,6 @@ describe AiToolsController, type: :request do
       let(:content) { { 'pages' => { '45' => { 'revisions' => [ { 'revid' => 45 } ] } } } }
       let(:response) { instance_double(MediawikiApi::Response, data: content) }
       it 'calls GetRevisionPlaintext with diff_mode true and rev_id set' do
-        # response.data['pages'].values.first['revisions'].first['revid']
         allow_any_instance_of(WikiApi).to receive(:query).and_return(response)
         expect(GetRevisionPlaintext).to receive(:new).with(
           45,
@@ -40,7 +49,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -55,7 +64,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -70,7 +79,7 @@ describe AiToolsController, type: :request do
           from_rev: 0
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -85,7 +94,7 @@ describe AiToolsController, type: :request do
           from_rev: 711811679
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -100,7 +109,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
 
@@ -115,7 +124,7 @@ describe AiToolsController, type: :request do
           from_rev: nil
         )
 
-        post '/ai_tools/compare_pangrams', params: { article_or_diff_url: url }
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
       end
     end
   end
