@@ -95,6 +95,15 @@
               %span.rails_editable-input
                 = select(:campaign, :default_course_type, options_for_select([''] + Campaign::ALLOWED_TYPES, @campaign.default_course_type))
 
+            .campaign-default_language.form-group.rails_editable-field
+              %label{for: 'default_language'}
+                = succeed ':' do
+                  = t('campaign.default_language')
+              %span.rails_editable-content
+                = @campaign.default_language
+              %span.rails_editable-input
+                = select(:campaign, :default_language, options_for_select([['', '']] + I18n.available_locales.sort.map { |l| [l.to_s, l.to_s] }, @campaign.default_language))
+
             .campaign-default_passcode.form-group.rails_editable-field
               %label{for: 'default_passcode'}
                 = succeed ':' do

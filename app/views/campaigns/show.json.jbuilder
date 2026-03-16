@@ -8,6 +8,7 @@ if @campaign
     json.description @campaign.description
     json.template_description @campaign.template_description
     json.default_course_type @campaign.default_course_type
+    json.default_language @campaign.default_language
     json.default_passcode @campaign.default_passcode
     json.courses_count number_to_human @presenter.courses_count
     json.user_count number_to_human @presenter.user_count

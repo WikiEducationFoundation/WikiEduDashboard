@@ -14,7 +14,9 @@ class CourseApprovalFollowupMailer < ApplicationMailer
     @staffer = staffer
     @greeted_users = instructors.map { |user| user.real_name || user.username }.to_sentence
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
+    locale_param = @course.campaigns.first&.default_language
     @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
+    @enroll_link += "&locale=#{locale_param}" if locale_param.present?
     mail(to: instructors.map(&:email),
          reply_to: @staffer.email,
          subject: 'Tips for beginning your Wikipedia assignment')

@@ -22,7 +22,9 @@ class NoEnrolledStudentsAlertMailer < ApplicationMailer
   def set_course_and_users
     @course = @alert.course
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
+    locale_param = @course.campaigns.first&.default_language
     @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
+    @enroll_link += "&locale=#{locale_param}" if locale_param.present?
     @admins = @course.nonstudents.where(permissions: 1)
     @instructors = @course.instructors
     # eg, "Full Name, User2, and Other Fullname"

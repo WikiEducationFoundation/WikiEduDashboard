@@ -157,4 +157,23 @@ describe Campaign do
       expect(result).to eq('courses')
     end
   end
+
+  describe '#default_language' do
+    it 'accepts valid locale codes' do
+      campaign = build(:campaign, default_language: 'nl')
+      expect(campaign).to be_valid
+    end
+
+    it 'rejects invalid locale codes' do
+      campaign = build(:campaign, default_language: 'not-a-locale')
+      expect(campaign).not_to be_valid
+    end
+
+    it 'allows blank default_language' do
+      campaign = build(:campaign, default_language: nil)
+      expect(campaign).to be_valid
+      campaign = build(:campaign, default_language: '')
+      expect(campaign).to be_valid
+    end
+  end
 end

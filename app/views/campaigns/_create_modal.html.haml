@@ -58,6 +58,10 @@
                 = label(:campaign, :default_course_type, t('campaign.default_course_type') + ':')
                 = select(:campaign, :default_course_type, options_for_select(['BasicCourse', 'Editathon', 'ArticleScopedProgram']), include_blank: true)
 
+              .form-group
+                = label(:campaign, :default_language, t('campaign.default_language') + ':')
+                = select(:campaign, :default_language, options_for_select(I18n.available_locales.sort.map { |l| [l.to_s, l.to_s] }), include_blank: true)
+
 
           .wizard__panel__controls.wizard__form
             .right

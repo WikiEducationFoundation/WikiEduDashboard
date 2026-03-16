@@ -12,7 +12,9 @@ class CourseApprovalMailer < ApplicationMailer
     @instructor = instructor
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     @is_returning_instructor = @course.tag? 'returning_instructor'
+    locale_param = @course.campaigns.first&.default_language
     @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
+    @enroll_link += "&locale=#{locale_param}" if locale_param.present?
     @signed = SpecialUsers.classroom_program_manager&.real_name || 'The Wiki Education team'
     # rubocop:disable Layout/LineLength
     mail(to: @instructor.email,
