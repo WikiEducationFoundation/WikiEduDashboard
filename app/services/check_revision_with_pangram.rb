@@ -34,7 +34,7 @@ class CheckRevisionWithPangram
     @plain_text = plaintext_service.plain_text
   end
 
-  PANGRAM_CHECK_TYPE = 'Pangram 3.0'
+  PANGRAM_CHECK_TYPE = 'Pangram 3'
 
   # Determines whether the check was already performed for the given revision,
   # based on the existence of a record in the data table with the same revision, wiki, and article,
@@ -57,7 +57,7 @@ class CheckRevisionWithPangram
     # As a start, we'll just look at the most-likely window.
     # In many cases, the max is 1.0, but we'll be a little
     # more conservative.
-    max_ai_likelihood > 0.75
+    max_ai_likelihood > 0.9
   end
 
   # Don't generate an alert for old edits.
