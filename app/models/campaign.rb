@@ -56,7 +56,8 @@ class Campaign < ApplicationRecord
     ArticleScopedProgram
   ].freeze
   validates :default_course_type, inclusion: { in: ALLOWED_TYPES }, allow_blank: true
-  validates :default_language, inclusion: { in: I18n.available_locales.map(&:to_s) }, allow_blank: true
+  validates :default_language, inclusion: { in: I18n.available_locales.map(&:to_s) },
+                              allow_blank: true
 
   before_save :set_default_times
 
