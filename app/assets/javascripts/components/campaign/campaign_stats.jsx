@@ -6,7 +6,7 @@ import OverviewStat from '../common/OverviewStats/overview_stat.jsx';
 const CampaignStats = ({ campaign }) => {
   const studentsInfo = [[`${campaign.trained_percent_human}%`, I18n.t('users.up_to_date_with_training')]];
   const campaignUploadsInfo = [
-    [`${campaign.uploads_in_use_count_human}`, I18n.t('metrics.uploads_in_use_count', { count: campaign.uploads_in_use_count })],
+    [`${campaign.uploads_in_use_count}`, I18n.t('metrics.uploads_in_use_count', { count: campaign.uploads_in_use_count })],
     [`${campaign.upload_usage_count_human}`, I18n.t('metrics.upload_usages_count', { count: campaign.upload_usage_count })]];
 
   return (
