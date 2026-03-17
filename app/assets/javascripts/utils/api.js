@@ -298,10 +298,14 @@ const API = {
       console.error('Couldn\'t save timeline!');
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
-      Sentry.captureMessage('saveTimeline failed', {
-        level: 'error',
-        extra: SentryLogger
-      });
+
+      // Ensure Sentry is defined to prevent failing silently
+      if (typeof Sentry !== 'undefined') {
+        Sentry.captureMessage('saveTimeline failed', {
+          level: 'error',
+          extra: SentryLogger
+        });
+      }
       response.responseText = data;
       throw response;
     }
@@ -328,10 +332,13 @@ const API = {
       this.status = response.statusText;
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
-      Sentry.captureMessage('saveCourse failed', {
-        level: 'error',
-        extra: SentryLogger
-      });
+
+      if (typeof Sentry !== 'undefined') {
+        Sentry.captureMessage('saveCourse failed', {
+          level: 'error',
+          extra: SentryLogger
+        });
+      }
       response.responseText = data;
       throw response;
     }

@@ -141,7 +141,7 @@ const renderGraph = (id, statsData, bins, labels, days, namespaces) => {
       {
         scale: 'x',
         orient: 'bottom',
-        title: 'Revision creation date',
+        title: 'Score check date',
         format: '%b %d %Y',
         tickCount: 'day',
         labelAngle: -20,
