@@ -20,7 +20,7 @@ describe CourseApprovalMailer do
       campaign = create(:campaign, default_language: 'es')
       course.campaigns << campaign
       mail = described_class.send_approval_notification(course, instructor)
-      expect(mail.html_part.body).to include('&locale=es')
+      expect(mail.html_part.body).to include('&amp;locale=es')
     end
 
     it 'omits locale parameter when campaign has no default language' do
@@ -28,7 +28,7 @@ describe CourseApprovalMailer do
       campaign = create(:campaign, default_language: nil)
       course.campaigns << campaign
       mail = described_class.send_approval_notification(course, instructor)
-      expect(mail.html_part.body).not_to include('&locale=')
+      expect(mail.html_part.body).not_to include('&amp;locale=')
     end
   end
 end
