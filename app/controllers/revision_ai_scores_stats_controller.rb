@@ -42,7 +42,7 @@ class RevisionAiScoresStatsController < ApplicationController
   def set_historical_scores_by_namespaces
     count_by_date_and_namespace = @scores.group_by do |s|
       # -1 represents an invalid bin
-      [s.revision_datetime.to_date, s.article.namespace, -1]
+      [s.created_at.to_date, s.article.namespace, -1]
     end
                                     .transform_values(&:count)
 
@@ -56,7 +56,7 @@ class RevisionAiScoresStatsController < ApplicationController
   # for some combinations.
   def set_historical_scores_by_max_values
     count_by_date_ns_and_bin = @scores_with_likelihood.group_by do |s|
-      [s.revision_datetime.to_date, s.article.namespace, bin(s.max_ai_likelihood)]
+      [s.created_at.to_date, s.article.namespace, bin(s.max_ai_likelihood)]
     end
                                     .transform_values(&:count)
 
@@ -71,7 +71,7 @@ class RevisionAiScoresStatsController < ApplicationController
   # for some combinations.
   def set_historical_scores_by_avg_values
     count_by_date_ns_and_bin = @scores_with_likelihood.group_by do |s|
-      [s.revision_datetime.to_date, s.article.namespace, bin(s.avg_ai_likelihood)]
+      [s.created_at.to_date, s.article.namespace, bin(s.avg_ai_likelihood)]
     end
                                     .transform_values(&:count)
 
