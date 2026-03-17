@@ -9,10 +9,13 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require_dependency "#{Rails.root}/lib/errors/rescue_errors"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
   include CourseHelper
+  include Errors::RescueErrors
+
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
