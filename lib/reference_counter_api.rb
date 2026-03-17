@@ -25,7 +25,7 @@ class ReferenceCounterApi
     @language_code = wiki.language
     @update_service = update_service
     @errors = []
-    @sentry_logs = {}
+    @non_200_errors = {}
   end
 
   # This is the main entry point.
@@ -82,39 +82,40 @@ class ReferenceCounterApi
   end
   
   def report_reference_counter_error_to_sentry
-    return if @sentry_logs.empty?
+    return if @non_200_errors.empty?
 
-    @sentry_logs.each_value do |data|
-      status = data[:status_code]
+    @non_200_errors.each_value do |data|
+     
+      error = StandardError.new("Non-200 response hitting references
+                                counter API: (#{data[:status_code]})")
       
-      Sentry.capture_message(
-        "Non-200 response hitting references counter API: #{status}",
-        level: 'warning',
-        # This ensures all errors with this status code group together
-        fingerprint: ['references-counter-api-error', status.to_s],
-        extra: {
+      # Use the shared module method
+      log_error(error, 
+        update_service: @update_service, 
+        sentry_extra: {
           project_code: @project_code,
           language_code: @language_code,
           error_count: data[:error_count],
-          errors: data[:errors]
+          errors: data[:errors],
+          status: data[:status_code]
         }
       )
     end
     
-    @sentry_logs = {}
+    @non_200_errors = {}
   end
 
 
   def batch_non_200_response_log(status, error_response)
     # Initialize if new status
-    @sentry_logs[error_key(status)] ||= { error_count: 0, status_code: status, errors: [] }
+    @non_200_errors[error_key(status)] ||= { error_count: 0, status_code: status, errors: [] }
     
     # Increment count every time
-    @sentry_logs[error_key(status)][:error_count] += 1
+    @non_200_errors[error_key(status)][:error_count] += 1
     
     # Only collect the error details if under the limit
-    if @sentry_logs[error_key(status)][:error_count] <= MAX_NON_200_RESPONSE_LOGS
-      @sentry_logs[error_key(status)][:errors] << error_response
+    if @non_200_errors[error_key(status)][:error_count] <= MAX_NON_200_RESPONSE_LOGS
+      @non_200_errors[error_key(status)][:errors] << error_response
     end
   end
 
@@ -146,7 +147,8 @@ class ReferenceCounterApi
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,
-                    Faraday::ConnectionFailed].freeze
+                    Faraday::ConnectionFailed,
+                    StandardError].freeze
 
   def log_error_batch(rev_ids)
     return if @errors.empty?

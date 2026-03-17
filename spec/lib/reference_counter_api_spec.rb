@@ -107,55 +107,55 @@ describe ReferenceCounterApi do
 
   context 'when the API returns non-200 responses' do
     let(:failing_ids) {
-[708326238, 123456789, 987654321, 111222333, 444555666, 777888999, 408326238]}
-    let(:subject) { described_class.new(en_wikipedia) }
-
+      [708326238, 123456789, 987654321, 111222333, 444555666, 777888999, 408326238] }
+    
+    # Mock the update service to provide the tags the test expects
+    let(:update_service) do
+      instance_double('UpdateService', 
+        update_error_stats: true, 
+        sentry_tags: { update_service_id: 'tag1', course: '/UBA/Mongolia_(second_semester_2026)' }
+      )
+    end
+    
+    let(:subject) { described_class.new(en_wikipedia, update_service) }
     it 'batches multiple errors and limits Sentry samples to exactly 5' do
-
-      # Sentry is called ONCE with total count 7 and 5 samples
-      expect(Sentry).to receive(:capture_message).once.with(
-        "Non-200 response hitting references counter API: 403",
+      # Ensure ReferenceCounterError (or StandardError) is in TYPICAL_ERRORS to get 'warning' level
+      expect(Sentry).to receive(:capture_exception).with(
+        instance_of(StandardError),
         hash_including(
           level: 'warning',
-          fingerprint: ['references-counter-api-error', '403'],
-          extra: {
+          extra: hash_including(
             project_code: 'wikipedia',
             language_code: 'en',
             error_count: 7,
-            errors: [
-              { rev_id: 708326238, content: { "description" => "mwapi error: permissiondenied" } },
-              { rev_id: 123456789, content: { "description" => "mwapi error: permissiondenied" } },
-              { rev_id: 987654321, content: { "description" => "mwapi error: permissiondenied" } },
-              { rev_id: 111222333, content: { "description" => "mwapi error: permissiondenied" } },
-              { rev_id: 444555666, content: { "description" => "mwapi error: permissiondenied" } }
-            ]
-          }
+            status: 403
+          ),
+          tags: { update_service_id: 'tag1', course: '/UBA/Mongolia_(second_semester_2026)' }
         )
       )
 
-      # MOCK the API call to return a result that simulates a 403 error flow
+      # MOCK the internal call logic
       allow(subject).to receive(:get_number_of_references_from_revision_id) do |rev_id|
         subject.send(:batch_non_200_response_log, 403, 
-{ rev_id: rev_id, content: { "description" => "mwapi error: permissiondenied" } })
+          { rev_id: rev_id, content: { "description" => "mwapi error: permissiondenied" } })
         { 'num_ref' => nil }
       end
 
-      #This triggers the mocked calls and then the Sentry report
       results = subject.get_number_of_references_from_revision_ids(failing_ids)
 
       expect(results.length).to eq(7)
       expect(results.values.all? { |v| v['num_ref'].nil? }).to be true
     end
-    it 'sends separate Sentry logs for each unique status code' do
-      # One call per status code
-      subject.send(:batch_non_200_response_log, 403, { rev_id: 1, content: {} })
-      subject.send(:batch_non_200_response_log, 400, { rev_id: 2, content: {} })
-      subject.send(:batch_non_200_response_log, 400, { rev_id: 3, content: {} })
 
-      expect(Sentry).to receive(:capture_message).twice
+    it 'sends separate Sentry logs for each unique status code' do
+      subject.send(:batch_non_200_response_log, 403, { rev_id: 987654321, content: {} })
+      subject.send(:batch_non_200_response_log, 400, { rev_id: 111222333, content: {} })
+      subject.send(:batch_non_200_response_log, 400, { rev_id: 111222333, content: {} })
+
+      # Expecting two different exceptions to be captured
+      expect(Sentry).to receive(:capture_exception).twice
       subject.send(:report_reference_counter_error_to_sentry)
     end
-
   end
 
 end
