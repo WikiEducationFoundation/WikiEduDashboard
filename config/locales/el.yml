@@ -115,14 +115,12 @@ el:
     no_data: Δεν βρέθηκαν δεδομένα.
     ai_stats:
       timestamp: Χρονική σήμανση
-      general_stats: Γενικά Στατιστικά για %{campaign_name}
       multiple_alerts_pages: Σελίδες με πολλαπλές ειδοποιήσεις
       users_involved: Εμπλεκόμενοι χρήστες
       total: Σύνολο
       last_week: Τελευταία εβδομάδα
       sections:
         contents: Πίνακας περιεχομένων για λίστες
-        go_back: Επιστροφή στα περιεχόμενα
         name: Όνομα
         description: Περιγραφή
         courses_with_ai_alerts: Μαθήματα με πολλαπλές ειδοποιήσεις AI

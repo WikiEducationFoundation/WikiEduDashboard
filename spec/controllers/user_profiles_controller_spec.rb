@@ -332,4 +332,25 @@ describe UserProfilesController, type: :request do
       end
     end
   end
+
+  describe '#stats' do
+    let(:route) { "/user_stats.json" }
+
+    context 'when user found' do
+      let(:user) { create(:user) }
+
+      it 'returns 200 OK' do
+        get route, params: { username: user.username }
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when user not found' do
+
+      it 'returns 404 not found' do
+        get route, params: { username: 'non existing user' }
+        expect(response.status).to eq(404)
+      end
+    end
+  end
 end

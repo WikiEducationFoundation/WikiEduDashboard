@@ -137,9 +137,9 @@ const List = ({
     );
   }
   let fixedHeader;
-  let fixedArea;
+  let fixedArea = 'table-responsive';
   if (stickyHeader) {
-    fixedArea = 'persist-area';
+    fixedArea += ' persist-area';
     const fixheader = fixHeader === true ? 'floatingHeader' : '';
     fixedHeader = 'persist-header';
     fixedHeader += ` ${fixheader}`;

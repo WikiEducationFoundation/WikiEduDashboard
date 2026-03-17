@@ -94,14 +94,13 @@ class CourseRevisionUpdater
                                    .for_datetime(timeslice_start)
                                    .first
     if timeslice.nil?
-      # This can occur while a timeslice is being split and hasn’t been created yet.
-      # In that case, we treat it as new data only if at least one revision is fetched.
+      # This scenario is unexpected, so we log the message to understand why this happens.
       Sentry.capture_message 'No timeslice found for revision date',
-                             level: 'warning',
+                             level: 'error',
                              extra: { course_name: @course.slug,
                                        wiki: wiki.id,
                                        date: timeslice_start }
-      return !revision_count.zero?
+      return true
     end
 
     latest_revision = revisions.maximum(:date)

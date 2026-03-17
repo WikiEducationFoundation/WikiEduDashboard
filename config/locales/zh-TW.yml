@@ -132,7 +132,6 @@ zh-TW:
     ai_stats:
       timestamp: 時間戳記
       title: AI 編輯提醒統計
-      general_stats: '%{campaign_name}的總體統計數據'
       total_alerts: 全面 AI 編輯提醒
       with_followup: 後續跟進
       multiple_alerts_students: 收到多項提醒的學生
@@ -146,7 +145,6 @@ zh-TW:
       last_week: 上週
       sections:
         contents: 清單目錄
-        go_back: 返回目錄
         name: 名稱
         description: 描述
         courses_with_ai_alerts: 具有多樣 AI 提醒的課程

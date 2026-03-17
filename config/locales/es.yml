@@ -37,6 +37,7 @@
 # Author: Lemondoge
 # Author: Macofe
 # Author: MarcoAurelio
+# Author: Monicapozo03
 # Author: Samthony
 # Author: Silverie04
 # Author: Themasterriot
@@ -1063,6 +1064,9 @@ es:
     label: Recursos
     header: Recursos y capacitación
   settings:
+    common_settings_components:
+      headings:
+        site_notice_preview: Vista previa en vivo
     categories:
       other_settings: Otras configuraciones
       impact_stats: Estadísticas de impacto
@@ -1104,6 +1108,7 @@ es:
     paused: La tarea %{task} no se puede ejecutar porque se han pausado las actualizaciones
       programadas. Ejecuta 'rake batch:resume' para reanudar las actualizaciones.
   timeline:
+    add_assignment: Añadir tarea
     add_week: Añadir semana
     arrange_timeline: Organizar cronograma
     arrange_timeline_instructions: Organiza el cronograma 'arrastrando y soltando'
@@ -1149,6 +1154,9 @@ es:
     save_all_changes: Guardar todo
     this_week_title_default: Esta semana
     title: Cronograma
+    too_many_weeks_warning: ¡ADVERTENCIA! ¡No hay suficientes semanas libres de vacaciones
+      antes de la fecha de finalización de la tarea! Puedes hacer clic en "Editar
+      fechas del curso" para configurar las fechas de las reuniones y las vacaciones.
     unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
       espacio para una nueva.

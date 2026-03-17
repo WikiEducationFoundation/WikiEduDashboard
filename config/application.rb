@@ -54,10 +54,16 @@ module WikiEduDashboard
     config.exceptions_app = self.routes
 
     # Rails cache with Dalli/memcached
-    config.cache_store = :mem_cache_store, 'localhost', { pool_size: 5, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
+    config.cache_store = :mem_cache_store, 'localhost', { pool: { size: 5 }, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
+    
+    # Upgrade cache format version from deprecated 6.1 to 7.1
+    config.active_support.cache_format_version = 7.1
 
     # Handle YAML safe loading of serialized Ruby objects
     config.active_record.yaml_column_permitted_classes = [Symbol, BigDecimal, DateTime, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
+
+    # Opt in to Rails 8.1 behavior for to_time to preserve timezone
+    config.active_support.to_time_preserves_timezone = :zone
 
     config.action_dispatch.return_only_media_type_on_content_type = false
 

@@ -69,13 +69,11 @@ class UpdateCourseWikiTimeslices
       next if timeslice_reprocessed?(wiki.id, t.start)
 
       begin
-        ActiveRecord::Base.transaction do
-          processed = handle_timeslice(wiki, t.start, t.end, only_new: true)
-          @processed_timeslices_count += processed.count
-        end
+        processed = handle_timeslice(wiki, t.start, t.end, only_new: true)
+        @processed_timeslices_count += processed.count
       rescue StandardError => e
         log_error(e, t.start, t.end, wiki.id)
-        t.update(needs_update: true)
+        t.update(needs_update: true) # No effect if t has split
       end
     end
   end
@@ -89,12 +87,11 @@ class UpdateCourseWikiTimeslices
         next
       end
 
-      ActiveRecord::Base.transaction do
+      begin
         reprocessed_dates = handle_timeslice(wiki, t.start, t.end, only_new: false)
         @reprocessed_timeslices[wiki.id] += reprocessed_dates
       rescue StandardError => e
         log_error(e, t.start, t.end, wiki.id)
-        raise ActiveRecord::Rollback
       end
     end
   end
@@ -163,8 +160,10 @@ class UpdateCourseWikiTimeslices
 
   def process_timeslices(wiki)
     @course.reload
-    update_timeslices(wiki)
-    @timeslice_manager.update_last_mw_rev_datetime(@revisions)
+    ActiveRecord::Base.transaction do
+      update_timeslices(wiki)
+      @timeslice_manager.update_last_mw_rev_datetime(@revisions)
+    end
   end
 
   def update_timeslices(wiki)

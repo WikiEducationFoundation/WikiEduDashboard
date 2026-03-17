@@ -112,6 +112,7 @@ smn:
   namespace:
     category: Luokka
     book: Kirje
+    translation: Jurgâlus
     lexeme: Lekseem
   recent_activity:
     image: Kove

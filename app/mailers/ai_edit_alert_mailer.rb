@@ -14,7 +14,7 @@ class AiEditAlertMailer < ApplicationMailer
     @course = @alert.course
     return unless @course
     @instructors = @alert.course.instructors
-    emails = @instructors.map(&:email)
+    emails = @instructors.map(&:email) + @alert.content_experts.map(&:email)
     return if emails.empty?
 
     @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence

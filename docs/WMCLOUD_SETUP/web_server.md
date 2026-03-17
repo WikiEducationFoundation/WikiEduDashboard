@@ -24,8 +24,8 @@ These are notes from setting up a fresh web server on the newest Debian, July 2,
   - $ `\curl -sSL https://get.rvm.io | bash -s stable`
   - $ `source /home/ragesoss/.rvm/scripts/rvm`
   - logout and back in again so that these settings take effect
-  - $ `rvm install 3.1.2`
-  - $ `rvm --default use 3.1.2`
+  - $ `rvm install 3.4.8`
+  - $ `rvm --default use 3.4.8`
 
 - Install Phusion Passenger module for Apache
   - $ `gem install passenger`
@@ -35,12 +35,12 @@ These are notes from setting up a fresh web server on the newest Debian, July 2,
   - Add to the end the text instructed by the passenger installer, something like:
 
 ```
-   LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.22/buildout/apache2/mod_passenger.so
-   <IfModule mod_passenger.c>
-     PassengerRoot /home/ragesoss/.rvm/gems/ruby-3.1.2/gems/passenger-6.0.22
-     PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-3.1.2/wrappers/ruby
-     PassengerPreloadBundler on
-   </IfModule>
+  LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-3.4.8/gems/passenger-6.1.2/buildout/apache2/mod_passenger.so
+  <IfModule mod_passenger.c>
+    PassengerRoot /home/ragesoss/.rvm/gems/ruby-3.4.8/gems/passenger-6.1.2
+    PassengerDefaultRuby /home/ragesoss/.rvm/gems/ruby-3.4.8/wrappers/ruby
+    PassengerPreloadBundler on
+  </IfModule>
 
 ```
 

@@ -19,7 +19,7 @@ be-tarask:
           trillion: трлн
           quadrillion: квдрлн
   accessibility:
-    number_field: Гэта лічбавае поле. Кнопкі, што адлюстроўваюцца большасьцю броўзэраў,
+    number_field: Гэта лічбавае поле. Кнопкі, што паказваюцца большасьцю броўзэраў,
       павялічваюць і памяншаюць уведзеныя зьвесткі.
   application:
     back: Назад
@@ -28,7 +28,7 @@ be-tarask:
       зьберагае інфармацыю пра ваш рахунак Вікіпэдыі.
     cookie_consent_acknowledge: Я разумею
     cookie_consent_see_more: Дав. болей.
-    create_accounts: Стварыце ўліковы запіс Вікіпэдыі
+    create_accounts: Стварыце рахунак Вікіпэдыі
     dashboard: Панэль Wiki Ed
     documentation: Дакумэнтацыя
     error: 'Узьнікла памылка:'
@@ -423,6 +423,7 @@ be-tarask:
     course_details: Дэталі курсу
     term: Тэрмін
     timeline: Дэталі заданьня
+    timeline_enabled: Расклад увамкнёны
     timeline_link: Расклад
     title: Назва
     training_due: Навучальны модуль «%{title}» прызначаны да гэтага курсу і павінен
@@ -446,6 +447,8 @@ be-tarask:
     students_taught: Агулам рэдактараў
     students_short: Рэдактары
     view_other: Паглядзець іншыя кампаніі
+  editable:
+    edit: Рэдагаваць
   instructor_view:
     assigned_articles_wikidata: Прызначаныя элемэнты
     can_assign_assignments: Прызначыць артыкул можна з дапамогай ніжніх кнопак.
