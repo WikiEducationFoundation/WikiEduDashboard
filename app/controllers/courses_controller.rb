@@ -9,15 +9,16 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require_dependency "#{Rails.root}/lib/errors/rescue_errors"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
   include CourseHelper
+  include Errors::RescueErrors
+
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
-  # Catches the Database-level uniqueness constraint failure for all actions in this controller
-rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique_slug_error
 
   ################
   # CRUD methods #
@@ -263,7 +264,6 @@ rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique_slug_error
     CheckTimelineAlertManager.new(@course)
     render plain: '', status: :ok
   end
-
 
   ##################
   # Helper methods #
@@ -518,11 +518,5 @@ rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique_slug_error
     return unless params.key? 'enroll'
     session['course_slug'] = @course.slug
     session['enroll_code'] = params['enroll'] || ''
-  end
-
-  def record_not_unique_slug_error(e)
-    slug = @course&.slug || ''
-    message = I18n.t('courses.error.duplicate_course_slug', slug: slug)
-    render json: { message: message, error: e.message }, status: :conflict
   end
 end
