@@ -4,7 +4,8 @@ set -euo pipefail
 
 BACKUP_ROUTE="ROUTE_TO_BACKUPS"
 QUERY_ROUTE="ROUTE_TO_QUERIES"
-JSON_ENDPOINT="https://outreachdashboard.wmflabs.org/system/can_start_backup.json"
+DASHBOARD_URL="URL_TO_DASHBOARD"
+JSON_ENDPOINT="$DASHBOARD_URL/system/can_start_backup.json"
 
 log() {
   printf '%s : %s\n' "$(date '+%m%d%Y %T')" "$1" >> "$LOG_FILE"
@@ -85,3 +86,12 @@ mariadb-dump --single-transaction --routines --databases dashboard | gzip > $BAC
 log "Finishing"
 # Update running backup record to 'finished'
 mysql < $QUERY_ROUTE/finished.sql
+
+# Remove oldest backup if there are more than three
+MIN_BACKUPS_NUMBER=3
+CURRENT_BACKUPS_NUMBER=$(ls -1d "$BACKUP_ROUTE"/*/ | wc -l)
+if [ $CURRENT_BACKUPS_NUMBER -gt $MIN_BACKUPS_NUMBER ]; then
+  OLDEST_BACKUP=$(ls -1d "$BACKUP_ROUTE"/*/ | sort | head -1)
+  log "Removing $OLDEST_BACKUP"
+  rm -r $OLDEST_BACKUP
+fi

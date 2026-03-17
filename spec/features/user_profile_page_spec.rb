@@ -42,7 +42,8 @@ describe 'user profile pages', type: :feature, js: true do
                                       completed_at: Time.zone.now)
     end
 
-    it 'shows training status' do
+    it 'shows training status (to that user)' do
+      login_as user
       visit "/users/#{user.username}"
       expect(page).to have_content TrainingModule.first.name
       expect(page).to have_content 'Completed at'

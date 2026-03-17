@@ -15,3 +15,26 @@ CSV.open("/home/sage/ai_repeat_users.csv", 'wb') do |csv|
     csv << line
   end
 end
+
+# Mainspace alerts with subsequent edits
+# to analyze how students responded in mainspace after an alert.
+
+fall_2025 = Campaign.find_by_slug 'fall_2025'
+fall_alerts = AiEditAlert.where(course_id: fall_2025.courses.pluck(:id))
+fall_mainspace_alerts = fall_alerts.select { |a| a.page_type == :mainspace }
+
+data = [['article', 'course', 'user', 'timestamp', 'pangram_report', 'latest_edit_timestamp', 'days_edited', 'article_viewer']]
+fall_mainspace_alerts.each do |a|
+  acts = ArticleCourseTimeslice.where(course_id: a.course_id, article_id: a.article_id)
+  article = Article.find(a.article_id)
+  course = Course.find(a.course_id)
+  user = User.find(a.user_id)
+  article_viewer = "https://dashboard.wikiedu.org/courses/#{course.slug}/articles/edited?showArticle=#{article.id}"
+  data << [article.full_title, course.slug, user.username, a.created_at, a.pangram_url, acts.last&.start, acts.count, article_viewer]
+end
+
+CSV.open("/home/sage/ai_mainspace_alerts_fall_2025.csv", 'wb') do |csv|
+  data.each do |line|
+    csv << line
+  end
+end

@@ -146,7 +146,6 @@ zh-CN:
   alerts:
     alert_label: 提醒
     ai_stats:
-      general_stats: '%{campaign_name} 的总体统计数据'
       total: 总计
       last_week: 上周
   activity:

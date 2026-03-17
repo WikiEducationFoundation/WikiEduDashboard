@@ -171,8 +171,10 @@ sms:
     article: Artikkel
     project: Projeʹktt
     file: Teâttõs
+    template: Mall
     category: Kategoria
     book: Ǩeʹrjj
+    translation: Jåårǥlõs
   recent_activity:
     article_title: Nõmm
     image: Kaart da snimldõõǥǥ
@@ -195,6 +197,8 @@ sms:
     special_users:
       new:
         form_placeholder: Õõʹnninõmm
+    disallowed_users:
+      remove_button: Jaukkâd
   status:
     size: Šorradvuõtt
   suggestions:
@@ -239,7 +243,7 @@ sms:
     training_module_status: Status
     username: Õõʹnninõmm
     username_placeholder: Õõʹnninõmm
-    useremail_placeholder: E-pååʹštaddrõs
+    useremail_placeholder: Ǩeeʹrjet e-pååʹštaddrõõzz
     userpasscode_placeholder: Peittsääʹnn
   user_profiles:
     image_link_placeholder: Lââʹzzet kartt- leʹbe snimldõkliiŋk (vaʹlljeemnallšem)

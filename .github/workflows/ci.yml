@@ -75,13 +75,13 @@ jobs:
       - name: setup Ruby
         uses: ruby/setup-ruby@v1    
         with:
-           ruby-version: 3.1.2
+           ruby-version: 3.4.8
            bundler-cache: true
      
       - name: setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '18'
           cache: 'yarn'
 
       - name: setup Dashboard database

@@ -286,8 +286,8 @@ describe CoursesController, type: :request do
 
     it 'raises if course is not found' do
       params = { id: 'peanut-butter', course: course_params }
-      expect { put "/courses/#{course.id}", params:, as: :json }
-        .to raise_error(ActionController::RoutingError)
+      put "/courses/#{course.id}", params:, as: :json
+      expect(response.status).to eq(404)
     end
 
     it 'returns the new course as json' do

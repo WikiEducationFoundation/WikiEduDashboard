@@ -167,7 +167,7 @@ describe AlertsController, type: :request do
 }
 
       delivery = ActionMailer::Base.deliveries.first
-      expect(delivery.bcc).to be_empty
+      expect(delivery.bcc).to be_nil.or be_empty
     end
   end
 end

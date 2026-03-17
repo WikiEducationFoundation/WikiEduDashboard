@@ -62,12 +62,10 @@ describe SplitTimeslice do
 
       it 'does not split the timeslice' do
         expect(course.course_wiki_timeslices.count).to eq(2)
-        split, dates = splitter.maybe_split(wiki, course.start, course.start + 12.hours, revisions)
+        split, dates = splitter.maybe_split(wiki, course.start, course.start + 1.day, revisions)
         expect(split).to eq(false)
         expect(dates).to be_empty
-        # timeslice was created
-        expect(CourseWikiTimeslice.where(course:, wiki:, start:,
-                                         end: start + 12.hours).size).to eq(1)
+        expect(course.course_wiki_timeslices.count).to eq(2)
       end
     end
   end

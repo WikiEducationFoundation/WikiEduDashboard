@@ -2,6 +2,14 @@
 
 module.exports = {
   collectCoverage: false,
+  testEnvironment: 'jsdom',
+
+  testEnvironmentOptions: {
+    // Prevent global state (e.g. window/global mutations) from leaking between test files
+    // https://jestjs.io/blog/2025/06/04/jest-30#globals-cleanup-between-test-files
+    globalsCleanup: 'on',
+  },
+
   roots: [
     'test',
     'app/assets/javascripts'
