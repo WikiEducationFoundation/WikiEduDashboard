@@ -209,9 +209,9 @@ describe('CourseDateUtils.weekMeetings boundary cases', () => {
     // weekdays is set to every day (1111111)
     const course = {
       timeline_start: '2026-03-01', // Sunday
-      timeline_end: '2026-04-07',   // Tuesday
-      end: '2026-06-01',            // way later
-      weekdays: '1111111',          // meets every day
+      timeline_end: '2026-04-07', // Tuesday
+      end: '2026-06-01', // way later
+      weekdays: '1111111', // meets every day
       day_exceptions: ''
     };
 
@@ -222,7 +222,7 @@ describe('CourseDateUtils.weekMeetings boundary cases', () => {
     expect(lastWeekMeetings).toContain('Sunday (04/05)');
     expect(lastWeekMeetings).toContain('Monday (04/06)');
     expect(lastWeekMeetings).toContain('Tuesday (04/07)');
-    
+
     // Should NOT contain Wednesday or later
     expect(lastWeekMeetings).not.toContain('Wednesday (04/08)');
     expect(lastWeekMeetings).not.toContain('Thursday (04/09)');
