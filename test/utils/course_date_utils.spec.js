@@ -198,3 +198,35 @@ describe('CourseDateUtils.wouldCreateBlackoutWeek', () => {
     expect(output).toBe(false);
   });
 });
+
+// https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/651
+describe('CourseDateUtils.weekMeetings boundary cases', () => {
+  test('excludes meeting days after timeline_end even if they are before course.end', () => {
+    // Current time (March 2026) scenario:
+    // Week 6 starts on 2026-04-05 (Sunday)
+    // timeline_end is 2026-04-07 (Tuesday)
+    // course.end is 2026-06-01 (Later)
+    // weekdays is set to every day (1111111)
+    const course = {
+      timeline_start: '2026-03-01', // Sunday
+      timeline_end: '2026-04-07',   // Tuesday
+      end: '2026-06-01',            // way later
+      weekdays: '1111111',          // meets every day
+      day_exceptions: ''
+    };
+
+    const meetings = CourseDateUtils.weekMeetings(course, '');
+    const lastWeekMeetings = meetings[meetings.length - 1];
+
+    // Expected: Only Sunday, Monday, Tuesday
+    expect(lastWeekMeetings).toContain('Sunday (04/05)');
+    expect(lastWeekMeetings).toContain('Monday (04/06)');
+    expect(lastWeekMeetings).toContain('Tuesday (04/07)');
+    
+    // Should NOT contain Wednesday or later
+    expect(lastWeekMeetings).not.toContain('Wednesday (04/08)');
+    expect(lastWeekMeetings).not.toContain('Thursday (04/09)');
+    expect(lastWeekMeetings).not.toContain('Friday (04/10)');
+    expect(lastWeekMeetings).not.toContain('Saturday (04/11)');
+  });
+});

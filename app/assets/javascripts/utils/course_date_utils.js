@@ -160,8 +160,9 @@ const CourseDateUtils = {
       weekStart = addWeeks(startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 }), week);
 
       let weekendDate = endOfWeek(toDate(weekStart), { weekStartsOn: 0 });
-      if (isAfter(weekendDate, toDate(course.end))) {
-        weekendDate = toDate(course.end);
+      const timelineEnd = toDate(course.timeline_end || course.end);
+      if (isAfter(weekendDate, timelineEnd)) {
+        weekendDate = timelineEnd;
       }
 
       // Account for the first partial week, which may not have 7 days.
