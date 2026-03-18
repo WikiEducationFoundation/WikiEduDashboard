@@ -9,6 +9,7 @@ class ReferenceCounterApi
 
   TOOLFORGE_SERVER_URL = 'https://reference-counter.toolforge.org'
   RETRY_COUNT = 5
+  MAX_NON_200_RESPONSE_LOGS = 5
 
   # This class is not designed for use with wikidata, as that wiki works pretty
   # different from other wikis and it has its own method of calculating references.
@@ -24,6 +25,7 @@ class ReferenceCounterApi
     @language_code = wiki.language
     @update_service = update_service
     @errors = []
+    @non_200_errors = {}
   end
 
   # This is the main entry point.
@@ -43,7 +45,7 @@ class ReferenceCounterApi
     end
 
     log_error_batch(rev_ids)
-
+    report_reference_counter_error_to_sentry
     return results
   end
 
@@ -57,13 +59,16 @@ class ReferenceCounterApi
     tries ||= RETRY_COUNT
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
+   
     return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
+   
+    if response.status != 200
+      error_response = { rev_id: rev_id, content: parsed_response}
+      batch_non_200_response_log(response.status, error_response)
+    end
     # Leave the error empty if it is not a transient error.
     return { 'num_ref' => nil } if non_transient_error? response.status
     # Log the error and return empty hash
-    # Sentry.capture_message 'Non-200 response hitting references counter API', level: 'warning',
-    # extra: { project_code: @project_code, language_code: @language_code, rev_id:,
-    #                        status_code: response.status, content: parsed_response }
     return { 'num_ref' => nil, 'error' => parsed_response }
   rescue StandardError => e
     tries -= 1
@@ -71,6 +76,49 @@ class ReferenceCounterApi
     @errors << e
     return { 'num_ref' => nil, 'error' => e }
   end
+
+  def error_key(status)
+    status.to_s
+  end
+  
+  def report_reference_counter_error_to_sentry
+    return if @non_200_errors.empty?
+
+    @non_200_errors.each_value do |data|
+     
+      error = StandardError.new("Non-200 response hitting references
+                                counter API: (#{data[:status_code]})")
+      
+      # Use the shared module method
+      log_error(error, 
+        update_service: @update_service, 
+        sentry_extra: {
+          project_code: @project_code,
+          language_code: @language_code,
+          error_count: data[:error_count],
+          errors: data[:errors],
+          status: data[:status_code]
+        }
+      )
+    end
+    
+    @non_200_errors = {}
+  end
+
+
+  def batch_non_200_response_log(status, error_response)
+    # Initialize if new status
+    @non_200_errors[error_key(status)] ||= { error_count: 0, status_code: status, errors: [] }
+    
+    # Increment count every time
+    @non_200_errors[error_key(status)][:error_count] += 1
+    
+    # Only collect the error details if under the limit
+    if @non_200_errors[error_key(status)][:error_count] <= MAX_NON_200_RESPONSE_LOGS
+      @non_200_errors[error_key(status)][:errors] << error_response
+    end
+  end
+
 
   class InvalidProjectError < StandardError
   end
@@ -99,7 +147,8 @@ class ReferenceCounterApi
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,
-                    Faraday::ConnectionFailed].freeze
+                    Faraday::ConnectionFailed,
+                    StandardError].freeze
 
   def log_error_batch(rev_ids)
     return if @errors.empty?
