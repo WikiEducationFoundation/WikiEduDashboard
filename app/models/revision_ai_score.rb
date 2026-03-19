@@ -26,4 +26,16 @@ class RevisionAiScore < ApplicationRecord
   serialize :details, type: Hash
 
   include ArticleViewerLinker
+
+  PANGRAM_V2_KEY = 'Pangram 2.0'
+  PANGRAM_V3_KEY = 'Pangram 3'
+  ORIGINALITY_TURBO_KEY = 'Originality Turbo'
+  ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
+
+  MODELS_KEY = [
+    PANGRAM_V2_KEY,
+    PANGRAM_V3_KEY,
+    ORIGINALITY_TURBO_KEY,
+    ORIGINALITY_ACADEMIC_KEY
+  ].freeze
 end

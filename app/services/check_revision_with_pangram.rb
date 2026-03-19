@@ -34,8 +34,6 @@ class CheckRevisionWithPangram
     @plain_text = plaintext_service.plain_text
   end
 
-  PANGRAM_CHECK_TYPE = 'Pangram 3'
-
   # Determines whether the check was already performed for the given revision,
   # based on the existence of a record in the data table with the same revision, wiki, and article,
   # where the details field is not nil.
@@ -165,6 +163,6 @@ class CheckRevisionWithPangram
                            avg_ai_likelihood: average_ai_likelihood,
                            max_ai_likelihood: max_ai_likelihood,
                            details: clean_pangram_result,
-                           check_type: PANGRAM_CHECK_TYPE)
+                           check_type: RevisionAiScore::PANGRAM_V3_KEY)
   end
 end
