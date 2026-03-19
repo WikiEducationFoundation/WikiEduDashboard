@@ -14,6 +14,6 @@ class CreateSurveySessions < ActiveRecord::Migration[7.0]
     end
 
     add_index :survey_sessions, :user_id
-    add_index :survey_sessions, %i[survey_id user_id]
+    add_index :survey_sessions, :survey_id
   end
 end
