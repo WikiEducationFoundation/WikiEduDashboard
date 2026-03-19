@@ -10,6 +10,7 @@
 # Author: Camillo Pellizzari
 # Author: Dream Indigo
 # Author: Einreiher
+# Author: FL2226
 # Author: Fierodelveneto
 # Author: Gianfranco
 # Author: Greis
@@ -577,6 +578,8 @@ it:
       user_exists: Spiacenti, %{username} non è un utente esistente.
       user_exists_on_wiki: Spiacenti, %{username} non è un utente esistente in %{domain}.
       invalid_language_or_project: Lingua/progetto non valido
+      duplicate_course_slug: L'URL %{slug} è già in uso. Si prega di modificare il
+        titolo, la scuola o il semestre.
       invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
     expected_students: Studenti previsti
