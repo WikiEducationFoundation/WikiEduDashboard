@@ -4,7 +4,8 @@ set -euo pipefail
 
 BACKUP_ROUTE="ROUTE_TO_BACKUPS"
 QUERY_ROUTE="ROUTE_TO_QUERIES"
-JSON_ENDPOINT="https://outreachdashboard.wmflabs.org/system/can_start_backup.json"
+DASHBOARD_URL="URL_TO_DASHBOARD"
+JSON_ENDPOINT="$DASHBOARD_URL/system/can_start_backup.json"
 
 log() {
   printf '%s : %s\n' "$(date '+%m%d%Y %T')" "$1" >> "$LOG_FILE"

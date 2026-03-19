@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Danmichaelo
 # Author: EdoAug
+# Author: Elisabeth Carrera (WMNO)
 # Author: JohSan65
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
@@ -27,7 +28,9 @@ nb:
     number_field: Dette er et nummerfelt. Knappene som vises i de fleste nettlesere
       vil øke eller minke tallet.
   application:
+    back: Tilbake
     cancel: Avbryt
+    next: Neste
     cookie_consent: Siden bruker nettkapsler («cookies») for å holde deg innlogget,
       og lagrer informasjon om Wikipedia-kontoen din.
     cookie_consent_acknowledge: Jeg forstår
@@ -51,6 +54,7 @@ nb:
     log_in: Logg inn
     log_out: Logg ut
     my_dashboard: Min oversikt
+    okay: OK
     recent_activity: Nylig aktivitet
     report_problem: Rapporter et problem
     request_account: Forespør en konto
@@ -58,6 +62,8 @@ nb:
     search: still et spørsmål
     search_results: 'Treff for: ''%{search_terms}'''
     no_results: Ingen treff for '%{query}'
+    show_current_revision: Vis gjeldende versjon
+    show_last_revision: Vis sist redigerte versjon
     sign_up_extended: Registrer deg med Wikipedia
     sign_up_wikipedia: Eller registrer deg på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -71,6 +77,9 @@ nb:
     opt_out: Nei
     opt_yes: ja
     opt_no: nei
+    print: Skriv ut
+  article_statuses:
+    not_yet_started: Kom i gang
   dashboard:
     create_note: Klikk på «Opprett kurs» for å opprette ditt første kurs.
     create_preparation_note: Sørg for at du har den akademiske kalenderen tilgjengelig

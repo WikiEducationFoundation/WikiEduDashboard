@@ -37,9 +37,9 @@ sr-ec:
     back: Назад
     cancel: Откажи
     next: Следеће
-    cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним, и чувао
-      информације везаних за ваш налог на Википедији.
-    cookie_consent_acknowledge: Разумем.
+    cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним и чувао
+      информације везане за Ваш налог на Википедији.
+    cookie_consent_acknowledge: Разумео
     cookie_consent_see_more: Погледај више.
     create_accounts: Направи налоге на Википедији
     dashboard: Контролна табла Вики Ед-а
@@ -60,6 +60,7 @@ sr-ec:
     log_in: Пријави ме
     log_out: Одјави ме
     my_dashboard: Управљачка табла
+    okay: У реду
     recent_activity: Скорашња активност
     report_problem: Пријавите проблем
     request_account: Захтевај налог
@@ -71,7 +72,7 @@ sr-ec:
     no_results: Нема пронађених резултата за термин „%{query}”
     show_current_revision: Прикажи тренутну верзију
     show_last_revision: Прикажи последњу измењену верзију
-    sign_up_extended: Отвори налог са Википедијом
+    sign_up_extended: Отвори налог на Википедији
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом
     sign_up: Отвори налог
@@ -123,7 +124,7 @@ sr-ec:
   home:
     explore: Истражи
     log_in: Пријава са Википедијом
-    sign_up: Отвори налог са Википедијом
+    sign_up: Отвори налог на Википедији
     registration_advice:
       username_rules:
         heading: Правила о корисничком имену
@@ -143,6 +144,7 @@ sr-ec:
     ai_stats:
       total: Укупно
       sections:
+        name: Име
         description: Опис
   activity:
     all: Активност
@@ -309,6 +311,7 @@ sr-ec:
     sandbox_draft_link: Нацрт песка
     select: Изабери
     submit: Пошаљи
+    username_label: Корисничко име на Википедији
     sandbox_label: Песак
     bibliography_label: Библиографија
   blocks:
@@ -502,6 +505,7 @@ sr-ec:
       course_title: Назив курса
       course_types:
         basic_course_name: Основни програм
+        single_user_name: Индивидуални уредник
       create_button: Направи мој курс!
       create_label: Направи нови курс
       create_new: Направи нови курс
@@ -823,7 +827,7 @@ sr-ec:
     explore: Пронађи програме
     courses_enrolled: Програми са учешћем
     expected_students: Очекивани уредници
-    instructors: Фацилитатори
+    instructors: Организатори
     join_course: Придружи се програму
     join_details: Да бисте се придружили овом програму, морате да набавите лозинку
       (или везу која укључује лозинку) од фацилитатора.
@@ -868,6 +872,7 @@ sr-ec:
   instructor_view:
     assignments_table:
       article_name: Име
+      current_stage: Тренутни ниво
       relevant_links: Релевантне везе
     assigned_articles: Додељени чланци
     assigned_articles_wikidata: Додељене ставке
@@ -1108,6 +1113,7 @@ sr-ec:
     search_bar_placeholder: Претражи тикете
     chose_search_type: Изаберите тип претраге
   timeline:
+    add_assignment: Додај задатак
     add_week: Додај недељу
     arrange_timeline: Уреди временску линију
     arrange_timeline_instructions: Организујте временску линију превлачењем блокова
@@ -1282,6 +1288,8 @@ sr-ec:
     reviewing: Прегледање
     revisions: Измене
     sandboxes: песци
+    sub_navigation:
+      assignments_and_exercises: Задаци и вежбе
     total_uploads: Укупно отпремања
     training_complete:
       one: је развршио тренинг
@@ -1509,6 +1517,8 @@ sr-ec:
     options:
       news_content:
         delete_news: Обришите вести
+        confirm_delete: Потврди
+        cancel_delete: Откажи
         edit_news: Уреди новости
       create_news:
         confirm_post: Потврди објаву

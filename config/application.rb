@@ -62,6 +62,9 @@ module WikiEduDashboard
     # Handle YAML safe loading of serialized Ruby objects
     config.active_record.yaml_column_permitted_classes = [Symbol, BigDecimal, DateTime, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
+    # Opt in to Rails 8.1 behavior for to_time to preserve timezone
+    config.active_support.to_time_preserves_timezone = :zone
+
     config.action_dispatch.return_only_media_type_on_content_type = false
 
     config.middleware.insert_before 0, Rack::Cors do

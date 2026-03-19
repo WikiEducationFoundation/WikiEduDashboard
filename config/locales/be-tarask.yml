@@ -19,7 +19,7 @@ be-tarask:
           trillion: трлн
           quadrillion: квдрлн
   accessibility:
-    number_field: Гэта лічбавае поле. Кнопкі, што адлюстроўваюцца большасьцю броўзэраў,
+    number_field: Гэта лічбавае поле. Кнопкі, што паказваюцца большасьцю броўзэраў,
       павялічваюць і памяншаюць уведзеныя зьвесткі.
   application:
     back: Назад
@@ -447,6 +447,8 @@ be-tarask:
     students_taught: Агулам рэдактараў
     students_short: Рэдактары
     view_other: Паглядзець іншыя кампаніі
+  editable:
+    edit: Рэдагаваць
   instructor_view:
     assigned_articles_wikidata: Прызначаныя элемэнты
     can_assign_assignments: Прызначыць артыкул можна з дапамогай ніжніх кнопак.

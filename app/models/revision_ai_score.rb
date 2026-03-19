@@ -24,4 +24,6 @@ class RevisionAiScore < ApplicationRecord
   belongs_to :user
 
   serialize :details, type: Hash
+
+  include ArticleViewerLinker
 end

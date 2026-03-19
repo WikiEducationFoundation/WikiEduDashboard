@@ -32,6 +32,7 @@ require_dependency "#{Rails.root}/lib/utils"
 class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
+  after_save :update_assignment_sandbox_urls, if: :saved_change_to_username?
   include MediawikiUrlHelper
 
   #############
@@ -193,6 +194,7 @@ class User < ApplicationRecord
                    CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_edit?(course)
     return true if admin?
+    return false if course.nil?
     return true if course_roles(course).any? { |role| EDITING_ROLES.include?(role) }
     return true if campaign_organizer?(course)
     false
@@ -253,5 +255,12 @@ class User < ApplicationRecord
 
   def ensure_valid_email
     self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
+  end
+
+  # After a user's name is changed on the wiki, we may need to update their
+  # assignment sandbox URLs so that they don't point to the old, now-defunct userspace.
+  # https://api.rubyonrails.org/classes/ActiveRecord/AttributeMethods/Dirty.html#method-i-saved_change_to_attribute
+  def update_assignment_sandbox_urls
+    UpdateAssignmentSandboxUrls.new(self).update
   end
 end

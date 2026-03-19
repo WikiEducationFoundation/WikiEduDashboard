@@ -27,6 +27,7 @@
 # Author: Link2xt
 # Author: Lizalizaufa
 # Author: Lugimax
+# Author: Lvova
 # Author: Mailman
 # Author: Mouse21
 # Author: Movses
@@ -173,7 +174,6 @@ ru:
       timestamp: Метка времени
       sections:
         contents: Содержание для списков оповещений ИИ
-        go_back: Вернуться к содержанию
         name: Имя
         description: Описание
         descriptions:
@@ -502,7 +502,7 @@ ru:
     view_doc: Ориентировочное количество просмотров статей, редактированных участниками,
       начиная с момента первой правки участника в каждой из статей.
     view_page: Посмотреть страницу курса
-    view_wiki: Посмотреть на Википедии
+    view_wiki: Посмотреть в Википедии
     volunteer:
       one: Доброволец
       other: Добровольцы

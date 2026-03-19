@@ -23,7 +23,7 @@ describe('active_course reducer', () => {
         const newState = campaign(initialState, mockedAction);
         expect(newState.loading).toBe(false);
         expect(newState.slug).toBe('Course_1');
-        expect(newState).not.toContainEqual({ ...sampleCampaign });
+        expect(newState).not.toEqual({ ...sampleCampaign });
     });
 
     test('should return the same state when GET_CAMPAIGN is dispatched multiple times with the same data', () => {
