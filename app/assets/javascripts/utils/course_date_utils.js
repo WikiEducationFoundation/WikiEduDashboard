@@ -149,9 +149,16 @@ const CourseDateUtils = {
   // Ex: [["Sunday (01/09)"], ["Sunday (01/16)", "Wednesday (01/19)", "Thursday (01/20)"], []]
   weekMeetings(course, exceptions) {
     const effectiveStart = this.effectiveTimelineStart(course);
-    const weekEnd = endOfWeek(toDate(course.timeline_end), { weekStartsOn: 0 });
+    const timelineEndOrEnd = course.timeline_end || course.end;
+    const weekEnd = endOfWeek(toDate(timelineEndOrEnd), { weekStartsOn: 0 });
     let weekStart = startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 });
     const firstWeekStart = getDay(toDate(effectiveStart));
+
+    // If for some reason the course start is after the end, we shouldn't calculate any weeks.
+    if (isAfter(weekStart, weekEnd)) {
+      return [];
+    }
+
     const courseWeeks = differenceInWeeks(weekEnd, weekStart, { roundingMethod: 'round' });
     const meetings = [];
 
@@ -160,8 +167,9 @@ const CourseDateUtils = {
       weekStart = addWeeks(startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 }), week);
 
       let weekendDate = endOfWeek(toDate(weekStart), { weekStartsOn: 0 });
-      if (isAfter(weekendDate, toDate(course.end))) {
-        weekendDate = toDate(course.end);
+      const timelineEnd = toDate(timelineEndOrEnd);
+      if (isAfter(weekendDate, timelineEnd)) {
+        weekendDate = timelineEnd;
       }
 
       // Account for the first partial week, which may not have 7 days.
