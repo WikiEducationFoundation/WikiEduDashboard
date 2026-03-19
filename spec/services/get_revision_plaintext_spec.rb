@@ -2,22 +2,61 @@
 
 require 'rails_helper'
 
-describe GetRevisionPlaintext do
-  let(:wiki) { double('Wiki') }
+def stub_diff_api(diff_html)
+  mock_client = double('api_client')
+  allow_any_instance_of(WikiApi)
+    .to receive(:api_client).and_return(mock_client)
 
-  def stub_revision_html(html)
-    response_data = {
-      'text' => { '*' => html },
-      'title' => 'Test Article',
-      'pageid' => 123
-    }
-    response = double('response', data: response_data)
-    api_client = double('api_client')
-    wiki_api = double('WikiApi')
-    allow(WikiApi).to receive(:new).and_return(wiki_api)
-    allow(wiki_api).to receive(:api_client).and_return(api_client)
-    allow(api_client).to receive(:action).with('parse', anything).and_return(response)
+  allow(mock_client)
+    .to receive(:action).with('compare', anything) do
+    mock_response(
+      { '*' => diff_html, 'totitle' => 'Test', 'toid' => 1 }
+    )
   end
+
+  allow(mock_client)
+    .to receive(:action).with('parse', anything) do |_, params|
+    mock_response(
+      { 'text' => { '*' => "<p>#{params[:text]}</p>" } }
+    )
+  end
+end
+
+def build_diff_row(deleted_text, added_text)
+  deleted = '<td class="diff-deletedline">' \
+            "<div>#{deleted_text}</div></td>"
+  added = '<td class="diff-addedline">' \
+          "<div>#{added_text}</div></td>"
+  "<table><tr>#{deleted}#{added}</tr></table>"
+end
+
+def build_new_row(added_text)
+  '<table><tr>' \
+    '<td class="diff-empty">&#160;</td>' \
+    '<td class="diff-addedline">' \
+    "<div>#{added_text}</div></td></tr></table>"
+end
+
+def mock_response(data)
+  OpenStruct.new(data: data)
+end
+
+def stub_revision_html(html)
+  response_data = {
+    'text' => { '*' => html },
+    'title' => 'Test Article',
+    'pageid' => 123
+  }
+  response = double('response', data: response_data)
+  api_client = double('api_client')
+  wiki_api = double('WikiApi')
+  allow(WikiApi).to receive(:new).and_return(wiki_api)
+  allow(wiki_api).to receive(:api_client).and_return(api_client)
+  allow(api_client).to receive(:action).with('parse', anything).and_return(response)
+end
+
+describe GetRevisionPlaintext do
+  let(:en_wiki) { Wiki.default_wiki }
 
   describe '#plain_text' do
     it 'excludes figure-based images and captions' do
@@ -29,7 +68,7 @@ describe GetRevisionPlaintext do
         </figure>
         <p>End text.</p>
       HTML
-      service = described_class.new(12345, wiki, diff_mode: false)
+      service = described_class.new(12345, en_wiki, diff_mode: false)
       expect(service.plain_text).to include('Start text.')
       expect(service.plain_text).to include('End text.')
       expect(service.plain_text).not_to include('Example caption')
@@ -39,55 +78,17 @@ describe GetRevisionPlaintext do
       stub_revision_html(<<~HTML)
         <p>Text before <a href="/wiki/File:Icon.png" class="image"><img src="icon.png" /></a> text after.</p>
       HTML
-      service = described_class.new(12345, wiki, diff_mode: false)
+      service = described_class.new(12345, en_wiki, diff_mode: false)
       expect(service.plain_text).to include('Text before')
       expect(service.plain_text).to include('text after')
     end
 
     it 'preserves normal prose' do
       stub_revision_html('<p>Just some normal text.</p>')
-      service = described_class.new(12345, wiki, diff_mode: false)
+      service = described_class.new(12345, en_wiki, diff_mode: false)
       expect(service.plain_text).to eq('Just some normal text.')
-  let(:en_wiki) { Wiki.default_wiki }
-
-  def mock_response(data)
-    OpenStruct.new(data: data)
-  end
-
-  def stub_diff_api(diff_html)
-    mock_client = double('api_client')
-    allow_any_instance_of(WikiApi)
-      .to receive(:api_client).and_return(mock_client)
-
-    allow(mock_client)
-      .to receive(:action).with('compare', anything) do
-      mock_response(
-        { '*' => diff_html, 'totitle' => 'Test', 'toid' => 1 }
-      )
     end
-
-    allow(mock_client)
-      .to receive(:action).with('parse', anything) do |_, params|
-      mock_response(
-        { 'text' => { '*' => "<p>#{params[:text]}</p>" } }
-      )
-    end
-  end
-
-  def build_diff_row(deleted_text, added_text)
-    deleted = '<td class="diff-deletedline">' \
-              "<div>#{deleted_text}</div></td>"
-    added = '<td class="diff-addedline">' \
-            "<div>#{added_text}</div></td>"
-    "<table><tr>#{deleted}#{added}</tr></table>"
-  end
-
-  def build_new_row(added_text)
-    '<table><tr>' \
-      '<td class="diff-empty">&#160;</td>' \
-      '<td class="diff-addedline">' \
-      "<div>#{added_text}</div></td></tr></table>"
-  end
+  end  
 
   context 'when new sentences are added at end of paragraph' do
     it 'excludes the pre-existing content' do
