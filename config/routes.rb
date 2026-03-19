@@ -493,7 +493,7 @@ Rails.application.routes.draw do
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'
-  post 'ai_tools/compare_pangrams' => 'ai_tools#compare_pangrams'
+  post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
 
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'

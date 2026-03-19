@@ -9,11 +9,8 @@ class AiToolsController < ApplicationController
 
   def show; end
 
-  def compare_pangrams
-    parse_url
-    @diff_mode = params[:diff_mode] == 'true'
-    @plain = GetRevisionPlaintext.new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
-    detect_ai_from_multiple_resources @plain.plain_text
+  def compare_ai_detectors
+    detect_ai_from_multiple_resources extract_plain_text
     render 'show'
   end
 
@@ -63,9 +60,44 @@ class AiToolsController < ApplicationController
     @url = params[:article_or_diff_url]
     parser = WikiUrlParser.new(@url)
     @wiki = parser.wiki
-    @article_title= parser.title
-    revs = [parser.oldid, parser.diff].compact
-    @rev_id = revs.max
-    @from_rev = revs.min if revs.count == 2
+    @article_title = parser.title
+
+    if parser.diff
+      revs = [parser.oldid, parser.diff].compact
+      @rev_id = revs.max
+      @from_rev = revs.min if revs.count == 2
+      @diff_mode = true
+    else
+      # If there is no diff revision in the url, it means it's just a single revision url.
+      @diff_mode = false
+      # If it does not contain an oldid either we have to manually fetch the latest revision.
+      # Example: https://en.wikipedia.org/wiki/Greater_Cooch_Behar_People%27s_Association
+      @rev_id = parser.oldid || latest_revision
+    end
+  end
+
+  def extract_plain_text
+    # If there is plain_text param, just return that
+    return params[:plain_text] if params[:plain_text].present?
+    # Get plain text from the url
+    parse_url
+    GetRevisionPlaintext
+      .new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
+      .plain_text
+  end
+
+  def latest_revision
+    response = WikiApi.new(@wiki).query(query_params)
+    response.data['pages'].values.first['revisions'].first['revid']
+  end
+
+  # Query for the latest revision for a given article title
+  def query_params
+    {
+      action: 'query',
+      prop: 'revisions',
+      titles: CGI.unescape(@article_title),
+      rvprop: 'ids'
+    }
   end
 end

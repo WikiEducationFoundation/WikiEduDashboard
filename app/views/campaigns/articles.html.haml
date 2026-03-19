@@ -25,7 +25,7 @@
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
 
-    %table.table.table--hoverable.table--sortable
+    %table.table.table--hoverable.table--sortable.table-responsive
       %thead
         %tr
           %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
