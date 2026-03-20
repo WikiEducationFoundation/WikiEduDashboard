@@ -6,6 +6,14 @@ class PangramResponseParser
     @response = response
   end
 
+  def pangram_v2?
+    @version == RevisionAiScore::PANGRAM_V2_KEY
+  end
+
+  def pangram_v3?
+    @version == RevisionAiScore::PANGRAM_V3_KEY
+  end
+
   # This data structure was created based on Pangram v2,
   # and has been adapted to work for Pangram v3 by
   # switching to analogous renamed fields and/or
@@ -33,11 +41,13 @@ class PangramResponseParser
   end
 
   def average_ai_likelihood
-    window_likelihoods.sum.fdiv(window_likelihoods.count)
+    return @response['avg_ai_likelihood'] if pangram_v2?
+    window_likelihoods.sum.fdiv(window_likelihoods.count) if pangram_v3?
   end
 
   def max_ai_likelihood
-    window_likelihoods.max
+    return @response['max_ai_likelihood'] if pangram_v2?
+    window_likelihoods.max if pangram_v3?
   end
 
   def fraction_human_content
@@ -49,7 +59,8 @@ class PangramResponseParser
   end
 
   def fraction_mixed_content
-    @response['fraction_ai_assisted']
+    return @response['fraction_mixed'] if pangram_v2?
+    @response['fraction_ai_assisted'] if pangram_v3?
   end
 
   def headline_result
@@ -61,11 +72,13 @@ class PangramResponseParser
   end
 
   def window_likelihoods
-    @response['windows'].map { |window| window['ai_assistance_score'] }
+    return @response['window_likelihoods'] if pangram_v2?
+    @response['windows'].map { |window| window['ai_assistance_score'] } if pangram_v3?
   end
 
   def predicted_ai_window_count
-    window_likelihoods.count { |likelihood| likelihood > 0.5 }
+    return @response['window_likelihoods'].count { |likelihood| likelihood > 0.5 } if pangram_v2?
+    window_likelihoods.count { |likelihood| likelihood > 0.5 } if pangram_v3?
   end
 
   def pangram_share_link
