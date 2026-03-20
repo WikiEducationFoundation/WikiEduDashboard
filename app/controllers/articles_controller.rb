@@ -9,17 +9,9 @@ class ArticlesController < ApplicationController
   #  { rev_id: 123, characters: 1000, wp10: 0.5, date: '2021-01-01', username: 'Example' }
 def revision_score
   @article = Article.find(params[:article_id])
-  manager = RevisionScoreManager.new(@article, @course)
-
-  # Check threshold to avoid timing out the request
-  unless manager.within_revision_limit?
-    return render json: { 
-      error: 'Article has too many revisions.' 
-    }, status: :unprocessable_entity
-  end
-
+  rev_manager = RevisionScoreManager.new(@article, @course)
   enrolled_usernames = @course.users.pluck(:username)
-  render json: manager.fetch_scored_revisions(enrolled_usernames)
+  render json: rev_manager.fetch_scored_revisions(enrolled_usernames)
 end
 
 

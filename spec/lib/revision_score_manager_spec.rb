@@ -7,26 +7,23 @@ describe RevisionScoreManager do
   let(:article) { create(:article, mw_page_id: 12345) }
   let(:course) { create(:course, start: '2023-01-01', end: '2023-02-01') }
   let(:manager) { described_class.new(article, course) }
+  # Create a double that specifically responds to revision_count
+  let(:article_relation) { double('ArticleCourseTimeslice') }
 
   describe '#within_revision_limit?' do
-    it 'returns true if no ArticlesCourses record exists' do
-      allow(ArticlesCourses).to receive(:find_by).and_return(nil)
+    before do
+      # Mock the chain
+      allow(ArticleCourseTimeslice).to receive(:where).and_return(article_relation)
+    end
+
+    it 'returns true if revision_count is under 50' do
+     
+      allow(article_relation).to receive(:sum).with(:revision_count).and_return(30)
       expect(manager.within_revision_limit?).to be true
     end
 
-    it 'returns true if revision_count is under 500' do
-      # Create a double that specifically responds to revision_count
-      article_course = double('ArticlesCourses', revision_count: 100)
-      allow(ArticlesCourses).to receive(:find_by).and_return(article_course)
-      
-      expect(manager.within_revision_limit?).to be true
-    end
-
-    it 'returns false if revision_count is 500 or more' do
-      # Create a double that specifically responds to revision_count
-      article_course = double('ArticlesCourses', revision_count: 501)
-      allow(ArticlesCourses).to receive(:find_by).and_return(article_course)
-      
+    it 'returns false if revision_count is 50 or more' do
+      allow(article_relation).to receive(:sum).with(:revision_count).and_return(100)
       expect(manager.within_revision_limit?).to be false
     end
   end
@@ -40,9 +37,9 @@ describe RevisionScoreManager do
             '12345' => {
               'revisions' => [
                 { 'revid' => 101, 'user' => 'RageSock', 'timestamp' => '2023-01-10T12:00:00Z', 
-'size' => 1000 },
+                 'size' => 1000 },
                 { 'revid' => 102, 'user' => 'WikiedStaff', 'timestamp' => '2023-01-11T12:00:00Z', 
-'size' => 1100 }
+                'size' => 1100 }
               ]
             }
           }
@@ -79,7 +76,7 @@ describe RevisionScoreManager do
       expect(result).to eq([])
     end
 
-    it 'handles cases where ORES/LiftWing scores are missing' do
+    it 'handles cases where LiftWing scores are missing' do
       allow_any_instance_of(LiftWingApi).to receive(:get_revision_data).and_return({})
       enrolled_usernames = ['RageSock']
       result = manager.fetch_scored_revisions(enrolled_usernames)
