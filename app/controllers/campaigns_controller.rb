@@ -131,13 +131,19 @@ class CampaignsController < ApplicationController
     set_sort
     set_presenter
     filters = extract_program_filters
+    programs_presenter = CampaignProgramsPresenter.new(
+      courses: @presenter.courses,
+      page: @page,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction
+    )
 
     if filters.values.any?(&:present?)
-      @search_terms = @presenter.build_search_terms(filters)
-      @results = @presenter.filter_courses(filters)
-    else
+      @search_terms = programs_presenter.build_search_terms(filters)
+      @results = programs_presenter.filter_courses(filters)
+    elsif params[:courses_query].present?
       @search_terms = params[:courses_query]
-      @results = @presenter.search_courses(@search_terms) if @search_terms.present?
+      @results = @presenter.search_courses(@search_terms)
     end
   end
 
@@ -313,16 +319,7 @@ class CampaignsController < ApplicationController
                                       campaign_param: @campaign.slug,
                                       page: @page,
                                       sort_column: @sort_column,
-                                      sort_direction: @sort_direction,
-                                      articles_title: params[:title],
-                                      course_title: params[:course_title],
-                                      char_added_from: params[:char_added_from],
-                                      char_added_to: params[:char_added_to],
-                                      references_count_from: params[:references_count_from],
-                                      references_count_to: params[:references_count_to],
-                                      view_count_from: params[:view_count_from],
-                                      view_count_to: params[:view_count_to],
-                                      school: params[:school])
+                                      sort_direction: @sort_direction)
   end
 
   def add_organizer_to_campaign(user)
