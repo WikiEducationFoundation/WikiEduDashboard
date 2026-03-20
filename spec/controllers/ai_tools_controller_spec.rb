@@ -6,9 +6,53 @@ describe AiToolsController, type: :request do
   describe '#compare_ai_detectors' do
     let(:admin) { create(:admin) }
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
+    let(:pangram_v2) { 'Pangram 2.0' }
+    let(:pangram_v3) { 'Pangram 3' }
+    let(:simplified_pangram_response) do
+      { 'text' => 'example',
+        'version' => '3.0',
+        'headline' => 'Fully AI Generated',
+        'prediction' => 'We are confident that this document is fully AI-generated',
+        'prediction_short' => 'AI',
+        'fraction_ai' => 1.0,
+        'fraction_ai_assisted' => 0.0,
+        'fraction_human' => 0.0,
+        'num_ai_segments' => 3,
+        'num_ai_assisted_segments' => 0,
+        'num_human_segments' => 0,
+        'windows' =>
+          [{ 'text' => 'first window',
+            'label' => 'AI-Generated',
+            'ai_assistance_score' => 1.0,
+            'confidence' => 'High',
+            'start_index' => 0,
+            'end_index' => 2281,
+            'word_count' => 359,
+            'token_length' => 483 },
+          { 'text' => 'second window',
+            'label' => 'AI-Generated',
+            'ai_assistance_score' => 0.9982278487261604,
+            'confidence' => 'High',
+            'start_index' => 2281,
+            'end_index' => 4737,
+            'word_count' => 358,
+            'token_length' => 476 },
+          { 'text' => 'third window',
+            'label' => 'AI-Generated',
+            'ai_assistance_score' => 0.9959831237792969,
+            'confidence' => 'High',
+            'start_index' => 4737,
+            'end_index' => 5202,
+            'word_count' => 72,
+            'token_length' => 94 }],
+        'dashboard_link' => 'https://www.pangram.com/history/7980768b-0b15-4d42-ad62-30ba8cf0e92f'
+      }
+    end
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      allow_any_instance_of(PangramApi).to receive(:inference)
+                                           .and_return(simplified_pangram_response)
     end
 
     context 'when plain text' do
@@ -18,6 +62,16 @@ describe AiToolsController, type: :request do
         expect(GetRevisionPlaintext).not_to receive(:new)
 
         post '/ai_tools/compare_ai_detectors', params: { plain_text:, article_or_diff_url: "" }
+      end
+
+      it 'does not create revision_ai_score row' do
+        VCR.use_cassette 'pangram' do
+          post '/ai_tools/compare_ai_detectors', params: { plain_text:,
+                                                           article_or_diff_url: "",
+                                                           pangram_v2: '1' }
+
+          expect(RevisionAiScore.count).to eq(0)
+        end
       end
     end
 
@@ -33,6 +87,31 @@ describe AiToolsController, type: :request do
         )
 
         post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }
+      end
+
+      it 'does create revision_ai_score rows' do
+        VCR.use_cassette 'pangram' do
+          post '/ai_tools/compare_ai_detectors', params: { plain_text: "",
+                                                          article_or_diff_url: url,
+                                                          pangram_v2.to_sym => '1',
+                                                          pangram_v3.to_sym => '1' }
+        end
+
+        expect(RevisionAiScore.count).to eq(2)
+
+        expect(RevisionAiScore.first.check_type).to eq('Pangram 2.0')
+        expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.first.revision_id).to eq(1276659876)
+        expect(RevisionAiScore.first.wiki_id).to eq(enwiki.id)
+        expect(RevisionAiScore.first.url).to eq(url)
+        expect(RevisionAiScore.first.origin_user_id).to eq(admin.id)
+
+        expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+        expect(RevisionAiScore.last.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.last.revision_id).to eq(1276659876)
+        expect(RevisionAiScore.last.wiki_id).to eq(enwiki.id)
+        expect(RevisionAiScore.last.url).to eq(url)
+        expect(RevisionAiScore.last.origin_user_id).to eq(admin.id)
       end
     end
 

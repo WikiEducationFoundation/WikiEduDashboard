@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/pangram_api"
 require_dependency "#{Rails.root}/lib/originality_api"
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
+require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
 
 class AiToolsController < ApplicationController
   before_action :require_admin_permissions
@@ -11,6 +12,8 @@ class AiToolsController < ApplicationController
 
   def compare_ai_detectors
     detect_ai_from_multiple_resources extract_plain_text
+    # Only persist revision ai scores for diff/article urls
+    create_revision_ai_scores_for_multiple_resources if params[:article_or_diff_url].present?
     render 'show'
   end
 
@@ -27,21 +30,21 @@ class AiToolsController < ApplicationController
 
   def detect_ai_from_multiple_resources(text)
     pool = Concurrent::FixedThreadPool.new(MAX_CONCURRENCY)
-    results = Concurrent::Hash.new
+    @results = Concurrent::Hash.new
 
     DETECTORS.each do |key, detector|
-      pool.post { detect_ai(key, detector, text, results) } if params[key.to_sym]
+      pool.post { detect_ai(key, detector, text) } if params[key.to_sym]
     end
     pool.shutdown && pool.wait_for_termination
 
-    @pangram_v2_result = results[RevisionAiScore::PANGRAM_V2_KEY]
-    @pangram_v3_result = results[RevisionAiScore::PANGRAM_V3_KEY]
-    @originality_turbo_result = results[RevisionAiScore::ORIGINALITY_TURBO_KEY]
-    @originality_academic_result = results[RevisionAiScore::ORIGINALITY_ACADEMIC_KEY]
+    @pangram_v2_result = @results[RevisionAiScore::PANGRAM_V2_KEY]
+    @pangram_v3_result = @results[RevisionAiScore::PANGRAM_V3_KEY]
+    @originality_turbo_result = @results[RevisionAiScore::ORIGINALITY_TURBO_KEY]
+    @originality_academic_result = @results[RevisionAiScore::ORIGINALITY_ACADEMIC_KEY]
   end
 
-  def detect_ai(key, ai_detector, text, results)
-    results[key] = ai_detector.inference text
+  def detect_ai(key, ai_detector, text)
+    @results[key] = ai_detector.inference text
   end
 
   def parse_url
@@ -87,5 +90,26 @@ class AiToolsController < ApplicationController
       titles: CGI.unescape(@article_title),
       rvprop: 'ids'
     }
+  end
+
+  def create_revision_ai_scores_for_multiple_resources
+    RevisionAiScore::PANGRAM_KEYS.each do |key|
+      next unless params[key.to_sym]
+      parser = PangramResponseParser.new(key, @results[key])
+      create_revision_ai_score(key, parser)
+    end
+  end
+
+  # Imports data into the RevisionAiScores table
+  def create_revision_ai_score(check_type, parser)
+    RevisionAiScore.create(revision_id: @rev_id,
+                           wiki_id: @wiki.id,
+                           url: @url,
+                           origin_user_id: current_user.id,
+                           avg_ai_likelihood: parser.average_ai_likelihood,
+                           max_ai_likelihood: parser.max_ai_likelihood,
+                           details: parser.clean_pangram_result,
+                           check_type:,
+                           check_origin: RevisionAiScore::AI_TOOL_ORIGIN)
   end
 end

@@ -38,6 +38,11 @@ class RevisionAiScore < ApplicationRecord
   COURSE_UPDATE_ORIGIN = 'course_update'
   AI_TOOL_ORIGIN = 'ai_tool'
 
+  PANGRAM_KEYS = [
+    PANGRAM_V2_KEY,
+    PANGRAM_V3_KEY
+  ]
+
   MODELS_KEY = [
     PANGRAM_V2_KEY,
     PANGRAM_V3_KEY,
