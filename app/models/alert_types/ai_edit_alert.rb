@@ -26,8 +26,9 @@ class AiEditAlert < Alert
   ####################
 
   def self.generate_alert_from_pangram(revision_id:, user_id:, course_id:,
-                                       article_id:, pangram_details:)
+                                       article_id:, article_title:, pangram_details:)
     details = pangram_details
+    details[:article_title] = article_title
     add_same_page_alert(course_id, article_id, details)
     add_same_user_alert(course_id, user_id, details)
     add_prior_alert_count_for_course(course_id, details)

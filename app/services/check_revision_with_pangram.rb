@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/pangram_api"
+require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
 
 class CheckRevisionWithPangram
   def initialize(attrs)
@@ -21,6 +22,7 @@ class CheckRevisionWithPangram
     return if @plain_text.nil?
     return if @plain_text.length < MIN_PLAIN_TEXT_LENGTH
     fetch_pangram_inference
+    parse_pangram_response
     create_revision_ai_score
 
     generate_alert if ai_likely?
@@ -51,11 +53,15 @@ class CheckRevisionWithPangram
     @pangram_result = PangramApi.v3.inference @plain_text
   end
 
+  def parse_pangram_response
+    @parser = PangramResponseParser.new(RevisionAiScore::PANGRAM_V3_KEY, @pangram_result)
+  end
+
   def ai_likely?
     # As a start, we'll just look at the most-likely window.
     # In many cases, the max is 1.0, but we'll be a little
     # more conservative.
-    max_ai_likelihood > 0.9
+    @parser.max_ai_likelihood > 0.9
   end
 
   # Don't generate an alert for old edits.
@@ -68,88 +74,12 @@ class CheckRevisionWithPangram
                                             user_id: @user_id,
                                             course_id: @course_id,
                                             article_id: @article.id,
-                                            pangram_details:)
+                                            article_title: @article_title,
+                                            pangram_details: @parser.pangram_details)
   end
 
   def alert_already_exists?
     AiEditAlert.exists?(revision_id: @mw_rev_id)
-  end
-
-  # This data structure was created based on Pangram v2,
-  # and has been adapted to work for Pangram v3 by
-  # switching to analogous renamed fields and/or
-  # implementing calculations to derive a closely
-  # analagous field from v3 results.
-  # See https://www.pangram.com/blog/v3-api-migration-guide
-  def pangram_details
-    {
-      article_title: @article_title,
-      pangram_prediction:,
-      headline_result:,
-      average_ai_likelihood:,
-      max_ai_likelihood:,
-      fraction_human_content:,
-      fraction_ai_content:,
-      fraction_mixed_content:,
-      window_likelihoods:,
-      predicted_ai_window_count:,
-      pangram_share_link:,
-      pangram_version:
-    }
-  end
-
-  def pangram_prediction
-    @pangram_result['prediction']
-  end
-
-  def average_ai_likelihood
-    window_likelihoods.sum.fdiv(window_likelihoods.count)
-  end
-
-  def max_ai_likelihood
-    window_likelihoods.max
-  end
-
-  def fraction_human_content
-    @pangram_result['fraction_human']
-  end
-
-  def fraction_ai_content
-    @pangram_result['fraction_ai']
-  end
-
-  def fraction_mixed_content
-    @pangram_result['fraction_ai_assisted']
-  end
-
-  def headline_result
-    @pangram_result['headline']
-  end
-
-  def pangram_version
-    @pangram_result['version']
-  end
-
-  def window_likelihoods
-    @pangram_result['windows'].map { |window| window['ai_assistance_score'] }
-  end
-
-  def predicted_ai_window_count
-    window_likelihoods.count { |likelihood| likelihood > 0.5 }
-  end
-
-  def pangram_share_link
-    @pangram_result['dashboard_link']
-  end
-
-  # Deletes text field from the pangram response to avoid storing that into the db
-  def clean_pangram_result
-    result = @pangram_result.dup
-    result.delete('text')
-    if result['windows'].is_a?(Array)
-      result['windows'] = result['windows'].map { |w| w.except('text') }
-    end
-    result
   end
 
   # Imports data into the RevisionAiScores table
@@ -160,9 +90,9 @@ class CheckRevisionWithPangram
                            course_id: @course_id,
                            user_id: @user_id,
                            revision_datetime: @rev_datetime,
-                           avg_ai_likelihood: average_ai_likelihood,
-                           max_ai_likelihood: max_ai_likelihood,
-                           details: clean_pangram_result,
+                           avg_ai_likelihood: @parser.average_ai_likelihood,
+                           max_ai_likelihood: @parser.max_ai_likelihood,
+                           details: @parser.clean_pangram_result,
                            check_type: RevisionAiScore::PANGRAM_V3_KEY)
   end
 end
