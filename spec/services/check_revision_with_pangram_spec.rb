@@ -127,6 +127,8 @@ describe CheckRevisionWithPangram do
       expect(RevisionAiScore.count).to eq(1)
       expect(RevisionAiScore.last.article_id).to eq(sandbox_article.id)
       expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
+      expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+      expect(RevisionAiScore.last.check_origin).to eq('course_update')
     end
   end
 
@@ -163,6 +165,8 @@ describe CheckRevisionWithPangram do
       expect(RevisionAiScore.last.avg_ai_likelihood).to be_between(0, 1)
       expect(RevisionAiScore.last.max_ai_likelihood).to eq(1.0)
       expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
+      expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+      expect(RevisionAiScore.last.check_origin).to eq('course_update')
     end
   end
 

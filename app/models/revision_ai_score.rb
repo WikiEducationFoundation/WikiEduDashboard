@@ -35,6 +35,9 @@ class RevisionAiScore < ApplicationRecord
   ORIGINALITY_TURBO_KEY = 'Originality Turbo'
   ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
 
+  COURSE_UPDATE_ORIGIN = 'course_update'
+  AI_TOOL_ORIGIN = 'ai_tool'
+
   MODELS_KEY = [
     PANGRAM_V2_KEY,
     PANGRAM_V3_KEY,
