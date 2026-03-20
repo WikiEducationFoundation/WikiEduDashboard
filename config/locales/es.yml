@@ -51,11 +51,11 @@ es:
   number:
     human:
       decimal_units:
-        format: "%n%u"
+        format: '%n%u'
         units:
-          thousand: " mil"
-          million: " mill."
-          billion: " mil mill."
+          thousand: ' mil'
+          million: ' mill.'
+          billion: ' mil mill.'
           trillion: bill.
           quadrillion: mil bill.
   accessibility:
