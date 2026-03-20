@@ -226,6 +226,28 @@ class CoursesPresenter
     apply_required_range_filter(courses, 'courses.recent_revision_count', min_val, max_val)
   end
 
+  RANGE_FILTERS = {
+    'creation'   => %i[creation_start creation_end],
+    'start'      => %i[start_date_start start_date_end],
+    'revisions'  => %i[revisions_min revisions_max],
+    'word_count' => %i[word_count_min word_count_max],
+    'references' => %i[references_min references_max],
+    'views'      => %i[views_min views_max],
+    'editors'    => %i[users_min users_max]
+  }.freeze
+
+  def build_search_terms(filters)
+    parts = []
+    parts << "title: #{filters[:title_query]}" if filters[:title_query].present?
+    parts << "school: #{filters[:school]}" if filters[:school].present?
+
+    RANGE_FILTERS.each do |label, (min, max)|
+      parts << build_range_term(label, filters[min], filters[max])
+    end
+
+    parts.compact.join(', ')
+  end
+
   def filter_courses(filters)
     scope = filter_courses_by_text(courses, filters)
     scope = filter_courses_by_integer_ranges(scope, filters)
@@ -372,6 +394,11 @@ class CoursesPresenter
   end
 
   private
+
+  def build_range_term(label, min, max)
+    return nil if min.blank? && max.blank?
+    "#{label}: #{min} - #{max}"
+  end
 
   def parse_int(int_str)
     return nil if int_str.blank?
