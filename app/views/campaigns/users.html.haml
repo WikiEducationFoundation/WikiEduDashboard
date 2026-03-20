@@ -25,17 +25,7 @@
             = t('form_search.advanced_search')
           #advanced_search_fields.hidden
             .form-row.relative
-              = select_tag 'course_title[]', options_for_select(@presenter.course_title_options, params[:course_title]), multiple: true, id: 'course_title_search', class: 'course-title-select-wrapper'
-              :javascript
-                document.addEventListener('DOMContentLoaded', () => {
-                  if (typeof TomSelect !== 'undefined') {
-                    new TomSelect('#course_title_search', {
-                      plugins: ['remove_button'],
-                      placeholder: "#{t(@presenter.course_string_prefix + '.course')}...",
-                      allowEmptyOption: true
-                    });
-                  }
-                });
+              #react_campaign_course_search{data: { initial_courses: params[:course_title].to_json }}
             .form-row.advanced-search-grid-small
               %label{for: 'min_revision_count'}= t('courses.edit_count')
               .input-group.flex-input-group

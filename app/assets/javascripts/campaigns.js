@@ -1,6 +1,7 @@
-import $ from 'jquery';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 import './utils/editable';
-import 'jquery-ui/ui/widgets/autocomplete';
+import CampaignCourseSearch from './components/campaign/campaign_course_search.jsx';
 
 document.addEventListener('DOMContentLoaded', () => {
   const createCampaignButton = document.querySelector(
@@ -123,67 +124,26 @@ document.addEventListener('DOMContentLoaded', () => {
     createCampaignButton.click();
   }
 
-  // Course Title Autocomplete
-  const courseTitleInput = document.getElementById('course_title_search');
-  const resultsContainer = document.getElementById('course_search_results');
+  // Course Title React Search Component
+  const reactCampaignCourseSearch = document.getElementById('react_campaign_course_search');
+  if (reactCampaignCourseSearch) {
+    let initialCourses = [];
+    try {
+      initialCourses = JSON.parse(reactCampaignCourseSearch.dataset.initialCourses || '[]');
+      if (!Array.isArray(initialCourses)) initialCourses = [initialCourses];
+    } catch (e) {
+      initialCourses = [];
+    }
 
-  if (courseTitleInput && resultsContainer) {
-    let timeout = null;
+    // Map array of strings to correct format for AsyncSelect, filtering out nulls
+    const initialOptions = initialCourses
+      .filter(c => c !== null && c !== '')
+      .map(c => ({ label: String(c), value: String(c) }));
 
-    courseTitleInput.addEventListener('input', (e) => {
-      const query = e.target.value;
-      if (timeout) clearTimeout(timeout);
-
-      if (query.length < 3) {
-        resultsContainer.innerHTML = '';
-        resultsContainer.classList.add('hidden');
-        return;
-      }
-
-      timeout = setTimeout(() => {
-        fetch(`/courses/search.json?search=${encodeURIComponent(query)}`)
-          .then(response => response.json())
-          .then((data) => {
-            resultsContainer.innerHTML = '';
-            if (data.courses && data.courses.length > 0) {
-              resultsContainer.classList.remove('hidden');
-              data.courses.forEach((course) => {
-                const div = document.createElement('div');
-                div.textContent = course.title;
-                div.style.padding = '8px';
-                div.style.cursor = 'pointer';
-                div.style.borderBottom = '1px solid #eee';
-                div.addEventListener(
-                  'mouseover',
-                  () => (div.style.backgroundColor = '#f0f0f0'),
-                );
-                div.addEventListener(
-                  'mouseout',
-                  () => (div.style.backgroundColor = 'white'),
-                );
-                div.addEventListener('click', () => {
-                  courseTitleInput.value = course.title;
-                  resultsContainer.innerHTML = '';
-                  resultsContainer.classList.add('hidden');
-                });
-                resultsContainer.appendChild(div);
-              });
-            } else {
-              resultsContainer.classList.add('hidden');
-            }
-          })
-          .catch(() => {
-            resultsContainer.classList.add('hidden');
-          });
-      }, 300);
-    });
-
-    // Hide results when clicking outside
-    document.addEventListener('click', (e) => {
-      if (e.target !== courseTitleInput && e.target !== resultsContainer) {
-        resultsContainer.classList.add('hidden');
-      }
-    });
+    const root = createRoot(reactCampaignCourseSearch);
+    root.render(
+      React.createElement(CampaignCourseSearch, { initialCourses: initialOptions })
+    );
   }
 
   // Advanced Search Toggle
