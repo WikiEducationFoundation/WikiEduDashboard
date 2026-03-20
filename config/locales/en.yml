@@ -2075,3 +2075,7 @@ en:
   question_groups:
     edit_question_group: "Edit Question Group"
       
+  training:
+    take_your_time: "Please take your time!"
+    alert_content: "It is very important that you learn the training content thoroughly."
+    close: "CLOSE"
