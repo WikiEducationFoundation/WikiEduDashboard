@@ -1593,6 +1593,8 @@ en:
     fast_alert_title: "Please take your time!"
     fast_alert_content: "It is very important that you learn the training content thoroughly."
     fast_alert_close: "CLOSE"
+    loading: "Loading…"
+    wiki_source: "wiki source"
 
   update_username:
     header: Update a changed username

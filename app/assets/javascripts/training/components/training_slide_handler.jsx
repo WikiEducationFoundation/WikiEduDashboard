@@ -136,7 +136,8 @@ const TrainingSlideHandler = () => {
   if (training.loading === true) {
     return (
       <div className="training-loader">
-        <h1 className="h2">Loading…</h1>
+        {/* I18n.t fix for i18next/no-literal-string ESLint warning */}
+        <h1 className="h2">{I18n.t('training.loading')}</h1>
         <div className="training-loader__spinner" />
       </div>
     );
@@ -239,7 +240,8 @@ const TrainingSlideHandler = () => {
 
  let sourceLink;
  if (training.currentSlide.wiki_page) {
-   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   // I18n.t fix for i18next/no-literal-string ESLint warning
+   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">{I18n.t('training.wiki_source')}</a></span>;
  }
 
 

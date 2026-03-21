@@ -48,8 +48,6 @@ const fastTrainingAlertHandler = (routeParams, setIsShown) => {
 
     if (count > MAX_CLICK_COUNT) {
       const clickingTime = new Date().getTime() - enteringTime;
-      // Trigger alert if more than 3 clicks (4th click) occur within 10 seconds of entering
-      // and ensure it only shows once (nooftimes < 1).
       if (clickingTime < MIN_TIME_SPENT && nooftimes < MAX_NO_TIMES_ALERT_SHOWN) {
         setIsShown(true);
         nooftimes += 1;
