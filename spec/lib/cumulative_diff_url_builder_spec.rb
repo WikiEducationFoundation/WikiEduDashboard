@@ -39,6 +39,24 @@ describe CumulativeDiffUrlBuilder do
       end
     end
 
+    context 'when the first revision created the article (parentid 0)' do
+      before do
+        allow_any_instance_of(WikiApi).to receive(:query).and_wrap_original do |_m, params|
+          response = instance_double(MediawikiApi::Response)
+          allow(response).to receive(:data).and_return(
+            build_new_article_response(params[:rvdir])
+          )
+          response
+        end
+      end
+
+      it 'uses the first revid instead of parentid 0' do
+        url = articles_course.cumulative_diff_url
+        # parentid is 0, so oldid should be the first revid (100) not 0
+        expect(url).to eq("https://en.wikipedia.org/w/index.php?oldid=100&diff=102")
+      end
+    end
+
     context 'when no users have revisions' do
       before do
         allow_any_instance_of(WikiApi).to receive(:query).and_return(nil)
@@ -52,13 +70,12 @@ describe CumulativeDiffUrlBuilder do
     context 'when only one user has revisions' do
       before do
         allow_any_instance_of(WikiApi).to receive(:query).and_wrap_original do |_m, params|
-          if params[:rvuser] == 'StudentA'
-            response = instance_double(MediawikiApi::Response)
-            allow(response).to receive(:data).and_return(
-              build_single_user_response(params[:rvdir])
-            )
-            response
-          end
+          next unless params[:rvuser] == 'StudentA'
+          response = instance_double(MediawikiApi::Response)
+          allow(response).to receive(:data).and_return(
+            build_single_user_response(params[:rvdir])
+          )
+          response
         end
       end
 
@@ -95,8 +112,6 @@ describe CumulativeDiffUrlBuilder do
     end
   end
 
-  private
-
   # StudentA: earliest rev at July 1 (parentid 99, revid 100), latest at July 10 (revid 102)
   # StudentB: earliest rev at July 5 (parentid 200, revid 201), latest at July 15 (revid 504)
   def build_response(username, direction)
@@ -116,6 +131,19 @@ describe CumulativeDiffUrlBuilder do
     }
 
     rev = revisions.dig(username, direction)
+    { 'pages' => { '1' => { 'pageid' => 1, 'revisions' => [rev] } } }
+  end
+
+  # New article: parentid is 0 (student created the page)
+  def build_new_article_response(direction)
+    revisions = {
+      'newer' => { 'revid' => 100, 'parentid' => 0, 'timestamp' => '2024-07-01T12:00:00Z',
+                   'user' => 'StudentA' },
+      'older' => { 'revid' => 102, 'parentid' => 101, 'timestamp' => '2024-07-10T12:00:00Z',
+                   'user' => 'StudentA' }
+    }
+
+    rev = revisions[direction]
     { 'pages' => { '1' => { 'pageid' => 1, 'revisions' => [rev] } } }
   end
 
