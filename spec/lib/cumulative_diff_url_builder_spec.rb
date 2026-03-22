@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/cumulative_diff_url_builder"
 
 describe CumulativeDiffUrlBuilder do
-  let(:wiki) { create(:wiki) }
-  let(:article) { create(:article, wiki:) }
+  let(:article) { create(:article) }
   let(:course) { create(:course, start: '2024-06-16', end: '2024-08-16') }
   let(:user1) { create(:user, username: 'StudentA') }
   let(:user2) { create(:user, username: 'StudentB') }
