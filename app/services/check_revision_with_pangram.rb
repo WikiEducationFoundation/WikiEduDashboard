@@ -92,7 +92,7 @@ class CheckRevisionWithPangram
                            revision_datetime: @rev_datetime,
                            avg_ai_likelihood: @parser.average_ai_likelihood,
                            max_ai_likelihood: @parser.max_ai_likelihood,
-                           details: @parser.clean_pangram_result,
+                           details: @parser.clean_result,
                            check_type: RevisionAiScore::PANGRAM_V3_KEY,
                            check_origin: RevisionAiScore::COURSE_UPDATE_ORIGIN)
   end

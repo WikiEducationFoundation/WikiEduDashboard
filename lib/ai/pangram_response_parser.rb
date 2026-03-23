@@ -86,7 +86,7 @@ class PangramResponseParser
   end
 
   # Deletes text field from the pangram response to avoid storing that into the db
-  def clean_pangram_result
+  def clean_result
     result = @response.dup
     result.delete('text')
     if result['windows'].is_a?(Array)
