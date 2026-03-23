@@ -8,6 +8,27 @@ describe AiToolsController, type: :request do
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
     let(:pangram_v2) { 'Pangram 2.0' }
     let(:pangram_v3) { 'Pangram 3' }
+    let(:turbo) { 'Originality Turbo' }
+    let(:academic) { 'Originality Academic' }
+    let(:simplified_originality_response) do
+      { 'results' => {
+        'properties' => {
+          'publicLink' => 'https://app.originality.ai/share/some_link' },
+        'ai' => {
+          'aiModel' => 'academic',
+          'classification' => { 'AI' => 1, 'Original' => 0 },
+          'confidence' =>  {'AI' => 1, 'Original' => 0 },
+          'blocks' =>
+            [{ 'result' => { 'fake' => 0.6722026056164665,
+                             'real' => 0.3277973943835335,
+                             'status' => 'success' }},
+             { 'result' => { 'fake' => 0.18571670712174604,
+                             'real' => 0.814283292878254,
+                             'status' => 'success' }}]},
+        'plagiarism' => { 'error' => 'not selected' }
+        }
+      }
+    end
     let(:simplified_pangram_response) do
       { 'text' => 'example',
         'version' => '3.0',
@@ -53,6 +74,8 @@ describe AiToolsController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       allow_any_instance_of(PangramApi).to receive(:inference)
                                            .and_return(simplified_pangram_response)
+      allow_any_instance_of(OriginalityApi).to receive(:inference)
+                                           .and_return(simplified_originality_response)
     end
 
     context 'when plain text' do
@@ -94,10 +117,12 @@ describe AiToolsController, type: :request do
           post '/ai_tools/compare_ai_detectors', params: { plain_text: "",
                                                           article_or_diff_url: url,
                                                           pangram_v2.to_sym => '1',
-                                                          pangram_v3.to_sym => '1' }
+                                                          pangram_v3.to_sym => '1',
+                                                          turbo.to_sym => '1',
+                                                          academic.to_sym => '1' }
         end
 
-        expect(RevisionAiScore.count).to eq(2)
+        expect(RevisionAiScore.count).to eq(4)
 
         expect(RevisionAiScore.first.check_type).to eq('Pangram 2.0')
         expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
@@ -106,7 +131,21 @@ describe AiToolsController, type: :request do
         expect(RevisionAiScore.first.url).to eq(url)
         expect(RevisionAiScore.first.origin_user_id).to eq(admin.id)
 
-        expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+        expect(RevisionAiScore.second.check_type).to eq('Pangram 3')
+        expect(RevisionAiScore.second.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.second.revision_id).to eq(1276659876)
+        expect(RevisionAiScore.second.wiki_id).to eq(enwiki.id)
+        expect(RevisionAiScore.second.url).to eq(url)
+        expect(RevisionAiScore.second.origin_user_id).to eq(admin.id)
+
+        expect(RevisionAiScore.third.check_type).to eq('Originality Turbo')
+        expect(RevisionAiScore.third.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.third.revision_id).to eq(1276659876)
+        expect(RevisionAiScore.third.wiki_id).to eq(enwiki.id)
+        expect(RevisionAiScore.third.url).to eq(url)
+        expect(RevisionAiScore.third.origin_user_id).to eq(admin.id)
+
+        expect(RevisionAiScore.last.check_type).to eq('Originality Academic')
         expect(RevisionAiScore.last.check_origin).to eq('ai_tool')
         expect(RevisionAiScore.last.revision_id).to eq(1276659876)
         expect(RevisionAiScore.last.wiki_id).to eq(enwiki.id)

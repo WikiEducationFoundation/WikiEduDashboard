@@ -43,6 +43,11 @@ class RevisionAiScore < ApplicationRecord
     PANGRAM_V3_KEY
   ]
 
+  ORIGINALITY_KEYS = [
+    ORIGINALITY_TURBO_KEY,
+    ORIGINALITY_ACADEMIC_KEY
+  ]
+
   MODELS_KEY = [
     PANGRAM_V2_KEY,
     PANGRAM_V3_KEY,

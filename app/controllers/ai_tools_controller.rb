@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/pangram_api"
 require_dependency "#{Rails.root}/lib/originality_api"
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
 require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
+require_dependency "#{Rails.root}/lib/ai/originality_response_parser"
 
 class AiToolsController < ApplicationController
   before_action :require_admin_permissions
@@ -96,6 +97,12 @@ class AiToolsController < ApplicationController
     RevisionAiScore::PANGRAM_KEYS.each do |key|
       next unless params[key.to_sym]
       parser = PangramResponseParser.new(key, @results[key])
+      create_revision_ai_score(key, parser)
+    end
+
+    RevisionAiScore::ORIGINALITY_KEYS.each do |key|
+      next unless params[key.to_sym]
+      parser = OriginalityResponseParser.new(key, @results[key])
       create_revision_ai_score(key, parser)
     end
   end
