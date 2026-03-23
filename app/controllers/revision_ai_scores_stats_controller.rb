@@ -22,7 +22,10 @@ class RevisionAiScoresStatsController < ApplicationController
   end
 
   def set_scores
-    @scores = RevisionAiScore.all.includes(:article)
+    # Include NULL check_origin until the field is fully populated
+    origins = [nil, RevisionAiScore::COURSE_UPDATE_ORIGIN]
+    @scores = RevisionAiScore.where(check_origin: origins)
+                             .includes(:article)
     @scores_with_likelihood = @scores.where.not(avg_ai_likelihood: nil)
   end
 
