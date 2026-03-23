@@ -443,6 +443,8 @@ lb:
     enroll: Auteur derbäisetzen
     enrollment: Auteuren derbäisetzen/ewechhuelen
     join_course: Beim Programm matmaachen
+    join_details: Fir bei dësem Programm matzemaachen, braucht Dir vum Moderator de
+      Passcode – oder e Link, deen de Passcode enthält.
     leave_course: Programm verloossen
     request_accounts: Benotzerkonten ufroen
     school: Institutioun
@@ -672,7 +674,7 @@ lb:
     contributions: Benotzerkontributiounen
     contributions_history_full: Déi komplett Lëscht vun de Versiounen weisen
     contributions_more: Méi Kontributioune weisen
-    contribution_statistics: Statistik vun de Kontributiounen
+    contribution_statistics: Kontributiounsstatistiken
     course_passcode: 'Passcode:'
     editors: Auteuren
     edits: Ännerungen

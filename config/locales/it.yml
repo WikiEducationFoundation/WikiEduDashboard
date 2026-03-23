@@ -793,7 +793,7 @@ it:
     articles_edited: Voci modificate
     articles_edited_wikidata: Elementi modificati
     articles_edited_generic: Pagine modificate
-    bytes_added: Bytes aggiunti
+    bytes_added: Byte aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
@@ -1014,6 +1014,7 @@ it:
     my_assigned: 'Assegnati:'
     name: Nome
     none: Non ci sono partecipanti.
+    more_articles: Clicca per caricare gli articoli modificati dagli utenti
     no_articles: Nessuna voce
     no_articles_wikidata: Nessun elemento
     no_revisions: (nessuna versione)
