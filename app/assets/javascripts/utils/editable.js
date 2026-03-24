@@ -1,6 +1,5 @@
-import $ from 'jquery';
 /**
- * Editable - a tiny jQuery plugin to turn blocks of text into inputs
+ * Editable - a tiny vanilla JS plugin to turn blocks of text into inputs
  *
  * To use:
  * - Build a normal Rails form, adding the class '.rails_editable' to the <form> tag.
@@ -27,58 +26,91 @@ import $ from 'jquery';
  *
  * To make an .rails_editable area be in "edit mode" when the script is loaded, append .rails_editable-editing
  */
-$(() => {
-  const readMode = ($parent) => {
-    $parent.trigger('editable:read');
-    $parent.removeClass('rails_editable-editing');
-    $parent.find('.rails_editable-cancel, .rails_editable-save').remove();
-    $parent.find('.rails_editable-edit').show();
-    $parent.find('.rails_editable-content').show();
-    $parent.find('.rails_editable-input').hide();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const readMode = (parent) => {
+    parent.dispatchEvent(new CustomEvent('editable:read', { bubbles: true }));
+    parent.classList.remove('rails_editable-editing');
+    const cancelBtn = parent.querySelector('.rails_editable-cancel');
+    const saveBtn = parent.querySelector('.rails_editable-save');
+    const editBtn = parent.querySelector('.rails_editable-edit');
+    const contents = parent.querySelectorAll('.rails_editable-content');
+    const inputs = parent.querySelectorAll('.rails_editable-input');
+
+    if (cancelBtn) cancelBtn.remove();
+    if (saveBtn) saveBtn.remove();
+    if (editBtn) editBtn.style.display = '';
+    contents.forEach(el => el.style.display = '');
+    inputs.forEach(el => el.style.display = 'none');
   };
 
   const editMode = (e) => {
     e.preventDefault();
-    const $parent = $(e.target).parents('.rails_editable');
-    $parent.addClass('rails_editable-editing');
-    $(e.target).hide();
-    $parent.find('#disclaimer').css({ display: 'unset' });
-    $parent.find('#profile_left #user_image').css({ height: '150px' });
-    $(e.target).parent().append(`
-      <button class='rails_editable rails_editable-cancel button'>${I18n.t('editable.cancel')}</button>
-      <button class='rails_editable rails_editable-save button dark'>${I18n.t('editable.save')}</button>
-    `);
+    const button = e.target;
+    const parent = button.closest('.rails_editable');
+    if (!parent) return;
 
-    $.each($parent.find('.rails_editable-field'), (_i, field) => {
-      const $content = $(field).find('.rails_editable-content');
-      const $input = $(field).find('.rails_editable-input');
-      const text = $content.text().trim();
-      $content.hide();
-      $input.val(text);
-      if ($input.prop('type') === 'textarea') {
-        $input.height('400px');
+    parent.classList.add('rails_editable-editing');
+    button.style.display = 'none';
+
+    const disclaimer = parent.querySelector('#disclaimer');
+    if (disclaimer) disclaimer.style.display = 'unset';
+
+    const userImage = parent.querySelector('#profile_left #user_image');
+    if (userImage) userImage.style.height = '150px';
+
+    const buttonContainer = button.parentElement;
+    const cancelBtn = document.createElement('button');
+    cancelBtn.className = 'rails_editable rails_editable-cancel button';
+    cancelBtn.textContent = I18n.t('editable.cancel');
+
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'rails_editable rails_editable-save button dark';
+    saveBtn.textContent = I18n.t('editable.save');
+
+    buttonContainer.appendChild(cancelBtn);
+    buttonContainer.appendChild(saveBtn);
+
+    const fields = parent.querySelectorAll('.rails_editable-field');
+    fields.forEach((field) => {
+      const content = field.querySelector('.rails_editable-content');
+      const input = field.querySelector('.rails_editable-input');
+      if (!content || !input) return;
+
+      const text = content.textContent.trim();
+      content.style.display = 'none';
+      input.value = text;
+      if (input.type === 'textarea') {
+        input.style.height = '400px';
       }
-      $input.show();
+      input.style.display = '';
     });
 
-    $parent.find('.rails_editable-cancel').on('click', () => {
-      $parent.find('#disclaimer').css({ display: 'none' });
-      $parent.find('#profile_left #user_image').css({ height: 'unset' });
-      $parent.trigger('editable:cancel');
-      readMode.call(this, $parent);
+    cancelBtn.addEventListener('click', () => {
+      const disclaimerEl = parent.querySelector('#disclaimer');
+      if (disclaimerEl) disclaimerEl.style.display = 'none';
+      const userImageEl = parent.querySelector('#profile_left #user_image');
+      if (userImageEl) userImageEl.style.height = 'unset';
+      parent.dispatchEvent(new CustomEvent('editable:cancel', { bubbles: true }));
+      readMode.call(this, parent);
     });
 
-    $parent.find('.rails_editable-save').on('click', () => {
-      $parent.trigger('editable:save');
+    saveBtn.addEventListener('click', () => {
+      parent.dispatchEvent(new CustomEvent('editable:save', { bubbles: true }));
     });
 
-    $parent.trigger('editable:edit');
+    parent.dispatchEvent(new CustomEvent('editable:edit', { bubbles: true }));
   };
 
-  $('.rails_editable-edit').on('click', editMode);
+  document.querySelectorAll('.rails_editable-edit').forEach((button) => {
+    button.addEventListener('click', editMode);
+  });
 
   // if rails_editable-editing is present, enable edit mode on that element
-  $.each($('.rails_editable-editing'), (_i, field) => {
-    $(field).find('.rails_editable-edit').trigger('click');
+  document.querySelectorAll('.rails_editable-editing').forEach((field) => {
+    const editBtn = field.querySelector('.rails_editable-edit');
+    if (editBtn) {
+      editBtn.click();
+    }
   });
 });

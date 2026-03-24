@@ -1,6 +1,5 @@
 - content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
 
-= javascript_include_tag '/assets/javascripts/jquery.min.js'
 = hot_javascript_tag 'campaigns'
 
 #react_root{data: {slug: @campaign.slug}}
