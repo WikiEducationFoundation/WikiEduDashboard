@@ -197,9 +197,10 @@
     width max-content
 
 .table-responsive
-  display block
-  overflow-x auto
-  -webkit-overflow-scrolling touch
+  +below(tablet)
+    display block
+    overflow-x auto
+    -webkit-overflow-scrolling touch
 
 .revision-list-container
   +below(tablet)
