@@ -7,7 +7,7 @@ const UserTrainingStatus = ({ trainingModules }) => {
 
   return (
     <div id="training-status">
-      <h3>Training Status</h3>
+      <h3>{I18n.t('users.user_training_status')}</h3>
       <TrainingStatus exercises={{}} trainingModules={trainingModules} />;
     </div>
   );
