@@ -154,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const reactCampaignCourseSearch = document.getElementById('react_campaign_course_search');
   if (reactCampaignCourseSearch) {
     let initialCourses = [];
+    let courseOptions = [];
     try {
       initialCourses = JSON.parse(reactCampaignCourseSearch.dataset.initialCourses || '[]');
       if (!Array.isArray(initialCourses)) initialCourses = [initialCourses];
@@ -161,14 +162,31 @@ document.addEventListener('DOMContentLoaded', () => {
       initialCourses = [];
     }
 
+    try {
+      courseOptions = JSON.parse(reactCampaignCourseSearch.dataset.courseOptions || '[]');
+      if (!Array.isArray(courseOptions)) courseOptions = [];
+    } catch (e) {
+      courseOptions = [];
+    }
+
     // Map array of strings to correct format for AsyncSelect, filtering out nulls
     const initialOptions = initialCourses
       .filter(c => c !== null && c !== '')
       .map(c => ({ label: String(c), value: String(c) }));
 
+    const availableOptions = courseOptions
+      .filter(c => c !== null && c !== '')
+      .map(c => ({ label: String(c), value: String(c) }));
+
+    const courseStringPrefix = reactCampaignCourseSearch.dataset.courseStringPrefix || 'courses';
+
     const root = createRoot(reactCampaignCourseSearch);
     root.render(
-      React.createElement(CampaignCourseSearch, { initialCourses: initialOptions })
+      React.createElement(CampaignCourseSearch, {
+        initialCourses: initialOptions,
+        courseStringPrefix,
+        courseOptions: availableOptions
+      })
     );
   }
 

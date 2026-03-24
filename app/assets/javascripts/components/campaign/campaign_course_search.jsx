@@ -1,46 +1,24 @@
 import React, { useState } from 'react';
-import AsyncSelect from 'react-select/async';
+import Select from 'react-select';
 import PropTypes from 'prop-types';
 
-const CampaignCourseSearch = ({ initialCourses }) => {
+const CampaignCourseSearch = ({ initialCourses, courseStringPrefix, courseOptions }) => {
   const [selectedCourses, setSelectedCourses] = useState(initialCourses || []);
-
-  const loadOptions = (inputValue, callback) => {
-    if (inputValue.length < 3) {
-      callback([]);
-      return;
-    }
-
-    fetch(`/courses/search.json?search=${encodeURIComponent(inputValue)}`)
-      .then(response => response.json())
-      .then((data) => {
-        if (data.courses && data.courses.length > 0) {
-          const options = data.courses.map(course => ({
-            value: course.title,
-            label: course.title
-          }));
-          callback(options);
-        } else {
-          callback([]);
-        }
-      })
-      .catch(() => {
-        callback([]);
-      });
-  };
 
   const handleChange = (selectedOptions) => {
     setSelectedCourses(selectedOptions || []);
   };
 
+  const prefix = courseStringPrefix || 'courses';
+
   return (
     <div className="course-title-select-wrapper">
-      <AsyncSelect
+      <Select
         isMulti
-        loadOptions={loadOptions}
+        options={courseOptions || []}
         onChange={handleChange}
         value={selectedCourses}
-        placeholder={`${I18n.t('courses.course')}...`}
+        placeholder={`${I18n.t(`${prefix}.course`)}...`}
         noOptionsMessage={() => I18n.t('application.search_results.none')}
         className="campaign-course-search"
       />
@@ -59,7 +37,9 @@ const CampaignCourseSearch = ({ initialCourses }) => {
 };
 
 CampaignCourseSearch.propTypes = {
-  initialCourses: PropTypes.array
+  initialCourses: PropTypes.array,
+  courseStringPrefix: PropTypes.string,
+  courseOptions: PropTypes.array
 };
 
 export default CampaignCourseSearch;

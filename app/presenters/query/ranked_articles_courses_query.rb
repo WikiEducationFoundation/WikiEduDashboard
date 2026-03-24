@@ -35,20 +35,26 @@ class Query::RankedArticlesCoursesQuery
               :first_revision, :average_views, :view_count, :updated_at)
   end
 
+  def total_count
+    base_subquery.count
+  end
+
   private
 
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
   def subquery
+    q = apply_sorting(base_subquery)
+    q.limit(@per_page).offset(@offset)
+  end
+
+  def base_subquery
     q = ArticlesCourses
         .includes(:article, :course)
         .where(course_id: @courses.map(&:id), tracked: true)
 
     q = apply_text_filters(q)
     q = apply_range_filters(q)
-
-    q = q.select(:id)
-    q = apply_sorting(q)
-    q.limit(@per_page).offset(@offset)
+    q.select(:id)
   end
 
   def apply_sorting(query)
@@ -86,9 +92,15 @@ class Query::RankedArticlesCoursesQuery
 
   def apply_text_filters(query)
     q = query
-    q = q.where('articles.title LIKE ?', "%#{@article_title}%") if @article_title
-    q = q.where('courses.title LIKE ?', "%#{@course_title}%") if @course_title
-    q = q.where(courses: { school: @school }) if @school
+    
+    q = q.joins(:article).where('articles.title LIKE ?', "%#{@article_title}%") if @article_title.present?
+    q = q.joins(:course).where('courses.title LIKE ?', "%#{@course_title}%") if @course_title.present?
+    
+    if @school.present?
+      school_list = Array(@school).reject(&:blank?)
+      q = q.joins(:course).where(courses: { school: school_list }) if school_list.any?
+    end
+
     q
   end
 

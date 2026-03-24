@@ -1,5 +1,4 @@
 - content_for :javascripts do
-  = javascript_include_tag '/assets/javascripts/jquery.min.js'
   = hot_javascript_tag("campaigns")
 
 - content_for :before_title, t('courses.campaign_articles', title: @campaign.title) + ' — '

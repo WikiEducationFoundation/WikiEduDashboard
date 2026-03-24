@@ -1,5 +1,4 @@
 - content_for :before_title, t('courses.campaign_users', title: @campaign.title) + ' — '
-= javascript_include_tag '/assets/javascripts/jquery.min.js'
 = hot_javascript_tag 'campaigns'
 
 #react_root{data: {slug: @campaign.slug}}
@@ -25,7 +24,7 @@
             = t('form_search.advanced_search')
           #advanced_search_fields.hidden
             .form-row.relative
-              #react_campaign_course_search{data: { initial_courses: params[:course_title].to_json }}
+              #react_campaign_course_search{data: { initial_courses: params[:course_title].to_json, course_string_prefix: @presenter.course_string_prefix, course_options: @presenter.course_title_options.to_json }}
             .form-row.advanced-search-grid-small
               %label{for: 'min_revision_count'}= t('courses.edit_count')
               .input-group.flex-input-group

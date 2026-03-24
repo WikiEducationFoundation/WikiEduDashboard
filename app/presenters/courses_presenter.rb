@@ -76,10 +76,14 @@ class CoursesPresenter
 
   PER_PAGE = 25
   # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
-  def articles_courses_scope
-    @articles_courses_scope ||= Query::RankedArticlesCoursesQuery.new(
+  def ranked_articles_query
+    @ranked_articles_query ||= Query::RankedArticlesCoursesQuery.new(
       **ranked_articles_courses_query_params
-    ).scope
+    )
+  end
+
+  def articles_courses_scope
+    ranked_articles_query.scope
   end
 
   def ranked_articles_courses_query_params
@@ -124,7 +128,8 @@ class CoursesPresenter
 
   # Create paginated collection for articles_courses data
   def paginated_articles_courses
-    WillPaginate::Collection.create(current_page, PER_PAGE, campaign_articles_count) do |pager|
+    total = ranked_articles_query.total_count
+    WillPaginate::Collection.create(current_page, PER_PAGE, total) do |pager|
       pager.replace(articles_courses_scope)
     end
   end
