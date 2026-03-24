@@ -16,6 +16,9 @@
   .survey__admin-row__col
     .contextual Updated
     %span= survey.updated_at.strftime("%B %d, %Y")
+  .survey__admin-row__col
+    .contextual Avg Duration
+    %span= average_duration(survey)
   .survey__admin-row__col.survey__admin-row__col--actions
     = link_to 'Edit', edit_survey_path(survey)
     - if survey.rapidfire_question_groups.length > 0

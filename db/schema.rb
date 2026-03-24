@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_27_212149) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_03_160000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -494,6 +494,17 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_27_212149) do
     t.index ["course_id"], name: "index_survey_notifications_on_course_id"
     t.index ["courses_users_id"], name: "index_survey_notifications_on_courses_users_id"
     t.index ["survey_assignment_id"], name: "index_survey_notifications_on_survey_assignment_id"
+  end
+
+  create_table "survey_sessions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "survey_id", null: false
+    t.integer "user_id", null: false
+    t.integer "survey_notification_id"
+    t.datetime "started_at", precision: nil, null: false
+    t.datetime "completed_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["survey_id"], name: "index_survey_sessions_on_survey_id"
   end
 
   create_table "surveys", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
