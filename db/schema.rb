@@ -505,7 +505,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_03_160000) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["survey_id"], name: "index_survey_sessions_on_survey_id"
-    t.index ["user_id"], name: "index_survey_sessions_on_user_id"
   end
 
   create_table "surveys", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
