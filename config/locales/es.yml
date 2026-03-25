@@ -685,6 +685,11 @@ es:
     dismiss_survey_confirm: ¿Estás seguro de que quieres descartar permanentemente
       esta encuesta?
     download_stats_data: Estadísticas de descargas
+    embed_course_stats: Incrustar estadísticas del programa
+    embed_course_stats_description: Para incrustar las estadísticas de este programa en otro sitio web, copie y pegue este fragmento de código en
+    embed_course_stats_body: " <body>"
+    embed_course_stats_optional: "<!-- Esto es opcional -->"
+    copied: ¡Copiado!
     duration: Duración del curso
     edit_count: Recuento de ediciones
     edit_course_dates: Editar las fechas del curso

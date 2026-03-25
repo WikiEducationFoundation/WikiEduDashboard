@@ -744,6 +744,9 @@ en:
     edit_course_dates: Edit Course Dates
     embed_course_stats: Embed Course Stats
     embed_course_stats_description: To embed the stats for this program in another website, copy and paste this code snippet into
+    embed_course_stats_body: " <body>"
+    embed_course_stats_optional: "<!-- This is optional -->"
+    copied: Copied!
     enable_account_requests: Enable account requests
     end: End
     ended: The course has ended.
