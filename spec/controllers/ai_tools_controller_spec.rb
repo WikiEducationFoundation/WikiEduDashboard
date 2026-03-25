@@ -87,13 +87,20 @@ describe AiToolsController, type: :request do
         post '/ai_tools/compare_ai_detectors', params: { plain_text:, article_or_diff_url: "" }
       end
 
-      it 'does not create revision_ai_score row' do
+      it 'does create revision_ai_score rows' do
         VCR.use_cassette 'pangram' do
           post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                            article_or_diff_url: "",
-                                                           pangram_v2: '1' }
+                                                           pangram_v2.to_sym => '1' }
 
-          expect(RevisionAiScore.count).to eq(0)
+          expect(RevisionAiScore.count).to eq(1)
+
+        expect(RevisionAiScore.first.check_type).to eq('Pangram 2.0')
+        expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.first.revision_id).to be_nil
+        expect(RevisionAiScore.first.wiki_id).to be_nil
+        expect(RevisionAiScore.first.url).to be_nil
+        expect(RevisionAiScore.first.origin_user_id).to eq(admin.id)
         end
       end
     end

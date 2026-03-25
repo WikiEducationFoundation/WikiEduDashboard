@@ -13,8 +13,7 @@ class AiToolsController < ApplicationController
 
   def compare_ai_detectors
     detect_ai_from_multiple_resources extract_plain_text
-    # Only persist revision ai scores for diff/article urls
-    create_revision_ai_scores_for_multiple_resources if params[:article_or_diff_url].present?
+    create_revision_ai_scores_for_multiple_resources
     render 'show'
   end
 
@@ -109,8 +108,9 @@ class AiToolsController < ApplicationController
 
   # Imports data into the RevisionAiScores table
   def create_revision_ai_score(check_type, parser)
+    wiki_id = @wiki.id if @wiki
     RevisionAiScore.create(revision_id: @rev_id,
-                           wiki_id: @wiki.id,
+                           wiki_id:,
                            url: @url,
                            origin_user_id: current_user.id,
                            avg_ai_likelihood: parser.average_ai_likelihood,
