@@ -7,6 +7,10 @@ describe 'course deletion', type: :feature, js: true do
   let(:admin) { create(:admin) }
   let(:second_campaign) { create(:campaign, slug: 'second_campaign') }
 
+  before do
+    Rails.cache.clear
+  end
+
   it 'destroys the course and redirects to the home page' do
     login_as admin
     stub_oauth_edit
@@ -18,9 +22,10 @@ describe 'course deletion', type: :feature, js: true do
     sleep 1
 
     accept_prompt(with: course.title) do
-      click_button 'Delete course'
+      # Using class because the text is translated
+      find('.available-action button.danger').click
     end
-    expect(page).to have_content 'Create Course'
+    expect(page).to have_content(/Create Course|Criar curso/i)
     expect(Course.count).to eq(0)
   end
 
@@ -32,12 +37,25 @@ describe 'course deletion', type: :feature, js: true do
     it 'delists the course from the campaign page' do
       login_as admin
       stub_oauth_edit
-      visit "campaigns/#{Campaign.first.slug}/programs"
-      expect(page).to have_content "1\nCourses"
-      accept_prompt(with: course.title) do
-        click_button 'Remove and Delete'
+      # Stats are only shown on the overview page
+      visit "/campaigns/#{Campaign.first.slug}/overview"
+      within '#courses-count' do
+        expect(page).to have_content '1'
       end
-      expect(page).to have_content "0\nCourses"
+
+      visit "/campaigns/#{Campaign.first.slug}/programs"
+      expect(page).to have_content course.title
+      accept_prompt(with: course.title) do
+        find('button.delete-course-from-campaign').click
+      end
+      within '#courses' do
+        expect(page).not_to have_content course.title
+      end
+
+      visit "/campaigns/#{Campaign.first.slug}/refresh"
+      within '#courses-count' do
+        expect(page).to have_content '0'
+      end
     end
   end
 
@@ -50,12 +68,25 @@ describe 'course deletion', type: :feature, js: true do
     it 'delists the course from one campaign page' do
       login_as admin
       stub_oauth_edit
-      visit "campaigns/#{Campaign.first.slug}/programs"
-      expect(page).to have_content "1\nCourses"
-      accept_prompt(with: course.title) do
-        click_button 'Remove and Delete'
+      # Stats are only shown on the overview page
+      visit "/campaigns/#{Campaign.first.slug}/overview"
+      within '#courses-count' do
+        expect(page).to have_content '1'
       end
-      expect(page).to have_content "0\nCourses"
+
+      visit "/campaigns/#{Campaign.first.slug}/programs"
+      expect(page).to have_content course.title
+      accept_prompt(with: course.title) do
+        find('button.delete-course-from-campaign').click
+      end
+      within '#courses' do
+        expect(page).not_to have_content course.title
+      end
+
+      visit "/campaigns/#{Campaign.first.slug}/refresh"
+      within '#courses-count' do
+        expect(page).to have_content '0'
+      end
       expect(course.reload.campaigns.count).to eq(1)
     end
   end
