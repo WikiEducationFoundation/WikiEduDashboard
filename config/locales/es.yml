@@ -442,7 +442,7 @@ es:
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     course_removed_and_deleted: '"%{title}" ha sido eliminado y quitado de la campaña
       "%{campaign_title}"'
-    course_removed_but_not_deleted: '"%{title}" ha sido quitada de la campaña %{campaign_title}",
+    course_removed_but_not_deleted: '"%{title}" ha sido quitada de la campaña "%{campaign_title}",
       pero no ha sido eliminada ya que también está presente en otras campañas'
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
@@ -685,7 +685,7 @@ es:
     download_stats_data: Estadísticas de descargas
     embed_course_stats: Incrustar estadísticas del programa
     embed_course_stats_description: Para incrustar las estadísticas de este programa en otro sitio web, copie y pegue este fragmento de código en
-    embed_course_stats_body: " <body>"
+    embed_course_stats_body: "<body>"
     embed_course_stats_optional: "<!-- Esto es opcional -->"
     copied: ¡Copiado!
     duration: Duración del curso
