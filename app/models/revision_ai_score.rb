@@ -4,10 +4,10 @@
 # Table name: revision_ai_scores
 #
 #  id                :bigint           not null, primary key
-#  revision_id       :integer          not null
-#  wiki_id           :integer          not null
-#  course_id         :integer          not null
-#  user_id           :integer          not null
+#  revision_id       :integer
+#  wiki_id           :integer
+#  course_id         :integer
+#  user_id           :integer
 #  article_id        :integer
 #  revision_datetime :datetime
 #  avg_ai_likelihood :float(24)
@@ -16,6 +16,9 @@
 #  check_type        :string(255)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  url               :string(255)
+#  check_origin      :string(255)
+#  origin_user_id    :integer
 #
 class RevisionAiScore < ApplicationRecord
   belongs_to :wiki
@@ -26,4 +29,29 @@ class RevisionAiScore < ApplicationRecord
   serialize :details, type: Hash
 
   include ArticleViewerLinker
+
+  PANGRAM_V2_KEY = 'Pangram 2.0'
+  PANGRAM_V3_KEY = 'Pangram 3'
+  ORIGINALITY_TURBO_KEY = 'Originality Turbo'
+  ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
+
+  COURSE_UPDATE_ORIGIN = 'course_update'
+  AI_TOOL_ORIGIN = 'ai_tool'
+
+  PANGRAM_KEYS = [
+    PANGRAM_V2_KEY,
+    PANGRAM_V3_KEY
+  ]
+
+  ORIGINALITY_KEYS = [
+    ORIGINALITY_TURBO_KEY,
+    ORIGINALITY_ACADEMIC_KEY
+  ]
+
+  MODELS_KEY = [
+    PANGRAM_V2_KEY,
+    PANGRAM_V3_KEY,
+    ORIGINALITY_TURBO_KEY,
+    ORIGINALITY_ACADEMIC_KEY
+  ].freeze
 end

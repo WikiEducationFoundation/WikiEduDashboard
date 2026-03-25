@@ -16,7 +16,7 @@
         = text_area_tag :plain_text, nil, rows: 5, cols: 100
         %hr
         %h4 Models
-        - AiToolsController::MODELS_KEY.each do |key|
+        - RevisionAiScore::MODELS_KEY.each do |key|
           %div.checkbox-group
             = check_box_tag(key.to_sym, '1', true)
             %label{for: key}= key

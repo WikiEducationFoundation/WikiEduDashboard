@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_27_212149) do
+ActiveRecord::Schema[7.0].define(version: 2026_03_23_212149) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -440,10 +440,10 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_27_212149) do
   end
 
   create_table "revision_ai_scores", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "revision_id", null: false
-    t.integer "wiki_id", null: false
-    t.integer "course_id", null: false
-    t.integer "user_id", null: false
+    t.integer "revision_id"
+    t.integer "wiki_id"
+    t.integer "course_id"
+    t.integer "user_id"
     t.integer "article_id"
     t.datetime "revision_datetime"
     t.float "avg_ai_likelihood"
@@ -452,6 +452,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_27_212149) do
     t.string "check_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "check_origin"
+    t.integer "origin_user_id"
+    t.string "url"
     t.index ["wiki_id", "revision_id"], name: "revision_ai_scores_by_wiki_rev"
   end
 
