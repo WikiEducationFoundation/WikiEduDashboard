@@ -26,8 +26,8 @@ const EmbedStatsButton = ({ title }) => {
         id="embed"
         readOnly
         value={
-          `<a href="${location.href}">${title}</a>${I18n.t('courses.embed_course_stats_optional')}
-<iframe src="${url}" style="width:100%;border:0px none transparent;"></iframe>`}
+          `<a href="${location.href}">${title}</a><!-- This is optional -->
+<iframe src="${url}" style="width:100%;border:0px none transparent;"></iframe>`} // eslint-disable-line i18next/no-literal-string
         onClick={copyToClipboard}
       />
       <small>{status}</small>
