@@ -120,6 +120,8 @@ RSpec.configure do |config|
           # some specs test behavior for 4xx responses and other errors.
           # Don't fail on these.
           next if /Failed to load resource/.match?(error.message)
+          next if /WebSocket connection/i.match?(error.message)
+          next if /webpack-dev-server/i.match?(error.message)
 
           warn 'JavaScript warning / error'
           warn error.level
