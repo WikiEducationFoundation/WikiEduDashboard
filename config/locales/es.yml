@@ -34,6 +34,7 @@
 # Author: Josuert
 # Author: KATRINE1992
 # Author: Koavf
+# Author: Kookoriko
 # Author: Lemondoge
 # Author: Macofe
 # Author: MarcoAurelio
@@ -1181,6 +1182,9 @@ es:
       discussion: Discusión
       training: Entrenamiento
     exercise_sandbox: Caja de arena para ejercicios
+    take_your_time: ¡Por favor, tómese su tiempo!
+    alert_content: Es muy importante que aprendas a fondo el contenido de la capacitación.
+    close: CERRAR
   update_username:
     not_found: No se encontró la cuenta correspondiente al nombre introducido.
     username_updated: El nombre de usuario se actualizó correctamente.

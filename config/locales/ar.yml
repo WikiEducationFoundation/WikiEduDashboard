@@ -1400,6 +1400,7 @@ ar:
       قاعدة البيانات.
     search_training_resources: ابحث عن مصادر التدريب
     no_training_resource_match_your_search: لا يوجد مصدر تدريب يطابق بحثك
+    take_your_time: خذ وقتك!
   update_username:
     header: قم بتحديث اسم مستخدم تم تغييره
     not_found: لم يتم العثور على المستخدم لاسم المستخدم الذي تم إدخاله.

@@ -824,6 +824,7 @@ ko:
     reload_from_source: 원본에서 다시 불러오기
     kind:
       discussion: 토론
+    close: 닫기
   update_username:
     button: 업데이트
   uploads:

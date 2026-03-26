@@ -258,6 +258,7 @@ pa:
     save_all_changes: ਸੱਭ ਸੰਭਾਲੋ
   training:
     page: ਵਰਕਾ
+    close: ਬੰਦ ਕਰੋ
   update_username:
     label: ਨਵਾਂ ਵਰਤੋਂਕਾਰ-ਨਾਂ
   uploads:
