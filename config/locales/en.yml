@@ -204,6 +204,7 @@ en:
     available: Available Articles
     no_available: No Available Articles
     next: Next
+    page_info: "Page %{current} of %{total_pages} (%{count} out of %{total})"
     previous: Previous
     article_title: Article Title
     assigned_to: Assigned To

@@ -59,7 +59,7 @@ class CoursesPresenter
                                                                                              :slug)
   end
 
-  PER_PAGE = 100
+  PER_PAGE = 25
   # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
   def articles_courses_scope
     return @articles_courses_scope unless @articles_courses_scope.nil?
@@ -114,7 +114,7 @@ class CoursesPresenter
     ArticlesCourses.tracked.includes(article: :wiki)
                    .includes(:course).where(courses: { private: false })
                    .where(course: @courses_list)
-                   .paginate(page: @page, per_page: 100)
+                   .paginate(page: @page, per_page: 25)
   end
 
   def can_remove_course?
@@ -149,12 +149,12 @@ class CoursesPresenter
       'lower(title) like ? OR lower(school) like ? ' \
       'OR lower(term) like ? OR lower(username) like ?',
       "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
-    ).distinct
+    ).distinct.paginate(page: @page, per_page: 25)
   end
 
   def courses_by_recent_edits
     # Sort first by recent edit count, and then by course title
-    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
+    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 25)
   end
 
   def active_courses_by_recent_edits
