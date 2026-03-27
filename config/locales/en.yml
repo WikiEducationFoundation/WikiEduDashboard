@@ -976,7 +976,7 @@ en:
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
-    declined_note: "This course has been declined by staff."
+    declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
     decline_course: "Decline Course"
     decline_course_confirm: "Are you sure you want to decline this course? This will archive the submission and stop automatic unsubmitted alerts for this course."
     survey:
