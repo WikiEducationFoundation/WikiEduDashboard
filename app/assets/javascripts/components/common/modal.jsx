@@ -11,7 +11,7 @@ const Modal = (props) => {
 
   const className = `wizard active ${props.modalClass}`;
   return (
-    <div className={className}>
+    <div className={className} role="dialog" aria-modal="true" aria-labelledby="modal_heading">
       {props.children}
     </div>
   );

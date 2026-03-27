@@ -64,7 +64,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
   }, [status]);
 
   return (
-    <div className="user-legend-wrap">
+    <div className="user-legend-wrap" role="list" aria-label={I18n.t('users.legend_label')}>
       <div className="article-viewer-legend">{I18n.t('users.edits_by')}&nbsp;</div>
       {userLinks}
       {usersStatus}

@@ -99,7 +99,12 @@ const List = ({
       : keyObj.label;
 
     headers.push((
-      <th onClick={headerOnClick} className={`${headerClass} ${order}`} key={key}>
+      <th
+        onClick={headerOnClick}
+        className={`${headerClass} ${order}`}
+        key={key}
+        aria-sort={order === 'asc' ? 'ascending' : order === 'desc' ? 'descending' : 'none'}
+      >
         {labelContent}
         <span className={`sortable-indicator-${order} ${order}`} />
         {tooltip}

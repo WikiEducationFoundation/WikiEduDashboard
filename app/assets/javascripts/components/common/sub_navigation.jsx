@@ -14,7 +14,7 @@ export const SubNavigation = ({ heading, links }) => {
 
   return (
     <div className="section-header">
-      <nav className="sub-navigation">
+      <nav className="sub-navigation" aria-label={heading || I18n.t('courses.sub_navigation')}>
         {
           heading && <h3>{heading}</h3>
         }
@@ -24,6 +24,14 @@ export const SubNavigation = ({ heading, links }) => {
       </nav>
     </div>
   );
+};
+
+SubNavigation.propTypes = {
+  heading: PropTypes.string,
+  links: PropTypes.arrayOf(PropTypes.shape({
+    href: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired
+  })).isRequired
 };
 
 export default SubNavigation;

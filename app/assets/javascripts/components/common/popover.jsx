@@ -13,7 +13,7 @@ const Popover = (props) => {
   }
 
   return (
-    <div className={divClass}>
+    <div className={divClass} role="tooltip" aria-hidden={!props.is_open}>
       <table style={props.styles ?? {}}>
         <tbody>
           {props.edit_row}
@@ -28,6 +28,8 @@ Popover.propTypes = {
   is_open: PropTypes.bool,
   edit_row: PropTypes.node,
   rows: PropTypes.node,
+  right: PropTypes.bool,
+  styles: PropTypes.object
 };
 
 export default Popover;
