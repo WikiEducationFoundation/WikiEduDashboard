@@ -1593,6 +1593,8 @@ en:
     take_your_time: "Please take your time!"
     alert_content: "It is very important that you learn the training content thoroughly."
     close: "CLOSE"
+    loading: "Loading…"
+    wiki_source: "wiki source"
 
   update_username:
     header: Update a changed username
