@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://replica-revision-tools.wmcloud.org/revisions.php?end=20250601000000&lang=en&oauth_tags%5B%5D=OAuth%20CID:%20542&project=wikipedia&start=20250201000000&usernames%5B%5D=Rhitorical
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Host:
+      - replica-revision-tools.wmcloud.org
+      Sentry-Trace:
+      - 40dd54531cb848339788f1f23c36b8cc-6f4d68ddcdad42b8
+      Baggage:
+      - sentry-trace_id=40dd54531cb848339788f1f23c36b8cc,sentry-sample_rand=0.914315,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.22.1
+      Date:
+      - Thu, 26 Mar 2026 18:43:05 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '5814'
+      Connection:
+      - keep-alive
+      Vary:
+      - Accept-Encoding
+      Strict-Transport-Security:
+      - max-age=31622400
+      X-Clacks-Overhead:
+      - GNU Terry Pratchett
+      Permissions-Policy:
+      - browsing-topics=()
+      Report-To:
+      - '{"group": "wm_nel", "max_age": 604800, "endpoints": [{"url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"}]}'
+      Nel:
+      - '{"report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+    body:
+      encoding: ASCII-8BIT
+      string: '{ "success": true, "data": [{"page_id":"79080275","page_title":"Rhitorical\/be_bold","page_namespace":"2","rev_id":"1273164503","rev_timestamp":"20250201022153","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"38"},{"page_id":"79080275","page_title":"Rhitorical\/be_bold","page_namespace":"2","rev_id":"1273164621","rev_timestamp":"20250201022258","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"13"},{"page_id":"79080307","page_title":"Rhitorical\/talk_page_tutorial","page_namespace":"3","rev_id":"1273165206","rev_timestamp":"20250201022818","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"262"},{"page_id":"79080307","page_title":"Rhitorical\/talk_page_tutorial","page_namespace":"3","rev_id":"1273165225","rev_timestamp":"20250201022825","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"240"},{"page_id":"79080307","page_title":"Rhitorical\/talk_page_tutorial","page_namespace":"3","rev_id":"1273165323","rev_timestamp":"20250201022911","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"154"},{"page_id":"79080452","page_title":"Rhitorical\/Evaluate_an_Article","page_namespace":"2","rev_id":"1273168529","rev_timestamp":"20250201025234","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"1917"},{"page_id":"79166404","page_title":"Rhitorical\/Choose_an_Article","page_namespace":"2","rev_id":"1274563164","rev_timestamp":"20250208015144","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"1128"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118374","rev_timestamp":"20250211042616","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"569"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118490","rev_timestamp":"20250211042727","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"498"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118575","rev_timestamp":"20250211042822","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"42"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118686","rev_timestamp":"20250211042927","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"48"},{"page_id":"69203926","page_title":"Rosalind_Kornfeld","page_namespace":"0","rev_id":"1275120270","rev_timestamp":"20250211044603","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"349"},{"page_id":"9172226","page_title":"Ball_culture","page_namespace":"1","rev_id":"1275771360","rev_timestamp":"20250215001528","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"471"},{"page_id":"78504643","page_title":"Wiki_Ed\/University_of_Florida\/Discrimination_and_Health_(Spring_2025)","page_namespace":"4","rev_id":"1275771362","rev_timestamp":"20250215001530","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"16"},{"page_id":"79233653","page_title":"Rhitorical\/Ball_culture\/Bibliography","page_namespace":"2","rev_id":"1275788538","rev_timestamp":"20250215023730","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"5342"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1278154303","rev_timestamp":"20250228194554","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"75839"},{"page_id":"78910320","page_title":"Rhitorical\/sandbox","page_namespace":"2","rev_id":"1278154324","rev_timestamp":"20250228194602","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"6356"},{"page_id":"79407290","page_title":"Azeemnoor12\/Class_discrimination\/Rhitorical_Peer_Review","page_namespace":"2","rev_id":"1279351256","rev_timestamp":"20250308010954","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"3033"},{"page_id":"79407290","page_title":"Azeemnoor12\/Class_discrimination\/Rhitorical_Peer_Review","page_namespace":"2","rev_id":"1279351609","rev_timestamp":"20250308011150","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"61"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1284026815","rev_timestamp":"20250405035545","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"13"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1285148830","rev_timestamp":"20250411235807","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"676"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1286293831","rev_timestamp":"20250418234836","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"1488"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1286293902","rev_timestamp":"20250418234933","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"2"}]
+        }'
+  recorded_at: Thu, 26 Mar 2026 18:43:05 GMT
+- request:
+    method: get
+    uri: https://fix-stats.toolforge.org/revisions.php?end=20250601000000&lang=en&oauth_tags%5B%5D=OAuth%20CID:%20542&project=wikipedia&start=20250201000000&usernames%5B%5D=Rhitorical
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Host:
+      - fix-stats.toolforge.org
+      Sentry-Trace:
+      - 40dd54531cb848339788f1f23c36b8cc-6f4d68ddcdad42b8
+      Baggage:
+      - sentry-trace_id=40dd54531cb848339788f1f23c36b8cc,sentry-sample_rand=0.914315,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 26 Mar 2026 18:43:07 GMT
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '5813'
+      X-Clacks-Overhead:
+      - GNU Terry Pratchett
+      Strict-Transport-Security:
+      - max-age=31622400
+      Content-Security-Policy-Report-Only:
+      - 'default-src ''self'' ''unsafe-eval'' ''unsafe-inline'' blob: data: filesystem:
+        mediastream: *.toolforge.org wikibooks.org *.wikibooks.org wikidata.org *.wikidata.org
+        wikimedia.org *.wikimedia.org wikinews.org *.wikinews.org wikipedia.org *.wikipedia.org
+        wikiquote.org *.wikiquote.org wikisource.org *.wikisource.org wikiversity.org
+        *.wikiversity.org wikivoyage.org *.wikivoyage.org wiktionary.org *.wiktionary.org
+        *.wmcloud.org *.wmflabs.org wikimediafoundation.org mediawiki.org *.mediawiki.org
+        wss://fix-stats.toolforge.org; report-uri https://csp-report.toolforge.org/collect;'
+      Permissions-Policy:
+      - browsing-topics=()
+      Report-To:
+      - '{"group": "wm_nel", "max_age": 604800, "endpoints": [{"url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"}]}'
+      Nel:
+      - '{"report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+    body:
+      encoding: UTF-8
+      string: '{ "success": true, "data": [{"page_id":"79080275","page_title":"Rhitorical\/be_bold","page_namespace":"2","rev_id":"1273164503","rev_timestamp":"20250201022153","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"38"},{"page_id":"79080275","page_title":"Rhitorical\/be_bold","page_namespace":"2","rev_id":"1273164621","rev_timestamp":"20250201022258","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"13"},{"page_id":"79080307","page_title":"Rhitorical\/talk_page_tutorial","page_namespace":"3","rev_id":"1273165206","rev_timestamp":"20250201022818","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"262"},{"page_id":"79080307","page_title":"Rhitorical\/talk_page_tutorial","page_namespace":"3","rev_id":"1273165225","rev_timestamp":"20250201022825","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"240"},{"page_id":"79080307","page_title":"Rhitorical\/talk_page_tutorial","page_namespace":"3","rev_id":"1273165323","rev_timestamp":"20250201022911","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"154"},{"page_id":"79080452","page_title":"Rhitorical\/Evaluate_an_Article","page_namespace":"2","rev_id":"1273168529","rev_timestamp":"20250201025234","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"1917"},{"page_id":"79166404","page_title":"Rhitorical\/Choose_an_Article","page_namespace":"2","rev_id":"1274563164","rev_timestamp":"20250208015144","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"1128"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118374","rev_timestamp":"20250211042616","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"569"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118490","rev_timestamp":"20250211042727","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"498"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118575","rev_timestamp":"20250211042822","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"42"},{"page_id":"79198310","page_title":"Rhitorical\/citing_sources","page_namespace":"2","rev_id":"1275118686","rev_timestamp":"20250211042927","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"48"},{"page_id":"69203926","page_title":"Rosalind_Kornfeld","page_namespace":"0","rev_id":"1275120270","rev_timestamp":"20250211044603","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"349"},{"page_id":"9172226","page_title":"Ball_culture","page_namespace":"1","rev_id":"1275771360","rev_timestamp":"20250215001528","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"471"},{"page_id":"78504643","page_title":"Wiki_Ed\/University_of_Florida\/Discrimination_and_Health_(Spring_2025)","page_namespace":"4","rev_id":"1275771362","rev_timestamp":"20250215001530","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"16"},{"page_id":"79233653","page_title":"Rhitorical\/Ball_culture\/Bibliography","page_namespace":"2","rev_id":"1275788538","rev_timestamp":"20250215023730","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"5342"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1278154303","rev_timestamp":"20250228194554","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"1842"},{"page_id":"78910320","page_title":"Rhitorical\/sandbox","page_namespace":"2","rev_id":"1278154324","rev_timestamp":"20250228194602","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"6356"},{"page_id":"79407290","page_title":"Azeemnoor12\/Class_discrimination\/Rhitorical_Peer_Review","page_namespace":"2","rev_id":"1279351256","rev_timestamp":"20250308010954","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"true","byte_change":"3033"},{"page_id":"79407290","page_title":"Azeemnoor12\/Class_discrimination\/Rhitorical_Peer_Review","page_namespace":"2","rev_id":"1279351609","rev_timestamp":"20250308011150","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"61"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1284026815","rev_timestamp":"20250405035545","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"13"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1285148830","rev_timestamp":"20250411235807","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"676"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1286293831","rev_timestamp":"20250418234836","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"1488"},{"page_id":"9171866","page_title":"Ball_culture","page_namespace":"0","rev_id":"1286293902","rev_timestamp":"20250418234933","rev_user_text":"Rhitorical","rev_user":"46729347","system":"false","new_article":"false","byte_change":"2"}]
+        }'
+  recorded_at: Thu, 26 Mar 2026 18:43:11 GMT
+recorded_with: VCR 6.1.0
