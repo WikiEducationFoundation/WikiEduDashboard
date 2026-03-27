@@ -4,8 +4,8 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SUBMITTING_NEW_ADMIN, REVOKING_ADMIN, SET_COURSE_CREATION_SETTINGS,
   SET_DEFAULT_CAMPAIGN, SET_FEATURED_CAMPAIGNS, REMOVE_FEATURED_CAMPAIGN,
-  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_DISALLOWED_USERS,
-  SUBMITTING_DISALLOWED_USER
+  ADD_FEATURED_CAMPAIGN, SET_SITE_NOTICE, SET_CELEBRATION_BANNER,
+  SET_DISALLOWED_USERS, SUBMITTING_DISALLOWED_USER
 } from '../constants/settings.js';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
@@ -575,6 +575,63 @@ export const getSiteNotice = () => (dispatch) => {
     }
   })
   .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const getCelebrationBannerPromise = async () => {
+  const response = await request('/settings/fetch_celebration_banner', {
+    method: 'GET'
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const getCelebrationBanner = () => (dispatch) => {
+  return getCelebrationBannerPromise()
+    .then((resp) => {
+      dispatch({
+        type: SET_CELEBRATION_BANNER,
+        data: resp,
+      });
+    })
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const updateCelebrationBannerPromise = async (celebrationBanner) => {
+  const body = {
+    celebration_banner: celebrationBanner,
+  };
+  const response = await request('/settings/update_celebration_banner', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    logErrorMessage(response);
+    const data = await response.text();
+    response.responseText = data;
+    throw response;
+  }
+  return response.json();
+};
+
+export const updateCelebrationBanner = celebrationBanner => (dispatch) => {
+  return updateCelebrationBannerPromise(celebrationBanner)
+    .then((data) => {
+      // Clear localStorage flags so banner can be shown again with new settings
+      if (typeof window !== 'undefined' && window.clearCelebrationBannerFlags) {
+        window.clearCelebrationBannerFlags();
+      }
+      dispatch({
+        type: ADD_NOTIFICATION,
+        notification: { ...data, type: 'success', closable: true }
+      });
+      dispatch(getCelebrationBanner());
+    })
+    .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
 // Disallowed Users Actions

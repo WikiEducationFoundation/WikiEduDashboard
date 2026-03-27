@@ -63,4 +63,19 @@ class Features
       site_notice
     end
   end
+
+  def self.celebration_banner
+    Rails.cache.fetch('celebration_banner') do
+      celebration_banner = Setting.find_by(key: 'celebration_banner')&.value.presence
+      celebration_banner || {
+        'enabled' => Rails.env.development?,
+        'visibility' => Rails.env.development? ? 'all_users' : 'disabled',
+        'celebration_type' => 'christmas',
+        'custom_message' => '',
+        'custom_emoji' => [],
+        'show_snowfall' => false,
+        'auto_hide_after_seconds' => 7
+      }
+    end
+  end
 end

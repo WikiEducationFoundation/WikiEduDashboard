@@ -55,6 +55,9 @@ Rails.application.routes.draw do
 
   get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
   post '/settings/update_site_notice' => 'settings#update_site_notice'
+
+  get '/settings/fetch_celebration_banner' => 'settings#fetch_celebration_banner'
+  post '/settings/update_celebration_banner' => 'settings#update_celebration_banner'
   
 
   # Griddler allows us to receive incoming emails. By default,
