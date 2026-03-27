@@ -297,10 +297,10 @@ class CoursesController < ApplicationController
     # Needs to be switched to submitted before the announcement edits are made
     @course.update(submitted: true)
     AddSubmittedTag.new(@course)
-    CourseSubmissionMailerWorker.schedule_email(@course, instructor)
+    CourseSubmissionMailerWorker.schedule_email(@course, instructor) if instructor
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
-                                               instructor:)
+                                               instructor:) if instructor
   end
 
   def should_set_slug?
@@ -385,7 +385,8 @@ class CoursesController < ApplicationController
     :disable_student_emails,
     :stay_in_sandbox,
     :no_sandboxes,
-    :retain_available_articles
+    :retain_available_articles,
+    :declined
   ].freeze
   def update_boolean_flags
     UPDATABLE_FLAGS.each do |flag|
