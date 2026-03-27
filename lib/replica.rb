@@ -164,7 +164,7 @@ class Replica
     Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
   end
 
-  REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
+  REPLICA_TOOL_URL = 'https://fix-stats.toolforge.org/'
 
   def do_post(endpoint, key, data)
     url = URI.parse "#{REPLICA_TOOL_URL}#{endpoint}"
