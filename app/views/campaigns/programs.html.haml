@@ -97,7 +97,16 @@
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else
           - programs = @presenter.courses_by_recent_edits
-          = will_paginate programs
           - programs.each do |course|
             - cache [course, locale, @presenter.can_remove_course?]  do
               = render 'campaigns/course_row', course: course, admin: false, user: false
+
+    - if @search_terms.present? && @results.respond_to?(:total_pages)
+      = will_paginate @results, renderer: WillPaginate::LinkRenderer, previous_label: t('articles.previous'), next_label: t('articles.next'), inner_window: 1, outer_window: 1
+      .page-entries-info{style: 'text-align: center; color: #666; font-size: 14px; margin-top: 10px;'}
+        = t('articles.page_info', current: @results.current_page, total_pages: @results.total_pages, count: @results.length, total: @results.total_entries)
+    - else
+      - programs = @presenter.courses_by_recent_edits
+      = will_paginate programs, renderer: WillPaginate::LinkRenderer, previous_label: t('articles.previous'), next_label: t('articles.next'), inner_window: 1, outer_window: 1
+      .page-entries-info{style: 'text-align: center; color: #666; font-size: 14px; margin-top: 10px;'}
+        = t('articles.page_info', current: programs.current_page, total_pages: programs.total_pages, count: programs.length, total: programs.total_entries)
