@@ -30,8 +30,14 @@ const CourseAlerts = ({
       // For unpublished courses, when viewed by an instructor or admin
       if (userRoles.isAdvancedRole && !course.legacy && !course.published) {
         // If it's an unsubmitted ClassroomProgramCourse
-        const isUnsubmittedClassroomProgramCourse = !course.submitted && course.type === 'ClassroomProgramCourse';
-        if (isUnsubmittedClassroomProgramCourse) {
+        const isDeclined = course.flags && course.flags.declined;
+        const isUnsubmittedClassroomProgramCourse = !course.submitted && course.type === 'ClassroomProgramCourse' && !isDeclined;
+
+        if (isDeclined) {
+          newAlerts.push(
+            <CourseAlert key="declined" message={I18n.t('courses.declined_note')} className="declined" />
+          );
+        } else if (isUnsubmittedClassroomProgramCourse) {
           // Show submit button if there is a timeline with trainings, or user is admin.
           if (CourseUtils.hasTrainings(weeks) || userRoles.isAdmin) {
             newAlerts.push(<CourseAlert key="submit" message={I18n.t('courses.review_timeline')} actionMessage={I18n.t('application.submit')} buttonLink="#" onClick={submit} />);
