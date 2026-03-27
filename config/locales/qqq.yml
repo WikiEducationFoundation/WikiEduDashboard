@@ -627,6 +627,8 @@ qqq:
     no_assignments: Message displayed when no assignment is assigned to students
     can_assign_assignments: Message displayed when the user can assign the assignment
   metrics:
+    editors_doc: Description of the editors metric.
+    program_date_doc: Description of the program date metric.
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned
       trainings that are incomplete and overdue. (Wiki Ed only)
@@ -959,3 +961,5 @@ qqq:
   question_groups:
     edit_question_group: Button label for editing a question group
 ...
+  form_search:
+    program_date: Label for program date

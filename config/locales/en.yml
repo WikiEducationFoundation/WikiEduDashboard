@@ -1164,6 +1164,8 @@ en:
       content_wikidata: to assign and view item assignments
 
   metrics:
+    editors_doc: This is the number of unique users who have edited articles in the course.
+    program_date_doc: This is the date of the program.
     label: Course Activity
     last_update: Last statistics update
     last_articles_update: Last articles update
@@ -2080,3 +2082,6 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
+
+  form_search:
+    program_date: "Program Date"

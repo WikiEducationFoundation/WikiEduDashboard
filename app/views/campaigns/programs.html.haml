@@ -33,61 +33,71 @@
           %option{rel: 'asc', value: 'start-date'}
             = t("courses.start_date")
 
-    %table.table.table--hoverable.table--sortable.table-responsive
+    %table.table.table--hoverable.table--sortable{ id: 'courses_table' }
       %thead
         %tr
-          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title', 'data-backend-column' => 'title'}
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
-          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school'}
+          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school', 'data-backend-column' => 'school'}
             = t("#{@presenter.course_string_prefix}.school_and_term")
             %span.sortable-indicator
           - if Features.wiki_ed?
             %th Instructor
-          %th.sort.sortable.desc{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
+          %th.sort.sortable.desc{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions', 'data-backend-column' => 'recent_revision_count'}
             .tooltip-trigger
               = t('metrics.revisions')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('courses.revisions_doc', timeframe: RevisionStatTimeslice::REVISION_WINDOW_DAYS)
-          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
+          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters', 'data-backend-column' => 'character_sum'}
             .tooltip-trigger
               = t('metrics.word_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= course_i18n('word_count_doc')
-          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references'}
+          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references', 'data-backend-column' => 'references_count'}
             .tooltip-trigger
               = t('metrics.references_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('metrics.references_doc')
-          %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views'}
+          %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views', 'data-backend-column' => 'view_sum'}
             .tooltip-trigger
               = t('metrics.view')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('courses.view_doc')
-          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
-            = t('users.editors')
-            %span.sortable-indicator
+          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students', 'data-backend-column' => 'user_count'}
+            .tooltip-trigger
+              = t('users.editors')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.editors_doc')
           - unless Features.wiki_ed?
             %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
               = t('courses.creation_date')
               %span.sortable-indicator
 
-          %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date'}
-            = t('courses.start_date')
-            %span.sortable-indicator
-          
+          %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date', 'data-backend-column' => 'created_at'}
+            .tooltip-trigger
+              = t('form_search.program_date')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.program_date_doc')
+
           - if @presenter.can_remove_course?
             %th{style: 'width:100px'}
               = t('courses.actions')
-      %tbody.list
+      %tbody
+        :javascript
+          window.DISABLE_COURSES_LISTJS = true;
         - if @search_terms.present?
           - if @results.count > 1
             %h4= t('application.search_results.other', search_terms: @search_terms, count: @results.count)
