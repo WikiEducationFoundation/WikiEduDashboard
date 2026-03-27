@@ -3,6 +3,7 @@ require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_students_assignments_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/app/controllers/reports_controller"
@@ -58,6 +59,8 @@ class ReportCsvWorker
       CourseCsvBuilder.new(course, per_wiki: true).generate_csv
     when 'course_editors'
       CourseStudentsCsvBuilder.new(course).generate_csv
+    when 'course_students_assignments'
+      CourseStudentsAssignmentsCsvBuilder.new(course).generate_csv
     when 'course_uploads'
       CourseUploadsCsvBuilder.new(course).generate_csv
     when 'course_articles'
