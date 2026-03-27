@@ -10,7 +10,7 @@ const Checkbox = ({ container_class, label, value, editable, onChange }) => {
 
   let labelElement = null;
   if (label) {
-    labelElement = <span>{`${label}: `}</span>;
+    labelElement = <span id={`label-${label.replace(/\s+/g, '-').toLowerCase()}`}>{`${label}: `}</span>;
   }
 
   return (
@@ -21,6 +21,8 @@ const Checkbox = ({ container_class, label, value, editable, onChange }) => {
         checked={value}
         onChange={onCheckboxChange}
         disabled={!editable}
+        aria-checked={value}
+        aria-labelledby={label ? `label-${label.replace(/\s+/g, '-').toLowerCase()}` : undefined}
       />
     </p>
   );

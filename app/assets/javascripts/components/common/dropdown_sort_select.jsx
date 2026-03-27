@@ -20,9 +20,15 @@ const DropdownSortSelect = ({ keys, sortSelect }) => {
         onChange={onChangeHandler}
         options={options}
         styles={sortSelectStyles}
+        aria-label={I18n.t('courses.sort_by')}
       />
     </div>
   );
+};
+
+DropdownSortSelect.propTypes = {
+  keys: PropTypes.object.isRequired,
+  sortSelect: PropTypes.func.isRequired
 };
 
 export default DropdownSortSelect;

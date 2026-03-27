@@ -152,5 +152,10 @@ class ApplicationController < ActionController::Base
     http_accept_language.user_preferred_languages.unshift(params[:locale])
   end
 
+  protected
+
+  def render_json_error(message, status = :internal_server_error, errors = nil)
+    render json: { message:, errors: }, status:
+  end
 
 end

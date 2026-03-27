@@ -33,8 +33,7 @@ class CoursesController < ApplicationController
                                                         instructor_role_description, current_user,
                                                         params[:course][:ta_support])
     unless course_creation_manager.valid?
-      render json: { message: course_creation_manager.invalid_reason },
-             status: :not_found
+      render_json_error(course_creation_manager.invalid_reason, :not_found)
       return
     end
     @course = course_creation_manager.create
@@ -56,8 +55,7 @@ class CoursesController < ApplicationController
     render json: { course: @course }
   rescue Wiki::InvalidWikiError => e
     message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
-    render json: { errors: e, message: },
-           status: :not_found
+    render_json_error(message, :not_found, e)
   end
 
   def destroy
@@ -210,9 +208,7 @@ class CoursesController < ApplicationController
     @course = find_course_by_slug(params[:id])
     campaign = Campaign.find_by(title: campaign_params[:title])
     unless campaign
-      render json: {
-        message: "Sorry, #{campaign_params[:title]} is not a valid campaign."
-      }, status: :not_found
+      render_json_error("Sorry, #{campaign_params[:title]} is not a valid campaign.", :not_found)
       return
     end
     method = request.request_method.downcase
