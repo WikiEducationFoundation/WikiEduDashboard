@@ -34,12 +34,12 @@ document.onreadystatechange = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const currentSort = urlParams.get('sort');
         const currentDirection = urlParams.get('direction');
-        
+
         let newDirection = defaultOrder;
         if (currentSort === backendColumn) {
           newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
         }
-        
+
         urlParams.set('sort', backendColumn);
         urlParams.set('direction', newDirection);
         urlParams.delete('page');
@@ -145,21 +145,21 @@ document.onreadystatechange = () => {
       if (th) {
         const backendColumn = th.getAttribute('data-backend-column');
         const defaultOrder = th.getAttribute('data-default-order') || 'asc';
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const currentSort = urlParams.get('sort');
         const currentDirection = urlParams.get('direction');
-        
+
         let newDirection = defaultOrder;
         // Only flip direction if the user selects the same option again from the dropdown?
-        // Actually, the select keeps its selection. Let's just use the selected option's rel for direction if available, 
+        // Actually, the select keeps its selection. Let's just use the selected option's rel for direction if available,
         // or toggle if it's the same column.
         if (currentSort === backendColumn) {
           newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
         } else {
           newDirection = this.options[this.selectedIndex].getAttribute('rel') || defaultOrder;
         }
-        
+
         urlParams.set('sort', backendColumn);
         urlParams.set('direction', newDirection);
         urlParams.delete('page');
@@ -178,7 +178,7 @@ document.onreadystatechange = () => {
         default: break;
       }
     })();
-    
+
     if (list) {
       return list.sort(this?.value, {
         order: this.options[this.selectedIndex].getAttribute('rel')
