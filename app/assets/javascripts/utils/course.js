@@ -18,13 +18,33 @@ document.onreadystatechange = () => {
   // Course sorting
   // only sort if there are tables to sort
   let courseList;
-  if (isTableValid('#courses')) {
+  if (isTableValid('#courses') && !window.DISABLE_COURSES_LISTJS) {
     courseList = new List('courses', {
       page: 500,
       valueNames: [
         'title', 'school', 'revisions', 'characters', 'references', 'average-words', 'views',
         'reviewed', 'students', 'creation-date', 'ungreeted', 'untrained', 'start-date'
       ]
+    });
+  } else if (isTableValid('#courses') && window.DISABLE_COURSES_LISTJS) {
+    document.querySelectorAll('#courses_table th[data-backend-column]').forEach((th) => {
+      th.addEventListener('click', (e) => {
+        const backendColumn = e.currentTarget.getAttribute('data-backend-column');
+        const defaultOrder = e.currentTarget.getAttribute('data-default-order') || 'asc';
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentSort = urlParams.get('sort');
+        const currentDirection = urlParams.get('direction');
+
+        let newDirection = defaultOrder;
+        if (currentSort === backendColumn) {
+          newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+        }
+
+        urlParams.set('sort', backendColumn);
+        urlParams.set('direction', newDirection);
+        urlParams.delete('page');
+        window.location.search = urlParams.toString();
+      });
     });
   }
 
@@ -119,6 +139,35 @@ document.onreadystatechange = () => {
 }
 
   return document.querySelectorAll('select.sorts').forEach(item => item?.addEventListener('change', function () {
+    if (window.DISABLE_COURSES_LISTJS && this.getAttribute('rel') === 'courses') {
+      const sortValue = this.value;
+      const th = document.querySelector(`#courses_table th[data-sort="${sortValue}"]`);
+      if (th) {
+        const backendColumn = th.getAttribute('data-backend-column');
+        const defaultOrder = th.getAttribute('data-default-order') || 'asc';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentSort = urlParams.get('sort');
+        const currentDirection = urlParams.get('direction');
+
+        let newDirection = defaultOrder;
+        // Only flip direction if the user selects the same option again from the dropdown?
+        // Actually, the select keeps its selection. Let's just use the selected option's rel for direction if available,
+        // or toggle if it's the same column.
+        if (currentSort === backendColumn) {
+          newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          newDirection = this.options[this.selectedIndex].getAttribute('rel') || defaultOrder;
+        }
+
+        urlParams.set('sort', backendColumn);
+        urlParams.set('direction', newDirection);
+        urlParams.delete('page');
+        window.location.search = urlParams.toString();
+      }
+      return;
+    }
+
     const list = (() => {
       switch (this.getAttribute('rel')) {
         case 'courses': return courseList;
@@ -128,11 +177,12 @@ document.onreadystatechange = () => {
         case 'users': return studentsList;
         default: break;
       }
-  })();
-  if (list) {
-    return list.sort(this?.value, {
-      order: this.options[this.selectedIndex].getAttribute('rel')
-    });
+    })();
+
+    if (list) {
+      return list.sort(this?.value, {
+        order: this.options[this.selectedIndex].getAttribute('rel')
+      });
     }
   }));
 };
