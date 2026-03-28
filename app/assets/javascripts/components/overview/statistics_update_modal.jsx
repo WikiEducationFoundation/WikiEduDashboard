@@ -27,8 +27,8 @@ const StatisticsUpdateModal = (props) => {
   const trackingDescription = computeTrackingDescription(course);
 
   return (
-    <div className="statistics-update-modal-container">
-      <div className="statistics-update-modal">
+    <div className="modal-container">
+      <div className="modal">
         <b>{I18n.t('metrics.update_status_heading')}</b>
         <br />
 
