@@ -141,12 +141,13 @@ class RevisionDataManager
   end
 
   # Returns revisions from all_sub_data.
+  # Filters out revisions for articles that don't exist in our database or are deleted.
   def sub_data_to_revision_attributes(all_sub_data, users, articles: nil)
     all_sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
         create_revision(rev_data, article_data['article'], users, articles)
       end
-    end.uniq(&:mw_rev_id)
+    end.compact.uniq(&:mw_rev_id) # compact removes nil values from filtered revisions
   end
 
   # Updates the revision data with a new 'scoped' field inside the article data.
@@ -162,13 +163,43 @@ class RevisionDataManager
   end
 
   # Creates a revision record for the given revision data.
+  # Logs to Sentry if article_id is nil to help debug missing article records.
+  # Returns nil for revisions without article records to prevent MySQL errors.
   def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
+    article_id = articles.nil? ? nil : articles[mw_page_id]
+    
+    # Log to Sentry when we encounter a revision without an associated article record
+    # This helps us investigate why some revisions don't have corresponding articles
+    if article_id.nil? && !articles.nil?
+      mw_rev_id = rev_data['mw_rev_id']
+      article_title = article_data['title']
+      
+      Sentry.capture_message(
+        'Revision without associated article record',
+        level: :warning,
+        extra: {
+          mw_rev_id:,
+          mw_page_id:,
+          article_title:,
+          wiki_id: @wiki.id,
+          course_id: @course.id,
+          namespace: article_data['namespace']
+        }
+      )
+      
+      Rails.logger.warn "RevisionDataManager: Missing article record for revision #{mw_rev_id} " \
+                        "with mw_page_id #{mw_page_id} (#{article_title})"
+      
+      # Skip this revision to prevent MySQL "Field 'article_id' doesn't have a default value" error
+      return nil
+    end
+    
     RevisionOnMemory.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
           characters: rev_data['characters'] || 0,
-          article_id: articles.nil? ? nil : articles[mw_page_id],
+          article_id:,
           mw_page_id:,
           user_id: users[rev_data['username']],
           new_article: string_to_boolean(rev_data['new_article']),
