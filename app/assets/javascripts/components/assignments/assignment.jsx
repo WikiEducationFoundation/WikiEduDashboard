@@ -29,12 +29,16 @@ const Assignment = (props) => {
     const isWikipedia = article.project === 'wikipedia';
     for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
+      const assignmentWiki = {
+        language: assignment.language || props.course.home_wiki.language,
+        project: assignment.project || props.course.home_wiki.project
+      };
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
-        const usernameLink = userLink(props.course.home_wiki, assignment);
+        const usernameLink = userLink(assignmentWiki, assignment);
         assignees.push(usernameLink);
         assignees.push(', ');
       } else if (assignment.role === 1 && assignment.user_id && assignment.username) {
-        const usernameLink = userLink(props.course.home_wiki, assignment);
+        const usernameLink = userLink(assignmentWiki, assignment);
         reviewers.push(usernameLink);
         reviewers.push(', ');
       }

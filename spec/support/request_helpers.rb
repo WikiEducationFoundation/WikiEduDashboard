@@ -243,6 +243,17 @@ module RequestHelpers
       .to_return(status: 200, body: '{"users":[{}]}', headers: {})
   end
 
+  def stub_mainspace_query
+    stub_request(:get, /.*action=query.*&titles=.*/)
+      .to_return(status: 200, headers: {}) do |request|
+        uri = URI.decode_www_form_component(request.uri.to_s)
+        match = uri.match(/titles=([^&]*)/)
+        title = match ? match[1] : 'MockTitle'
+        ns = title.downcase.start_with?('category:') ? 14 : 0
+        { body: "{\"query\":{\"pages\":{\"1\":{\"pageid\":1,\"ns\":#{ns},\"title\":\"#{title}\"}}}}" }
+      end
+  end
+
   def stub_wikipedia_503_error
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 503, body: '{}', headers: {})
@@ -254,6 +265,7 @@ module RequestHelpers
   end
 
   def stub_wiki_validation
+    stub_mainspace_query
     wikis = [
       'incubator.wikimedia.org',
       'es.wikipedia.org',

@@ -60,6 +60,7 @@ describe 'Instructor users', :js, type: :feature do
     stub_oauth_edit
     stub_raw_action
     stub_info_query
+    stub_mainspace_query
   end
 
   after do
