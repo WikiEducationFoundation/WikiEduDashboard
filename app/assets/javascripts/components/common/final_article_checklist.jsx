@@ -38,7 +38,7 @@ const FinalArticleChecklist = () => {
 
   let button;
   if (isVisible) {
-    button = <button onClick={hide} className="button dark small">Okay</button>;
+    button = <button onClick={hide} className="button dark small">{I18n.t('application.okay', { defaultValue: 'Okay' })}</button>;
   } else {
     button = <a onClick={show} className="button dark small">Quality checklist</a>;
   }

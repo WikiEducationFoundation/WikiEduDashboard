@@ -98,12 +98,17 @@ const List = ({
       ? <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
       : keyObj.label;
 
+    let ariaSort;
+    if (order === 'asc') ariaSort = 'ascending';
+    else if (order === 'desc') ariaSort = 'descending';
+    else ariaSort = 'none';
+
     headers.push((
       <th
         onClick={headerOnClick}
         className={`${headerClass} ${order}`}
         key={key}
-        aria-sort={order === 'asc' ? 'ascending' : order === 'desc' ? 'descending' : 'none'}
+        aria-sort={ariaSort}
       >
         {labelContent}
         <span className={`sortable-indicator-${order} ${order}`} />

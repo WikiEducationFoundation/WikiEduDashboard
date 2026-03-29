@@ -7,7 +7,7 @@ import { getReviewAssignments } from '../../../selectors';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
 
 export const AllPeerReviewLinks = ({ assignment, reviewAssignments }) => {
-  const title = <span key="title">Reviews: </span>;
+  const title = <span key="title">{I18n.t('assignments.reviews', { defaultValue: 'Reviews: ' })}</span>;
   const reviewLinks = assignment.reviewers.map((reviewer) => {
     let linkClass = '';
     let mouseoverText;

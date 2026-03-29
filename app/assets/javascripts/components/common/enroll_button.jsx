@@ -129,7 +129,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
     let requestedAccountsLink;
     if (!Features.wikiEd) {
       const massEnrollmentUrl = `/mass_enrollment/${course.slug}`;
-      massEnrollmentLink = <p><a href={massEnrollmentUrl}>Add multiple users at once.</a></p>;
+      massEnrollmentLink = <p><a href={massEnrollmentUrl}>{I18n.t('users.mass_enrollment', { defaultValue: 'Add multiple users at once.' })}</a></p>;
     }
     if (!Features.wikiEd) {
       const requestedAccountsUrl = `/requested_accounts/${course.slug}`;

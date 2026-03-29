@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SelectableBox = ({ onClick, heading, description, style, selected }) => {
   return (

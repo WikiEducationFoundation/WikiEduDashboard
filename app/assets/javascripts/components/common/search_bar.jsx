@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 
 const SearchBar = ({ onClickHandler, placeholder, value, name }, ref) => {
   const onEnter = (e) => {

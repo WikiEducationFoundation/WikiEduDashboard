@@ -94,9 +94,20 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   useEffect(() => {
     if (showArticle) {
       document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('keydown', handleKeyDown);
     }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   }, [showArticle]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      hideArticle(e);
+    }
+  };
+
 
   const getShowButtonLabel = () => {
     if (showArticleFinder) return ArticleUtils.I18n('preview', article.project);
@@ -385,10 +396,15 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
 
   return (
     <div ref={ref}>
-      <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
+      <div
+        className={`article-viewer ${showArticle ? '' : 'hidden'}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="article-viewer-title"
+      >
         <div className="article-header">
-          <p>
-            <span className="article-viewer-title">{trunc(article.title, 56)}</span>
+          <header>
+            <h2 id="article-viewer-title" className="article-viewer-title">{trunc(article.title, 56)}</h2>
             {
               showPermalink && <Permalink articleId={article.id} />
             }
@@ -398,7 +414,7 @@ const ArticleViewer = ({ showOnMount, users, showArticleFinder, showButtonLabel,
                 <BadWorkAlertButton showBadArticleAlert={() => setShowBadArticleAlert(true)} /> // Passed as a function for onclick
               ) : ''
             }
-          </p>
+          </header>
         </div>
         {
           showBadArticleAlert && (

@@ -124,7 +124,6 @@ TextInput.propTypes = {
   invalid: PropTypes.bool,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  onFocus: PropTypes.func,
 };
 
 export default Conditional(InputHOC(TextInput));
