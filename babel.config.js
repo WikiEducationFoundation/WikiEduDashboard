@@ -2,10 +2,13 @@ module.exports = {
   presets: [
     '@babel/preset-react',
     ['@babel/preset-env', {
-      modules: false
+      modules: false,
+      useBuiltIns: 'usage',
+      corejs: 3
     }]
   ],
   plugins: [
+    '@babel/plugin-transform-runtime',
     [
       'babel-plugin-root-import',
       {

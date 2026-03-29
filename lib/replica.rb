@@ -45,6 +45,7 @@ class Replica
     oauth_tags = compile_oauth_tags
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
+    query += '&namespaces[]=0&namespaces[]=104&namespaces[]=106' if @wiki.project == 'wikisource'
     api_get('revisions.php', query)
   end
 
@@ -204,6 +205,7 @@ class Replica
   # Here are some of the naming exceptions that we must special-case:
   SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
                        'wikisource.org' => 'sourceswiki',
+                       'www.wikisource.org' => 'sourceswiki',
                        'incubator.wikimedia.org' => 'incubatorwiki',
                        'commons.wikimedia.org' => 'commonswiki',
                        'meta.wikimedia.org' => 'metawiki' }.freeze
@@ -225,10 +227,12 @@ class Replica
   end
 
   def compile_oauth_tags
-    oauth_ids = ENV['oauth_ids']
-    return '' if oauth_ids.nil?
-    oauth_id_tags = oauth_ids.split(',').map { |id| "OAuth CID: #{id}" }
-    { oauth_tags: oauth_id_tags }.to_query
+    # dashboard can only be assigned to a single consumer ID.
+    # support 'oauth_id' directly, or fall back to the first one in 'oauth_ids'
+    oauth_id = ENV['oauth_id'] || ENV['oauth_ids']
+    return '' if oauth_id.nil?
+    id = oauth_id.split(',').first
+    { oauth_tags: ["OAuth CID: #{id}"] }.to_query
   end
 
   # Compile an article list to send to the replica endpoint, which might look

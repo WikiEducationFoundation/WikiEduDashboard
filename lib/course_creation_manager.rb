@@ -87,7 +87,8 @@ class CourseCreationManager
   end
 
   def duplicate_slug?
-    Course.find_by(slug: @slug).present?
+    # Ensure slug uniqueness case-insensitively to prevent issues in database and URL routing.
+    Course.where('LOWER(slug) = ?', @slug.downcase).exists?
   end
 
   def set_passcode

@@ -11,7 +11,7 @@
     "no-return-assign": 0,
     "react/prefer-es6-class": 0,
     "react/prefer-stateless-function": 0,
-    "react/jsx-boolean-value": 0,
+    "react/jsx-boolean-value": [2, "never"],
     "arrow-body-style": 0,
     "max-len": 0,
     "radix": [2, "as-needed"],

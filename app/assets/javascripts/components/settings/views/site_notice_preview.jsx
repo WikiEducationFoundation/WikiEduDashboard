@@ -11,9 +11,11 @@ const SiteNoticePreview = ({ message, enabled }) => {
 
         {enabled && hasMessage ? (
           <div
+            className="site-notice__preview-body"
             style={{
-            border: '1px solid #ddd',
-            padding: '10px 12px',
+            border: '2px solid #676eb4', // use dashboard purple for emphasis
+            backgroundColor: '#f8f9fa',
+            padding: '12px 14px',
             borderRadius: 4,
             whiteSpace: 'pre-wrap',
             overflowWrap: 'anywhere',
@@ -26,10 +28,10 @@ const SiteNoticePreview = ({ message, enabled }) => {
             {message}
           </div>
       ) : (
-        <div style={{ fontSize: 12, opacity: 0.7 }}>
+        <div style={{ fontSize: 13, color: '#72777d', fontStyle: 'italic' }}>
           {!enabled
-            ? 'Preview is hidden because the notice is disabled.'
-            : 'Type a message to see the preview.'}
+            ? I18n.t('settings.common_settings_components.headings.site_notice_preview_hidden')
+            : I18n.t('settings.common_settings_components.headings.site_notice_preview_empty')}
         </div>
       )}
       </div>

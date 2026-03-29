@@ -30,7 +30,7 @@ class UpdateCourseStats
     @full_update = @course.needs_update
     @debugger = UpdateDebugger.new(@course)
 
-    @start_time = Time.zone.now.to_datetime
+    @start_time = Time.zone.now
     UpdateLogger.update_course_with_unfinished_update(@course, 'start_time' => @start_time)
     import_uploads
     update_categories
@@ -118,9 +118,9 @@ class UpdateCourseStats
   end
 
   def log_end_of_update
-    @end_time = Time.zone.now.to_datetime
-    UpdateLogger.update_course(@course, 'start_time' => @start_time,
-                                         'end_time' => @end_time,
+    @end_time = Time.zone.now
+    UpdateLogger.update_course(@course, 'start_time' => @start_time.iso8601,
+                                         'end_time' => @end_time.iso8601,
                                          'sentry_tag_uuid' => sentry_tag_uuid,
                                          'error_count' => error_count,
                                          'processed' => @processed,
@@ -131,9 +131,12 @@ class UpdateCourseStats
     @course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
-  def log_error(error)
-    Sentry.capture_message "#{@course.title} update caches error: #{error}",
-                           level: 'error'
+  def log_error(error, extra: {})
+    update_error_stats
+    Sentry.capture_exception error,
+                             level: 'error',
+                             tags: sentry_tags,
+                             extra: extra.merge(course_id: @course.id)
   end
 
   TEN_MINUTES = 600
