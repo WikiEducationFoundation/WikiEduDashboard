@@ -339,7 +339,9 @@ describe Replica do
     it 'returns correct characters for a revision with a suppressed parent revision' do
       VCR.use_cassette 'cached/replica/suppressed_parent_revision' do
         user = build(:user, username: 'Rhitorical')
-        response = described_class.new(en_wiki).get_revisions([user], 2025_02_01_000000, 2025_06_01_000000)
+        response = described_class.new(en_wiki)
+                                  .get_revisions([user], 2025_02_01_000000,
+                                                 2025_06_01_000000)
         rev = response['9171866']['revisions'].find { |r| r['mw_rev_id'] == '1278154303' }
 
         expect(rev['characters'].to_i).to eq(1842)
