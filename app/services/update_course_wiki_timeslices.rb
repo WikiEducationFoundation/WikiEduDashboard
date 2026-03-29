@@ -218,12 +218,11 @@ class UpdateCourseWikiTimeslices
   end
 
   def log_error(error, start_date, end_date, wiki_id)
-    Sentry.capture_message "#{@course.slug} update timeslices error: #{error}",
-                           level: 'error',
-                            extra: {
-                              start: start_date,
-                              end: end_date,
-                              wiki_id:
-                           }
+    extra = { start: start_date, end: end_date, wiki_id: }
+    if @update_service.respond_to?(:log_error)
+      @update_service.log_error(error, extra:)
+    else
+      Sentry.capture_exception error, level: 'error', extra: extra.merge(course: @course.slug)
+    end
   end
 end

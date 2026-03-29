@@ -5,7 +5,7 @@ module ApiErrorHandling
     Rails.logger.info "Caught #{error}"
     sentry_tags = nil
     if update_service.present?
-      new_errors_count = sentry_extra&.dig(:new_errors_count) || 1
+      new_errors_count = sentry_extra&.dig(:new_errors_count) || sentry_extra&.dig(:error_count) || 1
       update_service.update_error_stats(new_errors_count)
       sentry_tags = update_service.sentry_tags
     end
@@ -17,6 +17,6 @@ module ApiErrorHandling
   end
 
   def error_level(error)
-    self.class.const_get(:TYPICAL_ERRORS).include?(error.class) ? 'warning' : 'error'
+    self.class.const_get(:TYPICAL_ERRORS).any? { |klass| error.is_a?(klass) } ? 'warning' : 'error'
   end
 end

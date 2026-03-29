@@ -31,9 +31,9 @@ const NotesCreator = ({ noteTitle, setTitle, noteText, setText }) => {
       value={key === 'note_text' ? noteText : noteTitle}
       placeholder={placeHolder}
       value_key={key}
-      editable={true}
-      markdown={true}
-      autoExpand={true}
+      editable
+      markdown
+      autoExpand
       onFocus={() => handleFocus(key)} // Announce on focus
     />
   );

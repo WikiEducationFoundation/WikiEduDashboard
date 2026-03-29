@@ -178,7 +178,7 @@ RSpec/DescribeClass:
 RSpec/ExpectInHook:
   Enabled: false
 Style/DateTime:
-  Enabled: false
+  Enabled: true
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:

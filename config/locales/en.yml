@@ -445,6 +445,12 @@ en:
     campaign_not_updated: Campaign could not be updated
     campaign_updated: Campaign updated
     refresh_campaign_stats: Campaign stats refreshed successfully
+    status:
+      not_started: Not Started
+      ongoing: Ongoing
+      finished: Finished
+      registration_enabled: Registration Enabled
+      default_type: Default Course Type
     created_at: Date
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
@@ -762,7 +768,7 @@ en:
       invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
       duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
       invalid_slug: Blank school/title for course.
-      duplicate_slug: "Another program called %{slug} already exists."
+      duplicate_slug: "A program with the slug '%{slug}' already exists. Please choose a different title, institution, or term to ensure a unique URL."
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
     feedback: Feedback
@@ -1356,6 +1362,9 @@ en:
         default_campaign_setting: Default Campaign
         site_notice_setting: Site Notice
         site_notice_preview: Live Preview
+        site_notice_preview_hidden: Preview is hidden because the notice is disabled.
+        site_notice_preview_empty: Type a message to see the preview.
+        confirm_clear_site_notice: "Are you sure you want to clear the site notice? This will remove it for all users."
       buttons:
         add_admin_button: Add Admin
         add_special_user_button: Add Special User
@@ -1626,7 +1635,9 @@ en:
     uploaded_on: Uploaded On
     usage_count: Usage Count
     usage_doc: Number of Wikipedia articles that this image appears in.
-    usage_count_gallery_tile: Used in %{usage_count} articles
+    usage_count_gallery_tile:
+      one: Used in %{usage_count} article
+      other: Used in %{usage_count} articles
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
