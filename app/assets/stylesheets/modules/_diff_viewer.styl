@@ -2,17 +2,24 @@
   background-color white
   padding 0 10px
   position fixed
-  top 160px
+  top 60px
   /*@noflip*/ left 50%
-  width 100%
+  width 95%
   max-width 1200px
-  max-height 90vh
-  z-index 1
+  max-height 95vh
+  z-index 1000
   border 1px solid mischka
-  border-radius 3px
-  box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
+  border-radius 8px
+  box-shadow 0 4px 30px rgba(0, 0, 0, .4)
   transform translateX(-50%)
-  overflow-x auto
+  overflow hidden
+  display flex
+  flex-direction column
+
+  +above(tablet)
+    top 100px
+    width 90%
+
 
 .diff-viewer-header
   padding 5px 0
@@ -22,11 +29,15 @@
   overflow-y scroll
 
 .diff-viewer-scrollbox
-  max-height: calc(95vh - 350px)
-  overflow-y: scroll
-  overflow-x: hidden
+  flex 1
+  overflow-y auto
+  overflow-x auto
+  margin-bottom 10px
+  border 1px solid #f0f0f0
+  
   +below(tablet)
-    width fit-content
+    width 100%
+
 
 .diff-viewer-scrollbox > table
   width 100%
@@ -45,8 +56,10 @@
   display flex
   flex-direction row
   flex-wrap: wrap
-  width 194.5rem
+  width 100%
   background white
+  gap 10px
+
 
 .diff-viewer-legend
   display flex
