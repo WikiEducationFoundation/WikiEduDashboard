@@ -8,7 +8,7 @@ describe('DateCalculator', () => {
         'returns the formatted start of the nth week (as provided to the constructor)',
         () => {
           const calculator = new DateCalculator('2016-01-01', '2016-12-31', 1, { zeroIndexed: true });
-          expect(calculator.start()).toBe('01/03');
+          expect(calculator.start()).toBe('Jan 03');
         }
       );
     });
@@ -17,7 +17,7 @@ describe('DateCalculator', () => {
         'returns the formatted start of the n - 1 week (as provided to the constructor)',
         () => {
           const calculator = new DateCalculator('2016-01-01', '2016-12-31', 1, { zeroIndexed: false });
-          expect(calculator.start()).toBe('12/27');
+          expect(calculator.start()).toBe('Dec 27');
         }
       );
     });
@@ -28,14 +28,14 @@ describe('DateCalculator', () => {
         'returns the formatted start of the nth week (as provided to the constructor)',
         () => {
           const calculator = new DateCalculator('2016-01-01', '2016-12-31', 1, { zeroIndexed: false });
-          expect(calculator.end()).toBe('01/02');
+          expect(calculator.end()).toBe('Jan 02');
         }
       );
     });
     describe('last day of the week we started on is after course end', () => {
       test('returns the formatted course end', () => {
         const calculator = new DateCalculator('2016-01-01', '2016-12-31', 60, { zeroIndexed: false });
-        expect(calculator.end()).toBe('12/31');
+        expect(calculator.end()).toBe('Dec 31');
       });
     });
   });

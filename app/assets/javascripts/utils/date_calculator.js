@@ -15,7 +15,7 @@ class DateCalculator {
   }
 
   start() {
-    return format(this.startDate(), 'MM/dd');
+    return format(this.startDate(), 'MMM dd');
   }
 
   endDate() {
@@ -23,7 +23,7 @@ class DateCalculator {
   }
 
   end() {
-    return format(this.endDate(), 'MM/dd');
+    return format(this.endDate(), 'MMM dd');
   }
 }
 
