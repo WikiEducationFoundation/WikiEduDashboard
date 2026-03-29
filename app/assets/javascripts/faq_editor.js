@@ -26,9 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Sync scroll between textarea and preview
+  textarea.addEventListener('scroll', () => {
+    const scrollPercentage = textarea.scrollTop / (textarea.scrollHeight - textarea.clientHeight);
+    preview.scrollTop = scrollPercentage * (preview.scrollHeight - preview.clientHeight);
+  });
+
   // Listen to input events with debouncing
   textarea.addEventListener('input', () => {
-    debounce(updatePreview, 300);
+    debounce(updatePreview, 150);
   });
 
   // Initial render if there's existing content

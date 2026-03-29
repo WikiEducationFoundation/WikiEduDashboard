@@ -159,6 +159,7 @@ const Calendar = ({
             modifiers={modifiers}
             onDayClick={onDayClick}
             initialMonth={initialMonth}
+            aria-label={I18n.t('courses.calendar_label')}
           />
           <div className="course-dates__calendar-key">
             <h3>{I18n.t('courses.calendar.legend')}</h3>

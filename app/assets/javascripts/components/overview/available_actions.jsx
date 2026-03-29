@@ -112,7 +112,8 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
       controls.push((<div key="search" className="available-action"><a href={`/tickets/dashboard?search_by_course=${course.slug}`} className="button">{I18n.t('courses.search_all_tickets_for_this_course')}</a></div>));
     }
     // If course is not published, show the 'delete' button to instructors and admins.
-    if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
+    // Admins can always delete courses.
+    if (user.admin || (user.isAdvancedRole && (!course.published || !Features.wikiEd))) {
       controls.push((
         <div title={Features.wikiEd ? I18n.t('courses.delete_course_instructions') : undefined} key="delete" className="available-action">
           <button className="button danger" onClick={deleteCourseFunc}>

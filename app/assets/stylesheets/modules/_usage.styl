@@ -17,28 +17,38 @@
 
   .stats-grid
     display grid
-    grid-template-columns repeat(3, 1fr)
-    gap 15px
-    margin 20px 0
-    max-width 800px
+    grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
+    gap 20px
+    margin 30px 0
+    max-width 1200px
 
   .stats-card
     text-align center
-    padding 15px
+    padding 25px
     margin 0
+    background #fdfdfd
+    border 1px solid #eee
+    border-radius 8px
+    transition transform 0.2s ease, box-shadow 0.2s ease
+    
+    &:hover
+      transform translateY(-2px)
+      box-shadow 0 4px 12px rgba(0,0,0,0.05)
     
     h3
-      font-size 1.8em
-      font-weight 700
+      font-size 2.4em
+      font-weight 800
       color #2c5aa0
-      margin 0 0 8px 0
+      margin 0 0 10px 0
       
     p
-      color #666
-      font-size 0.85em
+      color #777
+      font-size 0.9em
       margin 0
+      font-weight 600
       text-transform uppercase
-      letter-spacing 0.5px
+      letter-spacing 1px
+
 
   .section-header
     margin-bottom 20px
@@ -119,16 +129,31 @@
       font-size 0.95em
 
   .wiki-view-selector
-    margin-bottom 20px
+    margin-bottom 30px
+    background #f8f9fa
+    padding 20px
+    border-radius 8px
+    display flex
+    align-items center
+    gap 15px
     
     label
-      margin-right 10px
+      font-weight 700
+      color #444
     
     .wiki-dropdown
-      padding 5px 10px
-      border 1px solid #ccc
+      padding 8px 15px
+      border 1px solid #ced4da
+      border-radius 4px
       background white
       font-size 1em
+      color #495057
+      cursor pointer
+      outline none
+      &:focus
+        border-color #2c5aa0
+        box-shadow 0 0 0 0.2rem rgba(44, 90, 160, 0.25)
+
 
   .wiki-sort-section
     .no-data

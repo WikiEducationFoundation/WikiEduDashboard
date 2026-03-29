@@ -45,13 +45,16 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
   }, [username]);
 
   const validateUsername = (name) => {
-    // Wikipedia username validation
-    // Must not be empty, and should not contain certain characters
     if (!name || name.trim().length === 0) return false;
 
-    // Check for invalid characters: # < > [ ] | { } @ / :
+    // Wikipedia username validation
+    // Should not contain: # < > [ ] | { } @ / :
     const invalidChars = /[#<>[\]|{}@/:]/;
     if (invalidChars.test(name)) return false;
+
+    // Should not be an IP address (v4)
+    const ipRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+    if (ipRegex.test(name)) return false;
 
     return true;
   };
@@ -80,7 +83,20 @@ const EditSandboxUsernameInput = ({ submit, onChange, value, assignment, course 
   };
 
   const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
+    let newValue = e.target.value;
+
+    // Smart extraction: if a full URL is pasted, extract the username
+    const urlMatch = newValue.match(/\/wiki\/User:([^/]+)/);
+    if (urlMatch && urlMatch[1]) {
+      newValue = decodeURIComponent(urlMatch[1]);
+    }
+
+    // Strip "User:" prefix if manually entered
+    if (newValue.trim().toLowerCase().startsWith('user:')) {
+      newValue = newValue.trim().substring(5);
+    }
+
+    setUsername(newValue);
   };
 
   const handleSubmit = (e) => {

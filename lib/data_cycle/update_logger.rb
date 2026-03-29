@@ -48,7 +48,9 @@ class UpdateLogger
   def self.average_delay(log_hash)
     end_times = log_hash.values.filter_map { |log| log['end_time'] }
     return unless end_times&.length&.> 1
-    average_delay_in_seconds = (end_times.last.to_f - end_times.first.to_f) / (end_times.count - 1)
+    # Ensure they are Time objects for calculation
+    times = end_times.map { |t| t.is_a?(String) ? Time.zone.parse(t) : t }
+    average_delay_in_seconds = (times.last.to_f - times.first.to_f) / (times.count - 1)
     average_delay_in_seconds.to_i
   end
 

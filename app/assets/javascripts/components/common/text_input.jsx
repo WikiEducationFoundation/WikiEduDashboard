@@ -119,8 +119,12 @@ TextInput.propTypes = {
   append: PropTypes.node,
   onKeyDown: PropTypes.func,
   _value: PropTypes.any,
-  // validation: Regex used by Conditional
-  // required: bool used by Conditional
+  id: PropTypes.string,
+  children: PropTypes.node,
+  invalid: PropTypes.bool,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onFocus: PropTypes.func,
 };
 
 export default Conditional(InputHOC(TextInput));

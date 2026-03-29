@@ -76,7 +76,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'choosing_an_article',
-      send_at: block.calculated_date.to_datetime
+      send_at: block.calculated_date.to_time
     )
   end
 
@@ -92,7 +92,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'bibliographies',
-      send_at: block.calculated_date.to_datetime
+      send_at: block.calculated_date.to_time
     )
   end
 
@@ -104,7 +104,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'drafting_and_moving',
-      send_at: block.calculated_date.to_datetime
+      send_at: block.calculated_date.to_time
     )
   end
 
@@ -116,7 +116,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'peer_review',
-      send_at: block.calculated_date.to_datetime
+      send_at: block.calculated_date.to_time
     )
   end
 
@@ -128,7 +128,7 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'assessing_contributions',
-      send_at: block.calculated_date.to_datetime
+      send_at: block.calculated_date.to_time
     )
   end
 

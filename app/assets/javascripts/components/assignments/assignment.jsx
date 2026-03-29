@@ -5,11 +5,19 @@ import { sortBy } from 'lodash-es';
 import CourseUtils from '../../utils/course_utils.js';
 import Feedback from '../common/feedback.jsx';
 
-const userLink = (wiki, assignment) => {
-  if (!wiki) {
-    return <div key={`assignment_${assignment.id}`}>{assignment.username}</div>;
+const userLink = (assignment, defaultWiki) => {
+  if (!assignment.username) { return null; }
+  const language = assignment.language || defaultWiki.language || 'en';
+  const project = assignment.project || defaultWiki.project || 'wikipedia';
+  let domain;
+  if (project === 'wikidata') {
+    domain = 'www.wikidata.org';
+  } else if (project === 'wikisource' && (language === 'www' || !language)) {
+    domain = 'wikisource.org';
+  } else {
+    domain = `${language}.${project}.org`;
   }
-  const link = `https://${wiki.language || 'www'}.${wiki.project}.org/wiki/User:${assignment.username}`;
+  const link = `https://${domain}/wiki/User:${assignment.username}`;
   return <a key={`assignment_${assignment.id}`} href={link} target="_blank">{assignment.username}</a>;
 };
 
@@ -30,11 +38,11 @@ const Assignment = (props) => {
     for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
-        const usernameLink = userLink(props.course.home_wiki, assignment);
+        const usernameLink = userLink(assignment, props.course.home_wiki);
         assignees.push(usernameLink);
         assignees.push(', ');
       } else if (assignment.role === 1 && assignment.user_id && assignment.username) {
-        const usernameLink = userLink(props.course.home_wiki, assignment);
+        const usernameLink = userLink(assignment, props.course.home_wiki);
         reviewers.push(usernameLink);
         reviewers.push(', ');
       }

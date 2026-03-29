@@ -24,7 +24,8 @@ const TextAreaInput = ({
   markdown,
   className,
   clearOnSubmit,
-  invalid
+  invalid,
+  label // Added label prop
 }) => {
   const [tinymceLoaded, setTinymceLoaded] = useState(false);
   const [activeEditor, setActiveEditor] = useState(null);
@@ -101,6 +102,7 @@ const TextAreaInput = ({
           onBlur={onBlur}
           maxLength="30000"
           placeholder={placeholder}
+          aria-label={label || placeholder}
         />
       );
     }
@@ -143,7 +145,9 @@ TextAreaInput.propTypes = {
   wysiwyg: PropTypes.bool, // use rich text editor instead of plain text
   markdown: PropTypes.bool, // render value as Markdown when in read mode
   className: PropTypes.string,
-  clearOnSubmit: PropTypes.bool
+  clearOnSubmit: PropTypes.bool,
+  invalid: PropTypes.bool,
+  label: PropTypes.string
 };
 
 export default InputHOC(TextAreaInput);

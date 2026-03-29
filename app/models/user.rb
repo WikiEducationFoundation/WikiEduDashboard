@@ -96,12 +96,9 @@ class User < ApplicationRecord
   ####################
   # Class method(s)  #
   ####################
-  def self.search_by_email(email)
-    User.where('lower(email) like ?', "#{email}%")
-  end
-
-  def self.search_by_real_name(real_name)
-    User.where('lower(real_name) like ?', "%#{real_name}%")
+  def self.search(query)
+    # Search by email (start) or real name (contains)
+    where('lower(email) like ? OR lower(real_name) like ?', "#{query.downcase}%", "%#{query.downcase}%")
   end
 
   ####################

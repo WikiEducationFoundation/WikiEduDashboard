@@ -86,8 +86,7 @@ class ReferenceCounterApi
 
     @non_200_errors.each_value do |data|
      
-      error = StandardError.new("Non-200 response hitting references
-                                counter API: (#{data[:status_code]})")
+      error = StandardError.new("Non-200 response hitting reference counter API: (#{data[:status_code]})")
       
       # Use the shared module method
       log_error(error, 

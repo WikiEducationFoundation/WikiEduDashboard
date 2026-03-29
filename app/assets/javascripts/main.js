@@ -4,9 +4,7 @@
 // and other static (from a JavaScript perspective) data objects.
 
 
-// core-js/stable and regenerator-runtime/runtime are directly included to polyfill ES features and to use transpiled generator functions respectively, as @babel/polyfill is deprecated.
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+// core-js and regenerator-runtime are now polyfilled automatically by @babel/preset-env with useBuiltIns: 'usage'.
 import i18n from './i18n';
 
 require('location-origin');

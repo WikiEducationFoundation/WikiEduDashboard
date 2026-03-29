@@ -17,6 +17,11 @@ const SiteNoticeForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (siteNotice.trim() === '' && props.currentSiteNotice?.message) {
+      if (!confirm(I18n.t('settings.common_settings_components.headings.confirm_clear_site_notice'))) {
+        return;
+      }
+    }
     dispatch(props.updateSiteNotice({ message: siteNotice, status: props.currentStatus }));
     props.handlePopoverClose(e);
   };

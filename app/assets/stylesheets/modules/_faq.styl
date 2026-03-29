@@ -141,15 +141,19 @@
   .preview-pane
     flex: 1
     min-width: 0
+    position sticky
+    top 100px
+    align-self flex-start
     h3
       margin-bottom: 15px
     .faq-preview
         padding: 20px
-        background-color: rgba(0,0,0,0.03)
-        border: 1px solid $border
+        background-color: #fff
+        border: 1px solid #ddd
+        box-shadow 0 2px 4px rgba(0,0,0,0.05)
         border-radius: 4px
         overflow-y: auto
-        max-height: 50vh 
+        max-height: 80vh 
         min-height: 400px
         overflow-wrap: break-word
         scrollbar-color: #8e8e8eff #8f8f8fff
