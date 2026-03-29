@@ -73,6 +73,36 @@
       margin-top 4px
       font-weight 600
 
+.campaign-status-panel
+  margin-bottom 20px
+  display flex
+  flex-wrap wrap
+  gap 10px
+
+.campaign-status-tag, .campaign-type-tag
+  padding 4px 12px
+  border-radius 4px
+  font-size 14px
+  font-weight 600
+  color white
+  background-color #666
+
+  &.is-upcoming
+    background-color #f0ad4e // Warning yellow
+
+  &.is-ongoing
+    background-color sprout // Green
+
+  &.is-finished
+    background-color #d9534f // Red/Danger
+
+  &.is-registration-enabled
+    background-color #5bc0de // Info blue
+
+.campaign-type-tag
+  background-color #8e44ad // Purple
+  color white
+
 .high-modal
   float right
 
