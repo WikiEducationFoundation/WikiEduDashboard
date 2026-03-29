@@ -6,6 +6,7 @@ import CampaignAlerts from '../alerts/campaign_alerts.jsx';
 import CampaignOresPlot from './campaign_ores_plot.jsx';
 import CampaignNavbar from '../common/campaign_navbar';
 import CampaignStats from './campaign_stats';
+import CampaignStatus from './campaign_status';
 import WikidataOverviewStats from '../common/wikidata_overview_stats';
 import CampaignStatsDownloadModal from './campaign_stats_download_modal';
 
@@ -31,6 +32,7 @@ export const Campaign = () => {
     );
     overviewStats = (
       <section className="overview container">
+        <CampaignStatus campaign={campaign} />
         <CampaignStats campaign={campaign} />
         {campaign.course_stats && <WikidataOverviewStats
           statistics={campaign.course_stats['www.wikidata.org']}
