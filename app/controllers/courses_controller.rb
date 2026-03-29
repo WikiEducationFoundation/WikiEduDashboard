@@ -46,13 +46,16 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update update_params
-    update_courses_wikis
-    update_course_wiki_namespaces
-    update_flags
-    ensure_passcode_set
-    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
-    render json: { course: @course }
+    if @course.update(update_params)
+      update_courses_wikis
+      update_course_wiki_namespaces
+      update_flags
+      ensure_passcode_set
+      UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+      render json: { course: @course }
+    else
+      render_json_error 'Course could not be updated', :unprocessable_entity
+    end
   rescue Wiki::InvalidWikiError => e
     message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
     render_json_error(message, :not_found, e)
@@ -372,6 +375,7 @@ class CoursesController < ApplicationController
     update_course_format
     update_last_reviewed
     update_assignment_settings
+    @course.save
   end
 
   UPDATABLE_FLAGS = [
@@ -392,7 +396,6 @@ class CoursesController < ApplicationController
         @course.flags[flag] = false
       end
     end
-    @course.save
   end
 
   EDIT_SETTING_KEYS = %w[
@@ -404,23 +407,19 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
-    @course.save
   end
 
   def update_academic_system
     @course.flags['academic_system'] = params.dig(:course, 'academic_system')
-    @course.save
   end
 
   def update_course_format
     @course.flags['format'] = params.dig(:course, 'format')
-    @course.save
   end
 
   def update_timeslice_duration
     # Set the default timeslice_duration to the default value
     @course.flags[:timeslice_duration] = { default: TimesliceManager::TIMESLICE_DURATION }
-    @course.save
   end
 
   def update_last_reviewed
@@ -431,15 +430,12 @@ class CoursesController < ApplicationController
       'username' => username,
       'timestamp' => timestamp
     }
-    @course.save
   end
 
   def update_assignment_settings
     max_group_size = params.dig(:course, :flags, :max_group_size)
 
     @course.flags[:max_group_size] = max_group_size.to_i if max_group_size.present?
-
-    @course.save
   end
 
   def handle_post_course_creation_updates
