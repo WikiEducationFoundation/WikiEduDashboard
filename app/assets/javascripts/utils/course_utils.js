@@ -136,7 +136,15 @@ export default class CourseUtils {
   // Return the MediaWiki page URL, given title, language, and project.
   static urlFromTitleAndWiki(title, language, project) {
     const underscoredTitle = title.replace(/ /g, '_');
-    return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
+    let domain;
+    if (project === 'wikidata') {
+      domain = 'www.wikidata.org';
+    } else if (project === 'wikisource' && (language === 'www' || !language)) {
+      domain = 'wikisource.org';
+    } else {
+      domain = `${language}.${project}.org`;
+    }
+    return `https://${domain}/wiki/${underscoredTitle}`;
   }
 
   // Construct the best possible human-readable title for an article.
