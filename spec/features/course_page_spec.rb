@@ -415,13 +415,15 @@ describe 'the course page', type: :feature, js: true do
         user_id: 1,
         file_name: 'File:Example.jpg',
         uploaded_at: '2015-06-01',
-        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg'
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 1
       )
     end
 
     it 'displays a list of uploads' do
       visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.upload')
+      expect(page).to have_css('.usage', visible: false)
       expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
     end
 

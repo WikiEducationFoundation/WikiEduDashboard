@@ -1211,7 +1211,9 @@ es:
     uploaded_at: Subir archivo
     uploaded_by: Subido por
     usage_count: Total de usos
-    usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
+    usage_count_gallery_tile:
+      one: "Se utiliza en 1 artículo"
+      other: "Se utiliza en %{count} artículos"
     usages: Usos
     gallery_view: Vista de la galería
     list_view: Ver como lista
