@@ -242,28 +242,20 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     // this text contains the titles/links of the article separated by new lines
     const text = e.target.value;
-    const articlesTitles = [];
 
     let articleLanguage;
     let articleProject;
 
-    // loop for each individual article
+    // loop for each individual article to detect project/language from URLs/prefixes
     text.split('\n').forEach((articleTitle) => {
-      // if the article title is empty, then skip it
-      if (!articleTitle) {
-        // add an empty string to the array so that new lines are preserved
-        articlesTitles.push('');
-        return;
-      }
+      if (!articleTitle) return;
 
       const article = CourseUtils.articleFromTitleInput(articleTitle);
-      const formattedTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki);
-      articlesTitles.push(formattedTitle);
-      articleLanguage = article.language;
-      articleProject = article.project;
+      articleLanguage = article.language || articleLanguage;
+      articleProject = article.project || articleProject;
     });
 
-    setTitle(articlesTitles.join('\n'));
+    setTitle(text);
     setProject(articleProject || course.home_wiki.project);
     setLanguage(articleLanguage || (course.home_wiki.language || 'www'));
   };
