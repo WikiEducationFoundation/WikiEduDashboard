@@ -244,7 +244,7 @@ module RequestHelpers
   end
 
   def stub_mainspace_query
-    stub_request(:get, /.*action=query.*&titles=.*/)
+    stub_request(:get, /.*action=query&titles=.*&format=json&origin=\*/)
       .to_return(status: 200, headers: {}) do |request|
         uri = URI.decode_www_form_component(request.uri.to_s)
         match = uri.match(/titles=([^&]*)/)
@@ -265,7 +265,6 @@ module RequestHelpers
   end
 
   def stub_wiki_validation
-    stub_mainspace_query
     wikis = [
       'incubator.wikimedia.org',
       'es.wikipedia.org',
