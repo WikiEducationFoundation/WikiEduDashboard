@@ -250,7 +250,9 @@ module RequestHelpers
         match = uri.match(/titles=([^&]*)/)
         title = match ? match[1] : 'MockTitle'
         ns = title.downcase.start_with?('category:') ? 14 : 0
-        { body: "{\"query\":{\"pages\":{\"1\":{\"pageid\":1,\"ns\":#{ns},\"title\":\"#{title}\"}}}}" }
+        {
+          body: "{\"query\":{\"pages\":{\"1\":{\"pageid\":1,\"ns\":#{ns},\"title\":\"#{title}\"}}}}"
+        }
       end
   end
 
