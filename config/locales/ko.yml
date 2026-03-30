@@ -825,6 +825,7 @@ ko:
     kind:
       discussion: 토론
     close: 닫기
+    loading: 불러오는 중…
   update_username:
     button: 업데이트
   uploads:

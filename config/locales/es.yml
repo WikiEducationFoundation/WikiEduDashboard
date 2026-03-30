@@ -187,6 +187,7 @@ es:
     available: Artículos disponibles
     no_available: No hay artículos disponibles
     next: Siguiente
+    page_info: Página %{current} de %{total_pages} (%{count} de %{total})
     previous: Anterior
     article_title: Título del artículo
     assigned_to: Asignado a
@@ -1185,6 +1186,7 @@ es:
     take_your_time: ¡Por favor, tómese su tiempo!
     alert_content: Es muy importante que aprendas a fondo el contenido de la capacitación.
     close: CERRAR
+    loading: Cargando…
   update_username:
     not_found: No se encontró la cuenta correspondiente al nombre introducido.
     username_updated: El nombre de usuario se actualizó correctamente.
