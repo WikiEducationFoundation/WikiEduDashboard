@@ -29,8 +29,9 @@ document.onreadystatechange = () => {
   } else if (isTableValid('#courses') && window.DISABLE_COURSES_LISTJS) {
     document.querySelectorAll('#courses_table th[data-backend-column]').forEach((th) => {
       th.addEventListener('click', (e) => {
-        const backendColumn = e.currentTarget.getAttribute('data-backend-column');
-        const defaultOrder = e.currentTarget.getAttribute('data-default-order') || 'asc';
+        const thEl = e.currentTarget;
+        const backendColumn = thEl.getAttribute('data-backend-column');
+        const defaultOrder = thEl.getAttribute('data-default-order') || 'asc';
         const urlParams = new URLSearchParams(window.location.search);
         const currentSort = urlParams.get('sort');
         const currentDirection = urlParams.get('direction');
@@ -38,6 +39,12 @@ document.onreadystatechange = () => {
         let newDirection = defaultOrder;
         if (currentSort === backendColumn) {
           newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+        } else if (thEl.classList.contains('asc')) {
+          // Column is sorted asc via default (no URL params) — toggle to desc
+          newDirection = 'desc';
+        } else if (thEl.classList.contains('desc')) {
+          // Column is sorted desc via default (no URL params) — toggle to asc
+          newDirection = 'asc';
         }
 
         urlParams.set('sort', backendColumn);
