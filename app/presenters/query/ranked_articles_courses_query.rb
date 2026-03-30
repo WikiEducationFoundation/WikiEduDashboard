@@ -24,28 +24,26 @@ class Query::RankedArticlesCoursesQuery
 
   private
 
+  SORTABLE_COLUMNS = %w[title view_sum character_sum references_count].freeze
+  DEFAULT_ORDER = 'articles.deleted ASC, articles_courses.character_sum DESC'
+
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
   def subquery
     ArticlesCourses
       .includes(:article)
       .where(course_id: @courses.map(&:id), tracked: true)
       .select(:id)
-      .then do |q|
-        if @sort_column.present? && @sort_direction.present?
-          if %w[title view_sum character_sum references_count].include?(@sort_column)
-            # Some columns might need manual mapping depending on the query,
-            # but generally we can use order
-            order_string = "#{@sort_column} #{@sort_direction.upcase}"
-            @too_many ? q : q.order(order_string)
-          else
-            # fallback to default
-            @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')
-          end
-        else
-          @too_many ? q : q.order('articles.deleted ASC, articles_courses.character_sum DESC')
-        end
-      end
+      .then { |q| @too_many ? q : q.order(order_clause) }
       .limit(@per_page)
       .offset(@offset)
+  end
+
+  def order_clause
+    if @sort_column.present? && @sort_direction.present? &&
+       SORTABLE_COLUMNS.include?(@sort_column)
+      "#{@sort_column} #{@sort_direction.upcase}"
+    else
+      DEFAULT_ORDER
+    end
   end
 end
