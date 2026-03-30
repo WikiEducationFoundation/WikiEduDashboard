@@ -24,5 +24,6 @@ class UnsubmittedCourseAlertManager
     ClassroomProgramCourse.unsubmitted
                           .where('courses.created_at <= ?', TIME_AFTER_CREATION.ago)
                           .where('courses.created_at >= ?', MAX_TIME_AFTER_CREATION.ago)
+                          .reject(&:declined?)
   end
 end

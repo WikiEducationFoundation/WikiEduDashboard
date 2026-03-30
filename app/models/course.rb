@@ -57,6 +57,8 @@ require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
+  before_save :clear_declined_if_submitted
+
   ######################
   # Users for a course #
   ######################
@@ -532,6 +534,15 @@ class Course < ApplicationRecord
 
   def review_bibliography?
     flags[:review_bibliography].present?
+  end
+
+  def declined?
+    flags && flags[:declined].present?
+  end
+
+  def clear_declined_if_submitted
+    return unless submitted? && flags && flags[:declined]
+    flags.delete(:declined)
   end
 
   def very_long_update?
