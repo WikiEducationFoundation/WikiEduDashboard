@@ -1,4 +1,7 @@
 - content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
+- sort_class = ->(backend_column, default_order) { @sort_column.blank? ? default_order.downcase : (@sort_column == backend_column ? @sort_direction.downcase : '') }
+- backend_to_sort_value = {'title' => 'title', 'school' => 'school', 'recent_revision_count' => 'revisions', 'character_sum' => 'characters', 'average_word_count' => 'average-words', 'references_count' => 'references', 'view_sum' => 'views', 'user_count' => 'students', 'trained_count' => 'untrained', 'created_at' => 'start-date'}
+- current_sort_value = params[:sort].present? ? backend_to_sort_value[@sort_column] : nil
 
 #react_root{data: {slug: @campaign.slug}}
 
@@ -9,85 +12,95 @@
         = t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title)
       .sort-select
         %select.sorts{rel: 'courses'}
-          %option{rel: 'asc', value: 'title'}
+          %option{rel: 'asc', value: 'title', selected: current_sort_value == 'title' || nil}
             = t("courses.title")
-          %option{rel: 'asc', value: 'school'}
+          %option{rel: 'asc', value: 'school', selected: current_sort_value == 'school' || nil}
             = t("courses.school")
-          %option{rel: 'desc', value: 'revisions'}
+          %option{rel: 'desc', value: 'revisions', selected: current_sort_value == 'revisions' || nil}
             = t("metrics.revisions")
-          %option{rel: 'desc', value: 'characters'}
+          %option{rel: 'desc', value: 'characters', selected: current_sort_value == 'characters' || nil}
             = t("metrics.word_count")
-          %option{rel: 'desc', value: 'average-words'}
+          %option{rel: 'desc', value: 'average-words', selected: current_sort_value == 'average-words' || nil}
             = t("metrics.word_count_average")
-          %option{rel: 'desc', value: 'references'}
+          %option{rel: 'desc', value: 'references', selected: current_sort_value == 'references' || nil}
             = t("metrics.references_count")
-          %option{rel: 'desc', value: 'views'}
+          %option{rel: 'desc', value: 'views', selected: current_sort_value == 'views' || nil}
             = t("metrics.view")
-          %option{rel: 'desc', value: 'students'}
+          %option{rel: 'desc', value: 'students', selected: current_sort_value == 'students' || nil}
             = t("users.editors")
-          %option{rel: 'desc', value: 'untrained'}
+          %option{rel: 'desc', value: 'untrained', selected: current_sort_value == 'untrained' || nil}
             = t("courses.untrained")
           - unless Features.wiki_ed?
-            %option{rel: 'desc', value: 'creation-date'}
+            %option{rel: 'desc', value: 'creation-date', selected: current_sort_value == 'creation-date' || nil}
               = t("courses.creation_date")
-          %option{rel: 'asc', value: 'start-date'}
+          %option{rel: 'asc', value: 'start-date', selected: current_sort_value == 'start-date' || nil}
             = t("courses.start_date")
 
-    %table.table.table--hoverable.table--sortable.table-responsive
+    %table.table.table--hoverable.table--sortable{ id: 'courses_table' }
       %thead
         %tr
-          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+          %th.sort.sortable{class: sort_class.call('title', 'asc'), 'data-default-order' => 'asc', 'data-sort' => 'title', 'data-backend-column' => 'title'}
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
-          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school'}
+          %th.sort.sortable{class: sort_class.call('school', 'asc'), style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school', 'data-backend-column' => 'school'}
             = t("#{@presenter.course_string_prefix}.school_and_term")
             %span.sortable-indicator
           - if Features.wiki_ed?
             %th Instructor
-          %th.sort.sortable.desc{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
+          %th.sort.sortable{class: sort_class.call('recent_revision_count', 'desc'), style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions', 'data-backend-column' => 'recent_revision_count'}
             .tooltip-trigger
               = t('metrics.revisions')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('courses.revisions_doc', timeframe: RevisionStatTimeslice::REVISION_WINDOW_DAYS)
-          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
+          %th.sort.sortable{class: sort_class.call('character_sum', 'desc'), style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters', 'data-backend-column' => 'character_sum'}
             .tooltip-trigger
               = t('metrics.word_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= course_i18n('word_count_doc')
-          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references'}
+          %th.sort.sortable{class: sort_class.call('references_count', 'desc'), style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references', 'data-backend-column' => 'references_count'}
             .tooltip-trigger
               = t('metrics.references_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('metrics.references_doc')
-          %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views'}
+          %th.sort.sortable{class: sort_class.call('view_sum', 'desc'), style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views', 'data-backend-column' => 'view_sum'}
             .tooltip-trigger
               = t('metrics.view')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('courses.view_doc')
-          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
-            = t('users.editors')
-            %span.sortable-indicator
+          %th.sort.sortable{class: sort_class.call('user_count', 'desc'), style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students', 'data-backend-column' => 'user_count'}
+            .tooltip-trigger
+              = t('users.editors')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.editors_doc')
           - unless Features.wiki_ed?
-            %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
+            %th.sort.sortable{class: sort_class.call('created_at', 'desc'), 'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
               = t('courses.creation_date')
               %span.sortable-indicator
 
-          %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date'}
-            = t('courses.start_date')
-            %span.sortable-indicator
-          
+          %th.sort.sortable{class: sort_class.call('created_at', 'desc'), style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date', 'data-backend-column' => 'created_at'}
+            .tooltip-trigger
+              = t('form_search.program_date')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.program_date_doc')
+
           - if @presenter.can_remove_course?
             %th{style: 'width:100px'}
               = t('courses.actions')
-      %tbody.list
+      %tbody
+        :javascript
+          window.DISABLE_COURSES_LISTJS = true;
         - if @search_terms.present?
           - if @results.count > 1
             %h4= t('application.search_results.other', search_terms: @search_terms, count: @results.count)

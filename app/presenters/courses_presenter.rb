@@ -12,6 +12,8 @@ class CoursesPresenter
     @campaign_param = campaign_param
     @page = options[:page]
     @tag = options[:tag]
+    @sort_column = options[:sort_column]
+    @sort_direction = options[:sort_direction]
     @courses_list = courses_list || campaign_courses
   end
 
@@ -68,7 +70,9 @@ class CoursesPresenter
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
-      too_many: too_many_articles?
+      too_many: too_many_articles?,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction
     ).scope
   end
 
@@ -153,8 +157,12 @@ class CoursesPresenter
   end
 
   def courses_by_recent_edits
-    # Sort first by recent edit count, and then by course title
-    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 25)
+    order = if @sort_column.present? && @sort_direction.present?
+              "#{@sort_column} #{@sort_direction.upcase}, title ASC"
+            else
+              'recent_revision_count DESC, title ASC'
+            end
+    courses.order(order).paginate(page: @page, per_page: 25)
   end
 
   def active_courses_by_recent_edits
