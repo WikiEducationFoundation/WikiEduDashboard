@@ -3,10 +3,8 @@
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
 
 # Fetches a Wikipedia diff and extracts claim-source pairs from the added content.
-# Each "claim" is the sentence immediately preceding an inline citation, and
-# "source" is the corresponding formatted reference text.
-#
-# Returns an array of hashes: [{ claim: "...", source: "..." }, ...]
+# Each "claim" is the sentence immediately preceding an inline citation.
+# Returns an array of WikipediaCitation objects.
 class ExtractClaimsAndSources
   attr_reader :claims_and_sources
 
@@ -128,15 +126,18 @@ class ExtractClaimsAndSources
     doc.css('p').flat_map { |para| extract_paragraph_pairs(para, ref_map) }
   end
 
-  # Builds a map from cite_note IDs (e.g. "cite_note-1") to the formatted
-  # reference text found in the <ol class="references"> section.
+  # Builds a map from cite_note IDs (e.g. "cite_note-1") to a hash
+  # containing a WikipediaSource and any citation-specific metadata
+  # (pages, access_date) found in the <ol class="references"> section.
   def build_reference_map(doc)
     doc.css('ol.references li').each_with_object({}) do |li, map|
       next unless li['id']
 
-      li_clone = li.dup
-      li_clone.css('.mw-cite-backlink').each(&:remove)
-      map[li['id']] = li_clone.css('.reference-text').text.strip
+      map[li['id']] = {
+        source:      WikipediaSource.from_reference_li(li),
+        pages:       WikipediaSource.pages_from_li(li),
+        access_date: WikipediaSource.access_date_from_li(li)
+      }
     end
   end
 
@@ -167,11 +168,18 @@ class ExtractClaimsAndSources
     end
   end
 
-  def claim_source_pair(current_text, source)
-    return unless source.present?
+  def claim_source_pair(current_text, ref_entry)
+    return unless ref_entry.present?
 
-    claim = last_sentence(current_text)
-    { claim: claim.strip, source: } if claim.present?
+    claim_text = last_sentence(current_text)&.strip
+    return unless claim_text.present?
+
+    WikipediaCitation.new(
+      claim:       WikipediaClaim.new(claim_text),
+      source:      ref_entry[:source],
+      pages:       ref_entry[:pages],
+      access_date: ref_entry[:access_date]
+    )
   end
 
   def citation_node?(node)
