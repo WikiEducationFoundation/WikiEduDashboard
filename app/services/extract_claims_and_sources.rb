@@ -148,24 +148,30 @@ class ExtractClaimsAndSources
     current_text = ''
 
     paragraph.children.each do |node|
-      if node.text?
-        current_text += node.text
-      elsif citation_node?(node)
-        ref_id = citation_ref_id(node)
-        source = ref_map[ref_id]
-        if source.present?
-          claim = last_sentence(current_text)
-          pairs << { claim: claim.strip, source: } if claim.present?
-        end
-        # Reset so the next citation is paired with the sentence after this one
-        current_text = ''
-      else
-        # Inline elements (links, emphasis, etc.) — include their text
-        current_text += node.text
-      end
+      current_text, pair = process_node(node, current_text, ref_map)
+      pairs << pair if pair
     end
 
     pairs
+  end
+
+  def process_node(node, current_text, ref_map)
+    if node.text?
+      [current_text + node.text, nil]
+    elsif citation_node?(node)
+      pair = claim_source_pair(current_text, ref_map[citation_ref_id(node)])
+      ['', pair]
+    else
+      # Inline elements (links, emphasis, etc.) — include their text
+      [current_text + node.text, nil]
+    end
+  end
+
+  def claim_source_pair(current_text, source)
+    return unless source.present?
+
+    claim = last_sentence(current_text)
+    { claim: claim.strip, source: } if claim.present?
   end
 
   def citation_node?(node)
