@@ -1,0 +1,11 @@
+## AI / LLMs / chatbots
+
+We have one main rule for using AI tools for contributing to this project: **be transparent**.
+
+There are a wide variety of ways that developers are using AI. This project in particular sees many contributions from students and early-career developers, so we want to identify best practices and clear guidance to make sure that we're not breaking things with unregulated AI usage — including the funtionality of the code itself, the maintainability and understandability of the code, and the open source processes for coordinating issues, PRs, code review, and other social elements of the project.
+
+Proposals for specific guidelines, or practical advice, are welcome! Meanwhile, for the sake of learning more, the baseline requirement is to be explicit about any time you're using AI as part of a contribution to this project. If you use a chatbot to prepare a comment on an issue, say so! If you use a coding AI tool to draft code, be very clear about which tools you use and how you use them. This way, we can learn from each other.
+
+### No AI-only PRs without local testing
+
+If you're new the codebase, please do not open a PR unless you've set up a local development environment and manually verified that the changes work as expected. AI tools make it easy to automatically generate a plausible PR, especially for things like simple refactoring and code quality issue, and such a change might not even break anything. But they might. We're only interested in contributions from developers who take their work seriously enough to understand it for themselves and to verify that things work as expected. In almost all cases — even if no visible change is expected — screenshots or video demos are mandatory. These provide valuable context for reviewers, document the UI of a feature at a point in time, make it easy to provide feedback on functionality and design, and help screen out low-effort untested AI-generated changes. If it's a backend-only change, take a screenshot of manual testing in a console or whatever you've done to prove to yourself that the change is working properly, and ideally, also a screenshot or video showing that a related feature didn't break, if a botched change would have broken that feature.
