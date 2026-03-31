@@ -8,7 +8,7 @@ gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
-gem 'puma'
+gem 'puma', '>= 6.0'
 gem 'csv' # CSV library (required for Ruby 3.4+ as it's no longer a default gem)
 gem 'observer' # Observer library (required for Ruby 3.1+ as it's no longer in standard library)
 
@@ -18,7 +18,7 @@ gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
 # convenient cloning of ActiveRecord objects along with child records
 # Used for cloning surveys and courses.
 gem 'deep_cloneable'
-gem 'paper_trail' # Save histories of record changes related to surveys
+gem 'paper_trail', '>= 17.0.0' # Save histories of record changes related to surveys
 gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
