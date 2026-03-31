@@ -80,4 +80,48 @@ describe WikipediaSource do
       end
     end
   end
+
+  # Detailed test for a specific known source, to verify that structured
+  # COinS fields are parsed correctly into individual attributes.
+  describe 'first source from 3M_contamination_of_Minnesota_groundwater diff' do
+    # https://en.wikipedia.org/w/index.php?title=3M_contamination_of_Minnesota_groundwater&diff=prev&oldid=1315795891
+    # A {{Cite report}} citation for a US Geological Survey report, with a DOI URL
+    # and no named authors (institutional authorship).
+    let(:source) do
+      entry = WIKIPEDIA_CITATION_EXAMPLES.find do |e|
+        e[:description].include?('3M_contamination')
+      end
+      VCR.use_cassette(entry[:cassette]) do
+        ExtractClaimsAndSources.new(entry[:url]).claims_and_sources.first.source
+      end
+    end
+
+    it 'pretty prints all key fields' do
+      puts source
+    end
+
+    it 'has genre "report"' do
+      expect(source.genre).to eq('report')
+    end
+
+    it 'has the correct DOI url' do
+      expect(source.url).to eq('https://doi.org/10.3133/wri844188a')
+    end
+
+    it 'has date "1984"' do
+      expect(source.date).to eq('1984')
+    end
+
+    it 'has publisher "US Geological Survey"' do
+      expect(source.publisher).to eq('US Geological Survey')
+    end
+
+    it 'has no named authors (institutional authorship)' do
+      expect(source.authors).to be_empty
+    end
+
+    it 'has a title containing the report name' do
+      expect(source.title).to include('Ground-water contamination by crude oil')
+    end
+  end
 end

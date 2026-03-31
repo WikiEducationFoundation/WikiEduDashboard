@@ -16,7 +16,7 @@ class WikipediaSource
 
     coins = parse_coins(li_node)
     new(
-      title:     coins['rft.btitle']&.first || coins['rft.atitle']&.first,
+      title:     CGI.unescapeHTML(coins['rft.btitle']&.first || coins['rft.atitle']&.first || '').presence,
       authors:   extract_authors(coins),
       publisher: coins['rft.pub']&.first,
       date:      coins['rft.date']&.first,
@@ -34,6 +34,19 @@ class WikipediaSource
     @url       = url
     @genre     = genre
     @raw_text  = raw_text
+  end
+
+  def to_s
+    [
+      'WikipediaSource(',
+      "  genre:     #{genre.inspect}",
+      "  title:     #{title.inspect}",
+      "  authors:   #{authors.inspect}",
+      "  date:      #{date.inspect}",
+      "  publisher: #{publisher.inspect}",
+      "  url:       #{url.inspect}",
+      ')'
+    ].join("\n")
   end
 
   private_class_method :new
