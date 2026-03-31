@@ -62,24 +62,22 @@ describe ExtractClaimsAndSources do
       end
     end
 
-    it 'includes the expected claim text in at least one claim' do
-      wikipedia_urls.select { |e| e[:expected].key?(:claim) }.each do |entry|
-        claims = result_for(entry).map { |c| c.claim.text }
-        expect(claims).to include(a_string_including(entry[:expected][:claim]))
-      end
-    end
+    it 'matches all per-pair expected attributes' do
+      wikipedia_urls.select { |e| e[:expected].key?(:pairs) }.each do |entry|
+        citations = result_for(entry)
+        entry[:expected][:pairs].each_with_index do |pair_exp, i|
+          citation = citations[i]
+          if pair_exp.key?(:claim)
+            expect(citation.claim.text).to include(pair_exp[:claim])
+          end
+          if pair_exp.key?(:pages)
+            expect(citation.pages).to eq(pair_exp[:pages])
+          end
+          next unless pair_exp.key?(:source)
 
-    it 'includes the expected text in at least one source' do
-      wikipedia_urls.select { |e| e[:expected].key?(:source) }.each do |entry|
-        sources = result_for(entry).map { |c| c.source.raw_text }
-        expect(sources).to include(a_string_including(entry[:expected][:source]))
-      end
-    end
-
-    it 'has sources whose URLs match the expected list exactly' do
-      wikipedia_urls.select { |e| e[:expected].key?(:source_urls) }.each do |entry|
-        urls = result_for(entry).map { |citation| citation.source.url }
-        expect(urls).to eq(entry[:expected][:source_urls])
+          expect(citation.source.genre).to eq(pair_exp[:source][:genre]) if pair_exp[:source].key?(:genre)
+          expect(citation.source.url).to eq(pair_exp[:source][:url]) if pair_exp[:source].key?(:url)
+        end
       end
     end
   end

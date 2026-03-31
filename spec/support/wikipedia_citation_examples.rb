@@ -14,9 +14,14 @@
 #     source_claim_pairs_added: Integer  — exact number of WikipediaCitations expected
 #     claim:        String               — substring that must appear in at least one claim
 #     source:       String               — substring that must appear in at least one source's raw_text
-#     source_urls:         Array<String>  — exact ordered list of source URLs across all citations
-#     cs1_source_count:    Integer        — number of sources that have a COinS span (CS1 template)
-#     source_genres:       Array<String>  — ordered list of rft.genre values across all citations
+#     cs1_source_count:  Integer  — number of sources with a COinS span (CS1 template)
+#     pairs:             Array    — per-pair assertions, ordered to match the diff; each entry
+#                                  is a hash with any subset of:
+#       claim:   String  — substring that must appear in this citation's claim text
+#       pages:   String  — exact value of WikipediaCitation#pages (e.g. "365-367")
+#       source:  Hash    — attributes of the WikipediaSource for this pair:
+#         genre: String  — rft.genre from COinS (e.g. "book", "report", "unknown")
+#         url:   String  — source URL, or nil for sources with no URL
 WIKIPEDIA_CITATION_EXAMPLES = [
   # diff=prev URLs — exercises action=compare → wikitext extraction → action=parse
   {
@@ -26,14 +31,16 @@ WIKIPEDIA_CITATION_EXAMPLES = [
     url: 'https://en.wikipedia.org/w/index.php?title=Third_place&diff=prev&oldid=1340536495',
     cassette: 'extract_claims_and_sources/third_place_diff_prev',
     expected: {
-      source_claim_pairs_added: 2,
       # The diff modifies one existing paragraph (adding uncited sentences at
       # the end) and adds two new Criticism paragraphs, each with one citation.
       # Only the two new paragraphs produce pairs; the modified paragraph's
       # <ins> text has no citation following it.
-      claim:            'they may privilege certain social groups',
+      source_claim_pairs_added: 2,
       cs1_source_count: 2,
-      source_genres:    %w[book book]
+      pairs: [
+        { claim: 'they may privilege certain social groups', source: { genre: 'book' } },
+        { source: { genre: 'book' } }
+      ]
     }
   },
   {
@@ -43,12 +50,11 @@ WIKIPEDIA_CITATION_EXAMPLES = [
     cassette: 'extract_claims_and_sources/3m_contamination_diff_prev',
     expected: {
       source_claim_pairs_added: 2,
-      source_urls: [
-        'https://doi.org/10.3133/wri844188a',
-        'https://ir.library.oregonstate.edu/challenge?dest=/concern/graduate_projects/kk91ft133'
-      ],
       cs1_source_count: 2,
-      source_genres:    %w[report unknown]
+      pairs: [
+        { source: { genre: 'report', url: 'https://doi.org/10.3133/wri844188a' } },
+        { source: { genre: 'unknown', url: 'https://ir.library.oregonstate.edu/challenge?dest=/concern/graduate_projects/kk91ft133' } }
+      ]
     }
   },
   {
@@ -60,10 +66,26 @@ WIKIPEDIA_CITATION_EXAMPLES = [
   },
   {
     description: 'Eva_Hesse (diff=prev, rev 655980945)',
-    # From alert.rb as an example diff URL for generating alerts
+    # From alert.rb as an example diff URL for generating alerts.
+    # The diff adds " on January 11, 1936" (a mid-sentence <ins>) immediately
+    # followed by a new <ref> to the Encyclopedia of World Biography. Because
+    # it's a mid-sentence fragment with no preceding sentence-ending punctuation,
+    # last_sentence returns the whole accumulated text up to the citation.
+    # The citation itself carries page numbers (365-367), making it a good
+    # example for testing WikipediaCitation#pages.
     url: 'https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945',
     cassette: 'extract_claims_and_sources/eva_hesse_diff_prev',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 1,
+      cs1_source_count: 1,
+      pairs: [
+        {
+          claim:  'January 11, 1936',
+          pages:  '365-367',
+          source: { genre: 'book', url: nil } # book with no URL; cited by page number only
+        }
+      ]
+    }
   },
   {
     description: 'Vectors_in_gene_therapy (diff=prev, rev 637221390)',

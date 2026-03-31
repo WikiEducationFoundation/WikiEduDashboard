@@ -73,15 +73,21 @@ describe WikipediaSource do
       end
     end
 
-    it 'has sources with the expected genres in order' do
-      WIKIPEDIA_CITATION_EXAMPLES.select { |e| e[:expected].key?(:source_genres) }.each do |entry|
-        genres = sources_for(entry).map(&:genre)
-        expect(genres).to eq(entry[:expected][:source_genres])
+    it 'matches per-pair source attributes' do
+      WIKIPEDIA_CITATION_EXAMPLES.select { |e| e[:expected].key?(:pairs) }.each do |entry|
+        sources = sources_for(entry)
+        entry[:expected][:pairs].each_with_index do |pair_exp, i|
+          next unless pair_exp.key?(:source)
+
+          src_exp = pair_exp[:source]
+          expect(sources[i].genre).to eq(src_exp[:genre]) if src_exp.key?(:genre)
+          expect(sources[i].url).to eq(src_exp[:url]) if src_exp.key?(:url)
+        end
       end
     end
   end
 
-  # Detailed test for a specific known source, to verify that structured
+  # Detailed tests for specific known citations, verifying that structured
   # COinS fields are parsed correctly into individual attributes.
   describe 'first source from 3M_contamination_of_Minnesota_groundwater diff' do
     # https://en.wikipedia.org/w/index.php?title=3M_contamination_of_Minnesota_groundwater&diff=prev&oldid=1315795891
@@ -122,6 +128,57 @@ describe WikipediaSource do
 
     it 'has a title containing the report name' do
       expect(source.title).to include('Ground-water contamination by crude oil')
+    end
+  end
+
+  describe 'sole citation from Eva_Hesse diff' do
+    # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
+    # A {{Cite book}} for the Encyclopedia of World Biography, cited by page
+    # number only (no URL). The citation carries pages "365-367", making it
+    # a good example for testing WikipediaCitation#pages alongside source attrs.
+    let(:citation) do
+      entry = WIKIPEDIA_CITATION_EXAMPLES.find { |e| e[:description].include?('Eva_Hesse') }
+      VCR.use_cassette(entry[:cassette]) do
+        ExtractClaimsAndSources.new(entry[:url]).claims_and_sources.first
+      end
+    end
+
+    let(:source) { citation.source }
+
+    it 'pretty prints all key fields' do
+      puts source
+    end
+
+    it 'has genre "book"' do
+      expect(source.genre).to eq('book')
+    end
+
+    it 'has no URL (cited by page number only)' do
+      expect(source.url).to be_nil
+    end
+
+    it 'has title "Encyclopedia of World Biography"' do
+      expect(source.title).to eq('Encyclopedia of World Biography')
+    end
+
+    it 'has publisher "Gale"' do
+      expect(source.publisher).to eq('Gale')
+    end
+
+    it 'has date "2004"' do
+      expect(source.date).to eq('2004')
+    end
+
+    it 'has no named authors (encyclopedia with no credited author)' do
+      expect(source.authors).to be_empty
+    end
+
+    it 'has pages "365-367" on the citation' do
+      expect(citation.pages).to eq('365-367')
+    end
+
+    it 'has a claim containing the date of birth' do
+      expect(citation.claim.text).to include('January 11, 1936')
     end
   end
 end
