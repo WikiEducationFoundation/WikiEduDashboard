@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-campaign_course_count = 10
-
 module ResetLocale
   RSpec.configuration.before do
     I18n.locale = 'en'
@@ -20,6 +18,7 @@ describe 'campaign overview page', type: :feature, js: true do
            slug:,
            description: 'This is the best campaign')
   end
+  campaign_course_count = 10
 
   describe 'header' do
     before do
@@ -81,8 +80,9 @@ describe 'campaign overview page', type: :feature, js: true do
     end
 
     it 'displays stats accurately' do
+      visit "/campaigns/#{campaign.slug}/refresh"
+      expect(page).to have_content 'Campaign stats refreshed successfully'
       visit "/campaigns/#{campaign.slug}/overview"
-
       # Number of courses
       course_count = Campaign.find(campaign.id).courses.count
       stat_text = "#{course_count}\n#{I18n.t('courses.course_description')}"
