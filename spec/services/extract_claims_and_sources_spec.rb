@@ -53,7 +53,8 @@ describe ExtractClaimsAndSources do
     it 'has non-blank raw_text on every source' do
       wikipedia_urls.each do |entry|
         with_entry(entry) do
-          expect(result_for(entry).map { |c| c.source.raw_text }).to all(be_a(String).and(be_present))
+          raw_texts = result_for(entry).map { |c| c.source.raw_text }
+          expect(raw_texts).to all(be_a(String).and(be_present))
         end
       end
     end
@@ -82,7 +83,8 @@ describe ExtractClaimsAndSources do
         entry[:expected][:pairs].each_with_index do |pair_exp, i|
           with_entry(entry) do
             citation = citations[i]
-            expect(citation).not_to be_nil, "pair[#{i}] is nil (only #{citations.size} pairs returned)"
+            msg = "pair[#{i}] is nil (only #{citations.size} pairs returned)"
+            expect(citation).not_to be_nil, msg
             expect(citation.claim.text).to include(pair_exp[:claim]) if pair_exp.key?(:claim)
             expect(citation.pages).to eq(pair_exp[:pages]) if pair_exp.key?(:pages)
             next unless pair_exp.key?(:source)

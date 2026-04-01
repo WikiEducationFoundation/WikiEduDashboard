@@ -91,7 +91,8 @@ describe WikipediaSource do
           with_entry(entry) do
             src_exp = pair_exp[:source]
             source = sources[i]
-            expect(source).not_to be_nil, "pair[#{i}] is nil (only #{sources.size} sources returned)"
+            msg = "pair[#{i}] is nil (only #{sources.size} sources returned)"
+            expect(source).not_to be_nil, msg
             expect(source.genre).to eq(src_exp[:genre]) if src_exp.key?(:genre)
             expect(source.url).to eq(src_exp[:url]) if src_exp.key?(:url)
           end

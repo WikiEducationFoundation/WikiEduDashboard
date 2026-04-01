@@ -9,7 +9,9 @@ bundle exec rubocop                       # lint Ruby
 yarn test                                 # JavaScript suite
 ```
 
-RuboCop is enforced. Fix offenses before considering a task done.
+RuboCop is enforced. Run it on every file you touch before committing, and fix
+all offenses. Do not rely on autocorrect alone — it sometimes produces ugly
+line-breaks; fix those manually (e.g. extract a local variable to shorten the line).
 Key project limits (differ from RuboCop defaults):
 - Line length: 100 characters
 - Method length: 16 lines

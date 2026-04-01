@@ -24,7 +24,7 @@ end
 #
 #     source_claim_pairs_added: Integer  — exact number of WikipediaCitations expected
 #     claim:        String               — substring that must appear in at least one claim
-#     source:       String               — substring that must appear in at least one source's raw_text
+#     source:       String  — substring that must appear in at least one source's raw_text
 #     cs1_source_count:  Integer  — number of sources with a COinS span (CS1 template)
 #     pairs:             Array    — per-pair assertions, ordered to match the diff; each entry
 #                                  is a hash with any subset of:
