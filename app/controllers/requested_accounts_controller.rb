@@ -42,7 +42,7 @@ class RequestedAccountsController < ApplicationController
 
   # List of requested accounts for a user's courses. @courses set in before action
   def index
-    raise_unauthorized_exception unless user_signed_in? && current_user.admin?
+    raise_unauthorized_exception unless current_user&.admin?
     respond_to do |format|
       format.html do
         @courses = all_requested_accounts
