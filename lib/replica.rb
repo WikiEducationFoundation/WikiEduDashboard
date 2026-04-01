@@ -176,6 +176,7 @@ class Replica
 
     req = Net::HTTP::Post.new(url.path)
     req.add_field('User-Agent', ENV['user_agent'])
+    req.content_type = 'application/x-www-form-urlencoded'
     req.body = URI.encode_www_form(form_data)
 
     Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }

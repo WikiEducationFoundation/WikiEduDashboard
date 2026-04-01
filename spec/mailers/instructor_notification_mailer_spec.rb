@@ -2,9 +2,8 @@
 
 require 'rails_helper'
 
-SUBJECT = 'Test Subject'
-
 describe InstructorNotificationMailer do
+  let(:subject_line) { 'Test Subject' }
   let(:course) { create(:course) }
   let(:admin) { create(:admin, email: 'admin@wikiedu.org') }
   let(:instructor) { create(:user, email: 'instructor@wikiedu.org') }
@@ -16,7 +15,7 @@ describe InstructorNotificationMailer do
   let(:instructor_notification_alert) do
     create(:instructor_notification_alert, type: 'InstructorNotificationAlert',
           course_id: course.id, message: 'Test Email Content', user: admin,
-          details: { subject: SUBJECT, bcc_to_salesforce: true })
+          details: { subject: subject_line, bcc_to_salesforce: true })
     Alert.last
   end
 
@@ -29,7 +28,7 @@ describe InstructorNotificationMailer do
 
     it 'generates an email to the instructor and CCs Wiki Ed staff' do
       allow(Features).to receive(:email?).and_return(true)
-      expect(mail.subject).to include(SUBJECT)
+      expect(mail.subject).to include(subject_line)
       expect(mail.to).to include(instructor.email)
       expect(mail.body).to include('Test Email Content')
       expect(mail.reply_to).to include(admin.email)
@@ -39,7 +38,7 @@ describe InstructorNotificationMailer do
   context 'when bcc_to_salesforce is true' do
     before do
       instructor_notification_alert.update(
-        details: { subject: SUBJECT, bcc_to_salesforce: true }
+        details: { subject: subject_line, bcc_to_salesforce: true }
       )
     end
 
@@ -52,7 +51,7 @@ describe InstructorNotificationMailer do
   context 'when bcc_to_salesforce is not included' do
     before do
       instructor_notification_alert.update(
-        details: { subject: SUBJECT }
+        details: { subject: subject_line }
       )
     end
 
@@ -69,7 +68,7 @@ describe InstructorNotificationMailer do
       allow(Features).to receive(:email?).and_return(true)
       described_class.send_email(instructor_notification_alert, true)
       expect(ActionMailer::Base.deliveries.count).to eq(1)
-      expect(ActionMailer::Base.deliveries.first.subject).to include(SUBJECT)
+      expect(ActionMailer::Base.deliveries.first.subject).to include(subject_line)
       expect(ActionMailer::Base.deliveries.first.to).to include(instructor.email)
       expect(ActionMailer::Base.deliveries.first.reply_to).to include(admin.email)
     end
