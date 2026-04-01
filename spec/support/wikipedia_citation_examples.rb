@@ -1,5 +1,16 @@
 # frozen_string_literal: true
 
+# Helper for specs that loop over WIKIPEDIA_CITATION_EXAMPLES.
+# Rescues any RSpec expectation failure and re-raises it with the entry's
+# description prepended, so it's always clear which example caused the failure.
+module WikipediaCitationExamplesHelper
+  def with_entry(entry)
+    yield
+  rescue RSpec::Expectations::ExpectationNotMetError => e
+    raise e.class, "#{entry[:description]}\n#{e.message}", e.backtrace
+  end
+end
+
 # Real Wikipedia URLs used as integration test fixtures for the
 # WikipediaClaim / WikipediaSource / WikipediaCitation domain classes
 # and the ExtractClaimsAndSources service.
@@ -60,9 +71,21 @@ WIKIPEDIA_CITATION_EXAMPLES = [
   {
     description: 'Richard_G._F._Uniacke (diff=prev, rev 936368512)',
     # From ai_tools_controller_spec.rb and wiki_url_parser_spec.rb
+    # The revision adds one sentence citing Burke's Landed Gentry — a print-only
+    # reference (no URL) identified solely by ISBN and page number. Good for
+    # testing that sources with an ISBN but no URL are handled cleanly.
     url: 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512',
     cassette: 'extract_claims_and_sources/richard_uniacke_diff_prev',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 1,
+      cs1_source_count: 1,
+      pairs: [
+        {
+          pages:  '1153',
+          source: { genre: 'book', url: nil, isbn: '0-85011-050-5' }
+        }
+      ]
+    }
   },
   {
     description: 'Eva_Hesse (diff=prev, rev 655980945)',
@@ -90,69 +113,126 @@ WIKIPEDIA_CITATION_EXAMPLES = [
   {
     description: 'Vectors_in_gene_therapy (diff=prev, rev 637221390)',
     # From alert_spec.rb as an expected diff URL for a mainspace alert
+    # The revision modifies sentence structure but adds no new inline citations,
+    # so the service should return an empty array. Exercises the zero-pair path
+    # for a mainspace article diff.
     url: 'https://en.wikipedia.org/w/index.php?title=Vectors_in_gene_therapy&diff=prev&oldid=637221390',
     cassette: 'extract_claims_and_sources/vectors_gene_therapy_diff_prev',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 0
+    }
   },
   {
     description: 'Talk:Selfie (diff=prev, rev 637221390)',
-    # From alert_spec.rb; talk page unlikely to have cited prose
+    # From alert_spec.rb; talk page unlikely to have cited prose.
+    # Talk-page edits are discussion, not article prose, so they never contain
+    # inline CS1 citations. Verifies the zero-pair path for a non-mainspace URL.
     url: 'https://en.wikipedia.org/w/index.php?title=Talk:Selfie&diff=prev&oldid=637221390',
     cassette: 'extract_claims_and_sources/selfie_talk_diff_prev',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 0
+    }
   },
   {
     description: 'User:Resekorynta/Evaluate_an_Article (diff=prev, rev 1315967896)',
-    # From check_revision_with_pangram_spec.rb; user sandbox
+    # From check_revision_with_pangram_spec.rb; user sandbox.
+    # User-namespace draft with no cited prose — verifies graceful handling of
+    # user-namespace pages where students stage edits before moving to mainspace.
     url: 'https://en.wikipedia.org/w/index.php?title=User:Resekorynta/Evaluate_an_Article&diff=prev&oldid=1315967896',
     cassette: 'extract_claims_and_sources/evaluate_article_diff_prev',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 0
+    }
   },
   # Explicit diff range — both "to" and "from" revisions given; no parent lookup needed
   {
     description: 'Richard_G._F._Uniacke (diff range: rev 711811679 to 1178859026)',
     # From ai_tools_controller_spec.rb and wiki_url_parser_spec.rb
+    # Explicit diff range URL (?diff=<new>&oldid=<old>) for the same article and
+    # same Burke's Landed Gentry citation as the diff=prev entry above. The two
+    # URL forms should produce identical output; no parent-revision API call is
+    # needed since both revisions are specified directly.
     url: 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=1178859026&oldid=711811679',
     cassette: 'extract_claims_and_sources/richard_uniacke_diff_range',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 1,
+      cs1_source_count: 1,
+      pairs: [
+        { pages: '1153', source: { genre: 'book', url: nil } }
+      ]
+    }
   },
   # diff= with no oldid — @from_rev is nil so the service falls back to fetching
   # the full revision HTML via action=parse
   {
     description: 'List_of_hystricids (diff=1315039613, no oldid)',
     # From ai_tools_controller_spec.rb and wiki_url_parser_spec.rb
+    # diff= with no oldid: @from_rev is nil, so the service fetches the full
+    # revision HTML rather than a diff. The article is a species list heavily
+    # sourced from IUCN Red List entries and mammal handbooks; 15 claim-source
+    # pairs are extracted, with a mix of article and book genres, named authors,
+    # and ISBNs. Contrast with the oldid= entry below (revision_no_title), where
+    # the same revision ID processed as a diff=prev yields 0 pairs.
     url: 'https://en.wikipedia.org/w/index.php?title=List_of_hystricids&diff=1315039613',
     cassette: 'extract_claims_and_sources/hystricids_diff_no_oldid',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 15,
+      cs1_source_count: 15
+    }
   },
   {
     description: 'no title, no oldid (diff=1315039613)',
     # From ai_tools_controller_spec.rb and wiki_url_parser_spec.rb
+    # Same revision as the hystricids entry above but with the title= parameter
+    # omitted entirely. The service resolves the page via the API and falls back
+    # to fetching full revision HTML, producing the same 15 pairs. Verifies that
+    # the title-less URL form is handled identically to the titled form.
     url: 'https://en.wikipedia.org/w/index.php?diff=1315039613',
     cassette: 'extract_claims_and_sources/diff_no_title',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 15,
+      cs1_source_count: 15
+    }
   },
   # Article revision URLs (oldid only, no diff=) — treated as diff=prev internally:
   # the service fetches the parent and compares the named revision against it
   {
     description: 'List_of_the_busiest_airports_in_Malaysia (oldid=1276659876)',
     # From wiki_url_parser_spec.rb and ai_tools_controller_spec.rb
+    # The revision updates rows in a table of airport statistics. Because the
+    # added content is tabular rather than cited prose, no claim-source pairs
+    # are produced. Exercises the zero-pair path for a table-heavy list article.
     url: 'https://en.wikipedia.org/w/index.php?title=List_of_the_busiest_airports_in_Malaysia&oldid=1276659876',
     cassette: 'extract_claims_and_sources/busiest_airports_malaysia_revision',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 0
+    }
   },
   {
     description: 'revision with no title (oldid=1315039613)',
     # From wiki_url_parser_spec.rb and ai_tools_controller_spec.rb
+    # oldid= with no title for the same revision ID as the hystricids entries
+    # above. With oldid= the service performs a diff=prev against the parent
+    # revision rather than fetching full HTML. That diff adds 0 new cited
+    # sentences — in contrast to the 15 pairs produced by ?diff=1315039613.
+    # Illustrates how the same revision ID yields very different results
+    # depending on whether it appears as diff= or oldid=.
     url: 'https://en.wikipedia.org/w/index.php?oldid=1315039613',
     cassette: 'extract_claims_and_sources/revision_no_title',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 0
+    }
   },
   {
     description: 'User:100110Z/Five-a-side_football (oldid=1327139425)',
-    # From check_revision_with_pangram_spec.rb; user-space draft
+    # From check_revision_with_pangram_spec.rb; user-space draft.
+    # oldid= for a user-space draft of a Five-a-side football article. The
+    # revision adds prose to the sandbox but the diff against its parent adds
+    # no new inline citations, so no pairs are produced.
     url: 'https://en.wikipedia.org/w/index.php?title=User:100110Z/Five-a-side_football&oldid=1327139425',
     cassette: 'extract_claims_and_sources/five_a_side_football_revision',
-    expected: {}
+    expected: {
+      source_claim_pairs_added: 0
+    }
   }
 ].freeze

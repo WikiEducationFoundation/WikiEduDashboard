@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe WikipediaSource do
+  include WikipediaCitationExamplesHelper
+
   # For each example, extract the WikipediaSource objects from the citations
   # returned by ExtractClaimsAndSources and run shared + content-specific checks.
   def sources_for(entry)
@@ -14,19 +16,21 @@ describe WikipediaSource do
   describe 'sources extracted via ExtractClaimsAndSources' do
     it 'are all WikipediaSource instances' do
       WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
-        expect(sources_for(entry)).to all(be_a(described_class))
+        with_entry(entry) { expect(sources_for(entry)).to all(be_a(described_class)) }
       end
     end
 
     it 'all have non-blank raw_text' do
       WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
-        expect(sources_for(entry).map(&:raw_text)).to all(be_a(String).and(be_present))
+        with_entry(entry) do
+          expect(sources_for(entry).map(&:raw_text)).to all(be_a(String).and(be_present))
+        end
       end
     end
 
     it 'all have an Array for authors' do
       WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
-        expect(sources_for(entry).map(&:authors)).to all(be_an(Array))
+        with_entry(entry) { expect(sources_for(entry).map(&:authors)).to all(be_an(Array)) }
       end
     end
 
@@ -39,26 +43,29 @@ describe WikipediaSource do
 
     it 'CS1 sources have a non-blank title' do
       WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
-        sources = sources_for(entry)
-        cs1 = sources.select { |s| s.genre.present? }
-        expect(cs1.map(&:title)).to all(be_a(String).and(be_present))
+        with_entry(entry) do
+          cs1 = sources_for(entry).select { |s| s.genre.present? }
+          expect(cs1.map(&:title)).to all(be_a(String).and(be_present))
+        end
       end
     end
 
     it 'CS1 sources have a non-blank genre' do
       WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
-        sources = sources_for(entry)
-        cs1 = sources.select { |s| s.genre.present? }
-        expect(cs1.map(&:genre)).to all(be_a(String).and(be_present))
+        with_entry(entry) do
+          cs1 = sources_for(entry).select { |s| s.genre.present? }
+          expect(cs1.map(&:genre)).to all(be_a(String).and(be_present))
+        end
       end
     end
 
     it 'CS1 sources have a URL that is a String when present' do
       WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
-        sources = sources_for(entry)
-        cs1 = sources.select { |s| s.genre.present? }
-        cs1.each do |source|
-          expect(source.url).to be_a(String).and(be_present) if source.url
+        with_entry(entry) do
+          cs1 = sources_for(entry).select { |s| s.genre.present? }
+          cs1.each do |source|
+            expect(source.url).to be_a(String).and(be_present) if source.url
+          end
         end
       end
     end
@@ -68,8 +75,10 @@ describe WikipediaSource do
     it 'has the expected number of CS1 sources' do
       WIKIPEDIA_CITATION_EXAMPLES.select { |e| e[:expected].key?(:cs1_source_count) }
                                  .each do |entry|
-        cs1_count = sources_for(entry).count { |s| s.genre.present? }
-        expect(cs1_count).to eq(entry[:expected][:cs1_source_count])
+        with_entry(entry) do
+          cs1_count = sources_for(entry).count { |s| s.genre.present? }
+          expect(cs1_count).to eq(entry[:expected][:cs1_source_count])
+        end
       end
     end
 
@@ -79,9 +88,13 @@ describe WikipediaSource do
         entry[:expected][:pairs].each_with_index do |pair_exp, i|
           next unless pair_exp.key?(:source)
 
-          src_exp = pair_exp[:source]
-          expect(sources[i].genre).to eq(src_exp[:genre]) if src_exp.key?(:genre)
-          expect(sources[i].url).to eq(src_exp[:url]) if src_exp.key?(:url)
+          with_entry(entry) do
+            src_exp = pair_exp[:source]
+            source = sources[i]
+            expect(source).not_to be_nil, "pair[#{i}] is nil (only #{sources.size} sources returned)"
+            expect(source.genre).to eq(src_exp[:genre]) if src_exp.key?(:genre)
+            expect(source.url).to eq(src_exp[:url]) if src_exp.key?(:url)
+          end
         end
       end
     end
@@ -100,10 +113,6 @@ describe WikipediaSource do
       VCR.use_cassette(entry[:cassette]) do
         ExtractClaimsAndSources.new(entry[:url]).claims_and_sources.first.source
       end
-    end
-
-    it 'pretty prints all key fields' do
-      puts source
     end
 
     it 'has genre "report"' do
@@ -144,10 +153,6 @@ describe WikipediaSource do
     end
 
     let(:source) { citation.source }
-
-    it 'pretty prints all key fields' do
-      puts source
-    end
 
     it 'has genre "book"' do
       expect(source.genre).to eq('book')
