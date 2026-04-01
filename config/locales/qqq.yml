@@ -432,6 +432,10 @@ qqq:
       {{Identical|Dismiss}}
     dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
+    edit_course_dates: Button label for editing a course's start and end dates.
+    embed_course_stats: Label for the stats embed code section.
+    embed_course_stats_description: Message explaining the embed feature.
+    embed_course_stats_body: HTML code snippet used for embedding course stats. This should not be translated.
     end: |-
       Label for the end date of a course
       {{Identical|End}}
