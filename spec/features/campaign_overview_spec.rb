@@ -86,28 +86,28 @@ describe 'campaign overview page', type: :feature, js: true do
       # Number of courses
       course_count = Campaign.find(campaign.id).courses.count
       stat_text = "#{course_count}\n#{I18n.t('courses.course_description')}"
-      expect(page.find('.stat-display')).to have_content stat_text
+      expect(page).to have_css('.stat-display', text: stat_text)
 
       # Number of students
       # one non-instructor student per course and one instructor-student per course
       student_count = campaign_course_count * 2
       stat_text = "#{student_count}\n#{I18n.t('courses.students')}"
-      expect(page.find('.stat-display')).to have_content stat_text
+      expect(page).to have_css('.stat-display', text: stat_text)
 
       # Words added
       word_count = WordCount.from_characters campaign.courses.sum(:character_sum)
       stat_text = "#{word_count}\n#{I18n.t('metrics.word_count')}"
-      expect(page.find('.stat-display')).to have_content stat_text
+      expect(page).to have_css('.stat-display', text: stat_text)
 
       # References added
       references_count = campaign.courses.sum(:references_count)
       stat_text = "#{references_count}\n#{I18n.t('metrics.references_count')}"
-      expect(page.find('.stat-display')).to have_content stat_text
+      expect(page).to have_css('.stat-display', text: stat_text)
 
       # Views
       view_count = campaign.courses.sum(:view_sum)
       stat_text = "#{view_count}\n#{I18n.t('metrics.view_count_description')}"
-      expect(page.find('.stat-display')).to have_content stat_text
+      expect(page).to have_css('.stat-display', text: stat_text)
     end
 
     describe 'non-default locales' do
@@ -115,12 +115,12 @@ describe 'campaign overview page', type: :feature, js: true do
 
       it 'switches languages' do
         visit "/campaigns/#{campaign.slug}/overview?locale=qqq"
-        expect(page.find('.stat-display')).to have_content 'Long label for the number'
+        expect(page).to have_css('.stat-display', text: 'Long label for the number')
       end
 
       it 'falls back when locale is not available' do
         visit "/campaigns/#{campaign.slug}/overview?locale=aa"
-        expect(page.find('.stat-display')).to have_content "20\nStudents"
+        expect(page).to have_css('.stat-display', text: "20\nStudents")
       end
 
       # TODO: Test somewhere that has access to the request.
