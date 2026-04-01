@@ -245,7 +245,7 @@ describe GetRevisionPlaintext do
   # Third_place example from issue #6706
   context 'with a real Wikipedia diff (Third_place)' do
     it 'excludes pre-existing content from plain_text' do
-      VCR.use_cassette 'get_revision_plaintext/third_place' do
+      VCR.use_cassette 'cached/get_revision_plaintext/third_place' do
         service = described_class.new(
           1340536495, en_wiki
         )
