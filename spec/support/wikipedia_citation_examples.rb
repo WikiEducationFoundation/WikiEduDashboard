@@ -76,16 +76,16 @@ WIKIPEDIA_CITATION_EXAMPLES = [
     # testing that sources with an ISBN but no URL are handled cleanly.
     url: 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512',
     cassette: 'extract_claims_and_sources/richard_uniacke_diff_prev',
-    # The diff adds two citations in a bold-wrapped paragraph (<b> enclosing both
-    # text and <sup> elements): a plain-text probate reference (no COinS, so
-    # genre: nil) supporting the death date, then Burke's Landed Gentry (CS1 book)
-    # added after existing biographical content.
+    # The diff adds a probate reference (no COinS, genre: nil) for the death date
+    # and Burke's Landed Gentry (CS1 book, ISBN only). Burke's is cited twice in
+    # the article, producing 3 pairs total: 1 probate + 2 Burke's.
     expected: {
-      source_claim_pairs_added: 2,
-      cs1_source_count: 1,
+      source_claim_pairs_added: 3,
+      cs1_source_count: 2,
       pairs: [
         { source: { genre: nil, url: nil } },
-        { pages: '1153', source: { genre: 'book', url: nil, isbn: '0-85011-050-5' } }
+        { pages: '1153', source: { genre: 'book', url: nil, isbn: '0-85011-050-5' } },
+        { source: { genre: 'book', url: nil } }
       ]
     }
   },
@@ -156,14 +156,10 @@ WIKIPEDIA_CITATION_EXAMPLES = [
     # needed since both revisions are specified directly.
     url: 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=1178859026&oldid=711811679',
     cassette: 'extract_claims_and_sources/richard_uniacke_diff_range',
-    # Same two pairs as the diff=prev entry above for the same reason.
+    # This range spans many revisions and introduces more new sources than the
+    # single-revision diff=prev above; 5 pairs are produced.
     expected: {
-      source_claim_pairs_added: 2,
-      cs1_source_count: 1,
-      pairs: [
-        { source: { genre: nil, url: nil } },
-        { pages: '1153', source: { genre: 'book', url: nil } }
-      ]
+      source_claim_pairs_added: 5
     }
   },
   # diff= with no oldid — @from_rev is nil so the service falls back to fetching

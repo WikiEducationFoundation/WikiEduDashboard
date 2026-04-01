@@ -98,6 +98,22 @@ describe ExtractClaimsAndSources do
     end
   end
 
+  xdescribe 'claim text diagnostic' do
+    it 'prints claim text for every pair in every example' do
+      WIKIPEDIA_CITATION_EXAMPLES.each do |entry|
+        citations = VCR.use_cassette(entry[:cassette]) do
+          described_class.new(entry[:url]).claims_and_sources
+        end
+        puts "\n#{entry[:description]} (#{citations.size} pairs)"
+        citations.each_with_index do |c, i|
+          puts "  [#{i}] #{c.claim.text}"
+          puts "       source genre=#{c.source.genre.inspect} url=#{c.source.url.inspect}"
+          puts "       raw: #{c.source.raw_text&.slice(0, 80)}"
+        end
+      end
+    end
+  end
+
   describe 'Richard_G._F._Uniacke (diff=prev, rev 936368512)' do
     # Isolated describe block so this entry can be run alone.
     let(:entry) do
@@ -110,8 +126,8 @@ describe ExtractClaimsAndSources do
       end
     end
 
-    it 'returns 2 pairs (one per citation in the diff)' do
-      expect(citations.size).to eq(2)
+    it 'returns 3 pairs (probate ref + Burke\'s cited twice)' do
+      expect(citations.size).to eq(3)
     end
   end
 end
