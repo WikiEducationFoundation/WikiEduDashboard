@@ -141,30 +141,33 @@ class ExtractClaimsAndSources
     end
   end
 
-  # Walks the child nodes of a paragraph, accumulating text until a
-  # <sup class="reference"> citation marker is encountered. The last
-  # complete sentence before the citation is recorded as the claim.
+  # Walks a paragraph's text and citation markers in document order,
+  # accumulating text until a <sup class="reference"> is encountered.
+  # The last complete sentence before the citation is recorded as the claim.
+  #
+  # Recurses into inline elements (b, i, a, span, etc.) so that citation sups
+  # nested inside them — as happens when MediaWiki wraps added content in <b>
+  # because the extracted wikitext begins with bold markup (''') — are found
+  # correctly. Text inside citation sups (bracket markers like "[1]") is
+  # skipped by not recursing into them.
   def extract_paragraph_pairs(paragraph, ref_map)
     pairs = []
-    current_text = ''
-
-    paragraph.children.each do |node|
-      current_text, pair = process_node(node, current_text, ref_map)
-      pairs << pair if pair
-    end
-
+    current_text = +''
+    walk_inline(paragraph.children, current_text, pairs, ref_map)
     pairs
   end
 
-  def process_node(node, current_text, ref_map)
-    if node.text?
-      [current_text + node.text, nil]
-    elsif citation_node?(node)
-      pair = claim_source_pair(current_text, ref_map[citation_ref_id(node)])
-      ['', pair]
-    else
-      # Inline elements (links, emphasis, etc.) — include their text
-      [current_text + node.text, nil]
+  def walk_inline(nodes, current_text, pairs, ref_map)
+    nodes.each do |node|
+      if node.text?
+        current_text << node.text
+      elsif citation_node?(node)
+        pair = claim_source_pair(current_text, ref_map[citation_ref_id(node)])
+        pairs << pair if pair
+        current_text.clear
+      else
+        walk_inline(node.children, current_text, pairs, ref_map)
+      end
     end
   end
 

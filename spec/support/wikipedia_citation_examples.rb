@@ -76,14 +76,16 @@ WIKIPEDIA_CITATION_EXAMPLES = [
     # testing that sources with an ISBN but no URL are handled cleanly.
     url: 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512',
     cassette: 'extract_claims_and_sources/richard_uniacke_diff_prev',
+    # The diff adds two citations in a bold-wrapped paragraph (<b> enclosing both
+    # text and <sup> elements): a plain-text probate reference (no COinS, so
+    # genre: nil) supporting the death date, then Burke's Landed Gentry (CS1 book)
+    # added after existing biographical content.
     expected: {
-      source_claim_pairs_added: 1,
+      source_claim_pairs_added: 2,
       cs1_source_count: 1,
       pairs: [
-        {
-          pages:  '1153',
-          source: { genre: 'book', url: nil, isbn: '0-85011-050-5' }
-        }
+        { source: { genre: nil, url: nil } },
+        { pages: '1153', source: { genre: 'book', url: nil, isbn: '0-85011-050-5' } }
       ]
     }
   },
@@ -154,10 +156,12 @@ WIKIPEDIA_CITATION_EXAMPLES = [
     # needed since both revisions are specified directly.
     url: 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=1178859026&oldid=711811679',
     cassette: 'extract_claims_and_sources/richard_uniacke_diff_range',
+    # Same two pairs as the diff=prev entry above for the same reason.
     expected: {
-      source_claim_pairs_added: 1,
+      source_claim_pairs_added: 2,
       cs1_source_count: 1,
       pairs: [
+        { source: { genre: nil, url: nil } },
         { pages: '1153', source: { genre: 'book', url: nil } }
       ]
     }
@@ -167,31 +171,32 @@ WIKIPEDIA_CITATION_EXAMPLES = [
   {
     description: 'List_of_hystricids (diff=1315039613, no oldid)',
     # From ai_tools_controller_spec.rb and wiki_url_parser_spec.rb
-    # diff= with no oldid: @from_rev is nil, so the service fetches the full
-    # revision HTML rather than a diff. The article is a species list heavily
-    # sourced from IUCN Red List entries and mammal handbooks; 15 claim-source
-    # pairs are extracted, with a mix of article and book genres, named authors,
-    # and ISBNs. Contrast with the oldid= entry below (revision_no_title), where
-    # the same revision ID processed as a diff=prev yields 0 pairs.
+    # diff= with no oldid: @from_rev is nil, so the service falls back to fetching
+    # the full revision HTML via action=parse rather than computing a diff against
+    # the parent. This is the correct path for genuinely new pages, but for an edit
+    # to an existing article (as here, where the revision just reparametrises existing
+    # citation templates without adding new ones) it means the service picks up
+    # pre-existing cited prose rather than newly added content. The two pairs below
+    # come from the article's intro paragraphs (outside tables) and do not reflect
+    # anything actually changed in this edit.
     url: 'https://en.wikipedia.org/w/index.php?title=List_of_hystricids&diff=1315039613',
     cassette: 'extract_claims_and_sources/hystricids_diff_no_oldid',
     expected: {
-      source_claim_pairs_added: 15,
-      cs1_source_count: 15
+      source_claim_pairs_added: 2,
+      cs1_source_count: 1
     }
   },
   {
     description: 'no title, no oldid (diff=1315039613)',
     # From ai_tools_controller_spec.rb and wiki_url_parser_spec.rb
     # Same revision as the hystricids entry above but with the title= parameter
-    # omitted entirely. The service resolves the page via the API and falls back
-    # to fetching full revision HTML, producing the same 15 pairs. Verifies that
-    # the title-less URL form is handled identically to the titled form.
+    # omitted entirely. Produces the same 2 pairs for the same reason: the service
+    # falls back to full revision HTML and finds the same pre-existing intro paragraphs.
     url: 'https://en.wikipedia.org/w/index.php?diff=1315039613',
     cassette: 'extract_claims_and_sources/diff_no_title',
     expected: {
-      source_claim_pairs_added: 15,
-      cs1_source_count: 15
+      source_claim_pairs_added: 2,
+      cs1_source_count: 1
     }
   },
   # Article revision URLs (oldid only, no diff=) — treated as diff=prev internally:

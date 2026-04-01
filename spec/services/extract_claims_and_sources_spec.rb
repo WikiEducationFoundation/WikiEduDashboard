@@ -97,4 +97,21 @@ describe ExtractClaimsAndSources do
       end
     end
   end
+
+  describe 'Richard_G._F._Uniacke (diff=prev, rev 936368512)' do
+    # Isolated describe block so this entry can be run alone.
+    let(:entry) do
+      WIKIPEDIA_CITATION_EXAMPLES.find { |e| e[:description].include?('936368512') }
+    end
+
+    let(:citations) do
+      VCR.use_cassette(entry[:cassette]) do
+        described_class.new(entry[:url]).claims_and_sources
+      end
+    end
+
+    it 'returns 2 pairs (one per citation in the diff)' do
+      expect(citations.size).to eq(2)
+    end
+  end
 end
