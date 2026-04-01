@@ -16,7 +16,7 @@ class WikipediaSource
 
     coins = parse_coins(li_node)
     new(
-      title:     CGI.unescapeHTML(coins['rft.btitle']&.first || coins['rft.atitle']&.first || '').presence,
+      title:     extract_title(coins),
       authors:   extract_authors(coins),
       publisher: coins['rft.pub']&.first,
       date:      coins['rft.date']&.first,
@@ -68,6 +68,10 @@ class WikipediaSource
     CGI.parse(span['title'])
   end
   private_class_method :parse_coins
+
+  def self.extract_title(coins)
+    CGI.unescapeHTML(coins['rft.btitle']&.first || coins['rft.atitle']&.first || '').presence
+  end
 
   def self.extract_authors(coins)
     # Named authors via aulast/aufirst, or free-form rft.au entries
