@@ -10,6 +10,8 @@ describe AiToolsController, type: :request do
     let(:pangram_v3) { 'Pangram 3' }
     let(:turbo) { 'Originality Turbo' }
     let(:academic) { 'Originality Academic' }
+    let(:lite) { 'Originality Lite' }
+    let(:lite_beta) { 'Originality Lite 1.0.2' }
     let(:simplified_originality_response) do
       { 'results' => {
         'properties' => {
@@ -126,10 +128,12 @@ describe AiToolsController, type: :request do
                                                           pangram_v2.to_sym => '1',
                                                           pangram_v3.to_sym => '1',
                                                           turbo.to_sym => '1',
-                                                          academic.to_sym => '1' }
+                                                          academic.to_sym => '1',
+                                                          lite.to_sym => '1',
+                                                          lite_beta.to_sym => '1' }
         end
 
-        expect(RevisionAiScore.count).to eq(4)
+        expect(RevisionAiScore.count).to eq(6)
 
         expect(RevisionAiScore.first.check_type).to eq('Pangram 2.0')
         expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
@@ -152,7 +156,21 @@ describe AiToolsController, type: :request do
         expect(RevisionAiScore.third.url).to eq(url)
         expect(RevisionAiScore.third.origin_user_id).to eq(admin.id)
 
-        expect(RevisionAiScore.last.check_type).to eq('Originality Academic')
+        expect(RevisionAiScore.fourth.check_type).to eq('Originality Academic')
+        expect(RevisionAiScore.fourth.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.fourth.revision_id).to eq(1276659876)
+        expect(RevisionAiScore.fourth.wiki_id).to eq(enwiki.id)
+        expect(RevisionAiScore.fourth.url).to eq(url)
+        expect(RevisionAiScore.fourth.origin_user_id).to eq(admin.id)
+
+        expect(RevisionAiScore.fifth.check_type).to eq('Originality Lite')
+        expect(RevisionAiScore.fifth.check_origin).to eq('ai_tool')
+        expect(RevisionAiScore.fifth.revision_id).to eq(1276659876)
+        expect(RevisionAiScore.fifth.wiki_id).to eq(enwiki.id)
+        expect(RevisionAiScore.fifth.url).to eq(url)
+        expect(RevisionAiScore.fifth.origin_user_id).to eq(admin.id)
+
+        expect(RevisionAiScore.last.check_type).to eq('Originality Lite 1.0.2')
         expect(RevisionAiScore.last.check_origin).to eq('ai_tool')
         expect(RevisionAiScore.last.revision_id).to eq(1276659876)
         expect(RevisionAiScore.last.wiki_id).to eq(enwiki.id)
