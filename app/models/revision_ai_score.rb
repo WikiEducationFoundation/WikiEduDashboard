@@ -30,7 +30,7 @@ class RevisionAiScore < ApplicationRecord
 
   include ArticleViewerLinker
 
-  PANGRAM_V2_KEY = 'Pangram 2.0'
+  PANGRAM_V2_KEY = 'Pangram 2.0' # This version got deperecated on April, 1st, 2026
   PANGRAM_V3_KEY = 'Pangram 3'
   ORIGINALITY_TURBO_KEY = 'Originality Turbo'
   ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
@@ -39,7 +39,6 @@ class RevisionAiScore < ApplicationRecord
   AI_TOOL_ORIGIN = 'ai_tool'
 
   PANGRAM_KEYS = [
-    PANGRAM_V2_KEY,
     PANGRAM_V3_KEY
   ]
 
@@ -49,7 +48,6 @@ class RevisionAiScore < ApplicationRecord
   ]
 
   MODELS_KEY = [
-    PANGRAM_V2_KEY,
     PANGRAM_V3_KEY,
     ORIGINALITY_TURBO_KEY,
     ORIGINALITY_ACADEMIC_KEY
