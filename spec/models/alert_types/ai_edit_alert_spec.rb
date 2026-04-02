@@ -43,4 +43,15 @@ describe AiEditAlert do
       end
     end
   end
+
+  describe 'accessor methods' do
+    it 'returns pangram fields from the details hash' do
+      alert = build_alert('Artwork title')
+      full_prediction = 'We are confident that this document is fully AI-generated'
+      expect(alert.pangram_prediction).to eq(full_prediction)
+      expect(alert.average_ai_likelihood).to eq(0.97)
+      expect(alert.max_ai_likelihood).to eq(1.0)
+      expect(alert.predicted_llm).to be_nil
+    end
+  end
 end
