@@ -44,6 +44,34 @@ describe AiEditAlert do
     end
   end
 
+  describe '#advice_email_type' do
+    it 'returns :exercise for exercise page types' do
+      %w[
+        User:Ragesoss/Choose\ an\ Article
+        User:Ragesoss/Evaluate\ an\ Article
+        User:Ragesoss/Artwork\ title/Outline
+      ].each do |title|
+        expect(build_alert(title).advice_email_type).to eq(:exercise)
+      end
+    end
+
+    it 'returns :sandbox for sandbox page types' do
+      expect(build_alert('User:Ragesoss/Sandbox').advice_email_type).to eq(:sandbox)
+    end
+
+    it 'returns :mainspace for mainspace page types' do
+      expect(build_alert('Artwork title').advice_email_type).to eq(:mainspace)
+    end
+
+    it 'returns nil for other page types' do
+      other_titles = ['Draft:Artwork title', 'Talk:Artwork title',
+                      'User:Ragesoss/Sandbox/Bibliography']
+      other_titles.each do |title|
+        expect(build_alert(title).advice_email_type).to be_nil
+      end
+    end
+  end
+
   describe 'accessor methods' do
     it 'returns pangram fields from the details hash' do
       alert = build_alert('Artwork title')

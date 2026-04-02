@@ -184,6 +184,14 @@ class AiEditAlert < Alert
     details[:article_title]
   end
 
+  EXERCISE_PAGE_TYPES = %i[choose_an_article evaluate_an_article outline].freeze
+
+  def advice_email_type
+    return :exercise if EXERCISE_PAGE_TYPES.include?(page_type)
+    return :sandbox if page_type == :sandbox
+    return :mainspace if page_type == :mainspace
+  end
+
   NO_EMAIL_TYPES = [
     :bibliography, # Lists of references are where we see false positives
     :peer_review # This is intended for a fellow student so no need to flag it
