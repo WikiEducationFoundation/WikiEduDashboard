@@ -15,6 +15,12 @@ class OriginalityApi
   # Ideal for teachers and students.
   # Accurate for STEM answers (Code and Formulas).
   ACADEMIC_MODEL = 'academic'
+  # Ideal when some use of AI for editing is allowed.
+  # Best for academia.
+  LITE_MODEL = 'lite'
+  # Latest Beta Version of the Lite Model
+  LITE_BETA_MODEL = 'lite-102'
+
 
   def self.turbo
     new(model: TURBO_MODEL)
@@ -22,6 +28,14 @@ class OriginalityApi
 
   def self.academic
     new(model: ACADEMIC_MODEL)
+  end
+
+  def self.lite
+    new(model: LITE_MODEL)
+  end
+
+  def self.lite_beta
+    new(model: LITE_BETA_MODEL)
   end
 
   def initialize(model:)
