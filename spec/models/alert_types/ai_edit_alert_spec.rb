@@ -72,6 +72,61 @@ describe AiEditAlert do
     end
   end
 
+  describe '.add_prior_alert_counts_by_type' do
+    let(:course) { create(:course) }
+
+    def create_sent_alert(article_title)
+      create(:ai_edit_alert,
+             course:,
+             email_sent_at: Time.zone.now,
+             details: { article_title:, prior_alert_count_for_course: 1 })
+    end
+
+    it 'sets all counts to zero when no prior alerts exist' do
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_exercise_alerts]).to eq(0)
+      expect(details[:prior_sandbox_alerts]).to eq(0)
+      expect(details[:prior_mainspace_alerts]).to eq(0)
+    end
+
+    it 'counts exercise alerts separately from other types' do
+      create_sent_alert('User:Ragesoss/Evaluate an Article')
+      create_sent_alert('User:Ragesoss/Artwork title/Outline')
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_exercise_alerts]).to eq(2)
+      expect(details[:prior_sandbox_alerts]).to eq(0)
+      expect(details[:prior_mainspace_alerts]).to eq(0)
+    end
+
+    it 'counts sandbox alerts separately from other types' do
+      create_sent_alert('User:Ragesoss/Sandbox')
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_exercise_alerts]).to eq(0)
+      expect(details[:prior_sandbox_alerts]).to eq(1)
+      expect(details[:prior_mainspace_alerts]).to eq(0)
+    end
+
+    it 'counts mainspace alerts separately from other types' do
+      create_sent_alert('Artwork title')
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_exercise_alerts]).to eq(0)
+      expect(details[:prior_sandbox_alerts]).to eq(0)
+      expect(details[:prior_mainspace_alerts]).to eq(1)
+    end
+
+    it 'ignores prior alerts without email_sent_at' do
+      create(:ai_edit_alert, course:, email_sent_at: nil,
+             details: { article_title: 'Artwork title', prior_alert_count_for_course: 1 })
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_mainspace_alerts]).to eq(0)
+    end
+  end
+
   describe 'accessor methods' do
     it 'returns pangram fields from the details hash' do
       alert = build_alert('Artwork title')

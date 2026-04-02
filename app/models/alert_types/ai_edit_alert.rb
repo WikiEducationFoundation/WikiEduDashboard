@@ -32,6 +32,7 @@ class AiEditAlert < Alert
     add_same_page_alert(course_id, article_id, details)
     add_same_user_alert(course_id, user_id, details)
     add_prior_alert_count_for_course(course_id, details)
+    add_prior_alert_counts_by_type(course_id, details)
     alert = create!(revision_id:,
                     user_id:,
                     course_id:,
@@ -71,6 +72,18 @@ class AiEditAlert < Alert
     # We're only counting alerts that had sent emails.
     prior_alert_count = AiEditAlert.where(course_id:).where.not(email_sent_at: nil).count
     details[:prior_alert_count_for_course] = prior_alert_count
+  end
+
+  # Tracks the number of prior emailed alerts for this course by page type category,
+  # parallel to prior_alert_count_for_course. The mailer uses these counts to decide
+  # whether to send type-specific instructor advice emails.
+  def self.add_prior_alert_counts_by_type(course_id, details)
+    prior_alerts = AiEditAlert.where(course_id:).where.not(email_sent_at: nil)
+    prior_page_types = prior_alerts.map(&:page_type)
+
+    details[:prior_exercise_alerts] = prior_page_types.count { |t| EXERCISE_PAGE_TYPES.include?(t) }
+    details[:prior_sandbox_alerts] = prior_page_types.count { |t| t == :sandbox }
+    details[:prior_mainspace_alerts] = prior_page_types.count { |t| t == :mainspace }
   end
 
   ####################
