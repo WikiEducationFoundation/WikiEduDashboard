@@ -35,12 +35,12 @@ unless File.exist?(resultset)
 end
 
 data = JSON.parse(File.read(resultset))
-key  = File.basename(target_file, '.rb')
+key  = File.basename(target_file)
 
 lines = nil
 data.each_value do |suite|
   suite['coverage']&.each do |path, entry|
-    next unless path.include?(key)
+    next unless path.end_with?("/#{key}") || path == key
     lines = entry.is_a?(Hash) ? entry['lines'] : entry
     break
   end
