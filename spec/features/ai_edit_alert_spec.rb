@@ -6,8 +6,9 @@ describe 'AI edit alert followup', type: :feature, js: true do
   let(:course) { create(:course) }
   let(:student) { create(:user, username: 'StudentUser') }
   let(:alert) do
+    non_student_followup = { 'followup_AdminUser' => { response: 'I reviewed this' } }
     create(:ai_edit_alert, user: student, course: course,
-           details: { article_title: 'History of Biology' })
+           details: { article_title: 'History of Biology' }.merge(non_student_followup))
   end
 
   describe 'as the alert user' do
