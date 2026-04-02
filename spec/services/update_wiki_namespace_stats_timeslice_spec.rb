@@ -15,7 +15,6 @@ describe UpdateWikiNamespaceStatsTimeslice do
   let(:enwiki_course_wiki) { course.courses_wikis.find_by(wiki: enwiki) }
 
   before do
-    skip('Skipping this test due to failures in UpdateCourseStats. TODO: fix me')
     stub_wiki_validation
     course.campaigns << Campaign.first
 
