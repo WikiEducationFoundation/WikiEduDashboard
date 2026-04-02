@@ -9,6 +9,45 @@ class AiEditAlertMailer < ApplicationMailer
     instructor_advice_email(alert).deliver_now
   end
 
+  def instructor_exercise_advice_email(alert)
+    @alert = alert
+    @course = @alert.course
+    return unless @course
+    @instructors = @alert.course.instructors
+    emails = @instructors.map(&:email) + @alert.content_experts.map(&:email)
+    return if emails.empty?
+
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    mail(template_name: 'instructor_exercise_advice', to: emails,
+         subject: 'Suspected AI edit — instructor next steps')
+  end
+
+  def instructor_sandbox_advice_email(alert)
+    @alert = alert
+    @course = @alert.course
+    return unless @course
+    @instructors = @alert.course.instructors
+    emails = @instructors.map(&:email) + @alert.content_experts.map(&:email)
+    return if emails.empty?
+
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    mail(template_name: 'instructor_sandbox_advice', to: emails,
+         subject: 'Suspected AI edit — instructor next steps')
+  end
+
+  def instructor_mainspace_advice_email(alert)
+    @alert = alert
+    @course = @alert.course
+    return unless @course
+    @instructors = @alert.course.instructors
+    emails = @instructors.map(&:email) + @alert.content_experts.map(&:email)
+    return if emails.empty?
+
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    mail(template_name: 'instructor_mainspace_advice', to: emails,
+         subject: 'Suspected AI edit — instructor next steps')
+  end
+
   def instructor_advice_email(alert)
     @alert = alert
     @course = @alert.course

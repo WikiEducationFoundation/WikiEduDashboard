@@ -1,0 +1,80 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                You've received a message with your student on copy that Pangram has
+                automatically detected that your student pasted a generative AI
+                chatbot output into a Wikipedia exercise page, against Wiki Education's rules.
+                This message provides more details for you as the instructor. We
+                recommend keeping it in your inbox for future reference, as many
+                instructors receive multiple alerts throughout the term.
+              %h2.headline If it's an exercise (evaluate an article, outline, etc.)
+              %p.paragraph
+                Our goal for these alert emails for exercises is to head off future
+                copying-and-pasting from generative AI chatbots or writing support
+                features on Grammarly. Please have a 1:1 conversation with the student
+                to understand their perspective as soon as possible.
+              %h4.subhead If your student used a generative AI tool
+              %p.paragraph
+                Please reiterate they are not allowed to use these for Wikipedia in the
+                future, even Grammarly, as the training they were assigned says. We
+                encourage you to ask your student to re-do the assignment without gen AI,
+                as these exercises have been designed to give students skills that set
+                them up for success on the full assignment, but ultimately this is your
+                decision as instructor.
+              %h4.subhead If your student says they didn't use a generative AI tool
+              %p.paragraph
+                Pangram may flag edits in scenarios like:
+                %ul.paragarph
+                  %li.paragraph
+                    If a student saves an empty outline (for example, with just short
+                    bullet points or empty section headers), or includes a significant
+                    amount of non-prose text (like sentence fragments or bibliographic
+                    entries) this might trigger the AI detector. Non-prose text is a
+                    common factor in most of the confirmed false positives we've seen.
+                    In this case, please encourage the student to fill out the feedback
+                    form and indicate a false positive so we know how many occur each term.
+                  %li.paragraph
+                    Text transformed by Grammarly and other AI copyediting tools can
+                    trigger AI detection, depending on how significantly it was
+                    transformed. Simple grammar fixes in Grammarly will not typically
+                    trigger Pangram, but use of writing suggestions may. If the student
+                    says they "only used Grammarly" please make sure they turn off anything
+                    but basic grammar fixes (and they should ensure those don't change
+                    the meaning of the sentence, something critical for Wikipedia). Other
+                    Wikipedia editors can easily improve the readability of the text if
+                    the facts are accurate and precise, but AI copyediting introduces
+                    distortions in meaning, so it's untrustworthy for the same reasons
+                    as chatbot output when it comes to Wikipedia.
+              %p.paragraph
+                If neither of these seems to be the case but the student still says
+                they didn't use generative AI, use your best judgment, but please
+                reiterate to the student that copying and pasting from a generative
+                AI chatbot is unacceptable.
+              %h2.headline Need more help?
+              %p.paragraph
+                You're not alone in navigating these AI detection incidents — other instructors are also
+                developing approaches for communicating with their students.
+                %strong
+                  %a.link{ href: 'https://docs.google.com/document/d/1TN8LuWqQKRECvTlwUnvlNxingr7-bdpKGOvCLRbGeFw/edit?usp=sharing' } Explore sample communications
+                  from instructors to students.
+              %p.paragraph
+                As always, we're here if you have any questions. Thank you for helping protect the content of
+                Wikipedia and partnering with us to provide a high-quality learning experience for your students!
+              %p.paragraph
+                Best,
+                %br
+                %em Wiki Education
+
+
+.hidden
+  %p
+    Alert ID:
+    %a{href: "#{@alert.alert_list_url}"}= @alert.id
