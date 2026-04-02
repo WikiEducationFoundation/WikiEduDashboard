@@ -19,13 +19,15 @@ class AiToolsController < ApplicationController
 
   private
 
-  MAX_CONCURRENCY = 4
+  MAX_CONCURRENCY = 6
 
   DETECTORS = {
     RevisionAiScore::PANGRAM_V2_KEY => PangramApi.v2,
     RevisionAiScore::PANGRAM_V3_KEY => PangramApi.v3,
     RevisionAiScore::ORIGINALITY_TURBO_KEY => OriginalityApi.turbo,
-    RevisionAiScore::ORIGINALITY_ACADEMIC_KEY => OriginalityApi.academic
+    RevisionAiScore::ORIGINALITY_ACADEMIC_KEY => OriginalityApi.academic,
+    RevisionAiScore::ORIGINALITY_LITE_KEY => OriginalityApi.lite,
+    RevisionAiScore::ORIGINALITY_LITE_BETA_KEY => OriginalityApi.lite_beta
   }.freeze
 
   def detect_ai_from_multiple_resources(text)
@@ -41,6 +43,8 @@ class AiToolsController < ApplicationController
     @pangram_v3_result = @results[RevisionAiScore::PANGRAM_V3_KEY]
     @originality_turbo_result = @results[RevisionAiScore::ORIGINALITY_TURBO_KEY]
     @originality_academic_result = @results[RevisionAiScore::ORIGINALITY_ACADEMIC_KEY]
+    @originality_lite_result = @results[RevisionAiScore::ORIGINALITY_LITE_KEY]
+    @originality_lite_beta_result = @results[RevisionAiScore::ORIGINALITY_LITE_BETA_KEY]
   end
 
   def detect_ai(key, ai_detector, text)
