@@ -35,6 +35,12 @@ describe 'AI edit alert followup', type: :feature, js: true do
       visit "/alert_followup/#{alert.id}"
       expect(page).to have_content 'How did you use AI?'
     end
+
+    it 'can view the alert in the alerts list' do
+      visit "/alerts_list/#{alert.id}"
+      expect(page).to have_content 'AiEditAlert'
+      expect(page).to have_content 'History of Biology'
+    end
   end
 
   describe 'as a course instructor' do
