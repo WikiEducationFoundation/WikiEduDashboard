@@ -34,6 +34,8 @@ class RevisionAiScore < ApplicationRecord
   PANGRAM_V3_KEY = 'Pangram 3'
   ORIGINALITY_TURBO_KEY = 'Originality Turbo'
   ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
+  ORIGINALITY_LITE_KEY = 'Originality Lite 1.0.0'
+  ORIGINALITY_LITE_BETA_KEY = 'Originality Lite 1.0.2'
 
   COURSE_UPDATE_ORIGIN = 'course_update'
   AI_TOOL_ORIGIN = 'ai_tool'
@@ -44,12 +46,16 @@ class RevisionAiScore < ApplicationRecord
 
   ORIGINALITY_KEYS = [
     ORIGINALITY_TURBO_KEY,
-    ORIGINALITY_ACADEMIC_KEY
+    ORIGINALITY_ACADEMIC_KEY,
+    ORIGINALITY_LITE_KEY,
+    ORIGINALITY_LITE_BETA_KEY
   ]
 
   MODELS_KEY = [
     PANGRAM_V3_KEY,
     ORIGINALITY_TURBO_KEY,
-    ORIGINALITY_ACADEMIC_KEY
+    ORIGINALITY_ACADEMIC_KEY,
+    ORIGINALITY_LITE_KEY,
+    ORIGINALITY_LITE_BETA_KEY
   ].freeze
 end
