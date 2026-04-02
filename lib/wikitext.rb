@@ -46,7 +46,7 @@ class Wikitext
   end
 
   def self.mediawiki_to_markdown(item)
-    PandocRuby.convert(item, from: :mediawiki, to: :markdown_github)
+    PandocRuby.convert(item, { from: :mediawiki, to: :markdown_github }, '--wrap=none')
   end
 
   # Replace instances of <code></code> with <nowiki></nowiki>
