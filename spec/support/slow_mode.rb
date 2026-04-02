@@ -32,4 +32,13 @@ if ENV['SLOW']
     end
   end
   Capybara::Node::Element.prepend(slow_clicks)
+
+  slow_visit = Module.new do
+    def visit(*args, **kwargs, &block)
+      result = super
+      sleep SLOW_DELAY
+      result
+    end
+  end
+  Capybara::Session.prepend(slow_visit)
 end
