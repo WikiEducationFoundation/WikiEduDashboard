@@ -18,14 +18,18 @@ YELLOW = "\e[33m"
 BOLD   = "\e[1m"
 RESET  = "\e[0m"
 
-spec_file = ARGV[0] or abort "Usage: bin/feature-spec <spec_file> [target_file]"
+spec_file = ARGV[0] or abort "Usage: bin/feature-spec <spec_file> [target_file] [rspec_args...]"
 
-target_file = ARGV[1] || begin
+remaining = ARGV[1..]
+target_file_arg = remaining.find { |a| a.include?('/') || a.end_with?('.rb') }
+extra_rspec_args = remaining - [target_file_arg].compact
+
+target_file = target_file_arg || begin
   basename = File.basename(spec_file, '_spec.rb')
   "app/controllers/#{basename}_controller.rb"
 end
 
-system('bundle', 'exec', 'rspec', spec_file, '--format', 'documentation')
+system('bundle', 'exec', 'rspec', spec_file, *extra_rspec_args, '--format', 'documentation')
 rspec_exit = $?.exitstatus
 
 resultset = 'coverage/.resultset.json'
