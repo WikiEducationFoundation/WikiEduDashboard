@@ -6,10 +6,8 @@
 class PangramApi
   attr_reader :result
 
-  V2_API_URL = 'https://text-extended.api.pangram.com'
-  def self.v2
-    new(api_url: V2_API_URL, options: { dashboard: true })
-  end
+  # Pangram version 2 got deprecated on 1st, April, 2026
+  # V2_API_URL = 'https://text-extended.api.pangram.com'
 
   V3_API_URL = 'https://text.api.pangram.com/v3'
   def self.v3
