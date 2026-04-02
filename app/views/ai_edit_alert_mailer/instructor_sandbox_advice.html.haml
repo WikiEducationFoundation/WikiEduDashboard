@@ -11,16 +11,12 @@
               %p.paragraph
                 You've received a message with your student on copy that Pangram has
                 automatically detected that your student pasted a generative AI
-                chatbot output into a Wikipedia sandbox draft, against Wiki Education's rules.
+                chatbot output into a Wikipedia page, against Wiki Education's rules.
                 This message provides more details for you as the instructor. We
                 recommend keeping it in your inbox for future reference, as many
                 instructors receive multiple alerts throughout the term.
-              %h2.headline If it's a sandbox draft
               %p.paragraph
-                When you set up your course page, you selected whether you wanted
-                to have your students work directly in the main article space or
-                draft in a sandbox first. If you selected sandboxes, your students
-                will draft their contributions in a sandbox first. Since this text
+                The alert you received was about text in your student's sandbox. Since this text
                 is intended to be moved to the article space, it is critical that
                 none of this text was written by generative AI chatbots. Please have
                 a 1:1 conversation with the student to understand their perspective
@@ -45,11 +41,34 @@
                   %li If all information the student has included is verifiable in the sources they have cited, they can move the work live. Please report this case to us as a false positive. (These are rare, so knowing when they occur helps us improve our detection).
                   %li If any of the information fails verification, ask the student to rewrite their Wikipedia contribution without the help of generative AI. Do not let them move information that fails verification to Wikipedia.
               %p.paragraph
-                In addition to the false positives we referenced in the prior section, students who copy and paste
-                existing text from a Wikipedia article into their sandbox will occasionally have the pre-existing
-                text flagged. In this case, they've probably discovered some extant AI slop, and your student should
-                be highly skeptical of that content! If it's bad or they can't easily verify it from cited sources,
-                they should delete it from the live article.
+                Pangram may flag edits in scenarios like:
+                %ul.paragraph
+                  %li.paragraph
+                    If a student saves an empty outline (for example, with just short
+                    bullet points or empty section headers), or includes a significant
+                    amount of non-prose text (like sentence fragments or bibliographic
+                    entries) this might trigger the AI detector. Non-prose text is a
+                    common factor in most of the confirmed false positives we've seen.
+                    In this case, please encourage the student to fill out the feedback
+                    form and indicate a false positive so we know how many occur each term.
+                  %li.paragraph
+                    Text transformed by Grammarly and other AI copyediting tools can
+                    trigger AI detection, depending on how significantly it was
+                    transformed. Simple grammar fixes in Grammarly will not typically
+                    trigger Pangram, but use of writing suggestions may. If the student
+                    says they "only used Grammarly" please make sure they turn off anything
+                    but basic grammar fixes (and they should ensure those don't change
+                    the meaning of the sentence, something critical for Wikipedia). Other
+                    Wikipedia editors can easily improve the readability of the text if
+                    the facts are accurate and precise, but AI copyediting introduces
+                    distortions in meaning, so it's untrustworthy for the same reasons
+                    as chatbot output when it comes to Wikipedia.
+              %p.paragraph
+                Students who copy and paste existing text from a Wikipedia article into their sandbox
+                will occasionally have the pre-existing text flagged. In this case, they've probably
+                discovered some extant AI slop, and your student should be highly skeptical of that
+                content! If it's bad or they can't easily verify it from cited sources, they should
+                delete it from the live article.
               %h2.headline Need more help?
               %p.paragraph
                 You're not alone in navigating these AI detection incidents — other instructors are also
