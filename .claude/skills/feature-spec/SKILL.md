@@ -111,6 +111,14 @@ If the user says **"show me"**, prefix with `HEADED=1` so Chrome opens visibly:
 HEADED=1 bin/feature-spec spec/features/<spec_file>_spec.rb
 ```
 
+If the user says **"show me slowly"**, add `SLOW=0.3` to pause after each click, fill, check, and select:
+
+```bash
+HEADED=1 SLOW=0.3 bin/feature-spec spec/features/<spec_file>_spec.rb
+```
+
+The `SLOW` value is the pause in seconds — `SLOW=0.1` for a quick flash, `SLOW=1` for a full second, etc.
+
 A line count of `None` in the raw resultset means non-executable (comments, blank lines, `end`). Only `0` means missed — those are what appear in the "Uncovered lines" list.
 
 **Iterate** — for each uncovered line:
