@@ -170,6 +170,29 @@ describe CheckRevisionWithPangram do
     end
   end
 
+  context 'when there are prior alerts for the same page and user' do
+    let!(:prior_page_alert) { create(:ai_edit_alert, course:, article: live_article) }
+    let!(:prior_user_alert) { create(:ai_edit_alert, course:, user:, created_at: 2.days.ago) }
+
+    it 'records prior alert IDs in the new alert details' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+            'wiki_id' => en_wiki.id,
+            'article_id' => live_article.id,
+            'course_id' => course.id,
+            'user_id' => user.id,
+            'revision_timestamp' => timestamp }
+        )
+      end
+      new_alert = AiEditAlert.last
+      expect(new_alert.details[:prior_alert_for_page]).to eq(prior_page_alert.id)
+      expect(new_alert.details[:prior_alert_for_user]).to eq(prior_user_alert.id)
+    end
+  end
+
   context 'when the revision more than 2 weeks old' do
     let(:timestamp) { 15.days.ago.to_i }
 
