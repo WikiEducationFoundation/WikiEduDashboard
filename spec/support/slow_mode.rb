@@ -36,8 +36,49 @@ if ENV['SLOW']
   slow_visit = Module.new do
     def visit(*args, **kwargs, &block)
       result = super
+      inject_spec_label
       sleep SLOW_DELAY
       result
+    end
+
+    private
+
+    def inject_spec_label
+      example = RSpec.current_example
+      return unless example
+
+      description = example.description
+      context_path = example.full_description
+                            .sub(/\s*#{Regexp.escape(description)}\z/, '')
+                            .strip
+      execute_script(<<~JS)
+        (function() {
+          var el = document.getElementById('__rspec_label__');
+          if (!el) {
+            el = document.createElement('div');
+            el.id = '__rspec_label__';
+            el.style.cssText = [
+              'position:fixed', 'bottom:0', 'left:0', 'right:0',
+              'background:rgba(20,20,20,0.9)', 'color:#fff',
+              'padding:6px 12px', 'font-family:monospace',
+              'z-index:2147483647', 'pointer-events:none', 'line-height:1.4'
+            ].join(';');
+            var ctx = document.createElement('div');
+            ctx.id = '__rspec_label_ctx__';
+            ctx.style.cssText = 'font-size:11px;color:#aaa;margin-bottom:2px;';
+            var desc = document.createElement('div');
+            desc.id = '__rspec_label_desc__';
+            desc.style.cssText = 'font-size:14px;font-weight:bold;color:#fff;';
+            el.appendChild(ctx);
+            el.appendChild(desc);
+            document.body.appendChild(el);
+          }
+          document.getElementById('__rspec_label_ctx__').textContent = #{context_path.to_json};
+          document.getElementById('__rspec_label_desc__').textContent = #{description.to_json};
+        })();
+      JS
+    rescue StandardError
+      nil # ignore injection errors (e.g. page not fully loaded)
     end
   end
   Capybara::Session.prepend(slow_visit)
