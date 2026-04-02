@@ -695,6 +695,7 @@ sr-ec:
       курса Програм учионице.
     subject: Предмет
     submitted: Послато
+    add_tags: 'Додај ознаке:'
     tag_select: Изаберите или направите ознаку
     tags: 'Ознаке:'
     term: Полугодиште
@@ -1193,6 +1194,7 @@ sr-ec:
       discussion: Дискусија
       training: Обука
     view_all: Види све вежбе
+    loading: Учитавање…
   update_username:
     username_updated: Корисничко име је успешно промењено!
     label: Ново корисничко име

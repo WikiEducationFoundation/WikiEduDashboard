@@ -961,5 +961,3 @@ qqq:
   question_groups:
     edit_question_group: Button label for editing a question group
 ...
-  form_search:
-    program_date: Label for program date

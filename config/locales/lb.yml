@@ -399,6 +399,7 @@ lb:
     weeks_none: Dëse Cours huet nach keen Zäitplang.
     withdrawn: Zréckgezunn
     yourcourses: Är Coursen
+    decline_course: Cours ofleenen
     survey:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
@@ -477,6 +478,9 @@ lb:
     select_student:
       title: '%{prefix} eraussichen'
   metrics:
+    editors_doc: Dëst ass d'Zuel vun eenzele Benotzer, déi am Cours Artikele geännert
+      hunn.
+    program_date_doc: Dëst ass den Datum vum Programm.
     last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
@@ -821,4 +825,6 @@ lb:
     cancel_note_creation: Ofbriechen
     cancel_edit_note: Ofbriechen
     save_note: Späicheren
+  form_search:
+    program_date: Programmdatum
 ...

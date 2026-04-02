@@ -660,6 +660,11 @@ it:
     user_role: Ruolo
     course_details: Dettagli del corso
     submitted_at: Inviato il
+    add_wiki_expert: 'Aggiungi esperto Wikipedia:'
+    add_tags: 'Aggiungi etichette:'
+    add_campaigns: 'Aggiungi campagne:'
+    invalid_salesforce_id: L'ID inserito non è valido.
+    add_salesforce_id: 'Aggiungi ID Salesforce:'
     tags: 'Etichette:'
     term: Termine
     timeline: Dettagli dell'incarico
@@ -785,6 +790,7 @@ it:
     bad_work:
       learn_more_button: Ulteriori informazioni
   metrics:
+    program_date_doc: Questa è la data del programma.
     last_update: Ultimo aggiornamento statistiche
     activity: Attività recente
     articles_created: Voci create
