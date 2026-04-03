@@ -64,10 +64,9 @@ class AiEditAlert < Alert
     details[:prior_alert_for_user] = prior_alerts.last.id
   end
 
-  # This will track the total number of AiEditAlerts for
-  # this course. If this is the first one, the mailer
-  # will send an additional email to the instructor with
-  # extra info on how to respond.
+  # Tracks the total number of emailed AiEditAlerts for this course.
+  # Used by omnibus_advice_sent? to detect legacy alerts from before
+  # the per-type advice email system was introduced.
   def self.add_prior_alert_count_for_course(course_id, details)
     # We're only counting alerts that had sent emails.
     prior_alert_count = AiEditAlert.where(course_id:).where.not(email_sent_at: nil).count
