@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'mailer_preview_helpers'
+
 class AiEditAlertMailerPreview < ActionMailer::Preview
+  include MailerPreviewHelpers
+
   DESCRIPTION = "Sent when AI content is detected in a student's or scholar's Wikipedia edit."
   METHOD_DESCRIPTIONS = {
     student_program_ai_edit_alert_mainspace:
@@ -11,8 +15,12 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
       'Alert for an edit to a user sandbox or draft page',
     scholars_program_ai_edit_alert:
       'Alert for a Wikipedia Fellows scholar (non-ClassroomProgram)',
-    instructor_guidance_for_first_alert:
-      'Guidance sent to instructors when their first AI alert fires'
+    instructor_exercise_advice:
+      'Instructor guidance when the flagged edit is to an exercise page',
+    instructor_sandbox_advice:
+      'Instructor guidance when the flagged edit is to a sandbox or draft',
+    instructor_mainspace_advice:
+      'Instructor guidance when the flagged edit is to a live mainspace article'
   }.freeze
 
   def student_program_ai_edit_alert_mainspace
@@ -31,8 +39,20 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
     AiEditAlertMailer.email(example_scholars_alert)
   end
 
-  def instructor_guidance_for_first_alert
-    AiEditAlertMailer.instructor_advice_email(example_student_program_alert(exercise_page))
+  def instructor_exercise_advice
+    AiEditAlertMailer.instructor_exercise_advice_email(example_student_program_alert(exercise_page))
+  end
+
+  def instructor_sandbox_advice
+    AiEditAlertMailer.instructor_sandbox_advice_email(
+      example_student_program_alert(sandbox_draft_page)
+    )
+  end
+
+  def instructor_mainspace_advice
+    AiEditAlertMailer.instructor_mainspace_advice_email(
+      example_student_program_alert(mainspace_page)
+    )
   end
 
   private
@@ -55,22 +75,6 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
 
   def example_user
     User.new(username: 'Sage (Wiki Ed)', email: 'sage@example.com', permissions: 3)
-  end
-
-  def example_course
-    course = Course.new(
-      title: 'Advanced Topics in Global Health',
-      slug: 'Global_Health/Advanced_Topics_(Spring_2025)',
-      school: 'University of Maryland',
-      expected_students: 24,
-      user_count: 22,
-      start: 3.months.ago,
-      end: 1.month.from_now,
-      revision_count: 450
-    )
-    instructor = example_user
-    course.define_singleton_method(:instructors) { [instructor] }
-    course
   end
 
   def example_student_program_alert(article)

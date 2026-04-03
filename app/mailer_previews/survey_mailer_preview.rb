@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 # Preview all emails at http://localhost:3000/rails/mailers/survey_mailer
+
+require_relative 'mailer_preview_helpers'
+
 class SurveyMailerPreview < ActionMailer::Preview
+  include MailerPreviewHelpers
+
   DESCRIPTION = 'Survey invitations and follow-up reminders sent to instructors and students.'
   METHOD_DESCRIPTIONS = {
     instructor_survey_notification: 'Invitation to an instructor to complete a course survey',
@@ -51,18 +56,5 @@ class SurveyMailerPreview < ActionMailer::Preview
                    course: example_course,
                    survey:, user:
                       User.new(email: 'sage@example.com', username: 'Ragesoss'))
-  end
-
-  def example_course
-    Course.new(
-      title: 'Advanced Topics in Global Health',
-      slug: 'Global_Health/Advanced_Topics_(Spring_2025)',
-      school: 'University of Maryland',
-      expected_students: 24,
-      user_count: 22,
-      start: 3.months.ago,
-      end: 1.month.from_now,
-      revision_count: 450
-    )
   end
 end

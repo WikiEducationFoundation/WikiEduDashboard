@@ -3,7 +3,7 @@
 require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
 
 #= Preview all emails at http://localhost:3000/rails/mailers/alert_mailer
-class AlertMailerPreview < ActionMailer::Preview
+class AlertMailerPreview < ActionMailer::Preview # rubocop:disable Metrics/ClassLength
   DESCRIPTION = 'Alert emails sent to staff, instructors, or students for various course events.'
   METHOD_DESCRIPTIONS = {
     articles_for_deletion_alert: "Notifies staff when a student's article is flagged for deletion",
@@ -98,8 +98,9 @@ class AlertMailerPreview < ActionMailer::Preview
   end
 
   def example_de_userfying_alert
+    course = example_course.tap { |c| c.define_singleton_method(:home_wiki) { Wiki.default_wiki } }
     Alert.new(type: 'DeUserfyingAlert', article: example_article,
-              course: example_course, id: 9, user: example_student,
+              course:, id: 9, user: example_student,
               details: { logid: 125126035,
                          timestamp: '2021-12-16T08:10:56Z',
                          title: 'User:Ragesoss/sandbox',
