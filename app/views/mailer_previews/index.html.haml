@@ -29,7 +29,7 @@
             - preview.emails.each do |email|
               - method_label = method_descriptions[email.to_sym] || email.humanize
               - recipients = method_recipients[email.to_sym] || class_recipients
-              - url = "/rails/mailers/#{preview.preview_name}/#{email}?part=text%2Fhtml"
+              - url = "/rails/mailers/#{preview.preview_name}/#{email}"
               %tr
                 %td= link_to method_label, url, target: '_blank', rel: 'noopener'
                 %td.preview-recipients= recipients
