@@ -37,3 +37,11 @@
       %br
       %h4 Originality Academic Result:
       = render 'originality', originality_result: @originality_academic_result
+    - if @originality_lite_result
+      %br
+      %h4 Originality Lite 1.0.0 Result:
+      = render 'originality', originality_result: @originality_lite_result
+    - if @originality_lite_beta_result
+      %br
+      %h4 Originality Lite 1.0.2 Beta Result:
+      = render 'originality', originality_result: @originality_lite_beta_result
