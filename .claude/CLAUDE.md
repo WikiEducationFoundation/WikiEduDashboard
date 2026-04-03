@@ -63,6 +63,29 @@ public methods, follow the pattern used in `GetRevisionPlaintext`:
 @wiki_api.send(:api_client).send('action', 'parse', params)
 ```
 
+## Stylesheets
+
+Stylesheets are in `app/assets/stylesheets/` and use Stylus. Changes have no
+effect until the assets are recompiled:
+
+```bash
+yarn build   # one-off compile (exits when done; use before running tests)
+yarn start   # continuous watcher (recompiles on save; normally running in dev)
+```
+
+Run `yarn build` yourself (don't ask the user to do it) before running feature
+specs that depend on CSS changes.
+New module files in `app/assets/stylesheets/modules/` are auto-imported via the
+`@import "modules/*"` glob in `main.styl` — no manual import needed.
+
+## Feature specs
+
+Run feature specs with `bin/feature-spec`. Once the user has asked to "show me"
+in a session, run all subsequent feature specs headed (`HEADED=1`) for the rest
+of that session. Only add `SLOW=` when the user explicitly requests slow mode.
+
+Never commit without being asked, even after a spec run succeeds.
+
 ## Specs
 
 - Always `require 'rails_helper'`
