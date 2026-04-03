@@ -8,7 +8,6 @@ class AlertMailerPreview < ActionMailer::Preview # rubocop:disable Metrics/Class
   METHOD_DESCRIPTIONS = {
     articles_for_deletion_alert: "Notifies staff when a student's article is flagged for deletion",
     blocked_edits_alert: 'Notifies staff when a student account is blocked from editing Wikipedia',
-    blocked_student_alert: 'Notifies a student that their Wikipedia account has been blocked',
     check_timeline_alert: "Prompts staff to review a course's timeline for potential issues",
     productive_course_alert: 'Celebrates a course that has achieved strong Wikipedia contributions',
     continued_course_activity_alert: 'Notes that editing activity continued after a course ended',
@@ -19,6 +18,19 @@ class AlertMailerPreview < ActionMailer::Preview # rubocop:disable Metrics/Class
     no_med_training_for_course_alert: 'Warns of a medical topics course without required training',
     survey_response_alert: 'Notifies staff of a notable response submitted through a survey'
   }.freeze
+  METHOD_RECIPIENTS = {
+    articles_for_deletion_alert: 'staff',
+    blocked_edits_alert: 'staff',
+    check_timeline_alert: 'staff',
+    continued_course_activity_alert: 'staff',
+    de_userfying_alert: 'staff',
+    generic_alert: 'staff',
+    need_help_alert: 'staff',
+    no_med_training_for_course_alert: 'staff',
+    over_enrollment_alert: 'staff',
+    productive_course_alert: 'staff',
+    survey_response_alert: 'staff'
+  }.freeze
 
   def articles_for_deletion_alert
     AlertMailer.alert(example_alert(type: 'ArticlesForDeletionAlert'), example_user)
@@ -26,10 +38,6 @@ class AlertMailerPreview < ActionMailer::Preview # rubocop:disable Metrics/Class
 
   def blocked_edits_alert
     AlertMailer.alert(example_blocked_edits_alert, example_user)
-  end
-
-  def blocked_student_alert
-    BlockedUserAlertMailer.email(example_user_blocked_alert)
   end
 
   def check_timeline_alert
@@ -159,7 +167,4 @@ class AlertMailerPreview < ActionMailer::Preview # rubocop:disable Metrics/Class
       'blockexpiryrelative' => 'in 2 years' }
   end
 
-  def example_user_blocked_alert
-    Alert.new(type: 'BlockedUserAlert', user: example_user, course: example_course)
-  end
 end

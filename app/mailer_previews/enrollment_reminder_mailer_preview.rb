@@ -5,6 +5,7 @@ class EnrollmentReminderMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     enrollment_reminder_email: 'Prompts a student to complete enrollment via the course passcode'
   }.freeze
+  RECIPIENTS = 'student'
 
   def enrollment_reminder_email
     EnrollmentReminderMailer.email(example_user)

@@ -18,6 +18,14 @@ class SurveyMailerPreview < ActionMailer::Preview
     custom_notification: 'Initial invitation using a custom email subject, headline, and body',
     custom_follow_up: 'Follow-up reminder using a custom email subject, headline, and body'
   }.freeze
+  METHOD_RECIPIENTS = {
+    instructor_survey_notification: 'instructor(s)',
+    instructor_survey_follow_up: 'instructor(s)',
+    student_learning_preassessment_notification: 'student',
+    student_learning_preassessment_follow_up: 'student',
+    custom_notification: 'instructor(s) or student',
+    custom_follow_up: 'instructor(s) or student'
+  }.freeze
 
   def instructor_survey_notification
     SurveyMailer.instructor_survey_notification(example_notification)

@@ -5,6 +5,7 @@ class UnsubmittedCourseAlertMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_instructor: 'Nudges the instructor to submit their course before the start date'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def message_to_instructor
     UnsubmittedCourseAlertMailer.email(alert)

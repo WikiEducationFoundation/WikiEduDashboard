@@ -6,9 +6,9 @@ describe 'Mailer previews index', type: :feature, js: true do
   it 'renders the index and every linked email preview without error' do
     visit '/mailer_previews'
     expect(page).to have_content 'Email Previews'
-    expect(page).to have_content 'AI edit detection'
+    expect(page).to have_text(/course messages for instructors/i)
 
-    links = all('ul.preview-links a').map { |a| a[:href] }
+    links = all('.preview-table a').map { |a| a[:href] }
     expect(links).not_to be_empty
 
     links.each do |url|

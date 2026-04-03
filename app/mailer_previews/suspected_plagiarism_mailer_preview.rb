@@ -9,6 +9,7 @@ class SuspectedPlagiarismMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     content_expert_email: 'Alerts a content expert with article details and a plagiarism report'
   }.freeze
+  RECIPIENTS = 'instructor(s), Wiki Expert'
 
   def content_expert_email
     user = example_user_with_courses_user

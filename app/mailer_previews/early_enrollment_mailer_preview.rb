@@ -11,6 +11,7 @@ class EarlyEnrollmentMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_wiki_experts: 'Notifies Wiki Experts of early enrollment for proactive outreach'
   }.freeze
+  RECIPIENTS = 'Wiki Expert'
 
   def message_to_wiki_experts
     EarlyEnrollmentMailer.email(example_alert)

@@ -5,6 +5,7 @@ class NewInstructorEnrollmentMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     alert_staff: 'Staff notification when a second instructor joins a course already in progress'
   }.freeze
+  RECIPIENTS = 'staff'
 
   def alert_staff
     NewInstructorEnrollmentMailer.email(course, staffer, adder, new_instructor, courses_user)

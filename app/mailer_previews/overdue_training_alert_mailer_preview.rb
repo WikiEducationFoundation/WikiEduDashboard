@@ -9,6 +9,7 @@ class OverdueTrainingAlertMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_student: 'Lists overdue modules and links the student to complete them'
   }.freeze
+  RECIPIENTS = 'student'
 
   def message_to_student
     OverdueTrainingAlertMailer.email(example_alert)

@@ -9,6 +9,7 @@ class FirstEnrolledStudentAlertMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_instructors: 'Congratulatory alert to instructors when their first student joins'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def message_to_instructors
     FirstEnrolledStudentAlertMailer.email(alert)

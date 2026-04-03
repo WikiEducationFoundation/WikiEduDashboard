@@ -9,6 +9,7 @@ class UntrainedStudentsAlertMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_instructors: 'Tells instructors how many students are untrained'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def message_to_instructors
     UntrainedStudentsAlertMailer.email(example_alert)

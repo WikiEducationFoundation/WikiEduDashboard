@@ -10,6 +10,7 @@ class TermRecapMailerPreview < ActionMailer::Preview
     email_to_instructors: 'Full recap with stats for courses with strong student contributions',
     basic_email_to_instructors: 'Shorter recap for courses with lower average word counts'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def email_to_instructors
     TermRecapMailer.email(example_course, Campaign.default_campaign)

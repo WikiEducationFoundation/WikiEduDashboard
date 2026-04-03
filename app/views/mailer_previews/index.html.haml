@@ -1,26 +1,36 @@
 - content_for :before_title, 'Email Previews — '
 
 .container
-  %h1 Email Previews
-  %p.mb-3
-    This page shows every automated email the dashboard can send, rendered with
-    example data. No real user or course information is displayed.
+  .mailer-previews-header
+    %h1 Email Previews
+    %p
+      Every automated email the dashboard can send, rendered with example data.
+      No real user or course information is shown.
 
   - @categories.each do |category|
-    %section.mb-4
-      %h2= category[:name]
-      .email-preview-grid
-        - category[:previews].each do |preview|
-          - description = preview.const_defined?(:DESCRIPTION) ? preview::DESCRIPTION : ''
-          - method_descriptions = preview.const_defined?(:METHOD_DESCRIPTIONS) ? preview::METHOD_DESCRIPTIONS : {}
-          - human_name = preview.name.gsub(/MailerPreview$|Preview$/, '').underscore.humanize
-          .email-preview-card
-            %h3= human_name
-            - if description.present?
-              %p.description= description
-            %ul.preview-links
-              - preview.emails.each do |email|
-                - method_label = method_descriptions[email.to_sym] || email.humanize
-                - url = "/rails/mailers/#{preview.preview_name}/#{email}?part=text%2Fhtml"
-                %li
-                  = link_to method_label, url, target: '_blank', rel: 'noopener'
+    %section.preview-category
+      %h2.preview-category__name= category[:name]
+      %table.preview-table
+        %thead
+          %tr
+            %th Email
+            %th Recipients
+        %tbody
+          - category[:previews].each do |preview|
+            - method_descriptions = preview.const_defined?(:METHOD_DESCRIPTIONS) ? preview::METHOD_DESCRIPTIONS : {}
+            - method_recipients = preview.const_defined?(:METHOD_RECIPIENTS) ? preview::METHOD_RECIPIENTS : {}
+            - class_recipients = preview.const_defined?(:RECIPIENTS) ? preview::RECIPIENTS : nil
+            - human_name = preview.name.gsub(/MailerPreview$|Preview$/, '').underscore.humanize
+            - description = preview.const_defined?(:DESCRIPTION) ? preview::DESCRIPTION : ''
+            %tr.preview-table__group-header
+              %td{ colspan: 2 }
+                %span.preview-group__name= human_name
+                - if description.present?
+                  = " — #{description}"
+            - preview.emails.each do |email|
+              - method_label = method_descriptions[email.to_sym] || email.humanize
+              - recipients = method_recipients[email.to_sym] || class_recipients
+              - url = "/rails/mailers/#{preview.preview_name}/#{email}?part=text%2Fhtml"
+              %tr
+                %td= link_to method_label, url, target: '_blank', rel: 'noopener'
+                %td.preview-recipients= recipients

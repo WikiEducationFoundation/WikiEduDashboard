@@ -5,6 +5,7 @@ class WikiEmailMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     email_warning: 'Warns the user that their Wikipedia email is public and may receive spam'
   }.freeze
+  RECIPIENTS = 'user'
 
   def email_warning
     WikiEmailMailer.email(example_user)

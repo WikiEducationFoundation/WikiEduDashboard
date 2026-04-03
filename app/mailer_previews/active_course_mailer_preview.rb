@@ -9,6 +9,7 @@ class ActiveCourseMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     submission: 'Check-in email sent to an instructor whose course is actively running'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def submission
     ActiveCourseMailer.email(example_course, example_user)

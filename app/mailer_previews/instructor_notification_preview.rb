@@ -11,6 +11,7 @@ class InstructorNotificationPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_instructors: 'Custom notification from an admin to all course instructors'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def message_to_instructors
     InstructorNotificationMailer.email(example_alert, true)

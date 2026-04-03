@@ -3,58 +3,54 @@
 class MailerPreviewsController < ApplicationController
   CATEGORIES = [
     {
-      name: 'Course lifecycle',
+      name: 'Course messages for instructors',
       previews: %w[
-        CourseSubmissionMailerPreview
         CourseApprovalMailerPreview
         CourseApprovalFollowupMailerPreview
         UnsubmittedCourseAlertMailerPreview
-        EnrollmentReminderMailerPreview
-        FirstEnrolledStudentAlertMailerPreview
         NoEnrolledStudentsAlertMailerPreview
-        NewInstructorEnrollmentMailerPreview
-      ]
-    },
-    {
-      name: 'Instructor notifications',
-      previews: %w[
+        NoTaEnrolledAlertMailerPreview
+        FirstEnrolledStudentAlertMailerPreview
+        UntrainedStudentsAlertMailerPreview
         ActiveCourseMailerPreview
-        TermRecapMailerPreview
         CourseAdviceMailerPreview
-        EarlyEnrollmentMailerPreview
+        TermRecapMailerPreview
         InstructorNotificationPreview
       ]
     },
     {
-      name: 'Training & compliance',
-      previews: %w[
-        UntrainedStudentsAlertMailerPreview
-        OverdueTrainingAlertMailerPreview
-        NoTaEnrolledAlertMailerPreview
-      ]
-    },
-    {
-      name: 'Content & quality alerts',
+      name: 'Student action alerts for instructors',
       previews: %w[
         DidYouKnowAlertMailerPreview
         HighQualityArticleAssignmentMailerPreview
         SuspectedPlagiarismMailerPreview
-        AlertMailerPreview
-      ]
-    },
-    {
-      name: 'AI edit detection',
-      previews: %w[
         AiEditAlertMailerPreview
+        ScholarsAiEditAlertMailerPreview
+        BlockedStudentAlertMailerPreview
       ]
     },
     {
-      name: 'Administrative',
+      name: 'Messages for students',
       previews: %w[
-        TicketNotificationMailerPreview
-        SurveyMailerPreview
+        EnrollmentReminderMailerPreview
+        OverdueTrainingAlertMailerPreview
         WikiEmailMailerPreview
-        Fall2017CmuExperimentMailerPreview
+      ]
+    },
+    {
+      name: 'Surveys',
+      previews: %w[
+        SurveyMailerPreview
+      ]
+    },
+    {
+      name: 'Messages for staff',
+      previews: %w[
+        CourseSubmissionMailerPreview
+        NewInstructorEnrollmentMailerPreview
+        EarlyEnrollmentMailerPreview
+        TicketNotificationMailerPreview
+        AlertMailerPreview
       ]
     }
   ].freeze

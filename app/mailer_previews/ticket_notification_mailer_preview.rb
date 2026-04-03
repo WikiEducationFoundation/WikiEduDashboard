@@ -7,6 +7,11 @@ class TicketNotificationMailerPreview < ActionMailer::Preview
     message_to_instructor: 'Reply from a student or instructor to a Wiki Ed admin',
     open_tickets_notification: 'Daily digest listing all currently open tickets for the owner'
   }.freeze
+  METHOD_RECIPIENTS = {
+    message_to_student: 'student',
+    message_to_instructor: 'staff',
+    open_tickets_notification: 'staff'
+  }.freeze
 
   def message_to_student
     sender = User.new(username: 'admin',

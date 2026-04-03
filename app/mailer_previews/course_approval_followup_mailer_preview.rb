@@ -5,6 +5,7 @@ class CourseApprovalFollowupMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     approval_followup: 'Personal follow-up introducing the Wiki Ed staffer to the instructor'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def approval_followup
     CourseApprovalFollowupMailer.email(example_course, example_staffer, example_instructors)

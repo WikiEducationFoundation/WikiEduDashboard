@@ -8,6 +8,7 @@ class CourseApprovalMailerPreview < ActionMailer::Preview
     new_sandbox_approval: 'Approval for a new instructor whose course stays in sandbox mode',
     returning_sandbox_approval: 'Approval for a returning instructor with a sandbox-only course'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def returning_instructor_approval
     CourseApprovalMailer.email(example_returning_course, example_user)

@@ -9,6 +9,7 @@ class DidYouKnowAlertMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_instructors: "Notifies instructors of a student's DYK nomination"
   }.freeze
+  RECIPIENTS = 'instructor(s), Wiki Expert'
 
   def message_to_instructors
     DidYouKnowAlertMailer.email(example_alert)

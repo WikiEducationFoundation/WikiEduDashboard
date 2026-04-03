@@ -18,6 +18,7 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
     peer_review: 'Tips on facilitating peer review between students',
     assessing_contributions: 'Guidance on how to assess student Wikipedia contributions'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def biographies
     CourseAdviceMailer.email(example_course, 'biographies', example_staffer)

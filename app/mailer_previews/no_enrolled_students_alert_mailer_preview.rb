@@ -9,6 +9,7 @@ class NoEnrolledStudentsAlertMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     message_to_instructors: 'Prompts instructors to share the enrollment link before course starts'
   }.freeze
+  RECIPIENTS = 'instructor(s)'
 
   def message_to_instructors
     NoEnrolledStudentsAlertMailer.email(example_alert)

@@ -9,6 +9,7 @@ class CourseSubmissionMailerPreview < ActionMailer::Preview
   METHOD_DESCRIPTIONS = {
     submission: 'Staff notification email triggered when an instructor submits their course'
   }.freeze
+  RECIPIENTS = 'staff'
 
   def submission
     CourseSubmissionMailer.email(example_course, example_user)

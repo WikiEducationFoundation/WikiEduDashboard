@@ -10,6 +10,7 @@ class HighQualityArticleAssignmentMailerPreview < ActionMailer::Preview
     message_to_student_and_instructors:
       'Warns that the assigned article is already high quality'
   }.freeze
+  RECIPIENTS = 'instructor(s), student, Wiki Expert'
 
   def message_to_student_and_instructors
     HighQualityArticleAssignmentMailer.email(example_alert)
