@@ -3,24 +3,6 @@
 require 'rails_helper'
 
 describe 'AiEditAlert mailer previews', type: :feature, js: true do
-  # The mailer preview uses Course.last, FellowsCohort.last, and
-  # User.where(permissions: 3).first — so we need these records to exist.
-  # The admin must have an email so the mailer doesn't early-return when
-  # building its recipient list.
-  let(:admin) { create(:super_admin, email: 'admin@example.com') }
-  let(:course) { create(:course) }
-  let(:fellows_cohort) { create(:fellows_cohort) }
-  let(:instructor) { create(:user, email: 'instructor@example.com') }
-
-  before do
-    admin
-    # fellows_cohort first so Course.last is the ClassroomProgramCourse
-    fellows_cohort
-    course
-    create(:courses_user, user: instructor, course: course,
-           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-  end
-
   def preview_url(name)
     "/rails/mailers/ai_edit_alert_mailer/#{name}?part=text%2Fhtml"
   end
