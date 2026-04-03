@@ -117,7 +117,13 @@ If the user says **"show me slowly"**, add `SLOW=0.3` to pause after each click,
 HEADED=1 SLOW=0.3 bin/feature-spec spec/features/<spec_file>_spec.rb
 ```
 
-The `SLOW` value is the pause in seconds — `SLOW=0.1` for a quick flash, `SLOW=1` for a full second, etc.
+If the user says **"show me very slowly"**, use `SLOW=10`:
+
+```bash
+HEADED=1 SLOW=10 bin/feature-spec spec/features/<spec_file>_spec.rb
+```
+
+The `SLOW` value is the pause in seconds — `SLOW=0.1` for a quick flash, `SLOW=1` for a full second, `SLOW=10` for a very long pause, etc.
 
 A line count of `None` in the raw resultset means non-executable (comments, blank lines, `end`). Only `0` means missed — those are what appear in the "Uncovered lines" list.
 
