@@ -18,9 +18,14 @@ from a prior run before starting fresh.
 Gather the raw material:
 
 1. `git log master..HEAD --oneline` — list all commits
-2. `git log master..HEAD` — full commit messages (for design decisions and process notes)
-3. `git diff master...HEAD --stat` — which files changed and how much
-4. Read `PULL_REQUEST_TEMPLATE.md` — know the exact sections required
+2. `git log master..HEAD --format="%H %ai %s"` — commits with timestamps (for estimating elapsed time and effort)
+3. `git log master..HEAD` — full commit messages (for design decisions and process notes)
+4. `git diff master...HEAD --stat` — which files changed and how much
+5. Read `PULL_REQUEST_TEMPLATE.md` — know the exact sections required
+
+From the timestamps, estimate:
+- **Elapsed calendar time**: from the first commit's date to the last
+- **Human effort level**: was this done in one sitting (< 1 hour), a few sessions (a day or two), or spread over many days? A large number of commits across many days suggests sustained iteration; a handful of commits within minutes suggests a single focused AI-assisted session.
 
 ## Phase 2: Capture screenshots
 
@@ -62,6 +67,11 @@ Write an honest, specific statement. This project requires transparency. If Clau
 wrote most of the code under human direction, say so clearly. Name the tool (Claude Code),
 describe what it did (drafted code, wrote commit messages, iterated on design), and note
 what the human contributed (direction, review, decisions about what to build).
+
+Include a brief note on the scale of effort: how many commits, over what time span, and
+roughly what that implies about how much human time was involved. For example: "This was
+developed across 8 commits over 3 days" or "All commits were made within a single 20-minute
+session." This helps reviewers calibrate how much iteration and review went into the work.
 
 Always end the AI usage section with a sentence noting that this PR description was drafted
 using a Claude Code skill (`/prepare-pr`).
