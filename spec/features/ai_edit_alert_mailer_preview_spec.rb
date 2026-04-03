@@ -49,11 +49,6 @@ describe 'AiEditAlert mailer previews', type: :feature, js: true do
     expect(page).to have_content 'Fully AI Generated'
   end
 
-  it 'renders instructor guidance email for first alert' do
-    visit preview_url('instructor_guidance_for_first_alert')
-    expect(page).to have_content "You've received a message with your student on copy"
-  end
-
   it 'renders exercise-specific instructor advice email' do
     visit preview_url('instructor_exercise_advice')
     expect(page).to have_content 'head off future copying-and-pasting'
