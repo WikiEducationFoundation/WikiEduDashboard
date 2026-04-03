@@ -274,6 +274,52 @@ describe AiEditAlert do
         expect(sandbox_advice_email.body.encoded).to include("student's sandbox")
       end
     end
+
+    context 'when a legacy omnibus advice email was sent for a prior alert' do
+    let(:user) { create(:user, email: 'student@example.com') }
+    let(:instructor) { create(:user, username: 'Instructor', email: 'instructor@example.com') }
+
+    before do
+      # Legacy alerts: have prior_alert_count_for_course but no per-type count keys,
+      # which is the signal that the old omnibus advice email was sent for the first one.
+      create(:ai_edit_alert, course:, email_sent_at: Time.zone.now,
+             details: { article_title: 'Artwork title', prior_alert_count_for_course: 0 })
+      create(:ai_edit_alert, course:, email_sent_at: Time.zone.now,
+             details: { article_title: 'Another article', prior_alert_count_for_course: 1 })
+      create(:courses_user, user: instructor, course:,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      allow(Features).to receive(:email?).and_return(true)
+    end
+
+    it 'sends the alert email but skips instructor advice' do
+      call_generate
+      expect(ActionMailer::Base.deliveries.count).to eq(1)
+
+      alert_email = ActionMailer::Base.deliveries.last
+      expect(alert_email.to).to contain_exactly('student@example.com', 'instructor@example.com')
+      expect(alert_email.body.encoded).to include('added to Wikipedia in the course')
+
+      # Exercise alert — advice still skipped because omnibus was previously sent.
+      exercise_sandbox = create(:article, title: "#{user.username}/Evaluate_an_Article",
+                                          namespace: Article::Namespaces::USER)
+      call_generate(revision_id: revision_id + 1, article_id: exercise_sandbox.id,
+                    article_title: "User:#{user.username}/Evaluate an Article")
+      expect(ActionMailer::Base.deliveries.count).to eq(2)
+
+      exercise_alert_email = ActionMailer::Base.deliveries.last
+      expect(exercise_alert_email.body.encoded).to include('added to Wikipedia as an exercise in the course') # rubocop:disable Layout/LineLength
+
+      # Sandbox draft alert — advice still skipped.
+      sandbox_draft = create(:article, title: "#{user.username}/#{article.title}",
+                                        namespace: Article::Namespaces::USER)
+      call_generate(revision_id: revision_id + 2, article_id: sandbox_draft.id,
+                    article_title: "User:#{user.username}/#{article.title}")
+      expect(ActionMailer::Base.deliveries.count).to eq(3)
+
+      sandbox_alert_email = ActionMailer::Base.deliveries.last
+      expect(sandbox_alert_email.body.encoded).to include('drafted for Wikipedia in the course')
+    end
+  end
   end
 
   describe 'accessor methods' do
