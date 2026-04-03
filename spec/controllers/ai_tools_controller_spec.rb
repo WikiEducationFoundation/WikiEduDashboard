@@ -6,7 +6,6 @@ describe AiToolsController, type: :request do
   describe '#compare_ai_detectors' do
     let(:admin) { create(:admin) }
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
-    let(:pangram_v2) { 'Pangram 2.0' }
     let(:pangram_v3) { 'Pangram 3' }
     let(:turbo) { 'Originality Turbo' }
     let(:academic) { 'Originality Academic' }
@@ -91,11 +90,11 @@ describe AiToolsController, type: :request do
         VCR.use_cassette 'pangram' do
           post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                            article_or_diff_url: "",
-                                                           pangram_v2.to_sym => '1' }
+                                                           pangram_v3.to_sym => '1' }
 
           expect(RevisionAiScore.count).to eq(1)
 
-        expect(RevisionAiScore.first.check_type).to eq('Pangram 2.0')
+        expect(RevisionAiScore.first.check_type).to eq('Pangram 3')
         expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
         expect(RevisionAiScore.first.revision_id).to be_nil
         expect(RevisionAiScore.first.wiki_id).to be_nil
@@ -123,34 +122,26 @@ describe AiToolsController, type: :request do
         VCR.use_cassette 'pangram' do
           post '/ai_tools/compare_ai_detectors', params: { plain_text: "",
                                                           article_or_diff_url: url,
-                                                          pangram_v2.to_sym => '1',
                                                           pangram_v3.to_sym => '1',
                                                           turbo.to_sym => '1',
                                                           academic.to_sym => '1' }
         end
 
-        expect(RevisionAiScore.count).to eq(4)
+        expect(RevisionAiScore.count).to eq(3)
 
-        expect(RevisionAiScore.first.check_type).to eq('Pangram 2.0')
+        expect(RevisionAiScore.first.check_type).to eq('Pangram 3')
         expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
         expect(RevisionAiScore.first.revision_id).to eq(1276659876)
         expect(RevisionAiScore.first.wiki_id).to eq(enwiki.id)
         expect(RevisionAiScore.first.url).to eq(url)
         expect(RevisionAiScore.first.origin_user_id).to eq(admin.id)
 
-        expect(RevisionAiScore.second.check_type).to eq('Pangram 3')
+        expect(RevisionAiScore.second.check_type).to eq('Originality Turbo')
         expect(RevisionAiScore.second.check_origin).to eq('ai_tool')
         expect(RevisionAiScore.second.revision_id).to eq(1276659876)
         expect(RevisionAiScore.second.wiki_id).to eq(enwiki.id)
         expect(RevisionAiScore.second.url).to eq(url)
         expect(RevisionAiScore.second.origin_user_id).to eq(admin.id)
-
-        expect(RevisionAiScore.third.check_type).to eq('Originality Turbo')
-        expect(RevisionAiScore.third.check_origin).to eq('ai_tool')
-        expect(RevisionAiScore.third.revision_id).to eq(1276659876)
-        expect(RevisionAiScore.third.wiki_id).to eq(enwiki.id)
-        expect(RevisionAiScore.third.url).to eq(url)
-        expect(RevisionAiScore.third.origin_user_id).to eq(admin.id)
 
         expect(RevisionAiScore.last.check_type).to eq('Originality Academic')
         expect(RevisionAiScore.last.check_origin).to eq('ai_tool')
