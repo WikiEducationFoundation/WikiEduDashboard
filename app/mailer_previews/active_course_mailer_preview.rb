@@ -7,7 +7,7 @@ class ActiveCourseMailerPreview < ActionMailer::Preview
 
   DESCRIPTION = 'Sent to instructors mid-course to highlight student activity and progress.'
   METHOD_DESCRIPTIONS = {
-    submission: 'Check-in email sent to an instructor whose course is actively running'
+    submission: 'Active course mailer (based on average words-added in live articles)'
   }.freeze
   RECIPIENTS = 'instructor(s)'
 

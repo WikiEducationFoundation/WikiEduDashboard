@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require_relative 'mailer_preview_helpers'
+require_dependency "#{Rails.root}/lib/revision_scanner"
 
 class AiEditAlertMailerPreview < ActionMailer::Preview
   include MailerPreviewHelpers
 
-  DESCRIPTION = "Sent when AI content is detected in a student's Wikipedia edit."
+  DESCRIPTION = "Automatic alerts based on checks for LLM-generated text via Pangram. " +
+                 "We normal check each edit that adds at least " +
+                 "#{RevisionScanner::TEXT_DUMP_CHARACTERS} characters to a wiki page."
   METHOD_DESCRIPTIONS = {
     student_program_ai_edit_alert_mainspace:
       'Alert for a student program edit to a live Wikipedia article',
