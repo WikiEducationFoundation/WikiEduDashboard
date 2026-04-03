@@ -79,12 +79,23 @@ class AiEditAlert < Alert
   # whether to send type-specific instructor advice emails.
   def self.add_prior_alert_counts_by_type(course_id, details)
     prior_alerts = AiEditAlert.where(course_id:).where.not(email_sent_at: nil)
+    details[:prior_omnibus_advice_sent] = omnibus_advice_sent?(prior_alerts)
     prior_page_types = prior_alerts.map(&:page_type)
-
     details[:prior_exercise_alerts] = prior_page_types.count { |t| EXERCISE_PAGE_TYPES.include?(t) }
     details[:prior_sandbox_alerts] = prior_page_types.count { |t| t == :sandbox }
     details[:prior_mainspace_alerts] = prior_page_types.count { |t| t == :mainspace }
   end
+
+  # True if any prior alert triggered the legacy omnibus advice email.
+  # Old alerts have prior_alert_count_for_course: 0 but lack the per-type
+  # count keys introduced in the new system — that absence is the signal.
+  def self.omnibus_advice_sent?(prior_alerts)
+    prior_alerts.any? do |a|
+      a.details[:prior_alert_count_for_course]&.zero? &&
+        !a.details.key?(:prior_exercise_alerts)
+    end
+  end
+  private_class_method :omnibus_advice_sent?
 
   ####################
   # Instance methods #

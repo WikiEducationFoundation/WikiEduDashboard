@@ -125,6 +125,32 @@ describe AiEditAlert do
       AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
       expect(details[:prior_mainspace_alerts]).to eq(0)
     end
+
+    it 'sets prior_omnibus_advice_sent to false when no prior alerts exist' do
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_omnibus_advice_sent]).to be false
+    end
+
+    it 'sets prior_omnibus_advice_sent when a prior alert has prior_alert_count_for_course: 0' do
+      create(:ai_edit_alert, course:, email_sent_at: Time.zone.now,
+             details: { article_title: 'Artwork title', prior_alert_count_for_course: 0 })
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_omnibus_advice_sent]).to be true
+    end
+
+    it 'does not set prior_omnibus_advice_sent for a new-system first alert' do
+      # New-system alerts have prior_alert_count_for_course: 0 AND the per-type keys.
+      # They should not be mistaken for legacy omnibus triggers.
+      create(:ai_edit_alert, course:, email_sent_at: Time.zone.now,
+             details: { article_title: 'Artwork title', prior_alert_count_for_course: 0,
+                        prior_exercise_alerts: 0, prior_sandbox_alerts: 0,
+                        prior_mainspace_alerts: 0, prior_omnibus_advice_sent: false })
+      details = {}
+      AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
+      expect(details[:prior_omnibus_advice_sent]).to be false
+    end
   end
 
   describe 'accessor methods' do

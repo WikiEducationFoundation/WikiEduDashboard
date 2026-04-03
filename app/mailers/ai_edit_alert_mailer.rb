@@ -5,8 +5,23 @@ class AiEditAlertMailer < ApplicationMailer
     return unless Features.email?
 
     email(alert).deliver_now
-    return unless alert.details[:prior_alert_count_for_course]&.zero?
-    instructor_advice_email(alert).deliver_now
+    send_instructor_advice(alert)
+  end
+
+  def self.send_instructor_advice(alert)
+    return if alert.details[:prior_omnibus_advice_sent]
+
+    case alert.advice_email_type
+    when :exercise
+      return unless alert.details[:prior_exercise_alerts]&.zero?
+      instructor_exercise_advice_email(alert).deliver_now
+    when :sandbox
+      return unless alert.details[:prior_sandbox_alerts]&.zero?
+      instructor_sandbox_advice_email(alert).deliver_now
+    when :mainspace
+      return unless alert.details[:prior_mainspace_alerts]&.zero?
+      instructor_mainspace_advice_email(alert).deliver_now
+    end
   end
 
   def instructor_exercise_advice_email(alert)
