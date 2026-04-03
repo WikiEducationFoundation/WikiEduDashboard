@@ -188,8 +188,7 @@ describe 'Training', type: :feature, js: true do
       end
 
       it 'displays proper message in non wiki_ed mode' do
-        expect(page.html)
-          .to include(I18n.t('training.no_training_library_records_non_wiki_ed_mode'))
+        expect(page).to have_text(I18n.t('training.no_training_library_records_non_wiki_ed_mode'))
       end
     end
   end
