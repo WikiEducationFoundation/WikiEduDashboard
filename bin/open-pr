@@ -1,0 +1,154 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Open a GitHub pull request using tmp/pr_description.md.
+#
+# Local screenshot references (screenshots/before/foo.png etc.) are replaced
+# with a placeholder comment in the PR body. After the PR is created, drag
+# the images from tmp/screenshots/ into the PR description on GitHub to get
+# permanent URLs, then replace the placeholders.
+#
+# Usage:
+#   bin/open-pr              # prompts for PR title
+#   bin/open-pr "My title"   # pass title as argument
+#
+# Requires:
+#   GITHUB_TOKEN env var — a classic PAT or fine-grained token with repo scope.
+#
+#   If you don't have one: GitHub → Settings → Developer settings →
+#   Personal access tokens → Generate new token (classic) → repo scope.
+
+require 'json'
+require 'net/http'
+require 'uri'
+
+OWNER       = 'WikiEducationFoundation'
+REPO        = 'WikiEduDashboard'
+BASE_BRANCH = 'master'
+API_BASE    = 'https://api.github.com'
+DESC_PATH   = File.expand_path('../tmp/pr_description.md', __dir__)
+SCREENSHOTS = File.expand_path('../tmp/screenshots', __dir__)
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+def token
+  t = ENV['GITHUB_TOKEN']
+  return t if t && !t.empty?
+
+  abort <<~MSG
+    Error: GITHUB_TOKEN is not set.
+
+    Generate one at: GitHub → Settings → Developer settings →
+    Personal access tokens → Generate new token (classic) → repo scope.
+
+    Then run:
+      export GITHUB_TOKEN=ghp_...
+      bin/open-pr
+  MSG
+end
+
+def api_headers
+  {
+    'Authorization'        => "Bearer #{token}",
+    'Accept'               => 'application/vnd.github+json',
+    'X-GitHub-Api-Version' => '2022-11-28',
+    'Content-Type'         => 'application/json'
+  }
+end
+
+def http_request(uri, req, allow_codes: [])
+  Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+    res = http.request(req)
+    unless res.is_a?(Net::HTTPSuccess) || allow_codes.include?(res.code.to_i)
+      abort "GitHub API error #{res.code} at #{uri}\n#{res.body}"
+    end
+    [res.code.to_i, JSON.parse(res.body)]
+  end
+end
+
+def api_get(path)
+  uri = URI("#{API_BASE}#{path}")
+  req = Net::HTTP::Get.new(uri, api_headers)
+  _code, body = http_request(uri, req)
+  body
+end
+
+def api_post(path, payload, allow_codes: [])
+  uri = URI("#{API_BASE}#{path}")
+  req = Net::HTTP::Post.new(uri, api_headers)
+  req.body = payload.to_json
+  http_request(uri, req, allow_codes:)
+end
+
+def api_patch(path, payload)
+  uri = URI("#{API_BASE}#{path}")
+  req = Net::HTTP::Patch.new(uri, api_headers)
+  req.body = payload.to_json
+  http_request(uri, req)
+end
+
+# ── main ─────────────────────────────────────────────────────────────────────
+
+abort "No PR description found at #{DESC_PATH}. Run bin/pr-screenshots first." \
+  unless File.exist?(DESC_PATH)
+
+branch = `git rev-parse --abbrev-ref HEAD`.strip
+abort 'Could not determine current branch.' if branch.empty?
+
+title = ARGV[0]
+if title.nil? || title.empty?
+  last_commit = `git log -1 --pretty=%s`.strip
+  print "PR title [#{last_commit}]: "
+  input = $stdin.gets&.strip
+  title = input.empty? ? last_commit : input
+end
+
+raw_body = File.read(DESC_PATH)
+
+# Replace local screenshot references with placeholder comments.
+# Pattern matches markdown image tags: ![alt](screenshots/before/foo.png)
+image_refs = []
+body = raw_body.gsub(/!\[[^\]]*\]\((screenshots\/(?:before|after)\/[^\s)]+\.png)\)/) do
+  ref = Regexp.last_match(1)
+  image_refs << ref
+  "_[screenshot: #{File.basename(ref)} — drag and drop to replace this line]_"
+end
+image_refs.uniq!
+
+# ── Step 1: create or find existing PR ───────────────────────────────────────
+puts "Creating draft PR on #{OWNER}/#{REPO} (#{branch} → #{BASE_BRANCH})..."
+code, pr_response = api_post(
+  "/repos/#{OWNER}/#{REPO}/pulls",
+  { title:, body:, head: branch, base: BASE_BRANCH, draft: true },
+  allow_codes: [422]
+)
+if code == 422
+  puts '  PR already exists — looking it up...'
+  existing = api_get("/repos/#{OWNER}/#{REPO}/pulls?head=#{OWNER}:#{branch}&base=#{BASE_BRANCH}&state=open")
+  abort "Could not find existing open PR for #{branch}" if existing.empty?
+  pr_response = existing.first
+  puts '  Updating body...'
+  api_patch("/repos/#{OWNER}/#{REPO}/pulls/#{pr_response['number']}", { body: })
+end
+
+pr_number = pr_response['number']
+pr_url    = pr_response['html_url']
+puts "  → PR ##{pr_number}: #{pr_url}"
+
+# ── Step 2: print instructions for manual image upload ───────────────────────
+if image_refs.any?
+  puts
+  puts "#{image_refs.length} screenshot(s) need to be uploaded manually."
+  puts "Open the PR, click Edit on the description, then drag each file onto"
+  puts "the placeholder line and replace it with the uploaded image markdown."
+  puts
+  puts "Files to upload (in tmp/screenshots/):"
+  image_refs.each do |ref|
+    local = File.join(SCREENSHOTS, ref.delete_prefix('screenshots/'))
+    exists = File.exist?(local) ? '' : ' (NOT FOUND)'
+    puts "  #{local}#{exists}"
+  end
+  puts
+end
+
+puts "Done! PR is ready (draft): #{pr_url}"

@@ -8,6 +8,11 @@ description: Prepare a pull request description for the current branch following
 Draft a complete pull request description for the current branch, following the project's
 `PULL_REQUEST_TEMPLATE.md` and `docs/ai_guidelines.md`.
 
+## Phase 0: Clean up previous iteration
+
+Run `bin/pr-screenshots --clean` to remove any leftover screenshots and draft
+from a prior run before starting fresh.
+
 ## Phase 1: Understand the branch
 
 Gather the raw material:
