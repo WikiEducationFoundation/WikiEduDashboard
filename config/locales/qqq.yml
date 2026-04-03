@@ -435,7 +435,8 @@ qqq:
     edit_course_dates: Button label for editing a course's start and end dates.
     embed_course_stats: Label for the stats embed code section.
     embed_course_stats_description: Message explaining the embed feature.
-    embed_course_stats_body: HTML code snippet used for embedding course stats. This should not be translated.
+    embed_course_stats_body: HTML code snippet used for embedding course stats. This contains placeholders for location, title, and url. This is the "body" (content) of the embed code.
+    embed_course_stats_location: The string "<body>", used as an instruction where to paste the embed code.
     end: |-
       Label for the end date of a course
       {{Identical|End}}
