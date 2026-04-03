@@ -20,9 +20,8 @@ describe AiEditAlert do
     { title: 'Wikipedia:Some page',                     type: :unknown             }
   ]
 
-  def build_alert(article_title)
-    AiEditAlert.new(details: {
-      article_title:,
+  let(:pangram_details) do
+    {
       pangram_prediction: 'We are confident that this document is fully AI-generated',
       headline_result: 'Fully AI Generated',
       average_ai_likelihood: 0.97,
@@ -31,8 +30,12 @@ describe AiEditAlert do
       fraction_mixed_content: 0.0,
       predicted_ai_window_count: 3,
       pangram_share_link: 'https://www.pangram.com/history/example',
-      prior_alert_count_for_course: 0
-    })
+      pangram_version: 'v3'
+    }
+  end
+
+  def build_alert(article_title)
+    AiEditAlert.new(details: pangram_details.merge(article_title:, prior_alert_count_for_course: 0))
   end
 
   describe '#page_type' do
@@ -150,6 +153,126 @@ describe AiEditAlert do
       details = {}
       AiEditAlert.add_prior_alert_counts_by_type(course.id, details)
       expect(details[:prior_omnibus_advice_sent]).to be false
+    end
+  end
+
+  describe '.generate_alert_from_pangram' do
+    let(:course) { create(:course) }
+    let(:user) { create(:user) }
+    let(:article) { create(:article) }
+    let(:revision_id) { 123_456_789 }
+
+    def call_generate(revision_id: self.revision_id, user_id: user.id,
+                      article_id: article.id, article_title: article.title)
+      AiEditAlert.generate_alert_from_pangram(
+        revision_id:,
+        user_id:,
+        course_id: course.id,
+        article_id:,
+        article_title:,
+        pangram_details: pangram_details.dup
+      )
+    end
+
+    context 'for the first alert in a course' do
+      let(:user) { create(:user, email: 'student@example.com') }
+      let(:instructor) { create(:user, username: 'Instructor', email: 'instructor@example.com') }
+      let(:wiki_expert) do
+        create(:user, username: 'WikiExpert', email: 'wiki_expert@example.com',
+               permissions: 1, greeter: true)
+      end
+      let(:program_manager) do
+        create(:user, username: 'ProgramManager', email: 'program_manager@example.com',
+               permissions: 1, greeter: false)
+      end
+
+      before do
+        create(:courses_user, user: instructor, course:,
+               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        create(:courses_user, user: wiki_expert, course:,
+               role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+        create(:courses_user, user: program_manager, course:,
+               role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+        allow(Features).to receive(:email?).and_return(true)
+      end
+
+      it 'sends appropriate emails' do
+        # First AI alert, this one is a mainspace page. Triggers two emails.
+        call_generate
+        expect(ActionMailer::Base.deliveries.count).to eq(2)
+
+        alert_email = ActionMailer::Base.deliveries.find { |m| m.subject.include?('Page:') }
+        advice_email = ActionMailer::Base.deliveries.find { |m| m.subject.include?('instructor next steps') }
+
+        expect(alert_email.to).to contain_exactly('student@example.com', 'instructor@example.com',
+                                                   'wiki_expert@example.com')
+        expect(alert_email.body.encoded).to include('added to Wikipedia in the course')
+        expect(advice_email.to).to contain_exactly('instructor@example.com',
+                                                   'wiki_expert@example.com')
+        expect(advice_email.body.encoded).to include('mainspace edit')
+
+        # Second alert for the same student and article. Triggers another email about the new
+        # edit, but doesn't send a repeat advice email.
+        call_generate(revision_id: revision_id + 1)
+        expect(ActionMailer::Base.deliveries.count).to eq(3)
+
+        second_alert_email = ActionMailer::Base.deliveries.last
+        expect(second_alert_email.subject).to include('(again)')
+        expect(second_alert_email.to).to contain_exactly('student@example.com',
+                                                          'instructor@example.com',
+                                                          'wiki_expert@example.com')
+        expect(second_alert_email.body.encoded).to include('added to Wikipedia in the course')
+
+        # Third alert: a different student's Evaluate an Article exercise page.
+        # This one triggers a different advice email as well.
+        student2 = create(:user, username: 'Student2', email: 'student2@example.com')
+        exercise_sandbox = create(:article, title: 'Student2/Evaluate_an_Article',
+                                            namespace: Article::Namespaces::USER)
+        call_generate(revision_id: revision_id + 2, user_id: student2.id,
+                      article_id: exercise_sandbox.id,
+                      article_title: 'User:Student2/Evaluate an Article')
+        expect(ActionMailer::Base.deliveries.count).to eq(5)
+
+        third_alert_email, exercise_advice_email = ActionMailer::Base.deliveries.last(2)
+        expect(third_alert_email.to).to contain_exactly('student2@example.com',
+                                                        'instructor@example.com',
+                                                        'wiki_expert@example.com')
+        expect(third_alert_email.body.encoded).to include('added to Wikipedia as an exercise in the course') # rubocop:disable Layout/LineLength
+        expect(exercise_advice_email.to).to contain_exactly('instructor@example.com',
+                                                             'wiki_expert@example.com')
+        expect(exercise_advice_email.body.encoded).to include('Our goal for these alert emails for exercises') # rubocop:disable Layout/LineLength
+
+        # Fourth and fifth alerts use the first student's assignment-derived sandbox pages.
+        create(:assignment, user_id: user.id, course_id: course.id,
+               article_id: article.id, article_title: article.title,
+               role: Assignment::Roles::ASSIGNED_ROLE, wiki_id: 1)
+
+        # Fourth alert: bibliography sandbox derived from the assignment. No emails for this type.
+        bibliography_sandbox = create(:article,
+                                      title: "#{user.username}/#{article.title}/Bibliography",
+                                      namespace: Article::Namespaces::USER)
+        call_generate(revision_id: revision_id + 3,
+                      article_id: bibliography_sandbox.id,
+                      article_title: "User:#{user.username}/#{article.title}/Bibliography")
+        expect(ActionMailer::Base.deliveries.count).to eq(5)
+
+        # Fifth alert: the sandbox draft of the assigned article. Triggers a sandbox advice email.
+        sandbox_draft = create(:article, title: "#{user.username}/#{article.title}",
+                                         namespace: Article::Namespaces::USER)
+        call_generate(revision_id: revision_id + 4,
+                      article_id: sandbox_draft.id,
+                      article_title: "User:#{user.username}/#{article.title}")
+        expect(ActionMailer::Base.deliveries.count).to eq(7)
+
+        sandbox_alert_email, sandbox_advice_email = ActionMailer::Base.deliveries.last(2)
+        expect(sandbox_alert_email.to).to contain_exactly('student@example.com',
+                                                           'instructor@example.com',
+                                                           'wiki_expert@example.com')
+        expect(sandbox_alert_email.body.encoded).to include('drafted for Wikipedia in the course')
+        expect(sandbox_advice_email.to).to contain_exactly('instructor@example.com',
+                                                            'wiki_expert@example.com')
+        expect(sandbox_advice_email.body.encoded).to include("student's sandbox")
+      end
     end
   end
 
