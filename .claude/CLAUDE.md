@@ -102,29 +102,9 @@ Never commit without being asked, even after a spec run succeeds.
 
 ## Commit messages
 
-Write commit messages in the following format when AI assistance was involved.
-The subject line should be a concise imperative summary. The body has two sections:
+Always use the `/commit` skill when creating commits. It handles staging,
+message format, and session accounting.
 
-```
-<Subject line: imperative, ≤72 chars>
-
-## Changes
-
-<What was built or changed and why, organized by file or component.
-Include any non-obvious design decisions or tradeoffs.>
-
-## Process
-
-<How Claude Code was used, what prompts or iterations were involved,
-any errors or misunderstandings that came up and how they were resolved.
-Be candid — if Claude got something wrong and needed correction, say so.>
-
-(Commit message written by Claude Code.)
-
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
-```
-
-The "Process" section is important: it gives future readers context about
-which parts of the implementation were human-directed and which were
-AI-generated, and it records the kind of back-and-forth that doesn't
-otherwise appear in the diff.
+While working, note anything that would otherwise be lost by commit time:
+pre-existing code the user brought in, abandoned approaches, or any context
+about the session character that isn't visible in the tool call history.
