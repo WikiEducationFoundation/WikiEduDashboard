@@ -3,13 +3,13 @@
 
 # Open a GitHub pull request using tmp/pr_description.md.
 #
-# Local screenshot references (screenshots/before/foo.png etc.) are replaced
-# with a placeholder comment in the PR body. After the PR is created, drag
-# the images from tmp/screenshots/ into the PR description on GitHub to get
-# permanent URLs, then replace the placeholders.
+# Run once to create the PR with an empty body, then drag screenshots into
+# the description on GitHub. Run again to fetch the uploaded image URLs,
+# match them to the local screenshot references, and update the PR with the
+# full description.
 #
 # Usage:
-#   bin/open-pr              # prompts for PR title
+#   bin/open-pr              # prompts for PR title on first run
 #   bin/open-pr "My title"   # pass title as argument
 #
 # Requires:
@@ -27,7 +27,9 @@ REPO        = 'WikiEduDashboard'
 BASE_BRANCH = 'master'
 API_BASE    = 'https://api.github.com'
 DESC_PATH   = File.expand_path('../tmp/pr_description.md', __dir__)
-SCREENSHOTS = File.expand_path('../tmp/screenshots', __dir__)
+
+# Number of characters from the filename stem used for matching against alt text.
+MATCH_PREFIX = 50
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 
@@ -87,6 +89,64 @@ def api_patch(path, payload)
   http_request(uri, req)
 end
 
+def find_existing_pr(branch)
+  results = api_get("/repos/#{OWNER}/#{REPO}/pulls?head=#{OWNER}:#{branch}&base=#{BASE_BRANCH}&state=open")
+  results.first
+end
+
+# ── image matching ────────────────────────────────────────────────────────────
+
+# Extract GitHub-hosted images from a PR body.
+# Returns array of { alt:, src: } hashes, in document order.
+def extract_github_images(body)
+  body.scan(/<img[^>]+>/).filter_map do |tag|
+    alt = tag[/alt="([^"]*)"/, 1]
+    src = tag[/src="([^"]*)"/, 1]
+    next unless src&.include?('github')
+    { alt: alt.to_s, src: }
+  end
+end
+
+# Build a mapping from local image path → GitHub src URL.
+# Matches by comparing the first MATCH_PREFIX chars of the local filename stem
+# against the first MATCH_PREFIX chars of the alt text.
+# Falls back to positional order if no filename match is found.
+def build_image_map(local_paths, github_images)
+  unmatched_locals   = local_paths.dup
+  unmatched_github   = github_images.dup
+  map = {}
+
+  # Pass 1: filename-based matching
+  unmatched_locals.dup.each do |local_path|
+    stem = File.basename(local_path, '.*')[0, MATCH_PREFIX]
+    idx = unmatched_github.index { |img| img[:alt][0, MATCH_PREFIX] == stem }
+    next unless idx
+
+    map[local_path] = unmatched_github[idx][:src]
+    unmatched_locals.delete(local_path)
+    unmatched_github.delete_at(idx)
+  end
+
+  # Pass 2: positional fallback for anything unmatched
+  unmatched_locals.zip(unmatched_github).each do |local_path, github_img|
+    map[local_path] = github_img[:src] if github_img
+  end
+
+  map
+end
+
+# Replace local markdown image references with GitHub URLs.
+# Converts ![alt](screenshots/...)  →  ![alt](https://github.com/...)
+# and       <img ... src="screenshots/...">  →  <img ... src="https://...">
+def substitute_images(body, image_map)
+  image_map.each do |local_path, github_src|
+    escaped = Regexp.escape(local_path)
+    body = body.gsub(/!\[([^\]]*)\]\(#{escaped}\)/, '![\1](' + github_src + ')')
+    body = body.gsub(/src="#{escaped}"/, %(src="#{github_src}"))
+  end
+  body
+end
+
 # ── main ─────────────────────────────────────────────────────────────────────
 
 abort "No PR description found at #{DESC_PATH}. Run bin/pr-screenshots first." \
@@ -95,60 +155,65 @@ abort "No PR description found at #{DESC_PATH}. Run bin/pr-screenshots first." \
 branch = `git rev-parse --abbrev-ref HEAD`.strip
 abort 'Could not determine current branch.' if branch.empty?
 
-title = ARGV[0]
-if title.nil? || title.empty?
-  last_commit = `git log -1 --pretty=%s`.strip
-  print "PR title [#{last_commit}]: "
-  input = $stdin.gets&.strip
-  title = input.empty? ? last_commit : input
+existing_pr = find_existing_pr(branch)
+
+if existing_pr
+  pr_number = existing_pr['number']
+  pr_url    = existing_pr['html_url']
+  pr_data   = api_get("/repos/#{OWNER}/#{REPO}/pulls/#{pr_number}")
+  github_images = extract_github_images(pr_data['body'].to_s)
+else
+  github_images = []
 end
 
-raw_body = File.read(DESC_PATH)
+if github_images.empty?
+  # ── Pass 1: create or find PR, prompt for screenshots ──────────────────────
+  if existing_pr.nil?
+    title = ARGV[0]
+    if title.nil? || title.empty?
+      last_commit = `git log -1 --pretty=%s`.strip
+      print "PR title [#{last_commit}]: "
+      input = $stdin.gets&.strip
+      title = input.empty? ? last_commit : input
+    end
 
-# Replace local screenshot references with placeholder comments.
-# Pattern matches markdown image tags: ![alt](screenshots/before/foo.png)
-image_refs = []
-body = raw_body.gsub(/!\[[^\]]*\]\((screenshots\/(?:before|after)\/[^\s)]+\.png)\)/) do
-  ref = Regexp.last_match(1)
-  image_refs << ref
-  "_[screenshot: #{File.basename(ref)} — drag and drop to replace this line]_"
-end
-image_refs.uniq!
-
-# ── Step 1: create or find existing PR ───────────────────────────────────────
-puts "Creating draft PR on #{OWNER}/#{REPO} (#{branch} → #{BASE_BRANCH})..."
-code, pr_response = api_post(
-  "/repos/#{OWNER}/#{REPO}/pulls",
-  { title:, body:, head: branch, base: BASE_BRANCH, draft: true },
-  allow_codes: [422]
-)
-if code == 422
-  puts '  PR already exists — looking it up...'
-  existing = api_get("/repos/#{OWNER}/#{REPO}/pulls?head=#{OWNER}:#{branch}&base=#{BASE_BRANCH}&state=open")
-  abort "Could not find existing open PR for #{branch}" if existing.empty?
-  pr_response = existing.first
-  puts '  Updating body...'
-  api_patch("/repos/#{OWNER}/#{REPO}/pulls/#{pr_response['number']}", { body: })
-end
-
-pr_number = pr_response['number']
-pr_url    = pr_response['html_url']
-puts "  → PR ##{pr_number}: #{pr_url}"
-
-# ── Step 2: print instructions for manual image upload ───────────────────────
-if image_refs.any?
-  puts
-  puts "#{image_refs.length} screenshot(s) need to be uploaded manually."
-  puts "Open the PR, click Edit on the description, then drag each file onto"
-  puts "the placeholder line and replace it with the uploaded image markdown."
-  puts
-  puts "Files to upload (in tmp/screenshots/):"
-  image_refs.each do |ref|
-    local = File.join(SCREENSHOTS, ref.delete_prefix('screenshots/'))
-    exists = File.exist?(local) ? '' : ' (NOT FOUND)'
-    puts "  #{local}#{exists}"
+    puts "Creating draft PR on #{OWNER}/#{REPO} (#{branch} → #{BASE_BRANCH})..."
+    _code, pr = api_post(
+      "/repos/#{OWNER}/#{REPO}/pulls",
+      { title:, body: '', head: branch, base: BASE_BRANCH, draft: true }
+    )
+    pr_url = pr['html_url']
+    puts "  → PR created: #{pr_url}"
+  else
+    puts "Found existing PR ##{pr_number}: #{pr_url}"
   end
-  puts
-end
 
-puts "Done! PR is ready (draft): #{pr_url}"
+  puts
+  puts 'Next: open the PR on GitHub, drag all screenshots into the description,'
+  puts 'save, then run bin/open-pr again to finalize.'
+
+else
+  # ── Pass 2: fetch uploaded URLs, substitute, update ────────────────────────
+  puts "Found existing PR ##{pr_number} with #{github_images.length} uploaded image(s)."
+
+  full_description = File.read(DESC_PATH)
+  local_paths = full_description.scan(/!\[[^\]]*\]\((screenshots\/[^)]+)\)/)
+                                .flatten
+                                .then { |paths|
+                                  paths + full_description.scan(/src="(screenshots\/[^"]+)"/).flatten
+                                }.uniq
+
+  image_map = build_image_map(local_paths, github_images)
+
+  unresolved = local_paths - image_map.keys
+  if unresolved.any?
+    puts "Warning: could not match #{unresolved.length} local image(s) to uploaded URLs:"
+    unresolved.each { |p| puts "  #{p}" }
+  end
+
+  updated_body = substitute_images(full_description, image_map)
+
+  puts 'Updating PR description...'
+  api_patch("/repos/#{OWNER}/#{REPO}/pulls/#{pr_number}", { body: updated_body })
+  puts "Done! PR updated: #{pr_url}"
+end

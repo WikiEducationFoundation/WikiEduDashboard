@@ -90,7 +90,24 @@ user should capture manually and which URLs to visit.
 - Note anything left out of scope, or follow-up work that might be needed
 - If there's nothing notable, write "None." — don't invent concerns
 
-## Phase 4: Open and confirm
+## Phase 4: Preview locally and open the PR
 
-Run `code tmp/pr_description.md` to open the file in VS Code, then tell the user it's
-ready and to press Ctrl+Shift+V (or click the preview icon) to open the markdown preview.
+Run `code tmp/pr_description.md` to open the file in VS Code and tell the user to press
+Ctrl+Shift+V to preview it with screenshots rendered locally.
+
+When ready to publish, the workflow uses `bin/open-pr` in two passes:
+
+**Pass 1 — Create the PR**
+
+Run `bin/open-pr`. It creates a draft PR with an empty body and prints the URL.
+Tell the user to open the PR on GitHub, drag all screenshots into the description,
+and confirm here when done.
+
+**Pass 2 — Finalize**
+
+Run `bin/open-pr` again. It fetches the uploaded GitHub image URLs from the PR
+body, matches them to the local screenshot references by filename, substitutes
+them into the full description, and updates the PR.
+
+**Prerequisite:** `GITHUB_TOKEN` must be set — a classic PAT with `repo` scope.
+If it's missing, the script prints instructions for generating one.
