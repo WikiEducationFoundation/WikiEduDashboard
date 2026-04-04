@@ -1,0 +1,334 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Analyzes GitHub Actions CI build history to identify flaky tests.
+# Fetches failed runs on master, checks which ones had RSpec failures,
+# downloads and parses the job logs, then aggregates by test description.
+#
+# Usage:
+#   ruby bin/analyze_flaky_tests [--pages N] [--fixed-days N] [--no-cache]
+#
+# Options:
+#   --pages N       Number of pages of 100 failed runs to fetch (default: 3)
+#   --fixed-days N  Failures older than this many days are "possibly fixed" (default: 28)
+#   --no-cache      Re-download all logs instead of using cached copies
+#
+# GITHUB_TOKEN env var is REQUIRED — job log downloads return 403 without auth
+# even for public repos. A fine-grained token with read-only Actions access works.
+
+require 'net/http'
+require 'json'
+require 'uri'
+require 'optparse'
+require 'time'
+require 'fileutils'
+require 'stringio'
+
+REPO = 'WikiEducationFoundation/WikiEduDashboard'
+API_BASE = 'https://api.github.com'
+RSPEC_STEP_NAME = 'Ruby rspec test suite'
+CACHE_DIR = File.join(Dir.pwd, 'tmp', 'flaky_test_cache')
+
+options = { pages: 3, fixed_days: 28, debug: false, cache: true }
+OptionParser.new do |opts|
+  opts.banner = "Usage: bin/analyze_flaky_tests [options]"
+  opts.on('--pages N', Integer, 'Pages of 100 failed runs to fetch (default: 3)') do |v|
+    options[:pages] = v
+  end
+  opts.on('--fixed-days N', Integer, 'Days threshold for "possibly fixed" (default: 28)') do |v|
+    options[:fixed_days] = v
+  end
+  opts.on('--debug', 'Print step names and log snippets for diagnosis') { options[:debug] = true }
+  opts.on('--no-cache', 'Re-download all logs instead of using cached copies') do
+    options[:cache] = false
+  end
+end.parse!
+
+FileUtils.mkdir_p(CACHE_DIR) if options[:cache]
+
+TOKEN = ENV['GITHUB_TOKEN']
+unless TOKEN
+  warn "ERROR: GITHUB_TOKEN env var is required."
+  warn "Job log downloads return 403 for public repos without authentication."
+  warn ""
+  warn "Create a fine-grained personal access token with read-only Actions access:"
+  warn "  https://github.com/settings/personal-access-tokens/new"
+  warn ""
+  warn "Then run:"
+  warn "  export GITHUB_TOKEN=your_token_here"
+  warn "  ruby bin/analyze_flaky_tests"
+  exit 1
+end
+
+def api_headers
+  h = {
+    'Accept' => 'application/vnd.github+json',
+    'User-Agent' => 'wiki-edu-flaky-test-analyzer',
+    'X-GitHub-Api-Version' => '2022-11-28'
+  }
+  h['Authorization'] = "Bearer #{TOKEN}" if TOKEN
+  h
+end
+
+def http_get(uri, follow_redirects: 5, retries: 3)
+  response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https',
+                              open_timeout: 30, read_timeout: 120) do |http|
+    http.request(Net::HTTP::Get.new(uri, api_headers))
+  end
+
+  if response.code == '429'
+    retry_after = (response['Retry-After'] || '60').to_i
+    warn "  Rate limited. Sleeping #{retry_after}s before retrying..."
+    sleep retry_after
+    return http_get(uri, follow_redirects:, retries: retries - 1) if retries.positive?
+  end
+
+  if response.is_a?(Net::HTTPRedirection) && follow_redirects.positive?
+    redirect_uri = URI(response['location'])
+    # For storage redirects (Azure/S3), don't send GitHub auth headers
+    return Net::HTTP.start(redirect_uri.host, redirect_uri.port, use_ssl: true,
+                           open_timeout: 30, read_timeout: 120) do |http|
+      http.request(Net::HTTP::Get.new(redirect_uri))
+    end
+  end
+
+  response
+end
+
+def api_get(path)
+  uri = URI("#{API_BASE}#{path}")
+  response = http_get(uri)
+  unless response.is_a?(Net::HTTPOK)
+    raise "API error #{response.code} for #{path}: #{response.body[0, 300]}"
+  end
+  JSON.parse(response.body)
+end
+
+def download_log(job_id, use_cache: true)
+  if use_cache
+    path = File.join(CACHE_DIR, "job_#{job_id}.log")
+    if File.exist?(path)
+      warn "    (cached)"
+      return File.read(path)
+    end
+  end
+
+  uri = URI("#{API_BASE}/repos/#{REPO}/actions/jobs/#{job_id}/logs")
+  response = http_get(uri)
+  unless response.is_a?(Net::HTTPOK)
+    warn "  Could not download log for job #{job_id}: #{response.code}"
+    return nil
+  end
+
+  if use_cache
+    File.write(File.join(CACHE_DIR, "job_#{job_id}.log"), response.body)
+  end
+
+  response.body
+end
+
+TIMESTAMP_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z\s*/
+
+def strip_log_noise(str)
+  str
+    .encode('UTF-8', invalid: :replace, undef: :replace)
+    .gsub(/\e\[[0-9;]*[a-zA-Z]/, '') # ANSI color codes
+    .gsub(TIMESTAMP_RE, '')           # GitHub Actions timestamps
+end
+
+# Parse the "Failures:" section and return a hash of description => key error line.
+def parse_failure_messages(lines)
+  fail_start = lines.index { |l| l.strip == 'Failures:' }
+  return {} unless fail_start
+
+  fail_end = lines.index { |l| l.strip == 'Failed examples:' } || lines.length
+  block = lines[(fail_start + 1)...fail_end].join("\n")
+
+  messages = {}
+  # Each numbered failure entry starts with 2-4 spaces then a digit
+  block.split(/\n {2,4}\d+\) /).drop(1).each do |entry|
+    entry_lines = entry.lines.map { |l| l.chomp.rstrip }
+    desc = entry_lines.first&.strip
+    next unless desc
+
+    error_line = entry_lines.find { |l| l.strip.start_with?('Failure/Error:') }
+    error_line ||= entry_lines.find { |l| l.strip.match?(/^[A-Z]\w*(Error|Exception):/) }
+    messages[desc] = error_line&.strip
+  end
+
+  messages
+end
+
+def parse_failed_examples(log_text)
+  lines = strip_log_noise(log_text).lines.map(&:chomp)
+
+  # Find the "Failed examples:" header line
+  start = lines.index { |l| l.strip == 'Failed examples:' }
+  return [] unless start
+
+  messages = parse_failure_messages(lines)
+
+  # Take lines until we hit something that isn't blank or an rspec entry
+  lines[(start + 1)..]
+    .take_while { |l| l.strip.empty? || l.strip.start_with?('rspec ') }
+    .filter_map do |line|
+      m = line.match(/rspec (\S+) # (.+)$/)
+      next unless m
+      file = m[1].sub(/:\d+$/, '').sub(/^\.\//, '')
+      desc = m[2].strip
+      { file: file, description: desc, error: messages[desc] }
+    end
+end
+
+def fetch_failed_runs(pages)
+  runs = []
+  pages.times do |i|
+    page = i + 1
+    warn "Fetching page #{page} of failed runs on master..."
+    data = api_get(
+      "/repos/#{REPO}/actions/runs?status=failure&branch=master&per_page=100&page=#{page}"
+    )
+    batch = data['workflow_runs'] || []
+    warn "  Got #{batch.size} runs"
+    runs.concat(batch)
+    break if batch.size < 100
+  end
+  runs
+end
+
+# Returns job info if the build job's RSpec step failed, nil otherwise
+def find_failed_rspec_job(run_id, debug: false)
+  data = api_get("/repos/#{REPO}/actions/runs/#{run_id}/jobs")
+  jobs = data['jobs'] || []
+  build_job = jobs.find { |j| j['conclusion'] == 'failure' }
+  return nil unless build_job
+
+  steps = build_job['steps'] || []
+  if debug
+    warn "    Steps in failed job '#{build_job['name']}':"
+    steps.each { |s| warn "      #{s['conclusion'].to_s.ljust(10)} #{s['name'].inspect}" }
+  end
+
+  rspec_step = steps.find { |s| s['name'] == RSPEC_STEP_NAME }
+  return nil unless rspec_step&.dig('conclusion') == 'failure'
+
+  build_job
+end
+
+# === Main ===
+
+runs = fetch_failed_runs(options[:pages])
+warn "\nFound #{runs.size} failed runs total. Checking for RSpec failures...\n"
+
+cutoff = Time.now - (options[:fixed_days] * 24 * 3600)
+
+# failures keyed by "description\x00file"; tracks count, date range, and sample error messages
+failures = Hash.new do |h, k|
+  h[k] = {
+    count: 0, first_seen: Time.now, last_seen: Time.at(0),
+    file: nil, description: nil, errors: []
+  }
+end
+rspec_fail_runs = 0
+skipped_runs = 0
+
+runs.each_with_index do |run, idx|
+  run_id = run['id']
+  run_time = Time.parse(run['created_at'])
+  run_sha = run['head_sha'][0, 8]
+
+  warn "  [#{idx + 1}/#{runs.size}] Run #{run_id} (#{run['created_at'][0, 10]}, #{run_sha})..."
+
+  job = begin
+    find_failed_rspec_job(run_id, debug: options[:debug])
+  rescue StandardError => e
+    warn "    Error fetching jobs: #{e.message}"
+    next
+  end
+
+  unless job
+    warn "    Skipping — RSpec step did not fail (lint/JS/other failure)"
+    skipped_runs += 1
+    next
+  end
+
+  warn "    RSpec job failed. Downloading log (job #{job['id']})..."
+  log = download_log(job['id'], use_cache: options[:cache])
+  next unless log
+
+  if options[:debug]
+    clean_snippet = strip_log_noise(log)
+    failed_idx = clean_snippet.lines.index { |l| l.strip == 'Failed examples:' }
+    if failed_idx
+      warn "    [debug] Found 'Failed examples:' at line #{failed_idx}. Next 10 lines:"
+      clean_snippet.lines[failed_idx, 10].each { |l| warn "      #{l.chomp.inspect}" }
+    else
+      warn "    [debug] 'Failed examples:' not found in log. Last 20 lines:"
+      clean_snippet.lines.last(20).each { |l| warn "      #{l.chomp.inspect}" }
+    end
+  end
+
+  examples = parse_failed_examples(log)
+  if examples.empty?
+    warn "    No 'Failed examples:' found in log (may have timed out or crashed)"
+    next
+  end
+
+  warn "    Found #{examples.size} failed example(s)"
+  rspec_fail_runs += 1
+
+  examples.each do |ex|
+    key = "#{ex[:description]}\x00#{ex[:file]}"
+    entry = failures[key]
+    entry[:count] += 1
+    entry[:last_seen] = run_time if run_time > entry[:last_seen]
+    entry[:first_seen] = run_time if run_time < entry[:first_seen]
+    entry[:file] = ex[:file]
+    entry[:description] = ex[:description]
+    entry[:errors] << ex[:error] if ex[:error] && !entry[:errors].include?(ex[:error])
+  end
+end
+
+warn "\n=== Analysis complete ==="
+warn "Runs examined: #{runs.size}"
+warn "Runs skipped (no RSpec failure): #{skipped_runs}"
+warn "Runs with RSpec failures: #{rspec_fail_runs}"
+warn "Distinct failing tests found: #{failures.size}"
+warn ""
+
+recent, possibly_fixed = failures.values
+  .sort_by { |e| [-e[:count], e[:last_seen]] }
+  .partition { |e| e[:last_seen] >= cutoff }
+
+def format_date_range(e)
+  first = e[:first_seen].strftime('%Y-%m-%d')
+  last  = e[:last_seen].strftime('%Y-%m-%d')
+  first == last ? last : "#{first}..#{last}"
+end
+
+def print_entries(entries, out)
+  entries.each do |e|
+    out.puts format("  %3d failure(s)  [%s]  %s", e[:count], format_date_range(e), e[:file])
+    out.puts "              #{e[:description]}"
+    out.puts "              #{e[:errors].first}" if e[:errors].any?
+    out.puts
+  end
+end
+
+def build_report(recent, possibly_fixed, fixed_days)
+  StringIO.new.tap do |out|
+    out.puts "=== Flaky Tests (failed within last #{fixed_days} days) ===\n\n"
+    recent.empty? ? out.puts("  (none found)\n") : print_entries(recent, out)
+
+    out.puts "\n=== Possibly Fixed (last seen > #{fixed_days} days ago) ===\n\n"
+    possibly_fixed.empty? ? out.puts("  (none found)\n") : print_entries(possibly_fixed, out)
+  end.string
+end
+
+report = build_report(recent, possibly_fixed, options[:fixed_days])
+
+REPORT_PATH = File.join(Dir.pwd, 'tmp', 'flaky_tests_report.txt')
+File.write(REPORT_PATH, report)
+warn "Report written to #{REPORT_PATH}"
+
+print report
