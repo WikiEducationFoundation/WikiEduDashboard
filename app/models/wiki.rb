@@ -155,6 +155,20 @@ class Wiki < ApplicationRecord
     WordCount::BYTES_PER_WORD[domain]
   end
 
+  def content_namespaces
+    namespaces = [Article::Namespaces::MAINSPACE, Article::Namespaces::PAGE]
+    if %w[wiktionary wikisource wikiversity].include?(project)
+      namespaces += [100, 102, 106]
+    elsif project == 'wikidata'
+      namespaces += [
+        Article::Namespaces::PROPERTY,
+        Article::Namespaces::QUERY,
+        Article::Namespaces::LEXEME
+      ]
+    end
+    namespaces
+  end
+
   # Helper for guard statements for features
   # that are only for English Wikipedia
   def en_wiki?

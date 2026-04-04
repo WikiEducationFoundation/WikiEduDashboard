@@ -63,10 +63,11 @@ class CategoryImporter
   end
 
   def category_query(category, namespace)
+    namespaces = namespace || (@wiki.content_namespaces + @wiki.content_namespaces.map { |ns| ns + 1 }).join('|')
     { list: 'categorymembers',
       cmtitle: category,
       cmlimit: 500,
-      cmnamespace: namespace || '0|1', # mainspace articles and talk pages by default
+      cmnamespace: namespaces,
       continue: '' }
   end
 end
