@@ -42,7 +42,7 @@
               });
           .advanced-search.advanced-search-container.hidden#advanced_search_fields
             .form-row.relative.advanced-search-grid-large
-              %label{for: 'school_select'}= t('courses.school')
+              %label{for: 'school_select'}= t('courses_generic.creator.course_school')
               .school-select-wrapper.grid-span-3
                 = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select'
                 :javascript
@@ -50,7 +50,7 @@
                     if (typeof TomSelect !== 'undefined') {
                       new TomSelect('#school_select', {
                         plugins: ['remove_button'],
-                        placeholder: "#{t('assignments.select')} #{t('courses.school')}...",
+                        placeholder: "#{t('assignments.select')} #{t('courses_generic.creator.course_school')}...",
                         allowEmptyOption: true
                       });
                     }
