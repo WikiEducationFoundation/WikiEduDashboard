@@ -63,7 +63,8 @@ class CategoryImporter
   end
 
   def category_query(category, namespace)
-    namespaces = namespace || (@wiki.content_namespaces + @wiki.content_namespaces.map { |ns| ns + 1 }).join('|')
+    namespaces = namespace || (@wiki.content_namespaces + @wiki.content_namespaces.map { |ns|
+ ns + 1 }).join('|')
     { list: 'categorymembers',
       cmtitle: category,
       cmlimit: 500,

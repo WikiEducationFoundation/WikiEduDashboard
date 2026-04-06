@@ -16,8 +16,10 @@ describe CourseStatistics do
 
       
       # Add timeslices mimicking edit activity
-      create(:article_course_timeslice, course: course, article: lexeme_article, new_article: true, tracked: true, revision_count: 1)
-      create(:article_course_timeslice, course: course, article: main_article, new_article: true, tracked: true, revision_count: 1)
+      create(:article_course_timeslice, course: course, article: lexeme_article, new_article: true, 
+tracked: true, revision_count: 1)
+      create(:article_course_timeslice, course: course, article: main_article, new_article: true, 
+tracked: true, revision_count: 1)
     end
 
     it 'accurately counts Lexemes as created articles instead of ignoring them' do

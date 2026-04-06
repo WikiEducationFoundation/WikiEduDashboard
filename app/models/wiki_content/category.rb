@@ -101,7 +101,8 @@ class Category < ApplicationRecord
 
     @article_ids = []
     article_titles.each_slice(5000) do |titles_batch|
-      @article_ids.concat(Article.where(namespace: wiki.content_namespaces, wiki_id:, title: titles_batch).pluck(:id))
+      @article_ids.concat(Article.where(namespace: wiki.content_namespaces, wiki_id:, 
+title: titles_batch).pluck(:id))
     end
 
     @article_ids
