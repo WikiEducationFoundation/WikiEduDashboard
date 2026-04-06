@@ -134,12 +134,6 @@ class CampaignsController < ApplicationController
     set_sort
     set_presenter
     filters = extract_program_filters
-    programs_presenter = CampaignProgramsPresenter.new(
-      courses: @presenter.courses,
-      page: @page,
-      sort_column: @sort_column,
-      sort_direction: @sort_direction
-    )
 
     if filters.values.any?(&:present?)
       @search_terms = programs_presenter.build_search_terms(filters)
@@ -262,6 +256,15 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def programs_presenter
+    CampaignProgramsPresenter.new(
+      courses: @presenter.courses,
+      page: @page,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction
+    )
+  end
 
   def require_create_permissions
     require_signed_in
