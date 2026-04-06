@@ -39,10 +39,6 @@ describe 'Namespace tracking', type: :feature, js: true do
     find('#namespace_select input').click
     4.times { send_keys(:backspace) }
 
-    # Also clean the DB records scoped to this course
-    course.course_wiki_namespaces.destroy_all
-
-
     click_button 'Save'
     expect(page).not_to have_content 'Tracked Namespaces'
 
