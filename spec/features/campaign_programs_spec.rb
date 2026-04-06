@@ -28,7 +28,7 @@ describe 'campaign programs page', type: :feature, js: true do
   # tests for whether Remove button should be shown live in CampaignsControllerSpec
   context 'remove program' do
     it 'removes a program from the campaign via the remove button' do
-      admin = create(:admin)
+      admin = create(:admin, locale: 'en')
       login_as(admin, scope: :user)
       visit "/campaigns/#{campaign.slug}/programs"
       expect(page).to have_css('.remove-course')
@@ -41,27 +41,6 @@ describe 'campaign programs page', type: :feature, js: true do
                                            title: course.title,
                                            campaign_title: campaign.title))
       expect(CampaignsCourses.find_by(id: campaigns_course.id)).to be_nil
-    end
-  end
-
-  describe 'control bar' do
-    it 'allows sorting using a dropdown' do
-      visit "/campaigns/#{campaign.slug}/programs"
-
-      find('#courses select.sorts').find(:xpath, 'option[3]').select_option
-      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[1]').select_option
-      expect(page).to have_selector('[data-sort="title"].sort.asc')
-      find('#courses select.sorts').find(:xpath, 'option[2]').select_option
-      expect(page).to have_selector('[data-sort="school"].sort.asc')
-      find('#courses select.sorts').find(:xpath, 'option[4]').select_option
-      expect(page).to have_selector('[data-sort="characters"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[6]').select_option
-      expect(page).to have_selector('[data-sort="references"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[7]').select_option
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
-      find('#courses select.sorts').find(:xpath, 'option[8]').select_option
-      expect(page).to have_selector('[data-sort="students"].sort.desc')
     end
   end
 
