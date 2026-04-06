@@ -345,6 +345,10 @@ class Course < ApplicationRecord
   # Checks if an article is in scope (assigned or in a tracked category).
   def scoped_article?(wiki, title, mw_page_id)
     return true unless only_scoped_articles_course?
+    # Normally, scoped_article_titles will include all the in-scope articles
+    # but if the title of an assigned article has changed, we still want to process
+    # edits to that article so that we can update the Assignment#article_title.
+    # A secondary check against the mw_page_ids for assigned articles covers that.
     scoped_article_titles(wiki).include?(title) ||
       assigned_article_page_ids(wiki).include?(mw_page_id)
   end
