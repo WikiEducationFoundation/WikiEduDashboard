@@ -133,8 +133,31 @@ class CampaignsController < ApplicationController
     set_page
     set_sort
     set_presenter
-    @search_terms = params[:courses_query]
-    @results = @presenter.search_courses(@search_terms) if @search_terms.present?
+    filters = extract_program_filters
+    programs_presenter = CampaignProgramsPresenter.new(
+      courses: @presenter.courses,
+      page: @page,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction
+    )
+
+    if filters.values.any?(&:present?)
+      @search_terms = programs_presenter.build_search_terms(filters)
+      @results = programs_presenter.filter_courses(filters)
+    elsif params[:courses_query].present?
+      @search_terms = params[:courses_query]
+      @results = @presenter.search_courses(@search_terms)
+    end
+  end
+
+  def extract_program_filters
+    params.slice(:title_query, :creation_start, :creation_end,
+                 :start_date_start, :start_date_end,
+                 :school, :revisions_min, :revisions_max,
+                 :word_count_min, :word_count_max,
+                 :references_min, :references_max,
+                 :views_min, :views_max,
+                 :users_min, :users_max)
   end
 
   def ores_plot

@@ -2097,4 +2097,9 @@ en:
     edit_question_group: "Edit Question Group"
 
   form_search:
+    search: "Search"
+    advanced_search: "Advanced Search"
+    clear: "Clear"
+    between: "between"
+    and: "and"
     program_date: "Program Date"
