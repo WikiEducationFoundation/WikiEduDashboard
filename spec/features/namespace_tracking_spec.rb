@@ -14,7 +14,7 @@ describe 'Namespace tracking', type: :feature, js: true do
   end
 
   it 'lets you add or remove namespaces' do
-    # mainspace and page namespace are tracked by default
+    # content_namespaces returns [MAINSPACE, PAGE] for wikipedia by default
     expect(course.tracked_namespaces.count).to eq(2)
 
     visit "/courses/#{course.slug}"
@@ -28,19 +28,25 @@ describe 'Namespace tracking', type: :feature, js: true do
     click_button 'Save'
     expect(page).not_to have_content 'Tracked Namespaces'
 
-    # adding explicit namespaces means default mainspaces aren't tracked
+    # adding explicit namespaces means default content_namespaces aren't tracked
     expect(course.reload.tracked_namespaces.count).to eq(2)
 
     click_button 'Edit Details'
     expect(page).to have_content 'Tracked Namespaces'
 
-    # Now we remove them again by bypassing the flaky React Select SVG clicks
-    CourseWikiNamespaces.destroy_all
+    # Clear the React Select tags via keyboard backspace.
+    # Backspace removes the last selected tag in react-select with isMulti.
+    find('#namespace_select input').click
+    4.times { send_keys(:backspace) }
+
+    # Also clean the DB records scoped to this course
+    course.course_wiki_namespaces.destroy_all
+
 
     click_button 'Save'
     expect(page).not_to have_content 'Tracked Namespaces'
 
-    # back to default or explicitly saved subset
+    # back to default content_namespaces which includes MAINSPACE
     expect(course.reload.tracked_namespaces.count).to be > 0
     tracked = course.tracked_namespaces.map { |n| n[:namespace] }
     expect(tracked).to include(Article::Namespaces::MAINSPACE)
