@@ -260,35 +260,35 @@ describe Replica do
     let(:subject) { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ETIMEDOUT)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ECONNREFUSED)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles server errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect_any_instance_of(described_class).not_to receive(:log_error)
       expect(subject).to be_empty
@@ -300,37 +300,54 @@ describe Replica do
     let(:result) { described_class.new(en_wiki).post_existing_articles_by_title(article_titles) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ETIMEDOUT)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ECONNREFUSED)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles server errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect(result).to be_empty
     end
   end
+
+  # Regression test for the suppressed parent revision bug.
+  describe 'suppressed parent revision' do
+    it 'returns correct characters for a revision with a suppressed parent revision' do
+      VCR.use_cassette 'replica/suppressed_parent_revision' do
+        user = build(:user, username: 'Rhitorical')
+        response = described_class.new(en_wiki)
+                                  .get_revisions([user], 2025_02_01_000000,
+                                                 2025_06_01_000000)
+        rev = response['9171866']['revisions'].find { |r| r['mw_rev_id'] == '1278154303' }
+
+        expect(rev['characters'].to_i).to eq(1842)
+      end
+    end
+  end
 end
+
+

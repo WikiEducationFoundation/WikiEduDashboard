@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 
-SUBJECT = 'Test Notification'
-
 describe AlertsController, type: :request do
   describe '#create' do
     let(:course) { create(:course) }
@@ -114,7 +112,7 @@ describe AlertsController, type: :request do
     let(:instructor_notification_alert) do
       create(:instructor_notification_alert, type: 'InstructorNotificationAlert',
             course_id: course.id, message: 'Test Email Content', user: admin,
-            details: { subject: SUBJECT, bcc_to_salesforce: true })
+            details: { subject: 'Test Notification', bcc_to_salesforce: true })
       Alert.last
     end
 

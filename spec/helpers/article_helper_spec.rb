@@ -45,4 +45,59 @@ describe ArticleHelper, type: :helper do
       expect(output).to eq('l')
     end
   end
+
+  describe '.default_class' do
+    it 'returns standard ratings as-is' do
+      %w[fa fl a ga b c start stub list].each do |rating|
+        expect(default_class(rating)).to eq(rating)
+      end
+    end
+
+    it 'maps a/ga composite rating to a' do
+      expect(default_class('a/ga')).to eq('a')
+    end
+
+    it 'maps French ratings correctly' do
+      expect(default_class('adq')).to eq('fa')
+      expect(default_class('ba')).to eq('ga')
+      expect(default_class('bd')).to eq('start')
+      expect(default_class('e')).to eq('stub')
+    end
+
+    it 'maps Turkish ratings correctly' do
+      expect(default_class('sm')).to eq('fa')
+      expect(default_class('km')).to eq('ga')
+      expect(default_class('taslak')).to eq('stub')
+    end
+
+    it 'maps Hungarian ratings correctly' do
+      expect(default_class('teljes')).to eq('b')
+    end
+
+    it 'maps Arabic ratings correctly' do
+      expect(default_class('م.مخ')).to eq('fa')
+      expect(default_class('أ')).to eq('ga')
+      expect(default_class('ب')).to eq('b')
+      expect(default_class('ج')).to eq('c')
+      expect(default_class('بداية')).to eq('start')
+      expect(default_class('بذرة')).to eq('stub')
+    end
+
+    it 'maps Chinese ratings correctly' do
+      expect(default_class('典范条目')).to eq('fa')
+      expect(default_class('特色列表')).to eq('fl')
+      expect(default_class('优良条目')).to eq('ga')
+      expect(default_class('甲级条目')).to eq('a')
+      expect(default_class('乙级条目')).to eq('b')
+      expect(default_class('丙级条目')).to eq('c')
+      expect(default_class('初级条目')).to eq('start')
+      expect(default_class('小作品级条目')).to eq('stub')
+      expect(default_class('列表级条目')).to eq('list')
+    end
+
+    it 'returns nil for unknown ratings' do
+      expect(default_class('unknown')).to be_nil
+      expect(default_class('xyz')).to be_nil
+    end
+  end
 end

@@ -1,0 +1,177 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Capture before/after screenshots for feature specs affected by the current branch.
+#
+# Usage:
+#   bin/pr-screenshots [spec_file ...]   # capture screenshots
+#   bin/pr-screenshots --clean           # remove all artifacts
+#
+# If no spec files are given, auto-detects from git diff master...HEAD.
+# Outputs a markdown snippet with paired before/after image tags, using paths
+# relative to tmp/ (so they work in tmp/pr_description.md).
+#
+# --clean removes tmp/screenshots/ and tmp/pr_description.md.
+#
+# Requires: HEADED=1 is NOT set automatically — screenshots run headless by default.
+# Set HEADED=1 yourself if you want to watch the browser.
+
+require 'fileutils'
+
+SCREENSHOTS_ROOT = 'tmp/screenshots'
+
+# ── Spec detection ──────────────────────────────────────────────────────────
+
+def detect_specs
+  changed = `git diff master...HEAD --name-only`.split("\n")
+  candidates = Set.new
+  changed.each { |path| collect_candidates(path, candidates) }
+  candidates.to_a.sort
+end
+
+def collect_candidates(path, candidates) # rubocop:disable Metrics/MethodLength
+  if path.start_with?('spec/features/') && path.end_with?('_spec.rb')
+    candidates << path
+    return
+  end
+  if (m = path.match(%r{app/controllers/(.+)_controller\.rb}))
+    add_if_exists("spec/features/#{m[1]}_spec.rb", candidates)
+  end
+  if (m = path.match(%r{app/views/([^/]+)/}))
+    add_if_exists("spec/features/#{m[1]}_spec.rb", candidates)
+  end
+  if path.start_with?('app/mailer_previews/')
+    Dir['spec/features/*mailer_preview*_spec.rb'].each { |s| candidates << s }
+  end
+  if (m = path.match(%r{app/assets/stylesheets/modules/_(.+)\.styl}))
+    add_if_exists("spec/features/#{m[1]}_spec.rb", candidates)
+  end
+end
+
+def add_if_exists(path, candidates)
+  candidates << path if File.exist?(path)
+end
+
+# ── Git helpers ──────────────────────────────────────────────────────────────
+
+def current_branch
+  `git symbolic-ref --short HEAD`.strip
+end
+
+def run_specs(specs, label)
+  existing = specs.select { |s| File.exist?(s) }
+  if existing.empty?
+    warn "  (no specs to run for #{label})"
+    return
+  end
+  puts "  Running: #{existing.join(' ')}"
+  env = { 'SCREENSHOT' => label }
+  env['HEADED'] = ENV['HEADED'] if ENV['HEADED']
+  system(env, 'bundle', 'exec', 'rspec', *existing, '--format', 'progress')
+end
+
+# ── Filename sanitization ────────────────────────────────────────────────────
+#
+# Markdown image syntax ![alt](path) breaks on ( ) and other special chars
+# in filenames. Rename any such files immediately after capture.
+
+def sanitize_screenshots(dir)
+  return unless Dir.exist?(dir)
+  Dir["#{dir}/*.png"].each do |path|
+    name  = File.basename(path)
+    clean = name.gsub(/[()→]/, '').gsub(/--+/, '-')
+    next if clean == name
+    File.rename(path, File.join(dir, clean))
+  end
+end
+
+# ── Main ─────────────────────────────────────────────────────────────────────
+
+if ARGV == ['--clean']
+  FileUtils.rm_rf(SCREENSHOTS_ROOT)
+  FileUtils.rm_f('tmp/pr_description.md')
+  puts 'Removed tmp/screenshots/ and tmp/pr_description.md.'
+  exit 0
+end
+
+specs = ARGV.any? ? ARGV : detect_specs
+
+if specs.empty?
+  warn 'No feature specs detected for this branch. Pass spec files as arguments.'
+  exit 1
+end
+
+puts "Screenshots will be captured for:"
+specs.each { |s| puts "  #{s}" }
+puts
+
+branch = current_branch
+puts "── After (#{branch}) ──────────────────────────────"
+FileUtils.rm_rf("#{SCREENSHOTS_ROOT}/after")
+run_specs(specs, 'after')
+sanitize_screenshots("#{SCREENSHOTS_ROOT}/after")
+
+puts
+puts "── Before (master) ────────────────────────────────"
+FileUtils.rm_rf("#{SCREENSHOTS_ROOT}/before")
+
+stashed = false
+begin
+  stash_output = `git stash 2>&1`
+  stashed = !stash_output.include?('No local changes to stash')
+  puts "  git stash: #{stash_output.strip}"
+
+  `git checkout master 2>&1`.tap { |o| puts "  git checkout master: #{o.strip}" }
+
+  run_specs(specs, 'before')
+  sanitize_screenshots("#{SCREENSHOTS_ROOT}/before")
+ensure
+  `git checkout #{branch} 2>&1`.tap { |o| puts "  git checkout #{branch}: #{o.strip}" }
+  if stashed
+    `git stash pop 2>&1`.tap { |o| puts "  git stash pop: #{o.strip}" }
+  end
+end
+
+# ── Markdown output ──────────────────────────────────────────────────────────
+#
+# Paths are relative to tmp/ because the PR description is written to
+# tmp/pr_description.md by the /prepare-pr skill.
+
+after_shots  = Dir["#{SCREENSHOTS_ROOT}/after/*.png"].sort
+before_shots = Dir["#{SCREENSHOTS_ROOT}/before/*.png"].sort
+
+lines = []
+lines << '## Screenshots'
+lines << ''
+
+if after_shots.empty? && before_shots.empty?
+  lines << '_(No screenshots captured.)_'
+else
+  all_names = (after_shots + before_shots).map { |p| File.basename(p) }.uniq.sort
+
+  all_names.each do |name|
+    before_path = "#{SCREENSHOTS_ROOT}/before/#{name}"
+    after_path  = "#{SCREENSHOTS_ROOT}/after/#{name}"
+
+    # Paths relative to tmp/ for use in tmp/pr_description.md
+    before_rel = "screenshots/before/#{name}"
+    after_rel  = "screenshots/after/#{name}"
+
+    label = name.delete_suffix('.png').sub(/\A[^_]+__/, '').tr('-_', ' ').strip
+    lines << "**#{label}**"
+    lines << ''
+    lines << '| Before | After |'
+    lines << '|--------|-------|'
+
+    before_cell = File.exist?(before_path) ? "![before](#{before_rel})" : '_(did not exist on master)_'
+    after_cell  = File.exist?(after_path)  ? "![after](#{after_rel})"  : '_(not captured on this branch)_'
+    lines << "| #{before_cell} | #{after_cell} |"
+    lines << ''
+  end
+end
+
+snippet = lines.join("\n")
+
+puts
+puts '─' * 60
+puts snippet

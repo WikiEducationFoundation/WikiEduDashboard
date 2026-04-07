@@ -12,6 +12,8 @@ class CoursesPresenter
     @campaign_param = campaign_param
     @page = options[:page]
     @tag = options[:tag]
+    @sort_column = options[:sort_column]
+    @sort_direction = options[:sort_direction]
     @courses_list = courses_list || campaign_courses
   end
 
@@ -59,7 +61,7 @@ class CoursesPresenter
                                                                                              :slug)
   end
 
-  PER_PAGE = 100
+  PER_PAGE = 25
   # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
   def articles_courses_scope
     return @articles_courses_scope unless @articles_courses_scope.nil?
@@ -68,7 +70,9 @@ class CoursesPresenter
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
-      too_many: too_many_articles?
+      too_many: too_many_articles?,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction
     ).scope
   end
 
@@ -114,7 +118,7 @@ class CoursesPresenter
     ArticlesCourses.tracked.includes(article: :wiki)
                    .includes(:course).where(courses: { private: false })
                    .where(course: @courses_list)
-                   .paginate(page: @page, per_page: 100)
+                   .paginate(page: @page, per_page: 25)
   end
 
   def can_remove_course?
@@ -149,12 +153,16 @@ class CoursesPresenter
       'lower(title) like ? OR lower(school) like ? ' \
       'OR lower(term) like ? OR lower(username) like ?',
       "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
-    ).distinct
+    ).distinct.paginate(page: @page, per_page: 25)
   end
 
   def courses_by_recent_edits
-    # Sort first by recent edit count, and then by course title
-    courses.order('recent_revision_count DESC, title').paginate(page: @page, per_page: 100)
+    order = if @sort_column.present? && @sort_direction.present?
+              "#{@sort_column} #{@sort_direction.upcase}, title ASC"
+            else
+              'recent_revision_count DESC, title ASC'
+            end
+    courses.order(order).paginate(page: @page, per_page: 25)
   end
 
   def active_courses_by_recent_edits

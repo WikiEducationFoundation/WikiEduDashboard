@@ -12,7 +12,7 @@ import selectStyles from '../../styles/single_select';
 import { fetchSpecialUsers } from '../../actions/settings_actions';
 import { fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 import { removeTag, fetchAllTags, addTag } from '../../actions/tag_actions';
-import { linkToSalesforce } from '../../actions/course_actions';
+import { linkToSalesforce, updateCourse, persistCourse } from '../../actions/course_actions';
 import { addUser } from '../../actions/user_actions';
 import { getCourseApprovalStaff } from '../../selectors';
 import { STAFF_ROLE } from '../../constants';
@@ -121,7 +121,7 @@ const CourseApproval = (props) => {
   const submitWikiEdStaff = (programManager, wikiExpert) => {
     const promises = [];
     // Only add the program manager, if they are not already assigned a staff role
-    if (!programManager.already_selected) {
+    if (programManager && !programManager.already_selected) {
       const programManagerUserObject = {
         username: programManager.username,
         role: STAFF_ROLE,
@@ -132,7 +132,7 @@ const CourseApproval = (props) => {
     }
 
     // Only add the selected wiki expert, if they are not already assigned a staff role
-    if (!wikiExpert.already_selected) {
+    if (wikiExpert && !wikiExpert.already_selected) {
       const wikiExpertUserObject = {
         username: wikiExpert.username,
         role: STAFF_ROLE,
@@ -212,6 +212,18 @@ const CourseApproval = (props) => {
     });
   };
 
+  const declineCourse = () => {
+    if (confirm(I18n.t('courses.decline_course_confirm'))) {
+      const updatedCourse = { ...props.course, submitted: false, declined: true };
+      if (!updatedCourse.flags) {
+        updatedCourse.flags = {};
+      }
+      updatedCourse.flags.declined = true;
+      props.updateCourse(updatedCourse);
+      props.persistCourse(props.course.slug);
+    }
+  };
+
   const programManager = props.wikiEdStaff.length > 0 ? setProgramManager() : null;
   const wikiExpertOptions = props.wikiEdStaff.length > 0 ? setWikiExpertOptions() : [];
 
@@ -228,7 +240,7 @@ const CourseApproval = (props) => {
   const programManagerSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label id="program_manager-label" htmlFor="program_manager">Add Program Manager:</label>
+        <label id="program_manager-label" htmlFor="program_manager">{I18n.t('courses.add_program_manager')}</label>
       </div>
       <div className="group-right">
         <Select
@@ -247,7 +259,7 @@ const CourseApproval = (props) => {
   const wikiExpertSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label id="wiki_expert-label" htmlFor="wiki_expert">Add Wikipedia Expert:</label>
+        <label id="wiki_expert-label" htmlFor="wiki_expert">{I18n.t('courses.add_wiki_expert')}</label>
       </div>
       <div className="group-right">
         <Select
@@ -266,7 +278,7 @@ const CourseApproval = (props) => {
   const tagsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label id="tag-select-label" htmlFor="tags">Add Tags:</label>
+        <label id="tag-select-label" htmlFor="tags">{I18n.t('courses.add_tags')}</label>
       </div>
       <div className="group-right">
         <CreatableSelect
@@ -287,7 +299,7 @@ const CourseApproval = (props) => {
   const campaignsSelector = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label id="campaign-select-label" htmlFor="campaign">Add Campaigns: <span className="form-required-indicator">*</span></label>
+        <label id="campaign-select-label" htmlFor="campaign">{I18n.t('courses.add_campaigns')} <span className="form-required-indicator">*</span></label>
       </div>
       <div className="group-right">
         <Select
@@ -308,13 +320,13 @@ const CourseApproval = (props) => {
 
   let invalidIdMessage;
   if (showInvalidIdMessage) {
-    invalidIdMessage = <p className="form-group invalid">The entered Id is not valid.</p>;
+    invalidIdMessage = <p className="form-group invalid">{I18n.t('courses.invalid_salesforce_id')}</p>;
   }
 
   const salesforceIdField = (
     <div className="course-approval-field form-group">
       <div className="group-left form-group">
-        <label id="salesforce-id-label" htmlFor="salesforce-id">Add Salesforce Id: </label>
+        <label id="salesforce-id-label" htmlFor="salesforce-id">{I18n.t('courses.add_salesforce_id')} </label>
       </div>
       <div className="group-right">
         <TextInput
@@ -339,13 +351,14 @@ const CourseApproval = (props) => {
     </div>
     ) : (
       <div className="controls">
-        <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>Approve Course</button>
+        <button className="button margin-right" onClick={declineCourse}>{I18n.t('courses.decline_course')}</button>
+        <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>{I18n.t('courses.approve_course')}</button>
       </div>);
 
   return (
     <div className="module course-approval">
       <div className="section-header">
-        <h3>Course Approval Form</h3>
+        <h3>{I18n.t('courses.approval_form_heading')}</h3>
         {approveButton}
       </div>
       <div className="course-approval-form">
@@ -372,7 +385,9 @@ CourseApproval.propTypes = {
   fetchAllTags: PropTypes.func,
   addTag: PropTypes.func,
   removeTag: PropTypes.func,
-  linkToSalesforce: PropTypes.func
+  linkToSalesforce: PropTypes.func,
+  updateCourse: PropTypes.func,
+  persistCourse: PropTypes.func
 };
 
 const mapStateToProps = state => ({
@@ -391,7 +406,9 @@ const mapDispatchToProps = {
   addCampaign,
   addTag,
   removeTag,
-  linkToSalesforce
+  linkToSalesforce,
+  updateCourse,
+  persistCourse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseApproval);

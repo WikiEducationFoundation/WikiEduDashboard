@@ -38,3 +38,21 @@ CSV.open("/home/sage/ai_mainspace_alerts_fall_2025.csv", 'wb') do |csv|
     csv << line
   end
 end
+
+# All AI alerts with feedback
+
+feedbacks = AiEditAlert.all.select(&:followup?)
+data = [%w[alert_id alert_timestamp page_type AI_how_used AIs_used AI_other user_for used_for_other additional_context timestamp pangram_report]]
+
+feedbacks.each do |alert|
+  puts alert.id
+  entry = alert.followup_student
+  next unless entry
+  data << [alert.id, alert.created_at, alert.page_type, entry[:AI_how_used], entry[:AIs_used], entry[:AIs_other], entry[:used_for], entry[:used_for_other], entry[:additional_context], entry[:timestamp], alert.pangram_url]
+end
+
+CSV.open("/home/sage/ai_alert_feedbacks.csv", 'wb') do |csv|
+  data.each do |line|
+    csv << line
+  end
+end

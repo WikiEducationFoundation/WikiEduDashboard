@@ -12,7 +12,8 @@ describe 'AI edit alerts stats', type: :feature, js: true do
   let(:article2) { create(:article, title: 'Selfie') }
 
   let!(:alert) do
-    create(:alert, type: 'AiEditAlert', course_id: course.id, user_id: user1.id, article: article1)
+    create(:alert, type: 'AiEditAlert', course_id: course.id, user_id: user1.id, article: article1,
+           details: { 'followup_student' => { timestamp: 1.hour.ago } })
   end
   let!(:nh_alert) do
     create(:alert, type: 'HighQualityArticleEditAlert', course_id: course.id,

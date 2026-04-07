@@ -184,6 +184,7 @@ skr-arab:
     user_role: رول
     subject: مضمون
     submitted: جمع تھی ڳیا
+    add_tags: 'ٹیگ شامل کرو:'
     term: ٹرم
     timeline_link: ٹائم لائن
     timeline_nav: ٹائم لائن تے ون٘ڄو
@@ -291,6 +292,8 @@ skr-arab:
     next: اڳلا ورقہ
     page: ورقہ
     done: مکمل!
+    close: بند
+    loading: لوڈ تھین٘دا پئے۔۔۔
   update_username:
     label: نواں ورتݨ ناں
     button: اپ ݙیٹ

@@ -421,6 +421,7 @@ be-tarask:
       для інструктараў і студэнтаў.
     user_role: Роля
     course_details: Дэталі курсу
+    tags: 'Тэґі:'
     term: Тэрмін
     timeline: Дэталі заданьня
     timeline_enabled: Расклад увамкнёны
@@ -463,6 +464,7 @@ be-tarask:
     last_update_success: Апошняе абнаўленьне прайшло пасьпяхова, то статыстыка павінна
       быць сьвежай.
     references_count: Дададзена крыніцаў
+    tags: Тэґі
     upload_count: Загрузкі ў Вікісховішча
     view_count_description_wikidata: Прагляды элемэнта
     interwiki_links_added: Дададзеныя інтэрвікі

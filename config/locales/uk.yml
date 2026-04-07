@@ -19,13 +19,14 @@
 # Author: Piramidion
 # Author: Vlad5250
 # Author: Ата
+# Author: Наталія
 # Author: Пан Хаунд
 ---
 uk:
   number:
     human:
       decimal_units:
-        format: '%n %u'
+        format: '%n%u'
         units:
           thousand: тис.
           million: млн
@@ -36,7 +37,9 @@ uk:
     number_field: Це числове поле. Кнопки, що оброблюються більшістю браузерів, будуть
       збільшувати і зменшувати вивід.
   application:
+    back: Назад
     cancel: Скасувати
+    next: Далі
     cookie_consent: Цей сайт використовує куки, щоб зберігати дані про ваш вхід в
       систему, а також зберігає інформацію, пов'язану з вашим обліковим записом у
       Вікіпедії.
@@ -49,6 +52,7 @@ uk:
     explore: Дослідити
     field_required: Це поле є обов'язковим
     field_invalid_characters: У цьому полі містяться недопустимі символи
+    field_invalid_term: Термін має включати рік (наприклад, «Весна 2025»)
     field_invalid_date: Це поле вимагає дату в форматі РРРР-ММ-ДД
     field_invalid_date_time: Кінець має бути після початку. (Години йдуть від 0 до
       23.)
@@ -61,6 +65,7 @@ uk:
     log_in: Увійти
     log_out: Вийти
     my_dashboard: Моя панель
+    okay: Гаразд
     recent_activity: Останні дії
     report_problem: Повідомити про проблему
     request_account: Подати запит на обліковий запис
@@ -72,6 +77,8 @@ uk:
       many: '%{count} результатів для: «%{search_terms}»'
       other: '%{count} результатів для: «%{search_terms}»'
     no_results: Не знайдено результатів, що відповідають «%{query}»
+    show_current_revision: Показати поточну версію
+    show_last_revision: Показати останню відредаговану версію
     sign_up_extended: Зареєструватися через Вікіпедію
     sign_up_wikipedia: або зареєструватися у Вікіпедії
     sign_up_log_in_extended: з Вікіпедії
@@ -85,6 +92,7 @@ uk:
     opt_out: Ні
     opt_yes: так
     opt_no: ні
+    print: Друк
   article_statuses:
     not_yet_started: Ознайомлення
     in_progress: Робота в пісочниці
@@ -125,12 +133,37 @@ uk:
     explore: Ознайомлення
     log_in: Вхід через Вікіпедію
     sign_up: Реєстрація у Вікіпедії
+    registration_advice:
+      username_rules:
+        heading: Правила для імен користувачів
+        avoid_offensive_usernames: Не вибирайте ім'я користувача, яке є образливим,
+          оманливим, деструктивним або рекламним.
+        represent_individual: Імена користувачів повинні представляти окремого редактора.
+          Не використовуйте назву школи чи організації.
+      additional_advice:
+        heading: Порада
+        anonymous_username_recommendation: Wiki Education рекомендує вибрати анонімне
+          ім'я користувача, а не таке, що містить ваше справжнє ім'я чи іншу ідентифікаційну
+          інформацію.
     sign_up_help: Щоб використовувати інформаційну панель, вам потрібно буде ввійти
       через Вікіпедію та надати їй доступ до вашого облікового запису. Ви можете увійти
       за допомогою існуючого облікового запису Вікіпедії або створити новий. Якщо
       ви не можете створити обліковий запис, зверніться за адресою dashboard@wikiedu.org.
   alerts:
     alert_label: Сповіщення
+    no_data: Дані не знайдено.
+    ai_stats:
+      timestamp: Часова мітка
+      title: Статистика сповіщень про редагування за допомогою штучного інтелекту
+        для %{campaign_name}
+      total_alerts: Загальна кількість сповіщень про редагування від штучного інтелекту
+      with_followup: Сповіщення про редагування від штучного інтелекту з подальшими
+        діями
+      multiple_alerts_students: Студенти з кількома сповіщеннями
+      multiple_alerts_pages: Сторінки з кількома сповіщеннями
+      pangram_url: URL-адреса Панграма
+      go_to_pangram: Перейти до Панграма
+      revision_diff: Перегляди різниць
   activity:
     all: Активність
     edited_by: Редаговано

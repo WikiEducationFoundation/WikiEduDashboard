@@ -196,7 +196,9 @@ export default class CourseUtils {
   // Is the location the main index of a course page, rather than one of the
   // tabs?
   static onCourseIndex(location) {
-    return location.pathname.split('/').length === 4;
+    if (location.pathname.split('/').length === 4) { return true; }
+    if (location.pathname.split('/').length === 5 && location.pathname.substr(-1) === '/') { return true; }
+    return false;
   }
 
   static onHomeTab(location) {

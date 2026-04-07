@@ -17,8 +17,20 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
     AiEditAlertMailer.email(example_scholars_alert)
   end
 
-  def instructor_guidance_for_first_alert
-    AiEditAlertMailer.instructor_advice_email(example_student_program_alert(exercise_page))
+  def instructor_exercise_advice
+    AiEditAlertMailer.instructor_exercise_advice_email(example_student_program_alert(exercise_page))
+  end
+
+  def instructor_sandbox_advice
+    AiEditAlertMailer.instructor_sandbox_advice_email(
+      example_student_program_alert(sandbox_draft_page)
+    )
+  end
+
+  def instructor_mainspace_advice
+    AiEditAlertMailer.instructor_mainspace_advice_email(
+      example_student_program_alert(mainspace_page)
+    )
   end
 
   private

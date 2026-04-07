@@ -127,6 +127,8 @@ describe CheckRevisionWithPangram do
       expect(RevisionAiScore.count).to eq(1)
       expect(RevisionAiScore.last.article_id).to eq(sandbox_article.id)
       expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
+      expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+      expect(RevisionAiScore.last.check_origin).to eq('course_update')
     end
   end
 
@@ -146,7 +148,7 @@ describe CheckRevisionWithPangram do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       VCR.use_cassette 'pangram_2' do
-        check = described_class.new(
+        described_class.new(
           { 'mw_rev_id' => live_article_revision_id,
             'wiki_id' => en_wiki.id,
             'article_id' => live_article.id,
@@ -154,24 +156,40 @@ describe CheckRevisionWithPangram do
             'user_id' => user.id,
             'revision_timestamp' => timestamp }
         )
-        expect(check.send(:pangram_prediction)).to include('fully AI-generated')
-        expect(check.send(:average_ai_likelihood)).to be_between(0, 1)
-        expect(check.send(:max_ai_likelihood)).to eq(1.0)
-        expect(check.send(:fraction_human_content)).to be_a(Numeric)
-        expect(check.send(:fraction_ai_content)).to eq(1.0)
-        expect(check.send(:fraction_mixed_content)).to be_a(Numeric)
-        expect(check.send(:headline_result)).to be_a(String)
-        expect(check.send(:pangram_version)).to eq('3.0')
-        expect(check.send(:window_likelihoods)).to be_a(Array)
-        expect(check.send(:predicted_ai_window_count)).to eq(3)
-        expect(check.send(:pangram_share_link)).to include('https://www.pangram.com')
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
 
       expect(RevisionAiScore.count).to eq(1)
       expect(RevisionAiScore.last.article_id).to eq(live_article.id)
+      expect(RevisionAiScore.last.avg_ai_likelihood).to be_between(0, 1)
+      expect(RevisionAiScore.last.max_ai_likelihood).to eq(1.0)
       expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
+      expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+      expect(RevisionAiScore.last.check_origin).to eq('course_update')
+    end
+  end
+
+  context 'when there are prior alerts for the same page and user' do
+    let!(:prior_page_alert) { create(:ai_edit_alert, course:, article: live_article) }
+    let!(:prior_user_alert) { create(:ai_edit_alert, course:, user:, created_at: 2.days.ago) }
+
+    it 'records prior alert IDs in the new alert details' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+            'wiki_id' => en_wiki.id,
+            'article_id' => live_article.id,
+            'course_id' => course.id,
+            'user_id' => user.id,
+            'revision_timestamp' => timestamp }
+        )
+      end
+      new_alert = AiEditAlert.last
+      expect(new_alert.details[:prior_alert_for_page]).to eq(prior_page_alert.id)
+      expect(new_alert.details[:prior_alert_for_user]).to eq(prior_user_alert.id)
     end
   end
 

@@ -3,6 +3,8 @@
 require_dependency "#{Rails.root}/lib/pangram_api"
 require_dependency "#{Rails.root}/lib/originality_api"
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
+require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
+require_dependency "#{Rails.root}/lib/ai/originality_response_parser"
 
 class AiToolsController < ApplicationController
   before_action :require_admin_permissions
@@ -11,49 +13,40 @@ class AiToolsController < ApplicationController
 
   def compare_ai_detectors
     detect_ai_from_multiple_resources extract_plain_text
+    create_revision_ai_scores_for_multiple_resources
     render 'show'
   end
 
-  PANGRAM_V2_KEY = 'pangram_v2'
-  PANGRAM_V3_KEY = 'pangram_v3'
-  ORIGINALITY_TURBO_KEY = 'originality_turbo'
-  ORIGINALITY_ACADEMIC_KEY = 'originality_academic'
-
-  MODELS_KEY = [
-    PANGRAM_V2_KEY,
-    PANGRAM_V3_KEY,
-    ORIGINALITY_TURBO_KEY,
-    ORIGINALITY_ACADEMIC_KEY
-  ].freeze
-
   private
 
-  MAX_CONCURRENCY = 4
+  MAX_CONCURRENCY = 5
 
   DETECTORS = {
-    PANGRAM_V2_KEY => PangramApi.v2,
-    PANGRAM_V3_KEY => PangramApi.v3,
-    ORIGINALITY_TURBO_KEY => OriginalityApi.turbo,
-    ORIGINALITY_ACADEMIC_KEY => OriginalityApi.academic
+    RevisionAiScore::PANGRAM_V3_KEY => PangramApi.v3,
+    RevisionAiScore::ORIGINALITY_TURBO_KEY => OriginalityApi.turbo,
+    RevisionAiScore::ORIGINALITY_ACADEMIC_KEY => OriginalityApi.academic,
+    RevisionAiScore::ORIGINALITY_LITE_KEY => OriginalityApi.lite,
+    RevisionAiScore::ORIGINALITY_LITE_BETA_KEY => OriginalityApi.lite_beta
   }.freeze
 
   def detect_ai_from_multiple_resources(text)
     pool = Concurrent::FixedThreadPool.new(MAX_CONCURRENCY)
-    results = Concurrent::Hash.new
+    @results = Concurrent::Hash.new
 
     DETECTORS.each do |key, detector|
-      pool.post { detect_ai(key, detector, text, results) } if params[key.to_sym]
+      pool.post { detect_ai(key, detector, text) } if params[key.to_sym]
     end
     pool.shutdown && pool.wait_for_termination
 
-    @pangram_v2_result = results[PANGRAM_V2_KEY]
-    @pangram_v3_result = results[PANGRAM_V3_KEY]
-    @originality_turbo_result = results[ORIGINALITY_TURBO_KEY]
-    @originality_academic_result = results[ORIGINALITY_ACADEMIC_KEY]
+    @pangram_v3_result = @results[RevisionAiScore::PANGRAM_V3_KEY]
+    @originality_turbo_result = @results[RevisionAiScore::ORIGINALITY_TURBO_KEY]
+    @originality_academic_result = @results[RevisionAiScore::ORIGINALITY_ACADEMIC_KEY]
+    @originality_lite_result = @results[RevisionAiScore::ORIGINALITY_LITE_KEY]
+    @originality_lite_beta_result = @results[RevisionAiScore::ORIGINALITY_LITE_BETA_KEY]
   end
 
-  def detect_ai(key, ai_detector, text, results)
-    results[key] = ai_detector.inference text
+  def detect_ai(key, ai_detector, text)
+    @results[key] = ai_detector.inference text
   end
 
   def parse_url
@@ -99,5 +92,33 @@ class AiToolsController < ApplicationController
       titles: CGI.unescape(@article_title),
       rvprop: 'ids'
     }
+  end
+
+  def create_revision_ai_scores_for_multiple_resources
+    RevisionAiScore::PANGRAM_KEYS.each do |key|
+      next unless params[key.to_sym]
+      parser = PangramResponseParser.new(key, @results[key])
+      create_revision_ai_score(key, parser)
+    end
+
+    RevisionAiScore::ORIGINALITY_KEYS.each do |key|
+      next unless params[key.to_sym]
+      parser = OriginalityResponseParser.new(key, @results[key])
+      create_revision_ai_score(key, parser)
+    end
+  end
+
+  # Imports data into the RevisionAiScores table
+  def create_revision_ai_score(check_type, parser)
+    wiki_id = @wiki.id if @wiki
+    RevisionAiScore.create(revision_id: @rev_id,
+                           wiki_id:,
+                           url: @url,
+                           origin_user_id: current_user.id,
+                           avg_ai_likelihood: parser.average_ai_likelihood,
+                           max_ai_likelihood: parser.max_ai_likelihood,
+                           details: parser.clean_result,
+                           check_type:,
+                           check_origin: RevisionAiScore::AI_TOOL_ORIGIN)
   end
 end

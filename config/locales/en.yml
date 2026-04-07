@@ -204,6 +204,7 @@ en:
     available: Available Articles
     no_available: No Available Articles
     next: Next
+    page_info: "Page %{current} of %{total_pages} (%{count} out of %{total})"
     previous: Previous
     article_title: Article Title
     assigned_to: Assigned To
@@ -921,6 +922,14 @@ en:
     subject: Subject
     submitted: Submitted
     submitted_at: Submitted at
+    approval_form_heading: "Course Approval Form"
+    add_program_manager: "Add Program Manager:"
+    add_wiki_expert: "Add Wikipedia Expert:"
+    add_tags: "Add Tags:"
+    add_campaigns: "Add Campaigns:"
+    invalid_salesforce_id: "The entered Id is not valid."
+    add_salesforce_id: "Add Salesforce Id:"
+    approve_course: "Approve Course"
     tag_select: "Select or create a tag"
     tags: "Tags:"
     term: Term
@@ -968,6 +977,9 @@ en:
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
+    declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
+    decline_course: "Decline Course"
+    decline_course_confirm: "Are you sure you want to decline this course? This will archive the submission and stop automatic unsubmitted alerts for this course."
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
@@ -1163,6 +1175,8 @@ en:
       content_wikidata: to assign and view item assignments
 
   metrics:
+    editors_doc: This is the number of unique users who have edited articles in the course.
+    program_date_doc: This is the date of the program.
     label: Course Activity
     last_update: Last statistics update
     last_articles_update: Last articles update
@@ -1590,6 +1604,11 @@ en:
     exercise_sandbox: Exercise Sandbox
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
+    take_your_time: "Please take your time!"
+    alert_content: "It is very important that you learn the training content thoroughly."
+    close: "CLOSE"
+    loading: "Loading…"
+    wiki_source: "wiki source"
 
   update_username:
     header: Update a changed username
@@ -2076,4 +2095,6 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
-      
+
+  form_search:
+    program_date: "Program Date"

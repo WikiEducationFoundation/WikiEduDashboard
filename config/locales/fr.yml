@@ -29,6 +29,7 @@
 # Author: Macofe
 # Author: Mahabarata
 # Author: Melimeli
+# Author: Momo50WM
 # Author: Méthodes Bulebe Hangi
 # Author: Oujon
 # Author: PifyZ
@@ -63,6 +64,7 @@ fr:
   application:
     back: Retour
     cancel: Annuler
+    next: Suivant
     cookie_consent: Ce site utilise des témoins (''cookies'') pour vous maintenir
       connecté et stocker des informations liées à votre compte sur Wikipédia.
     cookie_consent_acknowledge: Je comprends
@@ -74,6 +76,8 @@ fr:
     explore: Explorer
     field_required: Ce champ est obligatoire
     field_invalid_characters: Ce champ contient des caractères non valides
+    field_invalid_term: Le terme doit inclure l'année (par exemple, « Printemps 2025
+      »).
     field_invalid_date: Ce champ requiert une date au format AAAA-MM-JJ
     field_invalid_date_time: La fin doit être après le début (les heures vont de 0
       à 23).
@@ -86,6 +90,7 @@ fr:
     log_in: Se connecter
     log_out: Se déconnecter
     my_dashboard: Mon tableau de bord
+    okay: Ok
     recent_activity: Activité récente
     report_problem: Signaler un problème
     request_account: Demander un compte
@@ -171,6 +176,49 @@ fr:
       ne parvenez pas à créer de compte, contactez dashboard@wikiedu.org.
   alerts:
     alert_label: Alertes
+    no_data: Aucune donnée trouvée.
+    ai_stats:
+      timestamp: Horodatage
+      title: Statistiques des alertes de modification IA pour %{campaign_name}
+      total_alerts: Total des alertes de modification IA
+      with_followup: Alertes de modification IA avec suivi
+      multiple_alerts_students: Étudiants avec plusieurs alertes
+      multiple_alerts_pages: Pages avec plusieurs alertes
+      pangram_url: URL de Pangram
+      go_to_pangram: Allez sur Pangram
+      revision_diff: Différence des versions
+      single_alert_view: Alerte
+      alerts_in_mainspace: Alertes dans l'espace principal
+      users_involved: Utilisateurs impliqués
+      total: Total
+      last_week: La semaine dernière
+      sections:
+        contents: Contenus de page.
+        general_stats: Statistiques générales
+        name: Nom
+        description: Description
+        courses_with_ai_alerts: Cours avec plusieurs alertes IA
+        multiple_alerts_students: Alertes récentes pour les étudiants ayant plusieurs
+          alertes
+        in_mainspace: Alertes récentes dans l'espace principal
+        alerts_trend_over_time: Tendances des alertes d'IA au fil du temps
+        descriptions:
+          courses_with_ai_alerts: Cours avec plus de 3 alertes d'IA sur l'ensemble
+            de la période de cours (pas nécessairement récente).
+          recent_followup: Alertes ayant fait l'objet d'une réponse de suivi au cours
+            des 14 derniers jours, classées par date de la réponse de suivi.
+          multiple_alerts_students: Alertes créées au cours des 14 derniers jours
+            pour les étudiants ayant plusieurs alertes, classées par date de création.
+          in_mainspace: Alertes créées au cours des 14 derniers jours pour les articles
+            de l'espace principal, classées par date de création.
+  ai_scores_stats:
+    title: Statistiques des scores de révision de l'IA
+    graphs:
+      daily_checks: Vérifications quotidiennes par espace de noms
+      avg_likelihood: Distribution moyenne de la probabilité d'IA par jour
+      max_likelihood: Distribution de probabilité maximale de l'IA par jour
+      overall_avg_likelihood: Distribution de probabilité moyenne globale de l'IA
+      overall_max_likelihood: Répartition globale maximale de probabilité de l'IA
   activity:
     all: Activité
     edited_by: Modifié par
@@ -185,6 +233,7 @@ fr:
     available: Articles disponibles
     no_available: Aucun article disponible
     next: Suivant
+    page_info: Page %{current} sur %{total_pages} (%{count} sur %{total})
     previous: Précédent
     article_title: Titre de l’article
     assigned_to: Affecté à
@@ -210,6 +259,9 @@ fr:
       untracked: Non suivi
       tracked_and_untracked: Suivi et non suivi
     filter_text: 'Filtres :'
+    pageviews_label: 'Pages vues :'
+    cumulative: Cumulatif
+    daily_avg: Moyenne quotidienne
     find: Trouver des articles
     how_to_find: Comment trouver un article
     hide: Masquer
@@ -221,6 +273,7 @@ fr:
     new: (nouveau)
     none: Ce cours n’a modifié aucun article.
     preview: Bref aperçu de l’article
+    quality_checklist: Liste de contrôle qualité
     rating: Classe
     rating_doc: La notation attribuée à un article par WikiProjets sur Wikipédia.
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
@@ -336,6 +389,8 @@ fr:
       noire des affectations Wiki Education de la communauté Wikipédia.'
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
+    max_group_size_exceeded: Le cours %{title} compte déjà %{current} étudiants. La
+      taille maximale des groupes est de %{max}.
     assignees: Affectation(s)
     assign_other: Affecter / retirer un article
     assign_other_wikidata: Affecter / retirer un élément

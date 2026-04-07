@@ -151,6 +151,7 @@ qqq:
     article_development: Label for article development link
     assigned: Label for a list of assigned articles
     available: Label for a list of articles not assigned to anyone
+    page_info: Pagination information showing current page and total elements.
     previous: '{{Identical|Previous}}'
     assigned_to: Table header for the user who is assigned to work on an article
     character_doc: Documentation for an article's character total add and remove count.
@@ -626,6 +627,8 @@ qqq:
     no_assignments: Message displayed when no assignment is assigned to students
     can_assign_assignments: Message displayed when the user can assign the assignment
   metrics:
+    editors_doc: Description of the editors metric.
+    program_date_doc: Description of the program date metric.
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned
       trainings that are incomplete and overdue. (Wiki Ed only)

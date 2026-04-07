@@ -46,6 +46,7 @@
 # Author: Teretalexev
 # Author: UniCollab
 # Author: Vlad5250
+# Author: Маринад
 # Author: Марио
 # Author: Туллук
 # Author: Ядерный Трамвай
@@ -710,6 +711,7 @@ ru:
     no_training_library_records_non_wiki_ed_mode: В базе данных нет записей TrainingLibrary.
     remaining_exercise: Осталось %{count} дополнительных упражнений.
     view_all: Просмотреть все упражнения
+    take_your_time: Пожалуйста, не торопитесь!
   update_username:
     username_updated: Имя участника успешно обновлено!
     label: Новое имя участника

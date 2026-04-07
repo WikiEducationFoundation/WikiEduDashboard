@@ -51,6 +51,7 @@ class Alert < ApplicationRecord
     GANominationAlert
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
+    MainspaceAiFollowupAlert
     NeedHelpAlert
     NoTaEnrolledAlert
     NoEnrolledStudentsAlert

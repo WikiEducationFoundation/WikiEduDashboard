@@ -57,6 +57,8 @@ require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
+  before_save :clear_declined_if_submitted
+
   ######################
   # Users for a course #
   ######################
@@ -337,20 +339,26 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  # Returns true if the course only tracks specific assigned/category articles.
   def only_scoped_articles_course?
-    false
+    flags[:article_scoped].present?
   end
 
-  # The default implementation retrieves always true.
-  # A course type may override this implementation.
-  def scoped_article?(_wiki, _title, _mw_page_id)
-    true
+  # Checks if an article is in scope (assigned or in a tracked category).
+  def scoped_article?(wiki, title, mw_page_id)
+    return true unless only_scoped_articles_course?
+    # Normally, scoped_article_titles will include all the in-scope articles
+    # but if the title of an assigned article has changed, we still want to process
+    # edits to that article so that we can update the Assignment#article_title.
+    # A secondary check against the mw_page_ids for assigned articles covers that.
+    scoped_article_titles(wiki).include?(title) ||
+      assigned_article_page_ids(wiki).include?(mw_page_id)
   end
 
-  # The default implemention retrieves all the ACTs.
-  # A course type may override this implementation.
+  # Returns article course timeslices for scoped articles only.
   def scoped_article_timeslices
-    article_course_timeslices
+    return article_course_timeslices unless only_scoped_articles_course?
+    article_course_timeslices.where(article_id: scoped_article_ids)
   end
 
   def scoped_article_titles(wiki)
@@ -532,6 +540,15 @@ class Course < ApplicationRecord
 
   def review_bibliography?
     flags[:review_bibliography].present?
+  end
+
+  def declined?
+    flags && flags[:declined].present?
+  end
+
+  def clear_declined_if_submitted
+    return unless submitted? && flags && flags[:declined]
+    flags.delete(:declined)
   end
 
   def very_long_update?

@@ -50,11 +50,6 @@ describe 'Course Approval', type: :feature, js: true do
       stub_oauth_edit
     end
 
-    it 'sees course approval form' do
-      visit "/courses/#{Course.first.slug}"
-      expect(page).to have_content 'Course Approval Form'
-    end
-
     # If suitable campaign is not inferred and not selected by default, submit button is disabled
     describe 'with campaign not inferred' do
       # Create a campaign belonging to Fall 2022 season
@@ -64,9 +59,11 @@ describe 'Course Approval', type: :feature, js: true do
 
       it 'has submit button disabled' do
         visit "/courses/#{Course.first.slug}"
+        expect(page).to have_content 'Course Approval Form'
         within('.module.course-approval .section-header .controls') do
           expect(page).to have_css('button.dark.disabled')
         end
+        sleep 1 # Workaround: possible race condition if all update requests haven't completed yet
       end
     end
 
@@ -77,22 +74,16 @@ describe 'Course Approval', type: :feature, js: true do
         create(:campaign, title: 'Spring 2022', slug: 'spring_2022')
       end
 
-      it 'has submit button enabled' do
+      it 'has submit button enabled and works' do
         visit "/courses/#{Course.first.slug}"
+        expect(page).to have_content 'This course has been submitted'
         within('.module.course-approval .section-header .controls') do
           expect(page).not_to have_css('button.dark.disabled')
           expect(page).to have_css('button.dark')
         end
-      end
-
-      it 'submits the form' do
-        visit "/courses/#{Course.first.slug}"
-        sleep 1 # Workaround: race condition if fetches haven't completed before button is clicked
         click_button 'Approve Course'
         expect(page).to have_content 'Your course has been published'
-        # rubocop:disable Layout/LineLength
-        expect(page).not_to have_content 'This course has been submitted for approval by its creator'
-        # rubocop:enable Layout/LineLength
+        expect(page).not_to have_content 'This course has been submitted'
         sleep 1 # Workaround: possible race condition if all update requests haven't completed yet
       end
     end

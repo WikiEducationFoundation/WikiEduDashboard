@@ -16,7 +16,7 @@
         = text_area_tag :plain_text, nil, rows: 5, cols: 100
         %hr
         %h4 Models
-        - AiToolsController::MODELS_KEY.each do |key|
+        - RevisionAiScore::MODELS_KEY.each do |key|
           %div.checkbox-group
             = check_box_tag(key.to_sym, '1', true)
             %label{for: key}= key
@@ -27,8 +27,6 @@
       %br
       %a{ href: @url, target: '_blank' }= @url
       %br
-    - if @pangram_v2_result
-      = render 'pangram_2'
     - if @pangram_v3_result
       = render 'pangram_3'
     - if @originality_turbo_result
@@ -39,3 +37,11 @@
       %br
       %h4 Originality Academic Result:
       = render 'originality', originality_result: @originality_academic_result
+    - if @originality_lite_result
+      %br
+      %h4 Originality Lite 1.0.0 Result:
+      = render 'originality', originality_result: @originality_lite_result
+    - if @originality_lite_beta_result
+      %br
+      %h4 Originality Lite 1.0.2 Beta Result:
+      = render 'originality', originality_result: @originality_lite_beta_result

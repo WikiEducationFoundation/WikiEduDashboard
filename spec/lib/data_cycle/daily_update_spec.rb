@@ -22,6 +22,7 @@ describe DailyUpdate do
       expect(RatingImporter).to receive(:update_all_ratings)
       expect(UploadImporter).to receive(:find_deleted_files)
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
+      expect_any_instance_of(MainspaceAiFollowupManager).to receive(:generate_followup_alerts)
       expect(PushCourseToSalesforce).to receive(:new)
       expect(UpdateCourseFromSalesforce).to receive(:new)
       expect(Sentry).to receive(:capture_message).and_call_original

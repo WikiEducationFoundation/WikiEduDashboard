@@ -4,6 +4,7 @@
 # Author: Aa10240tw
 # Author: Cookai1205
 # Author: Cwlin0416
+# Author: Entropy lover nagnto
 # Author: Ffaarr
 # Author: Kly
 # Author: LNDDYL
@@ -988,6 +989,7 @@ zh-TW:
       content: 分配與檢視條目分配
       content_wikidata: 分配與檢視項目分配
   metrics:
+    program_date_doc: 這是專案日期。
     label: 課程活動
     last_update: 最後一次統計更新
     last_articles_update: 最新條目更新
@@ -1788,4 +1790,6 @@ zh-TW:
       weekday_unselected: '{{weekday}} 未選擇'
   question_groups:
     edit_question_group: 編輯問題群組
+  form_search:
+    program_date: 專案日期
 ...
