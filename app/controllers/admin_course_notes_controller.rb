@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdminCourseNotesController < ApplicationController
+  before_action :require_admin_permissions
   before_action :set_course_note, only: [:update, :destroy]
 
   def show
