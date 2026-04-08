@@ -16,20 +16,19 @@ Rails.application.configure do
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
-  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
+  # For large-scale production use, consider using a caching reverse proxy
+  # like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  # TODO: After hashistack is deployed to production, set this to `true`
-  config.public_file_server.enabled = ENV['hashistack']
+  config.public_file_server.enabled = false
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # TODO: After hashistack is deployed to production, set this to `false`
-  config.force_ssl = !ENV['hashistack']
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.logger = Logger.new(STDOUT)
