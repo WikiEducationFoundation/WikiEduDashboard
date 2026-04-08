@@ -133,7 +133,7 @@ class Wiki < ApplicationRecord
   end
 
   def edit_templates
-    @templates ||= YAML.load_file(Rails.root + template_file_path)
+    @templates ||= YAML.safe_load_file(Rails.root + template_file_path)
   end
 
   def course_prefix
