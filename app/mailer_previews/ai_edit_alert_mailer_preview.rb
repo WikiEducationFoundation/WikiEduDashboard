@@ -1,6 +1,37 @@
 # frozen_string_literal: true
 
+require_relative 'mailer_preview_helpers'
+require_dependency "#{Rails.root}/lib/revision_scanner"
+
 class AiEditAlertMailerPreview < ActionMailer::Preview
+  include MailerPreviewHelpers
+
+  DESCRIPTION = "Automatic alerts based on checks for LLM-generated text via Pangram. " +
+                 "We normally check each edit that adds at least " +
+                 "#{RevisionScanner::TEXT_DUMP_CHARACTERS} characters to a wiki page."
+  METHOD_DESCRIPTIONS = {
+    student_program_ai_edit_alert_mainspace:
+      'Alert for a student program edit to a live Wikipedia article',
+    student_program_ai_edit_alert_exercise:
+      'Alert for a course exercise page edit (/Outline suffix)',
+    student_program_ai_edit_alert_sandbox_draft:
+      'Alert for an edit to a user sandbox or draft page',
+    instructor_exercise_advice:
+      'Instructor guidance when the flagged edit is to an exercise page',
+    instructor_sandbox_advice:
+      'Instructor guidance when the flagged edit is to a sandbox or draft',
+    instructor_mainspace_advice:
+      'Instructor guidance when the flagged edit is to a live mainspace article'
+  }.freeze
+  METHOD_RECIPIENTS = {
+    student_program_ai_edit_alert_mainspace: 'student, instructor(s), Wiki Expert',
+    student_program_ai_edit_alert_exercise: 'student, instructor(s), Wiki Expert',
+    student_program_ai_edit_alert_sandbox_draft: 'student, instructor(s), Wiki Expert',
+    instructor_exercise_advice: 'instructor(s), Wiki Expert',
+    instructor_sandbox_advice: 'instructor(s), Wiki Expert',
+    instructor_mainspace_advice: 'instructor(s), Wiki Expert'
+  }.freeze
+
   def student_program_ai_edit_alert_mainspace
     AiEditAlertMailer.email(example_student_program_alert(mainspace_page))
   end
@@ -11,10 +42,6 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
 
   def student_program_ai_edit_alert_sandbox_draft
     AiEditAlertMailer.email(example_student_program_alert(sandbox_draft_page))
-  end
-
-  def scholars_program_ai_edit_alert
-    AiEditAlertMailer.email(example_scholars_alert)
   end
 
   def instructor_exercise_advice
@@ -51,10 +78,14 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
       prior_alert_count_for_course: 0 }
   end
 
+  def example_user
+    User.new(username: 'Sage (Wiki Ed)', email: 'sage@example.com', permissions: 3)
+  end
+
   def example_student_program_alert(article)
     AiEditAlert.new(
-      course: Course.last,
-      user: User.where(permissions: 3).first,
+      course: example_course,
+      user: example_user,
       article: article,
       revision_id: 1127999373,
       details: example_alert_details(article.full_title)
@@ -73,14 +104,4 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
     Article.new(title: 'Artwork title', wiki: Wiki.default_wiki, namespace: 0)
   end
 
-  def example_scholars_alert
-    article = mainspace_page
-    AiEditAlert.new(
-      course: FellowsCohort.last,
-      user: User.where(permissions: 3).first,
-      article: article,
-      revision_id: 1127999373,
-      details: example_alert_details(article.full_title)
-    )
-  end
 end

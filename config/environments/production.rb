@@ -50,6 +50,8 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.show_previews = true
+  config.action_mailer.preview_paths << "#{Rails.root}/app/mailer_previews"
   config.action_mailer.default_url_options = { host: ENV['dashboard_url'] }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true

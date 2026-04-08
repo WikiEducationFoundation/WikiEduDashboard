@@ -1,6 +1,16 @@
 # frozen_string_literal: true
 
+require_relative 'mailer_preview_helpers'
+
 class OverdueTrainingAlertMailerPreview < ActionMailer::Preview
+  include MailerPreviewHelpers
+
+  DESCRIPTION = 'Sent to students who have training modules past due on their course timeline.'
+  METHOD_DESCRIPTIONS = {
+    message_to_student: 'Lists overdue modules and links the student to complete them'
+  }.freeze
+  RECIPIENTS = 'student'
+
   def message_to_student
     OverdueTrainingAlertMailer.email(example_alert)
   end
@@ -20,7 +30,7 @@ class OverdueTrainingAlertMailerPreview < ActionMailer::Preview
 
   def example_alert
     OverdueTrainingAlert.new(user: example_profile.user,
-                             course: Course.nonprivate.last,
+                             course: example_course,
                              details: example_alert_details)
   end
 

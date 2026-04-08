@@ -1,7 +1,32 @@
 # frozen_string_literal: true
 
 # Preview all emails at http://localhost:3000/rails/mailers/survey_mailer
+
+require_relative 'mailer_preview_helpers'
+
 class SurveyMailerPreview < ActionMailer::Preview
+  include MailerPreviewHelpers
+
+  DESCRIPTION = 'Survey invitations and follow-up reminders sent to instructors and students.'
+  METHOD_DESCRIPTIONS = {
+    instructor_survey_notification: 'Invitation to an instructor to complete a course survey',
+    instructor_survey_follow_up: 'Reminder to an instructor who has not yet completed the survey',
+    student_learning_preassessment_notification:
+      'Invitation to a student to complete a pre-assessment survey',
+    student_learning_preassessment_follow_up:
+      'Reminder to a student who has not completed the pre-assessment',
+    custom_notification: 'Initial invitation using a custom email subject, headline, and body',
+    custom_follow_up: 'Follow-up reminder using a custom email subject, headline, and body'
+  }.freeze
+  METHOD_RECIPIENTS = {
+    instructor_survey_notification: 'instructor(s)',
+    instructor_survey_follow_up: 'instructor(s)',
+    student_learning_preassessment_notification: 'student',
+    student_learning_preassessment_follow_up: 'student',
+    custom_notification: 'instructor(s) or student',
+    custom_follow_up: 'instructor(s) or student'
+  }.freeze
+
   def instructor_survey_notification
     SurveyMailer.instructor_survey_notification(example_notification)
   end
@@ -36,7 +61,7 @@ class SurveyMailerPreview < ActionMailer::Preview
     survey_assignment.custom_email_body = 'You will have to chose three articles.'
     survey_assignment.custom_email_signature = 'The survey creator'
     OpenStruct.new(survey_assignment:,
-                   course: Course.nonprivate.last,
+                   course: example_course,
                    survey:, user:
                       User.new(email: 'sage@example.com', username: 'Ragesoss'))
   end
