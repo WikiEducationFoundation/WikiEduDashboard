@@ -3,22 +3,18 @@
 require 'rails_helper'
 
 def stub_diff_api(diff_html)
-  mock_client = double('api_client')
-  allow_any_instance_of(WikiApi)
-    .to receive(:api_client).and_return(mock_client)
-
-  allow(mock_client)
-    .to receive(:action).with('compare', anything) do
-    mock_response(
-      { '*' => diff_html, 'totitle' => 'Test', 'toid' => 1 }
-    )
+  allow_any_instance_of(WikiApi::ArticleContent)
+    .to receive(:revision_diff) do |_instance, _from_rev, _to_rev|
+    {
+      diff_html: diff_html,
+      title: 'Test',
+      page_id: 1
+    }
   end
 
-  allow(mock_client)
-    .to receive(:action).with('parse', anything) do |_, params|
-    mock_response(
-      { 'text' => { '*' => "<p>#{params[:text]}</p>" } }
-    )
+  allow_any_instance_of(WikiApi::ArticleContent)
+    .to receive(:parse_wikitext) do |_instance, text|
+    "<p>#{text}</p>"
   end
 end
 
@@ -37,22 +33,15 @@ def build_new_row(added_text)
     "<div>#{added_text}</div></td></tr></table>"
 end
 
-def mock_response(data)
-  OpenStruct.new(data: data)
-end
-
 def stub_revision_html(html)
-  response_data = {
-    'text' => { '*' => html },
-    'title' => 'Test Article',
-    'pageid' => 123
-  }
-  response = double('response', data: response_data)
-  api_client = double('api_client')
-  wiki_api = double('WikiApi')
-  allow(WikiApi).to receive(:new).and_return(wiki_api)
-  allow(wiki_api).to receive(:api_client).and_return(api_client)
-  allow(api_client).to receive(:action).with('parse', anything).and_return(response)
+  allow_any_instance_of(WikiApi::ArticleContent)
+    .to receive(:revision_html) do |_instance, _rev_id|
+    {
+      html: html,
+      title: 'Test Article',
+      page_id: 123
+    }
+  end
 end
 
 describe GetRevisionPlaintext do

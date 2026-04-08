@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/importers/category_importer"
+require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 # This class identifies articles that are tagged with discretionary sanctions
 # templates, and generates alerts for the articles that have been edited by
@@ -113,41 +114,20 @@ class DiscretionarySanctionsMonitor
   # Returns true if there was an edit made by a course student to the specified page
   # within the period from the creation date of the last resolved alert to the course end date.
   def course_edit_after?(course, page_id, last_resolved_date)
-    @api = WikiApi.new @wiki
-    @query_params = query_params(course, page_id, last_resolved_date)
-    @continue = true
-    until @continue.nil?
-      response = @api.query(@query_params)
-      return false unless response
-      reivisons = filter_revisions(response, page_id, course)
-      # If we found an edit made by the user then return true
-      return true if reivisons.present?
-      @continue = response['continue']
-      @query_params['rvcontinue'] = @continue['rvcontinue'] if @continue
-    end
-    false
-  end
-
-  # Filters the API response to exclude edits made by users who are not course students.
-  # Returns only the edits associated with the course.
-  def filter_revisions(response, page_id, course)
-    revisions = response.data['pages'][page_id.to_s]['revisions']
-    return if revisions.nil?
     students = course.students.pluck(:username)
-    revisions.select { |revision| students.include?(revision['user']) }
-  end
+    article_content = WikiApi::ArticleContent.new(@wiki)
 
-  # Queries for edits made to the specified page within the period
-  # [last resolved alert, course end]
-  def query_params(course, page_id, last_resolved_date)
-    {
-      action: 'query',
-      prop: 'revisions',
-      pageids: page_id,
-      rvend: last_resolved_date.strftime('%Y%m%d%H%M%S'),
-      rvstart: course.end.strftime('%Y%m%d%H%M%S'),
-      rvdir: 'older', # List newest first. rvstart has to be later than rvend.
-      rvlimit: 500
-  }
+    # Pass a block so revision_history stops fetching as soon as a matching
+    # student edit is found in a batch — avoids unnecessary API calls.
+    article_content.revision_history(
+      page_id,
+      start_date: course.end,
+      end_date: last_resolved_date
+    ) do |batch|
+      return true if batch.any? { |rev| students.include?(rev['user']) }
+      false
+    end
+
+    false
   end
 end
