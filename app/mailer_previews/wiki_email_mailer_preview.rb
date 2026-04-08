@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class WikiEmailMailerPreview < ActionMailer::Preview
-  DESCRIPTION = 'Warning sent when a user has a public Wikipedia email address configured.'
+  DESCRIPTION = 'Warning when a user has not set up email on their Wikipedia account.'
   METHOD_DESCRIPTIONS = {
-    email_warning: 'Warns the user that their Wikipedia email is public and may receive spam'
+    email_warning: 'Warns the user that they might not be able to reset their password'
   }.freeze
   RECIPIENTS = 'user'
 

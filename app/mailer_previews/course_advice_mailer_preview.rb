@@ -5,7 +5,7 @@ require_relative 'mailer_preview_helpers'
 class CourseAdviceMailerPreview < ActionMailer::Preview
   include MailerPreviewHelpers
 
-  DESCRIPTION = 'Advice emails sent to instructors by Wiki Ed staff at key stages of their course.'
+  DESCRIPTION = 'Series of automatic advice emails sent based on timeline dates.'
   METHOD_DESCRIPTIONS = {
     biographies: 'Advice for instructors whose students are working on biography articles',
     hype_video: 'Advice including a link to the Wiki Ed hype video for instructor motivation',

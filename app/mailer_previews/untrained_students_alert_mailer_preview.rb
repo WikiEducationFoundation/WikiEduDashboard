@@ -5,7 +5,7 @@ require_relative 'mailer_preview_helpers'
 class UntrainedStudentsAlertMailerPreview < ActionMailer::Preview
   include MailerPreviewHelpers
 
-  DESCRIPTION = 'Sent when students in a course have not completed required Wikipedia training.'
+  DESCRIPTION = 'Sent when a significant portion of students are behind on assigned trainings.'
   METHOD_DESCRIPTIONS = {
     message_to_instructors: 'Tells instructors how many students are untrained'
   }.freeze

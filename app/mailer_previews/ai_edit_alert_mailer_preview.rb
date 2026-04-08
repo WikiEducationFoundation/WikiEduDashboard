@@ -7,7 +7,7 @@ class AiEditAlertMailerPreview < ActionMailer::Preview
   include MailerPreviewHelpers
 
   DESCRIPTION = "Automatic alerts based on checks for LLM-generated text via Pangram. " +
-                 "We normal check each edit that adds at least " +
+                 "We normally check each edit that adds at least " +
                  "#{RevisionScanner::TEXT_DUMP_CHARACTERS} characters to a wiki page."
   METHOD_DESCRIPTIONS = {
     student_program_ai_edit_alert_mainspace:

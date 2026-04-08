@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CourseApprovalMailerPreview < ActionMailer::Preview
-  DESCRIPTION = 'Sent to instructors when their course application is approved by Wiki Education staff.' # rubocop:disable Layout/LineLength
+  DESCRIPTION = 'Automatically sent when a course application is approved by Wiki Education staff.' # rubocop:disable Layout/LineLength
   METHOD_DESCRIPTIONS = {
     returning_instructor_approval: 'Course approval (returning instructor)',
     new_instructor_approval: 'Course approval (first-time instructor)',

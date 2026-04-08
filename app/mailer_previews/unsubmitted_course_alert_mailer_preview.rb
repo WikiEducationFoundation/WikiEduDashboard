@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UnsubmittedCourseAlertMailerPreview < ActionMailer::Preview
-  DESCRIPTION = 'Sent when an instructor has not submitted their course draft for approval.'
+  DESCRIPTION = 'Automatic reminder when a course has not been submittedfor approval.'
   METHOD_DESCRIPTIONS = {
     message_to_instructor: 'Nudges the instructor to submit their course before the start date'
   }.freeze

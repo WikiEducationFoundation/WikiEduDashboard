@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CourseApprovalFollowupMailerPreview < ActionMailer::Preview
-  DESCRIPTION = 'Follow-up from a Wiki Ed staffer after course approval, covering next steps.'
+  DESCRIPTION = 'Automatically sent a few days after a course is approved by Wiki Education staff.'
   METHOD_DESCRIPTIONS = {
     approval_followup: 'Personal follow-up introducing the Wiki Ed staffer to the instructor'
   }.freeze
