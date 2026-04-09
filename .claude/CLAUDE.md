@@ -5,10 +5,15 @@
 ```bash
 bundle exec rspec spec/path/to/spec.rb   # single spec file
 bundle exec rspec                         # full Ruby suite
+bin/full-suite                            # full suite + archive coverage
 bundle exec rubocop                       # lint Ruby
 yarn test                                 # JavaScript suite
 yarn lint-non-build                       # ESLint on test/ and root JS files
 ```
+
+When asked to run the full test suite and save coverage, use `bin/full-suite`.
+It runs `bundle exec rspec`, then renames `coverage/` to
+`coverage.all.YYYY-MM-DD/` (with a numeric suffix if that name already exists).
 
 RuboCop and ESLint are enforced. Fix offenses before considering a task done.
 Key project limits (differ from RuboCop defaults):

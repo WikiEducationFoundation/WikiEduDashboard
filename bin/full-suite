@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Run the full rspec suite and archive the coverage directory with today's date.
+#
+# Usage:
+#   bin/full-suite
+#   bin/full-suite [extra rspec args...]
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+date_stamp=$(date +%Y-%m-%d)
+archive="coverage.all.${date_stamp}"
+
+bundle exec rspec "$@" || rspec_exit=$?
+rspec_exit=${rspec_exit:-0}
+
+if [ -d coverage ]; then
+  # Avoid clobbering an existing archive from the same day
+  if [ -d "$archive" ]; then
+    suffix=2
+    while [ -d "${archive}.${suffix}" ]; do
+      suffix=$((suffix + 1))
+    done
+    archive="${archive}.${suffix}"
+  fi
+
+  mv coverage "$archive"
+  echo ""
+  echo "Coverage archived to ${archive}/"
+else
+  echo "No coverage/ directory found to archive."
+fi
+
+exit $rspec_exit
