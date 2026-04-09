@@ -16,21 +16,25 @@
       border-bottom 2px solid #e0e0e0
 
   .stats-grid
-    display grid
-    grid-template-columns repeat(3, 1fr)
-    gap 15px
+    display flex
+    flex-wrap wrap
+    justify-content center
+    gap 16px
     margin 20px 0
-    max-width 800px
+    max-width 850px
 
   .stats-card
     text-align center
-    padding 15px
+    padding 20px 16px
     margin 0
+    flex 1 1 calc(33.33% - 16px)
+    max-width calc(33.33% - 16px)
+    min-width 160px
     
     h3
       font-size 1.8em
-      font-weight 700
-      color #2c5aa0
+      font-weight 300
+      color $brand_primary
       margin 0 0 8px 0
       
     p
@@ -139,11 +143,12 @@
 
   @media (max-width: 768px)
     .stats-grid
-      grid-template-columns repeat(2, 1fr)
       gap 12px
       
     .stats-card
-      padding 12px
+      flex 1 1 calc(50% - 12px)
+      max-width calc(50% - 12px)
+      padding 16px 12px
       
       h3
         font-size 1.6em
@@ -152,18 +157,18 @@
       columns 1
 
   @media (max-width: 480px)
-    .stats-grid
-      grid-template-columns 1fr
-      
     .stats-card
-      padding 12px
+      flex 1 1 100%
+      max-width 100%
+      padding 14px 12px
       
       h3
         font-size 1.4em
-
+        
   h3
     margin 0
 
   ul
     margin 0
     padding 0
+    
