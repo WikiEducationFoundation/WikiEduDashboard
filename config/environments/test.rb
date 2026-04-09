@@ -87,7 +87,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.delivery_method = :test
   config.action_mailer.show_previews = true
-  config.action_mailer.preview_paths << "#{Rails.root}/spec/mailers/previews"
+  config.action_mailer.preview_paths << "#{Rails.root}/app/mailer_previews"
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

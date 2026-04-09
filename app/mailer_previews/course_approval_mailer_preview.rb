@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class CourseApprovalMailerPreview < ActionMailer::Preview
+  DESCRIPTION = 'Automatically sent when a course application is approved by Wiki Education staff.' # rubocop:disable Layout/LineLength
+  METHOD_DESCRIPTIONS = {
+    returning_instructor_approval: 'Course approval (returning instructor)',
+    new_instructor_approval: 'Course approval (first-time instructor)',
+    new_sandbox_approval: 'Course approval (stay-in-sandbox course, first-time instructor)',
+    returning_sandbox_approval: 'Course approval (stay-in-sandbox course, returning instructor)'
+  }.freeze
+  RECIPIENTS = 'instructor(s)'
+
   def returning_instructor_approval
     CourseApprovalMailer.email(example_returning_course, example_user)
   end

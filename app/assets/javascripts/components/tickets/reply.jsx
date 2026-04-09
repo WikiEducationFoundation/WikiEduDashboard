@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 import linkifyHtml from 'linkify-html';
 
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
@@ -53,7 +54,7 @@ export const Reply = ({ message }) => {
         {subject}
         { cc }
         { (subject || cc) && <hr /> }
-        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content, { target: { url: '_blank' } }) }} />
+        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(linkifyHtml(message.content, { target: { url: '_blank' } }), { ALLOWED_TAGS: ['a'], ALLOWED_ATTR: ['href', 'target', 'rel'] }) }} />
       </section>
       <aside className="reply-details">
         <span className="from">

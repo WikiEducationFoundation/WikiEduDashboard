@@ -52,6 +52,35 @@ describe WizardTimelineManager do
     end
   end
 
+  describe 'wizard_id validation' do
+    let(:course) do
+      create(:course, start: '2016-08-01', end: '2016-09-23',
+                      timeline_start: '2016-08-01', timeline_end: '2016-09-23',
+                      weekdays: '1111111')
+    end
+    let(:wizard_params) do
+      { 'wizard_output' => { 'output' => [], 'logic' => [], 'tags' => [] } }
+    end
+
+    it 'raises an error for a path traversal wizard_id' do
+      expect do
+        described_class.update_timeline_and_tags(course, '../../etc', wizard_params)
+      end.to raise_error(WizardTimelineManager::InvalidWizardError)
+    end
+
+    it 'raises an error for an unknown wizard_id' do
+      expect do
+        described_class.update_timeline_and_tags(course, 'nonexistent', wizard_params)
+      end.to raise_error(WizardTimelineManager::InvalidWizardError)
+    end
+
+    it 'accepts a valid wizard_id' do
+      expect do
+        described_class.update_timeline_and_tags(course, 'researchwrite', wizard_params)
+      end.not_to raise_error
+    end
+  end
+
   describe '#add_tags' do
     it 'updates a tag with the same key as an existing tag' do
       create(:course, id: 10001, timeline_start: Time.zone.today, timeline_end: Time.zone.today)

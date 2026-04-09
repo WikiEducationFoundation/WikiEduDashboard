@@ -523,6 +523,8 @@ Rails.application.routes.draw do
     get 'can_start_backup.json' => 'backups#can_start_backup'
   end
 
+  get '/mailer_previews' => 'mailer_previews#index'
+
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'
 
