@@ -53,7 +53,6 @@ describe 'cloning a course', js: true do
 
   it 'copies relevant attributes of an existing course' do
     course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
-    visit '/status'
     login_as user
     visit root_path
     click_link 'Create Course'
@@ -116,7 +115,7 @@ describe 'cloning a course', js: true do
 
   it 'copies relevant attributes of an existing course with assignments' do
     course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
-    visit '/status'  # Abort stale AJAX from previous spec; /status has no JS
+    visit '/status' # Flush browser state from previous spec
     login_as user
     visit root_path
     click_link 'Create Course'
