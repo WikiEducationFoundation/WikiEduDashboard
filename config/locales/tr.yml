@@ -154,13 +154,13 @@ tr:
     alert_label: Uyarılar
     ai_stats:
       timestamp: Tarih bilgisi
-      title: AI Düzenleme Uyarıları İstatistikleri
+      title: '%{campaign_name} için Yapay Zeka Düzenleme Uyarıları İstatistikleri'
       total_alerts: Toplam AI Düzenleme Uyarıları
-      with_followup: Takip ile
+      with_followup: Yapay Zeka Destekli Düzenleme Uyarıları ve Takip Bildirimleri
       multiple_alerts_pages: Birden fazla uyarı içeren sayfalar
       single_alert_view: Uyarı
       sections:
-        contents: Listeler için içerik tablosu
+        contents: Sayfa içindekileri
         name: İsim
         description: Açıklama
         in_mainspace: Ana alandaki son uyarılar
