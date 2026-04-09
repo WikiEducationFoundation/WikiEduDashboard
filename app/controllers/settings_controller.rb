@@ -105,7 +105,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
         ensure_user_exists(special_user_params[:username]) { return }
         unless SpecialUsers.respond_to? @position
           return render json: { message: 'position is invalid' },
-                        status: :unprocessable_entity
+                        status: :unprocessable_content
         end
         yield
       end
@@ -315,7 +315,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       error_key = action == :add ? 'already_exists' : 'not_found'
       render json: {
         message: I18n.t("settings.disallowed_users.#{action}.#{error_key}", username:)
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
   end
 end

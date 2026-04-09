@@ -40,7 +40,7 @@ RSpec.describe AdminCourseNotesController, type: :controller do
       patch :update,
             params: { id: admin_course_note.id, admin_course_note: { title: 'Updated Title' } }
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       json_response = JSON.parse(response.body)
       expect(json_response['error']).to eq('Failed to update course note')
     end
@@ -76,7 +76,7 @@ RSpec.describe AdminCourseNotesController, type: :controller do
       allow_any_instance_of(AdminCourseNote).to receive(:destroy).and_return(false)
       delete :destroy, params: { id: admin_course_note.id }
 
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
       json_response = JSON.parse(response.body)
       expect(json_response['error']).to eq('Failed to delete course note')
     end
