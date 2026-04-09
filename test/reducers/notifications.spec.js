@@ -199,7 +199,6 @@ describe('notifications reducer', () => {
     };
     const expectedState = [notification];
     const errorSpy = jest.spyOn(console, 'error');
-    const logSpy = jest.spyOn(console, 'log');
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
     expect(errorSpy).toHaveBeenCalledWith('API_FAIL ():', '');

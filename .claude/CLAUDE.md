@@ -7,9 +7,10 @@ bundle exec rspec spec/path/to/spec.rb   # single spec file
 bundle exec rspec                         # full Ruby suite
 bundle exec rubocop                       # lint Ruby
 yarn test                                 # JavaScript suite
+yarn lint-non-build                       # ESLint on test/ and root JS files
 ```
 
-RuboCop is enforced. Fix offenses before considering a task done.
+RuboCop and ESLint are enforced. Fix offenses before considering a task done.
 Key project limits (differ from RuboCop defaults):
 - Line length: 100 characters
 - Method length: 16 lines
