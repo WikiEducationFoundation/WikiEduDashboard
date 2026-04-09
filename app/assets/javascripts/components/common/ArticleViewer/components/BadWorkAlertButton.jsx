@@ -6,7 +6,7 @@ export const BadWorkAlertButton = ({ showBadArticleAlert }) => (
     className="button small pull-right article-viewer-button"
     onClick={showBadArticleAlert}
   >
-    Quality Problems?
+    {I18n.t('instructor_view.bad_work.quality_problems_button')}
   </a>
 );
 
