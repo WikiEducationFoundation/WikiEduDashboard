@@ -1571,6 +1571,9 @@ en:
       week or change your assignment dates to make room for a new one.
     view_full_timeline: View Full Timeline
     week_number: "Week %{number}"
+    add_block: Add Block
+    delete_week: Delete Week
+    
 
   training:
     continue: Continue (%{progress})
