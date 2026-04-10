@@ -76,9 +76,6 @@ describe 'timeline editing', feature: true, js: true do
   end
 
   it 'allows dragging and dropping blocks' do
-    pending 'Drag and drop does not work in Capybara after upgrading react-dnd'
-    # https://github.com/react-dnd/react-dnd/issues/1195
-
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
 
@@ -86,11 +83,9 @@ describe 'timeline editing', feature: true, js: true do
     expect(first_block).to have_content 'Block 1'
     later_block = find('.week-2 .week__block-list > li:nth-child(1)')
 
-    first_block.drag_to(later_block)
+    html5_drag_to(first_block, later_block)
     sleep 0.5
     expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 1'
-
-    pass_pending_spec
   end
 
   it 'allows moving blocks between weeks' do
