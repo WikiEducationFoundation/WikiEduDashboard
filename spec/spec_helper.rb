@@ -17,6 +17,7 @@ SimpleCov.start 'rails' do
   add_filter 'lib/tasks' # even though we test these, coverage doesn't work right.
   add_filter 'setup'
   add_filter 'lib/development'
+  command_name "rspec#{ENV['TEST_ENV_NUMBER']}" if ENV['PARALLEL_TEST_GROUPS']
 end
 
 require 'vcr'

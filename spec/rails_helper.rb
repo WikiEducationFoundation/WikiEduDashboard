@@ -130,8 +130,11 @@ RSpec.configure do |config|
       end
     end
   end
+  config.after(:each) do
+    I18n.locale = I18n.default_locale
+  end
   config.after(:suite) do
-    if ENV['COVERAGE'] == 'true'
+    if ENV['COVERAGE'] == 'true' && !ENV['PARALLEL_TEST_GROUPS']
       Rails.application.load_tasks
       Rake::Task['generate:coverage'].invoke
     end

@@ -53,7 +53,7 @@ describe 'logging in', type: :feature, js: true do
       mock_and_stub_oauth_login
       visit '/'
       click_link 'Log in with Wikipedia'
-      expect(page).to have_content 'Log out'
+      expect(page).to have_content 'Ragesoss'
       expect(User.last.first_login).not_to be_nil
     end
 
@@ -65,7 +65,7 @@ describe 'logging in', type: :feature, js: true do
         extra: { raw_info: { login_failed: true } }
       )
       visit '/training'
-      click_link 'Log in'
+      find('a', text: 'Log in').click
       expect(page).to have_content 'Login Error'
     end
   end
