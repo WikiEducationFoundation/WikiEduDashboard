@@ -65,7 +65,7 @@ describe 'logging in', type: :feature, js: true do
         extra: { raw_info: { login_failed: true } }
       )
       visit '/training'
-      find_link('Log in', wait: 10).click
+      find('a', text: 'Log in').click
       expect(page).to have_content 'Login Error'
     end
   end
