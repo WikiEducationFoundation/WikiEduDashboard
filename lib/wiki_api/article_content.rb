@@ -108,8 +108,15 @@ class WikiApi
     # Handles continuation automatically.
     # If a block is given, stops fetching if the block returns truthy (early exit).
     # Returns all revisions fetched as a flat array.
-    def revision_history(page_id, start_date:, end_date:, limit: 500)
-      query_params = {
+    def revision_history(page_id, start_date:, end_date:, limit: 500, &block)
+      query_params = revision_history_params(page_id, start_date, end_date, limit)
+      fetch_all_revisions(page_id, query_params, &block)
+    end
+
+    private
+
+    def revision_history_params(page_id, start_date, end_date, limit)
+      {
         action: 'query',
         prop: 'revisions',
         pageids: page_id,
@@ -118,7 +125,9 @@ class WikiApi
         rvdir: 'older',
         rvlimit: limit
       }
+    end
 
+    def fetch_all_revisions(page_id, query_params)
       all_revisions = []
       loop do
         response = @wiki_api.query(query_params)
@@ -137,8 +146,6 @@ class WikiApi
 
       all_revisions
     end
-
-    private
 
     def api_client
       @wiki_api.send(:api_client)
