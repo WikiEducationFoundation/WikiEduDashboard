@@ -14,5 +14,6 @@ describe 'Hamburger navigation menu', type: :feature, js: true do
     expect(page).to have_content 'Explore'
     find('.bm-menu-active').click
     expect(page).not_to have_content 'Explore'
+    page.current_window.resize_to(1200, 1200)
   end
 end
