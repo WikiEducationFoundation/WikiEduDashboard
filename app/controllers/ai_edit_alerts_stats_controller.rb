@@ -90,7 +90,7 @@ class AiEditAlertsStatsController < ApplicationController
 
   def set_followups
     # Student followup is prioritized over non-student followups.
-    @followups = (@alerts.map { |a| a.followup_student || a.followups.values.first }).compact
+    @followups = @alerts.map { |a| a.followup_student || a.followups.values.first }.compact
   end
 
   # Sets a hash of counts by page types.

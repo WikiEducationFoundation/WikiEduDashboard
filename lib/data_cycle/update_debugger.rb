@@ -10,7 +10,7 @@ class UpdateDebugger
     @sentry_logs ||= {}
     @log_number ||= 0
     # Add the log number to the step name so that the records are sorted
-    ordered_step = "#{@log_number}_#{step}".to_sym
+    ordered_step = :"#{@log_number}_#{step}"
     @sentry_logs[ordered_step] = Time.zone.now
     @log_number += 1
     Sentry.capture_message "#{@course.title} update: #{step}",
