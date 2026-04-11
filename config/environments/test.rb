@@ -39,14 +39,16 @@ Dir.glob("./.nyc_output/*").each{ |f| FileUtils.rm(f) }
 def dump_js_coverage
   return unless ENV["COVERAGE"]
 
+  suffix = ENV['TEST_ENV_NUMBER'] || ''
   page_coverage = page.evaluate_script("JSON.stringify(window.__coverage__);")
   return if page_coverage.blank?
 
-  File.open(Rails.root.join(".nyc_output", "temp.json"), "w") do |report|
+  File.open(Rails.root.join(".nyc_output", "temp#{suffix}.json"), "w") do |report|
     report.puts page_coverage
   end
 
-  system("npx nyc merge .nyc_output .nyc_output/out.json >> /dev/null && rm .nyc_output/temp.json")
+  system("npx nyc merge .nyc_output .nyc_output/out#{suffix}.json >> /dev/null " \
+         "&& rm .nyc_output/temp#{suffix}.json")
 end
 
 
