@@ -106,6 +106,9 @@ RSpec.configure do |config|
     errors = page.driver.browser.logs.get(:browser)
 
     warn errors
+
+    # Clear persistent browser state from previous spec
+    page.driver.browser.manage.delete_all_cookies
   end
 
   # fail on javascript errors in feature specs
@@ -120,26 +123,22 @@ RSpec.configure do |config|
     # logs in the `before` block above.
     errors = page.driver.browser.logs.get(:browser)
 
+    # Kill all in-flight requests and timers by navigating away.
+    # window.stop() immediately cancels pending fetches so they can't complete
+    # during the next spec and pollute its browser logs with SEVERE entries.
+    # The AbortErrors it generates appear after logs.get above, so they don't
+    # affect this spec — they get cleared by the next spec's before hook.
+    page.execute_script('window.stop()') rescue nil # rubocop:disable Style/RescueModifier
+    visit 'about:blank'
+
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
 
-    if errors.present?
-      aggregate_failures 'javascript errrors' do
-        errors.each do |error|
-          # some specs test behavior for 4xx responses and other errors.
-          # Don't fail on these.
-          next if /Failed to load resource/.match?(error.message)
-
-          warn 'JavaScript warning / error'
-          warn error.level
-          warn error
-          warn error.message
-          expect(error.level).not_to eq('SEVERE'), error.message
-        end
-      end
-    end
+    check_for_severe_js_errors(errors)
   end
   config.after(:each) do
+    travel_back
+    Warden.test_reset!
     I18n.locale = I18n.default_locale
   end
   config.after(:suite) do
@@ -189,6 +188,28 @@ def pass_pending_spec
     print 'P'
   end
   raise 'this test passed — this time'
+end
+
+# Checks browser log entries for SEVERE JavaScript errors and fails the
+# current example if any are found. Filters out "Failed to load resource"
+# entries (expected in specs that test 4xx responses).
+# Also used by spec/features/js_error_detection_spec.rb to verify this
+# mechanism works.
+def check_for_severe_js_errors(browser_log_entries)
+  severe = browser_log_entries.select do |error|
+    error.level == 'SEVERE' && !/Failed to load resource/.match?(error.message)
+  end
+  return if severe.empty?
+
+  aggregate_failures 'javascript errors' do
+    severe.each do |error|
+      warn 'JavaScript warning / error'
+      warn error.level
+      warn error
+      warn error.message
+      expect(error.level).not_to eq('SEVERE'), error.message
+    end
+  end
 end
 
 def format_local_datetime(date)
