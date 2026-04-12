@@ -394,7 +394,8 @@ module RequestHelpers
         "update_until": "2024-07-14T23:59:59.000Z",
         "withdrawn": false,
         "created_at": "2023-12-03T15:22:55.000Z",
-        "wikis": [{ "language": "en", "project": "wikipedia" }],
+        "wikis": [{ "language": "en", "project": "wikipedia" },
+                  { "language": "es", "project": "wikipedia" }],
         "namespaces": [],
         "timeline_enabled": true,
         "disable_student_emails": false,
@@ -503,7 +504,8 @@ module RequestHelpers
                 "title": "Introduction to the Wikipedia assignment",
                 "order": 1,
                 "due_date": null,
-                "points": null
+                "points": null,
+                "training_module_ids": [1, 15]
               }
             ]
           }
@@ -553,8 +555,14 @@ module RequestHelpers
 
   def stub_training_modules
     url = 'https://dashboard.wikiedu.org/training_modules.json'
+    body = {
+      training_modules: [
+        { id: 1, slug: 'wikipedia-essentials', name: 'Wikipedia essentials', kind: 0 },
+        { id: 15, slug: 'editing-basics', name: 'Editing basics', kind: 1 }
+      ]
+    }.to_json
     stub_request(:get, url)
-      .to_return(status: 200, body: '{}', headers: {})
+      .to_return(status: 200, body: body, headers: {})
   end
 
   def stub_course
