@@ -841,4 +841,60 @@ describe CoursesController, type: :request do
       expect(response).to redirect_to("/courses/#{course.slug}")
     end
   end
+
+  describe 'program participant JSON endpoints' do
+    let(:student) { create(:user, username: 'StudentUser') }
+    let(:instructor) { create(:user, username: 'InstructorUser') }
+    let(:campaign) { create(:campaign) }
+    let!(:classroom_course) { create(:course, slug: 'School/Classroom_(Term)') }
+    let!(:fellows_course) { create(:fellows_cohort, slug: 'School/Fellows_(Term)') }
+
+    before do
+      # Both courses need a campaign to appear in these queries
+      classroom_course.campaigns << campaign
+      fellows_course.campaigns << campaign
+
+      # Add student and instructor to both courses
+      [classroom_course, fellows_course].each do |course|
+        create(:courses_user, user: student, course:,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+        create(:courses_user, user: instructor, course:,
+                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+    end
+
+    it 'returns classroom program students' do
+      get '/courses/classroom_program_students.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['slug']).to eq('School/Classroom_(Term)')
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors']).to be_nil
+    end
+
+    it 'returns classroom program students and instructors' do
+      get '/courses/classroom_program_students_and_instructors.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors'].first['username']).to eq('InstructorUser')
+    end
+
+    it 'returns fellows cohort students' do
+      get '/courses/fellows_cohort_students.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['slug']).to eq('School/Fellows_(Term)')
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors']).to be_nil
+    end
+
+    it 'returns fellows cohort students and instructors' do
+      get '/courses/fellows_cohort_students_and_instructors.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors'].first['username']).to eq('InstructorUser')
+    end
+  end
 end
