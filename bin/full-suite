@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Run the full rspec suite and archive the coverage directory with today's date.
+# Run the full rspec suite in parallel and archive the coverage directory
+# with today's date.
 #
 # Usage:
 #   bin/full-suite
-#   bin/full-suite [extra rspec args...]
+#   bin/full-suite [extra parallel_rspec args...]
 
 set -euo pipefail
 
@@ -12,7 +13,7 @@ cd "$(dirname "$0")/.."
 date_stamp=$(date +%Y-%m-%d)
 archive="coverage.all.${date_stamp}"
 
-bundle exec rspec "$@" || rspec_exit=$?
+PARALLEL_TEST_GROUPS=true bundle exec parallel_rspec -n 4 "$@" || rspec_exit=$?
 rspec_exit=${rspec_exit:-0}
 
 if [ -d coverage ]; then

@@ -64,6 +64,15 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true # This enables transactions for all tests
   config.global_fixtures = :all
 
+  # Retry examples that hit MySQL deadlocks (InnoDB gap-lock conflicts
+  # between the fixture transaction and SAVEPOINT inserts, especially
+  # under parallel_tests).
+  config.around do |example|
+    example.run
+  rescue ActiveRecord::Deadlocked
+    example.run
+  end
+
   config.include Devise::Test::ControllerHelpers, type: :controller
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
