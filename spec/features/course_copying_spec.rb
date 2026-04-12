@@ -21,7 +21,6 @@ describe 'course copying', type: :feature, js: true do
   let(:subject) { 'Advanced Foo' }
 
   it 'checks copying of course across server' do
-    visit '/status'
     login_as(user, scope: :user)
     visit root_path
     click_link 'Copy Course from another Server'
