@@ -269,8 +269,6 @@ Style/MultipleComparison:
   Enabled: false
 Style/MinMaxComparison:
   Enabled: false
-Lint/SymbolConversion:
-  Enabled: false
 Style/CollectionQuerying:
   Enabled: false
 Style/RedundantEach:
@@ -291,13 +289,7 @@ Style/SafeNavigationChainLength:
   Enabled: false
 Lint/AmbiguousRange:
   Enabled: false
-Style/RedundantStringEscape:
-  Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
-Style/RedundantConstantBase:
-  Enabled: false
-Lint/RedundantCopDisableDirective:
   Enabled: false
 Style/SafeNavigation:
   Enabled: false
