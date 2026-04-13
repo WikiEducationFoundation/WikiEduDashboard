@@ -6,7 +6,7 @@
 
   .chart-container
     margin-bottom 30px
-    
+
     .chart-title
       color #333
       font-size 1.3em
@@ -16,27 +16,23 @@
       border-bottom 2px solid #e0e0e0
 
   .stats-grid
-    display flex
-    flex-wrap wrap
-    justify-content center
-    gap 16px
+    display grid
+    grid-template-columns repeat(3, 1fr)
+    gap 15px
     margin 20px 0
-    max-width 850px
+    max-width 800px
 
   .stats-card
     text-align center
-    padding 20px 16px
+    padding 15px
     margin 0
-    flex 1 1 calc(33.33% - 16px)
-    max-width calc(33.33% - 16px)
-    min-width 160px
-    
+
     h3
       font-size 1.8em
-      font-weight 300
-      color $brand_primary
+      font-weight 700
+      color #2c5aa0
       margin 0 0 8px 0
-      
+
     p
       color #666
       font-size 0.85em
@@ -46,12 +42,12 @@
 
   .section-header
     margin-bottom 20px
-    
+
     h2
       color #333
       font-size 1.8em
       margin-bottom 5px
-      
+
     .subtitle
       color #666
       font-size 1em
@@ -63,29 +59,29 @@
     margin 0
     list-style-type disc
     padding-left 20px
-    
+
     li
       margin-bottom 8px
-      
+
       a
         color #007bff
         text-decoration none
-        
+
         &:hover
           text-decoration underline
-      
+
       .count
         color #666
         font-size 0.9em
         margin-left 5px
-    
+
     &.all-wikis
       li
         font-size 0.95em
-    
+
     &.top-wikis
       list-style-type decimal
-      
+
       li
         .rank
           font-weight 700
@@ -103,7 +99,7 @@
     color #333
     font-size 1.1em
     font-weight 600
-    
+
     .project-count, .language-count
       color #666
       font-size 0.85em
@@ -116,7 +112,7 @@
     margin-top 0
     margin-bottom 24px
     padding 0
-    
+
     li
       margin-bottom 4px
       padding 0
@@ -124,10 +120,10 @@
 
   .wiki-view-selector
     margin-bottom 20px
-    
+
     label
       margin-right 10px
-    
+
     .wiki-dropdown
       padding 5px 10px
       border 1px solid #ccc
@@ -143,32 +139,31 @@
 
   @media (max-width: 768px)
     .stats-grid
+      grid-template-columns repeat(2, 1fr)
       gap 12px
-      
+
     .stats-card
-      flex 1 1 calc(50% - 12px)
-      max-width calc(50% - 12px)
-      padding 16px 12px
-      
+      padding 12px
+
       h3
         font-size 1.6em
-        
+
     .wiki-list
       columns 1
 
   @media (max-width: 480px)
+    .stats-grid
+      grid-template-columns 1fr
+
     .stats-card
-      flex 1 1 100%
-      max-width 100%
-      padding 14px 12px
-      
+      padding 12px
+
       h3
         font-size 1.4em
-        
+
   h3
     margin 0
 
   ul
     margin 0
     padding 0
-    

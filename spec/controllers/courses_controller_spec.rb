@@ -335,7 +335,7 @@ describe CoursesController, type: :request do
         params = { course: { slug: course1.slug } }
         put "/courses/#{course2.slug}", params: params, as: :json
 
-        expect(response).to have_http_status(:conflict) 
+        expect(response).to have_http_status(:conflict)
 
         json_response = JSON.parse(response.body)
         expect(json_response['message']).to include('already taken')

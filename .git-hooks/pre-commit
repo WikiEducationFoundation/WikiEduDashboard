@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check for whitespace errors in staged changes
+if ! git diff --cached --check > /dev/null 2>&1; then
+  echo "Whitespace errors found (trailing whitespace or missing final newline)."
+  git diff --cached --check
+  exit 1
+fi
+
 staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.rb$')
 [ -z "$staged" ] && exit 0
 

@@ -31,7 +31,7 @@
     %form#timeslice-form{action: '/timeslice_duration/update', method: 'post'}
       = csrf_meta_tags
       %input{name: "authenticity_token", type: "hidden", value: form_authenticity_token}
-      
+
       %input#course_id{type: "hidden", name: "course_id", value: @course.id}
 
       %label{for: "wiki-id"} Wiki id (example: 1):
@@ -39,4 +39,4 @@
       %label{for: "duration"} New timeslice duration (in seconds):
       %input#duration{type: "number", name: "duration"}
       %button{type: 'submit'}
-        %div.button.dark Update timeslice duration    
+        %div.button.dark Update timeslice duration

@@ -15,7 +15,7 @@ class MainspaceAiFollowupManager
     mainspace_ai_alerts.each do |ai_alert|
       next if followup_alert_already_exists?(ai_alert)
       next unless significant_additions_after_ai_alert?(ai_alert)
-      
+
       MainspaceAiFollowupAlert.create!(
         course_id: ai_alert.course_id,
         article_id: ai_alert.article_id,
@@ -40,4 +40,3 @@ class MainspaceAiFollowupManager
     ai_alert.characters_added_after_alert > CHARACTERS_ADDED_THRESHOLD
   end
 end
-  

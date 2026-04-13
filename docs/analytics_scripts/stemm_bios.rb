@@ -3,7 +3,7 @@
 # https://en.wikipedia.org/wiki/Wikipedia:Wiki_Education/Biographies
 
 # run it like:
-# bundle exec rails r docs/analytics_scripts/stemm_bios.rb 
+# bundle exec rails r docs/analytics_scripts/stemm_bios.rb
 
 require_relative "../../lib/importers/category_importer"
 
@@ -35,7 +35,7 @@ def mainspace_links(page_title)
     resp_links = resp.data.dig('pages', page_id, 'links')
     links << resp_links
     cont = resp['continue']
-  
+
     resp = WikiApi.new.query(query.merge cont) if cont
   end
 

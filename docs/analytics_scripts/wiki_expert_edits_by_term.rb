@@ -25,7 +25,7 @@ end
 
 
 courses.each do |c|
-  c.campaigns << Campaign.last  
+  c.campaigns << Campaign.last
 end
 
 courses.each do |c|

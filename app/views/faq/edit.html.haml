@@ -6,7 +6,7 @@
       = f.input :title, input_html: { class: 'faq-editor__title' }
       = f.input :content, as: :text,
                  input_html: { id: 'faq_content', class: 'faq-editor__textarea', rows: 16, 'data-preview-target': '#faq_preview' }
-      = f.button :submit, class: 'button'        
+      = f.button :submit, class: 'button'
 
     %hr
     = button_to 'Delete', @faq, method: :delete,

@@ -1,9 +1,9 @@
 # Find out which articles from among the biography lists
 # were edited by students in Spring 2025 courses
-# 
+#
 # https://en.wikipedia.org/wiki/Wikipedia:Wiki_Education/Biographies
 # https://dashboard.wikiedu.org/training/students/update-a-biography-exercise/find-a-bio-to-improve
-# 
+#
 
 en_wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
 
@@ -16,9 +16,9 @@ wikidata_cat.refresh_titles # 2919 titles in March; 2924 in April; 2932 in June;
 wikidata_cat = Category.get_or_create(wiki: en_wiki, name: 45621459, depth: 0, source: 'psid' )
 # 3556 titles in April 2026
 
-# https://en.wikipedia.org/wiki/Category:21st-century_African-American_scientists 
+# https://en.wikipedia.org/wiki/Category:21st-century_African-American_scientists
 # depth 1 to include physicians subcat
-# https://petscan.wmcloud.org/?psid=32906514 
+# https://petscan.wmcloud.org/?psid=32906514
 #
 
 aa_scientists_cat = Category.get_or_create(wiki: en_wiki, name: 32906514, depth: 0, source: 'psid' )

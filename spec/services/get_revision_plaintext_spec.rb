@@ -88,7 +88,7 @@ describe GetRevisionPlaintext do
       service = described_class.new(12345, en_wiki, diff_mode: false)
       expect(service.plain_text).to eq('Just some normal text.')
     end
-  end  
+  end
 
   context 'when new sentences are added at end of paragraph' do
     it 'excludes the pre-existing content' do

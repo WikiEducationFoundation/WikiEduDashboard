@@ -41,12 +41,14 @@ jobs:
       # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
       - name: checkout
         uses: actions/checkout@v2
-      
+        with:
+          fetch-depth: 2
+
       - name: install Pandoc
         uses: r-lib/actions/setup-pandoc@v2
         with:
           pandoc-version: '2.9.2.1'
-      
+
       - name: install ImageMagick
         uses: mfinelli/setup-imagemagick@v6
         with:
@@ -72,14 +74,14 @@ jobs:
               sudo ln -s $(which magick) /usr/bin/$cmd
             fi
           done
-      
-      # Starting ruby 
+
+      # Starting ruby
       - name: setup Ruby
-        uses: ruby/setup-ruby@v1    
+        uses: ruby/setup-ruby@v1
         with:
            ruby-version: 3.4.8
            bundler-cache: true
-     
+
       - name: setup Node
         uses: actions/setup-node@v3
         with:
@@ -100,7 +102,7 @@ jobs:
             cp config/application.example.yml config/application.yml
             cp config/database.example.yml config/database.yml
             bundle exec rake parallel:create[3] parallel:load_schema[3]
-          
+
       - name: Check eager loading (catch autoloading issues)
         env:
           RAILS_ENV: test
@@ -122,18 +124,18 @@ jobs:
           key: vcr-cached-v1
           restore-keys: |
             vcr-cached-
-          
+
       #Testing the pushed code onwards
-      - name: JavaScript test suite 
+      - name: JavaScript test suite
         run: |
             yarn install --immutable
             yarn coverage
-            yarn run test 
-      
+            yarn run test
+
       - name: JavaScript linting
         run: yarn lint-non-build
-           
-      #temporarily disabling Code Climate coverage upload to fix failing CI builds.   
+
+      #temporarily disabling Code Climate coverage upload to fix failing CI builds.
       # - name: Ruby rspec test suite
       #   uses: paambaati/codeclimate-action@v3.0.0
       #   env:
@@ -161,7 +163,7 @@ jobs:
         env:
           COVERAGE: true
         run: bundle exec rake generate:coverage
-      
+
       - name: Archive capybara failure screenshots
         uses: actions/upload-artifact@v4
         if: failure()
@@ -169,6 +171,9 @@ jobs:
           name: dist-without-markdown
           path: tmp/screenshots/*.png
           if-no-files-found: ignore
-            
+
+      - name: Check whitespace
+        run: git diff --check HEAD~1
+
       - name: Ruby linting
         run: bundle exec rubocop

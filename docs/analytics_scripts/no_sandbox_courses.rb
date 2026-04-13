@@ -141,7 +141,7 @@ end
 average_mainspace_edit_size(new_sandbox_courses)
 average_mainspace_edit_size(new_no_sandbox_courses)
 average_mainspace_edit_size(returning_sandbox_courses)
-average_mainspace_edit_size(returning_no_sandbox_courses) 
+average_mainspace_edit_size(returning_no_sandbox_courses)
 
 mainspace_edits_per_student(new_sandbox_courses)
 mainspace_edits_per_student(new_no_sandbox_courses)
