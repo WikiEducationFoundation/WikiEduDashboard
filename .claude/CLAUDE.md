@@ -106,6 +106,30 @@ Never commit without being asked, even after a spec run succeeds.
   inside the `describe` block instead, to avoid re-initialization errors
 - Prefer one focused `it` block per behavior; avoid bundling unrelated assertions
 
+## Production infrastructure
+
+Two independent production deployments share this codebase:
+
+| | Wiki Ed Dashboard | Programs & Events Dashboard |
+|---|---|---|
+| Cap stage | `production` | `peony` |
+| Branch | `production` | `wmflabs` |
+| Web server | `dashboard.wikiedu.org` | `peony-web` (WMCloud) |
+| DB server | same host | `peony-database` (WMCloud) |
+
+Wiki Ed runs on a single server. The P&E Dashboard is distributed across
+WMCloud VPS (`globaleducation` project):
+- **Web**: `peony-web` — app + `sidekiq-default`, `sidekiq-daily` (deployed via Capistrano)
+- **Sidekiq**: `peony-sidekiq` (long, constant), `peony-sidekiq-medium`, `peony-sidekiq-3` (short) — **not** deployed via Capistrano; updated manually with `git pull` + `bundle install`
+- **Database**: `peony-database` — MariaDB, data on Cinder volume at `/srv`
+- **Redis**: `p-and-e-dashboard-redis` — shared across all Sidekiq processes
+
+The Dashboard depends on several Wikimedia Toolforge services, notably the
+**replica revision tools** (`replica-revision-tools.wmcloud.org`, source:
+`WikiEducationFoundation/WikiEduDashboardTools`) which provides PHP endpoints
+for querying Wikimedia replica databases. See `docs/admin_guide.md` for the
+full list of integrated Toolforge tools and third-party APIs.
+
 ## Commit messages
 
 Always use the `/commit` skill when creating commits. It handles staging,
