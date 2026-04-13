@@ -64,3 +64,4 @@ stats.json
 /fixtures/vcr_cassettes/*
 !/fixtures/vcr_cassettes/cached/
 !/fixtures/vcr_cassettes/cached/*
+/backups/

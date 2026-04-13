@@ -11,6 +11,9 @@ role :app, %w(sage@dashboard.wikiedu.org)
 role :web, %w(sage@dashboard.wikiedu.org)
 role :db,  %w(sage@dashboard.wikiedu.org)
 
+set :backup_host, 'sage@dashboard.wikiedu.org'
+set :backup_path, '/home/dbbackup/dumps'
+
 set :user, 'sage'
 set :address, 'dashboard.wikiedu.org'
 

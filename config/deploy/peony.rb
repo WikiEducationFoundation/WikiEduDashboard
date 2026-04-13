@@ -4,6 +4,8 @@ set :rails_env, 'production'
 role :app, %w(peony-web.globaleducation.eqiad1.wikimedia.cloud)
 role :web, %w(peony-web.globaleducation.eqiad1.wikimedia.cloud)
 role :db, %w(peony-web.globaleducation.eqiad1.wikimedia.cloud)
+set :backup_host, 'ragesoss@peony-database.globaleducation.eqiad1.wikimedia.cloud'
+set :backup_path, '/srv/dumps'
 
 set :address, 'peony-web.globaleducation.eqiad1.wikimedia.cloud'
 set :repo_url, 'https://github.com/WikiEducationFoundation/WikiEduDashboard.git'
