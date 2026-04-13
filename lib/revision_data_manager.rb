@@ -197,7 +197,7 @@ class RevisionDataManager
 
     # Note that scoped is always true for non-only-scoped-articles courses
     scoped_revisions_in_spaces = revisions.select do |rev|
-      excluded_articles.exclude?(rev.mw_page_id) && rev.scoped
+      (excluded_articles.exclude?(rev.mw_page_id) && rev.scoped)
     end
     [scoped_revisions_in_spaces, revisions - scoped_revisions_in_spaces]
   end

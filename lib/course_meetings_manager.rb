@@ -101,7 +101,7 @@ class CourseMeetingsManager
       week_end = week_start.end_of_week(:sunday)
       week_mtgs = []
       @meeting_dates.each do |meeting|
-        next if meeting < @course.timeline_start || @course.timeline_end < meeting
+        next if (meeting < @course.timeline_start) || (@course.timeline_end < meeting)
         week_mtgs << meeting if date_is_between(meeting, week_start, week_end)
       end
       meetings.push week_mtgs

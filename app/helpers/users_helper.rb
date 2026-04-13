@@ -5,7 +5,7 @@ module UsersHelper
   def contribution_link(courses_user, text = nil, css_class = nil)
     options = { target: '_blank', class: css_class }
     link_to(
-      text || courses_user.user.username,
+      (text || courses_user.user.username),
       contribution_link_redirect(courses_user),
       options
     )

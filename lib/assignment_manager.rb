@@ -113,7 +113,7 @@ class AssignmentManager
 
   def check_wiki_edu_discouraged_article
     category = Category.find_by(name: ENV['blocked_assignment_category'])
-    article_discouraged = category.present? && category.article_titles.include?(@clean_title)
+    article_discouraged = (category.present? && category.article_titles.include?(@clean_title))
     handle_discouraged_article if article_discouraged
   end
 
