@@ -1,6 +1,7 @@
 # Messages for Irish (Gaeilge)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aindriu80
 # Author: Dowlinme
 # Author: Kwekubo
 # Author: Nmacu
@@ -20,7 +21,9 @@ ga:
     number_field: Is réimse uimhreach í seo. Déanfaidh na cnaipí a léiríonn do bhrabhsálaí
       an t-ionchar a ardú nó a ísliú.
   application:
+    back: Ar ais
     cancel: Cealaigh
+    next: Ar Aghaidh
     cookie_consent: Úsáideann an suíomh seo fianáin le go bhfanfaidh tú logáilte isteach,
       agus stórálann sé faisnéis a bhaineann le do chuntas Vicipéide.
     cookie_consent_acknowledge: Tuigim
@@ -32,6 +35,7 @@ ga:
     explore: Taiscéal
     field_required: Tá an réimse seo riachtanach
     field_invalid_characters: Tá carachtair neamhbhailí ag an réimse seo
+    field_invalid_term: Ní mór don téarma bliain a áireamh (m.sh., "Earrach 2025")
     field_invalid_date: Tá dáta san fhormáid BBBB-MM-LL ag teastáil sa réimse seo
     field_invalid_date_time: Ní foláir an deireadh a bheith tar éis an tosaithe. (Téann
       uaireanta ó 0 go 23.)
@@ -44,12 +48,21 @@ ga:
     log_in: Logáil isteach
     log_out: Logáil amach
     my_dashboard: Mo Deais
+    okay: Ceart go leor
     recent_activity: Gníomhaíocht le Déanaí
     report_problem: Tuairiscigh fadhb
     request_account: Déan iarratas ar chuntas
     request_account_create: Cruthaigh cuntas
     search: cuir ceist
+    search_results:
+      one: '%{count} Toradh do: ''%{search_terms}'''
+      two: '%{count} Torthaí do: ''%{search_terms}'''
+      few: '%{count} Torthaí do: ''%{search_terms}'''
+      many: '%{count} Torthaí do: ''%{search_terms}'''
+      other: '%{count} Torthaí do: ''%{search_terms}'''
     no_results: Fuarthas torthaí ar bith le haghaidh %{query}
+    show_current_revision: Taispeáin an leagan reatha
+    show_last_revision: Taispeáin an leagan deireanach a cuireadh in eagar
     sign_up_extended: Cláraigh le Vicipéid
     sign_up_wikipedia: Nó cláraigh ar Vicipéid
     sign_up_log_in_extended: leis An Vicipéid
@@ -59,13 +72,40 @@ ga:
     change: Athraigh
     details: Sonraí
     confirm: OK
+    opt_in: Tá
+    opt_out: Níl
+    opt_yes: tá
+    opt_no: níl
+    print: Priontáil
   article_statuses:
     not_yet_started: Ag cur tús leis
     in_progress: Ag obair leis an gClár Dubh
+    ready_for_review: Dréacht á Leathnú
+    ready_for_mainspace: Ag Bogadh na hOibre go dtí an Phríomhspás
+    assignment_completed: Tasc Marcáilte mar Chríochnaithe
+    reading_the_article: Airteagal Léitheoireachta
+    providing_feedback: Aiseolas a Chur ar Fáil
+    post_to_talk: Ag postáil chuig an leathanach plé
+    peer_review_completed: Athbhreithniú Críochnaithe
   dashboard:
     create_note: Cliceáil ar Cruthaigh Cúrsa le do chéad chúrsa a chruthú
+    create_preparation_note: Bí cinnte go bhfuil do fhéilire acadúil ar láimh agat
+      sula dtosaíonn tú; úsáidfidh an uirlis deartha tascanna dátaí cruinnithe do
+      ranga — lena n-áirítear aon sosanna scoile agus laethanta saoire — chun d’amlíne
+      a fheistiú sa raon dátaí a roghnaíonn tú. Cuimhnigh, is féidir leat an amlíne
+      a chur in eagar i gcónaí chun freastal ar do chuid riachtanas.
     explore_course_pages: Breathnaigh ar Leathanaigh na gCúrsaí
     explore_examples: Breathnaigh ar Shamplaí
+    join_note: Nuair a gheobhaidh tú paschód ó do theagascóir, cliceáil ar Aimsigh
+      Do Chúrsa chun é a aimsiú agus páirt a ghlacadh ann.
+    no_courses_instructor: Is cosúil nach bhfuil aon chúrsaí agat.
+    no_courses_student: Is cosúil nach bhfuil tú páirteach i gcúrsa fós.
+    opt_out: Iarratas ar rogha an diúltaithe a dhéanamh
+    orientation_notice: Sula gcruthaíonn tú cúrsa, déanaimis treoir chun cabhrú leat
+      tosú. (Tógann sé thart ar 30 nóiméad le cur i gcrích.)
+    review_orientation: Treoshuíomh Athbhreithnithe
+    start_orientation: Tosaigh Treoshuíomh
+    blog_headline: Nuacht is Déanaí ó Wiki Education
     about_programs: Déanann an suíomh seo gníomhartha vicí a leanúint trí Chláir -
       imeachtaí aonaracha ar nós aonaigh eagarthóireachta nó cúrsaí scoile. Bíonn
       gach Clár ina pháirt de ar a laghad Feachtas amháin. Is féidir staitisticí comhiomlána
@@ -78,70 +118,517 @@ ga:
     explore: Taiscéal
     log_in: Logáil isteach ón Vicipéid
     sign_up: Cláraigh le Vicipéid
+    registration_advice:
+      username_rules:
+        heading: Rialacha ainm úsáideora
+        avoid_offensive_usernames: Ná roghnaigh ainm úsáideora atá maslach, míthreorach,
+          suaiteach ná cur chun cinn.
+        represent_individual: Ní mór d’ainmneacha úsáideora ionadaíocht a dhéanamh
+          d’eagarthóir aonair. Ná húsáid ainm scoile ná eagraíochta.
+      additional_advice:
+        heading: Comhairle
+        anonymous_username_recommendation: Molann Wiki Education ainm úsáideora gan
+          ainm a roghnú, ní ceann ina bhfuil d'ainm fíor ná faisnéis aitheantais eile.
+    sign_up_help: Chun an painéal rialaithe a úsáid, beidh ort síniú isteach trí Vicipéid
+      agus cead a thabhairt dó rochtain a fháil ar do chuntas. Is féidir leat logáil
+      isteach le cuntas Vicipéid atá ann cheana féin, nó ceann nua a chruthú. Mura
+      bhfuil tú in ann cuntas a chruthú, déan teagmháil le dashboard@wikiedu.org.
+  alerts:
+    alert_label: Foláirimh
+    no_data: Níor aimsíodh aon sonraí.
+    ai_stats:
+      timestamp: Stampa Ama
+      title: '%{campaign_name}'
+      total_alerts: Foláirimh Eagarthóireachta AI Iomlána
+      with_followup: Foláirimh Eagarthóireachta AI le leanúint suas
+      multiple_alerts_students: Daltaí a bhfuil foláirimh iolracha acu
+      multiple_alerts_pages: Leathanaigh a bhfuil foláirimh iolracha iontu
+      pangram_url: URL Pangram
+      go_to_pangram: Téigh go Pangram
+      revision_diff: Difríocht athbhreithnithe
+      single_alert_view: Foláireamh
+      alerts_in_mainspace: Foláirimh sa phríomhspás
+      users_involved: Úsáideoirí atá i gceist
+      total: Iomlán
+      last_week: An tseachtain seo caite
+      sections:
+        contents: Ábhar an leathanaigh
+        general_stats: Staitisticí ginearálta
+        name: Ainm
+        description: Cur síos
+        courses_with_ai_alerts: Cúrsaí le foláirimh iolracha AI
+        recent_followup: Foláirimh le leanúint le déanaí
+        multiple_alerts_students: Foláirimh le déanaí do mhic léinn a bhfuil foláirimh
+          iolracha acu
+        in_mainspace: Foláirimh le déanaí sa phríomhspás
+        alerts_trend_over_time: Foláireamh AI ar threochtaí le himeacht ama
+        descriptions:
+          courses_with_ai_alerts: Cúrsaí a bhfuil níos mó ná 3 fholáireamh AI acu
+            thar thréimhse iomlán an chúrsa (ní gá gur foláirimh le déanaí iad).
+          recent_followup: Foláirimh le freagraí leantacha a cuireadh isteach laistigh
+            de na 14 lá dheireanacha, in ord de réir dháta an fhreagra leantaigh.
+          multiple_alerts_students: Foláirimh a cruthaíodh laistigh de na 14 lá seo
+            caite do mhic léinn a bhfuil foláirimh iolracha acu, ordaithe de réir
+            dáta cruthaithe.
+          in_mainspace: Foláirimh a cruthaíodh laistigh de na 14 lá seo caite le haghaidh
+            ailt sa phríomhspás, ordaithe de réir dáta cruthaithe.
+  ai_scores_stats:
+    title: Staitisticí Scóir Athbhreithnithe AI
+    graphs:
+      daily_checks: Seiceálacha laethúla de réir ainmspáis
+      avg_likelihood: Meándáileadh dóchúlachta AI in aghaidh an lae
+      max_likelihood: Dáileadh dóchúlachta uasta AI in aghaidh an lae
+      overall_avg_likelihood: Meándáileadh dóchúlachta AI foriomlán
+      overall_max_likelihood: Dáileadh dóchúlachta uasta foriomlán AI
   activity:
     all: Gníomhaíocht
     edited_by: Arna Chur in Eagar ag
     label: Gníomhaíocht
   articles:
     articles: Ailt
+    article_not_found: Níl an t-alt seo cruthaithe fós.
+    article_development: (forbairt alt)
+    articles_shown: Ag taispeáint %{count} de %{total}
     assigned: Ailt Bronnta
+    assignments_none: Níl aon ailt sannta fós.
     available: Ailt atá ar fáil
+    no_available: Gan aon Airteagail ar Fáil
+    next: Ar Aghaidh
+    page_info: Leathanach %{current} de %{total_pages} (%{count} as %{total})
+    previous: Roimhe Seo
+    article_title: Teideal an Airteagail
     assigned_to: Bronnta Ar
+    character_doc: Suim na gcarachtar a cuireadh le hairteagail ag eagarthóirí cláraithe
+      idir an dáta tosaigh agus an dáta deiridh
+    cross_wiki_tracking: Tá leathanaigh an phríomhspáis a ndearnadh eagarthóireacht
+      orthu idir an dáta tosaigh agus an dáta deiridh liostaithe thíos. Tarraingíonn
+      an painéal isteach ranníocaíochtaí ó vicí bhaile an chláir seo, mar aon le haon
+      vicí eile a bhfuil Sannadh nó Airteagal atá ar Fáil ann dóibh.
     deleted: (scriosta)
+    does_not_exist: Níl an t-alt ann. Cruthaigh leathanach Bosca Gainimh agus sannadh
+      tú féin dó chun moltaí a fháil.
     edited: Ailt a Chuireadh in Eagar
     edited_by: Arna chur in eagar agː
     edited_mobile: Ailt
+    edited_none: Níl aon ailt eagraithe ann go fóill.
+    filter:
+      wiki_all: Gach
+      new: Nua
+      existing: atá ann cheana féin
+      new_and_existing: Nua agus atá ann cheana
+      tracked: Rianaithe
+      untracked: Gan Rianú
+      tracked_and_untracked: Rianaithe agus Gan Rianú
+    filter_text: 'Scagairí:'
+    pageviews_label: 'Amharcanna leathanaigh:'
+    cumulative: Carnach
+    daily_avg: Meán Laethúil
     find: Aimsigh Ailt
+    how_to_find: Conas alt a aimsiú
     hide: Folaigh
+    history: (stair)
     label: Ailt
     loading: Ailt ag lódáil...
+    mark_as_complete: Marcáil mar Chríochnaithe
+    mark_as_incomplete: Marcáil mar Neamhchríochnaithe
     new: (nua)
     none: Níor athraigh an cúrsa seo alt ar bith
+    preview: Réamhamharc gairid ar an Airteagal
+    quality_checklist: Seicliosta cáilíochta
     rating: Rang
+    rating_doc: An rátáil atá tugtha d'alt ag WikiProjects ar Vicipéid. D'fhéadfadh
+      na rátálacha seo a bheith comhfhreagrach do leaganacha i bhfad níos sine, mar
+      sin níl iontu ach táscaire garbh ar aibíocht an ailt.
+    rating_docs:
+      fa: '%{class} (Alt faoi réadmhaoin) — An rátáil is airde ar Vicipéid, is dócha
+        gur alt ró-aibí é do phríomhthionscadal eagarthóra nua.'
+      fl: '%{class} (Liosta le feiceáil) — An rátáil is airde ar Vicipéid do liostaí'
+      a: '%{class}-class — alt an-fhorbartha a d''fhéadfadh a bheith ró-aibí do phríomhthionscadal
+        eagarthóra nua'
+      ga: '%{class} (Alt maith) — alt dea-fhorbartha a d''fhéadfadh a bheith ró-aibí
+        do phríomhthionscadal eagarthóra nua'
+      b: '%{class}-rang — alt atá forbartha go measartha'
+      c: '%{class}-rang — alt idirmheánach a bhfuil seans ann feabhas a chur air'
+      start: '%{class}-rang — alt réamhráiteach le neart deiseanna le feabhsú'
+      stub: '%{class}-rang — tús gairid d’alt a bhfuil níos mó ábhair ag teastáil
+        uaidh'
+      list: '%{class}-rang — liosta seachas alt traidisiúnta'
+      '?': Gan rátáil — alt nár rátáileadh ar scála cáilíochta Vicipéid go fóill
+      does_not_exist: Níl an t-alt seo ar fáil ar Vicipéid
+    see_more: Féach níos mó
+    see_more_tooltip: Ní luchtófar ach na chéad 500 alt eagarthóireachta ar dtús.
+      Cliceáil chun ailt bhreise a luchtú.
+    search: Cuardaigh Airteagal ar Vicipéid
+    show_cumulative_changes: Taispeáin Athruithe Carnacha
+    show_current_version: Taispeáin an Leagan Reatha
+    show_current_version_with_authorship_highlighting: Leagan Reatha le haibhsiú Údair
     title: Teideal
+    tracked: Rianaithe
+    tracked_doc: Ní chuireann ach ailt rianaithe leis na staitisticí don chlár seo.
+      Nuair a mharcáiltear ailt mar neamhrianaithe, bainfear iad as na staitisticí
+      le linn an chéad nuashonrú sonraí eile.
     title_example: Teideal an ailt
+    tools: Uirlisí measúnaithe
     view: Breathaigh ar Alt
     view_all: Breathnaigh ar gach rud
+    view_doc: Meastar go bhfuil líon na n-amharc ar gach alt ó cuireadh in eagar é
+      den chéad uair, tríd an nuashonrú staitisticí is déanaí. Is féidir leat pageviews.toolforge.org
+      a úsáid chun na huimhreacha cruinne a fheiceáil.
+    view_on_wiki: Féach ar an vicí
+    views_added: Cuireadh %{count} radharcanna nua leis do %{title}
+    edit_size: Cuir Méid in Eagar
     wiki: Vicí
+    wp10: Iomláine Struchtúrach
+    wp10_doc: Léiríonn an scór 'Iomláine Struchtúrach' cé chomh dlúth agus a oireann
+      alt do mhúnla alt Vicipéide aibí, bunaithe ar an tSeirbhís Meastóireachta Athbhreithnithe
+      Cuspóire (https://ores.wikimedia.org/) atá bunaithe ar fhoghlaim meaisín. Ríomhtar
+      na scóir seo bunaithe ar mhéid an ailt, líon na dtagairtí agus na naisc vicí,
+      agus gnéithe bunúsacha téacs eile. De ghnáth léiríonn scór ard go leanann alt
+      coinbhinsiúin Vicipéide maidir le struchtúr ailt mhaith, ach ní chuireann sé
+      an t-ábhar féin san áireamh. (Níl na scóir seo ar fáil ach d'ailt Vicipéide
+      Béarla.)
+    articles_short: Airteagail
+    deleted_message: De réir shonraí an Phainéal, tá an leathanach seo scriosta. (I
+      gcásanna áirithe, is féidir le hathbhogadh leathanaigh, cumasc staire nó gníomhartha
+      eile a bheith ina gcúis le halt a liostáil go mícheart mar scriosta. Féadfar
+      ailt scriosta a athscriosadh níos déanaí freisin. Maidir le hairteagail nach
+      scriostar i ndáiríre, nó a athchóiríodh ina dhiaidh sin, léireofar é seo ar
+      an bPainéal de ghnáth laistigh de lá nó dhó.)
+    page_logs: (logaí leathanaigh)
+    tracked_articles: Airteagail Rianaithe
+    view_articles: Féach ar Airteagail
+    no_tracked_articles: Níl aon ailt rianaithe sa chatagóir seo
+    not_choosen_article: Níor roghnaigh tú alt le hobair air. Nuair a bheidh alt aimsithe
+      agat le hobair air, bain úsáid as an gcnaipe thuas chun é a shannadh.
+    use_dashboard: Conas an Painéal Rialaithe a úsáid
+    evaluate_and_source: Measúnú a dhéanamh ar ailt agus ar fhoinsí
   items:
+    items: Míreanna
+    lexeme: Leicséim
+    article_not_found: Níl an mhír seo cruthaithe fós.
+    assigned: Míreanna Sannta
+    assignments_none: Níl aon mhíreanna sannta fós.
+    available: Míreanna atá ar Fáil
+    character_doc: Suim na gcarachtar a cuireadh le míreanna ag eagarthóirí cláraithe
+      idir an dáta tosaigh agus an dáta deiridh
+    cross_wiki_tracking: Tá leathanaigh an phríomhspáis a ndearnadh eagarthóireacht
+      orthu idir an dáta tosaigh agus an dáta deiridh liostaithe thíos. Tarraingíonn
+      an painéal isteach ranníocaíochtaí ó vicí bhaile an chláir seo, mar aon le haon
+      vicí eile a bhfuil Sannadh nó Mír atá ar Fáil ann dóibh.
+    does_not_exist: Níl an Mír ann. Cruthaigh leathanach Bosca Gainimh agus sannadh
+      tú féin dó chun moltaí a fháil.
     edited: Míreanna a chuireadh in eagar
+    edited_none: Níl aon mhíreanna eagarthóireachta ann fós.
+    find: Aimsigh Míreanna
+    how_to_find: Conas míreanna a aimsiú
+    preview: Réamhamharc gairid ar an Mír
+    search: Cuardaigh Mír ar Wikidata
+    tracked_doc: Ní chuireann ach míreanna rianaithe leis na staitisticí don chlár
+      seo. Nuair a mharcáiltear míreanna mar neamhrianaithe, bainfear iad as na staitisticí
+      le linn an chéad nuashonrú sonraí eile.
+    view_doc: Meastar go bhfuil gach mír le feiceáil ar an líon radharcanna ó cuireadh
+      in eagar den chéad uair é, tríd an nuashonrú staitisticí is déanaí. Is féidir
+      leat pageviews.toolforge.org a úsáid chun na huimhreacha cruinne a fheiceáil.
+    title_example: Teideal an mhíre
+  articles_wikidata:
+    articles_short: Míreanna
+  articles_generic:
+    articles_short: Leathanaigh
   assignments:
+    article: Tá an t-alt %{title} sannta duit anois.
+    article_link: Airteagal
+    article_link_wikidata: Mír
+    blocked_assignment: Níorbh fhéidir %{title} a shannadh mar go bhfuil sé ar liosta
+      blocála sannadh Wiki Education phobal Vicipéide.
+    already_exists: Tá an tasc seo ann cheana féin!
+    title_too_large: Níor cheart go mbeadh níos mó ná 255 carachtar sa teideal
+    max_group_size_exceeded: Tá %{current} mac léinn sannta do %{title} cheana féin.
+      Is é %{max} an uasmhéid grúpa don chúrsa seo.
+    assignees: Sannaí(í)
+    assign_other: Sannadh/bain airteagal
+    assign_other_wikidata: Sannadh/bain mír
+    add_available: Ardaigh Airteagail atá ar fáil
+    add_available_wikidata: Cuir míreanna atá ar fáil leis
+    add_available_placeholder: Cuir teideal nó URL ailt amháin in aghaidh gach líne
+    add_available_placeholder_wikidata: Cuir teideal nó URL míre amháin in aghaidh
+      gach líne
+    add_available_submit: Cuir airteagail leis
+    add_available_submit_wikidata: Cuir míreanna leis
+    add_placeholder: Cuir isteach teideal airteagal nó URL
+    assign_self: Sannadh airteagal dom féin
+    invalid_mainspace_article: Ní mór gur airteagal bailí sa phríomhspás é seo.
+    assign_self_wikidata: Sannadh mír dom féin
+    assign_tooltip: Is alt sannta é airteagal a bhfuil sé beartaithe agat a chruthú
+      nó a fheabhsú.
+    assign_tooltip_wikidata: Is mír sannta í mír atá beartaithe agat a chruthú nó
+      a fheabhsú.
+    bibliography: Leabharliosta
+    clone: Clónáil
+    confirm_add_available: An bhfuil tú cinnte gur mian leat %{title} a chur leis?
+    confirm_addition: An bhfuil tú cinnte gur mian leat %{title} a shannadh do %{username}?
+    confirm_deletion: An bhfuil tú cinnte gur mian leat an tasc seo a scriosadh?
+    delete: Bain agus Scrios
+    editors: Sannta do
+    change_sandbox_url: Athraigh bosca gainimh
+    group_members: Baill an ghrúpa
+    label: Sannadh
+    label_all: Sannadh gach rud
+    loading: Ag lódáil tascanna...
+    none_short: Gan aon ailt sannta
+    none_short_wikidata: Gan aon mhíreanna sannta
+    none: Níl aon ailt sannta don chúrsa seo.
+    no_available: Níl aon ailt sannta don chúrsa seo.
+    outline: Imlíne
+    peer_review_count: '%{currentCount}/%{total} roghnaithe'
+    peer_review_count_tooltip: Ba chóir duit %{total} alt a roghnú le haghaidh athbhreithnithe
+      piaraí.
+    peer_review_link: Athbhreithniú Piaraí
+    peer_review_link_personalized: Athbhreithniú Piaraí %{username}
+    random_peer_review:
+      confirm_addition: I bhformhór na gcásanna, níor cheart duit é seo a úsáid ach
+        amháin tar éis do phríomh-ailt a bheith sannta do gach mac léinn. Nó is féidir
+        leat iarraidh ar do mhic léinn a n-athbhreithnithe piaraí féin a roghnú nó
+        is féidir leat athbhreithnithe piaraí a shannadh de láimh trí chliceáil ar
+        shraith mac léinn agus ansin an cnaipe "Sann/bain athbhreithniú piaraí" a
+        úsáid. Trí chliceáil ar "Ceart go leor", sannfar %{count} athbhreithniú(anna)
+        piaraí breise san iomlán, le huasmhéid de %{maximum} do gach mac léinn, roghnaithe
+        as ailt a gcomhscoláirí.
+      confirm_addition_wikidata: I bhformhór na gcásanna, níor cheart duit é seo a
+        úsáid ach amháin tar éis do na daltaí uile a bpríomh-mhíreanna a bheith sannta
+        dóibh. Nó is féidir leat iarraidh ar do dhaltaí a n-athbhreithnithe piaraí
+        féin a roghnú nó is féidir leat athbhreithnithe piaraí a shannadh de láimh
+        trí chliceáil ar shraith dalta agus ansin an cnaipe "Sann/bain athbhreithniú
+        piaraí" a úsáid. Trí chliceáil ar "Ceart go leor", sannfar %{count} athbhreithniú(anna)
+        piaraí breise san iomlán, le huasmhéid de %{maximum} do gach dalta, roghnaithe
+        as measc mhíreanna a gcomhdhaltaí.
+      heading: Sannadh athbhreithnithe piaraí randamacha
+      tooltip_message: Sanntar ailt randamacha (leis an líon athbhreithnithe piaraí
+        mar an líon uasta) do gach mac léinn.
+      tooltip_message_wikidata: Sanntar míreanna randamacha (leis an líon athbhreithnithe
+        piaraí mar an líon uasta) do gach mac léinn.
+      limit_exceeded: Tá gach mac léinn ag athbhreithniú %{maximum} alt(anna) ar a
+        laghad cheana féin.
+      limit_exceeded_wikidata: Tá gach mac léinn ag athbhreithniú %{maximum} mír(eanna)
+        ar a laghad cheana féin.
     remove: Bain
     reviewers: Léirmheastóir(í)
-    review_other: Sann léirmheas
+    review_other: Athbhreithniú piaraí a shannadh/a bhaint
     review_self: Déan léirmheas ar alt
+    review_self_wikidata: Athbhreithnigh mír
+    review_tooltip: Tá sé seo le haghaidh alt(anna) a bhfuil sé beartaithe agat athbhreithniú
+      piaraí a dhéanamh orthu nó aiseolas a thabhairt orthu.
+    review_tooltip_wikidata: Tá sé seo i gcás mír(í) a bhfuil sé beartaithe agat athbhreithniú
+      piaraí a dhéanamh orthu nó aiseolas a thabhairt orthu.
+    sandbox_draft_link: Dréacht Bosca Gainimh
+    sandbox_redlink_info: Tá an nasc seo dearg mar nach bhfuil an leathanach cruthaithe
+      fós. (Más rud é gur cruthaíodh le déanaí é, déanfar a shonraí a nuashonrú ar
+      an Painéal go luath.)
     select: Roghnaigh
+    submit: Cuir isteach
+    invalid_url: Ní féidir url an bhosca gainimh a nuashonrú. Ní URL bailí Vicipéide
+      é an URL %{url}.
+    mismatched_wiki: Ní féidir url an bhosca gainimh a nuashonrú. Níl an URL %{url}
+      ar an vicí céanna.
+    invalid_username: Tá an t-ainm úsáideora "%{username}" neamhbhailí nó níl an t-ainm
+      úsáideora ann.
+    change_sandbox_instructions: Cuir isteach ainm úsáideora Vicipéid chun URLanna
+      an bhosca gainimh don tasc seo a nuashonrú. Athróidh sé seo an bosca gainimh
+      ón ainm úsáideora reatha go dtí an ceann a shonraíonn tú.
+    username_label: Ainm úsáideora Vicipéid
+    username_placeholder: Cuir isteach ainm úsáideora (m.sh., D'AinmÚsáideora)
+    username_or_url_label: Ainm úsáideora nó URL Vicipéid
+    username_or_url_placeholder: Cuir isteach ainm úsáideora nó URL bosca gainimh
+      iomlán
+    preview_label: 'Réamhamharc ar URLanna nua:'
+    sandbox_label: Bosca gainimh
+    bibliography_label: Leabharliosta
+    outline_label: Imlíne
+    warning_untracked_wiki: 'Tabhair faoi deara, le do thoil, go bhfuil an t-alt atá
+      roghnaithe agat ar vicí nach bhfuil á rianú ag an gcúrsa seo. Chun ranníocaíochtaí
+      leis an alt seo a rianú, ní mór do theagascóir an vicí seo a leanas a chur leis
+      an gcúrsa seo: %{wiki}'
   blocks:
     milestones:
       title: Garspriocanna
   campaign:
+    campaign_ores_plot:
+      change_button: Athrú ar Iomláine Struchtúrach
+      no_data: Níl aon sonraí maidir le hIomláine Struchtúrach ar fáil
+      graph_description_html: Léiríonn an graf seo, san iomlán, cé mhéad alt a forbraíodh
+        ó sular chuir rannpháirtithe feachtais in eagar iad den chéad uair go dtí
+        na heagarthóireachtaí feachtais is déanaí. Tá an rátáil <em>Iomláine Struchtúrach</em>
+        bunaithe ar thionscadal foghlama meaisín (<a href="https://www.mediawiki.org/wiki/ORES/FAQ"
+        target="_blank">ORES</a>) a mheasann rátáil cháilíochta alt bunaithe ar an
+        méid próis, líon na naisc vicí, íomhánna agus ceanntásca rannóige, agus gnéithe
+        eile.
     active_campaigns: Feachtais Reatha
     add_organizer: Eagraí breise
+    alert_article: Teideal an ailt
+    alert_label: Foláirimh Feachtais
+    alert_select_label: Scag de réir cineál foláirimh
+    alert_type: Cineál
+    alert_user_id: Úsáideoir
     all_campaigns: Gach feachtas
+    already_exists: Tá an feachtas sin ann cheana féin! Déan iarracht arís le teideal
+      nó slug difriúil.
     campaign: Feachtas
     campaigns: Feachtais
     campaign_deleted: Tá %{title} scriosta
     campaign_not_updated: Ní fhéadfaí an feachtas a nuashonrú
     campaign_updated: Feachtas nuashonraithe
+    refresh_campaign_stats: Staitisticí an fheachtais athnuachan go rathúil
+    created_at: Dáta
+    confirm_campaign_deletion: An bhfuil tú cinnte gur mian leat an feachtas dar teideal
+      "%{title}" a scriosadh? Más ea, clóscríobh teideal an fheachtais le dul ar aghaidh.
+    confirm_campaign_deletion_failed: Ní hé "%{title}" teideal an fheachtais seo.
+      Níor scriosadh an feachtas.
+    confirm_course_removal: An bhfuil tú cinnte gur mian leat "%{title}" a bhaint
+      den fheachtas "%{campaign_title}"?
+    course_already_removed: Baineadh "%{title}" as an bhfeachtas "%{campaign_title}"
+      cheana féin.
+    course: Cúrsa
+    course_data: sonraí cúrsa
+    course_removed: Baineadh "%{title}" as an bhfeachtas "%{campaign_title}"
+    course_removed_and_deleted: Scriosadh "%{title}" agus baineadh den fheachtas "%{campaign_title}"
+      é.
+    course_removed_but_not_deleted: Baineadh "%{title}" as an "%{campaign_title}"
+      ach níor scriosadh é mar go bhfuil sé i láthair i bhfeachtais eile chomh maith.
     create_campaign: Cruthaigh Feachtas Nua
     create_my_campaign: Cruthaigh mo fheachtas!
+    customize_passcode: pasfhocal réamhshocraithe
+    data_download_info: Íoslódáil sonraí feachtasaíochta mar CSVanna
+    data_courses: Sonraí forbhreathnaithe cúrsa
+    data_courses_info: Méadrachtaí bunúsacha do gach cúrsa/clár
     data_articles: Leathanaigh a chuireadh in eagar
+    data_revisions: Sonraí athbhreithnithe
+    data_articles_info: Sonraí faoi gach leathanach rianaithe arna chur in eagar ag
+      an bhfeachtas
+    data_revisions_info: Sonraí faoi gach athbhreithniú a rianaíodh ar an bhfeachtas
+    data_instructors: Teagascóirí
+    data_instructors_info: Liosta teagascóirí/éascaitheoirí agus a gcúrsaí/cláir
+    data_editors_by_course: Eagarthóirí de réir cúrsa
+    data_editors_by_course_info: Liosta d’eagarthóirí cláraithe agus a gcúrsaí/cláir
+    data_editor_usernames: Ainmneacha úsáideora an eagarthóra
+    data_editor_usernames_info: Liosta ainmneacha úsáideora eagarthóirí, ceann amháin
+      in aghaidh na líne
+    data_wikidata: Staitisticí Wikidata
+    data_wikidata_info: Miondealú mionsonraithe ar ghníomhaíocht Wikidata, bunaithe
+      ar achoimrí eagarthóireachta
+    default_course_type: Cineál Cúrsa Réamhshocraithe
+    default_passcode: Paschód Réamhshocraithe
+    default_passcode_explanation: 'De réir réamhshocraithe, ba cheart go mbeadh na
+      nithe seo a leanas ag cláir nua sa fheachtas seo:'
     description: Cur síos
     delete_campaign: Scrios an Feachtas seo
+    delete_course_tooltip: Scrios agus bain den fheachtas.
+    disable_account_requests: Díchumasaigh iarratais chuntais
+    enable_account_requests: Cumasaigh iarratais chuntais
+    enable_account_requests_doc: Cuireann an ghné iarratais chuntais foirm iarratais
+      chuntais leis an nasc clárúcháin le haghaidh imeachta. Is féidir le húsáideoirí
+      nach bhfuil cuntais acu fós a ríomhphost agus a n-ainm úsáideora atá uathu a
+      iontráil, agus is féidir le héascaitheoirí imeachtaí an Painéal a úsáid chun
+      na cuntais iarrtha a chruthú. Cuirtear úsáideoirí a iarrann cuntais leis an
+      imeacht go huathoibríoch nuair a chruthaítear cuntas.
+    newest_campaigns: Feachtais is Déanaí
+    featured_campaigns: Feachtais Réadmhaoine
+    instructors_course: teagascóirí de réir cúrsa
+    no_alerts: Níl aon fhógraí ag an bhfeachtas seo
+    no_passcode: gan aon chód pas
     none: Tada
     organizers: Eagraithe
     organizer_added: Is eagraí anois é %{user} ar an bhfeachtas %{title}
     organizer_removed: Baineadh %{user} mar eagraí ar an bhfeachtas %{title}
+    pages_edited_small: leathanaigh curtha in eagar
     program_template: Teimpléad an Chláir
+    program_template_tooltip: Nuair a chruthaíonn eagraí clár sa fheachtas seo, déanfar
+      an téacs sa limistéar seo a chóipeáil mar thuairisc ar leathanach an chláir.
+    random_passcode: cód pas randamach
+    remove_course_tooltip: Bain den fheachtas.
+    requested_accounts: Cuntais iarrtha
+    resolve: Réitigh
+    revision_data: sonraí athbhreithnithe
+    students_small: mic léinn
+    student_course: mic léinn de réir cúrsa
     title: Teideal
+    too_large: Tá an feachtas seo rómhór chun na sonraí iarrtha a thaispeáint.
+    too_many_articles: Tá an liosta alt eagraithe don fheachtas seo rófhada le taispeáint.
+      Féach ar chúrsaí/cláir/imeachtaí aonair le do thoil chun na hairteagail eagraithe
+      a fheiceáil.
+    slug: Sluga
+    search_campaigns: Feachtais chuardaigh
     use_start_end_dates: Úsáid dátaí tosaithe agus deiridh
+    search: Cuardaigh
+  categories:
+    searching_for_category: Ag cuardach catagóirí i
+    add_category: Cuir catagóir leis
+    add_psid: Cuir PSID PetScan leis
+    add_pileid: Cuir aitheantas PagePile leis
+    add_template: Cuir teimpléad leis
+    add_this_category: Cuir catagóirí leis
+    add_this_psid: Cuir PSIDanna PetScan leis
+    add_this_pileid: Cuir aitheantóirí PagePile leis
+    add_this_template: Cuir Teimpléid leis
+    import_articles_description: Déantar liosta alt i gcatagóir a nuashonrú go tréimhsiúil,
+      agus d’fhéadfadh sé go dtógfadh sé tamall tar éis é a chur leis sula líonfar
+      an liosta.
+    confirm_add_n_scoping_method: An bhfuil %{n} modh(anna) scóipeála le cur leis?
+    depth: Doimhneacht fochatagóire
+    articles_count: Líon na nAirteagal
+    name: Ainm
+    category_name: Ainm na catagóire
+    psid_name: PSID
+    pileid_name: Aitheantas PagePile
+    template_name: Ainm an teimpléid
+    none: Níl aon chatagóirí á rianú.
+    remove: Bain
+    tracked_categories: Catagóirí Rianaithe, PSID, aitheantas PagePile & Teimpléid
+    timestamp: Nuashonraithe Deiridh Ar
+    category_error: Tá an iomarca míreanna sa mhodh scóipeála seo le nuashonrú. Bain
+      triail as cinn níos lú.
   courses:
+    school_system: Córas Acadúil
+    assignment_edits_enabled: Eagarthóireacht sannadh cumasaithe
+    assignment_edits_enabled_tooltip: Má tá sé cumasaithe, cuirfidh an painéal teimpléad
+      ar an leathanach plé do gach alt sannta.
+    accounts_generation_enabled: Cumasaíodh giniúint iarratais chuntais
+    accounts_generation_explanation: Cuirfidh sé seo ar chumas rannpháirtithe a seoladh
+      ríomhphoist agus an t-ainm úsáideora atá uathu a iontráil, seachas cuntais nua
+      a chruthú iad féin. Beidh tú in ann ansin na cuntais a chruthú ón Painéal seo,
+      agus iad a chur leis mar rannpháirtithe sa chlár ag an am céanna.
+    accounts_generation_confirm_message: An bhfuil tú cinnte gur mian leat iarratais
+      chuntais a chumasú?
     activity: Gníomhaíocht
-    active_courses: '%{course_type} gníomhach'
+    active_courses: Cúrsaí Gníomhacha
+    add_trainings: Cuir oiliúintí mac léinn le d’amlíne tascanna, le do thoil. Is
+      cuid riachtanach de na cleachtais is fearr i Wiki Ed modúil oiliúna a shannadh.
+    alerts: Foláirimh
+    does_not_exist: Níl an Mír ann. Cruthaigh leathanach Bosca Gainimh agus sannadh
+      tú féin dó chun moltaí a fháil.
     all_courses: Gach Cúrsa
+    already_enrolled: Is ball de '%{title}' thú cheana féin!
+    already_exists: Tá sin ann cheana féin don chúrsa seo!
     archived: Cúrsaí curtha sa chartlann
     actions: Gníomhartha
     articles: Ailt
+    article_viewer: Amharcóir Airteagal
+    article_viewer_wikidata: Amharcóir Míreanna
+    articles_i_am_reviewing_wikidata: Míreanna atá á n-athbhreithniú agam ag piaraí
+    articles_i_am_reviewing: Ailt atá á ndéanamh agam athbhreithniú piaraí orthu
+    articles_i_will_create: Airteagail a chruthóidh mé
+    articles_i_will_create_wikidata: Míreanna a chruthóidh mé
+    articles_i_am_updating: Airteagail atá á nuashonrú agam
+    articles_i_am_updating_wikidata: Míreanna atá á nuashonrú agam
+    add_campaign_aria_label: Cuir Cnaipe Feachtais leis
+    new_tag_button_aria_label: Cnaipe Cruthaigh nó Nuashonraigh Clib
+    enroll_button_aria_label: Cnaipe Clárúcháin
+    assignment_headings:
+      assigned_articles: Airteagail Sannta
+      assigned_articles_wikidata: Míreanna Sannta
+      assigned_reviews: Léirmheasanna Sannta
+      available_articles: Airteagail atá ar Fáil
+      available_articles_wikidata: Míreanna atá ar Fáil
+      available_reviews: Ailt ó Chomhscoláirí
+      available_reviews_wikidata: Míreanna Comhscoláirí
     assignment_end: Deireadh an Mheasúnaithe
     assignment_start: Tús an mheasúnaithe
     calendar:
@@ -149,99 +636,510 @@ ga:
       legend_class_canceled: Saoire/Ar ceal
       legend_class_meeting: Cruinniú Ranga
       legend_class_not_meeting: Níl aon chruinniú sceidealaithe
+      select_meeting_days: Roghnaigh laethanta na seachtaine a mbíonn do rang ag teacht
+        le chéile.
     cancel: Cealaigh
+    character_doc: Suim na gcarachtar a chuir mic léinn an chúrsa le hairteagail sa
+      phríomhspás le linn théarma an chúrsa
     campaigns: 'Feachtais:'
     campaign_articles: Ailt %{title}
     campaign_courses: Cúrsaí %{title}
+    campaign_select: Roghnaigh feachtas
     campaign_users: Eagarthóirí %{title}
+    confirm_course_deletion: An bhfuil tú cinnte gur mian leat an cúrsa dar teideal
+      %{title} a scriosadh? Más ea, clóscríobh teideal an chúrsa le dul ar aghaidh.
+    confirm_course_deletion_failed: Ní hé "%{title}" teideal an chúrsa seo. Níor scriosadh
+      an cúrsa.
+    confirm_manual_update: An bhfuil tú cinnte gur mian leat nuashonrú láimhe a rith?
+      Déanfar na hathbhreithnithe is déanaí a allmhairiú agus ansin athlódálfar an
+      leathanach. D’fhéadfadh go dtógfadh an próiseas seo roinnt ama.
+    controlled_by_event_center: Tá clárú san imeacht seo á rialú ag Ionad Imeachtaí
+      Wikimedia. Ní féidir páirt a ghlacadh ann ón Painéal Rialaithe.
     course: Cúrsa
+    course_type_label: 'Cineál:'
+    course_dates_calendar_instructions: Roghnaigh dátaí le cur leis an sceideal nó
+      le baint de (n.sh., laethanta saoire, gan scoil). Cliceáil ar an dáta le hathrú
+      idir neamhroghnaithe, roghnaithe, agus staid laethanta saoire. Athróidh dátaí
+      na ngníomhaíochtaí cúrsa chun cuntas a thabhairt ar sheachtainí nach bhfuil
+      aon chruinnithe sceidealaithe acu.
     course_description: Cúrsaí
     courses: Cúrsaí
     courses_taught: Cúrsaí á Theagasc
     creation_date: Dáta Cruthaithe
+    start_date: Dáta Tosaigh
     creator:
+      already_exists: Tá an cúrsa seo ann cheana féin. Smaoinigh ar an ainm, an scoil
+        nó an téarma a athrú chun é a dhéanamh uathúil.
       assignment_end: Deireadh an Mheasúnaithe
       assignment_end_placeholder: Deireadh an Mheasúnaithe (BBBB-MM-LL)
       assignment_start: Tús an Mheasúnaithe
       assignment_start_placeholder: Tús an Mheasúnaithe (BBBB-MM-LL)
+      cancel_course_clone: Cealaigh clón cúrsa
+      cancel_course_clone_confirm: An bhfuil tú cinnte gur mian leat deireadh a chur
+        le clónáil an chúrsa seo?
+      checking_for_uniqueness: Tá an cúrsa seo á sheiceáil le haghaidh uathúlacht.
       choose_clone: Roghnaigh cúrsa le clónáil
       clone_previous: Clónáil an Cúrsa Roimhe seo
       clone_this: Clónáil an Cúrsa seo
-      clone_successful: D'éirigh le Clónáil an Chúrsa
+      cloned_course_calendar_instructions: Roghnaigh dátaí le cur leis an sceideal
+        nó le baint de (m.sh., laethanta saoire, gan scoil). Cliceáil an dáta le hathrú
+        idir neamhroghnaithe, roghnaithe, agus stádas laethanta saoire. Mura bhfuil
+        aon laethanta saoire agat, seiceáil "Níl aon laethanta saoire ranga agam".
+        Déanfaidh an amlíne clónáilte na dátaí a choigeartú go huathoibríoch chun
+        cuntas a thabhairt ar sheachtainí nach bhfuil aon chruinnithe sceidealaithe
+        acu.
+      clone_successful: Nuashonraigh Sonraí don Chúrsa Clónáilte
+      copy_successful: Nuashonraigh Sonraí don Chúrsa Cóipeáilte
+      clone_successful_details: Tá do chúrsa clónáilte, lena n-áirítear eilimintí
+        an amlíne (seachtainí agus bloic). Bí cinnte na dátaí nach bhfuil iompraíodh
+        anonn a chur leis. An bhfuil aon rud eile faoi do chúrsa athraithe? Ná bíodh
+        drogall ort é a nuashonrú anois.
+      copy_successful_details: Tá cóip déanta de do chúrsa, lena n-áirítear eilimintí
+        an ama ama (seachtainí agus bloic). Bí cinnte na dátaí nach bhfuil iompraíodh
+        anonn a chur leis. An bhfuil aon rud eile faoi do chúrsa athraithe? Is féidir
+        leat é a nuashonrú anois.
+      course_dates_info: Cuir isteach dátaí tosaigh agus deiridh do chúrsa. Sa chéad
+        chéim eile, is féidir leat a roghnú cathain is ceart an tasc Vicipéide a thosú
+        laistigh den tréimhse ama sin.
       course_description: Cur síos ar an gcúrsa
+      course_description_placeholder: Cad a chlúdaítear i do chúrsa, agus cad a bheidh
+        á dhéanamh ag na mic léinn ar Vicipéid? Cuir dóthain sonraí san áireamh le
+        go dtabharfaidh eagarthóirí Vicipéide eile léargas ar chomhthéacs na ranníocaíochtaí
+        a bheidh á ndéanamh ag do mhic léinn.
+      course_private: Clár príobháideach (le feiceáil ag riarthóirí agus éascaitheoirí
+        amháin)
+      course_ta_support: Beidh teagascóirí nó TAanna breise ag an gcúrsa
       course_school: Scoil an chúrsa
       course_subject: Ábhar an chúrsa
       course_term: Téarma an chúrsa
-      course_term_placeholder: Téarma
+      course_term_placeholder: Téarma (lena n-áirítear bliain)
       course_title: Teideal an chúrsa
+      course_types:
+        basic_course_name: Clár Bunúsach
+        basic_course_description: Déanfaidh an cineál cláir seo rianú ar eagarthóireachtaí
+          ar aon ailt nó leathanaigh phríomhspáis ag aon rannpháirtithe. Má tá eagarthóireachtaí
+          uathoibrithe vicí cumasaithe ar vicí baile an chláir, cruthófar agus nuashonrófar
+          leagan ar an vicí den chlár seo go huathoibríoch.
+        edit_a_thon_name: Eagarthóireacht-A-Thon
+        edit_a_thon_description: Déanfaidh clár Eagarthóireacht-A-Thon rianú ar athruithe
+          ar aon ailt nó leathanaigh phríomhspáis. De réir réamhshocraithe, ní dhéanfar
+          aon athruithe uathoibrithe don chlár seo.
+        article_scoped_program_name: Clár Scóip Airteagail
+        article_scoped_program_description: Ní dhéanann an cineál cláir seo ach eagarthóireachtaí
+          d’ailt nó do chatagóirí sannta a rianú. Bain úsáid as an gcineál seo más
+          mian leat na staitisticí a theorannú do bhailiúchán aitheanta d’ailt nó
+          do réimsí topaicí. De réir réamhshocraithe, bíonn eagarthóireachtaí uathoibrithe
+          vicí casta air.
+        single_user_name: Eagarthóir Aonair
+        single_user_description: Tá an cineál cláir seo beartaithe chun do chuid ranníocaíochtaí
+          féin a rianú, le comhéadan simplithe. Bain úsáid as an gcineál seo mura
+          gá duit eagarthóireachtaí ag aon úsáideoirí eile a rianú.
       create_button: Cruthaigh mo chúrsa
       create_label: Cruthaigh Cúrsa Nua
       create_new: Cruthaigh Cúrsa Nua
+      copy_courses_with_assignments: Liosta na nAirteagal atá ar Fáil a Chlónáil
       create_short: Cruthaigh Cúrsa
       end_date: Dáta deiridh
       end_date_placeholder: Dáta deiridh (BBBB-MM-DD)
       expected_number: Líon mac léinn tuartha
+      field_invalid_term: Ní mór don téarma bliain a áireamh (m.sh., "Earrach 2025")
       find: Aimsigh do chúrsa
+      intro: Cruthaíonn an teideal, an scoil, agus an téarma URL do leathanaigh chúrsa,
+        agus ní féidir iad a athrú. Is féidir leat gach rud eile a chur in eagar níos
+        déanaí. Cliceáil “Cruthaigh mo Chúrsa!” chun tús a chur le hamlíne do do thasc
+        Vicipéide a thógáil.
+      new_or_clone: Cliceáil 'Cruthaigh Cúrsa Nua' chun dul ar aghaidh chuig an draoi
+        deartha tascanna. Beidh na roghanna is déanaí do mhodúil oiliúna molta Wiki
+        Education agus acmhainní eile san áireamh i do amlíne. Má tá amlíne saincheaptha
+        agat ó chúrsa roimhe seo ar mhaith leat a athúsáid, is féidir leat cóip di
+        a chlónáil le dátaí nua. Is féidir leat an rogha clónála a úsáid freisin chun
+        rannóga breise a chruthú do chúrsa atá socraithe agat cheana féin.
+      no_class_holidays: Níl aon laethanta saoire ranga agam
+      role_description: Do ról sa chúrsa
+      role_description_options:
+      - Teagascóir
+      - Cúntóir Teagaisc
+      role_description_placeholder: Teagascóir, cúntóir teagaisc, srl.
+      separate_event_dates: Sonraigh amanna tosaithe/críochnaithe imeachta ar leithligh
+        (roghnach)
+      separate_event_dates_info: Déanfar staitisticí gníomhaíochta don chlár seo a
+        rianú bunaithe ar na dátaí agus na hamanna thuas, ach is féidir leat amanna
+        ar leith a shonrú maidir le cathain a thosaíonn agus a chríochnaíonn an ócáid
+        ​​nó an clár féin (mar shampla, ionas go mbeidh a fhios ag rannpháirtithe
+        cathain is ceart dóibh teacht nó cathain a dhúnann an t-ionad).
+      save_cloned_course: Sábháil Cúrsa Nua
       start_date: Dáta tosaithe
       start_date_placeholder: Dáta tosaithe (BBBB-MM-LL)
       subject: Ábhar
+      update_scheduled: Nuashonrú sceidealaithe. Déanfar na sonraí a nuashonrú mar
+        aon leis na cláir reatha go léir le linn an chéad timthriall nuashonraithe
+        eile. De ghnáth tógann sé seo roinnt uaireanta an chloig.
+      creating_course: Cúrsa á Chruthú
     current: Cúrsaí Reatha
     data_articles: Sonraí na n-alt
+    data_articles_info: Áirítear le sonraí alt líon na n-eagarthóireacht ar gach leathanach,
+      cé na leathanaigh atá nua, agus iomláin na n-amharc leathanaigh. D’fhéadfadh
+      na luachanna amharc leathanaigh seo a bheith as dáta i gcás cúrsaí atá críochnaithe
+      cheana féin, mar sin tá url chuig uirlis amharc leathanaigh WMF Tool Labs san
+      áireamh.
+    data_revisions_info: Áirítear leis na sonraí athbhreithnithe líon athbhreithnithe
+      an chúrsa, athbhreithniú an ailt, cé na leathanaigh atá nua agus iomláin na
+      n-amharc leathanaigh.
     data_download_info: Íoslódáil na sonraí i bhfoirm CSV
+    data_download_warning: Níl an cúrsa seo cothrom le dáta laistigh den chóras nua
+      go fóill. Seans nach bhfuil na staitisticí iomlána. Sula ndéanann tú iad a íoslódáil,
+      sceidealaigh nuashonrú sonraí don chúrsa seo agus fan go mbeidh sé críochnaithe.
+      Más cúrsa leanúnach é seo, fan go dtí go mbeidh an nuashonrú reatha críochnaithe.
     data_overview: Sonraí forléargais
+    data_overview_info: Soláthraíonn sonraí forbhreathnaithe staitisticí carnacha
+      don tionscadal ar fad.
     data_edits: Sonraí na n-athruithe
+    data_edits_info: Taispeánann sonraí eagarthóireachta sonraí faoi gach eagarthóireacht
+      a rinneadh le linn an tionscadail.
     data_students: Sonraí na n-eagarthóirí
+    data_students_info: Liostaítear sna sonraí eagarthóirí na heagarthóirí uile atá
+      cláraithe, cé mhéad eagarthóireachta a rinne siad, agus cibé ar chláraigh siad
+      a gcuntais le linn an tionscadail.
+    data_uploads: Sonraí uaslódála Commons
+    data_revisions: Sonraí athbhreithnithe
+    data_uploads_info: Taispeánann sonraí uaslódála Commons ainm agus comhaireamh
+      úsáide gach uaslódála meán.
+    data_wikidata: Staitisticí Wikidata
+    data_wikidata_info: Miondealú mionsonraithe ar ghníomhaíocht Wikidata, bunaithe
+      ar achoimrí eagarthóireachta
+    dates_too_long: Is é bliain amháin an fad uasta.
     delete_course: Scrios an cúrsa
     delete_suggestion: Scrios
+    delete_course_instructions: Féadfaidh tú an leathanach seo a scriosadh má bhaintear
+      na feachtais go léir ar dtús.
+    disable_student_emails: Díchumasaigh Ríomhphoist na Mac Léinn
+    disable_student_emails_tooltip: Má dhíchumasaítear ríomhphost mac léinn, cuirfear
+      stop le roinnt ríomhphoist fógra a sheoladh chuig mic léinn don chúrsa seo.
     dismiss_survey: Ruaig
+    dismiss_survey_confirm: An bhfuil tú cinnte gur mian leat an suirbhé seo a dhíbhe
+      go buan?
     download_stats_data: Staitisticí Íoslódála
     duration: Fad an chúrsa
+    edit_count: Cuir in Eagar Líon
     edit_course_dates: Athraigh Dátaí an Chúrsa
+    embed_course_stats: Staitisticí Cúrsa a Leabú
+    embed_course_stats_description: Chun na staitisticí don chlár seo a leabú i suíomh
+      Gréasáin eile, cóipeáil agus greamaigh an sleachta cóid seo isteach ann
+    enable_account_requests: Cumasaigh iarratais chuntais
     end: Deireadh
     ended: Tá an cúrsa thart
     enroll: Cláraigh
-    enrollment: Clárúchán
+    enrollment: Cuir Daltaí leis/Bain Daltaí
+    enrollment_edits_enabled: Eagarthóireacht clárúcháin cumasaithe
+    enrollment_edits_enabled_tooltip: Má tá sé cumasaithe, cuirfidh an painéal teimpléad
+      ar leathanach úsáideora agus leathanach plé gach eagarthóra a théann isteach
+      sa chlár.
+    event_sync: 'Eagarthóireacht díchumasaithe: Ní féidir an réimse seo a athrú mar
+      go bhfuil an cúrsa nasctha le himeacht cheana féin. Chuirfeadh athrú air isteach
+      ar chomhtháthú an imeachta.'
     courses_enrolled: Cúrsaí cláraithe
+    error:
+      exists: Tá an cúrsa sin ann cheana féin! Déan iarracht eile le teideal, scoil
+        nó téarma difriúil.
+      user_exists: Ár leithscéal, ní úsáideoir reatha é %{username}.
+      user_exists_on_wiki: Ár leithscéal, ní úsáideoir reatha é %{username} ar %{domain}.
+      invalid_language_or_project: Teanga/tionscadal neamhbhailí
+      invalid_wiki: Ní féidir ceangal le %{domain}. B'fhéidir nach vicí bailí é.
+      duplicate_course_slug: Tá an URL %{slug} i mbun oibre cheana féin. Athraigh
+        an teideal, an scoil, nó an téarma le do thoil.
+      invalid_slug: Scoil/teideal bán don chúrsa.
+      duplicate_slug: Tá clár eile darb ainm %{slug} ann cheana féin.
     expected_students: Mic Léinn a bhFuiltear ag Súil Leo
+    features_feedback: 'Moltaí Uathoibrithe:'
     feedback: Aiseolas
+    feedback_loading: Fan go fóill agus na moltaí á lódáil...
+    gradeables_none: Níl aon tascanna inghráidithe ar an gcúrsa seo.
+    home_wiki: Vicí Baile
+    multi_wiki: Vicí Rianaithe
+    namespaces: Ainmspásanna Rianaithe
+    instructor:
+      one: Teagascóir
+      two: Teagascóirí
+      few: Teagascóirí
+      many: Teagascóirí
+      other: Teagascóirí
     instructors: Teagascóirí
+    instructor_message: Seo an comhéadan céanna de chuid Mo Airteagail atá ag mic
+      léinn. Is féidir leat é a úsáid chun na céimeanna céanna a rachaidh mic léinn
+      tríd a leanúint. Ní dhéanfar ach ranníocaíochtaí na mac léinn a rianú, áfach.
+    instructor_message_wikidata: Seo an comhéadan céanna de chuid Mo Mhíreanna atá
+      ag daltaí. Is féidir leat é a úsáid chun na céimeanna céanna a rachaidh daltaí
+      tríd a leanúint. Ní dhéanfar ach ranníocaíochtaí daltaí a rianú, áfach.
+    invitation: Tá cuireadh tugtha duit páirt a ghlacadh i %{title}. Chun páirt a
+      ghlacadh, ní mór duit logáil isteach le cuntas Vicipéid.
+    invitation_username_advice: Mura bhfuil cuntas Vicipéid agat go fóill, cláraigh
+      le haghaidh ceann anois. Is féidir le d’ainm úsáideora a bheith chomh gan ainm
+      — nó chomh pearsanta — agus is mian leat. (Ní cheadaítear cuntais chomhroinnte.)
     join: Ceangal
     join_course: Ceangal leis an gcúrsa
+    join_course_as_volunteer: Déan obair dheonach chun cabhrú
     join_prompt: Ceangal le %{title}
-    join_successful: D'éirigh leat ceangal le %{title}
+    join_successful: Tá tú tar éis dul isteach i %{title} go rathúil. Coinneoidh an
+      painéal súil go huathoibríoch ar do chuid ranníocaíochtaí le nuashonruithe tréimhsiúla.
+      Seiceáil ar ais níos déanaí chun a fheiceáil cén tionchar atá déanta agat!
     join_failed: Theip ar an gclárú
+    join_failure_details:
+      cannot_join_twice: Ní fhéadfaidh úsáideoirí páirt a ghlacadh sa chúrsa céanna
+        faoi dhó.
+      not_yet_approved: Níl an cúrsa seo ceadaithe le haghaidh clárúcháin go fóill.
+      withdrawn: Tá an cúrsa seo marcáilte mar chúrsa tarraingthe siar — b'fhéidir
+        trí dhearmad. Téigh i dteagmháil le foireann Wiki Education chun é a athchumasú.
+      invalid_sync: Tá clárú san imeacht seo á rialú ag Ionad Imeachtaí Wikimedia.
+        Ní féidir páirt a ghlacadh ann ón Painéal Rialaithe.
+      disallowed_user: Tá an t-úsáideoir seo ar an liosta úsáideoirí neamhcheadaithe
+        agus ní féidir é a chlárú i gcúrsaí.
+    join_details: Chun páirt a ghlacadh sa chúrsa seo, ní mór duit an paschód — nó
+      nasc clárúcháin ina bhfuil an paschód — a fháil ón teagascóir. Mura bhfuil sé
+      seo faighte agat, déan teagmháil le do theagascóir.
+    join_no_passcode: An bhfuil tú cinnte gur mhaith leat páirt a ghlacadh sa chúrsa
+      seo?
+    launch_wizard: Lainseáil an Draoi
+    leave_confirmation: An bhfuil tú cinnte gur mian leat an cúrsa seo a fhágáil?
     leave_course: Fág an cúrsa
     loading: Ag lódáil...
+    milestones_none: Níl aon chlocha míle ag an gcúrsa seo faoi láthair.
     my_articles: Mo chuid alt
+    my_articles_wikidata: Mo Mhíreanna
+    needs_update: Nuashonrú Sonraí Sceidil
+    update_scheduled_label: Nuashonrú Sceidealaithe
+    new_week: Cuir Seachtain Nua leis
+    new_account_check_username: Seiceáil infhaighteacht ainm úsáideora
+    new_account_email: Seoladh ríomhphoist
+    new_account_email_placeholder: ainm@sampla.org
+    new_account_info: Chun cuntas a iarraidh, cuir isteach do sheoladh ríomhphoist
+      agus an t-ainm úsáideora atá uait. Seolfar pasfhocal chugat trí ríomhphost a
+      luaithe a bheidh an cuntas cruthaithe ag duine de na héascaitheoirí.
+    new_account_info_admin: Chun cuntas a chruthú d’eagarthóir nua, cuir isteach a
+      seoladh ríomhphoist agus an t-ainm úsáideora atá uait. Seolfar pasfhocal chucu
+      trí ríomhphost a luaithe a bheidh an cuntas cruthaithe.
+    new_account_username: Ainm úsáideora iarrtha
+    new_account_username_invalid: Ní ainm úsáideora bailí é seo.
+    new_account_username_placeholder: Eagarthóir Vicí 123
+    new_account_username_taken: Tá an t-ainm úsáideora sin i mbun oibre cheana féin.
+      Roghnaigh ceann eile le do thoil.
+    new_account_submit: Iarr cuntas
+    new_account_submitted: Tá d’iarratas ar chuntas curtha isteach. Is féidir leis
+      an Éascaitheoir don chlár seo cruthú do chuntais a chríochnú anois. Nuair a
+      bheidh sé cruthaithe, gheobhaidh tú pasfhocal don chuntas nua trí ríomhphost.
+    new_account_submitted_admin: Tá d’iarratas ar chuntas cruthaithe. Cuir in iúl
+      do do mhic léinn, le do thoil, a mbosca isteach ríomhphoist a sheiceáil chun
+      a bpasfhocal nua a fháil.
+    no_campaign: Chun an clár seo a ghníomhachtú agus chun ligean d’úsáideoirí páirt
+      a ghlacadh, ní mór é a chur le feachtas. Mura bhfuil tú cinnte cén feachtas
+      atá le cur leis, bain úsáid as 'Miscellanea'.
+    no_sandboxes: Gan boscaí gainimh
+    no_sandboxes_info: Nuair a bheidh sé cumasaithe, beidh an cúrsa i mód Gan Bosca
+      Gainimh. Bí cinnte na clibeanna agus ábhar an ama ama a athrú freisin, más gá.
+    nocourses: Níl tú ag glacadh páirte in aon chúrsaí.
+    nocourse: níor ghlac páirt in aon chúrsaí.
     none: Tada
+    not_permitted: Níl cead agat an cúrsa seo a chur in eagar.
+    notify_untrained_confirmation: Cuirfidh sé seo meabhrúchán ar na leathanaigh phlé
+      do na mic léinn uile atá thar téarma maidir le modúil oiliúna sannta a chríochnú.
+      An bhfuil tú cinnte gur mhaith leat é seo a dhéanamh?
+    no_available_actions: Gan aon ghníomhartha ar fáil
+    online_volunteers_enabled: Oibrithe Deonacha Ar Líne cumasaithe
+    online_volunteers_tooltip: Trí Oibrithe Deonacha Ar Líne a Chumasú, is féidir
+      le heagarthóirí úsáideoirí páirt a ghlacadh mar oibrí deonach. Ní dhéanfar a
+      gcuid eagarthóireachtaí a rianú.
+    ores_plot: ORES
+    ores_plot_description: Léiríonn an graf seo, san iomlán, cé mhéad alt a forbraíodh
+      ó sular chuir na mic léinn eagarthóireacht orthu den chéad uair go dtí a n-eagarthóireacht
+      is déanaí. Tá an rátáil Iomláine Struchtúrach bunaithe ar thionscadal foghlama
+      meaisín (%{ores_link}) a mheasann rátáil cáilíochta alt bunaithe ar an méid
+      próis, líon na naisc vicí, íomhánna agus ceanntásca rannóige, agus gnéithe eile.
+      (%{refresh_link})
+    ores_plot_no_data: Níl aon sonraí maidir le hIomláine Struchtúrach ar fáil
+    ores_plot_refresh_data: Athnuachan Sonraí Taisceáilte
+    ores_plot_show_button: Athrú ar Iomláine Struchtúrach
     overview: Baile
     passcode: Paschód
     passcode_none: Níl aon phaschód
+    passcode_prompt: 'Cuir isteach an pasfhocal le bheith páirteach:'
+    please_log_in: Logáil isteach le do thoil.
+    private: Príobháideach
+    published: 'Tá do chúrsa foilsithe! Is féidir le mic léinn clárú don chúrsa trí
+      chuairt a thabhairt ar an URL seo a leanas:'
+    rating_feedback: 'Is é an rátáil réamh-mheasta don alt ná:'
+    requested_accounts: Cuntais iarrtha
+    requested_accounts_alert:
+      one: D'iarr %{count} cuntas ar feitheamh.
+      two: D'iarr %{count} cuntais ar feitheamh.
+      few: D'iarr %{count} cuntais ar feitheamh.
+      many: D'iarr %{count} cuntais ar feitheamh.
+      other: D'iarr %{count} cuntais ar feitheamh.
+    requested_accounts_alert_view: Amharc
+    retain_available_articles: Coinnigh Airteagail atá ar Fáil
+    retain_available_articles_wikidata: Coinnigh Míreanna atá ar Fáil
+    retain_available_articles_info: Nuair a bhíonn sé cumasaithe, ní bhaintear Airteagal
+      atá ar Fáil den liosta nuair a roghnaítear é, rud a ligeann do ghrúpa mac léinn
+      an t-alt céanna a roghnú.
+    retain_available_articles_info_wikidata: Nuair a bhíonn sé cumasaithe, ní bhaintear
+      Mír atá ar Fáil den liosta nuair a roghnaítear í, rud a ligeann do ghrúpa mac
+      léinn an mhír chéanna a roghnú.
+    review_timeline: 'Anois, déan athbhreithniú ar amlíne do thascanna, agus déan
+      é a shaincheapadh chun freastal ar do chuid riachtanas. Nuair a bheidh tú sásta,
+      is féidir leat é a chur isteach lena cheadú ag foireann Wiki Education. Nuair
+      a bheidh sé ceadaithe, gheobhaidh tú URL clárúcháin ar féidir le mic léinn a
+      úsáid chun páirt a ghlacadh sa chúrsa agus rochtain a fháil ar na hoiliúintí.
+      (Nóta: Beidh tú in ann eagarthóireachtaí a dhéanamh níos déanaí fós.)'
+    revisions_doc: An líon measta eagarthóireachtaí le %{timeframe} lá anuas, bunaithe
+      ar an meán-eagarthóireacht in aghaidh an lae thar an tréimhse dheireanach.
+    revisions_none: Níl aon ghníomhaíocht eagarthóireachta le déanaí ar Vicipéid ar
+      an gcúrsa seo.
     school: Scoil
     school_and_term: Institiúid/Téarma
+    search_all_tickets_for_this_course: Cuardaigh na ticéid uile don chúrsa seo
+    search_courses: Cuardaigh cúrsaí
     start: Tosaigh
     start_typing: Tosaigh ag clóscríobh
+    stay_in_sandbox: Fan sa bhosca gainimh
+    max_group_size: Uasmhéid an ghrúpa
+    max_group_size_tooltip: Uasmhéid na mac léinn ar féidir leo oibriú ar an alt céanna.
+      Fág bán le haghaidh neamhtheoranta.
+    student: Mac Léinn
     students: Mic Léinn
     students_taught: Mic Léinn á Theagasc
     students_count: '# Mic Léinn'
     student_editors: Eagarthóirí (Mic Léinn)
     students_none: Níl aon mhic léinn ag an gcúrsa
     students_short: Mic Léinn
+    submitted_admin: Tá an cúrsa seo curtha isteach lena cheadú ag a chruthaitheoir.
+      Chun é a cheadú, cuir le feachtas é ar an leathanach Forbhreathnú.
     submitted_and_pending_heading: Seolta & Ag Fanacht ar Dheimhniú
     submitted_heading: Cúrsaí Seolta
+    submitted_note: Tá do chúrsa curtha isteach go rathúil. Déanfaidh foireann Wiki
+      Education athbhreithniú air agus rachaidh siad i dteagmháil leat má tá aon cheist
+      agat. Idir an dá linn, más mian leat ábhair oiliúna Wiki Education a athbhreithniú,
+      is féidir leat an liosta iomlán acmhainní do theagascóirí agus do mhic léinn
+      a fheiceáil.
+    suggestions_feedback: An bhfuil aon mholtaí agat chun an ghné seo a fheabhsú?
+      Cuir in iúl dúinn!
     suggestions_sending: Ag seoladh aiseolais...
+    suggestions_sent: Aiseolas Seolta. Go raibh maith agat as do chuid ionchuir.
+    suggestions_failed: Níorbh fhéidir aiseolas a sheoladh. Bain triail eile as ar
+      ball.
     user_role: Ról
     course_details: Sonraí an Chúrsa
+    course_submitted: Úsáidtear stádas curtha isteach le haghaidh cúrsaí clár oideachais
+      ina gcaithfear plean cúrsa a cheadú sula dtosaíonn an tionscadal. Ní bhaineann
+      sé ach leis an gcineál cúrsa ClassroomProgram.
     subject: Ábhar
     submitted: Seolta
+    submitted_at: Arna chur isteach ag
+    approval_form_heading: Foirm Cheadúcháin Cúrsa
+    add_program_manager: 'Cuir Bainisteoir Cláir leis:'
+    add_wiki_expert: 'Cuir Saineolaí Vicipéide leis:'
+    add_tags: 'Cuir Clibeanna leis:'
+    add_campaigns: 'Cuir Feachtais leis:'
+    invalid_salesforce_id: Níl an t-aitheantas a iontráladh bailí.
+    add_salesforce_id: 'Cuir Aitheantas Salesforce leis:'
+    approve_course: Cúrsa a cheadú
+    tag_select: Roghnaigh nó cruthaigh clib
+    tags: 'Clibeanna:'
     term: Téarma
     timeline: Sonraí an Mheasúnaithe
     timeline_enabled: Amlíne cumasaithe
     timeline_link: Amlíne
+    timeline_tooltip: Trí an Amchlár a chumasú, beidh tú in ann gníomhaíochtaí seachtain
+      ar sheachtain a shonrú agus modúil oiliúna a shannadh. Tá sé úsáideach do chúrsaí
+      Cláir Oideachais agus do chláir fhada eile atá an-struchtúrtha.
+    timeline_nav: Téigh go dtí an Amchlár
+    time_zone_message: Taispeántar amanna tosaithe agus críochnaithe i do chrios ama
+      áitiúil.
     title: Teideal
+    training_due: Tá an modúl oiliúna "%{title}" sannta don chúrsa seo, agus tá sé
+      dlite ar %{date}.
+    training_nav: Téigh chuig an oiliúint
+    training_overdue: Tá an modúl oiliúna "%{title}" sannta don chúrsa seo, agus bhí
+      sé dlite ar %{date}.
+    unsubmitted: Cúrsaí Gan Chur Isteach
+    untrained: Gan oiliúint
+    update_stats: Nuashonraigh staitisticí
+    uploads_none: Níor chuir an rang seo aon íomhánna ná comhaid meán eile le Wikimedia
+      Commons.
+    user_uploads_none: Níor chuir an t-úsáideoir seo aon íomhánna ná comhaid meán
+      eile le Wikimedia Commons.
+    user_recent_uploads: Uaslódálacha Le Déanaí
+    user_suggestions: 'Moltaí Úsáideora:'
+    user_suggestions_prompt: Do mholtaí do eagarthóirí an ailt
+    view_other: Féach ar fheachtais eile
+    view: Féach ar an gCúrsa
+    view_doc: Líon measta na n-amharc ar ailt arna n-eagarthóireacht ag eagarthóirí
+      cláraithe ó rinne an t-eagarthóir a gcéad eagarthóireacht ar gach alt
+    view_page: Féach ar Leathanach an Chúrsa
+    view_wiki: Féach ar Vicipéid
+    volunteer:
+      one: Oibrí Deonach
+      two: Oibrithe Deonacha
+      few: Oibrithe Deonacha
+      many: Oibrithe Deonacha
+      other: Oibrithe Deonacha
+    weeks_none: Níl amlíne ag an gcúrsa seo go fóill.
+    warn_mirrored: Nuair a bheidh an cúrsa seo curtha isteach, cuirfear suas é go
+      huathoibríoch chuig Vicipéid le do chuntas úsáideora. Ina dhiaidh sin, déanfar
+      athruithe nua ar an amlíne a scáthánú ar Vicipéid. An bhfuil tú cinnte gur mhaith
+      leat é seo a dhéanamh?
+    wiki_course_page_enabled: Leathanach cúrsa Vicí cumasaithe
+    wiki_course_page_enabled_tooltip: Má chuirtear ar chumas é, déanfar scáthán ar
+      an vicí den leathanach a nuashonrú aon uair a athraítear an clár nó a úsáideoirí
+      agus a sannadh.
+    wiki_edits_enabled: Eagarthóireacht Vicí cumasaithe
+    wiki_edits_enabled_tooltip: Má tá eagarthóireachtaí vicí cumasaithe, déanfar eagarthóireachtaí
+      uathoibrithe ar an vicí don chlár seo. Díchumasaigh eagarthóireachtaí vicí mura
+      dteastaíonn uait teimpléid a chur le leathanaigh úsáideora, leathanaigh phlé
+      alt sannta, srl.
+    wiki_staff: Foireann Oideachais Wiki
+    withdrawn: Níor dhein an tasc
+    word_count_doc: Meastachán ar líon na bhfocal a chuir mic léinn an chúrsa le hairteagail
+      sa phríomhspás le linn théarma an chúrsa
+    word_count_doc_wikidata: Meastachán ar líon na bhfocal a chuir mic léinn an chúrsa
+      le míreanna príomhspáis le linn théarma an chúrsa
     yourcourses: Do Chúrsaí
+    declined_note: Diúltaíodh don chúrsa seo. Téigh i dteagmháil le foireann Wiki
+      Education má tá ceisteanna agat.
+    decline_course: Diúltaigh don Chúrsa
+    decline_course_confirm: An bhfuil tú cinnte gur mian leat an cúrsa seo a dhiúltú?
+      Déanfaidh sé seo an t-aighneacht a chartlannú agus foláirimh uathoibríocha neamh-aighnithe
+      don chúrsa seo a stopadh.
+    survey:
+      notification_message: Glac páirt inár suirbhé don chúrsa seo.
+      link: Glac páirt sa Suirbhé
+  course_instructor_notification:
+    notify_instructors: Ríomhphost chuig Teagascóirí
+    notify_instructors_feature_description: Seol teachtaireacht chuig na hOideoirí
+      trí ríomhphost
+    send_notification_button_text: Seol
+    notification_sent_success: Teachtaireacht seolta chuig gach Teagascóir de chuid
+      %{courseTitle}
+    notification_send_error_no_internet: Ní féidir an t-iarratas a sheoladh. Seiceáil
+      an bhfuil tú ceangailte leis an Idirlíon.
+    notification_send_error_server: 'Earráid Freastalaí: Ní féidir fógra a sheoladh
+      (%{status} %{statusText})'
+    notification_empty_message: Ní féidir an t-ábhar ná an teachtaireacht a fhágáil
+      folamh
+    confirm_send_notification: Seol chuig na teagascóirí uile don chúrsa seo?
+    write_subject: Ábhar
+    write_message_placeholder: Teachtaireacht
+    sending_notification: Ag seoladh
+    bcc_to_salesforce: BCC chuig Salesforce
   courses_generic:
+    school_system: Córas Acadúil
+    add_campaign: Cuir feachtas leis
     all_courses: Gach Clár
+    archived: Cláir Cartlannaithe
+    articles_i_am_reviewing: Ailt atá á n-athbhreithniú agam
+    assignment_headings:
+      available_reviews: Ar fáil le hathbhreithniú
+      available_reviews_wikidata: Ar fáil le hathbhreithniú
+    assignment_end: Deireadh na hImeachta
+    assignments_none: Níl aon ailt sannta don tionscadal seo.
+    assignment_start: Tús na hImeachta
     cancel: Cealaigh
     course: Clár
     courses: Cláir
@@ -249,9 +1147,31 @@ ga:
     campaigns: 'Feachtais:'
     campaign_courses: 'Cláir: %{title}'
     creator:
+      assignment_end: Deireadh na hócáide
+      assignment_end_placeholder: BBBB-MM-LL
+      assignment_start: Tús na hócáide
+      assignment_start_placeholder: BBBB-MM-LL
+      cancel_course_clone: Cealaigh clón an chláir
+      cancel_course_clone_confirm: An bhfuil tú cinnte gur mian leat deireadh a chur
+        le clónáil an chláir seo?
+      checking_for_uniqueness: Tá an clár seo á sheiceáil le haghaidh uathúlachta.
+      choose_clone: Roghnaigh clár le clónáil.
+      clone_previous: Clónáil an Chláir Roimhe Seo
       clone_this: Clónáil an Clár
       clone_successful: D'éirigh le Clónáil an Chláir
+      clone_successful_details: Tá do chlár clónáilte. Cliceáil 'Sábháil' thíos chun
+        é a chríochnú.
+      course_when: Cuir rud éigin sa réimse 'Cathain' (mar shampla, an mhí agus an
+        bhliain) chun é a idirdhealú ón mbunleagan.
+      course_dates_info: Cuir isteach dátaí tosaigh agus deiridh do chláir. B’fhéidir
+        gur mhaith leat an deireadh a shíneadh go dtí roinnt uaireanta an chloig nó
+        laethanta tar éis dheireadh na bpríomhghníomhaíochtaí, chun eagarthóireacht
+        ghaolmhar a chur san áireamh a tharlaíonn go gairid i ndiaidh an imeachta.
       course_description: Cur síos ar an gclár
+      course_description_placeholder: Cad é an clár seo, agus cad a bheidh á dhéanamh
+        ag na rannpháirtithe ar an vicí/na vicí? Cuir dóthain sonraí san áireamh le
+        go dtabharfaidh sé léargas comhthéacs d’eagarthóirí eile maidir leis na ranníocaíochtaí
+        a dhéanfaidh na rannpháirtithe.
       course_school: Institiúid
       course_term: Cathain
       course_term_placeholder: Cathain
@@ -260,22 +1180,90 @@ ga:
       create_label: Cruthaigh Clár Nua
       create_new: Cruthaigh Clár Neamhspleách
       create_short: Cruthaigh Clár
+      end_date: Deireadh rianú gníomhaíochta
       find: Aimsigh Clár
+      intro: Is é teideal an chláir agus an institiúid URL an chláir. Is é an vicí
+        baile an príomhvicí ina mbeidh rannpháirtithe ag obair, agus déanfar eagarthóireachtaí
+        ar an vicí seo a rianú de réir réamhshocraithe. Má chlúdaíonn do chlár teangacha
+        nó tionscadail iolracha, déanfar ranníocaíochtaí a rianú freisin d'aon vicí
+        atá curtha go sainráite leis na "Vicí Rianaithe". Cliceáil "Cruthaigh mo Chlár!"
+        chun tús a chur le leathanach a thógáil do do chlár vicí.
+      new_or_clone: Cruthaigh clár nua anois, nó bain úsáid as an rogha 'clónáil'
+        chun clár eile a raibh tú páirteach ann a chóipeáil.
       participate_in_campaign: Glac Páirt i bhFeachtas
       save_cloned_course: Sábháil
+      start_date: Tús rianú gníomhaíochta
+      scoping_methods:
+        scoping_methods: Modhanna Scóipeála
+        configure: Cumraigh Modhanna Scóipeála
+        about: |-
+          I gcás Clár Raon Feidhme Airteagal, ní dhéanfaidh an Painéal ach eagarthóireachtaí ar na hairteagail a chumraigh tú dóibh a rianú. Tar éis do leathanach a chruthú, is féidir leat ailt aonair a chur leis chun rianú a dhéanamh ar shannadh alt d’eagarthóirí aonair nó trína gcur leis mar Ailt atá ar Fáil. I gcás tacair níos mó alt, is féidir leat aon cheann de na huirlisí seo a úsáid chun ailt is mian leat a rianú a shainiú.
+          Roghnaigh aon mhodhanna raoin feidhme is mian leat a chumrú anois. Is féidir leat modhanna raoin feidhme a chur leis níos déanaí ón táb Ailt freisin.
+        categories: Catagóirí
+        categories_short_desc: Úsáidtear an ghné Catagóire ar vicí chun ailt ghaolmhara
+          a bhailiú. Is féidir leat ainm na Catagóire a úsáid chun a chur in iúl don
+          Phainéal na hailt go léir sa Chatagóir sin a rianú.
+        categories_desc: |-
+          Ciallaíonn rianú Catagóire go ndéanfaidh an Painéal eagarthóireachtaí ar aon alt sa Chatagóir sin a chomhaireamh. De réir réamhshocraithe (doimhneacht 0), ní dhéanfar rianú ach ar na hairteagail atá go díreach sa Chatagóir sin.
+          Is féidir leat an luach doimhneachta a mhéadú (suas le huasmhéid de 3) más mian leat ailt atá i bhfochatagóirí den Chatagóir sin a áireamh. Bí cinnte go mbrabhsálann tú an Chatagóir ar dtús, lena chinntiú go n-oireann na fochatagóirí don rud atá beartaithe agat a rianú.
+        templates: Teimpléid
+        templates_short_desc: Is féidir leat ailt a rianú bunaithe ar Theimpléad atá
+          iontu, rud a oibríonn cibé acu an úsáidtear an Teimpléad ar an alt féin,
+          nó ar an leathanach Plé comhfhreagrach — amhail teimpléid WikiProject.
+        petscan: PetScan
+        petscan_short_desc: Is uirlis é PetScan a ligeann duit leathanaigh vicí a
+          fhiosrú bunaithe ar raon leathan critéar — lena n-áirítear catagóirí, teimpléid,
+          naisc vicí, agus i bhfad níos mó. Is féidir leat ID fiosrúcháin PetScan
+          a úsáid chun sraith alt a chumrú le rianú ar an bPainéal.
+        pagepile: PagePile
+        pagepile_short_desc: Is uirlis é PagePile a ligeann duit liosta leathanach
+          a chruthú nach n-athraíonn le himeacht ama agus a aithnítear le haitheantas
+          uathúil.
+        templates_desc: Úsáidtear teimpléid chun réimse leathan cuspóirí ar leathanaigh
+          vicí, ach tá cuid acu sainiúil do thopaic. Tá teimpléid nascleanúna, teimpléid
+          WikiProject, agus teimpléid Infobox atá sainiúil do thopaic an-úsáideach
+          go háirithe agus Teimpléad á úsáid chun Clár Scóip Airteagail a chumrú.
+        pagepile_desc: |-
+          Is uirlis ar Wikimedia Cloud é PagePile. Ligeann sé d'úsáideoirí grúpa leathanach vicí a bhailiú agus a eagrú i mbeart amháin ar a dtugtar "carn". Is féidir na carn seo a roinnt go héasca le daoine eile ansin, rud a chuireann ar chumas obair chomhoibríoch agus comhroinnt faisnéise.
+          I gcodarsnacht le PetScan, ní athróidh na hairteagail i gcarn le himeacht ama, fiú nuair a athraíonn catagóirí, teimpléid nó sonraí eile a úsáideadh chun an tsraith alt sin a chruthú.
+        petscan_desc: |-
+          Is uirlis chumhachtach ach casta é PetScan chun ceisteanna a chur ar shraith leathanach vicí bunaithe ar réimse leathan critéar agus foinsí sonraí. Is féidir leat PetScan a úsáid go díreach chun an fiosrúchán a chruthú do shraith alt ar mhaith leat a rianú, rud a thugann rochtain duit ar an tsraith iomlán roghanna chun do cheist a spriocdhíriú go beacht. Nó is féidir leat fiosrúchán PetScan a chruthú ó chuid de na roghanna is coitianta go díreach ón Painéal.
+          Sábhálann PetScan na paraiméadair fiosrúcháin agus soláthraíonn sé ID don fhiosrúchán sin. Féadfaidh torthaí an fhiosrúcháin sin athrú le himeacht ama, mar shampla nuair a chuirtear ailt nua leis an gcatagóir a chuimsíonn an fiosrúchán. Déanfaidh an Painéal na torthaí fiosrúcháin a athnuachan go tréimhsiúil le haghaidh ID ar leith, agus déanfaidh sé a staitisticí a nuashonrú bunaithe ar an tsraith alt is déanaí a tháirgeann PetScan.
+        petscan_create_psid: Cruthaigh ID Scanadh Peataí ag baint úsáide as an uirlis
+          oifigiúil Scanadh Peataí
+        pagepile_create_id: Cruthaigh PagePile ag baint úsáide as an uirlis oifigiúil
+          PagePile
+        categories_include_OR: Déanfar ailt ina bhfuil AON cheann de na catagóirí
+          seo a rianú
+        templates_include_OR: Déanfar ailt ina bhfuil AON cheann de na teimpléid seo
+          a rianú
+        start_typing_to_search: Tosaigh ag clóscríobh le cuardach a dhéanamh
     delete_course: Scrios an clár
     edit_course_dates: Cuir Dátaí an Tionscnaimh in Eagar
+    end: Deireadh le rianú gníomhaíochta
     enroll: Cuir Eagarthóir leis
-    enrollment: Rannpháirtíocht
+    enrollment: Cuir Eagarthóirí Leis/Bain Eagarthóirí
     explore: Aimsigh Cláir
     courses_enrolled: Cláir a glacadh páirt iontu
     expected_students: Eagarthóirí a bhFuiltear ag Súil Leo
     instructors: Áisitheoirí
     join_course: Cláraigh leis an gclár
+    join_details: Chun páirt a ghlacadh sa chlár seo, ní mór duit an cód pas — nó
+      nasc ina bhfuil an cód pas — a fháil ón éascaitheoir.
     leave_course: Fág an clár
+    milestones_none: Níl aon chloch mhíle ag an tionscadal seo faoi láthair.
+    not_permitted: Níl cead agat an clár seo a chur in eagar.
+    published: 'Tá an tionscadal seo foilsithe! Is féidir le heagarthóirí clárú trí
+      chuairt a thabhairt ar an URL seo a leanas:'
+    request_accounts: Iarr cuntais
+    revisions_none: Níl aon ghníomhaíocht eagarthóireachta le déanaí déanta ar an
+      tionscadal seo.
     school: Institiúid
     school_and_term: Institiúid/Cathain
+    search_courses: Cuardaigh cláir
+    start: Tús rianaithe gníomhaíochta
     student_editors: Eagarthóirí
+    student: Eagarthóir
     students: Eagarthóirí
     students_taught: Iomlán na n-Eagarthóirí
     students_none: Níl aon eagarthóirí cláraithe leis an tionsnamh seo
@@ -283,7 +1271,16 @@ ga:
     students_count: Líon rannpháirtithe
     term: Cathain
     unsubmitted: Cláir Neamhsheolta
-    view_page: Breathnaigh ar Lch an Chláir
+    uploads_none: Níor chuir an tionscadal seo aon íomhánna ná comhaid meán eile le
+      Wikimedia Commons.
+    user_uploads_none: Níor chuir úsáideoirí roghnaithe aon íomhánna ná comhaid meán
+      eile leis an tionscadal seo.
+    view_other: Féach ar fheachtais eile
+    view_page: Féach ar an Leathanach
+    word_count_doc: Meastachán ar líon na bhfocal a chuir eagarthóirí an chláir le
+      hailt sa phríomhspás le linn théarma an chláir.
+    word_count_doc_wikidata: Meastachán ar líon na bhfocal a chuir eagarthóirí an
+      chláir le míreanna sa phríomhspás le linn théarma an chláir.
     yourcourses: Do chuid cláir
   editable:
     edit: Athraigh
@@ -292,26 +1289,172 @@ ga:
     edit_description: Athraigh an Cur Síos
     edit_details: Athraigh na Sonraí
     edit_template: Athraigh an Teimpléad
+    rename_confirmation: Tá na réimsí cúrsa a chruthaíonn an URL athraithe. Athróidh
+      sé seo an URL agus brisfidh sé aon naisc isteach. An bhfuil tú cinnte gur mhaith
+      leat é seo a dhéanamh?
+  instructor_view:
+    article_assignments: '%{prefix} Sannadh'
+    assignments_table:
+      article_name: Ainm
+      current_stage: Céim Reatha
+      relevant_links: Naisc Ábhartha
+    assigned_articles: Airteagail Sannta
+    assigned_articles_wikidata: Míreanna Sannta
+    bad_work:
+      learn_more: Má rinne obair na mac léinn an t-alt níos measa, molaimid duit é
+        a chur in eagar tú féin. Seachas sin, cuir in iúl dúinn faoi na fadhbanna
+        ionas gur féidir linn iad a shocrú níos déanaí.
+      learn_more_wikidata: Má rinne obair mhic léinn an mhír níos measa, molaimid
+        duit í a chur in eagar tú féin. Seachas sin, cuir in iúl dúinn faoi na fadhbanna
+        ionas gur féidir linn iad a shocrú níos déanaí.
+      learn_more_button: Foghlaim Tuilleadh
+      submit_issue: Cad iad na fadhbanna suntasacha leis an alt seo?
+      submit_issue_wikidata: Cad iad na fadhbanna suntasacha leis an mír seo?
+      submit_issue_placeholder: Dá mhéad peirspictíocht agus sonraí saineolacha is
+        féidir leat a sholáthar, is amhlaidh is fearr.
+      thank_you: Go raibh maith agat! Téigh i dteagmháil le do Shaineolaí Vicí má
+        tá ceisteanna breise agat.
+    exercises_and_trainings: '%{prefix} Cleachtaí & Traenálacha'
+    no_assignments: Níl aon ailt sannta don mhac léinn seo faoi láthair.
+    can_assign_assignments: Is féidir leat alt a shannadh trí na cnaipí thuas a úsáid.
+    no_assignments_wikidata: Níl aon mhíreanna sannta don mhac léinn seo faoi láthair.
+      Is féidir leat mír a shannadh trí na cnaipí thuas a úsáid.
+    overview: Forbhreathnú ar %{prefix}
+    reviewing_articles: Athbhreithniú a dhéanamh ar Ailt
+    reviewing_articles_wikidata: Athbhreithniú a dhéanamh ar Mhíreanna
+    select_student:
+      title: Roghnaigh %{prefix}
+      content: chun sannadh alt a shannadh agus a fheiceáil
+      content_wikidata: chun sannadh míreanna a shannadh agus a fheiceáil
   metrics:
+    editors_doc: Seo líon na n-úsáideoirí uathúla a bhfuil ailt curtha in eagar acu
+      sa chúrsa.
+    program_date_doc: Seo dáta an chláir.
+    label: Gníomhaíocht an Chúrsa
+    last_update: Nuashonrú staitisticí deireanach
+    last_articles_update: Nuashonrú is déanaí ar na hailt
+    next_update: An chéad nuashonrú measta eile
+    late_update: Bhíothas ag súil le nuashonrú nua %{late_update_time}. D’fhéadfadh
+      sé seo a chiallaíonn go bhfuil an nuashonrú ag glacadh níos faide ná mar a bhíothas
+      ag súil leis, nó d’fhéadfadh sé go bhfuil fadhb ann atá ag cur bac ar nuashonruithe.
+    no_update: Níl aon sonraí allmhairithe ag an Painéal Rialaithe don chlár seo go
+      fóill.
+    enqueued_update: Cuireadh an clár seo leis an scuaine nuashonraithe.
+    first_update: Tús measta nuashonraithe staitisticí
     activity: Gníomhaíocht le Déanaí
+    are_trained: atá suas chun dáta le hoiliúint
     articles_created: Ailt Cruthaithe
+    articles_created_wikidata: Míreanna Cruthaithe
+    articles_created_generic: Leathanaigh Cruthaithe
+    articles_created_generic_wikidata: Míreanna Cruthaithe
     articles_edited: Ailt Athraithe
     articles_edited_wikidata: Míreanna a Chuireadh in Eagar
+    articles_edited_generic: Leathanaigh Eagarthóireachta
     articles_edited_generic_wikidata: Míreanna a Chuireadh in Eagar
+    article_scoped_program_info: Is 'Clár um Scóip Airteagail' é seo, nach n-áiríonn
+      ach eagarthóireachtaí ar ailt agus catagóirí sannta.
+    article_scoped_program_info_wikidata: Is 'Clár Scóip Airteagail' é seo, nach n-áiríonn
+      ach eagarthóireachtaí ar mhíreanna agus catagóirí sannta.
+    bytes_added: Béiteanna Curtha Leis
     characters: Carachtair
     char_added: Carachtair a Chuireadh Leis
     char_changed: Carachtair Athraithe
     char: Carachtair a Chuireadh Leis
+    close_modal: Dún
     date_time: Dáta/Am
     edit_count_description: Líon na n-Athruithe
+    error_count_message: Tharla %{error_count} earráid(í) sa phainéal rialaithe le
+      linn an nuashonraithe is déanaí.
+    future_updates_remaining:
+      updates_active: Leanfar de na staitisticí a nuashonrú go dtí %{date}.
+      updates_inactive: Níl na staitisticí don chlár seo á nuashonrú go rialta a thuilleadh.
+    last_reviewed: Athbhreithnithe Deiridh
+    missing_data_heading: Torthaí ar iarraidh nó gan choinne?
+    missing_data_info: I measc na saincheisteanna coitianta tá
+    non_updating_course_update: Tá sé sceidealaithe le haghaidh nuashonrú aonuaire,
+      agus ba cheart go dtarlódh sé sin go luath.
+    last_update_failed: Theip ar an nuashonrú deireanach ar an gcúrsa seo.
+    last_update_success: Rith an nuashonrú deireanach go rathúil, mar sin ba cheart
+      go mbeadh na staitisticí cothrom le dáta.
+    outreach_help: An bhfuil cabhair uait? Féach ar 'Tuairiscigh fadhb' sa bharra
+      nascleanúna.
     per_user: '%{number}/úsáideoir'
+    recent_updates_summary: As na %{total} nuashonruithe deireanacha, theip ar %{failure_count}
+      agus tháinig earráidí ar %{error_count}.
     revisions: Athruithe le Gairid
+    references_count: Tagairtí Cuireadh Leis
+    references_doc: Seo líon na gclibeanna tagartha agus na dteimpléid nótaí giorraithe
+      a chuirtear le hairteagail, agus féadann sé tagairtí iolracha don fhoinse chéanna
+      a áireamh. Tagann na sonraí ó API Toolforge, an comhaireamh tagairtí.
+    references_doc_wikidata: Seo líon na gclibeanna tagartha a cuireadh le míreanna,
+      agus féadann sé tagairtí iolracha don fhoinse chéanna a áireamh. Tagann na sonraí
+      ó mhúnla cáilíochta míreanna ORES, agus níl siad ar fáil ach do roinnt teangacha.
+    replag_info: Aisghabhann an Painéal Sonraí sonraí eagarthóireachta ó bhunachair
+      shonraí macasamhla WMF Cloud. Uaireanta bíonn na heagarthóireachtaí is déanaí
+      ar iarraidh sna bunachair shonraí seo mar gheall ar mhoill macasamhlaithe (replag).
+      Nuair a bhíonn sé seo amhlaidh, feicfear na heagarthóireachtaí atá ar iarraidh
+      níos déanaí.
+    replag_link: Seiceáil athphlátáil
     tags: Clibeanna
+    total_updates: Líon iomlán na nuashonruithe go dtí seo
+    update_status_heading: Nuashonraigh stádas
+    update_statistics_link: Féach níos mó
     upload_count: Uaslódálacha chuig Commons
+    uploads_in_use_count:
+      one: comhad a úsáidtear in alt
+      two: comhaid a úsáidtear in alt
+      few: comhaid a úsáidtear in alt
+      many: comhaid a úsáidtear in alt
+      other: comhaid a úsáidtear in ailt
+    uploads_in_use_count_wikidata:
+      one: comhad a úsáidtear i mír
+      two: comhaid a úsáidtear i míreanna
+      few: comhaid a úsáidtear i míreanna
+      many: comhaid a úsáidtear i míreanna
+      other: comhaid a úsáidtear i míreanna
+    upload_usages_count:
+      one: úsáid iomlán trasna teangacha
+      two: úsáidí iomlána trasna teangacha
+      few: úsáidí iomlána trasna teangacha
+      many: úsáidí iomlána trasna teangacha
+      other: úsáidí iomlána trasna teangacha
     view_count_description: Amais ar Ailt
+    view_count_description_wikidata: Amharcanna Míreanna
+    view_count_doc: Seo an líon measta radharcanna bunaithe ar an meán laethúil ón
+      gcéad athbhreithniú ar an alt le linn an chúrsa suas go dtí an nuashonrú staitisticí
+      is déanaí.
+    view_count_doc_wikidata: Seo an líon measta radharcanna bunaithe ar an meán laethúil
+      ón gcéad athbhreithniú ar an mír le linn an chúrsa go dtí an nuashonrú staitisticí
+      is déanaí.
+    view_data_unavailable: Níl aon sonraí radhairc ar fáil
     view: Amhairc
+    wiki_ed_help: Úsáid an cnaipe 'Faigh Cabhair' chun fadhb a thuairisciú.
     word_count: Focail a Chuireadh Leis
     word_count_average: Líon Focal Meánach
+    general: Ginearálta
+    total_revisions: Athbhreithnithe iomlána
+    claims: Éilimh
+    aliases: Leasainmneacha
+    merged: Cumaiscthe
+    created: Cruthaithe
+    changed: Athraithe
+    removed: Bainte
+    cleared: Glanta
+    added: Cuireadh leis
+    descriptions: Cur síos
+    interwiki_links_added: Naisc idir-vicí curtha leis
+    labels: Lipéad
+    no_data: Gan aon sonraí
+    other_updates: Nuashonruithe eile
+    qualifiers_added: Cáilitheoirí curtha leis
+    redirects_created: Atreoruithe cruthaithe
+    references_added: Tagairtí curtha leis
+    references_added_info: B’fhéidir nach bhfuil ann ach comhaireamh páirteach de
+      thagairtí a cuireadh leis. Tá sé bunaithe ar achoimrí eagarthóireachta Wikidata,
+      agus déantar roinnt eagarthóireachtaí a chuireann tagairtí leis a aicmiú mar
+      "Éileamh Athraithe" nó "Éileamh Cruthaithe" ina ionad.
+    restorations_performed: Athchóirithe déanta
+    reverts_performed: Aisíocaíochtaí déanta
   namespace:
     all: Uile
     main: Príomhspás
@@ -320,85 +1463,897 @@ ga:
     talk: Plé
     user: Spás an úsáideora
     user_char_added: Carachtair curtha le spás an úsáideora
+    project: Tionscadal
+    file: Comhad
+    mediaWiki: MediaWiki
+    template: Teimpléad
+    help: Cabhair
+    category: Catagóir
+    page: Leathanach
+    book: Leabhar
+    wikijunior: WikiJunior
+    translation: Aistriúchán
+    draft: Dréacht
+    property: Maoin
+    query: Fiosrúchán
+    lexeme: Leicséim
+    appendix: Aguisín
+    portal: Tairseach
+    school: Scoil
+    author: Údar
+    cookbook: Leabhar Cócaireachta
+    rhymes: Rímeanna
+    index: Innéacs
+    collection: Bailiúchán
+    tracked_namespaces_info: Ní chuirfidh ach na hairteagail a fhreagraíonn do na
+      hainmspásanna rianaithe leis na staitisticí forbhreathnaithe is fearr, amhail
+      'Airteagail atá curtha in Eagar', 'Líon Iomlán na nEagarthóireacht', 'Focail
+      atá Curtha Leis', srl. Dá bhrí sin, ná déan rianú ach ar na hainmspásanna a
+      bhfuil sé mar aidhm ag do chlár feabhas a chur orthu.
   recent_activity:
     active_courses: Alt atá gníomhach i
-    article_title: Teideal an ailt
+    article_title: Teideal
     datetime: Dáta/Am
+    did_you_know_eligible: An raibh a fhios agat go raibh tú incháilithe
     image: Íomhá
     file_name: Ainm an Chomhaid
+    no_dyk_eligible: Níl aon ailt incháilithe do DYK ann faoi láthair.
+    no_plagiarism: Níl aon athbhreithnithe le déanaí ann faoi láthair a bhfuil amhras
+      fúthu go bhfuil siad ina bpláigiaracht.
+    no_edits: Níl aon eagarthóireachtaí le déanaí ann.
     plagiarism_report: Tuarascáíl Bradála
     possible_plagiarism: Ábhar a d'Fhéadfaí Breathnú Air mar Bhradáil
+    plagiarism_explanation: Úsáideann córas braite plagáireachta Vicipéid Turnitin/iThenticate
+      chun eagarthóireachtaí nua a chur i gcomparáid le téacs foilsithe. Níl na tuarascálacha
+      seo 100% cruinn. Mar shampla, d’fhéadfadh luachan díreach le haitheantas ceart
+      tuarascáil plagáireachta bréagach dhearfach a spreagadh. Athbhreithnigh ranníocaíochtaí
+      an mhic léinn agus sonraí na tuarascála sula ndéanann tú aon ghníomh. (Mura
+      bhfuil an t-athrú — nó an t-alt iomlán — inrochtana, d’fhéadfadh sé gur scriosadh
+      an t-ábhar ar chúiseanna cóipchirt.)
     recent_edits: Athuithe is déanaí
     recent_uploads: Uaslódálacha is déanaí
+    report: Déan gearán
+    revision_author: Údar an Athbhreithnithe
+    revision_datetime: Dáta/Am an Athbhreithnithe
+    revision_score: Scór Athbhreithnithe
+    show_courses: Taispeáin Mo Chúrsaí Amháin
+    uploaded_by: Uaslódáilte Ag
+    usage_count: Líon Úsáide
   revisions:
+    chars_added: Carachtair curtha leis
+    references: Tagairtí Cuireadh Leis
     class: Rang
     date_time: Dáta/Am
     diff: difr
     diff_show: Taispeáin
     diff_hide: Folaigh
+    edit_time_span: 'Rinneadh eagarthóireacht ó: %{first_time} go %{last_time}'
     edited_by: Arna Chur in Eagar ag
     edited_on: Athraithe ar %{edit_date}
     loading: Ag lódáil athbhreithnithe...
+    none: Níl aon ghníomhaíocht eagarthóireachta le déanaí déanta ar an gcúrsa seo.
+    time_doc: Am gach athbhreithnithe i d'am áitiúil
     title: Teideal
+    view_on_wiki: Féach ar an difríocht ar an vicí
+    see_more: Féach níos mó
+    show_all: Taispeáin Gach Rud
+    show_course_specific: Taispeáin Sainiúil don Chúrsa
+    show_only_new_editors: Taispeáin Eagarthóirí Nua Amháin
   resources:
     label: Acmhainní
+    header: Acmhainní agus Oiliúint
+  settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Cruthú cúrsa
+        default_campaign_setting: Feachtas Réamhshocraithe
+        site_notice_setting: Fógra Láithreáin
+        site_notice_preview: Réamhamharc Beo
+      buttons:
+        add_admin_button: Cuir Riarthóir leis
+        add_special_user_button: Cuir Úsáideoir Speisialta leis
+        configure_site_notice:
+          update_site_notice_button: Fógra Suímh Nuashonraithe
+          enable_button: Cumasaigh
+          disable_button: Díchumasaigh
+        update_course_creation_settings: Nuashonraigh socruithe cruthaithe cúrsa
+        update_default_campaign_setting: Nuashonraigh an Feachtas Réamhshocraithe
+        update_impact_stats: Nuashonraigh Staitisticí Tionchair
+        update_salesforce_credentials: Nuashonraigh Dintiúir Salesforce
+    categories:
+      other_settings: Socruithe eile
+      impact_stats: Staitisticí Tionchair
+      featured_campaigns: Feachtais Réadmhaoine
+      special_users: Úsáideoirí Speisialta
+      admin_users: Úsáideoirí Riaracháin
+      users: Úsáideoirí
+    admin_users:
+      new:
+        form_label: Bronn pribhléidí riarthóra
+        form_placeholder: Ainm úsáideora
+        confirm_add_admin: Riarthóir deontais
+        confirm_remove_admin: Bain pribhléidí riarthóra le haghaidh
+        already_admin: Is riarthóir cheana féin é %{username}!
+        elevate_success: Ardaíodh %{username} go riarthóir.
+      remove:
+        revoke_button: Cealaigh an riarthóir
+        revoke_button_confirm: Cealaigh cearta riarthóra ó %{username}
+        revoking_button_working: Ag cúlghairm...
+        already_instructor: Is teagascóir cheana féin é %{username}!
+        demote_success: Athraíodh %{username} go teagascóir.
+        no_super_admin: Ní féidir stádas riarthóra a chúlghairm ó shár-riarthóir
+    featured_campaigns:
+      campaign_not_found: Níor aimsíodh feachtas leis an slug '%{campaign_slug}'
+      no_featured_campaigns: Gan aon fheachtais réadmhaoine sainmhínithe
+      update_featured_campaigns_button: Nuashonraigh Feachtais Réadmhaoine
+      add_button: Cuir Feachtas leis
+      remove_button: Bain Feachtas
+    special_users:
+      new:
+        form_label: Bronn pribhléidí Úsáideora Speisialta
+        form_placeholder: Ainm úsáideora
+        confirm_add_special_user: Cuir Úsáideoir Speisialta leis
+        already_is: Tá %{username} i {position} cheana féin!
+        elevate_success: Ardaíodh %{username} go {position}.
+      remove:
+        revoke_button: Cealaigh Úsáideoir Speisialta
+        revoke_button_confirm: Cealaigh cearta Úsáideora Speisialta ó %{username}
+        revoking_button_working: Ag cúlghairm...
+        already_is_not: Ní Úsáideoir Speisialta é %{username}!
+        demote_success: Níl i %{username} ach úsáideoir anois.
+    disallowed_users:
+      none: Níl aon úsáideoirí neamhcheadaithe cumraithe.
+      already_disallowed: Dícheadaithe cheana féin
+      add_to_list: Cuir le Neamhcheadaithe
+      add_button: Cuir Úsáideoir leis
+      remove_button: Bain
+      submit_button: Cuir isteach
+      title: Úsáideoirí Dícheadaithe
+      description: Cuntais bota agus ainmneacha úsáideora eile nár cheart a bheith
+        cláraithe i gcúrsaí.
+      add:
+        success: Cuireadh %{username} leis an liosta úsáideoirí neamhcheadaithe.
+        already_exists: Tá %{username} ar an liosta úsáideoirí neamhcheadaithe cheana
+          féin.
+      remove:
+        success: Baineadh %{username} den liosta úsáideoirí neamhcheadaithe.
+        not_found: Níl %{username} ar an liosta úsáideoirí neamhcheadaithe.
+        confirm: An bhfuil tú cinnte gur mian leat %{username} a bhaint den liosta
+          úsáideoirí neamhcheadaithe?
+    actions: Gníomhartha
+  status:
+    active_jobs: Poist ghníomhacha
+    active_jobs_doc: Líon na bpost atá á bpróiseáil faoi láthair.
+    all_queues_operational: Gach Scuaine ag Oibriú
+    all_queues_not_operational: Gach Scuaine ag Obair seachas
+    constant_update: Nuashonrú leanúnach
+    constant_update_description: Bíonn nuashonruithe leanúnacha neamhspleách ar phríomhstaitisticí
+      an chúrsa, ag tarraingt isteach meiteashonraí athbhreithnithe, ag giniúint foláirimh,
+      agus ag déanamh tascanna eile a bhfuil dian-líonra agus sonraí ag teastáil uathu,
+      do na cúrsaí reatha go léir.
+    constant_update_doc: Láimhseálann sé poist idirbheartaíochta ar nós eagarthóireachtaí
+      vicí agus ríomhphost a sheoladh.
+    daily_update: Nuashonrú laethúil
+    daily_update_description: Tarraingíonn sé seo isteach sonraí breise agus déanann
+      sé tascanna eile nach gá a dhéanamh go leor uaireanta sa lá.
+    daily_update_doc: Láimhseálann sé tascanna nuashonraithe sonraí a bhíonn ar siúl
+      uair sa lá a bhíonn ar siúl ar feadh i bhfad.
+    default: Réamhshocrú
+    default_description: Sceidealaigh nuashonruithe cúrsa trí chúrsaí a shórtáil i
+      scuainí ag brath ar cé chomh fada agus a mhaireann siad.
+    default_doc: Láimhseálann sé tascanna a ritheann go minic amhail cúrsaí a chur
+      leis na scuainí nuashonraithe.
+    enqueued_jobs: Poist i scuaine
+    enqueued_jobs_doc: Líon na bpost atá i scuaine faoi láthair sna scuainí uile.
+    latency: Moill
+    latency_doc: An t-am feithimh le go dtosóidh poist ag próiseáil sa scuaine. D’fhéadfadh
+      moill ard a léiriú go bhfuil córas gnóthach nó moilleanna próiseála ann.
+    long_update: Nuashonrú fada
+    long_update_description: Cúrsaí próiseála nuashonruithe fada le níos mó ná 10,000
+      athbhreithniú.
+    long_update_doc: Láimhseálann nuashonruithe do chúrsaí móra.
+    medium_update: Nuashonrú meánach
+    medium_update_description: Nuashonraíonn Medium cúrsaí próisis le níos lú ná 10,000
+      athbhreithniú.
+    medium_update_doc: Láimhseálann nuashonruithe do chúrsaí de mhéid tipiciúil.
+    no_info: Níl aon eolas ar fáil.
+    purpose: Cuspóir
+    queues_overview: Forbhreathnú ar na Scuainí
+    queue: Scuaine
+    short_update: Nuashonrú gairid
+    short_update_description: Cúrsaí gearrphróisis nuashonruithe le níos lú ná 1,000
+      athbhreithniú.
+    short_update_doc: Láimhseálann nuashonruithe do chúrsaí beaga.
+    sidekiq_stats: Staitisticí Sidekiq
+    size: Méid
+    size_doc: Líon na bpost laistigh de scuaine.
+    status: Stádas
+  suggestions:
+    editing: Moltaí Eagarthóireachta
+    suggestion_docs:
+      fa: Níor cheart go mbeadh gá le haon bhreiseáin bhreise ábhair mura mbíonn faisnéis
+        nua ar fáil; is minic a bhíonn feabhsuithe breise ar cháilíocht an phróis
+        indéanta.
+      a: B’fhéidir go mbeadh gá le saineolas chun an t-alt a choigeartú, agus b’fhéidir
+        go mbeadh gá le fadhbanna stíle a réiteach. D’fhéadfadh athbhreithniú piaraí
+        cabhrú.
+      ga: Is fiú roinnt eagarthóireachta ag saineolaithe ábhair agus stíle; d’fhéadfadh
+        comparáid le halt atá ann cheana féin ar ábhar comhchosúil réimsí a léiriú
+        ina bhfuil an t-ábhar lag nó in easnamh.
+      bplus: D’fhéadfaí feabhas a chur air seo trí ionchur ó shaineolaithe chun measúnú
+        a dhéanamh ar na réimsí ina bhfuil easpa clúdach fós, agus trí léaráidí, cúlra
+        stairiúil, agus tagairtí breise a úsáid freisin. Smaoinigh ar athbhreithniú
+        piaraí nó ainmniúchán a dhéanamh le haghaidh stádas maith alt. Mura bhfuil
+        an t-alt vicínithe go hiomlán cheana féin, seo é an t-am.
+      b: Caithfear aghaidh a thabhairt ar roinnt gnéithe den ábhar agus den stíl.
+        B’fhéidir go mbeadh gá le heolas saineolaithe. Ba chóir ábhair thacaíochta
+        a chur san áireamh más féidir, agus an t-alt a sheiceáil le fáil amach an
+        bhfuil sé i gcomhréir leis an Lámhleabhar Stíle agus le treoirlínte stíl gaolmhara.
+      c: Tá gá le heagarthóireacht shuntasach chun bearnaí san ábhar a dhúnadh agus
+        fadhbanna glantacháin a réiteach.
+      start: Ba chóir tagairtí d’fhoinsí iontaofa a chur ar fáil ar dtús; tá feabhas
+        suntasach ag teastáil freisin ó thaobh ábhair agus eagrúcháin an ailt de.
+        Feabhsaigh an gramadach, an litriú, an stíl scríbhneoireachta agus an teanga
+        theicniúil chomh maith.
+      stub: Is féidir le haon ábhar eagarthóireachta nó breise a bheith ina chuidiú.
+        Ba chóir go mbeadh soláthar ábhar bríoch mar thosaíocht. Is é an réiteach
+        is fearr chun Airteagal den rang Stum a ardú go hAirteagal den rang Tosaigh
+        ná cúiseanna tagartha a chur leis a léiríonn cén fáth go bhfuil an topaic
+        suntasach.
+      fl: Níor cheart go mbeadh gá le haon bhreiseáin ábhair mura dtiocfaidh faisnéis
+        nua ar fáil.
+      list: Ba chóir go mbeadh liostaí ina liostaí de naisc bheo chuig ailt Vicipéid,
+        agus iad ainmnithe agus eagraithe go cuí.
+      future: D’fhéadfadh ábhar a cuireadh leis a bheith ina thuairimíocht agus ba
+        chóir é a fhoinsiú go cúramach.
+      disambig: Ba chóir breiseanna a dhéanamh de réir mar a chruthaítear ailt nua
+        den ainm sin. Tabhair aird ghéar ar ainmniú ceart na leathanach sin, mar is
+        minic nach mbíonn gá le "(díbhrí)" a chur leis an teideal.
+      '?': Moltaí gan fáil - Níl an t-alt rátáilte nó níl moltaí ar fáil don rátáil.
+      does_not_exist: Níl an t-alt seo ar fáil ar Vicipéid.
+  tasks:
+    conseq: Tá tasc %{task} ag rith cheana féin!
+    constant: Ní féidir tasc %{task} a rith agus task update_daily ag rith.
+    paused: Ní féidir tasc %{task} a rith mar go bhfuil nuashonruithe sceidealaithe
+      curtha ar sos. Rith 'rake batch:resume' chun nuashonruithe a atosú.
+  tickets:
+    none: Gan ticéid
+    search_bar_placeholder: Cuardaigh ticéid
+    chose_search_type: Roghnaigh cineál cuardaigh
   timeline:
+    add_assignment: Cuir Sannadh leis
+    add_week: Cuir Seachtain leis
+    arrange_timeline: Socraigh an Amchlár
+    arrange_timeline_instructions: Socraigh an amlíne trí bhloic a ‘tharraingt agus
+      a scaoileadh’ isteach san áit/seachtain atá uait, nó athshuigh na bloic ag baint
+      úsáide as na saigheada ar an gcárta.
+    assignment_dates_instructions: Roghnaigh na dátaí tosaigh agus deiridh don amlíne
+      oibre Vicipéide. Má athraítear an dáta tosaigh, athrófar dátaí na hamlíne ar
+      fad.
+    blackout_week_created: Tá bloic sceidealaithe don tseachtain seo. Bog iad go seachtain
+      eile sula mbainfidh tú an cruinniú ranga deireanach ón tseachtain seo.
+    block_assignment: Sannadh
+    block_custom: Saincheaptha
     block_in_class: Sa Rang
     block_milestone: Garsprioc
+    block_handouts: fótachóipeanna
+    block_resources: Acmhainní
+    block_type: Úsáidtear an cineál bloic chun cumarsáid a dhéanamh le do mhic léinn
+      faoin mír seo ar a n-amlíne agus chun uirlisí úsáideacha a thógáil duit (amhail
+      an achoimre ar an gcloch mhíle ar an leathanach Forbhreathnaithe).
+    course_dates: Dátaí an Chúrsa
+    course_dates_instructions: Roghnaigh dátaí tosaigh agus deiridh an chúrsa ar fad
+      (ní hamháin an tasc Vicipéide).
+    course_end: Deireadh an Chúrsa
+    course_start: Tús an Chúrsa
+    delete_week_confirmation: |-
+      An bhfuil tú cinnte gur mian leat an tseachtain seo a scriosadh? Scriosfaidh sé seo an tseachtain agus na bloic uile a bhaineann léi.
+
+      Ní féidir é seo a chealú.
+    delete_weeks_confirmation: |-
+      An bhfuil tú cinnte gur mhaith leat an amlíne seo ar fad a scriosadh agus tosú arís?
+
+      Ní féidir é seo a chealú.
+    discard_all_changes: Scrios Gach Athrú
+    delete_timeline_and_start_over: Scrios an Amlíne
+    done: Déanta
+    due_default: Dlite an tseachtain seo chugainn
+    edit_titles: Cuir Teidil na Seachtaine in Eagar
+    edit_titles_info: Cuir teidil na seachtaine in eagar san amlíne. Ní féidir teidil
+      saincheaptha a thabhairt ach do sheachtainí a bhfuil cruinnithe sceidealaithe
+      acu. Má úsáidtear aon teidil saincheaptha, cuirfear dáta seachas uimhriú ar
+      sheachtainí gan aon chruinnithe.
+    empty_week_1: Chun tús a chur leis,
+    empty_week_2: tús a chur leis an eagarthóireacht an tseachtain seo
+    empty_week_3: nó
+    empty_week_4: bain úsáid as an draoi sannadh chun amlíne a chruthú.
+    empty_week_drag_items: Seachtain folamh. Is féidir leat bloc a bhogadh ó sheachtain
+      eile anseo.
+    first_week_title: An Chéad Seachtain Ghníomhach
+    gradeable_value: Luach
+    gradeables_none: Níl aon tascanna marcáilte mar ghrádaithe ar an amlíne seo.
+    grading_header: 'Grádú (Iomlán: %{total})'
+    move_block_down: Bog bloc síos
+    move_block_up: Bog bloc suas
+    no_class_holidays: Níl aon laethanta saoire ranga agam
+    no_timeline: Níl aon amlíne ag baint leis an gcúrsa seo.
+    no_activity_this_week: Gan aon chruinnithe sceidealaithe an tseachtain seo
+    nothing_this_week: Níl aon rud ar an sceideal don tseachtain seo.
+    reset_titles: Athshocraigh go Réamhshocrú
+    reset_titles_confirmation: An bhfuil tú cinnte gur mhaith leat na teidil seachtainiúla
+      go léir a athshocrú? Ní féidir é seo a chealú.
+    save_all_changes: Sábháil Uile
     this_week_title_default: An tSeachtain Seo
     title: Amlíne
+    too_many_weeks_warning: RABHADH! Níl dóthain seachtainí neamh-laethanta saoire
+      ann roimh dháta deiridh an tasc! Is féidir leat cliceáil ar 'Cuir Dátaí Cúrsa
+      in Eagar' chun dátaí na gcruinnithe agus dátaí na laethanta saoire a shocrú.
+    unable_to_add_week: Ní féidir leat seachtainí nua a chur leis nuair a bhíonn d’amlíne
+      lán. Scrios seachtain amháin ar a laghad nó athraigh dátaí do chuid sannadh
+      chun áit a dhéanamh do cheann nua.
     view_full_timeline: Féach ar an Amlíne Iomlán
     week_number: Seachtain %{number}
+    add_block: Cuir Bloc leis
+    delete_week: Scrios Seachtain
   training:
+    continue: Lean ar aghaidh (%{progress})
     start: Tosaigh
     view: Amharc
+    next: An Leathanach Eile
+    page: Leathanach
+    page_number: Leathanach %{number} de %{total}
+    previous: < Roimhe Seo
+    table_of_contents: Clár Ábhair
+    training_library: Leabharlann Oiliúna
+    additional_training: Modúil oiliúna breise
+    orientation_modules: Modúil threoshuímh teagascóra
+    logged_out: Tá tú logáilte amach. Ní bhfaighidh tú creidiúint as an modúl seo
+      a chríochnú mura logálann tú isteach.
+    done: Déanta
+    invalid: Ár leithscéal, níl an sleamhnán sin ann!
+    wait: Ná fág an leathanach le do thoil agus do dhul chun cinn oiliúna á nuashonrú.
+    check_answer: Seiceáil Freagra
+    included_modules: Modúil san áireamh
+    view_library_source: féach foinse na leabharlainne
+    view_module_source: féach foinse an mhodúil
+    reload_from_source: athlódáil ón bhfoinse
+    kind:
+      exercise: Cleachtadh
+      discussion: Plé
+      training: Traenáil
+    no_training_library_records_wiki_ed_mode: Níl aon taifid TrainingLibrary sa bhunachar
+      sonraí. Cliceáil <a href="%{url}"> anseo</a> chun sonraí oiliúna a luchtú ó
+      na comhaid training_content/yaml.
+    no_training_library_records_non_wiki_ed_mode: Níl aon taifid TrainingLibrary sa
+      bhunachar sonraí.
+    search_training_resources: Cuardaigh acmhainní oiliúna
+    no_training_resource_match_your_search: Níl aon acmhainn oiliúna a oireann do
+      do chuardach
+    exercise_sandbox: Bosca Gainimh Aclaíochta
+    remaining_exercise: '%{count} cleachtadh breise fágtha.'
+    view_all: Féach ar na cleachtaí go léir
+    take_your_time: Glac do chuid ama le do thoil!
+    alert_content: Tá sé an-tábhachtach go bhfoghlaimeoidh tú ábhar an oiliúna go
+      críochnúil.
+    close: DÚN
+    loading: Ag lódáil…
+    wiki_source: foinse vicí
+  update_username:
+    header: Nuashonraigh ainm úsáideora athraithe
+    not_found: Níor aimsíodh an t-úsáideoir don ainm úsáideora a iontráladh.
+    username_updated: Ainm úsáideora nuashonraithe go rathúil!
+    info: Má d’athraigh úsáideoir ainm úsáideora a gcuntais Wikimedia, cuir isteach
+      an t-ainm úsáideora nua anseo chun é a nuashonrú ar an Deais.
+    label: Ainm úsáideora nua
+    button: Nuashonrú
   uploads:
+    article_name: Ainm an Airteagail
+    author: 'Údar:'
+    categories: Catagóirí
+    credit: Creidmheas
+    date: 'Dáta:'
+    description: Cur síos
     file_name: Ainm an Chomhaid
+    file_usage: Úsáid comhaid ar vicí eile
     header: Comhaid a Uaslódáladh chuig Wikimedia Commons
     image: Íomhá
     label: Uaslódálacha
+    license: 'Ceadúnas:'
     loading: Ag lódáil uaslódálacha...
+    none: Níor chuir an rang seo aon íomhánna ná comhaid meán eile le Wikimedia Commons.
+    original_file: Comhad Bunaidh
     select_label: Scag de réir an uaslódálaí
+    time_doc: Am gach uaslódála i d'am áitiúil
+    uploaded_at: Am Uaslódála
+    uploader: Uaslódálaí
     uploaded_by: Uaslódáilte Ag
     uploaded_on: Uaslódáilte Ar
+    usage_count: Líon Úsáide
+    usage_doc: Líon na n-alt Vicipéide ina bhfuil an íomhá seo le feiceáil.
     usage_count_gallery_tile: Arna úsáid in %{usage_count} alt
+    usages: Úsáidí
+    gallery_view: Radharc Gailearaí
+    list_view: Amharc Liosta
+    source: 'Foinse:'
+    tile_view: Radharc Tíleanna
+    views_per_day: Radharcanna in aghaidh an lae
+    view_commons: Féach ar Commons
+    wiki_big: Vicí
   users:
+    already_enrolled: Tá an t-úsáideoir sin cláraithe cheana féin!
+    assign_articles: Sannadh Airteagail
+    assign_articles_wikidata: Sannadh Míreanna
     assign_articles_done: Déanta
+    assigned: Airteagail Sannta
+    assigned_wikidata: Míreanna Sannta
+    assignees: Sannaí(í)
+    loading_authorship_data: sonraí údair á lódáil
+    authorship_data_not_fetched: Níorbh fhéidir sonraí údair a fháil
+    character_doc: An méid iomlán ábhair atá curtha ag úsáideoir leis an ainmspás
+      seo, arna ríomh trí na carachtair bhreise a chur le chéile do na heagarthóireacht
+      uile a mhéadaigh méid an leathanaigh. Ní gá go léiríonn an uimhir seo an méid
+      ábhair nua a chuir an t-úsáideoir leis. Méadóidh athchóiriú ábhair bhainte an
+      t-iomlán seo freisin.
+    chars_added: Carachtair curtha leis<br>(alt | úsáideoir | dréacht)
+    chars_added_wikidata: Carachtair Cuireadh Leis<br>(mír | úsáideoir | dréacht)
+    contributions: Ranníocaíochtaí Úsáideoirí
+    contributions_history_full: Féach ar stair iomlán na ranníocaíochtaí
+    contributions_more: Féach ar Tuilleadh Ranníocaíochtaí
+    contribution_statistics: Staitisticí Ranníocaíochta
     course_passcode: 'Paschód:'
     editors: Eagarthóirí
+    edits: eagarthóireachtaí
+    edits_by: 'Eagarthóireacht déanta ag:'
+    enroll_confirmation: An bhfuil tú cinnte gur mian leat %{username} a chur leis?
+    enroll_url: 'Is féidir le húsáideoirí páirt a ghlacadh trí chuairt a thabhairt
+      ar an URL seo:'
+    enrolled_success: Cuireadh %{username} leis go rathúil!
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} cleachtadh críochnaithe'
+      two: '%{completed_count}/%{count} cleachtaí críochnaithe'
+      few: '%{completed_count}/%{count} cleachtaí críochnaithe'
+      many: '%{completed_count}/%{count} cleachtaí críochnaithe'
+      other: '%{completed_count}/%{count} cleachtaí críochnaithe'
+    exercises_and_trainings: Cleachtaí & Oiliúint
     first_name: Forainm
     last_name: Sloinne
     loading: Ag lódáil úsáideoirí...
+    characters_added_mainspace: Carachtair curtha leis (alt)
+    characters_added_mainspace_wikidata: Carachtair curtha leis (mír)
+    characters_added_short: 'MS: %{mainspace}, SAM: %{userspace}'
+    characters_added_userspace: Carachtair curtha leis (úsáideoir)
+    characters_added_draftspace: Carachtair curtha leis (dréacht)
+    my_assigned: 'Sannadh:'
+    my_reviewing: 'Ag athbhreithniú:'
     name: Ainm
     none: Níl aon rannpháirtithe ann.
+    more_articles: Cliceáil chun ailt a lódáil a chuir an t-úsáideoir in eagar
+    no_articles: Gan aon ailt
+    no_articles_wikidata: Gan aon mhíreanna
     no_revisions: (gan leasuithe)
+    no_highlighting: Níl aon téacs ón leagan seo den alt curtha i leith an úsáideora
+      %{editor}. Seiceáil stair an leathanaigh chun a gcuid eagarthóireachtaí a fheiceáil.
+    contributions_not_highlighted: Tá ranníocaíochtaí ón úsáideoir %{username} i láthair,
+      ach ní féidir iad a aibhsiú. Tarlaíonn sé seo de ghnáth i gcás tagairtí nó teimpléid
+      bhreise. Seiceáil stair an leathanaigh chun a gcuid eagarthóireachtaí a fheiceáil.
+    number_of_articles:
+      one: '%{count} alt'
+      two: '%{count} ailt'
+      few: '%{count} ailt'
+      many: '%{count} ailt'
+      other: '%{count} ailt'
+    number_of_articles_wikidata:
+      one: '%{count} mír'
+      two: '%{count} míreanna'
+      few: '%{count} míreanna'
+      many: '%{count} míreanna'
+      other: '%{count} míreanna'
+    profile: próifíl
     recent_revisions: Athuithe is déanaí
+    references_count: Tagairtí Cuireadh Leis
+    training_modules: Modúil Oiliúna
+    remove_confirmation: An bhfuil tú cinnte gur mian leat %{username} a bhaint?
+    request_confirmation: An bhfuil tú cinnte gur mian leat an cuntas seo a iarraidh?
+    requested_account_status:
+      success_message: 'Rath: %{result_description}'
+      failure_message: 'Teip: %{result_description}'
+    revision_characters_and_views: 'Carachtair curtha leis: %{characters}, Amharcanna:
+      %{views}'
+    revisions_doc: An líon measta eagarthóireachtaí a rinne an t-eagarthóir seo le
+      7 lá anuas, bunaithe ar an meán-eagarthóireacht in aghaidh an lae le linn na
+      tréimhse seo caite.
+    references_doc: Líon na dtagairtí a chuir an t-eagarthóir seo leis nó a bhain
+      sé as
     reviewers: Athbhreithneoir(í)
     reviewing: Ag athbhreithniú
+    revisions: Athbhreithnithe
+    sandboxes: boscaí gainimh
+    sub_navigation:
+      assignments_and_exercises: Tascanna agus Cleachtaí
+      editor_overview: Forbhreathnú ar an Eagarthóir
+      exercises_and_trainings: Cleachtaí & Oiliúint
+      student_overview: Forbhreathnú ar %{prefix}
+      watch_list:
+        students_add: Cuir gach %{prefix} leis an Liosta Faire
+        instructional_message: Tá tú ar tí leathanaigh phlé do mhic léinn a chur le
+          do liosta faire, le fanacht cothrom le dáta maidir lena gcuid plé agus ranníocaíochtaí.
+          Trí chliceáil ar 'Ceart go leor' cuirfear na mic léinn go léir leis an liosta
+          faire. Ar mhaith leat leanúint ar aghaidh?
+        tooltip_message: Déan rianú go héasca ar phlé ar leathanaigh phlé na mac léinn
+          trí iad a chur le do liosta faire.
+        success_message: Cuireadh %{prefix} leis an Liosta Faire go rathúil.
+        error_message: Theip ar %{prefix} a chur leis an Liosta Faire. Déan iarracht
+          arís ar ball.
+    total_uploads: Uaslódálacha Iomlána
+    training_complete:
+      one: tá duine suas chun dáta leis an oiliúint
+      two: tá siad suas chun dáta leis an oiliúint
+      few: tá siad suas chun dáta leis an oiliúint
+      many: tá siad suas chun dáta leis an oiliúint
+      other: tá siad suas chun dáta leis an oiliúint
+    training_complete_count:
+      one: '%{count} oiliúint cothrom le dáta'
+      two: '%{count} oiliúint cothrom le dáta'
+      few: '%{count} oiliúint cothrom le dáta'
+      many: '%{count} oiliúint cothrom le dáta'
+      other: '%{count} oiliúint cothrom le dáta'
+    training_doc: Meastar go bhfuil eagarthóirí a bhfuil na modúil oiliúna uile atá
+      sannta dóibh agus atá dlite críochnaithe acu suas chun dáta lena gcuid oiliúna.
+    training_incomplete: Oiliúint Neamhchríochnaithe
+    training_modules_completed:
+      one: '%{completed_count}/%{count} modúl oiliúna críochnaithe'
+      two: '%{completed_count}/%{count} modúil oiliúna críochnaithe'
+      few: '%{completed_count}/%{count} modúil oiliúna críochnaithe'
+      many: '%{completed_count}/%{count} modúil oiliúna críochnaithe'
+      other: '%{completed_count}/%{count} modúil oiliúna críochnaithe'
+    training_module_name: Modúl oiliúna
     training_module_status: Stádas
+    training_module_time:
+      minutes: Nóim
+      seconds: Soic
+    user_training_status: Stádas Oiliúna
+    user_no_training_status: Níl aon mhodúil oiliúna críochnaithe ag an úsáideoir
+      seo.
+    up_to_date_with_training: suas chun dáta le hoiliúint
+    uploads_doc: Líon na gcomhad a uaslódáladh chuig Wikimedia Commons
+    ungreeted: Gan fáilte
     username: Ainm úsáideora
     username_placeholder: Ainm úsáideora
+    useremail_placeholder: Cuir isteach Seoladh Ríomhphoist
+    userpasscode_placeholder: Cód pas
+    words_added: Focail curtha leis<br>(alt | úsáideoir | dréacht)
+    word_count_doc: Meastachán ar an méid iomlán ábhair atá curtha ag úsáideoir le
+      hailt bheo, leathanaigh spáis úsáideora (boscaí gainimh), agus ainmspás an Dréachta.
+      Ríomhtar meastacháin ar chomhaireamh focal ó shuim na n-athruithe i méid leathanaigh
+      trasna na n-eagarthóireacht uile a chuir níos mó leis ná mar a bhain siad. Ní
+      gá go léiríonn an uimhir seo méid an ábhair nua a chuir an t-úsáideoir leis.
+      Méadóidh athchóiriú ábhair bhainte an t-iomlán seo freisin.
     role:
       description: Ról sa chúrsa
       visitor: Cuairteoir
       student: Mac Léinn
       instructor: Teagascóir
+      campus_volunteer: Oibrí Deonach ar an gCampas
+      online_volunteer: Oibrí Deonach Ar Líne
+      wiki_ed_staff: Foireann Oideachais Wiki
+    email_required_instructor: Riachtanach do theagascóirí reatha. Féadfaidh tú do
+      sheoladh ríomhphoist a bhaint tar éis do na cúrsaí reatha a bheith thart.
+    email_invalid: 'Neamhbhailí: Cuir isteach ríomhphost bailí le do thoil'
+  user_profiles:
+    student_impact: Tionchar iomlán a rinne %{username} mar mhac léinn
+    instructor_impact: Tionchar iomlán a rinne %{username} mar theagascóir
+    instructors_student_impact: Tionchar iomlán a rinne daltaí %{username}
+    disclaimer: Cuirfear an fhaisnéis a sholáthraíonn tú ar fáil go poiblí.
+    bio_placeholder: Cuir do Bheathaisnéis leis (roghnach)
+    location_placeholder: Cuir do shuíomh leis (roghnach)
+    institution_placeholder: Ainm na hinstitiúide (roghnach)
+    image_link_placeholder: Cuir nasc leis an íomhá (roghnach)
+    references_disclaimer: D’fhéadfaí ró-chomhaireamh tagairtí a dhéanamh má mheastar
+      an t-eagarthóireacht úsáideora chéanna mar chuid de chúrsaí iolracha.
+    words_added_disclaimer: D’fhéadfaí ró-chomhaireamh a dhéanamh ar na focail a chuirtear
+      leis má mheastar an t-eagarthóireacht úsáideora chéanna mar chuid de chúrsaí
+      iolracha.
+  wiki_edits:
+    notify_overdue:
+      button_label: Cuir i gcuimhne do mhic léinn faoi oiliúint atá thar téarma
+      confirm: Cuirfidh sé seo meabhrúchán ar leathanaigh phlé na mac léinn uile a
+        bhfuil oiliúint thar téarma acu. An bhfuil tú cinnte gur mhaith leat é seo
+        a dhéanamh?
+      header: Tá tasc oiliúna thar téarma agat.
+      message: Comhlánaigh na [%{link} modúil oiliúna] atá sannta duit.
+      summary: oiliúint mac léinn thar téarma
   wizard:
+    assignment_dates: Dátaí Sannta
+    assignment_description: Roghnaigh na dátaí tosaigh agus deiridh do d’amlíne tascanna.
+      Mar shampla, más mian leat do thionscadal Vicipéid a thosú sa dara seachtain
+      den rang, socraigh dáta tosaigh an tascanna go seachtain amháin tar éis dháta
+      tosaigh an chúrsa. Cruthóidh an uirlis deartha tascanna seo dréacht-amlíne a
+      oireann do na dátaí ama a roghnaíonn tú.
+    assignment_type: Cad a chomhlánóidh daltaí dá gcuid tascanna Vicipéide?
+    calendar_instructions: Roghnaigh dátaí le cur leis an sceideal nó le baint de
+      (m.sh., laethanta saoire, gan scoil). Cuidíonn sé seo leis an uirlis chruthaithe
+      cúrsa spás cruinn a dhéanamh de do chuid tascanna. Cliceáil an dáta le hathrú
+      idir neamhroghnaithe, roghnaithe, agus stádas laethanta saoire. Mura bhfuil
+      aon laethanta saoire agat, seiceáil "Níl aon laethanta saoire ranga agam" thíos.
+    confirm_course_dates: Deimhnigh dátaí tosaithe agus deiridh an chúrsa.
+    confirm_dates: Roghnaigh dátaí an chúrsa, cruinnithe seachtainiúla, agus laethanta
+      saoire do do chúrsa.
+    course_dates: Dátaí an Chúrsa
+    min_weeks: Éilíonn an tasc seo %{min_weeks} seachtain ar a laghad atá ar fáil.
+      Coigeartaigh dátaí tosaithe agus deiridh do thasca más mian leat an cineál seo
+      tasc a úsáid.
+    select_one_option: Roghnaigh rogha amháin le do thoil.
+    minimum_options:
+      one: Roghnaigh %{count} roghanna nó níos mó le do thoil.
+      two: Roghnaigh %{count} roghanna nó níos mó le do thoil.
+      few: Roghnaigh %{count} roghanna nó níos mó le do thoil.
+      many: Roghnaigh %{count} roghanna nó níos mó le do thoil.
+      other: Roghnaigh %{count} roghanna nó níos mó le do thoil.
+    no_class_holidays: Níl aon laethanta saoire ranga agam
     read_less: Léigh Níos Lú
     read_more: Léigh Níos Mó
+    review_selections: Athbhreithnigh do roghanna thíos le do thoil. Cliceáil chun
+      rogha a chur in eagar. Nuair a bheidh tú críochnaithe, cliceáil 'Cuir Isteach'
+      chun an draoi a chríochnú agus d'amlíne a thógáil.
+    select_assignment: Roghnaigh an cineál tascanna is mian leat a chur le do amlíne.
     summary: Achoimre
   error:
+    form_errors: Seiceáil an fhoirm le haghaidh earráidí, le do thoil.
+    invalid_assignment: Sannadh neamhbhailí
+    invalid_date: Tá dáta %{key} neamhbhailí
+    invalid_file_format: Níorbh fhéidir an comhad a shábháil. Uaslódáil doiciméad
+      PDF nó Word le do thoil.
+    oauth_invalid: Tá d’údarú Vicipéide imithe in éag. Logáil isteach arís le do thoil.
+    start_date_before_end_date: Ní mór don dáta tosaigh a bheith roimh an dáta deiridh
     unsupported_browser:
       header: Easpa tacaíochta don bhrabhsálaí.   :-(
+      explanation: Tá brabhsálaí á úsáid agat nach bhfuil comhoiriúnach leis an deais.
+        Oibríonn an suíomh seo go maith ar leaganacha le déanaí de Chrome, Firefox,
+        Edge, agus brabhsálaithe nua-aimseartha eile.
+    ip_blocked: Ní féidir leat cuntas a chruthú ón ngléas seo faoi láthair. D’fhéadfadh
+      sé seo tarlú má tá do sheoladh IP blocáilte ag Vicipéid nó má tá an teorainn
+      laethúil do chuntais nua bainte amach aige cheana féin. Bain triail as ceangal
+      ó líonra difriúil.
+    login_success_download_html: Logáilte isteach go rathúil! %{link}.
+    download_here: Cliceáil anseo chun do chomhad a íoslódáil
+  error_401:
+    explanation: Níl údarás agat an iarratas seo a fhorghníomhú. Má chreideann tú
+      gur tháinig tú chuig an bhfógra seo trí dhearmad, déan teagmháil le cothabhálaithe
+      an phainéil seo le cur in iúl dóibh faoin bhfadhb.
+    json_explanation: Is cosúil gur logáladh amach thú. Athnuachan, logáil isteach,
+      agus déan iarracht arís.
   error_incorrect_passcode:
     header: Paschód mícheart. :-(
+    explanation: Tá an paschód le haghaidh clárú sa chúrsa seo mícheart. Iarr an paschód
+      reatha ar an teagascóir le clárú sa chúrsa seo. Is féidir leat iarracht eile
+      a dhéanamh tríd an paschód ceart a iontráil thíos.
+  error_no_course:
+    explanation: Níl aon chúrsa den chineál %{slug} ann.
   error_404:
     header: Níor aimsíodh an lch. :-(
+    explanation: Níl an leathanach seo ann. Mura bhfuil tú cláraithe don phainéal
+      seo, b'fhéidir nach bhfuil an cúrsa sin cláraithe don phainéal seo.
+  error_422:
+    header: 422 — eintiteas neamhphróiseáilte. :-(
+    explanation: Chuaigh rud éigin mícheart. Téigh i dteagmháil le cothabhálaithe
+      an phainéil seo le cur in iúl dóibh faoin bhfadhb.
+  error_500:
+    header: 500 — earráid inmheánach freastalaí. :-(
+    explanation: Chuaigh rud éigin mícheart. Téigh i dteagmháil le cothabhálaithe
+      an phainéil seo le cur in iúl dóibh faoin bhfadhb.
   login_error:
     header: Earráid leis an logáil isteach
+    explanation: Is cosúil go raibh fadhb ann leis an bpróiseas síniú isteach. (Tá
+      brón orm faoi sin! Tarlaíonn sé ó am go ham.) Déan iarracht logáil isteach nó
+      clárú arís.
+  notifications:
+    new_notifications: Tá fógraí nua agat.
+    no_notifications: Níl aon fhógraí nua agat.
   survey:
+    login_message: Go raibh maith agat as do chuid ama. Logáil isteach sa Phainéal
+      le do thoil chun an suirbhé a dhéanamh.
+    notification_explanation: Má tá tic sa bhosca thíos, gheobhaidh úsáideoirí ríomhphoist
+      de réir an sceidil fógraí, chomh maith le fógraí sa bhrabhsálaí a fheiceáil.
+      Mura bhfuil, ní thaispeánfar ach fógraí sa bhrabhsálaí.
+    notification_schedule_explanation: Áirítear leis na fógraí fógraí sa bhrabhsálaí
+      agus ríomhphoist, má tá siad cumasaithe thuas.
+    follow_up_explanation: Fág bán mura bhfuil aon ríomhphoist fógra leantacha ag
+      teastáil.
     email:
       headline: Haigh, %{username}
+      message_line1: Tá súil againn gur bhain tú taitneamh as an téarma! Tá Wiki Education
+        ag lorg d’aiseolas chun feabhas a chur ar ár n-acmhainní agus ar an tacaíocht
+        a thugaimid duit do do chuid oibre ar Vicipéid. Tá do fhreagra ríthábhachtach
+        chun feabhas a chur ar ár gcuid oibre reatha.
+      message_line2: An bhfuil tú sásta 15 nóiméad a thógáil chun ár suirbhé teagascóra
+        a líonadh? Cliceáil an cnaipe thíos chun cabhrú linn teagasc le Vicipéid a
+        dhéanamh ina eispéireas níos luachmhaire agus níos tairbhiúla fós.
       course: 'Cúrsa: %{course_info}'
       closing: Le meas,
+      signed: '- foireann Oideachais Wiki'
+      link: Glac Suirbhé
+    follow_up:
+      message: Seo meabhrúchán faoin suirbhé do do chúrsa, %{course_title}. Cuidíonn
+        aiseolas ón suirbhé seo linn ár dtacaíocht do chúraimí Vicipéid cosúil leatsa
+        a fheabhsú.
+    edit_survey: Cuir Suirbhé in Eagar
+  feedback_form_responses:
+    no_responses: Níl aon fhreagraí aiseolais ann go fóill.
+  wiki_api:
+    create_account_reason: Tá an t-úsáideoir seo ag glacadh páirte i %{event}.
+  onboarding:
+    supplementary:
+      header: Conas a chuala tú fúinn?
+      where_did_you_hear: Cá háit, nó cé uaidh, a chuala tú faoi Oideachas Vicí den
+        chéad uair?
+      why_are_you_here: Cad ba mhaith leat a dhéanamh?
+  article_finder:
+    add_available_article: Cuir alt leis mar alt atá ar fáil
+    add_available_article_wikidata: Cuir leis mar mhír atá ar fáil
+    article_finder: Aimsitheoir Airteagal
+    article_finder_wikidata: Aimsitheoir Míreanna
+    article_quality: Cáilíocht an Airteagail (0-100)
+    article_quality_wikidata: Cáilíocht na Míre (0-100)
+    assign_article_self: Sannadh tú féin
+    average_views: Meán-radharcanna in aghaidh an lae
+    category_search: Cuardach Catagóire
+    completeness_estimate: Scór Iomláine
+    estimation_score_not_found: Níor aimsíodh an Scór Meastacháin!
+    fetching_assessments: Ag Fáil Measúnuithe Leathanaigh
+    fetching_scores: Ag Fáil Scór Iomláine
+    fetching_pageviews: Amharcanna Leathanaigh á bhFáil
+    fetching_revisions: Athbhreithnithe Leathanaigh á bhFáil
+    fetched_articles: Airteagail a Fuarthas
+    fetched_articles_wikidata: Míreanna Faighte
+    filtered_articles: Airteagail Scagtha
+    filtered_articles_wikidata: Míreanna Scagtha
+    hide_options: Folaigh Roghanna
+    keyword_search: Cuardach Eochairfhocail
+    minimum_views_label: Íosmhéid Radharcanna
+    more_results: Tuilleadh Torthaí
+    no_article_found: Ní bhfuarthas aon alt sa chatagóir seo
+    no_article_found_wikidata: Ní bhfuarthas aon mhíreanna sa chatagóir seo
+    page_assessment_class: Rang
+    page_views_not_found: Amharcanna Leathanaigh gan aimsiú!
+    relevanceIndex: Innéacs Ábharthachta
+    remove_article: Bain alt
+    remove_article_wikidata: Bain míreanna
+    search: Cuardaigh
+    searching_articles: Ag Cuardach Airteagail
+    searching_articles_wikidata: Ag Cuardach Míreanna
+    search_placeholder: Cuir isteach d’eochairfhocal
+    show_options: Taispeáin Roghanna
+    subheading_message: Aimsighmis alt Vicipéid le hobair air.
+    subheading_message_wikidata: Aimsigh mír Wikidata le hoibriú uirthi.
+    submit: Cuir isteach
+    tools: Uirlisí
+    unassign_article_self: Díshannadh Airteagal
+    unassign_article_self_wikidata: Díshannadh Míre
+  training_status:
+    completed: Críochnaithe
+    continue: Lean ar aghaidh
+    completed_at: Críochnaithe ag
+    completion_time: Am críochnaithe
+    late: Déanach
+    view: Amharc
+    started: Thosaigh
+    not_started: Níor tosaíodh
+    due: dlite %{due_date}
+    assignment_status: Sannadh Oiliúna (%{status})
+  multi_wiki:
+    selector_placeholder: Tosaigh ag clóscríobh fearann ​​vicí
+  news:
+    nav_tooltip: Nuacht agus Athruithe Le Déanaí
+    add_news: Cuir Nuacht leis
+    post_confirmation:
+      title: Lean ar aghaidh leis an nuashonrú nuachta a phostáil?
+      confirmation: Deimhnigh le do thoil.
+    delete_confirmation:
+      title: Lean ar aghaidh le hábhar na nuachta a scriosadh?
+      confirmation: Deimhnigh le do thoil.
+    no_updates:
+      message: Faoi láthair, níl aon nuashonruithe nuachta ar fáil
+      check_later: Seiceáil ar ais ar ball.
+    header:
+      P&E_dashboard_title: Nuacht agus Athruithe Le Déanaí
+      wiki_education_dashboard_title: Nuacht Painéal Oideachais Wiki
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+        footer_text: Léigh Nuacht agus Athruithe Le Déanaí
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+        footer_text: Nuacht eile ó Wiki Education
+    options:
+      news_content:
+        delete_news: Scrios Nuacht
+        confirm_delete: Deimhnigh
+        cancel_delete: Cealaigh
+        cancel_edit: Cealaigh an tEagarthóireacht
+        edit_news: Cuir Nuacht in Eagar
+        update_news: Nuashonrú Nuachta
+      create_news:
+        cancel_post: Cealaigh an Post
+        confirm_post: Deimhnigh an Postáil
+        discard_post: Scrios Nuacht
+        post_news: Nuacht an Phoist
+    notification:
+      delete: Scriosadh Ábhar Nuachta go rathúil
+      update: Nuashonraíodh Ábhar Nuachta go rathúil
+      create_news: Ábhar Nuachta Foilsithe go Rathúil
+      create_news_error: Earráid ag cruthú ábhar nuachta. Déan iarracht arís.
+      update_error: Earráid ag nuashonrú ábhar nuachta. Déan iarracht arís.
+      empty_create_news_content_error: Cuir isteach ábhar nuachta sula bpostálann
+        tú é.
+      empty_update_news_content_error: Cuir isteach ábhar nuachta sula ndéantar nuashonrú.
+    text_area_input:
+      placeholder: Cuir Nuacht agus Athruithe Le Déanaí leis
+  notes:
+    title: Teideal
+    note_title: Teideal an Nóta
+    note_text: Téacs Nóta
+    created: Tá an nóta cruthaithe go rathúil.
+    updated: Tá an nóta nuashonraithe go rathúil.
+    failure: Earráid! Déan iarracht arís ar ball.
+    empty_fields: Cinntigh go bhfuil na réimsí ionchuir go léir líonta agus déan iarracht
+      arís.
+    edit: Taispeántar am gach eagarthóireachta i d'am áitiúil.
+    edited_by: Eagarthóireacht déanta ag
+    last_edited_by: Taispeánann sé ainm an riarthóra a rinne an nóta a chur in eagar
+      go deireanach.
+    deleted: Scriosadh an nóta go rathúil. Níl sé ar fáil i do nótaí a thuilleadh.
+    delete_note_confirmation: 'Scrios Nóta: Scriosfaidh an gníomh seo an nóta go buan.
+      An bhfuil tú cinnte gur mian leat dul ar aghaidh?'
+    delete_note_error: Ní féidir an nóta a scriosadh. Déan iarracht arís.
+    no_notes: Níl aon nótaí gaolmhara leis an gcúrsa seo faoi láthair.
+    create_note: Cruthaigh Nóta
+    cancel_note_creation: Cealaigh
+    post_note: Post
+    edit_note: Cuir Nóta in Eagar
+    cancel_edit_note: Cealaigh
+    save_note: Sábháil
+    delete_note: Scrios Nóta
+    admin:
+      button_text: Nótaí Riaracháin
+      header_text: Painéal Nótaí Riaracháin
+      aria_label:
+        no_notes_available: Níl aon nótaí riaracháin ar fáil sa phainéal. Brúigh an
+          eochair fillte chun an Painéal Nótaí Riaracháin a oscailt.
+        new_notes_message: '%{count} nótaí riarthóra nua ar fáil.'
+        notes_panel_opened: Tá modúl an phainéil nótaí riarthóra oscailte. Is féidir
+          leat an eochair Escape a bhrú chun an painéal a dhúnadh.
+        close_admin: Dún an modúl painéil nótaí riarthóra
+        note_action_button: Cnaipe gníomhaíochta nótaí
+        create_note: Cnaipe cruthaigh nóta
+        note_creation: Tá an limistéar cruthaithe nótaí ar fáil anois.
+        cancel_note_creation: Cealaigh cruthú nóta.
+        post_created_note: Nóta cruthaithe ag an bpost
+        note_title_field: Réimse teidil an nóta dírithe. Cuir isteach teideal an nóta
+          anseo.
+        note_text_field: Réimse téacs nóta dírithe. Cuir isteach ábhar an nóta anseo.
+        collapse_note: Brúigh ar ais chun téacs an nóta {{title}} a dhúnadh.
+        expand_note: Brúigh an eochair fillte chun Leathnú chun téacs an nóta {{title}}
+          a thaispeáint.
+        note_details_focused: Sonraí an nóta {{title}}
+        note_edit_button_focused: Cuir sonraí an nóta {{title}} in eagar
+        note_edit_save_button_focused: Sábháil an nóta eagarthóireachta {{title}}
+        note_edit_cancel_button_focused: Cealaigh eagarthóireacht nóta {{title}}
+        note_delete_button_focused: Scrios an nóta {{title}}
+        note_edit_mode: 'Chuaigh tú isteach i mód Eagarthóireachta don nóta dar teideal:
+          {{title}}. Is féidir leat an teideal agus an t-ábhar a chur in eagar anois.'
+  customize_error_message:
+    JSONP_request_failed: Tá an t-am caite don iarratas chun sonraí a aisghabháil
+      ó Vicipéid. B’fhéidir gur mar gheall ar nasc idirlín mall nó fadhbanna sealadacha
+      leis an bhfreastalaí atá sé seo. Déan iarracht arís ar ball.
+  tagged_courses:
+    download_csv: Íoslódáil CSV
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}} Brúigh an eochair Fillte chun rogha a dhéanamh'
+      weekday_selected: '{{weekday}} Roghnaithe Brúigh an eochair Fillte chun díroghnú'
+      weekday_unselected: '{{weekday}} Díroghnaithe'
+  question_groups:
+    edit_question_group: Cuir Grúpa Ceisteanna in Eagar
+  form_search:
+    program_date: Dáta an Chláir
 ...

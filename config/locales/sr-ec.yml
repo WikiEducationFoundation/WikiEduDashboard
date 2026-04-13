@@ -1170,6 +1170,7 @@ sr-ec:
       места за нове.
     view_full_timeline: Погледај потпуну временску линију
     week_number: Недеља %{number}
+    add_block: Додај блок
   training:
     continue: Настави (%{progress})
     start: Започни
