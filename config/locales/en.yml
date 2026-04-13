@@ -1162,6 +1162,8 @@ en:
       submit_issue_wikidata: "What are the significant problems with this item?"
       submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
+      quality_problems_button: "Quality Problems?"
+      notify_wiki_expert: "Notify Wiki Expert"
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles."
     can_assign_assignments: "You can assign an article by using the buttons above."
