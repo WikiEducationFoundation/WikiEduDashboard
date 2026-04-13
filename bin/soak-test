@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Run the parallel test suite N times with random ordering, logging results.
+# Exit 0 only if all runs pass.
+#
+# Usage:
+#   bin/soak-test [--runs N] [--seed SEED] [-- extra_rspec_args...]
+#
+# Examples:
+#   bin/soak-test                       # 3 runs, random seeds
+#   bin/soak-test --runs 10             # 10 runs
+#   bin/soak-test --seed 12345          # fixed seed every run
+#   bin/soak-test -- spec/features/     # only feature specs
+
+set -uo pipefail
+
+cd "$(dirname "$0")/.."
+
+runs=3
+seed=""
+extra_args=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --runs)  runs="$2"; shift 2 ;;
+    --seed)  seed="$2"; shift 2 ;;
+    --)      shift; extra_args=("$@"); break ;;
+    *)       extra_args+=("$1"); shift ;;
+  esac
+done
+
+mkdir -p tmp
+
+pass=0
+fail=0
+summary="tmp/soak_results.txt"
+: > "$summary"
+
+echo "=== Soak test: $runs run(s) ==="
+echo ""
+
+for i in $(seq 1 "$runs"); do
+  log="tmp/soak_run_${i}.log"
+  run_seed="${seed:-$RANDOM}"
+
+  echo -n "Run $i/$runs (seed $run_seed) ... "
+  echo "=== Run $i  seed=$run_seed  $(date -Iseconds) ===" > "$log"
+
+  PARALLEL_TEST_GROUPS=true bundle exec parallel_rspec -n 4 \
+    -o "--order rand:$run_seed" \
+    "${extra_args[@]:+${extra_args[@]}}" \
+    >> "$log" 2>&1
+  rc=$?
+
+  if [ $rc -eq 0 ]; then
+    echo "PASS"
+    echo "Run $i  seed=$run_seed  PASS" >> "$summary"
+    pass=$((pass + 1))
+  else
+    echo "FAIL (exit $rc)"
+    echo "Run $i  seed=$run_seed  FAIL (exit $rc)" >> "$summary"
+    fail=$((fail + 1))
+    # Extract failed examples from log for quick diagnosis
+    if grep -q 'Failed examples:' "$log"; then
+      echo "  Failed examples:" >> "$summary"
+      sed -n '/^Failed examples:/,/^$/p' "$log" | head -20 >> "$summary"
+    fi
+  fi
+done
+
+echo ""
+echo "=== Results: $pass passed, $fail failed out of $runs ==="
+echo "" >> "$summary"
+echo "Total: $pass passed, $fail failed out of $runs" >> "$summary"
+cat "$summary"
+
+[ "$fail" -eq 0 ]

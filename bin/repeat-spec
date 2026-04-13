@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Run a spec file N times, reporting pass/fail for each.
+#
+# Usage:
+#   bin/repeat-spec <spec_file> [--runs N] [-- extra_rspec_args...]
+#
+# Examples:
+#   bin/repeat-spec spec/lib/foo_spec.rb --runs 20
+#   bin/repeat-spec spec/lib/foo_spec.rb --runs 10 -- --order rand
+
+set -uo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [ $# -lt 1 ]; then
+  echo "Usage: bin/repeat-spec <spec_file> [--runs N] [-- extra_rspec_args...]"
+  exit 1
+fi
+
+spec="$1"; shift
+runs=10
+extra_args=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --runs)  runs="$2"; shift 2 ;;
+    --)      shift; extra_args=("$@"); break ;;
+    *)       extra_args+=("$1"); shift ;;
+  esac
+done
+
+pass=0
+fail=0
+
+echo "=== Repeating: $spec ($runs runs) ==="
+echo ""
+
+for i in $(seq 1 "$runs"); do
+  echo -n "Run $i/$runs ... "
+  bundle exec rspec "$spec" --format progress "${extra_args[@]:+${extra_args[@]}}" \
+    > "tmp/repeat_run_${i}.log" 2>&1
+  rc=$?
+  if [ $rc -eq 0 ]; then
+    echo "PASS"
+    pass=$((pass + 1))
+  else
+    echo "FAIL (exit $rc)"
+    fail=$((fail + 1))
+  fi
+done
+
+echo ""
+echo "=== Results: $pass passed, $fail failed out of $runs ==="
+[ "$fail" -eq 0 ]

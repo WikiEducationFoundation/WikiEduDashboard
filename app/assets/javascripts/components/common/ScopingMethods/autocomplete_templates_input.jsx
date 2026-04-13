@@ -1,23 +1,21 @@
 import { debounce } from 'lodash';
-import React from 'react';
-import { useDispatch, } from 'react-redux';
+import React, { useRef, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
 
 const TemplatesAutoCompleteInput = ({ label, actionType, initial, wiki }) => {
   const dispatch = useDispatch();
 
-  const search = async (query) => {
-    const data = await API.getTemplatesWithPrefix(wiki, query);
-    return data;
-  };
+  const searchRef = useRef();
+  searchRef.current = query => API.getTemplatesWithPrefix(wiki, query);
 
-  const _loadOptions = (query, callback) => {
-    search(query).then(resp => callback(resp));
-  };
-
-
-  const loadOptions = debounce(_loadOptions, 300);
+  const loadOptions = useMemo(
+    () => debounce((query, callback) => {
+      searchRef.current(query).then(resp => callback(resp));
+    }, 300),
+    []
+  );
 
   const updateTemplates = (templates) => {
     dispatch({
