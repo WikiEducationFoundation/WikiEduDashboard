@@ -68,6 +68,9 @@ wrote most of the code under human direction, say so clearly. Name the tool (Cla
 describe what it did (drafted code, wrote commit messages, iterated on design), and note
 what the human contributed (direction, review, decisions about what to build).
 
+Note that the "What this PR does" summary and other analysis in the description were
+also drafted by Claude Code and may contain errors.
+
 Include a brief note on the scale of effort: how many commits, over what time span, and
 roughly what that implies about how much human time was involved. For example: "This was
 developed across 8 commits over 3 days" or "All commits were made within a single 20-minute
