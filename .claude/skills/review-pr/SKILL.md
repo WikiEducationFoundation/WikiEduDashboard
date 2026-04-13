@@ -96,11 +96,20 @@ Check out the PR to a local review branch:
 gh pr checkout <number> --branch review/<number>
 ```
 
-If there are local uncommitted changes, warn before proceeding.
+If there are local uncommitted changes, stash or warn before
+proceeding.
+
+Merge current master into the review branch so that testing happens
+against the latest code, not just the PR's base:
+```bash
+git merge master --no-edit
+```
+
+If there are merge conflicts, report them to the reviewer.
 
 If the PR adds or changes JS dependencies (`package.json` changed),
-run `yarn install` before proceeding. If any feature specs or headed
-demos will be needed, also run `yarn build`.
+run `yarn install`. If any feature specs or headed demos will be
+needed, also run `yarn build`. Run both after the merge.
 
 ---
 
@@ -216,6 +225,11 @@ git checkout master
 All review comments and PR feedback posted via this skill must follow
 these rules:
 
+**Approval required:** Never post a review or comment without first
+showing the full draft to the reviewer and receiving explicit approval.
+Always wait for confirmation before running `gh pr review` or
+`gh pr comment`.
+
 **Tone:** Impersonal and direct. No first-person ("I found..."). No
 chatbot pleasantries ("Nice work!", "Great PR!"). Use passive voice
 or refer to "the code", "the session", "Claude Code" where needed.
@@ -244,3 +258,9 @@ verify the findings.*
 If the comment includes AI-generated code (such as an exploratory
 spec), say so explicitly and note whether the reviewer ran or
 reviewed that code.
+
+**Link:** After posting any review or comment, fetch and display the
+URL so the reviewer can click through:
+```bash
+gh api repos/WikiEducationFoundation/WikiEduDashboard/pulls/<number>/reviews --jq '.[-1].html_url'
+```
