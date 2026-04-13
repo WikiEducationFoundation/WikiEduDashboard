@@ -128,14 +128,14 @@ class CampaignProgramsPresenter
   def parse_int(int_str)
     return nil if int_str.blank?
     Integer(int_str)
-  rescue StandardError
+  rescue ArgumentError, TypeError
     nil
   end
 
   def parse_time(time_str, method)
     return nil if time_str.blank?
     Time.zone.parse(time_str)&.public_send(method)
-  rescue StandardError
+  rescue ArgumentError
     nil
   end
 end
