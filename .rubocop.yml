@@ -120,6 +120,8 @@ Rails/I18nLocaleTexts:
   Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
 Style/StringConcatenation:
   Enabled: false
+Style/RedundantParentheses:
+  Enabled: false # Parentheses sometimes help with clarity even when redundant.
 
 ########################
 # Temporary exceptions #
@@ -238,8 +240,6 @@ Layout/FirstHashElementIndentation:
 Performance/StringIdentifierArgument:
   Enabled: false
 Lint/UselessConstantScoping:
-  Enabled: false
-Style/RedundantParentheses:
   Enabled: false
 Layout/EmptyLinesAfterModuleInclusion:
   Enabled: false
