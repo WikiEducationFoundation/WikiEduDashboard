@@ -3,6 +3,11 @@
 - backend_to_sort_value = {'title' => 'title', 'school' => 'school', 'recent_revision_count' => 'revisions', 'character_sum' => 'characters', 'average_word_count' => 'average-words', 'references_count' => 'references', 'view_sum' => 'views', 'user_count' => 'students', 'trained_count' => 'untrained', 'created_at' => 'start-date'}
 - current_sort_value = params[:sort].present? ? backend_to_sort_value[@sort_column] : nil
 
+:javascript
+  window.DISABLE_COURSES_LISTJS = true;
+
+= hot_javascript_tag 'campaigns_programs'
+
 #react_root{data: {slug: @campaign.slug}}
 
 .container
@@ -133,7 +138,7 @@
                 = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
         .form-actions
           %button.button{type: 'submit'}= t('campaign.search')
-          %button.button.button--clear{type: 'button', onclick: 'document.getElementById("title_query").value=""; document.getElementById("creation_start").value=""; document.getElementById("creation_end").value=""; document.getElementById("start_date_start").value=""; document.getElementById("start_date_end").value=""; document.getElementById("school_select").value=""; document.getElementById("revisions_min").value=""; document.getElementById("revisions_max").value=""; document.getElementById("word_count_min").value=""; document.getElementById("word_count_max").value=""; document.getElementById("references_min").value=""; document.getElementById("references_max").value=""; document.getElementById("views_min").value=""; document.getElementById("views_max").value=""; document.getElementById("users_min").value=""; document.getElementById("users_max").value=""; this.form.action = this.form.action.replace(/#.*$/, "") + "#courses_table"; this.form.submit();'}= t('form_search.clear')
+          %button.button.button--clear#clear_filters{type: 'button'}= t('form_search.clear')
 
     %table.table.table--hoverable.table--sortable{ id: 'courses_table' }
       %thead

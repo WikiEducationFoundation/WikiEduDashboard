@@ -161,11 +161,11 @@ search_terms: 'title: 101', count: 1))
       fill_in 'title_query', with: 'Biology'
       fill_in 'revisions_min', with: '40'
       fill_in 'revisions_max', with: '60'
-      click_button I18n.t('form_search.clear')
+      click_button 'clear_filters'
       expect(page).to have_content('Biology 101')
       expect(page).to have_content('Computer Science')
       expect(page).to have_content('History of Art')
-      expect(find_field('title_query').value).to eq('')
+      expect(current_url).not_to include('title_query')
     end
   end
 

@@ -89,7 +89,11 @@
     "Features": true,
     "WikiLanguages": true,
     "WikiProjects": true,
-    "ProjectNamespaces": true
+    "ProjectNamespaces": true,
+    "flatpickr": true,
+    "TomSelect": true,
+    "locale": true,
+    "flatpickrLocales": true
   },
   "env": {
     "jest": true,
