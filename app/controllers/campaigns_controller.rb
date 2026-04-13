@@ -136,8 +136,9 @@ class CampaignsController < ApplicationController
     filters = extract_program_filters
 
     if filters.values.any?(&:present?)
-      @search_terms = programs_presenter.build_search_terms(filters)
-      @results = programs_presenter.filter_courses(filters)
+      presenter = programs_presenter
+      @search_terms = presenter.build_search_terms(filters)
+      @results = presenter.filter_courses(filters)
     elsif params[:courses_query].present?
       @search_terms = params[:courses_query]
       @results = @presenter.search_courses(@search_terms)
