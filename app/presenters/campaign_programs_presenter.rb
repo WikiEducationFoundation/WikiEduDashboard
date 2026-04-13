@@ -86,7 +86,7 @@ class CampaignProgramsPresenter
     return scope unless title_query.present?
 
     q = title_query.downcase
-    scope.joins(:instructors).includes(:instructors).where(
+    scope.left_joins(:instructors).includes(:instructors).where(
       'lower(title) like ? OR lower(school) like ? OR lower(term) like ? OR ' \
       'lower(username) like ?', "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
     )
