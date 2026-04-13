@@ -144,16 +144,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  def extract_program_filters
-    params.slice(:title_query, :creation_start, :creation_end,
-                 :start_date_start, :start_date_end,
-                 :school, :revisions_min, :revisions_max,
-                 :word_count_min, :word_count_max,
-                 :references_min, :references_max,
-                 :views_min, :views_max,
-                 :users_min, :users_max)
-  end
-
   def ores_plot
     set_presenter
   end
@@ -256,6 +246,16 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def extract_program_filters
+    params.slice(:title_query, :creation_start, :creation_end,
+                 :start_date_start, :start_date_end,
+                 :school, :revisions_min, :revisions_max,
+                 :word_count_min, :word_count_max,
+                 :references_min, :references_max,
+                 :views_min, :views_max,
+                 :users_min, :users_max)
+  end
 
   def programs_presenter
     CampaignProgramsPresenter.new(
