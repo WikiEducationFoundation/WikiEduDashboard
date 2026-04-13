@@ -124,12 +124,15 @@ RSpec.configure do |config|
     errors = page.driver.browser.logs.get(:browser)
 
     # Kill all in-flight requests and timers by navigating away.
-    # window.stop() immediately cancels pending fetches so they can't complete
-    # during the next spec and pollute its browser logs with SEVERE entries.
-    # The AbortErrors it generates appear after logs.get above, so they don't
-    # affect this spec — they get cleared by the next spec's before hook.
+    # window.stop() cancels pending fetches, and about:blank unloads all JS.
     page.execute_script('window.stop()') rescue nil # rubocop:disable Style/RescueModifier
     visit 'about:blank'
+
+    # Drain stale SEVERE entries generated asynchronously by window.stop()
+    # (e.g. Redux API_FAIL console.error from aborted fetches). These fire
+    # between the first logs.get and now; consuming them here prevents them
+    # from being misattributed to the next spec.
+    page.driver.browser.logs.get(:browser)
 
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
