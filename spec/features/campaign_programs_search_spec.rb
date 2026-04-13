@@ -83,8 +83,8 @@ describe 'campaign programs search', type: :feature, js: true do
     it 'displays search results count' do
       fill_in 'title_query', with: '101'
       click_button I18n.t('campaign.search')
-      expect(page).to have_content(I18n.t('application.search_results.one', 
-search_terms: 'title: 101', count: 1))
+      expect(page).to have_content(I18n.t('application.search_results.one',
+        search_terms: 'title: 101', count: 1))
     end
   end
 
