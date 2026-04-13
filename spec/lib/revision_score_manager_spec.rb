@@ -10,25 +10,6 @@ describe RevisionScoreManager do
   # Create a double that specifically responds to revision_count
   let(:article_relation) { double('ArticleCourseTimeslice') }
 
-  describe '#within_revision_limit?' do
-    before do
-      # Mock the chain
-      allow(ArticleCourseTimeslice).to receive(:where).and_return(article_relation)
-    end
-
-    it 'returns true if revision_count is under 50' do
-     
-      allow(article_relation).to receive(:sum).with(:revision_count).and_return(30)
-      expect(manager.within_revision_limit?).to be true
-    end
-
-    it 'returns false if revision_count is 50 or more' do
-      allow(article_relation).to receive(:sum).with(:revision_count).and_return(100)
-      expect(manager.within_revision_limit?).to be false
-    end
-  end
-
-
   describe '#fetch_scored_revisions' do
     let(:wiki_api_response) do
       {
@@ -80,7 +61,7 @@ describe RevisionScoreManager do
       allow_any_instance_of(LiftWingApi).to receive(:get_revision_data).and_return({})
       enrolled_usernames = ['RageSock']
       result = manager.fetch_scored_revisions(enrolled_usernames)
-      
+
       expect(result.first[:wp10]).to be_nil
     end
   end

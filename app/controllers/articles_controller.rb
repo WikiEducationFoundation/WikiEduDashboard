@@ -7,13 +7,12 @@ class ArticlesController < ApplicationController
 
   # returns revision score data for vega graphs
   #  { rev_id: 123, characters: 1000, wp10: 0.5, date: '2021-01-01', username: 'Example' }
-def revision_score
-  @article = Article.find(params[:article_id])
-  rev_manager = RevisionScoreManager.new(@article, @course)
-  enrolled_usernames = @course.users.pluck(:username)
-  render json: rev_manager.fetch_scored_revisions(enrolled_usernames)
-end
-
+  def revision_score
+    @article = Article.find(params[:article_id])
+    rev_manager = RevisionScoreManager.new(@article, @course)
+    enrolled_usernames = @course.users.pluck(:username)
+    render json: rev_manager.fetch_scored_revisions(enrolled_usernames)
+  end
 
   # returns details about how an article changed during a course
   def details
@@ -21,7 +20,7 @@ end
     article_course = ArticlesCourses.find_by(course: @course, article: @article, tracked: true)
     @editors = User.where(id: article_course&.user_ids)
   end
-  
+
   # updates the tracked status of an article
   def update_tracked_status
     article_course = @course.articles_courses.find_by(article_id: params[:article_id])
@@ -30,7 +29,7 @@ end
   end
 
   private
-  
+
   def set_course
     @course = Course.find(params[:course_id])
   end
