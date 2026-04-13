@@ -11,7 +11,7 @@
       - expert = @wiki_experts.find { |user| user.course_id == course.id }
       = expert ? expert.user.username : "N/A"
   - if Features.wiki_ed?
-    %td{:class => "table-link-cell"}   
+    %td{:class => "table-link-cell"}
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.first_instructor
           = course.courses_users.where(role: 1).first&.real_name

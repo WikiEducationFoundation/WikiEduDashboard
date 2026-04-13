@@ -5,7 +5,7 @@ require "#{Rails.root}/app/presenters/courses_presenter"
 instructors = CoursesUsers.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).map(&:user).uniq.compact
 
 CSV.open("/alloc/data/instructors.csv", 'wb') do |csv|
-  csv << ['name', 'username', 'course_count', 'student_count', 'student_words_added', 
+  csv << ['name', 'username', 'course_count', 'student_count', 'student_words_added',
           'student_refs_added', 'student_pageviews', 'student_articles_edited',
           'student_articles_created', 'student_uploads', 'uploads_in_usge', 'upload_usages']
 

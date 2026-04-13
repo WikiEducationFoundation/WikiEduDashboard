@@ -19,7 +19,7 @@ assessment:
       text: |
         Compile a list of sources you want to use for a Wikipedia
         article, then ask an AI tool if there are any other related
-        secondary sources you should read. 
+        secondary sources you should read.
       explanation: |
         CORRECT. Using an AI tool to find additional secondary
         sources in line with Wikipedia’s

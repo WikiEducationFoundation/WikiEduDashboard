@@ -8,7 +8,7 @@
           %p= t("status.all_queues_operational")
         - else
           %p= t("status.all_queues_not_operational")
-          
+
           .notifications
             .notice
               .container
@@ -22,13 +22,13 @@
           %th= t("status.queue")
           %th= t("status.purpose")
           %th= t("status.status")
-          %th 
+          %th
             .tooltip-trigger
               = t("status.size")
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t("status.size_doc")
-          %th 
+          %th
             .tooltip-trigger
               = t("status.latency")
               %span.tooltip-indicator

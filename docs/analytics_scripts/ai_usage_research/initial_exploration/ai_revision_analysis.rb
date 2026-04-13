@@ -37,7 +37,7 @@ articles_to_analyze[1..].each do |row|
                      analysis.pangram_fraction_ai_content,
                      analysis.pangram_predicted_ai_window_count,
                      analysis.pangram_predicted_llm]
-  
+
   results << result_row
 end
 

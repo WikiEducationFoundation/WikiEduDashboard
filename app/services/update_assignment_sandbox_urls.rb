@@ -13,18 +13,18 @@ class UpdateAssignmentSandboxUrls
   def update
     return unless @old_username && @new_username
 
-    # We search globally for any assignments whose sandbox_url matches the old 
+    # We search globally for any assignments whose sandbox_url matches the old
     # username's userspace pattern. This handles group assignments more reliably
     # and ensures we don't miss assignments in courses where the user isn't joining records.
     Assignment.where('sandbox_url LIKE ?', "%User:#{@old_username}/%").each do |assignment|
-      # 1. Safety Guard: Only update if the current URL matches the default pattern 
+      # 1. Safety Guard: Only update if the current URL matches the default pattern
       # for the old username. This ensures we don't overwrite manual customizations.
       expected_old_url = assignment.default_sandbox_url(@old_username)
       expected_old_url += "/#{assignment.user.username}_Peer_Review" if assignment.reviewing?
       next unless assignment.sandbox_url == expected_old_url
 
       # 2. Existence Check: Only update if the sandbox has not been created on the wiki yet.
-      # If work has already started on ANY related sandbox (draft, bibliography, outline, 
+      # If work has already started on ANY related sandbox (draft, bibliography, outline,
       # or peer review), we skip the update to avoid disrupting the user's workflow or links.
       status_checks = [
         assignment.draft_sandbox_status,

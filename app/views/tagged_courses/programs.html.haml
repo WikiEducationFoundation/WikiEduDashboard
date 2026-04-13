@@ -88,7 +88,7 @@
           %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date'}
             = t('courses.start_date')
             %span.sortable-indicator
-          
+
       %tbody.list
         - if @search_terms.present?
           - if @results.count > 1
@@ -103,6 +103,5 @@
           - programs.each do |course|
             - cache [course, locale]  do
               = render 'tagged_courses/course_row', course: course, admin: false, user: false
-              
-              
-              
+
+

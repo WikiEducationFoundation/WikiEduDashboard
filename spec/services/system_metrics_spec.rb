@@ -7,7 +7,9 @@ describe SystemMetrics do
 
   describe '#initialize' do
     it 'initializes with valid Sidekiq queue data' do
-      queues = YAML.load_file('config/sidekiq.yml')[:queues].reject { |q| q == 'very_long_update' }
+      queues = YAML.safe_load_file('config/sidekiq.yml', permitted_classes: [Symbol],
+                                                                       aliases: true)[:queues]
+                    .reject { |q| q == 'very_long_update' }
       expect(service.instance_variable_get(:@queues)).to eq(queues)
     end
   end

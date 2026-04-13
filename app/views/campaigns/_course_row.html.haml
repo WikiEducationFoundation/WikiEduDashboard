@@ -7,7 +7,7 @@
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.school + "/" + course.term
   - if Features.wiki_ed?
-    %td{:class => "table-link-cell"}   
+    %td{:class => "table-link-cell"}
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.first_instructor
           = course.courses_users.where(role: 1).first&.real_name

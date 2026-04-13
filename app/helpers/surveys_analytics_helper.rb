@@ -18,13 +18,13 @@ module SurveysAnalyticsHelper
 
   def survey_author(model)
     return '--' if model.versions.empty? || model.versions.last.whodunnit.nil?
-    user = User.find(model.versions.last.whodunnit)
+    user = User.find_by(id: model.versions.last.whodunnit)
     return user.username unless user.nil?
   end
 
   def question_group_survey_author(version)
     return '--' if version.blank? || version.whodunnit.nil?
-    user = User.find(version.whodunnit)
+    user = User.find_by(id: version.whodunnit)
     return user.username unless user.nil?
   end
 

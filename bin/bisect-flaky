@@ -1,0 +1,169 @@
+#!/usr/bin/env bash
+# Bisect to find which spec(s) poison a victim spec.
+#
+# Usage:
+#   bin/bisect-flaky <victim_spec> [suspect_dir]
+#
+# Examples:
+#   bin/bisect-flaky spec/features/course_overview_spec.rb
+#   bin/bisect-flaky spec/features/course_overview_spec.rb spec/features/
+#   bin/bisect-flaky spec/features/course_overview_spec.rb:58
+#
+# The victim is run alone first (must pass). Then the suspect set is run
+# before the victim, and the set is bisected until the minimal polluter
+# is found.
+
+set -uo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [ $# -lt 1 ]; then
+  echo "Usage: bin/bisect-flaky <victim_spec> [suspect_dir]"
+  exit 1
+fi
+
+victim="$1"
+suspect_dir="${2:-spec/}"
+
+mkdir -p tmp
+
+echo "=== Bisect-flaky ==="
+echo "Victim:    $victim"
+echo "Suspects:  $suspect_dir"
+echo ""
+
+# Step 1: Verify victim passes alone
+echo "--- Checking victim passes alone ---"
+bundle exec rspec "$victim" --format progress > tmp/bisect_solo.log 2>&1
+if [ $? -ne 0 ]; then
+  echo "ABORT: Victim fails when run alone. Fix it first."
+  echo "Log: tmp/bisect_solo.log"
+  cat tmp/bisect_solo.log
+  exit 1
+fi
+echo "OK: victim passes alone."
+echo ""
+
+# Step 2: Collect suspect spec files (excluding the victim itself)
+victim_file="${victim%%:*}"  # strip line number if present
+mapfile -t all_suspects < <(
+  find "$suspect_dir" -name '*_spec.rb' -type f | sort | grep -v "^${victim_file}$"
+)
+
+echo "Found ${#all_suspects[@]} suspect spec files."
+echo ""
+
+# Step 3: Verify the full suspect set actually causes failure
+echo "--- Checking full suspect set causes failure ---"
+bundle exec rspec "${all_suspects[@]}" "$victim" --format progress \
+  > tmp/bisect_full.log 2>&1
+if [ $? -eq 0 ]; then
+  echo "NOTE: Victim passes even with all suspects. Trying with --order rand..."
+  # Try a few random orderings
+  found_failure=false
+  for attempt in 1 2 3 4 5; do
+    echo -n "  Attempt $attempt... "
+    bundle exec rspec "${all_suspects[@]}" "$victim" \
+      --format progress --order rand \
+      > "tmp/bisect_rand_${attempt}.log" 2>&1
+    if [ $? -ne 0 ]; then
+      echo "FAIL (order matters — this is order-dependent)"
+      found_failure=true
+      break
+    else
+      echo "pass"
+    fi
+  done
+  if [ "$found_failure" = false ]; then
+    echo ""
+    echo "Could not reproduce failure with suspects from $suspect_dir."
+    echo "Try a different suspect directory or check if the failure is timing-dependent."
+    exit 1
+  fi
+  echo ""
+  echo "The failure is order-dependent. Bisecting with --order defined to preserve order..."
+  order_flag="--order defined"
+else
+  order_flag="--order defined"
+  echo "OK: victim fails with full suspect set."
+fi
+echo ""
+
+# Step 4: Binary search
+suspects=("${all_suspects[@]}")
+round=0
+
+while [ ${#suspects[@]} -gt 1 ]; do
+  round=$((round + 1))
+  midpoint=$(( ${#suspects[@]} / 2 ))
+  first_half=("${suspects[@]:0:$midpoint}")
+  second_half=("${suspects[@]:$midpoint}")
+
+  echo "--- Round $round: ${#suspects[@]} suspects, splitting at $midpoint ---"
+
+  # Try first half + victim
+  echo -n "  First half (${#first_half[@]} files)... "
+  # shellcheck disable=SC2086
+  bundle exec rspec "${first_half[@]}" "$victim" --format progress $order_flag \
+    > "tmp/bisect_round_${round}_first.log" 2>&1
+  first_rc=$?
+
+  if [ $first_rc -ne 0 ]; then
+    echo "FAIL — polluter is in first half"
+    suspects=("${first_half[@]}")
+    continue
+  else
+    echo "pass"
+  fi
+
+  # Try second half + victim
+  echo -n "  Second half (${#second_half[@]} files)... "
+  # shellcheck disable=SC2086
+  bundle exec rspec "${second_half[@]}" "$victim" --format progress $order_flag \
+    > "tmp/bisect_round_${round}_second.log" 2>&1
+  second_rc=$?
+
+  if [ $second_rc -ne 0 ]; then
+    echo "FAIL — polluter is in second half"
+    suspects=("${second_half[@]}")
+    continue
+  else
+    echo "pass"
+  fi
+
+  # Neither half alone causes failure — interaction between halves
+  echo "  Neither half alone causes failure. Possible multi-file interaction."
+  echo "  Trying to narrow down with both halves..."
+  # Keep the full set and try removing one file at a time from the smaller set
+  break
+done
+
+echo ""
+echo "=== Result ==="
+
+if [ ${#suspects[@]} -eq 1 ]; then
+  echo "Minimal polluter: ${suspects[0]}"
+  echo ""
+  echo "Verify with:"
+  echo "  bundle exec rspec ${suspects[0]} $victim --format documentation"
+  echo ""
+  echo "Polluter: ${suspects[0]}" > tmp/bisect_result.txt
+elif [ ${#suspects[@]} -le 5 ]; then
+  echo "Narrowed to ${#suspects[@]} suspects (multi-file interaction likely):"
+  for s in "${suspects[@]}"; do
+    echo "  $s"
+  done
+  echo ""
+  echo "Try running each individually with the victim:"
+  for s in "${suspects[@]}"; do
+    echo "  bundle exec rspec $s $victim --format documentation"
+  done
+  printf '%s\n' "${suspects[@]}" > tmp/bisect_result.txt
+else
+  echo "Could not narrow below ${#suspects[@]} suspects."
+  echo "The failure may involve complex multi-file state interaction."
+  printf '%s\n' "${suspects[@]}" > tmp/bisect_result.txt
+fi
+
+echo ""
+echo "Logs in tmp/bisect_*.log"

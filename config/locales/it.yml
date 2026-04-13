@@ -20,6 +20,7 @@
 # Author: Martinligabue
 # Author: Matteocng
 # Author: Nemo bis
+# Author: Neonsn0w
 # Author: NumaPompilius3
 # Author: S4b1nuz E.656
 # Author: Sarah Bernabei
@@ -967,6 +968,7 @@ it:
     done: Fatto!
     kind:
       discussion: Discussione
+    loading: Caricamento…
   update_username:
     label: Nuovo nome utente
     button: Aggiorna

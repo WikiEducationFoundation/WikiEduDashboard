@@ -18,7 +18,7 @@ content: |
   On the Query Helper pane, click the down arrow next to where it says "house cat".
   Type "dog" into the search box, at which point the menu will suggest several
   options: dog (<code>Q144</code>), the domestic animal; Canis lupus familiaris (<code>Q26972265</code>),
-  the subspecies of mammal; and Dog (<code>Q755126</code>), the Chinese zodiac sign. Pick the 
+  the subspecies of mammal; and Dog (<code>Q755126</code>), the Chinese zodiac sign. Pick the
   first dog and the list of results (at the bottom of the page) will change from
   all the cats Wikidata knows to all the dogs.
 

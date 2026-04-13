@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Arianit
+# Author: INNERLMNT
 # Author: Kosovastar
 # Author: Liridon
 # Author: Ritam
@@ -445,6 +446,8 @@ sq:
     bad_work:
       learn_more_button: Mëso më shumë
   metrics:
+    editors_doc: Ky është numri i përdoruesve unikë që kanë redaktuar artikuj në kurs.
+    program_date_doc: Kjo është data e programit.
     activity: Aktiviteti së fundi
     are_trained: kanë përfunduar trajnimin
     articles_created: Artikuj të Krijuar
@@ -723,4 +726,6 @@ sq:
       closing: Sinqerisht,
       signed: '- ekipi i Wiki Ed'
       link: Merrni Anketën
+  form_search:
+    program_date: Data e Programit
 ...

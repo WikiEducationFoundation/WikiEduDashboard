@@ -59,9 +59,9 @@ class ReferenceCounterApi
     tries ||= RETRY_COUNT
     response = toolforge_server.get(references_query_url(rev_id))
     parsed_response = Oj.load(response.body)
-   
+
     return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
-   
+
     if response.status != 200
       error_response = { rev_id: rev_id, content: parsed_response}
       batch_non_200_response_log(response.status, error_response)
@@ -80,18 +80,18 @@ class ReferenceCounterApi
   def error_key(status)
     status.to_s
   end
-  
+
   def report_reference_counter_error_to_sentry
     return if @non_200_errors.empty?
 
     @non_200_errors.each_value do |data|
-     
+
       error = StandardError.new("Non-200 response hitting references
                                 counter API: (#{data[:status_code]})")
-      
+
       # Use the shared module method
-      log_error(error, 
-        update_service: @update_service, 
+      log_error(error,
+        update_service: @update_service,
         sentry_extra: {
           project_code: @project_code,
           language_code: @language_code,
@@ -101,7 +101,7 @@ class ReferenceCounterApi
         }
       )
     end
-    
+
     @non_200_errors = {}
   end
 
@@ -109,10 +109,10 @@ class ReferenceCounterApi
   def batch_non_200_response_log(status, error_response)
     # Initialize if new status
     @non_200_errors[error_key(status)] ||= { error_count: 0, status_code: status, errors: [] }
-    
+
     # Increment count every time
     @non_200_errors[error_key(status)][:error_count] += 1
-    
+
     # Only collect the error details if under the limit
     if @non_200_errors[error_key(status)][:error_count] <= MAX_NON_200_RESPONSE_LOGS
       @non_200_errors[error_key(status)][:errors] << error_response

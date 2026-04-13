@@ -120,6 +120,8 @@ Rails/I18nLocaleTexts:
   Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
 Style/StringConcatenation:
   Enabled: false
+Style/RedundantParentheses:
+  Enabled: false # Parentheses sometimes help with clarity even when redundant.
 
 ########################
 # Temporary exceptions #
@@ -239,8 +241,6 @@ Performance/StringIdentifierArgument:
   Enabled: false
 Lint/UselessConstantScoping:
   Enabled: false
-Style/RedundantParentheses:
-  Enabled: false
 Layout/EmptyLinesAfterModuleInclusion:
   Enabled: false
 Layout/SpaceAroundOperators:
@@ -269,8 +269,6 @@ Style/MultipleComparison:
   Enabled: false
 Style/MinMaxComparison:
   Enabled: false
-Lint/SymbolConversion:
-  Enabled: false
 Style/CollectionQuerying:
   Enabled: false
 Style/RedundantEach:
@@ -291,17 +289,10 @@ Style/SafeNavigationChainLength:
   Enabled: false
 Lint/AmbiguousRange:
   Enabled: false
-Style/RedundantStringEscape:
-  Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
-Style/RedundantConstantBase:
-  Enabled: false
-Lint/RedundantCopDisableDirective:
   Enabled: false
 Style/SafeNavigation:
   Enabled: false
 Style/RedundantRegexpArgument:
   Enabled: false
 
-  

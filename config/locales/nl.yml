@@ -845,7 +845,7 @@ nl:
     revision_author: Auteur van versie
     revision_datetime: Datum/tijd van versie
     revision_score: Score van versie
-    show_courses: Toon alleen mijn cursussen
+    show_courses: Alleen mijn cursussen weergeven
     uploaded_by: Geüpload door
     usage_count: Aantal keer gebruikt
   revisions:

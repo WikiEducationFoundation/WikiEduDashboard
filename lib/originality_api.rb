@@ -5,7 +5,7 @@
 # API docs: https://docs.originality.ai/originality-ai-api-v1
 class OriginalityApi
   attr_reader :result
-  
+
   API_URL = 'https://api.originality.ai/api/v3/scan'
 
   # Originality Models descriptions:

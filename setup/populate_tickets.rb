@@ -13,7 +13,7 @@ def populate_tickets_demo
               "super admin permissions before running this script."
   throw error_msg if admin.blank?
   puts "Found super admin #{admin.real_name || admin.username}!\n\n"
-  
+
   puts "Searching for Ticketing Campaign..."
   campaign = Campaign.find_by(title: 'Ticketing Campaign')
   if campaign.blank?
@@ -23,7 +23,7 @@ def populate_tickets_demo
   else
     puts "Ticketing Campaign already exists!\n\n"
   end
-  
+
   puts "Searching to see if demo course already exists..."
   course = Course.find_by(title: 'Intro to Color Theory (Ticketing Demo)')
   if course.blank?
@@ -71,7 +71,7 @@ def populate_tickets_demo
   puts "Seeding complete!"
 end
 
-private 
+private
 
 def create_campaign
   Campaign.create({
@@ -101,7 +101,7 @@ def create_ticket_and_replies(course, sender, owner)
     project: course,
     owner: owner
   })
-  
+
   content = rand(3..6).times.inject('') do |acc|
     acc + Faker::Lorem.sentence(
       word_count: 3,
@@ -109,7 +109,7 @@ def create_ticket_and_replies(course, sender, owner)
       random_words_to_add: 10
     ) + " "
   end
-  
+
   ticket.messages << TicketDispenser::Message.create({
     content: "<p>#{content.strip}</p>",
     sender: sender

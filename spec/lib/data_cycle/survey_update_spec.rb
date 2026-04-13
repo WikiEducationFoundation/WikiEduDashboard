@@ -21,7 +21,7 @@ describe SurveyUpdate do
       described_class.new
     end
 
-    it "sends emails for all SurveyNotifications with emails that haven\'t been sent" do
+    it "sends emails for all SurveyNotifications with emails that haven't been sent" do
       expect(ActionMailer::Base.deliveries.count).to eq(2)
     end
 

@@ -1,5 +1,5 @@
 import { debounce } from 'lodash';
-import React from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import API from '../../../utils/api';
@@ -7,15 +7,15 @@ import API from '../../../utils/api';
 const CategoryAutoCompleteInput = ({ label, actionType, initial, wiki, depth }) => {
   const dispatch = useDispatch();
 
-  const search = async (query) => {
-    const data = await API.getCategoriesWithPrefix(wiki, query, depth);
-    return data;
-  };
+  const searchRef = useRef();
+  searchRef.current = query => API.getCategoriesWithPrefix(wiki, query, depth);
 
-  const _loadOptions = (query, callback) => {
-    search(query).then(resp => callback(resp));
-  };
-  const loadOptions = debounce(_loadOptions, 300);
+  const loadOptions = useMemo(
+    () => debounce((query, callback) => {
+      searchRef.current(query).then(resp => callback(resp));
+    }, 300),
+    []
+  );
 
   const updateCategories = (categories) => {
     dispatch({

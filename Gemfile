@@ -129,6 +129,7 @@ group :development, :test do
   gem 'rubocop-factory_bot', require: false
   gem 'rubocop-capybara', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
+  gem 'parallel_tests'
   gem 'rack-proxy', '~> 0.7.6'
 end
 

@@ -11,6 +11,7 @@ describe 'settings', type: :feature, js: true do
     login_as(super_admin, scope: :user)
     SpecialUsers.set_user('communications_manager', special_user.username)
     visit '/settings'
+    expect(page).to have_content(special_user.username)
   end
 
   context 'for special users' do
