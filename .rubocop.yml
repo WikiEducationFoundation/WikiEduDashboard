@@ -241,8 +241,6 @@ Style/RedundantParentheses:
   Enabled: false
 Layout/EmptyLinesAfterModuleInclusion:
   Enabled: false
-Layout/SpaceAroundOperators:
-  Enabled: false
 Style/ArrayIntersect:
   Enabled: false
 Style/RedundantInterpolationUnfreeze:
