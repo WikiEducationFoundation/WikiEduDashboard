@@ -113,6 +113,17 @@ class WikiApi
       fetch_all_revisions(page_id, query_params, &block)
     end
 
+    # Returns true if the page was edited by any of the course students between
+    # start_date and end_date.
+    def course_edit_after?(page_id, course:, start_date:, end_date: nil)
+      students = course.students.pluck(:username)
+      end_date ||= course.end
+      revisions = revision_history(page_id, start_date: end_date, end_date: start_date) do |batch|
+        batch.any? { |rev| students.include?(rev['user']) }
+      end
+      revisions.any? { |rev| students.include?(rev['user']) }
+    end
+
     private
 
     def revision_history_params(page_id, start_date, end_date, limit)
@@ -120,6 +131,7 @@ class WikiApi
         action: 'query',
         prop: 'revisions',
         pageids: page_id,
+        rvprop: 'user',
         rvstart: start_date.strftime('%Y%m%d%H%M%S'),
         rvend: end_date.strftime('%Y%m%d%H%M%S'),
         rvdir: 'older',

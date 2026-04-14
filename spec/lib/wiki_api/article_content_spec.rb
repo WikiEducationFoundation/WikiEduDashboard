@@ -201,7 +201,7 @@ describe WikiApi::ArticleContent do
       result = subject.revision_history(42, start_date: start_date, end_date: end_date)
 
       expect(result.length).to eq(3)
-      expect(result.map { |r| r['revid'] }).to eq([300, 299, 298])
+      expect(result.map { |r| r['user'] }).to eq(['Alice', 'Bob', 'Charlie'])
     end
 
     it 'returns empty array when API fails' do

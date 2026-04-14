@@ -102,26 +102,7 @@ class HighQualityArticleMonitor
     return true if last_resolved.created_at > course.end
 
     mw_page_id = articles_course.article.mw_page_id
-    return !course_edit_after?(course, mw_page_id, last_resolved.created_at)
-  end
-
-  # Returns true if there was an edit made by a course student to the specified page
-  # within the period from the creation date of the last resolved alert to the course end date.
-  def course_edit_after?(course, page_id, last_resolved_date)
-    students = course.students.pluck(:username)
     article_content = WikiApi::ArticleContent.new(@wiki)
-
-    # Pass a block so revision_history stops fetching as soon as a matching
-    # student edit is found in a batch — avoids unnecessary API calls.
-    article_content.revision_history(
-      page_id,
-      start_date: course.end,
-      end_date: last_resolved_date
-    ) do |batch|
-      return true if batch.any? { |rev| students.include?(rev['user']) }
-      false
-    end
-
-    false
+    !article_content.course_edit_after?(mw_page_id, course:, start_date: last_resolved.created_at)
   end
 end
