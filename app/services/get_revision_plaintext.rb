@@ -61,7 +61,7 @@ class GetRevisionPlaintext
   def fetch_revision_html
     # https://en.wikipedia.org/w/api.php?action=parse&oldid=952185129
     params = { oldid: @mw_rev_id }
-    resp = @wiki_api.send(:api_client).send('action', 'parse', params)
+    resp = @wiki_api.send(:api_client).send(:action, 'parse', params)
     @rev_html = resp.data.dig('text', '*')
     @article_title = resp.data.dig('title')
     @mw_page_id = resp.data.dig('pageid')
@@ -71,7 +71,7 @@ class GetRevisionPlaintext
   # https://en.wikipedia.org/w/api.php?action=compare&torev=1315427810&fromrev=1315426424&difftype=table
   def fetch_diff_table
     diff_params = { torev: @mw_rev_id, fromrev: @from_rev, difftype: 'table' }
-    resp = @wiki_api.send(:api_client).send('action', 'compare', diff_params)
+    resp = @wiki_api.send(:api_client).send(:action, 'compare', diff_params)
     @article_title = resp.data.dig('totitle')
     @mw_page_id = resp.data.dig('toid')
     @diff_table = resp.data['*']
@@ -200,7 +200,7 @@ class GetRevisionPlaintext
 
   def fetch_parsed_changed_wikitext
     parse_params = { text: @changed_wikitext, contentmodel: 'wikitext' }
-    resp = @wiki_api.send(:api_client).send('action', 'parse', parse_params)
+    resp = @wiki_api.send(:api_client).send(:action, 'parse', parse_params)
     @diff_html = resp.data.dig('text', '*')
   end
 

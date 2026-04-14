@@ -235,8 +235,6 @@ Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
-Performance/StringIdentifierArgument:
-  Enabled: false
 Lint/UselessConstantScoping:
   Enabled: false
 Style/RedundantParentheses:
