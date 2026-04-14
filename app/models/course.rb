@@ -329,7 +329,7 @@ class Course < ApplicationRecord
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
-      if wiki_namespaces.length.zero?
+      if wiki_namespaces.empty?
         { wiki:, namespace: 0 }
       else
         wiki_namespaces.map do |wiki_ns|
