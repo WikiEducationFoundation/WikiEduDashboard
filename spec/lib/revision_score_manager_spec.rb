@@ -17,9 +17,9 @@ describe RevisionScoreManager do
           'pages' => {
             '12345' => {
               'revisions' => [
-                { 'revid' => 101, 'user' => 'RageSock', 'timestamp' => '2023-01-10T12:00:00Z', 
+                { 'revid' => 101, 'user' => 'RageSock', 'timestamp' => '2023-01-10T12:00:00Z',
                  'size' => 1000 },
-                { 'revid' => 102, 'user' => 'WikiedStaff', 'timestamp' => '2023-01-11T12:00:00Z', 
+                { 'revid' => 102, 'user' => 'WikiedStaff', 'timestamp' => '2023-01-11T12:00:00Z',
                 'size' => 1100 }
               ]
             }

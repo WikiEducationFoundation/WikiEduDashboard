@@ -12,19 +12,12 @@ class RevisionScoreManager
   MAX_REVISION_COUNT = 50
 
   def fetch_scored_revisions(enrolled_usernames)
-    # Fetch all revisions from Wiki API
-    # Within course start and end date
-    revisions = get_revision_ids
-
-    # Filter for only the students in this course
-    user_revisions = revisions.select { |rev| enrolled_usernames.include?(rev[:user]) }
-    return [] if user_revisions.empty?
-
-    target_revisions = relevant_revisions(user_revisions)
-
-    scored_revisions(target_revisions)
-
+    revisions = get_student_revisions(enrolled_usernames)
+    return [] if revisions.empty?
+    cached_scored_revisions(revisions.first(MAX_REVISION_COUNT))
   end
+
+  private
 
   # Use the ID of the most recent revision as the cache key
   # If this ID changes, the cache automatically invalidates.
@@ -33,8 +26,8 @@ class RevisionScoreManager
   end
 
   # Caches scored revisions to avoid hitting LiftWing API repeatedly for the same data
-  def scored_revisions(target_revisions)
-    Rails.cache.fetch(cache_key(target_revisions.first[:revid]), expires_in: 1.day) do 
+  def cached_scored_revisions(target_revisions)
+    Rails.cache.fetch(cache_key(target_revisions.first[:revid]), expires_in: 1.day) do
       rev_ids = target_revisions.map { |r| r[:revid] }
       scores = score_revisions(rev_ids)
 
@@ -53,26 +46,19 @@ class RevisionScoreManager
   # Filters the total revision to a manageable number for plotting.
   # We explicitly take the most recent revisions (up to MAX_REVISION_COUNT)
   # to ensure the graph remains performant and readable.
-  def relevant_revisions(revisions)
-    revisions.size > MAX_REVISION_COUNT ? revisions.first(MAX_REVISION_COUNT) : revisions
-  end
-
-  private
-
-  def get_revision_ids
+  def get_student_revisions(enrolled_usernames)
     params = query_params
-    revisions = []
+    student_revisions = []
+
     loop do
       response = WikiApi.new(@wiki).query(params)
-      page = response['query']['pages'][@article.mw_page_id.to_s]
-      (page['revisions'] || []).each do |r| revisions << { 
-              "revid": r['revid'], 
-              "user": r['user'], 
-              "timestamp": r['timestamp'], 
-              "size": r['size']}
-      end
-      # Exists loop if there is no continue parameter in response
-      break if !response['continue']
+      page_data = response['query']['pages'][@article.mw_page_id.to_s]
+
+      process_revisions(page_data['revisions'], enrolled_usernames, student_revisions)
+
+      # Exits loop if there is no continue parameter in response or
+      # Stop immediately if we found 50 student revisions
+      break if student_revisions.size >= MAX_REVISION_COUNT || !response['continue']
 
       # When the API returns a continue hash, pull out its
       # `rvcontinue`/`continue` tokens and merge them into `params`.
@@ -80,7 +66,20 @@ class RevisionScoreManager
       # will request the next page of revisions.
       params.merge!(response['continue'].slice('rvcontinue', 'continue'))
     end
-     revisions
+    student_revisions
+  end
+
+  def process_revisions(revisions, usernames, results)
+    (revisions || []).each do |r|
+      next unless usernames.include?(r['user'])
+
+      results << {
+        revid: r['revid'],
+        user: r['user'],
+        timestamp: r['timestamp'],
+        size: r['size']
+      }
+    end
   end
 
   def score_revisions(rev_ids)
