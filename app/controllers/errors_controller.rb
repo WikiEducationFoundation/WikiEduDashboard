@@ -11,7 +11,7 @@ class ErrorsController < ApplicationController
 
   def unprocessable
     @error = request.env['action_dispatch.exception']
-    render status: :unprocessable_entity # 422
+    render status: :unprocessable_content # 422
   end
 
   def internal_server_error

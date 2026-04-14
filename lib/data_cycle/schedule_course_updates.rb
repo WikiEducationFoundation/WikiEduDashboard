@@ -100,9 +100,10 @@ class ScheduleCourseUpdates
     #     "enqueued_at"=>1743516909.468488},
     #   "run_at"=>1743538518}]
     current_jobs.each do |_process_id, _thread_id, job_args|
-      job_class = job_args.dig('payload', 'class')
+      payload = JSON.parse(job_args.payload)
+      job_class = payload.dig('class')
       next unless job_class == 'CourseDataUpdateWorker'
-      course_ids += job_args.dig('payload', 'args')
+      course_ids += payload.dig('args')
     end
 
     course_ids
