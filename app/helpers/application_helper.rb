@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def dashboard_stylesheet_tag(filename)
-    filename = "#{rtl? ? 'rtl-' : nil}#{filename}.css"
+    filename = "#{'rtl-' if rtl?}#{filename}.css"
     filename = css_fingerprinted(filename) unless Features.hot_loading?
     stylesheet_link_tag "/assets/stylesheets/#{filename}", media: 'all'
   end
