@@ -251,8 +251,6 @@ Style/RedundantInterpolationUnfreeze:
   Enabled: false
 Naming/PredicateMethod:
   Enabled: false
-Style/YodaCondition:
-  Enabled: false
 Style/YAMLFileRead:
   Enabled: false
 Style/EmptyStringInsideInterpolation:
