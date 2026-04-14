@@ -257,8 +257,6 @@ Style/YAMLFileRead:
   Enabled: false
 Style/EmptyStringInsideInterpolation:
   Enabled: false
-Style/HashEachMethods:
-  Enabled: false
 Style/ZeroLengthPredicate:
   Enabled: false
 Style/SuperArguments:

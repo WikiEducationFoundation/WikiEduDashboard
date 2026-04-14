@@ -263,7 +263,7 @@ describe CopyCourse do
       expect(User.exists?(username: 'Diqi Yan')).to eq(true)
 
       # Update logs were correctly created
-      course.flags['update_logs'].each do |key, _value|
+      course.flags['update_logs'].each_key do |key|
         expect(key).to be_a(Integer)
       end
     end

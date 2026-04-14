@@ -75,7 +75,7 @@ class RevisionScoreImporter
 
   def extract_revisions(pages_data)
     revisions = {}
-    pages_data.each do |_page_id, page_data|
+    pages_data.each_value do |page_data|
       rev_data = page_data['revisions']
       next unless rev_data
       rev_data.each do |rev_datum|
