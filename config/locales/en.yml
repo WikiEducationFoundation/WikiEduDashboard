@@ -1359,6 +1359,8 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    course_ended_notification: "This course due date has been passed, but the Recent Activity tab continues to show recent edits by enrolled users. You can use the 'Show Course Specific' filter to limit the view to activity that occurred during the course."
+    filter_for_course_edits: "Filter for Course Edits Only"
     show_only_new_editors: Show Only New Editors
 
   resources:
