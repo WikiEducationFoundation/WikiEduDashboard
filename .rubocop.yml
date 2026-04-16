@@ -237,13 +237,9 @@ Rails/CompactBlank:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
-Performance/StringIdentifierArgument:
-  Enabled: false
 Lint/UselessConstantScoping:
   Enabled: false
 Layout/EmptyLinesAfterModuleInclusion:
-  Enabled: false
-Layout/SpaceAroundOperators:
   Enabled: false
 Style/ArrayIntersect:
   Enabled: false
@@ -251,15 +247,7 @@ Style/RedundantInterpolationUnfreeze:
   Enabled: false
 Naming/PredicateMethod:
   Enabled: false
-Style/YodaCondition:
-  Enabled: false
 Style/YAMLFileRead:
-  Enabled: false
-Style/EmptyStringInsideInterpolation:
-  Enabled: false
-Style/HashEachMethods:
-  Enabled: false
-Style/ZeroLengthPredicate:
   Enabled: false
 Style/SuperArguments:
   Enabled: false
