@@ -16,21 +16,25 @@
       border-bottom 2px solid #e0e0e0
 
   .stats-grid
-    display grid
-    grid-template-columns repeat(3, 1fr)
-    gap 15px
+    display flex
+    flex-wrap wrap
+    justify-content center
+    gap 16px
     margin 20px 0
-    max-width 800px
+    max-width 850px
 
   .stats-card
     text-align center
-    padding 15px
+    padding 20px 16px
     margin 0
+    flex 1 1 calc(33.33% - 16px)
+    max-width calc(33.33% - 16px)
+    min-width 160px
 
     h3
       font-size 1.8em
-      font-weight 700
-      color #2c5aa0
+      font-weight 300
+      color $brand_primary
       margin 0 0 8px 0
 
     p
@@ -54,109 +58,213 @@
       margin 5px 0 0 0
       font-style italic
 
-  .wiki-list
-    padding 0
-    margin 0
-    list-style-type disc
-    padding-left 20px
+  // Wiki list controls
+  .wiki-controls
+    display flex
+    gap 10px
+    margin-bottom 16px
+    flex-wrap wrap
+    align-items center
 
-    li
-      margin-bottom 8px
-
-      a
-        color #007bff
-        text-decoration none
-
-        &:hover
-          text-decoration underline
-
-      .count
-        color #666
-        font-size 0.9em
-        margin-left 5px
-
-    &.all-wikis
-      li
-        font-size 0.95em
-
-    &.top-wikis
-      list-style-type decimal
-
-      li
-        .rank
-          font-weight 700
-          color #2c5aa0
-          margin-right 8px
-
-  .project-group, .language-group
-    margin 0
-    padding 0
-
-  h3.project-title, h3.language-title
-    margin 0
-    margin-bottom 0
-    padding 0
+  .wiki-search
+    flex 1
+    min-width 180px
+    padding 8px 12px
+    border 1px solid #d1d5db
+    border-radius 3px
+    font-size 14px
     color #333
+    background #fff
+    outline none
+
+    &:focus
+      border-color $brand_primary
+
+    &::placeholder
+      color #aaa
+
+  .wiki-tabs
+    display flex
+    border 1px solid #d1d5db
+    border-radius 3px
+    overflow hidden
+
+  .wiki-tab
+    padding 8px 14px
+    font-size 13px
+    background #fff
+    color #666
+    border none
+    border-right 1px solid #d1d5db
+    cursor pointer
+    font-family inherit
+    transition background 0.15s, color 0.15s
+
+    &:last-child
+      border-right none
+
+    &:hover
+      background #f9f9fb
+
+    &.active
+      background $brand_primary
+      color #fff
+
+  // Wiki list table
+  .wiki-table
+    width 100%
+    border-collapse collapse
+    font-size 14px
+
+    thead th
+      text-align left
+      font-size 12px
+      font-weight 400
+      color #888
+      text-transform uppercase
+      letter-spacing 0.3px
+      padding 10px 12px
+      border-bottom 2px solid #e8e8e8
+
+    tbody td
+      padding 11px 12px
+      border-bottom 1px solid #f2f2f2
+      vertical-align middle
+
+    tbody tr
+      &:hover
+        background #fafbfc
+
+      &:last-child td
+        border-bottom none
+
+  .wiki-domain-link
+    color $brand_primary
+    text-decoration none
+
+    &:hover
+      text-decoration underline
+
+  .wiki-project-tag
+    display inline-block
+    font-size 11px
+    padding 2px 8px
+    border-radius 3px
+    background #f3f4f6
+    color #555
+
+  .wiki-course-count
+    font-variant-numeric tabular-nums
+
+  .wiki-bar-col
+    width 110px
+
+  .wiki-bar-bg
+    width 100px
+    height 5px
+    background #f0f0f0
+    border-radius 3px
+    overflow hidden
+
+  .wiki-bar-fill
+    height 100%
+    border-radius 3px
+
+  .wiki-bar-high
+    background $brand_primary
+
+  .wiki-bar-mid
+    background lighten($brand_primary, 30%)
+
+  .wiki-bar-low
+    background lighten($brand_primary, 55%)
+
+  // Table footer
+  .wiki-table-footer
+    display flex
+    align-items center
+    justify-content space-between
+    margin-top 14px
+    padding-top 12px
+    border-top 1px solid #f0f0f0
+
+  .wiki-table-info
+    font-size 13px
+    color #888
+
+  .wiki-show-all-btn
+    font-size 13px
+    padding 6px 16px
+    background #fff
+    border 1px solid #d1d5db
+    border-radius 3px
+    color $brand_primary
+    cursor pointer
+    font-family inherit
+    transition background 0.15s, border-color 0.15s
+
+    &:hover
+      background #f9f9fb
+      border-color $brand_primary
+
+  .wiki-no-results
+    color #666
+    font-style italic
+    padding 20px
+    text-align center
+
+  // Grouped view (By project / By language)
+  .wiki-group
+    margin-bottom 24px
+
+  .wiki-group-header
+    margin-bottom 8px
+
+  .wiki-group-name
     font-size 1.1em
     font-weight 600
+    color #333
 
-    .project-count, .language-count
-      color #666
-      font-size 0.85em
-      font-weight 400
-      margin-left 8px
+  .wiki-group-count
+    color #666
+    font-size 0.85em
+    font-weight 400
+    margin-left 8px
 
-  h3.project-title + ul.wiki-list,
-  h3.language-title + ul.wiki-list
-    margin 0
-    margin-top 0
-    margin-bottom 24px
-    padding 0
-
-    li
-      margin-bottom 4px
-      padding 0
-      font-size 0.95em
-
-  .wiki-view-selector
-    margin-bottom 20px
-
-    label
-      margin-right 10px
-
-    .wiki-dropdown
-      padding 5px 10px
-      border 1px solid #ccc
-      background white
-      font-size 1em
-
-  .wiki-sort-section
-    .no-data
-      color #666
-      font-style italic
-      padding 20px
-      text-align center
-
+  // Responsive
   @media (max-width: 768px)
     .stats-grid
-      grid-template-columns repeat(2, 1fr)
       gap 12px
 
     .stats-card
-      padding 12px
+      flex 1 1 calc(50% - 12px)
+      max-width calc(50% - 12px)
+      padding 16px 12px
 
       h3
         font-size 1.6em
 
-    .wiki-list
-      columns 1
+    .wiki-controls
+      flex-direction column
+
+    .wiki-search
+      min-width 100%
+
+    .wiki-tabs
+      width 100%
+
+    .wiki-tab
+      flex 1
+      text-align center
+
+    .wiki-bar-col
+      display none
 
   @media (max-width: 480px)
-    .stats-grid
-      grid-template-columns 1fr
-
     .stats-card
-      padding 12px
+      flex 1 1 100%
+      max-width 100%
+      padding 14px 12px
 
       h3
         font-size 1.4em
