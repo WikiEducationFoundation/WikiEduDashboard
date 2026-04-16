@@ -1,49 +1,52 @@
 - content_for :before_title, 'Admin Tools — '
-.container
+.container.admin
   %h1
     %a{href: '/requested_accounts'}
       Requested Accounts:
       = RequestedAccount.count
-.container
+
   %h1
     %a{href: '/tickets/dashboard'}
       Open Tickets:
       = TicketDispenser::Ticket.where(status: TicketDispenser::Ticket::Statuses::OPEN).count
 
-.container
-  %h2 AI-related tools
-  %ul
-    %li
-      %a{href: '/ai_edit_alerts_stats'} AI alert dashboard (CURRENT TERM)
-    %li
-      %a{href: '/ai_edit_alerts_stats/select_campaign'} AI alert dashboard (by campaign)
-    %li
-      %a{href: '/revision_ai_scores_stats'} AI checks over time
-    %li
-      %a{href: '/ai_tools'} AI detectors comparison tool
-  %h2 Other Useful links
-  %ul
-    %li
-      %a{href: '/settings'} Manage Site Settings 
-    %li
-      %a{href: '/faq_topics'} FAQ Topics
-    %li
-      %a{href: '/faq/new'} Add new FAQ
-    %li
-      %a{href: '/article_finder'} Article Finder
-    %li
-      %a{href: '/copy_course'} Copy course from another server
-    %li
-      %a{href: 'https://dashboard-testing.wikiedu.org/rails/mailers'} Email templates
-    %li
-      %a{href: '/feedback_form_responses'} Feedback Form Responses
-    %li
-      %a{href: '/sidekiq'} Job queue
-    %li
-      %a{href: '/unsubmitted_courses'} Unsubmitted Courses
-    %li
-      %a{href: '/timeslice_duration'} Update timeslice duration
-    %li
-      %a{href: '/update_username'} Update username
-    %li
-      %a{href: '/usage'} Usage stats
+  .admin-links-grid
+    .admin-links-column
+      %h2 AI-related tools
+      %ul
+        %li
+          %a{href: '/ai_edit_alerts_stats'} AI alert dashboard (CURRENT TERM)
+        %li
+          %a{href: '/ai_edit_alerts_stats/select_campaign'} AI alert dashboard (by campaign)
+        %li
+          %a{href: '/revision_ai_scores_stats'} AI checks over time
+        %li
+          %a{href: '/ai_tools'} AI detectors comparison tool
+
+    .admin-links-column
+      %h2 Other Useful links
+      %ul
+        %li
+          %a{href: '/settings'} Manage Site Settings
+        %li
+          %a{href: '/faq_topics'} FAQ Topics
+        %li
+          %a{href: '/faq/new'} Add new FAQ
+        %li
+          %a{href: '/article_finder'} Article Finder
+        %li
+          %a{href: '/copy_course'} Copy course from another server
+        %li
+          %a{href: '/mailer_previews'} Email templates
+        %li
+          %a{href: '/feedback_form_responses'} Feedback Form Responses
+        %li
+          %a{href: '/sidekiq'} Job queue
+        %li
+          %a{href: '/unsubmitted_courses'} Unsubmitted Courses
+        %li
+          %a{href: '/timeslice_duration'} Update timeslice duration
+        %li
+          %a{href: '/update_username'} Update username
+        %li
+          %a{href: '/usage'} Usage stats

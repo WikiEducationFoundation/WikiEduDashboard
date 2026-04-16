@@ -101,11 +101,12 @@ class AiEditAlert < Alert
   ####################
 
   def main_subject
-    mainspace = article&.mainspace? ? ' (to live article)' : ''
+    mainspace_signal = article&.mainspace? ? ' (live article)' : ''
     repeat_page = prior_alert_id_for_page.present? ? ' (again)' : ''
     repeat_user = prior_alert_id_for_user.present? ? ' (same user)' : ''
+    beginning = (mainspace? || non_exercise_sandbox?) ? 'Action needed: fact verification' : 'Suspected AI edit' # rubocop:disable Layout/LineLength
 
-    "Suspected AI edit#{mainspace}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
+    "#{beginning}#{mainspace_signal}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
   end
 
   def email_template_name
@@ -237,6 +238,10 @@ class AiEditAlert < Alert
 
   def mainspace?
     page_type == :mainspace
+  end
+
+  def non_exercise_sandbox?
+    page_type == :sandbox
   end
 
   def page_type # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity

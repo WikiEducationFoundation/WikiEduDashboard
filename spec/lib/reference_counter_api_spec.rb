@@ -78,7 +78,7 @@ describe ReferenceCounterApi do
       expect(response.dig('5006946', 'num_ref')).to be_nil
       expect(response.dig('5006946').key?('error')).to eq(false)
     end
-  end  
+  end
 
   it 'logs the error once if an unexpected error raises several times', vcr: true do
     reference_counter_api = described_class.new(es_wiktionary)
@@ -108,15 +108,15 @@ describe ReferenceCounterApi do
   context 'when the API returns non-200 responses' do
     let(:failing_ids) {
       [708326238, 123456789, 987654321, 111222333, 444555666, 777888999, 408326238] }
-    
+
     # Mock the update service to provide the tags the test expects
     let(:update_service) do
-      instance_double('UpdateService', 
-        update_error_stats: true, 
+      instance_double('UpdateService',
+        update_error_stats: true,
         sentry_tags: { update_service_id: 'tag1', course: '/UBA/Mongolia_(second_semester_2026)' }
       )
     end
-    
+
     let(:subject) { described_class.new(en_wikipedia, update_service) }
     it 'batches multiple errors and limits Sentry samples to exactly 5' do
       # Ensure ReferenceCounterError (or StandardError) is in TYPICAL_ERRORS to get 'warning' level
@@ -136,7 +136,7 @@ describe ReferenceCounterApi do
 
       # MOCK the internal call logic
       allow(subject).to receive(:get_number_of_references_from_revision_id) do |rev_id|
-        subject.send(:batch_non_200_response_log, 403, 
+        subject.send(:batch_non_200_response_log, 403,
           { rev_id: rev_id, content: { "description" => "mwapi error: permissiondenied" } })
         { 'num_ref' => nil }
       end

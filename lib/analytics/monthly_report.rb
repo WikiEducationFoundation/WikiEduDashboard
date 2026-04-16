@@ -14,10 +14,10 @@ class MonthlyReport
   end
 
   def report
-    { "#{@year}-#{@month}".to_sym =>
+    { :"#{@year}-#{@month}" =>
         { articles_edited: @articles_edited,
           uploads: @uploads },
-      "#{@last_year}-#{@month}".to_sym =>
+      :"#{@last_year}-#{@month}" =>
         { articles_edited: @old_articles_edited,
           uploads: @old_uploads } }
   end

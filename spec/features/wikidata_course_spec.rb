@@ -4,13 +4,14 @@ require 'rails_helper'
 
 describe 'A Wikidata course', type: :feature, js: true do
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+  let(:campaign) { create(:campaign, title: 'Wikidata Test Campaign') }
   let(:course) { create(:course, home_wiki: wikidata, start: '2017-01-01', end: '2020-01-01') }
   let(:user) { create(:user, username: 'Ragesoss') }
   let(:article) { create(:article, title: 'Q42', wiki: wikidata) }
 
   before do
     stub_wiki_validation
-    course.campaigns << Campaign.first
+    course.campaigns << campaign
     create(:courses_user, course:, user:)
     create(:articles_course, course:, article:, user_ids: [user.id])
     create(:course_stats,
@@ -38,7 +39,7 @@ describe 'A Wikidata course', type: :feature, js: true do
   end
 
   it 'shows wikidata stats on the Campaign page' do
-    visit "/campaigns/#{Campaign.first.slug}/overview"
+    visit "/campaigns/#{campaign.slug}/overview"
     expect(page).to have_content('Wikidata stats')
   end
 

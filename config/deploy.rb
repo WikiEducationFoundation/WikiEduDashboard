@@ -129,7 +129,7 @@ namespace :deploy do
         end
       end
     end
-  
+
     desc 'Stop sidekiq (graceful shutdown within timeout, put unfinished tasks back to Redis)'
     task :stop do
       on roles fetch(:sidekiq_roles) do
@@ -138,7 +138,7 @@ namespace :deploy do
         end
       end
     end
-  
+
     desc 'Start sidekiq'
     task :start do
       on roles fetch(:sidekiq_roles) do

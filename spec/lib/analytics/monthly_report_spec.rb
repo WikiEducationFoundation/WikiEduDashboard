@@ -4,42 +4,35 @@ require 'rails_helper'
 require "#{Rails.root}/lib/analytics/monthly_report"
 
 describe MonthlyReport do
-  let(:course_ids) { [1, 2, 3, 10001, 10002, 10003] }
-
   before do
     travel_to Date.new(2025, 5, 6)
 
-    course_ids.each do |i|
-      # Course
-      id = i
-      id2 = id + 100
-      create(:course, id:, start: 2.years.ago, end: Time.zone.today, slug: "foo/#{id}")
-      create(:user, id:, username: "user#{id}")
-      create(:courses_user, id:, user_id: id, course_id: id, role: 0)
-      # Create two articles
-      create(:article, id:, title: "Article_#{id}", namespace: Article::Namespaces::MAINSPACE)
-      # Create timeslices
-      create(:article_course_timeslice, course_id: id, article_id: id, revision_count:,
-      start: 1.month.ago, end: 1.month.ago + 1.day)
-      create(:article_course_timeslice, course_id: id, article_id: id, revision_count:,
-      start: 1.month.ago + 1.day, end: 1.month.ago + 2.days)
-      create(:article_course_timeslice, course_id: id, article_id: id, revision_count:,
-      start: 2.months.ago, end: 2.months.ago + 1.day)
-      # Create uploads
-      create(:commons_upload, id:, user_id: id, uploaded_at: 1.month.ago, usage_count: 1)
+    @first_course = nil
+    @first_article = nil
+    6.times do |i|
+      course = create(:course, start: 2.years.ago, end: Time.zone.today, slug: "foo/#{i}")
+      user = create(:user, username: "user_monthly_#{i}")
+      create(:courses_user, user:, course:, role: 0)
+      article = create(:article, title: "Article_#{i}", namespace: Article::Namespaces::MAINSPACE)
+      @first_course ||= course
+      @first_article ||= article
+      create(:article_course_timeslice, course:, article:, revision_count:,
+             start: 1.month.ago, end: 1.month.ago + 1.day)
+      create(:article_course_timeslice, course:, article:, revision_count:,
+             start: 1.month.ago + 1.day, end: 1.month.ago + 2.days)
+      create(:article_course_timeslice, course:, article:, revision_count:,
+             start: 2.months.ago, end: 2.months.ago + 1.day)
+      create(:commons_upload, user:, uploaded_at: 1.month.ago, usage_count: 1)
 
-      # only create old revision for some courses
-      next unless id2.odd?
-      create(:user, id: id2, username: "second_user#{id}")
-      create(:courses_user, id: id2, user_id: id2, course_id: id, role: 0)
-      # Create article
-      create(:article, id: id2, title: "Article_#{id2}")
-      # Create timeslice
-      create(:article_course_timeslice, course_id: id, article_id: id2, revision_count:,
-      start: 13.months.ago, end: 13.months.ago + 1.day)
-      # Create uploads
-      create(:commons_upload, user_id: id2, uploaded_at: 13.months.ago, usage_count: 1)
-      create(:commons_upload, user_id: id2, uploaded_at: 13.months.ago, usage_count: 1)
+      # Create old data for 4 of 6 courses
+      next if [1, 4].include?(i)
+      second_user = create(:user, username: "second_user_monthly_#{i}")
+      create(:courses_user, user: second_user, course:, role: 0)
+      old_article = create(:article, title: "Article_old_#{i}")
+      create(:article_course_timeslice, course:, article: old_article, revision_count:,
+             start: 13.months.ago, end: 13.months.ago + 1.day)
+      create(:commons_upload, user: second_user, uploaded_at: 13.months.ago, usage_count: 1)
+      create(:commons_upload, user: second_user, uploaded_at: 13.months.ago, usage_count: 1)
     end
   end
 
@@ -58,13 +51,14 @@ describe MonthlyReport do
       end
 
       it 'counts only articles in namespace' do
-        Article.find(1).update(namespace: Article::Namespaces::WIKIJUNIOR)
+        @first_article.update(namespace: Article::Namespaces::WIKIJUNIOR)
         expect(subject[:'2025-4']).to(eq({ articles_edited: 5, uploads: 6 }))
         expect(subject[:'2024-4']).to(eq({ articles_edited: 4, uploads: 8 }))
       end
 
       it 'counts only tracked articles' do
-        ArticleCourseTimeslice.where(course_id: 1, article_id: 1).update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
+        ArticleCourseTimeslice.where(course: @first_course, article: @first_article)
+                              .update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
         expect(subject[:'2025-4']).to(eq({ articles_edited: 5, uploads: 6 }))
         expect(subject[:'2024-4']).to(eq({ articles_edited: 4, uploads: 8 }))
       end

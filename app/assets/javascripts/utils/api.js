@@ -711,7 +711,7 @@ const API = {
     });
   },
 
-  // Disallowed Users API 
+  // Disallowed Users API
   // Fetches list of usernames blocked from enrolling in any course
   async fetchDisallowedUsers() {
     const response = await request('/settings/disallowed_users');

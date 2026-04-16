@@ -1,4 +1,4 @@
-// Styles for the Admin Note feature 
+// Styles for the Admin Note feature
 // Following the BEM (Block Element Modifier) naming convention
 // https://cssguidelin.es/#bem-like-naming
 
@@ -10,78 +10,78 @@
     min-width 190px
 
 // Table with Admin Note Styles
-.table__admin-note 
+.table__admin-note
 
   text-align left
 
-  &__th 
-    textarea 
+  &__th
+    textarea
       width 100%
     th
-      max-width 100px 
+      max-width 100px
 
-  &__row 
-    .admin-note__edit 
-      width 0% 
-    
-    .admin-note__delete 
-      width 3% 
-    
+  &__row
+    .admin-note__edit
+      width 0%
+
+    .admin-note__delete
+      width 3%
+
     td
       max-width 100px
-      
-    td.row--border 
+
+    td.row--border
       border-bottom none
       max-width 100px
-    
-    span.tooltip 
+
+    span.tooltip
       left -15px
       min-width 94px
-      margin-left -21px  
+      margin-left -21px
 
-.tooltip-trigger 
+.tooltip-trigger
 
-  .tooltip.create--admin--note 
+  .tooltip.create--admin--note
     top 5%
     left: 112%
     min-width 95px
 
-    &:before 
+    &:before
       content none
-    
-  &:hover 
-    .tooltip.create--admin--note 
+
+  &:hover
+    .tooltip.create--admin--note
       top 5%
       left: 112%
       min-width 95px
 
     .tooltip.cancel--note,
-    .tooltip.post--note 
+    .tooltip.post--note
       top 103%
       left -62%
       min-width 48px
 
-      &:before 
+      &:before
         content none
 
-  .tooltip.new 
+  .tooltip.new
     top 131%
 
-    &:before 
+    &:before
       content none
-    
+
   &.cancel--note,
   &.post--note,
     top 20px
     left: 50px
 
   .tooltip.cancel--note,
-  .tooltip.post--note 
+  .tooltip.post--note
     top 103%
     left -62%
     min-width 48px
 
-    &:before 
+    &:before
       content none
 
 .cancel--note
@@ -92,7 +92,7 @@
   top 3px
   left -11px
 
-.admin--note--creator 
+.admin--note--creator
   top -7px
   left -16px
 
@@ -103,57 +103,57 @@
   margin-left 5px
 
 .admin-focus-highlight:focus
-  outline 2px solid #000 
+  outline 2px solid #000
   outline-offset 2px
 
 //Admin note Icon Styles
 
-.admin-note-edit-icon 
+.admin-note-edit-icon
   background url('../images/pencil.svg') center no-repeat
   padding 11px
 
-  &:hover 
+  &:hover
     background url('../images/pencil-blue.svg') center no-repeat
     padding 11px
 
-.admin-note-delete-icon 
+.admin-note-delete-icon
   background url('../images/trash.svg') center no-repeat
   background-size 70%
   padding 11px
 
-  &:hover 
+  &:hover
     background: url('../images/trash-red.svg') center no-repeat
     background-size 70%
     padding 11px
-  
-.admin-note-create-icon 
+
+.admin-note-create-icon
   background url('../svg/plus.svg') center no-repeat
   background-size 70%
   padding 15px
 
-  &:hover 
+  &:hover
     background url('../svg/plus-blue.svg') center no-repeat
     background-size 70%
     cursor pointer
 
-.admin-note-cancel-icon 
+.admin-note-cancel-icon
   background url('../images/clear.svg') center no-repeat
   background-size 60%
   padding 15px
 
-  &:hover 
+  &:hover
     background url('../images/clear-red.svg') center no-repeat
     background-size 60%
     padding 15px
     cursor pointer
 
-.admin-note-post-icon 
+.admin-note-post-icon
   background url('../images/check-grey.svg') center no-repeat
   background-size 75%
   padding 15px
   cursor pointer
 
-  &:hover 
+  &:hover
     background url('../images/check.svg') center no-repeat
     background-size 75%
     padding 15px
@@ -176,7 +176,7 @@
   font-weight 400
   line-height 1
 
-.sr-admin-note-only 
+.sr-admin-note-only
   position absolute
   width 1px
   height 1px

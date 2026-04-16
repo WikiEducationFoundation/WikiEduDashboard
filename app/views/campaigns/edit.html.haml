@@ -149,7 +149,7 @@
         - else
           = form_tag("/requested_accounts_campaigns/#{@campaign.slug}/disable_account_requests", method: :put, class: 'campaign-create') do
             %button.button.dark
-              = t('campaign.disable_account_requests')    
+              = t('campaign.disable_account_requests')
       = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { id: 'delete_campaign_form', class: 'campaign-delete', 'data-title' => @campaign.title }) do
         %button.button.danger
           = t('campaign.delete_campaign')

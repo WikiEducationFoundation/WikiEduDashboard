@@ -59,10 +59,19 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_paths = ["#{::Rails.root}/spec/fixtures"]
+  config.fixture_paths = ["#{Rails.root}/spec/fixtures"]
 
   config.use_transactional_fixtures = true # This enables transactions for all tests
   config.global_fixtures = :all
+
+  # Retry examples that hit MySQL deadlocks (InnoDB gap-lock conflicts
+  # between the fixture transaction and SAVEPOINT inserts, especially
+  # under parallel_tests).
+  config.around do |example|
+    example.run
+  rescue ActiveRecord::Deadlocked
+    example.run
+  end
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   # RSpec Rails can automatically mix in different behaviours to your tests
@@ -97,6 +106,9 @@ RSpec.configure do |config|
     errors = page.driver.browser.logs.get(:browser)
 
     warn errors
+
+    # Clear persistent browser state from previous spec
+    page.driver.browser.manage.delete_all_cookies
   end
 
   # fail on javascript errors in feature specs
@@ -111,27 +123,29 @@ RSpec.configure do |config|
     # logs in the `before` block above.
     errors = page.driver.browser.logs.get(:browser)
 
+    # Kill all in-flight requests and timers by navigating away.
+    # window.stop() cancels pending fetches, and about:blank unloads all JS.
+    page.execute_script('window.stop()') rescue nil # rubocop:disable Style/RescueModifier
+    visit 'about:blank'
+
+    # Drain stale SEVERE entries generated asynchronously by window.stop()
+    # (e.g. Redux API_FAIL console.error from aborted fetches). These fire
+    # between the first logs.get and now; consuming them here prevents them
+    # from being misattributed to the next spec.
+    page.driver.browser.logs.get(:browser)
+
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
 
-    if errors.present?
-      aggregate_failures 'javascript errrors' do
-        errors.each do |error|
-          # some specs test behavior for 4xx responses and other errors.
-          # Don't fail on these.
-          next if /Failed to load resource/.match?(error.message)
-
-          warn 'JavaScript warning / error'
-          warn error.level
-          warn error
-          warn error.message
-          expect(error.level).not_to eq('SEVERE'), error.message
-        end
-      end
-    end
+    check_for_severe_js_errors(errors)
+  end
+  config.after(:each) do
+    travel_back
+    Warden.test_reset!
+    I18n.locale = I18n.default_locale
   end
   config.after(:suite) do
-    if ENV['COVERAGE'] == 'true'
+    if ENV['COVERAGE'] == 'true' && !ENV['PARALLEL_TEST_GROUPS']
       Rails.application.load_tasks
       Rake::Task['generate:coverage'].invoke
     end
@@ -177,6 +191,28 @@ def pass_pending_spec
     print 'P'
   end
   raise 'this test passed — this time'
+end
+
+# Checks browser log entries for SEVERE JavaScript errors and fails the
+# current example if any are found. Filters out "Failed to load resource"
+# entries (expected in specs that test 4xx responses).
+# Also used by spec/features/js_error_detection_spec.rb to verify this
+# mechanism works.
+def check_for_severe_js_errors(browser_log_entries)
+  severe = browser_log_entries.select do |error|
+    error.level == 'SEVERE' && !/Failed to load resource/.match?(error.message)
+  end
+  return if severe.empty?
+
+  aggregate_failures 'javascript errors' do
+    severe.each do |error|
+      warn 'JavaScript warning / error'
+      warn error.level
+      warn error
+      warn error.message
+      expect(error.level).not_to eq('SEVERE'), error.message
+    end
+  end
 end
 
 def format_local_datetime(date)

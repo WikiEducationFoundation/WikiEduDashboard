@@ -9,7 +9,7 @@ class CumulativeDiff
     @mw_page_id = @ac.article.mw_page_id
     @wiki = @ac.article.wiki
     @wiki_api = WikiApi.new(@wiki)
-    @end_time = @ac.course.end  
+    @end_time = @ac.course.end
   end
 
   def generate_diff_url

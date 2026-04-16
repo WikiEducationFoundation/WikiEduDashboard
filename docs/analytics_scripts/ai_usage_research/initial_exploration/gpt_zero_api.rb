@@ -16,9 +16,9 @@ class GptZeroApi
         'Content-Type' => 'application/json',
         'x-api-key' => @api_key
       }
-    ) 
+    )
 
-    response = conn.post('v2/predict/text') do |req| 
+    response = conn.post('v2/predict/text') do |req|
       req.body = { document: text, multilingual: false }.to_json
     end
 

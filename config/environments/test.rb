@@ -39,14 +39,16 @@ Dir.glob("./.nyc_output/*").each{ |f| FileUtils.rm(f) }
 def dump_js_coverage
   return unless ENV["COVERAGE"]
 
+  suffix = ENV['TEST_ENV_NUMBER'] || ''
   page_coverage = page.evaluate_script("JSON.stringify(window.__coverage__);")
   return if page_coverage.blank?
 
-  File.open(Rails.root.join(".nyc_output", "temp.json"), "w") do |report|
+  File.open(Rails.root.join(".nyc_output", "temp#{suffix}.json"), "w") do |report|
     report.puts page_coverage
   end
 
-  system("npx nyc merge .nyc_output .nyc_output/out.json >> /dev/null && rm .nyc_output/temp.json")
+  system("npx nyc merge .nyc_output .nyc_output/out#{suffix}.json >> /dev/null " \
+         "&& rm .nyc_output/temp#{suffix}.json")
 end
 
 
@@ -74,6 +76,7 @@ Rails.application.configure do
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
+  config.cache_store = :null_store
 
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
@@ -87,7 +90,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.delivery_method = :test
   config.action_mailer.show_previews = true
-  config.action_mailer.preview_paths << "#{Rails.root}/spec/mailers/previews"
+  config.action_mailer.preview_paths << "#{Rails.root}/app/mailer_previews"
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr

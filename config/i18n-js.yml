@@ -1,6 +1,6 @@
 translations:
   - file: "public/assets/javascripts/i18n/:locale.json"
-    patterns: 
+    patterns:
       - "*"
 
 export_files:

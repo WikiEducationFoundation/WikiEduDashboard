@@ -55,7 +55,7 @@ Rails.application.routes.draw do
 
   get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
   post '/settings/update_site_notice' => 'settings#update_site_notice'
-  
+
 
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
@@ -200,9 +200,9 @@ Rails.application.routes.draw do
 
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
-    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 
-      constraints: { 
-        slug: /.*/ 
+    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign',
+      constraints: {
+        slug: /.*/
       }
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
     constraints: {
@@ -339,7 +339,7 @@ Rails.application.routes.draw do
   # Custom JSON route for tagged courses stats
   get 'tagged_courses/:tag.json',
     controller: :tagged_courses,
-    action: :stats 
+    action: :stats
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
@@ -522,6 +522,8 @@ Rails.application.routes.draw do
   namespace :system do
     get 'can_start_backup.json' => 'backups#can_start_backup'
   end
+
+  get '/mailer_previews' => 'mailer_previews#index'
 
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'

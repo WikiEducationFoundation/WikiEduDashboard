@@ -59,14 +59,14 @@ class CourseRevisionUpdater
     ArticlesCourses.update_from_course_revisions(@course, revisions)
   end
 
-  def format_revision_response(wiki, timeslice_start, timeslice_end, revision_data)
-    new_revisions = new_revisions?(revision_data, wiki, timeslice_start)
+  def format_revision_response(wiki, timeslice_start, timeslice_end, revisions_array)
+    new_revisions = new_revisions?(revisions_array, wiki, timeslice_start)
     results = {}
     revisions = {}
     revisions[:start] = timeslice_start
     revisions[:end] = timeslice_end
     revisions[:new_data] = new_revisions
-    revisions[:revisions] = revision_data
+    revisions[:revisions] = revisions_array
     results[wiki] = revisions
     results
   end

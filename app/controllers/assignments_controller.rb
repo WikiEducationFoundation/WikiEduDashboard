@@ -18,7 +18,7 @@ class AssignmentsController < ApplicationController
     @flags = @assignment.flags
     assignment_id = params[:assignment_id]
     user_id = params[:user_id]
-    if assignment_id &&  user_id.present? && @assignment.flags[:available_article]
+    if assignment_id && user_id.present? && @assignment.flags[:available_article]
       @assignment.update(user_id: nil)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
@@ -39,7 +39,7 @@ class AssignmentsController < ApplicationController
   rescue AssignmentManager::DiscouragedArticleError,
          AssignmentManager::MaxGroupSizeExceededError => e
     render json: { errors: e, message: e.message },
-           status: :unprocessable_entity
+           status: :unprocessable_content
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e, message: e.message || I18n.t('assignments.already_exists') },
            status: :internal_server_error
@@ -76,7 +76,7 @@ class AssignmentsController < ApplicationController
            status: :conflict
   rescue AssignmentManager::MaxGroupSizeExceededError => e
     render json: { errors: e, message: e.message },
-           status: :unprocessable_entity
+           status: :unprocessable_content
   end
   # rubocop:enable Metrics/MethodLength
 
@@ -90,7 +90,7 @@ class AssignmentsController < ApplicationController
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 

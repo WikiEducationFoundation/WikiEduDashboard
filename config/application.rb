@@ -55,7 +55,7 @@ module WikiEduDashboard
 
     # Rails cache with Dalli/memcached
     config.cache_store = :mem_cache_store, 'localhost', { pool: { size: 5 }, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
-    
+
     # Upgrade cache format version from deprecated 6.1 to 7.1
     config.active_support.cache_format_version = 7.1
 

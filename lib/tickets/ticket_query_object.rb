@@ -45,8 +45,9 @@ class TicketQueryObject
   end
 
   def search_by_subject(search_text)
-    message_ids = TicketDispenser::Message.all.select do |ticket|
-      ticket[:details][:subject]&.match?(/#{search_text}/i)
+    pattern = Regexp.new(Regexp.escape(search_text), Regexp::IGNORECASE)
+    message_ids = TicketDispenser::Message.all.select do |message|
+      message[:details][:subject]&.match?(pattern)
     end.pluck(:id)
     tickets.where(messages: { id: message_ids })
   end

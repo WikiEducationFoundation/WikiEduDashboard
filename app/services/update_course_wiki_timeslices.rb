@@ -56,7 +56,7 @@ class UpdateCourseWikiTimeslices
       fetch_data_and_reprocess_timeslices(wiki, first_start)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-      @debugger.log_update_progress "timeslices_processed_#{wiki.id}".to_sym
+      @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
     end
   end
 

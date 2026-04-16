@@ -486,6 +486,8 @@ be-tarask:
       featured_campaigns: Абраныя кампаніі
   timeline:
     discard_all_changes: Адкінуць усе зьмены
+  training:
+    loading: Ладаваньне...
   uploads:
     label: Загрузкі
     loading: Ладаваньне дасланага...

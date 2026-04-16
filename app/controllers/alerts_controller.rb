@@ -54,7 +54,7 @@ class AlertsController < ApplicationController
       render json: { alert: @alert }, status: :created
     else
       render json: { errors: @alert.errors, message: 'Unable to send notification to instructors' },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 
@@ -99,7 +99,7 @@ class AlertsController < ApplicationController
 
   def ensure_alert_is_resolvable
     return if @alert.resolvable?
-    render json: {}, status: :unprocessable_entity
+    render json: {}, status: :unprocessable_content
     yield
   end
 

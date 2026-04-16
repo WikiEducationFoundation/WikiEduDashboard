@@ -64,7 +64,7 @@ end
 def sf_data_hsi(institution)
   name = institution['Name']
   state = institution['State']
-  
+
   type = if institution['Type'].to_i.even?
            'Community College'
          else
