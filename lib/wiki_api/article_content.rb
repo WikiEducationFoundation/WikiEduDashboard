@@ -54,7 +54,7 @@ class WikiApi
       return unless response.present? && response.data['pages']
 
       revisions = {}
-      response.data['pages'].each do |_page_id, page_data|
+      response.data['pages'].each_value do |page_data|
         rev_data = page_data['revisions']
         next unless rev_data
         rev_data.each do |rev_datum|
@@ -73,7 +73,7 @@ class WikiApi
     # Returns a hash: { html:, title:, page_id: }
     def revision_html(rev_id)
       params = { oldid: rev_id }
-      resp = api_client.send('action', 'parse', params)
+      resp = api_client.send(:action, 'parse', params)
       {
         html: resp.data.dig('text', '*'),
         title: resp.data.dig('title'),
@@ -84,7 +84,7 @@ class WikiApi
     # Parses raw wikitext into HTML string.
     def parse_wikitext(wikitext)
       params = { text: wikitext, contentmodel: 'wikitext' }
-      resp = api_client.send('action', 'parse', params)
+      resp = api_client.send(:action, 'parse', params)
       resp.data.dig('text', '*')
     end
 
@@ -94,7 +94,7 @@ class WikiApi
     # Returns a hash: { diff_html:, title:, page_id: }
     def revision_diff(from_rev, to_rev)
       params = { torev: to_rev, fromrev: from_rev, difftype: 'table' }
-      resp = api_client.send('action', 'compare', params)
+      resp = api_client.send(:action, 'compare', params)
       {
         diff_html: resp.data['*'],
         title: resp.data.dig('totitle'),
