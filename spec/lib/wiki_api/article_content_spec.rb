@@ -119,7 +119,7 @@ describe WikiApi::ArticleContent do
       response = double('response', data: response_data)
       api_client = double('api_client')
       allow_any_instance_of(WikiApi).to receive(:api_client).and_return(api_client)
-      allow(api_client).to receive(:send).with('action', 'parse', { oldid: 123 })
+      allow(api_client).to receive(:send).with(:action, 'parse', { oldid: 123 })
                                          .and_return(response)
 
       result = subject.revision_html(123)
@@ -136,7 +136,7 @@ describe WikiApi::ArticleContent do
       api_client = double('api_client')
       allow_any_instance_of(WikiApi).to receive(:api_client).and_return(api_client)
       allow(api_client).to receive(:send)
-        .with('action', 'parse', { text: '== Heading ==', contentmodel: 'wikitext' })
+        .with(:action, 'parse', { text: '== Heading ==', contentmodel: 'wikitext' })
         .and_return(response)
 
       result = subject.parse_wikitext('== Heading ==')
@@ -155,7 +155,7 @@ describe WikiApi::ArticleContent do
       api_client = double('api_client')
       allow_any_instance_of(WikiApi).to receive(:api_client).and_return(api_client)
       allow(api_client).to receive(:send)
-        .with('action', 'compare', { torev: 200, fromrev: 100, difftype: 'table' })
+        .with(:action, 'compare', { torev: 200, fromrev: 100, difftype: 'table' })
         .and_return(response)
 
       result = subject.revision_diff(100, 200)
