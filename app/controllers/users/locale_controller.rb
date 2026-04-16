@@ -21,7 +21,7 @@ class Users::LocaleController < ApplicationController
   def validate_locale
     return if I18n.available_locales.include?(@locale.to_sym)
 
-    render json: { message: 'Invalid locale' }, status: :unprocessable_entity
+    render json: { message: 'Invalid locale' }, status: :unprocessable_content
     yield
   end
 
