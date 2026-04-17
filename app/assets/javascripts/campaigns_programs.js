@@ -1,3 +1,5 @@
+window.DISABLE_COURSES_LISTJS = true;
+
 document.addEventListener('DOMContentLoaded', () => {
   const toggleAdvancedSearchBtn = document.getElementById('toggle_advanced_search');
   const advancedSearchFields = document.getElementById('advanced_search_fields');

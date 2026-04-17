@@ -3,8 +3,6 @@
 - backend_to_sort_value = {'title' => 'title', 'school' => 'school', 'recent_revision_count' => 'revisions', 'character_sum' => 'characters', 'average_word_count' => 'average-words', 'references_count' => 'references', 'view_sum' => 'views', 'user_count' => 'students', 'trained_count' => 'untrained', 'created_at' => 'start-date'}
 - current_sort_value = params[:sort].present? ? backend_to_sort_value[@sort_column] : nil
 
-:javascript
-  window.DISABLE_COURSES_LISTJS = true;
 
 = hot_javascript_tag 'campaigns_programs'
 
@@ -136,8 +134,6 @@
             %th{style: 'width:100px'}
               = t('courses.actions')
       %tbody
-        :javascript
-          window.DISABLE_COURSES_LISTJS = true;
         - if @search_terms.present?
           - if @results.count > 1
             %h4= t('application.search_results.other', search_terms: @search_terms, count: @results.count)
