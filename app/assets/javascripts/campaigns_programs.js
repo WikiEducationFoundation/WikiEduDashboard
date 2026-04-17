@@ -1,5 +1,3 @@
-import './utils/editable';
-
 document.addEventListener('DOMContentLoaded', () => {
   const toggleAdvancedSearchBtn = document.getElementById('toggle_advanced_search');
   const advancedSearchFields = document.getElementById('advanced_search_fields');
@@ -65,19 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelector('#clear_filters')?.addEventListener('click', () => {
     const form = document.getElementById('campaign_search_form');
-    const fields = form.querySelectorAll('input:not([type="hidden"])');
+    const fields = form.querySelectorAll('input, select');
     fields.forEach((field) => {
-      field.value = '';
+      if (field.name === 'sort' || field.name === 'direction') return;
+      field.disabled = true;
     });
-    const hiddenFields = ['creation_start', 'creation_end', 'start_date_start', 'start_date_end'];
-    hiddenFields.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    const schoolSelect = document.getElementById('school_select');
-    if (schoolSelect?.tomselect) {
-      schoolSelect.tomselect.clear();
-    }
     form.action = `${form.action.replace(/#.*$/, '')}#courses_table`;
     form.submit();
   });

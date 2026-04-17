@@ -24,42 +24,11 @@
           .form-row
             %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: 'button'}
               = t('form_search.advanced_search')
-            :javascript
-              document.addEventListener('DOMContentLoaded', () => {
-                const toggleAdvancedSearchBtn = document.getElementById('toggle_advanced_search');
-                const advancedSearchFields = document.getElementById('advanced_search_fields');
-
-                if (toggleAdvancedSearchBtn && advancedSearchFields) {
-                  toggleAdvancedSearchBtn.addEventListener('click', () => {
-                    advancedSearchFields.classList.toggle('hidden');
-                    const icon = toggleAdvancedSearchBtn.querySelector('.icon');
-                    if (icon) {
-                      if (advancedSearchFields.classList.contains('hidden')) {
-                        icon.classList.remove('icon-arrow-up');
-                        icon.classList.add('icon-arrow-down');
-                      } else {
-                        icon.classList.remove('icon-arrow-down');
-                        icon.classList.add('icon-arrow-up');
-                      }
-                    }
-                  });
-                }
-              });
           .advanced-search.advanced-search-container.hidden#advanced_search_fields
             .form-row.relative.advanced-search-grid-large
               %label{for: 'school_select'}= t('courses_generic.creator.course_school')
               .school-select-wrapper.grid-span-3
                 = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select'
-                :javascript
-                  document.addEventListener('DOMContentLoaded', () => {
-                    if (typeof TomSelect !== 'undefined') {
-                      new TomSelect('#school_select', {
-                        plugins: ['remove_button'],
-                        placeholder: "#{t('assignments.select')} #{t('courses_generic.creator.course_school')}...",
-                        allowEmptyOption: true
-                      });
-                    }
-                  });
             .form-row.advanced-search-grid-small
               %label{for: 'creation_date_range'}= t("courses.creation_date")
               = text_field_tag :creation_date_range, nil, id: 'creation_date_range', class: 'w100', placeholder: t('courses.creation_date')
@@ -70,42 +39,6 @@
               = text_field_tag :start_date_range, nil, id: 'start_date_range', class: 'w100', placeholder: t('form_search.program_date')
               = hidden_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start'
               = hidden_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end'
-            :javascript
-              document.addEventListener('DOMContentLoaded', () => {
-                const isLatin = ['es', 'pt'].some(l => locale.startsWith(l));
-                const currentLocale = locale.split('-')[0];
-                const dateFormat = isLatin ? 'd/m/Y' : 'm/d/Y';
-
-                const setupRangePicker = (rangeSelector, startSelector, endSelector) => {
-                  const startInput = document.querySelector(startSelector);
-                  const endInput = document.querySelector(endSelector);
-                  const startVal = startInput.value;
-                  const endVal = endInput.value;
-                  const defaultDate = (startVal && endVal) ? [startVal, endVal] : null;
-
-                  flatpickr(rangeSelector, {
-                    mode: 'range',
-                    altInput: true,
-                    altFormat: dateFormat,
-                    dateFormat: 'Y-m-d',
-                    defaultDate: defaultDate,
-                    locale: isLatin ? currentLocale : 'default',
-                    allowInput: true,
-                    onClose: function(selectedDates, dateStr, instance) {
-                      if (selectedDates.length === 2) {
-                        startInput.value = instance.formatDate(selectedDates[0], 'Y-m-d');
-                        endInput.value = instance.formatDate(selectedDates[1], 'Y-m-d');
-                      } else {
-                        startInput.value = '';
-                        endInput.value = '';
-                      }
-                    }
-                  });
-                };
-
-                setupRangePicker('#creation_date_range', '#creation_start', '#creation_end');
-                setupRangePicker('#start_date_range', '#start_date_start', '#start_date_end');
-              });
             .form-row.advanced-search-grid-small
               %label{for: 'revisions_min'}= t("metrics.revisions")
               .input-group.flex-input-group
