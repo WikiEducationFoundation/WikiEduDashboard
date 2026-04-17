@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // This controls the date display format for flatpickr.
+  // Additional locales can be registered in main.js (flatpickrLocales)
+  // and added to the isLatin check below as needed.
   const isLatin = ['es', 'pt'].some(l => locale.startsWith(l));
   const currentLocale = locale.split('-')[0];
   const dateFormat = isLatin ? 'd/m/Y' : 'm/d/Y';
