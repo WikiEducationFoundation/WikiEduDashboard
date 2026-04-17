@@ -237,6 +237,13 @@ describe ApplicationController do
       get :index, params: { locale: 'not-a-real-locale' }
       expect(I18n.locale).to eq(:en)
     end
+
+   it 'sets the locale from course home wiki language' do
+      wiki = Wiki.get_or_create(language: 'fr', project: 'wikipedia')
+      create(:course, slug: 'School/Course_(Term)', home_wiki: wiki, passcode: 'abc')
+      get :index, params: { school: 'School', titleterm: 'Course_(Term)' }
+      expect(I18n.locale).to eq(:fr)
+    end
   end
 
   describe '#after_sign_in_path_for' do

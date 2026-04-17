@@ -135,11 +135,20 @@ class ApplicationController < ActionController::Base
   def set_locale
     # Saved user locale takes precedence over language preferences from HTTP headers.
     preferred_locale_from_user
-    # Param takes precedence over saved user local
+    # Param takes precedence over saved user locale.
     preferred_locale_from_param
 
     preferred_locale = http_accept_language.preferred_language_from I18n.available_locales
-    I18n.locale = preferred_locale || I18n.default_locale
+    I18n.locale = preferred_locale || locale_from_course || I18n.default_locale
+  end
+
+  def locale_from_course
+    return unless params[:school] && params[:titleterm]
+    slug = "#{params[:school]}/#{params[:titleterm]}"
+    course = Course.find_by(slug: slug)
+    lang = course&.home_wiki&.language
+    return unless lang && I18n.available_locales.include?(lang.to_sym)
+    lang.to_sym
   end
 
   def preferred_locale_from_user
@@ -151,6 +160,4 @@ class ApplicationController < ActionController::Base
     return unless params[:locale]
     http_accept_language.user_preferred_languages.unshift(params[:locale])
   end
-
-
 end
