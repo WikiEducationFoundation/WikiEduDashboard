@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/revision_feedback_service"
 require_dependency "#{Rails.root}/lib/lift_wing_api"
+require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 class RevisionFeedbackController < ApplicationController
   def index
@@ -16,15 +17,7 @@ class RevisionFeedbackController < ApplicationController
   private
 
   def set_latest_revision_id
-    query = { prop: 'revisions', titles: params['title'], rvprop: 'ids' }
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
-    response = WikiApi.new(@wiki).query(query)
-    page = response.data['pages']
-    # The Page ID is the only key in the response
-    page_id = page.keys[0]
-    revisions = page.dig(page_id, 'revisions')
-
-    # The API sends a response with the id of the last revision
-    @rev_id = revisions[0]['revid'] if revisions.present?
+    @rev_id = WikiApi::ArticleContent.new(@wiki).latest_revision_id(params['title'])
   end
 end
