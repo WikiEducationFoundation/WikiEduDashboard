@@ -696,8 +696,10 @@ qqq:
       only)
     show_courses: Checkbox for option to show user courses only (Wiki Ed only)
     uploaded_by: Label for the user who uploaded a file
-    usage_count: Label for the number of global usages of a file across Wikimedia
-      sites
+    usage_count: Label for the number of global usages of a file across Wikimedia projects
+    usage_count_gallery_tile:
+      one: "Label for when the media file is used in exactly one article"
+      other: "Label for when the media file is used in many articles. {{PLURAL:%1$d|1=Used in 1 article|Used in %1$d articles}}"
   revisions:
     chars_added: Label for counter of added chars
     class: |-
