@@ -182,7 +182,8 @@ const CourseCreator = createReactClass({
   },
 
   updateCourseType(key, value) {
-    this.props.updateCourse({ [key]: value });
+    const isArticleScoped = value === 'ArticleScopedProgram';
+    this.props.updateCourse({ [key]: value, article_scoped: isArticleScoped });
   },
 
   expectedStudentsIsValid() {
@@ -393,8 +394,8 @@ const CourseCreator = createReactClass({
     courseWizard += showWizardForm ? '' : ' hidden';
     courseDates += showCourseDates ? '' : ' hidden';
 
-    // the scoping modal is only enabled for ArticleScopedPrograms
-    const scopingModalEnabled = this.props.course.type === 'ArticleScopedProgram';
+    // the scoping modal is enabled for any article-scoped course
+    const scopingModalEnabled = this.props.course.article_scoped;
 
     // we're on the last page if
     // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping modal's last page
@@ -500,7 +501,7 @@ const CourseCreator = createReactClass({
               updateCourseProps={this.props.updateCourse}
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
               // the following properties are only required when scopingModalEnabled is enabled
-              // that is, when the selected course type is ArticleScopedProgram
+              // that is, when the course has article scoping enabled
               next={scopingModalEnabled && this.showCourseScoping}
               back={scopingModalEnabled && this.backToCourseForm}
               firstErrorMessage={scopingModalEnabled && this.props.firstErrorMessage}
