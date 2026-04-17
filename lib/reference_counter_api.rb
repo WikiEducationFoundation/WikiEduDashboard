@@ -62,6 +62,8 @@ class ReferenceCounterApi
 
     return { 'num_ref' => parsed_response['num_ref'] } if response.status == 200
 
+    return handle_forbidden if response.status == FORBIDDEN
+
     if response.status != 200
       error_response = { rev_id: rev_id, content: parsed_response}
       batch_non_200_response_log(response.status, error_response)
@@ -75,6 +77,14 @@ class ReferenceCounterApi
     retry unless tries.zero?
     @errors << e
     return { 'num_ref' => nil, 'error' => e }
+  end
+
+  # 403 responses are expected for revisions whose content has been suppressed
+  # (texthidden / revdeleted). Count them on the update service so we can
+  # surface a total per course update, and skip Sentry reporting.
+  def handle_forbidden
+    @update_service&.record_reference_counter_403
+    { 'num_ref' => nil }
   end
 
   def error_key(status)
