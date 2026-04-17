@@ -26,8 +26,10 @@ class LiftWingApi
   # config/initializers/retry_config.rb
   RETRY_COUNT = 5
 
+  # Wikidata is intentionally excluded: for Wikidata revisions we don't use any of the
+  # Lift Wing outputs (wp10/features are Wikipedia-specific, and `deleted` is now recovered
+  # from WikidataDiffAnalyzer's `diffs_not_analyzed`).
   def self.valid_wiki?(wiki)
-    return true if wiki.project == 'wikidata'
     wiki.project == 'wikipedia' && AVAILABLE_WIKIPEDIAS.include?(wiki.language)
   end
 

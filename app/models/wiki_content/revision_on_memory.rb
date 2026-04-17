@@ -41,6 +41,13 @@ class RevisionOnMemory
   end
 
   def references_added
+    # For Wikidata revisions, prefer the WikidataDiffAnalyzer counts (stored in `summary`
+    # as diff_stats) — they're authoritative and we no longer fetch Lift Wing features
+    # for Wikidata.
+    stats = diff_stats
+    if stats.is_a?(Hash) && stats.key?('added_references')
+      return (stats['added_references'] || 0) - (stats['removed_references'] || 0)
+    end
     return (references_count(features) || 0) if new_article
     return 0 unless references_count(features) && references_count(features_previous)
     references_count(features) - references_count(features_previous)

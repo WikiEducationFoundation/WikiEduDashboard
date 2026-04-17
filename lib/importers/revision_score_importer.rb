@@ -75,13 +75,13 @@ class RevisionScoreImporter
     revisions.each do |rev|
       # add scores
       mw_rev_id_scores = scores[rev.mw_rev_id.to_s]
-      update_scores(rev, mw_rev_id_scores)
+      update_scores(rev, mw_rev_id_scores) if mw_rev_id_scores
 
       # add previous scores
       next unless parent_revisions.key? rev.mw_rev_id.to_i # parent revisions hash has ids as keys
       parent_id = parent_revisions[rev.mw_rev_id.to_i]
       mw_rev_id_parent_scores = parent_scores[parent_id]
-      update_previous_scores(rev, mw_rev_id_parent_scores)
+      update_previous_scores(rev, mw_rev_id_parent_scores) if mw_rev_id_parent_scores
     end
 
     revisions

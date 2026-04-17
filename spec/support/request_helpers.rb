@@ -573,54 +573,6 @@ module RequestHelpers
     stub_users
   end
 
-  def stub_lift_wing_response
-    request_body = {
-      'wikidatawiki' => {
-        'models' => {
-          'itemquality' => {
-            'version' => '0.5.0'
-          }
-        },
-        'scores' => {
-          '829840084' => {
-            'itemquality' => {
-              'score' => {
-                'prediction' => 'D',
-                'probability' => { 'A' => 0.001863543366261331, 'B' => 0.001863543366261331 }
-              },
-              'features' => {
-                'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
-                'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
-                'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0
-              }
-            }
-          },
-          '829840085' => {
-            'itemquality' => {
-              'score' => {
-                'prediction' => 'D',
-                'probability' => { 'A' => 0.005396336449201622, 'B' => 0.005396336449201622 }
-              },
-              'features' => {
-                'feature.len(<datasource.wikibase.revision.claim>)' => 10.0,
-                'feature.len(<datasource.wikibase.revision.properties>)' => 9.0,
-                'feature.len(<datasource.wikibase.revision.aliases>)' => 1.0
-              }
-            }
-          }
-        }
-      }
-    }
-    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
-      .with(
-        body: hash_including(extended_output: true),
-        headers: { 'Content-Type': 'application/json' }
-      ).to_return(
-        status: 200,
-        body: request_body.to_json
-      )
-  end
-
   def stub_es_wiktionary_reference_counter_response
     # Define the response body in a hash with revision IDs as keys
     request_body = {
@@ -642,78 +594,6 @@ module RequestHelpers
           { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
         end,
         headers: { 'Content-Type' => 'application/json' }
-      )
-  end
-
-  def stub_wikidata_lift_wing_reponse
-    request_body =
-      {
-          'wikidatawiki' => {
-            'models' => {
-              'itemquality' => {
-                'version' => '0.5.0'
-              }
-            },
-            'scores' => {
-              '144495297' => {
-                'itemquality' => {
-                  'score' => {
-                    'prediction' => 'D',
-                    'probability' => {
-                      'A' => 0.004943068308984735,
-                      'B' => 0.004943068308984735
-                    }
-                  },
-                  'features' => {
-                  'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
-                  'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
-                  'feature.len(<datasource.wikibase.revision.aliases>)' => 2.0,
-                  'feature.len(<datasource.wikidatawiki.revision.references>)' => 2.0
-                  }
-                }
-              },
-              '144495298' => {
-                'itemquality' => {
-                  'score' => {
-                    'prediction' => 'E',
-                    'probability' => {
-                      'A' => 0.0006501008909422321,
-                      'B' => 0.000887054617313177
-                    }
-                  },
-                  'features' => {
-                  'feature.len(<datasource.wikibase.revision.claim>)' => 1.0,
-                  'feature.len(<datasource.wikibase.revision.properties>)' => 1.0,
-                  'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0,
-                  'feature.len(<datasource.wikidatawiki.revision.references>)' => 0.0
-                  }
-                }
-              }
-            }
-          }
-        }
-    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
-      .with(
-        body: hash_including(extended_output: true),
-        headers: { 'Content-Type': 'application/json' }
-      ).to_return(
-        status: 200,
-        body: request_body.to_json
-      )
-  end
-
-  def stub_400_wikidata_lift_wing_reponse
-    response_body = { error: "Unexpected content type for rev-id 2260577532: UnexpectedContentType:\
-    Expected content of type JSON, but the following can't be parsed (max 50 chars showed): ==\
-    About me ==\n\n[[m:User:Arcstur|Find me at Meta-W"}
-
-    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
-      .with(
-        body: hash_including(rev_id: 2260577532, extended_output: true),
-        headers: { 'Content-Type': 'application/json' }
-      ).to_return(
-        status: 400,
-        body: response_body.to_json
       )
   end
 
