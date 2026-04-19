@@ -396,9 +396,10 @@ GEM
       logger
       rack (>= 2.2.3)
       rack-protection
-    omniauth-oauth (1.2.0)
+    omniauth-oauth (1.2.1)
       oauth
       omniauth (>= 1.0, < 3)
+      rack (>= 1.6.2, < 4)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     pandoc-ruby (2.1.6)
