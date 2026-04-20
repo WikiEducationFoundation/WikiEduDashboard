@@ -1,12 +1,17 @@
 # frozen_string_literal: true
+require_dependency "#{Rails.root}/lib/revision_score_manager"
 
 class ArticlesController < ApplicationController
   respond_to :json
-  before_action :set_course, except: :article_data
+  before_action :set_course
 
   # returns revision score data for vega graphs
-  def article_data
+  #  { rev_id: 123, characters: 1000, wp10: 0.5, date: '2021-01-01', username: 'Example' }
+  def revision_score
     @article = Article.find(params[:article_id])
+    rev_manager = RevisionScoreManager.new(@article, @course)
+    enrolled_usernames = @course.users.pluck(:username)
+    render json: rev_manager.fetch_scored_revisions(enrolled_usernames)
   end
 
   # returns details about how an article changed during a course
@@ -28,4 +33,5 @@ class ArticlesController < ApplicationController
   def set_course
     @course = Course.find(params[:course_id])
   end
+
 end

@@ -246,7 +246,7 @@ Rails.application.routes.draw do
   post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
 
-  get 'articles/article_data' => 'articles#article_data'
+  get 'articles/:article_id/revision_score' => 'articles#revision_score'
   get 'articles/details' => 'articles#details'
   post 'articles/status' => 'articles#update_tracked_status'
 
