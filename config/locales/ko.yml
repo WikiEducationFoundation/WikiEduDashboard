@@ -614,6 +614,8 @@ ko:
         나중에 해결할 수 있도록 우리에게 문제를 알려주세요.
       learn_more_button: 더 알아보기
       submit_issue: 이 문서의 중요한 문제점은 무엇입니까?
+      quality_problems_button: 품질에 문제가 있나요?
+      notify_wiki_expert: 위키 전문가에게 알리기
     overview: '%{prefix} 개요'
     reviewing_articles: 문서 검토
     reviewing_articles_wikidata: 항목 검토
@@ -808,6 +810,8 @@ ko:
     title: 타임라인
     view_full_timeline: 전체 타임라인 보기
     week_number: '%{number} 주'
+    add_block: 차단 추가
+    delete_week: 주 삭제
   training:
     continue: 계속 (%{progress})
     start: 시작하기
@@ -1042,4 +1046,6 @@ ko:
     download_csv: CSV 다운로드
   question_groups:
     edit_question_group: 질문 그룹 편집
+  form_search:
+    program_date: 프로그램 날짜
 ...
