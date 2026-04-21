@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
+  get  '/settings/fetch_impact_stats'  => 'settings#fetch_impact_stats'
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
 
   get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
