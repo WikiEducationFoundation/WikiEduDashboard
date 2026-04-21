@@ -119,6 +119,7 @@ const CourseAlerts = ({
           const dismissOnClick = () => dismissSurvey(notification.id);
           const components = (
             <button
+              type="button"
               className="button small pull-right border inverse-border"
               onClick={dismissOnClick}
             >

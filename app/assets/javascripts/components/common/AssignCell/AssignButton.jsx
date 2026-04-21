@@ -25,6 +25,7 @@ const ShowButton = ({ is_open, open }) => {
 
   return (
     <button
+      type="button"
       className={`button border small assign-button ${is_open ? 'dark' : ''}`}
       onClick={open}
     >
@@ -38,6 +39,7 @@ const AddAssignmentButton = ({ assignment, assign, reviewing = false }) => {
   return (
     <span>
       <button
+        type="button"
         aria-label="Add"
         className="button border assign-selection-button"
         onClick={e => assign(e, assignment)}
@@ -52,6 +54,7 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
   return (
     <span>
       <button
+        type="button"
         aria-label="Remove"
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
@@ -186,6 +189,7 @@ const EditButton = ({
   return (
     <div className="tooltip-trigger" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
       <button
+        type="button"
         className={`button border small assign-button ${is_open ? 'dark' : ''}`}
         onClick={open}
       >
@@ -202,7 +206,7 @@ const FindArticles = ({ course, open, project, language }) => {
     <tr className="assignment find-articles-section">
       <td>
         <Link to={{ pathname: `/courses/${course.slug}/article_finder`, project: `${project}`, language: `${language}` }}>
-          <button className="button border small link" onClick={open}>
+          <button type="button" className="button border small link" onClick={open}>
             {btnText}
           </button>
         </Link>
