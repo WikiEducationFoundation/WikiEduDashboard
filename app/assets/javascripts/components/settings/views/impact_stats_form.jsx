@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInput from '../../common/text_input';
 import { updateImpactStats } from '../../../actions/settings_actions';
 import { connect } from 'react-redux';
 
 const ImpactStatsForm = (props) => {
-    const [stats, setStats] = useState({});
+    const [stats, setStats] = useState(props.impactStats || {});
+
+    useEffect(() => {
+      setStats(props.impactStats || {});
+    }, [props.impactStats]);
 
     const handleChange = (key, value) => {
         setStats({ ...stats, [key]: value });
@@ -26,7 +30,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.wiki_edu_courses}
               value_key="wiki_edu_courses"
-              type="text"
+              type="number"
               label="Wiki education courses"
             />
             <TextInput
@@ -35,7 +39,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.students}
               value_key="students"
-              type="text"
+              type="number"
               label="Students"
             />
             <TextInput
@@ -44,7 +48,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.worked_articles}
               value_key="worked_articles"
-              type="text"
+              type="number"
               label="Articles worked on"
             />
             <TextInput
@@ -53,7 +57,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.added_words}
               value_key="added_words"
-              type="text"
+              type="number"
               label="Added words (in millions)"
             />
             <TextInput
@@ -62,7 +66,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.total_pages}
               value_key="total_pages"
-              type="text"
+              type="number"
               label="Total pages"
             />
             <TextInput
@@ -71,7 +75,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.volumes}
               value_key="volumes"
-              type="text"
+              type="number"
               label="Volumes"
             />
             <TextInput
@@ -80,7 +84,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.article_views}
               value_key="article_views"
-              type="text"
+              type="number"
               label="Article views (in millions)"
             />
             <TextInput
@@ -89,7 +93,7 @@ const ImpactStatsForm = (props) => {
               onChange={handleChange}
               value={stats.universities}
               value_key="universities"
-              type="text"
+              type="number"
               label="Universities"
             />
             <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>

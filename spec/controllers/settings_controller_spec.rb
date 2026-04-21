@@ -543,7 +543,8 @@ describe SettingsController, type: :request do
           .to receive(:current_user).and_return(user)
         post '/settings/update_impact_stats', params: { impactStats: impact_stats }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({ 'message' => 'Impact Stats Updated Successfully.' })
+        expect(JSON.parse(response.body)).to eq(
+          { 'message' => 'Impact Stats Updated Successfully.' })
         expect(Rails.cache.read('impact_stats')).to be_nil
       end
     end

@@ -5,7 +5,7 @@ import AddAdminButton from './views/add_admin_button';
 import AddSpecialUserButton from './views/add_special_user_button';
 import AdminUserList from './admin_users_list';
 import Notifications from '../common/notifications';
-import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign, fetchFeaturedCampaigns, fetchDisallowedUsers } from '../../actions/settings_actions';
+import { fetchAdminUsers, fetchSpecialUsers, fetchCourseCreationSettings, fetchDefaultCampaign, fetchFeaturedCampaigns, fetchDisallowedUsers, fetchImpactStats } from '../../actions/settings_actions';
 import SpecialUserList from './special_users_list';
 import UpdateSalesforceCredentials from './views/update_salesforce_credentials';
 import CourseCreationSettings from './course_creation_settings';
@@ -20,6 +20,7 @@ import DisallowedUsersList from './disallowed_users_list';
 const SettingsHandler = () => {
   const dispatch = useDispatch();
 
+  const impactStats = useSelector(state => state.settings.impactStats);
   const adminUsers = useSelector(state => state.settings.adminUsers);
   const specialUsers = useSelector(state => state.settings.specialUsers);
   const courseCreation = useSelector(state => state.settings.courseCreation);
@@ -34,6 +35,7 @@ const SettingsHandler = () => {
     dispatch(fetchDefaultCampaign());
     dispatch(fetchFeaturedCampaigns());
     dispatch(fetchDisallowedUsers());
+    dispatch(fetchImpactStats());
   }, [dispatch]);
 
   let otherSettings;
@@ -43,7 +45,7 @@ const SettingsHandler = () => {
         <h1 className="mx2 mt4">{I18n.t('settings.categories.other_settings')}</h1>
         <hr />
         <h2 className="mx2">{I18n.t('settings.categories.impact_stats')}</h2>
-        <UpdateImpactStats />
+        <UpdateImpactStats impactStats={impactStats} />
         <br /> <br />
         <h2 className="mx2">{I18n.t('settings.categories.salesforce')}</h2>
         <UpdateSalesforceCredentials />
