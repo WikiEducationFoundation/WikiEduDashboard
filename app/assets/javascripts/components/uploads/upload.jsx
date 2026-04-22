@@ -51,7 +51,10 @@ const Upload = ({ upload, view, linkUsername }) => {
 
   let usage = '';
   if (upload.usage_count) {
-    usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: upload.usage_count })}`;
+    usage = I18n.t('uploads.usage_count_gallery_tile', {
+      count: upload.usage_count,
+      usage_count: upload.usage_count
+    });
   }
 
   let uploadDivStyle;
