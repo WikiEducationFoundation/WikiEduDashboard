@@ -411,13 +411,39 @@ describe 'the course page', type: :feature, js: true do
         user_id: 1,
         file_name: 'File:Example.jpg',
         uploaded_at: '2015-06-01',
-        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg'
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 1
       )
     end
 
     it 'displays a list of uploads' do
+      @commons_upload_plural = create(
+        :commons_upload,
+        user_id: 1,
+        file_name: 'File:Example_2.jpg',
+        uploaded_at: '2015-06-02',
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 2
+      )
+
       js_visit "/courses/#{slug}/uploads"
-      expect(page).to have_selector('div.upload')
+      expect(page).to have_selector('div.upload', count: 2)
+
+      # Wait for the images and containers to be ready
+      expect(page).to have_selector('img[alt$="Example.jpg"]')
+      expect(page).to have_selector('img[alt$="Example_2.jpg"]')
+
+      # Hover singular
+      # Find the upload container that contains the specific image and hover it
+      find('img[alt$="Example.jpg"]').ancestor('.upload').hover
+      # Verify correct singular pluralization
+      expect(page).to have_css('.usage', text: 'Used in 1 article', wait: 5)
+
+      # Hover plural
+      find('img[alt$="Example_2.jpg"]').ancestor('.upload').hover
+      # Verify correct plural pluralization
+      expect(page).to have_css('.usage', text: 'Used in 2 articles', wait: 5)
+
       expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
     end
 
