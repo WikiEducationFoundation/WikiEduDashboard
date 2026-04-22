@@ -40,6 +40,7 @@ gem 'browser'
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
+gem 'rubyzip', require: 'zip' # used by ExportTrainingModuleDraft
 gem 'mailgun-ruby' # email sending service
 
 ### Incoming Mail

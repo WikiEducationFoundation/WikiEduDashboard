@@ -766,6 +766,7 @@ DEPENDENCIES
   rubocop-rails
   rubocop-rspec
   rubocop-rspec_rails
+  rubyzip
   selenium-webdriver
   sentimental
   sentry-rails

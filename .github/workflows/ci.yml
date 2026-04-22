@@ -109,6 +109,17 @@ jobs:
           DATABASE_PORT: 3306
         run: bundle exec rails runner "Rails.application.eager_load!"
 
+      # Boots the app with the same gem set that gets deployed to staging
+      # and production (i.e. --without development test). Catches missing
+      # `require`s for gems that are only pulled in transitively by test
+      # dependencies on developer machines.
+      - name: Check eager loading against deployed gem set
+        env:
+          RAILS_ENV: staging
+          DATABASE_PORT: 3306
+          BUNDLE_WITHOUT: "development:test"
+        run: bundle exec rails runner "Rails.application.eager_load!"
+
       - name: Cache Webpack cache
         id: cache-webpack
         uses: actions/cache@v3
