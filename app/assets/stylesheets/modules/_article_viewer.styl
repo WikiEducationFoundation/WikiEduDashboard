@@ -27,10 +27,23 @@
   width: 100%
 
 .article-header
+  display flex
+  flex-direction row
+  justify-content space-between
+  align-items center
+  gap 5px
+  height 100px
   border none !important
   padding 5px 10px 5px 10px
   padding-left 30px
   border-bottom 1px solid mischka !important
+
+.article-sub-header
+  display flex
+  flex-direction row
+  justify-content flex-start
+  align-items center
+  gap 10px
 
 .tooltip
   position: relative
@@ -144,7 +157,7 @@
   background-color #b026c0
 
 .article-viewer-title
-  font-size 200%
+  font-size 20px
   color bayoux
 
 .article-scrollbox
@@ -285,3 +298,38 @@ wikibase-snakview-value
     & > .wikibase-sitelinkgroupview
       float left
 
+.viewer_setting_input_container
+  width auto
+  display flex
+  justify-content flex-start
+  gap 10px
+  aling-items center
+  margin-bottom 15px
+  & > input
+    width 15px
+    height 15px
+
+.viewer_overlay 
+  position fixed
+  inset 0
+  top 0
+  right 0
+  background-color rgba(0, 0, 0, 0.45)
+  z-index 9999
+  transition opacity 0.4s ease
+
+.viewer_setting_container
+  position fixed
+  top 0
+  right 0
+  width 400px
+  height 100vh
+  border-top-left-radius 10px
+  border-bottom-left-radius 10px
+  background-color white
+  box-shadow -12px 0 32px rgba(0, 0, 0, 0.22)
+  z-index 10000
+  overflowY auto
+  padding 32px 24px
+  display flex
+  flex-direction column
