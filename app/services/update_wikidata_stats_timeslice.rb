@@ -77,16 +77,23 @@ class UpdateWikidataStatsTimeslice
 
   # Given an array of revisions, it updates the summary field for each one with
   # the wikidata stats. wikidata-diff-analyzer gem is used to fetch the stats.
+  # Also marks revisions as `deleted` when the analyzer couldn't retrieve their content
+  # (suppressed revisions, missing rev IDs, deleted pages) — this replaces Lift Wing as
+  # the source of truth for deletion detection on Wikidata.
   # Returns the updated array.
   def update_revisions_with_stats(revisions)
     # We will only use the diff stats for in-scope revisions, and this is very slow.
     scoped_revisions = revisions.select(&:scoped)
-    analyzed_revisions = analyze_revisions(scoped_revisions.map(&:mw_rev_id))
+    result = analyze_revisions(scoped_revisions.map(&:mw_rev_id))
+    diffs = result[:diffs]
+    not_analyzed = result[:diffs_not_analyzed].to_set
     scoped_revisions.each do |revision|
       rev_id = revision.mw_rev_id
-      individual_stat = analyzed_revisions[rev_id]
-      serialized_stat = individual_stat.to_json
-      revision.summary = serialized_stat
+      if not_analyzed.include?(rev_id)
+        revision.deleted = true
+      else
+        revision.summary = diffs[rev_id].to_json
+      end
     end
     revisions
   rescue WikidataDiffAnalyzerError
@@ -134,7 +141,7 @@ class UpdateWikidataStatsTimeslice
 
   def analyze_revisions(revision_ids)
     tries ||= RETRY_COUNT
-    WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+    WikidataDiffAnalyzer.analyze(revision_ids)
   rescue StandardError => e
     tries -= 1
     retry unless tries.zero?

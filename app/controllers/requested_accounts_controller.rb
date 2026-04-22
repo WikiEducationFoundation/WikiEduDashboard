@@ -127,7 +127,7 @@ class RequestedAccountsController < ApplicationController
 
   def handle_invalid_request
     return if @requested.valid?
-    render json: { message: @requested.invalid_email_message }, status: :unprocessable_entity
+    render json: { message: @requested.invalid_email_message }, status: :unprocessable_content
     yield
   end
 

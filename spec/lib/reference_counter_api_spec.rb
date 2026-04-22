@@ -113,42 +113,30 @@ describe ReferenceCounterApi do
     let(:update_service) do
       instance_double('UpdateService',
         update_error_stats: true,
+        record_reference_counter_403: true,
         sentry_tags: { update_service_id: 'tag1', course: '/UBA/Mongolia_(second_semester_2026)' }
       )
     end
 
     let(:subject) { described_class.new(en_wikipedia, update_service) }
-    it 'batches multiple errors and limits Sentry samples to exactly 5' do
-      # Ensure ReferenceCounterError (or StandardError) is in TYPICAL_ERRORS to get 'warning' level
-      expect(Sentry).to receive(:capture_exception).with(
-        instance_of(StandardError),
-        hash_including(
-          level: 'warning',
-          extra: hash_including(
-            project_code: 'wikipedia',
-            language_code: 'en',
-            error_count: 7,
-            status: 403
-          ),
-          tags: { update_service_id: 'tag1', course: '/UBA/Mongolia_(second_semester_2026)' }
-        )
-      )
 
-      # MOCK the internal call logic
-      allow(subject).to receive(:get_number_of_references_from_revision_id) do |rev_id|
-        subject.send(:batch_non_200_response_log, 403,
-          { rev_id: rev_id, content: { "description" => "mwapi error: permissiondenied" } })
-        { 'num_ref' => nil }
-      end
+    it 'records 403s on the update service and does not send them to Sentry' do
+      stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/en/\d+})
+        .to_return(status: 403,
+                   body: '{"description":"mwapi error: permissiondenied"}',
+                   headers: { 'Content-Type': 'application/json' })
+
+      expect(update_service).to receive(:record_reference_counter_403)
+        .exactly(failing_ids.size).times
+      expect(Sentry).not_to receive(:capture_exception)
 
       results = subject.get_number_of_references_from_revision_ids(failing_ids)
-
-      expect(results.length).to eq(7)
+      expect(results.length).to eq(failing_ids.size)
       expect(results.values.all? { |v| v['num_ref'].nil? }).to be true
     end
 
-    it 'sends separate Sentry logs for each unique status code' do
-      subject.send(:batch_non_200_response_log, 403, { rev_id: 987654321, content: {} })
+    it 'sends separate Sentry logs for each unique non-403 status code' do
+      subject.send(:batch_non_200_response_log, 404, { rev_id: 987654321, content: {} })
       subject.send(:batch_non_200_response_log, 400, { rev_id: 111222333, content: {} })
       subject.send(:batch_non_200_response_log, 400, { rev_id: 111222333, content: {} })
 

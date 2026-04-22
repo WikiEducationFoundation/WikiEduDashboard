@@ -163,7 +163,7 @@ const updateBlock = (valueKey, value) => {
 
     const editButton = props.editPermissions ? (
       <div className="block__edit-button-container">
-        <button type="button" className="pull-right button ghost-button block__edit-block" onClick={_setEditable}>Edit</button>
+        <button type="button" className="pull-right button ghost-button block__edit-block" onClick={_setEditable}>{I18n.t('editable.edit')}</button>
       </div>
     ) : undefined;
 

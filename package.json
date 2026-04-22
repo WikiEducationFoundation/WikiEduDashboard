@@ -94,6 +94,7 @@
     "stylus": "^0.54.8",
     "tinymce": "^5.2.2",
     "tom-select": "^2.5.2",
+    "turndown": "^7.2.4",
     "uuid": "^3.4.0",
     "velocity-animate": "^1.5.1",
     "webpack": "^5.72.1",

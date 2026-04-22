@@ -7,7 +7,6 @@ timeslice_1:
   stats: {}
   last_mw_rev_datetime:
   needs_update: false
-
 timeslice_2:
   start: 2025-08-27 05:00:00 UTC
   end: 2025-08-27 17:00:00 UTC
@@ -17,7 +16,6 @@ timeslice_2:
   stats: {}
   last_mw_rev_datetime:
   needs_update: true
-
 timeslice_3:
   start: 2025-08-26 23:00:00 UTC
   end: 2025-08-27 05:00:00 UTC
@@ -27,7 +25,6 @@ timeslice_3:
   stats: {}
   last_mw_rev_datetime:
   needs_update: true
-
 timeslice_4:
   start: 2025-08-26 17:00:00 UTC
   end: 2025-08-26 20:00:00 UTC
@@ -37,7 +34,6 @@ timeslice_4:
   stats: {}
   last_mw_rev_datetime:
   needs_update: true
-
 timeslice_5:
   start: 2025-08-26 20:00:00 UTC
   end: 2025-08-26 21:30:00 UTC
@@ -47,7 +43,6 @@ timeslice_5:
   stats: {}
   last_mw_rev_datetime:
   needs_update: true
-
 timeslice_6:
   start: 2025-08-26 21:30:00 UTC
   end: 2025-08-26 22:15:00 UTC
@@ -57,12 +52,11 @@ timeslice_6:
   stats: {}
   last_mw_rev_datetime:
   needs_update: true
-
 timeslice_7:
   start: 2025-08-26 22:15:00 UTC
   end: 2025-08-26 22:26:15 UTC
   character_sum: 3579
-  references_count: 8
+  references_count: 4
   revision_count: 4
   stats:
     merged to: 0
@@ -119,12 +113,11 @@ timeslice_7:
     total revisions: 4
   last_mw_rev_datetime: 2025-08-26 22:25:45 UTC
   needs_update: false
-
 timeslice_8:
   start: 2025-08-26 22:26:15 UTC
   end: 2025-08-26 22:31:53 UTC
   character_sum: 3182
-  references_count: 6
+  references_count: 3
   revision_count: 5
   stats:
     merged to: 0
@@ -181,12 +174,11 @@ timeslice_8:
     total revisions: 5
   last_mw_rev_datetime: 2025-08-26 22:30:18 UTC
   needs_update: false
-
 timeslice_9:
   start: 2025-08-26 22:31:53 UTC
   end: 2025-08-26 22:37:30 UTC
   character_sum: 5174
-  references_count: 12
+  references_count: 6
   revision_count: 6
   stats:
     merged to: 0
@@ -243,12 +235,11 @@ timeslice_9:
     total revisions: 6
   last_mw_rev_datetime: 2025-08-26 22:36:16 UTC
   needs_update: false
-
 timeslice_10:
   start: 2025-08-26 22:37:30 UTC
   end: 2025-08-26 22:48:45 UTC
   character_sum: 5189
-  references_count: 12
+  references_count: 6
   revision_count: 6
   stats:
     merged to: 0
@@ -305,12 +296,11 @@ timeslice_10:
     total revisions: 6
   last_mw_rev_datetime: 2025-08-26 22:48:41 UTC
   needs_update: false
-
 timeslice_11:
   start: 2025-08-26 22:48:45 UTC
   end: 2025-08-26 23:00:00 UTC
   character_sum: 6398
-  references_count: 14
+  references_count: 7
   revision_count: 7
   stats:
     merged to: 0

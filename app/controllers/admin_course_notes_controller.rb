@@ -13,7 +13,7 @@ class AdminCourseNotesController < ApplicationController
     if @admin_course_note.update_note(admin_course_note_params)
       render json: { success: true, admin_course_note: @admin_course_note }
     else
-      render json: { error: 'Failed to update course note' }, status: :unprocessable_entity
+      render json: { error: 'Failed to update course note' }, status: :unprocessable_content
     end
   end
 
@@ -22,7 +22,7 @@ class AdminCourseNotesController < ApplicationController
     if admin_course_note_details
       render json: { created_admin_course_note: admin_course_note_details }, status: :created
     else
-      render json: { error: 'Failed to create course note' }, status: :unprocessable_entity
+      render json: { error: 'Failed to create course note' }, status: :unprocessable_content
     end
   end
 
@@ -30,7 +30,7 @@ class AdminCourseNotesController < ApplicationController
     if @admin_course_note.destroy
       render json: { success: true }
     else
-      render json: { error: 'Failed to delete course note' }, status: :unprocessable_entity
+      render json: { error: 'Failed to delete course note' }, status: :unprocessable_content
     end
   end
 

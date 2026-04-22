@@ -351,8 +351,8 @@ const CourseApproval = (props) => {
     </div>
     ) : (
       <div className="controls">
-        <button className="button margin-right" onClick={declineCourse}>{I18n.t('courses.decline_course')}</button>
-        <button className={`dark button ${approveButtonState}`} onClick={submitApprovalForm}>{I18n.t('courses.approve_course')}</button>
+        <button className={`dark button margin-right ${approveButtonState}`} onClick={submitApprovalForm}>{I18n.t('courses.approve_course')}</button>
+        <button className="button" onClick={declineCourse}>{I18n.t('courses.decline_course')}</button>
       </div>);
 
   return (

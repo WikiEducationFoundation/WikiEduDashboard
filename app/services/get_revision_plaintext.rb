@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/wiki_api/article_content"
+
 class GetRevisionPlaintext
   attr_reader :plain_text, :article_title
 
@@ -8,7 +10,7 @@ class GetRevisionPlaintext
     @mw_rev_id = mw_rev_id
     @diff_mode = diff_mode
     @from_rev = from_rev
-    @wiki_api = WikiApi.new(@wiki)
+    @article_content = WikiApi::ArticleContent.new(@wiki)
 
     generate_plaintext
   end
@@ -42,44 +44,25 @@ class GetRevisionPlaintext
   end
 
   def fetch_parent_revision_id
-    # https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=1315427810&rvprop=ids&format=json
-    parentid_params = { prop: 'revisions', revids: @mw_rev_id, rvprop: 'ids' }
-    resp = @wiki_api.query parentid_params
-
-    if resp.data['badrevids'].present?
-      Sentry.capture_message(
-        "GetRevisionPlaintext: revision #{@mw_rev_id} missing or deleted"
-      )
-      @parentid = nil # Indicate that the revision is missing
-      return
-    end
-
-    page_id = resp.data['pages'].keys.first
-    @parentid = resp.data.dig('pages', page_id, 'revisions').first['parentid']
+    @parentid = @article_content.parent_revision_id(@mw_rev_id)
   end
 
   def fetch_revision_html
-    # https://en.wikipedia.org/w/api.php?action=parse&oldid=952185129
-    params = { oldid: @mw_rev_id }
-    resp = @wiki_api.send(:api_client).send('action', 'parse', params)
-    @rev_html = resp.data.dig('text', '*')
-    @article_title = resp.data.dig('title')
-    @mw_page_id = resp.data.dig('pageid')
+    result = @article_content.revision_html(@mw_rev_id)
+    @rev_html = result[:html]
+    @article_title = result[:title]
+    @mw_page_id = result[:page_id]
   end
 
   # Use action=compare to get a diff table
   # https://en.wikipedia.org/w/api.php?action=compare&torev=1315427810&fromrev=1315426424&difftype=table
   def fetch_diff_table
-    diff_params = { torev: @mw_rev_id, fromrev: @from_rev, difftype: 'table' }
-    resp = @wiki_api.send(:api_client).send('action', 'compare', diff_params)
-    @article_title = resp.data.dig('totitle')
-    @mw_page_id = resp.data.dig('toid')
-    @diff_table = resp.data['*']
+    result = @article_content.revision_diff(@from_rev, @mw_rev_id)
+    @article_title = result[:title]
+    @mw_page_id = result[:page_id]
+    @diff_table = result[:diff_html]
   end
 
-  # Parses the diff table HTML and extracts only the
-  # changed wikitext, excluding pre-existing content
-  # when new text is an independent sentence addition.
   # Parses the diff table HTML and extracts only the
   # changed wikitext, excluding pre-existing content
   # when new text is an independent sentence addition.
@@ -199,9 +182,7 @@ class GetRevisionPlaintext
   end
 
   def fetch_parsed_changed_wikitext
-    parse_params = { text: @changed_wikitext, contentmodel: 'wikitext' }
-    resp = @wiki_api.send(:api_client).send('action', 'parse', parse_params)
-    @diff_html = resp.data.dig('text', '*')
+    @diff_html = @article_content.parse_wikitext(@changed_wikitext)
   end
 
   def generate_plaintext_from_html

@@ -671,9 +671,9 @@ ga:
       already_exists: Tá an cúrsa seo ann cheana féin. Smaoinigh ar an ainm, an scoil
         nó an téarma a athrú chun é a dhéanamh uathúil.
       assignment_end: Deireadh an Mheasúnaithe
-      assignment_end_placeholder: Deireadh an Mheasúnaithe (BBBB-MM-LL)
+      assignment_end_placeholder: BBBB-MM-LL
       assignment_start: Tús an Mheasúnaithe
-      assignment_start_placeholder: Tús an Mheasúnaithe (BBBB-MM-LL)
+      assignment_start_placeholder: BBBB-MM-LL
       cancel_course_clone: Cealaigh clón cúrsa
       cancel_course_clone_confirm: An bhfuil tú cinnte gur mian leat deireadh a chur
         le clónáil an chúrsa seo?
@@ -740,7 +740,7 @@ ga:
       copy_courses_with_assignments: Liosta na nAirteagal atá ar Fáil a Chlónáil
       create_short: Cruthaigh Cúrsa
       end_date: Dáta deiridh
-      end_date_placeholder: Dáta deiridh (BBBB-MM-DD)
+      end_date_placeholder: BBBB-MM-DD
       expected_number: Líon mac léinn tuartha
       field_invalid_term: Ní mór don téarma bliain a áireamh (m.sh., "Earrach 2025")
       find: Aimsigh do chúrsa
@@ -769,7 +769,7 @@ ga:
         cathain is ceart dóibh teacht nó cathain a dhúnann an t-ionad).
       save_cloned_course: Sábháil Cúrsa Nua
       start_date: Dáta tosaithe
-      start_date_placeholder: Dáta tosaithe (BBBB-MM-LL)
+      start_date_placeholder: BBBB-MM-LL
       subject: Ábhar
       update_scheduled: Nuashonrú sceidealaithe. Déanfar na sonraí a nuashonrú mar
         aon leis na cláir reatha go léir le linn an chéad timthriall nuashonraithe
@@ -1314,6 +1314,8 @@ ga:
         féidir leat a sholáthar, is amhlaidh is fearr.
       thank_you: Go raibh maith agat! Téigh i dteagmháil le do Shaineolaí Vicí má
         tá ceisteanna breise agat.
+      quality_problems_button: Fadhbanna Cáilíochta?
+      notify_wiki_expert: Cuir Saineolaí Vicí ar an Eolas
     exercises_and_trainings: '%{prefix} Cleachtaí & Traenálacha'
     no_assignments: Níl aon ailt sannta don mhac léinn seo faoi láthair.
     can_assign_assignments: Is féidir leat alt a shannadh trí na cnaipí thuas a úsáid.
@@ -1563,6 +1565,7 @@ ga:
     categories:
       other_settings: Socruithe eile
       impact_stats: Staitisticí Tionchair
+      salesforce: Salesforce
       featured_campaigns: Feachtais Réadmhaoine
       special_users: Úsáideoirí Speisialta
       admin_users: Úsáideoirí Riaracháin

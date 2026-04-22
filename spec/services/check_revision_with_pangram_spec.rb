@@ -219,7 +219,7 @@ describe CheckRevisionWithPangram do
 
     it 'logs a message to Sentry and exits gracefully' do
       expect(Sentry).to receive(:capture_message)
-        .with("GetRevisionPlaintext: revision #{missing_revision_id} missing or deleted")
+        .with("WikiApi::ArticleContent: revision #{missing_revision_id} missing or deleted")
       expect_any_instance_of(GetRevisionPlaintext).not_to receive(:fetch_diff_table)
       expect_any_instance_of(GetRevisionPlaintext).not_to receive(:fetch_revision_html)
 

@@ -16,7 +16,7 @@ module System
       # It's only safe to run a backup if all running jobs have
       # phase status set to sleeping
       ready = Sidekiq::WorkSet.new.all? do |_process_id, _thread_id, work|
-        payload = work['payload']
+        payload = JSON.parse(work.payload)
         jid = payload['jid']
 
         status = Sidekiq::Status.get_all(jid)

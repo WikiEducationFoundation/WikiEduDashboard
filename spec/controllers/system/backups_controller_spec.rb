@@ -6,11 +6,11 @@ describe System::BackupsController, type: :request do
   let(:work) do
     ['server-15ALC6:390735:407ff4a2b287',
      '81ib',
-     { 'queue'=>'medium_update',
-     'payload'=>
-       { 'class'=>'CourseDataUpdateWorker',
-       'jid'=>'e118d576de83c8e44526bba7' },
-     'run_at'=>1769012340 }]
+     { 'queue' => 'medium_update',
+     'payload' =>
+       { 'class' => 'CourseDataUpdateWorker',
+       'jid' => 'e118d576de83c8e44526bba7' },
+     'run_at' => 1769012340 }]
   end
 
   describe '#can_start_backup' do

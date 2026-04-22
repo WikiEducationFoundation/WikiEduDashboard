@@ -213,18 +213,28 @@ class Course < ApplicationRecord
     ready_for_update.uniq
   end
 
+  VALID_SURVEY_DATE_COLUMNS = %w[start end timeline_start timeline_end].freeze
+
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
+    unless VALID_SURVEY_DATE_COLUMNS.include?(relative_to)
+      raise ArgumentError, "Invalid column: #{relative_to}"
+    end
     today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
-    where("courses.#{relative_to} > '#{ready_date}'")
+    column = connection.quote_column_name(relative_to)
+    where("courses.#{column} > ?", ready_date)
   end
 
   def self.ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
+    unless VALID_SURVEY_DATE_COLUMNS.include?(relative_to)
+      raise ArgumentError, "Invalid column: #{relative_to}"
+    end
     today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
-    where("courses.#{relative_to} <= '#{ready_date}'")
+    column = connection.quote_column_name(relative_to)
+    where("courses.#{column} <= ?", ready_date)
   end
 
   ###########
@@ -329,7 +339,7 @@ class Course < ApplicationRecord
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
-      if wiki_namespaces.length.zero?
+      if wiki_namespaces.empty?
         { wiki:, namespace: 0 }
       else
         wiki_namespaces.map do |wiki_ns|

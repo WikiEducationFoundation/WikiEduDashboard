@@ -130,6 +130,11 @@ The Dashboard depends on several Wikimedia Toolforge services, notably the
 for querying Wikimedia replica databases. See `docs/admin_guide.md` for the
 full list of integrated Toolforge tools and third-party APIs.
 
+## PR review
+
+Always use the `/review-pr` skill when reviewing or revisiting a pull request.
+Load it immediately — do not gather PR data manually first.
+
 ## Commit messages
 
 Always use the `/commit` skill when creating commits. It handles staging,

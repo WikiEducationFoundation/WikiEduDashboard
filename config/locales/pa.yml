@@ -92,9 +92,11 @@ pa:
     no_data: ਕੋਈ ਡਾਟਾ ਨਹੀੰ ਲੱਭਾ।
     ai_stats:
       timestamp: ਵਕਤ ਦੀ ਮੋਹਰ
+      users_involved: ਸ਼ਾਮਲ ਵਰਤੋਂਕਾਰ
       total: ਕੁੱਲ
       last_week: ਪਿਛਲੇ ਹਫ਼ਤੇ
       sections:
+        contents: ਵਰਕਾ ਵਸਤ-ਵਲ਼ੇਵਾਂ
         name: ਨਾਂ
         description: ਵੇਰਵਾ
   activity:
@@ -133,6 +135,7 @@ pa:
     label: ਲੇਖ
     loading: ਲੇਖ ਲੋਡ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ...
     new: (ਨਵਾਂ)
+    preview: ਲੇਖ ਦੀ ਸੰਖੇਪ ਝਾਤ
     rating_docs:
       does_not_exist: ਇਹ ਲੇਖ ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਮੌਜੂਦ ਨਹੀਂ ਹੈ
     see_more: ਹੋਰ ਵੇਖੋ
@@ -171,13 +174,55 @@ pa:
     add_available_submit: ਲੇਖ ਸ਼ਾਮਲ ਕਰੋ
     add_available_submit_wikidata: ਚੀਜ਼ਾਂ ਸ਼ਾਮਲ ਕਰੋ
     bibliography: ਗ੍ਰੰਥ-ਸੂਚੀ
+    remove: ਹਟਾਓ
+    reviewers: ਪਾਰਖੂ
+    review_self: ਲੇਖ ਦੀ ਪੜਚੋਲ ਕਰੋ
+    review_self_wikidata: ਕਿਸੇ ਚੀਜ਼ ਦੀ ਪੜਚੋਲ ਕਰੋ
     sandbox_draft_link: ਕੱਚੇ ਖ਼ਾਕੇ ਦਾ ਖਰੜਾ
+    select: ਚੁਣੋ
+    submit: ਹਵਾਲੇ ਕਰੋ
+    username_label: ਵਿਕੀਪੀਡੀਆ ਵਰਤੋਂਕਾਰ-ਨਾਂ
+    username_placeholder: ਵਰਤੋਂਕਾਰ-ਨਾਂ ਦਰਜ ਕਰੋ (ਜਿਵੇਂ ਕਿ, ਤੁਹਾਡਾ ਵਰਤੋਂਕਾਰ-ਨਾਂ)
+    username_or_url_label: ਵਿਕੀਪੀਡੀਆ ਵਰਤੋਂਕਾਰ-ਨਾਂ ਜਾਂ URL
+    username_or_url_placeholder: ਵਰਤੋਂਕਾਰ-ਨਾਂ ਜਾਂ ਪੂਰਾ ਕੱਚਾ-ਖ਼ਾਕਾ URL ਦਰਜ ਕਰੋ
+    preview_label: 'ਨਵੇਂ URL ਦੀ ਝਾਤ:'
+    sandbox_label: ਕੱਚਾ ਖ਼ਾਕਾ
+  blocks:
+    milestones:
+      title: ਮੀਲ-ਪੱਥਰ
   campaign:
+    alert_article: ਲੇਖ ਦਾ ਸਿਰਲੇਖ
+    alert_type: ਕਿਸਮ
+    alert_user_id: ਵਰਤੋਂਕਾਰ
+    created_at: ਮਿਤੀ
+    data_articles: ਵਰਕੇ ਸੋਧੇ
+    data_revisions: ਸੋਧ-ਸੁਧਾਈ ਦਾ ਡਾਟਾ
     data_editors_by_course: ਪਾਠਕ੍ਰਮ ਮੁਤਾਬਕ ਸੋਧਕ
+    data_editor_usernames: ਸੋਧਕ ਵਰਤੋਂਕਾਰ-ਨਾਂ
+    data_editor_usernames_info: ਸੋਧਕ ਵਰਤੋਂਕਾਰ-ਨਾਂ ਦੇ ਨਾਵਾਂ ਦੀ ਸੂਚੀ, ਹਰੇਕ ਲਕੀਰ ਵਿੱਚ
+      ਇੱਕ
+    data_wikidata: ਵਿਕੀਡਾਟਾ ਅੰਕੜੇ
+    description: ਵੇਰਵਾ
     none: ਕੋਈ ਨਹੀਂ
+    organizers: ਪ੍ਰਬੰਧਕ
+    pages_edited_small: ਵਰਕੇ ਸੋਧੇ
+    program_template: ਪ੍ਰੋਗਰਾਮ ਫਰਮਾ
+    requested_accounts: ਬੇਨਤੀ ਕੀਤੇ ਖਾਤੇ
+    resolve: ਹੱਲ-ਕੱਢੋ
+    revision_data: ਸੋਧ-ਸੁਧਾਈ ਦਾ ਡਾਟਾ
+    students_small: ਸਿੱਖਿਆਰਥੀ
+    title: ਸਿਰਲੇਖ
+    search: ਲੱਭੋ
   categories:
+    add_category: ਵੰਨਗੀਆਂ ਜੋੜੋ
+    add_template: ਫਰਮਾ ਜੋੜੋ
+    add_this_category: ਵੰਨਗੀਆਂ ਜੋੜੋ
     add_this_template: ਫਰਮੇ ਜੋੜੋ
+    articles_count: ਲੇਖਾਂ ਦੀ ਗਿਣਤੀ
+    name: ਨਾਂ
+    category_name: ਵੰਨਗੀਆਂ ਦਾ ਨਾਂ
     template_name: ਫ਼ਰਮੇ ਦਾ ਨਾਂ
+    remove: ਹਟਾਓ
   courses:
     actions: ਕਾਰਵਾਈਆਂ
     campaign_users: '%{title} ਸੋਧਕ'
@@ -191,6 +236,7 @@ pa:
     please_log_in: ਕਿਰਪਾ ਕਰਕੇ ਦਾਖ਼ਲ ਹੋਵੋ।
     start: ਸ਼ੁਰੂ ਕਰੋ
     start_typing: ਲਿਖਣਾ ਸ਼ੁਰੂ ਕਰੋ
+    student: ਸਿੱਖਿਆਰਥੀ
     student_editors: ਸਿੱਖਿਆਰਥੀ ਸੋਧਕ
     view_wiki: ਵਿਕੀਪੀਡੀਆ 'ਤੇ ਦੇਖੋ
   courses_generic:
@@ -283,6 +329,8 @@ pa:
     training_incomplete: ਅਧੂਰਾ ਅਭਿਆਸ
     username: ਵਰਤੋਂਕਾਰ ਨਾਂ
     username_placeholder: ਵਰਤੋਂਕਾਰ ਨਾਂ
+    role:
+      student: ਸਿੱਖਿਆਰਥੀ
   login_error:
     header: ਦਾਖ਼ਲ ਹੋਣ ਦੀ ਗ਼ਲਤੀ
   article_finder:

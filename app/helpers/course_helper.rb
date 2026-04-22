@@ -30,7 +30,7 @@ module CourseHelper
   end
 
   def format_course_stats(course_stats)
-    course_stats.each do |wiki_ns_key, _wiki_ns_stats|
+    course_stats.each_key do |wiki_ns_key|
       if wiki_ns_key == 'www.wikidata.org'
         # Not all course stats have the 'other updates' field
         if course_stats[wiki_ns_key]['other updates']

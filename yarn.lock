@@ -2368,6 +2368,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mixmark-io/domino@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "@mixmark-io/domino@npm:2.2.0"
+  checksum: 547af4a8f74cb8e1f2f86e84dc968e7a722522d4748d8a1c9d30c5d1ce6a190ec400866338cc1f717b31beabed6e61c44edf17db5cf380317b63a1e7f253080f
+  languageName: node
+  linkType: hard
+
 "@napi-rs/wasm-runtime@npm:^0.2.11":
   version: 0.2.12
   resolution: "@napi-rs/wasm-runtime@npm:0.2.12"
@@ -3543,6 +3550,7 @@ __metadata:
     stylus-native-loader: ^1.1.2
     tinymce: ^5.2.2
     tom-select: ^2.5.2
+    turndown: ^7.2.4
     uuid: ^3.4.0
     velocity-animate: ^1.5.1
     webpack: ^5.72.1
@@ -8831,7 +8839,7 @@ __metadata:
   resolution: "list.js@https://github.com/WikiEducationFoundation/list.js.git#commit=3be71e3414d60e8a40b41a0ca8d582f2f40f9308"
   dependencies:
     string-natural-compare: ^2.0.2
-  checksum: ea0e976ceae4ddc2b7c78ec41214ceabc4e65368261cc635324b1ef0b7fb67cfca0de6f9af0eb6399da08f31480a5804a2927496ea3b238544b6317f2ad0f687
+  checksum: b853ac7141ebd1bf530ca6104950c0ec0f43b1b4d791db8488ba4523011c72301f62e344e1b8aaf060f69fbd93207826ab4ece0a40c99f6c1c929af417e2f9ec
   languageName: node
   linkType: hard
 
@@ -11946,7 +11954,7 @@ __metadata:
   resolution: "slick-carousel@https://github.com/cfoehrdes/slick.git#commit=a4d85536c42951933e1d887bcc013615e25b03e7"
   dependencies:
     jquery: ">=1.7.2"
-  checksum: cfa2527b8425260101f0232d5f0aa4c20b8e9b3954ec82a5c006ddd0b3e682b82e696fa6180eff8c7076a07dc6be15f57168247a1383bd7a706d569385e0599e
+  checksum: 30b5f877b84b8edd48ea7bfb39813c95622cb8f0351956b2398b42b092eca5eeaf593482b904010d77360e04c7a2f5d76e06ba642847450e334368a01f100022
   languageName: node
   linkType: hard
 
@@ -12651,12 +12659,12 @@ __metadata:
   linkType: hard
 
 "tom-select@npm:^2.5.2":
-  version: 2.5.2
-  resolution: "tom-select@npm:2.5.2"
+  version: 2.6.0
+  resolution: "tom-select@npm:2.6.0"
   dependencies:
     "@orchidjs/sifter": ^1.1.0
     "@orchidjs/unicode-variants": ^1.1.2
-  checksum: 5fa2d9af03c99486be7047df8d8e11b338b1c542d092f77c49915eba652b477ec2f6c389054b70db6f5dc6953dafe10c859f6f681ff178643e72b381af3cc579
+  checksum: a4d66808d5bcdf16695cce516628d47871b89184344a5d9860bf46941ef55db9661cb5d33d39fe47267bd3aafe8f063c18c8710d826cc16d47e39ed8b7f590db
   languageName: node
   linkType: hard
 
@@ -12742,6 +12750,15 @@ __metadata:
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: e4aba30e632b8c8902b47587fd13345e2827fa639e7c3121074d5ee0880723282411a8838f830b55100cbe4517672f84a2472667d355b81e8af165a55dc6203a
+  languageName: node
+  linkType: hard
+
+"turndown@npm:^7.2.4":
+  version: 7.2.4
+  resolution: "turndown@npm:7.2.4"
+  dependencies:
+    "@mixmark-io/domino": ^2.2.0
+  checksum: 4e0e4e280ade8f93f2ec5de1084681c2ff59c4ef5c927cbf945de12636596703a1cf3db539f1c4bc653dc85a0f9cddb3f68505073b44eaddcac5d3a01f3ecc30
   languageName: node
   linkType: hard
 
