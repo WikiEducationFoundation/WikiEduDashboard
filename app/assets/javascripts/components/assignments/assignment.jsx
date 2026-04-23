@@ -53,7 +53,7 @@ const Assignment = (props) => {
     // If the article doesn't exist, then Feedback is based on a user's sandbox only if a single user is assigned
     if (props.course.type === 'ClassroomProgramCourse') {
       if (props.assignmentGroup.length === 1 || props.assignmentGroup[0].article_id) {
-        feedback = <Feedback assignment={props.assignmentGroup[0]} username={props.assignmentGroup[0].username} current_user={props.current_user} />;
+        feedback = <Feedback assignment={props.assignmentGroup[0]} username={props.assignmentGroup[0].username} current_user={props.current_user} course={props.course} />;
       }
     }
 

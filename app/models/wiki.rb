@@ -93,10 +93,7 @@ class Wiki < ApplicationRecord
     'n' => 'wikinews',
     's' => 'wikisource',
     'v' => 'wikiversity',
-    'voy' => 'wikivoyage',
-    'c' => 'wikimedia',
-    'wmf' => 'wikimedia',
-    'm' => 'wikimedia'
+    'voy' => 'wikivoyage'
   }.freeze
 
   class << self
@@ -147,12 +144,14 @@ class Wiki < ApplicationRecord
         return [rest, 'wikimedia', 'commons']
       end
 
-      # Case 1: language:title (eg, "en:Foo" or "fr:Category:Physics").
-      lang_match = parse_language_prefix(prefix1, rest)
-      return lang_match if lang_match
+      # Case 1: project shorthand or project name (checked first to resolve
+      # collisions where a prefix like 'w' or 'commons' appears in both
+      # INTERWIKI_PREFIXES/PROJECTS and LANGUAGES).
+      project_match = parse_project_prefix(prefix1, rest)
+      return project_match if project_match
 
-      # Case 2: project shorthand or project name.
-      parse_project_prefix(prefix1, rest)
+      # Case 2: language:title (eg, "en:Foo" or "fr:Category:Physics").
+      parse_language_prefix(prefix1, rest)
     end
 
     private

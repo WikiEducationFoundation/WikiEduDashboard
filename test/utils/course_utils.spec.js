@@ -222,6 +222,54 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.language).toBe('en');
     expect(output.article_url).toBe(input);
   });
+
+  test('parses a simple language interwiki prefix (en:Article)', () => {
+    const input = 'en:Robot selfie';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Robot selfie');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+  });
+
+  test('parses a project and language interwiki prefix (wikt:fr:Word)', () => {
+    const input = 'wikt:fr:Bonjour';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Bonjour');
+    expect(output.project).toBe('wiktionary');
+    expect(output.language).toBe('fr');
+  });
+
+  test('parses Meta-Wiki shorthand (m:Main_Page)', () => {
+    const input = 'm:Main_Page';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Main Page');
+    expect(output.project).toBe('wikimedia');
+    expect(output.language).toBe('meta');
+  });
+
+  test('parses Commons shorthand (c:File:Example.jpg)', () => {
+    const input = 'c:File:Example.jpg';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('File:Example.jpg');
+    expect(output.project).toBe('wikimedia');
+    expect(output.language).toBe('commons');
+  });
+
+  test('parses wikidata interwiki prefix (wikidata:Q1)', () => {
+    const input = 'wikidata:Q1';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Q1');
+    expect(output.project).toBe('wikidata');
+    expect(output.language).toBe(null);
+  });
+
+  test('parses a leading colon interwiki prefix (:en:Article)', () => {
+    const input = ':en:Robot selfie';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).toBe('Robot selfie');
+    expect(output.project).toBe('wikipedia');
+    expect(output.language).toBe('en');
+  });
 });
 
 describe('courseUtils.articleFromAssignment', () => {

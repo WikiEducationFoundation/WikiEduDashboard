@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchFeedback, postUserFeedback, deleteUserFeedback } from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
 import useOutsideClick from '../../hooks/useOutsideClick.js';
-import { toWikiDomain } from '../../utils/wiki_utils.js';
 
-const Feedback = ({ assignment, username, current_user }) => {
+const Feedback = ({ assignment, username, current_user, course }) => {
   const [show, setShow] = useState(false);
   const [fetched, setFetched] = useState(false);
   const [feedbackSent, setFeedbackSent] = useState(false);
@@ -105,7 +104,9 @@ const Feedback = ({ assignment, username, current_user }) => {
   if (assignment.article_id) {
     titleElement = <a className="my-assignment-title" target="_blank" href={assignment.article_url}>{assignment.article_title}</a>;
   } else {
-    const wikiDomain = toWikiDomain(assignment.wiki || {});
+    const wikiLanguage = assignment.language || course.home_wiki.language || 'www';
+    const wikiProject = assignment.project || course.home_wiki.project || 'wikipedia';
+    const wikiDomain = `${wikiLanguage}.${wikiProject}.org`;
     const sandboxUrl = `https://${wikiDomain}/wiki/User:${username}/sandbox`;
     titleElement = <a className="my-assignment-title" target="_blank" href={sandboxUrl}>{`User:${username}/sandbox`}</a>;
   }
@@ -211,7 +212,8 @@ const Feedback = ({ assignment, username, current_user }) => {
 
 Feedback.propTypes = {
   assignment: PropTypes.object.isRequired,
-  username: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired,
+  course: PropTypes.object.isRequired
 };
 
 export default Feedback;

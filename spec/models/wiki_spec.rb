@@ -274,5 +274,21 @@ describe Wiki do
       expect(described_class.parse_interwiki_format('')).to be_nil
       expect(described_class.parse_interwiki_format(nil)).to be_nil
     end
+
+    it 'parses project shorthand with language (w:en:Foo)' do
+      expect(described_class.parse_interwiki_format('w:en:Foo'))
+        .to eq(['Foo', 'wikipedia', 'en'])
+    end
+
+    it 'treats commons: as a language prefix (not a project)' do
+      # commons is in LANGUAGES but not in PROJECTS or INTERWIKI_PREFIXES,
+      # so it falls through to parse_language_prefix.
+      expect(described_class.parse_interwiki_format('commons:File:Example.jpg'))
+        .to eq(['File:Example.jpg', 'wikipedia', 'commons'])
+    end
+
+    it 'returns nil for wmf: prefix (removed from INTERWIKI_PREFIXES)' do
+      expect(described_class.parse_interwiki_format('wmf:Some_Page')).to be_nil
+    end
   end
 end

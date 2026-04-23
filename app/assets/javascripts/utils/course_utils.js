@@ -83,7 +83,6 @@ export default class CourseUtils {
           v: 'wikiversity',
           voy: 'wikivoyage',
           c: 'wikimedia',
-          wmf: 'wikimedia',
           m: 'wikimedia'
         };
 

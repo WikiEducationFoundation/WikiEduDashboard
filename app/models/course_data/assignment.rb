@@ -147,6 +147,7 @@ class Assignment < ApplicationRecord
   def set_defaults_and_normalize
     self.wiki_id ||= course.home_wiki.id
     return if article_title.nil?
+    return unless new_record? || article_title_changed?
 
     self.article_title = if article_title.include?('%')
                            CGI.unescape(article_title.gsub('+', '%2B'))
