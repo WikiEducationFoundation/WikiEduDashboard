@@ -469,7 +469,7 @@ be:
     assignment_start: Пачатак задання
     calendar:
       legend: Апісанне
-      legend_class_canceled: Свята/Адмененыя
+      legend_class_canceled: Свята/Скасавана
       legend_class_meeting: Сустрэча класа
       legend_class_not_meeting: Няма запланаваных сустрэч
       select_meeting_days: Выберыце дні тыдню, па якіх збіраецца ваш клас.
