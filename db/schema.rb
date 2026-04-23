@@ -499,6 +499,17 @@ ActiveRecord::Schema[7.0].define(version: 2026_03_23_212149) do
     t.index ["survey_assignment_id"], name: "index_survey_notifications_on_survey_assignment_id"
   end
 
+  create_table "survey_sessions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "survey_id", null: false
+    t.integer "user_id", null: false
+    t.integer "survey_notification_id"
+    t.datetime "started_at", precision: nil, null: false
+    t.datetime "completed_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["survey_id"], name: "index_survey_sessions_on_survey_id"
+  end
+
   create_table "surveys", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: nil, null: false

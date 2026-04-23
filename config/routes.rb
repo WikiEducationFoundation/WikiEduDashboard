@@ -458,6 +458,8 @@ Rails.application.routes.draw do
   put '/survey_notification' => 'survey_notifications#update'
   post '/survey_notification/create' => 'survey_assignments#create_notifications', as: 'create_notifications'
   post '/survey_notification/send' => 'survey_assignments#send_notifications', as: 'send_notifications'
+  post '/survey/start' => 'survey_sessions#start'
+  put '/survey/complete' => 'survey_sessions#complete'
   get '/survey/responses' => 'survey_responses#index'
   delete '/survey/responses/:id/delete' => 'survey_responses#delete'
 
