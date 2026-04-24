@@ -18,14 +18,14 @@ describe AiToolsController, type: :request do
         'ai' => {
           'aiModel' => 'academic',
           'classification' => { 'AI' => 1, 'Original' => 0 },
-          'confidence' =>  {'AI' => 1, 'Original' => 0 },
+          'confidence' =>  { 'AI' => 1, 'Original' => 0 },
           'blocks' =>
             [{ 'result' => { 'fake' => 0.6722026056164665,
                              'real' => 0.3277973943835335,
-                             'status' => 'success' }},
+                             'status' => 'success' } },
              { 'result' => { 'fake' => 0.18571670712174604,
                              'real' => 0.814283292878254,
-                             'status' => 'success' }}]},
+                             'status' => 'success' } }] },
         'plagiarism' => { 'error' => 'not selected' }
         }
       }

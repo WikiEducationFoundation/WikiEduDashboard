@@ -133,8 +133,6 @@ Style/RedundantParentheses:
 
 Rails/FilePath:
   Enabled: false
-Performance/UnfreezeString:
-  Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/InverseOf:
@@ -233,8 +231,6 @@ RSpecRails/HaveHttpStatus:
   Enabled: false
 FactoryBot/SyntaxMethods:
   Enabled: false
-Rails/CompactBlank:
-  Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
 Lint/UselessConstantScoping:
@@ -263,8 +259,6 @@ Style/RedundantEach:
   Enabled: false
 Style/ComparableBetween:
   Enabled: false
-Style/RedundantCurrentDirectoryInPath:
-  Enabled: false
 Style/ClassEqualityComparison:
   Enabled: false
 Style/MapIntoArray:
@@ -276,8 +270,6 @@ Lint/LiteralAsCondition:
 Style/SafeNavigationChainLength:
   Enabled: false
 Lint/AmbiguousRange:
-  Enabled: false
-Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Style/SafeNavigation:
   Enabled: false

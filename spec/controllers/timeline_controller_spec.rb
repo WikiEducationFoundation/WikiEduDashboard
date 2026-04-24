@@ -12,8 +12,7 @@ describe TimelineController, type: :request do
     let(:first_ids)   { [1] }
     let(:ids)         { [1] }
     let(:prams) do
-      {
-      }
+      {}
     end
     let(:post_params) do
       {
