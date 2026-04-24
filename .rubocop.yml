@@ -259,8 +259,6 @@ Style/RedundantEach:
   Enabled: false
 Style/ComparableBetween:
   Enabled: false
-Style/RedundantCurrentDirectoryInPath:
-  Enabled: false
 Style/ClassEqualityComparison:
   Enabled: false
 Style/MapIntoArray:
