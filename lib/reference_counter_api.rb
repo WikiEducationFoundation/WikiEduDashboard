@@ -65,7 +65,7 @@ class ReferenceCounterApi
     return handle_forbidden if response.status == FORBIDDEN
 
     if response.status != 200
-      error_response = { rev_id: rev_id, content: parsed_response}
+      error_response = { rev_id: rev_id, content: parsed_response }
       batch_non_200_response_log(response.status, error_response)
     end
     # Leave the error empty if it is not a transient error.
