@@ -224,4 +224,71 @@ describe Wiki do
       end
     end
   end
+
+  describe '.parse_interwiki_format' do
+    it 'returns nil for non-interwiki titles' do
+      expect(described_class.parse_interwiki_format('Simple Article')).to be_nil
+    end
+
+    it 'parses a simple language prefix' do
+      expect(described_class.parse_interwiki_format('en:Article'))
+        .to eq(['Article', 'wikipedia', 'en'])
+    end
+
+    it 'parses a project and language prefix' do
+      expect(described_class.parse_interwiki_format('wikt:fr:Word'))
+        .to eq(['Word', 'wiktionary', 'fr'])
+    end
+
+    it 'parses a project prefix for multilingual projects' do
+      expect(described_class.parse_interwiki_format('wikidata:Q1'))
+        .to eq(['Q1', 'wikidata', nil])
+    end
+
+    it 'correctly handles titles with additional colons' do
+      expect(described_class.parse_interwiki_format('en:Category:Physics'))
+        .to eq(['Category:Physics', 'wikipedia', 'en'])
+    end
+
+    it 'correctly handles Meta-Wiki shorthand' do
+      expect(described_class.parse_interwiki_format('m:Main_Page'))
+        .to eq(['Main_Page', 'wikimedia', 'meta'])
+    end
+
+    it 'correctly handles Commons shorthand' do
+      expect(described_class.parse_interwiki_format('c:File:Example.jpg'))
+        .to eq(['File:Example.jpg', 'wikimedia', 'commons'])
+    end
+
+    it 'rejects internal site namespaces that look like projects but are not' do
+      expect(described_class.parse_interwiki_format('Wikipedia:Help')).to be_nil
+      expect(described_class.parse_interwiki_format('Special:Random')).to be_nil
+    end
+
+    it 'handles a leading colon correctly' do
+      expect(described_class.parse_interwiki_format(':en:Article'))
+        .to eq(['Article', 'wikipedia', 'en'])
+    end
+
+    it 'returns nil for empty or nil input' do
+      expect(described_class.parse_interwiki_format('')).to be_nil
+      expect(described_class.parse_interwiki_format(nil)).to be_nil
+    end
+
+    it 'parses project shorthand with language (w:en:Foo)' do
+      expect(described_class.parse_interwiki_format('w:en:Foo'))
+        .to eq(['Foo', 'wikipedia', 'en'])
+    end
+
+    it 'treats commons: as a language prefix (not a project)' do
+      # commons is in LANGUAGES but not in PROJECTS or INTERWIKI_PREFIXES,
+      # so it falls through to parse_language_prefix.
+      expect(described_class.parse_interwiki_format('commons:File:Example.jpg'))
+        .to eq(['File:Example.jpg', 'wikipedia', 'commons'])
+    end
+
+    it 'returns nil for wmf: prefix (removed from INTERWIKI_PREFIXES)' do
+      expect(described_class.parse_interwiki_format('wmf:Some_Page')).to be_nil
+    end
+  end
 end

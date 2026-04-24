@@ -85,32 +85,105 @@ class Wiki < ApplicationRecord
   # Class methods #
   #################
 
-  # This provides fallback values for when a course is created without setting
-  # an explicit home wiki language or project
-  def self.default_wiki
-    get_or_create language: ENV['wiki_language'], project: 'wikipedia'
-  end
+  INTERWIKI_PREFIXES = {
+    'w' => 'wikipedia',
+    'wikt' => 'wiktionary',
+    'q' => 'wikiquote',
+    'b' => 'wikibooks',
+    'n' => 'wikinews',
+    's' => 'wikisource',
+    'v' => 'wikiversity',
+    'voy' => 'wikivoyage'
+  }.freeze
 
-  def self.get_or_create(language:, project:)
-    language = language_for_multilingual(language:, project:)
-    find_or_create_by(language:, project:)
-  end
-
-  def self.language_for_multilingual(language:, project:)
-    case project
-    when 'wikidata'
-      language = nil
-    when 'wikisource'
-      language = nil if language == 'www'
-    when 'wikimedia'
-      language = nil unless %w[incubator commons meta].include? language
+  class << self
+    # This provides fallback values for when a course is created without setting
+    # an explicit home wiki language or project
+    def default_wiki
+      get_or_create language: ENV['wiki_language'], project: 'wikipedia'
     end
-    language
-  end
 
-  ####################
-  # Instance methods #
-  ####################
+    def get_or_create(language:, project:)
+      language = language_for_multilingual(language:, project:)
+      find_or_create_by(language:, project:)
+    end
+
+    def language_for_multilingual(language:, project:)
+      case project
+      when 'wikidata'
+        language = nil
+      when 'wikisource'
+        language = nil if language == 'www'
+      when 'wikimedia'
+        language = nil unless %w[incubator commons meta].include? language
+      end
+      language
+    end
+
+    # This method takes a title and if it is in an interwiki format,
+    # it returns the title, project, and language.
+    # e.g. "en:Article" => ["Article", "wikipedia", "en"]
+    # e.g. "wikt:fr:Word" => ["Word", "wiktionary", "fr"]
+    def parse_interwiki_format(article_title)
+      return if article_title.nil?
+      # Strip an optional leading colon, which in MediaWiki disables
+      # category/image behavior but keeps the interwiki semantics.
+      normalized = article_title.to_s
+      normalized = normalized[1..] if normalized.start_with?(':')
+
+      # Split once at the first colon into prefix and the rest.
+      first_split = normalized.split(':', 2)
+      return if first_split.length < 2
+      prefix1 = first_split[0].downcase
+      rest = first_split[1]
+
+      # Special case for Meta-Wiki and Commons shorthands
+      if prefix1 == 'm'
+        return [rest, 'wikimedia', 'meta']
+      elsif prefix1 == 'c'
+        return [rest, 'wikimedia', 'commons']
+      end
+
+      # Case 1: project shorthand or project name (checked first to resolve
+      # collisions where a prefix like 'w' or 'commons' appears in both
+      # INTERWIKI_PREFIXES/PROJECTS and LANGUAGES).
+      project_match = parse_project_prefix(prefix1, rest)
+      return project_match if project_match
+
+      # Case 2: language:title (eg, "en:Foo" or "fr:Category:Physics").
+      parse_language_prefix(prefix1, rest)
+    end
+
+    private
+
+    def parse_language_prefix(prefix1, rest)
+      # We exclude project names here so that "Wikipedia:Foo" isn't treated
+      # as an interwiki link with language "wikipedia".
+      return [rest, 'wikipedia', prefix1] if Wiki::LANGUAGES.include?(prefix1) && !Wiki::PROJECTS.include?(prefix1)
+    end
+
+    def parse_project_prefix(prefix1, rest)
+      return unless INTERWIKI_PREFIXES.key?(prefix1) || Wiki::PROJECTS.include?(prefix1)
+      project = INTERWIKI_PREFIXES[prefix1] || prefix1
+
+      # Multilingual projects (eg, wikidata) don't require a language.
+      return [rest, project, nil] if MULTILINGUAL_PROJECTS.key?(project)
+
+      # For language-specific projects (eg, wikipedia), try to parse a language
+      # code as the next segment.
+      second_split = rest.split(':', 2)
+      return if second_split.empty?
+      potential_lang = second_split[0].downcase
+
+      if Wiki::LANGUAGES.include?(potential_lang) && second_split.length == 2
+        return [second_split[1], project, potential_lang]
+      end
+
+      # If the project is wikimedia and we didn't match a language above,
+      # it might be something like incubator or just a page on meta.
+      return [rest, 'wikimedia', nil] if project == 'wikimedia'
+    end
+  end
 
   def domain
     if language

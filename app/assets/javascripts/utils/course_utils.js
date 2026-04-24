@@ -1,3 +1,4 @@
+import { safeDecodeURIComponent } from './strings';
 import { find } from 'lodash-es';
 import ArrayUtils from './array_utils';
 
@@ -55,8 +56,87 @@ export default class CourseUtils {
   // and returns an article object, including the project and language
   // if that can be pattern matched from URL input.
   static articleFromTitleInput(articleTitleInput) {
-    const articleTitle = articleTitleInput;
+    if (typeof articleTitleInput !== 'string') { return { title: '', project: null, language: null }; }
+    const articleTitle = articleTitleInput.trim();
     if (!/http/.test(articleTitle)) {
+      // Check for interwiki prefix format (e.g., 'en:Article' or 'wikt:fr:Word')
+      // Strip an optional leading colon
+      let normalizedInput = articleTitle.trim();
+      if (normalizedInput.startsWith(':')) {
+        normalizedInput = normalizedInput.slice(1);
+      }
+
+      const parts = normalizedInput.split(':');
+      if (parts.length >= 2) {
+        const prefix1 = parts[0].toLowerCase();
+        let project = null;
+        let language = null;
+        let title = null;
+
+        const projectMappings = {
+          w: 'wikipedia',
+          wikt: 'wiktionary',
+          q: 'wikiquote',
+          b: 'wikibooks',
+          n: 'wikinews',
+          s: 'wikisource',
+          v: 'wikiversity',
+          voy: 'wikivoyage',
+          c: 'wikimedia',
+          m: 'wikimedia'
+        };
+
+        const languages = WikiLanguages ? JSON.parse(WikiLanguages) : [];
+        const projects = WikiProjects ? JSON.parse(WikiProjects) : [];
+
+        const mappedOrRealProject = projectMappings[prefix1] || (projects.includes(prefix1) ? prefix1 : null);
+
+        // Special case for Meta and Commons shorthands
+        if (prefix1 === 'm') {
+          project = 'wikimedia';
+          language = 'meta';
+          title = parts.slice(1).join(':');
+        } else if (prefix1 === 'c') {
+          project = 'wikimedia';
+          language = 'commons';
+          title = parts.slice(1).join(':');
+        } else if (mappedOrRealProject) {
+          project = mappedOrRealProject;
+          // Check for language in next part
+          if (parts.length >= 3 && languages.includes(parts[1].toLowerCase())) {
+            language = parts[1].toLowerCase();
+            title = parts.slice(2).join(':');
+          } else {
+            title = parts.slice(1).join(':');
+          }
+        } else if (languages.includes(prefix1)) {
+          language = prefix1;
+
+          let prefix2 = null;
+          if (parts.length >= 3) {
+            prefix2 = parts[1].toLowerCase();
+          }
+          const mappedOrRealProject2 = prefix2 ? (projectMappings[prefix2] || (projects.includes(prefix2) ? prefix2 : null)) : null;
+
+          if (mappedOrRealProject2) {
+            project = mappedOrRealProject2;
+            title = parts.slice(2).join(':');
+          } else {
+            project = 'wikipedia';
+            title = parts.slice(1).join(':');
+          }
+        }
+
+        if (project) {
+          return {
+            title: title.replace(/_/g, ' '),
+            project,
+            language,
+            article_url: articleTitle
+          };
+        }
+      }
+
       const title = articleTitle.replace(/_/g, ' ');
       return {
         title,
@@ -68,7 +148,7 @@ export default class CourseUtils {
 
     const urlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/wiki\/([^#]*)/.exec(articleTitle);
     if (urlParts && urlParts.length > 3) {
-      const title = decodeURIComponent(urlParts[3]).replace(/_/g, ' ');
+      const title = safeDecodeURIComponent(urlParts[3]).replace(/_/g, ' ');
       const project = urlParts[2];
       const language = urlParts[1];
       return {
@@ -94,16 +174,16 @@ export default class CourseUtils {
 
     const indexphpFormatUrlParts = /([a-z-]+)\.(?:m\.)?(wik[a-z]+)\.org\/w\/index\.php\?title=([\w%]*)[^a-zA-Z0-9%](?:[^#]*)/.exec(articleTitle);
     if (indexphpFormatUrlParts) {
-        const title = decodeURIComponent(indexphpFormatUrlParts[3]).replace(/_/g, ' ');
-        const project = indexphpFormatUrlParts[2];
-        const language = indexphpFormatUrlParts[1];
-        return {
-          title,
-          project,
-          language,
-           article_url: articleTitle,
-        };
-      }
+      const title = decodeURIComponent(indexphpFormatUrlParts[3]).replace(/_/g, ' ');
+      const project = indexphpFormatUrlParts[2];
+      const language = indexphpFormatUrlParts[1];
+      return {
+        title,
+        project,
+        language,
+        article_url: articleTitleInput,
+      };
+    }
 
     return {
       title: articleTitleInput,

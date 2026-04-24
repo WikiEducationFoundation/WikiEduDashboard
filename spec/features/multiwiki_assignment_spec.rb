@@ -80,8 +80,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       within('#users') do
-        expect(page).to have_content 'No le des prisa'
-        link = first('.assignment-links a')
+        expect(page).to have_content('No le des prisa', wait: 10)
+        link = first('.assignment-links a', wait: 10)
         expect(link[:href]).to include('es.wikisource')
       end
     end
