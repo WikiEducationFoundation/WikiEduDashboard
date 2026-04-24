@@ -348,6 +348,30 @@ describe Replica do
       end
     end
   end
+
+  # Without these, a silent Replica endpoint blocks the worker indefinitely.
+  describe 'HTTP timeouts' do
+    before do
+      allow(Net::HTTP).to receive(:start).and_return(
+        instance_double(Net::HTTPResponse, code: '200',
+                                           body: '{"success":true,"data":[]}')
+      )
+    end
+
+    it 'passes finite open_timeout and read_timeout to Net::HTTP.start for do_query' do
+      described_class.new(en_wiki).send(:do_query, 'revisions.php', 'foo=bar')
+      expect(Net::HTTP).to have_received(:start).with(
+        anything, anything,
+        hash_including(open_timeout: described_class::OPEN_TIMEOUT,
+                       read_timeout: described_class::READ_TIMEOUT)
+      )
+    end
+
+    it 'has positive, finite timeout constants' do
+      expect(described_class::OPEN_TIMEOUT).to be > 0
+      expect(described_class::READ_TIMEOUT).to be > 0
+    end
+  end
 end
 
 

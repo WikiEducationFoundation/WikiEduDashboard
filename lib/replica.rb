@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 #=   https://replica-revision-tools.wmcloud.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
-class Replica
+class Replica # rubocop:disable Metrics/ClassLength
   include ApiErrorHandling
 
   def initialize(wiki, update_service = nil)
@@ -157,11 +157,19 @@ class Replica
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
 
+  # Finite timeouts on the Replica HTTP call: without them, a silent server
+  # leaves the worker blocked in IO#wait_readable forever (holding its
+  # sidekiq-unique-jobs lock for up to 30 days). api_get's rescue loop will
+  # retry on Net::ReadTimeout / Net::OpenTimeout via StandardError.
+  OPEN_TIMEOUT = 30
+  READ_TIMEOUT = 180
+
   def do_query(endpoint, query)
     url = URI.parse compile_query_url(endpoint, query)
     req = Net::HTTP::Get.new(url)
     req.add_field('User-Agent', ENV['user_agent'])
-    Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
+    Net::HTTP.start(url.host, url.port, use_ssl: true, open_timeout: OPEN_TIMEOUT,
+                    read_timeout: READ_TIMEOUT) { |http| http.request(req) }
   end
 
   REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
@@ -179,7 +187,8 @@ class Replica
     req.content_type = 'application/x-www-form-urlencoded'
     req.body = URI.encode_www_form(form_data)
 
-    Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
+    Net::HTTP.start(url.host, url.port, use_ssl: true, open_timeout: OPEN_TIMEOUT,
+                    read_timeout: READ_TIMEOUT) { |http| http.request(req) }
   end
 
   # Query URL for the WikiEduDashboardTools repository
