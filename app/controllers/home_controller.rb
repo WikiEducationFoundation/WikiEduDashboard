@@ -13,8 +13,7 @@ class HomeController < ApplicationController
 
   def fetch_statistics
     Rails.cache.fetch('impact_stats') do
-      impact_stats = Setting.find_by(key: 'impact_stats')&.value.presence || {}
-      impact_stats
+      Setting.find_by(key: 'impact_stats')&.value.presence || {}
     end
   end
 end

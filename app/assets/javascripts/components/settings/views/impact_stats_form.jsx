@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextInput from '../../common/text_input';
 import { updateImpactStats } from '../../../actions/settings_actions';
 import { connect } from 'react-redux';
 
 const ImpactStatsForm = (props) => {
-    const [stats, setStats] = useState({});
+    const [stats, setStats] = useState(props.impactStats || {});
+
+    useEffect(() => {
+      setStats(props.impactStats || {});
+    }, [props.impactStats]);
 
     const handleChange = (key, value) => {
         setStats({ ...stats, [key]: value });

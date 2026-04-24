@@ -511,24 +511,40 @@ describe SettingsController, type: :request do
     end
   end
 
-  describe '#update_impact_stats' do
-    let(:admin) { create(:super_admin) }
+  describe '#fetch_impact_stats' do
+    let(:impact_stats) { { 'students' => 1000, 'universities' => 50 } }
 
     before do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(admin)
+      Setting.set_hash('impact_stats', 'students', 1000)
+      Setting.set_hash('impact_stats', 'universities', 50)
     end
 
-    context 'when updating impact stats' do
-      let(:impact_stats) { { 'first' => 234, 'second' => 234 } }
-
-      it 'updates the impact stats and clears the cache' do
-        post '/settings/update_impact_stats', params: { impactStats: impact_stats }
-
+    %i[admin super_admin].each do |role|
+      it "returns current impact stats for #{role}" do
+        user = create(role)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
+        get '/settings/fetch_impact_stats'
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({
-          'message' => 'Impact Stats Updated Successfully.'
-})
+        body = JSON.parse(response.body)
+        expect(body['impact_stats']['students']).to eq(1000)
+        expect(body['impact_stats']['universities']).to eq(50)
+      end
+    end
+  end
+
+  describe '#update_impact_stats' do
+    let(:impact_stats) { { 'first' => 234, 'second' => 234 } }
+
+    %i[admin super_admin].each do |role|
+      it "updates the impact stats and clears the cache for #{role}" do
+        user = create(role)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
+        post '/settings/update_impact_stats', params: { impactStats: impact_stats }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq(
+          { 'message' => 'Impact Stats Updated Successfully.' })
         expect(Rails.cache.read('impact_stats')).to be_nil
       end
     end

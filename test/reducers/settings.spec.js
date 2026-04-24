@@ -25,7 +25,8 @@ describe('Settings reducer', () => {
       siteNotice: {
         status: false,
         message: null,
-      }
+      },
+      impactStats: {}
     };
     expect(reducer(undefined, {})).toEqual(initialState);
   });
