@@ -48,8 +48,11 @@ class RevisionScoreApiHandler
   ##################
   private
 
-  def maybe_get_lift_wing_data(rev_batch)
-    return @lift_wing_api.get_revision_data rev_batch if LiftWingApi.valid_wiki?(@wiki)
+  # Lift Wing is not called during course updates. Its outputs were either
+  # unused downstream (wp10, prediction) or redundant with ReferenceCounterApi /
+  # WikidataDiffAnalyzer (features, deleted). LiftWingApi is still available
+  # for on-demand admin use (revision feedback controller).
+  def maybe_get_lift_wing_data(_rev_batch)
     {}
   end
 
