@@ -8,7 +8,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
                        :add_disallowed_user, :remove_disallowed_user,
-                       :update_salesforce_credentials,  :update_site_notice]
+                       :update_salesforce_credentials, :update_site_notice]
 
   layout 'application'
 
