@@ -231,8 +231,6 @@ RSpecRails/HaveHttpStatus:
   Enabled: false
 FactoryBot/SyntaxMethods:
   Enabled: false
-Rails/CompactBlank:
-  Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
 Lint/UselessConstantScoping:
