@@ -15,8 +15,7 @@ class RevisionOnMemory
   attribute :characters, :integer, default: 0
 
   attr_accessor :date, :article_id, :mw_page_id, :user_id, :new_article,
-                :system, :wiki_id, :scoped, :error, :summary,
-                :wp10, :wp10_previous, :deleted
+                :system, :wiki_id, :scoped, :error, :summary, :deleted
 
   ####################
   # Instance methods #

@@ -102,8 +102,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
 
@@ -136,8 +134,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
     end
@@ -200,8 +196,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
 
@@ -232,8 +226,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
     end

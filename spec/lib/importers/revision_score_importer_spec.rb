@@ -78,12 +78,9 @@ describe RevisionScoreImporter do
       expect(revisions).to eq([662106477, 708326238, 753277075])
     end
 
-    it 'wp10 previous scores and features previous is nil for first revisions' do
+    it 'features previous is empty for first revisions' do
       VCR.use_cassette 'revision_scores/get_revision_scores' do
         revisions = described_class.new.get_revision_scores(array_revisions)
-
-        # wp10 previous keeps being nil
-        expect(revisions[0].wp10_previous).to be_nil
 
         # features previous keep being nil
         expect(revisions[0].features_previous).to eq({})

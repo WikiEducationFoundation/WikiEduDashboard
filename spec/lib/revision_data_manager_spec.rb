@@ -335,7 +335,6 @@ describe RevisionDataManager do
         revisions = subject
         expect(revisions.length).to eq(10)
         # Revisions don't have scores
-        expect(revisions[0].wp10).to eq(nil)
         expect(revisions[0].features).to eq({})
       end
     end

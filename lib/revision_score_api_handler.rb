@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/lift_wing_api"
 require_dependency "#{Rails.root}/lib/reference_counter_api"
 
 #= Handles the logic to decide how to retrieve revision data for a given wiki.
@@ -11,8 +10,6 @@ class RevisionScoreApiHandler
   def initialize(language: 'en', project: 'wikipedia', wiki: nil, update_service: nil)
     @update_service = update_service
     @wiki = wiki || Wiki.get_or_create(language:, project:)
-    # Initialize LiftWingApi if the wiki is valid for it
-    @lift_wing_api = LiftWingApi.new(@wiki, @update_service) if LiftWingApi.valid_wiki?(@wiki)
     # Initialize ReferenceCounterApi if the wiki is valid for it
     return unless ReferenceCounterApi.valid_wiki?(@wiki)
     @reference_counter_api = ReferenceCounterApi.new(@wiki, @update_service)
@@ -38,8 +35,7 @@ class RevisionScoreApiHandler
   # For wikidata, "features" key contains Liftwing features. For other wikis, "features"
   # key contains reference-counter response (or empty hash).
   def get_revision_data(rev_batch)
-    scores = maybe_get_lift_wing_data rev_batch
-    scores.deep_merge!(maybe_get_reference_data(rev_batch))
+    scores = maybe_get_reference_data(rev_batch)
     ensure_complete_scores scores
   end
 
@@ -47,14 +43,6 @@ class RevisionScoreApiHandler
   # Helper methods #
   ##################
   private
-
-  # Lift Wing is not called during course updates. Its outputs were either
-  # unused downstream (wp10, prediction) or redundant with ReferenceCounterApi /
-  # WikidataDiffAnalyzer (features, deleted). LiftWingApi is still available
-  # for on-demand admin use (revision feedback controller).
-  def maybe_get_lift_wing_data(_rev_batch)
-    {}
-  end
 
   def maybe_get_reference_data(rev_batch)
     if ReferenceCounterApi.valid_wiki?(@wiki)

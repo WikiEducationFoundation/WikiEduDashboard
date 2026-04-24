@@ -89,13 +89,11 @@ class RevisionScoreImporter
 
   def update_scores(rev, rev_scores)
     rev.features = rev_scores['features']
-    rev.wp10 = rev_scores['wp10']
     rev.deleted = rev_scores['deleted'] # double check if this is a boolean
     rev.error = rev_scores['error']
   end
 
   def update_previous_scores(rev, parent_rev_scores)
-    rev.wp10_previous = parent_rev_scores['wp10']
     rev.features_previous = parent_rev_scores['features']
     # turn on error if there was an error fetching parent scores
     rev.error = true if parent_rev_scores['error']
