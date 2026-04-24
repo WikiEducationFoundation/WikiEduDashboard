@@ -42,7 +42,7 @@ module QuestionResultsHelper
     answers
       .filter_map(&:answer_text)
       .flat_map { |text| text.to_s.split(Rapidfire.answers_delimiter) }
-      .reject(&:blank?)
+      .compact_blank
   end
 
   # Builds answer data with user/course info, caching expensive course lookups
