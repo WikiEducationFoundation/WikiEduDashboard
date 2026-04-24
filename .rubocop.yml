@@ -271,8 +271,6 @@ Style/SafeNavigationChainLength:
   Enabled: false
 Lint/AmbiguousRange:
   Enabled: false
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
 Style/SafeNavigation:
   Enabled: false
 Style/RedundantRegexpArgument:
