@@ -46,6 +46,7 @@ export const Actions = ({
       <Feedback
         assignment={assignment}
         current_user={current_user}
+        course={course}
         key="feedback-button"
         username={username}
       />
@@ -71,6 +72,7 @@ Actions.propTypes = {
   // props
   article: PropTypes.object.isRequired,
   assignment: PropTypes.object.isRequired,
+  course: PropTypes.object,
   courseSlug: PropTypes.string.isRequired,
   current_user: PropTypes.object.isRequired,
   isComplete: PropTypes.bool.isRequired,
