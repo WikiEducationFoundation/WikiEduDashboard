@@ -137,12 +137,20 @@ class ReferenceCounterApi
     "/api/v1/references/#{@project_code}/#{@language_code}/#{rev_id}"
   end
 
+  # A single-revision lookup has no reason to take longer than this. Without
+  # timeouts, a silent server leaves the worker blocked in IO#wait_readable
+  # indefinitely — Faraday::TimeoutError is already in TYPICAL_ERRORS and the
+  # 5-retry rescue below will handle transient failures gracefully.
+  OPEN_TIMEOUT = 30
+  REQUEST_TIMEOUT = 60
+
   def toolforge_server
     Faraday.new(
       url: TOOLFORGE_SERVER_URL,
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      request: { open_timeout: OPEN_TIMEOUT, timeout: REQUEST_TIMEOUT }
     )
   end
 

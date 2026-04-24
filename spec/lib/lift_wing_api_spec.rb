@@ -84,4 +84,22 @@ describe LiftWingApi do
       end
     end
   end
+
+  # Without these, a silent Lift Wing server blocks the worker indefinitely.
+  describe 'lift_wing_server connection' do
+    before { stub_wiki_validation }
+
+    let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:conn) { described_class.new(en_wiki).send(:lift_wing_server) }
+
+    it 'has a finite request timeout' do
+      expect(conn.options.timeout).to eq(described_class::REQUEST_TIMEOUT)
+      expect(conn.options.timeout).to be > 0
+    end
+
+    it 'has a finite open_timeout' do
+      expect(conn.options.open_timeout).to eq(described_class::OPEN_TIMEOUT)
+      expect(conn.options.open_timeout).to be > 0
+    end
+  end
 end
