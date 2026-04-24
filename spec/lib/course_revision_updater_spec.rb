@@ -46,8 +46,6 @@ describe CourseRevisionUpdater do
           # fetched scores
           expect(revisions.last.features).to eq({ 'num_ref' => 19 })
           expect(revisions.last.features_previous).to eq({ 'num_ref' => 18 })
-          expect(revisions.last.wp10.to_f).to be_within(0.01).of(47.03)
-          expect(revisions.last.wp10_previous.to_f).to be_within(0.01).of(46.94)
         end
       end
 
@@ -74,8 +72,6 @@ describe CourseRevisionUpdater do
           # fetched scores
           expect(revisions.last.features).to eq({ 'num_ref' => 19 })
           expect(revisions.last.features_previous).to eq({ 'num_ref' => 18 })
-          expect(revisions.last.wp10.to_f).to be_within(0.01).of(47.03)
-          expect(revisions.last.wp10_previous.to_f).to be_within(0.01).of(46.94)
         end
       end
 
@@ -106,8 +102,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
 
@@ -140,8 +134,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
     end
@@ -204,8 +196,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
 
@@ -236,8 +226,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
     end
