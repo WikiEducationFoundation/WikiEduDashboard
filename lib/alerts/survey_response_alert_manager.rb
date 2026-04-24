@@ -70,7 +70,7 @@ class SurveyResponseAlertManager
   end
 
   def alert_message(answer)
-    message = String.new("Question: #{answer.question.question_text}")
+    message = +"Question: #{answer.question.question_text}"
     message += "\r\n"
     message += "Answer: #{answer.answer_text}"
     message
