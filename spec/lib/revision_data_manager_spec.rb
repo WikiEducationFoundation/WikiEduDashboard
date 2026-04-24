@@ -251,27 +251,20 @@ describe RevisionDataManager do
       VCR.use_cassette 'revision_importer/all' do
         revisions = subject
         expect(revisions.length).to eq(4)
-        # Fetches the scores
-        expect(revisions[0].wp10).to be_within(0.01).of(18.29)
-        expect(revisions[0].wp10_previous).to be_within(0.01).of(11.96)
+        # Fetches the reference counts and deletion status. wp10 / prediction
+        # are no longer populated during updates (Lift Wing is not called).
         expect(revisions[0].features).to eq({ 'num_ref' => 2 })
         expect(revisions[0].features_previous).to eq({ 'num_ref' => 2 })
         expect(revisions[0].deleted).to eq(false)
 
-        expect(revisions[1].wp10).to be_within(0.01).of(20.09)
-        expect(revisions[1].wp10_previous).to be_within(0.01).of(18.29)
         expect(revisions[1].features).to eq({ 'num_ref' => 3 })
         expect(revisions[1].features_previous).to eq({ 'num_ref' => 2 })
         expect(revisions[1].deleted).to eq(false)
 
-        expect(revisions[2].wp10).to be_within(0.01).of(21.37)
-        expect(revisions[2].wp10_previous).to be_within(0.01).of(20.09)
         expect(revisions[2].features).to eq({ 'num_ref' => 3 })
         expect(revisions[2].features_previous).to eq({ 'num_ref' => 3 })
         expect(revisions[2].deleted).to eq(false)
 
-        expect(revisions[3].wp10).to be_within(0.01).of(21.34)
-        expect(revisions[3].wp10_previous).to be_within(0.01).of(21.37)
         expect(revisions[3].features).to eq({ 'num_ref' => 3 })
         expect(revisions[3].features_previous).to eq({ 'num_ref' => 3 })
         expect(revisions[3].deleted).to eq(false)

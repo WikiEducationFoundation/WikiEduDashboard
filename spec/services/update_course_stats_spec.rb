@@ -181,19 +181,6 @@ describe UpdateCourseStats do
       expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
     end
 
-    it 'tracks update errors properly in LiftWing' do
-      allow(Sentry).to receive(:capture_exception)
-
-      # Raising errors only in LiftWing
-      stub_request(:any, %r{https://api.wikimedia.org/service/lw.*}).to_raise(Faraday::ConnectionFailed)
-      VCR.use_cassette 'course_update/lift_wing_api' do
-        subject
-      end
-      sentry_tag_uuid = subject.sentry_tag_uuid
-      expect(course.flags['update_logs'][1]['error_count']).to eq 2
-      expect(course.flags['update_logs'][1]['sentry_tag_uuid']).to eq sentry_tag_uuid
-    end
-
     it 'tracks update errors properly in WikiApi' do
       allow(Sentry).to receive(:capture_exception)
       allow_any_instance_of(described_class).to receive(:update_article_status).and_return(nil)
