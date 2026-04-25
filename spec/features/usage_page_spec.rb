@@ -5,7 +5,6 @@ describe 'usage page', type: :feature, js: true, js_error_expected: true do
   let(:fr_wiki) { Wiki.get_or_create(language: 'fr', project: 'wikipedia') }
 
   before do
-    # Create some courses to have data on the page
     Course.create!(
       title: 'English Wiki Course',
       school: 'School',
@@ -29,31 +28,34 @@ describe 'usage page', type: :feature, js: true, js_error_expected: true do
     )
   end
 
-  it 'shows usage data and toggles wiki lists' do
+  it 'shows usage data and wiki list table' do
     visit '/usage'
     expect(page).to have_text('Usage Stats')
 
-    # Initially, "All Wikis" should be visible
-    expect(page).to have_css('#wiki-list-all', visible: true)
-    expect(page).to have_css('#wiki-list-top10', visible: false)
+    # Wiki list table should be visible with search and tabs
+    expect(page).to have_css('.wiki-search')
+    expect(page).to have_css('.wiki-tabs')
+    expect(page).to have_css('.wiki-table')
 
-    # Change to "Top 10"
-    find('#wiki-view-dropdown').select('Top 10 Most Active Wikis')
-    expect(page).to have_css('#wiki-list-top10', visible: true)
-    expect(page).to have_css('#wiki-list-all', visible: false)
+    # Should show wiki data in the table
+    expect(page).to have_text('en.wikipedia.org')
+    expect(page).to have_text('fr.wikipedia.org')
 
-    # Change to "Project Type"
-    find('#wiki-view-dropdown').select('Sort by Project Type')
-    expect(page).to have_css('#wiki-list-project', visible: true)
-    expect(page).to have_css('#wiki-list-top10', visible: false)
+    # Switch to Top 10 tab
+    find('.wiki-tab', text: 'Top 10').click
+    expect(page).to have_css('.wiki-table')
 
-    # Change to "Language"
-    find('#wiki-view-dropdown').select('Sort by Language')
-    expect(page).to have_css('#wiki-list-language', visible: true)
-    expect(page).to have_css('#wiki-list-project', visible: false)
+    # Switch to By project tab
+    find('.wiki-tab', text: 'By project').click
+    expect(page).to have_css('.wiki-group')
 
-    # Save a screenshot so the user can see the result
-    page.save_screenshot('tmp/screenshots/usage_page_test_result.png')
-    puts "\nScreenshot saved to: tmp/screenshots/usage_page_test_result.png"
+    # Switch to By language tab
+    find('.wiki-tab', text: 'By language').click
+    expect(page).to have_css('.wiki-group')
+
+    # Search functionality
+    find('.wiki-tab', text: 'All wikis').click
+    fill_in 'wiki-search', with: 'en'
+    expect(page).to have_text('en.wikipedia.org')
   end
 end
