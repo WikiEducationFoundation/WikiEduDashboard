@@ -45,6 +45,10 @@ class Article < ApplicationRecord
 
   before_validation :set_defaults_and_normalize
 
+  def self.content_namespaces(wiki)
+    wiki.content_namespaces
+  end
+
   ####################
   # CONSTANTS        #
   ####################

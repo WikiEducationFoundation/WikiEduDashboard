@@ -340,7 +340,7 @@ class Course < ApplicationRecord
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
       if wiki_namespaces.empty?
-        { wiki:, namespace: 0 }
+        wiki.content_namespaces.map { |ns| { wiki: wiki, namespace: ns } }
       else
         wiki_namespaces.map do |wiki_ns|
           { wiki:, namespace: wiki_ns.namespace }

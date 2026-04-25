@@ -40,7 +40,7 @@ class RetainedNewEditorsStats
     query = {
       list: 'usercontribs',
       ucuser: usernames,
-      ucnamespace: 0,  # mainspace only
+      ucnamespace: wiki.content_namespaces.join('|'),  # expanded to all content namespaces
       ucstart: threshold.strftime('%Y%m%d%H%M%S'),
       uclimit: 500,      # Account for all distinct contributions by users
       ucprop: '',
