@@ -18,6 +18,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in @user
       redirect_to "/courses/#{session['course_slug']}/enroll/#{session['enroll_code']}"
     else
+      returning_from_lti_launch
       sign_in_and_redirect @user
     end
   end
@@ -66,5 +67,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def session_enroll_code
     session['enroll_code']
+  end
+
+  def returning_from_lti_launch
+    if session['ltik']
+      request.env['omniauth.origin'] = "/lti?ltik=#{session['ltik']}"
+    end
   end
 end
