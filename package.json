@@ -24,7 +24,7 @@
     "chartkick": "^4.2.0",
     "core-js": "^3.21.1",
     "create-react-class": "^15.7.0",
-    "css-loader": "^6.7.1",
+    "css-loader": "^7.1.4",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "date-fns": "^2.28.0",
     "deep-freeze": "^0.0.1",
