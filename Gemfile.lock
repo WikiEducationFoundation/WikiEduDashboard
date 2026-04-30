@@ -648,6 +648,7 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
+    simpleidn (0.2.3)
     sshkit (1.25.0)
       base64
       logger
@@ -673,8 +674,9 @@ GEM
     unicode-emoji (4.1.0)
     uri (1.1.1)
     useragent (0.16.11)
-    validates_email_format_of (1.7.2)
-      i18n
+    validates_email_format_of (1.8.2)
+      i18n (>= 0.8.0)
+      simpleidn
     vcr (6.1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
