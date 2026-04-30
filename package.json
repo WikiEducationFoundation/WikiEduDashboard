@@ -148,7 +148,8 @@
     "http-proxy-middleware": "^2.0.7",
     "get-func-name": "^2.0.1",
     "semver@^5.5.0": "^5.7.2",
-    "semver@7.0.0": "^7.5.2"
+    "semver@7.0.0": "^7.5.2",
+    "socks": "^2.8.7"
   },
   "packageManager": "yarn@3.2.1"
 }
