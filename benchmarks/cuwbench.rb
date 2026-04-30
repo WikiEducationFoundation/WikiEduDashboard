@@ -3,13 +3,16 @@
 
 # Wall-time benchmark for UpdateCourseStats.
 #
-# Run against the test database (or a dedicated benchmark DB), not development:
+# Defaults to the development DB so you can bench against your existing data;
+# each iteration is wrapped in a transaction that's rolled back, so persisted
+# state is unchanged. SETUP=1 wipes the DB and is therefore restricted to test.
 #
-#     RAILS_ENV=test bundle exec rails runner benchmarks/cuwbench.rb
+#     bundle exec rails runner benchmarks/cuwbench.rb              # uses dev DB
+#     RAILS_ENV=test SETUP=1 bundle exec rails runner benchmarks/cuwbench.rb
 #
 # Env vars:
-#   SETUP=1        — wipe the DB and clone COURSE_URL before running (required on first run,
-#                    and whenever the target course changes)
+#   SLUG=...       — course to bench (default: Course.first)
+#   SETUP=1        — wipe the DB and clone COURSE_URL (RAILS_ENV=test only)
 #   COURSE_URL=... — live course to clone when SETUP=1 (defaults to the WODD Wikidata Taster)
 #   ITERATIONS=N   — cold and hot iterations to run (default 3 each)
 #   MODE=cold|hot|both — which loop to run (default both)
@@ -20,8 +23,8 @@
 require 'benchmark'
 require 'json'
 
-abort "Refusing to run in development — set RAILS_ENV=test." if Rails.env.development?
-abort "Refusing to run in production." if Rails.env.production?
+abort 'Refusing to run in production.' if Rails.env.production?
+abort 'SETUP=1 wipes the DB; run with RAILS_ENV=test.' if ENV['SETUP'] == '1' && !Rails.env.test?
 
 DEFAULT_COURSE_URL = 'https://outreachdashboard.wmflabs.org/courses/CodeTheCity/' \
                      'WODD-Wikidata_Taster_(Saturday_6th_March_2021)'
@@ -38,8 +41,9 @@ if ENV['SETUP'] == '1'
   make_copy_of(course_url)
 end
 
-@course = Course.first
-abort "No course in the DB — re-run with SETUP=1." if @course.nil?
+slug = ENV['SLUG']
+@course = slug ? Course.find_by(slug: slug) : Course.first
+abort "Course not found (SLUG=#{slug.inspect})" if @course.nil?
 puts "Benchmarking course: #{@course.slug}"
 
 def format_stage_durations(timings)

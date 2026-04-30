@@ -4,20 +4,23 @@
 # StackProf wall-time profile for a single UpdateCourseStats run.
 # Outputs profile.json — drag into https://speedscope.app to view.
 #
-# Run against the test database (or a dedicated benchmark DB), not development:
+# Defaults to the development DB. SETUP=1 wipes the DB and is therefore
+# restricted to test.
 #
-#     RAILS_ENV=test bundle exec rails runner benchmarks/cuwprofile.rb
+#     bundle exec rails runner benchmarks/cuwprofile.rb              # uses dev DB
+#     RAILS_ENV=test SETUP=1 bundle exec rails runner benchmarks/cuwprofile.rb
 #
 # Env vars:
-#   SETUP=1        — wipe the DB and clone COURSE_URL before profiling
+#   SLUG=...       — course to profile (default: Course.first)
+#   SETUP=1        — wipe the DB and clone COURSE_URL before profiling (RAILS_ENV=test only)
 #   COURSE_URL=... — live course to clone when SETUP=1
 #   INTERVAL=N     — StackProf sampling interval in microseconds (default 10000 = 10ms)
 #   OUTPUT=path    — profile output path (default profile.json)
 
 require 'benchmark'
 
-abort "Refusing to run in development — set RAILS_ENV=test." if Rails.env.development?
-abort "Refusing to run in production." if Rails.env.production?
+abort 'Refusing to run in production.' if Rails.env.production?
+abort 'SETUP=1 wipes the DB; run with RAILS_ENV=test.' if ENV['SETUP'] == '1' && !Rails.env.test?
 
 DEFAULT_COURSE_URL = 'https://outreachdashboard.wmflabs.org/courses/CodeTheCity/' \
                      'WODD-Wikidata_Taster_(Saturday_6th_March_2021)'
@@ -34,8 +37,9 @@ if ENV['SETUP'] == '1'
   make_copy_of(course_url)
 end
 
-@course = Course.first
-abort "No course in the DB — re-run with SETUP=1." if @course.nil?
+slug = ENV['SLUG']
+@course = slug ? Course.find_by(slug: slug) : Course.first
+abort "Course not found (SLUG=#{slug.inspect})" if @course.nil?
 puts "Profiling course: #{@course.slug}"
 
 stats = nil
