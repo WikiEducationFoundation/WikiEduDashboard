@@ -3530,7 +3530,7 @@ __metadata:
     react-scroll: ^1.8.1
     react-select: ^5.7.2
     react-switch: ^6.0.0
-    react-test-renderer: ^17.0.2
+    react-test-renderer: ^19.2.5
     react-transition-group: 4.4.2
     redux: ^4.0.5
     redux-mock-store: ^1.5.4
@@ -10907,6 +10907,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-is@npm:^19.2.5":
+  version: 19.2.5
+  resolution: "react-is@npm:19.2.5"
+  checksum: 303f022cdec5e3dee3c0ad731ed54b3db41b8aa8ef9503d37904a7acb404dcc656049b19119d37af4d2526a6921c7ad1675b8b3da76402664af56f8e198fd38b
+  languageName: node
+  linkType: hard
+
 "react-onclickoutside@npm:^6.9.0":
   version: 6.12.2
   resolution: "react-onclickoutside@npm:6.12.2"
@@ -11049,7 +11056,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-test-renderer@npm:^17.0.0, react-test-renderer@npm:^17.0.2":
+"react-test-renderer@npm:^17.0.0":
   version: 17.0.2
   resolution: "react-test-renderer@npm:17.0.2"
   dependencies:
@@ -11060,6 +11067,18 @@ __metadata:
   peerDependencies:
     react: 17.0.2
   checksum: e6b5c6ed2a0bde2c34f1ab9523ff9bc4c141a271daf730d6b852374e83acc0155d58ab71a318251e953ebfa65b8bebb9c5dce3eba1ccfcbef7cc4e1e8261c401
+  languageName: node
+  linkType: hard
+
+"react-test-renderer@npm:^19.2.5":
+  version: 19.2.5
+  resolution: "react-test-renderer@npm:19.2.5"
+  dependencies:
+    react-is: ^19.2.5
+    scheduler: ^0.27.0
+  peerDependencies:
+    react: ^19.2.5
+  checksum: 70bf5203ecb429e4848eed6bf5216e4e22ee59d4525b7bb6c51b3a72103c5a71ae2757a592d1f640965ed6a7fe2fdf135fe82ab6e13ba516cba4e6fddb27ee91
   languageName: node
   linkType: hard
 
@@ -11619,6 +11638,13 @@ __metadata:
   dependencies:
     loose-envify: ^1.1.0
   checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.27.0":
+  version: 0.27.0
+  resolution: "scheduler@npm:0.27.0"
+  checksum: 92644ead0a9443e20f9d24132fe93675b156209b9eeb35ea245f8a86768d0cc0fcca56f341eeef21d9b6dd8e72d6d5e260eb5a41d34b05cd605dd45a29f572ef
   languageName: node
   linkType: hard
 
