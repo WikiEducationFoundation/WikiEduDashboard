@@ -396,7 +396,9 @@ GEM
     numerizer (0.1.1)
     oauth (0.5.6)
     observer (0.1.2)
-    oj (3.13.23)
+    oj (3.17.0)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
     omniauth (2.1.4)
       hashie (>= 3.4.6)
       logger
