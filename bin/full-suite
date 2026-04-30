@@ -5,13 +5,40 @@
 # Usage:
 #   bin/full-suite
 #   bin/full-suite [extra parallel_rspec args...]
+#   bin/full-suite --with-js-coverage [extra parallel_rspec args...]
+#
+# --with-js-coverage:
+#   - Builds the istanbul-instrumented JS bundle (yarn coverage) before
+#     running the suite, so feature specs exercise instrumented code.
+#   - Sets COVERAGE=true so dump_js_coverage runs after each js feature spec.
+#   - After the suite, runs `rake generate:coverage` to merge per-spec
+#     coverage data into public/js_coverage/, prints a topline summary,
+#     and archives the report alongside the Ruby coverage as
+#     js_coverage.all.YYYY-MM-DD/.
 
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+with_js_coverage=0
+if [ "${1:-}" = "--with-js-coverage" ]; then
+  with_js_coverage=1
+  shift
+fi
+
 date_stamp=$(date +%Y-%m-%d)
 archive="coverage.all.${date_stamp}"
+js_archive="js_coverage.all.${date_stamp}"
+
+if [ "$with_js_coverage" -eq 1 ]; then
+  echo "Building istanbul-instrumented JS bundle (yarn coverage)..."
+  yarn coverage
+  export COVERAGE=true
+  # dump_js_coverage merges per-spec data into .nyc_output/. Start clean so
+  # we don't merge stale data from prior runs.
+  rm -rf .nyc_output
+  mkdir -p .nyc_output
+fi
 
 PARALLEL_TEST_GROUPS=true bundle exec parallel_rspec -n 4 "$@" || rspec_exit=$?
 rspec_exit=${rspec_exit:-0}
@@ -28,9 +55,34 @@ if [ -d coverage ]; then
 
   mv coverage "$archive"
   echo ""
-  echo "Coverage archived to ${archive}/"
+  echo "Ruby coverage archived to ${archive}/"
 else
   echo "No coverage/ directory found to archive."
+fi
+
+if [ "$with_js_coverage" -eq 1 ]; then
+  echo ""
+  echo "Generating JS coverage report from .nyc_output..."
+  bundle exec rake generate:coverage
+
+  echo ""
+  echo "=== JavaScript coverage (from feature specs) ==="
+  npx nyc report --reporter=text-summary || true
+
+  if [ -d public/js_coverage ]; then
+    if [ -d "$js_archive" ]; then
+      suffix=2
+      while [ -d "${js_archive}.${suffix}" ]; do
+        suffix=$((suffix + 1))
+      done
+      js_archive="${js_archive}.${suffix}"
+    fi
+    mv public/js_coverage "$js_archive"
+    echo ""
+    echo "JS coverage archived to ${js_archive}/"
+  else
+    echo "No public/js_coverage/ directory found to archive."
+  fi
 fi
 
 exit $rspec_exit
