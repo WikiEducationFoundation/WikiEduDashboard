@@ -46,7 +46,9 @@ class CourseStatistics
   # rubocop:enable Metrics/MethodLength
 
   def articles_edited
-    Article.where(namespace: 0, id: @all_article_ids)
+    Article.where(id: @all_article_ids).select do |a|
+      a.wiki.content_namespaces.include?(a.namespace)
+    end
   end
 
   ################
@@ -97,9 +99,11 @@ class CourseStatistics
                                .uniq
     end
 
-    created_articles = Article.where(namespace: 0, id: new_article_ids)
-    @surviving_article_ids = created_articles.where(deleted: false).pluck(:id)
-    @deleted_article_ids = created_articles.where(deleted: true).pluck(:id)
+    created_articles = Article.where(id: new_article_ids).select do |a|
+      a.wiki.content_namespaces.include?(a.namespace)
+    end
+    @surviving_article_ids = created_articles.reject(&:deleted).map(&:id)
+    @deleted_article_ids = created_articles.select(&:deleted).map(&:id)
   end
 
   def find_edited_article_ids
@@ -109,7 +113,9 @@ class CourseStatistics
                                 .pluck(:article_id)
                                 .uniq
     end
-    @edited_article_ids = Article.where(namespace: 0, id: @all_article_ids,
-                                        deleted: false).pluck(:id)
+    edited_articles = Article.where(id: @all_article_ids, deleted: false).select do |a|
+      a.wiki.content_namespaces.include?(a.namespace)
+    end
+    @edited_article_ids = edited_articles.map(&:id)
   end
 end

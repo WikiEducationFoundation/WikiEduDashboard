@@ -124,7 +124,7 @@ describe UpdateCourseStats do
       expect(course.user_count).to eq(1)
       expect(course.trained_count).to eq(1)
       expect(course.recent_revision_count).to eq(29)
-      expect(course.article_count).to eq(14)
+      expect(course.article_count).to eq(15)
       expect(course.new_article_count).to eq(3)
       expect(course.upload_count).to eq(0)
       expect(course.uploads_in_use_count).to eq(0)
