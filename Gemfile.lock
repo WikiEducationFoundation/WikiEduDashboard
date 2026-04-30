@@ -180,7 +180,7 @@ GEM
       capybara (>= 1.0, < 4)
       launchy
     cgi (0.5.1)
-    chartkick (4.2.1)
+    chartkick (5.2.1)
     childprocess (5.1.0)
       logger (~> 1.5)
     choice (0.2.0)
