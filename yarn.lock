@@ -2491,13 +2491,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^7.29.0 || ^8.4.1":
+"@types/eslint@npm:*":
   version: 8.4.5
   resolution: "@types/eslint@npm:8.4.5"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
   checksum: 428b0c971a50adb0d08621e76f21b284580a0052a31341a0e6d553f72b54cd0142d549aa1497c7e3bc56e9f6bcc27286e66e0216e1ba76d1a5ecd2279c40bc8c
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:^9.6.1":
+  version: 9.6.1
+  resolution: "@types/eslint@npm:9.6.1"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: c286e79707ab604b577cf8ce51d9bbb9780e3d6a68b38a83febe13fa05b8012c92de17c28532fac2b03d3c460123f5055d603a579685325246ca1c86828223e0
   languageName: node
   linkType: hard
 
@@ -3176,7 +3186,7 @@ __metadata:
     eslint-plugin-import: ^2.22.0
     eslint-plugin-jsx-a11y: ^6.2.3
     eslint-plugin-react: ^7.37.5
-    eslint-webpack-plugin: ^3.1.1
+    eslint-webpack-plugin: ^6.0.0
     fetch-jsonp: ^1.2.1
     flatpickr: ^4.6.13
     i18n-js: ^4.2.2
@@ -6038,19 +6048,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-webpack-plugin@npm:^3.1.1":
-  version: 3.2.0
-  resolution: "eslint-webpack-plugin@npm:3.2.0"
+"eslint-webpack-plugin@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "eslint-webpack-plugin@npm:6.0.0"
   dependencies:
-    "@types/eslint": ^7.29.0 || ^8.4.1
-    jest-worker: ^28.0.2
-    micromatch: ^4.0.5
+    "@types/eslint": ^9.6.1
+    micromatch: ^4.0.8
     normalize-path: ^3.0.0
-    schema-utils: ^4.0.0
+    schema-utils: ^4.3.3
   peerDependencies:
-    eslint: ^7.0.0 || ^8.0.0
+    eslint: ^9.0.0 || ^10.0.0
     webpack: ^5.0.0
-  checksum: 095034c35e773fdb21ec7e597ae1f8a6899679c290db29d8568ca94619e8c7f4971f0f9edccc8a965322ab8af9286c87205985a38f4fdcf17654aee7cd8bb7b5
+  checksum: be526e575dfba1b861db12b1db4b72058ac3304ec5cf83051e92c576e2a225adc1aa09c5e394584c6acdcb9e33945617d97f14e8ac564d362bbb4d74445d865c
   languageName: node
   linkType: hard
 
@@ -8428,17 +8437,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^28.0.2":
-  version: 28.1.1
-  resolution: "jest-worker@npm:28.1.1"
-  dependencies:
-    "@types/node": "*"
-    merge-stream: ^2.0.0
-    supports-color: ^8.0.0
-  checksum: 28519c43b4007e60a3756d27f1e7884192ee9161b6a9587383a64b6535f820cc4868e351a67775e0feada41465f48ccf323a8db34ae87e15a512ddac5d1424b2
-  languageName: node
-  linkType: hard
-
 "jest@npm:^30.0.0":
   version: 30.2.0
   resolution: "jest@npm:30.2.0"
@@ -9103,7 +9101,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.2, micromatch@npm:^4.0.5, micromatch@npm:^4.0.8":
+"micromatch@npm:^4.0.2, micromatch@npm:^4.0.8":
   version: 4.0.8
   resolution: "micromatch@npm:4.0.8"
   dependencies:
