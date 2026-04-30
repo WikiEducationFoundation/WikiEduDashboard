@@ -41,5 +41,5 @@ document.addEventListener('DOMContentLoaded', () => {
 i18n.defaultLocale = defaultLocale;
 i18n.locale = locale;
 i18n.availableLocales = availableLocales;
-i18n.store(stores)
+if (typeof stores !== 'undefined') i18n.store(stores);
 /* eslint-enable */
