@@ -3184,7 +3184,7 @@ __metadata:
     jeet: ^7.2.0
     jest: ^30.0.0
     jest-environment-jsdom: ^30.2.0
-    jquery: ^3.5.1
+    jquery: ^4.0.0
     jquery-ui: ^1.13.2
     jsdom: ^16.2.2
     linkify-html: ^4.1.1
@@ -8467,10 +8467,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jquery@npm:>=1.7.2, jquery@npm:>=1.8.0, jquery@npm:>=1.8.0 <4.0.0, jquery@npm:^3.5.1":
+"jquery@npm:>=1.7.2, jquery@npm:>=1.8.0, jquery@npm:>=1.8.0 <4.0.0":
   version: 3.6.0
   resolution: "jquery@npm:3.6.0"
   checksum: 8fd5fef4aa48fd374ec716dd1c1df1af407814a228e15c1260ca140de3a697c2a77c30c54ff1d238b6a3ab4ddc445ddeef9adce6c6d28e4869d85eb9d3951c0e
+  languageName: node
+  linkType: hard
+
+"jquery@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "jquery@npm:4.0.0"
+  checksum: 5b58084962ed18f1de3b184e82edb7784623037f581108f7c228a1e881ae61c8aeca580b4313251aa0cee7e2e2bfa61d322d97236bd1b3c56fa7a726cea73731
   languageName: node
   linkType: hard
 
