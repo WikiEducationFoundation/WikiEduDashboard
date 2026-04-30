@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-# NOTE: CodeClimate can only handle coverage data for one language.
-# Since code coverage in Ruby is at or near 100% as of November 2015, while
-# javascript coverage is only just getting started, the ruby reporting is
-# disabled to make room for javascript coverage data.
-
-# require 'codeclimate-test-reporter'
-# CodeClimate::TestReporter.start
 require 'simplecov'
 require_relative 'simplecov_uncovered_formatter'
 
@@ -132,7 +125,6 @@ VCR.configure do |c|
   # Allows RSPEC to test the availability of the Wikimedia Tools
   c.ignore_hosts '127.0.0.1'
   # c.allow_http_connections_when_no_cassette = true
-  c.ignore_hosts 'codeclimate.com'
   # Ignore Google Fonts requests made during email rendering (premailer-rails)
   c.ignore_hosts 'fonts.googleapis.com'
   # for controller test
