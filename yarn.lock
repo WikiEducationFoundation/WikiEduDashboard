@@ -3170,7 +3170,7 @@ __metadata:
     dompurify: ^3.3.3
     enzyme: ^3.11.0
     eslint: ^8.10.0
-    eslint-config-airbnb: ^17.1.1
+    eslint-config-airbnb: ^19.0.4
     eslint-import-resolver-babel-plugin-root-import: ^1.1.1
     eslint-plugin-i18next: ^6.0.3
     eslint-plugin-import: ^2.22.0
@@ -4606,7 +4606,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"confusing-browser-globals@npm:^1.0.5":
+"confusing-browser-globals@npm:^1.0.10":
   version: 1.0.11
   resolution: "confusing-browser-globals@npm:1.0.11"
   checksum: 3afc635abd37e566477f610e7978b15753f0e84025c25d49236f1f14d480117185516bdd40d2a2167e6bed8048641a9854964b9c067e3dcdfa6b5d0ad3c3a5ef
@@ -5819,33 +5819,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-airbnb-base@npm:^13.2.0":
-  version: 13.2.0
-  resolution: "eslint-config-airbnb-base@npm:13.2.0"
+"eslint-config-airbnb-base@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "eslint-config-airbnb-base@npm:15.0.0"
   dependencies:
-    confusing-browser-globals: ^1.0.5
-    object.assign: ^4.1.0
-    object.entries: ^1.1.0
+    confusing-browser-globals: ^1.0.10
+    object.assign: ^4.1.2
+    object.entries: ^1.1.5
+    semver: ^6.3.0
   peerDependencies:
-    eslint: ^4.19.1 || ^5.3.0
-    eslint-plugin-import: ^2.17.2
-  checksum: bfdb104cea2cdf3ac40b28dc2c478bd18ab7bfe90833e2e5efbaa45faa3ad178878a6e7a371f4b1d0e36d2132d5c50337ac2a5242d5afa4f6a2d9ee9650b4407
+    eslint: ^7.32.0 || ^8.2.0
+    eslint-plugin-import: ^2.25.2
+  checksum: 38626bad2ce2859fccac86b30cd2b86c9b7d8d71d458331860861dc05290a5b198bded2f4fb89efcb9046ec48f8ab4c4fb00365ba8916f27b172671da28b93ea
   languageName: node
   linkType: hard
 
-"eslint-config-airbnb@npm:^17.1.1":
-  version: 17.1.1
-  resolution: "eslint-config-airbnb@npm:17.1.1"
+"eslint-config-airbnb@npm:^19.0.4":
+  version: 19.0.4
+  resolution: "eslint-config-airbnb@npm:19.0.4"
   dependencies:
-    eslint-config-airbnb-base: ^13.2.0
-    object.assign: ^4.1.0
-    object.entries: ^1.1.0
+    eslint-config-airbnb-base: ^15.0.0
+    object.assign: ^4.1.2
+    object.entries: ^1.1.5
   peerDependencies:
-    eslint: ^4.19.1 || ^5.3.0
-    eslint-plugin-import: ^2.18.0
-    eslint-plugin-jsx-a11y: ^6.2.3
-    eslint-plugin-react: ^7.14.2
-  checksum: 6719e2593b0a62de4fc2200e4faa6c82b4da1fbcb44d99672e0a67109c8bc34090f282415e30fdd7fa97ca7659d12a6bd747b2dab67aaf0e8c0be6ab25eb11de
+    eslint: ^7.32.0 || ^8.2.0
+    eslint-plugin-import: ^2.25.3
+    eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-react: ^7.28.0
+    eslint-plugin-react-hooks: ^4.3.0
+  checksum: 253178689c3c80eef2567e3aaf0612e18973bc9cf51d9be36074b5dd58210e8b6942200a424bcccbb81ac884e41303479ab09f251a2a97addc2de61efdc9576c
   languageName: node
   linkType: hard
 
@@ -9644,7 +9646,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object.entries@npm:^1.1.0, object.entries@npm:^1.1.1, object.entries@npm:^1.1.9":
+"object.entries@npm:^1.1.1, object.entries@npm:^1.1.5, object.entries@npm:^1.1.9":
   version: 1.1.9
   resolution: "object.entries@npm:1.1.9"
   dependencies:
