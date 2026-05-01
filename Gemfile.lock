@@ -403,7 +403,7 @@ GEM
       rack (>= 1.6.2, < 4)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
-    pandoc-ruby (2.1.6)
+    pandoc-ruby (2.1.10)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
       request_store (~> 1.4)
