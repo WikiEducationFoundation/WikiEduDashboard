@@ -3222,7 +3222,7 @@ __metadata:
     react-switch: ^6.0.0
     react-test-renderer: ^19.2.5
     react-transition-group: 4.4.2
-    redux: ^4.0.5
+    redux: ^5.0.1
     redux-mock-store: ^1.5.4
     redux-thunk: ^2.4.1
     require-dir: 1.2.0
@@ -11097,7 +11097,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux@npm:^4.0.0, redux@npm:^4.0.5, redux@npm:^4.2.0":
+"redux@npm:^4.0.0, redux@npm:^4.2.0":
   version: 4.2.0
   resolution: "redux@npm:4.2.0"
   dependencies:
