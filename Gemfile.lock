@@ -358,7 +358,8 @@ GEM
       prism (~> 1.5)
     msgpack (1.8.0)
     multipart-post (2.4.1)
-    mysql2 (0.5.4)
+    mysql2 (0.5.7)
+      bigdecimal
     nenv (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
