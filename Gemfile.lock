@@ -294,7 +294,6 @@ GEM
     hashie (5.0.0)
     hashugar (1.0.1)
     htmlentities (4.3.4)
-    http-accept (1.7.0)
     http-cookie (1.1.6)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
@@ -341,16 +340,19 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailgun-ruby (1.2.8)
-      rest-client (>= 2.0.2)
+    mailgun-ruby (1.4.3)
+      faraday (~> 2.1)
+      faraday-multipart (< 2)
+      mini_mime
+      zeitwerk
     marcel (1.0.4)
     matrix (0.4.3)
     memory_profiler (1.0.0)
     method_source (1.1.0)
-    mime-types (3.6.0)
+    mime-types (3.7.0)
       logger
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2025.0107)
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2026.0414)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
     minitest (6.0.5)
@@ -376,7 +378,6 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     net-ssh (7.3.0)
-    netrc (0.11.0)
     newrelic_rpm (10.2.0)
       logger
     nio4r (2.7.5)
@@ -516,11 +517,6 @@ GEM
     responders (3.2.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
-    rest-client (2.1.0)
-      http-accept (>= 1.7.0, < 2.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     restforce (8.0.1)
       faraday (>= 1.1.0, < 3.0.0)
       faraday-follow_redirects (< 0.6.0)
