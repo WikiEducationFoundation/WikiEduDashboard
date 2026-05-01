@@ -126,7 +126,7 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'byebug'
-  gem 'rspec-rails', '6.1.0'
+  gem 'rspec-rails', '8.0.4'
   gem 'rubocop',  require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
