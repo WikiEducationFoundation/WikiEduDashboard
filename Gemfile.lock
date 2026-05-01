@@ -550,7 +550,7 @@ GEM
       rspec-mocks (~> 3.12)
       rspec-support (~> 3.12)
     rspec-support (3.13.7)
-    rss (0.2.9)
+    rss (0.3.2)
       rexml
     rubocop (1.81.7)
       json (~> 2.3)
