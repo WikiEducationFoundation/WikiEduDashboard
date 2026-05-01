@@ -43,7 +43,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.12.3, @babel/core@npm:^7.17.5, @babel/core@npm:^7.23.9, @babel/core@npm:^7.27.4, @babel/core@npm:^7.7.5":
+"@babel/core@npm:^7.17.5, @babel/core@npm:^7.23.9, @babel/core@npm:^7.27.4, @babel/core@npm:^7.7.5":
   version: 7.29.0
   resolution: "@babel/core@npm:7.29.0"
   dependencies:
@@ -359,7 +359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.14.7, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.28.6, @babel/parser@npm:^7.29.0":
+"@babel/parser@npm:^7.1.0, @babel/parser@npm:^7.20.7, @babel/parser@npm:^7.23.9, @babel/parser@npm:^7.28.6, @babel/parser@npm:^7.29.0":
   version: 7.29.0
   resolution: "@babel/parser@npm:7.29.0"
   dependencies:
@@ -3155,7 +3155,7 @@ __metadata:
     babel-core: ^7.0.0-bridge.0
     babel-loader: ^10.1.1
     babel-plugin-add-module-exports: ^1.0.2
-    babel-plugin-istanbul: ^6.1.1
+    babel-plugin-istanbul: ^8.0.0
     babel-plugin-root-import: ^6.5.0
     chai: ^4.3.4
     chart.js: ^3.9.1
@@ -3835,19 +3835,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-istanbul@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "babel-plugin-istanbul@npm:6.1.1"
-  dependencies:
-    "@babel/helper-plugin-utils": ^7.0.0
-    "@istanbuljs/load-nyc-config": ^1.0.0
-    "@istanbuljs/schema": ^0.1.2
-    istanbul-lib-instrument: ^5.0.4
-    test-exclude: ^6.0.0
-  checksum: cb4fd95738219f232f0aece1116628cccff16db891713c4ccb501cddbbf9272951a5df81f2f2658dfdf4b3e7b236a9d5cbcf04d5d8c07dd5077297339598061a
-  languageName: node
-  linkType: hard
-
 "babel-plugin-istanbul@npm:^7.0.1":
   version: 7.0.1
   resolution: "babel-plugin-istanbul@npm:7.0.1"
@@ -3858,6 +3845,19 @@ __metadata:
     istanbul-lib-instrument: ^6.0.2
     test-exclude: ^6.0.0
   checksum: 06195af9022a1a2dad23bc4f2f9c226d053304889ae2be23a32aa3df821d2e61055a8eb533f204b10ee9899120e4f52bef6f0c4ab84a960cb2211cf638174aa2
+  languageName: node
+  linkType: hard
+
+"babel-plugin-istanbul@npm:^8.0.0":
+  version: 8.0.2
+  resolution: "babel-plugin-istanbul@npm:8.0.2"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.0.0
+    "@istanbuljs/load-nyc-config": ^1.0.0
+    "@istanbuljs/schema": ^0.1.3
+    istanbul-lib-instrument: ^6.0.2
+    test-exclude: ^7.0.1
+  checksum: cb331029bc1c0952a32ee21fabd7756a58406634e13d648cb053ac8f4ec5c594c368563ef8f40d59f22d1b05a5f10e0a9756d34065c31e8c436444d685670417
   languageName: node
   linkType: hard
 
@@ -3980,6 +3980,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"balanced-match@npm:^4.0.2":
+  version: 4.0.4
+  resolution: "balanced-match@npm:4.0.4"
+  checksum: fb07bb66a0959c2843fc055838047e2a95ccebb837c519614afb067ebfdf2fa967ca8d712c35ced07f2cd26fc6f07964230b094891315ad74f11eba3d53178a0
+  languageName: node
+  linkType: hard
+
 "baseline-browser-mapping@npm:^2.10.12":
   version: 2.10.24
   resolution: "baseline-browser-mapping@npm:2.10.24"
@@ -4072,6 +4079,15 @@ __metadata:
   dependencies:
     balanced-match: ^1.0.0
   checksum: 01dff195e3646bc4b0d27b63d9bab84d2ebc06121ff5013ad6e5356daa5a9d6b60fa26cf73c74797f2dc3fbec112af13578d51f75228c1112b26c790a87b0488
+  languageName: node
+  linkType: hard
+
+"brace-expansion@npm:^5.0.5":
+  version: 5.0.5
+  resolution: "brace-expansion@npm:5.0.5"
+  dependencies:
+    balanced-match: ^4.0.2
+  checksum: 4481b7ffa467b34c14e258167dbd8d9485a2d31d03060e8e8b38142dcde32cdc89c8f55b04d3ae7aae9304fa7eac1dfafd602787cf09c019cc45de3bb6950ffc
   languageName: node
   linkType: hard
 
@@ -6844,7 +6860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.3.10, glob@npm:^10.4.5":
+"glob@npm:^10.3.10, glob@npm:^10.4.1, glob@npm:^10.4.5":
   version: 10.5.0
   resolution: "glob@npm:10.5.0"
   dependencies:
@@ -7860,19 +7876,6 @@ __metadata:
     istanbul-lib-coverage: ^3.0.0
     semver: ^6.3.0
   checksum: fa1171d3022b1bb8f6a734042620ac5d9ee7dc80f3065a0bb12863e9f0494d0eefa3d86608fcc0254ab2765d29d7dad8bdc42e5f8df2f9a1fbe85ccc59d76cb9
-  languageName: node
-  linkType: hard
-
-"istanbul-lib-instrument@npm:^5.0.4":
-  version: 5.2.0
-  resolution: "istanbul-lib-instrument@npm:5.2.0"
-  dependencies:
-    "@babel/core": ^7.12.3
-    "@babel/parser": ^7.14.7
-    "@istanbuljs/schema": ^0.1.2
-    istanbul-lib-coverage: ^3.2.0
-    semver: ^6.3.0
-  checksum: 7c242ed782b6bf7b655656576afae8b6bd23dcc020e5fdc1472cca3dfb6ddb196a478385206d0df5219b9babf46ac4f21fea5d8ea9a431848b6cca6007012353
   languageName: node
   linkType: hard
 
@@ -9167,6 +9170,15 @@ __metadata:
   version: 1.0.1
   resolution: "minimalistic-assert@npm:1.0.1"
   checksum: cc7974a9268fbf130fb055aff76700d7e2d8be5f761fb5c60318d0ed010d839ab3661a533ad29a5d37653133385204c503bfac995aaa4236f4e847461ea32ba7
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^10.2.2":
+  version: 10.2.5
+  resolution: "minimatch@npm:10.2.5"
+  dependencies:
+    brace-expansion: ^5.0.5
+  checksum: 000423875fecbc7da1d74bf63c9081363a71291ef2588c376c45647ac004582cb5bc8cc09ef84420b26bfb490f4d0818d328e78569c6228e20d90271283f73ba
   languageName: node
   linkType: hard
 
@@ -12584,6 +12596,17 @@ __metadata:
     glob: ^7.1.4
     minimatch: ^3.0.4
   checksum: 3b34a3d77165a2cb82b34014b3aba93b1c4637a5011807557dc2f3da826c59975a5ccad765721c4648b39817e3472789f9b0fa98fc854c5c1c7a1e632aacdc28
+  languageName: node
+  linkType: hard
+
+"test-exclude@npm:^7.0.1":
+  version: 7.0.2
+  resolution: "test-exclude@npm:7.0.2"
+  dependencies:
+    "@istanbuljs/schema": ^0.1.2
+    glob: ^10.4.1
+    minimatch: ^10.2.2
+  checksum: 35fd6304435c31e6b3dd4f5ad16de521eef46d433c4d2f2ef81a981b002a99db70b12d372f042df48a38f9bd356eb2a3d5523d75ec2121671e400f5468e07bd1
   languageName: node
   linkType: hard
 
