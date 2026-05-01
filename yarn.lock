@@ -3195,7 +3195,7 @@ __metadata:
     lodash-es: ^4.18.0
     markdown-it: ^12.3.2
     markdown-it-footnote: ^3.0.2
-    mini-css-extract-plugin: ^2.6.0
+    mini-css-extract-plugin: ^2.10.2
     nouislider: ^14.2.0
     nyc: ^15.1.0
     parsleyjs: ^2.9.2
@@ -9152,14 +9152,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^2.6.0":
-  version: 2.6.1
-  resolution: "mini-css-extract-plugin@npm:2.6.1"
+"mini-css-extract-plugin@npm:^2.10.2":
+  version: 2.10.2
+  resolution: "mini-css-extract-plugin@npm:2.10.2"
   dependencies:
     schema-utils: ^4.0.0
+    tapable: ^2.2.1
   peerDependencies:
     webpack: ^5.0.0
-  checksum: df60840404878c4832b4104799fd29c5a89b06b1e377956c8d4a5729efe0ef301a52e5087d6f383871df5e69a8445922a0ae635c11abf412d7645a7096d0e973
+  checksum: eb64d835d50fce8c181153b580f989661c37c0e56ddff7c1362051643180a31c8f8055d0d8dccc0dd2b022b1010d2957fe3097010f37acd33edfeb29bfc3734e
   languageName: node
   linkType: hard
 
@@ -12520,7 +12521,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.0.0, tapable@npm:^2.3.0, tapable@npm:^2.3.3":
+"tapable@npm:^2.0.0, tapable@npm:^2.2.1, tapable@npm:^2.3.0, tapable@npm:^2.3.3":
   version: 2.3.3
   resolution: "tapable@npm:2.3.3"
   checksum: 6f37a59e82a2daedd0fbfc231f6e6004389a9d4bcf8ab8f2d61f96f9f4fd4cbb087799627c5d644d75f518df2abbbc9b9ac699945e0c9a0c610f2a3ca92e0265
