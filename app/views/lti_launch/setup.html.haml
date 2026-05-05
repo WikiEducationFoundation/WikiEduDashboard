@@ -1,0 +1,38 @@
+.container.narrow
+  .section-header
+    %h3= t('lti.setup.header', default: 'Set up the Wiki Education Dashboard for this Canvas course')
+  .lti-escape-hatch
+    %p= t('lti.escape.hint', default: 'If buttons or forms below stop working, your browser may be blocking cookies inside the Canvas iframe. Open in a new tab to continue.')
+    = link_to t('lti.escape.button', default: 'Open in a new tab'),
+              "/lti/escape?ltik=#{CGI.escape(params[:ltik].to_s)}",
+              target: '_blank', rel: 'noopener', class: 'button'
+  %hr
+  = form_with url: '/lti/setup', method: :post, local: true do |f|
+    = hidden_field_tag :binding_id, @binding.id
+    = hidden_field_tag :ltik, params[:ltik]
+    .module
+      %h4= t('lti.setup.link_existing.header', default: 'Link an existing Wiki Education course')
+      %p= t('lti.setup.link_existing.explanation', default: 'Enter the course slug (e.g. "Example_University/Wikipedia_Course_(Spring_2026)").')
+      = label_tag :course_slug, t('lti.setup.link_existing.label', default: 'Course slug')
+      = text_field_tag :course_slug, nil, required: true, size: 80
+    .module
+      %h4= t('lti.setup.granularity.header', default: 'Canvas gradebook layout')
+      %p= t('lti.setup.granularity.explanation', default: 'How would you like Wikipedia training and exercise progress to appear in your Canvas gradebook? You can change this later.')
+      .lti-granularity-options
+        %label
+          = radio_button_tag :gradebook_granularity, 'lumped', true
+          %strong= t('lti.setup.granularity.lumped.label', default: 'One column for all trainings, plus one column per exercise (recommended)')
+          %p.lti-granularity-example
+            = t('lti.setup.granularity.lumped.example', default: 'Wikipedia trainings: 5/12 complete · Bibliography: 1.0 (sandbox link in comment) · Outline: 0.0')
+        %label
+          = radio_button_tag :gradebook_granularity, 'per_block'
+          %strong= t('lti.setup.granularity.per_block.label', default: 'A separate column for every training and exercise')
+          %p.lti-granularity-example
+            = t('lti.setup.granularity.per_block.example', default: 'Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …')
+    %button.button{ type: 'submit' }= t('lti.setup.submit', default: 'Link this course')
+  %hr
+  .module
+    %h4= t('lti.setup.create_new.header', default: "Don't have a Wiki Education course yet?")
+    %p= t('lti.setup.create_new.explanation', default: 'Open the dashboard in a new tab and create your course there first, then come back here to link it.')
+    = link_to t('lti.setup.create_new.button', default: 'Create a Wiki Education course'),
+              '/courses/new', target: '_blank', rel: 'noopener', class: 'button'
