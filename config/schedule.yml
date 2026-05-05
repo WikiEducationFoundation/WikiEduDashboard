@@ -44,3 +44,11 @@ update_default_campaign:
   cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
   class: "DefaultCampaignUpdateWorker"
   queue: default
+
+# Sync rosters for every active Canvas-bound course via LTIAAS NRPS.
+# On-launch syncs already keep instructors fresh; the daily run catches
+# students who haven't launched recently and surfaces inactive memberships.
+lti_daily_roster_sync:
+  cron: "30 12 * * *" # every day at 5:30am PT (UTC -7), after update_daily
+  class: "LtiDailyRosterSyncWorker"
+  queue: medium_update

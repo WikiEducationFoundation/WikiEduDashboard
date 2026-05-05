@@ -19,13 +19,13 @@ describe LtiaasClient do
   end
 
   describe '.with_service_auth' do
-    it 'sends Bearer authorization header' do
+    it 'sends SERVICE-AUTH-V1 authorization header with api_key and service_key' do
       stub = stub_request(:get, url)
-             .with(headers: { 'Authorization' => 'Bearer service-token' })
+             .with(headers: { 'Authorization' => 'SERVICE-AUTH-V1 thekey:svc-key' })
              .to_return(status: 200, body: '{"ok":true}',
                         headers: { 'Content-Type' => 'application/json' })
 
-      LtiaasClient.with_service_auth(domain, 'service-token').get('/api/idtoken')
+      LtiaasClient.with_service_auth(domain, 'thekey', 'svc-key').get('/api/idtoken')
       expect(stub).to have_been_requested
     end
   end
