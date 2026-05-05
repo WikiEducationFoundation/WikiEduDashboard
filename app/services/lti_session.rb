@@ -1,31 +1,23 @@
 # frozen_string_literal: true
 
+# Represents a single LTI 1.3 launch from an LMS (currently Canvas, via
+# LTIAAS). Active for the duration of one HTTP request that began with a
+# Canvas click; uses launch-bound LTIK auth.
+#
+# Background jobs that need NRPS or AGS without an active launch should use
+# LtiServiceSession instead.
 class LtiSession
-  attr_reader :idtoken
-
   INSTRUCTOR_ROLES = [
     'membership#Administrator',
     'membership#Instructor',
     'membership#Mentor'
   ].freeze
 
-  SCORE_MAXIMUM = 1
-
-  private_constant :SCORE_MAXIMUM
+  attr_reader :idtoken
 
   def initialize(ltiaas_domain, api_key, ltik)
-    @ltiaas_domain = ltiaas_domain
-    @api_key = api_key
-    @ltik = ltik
-
-    @conn = Faraday.new(url: "https://#{@ltiaas_domain}") do |config|
-      config.headers['Authorization'] = "LTIK-AUTH-V2 #{@api_key}:#{@ltik}"
-      config.request :json
-      config.response :json
-    end
-
-    @idtoken = make_get_request('/api/idtoken')
-    @cached_line_item_id = nil
+    @client = LtiaasClient.with_ltik(ltiaas_domain, api_key, ltik)
+    @idtoken = @client.get('/api/idtoken')
   end
 
   def user_lti_id
@@ -40,11 +32,22 @@ class LtiSession
     @idtoken['user']['email']
   end
 
-  def user_is_teacher?
-    @idtoken['user']['roles'].any? do |str|
+  def user_roles
+    @idtoken['user']['roles'] || []
+  end
+
+  def instructor?
+    user_roles.any? do |str|
       INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) }
     end
   end
+
+  def student?
+    !instructor?
+  end
+
+  # Backwards-compatible alias for callers still on the old name.
+  alias user_is_teacher? instructor?
 
   def lms_id
     @idtoken['platform']['id']
@@ -54,81 +57,73 @@ class LtiSession
     @idtoken['platform']['productFamilyCode']
   end
 
-  def context_id
-    "#{@idtoken['launch']['context']['id']}::#{@idtoken['launch']['resourceLink']['id']}"
+  def lms_context_id
+    @idtoken['launch']['context']['id']
   end
 
-  def line_item_id
-    @cached_line_item_id ||= determine_line_item_id
+  def lms_resource_link_id
+    @idtoken['launch']['resourceLink']['id']
   end
 
-  def link_lti_user(current_user)
-    # Checking if LTI User already exists.
-    return unless LtiContext.find_by(user: current_user, user_lti_id:, lms_id:, context_id:).nil?
-    # Sending account created signal if user is a student.
-    # You can pass the User Wikipedia ID as parameter to this method to
-    #  generate a comment in the grade.
-    # Example: lti_session.send_account_created_signal(123)
-    send_account_created_signal(current_user.username) unless user_is_teacher?
-    # Creating LTI User
-    LtiContext.create(user: current_user, user_lti_id:, lms_id:, lms_family:, context_id:)
+  def context_title
+    @idtoken['launch']['context']['title']
+  end
+
+  def nrps_url
+    @idtoken.dig('services', 'namesAndRoles', 'contextMembershipsUrl')
+  end
+
+  def ags_lineitems_url
+    @idtoken.dig('services', 'assignmentAndGrades', 'lineItemsUrl') ||
+      @idtoken.dig('services', 'assignmentAndGrades', 'lineitemsUrl')
+  end
+
+  # Looks up or creates the LtiCourseBinding for this launch. The binding's
+  # `course_id` is left nil; the controller's setup flow populates it once
+  # the instructor links to or creates a Dashboard course.
+  def find_or_create_binding!
+    LtiCourseBinding.find_or_create_by!(
+      lms_id:,
+      lms_context_id:,
+      lms_resource_link_id:
+    ) do |binding|
+      binding.lms_family = lms_family
+      binding.nrps_url = nrps_url
+      binding.ags_lineitems_url = ags_lineitems_url
+    end
+  end
+
+  # Idempotently records that `current_user` is the Dashboard user for this
+  # LMS identity within the binding. Updates NRPS-supplied profile fields
+  # (email/name/roles) on each launch so they stay fresh.
+  def link_lti_user(current_user, binding: nil)
+    binding ||= find_or_create_binding!
+    context = LtiContext.find_or_initialize_by(
+      user_lti_id:,
+      lti_course_binding_id: binding.id
+    )
+    apply_context_attributes(context, current_user)
+    context.linked_at ||= Time.current
+    context.save!
+    context
   end
 
   private
 
-  def send_account_created_signal(user_wikipedia_id = nil)
-    score = {
-      'scoreGiven' => SCORE_MAXIMUM,
-      'scoreMaximum' => SCORE_MAXIMUM,
-      'activityProgress' => 'Completed',
-      'gradingProgress' => 'FullyGraded',
-      'userId' => @idtoken['user']['id']
-    }
-    score['comment'] = "Wikipedia user ID: #{user_wikipedia_id}" unless user_wikipedia_id.nil?
-    make_post_request("/api/lineitems/#{CGI.escape(line_item_id)}/scores", score)
+  def apply_context_attributes(context, current_user)
+    context.user = current_user
+    context.lms_id = lms_id
+    context.lms_family = lms_family
+    context.context_id = legacy_context_id
+    context.email = user_email
+    context.name = user_name
+    context.roles = user_roles
   end
 
-  def make_get_request(path)
-    response = @conn.get(path)
-    raise LtiaasClientError.new(response.body, response.status) unless response.success?
-    return response.body
+  # The legacy concatenated identifier persisted on the existing
+  # `lti_contexts.context_id` column. Retained until the column is dropped
+  # in a follow-up PR.
+  def legacy_context_id
+    "#{lms_context_id}::#{lms_resource_link_id}"
   end
-
-  def make_post_request(path, body)
-    response = @conn.post(path, body)
-    raise LtiaasClientError.new(response.body, response.status) unless response.success?
-    return response.body
-  end
-
-  def determine_line_item_id
-    unless @idtoken['services']['assignmentAndGrades']['available']
-      raise LtiGradingServiceUnavailable
-    end
-
-    line_item_id = @idtoken['services']['assignmentAndGrades']['lineItemId']
-    return line_item_id unless line_item_id.nil? || line_item_id.empty?
-
-    resource_link_id = @idtoken['launch']['resourceLink']['id']
-    line_items = make_get_request("/api/lineitems?resourceLinkId#{resource_link_id}")['lineItems']
-    return line_items.first['id'] unless line_items.empty?
-
-    line_item = {
-      'label' => 'WikiEdu Account Creation',
-      'resourceLinkId' => resource_link_id,
-      'scoreMaximum' => SCORE_MAXIMUM
-    }
-    return make_post_request('/api/lineitems', line_item)['id']
-  end
-
-  class LtiaasClientError < StandardError
-    attr_reader :response_body, :status_code
-
-    def initialize(response_body, status_code)
-      @response_body = response_body
-      @status_code = status_code
-      super("LTIAAS Request failed: #{response_body}")
-    end
-  end
-
-  class LtiGradingServiceUnavailable < StandardError; end
 end
