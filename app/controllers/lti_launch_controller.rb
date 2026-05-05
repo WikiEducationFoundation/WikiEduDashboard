@@ -55,6 +55,7 @@ class LtiLaunchController < ApplicationController
       gradebook_granularity: params[:gradebook_granularity]
     )
     LtiRosterSyncWorker.perform_async(@binding.id)
+    LtiLineItemSyncWorker.perform_async(@binding.id)
     redirect_to "/courses/#{course_from_params.slug}"
   end
 
