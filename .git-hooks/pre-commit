@@ -11,7 +11,11 @@ staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.rb$')
 [ -z "$staged" ] && exit 0
 
 echo "Running RuboCop on staged Ruby files..."
-bundle exec rubocop --no-color $staged
+# --force-exclusion makes RuboCop honor AllCops/Exclude in .rubocop.yml even
+# when files are passed explicitly. Without it, files like db/schema.rb and
+# config/routes.rb (both in the project's Exclude list) get scanned anyway,
+# flagging pre-existing offenses on lines unrelated to a given commit.
+bundle exec rubocop --no-color --force-exclusion $staged
 
 if [ $? -ne 0 ]; then
   echo "Linting failed. Please fix the offenses before committing."
