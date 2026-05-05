@@ -1,0 +1,8 @@
+.container.narrow
+  .section-header
+    %h3= t('lti.setup_pending.header', default: 'Wiki Education Dashboard is being set up')
+  %p= t('lti.setup_pending.explanation', default: 'Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor.')
+  .lti-escape-hatch
+    = link_to t('lti.escape.button', default: 'Open in a new tab'),
+              "/lti/escape?ltik=#{CGI.escape(params[:ltik].to_s)}",
+              target: '_blank', rel: 'noopener', class: 'button'
