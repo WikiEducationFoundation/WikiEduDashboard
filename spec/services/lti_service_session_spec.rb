@@ -79,11 +79,6 @@ describe LtiServiceSession do
   end
 
   describe 'unimplemented verbs' do
-    it 'raises for upsert_line_item (PR 4)' do
-      expect { service.upsert_line_item(label: 'x') }
-        .to raise_error(NotImplementedError, /PR 4/)
-    end
-
     it 'raises for post_score (PR 5)' do
       expect do
         service.post_score(lineitem_id: 'id', user_lti_id: 'u', score_given: 1.0)

@@ -25,6 +25,13 @@ class Block < ApplicationRecord
   serialize :training_module_ids, type: Array
   default_scope { includes(:week, :course) }
 
+  # If this block belongs to a course bound to Canvas via LTIAAS, fire a
+  # debounced line-item sync so changes to block titles, training_module_ids,
+  # or due_date propagate to the Canvas gradebook column set. The 2-minute
+  # delay collapses bulk edits (e.g. wizard re-runs, manual rearrangements)
+  # under sidekiq-unique-jobs' :until_executed lock.
+  after_commit :enqueue_lti_line_item_sync, on: %i[create update destroy]
+
   KINDS = {
     'in_class'   => 0,
     'assignment' => 1,
@@ -50,5 +57,14 @@ class Block < ApplicationRecord
 
   def calculated_due_date
     date_manager.due_date
+  end
+
+  private
+
+  def enqueue_lti_line_item_sync
+    binding = LtiCourseBinding.find_by(course_id: course&.id)
+    return unless binding
+
+    LtiLineItemSyncWorker.perform_in(2.minutes, binding.id)
   end
 end
