@@ -54,6 +54,7 @@ class LtiLaunchController < ApplicationController
       course: course_from_params,
       gradebook_granularity: params[:gradebook_granularity]
     )
+    LtiRosterSyncWorker.perform_async(@binding.id)
     redirect_to "/courses/#{course_from_params.slug}"
   end
 
@@ -64,6 +65,7 @@ class LtiLaunchController < ApplicationController
   end
 
   def handle_instructor_launch
+    LtiRosterSyncWorker.perform_async(@binding.id) if @binding.course
     return redirect_to "/courses/#{@binding.course.slug}" if @binding.course
 
     render 'lti_launch/setup'

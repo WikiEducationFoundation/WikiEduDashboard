@@ -27,8 +27,15 @@ class LtiaasClient
     new(domain:, auth_header: "LTIK-AUTH-V2 #{api_key}:#{ltik}")
   end
 
-  def self.with_service_auth(domain, service_auth_token)
-    new(domain:, auth_header: "Bearer #{service_auth_token}")
+  # SERVICE-AUTH-V1 is LTIAAS's launch-independent auth scheme. The
+  # service_key is retrieved from `idtoken.services.serviceKey` during a
+  # launch and persisted on the LtiCourseBinding; it does not expire but
+  # should be refreshed on every launch (the underlying NRPS/AGS endpoint
+  # URLs may change). The api_key is the same long-lived account API key
+  # used for LTIK auth.
+  # See https://docs.ltiaas.com/guides/api/authentication
+  def self.with_service_auth(domain, api_key, service_key)
+    new(domain:, auth_header: "SERVICE-AUTH-V1 #{api_key}:#{service_key}")
   end
 
   def initialize(domain:, auth_header:)

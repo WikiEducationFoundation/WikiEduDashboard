@@ -32,6 +32,7 @@ describe LtiSession do
         }
       },
       'services' => {
+        'serviceKey' => 'svc-key-from-launch',
         'namesAndRoles' => {
           'contextMembershipsUrl' =>
             'https://canvas.example.com/api/lti/courses/1/names_and_roles'
@@ -115,6 +116,22 @@ describe LtiSession do
 
       expect(second.id).to eq(first.id)
       expect(LtiCourseBinding.count).to eq(1)
+    end
+
+    it 'captures the serviceKey from the idtoken onto the binding' do
+      binding = lti_session.find_or_create_binding!
+      expect(binding.ltiaas_service_credentials).to eq('svc-key-from-launch')
+    end
+
+    it 'refreshes the serviceKey on every launch' do
+      lti_session.find_or_create_binding!
+      idtoken['services']['serviceKey'] = 'svc-key-rotated'
+      stub_request(:get, idtoken_url)
+        .to_return(status: 200, body: idtoken.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+
+      binding = described_class.new(domain, api_key, ltik).find_or_create_binding!
+      expect(binding.ltiaas_service_credentials).to eq('svc-key-rotated')
     end
   end
 
