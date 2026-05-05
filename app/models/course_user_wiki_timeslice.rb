@@ -34,6 +34,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
   }
 
   serialize :user_ids, type: Array # This text field only stores user ids as text
+  serialize :stats, type: Hash
 
   #################
   # Class methods #
@@ -76,8 +77,8 @@ class CourseUserWikiTimeslice < ApplicationRecord
     tracked_namespace_revisions = live_revisions_in_tracked_namespaces
     update_character_sum(@liverevisions, tracked_namespace_revisions)
     self.references_count = references_sum(tracked_namespace_revisions)
-
     self.revision_count = filtered_live_revisions.size || 0
+    update_wikidata_stats
     save
   end
 
@@ -141,6 +142,11 @@ class CourseUserWikiTimeslice < ApplicationRecord
 
     # Sum characters
     filtered_revisions.sum(&:characters)
+  end
+
+  def update_wikidata_stats
+    return unless wiki.project == 'wikidata'
+    self.stats = UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(@revisions)
   end
 
   def references_sum(revisions)
