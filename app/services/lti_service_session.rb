@@ -91,13 +91,28 @@ class LtiServiceSession
     items
   end
 
+  # POST /api/lineitems/{urlencoded(lineitem_id)}/scores — submits a
+  # student's score on one line item. Per LTIAAS docs (and LTI Advantage
+  # AGS), `userId`, `activityProgress`, `gradingProgress` are required.
+  # `scoreGiven` and `scoreMaximum` come together when the score should
+  # update the gradebook. `comment` is a free-form text field surfaced in
+  # the Canvas gradebook (we use it for sandbox URLs and lateness flags).
+  # 204 No Content on success.
+  # See https://docs.ltiaas.com/guides/api/manipulating-grades/
   # rubocop:disable Metrics/ParameterLists
   def post_score(lineitem_id:, user_lti_id:, score_given:, score_maximum: 1.0,
                  comment: nil, activity_progress: 'Completed',
                  grading_progress: 'FullyGraded', timestamp: Time.current)
-    _ = [lineitem_id, user_lti_id, score_given, score_maximum, comment,
-         activity_progress, grading_progress, timestamp]
-    raise NotImplementedError, 'post_score lands in PR 5 (grade sync)'
+    body = {
+      userId: user_lti_id,
+      scoreGiven: score_given,
+      scoreMaximum: score_maximum,
+      activityProgress: activity_progress,
+      gradingProgress: grading_progress,
+      timestamp: timestamp.iso8601
+    }
+    body[:comment] = comment if comment.present?
+    @client.post("/api/lineitems/#{CGI.escape(lineitem_id)}/scores", body)
   end
   # rubocop:enable Metrics/ParameterLists
 
