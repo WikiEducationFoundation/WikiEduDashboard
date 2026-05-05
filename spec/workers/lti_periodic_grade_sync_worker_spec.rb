@@ -13,6 +13,7 @@ describe LtiPeriodicGradeSyncWorker do
   let!(:no_creds_course) { create(:course, slug: 'school/no_creds_(term)') }
 
   before do
+    allow(Features).to receive(:canvas_integration?).and_return(true)
     LtiCourseBinding.create!(
       course: active_course, lms_id: 'p1', lms_family: 'canvas',
       lms_context_id: 'c1', lms_resource_link_id: 'r1',

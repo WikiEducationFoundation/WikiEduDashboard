@@ -12,6 +12,7 @@ describe LtiDailyRosterSyncWorker do
   end
 
   before do
+    allow(Features).to receive(:canvas_integration?).and_return(true)
     LtiCourseBinding.create!(
       course: in_window_course, lms_id: 'p1', lms_family: 'canvas',
       lms_context_id: 'c1', lms_resource_link_id: 'r1',
