@@ -21,6 +21,7 @@ const CourseStatsDownloadModal = ({ course }) => {
   const studentsCsvLink = `/course_students_csv?course=${course.slug}`;
   const articlesCsvLink = `/course_articles_csv?course=${course.slug}`;
   const wikidataCsvLink = `/course_wikidata_csv?course=${course.slug}`;
+  const wikidataEditorsCsvLink = `/course_wikidata_editors_csv?course=${course.slug}`;
 
   let wikidataLink;
   if (course.course_stats && course.home_wiki.project === 'wikidata') {
@@ -30,6 +31,11 @@ const CourseStatsDownloadModal = ({ course }) => {
         <p>
           <a href={wikidataCsvLink} className="button right">{I18n.t('courses.data_wikidata')}</a>
           {I18n.t('courses.data_wikidata_info')}
+        </p>
+        <hr />
+        <p>
+          <a href={wikidataEditorsCsvLink} className="button right">{I18n.t('courses.data_wikidata_editors')}</a>
+          {I18n.t('courses.data_wikidata_editors_info')}
         </p>
       </>
     );
