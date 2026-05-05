@@ -78,19 +78,31 @@ class LtiSession
       @idtoken.dig('services', 'assignmentAndGrades', 'lineitemsUrl')
   end
 
+  # The service-auth key captured from this launch's idtoken. Long-lived
+  # but per LTIAAS docs should be refreshed into the binding on every
+  # launch in case the underlying NRPS/AGS endpoint URLs have changed.
+  # See https://docs.ltiaas.com/guides/api/authentication
+  def service_key
+    @idtoken.dig('services', 'serviceKey')
+  end
+
   # Looks up or creates the LtiCourseBinding for this launch. The binding's
   # `course_id` is left nil; the controller's setup flow populates it once
-  # the instructor links to or creates a Dashboard course.
+  # the instructor links to or creates a Dashboard course. Snapshot fields
+  # (service_key, NRPS/AGS URLs, lms_family) are refreshed on every launch
+  # so background-job credentials track the most recent launch.
   def find_or_create_binding!
-    LtiCourseBinding.find_or_create_by!(
+    binding = LtiCourseBinding.find_or_initialize_by(
       lms_id:,
       lms_context_id:,
       lms_resource_link_id:
-    ) do |binding|
-      binding.lms_family = lms_family
-      binding.nrps_url = nrps_url
-      binding.ags_lineitems_url = ags_lineitems_url
-    end
+    )
+    binding.lms_family = lms_family
+    binding.nrps_url = nrps_url
+    binding.ags_lineitems_url = ags_lineitems_url
+    binding.ltiaas_service_credentials = service_key if service_key.present?
+    binding.save!
+    binding
   end
 
   # Idempotently records that `current_user` is the Dashboard user for this

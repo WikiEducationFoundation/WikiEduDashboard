@@ -19,12 +19,28 @@ class LtiServiceSession
     @binding = binding
     @client = LtiaasClient.with_service_auth(
       ENV['LTIAAS_DOMAIN'],
+      ENV['LTIAAS_API_KEY'],
       binding.ltiaas_service_credentials
     )
   end
 
-  def fetch_memberships(_role: nil)
-    raise NotImplementedError, 'fetch_memberships lands in PR 3 (roster sync)'
+  # Fetch the LMS course roster via NRPS, paginating through all pages.
+  # Returns an array of member hashes with normalized keys:
+  #   { user_lti_id, name, email, given_name, family_name, picture,
+  #     roles: [...], status: 'Active' | 'Inactive' | 'Deleted' }
+  # See https://docs.ltiaas.com/api/get-memberships/
+  def fetch_memberships(role: nil)
+    members = []
+    path = role ? "/api/memberships?role=#{CGI.escape(role)}" : '/api/memberships'
+    loop do
+      response = @client.get(path)
+      members.concat(Array(response['members']).map { |m| normalize_member(m) })
+      next_url = response['next']
+      break if next_url.blank?
+
+      path = "/api/memberships?url=#{CGI.escape(next_url)}"
+    end
+    members
   end
 
   def upsert_line_item(label:, tag: nil, score_maximum: 1.0, due_date: nil, resource_id: nil)
@@ -53,4 +69,19 @@ class LtiServiceSession
     raise NotImplementedError, 'post_score lands in PR 5 (grade sync)'
   end
   # rubocop:enable Metrics/ParameterLists
+
+  private
+
+  def normalize_member(member)
+    {
+      user_lti_id: member['userId'],
+      name: member['name'],
+      email: member['email'],
+      given_name: member['givenName'],
+      family_name: member['familyName'],
+      picture: member['picture'],
+      roles: Array(member['roles']),
+      status: member['status']
+    }
+  end
 end

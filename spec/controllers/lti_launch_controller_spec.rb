@@ -28,6 +28,7 @@ describe LtiLaunchController, type: :request do
     stub_request(:get, idtoken_url)
       .to_return(status: 200, body: idtoken.to_json,
                  headers: { 'Content-Type' => 'application/json' })
+    allow(LtiRosterSyncWorker).to receive(:perform_async)
   end
 
   describe 'GET /lti' do
@@ -72,6 +73,12 @@ describe LtiLaunchController, type: :request do
         it 'redirects to the bound course' do
           get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to redirect_to("/courses/#{course.slug}")
+        end
+
+        it 'enqueues a roster sync' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(LtiRosterSyncWorker).to have_received(:perform_async)
+            .with(LtiCourseBinding.last.id)
         end
       end
     end
@@ -164,6 +171,15 @@ describe LtiLaunchController, type: :request do
         expect(binding.course).to eq(course)
         expect(binding.gradebook_granularity).to eq('per_block')
         expect(response).to redirect_to("/courses/#{course.slug}")
+      end
+
+      it 'enqueues a roster sync after binding' do
+        post '/lti/setup', params: {
+          binding_id: binding.id,
+          course_slug: course.slug,
+          gradebook_granularity: 'lumped'
+        }
+        expect(LtiRosterSyncWorker).to have_received(:perform_async).with(binding.id)
       end
     end
 

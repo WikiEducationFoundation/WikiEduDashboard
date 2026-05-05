@@ -3,51 +3,90 @@
 require 'rails_helper'
 
 describe LtiServiceSession do
+  let(:domain) { 'tenant.ltiaas.com' }
   let(:binding) do
     LtiCourseBinding.create!(
       lms_id: 'platform-x',
       lms_family: 'canvas',
       lms_context_id: 'canvas-course-77',
       lms_resource_link_id: 'rl-99',
-      ltiaas_service_credentials: 'svc-token'
+      ltiaas_service_credentials: 'svc-key'
     )
+  end
+
+  before do
+    ENV['LTIAAS_DOMAIN'] = domain
+    ENV['LTIAAS_API_KEY'] = 'api-key'
   end
 
   subject(:service) { described_class.new(binding) }
 
-  describe 'NRPS / AGS verbs (skeleton, real impl in PRs 3-5)' do
-    it 'raises NotImplementedError for fetch_memberships' do
-      expect { service.fetch_memberships }
-        .to raise_error(NotImplementedError, /PR 3/)
+  describe '#fetch_memberships' do
+    let(:memberships_url) { "https://#{domain}/api/memberships" }
+
+    def stub_memberships_page(url, body)
+      stub_request(:get, url)
+        .with(headers: {
+                'Authorization' => 'SERVICE-AUTH-V1 api-key:svc-key'
+              })
+        .to_return(status: 200, body: body.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
     end
 
-    it 'raises NotImplementedError for upsert_line_item' do
+    let(:page_one) do
+      {
+        'members' => [
+          { 'userId' => 'lti-1', 'name' => 'Alice', 'email' => 'alice@example.edu',
+            'roles' => ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor'],
+            'status' => 'Active' }
+        ],
+        'next' => 'https://lms.example.com/memberships?page=2'
+      }
+    end
+
+    let(:page_two) do
+      {
+        'members' => [
+          { 'userId' => 'lti-2', 'name' => 'Bob', 'email' => 'bob@example.edu',
+            'roles' => ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'],
+            'status' => 'Active' }
+        ]
+      }
+    end
+
+    it 'follows pagination via the response next field' do
+      stub_memberships_page(memberships_url, page_one)
+      stub_memberships_page(
+        "#{memberships_url}?url=#{CGI.escape('https://lms.example.com/memberships?page=2')}",
+        page_two
+      )
+
+      members = service.fetch_memberships
+      expect(members.size).to eq(2)
+      expect(members.first[:user_lti_id]).to eq('lti-1')
+      expect(members.first[:email]).to eq('alice@example.edu')
+      expect(members.first[:status]).to eq('Active')
+      expect(members.last[:user_lti_id]).to eq('lti-2')
+    end
+
+    it 'passes a role filter when provided' do
+      stub_memberships_page("#{memberships_url}?role=Learner", page_two)
+
+      members = service.fetch_memberships(role: 'Learner')
+      expect(members.size).to eq(1)
+      expect(members.first[:user_lti_id]).to eq('lti-2')
+    end
+  end
+
+  describe 'unimplemented verbs' do
+    it 'raises for upsert_line_item (PR 4)' do
       expect { service.upsert_line_item(label: 'x') }
         .to raise_error(NotImplementedError, /PR 4/)
     end
 
-    it 'raises NotImplementedError for update_line_item' do
-      expect { service.update_line_item('id', {}) }
-        .to raise_error(NotImplementedError, /PR 4/)
-    end
-
-    it 'raises NotImplementedError for delete_line_item' do
-      expect { service.delete_line_item('id') }
-        .to raise_error(NotImplementedError, /PR 4/)
-    end
-
-    it 'raises NotImplementedError for list_line_items' do
-      expect { service.list_line_items }
-        .to raise_error(NotImplementedError, /PR 4/)
-    end
-
-    it 'raises NotImplementedError for post_score' do
+    it 'raises for post_score (PR 5)' do
       expect do
-        service.post_score(
-          lineitem_id: 'id',
-          user_lti_id: 'u',
-          score_given: 1.0
-        )
+        service.post_score(lineitem_id: 'id', user_lti_id: 'u', score_given: 1.0)
       end.to raise_error(NotImplementedError, /PR 5/)
     end
   end
