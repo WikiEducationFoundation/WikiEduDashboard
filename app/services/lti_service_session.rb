@@ -43,21 +43,52 @@ class LtiServiceSession
     members
   end
 
-  def upsert_line_item(label:, tag: nil, score_maximum: 1.0, due_date: nil, resource_id: nil)
-    _ = [label, tag, score_maximum, due_date, resource_id]
-    raise NotImplementedError, 'upsert_line_item lands in PR 4 (line-item sync)'
+  # POST /api/lineitems — creates a new gradebook line item.
+  # Returns the lineitem `id` (a URL string) which we persist on
+  # LtiLineItem.lineitem_id for later PUT/score calls.
+  # See https://docs.ltiaas.com/guides/api/manipulating-grade-lines/
+  def upsert_line_item(label:, tag: nil, score_maximum: 1.0,
+                       resource_link_id: nil, resource_id: nil, end_date_time: nil)
+    body = { label:, scoreMaximum: score_maximum }
+    body[:tag] = tag if tag.present?
+    body[:resourceLinkId] = resource_link_id if resource_link_id.present?
+    body[:resourceId] = resource_id if resource_id.present?
+    body[:endDateTime] = end_date_time.iso8601 if end_date_time.present?
+    response = @client.post('/api/lineitems', body)
+    response['id']
   end
 
-  def update_line_item(_lineitem_id, _attrs)
-    raise NotImplementedError, 'update_line_item lands in PR 4 (line-item sync)'
+  # PUT /api/lineitems/{urlencoded(lineitem_id)} — replaces the line
+  # item's metadata. label and scoreMaximum are required by LTIAAS.
+  def update_line_item(lineitem_id, label:, score_maximum: 1.0)
+    @client.put(
+      "/api/lineitems/#{CGI.escape(lineitem_id)}",
+      label:, scoreMaximum: score_maximum
+    )
   end
 
-  def delete_line_item(_lineitem_id)
-    raise NotImplementedError, 'delete_line_item lands in PR 4 (line-item sync)'
+  # DELETE /api/lineitems/{urlencoded(lineitem_id)}.
+  # v1 grade-sync policy never calls this (we soft-archive locally
+  # instead, since deleting from LTIAAS destroys the corresponding
+  # Canvas gradebook column and its scores). Kept available for
+  # admin tooling.
+  def delete_line_item(lineitem_id)
+    @client.delete("/api/lineitems/#{CGI.escape(lineitem_id)}")
   end
 
-  def list_line_items
-    raise NotImplementedError, 'list_line_items lands in PR 4 (line-item sync)'
+  # GET /api/lineitems[?resourceLinkId=&tag=&...] — paginated.
+  def list_line_items(resource_link_id: nil, tag: nil)
+    items = []
+    path = base_lineitems_path(resource_link_id, tag)
+    loop do
+      response = @client.get(path)
+      items.concat(Array(response['lineItems']))
+      next_url = response['next']
+      break if next_url.blank?
+
+      path = "/api/lineitems?url=#{CGI.escape(next_url)}"
+    end
+    items
   end
 
   # rubocop:disable Metrics/ParameterLists
@@ -71,6 +102,15 @@ class LtiServiceSession
   # rubocop:enable Metrics/ParameterLists
 
   private
+
+  def base_lineitems_path(resource_link_id, tag)
+    params = {}
+    params[:resourceLinkId] = resource_link_id if resource_link_id.present?
+    params[:tag] = tag if tag.present?
+    return '/api/lineitems' if params.empty?
+
+    "/api/lineitems?#{params.to_query}"
+  end
 
   def normalize_member(member)
     {
