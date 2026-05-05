@@ -78,14 +78,6 @@ describe LtiServiceSession do
     end
   end
 
-  describe 'unimplemented verbs' do
-    it 'raises for post_score (PR 5)' do
-      expect do
-        service.post_score(lineitem_id: 'id', user_lti_id: 'u', score_given: 1.0)
-      end.to raise_error(NotImplementedError, /PR 5/)
-    end
-  end
-
   describe 'binding accessor' do
     it 'exposes the binding it was constructed with' do
       expect(service.binding).to eq(binding)
