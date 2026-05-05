@@ -12,6 +12,8 @@ class LtiDailyRosterSyncWorker
   GRACE_PERIOD = 30.days
 
   def perform
+    return unless Features.canvas_integration?
+
     LtiCourseBinding
       .joins(:course)
       .where('courses.end >= ?', Date.current - GRACE_PERIOD)

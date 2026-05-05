@@ -57,6 +57,14 @@ class Features
     !ENV['mailgun_key'].nil?
   end
 
+  # Gates the LTIAAS-mediated Canvas integration: launch endpoints,
+  # NRPS/AGS sync workers, and the Block/Wizard hooks that enqueue them.
+  # Default false so production stays inert until LTIAAS is registered
+  # with a live Canvas instance and the env var is flipped explicitly.
+  def self.canvas_integration?
+    ENV['canvas_integration_enabled'] == 'true'
+  end
+
   def self.site_notice
     Rails.cache.fetch('site_notice') do
       site_notice = Setting.find_by(key: 'site_notice')&.value.presence || {}
