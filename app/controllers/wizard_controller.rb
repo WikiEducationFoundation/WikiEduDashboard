@@ -56,6 +56,8 @@ class WizardController < ApplicationController
   # timeline shape changes which gradebook columns the binding should own.
   # Fire-and-forget; the worker has its own idempotency lock.
   def sync_lti_line_items_if_bound
+    return unless Features.canvas_integration?
+
     binding = LtiCourseBinding.find_by(course_id: @course&.id)
     return unless binding
 

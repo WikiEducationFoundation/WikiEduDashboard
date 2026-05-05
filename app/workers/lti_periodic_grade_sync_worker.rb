@@ -16,6 +16,8 @@ class LtiPeriodicGradeSyncWorker
   PER_CYCLE_LIMIT = 50
 
   def perform
+    return unless Features.canvas_integration?
+
     eligible_bindings.limit(PER_CYCLE_LIMIT).each do |binding|
       LtiGradeSyncWorker.perform_async(binding.id)
     end
