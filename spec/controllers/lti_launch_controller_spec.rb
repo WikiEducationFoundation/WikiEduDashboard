@@ -25,10 +25,12 @@ describe LtiLaunchController, type: :request do
   before do
     ENV['LTIAAS_DOMAIN'] = ltiaas_domain
     ENV['LTIAAS_API_KEY'] = 'k'
+    allow(Features).to receive(:canvas_integration?).and_return(true)
     stub_request(:get, idtoken_url)
       .to_return(status: 200, body: idtoken.to_json,
                  headers: { 'Content-Type' => 'application/json' })
     allow(LtiRosterSyncWorker).to receive(:perform_async)
+    allow(LtiLineItemSyncWorker).to receive(:perform_async)
   end
 
   describe 'GET /lti' do
@@ -217,6 +219,22 @@ describe LtiLaunchController, type: :request do
       get '/lti/escape', params: { ltik: 'ltik-abc' }
       expect(session['ltik']).to eq('ltik-abc')
       expect(response).to redirect_to('/users/auth/mediawiki')
+    end
+  end
+
+  describe 'feature flag gating' do
+    before do
+      allow(Features).to receive(:canvas_integration?).and_return(false)
+    end
+
+    it '404s on /lti when the flag is off' do
+      get '/lti', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it '404s on /lti/escape when the flag is off' do
+      get '/lti/escape', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

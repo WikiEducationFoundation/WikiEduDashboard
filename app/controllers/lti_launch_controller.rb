@@ -18,6 +18,7 @@
 # /lti/escape provides a top-level (non-iframe) version for the
 # Safari/Chrome 3PC fallback.
 class LtiLaunchController < ApplicationController
+  before_action :require_canvas_integration_enabled
   after_action :allow_iframe, only: %i[launch]
 
   def launch
@@ -99,5 +100,11 @@ class LtiLaunchController < ApplicationController
 
   def allow_iframe
     response.headers.except! 'X-Frame-Options'
+  end
+
+  def require_canvas_integration_enabled
+    return if Features.canvas_integration?
+
+    raise ActionController::RoutingError, 'Canvas integration is disabled'
   end
 end

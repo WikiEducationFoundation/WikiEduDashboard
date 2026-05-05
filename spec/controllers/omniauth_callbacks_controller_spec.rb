@@ -16,6 +16,7 @@ describe OmniauthCallbacksController, type: :request do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:mediawiki] = auth_hash
     Rails.application.env_config['omniauth.auth'] = auth_hash
+    allow(Features).to receive(:canvas_integration?).and_return(true)
     allow(UserImporter).to receive(:from_omniauth).and_return(user)
   end
 

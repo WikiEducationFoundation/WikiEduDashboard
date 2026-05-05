@@ -62,6 +62,8 @@ class Block < ApplicationRecord
   private
 
   def enqueue_lti_line_item_sync
+    return unless Features.canvas_integration?
+
     binding = LtiCourseBinding.find_by(course_id: course&.id)
     return unless binding
 
