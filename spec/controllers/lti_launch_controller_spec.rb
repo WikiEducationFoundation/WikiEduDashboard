@@ -47,9 +47,9 @@ describe LtiLaunchController, type: :request do
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Sign in to continue')
         # The button must break out of the iframe via target=_top, pointing
-        # at /lti/escape so OAuth happens in the top-level window.
+        # at /lti/connect_course so OAuth happens in the top-level window.
         expect(response.body).to include('target="_top"')
-        expect(response.body).to include('/lti/escape?ltik=ltik-abc')
+        expect(response.body).to include('/lti/connect_course?ltik=ltik-abc')
       end
 
       it 'does not touch session (cookies in iframes are partitioned)' do
@@ -218,19 +218,18 @@ describe LtiLaunchController, type: :request do
     end
   end
 
-  describe 'GET /lti/escape' do
+  describe 'GET /lti/connect_course' do
     it 'requires a ltik' do
-      get '/lti/escape'
+      get '/lti/connect_course'
       expect(response).to redirect_to('/errors/login_error')
     end
 
-    it 'renders an auto-POSTing form to omniauth-mediawiki with ltik' do
-      get '/lti/escape', params: { ltik: 'ltik-abc' }
+    it 'stashes the ltik in session and renders an auto-POSTing OAuth form' do
+      get '/lti/connect_course', params: { ltik: 'ltik-abc' }
       expect(response).to have_http_status(:ok)
+      expect(session['ltik']).to eq('ltik-abc')
       expect(response.body).to include('action="/users/auth/mediawiki"')
       expect(response.body).to include('method="post"')
-      expect(response.body).to include('name="ltik"')
-      expect(response.body).to include('value="ltik-abc"')
       # Form auto-submits via JS so users with cookies enabled never see
       # the manual fallback button.
       expect(response.body).to include('document.getElementById')
@@ -247,8 +246,8 @@ describe LtiLaunchController, type: :request do
       expect(response).to have_http_status(:not_found)
     end
 
-    it '404s on /lti/escape when the flag is off' do
-      get '/lti/escape', params: { ltik: 'ltik-abc' }
+    it '404s on /lti/connect_course when the flag is off' do
+      get '/lti/connect_course', params: { ltik: 'ltik-abc' }
       expect(response).to have_http_status(:not_found)
     end
   end
