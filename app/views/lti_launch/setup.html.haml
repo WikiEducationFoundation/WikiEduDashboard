@@ -4,7 +4,7 @@
   .lti-escape-hatch
     %p= t('lti.escape.hint', default: 'If buttons or forms below stop working, your browser may be blocking cookies inside the Canvas iframe. Open in a new tab to continue.')
     = link_to t('lti.escape.button', default: 'Open in a new tab'),
-              "/lti/escape?ltik=#{CGI.escape(params[:ltik].to_s)}",
+              "/lti/connect_course?ltik=#{CGI.escape(params[:ltik].to_s)}",
               target: '_blank', rel: 'noopener', class: 'button'
   %hr
   = form_with url: '/lti/setup', method: :post, local: true do |f|

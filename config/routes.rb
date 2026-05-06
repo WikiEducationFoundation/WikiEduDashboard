@@ -446,7 +446,7 @@ Rails.application.routes.draw do
 
     # LTI
   get 'lti' => 'lti_launch#launch'
-  get 'lti/escape' => 'lti_launch#escape_iframe'
+  get 'lti/connect_course' => 'lti_launch#connect_course'
   post 'lti/setup' => 'lti_launch#complete_setup'
 
   # frequenty asked questions

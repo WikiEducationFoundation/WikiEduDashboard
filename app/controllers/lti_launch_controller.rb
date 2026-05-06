@@ -5,12 +5,15 @@
 # Flow:
 #   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.
 #   2. If no current_user, render `sign_in_to_continue` — a tiny iframe view
-#      with a `target=_top` link to /lti/escape?ltik=... (browsers refuse
-#      to frame Wikipedia OAuth, so we have to break out of the iframe).
-#   3. /lti/escape runs at top-level. Without a current_user, it renders
-#      an auto-submitting POST form to Devise's omniauth-mediawiki, with
-#      the ltik tucked into omniauth.params. After OAuth, the callback
-#      resumes the launch by redirecting to /lti?ltik=... at top level.
+#      with a `target=_top` link to /lti/connect_course?ltik=... (browsers
+#      refuse to frame Wikipedia OAuth, so we have to break out of the
+#      iframe).
+#   3. /lti/connect_course runs at top-level. Without a current_user, it
+#      stashes the ltik in session and renders an auto-submitting POST
+#      form to Devise's omniauth-mediawiki. After OAuth, the callback
+#      reads the ltik back from session and redirects to /lti?ltik=...
+#      at top level — so the user lands on a clean URL, not on
+#      /lti/connect_course.
 #   4. With a current_user, build an LtiSession, look up or create the
 #      LtiCourseBinding, and link the user via LtiContext. Then:
 #      - Instructor + bound course => redirect to course slug
@@ -36,11 +39,11 @@ class LtiLaunchController < ApplicationController
     @lti_session.instructor? ? handle_instructor_launch : handle_student_launch
   end
 
-  def escape_iframe
+  def connect_course
     return redirect_to errors_login_error_path if params[:ltik].blank?
 
     unless current_user
-      @ltik = params[:ltik]
+      session['ltik'] = params[:ltik]
       return render 'lti_launch/oauth_redirect'
     end
 
