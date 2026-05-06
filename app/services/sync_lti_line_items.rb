@@ -107,10 +107,16 @@ class SyncLtiLineItems
   end
 
   def create_line_item(gradable_type, gradable_id, label)
+    # Create as a course-level line item (no resourceLinkId). Canvas's
+    # course-navigation placement assigns a resource_link_id that isn't
+    # an AGS-eligible Lti::ResourceLink record on the platform side, so
+    # passing it makes Canvas reject the create with "resource does not
+    # exist" 404. The `tag` (gradable_type[:gradable_id]) is what we use
+    # to identify our line items locally and via list filters; we don't
+    # need a resourceLinkId for any of our operations.
     lineitem_id = @service.upsert_line_item(
       label:,
-      tag: tag_for(gradable_type, gradable_id),
-      resource_link_id: @binding.lms_resource_link_id
+      tag: tag_for(gradable_type, gradable_id)
     )
     LtiLineItem.create!(
       lti_course_binding: @binding,
