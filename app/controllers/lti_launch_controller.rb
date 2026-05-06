@@ -3,20 +3,20 @@
 # Entry point for LTI 1.3 launches from an LMS, mediated by LTIAAS.
 #
 # Flow:
-#   1. /lti?ltik=... — primary launch endpoint
-#   2. If no current_user, stash the ltik in session and bounce to
-#      Wikipedia OAuth; on return the OmniauthCallbacksController
-#      restores the ltik and redirects back here.
-#   3. With a current_user, build an LtiSession, look up or create the
-#      LtiCourseBinding, and link the user via LtiContext.
-#   4. Branch on instructor vs. student:
+#   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.
+#   2. If no current_user, render `sign_in_to_continue` — a tiny iframe view
+#      with a `target=_top` link to /lti/escape?ltik=... (browsers refuse
+#      to frame Wikipedia OAuth, so we have to break out of the iframe).
+#   3. /lti/escape runs at top-level. Without a current_user, it renders
+#      an auto-submitting POST form to Devise's omniauth-mediawiki, with
+#      the ltik tucked into omniauth.params. After OAuth, the callback
+#      resumes the launch by redirecting to /lti?ltik=... at top level.
+#   4. With a current_user, build an LtiSession, look up or create the
+#      LtiCourseBinding, and link the user via LtiContext. Then:
 #      - Instructor + bound course => redirect to course slug
 #      - Instructor + unbound      => render the setup view
 #      - Student + bound course    => enroll (if needed) and redirect
 #      - Student + unbound         => "instructor isn't done yet" view
-#
-# /lti/escape provides a top-level (non-iframe) version for the
-# Safari/Chrome 3PC fallback.
 class LtiLaunchController < ApplicationController
   before_action :require_canvas_integration_enabled
   after_action :allow_iframe, only: %i[launch]
@@ -25,8 +25,8 @@ class LtiLaunchController < ApplicationController
     return redirect_to errors_login_error_path if params[:ltik].blank?
 
     unless current_user
-      session['ltik'] = params[:ltik]
-      return redirect_to user_mediawiki_omniauth_authorize_path
+      @ltik = params[:ltik]
+      return render 'lti_launch/sign_in_to_continue'
     end
 
     @lti_session = build_lti_session(params[:ltik])
@@ -40,8 +40,8 @@ class LtiLaunchController < ApplicationController
     return redirect_to errors_login_error_path if params[:ltik].blank?
 
     unless current_user
-      session['ltik'] = params[:ltik]
-      return redirect_to user_mediawiki_omniauth_authorize_path
+      @ltik = params[:ltik]
+      return render 'lti_launch/oauth_redirect'
     end
 
     launch
