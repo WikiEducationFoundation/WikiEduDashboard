@@ -1,0 +1,12 @@
+- # Auto-submitting form that POSTs to Devise omniauth-mediawiki at top
+- # level. The hidden ltik field travels through omniauth.params so the
+- # callback can resume the LTI launch after Wikipedia OAuth.
+.container.narrow
+  .section-header
+    %h3= t('lti.oauth_redirect.header', default: 'Redirecting to Wikipedia…')
+  = form_with url: '/users/auth/mediawiki', method: :post, local: true, id: 'lti-oauth-form' do
+    = hidden_field_tag :ltik, @ltik
+    %p= t('lti.oauth_redirect.explanation', default: "If you aren't redirected automatically, click the button below.")
+    %button.button{ type: 'submit' }= t('lti.oauth_redirect.button', default: 'Continue to Wikipedia sign-in')
+:javascript
+  document.getElementById('lti-oauth-form').submit();
