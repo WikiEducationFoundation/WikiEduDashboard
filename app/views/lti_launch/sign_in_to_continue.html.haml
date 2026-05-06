@@ -1,0 +1,8 @@
+.container.narrow
+  .section-header
+    %h3= t('lti.sign_in_to_continue.header', default: 'Sign in to continue')
+  .module
+    %p= t('lti.sign_in_to_continue.explanation', default: 'To finish setting up the Wiki Education Dashboard for this Canvas course, sign in with your Wikipedia account in a new top-level window. Browsers block sign-in inside Canvas iframes, so this step has to happen outside the iframe.')
+    = link_to t('lti.sign_in_to_continue.button', default: 'Sign in with Wikipedia'),
+              "/lti/escape?ltik=#{CGI.escape(@ltik.to_s)}",
+              target: '_top', rel: 'noopener', class: 'button'
