@@ -70,16 +70,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   # If the user was bounced through Wikipedia OAuth from an LTI launch,
-  # /lti/escape posted the ltik into omniauth.params via a hidden form
-  # field. Resume the launch by rewriting omniauth.origin so
-  # after_sign_in_path_for sends them back to /lti?ltik=... — at top
-  # level, since the escape flow already broke out of the iframe.
-  #
-  # Session can't be used as the carrier here: cookies set inside the
-  # Canvas iframe are partitioned away from the top-level cookie jar,
-  # so they aren't visible after the iframe→top transition.
+  # `LtiLaunchController#connect_course` stashed the ltik in session
+  # before kicking off OAuth. Resume the launch by rewriting
+  # omniauth.origin so after_sign_in_path_for sends them back to
+  # /lti?ltik=... at top level (the connect_course flow already broke
+  # out of the LMS iframe, so the session cookie is the normal
+  # first-party one and survives the OAuth round-trip).
   def restore_lti_origin
-    ltik = request.env.dig('omniauth.params', 'ltik').presence
+    ltik = session.delete('ltik')
     return if ltik.blank?
 
     request.env['omniauth.origin'] = "/lti?ltik=#{CGI.escape(ltik)}"

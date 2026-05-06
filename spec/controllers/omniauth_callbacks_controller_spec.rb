@@ -23,27 +23,22 @@ describe OmniauthCallbacksController, type: :request do
   after { OmniAuth.config.test_mode = false }
 
   describe '#mediawiki — LTI return path' do
-    # OmniAuth test mode bypasses the middleware that would normally
-    # populate omniauth.params during the auth request phase, and our
-    # test hits the callback URL directly. Inject the params via a
-    # before-callback hook so the controller sees what production sees.
-    def stub_omniauth_params(params)
-      OmniAuth.config.before_callback_phase = ->(env) { env['omniauth.params'] = params }
-    end
+    context "with a stashed ltik in session" do
+      before do
+        # Prime the session by hitting /lti/connect_course at top-level.
+        # That action stashes the ltik so the OAuth callback can read it.
+        get '/lti/connect_course', params: { ltik: 'ltik-from-canvas' }
+      end
 
-    after { OmniAuth.config.before_callback_phase = nil }
-
-    context "when ltik came through omniauth.params" do
       it "rewrites omniauth.origin so after_sign_in returns to /lti?ltik=…" do
-        stub_omniauth_params('ltik' => 'ltik-from-canvas')
         get '/users/auth/mediawiki/callback'
         expect(response).to redirect_to('/lti?ltik=ltik-from-canvas')
+        expect(session['ltik']).to be_nil
       end
     end
 
-    context "without an ltik in omniauth.params" do
+    context "without a stashed ltik" do
       it 'does not interfere with the normal sign-in redirect' do
-        stub_omniauth_params({})
         get '/users/auth/mediawiki/callback'
         expect(response).to be_redirect
         # The normal flow may go anywhere reasonable (root, profile, etc.) —
