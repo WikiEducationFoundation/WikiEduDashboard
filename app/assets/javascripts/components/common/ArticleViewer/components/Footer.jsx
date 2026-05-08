@@ -7,7 +7,8 @@ import { printArticleViewer } from '../../../../utils/article_viewer';
 
 export const Footer = ({
   article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
-  whoColorFailed, users, unhighlightedContributors, revisionId, toggleRevisionHandler, pendingRequest
+  whoColorFailed, users, unhighlightedContributors, revisionId, toggleRevisionHandler, pendingRequest, viewerSettings,
+  setModalOpen, showViewerSettings
 }) => {
   // Determine the Article Viewer Legend status based on what information
   // has returned from various API calls.
@@ -30,6 +31,7 @@ export const Footer = ({
         status={legendStatus}
         failureMessage={failureMessage}
         unhighlightedContributors={unhighlightedContributors}
+        viewerSettings={viewerSettings}
       />
     );
   }
@@ -55,14 +57,23 @@ export const Footer = ({
     </div>
   );
 
+  const viewer_settings_icon = (
+    <button
+      aria-label={I18n.t('courses.article_viewer_settings.title')}
+      className="icon-settings_view icon-settings"
+      onClick={() => setModalOpen(true)}
+    />
+  );
+
+
   return (
     <div
       className="article-footer"
       style={{
-      display: 'flex',
-      alignItems: 'center',
-      padding: '0 1em',
-    }}
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 1em',
+      }}
     >
       {articleViewerLegend}
       <div
@@ -98,6 +109,8 @@ export const Footer = ({
         >
           {I18n.t('application.print')}
         </button>
+        {
+          showViewerSettings && viewer_settings_icon}
       </div>
     </div>
   );
@@ -111,7 +124,9 @@ Footer.propTypes = {
   highlightedHtml: PropTypes.string,
   isWhocolorLang: PropTypes.func.isRequired,
   whocolorFailed: PropTypes.bool,
-  users: PropTypes.array
+  users: PropTypes.array,
+  showViewerSettings: PropTypes.bool,
+  setModalOpen: PropTypes.func
 };
 
 export default Footer;
