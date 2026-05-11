@@ -1,11 +1,19 @@
 # frozen_string_literal: true
 
 # Computes a single (Block, User) AGS score payload for the LTIAAS grade
-# sync. A block scores 1.0/1.0 if every TrainingModule attached to it is
-# considered complete for that user; 0.0/1.0 otherwise. v1 considers a
+# sync. A block scores 1.0/1.0 if every considered TrainingModule attached
+# to it is complete for that user; 0.0/1.0 otherwise. v1 considers a
 # training-kind module complete when TrainingModulesUsers.completed_at is
 # set, and an exercise-kind module complete when
 # `flags[course_id][:marked_complete]` is truthy.
+#
+# Pass `exercises_only: true` when grading the lumped-mode per-block
+# exercise column: training-kind modules in the block belong to the
+# lumped "Wikipedia trainings" column, so requiring them here too would
+# double-count and zero out the exercise column on mixed-content blocks
+# until the surrounding trainings happen to be complete. In per-block
+# mode the binding represents the whole block as a single cell, so the
+# default all-or-nothing behavior across every module kind stays.
 #
 # The comment field carries:
 #   - A "[Late]" marker prefix when the block has a calculated due date in
@@ -24,11 +32,13 @@ class LtiBlockProgress
 
   SCORE_MAXIMUM = 1.0
 
-  def initialize(block, user)
+  def initialize(block, user, exercises_only: false)
     @block = block
     @user = user
     @course = block.course
-    @training_modules = block.training_modules.to_a
+    modules = block.training_modules.to_a
+    modules = modules.select(&:exercise?) if exercises_only
+    @training_modules = modules
     @score_maximum = SCORE_MAXIMUM
     @score_given = compute_score
     @comment = compute_comment
