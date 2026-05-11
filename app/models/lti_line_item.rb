@@ -10,7 +10,6 @@
 #  lineitem_id              :string(512)      not null
 #  label                    :string(255)
 #  score_maximum            :decimal(10, 4)   default(1.0), not null
-#  last_pushed_signature    :string(255)
 #  archived_at              :datetime
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
