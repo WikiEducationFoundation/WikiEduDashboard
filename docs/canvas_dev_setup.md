@@ -402,15 +402,14 @@ in `config/application.yml`. Default is `'false'` so production stays inert unti
 
 Once the LTIAAS tool is installed, `canvas_integration_enabled` is `true`, and the dashboard is reachable from your test Canvas:
 
-1. **Instructor first launch**. As an instructor, click the "Wiki Education Dashboard" tab in a Canvas test course. Expect to land on `/lti?ltik=...` and see the setup view. If you're not signed in to the dashboard, you should be bounced to Wikipedia OAuth and returned to the setup view after sign-in.
-2. **Bind to a dashboard course**. In the setup view, enter the slug of a dashboard course you're already an instructor on, pick a gradebook granularity (lumped is the default), and submit. Expect a redirect to `/courses/<slug>`.
+1. **Instructor first launch**. As an instructor, click the "Wiki Education Dashboard" tab in a Canvas test course. Inside the Canvas iframe you'll see a minimal landing page (centered Wiki Ed wordmark + one button "Open the Wiki Education Dashboard"). Clicking the button opens `/lti/connect_course?ltik=...` in a new tab (via `target=_blank`), leaving the Canvas page in place. If you're not signed in to the dashboard, you'll be bounced through Wikipedia OAuth at top level in the new tab and returned to `/lti?ltik=...` and the setup view after sign-in.
+2. **Bind to a dashboard course**. In the setup view, pick one of your active or upcoming Wiki Education courses from the dropdown (or use the "Create a Wiki Education course" link to open the dashboard in a new tab if you don't have one yet), pick a gradebook granularity (lumped is the default), and submit. Expect a redirect to `/courses/<slug>`.
 3. **Roster sync**. Within a few seconds of the bind, every Canvas course member should appear as an `LtiContext` row (`LtiContext.where(lti_course_binding_id: <id>)` in a Rails console). Members whose email matches a dashboard `User.email` should also appear as `CoursesUsers` enrolments.
 4. **Line-item sync**. Within ~2 minutes of any timeline change (or immediately after the bind), the Canvas gradebook should show columns matching the binding's granularity:
    - **Lumped**: one "Wikipedia trainings" column + one column per exercise block.
    - **Per-block**: one column per training-bearing or exercise-bearing block (`Wk1 Get started`, `Wk3 Bibliography`, etc.).
-5. **Student first launch**. As a student in the Canvas course, click the tab. Expect the OAuth bounce on first launch, then a redirect to `/courses/<slug>`. Subsequent launches go straight to the course.
-6. **Grade passback**. Complete a training module on the dashboard. Within 30 minutes, expect a `1.0` in the Canvas gradebook (with a `<count> of <total> trainings completed` score comment in lumped mode). Mark an exercise complete and expect a `1.0` plus the sandbox URL in the score comment.
-7. **Iframe escape hatch**. If your browser blocks third-party cookies (Safari, Chrome with strict 3PC), the iframe view will still render but the inline form may not submit. Click the "Open in a new tab" button on any setup view to continue in a top-level window via `/lti/escape?ltik=...`.
+5. **Student first launch**. As a student in the Canvas course, click the tab. Same minimal iframe landing → top-level handoff → Wikipedia OAuth on first launch → redirect to `/courses/<slug>` with the student enrolled. Subsequent launches skip the OAuth step (top-level session cookie carries them through).
+6. **Grade passback**. Complete a training module on the dashboard. Within 30 minutes, expect a fractional score in the Canvas gradebook (lumped mode pushes `completed_count / total_count` with a `<count> of <total> trainings completed` score comment). Mark an exercise complete and expect a `1.0` plus the sandbox URL in the score comment. Per-(student, line item) dedup ensures unchanged state doesn't produce redundant Canvas submission attempts.
 
 ## Production rollout checklist
 
