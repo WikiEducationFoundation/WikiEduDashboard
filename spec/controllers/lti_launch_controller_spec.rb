@@ -185,6 +185,46 @@ describe LtiLaunchController, type: :request do
           expect(response).to redirect_to("/courses/#{course.slug}")
         end
       end
+
+      context 'with a bound course that has not yet been approved' do
+        before do
+          # No campaign attached → JoinCourse#student_joining_before_approval?
+          # returns true → enrollment is silently skipped without our handling.
+          LtiCourseBinding.create!(
+            course: course, lms_id: 'platform-x', lms_family: 'canvas',
+            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+          )
+        end
+
+        it 'renders the pending-approval view and does not enroll the student' do
+          expect { get '/lti', params: { ltik: 'ltik-abc' } }
+            .not_to change(CoursesUsers, :count)
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('awaiting Wiki Education approval')
+        end
+      end
+
+      context 'with a bound course that has been withdrawn' do
+        before do
+          course.campaigns << Campaign.first
+          course.update!(withdrawn: true)
+          LtiCourseBinding.create!(
+            course: course, lms_id: 'platform-x', lms_family: 'canvas',
+            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+          )
+          allow(Sentry).to receive(:capture_message)
+        end
+
+        it 'renders the generic enrollment-error view and reports to Sentry' do
+          expect { get '/lti', params: { ltik: 'ltik-abc' } }
+            .not_to change(CoursesUsers, :count)
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include("Couldn&#39;t enroll")
+          expect(Sentry).to have_received(:capture_message)
+            .with('LTI student launch JoinCourse failure',
+                  hash_including(extra: hash_including(failure: 'withdrawn')))
+        end
+      end
     end
 
     it 'allows the response to render in an iframe' do
