@@ -416,14 +416,12 @@ Once the LTIAAS tool is installed, `canvas_integration_enabled` is `true`, and t
 
 Before flipping `canvas_integration_enabled` to `'true'` in production:
 
-1. **LTIAAS prod tenant registered against the production Canvas (canvas.wikiedu.org)** with NRPS, AGS line items, and AGS scores scopes enabled.
-2. **`config/security.yml`** — `lti_iss` matches the prod LTIAAS issuer URL exactly (including any trailing slash).
-3. **`config/domain.yml`** — production domain matches what's registered with LTIAAS.
-4. **`config/application.yml`** on the prod box — `LTIAAS_DOMAIN`, `LTIAAS_API_KEY`, and `canvas_integration_enabled: 'true'` set.
-5. **Migrations applied** — three migrations from PR 1: `create_lti_course_bindings`, `create_lti_line_items`, `add_binding_fields_to_lti_contexts`.
-6. **Sidekiq cron loaded** — confirm `LtiDailyRosterSyncWorker` and `LtiPeriodicGradeSyncWorker` appear in the cron list (check the sidekiq-cron dashboard at `/sidekiq/cron`).
-7. **Sentry monitoring** — confirm Sentry's `extra` filter doesn't drop fields named `binding_id`, `user_lti_id`, or `lineitem_id` (used by per-record error capture in the sync services).
-8. **Smoke test** against `dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org` first; only flip prod after the staging end-to-end checklist passes.
+1. **LTIAAS prod tenant registered against the production Canvas (canvas.wikiedu.org)** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side.
+2. **`config/application.yml`** on the prod box — `LTIAAS_DOMAIN`, `LTIAAS_API_KEY`, and `canvas_integration_enabled: 'true'` set.
+3. **Migrations applied** — three migrations from PR 1 (`create_lti_course_bindings`, `create_lti_line_items`, `add_binding_fields_to_lti_contexts`) plus `create_lti_score_signatures` from the dedup pass.
+4. **Sidekiq cron loaded** — confirm `LtiDailyRosterSyncWorker` and `LtiPeriodicGradeSyncWorker` appear in the cron list (check the sidekiq-cron dashboard at `/sidekiq/cron`).
+5. **Sentry monitoring** — confirm Sentry's `extra` filter doesn't drop fields named `binding_id`, `user_lti_id`, or `lineitem_id` (used by per-record error capture in the sync services).
+6. **Smoke test** against `dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org` first; only flip prod after the staging end-to-end checklist passes.
 
 ## Other Guides, References and Sources
 - [Troubleshooting error messages by LTIAAS](https://docs.ltiaas.com/guides/troubleshooting/troubleshooting_error_messages)

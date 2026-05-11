@@ -108,6 +108,11 @@ class LtiLaunchController < ApplicationController
   def require_canvas_integration_enabled
     return if Features.canvas_integration?
 
-    raise ActionController::RoutingError, 'Canvas integration is disabled'
+    # Render 404 directly rather than `raise ActionController::RoutingError`:
+    # in production envs the routing-error middleware only catches errors
+    # raised by the routing layer itself, not from a before_action callback,
+    # so the raise would surface as a 500 to the LMS. The test env handles
+    # this differently which is why the 404 spec passed under either form.
+    head :not_found
   end
 end
