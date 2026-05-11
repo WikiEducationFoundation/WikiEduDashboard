@@ -155,4 +155,62 @@ describe SyncLtiGrades do
     described_class.new(binding) # should not raise
     expect(binding.reload.last_grade_sync_at).to be_present
   end
+
+  describe 'dedup via LtiScoreSignature' do
+    it 'skips the POST when the next signature matches a stored one' do
+      trainings_stub = stub_post_score(trainings_lineitem_url)
+      exercise_stub = stub_post_score(exercise_lineitem_url)
+
+      described_class.new(binding) # first call: signatures get written
+
+      expect(trainings_stub).to have_been_requested.once
+      expect(exercise_stub).to have_been_requested.once
+      expect(LtiScoreSignature.count).to eq(2)
+
+      described_class.new(binding) # second call: state unchanged → no POSTs
+
+      expect(trainings_stub).to have_been_requested.once
+      expect(exercise_stub).to have_been_requested.once
+    end
+
+    it 'POSTs again when the score signature changes between cycles' do
+      stub_post_score(trainings_lineitem_url)
+      stub_post_score(exercise_lineitem_url)
+      described_class.new(binding) # establishes signatures at 0.0 across the board
+
+      # Complete a training so the lumped TrainingProgress signature changes.
+      training = create(:training_module, slug: 'tr-2', name: 'Other', kind: 0)
+      create(:block, week: week, order: 5, title: 'Wk1 trainings',
+                     training_module_ids: [training.id])
+      TrainingModulesUsers.create!(user: student_user, training_module: training,
+                                   completed_at: 1.day.ago)
+
+      # Force a fresh AR fetch of binding.course.blocks (in production each
+      # worker run loads its own binding; in this test we reuse the let).
+      binding.reload
+      described_class.new(binding)
+
+      # Trainings line item POSTed again (signature changed: 1/2 now);
+      # exercise line item unchanged → still 1 POST total.
+      expect(WebMock).to have_requested(:post, %r{trainings/scores\z}).twice
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores\z}).once
+    end
+
+    it 'records a signature row keyed to (line item, context) after a successful POST' do
+      stub_post_score(trainings_lineitem_url)
+      stub_post_score(exercise_lineitem_url)
+      described_class.new(binding)
+      sigs = LtiScoreSignature.where(lti_context_id: linked_context.id)
+      expect(sigs.count).to eq(2)
+      expect(sigs.map(&:signature).uniq.size).to eq(2) # one per line item
+      expect(sigs.first.last_pushed_at).to be_within(5.seconds).of(Time.current)
+    end
+
+    it 'does not record a signature when the POST fails' do
+      allow(Sentry).to receive(:capture_exception)
+      stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
+      described_class.new(binding)
+      expect(LtiScoreSignature.count).to eq(0)
+    end
+  end
 end
