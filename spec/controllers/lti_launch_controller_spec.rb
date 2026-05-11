@@ -42,14 +42,22 @@ describe LtiLaunchController, type: :request do
     end
 
     context 'when not signed in' do
-      it 'renders an iframe-friendly sign-in page that escapes to top-level' do
+      it 'renders an iframe-friendly landing page that escapes to top-level' do
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Sign in to continue')
+        expect(response.body).to include('Open the Wiki Education Dashboard')
         # The button must break out of the iframe via target=_top, pointing
         # at /lti/connect_course so OAuth happens in the top-level window.
         expect(response.body).to include('target="_top"')
         expect(response.body).to include('/lti/connect_course?ltik=ltik-abc')
+      end
+
+      it 'renders the minimal lti_iframe layout (no dashboard navbar)' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        # nav_root is mounted by the application layout and renders the
+        # React navbar; the lti_iframe layout omits it so we don't
+        # mislead signed-in users with the iframe's logged-out state.
+        expect(response.body).not_to include('nav_root')
       end
 
       it 'does not touch session (cookies in iframes are partitioned)' do

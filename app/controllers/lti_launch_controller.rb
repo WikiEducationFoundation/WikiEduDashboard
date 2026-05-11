@@ -29,7 +29,7 @@ class LtiLaunchController < ApplicationController
 
     unless current_user
       @ltik = params[:ltik]
-      return render 'lti_launch/sign_in_to_continue'
+      return render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
     end
 
     @lti_session = build_lti_session(params[:ltik])
@@ -44,7 +44,7 @@ class LtiLaunchController < ApplicationController
 
     unless current_user
       session['ltik'] = params[:ltik]
-      return render 'lti_launch/oauth_redirect'
+      return render 'lti_launch/oauth_redirect', layout: 'lti_iframe'
     end
 
     launch
