@@ -77,6 +77,16 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 
+  # Exclude live-staging feature specs from default rspec runs — they
+  # drive a real browser against the deployed dashboard-testing.wikiedu.org
+  # + canvas.wikiedu.org and have side effects (real Canvas courses,
+  # real LTIAAS calls). Run them via `bin/staging-feature-spec` which
+  # passes `--tag staging` to re-enable.
+  config.filter_run_excluding :staging
+  config.define_derived_metadata(file_path: %r{/spec/staging/}) do |meta|
+    meta[:staging] = true
+  end
+
 =begin
   # Limits the available syntax to the non-monkey patched
   # syntax that is recommended.
