@@ -4,16 +4,19 @@
 #
 # Flow:
 #   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.
-#   2. If no current_user, render `sign_in_to_continue` — a tiny iframe view
-#      with a `target=_top` link to /lti/connect_course?ltik=... (browsers
-#      refuse to frame Wikipedia OAuth, so we have to break out of the
-#      iframe).
-#   3. /lti/connect_course runs at top-level. Without a current_user, it
-#      stashes the ltik in session and renders an auto-submitting POST
-#      form to Devise's omniauth-mediawiki. After OAuth, the callback
-#      reads the ltik back from session and redirects to /lti?ltik=...
-#      at top level — so the user lands on a clean URL, not on
-#      /lti/connect_course.
+#   2. If no current_user, render `sign_in_to_continue` — a minimal iframe
+#      view with a `target=_blank` link to /lti/connect_course?ltik=...
+#      (browsers refuse to frame Wikipedia OAuth, and cookies inside the
+#      Canvas iframe are partitioned away from the top-level dashboard
+#      session, so the rest of the launch has to happen outside the iframe).
+#      Opens in a new tab so the Canvas page stays put.
+#   3. /lti/connect_course runs at top-level in the new tab. Without a
+#      current_user, it stashes the ltik in session and renders an
+#      auto-submitting POST form to Devise's omniauth-mediawiki. After
+#      OAuth, the callback reads the ltik back from session and redirects
+#      to /lti?ltik=... at top level — so the user lands on a clean URL,
+#      not on /lti/connect_course. With a current_user, connect_course
+#      falls through to the launch flow directly (no OAuth bounce).
 #   4. With a current_user, build an LtiSession, look up or create the
 #      LtiCourseBinding, and link the user via LtiContext. Then:
 #      - Instructor + bound course => redirect to course slug
