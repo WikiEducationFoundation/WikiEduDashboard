@@ -96,6 +96,25 @@ describe LtiBlockProgress do
       tmu.save!
       expect(described_class.new(block, user).score_given).to eq(1.0)
     end
+
+    context 'in exercises_only mode (the lumped per-block exercise column)' do
+      it 'is 1.0 when the exercise is marked complete even with untouched trainings' do
+        tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module)
+        tmu.flags = { course.id => { marked_complete: true } }
+        tmu.save!
+        progress = described_class.new(block, user, exercises_only: true)
+        expect(progress.score_given).to eq(1.0)
+        expect(progress.comment).to include('Bibliography exercise:')
+        expect(progress.comment).to include('sandbox/Bibliography')
+      end
+
+      it 'is 0.0 when the exercise is not marked complete even if trainings are done' do
+        TrainingModulesUsers.create!(user: user, training_module: training_module,
+                                     completed_at: 1.day.ago)
+        TrainingModulesUsers.create!(user: user, training_module: exercise_module)
+        expect(described_class.new(block, user, exercises_only: true).score_given).to eq(0.0)
+      end
+    end
   end
 
   describe 'signature stability' do
