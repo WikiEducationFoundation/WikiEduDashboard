@@ -114,6 +114,35 @@ describe SyncLtiGrades do
     expect(stub).to have_been_requested
   end
 
+  it 'pushes 1.0 for a lumped-mode mixed block whose exercise is the only completion' do
+    other_training = create(:training_module, slug: 'tr-2', name: 'Side training', kind: 0)
+    mixed_block = create(:block, week: week, order: 2, title: 'Evaluate Wikipedia',
+                                 training_module_ids: [other_training.id,
+                                                       exercise_module.id])
+    mixed_lineitem_url = 'https://lms.example.com/li/mixed'
+    stub_request(:post, "https://#{domain}/api/lineitems")
+      .with(body: hash_including(label: 'Wk1 Evaluate Wikipedia'))
+      .to_return(status: 201,
+                 body: { id: mixed_lineitem_url, label: 'Wk1 Evaluate Wikipedia',
+                         scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+
+    tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module)
+    tmu.flags = { course.id => { marked_complete: true } }
+    tmu.save!
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+    mixed_stub = stub_request(:post,
+                              "https://#{domain}/api/lineitems/" \
+                              "#{CGI.escape(mixed_lineitem_url)}/scores")
+                 .with(body: hash_including(scoreGiven: 1.0, userId: 'lti-alice'))
+                 .to_return(status: 204, body: '', headers: {})
+
+    described_class.new(binding)
+    expect(mixed_stub).to have_been_requested
+    expect(mixed_block).to be_persisted # silence rubocop unused-var
+  end
+
   it 'is a no-op when binding has no service credentials' do
     binding.update!(ltiaas_service_credentials: nil)
     described_class.new(binding)
