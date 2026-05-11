@@ -73,6 +73,8 @@ class LtiLaunchController < ApplicationController
     LtiRosterSyncWorker.perform_async(@binding.id) if @binding.course
     return redirect_to "/courses/#{@binding.course.slug}" if @binding.course
 
+    @user_courses = current_user.instructed_courses.current_and_future
+                                .order(start: :desc).to_a
     render 'lti_launch/setup'
   end
 

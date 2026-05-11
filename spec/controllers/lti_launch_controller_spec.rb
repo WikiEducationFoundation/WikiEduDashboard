@@ -78,6 +78,40 @@ describe LtiLaunchController, type: :request do
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('Set up the Wiki Education Dashboard')
         end
+
+        context 'and the instructor has current/future instructor-role courses' do
+          before do
+            current = create(:course, slug: 'School/Active_Course_(2026)',
+                                      title: 'Active Course',
+                                      start: 1.week.ago, end: 2.months.from_now)
+            future = create(:course, slug: 'School/Upcoming_Course_(2026)',
+                                     title: 'Upcoming Course',
+                                     start: 1.month.from_now, end: 4.months.from_now)
+            past = create(:course, slug: 'School/Archived_Course_(2025)',
+                                   title: 'Archived Course',
+                                   start: 2.years.ago, end: 1.year.ago)
+            [current, future, past].each do |c|
+              CoursesUsers.create!(user: user, course: c,
+                                   role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+            end
+          end
+
+          it 'renders a select populated with current/future instructor courses' do
+            get '/lti', params: { ltik: 'ltik-abc' }
+            expect(response.body).to include('<select', 'name="course_slug"')
+            expect(response.body).to include('School/Active_Course_(2026)')
+            expect(response.body).to include('School/Upcoming_Course_(2026)')
+            expect(response.body).not_to include('School/Archived_Course_(2025)')
+          end
+        end
+
+        context 'and the instructor has zero current/future courses' do
+          it 'hides the link-existing form and elevates the create-new path' do
+            get '/lti', params: { ltik: 'ltik-abc' }
+            expect(response.body).not_to include('name="course_slug"')
+            expect(response.body).to include('any active Wiki Education courses to link to yet')
+          end
+        end
       end
 
       context 'with a bound course' do
