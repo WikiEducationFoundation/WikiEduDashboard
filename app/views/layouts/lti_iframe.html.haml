@@ -1,0 +1,16 @@
+- # Minimal layout for the in-iframe LTI launch landing page and the
+- # top-level OAuth-redirect interstitial. We intentionally omit the
+- # dashboard navbar and footer: the navbar reads `current_user` and
+- # always renders "logged out" inside the Canvas iframe (cookies are
+- # partitioned), so showing it would mislead any user who is actually
+- # signed in to dashboard-testing in their main browser window. The
+- # OAuth interstitial is transitional and auto-submits, so it doesn't
+- # need full chrome either.
+- content_for :head do
+  = dashboard_stylesheet_tag('main')
+!!!
+%html{ dir: rtl? ? 'rtl' : nil, lang: I18n.locale }
+  = render 'shared/head'
+  %body.lti-iframe
+    %main.lti-iframe__main{ role: 'main' }
+      = yield
