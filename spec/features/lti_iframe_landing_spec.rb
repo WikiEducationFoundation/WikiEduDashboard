@@ -16,7 +16,7 @@ describe 'LTI iframe landing page', type: :feature, js: true do
     # The single visible call to action.
     button = find_link('Open the Wiki Education Dashboard')
     expect(button[:href]).to end_with('/lti/connect_course?ltik=ltik-abc')
-    expect(button[:target]).to eq('_top')
+    expect(button[:target]).to eq('_blank')
 
     # Dashboard navbar must NOT render — inside Canvas's iframe it would
     # always show "logged out" (cookies are partitioned) and mislead any

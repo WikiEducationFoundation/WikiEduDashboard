@@ -46,9 +46,10 @@ describe LtiLaunchController, type: :request do
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Open the Wiki Education Dashboard')
-        # The button must break out of the iframe via target=_top, pointing
-        # at /lti/connect_course so OAuth happens in the top-level window.
-        expect(response.body).to include('target="_top"')
+        # The button opens a new tab via target=_blank rather than navigating
+        # the Canvas page away. The new tab lands at /lti/connect_course at
+        # top level where session cookies behave as first-party.
+        expect(response.body).to include('target="_blank"')
         expect(response.body).to include('/lti/connect_course?ltik=ltik-abc')
       end
 

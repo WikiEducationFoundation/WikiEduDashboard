@@ -1,11 +1,6 @@
 .container.narrow
   .section-header
     %h3= t('lti.setup.header', default: 'Set up the Wiki Education Dashboard for this Canvas course')
-  .lti-escape-hatch
-    %p= t('lti.escape.hint', default: 'If buttons or forms below stop working, your browser may be blocking cookies inside the Canvas iframe. Open in a new tab to continue.')
-    = link_to t('lti.escape.button', default: 'Open in a new tab'),
-              "/lti/connect_course?ltik=#{CGI.escape(params[:ltik].to_s)}",
-              target: '_blank', rel: 'noopener', class: 'button'
   %hr
   - if @user_courses.any?
     = form_with url: '/lti/setup', method: :post, local: true do |f|
