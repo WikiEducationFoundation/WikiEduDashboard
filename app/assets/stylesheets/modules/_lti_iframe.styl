@@ -1,0 +1,35 @@
+// Minimal styling for the in-iframe LTI launch landing page and the
+// top-level OAuth-redirect interstitial. No navbar/footer; the layout
+// renders a single centered call to action.
+body.lti-iframe
+  background #f6f6f6
+  font-family inherit
+
+.lti-iframe__main
+  display flex
+  justify-content center
+  align-items center
+  min-height 100vh
+  padding 24px
+
+.lti-iframe__landing
+  text-align center
+  max-width 480px
+  padding 32px 24px
+
+.lti-iframe__logo
+  display block
+  margin 0 auto 32px
+  max-width 260px
+  max-height 120px
+  width auto
+  height auto
+
+.lti-iframe__title
+  font-size 18px
+  font-weight normal
+  margin 0 0 24px
+  color #333
+
+.lti-iframe__button
+  display inline-block
