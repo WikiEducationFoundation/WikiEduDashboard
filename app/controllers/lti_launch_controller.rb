@@ -85,10 +85,34 @@ class LtiLaunchController < ApplicationController
     return render 'lti_launch/setup_pending' if @binding.course.nil?
     return redirect_to "/courses/#{@binding.course.slug}" if enrolled?
 
+    result = join_course_for_student
+    return redirect_to "/courses/#{@binding.course.slug}" if join_succeeded?(result)
+    return render 'lti_launch/enrollment_pending_approval' if pending_approval?(result)
+
+    report_join_failure(result)
+    render 'lti_launch/enrollment_error'
+  end
+
+  def join_course_for_student
     JoinCourse.new(course: @binding.course, user: current_user,
                    role: CoursesUsers::Roles::STUDENT_ROLE,
-                   real_name: current_user.real_name)
-    redirect_to "/courses/#{@binding.course.slug}"
+                   real_name: current_user.real_name).result
+  end
+
+  def join_succeeded?(result)
+    result['success'] || result['failure'] == 'cannot_join_twice'
+  end
+
+  def pending_approval?(result)
+    result['failure'] == 'not_yet_approved'
+  end
+
+  def report_join_failure(result)
+    Sentry.capture_message(
+      'LTI student launch JoinCourse failure',
+      extra: { binding_id: @binding.id, user_id: current_user.id,
+               failure: result['failure'] }
+    )
   end
 
   def enrolled?
