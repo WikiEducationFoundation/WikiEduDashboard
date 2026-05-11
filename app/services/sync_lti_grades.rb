@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 # Pushes LTIAAS AGS scores for every linked student × active line item in
-# one LtiCourseBinding. v1 re-posts every cycle without deduplication;
-# the LtiLineItem.last_pushed_signature column is reserved for a future
-# per-student-per-line-item dedup optimization.
+# one LtiCourseBinding. Deduplicates per-(student, line item) via
+# LtiScoreSignature: the next push's signature is compared to the
+# stored one and the POST is skipped when they match, so the 30-min
+# cron only emits requests for actual state changes.
 #
 # Runs `SyncLtiLineItems` first as a precondition so the line-item set
 # always reflects the current timeline before scores are posted at it.
@@ -48,7 +49,19 @@ class SyncLtiGrades
   def push_one(context, line_item)
     progress = compute_progress(line_item, context.user)
     return unless progress&.gradable?
+    return if signature_unchanged?(line_item, context, progress.signature)
 
+    post_score(context, line_item, progress)
+    record_signature(line_item, context, progress.signature)
+  rescue StandardError => e
+    Sentry.capture_exception(
+      e,
+      extra: { binding_id: @binding.id, user_lti_id: context.user_lti_id,
+               lineitem_id: line_item.lineitem_id }
+    )
+  end
+
+  def post_score(context, line_item, progress)
     @service.post_score(
       lineitem_id: line_item.lineitem_id,
       user_lti_id: context.user_lti_id,
@@ -56,12 +69,21 @@ class SyncLtiGrades
       score_maximum: progress.score_maximum,
       comment: progress.comment
     )
-  rescue StandardError => e
-    Sentry.capture_exception(
-      e,
-      extra: { binding_id: @binding.id, user_lti_id: context.user_lti_id,
-               lineitem_id: line_item.lineitem_id }
+  end
+
+  def signature_unchanged?(line_item, context, signature)
+    LtiScoreSignature.where(lti_line_item_id: line_item.id,
+                            lti_context_id: context.id,
+                            signature:).exists?
+  end
+
+  def record_signature(line_item, context, signature)
+    row = LtiScoreSignature.find_or_initialize_by(
+      lti_line_item_id: line_item.id, lti_context_id: context.id
     )
+    row.signature = signature
+    row.last_pushed_at = Time.current
+    row.save!
   end
 
   def compute_progress(line_item, user)
