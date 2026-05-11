@@ -415,7 +415,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_105551) do
     t.index ["lti_course_binding_id"], name: "index_lti_line_items_on_lti_course_binding_id"
   end
 
-  create_table "lti_score_signatures", id: :integer, charset: "utf8mb4", collation: "utf8mb4_uca1400_ai_ci", force: :cascade do |t|
+  create_table "lti_score_signatures", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "last_pushed_at", null: false
     t.bigint "lti_context_id", null: false

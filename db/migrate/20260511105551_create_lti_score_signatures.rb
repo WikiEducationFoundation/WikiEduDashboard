@@ -14,7 +14,12 @@ class CreateLtiScoreSignatures < ActiveRecord::Migration[8.1]
   def change
     # FK column types match each referenced table's PK type:
     # lti_line_items.id is int; lti_contexts.id is bigint (the default).
-    create_table :lti_score_signatures, id: :integer do |t|
+    #
+    # Collation is pinned to utf8mb4_unicode_ci to match every other table
+    # in the schema; modern MariaDB defaults to utf8mb4_uca1400_ai_ci, which
+    # MySQL doesn't recognize and which broke CI's `db:schema:load`.
+    create_table :lti_score_signatures, id: :integer,
+                                        options: 'CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci' do |t|
       t.references :lti_line_item, null: false,
                                    foreign_key: { on_delete: :cascade }, type: :integer
       t.references :lti_context, null: false,
