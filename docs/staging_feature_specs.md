@@ -42,35 +42,35 @@ Generate at: Canvas → Account → Settings → "+ New Access Token",
 under a user with admin permissions on `CANVAS_TEST_ACCOUNT_ID`.
 Drop into `.env.staging-tests` as `CANVAS_ADMIN_TOKEN=...`.
 
-### Test-identity bootstrap (Tranche 3+)
+### Test-identity credentials (Tranche 3+)
 
-The flow specs drive Canvas + the dashboard as a real
-instructor (and later, a real student). The browser session
-needs to be pre-authenticated for each role, and the Wikipedia
-OAuth grant needs to be pre-approved so the launch flow runs
-silently.
+The flow specs drive Canvas + Wikipedia logins programmatically
+when the persistent Chrome profile doesn't already carry an
+active session, so no manual bootstrap is required day-to-day.
+For each role (`_INSTRUCTOR_` and `_STUDENT_`), populate in
+`.env.staging-tests`:
 
-One-time per profile (re-do if `tmp/staging-browser-profile/` is
-deleted):
+- `CANVAS_TEST_<ROLE>_USER_ID` — Canvas user id (from
+  `GET /api/v1/users/self` with that user's token, or visit the
+  profile page and read the URL).
+- `CANVAS_TEST_<ROLE>_LOGIN` — Canvas login id (email or
+  username, whatever the user types into the Canvas login form).
+- `CANVAS_TEST_<ROLE>_PASSWORD` — Canvas password.
+- `WIKIPEDIA_TEST_<ROLE>_USERNAME` — Wikipedia account username.
+  Must already have (or be willing to create) a `User` row on
+  `dashboard-testing.wikiedu.org` (created automatically on
+  first Wikipedia OAuth login).
+- `WIKIPEDIA_TEST_<ROLE>_PASSWORD` — Wikipedia password.
 
-1. Run `bin/staging-feature-spec spec/staging/canary_spec.rb` to
-   create the persistent profile.
-2. Open a fresh Chrome instance with that profile, e.g.
-   `google-chrome --user-data-dir=tmp/staging-browser-profile`.
-3. Log into `canvas.wikiedu.org` as the test instructor user
-   (the Canvas user whose id you put in
-   `CANVAS_TEST_INSTRUCTOR_USER_ID`). Stay logged in.
-4. In the same Chrome window, visit
-   `https://dashboard-testing.wikiedu.org/users/auth/mediawiki`
-   and complete the Wikipedia OAuth approval for the
-   instructor's Wikipedia identity.
-5. (For G7+) Repeat steps 3-4 for the test student in a
-   separate browser profile — see Tranche 3 docs when those
-   specs land.
-6. Close that Chrome instance.
+The first-ever spec run still has to click "Allow" once on the
+Wikipedia OAuth approval page — Wikipedia shows that page once
+per (user, application) pair and then remembers the grant. The
+login helper handles that click automatically; you just see it
+flash by in the headed browser. Subsequent runs are silent.
 
-The session cookies + OAuth grant now live in the profile and
-persist between spec runs.
+Day-to-day runs only re-authenticate when the persistent profile
+has lost the session (cookies expired, profile reset, etc.), so
+having the credentials in env keeps the harness self-sufficient.
 
 ### 2. Run the canary
 
@@ -117,7 +117,8 @@ spec/staging/
     ├── dashboard_console.rb  # SSH-based Ruby runner against staging (T2)
     ├── canvas_api_client.rb  # Canvas REST API wrapper (T2)
     ├── dashboard_admin_client.rb # course CRUD via DashboardConsole (T2)
-    └── launch_helpers.rb     # Canvas-tab → break-out-iframe DSL (T3)
+    ├── launch_helpers.rb     # Canvas-tab → break-out-iframe DSL (T3)
+    └── login_helpers.rb      # Canvas + Wikipedia form-driven login (T3)
 
 tmp/
 ├── staging-browser-profile/  # persistent Chrome user-data-dir (gitignored)

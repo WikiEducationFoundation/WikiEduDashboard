@@ -26,6 +26,7 @@ module DashboardAdminClient
       require 'json'
       instructor = User.find_by!(username: #{instructor_username.inspect})
       slug = "#{school}/#{title.tr(' ', '_')}_(#{term})"
+      home_wiki = Wiki.find_or_create_by(language: 'en', project: 'wikipedia')
       course = Course.find_or_initialize_by(slug: slug)
       course.assign_attributes(
         title: #{title.inspect},
@@ -34,6 +35,7 @@ module DashboardAdminClient
         start: Date.parse(#{start_date.to_s.inspect}),
         end: Date.parse(#{end_date.to_s.inspect}),
         type: 'ClassroomProgramCourse',
+        home_wiki: home_wiki,
         passcode: SecureRandom.urlsafe_base64(8),
         timeline_start: Date.parse(#{start_date.to_s.inspect}),
         timeline_end: Date.parse(#{end_date.to_s.inspect})

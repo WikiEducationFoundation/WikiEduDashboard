@@ -21,7 +21,9 @@ require_relative 'spec_helper'
 describe 'G2: instructor first launch', :staging do
   REQUIRED_ENV = %w[
     CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID
-    CANVAS_TEST_INSTRUCTOR_USER_ID WIKIPEDIA_TEST_INSTRUCTOR_USERNAME
+    CANVAS_TEST_INSTRUCTOR_USER_ID
+    CANVAS_TEST_INSTRUCTOR_LOGIN CANVAS_TEST_INSTRUCTOR_PASSWORD
+    WIKIPEDIA_TEST_INSTRUCTOR_USERNAME WIKIPEDIA_TEST_INSTRUCTOR_PASSWORD
     DASHBOARD_TEST_CAMPAIGN_SLUG
   ].freeze
 
@@ -63,14 +65,16 @@ describe 'G2: instructor first launch', :staging do
 
   it 'walks the launch flow from Canvas through setup to /courses/<slug>' do
     in_canvas do
+      ensure_canvas_logged_in_as_instructor
       visit_canvas_course(provisioned[:canvas_course_id])
       click_wiki_education_tab
-      break_out_of_canvas_iframe
+      break_out_of_canvas_iframe(role: :instructor)
     end
 
     # Now at top level in the new tab. The OAuth bounce should be silent
     # because the profile already has the Wikipedia OAuth grant.
-    complete_dashboard_setup(course_title: dashboard_title)
+    complete_dashboard_setup(course_slug: provisioned[:dashboard_course_slug],
+                             course_title: dashboard_title)
 
     expect(page.current_url).to include("/courses/#{provisioned[:dashboard_course_slug]}")
 
