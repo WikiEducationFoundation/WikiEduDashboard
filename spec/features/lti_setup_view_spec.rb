@@ -29,8 +29,9 @@ describe 'LTI instructor setup view', type: :feature, js: true do
     }.to_json
   end
 
-  context 'with current and future instructor-role courses' do
+  context 'with approved, current and future instructor-role courses' do
     before do
+      campaign = create(:campaign)
       active = create(:course, slug: 'School/Active_Course_(2026)',
                                title: 'Wikipedia Writing 101',
                                start: 1.week.ago, end: 2.months.from_now)
@@ -40,6 +41,7 @@ describe 'LTI instructor setup view', type: :feature, js: true do
       [active, future].each do |c|
         CoursesUsers.create!(user: instructor, course: c,
                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        create(:campaigns_course, campaign_id: campaign.id, course_id: c.id)
       end
     end
 
@@ -50,20 +52,22 @@ describe 'LTI instructor setup view', type: :feature, js: true do
       expect(page).to have_content('Set up the Wiki Education Dashboard')
       expect(page).to have_select('course_slug')
       expect(page).to have_select('course_slug', options: ['',
-                                                           'Wikipedia Writing 101',
-                                                           'Spring Editathon'])
+                                                           'School/Upcoming_Course_(2026)',
+                                                           'School/Active_Course_(2026)'])
       expect(page).to have_content('One column for all trainings')
     end
   end
 
-  context 'with no current or future instructor-role courses' do
+  context 'with no approved, current or future instructor-role courses' do
     it 'hides the link form and elevates the create-new path' do
       login_as(instructor)
       visit '/lti?ltik=ltik-abc'
 
-      expect(page).to have_no_select('course_slug')
-      expect(page).to have_content('any active Wiki Education courses to link to yet')
-      expect(page).to have_link('Create a Wiki Education course')
+      within('.container.narrow') do
+        expect(page).to have_no_select('course_slug')
+        expect(page).to have_content('only available after your course has been approved')
+        expect(page).to have_link('My Dashboard', href: '/')
+      end
     end
   end
 end
