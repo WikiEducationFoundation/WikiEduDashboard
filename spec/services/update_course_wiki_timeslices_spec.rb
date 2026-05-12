@@ -256,10 +256,12 @@ describe UpdateCourseWikiTimeslices do
         # Set timeslices to reprocess
         course.course_wiki_timeslices.where(wiki: enwiki)
               .first.update(revision_count: 15,
+                            mw_rev_count: 15,
                             last_mw_rev_datetime: '2018-11-24 10:25:00',
                             needs_update: true)
         course.course_wiki_timeslices.where(wiki: wikidata)
               .first.update(revision_count: 15,
+                            mw_rev_count: 15,
                             last_mw_rev_datetime: '2018-11-24 10:25:00',
                             stats: { 'total revisions:': 15 },
                             needs_update: true)

@@ -170,9 +170,9 @@ describe 'Training', type: :feature, js: true do
       end
 
       it 'displays proper message in wiki_ed mode' do
-        expect(page.html)
-          .to include(I18n.t('training.no_training_library_records_wiki_ed_mode',
-                             url:))
+        expect(page).to have_content(
+          'There are no TrainingLibrary records in the database.'
+        )
       end
 
       it 'includes a link' do

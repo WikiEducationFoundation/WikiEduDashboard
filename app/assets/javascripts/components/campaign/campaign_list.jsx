@@ -20,7 +20,7 @@ const CampaignList = ({ keys, showSearch, RowElement, headerText, userOnly, show
   };
 
   if (sort.key) {
-    // eslint-disable-next-line no-restricted-syntax
+
     for (const key of Object.keys(keys)) {
       if (key === sort.key) {
         keys[sort.key].order = (sort.sortKey) ? 'asc' : 'desc';

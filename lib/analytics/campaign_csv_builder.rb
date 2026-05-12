@@ -136,4 +136,10 @@ class CampaignCsvBuilder
       Course.all
     end
   end
+
+  class AllNonprivateCourses
+    def self.courses
+      Course.nonprivate
+    end
+  end
 end

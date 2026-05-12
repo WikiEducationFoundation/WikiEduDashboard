@@ -10,7 +10,7 @@
     %td{:class => "table-link-cell"}
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.first_instructor
-          = course.courses_users.where(role: 1).first&.real_name
+          = course.courses_users.where(role: 1).first&.user&.username
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.revisions

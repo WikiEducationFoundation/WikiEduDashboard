@@ -29,21 +29,110 @@ From the timestamps, estimate:
 
 ## Phase 2: Capture screenshots
 
-Run `bin/pr-screenshots` (no arguments — it auto-detects affected specs from the diff).
-This script will:
-- Run the relevant feature specs on the current branch to capture "after" screenshots
-- Stash changes, checkout master, run the same specs for "before" screenshots, restore
-- Sanitize screenshot filenames (strips `(`, `)`, `→`, and other markdown-breaking chars)
-- Print a markdown snippet at the end with before/after tables — save this for Phase 3
+There are two strategies, and picking the right one for the PR matters a lot
+more than picking the right script invocation.
 
-Image paths in the snippet are relative to `tmp/` (e.g. `screenshots/before/foo.png`),
-matching where `tmp/pr_description.md` will live.
+### Strategy A — Disposable screenshot spec (preferred for new features)
 
-If the script finds no specs automatically, pass the relevant spec file(s) explicitly:
-  `bin/pr-screenshots spec/features/foo_spec.rb`
+For any PR that introduces substantial new UI, write a dedicated feature spec
+whose only job is to drive the feature through its interesting states and
+save named PNGs. This gives you complete control over what's shown, lets you
+seed realistic-looking fixture data, and produces screenshots with stable,
+descriptive filenames.
 
-If there are no UI changes (pure backend or config-only PRs), skip this phase and note
-"No UI changes" in the Screenshots section.
+Put it next to the regular specs:
+  `spec/features/<feature>_screenshots_spec.rb`
+
+A minimal template:
+
+```ruby
+require 'rails_helper'
+
+# `if: ENV['SCREENSHOT']` keeps this spec out of the default suite — it
+# only defines itself when bin/pr-screenshots sets the env var.
+describe '<Feature> screenshots', type: :feature, js: true,
+         if: ENV['SCREENSHOT'] do
+  let(:admin) { create(:admin) }
+  let(:screenshot_dir) { Rails.root.join('tmp', 'screenshots', ENV['SCREENSHOT']) }
+
+  before do
+    FileUtils.mkdir_p(screenshot_dir)
+    page.current_window.resize_to(1440, 1000)
+    login_as(admin)
+  end
+
+  def shoot(name)
+    sleep 0.2 # let transitions settle
+    page.save_screenshot(screenshot_dir.join("#{name}.png"))
+  end
+
+  it 'captures the full UI' do
+    # seed whatever looks realistic
+    visit '/the/feature'
+    shoot('01_landing')
+
+    click_button 'Open editor'
+    shoot('02_editor_default')
+
+    # keep going through every state worth showing
+  end
+end
+```
+
+Key conventions:
+
+- **Gate with `if: ENV['SCREENSHOT']`** so the describe block only exists
+  when `bin/pr-screenshots` invokes rspec (it sets `SCREENSHOT=before` or
+  `SCREENSHOT=after`). The main suite runs zero examples from the file.
+  No global RSpec config change needed.
+- **Write to `tmp/screenshots/$SCREENSHOT/`** so `bin/pr-screenshots` can
+  pair up before/after PNGs by filename on a later run.
+- **Name files by stable sort order** (`01_`, `02_`, …) so they appear
+  in the intended order in the PR description.
+- **Seed fixture data that looks real**, not `foo`/`bar`. Reviewers
+  read screenshots.
+
+Then run:
+  `bin/pr-screenshots spec/features/<feature>_screenshots_spec.rb`
+
+For a brand-new feature, the spec doesn't exist on master so the before
+column will render as `_(did not exist on master)_` automatically. That's
+the right outcome — there is no "before" state for something that didn't
+exist. For iterations on an existing UI, commit the spec on master first
+(or a preceding PR) so the before pass has something to run.
+
+### Strategy B — Auto-detected feature specs
+
+If you're making a small tweak and an existing feature spec already ends up
+in a good-looking state at one of its assertion points, you can skip writing
+a dedicated spec and let `bin/pr-screenshots` auto-detect:
+
+  `bin/pr-screenshots`   # no arguments
+
+It picks feature specs from files changed in `git diff master...HEAD`,
+captures their terminal UI state on both branches, and prints a before/after
+markdown snippet.
+
+This works best when:
+- The feature spec's final assertion lands on a useful UI state
+- You just want a quick confirmation of a visual change, not a walkthrough
+
+It works poorly when:
+- The spec ends on something generic like "navigate to X and assert Y has
+  content" — the screenshot is whatever happened to be on screen after the
+  last `expect`, which is often a narrow slice of the feature
+- The spec covers multiple states you'd want to show separately
+
+### Notes for either strategy
+
+- Screenshot files get sanitized by `bin/pr-screenshots` (strips `(`, `)`,
+  `→`, and collapses `--` sequences) so they survive as markdown alt text.
+- The markdown snippet printed by the script uses paths relative to `tmp/`
+  (e.g. `screenshots/after/01_landing.png`) to match where
+  `tmp/pr_description.md` lives.
+- If there are no UI changes at all (pure backend or config PR), skip this
+  phase and put "No UI changes" in the Screenshots section of the
+  description.
 
 ## Phase 3: Draft the description
 
@@ -98,19 +187,22 @@ user should capture manually and which URLs to visit.
 Run `code tmp/pr_description.md` to open the file in VS Code and tell the user to press
 Ctrl+Shift+V to preview it with screenshots rendered locally.
 
-When ready to publish, the workflow uses `bin/open-pr` in two passes:
+When ready to publish, run `bin/open-pr` once. It will:
 
-**Pass 1 — Create the PR**
+1. Find each `screenshots/…` reference in `tmp/pr_description.md`.
+2. Build an orphan commit containing those files and force-push it to
+   `refs/heads/pr-screenshots/<current-branch>` on origin.
+3. Rewrite the description to reference each screenshot by its
+   `raw.githubusercontent.com` URL on that orphan branch.
+4. Create (or update, if the branch already has an open PR) a draft PR with
+   the full rewritten description.
 
-Run `bin/open-pr`. It creates a draft PR with an empty body and prints the URL.
-Tell the user to open the PR on GitHub, drag all screenshots into the description,
-and confirm here when done.
+The result: a draft PR with screenshots rendered inline, in a single pass,
+with no manual drag-and-drop.
 
-**Pass 2 — Finalize**
+**Authentication** is tried in this order:
+1. `GITHUB_TOKEN` env var
+2. `gh auth token` output, if the GitHub CLI is installed and logged in
 
-Run `bin/open-pr` again. It fetches the uploaded GitHub image URLs from the PR
-body, matches them to the local screenshot references by filename, substitutes
-them into the full description, and updates the PR.
-
-**Prerequisite:** `GITHUB_TOKEN` must be set — a classic PAT with `repo` scope.
-If it's missing, the script prints instructions for generating one.
+If neither is available, the script prints instructions for generating a
+classic PAT with `repo` scope.

@@ -162,7 +162,7 @@ const CourseDateUtils = {
     const courseWeeks = differenceInWeeks(weekEnd, weekStart, { roundingMethod: 'round' });
     const meetings = [];
 
-    // eslint-disable-next-line no-restricted-syntax
+
     for (const week of range(0, (courseWeeks - 1), true)) {
       weekStart = addWeeks(startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 }), week);
 
@@ -181,7 +181,7 @@ const CourseDateUtils = {
       }
 
       const ms = [];
-      // eslint-disable-next-line no-restricted-syntax
+
       for (const i of range(firstDayOfWeek, 6, true)) {
         const day = addDays(weekStart, i);
         if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions) && !isAfter(day, weekendDate)) {

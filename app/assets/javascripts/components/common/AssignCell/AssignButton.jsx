@@ -16,6 +16,7 @@ import { trackedWikisMaker } from '../../../utils/wiki_utils';
 import ArticleUtils from '../../../utils/article_utils';
 import { verifyMainSpaceArticle } from '@actions/article_actions.js';
 import { addNotification } from '@actions/notification_actions.js';
+import { safeDecodeURIComponent } from '../../../utils/strings';
 
 // Helper Components
 // Button to show the static list
@@ -52,11 +53,11 @@ const RemoveAssignmentButton = ({ assignment, unassign }) => {
   return (
     <span>
       <button
-        aria-label="Remove"
+        aria-label={I18n.t('assignments.remove')}
         className="button border assign-selection-button"
         onClick={() => unassign(assignment)}
       >
-        Remove
+        {I18n.t('assignments.remove')}
       </button>
     </span>
   );
@@ -241,29 +242,22 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     // this text contains the titles/links of the article separated by new lines
     const text = e.target.value;
-    const articlesTitles = [];
 
     let articleLanguage;
     let articleProject;
 
-    // loop for each individual article
+    // loop for each individual article to detect project/language from URLs/prefixes
     text.split('\n').forEach((articleTitle) => {
-      // if the article title is empty, then skip it
-      if (!articleTitle) {
-        // add an empty string to the array so that new lines are preserved
-        articlesTitles.push('');
-        return;
-      }
+      if (!articleTitle) return;
 
       const article = CourseUtils.articleFromTitleInput(articleTitle);
-      articlesTitles.push(article.title);
-      articleLanguage = article.language;
-      articleProject = article.project;
+      articleLanguage = article.language || articleLanguage;
+      articleProject = article.project || articleProject;
     });
 
-    setTitle(articlesTitles.join('\n'));
-    setProject(articleProject || project);
-    setLanguage(articleLanguage || language);
+    setTitle(text);
+    setProject(articleProject || course.home_wiki.project);
+    setLanguage(articleLanguage || (course.home_wiki.language || 'www'));
   };
 
   const handleWikiChange = (chosenWiki) => {
@@ -313,6 +307,11 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     if (course.type !== 'ClassroomProgramCourse') {
       return { valid: true };
     }
+    // Mainspace validation only applies to Wikipedia articles.
+    // Other projects (Commons, Wiktionary, etc.) have different namespace conventions.
+    if (assignment.project && assignment.project !== 'wikipedia') {
+      return { valid: true };
+    }
 
     const result = await dispatch(
       verifyMainSpaceArticle(assignment.title, assignment.language, assignment.project)
@@ -338,11 +337,12 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
 
     await Promise.all(
       articles.map(async (assignment_title) => {
-        // Create an assignment for the User using the Course home_wiki project and language
+        // Parse the input — could be a URL or a plain title
+        const parsed = CourseUtils.articleFromTitleInput(assignment_title);
         const assignment = {
-          title: decodeURIComponent(assignment_title).trim(),
-          project,
-          language,
+          title: parsed.title || safeDecodeURIComponent(assignment_title).trim(),
+          project: parsed.project || project,
+          language: parsed.language || language,
           course_slug: course.slug,
           role
         };

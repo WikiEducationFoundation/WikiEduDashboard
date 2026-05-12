@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/originality_api"
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
 require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
 require_dependency "#{Rails.root}/lib/ai/originality_response_parser"
+require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 class AiToolsController < ApplicationController
   before_action :require_admin_permissions
@@ -80,18 +81,7 @@ class AiToolsController < ApplicationController
   end
 
   def latest_revision
-    response = WikiApi.new(@wiki).query(query_params)
-    response.data['pages'].values.first['revisions'].first['revid']
-  end
-
-  # Query for the latest revision for a given article title
-  def query_params
-    {
-      action: 'query',
-      prop: 'revisions',
-      titles: CGI.unescape(@article_title),
-      rvprop: 'ids'
-    }
+    WikiApi::ArticleContent.new(@wiki).latest_revision_id(CGI.unescape(@article_title))
   end
 
   def create_revision_ai_scores_for_multiple_resources

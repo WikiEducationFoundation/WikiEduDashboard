@@ -69,7 +69,7 @@ const List = ({
       // the words added column also contains the average word count information so it is not necessary
       // for it to have its own column
 
-      // eslint-disable-next-line no-continue
+
       continue;
     }
     let headerOnClick;
@@ -107,7 +107,7 @@ const List = ({
     ));
   }
 
-  // eslint-disable-next-line
+
   let defaultClassName = `${table_key} table `;
 
   if (className) { defaultClassName += className; }

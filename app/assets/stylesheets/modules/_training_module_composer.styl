@@ -1,0 +1,727 @@
+@import './_variables'
+
+.training_module_composer
+    margin-top 12px
+    padding-bottom 60px
+
+    h1
+        margin-bottom 0.3em
+
+    h2
+        margin-top 1.4em
+
+    .notification.error
+        background #fdecea
+        color #611a15
+        padding 10px 14px
+        border-radius 4px
+        margin 10px 0
+
+    .notification.success
+        background #e6f4ea
+        color #1e4620
+        padding 10px 14px
+        border-radius 4px
+        margin 10px 0
+
+    .notification.warning
+        background #fff4cd
+        color #664d03
+        padding 10px 14px
+        border-radius 4px
+        margin 10px 0
+        border-left 3px solid #e0b200
+
+    code
+        color #333
+        background #f2f2f2
+        padding 1px 6px
+        border-radius 3px
+        font-size 0.9em
+        font-family "Menlo", "Consolas", monospace
+
+.training_module_composer__new
+    form
+        display flex
+        flex-direction column
+        max-width 560px
+        gap 6px
+
+    input[type="text"]
+        padding 8px 10px
+        font-size 1em
+
+.training_module_composer__existing
+    table
+        width 100%
+        background #fff
+        box-shadow 0 1px 6px rgba(0,0,0,0.08)
+
+        th, td
+            padding 10px 12px
+            border-bottom 1px solid #eee
+            text-align left
+            vertical-align middle
+
+        th
+            background #f6f6f6
+            font-weight 600
+
+.training_module_composer__header
+    display flex
+    flex-direction column
+    gap 4px
+    margin-bottom 10px
+    padding 0
+    text-align left
+    width auto
+
+    h1
+        margin 0
+
+    p
+        margin 0
+
+    .training_module_composer__actions
+        display flex
+        gap 8px
+        flex-wrap wrap
+        margin-top 4px
+
+    .training_module_composer__dirty
+        color #b2671d
+        font-size 0.8em
+        font-weight normal
+
+.training_module_composer__metadata
+    background #fff
+    border-radius 4px
+    box-shadow 0 1px 6px rgba(0,0,0,0.06)
+    margin-bottom 14px
+    overflow hidden
+
+    .training_module_composer__metadata__toggle
+        width 100%
+        text-align left
+        background none
+        border none
+        padding 10px 14px
+        display flex
+        align-items center
+        gap 10px
+        cursor pointer
+        font-size 0.95em
+
+        &:hover
+            background #f6f6f6
+
+    .training_module_composer__metadata__caret
+        color #666
+        width 12px
+        display inline-block
+        font-size 0.9em
+
+    .training_module_composer__metadata__summary
+        display flex
+        flex-direction column
+        gap 2px
+        font-weight 600
+
+        small
+            font-weight normal
+            color #666
+
+    .training_module_composer__metadata__fields
+        display grid
+        grid-template-columns minmax(220px, 1fr) 2fr
+        gap 18px
+        padding 10px 16px 18px
+
+        +below(tablet)
+            grid-template-columns 1fr
+
+    .training_module_composer__metadata__short_fields
+        display flex
+        flex-direction column
+        gap 12px
+
+    .training_module_composer__metadata__description
+        display flex
+        flex-direction column
+        gap 12px
+
+    .training_module_composer__metadata__description_preview
+        background #fafafa
+        border 1px solid #eee
+        border-radius 3px
+        padding 8px 12px
+        font-size 0.95em
+        min-height 88px
+
+        p:first-child
+            margin-top 0
+
+        p:last-child, ul:last-child, ol:last-child
+            margin-bottom 0
+
+        ul, ol
+            padding-left 22px
+
+    .training_module_composer__metadata__description_preview__empty
+        color #888
+
+.training_module_composer__field
+    display flex
+    flex-direction column
+    gap 4px
+
+    label
+        font-weight 600
+        font-size 0.9em
+
+    input[type="text"], textarea
+        padding 8px 10px
+        font-size 1em
+        border 1px solid #ccc
+        border-radius 3px
+
+    textarea
+        font-family inherit
+        resize vertical
+
+    small
+        display block
+        color #555
+        font-size 0.85em
+        margin-top 2px
+
+        code
+            color #333
+            background #f2f2f2
+            padding 1px 5px
+            border-radius 3px
+            font-family "Menlo", "Consolas", monospace
+
+.training_module_composer__readonly code
+    align-self flex-start
+
+.training_module_composer__body
+    display grid
+    grid-template-columns 260px 1fr
+    gap 20px
+    align-items start
+    transition grid-template-columns 0.15s ease
+
+    &.sidebar-edit
+        grid-template-columns 360px 1fr
+
+    +below(tablet)
+        grid-template-columns 1fr
+
+        &.sidebar-edit
+            grid-template-columns 1fr
+
+.training_module_composer__sidebar
+    background #fff
+    padding 14px
+    border-radius 4px
+    box-shadow 0 1px 6px rgba(0,0,0,0.06)
+
+    .training_module_composer__sidebar__header
+        display flex
+        justify-content space-between
+        align-items center
+        margin-bottom 10px
+
+        h3
+            margin 0
+            font-size 1em
+
+    .training_module_composer__sidebar__header__actions
+        display flex
+        gap 6px
+
+    .training_module_composer__sidebar__list
+        list-style none
+        padding 0
+        margin 0
+
+    .training_module_composer__sidebar__item
+        display flex
+        gap 4px
+        align-items center
+        padding 4px 2px
+        border-bottom 1px solid #f0f0f0
+        cursor default
+
+        &.editing
+            cursor grab
+
+        &.selected
+            background #eef5ff
+
+        &.dragging
+            opacity 0.3
+
+    .training_module_composer__sidebar__handle
+        color #999
+        font-size 0.8em
+        user-select none
+        padding 0 2px
+
+    .training_module_composer__sidebar__thumb
+        flex 1
+        min-width 0
+        display flex
+        gap 8px
+        align-items flex-start
+        background none
+        border none
+        padding 4px
+        text-align left
+        cursor pointer
+        font-size 0.95em
+
+        &:hover
+            background #f6f6f6
+
+    .training_module_composer__sidebar__position
+        background #ddd
+        color #444
+        min-width 22px
+        height 22px
+        border-radius 3px
+        display inline-flex
+        align-items center
+        justify-content center
+        font-size 0.8em
+        flex-shrink 0
+
+    .training_module_composer__sidebar__title
+        flex 1
+        min-width 0
+        overflow-wrap anywhere
+        line-height 1.3
+
+    .training_module_composer__sidebar__actions
+        display flex
+        gap 2px
+
+        .button.tiny
+            padding 2px 6px
+            font-size 0.8em
+            min-width 0
+
+.training_module_composer__editor
+    background #fff
+    padding 20px
+    border-radius 4px
+    box-shadow 0 1px 6px rgba(0,0,0,0.06)
+
+    .training_module_composer__editor__meta
+        display grid
+        grid-template-columns 1fr 1fr
+        gap 14px
+        margin-bottom 18px
+
+        +below(tablet)
+            grid-template-columns 1fr
+
+    .training_module_composer__editor__panes
+        display flex
+        flex-direction column
+        gap 18px
+
+    .training_module_composer__editor__source__label
+        display flex
+        align-items baseline
+        gap 8px
+
+    .training_module_composer__editor__source textarea
+        font-family "Menlo", "Consolas", monospace
+        min-height 240px
+        width 100%
+        box-sizing border-box
+
+.training_module_composer__cheatsheet__toggle
+    background none
+    border none
+    padding 0
+    color #3366cc
+    font-size 0.85em
+    text-decoration underline
+    cursor pointer
+
+    &:hover
+        color #1a4699
+
+    &[aria-expanded="true"]
+        font-weight 600
+
+.training_module_composer__cheatsheet__panel
+    position relative
+    background #fafafa
+    border 1px solid #ddd
+    border-radius 4px
+    padding 14px 32px 14px 16px
+    margin 4px 0 8px
+    box-sizing border-box
+
+    .training_module_composer__cheatsheet__close
+        position absolute
+        top 6px
+        right 8px
+        background none
+        border none
+        font-size 1.4em
+        line-height 1
+        color #666
+        cursor pointer
+        padding 0 4px
+
+        &:hover
+            color #000
+
+    .training_module_composer__cheatsheet__table
+        width 100%
+        border-collapse collapse
+        font-size 0.9em
+
+        th, td
+            padding 6px 8px
+            text-align left
+            vertical-align top
+            border-bottom 1px solid #f0f0f0
+
+        th
+            font-weight 600
+            white-space nowrap
+            width 1%
+
+        pre
+            margin 0
+            font-family "Menlo", "Consolas", monospace
+            font-size 0.95em
+            background #f6f6f6
+            padding 4px 6px
+            border-radius 3px
+            white-space pre-wrap
+
+        ul, ol
+            margin 0
+            padding-left 18px
+
+        blockquote
+            margin 0
+            padding-left 8px
+            border-left 3px solid #ccc
+            color #555
+
+    .training_module_composer__cheatsheet__notes
+        margin 10px 0 0
+        padding-left 18px
+        font-size 0.85em
+        color #555
+
+        li
+            margin-bottom 3px
+
+    .training_module_composer__cheatsheet__footer
+        margin 10px 0 0
+        font-size 0.85em
+        color #555
+
+    .training_module_composer__editor__preview
+        label
+            font-weight 600
+            font-size 0.9em
+            display block
+            margin-bottom 4px
+
+        .training__slide__content
+            background #fafafa
+            padding 16px
+            border-radius 3px
+            min-height 200px
+            max-height 600px
+            overflow-y auto
+
+.training_module_composer__sidebar__collision
+    color #b36b00
+    font-size 0.95em
+    padding-left 4px
+    flex-shrink 0
+
+.training_module_composer__field.has-collision
+    input
+        border-color #e0b200
+        background #fffcf0
+
+.training_module_composer__collision
+    color #8a5a00
+    font-weight 500
+
+.training_module_composer__empty
+    background #fff
+    padding 30px
+    border-radius 4px
+    text-align center
+    color #555
+
+.training_module_composer__modal__backdrop
+    position fixed
+    inset 0
+    background rgba(0, 0, 0, 0.4)
+    display flex
+    align-items center
+    justify-content center
+    z-index 1000
+
+.training_module_composer__modal
+    background #fff
+    padding 24px
+    border-radius 4px
+    // width + max-width rather than min(): Stylus has its own min() that
+    // intercepts the CSS function and resolves it statically (picking the
+    // vw value), so `width min(720px, 90vw)` compiles to `width: 90vw`.
+    width 720px
+    max-width 90vw
+    max-height 85vh
+    overflow-y auto
+    box-shadow 0 8px 24px rgba(0,0,0,0.25)
+
+    h2
+        margin-top 0
+
+    textarea
+        width 100%
+        font-family "Menlo", "Consolas", monospace
+        font-size 0.95em
+        padding 10px
+        border 1px solid #ccc
+        border-radius 3px
+        box-sizing border-box
+
+.training_module_composer__modal__actions
+    display flex
+    justify-content flex-end
+    gap 8px
+    margin-top 14px
+
+.training_module_composer__modal__hint
+    display block
+    margin-top 6px
+    color #2a6b2a
+    font-style italic
+
+.training_module_composer__image_picker
+    // Sized so the modal interior matches the 750px preview stage exactly
+    // (= $slide_inner_content_width + 24px modal padding on each side).
+    // See note above on width vs min().
+    width 798px
+    max-width 95vw
+
+    select
+        padding 8px 10px
+        font-size 1em
+        border 1px solid #ccc
+        border-radius 3px
+        background #fff
+
+    .training_module_composer__image_picker__row
+        display grid
+        grid-template-columns 1fr 1fr
+        gap 14px
+        margin-top 12px
+
+        +below(tablet)
+            grid-template-columns 1fr
+
+    .training_module_composer__image_picker__inline_check
+        display flex
+        align-items center
+        gap 6px
+        font-weight normal
+        font-size 0.85em
+        margin-top 4px
+        cursor pointer
+
+        input[type="checkbox"]
+            margin 0
+
+    .training_module_composer__image_picker__preview
+        margin-top 14px
+
+        > label
+            font-weight 600
+            font-size 0.9em
+            display block
+            margin-bottom 4px
+
+    .training_module_composer__image_picker__preview__stage
+        background #fafafa
+        padding 16px
+        border-radius 3px
+        min-height 120px
+        overflow auto
+        // Match the real training slide's content width so the alt-layout
+        // percentages render at the same pixel widths they will after insert.
+        box-sizing content-box
+        width 750px
+        max-width 100%
+        margin 0 auto
+
+        // Clear floats inside preview so the stage grows around floated figures.
+        &::after
+            content ''
+            display block
+            clear both
+
+    .training_module_composer__image_picker__status
+        color #555
+        margin 0
+        font-style italic
+
+// Mirror of training_modules/_slides.styl rules so the composer's previews
+// render the same as a live training slide. The composer page only loads
+// main.styl, not training.styl, so without these the slide styling (figure
+// border, content width, footer) would not apply to the preview panes.
+// Variables ($border_med_lt, $type_light, $slide_inner_content_width) live
+// inside training.styl, so their values are inlined here.
+.training__slide__content
+    margin-top 30px
+    margin-bottom 30px
+    width 750px
+    max-width 100%
+    margin-left auto
+    margin-right auto
+
+.training__slide__footer
+    width 100%
+    border-top 1px solid #ccc
+    margin-top 20px
+    padding-top 28px
+    font-size 16px
+    position relative
+
+.training__slide figure
+    padding 10px
+    border 1px solid #A0A0A0
+    display table
+    table-layout fixed
+    margin 0 auto 21px auto
+    max-width 100%
+
+    img
+        max-width 100%
+        height auto
+
+    figcaption
+        font-size 14px
+        text-align center
+
+        &.image-credit
+            color #666
+            font-size 10px
+
+            a
+                color #666
+
+    &.alt-layout-50
+        width 50%
+        figcaption
+            text-align right
+    &.alt-layout-30-right
+        width 30%
+        float right
+        margin-left 20px
+        margin-bottom 10px
+        figcaption
+            text-align right
+    &.alt-layout-30-left
+        width 30%
+        float left
+        margin-right 20px
+        margin-bottom 10px
+        figcaption
+            text-align right
+    &.alt-layout-40-right
+        width 40%
+        float right
+        margin-left 20px
+        margin-bottom 10px
+        figcaption
+            text-align right
+    &.alt-layout-40-left
+        width 40%
+        float left
+        margin-right 20px
+        margin-bottom 10px
+        figcaption
+            text-align right
+    &.alt-layout-100
+        width 100%
+
+.training_module_composer__preview
+    position fixed
+    inset 0
+    background #fff
+    z-index 1000
+    display flex
+    flex-direction column
+    overflow hidden
+
+    .training_module_composer__preview__header
+        display flex
+        align-items center
+        gap 16px
+        padding 12px 20px
+        border-bottom 1px solid #e0e0e0
+        background #f6f6f6
+        flex-shrink 0
+
+    .training_module_composer__preview__count
+        font-weight 600
+        font-size 0.95em
+
+    .training_module_composer__preview__hint
+        color #888
+        font-size 0.85em
+        flex 1
+
+    .training_module_composer__preview__close
+        background none
+        border none
+        font-size 1.6em
+        line-height 1
+        color #555
+        cursor pointer
+        padding 0 6px
+
+        &:hover
+            color #000
+
+    .training_module_composer__preview__article
+        flex 1
+        overflow-y auto
+        padding 30px 20px 60px
+        scroll-behavior smooth
+
+    .training_module_composer__preview__title
+        max-width 750px
+        margin 0 auto 10px
+        text-align center
+
+    .training_module_composer__preview__footer
+        max-width 750px
+        margin 30px auto 0
+        display flex
+        align-items center
+        gap 16px
+
+    .training_module_composer__preview__slug
+        flex 1
+        text-align center
+        color #888
+        font-size 0.85em
+        font-family "Menlo", "Consolas", monospace

@@ -7,7 +7,7 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu, :character_sum_ms, :character_sum_us, :character_sum_draft, :references_count,
             :role, :role_description, :recent_revisions, :content_expert, :program_manager,
             :contribution_url, :sandbox_url, :global_contribution_url, :total_uploads)
-  json.call(cu.user, :id, :username)
+  json.call(cu.user, :id, :username, :global_id)
   json.enrolled_at cu.created_at
   json.admin cu.user.admin?
   json.registered_at cu.user.registered_at

@@ -40,7 +40,7 @@ const UploadsHandler = createReactClass({
       if (this.state.currentPage === 0) {
         this.setUploadMetadata(data);
       }
-      // eslint-disable-next-line react/no-did-update-set-state
+
       this.setState({
       data,
       pageCount: Math.ceil(this.props.selectedUploads.length / UPLOADS_PER_PAGE),

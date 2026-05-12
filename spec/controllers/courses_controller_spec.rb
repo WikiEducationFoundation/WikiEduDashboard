@@ -31,6 +31,27 @@ describe CoursesController, type: :request do
     end
   end
 
+  describe '#users' do
+    let(:course) { create(:course, slug: slug_params) }
+    let(:student) { create(:user, username: 'Global Student', global_id: 12_345) }
+
+    before do
+      create(:courses_user,
+             course_id: course.id,
+             user_id: student.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    it 'includes each user global_id in the json payload' do
+      get "/courses/#{course.slug}/users.json"
+
+      body = JSON.parse(response.body)
+      user = body.dig('course', 'users')&.find { |course_user| course_user['id'] == student.id }
+
+      expect(user['global_id']).to eq(student.global_id)
+    end
+  end
+
   describe '#destroy' do
     let!(:course)           { create(:course, submitted: true, slug: slug_params) }
     let!(:user)             { create(:test_user) }

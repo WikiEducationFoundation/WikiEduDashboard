@@ -58,8 +58,8 @@ module ApplicationHelper
 
   def class_for_path(req, path)
     return 'active' if req.path == '/' && path == '/'
-    current_path_segments = req.path.split('/').reject(&:blank?)
-    active_path = path.split('/').reject(&:blank?).last
+    current_path_segments = req.path.split('/').compact_blank
+    active_path = path.split('/').compact_blank.last
     current_path_segments.include?(active_path) ? 'active' : nil
   end
 

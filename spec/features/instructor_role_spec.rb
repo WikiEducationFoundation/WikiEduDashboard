@@ -60,6 +60,7 @@ describe 'Instructor users', :js, type: :feature do
     stub_oauth_edit
     stub_raw_action
     stub_info_query
+    stub_mainspace_query
   end
 
   after do
@@ -138,16 +139,18 @@ describe 'Instructor users', :js, type: :feature do
       find('button.border', text: 'Assign/remove an article', match: :first).click
       within('#users') { find('input', match: :first).set('Article 1') }
       click_button 'Assign'
+      expect(page).to have_content('Article 1', wait: 10)
       click_button 'Done'
 
       # Assign a review
       find('button.border', text: 'Assign/remove a peer review', match: :first).click
       within('#users') { find('input', match: :first).set('Article 2') }
       click_button 'Assign'
+      expect(page).to have_content('Article 2', wait: 10)
       click_button 'Done'
 
-      expect(page).to have_content 'Article 1'
-      expect(page).to have_content 'Article 2'
+      expect(page).to have_content('Article 1', wait: 10)
+      expect(page).to have_content('Article 2', wait: 10)
 
       # Delete an assignments
       visit "/courses/#{Course.first.slug}/students/articles"

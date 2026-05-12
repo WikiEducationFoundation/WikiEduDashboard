@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.4.8'
 
 ### Basic Framework
-gem 'rails', '8.1.2'
+gem 'rails', '8.1.3'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -40,6 +40,7 @@ gem 'browser'
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
+gem 'rubyzip', require: 'zip' # used by ExportTrainingModuleDraft
 gem 'mailgun-ruby' # email sending service
 
 ### Incoming Mail
@@ -55,8 +56,13 @@ gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', br
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
-gem 'mediawiki_api' # Library for querying mediawiki API'
-# gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master'
+# Pointing at our fork so we get HttpError#response — needed to honor
+# Retry-After on 429s. Switch back to plain `gem 'mediawiki_api'` once
+# https://gerrit.wikimedia.org/r/admin/repos/mediawiki/ruby/api releases
+# the upstream merge.
+gem 'mediawiki_api',
+    git: 'https://github.com/WikiEducationFoundation/mediawiki-ruby-api',
+    branch: 'expose-response-on-http-error'
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 gem 'rss' # Standard RSS library

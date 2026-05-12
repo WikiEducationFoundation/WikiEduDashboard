@@ -51,20 +51,30 @@ exec >>"$LOG_FILE" 2>&1
 
 log "Starting"
 
-# Calculate min free space in bytes based on last backup
-LATEST_DIR=$(ls -1d "$BACKUP_ROUTE"/*/ | sort | tail -2 | head -1)
-LAST_BACKUP=$(ls "$LATEST_DIR"/*.sql.gz | head -1)
+# Calculate min free space in bytes based on last successful backup
+LAST_BACKUP=""
+while IFS= read -r dir; do
+  candidate=$(find "$dir" -maxdepth 1 -name "*.sql.gz" | head -1)
+  if [ -n "$candidate" ]; then
+    LAST_BACKUP="$candidate"
+    break
+  fi
+done < <(ls -1d "$BACKUP_ROUTE"/*/ | sort -r | tail -n +2)
 
-LAST_BACKUP_SIZE=$(stat -c%s "$LAST_BACKUP")
-# Backups are stored in compressed form. We require 30x the size of the previous backup,
-# assuming the compressed version is about 10 times smaller 
-MIN_FREE_SPACE=$(( LAST_BACKUP_SIZE * 30 ))
+if [ -n "$LAST_BACKUP" ]; then
+  LAST_BACKUP_SIZE=$(stat -c%s "$LAST_BACKUP")
+  # Backups are stored in compressed form. We require 30x the size of the previous backup,
+  # assuming the compressed version is about 10 times smaller
+  MIN_FREE_SPACE=$(( LAST_BACKUP_SIZE * 30 ))
 
-# Calculate free space in bytes
-FREE_SPACE=$(df -B 1 --output=avail $BACKUP_DIR | tail -1 | tr -dc '0-9')
-if [ $FREE_SPACE -lt $MIN_FREE_SPACE ]; then
-  log "Not enough free space. Aborting"
-  exit 1
+  # Calculate free space in bytes
+  FREE_SPACE=$(df -B 1 --output=avail $BACKUP_DIR | tail -1 | tr -dc '0-9')
+  if [ $FREE_SPACE -lt $MIN_FREE_SPACE ]; then
+    log "Not enough free space. Aborting"
+    exit 1
+  fi
+else
+  log "No previous successful backup found, skipping free space check"
 fi
 
 # Create waiting backup record

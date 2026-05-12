@@ -119,12 +119,15 @@ class UpdateCourseStats
 
   def log_end_of_update
     @end_time = Time.zone.now.to_datetime
-    UpdateLogger.update_course(@course, 'start_time' => @start_time,
-                                         'end_time' => @end_time,
-                                         'sentry_tag_uuid' => sentry_tag_uuid,
-                                         'error_count' => error_count,
-                                         'processed' => @processed,
-                                         'reprocessed' => @reprocessed)
+    UpdateLogger.update_course(@course,
+                               'start_time' => @start_time,
+                               'end_time' => @end_time,
+                               'sentry_tag_uuid' => sentry_tag_uuid,
+                               'error_count' => error_count,
+                               'reference_counter_403_count' => reference_counter_403_count,
+                               'too_many_requests_count' => too_many_requests_count,
+                               'processed' => @processed,
+                               'reprocessed' => @reprocessed)
   end
 
   def wikidata

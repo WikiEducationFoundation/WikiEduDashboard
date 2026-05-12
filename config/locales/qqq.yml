@@ -960,4 +960,9 @@ qqq:
         link_text: '{{optional}}'
   question_groups:
     edit_question_group: Button label for editing a question group
+  form_search:
+    search: Label for search button
+    advanced_search: Label for advanced search toggle
+    clear: Label for clear search button
+    program_date: Label for program date
 ...

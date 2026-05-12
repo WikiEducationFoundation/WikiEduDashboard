@@ -281,8 +281,8 @@ describe UserProfilesController, type: :request do
       it 'when updating with an invalid email' do
         post route, params: {
           username: user.username,
-          email: { email: 'email'},
-          user_profile: {bio: 'Bio'}
+          email: { email: 'email' },
+          user_profile: { bio: 'Bio' }
         }
         expect(response).to redirect_to("/users/#{user.username}")
         expect(flash[:error]).to be_nil

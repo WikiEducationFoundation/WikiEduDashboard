@@ -40,6 +40,7 @@
 # Author: Putnik
 # Author: Redredsonia
 # Author: Romanko Mikhail
+# Author: Shabe
 # Author: Shaleych
 # Author: SmartNart12
 # Author: Tanzun
@@ -68,8 +69,9 @@ ru:
   application:
     back: Назад
     cancel: Отмена
+    next: Вперёд
     cookie_consent: Этот сайт использует куки-файлы для вашего входа в систему и хранит
-      информацию, относящуюся к вашей учетной записи в Википедии.
+      информацию, относящуюся к вашей учётной записи в Википедии.
     cookie_consent_acknowledge: Понимаю
     cookie_consent_see_more: Узнать больше.
     create_accounts: Создайте учётную запись в Википедии
@@ -90,6 +92,7 @@ ru:
     log_in: Представиться системе
     log_out: Выйти
     my_dashboard: Моя панель
+    okay: Хорошо
     recent_activity: Недавние действия
     report_problem: Сообщить о проблеме
     request_account: Запросить учётную запись
@@ -100,7 +103,7 @@ ru:
       other: '%{count} Результаты для: ''%{search_terms}'''
     no_results: Ничего не нашлось по запросу '%{query}'
     show_current_revision: Показать текущую версию
-    show_last_revision: Просмотр последней правки
+    show_last_revision: Просмотр редакции с последними изменениями
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_wikipedia: Или войдите в Википедию
     sign_up_log_in_extended: через Википедию
@@ -171,10 +174,15 @@ ru:
       создать учетную запись, обратитесь по адресу dashboard@wikiedu.org.
   alerts:
     alert_label: Оповещения
+    no_data: Данные не найдены.
     ai_stats:
       timestamp: Метка времени
+      users_involved: Вовлечённых участников
+      total: Всего
+      last_week: За последнюю неделю
       sections:
-        contents: Содержание для списков оповещений ИИ
+        contents: Содержимое страниц
+        general_stats: Общая статистика
         name: Имя
         description: Описание
         descriptions:
@@ -218,12 +226,17 @@ ru:
       untracked: Неотслеживаемые
       tracked_and_untracked: Отслеживаемые и неотслеживаемые
     filter_text: Фильтры
+    pageviews_label: 'Просмотры страниц:'
+    cumulative: Накопительная
+    daily_avg: Среднесуточная
     find: Найти статьи
     how_to_find: Как найти статью
     hide: Скрыть
     history: (история)
     label: Статьи
     loading: Загрузка статей...
+    mark_as_complete: Отметить как выполненное
+    mark_as_incomplete: Отметить как незавершённое
     new: (новая)
     none: Этот курс не редактировал никаких статей.
     rating: Класс
@@ -260,12 +273,27 @@ ru:
     edit_size: Изменить размер
     wiki: Вики
     articles_short: Статьи
+    tracked_articles: Отслеживаемые статьи
+    view_articles: Просмотр статей
+    no_tracked_articles: В этой категории нет отслеживаемых статей.
     not_choosen_article: Вы не выбрали статью для работы. Когда вы найдете статью
       для работы, используйте кнопку выше, чтобы назначить ее.
     use_dashboard: Как использовать панель инструментов
+    evaluate_and_source: Оценка статей и источников
   items:
-    lexeme: Лексема
-    how_to_find: Как найти предметы
+    items: Элементы
+    lexeme: Лексемы
+    article_not_found: Этот элемент ещё не создан.
+    assigned: Назначенные элементы
+    assignments_none: Пока нет назначенных элементов.
+    available: Доступные элементы
+    edited: Отредактированных элементов
+    edited_none: Пока нет отредактированных элементов.
+    find: Найти элементы
+    how_to_find: Как найти элементы
+    preview: Краткий предпросмотр элемента
+    search: Поиск элемента в Викиданных
+    title_example: Название элемента
   articles_wikidata:
     articles_short: Элементы
   articles_generic:
@@ -276,9 +304,12 @@ ru:
     article_link_wikidata: Элемент
     title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
+    assign_other_wikidata: Назначить/удалить элемент
     add_available: Добавить доступные статьи
     add_available_submit: Добавить статьи
     add_available_submit_wikidata: Добавить элементы
+    assign_self: Назначить себе статью
+    assign_self_wikidata: Назначить себе элемент
     bibliography: Библиография
     clone: Клонировать
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
@@ -287,9 +318,11 @@ ru:
     change_sandbox_url: Изменить песочницу
     group_members: Участники группы
     loading: Загрузка заданий...
+    none_short_wikidata: Нет назначенных элементов
     none: Этот курс не имеет назначенных статей.
     remove: Удалить
     reviewers: Проверяющий(е)
+    review_self_wikidata: Просмотр элемента
     select: Выбрать
     submit: Отправить
     invalid_url: Невозможно обновить URL-адрес песочницы. URL %{url} не является допустимым
@@ -316,6 +349,7 @@ ru:
     active_campaigns: Активные кампании
     add_organizer: Добавить организатора
     alert_article: Название статьи
+    alert_select_label: Фильтр по типу оповещения
     alert_type: Тип
     alert_user_id: Участник
     all_campaigns: Все кампании
@@ -332,6 +366,8 @@ ru:
     course: Курс
     course_removed: '"%{title}" был удалён из кампании "%{campaign_title}"'
     create_campaign: Создать новую кампанию
+    data_courses: Данные обзора курса
+    data_articles: Отредактированные страницы
     description: Описание
     delete_campaign: Удалить эту кампанию
     disable_account_requests: Отключить запросы учётной записи
@@ -372,6 +408,8 @@ ru:
     add_campaign_aria_label: Добавить кнопку капмании
     new_tag_button_aria_label: Кнопка «Создать или обновить тег»
     enroll_button_aria_label: Кнопка регистрации
+    assignment_headings:
+      assigned_articles_wikidata: Назначенные элементы
     assignment_end: Конец задания
     assignment_start: Начало задания
     calendar:
@@ -421,6 +459,7 @@ ru:
       start_date: Дата начала
       start_date_placeholder: ГГГГ-ММ-ДД
     current: Текущие курсы
+    data_overview: Обзор данных
     data_uploads: Данные загрузок на Викисклад
     delete_course: Удалить курс
     delete_suggestion: Удалить
@@ -430,6 +469,9 @@ ru:
     download_stats_data: Скачать статистику
     duration: Продолжительность курса
     edit_count: Число правок
+    embed_course_stats: Встроить статистику курса
+    embed_course_stats_description: Чтобы встроить статистику этой программы на другой
+      веб-сайт, скопируйте и вставьте этот фрагмент кода в
     end: Завершение
     ended: Курс завершен.
     enroll: Записаться
@@ -445,6 +487,9 @@ ru:
       one: Инструктор
       other: Инструкторы
     instructors: Инструкторы
+    instructor_message_wikidata: Это тот же интерфейс «Мои элементы», который доступен
+      студентам. Вы можете использовать его для прохождения тех же шагов, что и студенты.
+      Однако отслеживаться будут только вклады студентов.
     join: Присоединиться
     join_course: Присоединиться к курсу
     join_prompt: Присоединиться к '%{title}'?
@@ -455,6 +500,7 @@ ru:
       not_yet_approved: Этот курс ещё не был одобрен для регистрации.
     loading: Загружается…
     my_articles: Мои статьи
+    my_articles_wikidata: Мои элементы
     new_week: Добавить новую неделю
     new_account_check_username: Проверить доступность имени пользователя
     new_account_email: Адрес электронной почты
@@ -564,11 +610,18 @@ ru:
     edit_description: Редактирование описание
     edit_details: Редактировать подробности
     edit_template: Редактировать шаблон
+  instructor_view:
+    assigned_articles_wikidata: Назначенные элементы
+    overview: '%{prefix} — обзор'
+    select_student:
+      content_wikidata: для назначения и просмотра назначений элементов
   metrics:
     last_update: Последнее обновление статистики
     activity: Недавние действия
     articles_created: Статей создано
     articles_edited: Статей отредактировано
+    articles_edited_wikidata: Отредактированные элементы
+    articles_edited_generic_wikidata: Отредактированные элементы
     bytes_added: Байт добавлено
     characters: Символов
     char_added: Символов добавлено
@@ -577,16 +630,22 @@ ru:
     date_time: Дата/время
     edit_count_description: Всего правок
     revisions: Последние правки
+    references_count: Добавленные ссылки
     tags: Теги
+    update_statistics_link: См. подробнее
     upload_count: Загружено на Викисклад
     view_count_description: Просмотров статей
+    view_count_description_wikidata: Просмотры элементов
+    view_data_unavailable: Данные о просмотрах недоступны
     view: Просмотров
     word_count: Слов добавлено
     word_count_average: Среднее количество слов
+    general: Общие показатели
     total_revisions: Всего версий
-    claims: Претензии
+    claims: Заявления
     aliases: Синонимы
     merged: Объединено
+    merged_from: Присоединено
     created: Создано
     changed: Изменилось
     removed: Удалено
@@ -597,10 +656,15 @@ ru:
     labels: Метки
     no_data: Нет данных
     other_updates: Другие обновления
-    qualifiers_added: Спецификаторов добавлено
-    redirects_created: Перенаправляет созданное
-    restorations_performed: Выполненные восстановления
-    reverts_performed: Выполненные откаты
+    qualifiers_added: Квалификаторов добавлено
+    redirects_created: Перенаправлений создано
+    references_added: ссылок добавлено
+    references_added_info: Здесь может учитываться лишь часть добавленных ссылок.
+      Подсчёт основан на описаниях правок в Викиданных, и некоторые правки, добавляющие
+      ссылки, классифицируются как «Изменено заявление» (Changed claim) или «Создано
+      заявление» (Created claim).
+    restorations_performed: Восстановлений выполнено
+    reverts_performed: Откатов сделано
   namespace:
     main: Основное пространство
     main_char_added: Добавлено символов в основном пространстве
@@ -634,6 +698,7 @@ ru:
     usage_count: Использовано
   revisions:
     chars_added: Символов добавлено
+    references: Добавленные ссылки
     class: Класс
     date_time: Дата/Время
     diff_show: Показать
@@ -643,6 +708,9 @@ ru:
     none: В последнее время в этом курсе не совершалось правок.
     time_doc: Время каждой ревизии по вашему местному времени
     title: Название
+    show_all: Показать все
+    show_course_specific: Показать конкретный курс
+    show_only_new_editors: Показывать только правки новичков
   settings:
     common_settings_components:
       headings:
@@ -674,6 +742,7 @@ ru:
       new:
         form_placeholder: Имя участника
   status:
+    queues_overview: Очереди — обзор
     size: Размер
     status: Статус
   tasks:
@@ -732,6 +801,7 @@ ru:
     loading: Загрузка приложений...
     none: Этот класс не добавлял никакие изображения или иные медиафайлы на Викисклад.
     original_file: Файл-оригинал
+    select_label: Фильтр по загрузившему
     time_doc: Время загрузки каждого дополнения по вашему местному времени.
     uploaded_at: Время загрузки
     uploader: Загружающий
@@ -749,6 +819,7 @@ ru:
     already_enrolled: Этот участник уже подписан на курс.
     assign_articles_done: Готово
     assigned: Назначенные статьи
+    assigned_wikidata: Назначенные элементы
     assignees: Назначение(я)
     chars_added: Символов добавлено<br>(статья | участник | черновик)
     contributions: Вклад участника
@@ -762,15 +833,21 @@ ru:
     name: Имя
     none: Нет участников.
     recent_revisions: Последние правки
+    references_count: Добавленные ссылки
     training_modules: Учебный модуль
     request_confirmation: Вы уверены, что хотите запросить эту учётную запись?
     requested_account_status:
       success_message: 'Успешно: %{result_description}'
       failure_message: 'Отказ: %{result_description}'
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
+    references_doc: Количество ссылок, добавленных или удалённых этим редактором
     reviewers: Проверяющий(е)
     reviewing: Проверка
     sandboxes: песочницы
+    sub_navigation:
+      assignments_and_exercises: Задания и упражнения
+      editor_overview: Редакторы — обзор
+      student_overview: '%{prefix} — обзор'
     training_complete:
       one: завершил обучение
       other: завершили обучение
@@ -849,6 +926,8 @@ ru:
     assign_article_self: Назначить себя
     average_views: В среднем просмотров в день
     category_search: Поиск по категории
+    filtered_articles: Отфильтрованные статьи
+    filtered_articles_wikidata: Отфильтрованные элементы
     hide_options: Скрыть параметры
     more_results: Ещё результаты
     page_assessment_class: Класс

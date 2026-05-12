@@ -1,6 +1,5 @@
 import { ArticleViewerAPI } from './ArticleViewerAPI';
 import URLBuilder from './URLBuilder';
-import fetch from 'cross-fetch';
 
 // START: Mock fetch functionality
 const htmlReplace = jest.fn(() => true);
@@ -16,8 +15,7 @@ const fetchMock = jest.fn(() => {
     }
   });
 });
-jest.mock('cross-fetch');
-fetch.mockImplementation(fetchMock);
+global.fetch = fetchMock;
 // END: Mock fetch functionality
 
 describe('ArticleViewerAPI', () => {

@@ -3,7 +3,7 @@
 # Detects sources that are unreliable or possibly unreliable
 # Based on https://en.wikipedia.org/wiki/User:Headbomb/unreliable.js
 
-require_relative './unreliable_js_rules'
+require_relative 'unreliable_js_rules'
 
 class UnreliableSourcesDetector
   def initialize(content)

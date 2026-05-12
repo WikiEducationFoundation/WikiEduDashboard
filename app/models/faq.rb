@@ -14,7 +14,7 @@ class Faq < ApplicationRecord
   fuzzily_searchable :question_and_answer
 
   def self.markdown_renderer
-    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+    @markdown ||= Redcarpet::Markdown.new(Redcarpet::Render::HTML, lax_spacing: true)
   end
 
   def self.render_markdown(content)

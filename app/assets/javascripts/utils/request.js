@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import Rails from '@rails/ujs';
 
 // it is a relative path if it doesn't start with http or https

@@ -40,6 +40,9 @@ categories:
       - slug: moving-live-professional
         name: Moving work out of the sandbox
         description: Practical steps for moving your work to Wikipedia
+      - slug: images-and-media
+        name: Contributing images and media files
+        description: How to contribute images, video, diagrams, sound files, and other multimedia
   - title: Exercises
     description: These are exercises that are part of course work.
     modules:

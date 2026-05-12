@@ -87,6 +87,14 @@ class CourseRevisionUpdater
 
   # Determines if there are new revisions, based on the number of revisions and the
   # last revision datetime.
+  #
+  # The count comparison is against `timeslice.mw_rev_count`, NOT
+  # `timeslice.revision_count`. The two columns apply different filters:
+  # `revision_count` excludes deleted revs and revs in `articles_courses.not_tracked`
+  # in addition to system revs, while this method (and `mw_rev_count`) excludes only
+  # system revs. Comparing against `revision_count` would falsely report new data
+  # every cycle for any timeslice that contains a deleted or not-tracked rev.
+  # See CourseWikiTimeslice#update_mw_rev_count.
   def new_revisions?(revisions, wiki, timeslice_start)
     live_revisions = revisions.reject(&:system)
     revision_count = live_revisions.count
@@ -104,6 +112,6 @@ class CourseRevisionUpdater
     end
 
     latest_revision = revisions.maximum(:date)
-    revision_count != timeslice.revision_count || latest_revision != timeslice.last_mw_rev_datetime
+    revision_count != timeslice.mw_rev_count || latest_revision != timeslice.last_mw_rev_datetime
   end
 end

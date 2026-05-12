@@ -108,7 +108,7 @@ class Commons
     @image_data = []
     @continue = true
     until @continue.nil?
-      response = api_get
+      response = api_get_handling_unrenderable
       return @image_data if response.blank?
       parse_image_data_and_update_continue(response)
     end
@@ -138,7 +138,39 @@ class Commons
   ###################
   private
 
-  def api_get
-    WikiApi.new(CommonsWiki.new, @update_service).query(@query)
+  def api_get(&caller_handles)
+    WikiApi.new(CommonsWiki.new, @update_service).query(@query, &caller_handles)
+  end
+
+  # Per-file thumbnail-render failures from MediaWiki (urlparamnormal) would
+  # otherwise sink the whole batch. Drop the offending pageid, record a
+  # placeholder so it stops being re-queried, and let the rest of the batch
+  # succeed.
+  URLPARAMNORMAL_INFO = /\ACould not normalize image parameters for (.+)\.\z/
+
+  def api_get_handling_unrenderable
+    api_get { |e| e.is_a?(MediawikiApi::ApiError) && e.code == 'urlparamnormal' }
+  rescue MediawikiApi::ApiError => e
+    unless drop_unrenderable_pageid(e)
+      Sentry.capture_exception(e, extra: { query: @query })
+      return nil
+    end
+    return nil if @query[:pageids].blank?
+    retry
+  end
+
+  def drop_unrenderable_pageid(error)
+    match = error.info.match(URLPARAMNORMAL_INFO)
+    return nil unless match
+    bad_upload = CommonsUpload.find_by(file_name: "File:#{match[1].tr('_', ' ')}")
+    return nil unless bad_upload && @query[:pageids].include?(bad_upload.id)
+    @query[:pageids] -= [bad_upload.id]
+    @image_data << placeholder_image_data(bad_upload)
+    bad_upload
+  end
+
+  def placeholder_image_data(upload)
+    { 'pageid' => upload.id,
+      'imageinfo' => [{ 'thumburl' => upload.url, 'thumbwidth' => '', 'thumbheight' => '' }] }
   end
 end

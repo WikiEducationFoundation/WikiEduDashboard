@@ -17,6 +17,7 @@
 #  needs_update         :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  mw_rev_count         :integer          default(0)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -72,6 +73,7 @@ class CourseWikiTimeslice < ApplicationRecord
     update_character_sum
     update_references_count
     update_revision_count
+    update_mw_rev_count
     update_stats
     update_needs_update
     save
@@ -112,6 +114,13 @@ class CourseWikiTimeslice < ApplicationRecord
     end
 
     self.revision_count = tracked_revisions.count { |rev| !rev.deleted && !rev.system }
+  end
+
+  # Count of revisions as fetched from MediaWiki, excluding only system edits.
+  # Must mirror the same filter that CourseRevisionUpdater#new_revisions? applies
+  # to the live fetched revisions, so the two counts are comparable.
+  def update_mw_rev_count
+    self.mw_rev_count = @revisions.count { |rev| !rev.system }
   end
 
   def update_stats

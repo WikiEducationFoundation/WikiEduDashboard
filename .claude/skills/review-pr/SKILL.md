@@ -160,15 +160,30 @@ same weight as bugs found in code review.
 ## Phase 4: Exploratory specs and demo
 
 For PRs with user-facing changes, write exploratory feature specs
-that exercise the new functionality. This serves two purposes:
-verifying the feature works and giving the reviewer a visual demo.
-(The reviewer can skip this if the PR is trivial, but the default is
-to write them.)
+that exercise the new functionality. Exploratory specs serve three
+purposes: verifying the feature works, giving the reviewer a visual
+demo, and — when code-reading has surfaced a suspected behavior
+change — converting that reasoned finding into reproducible fact. A
+spec that exercises the contrasting cases (before/after,
+affected/unaffected) turns an argument about code paths into a
+demonstration the author can rerun. When a spec serves this third
+purpose, consider including it in the review comment (or linking to
+it) so the finding is harder to dismiss. (The reviewer can skip the
+exploratory spec entirely if the PR is trivial, but the default is
+to write one.)
 
 1. Read the changed views, controllers, and presenters to understand
    what the feature does.
 2. Write a temporary spec file (`spec/features/<descriptive>_spec.rb`)
    with focused examples covering the key user flows and edge cases.
+   **Seed with production-realistic data shapes**, not minimal or
+   arbitrary values: a spec that passes against integer seeds like
+   `1000` can hide a bug that only fires against the comma-formatted
+   strings production actually stores. This matters most when the PR
+   touches input types, validation, serialization, or display
+   formatting. Sources for realistic shapes: existing factories and
+   fixtures, `db/seeds.rb`, other specs that exercise the same model,
+   or — if none of those is conclusive — ask the reviewer.
 3. Run the specs headless first to get them passing:
    ```bash
    bin/feature-spec spec/features/<file>_spec.rb
@@ -184,8 +199,10 @@ to write them.)
 The exploratory spec can also be shared with the PR author if useful.
 
 For purely backend PRs, write unit specs instead of feature specs if
-the PR's own spec coverage is thin. For configuration-only or trivial
-changes, skip to Phase 5.
+the PR's own spec coverage is thin. The same three purposes apply,
+especially the third — a contrasting-cases unit spec is just as
+useful for pinning down a suspected behavior change. For
+configuration-only or trivial changes, skip to Phase 5.
 
 ---
 
@@ -199,6 +216,48 @@ bundle exec rubocop <changed .rb files>
 yarn eslint <changed .js/.jsx files>
 ```
 
+### Migration safety check
+
+If the PR diff includes any file in `db/migrate/`, work through this
+checklist explicitly before continuing the rest of the review. Reach a
+clear verdict on in-deployment viability before moving on; if anything
+is unknown (DB version, table size, etc.), ask the reviewer rather than
+glossing over it.
+
+- **Shape.** Additive (add column, add table, new index) is safer than
+  changing or destructive (drop, rename, change column, add NOT NULL on
+  populated column). For `add_column`, nullable + literal default is
+  the textbook safe form.
+- **Backfill.** Does the migration run an inline `update_all`, `each`,
+  or `find_each` over rows? Inline backfills hold the migration open
+  and block writes; large tables need batched backfills run separately.
+- **Indexes / constraints.** Adding indexes, NOT NULL, or foreign keys
+  to populated columns may require table locks or rewrites. Online
+  index syntax, two-step NOT NULL, or deferred FK validation may be
+  warranted.
+- **DB version + algorithm support.** Confirm the production MariaDB /
+  MySQL version and whether the change qualifies for `ALGORITHM=INSTANT`
+  or `INPLACE`. INSTANT ADD COLUMN (MariaDB 10.3+, MySQL 8.0.12+) makes
+  nullable+default column adds metadata-only; without it the same
+  migration can rewrite the table. Check both Wiki Ed Dashboard
+  (`production` stage) and Peony (`peony` stage) — they're independent
+  hosts and may run different MariaDB versions. `SELECT VERSION();` on
+  each is the cheap check.
+- **Table size.** Roughly how big is the affected table in production?
+  Small tables (<100K rows) tolerate any algorithm; large or write-hot
+  tables (e.g. `course_wiki_timeslices`, `revisions`,
+  `course_user_wiki_timeslices`, `article_course_timeslices`) need a
+  fast-path algorithm or out-of-band execution.
+- **Deploy timing.** Capistrano runs migrations during deploy and the
+  deploy blocks on them. For migrations that aren't fast-path,
+  recommend running out-of-band first and shipping the code change in
+  a follow-up deploy.
+
+State a verdict — "safe to ship inside a normal deploy" or specifics
+about what to do differently — before continuing.
+
+### Diff walkthrough
+
 Walk through the diff one logical group at a time. For each group of
 related changes:
 
@@ -206,7 +265,9 @@ related changes:
 2. Summarize what the changes do — but **do not judge quality**. Present
    the facts and let the reviewer assess.
 3. Flag areas that may warrant closer attention:
-   - **Migrations** — schema changes, data migrations, irreversibility
+   - **Migrations** — covered above in Migration safety check; the diff
+     walkthrough should still surface any code that depends on the new
+     schema in ways that interact with the deploy ordering.
    - **Security-sensitive code** — authentication, authorization, user
      input handling, SQL queries, external API credentials
    - **External API changes** — calls to WikiMedia APIs, Toolforge
@@ -315,6 +376,17 @@ gh pr review <number> --approve --body "..."
 gh pr review <number> --request-changes --body "..."
 gh pr review <number> --comment --body "..."
 ```
+
+After a `--request-changes` review, convert the PR to draft so it
+leaves the review queue until the author pushes fixes:
+
+```bash
+gh pr ready <number> --undo
+```
+
+Do not do this for `--comment` or `--approve` reviews. When the
+author marks the PR ready for review again, that's the signal to
+re-review.
 
 Clean up: delete any temporary exploratory spec files, then switch
 back to the previous branch:
@@ -476,10 +548,13 @@ wrong.
 **Attribution:** Every posted comment must end with an italicized
 attribution line that honestly characterizes the human involvement.
 Include: how much wall-clock time the reviewer spent, roughly how
-many interactions they had with Claude Code, and what they actually
-reviewed vs. what they approved without deep verification. The goal
-is to let the PR author calibrate how much weight to give the
-feedback. Examples:
+many interactions they had with Claude Code, what they actually
+reviewed vs. what they approved without deep verification, and — if
+local verification happened — what specifically was verified ("ran X
+locally", "reproduced Y via a new spec", "checked production
+state"). The goal is to let the PR author calibrate how much weight
+to give the feedback; named verifications calibrate more sharply
+than time and interaction counts alone. Examples:
 
 *Drafted in a Claude Code session (~30 min, ~15 interactions).
 Sage directed the triage and code review phases, verified the

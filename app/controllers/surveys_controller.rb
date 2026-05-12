@@ -203,6 +203,7 @@ class SurveysController < ApplicationController
   # Prevents access to survey results if they are set to be confidential
   def protect_confidentiality
     return unless @survey.confidential_results
+    return if current_user&.super_admin?
     render plain: 'The results for this survey are confidential.',
            status: :forbidden
     yield

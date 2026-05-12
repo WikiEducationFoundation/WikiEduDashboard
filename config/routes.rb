@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
+  get '/settings/fetch_impact_stats' => 'settings#fetch_impact_stats'
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
 
   get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
@@ -381,6 +382,27 @@ Rails.application.routes.draw do
 
   # To find individual slides by id
   get 'find_training_slide/:slide_id' => 'training#find_slide'
+
+  # Training module composer (admin-only): compose new training modules as
+  # yml-file drafts, then export as a zip of production-layout files.
+  get 'training_module_drafts' => 'training_module_drafts#index'
+  post 'training_module_drafts' => 'training_module_drafts#create'
+  # Static subpaths must come before the :slug-parameterized routes so they
+  # aren't captured as draft slugs.
+  get 'training_module_drafts/existing_slide_slugs' => 'training_module_drafts#existing_slide_slugs'
+  post 'training_module_drafts/parse_paste' => 'training_module_drafts#parse_paste'
+  get 'training_module_drafts/:slug/export' => 'training_module_drafts#export',
+      constraints: { slug: %r{[^/.]+} }, as: :export_training_module_draft
+  get 'training_module_drafts/:slug/collisions' => 'training_module_drafts#collisions',
+      constraints: { slug: %r{[^/.]+} }
+  get 'training_module_drafts/:slug' => 'training_module_drafts#show',
+      constraints: { slug: %r{[^/.]+} }
+  patch 'training_module_drafts/:slug' => 'training_module_drafts#update',
+        constraints: { slug: %r{[^/.]+} }
+  put 'training_module_drafts/:slug' => 'training_module_drafts#update',
+      constraints: { slug: %r{[^/.]+} }
+  delete 'training_module_drafts/:slug' => 'training_module_drafts#destroy',
+         constraints: { slug: %r{[^/.]+} }
 
   # Misc
   # get 'courses' => 'courses#index'

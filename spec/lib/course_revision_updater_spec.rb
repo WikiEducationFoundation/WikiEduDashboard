@@ -46,8 +46,6 @@ describe CourseRevisionUpdater do
           # fetched scores
           expect(revisions.last.features).to eq({ 'num_ref' => 19 })
           expect(revisions.last.features_previous).to eq({ 'num_ref' => 18 })
-          expect(revisions.last.wp10.to_f).to be_within(0.01).of(47.03)
-          expect(revisions.last.wp10_previous.to_f).to be_within(0.01).of(46.94)
         end
       end
 
@@ -74,8 +72,6 @@ describe CourseRevisionUpdater do
           # fetched scores
           expect(revisions.last.features).to eq({ 'num_ref' => 19 })
           expect(revisions.last.features_previous).to eq({ 'num_ref' => 18 })
-          expect(revisions.last.wp10.to_f).to be_within(0.01).of(47.03)
-          expect(revisions.last.wp10_previous.to_f).to be_within(0.01).of(46.94)
         end
       end
 
@@ -83,6 +79,7 @@ describe CourseRevisionUpdater do
         # complete the timeslice
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
         course.course_wiki_timeslices.update(revision_count: 3,
+                                             mw_rev_count: 3,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
@@ -106,8 +103,47 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
+        end
+      end
+
+      it 'compares against mw_rev_count, not revision_count' do
+        # Repro for the warm-update reprocessing bug: the cassette returns 3
+        # live (non-system) revisions. If the timeslice's revision_count is
+        # less than the live count (e.g. because some revs are in not_tracked
+        # articles or are deleted) but mw_rev_count matches the live count,
+        # the gate should still report no new data. Pre-fix this returned
+        # `new_data: true` and triggered re-scoring on every update cycle.
+        last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
+        course.course_wiki_timeslices.update(revision_count: 0,
+                                             mw_rev_count: 3,
+                                             last_mw_rev_datetime:)
+        VCR.use_cassette 'course_revision_updater' do
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
+          revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions,
+                                                                            only_new: true)
+          expect(revisions_with_scores[wiki][:new_data]).to eq(false)
+          revs = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
+          expect(revs.count).to eq(3)
+          # No scores fetched — proves we skipped the scoring path.
+          expect(revs.last.features).to be_empty
+          expect(revs.last.features_previous).to be_empty
+        end
+      end
+
+      it 'reports new data when live count exceeds mw_rev_count' do
+        # Regression guard: when actual new revisions arrive (live > cached),
+        # new_data must still flip to true and scoring must run.
+        last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
+        course.course_wiki_timeslices.update(revision_count: 2,
+                                             mw_rev_count: 2,
+                                             last_mw_rev_datetime:)
+        VCR.use_cassette 'course_revision_updater' do
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
+          revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions,
+                                                                            only_new: true)
+          expect(revisions_with_scores[wiki][:new_data]).to eq(true)
+          revs = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
+          expect(revs.last.features).to eq({ 'num_ref' => 19 })
         end
       end
 
@@ -115,6 +151,7 @@ describe CourseRevisionUpdater do
         # complete the timeslice
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
         course.course_wiki_timeslices.update(revision_count: 3,
+                                             mw_rev_count: 3,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
@@ -140,8 +177,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
     end
@@ -204,8 +239,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
 
@@ -213,6 +246,7 @@ describe CourseRevisionUpdater do
         # complete the timeslice
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
         course.course_wiki_timeslices.update(revision_count: 3,
+                                             mw_rev_count: 3,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
@@ -236,8 +270,6 @@ describe CourseRevisionUpdater do
           # no fetched scores
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
-          expect(revisions.last.wp10).to be_nil
-          expect(revisions.last.wp10_previous).to be_nil
         end
       end
     end

@@ -577,7 +577,12 @@ ga:
     name: Ainm
     category_name: Ainm na catagóire
     psid_name: PSID
+    psid_description: Ní oibríonn fiosrúcháin PetScan leis an Painéal Rialaithe ach
+      vicí amháin ag an am. Cinntigh nach n-áirítear i d’fhiosrúchán PetScan ach ailt
+      ó vicí amháin, agus go bhfuil sé ag teacht leis an tsraith vicí thíos.
     pileid_name: Aitheantas PagePile
+    pileid_description: Cinntigh go bhfuil vicí an PagePile ar cheann de na vicí atá
+      á rianú don chlár seo.
     template_name: Ainm an teimpléid
     none: Níl aon chatagóirí á rianú.
     remove: Bain
@@ -1437,7 +1442,8 @@ ga:
     total_revisions: Athbhreithnithe iomlána
     claims: Éilimh
     aliases: Leasainmneacha
-    merged: Cumaiscthe
+    merged: Cumaiscthe le
+    merged_from: Cumaiscthe ó
     created: Cruthaithe
     changed: Athraithe
     removed: Bainte
@@ -2358,5 +2364,8 @@ ga:
   question_groups:
     edit_question_group: Cuir Grúpa Ceisteanna in Eagar
   form_search:
+    search: Cuardaigh
+    advanced_search: Cuardach Casta
+    clear: Glan
     program_date: Dáta an Chláir
 ...

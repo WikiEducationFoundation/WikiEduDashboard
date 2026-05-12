@@ -4,6 +4,7 @@
 # Author: Alex00728
 # Author: Apzp79
 # Author: Asdfqwer51
+# Author: Bisang
 # Author: Codenstory
 # Author: Ellif
 # Author: Gongsoonyee
@@ -15,6 +16,7 @@
 # Author: Revi
 # Author: SeoJeongHo
 # Author: Suleiman the Magnificent Television
+# Author: Tensama0415
 # Author: YeBoy371
 # Author: Yearning
 # Author: Ykhwong
@@ -40,6 +42,7 @@ ko:
   application:
     back: 뒤로
     cancel: 취소
+    next: 다음
     cookie_consent: 이 사이트는 로그인 유지를 위해 쿠키를 사용하며 위키백과 계정에 관한 정보를 저장합니다.
     cookie_consent_acknowledge: 이해합니다
     cookie_consent_see_more: 더 보기
@@ -67,10 +70,12 @@ ko:
     request_account: 계정 요청
     request_account_create: 계정 만들기
     search: 질문하기
-    search_results: '다음 결과: ''%{search_terms}'''
+    search_results:
+      one: '%{count} 다음 결과: ''%{search_terms}'''
+      other: '%{count} 다음 결과: ''%{search_terms}'''
     no_results: '''%{query}''의 결과를 찾을 수 없습니다'
     show_current_revision: 현재 판 표시
-    show_last_revision: 마지막 판 표시
+    show_last_revision: 마지막 편집된 판 표시
     sign_up_extended: 위키백과에 가입하기
     sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -106,7 +111,7 @@ ko:
     log_in: 위키백과에 로그인하기
     sign_up: 위키백과에 등록하기
     sign_up_help: 대시보드를 사용하려면 위키백과에 로그인하여 사용자 계정에 권한을 제공해야 합니다. 기존의 위키백과 계정으로 로그인하거나
-      새 계정을 만들 수 있습니다.
+      새 계정을 만들 수 있습니다. 계정은 만들 수 없는 경우, dashboard@wikiedu.org로 문의하세요.
   alerts:
     alert_label: 경보
   activity:
@@ -311,7 +316,7 @@ ko:
     template_name: 틀 이름
     none: 추적되는 분류가 없습니다.
     remove: 제거
-    tracked_categories: 추적된 분류, PSID, 틀
+    tracked_categories: 추적된 분류, PSID, PagePile ID, 틀
   courses:
     accounts_generation_enabled: 계정 요청 생성이 활성화되었습니다
     accounts_generation_explanation: |-
@@ -364,8 +369,8 @@ ko:
       assignment_start_placeholder: YYYY-MM-DD
       choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 복제된 과정의 세부사항 업데이트하기
-      course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
-      course_term_placeholder: 학기
+      course_private: 비공개 프로그램 (관리자와 진행자만 볼 수 있음)
+      course_term_placeholder: 학기 (연도 포함)
       course_types:
         edit_a_thon_name: 에디터톤
       end_date: 종료일
@@ -431,7 +436,7 @@ ko:
     instructors: 지침
     instructor_message: 이것은 참여자들이 사용하는 것과 같은 문서 편집 인터페이스이다. 진행자는 참여자들이 사용하는 것과 같은
       방식으로 편집할 수 있지만, 참여자들의 편집 활동만 추적되고, 진행자의 보조 도움은 제외되어 계산될 것이다.
-    invitation: '%{title} 에 참여하도록 초대되었습니다. 이 과정에 참여하려면 위키백과 계정에 로그인해야 합니다.'
+    invitation: '%{title} 에 참여하도록 초대되었습니다. 참여하려면 위키백과 계정에 로그인해야 합니다.'
     invitation_username_advice: 아직 위키백과 계정이 없다면 지금 하나 등록하십시오. 사용자 이름은 원하는 경우 익명 처리하거나
       개인 식별 처리시킬 수 있습니다. (공유 계정은 허용되지 않음)
     join: 가입하기
@@ -449,16 +454,16 @@ ko:
     new_account_email: 이메일 주소
     new_account_email_placeholder: name@example.org
     new_account_info: 계정을 요청하려면 이메일 주소와 원하는 사용자 이름을 입력하십시오. 비밀번호는 계정이 만들어질 때 이메일로
-      전달됩니다.
-    new_account_info_admin: 학생의 계정을 요청하려면 이메일 주소와 원하는 사용자 이름을 입력하십시오. 비밀번호는 계정이 만들어질
+      진행자 중 한명에게 전달됩니다.
+    new_account_info_admin: 새 편집자 계정을 만들려면 이메일 주소와 원하는 사용자 이름을 입력하십시오. 비밀번호는 계정이 만들어질
       때 이메일로 전달됩니다.
     new_account_username: 요청된 사용자 이름
     new_account_username_invalid: 유효한 사용자 이름이 아닙니다.
     new_account_username_placeholder: 위키 편집자 123
     new_account_username_taken: 이 사용자 이름은 이미 사용 중입니다. 다른 이름을 선택해 주십시오.
     new_account_submit: 계정 요청
-    new_account_submitted: 계정 요청이 제출되었습니다. 이 프로그램의 Facilitator는 지금 계정 생성을 마무리할 것입니다.
-      계정이 생성되면 이메일을 통해 새로운 계정의 비밀번호를 받게 됩니다.
+    new_account_submitted: 계정 요청이 제출되었습니다. 이 프로그램의 진행자는 지금 계정 생성을 마무리할 것입니다. 계정이 생성되면
+      이메일을 통해 새로운 계정의 비밀번호를 받게 됩니다.
     new_account_submitted_admin: 계정 요청이 생성되었습니다. 학생들이 자신의 받은 편지함을 확인하여 새로운 비밀번호를 받도록
       지시해 주십시오
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
@@ -516,7 +521,7 @@ ko:
     view_page: 코스 문서 보기
     view_wiki: 위키백과에서 보기
     volunteer:
-      other: 지원자
+      other: 자원봉사자
     wiki_edits_enabled: 위키 편집 사용
     wiki_staff: 위키 교육 직원
     withdrawn: 과제를 제출하지 않았습니다
@@ -614,6 +619,8 @@ ko:
         나중에 해결할 수 있도록 우리에게 문제를 알려주세요.
       learn_more_button: 더 알아보기
       submit_issue: 이 문서의 중요한 문제점은 무엇입니까?
+      quality_problems_button: 품질에 문제가 있나요?
+      notify_wiki_expert: 위키 전문가에게 알리기
     overview: '%{prefix} 개요'
     reviewing_articles: 문서 검토
     reviewing_articles_wikidata: 항목 검토
@@ -658,6 +665,8 @@ ko:
     word_count: 단어 추가됨
     word_count_average: 평균 단어 개수
     general: 일반
+    merged: 로 병합됨
+    merged_from: 에서 병합됨
     removed: 제거됨
     labels: 레이블
     no_data: 데이터 없음
@@ -794,7 +803,7 @@ ko:
     due_default: 다음 주까지
     empty_week_1: 시작하려면,
     empty_week_3: 또는
-    empty_week_4: 미리 지정된 과제부터 시작하세요.
+    empty_week_4: 타임라인을 만드려면 과제 마법사를 사용하세요.
     first_week_title: 첫 활동적인 주
     gradeable_value: 값
     grading_header: '점수 (총: %{total})'
@@ -808,6 +817,8 @@ ko:
     title: 타임라인
     view_full_timeline: 전체 타임라인 보기
     week_number: '%{number} 주'
+    add_block: 차단 추가
+    delete_week: 주 삭제
   training:
     continue: 계속 (%{progress})
     start: 시작하기
@@ -930,8 +941,8 @@ ko:
     instructors_student_impact: '%{username} 진행자의 프로그램 참여자들의 활동내역'
     disclaimer: 입력한 정보는 공개됩니다.
     bio_placeholder: 자기소개 추가 (선택 사항)
-    location_placeholder: 당신의 위치 추가 (선택사항)
-    institution_placeholder: 기관 이름 (선택사항)
+    location_placeholder: 당신의 위치 추가 (선택 사항)
+    institution_placeholder: 기관 이름 (선택 사항)
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.
@@ -951,8 +962,8 @@ ko:
     start_date_before_end_date: 시작 날짜는 끝 날짜보다 앞서야 합니다.
     unsupported_browser:
       header: 지원되지 않는 브라우저입니다. :-(
-      explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 인터넷 익스플로러 버전 11 이상, 최신 버전의
-        크롬과 파이어폭스, 그 밖의 현대의 브라우저에서 잘 동작합니다.
+      explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 크롬, 엣지와 파이어폭스, 그 밖의 현대의 브라우저에서
+        잘 동작합니다.
     download_here: 파일을 다운로드하려면 여기를 클릭하세요
   error_401:
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
@@ -996,8 +1007,8 @@ ko:
     add_available_article_wikidata: 사용 가능한 항목으로 추가
     article_finder: 문서 검색기
     article_finder_wikidata: 항목 파인더
-    article_quality: 문서 품질(0-100)
-    article_quality_wikidata: 항목 품질(0-100)
+    article_quality: 문서 품질 (0-100)
+    article_quality_wikidata: 항목 품질 (0-100)
     average_views: 일일 평균 조회수
     category_search: 분류 검색
     fetched_articles_wikidata: 찾은 항목
@@ -1042,4 +1053,9 @@ ko:
     download_csv: CSV 다운로드
   question_groups:
     edit_question_group: 질문 그룹 편집
+  form_search:
+    search: 검색
+    advanced_search: 고급 검색
+    clear: 지우기
+    program_date: 프로그램 날짜
 ...

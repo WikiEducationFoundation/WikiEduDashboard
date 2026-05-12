@@ -19,6 +19,7 @@
 # Author: Susannaanas
 # Author: Valtlai
 # Author: Valtlait
+# Author: Wikipeedikko
 # Author: Yupik
 ---
 fi:
@@ -679,6 +680,8 @@ fi:
       article_name: Nimi
     bad_work:
       learn_more_button: Lisätietoa
+      quality_problems_button: Laatuongelmia?
+      notify_wiki_expert: Ilmoita Wiki-asiantuntijalle
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
@@ -711,7 +714,8 @@ fi:
     word_count: Lisätyt sanat
     word_count_average: Keskimääräinen sanamäärä
     aliases: Aliakset
-    merged: Yhdistetty
+    merged: Yhdistetty kohteeseen
+    merged_from: Yhdistetty kohteesta
     created: Luotu
     changed: Muutettu
     removed: Poistettu
@@ -838,6 +842,8 @@ fi:
       viikolle.
     view_full_timeline: Näytä koko aikajana
     week_number: Viikko %{number}
+    add_block: Lisää esto
+    delete_week: Poista viikko
   training:
     continue: Jatka (%{progress})
     start: Aloita
@@ -1068,4 +1074,6 @@ fi:
     submit: Tallenna
   training_status:
     continue: Jatka
+  form_search:
+    program_date: Ohjelman päivämäärä
 ...

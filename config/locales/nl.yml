@@ -168,6 +168,7 @@ nl:
       multiple_alerts_students: Studenten met meerdere meldingen
       multiple_alerts_pages: Pagina's met meerdere meldingen
       pangram_url: Pangram-URL
+      go_to_pangram: Naar Pangram gaan
       revision_diff: Versiediff
       single_alert_view: Melding
       alerts_in_mainspace: Meldingen in de hoofdruimte
@@ -176,12 +177,31 @@ nl:
       last_week: Afgelopen week
       sections:
         contents: Pagina-inhoud
+        general_stats: Algemene statistieken
         name: Naam
         description: Beschrijving
         courses_with_ai_alerts: Cursussen met meerdere AI-waarschuwingen
         recent_followup: Meldingen met recente opvolging
         multiple_alerts_students: Recente meldingen voor studenten met meerdere meldingen
         in_mainspace: Recente meldingen in de hoofdnaamruimte
+        alerts_trend_over_time: AI-meldingentrends in de tijd
+        descriptions:
+          courses_with_ai_alerts: Cursussen met meer dan 3 AI-meldingen gedurende
+            de gehele cursusperiode (niet noodzakelijkerwijs recent).
+          recent_followup: Meldingen met vervolgreacties die binnen de laatste 14
+            dagen zijn ingediend, gesorteerd op datum van de vervolgreactie.
+          multiple_alerts_students: Meldingen die de afgelopen 14 dagen zijn aangemaakt
+            voor studenten met meerdere meldingen, gesorteerd op aanmaakdatum.
+          in_mainspace: Meldingen die de afgelopen 14 dagen zijn aangemaakt voor pagina's
+            in de hoofdruimte, gesorteerd op aanmaakdatum.
+  ai_scores_stats:
+    title: AI Scorestatistieken voor versies
+    graphs:
+      daily_checks: Dagelijkse controles per naamruimte
+      avg_likelihood: Gemiddelde AI-waarschijnlijkheidsverdeling per dag
+      max_likelihood: Maximale AI-waarschijnlijkheidsverdeling per dag
+      overall_avg_likelihood: Algemene gemiddelde AI-waarschijnlijkheidsverdeling
+      overall_max_likelihood: Algemene maximale AI-waarschijnlijkheidsverdeling
   activity:
     all: Activiteit
     edited_by: Bewerkt door
@@ -196,6 +216,7 @@ nl:
     available: Beschikbare artikelen
     no_available: Geen beschikbare artikelen
     next: Volgende
+    page_info: Pagina %{current} van %{total_pages} (%{count} van %{total})
     previous: Vorige
     article_title: Artikelnaam
     assigned_to: Toegewezen aan
@@ -221,6 +242,9 @@ nl:
       untracked: Niet bijgehouden
       tracked_and_untracked: Gevolgd en niet gevolgd
     filter_text: 'Filters:'
+    pageviews_label: 'Paginaweergaven:'
+    cumulative: Cumulatief
+    daily_avg: Dagelijks gemiddelde
     find: Artikelen zoeken
     how_to_find: Hoe vind ik een artikel
     hide: Verbergen
@@ -280,11 +304,28 @@ nl:
     edit_size: Bewerkingsgrootte
     wiki: Wiki
     wp10: Structurele volledigheid
+    wp10_doc: De score 'Structurele volledigheid' geeft aan hoe goed een pagina voldoet
+      aan de structuur van een volwaardige Wikipedia-pagina, gebaseerd op de machine
+      learning-gebaseerde Objective Revision Evaluation Service (https://ores.wikimedia.org/).
+      Deze scores worden berekend op basis van de lengte van een pagina, het aantal
+      verwijzingen en wikikoppelingen, en andere basiskenmerken van de tekst. Een
+      hoge score geeft meestal aan dat een pagina voldoet aan de Wikipedia-conventies
+      voor de structuur van een goede pagina, maar houdt geen rekening met de inhoud
+      zelf. Deze scores zijn alleen beschikbaar voor Engelstalige Wikipedia-pagina's.
     articles_short: Pagina's
+    deleted_message: Volgens de gegevens van het dashboard is deze pagina verwijderd.
+      In sommige gevallen kunnen paginaverplaatsingen, het samenvoegen van de geschiedenis
+      of andere handelingen ertoe leiden dat een pagina ten onrechte als verwijderd
+      wordt weergegeven. Verwijderde pagina's kunnen later ook weer worden hersteld.
+      Voor pagina's die niet daadwerkelijk zijn verwijderd, of die later zijn hersteld,
+      zal het dashboard dit doorgaans binnen één of twee dagen weergeven.
     page_logs: (paginalogboeken)
     tracked_articles: Gevolgde pagina's
     view_articles: Pagina's bekijken
     no_tracked_articles: Deze categorie bevat geen gevolgde pagina's
+    not_choosen_article: U hebt nog geen pagina gekozen om aan te werken. Zodra u
+      een pagina hebt gevonden, gebruikt u de knop hierboven om het toe te wijzen.
+    use_dashboard: Hoe het dashboard te gebruiken
     evaluate_and_source: Artikelen en bronnen evalueren
   items:
     items: Items
@@ -293,12 +334,26 @@ nl:
     assigned: Items toewijzen
     assignments_none: Er zijn nog geen toegewezen items.
     available: Beschikbare items
+    character_doc: Het totale aantal tekens dat is toegevoegd aan pagina's door de
+      ingeschreven bewerkers tussen de begin- en einddatum
+    cross_wiki_tracking: De pagina's in de hoofdnaamruimte die tussen de begin- en
+      einddatum zijn bewerkt, staan hieronder vermeld. Het dashboard haalt bijdragen
+      op van de hoofdwiki van dit programma, samen met alle andere wiki's waarvoor
+      een opdracht of een beschikbaar item is.
+    does_not_exist: Het item bestaat niet. Maak een sandboxpagina aan en wijs uzelf
+      daaraan toe om suggesties te ontvangen.
     edited: Bewerkte items
     edited_none: Er zijn nog geen items bewerkt.
     find: Items vinden
     how_to_find: Hoe meer items vinden
     preview: Korte voorvertoning van item
     search: Item in Wikidata zoeken
+    tracked_doc: Alleen geregistreerde pagina's dragen bij aan de statistieken van
+      dit programma. Pagina's die als niet-geregistreerd zijn gemarkeerd, worden tijdens
+      de volgende gegevensupdate uit de statistieken verwijderd.
+    view_doc: Het geschatte aantal weergaven van elk item sinds de eerste bewerking,
+      tot aan de meest recente statistiekupdate. U kunt pageviews.toolforge.org gebruiken
+      om de exacte aantallen te bekijken.
     title_example: Itemnaam
   articles_wikidata:
     articles_short: Items
@@ -308,8 +363,12 @@ nl:
     article: De pagina %{title} is nu aan u toegewezen.
     article_link: Artikel
     article_link_wikidata: Item
+    blocked_assignment: '%{title} kon niet worden toegewezen omdat deze op de blokkeerlijst
+      voor Wiki Education-toewijzingen van de Wikipedia-gemeenschap staat.'
     already_exists: Deze opdracht bestaat al!
     title_too_large: De titel mag niet langer zijn dan 255 tekens
+    max_group_size_exceeded: '%{title} heeft al %{current} student(en) toegewezen.
+      De maximale groepsgrootte voor deze cursus is %{max}.'
     assignees: Toegewezen aan
     assign_other: Een artikel toewijzen/verwijderen
     assign_other_wikidata: Een item toewijzen/verwijderen
@@ -319,7 +378,10 @@ nl:
     add_available_placeholder_wikidata: Voeg één itemnaam of URL toe per regel
     add_available_submit: Pagina's toevoegen
     add_available_submit_wikidata: Items toevoegen
+    add_placeholder: Voer een paginatitel of URL in
     assign_self: Wijs een pagina aan mezelf toe
+    invalid_mainspace_article: Dit moet een geldige pagina uit de hoofdnaamruimte
+      zijn.
     assign_self_wikidata: Item aan mezelf toewijzen
     assign_tooltip: Een toegewezen pagina is een pagina die u wilt maken of verbeteren.
     assign_tooltip_wikidata: Een toegewezen item is een item dat u wilt maken of verbeteren.
@@ -330,7 +392,7 @@ nl:
     confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
     delete: Verwijderen
     editors: Toegewezen aan
-    change_sandbox_url: Zandbak wijzigen
+    change_sandbox_url: Kladblok wijzigen
     group_members: Groepsleden
     label: Toewijzen
     label_all: Allemaal toewijzen
@@ -339,22 +401,84 @@ nl:
     none_short_wikidata: Geen items toegewezen
     none: Aan deze cursus zijn geen artikelen toegewezen.
     no_available: Deze cursus heeft geen beschikbare pagina's
+    outline: Overzicht
     peer_review_count: '%{currentCount}/%{total} geselecteerd'
     peer_review_count_tooltip: U moet %{total} pagina's selecteren voor peer review.
     peer_review_link: Peer review
     peer_review_link_personalized: Peer review van %{username}
+    random_peer_review:
+      confirm_addition: In de meeste gevallen kunt u dit het beste pas gebruiken nadat
+        alle studenten hun hoofdpagina's hebben gekregen. U kunt uw studenten ook
+        vragen om zelf hun peer reviews te kiezen, of u kunt handmatig peer reviews
+        toewijzen door op de rij van een student te klikken en vervolgens op de knop
+        "Peer review toewijzen/verwijderen" te klikken. Door op "OK" te klikken, worden
+        in totaal %{count} extra peer reviews toegewezen, met een maximum van %{maximum}
+        per student, die worden gekozen uit de pagina's van hun klasgenoten.
+      confirm_addition_wikidata: In de meeste gevallen kunt u dit het beste pas gebruiken
+        nadat alle studenten hun hoofdtaken hebben gekregen. U kunt uw studenten ook
+        vragen om zelf hun peer reviews te kiezen, of u kunt handmatig peer reviews
+        toewijzen door op de rij van een student te klikken en vervolgens op de knop
+        "Peer review toewijzen/verwijderen" te klikken. Door op "OK" te klikken, worden
+        in totaal %{count} extra peer reviews toegewezen, met een maximum van %{maximum}
+        per student, gekozen uit de taken van hun klasgenoten.
+      heading: Willekeurige peer reviews toewijzen
+      tooltip_message: Wijst willekeurig pagina's (met een maximumaantal peer reviews)
+        toe aan elke student.
+      tooltip_message_wikidata: Wijst willekeurige items (waarbij het aantal peer
+        reviews het maximum is) toe aan elke student.
+      limit_exceeded: Elke student heeft al minstens %{maximum} pagina's beoordeeld.
+      limit_exceeded_wikidata: Elke student beoordeelt al minstens %{maximum} items.
     remove: Verwijderen
     reviewers: Controleur(s)
     review_other: Een peerreview toewijzen/verwijderen
     review_self: Controleer een pagina
     review_self_wikidata: Item controleren
+    review_tooltip: Dit is voor pagina('s) die u wilt beoordelen of waarop u terugkoppeling
+      wilt geven.
+    review_tooltip_wikidata: Dit is voor item(s) die u wilt beoordelen of waarover
+      u terugkoppeling wilt geven.
     sandbox_draft_link: Kladblokconcept
+    sandbox_redlink_info: Deze koppeling is rood omdat de pagina nog niet is aangemaakt.
+      Als de pagina recent is aangemaakt, worden de gegevens in het dashboard binnenkort
+      bijgewerkt.
     select: Selecteren
     submit: Opslaan
+    invalid_url: Kan de kladblok-URL niet bijwerken. De URL %{url} is geen geldige
+      Wikipedia-URL.
+    mismatched_wiki: Kan de kladblok-URL niet bijwerken. De URL %{url} bevindt zich
+      niet op dezelfde wiki.
+    invalid_username: De gebruikersnaam "%{username}" is ongeldig of de gebruikersnaam
+      bestaat niet.
+    change_sandbox_instructions: Voer een Wikipedia-gebruikersnaam in om de kladblok-URL's
+      voor deze opdracht bij te werken. Hierdoor wordt het kladblok gewijzigd van
+      de huidige gebruikersnaam naar de door u opgegeven gebruikersnaam.
+    username_label: Wikimedia-gebruikersnaam
+    username_placeholder: Voer uw gebruikersnaam in (bijv. UwGebruikersnaam)
+    username_or_url_label: Wikipedia-gebruikersnaam of -URL
+    username_or_url_placeholder: Voer de gebruikersnaam of de volledige kladblok-URL
+      in.
+    preview_label: 'Voorbeeld van nieuwe URL''s:'
+    sandbox_label: Kladblok
+    bibliography_label: Bibliografie
+    outline_label: Overzicht
+    warning_untracked_wiki: 'Houd er rekening mee dat de pagina die u hebt gekozen
+      zich op een wiki bevindt die niet door deze cursus wordt bijgehouden. Om bijdragen
+      aan deze pagina te kunnen volgen, moet een docent de volgende wiki aan deze
+      cursus toevoegen: %{wiki}'
   blocks:
     milestones:
       title: Mijlpalen
   campaign:
+    campaign_ores_plot:
+      change_button: Verandering in structurele volledigheid
+      no_data: Er zijn geen gegevens beschikbaar over de structurele volledigheid
+      graph_description_html: Deze grafiek visualiseert hoeveel pagina's in totaal
+        zijn ontwikkeld vanaf het moment dat campagnedeelnemers ze voor het eerst
+        bewerkten tot de meest recente bewerkingen door de campagne. De beoordeling
+        van <em>de structurele volledigheid</em> is gebaseerd op een machine learning-project
+        (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
+        dat de kwaliteit van een pagina schat op basis van de hoeveelheid tekst, het
+        aantal wikikoppelingen, afbeeldingen en sectiekoppen, en andere kenmerken.
     active_campaigns: Actieve campagnes
     add_organizer: Voeg organisator toe
     alert_article: Paginanaam
@@ -363,14 +487,29 @@ nl:
     alert_type: Type
     alert_user_id: Gebruiker
     all_campaigns: Alle campagnes
+    already_exists: Die campagne bestaat al! Probeer het opnieuw met een andere titel
+      of slug.
     campaign: Campagne
     campaigns: Campagnes
     campaign_deleted: Campagne "%{title}" is verwijderd
     campaign_not_updated: Campagne kan niet worden bijgewerkt
     campaign_updated: Campagne bijgewerkt
+    refresh_campaign_stats: Campagnestatistieken vernieuwd
     created_at: Datum
+    confirm_campaign_deletion: Weet u zeker dat u de campagne met de titel "%{title}"
+      wilt verwijderen? Zo ja, typ dan de titel van de campagne om verder te gaan.
+    confirm_campaign_deletion_failed: '"%{title}" is niet de titel van deze campagne.
+      De campagne is niet verwijderd.'
+    confirm_course_removal: Weet u zeker dat u "%{title}" wilt verwijderen uit de
+      campagne "%{campaign_title}"?
+    course_already_removed: '"%{title}" is al verwijderd uit de "%{campaign_title}"
+      campagne'
     course: Cursus
     course_data: cursusgegevens
+    course_removed: '"%{title}" is verwijderd uit de campagne "%{campaign_title}"'
+    course_removed_and_deleted: '"%{title}" is verwijderd uit de campagne "%{campaign_title}"'
+    course_removed_but_not_deleted: '"%{title}" is verwijderd uit "%{campaign_title}",
+      maar is niet gewist omdat het ook in andere campagnes voorkomt.'
     create_campaign: Maak een nieuwe campagne aan
     create_my_campaign: Creëer mijn campagne!
     customize_passcode: een standaard toegangscode
@@ -379,6 +518,9 @@ nl:
     data_courses_info: Basisstatistieken voor elke cursus/programma
     data_articles: Pagina's bewerkt
     data_revisions: Versiegegevens
+    data_articles_info: Details over elke gevolgde pagina die door de campagne is
+      bewerkt.
+    data_revisions_info: Details over elke bijgehouden versie van de campagne
     data_instructors: Instructeurs
     data_instructors_info: Lijst van instructeurs/facilitatoren en hun cursussen/programma's
     data_editors_by_course: Bewerkers per cursus
@@ -397,6 +539,12 @@ nl:
     delete_course_tooltip: Verwijderen en uit de campagne verwijderen
     disable_account_requests: Accountaanvragen uitschakelen
     enable_account_requests: Accountaanvragen inschakelen
+    enable_account_requests_doc: Met de functie voor accountaanvragen wordt een aanvraagformulier
+      voor een account toegevoegd aan de inschrijfkoppeling voor een evenement. Gebruikers
+      die nog geen account hebben, kunnen hun e-mailadres en gewenste gebruikersnaam
+      invullen. Evenementbegeleiders kunnen vervolgens via het dashboard de aangevraagde
+      accounts aanmaken. Gebruikers die een account aanvragen, worden automatisch
+      aan het evenement toegevoegd zodra hun account is aangemaakt.
     newest_campaigns: Nieuwste campagnes
     featured_campaigns: Aanbevolen campagnes
     instructors_course: instructeurs per cursus
@@ -418,23 +566,42 @@ nl:
     students_small: studenten
     student_course: studenten per cursus
     title: Titel
+    too_large: Deze campagne is te groot om de gevraagde gegevens weer te geven.
+    too_many_articles: De lijst met bewerkte pagina's voor deze campagne is te lang
+      om weer te geven. Bekijk de individuele cursussen/programma's/evenementen om
+      de bewerkte pagina's te zien.
+    slug: Slug
+    search_campaigns: Campagnes zoeken
+    use_start_end_dates: Gebruik begin- en einddatums
     search: Zoeken
   categories:
+    searching_for_category: Zoeken naar categorieën in
     add_category: Categorie toevoegen
+    add_psid: PetScan PSID toevoegen
+    add_pileid: PagePile-ID toevoegen
     add_template: Sjabloon toevoegen
     add_this_category: Categorieën toevoegen
     add_this_psid: Voeg PetScan PSID's toe
     add_this_pileid: Voeg PagePile-ID's toe
     add_this_template: Sjablonen toevoegen
+    import_articles_description: De lijst met pagina's in een categorie wordt periodiek
+      bijgewerkt en het kan even duren voordat de lijst na toevoeging wordt gevuld.
+    confirm_add_n_scoping_method: '%{n} scopingmethode(s) toevoegen?'
     depth: subcategorie diepte
     articles_count: Aantal pagina's
     name: Naam
     category_name: Categorienaam
+    psid_name: PSID
+    pileid_name: PagePile-ID
     template_name: Sjabloonnaam
     none: Er worden geen categorieën bijgehouden.
     remove: Verwijderen
+    tracked_categories: Gevolgde categorieën, PSID, PagePile-ID en sjablonen
     timestamp: Laatst gewijzigd op
+    category_error: Deze methode voor het definiëren van de scope bevat te veel items
+      om bij te werken. Probeer kleinere te gebruiken.
   courses:
+    school_system: Academisch systeem
     activity: Activiteit
     active_courses: Actieve cursussen
     alerts: Meldingen
@@ -787,7 +954,7 @@ nl:
     view: Weergaven
     word_count: Aantal woorden toegevoegd
     aliases: Aliassen
-    merged: Samengevoegd
+    merged: Samengevoegd naar
     created: Aangemaakt
     changed: Gewijzigd
     removed: Verwijderd
@@ -1087,7 +1254,7 @@ nl:
     summary: Samenvatting
   error:
     invalid_assignment: Ongeldige opdracht
-    invalid_date: '%{key} datum is ongeldig'
+    invalid_date: '%{key} datum is onjuist'
     invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
       Word-document.
     oauth_invalid: Uw Wikipedia-autorisatie is verlopen. Meld u opnieuw aan.

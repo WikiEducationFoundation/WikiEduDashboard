@@ -3,6 +3,9 @@
 - backend_to_sort_value = {'title' => 'title', 'school' => 'school', 'recent_revision_count' => 'revisions', 'character_sum' => 'characters', 'average_word_count' => 'average-words', 'references_count' => 'references', 'view_sum' => 'views', 'user_count' => 'students', 'trained_count' => 'untrained', 'created_at' => 'start-date'}
 - current_sort_value = params[:sort].present? ? backend_to_sort_value[@sort_column] : nil
 
+
+= hot_javascript_tag 'campaigns_programs'
+
 #react_root{data: {slug: @campaign.slug}}
 
 .container
@@ -10,31 +13,63 @@
     .section-header
       %h3
         = t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title)
-      .sort-select
-        %select.sorts{rel: 'courses'}
-          %option{rel: 'asc', value: 'title', selected: current_sort_value == 'title' || nil}
-            = t("courses.title")
-          %option{rel: 'asc', value: 'school', selected: current_sort_value == 'school' || nil}
-            = t("courses.school")
-          %option{rel: 'desc', value: 'revisions', selected: current_sort_value == 'revisions' || nil}
-            = t("metrics.revisions")
-          %option{rel: 'desc', value: 'characters', selected: current_sort_value == 'characters' || nil}
-            = t("metrics.word_count")
-          %option{rel: 'desc', value: 'average-words', selected: current_sort_value == 'average-words' || nil}
-            = t("metrics.word_count_average")
-          %option{rel: 'desc', value: 'references', selected: current_sort_value == 'references' || nil}
-            = t("metrics.references_count")
-          %option{rel: 'desc', value: 'views', selected: current_sort_value == 'views' || nil}
-            = t("metrics.view")
-          %option{rel: 'desc', value: 'students', selected: current_sort_value == 'students' || nil}
-            = t("users.editors")
-          %option{rel: 'desc', value: 'untrained', selected: current_sort_value == 'untrained' || nil}
-            = t("courses.untrained")
-          - unless Features.wiki_ed?
-            %option{rel: 'desc', value: 'creation-date', selected: current_sort_value == 'creation-date' || nil}
-              = t("courses.creation_date")
-          %option{rel: 'asc', value: 'start-date', selected: current_sort_value == 'start-date' || nil}
-            = t("courses.start_date")
+      = form_tag programs_campaign_path(@campaign.slug, anchor: 'courses_table'), method: :get, accept_charset: 'UTF-8', id: 'campaign_search_form', onsubmit: 'this.action = this.action.replace(/#.*$/, "") + "#courses_table";' do
+        = hidden_field_tag :sort, params[:sort]
+        = hidden_field_tag :direction, params[:direction]
+        .form-fields
+          .form-row
+            = text_field_tag :title_query, params[:title_query], placeholder: t('form_search.search') + ' ' + t('courses_generic.course'), id: 'title_query', class: 'w100'
+          .form-row
+            %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: 'button'}
+              = t('form_search.advanced_search')
+          .advanced-search.advanced-search-container.hidden#advanced_search_fields
+            .form-row.relative.advanced-search-grid-large
+              %label{for: 'school_select'}= t('courses_generic.creator.course_school')
+              .school-select-wrapper.grid-span-3
+                = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select'
+            .form-row.advanced-search-grid-small
+              %label{for: 'creation_date_range'}= t("courses.creation_date")
+              = text_field_tag :creation_date_range, nil, id: 'creation_date_range', class: 'w100', placeholder: t('courses.creation_date')
+              = hidden_field_tag :creation_start, params[:creation_start], id: 'creation_start'
+              = hidden_field_tag :creation_end, params[:creation_end], id: 'creation_end'
+            .form-row.advanced-search-grid-small
+              %label{for: 'start_date_range'}= t("form_search.program_date")
+              = text_field_tag :start_date_range, nil, id: 'start_date_range', class: 'w100', placeholder: t('form_search.program_date')
+              = hidden_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start'
+              = hidden_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end'
+            .form-row.advanced-search-grid-small
+              %label{for: 'revisions_min'}= t("metrics.revisions")
+              .input-group.flex-input-group
+                = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'word_count_min'}= t("metrics.word_count")
+              .input-group.flex-input-group
+                = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'references_min'}= t("metrics.references_count")
+              .input-group.flex-input-group
+                = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'views_min'}= t("metrics.view")
+              .input-group.flex-input-group
+                = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'users_min'}= t("users.editors")
+              .input-group.flex-input-group
+                = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+        .form-actions
+          %button.button{type: 'submit'}= t('campaign.search')
+          %button.button.button--clear#clear_filters{type: 'button'}= t('form_search.clear')
 
     %table.table.table--hoverable.table--sortable{ id: 'courses_table' }
       %thead
@@ -99,8 +134,6 @@
             %th{style: 'width:100px'}
               = t('courses.actions')
       %tbody
-        :javascript
-          window.DISABLE_COURSES_LISTJS = true;
         - if @search_terms.present?
           - if @results.count > 1
             %h4= t('application.search_results.other', search_terms: @search_terms, count: @results.count)

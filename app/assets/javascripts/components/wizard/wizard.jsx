@@ -56,7 +56,7 @@ const Wizard = createReactClass({
     try {
       document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
     } catch (_err) {
-      // eslint-disable-next-line no-console
+
       console.log('scrollTo not supported');
     }
   },

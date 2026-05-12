@@ -5,7 +5,7 @@
   .training__intro
     .training-intro__header
       %h1= @pres.training_module.translated_name
-      - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, lax_spacing: true)
       - html = markdown.render(@pres.training_module.translated_description)
       = raw html
     .training-intro__cta-container

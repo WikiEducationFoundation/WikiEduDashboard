@@ -116,10 +116,17 @@ puts "── Before (master) ─────────────────
 FileUtils.rm_rf("#{SCREENSHOTS_ROOT}/before")
 
 stashed = false
+# Check refs/stash before and after, rather than pattern-matching on the CLI
+# output. git's "nothing to stash" message wording has changed over versions
+# ("No local changes to stash" → "No local changes to save"), and matching
+# on the wrong string causes an erroneous pop of a pre-existing top-of-stack
+# stash belonging to some other WIP.
+stash_ref_before = `git rev-parse --quiet --verify refs/stash 2>/dev/null`.strip
 begin
-  stash_output = `git stash 2>&1`
-  stashed = !stash_output.include?('No local changes to stash')
-  puts "  git stash: #{stash_output.strip}"
+  stash_output = `git stash push 2>&1`
+  stash_ref_after = `git rev-parse --quiet --verify refs/stash 2>/dev/null`.strip
+  stashed = stash_ref_before != stash_ref_after
+  puts "  git stash push: #{stash_output.strip}"
 
   `git checkout master 2>&1`.tap { |o| puts "  git checkout master: #{o.strip}" }
 

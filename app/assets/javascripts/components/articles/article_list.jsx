@@ -207,7 +207,7 @@ const ArticleList = createReactClass({
         course={this.props.course}
         key={article.id}
         wikidataLabel={this.props.wikidataLabels[article.title]}
-        // eslint-disable-next-line
+
         current_user={this.props.current_user}
         fetchArticleDetails={this.props.actions.fetchArticleDetails}
         updateArticleTrackedStatus={this.props.actions.updateArticleTrackedStatus}

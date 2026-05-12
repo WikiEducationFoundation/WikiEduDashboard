@@ -50,8 +50,15 @@
   - if Features.sentry?
     = hot_javascript_tag("sentry")
     // Sentry logging
-    %script
-      Sentry.init({ dsn: SentryDsn, autoSessionTracking: false});
+    :javascript
+      Sentry.init({
+        dsn: SentryDsn,
+        autoSessionTracking: false,
+        // Telegram's in-app browser injects a Mini Apps SDK that throws
+        // "Error invoking postEvent: Method not found" when its host client
+        // doesn't recognize an event. Not our code, can't fix, drop it.
+        ignoreErrors: [/Error invoking postEvent/]
+      });
       Sentry.setContext(currentUser);
 
   -# = javascript_include_tag '/assets/javascripts/jquery.min.js'

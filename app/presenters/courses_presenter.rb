@@ -156,6 +156,10 @@ class CoursesPresenter
     ).distinct.paginate(page: @page, per_page: 25)
   end
 
+  def school_options
+    courses.where.not(school: [nil, '']).group(:school).order(:school).pluck(:school)
+  end
+
   def courses_by_recent_edits
     order = if @sort_column.present? && @sort_direction.present?
               "#{@sort_column} #{@sort_direction.upcase}, title ASC"

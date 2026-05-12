@@ -17,6 +17,7 @@
 #  needs_update         :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  mw_rev_count         :integer          default(0)
 #
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
@@ -125,6 +126,19 @@ scoped: true)
       expect(course_wiki_timeslice_1.revision_count).to eq(1)
       expect(course_wiki_timeslice_2.revision_count).to eq(2)
     end
+
+    it 'sets mw_rev_count to the non-system count, including deleted revs' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      revisions = { start: start_period, end: end_period, revisions: array_revisions }
+      described_class.update_course_wiki_timeslices(course, wiki, revisions)
+
+      # First slice has 3 normal + 1 system + 1 deleted = 4 non-system revs.
+      # revision_count excludes the deleted one (3); mw_rev_count keeps it (4).
+      slice_0 = described_class.find_by(course:, wiki:, start:)
+      expect(slice_0.revision_count).to eq(3)
+      expect(slice_0.mw_rev_count).to eq(4)
+    end
   end
 
   describe '#update_cache_from_revisions' do
@@ -157,6 +171,20 @@ scoped: true)
         expect(course_wiki_timeslice.references_count).to eq(7)
         # Don't add any new revision count
         expect(course_wiki_timeslice.revision_count).to eq(0)
+      end
+
+      it 'mw_rev_count ignores tracked status and deleted, excludes only system' do
+        # Even when the only article is untracked, mw_rev_count counts every
+        # non-system rev — it must mirror what CourseRevisionUpdater#new_revisions?
+        # computes from the live fetched revisions.
+        ArticlesCourses.find(1).update(tracked: 0)
+
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_revisions array_revisions
+
+        expect(course_wiki_timeslice.revision_count).to eq(0)
+        # 3 normal + 1 deleted, minus the 1 system = 4
+        expect(course_wiki_timeslice.mw_rev_count).to eq(4)
       end
     end
 

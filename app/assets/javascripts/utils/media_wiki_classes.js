@@ -1,5 +1,5 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-await-in-loop */
+
+
 import request from './request';
 import { stringify } from 'query-string';
 import { chunk } from 'lodash-es';

@@ -130,6 +130,25 @@ The Dashboard depends on several Wikimedia Toolforge services, notably the
 for querying Wikimedia replica databases. See `docs/admin_guide.md` for the
 full list of integrated Toolforge tools and third-party APIs.
 
+## AI attribution on external communication
+
+Anything Claude publishes that another person reads as if a human wrote it
+must be explicitly marked as AI-generated. It must never be ambiguous or
+unstated when AI does things in this repo.
+
+- **PR / issue / review comments** posted via `gh pr comment`,
+  `gh issue comment`, `gh pr review`, etc.: end the body with a blank line
+  and `(Comment written by Claude Code.)`.
+- **PR descriptions** created via `gh pr create`: end the body with
+  `(PR description written by Claude Code.)` (the `/prepare-pr` skill
+  already handles this — keep using it).
+- **Commit messages**: the `/commit` skill already adds
+  `(Commit message written by Claude Code.)` and the `Co-Authored-By:`
+  trailer. Keep using it.
+- **Anything else published to humans** (Slack drafts, email drafts,
+  public docs, etc.): add an equivalent trailer. When in doubt, add the
+  marker.
+
 ## PR review
 
 Always use the `/review-pr` skill when reviewing or revisiting a pull request.

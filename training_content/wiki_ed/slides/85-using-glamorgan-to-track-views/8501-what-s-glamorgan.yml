@@ -1,0 +1,17 @@
+---
+id: 8501
+title: What’s GLAMorgan?
+summary: ''
+content: "GLAMorgan is a tool that tracks monthly views of images added to Wikipedia
+  articles and other Wikimedia platforms like [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page).
+  It shows engagement with an image wherever it appears across Wikimedia platforms,
+  including all language Wikipedias. GLAMorgan can help you spot trends and make informed
+  decisions about future uploads. Views are tracked through the category system on
+  Wikimedia Commons — part of the reason why adding categories is so important! \n\nTo
+  use GLAMorgan, enter a category, month, and year, then select “Get file usage data.”
+  (See image below.) Results will appear as a table sorted in descending order, showing
+  monthly views and where the image appears across Wikimedia platforms. \n\nTip: The
+  larger the category, the longer you’ll wait on results.This tool works best with
+  smaller, more focused categories. [Learn more here](https://glamtools.toolforge.org/glamorgan.html)\n\n<figure
+  class=\"alt-layout-100\">\n  <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/GLAMorgan_screenshot.png/1280px-GLAMorgan_screenshot.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\"
+  />\n</figure>\n"

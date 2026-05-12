@@ -6,12 +6,9 @@ describe 'Course Approval', type: :feature, js: true do
   let(:program_manager) { create(:user, username: 'Program Manager') }
   let(:wiki_expert) { create(:user, username: 'Wiki Expert') }
 
-  before do
-    page.current_window.resize_to(1920, 1080)
-
-    # Create a course starting in January 2022 (Spring 2022)
+  # Course starting in January 2022 (Spring 2022)
+  let!(:course) do
     create(:course,
-           id: 10001,
            title: 'My Course',
            school: 'University',
            term: 'Term',
@@ -19,7 +16,9 @@ describe 'Course Approval', type: :feature, js: true do
            submitted: true,
            start: '2022-01-01'.to_date,
            end: '2022-06-30'.to_date)
+  end
 
+  before do
     # Create special users
     SpecialUsers.set_user('classroom_program_manager', program_manager.username)
     SpecialUsers.set_user('wikipedia_experts', wiki_expert.username)
@@ -37,7 +36,7 @@ describe 'Course Approval', type: :feature, js: true do
     end
 
     it 'does not see course approval form' do
-      visit "/courses/#{Course.first.slug}"
+      visit "/courses/#{course.slug}"
       expect(page).not_to have_content 'Course Approval Form'
     end
   end
@@ -58,12 +57,25 @@ describe 'Course Approval', type: :feature, js: true do
       end
 
       it 'has submit button disabled' do
-        visit "/courses/#{Course.first.slug}"
+        visit "/courses/#{course.slug}"
         expect(page).to have_content 'Course Approval Form'
         within('.module.course-approval .section-header .controls') do
           expect(page).to have_css('button.dark.disabled')
         end
         sleep 1 # Workaround: possible race condition if all update requests haven't completed yet
+      end
+    end
+
+    describe 'declining a course' do
+      it 'marks the course as declined after confirming' do
+        visit "/courses/#{course.slug}"
+        expect(page).to have_content 'Course Approval Form'
+        accept_confirm do
+          click_button 'Decline Course'
+        end
+        expect(page).to have_content 'This course has been declined'
+        expect(course.reload.flags[:declined]).to be true
+        expect(course.submitted).to be false
       end
     end
 
@@ -75,7 +87,7 @@ describe 'Course Approval', type: :feature, js: true do
       end
 
       it 'has submit button enabled and works' do
-        visit "/courses/#{Course.first.slug}"
+        visit "/courses/#{course.slug}"
         expect(page).to have_content 'This course has been submitted'
         within('.module.course-approval .section-header .controls') do
           expect(page).not_to have_css('button.dark.disabled')

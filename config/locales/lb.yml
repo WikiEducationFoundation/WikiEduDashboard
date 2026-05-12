@@ -826,5 +826,8 @@ lb:
     cancel_edit_note: Ofbriechen
     save_note: Späicheren
   form_search:
+    search: Sichen
+    advanced_search: Erweidert Sich
+    clear: Eidel maachen
     program_date: Programmdatum
 ...

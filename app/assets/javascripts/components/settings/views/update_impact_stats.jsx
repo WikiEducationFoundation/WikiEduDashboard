@@ -3,14 +3,14 @@ import ImpactStatsForm from './impact_stats_form.jsx';
 import Popover from '../../common/popover.jsx';
 import useExpandablePopover from '../../../hooks/useExpandablePopover';
 
-const UpdateImpactStats = () => {
+const UpdateImpactStats = ({ impactStats }) => {
   const getKey = () => {
     return 'update_impact_stats';
   };
 
   const { isOpen, ref, open } = useExpandablePopover(getKey);
 
-  const form = <ImpactStatsForm handlePopoverClose={open} />;
+  const form = <ImpactStatsForm handlePopoverClose={open} impactStats={impactStats} />;
   return (
     <div className="pop__container" ref={ref}>
       <button className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.update_impact_stats')}</button>

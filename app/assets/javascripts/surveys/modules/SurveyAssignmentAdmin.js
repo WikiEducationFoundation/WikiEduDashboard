@@ -17,7 +17,7 @@ const SurveyAssignmentAdmin = {
       const options = {
         valueNames: ['title', 'id']
       };
-      // eslint-disable-next-line no-new
+
       new List(sortableCourses, options);
     });
   },

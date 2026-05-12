@@ -292,7 +292,7 @@ const SurveyAdmin = {
       const { question_id, operator, value } = Utils.parseConditionalString(string);
       switch (operator) {
         case '<': case '<=': case '>': case '>=':
-          // eslint-disable-next-line camelcase
+
           $row.find('select').val(`${question_id}`);
           this.$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass('hidden');
           this.$conditional_operator_select.val(operator).trigger('change').removeClass('hidden');
@@ -303,7 +303,7 @@ const SurveyAdmin = {
             this.$conditional_value_select.val(value).trigger('change');
             return this.$document.off(CONDITIONAL_ANSWERS_CHANGED);
           });
-          // eslint-disable-next-line camelcase
+
           return $row.find('select').val(`${question_id}`).trigger('change');
       }
     });
