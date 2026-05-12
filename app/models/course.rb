@@ -354,7 +354,7 @@ class Course < ApplicationRecord
     flags[:article_scoped].present?
   end
 
-  # This is true for ArticleScopedProgram courses (by type) and 
+  # This is true for ArticleScopedProgram courses (by type) and
   # for any course with the explicit article_scoped flag.
   def article_scoped_enabled?
     is_a?(ArticleScopedProgram) || flags[:article_scoped].present?
