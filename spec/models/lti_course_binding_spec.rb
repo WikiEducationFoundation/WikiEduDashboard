@@ -44,6 +44,18 @@ describe LtiCourseBinding do
     end
   end
 
+  describe '#lms_display_name' do
+    it 'returns the configured label for known LMS families' do
+      binding = described_class.new(base_attrs.merge(lms_family: 'canvas'))
+      expect(binding.lms_display_name).to eq('Canvas')
+    end
+
+    it 'titleizes the family code as a fallback for unknown LMSs' do
+      binding = described_class.new(base_attrs.merge(lms_family: 'moodle'))
+      expect(binding.lms_display_name).to eq('Moodle')
+    end
+  end
+
   describe 'optional course association' do
     it 'permits a nil course while waiting on instructor setup' do
       binding = described_class.create!(base_attrs)

@@ -73,8 +73,8 @@ describe 'G2: instructor first launch', :staging do
 
     # Now at top level in the new tab. The OAuth bounce should be silent
     # because the profile already has the Wikipedia OAuth grant.
-    complete_dashboard_setup(course_slug: provisioned[:dashboard_course_slug],
-                             course_title: dashboard_title)
+    dismiss_consent_banner
+    complete_dashboard_setup(course_slug: provisioned[:dashboard_course_slug])
 
     expect(page.current_url).to include("/courses/#{provisioned[:dashboard_course_slug]}")
 
