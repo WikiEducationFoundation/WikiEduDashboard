@@ -178,6 +178,8 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
+        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {

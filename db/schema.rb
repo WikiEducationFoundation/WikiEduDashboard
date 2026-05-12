@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_11_105551) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_12_124058) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.datetime "created_at", null: false
@@ -390,8 +390,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_105551) do
     t.text "last_grade_sync_error"
     t.datetime "last_roster_sync_at"
     t.string "lms_context_id", null: false
+    t.string "lms_context_title"
     t.string "lms_family"
     t.string "lms_id", null: false
+    t.string "lms_platform_url"
     t.string "lms_resource_link_id", null: false
     t.text "ltiaas_service_credentials"
     t.string "nrps_url"

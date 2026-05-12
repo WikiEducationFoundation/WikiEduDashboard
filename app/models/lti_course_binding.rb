@@ -16,6 +16,14 @@
 #  last_roster_sync_at        :datetime
 #  last_grade_sync_at         :datetime
 #  last_grade_sync_error      :text(65535)
+#  lms_context_title          :string(255)      - LMS course title snapshot from
+#                                                 the launch IdToken at binding
+#                                                 creation; may drift if the
+#                                                 instructor renames the course
+#                                                 in the LMS.
+#  lms_platform_url           :string(255)      - LMS base URL snapshot; used to
+#                                                 build a click-through link to
+#                                                 the LMS course view.
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #
@@ -33,6 +41,12 @@
 class LtiCourseBinding < ApplicationRecord
   GRADEBOOK_GRANULARITIES = %w[lumped per_block].freeze
 
+  # Human-readable LMS labels keyed by the LTI 1.3 `product_family_code`
+  # values we expect to see. Unknown families fall back to a titleized
+  # version of the family code in `lms_display_name`, so a new LMS
+  # surfaces with a passable label automatically without a code change.
+  LMS_DISPLAY_NAMES = { 'canvas' => 'Canvas' }.freeze
+
   belongs_to :course, optional: true
   has_many :lti_contexts, dependent: :destroy
   has_many :lti_line_items, dependent: :destroy
@@ -42,6 +56,10 @@ class LtiCourseBinding < ApplicationRecord
 
   def self.lookup(lms_id:, lms_context_id:, lms_resource_link_id:)
     find_by(lms_id:, lms_context_id:, lms_resource_link_id:)
+  end
+
+  def lms_display_name
+    LMS_DISPLAY_NAMES[lms_family] || lms_family.to_s.titleize
   end
 
   def lumped?

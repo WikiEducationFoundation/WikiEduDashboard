@@ -20,7 +20,8 @@ describe LtiSession do
       },
       'platform' => {
         'id' => 'platform-x',
-        'productFamilyCode' => 'canvas'
+        'productFamilyCode' => 'canvas',
+        'url' => 'https://canvas.example.com'
       },
       'launch' => {
         'context' => {
@@ -64,6 +65,7 @@ describe LtiSession do
       expect(lti_session.lms_context_id).to eq('canvas-course-77')
       expect(lti_session.lms_resource_link_id).to eq('rl-99')
       expect(lti_session.context_title).to eq('WRIT 2010')
+      expect(lti_session.platform_url).to eq('https://canvas.example.com')
       expect(lti_session.nrps_url)
         .to eq('https://canvas.example.com/api/lti/courses/1/names_and_roles')
       expect(lti_session.ags_lineitems_url)
@@ -108,6 +110,8 @@ describe LtiSession do
         .to eq('https://canvas.example.com/api/lti/courses/1/names_and_roles')
       expect(binding.ags_lineitems_url)
         .to eq('https://canvas.example.com/api/lti/courses/1/line_items')
+      expect(binding.lms_context_title).to eq('WRIT 2010')
+      expect(binding.lms_platform_url).to eq('https://canvas.example.com')
     end
 
     it 'returns the existing binding on a subsequent launch' do
