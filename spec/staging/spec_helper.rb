@@ -50,5 +50,6 @@ RSpec.configure do |config|
 
   config.include Capybara::DSL, :staging
   config.include StagingSessions, :staging
+  config.include LoginHelpers, :staging
   config.include LaunchHelpers, :staging
 end

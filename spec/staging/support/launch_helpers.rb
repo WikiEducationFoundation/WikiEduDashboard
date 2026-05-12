@@ -29,28 +29,42 @@ module LaunchHelpers
   # The Canvas tool placement renders our `/lti` view inside an iframe
   # whose id is `tool_content` (Canvas's stock external-tool iframe).
   # Click the "Open the Wiki Education Dashboard" button inside it,
-  # then switch focus to the new tab that target=_blank opens.
-  def break_out_of_canvas_iframe
-    within_frame(canvas_tool_iframe_locator) do
+  # then switch focus to the new tab that target=_blank opens, and
+  # walk the Wikipedia OAuth bounce if it appears (handled silently
+  # when the OAuth grant is already in place on Wikipedia's side).
+  def break_out_of_canvas_iframe(role: :instructor)
+    frame = find(canvas_tool_iframe_locator)
+    within_frame(frame) do
       click_link 'Open the Wiki Education Dashboard'
     end
     switch_to_new_tab
+    complete_wikipedia_oauth_if_needed(role: role)
   end
 
-  # TODO: Canvas's external-tool iframe is usually `<iframe id="tool_content">`,
-  # but on some pages it's nested inside `<div id="tool_content_wrapper">`.
-  # First real run will tell us which one is right.
+  # Canvas's external-tool iframe has a dynamic id `tool_content_<N>`
+  # (the N is the assignment / placement id, which changes per launch
+  # context). Stable selectors: `iframe.tool_launch` and
+  # `iframe[data-lti-launch="true"]`.
   def canvas_tool_iframe_locator
-    'tool_content'
+    'iframe.tool_launch'
   end
 
-  # On the dashboard's setup view, pick the course from the dropdown and
-  # submit. Returns the slug we picked so the caller can assert the
-  # redirect.
-  def complete_dashboard_setup(course_title:, granularity: 'lumped')
+  # On the dashboard's setup view, identify the course we want to link
+  # and submit. Handles both the new dropdown UX (commit `f41ed09b2`)
+  # and the older text-input form that earlier-deployed staging may
+  # still be running — either way the form's `course_slug` field's
+  # value is the slug. Pass both `course_slug:` and `course_title:`
+  # so the helper can branch.
+  def complete_dashboard_setup(course_slug:, course_title:, granularity: 'lumped')
     expect(page).to have_content('Set up the Wiki Education Dashboard')
-    select course_title, from: 'course_slug'
-    choose granularity if page.has_field?('gradebook_granularity', with: granularity, type: 'radio')
+    if page.has_select?('course_slug')
+      select course_title, from: 'course_slug'
+    else
+      fill_in 'course_slug', with: course_slug
+    end
+    # `lumped` is the default-checked radio in the view; only click
+    # when a different granularity is requested.
+    find(:css, "input[type=radio][value='#{granularity}']").click if granularity != 'lumped'
     click_button 'Link this course'
   end
 end
