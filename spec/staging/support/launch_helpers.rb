@@ -49,16 +49,26 @@ module LaunchHelpers
     'iframe.tool_launch'
   end
 
+  # Dismiss the dashboard's react-cookie-consent banner if it's visible.
+  # The "I understand" click sets a long-lived cookie, so the banner
+  # only obstructs the bottom of the viewport on the first page load
+  # of a fresh session. Safe no-op when the banner is absent.
+  def dismiss_consent_banner
+    return unless page.has_css?('.consent-banner', wait: 2)
+
+    within('.consent-banner') { click_button 'I understand' }
+  rescue Capybara::ElementNotFound
+    # Banner vanished between detection and click — fine.
+  end
+
   # On the dashboard's setup view, identify the course we want to link
-  # and submit. Handles both the new dropdown UX (commit `f41ed09b2`)
-  # and the older text-input form that earlier-deployed staging may
-  # still be running — either way the form's `course_slug` field's
-  # value is the slug. Pass both `course_slug:` and `course_title:`
-  # so the helper can branch.
-  def complete_dashboard_setup(course_slug:, course_title:, granularity: 'lumped')
+  # and submit. The form's `course_slug` field is a select whose
+  # options' visible text is the slug itself; older deployed-staging
+  # builds rendered it as a text input, so the helper branches.
+  def complete_dashboard_setup(course_slug:, granularity: 'lumped')
     expect(page).to have_content('Set up the Wiki Education Dashboard')
     if page.has_select?('course_slug')
-      select course_title, from: 'course_slug'
+      select course_slug, from: 'course_slug'
     else
       fill_in 'course_slug', with: course_slug
     end

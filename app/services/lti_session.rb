@@ -69,6 +69,15 @@ class LtiSession
     @idtoken['launch']['context']['title']
   end
 
+  # LTI 1.3 / LTIAAS surfaces the platform's public base URL on the
+  # `platform` claim. Defensive `dig` because LTIAAS payload shape is
+  # documented but not formally verified against staging yet; a missing
+  # value just means the status component renders without a clickable
+  # link.
+  def platform_url
+    @idtoken.dig('platform', 'url')
+  end
+
   def nrps_url
     @idtoken.dig('services', 'namesAndRoles', 'contextMembershipsUrl')
   end
@@ -98,6 +107,8 @@ class LtiSession
       lms_resource_link_id:
     )
     binding.lms_family = lms_family
+    binding.lms_context_title = context_title
+    binding.lms_platform_url = platform_url
     binding.nrps_url = nrps_url
     binding.ags_lineitems_url = ags_lineitems_url
     binding.ltiaas_service_credentials = service_key if service_key.present?

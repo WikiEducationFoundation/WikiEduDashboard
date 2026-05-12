@@ -8,10 +8,9 @@
       = hidden_field_tag :ltik, params[:ltik]
       .module
         %h4= t('lti.setup.link_existing.header', default: 'Link an existing Wiki Education course')
-        %p= t('lti.setup.link_existing.explanation', default: 'Pick the Wiki Education course you want this Canvas course to mirror. Only courses you teach that are currently active or upcoming are shown.')
         = label_tag :course_slug, t('lti.setup.link_existing.label', default: 'Course')
         = select_tag :course_slug,
-                     options_for_select(@user_courses.map { |c| [c.title, c.slug] }),
+                     options_for_select(@user_courses.map(&:slug)),
                      required: true, include_blank: true
       .module
         %h4= t('lti.setup.granularity.header', default: 'Canvas gradebook layout')
@@ -28,13 +27,7 @@
             %p.lti-granularity-example
               = t('lti.setup.granularity.per_block.example', default: 'Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …')
       %button.button{ type: 'submit' }= t('lti.setup.submit', default: 'Link this course')
-    %hr
-  .module
-    - if @user_courses.any?
-      %h4= t('lti.setup.create_new.header', default: "Don't have a Wiki Education course yet?")
-      %p= t('lti.setup.create_new.explanation', default: 'Open the dashboard in a new tab and create your course there first, then come back here to link it.')
-    - else
-      %h4= t('lti.setup.create_new.solo_header', default: 'Create a Wiki Education course')
-      %p= t('lti.setup.create_new.solo_explanation', default: "You don't have any active Wiki Education courses to link to yet. Open the dashboard in a new tab to create one, then come back here to finish setup.")
-    = link_to t('lti.setup.create_new.button', default: 'Create a Wiki Education course'),
-              '/courses/new', target: '_blank', rel: 'noopener', class: 'button'
+  - else
+    .module
+      %p= t('lti.setup.no_approved_courses', default: 'Canvas integration is only available after your course has been approved by Wiki Education staff.')
+      = link_to t('application.my_dashboard'), root_path, class: 'button'

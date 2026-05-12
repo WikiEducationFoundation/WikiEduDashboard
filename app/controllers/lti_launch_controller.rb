@@ -61,6 +61,8 @@ class LtiLaunchController < ApplicationController
       course: course_from_params,
       gradebook_granularity: params[:gradebook_granularity]
     )
+    course_from_params.flags[:canvas_integration] = true
+    course_from_params.save
     LtiRosterSyncWorker.perform_async(@binding.id)
     LtiLineItemSyncWorker.perform_async(@binding.id)
     redirect_to "/courses/#{course_from_params.slug}"
@@ -76,8 +78,11 @@ class LtiLaunchController < ApplicationController
     LtiRosterSyncWorker.perform_async(@binding.id) if @binding.course
     return redirect_to "/courses/#{@binding.course.slug}" if @binding.course
 
-    @user_courses = current_user.instructed_courses.current_and_future
-                                .order(start: :desc).to_a
+    @user_courses = current_user.instructed_courses
+                                .joins(:campaigns_courses)
+                                .where(withdrawn: false)
+                                .where('courses.end > ?', Time.zone.now)
+                                .distinct.order(start: :desc).to_a
     render 'lti_launch/setup'
   end
 
