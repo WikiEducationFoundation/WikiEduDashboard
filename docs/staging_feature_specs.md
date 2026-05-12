@@ -25,13 +25,52 @@ You'll need:
   `brew install chromedriver` on macOS or download from
   <https://chromedriver.chromium.org/>).
 
-No authentication credentials are required for the canary spec —
-it doesn't touch Canvas or trigger any auth flow. Later flow specs
-(when they land) will require Canvas and Wikipedia test identities
-whose credentials live in a local untracked env file at
-`.env.staging-tests` (which the runner will read at start-up).
-Nothing involving passwords, API tokens, or per-user identities
-should be checked into this repo.
+The canary spec doesn't need any credentials. Provisioning specs
+(Tranche 2) need a Canvas admin token and SSH access. Flow specs
+(Tranche 3+) additionally need test-identity bootstrapping in the
+persistent Chrome profile. See the next two sections.
+
+All required values live in a local untracked env file at
+`.env.staging-tests`. Copy `.env.staging-tests.example` and fill in
+real values; the runner loads it at start-up. Nothing involving
+passwords, API tokens, or per-user identities should ever be
+checked into this repo.
+
+### Canvas admin token (Tranche 2+)
+
+Generate at: Canvas → Account → Settings → "+ New Access Token",
+under a user with admin permissions on `CANVAS_TEST_ACCOUNT_ID`.
+Drop into `.env.staging-tests` as `CANVAS_ADMIN_TOKEN=...`.
+
+### Test-identity bootstrap (Tranche 3+)
+
+The flow specs drive Canvas + the dashboard as a real
+instructor (and later, a real student). The browser session
+needs to be pre-authenticated for each role, and the Wikipedia
+OAuth grant needs to be pre-approved so the launch flow runs
+silently.
+
+One-time per profile (re-do if `tmp/staging-browser-profile/` is
+deleted):
+
+1. Run `bin/staging-feature-spec spec/staging/canary_spec.rb` to
+   create the persistent profile.
+2. Open a fresh Chrome instance with that profile, e.g.
+   `google-chrome --user-data-dir=tmp/staging-browser-profile`.
+3. Log into `canvas.wikiedu.org` as the test instructor user
+   (the Canvas user whose id you put in
+   `CANVAS_TEST_INSTRUCTOR_USER_ID`). Stay logged in.
+4. In the same Chrome window, visit
+   `https://dashboard-testing.wikiedu.org/users/auth/mediawiki`
+   and complete the Wikipedia OAuth approval for the
+   instructor's Wikipedia identity.
+5. (For G7+) Repeat steps 3-4 for the test student in a
+   separate browser profile — see Tranche 3 docs when those
+   specs land.
+6. Close that Chrome instance.
+
+The session cookies + OAuth grant now live in the profile and
+persist between spec runs.
 
 ### 2. Run the canary
 
@@ -69,10 +108,16 @@ these specs.
 ```
 spec/staging/
 ├── spec_helper.rb            # staging-specific Capybara + Selenium config
-├── canary_spec.rb            # connectivity probe
+├── canary_spec.rb            # connectivity probe (T1)
+├── provisioning_spec.rb      # provisioning-layer smoke test (T2)
+├── g2_instructor_launch_spec.rb # instructor launch flow (T3)
 └── support/
     ├── sessions.rb           # in_canvas / in_dashboard / switch_to_new_tab helpers
-    └── failure_screenshot.rb # capture screenshots + DOM on spec failure
+    ├── failure_screenshot.rb # capture screenshots + DOM on spec failure
+    ├── dashboard_console.rb  # SSH-based Ruby runner against staging (T2)
+    ├── canvas_api_client.rb  # Canvas REST API wrapper (T2)
+    ├── dashboard_admin_client.rb # course CRUD via DashboardConsole (T2)
+    └── launch_helpers.rb     # Canvas-tab → break-out-iframe DSL (T3)
 
 tmp/
 ├── staging-browser-profile/  # persistent Chrome user-data-dir (gitignored)
