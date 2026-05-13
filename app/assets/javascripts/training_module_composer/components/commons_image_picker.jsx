@@ -1,5 +1,5 @@
 /* eslint-disable i18next/no-literal-string */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const LAYOUTS = [
   { value: 'alt-layout-100', label: 'Full width', width: 1280 },
@@ -81,6 +81,12 @@ const CommonsImagePicker = ({ onInsert, onClose }) => {
   const [error, setError] = useState(null);
   const [busy, setBusy] = useState(false);
 
+  const urlInputRef = useRef(null);
+
+  useEffect(() => {
+    urlInputRef.current?.focus();
+  }, []);
+
   const title = extractTitle(url);
   const layoutInfo = LAYOUTS.find(l => l.value === layout);
   const width = layoutInfo.width;
@@ -138,11 +144,11 @@ const CommonsImagePicker = ({ onInsert, onClose }) => {
             <label htmlFor="commons_image_url">Commons URL or File: title</label>
             <input
               id="commons_image_url"
+              ref={urlInputRef}
               type="text"
               value={url}
               onChange={e => setUrl(e.target.value)}
               placeholder="https://commons.wikimedia.org/wiki/File:Example.jpg"
-              autoFocus
             />
             <small>
               A Commons file page URL, an upload.wikimedia.org URL, or a File: title.

@@ -16,7 +16,6 @@ const TextInput = ({
   type,
   max,
   maxLength,
-  focus,
   onBlur,
   onClick,
   append,
@@ -60,7 +59,6 @@ const TextInput = ({
         className={className}
         value={_value ?? (value || '')}
         onChange={onChange}
-        autoFocus={focus}
         onFocus={onFocus}
         onBlur={onBlur}
         onKeyDown={onKeyDownHandler}
@@ -113,7 +111,6 @@ TextInput.propTypes = {
   type: PropTypes.string,
   max: PropTypes.string,
   maxLength: PropTypes.string,
-  focus: PropTypes.func,
   onBlur: PropTypes.func,
   onClick: PropTypes.func,
   append: PropTypes.node,

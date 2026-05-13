@@ -42,6 +42,7 @@ export const Controls = (props) => {
             allowed={false}
             course={course}
             current_user={current_user}
+            // eslint-disable-next-line jsx-a11y/aria-role
             role={0}
             users={students}
           />

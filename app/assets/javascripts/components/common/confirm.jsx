@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from './modal.jsx';
@@ -16,6 +16,14 @@ const Confirm = () => {
   const warningMessage = useSelector(state => state.confirm.warningMessage);
 
   const [userInput, setUserInput] = useState('');
+
+  const confirmButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (confirmationActive) {
+      confirmButtonRef.current?.focus();
+    }
+  }, [confirmationActive]);
 
   const onConfirmClick = () => {
     onConfirm(userInput);
@@ -68,7 +76,7 @@ const Confirm = () => {
         {!showInput && <br />}
         <div className="pop_container pull-right">
           <button className="button ghost-button" onClick={onCancel}>{I18n.t('application.cancel')}</button>
-          <button autoFocus className="button dark" onClick={onConfirmClick}>{I18n.t('application.confirm')}</button>
+          <button ref={confirmButtonRef} className="button dark" onClick={onConfirmClick}>{I18n.t('application.confirm')}</button>
         </div>
       </div>
     </Modal>
