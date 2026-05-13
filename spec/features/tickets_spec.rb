@@ -41,7 +41,7 @@ describe 'ticket system', type: :feature, js: true do
       find('.mce-content-body').send_keys('Note for staff')
     end
     click_button 'Create Note'
-    find('img[alt="delete icon"]').click
+    find('button.delete-note').click
     expect(page).to have_content 'Note Deleted Successfully'
 
     # Email the ticket owner

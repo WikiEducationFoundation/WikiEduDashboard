@@ -9,7 +9,7 @@ const DeleteNote = ({ messageId }) => {
     dispatch(deleteNote(messageId));
   };
   return (
-    <button type="button" onClick={onClick} aria-label={I18n.t('survey.delete_note')}>
+    <button type="button" className="delete-note" onClick={onClick} aria-label={I18n.t('survey.delete_note')}>
       <img src="/assets/images/delete-icon.png" alt="" />
     </button>
   );
