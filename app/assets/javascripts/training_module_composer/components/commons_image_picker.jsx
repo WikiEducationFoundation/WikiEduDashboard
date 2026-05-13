@@ -191,7 +191,7 @@ const CommonsImagePicker = ({ onInsert, onClose }) => {
           </div>
 
           <div className="training_module_composer__image_picker__preview">
-            <label>Preview</label>
+            <div className="training_module_composer__field__title">Preview</div>
             <div className="training__slide training_module_composer__image_picker__preview__stage">
               {busy && <p className="training_module_composer__image_picker__status">Loading…</p>}
               {error && <div className="notification error">{error}</div>}

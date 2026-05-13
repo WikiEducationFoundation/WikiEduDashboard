@@ -146,7 +146,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
         replyDetails.showCC
         && (
           <div className="cc-fields">
-            <label>CC:</label>
+            <label htmlFor="cc">CC:</label>
             <TextInput
               id="cc"
               onChange={onChange}

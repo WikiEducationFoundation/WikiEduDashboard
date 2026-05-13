@@ -214,7 +214,7 @@ const Timeline = createReactClass({
         weekNavInfo.push({ emptyWeek: true, title: undefined });
         weekComponents.push((
           <div key={emptyWeekKey}>
-            <a className="timeline__anchor" name={weekAnchorName} />
+            <span className="timeline__anchor" id={weekAnchorName} />
             <EmptyWeek
               course={this.props.course}
               edit_permissions={this.props.edit_permissions}
@@ -231,7 +231,7 @@ const Timeline = createReactClass({
         weekNavInfo.push({ emptyWeek: false, title: week.title });
         weekComponents.push((
           <div key={week.id}>
-            <a className="timeline__anchor" name={weekAnchorName} />
+            <span className="timeline__anchor" id={weekAnchorName} />
             <Week
               week={week}
               index={index + 1}

@@ -84,7 +84,7 @@ const EnrollCard = ({
   return (
     <div className="module enroll">
       {
-        course.passcode !== '' && <a href={courseLink} className="icon-close-small pull-right" />
+        course.passcode !== '' && <a href={courseLink} className="icon-close-small pull-right" aria-label={I18n.t('revisions.close_modal')} />
       }
       {messageBody}
       {Features.wikiEd && modalShown

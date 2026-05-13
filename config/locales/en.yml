@@ -205,6 +205,7 @@ en:
     no_available: No Available Articles
     next: Next
     page_info: "Page %{current} of %{total_pages} (%{count} out of %{total})"
+    permalink: Permalink
     previous: Previous
     article_title: Article Title
     assigned_to: Assigned To
@@ -1912,6 +1913,8 @@ en:
   notifications:
     new_notifications: You have new notifications.
     no_notifications: You have no new notifications.
+    aria_label:
+      bell: Notifications
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
