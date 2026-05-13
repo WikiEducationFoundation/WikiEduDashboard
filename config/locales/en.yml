@@ -89,6 +89,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
+    sort: Sort
 
   article_statuses:
     not_yet_started: Getting Started
