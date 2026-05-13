@@ -245,6 +245,7 @@ const ArticleList = createReactClass({
 
       filterWikis = (
         <select
+          aria-label={I18n.t('articles.filter.wiki_label')}
           onChange={this.onChangeFilter}
           value={wikiFilterValue}
         >
@@ -259,6 +260,7 @@ const ArticleList = createReactClass({
       filterArticlesSelect = (
         <select
           className="filter-articles"
+          aria-label={I18n.t('articles.filter.newness_label')}
           value={this.props.newnessFilter}
           onChange={this.onNewnessChange}
         >
@@ -274,6 +276,7 @@ const ArticleList = createReactClass({
       filterTracked = (
         <select
           className="filter-articles"
+          aria-label={I18n.t('articles.filter.tracked_label')}
           value={this.props.trackedStatusFilter}
           onChange={this.onTrackedFilterChange}
         >

@@ -229,6 +229,9 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+      wiki_label: Wiki
+      newness_label: Article newness
+      tracked_label: Tracking status
     filter_text: "Filters:"
     pageviews_label: "Pageviews:"
     cumulative: "Cumulative"

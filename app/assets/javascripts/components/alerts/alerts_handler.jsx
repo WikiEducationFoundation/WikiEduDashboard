@@ -57,6 +57,7 @@ const AlertsHandler = ({ alertLabel, noAlertsLabel, adminAlert }) => {
           <div className="sort-container">
             <Select
               name="sorts"
+              aria-label={I18n.t('application.sort')}
               onChange={sortSelect}
               options={options}
               styles={sortSelectStyles}

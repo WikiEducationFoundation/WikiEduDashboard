@@ -8,7 +8,7 @@
   %section#courses
     .section-header
       .sort-select
-        %select.sorts{:rel => "courses"}
+        %select.sorts{:rel => "courses", 'aria-label': t('application.sort')}
           %option{:rel => "asc", :value => "title"}= t("courses.title")
           %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
     %table.table.table--sortable

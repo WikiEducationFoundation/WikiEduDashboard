@@ -11,7 +11,7 @@
       %h3
         = t('courses.campaign_articles', title: @campaign.title)
       .sort-select
-        %select.sorts{rel: 'campaign-articles'}
+        %select.sorts{rel: 'campaign-articles', 'aria-label': t('application.sort')}
           %option{rel: 'asc', value: 'title'}
             = t("articles.title")
           %option{rel: 'desc', value: 'char_added'}

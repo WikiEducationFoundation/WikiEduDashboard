@@ -6,7 +6,7 @@ export const SortButton = ({ current_user, sortSelect, showOverviewFilters = tru
 
   return (
     <div className="sort-select users">
-      <select className="sorts" name="sorts" onChange={sortSelect}>
+      <select className="sorts" name="sorts" aria-label={I18n.t('application.sort')} onChange={sortSelect}>
         <option value="username">{I18n.t('users.username')}</option>
         {
           isAdvancedRole && <option value="first_name">{I18n.t('users.first_name')}</option>

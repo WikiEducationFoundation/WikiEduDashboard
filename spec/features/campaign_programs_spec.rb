@@ -87,6 +87,8 @@ describe 'campaign programs page', type: :feature, js: true do
       expect_regular_before_advanced_basketweaving
       find('#courses [data-sort="school"].sort').click
       expect_advanced_before_regular_basketweaving
+
+      expect(page).to be_axe_clean
     end
   end
 end

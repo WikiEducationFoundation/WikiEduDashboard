@@ -1,5 +1,5 @@
 %tr{:class => "#{user ? date_highlight_class(course) : private_highlight_class(course)} #{closed_course_class(course)}", "data-link" => "#{course_slug_path(course.slug)}"}
-  %td{:class => "table-link-cell", :role => "button", :tabindex => "0"}
+  %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.title
         = course.title
@@ -7,10 +7,12 @@
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.school + "/" + course.term
   - if Features.wiki_ed?
+    - first_instructor = course.courses_users.where(role: 1).first&.user&.username
     %td{:class => "table-link-cell"}
-      %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-        %span.first_instructor
-          = course.courses_users.where(role: 1).first&.user&.username
+      - if first_instructor
+        %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+          %span.first_instructor
+            = first_instructor
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.revisions
