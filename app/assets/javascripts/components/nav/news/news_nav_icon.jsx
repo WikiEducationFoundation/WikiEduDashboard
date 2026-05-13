@@ -45,7 +45,7 @@ const NewsNavIcon = ({ setIsOpen }) => {
   }, []);
 
   return (
-    <li aria-describedby="notification-message" className="notifications tooltip-trigger">
+    <>
       <button type="button" className="icon icon-notifications_news" onClick={onClickNewsIcon} aria-label={I18n.t('notifications.aria_label.bell')}>
         {/* Conditionally render the badge */}
         {notificationCount > 0 && (
@@ -59,7 +59,7 @@ const NewsNavIcon = ({ setIsOpen }) => {
           {I18n.t('news.nav_tooltip')}
         </p>
       </div>
-    </li>
+    </>
   );
 };
 

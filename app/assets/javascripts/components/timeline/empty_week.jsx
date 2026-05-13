@@ -12,7 +12,8 @@ const EmptyWeek = ({
   timeline_end,
   index,
   weeksBeforeTimeline,
-  addWeek
+  addWeek,
+  anchorId
 }) => {
   let week;
   // Three types of empty weeks:
@@ -72,7 +73,7 @@ const EmptyWeek = ({
   }
 
   return (
-    <li className={`week week-${index}`}>
+    <li className={`week week-${index}`} id={anchorId}>
       {header}
       <div className="week__no-activity">
         {week}

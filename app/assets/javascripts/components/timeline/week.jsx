@@ -171,7 +171,7 @@ const Week = createReactClass({
     }
 
     return (
-      <li className={weekClassName}>
+      <li className={weekClassName} id={this.props.anchorId}>
         <div className="week__week-header">
           {weekAddDelete}
           {weekTitle}

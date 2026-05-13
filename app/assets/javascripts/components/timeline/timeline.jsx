@@ -213,26 +213,25 @@ const Timeline = createReactClass({
         const emptyWeekKey = `empty-week-${index}`;
         weekNavInfo.push({ emptyWeek: true, title: undefined });
         weekComponents.push((
-          <div key={emptyWeekKey}>
-            <span className="timeline__anchor" id={weekAnchorName} />
-            <EmptyWeek
-              course={this.props.course}
-              edit_permissions={this.props.edit_permissions}
-              index={index + 1}
-              usingCustomTitles={usingCustomTitles}
-              timeline_start={effectiveTimelineStart}
-              timeline_end={this.props.course.timeline_end}
-              weeksBeforeTimeline={weeksBeforeTimeline}
-              addWeek={this.props.addWeek}
-            />
-          </div>
+          <EmptyWeek
+            key={emptyWeekKey}
+            anchorId={weekAnchorName}
+            course={this.props.course}
+            edit_permissions={this.props.edit_permissions}
+            index={index + 1}
+            usingCustomTitles={usingCustomTitles}
+            timeline_start={effectiveTimelineStart}
+            timeline_end={this.props.course.timeline_end}
+            weeksBeforeTimeline={weeksBeforeTimeline}
+            addWeek={this.props.addWeek}
+          />
         ));
       } else {
         weekNavInfo.push({ emptyWeek: false, title: week.title });
         weekComponents.push((
-          <div key={week.id}>
-            <span className="timeline__anchor" id={weekAnchorName} />
-            <Week
+          <Week
+            key={week.id}
+            anchorId={weekAnchorName}
               week={week}
               index={index + 1}
               reorderable={this.props.reorderable}
@@ -264,9 +263,7 @@ const Timeline = createReactClass({
               current_user={this.props.current_user}
               moveBlock={this._moveBlock}
             />
-          </div>
-        )
-        );
+        ));
       }
     });
 
