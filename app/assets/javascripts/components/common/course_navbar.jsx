@@ -17,7 +17,11 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
       </a>
     );
   } else {
-    courseLinkElement = <h2 className="title">{course.title}</h2>;
+    courseLinkElement = (
+      <div className="nav__item">
+        <h2 className="title">{course.title}</h2>
+      </div>
+    );
   }
 
   // ////////////

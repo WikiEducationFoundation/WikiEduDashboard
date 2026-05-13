@@ -10,7 +10,7 @@ const OverviewStatInfo = ({ info, infoId }) => {
   iStats = (info.map((x) => {
         return (
           <div key={`${x[1]}`}>
-            <h4 className="stat-display__value">{x[0]}</h4>
+            <div className="stat-display__value">{x[0]}</div>
             <p>{x[1]}</p>
           </div>);
   })

@@ -77,7 +77,7 @@ const Nav = () => {
         </div>
       ) : (
         <div>
-          <nav className={`top-nav ${fluid ? 'fluid' : ''}`}>
+          <nav className={`top-nav ${fluid ? 'fluid' : ''}`} aria-label="Main">
             <div className="container">
               <div className="top-nav__site-logo">
                 <a className="logo__link" href={rootUrl}>

@@ -20,12 +20,13 @@ const CampaignNavbar = ({ campaign }) => {
   }, [window.location.pathname]);
   return (
     <div className="campaign-nav__wrapper">
+      <h1 className="screen-reader">{I18n.t('campaign.campaign')}: {campaign.title}</h1>
       <div className="campaign_navigation">
         <div className="container">
           <div className="nav__item">
-            <h2 className="title">{I18n.t('campaign.campaign')}: {campaign.title}</h2>
+            <h2 id="campaign-nav-label" className="title">{I18n.t('campaign.campaign')}: {campaign.title}</h2>
           </div>
-          <nav>
+          <nav aria-labelledby="campaign-nav-label">
             <div className={`nav__item ${currentTab === 'overview' ? 'active' : ''}`} id="overview-link">
               <p>
                 <a href={`/campaigns/${campaign.slug}/overview`}>{I18n.t('courses.overview')}</a>
@@ -60,8 +61,9 @@ const CampaignNavbar = ({ campaign }) => {
                   name="courses_query"
                   id="coureses_query"
                   placeholder={`${I18n.t('campaign.search')} ${campaign.title}`}
+                  aria-label={`${I18n.t('campaign.search')} ${campaign.title}`}
                 />
-                <button className="icon icon-search" type="submit" />
+                <button className="icon icon-search" type="submit" aria-label={I18n.t('form_search.search')} />
               </form>
             </div>
           </nav>

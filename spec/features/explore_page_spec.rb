@@ -39,6 +39,7 @@ describe 'the explore page', type: :feature, js: true do
       expect(page).to have_content(@campaign_name_z.title)
       expect(page).to have_content(@campaign_name_b.title)
       expect(page).to have_content(campaign.title)
+      expect(page).to be_axe_clean
     end
 
     describe 'allow sorting by' do

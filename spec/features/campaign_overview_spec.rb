@@ -108,6 +108,8 @@ describe 'campaign overview page', type: :feature, js: true do
       view_count = campaign.courses.sum(:view_sum)
       stat_text = "#{view_count}\n#{I18n.t('metrics.view_count_description')}"
       expect(page).to have_css('.stat-display', text: stat_text)
+
+      expect(page).to be_axe_clean
     end
 
     describe 'non-default locales' do
