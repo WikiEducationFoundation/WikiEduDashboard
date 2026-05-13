@@ -46,14 +46,14 @@ const NewsNavIcon = ({ setIsOpen }) => {
 
   return (
     <li aria-describedby="notification-message" className="notifications tooltip-trigger" onClick={onClickNewsIcon}>
-      <a className="icon icon-notifications_news">
+      <span className="icon icon-notifications_news">
         {/* Conditionally render the badge */}
         {notificationCount > 0 && (
           <div className="icon-notification_news--badge">
             {notificationCount}
           </div>
         )}
-      </a>
+      </span>
       <div className="tooltip tooltip--news tooltip--nav">
         <p>
           {I18n.t('news.nav_tooltip')}

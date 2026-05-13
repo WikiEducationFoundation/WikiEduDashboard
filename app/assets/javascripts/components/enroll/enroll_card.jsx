@@ -59,9 +59,9 @@ const EnrollCard = ({
     // a POST request based on data-method="post". Otherwise, this
     // needs to become a button or form and include the authenticity token.
     adviceModalButton = (
-      <a onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={() => setModalShown(true)} className="button auth signup border margin">
+      <button type="button" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onClick={() => setModalShown(true)} className="button auth signup border margin">
         <i className={`icon ${isHovered ? 'icon-wiki-white' : ' icon-wiki-purple'}`} /> {I18n.t('application.sign_up_extended')}
-      </a>
+      </button>
     );
     messageBody = (
       <div>

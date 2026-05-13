@@ -12,10 +12,10 @@ export const StudentUsername = ({ current_user, student }) => {
   return showRealName ? (
     <span>
       <strong>{trunc(student.real_name)}</strong>&nbsp;
-      (<a onClick={e => e.preventDefault()}>{username}</a>)
+      ({username})
     </span>
   ) : (
-    <span><a onClick={e => e.preventDefault()}>{username}</a></span>
+    <span>{username}</span>
   );
 };
 

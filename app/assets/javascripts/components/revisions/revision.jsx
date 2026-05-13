@@ -35,24 +35,22 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
           <span>
             <strong>{trunc(student.real_name)}</strong>&nbsp;
             (
-            <a
-              onClick={() => openStudentDetailsView(course.slug, student.username)} style={{
-                cursor: 'pointer'
-              }}
+            <button
+              type="button"
+              onClick={() => openStudentDetailsView(course.slug, student.username)}
             >
               {revision.revisor}
-            </a>
+            </button>
             )
           </span>
         ) : (
           <span>
-            <a
-              onClick={() => openStudentDetailsView(course.slug, student.username)} style={{
-                cursor: 'pointer'
-              }}
+            <button
+              type="button"
+              onClick={() => openStudentDetailsView(course.slug, student.username)}
             >
               {revision.revisor}
-            </a>
+            </button>
           </span>
         )}
       </td>

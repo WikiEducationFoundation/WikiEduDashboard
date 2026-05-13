@@ -22,9 +22,9 @@ const CampaignNavbar = ({ campaign }) => {
     <div className="campaign-nav__wrapper">
       <div className="campaign_navigation">
         <div className="container">
-          <a className="nav__item">
+          <div className="nav__item">
             <h2 className="title">{I18n.t('campaign.campaign')}: {campaign.title}</h2>
-          </a>
+          </div>
           <nav>
             <div className={`nav__item ${currentTab === 'overview' ? 'active' : ''}`} id="overview-link">
               <p>

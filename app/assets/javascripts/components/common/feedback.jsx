@@ -72,7 +72,7 @@ const Feedback = ({ assignment, username, current_user, course }) => {
   if (show) {
     button = <div className="feedback-close-container"><button onClick={hide} className="feedback-close icon-close" /></div>;
   } else {
-    button = <a onClick={showHandler} className="button dark small">{I18n.t('courses.feedback')}</a>;
+    button = <button type="button" onClick={showHandler} className="button dark small">{I18n.t('courses.feedback')}</button>;
   }
 
   let submitFeedback;
@@ -121,7 +121,7 @@ const Feedback = ({ assignment, username, current_user, course }) => {
     }
 
     if (!showFeedbackForm) {
-      feedbackButton = <a onClick={showFeedbackInput} className="button dark">{I18n.t('courses.suggestions_feedback')}</a>;
+      feedbackButton = <button type="button" onClick={showFeedbackInput} className="button dark">{I18n.t('courses.suggestions_feedback')}</button>;
     } else {
       feedbackForm = (
         <form onSubmit={handleSubmit}>
@@ -151,7 +151,7 @@ const Feedback = ({ assignment, username, current_user, course }) => {
     for (let i = 0; i < customMessages.length; i += 1) {
       let deleteButton;
       if (customMessages[i].userId === current_user.id) {
-        deleteButton = <a style={{ marginLeft: '20px' }} className="button dark small" onClick={() => handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;
+        deleteButton = <button type="button" style={{ marginLeft: '20px' }} className="button dark small" onClick={() => handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</button>;
       }
       userSuggestionList.push(<li key={customMessages[i].messageId}> {customMessages[i].message} {deleteButton} </li>);
     }
