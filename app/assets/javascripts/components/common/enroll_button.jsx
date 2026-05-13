@@ -15,7 +15,7 @@ import useExpandablePopover from '../../hooks/useExpandablePopover';
 import { useParams } from 'react-router-dom';
 import { INSTRUCTOR_ROLE, STUDENT_ROLE } from '../../constants/user_roles';
 
-const EnrollButton = ({ users, role, course, current_user, allowed, inline }) => {
+const EnrollButton = ({ users, userRole, course, current_user, allowed, inline }) => {
   const usernameRef = useRef(null);
   const realNameRef = useRef(null);
   const roleDescriptionRef = useRef(null);
@@ -26,7 +26,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   useEffect(() => {
     if (!usernameRef.current || !usernameRef.current.value) { return; }
     const username = usernameRef.current.value;
-    if (getFiltered(users, { username, role }).length > 0) {
+    if (getFiltered(users, { username, role: userRole }).length > 0) {
       dispatch(addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
@@ -37,7 +37,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   }, [users]);
 
   const getKey = () => {
-    return `add_user_role_${role}`;
+    return `add_user_role_${userRole}`;
   };
 
   const { isOpen, ref, open } = useExpandablePopover(getKey);
@@ -57,7 +57,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
     const userObject = {
       username,
-      role,
+      role: userRole,
       role_description: roleDescription,
       real_name: realName
     };
@@ -69,7 +69,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
     const confirmMessage = I18n.t('users.enroll_confirmation', { username });
 
     // If the user is not already enrolled
-    if (getFiltered(users, { username, role }).length === 0) {
+    if (getFiltered(users, { username, role: userRole }).length === 0) {
       return dispatch(initiateConfirm({ confirmMessage, onConfirm }));
     }
     // If the user us already enrolled
@@ -81,9 +81,9 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   };
 
   const unenroll = (userId) => {
-    const user = getFiltered(users, { id: userId, role })[0];
+    const user = getFiltered(users, { id: userId, role: userRole })[0];
     const courseId = course.slug;
-    const userObject = { user_id: userId, role };
+    const userObject = { user_id: userId, role: userRole };
 
     const onConfirm = () => {
       // Post the user deletion request to the server
@@ -103,11 +103,11 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
   // Disable the button for courses controlled by Wikimedia Event Center
   // except for the Facilitator role
-  if (course.flags.event_sync && role !== INSTRUCTOR_ROLE) { return null; }
+  if (course.flags.event_sync && userRole !== INSTRUCTOR_ROLE) { return null; }
 
   const usersList = users.map((user) => {
     let removeButton;
-    if (role !== INSTRUCTOR_ROLE || users.length >= 2 || current_user.admin) {
+    if (userRole !== INSTRUCTOR_ROLE || users.length >= 2 || current_user.admin) {
       removeButton = (
         <button className="button border plus" aria-label="Remove user" onClick={() => unenroll(user.id)}>-</button>
       );
@@ -124,7 +124,7 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
 
   const editRows = [];
 
-  if (role === STUDENT_ROLE) {
+  if (userRole === STUDENT_ROLE) {
     let massEnrollmentLink;
     let requestedAccountsLink;
     if (!Features.wikiEd) {
@@ -150,13 +150,13 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   }
 
   // This row allows permitted users to add usrs to the course by username
-  // @role controls its presence in the Enrollment popup on /students
+  // @userRole controls its presence in the Enrollment popup on /students
   // @allowed controls its presence in Edit Details mode on Overview
-  if (role === STUDENT_ROLE || allowed) {
+  if (userRole === STUDENT_ROLE || allowed) {
     // Instructor-specific extra fields
     let realNameInput;
     let roleDescriptionInput;
-    if (role === INSTRUCTOR_ROLE) {
+    if (userRole === INSTRUCTOR_ROLE) {
       realNameInput = <input type="text" ref={realNameRef} placeholder={I18n.t('users.name')} />;
       roleDescriptionInput = <input type="text" ref={roleDescriptionRef} placeholder={I18n.t('users.role.description')} />;
     }
@@ -221,7 +221,7 @@ EnrollButton.propTypes = {
   current_user: PropTypes.shape({
     admin: PropTypes.bool.isRequired
   }).isRequired,
-  role: PropTypes.number.isRequired,
+  userRole: PropTypes.number.isRequired,
   users: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     username: PropTypes.string.isRequired,
