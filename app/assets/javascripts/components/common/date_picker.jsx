@@ -9,6 +9,7 @@ import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const DatePicker = createReactClass({
   displayName: 'DatePicker',
@@ -341,7 +342,14 @@ const DatePicker = createReactClass({
         <p className={this.props.p_tag_classname}>
           <span className="text-input-component__label"><strong>{label}</strong></span>
           <span>{(this.props.value !== null || this.props.editable) && !this.props.label ? spacer : null}</span>
-          <span onBlur={this.props.onBlur} onClick={this.props.onClick} className={valueClass}>
+          <span
+            role={this.props.onClick ? 'button' : undefined}
+            tabIndex={this.props.onClick ? 0 : undefined}
+            onBlur={this.props.onBlur}
+            onClick={this.props.onClick}
+            onKeyDown={this.props.onClick ? onEnterOrSpace(this.props.onClick) : undefined}
+            className={valueClass}
+          >
             {this.getFormattedDateTime()}
           </span>
           {this.props.append}

@@ -30,7 +30,7 @@ const EmptyWeek = ({
     week = (
       <p className="week__no-activity__get-started">
         {I18n.t('timeline.empty_week_1')}&nbsp;
-        <span className="empty-week-clickable" onClick={addWeek}>{I18n.t('timeline.empty_week_2')}</span>&nbsp;
+        <button type="button" className="empty-week-clickable" onClick={addWeek}>{I18n.t('timeline.empty_week_2')}</button>&nbsp;
         {wizardLinkTransition}&nbsp;
         {wizardLink}
       </p>);

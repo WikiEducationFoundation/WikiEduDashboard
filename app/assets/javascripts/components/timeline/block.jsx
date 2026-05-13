@@ -66,7 +66,18 @@ const updateBlock = (valueKey, value) => {
       blockActions = (
         <div className="float-container block__block-actions">
           <button type="button" onClick={props.saveBlockChanges.bind(null, block.id)} className="button dark pull-right no-clear">Save</button>
-          <span role="button" tabIndex={0} onClick={props.cancelBlockEditable.bind(null, block.id)} className="span-link pull-right no-clear">Cancel</span>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={props.cancelBlockEditable.bind(null, block.id)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                props.cancelBlockEditable(block.id);
+              }
+            }}
+            className="span-link pull-right no-clear"
+          >Cancel</span>
         </div>
       );
     }

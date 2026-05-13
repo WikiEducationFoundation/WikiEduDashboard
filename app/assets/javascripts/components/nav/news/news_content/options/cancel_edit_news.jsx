@@ -5,7 +5,8 @@ const CancelEditNews = ({ cancelNewsIdToBeEdited }) => {
   const [cancelEdit, setCancelEdit] = useState(false); // State to manage the icon hover effect
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setCancelEdit(true)} // Show red icon on hover
       onMouseLeave={() => setCancelEdit(false)} // Show grey icon when not hovered
       onClick={cancelNewsIdToBeEdited} // Cancel the edit action
@@ -14,7 +15,7 @@ const CancelEditNews = ({ cancelNewsIdToBeEdited }) => {
       {/* Display cancel icon, changing color based on hover state */}
       <span className={cancelEdit ? 'icon-cancel icon-cancel--red' : 'icon-cancel icon-cancel--grey'} />
       <p>{I18n.t('news.options.news_content.cancel_edit')}</p>
-    </div>
+    </button>
   );
 };
 

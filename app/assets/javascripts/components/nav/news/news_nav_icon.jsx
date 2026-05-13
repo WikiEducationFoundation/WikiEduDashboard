@@ -45,15 +45,15 @@ const NewsNavIcon = ({ setIsOpen }) => {
   }, []);
 
   return (
-    <li aria-describedby="notification-message" className="notifications tooltip-trigger" onClick={onClickNewsIcon}>
-      <span className="icon icon-notifications_news">
+    <li aria-describedby="notification-message" className="notifications tooltip-trigger">
+      <button type="button" className="icon icon-notifications_news" onClick={onClickNewsIcon} aria-label={I18n.t('notifications.aria_label.bell')}>
         {/* Conditionally render the badge */}
         {notificationCount > 0 && (
           <div className="icon-notification_news--badge">
             {notificationCount}
           </div>
         )}
-      </span>
+      </button>
       <div className="tooltip tooltip--news tooltip--nav">
         <p>
           {I18n.t('news.nav_tooltip')}

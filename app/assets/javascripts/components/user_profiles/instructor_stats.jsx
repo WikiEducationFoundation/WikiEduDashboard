@@ -68,15 +68,23 @@ const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWi
           {I18n.t('user_profiles.instructor_impact', { username })}
         </h5>
         <div className="stat-display">
-          <div onClick={setCoursesCountGraph} className={`stat-display__stat button${coursesGraph ? ' active-button' : ''}`}>
+          <button
+            type="button"
+            onClick={setCoursesCountGraph}
+            className={`stat-display__stat button${coursesGraph ? ' active-button' : ''}`}
+          >
             <div className="stat-display__value">
               {stats.as_instructor.courses_count}
             </div>
             <small>
               {I18n.t(`${stats.as_instructor.course_string_prefix}.courses_taught`)}
             </small>
-          </div>
-          <div onClick={setStudentsCountGraph} className={`stat-display__stat tooltip-trigger button${coursesGraph ? '' : ' active-button'}`}>
+          </button>
+          <button
+            type="button"
+            onClick={setStudentsCountGraph}
+            className={`stat-display__stat tooltip-trigger button${coursesGraph ? '' : ' active-button'}`}
+          >
             <div className="stat-display__value">
               {stats.as_instructor.user_count}
               <img src="/assets/images/info.svg" alt="tooltip default logo" />
@@ -93,7 +101,7 @@ const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWi
                 {I18n.t('users.up_to_date_with_training')}
               </p>
             </div>
-          </div>
+          </button>
         </div>
         <div id="visualizations">
           {statsVisualizations}

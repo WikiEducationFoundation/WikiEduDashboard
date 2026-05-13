@@ -24,7 +24,8 @@ const ConfirmPostNews = ({ setConfirmPost, setDisableDropdown, setCreateNews }) 
   };
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setConfirmPostIcon(true)}
       onMouseLeave={() => setConfirmPostIcon(false)}
       onClick={confirmPostNews}
@@ -32,7 +33,7 @@ const ConfirmPostNews = ({ setConfirmPost, setDisableDropdown, setCreateNews }) 
     >
       <span className={confirmPostIcon ? 'icon-check icon-check--blue' : 'icon-check icon-check--grey'} />
       <p>{I18n.t('news.options.create_news.confirm_post')}</p>
-    </div>
+    </button>
   );
 };
 

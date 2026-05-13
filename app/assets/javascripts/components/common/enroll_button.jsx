@@ -195,6 +195,11 @@ const EnrollButton = ({ users, role, course, current_user, allowed, inline }) =>
   );
 
   return (
+    // The onClick={stop} only calls e.stopPropagation() to prevent the
+    // surrounding "click outside to close" hook from firing on clicks inside
+    // the popover. It is not a real interactive handler, so adding a
+    // keyboard handler would be meaningless.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div className="pop__container" onClick={stop} ref={ref}>
       {button}
       <Popover

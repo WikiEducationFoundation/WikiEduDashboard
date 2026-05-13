@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const TextInput = ({
   value,
@@ -88,7 +89,14 @@ const TextInput = ({
         <span className="text-input-component__label">
           <strong>{labelContent}</strong>
         </span>
-        <span onBlur={onBlur} onClick={onClick} className={usedValueClass}>
+        <span
+          role={onClick ? 'button' : undefined}
+          tabIndex={onClick ? 0 : undefined}
+          onBlur={onBlur}
+          onClick={onClick}
+          onKeyDown={onClick ? onEnterOrSpace(onClick) : undefined}
+          className={usedValueClass}
+        >
           {value}
         </span>
         {append}

@@ -131,7 +131,10 @@ const CommonsImagePicker = ({ onInsert, onClose }) => {
   const showUnreadable = !!url.trim() && !title;
 
   return (
+    // Backdrop click closes the modal (mouse affordance); keyboard users
+    // use the Cancel button or Escape. Inner onClick only stops propagation.
     <div className="training_module_composer__modal__backdrop" role="presentation" onClick={onClose}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <div
         className="training_module_composer__modal training_module_composer__image_picker"
         role="dialog"

@@ -259,7 +259,18 @@ const TrainingSlideHandler = () => {
     <div>
       <Notifications />
       <header>
-        <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
+        <div
+          role="button"
+          tabIndex={0}
+          className="pull-right training__slide__nav"
+          onClick={toggleMenuOpen_FC}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleMenuOpen_FC();
+            }
+          }}
+        >
           <div className="pull-right hamburger">
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />

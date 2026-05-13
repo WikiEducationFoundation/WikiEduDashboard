@@ -573,6 +573,9 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   }
 
   return (
+    // onClick={stop} only calls e.stopPropagation() to keep "click outside"
+    // hooks from firing on clicks within the popover; no real interaction.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div className="pop__container assignment-popover" onClick={stop} ref={ref}>
       {showButton}
       {editButton}

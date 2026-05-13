@@ -4,6 +4,7 @@ import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from '../articles/course_quality_progress_graph';
 import request from '../../utils/request';
 import withRouter from '../util/withRouter';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const CampaignOresPlot = (props) => {
   const [show, setShow] = useState(false);
@@ -56,7 +57,16 @@ const CampaignOresPlot = (props) => {
       );
     }
     if (loading) {
-      return <div onClick={hideHandler}><Loading /></div>;
+      return (
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={hideHandler}
+          onKeyDown={onEnterOrSpace(hideHandler)}
+        >
+          <Loading />
+        </div>
+      );
     }
     return <div>{I18n.t('campaign.campaign_ores_plot.no_data')}</div>;
   }

@@ -33,6 +33,12 @@ const ProgressTracker = ({ assignment, course }) => {
       >
         Click to hide or show progress tracker
       </button>
+      {/* Keyboard activation is handled by the adjacent .screen-reader
+          <button> above (lines 30-35), which is the keyboard-accessible
+          surface for this toggle. The <nav> onClick here is mouse-only
+          affordance for sighted users clicking the visible progress
+          navigation. */}
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <nav
         aria-label="Click to hide or show progress tracker"
         className="toggle-progress-tracker"
