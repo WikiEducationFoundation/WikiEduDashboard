@@ -63,7 +63,7 @@ const CampaignNavbar = ({ campaign }) => {
                   placeholder={`${I18n.t('campaign.search')} ${campaign.title}`}
                   aria-label={`${I18n.t('campaign.search')} ${campaign.title}`}
                 />
-                <button className="icon icon-search" type="submit" aria-label={I18n.t('form_search.search')} />
+                <button className="icon icon-search" type="submit" aria-label={`${I18n.t('form_search.search')} ${campaign.title}`} />
               </form>
             </div>
           </nav>

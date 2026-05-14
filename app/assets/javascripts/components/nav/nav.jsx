@@ -125,9 +125,9 @@ const Nav = () => {
                 <div className="top-nav__faq-search">
                   <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
                     <input name="utf8" type="hidden" defaultValue="✓" />
-                    <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} />
+                    <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} aria-label={I18n.t('application.search')} />
                     <input name="source" type="hidden" defaultValue="nav_ask_form" />
-                    <button type="submit" className="icon icon-search" aria-label={I18n.t('form_search.search')} />
+                    <button type="submit" className="icon icon-search" aria-label={I18n.t('application.search')} />
                   </form>
                 </div>
               )}
