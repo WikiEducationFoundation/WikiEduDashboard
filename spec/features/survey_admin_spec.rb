@@ -65,6 +65,9 @@ describe 'Survey Administration', type: :feature, js: true do
   describe 'managing surveys' do
     it 'creates a survey and clones a question' do
       visit '/surveys'
+      expect(page).to have_link 'New Survey'
+      expect(page).to be_axe_clean
+
       click_link 'New Survey'
       fill_in('survey_name', with: 'Test Survey')
       click_button 'Create Survey'

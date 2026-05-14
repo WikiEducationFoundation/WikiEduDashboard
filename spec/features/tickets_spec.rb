@@ -27,6 +27,9 @@ describe 'ticket system', type: :feature, js: true do
     click_link 'Open Tickets: 1'
     click_link 'Show'
 
+    expect(page).to have_content 'I need some help with adding a photo'
+    expect(page).to be_axe_clean
+
     # Reply to the ticket
     within('form.tickets-reply') do
       find('.mce-content-body').click
