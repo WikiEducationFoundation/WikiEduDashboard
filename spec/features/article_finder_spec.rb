@@ -26,6 +26,12 @@ describe 'article finder', type: :feature, js: true do
     expect(page).to have_content 'Add as available article'
   end
 
+  it 'works on the standalone /article_finder page' do
+    visit '/article_finder'
+    expect(page).to have_field('article-searchbar')
+    expect(page).to be_axe_clean
+  end
+
   it 'works for other tracked wikis besides the home wiki' do
     visit "/courses/#{course.slug}/article_finder"
     click_button 'Change'

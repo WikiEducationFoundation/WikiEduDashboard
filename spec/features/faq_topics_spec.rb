@@ -10,6 +10,7 @@ describe 'FAQ topics', type: :feature, js: true do
 
   it 'lets an admin create, update and delete topics' do
     visit '/faq_topics'
+    expect(page).to be_axe_clean
 
     # Create an FAQ Topic
     click_link 'New Topic'

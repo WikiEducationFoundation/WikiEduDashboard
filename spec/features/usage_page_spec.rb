@@ -46,6 +46,7 @@ describe 'wiki list on /usage page', type: :feature, js: true, js_error_expected
     expect(page).to have_css('.wiki-table tbody tr', count: 20)
     expect(page).to have_css('#wiki-show-all', text: 'Show all')
     expect(page).to have_text('Showing 20 of 26 wikis')
+    expect(page).to be_axe_clean
   end
 
   it 'expands to all rows when Show all is clicked' do
