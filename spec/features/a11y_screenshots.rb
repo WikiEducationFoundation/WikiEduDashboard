@@ -12,12 +12,41 @@
 require 'rails_helper'
 
 describe 'accessibility screenshots', type: :feature, js: true, screenshots: true do
-  let(:screenshot_dir) { Rails.root.join('tmp', 'screenshots') }
+  # Use a separate directory so capybara-screenshot's prune-per-run
+  # strategy (which empties tmp/screenshots/ on every spec run) doesn't
+  # delete the before screenshots between runs.
+  let(:screenshot_dir) { Rails.root.join('tmp', 'a11y_screenshots') }
   let(:suffix) { ENV['SCREENSHOT_SUFFIX'] || 'now' }
 
   before do
     FileUtils.mkdir_p(screenshot_dir)
     page.current_window.resize_to(1440, 1000)
+  end
+
+  describe 'admin dashboard' do
+    let(:admin) { create(:admin) }
+    let(:instructor) { create(:user, username: 'Professor Sage') }
+    let!(:submitted_course) do
+      create(:course, title: 'My Submitted Course', school: 'University',
+                      term: 'Term', slug: 'University/Course_(Term)', submitted: true,
+                      passcode: 'passcode', start: '2015-01-01'.to_date,
+                      end: '2025-01-01'.to_date)
+    end
+    let!(:courses_user) do
+      create(:courses_user, user: instructor, course: submitted_course,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+    let!(:fall_campaign) { create(:campaign, title: 'Fall 2015') }
+    let!(:spring_campaign) { create(:campaign, title: 'Spring 2016') }
+
+    before { login_as(admin) }
+
+    it 'snapshot' do
+      visit root_path
+      expect(page).to have_content 'Submitted & Pending Approval'
+      sleep 1
+      page.save_screenshot(screenshot_dir.join("admin_dashboard_#{suffix}.png"))
+    end
   end
 
   describe 'course timeline' do
