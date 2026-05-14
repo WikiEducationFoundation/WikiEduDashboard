@@ -60,6 +60,7 @@ const Meetings = (props) => {
           <p>{I18n.t('timeline.course_dates_instructions')}</p>
           <div className="vertical-form full-width">
             <DatePicker
+              id="meetings_course_start"
               onChange={updateCourseDates}
               value={course.start}
               value_key="start"
@@ -68,6 +69,7 @@ const Meetings = (props) => {
               label={I18n.t('timeline.course_start')}
             />
             <DatePicker
+              id="meetings_course_end"
               onChange={updateCourseDates}
               value={course.end}
               value_key="end"
@@ -84,6 +86,7 @@ const Meetings = (props) => {
           <p>{I18n.t('timeline.assignment_dates_instructions')}</p>
           <div className="vertical-form full-width">
             <DatePicker
+              id="meetings_timeline_start"
               onChange={updateCourseDates}
               value={course.timeline_start}
               value_key="timeline_start"
@@ -93,6 +96,7 @@ const Meetings = (props) => {
               date_props={dateProps.timeline_start}
             />
             <DatePicker
+              id="meetings_timeline_end"
               onChange={updateCourseDates}
               value={course.timeline_end}
               value_key="timeline_end"

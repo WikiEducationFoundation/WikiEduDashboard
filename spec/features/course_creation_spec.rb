@@ -149,6 +149,7 @@ describe 'New course creation and editing', type: :feature do
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
+      expect(page).to be_axe_clean
       find('#course_title').set('My awesome new course - Foo 101')
 
       click_button 'Next'
@@ -177,6 +178,7 @@ describe 'New course creation and editing', type: :feature do
         all('div', text: 'In-person')[2].click
       end
       find('#course_description').set('In this course, we study things.')
+      expect(page).to be_axe_clean
       click_button 'Next'
 
       start_date = '2015-01-01'
@@ -187,6 +189,8 @@ describe 'New course creation and editing', type: :feature do
       find('div.DayPicker-Day', text: '15').click
 
       sleep 1
+      # react-day-picker 7.x has unfixable role= markup; exclude until upgrade.
+      expect(page).to be_axe_clean.excluding('.DayPicker')
 
       # This click should create the course and start the wizard
       click_button 'Create my Course!'
@@ -203,32 +207,38 @@ describe 'New course creation and editing', type: :feature do
       expect(start_input.to_date).to be_within(1.day).of(start_date.to_date)
       end_input = find('input.end', match: :first).value
       expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
+      expect(page).to be_axe_clean.excluding('.DayPicker')
 
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
       go_through_course_dates_and_timeline_dates
 
       # This is the assignment type chooser
+      expect(page).to be_axe_clean
       # Translation assignment
       page.all('.wizard__option')[2].first('button').click
       sleep 1
       click_button 'Next'
       sleep 1
+      expect(page).to be_axe_clean
       click_button 'Yes, training will be graded.'
       click_button 'Next'
 
       # Choosing articles
       sleep 1
+      expect(page).to be_axe_clean
       page.all('div.wizard__option')[0].click # Instructor prepares list
       click_button 'Next'
 
       # Optional assignment
       sleep 1
+      expect(page).to be_axe_clean
       click_button 'Do not include fact-checking assignment'
       click_button 'Next'
 
       # on the summary
       sleep 1
+      expect(page).to be_axe_clean
       # go back and change a choice
       page.all('button.wizard__option.summary')[2].click
       sleep 1
@@ -245,6 +255,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Edit course dates and save
       click_link 'Edit Course Dates'
+      expect(page).to be_axe_clean.excluding('.DayPicker')
       find('span[title="Thursday"]', match: :first).click
       click_link 'Done'
       sleep 1

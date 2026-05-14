@@ -112,6 +112,29 @@ describe 'accessibility screenshots', type: :feature, js: true, screenshots: tru
     end
   end
 
+  describe 'course creation form' do
+    let(:instructor) do
+      create(:user, id: 1, permissions: User::Permissions::INSTRUCTOR)
+    end
+
+    before do
+      TrainingModule.load_all
+      stub_oauth_edit
+      create(:training_modules_users, user_id: instructor.id,
+                                      training_module_id: 3,
+                                      completed_at: Time.zone.now)
+      login_as(instructor, scope: :user)
+    end
+
+    it 'snapshot' do
+      visit root_path
+      click_link 'Create Course'
+      expect(page).to have_content 'Create a New Course'
+      sleep 1
+      page.save_screenshot(screenshot_dir.join("course_creation_form_#{suffix}.png"))
+    end
+  end
+
   describe 'course timeline' do
     let(:start_date) { '2025-02-10'.to_date }
     let(:course) do

@@ -450,7 +450,7 @@ const CourseCreator = createReactClass({
         <Notifications />
         <div className="container">
           <div className="wizard__panel active" style={formStyle}>
-            {!showCourseScoping && <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>}
+            {!showCourseScoping && <h2>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h2>}
             {specialNotice}
             {instructions && <p>{instructions}</p>}
             <NewOrClone
