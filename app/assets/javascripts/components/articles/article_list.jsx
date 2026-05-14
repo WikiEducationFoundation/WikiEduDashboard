@@ -307,6 +307,7 @@ const ArticleList = createReactClass({
           name="sorts"
           options={options}
           styles={sortSelectStyles}
+          aria-label={I18n.t('application.sort')}
         />
       </div>
     );

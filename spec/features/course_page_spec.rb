@@ -196,6 +196,8 @@ describe 'the course page', type: :feature, js: true do
         expect(page).to have_content 'Milestones'
         expect(page).to have_content 'blocky block'
       end
+
+      expect(page).to be_axe_clean
     end
 
     it 'get academic_system' do
@@ -245,6 +247,9 @@ describe 'the course page', type: :feature, js: true do
       expect(page).to have_selector('tr.article', count: article_count)
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
+      # react-paginate 8.x hardcodes role="navigation" on its <ul>;
+      # exclude until library upgrade or local wrapper component.
+      expect(page).to be_axe_clean.excluding('.pagination')
     end
 
     it 'sorts Wikipedia articles by class' do
@@ -401,6 +406,7 @@ describe 'the course page', type: :feature, js: true do
           expect(page.text).to eq('2')
         end
       end
+      expect(page).to be_axe_clean
     end
   end
 
@@ -419,6 +425,7 @@ describe 'the course page', type: :feature, js: true do
       js_visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.upload')
       expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
+      expect(page).to be_axe_clean
     end
 
     it 'displays view options' do
@@ -479,7 +486,16 @@ describe 'the course page', type: :feature, js: true do
       Capybara.using_wait_time 10 do
         js_visit "/courses/#{slug}/activity"
         expect(page).to have_css('.revision', minimum: 5)
+        expect(page).to be_axe_clean
       end
+    end
+  end
+
+  describe 'resources view' do
+    it 'loads cleanly' do
+      js_visit "/courses/#{slug}/resources"
+      expect(page).to have_content('This.course')
+      expect(page).to be_axe_clean
     end
   end
 

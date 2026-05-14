@@ -157,6 +157,7 @@ const RevisionHandler = ({ course, courseScopedLimit }) => {
             onChange={sortSelect}
             options={options}
             styles={sortSelectStyles}
+            aria-label={I18n.t('application.sort')}
           />
         </div>
       </div>

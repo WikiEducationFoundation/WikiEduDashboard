@@ -16,6 +16,8 @@ describe 'article finder', type: :feature, js: true do
 
   it 'performs searches and returns results' do
     visit "/courses/#{course.slug}/article_finder"
+    expect(page).to have_field('article-searchbar')
+    expect(page).to be_axe_clean
     within '.article-finder-form' do
       fill_in 'article-searchbar', with: 'Selfie'
       click_button 'Search'
