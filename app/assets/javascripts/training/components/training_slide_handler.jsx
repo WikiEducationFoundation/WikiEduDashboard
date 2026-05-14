@@ -276,9 +276,9 @@ const TrainingSlideHandler = () => {
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
           </div>
-          <h3 className="pull-right">
-            <button type="button" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</button>
-          </h3>
+          <span className="pull-right training__slide__page-label">
+            {I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}
+          </span>
         </div>
         <SlideMenu
           closeMenu={closeMenu_FC}
