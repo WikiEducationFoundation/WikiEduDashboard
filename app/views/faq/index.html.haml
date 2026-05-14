@@ -5,14 +5,14 @@
     %h1 Frequently Asked Questions
     = form_tag '/faq', method: :get do
       = text_field_tag(:search, @query, placeholder: 'search', id: 'faq_search')
-      %button.search#submit_search{type: 'submit'}
+      %button.search#submit_search{type: 'submit', 'aria-label': t('application.search')}
         %i.icon.icon-search
 .container.faq-body
   .faq-list
     - @faqs.each do |faq|
       = render 'faq', faq: faq, expanded: @faqs.one?
   .faq-topic-list
-    %h3 Topics
+    %h2 Topics
     - FaqTopic.all.each do |topic|
       %hr
       - if topic.slug == @topic_slug

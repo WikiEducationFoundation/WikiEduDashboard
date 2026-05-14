@@ -39,6 +39,7 @@ describe 'AI edit alerts stats', type: :feature, js: true do
       expect(page).not_to have_content 'Selfie'
       expect(page).to have_content 'Ragesock'
       expect(page).not_to have_content 'some username'
+      expect(page).to be_axe_clean
     end
   end
 end

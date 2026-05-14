@@ -14,6 +14,7 @@ describe 'FAQs', type: :feature, js: true do
   describe 'INDEX page' do
     it 'has search working search' do
       visit '/faq'
+      expect(page).to be_axe_clean
       fill_in 'faq_search', with: 'how does'
       click_button 'submit_search'
       expect(page).to have_content 'How does this work?'
@@ -29,6 +30,7 @@ describe 'FAQs', type: :feature, js: true do
       visit "/faq/#{faq.id}"
       expect(page).to have_content 'How does this work?'
       expect(page).to have_content 'It works'
+      expect(page).to be_axe_clean
     end
   end
 
