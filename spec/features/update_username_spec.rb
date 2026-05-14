@@ -37,6 +37,7 @@ describe 'Update username controller', type: :feature, js: true do
     it 'and do not enter username' do
       VCR.use_cassette('update_username') do
         visit '/update_username'
+        expect(page).to be_axe_clean
         fill_in('username', with: '')
         click_button 'update_username'
         expect(page).to have_content(I18n.t('update_username.header'))

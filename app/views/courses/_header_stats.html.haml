@@ -8,7 +8,7 @@
       %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("#{presenter.course_string_prefix}.students")
     .tooltip.dark
-      %h4
+      %p.tooltip-stat
         = number_to_human presenter.trained_percent
         \%
       %p= t("users.up_to_date_with_training")
@@ -41,7 +41,7 @@
       %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.upload_count")
     .tooltip.dark
-      %h4= number_to_human presenter.uploads_in_use_count
+      %p.tooltip-stat= number_to_human presenter.uploads_in_use_count
       %p= t("metrics.uploads_in_use_count", count: presenter.uploads_in_use_count)
-      %h4= number_to_human presenter.upload_usage_count
+      %p.tooltip-stat= number_to_human presenter.upload_usage_count
       %p= t("metrics.upload_usages_count", count: presenter.upload_usage_count)
