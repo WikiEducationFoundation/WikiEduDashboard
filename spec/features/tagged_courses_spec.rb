@@ -17,15 +17,18 @@ describe 'tagged courses pages', type: :feature, js: true do
   it 'show list of courses with the tag' do
     visit '/tagged_courses/test_tag/programs'
     expect(page).to have_content(course.title)
+    expect(page).to be_axe_clean
   end
 
   it 'show list of articles for courses with the tag' do
     visit '/tagged_courses/test_tag/articles'
     expect(page).to have_content(article.title)
+    expect(page).to be_axe_clean.excluding('.pagination')
   end
 
   it 'show list of alerts for courses with the tag' do
     visit '/tagged_courses/test_tag/alerts'
     expect(page).to have_content('BadWorkAlert')
+    expect(page).to be_axe_clean
   end
 end

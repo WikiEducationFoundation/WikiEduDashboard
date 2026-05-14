@@ -64,9 +64,9 @@ const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWi
   return (
     <div className="user_stats">
       <div id="instructor-profile-stats">
-        <h5>
+        <h3>
           {I18n.t('user_profiles.instructor_impact', { username })}
-        </h5>
+        </h3>
         <div className="stat-display">
           <button
             type="button"

@@ -37,6 +37,7 @@ describe 'campaigns page', type: :feature, js: true do
         visit '/campaigns'
         expect(page).to have_content(@spring2016.title)
         expect(page).to have_content(@spring2015.title)
+        expect(page).to be_axe_clean
       end
 
       it 'renders the search results' do

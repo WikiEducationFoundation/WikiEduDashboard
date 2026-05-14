@@ -52,7 +52,7 @@ const AlertsHandler = ({ alertLabel, noAlertsLabel, adminAlert }) => {
     alertList = (
       <div id="alerts" className="campaign_main alerts container">
         <div className="section-header">
-          <h3>{alertLabel}</h3>
+          <h2>{alertLabel}</h2>
           <MultiSelectField options={alertTypes} label={I18n.t('campaign.alert_select_label')} selected={selectedFilters} setSelectedFilters={value => dispatch(filterAlerts(value))} />
           <div className="sort-container">
             <Select
