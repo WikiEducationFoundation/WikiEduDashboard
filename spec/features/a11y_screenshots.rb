@@ -49,6 +49,31 @@ describe 'accessibility screenshots', type: :feature, js: true, screenshots: tru
     end
   end
 
+  describe 'tickets dashboard' do
+    let(:admin) { create(:admin, email: 'spec@wikiedu.org') }
+    let(:course) do
+      create(:course, slug: 'NASA_School/Fly_me_to_the_moon',
+                      title: 'Fly me to the moon')
+    end
+    let(:user) { create(:user, username: 'arogers', email: 'aron@packers.nfl.org') }
+
+    before do
+      TicketDispenser::Dispenser.call(
+        content: 'I do not test content', owner_id: admin.id, sender_id: user.id,
+        project_id: course.id, details: { subject: 'A first subject' }
+      )
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      login_as admin
+    end
+
+    it 'snapshot' do
+      visit '/tickets/dashboard'
+      expect(page).to have_field 'tickets_search_email_or_username'
+      sleep 1
+      page.save_screenshot(screenshot_dir.join("tickets_dashboard_#{suffix}.png"))
+    end
+  end
+
   describe 'course timeline' do
     let(:start_date) { '2025-02-10'.to_date }
     let(:course) do

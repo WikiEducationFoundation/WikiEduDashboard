@@ -16,7 +16,7 @@ export const TicketShow = ({
   const replies = ticket.messages.map(message => <Reply key={message.id} message={message} />);
 
   return (
-    <main className="container ticket-dashboard">
+    <section className="container ticket-dashboard">
       <h4 className="mt1"><Link to="/tickets/dashboard">← Ticketing Dashboard</Link></h4>
       <h2 className="title">
         Ticket from {ticket.sender.real_name || ticket.sender.username || ticket.sender_email}
@@ -36,7 +36,7 @@ export const TicketShow = ({
         notifyOfMessage={notifyOfMessage}
         ticket={ticket}
       />
-    </main>
+    </section>
   );
 };
 
