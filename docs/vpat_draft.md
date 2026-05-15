@@ -85,6 +85,15 @@ Wiki Education Foundation staff.
 4. **Spot manual review** of specific patterns flagged during the
    axe-clean remediation sprint (heading order, landmark usage,
    color contrast on Stylus-defined colors).
+5. **Structured 200% browser-zoom visual inspection** via the
+   manual-only Capybara spec at
+   `spec/features/resize_text_check.rb`. The spec applies a 200%
+   page zoom and pauses for human inspection on 13 representative
+   pages: logged-out home; explore; the seven course-page tabs
+   (home, timeline, students, articles, uploads, activity,
+   resources) against a realistically populated course; the
+   course-creator modal; survey admin; admin dashboard; and
+   onboarding. Re-runnable as the product evolves.
 
 **Methods NOT used in this evaluation** (gaps for v2):
 
@@ -93,7 +102,11 @@ Wiki Education Foundation staff.
   JAWS-using admin does not routinely exercise (student-role
   assignment wizard, training-module taking flow, survey-taking
   flow, ArticleViewer authorship view).
-- Browser-zoom and text-spacing reflow testing.
+- Reflow testing at 320 CSS pixels viewport width (WCAG 1.4.10).
+  The 200% browser-zoom spec exercises layout adaptation at the
+  narrow effective widths produced by zoom, but not strictly at
+  the 320-pixel viewport size required by 1.4.10.
+- Text-spacing override testing (WCAG 1.4.12).
 - Mobile and touch-only interaction testing.
 - Third-party audit.
 
@@ -171,7 +184,7 @@ Wiki Education Foundation staff.
 | **1.3.4 Orientation** | Supports | The product does not lock orientation. |
 | **1.3.5 Identify Input Purpose** | Supports | The user-info inputs in the codebase carry the HTML `autocomplete` attribute with WCAG-recognised input-purpose tokens: `autocomplete="name"` and `autocomplete="email"` on the onboarding form (`app/assets/javascripts/components/onboarding/form.jsx`), `autocomplete="username"` and `autocomplete="email"` on the new-account-request modal (`app/assets/javascripts/components/enroll/new_account_modal.jsx`, via a passthrough prop added to the shared `TextInput` component), and `autocomplete="email"` on the user-profile email field (`app/views/user_profiles/_user_form.html.haml`). The product authenticates via OAuth (MediaWiki) and therefore has no traditional password forms; the inputs that *do* collect user-purpose data are now annotated. |
 | **1.4.3 Contrast (Minimum)** | Partially Supports | axe-locked pages enforce 4.5:1 contrast for normal text and 3:1 for large text. Several site-wide color tokens were darkened during the axe-clean remediation sprint (`$text_med_header`, `.button.dark` hover, onboarding footer background). Pages without an axe-clean lock have not been verified, including any Stylus modules used only outside the locked routes. |
-| **1.4.4 Resize Text** | Not Evaluated | Browser zoom up to 200% has not been structurally tested. The codebase uses pixel units for most `font-size` declarations (~86 rem/em declarations out of ~358 total font-size declarations, i.e. about a quarter relative); modern browser full-page zoom scales pixel text correctly so the product is likely to pass for full-page zoom, but text-only zoom (via user style sheets) is more uncertain. |
+| **1.4.4 Resize Text** | Supports | At 200% browser zoom, text remains readable and functionality remains accessible across the surfaces verified under Evaluation Method 5 (13 pages including all seven course-page tabs). Horizontal page scroll appears at high zoom on most pages, which 1.4.4 permits; the stricter 1.4.10 Reflow criterion is reported separately. Some button labels with longer localized text wrap onto a second line at 200% — layout adaptation, not loss of content or functionality. |
 | **1.4.5 Images of Text** | Supports | The product does not use images of text for content; text in the UI is rendered as HTML. Logos are the only exception, which is permitted. |
 | **1.4.10 Reflow** | Not Evaluated | Has not been structurally tested at 320 CSS pixels width. The product has not been audited for horizontal scrolling. |
 | **1.4.11 Non-text Contrast** | Partially Supports | UI component boundaries (form fields, buttons in their resting state) have not been comprehensively audited for 3:1 contrast against adjacent colors. Some axe-clean remediation work addressed adjacent issues. |
