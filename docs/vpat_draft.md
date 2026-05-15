@@ -75,16 +75,17 @@ Wiki Education Foundation staff.
    screen-reader validation of those surfaces; defects observed are
    reported and fixed in the normal development cycle. Two
    known-problem areas are carved out of this validation: (a) the
-   **ArticleViewer authorship-highlighting** view (the WhoColor
-   integration at `app/assets/javascripts/components/common/ArticleViewer/`),
-   which conveys per-author contribution via color-only spans and is
-   known to be unusable with a screen reader; and (b) the **survey-
-   taking flow**, which has historically had screen-reader issues
-   and has not been re-verified end-to-end since the recent axe-clean
-   remediation sprint.
-4. **Spot manual review** of specific patterns flagged during the
-   axe-clean remediation sprint (heading order, landmark usage,
-   color contrast on Stylus-defined colors).
+   **ArticleViewer authorship-highlighting** view, which conveys
+   per-author contribution via mouseover-only labels on colored
+   text spans and is therefore effectively unusable with a screen
+   reader or via keyboard (impact is limited to internal staff
+   use; see Method 6); and (b) the **survey-taking flow**,
+   which is known to have screen-reader compatibility limitations
+   and has not been recently re-verified end-to-end with a screen
+   reader (no survey-related accessibility complaints have come
+   through the field-feedback channels).
+4. **Spot manual review** of specific patterns (heading order,
+   landmark usage, color contrast on Stylus-defined colors).
 5. **Structured visual inspection under layout-stress conditions**
    via three manual-only Capybara specs:
    `spec/features/resize_text_check.rb` (200% browser zoom),
@@ -100,6 +101,16 @@ Wiki Education Foundation staff.
    modal; survey admin; admin dashboard; and onboarding — and
    pause for human inspection at each. Re-runnable as the product
    evolves.
+6. **Ongoing field-feedback channels.** Wiki Education collects
+   regular survey feedback from instructors (who in turn relay
+   student-reported issues) and accepts direct accessibility
+   feedback via the public dashboard FAQ. As of this attestation,
+   no accessibility complaints from the field have remained
+   unaddressed in normal development cycles. The technical
+   limitations of the ArticleViewer authorship view carved out
+   from Method 3 have not been reported through these channels by
+   any student or instructor; the known impact of that view is
+   confined to internal Wiki Education staff use.
 
 **Methods NOT used in this evaluation** (gaps for v2):
 
@@ -145,26 +156,26 @@ Wiki Education Foundation staff.
 
 | Criterion | Conformance Level | Remarks and Explanations |
 |---|---|---|
-| **1.1.1 Non-text Content** | Partially Supports | axe-locked pages enforce alt-text presence on images and accessible names on icon-only buttons. A minority of chart and graph components render an adjacent localized text description; most do not. Decorative SVGs are not consistently marked `aria-hidden`. The ArticleViewer authorship view conveys per-author contributions via color-only highlighted text and lacks a non-color text alternative. |
+| **1.1.1 Non-text Content** | Partially Supports | axe-locked pages enforce alt-text presence on images and accessible names on icon-only buttons. A minority of chart and graph components render an adjacent localized text description; most do not. Decorative SVGs are not consistently marked `aria-hidden`. |
 | **1.2.1 Audio-only and Video-only (Prerecorded)** | Not Applicable | The Dashboard does not present prerecorded audio-only or video-only content as a primary feature. Training modules embed third-party video which falls under those providers' attestations. |
 | **1.2.2 Captions (Prerecorded)** | Not Applicable | No Dashboard-hosted prerecorded video. |
 | **1.2.3 Audio Description or Media Alternative (Prerecorded)** | Not Applicable | No Dashboard-hosted prerecorded video. |
-| **1.3.1 Info and Relationships** | Partially Supports | axe-locked pages enforce heading order, list semantics, form-label association, and landmark presence. `jsx-a11y/label-has-associated-control` is enforced in the React layer. Admin and core course-page surfaces validated through daily JAWS use. The ArticleViewer authorship view does not expose author attribution to assistive tech. The survey-taking flow has not been re-evaluated for programmatic relationship exposure since the axe-clean remediation. |
+| **1.3.1 Info and Relationships** | Partially Supports | axe-locked pages enforce heading order, list semantics, form-label association, and landmark presence. `jsx-a11y/label-has-associated-control` is enforced in the React layer. Admin and core course-page surfaces validated through daily JAWS use. The ArticleViewer authorship view does not expose author attribution to assistive tech. The survey-taking flow has not been recently re-evaluated for programmatic relationship exposure. |
 | **1.3.2 Meaningful Sequence** | Partially Supports | Admin and core course-page surfaces validated through daily JAWS use. Student-only assignment-wizard, training-module, and survey-taking flows have not been structurally evaluated for reading-order vs. visual-order divergence. |
 | **1.3.3 Sensory Characteristics** | Partially Supports | Most affordances combine shape, position, and text labels. A comprehensive inventory of color-only signals (e.g. status indicators in analytics, alert severity badges, and AI-score plots) has not been done. |
-| **1.4.1 Use of Color** | Partially Supports | Same as 1.3.3 for most surfaces — status indicators typically combine color with text or icons, but a structured audit has not been done. The **ArticleViewer authorship view** is a definitive color-only failure for this criterion: it conveys per-author contribution exclusively through highlighted color spans. |
+| **1.4.1 Use of Color** | Partially Supports | Status indicators typically combine color with text or icons, but a structured audit has not been done. |
 | **1.4.2 Audio Control** | Not Applicable | No auto-playing audio. |
-| **2.1.1 Keyboard** | Supports | `jsx-a11y/click-events-have-key-events` and `jsx-a11y/no-static-element-interactions` enforced in the React layer; axe-locked pages pass keyboard-relevant axe rules. The two drag-and-drop reorder interactions in the product (timeline block reordering, admin-only training-module composer slide reordering) each ship redundant keyboard-accessible Move up / Move down buttons (`orderable_block.jsx`, `training_module_composer/components/slide_sidebar.jsx`) with localized `aria-label`s, so the drag affordance is not the only path to the action. |
+| **2.1.1 Keyboard** | Supports | `jsx-a11y/click-events-have-key-events` and `jsx-a11y/no-static-element-interactions` are enforced in the React layer, and axe-locked pages pass keyboard-relevant axe rules. The two drag-and-drop reorder interactions in the product (timeline block reordering and the admin-only training-module composer slide reordering) each include redundant keyboard-accessible Move up / Move down buttons with localized `aria-label`s, so the drag affordance is not the only path to the action. |
 | **2.1.2 No Keyboard Trap** | Partially Supports | The shared Modal and Confirm components do not implement a focus trap, an Escape-key handler, or focus return to the trigger on close. A keyboard user is therefore not trapped (they can Tab into the page underneath), so the strict criterion is not violated; but the focus-management behavior fails 2.4.3 and is the inverse of what users expect from a modal. |
 | **2.1.4 Character Key Shortcuts** | Not Applicable | The product does not implement single-character key shortcuts. |
 | **2.2.1 Timing Adjustable** | Not Applicable | The product does not impose time limits on user interactions. |
-| **2.2.2 Pause, Stop, Hide** | Partially Supports | The onboarding flow includes a slick.js carousel that auto-advances slides; users can interact with controls to pause but a comprehensive pause/stop/hide affordance has not been verified. No other auto-updating content. |
+| **2.2.2 Pause, Stop, Hide** | Supports | The product does not include moving, blinking, scrolling, or auto-updating content that starts automatically. The survey-taking flow uses a slick.js carousel between questions, but it advances only on user action (no autoplay). |
 | **2.3.1 Three Flashes or Below Threshold** | Supports | The product contains no flashing content. |
 | **2.4.1 Bypass Blocks** | Supports | Pages use HTML5 landmarks for assistive-tech navigation, with a `<main>` element on every layout. A visible "Skip to main content" link is rendered as the first focusable element on every navigation-bearing layout; it is positioned offscreen by default and revealed on focus, and targets the main landmark. |
 | **2.4.2 Page Titled** | Supports | All pages set a descriptive `<title>` via the Rails `content_for(:title)` mechanism. |
 | **2.4.3 Focus Order** | Partially Supports | Admin and core course-page surfaces validated through daily JAWS use. The shared Modal does not return focus to the triggering control on close, and only the Confirm modal moves focus into the dialog on open. Multi-step flows (course-creation wizard, onboarding) have not been structurally evaluated for focus management on step transitions. |
 | **2.4.4 Link Purpose (In Context)** | Partially Supports | axe-locked pages enforce accessible names on links; `jsx-a11y/anchor-has-content` and `jsx-a11y/anchor-is-valid` enforced. Some link text (e.g., "View", "Edit" in list rows) relies on surrounding visual context that may not be exposed to assistive tech. |
-| **2.5.1 Pointer Gestures** | Supports | Most interactions are single-point. The two path-based pointer gestures in the product (timeline block reordering, admin-only training-module composer slide reordering) each ship a redundant single-point alternative (Move up / Move down buttons), so the path-based gesture is not the only path to the action. |
+| **2.5.1 Pointer Gestures** | Supports | Most interactions are single-point. The two path-based pointer gestures in the product (timeline block reordering and the admin-only training-module composer slide reordering) each include a redundant single-point alternative (Move up / Move down buttons), so the path-based gesture is not the only path to the action. |
 | **2.5.2 Pointer Cancellation** | Not Evaluated | Custom click handlers have not been audited for up-event vs. down-event triggering. |
 | **2.5.3 Label in Name** | Partially Supports | axe-locked pages enforce accessible-name matching for most controls. Icon-button accessible names (set via `aria-label`) sometimes differ from their visible tooltip text. |
 | **2.5.4 Motion Actuation** | Not Applicable | No motion-based interactions. |
@@ -188,9 +199,9 @@ Wiki Education Foundation staff.
 | **1.4.4 Resize Text** | Supports | At 200% browser zoom, text remains readable and functionality remains accessible across the surfaces verified under Evaluation Method 5 (13 pages including all seven course-page tabs). Horizontal page scroll appears at high zoom on most pages, which 1.4.4 permits; the stricter 1.4.10 Reflow criterion is reported separately. Some button labels with longer localized text wrap onto a second line at 200% — layout adaptation, not loss of content or functionality. |
 | **1.4.5 Images of Text** | Supports | The product does not use images of text for content; text in the UI is rendered as HTML. Logos are the only exception, which is permitted. |
 | **1.4.10 Reflow** | Partially Supports | At a 320 CSS pixel viewport width, the core student- and instructor-facing surfaces after a course is underway — the course-page tabs (home, timeline, students, articles, uploads, activity, resources), explore, the logged-out home, admin dashboard, survey admin, and onboarding — remain usable: layout adapts vertically, navigation wraps, the timeline relocates its sidebar above the weeks list, and content remains reachable. The **course-creator modal** does not adapt to 320 CSS pixels and is not currently supported at that viewport size; the wizard's multi-step form layout would need substantial restructuring. Some course-page tables (students, articles, uploads list view) reflow vertically for most columns but retain a horizontal scroll for their tabular data; this is a known pattern that some 1.4.10 audits treat as a Partial pass and others treat as a fail. |
-| **1.4.11 Non-text Contrast** | Partially Supports | UI component boundaries (form fields, buttons in their resting state) have not been comprehensively audited for 3:1 contrast against adjacent colors. Some axe-clean remediation work addressed adjacent issues. |
+| **1.4.11 Non-text Contrast** | Partially Supports | UI component boundaries (form fields, buttons in their resting state) have not been comprehensively audited for 3:1 contrast against adjacent colors. |
 | **1.4.12 Text Spacing** | Supports | With the WCAG-mandated text-spacing override applied (line-height 1.5, letter-spacing 0.12em, word-spacing 0.16em, paragraph-spacing 2em), text on the verified surfaces does not clip and functionality remains accessible. Minor caveat: the sticky table header on the students tab uses a hardcoded `top` offset that assumes the default global-nav height; at increased text spacing the nav grows taller and the sticky header sits at a slightly off position relative to the table body. Table content remains reachable by scrolling. |
-| **1.4.13 Content on Hover or Focus** | Partially Supports | Several controls use the HTML `title` attribute for tooltip content; this is a known accessibility limitation (`title`-only tooltips do not satisfy hoverable/persistent/dismissable requirements). Plan to migrate to proper tooltip components is open. |
+| **1.4.13 Content on Hover or Focus** | Partially Supports | Some controls deliver additional content via mouseover-only tooltips (the HTML `title` attribute or equivalent), which does not satisfy the criterion's hoverable / persistent / dismissable requirements and is not keyboard-accessible. The most consequential case is the **ArticleViewer authorship view**, where per-author attribution is revealed only on mouseover of colored text spans — making the information effectively unavailable to screen-reader and keyboard users, even though the underlying labels exist. |
 | **2.4.5 Multiple Ways** | Supports | The product offers a global search, a campaign and course browse hierarchy, a primary navigation, and an "Explore" categorical browse. |
 | **2.4.6 Headings and Labels** | Supports | axe-locked pages enforce heading-order and label-presence rules. Heading text and form labels are descriptive of their content. |
 | **2.4.7 Focus Visible** | Supports | Buttons display a visible focus indicator when reached via keyboard while remaining un-ringed for mouse clicks (the site-wide CSS reset uses `:focus-visible`). Many specific button modules and form controls also define their own complementary focus styles. Admin and core course-page surfaces validated through daily JAWS use. |
@@ -209,9 +220,11 @@ Wiki Education Foundation staff.
 
 ## Signature
 
-*Each signed snapshot of this working draft must be reviewed and
-signed by an authorized Wiki Education Foundation representative
-before publication.*
+Authorized signer: **Sage Ross**, Chief Technology Officer, Wiki
+Education Foundation. Each signed snapshot of this working draft
+must be reviewed and signed by Sage Ross (or another Wiki
+Education Foundation officer designated in writing) before
+publication.
 
 ---
 
