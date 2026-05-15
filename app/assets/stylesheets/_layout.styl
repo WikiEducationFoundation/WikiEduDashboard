@@ -76,6 +76,16 @@ footer
     a
       position relative
 
+// h3 → h2 promotion (for accessible heading hierarchy) made these section
+// headers visually larger and changed their color. Preserve the prior h3
+// look. Scoped to these specific containers because intentional
+// .section-header h2s exist elsewhere (e.g. analytics/usage.html.haml).
+.campaign_main.alerts .section-header h2
+  color body-color
+  font-size 1.563em
+#campaign-articles .section-header h2,
+#courses .section-header h2
+  font-size 1.563em
 
 
 section

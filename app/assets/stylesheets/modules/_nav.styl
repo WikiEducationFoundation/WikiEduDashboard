@@ -333,7 +333,10 @@ nav.ham-nav
         padding-right 40px
         text-align left
         border-right 1px solid lighten($border_lt, 20%)
-      > h2
+      // h1 covers tagged_courses/_nav.html.haml after h2 → h1 promotion
+      // for accessible heading hierarchy. Keeps the visual the same as the
+      // h2 used in .campaign_navigation / .course_navigation elsewhere.
+      > h1, > h2
         font-size 18px
         font-weight 300
         margin-bottom 0
