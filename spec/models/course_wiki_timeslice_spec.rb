@@ -86,7 +86,7 @@ scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 2.hours,
 scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
-scoped: true)
+scoped: false)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
                              system: true, scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, deleted: true, user_id: 1,
@@ -110,7 +110,7 @@ scoped: true)
 
       course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
 
-      expect(course_wiki_timeslice_0.revision_count).to eq(3)
+      expect(course_wiki_timeslice_0.revision_count).to eq(2)
     end
 
     it 'sets mw_rev_count to the non-system count, including deleted revs' do
@@ -119,11 +119,13 @@ scoped: true)
       revisions = { start: start_period, end: end_period, revisions: array_revisions }
       described_class.update_course_wiki_timeslices(course, wiki, revisions)
 
-      # First slice has 3 normal + 1 system + 1 deleted = 4 non-system revs.
-      # revision_count excludes the deleted one (3); mw_rev_count keeps it (4).
+      # First slice has 2 normal + 1 non-scoped + 1 system + 1 deleted =
+      # 3 scoped non-system revs.
+      # revision_count excludes the deleted one and the non-scoped one (2);
+      # mw_rev_count keeps the deleted one (3).
       slice_0 = described_class.find_by(course:, wiki:, start:)
-      expect(slice_0.revision_count).to eq(3)
-      expect(slice_0.mw_rev_count).to eq(4)
+      expect(slice_0.revision_count).to eq(2)
+      expect(slice_0.mw_rev_count).to eq(3)
     end
 
     it 'sends a Sentry error when multiple timeslices are matched' do
@@ -156,7 +158,7 @@ scoped: true)
 
         expect(course_wiki_timeslice.character_sum).to eq(9010)
         expect(course_wiki_timeslice.references_count).to eq(7)
-        expect(course_wiki_timeslice.revision_count).to eq(3)
+        expect(course_wiki_timeslice.revision_count).to eq(2)
         expect(course_wiki_timeslice.needs_update).to eq(false)
       end
 
@@ -173,7 +175,7 @@ scoped: true)
         expect(course_wiki_timeslice.revision_count).to eq(0)
       end
 
-      it 'mw_rev_count ignores tracked status and deleted, excludes only system' do
+      it 'mw_rev_count ignores tracked status and deleted, excludes system and non-scoped' do
         # Even when the only article is untracked, mw_rev_count counts every
         # non-system rev — it must mirror what CourseRevisionUpdater#new_revisions?
         # computes from the live fetched revisions.
@@ -183,8 +185,8 @@ scoped: true)
         course_wiki_timeslice.update_cache_from_revisions array_revisions
 
         expect(course_wiki_timeslice.revision_count).to eq(0)
-        # 3 normal + 1 deleted, minus the 1 system = 4
-        expect(course_wiki_timeslice.mw_rev_count).to eq(4)
+        # 2 normal + 1 deleted, minus the 1 system and the 1 non-scoped = 3
+        expect(course_wiki_timeslice.mw_rev_count).to eq(3)
       end
     end
 
