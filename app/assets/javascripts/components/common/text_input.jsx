@@ -26,6 +26,7 @@ const TextInput = ({
   onChange,
   onFocus,
   id,
+  autoComplete,
   children
 }) => {
   const inputRef = useRef(null);
@@ -70,6 +71,7 @@ const TextInput = ({
         title={title}
         min={0}
         ref={inputRef}
+        autoComplete={autoComplete}
         aria-labelledby={`${id}-label`}
       />
     );
@@ -124,6 +126,7 @@ TextInput.propTypes = {
   append: PropTypes.node,
   onKeyDown: PropTypes.func,
   _value: PropTypes.any,
+  autoComplete: PropTypes.string,
   // validation: Regex used by Conditional
   // required: bool used by Conditional
 };

@@ -62,6 +62,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         editable
         label={I18n.t('courses.new_account_username')}
         placeholder={I18n.t('courses.new_account_username_placeholder')}
+        autoComplete="username"
       />
       <TextInput
         id="new_account_email"
@@ -72,6 +73,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         editable
         label={I18n.t('courses.new_account_email')}
         placeholder={I18n.t('courses.new_account_email_placeholder')}
+        autoComplete="email"
       />
       <div>
         <div className="left">

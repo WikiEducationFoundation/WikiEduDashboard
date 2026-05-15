@@ -83,7 +83,7 @@ const Upload = ({ upload, view, linkUsername }) => {
       return (
         <tr>
           <td>
-            <Modal>
+            <Modal ariaLabel={upload.file_name}>
               <UploadViewer closeUploadViewer={toggleUploadViewer} upload={upload} imageFile={imageFile} />
             </Modal>
           </td>
@@ -91,7 +91,7 @@ const Upload = ({ upload, view, linkUsername }) => {
       );
     }
     return (
-      <Modal>
+      <Modal ariaLabel={upload.file_name}>
         <UploadViewer closeUploadViewer={toggleUploadViewer} upload={upload} imageFile={imageFile} />
       </Modal>
     );

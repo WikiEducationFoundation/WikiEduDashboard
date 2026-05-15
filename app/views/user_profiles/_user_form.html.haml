@@ -50,7 +50,7 @@
                   - if @user.email.present?
                     %p.rails_editable-content
                       = @user.email
-                  = text_area(:email, :email, class: 'rails_editable-input', placeholder: t("users.useremail_placeholder"))
+                  = text_area(:email, :email, class: 'rails_editable-input', placeholder: t("users.useremail_placeholder"), autocomplete: 'email')
 
           .section
             #user_location

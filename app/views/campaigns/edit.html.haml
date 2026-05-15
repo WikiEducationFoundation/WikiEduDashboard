@@ -6,7 +6,7 @@
 = hot_javascript_tag 'campaigns'
 
 - if @campaign.errors.any?
-  .notice
+  .notice{role: 'alert'}
     %strong
       = t('campaign.campaign_not_updated')
     %ul

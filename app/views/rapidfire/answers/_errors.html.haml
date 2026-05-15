@@ -1,4 +1,4 @@
 - if answer.errors.any?
-  %ul.errors
+  %ul.errors{role: 'alert'}
     - answer.errors.full_messages.each do |message|
       %li= message

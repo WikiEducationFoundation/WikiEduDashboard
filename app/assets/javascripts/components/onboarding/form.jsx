@@ -102,6 +102,7 @@ const Form = (props) => {
             className="form-control"
             type="text"
             name="name"
+            autoComplete="name"
             defaultValue={state.name}
             onChange={e => handleFieldChange('name', e)}
           />
@@ -120,6 +121,7 @@ const Form = (props) => {
             className="form-control"
             type="email"
             name="email"
+            autoComplete="email"
             defaultValue={state.email}
             onChange={e => handleFieldChange('email', e)}
           />

@@ -41,8 +41,8 @@ const Confirm = () => {
   if (!confirmationActive) { return <div />; }
 
   return (
-    <Modal modalClass="confirm-modal-overlay">
-      <div className="confirm-modal" role="alert">
+    <Modal modalClass="confirm-modal-overlay" ariaLabelledBy="confirm-message">
+      <div className="confirm-modal">
         {explanation && (
           <div className="confirm-explanation">
             {explanation}
@@ -65,7 +65,7 @@ const Confirm = () => {
             </div>
           </>
         ) : (
-          <p>{confirmMessage}</p>
+          <p id="confirm-message">{confirmMessage}</p>
         )}
 
         {warningMessage && (

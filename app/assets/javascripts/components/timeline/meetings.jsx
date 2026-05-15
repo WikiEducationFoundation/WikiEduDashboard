@@ -53,9 +53,9 @@ const Meetings = (props) => {
   const courseLinkTarget = `/courses/${course.slug}/timeline`;
 
   return (
-    <Modal >
+    <Modal ariaLabelledBy="meetings-modal-title">
       <div className="wizard__panel active">
-        <h3>{I18n.t('timeline.course_dates')}</h3>
+        <h3 id="meetings-modal-title">{I18n.t('timeline.course_dates')}</h3>
         <div className="course-dates__step">
           <p>{I18n.t('timeline.course_dates_instructions')}</p>
           <div className="vertical-form full-width">
