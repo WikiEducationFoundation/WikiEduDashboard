@@ -25,6 +25,7 @@
 # zoomed page are saved to tmp/resize_text_screenshots/ for later review.
 
 require 'rails_helper'
+require "#{Rails.root}/lib/assignment_manager"
 
 describe 'resize text 200% check', type: :feature, js: true, resize_text: true do
   let(:screenshot_dir) { Rails.root.join('tmp', 'resize_text_screenshots') }
@@ -70,58 +71,174 @@ describe 'resize text 200% check', type: :feature, js: true, resize_text: true d
     end
   end
 
-  describe 'course overview page' do
-    let(:course) do
-      create(:course, title: 'A sample course',
-                      school: 'Sample University',
-                      term: 'Spring 2025',
-                      slug: 'Sample_University/A_sample_course_(Spring_2025)',
-                      start: '2025-01-01'.to_date,
-                      end: '2025-06-01'.to_date)
-    end
-    let(:instructor) { create(:user, username: 'Professor Sample') }
+  # Every tab of the course page, against a single populated course
+  # (students, articles, revisions, assignments, uploads, and a
+  # multi-week timeline). Adapted from spec/features/course_page_spec.rb's
+  # `before` block, scaled down somewhat to keep this spec fast.
+  describe 'populated course page tabs' do
+    course_slug = 'Sample_University/Resize_test_course_(Spring_2025)'
+    course_start_date = '2025-02-10'.to_date
+    student_count = 8
+    article_count = 10
+    revision_count = 40
+
+    let(:course) { Course.find_by(slug: course_slug) }
 
     before do
-      create(:courses_user, user: instructor, course:,
-                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      ActionController::Base.allow_forgery_protection = true
+      stub_wiki_validation
       stub_token_request
+      TrainingModule.load_all
+
+      home_wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+      course = create(:course,
+                      title: 'Resize-text test course',
+                      slug: course_slug,
+                      school: 'Sample University',
+                      term: 'Spring 2025',
+                      start: course_start_date,
+                      end: course_start_date + 4.months,
+                      timeline_start: course_start_date,
+                      timeline_end: course_start_date + 4.months,
+                      weekdays: '0101010',
+                      home_wiki_id: home_wiki.id,
+                      description: 'A realistic sample course for visual layout checks.')
+      campaign = create(:campaign, title: 'Sample campaign')
+      course.campaigns << campaign
+
+      # Instructor + students
+      instructor = create(:user, username: 'Professor Resize', real_name: 'Pat Example')
+      create(:courses_user, course:, user: instructor,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      students = []
+      (1..student_count).each do |i|
+        student = create(:user, username: "Student#{i}",
+                                real_name: "Student #{i} Surname",
+                                trained: i.odd?)
+        create(:courses_user, course:, user: student,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+        students << student
+      end
+
+      # Articles + revisions
+      ratings = ['fa', 'ga', 'b', 'c', 'start', 'stub', nil]
+      articles = (1..article_count).map do |i|
+        create(:article, title: "Wikipedia_article_#{i}",
+                         namespace: 0, wiki_id: home_wiki.id,
+                         rating: ratings[(i - 1) % ratings.length])
+      end
+
+      revisions = []
+      (1..revision_count).each do |i|
+        revisions << build(:revision_on_memory,
+                           user_id: students[(i - 1) % student_count].id.to_s,
+                           article_id: articles[(i - 1) % article_count].id.to_s,
+                           date: course_start_date + 5.days,
+                           characters: 50 + (i * 5),
+                           new_article: (i.odd? && i <= article_count) ? 1 : 0,
+                           scoped: true)
+      end
+
+      # Assignments (first 4 students get an article each)
+      articles.first(4).each_with_index do |article, i|
+        create(:assignment,
+               course:, user: students[i], article:,
+               role: Assignment::Roles::ASSIGNED_ROLE,
+               article_title: article.title,
+               wiki_id: home_wiki.id)
+      end
+
+      # Uploads. Use inline SVG data URLs so the thumbnails render
+      # realistically regardless of network state; otherwise broken-
+      # image placeholders would obscure the layout under inspection.
+      upload_thumbs = %w[%23488 %23A45 %2349A %2398C %23C57 %234C9]
+      3.times do |i|
+        color = upload_thumbs[i % upload_thumbs.length]
+        svg = "<svg xmlns='http://www.w3.org/2000/svg' width='400' " \
+              "height='300'><rect width='100%25' height='100%25' " \
+              "fill='#{color}'/><text x='50%25' y='50%25' " \
+              "text-anchor='middle' dominant-baseline='central' " \
+              "fill='white' font-family='sans-serif' " \
+              "font-size='60'>Sample #{i + 1}</text></svg>"
+        create(:commons_upload,
+               user_id: students[i].id,
+               file_name: "File:Sample_upload_#{i + 1}.jpg",
+               uploaded_at: course_start_date + 10.days,
+               usage_count: i,
+               thumburl: "data:image/svg+xml;utf8,#{svg}",
+               thumbwidth: '400', thumbheight: '300')
+      end
+
+      # Timeline weeks + blocks. The first assignment block references
+      # a couple of training modules so the rendered timeline includes
+      # a Continue / Start link with the standard training-module
+      # icon (one of the layout pain points at 200% browser zoom).
+      week1 = create(:week, course:, order: 1)
+      create(:block, week: week1, kind: Block::KINDS['assignment'],
+                     title: 'Choose your article', order: 0,
+                     training_module_ids: [1, 2])
+      create(:block, week: week1, kind: Block::KINDS['in_class'],
+                     title: 'In-class discussion of source evaluation', order: 1)
+      week2 = create(:week, course:, order: 2)
+      create(:block, week: week2, kind: Block::KINDS['milestone'],
+                     title: 'First draft due', order: 0, points: 25)
+      create(:block, week: week2, kind: Block::KINDS['assignment'],
+                     title: 'Peer review your classmates', order: 1,
+                     training_module_ids: [3])
+
+      ArticlesCourses.update_from_course_revisions(course, revisions)
+      ArticlesCourses.update_all_caches_from_timeslices(course.articles_courses)
+      CoursesUsers.update_all_caches_from_timeslices(course.courses_users)
+      course.update_cache_from_timeslices
+
       login_as instructor
     end
 
-    it 'snapshot' do
-      visit "/courses/#{course.slug}"
+    after { ActionController::Base.allow_forgery_protection = false }
+
+    it 'home tab' do
+      visit "/courses/#{course.slug}/home"
       expect(page).to have_content course.title
-      zoom_to_200_and_observe('03_course_overview')
-    end
-  end
-
-  describe 'course timeline' do
-    let(:start_date) { '2025-02-10'.to_date }
-    let(:course) do
-      create(:course, start: start_date, end: start_date + 2.months,
-                      timeline_start: start_date, timeline_end: start_date + 2.months,
-                      weekdays: '0101010', submitted: true)
-    end
-    let!(:week) { create(:week, course:) }
-    let!(:block1) do
-      create(:block, week:, id: 1001, kind: Block::KINDS['assignment'],
-                     title: 'Sample assignment block', order: 0, points: 50)
-    end
-    let!(:block2) do
-      create(:block, week:, id: 1002, kind: Block::KINDS['in_class'],
-                     title: 'Sample in-class block', order: 1)
+      zoom_to_200_and_observe('03a_course_home')
     end
 
-    before do
-      TrainingModule.load_all
-      login_as create(:admin)
-      stub_oauth_edit
-    end
-
-    it 'snapshot' do
+    it 'timeline tab' do
       visit "/courses/#{course.slug}/timeline"
-      expect(page).to have_content 'Sample assignment block'
-      zoom_to_200_and_observe('04_course_timeline')
+      expect(page).to have_content 'Choose your article'
+      zoom_to_200_and_observe('03b_course_timeline')
+    end
+
+    it 'students tab' do
+      visit "/courses/#{course.slug}/students"
+      expect(page).to have_content 'Student1'
+      zoom_to_200_and_observe('03c_course_students')
+    end
+
+    it 'articles tab' do
+      visit "/courses/#{course.slug}/articles"
+      expect(page).to have_content 'Wikipedia article 1'
+      zoom_to_200_and_observe('03d_course_articles')
+    end
+
+    it 'uploads tab' do
+      visit "/courses/#{course.slug}/uploads"
+      expect(page).to have_selector('div.upload', minimum: 1)
+      zoom_to_200_and_observe('03e_course_uploads')
+    end
+
+    it 'activity tab' do
+      Capybara.using_wait_time 10 do
+        visit "/courses/#{course.slug}/activity"
+        expect(page).to have_css('.revision', minimum: 1)
+        zoom_to_200_and_observe('03f_course_activity')
+      end
+    end
+
+    it 'resources tab' do
+      visit "/courses/#{course.slug}/resources"
+      expect(page).to have_content course.title
+      zoom_to_200_and_observe('03g_course_resources')
     end
   end
 
@@ -143,7 +260,7 @@ describe 'resize text 200% check', type: :feature, js: true, resize_text: true d
       visit root_path
       click_link 'Create Course'
       expect(page).to have_content 'Create a New Course'
-      zoom_to_200_and_observe('05_course_creator_modal')
+      zoom_to_200_and_observe('04_course_creator_modal')
     end
   end
 
@@ -158,7 +275,7 @@ describe 'resize text 200% check', type: :feature, js: true, resize_text: true d
     it 'snapshot' do
       visit '/surveys'
       expect(page).to have_content 'Sample Survey'
-      zoom_to_200_and_observe('06_survey_admin')
+      zoom_to_200_and_observe('05_survey_admin')
     end
   end
 
@@ -182,7 +299,7 @@ describe 'resize text 200% check', type: :feature, js: true, resize_text: true d
     it 'snapshot' do
       visit root_path
       expect(page).to have_content 'Submitted & Pending Approval'
-      zoom_to_200_and_observe('07_admin_dashboard')
+      zoom_to_200_and_observe('06_admin_dashboard')
     end
   end
 
@@ -197,7 +314,7 @@ describe 'resize text 200% check', type: :feature, js: true, resize_text: true d
     it 'snapshot' do
       visit onboarding_path
       expect(page).to have_content 'excited'
-      zoom_to_200_and_observe('08_onboarding')
+      zoom_to_200_and_observe('07_onboarding')
     end
   end
 end

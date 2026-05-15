@@ -92,11 +92,33 @@
     .info
       text-align left
 
+// The uploads page's .section-header uses flex so the title, the
+// view-mode toggle buttons, and the sort select all participate in
+// the same row and wrap together at high browser zoom instead of
+// the buttons being absolutely positioned on top of the heading.
+// WCAG 1.4.4.
+#uploads .section-header
+  display flex
+  flex-wrap wrap
+  align-items center
+  gap 16px
+  // Reset the absolute positioning that the global .sort-select
+  // rule applies above desktop, so the sort select participates in
+  // the flex flow and gets the same 16px gap from the view-mode
+  // buttons instead of overlapping them.
+  .sort-select
+    +above(desktop)
+      position static
+      top auto
+      right auto
+
 .view-buttons
   +above(desktop)
-    position absolute
-    top 20px
-    right 80px
+    // margin-left auto pushes the buttons to the right of the flex
+    // row (matching the prior visual where they were absolutely
+    // positioned at right: 80px), but lets them wrap onto the next
+    // row instead of overlapping the heading when there isn't room.
+    margin-left auto
   +below(desktop)
     width 100%
     margin-top -10px

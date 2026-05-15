@@ -267,12 +267,20 @@ h4.training-module
   text-overflow ellipsis
 
 .block__training-modules-table__module-progress
-  width 28%
+  width 24%
 .block__training-modules-table__module-link
-  width 18%
+  // Widened from 18% to 25% so that the "Continue →" / "Start →"
+  // link text plus icon stays inside the block border at 200%
+  // browser zoom, where the link text grows roughly proportionally
+  // but the column width (as a percent of the table width) does
+  // not. WCAG 1.4.4.
+  width 25%
   text-align right
   a
     text-decoration none
+    // Allow the link text to wrap rather than overflow the cell
+    // if 25% is still too narrow at very high zoom levels.
+    overflow-wrap break-word
     &:hover
       text-decoration underline
   i
@@ -320,7 +328,16 @@ h4.training-module
 
 .timeline__week-nav
   margin-top 16px
-  column(3/12, offset: 1/12)
+  // Use column(4/12) (instead of column(3/12, offset: 1/12)) so the
+  // sidebar takes ~30% of the timeline content width instead of
+  // ~22.75%. The previous offset reserved ~8% of horizontal space
+  // as empty gutter between the weeks list and the sidebar, plus
+  // the layout left ~6% unused at the right edge. The wider column
+  // reclaims that space — the sidebar buttons and week-list
+  // links have more room and the right edge of the page is not
+  // visually empty at high browser zoom. The natural margin-right
+  // on the weeks column still provides a small gutter. WCAG 1.4.4.
+  column(4/12)
   +below(tablet)
     margin-top 0px
     width: fit-content;
@@ -353,7 +370,15 @@ h4.training-module
     background #FFF
     border 1px solid $border_med
     height auto
-    max-height calc(100vh - 220px)
+    // 80vh (purely viewport-relative) rather than the prior
+    // `calc(100vh - 220px)`: at high browser zoom the `100vh`
+    // value shrinks while the 220px subtraction stays constant
+    // in CSS pixels, so the panel's max-height collapsed faster
+    // than the viewport itself shrank — leaving the panel much
+    // shorter than the available vertical space. A pure vh value
+    // stays at a constant fraction of the visible viewport at
+    // every zoom level. WCAG 1.4.4.
+    max-height 80vh
     min-height 122px
     overflow-y auto
   ol
@@ -414,17 +439,29 @@ h4.training-module
   color $brand_primary
   cursor pointer
 
+// position: sticky (rather than position: fixed) keeps the timeline
+// sidebar inside its grid column when the .affix class is applied
+// by the React Affix component. Compared to fixed:
+//   - the sidebar scrolls horizontally with the rest of the page,
+//     so it's reachable when the user has scrolled right to see
+//     content that's wider than the viewport at high browser zoom;
+//   - the sticky element is bounded by the parent's bottom edge,
+//     so it stops scrolling down with the page once the parent's
+//     content ends, instead of overlapping the global footer;
+//   - no viewport-units math is needed for height — at high
+//     browser zoom the sidebar grows as expected and the page's
+//     normal vertical scroll reveals any content past the fold,
+//     instead of being trapped against the viewport bottom.
+// WCAG 1.4.4.
 .affix
-  position fixed
+  position sticky
   +below(tablet)
     position relative
 
 .timeline__week-nav .affix
   top $nav_height
-  width 250px
   +below(tablet)
     top 0px
-    width 100%
 
 .block__default-due-date
   color $brand_primary
@@ -513,6 +550,12 @@ p.graded
 
   .button
     margin-bottom 6px
+    // Fill the sidebar column width. At default zoom this widens
+    // the buttons to use whitespace that would otherwise be
+    // unused; at 200% browser zoom it lets the button labels stay
+    // on a single line instead of awkwardly wrapping inside a
+    // too-narrow content box. WCAG 1.4.4.
+    width 100%
 
     &:last-child
       margin-bottom 0
