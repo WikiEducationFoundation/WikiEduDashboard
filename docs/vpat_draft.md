@@ -85,17 +85,21 @@ Wiki Education Foundation staff.
 4. **Spot manual review** of specific patterns flagged during the
    axe-clean remediation sprint (heading order, landmark usage,
    color contrast on Stylus-defined colors).
-5. **Structured visual inspection at narrow viewport widths** via
-   the manual-only Capybara specs at
-   `spec/features/resize_text_check.rb` (200% browser zoom) and
+5. **Structured visual inspection under layout-stress conditions**
+   via three manual-only Capybara specs:
+   `spec/features/resize_text_check.rb` (200% browser zoom),
    `spec/features/reflow_check.rb` (320 CSS pixel viewport via
-   Chrome DevTools Protocol device metrics override). Both specs
-   visit the same 13 representative pages — logged-out home;
-   explore; the seven course-page tabs (home, timeline, students,
-   articles, uploads, activity, resources) against a realistically
-   populated course; the course-creator modal; survey admin; admin
-   dashboard; and onboarding — and pause for human inspection at
-   each. Re-runnable as the product evolves.
+   Chrome DevTools Protocol device metrics override), and
+   `spec/features/text_spacing_check.rb` (the WCAG 1.4.12 text-
+   spacing override — line-height 1.5, letter-spacing 0.12em,
+   word-spacing 0.16em, paragraph spacing 2em — injected as a
+   stylesheet). All three visit the same 13 representative pages
+   — logged-out home; explore; the seven course-page tabs (home,
+   timeline, students, articles, uploads, activity, resources)
+   against a realistically populated course; the course-creator
+   modal; survey admin; admin dashboard; and onboarding — and
+   pause for human inspection at each. Re-runnable as the product
+   evolves.
 
 **Methods NOT used in this evaluation** (gaps for v2):
 
@@ -104,7 +108,6 @@ Wiki Education Foundation staff.
   JAWS-using admin does not routinely exercise (student-role
   assignment wizard, training-module taking flow, survey-taking
   flow, ArticleViewer authorship view).
-- Text-spacing override testing (WCAG 1.4.12).
 - Mobile and touch-only interaction testing.
 - Third-party audit.
 
@@ -186,7 +189,7 @@ Wiki Education Foundation staff.
 | **1.4.5 Images of Text** | Supports | The product does not use images of text for content; text in the UI is rendered as HTML. Logos are the only exception, which is permitted. |
 | **1.4.10 Reflow** | Partially Supports | At a 320 CSS pixel viewport width, the core student- and instructor-facing surfaces after a course is underway — the course-page tabs (home, timeline, students, articles, uploads, activity, resources), explore, the logged-out home, admin dashboard, survey admin, and onboarding — remain usable: layout adapts vertically, navigation wraps, the timeline relocates its sidebar above the weeks list, and content remains reachable. The **course-creator modal** does not adapt to 320 CSS pixels and is not currently supported at that viewport size; the wizard's multi-step form layout would need substantial restructuring. Some course-page tables (students, articles, uploads list view) reflow vertically for most columns but retain a horizontal scroll for their tabular data; this is a known pattern that some 1.4.10 audits treat as a Partial pass and others treat as a fail. |
 | **1.4.11 Non-text Contrast** | Partially Supports | UI component boundaries (form fields, buttons in their resting state) have not been comprehensively audited for 3:1 contrast against adjacent colors. Some axe-clean remediation work addressed adjacent issues. |
-| **1.4.12 Text Spacing** | Not Evaluated | Has not been tested with user style sheets applying the WCAG-specified text-spacing values. |
+| **1.4.12 Text Spacing** | Supports | With the WCAG-mandated text-spacing override applied (line-height 1.5, letter-spacing 0.12em, word-spacing 0.16em, paragraph-spacing 2em), text on the verified surfaces does not clip and functionality remains accessible. Minor caveat: the sticky table header on the students tab uses a hardcoded `top` offset that assumes the default global-nav height; at increased text spacing the nav grows taller and the sticky header sits at a slightly off position relative to the table body. Table content remains reachable by scrolling. |
 | **1.4.13 Content on Hover or Focus** | Partially Supports | Several controls use the HTML `title` attribute for tooltip content; this is a known accessibility limitation (`title`-only tooltips do not satisfy hoverable/persistent/dismissable requirements). Plan to migrate to proper tooltip components is open. |
 | **2.4.5 Multiple Ways** | Supports | The product offers a global search, a campaign and course browse hierarchy, a primary navigation, and an "Explore" categorical browse. |
 | **2.4.6 Headings and Labels** | Supports | axe-locked pages enforce heading-order and label-presence rules. Heading text and form labels are descriptive of their content. |
@@ -196,7 +199,7 @@ Wiki Education Foundation staff.
 | **3.2.4 Consistent Identification** | Supports | Components with the same function (e.g., the "Edit" button on a course detail row) use the same icon, accessible name, and position throughout the product. |
 | **3.3.3 Error Suggestion** | Partially Supports | Server-side form validation in some cases suggests specific corrections (e.g., "Email is already taken"); other failure modes report only that an error occurred. |
 | **3.3.4 Error Prevention (Legal, Financial, Data)** | Not Applicable | The product does not process legal, financial, or other transactions where errors would have legal or financial consequences. |
-| **4.1.3 Status Messages** | Partially Supports | ARIA live regions and `role="alert"` are used in several specific places: the notifications component (`notifications.jsx`, `nav/news/news_notification/notification.jsx`), the weekday picker (`weekday_picker.jsx`), the admin-notes panel (three components with `aria-live="assertive" aria-atomic="true"`), and the `Confirm` modal. Loading-state announcements during course-update polling and other long-running async updates have not been structurally evaluated and are likely silent to assistive tech. |
+| **4.1.3 Status Messages** | Partially Supports | ARIA live regions and `role="alert"` are used for the notifications components, the weekday picker, the admin-notes panel, the `Confirm` modal, and the top-of-form error blocks on every server-rendered HAML form (so form validation errors are announced at submission time). Loading-state announcements during course-update polling and other long-running async updates have not been structurally evaluated and are likely silent to assistive tech. |
 
 ---
 
