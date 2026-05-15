@@ -163,17 +163,18 @@ ul.list--survey
       background sprout-dark
       transition width 500ms cubic-bezier(0.19, 1, 0.22, 1)
 
-    &-percentage
-      position absolute
-      right 5px
-      top 0
-      line-height 20px
-      font-size 12px
-      color #fff
-      font-weight bold
+  // Moved out of .survey__progress so it sits on the page background;
+  // dark text on white is readable regardless of how much of the bar
+  // is filled, which avoids a contrast failure when the bar starts at 0%.
+  .survey__progress-percentage
+    line-height 20px
+    font-size 12px
+    color body-color
+    font-weight bold
 
+  // sprout-dark gives ~4.7:1 on white text; the previous #40ad90 was 2.76:1.
   .progress-label
-    background #40ad90
+    background sprout-dark
     width fit-content
     color #fff
     font-size 75%

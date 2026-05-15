@@ -133,9 +133,11 @@ describe 'Surveys', type: :feature, js: true do
       # Sets the course automatically
       expect(page).to have_content 'Survey for My Active Course'
       expect(page).to have_content 'Progress'
-      # Note: not axe-clean — slick slider library uses aria-hidden on
-      # offscreen slides while leaving them focusable; the progress bar
-      # also has color-contrast violations on its label and percentage.
+      # Slick keeps offscreen slides in the DOM with aria-hidden=true while
+      # also leaving their descendants focusable; this is a known
+      # third-party slider behavior, so we exclude offscreen slides from
+      # axe-clean rather than fight the library.
+      expect(page).to be_axe_clean.excluding('.slick-slide[aria-hidden="true"]')
     end
 
     it 'sets the course and shows the progress bar by going to the course page' do
