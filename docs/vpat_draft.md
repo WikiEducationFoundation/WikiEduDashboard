@@ -85,15 +85,17 @@ Wiki Education Foundation staff.
 4. **Spot manual review** of specific patterns flagged during the
    axe-clean remediation sprint (heading order, landmark usage,
    color contrast on Stylus-defined colors).
-5. **Structured 200% browser-zoom visual inspection** via the
-   manual-only Capybara spec at
-   `spec/features/resize_text_check.rb`. The spec applies a 200%
-   page zoom and pauses for human inspection on 13 representative
-   pages: logged-out home; explore; the seven course-page tabs
-   (home, timeline, students, articles, uploads, activity,
-   resources) against a realistically populated course; the
-   course-creator modal; survey admin; admin dashboard; and
-   onboarding. Re-runnable as the product evolves.
+5. **Structured visual inspection at narrow viewport widths** via
+   the manual-only Capybara specs at
+   `spec/features/resize_text_check.rb` (200% browser zoom) and
+   `spec/features/reflow_check.rb` (320 CSS pixel viewport via
+   Chrome DevTools Protocol device metrics override). Both specs
+   visit the same 13 representative pages — logged-out home;
+   explore; the seven course-page tabs (home, timeline, students,
+   articles, uploads, activity, resources) against a realistically
+   populated course; the course-creator modal; survey admin; admin
+   dashboard; and onboarding — and pause for human inspection at
+   each. Re-runnable as the product evolves.
 
 **Methods NOT used in this evaluation** (gaps for v2):
 
@@ -102,10 +104,6 @@ Wiki Education Foundation staff.
   JAWS-using admin does not routinely exercise (student-role
   assignment wizard, training-module taking flow, survey-taking
   flow, ArticleViewer authorship view).
-- Reflow testing at 320 CSS pixels viewport width (WCAG 1.4.10).
-  The 200% browser-zoom spec exercises layout adaptation at the
-  narrow effective widths produced by zoom, but not strictly at
-  the 320-pixel viewport size required by 1.4.10.
 - Text-spacing override testing (WCAG 1.4.12).
 - Mobile and touch-only interaction testing.
 - Third-party audit.
@@ -186,7 +184,7 @@ Wiki Education Foundation staff.
 | **1.4.3 Contrast (Minimum)** | Partially Supports | axe-locked pages enforce 4.5:1 contrast for normal text and 3:1 for large text. Several site-wide color tokens were darkened during the axe-clean remediation sprint (`$text_med_header`, `.button.dark` hover, onboarding footer background). Pages without an axe-clean lock have not been verified, including any Stylus modules used only outside the locked routes. |
 | **1.4.4 Resize Text** | Supports | At 200% browser zoom, text remains readable and functionality remains accessible across the surfaces verified under Evaluation Method 5 (13 pages including all seven course-page tabs). Horizontal page scroll appears at high zoom on most pages, which 1.4.4 permits; the stricter 1.4.10 Reflow criterion is reported separately. Some button labels with longer localized text wrap onto a second line at 200% — layout adaptation, not loss of content or functionality. |
 | **1.4.5 Images of Text** | Supports | The product does not use images of text for content; text in the UI is rendered as HTML. Logos are the only exception, which is permitted. |
-| **1.4.10 Reflow** | Not Evaluated | Has not been structurally tested at 320 CSS pixels width. The product has not been audited for horizontal scrolling. |
+| **1.4.10 Reflow** | Partially Supports | At a 320 CSS pixel viewport width, the core student- and instructor-facing surfaces after a course is underway — the course-page tabs (home, timeline, students, articles, uploads, activity, resources), explore, the logged-out home, admin dashboard, survey admin, and onboarding — remain usable: layout adapts vertically, navigation wraps, the timeline relocates its sidebar above the weeks list, and content remains reachable. The **course-creator modal** does not adapt to 320 CSS pixels and is not currently supported at that viewport size; the wizard's multi-step form layout would need substantial restructuring. Some course-page tables (students, articles, uploads list view) reflow vertically for most columns but retain a horizontal scroll for their tabular data; this is a known pattern that some 1.4.10 audits treat as a Partial pass and others treat as a fail. |
 | **1.4.11 Non-text Contrast** | Partially Supports | UI component boundaries (form fields, buttons in their resting state) have not been comprehensively audited for 3:1 contrast against adjacent colors. Some axe-clean remediation work addressed adjacent issues. |
 | **1.4.12 Text Spacing** | Not Evaluated | Has not been tested with user style sheets applying the WCAG-specified text-spacing values. |
 | **1.4.13 Content on Hover or Focus** | Partially Supports | Several controls use the HTML `title` attribute for tooltip content; this is a known accessibility limitation (`title`-only tooltips do not satisfy hoverable/persistent/dismissable requirements). Plan to migrate to proper tooltip components is open. |

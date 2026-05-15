@@ -472,6 +472,10 @@ h4.training-module
 // Editing
 .block__edit-container
   display flex
+  // Let the block-type label (e.g. "Assignment", "Milestone") wrap
+  // below the title when there isn't room for it next to a
+  // multi-line title at narrow viewports. WCAG 1.4.10.
+  flex-wrap wrap
 .delete-block-container
   width 100%
   border-top 1px solid $border_lt
