@@ -1,11 +1,11 @@
 .container.form-container
   %h1 Add users to #{@course.slug}
 
-  %p Usernames (one per line)
   %div.input.text.simple_form
     = form_tag '', method: :post do
+      = label_tag :usernames, 'Usernames (one per line)'
       %div= text_area_tag :usernames
-      %button= submit_tag 'Add users', class: 'button dark'
+      = submit_tag 'Add users', class: 'button dark'
 
 - if @results
   .container

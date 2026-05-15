@@ -1,10 +1,11 @@
 .campaign-nav__wrapper
+  %h1.screen-reader= "#{t('campaign.campaign')}: #{@campaign.title}"
   .campaign_navigation
     .container
       %a
-        %h2.title
+        %h2.title#campaign-nav-label
           = "#{t('campaign.campaign')}: #{@campaign.title}"
-      %nav
+      %nav{'aria-labelledby': 'campaign-nav-label'}
         %ul.campaign-nav__ul
           = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))
           = nav_link(t("#{@campaign.course_string_prefix}.courses"), programs_campaign_path(@campaign.slug))
@@ -14,7 +15,7 @@
           = nav_link(t('courses.alerts'), alerts_campaign_path(@campaign.slug))
         .campaign-nav__search
           = form_tag(programs_campaign_path(@campaign.slug), method: "get") do
-            = text_field_tag(:courses_query, '', placeholder: "Search #{@campaign.title}")
+            = text_field_tag(:courses_query, '', placeholder: "Search #{@campaign.title}", 'aria-label': "#{t('campaign.search')} #{@campaign.title}")
             = hidden_field_tag('source', 'nav_campaign_form')
-            %button{type: 'submit'}
+            %button{type: 'submit', 'aria-label': "#{t('form_search.search')} #{@campaign.title}"}
               %i.icon.icon-search

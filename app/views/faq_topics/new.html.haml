@@ -1,5 +1,6 @@
 - content_for :before_title, 'New FAQ Topic'
 .container
+  %h1 New FAQ Topic
   = form_with url: '/faq_topics', method: :create do
     = label_tag :slug, 'Slug'
     = text_field_tag :slug

@@ -5,7 +5,7 @@
 
   - @faq_topics.each do |topic|
     .faq
-      %h3
+      %h2
         = topic.name
         - if current_user&.admin?
           .edit-link= link_to 'edit', "/faq_topics/#{topic.slug}/edit"

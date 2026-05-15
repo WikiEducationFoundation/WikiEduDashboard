@@ -1,6 +1,6 @@
 - content_for :before_title, "Edit FAQ Topic - #{@topic.slug}"
 .container
-  %h2= "Editing topic: #{@topic.slug}"
+  %h1= "Editing topic: #{@topic.slug}"
   = form_with url: "/faq_topics/#{@topic.slug}", method: :update do
     = label_tag :name, 'Name'
     = text_field_tag :name, @topic.name

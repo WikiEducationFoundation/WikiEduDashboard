@@ -37,6 +37,7 @@ describe 'FAQs', type: :feature, js: true do
   describe 'EDIT page' do
     it 'redirects to SHOW page after saving' do
       visit "/faq/#{faq.id}/edit"
+      expect(page).to be_axe_clean
       fill_in 'faq_content', with: 'It just works'
       click_button 'Update Faq'
       expect(page).to have_current_path("/faq/#{faq.id}")
@@ -56,6 +57,7 @@ describe 'FAQs', type: :feature, js: true do
   describe 'NEW page' do
     it 'redirects to SHOW after creating' do
       visit '/faq/new'
+      expect(page).to be_axe_clean
       fill_in 'faq_title', with: 'new question'
       fill_in 'faq_content', with: 'new answer'
       click_button 'Create Faq'

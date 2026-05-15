@@ -5,7 +5,7 @@
 .container
   %section
     .section-header
-      %h3= "Compare different AI detectors"
+      %h2= "Compare different AI detectors"
       = form_with url: "/ai_tools/compare_ai_detectors", method: :post do |form|
         = label_tag :article_or_diff_url, 'Diff or article URL:'
         = text_field_tag :article_or_diff_url
@@ -15,11 +15,12 @@
         %br
         = text_area_tag :plain_text, nil, rows: 5, cols: 100
         %hr
-        %h4 Models
+        %h3 Models
         - RevisionAiScore::MODELS_KEY.each do |key|
           %div.checkbox-group
-            = check_box_tag(key.to_sym, '1', true)
-            %label{for: key}= key
+            %label
+              = check_box_tag(key.to_sym, '1', true)
+              = key
         %br
         .button= submit_tag 'Submit'
       %hr
@@ -31,17 +32,17 @@
       = render 'pangram_3'
     - if @originality_turbo_result
       %br
-      %h4 Originality Turbo Result:
+      %h3 Originality Turbo Result:
       = render 'originality', originality_result: @originality_turbo_result
     - if @originality_academic_result
       %br
-      %h4 Originality Academic Result:
+      %h3 Originality Academic Result:
       = render 'originality', originality_result: @originality_academic_result
     - if @originality_lite_result
       %br
-      %h4 Originality Lite 1.0.0 Result:
+      %h3 Originality Lite 1.0.0 Result:
       = render 'originality', originality_result: @originality_lite_result
     - if @originality_lite_beta_result
       %br
-      %h4 Originality Lite 1.0.2 Beta Result:
+      %h3 Originality Lite 1.0.2 Beta Result:
       = render 'originality', originality_result: @originality_lite_beta_result
