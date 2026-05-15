@@ -34,9 +34,11 @@ describe 'Survey Administration', type: :feature, js: true do
     it 'shows the results index and individual survey results with CSV downloads' do
       visit '/surveys/results'
       expect(page).to have_content survey.name
+      expect(page).to be_axe_clean
 
       visit "/survey/results/#{survey.id}"
       expect(page).to have_content 'Average Sentiment'
+      expect(page).to be_axe_clean
       click_link 'Download Survey Results CSV'
       click_link 'Download Results CSV'
     end
@@ -57,6 +59,7 @@ describe 'Survey Administration', type: :feature, js: true do
     it 'lists responses and allows deletion' do
       visit '/survey/responses'
       expect(page).to have_content instructor.username
+      expect(page).to be_axe_clean
       accept_confirm { click_link 'Delete' }
       expect(page).not_to have_content instructor.username
     end
@@ -69,9 +72,15 @@ describe 'Survey Administration', type: :feature, js: true do
       expect(page).to be_axe_clean
 
       click_link 'New Survey'
+      expect(page).to be_axe_clean
       fill_in('survey_name', with: 'Test Survey')
       click_button 'Create Survey'
       expect(page).to have_content 'Survey was successfully created.'
+
+      # /surveys index, now populated
+      visit '/surveys'
+      expect(page).to have_content 'Test Survey'
+      expect(page).to be_axe_clean
 
       question_group = create(:question_group)
       question = create(:q_long, question_group: question_group)
@@ -89,7 +98,9 @@ describe 'Survey Administration', type: :feature, js: true do
     it 'creates, triggers notifications, edits, and deletes an assignment' do
       survey # ensure record exists before the page renders
       visit '/surveys/assignments'
+      expect(page).to be_axe_clean
       click_link 'New Survey Assignment'
+      expect(page).to be_axe_clean
       select survey.name, from: 'survey_assignment_survey_id'
       check 'survey_assignment_published'
       fill_in 'survey_assignment_custom_email_subject', with: 'Test Subject'
@@ -122,6 +133,7 @@ describe 'Survey Administration', type: :feature, js: true do
 
     it 'deletes a survey from its edit page' do
       visit "/surveys/#{survey.id}/edit"
+      expect(page).to be_axe_clean
       accept_confirm { click_link 'Delete this survey' }
       expect(page).to have_content 'Survey was successfully destroyed.'
     end

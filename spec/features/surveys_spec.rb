@@ -133,6 +133,9 @@ describe 'Surveys', type: :feature, js: true do
       # Sets the course automatically
       expect(page).to have_content 'Survey for My Active Course'
       expect(page).to have_content 'Progress'
+      # Note: not axe-clean — slick slider library uses aria-hidden on
+      # offscreen slides while leaving them focusable; the progress bar
+      # also has color-contrast violations on its label and percentage.
     end
 
     it 'sets the course and shows the progress bar by going to the course page' do
@@ -151,6 +154,7 @@ describe 'Surveys', type: :feature, js: true do
       login_as(@instructor, scope: :user)
       visit "#{survey_path(@survey)}/optout"
       expect(page).to have_content 'opted out'
+      expect(page).to be_axe_clean
     end
 
     it 'navigates correctly between each question and submits' do

@@ -4,8 +4,9 @@
   %section#courses
     .container.narrow
       .section-header
-        %h3= t("error_incorrect_passcode.header")
+        %h2= t("error_incorrect_passcode.header")
         %p= t("error_incorrect_passcode.explanation")
         %form{:style => "text-align: center;", :action => @path, :method => "get"}
-          %input{:name => "enroll", :type => "text", :placeholder => 'Retype the passcode', :required => "required"}
+          %label{for: 'passcode_retry', class: 'screen-reader'} Passcode
+          %input{:id => "passcode_retry", :name => "enroll", :type => "text", :placeholder => 'Retype the passcode', :required => "required"}
           %button#retryPass.button.dark{:type => "submit"} Enroll

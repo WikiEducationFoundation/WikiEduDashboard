@@ -57,6 +57,11 @@ body.survey-page .surveys__admin-header h1
   font-weight 400
   margin 0
 
+// Yellow survey_results background does not give enough contrast with
+// white heading text — use the dark text variant on that header only.
+body.survey-page .surveys__admin-header--survey_results h1
+  color $text_dk
+
 .surveys__admin-header .button.border
   border-color white
   color white
