@@ -177,6 +177,45 @@ describe RevisionDataManager do
       expect(revisions.first.scoped).to eq(false)
       expect(revisions.second.scoped).to eq(true)
     end
+
+    it 'filters out revisions for deleted articles to prevent MySQL errors' do
+      # This test covers issue #6470: MySQL "Field 'article_id' doesn't have a default value"
+      # When articles are marked as deleted during duplicate resolution, their revisions
+      # should be filtered out to avoid nil article_id values
+      
+      deleted_article_data = [
+        '999',
+        {
+          'article' => {
+            'mw_page_id' => '999',
+            'title' => 'Deleted Article',
+            'namespace' => '0',
+            'wiki_id' => 1
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '111111', 'date' => '20180706', 'characters' => '100',
+              'mw_page_id' => '999', 'username' => 'Ragesoss', 'new_article' => 'true',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+
+      # Create an article that will be marked as deleted
+      article = create(:article, mw_page_id: 999, wiki: home_wiki, deleted: false)
+      
+      # Mock get_revisions to return both valid and deleted article data
+      allow(instance_class).to receive(:get_revisions).and_return([data1, deleted_article_data])
+      
+      # Mark the article as deleted (simulating duplicate resolution)
+      article.update(deleted: true)
+      
+      revisions = instance_class.fetch_revision_data_for_course('20180706', '20180707')
+      
+      # Should only get revision for data1 (mw_page_id 777), not for deleted article (999)
+      expect(revisions.length).to eq(1)
+      expect(revisions.first.mw_rev_id).to eq(849116430)
+      expect(revisions.map(&:article_id)).to all(be_present) # No nil article_ids
+    end
   end
 
   describe '#fetch_score_data_for_course' do

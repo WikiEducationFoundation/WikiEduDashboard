@@ -201,4 +201,12 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.first_revision).to be_nil
     end
   end
+
+  describe 'validation' do
+    it 'validates presence of article_id' do
+      timeslice = build(:article_course_timeslice, article_id: nil)
+      expect(timeslice).not_to be_valid
+      expect(timeslice.errors[:article_id]).to include("can't be blank")
+    end
+  end
 end

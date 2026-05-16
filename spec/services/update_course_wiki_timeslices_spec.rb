@@ -404,4 +404,5 @@ describe UpdateCourseWikiTimeslices do
       end
     end
   end
+
 end
