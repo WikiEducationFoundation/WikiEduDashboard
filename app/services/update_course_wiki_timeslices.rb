@@ -173,6 +173,7 @@ class UpdateCourseWikiTimeslices
   def update_timeslices(wiki)
     update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
     update_article_course_timeslices_for_wiki(@revisions[wiki])
+    update_article_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
 
     revs_to_scan = @revisions[wiki][:revisions]
     RevisionScanner.schedule_revision_checks(wiki:, revisions: revs_to_scan, course: @course)
@@ -204,6 +205,19 @@ class UpdateCourseWikiTimeslices
                                 revisions: user_revisions }
       CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
                                                                  course_user_wiki_data)
+    end
+  end
+
+  def update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+    start_period = revisions[:start]
+    end_period = revisions[:end]
+    revs = revisions[:revisions]
+    revs.group_by { |r| [r.article_id, r.user_id] }.each do |(article_id, user_id), grouped_revs|
+      article_user_wiki_data = { start: start_period, end: end_period,
+                                 revisions: grouped_revs }
+      ArticleCourseUserWikiTimeslice.update_article_course_user_wiki_timeslices(
+        @course, article_id, user_id, wiki, article_user_wiki_data
+      )
     end
   end
 
