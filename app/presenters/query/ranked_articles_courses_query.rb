@@ -92,11 +92,12 @@ class Query::RankedArticlesCoursesQuery
     q = query
 
     if @article_title.present?
-      q = q.joins(:article).where('articles.title LIKE ?', "%#{@article_title}%")
+      sanitized_title = ActiveRecord::Base.sanitize_sql_like(@article_title)
+      q = q.joins(:article).where('articles.title LIKE ?', "%#{sanitized_title}%")
     end
     if @course_title.present?
-      like = "%#{@course_title}%"
-      q = q.joins(:course).where('courses.title LIKE ?', like)
+      sanitized_course_title = ActiveRecord::Base.sanitize_sql_like(@course_title)
+      q = q.joins(:course).where('courses.title LIKE ?', "%#{sanitized_course_title}%")
     end
 
     if @school.present?
