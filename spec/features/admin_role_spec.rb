@@ -60,6 +60,7 @@ describe 'Admin users', type: :feature, js: true do
       visit root_path
       expect(page).to have_content 'Submitted & Pending Approval'
       expect(page).to have_content 'My Submitted Course'
+      expect(page).to be_axe_clean
     end
   end
 

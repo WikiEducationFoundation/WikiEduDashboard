@@ -15,7 +15,8 @@ const ConfirmDeleteNews = ({ newsId }) => {
   };
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setConfirmingDelete(true)} // Show blue icon on hover
       onMouseLeave={() => setConfirmingDelete(false)} // Show grey icon when not hovered
       onClick={confirmDeletion} // Trigger the delete action
@@ -24,7 +25,7 @@ const ConfirmDeleteNews = ({ newsId }) => {
       {/* Display confirm icon, changing color based on hover state */}
       <span className={confirmingDelete ? 'icon-check icon-check--blue' : 'icon-check icon-check--grey'} />
       <p>{I18n.t('news.options.news_content.confirm_delete')}</p>
-    </div>
+    </button>
   );
 };
 

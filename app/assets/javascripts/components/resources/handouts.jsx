@@ -11,16 +11,10 @@ const HANDOUTS_BLOCK_KIND = 4;
 
 
 const Handouts = ({ blocks, trainingLibrarySlug }) => {
-  let topicGuides;
   const topicGuidesBlocks = blocks.filter(block => block.kind === HANDOUTS_BLOCK_KIND);
-  if (topicGuidesBlocks) {
-    topicGuides = (
-      <>
-        {topicGuidesBlocks.map(block => <Block key={block.id} block={block} trainingLibrarySlug={trainingLibrarySlug} />)}
-        <a href="https://wikiedu.org/for-instructors/#subject-specific" className="button pull-right" target="_blank">Additional subject-specific guides</a>
-      </>
-    );
-  }
+  const topicGuides = topicGuidesBlocks.map(block => (
+    <Block key={block.id} block={block} trainingLibrarySlug={trainingLibrarySlug} />
+  ));
 
   const links = handouts.map((handout) => {
     return (
@@ -29,13 +23,18 @@ const Handouts = ({ blocks, trainingLibrarySlug }) => {
   });
 
   return (
-    <div id="handouts" className="list-unstyled container block__training-modules">
+    <div id="handouts" className="container">
       <h4>Handouts (PDF)</h4>
-      <li className="block">
-        <h3 className="block-title">General guides</h3>
-        {links}
-      </li>
-      {topicGuides}
+      <ul className="list-unstyled block__training-modules">
+        <li className="block">
+          <h3 className="block-title">General guides</h3>
+          {links}
+        </li>
+        {topicGuides}
+      </ul>
+      {topicGuidesBlocks.length > 0 && (
+        <a href="https://wikiedu.org/for-instructors/#subject-specific" className="button pull-right" target="_blank">Additional subject-specific guides</a>
+      )}
     </div>
   );
 };

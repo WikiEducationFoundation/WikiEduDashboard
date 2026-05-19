@@ -39,6 +39,7 @@ en:
     back: Back
     cancel: Cancel
     next: Next
+    skip_to_main_content: Skip to main content
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -89,6 +90,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
+    sort: Sort
 
   article_statuses:
     not_yet_started: Getting Started
@@ -205,6 +207,7 @@ en:
     no_available: No Available Articles
     next: Next
     page_info: "Page %{current} of %{total_pages} (%{count} out of %{total})"
+    permalink: Permalink
     previous: Previous
     article_title: Article Title
     assigned_to: Assigned To
@@ -227,6 +230,9 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+      wiki_label: Wiki
+      newness_label: Article newness
+      tracked_label: Tracking status
     filter_text: "Filters:"
     pageviews_label: "Pageviews:"
     cumulative: "Cumulative"
@@ -1912,6 +1918,8 @@ en:
   notifications:
     new_notifications: You have new notifications.
     no_notifications: You have no new notifications.
+    aria_label:
+      bell: Notifications
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."

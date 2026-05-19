@@ -12,7 +12,8 @@ const EmptyWeek = ({
   timeline_end,
   index,
   weeksBeforeTimeline,
-  addWeek
+  addWeek,
+  anchorId
 }) => {
   let week;
   // Three types of empty weeks:
@@ -30,7 +31,7 @@ const EmptyWeek = ({
     week = (
       <p className="week__no-activity__get-started">
         {I18n.t('timeline.empty_week_1')}&nbsp;
-        <span className="empty-week-clickable" onClick={addWeek}>{I18n.t('timeline.empty_week_2')}</span>&nbsp;
+        <button type="button" className="empty-week-clickable" onClick={addWeek}>{I18n.t('timeline.empty_week_2')}</button>&nbsp;
         {wizardLinkTransition}&nbsp;
         {wizardLink}
       </p>);
@@ -72,7 +73,7 @@ const EmptyWeek = ({
   }
 
   return (
-    <li className={`week week-${index}`}>
+    <li className={`week week-${index}`} id={anchorId}>
       {header}
       <div className="week__no-activity">
         {week}

@@ -52,6 +52,8 @@ describe 'timeline editing', type: :feature, js: true do
 
   it 'lets users add a training to an assignment block' do
     visit "/courses/#{course_with_timeline.slug}/timeline"
+    expect(page).to have_content 'Block Title'
+    expect(page).to be_axe_clean
 
     # Interact with training modules within a block
     find('.week-1').hover

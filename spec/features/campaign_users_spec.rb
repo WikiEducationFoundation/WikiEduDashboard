@@ -17,5 +17,6 @@ describe 'campaign users page', type: :feature, js: true do
   it 'shows users in the campaign courses' do
     visit "/campaigns/#{campaign.slug}/users"
     expect(page).to have_content('ExampleUser')
+    expect(page).to be_axe_clean
   end
 end

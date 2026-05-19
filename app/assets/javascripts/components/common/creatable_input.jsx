@@ -13,9 +13,10 @@ const CreatableInput = (props) => {
     }
   };
 
+  const labelId = `${id}-label`;
   return (
     <div>
-      <span className="text-input-component__label">
+      <span className="text-input-component__label" id={labelId}>
         <strong>{label}</strong>
       </span>
       <CreatableSelect
@@ -26,6 +27,7 @@ const CreatableInput = (props) => {
         placeholder={placeholder}
         value={selected}
         styles={{ ...selectStyles, singleValue: null }}
+        aria-labelledby={labelId}
       />
     </div>
   );

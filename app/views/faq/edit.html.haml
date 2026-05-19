@@ -2,6 +2,7 @@
 - content_for :before_title, "Edit FAQ - #{@faq.title}"
 .container.faq-editor
   .editor-pane
+    %h1= "Edit FAQ: #{@faq.title}"
     = simple_form_for @faq do |f|
       = f.input :title, input_html: { class: 'faq-editor__title' }
       = f.input :content, as: :text,
@@ -13,6 +14,6 @@
       data: { confirm: "Are you sure you want to delete this?" }, class: 'button'
 
   .preview-pane
-    %h3 Preview
+    %h2 Preview
     .faq-preview.markdown#faq_preview
       = raw @faq.html_content

@@ -10,7 +10,8 @@ const CancelPostNews = ({ setConfirmPost }) => {
   };
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setCancelPostIcon(true)} // Show red icon on hover
       onMouseLeave={() => setCancelPostIcon(false)} // Show grey icon when not hovered
       onClick={cancelNewsPost} // Call function to cancel news post confirmation
@@ -19,7 +20,7 @@ const CancelPostNews = ({ setConfirmPost }) => {
       {/* Display cancel icon, changing color based on hover state */}
       <span className={cancelPostIcon ? 'icon-cancel icon-cancel--red' : 'icon-cancel icon-cancel--grey'} />
       <p>{I18n.t('news.options.create_news.cancel_post')}</p> {/* Label for cancel action */}
-    </div>
+    </button>
   );
 };
 

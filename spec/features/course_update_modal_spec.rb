@@ -21,7 +21,7 @@ describe 'course update statistics', type: :feature, js: true do
 
   it 'shows info in a modal' do
     visit "/courses/#{course.slug}"
-    click_link 'See more'
+    click_button 'See more'
     expect(page).to have_content('The last update ran successfully')
   end
 end

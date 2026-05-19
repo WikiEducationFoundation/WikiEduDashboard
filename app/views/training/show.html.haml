@@ -1,6 +1,6 @@
 - content_for :before_title, "#{@library.translated_name} - "
 .training__show.container
-  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ' > '
+  %ol.breadcrumbs= render_breadcrumbs tag: :li, separator: ''
 .training__section-overview.container
   %section.training__header
     %h1
@@ -12,7 +12,7 @@
       - lib_category = lib_category.to_hashugar
       %li
         .training__category__header
-          %h1.h3= lib_category.title
+          %h2.h3= lib_category.title
           %p= lib_category.description
           - if @library.wiki_page
             .training__category__source

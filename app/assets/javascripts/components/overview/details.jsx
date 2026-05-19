@@ -597,7 +597,7 @@ const Details = createReactClass({
     const shared = (
       <div className="module course-details">
         <div className="section-header">
-          <h3>{I18n.t('application.details')}</h3>
+          <h3 id="course-details-modal-title">{I18n.t('application.details')}</h3>
           {this.props.controls()}
         </div>
         <div className="module__data extra-line-height">
@@ -679,7 +679,7 @@ const Details = createReactClass({
 
     return (
       <div className="modal-course-details">
-        <Modal>
+        <Modal ariaLabelledBy="course-details-modal-title">
           {shared}
         </Modal>
       </div>

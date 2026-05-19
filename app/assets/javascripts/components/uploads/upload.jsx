@@ -4,6 +4,7 @@ import UploadViewer from './upload_viewer.jsx';
 import Modal from '../common/modal.jsx';
 import PropTypes from 'prop-types';
 import { formatDateWithTime } from '../../utils/date_utils';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const Upload = ({ upload, view, linkUsername }) => {
   const [width, setWidth] = useState(null);
@@ -82,7 +83,7 @@ const Upload = ({ upload, view, linkUsername }) => {
       return (
         <tr>
           <td>
-            <Modal>
+            <Modal ariaLabel={upload.file_name}>
               <UploadViewer closeUploadViewer={toggleUploadViewer} upload={upload} imageFile={imageFile} />
             </Modal>
           </td>
@@ -90,7 +91,7 @@ const Upload = ({ upload, view, linkUsername }) => {
       );
     }
     return (
-      <Modal>
+      <Modal ariaLabel={upload.file_name}>
         <UploadViewer closeUploadViewer={toggleUploadViewer} upload={upload} imageFile={imageFile} />
       </Modal>
     );
@@ -116,7 +117,7 @@ const Upload = ({ upload, view, linkUsername }) => {
     );
   } else if (view === GALLERY_VIEW) {
     return (
-      <div className="upload" style={uploadDivStyle} onClick={toggleUploadViewer} >
+      <div className="upload" style={uploadDivStyle} role="button" tabIndex={0} onClick={toggleUploadViewer} onKeyDown={onEnterOrSpace(toggleUploadViewer)} >
         <img src={imageFile} alt={fileName} />
         <div className="info">
           <p className="usage"><b>{usage}</b></p>
@@ -128,7 +129,7 @@ const Upload = ({ upload, view, linkUsername }) => {
     );
   } else if (view === TILE_VIEW) {
     return (
-      <div className="tile-container" onClick={toggleUploadViewer}>
+      <div className="tile-container" role="button" tabIndex={0} onClick={toggleUploadViewer} onKeyDown={onEnterOrSpace(toggleUploadViewer)}>
         <div className="tile">
           <img src={imageFile} alt={fileName} />
           <div className="info">

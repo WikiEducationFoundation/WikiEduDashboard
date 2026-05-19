@@ -4,6 +4,7 @@ import Loading from '../common/loading.jsx';
 import CourseQualityProgressGraph from './course_quality_progress_graph';
 import { ORESSupportedWiki } from '../../utils/article_finder_language_mappings';
 import request from '../../utils/request';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const CourseOresPlot = ({ course }) => {
   const [show, setShow] = useState(false);
@@ -63,18 +64,24 @@ const CourseOresPlot = ({ course }) => {
     return (
       <div className="ores-plot">
         <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={200} articleData={data} />
+        {/* Event delegation onto the dangerouslySetInnerHTML-rendered
+            <a class="refresh-link">. Keyboard activation comes from the
+            anchor itself (Enter on a focused anchor triggers click), so the
+            delegation also fires for keyboard users. */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
         <p
           dangerouslySetInnerHTML={{
           __html: I18n.t('courses.ores_plot_description', {
             ores_link: '<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>',
             refresh_link: `<a href="#" class="refresh-link">${I18n.t('courses.ores_plot_refresh_data')}</a>`
           })
-        }} onClick={(e) => {
-          if (e.target.classList.contains('refresh-link')) {
-            e.preventDefault();
-            refreshHandler();
-          }
         }}
+          onClick={(e) => {
+            if (e.target.classList.contains('refresh-link')) {
+              e.preventDefault();
+              refreshHandler();
+            }
+          }}
         />
       </div>
     );
@@ -82,7 +89,16 @@ const CourseOresPlot = ({ course }) => {
 
   const loadgraph = () => {
     if (loading) {
-      return <div onClick={hide}><Loading /></div>;
+      return (
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={hide}
+          onKeyDown={onEnterOrSpace(hide)}
+        >
+          <Loading />
+        </div>
+      );
     }
     return <div>{I18n.t('courses.ores_plot_no_data')}</div>;
   };

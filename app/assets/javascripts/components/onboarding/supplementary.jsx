@@ -123,9 +123,9 @@ export const OnboardingSupplementary = (props) => {
             <label className="no-label" htmlFor="learnAboutTeaching">I want to learn more about teaching with Wikipedia</label><br />
 
             <input type="radio" name="whyHere" id="whyHere-other" value="other" onChange={_handleFieldChange} />
-            <label className="no-label" htmlFor="whyHere-other">Other:</label><br />
+            <label className="no-label" htmlFor="whyHere-other" id="whyHere-other-label">Other:</label><br />
 
-            <textarea className="form-control" type="text" name="otherReason" defaultValue={state.otherReason} onChange={_handleFieldChange} />
+            <textarea className="form-control" type="text" name="otherReason" id="otherReason" aria-labelledby="whyHere-other-label" defaultValue={state.otherReason} onChange={_handleFieldChange} />
           </div>
 
           <button disabled={disabled} type="submit" className="button dark right">

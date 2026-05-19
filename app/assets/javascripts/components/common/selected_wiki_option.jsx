@@ -30,7 +30,7 @@ const SelectedWikiOption = (props) => {
 
   return (
     <div className="small-block-link">
-      {language}.{project}.org <a href="#" onClick={handleShowOptions}>({I18n.t('application.change')})</a>
+      {language}.{project}.org <button type="button" onClick={handleShowOptions}>({I18n.t('application.change')})</button>
     </div>
   );
 };

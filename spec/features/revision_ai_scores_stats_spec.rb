@@ -29,6 +29,8 @@ describe 'Revision AI scores stats', type: :feature, js: true do
       expect(page).to have_content 'Max AI likelihood distribution per day'
       expect(page).to have_content 'Overall avg AI likelihood distribution'
       expect(page).to have_content 'Overall max AI likelihood distribution'
+      # Vega histogram renders unlabeled range inputs (.vega-bindings); exclude.
+      expect(page).to be_axe_clean.excluding('.vega-bindings')
     end
   end
 end

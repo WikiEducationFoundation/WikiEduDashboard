@@ -32,9 +32,9 @@ const StatisticsUpdateInfo = ({ course }) => {
     <div className="statistics-update-info pull-right mb2">
       <small>
         {updateTimesMessage}
-        <a onClick={toggleModal} href="#">
+        <button type="button" onClick={toggleModal}>
           {I18n.t('metrics.update_statistics_link')}
-        </a>
+        </button>
       </small>
     </div>
   );

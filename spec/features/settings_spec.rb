@@ -16,6 +16,7 @@ describe 'settings', type: :feature, js: true do
 
   context 'for special users' do
     it 'adds a special user' do
+      expect(page).to be_axe_clean
       click_button 'Add Special User'
       fill_in('new_special_user', with: user.username)
       find('#specialUserPosition').click

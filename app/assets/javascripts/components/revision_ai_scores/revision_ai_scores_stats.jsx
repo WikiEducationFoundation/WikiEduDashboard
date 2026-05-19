@@ -28,27 +28,27 @@ const RevisionAiScoresStats = () => {
       <div className="alerts-stats">
         <h1>{I18n.t('ai_scores_stats.title')}</h1>
 
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.daily_checks')}</h3>
+        <h2 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.daily_checks')}</h2>
         <ScoresTrendsGraph
           id="Namespaces"
           statsData={stats.historical_scores_by_namespace}
         />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.avg_likelihood')}</h3>
+        <h2 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.avg_likelihood')}</h2>
         <ScoresTrendsInBinsGraph
           id="AvgLikelihood"
           statsData={stats.historical_scores_by_avg}
         />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.max_likelihood')}</h3>
+        <h2 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.max_likelihood')}</h2>
         <ScoresTrendsInBinsGraph
           id="MaxLikelihood"
           statsData={stats.historical_scores_by_max}
         />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.overall_avg_likelihood')}</h3>
+        <h2 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.overall_avg_likelihood')}</h2>
         <LikelihoodDistributionGraph
           id="Avg"
           statsData={stats.avg_likelihoods}
         />
-        <h3 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.overall_max_likelihood')}</h3>
+        <h2 style={{ marginTop: '40px' }}>{I18n.t('ai_scores_stats.graphs.overall_max_likelihood')}</h2>
         <LikelihoodDistributionGraph
           id="Max"
           statsData={stats.max_likelihoods}

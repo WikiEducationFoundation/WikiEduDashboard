@@ -28,7 +28,7 @@ const ArticleTitlesModal = ({ setShowModal, category, course, lastUpdateMessage 
   };
 
   return (
-    <Modal key={'modal'}>
+    <Modal key={'modal'} ariaLabelledBy="article-titles-modal-title">
       <div className="container">
         <div className="wizard__panel active">
           {!articlesTitles ? (
@@ -60,9 +60,11 @@ const ArticleTitlesModal = ({ setShowModal, category, course, lastUpdateMessage 
                 flexDirection: 'column',
               }}
               >
-                <h3 style={{
-                  marginBottom: '0.5em',
-                }}
+                <h3
+                  id="article-titles-modal-title"
+                  style={{
+                    marginBottom: '0.5em',
+                  }}
                 >
                   {I18n.t('articles.tracked_articles')} for
                   <span style={{

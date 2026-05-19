@@ -42,8 +42,8 @@ const Week = createReactClass({
     const hash = location.hash.substring(1);
     const weekNo = this.weekNumber();
     if (hash === `week-${weekNo}`) {
-      const week = document.getElementsByName(hash)[0];
-      week.scrollIntoView();
+      const week = document.getElementById(hash);
+      if (week) week.scrollIntoView();
     }
   },
   handleMouseEnter() {
@@ -171,7 +171,7 @@ const Week = createReactClass({
     }
 
     return (
-      <li className={weekClassName}>
+      <li className={weekClassName} id={this.props.anchorId}>
         <div className="week__week-header">
           {weekAddDelete}
           {weekTitle}

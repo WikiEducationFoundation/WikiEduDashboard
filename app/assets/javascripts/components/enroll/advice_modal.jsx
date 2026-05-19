@@ -11,9 +11,11 @@ const AdviceModal = ({ setModalShown, course, passcode, user }) => {
             <h3 className="heading-advice" >
               {I18n.t('application.sign_up_extended')}
             </h3>
-            <a
+            <button
+              type="button"
               className="close-icon-advice icon-close"
               onClick={() => setModalShown(false)}
+              aria-label={I18n.t('revisions.close_modal')}
             />
           </div>
           <div className="pop_body">

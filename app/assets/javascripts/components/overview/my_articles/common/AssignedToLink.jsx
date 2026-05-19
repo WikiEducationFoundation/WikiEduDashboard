@@ -12,9 +12,9 @@ export const AssignedToLink = ({ name, members, course }) => {
   const links = list.map((username, index, collection) => {
     return (
       <span key={username}>
-        <a onClick={() => openStudentDetailsView(course.slug, username)} style={{ cursor: 'pointer' }}>
+        <button type="button" onClick={() => openStudentDetailsView(course.slug, username)}>
           {username}
-        </a>
+        </button>
         {index < collection.length - 1 ? ', ' : null}
       </span>
     );

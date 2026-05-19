@@ -50,9 +50,12 @@ describe 'onboarding', type: :feature, js: true do
 
     it 'pre-populates' do
       visit onboarding_path
+      expect(page).to have_content 'excited'
+      expect(page).to be_axe_clean
       find('.intro .button').click
       expect(find('input[name=name]').value).to eq 'test'
       expect(find('input[name=email]').value).to eq 'email@email.com'
+      expect(page).to be_axe_clean
     end
 
     it 'updates user when submitted' do
@@ -61,6 +64,7 @@ describe 'onboarding', type: :feature, js: true do
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
       expect(page).to have_content 'How did you hear about us?'
+      expect(page).to be_axe_clean
       expect(user.reload.onboarded).to eq true
       expect(user.permissions).to eq User::Permissions::INSTRUCTOR
     end
@@ -73,6 +77,7 @@ describe 'onboarding', type: :feature, js: true do
       fill_in 'name', with: 'New Name'
       find('form button[type=submit]').click
       expect(page).to have_content 'Permissions'
+      expect(page).to be_axe_clean
       expect(enrollment.reload.real_name).to eq('New Name')
     end
   end

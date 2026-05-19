@@ -77,7 +77,7 @@ const Nav = () => {
         </div>
       ) : (
         <div>
-          <nav className={`top-nav ${fluid ? 'fluid' : ''}`}>
+          <nav className={`top-nav ${fluid ? 'fluid' : ''}`} aria-label="Main">
             <div className="container">
               <div className="top-nav__site-logo">
                 <a className="logo__link" href={rootUrl}>
@@ -111,23 +111,23 @@ const Nav = () => {
                   </li>
                 )}
                 {!wikiEd && (
-                  <span id="span_wikied">
+                  <>
                     <li>
                       <CustomLink to="https://meta.wikimedia.org/wiki/Special:MyLanguage/Programs_%26_Events_Dashboard" name={I18n.t('application.documentation')} target="_blank" />
                     </li>
                     <li>
                       <CustomLink to="https://meta.wikimedia.org/w/index.php?title=Talk:Programs_%26_Events_Dashboard&action=edit&section=new" name={I18n.t('application.report_problem')} target="_blank" />
                     </li>
-                  </span>
+                  </>
                 )}
               </ul>
               {userSignedIn && !helpDisabled && (
                 <div className="top-nav__faq-search">
                   <form target="_blank" action="/faq" acceptCharset="UTF-8" method="get">
                     <input name="utf8" type="hidden" defaultValue="✓" />
-                    <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} />
+                    <input type="text" name="search" id="nav_search" defaultValue="" placeholder={I18n.t('application.search')} aria-label={I18n.t('application.search')} />
                     <input name="source" type="hidden" defaultValue="nav_ask_form" />
-                    <button type="submit" className="icon icon-search" />
+                    <button type="submit" className="icon icon-search" aria-label={I18n.t('application.search')} />
                   </form>
                 </div>
               )}
@@ -138,7 +138,7 @@ const Nav = () => {
                   </li>
                 )}
                 {userSignedIn ? (
-                  <span className="user-signed-in">
+                  <>
                     <li>
                       <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
                     </li>
@@ -147,7 +147,7 @@ const Nav = () => {
                     <li>
                       <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
                     </li>
-                  </span>
+                  </>
                 ) : (
                   // This link relies on rails/ujs to turn the anchor link into
                   // a POST request based on data-method="post". Otherwise, this

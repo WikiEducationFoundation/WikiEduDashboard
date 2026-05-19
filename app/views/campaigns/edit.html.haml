@@ -6,7 +6,7 @@
 = hot_javascript_tag 'campaigns'
 
 - if @campaign.errors.any?
-  .notice
+  .notice{role: 'alert'}
     %strong
       = t('campaign.campaign_not_updated')
     %ul
@@ -20,7 +20,7 @@
     .primary
       = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_description', class: 'module campaign-description rails_editable' }) do
         .section-header
-          %h3
+          %h2
             = succeed ':' do
               = t('campaign.campaign')
             = @campaign.title
@@ -34,7 +34,7 @@
     .sidebar
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
-          %h3
+          %h2
             = t('application.details')
           .controls
             %button.button.dark.rails_editable-edit
@@ -129,7 +129,7 @@
       = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_template', class: 'module campaign-template-description rails_editable' }) do
         .section-header
           %span.tooltip-trigger
-            %h3
+            %h2
               = t('campaign.program_template')
             .tooltip.dark
               = t('campaign.program_template_tooltip')

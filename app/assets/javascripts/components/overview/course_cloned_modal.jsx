@@ -379,7 +379,7 @@ const CourseClonedModal = createReactClass({
     }
 
     return (
-      <Modal>
+      <Modal ariaLabelledBy="clone_modal_header">
         <div className="container">
           <div className="wizard__panel active cloned-course">
             {specialNotice}

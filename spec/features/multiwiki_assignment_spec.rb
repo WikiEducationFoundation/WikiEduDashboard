@@ -63,7 +63,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
       within('#users') do
         find('input', visible: true).set('No le des prisa, dolor', rapid: false)
-        click_link 'Change'
+        click_button 'Change'
         find('div.wiki-select').click
         within('.wiki-select') do
           find('input').send_keys('es.wikisource', :enter)

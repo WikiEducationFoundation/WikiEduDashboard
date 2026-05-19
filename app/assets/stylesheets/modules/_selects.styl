@@ -47,11 +47,15 @@
 .sort-container
   display flex
   justify-content flex-end
-  position absolute
-  float right
-  top 20px
-  right 0px
   width 60px
+  // Anchor to the top-right of the section header at desktop+; let
+  // it sit in normal flow at narrow viewports so it doesn't overlap
+  // the section heading. WCAG 1.4.10.
+  +above(desktop)
+    position absolute
+    float right
+    top 20px
+    right 0px
   height 35px
   background url('../images/sort.svg') no-repeat 48% white
   border 1px solid #676eb44a

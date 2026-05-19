@@ -18,6 +18,7 @@ describe 'Training Module Composer', type: :feature, js: true do
   it 'supports the full new-draft → compose → save flow' do
     visit '/training_module_drafts'
     expect(page).to have_content('Training Module Composer')
+    expect(page).to be_axe_clean
 
     # Create a new draft
     fill_in 'Module name', with: 'My test module'

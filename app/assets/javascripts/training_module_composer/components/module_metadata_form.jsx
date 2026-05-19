@@ -68,7 +68,7 @@ const ModuleMetadataForm = ({ draft, onChange }) => {
             </div>
 
             <div className="training_module_composer__field training_module_composer__readonly">
-              <label>Module id</label>
+              <div className="training_module_composer__field__title">Module id</div>
               <code>{draft.module_id ?? '—'}</code>
               <small>Assigned automatically and can&apos;t be changed.</small>
             </div>
@@ -86,7 +86,7 @@ const ModuleMetadataForm = ({ draft, onChange }) => {
             </div>
 
             <div className="training_module_composer__field">
-              <label>Preview</label>
+              <div className="training_module_composer__field__title">Preview</div>
               <div className="training_module_composer__metadata__description_preview">
                 {draft.description ? (
                   <div dangerouslySetInnerHTML={{ __html: descriptionPreviewHtml }} />

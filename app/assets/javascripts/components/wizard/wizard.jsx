@@ -139,8 +139,9 @@ const Wizard = createReactClass({
       );
     });
 
+    const activePanelTitle = this.props.panels[this.props.activePanelIndex]?.title;
     return (
-      <Modal>
+      <Modal ariaLabel={activePanelTitle}>
         <TransitionGroup
           classNames="wizard__panel"
           component="div"
