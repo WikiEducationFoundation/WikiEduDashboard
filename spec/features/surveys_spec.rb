@@ -249,6 +249,7 @@ describe 'Surveys', type: :feature, js: true do
 
       expect(Survey.last.to_csv).to match('username,') # beginning of header
       expect(Survey.last.to_csv).to match(@instructor.username + ',') # beginning of response row
+      expect(Survey.last.to_csv).to include('duration_seconds') # duration column header present
     end
 
     it 'loads a question group preview' do

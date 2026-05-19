@@ -140,7 +140,7 @@ class Survey < ApplicationRecord
     @completion_sessions_by_user_id ||= SurveySession
                                        .where(survey_id: id)
                                        .completed
-                                       .order(created_at: :desc)
+                                       .order(:created_at)
                                        .index_by(&:user_id)
   end
 

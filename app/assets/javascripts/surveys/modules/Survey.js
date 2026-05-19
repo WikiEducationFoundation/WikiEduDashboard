@@ -78,6 +78,12 @@ const Survey = {
     this.initRangeSliders();
     this.setFormValidationSections();
     this.getNotificationId();
+
+    // If the survey has no intro screen, there is no "Start" button.
+    // Auto-start the survey session immediately.
+    if (this.$intro.length === 0) {
+      this.surveyStarted();
+    }
   },
 
   cacheSelectors() {
@@ -111,7 +117,7 @@ const Survey = {
 
     // Record survey start time for duration tracking
     if (!this.previewMode) {
-      request('/survey/start', {
+      this.startPromise = request('/survey/start', {
         method: 'POST',
         body: JSON.stringify({
           survey_id: SurveyDetails.id,
@@ -246,7 +252,7 @@ const Survey = {
     e.preventDefault();
   },
 
-  submitAllQuestionGroups() {
+  async submitAllQuestionGroups() {
     try {
       Sentry.captureMessage(`Survey ${SurveyDetails.id} submitted`, { level: 'info' });
     } catch (e) {
@@ -258,7 +264,11 @@ const Survey = {
       this.$surveyForm.each(this.submitQuestionGroup.bind(this));
       this.submittedAll = true;
 
-      // Record survey completion time for duration tracking
+      // Wait for the start request to resolve before sending completion,
+      // so fast users on slow networks don't silently skip the call.
+      if (this.startPromise) {
+        await this.startPromise;
+      }
       if (this.trackingId) {
         request('/survey/complete', {
           method: 'PUT',

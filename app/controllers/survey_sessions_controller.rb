@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SurveySessionsController < ApplicationController
+  before_action :require_signed_in
+
   def start
     record = SurveySession.create!(
       survey_id: params[:survey_id],
@@ -12,8 +14,9 @@ class SurveySessionsController < ApplicationController
   end
 
   def complete
-    record = SurveySession.find(params[:tracking_id])
-    record.update!(completed_at: Time.zone.now)
+    record = SurveySession.find_by(id: params[:tracking_id], user: current_user)
+    return head :not_found unless record
+    record.update!(completed_at: Time.zone.now) if record.completed_at.nil?
     render json: { duration_in_seconds: record.duration_in_seconds }
   end
 end
