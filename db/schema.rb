@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_28_223445) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_19_142803) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -58,6 +58,23 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_28_223445) do
     t.datetime "first_revision"
     t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
     t.index ["course_id", "updated_at", "article_id"], name: "article_course_timeslice_by_updated_at"
+  end
+
+  create_table "article_course_user_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "character_sum", default: 0
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "end"
+    t.datetime "first_revision"
+    t.boolean "new_article", default: false
+    t.integer "references_count", default: 0
+    t.integer "revision_count", default: 0
+    t.datetime "start"
+    t.boolean "tracked", default: true
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "wiki_id", null: false
   end
 
   create_table "articles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
