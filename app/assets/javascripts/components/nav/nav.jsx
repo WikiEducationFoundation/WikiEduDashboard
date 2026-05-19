@@ -5,6 +5,7 @@ import LanguagePicker from './language_picker.jsx';
 import NotificationsBell from './notifications_bell';
 import ConsentBanner from './consent_banner';
 import NewsHandler from './news/news_handler.jsx';
+import SerifModeToggle from './serif_mode_toggle.jsx';
 
 const Nav = () => {
   const {
@@ -132,6 +133,9 @@ const Nav = () => {
                 </div>
               )}
               <ul className="top-nav__login-links">
+                <li>
+                  <SerifModeToggle />
+                </li>
                 {languageSwitcherEnabled && (
                   <li>
                     <LanguagePicker />

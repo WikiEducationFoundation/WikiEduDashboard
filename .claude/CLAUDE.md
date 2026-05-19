@@ -88,6 +88,12 @@ specs that depend on CSS changes.
 New module files in `app/assets/stylesheets/modules/` are auto-imported via the
 `@import "modules/*"` glob in `main.styl` — no manual import needed.
 
+There are separate CSS bundles for some layouts (`training.styl` for the training
+layout, `surveys.styl` for surveys) that cherry-pick imports instead of globbing
+`modules/*`. If a new module needs to apply to those layouts too — anything that
+touches the nav or other shared chrome — add an explicit `@import` in the bundle
+that needs it.
+
 ## Feature specs
 
 Run feature specs with `bin/feature-spec`. Once the user has asked to "show me"

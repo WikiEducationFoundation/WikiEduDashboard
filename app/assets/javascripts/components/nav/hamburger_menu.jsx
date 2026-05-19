@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CustomLink from './CustomLink.jsx';
 import LanguagePicker from './language_picker.jsx';
+import SerifModeToggle from './serif_mode_toggle.jsx';
 
 const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl,
   helpDisabled, wikiEd, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
@@ -20,6 +21,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
               <img src={logoPath} alt="wiki logo" />
             </a>
           </div>
+          <SerifModeToggle />
           {languageSwitcherEnabled && <LanguagePicker />}
           <div className="hamburger_menu_wrapper">
             <button type="button" className="bm-burger-button" onClick={toggleClass}>
