@@ -6,9 +6,12 @@ describe 'campaign articles page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
   let(:user)  { create(:user) }
   let(:campaign) { create(:campaign) }
-  let(:course) { create(:course) }
+  let(:course) { create(:course, slug: 'course-1', school: 'University A') }
   let(:article) { create(:article, title: 'ExampleArticle') }
-  let!(:articles_course) { create(:articles_course, course:, article:) }
+  let!(:articles_course) do
+    create(:articles_course, course: course, article: article,
+                             character_sum: 500, references_count: 5, view_count: 100)
+  end
   let!(:campaigns_course) do
     create(:campaigns_course, campaign_id: campaign.id,
                               course_id: course.id)
@@ -23,5 +26,53 @@ describe 'campaign articles page', type: :feature, js: true do
     allow_any_instance_of(CoursesPresenter).to receive(:too_many_articles?).and_return(true)
     visit "/campaigns/#{campaign.slug}/articles?locale=en"
     expect(page).to have_content(I18n.t('campaign.too_many_articles'))
+  end
+
+  describe 'advanced search filters' do
+    let(:course2) { create(:course, slug: 'course-2', school: 'University B') }
+    let(:article2) { create(:article, title: 'AnotherArticle') }
+    let!(:articles_course2) do
+      create(:articles_course, course: course2, article: article2,
+                               character_sum: 100, references_count: 1, view_count: 10)
+    end
+    let!(:campaigns_course2) do
+      create(:campaigns_course, campaign_id: campaign.id, course_id: course2.id)
+    end
+
+    it 'filters by title' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en"
+      fill_in 'title', with: 'Another'
+      click_button 'Search'
+      expect(page).to have_content('AnotherArticle')
+      expect(page).not_to have_content('ExampleArticle')
+    end
+
+    it 'filters by school' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en&school[]=University+B"
+      expect(page).to have_content('AnotherArticle')
+      expect(page).not_to have_content('ExampleArticle')
+    end
+
+    it 'filters by character added range' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en"
+      find('#toggle_advanced_search').click
+      fill_in 'char_added_from', with: '200'
+      fill_in 'char_added_to', with: '600'
+      click_button 'Search'
+      expect(page).to have_content('ExampleArticle')
+      expect(page).not_to have_content('AnotherArticle')
+    end
+
+    it 'filters by references range' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en&references_count_from=2"
+      expect(page).to have_content('ExampleArticle')
+      expect(page).not_to have_content('AnotherArticle')
+    end
+
+    it 'filters by views range' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en&view_count_to=50"
+      expect(page).to have_content('AnotherArticle')
+      expect(page).not_to have_content('ExampleArticle')
+    end
   end
 end
