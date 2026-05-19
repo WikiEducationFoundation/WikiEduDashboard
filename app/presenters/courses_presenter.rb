@@ -12,6 +12,15 @@ class CoursesPresenter
     @campaign_param = campaign_param
     @page = options[:page]
     @tag = options[:tag]
+    @articles_title = options[:articles_title]
+    @course_title = options[:course_title]
+    @school = options[:school]
+    @char_added_from = options[:char_added_from]
+    @char_added_to = options[:char_added_to]
+    @references_count_from = options[:references_count_from]
+    @references_count_to = options[:references_count_to]
+    @view_count_from = options[:view_count_from]
+    @view_count_to = options[:view_count_to]
     @sort_column = options[:sort_column]
     @sort_direction = options[:sort_direction]
     @courses_list = courses_list || campaign_courses
@@ -63,17 +72,43 @@ class CoursesPresenter
 
   PER_PAGE = 25
   # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
-  def articles_courses_scope
-    return @articles_courses_scope unless @articles_courses_scope.nil?
+  def ranked_articles_query
+    @ranked_articles_query ||= Query::RankedArticlesCoursesQuery.new(
+      **ranked_articles_courses_query_params
+    )
+  end
 
-    @articles_courses_scope = Query::RankedArticlesCoursesQuery.new(
+  def articles_courses_scope
+    ranked_articles_query.scope
+  end
+
+  def ranked_articles_courses_query_params
+    base_query_params.merge(filter_query_params)
+  end
+
+  def base_query_params
+    {
       courses: course_ids_and_slugs,
       per_page: PER_PAGE,
       offset:,
       too_many: too_many_articles?,
       sort_column: @sort_column,
       sort_direction: @sort_direction
-    ).scope
+    }
+  end
+
+  def filter_query_params
+    {
+      article_title: @articles_title,
+      course_title: @course_title,
+      char_added_from: @char_added_from,
+      char_added_to: @char_added_to,
+      references_count_from: @references_count_from,
+      references_count_to: @references_count_to,
+      view_count_from: @view_count_from,
+      view_count_to: @view_count_to,
+      school: @school
+    }
   end
 
   # Fetch and index articles by ID for efficient lookup
@@ -89,7 +124,8 @@ class CoursesPresenter
 
   # Create paginated collection for articles_courses data
   def paginated_articles_courses
-    WillPaginate::Collection.create(current_page, PER_PAGE, campaign_articles_count) do |pager|
+    total = ranked_articles_query.total_count
+    WillPaginate::Collection.create(current_page, PER_PAGE, total) do |pager|
       pager.replace(articles_courses_scope)
     end
   end

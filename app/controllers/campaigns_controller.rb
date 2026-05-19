@@ -317,11 +317,21 @@ class CampaignsController < ApplicationController
   end
 
   def set_presenter
-    @presenter = CoursesPresenter.new(current_user:,
-                                      campaign_param: @campaign.slug,
-                                      page: @page,
-                                      sort_column: @sort_column,
-                                      sort_direction: @sort_direction)
+    @presenter = CoursesPresenter.new(
+      current_user:,
+      campaign_param: @campaign.slug,
+      page: @page,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction,
+      articles_title: params[:title],
+      school: params[:school],
+      char_added_from: params[:char_added_from],
+      char_added_to: params[:char_added_to],
+      references_count_from: params[:references_count_from],
+      references_count_to: params[:references_count_to],
+      view_count_from: params[:view_count_from],
+      view_count_to: params[:view_count_to]
+    )
   end
 
   def add_organizer_to_campaign(user)
