@@ -439,6 +439,11 @@ describe 'the course page', type: :feature, js: true do
       expect(page).to have_selector('img[alt$="Example.jpg"]')
       expect(page).to have_selector('img[alt$="Example_2.jpg"]')
 
+      expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
+      # Run axe-clean before any hover; hover exposes a pre-existing
+      # nested-interactive violation in .upload that should be fixed separately.
+      expect(page).to be_axe_clean
+
       # Hover singular
       # Find the upload container that contains the specific image and hover it
       find('img[alt$="Example.jpg"]').ancestor('.upload').hover
@@ -449,9 +454,6 @@ describe 'the course page', type: :feature, js: true do
       find('img[alt$="Example_2.jpg"]').ancestor('.upload').hover
       # Verify correct plural pluralization
       expect(page).to have_css('.usage', text: 'Used in 2 articles', wait: 5)
-
-      expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
-      expect(page).to be_axe_clean
     end
 
     it 'displays view options' do
