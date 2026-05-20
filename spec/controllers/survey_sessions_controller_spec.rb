@@ -100,7 +100,10 @@ describe SurveySessionsController, type: :request do
     end
 
     it 'rejects unauthenticated #complete' do
-      session_record = create(:survey_session, survey: survey, user: user, started_at: 5.minutes.ago)
+      session_record = create(:survey_session,
+                              survey: survey,
+                              user: user,
+                              started_at: 5.minutes.ago)
       put '/survey/complete', params: { tracking_id: session_record.id }
       expect(response).to have_http_status(:unauthorized)
     end
