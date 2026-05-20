@@ -40,29 +40,23 @@ class CourseUserWikiTimeslice < ApplicationRecord
   #################
 
   # Given a course, a user_id, a wiki and a hash of revisions like the following:
-  # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
-  # updates the article course timeslices based on the revisions.
+  # {:start=>"20160320000000", :end=>"20160320235959", :revisions=>[...]},
+  # where start and end span a single timeslice period (end is 1 second
+  # before the next timeslice boundary), updates the course user wiki timeslice.
   def self.update_course_user_wiki_timeslices(course, user_id, wiki, revisions)
-    rev_start = revisions[:start]
-    rev_end = revisions[:end]
-    # Timeslice dates to update are determined based on course wiki timeslices
     timeslices = course.course_wiki_timeslices.where(wiki:)
-                       .for_revisions_between(rev_start, rev_end)
-    timeslices.each do |timeslice|
-      # Group revisions that belong to the timeslice
-      revisions_in_timeslice = revisions[:revisions].select do |revision|
-        timeslice.start <= revision.date && revision.date < timeslice.end
-      end
-      # Get or create article course timeslice based on course, article_id,
-      # timeslice.start and timeslice.end
-      cu_timeslice = CourseUserWikiTimeslice.find_or_create_by(course:,
-                                                               user_id:,
-                                                               wiki:,
-                                                               start: timeslice.start,
-                                                               end: timeslice.end)
-      # Update cache for CourseUserWikiTimeslice
-      cu_timeslice.update_cache_from_revisions revisions_in_timeslice
+                       .for_revisions_between(revisions[:start], revisions[:end])
+    if timeslices.size > 1
+      message = "Multiple course user wiki timeslices matched for course #{course.slug}"
+      Sentry.capture_message message,
+                             level: 'error',
+                             extra: { course_id: course.id, wiki_id: wiki.id, user_id:,
+                                      start: revisions[:start], end: revisions[:end] }
     end
+    timeslice = timeslices.first
+    cu_timeslice = find_or_create_by(course:, user_id:, wiki:,
+                                     start: timeslice.start, end: timeslice.end)
+    cu_timeslice.update_cache_from_revisions revisions[:revisions]
   end
 
   ####################
