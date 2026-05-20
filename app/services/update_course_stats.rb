@@ -20,8 +20,9 @@ class UpdateCourseStats
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course, sidekiq_status_logger: nil) # rubocop:disable Metrics/MethodLength
-    sidekiq_status_logger.pause_until_no_backup unless sidekiq_status_logger.nil?
+  def initialize(course, reporter: nil) # rubocop:disable Metrics/MethodLength
+    @reporter = reporter || UpdateProgressReporter.new
+    @reporter.pause_until_no_backup
     @course = course
     # If the upate was explicitly requested by a user,
     # it could be because the dates or other paramters were just changed.
@@ -35,8 +36,10 @@ class UpdateCourseStats
     import_uploads
     update_categories
     update_articles
+    @reporter.phase('timeslices')
     @processed, @reprocessed = UpdateCourseWikiTimeslices.new(@course, @debugger,
-                                                              update_service: self)
+                                                              update_service: self,
+                                                              reporter: @reporter)
                                                          .run(all_time: @full_update)
     update_average_pageviews
     update_caches
@@ -50,22 +53,26 @@ class UpdateCourseStats
   private
 
   def import_uploads
+    @reporter.phase('uploads')
     @debugger.log_update_progress :start
-    CourseUploadImporter.new(@course, update_service: self).run
+    CourseUploadImporter.new(@course, update_service: self, reporter: @reporter).run
     @debugger.log_update_progress :uploads_imported
   end
 
   def update_categories
+    @reporter.phase('categories')
     Category.refresh_categories_for(@course)
     @debugger.log_update_progress :categories_updated
   end
 
   def update_article_status
+    @reporter.phase('article_status')
     ArticleStatusManagerTimeslice.update_article_status_for_course(@course)
     @debugger.log_update_progress :article_status_updated
   end
 
   def update_article_namespaces
+    @reporter.phase('article_namespaces')
     ArticleNamespacesManager.new(@course)
     @debugger.log_update_progress :article_namespaces_updated
   end
@@ -76,11 +83,13 @@ class UpdateCourseStats
   end
 
   def update_average_pageviews
+    @reporter.phase('average_pageviews')
     AverageViewsImporter.update_outdated_average_views(@course)
     @debugger.log_update_progress :average_pageviews_updated
   end
 
   def update_caches
+    @reporter.phase('caches')
     ActiveRecord::Base.transaction do
       ArticlesCourses.update_required_caches_from_timeslices(@course)
       @debugger.log_update_progress :articles_courses_updated
@@ -97,6 +106,7 @@ class UpdateCourseStats
   end
 
   def update_wikidata_stats
+    @reporter.phase('wikidata_stats')
     wikidata = Wiki.get_or_create(language: nil, project: 'wikidata')
     timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wikidata)
     stats = timeslices.pluck(:stats)
@@ -105,6 +115,7 @@ class UpdateCourseStats
   end
 
   def update_wiki_namespace_stats
+    @reporter.phase('namespace_stats')
     # Update each of the tracked namespaces
     @course.course_wiki_namespaces.each do |course_wiki_ns|
       wiki = course_wiki_ns.courses_wikis.wiki

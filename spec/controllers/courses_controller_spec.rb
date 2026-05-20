@@ -52,6 +52,52 @@ describe CoursesController, type: :request do
     end
   end
 
+  describe '#update_status' do
+    let(:course) { create(:course, slug: slug_params) }
+
+    context 'when no update is running for the course' do
+      before do
+        allow(CourseUpdateStatus).to receive(:new).with(course)
+          .and_return(instance_double(CourseUpdateStatus, result: { running: false }))
+      end
+
+      it 'returns running: false' do
+        get "/courses/#{course.slug}/update_status.json"
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body).to eq('running' => false)
+      end
+    end
+
+    context 'when an update is in flight' do
+      let(:status) do
+        {
+          running: true, jid: 'abc123', queue: 'long_update',
+          run_at: 1_700_000_000, started_at: 1_700_000_001,
+          phase: 'timeslices', phase_started_at: 1_700_000_500,
+          at: 42, total: 884, pct_complete: 4,
+          message: 'enwiki: 2024-09-15', updated_at: 1_700_000_700
+        }
+      end
+
+      before do
+        allow(CourseUpdateStatus).to receive(:new).with(course)
+          .and_return(instance_double(CourseUpdateStatus, result: status))
+      end
+
+      it 'returns the progress fields' do
+        get "/courses/#{course.slug}/update_status.json"
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['running']).to eq(true)
+        expect(body['phase']).to eq('timeslices')
+        expect(body['at']).to eq(42)
+        expect(body['total']).to eq(884)
+        expect(body['message']).to eq('enwiki: 2024-09-15')
+      end
+    end
+  end
+
   describe '#destroy' do
     let!(:course)           { create(:course, submitted: true, slug: slug_params) }
     let!(:user)             { create(:test_user) }

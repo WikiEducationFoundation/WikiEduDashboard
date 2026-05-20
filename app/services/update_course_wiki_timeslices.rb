@@ -13,21 +13,24 @@ require_dependency "#{Rails.root}/lib/revision_scanner"
 # and, if the timeslice exceeds the threshold, recursively splits it until all
 # timeslices are within limits.
 class UpdateCourseWikiTimeslices
-  def initialize(course, debugger, update_service: nil)
+  def initialize(course, debugger, update_service: nil, reporter: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
     @splitter = SplitTimeslice.new(@course)
     @debugger = debugger
     @update_service = update_service
+    @reporter = reporter || UpdateProgressReporter.new
     @processed_timeslices_count = 0
     @reprocessed_timeslices = Hash.new { |h, k| h[k] = [] }
     @revision_updater = CourseRevisionUpdater.new(@course, update_service:)
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
+    @progress_at = 0
   end
 
   def run(all_time:)
     pre_update(all_time)
     @course.update(needs_update: false)
+    @reporter.progress(at: 0, total: count_timeslices_to_process(all_time))
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
     [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count]
   end
@@ -41,13 +44,7 @@ class UpdateCourseWikiTimeslices
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
-      # Get start time from first timeslice to update
-      first_start = if all_time
-                      CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
-                                         .for_datetime(@course.start).first.start
-                    else
-                      @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
-                    end
+      first_start = first_start_for_wiki(wiki, all_time)
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
@@ -58,6 +55,39 @@ class UpdateCourseWikiTimeslices
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
       @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
     end
+  end
+
+  def first_start_for_wiki(wiki, all_time)
+    if all_time
+      CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                         .for_datetime(@course.start).first.start
+    else
+      @timeslice_manager.get_ingestion_start_time_for_wiki(wiki)
+    end
+  end
+
+  # Approximate total = number of timeslices that fetch_data_and_reprocess_timeslices
+  # and fetch_data_and_process_timeslices will iterate. Adaptive splitting during
+  # processing may produce more leaves than inputs, so reporter.at can exceed this
+  # total; that's fine — pct is advisory and sidekiq-status tolerates it.
+  def count_timeslices_to_process(all_time)
+    @course.wikis.sum do |wiki|
+      first_start = first_start_for_wiki(wiki, all_time)
+      latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
+      reprocess_count = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update.count
+      next reprocess_count if first_start.nil? || latest_start.nil?
+      reprocess_count + CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                           .where('start >= ?', first_start)
+                                           .where('start <= ?', latest_start).count
+    end
+  rescue StandardError
+    0
+  end
+
+  def report_timeslice_progress(wiki, timeslice)
+    @progress_at += 1
+    @reporter.progress(at: @progress_at,
+                       message: "#{wiki.domain}: #{timeslice.start.to_date}")
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
@@ -75,6 +105,7 @@ class UpdateCourseWikiTimeslices
         log_error(e, t.start, t.end, wiki.id)
         t.update(needs_update: true) # No effect if t has split
       end
+      report_timeslice_progress(wiki, t)
     end
   end
 
@@ -93,6 +124,7 @@ class UpdateCourseWikiTimeslices
       rescue StandardError => e
         log_error(e, t.start, t.end, wiki.id)
       end
+      report_timeslice_progress(wiki, t)
     end
   end
 

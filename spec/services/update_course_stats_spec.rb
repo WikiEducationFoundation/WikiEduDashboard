@@ -6,14 +6,16 @@ require "#{Rails.root}/lib/timeslice_manager"
 describe UpdateCourseStats do
   before do
     stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
-    allow(sidekiq_status_logger).to receive(:pause_until_no_backup)
+    allow(reporter).to receive(:pause_until_no_backup)
+    allow(reporter).to receive(:phase)
+    allow(reporter).to receive(:progress)
   end
 
   let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30', flags:) }
-  let(:sidekiq_status_logger) { instance_double(LogSidekiqStatus) }
+  let(:reporter) { instance_double(UpdateProgressReporter) }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-  let(:subject) { described_class.new(course, sidekiq_status_logger:) }
+  let(:subject) { described_class.new(course, reporter:) }
   let(:flags) { nil }
   let(:user) { create(:user, username: 'Ragesoss') }
 
@@ -211,7 +213,7 @@ describe UpdateCourseStats do
 
       # Rescue the expected error to prevent spec from failing
       begin
-        described_class.new(course, sidekiq_status_logger:)
+        described_class.new(course, reporter:)
       rescue StandardError
         expect(course.flags['unfinished_update_logs'][1]['start_time']).to eq(date)
       end

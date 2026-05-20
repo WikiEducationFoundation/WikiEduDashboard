@@ -17,7 +17,7 @@ class Backup < ApplicationRecord
   # A healthy backup run touches its row within minutes. Anything older is an
   # orphaned row left behind by a crashed backup.sh (e.g., host restart), and
   # must not indefinitely block CourseDataUpdateWorker via
-  # LogSidekiqStatus#pause_until_no_backup.
+  # UpdateProgressReporter#pause_until_no_backup.
   FRESH_WINDOW = 2.hours
 
   def self.current_backup

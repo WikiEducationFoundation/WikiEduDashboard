@@ -14,17 +14,14 @@ class CourseDataUpdateWorker
   end
 
   def perform(course_id)
-    store(jid:,
-          worker: self.class.name,
-          arguments: [course_id],
-          phase: 'initialization')
-    sidekiq_status_logger = LogSidekiqStatus.new(method(:store))
+    store(worker: self.class.name, arguments: [course_id], course_id: course_id)
+    reporter = UpdateProgressReporter.new(self)
     course = Course.find(course_id)
     logger.info "Ignoring #{course.slug} update" if course.very_long_update?
     return if course.very_long_update?
 
     logger.info "Updating course timeslice version: #{course.slug}"
-    UpdateCourseStats.new(course, sidekiq_status_logger:)
+    UpdateCourseStats.new(course, reporter:)
   rescue StandardError => e
     Sentry.capture_exception e
   end

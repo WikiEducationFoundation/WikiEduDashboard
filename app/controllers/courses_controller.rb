@@ -142,6 +142,11 @@ class CoursesController < ApplicationController
     @alerts = current_user&.admin? ? @course.alerts : @course.public_alerts
   end
 
+  def update_status
+    set_course
+    @update_status = CourseUpdateStatus.new(@course).result
+  end
+
   def classroom_program_students_json
     courses = Course.classroom_program_students
     render json: courses.as_json(
