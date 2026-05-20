@@ -11,7 +11,7 @@
     = link_to survey_results_path(format: 'csv'), class: 'download-button' do
       %span Download Survey Results CSV
 
-    %h3.survey__duration-stats Completion Time Statistics
+    %h2.survey__duration-stats Completion Time Statistics
     %table.table.survey__duration-stats__table
       %tbody
         %tr
@@ -32,7 +32,7 @@
 
     - distribution = duration_distribution(@survey)
     - unless distribution.empty?
-      %h3 Time Distribution
+      %h2 Time Distribution
       - max_count = [distribution.values.max, 1].max
       .duration-distribution
         - distribution.each do |bucket, count|

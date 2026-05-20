@@ -95,16 +95,14 @@ describe SurveySessionsController, type: :request do
     end
 
     it 'rejects unauthenticated #start' do
-      expect {
-        post '/survey/start', params: { survey_id: survey.id }
-      }.to raise_error(NotSignedInError)
+      post '/survey/start', params: { survey_id: survey.id }
+      expect(response).to have_http_status(:unauthorized)
     end
 
     it 'rejects unauthenticated #complete' do
       session_record = create(:survey_session, survey: survey, user: user, started_at: 5.minutes.ago)
-      expect {
-        put '/survey/complete', params: { tracking_id: session_record.id }
-      }.to raise_error(NotSignedInError)
+      put '/survey/complete', params: { tracking_id: session_record.id }
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end
