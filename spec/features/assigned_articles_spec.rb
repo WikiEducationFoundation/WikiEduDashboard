@@ -3,9 +3,10 @@
 require 'rails_helper'
 
 describe 'Assigned Articles view', type: :feature, js: true do
-  let(:course) { create(:course) }
+  let(:en_wiki) { Wiki.find_or_create_by(language: 'en', project: 'wikipedia') }
+  let(:course) { create(:course, home_wiki: en_wiki) }
   let(:user) { create(:user, username: 'Ragesoss') }
-  let(:article) { create(:article, title: 'Nancy_Tuana') }
+  let(:article) { create(:article, title: 'Nancy_Tuana', wiki: en_wiki) }
 
   before do
     login_as(user)
@@ -13,7 +14,8 @@ describe 'Assigned Articles view', type: :feature, js: true do
     create(:courses_user, course:, user:)
     create(:assignment, article_title: 'Nancy_Tuana',
                         course:, article:,
-                        user:, role: 0)
+                        user:, role: 0,
+                        wiki: en_wiki)
   end
 
   it 'lets users submit feedback about articles' do
