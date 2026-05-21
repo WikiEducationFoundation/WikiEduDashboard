@@ -443,7 +443,8 @@ ko:
     join: 가입하기
     join_course: 과정 가입
     join_prompt: '''%{title}''에 가입할까요?'
-    join_successful: '%{title}에 들어가는 데 성공했습니다.'
+    join_successful: '%{title}에 성공적으로 참여했습니다. 대시보드는 정기 업데이트를 통해 기여 내역을 자동으로 추적합니다.
+      나중에 다시 방문하여 어떤 영향을 만들었는지 확인하세요.'
     join_no_passcode: 이 프로그램에 참여하시겠습니까?
     launch_wizard: 마법사 실행
     leave_confirmation: 정말로 이 과정에서 탈퇴하시겠습니까?
@@ -470,7 +471,7 @@ ko:
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
     not_permitted: 이 강의를 편집할 권한이 없습니다.
-    no_available_actions: 취할 수 있는 행동 없음
+    no_available_actions: 취할 수 있는 조치 없음
     ores_plot: ORES
     overview: 홈
     passcode: 패스코드
@@ -653,8 +654,8 @@ ko:
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     references_count: 각주 추가됨
-    references_doc: 이것은 문서에 추가된 각주 태그의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는 ORES
-      품질 모델에 따라 제공되며 일부 언어에서만 지원됩니다.
+    references_doc: 이것은 문서에 추가된 각주 태그와 단축된 각주 틀의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이
+      데이터는 각주를 세는 Toolforge API에 따라 제공됩니다.
     references_doc_wikidata: 이것은 항목에 추가된 각주 태그의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는
       ORES 품질 모델에 따라 제공되며 일부 언어에서만 지원됩니다.
     tags: 태그
@@ -697,9 +698,8 @@ ko:
     school: 학교
     author: 저자
     index: 색인
-    tracked_namespaces_info: |-
-      추적됨으로 설정한 이름공간
-      문서 이름공간만 상위줄의 개요 통계에 나타압니다. '문서 편집 수', '편집 횟수', '추가된 단어' 등이 표시됩니다. 그러므로 프로그램에서 개선하고자 하는 공간만 선택적으로 등록하세요.
+    tracked_namespaces_info: 추적됨으로 설정한 이름공간의 문서만 상위줄의 개요 통계에 나타납니다. '문서 편집 수', '편집
+      횟수', '추가된 단어' 등이 표시됩니다. 그러므로 프로그램에서 개선하고자 하는 공간만 선택적으로 등록하세요.
   recent_activity:
     article_title: 제목
     datetime: 날짜/시간
@@ -711,9 +711,9 @@ ko:
     plagiarism_report: 표절 보고
     possible_plagiarism: 표절 감지 기능
     plagiarism_explanation: 위키백과의 표절 탐지 시스템은 Turnitin/iTertificate를 이용하여, 새로운 편집을
-      출판된 텍스트와 비교한다. 이 보고는 100% 정확하지는 않다. 예를 들어, 적절한 특성을 가진  직접 인용은 그 내용이 완전히 같기 때문에
-      표절으로 오탐지 될 수 있다. 참여자에게 조치를 취하기 전에 표절 보고의 세부 정보를 검토하여야 한다. (문서 변경사항 또는 전체 문서에
-      접근할 수 없는 경우, 저작권침해로 이미 삭제되었을 수 있다)
+      출판된 텍스트와 비교합니다. 이 보고는 100% 정확하지는 않습니다. 예를 들어, 적절한 특성을 가진 직접 인용은 그 내용이 완전히 같기
+      때문에 표절으로 오탐지 될 수 있습니다. 참여자에게 조치를 취하기 전에 표절 보고의 세부 정보를 검토하여야 합니다. (문서 변경사항 또는
+      전체 문서에 접근할 수 없는 경우, 저작권침해로 이미 삭제되었을 수 있습니다)
     recent_edits: 최근 편집
     recent_uploads: 최근 업로드
     report: 보고
@@ -949,7 +949,7 @@ ko:
       header: 제출 기간이 지난 교육 과제가 있습니다.
   wizard:
     assignment_dates: 과제 날짜
-    assignment_type: 과제 유형
+    assignment_type: 학생들이 완료해야 하는 위키백과 과제는 무엇인가요?
     select_one_option: 1개의 옵션을 선택해 주십시오.
     minimum_options:
       one: '%{count}개 이상의 옵션을 선택해 주십시오.'

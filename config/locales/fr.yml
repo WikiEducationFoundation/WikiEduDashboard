@@ -33,6 +33,7 @@
 # Author: Momo50WM
 # Author: Méthodes Bulebe Hangi
 # Author: Oujon
+# Author: PenScribe
 # Author: PifyZ
 # Author: Pols12
 # Author: SleaY
@@ -66,6 +67,7 @@ fr:
     back: Retour
     cancel: Annuler
     next: Suivant
+    skip_to_main_content: Aller au contenu principal
     cookie_consent: Ce site utilise des témoins (''cookies'') pour vous maintenir
       connecté et stocker des informations liées à votre compte sur Wikipédia.
     cookie_consent_acknowledge: Je comprends
@@ -103,6 +105,7 @@ fr:
     no_results: Aucun résultat trouvé pour « %{query} »
     show_current_revision: Affiche la version actuelle.
     show_last_revision: Afficher la dernière version modifiée
+    font_label: Police
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -199,6 +202,7 @@ fr:
         name: Nom
         description: Description
         courses_with_ai_alerts: Cours avec plusieurs alertes IA
+        recent_followup: Alertes avec suivi récent
         multiple_alerts_students: Alertes récentes pour les étudiants ayant plusieurs
           alertes
         in_mainspace: Alertes récentes dans l'espace principal
@@ -235,6 +239,7 @@ fr:
     no_available: Aucun article disponible
     next: Suivant
     page_info: Page %{current} sur %{total_pages} (%{count} sur %{total})
+    permalink: Lien permanent
     previous: Précédent
     article_title: Titre de l’article
     assigned_to: Affecté à
@@ -259,6 +264,9 @@ fr:
       tracked: Suivi
       untracked: Non suivi
       tracked_and_untracked: Suivi et non suivi
+      wiki_label: Wiki
+      newness_label: Nouveauté de l'article
+      tracked_label: Statut du suivi
     filter_text: 'Filtres :'
     pageviews_label: 'Pages vues :'
     cumulative: Cumulatif
@@ -403,6 +411,7 @@ fr:
     add_available_submit_wikidata: Ajouter des éléments
     add_placeholder: Saisir un titre d’article ou une URL
     assign_self: M’affecter un article
+    invalid_mainspace_article: Cela doit être un article de l'espace principal valide.
     assign_self_wikidata: M’affecter un élément
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
@@ -474,6 +483,20 @@ fr:
       pas une URL Wikipédia valide.
     mismatched_wiki: Impossible de mettre à jour l'URL du bac à sable. L'URL %{url}
       n'est pas sur le même wiki.
+    invalid_username: Le nom d'utilisateur "%{username}" est invalide ou le nom d'utilisation
+      n'existe pas.
+    change_sandbox_instructions: Entrez un nom d'utilisateur de Wikipédia pour mettre
+      à jour les URL de la boîte à sable pour cette tâche, ce qui changera la boîte
+      à sable du nom d'utilisateur actuel à celui que vous spécifiez.
+    username_label: Nom d'utilisateur Wikimedia!
+    username_placeholder: Entrez le nom d'utilisateur (par exemple, votre nom d'utilisation)
+    username_or_url_label: Nom d'utilisateur ou URL de Wikipédia
+    username_or_url_placeholder: Entrez le nom d' utilisateur ou l' URL de la zone
+      de sable
+    preview_label: 'Prévisualisation des nouvelles adresses URL:'
+    sandbox_label: Bac à sable
+    bibliography_label: Bibliographie
+    outline_label: Vue d’ensemble
     warning_untracked_wiki: 'Veuillez noter que l’article que vous avez choisi est
       sur un wiki qui n’est pas suivi par ce cours. Pour suivre les contributions
       à cet article, un instructeur doit ajouter le wiki suivant à ce cours : %{wiki}'
@@ -481,6 +504,16 @@ fr:
     milestones:
       title: Jalons
   campaign:
+    campaign_ores_plot:
+      change_button: Changement de la plénitude structurelle
+      no_data: Aucune information sur la plénitude structurelle n'est disponible
+      graph_description_html: Ce graphique visualise, en somme, combien d'articles
+        ont été développés avant que les participants à la campagne ne les aient d'abord
+        édités jusqu'aux dernières éditions de campagne. La notation de la complétude
+        structurelle est basée sur un projet d'apprentissage automatique (ORES) qui
+        estime la notation de qualité d'un article en fonction de la quantité de prose,
+        du nombre de liens wiki, des images et des en-têtes de section et d'autres
+        caractéristiques.
     active_campaigns: Campagnes actives
     add_organizer: Ajouter un organisateur
     alert_article: Titre de l’article
@@ -496,6 +529,7 @@ fr:
     campaign_deleted: La campagne « %{title} » a été supprimée
     campaign_not_updated: La campagne n’a pas pu être mise à jour
     campaign_updated: Campagne mise à jour
+    refresh_campaign_stats: Les statistiques de campagne ont été révisées avec succès
     created_at: Date
     confirm_campaign_deletion: Êtes-vous sûr de vouloir supprimer la campagne intitulée
       « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
@@ -595,7 +629,12 @@ fr:
     name: Nom
     category_name: Nom de la catégorie
     psid_name: PSID
+    psid_description: Les requêtes PetScan ne fonctionnent que avec le tableau de
+      bord un wiki à la fois. Assurez-vous que votre requête PetScan ne comprend que
+      des articles d'un seul wiki et qu'elle correspond au jeu de wiki ci-dessous.
     pileid_name: Identifiant de PagePile
+    pileid_description: Assurez-vous que le wiki du PagePile est l'un des wikis suivis
+      pour ce programme.
     template_name: Nom du modèle
     none: Il n’y a aucune catégorie suivie.
     remove: Retirer
@@ -762,6 +801,8 @@ fr:
       end_date: Date de fin
       end_date_placeholder: AAAA-MM-JJ
       expected_number: Nombre d’étudiants attendus
+      field_invalid_term: Le terme doit inclure l'année (par exemple, « Printemps
+        2025 »).
       find: Trouver votre cours
       intro: Le titre, l’école et la période déterminent l’URL de la page créée pour
         votre cours et ne peuvent pas être modifiés. Tout le reste pourra être changé
@@ -867,6 +908,8 @@ fr:
       invalid_language_or_project: Langue ou projet non valide
       invalid_wiki: Impossible de se connecter à %{domain}. Ce n’est peut-être pas
         un wiki valide.
+      duplicate_course_slug: L'URL %{slug} est déjà prise. S'il vous plaît, changez
+        le titre, l'école ou le terme.
       invalid_slug: École ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
@@ -911,6 +954,8 @@ fr:
       invalid_sync: Les inscriptions à cet évènement sont contrôlées par le Centre
         des évènements Wikimedia. Il n’est pas possible de s’y inscrire depuis le
         Tableau de bord.
+      disallowed_user: Cet utilisateur figure sur la liste des utilisateurs interdits
+        et ne peut pas être inscrit aux cours.
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
@@ -923,6 +968,7 @@ fr:
     my_articles: Mes articles
     my_articles_wikidata: Mes éléments
     needs_update: Planifier une mise à jour des données
+    update_scheduled_label: Mise à jour prévue
     new_week: Ajouter une nouvelle semaine
     new_account_check_username: Vérifier la disponibilité du nom d’utilisateur
     new_account_email: Adresse de courriel
@@ -964,6 +1010,15 @@ fr:
     online_volunteers_tooltip: Activer les bénévoles en ligne permet à des contributeurs
       de participer en tant que bénévoles. Leurs modifications ne seront pas tracées.
     ores_plot: ORES
+    ores_plot_description: Ce graphique visualise, en somme, combien d'articles ont
+      été développés avant que les étudiants ne les aient d'abord édités jusqu'à leurs
+      dernières éditions. Le score de complétude structurelle est basé sur un projet
+      d'apprentissage automatique (%{ores_link}) qui estime le score de qualité d'un
+      article en fonction de la quantité de prose, du nombre de liens wiki, des images
+      et des en-têtes de section, et d'autres caractéristiques.  (%{refresh_link})
+    ores_plot_no_data: Aucune information sur la plénitude structurelle n'est disponible
+    ores_plot_refresh_data: Récupérer les données cachées
+    ores_plot_show_button: Changement de la plénitude structurelle
     overview: Accueil
     passcode: Code d’accès
     passcode_none: Aucun code d’accès
@@ -1004,6 +1059,8 @@ fr:
     start: Démarrer
     start_typing: Commencer à taper
     stay_in_sandbox: Rester dans le bac à sable
+    max_group_size_tooltip: Nombre maximum d'étudiants pouvant travailler sur le même
+      article. Laissez le vide pour l'infini.
     student: Étudiant(e)
     students: Étudiant(e)s
     students_taught: Étudiant(e)s formé(e)s
@@ -1032,6 +1089,14 @@ fr:
     subject: Sujet
     submitted: Soumis
     submitted_at: Soumis le
+    approval_form_heading: Formulaire d'approbation du cours
+    add_program_manager: 'Ajouter le gestionnaire de programme:'
+    add_wiki_expert: 'Ajouter Wikipédia Expert:'
+    add_tags: 'Ajouter les balises :'
+    add_campaigns: 'Ajouter des campagnes:'
+    invalid_salesforce_id: L'identifiant entré n'est pas valide.
+    add_salesforce_id: 'Ajouter l''identifiant Salesforce:'
+    approve_course: Approuvez le cours
     tag_select: Sélectionner ou créer une balise
     tags: 'Balises :'
     term: Période
@@ -1091,6 +1156,8 @@ fr:
     word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
       de l’espace principal par les étudiants du cours pendant sa durée
     yourcourses: Vos cours
+    declined_note: Cette voie a été rejetée. Veuillez contacter le personnel de Wiki
+      Education si vous avez des questions.
     survey:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage

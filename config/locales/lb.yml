@@ -123,6 +123,7 @@ lb:
       wiki_all: All
       new: Nei
       new_and_existing: Nei a besteeënd
+      wiki_label: Wiki
     filter_text: 'Filteren:'
     cumulative: Kumulativ
     find: Artikele sichen
@@ -767,6 +768,8 @@ lb:
   notifications:
     new_notifications: Dir hutt nei Notifikatiounen.
     no_notifications: Dir hutt keng nei Notifikatiounen.
+    aria_label:
+      bell: Notifikatiounen
   survey:
     email:
       headline: Bonjour %{username}

@@ -994,7 +994,9 @@ it:
     uploaded_on: Caricato il
     usage_count: Numero di utilizzi
     usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
-    usage_count_gallery_tile: Usata in %{usage_count} voci
+    usage_count_gallery_tile:
+      one: Usata in 1 voce
+      other: Usata in %{count} voci
     usages: Usi
     source: 'Fonte:'
     views_per_day: Visualizzazioni al giorno
