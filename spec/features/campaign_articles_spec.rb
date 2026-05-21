@@ -48,6 +48,32 @@ describe 'campaign articles page', type: :feature, js: true do
       expect(page).not_to have_content('ExampleArticle')
     end
 
+    it 'escapes SQL wildcard % in title search' do
+      article_percent = create(:article, title: '100% dollars')
+      create(:articles_course, course: course, article: article_percent)
+      article_no_percent = create(:article, title: '100 dollars')
+      create(:articles_course, course: course, article: article_no_percent)
+
+      visit "/campaigns/#{campaign.slug}/articles?locale=en"
+      fill_in 'title', with: '100%'
+      click_button 'Search'
+      expect(page).to have_content('100% dollars')
+      expect(page).not_to have_content('100 dollars')
+    end
+
+    it 'escapes SQL wildcard _ in title search' do
+      article_pizza = create(:article, title: 'Pizza')
+      create(:articles_course, course: course, article: article_pizza)
+      article_underscore = create(:article, title: 'P_zza')
+      create(:articles_course, course: course, article: article_underscore)
+
+      visit "/campaigns/#{campaign.slug}/articles?locale=en"
+      fill_in 'title', with: 'P_zza'
+      click_button 'Search'
+      expect(page).to have_content('P zza')
+      expect(page).not_to have_content('Pizza')
+    end
+
     it 'filters by school' do
       visit "/campaigns/#{campaign.slug}/articles?locale=en&school[]=University+B"
       expect(page).to have_content('AnotherArticle')
