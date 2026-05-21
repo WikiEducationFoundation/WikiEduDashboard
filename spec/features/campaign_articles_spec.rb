@@ -101,4 +101,51 @@ describe 'campaign articles page', type: :feature, js: true do
       expect(page).not_to have_content('ExampleArticle')
     end
   end
+
+  describe 'pagination and sorting' do
+    before do
+      # Create 25 additional articles/articles_courses so we have a total of 26 tracked articles.
+      # The base article "ExampleArticle" has character_sum: 500, references_count: 5, view_count: 100
+      (1..25).each do |i|
+        art = create(:article, title: "Article-%02d" % i)
+        create(:articles_course, course: course, article: art,
+                                 character_sum: i, references_count: 1, view_count: i)
+      end
+    end
+
+    it 'paginates the articles' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en"
+      expect(page).to have_content('Page 1 of 2 (25 out of 26)')
+      expect(page).to have_content('ExampleArticle')
+      expect(page).to have_content('Article-25')
+      expect(page).not_to have_content('Article-01')
+
+      click_link 'Next'
+
+      expect(page).to have_content('Page 2 of 2 (1 out of 26)')
+      expect(page).to have_content('Article-01')
+      expect(page).not_to have_content('ExampleArticle')
+      expect(page).not_to have_content('Article-25')
+    end
+
+    it 'sorts the articles by views' do
+      visit "/campaigns/#{campaign.slug}/articles?locale=en"
+      # By default, ExampleArticle (100 views) is on page 1.
+      # Let's sort by views. Since the default sorting order for views is desc,
+      # ExampleArticle (100 views) will still be on page 1 (at the top).
+      # Let's click on the "Views" column header.
+      find('th[data-backend-column="views"]').click
+
+      expect(page).to have_content('ExampleArticle')
+      expect(page).not_to have_content('Article-01')
+
+      # Now let's click it again to change the direction to ASC.
+      # With ASC sort, ExampleArticle (100 views) should be pushed to the last page,
+      # and Article-01 (1 view) should be on page 1.
+      find('th[data-backend-column="views"]').click
+
+      expect(page).to have_content('Article-01')
+      expect(page).not_to have_content('ExampleArticle')
+    end
+  end
 end
