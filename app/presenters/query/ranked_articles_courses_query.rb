@@ -36,7 +36,7 @@ class Query::RankedArticlesCoursesQuery
   end
 
   def total_count
-    base_subquery.count
+    @total_count ||= base_subquery.count
   end
 
   private
@@ -58,7 +58,7 @@ class Query::RankedArticlesCoursesQuery
   end
 
   def apply_sorting(query)
-    return query if @too_many
+    return query if total_count > 50000
 
     order_clause = if @sort_column.present? && @sort_direction.present?
                      order_clause_for_articles(@sort_column, @sort_direction)
