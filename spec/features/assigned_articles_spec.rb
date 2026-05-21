@@ -10,7 +10,7 @@ describe 'Assigned Articles view', type: :feature, js: true do
 
   before do
     login_as(user)
-    course.campaigns << Campaign.first
+    course.campaigns << (Campaign.first || create(:campaign))
     create(:courses_user, course:, user:)
     create(:assignment, article_title: 'Nancy_Tuana',
                         course:, article:,
@@ -44,31 +44,33 @@ describe 'Assigned Articles view', type: :feature, js: true do
         expect(page).not_to have_content('This is a great article!')
       rescue Capybara::ElementNotFound, RSpec::Expectations::ExpectationNotMetError => e
         # Output detailed diagnostics to help troubleshoot failure on CI or host machine
-        puts "=== ASSIGNED ARTICLES SPEC FAILURE DIAGNOSTICS ==="
-        puts "Current URL: #{page.current_url}"
-        puts "Page Title: #{page.title}"
-        puts "Course database attributes: #{course.attributes.slice('id', 'slug', 'type').inspect}"
-        puts "Course assignments count: #{course.assignments.count}"
+        diagnostic_info = []
+        diagnostic_info << "=== ASSIGNED ARTICLES SPEC FAILURE DIAGNOSTICS ==="
+        diagnostic_info << "Current URL: #{page.current_url}"
+        diagnostic_info << "Page Title: #{page.title}"
+        diagnostic_info << "Course database attributes: #{course.attributes.slice('id', 'slug', 'type').inspect}"
+        diagnostic_info << "Course assignments count: #{course.assignments.count}"
         if course.assignments.any?
-          puts "First assignment attributes: #{course.assignments.first.attributes.inspect}"
+          diagnostic_info << "First assignment attributes: #{course.assignments.first.attributes.inspect}"
         end
 
-        puts "All anchors on page:"
+        diagnostic_info << "All anchors on page:"
         page.all('a', visible: :any).each do |a|
-          puts "  - Text: #{a.text.inspect}, href: #{a[:href].inspect}, classes: #{a[:class].inspect}, visible: #{a.visible?}"
+          diagnostic_info << "  - Text: #{a.text.inspect}, href: #{a[:href].inspect}, classes: #{a[:class].inspect}, visible: #{a.visible?}"
         end
 
         begin
           console_logs = page.driver.browser.logs.get(:browser)
-          puts "JS Console logs:"
+          diagnostic_info << "JS Console logs:"
           console_logs.each do |log|
-            puts "  [#{log.level}] #{log.message}"
+            diagnostic_info << "  [#{log.level}] #{log.message}"
           end
         rescue => log_err
-          puts "  (Could not fetch browser console logs: #{log_err.message})"
+          diagnostic_info << "  (Could not fetch browser console logs: #{log_err.message})"
         end
-        puts "=================================================="
-        raise e
+        diagnostic_info << "=================================================="
+        
+        raise e.class, "#{e.message}\n\n#{diagnostic_info.join("\n")}"
       end
     end
   end
