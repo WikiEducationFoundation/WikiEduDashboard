@@ -13,7 +13,7 @@ describe 'Assigned Articles view', type: :feature, js: true do
     create(:courses_user, course:, user:)
     create(:assignment, article_title: 'Nancy_Tuana',
                         course:, article:,
-                        user:)
+                        user:, role: 0)
   end
 
   it 'lets users submit feedback about articles' do
