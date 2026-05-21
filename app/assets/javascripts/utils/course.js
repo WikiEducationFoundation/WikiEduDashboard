@@ -83,7 +83,7 @@ document.onreadystatechange = () => {
   // Article sorting
   // only sort if there are tables to sort
   let articlesList;
-  if (isTableValid('#campaign-articles')) {
+  if (isTableValid('#campaign-articles') && !window.DISABLE_ARTICLES_LISTJS) {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [
@@ -168,6 +168,36 @@ document.onreadystatechange = () => {
         }
 
         urlParams.set('sort', backendColumn);
+        urlParams.set('direction', newDirection);
+        urlParams.delete('page');
+        window.location.search = urlParams.toString();
+      }
+      return;
+    }
+
+    if (window.DISABLE_ARTICLES_LISTJS && this.getAttribute('rel') === 'campaign-articles') {
+      const sortValue = this.value;
+      const th = document.querySelector(`#campaign-articles th[data-sort="${sortValue}"]`);
+      if (th) {
+        const backendColumn = th.getAttribute('data-backend-column');
+        const defaultOrder = th.getAttribute('data-default-order') || 'asc';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentSort = urlParams.get('sort');
+        const currentDirection = urlParams.get('direction');
+
+        let newDirection = defaultOrder;
+        if (backendColumn && currentSort === backendColumn) {
+          newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+          newDirection = this.options[this.selectedIndex].getAttribute('rel') || defaultOrder;
+        }
+
+        if (backendColumn) {
+          urlParams.set('sort', backendColumn);
+        } else {
+          urlParams.delete('sort');
+        }
         urlParams.set('direction', newDirection);
         urlParams.delete('page');
         window.location.search = urlParams.toString();
