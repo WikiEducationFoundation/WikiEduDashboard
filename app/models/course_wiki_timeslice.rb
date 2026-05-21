@@ -70,11 +70,12 @@ class CourseWikiTimeslice < ApplicationRecord
     if course.use_acuwt?
       update_character_sum_from_acuwt
       update_references_count_from_acuwt
+      update_revision_count_from_acuwt
     else
       update_character_sum
       update_references_count
+      update_revision_count
     end
-    update_revision_count
     update_mw_rev_count
     update_stats
     update_needs_update
@@ -117,22 +118,31 @@ class CourseWikiTimeslice < ApplicationRecord
     self.references_count = acuwt_mainspace_tracked_student_records.sum(:references_count)
   end
 
+  def update_revision_count_from_acuwt
+    self.revision_count = ArticleCourseUserWikiTimeslice
+                            .where(course:, wiki:, start:)
+                            .where.not(article_id: not_tracked_article_ids)
+                            .sum(:revision_count)
+  end
+
   def acuwt_mainspace_tracked_student_records
     @acuwt_mainspace_tracked_student_records ||= begin
       student_user_ids = @students.pluck(:user_id)
-      excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
       ArticleCourseUserWikiTimeslice
         .joins(:article)
         .where(course:, wiki:, start:, user_id: student_user_ids)
-        .where.not(article_id: excluded_article_ids)
+        .where.not(article_id: not_tracked_article_ids)
         .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
     end
   end
 
+  def not_tracked_article_ids
+    @not_tracked_article_ids ||= course.articles_courses.not_tracked.pluck(:article_id)
+  end
+
   def update_revision_count
-    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_revisions = @revisions.reject do |revision|
-      excluded_article_ids.include?(revision.article_id)
+      not_tracked_article_ids.include?(revision.article_id)
     end
 
     self.revision_count = tracked_revisions.count { |rev| !rev.deleted && !rev.system }
