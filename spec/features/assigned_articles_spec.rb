@@ -29,7 +29,7 @@ describe 'Assigned Articles view', type: :feature, js: true do
         # Scopes the feedback button to the specific assignment row,
         # using class selector to avoid translation mismatches.
         within 'tr.assignment', text: 'Nancy Tuana' do
-          click_button 'Feedback'
+          find('a.button', text: /Feedback/i).click
         end
 
         expect(page).to have_selector('textarea.feedback-form')
@@ -38,7 +38,7 @@ describe 'Assigned Articles view', type: :feature, js: true do
 
         # Scopes the delete action to the suggestions/feedback viewer modal
         within '.article-viewer.feedback' do
-          click_button 'Delete'
+          find('a.button', text: /Delete/i).click
         end
 
         expect(page).not_to have_content('This is a great article!')
@@ -69,7 +69,7 @@ describe 'Assigned Articles view', type: :feature, js: true do
           diagnostic_info << "  (Could not fetch browser console logs: #{log_err.message})"
         end
         diagnostic_info << "=================================================="
-        
+
         raise e.class, "#{e.message}\n\n#{diagnostic_info.join("\n")}"
       end
     end
