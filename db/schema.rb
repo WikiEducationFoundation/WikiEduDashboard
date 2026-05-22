@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_19_142803) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_22_163341) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -71,6 +71,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_19_142803) do
     t.integer "references_count", default: 0
     t.integer "revision_count", default: 0
     t.datetime "start"
+    t.text "stats"
     t.boolean "tracked", default: true
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false

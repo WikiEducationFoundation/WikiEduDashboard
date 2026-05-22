@@ -16,6 +16,7 @@
 #  new_article      :boolean          default(FALSE)
 #  tracked          :boolean          default(TRUE)
 #  first_revision   :datetime
+#  stats            :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
