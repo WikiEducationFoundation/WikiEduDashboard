@@ -62,6 +62,10 @@ describe TimesliceCleaner do
       create(:article_course_timeslice, course:, article: article1)
       create(:article_course_timeslice, course:, article: article2)
       create(:article_course_timeslice, course:, article: article3)
+      create(:article_course_user_wiki_timeslice, course:, wiki: wikidata,
+             article: article2, user_id: 1)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+             article: article1, user_id: 1)
       course.reload
     end
 
@@ -69,6 +73,7 @@ describe TimesliceCleaner do
       expect(course.course_wiki_timeslices.size).to eq(333)
       expect(course.course_user_wiki_timeslices.size).to eq(3)
       expect(course.article_course_timeslices.size).to eq(3)
+      expect(ArticleCourseUserWikiTimeslice.where(course:).count).to eq(2)
 
       timeslice_cleaner.delete_timeslices_for_deleted_course_wikis([wikibooks.id,
                                                                     wikidata.id])
@@ -82,6 +87,9 @@ describe TimesliceCleaner do
       expect(course.course_user_wiki_timeslices.where(wiki_id: wikidata.id).size).to eq(0)
       # Article course timeslices for wikibooks and wikidata were deleted
       expect(course.article_course_timeslices.size).to eq(1)
+      # Article course user wiki timeslices for wikidata were deleted; enwiki remains
+      expect(ArticleCourseUserWikiTimeslice.where(course:, wiki: wikidata).count).to eq(0)
+      expect(ArticleCourseUserWikiTimeslice.where(course:, wiki: enwiki).count).to eq(1)
     end
   end
 

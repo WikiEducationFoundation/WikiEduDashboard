@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-#= Removes/resets ArticleCourseTimeslice, CourseUserWikiTimeslice and CourseWikiTimeslice records.
+#= Removes/resets ArticleCourseTimeslice, CourseUserWikiTimeslice, CourseWikiTimeslice
+#= and ArticleCourseUserWikiTimeslice records.
 class TimesliceCleaner
   def initialize(course)
     @course = course
@@ -21,12 +22,14 @@ class TimesliceCleaner
   # Deletes course wiki timeslices records for removed course wikis
   # Deletes course user timeslices records for removed course wiki
   # Deletes article course timeslices records for removed course wiki
+  # Deletes article course user wiki timeslices records for removed course wiki
   # Takes a collection of wiki ids
   def delete_timeslices_for_deleted_course_wikis(wiki_ids)
     return if wiki_ids.empty?
     delete_existing_course_wiki_timeslices(wiki_ids)
     delete_existing_course_user_wiki_timeslices(wiki_ids)
     delete_existing_article_course_timeslices(wiki_ids)
+    delete_existing_article_course_user_wiki_timeslices(wiki_ids)
   end
 
   # Deletes timeslices records in the period [start_date, end_date]
@@ -159,6 +162,14 @@ class TimesliceCleaner
     delete_course_user_wiki_timeslice_ids(timeslice_ids)
   end
 
+  # Deletes existing article course user wiki timeslices for a collection of wiki ids
+  def delete_existing_article_course_user_wiki_timeslices(wiki_ids)
+    timeslice_ids = ArticleCourseUserWikiTimeslice.where(course_id: @course.id,
+                                                         wiki_id: wiki_ids).pluck(:id)
+    return if timeslice_ids.empty?
+    delete_article_course_user_wiki_timeslice_ids(timeslice_ids)
+  end
+
   # Deletes existing article course timeslices for a collection of wiki ids
   def delete_existing_article_course_timeslices(wiki_ids)
     # Collect the ids of articles to be deleted
@@ -226,6 +237,12 @@ class TimesliceCleaner
                                           .pluck(:id)
 
     delete_article_course_timeslice_ids(timeslice_ids)
+  end
+
+  def delete_article_course_user_wiki_timeslice_ids(ids)
+    ids.each_slice(5000) do |slice|
+      ArticleCourseUserWikiTimeslice.where(id: slice).delete_all
+    end
   end
 
   def delete_article_course_timeslice_ids(ids)

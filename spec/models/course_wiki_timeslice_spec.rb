@@ -207,5 +207,99 @@ scoped: false)
         expect(course_wiki_timeslice.needs_update).to eq(true)
       end
     end
+
+    context 'when course.use_acuwt? is true' do
+      let(:timeslice_end) { send(:end) }
+
+      before do
+        course.add_flag(key: :use_acuwt)
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
+        create(:article_course_user_wiki_timeslice, course:, wiki:, article:, user_id: 1,
+               start:, end: timeslice_end, character_sum: 500, references_count: 3,
+               revision_count: 3)
+        create(:article_course_user_wiki_timeslice, course:, wiki:, article:, user_id: 2,
+               start:, end: timeslice_end, character_sum: 200, references_count: 1,
+               revision_count: 2)
+      end
+
+      it 'computes character_sum and references_count from ACUWT for student mainspace articles' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+        expect(course_wiki_timeslice.character_sum).to eq(700)
+        expect(course_wiki_timeslice.references_count).to eq(4)
+      end
+
+      it 'computes revision_count from ACUWT across all tracked articles' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+        expect(course_wiki_timeslice.revision_count).to eq(5)
+      end
+
+      context 'when a student also has ACUWT for a non-mainspace article' do
+        let(:draft_article) { create(:article, namespace: Article::Namespaces::DRAFT) }
+
+        before do
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article: draft_article,
+                 user_id: 1, start:, end: timeslice_end, character_sum: 888, references_count: 10,
+                 revision_count: 4)
+        end
+
+        it 'excludes non-mainspace articles from character_sum and references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+          expect(course_wiki_timeslice.references_count).to eq(4)
+        end
+
+        it 'includes non-mainspace articles in revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          expect(course_wiki_timeslice.revision_count).to eq(9)
+        end
+      end
+
+      context 'when the article course is not tracked' do
+        before do
+          ArticlesCourses.find(1).update(tracked: false)
+        end
+
+        it 'excludes non-tracked articles from character_sum and references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          expect(course_wiki_timeslice.character_sum).to eq(0)
+          expect(course_wiki_timeslice.references_count).to eq(0)
+        end
+
+        it 'excludes non-tracked articles from revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          expect(course_wiki_timeslice.revision_count).to eq(0)
+        end
+      end
+
+      context 'when an instructor has ACUWT records' do
+        before do
+          create(:user, id: 3, username: 'InstructorUser')
+          create(:courses_user, course:, user_id: 3, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article:, user_id: 3,
+                 start:, end: timeslice_end, character_sum: 999, references_count: 10,
+                 revision_count: 4)
+        end
+
+        it 'includes instructor revisions in revision_count but not character_sum' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          expect(course_wiki_timeslice.revision_count).to eq(9)
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+        end
+      end
+    end
   end
 end

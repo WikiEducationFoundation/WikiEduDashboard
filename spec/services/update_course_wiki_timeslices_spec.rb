@@ -353,6 +353,53 @@ describe UpdateCourseWikiTimeslices do
         end
       end
     end
+
+    context 'when use_acuwt? flag is set' do
+      let(:article_id) { 12345 }
+
+      before do
+        course.add_flag(key: :use_acuwt)
+        allow_any_instance_of(CourseRevisionUpdater)
+          .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+            if wiki == enwiki
+              revision = RevisionOnMemory.new(article_id:, user_id: user.id, scoped: true)
+              { wiki => { start: ts_start, end: ts_end, new_data: true, revisions: [revision] } }
+            else
+              { wiki => { start: ts_start, end: ts_end, new_data: false, revisions: [] } }
+            end
+          end
+        allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_scores_for_revisions)
+        allow_any_instance_of(SplitTimeslice).to receive(:maybe_split).and_return([false, nil])
+        allow(RevisionScanner).to receive(:schedule_revision_checks)
+        allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
+        allow(ArticleCourseUserWikiTimeslice)
+          .to receive(:update_article_course_user_wiki_timeslices)
+        allow(ArticleCourseTimeslice).to receive(:update_from_acuwt)
+        allow(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
+      end
+
+      it 'calls ArticleCourseTimeslice.update_from_acuwt for articles in revised timeslices' do
+        expect(ArticleCourseTimeslice).to receive(:update_from_acuwt)
+          .with(course, article_id, enwiki, anything, anything).at_least(:once)
+        subject
+      end
+
+      it 'calls CourseUserWikiTimeslice.update_from_acuwt for users in revised timeslices' do
+        expect(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
+          .with(course, user.id, enwiki, anything, anything).at_least(:once)
+        subject
+      end
+
+      it 'does not call the legacy article_course_timeslices updater' do
+        expect(ArticleCourseTimeslice).not_to receive(:update_article_course_timeslices)
+        subject
+      end
+
+      it 'does not call the legacy course_user_wiki_timeslices updater' do
+        expect(CourseUserWikiTimeslice).not_to receive(:update_course_user_wiki_timeslices)
+        subject
+      end
+    end
   end
 
   describe 'adaptive timeslice splitting strategy' do

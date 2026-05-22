@@ -232,4 +232,75 @@ describe CourseUserWikiTimeslice, type: :model do
       expect(course_user_wiki_timeslice.references_count).to eq(0)
     end
   end
+
+  describe '.update_from_acuwt' do
+    before do
+      create(:articles_course, article:, course:)
+      create(:articles_course, article: sandbox, course:)
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user:,
+             start:, end: start + 1.day, revision_count: 2, character_sum: 100,
+             references_count: 3)
+      create(:article_course_user_wiki_timeslice, course:, article: sandbox, wiki:, user:,
+             start:, end: start + 1.day, revision_count: 1, character_sum: 50,
+             references_count: 0)
+    end
+
+    it 'creates a course user wiki timeslice aggregated from ACUWT' do
+      expect(described_class.find_by(course:, wiki:, user:, start:)).to be_nil
+      described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+      cuwt = described_class.find_by(course:, wiki:, user:, start:)
+      expect(cuwt.revision_count).to eq(3)
+      expect(cuwt.character_sum_ms).to eq(100)
+      expect(cuwt.character_sum_us).to eq(50)
+      expect(cuwt.references_count).to eq(3)
+    end
+
+    it 'updates an existing course user wiki timeslice' do
+      create(:course_user_wiki_timeslice, course:, user:, wiki:, start:, end: start + 1.day)
+      described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+      expect(described_class.where(course:, user:, wiki:).count).to eq(1)
+      expect(described_class.find_by(course:, user:, wiki:, start:).revision_count).to eq(3)
+    end
+  end
+
+  describe '#update_cache_from_acuwt' do
+    let(:cu_timeslice) do
+      create(:course_user_wiki_timeslice, course:, user:, wiki:, start:, end: start + 1.day)
+    end
+
+    before do
+      create(:articles_course, article:, course:)
+      create(:articles_course, article: sandbox, course:)
+      create(:articles_course, article: draft, course:)
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user:,
+             start:, end: start + 1.day, revision_count: 2, character_sum: 100, references_count: 3)
+      create(:article_course_user_wiki_timeslice, course:, article: sandbox, wiki:, user:,
+             start:, end: start + 1.day, revision_count: 1, character_sum: 50, references_count: 0)
+      create(:article_course_user_wiki_timeslice, course:, article: draft, wiki:, user:,
+             start:, end: start + 1.day, revision_count: 3, character_sum: 225, references_count: 0)
+    end
+
+    let(:acuwt_records) do
+      ArticleCourseUserWikiTimeslice.where(course:, user:, wiki:, start:, end: start + 1.day)
+    end
+
+    it 'updates cache correctly respecting namespaces' do
+      cu_timeslice.update_cache_from_acuwt(acuwt_records)
+      expect(cu_timeslice.character_sum_ms).to eq(100)
+      expect(cu_timeslice.character_sum_us).to eq(50)
+      expect(cu_timeslice.character_sum_draft).to eq(225)
+      expect(cu_timeslice.references_count).to eq(3)
+      expect(cu_timeslice.revision_count).to eq(6)
+    end
+
+    it 'excludes revisions for not-tracked articles' do
+      ArticlesCourses.find_by(article:, course:).update(tracked: false)
+      cu_timeslice.update_cache_from_acuwt(acuwt_records)
+      expect(cu_timeslice.character_sum_ms).to eq(0)
+      expect(cu_timeslice.character_sum_us).to eq(50)
+      expect(cu_timeslice.character_sum_draft).to eq(225)
+      expect(cu_timeslice.references_count).to eq(0)
+      expect(cu_timeslice.revision_count).to eq(4)
+    end
+  end
 end

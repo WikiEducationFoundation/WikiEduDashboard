@@ -59,6 +59,13 @@ class CourseUserWikiTimeslice < ApplicationRecord
     cu_timeslice.update_cache_from_revisions revisions[:revisions]
   end
 
+  def self.update_from_acuwt(course, user_id, wiki, start, finish)
+    acuwt_records = ArticleCourseUserWikiTimeslice
+                      .where(course:, user_id:, wiki:, start:, end: finish)
+    cu_timeslice = find_or_create_by(course:, user_id:, wiki:, start:, end: finish)
+    cu_timeslice.update_cache_from_acuwt(acuwt_records)
+  end
+
   ####################
   # Instance methods #
   ####################
@@ -73,6 +80,16 @@ class CourseUserWikiTimeslice < ApplicationRecord
     self.references_count = references_sum(tracked_namespace_revisions)
 
     self.revision_count = filtered_live_revisions.size || 0
+    save
+  end
+
+  def update_cache_from_acuwt(acuwt_records)
+    records = acuwt_records.to_a
+    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
+    tracked_records = records.reject { |r| excluded_article_ids.include?(r.article_id) }
+    by_ns = records_by_namespace(tracked_records)
+    update_character_sum_from_acuwt(by_ns)
+    self.revision_count = by_ns.except(nil).values.flatten.sum(&:revision_count)
     save
   end
 
@@ -149,5 +166,21 @@ class CourseUserWikiTimeslice < ApplicationRecord
       article_ids_in_mainspace.include?(rev.article_id)
     end
     filtered_revisions.sum(&:references_added)
+  end
+
+  def records_by_namespace(records)
+    article_ids = records.map(&:article_id)
+    articles_by_id = Article.where(id: article_ids, deleted: false).index_by(&:id)
+    records.group_by { |r| articles_by_id[r.article_id]&.namespace }
+  end
+
+  def update_character_sum_from_acuwt(by_ns)
+    ms_records = by_ns[Article::Namespaces::MAINSPACE] || []
+    us_records = by_ns[Article::Namespaces::USER] || []
+    draft_records = by_ns[Article::Namespaces::DRAFT] || []
+    self.character_sum_ms = ms_records.sum(&:character_sum)
+    self.character_sum_us = us_records.sum(&:character_sum)
+    self.character_sum_draft = draft_records.sum(&:character_sum)
+    self.references_count = ms_records.sum(&:references_count)
   end
 end

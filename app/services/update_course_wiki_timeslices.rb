@@ -171,13 +171,18 @@ class UpdateCourseWikiTimeslices
   end
 
   def update_timeslices(wiki)
-    update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
-    update_article_course_timeslices_for_wiki(@revisions[wiki])
-
-    revs_to_scan = @revisions[wiki][:revisions]
+    revisions = @revisions[wiki]
+    if @course.use_acuwt?
+      update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+      update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
+      update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    else
+      update_article_course_timeslices_for_wiki(revisions)
+      update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+    end
+    revs_to_scan = revisions[:revisions]
     RevisionScanner.schedule_revision_checks(wiki:, revisions: revs_to_scan, course: @course)
-
-    CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
+    CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, revisions)
   end
 
   def update_article_course_timeslices_for_wiki(revisions)
@@ -205,6 +210,40 @@ class UpdateCourseWikiTimeslices
       CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
                                                                  course_user_wiki_data)
     end
+  end
+
+  def update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+    start_period = revisions[:start]
+    end_period = revisions[:end]
+    revs = revisions[:revisions]
+    revs.group_by { |r| [r.article_id, r.user_id] }.each do |(article_id, user_id), grouped_revs|
+      article_user_wiki_data = { start: start_period, end: end_period,
+                                 revisions: grouped_revs }
+      ArticleCourseUserWikiTimeslice.update_article_course_user_wiki_timeslices(
+        @course, article_id, user_id, wiki, article_user_wiki_data
+      )
+    end
+  end
+
+  def update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    revisions[:revisions].map(&:article_id).uniq.each do |article_id|
+      ArticleCourseTimeslice.update_from_acuwt(@course, article_id, wiki,
+                                               timeslice.start, timeslice.end)
+    end
+  end
+
+  def update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    revisions[:revisions].map(&:user_id).uniq.each do |user_id|
+      CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki,
+                                               timeslice.start, timeslice.end)
+    end
+  end
+
+  def acuwt_timeslice_for(wiki, revisions)
+    @course.course_wiki_timeslices.where(wiki:)
+           .for_revisions_between(revisions[:start], revisions[:end]).first
   end
 
   def wikidata
