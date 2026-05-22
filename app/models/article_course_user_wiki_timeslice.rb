@@ -38,6 +38,8 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
     in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
   }
 
+  serialize :stats, type: Hash
+
   #################
   # Class methods #
   #################
@@ -69,10 +71,21 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
   def update_cache_from_revisions(revisions)
     live_revisions = revisions.reject { |r| r.deleted || r.system }
     self.revision_count = live_revisions.size
-    self.character_sum = live_revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
+    self.character_sum = character_sum_for(live_revisions)
     self.references_count = live_revisions.sum(&:references_added)
     self.new_article = revisions.any?(&:new_article)
     self.first_revision = live_revisions.map(&:date).min
+    self.stats = update_wikidata_stats(live_revisions) if wiki.project == 'wikidata'
     save
+  end
+
+  private
+
+  def character_sum_for(revisions)
+    revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
+  end
+
+  def update_wikidata_stats(revisions)
+    UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(revisions)
   end
 end
