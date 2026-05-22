@@ -300,6 +300,38 @@ scoped: false)
           expect(course_wiki_timeslice.character_sum).to eq(700)
         end
       end
+
+      context 'when wiki is wikidata' do
+        let(:wikidata_wiki) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
+        before do
+          stub_wiki_validation
+          TimesliceManager.new(course)
+                         .create_timeslices_for_new_course_wiki_records([wikidata_wiki])
+          create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki, article:,
+                 user_id: 1, start:, end: timeslice_end,
+                 stats: { 'claims created' => 3, 'labels added' => 2, 'total revisions' => 5 })
+          create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki, article:,
+                 user_id: 2, start:, end: timeslice_end,
+                 stats: { 'claims created' => 1, 'total revisions' => 2 })
+        end
+
+        it 'aggregates wikidata stats from ACUWT records' do
+          cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+          cuwt.update_cache_from_revisions(array_revisions)
+
+          expect(cuwt.stats['claims created']).to eq(4)
+          expect(cuwt.stats['labels added']).to eq(2)
+          expect(cuwt.stats['total revisions']).to eq(7)
+        end
+
+        it 'sets zero for stats keys with no ACUWT contributions' do
+          cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+          cuwt.update_cache_from_revisions(array_revisions)
+
+          expect(cuwt.stats['descriptions added']).to eq(0)
+        end
+      end
     end
   end
 end

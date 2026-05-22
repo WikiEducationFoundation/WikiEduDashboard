@@ -16,6 +16,7 @@
 #  new_article      :boolean          default(FALSE)
 #  tracked          :boolean          default(TRUE)
 #  first_revision   :datetime
+#  stats            :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -152,6 +153,42 @@ describe ArticleCourseUserWikiTimeslice, type: :model do
       expect(timeslice.references_count).to eq(0)
       expect(timeslice.new_article).to eq(false)
       expect(timeslice.first_revision).to be_nil
+    end
+
+    it 'leaves stats empty for non-wikidata wikis' do
+      timeslice.update_cache_from_revisions(revisions)
+      expect(timeslice.stats).to be_empty
+    end
+
+    context 'when wiki is wikidata' do
+      let(:wikidata_wiki) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
+      before { stub_wiki_validation }
+      let(:wikidata_timeslice) do
+        create(:article_course_user_wiki_timeslice, course:, article:, user:, wiki: wikidata_wiki)
+      end
+      let(:wikidata_revision1) do
+        build(:revision_on_memory, article_id:, user_id: user.id,
+               date: start + 1.hour,
+               summary: '{"added_claims":3,"added_labels":2}')
+      end
+      let(:wikidata_revision2) do
+        build(:revision_on_memory, article_id:, user_id: user.id,
+               date: start + 2.hours,
+               summary: '{"added_claims":1}')
+      end
+
+      it 'populates stats from revision diff_stats' do
+        wikidata_timeslice.update_cache_from_revisions([wikidata_revision1, wikidata_revision2])
+        expect(wikidata_timeslice.stats['claims created']).to eq(4)
+        expect(wikidata_timeslice.stats['labels added']).to eq(2)
+        expect(wikidata_timeslice.stats['total revisions']).to eq(2)
+      end
+
+      it 'stats total revisions matches revision_count' do
+        wikidata_timeslice.update_cache_from_revisions([wikidata_revision1, wikidata_revision2])
+        expect(wikidata_timeslice.stats['total revisions']).to eq(wikidata_timeslice.revision_count)
+      end
     end
   end
 end

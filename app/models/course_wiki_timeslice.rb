@@ -71,13 +71,14 @@ class CourseWikiTimeslice < ApplicationRecord
       update_character_sum_from_acuwt
       update_references_count_from_acuwt
       update_revision_count_from_acuwt
+      update_stats_from_acuwt
     else
       update_character_sum
       update_references_count
       update_revision_count
+      update_stats
     end
     update_mw_rev_count
-    update_stats
     update_needs_update
     save
   end
@@ -158,6 +159,14 @@ class CourseWikiTimeslice < ApplicationRecord
   def update_stats
     return unless wiki.project == 'wikidata'
     self.stats = UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(@revisions)
+  end
+
+  def update_stats_from_acuwt
+    return unless wiki.project == 'wikidata'
+    individual_stats = ArticleCourseUserWikiTimeslice
+                         .where(course:, wiki:, start:)
+                         .map(&:stats).compact
+    self.stats = UpdateWikidataStatsTimeslice.new(course).sum_up_stats(individual_stats)
   end
 
   def update_needs_update

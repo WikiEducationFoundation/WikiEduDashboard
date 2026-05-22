@@ -115,6 +115,16 @@ class UpdateWikidataStatsTimeslice
     crs_stat.save
   end
 
+  # Given an array of stats hashes, returns a single hash with all values summed.
+  def sum_up_stats(individual_stats)
+    total_stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
+    total_stats['total revisions'] = 0
+    individual_stats.each do |hash|
+      hash.each { |key, value| total_stats[key] += value }
+    end
+    total_stats
+  end
+
   private
 
   def apply_diff(revision, diffs, not_analyzed)
@@ -151,15 +161,6 @@ class UpdateWikidataStatsTimeslice
     retry unless tries.zero?
     log_error(e, sentry_extra: { revision_ids: })
     raise WikidataDiffAnalyzerError
-  end
-
-  def sum_up_stats(individual_stats)
-    total_stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
-    total_stats['total revisions'] = 0
-    individual_stats.each do |hash|
-      hash.each { |key, value| total_stats[key] += value }
-    end
-    total_stats
   end
 
   def wikidata
