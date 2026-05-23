@@ -120,10 +120,12 @@ class CourseWikiTimeslice < ApplicationRecord
   end
 
   def update_revision_count_from_acuwt
-    self.revision_count = ArticleCourseUserWikiTimeslice
-                            .where(course:, wiki:, start:)
-                            .where.not(article_id: not_tracked_article_ids)
-                            .sum(:revision_count)
+    query = ArticleCourseUserWikiTimeslice
+              .where(course:, wiki:, start:)
+              .where.not(article_id: not_tracked_article_ids)
+    query = query.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    self.revision_count = query.sum(:revision_count)
   end
 
   def acuwt_mainspace_tracked_student_records
@@ -163,9 +165,10 @@ class CourseWikiTimeslice < ApplicationRecord
 
   def update_stats_from_acuwt
     return unless wiki.project == 'wikidata'
-    individual_stats = ArticleCourseUserWikiTimeslice
-                         .where(course:, wiki:, start:)
-                         .map(&:stats).compact
+    query = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
+    query = query.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    individual_stats = query.map(&:stats).compact
     self.stats = UpdateWikidataStatsTimeslice.new(course).sum_up_stats(individual_stats)
   end
 
