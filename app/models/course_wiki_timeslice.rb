@@ -131,11 +131,14 @@ class CourseWikiTimeslice < ApplicationRecord
   def acuwt_mainspace_tracked_student_records
     @acuwt_mainspace_tracked_student_records ||= begin
       student_user_ids = @students.pluck(:user_id)
-      ArticleCourseUserWikiTimeslice
-        .joins(:article)
-        .where(course:, wiki:, start:, user_id: student_user_ids)
-        .where.not(article_id: not_tracked_article_ids)
-        .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+      query = ArticleCourseUserWikiTimeslice
+                .joins(:article)
+                .where(course:, wiki:, start:, user_id: student_user_ids)
+                .where.not(article_id: not_tracked_article_ids)
+                .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+      query = query.where(article_id: course.scoped_article_ids) if
+        course.only_scoped_articles_course?
+      query
     end
   end
 

@@ -261,6 +261,30 @@ describe CourseUserWikiTimeslice, type: :model do
       expect(described_class.where(course:, user:, wiki:).count).to eq(1)
       expect(described_class.find_by(course:, user:, wiki:, start:).revision_count).to eq(3)
     end
+
+    context 'when course is article-scoped' do
+      let(:unscoped_article) { create(:article, title: 'Unscoped') }
+
+      before do
+        course.add_flag(key: :article_scoped)
+        create(:assignment, course_id: course.id, article_id: article.id,
+               article_title: article.title, wiki_id: wiki.id)
+        create(:articles_course, article: unscoped_article, course:)
+        create(:article_course_user_wiki_timeslice, course:, article: unscoped_article, wiki:,
+               user:, start:, end: start + 1.day, revision_count: 5,
+               character_sum: 999, references_count: 50)
+      end
+
+      it 'excludes out-of-scope articles' do
+        described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+        cuwt = described_class.find_by(course:, wiki:, user:, start:)
+        # Only `article` (mainspace) is in scoped_article_ids.
+        # `sandbox` (userspace, no assignment) and `unscoped_article` are excluded.
+        expect(cuwt.revision_count).to eq(2)
+        expect(cuwt.character_sum_ms).to eq(100)
+        expect(cuwt.references_count).to eq(3)
+      end
+    end
   end
 
   describe '#update_cache_from_acuwt' do

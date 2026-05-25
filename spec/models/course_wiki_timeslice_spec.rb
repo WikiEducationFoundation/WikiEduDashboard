@@ -310,7 +310,8 @@ scoped: false)
                  article_title: article.title, wiki_id: wiki.id)
           create(:articles_course, article: unscoped_article, course:)
           create(:article_course_user_wiki_timeslice, course:, wiki:, article: unscoped_article,
-                 user_id: 1, start:, end: timeslice_end, revision_count: 7)
+                 user_id: 1, start:, end: timeslice_end, revision_count: 7,
+                 character_sum: 999, references_count: 50)
         end
 
         it 'excludes out-of-scope articles from revision_count' do
@@ -319,6 +320,22 @@ scoped: false)
 
           # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
           expect(course_wiki_timeslice.revision_count).to eq(5)
+        end
+
+        it 'excludes out-of-scope articles from character_sum' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          # Only scoped article ACUWT: 500 + 200 = 700; unscoped (999) is excluded
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+        end
+
+        it 'excludes out-of-scope articles from references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          # Only scoped article ACUWT: 3 + 1 = 4; unscoped (50) is excluded
+          expect(course_wiki_timeslice.references_count).to eq(4)
         end
       end
 

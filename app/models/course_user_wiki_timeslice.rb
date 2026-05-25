@@ -62,6 +62,8 @@ class CourseUserWikiTimeslice < ApplicationRecord
   def self.update_from_acuwt(course, user_id, wiki, start, finish)
     acuwt_records = ArticleCourseUserWikiTimeslice
                       .where(course:, user_id:, wiki:, start:, end: finish)
+    acuwt_records = acuwt_records.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
     cu_timeslice = find_or_create_by(course:, user_id:, wiki:, start:, end: finish)
     cu_timeslice.update_cache_from_acuwt(acuwt_records)
   end
