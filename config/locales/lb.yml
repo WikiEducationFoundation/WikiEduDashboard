@@ -55,6 +55,7 @@ lb:
       other: '%{count} Resultater fir : ''%{search_terms}'''
     no_results: Näischt fonnt fir %{query}
     show_current_revision: Aktuell Versioun weisen
+    font_label: Schrëftaart
     sign_up_extended: Mat Wikipedia umellen
     sign_up_wikipedia: Oder op Wikipedia registréieren
     sign_up_log_in_extended: mat Wikipedia
@@ -69,6 +70,7 @@ lb:
     opt_yes: jo
     opt_no: nee
     print: Drécken
+    sort: Sortéieren
   article_statuses:
     not_yet_started: Fir unzefänken
     in_progress: An enger Sandkaul schaffen
@@ -124,6 +126,7 @@ lb:
       new: Nei
       new_and_existing: Nei a besteeënd
       wiki_label: Wiki
+      newness_label: Neiheet vum Artikel
     filter_text: 'Filteren:'
     cumulative: Kumulativ
     find: Artikele sichen
@@ -669,7 +672,9 @@ lb:
     uploaded_by: Eropgeluede vum
     uploaded_on: Eropgelueden de(n)
     usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
-    usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
+    usage_count_gallery_tile:
+      one: An 1 Artikel benotzt
+      other: A(n) %{count} Artikele benotzt
     source: 'Quell:'
     views_per_day: Opriff pro Dag
     view_commons: Op Commons weisen
