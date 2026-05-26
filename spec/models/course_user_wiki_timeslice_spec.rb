@@ -284,6 +284,55 @@ describe CourseUserWikiTimeslice, type: :model do
         expect(cuwt.character_sum_ms).to eq(100)
         expect(cuwt.references_count).to eq(3)
       end
+
+      describe 'known discrepancy: talk-page revisions counted by default path, ' \
+               'excluded by ACUWT path' do
+        # article (mainspace, title: 'Selfie') and talk_page (TALK namespace, title: 'Selfie')
+        # share a title. scoped_article? checks titles only — no namespace filter — so a
+        # Talk:Selfie revision can be marked scoped: true when 'Selfie' appears in
+        # category_article_titles. Category#article_ids queries with namespace: 0, so
+        # talk_page.id never enters scoped_article_ids, while the default path still counts
+        # the talk revision because it trusts the pre-set revision.scoped flag.
+        let(:category) do
+          create(:category, wiki:, name: 'Photography', article_titles: ['Selfie'])
+        end
+        let(:revision_ms_1) do
+          build(:revision_on_memory, article_id: article.id, date: start,
+                 characters: 100, user_id: user.id, scoped: true)
+        end
+        let(:revision_ms_2) do
+          build(:revision_on_memory, article_id: article.id, date: start,
+                 characters: 100, user_id: user.id, scoped: true)
+        end
+        # scoped: true simulates scoped_article? matching 'Selfie' via category_article_titles
+        # without checking whether the revision's article is in mainspace.
+        let(:revision_talk) do
+          build(:revision_on_memory, article_id: talk_page.id, date: start,
+                 characters: 50, user_id: user.id, scoped: true)
+        end
+
+        before do
+          category.courses << course
+          create(:articles_course, article: talk_page, course:)
+          courses_user
+          create(:article_course_user_wiki_timeslice, course:, article: talk_page, wiki:, user:,
+                 start:, end: start + 1.day, revision_count: 1, character_sum: 50,
+                 references_count: 0)
+        end
+
+        it 'counts the talk-page revision in the default path but not in the ACUWT path' do
+          cuwt = create(:course_user_wiki_timeslice, course:, user:, wiki:, start:,
+                        end: start + 1.day)
+          cuwt.update_cache_from_revisions([revision_ms_1, revision_ms_2, revision_talk])
+          # Default path: all three revisions pass (scoped: true, none deleted) → 3
+          expect(cuwt.revision_count).to eq(3)
+
+          described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+          # Category#article_ids(namespace: 0) → talk_page.id excluded from scoped_article_ids
+          # → only article ACUWT (revision_count: 2) contributes → 2
+          expect(described_class.find_by(course:, wiki:, user:, start:).revision_count).to eq(2)
+        end
+      end
     end
   end
 
