@@ -91,7 +91,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
     tracked_records = records.reject { |r| excluded_article_ids.include?(r.article_id) }
     by_ns = records_by_namespace(tracked_records)
     update_character_sum_from_acuwt(by_ns)
-    self.revision_count = by_ns.except(nil).values.flatten.sum(&:revision_count)
+    self.revision_count = filtered_live_acuwt_records(tracked_records).sum(&:revision_count)
     save
   end
 
@@ -130,6 +130,12 @@ class CourseUserWikiTimeslice < ApplicationRecord
     @liverevisions.select do |rev|
       live_article_ids.include?(rev.article_id)
     end
+  end
+
+  def filtered_live_acuwt_records(records)
+    article_ids = records.map(&:article_id)
+    live_article_ids = Article.where(id: article_ids, deleted: false).pluck(:id)
+    records.select { |r| live_article_ids.include?(r.article_id) }
   end
 
   def update_character_sum(revisions, tracked_namespace_revisions)
