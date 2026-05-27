@@ -73,6 +73,8 @@ sr-ec:
     show_current_revision: Прикажи тренутну верзију
     show_last_revision: Прикажи последњу измењену верзију
     font_label: Фонт
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Отвори налог на Википедији
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом

@@ -387,10 +387,9 @@ ko:
       subject: 제목
     current: 현재 과정
     data_articles: 문서 데이터
-    data_articles_info: 문서 데이터에는 각 페이지에 대한 편집 횟수, 새 페이지 여부 및 페이지뷰 합계가 포함됩니다. 이러한 페이지뷰
+    data_articles_info: 문서 데이터에는 각 페이지에 대한 편집 횟수, 새 페이지 여부 및 조회수 합계가 포함됩니다. 이러한 조회수
       값은 프로그램 종료시점이 기준이므로 WMF Tool Labs 페이지뷰 도구의 URL이 포함됩니다.
-    data_revisions_info: 수정내역 데이터는 프로그램 진행중의 수정횟수, 판 번호, 문서 번호, 새 묺서 여부, 페이지뷰 합계를
-      포함합니다.
+    data_revisions_info: 수정내역 데이터는 프로그램 진행중의 수정횟수, 판 번호, 문서 번호, 새 문서 여부, 조회수 합계를 포함합니다.
     data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
     data_overview: 개요 데이터
     data_overview_info: 개요 데이터는 전체 프로젝트에 대한 누적 통계량을 제공합니다.
@@ -654,8 +653,8 @@ ko:
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     references_count: 각주 추가됨
-    references_doc: 이것은 문서에 추가된 각주 태그와 단축된 각주 틀의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이
-      데이터는 각주를 세는 Toolforge API에 따라 제공됩니다.
+    references_doc: 문서에 추가된 각주 태그와 단축된 각주 틀의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는
+      각주를 세는 툴포지 API에 따라 제공됩니다.
     references_doc_wikidata: 이것은 항목에 추가된 각주 태그의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는
       ORES 품질 모델에 따라 제공되며 일부 언어에서만 지원됩니다.
     tags: 태그
@@ -863,7 +862,7 @@ ko:
     uploaded_on: 올린 곳
     usage_count: 사용량 값
     usage_doc: 이 그림이 표시되는 위키백과 문서의 수입니다.
-    usage_count_gallery_tile: '%{usage_count}개 문서에 사용됨'
+    usage_count_gallery_tile: '%{count}개 문서에 사용됨'
     usages: 사용
     views_per_day: 일일 조회수
     view_commons: 공용에서 보기
