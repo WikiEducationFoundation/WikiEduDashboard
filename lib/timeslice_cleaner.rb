@@ -106,6 +106,30 @@ class TimesliceCleaner
     delete_course_user_wiki_timeslices_after_date(@course.wikis, @course.end)
   end
 
+  # Marks CWT rows as needs_reaggregation for every (wiki, start) period covered
+  # by the given ACUWT records, and deletes the ACT rows for the specific
+  # (article, start) pairs those records cover so they are cleanly re-derived.
+  # CUW rows are NOT deleted here — callers handle user-specific CUW cleanup.
+  # Takes an ActiveRecord::Relation of ArticleCourseUserWikiTimeslice records.
+  def reset_timeslices_for_reaggregation_from_acuwt(acuwt_records)
+    return if acuwt_records.empty?
+
+    wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
+    return if wikis_and_starts.empty?
+
+    mark_timeslices_for_reaggregation(wikis_and_starts)
+    delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
+  end
+
+  # Deletes ACUWT records for users removed from the course.
+  # Takes a collection of user ids.
+  def delete_acuwt_for_deleted_course_users(user_ids)
+    return if user_ids.empty?
+
+    ids = ArticleCourseUserWikiTimeslice.where(course: @course, user_id: user_ids).pluck(:id)
+    delete_article_course_user_wiki_timeslice_ids(ids)
+  end
+
   # Resets course wiki timeslices. This involves:
   # - Marking timeslices as needs_update for dates with associated article course timeslices
   # - Deleting given article course timeslices if no soft
@@ -168,6 +192,28 @@ class TimesliceCleaner
                                                          wiki_id: wiki_ids).pluck(:id)
     return if timeslice_ids.empty?
     delete_article_course_user_wiki_timeslice_ids(timeslice_ids)
+  end
+
+  def mark_timeslices_for_reaggregation(wikis_and_starts)
+    tuples = wikis_and_starts.map do |wiki_id, s|
+      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
+    end.join(', ')
+    CourseWikiTimeslice.where(course: @course)
+                       .where("(wiki_id, start) IN (#{tuples})")
+                       .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
+    article_starts = acuwt_records.pluck(:article_id, :start).uniq
+    return if article_starts.empty?
+
+    tuples = article_starts.map do |article_id, s|
+      "(#{article_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
+    end.join(', ')
+    act_ids = ArticleCourseTimeslice.where(course: @course)
+                                    .where("(article_id, start) IN (#{tuples})")
+                                    .pluck(:id)
+    delete_article_course_timeslice_ids(act_ids)
   end
 
   # Deletes existing article course timeslices for a collection of wiki ids
