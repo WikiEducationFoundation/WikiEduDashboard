@@ -18,6 +18,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  mw_rev_count         :integer          default(0)
+#  needs_reaggregation  :boolean          default(FALSE)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
