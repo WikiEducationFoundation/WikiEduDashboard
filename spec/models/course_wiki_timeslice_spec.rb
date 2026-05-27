@@ -301,6 +301,44 @@ scoped: false)
         end
       end
 
+      context 'when course is article-scoped' do
+        let(:unscoped_article) { create(:article, id: 10, namespace: 0) }
+
+        before do
+          course.add_flag(key: :article_scoped)
+          create(:assignment, course_id: course.id, article_id: article.id,
+                 article_title: article.title, wiki_id: wiki.id)
+          create(:articles_course, article: unscoped_article, course:)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article: unscoped_article,
+                 user_id: 1, start:, end: timeslice_end, revision_count: 7,
+                 character_sum: 999, references_count: 50)
+        end
+
+        it 'excludes out-of-scope articles from revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
+          expect(course_wiki_timeslice.revision_count).to eq(5)
+        end
+
+        it 'excludes out-of-scope articles from character_sum' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          # Only scoped article ACUWT: 500 + 200 = 700; unscoped (999) is excluded
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+        end
+
+        it 'excludes out-of-scope articles from references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+
+          # Only scoped article ACUWT: 3 + 1 = 4; unscoped (50) is excluded
+          expect(course_wiki_timeslice.references_count).to eq(4)
+        end
+      end
+
       context 'when wiki is wikidata' do
         let(:wikidata_wiki) { Wiki.get_or_create(language: nil, project: 'wikidata') }
 
@@ -330,6 +368,29 @@ scoped: false)
           cuwt.update_cache_from_revisions(array_revisions)
 
           expect(cuwt.stats['descriptions added']).to eq(0)
+        end
+
+        context 'when course is article-scoped' do
+          let(:unscoped_article) { create(:article, id: 10, namespace: 0) }
+
+          before do
+            course.add_flag(key: :article_scoped)
+            create(:assignment, course_id: course.id, article_id: article.id,
+                   article_title: article.title, wiki_id: wikidata_wiki.id)
+            create(:articles_course, article: unscoped_article, course:)
+            create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki,
+                   article: unscoped_article, user_id: 1, start:, end: timeslice_end,
+                   stats: { 'claims created' => 99, 'total revisions' => 50 })
+          end
+
+          it 'excludes out-of-scope articles from wikidata stats' do
+            cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+            cuwt.update_cache_from_revisions(array_revisions)
+
+            # Only scoped article ACUWT: claims created 3+1=4; unscoped (99) excluded
+            expect(cuwt.stats['claims created']).to eq(4)
+            expect(cuwt.stats['total revisions']).to eq(7)
+          end
         end
       end
     end

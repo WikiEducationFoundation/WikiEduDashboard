@@ -101,7 +101,11 @@ class Category < ApplicationRecord
 
     @article_ids = []
     article_titles.each_slice(5000) do |titles_batch|
-      @article_ids.concat(Article.where(namespace: 0, wiki_id:, title: titles_batch).pluck(:id))
+      titles_set = titles_batch.to_set
+      # Pluck id+title and filter in Ruby: MySQL's accent-insensitive collation would otherwise
+      # return articles whose titles differ only in diacritics from the requested titles.
+      results = Article.where(namespace: 0, wiki_id:, title: titles_batch).pluck(:id, :title)
+      @article_ids.concat(results.filter_map { |id, title| id if titles_set.include?(title) })
     end
 
     @article_ids

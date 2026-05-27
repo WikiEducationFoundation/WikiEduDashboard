@@ -225,6 +225,16 @@ RSpec.describe Category, type: :model do
     end
   end
 
+  describe '#article_ids' do
+    it 'excludes articles whose titles differ only in diacritics from the category titles' do
+      accented   = create(:article, title: 'Orgullo_de_Hanói', wiki_id: 1)
+      unaccented = create(:article, title: 'Orgullo_de_Hanoi', wiki_id: 1)
+      category = create(:category, wiki_id: 1, article_titles: ['Orgullo_de_Hanói'])
+      expect(category.article_ids).to     include(accented.id)
+      expect(category.article_ids).not_to include(unaccented.id)
+    end
+  end
+
   describe '.refresh_titles' do
     let(:pt_wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
     # Portuguese language category with 'Discussão:' in prefixes
