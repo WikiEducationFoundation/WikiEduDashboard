@@ -78,6 +78,25 @@ class RevisionDataManager
     sub_data_to_revision_attributes(all_sub_data, users)
   end
 
+  # Like fetch_revision_data_for_users, but also imports Article records so that
+  # returned revisions have article_id populated. Required when creating ACUWT rows.
+  def fetch_revision_data_for_users_with_articles(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    return [] if all_sub_data.empty?
+
+    article_attributes = sub_data_to_article_attributes(all_sub_data)
+    import_articles(article_attributes)
+
+    articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                             mw_page_id: article_attributes.map { |a| a['mw_page_id'] })
+    resolve_duplicate_articles(articles)
+
+    users_dict = user_dict_from_sub_data(all_sub_data)
+    article_dict = articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
+
+    sub_data_to_revision_attributes(all_sub_data, users_dict, articles: article_dict)
+  end
+
   ###########
   # Helpers #
   ###########
