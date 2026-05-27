@@ -37,6 +37,7 @@ class CourseWikiTimeslice < ApplicationRecord
     in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
   }
   scope :needs_update, -> { where(needs_update: true) }
+  scope :needs_reaggregation, -> { where(needs_reaggregation: true) }
 
   #################
   # Class methods #
@@ -61,6 +62,18 @@ class CourseWikiTimeslice < ApplicationRecord
   ####################
   # Instance methods #
   ####################
+
+  # Re-aggregates stats from existing ACUWT rows without fetching from MediaWiki.
+  # Called when needs_reaggregation is true (e.g. after a user is added/removed).
+  def recalculate_from_acuwt
+    @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
+    update_character_sum_from_acuwt
+    update_references_count_from_acuwt
+    update_revision_count_from_acuwt
+    update_stats_from_acuwt
+    self.needs_reaggregation = false
+    save
+  end
 
   # Assumes that the revisions are for their own course wiki
   def update_cache_from_revisions(revisions)
