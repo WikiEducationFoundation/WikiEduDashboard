@@ -11,5 +11,5 @@
   = link_to "/lti/connect_course?ltik=#{CGI.escape(@ltik.to_s)}",
             target: '_blank', rel: 'noopener',
             class: 'button dark lti-iframe__button' do
-    = t('lti.iframe_landing.button', default: 'Open the Wiki Education Dashboard')
+    = t('lti.iframe_landing.button')
     %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }

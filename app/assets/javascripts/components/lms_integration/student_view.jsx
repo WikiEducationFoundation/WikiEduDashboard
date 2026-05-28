@@ -18,9 +18,9 @@ const StudentView = ({ status }) => {
 
   return (
     <div className="module lms-integration-status">
-      <h3>{I18n.t('lms_integration.heading', { lms_name: status.lms_name, default: '%{lms_name} link' })}</h3>
+      <h3>{I18n.t('lms_integration.heading', { lms_name: status.lms_name })}</h3>
       <p>
-        <strong>{I18n.t('lms_integration.linked_to', { default: 'Course:' })}</strong>
+        <strong>{I18n.t('lms_integration.linked_to')}</strong>
         {' '}
         {courseTitle}
       </p>
@@ -33,11 +33,11 @@ const StudentView = ({ status }) => {
 
 const LinkedSyncRow = ({ lastSyncAt }) => (
   <p>
-    <strong>{I18n.t('lms_integration.my_last_sync', { default: 'Last sync' })}</strong>
+    <strong>{I18n.t('lms_integration.my_last_sync')}</strong>
     {' '}
     {lastSyncAt
       ? formatDistanceToNow(toDate(lastSyncAt), { addSuffix: true })
-      : I18n.t('lms_integration.no_grades_yet', { default: 'No synced progress yet' })}
+      : I18n.t('lms_integration.no_grades_yet')}
   </p>
 );
 
@@ -45,7 +45,7 @@ LinkedSyncRow.propTypes = { lastSyncAt: PropTypes.string };
 
 const NotYetLinkedHint = () => (
   <p className="lms-integration-status__hint">
-    {I18n.t('lms_integration.not_yet_linked', { default: "Your account hasn't been linked to Canvas for this course." })}
+    {I18n.t('lms_integration.not_yet_linked')}
   </p>
 );
 
