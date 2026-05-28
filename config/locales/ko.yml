@@ -44,6 +44,7 @@ ko:
     back: 뒤로
     cancel: 취소
     next: 다음
+    skip_to_main_content: 본문 내용으로 건너뛰기
     cookie_consent: 이 사이트는 로그인 유지를 위해 쿠키를 사용하며 위키백과 계정에 관한 정보를 저장합니다.
     cookie_consent_acknowledge: 이해합니다
     cookie_consent_see_more: 더 보기
@@ -77,6 +78,9 @@ ko:
     no_results: '''%{query}''의 결과를 찾을 수 없습니다'
     show_current_revision: 현재 판 표시
     show_last_revision: 마지막 편집된 판 표시
+    font_label: 글꼴
+    font_sans: 산세리프
+    font_serif: 세리프
     sign_up_extended: 위키백과에 가입하기
     sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -91,6 +95,7 @@ ko:
     opt_yes: 예
     opt_no: 아니오
     print: 인쇄
+    sort: 정렬
   article_statuses:
     not_yet_started: 시작하기
     in_progress: 연습장에서 작업
@@ -115,6 +120,14 @@ ko:
       새 계정을 만들 수 있습니다. 계정은 만들 수 없는 경우, dashboard@wikiedu.org로 문의하세요.
   alerts:
     alert_label: 경보
+    ai_stats:
+      timestamp: 타임스탬프
+      total: 전체
+      last_week: 지난 주
+      sections:
+        general_stats: 일반 통계
+        name: 이름
+        description: 설명
   activity:
     all: 활동
     edited_by: '편집자 :'
@@ -147,12 +160,19 @@ ko:
       tracked: 추적됨
       untracked: 추적하지 않음
       tracked_and_untracked: 추적 및 추적하지 않음
+      wiki_label: 위키
+    filter_text: '필터:'
+    pageviews_label: '조회수:'
+    cumulative: 누적
+    daily_avg: 일일 평균
     find: 문서 찾기
     how_to_find: 문서를 찾는 방법
     hide: 숨기기
     history: (역사)
     label: 문서
     loading: 문서 불러오는 중...
+    mark_as_complete: 완료한 것으로 표시
+    mark_as_incomplete: 미완료로 표시
     new: (새)
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     preview: 문서의 간략한 미리보기
@@ -196,6 +216,7 @@ ko:
     use_dashboard: 대시보드 사용 방법
   items:
     items: 항목
+    lexeme: 어휘소
     assigned: 할당된 항목
     assignments_none: 아직 할당된 항목이 없습니다.
     available: 사용 가능한 항목
@@ -235,16 +256,23 @@ ko:
     assign_tooltip: 내가 새 문서를 만들거나 개선할 예정인 문서 이름을 할당합니다. 완성한 문서를 등록할 수도 있습니다.
     assign_tooltip_wikidata: 내가 새 항목을만들거나 개선할 예정인 항목 이름을 할당합니다. 완성한 항목을 등록할 수도 있습니다.
     bibliography: 참고문헌
+    clone: 복제
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     confirm_addition: '%{username}?에게 %{title}을 할당하시겠습니까?'
     confirm_deletion: 이 할당을 삭제하겠습니까?
+    delete: 제거 및 삭제
     editors: 등록자
+    change_sandbox_url: 샌드박스 변경
+    group_members: 그룹 구성원
     label: 할당
+    label_all: 모두 할당
     loading: 할당 내역 불러오는중...
     none_short: 할당된 글이 없습니다
     none_short_wikidata: 할당된 항목이 없습니다
     none: 이 프로그램에는 할당된 문서가 없습니다.
     no_available: 이 코스에는 이용할 수 있는 글이 없습니다.
+    outline: 개요
+    peer_review_count: '%{currentCount}/%{total} 선택됨'
     peer_review_link: 동료평가
     peer_review_link_personalized: '%{username}의 동료 평가'
     random_peer_review:
@@ -260,10 +288,25 @@ ko:
     sandbox_draft_link: 연습장 초안
     select: 선택
     submit: 제출
+    username_label: 위키백과 사용자 이름
+    username_placeholder: '사용자 이름을 입력하세요 (예: YourUsername)'
+    username_or_url_label: 위키백과 사용자 이름 또는 URL
+    username_or_url_placeholder: 사용자 이름 또는 전체 샌드박스 URL을 입력
+    preview_label: '새로운 URL 미리보기:'
+    sandbox_label: 샌드박스
+    bibliography_label: 참고문헌
+    outline_label: 개요
+    warning_untracked_wiki: '선택하신 문서는 본 강좌에서 추적하지 않는 위키에 있습니다. 해당 문서에 대한 기여를 추적하려면
+      강사가 다음 위키를 본 강좌에 추가해야 합니다: %{wiki}'
   blocks:
     milestones:
       title: 이정표
   campaign:
+    campaign_ores_plot:
+      graph_description_html: 이 그래프는 캠페인 참여자들이 처음 문서를 편집하기 전부터 가장 최근의 캠페인 편집까지 문서가
+        얼마나 발전했는지를 종합적으로 시각화한 것입니다. <em>구조적 완성도</em> 등급은 문서의 내용, 위키링크, 이미지, 섹션 제목
+        등의 양을 기반으로 문서의 품질을 추정하는 머신러닝 프로젝트(<a href="https://www.mediawiki.org/wiki/ORES/FAQ"
+        target="_blank">ORES</a>)를 통해 산출되었습니다.
     active_campaigns: 진행중인 캠페인
     add_organizer: 주최자 추가
     alert_article: 문서 제목
@@ -272,27 +315,50 @@ ko:
     alert_type: 유형
     alert_user_id: 사용자
     all_campaigns: 모든 캠페인
+    already_exists: 해당 캠페인은 이미 존재합니다! 다른 제목이나 슬러그를 사용하여 다시 시도해 주세요.
     campaign: 캠페인
     campaigns: 캠페인
     campaign_deleted: '"%{title}" 켐페인이 삭제되었습니다.'
     campaign_not_updated: 켐페인 업데이트를 할 수 없습니다.
     campaign_updated: 켐페인 업데이트
+    refresh_campaign_stats: 캠페인 통계를 성공적으로 새로 고침 했습니다
     created_at: 날짜
+    confirm_campaign_deletion: '%{title} 캠페인을 정말 제거하겠습니까? 캠페인 제목을 입력하여 계속하세요.'
+    confirm_campaign_deletion_failed: '"%{title}"은 이 캠페인의 제목이 아닙니다. 캠페인은 삭제되지 않았습니다.'
+    confirm_course_removal: '"%{campaign_title}" 캠페인에서 "%{title}"을(를) 정말로 삭제하시겠습니까?'
+    course_already_removed: '"%{title}"은(는) 이미 "%{campaign_title}" 캠페인에서 제거되었습니다'
     course: 과정
+    course_data: 과정 데이터
+    course_removed: '"%{title}"은(는) 이미 "%{campaign_title}" 캠페인에서 제거되었습니다'
+    course_removed_and_deleted: '"%{title}"은(는) 이미 "%{campaign_title}" 캠페인에서 제거 및
+      삭제되었습니다'
+    create_campaign: 새 캠페인 만들기
+    create_my_campaign: 내 캠패인 만들기!
     customize_passcode: 기본 패스코드
     data_download_info: CSV로 캠페인 데이터 다운로드
     data_courses: 프로그램 개요 데이터
+    data_courses_info: 각 과정/프로그램별 기본 측정항목
     data_articles: 수정된 페이지
     data_revisions: 수정내역 데이터
+    data_articles_info: 캠페인에서 편집한 각 추적 페이지에 대한 세부 정보
+    data_revisions_info: 캠페인의 각 수정 사항에 대한 세부 정보
     data_instructors: 진행자
+    data_editors_by_course: 과정별 편집자
+    data_editor_usernames: 편집자 사용자 이름
+    data_editor_usernames_info: 편집자 사용자 이름 목록 (한 줄에 하나씩)
     data_wikidata: 위키데이터 통계
     data_wikidata_info: 편집 요약에 기반을 둔 위키데이터 활동의 자세한 내용입니다
     default_course_type: 기본 프로그램 타입
     default_passcode: 기본 비밀번호
+    default_passcode_explanation: '기본적으로 이 캠페인의 새 프로그램은 다음과 같은 기능을 갖추어야 합니다:'
     description: 설명
     delete_campaign: 이 켐페인을 삭제
+    delete_course_tooltip: 캠페인에서 삭제하고 제거합니다.
     disable_account_requests: 계정 요청 비활성화
     enable_account_requests: 계정 요청 활성화
+    enable_account_requests_doc: 계정 요청 기능은 이벤트 등록 링크에 계정 요청 양식을 추가합니다. 아직 계정이 없는 사용자는
+      이메일 주소와 원하는 사용자 이름을 입력할 수 있으며, 이벤트 담당자는 대시보드를 통해 요청된 계정을 생성할 수 있습니다. 계정을 요청한
+      사용자는 계정 생성과 동시에 이벤트에 자동으로 추가됩니다.
     newest_campaigns: 새 캠페인
     no_passcode: 비밀코드 없음
     none: 없음
@@ -374,6 +440,9 @@ ko:
       course_term_placeholder: 학기 (연도 포함)
       course_types:
         edit_a_thon_name: 에디터톤
+      create_label: 새 과정 만들기
+      create_new: 새 과정 만들기
+      create_short: 과정 만들기
       end_date: 종료일
       end_date_placeholder: YYYY-MM-DD
       no_class_holidays: 휴강이 없습니다
@@ -571,6 +640,11 @@ ko:
       participate_in_campaign: 켐페인에 참여하기
       save_cloned_course: 저장
       start_date: 활동추적 시작
+      scoping_methods:
+        categories: 분류
+        templates: 틀
+        petscan: PetScan
+        pagepile: PagePile
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     end: 활동추적 종료
