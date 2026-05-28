@@ -32,11 +32,20 @@ module StagingSessions
   # the `:staging_chrome_student` driver (its own profile dir, its own
   # Canvas + Wikipedia-OAuth state). `app_host` is global, so nest the
   # `in_canvas` / `in_dashboard` helpers inside this block as usual.
-  # Restores the prior driver + session on exit.
+  # Restores the prior driver + session on exit. On failure, snapshots
+  # the student session before unwinding — the after-hook's
+  # `Capybara.current_session` reverts to the default (instructor) once
+  # `using_session` returns, so without this, every student-side failure
+  # would silently capture the wrong browser.
   def in_student_browser(&block)
     Capybara.using_driver(:staging_chrome_student) do
       Capybara.using_session(:student, &block)
     end
+  ensure
+    # Use ensure + $! (instead of `rescue StandardError`) so we catch
+    # RSpec::Expectations::ExpectationNotMetError too — it inherits from
+    # Exception, not StandardError, and would slip past a rescue here.
+    capture_student_failure_artifact if $!
   end
 
   # Follow a `target=_blank` link to the new tab the click opened.
@@ -56,5 +65,21 @@ module StagingSessions
     yield
   ensure
     Capybara.app_host = previous
+  end
+
+  def capture_student_failure_artifact
+    Capybara.using_driver(:staging_chrome_student) do
+      Capybara.using_session(:student) do
+        require 'fileutils'
+        dir = File.join(FAILURE_ARTIFACT_DIR, "student_session_#{Time.now.to_i}")
+        FileUtils.mkdir_p(dir)
+        Capybara.current_session.save_screenshot(File.join(dir, 'screenshot.png'))
+        File.write(File.join(dir, 'page.html'), Capybara.current_session.html)
+        warn "  [student-failure-artifact] saved to #{dir} " \
+             "(at #{Capybara.current_session.current_url})"
+      end
+    end
+  rescue StandardError => e
+    warn "  [student-failure-artifact] couldn't capture: #{e.message}"
   end
 end

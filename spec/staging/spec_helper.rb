@@ -34,7 +34,13 @@ FAILURE_ARTIFACT_DIR = File.expand_path('../../tmp/staging-failures', __dir__).f
 # in their `--user-data-dir` (one persona's session state per profile).
 def register_staging_chrome(name, profile_dir)
   Capybara.register_driver name do |app|
-    args = ["--user-data-dir=#{profile_dir}", '--window-size=1280,900']
+    args = ["--user-data-dir=#{profile_dir}", '--window-size=1280,900',
+            # Hides the `navigator.webdriver` flag from upstream
+            # fingerprinting (most notably the WAF in front of
+            # auth.wikimedia.org); cuts down on the false-positive
+            # "automated traffic" challenges the Wikipedia login throws
+            # at a Selenium-driven Chrome on a fresh profile.
+            '--disable-blink-features=AutomationControlled']
     args.prepend('--headless=new') if ENV['HEADLESS']
     options = Selenium::WebDriver::Chrome::Options.new(args: args)
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: options,

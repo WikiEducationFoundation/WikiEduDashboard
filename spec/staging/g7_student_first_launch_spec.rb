@@ -83,6 +83,11 @@ describe 'G7: student first launch', :staging do
         break_out_of_canvas_iframe(role: :student)
       end
       dismiss_consent_banner
+      # If the student is a brand-new dashboard user, `check_onboarded`
+      # routes them to /onboarding (carrying return_to=/lti?ltik=...);
+      # walk it like a real student would. No-ops on a returning student.
+      walk_through_onboarding(real_name: 'LTI Test Student',
+                              email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
       expect(page).to have_current_path(%r{/courses/StagingTest/}, url: true, wait: 30)
     end
 
