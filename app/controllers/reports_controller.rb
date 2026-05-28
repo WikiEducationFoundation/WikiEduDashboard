@@ -97,12 +97,14 @@ class ReportsController < ApplicationController
 
   # Returns true if any Wikidata timeslice with revisions was processed before
   # per-editor stats were tracked, meaning the CSV would show incomplete data.
+  # Uses a SQL-side check to avoid loading and deserializing every row.
   def wikidata_editor_stats_incomplete?
     wikidata = Wiki.get_or_create(language: nil, project: 'wikidata')
     @course.course_user_wiki_timeslices
            .where(wiki: wikidata)
            .where('revision_count > 0')
-           .any? { |ts| ts.stats.exclude?('total revisions') }
+           .where('stats IS NULL OR stats NOT LIKE ?', '%total revisions%')
+           .exists?
   end
 
   def set_course

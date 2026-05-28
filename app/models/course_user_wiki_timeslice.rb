@@ -23,6 +23,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
   belongs_to :user
   belongs_to :wiki
   scope :for_course_user_and_wiki, ->(course, user, wiki) { where(course:, user:, wiki:) }
+  scope :for_course_and_wiki, ->(course, wiki) { where(course:, wiki:) }
   # Returns the timeslice to which a datetime belongs (it should be a single timeslice)
   scope :for_datetime, ->(datetime) { where('start <= ? AND end > ?', datetime, datetime) }
   # Returns all the timeslices in a given period

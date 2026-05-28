@@ -24,7 +24,7 @@ const CourseStatsDownloadModal = ({ course }) => {
   const wikidataEditorsCsvLink = `/course_wikidata_editors_csv?course=${course.slug}`;
 
   let wikidataLink;
-  if (course.course_stats && course.home_wiki.project === 'wikidata') {
+  if (course.course_stats && course.wikis && course.wikis.some(wiki => wiki.project === 'wikidata')) {
     wikidataLink = (
       <>
         <hr />
