@@ -61,6 +61,43 @@ module LaunchHelpers
     # Banner vanished between detection and click — fine.
   end
 
+  # The full instructor first-launch sequence, end to end: Canvas login →
+  # course → Wiki Education tab → break out of the iframe → Wikipedia
+  # OAuth (silent once bootstrapped) → dashboard setup view → link the
+  # course → land on /courses/<slug>. Runs in whatever Capybara session
+  # is current, which is the default (instructor) profile for
+  # single-persona specs. Specs that also need the student persona run
+  # this in the default session and the student walk inside
+  # `in_student_browser`. The binding is what captures the LTIAAS
+  # service_key, so this step is a prerequisite for any roster/grade sync.
+  def bind_course_as_instructor(canvas_course_id:, course_slug:, granularity: 'lumped')
+    in_canvas do
+      ensure_canvas_logged_in_as_instructor
+      visit_canvas_course(canvas_course_id)
+      click_wiki_education_tab
+      break_out_of_canvas_iframe(role: :instructor)
+    end
+    dismiss_consent_banner
+    complete_dashboard_setup(course_slug:, granularity:)
+    expect(page).to have_current_path(%r{/courses/}, wait: 20)
+  end
+
+  # The instructor launch up to — but not through — the setup view: the
+  # binding is created (with a nil course) but never linked to a Dashboard
+  # course. Leaves the LMS course in the "instructor hasn't finished setup"
+  # state a student then hits as `setup_pending`. Runs in the current
+  # (instructor) session.
+  def reach_instructor_setup_view(canvas_course_id:)
+    in_canvas do
+      ensure_canvas_logged_in_as_instructor
+      visit_canvas_course(canvas_course_id)
+      click_wiki_education_tab
+      break_out_of_canvas_iframe(role: :instructor)
+    end
+    dismiss_consent_banner
+    expect(page).to have_content('Set up the Wiki Education Dashboard')
+  end
+
   # On the dashboard's setup view, identify the course we want to link
   # and submit. The form's `course_slug` field is a select whose
   # options' visible text is the slug itself; older deployed-staging

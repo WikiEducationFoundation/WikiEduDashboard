@@ -9,11 +9,13 @@
 # across both origins).
 #
 # Multi-persona scenarios (e.g., instructor and student in the same
-# spec) are NOT supported by this helper. Two Capybara `using_session`
-# instances would each try to spin up their own Chrome process pointed
-# at the same persistent `user-data-dir`, which Chrome refuses. T3
-# specs that need that pattern will register dedicated drivers with
-# distinct profile dirs (one per persona).
+# spec) ARE supported via `in_student_browser`: it runs its block in a
+# dedicated Capybara session backed by the `:staging_chrome_student`
+# driver, whose profile dir is distinct from the default instructor
+# profile, so the two Chrome processes don't fight over one
+# `--user-data-dir`. The default (instructor) session is restored when
+# the block returns. Specs that don't need the student persona never
+# touch the student driver and pay nothing.
 module StagingSessions
   CANVAS_HOST    = 'https://canvas.wikiedu.org'
   DASHBOARD_HOST = 'https://dashboard-testing.wikiedu.org'
@@ -24,6 +26,17 @@ module StagingSessions
 
   def in_dashboard(&block)
     with_app_host(DASHBOARD_HOST, &block)
+  end
+
+  # Run a block as the student persona: a separate Capybara session on
+  # the `:staging_chrome_student` driver (its own profile dir, its own
+  # Canvas + Wikipedia-OAuth state). `app_host` is global, so nest the
+  # `in_canvas` / `in_dashboard` helpers inside this block as usual.
+  # Restores the prior driver + session on exit.
+  def in_student_browser(&block)
+    Capybara.using_driver(:staging_chrome_student) do
+      Capybara.using_session(:student, &block)
+    end
   end
 
   # Follow a `target=_blank` link to the new tab the click opened.
