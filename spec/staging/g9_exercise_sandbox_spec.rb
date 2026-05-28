@@ -57,7 +57,9 @@ describe 'G9: exercise score push with sandbox link', :staging do
     provisioned[:dashboard_course_slug] = dashboard_course['slug']
     DashboardAdminClient.approve_course(slug: dashboard_course['slug'],
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
-    provisioned[:timeline] = DashboardAdminClient.build_timeline(slug: dashboard_course['slug'])
+    provisioned[:timeline] = DashboardAdminClient.build_timeline(
+      course_slug: dashboard_course['slug']
+    )
   end
 
   after do
