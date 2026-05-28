@@ -410,6 +410,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
     t.string "lms_family"
     t.string "lms_context_id", null: false
     t.string "lms_resource_link_id", null: false
+    t.string "lms_context_title"
+    t.string "lms_platform_url"
     t.text "ltiaas_service_credentials"
     t.string "nrps_url"
     t.string "ags_lineitems_url"
@@ -430,13 +432,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
     t.string "lineitem_id", limit: 512, null: false
     t.string "label"
     t.decimal "score_maximum", precision: 10, scale: 4, default: "1.0", null: false
-    t.string "last_pushed_signature"
     t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lti_course_binding_id", "gradable_type", "gradable_id"], name: "index_lti_line_items_on_binding_and_gradable", unique: true
     t.index ["lti_course_binding_id", "lineitem_id"], name: "index_lti_line_items_on_binding_and_lineitem", unique: true, length: { lineitem_id: 191 }
     t.index ["lti_course_binding_id"], name: "index_lti_line_items_on_lti_course_binding_id"
+  end
+
+  create_table "lti_score_signatures", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "last_pushed_at", null: false
+    t.bigint "lti_context_id", null: false
+    t.integer "lti_line_item_id", null: false
+    t.string "signature", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lti_context_id"], name: "index_lti_score_signatures_on_lti_context_id"
+    t.index ["lti_line_item_id", "lti_context_id"], name: "index_lti_score_sigs_on_li_and_ctx", unique: true
+    t.index ["lti_line_item_id"], name: "index_lti_score_signatures_on_lti_line_item_id"
   end
 
   create_table "question_group_conditionals", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -786,4 +799,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
   add_foreign_key "lti_contexts", "users", on_delete: :cascade
   add_foreign_key "lti_course_bindings", "courses", on_delete: :cascade
   add_foreign_key "lti_line_items", "lti_course_bindings", on_delete: :cascade
+  add_foreign_key "lti_score_signatures", "lti_contexts", on_delete: :cascade
+  add_foreign_key "lti_score_signatures", "lti_line_items", on_delete: :cascade
 end
