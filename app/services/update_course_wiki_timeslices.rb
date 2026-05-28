@@ -56,6 +56,9 @@ class UpdateCourseWikiTimeslices
       fetch_data_and_reprocess_timeslices(wiki, first_start)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
+      # Re-aggregate CWT/ACT/CUWT rows from existing ACUWT for timeslices
+      # that were not fully reprocessed in this cycle.
+      reaggregate_timeslices_from_acuwt(wiki) if @course.use_acuwt?
       @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
     end
   end
@@ -239,6 +242,25 @@ class UpdateCourseWikiTimeslices
       CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki,
                                                timeslice.start, timeslice.end)
     end
+  end
+
+  def reaggregate_timeslices_from_acuwt(wiki)
+    to_reaggregate = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                        .needs_reaggregation
+                                        .where(needs_update: false)
+    to_reaggregate.each { |cwt| reaggregate_timeslice_from_acuwt(cwt) }
+  end
+
+  def reaggregate_timeslice_from_acuwt(cwt)
+    wiki = cwt.wiki
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: cwt.start)
+    acuwt.pluck(:article_id).uniq.each do |article_id|
+      ArticleCourseTimeslice.update_from_acuwt(@course, article_id, wiki, cwt.start, cwt.end)
+    end
+    acuwt.pluck(:user_id).uniq.each do |user_id|
+      CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki, cwt.start, cwt.end)
+    end
+    cwt.recalculate_from_acuwt
   end
 
   def acuwt_timeslice_for(wiki, revisions)
