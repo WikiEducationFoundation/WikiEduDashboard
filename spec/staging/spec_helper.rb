@@ -11,26 +11,40 @@
 require 'capybara/rspec'
 require 'selenium-webdriver'
 
-# Persistent Chrome profile. Cookies + Wikipedia OAuth consent + Canvas
-# session state all live in this directory and survive between runs, so
+# Persistent Chrome profiles. Cookies + Wikipedia OAuth consent + Canvas
+# session state all live in these directories and survive between runs, so
 # we only have to authenticate interactively on the first bootstrap.
+#
+# Two distinct profiles because some flows need the instructor and the
+# student logged into Canvas (and granted Wikipedia OAuth) at the same
+# time. Chrome refuses to share one `--user-data-dir` between two live
+# processes, so each persona gets its own directory. The :instructor
+# profile is the default for single-persona specs (g2/g3/g8/g9); g7
+# additionally drives the :student profile via `in_student_browser`.
 PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile', __dir__).freeze
+STUDENT_PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile-student', __dir__).freeze
 
 # Where screenshots + page sources go on failure.
 FAILURE_ARTIFACT_DIR = File.expand_path('../../tmp/staging-failures', __dir__).freeze
 
-# Register the :staging_chrome driver at load time. Registration is
-# side-effect-free — it just adds an entry to Capybara's driver
+# Register the staging drivers at load time. Registration is
+# side-effect-free — it just adds entries to Capybara's driver
 # registry; nothing changes about which driver Capybara actually uses
-# until a spec explicitly switches to it.
-Capybara.register_driver :staging_chrome do |app|
-  args = ["--user-data-dir=#{PROFILE_DIR}", '--window-size=1280,900']
-  args.prepend('--headless=new') if ENV['HEADLESS']
-  options = Selenium::WebDriver::Chrome::Options.new(args: args)
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options,
-                                      clear_session_storage: false,
-                                      clear_local_storage: false)
+# until a spec explicitly switches to it. The two drivers differ only
+# in their `--user-data-dir` (one persona's session state per profile).
+def register_staging_chrome(name, profile_dir)
+  Capybara.register_driver name do |app|
+    args = ["--user-data-dir=#{profile_dir}", '--window-size=1280,900']
+    args.prepend('--headless=new') if ENV['HEADLESS']
+    options = Selenium::WebDriver::Chrome::Options.new(args: args)
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options,
+                                        clear_session_storage: false,
+                                        clear_local_storage: false)
+  end
 end
+
+register_staging_chrome(:staging_chrome, PROFILE_DIR)
+register_staging_chrome(:staging_chrome_student, STUDENT_PROFILE_DIR)
 
 # Load support files (in_canvas/in_dashboard helpers, screenshot-on-failure).
 Dir[File.join(__dir__, 'support', '*.rb')].each { |f| require f }
@@ -60,6 +74,8 @@ RSpec.configure do |config|
   config.include StagingSessions, :staging
   config.include LoginHelpers, :staging
   config.include LaunchHelpers, :staging
+  config.include StagingPolling, :staging
+  config.include ScreenshotHelper, :staging
 
   config.around(:each, :staging) do |example|
     prior = STAGING_CAPYBARA_SETTINGS.to_h { |k| [k, Capybara.send(k)] }

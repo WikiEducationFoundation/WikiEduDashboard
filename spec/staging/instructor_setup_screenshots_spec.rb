@@ -17,13 +17,20 @@ require_relative 'spec_helper'
 # read well as documentation. Provisioning + teardown happen per run; no
 # state is left behind on staging.
 describe 'Instructor setup illustrated guide', :staging do
-  REQUIRED_ENV = %w[
-    CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID
-    CANVAS_TEST_INSTRUCTOR_USER_ID
-    CANVAS_TEST_INSTRUCTOR_LOGIN CANVAS_TEST_INSTRUCTOR_PASSWORD
-    WIKIPEDIA_TEST_INSTRUCTOR_USERNAME WIKIPEDIA_TEST_INSTRUCTOR_PASSWORD
-    DASHBOARD_TEST_CAMPAIGN_SLUG
-  ].freeze
+  # A local (per-example) value rather than a top-level constant:
+  # constants declared in a describe block leak into the shared
+  # namespace and clobber each other across staging spec files (g2
+  # declares its own REQUIRED_ENV), which prints "already initialized
+  # constant" warnings on every run.
+  let(:required_env) do
+    %w[
+      CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID
+      CANVAS_TEST_INSTRUCTOR_USER_ID
+      CANVAS_TEST_INSTRUCTOR_LOGIN CANVAS_TEST_INSTRUCTOR_PASSWORD
+      WIKIPEDIA_TEST_INSTRUCTOR_USERNAME WIKIPEDIA_TEST_INSTRUCTOR_PASSWORD
+      DASHBOARD_TEST_CAMPAIGN_SLUG
+    ]
+  end
 
   SCREENSHOT_DIR = Rails.root.join('.claude', 'canvas_integration',
                                    'canvas_integration_instructor_guide',
@@ -43,7 +50,7 @@ describe 'Instructor setup illustrated guide', :staging do
   let(:provisioned)        { @provisioned ||= {} }
 
   before do
-    missing = REQUIRED_ENV.select { |k| ENV[k].to_s.empty? }
+    missing = required_env.select { |k| ENV[k].to_s.empty? }
     skip("missing env vars: #{missing.join(', ')}") if missing.any?
 
     FileUtils.mkdir_p(SCREENSHOT_DIR)
@@ -105,6 +112,13 @@ describe 'Instructor setup illustrated guide', :staging do
     # Spaces in the slug come through URL-encoded in the browser bar.
     expect(CGI.unescape(page.current_url))
       .to include("/courses/#{provisioned[:dashboard_course_slug]}")
+
+    # The LmsIntegrationStatus panel (StaffView) renders in the course
+    # Home sidebar once the binding sets course.flags[:canvas_integration]:
+    # the linked Canvas course, last sync, and synced-students count.
+    expect(page).to have_css('.lms-integration-status', wait: 20)
+    scroll_into_view('.lms-integration-status')
+    capture('06-instructor-course-panel')
   end
 
   def capture(name)

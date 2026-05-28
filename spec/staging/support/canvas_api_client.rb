@@ -65,6 +65,28 @@ class CanvasApiClient
     get("/api/v1/courses/#{course_id}")
   end
 
+  # AGS line items surface as Canvas assignments. Returns the full list
+  # so a caller can match ours by `name` (which equals the line item's
+  # label, e.g. "Wikipedia trainings" or "Wk1 Evaluate Wikipedia").
+  def list_assignments(course_id:)
+    get("/api/v1/courses/#{course_id}/assignments", per_page: 100)
+  end
+
+  # Convenience: find the assignment whose name matches a line item label.
+  # Returns nil when no assignment carries that exact name yet (e.g. the
+  # AGS line-item sync hasn't run).
+  def find_assignment(course_id:, name:)
+    list_assignments(course_id:).find { |a| a['name'] == name }
+  end
+
+  # A student's submission for one assignment, including the AGS score
+  # and the score comment(s) carried alongside it. `user_id` is the
+  # Canvas user id of the student.
+  def submission(course_id:, assignment_id:, user_id:)
+    get("/api/v1/courses/#{course_id}/assignments/#{assignment_id}/submissions/#{user_id}",
+        'include[]' => 'submission_comments')
+  end
+
   private
 
   def build_conn
