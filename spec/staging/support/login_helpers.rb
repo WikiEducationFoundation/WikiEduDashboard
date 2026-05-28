@@ -36,11 +36,76 @@ module LoginHelpers
   # through silently when the session + grant are already in place.
   def complete_wikipedia_oauth_if_needed(role: :instructor)
     username, password = wikipedia_credentials_for(role)
+    settle_oauth_redirect
+    raise_on_wikipedia_challenge!
     fill_wikipedia_login_form_if_present(username, password)
     click_oauth_allow_if_present
   end
 
   private
+
+  # The break-out tab runs through several OAuth redirects (connect_course
+  # → oauth_redirect auto-POST → MediaWiki → auth.wikimedia.org) before it
+  # settles on a Wikipedia login page, an OAuth "Allow" page, or back on
+  # the dashboard. Poll until one of those is in view (or until Wikipedia
+  # throws a FancyCaptcha or EmailAuth interstitial, which we surface to
+  # the caller). Without polling, a fixed short wait races the chain and
+  # skips past the login form while it's still mid-flight.
+  def settle_oauth_redirect(timeout: 30)
+    deadline = Time.now + timeout
+    until Time.now > deadline
+      return if page.has_field?('wpName', wait: 0)
+      return if oauth_allow_present?
+      return if page.current_url.include?('dashboard-testing.wikiedu.org')
+      return if captcha_challenge_present? || emailauth_challenge_present?
+
+      sleep 0.5
+    end
+  end
+
+  def oauth_allow_present?
+    page.has_button?('Allow', wait: 0) || page.has_button?('Accept', wait: 0)
+  end
+
+  # FancyCaptcha (Wikimedia's home-grown image captcha) re-renders on the
+  # same Special:UserLogin form when a recent badlogin counter trips —
+  # `$wgCaptchaBadLoginAttempts` (default 3 per IP / 5 min) or
+  # `$wgCaptchaBadLoginPerUserAttempts` (default 20 per user / 10 min).
+  # The container + word input are the canonical markers from ConfirmEdit.
+  def captcha_challenge_present?
+    page.has_css?('.fancycaptcha-captcha-container', wait: 0) ||
+      page.has_field?('wpCaptchaWord', wait: 0)
+  end
+
+  # Wikimedia's EmailAuth second-step form is a single `name="token"`
+  # input — distinct from the primary login form (no `wpName` /
+  # `wpPassword`). Triggered when LoginNotify can't find a known-device
+  # marker (cookie or server-side row), so a fresh Chrome profile hits
+  # this every time until a successful "Keep me logged in" run plants
+  # `loginnotify_prevlogins`.
+  def emailauth_challenge_present?
+    page.has_field?('token', wait: 0) && page.has_no_field?('wpName', wait: 0)
+  end
+
+  # Stop the spec with a clear explanation instead of silently retrying
+  # (each retry submits the now-broken form, advances the badlogin
+  # counter, and digs the lockout deeper — exactly the trap the
+  # Wikimedia research agent flagged).
+  def raise_on_wikipedia_challenge!
+    if captcha_challenge_present?
+      raise 'Wikipedia FancyCaptcha appeared on login — usually a recent ' \
+            'failed login from this IP tripped the badlogin counter (default ' \
+            "300s window). Wait a few minutes and retry, or log in once " \
+            "manually with 'Keep me logged in' checked to refresh the " \
+            'loginnotify_prevlogins cookie so future runs stay silent.'
+    end
+    return unless emailauth_challenge_present?
+
+    raise 'Wikipedia EmailAuth code prompt appeared (login from an ' \
+          "unrecognized device). Enter the code manually once with 'Keep " \
+          "me logged in' checked so the profile keeps loginnotify_prevlogins " \
+          'for ~180 days; subsequent runs will be silent.'
+  end
 
   def ensure_canvas_logged_in(login:, password:)
     visit '/login/canvas'
@@ -66,27 +131,32 @@ module LoginHelpers
   end
 
   def fill_wikipedia_login_form_if_present(username, password)
-    return unless page.has_field?('wpName', wait: 2)
+    return unless page.has_field?('wpName', wait: 0)
 
     fill_in 'wpName', with: username
     fill_in 'wpPassword', with: password
-    # TODO: confirm Wikipedia's submit-button name. Could be a `<button>`
-    # with text "Log in" / "Continue", or an `<input type="submit">`.
+    # Persist the login across browser-process restarts ("Keep me logged
+    # in for up to one year") so subsequent spec runs reuse the session
+    # and the OAuth bounce stays silent. Without it the session cookie is
+    # cleared when the run's browser closes, forcing a fresh login — and
+    # an interactive email-confirmation challenge — every run.
+    check 'wpRemember' if page.has_field?('wpRemember', wait: 0)
     click_button 'Log in'
+    # Submitting resumes the OAuth chain toward the grant; let it settle
+    # so a follow-on "Allow" page (or the dashboard) is in view next.
+    settle_oauth_redirect
+    # A post-submit challenge means the password attempt failed or the
+    # device wasn't recognized — fail loudly rather than spin forward.
+    raise_on_wikipedia_challenge!
   end
 
   def click_oauth_allow_if_present
-    # OAuth approval page has an "Allow" / "Accept" button; only
-    # appears the first time per (user, application) pair, and
-    # Wikipedia remembers thereafter. Wait briefly in case the
-    # redirect chain hasn't settled yet.
-    return unless page.has_button?('Allow', wait: 3) || page.has_button?('Accept', wait: 1)
+    # OAuth approval page has an "Allow" / "Accept" button; only appears
+    # the first time per (user, application) pair, then Wikipedia
+    # remembers the grant. settle_oauth_redirect already waited for it.
+    return unless oauth_allow_present?
 
-    if page.has_button?('Allow')
-      click_button 'Allow'
-    else
-      click_button 'Accept'
-    end
+    page.has_button?('Allow') ? click_button('Allow') : click_button('Accept')
   end
 
   def wikipedia_credentials_for(role)

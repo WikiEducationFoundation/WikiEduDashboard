@@ -40,8 +40,13 @@ class CanvasApiClient
   end
 
   def create_course(name:, course_code: name)
+    # `offer: true` is the Canvas API's publish-on-create switch — it's
+    # separate from `course[workflow_state]` and what students actually
+    # check against. Without it the student sees "Not Yet Available —
+    # This course has not been published by the instructor yet" even
+    # with workflow_state 'available' set in the create body.
     post("/api/v1/accounts/#{@account_id}/courses",
-         course: { name:, course_code:, workflow_state: 'available' })
+         course: { name:, course_code:, workflow_state: 'available' }, offer: true)
   end
 
   def enroll_user(course_id:, user_id:, role:)
