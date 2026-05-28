@@ -113,5 +113,32 @@ module LaunchHelpers
     # when a different granularity is requested.
     find(:css, "input[type=radio][value='#{granularity}']").click if granularity != 'lumped'
     click_button 'Link this course'
+    # The setup POST redirects to /courses/<slug>; wait for that landing
+    # before returning so callers don't assert on the in-flight setup URL.
+    expect(page).to have_current_path(%r{/courses/}, url: true, wait: 30)
+  end
+
+  # Walk the dashboard's React onboarding flow as a real first-time
+  # student would: Intro → Form (real_name + email; the role question is
+  # hidden via `isLtiLaunchUrl(returnToParam)` because we're returning to
+  # `/lti?ltik=...`) → Permissions → Finished (auto-redirects via
+  # `window.location` to the `return_to` URL). A silent no-op when the
+  # student is already onboarded — `check_onboarded` doesn't redirect, so
+  # `current_url` doesn't include `/onboarding` and the helper returns
+  # immediately. Letting both states run through the same call keeps the
+  # spec realistic for either a brand-new dashboard user or a returning
+  # one, without faking the onboarded flag.
+  def walk_through_onboarding(real_name:, email:)
+    return unless page.current_url.include?('/onboarding')
+
+    click_link 'Start'
+    expect(page).to have_field('onboarding-name', wait: 15)
+    fill_in 'onboarding-name', with: real_name
+    fill_in 'onboarding-email', with: email
+    click_button 'Submit'
+    expect(page).to have_link('Finish', wait: 15)
+    click_link 'Finish'
+    # finished.jsx's useEffect window.location's to the return_to URL after
+    # ~750 ms; subsequent assertions catch the resulting landing.
   end
 end

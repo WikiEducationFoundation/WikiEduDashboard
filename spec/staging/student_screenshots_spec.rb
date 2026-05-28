@@ -135,6 +135,10 @@ describe 'Student UX screenshots', :staging do
       break_out_of_canvas_iframe(role: :student)
     end
     dismiss_consent_banner
+    # A brand-new dashboard user gets routed through /onboarding before
+    # the LTI launch resumes; walk it. Silent no-op on a returning user.
+    walk_through_onboarding(real_name: 'LTI Test Student',
+                            email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
   end
 
   def capture(name)
