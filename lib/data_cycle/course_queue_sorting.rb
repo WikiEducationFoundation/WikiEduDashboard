@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 module CourseQueueSorting
+  # Number of consecutive unfinished updates that triggers escalation to long_update queue
+  UNFINISHED_UPDATES_LONG_QUEUE_THRESHOLD = 2
+
   def queue_for(course)
     update_longest_update_time(course)
     return 'very_long_update' if course.very_long_update?
+    return 'long_update' if too_many_consecutive_unfinished_updates?(course)
 
     case longest_recent_update_time(course)
     when nil
@@ -15,6 +19,22 @@ module CourseQueueSorting
     when (601..) # more than 10 minutes
       'long_update'
     end
+  end
+
+  def too_many_consecutive_unfinished_updates?(course)
+    consecutive_unfinished_updates(course) >= UNFINISHED_UPDATES_LONG_QUEUE_THRESHOLD
+  end
+
+  # Returns the number of consecutive update failures since the last success.
+  # Old unfinished entries that predate the last successful end_time are excluded,
+  # since they're not evidence of a current problem.
+  def consecutive_unfinished_updates(course)
+    unfinished_logs = course.flags['unfinished_update_logs']
+    return 0 unless unfinished_logs.present?
+
+    finished_logs = course.flags['update_logs']
+    latest_end = finished_logs&.values&.filter_map { |log| log['end_time'].to_f }&.max || 0
+    unfinished_logs.values.count { |log| log['start_time'].to_f > latest_end }
   end
 
   def longest_recent_update_time(course)

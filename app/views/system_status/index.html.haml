@@ -1,7 +1,7 @@
 .container.queues
   .module
     .section-header
-      %h3= t("status.queues_overview")
+      %h1= t("status.queues_overview")
     .notification
       .container
         - if @queue_metrics[:all_operational]
@@ -50,7 +50,7 @@
 
 .container.sidekiq_stats
   %br/
-  %h3= t("status.sidekiq_stats")
+  %h2= t("status.sidekiq_stats")
   .stat-display
     - @sidekiq_stats.each do |key, value|
       .stat-display__stat.tooltip-trigger

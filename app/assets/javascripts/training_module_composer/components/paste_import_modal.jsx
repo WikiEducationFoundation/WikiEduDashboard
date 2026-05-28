@@ -65,7 +65,11 @@ const PasteImportModal = ({ onApply, onClose, hasExistingSlides }) => {
   };
 
   return (
+    // Backdrop click closes the modal; keyboard users use the Cancel button.
+    // Inner onClick only stops propagation to keep the backdrop click from
+    // firing on clicks inside the modal.
     <div className="training_module_composer__modal__backdrop" role="presentation" onClick={onClose}>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
       <div
         className="training_module_composer__modal"
         role="dialog"

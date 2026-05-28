@@ -48,7 +48,7 @@ const TrainingModuleHandler = (props) => {
 
     return (
       <div className="training__toc-container">
-        <h1 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h1>
+        <h2 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h2>
         <ol>
           {slides}
         </ol>

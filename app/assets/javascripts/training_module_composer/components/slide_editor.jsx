@@ -118,7 +118,7 @@ const SlideEditor = ({ slide, index, moduleId, onChange, collision }) => {
         )}
 
         <div className="training_module_composer__editor__preview">
-          <label>Preview</label>
+          <div className="training_module_composer__field__title">Preview</div>
           <div className="training__slide training__slide__content">
             <h2>{slide.title || <em>Untitled slide</em>}</h2>
             <div dangerouslySetInnerHTML={{ __html: previewHtml }} />

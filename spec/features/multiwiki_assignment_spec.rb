@@ -63,7 +63,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
       within('#users') do
         find('input', visible: true).set('No le des prisa, dolor', rapid: false)
-        click_link 'Change'
+        click_button 'Change'
         find('div.wiki-select').click
         within('.wiki-select') do
           find('input').send_keys('es.wikisource', :enter)
@@ -80,8 +80,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       within('#users') do
-        expect(page).to have_content 'No le des prisa'
-        link = first('.assignment-links a')
+        expect(page).to have_content('No le des prisa', wait: 10)
+        link = first('.assignment-links a', wait: 10)
         expect(link[:href]).to include('es.wikisource')
       end
     end

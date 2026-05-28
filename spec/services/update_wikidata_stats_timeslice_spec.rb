@@ -37,6 +37,13 @@ describe UpdateWikidataStatsTimeslice do
       expect(unscoped_revision.summary).to be_nil
     end
 
+    it 'counts merge_from in built stats' do
+      revision = build(:revision_on_memory, wiki_id: wikidata.id, scoped: true)
+      revision.summary = { 'merge_from' => 1 }.to_json
+      stats = updater.build_stats_from_revisions([revision])
+      expect(stats['merged from']).to eq(1)
+    end
+
     it 'creates record in CourseStat table', :vcr do
       expect(CourseStat.count).to eq(0)
       updater.update_revisions_with_stats(revisions)

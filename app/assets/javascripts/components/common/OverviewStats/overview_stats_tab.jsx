@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { onEnterOrSpace } from '../../../utils/keyboard_handlers';
 
 const OverviewStatsTab = ({ id, title, active, onClick }) => {
   const isActive = (active) ? ' active' : '';
   const tabClass = `tab${isActive}`;
   const tabId = `tab-${id}`;
   return (
-    <div className={tabClass} onClick={onClick} id={tabId}>
+    <div
+      role="tab"
+      tabIndex={0}
+      aria-selected={active}
+      className={tabClass}
+      onClick={onClick}
+      onKeyDown={onEnterOrSpace(onClick)}
+      id={tabId}
+    >
       <p>{title}</p>
     </div>
   );

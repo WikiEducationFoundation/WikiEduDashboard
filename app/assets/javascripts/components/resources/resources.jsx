@@ -85,7 +85,7 @@ const Resources = ({ weeks, current_user, course }) => {
   );
   if (additionalResourcesBlocks) {
     additionalResources = (
-      <div className="list-unstyled container mt2 mb2">
+      <ul className="list-unstyled container mt2 mb2">
         {additionalResourcesBlocks.map(block => (
           <Block
             key={block.id}
@@ -93,7 +93,7 @@ const Resources = ({ weeks, current_user, course }) => {
             trainingLibrarySlug={trainingLibrarySlug}
           />
         ))}
-      </div>
+      </ul>
     );
   }
   let assignedModules;

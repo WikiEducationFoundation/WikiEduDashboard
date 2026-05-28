@@ -31,14 +31,12 @@ module CourseHelper
 
   def format_course_stats(course_stats)
     course_stats.each_key do |wiki_ns_key|
-      if wiki_ns_key == 'www.wikidata.org'
-        # Not all course stats have the 'other updates' field
-        if course_stats[wiki_ns_key]['other updates']
-          course_stats[wiki_ns_key]['other updates'] += course_stats[wiki_ns_key]['unknown']
-        end
-        course_stats[wiki_ns_key].reject! { |k, _v| k == 'unknown' }
+      if wiki_ns_key == 'www.wikidata.org' && course_stats[wiki_ns_key].key?('unknown')
+        # 'unknown' is a legacy bucket from earlier analyzer versions; fold
+        # it into 'other updates' before display (the UI has no slot for it).
+        stats = course_stats[wiki_ns_key]
+        stats['other updates'] = (stats['other updates'] || 0) + stats.delete('unknown')
       end
-      # convert stats to human readable values
       course_stats[wiki_ns_key].each do |stat_key, stat|
         course_stats[wiki_ns_key][stat_key] = number_to_human(stat).to_s
       end

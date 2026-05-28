@@ -57,6 +57,7 @@ if ENV['SLOW']
           if (!el) {
             el = document.createElement('div');
             el.id = '__rspec_label__';
+            el.setAttribute('aria-hidden', 'true');
             el.style.cssText = [
               'position:fixed', 'bottom:0', 'left:0', 'right:0',
               'background:rgba(20,20,20,0.9)', 'color:#fff',

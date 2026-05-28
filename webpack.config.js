@@ -101,9 +101,7 @@ module.exports = (env) => {
       !env.DISABLE_ESLINT && new ESLintPlugin({
         files: 'app/assets/javascripts/**/*.{js,jsx}',
         failOnError: isProductionOrCI,
-        threads: isProductionOrCI,
-        lintDirtyModulesOnly: !isProductionOrCI,
-        cache: !isProductionOrCI
+        lintDirtyModulesOnly: !isProductionOrCI
       }),
 
       new MiniCssExtractPlugin({

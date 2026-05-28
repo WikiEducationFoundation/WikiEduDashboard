@@ -697,7 +697,7 @@ qqq:
     show_courses: Checkbox for option to show user courses only (Wiki Ed only)
     uploaded_by: Label for the user who uploaded a file
     usage_count: Label for the number of global usages of a file across Wikimedia
-      sites
+      projects
   revisions:
     chars_added: Label for counter of added chars
     class: |-

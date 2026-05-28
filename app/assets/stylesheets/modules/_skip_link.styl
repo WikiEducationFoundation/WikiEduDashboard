@@ -1,0 +1,17 @@
+.skip-link
+  position absolute
+  top 0
+  left 0
+  padding 0.75rem 1rem
+  background body-color
+  color white
+  text-decoration none
+  font-weight bold
+  transform translateY(-100%)
+  transition transform 0.2s ease-out
+  z-index 9999
+
+  &:focus
+    transform translateY(0)
+    outline 2px solid white
+    outline-offset -2px

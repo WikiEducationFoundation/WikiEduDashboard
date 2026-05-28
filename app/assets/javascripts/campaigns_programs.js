@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (typeof TomSelect !== 'undefined') {
-    // eslint-disable-next-line no-new
+
     new TomSelect('#school_select', {
       plugins: ['remove_button'],
       placeholder: `${I18n.t('assignments.select')} ${I18n.t('courses_generic.creator.course_school')}...`,

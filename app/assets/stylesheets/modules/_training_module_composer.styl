@@ -133,16 +133,49 @@
 
     .training_module_composer__metadata__fields
         display grid
-        grid-template-columns repeat(auto-fit, minmax(260px, 1fr))
-        gap 14px
+        grid-template-columns minmax(220px, 1fr) 2fr
+        gap 18px
         padding 10px 16px 18px
+
+        +below(tablet)
+            grid-template-columns 1fr
+
+    .training_module_composer__metadata__short_fields
+        display flex
+        flex-direction column
+        gap 12px
+
+    .training_module_composer__metadata__description
+        display flex
+        flex-direction column
+        gap 12px
+
+    .training_module_composer__metadata__description_preview
+        background #fafafa
+        border 1px solid #eee
+        border-radius 3px
+        padding 8px 12px
+        font-size 0.95em
+        min-height 88px
+
+        p:first-child
+            margin-top 0
+
+        p:last-child, ul:last-child, ol:last-child
+            margin-bottom 0
+
+        ul, ol
+            padding-left 22px
+
+    .training_module_composer__metadata__description_preview__empty
+        color #888
 
 .training_module_composer__field
     display flex
     flex-direction column
     gap 4px
 
-    label
+    label, .training_module_composer__field__title
         font-weight 600
         font-size 0.9em
 
@@ -399,7 +432,7 @@
         color #555
 
     .training_module_composer__editor__preview
-        label
+        label, .training_module_composer__field__title
             font-weight 600
             font-size 0.9em
             display block
@@ -519,7 +552,7 @@
     .training_module_composer__image_picker__preview
         margin-top 14px
 
-        > label
+        > label, > .training_module_composer__field__title
             font-weight 600
             font-size 0.9em
             display block

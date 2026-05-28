@@ -104,18 +104,22 @@ class UpdateCourseWikiTimeslices
     fetch_only_revisions(wiki, start_date, end_date)
     split, dates = @splitter.maybe_split(wiki, start_date, end_date, @revisions)
     if split
-      new_start = dates[0]
-      midpoint = dates[1]
-      new_end = dates[2]
-      handle_timeslice(wiki, new_start, midpoint,
-                       only_new:) + handle_timeslice(wiki, midpoint, new_end, only_new:)
+      new_start, midpoint, new_end = dates
+      handle_timeslice(wiki, new_start, midpoint, only_new:) +
+        handle_timeslice(wiki, midpoint, new_end, only_new:)
     else
-      log_processing(wiki, start_date, end_date, only_new)
-      add_scores(only_new:)
-      maybe_fetch_wikidata_stats(wiki)
-      process_timeslices(wiki) if !only_new | new_data?(wiki)
-      [start_date]
+      process_leaf_timeslice(wiki, start_date, end_date, only_new:)
     end
+  end
+
+  def process_leaf_timeslice(wiki, start_date, end_date, only_new:)
+    log_processing(wiki, start_date, end_date, only_new)
+    add_scores(only_new:)
+    if should_update_timeslice?(wiki, only_new:)
+      fetch_wikidata_stats(wiki) if wiki.project == 'wikidata'
+      process_timeslices(wiki)
+    end
+    [start_date]
   end
 
   def timeslice_reprocessed?(wiki_id, start_date)
@@ -143,8 +147,8 @@ class UpdateCourseWikiTimeslices
     [timeslice_end - 1.second, @course.end].min
   end
 
-  def maybe_fetch_wikidata_stats(wiki)
-    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && new_data?(wiki)
+  def should_update_timeslice?(wiki, only_new:)
+    !only_new || new_data?(wiki)
   end
 
   def new_data?(wiki)

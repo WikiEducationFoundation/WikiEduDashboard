@@ -21,6 +21,7 @@ ps:
   application:
     back: پر شا کېدل
     cancel: ناگارل
+    next: بل
     cookie_consent: دا وېبځی ستاسو د ننوتلي ساتلو لپاره کوکيز کاروي، او ستاسو د ويکيپېډيا
       گڼون پورې اړوند مالومات ساتي.
     cookie_consent_acknowledge: زه پوهېږم
@@ -32,6 +33,7 @@ ps:
     explore: سپړل
     field_required: دې ډاگي ته اړتيا ده
     field_invalid_characters: دا ډگر ناسمې لوښې لري
+    field_invalid_term: موده بايد کال ولري ( د بېلگې په توگه، "پسرلی ۲۰۲۵")
     field_invalid_date: دې ډگر کې YYYY-MM-DD بڼې نېټه اړينه ده
     field_invalid_date_time: پای بايد له پيل وروسته وي. (له ۰ تر ۲۳ گړيو پورې.)
     greeting2: ښه راغلئ!
@@ -43,6 +45,7 @@ ps:
     log_in: ننوتل
     log_out: وتل
     my_dashboard: زما ټينگدړه
+    okay: سمه ده
     recent_activity: وروستۍ چاره
     report_problem: د ستونزې خبر ورکول
     request_account: د گڼون غوښتنه‌کول
@@ -109,6 +112,20 @@ ps:
         heading: سلا
   alerts:
     alert_label: خبرونې
+    no_data: هېڅ اومتوکي ونه موندل شول.
+    ai_stats:
+      timestamp: وخت‌ټاپه
+      revision_diff: بياليدنې توپير
+      single_alert_view: خبرتیا
+      alerts_in_mainspace: ارتشيال کې خبرتياوې
+      users_involved: کارنان پکې ښکېل دي
+      total: ټولټال
+      last_week: تېره اوونۍ
+      sections:
+        contents: مخ منځپانگه
+        general_stats: ټوليزې شمارنې
+        name: نوم
+        description: څرگنداوی
   activity:
     all: چاره
     edited_by: سمونگر
@@ -146,6 +163,7 @@ ps:
     label: ليکنې
     loading: ليکنې برسېرېږي...
     mark_as_complete: د بشپړ په توگه نښه کول
+    mark_as_incomplete: د نيمگړي په توگه په نښه کول
     new: (نوی)
     preview: د ليکنې لنډه مخکتنه
     rating: ټولگی
@@ -208,6 +226,7 @@ ps:
     sandbox_draft_link: شگبکس گارليک
     select: ټاکل
     submit: سپارل
+    sandbox_label: ازمون‌مخ
   blocks:
     milestones:
       title: پړاوونه
@@ -233,16 +252,23 @@ ps:
     create_my_campaign: زما ټاکنيزه‌سيالۍ جوړول!
     customize_passcode: تلواليز پاس‌کوډ
     data_download_info: د ټاکنيزې‌سيالۍ اومتوک په سي‌اېس‌وي بڼه راکښته‌کول
+    data_courses: د لوست‌دورې د ټول‌کتنې اومتوکي
     data_articles: سم‌شوي مخونه
     data_revisions: بياکتنو اومتوک
     data_instructors: روزونکي
+    data_editors_by_course: د لوست‌دورې له مخې سمونگران
     data_editor_usernames: د سمونگر کارن‌نومونه
     data_editor_usernames_info: د سمونگر کارن‌نومونو لړليک، په هره کرښه کې يو
     data_wikidata: ويکي‌اومتوک شمارنې
+    default_course_type: د لوست‌دورې تلواله ډول
+    default_passcode: تلواله پاس‌کونجي
     description: څرگنداوی
     delete_campaign: دا ټاکنيزه‌سيالۍ ړنگول
     delete_course_tooltip: له ټاکنيزې‌سيالۍ ړنگول يا لرې‌کول.
     disable_account_requests: گڼون غوښتنې ناچارنول
+    enable_account_requests: گڼون غوښتنې چارنول
+    newest_campaigns: نوې ټاکنيزې‌سيالۍ
+    featured_campaigns: ځانگړې ټاکنيزې‌سيالۍ
     none: هېڅ
     resolve: اوار‌ول
     revision_data: بياليدنې اومتوک
@@ -273,17 +299,17 @@ ps:
     articles_i_will_create: ليکنې چې زه به يې جوړوم
     course: لوست‌دوره
     course_type_label: 'ډول:'
-    course_description: کورسونه
-    courses: کورسونه
+    course_description: لوست‌دورې
+    courses: لوست‌دورې
     courses_taught: تدريس‌شوي لوست‌دورې
     creation_date: پنځولو نېټه
     start_date: پيل نېټه
     creator:
-      course_description: د کورس څرگندونه
+      course_description: د لوست‌دورې څرگنداوی
       course_school: لوست‌دورې ښوونځی
       course_subject: لوست‌دورې سکالو
       course_term: لوست‌دورې موده
-      course_term_placeholder: موده
+      course_term_placeholder: موده (د کال په گډون)
       course_title: لوست‌دورې سرليک
       course_types:
         basic_course_name: بنسټيز پروگرام
@@ -403,7 +429,7 @@ ps:
   timeline:
     add_week: اوونۍ ورگډول
     block_in_class: په ټولگي کې
-    course_dates: کورس نېټې
+    course_dates: د لوست‌دورې نېټې
     empty_week_3: يا
     gradeable_value: ارزښت
     save_all_changes: ټول خوندي کول
@@ -418,13 +444,13 @@ ps:
   uploads:
     file_name: د دوتنې نوم
     image: انځور
-    label: پورته کېدنې
+    label: راپورته‌کېدنې
     usages: کارېدنې
   users:
     assign_articles_done: ترسره شو
     contributions: د کارن ونډې
     contributions_more: نورې ونډې کتل
-    editors: زده کوونکي سمونگران
+    editors: سمونگران
     first_name: لومړی نوم
     last_name: وروستی نوم
     loading: کارنان برسېرېږي...
@@ -437,18 +463,18 @@ ps:
     username: کارن‌نوم
     username_placeholder: کارن‌نوم
   wizard:
-    course_dates: کورس نېټې
+    course_dates: د لوست‌دورې نېټې
     read_less: لږ لوستل
     read_more: نور لوستل
     summary: لنډيز
   error_404:
     header: مخ و نه موندل شو. :-(
   login_error:
-    header: د ننوتلو ستونزه
+    header: د ننوتلو تېروتنه
   survey:
     email:
       headline: سلامونه، %{username}
-      course: 'کورس: %{course_info}'
+      course: 'لوست‌دوره: %{course_info}'
   news:
     footer:
       P&E_dashboard:

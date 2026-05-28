@@ -36,6 +36,7 @@ const DropdownSortSelect = ({ keys, sortSelect }) => {
     <div className="sort-container">
       <Select
         name="sorts"
+        aria-label={I18n.t('application.sort')}
         value={null}
         placeholder={placeholderNode}
         onChange={onChangeHandler}

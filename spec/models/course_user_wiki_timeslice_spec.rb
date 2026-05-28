@@ -116,35 +116,23 @@ describe CourseUserWikiTimeslice, type: :model do
   describe '.update_course_user_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
-      revisions << build(:revision_on_memory, article_id:, user_id: user.id, date: start + 26.hours,
-                         scoped: true)
-      revisions << build(:revision_on_memory, article_id:, user_id: user.id, date: start + 50.hours,
-                         scoped: true)
-      revisions << build(:revision_on_memory, article_id:, user_id: user.id, date: start + 51.hours,
-                         scoped: true)
     end
 
-    it 'creates the right article timeslices based on the revisions' do
+    it 'creates the right course user wiki timeslice based on the revisions' do
       expect(course.course_user_wiki_timeslices.count).to eq(0)
 
       start_period = start.strftime('%Y%m%d%H%M%S')
-      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
       revision_data = { start: start_period, end: end_period, revisions: }
       described_class.update_course_user_wiki_timeslices(course, user.id, wiki, revision_data)
 
       course_user_wiki_timeslice_0 = described_class.find_by(course:, wiki:, user:, start:)
-      course_user_wiki_timeslice_1 = described_class.find_by(course:, wiki:, user:,
-                                                             start: start + 1.day)
-      course_user_wiki_timeslice_2 = described_class.find_by(course:, wiki:, user:,
-                                                             start: start + 2.days)
 
       expect(course_user_wiki_timeslice_0.revision_count).to eq(4)
-      expect(course_user_wiki_timeslice_1.revision_count).to eq(1)
-      expect(course_user_wiki_timeslice_2.revision_count).to eq(2)
-      expect(course.course_user_wiki_timeslices.count).to eq(3)
+      expect(course.course_user_wiki_timeslices.count).to eq(1)
     end
 
-    it 'updates the right article timeslices based on the revisions' do
+    it 'updates the right course user wiki timeslice based on the revisions' do
       # Timeslices are already created
       create(:course_user_wiki_timeslice, course:, wiki:, user:, start:, end: start + 1.day)
       create(:course_user_wiki_timeslice, course:, wiki:, user:, start: start + 1.day,
@@ -163,7 +151,7 @@ describe CourseUserWikiTimeslice, type: :model do
       expect(course_user_wiki_timeslice_2.revision_count).to eq(0)
 
       start_period = start.strftime('%Y%m%d%H%M%S')
-      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
       revision_data = { start: start_period, end: end_period, revisions: }
       described_class.update_course_user_wiki_timeslices(course, user.id, wiki, revision_data)
 
@@ -174,9 +162,23 @@ describe CourseUserWikiTimeslice, type: :model do
                                                              start: start + 2.days)
 
       expect(course_user_wiki_timeslice_0.revision_count).to eq(4)
-      expect(course_user_wiki_timeslice_1.revision_count).to eq(1)
-      expect(course_user_wiki_timeslice_2.revision_count).to eq(2)
+      expect(course_user_wiki_timeslice_1.revision_count).to eq(0)
+      expect(course_user_wiki_timeslice_2.revision_count).to eq(0)
       expect(course.course_user_wiki_timeslices.count).to eq(3)
+    end
+
+    it 'sends a Sentry error when multiple timeslices are matched' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+
+      expect(Sentry).to receive(:capture_message)
+        .with("Multiple course user wiki timeslices matched for course #{course.slug}",
+              level: 'error',
+              extra: hash_including(course_id: course.id, wiki_id: wiki.id, user_id: user.id,
+                                    start: start_period, end: end_period))
+
+      revision_data = { start: start_period, end: end_period, revisions: }
+      described_class.update_course_user_wiki_timeslices(course, user.id, wiki, revision_data)
     end
   end
 

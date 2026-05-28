@@ -51,6 +51,7 @@ nl:
     back: Terug
     cancel: Annuleren
     next: Volgende
+    skip_to_main_content: Naar hoofdinhoud springen
     cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
       op met betrekking tot uw Wikipedia-account.
     cookie_consent_acknowledge: Ik begrijp het
@@ -87,6 +88,9 @@ nl:
     no_results: Geen resultaten gevonden voor '%{query}'
     show_current_revision: Huidige versie bekijken
     show_last_revision: Laatste bewerkte versie weergeven
+    font_label: Lettertype
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Registreren via Wikipedia
     sign_up_wikipedia: Of maak een account aan op Wikipedia
     sign_up_log_in_extended: met Wikipedia
@@ -101,6 +105,7 @@ nl:
     opt_yes: ja
     opt_no: nee
     print: Afdrukken
+    sort: Sorteren
   article_statuses:
     not_yet_started: Aan de slag
     in_progress: Op het kladblok werken
@@ -210,13 +215,14 @@ nl:
     articles: Pagina's
     article_not_found: Dit artikel is nog niet aangemaakt.
     article_development: (artikelontwikkeling)
-    articles_shown: Toont %{count} van %{total}
+    articles_shown: '%{count} van %{total} worden weergegeven'
     assigned: Toegewezen pagina's
     assignments_none: Er zijn nog geen toegewezen artikelen.
     available: Beschikbare artikelen
     no_available: Geen beschikbare artikelen
     next: Volgende
     page_info: Pagina %{current} van %{total_pages} (%{count} van %{total})
+    permalink: Permanente koppeling
     previous: Vorige
     article_title: Artikelnaam
     assigned_to: Toegewezen aan
@@ -241,6 +247,9 @@ nl:
       tracked: Gevolgd
       untracked: Niet bijgehouden
       tracked_and_untracked: Gevolgd en niet gevolgd
+      wiki_label: Wiki
+      newness_label: Nieuwheid van artikel
+      tracked_label: Volgstatus
     filter_text: 'Filters:'
     pageviews_label: 'Paginaweergaven:'
     cumulative: Cumulatief
@@ -592,7 +601,12 @@ nl:
     name: Naam
     category_name: Categorienaam
     psid_name: PSID
+    psid_description: PetScan-zoekopdrachten werken alleen met het dashboard één wiki
+      tegelijk. Zorg ervoor dat uw PetScan-zoekopdracht alleen pagina's uit één wiki
+      bevat en dat deze overeenkomt met de onderstaande wikiset.
     pileid_name: PagePile-ID
+    pileid_description: Zorg ervoor dat de wiki van de PagePile een van de gevolgde
+      wikis voor dit programma is.
     template_name: Sjabloonnaam
     none: Er worden geen categorieën bijgehouden.
     remove: Verwijderen
@@ -954,7 +968,8 @@ nl:
     view: Weergaven
     word_count: Aantal woorden toegevoegd
     aliases: Aliassen
-    merged: Samengevoegd
+    merged: Samengevoegd naar
+    merged_from: Samengevoegd uit
     created: Aangemaakt
     changed: Gewijzigd
     removed: Verwijderd
@@ -1152,7 +1167,9 @@ nl:
     uploaded_on: Geüpload op
     usage_count: Aantal keer gebruikt
     usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
-    usage_count_gallery_tile: Gebruikt op %{usage_count} artikelen.
+    usage_count_gallery_tile:
+      one: Gebruikt in 1 artikel
+      other: Gebruikt in %{count} artikelen
     usages: Gebruik
     gallery_view: Galerijweergave
     list_view: Lijstweergave
@@ -1254,7 +1271,7 @@ nl:
     summary: Samenvatting
   error:
     invalid_assignment: Ongeldige opdracht
-    invalid_date: '%{key} datum is ongeldig'
+    invalid_date: '%{key} datum is onjuist'
     invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
       Word-document.
     oauth_invalid: Uw Wikipedia-autorisatie is verlopen. Meld u opnieuw aan.

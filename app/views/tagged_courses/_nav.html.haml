@@ -2,9 +2,9 @@
   .campaign_navigation
     .container
       %a
-        %h2.title
+        %h1.title
           = "Tag: #{@tag}"
-      %nav
+      %nav{'aria-label': "Tag: #{@tag}"}
         %ul.campaign-nav__ul
           = nav_link(t('courses.courses'), programs_tagged_course_path(@tag))
           = nav_link(t('courses.articles'), articles_tagged_course_path(@tag))

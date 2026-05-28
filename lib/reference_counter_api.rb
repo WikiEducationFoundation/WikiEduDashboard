@@ -74,13 +74,7 @@ class ReferenceCounterApi
     return normalize_batch_results(rev_ids, parsed_response) if status == 200
 
     batch_non_200_response_log(status, { rev_ids:, content: parsed_response })
-
-    default = if non_transient_error?(status)
-                { 'num_ref' => nil }
-              else
-                { 'num_ref' => nil, 'error' => parsed_response }
-              end
-    rev_ids.to_h { |id| [id.to_s, default] }
+    rev_ids.to_h { |id| [id.to_s, { 'num_ref' => nil, 'error' => parsed_response }] }
   end
 
   def normalize_batch_results(rev_ids, parsed_response)
@@ -90,10 +84,14 @@ class ReferenceCounterApi
     end
   end
 
-  # Per-rev entry shape from the batch endpoint:
+  # Per-rev entry shape from the batch endpoint (input):
   #   { 'num_ref' => N }                                  # normal
   #   { 'num_ref' => nil, 'error' => 'no content' }       # suppressed/deleted
   #   nil                                                 # missing from response
+  # Transformed output:
+  #   { 'num_ref' => N }                                  # normal
+  #   { 'num_ref' => nil, 'deleted' => true }             # suppressed/deleted
+  #   { 'num_ref' => nil }                                # missing from response
   def transform_entry(entry)
     return { 'num_ref' => nil } if entry.nil?
     return handle_forbidden if suppressed_content?(entry)
@@ -109,7 +107,7 @@ class ReferenceCounterApi
   # surface a total per course update, and skip Sentry reporting.
   def handle_forbidden
     @update_service&.record_reference_counter_403
-    { 'num_ref' => nil }
+    { 'num_ref' => nil, 'deleted' => true }
   end
 
   def error_key(status)
@@ -177,16 +175,6 @@ class ReferenceCounterApi
       },
       request: { open_timeout: OPEN_TIMEOUT, timeout: REQUEST_TIMEOUT }
     )
-  end
-
-  BAD_REQUEST = 400
-  FORBIDDEN = 403
-  NOT_FOUND = 404
-  # A bad request response indicates that the language and/or project is not supported.
-  # A forbidden response likely means we lack permission to access the revision,
-  # possibly because it was deleted or hidden.
-  def non_transient_error?(status)
-    [BAD_REQUEST, FORBIDDEN, NOT_FOUND].include? status
   end
 
   TYPICAL_ERRORS = [Faraday::TimeoutError,

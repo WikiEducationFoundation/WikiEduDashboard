@@ -60,6 +60,7 @@ const LanguagePicker = () => {
       <Select
         name="language-picker"
         classNamePrefix="language-picker"
+        aria-label="Language"
         placeholder={curLocale}
         options={newLocales}
         onChange={selectLanguage}

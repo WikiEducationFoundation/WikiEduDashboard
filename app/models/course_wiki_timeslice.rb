@@ -17,6 +17,7 @@
 #  needs_update         :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  mw_rev_count         :integer          default(0)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -41,23 +42,19 @@ class CourseWikiTimeslice < ApplicationRecord
   #################
 
   # Given a course, a wiki, and a hash of revisions like the following:
-  # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
-  # updates the course wiki timeslices based on the revisions.
+  # {:start=>"20160320000000", :end=>"20160320235959", :revisions=>[...]},
+  # where start and end span a single timeslice period (end is 1 second
+  # before the next timeslice boundary), updates the course wiki timeslice.
   def self.update_course_wiki_timeslices(course, wiki, revisions)
-    rev_start = revisions[:start]
-    rev_end = revisions[:end]
-    # Course wiki timeslices to update
-    course_wiki_timeslices = CourseWikiTimeslice.for_course_and_wiki(course,
-                                                                     wiki)
-                                                .for_revisions_between(rev_start, rev_end)
-    course_wiki_timeslices.each do |timeslice|
-      # Group revisions that belong to the timeslice
-      revisions_in_timeslice = revisions[:revisions].select(&:scoped).select do |revision|
-        timeslice.start <= revision.date && revision.date < timeslice.end
-      end
-      # Update cache for CourseWikiTimeslice
-      timeslice.update_cache_from_revisions revisions_in_timeslice
+    timeslices = for_course_and_wiki(course, wiki)
+                 .for_revisions_between(revisions[:start], revisions[:end])
+    if timeslices.size > 1
+      Sentry.capture_message "Multiple timeslices matched for course #{course.slug}",
+                             level: 'error',
+                             extra: { course_id: course.id, wiki_id: wiki.id,
+                                      start: revisions[:start], end: revisions[:end] }
     end
+    timeslices.first.update_cache_from_revisions revisions[:revisions]
   end
 
   ####################
@@ -66,12 +63,14 @@ class CourseWikiTimeslice < ApplicationRecord
 
   # Assumes that the revisions are for their own course wiki
   def update_cache_from_revisions(revisions)
-    @revisions = revisions
+    # Only work with scoped revisions
+    @revisions = revisions.select(&:scoped)
     @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
 
     update_character_sum
     update_references_count
     update_revision_count
+    update_mw_rev_count
     update_stats
     update_needs_update
     save
@@ -112,6 +111,13 @@ class CourseWikiTimeslice < ApplicationRecord
     end
 
     self.revision_count = tracked_revisions.count { |rev| !rev.deleted && !rev.system }
+  end
+
+  # Must mirror the same filter that CourseRevisionUpdater#new_revisions? applies
+  # to the live fetched revisions, so the two counts are comparable.
+  # Exclude non-scoped (pre-filtered in @revisions) and system edits.
+  def update_mw_rev_count
+    self.mw_rev_count = @revisions.count { |rev| !rev.system }
   end
 
   def update_stats

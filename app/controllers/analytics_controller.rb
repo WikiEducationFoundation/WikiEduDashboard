@@ -11,6 +11,7 @@ class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
+  before_action :require_admin_permissions, only: :tagged_courses_csv
 
   ########################
   # Routing entry points #
@@ -19,8 +20,10 @@ class AnalyticsController < ApplicationController
 
   def results
     if params[:monthly_report]
+      require_admin_permissions
       monthly_report
     elsif params[:campaign_intersection]
+      require_admin_permissions
       campaign_intersection
     end
     render 'index'
@@ -47,7 +50,7 @@ class AnalyticsController < ApplicationController
   end
 
   def all_courses_csv
-    send_data CampaignCsvBuilder.new(nil).courses_to_csv,
+    send_data CampaignCsvBuilder.new(all_courses_scope).courses_to_csv,
               filename: "all_courses-#{Time.zone.today}.csv"
   end
 
@@ -75,6 +78,13 @@ class AnalyticsController < ApplicationController
 
   private
 
+  # Mirrors #all_courses (JSON): admins see every course, including private;
+  # non-admins see only nonprivate courses.
+  def all_courses_scope
+    return CampaignCsvBuilder::AllCourses if current_user&.admin?
+    CampaignCsvBuilder::AllNonprivateCourses
+  end
+
   ###################
   # Output builders #
   ###################
@@ -85,9 +95,6 @@ class AnalyticsController < ApplicationController
 
     {
       all: wikis_with_counts,
-      by_project: wikis_with_counts.group_by { |w| w[:project] },
-      by_language: group_by_language(wikis_with_counts),
-      top_wikis: wikis_with_counts.first(10),
       summary: build_wiki_summary(wikis_with_counts)
     }
   end
@@ -98,11 +105,6 @@ class AnalyticsController < ApplicationController
       { wiki: wiki, domain: wiki.domain, language: wiki.language,
         project: wiki.project, course_count: course_counts[wiki.id] || 0 }
     end
-  end
-
-  def group_by_language(wikis_with_counts)
-    wikis_with_counts.group_by { |w| w[:language] }
-                     .select { |lang, wikis| lang.present? && wikis.size > 1 }
   end
 
   def build_wiki_summary(wikis_with_counts)

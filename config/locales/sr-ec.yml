@@ -72,6 +72,9 @@ sr-ec:
     no_results: Нема пронађених резултата за термин „%{query}”
     show_current_revision: Прикажи тренутну верзију
     show_last_revision: Прикажи последњу измењену верзију
+    font_label: Фонт
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Отвори налог на Википедији
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом
@@ -184,6 +187,7 @@ sr-ec:
       tracked: Праћено
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
+      wiki_label: Вики
     filter_text: 'Филтери:'
     pageviews_label: 'Прегледа:'
     daily_avg: Дневни просек
@@ -928,7 +932,7 @@ sr-ec:
     general: Опште
     total_revisions: Укупно измена
     aliases: Псеудоними
-    merged: Спојено
+    merged: Спојено са
     created: Направљено
     changed: Измењено
     removed: Уклоњено
@@ -1223,7 +1227,9 @@ sr-ec:
     uploaded_on: Отпремљено на
     usage_count: Број употреба
     usage_doc: Број чланака на Википедији на којима се појављује ова слика.
-    usage_count_gallery_tile: Користи се у чланцима (%{usage_count})
+    usage_count_gallery_tile:
+      one: Користи се у једном чланку
+      other: Користи се у %{count} чланка
     usages: Коришћења
     source: 'Извор:'
     views_per_day: Прегледи по дану

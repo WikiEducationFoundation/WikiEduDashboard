@@ -1029,7 +1029,9 @@ cs:
     uploaded_on: Načteno v
     usage_count: Počet užití
     usage_doc: Počet článků ve wikipedii, které obsahují tento obrázek.
-    usage_count_gallery_tile: Použito v %{usage_count} článcích
+    usage_count_gallery_tile:
+      one: Použito v 1 článku
+      other: Použito v %{count} článcích
     usages: Použití
   users:
     already_enrolled: Tento uživatel již byl zapsán

@@ -31,6 +31,13 @@ const WikidataOverviewStats = ({ statistics, isCourseOverview }) => {
               renderZero={true}
             />
             <OverviewStat
+              id="merged-from"
+              className="stat-display__value-small"
+              stat={statistics['merged from']}
+              statMsg={I18n.t('metrics.merged_from')}
+              renderZero={true}
+            />
+            <OverviewStat
               id="interwiki-links"
               className="stat-display__value-small"
               stat={statistics['interwiki links added']}

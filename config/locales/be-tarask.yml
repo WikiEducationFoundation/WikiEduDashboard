@@ -131,7 +131,7 @@ be-tarask:
       на доступ да Вашага рахунку. Вы можаце ўвайсьці празь існы рахунак Вікіпэдыі
       або стварыць новы. Калі не атрымліваецца стварыць рахунак, зьвяжыцеся з dashboard@wikiedu.org.
   alerts:
-    alert_label: Паведамленьні
+    alert_label: Засьцярогі
     no_data: Няма зьвестак.
   activity:
     all: Актыўнасьць
@@ -246,7 +246,7 @@ be-tarask:
     available: Даступныя элемэнты
     cross_wiki_tracking: Унізе пералічаныя старонкі асноўнай прасторы назваў, якія
       рэдагаваліся між датамі пачатку і завяршэньня. Панэль інструмэнтаў зьбірае ўнёскі
-      з дамашняй вікі гэтай праграмы, а таксама зь любой іншай вікі, для якіх існуе
+      з дамашняй вікі гэтай праґрамы, а таксама зь кожнай іншай вікі, для якіх існуе
       прызначэньне або даступны элемэнт.
     edited: Элемэнты адрэдагаваныя
     edited_none: Рэдагаваных элемэнтаў яшчэ няма.
@@ -473,6 +473,7 @@ be-tarask:
     restorations_performed: Выкананыя аднаўленьні
   namespace:
     main: Асноўная прастора
+    talk: Гутаркі
     category: Катэґорыя
   revisions:
     references: Дададзена крыніцаў
@@ -486,6 +487,8 @@ be-tarask:
           enable_button: Увамкнуць
     categories:
       featured_campaigns: Абраныя кампаніі
+  status:
+    status: Статус
   timeline:
     discard_all_changes: Адкінуць усе зьмены
   training:
@@ -506,6 +509,7 @@ be-tarask:
     reviewers: Рэцэнзэнт(ы)
     sub_navigation:
       assignments_and_exercises: Заданьні і практыкаваньні
+    training_module_status: Статус
     uploads_doc: Колькасьць загрузак файлаў у Вікісховішча
   user_profiles:
     institution_placeholder: Назва ўстановы (неабавязкова)

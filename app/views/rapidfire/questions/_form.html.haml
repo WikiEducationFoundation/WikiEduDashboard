@@ -2,7 +2,7 @@
 .container.container--pad-y.block.survey__form.default-form
   = form_for form, as: :question, url: url, method: method do |f|
     - unless form.errors.empty?
-      %ul.form__errors
+      %ul.form__errors{role: 'alert'}
         - form.errors.full_messages.each do |message|
           %li= message
     - if params.key?(:cancellable)

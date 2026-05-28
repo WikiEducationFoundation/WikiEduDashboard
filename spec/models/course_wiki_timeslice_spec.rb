@@ -17,6 +17,7 @@
 #  needs_update         :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  mw_rev_count         :integer          default(0)
 #
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
@@ -85,7 +86,7 @@ scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 2.hours,
 scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
-scoped: true)
+scoped: false)
     array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
                              system: true, scoped: true)
     array_revisions << build(:revision_on_memory, article_id:, deleted: true, user_id: 1,
@@ -95,35 +96,50 @@ scoped: true)
   describe '.update_course_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-      array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 26.hours,
-                               scoped: true)
-      array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 50.hours,
-                               scoped: true)
-      array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 51.hours,
-                               scoped: true)
     end
 
-    it 'updates the right course wiki timeslices based on the revisions' do
+    it 'updates the right course wiki timeslice based on the revisions' do
       course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
-      course_wiki_timeslice_1 = described_class.find_by(course:, wiki:, start: start + 1.day)
-      course_wiki_timeslice_2 = described_class.find_by(course:, wiki:, start: start + 2.days)
 
       expect(course_wiki_timeslice_0.revision_count).to eq(0)
-      expect(course_wiki_timeslice_1.revision_count).to eq(0)
-      expect(course_wiki_timeslice_2.revision_count).to eq(0)
 
       start_period = start.strftime('%Y%m%d%H%M%S')
-      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
       revisions = { start: start_period, end: end_period, revisions: array_revisions }
       described_class.update_course_wiki_timeslices(course, wiki, revisions)
 
       course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
-      course_wiki_timeslice_1 = described_class.find_by(course:, wiki:, start: start + 1.day)
-      course_wiki_timeslice_2 = described_class.find_by(course:, wiki:, start: start + 2.days)
 
-      expect(course_wiki_timeslice_0.revision_count).to eq(3)
-      expect(course_wiki_timeslice_1.revision_count).to eq(1)
-      expect(course_wiki_timeslice_2.revision_count).to eq(2)
+      expect(course_wiki_timeslice_0.revision_count).to eq(2)
+    end
+
+    it 'sets mw_rev_count to the non-system count, including deleted revs' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
+      revisions = { start: start_period, end: end_period, revisions: array_revisions }
+      described_class.update_course_wiki_timeslices(course, wiki, revisions)
+
+      # First slice has 2 normal + 1 non-scoped + 1 system + 1 deleted =
+      # 3 scoped non-system revs.
+      # revision_count excludes the deleted one and the non-scoped one (2);
+      # mw_rev_count keeps the deleted one (3).
+      slice_0 = described_class.find_by(course:, wiki:, start:)
+      expect(slice_0.revision_count).to eq(2)
+      expect(slice_0.mw_rev_count).to eq(3)
+    end
+
+    it 'sends a Sentry error when multiple timeslices are matched' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+
+      expect(Sentry).to receive(:capture_message)
+        .with("Multiple timeslices matched for course #{course.slug}",
+              level: 'error',
+              extra: hash_including(course_id: course.id, wiki_id: wiki.id,
+                                    start: start_period, end: end_period))
+
+      revisions = { start: start_period, end: end_period, revisions: array_revisions }
+      described_class.update_course_wiki_timeslices(course, wiki, revisions)
     end
   end
 
@@ -142,7 +158,7 @@ scoped: true)
 
         expect(course_wiki_timeslice.character_sum).to eq(9010)
         expect(course_wiki_timeslice.references_count).to eq(7)
-        expect(course_wiki_timeslice.revision_count).to eq(3)
+        expect(course_wiki_timeslice.revision_count).to eq(2)
         expect(course_wiki_timeslice.needs_update).to eq(false)
       end
 
@@ -158,13 +174,27 @@ scoped: true)
         # Don't add any new revision count
         expect(course_wiki_timeslice.revision_count).to eq(0)
       end
+
+      it 'mw_rev_count ignores tracked status and deleted, excludes system and non-scoped' do
+        # Even when the only article is untracked, mw_rev_count counts every
+        # non-system rev — it must mirror what CourseRevisionUpdater#new_revisions?
+        # computes from the live fetched revisions.
+        ArticlesCourses.find(1).update(tracked: 0)
+
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_revisions array_revisions
+
+        expect(course_wiki_timeslice.revision_count).to eq(0)
+        # 2 normal + 1 deleted, minus the 1 system and the 1 non-scoped = 3
+        expect(course_wiki_timeslice.mw_rev_count).to eq(3)
+      end
     end
 
     context 'if revision with error' do
       before do
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
         array_revisions << build(:revision_on_memory, article_id:, user_id: 1,
-                                 date: start + 51.hours, scoped: true,
+                                 date: start + 1.hour, scoped: true,
                                  error: true) # add revision with error
       end
 

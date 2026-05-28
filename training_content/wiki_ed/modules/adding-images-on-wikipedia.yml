@@ -1,0 +1,14 @@
+---
+name: 'Adding images on Wikipedia '
+id: 83
+description: In this module, we’ll explore the role of images on Wikipedia and the
+  key things to keep in mind when adding or replacing images, particularly when it
+  comes to lead images.
+estimated_ttc: 15 - 20 minutes
+slides:
+- slug: what-role-will-the-image-serve
+- slug: things-to-keep-in-mind
+- slug: adding-images-to-wikipedia-articles-that-don-t-have-any-yet
+- slug: lead-images-in-wikipedia-articles
+- slug: pause-before-you-replace-a-lead-image
+- slug: when-to-replace-a-lead-image

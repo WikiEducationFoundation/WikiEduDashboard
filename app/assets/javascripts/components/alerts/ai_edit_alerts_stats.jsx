@@ -62,34 +62,34 @@ const AiEditAlertsStats = () => {
               renderZero={true}
             />
           </div>
-          <h3 id="alerts_trend_over_time" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h3>
+          <h2 id="alerts_trend_over_time" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.alerts_trend_over_time')}</h2>
           <AlertsTrendsGraph
             statsData={stats.historical_alerts}
             countByPage={stats.by_page_type}
             total={stats.total_alerts}
           />
 
-          <h3 id="courses_with_ai_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.courses_with_ai_alerts')}</h3>
+          <h2 id="courses_with_ai_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.courses_with_ai_alerts')}</h2>
           <CoursesWithAiAlertsList stats={{ total: stats.courses_with_ai_edit_alerts, last_week: stats.courses_with_ai_edit_alerts_last_week }}/>
 
-          <h3 id="recent_followup" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h3>
+          <h2 id="recent_followup" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.recent_followup')}</h2>
           <AiAlertsList
             alerts={stats.recent_alerts_followup}
             noAlertsLabel={I18n.t('alerts.no_data')}
           />
-          <h3 id="multiple_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}</h3>
+          <h2 id="multiple_alerts" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.multiple_alerts_students')}</h2>
           <AiAlertsList
             alerts={stats.recent_alerts_for_students_with_multiple_alerts}
             noAlertsLabel={I18n.t('alerts.no_data')}
           />
-          <h3 id="in_mainspace" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.in_mainspace')}</h3>
+          <h2 id="in_mainspace" style={{ marginTop: '40px' }}>{I18n.t('alerts.ai_stats.sections.in_mainspace')}</h2>
           <AiAlertsList
             alerts={stats.recent_alerts_for_mainspace}
             noAlertsLabel={I18n.t('alerts.no_data')}
           />
         </div>
         <div className="sidebar">
-          <h4 id="contents" style={{ marginTop: '60px' }}>{I18n.t('alerts.ai_stats.sections.contents')}</h4>
+          <h2 id="contents" style={{ marginTop: '60px' }}>{I18n.t('alerts.ai_stats.sections.contents')}</h2>
           <table className="table table--striped" style={{ marginTop: '20px' }}>
             <tbody>
               <tr>

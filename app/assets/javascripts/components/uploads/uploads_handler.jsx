@@ -40,7 +40,7 @@ const UploadsHandler = createReactClass({
       if (this.state.currentPage === 0) {
         this.setUploadMetadata(data);
       }
-      // eslint-disable-next-line react/no-did-update-set-state
+
       this.setState({
       data,
       pageCount: Math.ceil(this.props.selectedUploads.length / UPLOADS_PER_PAGE),
@@ -127,7 +127,7 @@ const UploadsHandler = createReactClass({
             </button>
           </div>
           <div className="sort-select">
-            <select className="sorts" name="sorts" onChange={this.sortSelect}>
+            <select className="sorts" name="sorts" onChange={this.sortSelect} aria-label={I18n.t('application.sort')}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
               <option value="uploader">{I18n.t('uploads.uploader')}</option>
               <option value="usage_count">{I18n.t('uploads.usage_count')}</option>

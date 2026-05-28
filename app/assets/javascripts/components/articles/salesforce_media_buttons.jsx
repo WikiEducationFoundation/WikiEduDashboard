@@ -11,7 +11,7 @@ const SalesforceMediaButtons = ({
   const salesforceMediaUrlRoot = '/salesforce/create_media?';
   const courseParam = `course_id=${course.id}`;
   const articleParam = `&article_id=${article.id}`;
-  // eslint-disable-next-line
+
   const diffParams = `&before_rev_id=${before_rev_id}&after_rev_id=${after_rev_id}`;
   const urlWithoutUsername = salesforceMediaUrlRoot + courseParam + articleParam + diffParams;
 

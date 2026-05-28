@@ -38,6 +38,10 @@ const SlideMenu = (props) => {
       }
       const enabled = (slide.enabled === true || props.enabledSlides.indexOf(slide.id) >= 0) && !current;
       return (
+        // The <li> onClick closes the menu on mouse clicks anywhere in the row;
+        // the inner <a> provides keyboard-accessible navigation (Enter triggers
+        // the link, page transitions away, menu unmounts).
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
         <li key={[slide.id, loopIndex].join('-')} onClick={props.onClick} className={liClass}>
           <a disabled={!enabled} href={slideLink}>
             {loopIndex + 1}. {slideTitle}
@@ -52,7 +56,7 @@ const SlideMenu = (props) => {
 
     return (
       <div className={menuClass}>
-        <span className="dropdown__close pull-right" onClick={props.onClick}>&times;</span>
+        <button type="button" className="dropdown__close pull-right" onClick={props.onClick} aria-label={I18n.t('revisions.close_modal')}>&times;</button>
         <h1 className="h5 capitalize">{I18n.t('training.table_of_contents')}</h1>
         <ol>
           {slides}

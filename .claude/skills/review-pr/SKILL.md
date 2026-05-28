@@ -216,6 +216,48 @@ bundle exec rubocop <changed .rb files>
 yarn eslint <changed .js/.jsx files>
 ```
 
+### Migration safety check
+
+If the PR diff includes any file in `db/migrate/`, work through this
+checklist explicitly before continuing the rest of the review. Reach a
+clear verdict on in-deployment viability before moving on; if anything
+is unknown (DB version, table size, etc.), ask the reviewer rather than
+glossing over it.
+
+- **Shape.** Additive (add column, add table, new index) is safer than
+  changing or destructive (drop, rename, change column, add NOT NULL on
+  populated column). For `add_column`, nullable + literal default is
+  the textbook safe form.
+- **Backfill.** Does the migration run an inline `update_all`, `each`,
+  or `find_each` over rows? Inline backfills hold the migration open
+  and block writes; large tables need batched backfills run separately.
+- **Indexes / constraints.** Adding indexes, NOT NULL, or foreign keys
+  to populated columns may require table locks or rewrites. Online
+  index syntax, two-step NOT NULL, or deferred FK validation may be
+  warranted.
+- **DB version + algorithm support.** Confirm the production MariaDB /
+  MySQL version and whether the change qualifies for `ALGORITHM=INSTANT`
+  or `INPLACE`. INSTANT ADD COLUMN (MariaDB 10.3+, MySQL 8.0.12+) makes
+  nullable+default column adds metadata-only; without it the same
+  migration can rewrite the table. Check both Wiki Ed Dashboard
+  (`production` stage) and Peony (`peony` stage) — they're independent
+  hosts and may run different MariaDB versions. `SELECT VERSION();` on
+  each is the cheap check.
+- **Table size.** Roughly how big is the affected table in production?
+  Small tables (<100K rows) tolerate any algorithm; large or write-hot
+  tables (e.g. `course_wiki_timeslices`, `revisions`,
+  `course_user_wiki_timeslices`, `article_course_timeslices`) need a
+  fast-path algorithm or out-of-band execution.
+- **Deploy timing.** Capistrano runs migrations during deploy and the
+  deploy blocks on them. For migrations that aren't fast-path,
+  recommend running out-of-band first and shipping the code change in
+  a follow-up deploy.
+
+State a verdict — "safe to ship inside a normal deploy" or specifics
+about what to do differently — before continuing.
+
+### Diff walkthrough
+
 Walk through the diff one logical group at a time. For each group of
 related changes:
 
@@ -223,7 +265,9 @@ related changes:
 2. Summarize what the changes do — but **do not judge quality**. Present
    the facts and let the reviewer assess.
 3. Flag areas that may warrant closer attention:
-   - **Migrations** — schema changes, data migrations, irreversibility
+   - **Migrations** — covered above in Migration safety check; the diff
+     walkthrough should still surface any code that depends on the new
+     schema in ways that interact with the deploy ordering.
    - **Security-sensitive code** — authentication, authorization, user
      input handling, SQL queries, external API credentials
    - **External API changes** — calls to WikiMedia APIs, Toolforge
@@ -488,6 +532,11 @@ manual testing).
 
 All review comments and PR feedback posted via this skill must follow
 these rules:
+
+**How to use feedback:** At the start of a review, include a note about
+how we intend AI-driven review feedback to be used — not to be automatically
+trusted or blindly acted upon, but good to read, understand and use or
+ignore based on the developer's own judgment.
 
 **Approval required:** Never post a review or comment without first
 showing the full draft to the reviewer and receiving explicit approval.

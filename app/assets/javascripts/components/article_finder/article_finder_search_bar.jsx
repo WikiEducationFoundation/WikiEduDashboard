@@ -86,7 +86,7 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
       <div className="autocomplete">
         {
           suggestions.map((sug) => {
-            return <div key={sug} className="autocomplete-item" onClick={() => autoCompleteClickHandler(sug)}> {sug} </div>;
+            return <button type="button" key={sug} className="autocomplete-item" onClick={() => autoCompleteClickHandler(sug)}> {sug} </button>;
           })
         }
       </div>

@@ -714,7 +714,8 @@ fi:
     word_count: Lisätyt sanat
     word_count_average: Keskimääräinen sanamäärä
     aliases: Aliakset
-    merged: Yhdistetty
+    merged: Yhdistetty kohteeseen
+    merged_from: Yhdistetty kohteesta
     created: Luotu
     changed: Muutettu
     removed: Poistettu

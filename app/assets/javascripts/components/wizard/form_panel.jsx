@@ -49,6 +49,7 @@ const FormPanel = (props) => {
         {step1}
         <div className="vertical-form full-width">
           <DatePicker
+            id="wizard_course_start"
             onChange={updateCourseDates}
             value={props.course.start}
             value_key="start"
@@ -57,6 +58,7 @@ const FormPanel = (props) => {
             label="Course Start"
           />
           <DatePicker
+            id="wizard_course_end"
             onChange={updateCourseDates}
             value={props.course.end}
             value_key="end"
@@ -73,6 +75,7 @@ const FormPanel = (props) => {
         <p>{I18n.t('wizard.assignment_description')}</p>
         <div className="vertical-form full-width">
           <DatePicker
+            id="wizard_timeline_start"
             onChange={updateCourseDates}
             value={props.course.timeline_start}
             value_key="timeline_start"
@@ -82,6 +85,7 @@ const FormPanel = (props) => {
             date_props={dateProps.timeline_start}
           />
           <DatePicker
+            id="wizard_timeline_end"
             onChange={updateCourseDates}
             value={props.course.timeline_end}
             value_key="timeline_end"

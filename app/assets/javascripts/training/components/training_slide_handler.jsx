@@ -259,15 +259,26 @@ const TrainingSlideHandler = () => {
     <div>
       <Notifications />
       <header>
-        <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
+        <div
+          role="button"
+          tabIndex={0}
+          className="pull-right training__slide__nav"
+          onClick={toggleMenuOpen_FC}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleMenuOpen_FC();
+            }
+          }}
+        >
           <div className="pull-right hamburger">
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
           </div>
-          <h3 className="pull-right">
-            <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
-          </h3>
+          <span className="pull-right training__slide__page-label">
+            {I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}
+          </span>
         </div>
         <SlideMenu
           closeMenu={closeMenu_FC}

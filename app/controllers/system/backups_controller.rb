@@ -17,9 +17,7 @@ module System
       # phase status set to sleeping
       ready = Sidekiq::WorkSet.new.all? do |_process_id, _thread_id, work|
         payload = JSON.parse(work.payload)
-        jid = payload['jid']
-
-        status = Sidekiq::Status.get_all(jid)
+        status = Sidekiq::Status.get_all(payload['jid'])
 
         # Non-CourseDataUpdateWorker jobs are irrelevant for backup safety.
         next true unless payload['class'] == COURSE_UPDATE_WORKER_CLASS
@@ -27,7 +25,7 @@ module System
         # CourseDataUpdateWorker without sidekiq-status is unexpected
         # (likely expired), so we log and block the backup.
         if status.empty?
-          log_missing_status(jid)
+          log_missing_status(payload['jid'], payload['queue'], payload['args'])
           next false
         end
 
@@ -39,10 +37,10 @@ module System
 
     private
 
-    def log_missing_status(jid)
+    def log_missing_status(jid, queue, args)
       Sentry.capture_message("#{COURSE_UPDATE_WORKER_CLASS} without sidekiq-status",
                              level: 'error',
-                             extra: { jid: jid })
+                             extra: { jid:, queue:, args: })
     end
 
     def course_data_update_worker_sleeping?(status)

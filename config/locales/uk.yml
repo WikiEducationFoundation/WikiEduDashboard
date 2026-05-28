@@ -1110,7 +1110,8 @@ uk:
     total_revisions: Всього версій
     claims: Претензії
     aliases: Псевдоніми
-    merged: Об'єднана
+    merged: Об'єднано до
+    merged_from: Об'єднано з
     created: Створена
     changed: Змінена
     removed: Вилучена

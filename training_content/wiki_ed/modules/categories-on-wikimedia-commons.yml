@@ -1,0 +1,16 @@
+---
+name: Categories on Wikimedia Commons
+id: 84
+description: This module will explore the importance of categories and subcategories
+  on Wikimedia Commons. You’ll learn why we add categories to files, how to add a
+  category to a file, and how to create a new category if it doesn’t exist on Commons
+  yet.
+estimated_ttc: 15 - 20 minutes
+slides:
+- slug: why-add-categories
+- slug: categories-for-your-institution
+- slug: how-to-add-categories
+- slug: using-source-editor-to-add-categories
+- slug: don-t-accidentally-create-duplicate-categories
+- slug: how-to-add-new-categories
+- slug: what-about-subcategories

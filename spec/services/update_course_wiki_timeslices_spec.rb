@@ -248,6 +248,27 @@ describe UpdateCourseWikiTimeslices do
       end
     end
 
+    context 'when reprocessing a wikidata timeslice with no new revisions' do
+      before do
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+        # Mark the first wikidata timeslice for reprocessing
+        course.course_wiki_timeslices.where(wiki: wikidata).first
+              .update(needs_update: true)
+        # Simulate no new revisions for any wiki or timeslice
+        allow_any_instance_of(CourseRevisionUpdater)
+          .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+            { wiki => { start: ts_start, end: ts_end, new_data: false, revisions: [] } }
+          end
+      end
+
+      it 'fetches wikidata stats even when there are no new revisions' do
+        expect_any_instance_of(UpdateWikidataStatsTimeslice)
+          .to receive(:update_revisions_with_stats)
+          .and_return([])
+        subject
+      end
+    end
+
     context 'when there is no point in importing revisions' do
       before do
         CoursesUsers.find_by(course:, user:).destroy
@@ -256,10 +277,12 @@ describe UpdateCourseWikiTimeslices do
         # Set timeslices to reprocess
         course.course_wiki_timeslices.where(wiki: enwiki)
               .first.update(revision_count: 15,
+                            mw_rev_count: 15,
                             last_mw_rev_datetime: '2018-11-24 10:25:00',
                             needs_update: true)
         course.course_wiki_timeslices.where(wiki: wikidata)
               .first.update(revision_count: 15,
+                            mw_rev_count: 15,
                             last_mw_rev_datetime: '2018-11-24 10:25:00',
                             stats: { 'total revisions:': 15 },
                             needs_update: true)

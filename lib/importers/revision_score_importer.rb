@@ -3,9 +3,8 @@
 require_dependency "#{Rails.root}/lib/revision_score_api_handler"
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
-#= Imports revision scoring data from Lift Wing and reference-counter APIs.
-#= This class populates wp10, wp10_previous, features, features_previous and
-#= deleted fields.
+#= Imports revision scoring data from the reference-counter API.
+#= This class populates features, features_previous, deleted and error fields.
 class RevisionScoreImporter
   BATCH_SIZE = 50
 
@@ -19,8 +18,7 @@ class RevisionScoreImporter
     @api_handler = RevisionScoreApiHandler.new(wiki: @wiki, update_service:)
   end
 
-  # Takes an array of Revision records, and returns an array of Revisions records
-  # with scores completed.
+  # Takes an array of RevisionOnMemory records, and returns them with scores completed.
   def get_revision_scores(new_revisions)
     scores = {}
     parent_scores = {}

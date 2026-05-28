@@ -133,6 +133,11 @@ describe 'Surveys', type: :feature, js: true do
       # Sets the course automatically
       expect(page).to have_content 'Survey for My Active Course'
       expect(page).to have_content 'Progress'
+      # Slick keeps offscreen slides in the DOM with aria-hidden=true while
+      # also leaving their descendants focusable; this is a known
+      # third-party slider behavior, so we exclude offscreen slides from
+      # axe-clean rather than fight the library.
+      expect(page).to be_axe_clean.excluding('.slick-slide[aria-hidden="true"]')
     end
 
     it 'sets the course and shows the progress bar by going to the course page' do
@@ -151,6 +156,7 @@ describe 'Surveys', type: :feature, js: true do
       login_as(@instructor, scope: :user)
       visit "#{survey_path(@survey)}/optout"
       expect(page).to have_content 'opted out'
+      expect(page).to be_axe_clean
     end
 
     it 'navigates correctly between each question and submits' do

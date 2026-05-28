@@ -1,0 +1,327 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=newer&rvend=2025-12-10T23:59:59Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-08-18T00:00:00Z&rvuser=Kfase&titles=Media_multiplexity_theory
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:37 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-mk6f4
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=zktkz5dFEoWSeHQVyd-obANWAAAAAFvd598kGiQ4CPg6sr5q9zday_nKQDE9HLcT;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '306'
+      X-Request-Id:
+      - 6e9c7b9f-3f80-4d3a-83a1-dd3c4eb22fb0
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Media_multiplexity_theory","to":"Media
+        multiplexity theory"}],"pages":{"75215900":{"pageid":75215900,"ns":0,"title":"Media
+        multiplexity theory","revisions":[{"revid":1310268231,"parentid":1291883584,"user":"Kfase","timestamp":"2025-09-08T16:41:19Z"}]}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:37 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=newer&rvend=2025-12-10T23:59:59Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-08-18T00:00:00Z&rvuser=JakeZim16&titles=Media_multiplexity_theory
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:37 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-85prl
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=KcBALd0zh7ALS4LFwvugnwNWAAAAAFvdwnR6dz4rMLaYeb2dIh_yujsa2QJWgVHt;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '310'
+      X-Request-Id:
+      - 35124658-e33a-4ff0-a56b-720d4bf2ec63
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Media_multiplexity_theory","to":"Media
+        multiplexity theory"}],"pages":{"75215900":{"pageid":75215900,"ns":0,"title":"Media
+        multiplexity theory","revisions":[{"revid":1322934870,"parentid":1310268231,"user":"JakeZim16","timestamp":"2025-11-18T18:08:11Z"}]}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:37 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=older&rvend=2025-08-18T00:00:00Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-12-10T23:59:59Z&rvuser=Kfase&titles=Media_multiplexity_theory
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:38 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-kd7gm
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=XtBpCZn7zqAh7oghQoUm_gNWAAAAAFvdDzoYuiS728552q4y5zbVHo-0guprAEJs;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '306'
+      X-Request-Id:
+      - 2b06793c-b487-4757-90c4-ad877ad5e933
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Media_multiplexity_theory","to":"Media
+        multiplexity theory"}],"pages":{"75215900":{"pageid":75215900,"ns":0,"title":"Media
+        multiplexity theory","revisions":[{"revid":1310268231,"parentid":1291883584,"user":"Kfase","timestamp":"2025-09-08T16:41:19Z"}]}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:38 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=older&rvend=2025-08-18T00:00:00Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-12-10T23:59:59Z&rvuser=JakeZim16&titles=Media_multiplexity_theory
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:38 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-cd5hg
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=SvJ4Y9qzTjD7Gb5hxAhlrQNWAAAAAFvdeAtBBa-rz0oBbswJRfPr1FB032MfSAXj;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '310'
+      X-Request-Id:
+      - 47b15f03-0798-4247-bf67-b0a34b6bf649
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Media_multiplexity_theory","to":"Media
+        multiplexity theory"}],"pages":{"75215900":{"pageid":75215900,"ns":0,"title":"Media
+        multiplexity theory","revisions":[{"revid":1322934870,"parentid":1310268231,"user":"JakeZim16","timestamp":"2025-11-18T18:08:11Z"}]}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:38 GMT
+recorded_with: VCR 6.1.0

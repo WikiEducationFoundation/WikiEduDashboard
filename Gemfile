@@ -149,4 +149,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'axe-core-rspec' # Accessibility assertions for feature specs
 end

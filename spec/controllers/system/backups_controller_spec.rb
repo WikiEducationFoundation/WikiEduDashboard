@@ -56,6 +56,40 @@ describe System::BackupsController, type: :request do
           expect(response.status).to eq(503)
         end
       end
+
+      context 'when a CourseDataUpdateWorker has missing sidekiq-status' do
+        let(:jid) { 'e118d576de83c8e44526bba7' }
+        let(:course_id) { 42 }
+        let(:work_item) do
+          double('Sidekiq::Work').tap do |w|
+            allow(w).to receive(:payload).and_return(
+              { 'class' => 'CourseDataUpdateWorker', 'jid' => jid,
+                'queue' => 'medium_update', 'args' => [course_id] }.to_json
+            )
+          end
+        end
+
+        before do
+          workset = instance_double(Sidekiq::WorkSet)
+          allow(Sidekiq::WorkSet).to receive(:new).and_return(workset)
+          allow(workset).to receive(:all?).and_yield(nil, nil, work_item).and_return(false)
+          allow(Sidekiq::Status).to receive(:get_all).with(jid).and_return({})
+          allow(Sentry).to receive(:capture_message)
+        end
+
+        it 'returns 503 service unavailable' do
+          get '/system/can_start_backup.json'
+          expect(response.status).to eq(503)
+        end
+
+        it 'logs the missing status to Sentry with the course id' do
+          get '/system/can_start_backup.json'
+          expect(Sentry).to have_received(:capture_message)
+            .with('CourseDataUpdateWorker without sidekiq-status',
+                  level: 'error',
+                  extra: { jid:, queue: 'medium_update', args: [course_id] })
+        end
+      end
     end
   end
 end

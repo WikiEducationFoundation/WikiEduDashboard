@@ -30,6 +30,7 @@ describe 'Training', type: :feature, js: true do
       library_names.each do |library_name|
         expect(page).to have_content library_name
       end
+      expect(page).to be_axe_clean
     end
 
     it 'loads for a logged-out user' do
@@ -77,6 +78,7 @@ describe 'Training', type: :feature, js: true do
       expect(page).to have_content module_2.name
       expect(page).to have_content 'Estimated time to complete'
       expect(page).to have_content module_2.estimated_ttc
+      expect(page).to be_axe_clean
     end
 
     it 'renders the table of contents' do
@@ -89,6 +91,7 @@ describe 'Training', type: :feature, js: true do
       click_link 'Start'
       slide_count = module_2.slides.count
       expect(page).to have_content "Page 1 of #{slide_count}"
+      expect(page).to be_axe_clean
       expect(TrainingModulesUsers.find_by(
                user_id: user.id,
                training_module_id: module_2.id
@@ -170,9 +173,9 @@ describe 'Training', type: :feature, js: true do
       end
 
       it 'displays proper message in wiki_ed mode' do
-        expect(page.html)
-          .to include(I18n.t('training.no_training_library_records_wiki_ed_mode',
-                             url:))
+        expect(page).to have_content(
+          'There are no TrainingLibrary records in the database.'
+        )
       end
 
       it 'includes a link' do

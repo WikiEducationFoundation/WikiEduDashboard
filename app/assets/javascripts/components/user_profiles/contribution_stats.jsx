@@ -37,7 +37,7 @@ const ContributionStats = ({ params, stats, statsGraphsData }) => {
 
   return (
     <div id="statistics">
-      <h3>{I18n.t('users.contribution_statistics')}</h3>
+      <h2>{I18n.t('users.contribution_statistics')}</h2>
       {contriStats}
     </div>
   );

@@ -120,6 +120,7 @@ describe 'ticket dashboard', type: :feature, js: true do
       end.count
 
       expect(nb_of_lines).to eq 2
+      expect(page).to be_axe_clean
     end
 
     it 'finds one match in content' do

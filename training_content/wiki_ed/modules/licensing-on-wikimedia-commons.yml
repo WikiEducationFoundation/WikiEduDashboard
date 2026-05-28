@@ -1,0 +1,12 @@
+---
+name: Licensing on Wikimedia Commons
+id: 82
+description: This tutorial covers the copyright rules for adding images and other
+  media to Wikimedia Commons, and explores the two types of licenses we will use in
+  this course.
+estimated_ttc: 15 - 20 minutes
+slides:
+- slug: what-s-a-free-license
+- slug: public-domain
+- slug: what-s-a-cc-by-4-0-license
+- slug: do-not-add-images-generated-by-ai

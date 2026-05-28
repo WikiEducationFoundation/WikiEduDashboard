@@ -18,10 +18,10 @@ describe RevisionScoreApiHandler do
 
       it 'returns completed scores if data is retrieved without errors' do
         expect(subject).to be_a(Hash)
-        expect(subject.dig('829840090')).to eq({ 'wp10' => nil, 'error' => false,
-        'features' => { 'num_ref' => 132 }, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('829840091')).to eq({ 'wp10' => nil, 'error' => false,
-        'features' => { 'num_ref' => 1 }, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('829840090')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 132 }, 'deleted' => false })
+        expect(subject.dig('829840091')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 1 }, 'deleted' => false })
       end
 
       it 'returns completed scores if there is an error hitting ReferenceCounterApi' do
@@ -29,11 +29,29 @@ describe RevisionScoreApiHandler do
           .to_raise(Errno::ETIMEDOUT)
 
         expect(subject).to be_a(Hash)
-        expect(subject.dig('829840090')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('829840091')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('829840090')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
+        expect(subject.dig('829840091')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
       end
+    end
+  end
+
+  context 'when a revision is suppressed or deleted' do
+    before do
+      stub_wiki_validation
+      stub_reference_counter_batch_response(
+        project: 'wikipedia', language: 'en',
+        num_refs: { '829840092' => nil }
+      )
+    end
+
+    let(:handler) { described_class.new(wiki: Wiki.find(1)) }
+
+    it 'returns deleted: true and empty features' do
+      result = handler.get_revision_data [829840092]
+      expect(result.dig('829840092')).to eq({ 'error' => false,
+                                              'features' => {}, 'deleted' => true })
     end
   end
 
@@ -68,20 +86,20 @@ describe RevisionScoreApiHandler do
     describe '#get_revision_data' do
       it 'returns completed scores if retrieves data without errors' do
         expect(subject).to be_a(Hash)
-        expect(subject.dig('157412237')).to eq({ 'wp10' => nil, 'error' => false,
-        'features' => { 'num_ref' => 111 }, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('157417768')).to eq({ 'wp10' => nil, 'error' => false,
-        'features' => { 'num_ref' => 42 }, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('157412237')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 111 }, 'deleted' => false })
+        expect(subject.dig('157417768')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 42 }, 'deleted' => false })
       end
 
       it 'returns completed scores if there is an error hitting reference-counter api' do
         stub_request(:any, /.*reference-counter.toolforge.org*/)
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
-        expect(subject.dig('157412237')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('157417768')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('157412237')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
+        expect(subject.dig('157417768')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
       end
     end
   end

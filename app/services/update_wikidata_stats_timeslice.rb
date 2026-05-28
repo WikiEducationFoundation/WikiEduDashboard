@@ -12,6 +12,7 @@ class UpdateWikidataStatsTimeslice
   STATS_CLASSIFICATION = {
     # UI section: General
     'merge_to' => 'merged to',
+    'merge_from' => 'merged from',
     'added_sitelinks' => 'interwiki links added',
     # UI section: Claims
     'added_claims' => 'claims created',
@@ -45,7 +46,6 @@ class UpdateWikidataStatsTimeslice
     'changed_qualifiers' => 'qualifiers changed',
     'removed_sitelinks' => 'interwiki links removed',
     'changed_sitelinks' => 'interwiki links updated',
-    'merge_from' => 'merged from',
     'added_lemmas' => 'lemmas added',
     'removed_lemmas' => 'lemmas removed',
     'changed_lemmas' => 'lemmas changed',

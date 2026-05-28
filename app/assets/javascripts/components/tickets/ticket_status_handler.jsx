@@ -14,6 +14,7 @@ export const TicketStatusHandler = ({ updateStatus, ticket, arialabelledby }) =>
       options={options}
       styles={{ ...selectStyles, singleValue: null }}
       value={{ label: STATUSES[ticket.status], value: ticket.status }}
+      aria-label="Ticket status"
       aria-labelledby={arialabelledby}
     />
   );

@@ -200,7 +200,7 @@ const WeekdayPicker = ({
   return (
     <div
       className={finalClassName}
-      role="widget"
+      role="group"
       style={style}
       tabIndex={tabIndex}
     >

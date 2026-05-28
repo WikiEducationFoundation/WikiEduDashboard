@@ -1,4 +1,4 @@
-/* eslint-disable no-restricted-syntax */
+
 import { queryUrl } from './article_finder_utils';
 import { chunk } from 'lodash-es';
 import { getReferencesAdded, getWikiObjectFromURL, isSupportedORESWiki } from './revision_utils';

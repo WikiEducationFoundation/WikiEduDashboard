@@ -130,15 +130,17 @@ const NewReplyForm = ({ ticket, currentUser }) => {
         </button>
         <div className="pull-right">
           <small>
-            BCC to Salesforce
-            <input
-              checked={replyDetails.bccToSalesforce}
-              className="ml1 top2"
-              id="bcc"
-              name="bcc"
-              onChange={toggleBcc}
-              type="checkbox"
-            />
+            <label htmlFor="bcc">
+              BCC to Salesforce
+              <input
+                checked={replyDetails.bccToSalesforce}
+                className="ml1 top2"
+                id="bcc"
+                name="bcc"
+                onChange={toggleBcc}
+                type="checkbox"
+              />
+            </label>
           </small>
         </div>
       </h3>
@@ -146,7 +148,7 @@ const NewReplyForm = ({ ticket, currentUser }) => {
         replyDetails.showCC
         && (
           <div className="cc-fields">
-            <label>CC:</label>
+            <label htmlFor="cc">CC:</label>
             <TextInput
               id="cc"
               onChange={onChange}

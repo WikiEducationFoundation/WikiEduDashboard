@@ -7,6 +7,7 @@ describe 'Mailer previews index', type: :feature, js: true do
     visit '/mailer_previews'
     expect(page).to have_content 'Email Previews'
     expect(page).to have_text(/course messages for instructors/i)
+    expect(page).to be_axe_clean
 
     links = all('.preview-table a').map { |a| a[:href] }
     expect(links).not_to be_empty

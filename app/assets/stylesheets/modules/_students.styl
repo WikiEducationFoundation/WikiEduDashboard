@@ -1,3 +1,15 @@
+// The "Words Added" / "Characters Added" column headers contain a
+// parenthetical disclaimer "(article | user | draft)" after a <br>
+// tag. With no white-space constraint, narrow columns at high
+// browser zoom break each token onto its own line ("(article", "|
+// user", "|", "draft)"), producing a 5-line header. Forcing nowrap
+// on the .users table headers keeps each line of the label intact;
+// the <br> still produces the intended primary/disclaimer line
+// break, and any overflow falls into the page's horizontal scroll
+// which is acceptable for WCAG 1.4.4.
+.users.table thead th
+  white-space nowrap
+
 .redlink
   color $warning_text
 

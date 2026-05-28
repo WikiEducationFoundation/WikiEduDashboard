@@ -67,6 +67,9 @@ render() {
   );
   if (is_open) {
     return (
+      // onClick={this.stop} only calls e.stopPropagation() to keep "click
+      // outside" handlers from firing inside the popover.
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
       <div className="pop__container" onClick={this.stop}>
         <Popover
           is_open={is_open}

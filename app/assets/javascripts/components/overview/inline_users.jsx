@@ -37,7 +37,7 @@ const InlineUsers = (props) => {
     <EnrollButton
       {...props}
       users={props.users}
-      role={props.role}
+      userRole={props.role}
       inline={true}
       allowed={allowed}
       show={props.editable && allowed}

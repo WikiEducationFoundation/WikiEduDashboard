@@ -196,6 +196,8 @@ describe 'the course page', type: :feature, js: true do
         expect(page).to have_content 'Milestones'
         expect(page).to have_content 'blocky block'
       end
+
+      expect(page).to be_axe_clean
     end
 
     it 'get academic_system' do
@@ -245,6 +247,9 @@ describe 'the course page', type: :feature, js: true do
       expect(page).to have_selector('tr.article', count: article_count)
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
+      # react-paginate 8.x hardcodes role="navigation" on its <ul>;
+      # exclude until library upgrade or local wrapper component.
+      expect(page).to be_axe_clean.excluding('.pagination')
     end
 
     it 'sorts Wikipedia articles by class' do
@@ -401,6 +406,7 @@ describe 'the course page', type: :feature, js: true do
           expect(page.text).to eq('2')
         end
       end
+      expect(page).to be_axe_clean
     end
   end
 
@@ -411,14 +417,43 @@ describe 'the course page', type: :feature, js: true do
         user_id: 1,
         file_name: 'File:Example.jpg',
         uploaded_at: '2015-06-01',
-        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg'
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 1
       )
     end
 
     it 'displays a list of uploads' do
+      @commons_upload_plural = create(
+        :commons_upload,
+        user_id: 1,
+        file_name: 'File:Example_2.jpg',
+        uploaded_at: '2015-06-02',
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 2
+      )
+
       js_visit "/courses/#{slug}/uploads"
-      expect(page).to have_selector('div.upload')
+      expect(page).to have_selector('div.upload', count: 2)
+
+      # Wait for the images and containers to be ready
+      expect(page).to have_selector('img[alt$="Example.jpg"]')
+      expect(page).to have_selector('img[alt$="Example_2.jpg"]')
+
       expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
+      # Run axe-clean before any hover; hover exposes a pre-existing
+      # nested-interactive violation in .upload that should be fixed separately.
+      expect(page).to be_axe_clean
+
+      # Hover singular
+      # Find the upload container that contains the specific image and hover it
+      find('img[alt$="Example.jpg"]').ancestor('.upload').hover
+      # Verify correct singular pluralization
+      expect(page).to have_css('.usage', text: 'Used in 1 article', wait: 5)
+
+      # Hover plural
+      find('img[alt$="Example_2.jpg"]').ancestor('.upload').hover
+      # Verify correct plural pluralization
+      expect(page).to have_css('.usage', text: 'Used in 2 articles', wait: 5)
     end
 
     it 'displays view options' do
@@ -479,7 +514,16 @@ describe 'the course page', type: :feature, js: true do
       Capybara.using_wait_time 10 do
         js_visit "/courses/#{slug}/activity"
         expect(page).to have_css('.revision', minimum: 5)
+        expect(page).to be_axe_clean
       end
+    end
+  end
+
+  describe 'resources view' do
+    it 'loads cleanly' do
+      js_visit "/courses/#{slug}/resources"
+      expect(page).to have_content('This.course')
+      expect(page).to be_axe_clean
     end
   end
 

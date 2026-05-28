@@ -243,6 +243,19 @@ module RequestHelpers
       .to_return(status: 200, body: '{"users":[{}]}', headers: {})
   end
 
+  def stub_mainspace_query
+    stub_request(:get, /.*action=query&titles=.*&format=json&origin=\*/)
+      .to_return(status: 200, headers: {}) do |request|
+        uri = URI.decode_www_form_component(request.uri.to_s)
+        match = uri.match(/titles=([^&]*)/)
+        title = match ? match[1] : 'MockTitle'
+        ns = title.downcase.start_with?('category:') ? 14 : 0
+        {
+          body: "{\"query\":{\"pages\":{\"1\":{\"pageid\":1,\"ns\":#{ns},\"title\":\"#{title}\"}}}}"
+        }
+      end
+  end
+
   def stub_wikipedia_503_error
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 503, body: '{}', headers: {})
@@ -268,6 +281,7 @@ module RequestHelpers
       'tr.wikipedia.org',
       'en.wiktionary.org',
       'es.wiktionary.org',
+      'fr.wiktionary.org',
       'ta.wiktionary.org',
       'es.wikibooks.org',
       'en.wikibooks.org',
@@ -282,6 +296,7 @@ module RequestHelpers
       'commons.wikimedia.org',
       'de.wikipedia.org',
       'en.wikipedia.org',
+      'fr.wikipedia.org',
       'gl.wikipedia.org',
       'nl.wikipedia.org',
       'sv.wikipedia.org',
@@ -581,7 +596,14 @@ module RequestHelpers
         body: lambda do |request|
           rev_ids = JSON.parse(request.body).fetch('rev_ids', [])
           rev_ids.to_h do |rev_id|
-            [rev_id.to_s, { 'num_ref' => num_refs[rev_id.to_s] }]
+            num_ref = num_refs[rev_id.to_s]
+            # nil signals a deleted/suppressed revision; real API returns 'error' => 'no content'
+            entry = if num_ref.nil?
+                      { 'num_ref' => nil, 'error' => 'no content' }
+                    else
+                      { 'num_ref' => num_ref }
+                    end
+            [rev_id.to_s, entry]
           end.to_json
         end,
         headers: { 'Content-Type' => 'application/json' }
@@ -591,7 +613,7 @@ module RequestHelpers
   def stub_es_wiktionary_reference_counter_response
     stub_reference_counter_batch_response(
       project: 'wiktionary', language: 'es',
-      num_refs: { '5006940' => 10, '5006942' => 4, '5006946' => 2 }
+      num_refs: { '5006940' => 10, '5006942' => 4, '5006946' => 2, '6115106' => nil }
     )
   end
 
@@ -613,27 +635,8 @@ module RequestHelpers
     stub_request(:post, 'https://reference-counter.toolforge.org/api/v1/references/wikipedia/en')
       .to_return(
         status: 400,
-        body: { 'description' => 'Bad request.' }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
-  end
-
-  def stub_403_wiki_reference_counter_response
-    stub_request(:post, 'https://reference-counter.toolforge.org/api/v1/references/wikipedia/en')
-      .to_return(
-        status: 403,
-        body: { 'description' => "mwapi error: permissiondenied - You don't have permission to view\
-        deleted text or changes between deleted revisions." }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
-  end
-
-  def stub_404_wiki_reference_counter_response
-    stub_request(:post, 'https://reference-counter.toolforge.org/api/v1/references/wikipedia/en')
-      .to_return(
-        status: 404,
-        body: { 'description' => 'rest-nonexistent-revision -\
-        The specified revision does not exist' }.to_json,
+        body: { 'code' => 400, 'name' => 'Bad Request',
+                'description' => "Request body must be JSON with a 'rev_ids' array." }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
   end

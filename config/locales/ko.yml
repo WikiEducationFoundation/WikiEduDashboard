@@ -4,6 +4,7 @@
 # Author: Alex00728
 # Author: Apzp79
 # Author: Asdfqwer51
+# Author: Bisang
 # Author: Codenstory
 # Author: Ellif
 # Author: Gongsoonyee
@@ -20,6 +21,7 @@
 # Author: Yearning
 # Author: Ykhwong
 # Author: Yunbj
+# Author: 解浪
 # Author: 고솜
 # Author: 밥풀떼기
 # Author: 아라
@@ -41,6 +43,8 @@ ko:
   application:
     back: 뒤로
     cancel: 취소
+    next: 다음
+    skip_to_main_content: 본문 내용으로 건너뛰기
     cookie_consent: 이 사이트는 로그인 유지를 위해 쿠키를 사용하며 위키백과 계정에 관한 정보를 저장합니다.
     cookie_consent_acknowledge: 이해합니다
     cookie_consent_see_more: 더 보기
@@ -68,10 +72,15 @@ ko:
     request_account: 계정 요청
     request_account_create: 계정 만들기
     search: 질문하기
-    search_results: '다음 결과: ''%{search_terms}'''
+    search_results:
+      one: '%{count} 다음 결과: ''%{search_terms}'''
+      other: '%{count} 다음 결과: ''%{search_terms}'''
     no_results: '''%{query}''의 결과를 찾을 수 없습니다'
     show_current_revision: 현재 판 표시
-    show_last_revision: 마지막 판 표시
+    show_last_revision: 마지막 편집된 판 표시
+    font_label: 글꼴
+    font_sans: 산세리프
+    font_serif: 세리프
     sign_up_extended: 위키백과에 가입하기
     sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -86,6 +95,7 @@ ko:
     opt_yes: 예
     opt_no: 아니오
     print: 인쇄
+    sort: 정렬
   article_statuses:
     not_yet_started: 시작하기
     in_progress: 연습장에서 작업
@@ -107,9 +117,17 @@ ko:
     log_in: 위키백과에 로그인하기
     sign_up: 위키백과에 등록하기
     sign_up_help: 대시보드를 사용하려면 위키백과에 로그인하여 사용자 계정에 권한을 제공해야 합니다. 기존의 위키백과 계정으로 로그인하거나
-      새 계정을 만들 수 있습니다.
+      새 계정을 만들 수 있습니다. 계정은 만들 수 없는 경우, dashboard@wikiedu.org로 문의하세요.
   alerts:
     alert_label: 경보
+    ai_stats:
+      timestamp: 타임스탬프
+      total: 전체
+      last_week: 지난 주
+      sections:
+        general_stats: 일반 통계
+        name: 이름
+        description: 설명
   activity:
     all: 활동
     edited_by: '편집자 :'
@@ -142,12 +160,19 @@ ko:
       tracked: 추적됨
       untracked: 추적하지 않음
       tracked_and_untracked: 추적 및 추적하지 않음
+      wiki_label: 위키
+    filter_text: '필터:'
+    pageviews_label: '조회수:'
+    cumulative: 누적
+    daily_avg: 일일 평균
     find: 문서 찾기
     how_to_find: 문서를 찾는 방법
     hide: 숨기기
     history: (역사)
     label: 문서
     loading: 문서 불러오는 중...
+    mark_as_complete: 완료한 것으로 표시
+    mark_as_incomplete: 미완료로 표시
     new: (새)
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     preview: 문서의 간략한 미리보기
@@ -191,6 +216,7 @@ ko:
     use_dashboard: 대시보드 사용 방법
   items:
     items: 항목
+    lexeme: 어휘소
     assigned: 할당된 항목
     assignments_none: 아직 할당된 항목이 없습니다.
     available: 사용 가능한 항목
@@ -230,16 +256,23 @@ ko:
     assign_tooltip: 내가 새 문서를 만들거나 개선할 예정인 문서 이름을 할당합니다. 완성한 문서를 등록할 수도 있습니다.
     assign_tooltip_wikidata: 내가 새 항목을만들거나 개선할 예정인 항목 이름을 할당합니다. 완성한 항목을 등록할 수도 있습니다.
     bibliography: 참고문헌
+    clone: 복제
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     confirm_addition: '%{username}?에게 %{title}을 할당하시겠습니까?'
     confirm_deletion: 이 할당을 삭제하겠습니까?
+    delete: 제거 및 삭제
     editors: 등록자
+    change_sandbox_url: 샌드박스 변경
+    group_members: 그룹 구성원
     label: 할당
+    label_all: 모두 할당
     loading: 할당 내역 불러오는중...
     none_short: 할당된 글이 없습니다
     none_short_wikidata: 할당된 항목이 없습니다
     none: 이 프로그램에는 할당된 문서가 없습니다.
     no_available: 이 코스에는 이용할 수 있는 글이 없습니다.
+    outline: 개요
+    peer_review_count: '%{currentCount}/%{total} 선택됨'
     peer_review_link: 동료평가
     peer_review_link_personalized: '%{username}의 동료 평가'
     random_peer_review:
@@ -255,10 +288,25 @@ ko:
     sandbox_draft_link: 연습장 초안
     select: 선택
     submit: 제출
+    username_label: 위키백과 사용자 이름
+    username_placeholder: '사용자 이름을 입력하세요 (예: YourUsername)'
+    username_or_url_label: 위키백과 사용자 이름 또는 URL
+    username_or_url_placeholder: 사용자 이름 또는 전체 샌드박스 URL을 입력
+    preview_label: '새로운 URL 미리보기:'
+    sandbox_label: 샌드박스
+    bibliography_label: 참고문헌
+    outline_label: 개요
+    warning_untracked_wiki: '선택하신 문서는 본 강좌에서 추적하지 않는 위키에 있습니다. 해당 문서에 대한 기여를 추적하려면
+      강사가 다음 위키를 본 강좌에 추가해야 합니다: %{wiki}'
   blocks:
     milestones:
       title: 이정표
   campaign:
+    campaign_ores_plot:
+      graph_description_html: 이 그래프는 캠페인 참여자들이 처음 문서를 편집하기 전부터 가장 최근의 캠페인 편집까지 문서가
+        얼마나 발전했는지를 종합적으로 시각화한 것입니다. <em>구조적 완성도</em> 등급은 문서의 내용, 위키링크, 이미지, 섹션 제목
+        등의 양을 기반으로 문서의 품질을 추정하는 머신러닝 프로젝트(<a href="https://www.mediawiki.org/wiki/ORES/FAQ"
+        target="_blank">ORES</a>)를 통해 산출되었습니다.
     active_campaigns: 진행중인 캠페인
     add_organizer: 주최자 추가
     alert_article: 문서 제목
@@ -267,27 +315,50 @@ ko:
     alert_type: 유형
     alert_user_id: 사용자
     all_campaigns: 모든 캠페인
+    already_exists: 해당 캠페인은 이미 존재합니다! 다른 제목이나 슬러그를 사용하여 다시 시도해 주세요.
     campaign: 캠페인
     campaigns: 캠페인
     campaign_deleted: '"%{title}" 켐페인이 삭제되었습니다.'
     campaign_not_updated: 켐페인 업데이트를 할 수 없습니다.
     campaign_updated: 켐페인 업데이트
+    refresh_campaign_stats: 캠페인 통계를 성공적으로 새로 고침 했습니다
     created_at: 날짜
+    confirm_campaign_deletion: '%{title} 캠페인을 정말 제거하겠습니까? 캠페인 제목을 입력하여 계속하세요.'
+    confirm_campaign_deletion_failed: '"%{title}"은 이 캠페인의 제목이 아닙니다. 캠페인은 삭제되지 않았습니다.'
+    confirm_course_removal: '"%{campaign_title}" 캠페인에서 "%{title}"을(를) 정말로 삭제하시겠습니까?'
+    course_already_removed: '"%{title}"은(는) 이미 "%{campaign_title}" 캠페인에서 제거되었습니다'
     course: 과정
+    course_data: 과정 데이터
+    course_removed: '"%{title}"은(는) 이미 "%{campaign_title}" 캠페인에서 제거되었습니다'
+    course_removed_and_deleted: '"%{title}"은(는) 이미 "%{campaign_title}" 캠페인에서 제거 및
+      삭제되었습니다'
+    create_campaign: 새 캠페인 만들기
+    create_my_campaign: 내 캠패인 만들기!
     customize_passcode: 기본 패스코드
     data_download_info: CSV로 캠페인 데이터 다운로드
     data_courses: 프로그램 개요 데이터
+    data_courses_info: 각 과정/프로그램별 기본 측정항목
     data_articles: 수정된 페이지
     data_revisions: 수정내역 데이터
+    data_articles_info: 캠페인에서 편집한 각 추적 페이지에 대한 세부 정보
+    data_revisions_info: 캠페인의 각 수정 사항에 대한 세부 정보
     data_instructors: 진행자
+    data_editors_by_course: 과정별 편집자
+    data_editor_usernames: 편집자 사용자 이름
+    data_editor_usernames_info: 편집자 사용자 이름 목록 (한 줄에 하나씩)
     data_wikidata: 위키데이터 통계
     data_wikidata_info: 편집 요약에 기반을 둔 위키데이터 활동의 자세한 내용입니다
     default_course_type: 기본 프로그램 타입
     default_passcode: 기본 비밀번호
+    default_passcode_explanation: '기본적으로 이 캠페인의 새 프로그램은 다음과 같은 기능을 갖추어야 합니다:'
     description: 설명
     delete_campaign: 이 켐페인을 삭제
+    delete_course_tooltip: 캠페인에서 삭제하고 제거합니다.
     disable_account_requests: 계정 요청 비활성화
     enable_account_requests: 계정 요청 활성화
+    enable_account_requests_doc: 계정 요청 기능은 이벤트 등록 링크에 계정 요청 양식을 추가합니다. 아직 계정이 없는 사용자는
+      이메일 주소와 원하는 사용자 이름을 입력할 수 있으며, 이벤트 담당자는 대시보드를 통해 요청된 계정을 생성할 수 있습니다. 계정을 요청한
+      사용자는 계정 생성과 동시에 이벤트에 자동으로 추가됩니다.
     newest_campaigns: 새 캠페인
     no_passcode: 비밀코드 없음
     none: 없음
@@ -312,7 +383,7 @@ ko:
     template_name: 틀 이름
     none: 추적되는 분류가 없습니다.
     remove: 제거
-    tracked_categories: 추적된 분류, PSID, 틀
+    tracked_categories: 추적된 분류, PSID, PagePile ID, 틀
   courses:
     accounts_generation_enabled: 계정 요청 생성이 활성화되었습니다
     accounts_generation_explanation: |-
@@ -365,10 +436,13 @@ ko:
       assignment_start_placeholder: YYYY-MM-DD
       choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 복제된 과정의 세부사항 업데이트하기
-      course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
-      course_term_placeholder: 학기
+      course_private: 비공개 프로그램 (관리자와 진행자만 볼 수 있음)
+      course_term_placeholder: 학기 (연도 포함)
       course_types:
         edit_a_thon_name: 에디터톤
+      create_label: 새 과정 만들기
+      create_new: 새 과정 만들기
+      create_short: 과정 만들기
       end_date: 종료일
       end_date_placeholder: YYYY-MM-DD
       no_class_holidays: 휴강이 없습니다
@@ -382,10 +456,9 @@ ko:
       subject: 제목
     current: 현재 과정
     data_articles: 문서 데이터
-    data_articles_info: 문서 데이터에는 각 페이지에 대한 편집 횟수, 새 페이지 여부 및 페이지뷰 합계가 포함됩니다. 이러한 페이지뷰
+    data_articles_info: 문서 데이터에는 각 페이지에 대한 편집 횟수, 새 페이지 여부 및 조회수 합계가 포함됩니다. 이러한 조회수
       값은 프로그램 종료시점이 기준이므로 WMF Tool Labs 페이지뷰 도구의 URL이 포함됩니다.
-    data_revisions_info: 수정내역 데이터는 프로그램 진행중의 수정횟수, 판 번호, 문서 번호, 새 묺서 여부, 페이지뷰 합계를
-      포함합니다.
+    data_revisions_info: 수정내역 데이터는 프로그램 진행중의 수정횟수, 판 번호, 문서 번호, 새 문서 여부, 조회수 합계를 포함합니다.
     data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
     data_overview: 개요 데이터
     data_overview_info: 개요 데이터는 전체 프로젝트에 대한 누적 통계량을 제공합니다.
@@ -432,13 +505,14 @@ ko:
     instructors: 지침
     instructor_message: 이것은 참여자들이 사용하는 것과 같은 문서 편집 인터페이스이다. 진행자는 참여자들이 사용하는 것과 같은
       방식으로 편집할 수 있지만, 참여자들의 편집 활동만 추적되고, 진행자의 보조 도움은 제외되어 계산될 것이다.
-    invitation: '%{title} 에 참여하도록 초대되었습니다. 이 과정에 참여하려면 위키백과 계정에 로그인해야 합니다.'
+    invitation: '%{title} 에 참여하도록 초대되었습니다. 참여하려면 위키백과 계정에 로그인해야 합니다.'
     invitation_username_advice: 아직 위키백과 계정이 없다면 지금 하나 등록하십시오. 사용자 이름은 원하는 경우 익명 처리하거나
       개인 식별 처리시킬 수 있습니다. (공유 계정은 허용되지 않음)
     join: 가입하기
     join_course: 과정 가입
     join_prompt: '''%{title}''에 가입할까요?'
-    join_successful: '%{title}에 들어가는 데 성공했습니다.'
+    join_successful: '%{title}에 성공적으로 참여했습니다. 대시보드는 정기 업데이트를 통해 기여 내역을 자동으로 추적합니다.
+      나중에 다시 방문하여 어떤 영향을 만들었는지 확인하세요.'
     join_no_passcode: 이 프로그램에 참여하시겠습니까?
     launch_wizard: 마법사 실행
     leave_confirmation: 정말로 이 과정에서 탈퇴하시겠습니까?
@@ -450,22 +524,22 @@ ko:
     new_account_email: 이메일 주소
     new_account_email_placeholder: name@example.org
     new_account_info: 계정을 요청하려면 이메일 주소와 원하는 사용자 이름을 입력하십시오. 비밀번호는 계정이 만들어질 때 이메일로
-      전달됩니다.
-    new_account_info_admin: 학생의 계정을 요청하려면 이메일 주소와 원하는 사용자 이름을 입력하십시오. 비밀번호는 계정이 만들어질
+      진행자 중 한명에게 전달됩니다.
+    new_account_info_admin: 새 편집자 계정을 만들려면 이메일 주소와 원하는 사용자 이름을 입력하십시오. 비밀번호는 계정이 만들어질
       때 이메일로 전달됩니다.
     new_account_username: 요청된 사용자 이름
     new_account_username_invalid: 유효한 사용자 이름이 아닙니다.
     new_account_username_placeholder: 위키 편집자 123
     new_account_username_taken: 이 사용자 이름은 이미 사용 중입니다. 다른 이름을 선택해 주십시오.
     new_account_submit: 계정 요청
-    new_account_submitted: 계정 요청이 제출되었습니다. 이 프로그램의 Facilitator는 지금 계정 생성을 마무리할 것입니다.
-      계정이 생성되면 이메일을 통해 새로운 계정의 비밀번호를 받게 됩니다.
+    new_account_submitted: 계정 요청이 제출되었습니다. 이 프로그램의 진행자는 지금 계정 생성을 마무리할 것입니다. 계정이 생성되면
+      이메일을 통해 새로운 계정의 비밀번호를 받게 됩니다.
     new_account_submitted_admin: 계정 요청이 생성되었습니다. 학생들이 자신의 받은 편지함을 확인하여 새로운 비밀번호를 받도록
       지시해 주십시오
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
     not_permitted: 이 강의를 편집할 권한이 없습니다.
-    no_available_actions: 취할 수 있는 행동 없음
+    no_available_actions: 취할 수 있는 조치 없음
     ores_plot: ORES
     overview: 홈
     passcode: 패스코드
@@ -517,7 +591,7 @@ ko:
     view_page: 코스 문서 보기
     view_wiki: 위키백과에서 보기
     volunteer:
-      other: 지원자
+      other: 자원봉사자
     wiki_edits_enabled: 위키 편집 사용
     wiki_staff: 위키 교육 직원
     withdrawn: 과제를 제출하지 않았습니다
@@ -566,6 +640,11 @@ ko:
       participate_in_campaign: 켐페인에 참여하기
       save_cloned_course: 저장
       start_date: 활동추적 시작
+      scoping_methods:
+        categories: 분류
+        templates: 틀
+        petscan: PetScan
+        pagepile: PagePile
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     end: 활동추적 종료
@@ -648,8 +727,8 @@ ko:
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     references_count: 각주 추가됨
-    references_doc: 이것은 문서에 추가된 각주 태그의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는 ORES
-      품질 모델에 따라 제공되며 일부 언어에서만 지원됩니다.
+    references_doc: 문서에 추가된 각주 태그와 단축된 각주 틀의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는
+      각주를 세는 툴포지 API에 따라 제공됩니다.
     references_doc_wikidata: 이것은 항목에 추가된 각주 태그의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는
       ORES 품질 모델에 따라 제공되며 일부 언어에서만 지원됩니다.
     tags: 태그
@@ -661,6 +740,8 @@ ko:
     word_count: 단어 추가됨
     word_count_average: 평균 단어 개수
     general: 일반
+    merged: 로 병합됨
+    merged_from: 에서 병합됨
     removed: 제거됨
     labels: 레이블
     no_data: 데이터 없음
@@ -690,9 +771,8 @@ ko:
     school: 학교
     author: 저자
     index: 색인
-    tracked_namespaces_info: |-
-      추적됨으로 설정한 이름공간
-      문서 이름공간만 상위줄의 개요 통계에 나타압니다. '문서 편집 수', '편집 횟수', '추가된 단어' 등이 표시됩니다. 그러므로 프로그램에서 개선하고자 하는 공간만 선택적으로 등록하세요.
+    tracked_namespaces_info: 추적됨으로 설정한 이름공간의 문서만 상위줄의 개요 통계에 나타납니다. '문서 편집 수', '편집
+      횟수', '추가된 단어' 등이 표시됩니다. 그러므로 프로그램에서 개선하고자 하는 공간만 선택적으로 등록하세요.
   recent_activity:
     article_title: 제목
     datetime: 날짜/시간
@@ -704,9 +784,9 @@ ko:
     plagiarism_report: 표절 보고
     possible_plagiarism: 표절 감지 기능
     plagiarism_explanation: 위키백과의 표절 탐지 시스템은 Turnitin/iTertificate를 이용하여, 새로운 편집을
-      출판된 텍스트와 비교한다. 이 보고는 100% 정확하지는 않다. 예를 들어, 적절한 특성을 가진  직접 인용은 그 내용이 완전히 같기 때문에
-      표절으로 오탐지 될 수 있다. 참여자에게 조치를 취하기 전에 표절 보고의 세부 정보를 검토하여야 한다. (문서 변경사항 또는 전체 문서에
-      접근할 수 없는 경우, 저작권침해로 이미 삭제되었을 수 있다)
+      출판된 텍스트와 비교합니다. 이 보고는 100% 정확하지는 않습니다. 예를 들어, 적절한 특성을 가진 직접 인용은 그 내용이 완전히 같기
+      때문에 표절으로 오탐지 될 수 있습니다. 참여자에게 조치를 취하기 전에 표절 보고의 세부 정보를 검토하여야 합니다. (문서 변경사항 또는
+      전체 문서에 접근할 수 없는 경우, 저작권침해로 이미 삭제되었을 수 있습니다)
     recent_edits: 최근 편집
     recent_uploads: 최근 업로드
     report: 보고
@@ -797,7 +877,7 @@ ko:
     due_default: 다음 주까지
     empty_week_1: 시작하려면,
     empty_week_3: 또는
-    empty_week_4: 미리 지정된 과제부터 시작하세요.
+    empty_week_4: 타임라인을 만드려면 과제 마법사를 사용하세요.
     first_week_title: 첫 활동적인 주
     gradeable_value: 값
     grading_header: '점수 (총: %{total})'
@@ -856,7 +936,7 @@ ko:
     uploaded_on: 올린 곳
     usage_count: 사용량 값
     usage_doc: 이 그림이 표시되는 위키백과 문서의 수입니다.
-    usage_count_gallery_tile: '%{usage_count}개 문서에 사용됨'
+    usage_count_gallery_tile: '%{count}개 문서에 사용됨'
     usages: 사용
     views_per_day: 일일 조회수
     view_commons: 공용에서 보기
@@ -935,14 +1015,14 @@ ko:
     instructors_student_impact: '%{username} 진행자의 프로그램 참여자들의 활동내역'
     disclaimer: 입력한 정보는 공개됩니다.
     bio_placeholder: 자기소개 추가 (선택 사항)
-    location_placeholder: 당신의 위치 추가 (선택사항)
-    institution_placeholder: 기관 이름 (선택사항)
+    location_placeholder: 당신의 위치 추가 (선택 사항)
+    institution_placeholder: 기관 이름 (선택 사항)
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.
   wizard:
     assignment_dates: 과제 날짜
-    assignment_type: 과제 유형
+    assignment_type: 학생들이 완료해야 하는 위키백과 과제는 무엇인가요?
     select_one_option: 1개의 옵션을 선택해 주십시오.
     minimum_options:
       one: '%{count}개 이상의 옵션을 선택해 주십시오.'
@@ -956,8 +1036,8 @@ ko:
     start_date_before_end_date: 시작 날짜는 끝 날짜보다 앞서야 합니다.
     unsupported_browser:
       header: 지원되지 않는 브라우저입니다. :-(
-      explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 인터넷 익스플로러 버전 11 이상, 최신 버전의
-        크롬과 파이어폭스, 그 밖의 현대의 브라우저에서 잘 동작합니다.
+      explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 크롬, 엣지와 파이어폭스, 그 밖의 현대의 브라우저에서
+        잘 동작합니다.
     download_here: 파일을 다운로드하려면 여기를 클릭하세요
   error_401:
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
@@ -1001,8 +1081,8 @@ ko:
     add_available_article_wikidata: 사용 가능한 항목으로 추가
     article_finder: 문서 검색기
     article_finder_wikidata: 항목 파인더
-    article_quality: 문서 품질(0-100)
-    article_quality_wikidata: 항목 품질(0-100)
+    article_quality: 문서 품질 (0-100)
+    article_quality_wikidata: 항목 품질 (0-100)
     average_views: 일일 평균 조회수
     category_search: 분류 검색
     fetched_articles_wikidata: 찾은 항목
