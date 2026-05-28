@@ -15,24 +15,24 @@ const StaffView = ({ status }) => {
 
   return (
     <div className="module lms-integration-status">
-      <h3>{I18n.t('lms_integration.heading', { lms_name: status.lms_name, default: '%{lms_name} link' })}</h3>
+      <h3>{I18n.t('lms_integration.heading', { lms_name: status.lms_name })}</h3>
       <p>
-        <strong>{I18n.t('lms_integration.linked_to', { default: 'Course:' })}</strong>
+        <strong>{I18n.t('lms_integration.linked_to')}</strong>
         {' '}
         {courseTitle}
       </p>
       <p>
-        <strong>{I18n.t('lms_integration.last_sync', { default: 'Last sync:' })}</strong>
+        <strong>{I18n.t('lms_integration.last_sync')}</strong>
         {' '}
         {formatTimestamp(status.last_sync_at)}
       </p>
       {status.last_sync_error_present && (
         <p className="lms-integration-status__error">
-          {I18n.t('lms_integration.last_sync_error', { default: 'Last sync error' })}
+          {I18n.t('lms_integration.last_sync_error')}
         </p>
       )}
       <p>
-        <strong>{I18n.t('lms_integration.synced_students', { default: 'Students synced' })}</strong>
+        <strong>{I18n.t('lms_integration.synced_students')}</strong>
         {' '}
         {status.synced_students_count}
       </p>
@@ -41,7 +41,7 @@ const StaffView = ({ status }) => {
 };
 
 const formatTimestamp = (iso) => {
-  if (!iso) return I18n.t('lms_integration.never_synced', { default: 'Not yet synced' });
+  if (!iso) return I18n.t('lms_integration.never_synced');
   return formatDistanceToNow(toDate(iso), { addSuffix: true });
 };
 
