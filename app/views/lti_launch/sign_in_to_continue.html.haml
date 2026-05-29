@@ -6,11 +6,9 @@
 - # instructor can keep Canvas in place; the rest of the launch flow
 - # (and any needed Wikipedia OAuth) happens in the new tab where
 - # session cookies behave as first-party.
-- connect_params = { ltik: @ltik }
-- connect_params[:return_to] = @connect_return_to if @connect_return_to.present?
 .lti-iframe__landing
   = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
-  = link_to "/lti/connect_course?#{connect_params.to_query}",
+  = link_to "/lti/connect_course?ltik=#{CGI.escape(@ltik.to_s)}",
             target: '_blank', rel: 'noopener',
             class: 'button dark lti-iframe__button' do
     = t('lti.iframe_landing.button')
