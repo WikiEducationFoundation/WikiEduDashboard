@@ -25,7 +25,7 @@
 #      - Student + unbound         => "instructor isn't done yet" view
 class LtiLaunchController < ApplicationController
   before_action :require_canvas_integration_enabled
-  after_action :allow_iframe, only: %i[launch assignment_view]
+  after_action :allow_iframe, only: %i[launch assignment_view deep_link]
 
   def launch
     return redirect_to errors_login_error_path if params[:ltik].blank?
@@ -36,6 +36,7 @@ class LtiLaunchController < ApplicationController
     end
 
     start_lti_session
+    log_launch_claims if ENV['LTI_LAUNCH_DEBUG']
     return render_assignment_view if assignment_launch?
 
     @lti_session.instructor? ? handle_instructor_launch : handle_student_launch
@@ -63,6 +64,25 @@ class LtiLaunchController < ApplicationController
     launch
   end
 
+  # Deep Linking entry point. LTIAAS forwards an LtiDeepLinkingRequest from
+  # the assignment_selection / link_selection placement here. The full flow
+  # (next PRs) will let an instructor pick one Wikipedia exercise Block and
+  # return a single content item, so Canvas creates an assignment tied to
+  # our tool (resource link + AGS line item) — giving later launches the
+  # `lineItemId` the assignment_view drill-down resolves.
+  #
+  # PROBE STUB: this currently skips the picker and immediately returns one
+  # synthetic content item, to confirm on staging that a deep-link-created
+  # resource link actually delivers `lineItemId` (and whether our `resource`
+  # marker survives) before the real flow is built. See
+  # spec/staging/deep_link_lineitem_diagnostic_spec.rb.
+  def deep_link
+    return redirect_to errors_login_error_path if params[:ltik].blank?
+
+    @deep_link_form = BuildLtiDeepLinkForm.new(ltik: params[:ltik]).form
+    render 'lti_launch/deep_link_form', layout: 'lti_iframe'
+  end
+
   def complete_setup
     @binding = LtiCourseBinding.find(params[:binding_id])
     return head :forbidden unless instructor_on_course?(course_from_params)
@@ -82,6 +102,18 @@ class LtiLaunchController < ApplicationController
 
   def build_lti_session(ltik)
     LtiSession.new(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], ltik)
+  end
+
+  # Diagnostic, off unless LTI_LAUNCH_DEBUG is set. Logs the launch idtoken's
+  # top-level keys, the full `custom` object (Canvas ids + our resource
+  # marker — not PII), and the AGS service keys + lineItemId value (never the
+  # serviceKey value). Confirms what a deep-link-created resource link's
+  # launch actually carries on staging.
+  def log_launch_claims
+    idt = @lti_session.idtoken
+    ags = idt.dig('services', 'assignmentAndGrades') || {}
+    Rails.logger.warn("[LTI launch] top=#{idt.keys.inspect} custom=#{idt['custom'].inspect} " \
+                      "ags_keys=#{ags.keys.inspect} lineItemId=#{ags['lineItemId'].inspect}")
   end
 
   def start_lti_session

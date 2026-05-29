@@ -450,6 +450,7 @@ Rails.application.routes.draw do
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'
+  get 'lti/deep_link' => 'lti_launch#deep_link'
   post 'lti/setup' => 'lti_launch#complete_setup'
 
   # frequenty asked questions
