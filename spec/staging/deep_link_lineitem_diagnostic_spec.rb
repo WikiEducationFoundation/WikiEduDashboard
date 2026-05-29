@@ -107,26 +107,43 @@ describe 'DIAGNOSTIC: deep-link resource link delivers lineItemId', :staging do
     in_canvas do
       ensure_canvas_logged_in_as_instructor
       visit "/courses/#{course_id}/assignments/new"
-      select 'External Tool', from: 'Submission Type' # TODO: confirm select label
-      click_button 'Find' # TODO: confirm the resource-selection trigger
+      select 'External Tool', from: 'Submission Type'
+      click_button 'Find'
       select_probe_resource_in_modal
-      click_button 'Save' # TODO: may be "Save & Publish"
+      fill_in 'assignment_name', with: probe_assignment_name
+      fill_in 'assignment_points_possible', with: '1'
+      # Publish (not just Save) so the gradebook column + AGS line item are
+      # live; `.save_button` is the hidden legacy control, `.save_and_publish`
+      # is the visible one in the modern action-buttons footer.
+      find('.save_and_publish').click
     end
     dismiss_consent_banner
   end
 
-  # Inside Canvas's external-tool resource-selection modal: click our tool,
-  # then let our /lti/deep_link iframe auto-submit its single content item.
-  # Canvas closes the modal and fills the assignment's name + tool URL from
-  # the returned content item.
+  # Inside Canvas's External Tool "Find" dialog (#context_external_tools_select,
+  # a list of `ul.tools li.tool a.name` links), click our tool. On staging the
+  # tool is the dev key named "wikiedu.org testing key". Clicking it fires the
+  # assignment_selection deep-linking launch (LTIAAS forwards it to our
+  # /lti/deep_link); the returned content item is staged into the dialog's
+  # hidden fields — confirmed on staging: #external_tool_create_line_item gets
+  # our lineItem and #external_tool_create_custom_params gets {resource:probe}.
+  # We then click the dialog's Select button (.add_item_button) to apply the
+  # content item to the assignment and close the dialog.
   def select_probe_resource_in_modal
-    # TODO: confirm the modal + tool-name selectors against staging Canvas.
-    within('#resource_selection_dialog, .ui-dialog, [role="dialog"]') do
-      click_link 'Wiki Education'
+    within('#context_external_tools_select') do
+      click_link 'wikiedu.org testing key'
     end
-    # The deep-linking launch + auto-submitting form resolve back into the
-    # assignment editor; wait for Canvas to populate the tool URL field.
-    expect(page).to have_field('external_tool_create_url', wait: 20) # TODO: confirm field id
+    # The hidden line_item field is staged from the deep-linking response.
+    # (have_field with a regex `with:` on a hidden input is unreliable, so
+    # poll the value directly.) The field is always in the DOM, so find
+    # won't raise while we wait for it to populate.
+    staged = eventually(attempts: 30, interval: 1) do
+      value = find('#external_tool_create_line_item', visible: false).value.to_s
+      value.include?('WED deep-link probe')
+    end
+    expect(staged).to be_truthy
+    find('.add_item_button', text: 'Select').click
+    expect(page).to have_no_css('.add_item_button', wait: 15)
   end
 
   # Open the created assignment as the instructor; the resource-link launch
