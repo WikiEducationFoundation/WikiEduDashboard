@@ -13,6 +13,10 @@
 #  archived_at              :datetime
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  canvas_assignment_id     :string(255)      - Canvas-side assignment id, used
+#                                               to route assignment_view launches
+#                                               back to this line item; nil until
+#                                               first captured/backfilled
 #
 
 # Maps a Dashboard gradable unit to an LTIAAS-managed LMS gradebook line

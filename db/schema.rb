@@ -435,6 +435,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
     t.datetime "archived_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "canvas_assignment_id"
+    t.index ["lti_course_binding_id", "canvas_assignment_id"], name: "index_lti_line_items_on_binding_and_canvas_assignment", unique: true
     t.index ["lti_course_binding_id", "gradable_type", "gradable_id"], name: "index_lti_line_items_on_binding_and_gradable", unique: true
     t.index ["lti_course_binding_id", "lineitem_id"], name: "index_lti_line_items_on_binding_and_lineitem", unique: true, length: { lineitem_id: 191 }
     t.index ["lti_course_binding_id"], name: "index_lti_line_items_on_lti_course_binding_id"

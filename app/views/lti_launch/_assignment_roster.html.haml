@@ -1,0 +1,22 @@
+- roster = @context.roster
+- if roster.empty?
+  %p= t('lti.assignment_view.roster.empty')
+- else
+  %table.lti-assignment-roster
+    %thead
+      %tr
+        %th= t('lti.assignment_view.roster.student')
+        %th= t('lti.assignment_view.roster.status')
+        %th= t('lti.assignment_view.roster.sandbox')
+    %tbody
+      - roster.each do |row|
+        %tr
+          %td= row.name
+          %td
+            - if row.completed?
+              = t('lti.assignment_view.status.completed')
+            - else
+              = t('lti.assignment_view.status.not_started')
+          %td
+            - if row.sandbox_url
+              = link_to t('lti.assignment_view.view_sandbox'), row.sandbox_url, target: '_blank', rel: 'noopener'
