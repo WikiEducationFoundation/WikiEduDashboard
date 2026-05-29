@@ -32,8 +32,8 @@ module LaunchHelpers
   # then switch focus to the new tab that target=_blank opens, and
   # walk the Wikipedia OAuth bounce if it appears (handled silently
   # when the OAuth grant is already in place on Wikipedia's side).
-  def break_out_of_canvas_iframe(role: :instructor)
-    frame = find(canvas_tool_iframe_locator)
+  def break_out_of_canvas_iframe(role: :instructor, iframe: canvas_tool_iframe_locator)
+    frame = find(iframe, match: :first)
     within_frame(frame) do
       click_link 'Open the Wiki Education Dashboard'
     end
@@ -47,6 +47,15 @@ module LaunchHelpers
   # `iframe[data-lti-launch="true"]`.
   def canvas_tool_iframe_locator
     'iframe.tool_launch'
+  end
+
+  # On a Canvas assignment page (the assignment_view placement), the tool
+  # iframe can carry a different id/class than the course-nav tab's, so
+  # accept any of the stock external-tool iframe selectors. The
+  # assignment_view entry-point diagnostic confirmed one of these is
+  # present on an AGS-created column's assignment page.
+  def canvas_assignment_iframe_locator
+    'iframe.tool_launch, iframe[data-lti-launch="true"], iframe#tool_content'
   end
 
   # Dismiss the dashboard's react-cookie-consent banner if it's visible.
