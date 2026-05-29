@@ -342,6 +342,109 @@ describe LtiLaunchController, type: :request do
     end
   end
 
+  describe 'GET /lti/connect_course with a return_to' do
+    it 'stashes the return target so OAuth resumes at assignment_view' do
+      get '/lti/connect_course', params: { ltik: 'ltik-abc', return_to: 'assignment_view' }
+      expect(session['ltik']).to eq('ltik-abc')
+      expect(session['lti_return_to']).to eq('assignment_view')
+    end
+
+    it 'ignores an unrecognized return target' do
+      get '/lti/connect_course', params: { ltik: 'ltik-abc', return_to: 'evil' }
+      expect(session['lti_return_to']).to be_nil
+    end
+  end
+
+  describe 'GET /lti/assignment_view' do
+    let!(:course) { create(:course) }
+    let(:week) { create(:week, course: course, order: 2) }
+    let(:exercise_module) do
+      create(:training_module, slug: 'eval-ex', name: 'Evaluate Wikipedia', kind: 1,
+                               settings: { 'sandbox_location' => 'Evaluate_an_Article' })
+    end
+    let(:block) do
+      create(:block, week: week, order: 0, title: 'Evaluate Wikipedia',
+                     training_module_ids: [exercise_module.id])
+    end
+    let!(:binding) do
+      LtiCourseBinding.create!(
+        course: course, lms_id: 'platform-x', lms_family: 'canvas',
+        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+      )
+    end
+    let!(:line_item) do
+      LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                          gradable_id: block.id, lineitem_id: 'https://canvas/li/7',
+                          label: 'Wk2 Evaluate Wikipedia')
+    end
+    let(:idtoken) do
+      base = idtoken_for(role)
+      base['services']['assignmentAndGrades'] = { 'lineItemUrl' => 'https://canvas/li/7' }
+      base['custom'] = { 'canvas_assignment_id' => 'canvas-assign-55' }
+      base
+    end
+
+    before { allow(LtiLineItemSyncWorker).to receive(:perform_in) }
+
+    context 'when not signed in' do
+      it 'breaks out to a top-level tab that returns to assignment_view' do
+        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('target="_blank"')
+        expect(response.body).to include('return_to=assignment_view')
+      end
+    end
+
+    context 'when signed in as an instructor' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'renders the roster for the matched block line item' do
+        student = create(:user, username: 'Stu Dent')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
+                           lms_id: 'platform-x', name: 'Stu Dent',
+                           roles: ['vocab/membership#Learner'], linked_at: Time.current)
+        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Wk2 Evaluate Wikipedia')
+        expect(response.body).to include('Stu Dent')
+        expect(response.body).to include('User:Stu_Dent/Evaluate_an_Article')
+      end
+
+      it 'backfills canvas_assignment_id from the launch line-item URL' do
+        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        expect(line_item.reload.canvas_assignment_id).to eq('canvas-assign-55')
+      end
+
+      context 'when the launch matches no known line item' do
+        let(:idtoken) { idtoken_for(role) }
+
+        it 'renders the orphan view' do
+          get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Nothing to show here yet')
+        end
+      end
+    end
+
+    context 'when signed in as a student' do
+      let(:role) { 'Learner' }
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'renders the student panel with their own sandbox link' do
+        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('User:')
+        expect(response.body).to include('Evaluate_an_Article')
+        expect(response.body).to include('Your sandbox')
+      end
+    end
+  end
+
   describe 'feature flag gating' do
     before do
       allow(Features).to receive(:canvas_integration?).and_return(false)

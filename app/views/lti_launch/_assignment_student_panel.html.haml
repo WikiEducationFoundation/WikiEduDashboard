@@ -1,0 +1,11 @@
+- row = @context.student_panel
+.module
+  %p
+    %strong
+      - if row.completed?
+        = t('lti.assignment_view.status.completed')
+      - else
+        = t('lti.assignment_view.status.not_started')
+  - if row.sandbox_url
+    = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,
+              target: '_blank', rel: 'noopener', class: 'button'

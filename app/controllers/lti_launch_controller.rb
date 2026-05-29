@@ -25,7 +25,7 @@
 #      - Student + unbound         => "instructor isn't done yet" view
 class LtiLaunchController < ApplicationController
   before_action :require_canvas_integration_enabled
-  after_action :allow_iframe, only: %i[launch]
+  after_action :allow_iframe, only: %i[launch assignment_view]
 
   def launch
     return redirect_to errors_login_error_path if params[:ltik].blank?
@@ -47,10 +47,33 @@ class LtiLaunchController < ApplicationController
 
     unless current_user
       session['ltik'] = params[:ltik]
+      session['lti_return_to'] = 'assignment_view' if assignment_view_return?
       return render 'lti_launch/oauth_redirect', layout: 'lti_iframe'
     end
 
-    launch
+    assignment_view_return? ? assignment_view : launch
+  end
+
+  # The instructor (or student) drill-down rendered when a Wikipedia
+  # gradebook column is opened inside Canvas via the `assignment_view`
+  # placement. Inside the Canvas iframe cookies are partitioned, so the
+  # first hit has no current_user and breaks out to a top-level tab via
+  # connect_course (return_to=assignment_view), exactly like the main
+  # launch. At top level we resolve which line item was clicked and render
+  # the roster (instructor) or the student's own panel.
+  def assignment_view
+    return redirect_to errors_login_error_path if params[:ltik].blank?
+
+    unless current_user
+      @ltik = params[:ltik]
+      @connect_return_to = 'assignment_view'
+      return render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
+    end
+
+    @lti_session = build_lti_session(params[:ltik])
+    @binding = @lti_session.find_or_create_binding!
+    @lti_session.link_lti_user(current_user, binding: @binding)
+    render_assignment_view
   end
 
   def complete_setup
@@ -72,6 +95,22 @@ class LtiLaunchController < ApplicationController
 
   def build_lti_session(ltik)
     LtiSession.new(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], ltik)
+  end
+
+  def assignment_view_return?
+    params[:return_to] == 'assignment_view'
+  end
+
+  def render_assignment_view
+    line_item = ResolveAssignmentLineItem.new(binding: @binding,
+                                              lti_session: @lti_session).result
+    if line_item.nil? || line_item.gradable_type != 'Block'
+      return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe'
+    end
+
+    @context = AssignmentViewContext.new(line_item:, user: current_user,
+                                         instructor: @lti_session.instructor?)
+    render 'lti_launch/assignment_view', layout: 'lti_iframe'
   end
 
   def handle_instructor_launch
