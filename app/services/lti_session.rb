@@ -87,15 +87,17 @@ class LtiSession
       @idtoken.dig('services', 'assignmentAndGrades', 'lineitemsUrl')
   end
 
-  # The single line-item URL for the assignment this launch came from,
-  # present on assignment-context launches (e.g. the `assignment_view`
-  # placement) but not on the course-navigation launch. We match it
-  # against LtiLineItem#lineitem_id to identify which gradebook column
-  # was clicked, then backfill `canvas_assignment_id` for fast lookups
-  # on later launches. Casing isn't verified against staging LTIAAS yet,
-  # so we accept both forms defensively (cf. ags_lineitems_url).
+  # The single line-item URL for the assignment this launch came from. Per
+  # LTIAAS docs this is `lineItemId` on the AGS service object, "present
+  # only if there's only one line item ID associated with the current
+  # context" — i.e. an assignment-context launch (the assignment_view
+  # placement), not the course-navigation launch. We match it against
+  # LtiLineItem#lineitem_id to identify which gradebook column was clicked,
+  # then backfill `canvas_assignment_id` for fast lookups on later launches.
+  # Older/alternate casings kept as a defensive fallback.
   def ags_lineitem_url
-    @idtoken.dig('services', 'assignmentAndGrades', 'lineItemUrl') ||
+    @idtoken.dig('services', 'assignmentAndGrades', 'lineItemId') ||
+      @idtoken.dig('services', 'assignmentAndGrades', 'lineItemUrl') ||
       @idtoken.dig('services', 'assignmentAndGrades', 'lineitemUrl')
   end
 
