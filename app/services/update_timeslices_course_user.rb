@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
+require_dependency "#{Rails.root}/lib/course_revision_updater"
 
 class UpdateTimeslicesCourseUser
   def initialize(course, update_service: nil)
@@ -65,9 +66,9 @@ class UpdateTimeslicesCourseUser
   end
 
   def fetch_and_create_acuwt_for_new_users(wiki, user_ids)
-    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
-    revisions = manager.fetch_revision_data_for_users_with_articles(
-      User.find(user_ids),
+    updater = CourseRevisionUpdater.new(@course, update_service: @update_service)
+    revisions = updater.fetch_revisions_for_new_users(
+      wiki, User.find(user_ids),
       @course.start.strftime('%Y%m%d%H%M%S'),
       @course.end.strftime('%Y%m%d%H%M%S')
     )

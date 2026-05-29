@@ -78,8 +78,9 @@ class RevisionDataManager
     sub_data_to_revision_attributes(all_sub_data, users)
   end
 
-  # Like fetch_revision_data_for_users, but also imports Article records so that
-  # returned revisions have article_id populated. Required when creating ACUWT rows.
+  # Like fetch_revision_data_for_users, but also imports Article records and fetches
+  # scores so that returned revisions have article_id and references_added populated.
+  # Required when creating ACUWT rows for newly added users.
   def fetch_revision_data_for_users_with_articles(users, timeslice_start, timeslice_end)
     all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
     return [] if all_sub_data.empty?
@@ -94,7 +95,8 @@ class RevisionDataManager
     users_dict = user_dict_from_sub_data(all_sub_data)
     article_dict = articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
 
-    sub_data_to_revision_attributes(all_sub_data, users_dict, articles: article_dict)
+    revisions = sub_data_to_revision_attributes(all_sub_data, users_dict, articles: article_dict)
+    fetch_score_data_for_course(revisions)
   end
 
   ###########

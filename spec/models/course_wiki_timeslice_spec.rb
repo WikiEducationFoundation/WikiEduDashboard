@@ -225,7 +225,7 @@ scoped: false)
 
       it 'computes character_sum and references_count from ACUWT for student mainspace articles' do
         course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-        course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+        course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
         expect(course_wiki_timeslice.character_sum).to eq(700)
         expect(course_wiki_timeslice.references_count).to eq(4)
@@ -233,7 +233,7 @@ scoped: false)
 
       it 'computes revision_count from ACUWT across all tracked articles' do
         course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-        course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+        course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
         expect(course_wiki_timeslice.revision_count).to eq(5)
       end
@@ -249,7 +249,7 @@ scoped: false)
 
         it 'excludes non-mainspace articles from character_sum and references_count' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           expect(course_wiki_timeslice.character_sum).to eq(700)
           expect(course_wiki_timeslice.references_count).to eq(4)
@@ -257,7 +257,7 @@ scoped: false)
 
         it 'includes non-mainspace articles in revision_count' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           expect(course_wiki_timeslice.revision_count).to eq(9)
         end
@@ -270,7 +270,7 @@ scoped: false)
 
         it 'excludes non-tracked articles from character_sum and references_count' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           expect(course_wiki_timeslice.character_sum).to eq(0)
           expect(course_wiki_timeslice.references_count).to eq(0)
@@ -278,7 +278,7 @@ scoped: false)
 
         it 'excludes non-tracked articles from revision_count' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           expect(course_wiki_timeslice.revision_count).to eq(0)
         end
@@ -295,7 +295,7 @@ scoped: false)
 
         it 'includes instructor revisions in revision_count but not character_sum' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           expect(course_wiki_timeslice.revision_count).to eq(9)
           expect(course_wiki_timeslice.character_sum).to eq(700)
@@ -317,7 +317,7 @@ scoped: false)
 
         it 'excludes out-of-scope articles from revision_count' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
           expect(course_wiki_timeslice.revision_count).to eq(5)
@@ -325,7 +325,7 @@ scoped: false)
 
         it 'excludes out-of-scope articles from character_sum' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           # Only scoped article ACUWT: 500 + 200 = 700; unscoped (999) is excluded
           expect(course_wiki_timeslice.character_sum).to eq(700)
@@ -333,7 +333,7 @@ scoped: false)
 
         it 'excludes out-of-scope articles from references_count' do
           course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
-          course_wiki_timeslice.update_cache_from_revisions(array_revisions)
+          course_wiki_timeslice.update_cache_from_acuwt(array_revisions)
 
           # Only scoped article ACUWT: 3 + 1 = 4; unscoped (50) is excluded
           expect(course_wiki_timeslice.references_count).to eq(4)
@@ -357,7 +357,7 @@ scoped: false)
 
         it 'aggregates wikidata stats from ACUWT records' do
           cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
-          cuwt.update_cache_from_revisions(array_revisions)
+          cuwt.update_cache_from_acuwt(array_revisions)
 
           expect(cuwt.stats['claims created']).to eq(4)
           expect(cuwt.stats['labels added']).to eq(2)
@@ -366,7 +366,7 @@ scoped: false)
 
         it 'sets zero for stats keys with no ACUWT contributions' do
           cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
-          cuwt.update_cache_from_revisions(array_revisions)
+          cuwt.update_cache_from_acuwt(array_revisions)
 
           expect(cuwt.stats['descriptions added']).to eq(0)
         end
@@ -386,7 +386,7 @@ scoped: false)
 
           it 'excludes out-of-scope articles from wikidata stats' do
             cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
-            cuwt.update_cache_from_revisions(array_revisions)
+            cuwt.update_cache_from_acuwt(array_revisions)
 
             # Only scoped article ACUWT: claims created 3+1=4; unscoped (99) excluded
             expect(cuwt.stats['claims created']).to eq(4)
