@@ -59,18 +59,29 @@ class CourseWikiTimeslice < ApplicationRecord
     timeslices.first.update_cache_from_revisions revisions[:revisions]
   end
 
+  def self.update_from_acuwt(course, wiki, start, finish, revisions = nil)
+    find_by!(course:, wiki:, start:, end: finish).update_cache_from_acuwt(revisions)
+  end
+
   ####################
   # Instance methods #
   ####################
 
-  # Re-aggregates stats from existing ACUWT rows without fetching from MediaWiki.
-  # Called when needs_reaggregation is true (e.g. after a user is added/removed).
-  def recalculate_from_acuwt
+  # Updates CWT stats from existing ACUWT rows without fetching from MediaWiki.
+  # TODO: Remove the revisions parameter once CWT stats depend fully on ACUWT.
+  # Until then, mw_rev_count and needs_update are transitionally still derived
+  # from MediaWiki-fetched revisions. Pass nil during pure reaggregation (no fetch).
+  def update_cache_from_acuwt(revisions = nil)
     @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
     update_character_sum_from_acuwt
     update_references_count_from_acuwt
     update_revision_count_from_acuwt
     update_stats_from_acuwt
+    if revisions
+      @revisions = revisions.select(&:scoped)
+      update_mw_rev_count
+      update_needs_update
+    end
     self.needs_reaggregation = false
     save
   end
@@ -80,18 +91,10 @@ class CourseWikiTimeslice < ApplicationRecord
     # Only work with scoped revisions
     @revisions = revisions.select(&:scoped)
     @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
-
-    if course.use_acuwt?
-      update_character_sum_from_acuwt
-      update_references_count_from_acuwt
-      update_revision_count_from_acuwt
-      update_stats_from_acuwt
-    else
-      update_character_sum
-      update_references_count
-      update_revision_count
-      update_stats
-    end
+    update_character_sum
+    update_references_count
+    update_revision_count
+    update_stats
     update_mw_rev_count
     update_needs_update
     save

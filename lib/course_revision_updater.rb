@@ -37,6 +37,16 @@ class CourseRevisionUpdater
     format_revision_response(wiki, ts_start, ts_end, revision_data)
   end
 
+  # Fetches revisions for specific users, imports articles, fetches scores,
+  # and creates ArticlesCourses records as a side effect.
+  # Used when adding new users in the ACUWT path.
+  def fetch_revisions_for_new_users(wiki, users, ts_start, ts_end)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
+    revisions = manager.fetch_revision_data_for_users_with_articles(users, ts_start, ts_end)
+    create_articles_courses(revisions)
+    revisions
+  end
+
   # Add scores to revisions, except if only_new argument is set to true and there are no new
   # revisions. That means, if the only_new argument is true, revisions scores will only be
   # fetched if there are new revisions for that timeslice.

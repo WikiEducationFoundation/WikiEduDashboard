@@ -179,13 +179,14 @@ class UpdateCourseWikiTimeslices
       update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
       update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
       update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+      update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
     else
       update_article_course_timeslices_for_wiki(revisions)
       update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+      CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, revisions)
     end
     revs_to_scan = revisions[:revisions]
     RevisionScanner.schedule_revision_checks(wiki:, revisions: revs_to_scan, course: @course)
-    CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, revisions)
   end
 
   def update_article_course_timeslices_for_wiki(revisions)
@@ -244,6 +245,12 @@ class UpdateCourseWikiTimeslices
     end
   end
 
+  def update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, timeslice.start, timeslice.end,
+                                          revisions[:revisions])
+  end
+
   def reaggregate_timeslices_from_acuwt(wiki)
     to_reaggregate = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                         .needs_reaggregation
@@ -260,7 +267,7 @@ class UpdateCourseWikiTimeslices
     acuwt.pluck(:user_id).uniq.each do |user_id|
       CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki, cwt.start, cwt.end)
     end
-    cwt.recalculate_from_acuwt
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, cwt.start, cwt.end)
   end
 
   def acuwt_timeslice_for(wiki, revisions)
