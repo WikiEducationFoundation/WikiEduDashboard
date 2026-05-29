@@ -448,6 +448,25 @@ describe LtiLaunchController, type: :request do
     end
   end
 
+  describe 'GET /lti/deep_link' do
+    let(:form_url) { "https://#{ltiaas_domain}/api/deeplinking/form" }
+    let(:form_html) { '<form id="dl"></form><script>document.forms[0].submit()</script>' }
+
+    it 'requires a ltik' do
+      get '/lti/deep_link'
+      expect(response).to redirect_to('/errors/login_error')
+    end
+
+    it 'renders the self-submitting deep-linking form returned by LTIAAS' do
+      stub_request(:post, form_url)
+        .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(form_html)
+    end
+  end
+
   describe 'feature flag gating' do
     before do
       allow(Features).to receive(:canvas_integration?).and_return(false)
@@ -460,6 +479,11 @@ describe LtiLaunchController, type: :request do
 
     it '404s on /lti/connect_course when the flag is off' do
       get '/lti/connect_course', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it '404s on /lti/deep_link when the flag is off' do
+      get '/lti/deep_link', params: { ltik: 'ltik-abc' }
       expect(response).to have_http_status(:not_found)
     end
   end
