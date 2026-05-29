@@ -342,20 +342,10 @@ describe LtiLaunchController, type: :request do
     end
   end
 
-  describe 'GET /lti/connect_course with a return_to' do
-    it 'stashes the return target so OAuth resumes at assignment_view' do
-      get '/lti/connect_course', params: { ltik: 'ltik-abc', return_to: 'assignment_view' }
-      expect(session['ltik']).to eq('ltik-abc')
-      expect(session['lti_return_to']).to eq('assignment_view')
-    end
-
-    it 'ignores an unrecognized return target' do
-      get '/lti/connect_course', params: { ltik: 'ltik-abc', return_to: 'evil' }
-      expect(session['lti_return_to']).to be_nil
-    end
-  end
-
-  describe 'GET /lti/assignment_view' do
+  describe 'assignment-context launch' do
+    # LTIAAS forwards every core launch to /lti, so an assignment_view
+    # placement launch arrives here and is dispatched by the presence of
+    # the canvas_assignment_id custom claim.
     let!(:course) { create(:course) }
     let(:week) { create(:week, course: course, order: 2) }
     let(:exercise_module) do
@@ -386,26 +376,17 @@ describe LtiLaunchController, type: :request do
 
     before { allow(LtiLineItemSyncWorker).to receive(:perform_in) }
 
-    context 'when not signed in' do
-      it 'breaks out to a top-level tab that returns to assignment_view' do
-        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
-        expect(response).to have_http_status(:ok)
-        expect(response.body).to include('target="_blank"')
-        expect(response.body).to include('return_to=assignment_view')
-      end
-    end
-
     context 'when signed in as an instructor' do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
-      it 'renders the roster for the matched block line item' do
+      it 'dispatches /lti to the roster for the matched block line item' do
         student = create(:user, username: 'Stu Dent')
         LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
                            lms_id: 'platform-x', name: 'Stu Dent',
                            roles: ['vocab/membership#Learner'], linked_at: Time.current)
-        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Wk2 Evaluate Wikipedia')
         expect(response.body).to include('Stu Dent')
@@ -413,17 +394,25 @@ describe LtiLaunchController, type: :request do
       end
 
       it 'backfills canvas_assignment_id from the launch line-item URL' do
-        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        get '/lti', params: { ltik: 'ltik-abc' }
         expect(line_item.reload.canvas_assignment_id).to eq('canvas-assign-55')
       end
 
+      it 'is also reachable via the /lti/assignment_view fallback route' do
+        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Wk2 Evaluate Wikipedia')
+      end
+
       context 'when the launch matches no known line item' do
-        let(:idtoken) { idtoken_for(role) }
+        let(:idtoken) do
+          idtoken_for(role).merge('custom' => { 'canvas_assignment_id' => 'unmatched' })
+        end
 
         it 'renders the orphan view' do
-          get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+          get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to have_http_status(:ok)
-          expect(response.body).to include('Nothing to show here yet')
+          expect(response.body).to include('There is no Dashboard content')
         end
       end
     end
@@ -436,7 +425,7 @@ describe LtiLaunchController, type: :request do
       end
 
       it 'renders the student panel with their own sandbox link' do
-        get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
+        get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('User:')
         expect(response.body).to include('Evaluate_an_Article')

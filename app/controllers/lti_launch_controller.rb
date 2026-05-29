@@ -35,9 +35,8 @@ class LtiLaunchController < ApplicationController
       return render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
     end
 
-    @lti_session = build_lti_session(params[:ltik])
-    @binding = @lti_session.find_or_create_binding!
-    @lti_session.link_lti_user(current_user, binding: @binding)
+    start_lti_session
+    return render_assignment_view if assignment_launch?
 
     @lti_session.instructor? ? handle_instructor_launch : handle_student_launch
   end
@@ -47,33 +46,21 @@ class LtiLaunchController < ApplicationController
 
     unless current_user
       session['ltik'] = params[:ltik]
-      session['lti_return_to'] = 'assignment_view' if assignment_view_return?
       return render 'lti_launch/oauth_redirect', layout: 'lti_iframe'
     end
 
-    assignment_view_return? ? assignment_view : launch
+    launch
   end
 
-  # The instructor (or student) drill-down rendered when a Wikipedia
-  # gradebook column is opened inside Canvas via the `assignment_view`
-  # placement. Inside the Canvas iframe cookies are partitioned, so the
-  # first hit has no current_user and breaks out to a top-level tab via
-  # connect_course (return_to=assignment_view), exactly like the main
-  # launch. At top level we resolve which line item was clicked and render
-  # the roster (instructor) or the student's own panel.
+  # Standalone entry for the `assignment_view` placement. LTIAAS forwards
+  # every core launch to a single Launch URL (/lti), so in the current
+  # setup assignment-context launches arrive at #launch and are dispatched
+  # there by `assignment_launch?`. This route is kept as a harmless
+  # fallback in case a launch is ever routed straight here (e.g. an LMS or
+  # config that honors the per-placement target_link_uri); it shares all of
+  # #launch's logic, including the same iframe break-out + OAuth flow.
   def assignment_view
-    return redirect_to errors_login_error_path if params[:ltik].blank?
-
-    unless current_user
-      @ltik = params[:ltik]
-      @connect_return_to = 'assignment_view'
-      return render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
-    end
-
-    @lti_session = build_lti_session(params[:ltik])
-    @binding = @lti_session.find_or_create_binding!
-    @lti_session.link_lti_user(current_user, binding: @binding)
-    render_assignment_view
+    launch
   end
 
   def complete_setup
@@ -97,8 +84,18 @@ class LtiLaunchController < ApplicationController
     LtiSession.new(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], ltik)
   end
 
-  def assignment_view_return?
-    params[:return_to] == 'assignment_view'
+  def start_lti_session
+    @lti_session = build_lti_session(params[:ltik])
+    @binding = @lti_session.find_or_create_binding!
+    @lti_session.link_lti_user(current_user, binding: @binding)
+  end
+
+  # An assignment-context launch carries the canvas_assignment_id custom
+  # field, which only the assignment_view placement sends. The
+  # course-navigation launch never does, so it falls through to the normal
+  # instructor/student handling.
+  def assignment_launch?
+    @lti_session.canvas_assignment_id.present?
   end
 
   def render_assignment_view
