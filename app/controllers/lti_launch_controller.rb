@@ -102,14 +102,16 @@ class LtiLaunchController < ApplicationController
     @lti_session.canvas_assignment_id.present? || @lti_session.ags_lineitem_url.present?
   end
 
-  # TEMP staging diagnostic (remove before merge to master): logs the
-  # *keys* present on the launch idtoken's custom + AGS objects — no
-  # values, so no PII — to confirm whether canvas_assignment_id / lineItemId
-  # actually arrive on an assignment_view launch.
+  # TEMP staging diagnostic (remove before merge to master): logs at WARN
+  # (staging filters out INFO) the launch idtoken's top-level keys, the full
+  # `custom` object (Canvas ids, not PII), the AGS keys, and the lineItemId
+  # value — never the AGS serviceKey value — to see what an assignment_view
+  # launch actually carries.
   def log_launch_claims
-    custom_keys = @lti_session.idtoken['custom']&.keys
-    ags_keys = @lti_session.idtoken.dig('services', 'assignmentAndGrades')&.keys
-    Rails.logger.info("[LTI launch] custom=#{custom_keys.inspect} ags=#{ags_keys.inspect}")
+    idt = @lti_session.idtoken
+    ags = idt.dig('services', 'assignmentAndGrades') || {}
+    Rails.logger.warn("[LTI launch] top=#{idt.keys.inspect} custom=#{idt['custom'].inspect} " \
+                      "ags_keys=#{ags.keys.inspect} lineItemId=#{ags['lineItemId'].inspect}")
   end
 
   def render_assignment_view
