@@ -369,7 +369,7 @@ describe LtiLaunchController, type: :request do
     end
     let(:idtoken) do
       base = idtoken_for(role)
-      base['services']['assignmentAndGrades'] = { 'lineItemUrl' => 'https://canvas/li/7' }
+      base['services']['assignmentAndGrades'] = { 'lineItemId' => 'https://canvas/li/7' }
       base['custom'] = { 'canvas_assignment_id' => 'canvas-assign-55' }
       base
     end
@@ -402,6 +402,20 @@ describe LtiLaunchController, type: :request do
         get '/lti/assignment_view', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Wk2 Evaluate Wikipedia')
+      end
+
+      context 'when the launch carries the line-item URL but no custom variable' do
+        let(:idtoken) do
+          base = idtoken_for(role)
+          base['services']['assignmentAndGrades'] = { 'lineItemId' => 'https://canvas/li/7' }
+          base
+        end
+
+        it 'still dispatches to the roster via the line-item URL' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Wk2 Evaluate Wikipedia')
+        end
       end
 
       context 'when the launch matches no known line item' do

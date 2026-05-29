@@ -36,6 +36,7 @@ class LtiLaunchController < ApplicationController
     end
 
     start_lti_session
+    log_launch_claims
     return render_assignment_view if assignment_launch?
 
     @lti_session.instructor? ? handle_instructor_launch : handle_student_launch
@@ -90,12 +91,25 @@ class LtiLaunchController < ApplicationController
     @lti_session.link_lti_user(current_user, binding: @binding)
   end
 
-  # An assignment-context launch carries the canvas_assignment_id custom
-  # field, which only the assignment_view placement sends. The
-  # course-navigation launch never does, so it falls through to the normal
-  # instructor/student handling.
+  # An assignment-context launch is identifiable two ways: the singular AGS
+  # line-item URL (present only when the launch is scoped to one line item,
+  # i.e. the assignment_view placement) and/or the canvas_assignment_id
+  # custom field. The course-navigation launch has neither, so it falls
+  # through to the normal instructor/student handling. Accepting either
+  # means the dispatch doesn't depend on the custom variable being
+  # configured on the placement.
   def assignment_launch?
-    @lti_session.canvas_assignment_id.present?
+    @lti_session.canvas_assignment_id.present? || @lti_session.ags_lineitem_url.present?
+  end
+
+  # TEMP staging diagnostic (remove before merge to master): logs the
+  # *keys* present on the launch idtoken's custom + AGS objects — no
+  # values, so no PII — to confirm whether canvas_assignment_id / lineItemId
+  # actually arrive on an assignment_view launch.
+  def log_launch_claims
+    custom_keys = @lti_session.idtoken['custom']&.keys
+    ags_keys = @lti_session.idtoken.dig('services', 'assignmentAndGrades')&.keys
+    Rails.logger.info("[LTI launch] custom=#{custom_keys.inspect} ags=#{ags_keys.inspect}")
   end
 
   def render_assignment_view
