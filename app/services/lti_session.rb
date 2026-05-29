@@ -87,6 +87,26 @@ class LtiSession
       @idtoken.dig('services', 'assignmentAndGrades', 'lineitemsUrl')
   end
 
+  # The single line-item URL for the assignment this launch came from,
+  # present on assignment-context launches (e.g. the `assignment_view`
+  # placement) but not on the course-navigation launch. We match it
+  # against LtiLineItem#lineitem_id to identify which gradebook column
+  # was clicked, then backfill `canvas_assignment_id` for fast lookups
+  # on later launches. Casing isn't verified against staging LTIAAS yet,
+  # so we accept both forms defensively (cf. ags_lineitems_url).
+  def ags_lineitem_url
+    @idtoken.dig('services', 'assignmentAndGrades', 'lineItemUrl') ||
+      @idtoken.dig('services', 'assignmentAndGrades', 'lineitemUrl')
+  end
+
+  # Canvas variable substitutions configured on the `assignment_view`
+  # placement (custom_fields) arrive under the idtoken `custom` claim.
+  # Blank on launches from placements that don't set them (e.g. the
+  # course-navigation launch).
+  def canvas_assignment_id
+    @idtoken.dig('custom', 'canvas_assignment_id').presence
+  end
+
   # The service-auth key captured from this launch's idtoken. Long-lived
   # but per LTIAAS docs should be refreshed into the binding on every
   # launch in case the underlying NRPS/AGS endpoint URLs have changed.

@@ -2227,3 +2227,19 @@ en:
       header: "This course is awaiting Wiki Education approval"
       explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
       contact_hint: "If you have questions, contact your instructor or Wiki Education staff."
+    assignment_view:
+      # Short column/status labels.
+      status:
+        completed: "Completed"
+        not_started: "Not started"
+      view_sandbox: "View sandbox"
+      roster:
+        student: "Student"
+        status: "Status"
+        sandbox: "Sandbox"
+        empty: "No students have connected Wikipedia accounts yet."
+      student:
+        your_sandbox: "Your sandbox"
+      orphan:
+        header: "—"
+        explanation: "There is no Dashboard content to show for this assignment."
