@@ -585,6 +585,7 @@ Rails.application.routes.draw do
   get '/mailer_previews' => 'mailer_previews#index'
 
   get '/private_information' => 'about_this_site#private_information'
+  get '/accessibility' => 'about_this_site#accessibility'
   get '/styleguide' => 'styleguide#index'
 
   get '/status' => 'system_status#index'
