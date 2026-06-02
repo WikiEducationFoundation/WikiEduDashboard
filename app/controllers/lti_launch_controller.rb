@@ -24,8 +24,10 @@
 #      - Student + bound course    => enroll (if needed) and redirect
 #      - Student + unbound         => "instructor isn't done yet" view
 class LtiLaunchController < ApplicationController
+  include LtiDeepLinking
+
   before_action :require_canvas_integration_enabled
-  after_action :allow_iframe, only: %i[launch assignment_view deep_link]
+  after_action :allow_iframe, only: %i[launch assignment_view]
 
   def launch
     return redirect_to errors_login_error_path if params[:ltik].blank?
@@ -62,25 +64,6 @@ class LtiLaunchController < ApplicationController
   # #launch's logic, including the same iframe break-out + OAuth flow.
   def assignment_view
     launch
-  end
-
-  # Deep Linking entry point. LTIAAS forwards an LtiDeepLinkingRequest from
-  # the assignment_selection / link_selection placement here. The full flow
-  # (next PRs) will let an instructor pick one Wikipedia exercise Block and
-  # return a single content item, so Canvas creates an assignment tied to
-  # our tool (resource link + AGS line item) — giving later launches the
-  # `lineItemId` the assignment_view drill-down resolves.
-  #
-  # PROBE STUB: this currently skips the picker and immediately returns one
-  # synthetic content item, to confirm on staging that a deep-link-created
-  # resource link actually delivers `lineItemId` (and whether our `resource`
-  # marker survives) before the real flow is built. See
-  # spec/staging/deep_link_lineitem_diagnostic_spec.rb.
-  def deep_link
-    return redirect_to errors_login_error_path if params[:ltik].blank?
-
-    @deep_link_form = BuildLtiDeepLinkForm.new(ltik: params[:ltik]).form
-    render 'lti_launch/deep_link_form', layout: 'lti_iframe'
   end
 
   def complete_setup

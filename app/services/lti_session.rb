@@ -138,6 +138,17 @@ class LtiSession
     binding
   end
 
+  # The binding whose Dashboard course is linked to this launch's Canvas
+  # course (context), if any. Unlike find_or_create_binding!, this resolves
+  # by context alone, not the full (lms_id, context, resource_link) identity:
+  # a deep-linking-request launch arrives with no resource link of its own,
+  # so the picker has to find the bound course by which Canvas course it came
+  # from. Returns nil when the instructor hasn't linked a course yet.
+  def bound_binding
+    LtiCourseBinding.where(lms_id:, lms_context_id:)
+                    .where.not(course_id: nil).first
+  end
+
   # Idempotently records that `current_user` is the Dashboard user for this
   # LMS identity within the binding. Updates NRPS-supplied profile fields
   # (email/name/roles) on each launch so they stay fresh.
