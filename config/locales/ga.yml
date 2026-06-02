@@ -24,6 +24,7 @@ ga:
     back: Ar ais
     cancel: Cealaigh
     next: Ar Aghaidh
+    skip_to_main_content: Léim go dtí an príomhábhar
     cookie_consent: Úsáideann an suíomh seo fianáin le go bhfanfaidh tú logáilte isteach,
       agus stórálann sé faisnéis a bhaineann le do chuntas Vicipéide.
     cookie_consent_acknowledge: Tuigim
@@ -63,6 +64,9 @@ ga:
     no_results: Fuarthas torthaí ar bith le haghaidh %{query}
     show_current_revision: Taispeáin an leagan reatha
     show_last_revision: Taispeáin an leagan deireanach a cuireadh in eagar
+    font_label: Cló
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Cláraigh le Vicipéid
     sign_up_wikipedia: Nó cláraigh ar Vicipéid
     sign_up_log_in_extended: leis An Vicipéid
@@ -77,6 +81,7 @@ ga:
     opt_yes: tá
     opt_no: níl
     print: Priontáil
+    sort: Sórtáil
   article_statuses:
     not_yet_started: Ag cur tús leis
     in_progress: Ag obair leis an gClár Dubh
@@ -195,6 +200,7 @@ ga:
     no_available: Gan aon Airteagail ar Fáil
     next: Ar Aghaidh
     page_info: Leathanach %{current} de %{total_pages} (%{count} as %{total})
+    permalink: Nasc buan
     previous: Roimhe Seo
     article_title: Teideal an Airteagail
     assigned_to: Bronnta Ar
@@ -219,6 +225,9 @@ ga:
       tracked: Rianaithe
       untracked: Gan Rianú
       tracked_and_untracked: Rianaithe agus Gan Rianú
+      wiki_label: Vicí
+      newness_label: Nuashonrú an ailt
+      tracked_label: Stádas rianaithe
     filter_text: 'Scagairí:'
     pageviews_label: 'Amharcanna leathanaigh:'
     cumulative: Carnach
@@ -1879,7 +1888,8 @@ ga:
     uploaded_on: Uaslódáilte Ar
     usage_count: Líon Úsáide
     usage_doc: Líon na n-alt Vicipéide ina bhfuil an íomhá seo le feiceáil.
-    usage_count_gallery_tile: Arna úsáid in %{usage_count} alt
+    usage_count_gallery_tile:
+      other: aon=Úsáidte in 1 alt
     usages: Úsáidí
     gallery_view: Radharc Gailearaí
     list_view: Amharc Liosta
@@ -2158,6 +2168,8 @@ ga:
   notifications:
     new_notifications: Tá fógraí nua agat.
     no_notifications: Níl aon fhógraí nua agat.
+    aria_label:
+      bell: Fógraí
   survey:
     login_message: Go raibh maith agat as do chuid ama. Logáil isteach sa Phainéal
       le do thoil chun an suirbhé a dhéanamh.

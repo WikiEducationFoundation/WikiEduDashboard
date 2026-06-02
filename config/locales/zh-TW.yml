@@ -39,6 +39,7 @@ zh-TW:
     back: 返回
     cancel: 取消
     next: 下一個
+    skip_to_main_content: 跳至主要內容
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解
     cookie_consent_see_more: 查看更多。
@@ -73,6 +74,9 @@ zh-TW:
     no_results: 查無「%{query}」的結果
     show_current_revision: 顯示目前版本
     show_last_revision: 檢視最新編輯修訂
+    font_label: 字型
+    font_sans: 無襯線體
+    font_serif: 襯線字體
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
     sign_up_log_in_extended: 參與維基百科
@@ -87,6 +91,7 @@ zh-TW:
     opt_yes: 是
     opt_no: 否
     print: 列印
+    sort: 排序
   article_statuses:
     not_yet_started: 入門
     in_progress: 在沙盒裡作業
@@ -132,20 +137,22 @@ zh-TW:
     no_data: 查無資料。
     ai_stats:
       timestamp: 時間戳記
-      title: AI 編輯提醒統計
-      total_alerts: 全面 AI 編輯提醒
-      with_followup: 後續跟進
+      title: 針對%{campaign_name}的AI編輯提醒統計
+      total_alerts: 全面AI編輯提醒
+      with_followup: 帶有後續跟進的AI編輯提醒
       multiple_alerts_students: 收到多項提醒的學生
       multiple_alerts_pages: 包含多項提醒的頁面
       pangram_url: 全字母句網址
-      revision_diff: 修訂差異
+      go_to_pangram: 前往全字母句
+      revision_diff: 修訂版本差異
       single_alert_view: 提醒
       alerts_in_mainspace: 主空間提醒
       users_involved: 參與使用者
       total: 總計
       last_week: 上週
       sections:
-        contents: 清單目錄
+        contents: 頁面內容
+        general_stats: 總體統計數據
         name: 名稱
         description: 描述
         courses_with_ai_alerts: 具有多樣 AI 提醒的課程
@@ -180,6 +187,8 @@ zh-TW:
     available: 尚待分配的條目
     no_available: 沒有可用的條目
     next: 下一個
+    page_info: '%{total_pages}頁的第%{current}頁（%{total}的%{count}）'
+    permalink: 固定連結
     previous: 上一個
     article_title: 條目標題
     assigned_to: 分配給
@@ -200,6 +209,9 @@ zh-TW:
       tracked: 已追蹤
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
+      wiki_label: wiki
+      newness_label: 條目的新穎性
+      tracked_label: 追蹤狀態
     filter_text: 篩選：
     pageviews_label: 頁面瀏覽量：
     cumulative: 累計
@@ -369,8 +381,8 @@ zh-TW:
     campaign_ores_plot:
       change_button: 結構完整性的變化
       no_data: 無可用的結構完整性資料
-      graph_description_html: 此圖表以匯總形式視覺化條目從競賽參與者的首次編輯，到最近一次編輯期間的變化歷程。<em>結構完整性</em>評估是基於一個機器學習專案（<a
-        href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a> ），該專案根據條目的文字量、wiki
+      graph_description_html: 此圖表以匯總形式，視覺化條目從競賽參與者的首次編輯，到最近一次編輯期間的變化歷程。<em>結構完整性</em>評估是基於一個機器學習專案（<a
+        href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>），該專案根據條目的文字量、wiki
         連結數量、圖片、章節標題數量以及其他特徵來評估條目的品質。
     active_campaigns: 活躍競賽
     add_organizer: 新增籌辦人員
@@ -1066,7 +1078,7 @@ zh-TW:
     total_revisions: 修訂總計
     claims: 聲明
     aliases: 別名
-    merged: 已合併
+    merged: 已合併到
     created: 已建立
     changed: 已變更
     removed: 已移除
@@ -1413,7 +1425,9 @@ zh-TW:
     uploaded_on: 上傳於
     usage_count: 使用量
     usage_doc: 有出現此圖片的維基百科條目數量。
-    usage_count_gallery_tile: 使用在 %{usage_count} 個條目
+    usage_count_gallery_tile:
+      one: 在1個條目中使用
+      other: 在%{count}個條目中使用
     usages: 使用狀況
     gallery_view: 圖庫檢視
     list_view: 清單檢視
