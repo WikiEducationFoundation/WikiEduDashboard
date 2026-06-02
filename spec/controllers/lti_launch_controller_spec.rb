@@ -448,22 +448,91 @@ describe LtiLaunchController, type: :request do
     end
   end
 
-  describe 'GET /lti/deep_link' do
-    let(:form_url) { "https://#{ltiaas_domain}/api/deeplinking/form" }
-    let(:form_html) { '<form id="dl"></form><script>document.forms[0].submit()</script>' }
+  describe 'GET /lti/deep_link (picker)' do
+    let!(:course) { create(:course) }
+    let!(:week) { create(:week, course:, order: 1) }
+    let(:exercise_module) {
+ create(:training_module, slug: 'biblio', name: 'Bibliography', kind: 1) }
+    let!(:exercise_block) do
+      create(:block, week:, order: 0, title: 'Find sources',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    def bind_course!
+      LtiCourseBinding.create!(
+        course:, lms_id: 'platform-x', lms_family: 'canvas',
+        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+      )
+    end
+
+    before { allow(LtiLineItemSyncWorker).to receive(:perform_in) }
 
     it 'requires a ltik' do
       get '/lti/deep_link'
       expect(response).to redirect_to('/errors/login_error')
     end
 
-    it 'renders the self-submitting deep-linking form returned by LTIAAS' do
-      stub_request(:post, form_url)
-        .to_return(status: 200, body: { 'form' => form_html }.to_json,
-                   headers: { 'Content-Type' => 'application/json' })
+    it 'forbids non-instructor launches' do
+      allow_any_instance_of(LtiSession).to receive(:instructor?).and_return(false)
+      get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:forbidden)
+    end
+
+    it 'renders the unbound view when no course is linked to this context' do
       get '/lti/deep_link', params: { ltik: 'ltik-abc' }
       expect(response).to have_http_status(:ok)
+      expect(response).to render_template('lti_launch/deep_link_unbound')
+    end
+
+    it 'renders the picker listing the bound course gradables' do
+      bind_course!
+      get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:ok)
+      expect(response).to render_template('lti_launch/deep_link_picker')
+      expect(response.body).to include('Wk1 Find sources')
+      expect(response.body).to include("Block:#{exercise_block.id}")
+    end
+  end
+
+  describe 'POST /lti/deep_link/select' do
+    let(:form_url) { "https://#{ltiaas_domain}/api/deeplinking/form" }
+    let(:form_html) { '<form id="dl"></form><script>document.forms[0].submit()</script>' }
+    let!(:course) { create(:course) }
+    let!(:week) { create(:week, course:, order: 1) }
+    let(:exercise_module) {
+ create(:training_module, slug: 'biblio', name: 'Bibliography', kind: 1) }
+    let!(:exercise_block) do
+      create(:block, week:, order: 0, title: 'Find sources',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    before do
+      allow(LtiLineItemSyncWorker).to receive(:perform_in)
+      LtiCourseBinding.create!(
+        course:, lms_id: 'platform-x', lms_family: 'canvas',
+        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+      )
+    end
+
+    it 'requires a ltik' do
+      post '/lti/deep_link/select', params: { resource: "Block:#{exercise_block.id}" }
+      expect(response).to redirect_to('/errors/login_error')
+    end
+
+    it 'returns the self-submitting form for a valid chosen gradable' do
+      stub = stub_request(:post, form_url)
+             .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                        headers: { 'Content-Type' => 'application/json' })
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      expect(response).to have_http_status(:ok)
       expect(response.body).to include(form_html)
+      expect(stub).to have_been_requested
+    end
+
+    it 'rejects a resource that is not one of the bound course gradables' do
+      post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resource: 'Block:999999' }
+      expect(response).to have_http_status(422)
     end
   end
 
@@ -484,6 +553,11 @@ describe LtiLaunchController, type: :request do
 
     it '404s on /lti/deep_link when the flag is off' do
       get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it '404s on /lti/deep_link/select when the flag is off' do
+      post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resource: 'Block:1' }
       expect(response).to have_http_status(:not_found)
     end
   end
