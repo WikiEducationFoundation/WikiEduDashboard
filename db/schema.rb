@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_27_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_02_000001) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -76,6 +76,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_27_000001) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "wiki_id", null: false
+    t.index ["course_id", "article_id", "user_id", "wiki_id", "start", "end"], name: "index_acuwt_unique", unique: true
+    t.index ["course_id", "user_id"], name: "index_acuwt_on_course_id_and_user_id"
+    t.index ["course_id", "wiki_id"], name: "index_acuwt_on_course_id_and_wiki_id"
   end
 
   create_table "articles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
