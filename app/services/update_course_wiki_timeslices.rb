@@ -217,16 +217,10 @@ class UpdateCourseWikiTimeslices
   end
 
   def update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
-    start_period = revisions[:start]
-    end_period = revisions[:end]
-    revs = revisions[:revisions]
-    revs.group_by { |r| [r.article_id, r.user_id] }.each do |(article_id, user_id), grouped_revs|
-      article_user_wiki_data = { start: start_period, end: end_period,
-                                 revisions: grouped_revs }
-      ArticleCourseUserWikiTimeslice.update_article_course_user_wiki_timeslices(
-        @course, article_id, user_id, wiki, article_user_wiki_data
-      )
-    end
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
+      @course, wiki, timeslice.start, timeslice.end, revisions[:revisions]
+    )
   end
 
   def update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)

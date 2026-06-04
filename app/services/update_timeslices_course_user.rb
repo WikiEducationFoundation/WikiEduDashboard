@@ -91,14 +91,9 @@ class UpdateTimeslicesCourseUser
   end
 
   def create_acuwt_records_for_timeslice(wiki, cwt, revisions)
-    revisions.group_by { |r| [r.article_id, r.user_id] }.each do |(article_id, user_id), revs|
-      next if article_id.nil? || user_id.nil?
-
-      article_user_wiki_data = { start: cwt.start, end: cwt.end, revisions: revs }
-      ArticleCourseUserWikiTimeslice.update_article_course_user_wiki_timeslices(
-        @course, article_id, user_id, wiki, article_user_wiki_data
-      )
-    end
+    ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
+      @course, wiki, cwt.start, cwt.end, revisions
+    )
   end
 
   def fetch_users_revisions_for_wiki(wiki, user_ids)

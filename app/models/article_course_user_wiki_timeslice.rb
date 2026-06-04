@@ -64,6 +64,16 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
     acuw_timeslice.update_cache_from_revisions revisions[:revisions]
   end
 
+  # Bulk-upsert ACUWT rows for a single timeslice window from an array of revision objects.
+  # Replaces the per-(article, user) find_or_create_by + save loop with one upsert_all call.
+  def self.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, revisions)
+    records = acuwt_records_from_revisions(course, wiki, ts_start, ts_end, revisions)
+    return if records.empty?
+    upsert_all(records,
+               update_only: %i[revision_count character_sum references_count new_article
+                               first_revision stats updated_at])
+  end
+
   ####################
   # Instance methods #
   ####################
@@ -88,4 +98,34 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
   def update_wikidata_stats(revisions)
     UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(revisions)
   end
+
+  def self.acuwt_records_from_revisions(course, wiki, ts_start, ts_end, revisions)
+    now = Time.current
+    base = { course_id: course.id, wiki_id: wiki.id, start: ts_start, end: ts_end }
+    revisions
+      .reject { |r| r.article_id.nil? || r.user_id.nil? }
+      .group_by { |r| [r.article_id, r.user_id] }
+      .map do |(article_id, user_id), revs|
+        live = revs.reject { |r| r.deleted || r.system }
+        { **base, article_id:, user_id:, created_at: now, updated_at: now,
+          **acuwt_revision_stats(course, wiki, revs, live) }
+      end
+  end
+  private_class_method :acuwt_records_from_revisions
+
+  def self.acuwt_revision_stats(course, wiki, revs, live)
+    { revision_count: live.size,
+      character_sum: live.sum { |r| r.characters.to_i.positive? ? r.characters : 0 },
+      references_count: live.sum(&:references_added),
+      new_article: revs.any?(&:new_article),
+      first_revision: live.map(&:date).min,
+      stats: acuwt_wikidata_stats(course, wiki, live) }
+  end
+  private_class_method :acuwt_revision_stats
+
+  def self.acuwt_wikidata_stats(course, wiki, live_revisions)
+    return unless wiki.project == 'wikidata'
+    UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(live_revisions)
+  end
+  private_class_method :acuwt_wikidata_stats
 end
