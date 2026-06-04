@@ -803,7 +803,7 @@ nl:
     data_articles_info: Paginagegevens omvatten het aantal bewerkingen per pagina,
       welke pagina's nieuw zijn en het totale aantal paginaweergaven. Deze paginaweergavewaarden
       kunnen verouderd zijn voor cursussen die al zijn beëindigd, dus een url naar
-      de WMF Tool Labs-paginaweergavetool is opgenomen.
+      de WMF Tool Labs-paginaweergavehulpmiddel is opgenomen.
     data_revisions_info: Versiegegevens omvatten het aantal versies van de cursus,
       versie-ID, pagina-ID, welke pagina's nieuw zijn en het totale aantal paginaweergaven.
     data_download_info: Gegevens downloaden in CSV-indeling.
@@ -2309,7 +2309,7 @@ nl:
     edit_question_group: Vragengroep bewerken
   form_search:
     search: Zoeken
-    advanced_search: Geavanceerd zoeken
+    advanced_search: Uitgebreid zoeken
     clear: Wissen
     program_date: Programmadatum
 ...
