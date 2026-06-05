@@ -70,13 +70,6 @@ class ArticleCourseTimeslice < ApplicationRecord
     ac_timeslice.update_cache_from_revisions revisions[:revisions]
   end
 
-  def self.update_from_acuwt(course, article_id, wiki, start, finish)
-    acuwt_records = ArticleCourseUserWikiTimeslice
-                      .where(course:, article_id:, wiki:, start:, end: finish)
-    ac_timeslice = find_or_create_by(course:, article_id:, start:, end: finish)
-    ac_timeslice.update_cache_from_acuwt(acuwt_records)
-  end
-
   # Bulk-update ACT rows for a single timeslice window from stored ACUWT records.
   # Replaces the per-article find_or_create_by + N aggregate queries with one SELECT
   # (all ACUWT for the window) + one upsert_all.
@@ -114,16 +107,6 @@ class ArticleCourseTimeslice < ApplicationRecord
     self.new_article = revisions.any?(&:new_article)
     # first_revision may be nil if revision count is 0
     self.first_revision = live_revisions.minimum(:date)
-    save
-  end
-
-  def update_cache_from_acuwt(acuwt_records)
-    self.revision_count = acuwt_records.sum(:revision_count)
-    self.character_sum = acuwt_records.sum(:character_sum)
-    self.references_count = acuwt_records.sum(:references_count)
-    self.user_ids = acuwt_records.where('revision_count > 0').pluck(:user_id)
-    self.new_article = acuwt_records.where(new_article: true).exists?
-    self.first_revision = acuwt_records.minimum(:first_revision)
     save
   end
 
