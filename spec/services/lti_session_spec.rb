@@ -73,6 +73,20 @@ describe LtiSession do
     end
   end
 
+  describe '#deep_link_resource' do
+    it 'is nil when the launch carries no resource marker' do
+      expect(lti_session.deep_link_resource).to be_nil
+    end
+
+    it 'returns the custom resource marker when present' do
+      idtoken['custom'] = { 'resource' => 'Block:42' }
+      stub_request(:get, idtoken_url)
+        .to_return(status: 200, body: idtoken.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      expect(lti_session.deep_link_resource).to eq('Block:42')
+    end
+  end
+
   describe '#instructor? / #student?' do
     it 'is instructor when role suffix matches' do
       expect(lti_session).to be_instructor
