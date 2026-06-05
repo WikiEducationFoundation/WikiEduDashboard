@@ -77,6 +77,17 @@ class ArticleCourseTimeslice < ApplicationRecord
     ac_timeslice.update_cache_from_acuwt(acuwt_records)
   end
 
+  # Bulk-update ACT rows for a single timeslice window from stored ACUWT records.
+  # Replaces the per-article find_or_create_by + N aggregate queries with one SELECT
+  # (all ACUWT for the window) + one upsert_all.
+  def self.bulk_update_from_acuwt(course, wiki, ts_start, ts_end)
+    records = act_records_from_acuwt(course, wiki, ts_start, ts_end)
+    return if records.empty?
+    upsert_all(records,
+               update_only: %i[revision_count character_sum references_count
+                               user_ids new_article first_revision updated_at])
+  end
+
   def self.log_nil_article_id(course, article_id, wiki_id, revisions)
     Sentry.capture_message "Article id nil for course #{course.id}",
                            level: 'error',
@@ -115,6 +126,29 @@ class ArticleCourseTimeslice < ApplicationRecord
     self.first_revision = acuwt_records.minimum(:first_revision)
     save
   end
+
+  def self.act_records_from_acuwt(course, wiki, ts_start, ts_end)
+    now = Time.current
+    base = { course_id: course.id, start: ts_start, end: ts_end }
+    ArticleCourseUserWikiTimeslice
+      .where(course:, wiki:, start: ts_start, end: ts_end)
+      .group_by(&:article_id)
+      .map do |article_id, rows|
+        { **base, article_id:, created_at: now, updated_at: now,
+          **act_stats_from_acuwt(rows) }
+      end
+  end
+  private_class_method :act_records_from_acuwt
+
+  def self.act_stats_from_acuwt(rows)
+    { revision_count: rows.sum(&:revision_count),
+      character_sum: rows.sum(&:character_sum),
+      references_count: rows.sum(&:references_count),
+      user_ids: rows.select { |r| r.revision_count.positive? }.map(&:user_id),
+      new_article: rows.any?(&:new_article),
+      first_revision: rows.map(&:first_revision).compact.min }
+  end
+  private_class_method :act_stats_from_acuwt
 
   private
 

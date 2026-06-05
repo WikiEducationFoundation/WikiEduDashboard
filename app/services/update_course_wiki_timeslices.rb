@@ -225,10 +225,7 @@ class UpdateCourseWikiTimeslices
 
   def update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
     timeslice = acuwt_timeslice_for(wiki, revisions)
-    revisions[:revisions].map(&:article_id).uniq.each do |article_id|
-      ArticleCourseTimeslice.update_from_acuwt(@course, article_id, wiki,
-                                               timeslice.start, timeslice.end)
-    end
+    ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
   end
 
   def update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
@@ -254,11 +251,9 @@ class UpdateCourseWikiTimeslices
 
   def reaggregate_timeslice_from_acuwt(cwt)
     wiki = cwt.wiki
-    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: cwt.start)
-    acuwt.pluck(:article_id).uniq.each do |article_id|
-      ArticleCourseTimeslice.update_from_acuwt(@course, article_id, wiki, cwt.start, cwt.end)
-    end
-    acuwt.pluck(:user_id).uniq.each do |user_id|
+    ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, cwt.start, cwt.end)
+    ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: cwt.start)
+                                  .pluck(:user_id).uniq.each do |user_id|
       CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki, cwt.start, cwt.end)
     end
     CourseWikiTimeslice.update_from_acuwt(@course, wiki, cwt.start, cwt.end)
