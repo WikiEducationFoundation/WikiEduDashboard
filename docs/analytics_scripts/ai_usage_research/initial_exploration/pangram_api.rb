@@ -10,9 +10,9 @@ class PangramApi
     conn = Faraday.new(
       url: SLIDING_WINDOW_URL,
       headers: {'Content-Type' => 'application/json', 'x-api-key' => @api_key }
-    ) 
+    )
 
-    response = conn.post('') do |req| 
+    response = conn.post('') do |req|
       req.body = { text: text }.to_json
     end
     puts response

@@ -128,7 +128,7 @@ const NotificationsBell = () => {
   const path = Features.wikiEd ? '/admin' : '/requested_accounts';
   return (
     <li aria-describedby="notification-message" className="notifications">
-      <a href={path} className="icon icon-notifications_bell" />
+      <a href={path} className="icon icon-notifications_bell" aria-label={I18n.t('notifications.aria_label.bell')} />
       {
         (hasRequestedAccounts || hasOpenTickets)
           ? (

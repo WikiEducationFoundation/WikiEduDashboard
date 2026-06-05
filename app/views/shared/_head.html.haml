@@ -1,4 +1,4 @@
-%head 
+%head
   %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}
   - before = content_for?(:before_title) ? yield(:before_title) : ''
   - after = content_for?(:after_title) ? yield(:after_title) : ''
@@ -12,6 +12,15 @@
 
   = content_for :head
 
+  :javascript
+    try {
+      var fontParam = new URLSearchParams(window.location.search).get('font');
+      if (fontParam === 'serif') { localStorage.setItem('serifMode', 'true'); }
+      if (localStorage.getItem('serifMode') === 'true') {
+        document.documentElement.classList.add('serif-mode');
+      }
+    } catch (e) { /* localStorage unavailable */ }
+
   = hot_javascript_tag "vendors"
   = i18n_javascript_tag I18n.locale.to_s
   %meta{name: "data-projects", content: Wiki::PROJECTS.to_json}
@@ -23,8 +32,8 @@
     availableLocales = #{I18n.available_locales.to_json.html_safe};
 
     currentUser = {
-      id: "#{current_user&.id || ''}",
-      username: "#{current_user&.username || ''}"
+      id: "#{current_user&.id}",
+      username: #{(current_user&.username || '').to_json}
     }
 
     Features = {
@@ -50,8 +59,15 @@
   - if Features.sentry?
     = hot_javascript_tag("sentry")
     // Sentry logging
-    %script
-      Sentry.init({ dsn: SentryDsn, autoSessionTracking: false});
+    :javascript
+      Sentry.init({
+        dsn: SentryDsn,
+        autoSessionTracking: false,
+        // Telegram's in-app browser injects a Mini Apps SDK that throws
+        // "Error invoking postEvent: Method not found" when its host client
+        // doesn't recognize an event. Not our code, can't fix, drop it.
+        ignoreErrors: [/Error invoking postEvent/]
+      });
       Sentry.setContext(currentUser);
 
   -# = javascript_include_tag '/assets/javascripts/jquery.min.js'

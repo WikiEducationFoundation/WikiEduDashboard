@@ -37,6 +37,13 @@ describe UpdateWikidataStatsTimeslice do
       expect(unscoped_revision.summary).to be_nil
     end
 
+    it 'counts merge_from in built stats' do
+      revision = build(:revision_on_memory, wiki_id: wikidata.id, scoped: true)
+      revision.summary = { 'merge_from' => 1 }.to_json
+      stats = updater.build_stats_from_revisions([revision])
+      expect(stats['merged from']).to eq(1)
+    end
+
     it 'creates record in CourseStat table', :vcr do
       expect(CourseStat.count).to eq(0)
       updater.update_revisions_with_stats(revisions)
@@ -72,12 +79,13 @@ describe UpdateWikidataStatsTimeslice do
           .and_raise(MediawikiApi::HttpError, '')
         expect(updater).to receive(:log_error).once
         updater.update_revisions_with_stats(revisions)
-        expect(revision1.summary).to be_nil
-        expect(revision1.error).to eq(true)
-        expect(revision2.summary).to be_nil
-        expect(revision2.error).to eq(true)
-        expect(unscoped_revision.summary).to be_nil
-        expect(unscoped_revision.error).to be_nil
+        # Non-scoped revisions are now also analyzed (so merge_to on
+        # now-redirected source items can still be classified — see #6813),
+        # so an analyzer outage marks them all with error.
+        revisions.each do |rev|
+          expect(rev.summary).to be_nil
+          expect(rev.error).to eq(true)
+        end
       end
     end
   end

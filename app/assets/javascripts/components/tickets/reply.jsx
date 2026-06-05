@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 import linkifyHtml from 'linkify-html';
 
 import { MESSAGE_KIND_NOTE } from '../../constants/tickets';
@@ -24,13 +25,13 @@ export const Reply = ({ message }) => {
   let messageClass;
   if (details.subject) {
     subject = (
-      <h4 className="subject">{ details.subject }</h4>
+      <h3 className="subject">{ details.subject }</h3>
     );
   } else if (message.kind === MESSAGE_KIND_NOTE) {
     messageClass = 'tickets-note';
     subject = (
       <div className="note-heading">
-        <h4 className="subject">NOTE</h4>
+        <h3 className="subject">NOTE</h3>
         <DeleteNote messageId={message.id} />
       </div>
     );
@@ -53,9 +54,9 @@ export const Reply = ({ message }) => {
         {subject}
         { cc }
         { (subject || cc) && <hr /> }
-        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: linkifyHtml(message.content, { target: { url: '_blank' } }) }} />
+        <div className="plaintext message-body" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(linkifyHtml(message.content, { target: { url: '_blank' } }), { ALLOWED_TAGS: ['a'], ALLOWED_ATTR: ['href', 'target', 'rel'] }) }} />
       </section>
-      <aside className="reply-details">
+      <div className="reply-details">
         <span className="from">
           <p>From: {from}</p>
         </span>
@@ -72,7 +73,7 @@ export const Reply = ({ message }) => {
             && <HelperIcon imageName="minus" altText={failed_message} />
           }
         </span>
-      </aside>
+      </div>
     </div>
   );
 };

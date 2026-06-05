@@ -31,7 +31,7 @@ export const SubmitIssuePanel = ({ handleChange, handleSubmit, isSubmitting, mes
           value_key="message"
         />
         <button className="button danger" type="submit" disabled={isSubmitting}>
-          Notify Wiki Expert
+          {I18n.t('instructor_view.bad_work.notify_wiki_expert')}
         </button>
       </form>
     </article>

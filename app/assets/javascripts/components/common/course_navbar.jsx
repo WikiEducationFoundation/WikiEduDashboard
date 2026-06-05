@@ -17,7 +17,11 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
       </a>
     );
   } else {
-    courseLinkElement = <a><h2 className="title">{course.title}</h2></a>;
+    courseLinkElement = (
+      <div className="nav__item">
+        <h2 className="title">{course.title}</h2>
+      </div>
+    );
   }
 
   // ////////////
@@ -83,7 +87,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   return (
     <div className="container">
       {courseLinkElement}
-      <nav>
+      <nav aria-label={course.title}>
         <div className="nav__item" id="overview-link">
           <p><NavLink to={homeLink} className={({ isActive }) => (isActive ? 'active' : homeLinkClassName)}>{I18n.t('courses.overview')}</NavLink></p>
         </div>

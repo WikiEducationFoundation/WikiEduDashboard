@@ -4,6 +4,7 @@
 # Author: Ajeje Brazorf
 # Author: Daniel charms
 # Author: Pikne
+# Author: Rivoz
 ---
 et:
   number:
@@ -100,6 +101,10 @@ et:
       ning andma töölauale õiguse sinu konto andmete kasutamiseks. Sisselogimiseks
       võid kasutada kas olemasolevat Vikipeedia kontot või luua uue konto. Kui sul
       ei õnnestu kontot luua, kirjuta aadressil dashboard@wikiedu.org.
+  alerts:
+    ai_stats:
+      sections:
+        general_stats: Üldine statistika
   activity:
     all: Täiendused
     edited_by: Muutnud

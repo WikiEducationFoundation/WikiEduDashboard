@@ -27,6 +27,7 @@ capybara-*.html
 /coverage/
 /coverage.deep/
 /spec/tmp
+/training_content_drafts
 **.orig
 rerun.txt
 pickle-email-*.html
@@ -64,3 +65,4 @@ stats.json
 /fixtures/vcr_cassettes/*
 !/fixtures/vcr_cassettes/cached/
 !/fixtures/vcr_cassettes/cached/*
+/backups/

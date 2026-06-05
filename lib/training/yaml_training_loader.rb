@@ -24,7 +24,7 @@ class YamlTrainingLoader
     slug = File.basename(yaml_file, '.yml')
     slug.gsub!(/^[0-9]+-/, '') if @content_class.trim_id_from_filename
     begin
-      content = YAML.load_file(yaml_file)
+      content = YAML.safe_load_file(yaml_file, permitted_classes: [Symbol])
       validate_id(yaml_file, content)
     rescue StandardError => e
       raise InvalidYamlError, "Looks like there is a problem with #{yaml_file}. #{e}"

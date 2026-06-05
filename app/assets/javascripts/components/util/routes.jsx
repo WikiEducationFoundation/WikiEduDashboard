@@ -22,6 +22,7 @@ const CampaignsHandler = lazy(() => import('../campaign/campaigns_handler.jsx'))
 const DetailedCampaignList = lazy(() => import('../campaign/detailed_campaign_list'));
 const Explore = lazy(() => import('../explore/explore.jsx'));
 const TrainingApp = lazy(() => import('../../training/components/training_app.jsx'));
+const TrainingModuleComposer = lazy(() => import('../../training_module_composer/composer.jsx'));
 const ActiveCoursesHandler = lazy(() => import('../active_courses/active_courses_handler.jsx'));
 const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wiki_handler.jsx'));
 const RevisionAiScoresStats = lazy(() => import('../revision_ai_scores/revision_ai_scores_stats.jsx'));
@@ -65,6 +66,7 @@ const routes = () => {
         <Route path="/settings" element={<SettingsHandler />} />
         <Route path="/article_finder" element={<ArticleFinder />} />
         <Route path="/training/*" element={<TrainingApp />} />
+        <Route path="/training_module_drafts/*" element={<TrainingModuleComposer />} />
         <Route path="/tickets/dashboard" element={<TicketsHandler />} />
         <Route path="/tickets/dashboard/:id" element={<TicketShowHandler />} />
         <Route path="/campaigns/*" element={<CampaignsHandler />} />

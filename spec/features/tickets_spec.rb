@@ -17,15 +17,18 @@ describe 'ticket system', type: :feature, js: true do
     # Make a ticket
     visit "/courses/#{course.slug}"
     click_button 'Get Help'
-    click_link 'question about editing Wikipedia'
+    click_button 'question about editing Wikipedia'
     fill_in 'message', with: 'I need some help with adding a photo to my article.'
     click_button 'Send'
-    click_link 'Ok'
+    click_button 'Ok'
 
     # Find the ticket
     click_link 'Admin'
     click_link 'Open Tickets: 1'
     click_link 'Show'
+
+    expect(page).to have_content 'I need some help with adding a photo'
+    expect(page).to be_axe_clean
 
     # Reply to the ticket
     within('form.tickets-reply') do
@@ -41,7 +44,7 @@ describe 'ticket system', type: :feature, js: true do
       find('.mce-content-body').send_keys('Note for staff')
     end
     click_button 'Create Note'
-    find('img[alt="delete icon"]').click
+    find('button.delete-note').click
     expect(page).to have_content 'Note Deleted Successfully'
 
     # Email the ticket owner

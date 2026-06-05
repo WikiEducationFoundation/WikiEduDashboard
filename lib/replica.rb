@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 #=   https://replica-revision-tools.wmcloud.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
-class Replica
+class Replica # rubocop:disable Metrics/ClassLength
   include ApiErrorHandling
 
   def initialize(wiki, update_service = nil)
@@ -122,11 +122,10 @@ class Replica
   def api_get(endpoint, query = '')
     tries ||= 3
     response = do_query(endpoint, query)
-    raise unless response.code == '200'
-    response_body = response.body
-    parsed = Oj.load(response_body)
-    raise unless parsed['success']
-    parsed['data']
+    parsed = parse_replica_body(response.body)
+    return parsed['data'] if parsed && parsed['success']
+    return skip_replica_failure(endpoint, parsed) if replica_connection_failure?(parsed)
+    raise "Replica #{endpoint} request failed (HTTP #{response.code})"
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
@@ -135,16 +134,14 @@ class Replica
                               language: @wiki.language, project: @wiki.project })
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  # rubocop:disable Metrics/PerceivedComplexity
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
-    raise unless response.code == '200'
-    return if response.body.empty?
-    parsed = Oj.load(response.body)
-    raise unless parsed['success']
-    parsed['data']
+    return if response.code == '200' && response.body.empty?
+    parsed = parse_replica_body(response.body)
+    return parsed['data'] if parsed && parsed['success']
+    return skip_replica_failure(endpoint, parsed) if replica_connection_failure?(parsed)
+    raise "Replica #{endpoint} request failed (HTTP #{response.code})"
   rescue StandardError => e
     tries -= 1
     sleep 2 && retry unless tries.zero?
@@ -154,14 +151,48 @@ class Replica
                               language: @wiki.language,
                               project: @wiki.project })
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
-  # rubocop:enable Metrics/PerceivedComplexity
+
+  # Parse a replica response body into a Hash, or nil when there is no parseable
+  # JSON (an empty body, an HTML error page, etc.).
+  def parse_replica_body(body)
+    return nil if body.blank?
+    Oj.load(body)
+  rescue Oj::ParseError
+    nil
+  end
+
+  # A replica DB *connection* failure, as opposed to a query-level failure.
+  # As of WikiEduDashboardTools PR #22 these return HTTP 502 with a JSON body
+  # carrying an "error" message — e.g. a newly created wiki whose wikireplica
+  # views don't exist yet (see Wikimedia T415977). It is a known, non-transient
+  # per-wiki condition, so we skip the wiki rather than retrying and reporting
+  # every call to Sentry. Query-level failures ({ "success": false } with no
+  # "error" key) still fall through to the hard-error path so they stay visible.
+  def replica_connection_failure?(parsed)
+    parsed.is_a?(Hash) && parsed['success'] == false && parsed['error'].present?
+  end
+
+  def skip_replica_failure(endpoint, parsed)
+    Rails.logger.warn(
+      "Replica #{endpoint} cannot reach #{@wiki.language}.#{@wiki.project}: " \
+      "#{parsed['error']} — skipping this wiki for this update cycle"
+    )
+    nil
+  end
+
+  # Finite timeouts on the Replica HTTP call: without them, a silent server
+  # leaves the worker blocked in IO#wait_readable forever (holding its
+  # sidekiq-unique-jobs lock for up to 30 days). api_get's rescue loop will
+  # retry on Net::ReadTimeout / Net::OpenTimeout via StandardError.
+  OPEN_TIMEOUT = 30
+  READ_TIMEOUT = 180
 
   def do_query(endpoint, query)
     url = URI.parse compile_query_url(endpoint, query)
     req = Net::HTTP::Get.new(url)
     req.add_field('User-Agent', ENV['user_agent'])
-    Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
+    Net::HTTP.start(url.host, url.port, use_ssl: true, open_timeout: OPEN_TIMEOUT,
+                    read_timeout: READ_TIMEOUT) { |http| http.request(req) }
   end
 
   REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
@@ -176,9 +207,11 @@ class Replica
 
     req = Net::HTTP::Post.new(url.path)
     req.add_field('User-Agent', ENV['user_agent'])
+    req.content_type = 'application/x-www-form-urlencoded'
     req.body = URI.encode_www_form(form_data)
 
-    Net::HTTP.start(url.host, url.port, use_ssl: true) { |http| http.request(req) }
+    Net::HTTP.start(url.host, url.port, use_ssl: true, open_timeout: OPEN_TIMEOUT,
+                    read_timeout: READ_TIMEOUT) { |http| http.request(req) }
   end
 
   # Query URL for the WikiEduDashboardTools repository

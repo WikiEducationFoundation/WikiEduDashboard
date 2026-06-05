@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def dashboard_stylesheet_tag(filename)
-    filename = "#{rtl? ? 'rtl-' : nil}#{filename}.css"
+    filename = "#{'rtl-' if rtl?}#{filename}.css"
     filename = css_fingerprinted(filename) unless Features.hot_loading?
     stylesheet_link_tag "/assets/stylesheets/#{filename}", media: 'all'
   end
@@ -58,8 +58,8 @@ module ApplicationHelper
 
   def class_for_path(req, path)
     return 'active' if req.path == '/' && path == '/'
-    current_path_segments = req.path.split('/').reject(&:blank?)
-    active_path = path.split('/').reject(&:blank?).last
+    current_path_segments = req.path.split('/').compact_blank
+    active_path = path.split('/').compact_blank.last
     current_path_segments.include?(active_path) ? 'active' : nil
   end
 

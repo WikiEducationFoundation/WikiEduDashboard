@@ -50,4 +50,4 @@ end
 CSV.open("/home/sage/new_articles_by_term.csv", 'wb') do |csv|
   articles_to_analyze.each { |line| csv << line }
 end
-
+# 8025 article rows

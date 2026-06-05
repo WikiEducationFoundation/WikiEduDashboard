@@ -20,6 +20,7 @@
 #
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/cumulative_diff_url_builder"
 
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
@@ -40,9 +41,15 @@ class ArticlesCourses < ApplicationRecord
 
   serialize :user_ids, type: Array # This text field only stores user ids as text
 
+  include ArticleViewerLinker
+
   ####################
   # Instance methods #
   ####################
+  def cumulative_diff_url
+    CumulativeDiffUrlBuilder.new(self).url
+  end
+
   def update_cache_from_timeslices
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)

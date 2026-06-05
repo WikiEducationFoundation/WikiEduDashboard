@@ -11,7 +11,8 @@ module UsernameTestHelper
       'Łukasz',
       'İbrahim',
       'Αλέξανδρος',
-      'Дмитрий'
+      'Дмитрий',
+      'Rage"theTest"Test',
     ]
   end
 end

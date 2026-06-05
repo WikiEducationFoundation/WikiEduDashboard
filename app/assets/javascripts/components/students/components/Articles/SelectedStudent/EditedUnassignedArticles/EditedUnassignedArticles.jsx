@@ -52,6 +52,7 @@ const EditedUnassignedArticles = ({
         table_key="users"
         stickyHeader={false}
         sortable={false}
+        none_message={I18n.t('users.more_articles')}
       />
       <div className="see-more">
         {!props.limitReached

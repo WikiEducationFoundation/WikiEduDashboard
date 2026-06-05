@@ -6,6 +6,7 @@ describe CopyCourse do
     wiki_dashboard = 'https://dashboard.wikiedu.org'
     outreach_dashboard = 'https://outreachdashboard.wmflabs.org'
     @selected_dashboard = Features.wiki_ed? ? wiki_dashboard : outreach_dashboard
+    stub_wiki_validation
   end
 
   let(:url_base) { 'https://dashboard.wikiedu.org/courses/' }
@@ -43,9 +44,14 @@ describe CopyCourse do
             }
           }
         },
+        "training_library_slug": "students",
         "wikis": [
           {
             "language": "en",
+            "project": "wikipedia"
+          },
+          {
+            "language": "es",
             "project": "wikipedia"
           }
         ]
@@ -124,7 +130,8 @@ describe CopyCourse do
                 "title": "Introduction to the Wikipedia assignment",
                 "order": 1,
                 "due_date": null,
-                "points": null
+                "points": null,
+                "training_module_ids": [1, 15]
               }
             ]
           }
@@ -213,8 +220,14 @@ describe CopyCourse do
       stub_request(:get, categories_url)
         .to_return(status: 200, body: categories_response_body, headers: {})
 
+      training_modules_body = {
+        training_modules: [
+          { id: 1, slug: 'wikipedia-essentials', name: 'Wikipedia essentials', kind: 0 },
+          { id: 15, slug: 'editing-basics', name: 'Editing basics', kind: 1 }
+        ]
+      }.to_json
       stub_request(:get, training_modules_url)
-        .to_return(status: 200, body: '{}', headers: {})
+        .to_return(status: 200, body: training_modules_body, headers: {})
 
       # Stub the response to the timeline request
       stub_request(:get, timeline_url)
@@ -246,8 +259,10 @@ describe CopyCourse do
       expect(course.students.first.username).to eq('CharlieJ385')
       expect(course.students.second.username).to eq('Diqi Yan')
 
-      # Wiki exists
+      # Wikis exist, including the additional tracked wiki
       expect(Wiki.exists?(language: 'en', project: 'wikipedia')).to eq(true)
+      expect(Wiki.exists?(language: 'es', project: 'wikipedia')).to eq(true)
+      expect(course.wikis.count).to eq(2)
 
       # Category was created
       expect(Category.exists?(name: 'Category 0', depth: 0, source: 'Source 0',
@@ -263,9 +278,17 @@ describe CopyCourse do
       expect(User.exists?(username: 'Diqi Yan')).to eq(true)
 
       # Update logs were correctly created
-      course.flags['update_logs'].each do |key, _value|
+      course.flags['update_logs'].each_key do |key|
         expect(key).to be_a(Integer)
       end
+
+      # Training modules were copied into block content
+      block = Block.last
+      expect(block.content).to include('Wikipedia essentials')
+      expect(block.content).to include('Editing basics')
+      expect(block.content).to include('training-module')
+      expect(block.content).to include('<h4 class="timeline-exercise">Training</h4>')
+      expect(block.content).to include('<h4 class="timeline-exercise">Exercise</h4>')
     end
   end
 end

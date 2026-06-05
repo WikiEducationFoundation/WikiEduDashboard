@@ -11,7 +11,7 @@
       %h3
         = t('courses.campaign_articles', title: @campaign.title)
       .sort-select
-        %select.sorts{rel: 'campaign-articles'}
+        %select.sorts{rel: 'campaign-articles', 'aria-label': t('application.sort')}
           %option{rel: 'asc', value: 'title'}
             = t("articles.title")
           %option{rel: 'desc', value: 'char_added'}
@@ -25,7 +25,7 @@
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
 
-    %table.table.table--hoverable.table--sortable
+    %table.table.table--hoverable.table--sortable.table-responsive
       %thead
         %tr
           %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}

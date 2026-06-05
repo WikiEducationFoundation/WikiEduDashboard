@@ -13,7 +13,7 @@ module QuestionResultsHelper
       type: question_type_to_string(question),
       question:,
       sentiment: question.track_sentiment ? question_answers_average_sentiment(processed_answers) : {}, # rubocop:disable Layout/LineLength
-      answer_options: question.answer_options.split(Rapidfire.answers_delimiter),
+      answer_options: question.answer_options.split(Rapidfire.answers_delimiter).map(&:strip),
       answers: parse_answers(answers),
       answers_data: check_question_type?(question) ? processed_answers : [],
       grouped_question: question.validation_rules[:grouped_question],
@@ -42,7 +42,7 @@ module QuestionResultsHelper
     answers
       .filter_map(&:answer_text)
       .flat_map { |text| text.to_s.split(Rapidfire.answers_delimiter) }
-      .reject(&:blank?)
+      .compact_blank
   end
 
   # Builds answer data with user/course info, caching expensive course lookups

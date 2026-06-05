@@ -11,6 +11,7 @@ describe 'course copying', type: :feature, js: true do
   before do
     allow(Features).to receive(:wiki_ed?).and_return(false)
     allow(Features).to receive(:open_course_creation?).and_return(true)
+    stub_wiki_validation
     stub_course
     stub_oauth_edit
     login_as(user, scope: :user)
@@ -20,6 +21,7 @@ describe 'course copying', type: :feature, js: true do
   let(:subject) { 'Advanced Foo' }
 
   it 'checks copying of course across server' do
+    login_as(user, scope: :user)
     visit root_path
     click_link 'Copy Course from another Server'
     fill_in 'url', with: course_url
@@ -45,6 +47,11 @@ describe 'course copying', type: :feature, js: true do
     new_course = Course.last
     expect(new_course.term).to eq('Spring2016')
     expect(new_course.weekdays).not_to eq('0000000')
-    # expect(Week.count).to eq(1)
+    expect(new_course.wikis.count).to eq(2)
+
+    # Navigate to timeline to verify training modules were copied into block content
+    click_link 'Timeline'
+    expect(page).to have_content('Wikipedia essentials')
+    expect(page).to have_content('Editing basics')
   end
 end

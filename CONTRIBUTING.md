@@ -45,7 +45,7 @@ If you're a new developer and you're looking for an easy way to get involved, tr
 - [Quarry](http://quarry.wmflabs.org/): Public querying interface for the Labs replica database. Very useful for testing SQL queries and for figuring out what data is available.
 - [Guide to the front end](docs/frontend.md)
 - [Admin Guide](docs/admin_guide.md): Overview of the Dashboard infrastructure, including servers, tools, dependencies, and troubleshooting resources.
-- [Vagrant](https://github.com/marxarelli/wikied-vagrant): a configuration to quickly get a development environment up and running using Vagrant. If you already have VirtualBox and/or Vagrant on your machine, this might be a simple way to set up a dev environment. However, it is not actively maintained. If you try it and run into problems, let us know!
+- [AI guidelines](docs/ai_guidelines.md): rules for using AI. Most important: **be transparent** about any AI usage.
 
 #### Code Style
 This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
@@ -86,7 +86,8 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
 - Title your pull request to indicate its purpose. (This will likely be similar to the title of the issue it addresses.)
 - Include a reference to the issue(s).
 - If it is a work-in-progress, include `[WIP]` in the title and mark it as a draft. Remove this and leave a message once the PR is complete and ready for review.
-- Include before-and-after screenshots (or animations) for user interface changes. Update them to reflect the latest version after making changes.
+- Include before-and-after screenshots or videos for user interface changes. Update them to reflect the latest version after making changes.
+- Fill out all the sections of the PR template.
 
 ### After opening a PR
 - Check the travis-ci continuous integration build once it completes. This usually takes about 30 minutes, and if any tests fail you can find details in the build log.

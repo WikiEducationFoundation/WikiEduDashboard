@@ -35,7 +35,7 @@ def populate_courses
   Course.insert_all(to_insert)
 
   courses_users = []
-  
+
   Course.last(n_courses).each do |course|
     random_users = User.where(email: GENERATED_USER).order("RAND()").limit(20)
     random_users.each do |random_user|
@@ -68,12 +68,12 @@ def populate_survey_questions
       tags: ""
     )
   end
-  
+
   question_groups = Rapidfire::QuestionGroup.last(2).to_a
 
   to_create = []
   survey_notifications = []
-  
+
   n_questions = ENV['questions'] || 100
   j = 0
   1..n_questions.to_i.times do |i|
@@ -81,9 +81,9 @@ def populate_survey_questions
       j = 0
     end
     to_create << {
-      question_group_id: question_groups[j].id, 
-      question_text: "Question #{i}", 
-      type: "Rapidfire::Questions::Checkbox", 
+      question_group_id: question_groups[j].id,
+      question_text: "Question #{i}",
+      type: "Rapidfire::Questions::Checkbox",
       position: i,
       answer_options: "A\r\nB\r\nC\r\nD",
       validation_rules: {
@@ -103,7 +103,7 @@ def populate_survey_questions
     }
     j += 1
   end
-  
+
   generated_survey = Survey.create(
     name: GENERATED_SURVEY,
     open: 1,
@@ -115,9 +115,9 @@ def populate_survey_questions
     courses_user_role: 0,
   )
 
-  
+
   Rapidfire::Question.insert_all(to_create)
-  
+
   question_groups.each_with_index do |question_group, i|
     SurveysQuestionGroup.create(
       survey_id: generated_survey.id,
@@ -198,7 +198,7 @@ def clear_survey_questions_for_group question_group
   ).destroy_all
 end
 
-def clear_survey_answers 
+def clear_survey_answers
   question_groups = Rapidfire::QuestionGroup.where(name: GENERATED_GROUP)
 
   question_groups.each do |question_group|

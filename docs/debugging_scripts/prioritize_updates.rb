@@ -18,7 +18,7 @@ Course.ready_for_update.sort_by(&:revision_count).each do |course|
             'medium_update'
           when 10000..10000000
             'long_update'
-          end 
+          end
 
   CourseDataUpdateWorker.update_course(course_id: course.id, queue: queue)
 end

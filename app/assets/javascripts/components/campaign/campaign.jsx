@@ -22,11 +22,20 @@ export const Campaign = () => {
   }
 
   let campaignHandler;
+  let overviewStats;
   if (window.location.href.match(/overview/)) {
     campaignHandler = (
       <div className="high-modal">
         <CampaignStatsDownloadModal campaign_slug={campaign_slug} />
       </div>
+    );
+    overviewStats = (
+      <section className="overview container">
+        <CampaignStats campaign={campaign} />
+        {campaign.course_stats && <WikidataOverviewStats
+          statistics={campaign.course_stats['www.wikidata.org']}
+        />}
+      </section>
     );
   }
 
@@ -36,12 +45,7 @@ export const Campaign = () => {
         campaign={campaign}
       />
       <div className="container campaign_main">
-        <section className="overview container">
-          <CampaignStats campaign={campaign} />
-          {campaign.course_stats && <WikidataOverviewStats
-            statistics={campaign.course_stats['www.wikidata.org']}
-          />}
-        </section>
+        {overviewStats}
         {campaignHandler}
         <Routes>
           <Route path="ores_plot" element={<CampaignOresPlot />} />

@@ -5,7 +5,8 @@ const CancelDeleteNews = ({ setConfirmDeleteNews }) => {
   const [cancelDelete, setCancelDelete] = useState(false); // State to manage the icon hover effect
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setCancelDelete(true)} // Show red icon on hover
       onMouseLeave={() => setCancelDelete(false)} // Show grey icon when not hovered
       onClick={() => setConfirmDeleteNews(null)} // Cancel the delete action
@@ -14,7 +15,7 @@ const CancelDeleteNews = ({ setConfirmDeleteNews }) => {
       {/* Display cancel icon, changing color based on hover state */}
       <span className={cancelDelete ? 'icon-cancel icon-cancel--red' : 'icon-cancel icon-cancel--grey'} />
       <p>{I18n.t('news.options.news_content.cancel_delete')}</p>
-    </div>
+    </button>
   );
 };
 

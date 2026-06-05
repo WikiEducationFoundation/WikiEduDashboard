@@ -1,7 +1,7 @@
 .survey__title-form
   = form_for @question_group do |f|
     - if @question_group.errors.any?
-      %ul
+      %ul{role: 'alert'}
         - @question_group.errors.full_messages.each do |message|
           %li= message
     %div

@@ -199,11 +199,9 @@ describe('notifications reducer', () => {
     };
     const expectedState = [notification];
     const errorSpy = jest.spyOn(console, 'error');
-    const logSpy = jest.spyOn(console, 'log');
     deepFreeze(initialState);
     expect(notifications(initialState, action)).toEqual(expectedState);
-    expect(errorSpy).toHaveBeenCalledWith('Error: ', '');
-    expect(logSpy).toHaveBeenCalledWith('');
+    expect(errorSpy).toHaveBeenCalledWith('API_FAIL ():', '');
   });
 
   it('should handle SAVE_TIMELINE_FAIL', () => {

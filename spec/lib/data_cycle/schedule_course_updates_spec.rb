@@ -76,7 +76,7 @@ describe ScheduleCourseUpdates do
 
     context 'a course has no job enqueued' do
       before do
-        Sidekiq::Testing.disable!
+        Sidekiq.testing!(:disable)
         create(:course, start: 1.day.ago, end: 2.months.from_now,
                         slug: 'Medium/Course', needs_update: true, flags:)
         create(:course, slug: 'VeryLong/Updates', needs_update: true,
@@ -88,7 +88,7 @@ describe ScheduleCourseUpdates do
         Sidekiq::Queue.new(queue).clear
         Sidekiq::Queue.new(short_queue).clear
         Sidekiq::Queue.new(very_long_queue).clear
-        Sidekiq::Testing.inline!
+        Sidekiq.testing!(:inline)
       end
 
       it 'adds the right kind of job to the right queue, when no orphan lock' do

@@ -108,6 +108,7 @@ const Course = withRouter((props) => {
   return (
     <div>
       <div className="course-nav__wrapper">
+        <h1 className="screen-reader">{course.title}</h1>
         <Affix className="course_navigation" offset={57}>
           <CourseNavbar
             course={course}

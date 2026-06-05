@@ -809,6 +809,8 @@ el:
       training: Εκπαίδευση
     exercise_sandbox: Αμμοδόχος Άσκησης
     view_all: Δείτε όλες τις ασκήσεις
+    close: ΚΛΕΙΣΙΜΟ
+    loading: Γίνεται φόρτωση…
   update_username:
     label: Νέο όνομα χρήστη
     button: Ενημέρωση

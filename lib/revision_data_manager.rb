@@ -152,6 +152,7 @@ class RevisionDataManager
   # Updates the revision data with a new 'scoped' field inside the article data.
   # This field indicates if the article is scoped based on the course type.
   def mark_scoped_articles(wiki, revisions)
+    # rubocop:disable Style/HashEachMethods -- revisions is an Array of pairs
     revisions.each do |_, details|
       article_title = details['article']['title']
       formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
@@ -159,6 +160,7 @@ class RevisionDataManager
       details['article']['scoped'] =
         @course.scoped_article?(wiki, formatted_article_title, mw_page_id)
     end
+    # rubocop:enable Style/HashEachMethods
   end
 
   # Creates a revision record for the given revision data.

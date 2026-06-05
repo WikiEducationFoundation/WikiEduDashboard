@@ -33,7 +33,6 @@ import NamespaceSelect from '../common/namespace_select.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
-import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
@@ -598,7 +597,7 @@ const Details = createReactClass({
     const shared = (
       <div className="module course-details">
         <div className="section-header">
-          <h3>{I18n.t('application.details')}</h3>
+          <h3 id="course-details-modal-title">{I18n.t('application.details')}</h3>
           {this.props.controls()}
         </div>
         <div className="module__data extra-line-height">
@@ -680,8 +679,7 @@ const Details = createReactClass({
 
     return (
       <div className="modal-course-details">
-        <Modal>
-          <Notifications />
+        <Modal ariaLabelledBy="course-details-modal-title">
           {shared}
         </Modal>
       </div>

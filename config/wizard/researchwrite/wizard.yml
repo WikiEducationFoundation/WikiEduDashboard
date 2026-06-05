@@ -3,7 +3,7 @@
   title: Training
   description: |
     To help your students familiarize themselves with the basics of Wikipedia editing
-    and its policy and community norms, we've developed a series of online training modules. 
+    and its policy and community norms, we've developed a series of online training modules.
 
     Students should create user accounts and complete the core student training modules.
     This training helps students understand the Wikipedia fundamentals, walks students
@@ -11,7 +11,7 @@
     and shows how to find support. Students who complete the training are better prepared
     to focus on your course's learning outcomes, and generally have better experiences.
     The training modules are embedded throughout your assignment and provide students with
-    relevant help as they undertake different tasks of their Wikipedia assignment. 
+    relevant help as they undertake different tasks of their Wikipedia assignment.
 
     You can track which training modules your students have taken through your course
     Dashboard. **Grading students for completing the training is recommended.**
@@ -36,7 +36,7 @@
     Many of our training modules include guidance for students on how to thoughtfully and critically
     use generative AI tools to support their work on Wikipedia – **and only if permitted by your own
     course policies.**
-    
+
     All students will be assigned to take the training module
     “[Using generative AI tools with Wikipedia](https://dashboard.wikiedu.org/training/students/generative-ai),”
     which explains why AI-generated text is bad for Wikipedia and offers tips for using AI tools in
@@ -45,7 +45,7 @@
 
     Key highlights:
       * Students should not use generative AI output for _**any part**_ of their Wikipedia assignment. **This includes all exercises.**
-      * The “No generative AI output” policy also includes text copyedited by AI tools like Grammarly. 
+      * The “No generative AI output” policy also includes text copyedited by AI tools like Grammarly.
       * Student work on Wikipedia will be monitored by Pangram, an AI detector.
 
     All materials have been developed to create a more rewarding experience for you, your students, and
@@ -54,7 +54,7 @@
     We also offer a second, optional
     [training module about large language models (LLMS)](https://dashboard.wikiedu.org/training/students/large-language-models)
     that provides more background information on how chatbots like ChatGPT work, and how they relate to Wikipedia.
-    
+
     #### In addition to the required Generative AI training, would you like to assign your students the supplemental training module on LLMs?
   options:
     -
@@ -70,7 +70,7 @@
   title: Getting started with editing
   description: |
     It's best for students to start editing Wikipedia early on. We require an evaluation exercise to get you started;
-    we recommend assigning a few additional Wikipedia assignments to ease them in. 
+    we recommend assigning a few additional Wikipedia assignments to ease them in.
 
     #### Which introductory assignments would you like to use?
   type: 0 # multiple choice
@@ -105,7 +105,7 @@
     not only includes gaps in article content but also in areas like the diversity of the
     authors cited, which means that students across all disciplines have the opportunity to
     improve equity on Wikipedia.
- 
+
     To help instructors explore these themes with their students, we offer a **curriculum
     guide**, “[Improving Knowledge Equity with the Wikipedia Assignment](https://wikiedu.org/knowledge-equity-curriculum-guide/).”
 
@@ -119,7 +119,7 @@
     identify representation gaps, and offers strategies for enhancing representation in
     an article’s text, references, images, and image captions.
 
-    #### Would you like your students to take the training module “Improving Representation on Wikipedia”? 
+    #### Would you like your students to take the training module “Improving Representation on Wikipedia”?
   type: 1  # single choice
   minimum: 1
   options:
@@ -142,17 +142,17 @@
     and outlines of their proposed changes before they edit any live articles.
     Additionally, any student creating a new article instead of improving an existing
     article will need to first draft their text in their sandbox.
-    
+
     But heads up, you still have a decision to make about sandboxes!
 
     For **improving existing Wikipedia articles**, you’ll need to **choose between two different methods**:
 
-    1. Students draft their text in a Wikipedia sandbox (not directly within the live article) 
+    1. Students draft their text in a Wikipedia sandbox (not directly within the live article)
 
     OR
 
     2. Students incrementally make direct edits to the live versions of Wikipedia articles
-  
+
     #### How to decide?
 
     When students draft in sandboxes, you get the chance to review their text before it reaches
@@ -172,7 +172,7 @@
       tag: yes_sandboxes
       logic: yes_sandboxes
     -
-      title: Edit directly in live articles 
+      title: Edit directly in live articles
       tag: no_sandboxes
       logic: no_sandboxes
 
@@ -190,7 +190,7 @@
 
 
     **When students work individually, they can:**
- 
+
       * independently control the way they navigate and participate on Wikipedia.
       * experience every aspect of contributing to Wikipedia, from choosing their
       topic and finding sources to updating their chosen entry.
@@ -202,9 +202,9 @@
       * They may focus on one aspect of contributing to Wikipedia (e.g., one student might gather sources, while another writes up the contribution).
       * They might find it easier to socialize and connect.
       * They’ll work on fewer articles overall which means you’ll have less content to assess.
-    
+
     #### Will your students be working in groups or individually during this Wikipedia assignment?
- 
+
   type: 1 # single choice
   minimum: 1
   options:
@@ -239,8 +239,8 @@
     Regardless of your unique method of teaching students to choose articles, you can recognize
     and identify where Wikipedia falls short in your area of subject-matter expertise. Overall,
     you know what topics your students should be able to handle within the larger constraints
-    of a typical term. 
-    
+    of a typical term.
+
     #### How will your class select articles?
   type: 1 # single choice
   minimum: 1
@@ -459,7 +459,7 @@
         special attention to gaps related to knowledge equity. Students will begin to
         understand the complex issues surrounding Wikipedia's coverage of women and minorities,
         why these equity gaps have arisen, and how students can begin to rectify these gaps
-        and address issues related to systemic bias on Wikipedia. 
+        and address issues related to systemic bias on Wikipedia.
       description:
       logic: content_gaps_discussion
     -
@@ -540,7 +540,7 @@
         only choose this extra credit option if they have the time and capacity to make a well-thought out and
         carefully written contribution.
 
-        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.   
+        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.
 
         You will decide how much additional credit to offer students who choose this option.
       logic: additional_article_extra_credit

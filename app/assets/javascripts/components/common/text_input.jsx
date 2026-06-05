@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const TextInput = ({
   value,
@@ -16,7 +17,6 @@ const TextInput = ({
   type,
   max,
   maxLength,
-  focus,
   onBlur,
   onClick,
   append,
@@ -26,6 +26,7 @@ const TextInput = ({
   onChange,
   onFocus,
   id,
+  autoComplete,
   children
 }) => {
   const inputRef = useRef(null);
@@ -60,7 +61,6 @@ const TextInput = ({
         className={className}
         value={_value ?? (value || '')}
         onChange={onChange}
-        autoFocus={focus}
         onFocus={onFocus}
         onBlur={onBlur}
         onKeyDown={onKeyDownHandler}
@@ -71,6 +71,7 @@ const TextInput = ({
         title={title}
         min={0}
         ref={inputRef}
+        autoComplete={autoComplete}
         aria-labelledby={`${id}-label`}
       />
     );
@@ -90,7 +91,14 @@ const TextInput = ({
         <span className="text-input-component__label">
           <strong>{labelContent}</strong>
         </span>
-        <span onBlur={onBlur} onClick={onClick} className={usedValueClass}>
+        <span
+          role={onClick ? 'button' : undefined}
+          tabIndex={onClick ? 0 : undefined}
+          onBlur={onBlur}
+          onClick={onClick}
+          onKeyDown={onClick ? onEnterOrSpace(onClick) : undefined}
+          className={usedValueClass}
+        >
           {value}
         </span>
         {append}
@@ -113,12 +121,12 @@ TextInput.propTypes = {
   type: PropTypes.string,
   max: PropTypes.string,
   maxLength: PropTypes.string,
-  focus: PropTypes.func,
   onBlur: PropTypes.func,
   onClick: PropTypes.func,
   append: PropTypes.node,
   onKeyDown: PropTypes.func,
   _value: PropTypes.any,
+  autoComplete: PropTypes.string,
   // validation: Regex used by Conditional
   // required: bool used by Conditional
 };

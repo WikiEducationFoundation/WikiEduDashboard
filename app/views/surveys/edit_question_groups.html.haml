@@ -1,7 +1,7 @@
 = render 'admin_header'
 .block.block--clear
 
-  %h3 Editing Question Groups for "#{@survey.name}" Survey
+  %h2 Editing Question Groups for "#{@survey.name}" Survey
 
   = simple_form_for(@survey) do |f|
     = f.error_notification

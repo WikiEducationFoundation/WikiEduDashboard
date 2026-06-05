@@ -4,7 +4,9 @@ require 'rails_helper'
 require "#{Rails.root}/lib/revision_score_api_handler"
 
 describe RevisionScoreApiHandler do
-  context 'when the wiki works for both lift wing and reference-counter APIs' do
+  context 'when the wiki is en.wikipedia (uses reference-counter only)' do
+    # LiftWing is no longer called during updates. wp10 / prediction are always nil;
+    # features comes solely from ReferenceCounterApi (num_ref).
     before do
       stub_en_wikipedia_reference_counter_reponse
     end
@@ -15,116 +17,58 @@ describe RevisionScoreApiHandler do
       let(:subject) { handler.get_revision_data [829840090, 829840091] }
 
       it 'returns completed scores if data is retrieved without errors' do
-        VCR.use_cassette 'revision_score_api_handler/en_wikipedia' do
-          expect(subject).to be_a(Hash)
-          expect(subject.dig('829840090', 'wp10').to_f).to be_within(0.01).of(62.81)
-          expect(subject.dig('829840090', 'features')).to be_a(Hash)
-          # Only num_ref feature is stored. LiftWing features are discarded.
-          expect(subject.dig('829840090', 'features')).to eq({ 'num_ref' => 132 })
-          expect(subject.dig('829840090', 'deleted')).to eq(false)
-          expect(subject.dig('829840090', 'prediction')).to eq('B')
-          expect(subject.dig('829840090', 'error')).to eq(false)
-
-          expect(subject.dig('829840091', 'wp10').to_f).to be_within(0.01).of(39.51)
-          expect(subject.dig('829840091', 'features')).to be_a(Hash)
-          # Only num_ref feature is stored. LiftWing features are discarded.
-          expect(subject.dig('829840091', 'features')).to eq({ 'num_ref' => 1 })
-          expect(subject.dig('829840091', 'deleted')).to eq(false)
-          expect(subject.dig('829840091', 'prediction')).to eq('C')
-          expect(subject.dig('829840091', 'error')).to eq(false)
-        end
-      end
-
-      it 'returns completed scores if there is an error hitting LiftWingApi' do
-        VCR.use_cassette 'revision_score_api_handler/en_wikipedia_liftwing_error' do
-          stub_request(:any, /.*api.wikimedia.org.*/).to_raise(Errno::ETIMEDOUT)
-          expect(subject).to be_a(Hash)
-          expect(subject.dig('829840090')).to eq({ 'wp10' => nil, 'error' => true,
-          'features' => { 'num_ref' => 132 }, 'deleted' => false, 'prediction' => nil })
-          expect(subject.dig('829840091')).to eq({ 'wp10' => nil, 'error' => true,
-          'features' => { 'num_ref' => 1 }, 'deleted' => false, 'prediction' => nil })
-        end
+        expect(subject).to be_a(Hash)
+        expect(subject.dig('829840090')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 132 }, 'deleted' => false })
+        expect(subject.dig('829840091')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 1 }, 'deleted' => false })
       end
 
       it 'returns completed scores if there is an error hitting ReferenceCounterApi' do
-        VCR.use_cassette 'revision_score_api_handler/en_wikipedia_reference_counter_error' do
-          stub_request(:any, /.*reference-counter.toolforge.org*/)
-            .to_raise(Errno::ETIMEDOUT)
-
-          expect(subject).to be_a(Hash)
-
-          expect(subject.dig('829840090', 'wp10').to_f).to be_within(0.01).of(62.81)
-          expect(subject.dig('829840090')).to have_key('features')
-          expect(subject.dig('829840090', 'features')).to eq({})
-          expect(subject.dig('829840090', 'deleted')).to eq(false)
-          expect(subject.dig('829840090', 'prediction')).to eq('B')
-          expect(subject.dig('829840090', 'error')).to eq(true)
-
-          expect(subject.dig('829840091', 'wp10').to_f).to be_within(0.01).of(39.51)
-          expect(subject.dig('829840091')).to have_key('features')
-          expect(subject.dig('829840091', 'features')).to eq({})
-          expect(subject.dig('829840091', 'deleted')).to eq(false)
-          expect(subject.dig('829840091', 'prediction')).to eq('C')
-          expect(subject.dig('829840091', 'error')).to eq(true)
-        end
-      end
-
-      it 'returns completed scores if there is an error hitting both apis' do
-        stub_request(:any, /.*api.wikimedia.org.*/)
-          .to_raise(Errno::ETIMEDOUT)
         stub_request(:any, /.*reference-counter.toolforge.org*/)
           .to_raise(Errno::ETIMEDOUT)
+
         expect(subject).to be_a(Hash)
-        expect(subject.dig('829840090')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('829840091')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('829840090')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
+        expect(subject.dig('829840091')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
       end
     end
   end
 
-  context 'when the wiki is available only for LiftWing API' do
+  context 'when a revision is suppressed or deleted' do
     before do
       stub_wiki_validation
-      stub_wikidata_lift_wing_reponse
+      stub_reference_counter_batch_response(
+        project: 'wikipedia', language: 'en',
+        num_refs: { '829840092' => nil }
+      )
     end
+
+    let(:handler) { described_class.new(wiki: Wiki.find(1)) }
+
+    it 'returns deleted: true and empty features' do
+      result = handler.get_revision_data [829840092]
+      expect(result.dig('829840092')).to eq({ 'error' => false,
+                                              'features' => {}, 'deleted' => true })
+    end
+  end
+
+  context 'when the wiki is wikidata' do
+    before { stub_wiki_validation }
 
     let(:wiki) { create(:wiki, project: 'wikidata', language: nil) }
     let(:handler) { described_class.new(wiki:) }
-    let(:subject) { handler.get_revision_data [144495297, 144495298] }
 
+    # Wikidata is no longer scored via either API: Lift Wing features/wp10 aren't used for
+    # Wikidata, and reference-counter doesn't support Wikidata. Deletion detection has
+    # moved to UpdateWikidataStatsTimeslice (via WikidataDiffAnalyzer).
     describe '#get_revision_data' do
-      it 'returns completed scores if data is retrieved without errors' do
-        expect(subject).to be_a(Hash)
-        expect(subject.dig('144495297', 'wp10').to_f).to eq(0)
-        expect(subject.dig('144495297', 'features')).to be_a(Hash)
-        expect(subject.dig('144495297', 'features',
-                           'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(2)
-        # 'num_ref' key doesn't exist for wikidata features
-        expect(subject.dig('144495297', 'features').key?('num_ref')).to eq(false)
-        expect(subject.dig('144495297', 'deleted')).to eq(false)
-        expect(subject.dig('144495297', 'prediction')).to eq('D')
-        expect(subject.dig('144495297', 'error')).to eq(false)
-
-        expect(subject.dig('144495298', 'wp10').to_f).to eq(0)
-        expect(subject.dig('144495298', 'features')).to be_a(Hash)
-        expect(subject.dig('144495298', 'features',
-                           'feature.len(<datasource.wikidatawiki.revision.references>)')).to eq(0)
-        # 'num_ref' key doesn't exist for wikidata features
-        expect(subject.dig('144495298', 'features').key?('num_ref')).to eq(false)
-        expect(subject.dig('144495298', 'deleted')).to eq(false)
-        expect(subject.dig('144495298', 'prediction')).to eq('E')
-        expect(subject.dig('144495298', 'error')).to eq(false)
-      end
-
-      it 'returns completed scores if there is an error hitting LiftWingApi' do
-        stub_request(:any, /.*api.wikimedia.org.*/)
-          .to_raise(Errno::ETIMEDOUT)
-        expect(subject).to be_a(Hash)
-        expect(subject.dig('144495297')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('144495298')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
+      it 'returns no scores and makes no HTTP calls' do
+        stub_request(:any, /.*api.wikimedia.org.*/).to_raise('should not be called')
+        stub_request(:any, /.*reference-counter.toolforge.org.*/).to_raise('should not be called')
+        expect(handler.get_revision_data([144495297, 144495298])).to eq({})
       end
     end
   end
@@ -142,20 +86,20 @@ describe RevisionScoreApiHandler do
     describe '#get_revision_data' do
       it 'returns completed scores if retrieves data without errors' do
         expect(subject).to be_a(Hash)
-        expect(subject.dig('157412237')).to eq({ 'wp10' => nil, 'error' => false,
-        'features' => { 'num_ref' => 111 }, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('157417768')).to eq({ 'wp10' => nil, 'error' => false,
-        'features' => { 'num_ref' => 42 }, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('157412237')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 111 }, 'deleted' => false })
+        expect(subject.dig('157417768')).to eq({ 'error' => false,
+        'features' => { 'num_ref' => 42 }, 'deleted' => false })
       end
 
       it 'returns completed scores if there is an error hitting reference-counter api' do
         stub_request(:any, /.*reference-counter.toolforge.org*/)
           .to_raise(Errno::ETIMEDOUT)
         expect(subject).to be_a(Hash)
-        expect(subject.dig('157412237')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
-        expect(subject.dig('157417768')).to eq({ 'wp10' => nil, 'error' => true,
-        'features' => {}, 'deleted' => false, 'prediction' => nil })
+        expect(subject.dig('157412237')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
+        expect(subject.dig('157417768')).to eq({ 'error' => true,
+        'features' => {}, 'deleted' => false })
       end
     end
   end

@@ -117,7 +117,7 @@ describe RevisionDataManager do
     end
 
     it 'fetches all the revisions that occurred during the given period of time' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         expect(revisions.length).to eq(4)
         # Fetches the right revision ids
@@ -133,7 +133,7 @@ describe RevisionDataManager do
         .once
         .with(revision_data)
 
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         subject
       end
     end
@@ -153,7 +153,7 @@ describe RevisionDataManager do
     end
 
     it 'ensures all revisions have a non-nil character field' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         # Revisions retrieved from the replica may have a nil characters field.
         # This spec ensures that the created Revision record always has a non-nil
         # characters value, defaulting to zero if nil.
@@ -248,30 +248,23 @@ describe RevisionDataManager do
     end
 
     it 'fetches all the revisions scores' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         expect(revisions.length).to eq(4)
-        # Fetches the scores
-        expect(revisions[0].wp10).to be_within(0.01).of(18.29)
-        expect(revisions[0].wp10_previous).to be_within(0.01).of(11.96)
+        # Fetches the reference counts and deletion status. wp10 / prediction
+        # are no longer populated during updates (Lift Wing is not called).
         expect(revisions[0].features).to eq({ 'num_ref' => 2 })
         expect(revisions[0].features_previous).to eq({ 'num_ref' => 2 })
         expect(revisions[0].deleted).to eq(false)
 
-        expect(revisions[1].wp10).to be_within(0.01).of(20.09)
-        expect(revisions[1].wp10_previous).to be_within(0.01).of(18.29)
         expect(revisions[1].features).to eq({ 'num_ref' => 3 })
         expect(revisions[1].features_previous).to eq({ 'num_ref' => 2 })
         expect(revisions[1].deleted).to eq(false)
 
-        expect(revisions[2].wp10).to be_within(0.01).of(21.37)
-        expect(revisions[2].wp10_previous).to be_within(0.01).of(20.09)
         expect(revisions[2].features).to eq({ 'num_ref' => 3 })
         expect(revisions[2].features_previous).to eq({ 'num_ref' => 3 })
         expect(revisions[2].deleted).to eq(false)
 
-        expect(revisions[3].wp10).to be_within(0.01).of(21.34)
-        expect(revisions[3].wp10_previous).to be_within(0.01).of(21.37)
         expect(revisions[3].features).to eq({ 'num_ref' => 3 })
         expect(revisions[3].features_previous).to eq({ 'num_ref' => 3 })
         expect(revisions[3].deleted).to eq(false)
@@ -280,7 +273,7 @@ describe RevisionDataManager do
 
     it 'does not calculate scores for revisions out mainspace/userspace/draftspace' do
       allow(instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         # Returns all revisions
         expect(revisions.length).to eq(3)
@@ -305,7 +298,7 @@ describe RevisionDataManager do
       scoped_instance_class = described_class.new(home_wiki, scoped_course)
       allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
       allow(scoped_course).to receive(:scoped_article_titles).and_return(['Scoped_article'])
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
         revisions = scoped_instance_class.fetch_score_data_for_course(revisions)
         # Returns all revisions
@@ -338,11 +331,10 @@ describe RevisionDataManager do
     end
 
     it 'fetches all the revisions for the specific users during the given period of time' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         expect(revisions.length).to eq(10)
         # Revisions don't have scores
-        expect(revisions[0].wp10).to eq(nil)
         expect(revisions[0].features).to eq({})
       end
     end

@@ -5,11 +5,26 @@ class AiEditAlertMailer < ApplicationMailer
     return unless Features.email?
 
     email(alert).deliver_now
-    return unless alert.details[:prior_alert_count_for_course]&.zero?
-    instructor_advice_email(alert).deliver_now
+    send_instructor_advice(alert)
   end
 
-  def instructor_advice_email(alert)
+  def self.send_instructor_advice(alert)
+    return if alert.details[:prior_omnibus_advice_sent]
+
+    case alert.advice_email_type
+    when :exercise
+      return unless alert.details[:prior_exercise_alerts]&.zero?
+      instructor_exercise_advice_email(alert).deliver_now
+    when :sandbox
+      return unless alert.details[:prior_sandbox_alerts]&.zero?
+      instructor_sandbox_advice_email(alert).deliver_now
+    when :mainspace
+      return unless alert.details[:prior_mainspace_alerts]&.zero?
+      instructor_mainspace_advice_email(alert).deliver_now
+    end
+  end
+
+  def instructor_exercise_advice_email(alert)
     @alert = alert
     @course = @alert.course
     return unless @course
@@ -18,8 +33,34 @@ class AiEditAlertMailer < ApplicationMailer
     return if emails.empty?
 
     @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
-    subject = 'Suspected AI edit — instructor next steps'
-    mail(template_name: 'instructor_advice', to: emails, subject:)
+    mail(template_name: 'instructor_exercise_advice', to: emails,
+         subject: 'Suspected AI edit — instructor next steps')
+  end
+
+  def instructor_sandbox_advice_email(alert)
+    @alert = alert
+    @course = @alert.course
+    return unless @course
+    @instructors = @alert.course.instructors
+    emails = @instructors.map(&:email) + @alert.content_experts.map(&:email)
+    return if emails.empty?
+
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    mail(template_name: 'instructor_sandbox_advice', to: emails,
+         subject: 'Suspected AI edit — instructor next steps')
+  end
+
+  def instructor_mainspace_advice_email(alert)
+    @alert = alert
+    @course = @alert.course
+    return unless @course
+    @instructors = @alert.course.instructors
+    emails = @instructors.map(&:email) + @alert.content_experts.map(&:email)
+    return if emails.empty?
+
+    @greeted_users = @instructors.map { |user| user.real_name || user.username }.to_sentence
+    mail(template_name: 'instructor_mainspace_advice', to: emails,
+         subject: 'Suspected AI edit — instructor next steps')
   end
 
   def email(alert) # rubocop:disable Metrics/MethodLength

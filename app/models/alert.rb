@@ -27,6 +27,7 @@ class Alert < ApplicationRecord
   belongs_to :target_user, class_name: 'User'
 
   include ArticleHelper
+  include ArticleViewerLinker
 
   serialize :details, type: Hash
 
@@ -50,6 +51,7 @@ class Alert < ApplicationRecord
     GANominationAlert
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
+    MainspaceAiFollowupAlert
     NeedHelpAlert
     NoTaEnrolledAlert
     NoEnrolledStudentsAlert

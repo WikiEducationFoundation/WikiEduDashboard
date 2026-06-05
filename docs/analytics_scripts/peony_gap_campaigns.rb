@@ -1,7 +1,7 @@
 # Data about Wikigap, A+F and Women in Red events from Peony
-# 
+#
 # slug, editors, articles created, articles edited, start, end, tracked wikis, name, institution, campaigns
-# 
+#
 # https://outreachdashboard.wmflabs.org/campaigns/wikigap_2018/programs
 # https://outreachdashboard.wmflabs.org/campaigns/campaign_wikigap_2019/programs
 # https://outreachdashboard.wmflabs.org/campaigns/wikigap_2020/programs
@@ -49,7 +49,7 @@ end
 course_ids.uniq!
 
 headers = %w[slug editors articles_created articles_edited revision_count activity_start activity_end tracked_wikis name institution campaigns]
-data = [headers] 
+data = [headers]
 
 course_ids.each do |cid|
   c = Course.find(cid)

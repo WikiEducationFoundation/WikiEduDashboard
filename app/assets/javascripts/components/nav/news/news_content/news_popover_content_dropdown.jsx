@@ -38,6 +38,8 @@ const NewsPopoverContentDropdown = ({
   }
 
   return (
+    // onClick only stops propagation; not a real interaction.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div onClick={(e) => { e.stopPropagation(); }} className="pop__container news-dropdown-options">
       <div className="pop pop--news open">
         <div className="news-dropdown-options-display">

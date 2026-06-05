@@ -115,7 +115,10 @@ RSpec.describe Category, type: :model do
     end
 
     context 'for psid-source Category' do
-      let(:category) { create(:category, name: 9964305, source: 'psid') }
+      let(:category) do
+        create(:category, name: 9964305, source: 'psid',
+               created_at: 2.days.ago, updated_at: 2.days.ago)
+      end
       let(:course) { create(:course) }
       let!(:article) { create(:article, title: 'A cappella') }
       let(:error_response) { { 'error' => 'PageList::run_batch_query: SQL query error[1]' } }
@@ -134,16 +137,14 @@ RSpec.describe Category, type: :model do
       end
 
       it 'fails when PetScan is unreachable but article_titles is not cleared' do
-        category.update(article_titles: ['Q0'])
-        expect(category.article_titles).to eq(['Q0'])
+        category.update_column(:article_titles, ['Q0'])
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
         described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to eq(['Q0'])
       end
 
       it 'fails when PetScan is invalid but article_titles is not cleared' do
-        category.update(article_titles: ['Q0'])
-        expect(category.article_titles).to eq(['Q0'])
+        category.update_column(:article_titles, ['Q0'])
         expect_any_instance_of(PetScanApi).to receive(:get_data).and_return(error_response)
         described_class.refresh_categories_for(course)
         expect(described_class.last.article_titles).to eq(['Q0'])
@@ -154,7 +155,10 @@ RSpec.describe Category, type: :model do
     # both existing and not — on a single wiki: https://pagepile.toolforge.org/
     context 'for pileid-source Category' do
       # Example pile from `lawiktionary`: https://pagepile.toolforge.org/api.php?action=get_data&format=json&id=28301
-      let(:category) { create(:category, name: 28301, source: 'pileid') }
+      let(:category) do
+        create(:category, name: 28301, source: 'pileid',
+               created_at: 2.days.ago, updated_at: 2.days.ago)
+      end
       let(:course) { create(:course) }
       let(:lawiktionary) { Wiki.get_or_create(language: 'la', project: 'wiktionary') }
       let(:article) { create(:article, wiki: lawiktionary, title: 'America') }
@@ -175,7 +179,7 @@ RSpec.describe Category, type: :model do
       end
 
       it 'fails when fetching a PagePile errors but article_titles is not cleared' do
-        category.update(article_titles: ['Q0'])
+        category.update_column(:article_titles, ['Q0'])
         expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
         expect(Sentry).to receive(:capture_exception).twice
         described_class.refresh_categories_for(course)

@@ -157,4 +157,7 @@ kab:
           enable_button: Rmed
   users:
     contribution_statistics: Tidaddanin n uttekki
+  form_search:
+    search: Nadi
+    clear: Sfeḍ
 ...

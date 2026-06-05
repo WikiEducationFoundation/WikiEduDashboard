@@ -237,12 +237,14 @@ io:
     overview: Komenco
     start: Komenco
     students: Lernanti
+    add_campaigns: Adjuntar kampaniiː
     tag_select: Selektez o kreez etiketo
     tags: 'Etiketi:'
     title: Titulo
     volunteer:
       one: Volontario
       other: Volontarii
+    decline_course: Rejektar kurso
   courses_generic:
     cancel: Nihiligar
     campaigns: 'Kampanii:'
@@ -263,6 +265,7 @@ io:
     bad_work:
       learn_more_button: Savez pluse
   metrics:
+    program_date_doc: To esas la dato di la programo.
     tags: Etiketi
     view: Quantafoye ol videsis
     total_revisions: Quanto di revizuri
@@ -320,4 +323,6 @@ io:
       course: 'Kampanio: %{course_info}'
   training_status:
     completed_at: Kompletigita ye la
+  form_search:
+    program_date: Dato di la programo
 ...

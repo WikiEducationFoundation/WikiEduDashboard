@@ -4,7 +4,8 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SET_COURSE_CREATION_SETTINGS, SET_FEATURED_CAMPAIGNS,
   SET_DEFAULT_CAMPAIGN, REMOVE_FEATURED_CAMPAIGN, ADD_FEATURED_CAMPAIGN,
-  SET_SITE_NOTICE, SET_DISALLOWED_USERS, SUBMITTING_DISALLOWED_USER
+  SET_SITE_NOTICE, SET_DISALLOWED_USERS, SUBMITTING_DISALLOWED_USER,
+  SET_IMPACT_STATS
 } from '../constants/settings';
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
   siteNotice: {
     status: false,
     message: null,
-  }
+  },
+  impactStats: {}
 };
 
 const settings = (state = initialState, action) => {
@@ -60,6 +62,8 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { revokingSpecialUser: action.data.revoking });
     case SET_SITE_NOTICE:
       return Object.assign({}, state, { siteNotice: action.data.site_notice });
+    case SET_IMPACT_STATS:
+      return Object.assign({}, state, { impactStats: action.data.impact_stats });
     default:
       return state;
   }

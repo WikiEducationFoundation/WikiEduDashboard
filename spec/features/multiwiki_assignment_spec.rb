@@ -63,7 +63,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
       within('#users') do
         find('input', visible: true).set('No le des prisa, dolor', rapid: false)
-        click_link 'Change'
+        click_button 'Change'
         find('div.wiki-select').click
         within('.wiki-select') do
           find('input').send_keys('es.wikisource', :enter)
@@ -80,8 +80,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
       first('.student-selection .student').click
 
       within('#users') do
-        expect(page).to have_content 'No le des prisa'
-        link = first('.assignment-links a')
+        expect(page).to have_content('No le des prisa', wait: 10)
+        link = first('.assignment-links a', wait: 10)
         expect(link[:href]).to include('es.wikisource')
       end
     end
@@ -129,7 +129,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
             course_id: basic_course.id,
             user_id: instructor.id,
             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      
+
       #Enroll Student into the Course
       create(:courses_user,
             course_id: basic_course.id,
@@ -141,9 +141,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
       VCR.use_cassette 'multiwiki_assignment' do
 
         visit "/courses/#{basic_course.slug}/students/articles"
-  
+
         first('.student-selection .student').click
-  
+
         button = first('.assign-button')
         expect(button).to have_content 'Assign/remove an article'
         button.click
@@ -160,7 +160,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
         end
 
         first('.student-selection .student').click
-  
+
         within('#users') do
           expect(page).to have_content "Heyder Cansa"
           link = first('.assignment-links a')

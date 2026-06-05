@@ -88,9 +88,9 @@ describe TrainingModuleDueDateManager do
                      .overdue?
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after { travel_back }
 
     context 'module is not complete' do
       context "today's date is before computed_due_date" do
@@ -100,7 +100,7 @@ describe TrainingModuleDueDateManager do
       end
 
       context "today's date is computed_due_date" do
-        let(:due_date) { Time.zone.now.to_date }
+        let(:due_date) { Date.new(2015, 8, 25) }
 
         it 'returns false' do
           expect(subject).to eq(false)
@@ -108,7 +108,7 @@ describe TrainingModuleDueDateManager do
       end
 
       context "today's date is after computed_due_date" do
-        let(:due_date) { 1.week.ago.to_date }
+        let(:due_date) { Date.new(2015, 8, 18) }
 
         it 'returns true' do
           expect(subject).to eq(true)
@@ -116,7 +116,7 @@ describe TrainingModuleDueDateManager do
       end
 
       context 'training module is not of kind TRAINING' do
-        let(:due_date) { 1.week.ago.to_date }
+        let(:due_date) { Date.new(2015, 8, 18) }
 
         before { t_module.update(kind: TrainingModule::Kinds::EXERCISE) }
 
@@ -129,8 +129,8 @@ describe TrainingModuleDueDateManager do
     end
 
     context 'module is complete' do
-      let(:completed_at) { 10.days.ago.to_date }
-      let(:due_date) { 1.week.ago.to_date }
+      let(:completed_at) { Date.new(2015, 8, 15) }
+      let(:due_date) { Date.new(2015, 8, 18) }
 
       it 'returns false' do
         expect(subject).to eq(false)
@@ -144,11 +144,11 @@ describe TrainingModuleDueDateManager do
                      .deadline_status
     end
 
-    before(:all) { travel_to Date.new(2015, 8, 25) }
+    before { travel_to Date.new(2015, 8, 25) }
 
-    after(:all) { travel_back }
+    after { travel_back }
 
-    let(:completed_at) { 1.day.ago }
+    let(:completed_at) { Date.new(2015, 8, 24) }
 
     context 'user is nil' do
       let(:user) { nil }
@@ -168,7 +168,7 @@ describe TrainingModuleDueDateManager do
       let(:completed_at) { nil }
 
       context 'due date in future' do
-        let(:due_date) { 1.week.from_now }
+        let(:due_date) { Date.new(2015, 9, 1) }
 
         it 'returns nil' do
           expect(subject).to be_nil
@@ -176,7 +176,7 @@ describe TrainingModuleDueDateManager do
       end
 
       context 'overdue' do
-        let(:due_date) { 1.week.ago }
+        let(:due_date) { Date.new(2015, 8, 18) }
 
         it 'returns "overdue"' do
           expect(subject).to eq('overdue')

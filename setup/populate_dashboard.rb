@@ -63,7 +63,7 @@ def populate_dashboard
     'https://outreachdashboard.wmflabs.org/courses/QCA/Brisbane_QCA_ArtandFeminism_2018',
     'https://dashboard.wikiedu.org/courses/Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)'
   ]
-  
+
   example_courses.each do |url|
     begin
       # Try to find or create the default campaign

@@ -5,7 +5,7 @@ import { fetchFeedback, postUserFeedback, deleteUserFeedback } from '../../actio
 import API from '../../utils/api.js';
 import useOutsideClick from '../../hooks/useOutsideClick.js';
 
-const Feedback = ({ assignment, username, current_user }) => {
+const Feedback = ({ assignment, username, current_user, course }) => {
   const [show, setShow] = useState(false);
   const [fetched, setFetched] = useState(false);
   const [feedbackSent, setFeedbackSent] = useState(false);
@@ -72,7 +72,7 @@ const Feedback = ({ assignment, username, current_user }) => {
   if (show) {
     button = <div className="feedback-close-container"><button onClick={hide} className="feedback-close icon-close" /></div>;
   } else {
-    button = <a onClick={showHandler} className="button dark small">{I18n.t('courses.feedback')}</a>;
+    button = <button type="button" onClick={showHandler} className="button dark small">{I18n.t('courses.feedback')}</button>;
   }
 
   let submitFeedback;
@@ -104,7 +104,11 @@ const Feedback = ({ assignment, username, current_user }) => {
   if (assignment.article_id) {
     titleElement = <a className="my-assignment-title" target="_blank" href={assignment.article_url}>{assignment.article_title}</a>;
   } else {
-    titleElement = <a className="my-assignment-title" target="_blank" href={`https://en.wikipedia.org/wiki/User:${username}/sandbox`}>{`User:${username}/sandbox`}</a>;
+    const wikiLanguage = assignment.language || course.home_wiki.language || 'www';
+    const wikiProject = assignment.project || course.home_wiki.project || 'wikipedia';
+    const wikiDomain = `${wikiLanguage}.${wikiProject}.org`;
+    const sandboxUrl = `https://${wikiDomain}/wiki/User:${username}/sandbox`;
+    titleElement = <a className="my-assignment-title" target="_blank" href={sandboxUrl}>{`User:${username}/sandbox`}</a>;
   }
 
   if (data) {
@@ -117,7 +121,7 @@ const Feedback = ({ assignment, username, current_user }) => {
     }
 
     if (!showFeedbackForm) {
-      feedbackButton = <a onClick={showFeedbackInput} className="button dark">{I18n.t('courses.suggestions_feedback')}</a>;
+      feedbackButton = <button type="button" onClick={showFeedbackInput} className="button dark">{I18n.t('courses.suggestions_feedback')}</button>;
     } else {
       feedbackForm = (
         <form onSubmit={handleSubmit}>
@@ -147,7 +151,7 @@ const Feedback = ({ assignment, username, current_user }) => {
     for (let i = 0; i < customMessages.length; i += 1) {
       let deleteButton;
       if (customMessages[i].userId === current_user.id) {
-        deleteButton = <a style={{ marginLeft: '20px' }} className="button dark small" onClick={() => handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;
+        deleteButton = <button type="button" style={{ marginLeft: '20px' }} className="button dark small" onClick={() => handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</button>;
       }
       userSuggestionList.push(<li key={customMessages[i].messageId}> {customMessages[i].message} {deleteButton} </li>);
     }
@@ -208,7 +212,8 @@ const Feedback = ({ assignment, username, current_user }) => {
 
 Feedback.propTypes = {
   assignment: PropTypes.object.isRequired,
-  username: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired,
+  course: PropTypes.object.isRequired
 };
 
 export default Feedback;

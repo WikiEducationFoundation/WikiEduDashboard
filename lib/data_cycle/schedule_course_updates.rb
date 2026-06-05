@@ -79,11 +79,12 @@ class ScheduleCourseUpdates
   def course_ids_for_ongoing_updates
     course_ids = []
     current_jobs = Sidekiq::WorkSet.new
-    # Each job in the WorkSet is an array that looks something like this:
-    # ["peony-sidekiq-medium:997699:0a5ebc4b7c42",
-    # "js0f",
-    # {"queue"=>"medium_update",
-    #   "payload"=>
+    # Each job in the WorkSet is an array with three elements:
+    # - process_id: something like "peony-sidekiq-medium:997699:0a5ebc4b7c42",
+    # - job id: something like "js0f",
+    # - work: a Sidekiq::Work instance that has the following accessor methods
+    # [work.queue, work.run_at, work.payload]
+    # work.payload looks like the following hash:
     #   {"retry"=>0,
     #     "queue"=>"medium_update",
     #     "lock"=>"until_executed",
@@ -92,17 +93,18 @@ class ScheduleCourseUpdates
     #     "class"=>"CourseDataUpdateWorker",
     #     "jid"=>"1e9eafe911dbd521ad2a2928",
     #     "created_at"=>1743516909.464536,
-    #     "sentry_trace"=>"87b06a7fed374e9ea31a5e47eab39457-a5e9c95dad13287c-0",
+    #     "trace_propagation_headers"=>"{...},
+    #     "newrelic" => {},
     #     "lock_timeout"=>0,
     #     "lock_prefix"=>"uniquejobs",
     #     "lock_args"=>[31480],
     #     "lock_digest"=>"uniquejobs:929a711942186a4f20887ca9129b715f",
-    #     "enqueued_at"=>1743516909.468488},
-    #   "run_at"=>1743538518}]
+    #     "enqueued_at"=>1743516909.468488}
     current_jobs.each do |_process_id, _thread_id, job_args|
-      job_class = job_args.dig('payload', 'class')
+      payload = JSON.parse(job_args.payload)
+      job_class = payload.dig('class')
       next unless job_class == 'CourseDataUpdateWorker'
-      course_ids += job_args.dig('payload', 'args')
+      course_ids += payload.dig('args')
     end
 
     course_ids

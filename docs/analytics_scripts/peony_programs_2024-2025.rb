@@ -1,7 +1,7 @@
 # Script to pull tabular data requested by Fiona Romero (Director, Community Programs at WMF)
 
 # Desired format:
-# Title	Institution	Start	End	Facilitator	Wiki																
+# Title	Institution	Start	End	Facilitator	Wiki
 # WikiSoCal	QoL Experiences	2016-01-01 09:00:00 UTC	2067-01-01 07:59:00 UTC	DrMel
 # WikiSoCal	QoL Experiences	2016-01-01 09:00:00 UTC	2067-01-01 07:59:00 UTC		enwiki
 # WikiSoCal	QoL Experiences	2016-01-01 09:00:00 UTC	2067-01-01 07:59:00 UTC		wikidatawiki

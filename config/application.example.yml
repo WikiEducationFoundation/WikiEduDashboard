@@ -79,7 +79,7 @@
   training_page_id: '36892501'
 
 # To set up error logging via Sentry, add a Sentry project url here:
-  sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
+# sentry_dsn: 'http://somelongkey:anotherlongkey@sentry.myserver.com/1'
 
 # The slug for the default campaign
   default_campaign: "miscellanea"
@@ -131,7 +131,7 @@
 
 # Secret for authentication with Wikimedia Event Center
 # Generate one for production or staging via `rails secret`
-# WikimediaCampaignsPlatformSecret: 
+# WikimediaCampaignsPlatformSecret:
 
 # LTIAAS Configuration
   LTIAAS_API_KEY: 'example_api_key'

@@ -26,11 +26,13 @@ class AiEditAlert < Alert
   ####################
 
   def self.generate_alert_from_pangram(revision_id:, user_id:, course_id:,
-                                       article_id:, pangram_details:)
+                                       article_id:, article_title:, pangram_details:)
     details = pangram_details
+    details[:article_title] = article_title
     add_same_page_alert(course_id, article_id, details)
     add_same_user_alert(course_id, user_id, details)
     add_prior_alert_count_for_course(course_id, details)
+    add_prior_alert_counts_by_type(course_id, details)
     alert = create!(revision_id:,
                     user_id:,
                     course_id:,
@@ -62,26 +64,49 @@ class AiEditAlert < Alert
     details[:prior_alert_for_user] = prior_alerts.last.id
   end
 
-  # This will track the total number of AiEditAlerts for
-  # this course. If this is the first one, the mailer
-  # will send an additional email to the instructor with
-  # extra info on how to respond.
+  # Tracks the total number of emailed AiEditAlerts for this course.
+  # Used by omnibus_advice_sent? to detect legacy alerts from before
+  # the per-type advice email system was introduced.
   def self.add_prior_alert_count_for_course(course_id, details)
     # We're only counting alerts that had sent emails.
     prior_alert_count = AiEditAlert.where(course_id:).where.not(email_sent_at: nil).count
     details[:prior_alert_count_for_course] = prior_alert_count
   end
 
+  # Tracks the number of prior emailed alerts for this course by page type category,
+  # parallel to prior_alert_count_for_course. The mailer uses these counts to decide
+  # whether to send type-specific instructor advice emails.
+  def self.add_prior_alert_counts_by_type(course_id, details)
+    prior_alerts = AiEditAlert.where(course_id:).where.not(email_sent_at: nil)
+    details[:prior_omnibus_advice_sent] = omnibus_advice_sent?(prior_alerts)
+    prior_page_types = prior_alerts.map(&:page_type)
+    details[:prior_exercise_alerts] = prior_page_types.count { |t| EXERCISE_PAGE_TYPES.include?(t) }
+    details[:prior_sandbox_alerts] = prior_page_types.count { |t| t == :sandbox }
+    details[:prior_mainspace_alerts] = prior_page_types.count { |t| t == :mainspace }
+  end
+
+  # True if any prior alert triggered the legacy omnibus advice email.
+  # Old alerts have prior_alert_count_for_course: 0 but lack the per-type
+  # count keys introduced in the new system — that absence is the signal.
+  def self.omnibus_advice_sent?(prior_alerts)
+    prior_alerts.any? do |a|
+      a.details[:prior_alert_count_for_course]&.zero? &&
+        !a.details.key?(:prior_exercise_alerts)
+    end
+  end
+  private_class_method :omnibus_advice_sent?
+
   ####################
   # Instance methods #
   ####################
 
   def main_subject
-    mainspace = article&.mainspace? ? ' (to live article)' : ''
+    mainspace_signal = article&.mainspace? ? ' (live article)' : ''
     repeat_page = prior_alert_id_for_page.present? ? ' (again)' : ''
     repeat_user = prior_alert_id_for_user.present? ? ' (same user)' : ''
+    beginning = (mainspace? || non_exercise_sandbox?) ? 'Action needed: fact verification' : 'Suspected AI edit' # rubocop:disable Layout/LineLength
 
-    "Suspected AI edit#{mainspace}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
+    "#{beginning}#{mainspace_signal}#{repeat_user}. Page: #{article&.title}#{repeat_page} — #{course&.title}" # rubocop:disable Layout/LineLength
   end
 
   def email_template_name
@@ -108,12 +133,24 @@ class AiEditAlert < Alert
     details[:pangram_share_link]
   end
 
+  def pangram_headline
+    details[:headline_result]
+  end
+
   def pangram_prediction
     details[:pangram_prediction]
   end
 
   def average_ai_likelihood
     details[:average_ai_likelihood]
+  end
+
+  def fraction_ai_generated
+    details[:fraction_ai_content]
+  end
+
+  def fraction_ai_assisted
+    details[:fraction_mixed_content]
   end
 
   def max_ai_likelihood
@@ -171,6 +208,14 @@ class AiEditAlert < Alert
     details[:article_title]
   end
 
+  EXERCISE_PAGE_TYPES = %i[choose_an_article evaluate_an_article outline].freeze
+
+  def advice_email_type
+    return :exercise if EXERCISE_PAGE_TYPES.include?(page_type)
+    return :sandbox if page_type == :sandbox
+    return :mainspace if page_type == :mainspace
+  end
+
   NO_EMAIL_TYPES = [
     :bibliography, # Lists of references are where we see false positives
     :peer_review # This is intended for a fellow student so no need to flag it
@@ -189,6 +234,14 @@ class AiEditAlert < Alert
 
   def prior_alert_id_for_user
     details[:prior_alert_for_user]
+  end
+
+  def mainspace?
+    page_type == :mainspace
+  end
+
+  def non_exercise_sandbox?
+    page_type == :sandbox
   end
 
   def page_type # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
@@ -218,6 +271,14 @@ class AiEditAlert < Alert
     else
       :unknown
     end
+  end
+
+  # This will only work for mainspace, and might exclude
+  # revisions that happened after the alert but during the same timeslice.
+  def characters_added_after_alert
+    @chars_added_after ||= ArticleCourseTimeslice.where(course_id:, article_id:)
+                                                 .where('start > ?', created_at)
+                                                 .sum(:character_sum)
   end
 
   def to_partial_path

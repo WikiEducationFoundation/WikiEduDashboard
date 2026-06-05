@@ -887,7 +887,8 @@ describe Course, type: :model do
     end
 
     context 'when the course has a campaign' do
-      before { course.campaigns << Campaign.first }
+      let(:campaign) { create(:campaign, title: 'Approved Test', slug: 'approved-test') }
+      before { course.campaigns << campaign }
 
       it 'returns the time the first campaign was added' do
         expect(course.approved_at).to be_within(1.second).of(Time.zone.now)

@@ -51,11 +51,12 @@ Rails.application.routes.draw do
   post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
+  get '/settings/fetch_impact_stats' => 'settings#fetch_impact_stats'
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
 
   get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
   post '/settings/update_site_notice' => 'settings#update_site_notice'
-  
+
 
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
@@ -200,9 +201,9 @@ Rails.application.routes.draw do
 
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
-    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 
-      constraints: { 
-        slug: /.*/ 
+    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign',
+      constraints: {
+        slug: /.*/
       }
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
     constraints: {
@@ -339,7 +340,7 @@ Rails.application.routes.draw do
   # Custom JSON route for tagged courses stats
   get 'tagged_courses/:tag.json',
     controller: :tagged_courses,
-    action: :stats 
+    action: :stats
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
@@ -381,6 +382,27 @@ Rails.application.routes.draw do
 
   # To find individual slides by id
   get 'find_training_slide/:slide_id' => 'training#find_slide'
+
+  # Training module composer (admin-only): compose new training modules as
+  # yml-file drafts, then export as a zip of production-layout files.
+  get 'training_module_drafts' => 'training_module_drafts#index'
+  post 'training_module_drafts' => 'training_module_drafts#create'
+  # Static subpaths must come before the :slug-parameterized routes so they
+  # aren't captured as draft slugs.
+  get 'training_module_drafts/existing_slide_slugs' => 'training_module_drafts#existing_slide_slugs'
+  post 'training_module_drafts/parse_paste' => 'training_module_drafts#parse_paste'
+  get 'training_module_drafts/:slug/export' => 'training_module_drafts#export',
+      constraints: { slug: %r{[^/.]+} }, as: :export_training_module_draft
+  get 'training_module_drafts/:slug/collisions' => 'training_module_drafts#collisions',
+      constraints: { slug: %r{[^/.]+} }
+  get 'training_module_drafts/:slug' => 'training_module_drafts#show',
+      constraints: { slug: %r{[^/.]+} }
+  patch 'training_module_drafts/:slug' => 'training_module_drafts#update',
+        constraints: { slug: %r{[^/.]+} }
+  put 'training_module_drafts/:slug' => 'training_module_drafts#update',
+      constraints: { slug: %r{[^/.]+} }
+  delete 'training_module_drafts/:slug' => 'training_module_drafts#destroy',
+         constraints: { slug: %r{[^/.]+} }
 
   # Misc
   # get 'courses' => 'courses#index'
@@ -493,7 +515,7 @@ Rails.application.routes.draw do
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'
-  post 'ai_tools/compare_pangrams' => 'ai_tools#compare_pangrams'
+  post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
 
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
@@ -522,6 +544,8 @@ Rails.application.routes.draw do
   namespace :system do
     get 'can_start_backup.json' => 'backups#can_start_backup'
   end
+
+  get '/mailer_previews' => 'mailer_previews#index'
 
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'

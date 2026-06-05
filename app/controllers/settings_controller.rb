@@ -8,8 +8,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
                        :add_disallowed_user, :remove_disallowed_user,
-                       :update_salesforce_credentials, :update_impact_stats,
-                       :update_site_notice]
+                       :update_salesforce_credentials, :update_site_notice]
 
   layout 'application'
 
@@ -105,7 +104,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
         ensure_user_exists(special_user_params[:username]) { return }
         unless SpecialUsers.respond_to? @position
           return render json: { message: 'position is invalid' },
-                        status: :unprocessable_entity
+                        status: :unprocessable_content
         end
         yield
       end
@@ -169,6 +168,10 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: 'Default campaign updated.' }, status: :ok
   end
 
+  def fetch_impact_stats
+    render json: { impact_stats: current_impact_stats }, status: :ok
+  end
+
   def update_impact_stats
     updated_stats = params[:impactStats]
     updated_stats.each do |key, value|
@@ -192,6 +195,12 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   private
+
+  def current_impact_stats
+    Rails.cache.fetch('impact_stats') do
+      Setting.find_by(key: 'impact_stats')&.value.presence || {}
+    end
+  end
 
   def current_site_notice
     Rails.cache.fetch('site_notice') do
@@ -315,7 +324,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
       error_key = action == :add ? 'already_exists' : 'not_found'
       render json: {
         message: I18n.t("settings.disallowed_users.#{action}.#{error_key}", username:)
-      }, status: :unprocessable_entity
+      }, status: :unprocessable_content
     end
   end
 end

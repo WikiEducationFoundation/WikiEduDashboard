@@ -9,10 +9,13 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require_dependency "#{Rails.root}/lib/errors/rescue_errors"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
   include CourseHelper
+  include Errors::RescueErrors
+
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
@@ -294,10 +297,10 @@ class CoursesController < ApplicationController
     # Needs to be switched to submitted before the announcement edits are made
     @course.update(submitted: true)
     AddSubmittedTag.new(@course)
-    CourseSubmissionMailerWorker.schedule_email(@course, instructor)
+    CourseSubmissionMailerWorker.schedule_email(@course, instructor) if instructor
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
-                                               instructor:)
+                                               instructor:) if instructor
   end
 
   def should_set_slug?
@@ -382,7 +385,8 @@ class CoursesController < ApplicationController
     :disable_student_emails,
     :stay_in_sandbox,
     :no_sandboxes,
-    :retain_available_articles
+    :retain_available_articles,
+    :declined
   ].freeze
   def update_boolean_flags
     UPDATABLE_FLAGS.each do |flag|

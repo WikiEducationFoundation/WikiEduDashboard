@@ -59,14 +59,14 @@ class CourseRevisionUpdater
     ArticlesCourses.update_from_course_revisions(@course, revisions)
   end
 
-  def format_revision_response(wiki, timeslice_start, timeslice_end, revision_data)
-    new_revisions = new_revisions?(revision_data, wiki, timeslice_start)
+  def format_revision_response(wiki, timeslice_start, timeslice_end, revisions_array)
+    new_revisions = new_revisions?(revisions_array, wiki, timeslice_start)
     results = {}
     revisions = {}
     revisions[:start] = timeslice_start
     revisions[:end] = timeslice_end
     revisions[:new_data] = new_revisions
-    revisions[:revisions] = revision_data
+    revisions[:revisions] = revisions_array
     results[wiki] = revisions
     results
   end
@@ -87,8 +87,17 @@ class CourseRevisionUpdater
 
   # Determines if there are new revisions, based on the number of revisions and the
   # last revision datetime.
+  #
+  # The count comparison is against `timeslice.mw_rev_count`, NOT
+  # `timeslice.revision_count`. The two columns apply different filters:
+  # `revision_count` excludes deleted revs and revs in `articles_courses.not_tracked`
+  # in addition to system revs and non-scoped revisions, while this method (and `mw_rev_count`)
+  # excludes only system revs and non-scoped revisions. Comparing against `revision_count` would
+  # falsely report new data every cycle for any timeslice that contains a deleted or not-tracked
+  # rev. Note that we have to fetch scores to determine if a revision is deleted.
+  # See CourseWikiTimeslice#update_mw_rev_count.
   def new_revisions?(revisions, wiki, timeslice_start)
-    live_revisions = revisions.reject(&:system)
+    live_revisions = revisions.reject { |rev| rev.system || !rev.scoped }
     revision_count = live_revisions.count
     timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                    .for_datetime(timeslice_start)
@@ -104,6 +113,6 @@ class CourseRevisionUpdater
     end
 
     latest_revision = revisions.maximum(:date)
-    revision_count != timeslice.revision_count || latest_revision != timeslice.last_mw_rev_datetime
+    revision_count != timeslice.mw_rev_count || latest_revision != timeslice.last_mw_rev_datetime
   end
 end

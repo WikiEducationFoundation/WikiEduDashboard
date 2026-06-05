@@ -5,8 +5,6 @@ require "#{Rails.root}/lib/assignment_manager"
 require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/importers/course_upload_importer"
 
-MILESTONE_BLOCK_KIND = 2
-
 # Wait one second after loading a path
 # Allows React to properly load the page
 # Remove this after implementing server-side rendering
@@ -126,7 +124,7 @@ describe 'the course page', type: :feature, js: true do
     week = create(:week,
                   course_id: course.id)
     create(:block,
-           kind: MILESTONE_BLOCK_KIND,
+           kind: Block::KINDS['milestone'],
            week_id: week.id,
            content: 'blocky block')
 
@@ -198,6 +196,8 @@ describe 'the course page', type: :feature, js: true do
         expect(page).to have_content 'Milestones'
         expect(page).to have_content 'blocky block'
       end
+
+      expect(page).to be_axe_clean
     end
 
     it 'get academic_system' do
@@ -234,7 +234,7 @@ describe 'the course page', type: :feature, js: true do
           end
           click_button 'Save'
         end
-        sleep 2
+        expect(page).to have_content 'Edit Details'
         home_wiki_id = Course.find_by(slug:).home_wiki_id
         expect(home_wiki_id).to eq(es_wiktionary.id)
       end
@@ -244,14 +244,17 @@ describe 'the course page', type: :feature, js: true do
   describe 'articles edited view' do
     it 'displays a list of articles, and sort articles by class' do
       js_visit "/courses/#{slug}/articles"
-      sleep 1
+      expect(page).to have_selector('tr.article', count: article_count)
       rows = page.all('tr.article').count
       expect(rows).to eq(article_count)
+      # react-paginate 8.x hardcodes role="navigation" on its <ul>;
+      # exclude until library upgrade or local wrapper component.
+      expect(page).to be_axe_clean.excluding('.pagination')
     end
 
     it 'sorts Wikipedia articles by class' do
       js_visit "/courses/#{slug}/articles"
-      sleep 1
+      expect(page).to have_selector('th.sortable', text: 'Class')
 
       # first click on the Class sorting should sort high to low
       find('th.sortable', text: 'Class').click
@@ -271,7 +274,7 @@ describe 'the course page', type: :feature, js: true do
       Article.find(10).update(rating: 'start')
       articles_with_raiting = Course.find(course_id).articles.where.not(rating: nil).count
       js_visit "/courses/#{slug}/articles"
-      sleep 1
+      expect(page).to have_selector('.rating')
       ratings = page.all('.rating').count
       expect(articles_with_raiting).to be > ratings
     end
@@ -295,7 +298,6 @@ describe 'the course page', type: :feature, js: true do
 
     it 'does not show the "Available Articles" selection when no articles' do
       js_visit "/courses/#{slug}/articles"
-      sleep 1
       expect(page).not_to have_content 'Available Articles'
     end
 
@@ -323,7 +325,7 @@ describe 'the course page', type: :feature, js: true do
       page.find(:css, '#available-articles .pop.open', match: :first).first('textarea')
           .set('Education')
       click_button 'Add articles'
-      sleep 1
+      expect(page).to have_selector('#available-articles table.articles')
       assigned_articles_table = page.find(:css, '#available-articles table.articles', match: :first)
       expect(assigned_articles_table).to have_content 'Education'
     end
@@ -396,7 +398,6 @@ describe 'the course page', type: :feature, js: true do
 
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
-      sleep 1
       expect(page).to have_content(User.last.username)
       student_row = 'table.users tbody tr.students:nth-child(2)'
       within(student_row) do
@@ -405,6 +406,7 @@ describe 'the course page', type: :feature, js: true do
           expect(page.text).to eq('2')
         end
       end
+      expect(page).to be_axe_clean
     end
   end
 
@@ -415,38 +417,69 @@ describe 'the course page', type: :feature, js: true do
         user_id: 1,
         file_name: 'File:Example.jpg',
         uploaded_at: '2015-06-01',
-        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg'
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 1
       )
     end
 
     it 'displays a list of uploads' do
-      visit "/courses/#{slug}/uploads"
-      expect(page).to have_selector('div.upload')
+      @commons_upload_plural = create(
+        :commons_upload,
+        user_id: 1,
+        file_name: 'File:Example_2.jpg',
+        uploaded_at: '2015-06-02',
+        thumburl: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Grottolella.jpg',
+        usage_count: 2
+      )
+
+      js_visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('div.upload', count: 2)
+
+      # Wait for the images and containers to be ready
+      expect(page).to have_selector('img[alt$="Example.jpg"]')
+      expect(page).to have_selector('img[alt$="Example_2.jpg"]')
+
       expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
+      # Run axe-clean before any hover; hover exposes a pre-existing
+      # nested-interactive violation in .upload that should be fixed separately.
+      expect(page).to be_axe_clean
+
+      # Hover singular
+      # Find the upload container that contains the specific image and hover it
+      find('img[alt$="Example.jpg"]').ancestor('.upload').hover
+      # Verify correct singular pluralization
+      expect(page).to have_css('.usage', text: 'Used in 1 article', wait: 5)
+
+      # Hover plural
+      find('img[alt$="Example_2.jpg"]').ancestor('.upload').hover
+      # Verify correct plural pluralization
+      expect(page).to have_css('.usage', text: 'Used in 2 articles', wait: 5)
     end
 
     it 'displays view options' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('button#gallery-view')
       expect(page).to have_selector('button#list-view')
       expect(page).to have_selector('button#tile-view')
     end
 
     it 'displays gallery view by default' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.gallery-view')
     end
 
     it 'displays tile view when tile view is selected' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('button#tile-view')
       find('button#tile-view').click
       expect(page).to have_selector('div.tile-view')
       expect(page).to have_content format_local_datetime(@commons_upload.uploaded_at)
     end
 
     it 'displays list view and upload viewer when list view is selected' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.upload')
+      expect(page).to have_selector('button#list-view')
       find('button#list-view').click
       expect(page).to have_selector('div.list-view')
       upload_element = first('tr.upload')
@@ -462,7 +495,7 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it 'displays upload viewer when upload is clicked' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
       upload_element = first('div.upload')
       upload_text = upload_element.text
       upload_element.click
@@ -481,24 +514,35 @@ describe 'the course page', type: :feature, js: true do
       Capybara.using_wait_time 10 do
         js_visit "/courses/#{slug}/activity"
         expect(page).to have_css('.revision', minimum: 5)
+        expect(page).to be_axe_clean
       end
+    end
+  end
+
+  describe 'resources view' do
+    it 'loads cleanly' do
+      js_visit "/courses/#{slug}/resources"
+      expect(page).to have_content('This.course')
+      expect(page).to be_axe_clean
     end
   end
 
   describe 'uploads view when no uploads' do
     it 'displays a message when there are no uploads in gallery view' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
       expect(page).to have_content 'This project has not contributed any images or other media'
     end
 
     it 'displays a message when there are no uploads in list view' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('button#list-view')
       find('button#list-view').click
       expect(page).to have_content 'This project has not contributed any images or other media'
     end
 
     it 'displays a message when there are no uploads in tile view' do
-      visit "/courses/#{slug}/uploads"
+      js_visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('button#tile-view')
       find('button#tile-view').click
       expect(page).to have_content 'This project has not contributed any images or other media'
     end
@@ -520,7 +564,7 @@ describe 'the course page', type: :feature, js: true do
         .and_call_original
       expect(AverageViewsImporter).to receive(:update_outdated_average_views)
       expect_any_instance_of(CourseUploadImporter).to receive(:run)
-      visit "/courses/#{slug}/manual_update"
+      js_visit "/courses/#{slug}/manual_update"
       # this is 2 since there's another user(DSMalhotra) for testing the activity view
       updated_user_count = user_count + 2
       expect(page).to have_content "#{updated_user_count}\nStudent Editors"
@@ -563,9 +607,7 @@ describe 'the course page', type: :feature, js: true do
 
       it 'does not allow articles to be marked for tracking by students' do
         js_visit "/courses/#{course.slug}/articles"
-        expect do
-          find('.tracking')
-        end.to raise_error(Capybara::ElementNotFound)
+        expect(page).not_to have_css('.tracking')
       end
 
       it 'does allows articles to be marked for tracking by instructors/admin' do
@@ -578,9 +620,12 @@ describe 'the course page', type: :feature, js: true do
         login_as(admin)
         js_visit "/courses/#{course.slug}/articles"
         expect(course.articles_courses.tracked.count).to eq(course.articles_courses.count)
+        tracked_before = course.articles_courses.tracked.count
         first('.tracking').click
+        # Wait for the async save to complete
+        expect(page).to have_css('.tracking')
         sleep 1
-        expect(course.articles_courses.tracked.count).to be < course.articles_courses.count
+        expect(course.articles_courses.tracked.count).to be < tracked_before
       end
     end
 
@@ -590,9 +635,7 @@ describe 'the course page', type: :feature, js: true do
       it 'is not shown for certain course types like ClassroomProgramCourse' do
         login_as(admin)
         js_visit "/courses/#{course.slug}/articles"
-        expect do
-          find('.tracking')
-        end.to raise_error(Capybara::ElementNotFound)
+        expect(page).not_to have_css('.tracking')
       end
     end
   end

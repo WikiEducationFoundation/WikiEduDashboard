@@ -49,6 +49,7 @@ describe 'activity page', type: :feature, js: true do
       it 'displays a list of recent uploads' do
         visit '/recent-activity/recent-uploads'
         expect(page).to have_selector('div.upload')
+        expect(page).to be_axe_clean
         Capybara.ignore_hidden_elements = false
         expect(page).to have_content 'Blowing a raspberry.ogv'
         Capybara.ignore_hidden_elements = true

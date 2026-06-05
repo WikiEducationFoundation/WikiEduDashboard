@@ -52,6 +52,8 @@ describe 'timeline editing', type: :feature, js: true do
 
   it 'lets users add a training to an assignment block' do
     visit "/courses/#{course_with_timeline.slug}/timeline"
+    expect(page).to have_content 'Block Title'
+    expect(page).to be_axe_clean
 
     # Interact with training modules within a block
     find('.week-1').hover
@@ -121,8 +123,6 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'handles cases of "save all" after blocks have been deleted' do
-    pending 'This sometimes fails for unknown reasons.'
-
     visit "/courses/#{course_with_timeline.slug}/timeline"
 
     # Open edit mode for the first block
@@ -150,16 +150,13 @@ describe 'timeline editing', type: :feature, js: true do
       click_button 'Delete Block'
     end
     click_button 'OK'
-    sleep 1
+    expect(page).not_to have_content 'Another Title'
 
     # click Save All
     click_button 'Save All'
     expect(page).to have_content 'Block Title'
     expect(page).to have_content 'Third Title'
     expect(page).not_to have_content 'Another Title'
-    sleep 1
-
-    pass_pending_spec
   end
 
   it 'lets users add a block' do

@@ -40,7 +40,7 @@ const FinalArticleChecklist = () => {
   if (isVisible) {
     button = <button onClick={hide} className="button dark small">Okay</button>;
   } else {
-    button = <a onClick={show} className="button dark small">Quality checklist</a>;
+    button = <button type="button" onClick={show} className="button dark small">Quality checklist</button>;
   }
 
   let modal;

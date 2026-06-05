@@ -24,6 +24,7 @@ sd:
       کي وَڌائڻ يا گهٽ ڪري سگهن ٿا.
   application:
     cancel: رد
+    next: اڳيون
     cookie_consent: هيءَ سائيٽ توهان کي لاگ اِن (داخل رکڻ) لاءِ ڪوڪيز استعمال ڪندي
       آهي، ۽ توهان جي وڪيپيڊيا کاتو يا اڪائونٽ بابت معلومات جمع ڪندي آهي.
     cookie_consent_acknowledge: مان سمجهان ٿو
@@ -336,6 +337,7 @@ sd:
     view_count_description: مضمون جون ڏيٿون
     view: ڏيٺون
     general: عام
+    labels: ليبل
     redirects_created: چورڻا سرجيا ويا
   namespace:
     all: سڀ
@@ -377,6 +379,7 @@ sd:
   training:
     view: ڏسو
     page: صفحو
+    previous: < پويون
   uploads:
     file_name: فائيل جو نالو
     header: وڪيپيڊيا العام تي فائيل چاڙهيا ويا

@@ -435,6 +435,52 @@ describe AssignmentsController, type: :request do
         expect(Assignment.last.article_title).to eq('MY_ARTICLE')
       end
     end
+
+    context 'when the title contains an interwiki prefix' do
+      let(:course) do
+        create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)', submitted: true)
+      end
+      let(:interwiki_params) do
+        { user_id: user.id, course_slug: course.slug, title: 'wikt:fr:Bonjour', role: 0,
+          format: :json }
+      end
+
+      it 'parses the interwiki prefix and assigns to the correct wiki' do
+        VCR.use_cassette 'assignment_import' do
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+          post '/assignments', params: interwiki_params
+          assignment = assigns(:assignment)
+          expect(assignment).to be_a_kind_of(Assignment)
+          expect(assignment.wiki.project).to eq('wiktionary')
+          expect(assignment.wiki.language).to eq('fr')
+          expect(assignment.article_title).to eq('Bonjour')
+        end
+      end
+    end
+
+    context 'when the title contains a simple language interwiki prefix' do
+      let(:course) do
+        create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)', submitted: true)
+      end
+      let(:interwiki_params) do
+        { user_id: user.id, course_slug: course.slug, title: 'fr:Bonjour', role: 0,
+          format: :json }
+      end
+
+      it 'parses the language prefix and assigns to that language wikipedia' do
+        VCR.use_cassette 'assignment_import' do
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+          expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+          post '/assignments', params: interwiki_params
+          assignment = assigns(:assignment)
+          expect(assignment).to be_a_kind_of(Assignment)
+          expect(assignment.wiki.project).to eq('wikipedia')
+          expect(assignment.wiki.language).to eq('fr')
+          expect(assignment.article_title).to eq('Bonjour')
+        end
+      end
+    end
   end
 
   describe 'PUT #claim' do

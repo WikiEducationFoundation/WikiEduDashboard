@@ -83,7 +83,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
               !isDeleted ? I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' }) : deletedMessage
             }
           </p>
-          {/* eslint-disable-next-line */}
+          { }
         </div>}
       </td>
       <td>

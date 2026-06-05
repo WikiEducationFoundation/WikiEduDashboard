@@ -32,13 +32,23 @@ const Alert = ({ alert, adminAlert, resolveAlert }) => {
     alertTypeCell = <td className="alert-type"><a href={`/alerts_list/${alert.id}`} >{alert.type}</a></td>;
   }
 
+  const courseCell = alert.course_slug
+    ? <a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a>
+    : null;
+  const userCell = alert.user
+    ? <a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a>
+    : null;
+  const articleCell = alert.article_url
+    ? <a target="_blank" href={alert.article_url}>{alert.article}</a>
+    : alert.article;
+
   return (
     <tr className="alert">
       <td className="desktop-only-tc date">{formatDateWithTime(alert.created_at)}</td>
       {alertTypeCell}
-      <td className="desktop-only-tc"><a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
-      <td className="desktop-only-tc"><a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a></td>
-      <td><a target="_blank" href={alert.article_url}>{alert.article}</a></td>
+      <td className="desktop-only-tc">{courseCell}</td>
+      <td className="desktop-only-tc">{userCell}</td>
+      <td>{articleCell}</td>
       {resolveCell}
     </tr>
   );

@@ -1128,7 +1128,7 @@ ar:
     total_revisions: إجمالي المراجعات
     claims: المطالبات
     aliases: اسماء مستعارة
-    merged: مندمجة
+    merged: تم الدمج مع
     created: تم الإنشاء
     changed: غيرت
     removed: أُزيل
@@ -1400,6 +1400,7 @@ ar:
       قاعدة البيانات.
     search_training_resources: ابحث عن مصادر التدريب
     no_training_resource_match_your_search: لا يوجد مصدر تدريب يطابق بحثك
+    take_your_time: خذ وقتك!
   update_username:
     header: قم بتحديث اسم مستخدم تم تغييره
     not_found: لم يتم العثور على المستخدم لاسم المستخدم الذي تم إدخاله.
@@ -1429,7 +1430,9 @@ ar:
     uploaded_on: تم الرفع في
     usage_count: عدد الاستخدامات
     usage_doc: عدد مقالات ويكيبيديا التي تظهر بها هذه الصورة.
-    usage_count_gallery_tile: مستخدم في %{usage_count} من المقالات
+    usage_count_gallery_tile:
+      one: مستخدم في مقال واحد
+      other: مستخدم في %{count} مقال
     usages: الاستخدامات
     wiki_big: الويكي
   users:

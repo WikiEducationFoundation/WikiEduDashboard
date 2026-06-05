@@ -294,6 +294,7 @@ te:
     confirm_addition: మీరు ఖచ్చితంగా %{title}ని %{username}కి కేటాయించాలనుకుంటున్నారా?
     label_all: అన్నింటినీ కేటాయించండి
     remove: తీసివెయ్యి
+    sandbox_label: ప్రయోగశాల
   campaign:
     data_wikidata: వికీడేటా గణాంకాలు
     data_wikidata_info: దిద్దుబాటు సారాంశాలను బట్టి, సవివరమైన వికీడేటా కార్యకలాపం

@@ -214,7 +214,7 @@ module RequestHelpers
   # MediaWiki query requests #
   ############################
   def stub_contributors_query
-    response = String.new '{"continue":{"pccontinue":"2169951|5094","continue":"||"},
+    response = +'{"continue":{"pccontinue":"2169951|5094","continue":"||"},
                  "query":{"normalized":[{"from":"User_talk:Ragesoss","to":"User talk:Ragesoss"}],
                  "pages":{"2169951":{"pageid":2169951,"ns":3,"title":"User talk:Ragesoss",
                  "anoncontributors":17,"contributors":[{"userid":584,"name":"Danny"}]}}}}'
@@ -225,7 +225,7 @@ module RequestHelpers
 
   def stub_raw_action
     stub_request(:get, %r{.*wikipedia.org/w/index.php\?action=raw.*})
-      .to_return(status: 200, body: String.new('[[wikitext]]'), headers: {})
+      .to_return(status: 200, body: +'[[wikitext]]', headers: {})
   end
 
   def stub_info_query
@@ -241,6 +241,19 @@ module RequestHelpers
   def stub_list_users_query_with_no_email
     stub_request(:get, /.*list=users.*/)
       .to_return(status: 200, body: '{"users":[{}]}', headers: {})
+  end
+
+  def stub_mainspace_query
+    stub_request(:get, /.*action=query&titles=.*&format=json&origin=\*/)
+      .to_return(status: 200, headers: {}) do |request|
+        uri = URI.decode_www_form_component(request.uri.to_s)
+        match = uri.match(/titles=([^&]*)/)
+        title = match ? match[1] : 'MockTitle'
+        ns = title.downcase.start_with?('category:') ? 14 : 0
+        {
+          body: "{\"query\":{\"pages\":{\"1\":{\"pageid\":1,\"ns\":#{ns},\"title\":\"#{title}\"}}}}"
+        }
+      end
   end
 
   def stub_wikipedia_503_error
@@ -268,6 +281,7 @@ module RequestHelpers
       'tr.wikipedia.org',
       'en.wiktionary.org',
       'es.wiktionary.org',
+      'fr.wiktionary.org',
       'ta.wiktionary.org',
       'es.wikibooks.org',
       'en.wikibooks.org',
@@ -282,6 +296,7 @@ module RequestHelpers
       'commons.wikimedia.org',
       'de.wikipedia.org',
       'en.wikipedia.org',
+      'fr.wikipedia.org',
       'gl.wikipedia.org',
       'nl.wikipedia.org',
       'sv.wikipedia.org',
@@ -394,7 +409,8 @@ module RequestHelpers
         "update_until": "2024-07-14T23:59:59.000Z",
         "withdrawn": false,
         "created_at": "2023-12-03T15:22:55.000Z",
-        "wikis": [{ "language": "en", "project": "wikipedia" }],
+        "wikis": [{ "language": "en", "project": "wikipedia" },
+                  { "language": "es", "project": "wikipedia" }],
         "namespaces": [],
         "timeline_enabled": true,
         "disable_student_emails": false,
@@ -503,7 +519,8 @@ module RequestHelpers
                 "title": "Introduction to the Wikipedia assignment",
                 "order": 1,
                 "due_date": null,
-                "points": null
+                "points": null,
+                "training_module_ids": [1, 15]
               }
             ]
           }
@@ -553,8 +570,14 @@ module RequestHelpers
 
   def stub_training_modules
     url = 'https://dashboard.wikiedu.org/training_modules.json'
+    body = {
+      training_modules: [
+        { id: 1, slug: 'wikipedia-essentials', name: 'Wikipedia essentials', kind: 0 },
+        { id: 15, slug: 'editing-basics', name: 'Editing basics', kind: 1 }
+      ]
+    }.to_json
     stub_request(:get, url)
-      .to_return(status: 200, body: '{}', headers: {})
+      .to_return(status: 200, body: body, headers: {})
   end
 
   def stub_course
@@ -565,219 +588,55 @@ module RequestHelpers
     stub_users
   end
 
-  def stub_lift_wing_response
-    request_body = {
-      'wikidatawiki' => {
-        'models' => {
-          'itemquality' => {
-            'version' => '0.5.0'
-          }
-        },
-        'scores' => {
-          '829840084' => {
-            'itemquality' => {
-              'score' => {
-                'prediction' => 'D',
-                'probability' => { 'A' => 0.001863543366261331, 'B' => 0.001863543366261331 }
-              },
-              'features' => {
-                'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
-                'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
-                'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0
-              }
-            }
-          },
-          '829840085' => {
-            'itemquality' => {
-              'score' => {
-                'prediction' => 'D',
-                'probability' => { 'A' => 0.005396336449201622, 'B' => 0.005396336449201622 }
-              },
-              'features' => {
-                'feature.len(<datasource.wikibase.revision.claim>)' => 10.0,
-                'feature.len(<datasource.wikibase.revision.properties>)' => 9.0,
-                'feature.len(<datasource.wikibase.revision.aliases>)' => 1.0
-              }
-            }
-          }
-        }
-      }
-    }
-    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
-      .with(
-        body: hash_including(extended_output: true),
-        headers: { 'Content-Type': 'application/json' }
-      ).to_return(
+  def stub_reference_counter_batch_response(project:, language:, num_refs:)
+    url = "https://reference-counter.toolforge.org/api/v1/references/#{project}/#{language}"
+    stub_request(:post, url)
+      .to_return(
         status: 200,
-        body: request_body.to_json
+        body: lambda do |request|
+          rev_ids = JSON.parse(request.body).fetch('rev_ids', [])
+          rev_ids.to_h do |rev_id|
+            num_ref = num_refs[rev_id.to_s]
+            # nil signals a deleted/suppressed revision; real API returns 'error' => 'no content'
+            entry = if num_ref.nil?
+                      { 'num_ref' => nil, 'error' => 'no content' }
+                    else
+                      { 'num_ref' => num_ref }
+                    end
+            [rev_id.to_s, entry]
+          end.to_json
+        end,
+        headers: { 'Content-Type' => 'application/json' }
       )
   end
 
   def stub_es_wiktionary_reference_counter_response
-    # Define the response body in a hash with revision IDs as keys
-    request_body = {
-      '5006940' => { 'num_ref' => 10, 'lang' => 'es', 'project' => 'wiktionary',
-      'revid' => 5006940 },
-      '5006942' => { 'num_ref' => 4, 'lang' => 'es', 'project' => 'wiktionary',
-      'revid' => 5006942 },
-      '5006946' => { 'num_ref' => 2, 'lang' => 'es', 'project' => 'wiktionary', 'revid' => 5006946 }
-    }
-
-    # Stub the request to match the revision ID in the URL
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wiktionary/es/\d+})
-      .to_return(
-        status: 200,
-        body: lambda do |request|
-          # Extract revision ID from the URL
-          rev_id = request.uri.path.split('/').last
-          # Return the appropriate response based on the revision ID
-          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
-        end,
-        headers: { 'Content-Type' => 'application/json' }
-      )
-  end
-
-  def stub_wikidata_lift_wing_reponse
-    request_body =
-      {
-          'wikidatawiki' => {
-            'models' => {
-              'itemquality' => {
-                'version' => '0.5.0'
-              }
-            },
-            'scores' => {
-              '144495297' => {
-                'itemquality' => {
-                  'score' => {
-                    'prediction' => 'D',
-                    'probability' => {
-                      'A' => 0.004943068308984735,
-                      'B' => 0.004943068308984735
-                    }
-                  },
-                  'features' => {
-                  'feature.len(<datasource.wikibase.revision.claim>)' => 3.0,
-                  'feature.len(<datasource.wikibase.revision.properties>)' => 3.0,
-                  'feature.len(<datasource.wikibase.revision.aliases>)' => 2.0,
-                  'feature.len(<datasource.wikidatawiki.revision.references>)' => 2.0
-                  }
-                }
-              },
-              '144495298' => {
-                'itemquality' => {
-                  'score' => {
-                    'prediction' => 'E',
-                    'probability' => {
-                      'A' => 0.0006501008909422321,
-                      'B' => 0.000887054617313177
-                    }
-                  },
-                  'features' => {
-                  'feature.len(<datasource.wikibase.revision.claim>)' => 1.0,
-                  'feature.len(<datasource.wikibase.revision.properties>)' => 1.0,
-                  'feature.len(<datasource.wikibase.revision.aliases>)' => 0.0,
-                  'feature.len(<datasource.wikidatawiki.revision.references>)' => 0.0
-                  }
-                }
-              }
-            }
-          }
-        }
-    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
-      .with(
-        body: hash_including(extended_output: true),
-        headers: { 'Content-Type': 'application/json' }
-      ).to_return(
-        status: 200,
-        body: request_body.to_json
-      )
-  end
-
-  def stub_400_wikidata_lift_wing_reponse
-    response_body = { error: "Unexpected content type for rev-id 2260577532: UnexpectedContentType:\
-    Expected content of type JSON, but the following can't be parsed (max 50 chars showed): ==\
-    About me ==\n\n[[m:User:Arcstur|Find me at Meta-W"}
-
-    stub_request(:post, 'https://api.wikimedia.org/service/lw/inference/v1/models/wikidatawiki-itemquality:predict')
-      .with(
-        body: hash_including(rev_id: 2260577532, extended_output: true),
-        headers: { 'Content-Type': 'application/json' }
-      ).to_return(
-        status: 400,
-        body: response_body.to_json
-      )
+    stub_reference_counter_batch_response(
+      project: 'wiktionary', language: 'es',
+      num_refs: { '5006940' => 10, '5006942' => 4, '5006946' => 2, '6115106' => nil }
+    )
   end
 
   def stub_es_wikipedia_reference_counter_reponse
-    request_body = {
-      '157412237' => { 'num_ref' => 111, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 157412237 },
-      '157417768' => { 'num_ref' => 42, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 157417768 }
-    }
-
-    # Stub the request to match the revision ID in the URL
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/es/\d+})
-      .to_return(
-        status: 200,
-        body: lambda do |request|
-          # Extract revision ID from the URL
-          rev_id = request.uri.path.split('/').last
-          # Return the appropriate response based on the revision ID
-          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
-        end,
-        headers: { 'Content-Type' => 'application/json' }
-      )
+    stub_reference_counter_batch_response(
+      project: 'wikipedia', language: 'es',
+      num_refs: { '157412237' => 111, '157417768' => 42 }
+    )
   end
 
   def stub_en_wikipedia_reference_counter_reponse
-    request_body = {
-      '829840090' => { 'num_ref' => 132, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 829840090 },
-      '829840091' => { 'num_ref' => 1, 'lang' => 'es', 'project' => 'wikipedia',
-      'revid' => 829840091 }
-    }
-
-    # Stub the request to match the revision ID in the URL
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikipedia/en/\d+})
-      .to_return(
-        status: 200,
-        body: lambda do |request|
-          # Extract revision ID from the URL
-          rev_id = request.uri.path.split('/').last
-          # Return the appropriate response based on the revision ID
-          { 'num_ref' => request_body[rev_id.to_s]['num_ref'] }.to_json
-        end,
-        headers: { 'Content-Type' => 'application/json' }
-      )
+    stub_reference_counter_batch_response(
+      project: 'wikipedia', language: 'en',
+      num_refs: { '829840090' => 132, '829840091' => 1 }
+    )
   end
 
   def stub_400_wiki_reference_counter_response
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
+    stub_request(:post, 'https://reference-counter.toolforge.org/api/v1/references/wikipedia/en')
       .to_return(
         status: 400,
-        body: { 'description' => 'Language incubator is not a valid language. ' }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
-  end
-
-  def stub_403_wiki_reference_counter_response
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
-      .to_return(
-        status: 403,
-        body: { 'description' => "mwapi error: permissiondenied - You don't have permission to view\
-        deleted text or changes between deleted revisions." }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
-      )
-  end
-
-  def stub_404_wiki_reference_counter_response
-    stub_request(:get, %r{https://reference-counter.toolforge.org/api/v1/references/wikimedia/incubator/\d+})
-      .to_return(
-        status: 404,
-        body: { 'description' => 'rest-nonexistent-revision -\
-        The specified revision does not exist' }.to_json,
+        body: { 'code' => 400, 'name' => 'Bad Request',
+                'description' => "Request body must be JSON with a 'rev_ids' array." }.to_json,
         headers: { 'Content-Type' => 'application/json' }
       )
   end

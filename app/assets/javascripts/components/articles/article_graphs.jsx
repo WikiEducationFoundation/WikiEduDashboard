@@ -126,7 +126,7 @@ const ArticleGraphs = ({ article, course_id }) => {
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
 
   return (
-    <a onClick={handleShowGraph} className="inline">
+    <button type="button" onClick={handleShowGraph} className="inline">
       {I18n.t('articles.article_development')}
       <div className={className} ref={elementRef}>
         <div className="radio-row">
@@ -135,7 +135,7 @@ const ArticleGraphs = ({ article, course_id }) => {
         </div>
         {graph}
       </div>
-    </a>
+    </button>
   );
 };
 

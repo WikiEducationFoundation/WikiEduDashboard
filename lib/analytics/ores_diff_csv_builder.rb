@@ -51,8 +51,12 @@ class OresDiffCsvBuilder
     ]
   end
 
+  # Historically the wikis where Lift Wing provided ORES quality scores. The
+  # wp10 fields are TODO/disabled now, but the wiki filter still scopes the
+  # CSV to the same set of Wikipedias.
+  ORES_SUPPORTED_WIKIPEDIAS = %w[en eu fa fr gl nl pt ru sv tr uk].freeze
   def supported_wiki_ids
-    @ids ||= Wiki.where(language: LiftWingApi::AVAILABLE_WIKIPEDIAS,
+    @ids ||= Wiki.where(language: ORES_SUPPORTED_WIKIPEDIAS,
                         project: 'wikipedia').pluck(:id)
   end
 end

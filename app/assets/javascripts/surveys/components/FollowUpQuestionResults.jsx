@@ -5,7 +5,7 @@ import TextResults from './TextResults.jsx';
 const FollowUpQuestionResults = (props) => {
   return (
     <div>
-      <h4>Follow Up Question</h4>
+      <h2>Follow Up Question</h2>
       <TextResults {...props} followUpOnly={true} />
     </div>
   );

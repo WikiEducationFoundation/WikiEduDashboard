@@ -17,7 +17,7 @@ describe CourseCsvBuilder do
   it 'creates a CSV with a header and a row of data' do
     expect(subject.split("\n").count).to eq(2)
   end
-  
+
   it 'includes the retained_new_editors count in the CSV' do
     rows = CSV.parse(subject)
     headers = rows[0]

@@ -23,7 +23,7 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
         {isWikipedia && <div className={ratingClass}><p>{revision.pretty_rating || '-'}</p></div>}
         {isWikipedia && <div className="tooltip dark">
           <p>{I18n.t(`articles.rating_docs.${revision.rating || '?'}`, { class: revision.rating || '' })}</p>
-          {/* eslint-disable-next-line */}
+          { }
         </div>}
       </td>
       <td>
@@ -35,24 +35,22 @@ const Revision = ({ revision, index, wikidataLabel, course, setSelectedIndex, la
           <span>
             <strong>{trunc(student.real_name)}</strong>&nbsp;
             (
-            <a
-              onClick={() => openStudentDetailsView(course.slug, student.username)} style={{
-                cursor: 'pointer'
-              }}
+            <button
+              type="button"
+              onClick={() => openStudentDetailsView(course.slug, student.username)}
             >
               {revision.revisor}
-            </a>
+            </button>
             )
           </span>
         ) : (
           <span>
-            <a
-              onClick={() => openStudentDetailsView(course.slug, student.username)} style={{
-                cursor: 'pointer'
-              }}
+            <button
+              type="button"
+              onClick={() => openStudentDetailsView(course.slug, student.username)}
             >
               {revision.revisor}
-            </a>
+            </button>
           </span>
         )}
       </td>

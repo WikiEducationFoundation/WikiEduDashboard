@@ -21,16 +21,46 @@ describe AnalyticsController, type: :request do
   end
 
   describe '#results' do
-    it 'returns a monthly report' do
+    let(:admin) { create(:admin) }
+
+    it 'returns a monthly report for admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       post '/analytics', params: { monthly_report: true }
       expect(response.status).to eq(200)
     end
 
-    it 'return campaign intersection statistics' do
+    it 'blocks anonymous users from the monthly report' do
+      post '/analytics', params: { monthly_report: true }
+      expect(response.status).to eq(401)
+    end
+
+    it 'blocks signed-in non-admins from the monthly report' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      post '/analytics', params: { monthly_report: true }
+      expect(response.status).to eq(401)
+    end
+
+    it 'returns campaign intersection statistics for admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
       post '/analytics', params: { campaign_intersection: true,
                                 campaign_1: { id: 1 },
                                 campaign_2: { id: 2 } }
       expect(response.status).to eq(200)
+    end
+
+    it 'blocks anonymous users from campaign intersection' do
+      post '/analytics', params: { campaign_intersection: true,
+                                campaign_1: { id: 1 },
+                                campaign_2: { id: 2 } }
+      expect(response.status).to eq(401)
+    end
+
+    it 'blocks signed-in non-admins from campaign intersection' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      post '/analytics', params: { campaign_intersection: true,
+                                campaign_1: { id: 1 },
+                                campaign_2: { id: 2 } }
+      expect(response.status).to eq(401)
     end
 
     it 'returns a structural completeness density plot' do
@@ -69,9 +99,48 @@ describe AnalyticsController, type: :request do
   end
 
   describe '#all_courses_csv' do
-    it 'returns a CSV' do
+    let(:admin) { create(:admin) }
+
+    before do
+      create(:course, id: 2, slug: 'Public/Course_(2025)', private: false)
+      create(:course, id: 3, slug: 'Hidden/Course_(2025)', private: true)
+    end
+
+    it 'returns a CSV omitting private courses for anonymous users' do
       get '/all_courses_csv'
       expect(response.body).to include('home_wiki')
+      expect(response.body).to include('Public/Course_(2025)')
+      expect(response.body).not_to include('Hidden/Course_(2025)')
+    end
+
+    it 'includes private courses for admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      get '/all_courses_csv'
+      expect(response.body).to include('Public/Course_(2025)')
+      expect(response.body).to include('Hidden/Course_(2025)')
+    end
+  end
+
+  describe '#tagged_courses_csv' do
+    let(:admin) { create(:admin) }
+    let(:non_admin) { create(:user) }
+
+    it 'blocks anonymous users' do
+      get '/tagged_courses_csv/sometag'
+      expect(response.status).to eq(401)
+    end
+
+    it 'blocks signed-in non-admin users' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(non_admin)
+      get '/tagged_courses_csv/sometag'
+      expect(response.status).to eq(401)
+    end
+
+    it 'returns a CSV for admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      get '/tagged_courses_csv/sometag'
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Instructor')
     end
   end
 

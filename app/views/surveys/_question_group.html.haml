@@ -20,7 +20,7 @@
         = render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name}
 
         - if !question_presenter.grouped_question?
-          <div class="block__container"><div data-survey-block="#{index + 1}" id="question_#{answer.question.id}" class="block disabled not-seen question-type--#{question_presenter.question_type} #{answer.errors.any? ? block--errors : ''} #{question_presenter.required_class}"> 
+          <div class="block__container"><div data-survey-block="#{index + 1}" id="question_#{answer.question.id}" class="block disabled not-seen question-type--#{question_presenter.question_type} #{answer.errors.any? ? block--errors : ''} #{question_presenter.required_class}">
 
         - if question_presenter.start_of_radio_matrix?
           %div{:class => "survey__question-row first matrix-row", :'data-block-index' => "#{index}"}

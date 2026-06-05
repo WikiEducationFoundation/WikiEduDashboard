@@ -1,5 +1,3 @@
-import fetch from 'cross-fetch';
-
 // Simple in-memory cooldown cache to avoid hammering the WhoColor API when
 // data is not yet available. Keyed by language|title|revision.
 // Values are timestamps (ms) of last terminal failure.

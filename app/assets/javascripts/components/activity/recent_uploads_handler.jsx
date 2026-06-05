@@ -21,9 +21,9 @@ const RecentUploadsHandlerBase = () => {
   return (
     <div id="uploads">
       <div className="section-header">
-        <h3>{I18n.t('uploads.header')}</h3>
+        <h1>{I18n.t('uploads.header')}</h1>
         <div className="sort-select">
-          <select className="sorts" name="sorts" onChange={sortBy}>
+          <select className="sorts" name="sorts" onChange={sortBy} aria-label={I18n.t('application.sort')}>
             <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
             <option value="uploader">{I18n.t('uploads.uploaded_by')}</option>
             <option value="usage_count">{I18n.t('uploads.usage_count')}</option>

@@ -33,6 +33,7 @@ describe 'user profile pages', type: :feature, js: true do
     expect(page).to have_content 'Total impact made by Sage as an instructor'
     expect(page).to have_content "Total impact made by Sage's students"
     expect(page).to have_content 'Total impact made by Sage as a student'
+    expect(page).to be_axe_clean
   end
 
   context 'when user has done training(s)' do
@@ -42,7 +43,8 @@ describe 'user profile pages', type: :feature, js: true do
                                       completed_at: Time.zone.now)
     end
 
-    it 'shows training status' do
+    it 'shows training status (to that user)' do
+      login_as user
       visit "/users/#{user.username}"
       expect(page).to have_content TrainingModule.first.name
       expect(page).to have_content 'Completed at'

@@ -399,7 +399,7 @@ describe WikiSlideParser do
     end
 
     it 'handles nil input' do
-      output = described_class.new(''.dup).content
+      output = described_class.new((+'')).content
       expect(output).to eq('')
     end
 

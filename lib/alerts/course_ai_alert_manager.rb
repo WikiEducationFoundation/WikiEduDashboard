@@ -19,7 +19,7 @@ class CourseAiAlertManager
 
   private
 
-  RECENT_DAYS = 14
+  RECENT_DAYS = 7
   def recent_ai_edit_alerts
     @recent_edit_alerts ||= AiEditAlert.where('created_at > ?', RECENT_DAYS.days.ago)
   end

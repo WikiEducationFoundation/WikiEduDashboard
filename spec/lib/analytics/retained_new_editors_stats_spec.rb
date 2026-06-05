@@ -16,7 +16,7 @@ describe RetainedNewEditorsStats do
 
   before do
     course.update!(home_wiki: wiki)
-    
+
     # Create the fake editors
     %w[Ragesock wikiedStaff].each do |name|
       user = create(:user, username: name, registered_at: course.start + 3.days)
@@ -75,7 +75,7 @@ describe RetainedNewEditorsStats do
 
     before do
       # Clearing the students from previous before blocks to avoid confusion
-      course.courses_users.destroy_all 
+      course.courses_users.destroy_all
 
       # create 50 new students thta fit the new editor criteria
       total_users.times do |i|
@@ -86,10 +86,10 @@ describe RetainedNewEditorsStats do
       # return contribution for EVERY user requested in the batch
       allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
         requested_names = params[:ucuser] || []
-        
+
         # Map each requested name to a  contribution hash
         contribs = requested_names.map { |name| { 'user' => name } }
-        
+
         mock_response_with_contribs(contribs)
       end
     end

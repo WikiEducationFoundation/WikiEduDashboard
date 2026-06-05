@@ -34,7 +34,7 @@ const InputHOC = (Component) => {
 
     // value passed is HOC's state value
     getInitialState() {
-      return { value: this.props.value };
+      return { value: this.props.value, id: this.props.id };
     },
 
     shouldComponentUpdate(nextProps, nextState) {

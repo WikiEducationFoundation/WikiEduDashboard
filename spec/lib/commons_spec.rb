@@ -158,6 +158,76 @@ describe Commons do
         expect(response).not_to be_empty
       end
     end
+
+    context 'when one file in the batch raises urlparamnormal' do
+      let(:bad_upload) do
+        create(:commons_upload, id: 1, file_name: 'File:ਗੁਰਮੁਖੀ - ਗੁਰਮੁਖੀ ਟਕਸਾਲ.pdf',
+                                thumburl: nil)
+      end
+      let(:good_upload) do
+        create(:commons_upload, id: 2, file_name: 'File:Haeckel Stephoidea.jpg', thumburl: nil)
+      end
+
+      def urlparamnormal_error
+        response = instance_double(
+          MediawikiApi::Response,
+          data: { 'code' => 'urlparamnormal',
+                  'info' => 'Could not normalize image parameters for' \
+                            ' ਗੁਰਮੁਖੀ_-_ਗੁਰਮੁਖੀ_ਟਕਸਾਲ.pdf.' }
+        )
+        MediawikiApi::ApiError.new(response)
+      end
+
+      def good_response_for(ids)
+        instance_double(
+          MediawikiApi::Response,
+          data: { 'pages' => ids.to_h do |id|
+            [id.to_s,
+             { 'pageid' => id,
+               'imageinfo' => [{ 'thumburl' => "https://example/#{id}.jpg",
+                                 'thumbwidth' => '480', 'thumbheight' => '480' }] }]
+          end },
+          :[] => nil
+        )
+      end
+
+      it 'drops the bad pageid, returns the rest, and synthesizes a placeholder' do
+        responses = [urlparamnormal_error, good_response_for([good_upload.id])]
+        bad_upload && good_upload
+        allow_any_instance_of(WikiApi).to receive(:query) do |_, q|
+          r = responses.shift
+          r.is_a?(StandardError) ? (raise r) : r
+        end
+
+        result = described_class.get_urls([bad_upload, good_upload])
+        result_by_id = result.index_by { |r| r['pageid'] }
+        expect(result_by_id[good_upload.id]['imageinfo'][0]['thumburl'])
+          .to eq("https://example/#{good_upload.id}.jpg")
+        expect(result_by_id[bad_upload.id]['imageinfo'][0]['thumburl'])
+          .to eq(bad_upload.url)
+      end
+
+      it 'does not invoke Sentry when the bad file is identified' do
+        responses = [urlparamnormal_error, good_response_for([good_upload.id])]
+        bad_upload && good_upload
+        allow_any_instance_of(WikiApi).to receive(:query) do
+          r = responses.shift
+          r.is_a?(StandardError) ? (raise r) : r
+        end
+        expect(Sentry).not_to receive(:capture_exception)
+        described_class.get_urls([bad_upload, good_upload])
+      end
+
+      it 'falls back to Sentry if the offending file cannot be identified' do
+        unknown_error = MediawikiApi::ApiError.new(
+          instance_double(MediawikiApi::Response,
+                          data: { 'code' => 'urlparamnormal', 'info' => 'inscrutable.' })
+        )
+        allow_any_instance_of(WikiApi).to receive(:query).and_raise(unknown_error)
+        expect(Sentry).to receive(:capture_exception).with(unknown_error, anything)
+        described_class.get_urls([good_upload])
+      end
+    end
   end
 
   describe '#get_image_data' do

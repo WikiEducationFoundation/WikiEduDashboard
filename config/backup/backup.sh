@@ -4,7 +4,8 @@ set -euo pipefail
 
 BACKUP_ROUTE="ROUTE_TO_BACKUPS"
 QUERY_ROUTE="ROUTE_TO_QUERIES"
-JSON_ENDPOINT="https://outreachdashboard.wmflabs.org/system/can_start_backup.json"
+DASHBOARD_URL="URL_TO_DASHBOARD"
+JSON_ENDPOINT="$DASHBOARD_URL/system/can_start_backup.json"
 
 log() {
   printf '%s : %s\n' "$(date '+%m%d%Y %T')" "$1" >> "$LOG_FILE"
@@ -50,20 +51,30 @@ exec >>"$LOG_FILE" 2>&1
 
 log "Starting"
 
-# Calculate min free space in bytes based on last backup
-LATEST_DIR=$(ls -1d "$BACKUP_ROUTE"/*/ | sort | tail -2 | head -1)
-LAST_BACKUP=$(ls "$LATEST_DIR"/*.sql.gz | head -1)
+# Calculate min free space in bytes based on last successful backup
+LAST_BACKUP=""
+while IFS= read -r dir; do
+  candidate=$(find "$dir" -maxdepth 1 -name "*.sql.gz" | head -1)
+  if [ -n "$candidate" ]; then
+    LAST_BACKUP="$candidate"
+    break
+  fi
+done < <(ls -1d "$BACKUP_ROUTE"/*/ | sort -r | tail -n +2)
 
-LAST_BACKUP_SIZE=$(stat -c%s "$LAST_BACKUP")
-# Backups are stored in compressed form. We require 30x the size of the previous backup,
-# assuming the compressed version is about 10 times smaller 
-MIN_FREE_SPACE=$(( LAST_BACKUP_SIZE * 30 ))
+if [ -n "$LAST_BACKUP" ]; then
+  LAST_BACKUP_SIZE=$(stat -c%s "$LAST_BACKUP")
+  # Backups are stored in compressed form. We require 30x the size of the previous backup,
+  # assuming the compressed version is about 10 times smaller
+  MIN_FREE_SPACE=$(( LAST_BACKUP_SIZE * 30 ))
 
-# Calculate free space in bytes
-FREE_SPACE=$(df -B 1 --output=avail $BACKUP_DIR | tail -1 | tr -dc '0-9')
-if [ $FREE_SPACE -lt $MIN_FREE_SPACE ]; then
-  log "Not enough free space. Aborting"
-  exit 1
+  # Calculate free space in bytes
+  FREE_SPACE=$(df -B 1 --output=avail $BACKUP_DIR | tail -1 | tr -dc '0-9')
+  if [ $FREE_SPACE -lt $MIN_FREE_SPACE ]; then
+    log "Not enough free space. Aborting"
+    exit 1
+  fi
+else
+  log "No previous successful backup found, skipping free space check"
 fi
 
 # Create waiting backup record
@@ -86,11 +97,19 @@ log "Finishing"
 # Update running backup record to 'finished'
 mysql < $QUERY_ROUTE/finished.sql
 
-# Remove oldest backup if there are more than three
+# Remove oldest backup if there are more than MIN_BACKUPS_NUMBER real backups.
+# A real backup is a folder that contains a .sql.gz file; empty or failed
+# folders are excluded from the count so they never block deletion.
 MIN_BACKUPS_NUMBER=3
-CURRENT_BACKUPS_NUMBER=$(ls -1d "$BACKUP_ROUTE"/*/ | wc -l)
-if [ $CURRENT_BACKUPS_NUMBER -gt $MIN_BACKUPS_NUMBER ]; then
-  OLDEST_BACKUP=$(ls -1d "$BACKUP_ROUTE"/*/ | sort | head -1)
+REAL_BACKUPS=()
+while IFS= read -r dir; do
+  if find "$dir" -maxdepth 1 -name "*.sql.gz" | grep -q .; then
+    REAL_BACKUPS+=("$dir")
+  fi
+done < <(ls -1d "$BACKUP_ROUTE"/*/ | sort)
+
+if [ ${#REAL_BACKUPS[@]} -gt $MIN_BACKUPS_NUMBER ]; then
+  OLDEST_BACKUP="${REAL_BACKUPS[0]}"
   log "Removing $OLDEST_BACKUP"
-  rm -r $OLDEST_BACKUP
+  rm -r "$OLDEST_BACKUP"
 fi

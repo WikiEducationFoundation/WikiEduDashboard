@@ -8,9 +8,9 @@ const AiAlert = ({ alert }) => {
     <tr className="alert">
       <td className="desktop-only-tc"><a target="_blank" href={`/alerts_list/${alert.id}`}>{alert.id}</a></td>
       <td className="desktop-only-tc">{formatDateWithTime(alert.timestamp)}</td>
-      <td className="desktop-only-tc"><a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
+      <td className="desktop-only-tc"><a style={{ wordBreak: 'break-all' }} target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
       <td className="desktop-only-tc"><a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a></td>
-      <td className="desktop-only-tc"><a target="_blank" href={`${alert.diff_url}`}>{alert.article}</a></td>
+      <td className="desktop-only-tc"><a style={{ wordBreak: 'break-all' }} target="_blank" href={`${alert.diff_url}`}>{alert.article}</a></td>
       <td className="desktop-only-tc"><button className="button small" onClick={redirectToPangram}>{I18n.t('alerts.ai_stats.go_to_pangram')}</button></td>
     </tr>
   );

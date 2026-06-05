@@ -1,5 +1,5 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
+
+
 import { ORESSupportedWiki, PageAssessmentSupportedWiki, PageAssessmentGrades } from '../utils/article_finder_language_mappings';
 import { toWikiDomain } from './wiki_utils';
 

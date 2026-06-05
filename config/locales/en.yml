@@ -39,6 +39,7 @@ en:
     back: Back
     cancel: Cancel
     next: Next
+    skip_to_main_content: Skip to main content
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -73,6 +74,9 @@ en:
     no_results: "No results found for '%{query}'"
     show_current_revision: Show current version
     show_last_revision: Show last edited version
+    font_label: Font
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -89,6 +93,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
+    sort: Sort
 
   article_statuses:
     not_yet_started: Getting Started
@@ -204,6 +209,8 @@ en:
     available: Available Articles
     no_available: No Available Articles
     next: Next
+    page_info: "Page %{current} of %{total_pages} (%{count} out of %{total})"
+    permalink: Permalink
     previous: Previous
     article_title: Article Title
     assigned_to: Assigned To
@@ -226,6 +233,9 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+      wiki_label: Wiki
+      newness_label: Article newness
+      tracked_label: Tracking status
     filter_text: "Filters:"
     pageviews_label: "Pageviews:"
     cumulative: "Cumulative"
@@ -425,10 +435,10 @@ en:
       change_button: "Change in Structural Completeness"
       no_data: "No Structural Completeness data available"
       graph_description_html: >
-        This graph visualizes, in aggregate, how much articles developed from 
-        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em> 
-        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>) 
-        that estimates an article&apos;s quality rating based on the amount of 
+        This graph visualizes, in aggregate, how much articles developed from
+        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em>
+        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
+        that estimates an article&apos;s quality rating based on the amount of
         prose, the number of wikilinks, images and section headers, and other features.
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
@@ -528,7 +538,12 @@ en:
     name: Name
     category_name: Category name
     psid_name: PSID
+    psid_description: >
+      PetScan queries only work with the Dashboard one wiki at a time.
+      Ensure that your PetScan query includes only articles from a single wiki, and that it matches the wiki set below.
     pileid_name: PagePile id
+    pileid_description: >
+      Make sure the PagePile's wiki is one of the tracked wikis for this program.
     template_name: Template name
     none: There are no categories being tracked.
     remove: Remove
@@ -760,6 +775,7 @@ en:
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
       invalid_language_or_project: Invalid language/project
       invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
+      duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
       invalid_slug: Blank school/title for course.
       duplicate_slug: "Another program called %{slug} already exists."
     expected_students: Expected Students
@@ -920,6 +936,14 @@ en:
     subject: Subject
     submitted: Submitted
     submitted_at: Submitted at
+    approval_form_heading: "Course Approval Form"
+    add_program_manager: "Add Program Manager:"
+    add_wiki_expert: "Add Wikipedia Expert:"
+    add_tags: "Add Tags:"
+    add_campaigns: "Add Campaigns:"
+    invalid_salesforce_id: "The entered Id is not valid."
+    add_salesforce_id: "Add Salesforce Id:"
+    approve_course: "Approve Course"
     tag_select: "Select or create a tag"
     tags: "Tags:"
     term: Term
@@ -967,6 +991,9 @@ en:
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
+    declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
+    decline_course: "Decline Course"
+    decline_course_confirm: "Are you sure you want to decline this course? This will archive the submission and stop automatic unsubmitted alerts for this course."
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
@@ -1149,6 +1176,8 @@ en:
       submit_issue_wikidata: "What are the significant problems with this item?"
       submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
+      quality_problems_button: "Quality Problems?"
+      notify_wiki_expert: "Notify Wiki Expert"
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles."
     can_assign_assignments: "You can assign an article by using the buttons above."
@@ -1162,6 +1191,8 @@ en:
       content_wikidata: to assign and view item assignments
 
   metrics:
+    editors_doc: This is the number of unique users who have edited articles in the course.
+    program_date_doc: This is the date of the program.
     label: Course Activity
     last_update: Last statistics update
     last_articles_update: Last articles update
@@ -1238,7 +1269,8 @@ en:
     total_revisions: Total revisions
     claims: Claims
     aliases: Aliases
-    merged: Merged
+    merged: Merged to
+    merged_from: Merged from
     created: Created
     changed: Changed
     removed: Removed
@@ -1434,7 +1466,7 @@ en:
     all_queues_not_operational: All Queues Operational except
     constant_update: Constant update
     constant_update_description: Constant updates are independent of the main course stats, pulling in revision metadata, generating alerts, and doing other data and network-intensive tasks, for all current courses.
-    constant_update_doc: Handles transactional jobs like wiki edits and sending email. 
+    constant_update_doc: Handles transactional jobs like wiki edits and sending email.
     daily_update: Daily update
     daily_update_description: This pulls in additional data and performs other tasks that do not need to be done many times per day.
     daily_update_doc: Handles once-daily long-running data update tasks.
@@ -1556,6 +1588,9 @@ en:
       week or change your assignment dates to make room for a new one.
     view_full_timeline: View Full Timeline
     week_number: "Week %{number}"
+    add_block: Add Block
+    delete_week: Delete Week
+
 
   training:
     continue: Continue (%{progress})
@@ -1589,6 +1624,11 @@ en:
     exercise_sandbox: Exercise Sandbox
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
+    take_your_time: "Please take your time!"
+    alert_content: "It is very important that you learn the training content thoroughly."
+    close: "CLOSE"
+    loading: "Loading…"
+    wiki_source: "wiki source"
 
   update_username:
     header: Update a changed username
@@ -1622,7 +1662,9 @@ en:
     uploaded_on: Uploaded On
     usage_count: Usage Count
     usage_doc: Number of Wikipedia articles that this image appears in.
-    usage_count_gallery_tile: Used in %{usage_count} articles
+    usage_count_gallery_tile:
+      one: "Used in 1 article"
+      other: "Used in %{count} articles"
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
@@ -1677,6 +1719,7 @@ en:
     my_reviewing: "Reviewing:"
     name: Name
     none: There are no participants.
+    more_articles: Click to load user edited articles
     no_articles: No articles
     no_articles_wikidata: No items
     no_revisions: (no revisions)
@@ -1880,6 +1923,8 @@ en:
   notifications:
     new_notifications: You have new notifications.
     no_notifications: You have no new notifications.
+    aria_label:
+      bell: Notifications
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
@@ -2059,7 +2104,7 @@ en:
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
         note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
-  
+
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
 
@@ -2074,4 +2119,9 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
-      
+
+  form_search:
+    search: "Search"
+    advanced_search: "Advanced Search"
+    clear: "Clear"
+    program_date: "Program Date"

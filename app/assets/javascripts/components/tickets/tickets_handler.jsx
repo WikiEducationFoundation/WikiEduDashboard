@@ -112,7 +112,7 @@ const TicketsHandler = () => {
   }
 
   return (
-    <main className="container ticket-dashboard">
+    <section className="container ticket-dashboard">
       <h1 className="mt4">Ticketing Dashboard</h1>
       <div>
         <div>
@@ -199,7 +199,7 @@ const TicketsHandler = () => {
             </>
           )
       }
-    </main >
+    </section>
   );
 };
 

@@ -42,7 +42,7 @@ export const Controls = (props) => {
             allowed={false}
             course={course}
             current_user={current_user}
-            role={0}
+            userRole={0}
             users={students}
           />
         ) : null

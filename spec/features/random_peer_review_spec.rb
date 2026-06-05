@@ -64,7 +64,9 @@ describe 'random peer reviews', type: :feature, js: true do
       visit "/courses/#{course.slug}/students/overview"
     end
 
-    find('button', text: 'Assign random peer reviews').click
+    button = find('button', text: 'Assign random peer reviews')
+    scroll_to(button, align: :center)
+    button.click
     expect(page).to have_content 'Each student is already reviewing at least 1 article(s)'
     find('button', text: 'OK').click
 
@@ -86,7 +88,9 @@ describe 'random peer reviews', type: :feature, js: true do
       visit "/courses/#{course.slug}/students/overview"
     end
 
-    find('button', text: 'Assign random peer reviews').click
+    button = find('button', text: 'Assign random peer reviews')
+    scroll_to(button, align: :center)
+    button.click
     # 2 - 1 (Student1 already reviewing an article)
     expect(page).to have_content 'total of 1'
     find('button', text: 'OK').click
@@ -118,7 +122,9 @@ describe 'random peer reviews', type: :feature, js: true do
       visit "/courses/#{course.slug}/students/overview"
     end
 
-    find('button', text: 'Assign random peer reviews').click
+    button = find('button', text: 'Assign random peer reviews')
+    scroll_to(button, align: :center)
+    button.click
 
     # 4 - 1 (Student1 already reviewing an article)
     expect(page).to have_content 'total of 3'

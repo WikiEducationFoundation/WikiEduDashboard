@@ -20,7 +20,9 @@ shn:
     number_field: ဢၼ်ၼႆႉ ပဵၼ် လွၵ်းမၢႆၼပ်ႉ။ ၼဵၼ်မၼ်းၼႆႉ လုၵ်ႉတီႈ ပြၢဝ်ႇသႃႇ သေ တေတိူဝ်း
       တေယွၼ်ႇပၼ် လွင်ႈပွၼ်ႈၶေႃႈမုၼ်းယူႇ။
   application:
+    back: ႁူၼ်လင်
     cancel: ယုၵ်ႉလိူၵ်ႈ
+    next: ၵႂႃႇၼႃႈ
     cookie_consent: ၼႃႈလိၵ်ႈၼႆႉ ၸႂ်ႉၶူၵ်ႉၶီႇ တႃႇ ႁႂ်ႈၸဝ်ႈၵဝ်ႇ သိုပ်ႇၶဝ်ႈလွၵ်ႉဢိၼ်ႇဝႆႉ
       သေ သိမ်းပၼ် လွၼ်ႉၶၢဝ်ႇ ဢၼ်ၵဵဝ်ႇၵပ်းလူၺ်ႈ ဢၶွင်ႉ ဝီႇၶီႇၽီးတီးယႃး ၸဝ်ႈၵဝ်ႇၼၼ်ႉယဝ်ႉ။
     cookie_consent_acknowledge: ၵဝ်ပွင်ႇၸ်ႂယူႇ
@@ -32,6 +34,7 @@ shn:
     explore: ပိုတ်ႇႁႃ
     field_required: လွၵ်းဢၼ်ၼႆႉ တိုၼ်းလူဝ်ႇသႂ်ႇပၼ်
     field_invalid_characters: လွၵ်းဢၼ်ၼႆႉ မီးဝႆႉ တူဝ်လိၵ်ႈ ဢၼ်ဢမ်ႇၸႂ်ႉလႆႈ
+    field_invalid_term: ၶၢဝ်းယၢမ်း တေလႆႈပႃးပီ (တူဝ်ယၢင်ႇ "ၶၢဝ်းႁုၼ်ႈ 2025")
     field_invalid_date: လွၵ်းၼႆႉ လူဝ်ႇသႂ်ႇပၼ် ပိူင်ဝၼ်းထ YYYY-MM-DD
     field_invalid_date_time: ၵမ်းလိုၼ်းသုတ်းၼႆႉ တေလႆႈပဵၼ် ဝၢႆးသေ တႄႇမႃးယဝ်ႉ။ (ယၢမ်းမူင်း
       မႃးတီႈ 0 တေႃႇ 23။)
@@ -44,12 +47,22 @@ shn:
     log_in: လွၵ်ႉၶဝ်ႈ
     log_out: လွၵ်ႉဢွၵ်ႉ
     my_dashboard: ၽၢင်ၵုမ်းၵမ် ၵဝ်ၶႃႈ
+    okay: တူၵ်းလူင်း
     recent_activity: လွင်ႈတူင်ႉၼိုင် လႃႈသုတ်း
     report_problem: လဝ်ႈတၢင်ႇပၼ်ႁႃ
     request_account: တုၵ်းယွၼ်းဢၶွင်ႉ
     request_account_create: သၢင်ႈဢၶွင်ႉ
     search: ထၢမ် ၶေႃႈထၢမ်
+    sign_up_log_in_extended: တင်း ဝီႇၶီႇၽီးတီးယႃး
+    sign_up: လူင်းသဵၼ်ႈမၢႆ
+    submit: တၢင်ႇၼႄ
     training: လွင်ႈၽိုၵ်းၽွၼ်ႉ
+    change: လႅၵ်ႈလၢႆႈ
+    details: ႁူဝ်ယွႆႈ
+    confirm: ဢူဝ်ႇၶေႇ
+    opt_in: ၸႂ်ႈယဝ်ႉ
+    opt_out: ဢမ်ႇ
+    opt_yes: ၸႂ်ႈယဝ်ႉ
   articles:
     assigned: ၼွပ်ႇပၼ် ပွင်ႈလိၵ်ႈ
     assigned_to: ၼွပ်ႇပၼ်

@@ -12,6 +12,7 @@ class UpdateWikidataStatsTimeslice
   STATS_CLASSIFICATION = {
     # UI section: General
     'merge_to' => 'merged to',
+    'merge_from' => 'merged from',
     'added_sitelinks' => 'interwiki links added',
     # UI section: Claims
     'added_claims' => 'claims created',
@@ -45,7 +46,6 @@ class UpdateWikidataStatsTimeslice
     'changed_qualifiers' => 'qualifiers changed',
     'removed_sitelinks' => 'interwiki links removed',
     'changed_sitelinks' => 'interwiki links updated',
-    'merge_from' => 'merged from',
     'added_lemmas' => 'lemmas added',
     'removed_lemmas' => 'lemmas removed',
     'changed_lemmas' => 'lemmas changed',
@@ -75,41 +75,30 @@ class UpdateWikidataStatsTimeslice
     @course = course
   end
 
-  # Given an array of revisions, it updates the summary field for each one with
-  # the wikidata stats. wikidata-diff-analyzer gem is used to fetch the stats.
-  # Returns the updated array.
+  # Updates the summary field of each revision with its wikidata diff stats,
+  # and marks revisions as `deleted` when the analyzer couldn't retrieve their
+  # content (suppressed/missing/deleted) — this replaces Lift Wing as the
+  # source of truth for deletion detection on Wikidata. Scoped revisions get
+  # the full diff; non-scoped revisions admit only merge_to into an in-scope
+  # target (see issue #6813).
   def update_revisions_with_stats(revisions)
-    # We will only use the diff stats for in-scope revisions, and this is very slow.
-    scoped_revisions = revisions.select(&:scoped)
-    analyzed_revisions = analyze_revisions(scoped_revisions.map(&:mw_rev_id))
-    scoped_revisions.each do |revision|
-      rev_id = revision.mw_rev_id
-      individual_stat = analyzed_revisions[rev_id]
-      serialized_stat = individual_stat.to_json
-      revision.summary = serialized_stat
-    end
+    result = analyze_revisions(revisions.map(&:mw_rev_id))
+    not_analyzed = result[:diffs_not_analyzed].to_set
+    revisions.each { |rev| apply_diff(rev, result[:diffs], not_analyzed) }
     revisions
   rescue WikidataDiffAnalyzerError
-    # If the request to WikidataDiffAnalyzer failed, mark scoped revisions with error
-    scoped_revisions.each { |rev| rev.error = true }
+    revisions.each { |rev| rev.error = true }
     revisions
   end
 
   # Given an array of revisions, it builds the stats for those revisions
   def build_stats_from_revisions(revisions)
-    stats = {}
-    STATS_CLASSIFICATION.each_key do |key|
-      stats[STATS_CLASSIFICATION[key]] = 0
-    end
-
-    # create a sum of stats after deserializing the stats for each revision object
+    stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
     revisions.each do |revision|
-      # Deserialize the summary field to get the stats
-      deserialized_stat = revision.diff_stats
-      next if deserialized_stat.nil?
-      # create a stats which sums up each field of the deserialized_stat and create a stats hash
-      deserialized_stat.each do |key, value|
-        stats[STATS_CLASSIFICATION[key]] += value
+      revision.diff_stats&.each do |key, value|
+        # Skip non-counter fields the analyzer may include (e.g. merge_target).
+        ui_label = STATS_CLASSIFICATION[key] or next
+        stats[ui_label] += value
       end
     end
     stats['total revisions'] = revisions.count
@@ -128,13 +117,35 @@ class UpdateWikidataStatsTimeslice
 
   private
 
+  def apply_diff(revision, diffs, not_analyzed)
+    if not_analyzed.include?(revision.mw_rev_id)
+      revision.deleted = true
+      return
+    end
+    diff = diffs[revision.mw_rev_id]
+    if revision.scoped
+      revision.summary = diff.to_json
+    elsif merge_into_in_scope_target?(diff)
+      revision.summary = { 'merge_to' => 1 }.to_json
+    end
+  end
+
+  # Admit a non-scoped revision's merge_to contribution iff the merge target
+  # parsed from the edit comment is itself a scoped article on this course.
+  def merge_into_in_scope_target?(diff)
+    return false unless diff && diff[:merge_to] == 1
+    target = diff[:merge_target]
+    return false unless target
+    @course.scoped_article?(wikidata, target, nil)
+  end
+
   TYPICAL_ERRORS = [].freeze
 
   RETRY_COUNT = 3
 
   def analyze_revisions(revision_ids)
     tries ||= RETRY_COUNT
-    WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
+    WikidataDiffAnalyzer.analyze(revision_ids)
   rescue StandardError => e
     tries -= 1
     retry unless tries.zero?
@@ -143,18 +154,10 @@ class UpdateWikidataStatsTimeslice
   end
 
   def sum_up_stats(individual_stats)
-    total_stats = {}
-    STATS_CLASSIFICATION.each_key do |key|
-      total_stats[STATS_CLASSIFICATION[key]] = 0
-    end
-    # Add total revisions
+    total_stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
     total_stats['total revisions'] = 0
-
-    # Iterate over each individual stat and sum up the values
     individual_stats.each do |hash|
-      hash.each do |key, value|
-        total_stats[key] += value
-      end
+      hash.each { |key, value| total_stats[key] += value }
     end
     total_stats
   end

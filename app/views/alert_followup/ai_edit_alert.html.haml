@@ -28,7 +28,7 @@
         %label.no-label
           = f.check_box(:ai_how_used, { multiple: true }, :copyedit_text, nil)
           I used an AI tool for editing text I wrote.
-        %br  
+        %br
         %label.no-label
           = f.check_box(:ai_how_used, { multiple: true }, :false_positive, nil)
           FALSE POSITIVE: I didn't use any AI tool. (<em>Skip to the end and Submit.</em>)
@@ -64,7 +64,7 @@
       .form-group
         %label What did you use AI for?
         %label.no-label
-          = f.check_box(:ai_used_for, { multiple: true }, :initial_draft, nil) 
+          = f.check_box(:ai_used_for, { multiple: true }, :initial_draft, nil)
           to generate an initial draft
         %br
         %label.no-label
@@ -93,7 +93,7 @@
       .form-group
         %label
           Please share any additional context, such as specific prompts,
-          advanced features you used, or any techniques you employed to 
+          advanced features you used, or any techniques you employed to
           improve the AI output.
 
         = f.text_area :additional_context, size: '100x5'

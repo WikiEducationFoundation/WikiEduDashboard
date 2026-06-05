@@ -57,6 +57,7 @@ describe 'ticket dashboard', type: :feature, js: true do
   before do
     login_as admin
     visit '/tickets/dashboard'
+    expect(page).to have_field 'tickets_search_email_or_username'
   end
 
   it 'displays all search bars' do
@@ -119,6 +120,7 @@ describe 'ticket dashboard', type: :feature, js: true do
       end.count
 
       expect(nb_of_lines).to eq 2
+      expect(page).to be_axe_clean
     end
 
     it 'finds one match in content' do

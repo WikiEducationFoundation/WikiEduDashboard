@@ -2,6 +2,12 @@
 
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager
+  class InvalidWizardError < StandardError; end
+
+  VALID_WIZARD_IDS = Dir.children("#{Rails.root}/config/wizard")
+                        .select { |f| File.directory?("#{Rails.root}/config/wizard/#{f}") }
+                        .freeze
+
   ###############
   # Entry point #
   ###############
@@ -17,6 +23,10 @@ class WizardTimelineManager
   #############
 
   def initialize(course, wizard_id, wizard_params)
+    unless VALID_WIZARD_IDS.include?(wizard_id)
+      raise InvalidWizardError, "Invalid wizard_id: #{wizard_id}"
+    end
+
     @course = course
     @output = wizard_params['wizard_output']['output'] || []
     @logic = wizard_params['wizard_output']['logic'] || []
@@ -24,7 +34,7 @@ class WizardTimelineManager
 
     # Load the wizard content building blocks.
     content_path = "#{Rails.root}/config/wizard/#{wizard_id}/content.yml"
-    @all_content = YAML.load_file(content_path)
+    @all_content = YAML.safe_load_file(content_path, permitted_classes: [])
 
     @timeline = []
   end
@@ -177,9 +187,7 @@ class WizardTimelineManager
     link_text = HANDOUTS[logic_key][0]
     url = HANDOUTS[logic_key][1]
     <<~LINK
-      <p>
-        <a class="handout-link" href="#{url}" target="_blank">#{link_text}</a>
-      </p>
+      <a class="handout-link" href="#{url}" target="_blank">#{link_text}</a>
     LINK
   end
 

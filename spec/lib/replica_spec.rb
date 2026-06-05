@@ -260,35 +260,45 @@ describe Replica do
     let(:subject) { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ETIMEDOUT)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ECONNREFUSED)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
+    it 'skips a wiki whose replica DB is unreachable without reporting to Sentry' do
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+        .to_return(status: 502,
+                   body: '{ "success": false, "error": "Cannot connect to database" }',
+                   headers: {})
+      expect_any_instance_of(described_class).not_to receive(:log_error)
+      expect(Rails.logger).to receive(:warn).at_least(:once)
+      expect(subject).to be_empty
+    end
+
     it 'handles server errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect_any_instance_of(described_class).not_to receive(:log_error)
       expect(subject).to be_empty
@@ -300,37 +310,88 @@ describe Replica do
     let(:result) { described_class.new(en_wiki).post_existing_articles_by_title(article_titles) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ETIMEDOUT)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_raise(Errno::ECONNREFUSED)
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
+    it 'skips a wiki whose replica DB is unreachable without reporting to Sentry' do
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+        .to_return(status: 502,
+                   body: '{ "success": false, "error": "Cannot connect to database" }',
+                   headers: {})
+      expect_any_instance_of(described_class).not_to receive(:log_error)
+      expect(Rails.logger).to receive(:warn).at_least(:once)
+      expect(result).to be_nil
+    end
+
     it 'handles server errors' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 500, body: '', headers: {})
       expect_any_instance_of(described_class).to receive(:log_error).once
       expect(result).to be_nil
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{https://replica-revision-tools.wmcloud.org/.*})
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect(result).to be_empty
     end
   end
+
+  # Regression test for the suppressed parent revision bug.
+  describe 'suppressed parent revision' do
+    it 'returns correct characters for a revision with a suppressed parent revision' do
+      VCR.use_cassette 'replica/suppressed_parent_revision' do
+        user = build(:user, username: 'Rhitorical')
+        response = described_class.new(en_wiki)
+                                  .get_revisions([user], 2025_02_01_000000,
+                                                 2025_06_01_000000)
+        rev = response['9171866']['revisions'].find { |r| r['mw_rev_id'] == '1278154303' }
+
+        expect(rev['characters'].to_i).to eq(1842)
+      end
+    end
+  end
+
+  # Without these, a silent Replica endpoint blocks the worker indefinitely.
+  describe 'HTTP timeouts' do
+    before do
+      allow(Net::HTTP).to receive(:start).and_return(
+        instance_double(Net::HTTPResponse, code: '200',
+                                           body: '{"success":true,"data":[]}')
+      )
+    end
+
+    it 'passes finite open_timeout and read_timeout to Net::HTTP.start for do_query' do
+      described_class.new(en_wiki).send(:do_query, 'revisions.php', 'foo=bar')
+      expect(Net::HTTP).to have_received(:start).with(
+        anything, anything,
+        hash_including(open_timeout: described_class::OPEN_TIMEOUT,
+                       read_timeout: described_class::READ_TIMEOUT)
+      )
+    end
+
+    it 'has positive, finite timeout constants' do
+      expect(described_class::OPEN_TIMEOUT).to be > 0
+      expect(described_class::READ_TIMEOUT).to be > 0
+    end
+  end
 end
+
+

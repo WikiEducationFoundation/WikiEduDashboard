@@ -6,8 +6,8 @@ module Errors
       ##
       # dynamically include each rescue method
       # When implementing a new rescue, add its base name here (minus the _rescue part).
-      rescues = %i[invalid_token unknown_format not_signed_in not_permitted not_admin
-                   participating_user].freeze
+      rescues = %i[invalid_token unknown_format not_found not_signed_in not_permitted
+                   not_admin participating_user slug_not_unique].freeze
       rescues.each do |err|
         send("rescue_#{err}", base)
       end
@@ -28,6 +28,16 @@ module Errors
       # to Sentry.
       base.rescue_from ActionController::UnknownFormat do
         render plain: t('error_404.explanation'), status: :not_found
+      end
+    end
+
+    def self.rescue_not_found(base)
+      base.rescue_from ActionController::RoutingError do |e|
+        if json?(request)
+          render json: { message: e.message }, status: :not_found
+        else
+          raise e
+        end
       end
     end
 
@@ -75,6 +85,20 @@ module Errors
         end
       end
     end
+
+    def self.rescue_slug_not_unique(base)
+      base.rescue_from ActiveRecord::RecordNotUnique do |e|
+         # Target the duplicate slug error
+        if e.message.include?('index_courses_on_slug')
+          dup_slug = e.message[/Duplicate entry '([^']+)'/, 1]
+          message = I18n.t('courses.error.duplicate_course_slug', slug: dup_slug)
+          render json: { message: message, error: e.message }, status: :conflict
+        else
+          raise e # Let other uniqueness errors (if any) bubble up
+        end
+      end
+    end
+
 
     private
 

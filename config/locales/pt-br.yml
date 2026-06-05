@@ -1473,6 +1473,10 @@ pt-br:
         revoking_button_working: Revogando...
         already_is_not: '%{username} não é um usuário especial!'
         demote_success: '%{username} agora é apenas um usuário.'
+    disallowed_users:
+      add_button: Adicionar usuário
+      remove_button: Remover
+      submit_button: Enviar
   status:
     default: Padrão
     no_info: Nenhuma informação disponível.

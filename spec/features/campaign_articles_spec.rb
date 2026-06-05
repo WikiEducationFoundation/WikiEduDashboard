@@ -17,6 +17,7 @@ describe 'campaign articles page', type: :feature, js: true do
   it 'shows articles edited by campaign courses' do
     visit "/campaigns/#{campaign.slug}/articles"
     expect(page).to have_content('ExampleArticle')
+    expect(page).to be_axe_clean
   end
 
   it 'shows an explanation when there are too many articles' do

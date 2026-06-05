@@ -1,21 +1,22 @@
 # frozen_string_literal: true
 
 class UpdateDebugger
+  attr_reader :stage_timings
+
   def initialize(course)
     @course = course
+    @stage_timings = {}
+    @log_number = 0
   end
 
   def log_update_progress(step)
-    return unless debug?
-    @sentry_logs ||= {}
-    @log_number ||= 0
-    # Add the log number to the step name so that the records are sorted
-    ordered_step = "#{@log_number}_#{step}".to_sym
-    @sentry_logs[ordered_step] = Time.zone.now
+    ordered_step = :"#{@log_number}_#{step}"
+    @stage_timings[ordered_step] = Time.zone.now
     @log_number += 1
+    return unless debug?
     Sentry.capture_message "#{@course.title} update: #{step}",
                            level: 'warning',
-                           extra: { logs: @sentry_logs }
+                           extra: { logs: @stage_timings }
   end
 
   def debug?

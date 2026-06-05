@@ -26,8 +26,10 @@ class LiftWingApi
   # config/initializers/retry_config.rb
   RETRY_COUNT = 5
 
+  # Wikidata is intentionally excluded: for Wikidata revisions we don't use any of the
+  # Lift Wing outputs (wp10/features are Wikipedia-specific, and `deleted` is now recovered
+  # from WikidataDiffAnalyzer's `diffs_not_analyzed`).
   def self.valid_wiki?(wiki)
-    return true if wiki.project == 'wikidata'
     wiki.project == 'wikipedia' && AVAILABLE_WIKIPEDIAS.include?(wiki.language)
   end
 
@@ -96,12 +98,20 @@ class LiftWingApi
     "/service/lw/inference/v1/models/#{wiki_key}-#{model_key}:predict"
   end
 
+  # Without these timeouts, a silent Lift Wing server leaves the worker blocked
+  # in IO#wait_readable indefinitely. With them, Faraday::TimeoutError raises
+  # and the caller's rescue loop can retry or fall through to per-revision
+  # error handling instead of hanging the whole job.
+  OPEN_TIMEOUT = 30
+  REQUEST_TIMEOUT = 60
+
   def lift_wing_server
     Faraday.new(
       url: LIFT_WING_SERVER_URL,
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      request: { open_timeout: OPEN_TIMEOUT, timeout: REQUEST_TIMEOUT }
     )
     # connection.headers['User-Agent'] = ENV['visualizer_url'] + ' ' + Rails.env
   end

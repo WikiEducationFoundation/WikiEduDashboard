@@ -27,4 +27,20 @@ RSpec.describe UpdateServiceErrorHelper do
       expect(subject.error_count).to eq(5)
     end
   end
+
+  describe '#record_too_many_requests' do
+    it 'starts at 0' do
+      expect(subject.too_many_requests_count).to eq(0)
+    end
+
+    it 'increments too_many_requests_count by 1 when no argument is given' do
+      expect { subject.record_too_many_requests }
+        .to change(subject, :too_many_requests_count).by(1)
+    end
+
+    it 'increments too_many_requests_count by the given count' do
+      expect { subject.record_too_many_requests(4) }
+        .to change(subject, :too_many_requests_count).by(4)
+    end
+  end
 end

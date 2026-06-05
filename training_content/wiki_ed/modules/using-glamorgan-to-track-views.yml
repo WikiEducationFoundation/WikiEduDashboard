@@ -1,0 +1,13 @@
+---
+name: Using GLAMorgan to track views
+id: 85
+description: "A variety of open tools are available for use on Wikimedia Commons itself
+  or that draw on its data. Some tools are built into Wikimedia Commons and others
+  are external. \n\nTools are generally created and maintained by community members
+  for specific purposes and can sometimes be glitchy. This module will explain GLAMorgan,
+  a tool that tracks image views."
+estimated_ttc: 20-25 minutes
+slides:
+- slug: what-s-glamorgan
+- slug: tracking-image-views
+- slug: tracking-across-all-wikimedia-platforms

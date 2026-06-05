@@ -1,6 +1,7 @@
 # Messages for Slovak (slovenčina)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: KormiSK
 # Author: Kusavica
 # Author: Luky001
 # Author: Pmikolas44
@@ -242,6 +243,15 @@ sk:
     overview: Domov
     students: Študenti
     students_short: Študenti
+    approval_form_heading: Formulár schválenia kurzu
+    add_program_manager: 'Pridať správcu programu:'
+    add_wiki_expert: 'Pridať experta z Wikipédie:'
+    add_tags: 'Pridať značky:'
+    add_campaigns: 'Pridať kampane:'
+    invalid_salesforce_id: Zadané ID nie je platné.
+    approve_course: Schváliť kurz
+    declined_note: Tento kurz bol zamietnutý. V prípade otázok kontaktujte, prosím,
+      personál Wiki Education.
   courses_generic:
     creator:
       course_description_placeholder: O čom je tento program, a čo budú účastníci
@@ -255,6 +265,8 @@ sk:
   editable:
     edit_template: Upraviť šablónu
   metrics:
+    editors_doc: Toto je počet unikátnych používateľov, ktorí v kurze upravili články.
+    program_date_doc: Toto je dátum programu.
     last_update: Posledná akualizácia štatistík
     next_update: Ďalšia predpokladaná aktualizácia
     articles_created: Vytvorené stránky
@@ -269,4 +281,6 @@ sk:
     label: Nahrané súbory
   users:
     editors: Redaktori
+  form_search:
+    program_date: Dátum programu
 ...

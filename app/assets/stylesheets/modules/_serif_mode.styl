@@ -1,0 +1,40 @@
+serif-stack = Georgia, 'Times New Roman', Times, serif
+
+html.serif-mode
+  body,
+  h1, h2, h3, h4, h5, h6,
+  input, textarea, select, button,
+  .form-content
+    font-family serif-stack
+
+.font-toggle
+  display inline-flex
+  background #f0f0f0
+  border 1px solid #d0d0d0
+  border-radius 4px
+  overflow hidden
+  white-space nowrap
+  margin-left 0.5em
+  vertical-align middle
+
+  &__btn
+    padding 2px 8px
+    font-size 11px
+    font-weight 500
+    border none
+    background transparent
+    cursor pointer
+    color #666
+    transition all 0.2s ease
+    line-height 1.4
+    &:hover
+      background #e5e5e5
+    &.active
+      background $brand_primary
+      color white
+
+    &--sans
+      font-family body-font
+      border-right 1px solid #d0d0d0
+    &--serif
+      font-family serif-stack

@@ -34,6 +34,8 @@ class WikiSlideParser
     wikitext = @wikitext.lines.drop(1).join # First line is the title
     wikitext[0] = '' while wikitext[0] == "\n" # Remove leading newlines
     markdown = Wikitext.mediawiki_to_markdown(wikitext)
+    # Pandoc 3.x escapes < and > in HTML with backslashes; undo that for our injected markup.
+    markdown = markdown.gsub('\<', '<').gsub('\>', '>')
     # Make sure first line after a figure gets parsed as a new paragraph
     markdown.gsub("figure>\n", "figure>\n\n")
   end
