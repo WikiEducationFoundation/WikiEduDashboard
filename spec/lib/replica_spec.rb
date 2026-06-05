@@ -330,6 +330,16 @@ describe Replica do
       expect(result).to be_nil
     end
 
+    it 'skips a wiki whose replica DB is unreachable without reporting to Sentry' do
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+        .to_return(status: 502,
+                   body: '{ "success": false, "error": "Cannot connect to database" }',
+                   headers: {})
+      expect_any_instance_of(described_class).not_to receive(:log_error)
+      expect(Rails.logger).to receive(:warn).at_least(:once)
+      expect(result).to be_nil
+    end
+
     it 'handles server errors' do
       stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 500, body: '', headers: {})
