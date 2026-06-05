@@ -374,13 +374,13 @@ describe UpdateCourseWikiTimeslices do
         allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
         allow(ArticleCourseUserWikiTimeslice)
           .to receive(:update_article_course_user_wiki_timeslices)
-        allow(ArticleCourseTimeslice).to receive(:update_from_acuwt)
+        allow(ArticleCourseTimeslice).to receive(:bulk_update_from_acuwt)
         allow(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
       end
 
-      it 'calls ArticleCourseTimeslice.update_from_acuwt for articles in revised timeslices' do
-        expect(ArticleCourseTimeslice).to receive(:update_from_acuwt)
-          .with(course, article_id, enwiki, anything, anything).at_least(:once)
+      it 'calls ArticleCourseTimeslice.bulk_update_from_acuwt for revised timeslices' do
+        expect(ArticleCourseTimeslice).to receive(:bulk_update_from_acuwt)
+          .with(course, enwiki, anything, anything).at_least(:once)
         subject
       end
 

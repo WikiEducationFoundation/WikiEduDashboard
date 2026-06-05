@@ -70,11 +70,15 @@ class ArticleCourseTimeslice < ApplicationRecord
     ac_timeslice.update_cache_from_revisions revisions[:revisions]
   end
 
-  def self.update_from_acuwt(course, article_id, wiki, start, finish)
-    acuwt_records = ArticleCourseUserWikiTimeslice
-                      .where(course:, article_id:, wiki:, start:, end: finish)
-    ac_timeslice = find_or_create_by(course:, article_id:, start:, end: finish)
-    ac_timeslice.update_cache_from_acuwt(acuwt_records)
+  # Bulk-update ACT rows for a single timeslice window from stored ACUWT records.
+  # Replaces the per-article find_or_create_by + N aggregate queries with one SELECT
+  # (all ACUWT for the window) + one upsert_all.
+  def self.bulk_update_from_acuwt(course, wiki, ts_start, ts_end)
+    records = act_records_from_acuwt(course, wiki, ts_start, ts_end)
+    return if records.empty?
+    upsert_all(records,
+               update_only: %i[revision_count character_sum references_count
+                               user_ids new_article first_revision updated_at])
   end
 
   def self.log_nil_article_id(course, article_id, wiki_id, revisions)
@@ -106,15 +110,28 @@ class ArticleCourseTimeslice < ApplicationRecord
     save
   end
 
-  def update_cache_from_acuwt(acuwt_records)
-    self.revision_count = acuwt_records.sum(:revision_count)
-    self.character_sum = acuwt_records.sum(:character_sum)
-    self.references_count = acuwt_records.sum(:references_count)
-    self.user_ids = acuwt_records.where('revision_count > 0').pluck(:user_id)
-    self.new_article = acuwt_records.where(new_article: true).exists?
-    self.first_revision = acuwt_records.minimum(:first_revision)
-    save
+  def self.act_records_from_acuwt(course, wiki, ts_start, ts_end)
+    now = Time.current
+    base = { course_id: course.id, start: ts_start, end: ts_end }
+    ArticleCourseUserWikiTimeslice
+      .where(course:, wiki:, start: ts_start, end: ts_end)
+      .group_by(&:article_id)
+      .map do |article_id, rows|
+        { **base, article_id:, created_at: now, updated_at: now,
+          **act_stats_from_acuwt(rows) }
+      end
   end
+  private_class_method :act_records_from_acuwt
+
+  def self.act_stats_from_acuwt(rows)
+    { revision_count: rows.sum(&:revision_count),
+      character_sum: rows.sum(&:character_sum),
+      references_count: rows.sum(&:references_count),
+      user_ids: rows.select { |r| r.revision_count.positive? }.map(&:user_id),
+      new_article: rows.any?(&:new_article),
+      first_revision: rows.map(&:first_revision).compact.min }
+  end
+  private_class_method :act_stats_from_acuwt
 
   private
 
