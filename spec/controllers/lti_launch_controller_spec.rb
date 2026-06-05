@@ -429,6 +429,28 @@ describe LtiLaunchController, type: :request do
           expect(response.body).to include('There is no Dashboard content')
         end
       end
+
+      context 'on the first launch of a deep-link-created assignment' do
+        let!(:deep_block) do
+          create(:block, week:, order: 1, title: 'Draft your article',
+                         training_module_ids: [exercise_module.id])
+        end
+        let(:idtoken) do
+          base = idtoken_for(role)
+          base['services']['assignmentAndGrades'] = { 'lineItemId' => 'https://canvas/li/NEW' }
+          base['custom'] = { 'resource' => "Block:#{deep_block.id}" }
+          base
+        end
+
+        it 'binds a new line item from the resource marker and renders its view' do
+          expect { get '/lti', params: { ltik: 'ltik-abc' } }
+            .to change(LtiLineItem, :count).by(1)
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Draft your article')
+          expect(LtiLineItem.find_by(lineitem_id: 'https://canvas/li/NEW').gradable_id)
+            .to eq(deep_block.id)
+        end
+      end
     end
 
     context 'when signed in as a student' do

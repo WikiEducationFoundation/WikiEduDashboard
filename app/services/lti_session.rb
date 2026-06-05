@@ -109,6 +109,15 @@ class LtiSession
     @idtoken.dig('custom', 'canvas_assignment_id').presence
   end
 
+  # The deep-link resource marker (e.g. "Block:42" or "TrainingProgress") we
+  # set on the content item, echoed back under the `custom` claim on launches
+  # of the Canvas assignment created from it. Lets the first such launch bind
+  # its line item to the Dashboard gradable. Blank on launches of assignments
+  # we didn't create via deep linking.
+  def deep_link_resource
+    @idtoken.dig('custom', 'resource').presence
+  end
+
   # The service-auth key captured from this launch's idtoken. Long-lived
   # but per LTIAAS docs should be refreshed into the binding on every
   # launch in case the underlying NRPS/AGS endpoint URLs have changed.

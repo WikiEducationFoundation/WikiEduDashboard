@@ -13,8 +13,8 @@ describe ResolveAssignmentLineItem do
                         gradable_id: 1, lineitem_id: 'https://canvas/li/7', label: 'Evaluate')
   end
 
-  def session(canvas_assignment_id:, ags_lineitem_url:)
-    instance_double(LtiSession, canvas_assignment_id:, ags_lineitem_url:)
+  def session(canvas_assignment_id:, ags_lineitem_url:, deep_link_resource: nil)
+    instance_double(LtiSession, canvas_assignment_id:, ags_lineitem_url:, deep_link_resource:)
   end
 
   it 'finds by canvas_assignment_id when it has already been captured' do
@@ -38,5 +38,47 @@ describe ResolveAssignmentLineItem do
     line_item.archive!
     lti_session = session(canvas_assignment_id: nil, ags_lineitem_url: 'https://canvas/li/7')
     expect(described_class.new(binding:, lti_session:).result).to be_nil
+  end
+
+  describe 'first launch of a deep-link-created assignment (no local row yet)' do
+    let!(:week) { create(:week, course:, order: 1) }
+    let(:exercise_module) do
+      create(:training_module, slug: 'biblio', name: 'Bibliography', kind: 1)
+    end
+    let!(:exercise_block) do
+      create(:block, week:, order: 0, title: 'Find sources',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    before do
+      allow(LtiLineItemSyncWorker).to receive(:perform_in)
+      allow(LtiLineItemSyncWorker).to receive(:perform_async)
+    end
+
+    it 'binds a new line item from the resource marker and returns it' do
+      lti_session = session(canvas_assignment_id: nil, ags_lineitem_url: 'https://canvas/li/NEW',
+                            deep_link_resource: "Block:#{exercise_block.id}")
+      result = nil
+      expect { result = described_class.new(binding:, lti_session:).result }
+        .to change(LtiLineItem, :count).by(1)
+      expect(result.gradable_type).to eq('Block')
+      expect(result.gradable_id).to eq(exercise_block.id)
+      expect(result.lineitem_id).to eq('https://canvas/li/NEW')
+      expect(result.label).to eq('Wk1 Find sources')
+    end
+
+    it 'does not bind a resource that is not one of the course gradables' do
+      lti_session = session(canvas_assignment_id: nil, ags_lineitem_url: 'https://canvas/li/NEW',
+                            deep_link_resource: 'Block:999999')
+      expect { described_class.new(binding:, lti_session:) }.not_to change(LtiLineItem, :count)
+    end
+
+    it 'is idempotent across repeated launches of the same assignment' do
+      sess = session(canvas_assignment_id: nil, ags_lineitem_url: 'https://canvas/li/NEW',
+                     deep_link_resource: "Block:#{exercise_block.id}")
+      described_class.new(binding:, lti_session: sess)
+      expect { described_class.new(binding:, lti_session: sess) }
+        .not_to change(LtiLineItem, :count)
+    end
   end
 end
