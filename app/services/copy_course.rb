@@ -160,7 +160,8 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
   def copy_blocks(week, blocks)
     blocks.each do |block_data|
       block = Block.create!(content: block_data['content'], title: block_data['title'],
-                            week_id: week.id, order: block_data['order'], kind: block_data['kind'])
+                            week_id: week.id, order: block_data['order'], kind: block_data['kind'],
+                            due_date: block_data['due_date'], points: block_data['points'])
       update_block_content(block, block_data)
     end
   end
@@ -180,6 +181,8 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     content_additions.reverse_each do |kind, addition|
       final_content = headings[kind] + addition + final_content unless addition.empty?
     end
+
+    final_content.gsub!('href="/', "href=\"#{@host}/") if final_content.present?
 
     block.update!(content: final_content)
   end
