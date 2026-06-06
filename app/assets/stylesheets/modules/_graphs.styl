@@ -40,6 +40,34 @@
       border-radius 50%
       margin-right 5px
 
+  .scoring-progress
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+    min-height 300px
+    padding 0 40px
+
+    &__label
+      font-size 13px
+      color #555
+      margin 0 0 10px
+
+    &__track
+      width 70%
+      max-width 360px
+      height 8px
+      background #eee
+      border-radius 4px
+      overflow hidden
+      margin-bottom 14px
+
+    &__fill
+      height 100%
+      background $brand_primary
+      transition-property width
+      transition-timing-function linear
+
   .graph-doc
     margin 16px auto 8px
     max-width 460px

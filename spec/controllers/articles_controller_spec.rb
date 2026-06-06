@@ -16,9 +16,12 @@ describe ArticlesController, type: :request do
   end
 
   describe '#revision_score' do
-    it 'sets the article from the id' do
-      get "/articles/#{article.id}/revision_score", params: { course_id: course.id, format: :json }
+    it 'returns wp10 scores for the posted revision ids' do
+      allow_any_instance_of(LiftWingApi).to receive(:get_revision_data)
+        .and_return('1001' => { 'wp10' => 0.42 })
+      post "/articles/#{article.id}/revision_score", params: { rev_ids: [1001], format: :json }
       expect(assigns(:article)).to eq(article)
+      expect(Oj.load(response.body)).to eq('1001' => 0.42)
     end
   end
 

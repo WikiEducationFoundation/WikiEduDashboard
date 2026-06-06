@@ -96,7 +96,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
             ? (
               <small>
                 <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a>
-                {article.scoreable && <> | <ArticleGraphs article={article} course_id={course.id} courseStart={course.start} courseEnd={course.end}/></>}
+                {article.scoreable && <> | <ArticleGraphs article={article} courseStart={course.start} courseEnd={course.end}/></>}
               </small>
             )
             : (

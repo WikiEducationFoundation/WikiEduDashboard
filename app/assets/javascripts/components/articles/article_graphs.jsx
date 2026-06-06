@@ -5,12 +5,48 @@ import ArticleSizeGraph from './article_size_graph.jsx';
 import Loading from '../common/loading.jsx';
 import request from '../../utils/request.js';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
+import { fetchArticleRevisions } from '../../utils/article_revision_api.js';
 import { userHighlightColors } from '../common/ArticleViewer/constants/colors';
 
 // Editors who aren't course participants all share one muted color.
 const OTHER_EDITOR_COLOR = '#999999';
+// Rough per-revision LiftWing time, used only to pace the scoring progress bar.
+const SCORE_SECONDS_PER_EDIT = 0.5;
 
-const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
+// Determinate-ish progress bar shown while wp10 scoring runs. It fills toward
+// 95% over an estimate (count x per-edit time), then the graph replaces it when
+// scores arrive. Cancel lets the user bail back to the instant Article Size view.
+const ScoringProgress = ({ count, onCancel }) => {
+  const [filled, setFilled] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setFilled(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const status = I18n.t('articles.scoring_status', { count });
+  const seconds = Math.max(2, count * SCORE_SECONDS_PER_EDIT);
+
+  return (
+    <div className="scoring-progress">
+      {status && <p className="scoring-progress__label">{status}</p>}
+      <div className="scoring-progress__track">
+        <div
+          className="scoring-progress__fill"
+          style={{ width: filled ? '95%' : '0%', transitionDuration: `${seconds}s` }}
+        />
+      </div>
+      <button
+        type="button"
+        className="button dark"
+        onClick={(e) => { e.stopPropagation(); onCancel(); }}
+      >
+        {I18n.t('application.cancel')}
+      </button>
+    </div>
+  );
+};
+
+const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
   const { id: article_id } = article;
   const wikiUrl = `https://${toWikiDomain({ language: article.language, project: article.project })}`;
 
@@ -23,10 +59,13 @@ const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
   );
 
   const [showGraph, setShowGraph] = useState(false);
-  const [selectedRadio, setSelectedRadio] = useState('wp10_score');
-  const [articleData, setArticleData] = useState(null);
+  const [selectedRadio, setSelectedRadio] = useState('article_size');
+  const [revisions, setRevisions] = useState(null);
+  const [scores, setScores] = useState(null);
+  const [scoring, setScoring] = useState(false);
 
   const elementRef = useRef(null);
+  const abortRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -35,7 +74,6 @@ const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
         handleHideGraph();
       }
     };
-
     const handlePressEscapeKey = (event) => {
       if (event.key === 'Escape') {
         handleHideGraph();
@@ -43,44 +81,71 @@ const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
     };
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('keydown', handlePressEscapeKey);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handlePressEscapeKey);
     };
   }, []);
 
-  function getData() {
-    if (articleData) {
-      return;
-    }
-    const articledataUrl = `/articles/${article_id}/revision_score?course_id=${course_id}`;
-    request(articledataUrl)
+  // Fetch the revision list straight from the MediaWiki API. This is all the
+  // Article Size graph needs, so it can render immediately.
+  function loadRevisions() {
+    if (revisions) return;
+    const controller = new AbortController();
+    abortRef.current = controller;
+    fetchArticleRevisions({ article, start: courseStart, end: courseEnd, signal: controller.signal })
+      .then(setRevisions)
+      .catch((e) => { if (e.name !== 'AbortError') setRevisions([]); });
+  }
+
+  // wp10 scoring is server-side and slower, so it only runs when the user asks
+  // for the Structural Completeness view.
+  function loadScores() {
+    if (scores || scoring || !revisions || revisions.length === 0) return;
+    setScoring(true);
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const revIds = revisions.map(rev => rev.rev_id);
+    request(`/articles/${article_id}/revision_score`, {
+      method: 'POST',
+      body: JSON.stringify({ rev_ids: revIds }),
+      signal: controller.signal
+    })
       .then(resp => resp.json())
-      .then((data) => {
-        setArticleData(data);
-      });
+      .then((data) => { setScores(data); setScoring(false); })
+      .catch((e) => { if (e.name !== 'AbortError') setScoring(false); });
   }
 
   function handleShowGraph() {
-    getData();
     setShowGraph(true);
+    loadRevisions();
   }
 
   function handleHideGraph() {
-    setArticleData(null);
+    if (abortRef.current) abortRef.current.abort();
     setShowGraph(false);
+  }
+
+  function selectView(view) {
+    setSelectedRadio(view);
+    if (view === 'wp10_score') loadScores();
+  }
+
+  function cancelScoring() {
+    if (abortRef.current) abortRef.current.abort();
+    setScoring(false);
+    setSelectedRadio('article_size');
   }
 
   // Give each participant who edited this article a distinct color, taken in
   // order from the front of the shared editor palette (highest-contrast hues);
-  // every other editor gets the muted "other" color. Color is precomputed onto
-  // each datum so both graphs and the legend stay consistent.
+  // every other editor gets the muted color. Color (and wp10, once scored) is
+  // precomputed onto each datum so both graphs and the legend stay consistent.
   const { coloredData, legendEntries } = useMemo(() => {
-    if (!articleData) return { coloredData: null, legendEntries: [] };
+    if (!revisions) return { coloredData: null, legendEntries: [] };
     const colorFor = {};
     let hasOtherEditors = false;
-    articleData.forEach((rev) => {
+    revisions.forEach((rev) => {
       if (!participantUsernames.has(rev.username)) {
         hasOtherEditors = true;
       } else if (!(rev.username in colorFor)) {
@@ -89,9 +154,10 @@ const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
       }
     });
 
-    const colored = articleData.map(rev => ({
+    const colored = revisions.map(rev => ({
       ...rev,
-      color: colorFor[rev.username] || OTHER_EDITOR_COLOR
+      color: colorFor[rev.username] || OTHER_EDITOR_COLOR,
+      wp10: scores ? scores[String(rev.rev_id)] : undefined
     }));
 
     const entries = Object.keys(colorFor).map(username => ({ label: username, color: colorFor[username] }));
@@ -99,10 +165,10 @@ const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
       entries.push({ label: I18n.t('articles.editor_other'), color: OTHER_EDITOR_COLOR });
     }
     return { coloredData: colored, legendEntries: entries };
-  }, [articleData, participantUsernames]);
+  }, [revisions, scores, participantUsernames]);
 
   const graphId = `vega-graph-${article_id}`;
-  const dataIncludesWp10 = articleData?.[0]?.wp10;
+  const showingWp10 = selectedRadio === 'wp10_score';
 
   const sharedGraphProps = {
     graphid: graphId,
@@ -115,48 +181,40 @@ const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
   };
 
   let graph;
-  if (!articleData) {
+  if (!revisions) {
     graph = <Loading />;
-  } else if (dataIncludesWp10 && selectedRadio === 'wp10_score') {
+  } else if (showingWp10 && !scores) {
+    graph = <ScoringProgress count={revisions.length} onCancel={cancelScoring} />;
+  } else if (showingWp10) {
     graph = <Wp10Graph {...sharedGraphProps} />;
   } else {
     graph = <ArticleSizeGraph {...sharedGraphProps} />;
   }
 
-  // Only offer the toggle when wp10 scores are available; otherwise the
-  // article-size graph is the only view, so no choice is needed.
-  let toggle = null;
-  if (dataIncludesWp10) {
-    toggle = (
-      <span className="graph-toggle" role="group" aria-label={I18n.t('articles.article_development')}>
-        <button
-          type="button"
-          className={`graph-toggle__btn${selectedRadio === 'wp10_score' ? ' active' : ''}`}
-          aria-pressed={selectedRadio === 'wp10_score'}
-          onClick={() => setSelectedRadio('wp10_score')}
-        >
-          {I18n.t('articles.wp10')}
-        </button>
-        <button
-          type="button"
-          className={`graph-toggle__btn${selectedRadio === 'article_size' ? ' active' : ''}`}
-          aria-pressed={selectedRadio === 'article_size'}
-          onClick={() => setSelectedRadio('article_size')}
-        >
-          {I18n.t('articles.article_size')}
-        </button>
-      </span>
-    );
-  }
+  const toggle = (
+    <span className="graph-toggle" role="group" aria-label={I18n.t('articles.article_development')}>
+      <button
+        type="button"
+        className={`graph-toggle__btn${showingWp10 ? '' : ' active'}`}
+        aria-pressed={!showingWp10}
+        onClick={(e) => { e.stopPropagation(); selectView('article_size'); }}
+      >
+        {I18n.t('articles.article_size')}
+      </button>
+      <button
+        type="button"
+        className={`graph-toggle__btn${showingWp10 ? ' active' : ''}`}
+        aria-pressed={showingWp10}
+        onClick={(e) => { e.stopPropagation(); selectView('wp10_score'); }}
+      >
+        {I18n.t('articles.wp10')}
+      </button>
+    </span>
+  );
 
   // Explanatory copy for the active view (operator-authored).
-  let docText = null;
-  if (articleData) {
-    const doc = dataIncludesWp10 && selectedRadio === 'wp10_score'
-      ? I18n.t('articles.wp10_doc')
-      : I18n.t('articles.article_size_doc');
-    if (doc) docText = doc;
-  }
+  const doc = showingWp10 ? I18n.t('articles.wp10_doc') : I18n.t('articles.article_size_doc');
+  const docText = revisions ? doc : null;
 
   const legend = legendEntries.length > 0 && (
     <ul className="graph-legend">
