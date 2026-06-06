@@ -218,10 +218,6 @@ const CourseDateUtils = {
     return openWeekCount;
   },
 
-  isEndedTenDaysAgo(course) {
-    const tenDaysAfterEnd = addDays(toDate(course.end), 10);
-    return isAfter(new Date(), tenDaysAfterEnd);
-  },
 
   isEnded(course) {
     return isBefore(toDate(course.end), new Date());

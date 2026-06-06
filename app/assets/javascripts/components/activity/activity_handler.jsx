@@ -23,28 +23,12 @@ const ActivityHandler = (props) => {
     });
   }
 
-  const showEndedNotification = props.usersLoaded && CourseDateUtils.isEndedTenDaysAgo(course);
+  const showEndedNotification = props.usersLoaded && CourseDateUtils.isEnded(course);
 
   const endedNotification = showEndedNotification ? (
-    <div
-      className="notification"
-      style={{
-        position: 'sticky',
-        top: '55px',
-        zIndex: 98,
-        textAlign: 'left',
-        backgroundColor: '#40AD90',
-        color: 'white',
-        padding: '15px 0',
-        marginLeft: 'calc(-50vw + 50%)',
-        marginRight: 'calc(-50vw + 50%)',
-        marginTop: '-30px',
-        marginBottom: '30px',
-        width: '100vw'
-      }}
-    >
-      <div className="container" style={{ margin: '0 auto', maxWidth: '1200px', padding: '0 15px' }}>
-        <p style={{ margin: 0, fontWeight: 'bold' }}>{I18n.t('revisions.course_ended_notification')}</p>
+    <div className="notification notification--course-ended">
+      <div className="container">
+        <p>{I18n.t('revisions.course_ended_notification')}</p>
       </div>
     </div>
   ) : null;
