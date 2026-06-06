@@ -15,15 +15,65 @@
   transform translateX(-50%)
 
   .radio-row
-    list-style-type: none
-    overflow: hidden
-    margin 5px 0 0 60px
-    font-weight: bold
-    font-size: 17px
+    margin 8px 0
+    text-align center
 
-    .input-row
-       display: inline-block
-       margin-right: 50px
+  .graph-legend
+    list-style none
+    margin 8px 0 0
+    padding 0
+    display flex
+    flex-wrap wrap
+    justify-content center
+    gap 4px 16px
+    font-size 11px
+    color #555
+
+    &__item
+      display inline-flex
+      align-items center
+
+    &__swatch
+      display inline-block
+      width 10px
+      height 10px
+      border-radius 50%
+      margin-right 5px
+
+  .graph-doc
+    margin 16px auto 8px
+    max-width 460px
+    font-size 11px
+    line-height 1.6
+    color #555
+    text-align left
+
+  .graph-toggle
+    display inline-flex
+    background #f0f0f0
+    border 1px solid #d0d0d0
+    border-radius 4px
+    overflow hidden
+    white-space nowrap
+    vertical-align middle
+
+    &__btn
+      padding 4px 14px
+      font-size 13px
+      font-weight 500
+      border none
+      background transparent
+      cursor pointer
+      color #666
+      transition all 0.2s ease
+      line-height 1.4
+      &:not(:last-child)
+        border-right 1px solid #d0d0d0
+      &:hover
+        background #e5e5e5
+      &.active
+        background $brand_primary
+        color white
 
 .ores-plot
   padding-top 10px

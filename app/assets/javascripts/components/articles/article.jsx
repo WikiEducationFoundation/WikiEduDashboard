@@ -95,7 +95,8 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
           {!isDeleted
             ? (
               <small>
-                <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} course_id={course.id}/>
+                <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a>
+                {article.scoreable && <> | <ArticleGraphs article={article} course_id={course.id} courseStart={course.start} courseEnd={course.end}/></>}
               </small>
             )
             : (

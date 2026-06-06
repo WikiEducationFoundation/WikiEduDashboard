@@ -2,6 +2,7 @@
 
 require 'oauth'
 require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency "#{Rails.root}/lib/lift_wing_api"
 require_dependency "#{Rails.root}/lib/list_course_manager"
 require_dependency "#{Rails.root}/lib/tag_manager"
 require_dependency "#{Rails.root}/lib/course_creation_manager"

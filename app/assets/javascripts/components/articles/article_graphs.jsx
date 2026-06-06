@@ -1,11 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Wp10Graph from './wp10_graph.jsx';
-import EditSizeGraph from './edit_size_graph.jsx';
+import ArticleSizeGraph from './article_size_graph.jsx';
 import Loading from '../common/loading.jsx';
 import request from '../../utils/request.js';
+import { toWikiDomain } from '../../utils/wiki_utils.js';
+import { userHighlightColors } from '../common/ArticleViewer/constants/colors';
 
-const ArticleGraphs = ({ article, course_id }) => {
+// Editors who aren't course participants all share one muted color.
+const OTHER_EDITOR_COLOR = '#999999';
+
+const ArticleGraphs = ({ article, course_id, courseStart, courseEnd }) => {
   const { id: article_id } = article;
+  const wikiUrl = `https://${toWikiDomain({ language: article.language, project: article.project })}`;
+
+  // Course users are already in the store (fetched at course load), so editor
+  // identification happens client-side.
+  const courseUsers = useSelector(state => state.users.users);
+  const participantUsernames = useMemo(
+    () => new Set(courseUsers.map(user => user.username)),
+    [courseUsers]
+  );
 
   const [showGraph, setShowGraph] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState('wp10_score');
@@ -57,71 +72,102 @@ const ArticleGraphs = ({ article, course_id }) => {
     setShowGraph(false);
   }
 
-  function handleRadioChange(event) {
-    setSelectedRadio(event.currentTarget.value);
-  }
+  // Give each participant who edited this article a distinct color, taken in
+  // order from the front of the shared editor palette (highest-contrast hues);
+  // every other editor gets the muted "other" color. Color is precomputed onto
+  // each datum so both graphs and the legend stay consistent.
+  const { coloredData, legendEntries } = useMemo(() => {
+    if (!articleData) return { coloredData: null, legendEntries: [] };
+    const colorFor = {};
+    let hasOtherEditors = false;
+    articleData.forEach((rev) => {
+      if (!participantUsernames.has(rev.username)) {
+        hasOtherEditors = true;
+      } else if (!(rev.username in colorFor)) {
+        const index = Object.keys(colorFor).length;
+        colorFor[rev.username] = userHighlightColors[index % userHighlightColors.length];
+      }
+    });
 
-   const graphId = `vega-graph-${article_id}`;
+    const colored = articleData.map(rev => ({
+      ...rev,
+      color: colorFor[rev.username] || OTHER_EDITOR_COLOR
+    }));
 
+    const entries = Object.keys(colorFor).map(username => ({ label: username, color: colorFor[username] }));
+    if (hasOtherEditors) {
+      entries.push({ label: I18n.t('articles.editor_other'), color: OTHER_EDITOR_COLOR });
+    }
+    return { coloredData: colored, legendEntries: entries };
+  }, [articleData, participantUsernames]);
+
+  const graphId = `vega-graph-${article_id}`;
   const dataIncludesWp10 = articleData?.[0]?.wp10;
+
+  const sharedGraphProps = {
+    graphid: graphId,
+    graphWidth: 500,
+    graphHeight: 300,
+    articleData: coloredData,
+    courseStart,
+    courseEnd,
+    wikiUrl
+  };
 
   let graph;
   if (!articleData) {
     graph = <Loading />;
   } else if (dataIncludesWp10 && selectedRadio === 'wp10_score') {
-    graph = (
-      <Wp10Graph
-        graphid={graphId}
-        graphWidth={500}
-        graphHeight={300}
-        articleData={articleData}
-      />
-    );
+    graph = <Wp10Graph {...sharedGraphProps} />;
   } else {
-    graph = (
-      <EditSizeGraph
-        graphid={graphId}
-        graphWidth={500}
-        graphHeight={300}
-        articleData={articleData}
-      />
+    graph = <ArticleSizeGraph {...sharedGraphProps} />;
+  }
+
+  // Only offer the toggle when wp10 scores are available; otherwise the
+  // article-size graph is the only view, so no choice is needed.
+  let toggle = null;
+  if (dataIncludesWp10) {
+    toggle = (
+      <span className="graph-toggle" role="group" aria-label={I18n.t('articles.article_development')}>
+        <button
+          type="button"
+          className={`graph-toggle__btn${selectedRadio === 'wp10_score' ? ' active' : ''}`}
+          aria-pressed={selectedRadio === 'wp10_score'}
+          onClick={() => setSelectedRadio('wp10_score')}
+        >
+          {I18n.t('articles.wp10')}
+        </button>
+        <button
+          type="button"
+          className={`graph-toggle__btn${selectedRadio === 'article_size' ? ' active' : ''}`}
+          aria-pressed={selectedRadio === 'article_size'}
+          onClick={() => setSelectedRadio('article_size')}
+        >
+          {I18n.t('articles.article_size')}
+        </button>
+      </span>
     );
   }
 
-  let radioInput;
-  if (articleData?.length > 0 && articleData?.[0]?.wp10) {
-    radioInput = (
-      <div>
-        <div className="input-row">
-          <input
-            type="radio"
-            name="wp10_score"
-            id="wp10_score"
-            value="wp10_score"
-            checked={selectedRadio === 'wp10_score'}
-            onChange={handleRadioChange}
-          />
-          <label htmlFor="wp10_score">{I18n.t('articles.wp10')}</label>
-        </div>
-        <div className="input-row">
-          <input
-            type="radio"
-            name="edit_size"
-            id="edit_size"
-            value="edit_size"
-            checked={selectedRadio === 'edit_size'}
-            onChange={handleRadioChange}
-          />
-          <label htmlFor="edit_size">{I18n.t('articles.edit_size')}</label>
-        </div>
-      </div>
-    );
-  } else {
-    radioInput = null;
+  // Explanatory copy for the active view (operator-authored).
+  let docText = null;
+  if (articleData) {
+    const doc = dataIncludesWp10 && selectedRadio === 'wp10_score'
+      ? I18n.t('articles.wp10_doc')
+      : I18n.t('articles.article_size_doc');
+    if (doc) docText = doc;
   }
 
-  const editSize = <p>{I18n.t('articles.edit_size')}</p>;
-
+  const legend = legendEntries.length > 0 && (
+    <ul className="graph-legend">
+      {legendEntries.map(entry => (
+        <li key={entry.label} className="graph-legend__item">
+          <span className="graph-legend__swatch" style={{ backgroundColor: entry.color }} />
+          {entry.label}
+        </li>
+      ))}
+    </ul>
+  );
 
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
 
@@ -130,10 +176,11 @@ const ArticleGraphs = ({ article, course_id }) => {
       {I18n.t('articles.article_development')}
       <div className={className} ref={elementRef}>
         <div className="radio-row">
-          {radioInput}
-          {editSize}
+          {toggle}
         </div>
         {graph}
+        {legend}
+        {docText && <p className="graph-doc">{docText}</p>}
       </div>
     </button>
   );

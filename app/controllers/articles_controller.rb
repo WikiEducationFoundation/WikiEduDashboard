@@ -5,15 +5,14 @@ class ArticlesController < ApplicationController
   respond_to :json
   before_action :set_course
 
-  # returns revision score data for vega graphs
-  #  { rev_id: 123, characters: 1000, wp10: 0.5, date: '2021-01-01', username: 'Example' }
+  # Returns revision data for the article development graphs: every revision in
+  # the course period (capped), scored with wp10. The frontend tags each
+  # revision's editor role using the course users it already has in its store.
+  #  { rev_id: 123, characters: 1000, wp10: 0.5, date: '...', username: 'X' }
   def revision_score
     @article = Article.find(params[:article_id])
     rev_manager = RevisionScoreManager.new(@article, @course)
-    enrolled_usernames = @course.users.pluck(:username)
-    # root: false prevents wrap_parameters from wrapping the array under the
-    # controller name ("articles"), which would leak into the response.
-    render json: rev_manager.fetch_scored_revisions(enrolled_usernames), root: false
+    render json: rev_manager.fetch_scored_revisions, root: false
   end
 
   # returns details about how an article changed during a course

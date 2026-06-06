@@ -9,10 +9,13 @@ class RevisionScoreManager
     @wiki = article.wiki
   end
 
-  MAX_REVISION_COUNT = 50
+  MAX_REVISION_COUNT = 100
 
-  def fetch_scored_revisions(enrolled_usernames)
-    revisions = get_student_revisions(enrolled_usernames)
+  # Returns every revision in the course period (most recent first, capped at
+  # MAX_REVISION_COUNT), each scored with wp10. Editor role classification is
+  # left to the frontend, which already has the course users in its store.
+  def fetch_scored_revisions
+    revisions = get_revisions
     return [] if revisions.empty?
     cached_scored_revisions(revisions.first(MAX_REVISION_COUNT))
   end
@@ -43,36 +46,29 @@ class RevisionScoreManager
     end
   end
 
-  # Filters the total revision to a manageable number for plotting.
-  # We explicitly take the most recent revisions (up to MAX_REVISION_COUNT)
-  # to ensure the graph remains performant and readable.
-  def get_student_revisions(enrolled_usernames)
+  # Collects every revision in the course period, most recent first, up to
+  # MAX_REVISION_COUNT, paging through the API as needed.
+  def get_revisions
     params = query_params
-    student_revisions = []
+    revisions = []
 
     loop do
       response = WikiApi.new(@wiki).query(params)
       page_data = response['query']['pages'][@article.mw_page_id.to_s]
 
-      process_revisions(page_data['revisions'], enrolled_usernames, student_revisions)
+      collect_revisions(page_data['revisions'], revisions)
 
-      # Exits loop if there is no continue parameter in response or
-      # Stop immediately if we found 50 student revisions
-      break if student_revisions.size >= MAX_REVISION_COUNT || !response['continue']
+      break if revisions.size >= MAX_REVISION_COUNT || !response['continue']
 
-      # When the API returns a continue hash, pull out its
-      # `rvcontinue`/`continue` tokens and merge them into `params`.
-      # That mutates the query parameters so the next loop iteration
-      # will request the next page of revisions.
+      # Merge the API's continue tokens into params so the next iteration
+      # requests the following page of revisions.
       params.merge!(response['continue'].slice('rvcontinue', 'continue'))
     end
-    student_revisions
+    revisions
   end
 
-  def process_revisions(revisions, usernames, results)
+  def collect_revisions(revisions, results)
     (revisions || []).each do |r|
-      next unless usernames.include?(r['user'])
-
       results << {
         revid: r['revid'],
         user: r['user'],
