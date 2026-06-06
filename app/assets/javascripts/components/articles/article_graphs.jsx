@@ -183,9 +183,10 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
       }, ...editData];
     }
 
-    const entries = Object.keys(colorFor).map(username => ({ label: username, color: colorFor[username] }));
+    const entries = Object.keys(colorFor)
+      .map(username => ({ label: username, color: colorFor[username], participant: true }));
     if (hasOtherEditors) {
-      entries.push({ label: I18n.t('articles.editor_other'), color: OTHER_EDITOR_COLOR });
+      entries.push({ label: I18n.t('articles.editor_other'), color: OTHER_EDITOR_COLOR, participant: false });
     }
     return { coloredData: data, legendEntries: entries };
   }, [revisions, baseline, scores, participantUsernames, courseStart]);
@@ -193,10 +194,14 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
   const graphId = `vega-graph-${article_id}`;
   const showingWp10 = selectedRadio === 'wp10_score';
 
+  // Size the chart to the popover, which spans the viewport up to the same
+  // 1200px cap as the ArticleViewer.
+  const graphWidth = Math.min(1100, Math.round(window.innerWidth * 0.85));
+  const graphHeight = Math.round(graphWidth * 0.42);
   const sharedGraphProps = {
     graphid: graphId,
-    graphWidth: 500,
-    graphHeight: 300,
+    graphWidth,
+    graphHeight,
     articleData: coloredData,
     courseStart,
     courseEnd,
@@ -243,7 +248,10 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
     <ul className="graph-legend">
       {legendEntries.map(entry => (
         <li key={entry.label} className="graph-legend__item">
-          <span className="graph-legend__swatch" style={{ backgroundColor: entry.color }} />
+          <span
+            className={`graph-legend__swatch${entry.participant ? '' : ' graph-legend__swatch--other'}`}
+            style={{ backgroundColor: entry.color }}
+          />
           {entry.label}
         </li>
       ))}

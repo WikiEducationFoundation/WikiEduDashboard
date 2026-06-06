@@ -5,10 +5,11 @@
   z-index 1
   top 70px
   left 50%
-  min-width 620px
-  min-height 440px
+  width 90vw
   max-width 1200px
+  min-height 440px
   max-height 90vh
+  overflow-y auto
   border 1px solid mischka
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
@@ -20,25 +21,36 @@
 
   .graph-legend
     list-style none
-    margin 8px 0 0
-    padding 0
+    width fit-content
+    max-width 100%
+    margin 10px auto 0
+    padding 6px 14px
     display flex
     flex-wrap wrap
     justify-content center
-    gap 4px 16px
+    gap 6px 16px
     font-size 11px
     color #555
+    border 1px solid #d0d0d0
+    border-radius 4px
 
     &__item
       display inline-flex
       align-items center
 
+    // Swatches mirror the graph points: same circle size and border, larger
+    // for participants than for the single "other editors" entry.
     &__swatch
       display inline-block
-      width 10px
-      height 10px
+      width 12px
+      height 12px
       border-radius 50%
-      margin-right 5px
+      border 1px solid #666
+      margin-right 6px
+
+    &__swatch--other
+      width 8px
+      height 8px
 
   .scoring-progress
     display flex
