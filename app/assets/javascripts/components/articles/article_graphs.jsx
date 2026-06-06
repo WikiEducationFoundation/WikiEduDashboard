@@ -5,7 +5,7 @@ import ArticleSizeGraph from './article_size_graph.jsx';
 import Loading from '../common/loading.jsx';
 import request from '../../utils/request.js';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
-import { fetchArticleRevisions } from '../../utils/article_revision_api.js';
+import { fetchArticleRevisions, fetchBaselineRevision } from '../../utils/article_revision_api.js';
 import { userHighlightColors } from '../common/ArticleViewer/constants/colors';
 
 // Editors who aren't course participants all share one muted color.
@@ -61,6 +61,7 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
   const [showGraph, setShowGraph] = useState(false);
   const [selectedRadio, setSelectedRadio] = useState('article_size');
   const [revisions, setRevisions] = useState(null);
+  const [baseline, setBaseline] = useState(null);
   const [scores, setScores] = useState(null);
   const [scoring, setScoring] = useState(false);
 
@@ -93,8 +94,11 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
     if (revisions) return;
     const controller = new AbortController();
     abortRef.current = controller;
-    fetchArticleRevisions({ article, start: courseStart, end: courseEnd, signal: controller.signal })
-      .then(setRevisions)
+    Promise.all([
+      fetchArticleRevisions({ article, start: courseStart, end: courseEnd, signal: controller.signal }),
+      fetchBaselineRevision({ article, start: courseStart, signal: controller.signal })
+    ])
+      .then(([edits, baselineRev]) => { setRevisions(edits); setBaseline(baselineRev); })
       .catch((e) => { if (e.name !== 'AbortError') setRevisions([]); });
   }
 
@@ -106,6 +110,7 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
     const controller = new AbortController();
     abortRef.current = controller;
     const revIds = revisions.map(rev => rev.rev_id);
+    if (baseline && !revIds.includes(baseline.rev_id)) revIds.push(baseline.rev_id);
     request(`/articles/${article_id}/revision_score`, {
       method: 'POST',
       body: JSON.stringify({ rev_ids: revIds }),
@@ -154,18 +159,36 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
       }
     });
 
-    const colored = revisions.map(rev => ({
+    const editData = revisions.map(rev => ({
       ...rev,
+      participant: participantUsernames.has(rev.username),
       color: colorFor[rev.username] || OTHER_EDITOR_COLOR,
-      wp10: scores ? scores[String(rev.rev_id)] : undefined
+      wp10: scores ? scores[String(rev.rev_id)] : undefined,
+      baseline: false
     }));
+
+    // The article's state at course start, plotted at the start date with no
+    // point, so the line/area has no empty gap before the first in-course edit.
+    let data = editData;
+    if (baseline && !revisions.some(rev => rev.rev_id === baseline.rev_id)) {
+      data = [{
+        rev_id: baseline.rev_id,
+        date: new Date(courseStart).toISOString(),
+        characters: baseline.characters,
+        username: undefined,
+        participant: false,
+        color: OTHER_EDITOR_COLOR,
+        wp10: scores ? scores[String(baseline.rev_id)] : undefined,
+        baseline: true
+      }, ...editData];
+    }
 
     const entries = Object.keys(colorFor).map(username => ({ label: username, color: colorFor[username] }));
     if (hasOtherEditors) {
       entries.push({ label: I18n.t('articles.editor_other'), color: OTHER_EDITOR_COLOR });
     }
-    return { coloredData: colored, legendEntries: entries };
-  }, [revisions, scores, participantUsernames]);
+    return { coloredData: data, legendEntries: entries };
+  }, [revisions, baseline, scores, participantUsernames, courseStart]);
 
   const graphId = `vega-graph-${article_id}`;
   const showingWp10 = selectedRadio === 'wp10_score';

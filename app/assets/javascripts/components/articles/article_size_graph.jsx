@@ -40,6 +40,17 @@ const ArticleSizeGraph = (props) => {
             },
             { type: 'collect', sort: { field: 'date' } }
           ]
+        },
+        {
+          // Points exclude the baseline (rendered only as the line/area) and are
+          // ordered so 'other' editors draw first and participant edits draw on
+          // top, keeping the edits we care about visible above dense clusters.
+          name: 'edit_points',
+          source: 'article_size',
+          transform: [
+            { type: 'filter', expr: '!datum.baseline' },
+            { type: 'collect', sort: { field: 'participant' } }
+          ]
         }
       ],
       scales: [
@@ -107,12 +118,15 @@ const ArticleSizeGraph = (props) => {
         },
         {
           type: 'symbol',
-          from: { data: 'article_size' },
+          from: { data: 'edit_points' },
           encode: {
             update: {
               x: { scale: 'x', field: 'date' },
               y: { scale: 'y', field: 'characters' },
-              size: { value: 80 },
+              size: [
+                { test: 'datum.participant', value: 110 },
+                { value: 45 }
+              ],
               shape: { value: 'circle' },
               fill: { field: 'color' },
               fillOpacity: { value: 0.95 },

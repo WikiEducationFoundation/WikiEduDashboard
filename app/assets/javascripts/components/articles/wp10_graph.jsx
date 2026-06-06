@@ -76,6 +76,16 @@ const Wp10Graph = (props) => {
             },
             { type: 'collect', sort: { field: 'date' } }
           ]
+        },
+        {
+          // Points exclude the baseline (line/area only) and draw 'other'
+          // editors first so participant edits stay visible on top.
+          name: 'wp10_points',
+          source: 'wp10_scores',
+          transform: [
+            { type: 'filter', expr: '!datum.baseline' },
+            { type: 'collect', sort: { field: 'participant' } }
+          ]
         }
       ],
       marks: [
@@ -96,12 +106,15 @@ const Wp10Graph = (props) => {
         },
         {
           type: 'symbol',
-          from: { data: 'wp10_scores' },
+          from: { data: 'wp10_points' },
           encode: {
             update: {
               x: { scale: 'x', field: 'date' },
               y: { scale: 'y', field: 'wp10' },
-              size: { value: 80 },
+              size: [
+                { test: 'datum.participant', value: 110 },
+                { value: 45 }
+              ],
               shape: { value: 'circle' },
               fill: { field: 'color' },
               fillOpacity: { value: 0.95 },

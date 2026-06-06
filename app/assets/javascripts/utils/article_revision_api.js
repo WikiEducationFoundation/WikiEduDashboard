@@ -48,3 +48,28 @@ export const fetchArticleRevisions = async ({ article, start, end, signal }) => 
 
   return revisions.slice(0, MAX_REVISIONS);
 };
+
+// Fetches the article's state as of the course start: the most recent revision
+// at or before `start`. Used to anchor the graph's baseline at course start so
+// there's no empty gap before the first in-course edit. Returns { rev_id,
+// characters } or null if the article didn't exist yet at the course start.
+export const fetchBaselineRevision = async ({ article, start, signal }) => {
+  const domain = toWikiDomain({ language: article.language, project: article.project });
+  const base = `https://${domain}/w/api.php`;
+  const params = {
+    action: 'query',
+    prop: 'revisions',
+    pageids: article.mw_page_id,
+    rvprop: 'ids|size',
+    rvstart: new Date(start).toISOString(),
+    rvdir: 'older',
+    rvlimit: 1,
+    format: 'json',
+    formatversion: 2,
+    origin: '*'
+  };
+  const response = await fetch(`${base}?${stringify(params)}`, { signal });
+  const data = await response.json();
+  const rev = data?.query?.pages?.[0]?.revisions?.[0];
+  return rev ? { rev_id: rev.revid, characters: rev.size } : null;
+};
