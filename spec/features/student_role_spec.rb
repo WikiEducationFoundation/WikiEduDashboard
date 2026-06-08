@@ -221,6 +221,7 @@ describe 'Student users', type: :feature, js: true do
         credentials: { token: 'foo', secret: 'bar' }
       )
       allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(234567)
+      allow_any_instance_of(WikiApi).to receive(:get_user_info).and_return(nil)
       stub_oauth_edit
       stub_raw_action
       logout
