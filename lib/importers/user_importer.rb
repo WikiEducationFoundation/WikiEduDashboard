@@ -21,7 +21,7 @@ class UserImporter
       wiki_token: auth.credentials.token,
       wiki_secret: auth.credentials.secret
     )
-    # Populates the registered_at field when ever a new user is created via omniauth
+    # Populates the registered_at field whenever a new user is created via omniauth
     FetchUserRegistrationWorker.perform_async(user.id)
     user
   end
@@ -47,7 +47,7 @@ class UserImporter
     # At this point, if we still can't find a record with this username,
     # we finally create and return it.
     user = User.find_or_create_by(username:)
-    # Populates the registered_at field for any user enrolled or added into the course
+    # Populates registered_at for users newly created, existing users rely on the daily job.
     FetchUserRegistrationWorker.perform_async(user.id) if user.registered_at.nil?
     user
   end
