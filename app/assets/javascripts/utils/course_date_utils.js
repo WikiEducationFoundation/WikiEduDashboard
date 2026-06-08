@@ -218,6 +218,7 @@ const CourseDateUtils = {
     return openWeekCount;
   },
 
+
   isEnded(course) {
     return isBefore(toDate(course.end), new Date());
   },
