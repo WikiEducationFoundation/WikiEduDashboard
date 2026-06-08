@@ -260,9 +260,15 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
 
   const className = `vega-graph ${showGraph ? '' : 'hidden'}`;
 
+  // The popover is a sibling of the trigger, not a child: it holds its own
+  // buttons (view toggle, cancel), and a <button> cannot legally contain other
+  // buttons. The popover is position:fixed, so DOM placement doesn't affect where
+  // it renders.
   return (
-    <button type="button" onClick={handleShowGraph} className="inline">
-      {I18n.t('articles.article_development')}
+    <>
+      <button type="button" onClick={handleShowGraph} className="inline">
+        {I18n.t('articles.article_development')}
+      </button>
       <div className={className} ref={elementRef}>
         <div className="radio-row">
           {toggle}
@@ -271,7 +277,7 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
         {legend}
         {docText && <p className="graph-doc">{docText}</p>}
       </div>
-    </button>
+    </>
   );
 };
 
