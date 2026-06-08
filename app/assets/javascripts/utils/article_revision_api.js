@@ -2,8 +2,10 @@ import { stringify } from 'query-string';
 import { toWikiDomain } from './wiki_utils';
 
 // Cap on how many revisions we fetch/plot, to keep the graph (and the wp10
-// scoring that follows) bounded.
-export const MAX_REVISIONS = 100;
+// scoring that follows) bounded. wp10 scoring is one serial LiftWing request
+// per revision, so this is the dominant factor in how long the Structural
+// Completeness view takes to load.
+export const MAX_REVISIONS = 50;
 
 // Fetches up to MAX_REVISIONS of an article's revisions within [start, end],
 // most recent first, directly from the MediaWiki API (anonymous CORS via

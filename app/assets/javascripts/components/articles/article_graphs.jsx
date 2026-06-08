@@ -13,6 +13,23 @@ const OTHER_EDITOR_COLOR = '#999999';
 // Rough per-revision LiftWing time, used only to pace the scoring progress bar.
 const SCORE_SECONDS_PER_EDIT = 0.5;
 
+// Popover sizing (see _graphs.styl). The popover is border-box, 90vw wide and
+// capped at 1200px, with 10px of padding on each side. graphWidth is the chart's
+// *total* SVG width: the graph specs use fit-x autosize, so Vega lays the y-axis
+// (ticks, labels, rotated title) out inside this width rather than adding it on
+// the outside. But vega-embed then wraps the SVG in a shrink-to-fit
+// `.vega-embed` div with `padding-right: 38px` — a gutter for the absolutely
+// positioned "⋯" actions menu — so the wrapper is graphWidth + 38 wide. We
+// subtract the popover padding, a vertical scrollbar, and that gutter so the
+// whole wrapper (menu included) fits without forcing a horizontal scrollbar
+// that would clip the menu.
+const POPOVER_VW_FRACTION = 0.9;
+const POPOVER_MAX_WIDTH = 1200;
+const POPOVER_PADDING = 20;
+const SCROLLBAR_ALLOWANCE = 24;
+const VEGA_EMBED_ACTIONS_GUTTER = 38;
+const MIN_GRAPH_WIDTH = 320;
+
 // Determinate-ish progress bar shown while wp10 scoring runs. It fills toward
 // 95% over an estimate (count x per-edit time), then the graph replaces it when
 // scores arrive. Cancel lets the user bail back to the instant Article Size view.
@@ -194,9 +211,15 @@ const ArticleGraphs = ({ article, courseStart, courseEnd }) => {
   const graphId = `vega-graph-${article_id}`;
   const showingWp10 = selectedRadio === 'wp10_score';
 
-  // Size the chart to the popover, which spans the viewport up to the same
-  // 1200px cap as the ArticleViewer.
-  const graphWidth = Math.min(1100, Math.round(window.innerWidth * 0.85));
+  // Size the chart to the popover's inner content width (read once when
+  // opened; it doesn't live-resize). With fit-x autosize the whole chart,
+  // axis included, fits within graphWidth, so the SVG never spills past the
+  // popover. See the constants above.
+  const popoverWidth = Math.min(POPOVER_MAX_WIDTH, window.innerWidth * POPOVER_VW_FRACTION);
+  const graphWidth = Math.max(
+    MIN_GRAPH_WIDTH,
+    Math.round(popoverWidth - POPOVER_PADDING - SCROLLBAR_ALLOWANCE - VEGA_EMBED_ACTIONS_GUTTER)
+  );
   const graphHeight = Math.round(graphWidth * 0.42);
   const sharedGraphProps = {
     graphid: graphId,

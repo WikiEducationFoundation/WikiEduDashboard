@@ -27,12 +27,17 @@ const Wp10Graph = (props) => {
       width: props.graphWidth,
       height: props.graphHeight,
       padding: 5,
+      // graphWidth is the total width the popover can give us; fit-x shrinks the
+      // plotting area so the y-axis lays out inside it instead of overflowing.
+      autosize: { type: 'fit-x', contains: 'padding', resize: true },
       scales: [
         {
           name: 'x',
           type: 'time',
           domain: xDomain,
-          range: [0, props.graphWidth],
+          // fit-x reduces the plot width to make room for the y-axis; follow the
+          // resulting `width` signal rather than the requested total graphWidth.
+          range: [0, { signal: 'width' }],
           round: true
         },
         {
