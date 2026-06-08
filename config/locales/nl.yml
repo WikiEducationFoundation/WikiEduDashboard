@@ -479,7 +479,7 @@ nl:
       title: Mijlpalen
   campaign:
     campaign_ores_plot:
-      change_button: Verandering in structurele volledigheid
+      change_button: Wijziging in structurele volledigheid
       no_data: Er zijn geen gegevens beschikbaar over de structurele volledigheid
       graph_description_html: Deze grafiek visualiseert hoeveel pagina's in totaal
         zijn ontwikkeld vanaf het moment dat campagnedeelnemers ze voor het eerst
@@ -689,8 +689,7 @@ nl:
     course_dates_calendar_instructions: Selecteer datums om ze toe te voegen of te
       verwijderen uit het schema, bijvoorbeeld vakantie of geen onderwijs. Klik op
       de datum om te wisselen tussen niet geselecteerd, geselecteerd en vakantiestatus.
-      De datums van de cursusactiviteiten veranderen om weken weer te geven zonder
-      deadlines.
+      De datums van de cursusactiviteiten wijzigen om weken weer te geven zonder deadlines.
     course_description: Cursussen
     courses: Cursussen
     courses_taught: Gegeven cursussen
@@ -719,11 +718,11 @@ nl:
       copy_successful: Details bijwerken voor gekopieerde cursus
       clone_successful_details: Uw cursus is gekloond, ook de elementen van de tijdlijn
         (weken en blokken). Zorg ervoor dat u de datums toevoegt, want die worden
-        niet overgedragen. Is er nog iets anders aan uw cursus veranderd? Dan kunt
+        niet overgedragen. Is er nog iets anders aan uw cursus gewijzigd? Dan kunt
         u dat nu aanpassen.
       copy_successful_details: Uw cursus is gekopieerd, inclusief de elementen van
         de tijdlijn (weken en blokken). Vergeet niet de datums toe te voegen, deze
-        worden niet overgenomen. Is er nog iets anders aan uw cursus veranderd? U
+        worden niet overgenomen. Is er nog iets anders aan uw cursus gewijzigd? U
         kunt het nu bijwerken.
       course_dates_info: Voer de begin- en einddatum van uw cursus in. In de volgende
         stap kunt u kiezen wanneer u de Wikipedia-opdracht binnen dat tijdsbestek
@@ -837,7 +836,7 @@ nl:
     disable_student_emails_tooltip: Het uitschakelen van e-mails aan studenten voorkomt
       dat sommige meldingsmails naar studenten voor deze cursus worden verzonden.
     dismiss_survey: Sluiten
-    dismiss_survey_confirm: Weet u zeker dat u deze enquête permanent wilt sluiten?
+    dismiss_survey_confirm: Weet u zeker dat u deze vragenlijst permanent wilt afwijzen?
     download_stats_data: Statistieken downloaden
     duration: Duur van de cursus
     edit_count: Aantal bewerkingen
@@ -872,7 +871,7 @@ nl:
       duplicate_slug: Er bestaat al een ander programma met de naam %{slug}.
     expected_students: Verwachte studenten
     features_feedback: 'Geautomatiseerde suggesties:'
-    feedback: Feedback
+    feedback: Terugkoppeling
     feedback_loading: Even geduld terwijl suggesties worden geladen...
     gradeables_none: Deze cursus heeft nog geen te beoordelen opdrachten.
     home_wiki: Thuiswiki
@@ -970,7 +969,7 @@ nl:
       afbeeldingen en sectiekoppen, en andere kenmerken. (%{refresh_link})
     ores_plot_no_data: Geen gegevens over structurele volledigheid beschikbaar
     ores_plot_refresh_data: Gecachte gegevens vernieuwen
-    ores_plot_show_button: Verandering in structurele volledigheid
+    ores_plot_show_button: Wijziging in structurele volledigheid
     overview: Startpagina
     passcode: Wachtwoord
     passcode_none: Geen wachtwoord
@@ -1028,9 +1027,9 @@ nl:
       de volledige lijst van bronnen voor docenten en studenten bekijken.
     suggestions_feedback: Hebt u suggesties om deze functie te verbeteren? Laat het
       ons weten!
-    suggestions_sending: Feedback verzenden...
-    suggestions_sent: Feedback verzonden. Bedankt voor uw bijdrage.
-    suggestions_failed: Kan feedback niet verzenden. Probeer het later opnieuw.
+    suggestions_sending: Terugkoppeling verzenden...
+    suggestions_sent: Terugkoppeling verzonden. Bedankt voor uw bijdrage.
+    suggestions_failed: Kan terugkoppeling niet verzenden. Probeer het later opnieuw.
     user_role: Rol
     course_details: Cursusgegevens
     course_submitted: De status 'Ingediend' wordt gebruikt voor cursussen binnen het
@@ -1157,7 +1156,7 @@ nl:
       choose_clone: Kies een te klonen programma.
       clone_previous: Vorig programma klonen
       clone_this: Dit programma klonen
-      clone_successful: Programma succesvol gekloond
+      clone_successful: Programma gekloond
       clone_successful_details: Uw programma is gekloond. Klik hieronder op 'Opslaan'
         om het af te ronden.
       course_when: Voeg iets toe in het veld 'Wanneer' (bijvoorbeeld de maand en het
@@ -1224,10 +1223,10 @@ nl:
           configureren.
         pagepile_desc: |-
           PagePile is een hulpmiddel op Wikimedia Cloud. Het stelt gebruikers in staat om een groep wikipagina's te verzamelen en te organiseren in een enkele bundel die een "pile" wordt genoemd. Deze piles kunnen vervolgens eenvoudig met anderen worden gedeeld, wat samenwerking en het delen van informatie mogelijk maakt.
-          In tegenstelling tot PetScan zullen de pagina's in een pile niet veranderen in de loop van de tijd, zelfs niet wanneer categorieu00ebn, sjablonen of andere gegevens die zijn gebruikt om die set pagina's te maken, zijn gewijzigd.
+          In tegenstelling tot PetScan wijzigen de pagina's in een pile niet in de loop van de tijd, zelfs niet wanneer categorieën, sjablonen of andere gegevens die zijn gebruikt om die set pagina's te maken, zijn gewijzigd.
         petscan_desc: |-
-          PetScan is een krachtig maar complex hulpmiddel voor het opvragen van een set wikipagina's op basis van een breed scala aan criteria en gegevensbronnen. U kunt PetScan rechtstreeks gebruiken om de query te maken voor een set pagina's die u wilt volgen, wat u toegang geeft tot de volledige set opties om uw query zeer nauwkeurig te richten. U kunt ook een PetScan-query maken vanuit enkele van de meest gebruikte opties rechtstreeks vanuit het dashboard.
-          PetScan slaat de queryparameters op en biedt een ID voor die query. De resultaten van die query kunnen in de loop van de tijd veranderen, bijvoorbeeld wanneer nieuwe pagina's worden toegevoegd aan een categorie die de query bevat. Het dashboard vernieuwt periodiek de queryresultaten voor een bepaalde ID en werkt de statistieken bij op basis van de nieuwste set pagina's die PetScan produceert.
+          PetScan is een krachtig maar complex hulpmiddel voor het opvragen van een set wikipagina's op basis van een breed scala aan criteria en gegevensbronnen. U kunt PetScan rechtstreeks gebruiken om de zoekopdracht te maken voor een set pagina's die u wilt volgen, wat u toegang geeft tot de volledige set opties om uw zoekopdracht zeer nauwkeurig te richten. U kunt ook een PetScan-zoekopdracht maken vanuit enkele van de meest gebruikte opties rechtstreeks vanuit het dashboard.
+          PetScan slaat de zoekopdrachtparameters op en biedt een ID voor die zoekopdracht. De resultaten van die zoekopdracht kunnen in de loop van de tijd wijzigen, bijvoorbeeld wanneer nieuwe pagina's worden toegevoegd aan een categorie die de zoekopdracht bevat. Het dashboard vernieuwt periodiek de zoekresultaten voor een bepaalde ID en werkt de statistieken bij op basis van de nieuwste set pagina's die PetScan produceert.
         petscan_create_psid: Een PetScan-ID aanmaken met het officiu00eble PetScan-hulpmiddel
         pagepile_create_id: Een PagePile aanmaken met het officiu00eble PagePile-hulpmiddel
         categories_include_OR: Pagina's die een van deze categorieu00ebn bevatten,
@@ -1372,8 +1371,8 @@ nl:
     non_updating_course_update: Er is een eenmalige update gepland, die binnenkort
       zou moeten plaatsvinden.
     last_update_failed: De laatste update van deze cursus is mislukt.
-    last_update_success: De laatste update is succesvol uitgevoerd, dus de statistieken
-      zouden up-to-date moeten zijn.
+    last_update_success: De laatste update is uitgevoerd, dus de statistieken zouden
+      bijgewerkt moeten zijn.
     outreach_help: Hulp nodig? Ga naar 'Een probleem melden' in de navigatiebalk.
     per_user: '%{number}/gebruiker'
     recent_updates_summary: Van de laatste %{total} updates zijn %{failure_count}
@@ -1884,7 +1883,7 @@ nl:
     edits_by: 'Bewerkingen door:'
     enroll_confirmation: Weet u zeker dat u %{username} wilt toevoegen?
     enroll_url: 'Gebruikers kunnen deelnemen door deze url te bezoeken:'
-    enrolled_success: '%{username} is succesvol toegevoegd!'
+    enrolled_success: '%{username} is toegevoegd!'
     exercise_modules_completed:
       one: '%{completed_count}/%{count} oefening voltooid'
       other: '%{completed_count}/%{count} oefeningen voltooid'
@@ -1949,7 +1948,7 @@ nl:
           toegevoegd. Doorgaan?
         tooltip_message: Volg eenvoudig discussies op overlegpagina's van studenten
           door ze aan uw volglijst toe te voegen.
-        success_message: '%{prefix} succesvol toegevoegd aan de volglijst.'
+        success_message: '%{prefix} toegevoegd aan de volglijst.'
         error_message: Kan %{prefix} niet toevoegen aan de volglijst. Probeer het
           later opnieuw.
     total_uploads: Totaal uploads
@@ -2068,7 +2067,7 @@ nl:
       gebeuren als uw IP-adres is geblokkeerd door Wikipedia of de dagelijkse limiet
       voor nieuwe accounts al heeft bereikt. Probeer verbinding te maken via een ander
       netwerk.
-    login_success_download_html: Succesvol aangemeld! %{link}.
+    login_success_download_html: Aangemeld! %{link}.
     download_here: Klik hier om uw bestand te downloaden
   error_401:
     explanation: U bent niet bevoegd om dit verzoek uit te voeren. Als u vindt dat
@@ -2131,7 +2130,7 @@ nl:
       message: Dit is een herinnering over de vragenlijst voor uw cursus, %{course_title}.
         Terugkoppeling uit deze vragenlijst helpt ons om onze ondersteuning voor Wikipedia-opdrachten
         zoals die van u te verbeteren.
-    edit_survey: Enquête bewerken
+    edit_survey: Vragenlijst bewerken
   feedback_form_responses:
     no_responses: Er zijn nog geen feedbackreacties.
   wiki_api:
@@ -2232,9 +2231,9 @@ nl:
         discard_post: Nieuws verwerpen
         post_news: Nieuws plaatsen
     notification:
-      delete: Nieuwsinhoud succesvol verwijderd
-      update: Nieuwsinhoud succesvol bijgewerkt
-      create_news: Nieuwsinhoud succesvol gepubliceerd
+      delete: Nieuwsinhoud verwijderd
+      update: Nieuwsinhoud bijgewerkt
+      create_news: Nieuwsinhoud gepubliceerd
       create_news_error: Fout bij het aanmaken van nieuwsinhoud. Probeer het opnieuw.
       update_error: Fout bij het bijwerken van nieuwsinhoud. Probeer het opnieuw.
       empty_create_news_content_error: Voer nieuwsinhoud in voordat u plaatst.
@@ -2245,16 +2244,15 @@ nl:
     title: Titel
     note_title: Notitietitel
     note_text: Notitietekst
-    created: De notitie is succesvol aangemaakt.
-    updated: De notitie is succesvol bijgewerkt.
+    created: De notitie is aangemaakt.
+    updated: De notitie is bijgewerkt.
     failure: Fout! Probeer het later opnieuw.
     empty_fields: Zorg ervoor dat alle invoervelden zijn ingevuld en probeer het opnieuw.
     edit: De tijd van elke bewerking wordt weergegeven in uw lokale tijd.
     edited_by: Bewerkt door
     last_edited_by: Geeft de naam weer van de beheerder die de notitie het laatst
       heeft bewerkt.
-    deleted: De notitie is succesvol verwijderd. Deze is niet meer beschikbaar in
-      uw notities.
+    deleted: De notitie is verwijderd. Deze is niet meer beschikbaar in uw notities.
     delete_note_confirmation: 'Notitie verwijderen: deze handeling verwijdert de notitie
       permanent. Weet u zeker dat u wilt doorgaan?'
     delete_note_error: Kan de notitie niet verwijderen. Probeer het opnieuw.

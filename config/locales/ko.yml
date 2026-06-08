@@ -509,7 +509,7 @@ ko:
     add_this_psid: PSID 추가
     add_this_pileid: PetScan ID 추가
     add_this_template: 틀 추가
-    import_articles_description: 분류에 속한 게시글 목록은 주기적으로 업데이트되며, 게시글이 추가된 후 목록에 반영되기까지
+    import_articles_description: 분류에 속한 게시물 목록은 주기적으로 업데이트되며, 게시물이 추가된 후 목록에 반영되기까지
       다소 시간이 걸릴 수 있습니다.
     confirm_add_n_scoping_method: '%{n}개의 스코핑 방법을 추가합니까?'
     depth: 하위 분류 깊이
