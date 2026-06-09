@@ -7,6 +7,7 @@ import DiffViewer from '../revisions/diff_viewer.jsx';
 import Switch from 'react-switch';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
+import ArticleGraphs from './article_graphs.jsx';
 
 const Article = ({ article, index, course, fetchArticleDetails, updateArticleTrackedStatus, articleDetails, wikidataLabel,
   showOnMount, setSelectedIndex, lastIndex, selectedIndex, pageLogsMessage, deletedMessage, current_user }) => {
@@ -94,9 +95,8 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
           {!isDeleted
             ? (
               <small>
-                {/* Disabling article development plot feature until re-implementing. See issue #6337 */}
-                {/* <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} /> */}
                 <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a>
+                {article.scoreable && <> | <ArticleGraphs article={article} courseStart={course.start} courseEnd={course.end}/></>}
               </small>
             )
             : (
