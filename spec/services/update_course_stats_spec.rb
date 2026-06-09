@@ -46,6 +46,21 @@ describe UpdateCourseStats do
     end
   end
 
+  context 'when logging the end of an update' do
+    before do
+      allow_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run)
+        .and_return([5, 2, 3])
+    end
+
+    it 'logs processed, reprocessed, and reaggregated counts' do
+      subject
+      update_log = course.reload.flags['update_logs'].values.last
+      expect(update_log['processed']).to eq(5)
+      expect(update_log['reprocessed']).to eq(2)
+      expect(update_log['reaggregated']).to eq(3)
+    end
+  end
+
   context 'when there are revisions' do
     before do
       stub_wiki_validation
