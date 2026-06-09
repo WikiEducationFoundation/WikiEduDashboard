@@ -654,6 +654,13 @@ qqq:
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
+    summary: Tab label for the Wikidata stats summary view.
+    statements: Tab label for the Wikidata stats statements view.
+    content: Tab label for the Wikidata stats content view.
+    lexemes: Tab label for the Wikidata stats lexemes view.
+    references: Section label for Wikidata reference statistics.
+    qualifiers: Section label for Wikidata qualifier statistics.
+    other: Section label for other Wikidata content statistics.
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.

@@ -128,6 +128,30 @@
     -webkit-font-smoothing auto
     margin 0
 
+  .wikidata-tabs
+    display flex
+    border-bottom 1px solid #e2e2e2
+    margin-bottom 15px
+    overflow-x auto
+
+    .wikidata-tab
+      padding 10px 16px 8px
+      cursor pointer
+      border-bottom 3px solid transparent
+      margin-bottom -1px
+      white-space nowrap
+
+      p
+        margin 0
+        font-size 14px
+        color $brand_primary
+
+      &.active
+        border-bottom-color $brand_primary
+
+        p
+          font-weight 600
+
   .wikidata-display
     width 100%
     display flex

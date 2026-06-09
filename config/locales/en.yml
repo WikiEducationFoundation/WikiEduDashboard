@@ -1268,6 +1268,13 @@ en:
     word_count: Words Added
     word_count_average: Average Word Count
     general: General
+    summary: Summary
+    statements: Statements
+    content: Content
+    lexemes: Lexemes
+    references: References
+    qualifiers: Qualifiers
+    other: Other
     total_revisions: Total revisions
     claims: Claims
     aliases: Aliases
