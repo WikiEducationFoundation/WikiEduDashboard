@@ -24,7 +24,7 @@ require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 # 4. To fetch revisions, import Article records, and fetch scores for a given set of users
 #    over a period in one step (used by CourseRevisionUpdater for new users):
 #    - Use `fetch_revision_data_for_users_with_articles` as the entry point.
-class RevisionDataManager # rubocop:disable Metrics/ClassLength
+class RevisionDataManager
   include EncodingHelper
 
   def initialize(wiki, course, update_service: nil)
