@@ -93,13 +93,15 @@ class UpdateTimeslicesScopedArticle
   # Also creates articles_courses records as a side effect of the revision fetch.
   def fetch_scores_and_update_acuwt(wiki, article_ids)
     manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
-    acuwt_periods(wiki, article_ids).each do |(ts_start, ts_end)|
+    periods = ArticleCourseUserWikiTimeslice.periods_for_articles(@course, wiki, article_ids)
+    periods.each do |(ts_start, ts_end)|
       update_timeslice_for_new_articles(manager, wiki, article_ids, ts_start, ts_end)
     end
   end
 
   def update_timeslice_for_new_articles(manager, wiki, article_ids, ts_start, ts_end)
-    users = users_for_articles_in_period(wiki, article_ids, ts_start)
+    users = ArticleCourseUserWikiTimeslice
+              .users_for_articles_in_period(@course, wiki, article_ids, ts_start)
     return if users.empty?
 
     revisions = manager.fetch_revision_data_for_users_with_articles_only(
@@ -117,19 +119,6 @@ class UpdateTimeslicesScopedArticle
     ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
       @course, wiki, ts_start, ts_end, revisions
     )
-  end
-
-  def acuwt_periods(wiki, article_ids)
-    ArticleCourseUserWikiTimeslice
-      .where(course: @course, wiki:, article_id: article_ids)
-      .distinct.pluck(:start, :end)
-  end
-
-  def users_for_articles_in_period(wiki, article_ids, ts_start)
-    user_ids = ArticleCourseUserWikiTimeslice
-                 .where(course: @course, wiki:, article_id: article_ids, start: ts_start)
-                 .distinct.pluck(:user_id)
-    User.where(id: user_ids)
   end
 
   def update_wikidata_stats(wiki, revisions)
