@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 
 #= Fetches revision data from API
-# This class is intended to be used in two main ways:
+# This class is intended to be used in four main ways:
 # 1. To fetch revisions and scores for a given course over a period:
 #    - First, fetch the revisions using `fetch_revision_data_for_course`.
 #    - Then, fetch the scores by calling `fetch_score_data_for_course`, passing the array
@@ -16,6 +16,14 @@ require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 #      since fetching scores can be expensive.
 # 2. To fetch revisions (without scores) for a given set of users over a period:
 #    - Use `fetch_revision_data_for_users` as the entry point.
+# 3. To fetch revisions and scores for a given set of users over a period, also importing
+#    Article records as a side effect (used by UpdateTimeslicesScopedArticle):
+#    - Use `fetch_revision_data_for_users_with_articles_only` to get revisions with articles.
+#    - Filter the returned revisions to the target articles.
+#    - Then call `fetch_score_data_for_course` on the filtered revisions.
+# 4. To fetch revisions, import Article records, and fetch scores for a given set of users
+#    over a period in one step (used by CourseRevisionUpdater for new users):
+#    - Use `fetch_revision_data_for_users_with_articles` as the entry point.
 class RevisionDataManager
   include EncodingHelper
 
@@ -78,10 +86,10 @@ class RevisionDataManager
     sub_data_to_revision_attributes(all_sub_data, users)
   end
 
-  # Like fetch_revision_data_for_users, but also imports Article records and fetches
-  # scores so that returned revisions have article_id and references_added populated.
-  # Required when creating ACUWT rows for newly added users.
-  def fetch_revision_data_for_users_with_articles(users, timeslice_start, timeslice_end)
+  # Like fetch_revision_data_for_users_with_articles but skips the reference-counter
+  # API call. Filter the returned revisions to specific articles before calling
+  # fetch_score_data_for_course — critical when users have many programmatic edits.
+  def fetch_revision_data_for_users_with_articles_only(users, timeslice_start, timeslice_end)
     all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
     return [] if all_sub_data.empty?
 
@@ -95,7 +103,13 @@ class RevisionDataManager
     users_dict = user_dict_from_sub_data(all_sub_data)
     article_dict = articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
 
-    revisions = sub_data_to_revision_attributes(all_sub_data, users_dict, articles: article_dict)
+    sub_data_to_revision_attributes(all_sub_data, users_dict, articles: article_dict)
+  end
+
+  # Like fetch_revision_data_for_users_with_articles_only but also fetches scores.
+  def fetch_revision_data_for_users_with_articles(users, timeslice_start, timeslice_end)
+    revisions = fetch_revision_data_for_users_with_articles_only(users, timeslice_start,
+                                                                 timeslice_end)
     fetch_score_data_for_course(revisions)
   end
 
