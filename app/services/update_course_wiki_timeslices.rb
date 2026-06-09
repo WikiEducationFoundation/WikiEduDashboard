@@ -21,6 +21,7 @@ class UpdateCourseWikiTimeslices
     @update_service = update_service
     @processed_timeslices_count = 0
     @reprocessed_timeslices = Hash.new { |h, k| h[k] = [] }
+    @reaggregated_timeslices_count = 0
     @revision_updater = CourseRevisionUpdater.new(@course, update_service:)
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
   end
@@ -29,7 +30,7 @@ class UpdateCourseWikiTimeslices
     pre_update(all_time)
     @course.update(needs_update: false)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count]
+    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count, @reaggregated_timeslices_count]
   end
 
   private
@@ -246,7 +247,10 @@ class UpdateCourseWikiTimeslices
     to_reaggregate = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                         .needs_reaggregation
                                         .where(needs_update: false)
-    to_reaggregate.each { |cwt| reaggregate_timeslice_from_acuwt(cwt) }
+    to_reaggregate.each do |cwt|
+      reaggregate_timeslice_from_acuwt(cwt)
+      @reaggregated_timeslices_count += 1
+    end
   end
 
   def reaggregate_timeslice_from_acuwt(cwt)
