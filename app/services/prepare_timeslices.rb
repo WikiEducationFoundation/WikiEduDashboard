@@ -36,7 +36,7 @@ class PrepareTimeslices
     UpdateTimeslicesCourseUser.new(@course, update_service: @update_service).run
     UpdateTimeslicesUntrackedArticle.new(@course).run
     UpdateTimeslicesCourseDate.new(@course).run
-    UpdateTimeslicesScopedArticle.new(@course).run
+    UpdateTimeslicesScopedArticle.new(@course, update_service: @update_service).run
     @debugger.log_update_progress :timeslices_adjusted
   end
 end
