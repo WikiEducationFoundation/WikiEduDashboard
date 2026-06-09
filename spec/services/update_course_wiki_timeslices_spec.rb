@@ -32,9 +32,10 @@ describe UpdateCourseWikiTimeslices do
     context 'when debugging is not enabled' do
       it 'posts no Sentry logs' do
         expect(Sentry).not_to receive(:capture_message)
-        processed, reprocessed = subject
+        processed, reprocessed, reaggregated = subject
         expect(processed).to eq(14)
         expect(reprocessed).to eq(0)
+        expect(reaggregated).to eq(0)
       end
     end
 
@@ -398,6 +399,25 @@ describe UpdateCourseWikiTimeslices do
       it 'does not call the legacy course_user_wiki_timeslices updater' do
         expect(CourseUserWikiTimeslice).not_to receive(:update_course_user_wiki_timeslices)
         subject
+      end
+
+      context 'when some timeslices need reaggregation' do
+        before do
+          # Override parent stub so normal processing never calls update_cache_from_acuwt
+          # (which would reset needs_reaggregation = false before reaggregation runs).
+          allow_any_instance_of(CourseRevisionUpdater)
+            .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+              { wiki => { start: ts_start, end: ts_end, new_data: false, revisions: [] } }
+            end
+          TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+          course.course_wiki_timeslices.where(wiki: enwiki).first(2)
+                .each { |cwt| cwt.update(needs_reaggregation: true, needs_update: false) }
+        end
+
+        it 'returns the count of reaggregated timeslices' do
+          _, _, reaggregated = subject
+          expect(reaggregated).to eq(2)
+        end
       end
     end
   end
