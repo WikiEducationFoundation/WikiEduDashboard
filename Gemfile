@@ -63,6 +63,7 @@ gem 'faraday' # Standard HTTP library
 gem 'mediawiki_api',
     git: 'https://github.com/WikiEducationFoundation/mediawiki-ruby-api',
     branch: 'expose-response-on-http-error'
+gem 'anthropic' # Claude API access, used by the Llm::Client adapter layer
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 gem 'rss' # Standard RSS library

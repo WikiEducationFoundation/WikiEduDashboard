@@ -135,6 +135,10 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+    anthropic (1.48.0)
+      cgi
+      connection_pool
+      standardwebhooks
     ast (2.4.3)
     axe-core-api (4.11.3)
       dumb_delegator
@@ -192,6 +196,7 @@ GEM
     capybara-screenshot (1.0.27)
       capybara (>= 1.0, < 4)
       launchy
+    cgi (0.5.1)
     chartkick (5.2.1)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -671,6 +676,7 @@ GEM
       net-ssh (>= 2.8.0)
       ostruct
     stackprof (0.2.23)
+    standardwebhooks (1.1.0)
     stringio (3.2.0)
     temple (0.10.4)
     terrapin (1.0.1)
@@ -719,6 +725,7 @@ DEPENDENCIES
   activerecord-import
   acts_as_list
   annotate
+  anthropic
   axe-core-rspec
   better_errors
   binding_of_caller

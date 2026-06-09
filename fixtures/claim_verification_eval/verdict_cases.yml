@@ -1,0 +1,68 @@
+# Labeled cases for ClaimVerification::Evaluation::VerdictEvaluation.
+# Each case pairs a claim with the text of a (fictional) cited source and
+# the verdict a correct verifier should reach. Grow this set with real
+#(claim, source, human-labeled verdict) examples as they are collected.
+- name: supported_direct
+  claim: The Greenfield Public Library opened in 1923.
+  source_text: >
+    The Greenfield Public Library first opened its doors to readers in 1923,
+    funded by a bequest from a local merchant. It moved to its current
+    building on Main Street in 1958.
+  expected_verdict: supported
+
+- name: supported_paraphrase
+  claim: The bridge took seven years to build.
+  source_text: >
+    Construction began in spring 1901. Workers faced repeated flooding, and
+    the span was not completed until 1908, seven years after the first
+    pilings were driven.
+  expected_verdict: supported
+
+- name: partially_supported_number_differs
+  claim: The festival draws over 50,000 visitors each year and generates
+    $2 million in local revenue.
+  source_text: >
+    Organizers estimate that the festival attracts more than 50,000
+    attendees annually. No figures on its economic impact have been
+    published.
+  expected_verdict: partially_supported
+
+- name: partially_supported_weaker_statement
+  claim: The drug is effective against migraines in adults and children.
+  source_text: >
+    In a randomized trial of 400 adults, the drug reduced migraine
+    frequency by 40 percent compared with placebo. The authors note that
+    no pediatric data are available.
+  expected_verdict: partially_supported
+
+- name: not_supported_unrelated
+  claim: The mayor founded three technology companies before entering politics.
+  source_text: >
+    The mayor was elected in 2018 on a platform of housing reform. Before
+    politics, she worked as a schoolteacher and later directed a nonprofit
+    literacy program.
+  expected_verdict: not_supported
+
+- name: not_supported_topic_overlap
+  claim: The glacier has retreated by two kilometers since 1990.
+  source_text: >
+    The glacier is one of the most studied in the region. Researchers have
+    monitored its mass balance since the 1980s using aerial photography
+    and, more recently, satellite altimetry.
+  expected_verdict: not_supported
+
+- name: contradicted_date
+  claim: The observatory was completed in 1899.
+  source_text: >
+    After years of fundraising delays, the observatory was finally
+    completed in 1911, more than a decade later than its founders had
+    originally planned.
+  expected_verdict: contradicted
+
+- name: contradicted_negation
+  claim: The species is native to South America.
+  source_text: >
+    Contrary to early classifications, genetic analysis has established
+    that the species is not native to South America; it was introduced
+    from West Africa in the eighteenth century.
+  expected_verdict: contradicted
