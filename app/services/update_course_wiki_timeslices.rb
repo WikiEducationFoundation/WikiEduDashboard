@@ -30,7 +30,8 @@ class UpdateCourseWikiTimeslices
     pre_update(all_time)
     @course.update(needs_update: false)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count, @reaggregated_timeslices_count]
+    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count,
+     @reaggregated_timeslices_count]
   end
 
   private
