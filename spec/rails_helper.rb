@@ -113,6 +113,9 @@ RSpec.configure do |config|
 
   # fail on javascript errors in feature specs
   config.after(:each, type: :feature, js: true) do |example|
+    # Capture any SCREENSHOT-mode screenshot before the navigation to
+    # about:blank below blanks the page. See spec/support/screenshot_mode.rb.
+    ScreenshotMode.capture(example, page)
     dump_js_coverage
     # `Capybara.reset_sessions!` here would ensure that any error
     # logs from this session can be captured now, by closing any open connections.
