@@ -140,7 +140,7 @@ class WikiApi
         action: 'query',
         prop: 'revisions',
         pageids: page_id,
-        rvprop: 'user',
+        rvprop: 'ids|user',
         rvstart: start_date.strftime('%Y%m%d%H%M%S'),
         rvend: end_date.strftime('%Y%m%d%H%M%S'),
         rvdir: 'older',
