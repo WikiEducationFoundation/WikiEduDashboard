@@ -28,6 +28,7 @@ capybara-*.html
 /coverage.deep/
 /spec/tmp
 /training_content_drafts
+/data
 **.orig
 rerun.txt
 pickle-email-*.html

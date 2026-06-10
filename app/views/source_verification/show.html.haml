@@ -1,0 +1,87 @@
+- content_for :before_title, 'Source Verification — '
+%header.main-page
+  .container
+    %h1 [Page title — student-facing name of the source-verification exercise]
+.container
+  %section
+    - if @example.nil?
+      %p
+        [Empty-state message — shown when no examples are available to serve. In the
+        prototype this means none have been harvested yet; run
+        `rake source_verification:harvest_articles TITLES="..."` to populate the store.]
+    - else
+      %p
+        [Introduction — explains that the claim below is a real statement from a live
+        Wikipedia article, shown together with the source cited for it. The student's
+        task is to open the source and decide whether it actually supports the claim.
+        Should briefly motivate why this skill matters: plausible-sounding text is easy
+        to produce, so verification against sources is what keeps Wikipedia reliable.]
+      .section-header
+        %h2 [Heading for the claim being verified]
+      - sentence = @example[:sentence] || @example[:claim]
+      - before, highlighted, after = sentence.partition(@example[:claim])
+      %blockquote
+        - if highlighted.present? && (before.present? || after.present?)
+          = before
+          %mark= highlighted
+          = after
+          %p
+            %small
+              [Note shown when only part of the sentence is the claim under
+              verification — explains that the highlighted portion is what the
+              cited source is expected to support; the rest of the sentence is
+              context.]
+        - else
+          = sentence
+      - if @example[:wiki_domain]
+        %p
+          [Lead-in noting which Wikipedia article this claim currently appears in]
+          %a{ href: "https://#{@example[:wiki_domain]}/wiki/#{@example[:article_title].tr(' ', '_')}",
+              target: '_blank' }= @example[:article_title]
+      .section-header
+        %h2 [Heading for the cited source]
+      - @example[:citations].each do |citation|
+        %p= citation[:citation_text]
+        - if citation[:urls].present?
+          %p
+            [Lead-in for the link(s) where the student can find this source]
+            %ul
+              - citation[:urls].each do |url|
+                %li
+                  %a{ href: url, target: '_blank' }= url
+        - else
+          %p
+            [Note shown when the citation has no web link — the student will need to
+            locate this source through a library or search; acknowledges this is harder
+            and is part of the exercise for offline sources.]
+      %hr
+      - if @submitted_response
+        %p
+          [Acknowledgment shown after submitting — confirms the response was received.
+          Responses are not recorded anywhere yet; for prototyping this just echoes the
+          selected option:]
+          %strong= @submitted_response
+        %p
+          %a{ href: '/source_verification' }
+            [Link text — load another example]
+      - else
+        = form_with url: '/source_verification', method: :post do |form|
+          %h3
+            [The verification question — asks the student whether the source actually
+            supports the claim above]
+          = hidden_field_tag :example_id, @example[:id]
+          %div
+            %label
+              = radio_button_tag :response, 'supports'
+              [Option label — the source supports the claim]
+          %div
+            %label
+              = radio_button_tag :response, 'does_not_support'
+              [Option label — the source does not support the claim]
+          %div
+            %label
+              = radio_button_tag :response, 'cannot_tell'
+              [Option label — the student could not access the source, or cannot tell
+              whether it supports the claim]
+          %br
+          .button= submit_tag '[Submit button label]'

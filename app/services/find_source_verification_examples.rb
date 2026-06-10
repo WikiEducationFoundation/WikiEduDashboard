@@ -88,7 +88,8 @@ class FindSourceVerificationExamples
       @examples << claim.merge(article_title: extractor.article_title,
                                article_id: article.id,
                                mw_page_id: article.mw_page_id,
-                               mw_rev_id: extractor.mw_rev_id)
+                               mw_rev_id: extractor.mw_rev_id,
+                               wiki_domain: article.wiki.domain)
     end
   end
 

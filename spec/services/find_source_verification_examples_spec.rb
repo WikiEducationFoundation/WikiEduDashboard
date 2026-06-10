@@ -61,7 +61,8 @@ describe FindSourceVerificationExamples do
         article_title: 'Test Article',
         article_id: article.id,
         mw_page_id: 42,
-        mw_rev_id: 500
+        mw_rev_id: 500,
+        wiki_domain: wiki.domain
       )
       expect(examples.first[:citations].first[:url]).to eq('https://example.com/lighthouse')
       expect(GetRevisionPlaintext).to have_received(:new).with(300, wiki)

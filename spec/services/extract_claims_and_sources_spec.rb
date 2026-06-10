@@ -43,6 +43,7 @@ describe ExtractClaimsAndSources do
       expect(service.claims.length).to eq(1)
       expect(service.claims.first[:claim])
         .to eq('The Eiffel Tower was completed in March 1889 in Paris.')
+      expect(service.claims.first[:sentence]).to eq(service.claims.first[:claim])
       expect(service.claims.first[:citations].first).to include(
         source_type: 'web',
         url: 'https://example.com/source',
@@ -77,6 +78,23 @@ describe ExtractClaimsAndSources do
       expect(service.claims.length).to eq(1)
       expect(service.claims.first[:citations].map { |c| c[:ref_id] })
         .to eq(%w[cite_note-1 cite_note-2])
+    end
+
+    it 'pairs a mid-sentence citation with its clause and the full sentence' do
+      body = '<p>Takers of selfie photographs have fallen to their deaths,' \
+             "#{claims_ref_marker('1')} and others have been wounded while " \
+             "posing with handguns.#{claims_ref_marker('2', '2')}</p>"
+      html = claims_article_html(body, claims_cite_note('1') + claims_cite_note('2'))
+      stub_article_html(html)
+      service = described_class.new(en_wiki, mw_rev_id: 100)
+
+      full_sentence = 'Takers of selfie photographs have fallen to their deaths, ' \
+                      'and others have been wounded while posing with handguns.'
+      expect(service.claims.map { |c| c[:claim] }).to eq(
+        ['Takers of selfie photographs have fallen to their deaths,',
+         'and others have been wounded while posing with handguns.']
+      )
+      expect(service.claims.map { |c| c[:sentence] }).to eq([full_sentence, full_sentence])
     end
 
     it 'excludes the rendered marker brackets from claim text' do

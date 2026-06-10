@@ -517,6 +517,10 @@ Rails.application.routes.draw do
   get 'ai_tools' => 'ai_tools#show'
   post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
 
+  # Source verification exercise prototype
+  get 'source_verification' => 'source_verification#show'
+  post 'source_verification' => 'source_verification#respond'
+
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
     post 'term_recap/send' => 'term_recap#send_recap_emails'
