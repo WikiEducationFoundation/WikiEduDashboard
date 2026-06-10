@@ -107,9 +107,8 @@ class TimesliceCleaner
   end
 
   # Marks CWT rows as needs_reaggregation for every (wiki, start) period covered
-  # by the given ACUWT records, and deletes the ACT rows for the specific
-  # (article, start) pairs those records cover so they are cleanly re-derived.
-  # CUW rows are NOT deleted here — callers handle user-specific CUW cleanup.
+  # by the given ACUWT records, and deletes the ACT and CUWT rows for those
+  # periods so they are cleanly re-derived during the next reaggregation pass.
   # Takes an ActiveRecord::Relation of ArticleCourseUserWikiTimeslice records.
   def reset_timeslices_for_reaggregation_from_acuwt(acuwt_records)
     return if acuwt_records.empty?
@@ -119,6 +118,7 @@ class TimesliceCleaner
 
     mark_timeslices_for_reaggregation(wikis_and_starts)
     delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
+    delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
   end
 
   # Deletes ACUWT records for users removed from the course.
@@ -214,6 +214,16 @@ class TimesliceCleaner
                                     .where("(article_id, start) IN (#{tuples})")
                                     .pluck(:id)
     delete_article_course_timeslice_ids(act_ids)
+  end
+
+  def delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
+    tuples = wikis_and_starts.map do |wiki_id, s|
+      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
+    end.join(', ')
+    cuwt_ids = CourseUserWikiTimeslice.where(course: @course)
+                                      .where("(wiki_id, start) IN (#{tuples})")
+                                      .pluck(:id)
+    delete_course_user_wiki_timeslice_ids(cuwt_ids)
   end
 
   # Deletes existing article course timeslices for a collection of wiki ids

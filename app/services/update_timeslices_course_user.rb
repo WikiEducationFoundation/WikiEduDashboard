@@ -136,10 +136,8 @@ class UpdateTimeslicesCourseUser
 
   def remove_courses_users_acuwt(user_ids)
     acuwt_records = ArticleCourseUserWikiTimeslice.where(course: @course, user_id: user_ids)
-    # Marks CWT as needs_reaggregation; deletes targeted ACT rows for affected articles
+    # Marks CWT as needs_reaggregation; deletes ACT and CUWT rows for affected periods
     @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt_records)
-    # Delete course user wiki timeslices for removed users
-    @timeslice_cleaner.delete_course_user_timeslices_for_deleted_course_users(user_ids)
     # Delete ACUWT records for removed users
     @timeslice_cleaner.delete_acuwt_for_deleted_course_users(user_ids)
     # Delete articles courses that were updated only for removed users
