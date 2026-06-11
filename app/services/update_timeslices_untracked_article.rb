@@ -13,15 +13,46 @@ class UpdateTimeslicesUntrackedArticle
   def run
     # Get the untracked articles courses
     untracked_articles = @course.articles_courses.not_tracked.pluck(:article_id)
-    untrack(untracked_articles)
-
     tracked_articles = @course.articles_courses.tracked.pluck(:article_id)
-    retrack(tracked_articles)
+
+    if @course.use_acuwt?
+      untrack_acuwt(untracked_articles)
+      retrack_acuwt(tracked_articles)
+    else
+      untrack_legacy(untracked_articles)
+      retrack_legacy(tracked_articles)
+    end
   end
 
   private
 
-  def untrack(article_ids)
+  ###############
+  # ACUWT paths #
+  ###############
+
+  def untrack_acuwt(article_ids)
+    return if article_ids.empty?
+    acuwt = ArticleCourseUserWikiTimeslice
+              .where(course: @course, article_id: article_ids, tracked: true)
+    return if acuwt.empty?
+    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    acuwt.update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def retrack_acuwt(article_ids)
+    return if article_ids.empty?
+    acuwt = ArticleCourseUserWikiTimeslice
+              .where(course: @course, article_id: article_ids, tracked: false)
+    return if acuwt.empty?
+    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    acuwt.update_all(tracked: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  ################
+  # Legacy paths #
+  ################
+
+  def untrack_legacy(article_ids)
     return if article_ids.empty?
     @article_course_timeslices_to_untrack = ArticleCourseTimeslice
                                             .for_course_and_article(@course, article_ids)
@@ -39,7 +70,7 @@ class UpdateTimeslicesUntrackedArticle
     ArticleCourseTimeslice.where(id: ids).update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
   end
 
-  def retrack(article_ids)
+  def retrack_legacy(article_ids)
     return if article_ids.empty?
 
     # Most of the time there are no untracked timeslices, so we can skip the retrack step
