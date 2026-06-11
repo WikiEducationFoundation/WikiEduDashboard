@@ -354,6 +354,12 @@ class Course < ApplicationRecord
     flags[:article_scoped].present?
   end
 
+  # This is true for ArticleScopedProgram courses (by type) and
+  # for any course with the explicit article_scoped flag.
+  def article_scoped_enabled?
+    is_a?(ArticleScopedProgram) || flags[:article_scoped].present?
+  end
+
   # Checks if an article is in scope (assigned or in a tracked category).
   def scoped_article?(wiki, title, mw_page_id)
     return true unless only_scoped_articles_course?

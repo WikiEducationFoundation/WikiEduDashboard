@@ -32,6 +32,30 @@ describe 'Article scoped flag behavior', type: :model do
     end
   end
 
+  describe '#article_scoped_enabled?' do
+    it 'returns false for a plain BasicCourse without the article_scoped flag' do
+      course = create(:basic_course, start: '2024-01-01', end: '2024-12-31')
+      expect(course.article_scoped_enabled?).to eq(false)
+    end
+
+    it 'returns true for a BasicCourse with the article_scoped flag set' do
+      course = create(:basic_course, start: '2024-01-01', end: '2024-12-31',
+                                     flags: { article_scoped: true })
+      expect(course.article_scoped_enabled?).to eq(true)
+    end
+
+    it 'returns true for ArticleScopedProgram (by type, without flag)' do
+      course = create(:article_scoped_program, start: '2024-01-01', end: '2024-12-31')
+      expect(course.article_scoped_enabled?).to eq(true)
+    end
+
+    it 'returns false for VisitingScholarship (internally scoped but no UI)' do
+      course = create(:visiting_scholarship, start: '2024-01-01', end: '2024-12-31')
+      expect(course.article_scoped_enabled?).to eq(false)
+    end
+  end
+
+
   describe '#scoped_article? with flag' do
     before do
       create(:article, title: 'Category_article')
