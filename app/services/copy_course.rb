@@ -41,6 +41,10 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
       copied_data['flags']['update_logs'] =
         fix_update_logs_parsing(copied_data['flags']['update_logs'])
     end
+    # The flags hash is copied via JSON so all keys are strings.
+    # We must convert known feature flags to symbols because Course model
+    # readers (e.g. peer_review_count) look for symbol keys.
+    symbolize_feature_flags(copied_data['flags'])
     # Create the course
     @course = Course.create!(copied_data)
   end
@@ -69,6 +73,24 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
   # This causes problems, so we need to force the keys to be integers.
   def fix_update_logs_parsing(update_logs)
     update_logs.transform_keys(&:to_i)
+  end
+
+  def symbolize_feature_flags(flags_hash)
+    return unless flags_hash.is_a?(Hash)
+
+    feature_flag_keys = %w[
+      wiki_edits_enabled event_sync peer_review_count timeline_enabled
+      online_volunteers_enabled stay_in_sandbox no_sandboxes
+      retain_available_articles disable_student_emails review_bibliography
+      declined very_long_update max_group_size article_scoped
+      closed_date register_accounts
+    ]
+
+    feature_flag_keys.each do |key|
+      if flags_hash.key?(key)
+        flags_hash[key.to_sym] = flags_hash.delete(key)
+      end
+    end
   end
 
   def add_tracked_wikis
