@@ -173,7 +173,7 @@ nl:
       with_followup: AI-bewerkingsmeldingen met opvolging
       multiple_alerts_students: Studenten met meerdere meldingen
       multiple_alerts_pages: Pagina's met meerdere meldingen
-      pangram_url: Pangram-URL
+      pangram_url: Pangram-url
       go_to_pangram: Naar Pangram gaan
       revision_diff: Versiediff
       single_alert_view: Melding
@@ -310,17 +310,21 @@ nl:
       gebruiken om de exacte aantallen te bekijken.
     view_on_wiki: Op wiki bekijken
     views_added: '%{count} nieuwe weergaven toegevoegd voor %{title}'
+    article_size: Paginagrootte
+    article_size_doc: Grootte van de wikitekst van de pagina (in bytes) na elke bewerking
     edit_size: Bewerkingsgrootte
+    editor_other: Andere bewerkers
+    scoring_status: Scores ophalen voor %{count} bewerkingen
     wiki: Wiki
     wp10: Structurele volledigheid
     wp10_doc: De score 'Structurele volledigheid' geeft aan hoe goed een pagina voldoet
-      aan de structuur van een volwaardige Wikipedia-pagina, gebaseerd op de machine
-      learning-gebaseerde Objective Revision Evaluation Service (https://ores.wikimedia.org/).
-      Deze scores worden berekend op basis van de lengte van een pagina, het aantal
-      verwijzingen en wikikoppelingen, en andere basiskenmerken van de tekst. Een
-      hoge score geeft meestal aan dat een pagina voldoet aan de Wikipedia-conventies
+      aan de structuur van een volwaardige Wikipedia-pagina, gebaseerd op de verouderde
+      (circa 2015) machine learning-gebaseerde dienst "Objective Revision Evaluation
+      Service." Deze scores worden berekend op basis van de lengte van een pagina,
+      het aantal verwijzingen en wikikoppelingen, en andere basiskenmerken van de
+      tekst. Een hoge score geeft meestal aan dat een pagina voldoet aan de Wikipedia-conventies
       voor de structuur van een goede pagina, maar houdt geen rekening met de inhoud
-      zelf. Deze scores zijn alleen beschikbaar voor Engelstalige Wikipedia-pagina's.
+      zelf.
     articles_short: Pagina's
     deleted_message: Volgens de gegevens van het dashboard is deze pagina verwijderd.
       In sommige gevallen kunnen paginaverplaatsingen, het samenvoegen van de geschiedenis
@@ -452,9 +456,9 @@ nl:
       bijgewerkt.
     select: Selecteren
     submit: Opslaan
-    invalid_url: Kan de kladblok-URL niet bijwerken. De URL %{url} is geen geldige
-      Wikipedia-URL.
-    mismatched_wiki: Kan de kladblok-URL niet bijwerken. De URL %{url} bevindt zich
+    invalid_url: Kan de kladblok-url niet bijwerken. De url %{url} is geen geldige
+      Wikipedia-url.
+    mismatched_wiki: Kan de kladblok-url niet bijwerken. De url %{url} bevindt zich
       niet op dezelfde wiki.
     invalid_username: De gebruikersnaam "%{username}" is ongeldig of de gebruikersnaam
       bestaat niet.
@@ -463,7 +467,7 @@ nl:
       de huidige gebruikersnaam naar de door u opgegeven gebruikersnaam.
     username_label: Wikimedia-gebruikersnaam
     username_placeholder: Voer uw gebruikersnaam in (bijv. UwGebruikersnaam)
-    username_or_url_label: Wikipedia-gebruikersnaam of -URL
+    username_or_url_label: Wikipedia-gebruikersnaam of -url
     username_or_url_placeholder: Voer de gebruikersnaam of de volledige kladblok-URL
       in.
     preview_label: 'Voorbeeld van nieuwe URL''s:'
@@ -1521,6 +1525,11 @@ nl:
     see_more: Meer weergeven
     show_all: Alles weergeven
     show_course_specific: Cursusspecifiek weergeven
+    course_ended_notification: Hier worden recente bewerkingen door ingeschreven gebruikers
+      weergegeven, maar bewerkingen na de 'einddatum' worden niet meegerekend in de
+      statistieken en worden niet weergegeven op het tabblad Pagina's. U kunt het
+      filter 'Cursusspecifiek weergeven' gebruiken om de weergave te beperken tot
+      activiteiten die vóór de einddatum hebben plaatsgevonden.
     show_only_new_editors: Alleen nieuwe bewerkers weergeven
   resources:
     label: Bronnen

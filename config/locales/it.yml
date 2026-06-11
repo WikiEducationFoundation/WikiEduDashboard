@@ -223,17 +223,19 @@ it:
       per vedere i numeri esatti.
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
+    article_size: Dimensione voce
+    article_size_doc: Dimensione del wikitesto della voce (in byte) dopo ogni modifica
     edit_size: Modifica dimensione
     wiki: Wiki
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
       una voce si avvicina al modello di una voce di Wikipedia matura, basato sul
-      Servizio di revisione e valutazione obiettivo di apprendimento della macchina  (https://ores.wikimedia.org/).
-      Questi punteggi sono calcolati in base alla dimensione di una voce, il numero
-      di riferimenti e wikilink e altre caratteristiche di base del testo. Un punteggio
-      più alto indica in genere che una voce segue le convenzioni di Wikipedia per
-      la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
-      punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
+      vecchio (~2015) "Objective Revision Evaluation Service" (Servizio di revisione
+      e valutazione obiettivo) basato sull'apprendimento automatico. Questi punteggi
+      sono calcolati in base alla dimensione di una voce, il numero di riferimenti
+      e wikilink e altre caratteristiche di base del testo. Un punteggio più alto
+      indica in genere che una voce segue le convenzioni di Wikipedia per la struttura
+      di una buona voce, ma non tiene conto del contenuto stesso.
     articles_short: Voci
   items:
     items: Elementi
