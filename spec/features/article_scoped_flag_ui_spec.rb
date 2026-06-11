@@ -19,6 +19,12 @@ describe 'article_scoped flag UI behavior', js: true do
       visit "/courses/#{course.slug}/articles"
       expect(page).to have_content 'Tracked Categories'
     end
+
+    it 'shows the article scoped program info message in the statistics modal' do
+      visit "/courses/#{course.slug}"
+      click_button 'See more'
+      expect(page).to have_content 'Article Scoped Program'
+    end
   end
 
   context 'ArticleScopedProgram course (scoped by type)' do
@@ -61,7 +67,9 @@ describe 'article_scoped flag UI behavior', js: true do
       visit "/courses/#{course.slug}"
       # The statistics update modal info text references 'Article Scoped Program'
       # which is factually wrong for a VisitingScholarship
-      expect(page).not_to have_content "Article Scoped Program"
+      click_button 'See more'
+      expect(page).to have_content 'Missing or unexpected results?'
+      expect(page).not_to have_content 'Article Scoped Program'
     end
   end
 end
