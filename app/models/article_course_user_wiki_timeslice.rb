@@ -67,7 +67,7 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
     return if records.empty?
     upsert_all(records,
                update_only: %i[revision_count character_sum references_count new_article
-                               first_revision stats updated_at])
+                               first_revision stats needs_update updated_at])
   end
 
   def self.acuwt_records_from_revisions(course, wiki, ts_start, ts_end, revisions)
@@ -90,6 +90,7 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
       references_count: live.sum(&:references_added),
       new_article: revs.any?(&:new_article),
       first_revision: live.map(&:date).min,
+      needs_update: revs.any?(&:error),
       stats: acuwt_wikidata_stats(course, wiki, live) }
   end
   private_class_method :acuwt_revision_stats
