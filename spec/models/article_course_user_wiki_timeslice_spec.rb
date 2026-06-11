@@ -17,6 +17,7 @@
 #  tracked          :boolean          default(TRUE)
 #  first_revision   :datetime
 #  stats            :text
+#  needs_update     :boolean          default(FALSE)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
