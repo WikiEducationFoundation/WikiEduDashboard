@@ -53,9 +53,7 @@ class UpdateCourseWikiTimeslices
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
-      # Sometimes we need to reprocess timeslices due to changes such as
-      # users removed from a course.
-      fetch_data_and_reprocess_timeslices(wiki, first_start)
+      reprocess_timeslices(wiki, first_start)
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
       # Re-aggregate CWT/ACT/CUWT rows from existing ACUWT for timeslices
@@ -81,6 +79,19 @@ class UpdateCourseWikiTimeslices
         t.update(needs_update: true) # No effect if t has split
       end
     end
+  end
+
+  def reprocess_timeslices(wiki, first_start)
+    if @course.use_acuwt?
+      fetch_data_and_reprocess_acuwt_timeslices(wiki)
+    else
+      fetch_data_and_reprocess_timeslices(wiki, first_start)
+    end
+  end
+
+  def fetch_data_and_reprocess_acuwt_timeslices(wiki)
+    ReprocessArticleCourseUserWikiTimeslices.new(@course, wiki,
+                                                 update_service: @update_service).run
   end
 
   def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
