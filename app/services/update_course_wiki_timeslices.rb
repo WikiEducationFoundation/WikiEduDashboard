@@ -53,7 +53,8 @@ class UpdateCourseWikiTimeslices
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
-      reprocess_timeslices(wiki, first_start)
+      fetch_data_and_reprocess_timeslices(wiki, first_start)
+      fetch_data_and_reprocess_acuwt_timeslices(wiki) if @course.use_acuwt?
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
       # Re-aggregate CWT/ACT/CUWT rows from existing ACUWT for timeslices
@@ -78,14 +79,6 @@ class UpdateCourseWikiTimeslices
         log_error(e, t.start, t.end, wiki.id)
         t.update(needs_update: true) # No effect if t has split
       end
-    end
-  end
-
-  def reprocess_timeslices(wiki, first_start)
-    if @course.use_acuwt?
-      fetch_data_and_reprocess_acuwt_timeslices(wiki)
-    else
-      fetch_data_and_reprocess_timeslices(wiki, first_start)
     end
   end
 

@@ -79,9 +79,6 @@ class ReprocessArticleCourseUserWikiTimeslices
       course: @course, wiki: @wiki, start: ts_start, article_id: article_ids
     )
     @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
-    CourseWikiTimeslice.for_course_and_wiki(@course, @wiki)
-                       .where(start: ts_start)
-                       .update_all(needs_update: false) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def revision_data_manager

@@ -47,10 +47,9 @@ describe ReprocessArticleCourseUserWikiTimeslices do
         create(:article_course_timeslice, course:, article: article1, start: ts_start)
         create(:course_user_wiki_timeslice, course:, user: user1, wiki: enwiki,
                start: ts_start, end: ts_end)
-        course.course_wiki_timeslices.where(start: ts_start).update_all(needs_update: true)
       end
 
-      it 'marks CWT for reaggregation, clears needs_update, and removes ACT/CUWT rows' do
+      it 'marks CWT for reaggregation and removes ACT/CUWT rows' do
         revision = build(:revision_on_memory,
                          article_id: article1.id, user_id: user1.id, wiki_id: enwiki.id,
                          mw_rev_id: 12345, date: ts_start + 1.hour, error: false)
@@ -61,9 +60,8 @@ describe ReprocessArticleCourseUserWikiTimeslices do
 
         described_class.new(course, enwiki).run
 
-        cwt = course.course_wiki_timeslices.where(start: ts_start).first
-        expect(cwt.needs_reaggregation).to eq(true)
-        expect(cwt.needs_update).to eq(false)
+        expect(course.course_wiki_timeslices.where(start: ts_start).first.needs_reaggregation)
+          .to eq(true)
         expect(course.article_course_timeslices.where(article: article1, start: ts_start).count)
           .to eq(0)
         expect(CourseUserWikiTimeslice.where(course:, start: ts_start).count).to eq(0)
@@ -98,18 +96,16 @@ describe ReprocessArticleCourseUserWikiTimeslices do
                course:, article: article1, user: user1, wiki: enwiki,
                start: ts_start, end: ts_end, needs_update: true)
         create(:article_course_timeslice, course:, article: article1, start: ts_start)
-        course.course_wiki_timeslices.where(start: ts_start).update_all(needs_update: true)
       end
 
-      it 'still marks CWT for reaggregation and clears needs_update' do
+      it 'still marks CWT for reaggregation' do
         allow_any_instance_of(RevisionDataManager)
           .to receive(:fetch_revision_data_for_users_with_articles_only).and_return([])
 
         described_class.new(course, enwiki).run
 
-        cwt = course.course_wiki_timeslices.where(start: ts_start).first
-        expect(cwt.needs_reaggregation).to eq(true)
-        expect(cwt.needs_update).to eq(false)
+        expect(course.course_wiki_timeslices.where(start: ts_start).first.needs_reaggregation)
+          .to eq(true)
         expect(course.article_course_timeslices.where(article: article1, start: ts_start).count)
           .to eq(0)
       end
@@ -128,9 +124,6 @@ describe ReprocessArticleCourseUserWikiTimeslices do
                start: ts_start2, end: ts_end2, needs_update: true)
         create(:article_course_timeslice, course:, article: article1, start: ts_start)
         create(:article_course_timeslice, course:, article: article2, start: ts_start2)
-        course.course_wiki_timeslices
-              .where(start: [ts_start, ts_start2])
-              .update_all(needs_update: true)
       end
 
       it 'processes each period independently' do
@@ -150,7 +143,6 @@ describe ReprocessArticleCourseUserWikiTimeslices do
         described_class.new(course, enwiki).run
 
         expect(course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(2)
-        expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
         expect(course.article_course_timeslices.count).to eq(0)
       end
     end

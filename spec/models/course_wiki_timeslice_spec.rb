@@ -395,26 +395,11 @@ scoped: false)
         end
       end
 
-      context 'when some ACUWT rows have needs_update' do
-        before do
-          ArticleCourseUserWikiTimeslice.find_by(course:, wiki:, start:, user_id: 1)
-                                        .update(needs_update: true)
-        end
-
-        it 'sets needs_update on the CWT' do
-          cwt = described_class.find_by(course:, wiki:, start:)
-          cwt.update_cache_from_acuwt
-          expect(cwt.needs_update).to eq(true)
-        end
-      end
-
-      context 'when no ACUWT rows have needs_update' do
-        it 'clears needs_update on the CWT' do
-          cwt = described_class.find_by(course:, wiki:, start:)
-          cwt.update(needs_update: true)
-          cwt.update_cache_from_acuwt
-          expect(cwt.needs_update).to eq(false)
-        end
+      it 'always clears needs_update on the CWT' do
+        cwt = described_class.find_by(course:, wiki:, start:)
+        cwt.update(needs_update: true)
+        cwt.update_cache_from_acuwt
+        expect(cwt.needs_update).to eq(false)
       end
     end
   end

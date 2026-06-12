@@ -75,7 +75,10 @@ class CourseWikiTimeslice < ApplicationRecord
     update_references_count_from_acuwt
     update_revision_count_from_acuwt
     update_stats_from_acuwt
-    update_needs_update_from_acuwt
+    # needs_update is cleared unconditionally: any retry need is tracked at the ACUWT level
+    # (ArticleCourseUserWikiTimeslice.needs_update) and handled by
+    # ReprocessArticleCourseUserWikiTimeslices, not by re-fetching the full CWT.
+    self.needs_update = false
     if revisions
       @revisions = revisions.select(&:scoped)
       update_mw_rev_count
@@ -194,8 +197,5 @@ class CourseWikiTimeslice < ApplicationRecord
     self.needs_update = @revisions.any?(&:error)
   end
 
-  def update_needs_update_from_acuwt
-    self.needs_update = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
-                                                      .exists?(needs_update: true)
-  end
+
 end
