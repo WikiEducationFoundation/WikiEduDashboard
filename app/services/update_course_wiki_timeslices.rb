@@ -244,8 +244,7 @@ class UpdateCourseWikiTimeslices
 
   def update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
     timeslice = acuwt_timeslice_for(wiki, revisions)
-    CourseWikiTimeslice.update_from_acuwt(@course, wiki, timeslice.start, timeslice.end,
-                                          revisions[:revisions])
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
   end
 
   def reaggregate_timeslices_from_acuwt(wiki)
