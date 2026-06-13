@@ -17,6 +17,7 @@
 #  tracked          :boolean          default(TRUE)
 #  first_revision   :datetime
 #  stats            :text
+#  needs_update     :boolean          default(FALSE)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -44,26 +45,6 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
   # Class methods #
   #################
 
-  # Given a course, an article_id, a user_id, a wiki, and a hash of revisions like the following:
-  # {:start=>"20160320000000", :end=>"20160320235959", :revisions=>[...]},
-  # where start and end span a single timeslice period (end is 1 second
-  # before the next timeslice boundary), updates the article course user wiki timeslice.
-  def self.update_article_course_user_wiki_timeslices(course, article_id, user_id, wiki, revisions)
-    timeslices = course.course_wiki_timeslices.where(wiki:)
-                       .for_revisions_between(revisions[:start], revisions[:end])
-    if timeslices.size > 1
-      message = "Multiple article course user wiki timeslices matched for course #{course.slug}"
-      Sentry.capture_message message,
-                             level: 'error',
-                             extra: { course_id: course.id, wiki_id: wiki.id, article_id:, user_id:,
-                                      start: revisions[:start], end: revisions[:end] }
-    end
-    timeslice = timeslices.first
-    acuw_timeslice = find_or_create_by(course:, article_id:, user_id:, wiki:,
-                                       start: timeslice.start, end: timeslice.end)
-    acuw_timeslice.update_cache_from_revisions revisions[:revisions]
-  end
-
   # Returns distinct (start, end) pairs for rows matching the given course, wiki, and articles.
   # Used by UpdateTimeslicesScopedArticle to iterate over timeslice windows that need rescoring.
   def self.periods_for_articles(course, wiki, article_ids)
@@ -86,32 +67,7 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
     return if records.empty?
     upsert_all(records,
                update_only: %i[revision_count character_sum references_count new_article
-                               first_revision stats updated_at])
-  end
-
-  ####################
-  # Instance methods #
-  ####################
-
-  def update_cache_from_revisions(revisions)
-    live_revisions = revisions.reject { |r| r.deleted || r.system }
-    self.revision_count = live_revisions.size
-    self.character_sum = character_sum_for(live_revisions)
-    self.references_count = live_revisions.sum(&:references_added)
-    self.new_article = revisions.any?(&:new_article)
-    self.first_revision = live_revisions.map(&:date).min
-    self.stats = update_wikidata_stats(live_revisions) if wiki.project == 'wikidata'
-    save
-  end
-
-  private
-
-  def character_sum_for(revisions)
-    revisions.sum { |r| r.characters.to_i.positive? ? r.characters : 0 }
-  end
-
-  def update_wikidata_stats(revisions)
-    UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(revisions)
+                               first_revision stats needs_update updated_at])
   end
 
   def self.acuwt_records_from_revisions(course, wiki, ts_start, ts_end, revisions)
@@ -134,6 +90,7 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
       references_count: live.sum(&:references_added),
       new_article: revs.any?(&:new_article),
       first_revision: live.map(&:date).min,
+      needs_update: revs.any?(&:error),
       stats: acuwt_wikidata_stats(course, wiki, live) }
   end
   private_class_method :acuwt_revision_stats

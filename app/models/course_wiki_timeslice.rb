@@ -68,19 +68,20 @@ class CourseWikiTimeslice < ApplicationRecord
   ####################
 
   # Updates CWT stats from existing ACUWT rows without fetching from MediaWiki.
-  # TODO: Remove the revisions parameter once CWT stats depend fully on ACUWT.
-  # Until then, mw_rev_count and needs_update are transitionally still derived
-  # from MediaWiki-fetched revisions. Pass nil during pure reaggregation (no fetch).
+  # TODO: Remove the revisions parameter once mw_rev_count is derived from ACUWT.
   def update_cache_from_acuwt(revisions = nil)
     @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
     update_character_sum_from_acuwt
     update_references_count_from_acuwt
     update_revision_count_from_acuwt
     update_stats_from_acuwt
+    # needs_update is cleared unconditionally: any retry need is tracked at the ACUWT level
+    # (ArticleCourseUserWikiTimeslice.needs_update) and handled by
+    # ReprocessArticleCourseUserWikiTimeslices, not by re-fetching the full CWT.
+    self.needs_update = false
     if revisions
       @revisions = revisions.select(&:scoped)
       update_mw_rev_count
-      update_needs_update
     end
     self.needs_reaggregation = false
     save
@@ -195,4 +196,6 @@ class CourseWikiTimeslice < ApplicationRecord
   def update_needs_update
     self.needs_update = @revisions.any?(&:error)
   end
+
+
 end

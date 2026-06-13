@@ -373,8 +373,6 @@ describe UpdateCourseWikiTimeslices do
         allow_any_instance_of(SplitTimeslice).to receive(:maybe_split).and_return([false, nil])
         allow(RevisionScanner).to receive(:schedule_revision_checks)
         allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
-        allow(ArticleCourseUserWikiTimeslice)
-          .to receive(:update_article_course_user_wiki_timeslices)
         allow(ArticleCourseTimeslice).to receive(:bulk_update_from_acuwt)
         allow(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
       end

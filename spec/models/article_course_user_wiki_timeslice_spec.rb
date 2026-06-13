@@ -17,6 +17,7 @@
 #  tracked          :boolean          default(TRUE)
 #  first_revision   :datetime
 #  stats            :text
+#  needs_update     :boolean          default(FALSE)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -24,170 +25,207 @@
 require 'rails_helper'
 
 describe ArticleCourseUserWikiTimeslice, type: :model do
+  let(:ts_start) { '2021-01-24'.to_datetime }
+  let(:ts_end) { ts_start + 1.day }
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
-  let(:user) { create(:user) }
-  let(:start) { 1.month.ago.beginning_of_day }
-  let(:course) { create(:course, start:, end: 1.month.from_now.beginning_of_day) }
-  let(:article) { create(:article) }
-  let(:article_id) { article.id }
+  let(:course) { create(:course, start: ts_start, end: ts_start + 7.days) }
+  let(:user1) { create(:user, username: 'User1') }
+  let(:user2) { create(:user, username: 'User2') }
+  let(:article1) { create(:article, wiki:) }
+  let(:article2) { create(:article, title: 'SecondArticle', wiki:) }
 
-  let(:revision1) do
-    build(:revision_on_memory, article_id:,
-           characters: 123,
-           features: { 'num_ref' => 4 },
-           features_previous: { 'num_ref' => 0 },
-           user_id: user.id,
-           date: start + 1.hour,
-           new_article: true)
-  end
-  let(:revision2) do
-    build(:revision_on_memory, article_id:,
-           characters: -65,
-           features: { 'num_ref' => 1 },
-           features_previous: { 'num_ref' => 2 },
-           user_id: user.id,
-           date: start + 10.hours)
-  end
-  let(:revision3) do
-    build(:revision_on_memory, article_id:,
-           characters: 225,
-           features: { 'num_ref' => 3 },
-           features_previous: { 'num_ref' => 3 },
-           user_id: user.id,
-           date: start + 12.hours)
-  end
-  let(:revision4) do
-    build(:revision_on_memory, article_id:,
-           characters: 34,
-           deleted: true,
-           features: { 'num_ref' => 2 },
-           features_previous: { 'num_ref' => 0 },
-           user_id: user.id,
-           date: start + 16.hours)
-  end
-  let(:revision5) do
-    build(:revision_on_memory, article_id:,
-           characters: 120,
-           features: { 'num_ref' => 3 },
-           features_previous: { 'num_ref' => 3 },
-           user_id: user.id,
-           date: start + 12.hours,
-           system: true)
-  end
-  let(:revisions) { [revision1, revision2, revision3, revision4, revision5] }
-
-  describe '.update_article_course_user_wiki_timeslices' do
+  describe '.periods_for_articles' do
     before do
-      create(:course_wiki_timeslice, course:, wiki:, start:, end: start + 1.day)
+      create(:article_course_user_wiki_timeslice,
+             course:, wiki:, article: article1, user: user1,
+             start: ts_start, end: ts_end)
+      create(:article_course_user_wiki_timeslice,
+             course:, wiki:, article: article1, user: user1,
+             start: ts_start + 1.day, end: ts_start + 2.days)
+      create(:article_course_user_wiki_timeslice,
+             course:, wiki:, article: article2, user: user1,
+             start: ts_start, end: ts_end)
     end
 
-    let(:start_period) { start.strftime('%Y%m%d%H%M%S') }
-    let(:end_period) { (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S') }
-    let(:revision_data) { { start: start_period, end: end_period, revisions: } }
-
-    it 'creates the right timeslice based on the revisions' do
-      expect(described_class.find_by(course:, article:, user:, wiki:, start:)).to be_nil
-
-      described_class.update_article_course_user_wiki_timeslices(
-        course, article_id, user.id, wiki, revision_data
+    it 'returns distinct (start, end) pairs for the given articles' do
+      pairs = described_class.periods_for_articles(course, wiki, [article1.id])
+      expect(pairs).to contain_exactly(
+        [ts_start, ts_end],
+        [ts_start + 1.day, ts_start + 2.days]
       )
-
-      timeslice = described_class.find_by(course:, article:, user:, wiki:, start:)
-      expect(timeslice.revision_count).to eq(3)
-      expect(timeslice.character_sum).to eq(348)
-      expect(timeslice.references_count).to eq(3)
-      expect(timeslice.new_article).to eq(true)
-      expect(timeslice.first_revision).to eq(start + 1.hour)
     end
 
-    it 'updates an existing timeslice based on the revisions' do
-      create(:article_course_user_wiki_timeslice, course:, article:, user:, wiki:,
-             start:, end: start + 1.day, revision_count: 0, character_sum: 0)
-
-      described_class.update_article_course_user_wiki_timeslices(
-        course, article_id, user.id, wiki, revision_data
-      )
-
-      timeslice = described_class.find_by(course:, article:, user:, wiki:, start:)
-      expect(timeslice.revision_count).to eq(3)
-      expect(timeslice.character_sum).to eq(348)
+    it 'excludes rows for other articles' do
+      pairs = described_class.periods_for_articles(course, wiki, [article2.id])
+      expect(pairs).to contain_exactly([ts_start, ts_end])
     end
 
-    it 'sends a Sentry error when multiple timeslices are matched' do
-      create(:course_wiki_timeslice, course:, wiki:, start: start + 1.day, end: start + 2.days)
-      multi_end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
-
-      expect(Sentry).to receive(:capture_message)
-        .with("Multiple article course user wiki timeslices matched for course #{course.slug}",
-              level: 'error',
-              extra: hash_including(course_id: course.id, wiki_id: wiki.id,
-                                    article_id:, user_id: user.id,
-                                    start: start_period, end: multi_end_period))
-
-      described_class.update_article_course_user_wiki_timeslices(
-        course, article_id, user.id, wiki,
-        { start: start_period, end: multi_end_period, revisions: }
-      )
+    it 'deduplicates periods when multiple users have rows for the same period' do
+      create(:article_course_user_wiki_timeslice,
+             course:, wiki:, article: article1, user: user2,
+             start: ts_start, end: ts_end)
+      pairs = described_class.periods_for_articles(course, wiki, [article1.id])
+      expect(pairs.count { |(s, _)| s == ts_start }).to eq(1)
     end
   end
 
-  describe '#update_cache_from_revisions' do
-    let(:timeslice) do
-      create(:article_course_user_wiki_timeslice, course:, article:, user:, wiki:,
-             character_sum: 100, references_count: 3, revision_count: 5)
+  describe '.users_for_articles_in_period' do
+    before do
+      create(:article_course_user_wiki_timeslice,
+             course:, wiki:, article: article1, user: user1,
+             start: ts_start, end: ts_end)
+      create(:article_course_user_wiki_timeslice,
+             course:, wiki:, article: article1, user: user2,
+             start: ts_start + 1.day, end: ts_start + 2.days)
     end
 
-    it 'updates cache correctly' do
-      timeslice.update_cache_from_revisions(revisions)
-      expect(timeslice.revision_count).to eq(3)
-      expect(timeslice.character_sum).to eq(348)
-      expect(timeslice.references_count).to eq(3)
-      expect(timeslice.new_article).to eq(true)
-      expect(timeslice.first_revision).to eq(start + 1.hour)
+    it 'returns users with rows for the given articles and period start' do
+      users = described_class.users_for_articles_in_period(course, wiki, [article1.id], ts_start)
+      expect(users).to contain_exactly(user1)
     end
 
-    it 'updates cache correctly if no live revisions' do
-      timeslice.update_cache_from_revisions([revision4, revision5])
-      expect(timeslice.revision_count).to eq(0)
-      expect(timeslice.character_sum).to eq(0)
-      expect(timeslice.references_count).to eq(0)
-      expect(timeslice.new_article).to eq(false)
-      expect(timeslice.first_revision).to be_nil
+    it 'excludes users whose rows are in a different period' do
+      users = described_class.users_for_articles_in_period(
+        course, wiki, [article1.id], ts_start + 1.day
+      )
+      expect(users).to contain_exactly(user2)
+    end
+  end
+
+  describe '.bulk_upsert_from_revisions' do
+    def live_revision(article:, user:, characters: 100, mw_rev_id: rand(100_000),
+                      new_article: false, error: false, date: ts_start + 1.hour)
+      build(:revision_on_memory,
+            article_id: article.id, user_id: user.id, wiki_id: wiki.id,
+            mw_rev_id:, characters:, new_article:, error:, date:,
+            deleted: false, system: false,
+            features: { 'num_ref' => 2 },
+            features_previous: { 'num_ref' => 1 })
     end
 
-    it 'leaves stats empty for non-wikidata wikis' do
-      timeslice.update_cache_from_revisions(revisions)
-      expect(timeslice.stats).to be_empty
+    context 'with a single live revision' do
+      it 'creates an ACUWT row with correct stats' do
+        rev = live_revision(article: article1, user: user1, characters: 200, new_article: true)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [rev])
+
+        row = described_class.find_by(course:, wiki:, article: article1, user: user1,
+start: ts_start)
+        expect(row).to be_present
+        expect(row.revision_count).to eq(1)
+        expect(row.character_sum).to eq(200)
+        expect(row.new_article).to eq(true)
+        expect(row.first_revision).to be_within(1.second).of(rev.date)
+        expect(row.needs_update).to eq(false)
+      end
+
+      it 'creates separate rows for each (article, user) combination' do
+        rev1 = live_revision(article: article1, user: user1)
+        rev2 = live_revision(article: article1, user: user2)
+        rev3 = live_revision(article: article2, user: user1)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end,
+                                                   [rev1, rev2, rev3])
+
+        expect(described_class.where(course:, wiki:, start: ts_start).count).to eq(3)
+      end
     end
 
-    context 'when wiki is wikidata' do
-      let(:wikidata_wiki) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+    context 'with deleted and system revisions' do
+      it 'excludes deleted revisions from revision_count and character_sum' do
+        live = live_revision(article: article1, user: user1, characters: 100)
+        deleted = build(:revision_on_memory,
+                        article_id: article1.id, user_id: user1.id, wiki_id: wiki.id,
+                        mw_rev_id: 99999, characters: 500, deleted: true, system: false,
+                        date: ts_start + 2.hours)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [live, deleted])
 
-      before { stub_wiki_validation }
-      let(:wikidata_timeslice) do
-        create(:article_course_user_wiki_timeslice, course:, article:, user:, wiki: wikidata_wiki)
-      end
-      let(:wikidata_revision1) do
-        build(:revision_on_memory, article_id:, user_id: user.id,
-               date: start + 1.hour,
-               summary: '{"added_claims":3,"added_labels":2}')
-      end
-      let(:wikidata_revision2) do
-        build(:revision_on_memory, article_id:, user_id: user.id,
-               date: start + 2.hours,
-               summary: '{"added_claims":1}')
+        row = described_class.find_by(course:, wiki:, article: article1, user: user1,
+start: ts_start)
+        expect(row.revision_count).to eq(1)
+        expect(row.character_sum).to eq(100)
       end
 
-      it 'populates stats from revision diff_stats' do
-        wikidata_timeslice.update_cache_from_revisions([wikidata_revision1, wikidata_revision2])
-        expect(wikidata_timeslice.stats['claims created']).to eq(4)
-        expect(wikidata_timeslice.stats['labels added']).to eq(2)
-        expect(wikidata_timeslice.stats['total revisions']).to eq(2)
+      it 'sets new_article from any revision, including deleted ones' do
+        deleted_new = build(:revision_on_memory,
+                            article_id: article1.id, user_id: user1.id, wiki_id: wiki.id,
+                            mw_rev_id: 11111, characters: 0, deleted: true, system: false,
+                            new_article: true, date: ts_start + 1.hour)
+        live = live_revision(article: article1, user: user1, new_article: false)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end,
+                                                   [deleted_new, live])
+
+        row = described_class.find_by(course:, wiki:, article: article1, user: user1,
+start: ts_start)
+        expect(row.new_article).to eq(true)
+      end
+    end
+
+    context 'with negative character changes' do
+      it 'treats negative characters as zero in character_sum' do
+        rev = live_revision(article: article1, user: user1, characters: -50)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [rev])
+
+        row = described_class.find_by(course:, wiki:, article: article1, user: user1,
+start: ts_start)
+        expect(row.character_sum).to eq(0)
+      end
+    end
+
+    context 'when a revision has an error flag' do
+      it 'sets needs_update: true on the row' do
+        rev = live_revision(article: article1, user: user1, error: true)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [rev])
+
+        row = described_class.find_by(course:, wiki:, article: article1, user: user1,
+start: ts_start)
+        expect(row.needs_update).to eq(true)
       end
 
-      it 'stats total revisions matches revision_count' do
-        wikidata_timeslice.update_cache_from_revisions([wikidata_revision1, wikidata_revision2])
-        expect(wikidata_timeslice.stats['total revisions']).to eq(wikidata_timeslice.revision_count)
+      it 'clears needs_update when a subsequent upsert has no errors' do
+        create(:article_course_user_wiki_timeslice,
+               course:, wiki:, article: article1, user: user1,
+               start: ts_start, end: ts_end, needs_update: true)
+        rev = live_revision(article: article1, user: user1, error: false)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [rev])
+
+        row = described_class.find_by(course:, wiki:, article: article1, user: user1,
+start: ts_start)
+        expect(row.needs_update).to eq(false)
+      end
+    end
+
+    context 'when revisions have nil article_id or user_id' do
+      it 'skips those revisions' do
+        no_article = build(:revision_on_memory, article_id: nil, user_id: user1.id,
+                           wiki_id: wiki.id, mw_rev_id: 11111)
+        no_user = build(:revision_on_memory, article_id: article1.id, user_id: nil,
+                        wiki_id: wiki.id, mw_rev_id: 22222)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end,
+                                                   [no_article, no_user])
+
+        expect(described_class.where(course:, wiki:, start: ts_start).count).to eq(0)
+      end
+    end
+
+    context 'when the revision list is empty after filtering' do
+      it 'returns without writing any rows' do
+        expect do
+          described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [])
+        end.not_to change(described_class, :count)
+      end
+    end
+
+    context 'when a row for the same (course, wiki, article, user, start) already exists' do
+      it 'updates stats on the existing row rather than creating a duplicate' do
+        create(:article_course_user_wiki_timeslice,
+               course:, wiki:, article: article1, user: user1,
+               start: ts_start, end: ts_end, revision_count: 1, character_sum: 50)
+        rev = live_revision(article: article1, user: user1, characters: 200)
+        described_class.bulk_upsert_from_revisions(course, wiki, ts_start, ts_end, [rev])
+
+        expect(described_class.where(course:, wiki:, article: article1,
+                                     user: user1, start: ts_start).count).to eq(1)
+        expect(described_class.find_by(course:, wiki:, article: article1,
+                                       user: user1, start: ts_start).character_sum).to eq(200)
       end
     end
   end
