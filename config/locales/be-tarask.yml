@@ -74,6 +74,7 @@ be-tarask:
     opt_yes: так
     opt_no: не
     print: Друкаваць
+    sort: Сартаваць
   article_statuses:
     not_yet_started: Пачатак працы
     in_progress: Работа ў пясочніцы

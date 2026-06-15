@@ -48,7 +48,7 @@ sr-ec:
     explore: Истражи
     field_required: Ово поље је обавезно.
     field_invalid_characters: Поље садржи неважеће знакове
-    field_invalid_date: Ово поље захтева датум у формату ГГГГ-ММ-ДД
+    field_invalid_date: Ово поље захтева датум у формату YYYY-MM-DD
     field_invalid_date_time: Крај мора да буде након почетка. (Часови су у распону
       од 0 до 23.)
     greeting2: Добро дошли!
@@ -79,7 +79,7 @@ sr-ec:
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом
     sign_up: Отвори налог
-    submit: Пошаљи
+    submit: Проследи
     training: Обука
     change: Промени
     details: Детаљи
@@ -89,6 +89,7 @@ sr-ec:
     opt_yes: да
     opt_no: не
     print: Штампај
+    sort: Сортирај
   article_statuses:
     not_yet_started: Увод
     in_progress: Рад у песку
@@ -146,6 +147,7 @@ sr-ec:
     no_data: Нису пронађени подаци.
     ai_stats:
       total: Укупно
+      last_week: Прошла недеља
       sections:
         name: Име
         description: Опис
@@ -163,6 +165,7 @@ sr-ec:
     available: Доступни чланци
     no_available: Нема доступних чланака
     next: Следећи
+    permalink: Трајна веза
     previous: Претходни
     article_title: Наслов чланка
     assigned_to: Додељено
@@ -239,6 +242,7 @@ sr-ec:
     views_added: '{{PLURAL:%{count}|Додат %{count} нови преглед|Додата %{count} нова
       прегледа|Додато %{count} нових прегледа}} за %{title}'
     edit_size: Величина измене
+    editor_other: Остали уредници
     wiki: Вики
     wp10: Структурна потпуност
     wp10_doc: Оцена „Структурне потпуности” представља колико добро се чланак уклапа
@@ -472,7 +476,7 @@ sr-ec:
     course_description: Курсеви
     courses: Курсеви
     courses_taught: Предавани курсеви
-    creation_date: Датум креирања
+    creation_date: Датум настанка
     start_date: Датум почетка
     creator:
       already_exists: Овај курс већ постоји. Размотрите промену имена, школе или полугодишта
@@ -696,7 +700,7 @@ sr-ec:
       план рада мора да се одобри пре почетка пројекта. То је релевантно само за тип
       курса Програм учионице.
     subject: Предмет
-    submitted: Послато
+    submitted: Прослеђено
     add_tags: 'Додај ознаке:'
     tag_select: Изаберите или направите ознаку
     tags: 'Ознаке:'
@@ -868,7 +872,7 @@ sr-ec:
     cancel: Откажи
     save: Сачувај
     edit_description: Измени опис
-    edit_details: Измени детаље
+    edit_details: Уреди детаље
     edit_template: Уреди шаблон
     rename_confirmation: Поља курса која формирају URL су промењена. Ово ће променити
       URL адресу и прекинути све долазне везе. Желите ли заиста да учитите то?
@@ -925,7 +929,7 @@ sr-ec:
     view_count_description_wikidata: Прегледи ставке
     view_data_unavailable: Нема података
     view: Прегледа
-    word_count: Додате речи
+    word_count: Додато речи
     word_count_average: Просечан број речи
     general: Опште
     total_revisions: Укупно измена
@@ -1194,6 +1198,7 @@ sr-ec:
     view_module_source: изворник модула
     reload_from_source: поново учитај из изворника
     kind:
+      exercise: Вежба
       discussion: Дискусија
       training: Обука
     view_all: Види све вежбе
@@ -1338,7 +1343,7 @@ sr-ec:
     instructor_impact: Укупни учинак који је остварио %{username} као наставник
     instructors_student_impact: Укупни учинак који су остварили студенти наставника
       %{username}
-    disclaimer: Информације које пружите ће бити јавно доступне.
+    disclaimer: Информације које наведете ће бити јавно доступне.
     bio_placeholder: Додајте своју биографију (необавезно)
     location_placeholder: Додајте своју локацију (необавезно)
     institution_placeholder: Име институције (необавезно)
