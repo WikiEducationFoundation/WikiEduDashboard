@@ -571,6 +571,14 @@ class Course < ApplicationRecord
     flags[:very_long_update].present?
   end
 
+  def use_acuwt?
+    flags[:use_acuwt].present?
+  end
+
+  def debug_updates?
+    flags[:debug_updates].present?
+  end
+
   def max_group_size
     flags[:max_group_size]
   end
