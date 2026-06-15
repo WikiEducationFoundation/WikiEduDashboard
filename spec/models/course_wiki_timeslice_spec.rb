@@ -238,6 +238,13 @@ scoped: false)
         expect(course_wiki_timeslice.revision_count).to eq(5)
       end
 
+      it 'computes mw_rev_count from ACUWT across all articles' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_acuwt
+
+        expect(course_wiki_timeslice.mw_rev_count).to eq(5)
+      end
+
       context 'when a student also has ACUWT for a non-mainspace article' do
         let(:draft_article) { create(:article, namespace: Article::Namespaces::DRAFT) }
 
@@ -282,6 +289,13 @@ scoped: false)
 
           expect(course_wiki_timeslice.revision_count).to eq(0)
         end
+
+        it 'includes non-tracked articles in mw_rev_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.mw_rev_count).to eq(5)
+        end
       end
 
       context 'when an instructor has ACUWT records' do
@@ -321,6 +335,14 @@ scoped: false)
 
           # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
           expect(course_wiki_timeslice.revision_count).to eq(5)
+        end
+
+        it 'excludes out-of-scope articles from mw_rev_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
+          expect(course_wiki_timeslice.mw_rev_count).to eq(5)
         end
 
         it 'excludes out-of-scope articles from character_sum' do

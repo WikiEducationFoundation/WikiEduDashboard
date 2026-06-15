@@ -59,8 +59,8 @@ class CourseWikiTimeslice < ApplicationRecord
     timeslices.first.update_cache_from_revisions revisions[:revisions]
   end
 
-  def self.update_from_acuwt(course, wiki, start, finish, revisions = nil)
-    find_by!(course:, wiki:, start:, end: finish).update_cache_from_acuwt(revisions)
+  def self.update_from_acuwt(course, wiki, start, finish)
+    find_by!(course:, wiki:, start:, end: finish).update_cache_from_acuwt
   end
 
   ####################
@@ -68,21 +68,17 @@ class CourseWikiTimeslice < ApplicationRecord
   ####################
 
   # Updates CWT stats from existing ACUWT rows without fetching from MediaWiki.
-  # TODO: Remove the revisions parameter once mw_rev_count is derived from ACUWT.
-  def update_cache_from_acuwt(revisions = nil)
+  def update_cache_from_acuwt
     @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
     update_character_sum_from_acuwt
     update_references_count_from_acuwt
     update_revision_count_from_acuwt
+    update_mw_rev_count_from_acuwt
     update_stats_from_acuwt
     # needs_update is cleared unconditionally: any retry need is tracked at the ACUWT level
     # (ArticleCourseUserWikiTimeslice.needs_update) and handled by
     # ReprocessArticleCourseUserWikiTimeslices, not by re-fetching the full CWT.
     self.needs_update = false
-    if revisions
-      @revisions = revisions.select(&:scoped)
-      update_mw_rev_count
-    end
     self.needs_reaggregation = false
     save
   end
@@ -144,6 +140,17 @@ class CourseWikiTimeslice < ApplicationRecord
     query = query.where(article_id: course.scoped_article_ids) if
       course.only_scoped_articles_course?
     self.revision_count = query.sum(:revision_count)
+  end
+
+  # Approximation: mw_rev_count normally includes deleted revisions (CourseRevisionUpdater
+  # cannot filter them without fetching scores), but ACUWT only stores live revisions,
+  # so deleted revisions are not counted here. This is imperfect and should be improved
+  # in the future to match exactly the same criteria as CourseRevisionUpdater#new_revisions?.
+  def update_mw_rev_count_from_acuwt
+    query = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
+    query = query.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    self.mw_rev_count = query.sum(:revision_count)
   end
 
   def acuwt_mainspace_tracked_student_records
