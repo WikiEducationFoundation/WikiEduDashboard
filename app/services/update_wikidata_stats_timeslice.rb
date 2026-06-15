@@ -68,7 +68,23 @@ class UpdateWikidataStatsTimeslice
     'changed_formclaims' => 'form claims changed',
     'added_senseclaims' => 'sense claims added',
     'removed_senseclaims' => 'sense claims removed',
-    'changed_senseclaims' => 'sense claims changed'
+    'changed_senseclaims' => 'sense claims changed',
+    'added_form_references' => 'form references added',
+    'removed_form_references' => 'form references removed',
+    'changed_form_references' => 'form references changed',
+    'added_form_qualifiers' => 'form qualifiers added',
+    'removed_form_qualifiers' => 'form qualifiers removed',
+    'changed_form_qualifiers' => 'form qualifiers changed',
+    'added_sense_references' => 'sense references added',
+    'removed_sense_references' => 'sense references removed',
+    'changed_sense_references' => 'sense references changed',
+    'added_sense_qualifiers' => 'sense qualifiers added',
+    'removed_sense_qualifiers' => 'sense qualifiers removed',
+    'changed_sense_qualifiers' => 'sense qualifiers changed',
+    'added_language' => 'language added',
+    'changed_language' => 'language changed',
+    'added_lexical_category' => 'lexical category added',
+    'changed_lexical_category' => 'lexical category changed'
   }.freeze
 
   def initialize(course)
