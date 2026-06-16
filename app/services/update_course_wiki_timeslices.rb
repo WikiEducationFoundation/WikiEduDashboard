@@ -60,7 +60,6 @@ class UpdateCourseWikiTimeslices
       # Re-aggregate CWT/ACT/CUWT rows from existing ACUWT for timeslices
       # that were not fully reprocessed in this cycle.
       reaggregate_timeslices_from_acuwt(wiki) if @course.use_acuwt?
-      @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
     end
   end
 
@@ -80,11 +79,13 @@ class UpdateCourseWikiTimeslices
         t.update(needs_update: true) # No effect if t has split
       end
     end
+    @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
   end
 
   def fetch_data_and_reprocess_acuwt_timeslices(wiki)
     ReprocessArticleCourseUserWikiTimeslices.new(@course, wiki,
                                                  update_service: @update_service).run
+    @debugger.log_update_progress :"acuwt_timeslices_reprocessed_#{wiki.id}"
   end
 
   def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
@@ -103,6 +104,7 @@ class UpdateCourseWikiTimeslices
         log_error(e, t.start, t.end, wiki.id)
       end
     end
+    @debugger.log_update_progress :"timeslices_reprocessed_#{wiki.id}"
   end
 
   # Given a wiki and limits of the timeslice, it fetches data for it
@@ -255,6 +257,7 @@ class UpdateCourseWikiTimeslices
       reaggregate_timeslice_from_acuwt(cwt)
       @reaggregated_timeslices_count += 1
     end
+    @debugger.log_update_progress :"timeslices_reaggregated_#{wiki.id}"
   end
 
   def reaggregate_timeslice_from_acuwt(cwt)

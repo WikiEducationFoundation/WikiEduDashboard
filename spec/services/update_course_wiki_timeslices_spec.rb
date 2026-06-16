@@ -42,9 +42,33 @@ describe UpdateCourseWikiTimeslices do
     context 'when :debug_updates flag is set' do
       let(:flags) { { debug_updates: true } }
 
-      it 'posts debug info to Sentry' do
-        expect(Sentry).to receive(:capture_message).at_least(:twice).and_call_original
-        subject
+      def captured_update_steps
+        messages = []
+        allow(Sentry).to receive(:capture_message) do |message, **_opts|
+          messages << message
+        end
+        VCR.use_cassette 'course_wiki_timeslices_update' do
+          subject
+        end
+        messages.filter_map { |m| m[/#{Regexp.escape(course.title)} update: (.+)/, 1] }
+      end
+
+      it 'logs the reprocessing stage for every wiki' do
+        steps = captured_update_steps
+        expect(steps).to include("timeslices_reprocessed_#{enwiki.id}")
+        expect(steps).to include("timeslices_reprocessed_#{wikidata.id}")
+      end
+
+      it 'logs the processing stage for every wiki' do
+        steps = captured_update_steps
+        expect(steps).to include("timeslices_processed_#{enwiki.id}")
+        expect(steps).to include("timeslices_processed_#{wikidata.id}")
+      end
+
+      it 'does not log the ACUWT-specific stages when use_acuwt? is not set' do
+        steps = captured_update_steps
+        expect(steps).not_to(include(a_string_matching(/acuwt_timeslices_reprocessed_/)))
+        expect(steps).not_to(include(a_string_matching(/timeslices_reaggregated_/)))
       end
     end
 
@@ -415,6 +439,31 @@ describe UpdateCourseWikiTimeslices do
         it 'returns the count of reaggregated timeslices' do
           _, _, reaggregated = subject
           expect(reaggregated).to eq(2)
+        end
+      end
+
+      context 'when :debug_updates flag is also set' do
+        before { course.add_flag(key: :debug_updates) }
+
+        def captured_update_steps
+          messages = []
+          allow(Sentry).to receive(:capture_message) do |message, **_opts|
+            messages << message
+          end
+          subject
+          messages.filter_map { |m| m[/#{Regexp.escape(course.title)} update: (.+)/, 1] }
+        end
+
+        it 'logs the ACUWT reprocessing stage for every wiki' do
+          steps = captured_update_steps
+          expect(steps).to include("acuwt_timeslices_reprocessed_#{enwiki.id}")
+          expect(steps).to include("acuwt_timeslices_reprocessed_#{wikidata.id}")
+        end
+
+        it 'logs the reaggregation stage for every wiki' do
+          steps = captured_update_steps
+          expect(steps).to include("timeslices_reaggregated_#{enwiki.id}")
+          expect(steps).to include("timeslices_reaggregated_#{wikidata.id}")
         end
       end
     end
