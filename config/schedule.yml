@@ -44,3 +44,11 @@ update_default_campaign:
   cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
   class: "DefaultCampaignUpdateWorker"
   queue: default
+
+# Fills the claim-verification exercise pool by harvesting cited claims from
+# past-term courses whose subject matches a currently-active course. Skips
+# courses already in the pool, so most runs are cheap once it has caught up.
+harvest_verification_claims:
+  cron: "0 8 * * *" # daily at 08:00 UTC
+  class: "HarvestVerificationClaimPoolWorker"
+  queue: daily_update
