@@ -19,5 +19,6 @@ class CreateFacilitatorStats < ActiveRecord::Migration[7.0]
 
     add_index :facilitator_stats, %i[snapshot_date user_id], unique: true
     add_index :facilitator_stats, :snapshot_date
+    add_index :facilitator_stats, :user_id
   end
 end
