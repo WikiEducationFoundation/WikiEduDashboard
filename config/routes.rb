@@ -136,6 +136,11 @@ Rails.application.routes.draw do
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
 
+  # Claim-verification exercise: a student's assigned claim + cited source,
+  # with a handoff to do the verification in their Wikipedia sandbox.
+  get 'courses/*id/verify_claim' => 'claim_verification_exercises#show',
+      :as => :course_verify_claim, constraints: { id: /.*/ }
+
   # Courses
   controller :courses do
     get 'courses/new' => 'courses#new',
