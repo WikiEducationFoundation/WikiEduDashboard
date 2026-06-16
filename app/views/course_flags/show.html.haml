@@ -1,0 +1,51 @@
+- content_for :before_title, "Manage course flags"
+.container.dashboard
+  %header
+    %h1 Manage course flags
+
+.container
+  - if @course.present?
+    %div#results
+      %hr
+      %h2 Course: #{@course.slug}
+      %table.table.table--striped
+        %thead
+          %tr
+            %th Flag
+            %th Current value
+        %tbody
+          %tr
+            %td use_acuwt
+            %td= @course.use_acuwt? ? 'true' : 'false'
+          %tr
+            %td very_long_update
+            %td= @course.very_long_update? ? 'true' : 'false'
+          %tr
+            %td debug_updates
+            %td= @course.debug_updates? ? 'true' : 'false'
+          %tr
+            %td needs_update
+            %td= @course.needs_update ? 'true' : 'false'
+
+    %div#update
+      %hr
+      %h2 Update flags
+    %form#flags-form{action: '/course_flags/update', method: 'post'}
+      %input{name: "authenticity_token", type: "hidden", value: form_authenticity_token}
+      %input{type: "hidden", name: "course_id", value: @course.id}
+
+      - @manageable_flags.each do |flag|
+        .course-flag-row
+          %label{for: flag}= flag.to_s
+          %select{name: flag, id: flag}
+            %option{value: '0', selected: !@course.flags[flag].present?} false
+            %option{value: '1', selected: @course.flags[flag].present?} true
+
+      .course-flag-row
+        %label{for: "needs_update"} needs_update
+        %select{name: "needs_update", id: "needs_update"}
+          %option{value: '0', selected: !@course.needs_update} false
+          %option{value: '1', selected: @course.needs_update} true
+
+      %button{type: 'submit'}
+        %div.button.dark Update flags

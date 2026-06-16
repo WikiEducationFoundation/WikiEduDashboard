@@ -20,6 +20,6 @@ class UpdateDebugger
   end
 
   def debug?
-    @course.flags[:debug_updates]
+    @course.debug_updates?
   end
 end
