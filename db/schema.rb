@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_28_223445) do
+ActiveRecord::Schema[7.0].define(version: 2026_06_16_201928) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -652,6 +652,29 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_28_223445) do
     t.datetime "registered_at", precision: nil
     t.datetime "first_login", precision: nil
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "verification_claims", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "sentence", null: false
+    t.text "context"
+    t.text "cite_text"
+    t.text "source_url"
+    t.text "archive_url"
+    t.boolean "offline_source"
+    t.string "ref_id"
+    t.integer "article_id"
+    t.string "article_title"
+    t.integer "wiki_id", null: false
+    t.integer "mw_rev_id"
+    t.integer "source_course_id"
+    t.integer "courses_users_id"
+    t.string "subject"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_users_id"], name: "index_verification_claims_on_courses_users_id"
+    t.index ["source_course_id"], name: "index_verification_claims_on_source_course_id"
+    t.index ["subject"], name: "index_verification_claims_on_subject"
+    t.index ["wiki_id", "mw_rev_id"], name: "index_verification_claims_on_wiki_id_and_mw_rev_id"
   end
 
   create_table "versions", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
