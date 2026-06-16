@@ -29,12 +29,14 @@ describe 'Manage course flags admin page', type: :feature, js: true do
       visit "/course_flags/show?course_id=#{course.id}"
       select 'true', from: 'use_acuwt'
       select 'true', from: 'very_long_update'
+      select 'true', from: 'debug_updates'
       select 'true', from: 'needs_update'
       click_button 'Update flags'
       expect(page).to have_content "Flags updated for course #{course.slug}"
       course.reload
       expect(course.flags[:use_acuwt]).to eq(true)
       expect(course.flags[:very_long_update]).to eq(true)
+      expect(course.flags[:debug_updates]).to eq(true)
       expect(course.needs_update).to eq(true)
     end
 

@@ -10,9 +10,12 @@ class CourseFlagsController < ApplicationController
 
   def index; end
 
-  def show; end
+  def show
+    @manageable_flags = MANAGEABLE_FLAGS
+  end
 
   def update
+    return redirect_to(course_flags_path, flash: { error: 'Course not found' }) if @course.nil?
     MANAGEABLE_FLAGS.each do |flag|
       @course.flags[flag] = params[flag] == '1'
     end

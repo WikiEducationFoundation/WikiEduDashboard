@@ -34,7 +34,7 @@
       %input{name: "authenticity_token", type: "hidden", value: form_authenticity_token}
       %input{type: "hidden", name: "course_id", value: @course.id}
 
-      - %i[use_acuwt very_long_update debug_updates].each do |flag|
+      - @manageable_flags.each do |flag|
         .course-flag-row
           %label{for: flag}= flag.to_s
           %select{name: flag, id: flag}
