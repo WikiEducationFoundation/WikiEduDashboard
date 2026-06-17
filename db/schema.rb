@@ -364,7 +364,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_13_211820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["snapshot_date", "user_id"], name: "index_facilitator_stats_on_snapshot_date_and_user_id", unique: true
-    t.index ["snapshot_date"], name: "index_facilitator_stats_on_snapshot_date"
     t.index ["user_id"], name: "index_facilitator_stats_on_user_id"
   end
 

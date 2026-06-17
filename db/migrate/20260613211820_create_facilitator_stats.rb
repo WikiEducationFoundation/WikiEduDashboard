@@ -15,10 +15,9 @@ class CreateFacilitatorStats < ActiveRecord::Migration[7.0]
       t.bigint     :total_characters_added,  default: 0
       t.boolean    :active_in_last_year,     default: false
       t.timestamps
-    end
 
-    add_index :facilitator_stats, %i[snapshot_date user_id], unique: true
-    add_index :facilitator_stats, :snapshot_date
-    add_index :facilitator_stats, :user_id
+      t.index %i[snapshot_date user_id], unique: true
+      t.index :user_id
+    end
   end
 end
