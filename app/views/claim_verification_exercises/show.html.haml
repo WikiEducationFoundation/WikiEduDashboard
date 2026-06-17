@@ -1,42 +1,45 @@
--# Student claim-verification exercise (issue #6910).
--# All visible wording below is a descriptive COPY stub, not draft content:
--# each bracketed note states the purpose/usage of the message so an operator
--# can write the real text. The claim and source values are real data.
-.claim-verification-exercise
-  %h1 [COPY — page heading: names this "check whether the cited source supports the claim" exercise]
-  %p.claim-verification-exercise__intro
-    [COPY — intro, 1–2 sentences: tell the student they will read the cited source
-    and decide whether it actually supports the claim shown, and that they will
-    record what they find in their own Wikipedia sandbox]
+-# Student claim-verification exercise (issue #6910). All visible wording is a
+-# descriptive COPY stub, not draft content: each bracketed note states the
+-# message's purpose so an operator can write the real text. The claim and the
+-# source values are real data. The design focuses attention on those two.
+.container.narrow.claim-verification-exercise
+  .claim-verification-exercise__intro
+    %h1 [COPY — page heading: names this "check whether the cited source supports the claim" exercise]
+    %p
+      [COPY — intro, 1–2 sentences: the student reads the cited source and decides
+      whether it actually supports the claim shown, then records what they find in
+      their own Wikipedia sandbox]
 
   - if @claim
     %section.claim-verification-exercise__claim
-      %h2 [COPY — label for the claim, eg "The claim to check"]
-      %blockquote= @claim.sentence
+      %h2.claim-verification-exercise__label [COPY — label for the claim, eg "The claim to check"]
+      %blockquote.claim-verification-exercise__claim-text= @claim.sentence
       - if @claim.context.present? && @claim.context != @claim.sentence
-        %details
+        %details.claim-verification-exercise__context
           %summary [COPY — toggle label, eg "Show the surrounding paragraph"]
           %p= @claim.context
 
     %section.claim-verification-exercise__source
-      %h2 [COPY — label for the cited source, eg "What it cites"]
+      %h2.claim-verification-exercise__label [COPY — label for the source, eg "The source it cites — does it support the claim?"]
       - if @claim.cite_text.present?
         %p.claim-verification-exercise__citation= @claim.cite_text
       - if claim_source_url(@claim)
-        %p
-          = link_to '[COPY — link text, eg "Open the cited source"]',
-              claim_source_url(@claim), target: '_blank', rel: 'noopener'
+        = link_to '[COPY — link text, eg "Open the cited source"]',
+            claim_source_url(@claim),
+            class: 'button dark claim-verification-exercise__source-link',
+            target: '_blank', rel: 'noopener'
       - else
-        %p [COPY — note shown when the citation has no online source the student can open]
+        %p.claim-verification-exercise__no-source
+          [COPY — note shown when the citation has no online source the student can open]
 
     %section.claim-verification-exercise__sandbox
       %p
-        [COPY — instructions: tell the student to open their sandbox (which will be
-        preloaded with a worksheet) and write whether the source supports the claim,
-        with their reasoning]
+        [COPY — instructions: open your sandbox (it will be preloaded with a
+        worksheet) and write whether the source supports the claim, with reasoning]
       = link_to '[COPY — button label, eg "Start in your sandbox"]',
           claim_verification_sandbox_url(@course, current_user),
-          class: 'button', target: '_blank', rel: 'noopener'
+          class: 'button border claim-verification-exercise__sandbox-link',
+          target: '_blank', rel: 'noopener'
   - else
     %p.claim-verification-exercise__empty
       [COPY — message shown when no claim is available to assign yet]

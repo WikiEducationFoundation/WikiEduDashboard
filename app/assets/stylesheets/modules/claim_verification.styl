@@ -1,0 +1,107 @@
+// Student claim-verification exercise (/verify_claim). Two focal elements: the
+// claim, and the source it cites. Intro, context and the sandbox handoff are
+// kept visually subordinate so attention lands on the claim and the source.
+// Variables come from _variables.styl (globally in scope via _shared).
+
+.claim-verification-exercise
+  margin-top 24px
+  margin-bottom 60px
+
+  &__intro
+    margin-bottom 28px
+    h1
+      font-size 1.6em
+      margin-bottom 8px
+    p
+      color $text_med
+      max-width 40em
+
+  // Shared shell for the two focal cards.
+  &__claim,
+  &__source
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 28px 32px
+    margin-bottom 20px
+
+  // Small uppercase eyebrow label (kept as an h2 for screen-reader navigation).
+  &__label
+    text-transform uppercase
+    letter-spacing .08em
+    font-size .8em
+    font-weight 600
+    color $text_med
+    margin 0 0 14px 0
+
+  // The claim is the hero: large type, white, with a brand accent rail.
+  &__claim
+    background white
+    border-left 4px solid $brand_primary
+
+  &__claim-text
+    margin 0
+    padding 0
+    border 0
+    font-family $header-font
+    font-size 1.75em
+    line-height 1.4
+    color $text_dk
+
+  &__context
+    margin-top 18px
+    summary
+      cursor pointer
+      color bayoux
+      font-size .9em
+      &:hover
+        color darken(bayoux, 10%)
+    p
+      margin 12px 0 0 0
+      color $text_med
+      font-size .95em
+      line-height 1.6
+
+  // The source: a distinct shaded card holding the citation and the primary
+  // "open the source" action.
+  &__source
+    background $bg_light_gray
+
+  &__citation
+    margin 0 0 22px 0
+    color body-color
+    font-size 1.05em
+    line-height 1.55
+
+  &__no-source
+    margin 0
+    color $text_med
+    font-style italic
+
+  // Handoff to the sandbox, set off below a divider as the follow-on step.
+  &__sandbox
+    margin-top 28px
+    padding-top 24px
+    border-top 1px solid $border_lt
+    p
+      color $text_med
+      margin-bottom 16px
+
+  &__empty
+    color $text_med
+
+  // Course picker (slug-less entry, multiple courses).
+  &__course-list
+    list-style none
+    margin 20px 0 0 0
+    padding 0
+    li
+      margin-bottom 12px
+      font-size 1.1em
+
+@media (max-width: 600px)
+  .claim-verification-exercise__claim,
+  .claim-verification-exercise__source
+    padding 20px 22px
+
+  .claim-verification-exercise__claim-text
+    font-size 1.4em

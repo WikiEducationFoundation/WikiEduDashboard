@@ -1,12 +1,15 @@
 -# Shown when the slug-less /verify_claim entry can't infer which course the
 -# exercise is for (the student has several and there's no return-to). Bracketed
 -# notes are descriptive COPY stubs, not draft content; course titles are data.
-.claim-verification-exercise.claim-verification-exercise--picker
-  %h1 [COPY — heading: ask which course this fact-verification exercise is for]
+.container.narrow.claim-verification-exercise.claim-verification-exercise--picker
+  .claim-verification-exercise__intro
+    %h1 [COPY — heading: ask which course this fact-verification exercise is for]
+    - if @courses.any?
+      %p [COPY — short explanation: we couldn't tell which course, so pick the one you're doing this for]
   - if @courses.any?
-    %p [COPY — short explanation: we couldn't tell which course, so pick the one you're doing this for]
     %ul.claim-verification-exercise__course-list
       - @courses.each do |course|
         %li= link_to course.title, "/courses/#{course.slug}/verify_claim"
   - else
-    %p [COPY — message shown when the signed-in user is not in any course]
+    %p.claim-verification-exercise__empty
+      [COPY — message shown when the signed-in user is not in any course]
