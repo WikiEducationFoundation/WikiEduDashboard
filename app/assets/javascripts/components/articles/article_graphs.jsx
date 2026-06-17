@@ -6,7 +6,7 @@ import Loading from '../common/loading.jsx';
 import request from '../../utils/request.js';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { fetchArticleRevisions, fetchBaselineRevision } from '../../utils/article_revision_api.js';
-import { userHighlightColors } from '../common/ArticleViewer/constants/colors';
+import { userHighlightColors } from '../common/ArticleViewer/authorship/colors';
 
 // Editors who aren't course participants all share one muted color.
 const OTHER_EDITOR_COLOR = '#999999';
