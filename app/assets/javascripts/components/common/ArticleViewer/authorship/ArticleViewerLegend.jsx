@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import UserUtils from '../../utils/user_utils.js';
+import UserUtils from '~/app/assets/javascripts/utils/user_utils.js';
 
-import ArticleScroll from '@components/common/ArticleViewer/utils/ArticleScroll';
+import ArticleScroll from '@components/common/ArticleViewer/authorship/ArticleScroll';
 
 const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage, unhighlightedContributors }) => {
   const [userLinks, setUserLinks] = useState('');
