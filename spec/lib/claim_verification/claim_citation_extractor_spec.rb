@@ -125,4 +125,20 @@ describe ClaimVerification::ClaimCitationExtractor do
       expect(extractor.citations).to be_empty
     end
   end
+
+  describe 'prose paragraphs' do
+    let(:html) do
+      <<~HTML
+        <p>An uncited opening sentence. A cited fact.<sup class="reference">
+          <a href="#cite_note-1">[1]</a></sup></p>
+      HTML
+    end
+
+    it 'keeps every sentence per paragraph, marking the cited ones' do
+      paragraphs = described_class.new(html).paragraphs
+      sentences = paragraphs.first.map { |segment| [segment[:sentence], segment[:ref_ids]] }
+      expect(sentences).to eq([['An uncited opening sentence.', []],
+                               ['A cited fact.', ['cite_note-1']]])
+    end
+  end
 end

@@ -1,0 +1,31 @@
+-# A single chosen claim (from the highlighted article view) with its cited
+-# source(s) and a "take" action. Bracketed COPY notes are descriptive stubs;
+-# claim/citation values are data.
+.container.narrow.claim-verification-exercise.claim-verification-exercise--detail
+  - if @claim
+    %section.claim-verification-exercise__claim
+      %h2.claim-verification-exercise__label [COPY — label, eg "The claim to check"]
+      %blockquote.claim-verification-exercise__claim-text= @claim.sentence
+    %section.claim-verification-exercise__source
+      %h2.claim-verification-exercise__label [COPY — label, eg "Cited source — does it support the claim?"]
+      - @citations.each do |citation|
+        .claim-verification-exercise__detail-source
+          - if citation.cite_text.present?
+            %p.claim-verification-exercise__citation= citation.cite_text
+          - source = citation.urls.first || citation.archive_urls.first
+          - if source
+            %p
+              = link_to '[COPY — link text, eg "Open the source"]', source,
+                  target: '_blank', rel: 'noopener'
+          = button_to '[COPY — button label, eg "Verify this claim"]',
+              "/courses/#{@course.slug}/verify_claim/take",
+              params: { article_id: @article.id, ref_id: citation.ref_id,
+                        sentence: @claim.sentence },
+              class: 'button dark'
+    %p
+      = link_to '[COPY — link text, eg "← back to the article"]',
+          "/courses/#{@course.slug}/verify_claim?article_id=#{@article.id}"
+  - else
+    %p.claim-verification-exercise__empty
+      = link_to '[COPY — note + link: this claim is no longer in the article; back to it]',
+          "/courses/#{@course.slug}/verify_claim?article_id=#{@article.id}"

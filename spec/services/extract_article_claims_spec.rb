@@ -33,4 +33,9 @@ describe ExtractArticleClaims do
   it 'persists nothing' do
     expect { described_class.new(article) }.not_to change(VerificationClaim, :count)
   end
+
+  it 'exposes the article prose paragraphs for the highlighted view' do
+    expect(described_class.new(article).paragraphs.first.first[:sentence])
+      .to eq('Otters use tools.')
+  end
 end

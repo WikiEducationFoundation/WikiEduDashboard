@@ -43,10 +43,19 @@ describe 'Claim verification exercise', type: :request do
     expect(response.body).to include("article_id=#{article.id}")
   end
 
-  it "lists a chosen article's cited claims" do
+  it 'renders the article prose with the cited claim highlighted' do
     stub_article_harvest
     get "/courses/#{course.slug}/verify_claim", params: { article_id: article.id }
     expect(response.body).to include('Sea otters use rocks as tools.')
+    expect(response.body).to include('claim-verification-exercise__claim-mark')
+  end
+
+  it "shows a chosen claim's source and a take action" do
+    stub_article_harvest
+    get "/courses/#{course.slug}/verify_claim",
+        params: { article_id: article.id, sentence: 'Sea otters use rocks as tools.' }
+    expect(response.body).to include('https://example.com/otters')
+    expect(response.body).to include("#{course.slug}/verify_claim/take")
   end
 
   it 'takes a chosen claim and then shows it as the assignment' do

@@ -9,12 +9,13 @@ require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 # the revision the claims were read from, so a chosen claim can later be
 # persisted with accurate provenance.
 class ExtractArticleClaims
-  attr_reader :claims, :citations, :mw_rev_id
+  attr_reader :claims, :citations, :paragraphs, :mw_rev_id
 
   def initialize(article)
     @article = article
     @claims = []
     @citations = []
+    @paragraphs = []
     perform
   end
 
@@ -28,5 +29,6 @@ class ExtractArticleClaims
     extraction = ExtractClaimsAndSources.new(html)
     @claims = extraction.claims
     @citations = extraction.citations
+    @paragraphs = extraction.paragraphs
   end
 end

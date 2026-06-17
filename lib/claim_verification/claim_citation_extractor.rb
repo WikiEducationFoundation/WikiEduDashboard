@@ -9,12 +9,13 @@ module ClaimVerification
   # rendered revision HTML (MediaWiki parser output). Pure Nokogiri;
   # no network calls, no LLM.
   class ClaimCitationExtractor
-    attr_reader :claims, :citations
+    attr_reader :claims, :citations, :paragraphs
 
     def initialize(html)
       @doc = Nokogiri::HTML(html)
       @claims = []
       @citations = []
+      @paragraphs = []
       extract_citations
       extract_claims
     end
@@ -54,10 +55,16 @@ module ClaimVerification
       reference_li.at_css('.reference-text')
     end
 
+    # Segments each prose paragraph once: `paragraphs` keeps every sentence
+    # (for rendering the article in context) while `claims` keeps only the
+    # cited ones.
     def extract_claims
       remove_non_prose_elements
       @doc.css('p').each do |paragraph|
-        @claims.concat(paragraph_claims(paragraph))
+        segments = SentenceSegmenter.new(paragraph).segments
+        next if segments.empty?
+        @paragraphs << segments
+        @claims.concat(claims_from(segments))
       end
     end
 
@@ -65,12 +72,10 @@ module ClaimVerification
       @doc.css('table, figure, ol.references').each(&:remove)
     end
 
-    # Returns one Claim per sentence that has at least one reference
-    # marker attached. Cited sentences carry the paragraph text so far
-    # as context, since an end-of-passage citation may cover more than
+    # One Claim per cited sentence. Cited sentences carry the paragraph text
+    # so far as context, since an end-of-passage citation may cover more than
     # its own sentence.
-    def paragraph_claims(paragraph)
-      segments = SentenceSegmenter.new(paragraph).segments
+    def claims_from(segments)
       context = +''
       segments.filter_map do |segment|
         context << ' ' unless context.empty?

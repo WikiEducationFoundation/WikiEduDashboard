@@ -17,10 +17,7 @@ class ClaimVerificationExercisesController < ApplicationController
     return render(:course_picker) if @course.nil?
 
     @assignment = VerificationClaimAssignment.find_by(user: current_user, course: @course)
-    return render_article_claims if params[:article_id].present?
-    return render_taken_claim if @assignment && params[:choose].blank?
-
-    render_article_list
+    render_exercise
   end
 
   def take
@@ -33,6 +30,16 @@ class ClaimVerificationExercisesController < ApplicationController
 
   private
 
+  # Pick the screen: a chosen claim's detail, the highlighted article prose, the
+  # already-taken claim, or the article picker.
+  def render_exercise
+    return render_claim_detail if params[:article_id].present? && params[:sentence].present?
+    return render_article_prose if params[:article_id].present?
+    return render_taken_claim if @assignment && params[:choose].blank?
+
+    render_article_list
+  end
+
   def render_taken_claim
     @claim = @assignment.verification_claim
     render :show
@@ -43,10 +50,25 @@ class ClaimVerificationExercisesController < ApplicationController
     render :articles
   end
 
-  def render_article_claims
+  # The article's prose, with cited claims highlighted to browse and pick from.
+  def render_article_prose
     @article = Article.find(params[:article_id])
     @extraction = ExtractArticleClaims.new(@article)
     render :claims
+  end
+
+  # One chosen claim with its cited source(s) and a take action.
+  def render_claim_detail
+    @article = Article.find(params[:article_id])
+    @extraction = ExtractArticleClaims.new(@article)
+    @claim = @extraction.claims.find { |claim| claim.sentence == params[:sentence] }
+    @citations = claim_citations(@claim)
+    render :claim
+  end
+
+  def claim_citations(claim)
+    return [] if claim.nil?
+    @extraction.citations.select { |citation| claim.ref_ids.include?(citation.ref_id) }
   end
 
   def course_from_slug

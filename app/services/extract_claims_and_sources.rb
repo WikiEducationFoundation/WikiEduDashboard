@@ -11,7 +11,7 @@ require_dependency "#{Rails.root}/lib/llm/client"
 # several independently checkable facts), each still linked to the
 # sentence's citations.
 class ExtractClaimsAndSources
-  attr_reader :claims, :citations, :usage
+  attr_reader :claims, :citations, :paragraphs, :usage
 
   DECOMPOSITION_SYSTEM_PROMPT = <<~PROMPT
     You decompose sentences from Wikipedia articles into atomic factual
@@ -45,6 +45,7 @@ class ExtractClaimsAndSources
     extractor = ClaimVerification::ClaimCitationExtractor.new(@html)
     @citations = extractor.citations
     @claims = extractor.claims
+    @paragraphs = extractor.paragraphs
     decompose_claims if @mode == :llm
   end
 

@@ -51,4 +51,23 @@ module ClaimVerificationHelper
     return if citation.nil?
     { claim:, ref_id:, citation: }
   end
+
+  # Renders the article's prose as paragraphs, each cited sentence a highlighted
+  # link to that claim's detail. `paragraphs` is ExtractArticleClaims#paragraphs
+  # (array of paragraphs, each an array of { sentence:, ref_ids: }).
+  def highlighted_prose(course, article, paragraphs)
+    safe_join(paragraphs.map { |segments| prose_paragraph(course, article, segments) })
+  end
+
+  def prose_paragraph(course, article, segments)
+    content_tag(:p, safe_join(segments.map { |seg| prose_sentence(course, article, seg) }, ' '))
+  end
+
+  def prose_sentence(course, article, segment)
+    return segment[:sentence] if segment[:ref_ids].empty?
+    link_to segment[:sentence],
+            "/courses/#{course.slug}/verify_claim?article_id=#{article.id}" \
+            "&sentence=#{CGI.escape(segment[:sentence])}",
+            class: 'claim-verification-exercise__claim-mark'
+  end
 end
