@@ -90,16 +90,13 @@ essentials:
             Learn about Generative AI in the Wikipedia context and why you should NEVER copy and paste AI-generated text into Wikipedia.
           </p>
       -
-        title: Evaluate Wikipedia
+        if: fact_verification
+        title: Fact verification
         kind: 1
-        training_module_ids: [28,7,34] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia
+        training_module_ids: [86] # Exercise: Fact verification
         content: |
-
-      -
-        if: improving_representation
-        title: Improving Representation
-        training_module_ids: [68] # Improving representation
-        content: |
+          <p>[COPY — one-line timeline blurb pointing students to the fact-verification exercise]</p>
+          <p><a href="verify_claim">[COPY — link text, eg "Open your fact-verification exercise"]</a></p>
 
       -
         if: sources_and_plagiarism_discussion
@@ -112,6 +109,18 @@ essentials:
   - # Week three
     weight: 6
     blocks:
+      -
+        title: Evaluate Wikipedia
+        kind: 1
+        training_module_ids: [28,7,34] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia
+        content: |
+
+      -
+        if: improving_representation
+        title: Improving Representation
+        training_module_ids: [68] # Improving representation
+        content: |
+
       -
         if: no_sandboxes
         title: Keeping track of your work
