@@ -36,4 +36,19 @@ module ClaimVerificationHelper
     "#{course.home_wiki.base_url}/wiki/#{title}" \
       "?veaction=edit&preload=#{CLAIM_VERIFICATION_PRELOAD_TEMPLATE}"
   end
+
+  # Pairs each cited claim with its citation — one entry per (claim, ref_id) —
+  # for the student to browse and choose from. Operates on the in-memory result
+  # of ExtractArticleClaims.
+  def claim_items(extraction)
+    by_ref = extraction.citations.index_by(&:ref_id)
+    extraction.claims.flat_map do |claim|
+      claim.ref_ids.filter_map { |ref_id| claim_item(claim, ref_id, by_ref[ref_id]) }
+    end
+  end
+
+  def claim_item(claim, ref_id, citation)
+    return if citation.nil?
+    { claim:, ref_id:, citation: }
+  end
 end

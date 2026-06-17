@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-# Shows a signed-in student the claim-verification exercise for a course: the
-# single pooled claim they have been assigned, its cited source (link out), and
-# a handoff to do the verification in their Wikipedia sandbox. The student
-# records their findings on-wiki; nothing they produce is stored here.
-#
-# Reached two ways: the course-scoped route (courses/*id/verify_claim, linked
-# relatively from the timeline) carries the slug directly; the slug-less route
-# (verify_claim, linked from the course-agnostic exercise training module)
-# infers the course from the training return-to or the user's sole course, and
-# falls back to a course picker when it can't tell.
+# Drives the student claim-verification exercise (issue #6910).
+# - GET show: if the student has taken a claim, show it; otherwise (or when they
+#   ask to choose again) let them pick an article from prior subject-matched
+#   courses and browse its cited claims. Reached course-scoped (from the
+#   timeline) or slug-less (from the exercise module, inferring the course — a
+#   course picker when it can't tell).
+# - POST take: persist the chosen claim and record it as their assignment.
+# Articles are harvested on demand; only the taken claim is persisted. The
+# student does the verification in their sandbox; nothing they produce is stored.
 class ClaimVerificationExercisesController < ApplicationController
   before_action :require_signed_in
 
@@ -17,18 +16,38 @@ class ClaimVerificationExercisesController < ApplicationController
     @course = course_from_slug || inferred_course
     return render(:course_picker) if @course.nil?
 
-    @assignment = AssignVerificationClaim.new(user: current_user, course: @course).assignment
-    @claim = @assignment&.verification_claim
+    @assignment = VerificationClaimAssignment.find_by(user: current_user, course: @course)
+    return render_article_claims if params[:article_id].present?
+    return render_taken_claim if @assignment && params[:choose].blank?
+
+    render_article_list
   end
 
-  # Swap the student's assigned claim for a different one, then return to show.
-  def switch
+  def take
     @course = course_from_slug
-    AssignVerificationClaim.new(user: current_user, course: @course, reassign: true)
+    TakeVerificationClaim.new(user: current_user, course: @course,
+                              article: Article.find(params[:article_id]),
+                              sentence: params[:sentence], ref_id: params[:ref_id])
     redirect_to "/courses/#{@course.slug}/verify_claim"
   end
 
   private
+
+  def render_taken_claim
+    @claim = @assignment.verification_claim
+    render :show
+  end
+
+  def render_article_list
+    @articles = RelevantArticlesForCourse.new(@course).articles
+    render :articles
+  end
+
+  def render_article_claims
+    @article = Article.find(params[:article_id])
+    @extraction = ExtractArticleClaims.new(@article)
+    render :claims
+  end
 
   def course_from_slug
     return if params[:id].blank?

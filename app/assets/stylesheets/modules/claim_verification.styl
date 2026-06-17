@@ -102,6 +102,36 @@
     font-size 13px
     padding 6px 16px
 
+  // Article picker + an article's claim options (interim presentation; the
+  // live highlighted-article view will replace these).
+  &__article-list,
+  &__claim-options
+    list-style none
+    margin 20px 0 0 0
+    padding 0
+
+  &__article-list li
+    margin-bottom 10px
+    font-size 1.05em
+
+  &__claim-option
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 18px 20px
+    margin-bottom 14px
+
+  &__option-sentence
+    margin 0 0 8px 0
+    font-family $header-font
+    font-size 1.2em
+    line-height 1.4
+    color $text_dk
+
+  &__option-source
+    margin 0 0 12px 0
+    color $text_med
+    font-size .9em
+
   &__empty
     color $text_med
 

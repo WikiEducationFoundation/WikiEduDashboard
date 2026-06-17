@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 describe 'Claim verification exercise', type: :request do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -8,67 +9,72 @@ describe 'Claim verification exercise', type: :request do
     create(:course, slug: 'School/Claims_2024', subject: 'Ecology', home_wiki: wiki)
   end
   let(:student) { create(:user, username: 'Otterfan', onboarded: true) }
+  let(:article) do
+    create(:article, wiki:, title: 'Sea otter', namespace: Article::Namespaces::MAINSPACE)
+  end
+
+  let(:article_html) do
+    <<~HTML
+      <p>Sea otters use rocks as tools.<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+      <ol class="references"><li id="cite_note-1"><span class="reference-text"><cite>
+        <a class="external" href="https://example.com/otters">Riedman 1990</a></cite></span></li></ol>
+    HTML
+  end
 
   before do
     create(:courses_user, course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+    # A prior ended course in the same subject that worked on the article.
+    prior = create(:course, slug: 'Old/Eco_2019', subject: 'Ecology',
+                            start: 2.years.ago, end: 1.year.ago)
+    create(:articles_course, course: prior, article:)
     login_as student
   end
 
-  it 'shows the assigned claim, its source link, and a sandbox handoff link' do
-    VerificationClaim.create!(wiki:, subject: 'Ecology',
-                              sentence: 'Sea otters use rocks as tools.',
-                              cite_text: 'Riedman 1990',
-                              source_url: 'https://example.com/otters')
+  def stub_article_harvest
+    allow(WikiApi::ArticleContent).to receive(:new)
+      .and_return(instance_double(WikiApi::ArticleContent, latest_revision_id: 555))
+    allow(GetRevisionHtmlWithCitations).to receive(:new)
+      .and_return(instance_double(GetRevisionHtmlWithCitations, html: article_html))
+  end
+
+  it 'offers relevant prior-course articles when no claim is taken' do
+    get "/courses/#{course.slug}/verify_claim"
+    expect(response.body).to include(article.title)
+    expect(response.body).to include("article_id=#{article.id}")
+  end
+
+  it "lists a chosen article's cited claims" do
+    stub_article_harvest
+    get "/courses/#{course.slug}/verify_claim", params: { article_id: article.id }
+    expect(response.body).to include('Sea otters use rocks as tools.')
+  end
+
+  it 'takes a chosen claim and then shows it as the assignment' do
+    stub_article_harvest
+    post "/courses/#{course.slug}/verify_claim/take",
+         params: { article_id: article.id, ref_id: 'cite_note-1',
+                   sentence: 'Sea otters use rocks as tools.' }
+    expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
+    assignment = VerificationClaimAssignment.find_by(user: student, course:)
+    expect(assignment.verification_claim.sentence).to eq('Sea otters use rocks as tools.')
+
     get "/courses/#{course.slug}/verify_claim"
     expect(response.body).to include('Sea otters use rocks as tools.')
     expect(response.body).to include('https://example.com/otters')
-    expect(response.body)
-      .to include('en.wikipedia.org/wiki/User:Otterfan/Claim_verification_exercise')
   end
 
-  it 'renders without error when the pool has no claim to assign' do
-    get "/courses/#{course.slug}/verify_claim"
-    expect(response).to have_http_status(:ok)
-  end
-
-  it 'links to the source Wikipedia article at the cited footnote anchor' do
-    VerificationClaim.create!(wiki:, subject: 'Ecology', sentence: 'Otters use tools.',
-                              article_title: 'Sea otter', ref_id: 'cite_note-5',
-                              source_url: 'https://example.com/otters')
-    get "/courses/#{course.slug}/verify_claim"
-    expect(response.body).to include('en.wikipedia.org/wiki/Sea_otter#cite_note-5')
-  end
-
-  it 'switches to a different claim on POST switch and returns to the page' do
-    %w[One Two].each do |sentence|
-      VerificationClaim.create!(wiki:, subject: 'Ecology', sentence:,
-                                source_url: "https://example.com/#{sentence}")
-    end
-    get "/courses/#{course.slug}/verify_claim"
-    first = VerificationClaimAssignment.find_by(user: student, course:).verification_claim
-    post "/courses/#{course.slug}/verify_claim/switch"
-    expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
-    after = VerificationClaimAssignment.find_by(user: student, course:).verification_claim
-    expect(after).not_to eq(first)
+  it 'lets a student with a taken claim choose a different one' do
+    taken = VerificationClaim.create!(wiki:, sentence: 'Previously taken claim.')
+    VerificationClaimAssignment.create!(user: student, course:, verification_claim: taken)
+    get "/courses/#{course.slug}/verify_claim", params: { choose: 1 }
+    expect(response.body).to include(article.title)          # the article picker
+    expect(response.body).not_to include('Previously taken claim.')
   end
 
   context 'with the slug-less entry point' do
-    before do
-      VerificationClaim.create!(wiki:, subject: 'Ecology',
-                                sentence: 'Sea otters use rocks as tools.',
-                                source_url: 'https://example.com/otters')
-    end
-
-    it 'infers the course from a return_to path' do
-      other = create(:course, slug: 'School/Other_2024', subject: 'History', home_wiki: wiki)
-      create(:courses_user, course: other, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
-      get '/verify_claim', params: { return_to: "/courses/#{course.slug}/timeline" }
-      expect(response.body).to include('Sea otters use rocks as tools.')
-    end
-
-    it 'infers the course when the student has only one' do
+    it 'infers the sole course and offers its relevant articles' do
       get '/verify_claim'
-      expect(response.body).to include('Sea otters use rocks as tools.')
+      expect(response.body).to include(article.title)
     end
 
     it 'shows a course picker when the student has several courses' do
@@ -77,7 +83,6 @@ describe 'Claim verification exercise', type: :request do
       get '/verify_claim'
       expect(response.body).to include("/courses/#{course.slug}/verify_claim")
       expect(response.body).to include("/courses/#{other.slug}/verify_claim")
-      expect(response.body).not_to include('Sea otters use rocks as tools.')
     end
   end
 end

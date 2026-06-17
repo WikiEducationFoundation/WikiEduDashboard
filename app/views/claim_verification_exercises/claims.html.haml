@@ -1,0 +1,29 @@
+-# An article's cited claims, for the student to pick one to take on. Interim
+-# plain list; the live highlighted-article view (Slice D) will replace it.
+-# Bracketed COPY notes are descriptive stubs; claim/source values are data.
+.container.narrow.claim-verification-exercise.claim-verification-exercise--claims
+  .claim-verification-exercise__intro
+    %h1= @article.title
+    %p
+      = link_to '[COPY — link text, eg "← choose a different article"]',
+          "/courses/#{@course.slug}/verify_claim?choose=1"
+  - items = claim_items(@extraction)
+  - if items.any?
+    %ul.claim-verification-exercise__claim-options
+      - items.each do |item|
+        %li.claim-verification-exercise__claim-option
+          %p.claim-verification-exercise__option-sentence= item[:claim].sentence
+          - if item[:citation].cite_text.present?
+            %p.claim-verification-exercise__option-source= item[:citation].cite_text
+          - source = item[:citation].urls.first || item[:citation].archive_urls.first
+          - if source
+            %p= link_to '[COPY — link text, eg "View source"]', source,
+                target: '_blank', rel: 'noopener'
+          = button_to '[COPY — button label, eg "Verify this claim"]',
+              "/courses/#{@course.slug}/verify_claim/take",
+              params: { article_id: @article.id, ref_id: item[:ref_id],
+                        sentence: item[:claim].sentence },
+              class: 'button claim-verification-exercise__take-button'
+  - else
+    %p.claim-verification-exercise__empty
+      [COPY — message: this article has no cited claims to verify; choose another]

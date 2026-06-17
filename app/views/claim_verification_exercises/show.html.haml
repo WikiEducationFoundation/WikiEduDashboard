@@ -46,9 +46,9 @@
           target: '_blank', rel: 'noopener'
 
     .claim-verification-exercise__switch
-      = button_to '[COPY — button label, eg "Show me a different claim"]',
-          "/courses/#{@course.slug}/verify_claim/switch",
-          class: 'button claim-verification-exercise__switch-button'
+      = link_to '[COPY — link text, eg "Choose a different claim"]',
+          "/courses/#{@course.slug}/verify_claim?choose=1",
+          class: 'claim-verification-exercise__switch-button'
   - else
     %p.claim-verification-exercise__empty
       [COPY — message shown when no claim is available to assign yet]
