@@ -30,4 +30,33 @@ describe 'Claim verification exercise', type: :request do
     get "/courses/#{course.slug}/verify_claim"
     expect(response).to have_http_status(:ok)
   end
+
+  context 'with the slug-less entry point' do
+    before do
+      VerificationClaim.create!(wiki:, subject: 'Ecology',
+                                sentence: 'Sea otters use rocks as tools.',
+                                source_url: 'https://example.com/otters')
+    end
+
+    it 'infers the course from a return_to path' do
+      other = create(:course, slug: 'School/Other_2024', subject: 'History', home_wiki: wiki)
+      create(:courses_user, course: other, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+      get '/verify_claim', params: { return_to: "/courses/#{course.slug}/timeline" }
+      expect(response.body).to include('Sea otters use rocks as tools.')
+    end
+
+    it 'infers the course when the student has only one' do
+      get '/verify_claim'
+      expect(response.body).to include('Sea otters use rocks as tools.')
+    end
+
+    it 'shows a course picker when the student has several courses' do
+      other = create(:course, slug: 'School/Other_2024', subject: 'History', home_wiki: wiki)
+      create(:courses_user, course: other, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+      get '/verify_claim'
+      expect(response.body).to include("/courses/#{course.slug}/verify_claim")
+      expect(response.body).to include("/courses/#{other.slug}/verify_claim")
+      expect(response.body).not_to include('Sea otters use rocks as tools.')
+    end
+  end
 end

@@ -140,6 +140,9 @@ Rails.application.routes.draw do
   # with a handoff to do the verification in their Wikipedia sandbox.
   get 'courses/*id/verify_claim' => 'claim_verification_exercises#show',
       :as => :course_verify_claim, constraints: { id: /.*/ }
+  # Slug-less entry (eg from the course-agnostic exercise training module):
+  # infers the course from return_to / the user's sole course, else a picker.
+  get 'verify_claim' => 'claim_verification_exercises#show', :as => :verify_claim
 
   # Courses
   controller :courses do
