@@ -4,10 +4,10 @@
 .container.narrow.claim-verification-exercise.claim-verification-exercise--detail
   - if @claim
     %section.claim-verification-exercise__claim
-      %h2.claim-verification-exercise__label [COPY — label, eg "The claim to check"]
+      %h2.claim-verification-exercise__label Claim
       %blockquote.claim-verification-exercise__claim-text= @claim.sentence
     %section.claim-verification-exercise__source
-      %h2.claim-verification-exercise__label [COPY — label, eg "Cited source — does it support the claim?"]
+      %h2.claim-verification-exercise__label Cited source
       - @citations.each do |citation|
         .claim-verification-exercise__detail-source
           - if citation.cite_text.present?
@@ -15,17 +15,17 @@
           - source = citation.urls.first || citation.archive_urls.first
           - if source
             %p
-              = link_to '[COPY — link text, eg "Open the source"]', source,
+              = link_to 'Source URL', source,
                   target: '_blank', rel: 'noopener'
-          = button_to '[COPY — button label, eg "Verify this claim"]',
+          = button_to 'Select this claim to verify',
               "/courses/#{@course.slug}/verify_claim/take",
               params: { article_id: @article.id, ref_id: citation.ref_id,
                         sentence: @claim.sentence },
               class: 'button dark'
     %p
-      = link_to '[COPY — link text, eg "← back to the article"]',
+      = link_to 'Back to article',
           "/courses/#{@course.slug}/verify_claim?article_id=#{@article.id}"
   - else
     %p.claim-verification-exercise__empty
-      = link_to '[COPY — note + link: this claim is no longer in the article; back to it]',
+      = link_to "Error: That claim couldn't be found in the current version of the article.",
           "/courses/#{@course.slug}/verify_claim?article_id=#{@article.id}"

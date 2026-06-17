@@ -3,10 +3,7 @@
 -# Bracketed COPY notes are descriptive stubs, not draft text; titles are data.
 .container.narrow.claim-verification-exercise.claim-verification-exercise--articles
   .claim-verification-exercise__intro
-    %h1 [COPY — heading: choose an article to find a claim to check]
-    %p
-      [COPY — intro: these are articles earlier classes in your subject area
-      worked on; pick one and you'll see its cited claims to choose from]
+    %h1 Choose an article
   - if @articles.any?
     %ul.claim-verification-exercise__article-list
       - @articles.each do |article|
@@ -14,5 +11,8 @@
           = link_to article.title,
               "/courses/#{@course.slug}/verify_claim?article_id=#{article.id}"
   - else
-    %p.claim-verification-exercise__empty
-      [COPY — message shown when no candidate articles are available yet]
+    -# TODO: instead of a dead-end message, render an article-title input here so
+    -# the student can choose an article themselves when none are suggested — so
+    -# this empty case never strands them. (Tie in with the claim
+    -# filtering/prioritization work.)
+    %p.claim-verification-exercise__empty No articles available

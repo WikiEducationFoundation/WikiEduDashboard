@@ -7,12 +7,11 @@
   .claim-verification-exercise__intro
     %h1= @article.title
     %p
-      [COPY — instruction: read the article and click a highlighted claim to check
-      whether its cited source supports it]
-      = link_to '[COPY — link, eg "choose a different article"]',
+      Click a highlighted factual claim with an inline citation that you want to verify.
+      = link_to 'Choose a different article',
           "/courses/#{@course.slug}/verify_claim?choose=1"
   - if @extraction.paragraphs.any?
     .claim-verification-exercise__prose= highlighted_prose(@course, @article, @extraction.paragraphs)
   - else
     %p.claim-verification-exercise__empty
-      [COPY — message: this article has no readable prose with cited claims; choose another]
+      No cited claims could be extracted. Please try a different article.
