@@ -95,8 +95,6 @@ essentials:
         kind: 1
         training_module_ids: [86] # Exercise: Fact verification
         content: |
-          <p>[COPY — one-line timeline blurb pointing students to the fact-verification exercise]</p>
-          <p><a href="verify_claim">[COPY — link text, eg "Open your fact-verification exercise"]</a></p>
 
       -
         if: sources_and_plagiarism_discussion

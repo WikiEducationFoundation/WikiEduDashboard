@@ -157,6 +157,12 @@ class TrainingModule < ApplicationRecord
     settings['preload']
   end
 
+  # For an in-app exercise: the course-relative path it launches (eg
+  # 'verify_claim'), rather than an external sandbox.
+  def exercise_path
+    settings['exercise_path']
+  end
+
   # Returns the first library that has a category including the module slug.
   # It returns nil if no such library is found.
   def find_library_by_slug

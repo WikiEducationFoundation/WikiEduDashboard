@@ -6,3 +6,5 @@ description: |
 slides:
   - slug: about-fact-verification # 8601
   - slug: do-fact-verification # 8602
+settings:
+  exercise_path: verify_claim
