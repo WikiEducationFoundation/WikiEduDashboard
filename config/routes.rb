@@ -143,6 +143,9 @@ Rails.application.routes.draw do
   # Slug-less entry (eg from the course-agnostic exercise training module):
   # infers the course from return_to / the user's sole course, else a picker.
   get 'verify_claim' => 'claim_verification_exercises#show', :as => :verify_claim
+  # Swap the student's assigned claim for a different one.
+  post 'courses/*id/verify_claim/switch' => 'claim_verification_exercises#switch',
+       :as => :switch_verify_claim, constraints: { id: /.*/ }
 
   # Courses
   controller :courses do

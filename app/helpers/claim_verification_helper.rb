@@ -2,6 +2,7 @@
 
 # View helpers for the student claim-verification exercise (issue #6910).
 module ClaimVerificationHelper
+  include MediawikiUrlHelper
   # On-wiki worksheet template the sandbox is preloaded with. This page must be
   # created on-wiki by an operator, like Template:Dashboard.wikiedu.org_draft_template.
   CLAIM_VERIFICATION_PRELOAD_TEMPLATE = 'Template:Dashboard.wikiedu.org_claim_verification'
@@ -12,6 +13,17 @@ module ClaimVerificationHelper
   # otherwise the archived copy. Nil for offline-only citations.
   def claim_source_url(claim)
     claim.source_url.presence || claim.archive_url.presence
+  end
+
+  # URL of the source Wikipedia article, anchored at the cited footnote (ref_id,
+  # eg "cite_note-5") so the student lands on the citation and can use its caret
+  # backlink to find where the claim sits in the prose. The anchor is
+  # best-effort against the current article and may drift as the article
+  # changes. Nil when we have no article title to link to.
+  def claim_article_url(claim)
+    return if claim.article_title.blank? || claim.wiki.nil?
+    url = "#{claim.wiki.base_url}/wiki/#{url_encoded_mediawiki_title(claim.article_title)}"
+    claim.ref_id.present? ? "#{url}##{claim.ref_id}" : url
   end
 
   # Link to the student's sandbox subpage, opened in the editor preloaded with

@@ -14,6 +14,10 @@
     %section.claim-verification-exercise__claim
       %h2.claim-verification-exercise__label [COPY — label for the claim, eg "The claim to check"]
       %blockquote.claim-verification-exercise__claim-text= @claim.sentence
+      - if claim_article_url(@claim)
+        %p.claim-verification-exercise__article-link
+          = link_to '[COPY — link text, eg "Find this in the Wikipedia article"]',
+              claim_article_url(@claim), target: '_blank', rel: 'noopener'
       - if @claim.context.present? && @claim.context != @claim.sentence
         %details.claim-verification-exercise__context
           %summary [COPY — toggle label, eg "Show the surrounding paragraph"]
@@ -40,6 +44,11 @@
           claim_verification_sandbox_url(@course, current_user),
           class: 'button border claim-verification-exercise__sandbox-link',
           target: '_blank', rel: 'noopener'
+
+    .claim-verification-exercise__switch
+      = button_to '[COPY — button label, eg "Show me a different claim"]',
+          "/courses/#{@course.slug}/verify_claim/switch",
+          class: 'button claim-verification-exercise__switch-button'
   - else
     %p.claim-verification-exercise__empty
       [COPY — message shown when no claim is available to assign yet]

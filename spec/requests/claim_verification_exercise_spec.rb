@@ -31,6 +31,27 @@ describe 'Claim verification exercise', type: :request do
     expect(response).to have_http_status(:ok)
   end
 
+  it 'links to the source Wikipedia article at the cited footnote anchor' do
+    VerificationClaim.create!(wiki:, subject: 'Ecology', sentence: 'Otters use tools.',
+                              article_title: 'Sea otter', ref_id: 'cite_note-5',
+                              source_url: 'https://example.com/otters')
+    get "/courses/#{course.slug}/verify_claim"
+    expect(response.body).to include('en.wikipedia.org/wiki/Sea_otter#cite_note-5')
+  end
+
+  it 'switches to a different claim on POST switch and returns to the page' do
+    %w[One Two].each do |sentence|
+      VerificationClaim.create!(wiki:, subject: 'Ecology', sentence:,
+                                source_url: "https://example.com/#{sentence}")
+    end
+    get "/courses/#{course.slug}/verify_claim"
+    first = VerificationClaimAssignment.find_by(user: student, course:).verification_claim
+    post "/courses/#{course.slug}/verify_claim/switch"
+    expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
+    after = VerificationClaimAssignment.find_by(user: student, course:).verification_claim
+    expect(after).not_to eq(first)
+  end
+
   context 'with the slug-less entry point' do
     before do
       VerificationClaim.create!(wiki:, subject: 'Ecology',

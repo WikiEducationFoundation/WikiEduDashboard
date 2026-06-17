@@ -52,4 +52,32 @@ describe AssignVerificationClaim do
   it 'returns no assignment when the pool is empty' do
     expect(described_class.new(user: student, course:).assignment).to be_nil
   end
+
+  describe 'reassign: true' do
+    it 'switches to a different claim without creating a second assignment' do
+      claim(sentence: 'First.')
+      claim(sentence: 'Second.')
+      first = described_class.new(user: student, course:).assignment.verification_claim
+      switched = described_class.new(user: student, course:, reassign: true).assignment
+      expect(switched.verification_claim).not_to eq(first)
+      expect(VerificationClaimAssignment.where(user: student, course:).count).to eq(1)
+    end
+
+    it 'keeps the current claim when no other is available' do
+      only = claim(sentence: 'Only one.')
+      described_class.new(user: student, course:)
+      switched = described_class.new(user: student, course:, reassign: true).assignment
+      expect(switched.verification_claim).to eq(only)
+    end
+
+    it 'walks forward through the pool instead of bouncing between two claims' do
+      first = claim(sentence: 'One.')
+      second = claim(sentence: 'Two.')
+      third = claim(sentence: 'Three.')
+      seen = Array.new(3) do
+        described_class.new(user: student, course:, reassign: true).assignment.verification_claim
+      end
+      expect(seen).to eq([first, second, third])
+    end
+  end
 end

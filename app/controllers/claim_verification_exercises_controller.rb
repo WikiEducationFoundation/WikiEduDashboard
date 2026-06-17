@@ -21,6 +21,13 @@ class ClaimVerificationExercisesController < ApplicationController
     @claim = @assignment&.verification_claim
   end
 
+  # Swap the student's assigned claim for a different one, then return to show.
+  def switch
+    @course = course_from_slug
+    AssignVerificationClaim.new(user: current_user, course: @course, reassign: true)
+    redirect_to "/courses/#{@course.slug}/verify_claim"
+  end
+
   private
 
   def course_from_slug
