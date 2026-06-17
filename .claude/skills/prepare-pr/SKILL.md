@@ -182,6 +182,13 @@ user should capture manually and which URLs to visit.
 - Note anything left out of scope, or follow-up work that might be needed
 - If there's nothing notable, write "None." — don't invent concerns
 
+### AI attribution trailer (required)
+
+End the entire description with this exact line as its final line, after the
+"Open questions and concerns" section, separated by a blank line:
+
+`(PR description written by Claude Code.)`
+
 ## Phase 4: Preview locally and open the PR
 
 Run `code tmp/pr_description.md` to open the file in VS Code and tell the user to press
