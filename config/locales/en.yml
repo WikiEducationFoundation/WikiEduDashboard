@@ -1465,6 +1465,9 @@ en:
   status:
     active_jobs: Active jobs
     active_jobs_doc: The number of currently processing jobs.
+    acuwt_update: ACUWT update
+    acuwt_update_description: ACUWT updates process article scoped program courses with thousands of articles.
+    acuwt_update_doc: Handle updates for large article scoped program courses.
     all_queues_operational: All Queues Operational
     all_queues_not_operational: All Queues Operational except
     constant_update: Constant update

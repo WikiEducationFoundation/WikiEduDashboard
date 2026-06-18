@@ -6,6 +6,7 @@ module CourseQueueSorting
 
   def queue_for(course)
     update_longest_update_time(course)
+    return 'acuwt_update' if course.use_acuwt?
     return 'very_long_update' if course.very_long_update?
     return 'long_update' if too_many_consecutive_unfinished_updates?(course)
 
