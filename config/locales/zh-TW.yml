@@ -258,10 +258,15 @@ zh-TW:
     view_doc: 透過最新統計更新，各條目從首次編輯後的估計檢視次數。您可以使用 pageviews.toolforge.org 來查看準確數字。
     view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
+    article_size: 條目大小
+    article_size_doc: 每次編輯條目後的 wikitext 大小（以位元組為單位）
     edit_size: 編輯大小
+    editor_other: 其他編輯者
+    scoring_status: 取得 %{count} 次編輯的分數
     wiki: wiki
     wp10: 結構完整性
-    wp10_doc: 「結構完整性」評分，是以採用機器學習架構的客觀性修訂版本評估服務（https://ores.wikimedia.org/）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
+    wp10_doc: 「結構完整性」評分，是以採用過去（~2015）機器學習架構的「客觀性修訂版本評估服務」（Objective Revision Evaluation
+      Service）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。
     articles_short: 條目
     deleted_message: 根據控制面板的資料，該頁面已被刪除。（在某些情況下，頁面移動、歷史紀錄合併、或是其他操作可能導致條目被錯誤地列為已被刪除。已刪除的條目也可能事後會被取消刪除。對於實際未被刪除或是事後已恢復的條目，面板通常會在一兩天內反應出。）
     page_logs: （頁面日誌）
@@ -479,7 +484,10 @@ zh-TW:
     name: 名稱
     category_name: 分類名稱
     psid_name: PSID
+    psid_description: PetScan 查詢功能每次只能在控制面板中針對一個 wiki 進行操作。請確認您的 PetScan 查詢僅包含來自單一
+      wiki 的條目，且該 wiki 與下方列出的內容相符。
     pileid_name: 頁面檔案 ID
+    pileid_description: 請確保 PagePile 的 wiki 已列入此方案的追蹤 wiki 清單中。
     template_name: 模板名稱
     none: 沒有被追蹤的分類。
     remove: 移除
@@ -663,6 +671,7 @@ zh-TW:
       user_exists_on_wiki: 很抱歉，%{username} 並非存在於 %{domain} 的使用者。
       invalid_language_or_project: 無法使用的語言或專案
       invalid_wiki: 無法連接到 %{domain}。它可能不是有效的 wiki。
+      duplicate_course_slug: URL %{slug} 已被佔用。請更改標題、學校或學期。
       invalid_slug: 清空用於課程的學校/標題。
       duplicate_slug: 另一個稱為%{slug}的方案已存在。
     expected_students: 預計學生
@@ -789,6 +798,14 @@ zh-TW:
     subject: 主題
     submitted: 已提交
     submitted_at: 提交於
+    approval_form_heading: 課程核准表單
+    add_program_manager: 添加方案管理員：
+    add_wiki_expert: 添加維基百科專家：
+    add_tags: 添加標籤：
+    add_campaigns: 添加競賽：
+    invalid_salesforce_id: 所輸入的 ID 無效。
+    add_salesforce_id: 添加 Salesforce ID：
+    approve_course: 核准課程
     tag_select: 選擇或建立一個標籤
     tags: 標籤：
     term: 學期
@@ -829,6 +846,9 @@ zh-TW:
     word_count_doc: 在課程期間由選課學生所添增到主命名空間條目的增加字詞估計量
     word_count_doc_wikidata: 在課程期間由選課學生所添增到主命名空間項目的增加字詞估計量
     yourcourses: 您的課程
+    declined_note: 此課程已被放棄。若有任何疑問，請聯絡 Wiki Education 成員。
+    decline_course: 放棄課程
+    decline_course_confirm: 您確定要放棄這門課程嗎？這將存檔您的提交內容，並停止自動發送該課程的未提交提醒。
     survey:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
@@ -989,6 +1009,8 @@ zh-TW:
       submit_issue_wikidata: 此項目重大的問題是什麼？
       submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
       thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
+      quality_problems_button: 品質問題？
+      notify_wiki_expert: 通知 wiki 專家
     exercises_and_trainings: '%{prefix}練習與培訓'
     no_assignments: 此學生目前沒有分配到條目。
     can_assign_assignments: 您可以使用上面的按鈕來分配條目。
@@ -1001,6 +1023,7 @@ zh-TW:
       content: 分配與檢視條目分配
       content_wikidata: 分配與檢視項目分配
   metrics:
+    editors_doc: 這是編輯過課程條目的不重複使用者數量。
     program_date_doc: 這是專案日期。
     label: 課程活動
     last_update: 最後一次統計更新
@@ -1079,6 +1102,7 @@ zh-TW:
     claims: 聲明
     aliases: 別名
     merged: 已合併到
+    merged_from: 合併自
     created: 已建立
     changed: 已變更
     removed: 已移除
@@ -1168,6 +1192,7 @@ zh-TW:
     see_more: 查看更多
     show_all: 顯示全部
     show_course_specific: 顯示課程規格
+    course_ended_notification: 此處顯示已註冊使用者近期的編輯紀錄，但「截止日期」之後的任何編輯都不會列入統計數據，也不會反映在條目分頁中。您可以使用「顯示課程規格」篩選器來限制檢視截止日期之前活動的內容。
     show_only_new_editors: 僅顯示新編輯者
   resources:
     label: 資源
@@ -1178,6 +1203,7 @@ zh-TW:
         course_creation_settings: 課程建立
         default_campaign_setting: 預設競賽
         site_notice_setting: 網站通知
+        site_notice_preview: 即時預覽
       buttons:
         add_admin_button: 新增管理員
         add_special_user_button: 新增特殊使用者
@@ -1308,6 +1334,7 @@ zh-TW:
     search_bar_placeholder: 搜尋 ticket
     chose_search_type: 選擇搜尋類型
   timeline:
+    add_assignment: 添加分配
     add_week: 增加週
     arrange_timeline: 安排時間軸
     arrange_timeline_instructions: 以 "拖曳" 區塊至預期的位置、或週間來編排時間軸，或以卡片上的箭頭來重新定位區塊。
@@ -1358,9 +1385,12 @@ zh-TW:
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間軸
+    too_many_weeks_warning: 警告！距離分配截止日期前的非假日週數不足！您可以點選「編輯課程日期」來設定會議日期和假日日期。
     unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的分配作業日期來為新一週挪出空間。
     view_full_timeline: 查看完整時間表
     week_number: 第 %{number} 週
+    add_block: 新增封鎖
+    delete_week: 刪除週
   training:
     continue: 進度 (%{progress})
     start: 開始
@@ -1394,6 +1424,11 @@ zh-TW:
     exercise_sandbox: 練習沙盒
     remaining_exercise: 剩下 %{count} 個額外練習。
     view_all: 查看所有練習
+    take_your_time: 請不用急！
+    alert_content: 徹底學習您的培訓內容至關重要。
+    close: 關閉
+    loading: 載入中…
+    wiki_source: wiki 來源
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。
@@ -1476,6 +1511,7 @@ zh-TW:
     my_reviewing: 審核中：
     name: 名稱
     none: 沒有參與者。
+    more_articles: 點擊來載入使用者所編輯條目
     no_articles: 沒有條目
     no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
@@ -1600,6 +1636,8 @@ zh-TW:
       header: 未受支援的瀏覽器。  :-(
       explanation: 您使用的瀏覽器與此功能面板不相容。此網站在 Chrome、Firefox、Egde，等其它新型瀏覽器的最新版本下可正常運作。
     ip_blocked: 您目前無法從此設備建立帳號。如果您的 IP 位址被維基百科封鎖，或是達到用同一 IP 位址建立新帳號的每日限制，就會發生這種情況。請嘗試從不同的網路連線。
+    login_success_download_html: 登入成功！%{link}。
+    download_here: 在此點擊來下載您的檔案
   error_401:
     explanation: 您未被授權執行此請求。如果您認為您會遇到此通知是因為有錯誤發生，請聯繫此功能面板的維護人員讓他們知道此問題。
     json_explanation: 看起來您似乎有退出。請重整、登入並再試一次。
@@ -1623,6 +1661,8 @@ zh-TW:
   notifications:
     new_notifications: 您有新的通知。
     no_notifications: 你沒有新的通知。
+    aria_label:
+      bell: 通知
   survey:
     login_message: 感謝您挪出時間。請登入教育功能面板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不，僅會顯示訊息於瀏覽器裡。
@@ -1805,5 +1845,8 @@ zh-TW:
   question_groups:
     edit_question_group: 編輯問題群組
   form_search:
+    search: 搜尋
+    advanced_search: 進階搜尋
+    clear: 清除
     program_date: 專案日期
 ...

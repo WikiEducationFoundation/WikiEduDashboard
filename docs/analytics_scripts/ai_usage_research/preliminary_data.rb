@@ -92,7 +92,7 @@ end; nil
 
 # Course demographics
 # These are the student demographic surveys, which started in Spring 2020
-demographic_survey_ids = [49, 47, 44, 42, 39, 37, 34, 32, 30, 28, 26, 22]
+demographic_survey_ids = [52, 49, 47, 44, 42, 39, 37, 34, 32, 30, 28, 26, 22]
 # Each survey has just one question group.
 question_group_ids = demographic_survey_ids.map { |s_id| Survey.find(s_id).rapidfire_question_groups.first.id }
 # => [80, 77, 74, 72, 70, 68, 66, 63, 61, 59, 55, 47]

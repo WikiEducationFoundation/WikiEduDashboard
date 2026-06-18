@@ -1,0 +1,15 @@
+- content_for :before_title, "Manage course flags"
+.container.dashboard
+  %header
+    %h1 Manage course flags
+
+%section
+  .container
+    %hr
+
+.container
+  %form#course-form{action: '/course_flags/show', method: 'get'}
+    %label{for: "course-id"} Enter Course ID:
+    %input#course-id{type: "text", name: "course_id"}
+    %button{type: 'submit'}
+      %div.button.dark View and manage flags

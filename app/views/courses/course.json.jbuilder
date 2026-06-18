@@ -31,7 +31,7 @@ json.course do
   json.no_sandboxes @course.no_sandboxes?
   json.retain_available_articles @course.retain_available_articles?
   json.review_bibliography @course.review_bibliography?
-  json.article_scoped @course.only_scoped_articles_course?
+  json.article_scoped @course.article_scoped_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended @course.end < Time.zone.now

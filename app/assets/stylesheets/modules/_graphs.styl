@@ -5,25 +5,115 @@
   z-index 1
   top 70px
   left 50%
-  min-width 620px
-  min-height 440px
+  width 90vw
   max-width 1200px
+  min-height 440px
   max-height 90vh
+  overflow-y auto
   border 1px solid mischka
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
   transform translateX(-50%)
 
   .radio-row
-    list-style-type: none
-    overflow: hidden
-    margin 5px 0 0 60px
-    font-weight: bold
-    font-size: 17px
+    margin 8px 0
+    text-align center
 
-    .input-row
-       display: inline-block
-       margin-right: 50px
+  .graph-legend
+    list-style none
+    width fit-content
+    max-width 100%
+    margin 10px auto 0
+    padding 6px 14px
+    display flex
+    flex-wrap wrap
+    justify-content center
+    gap 6px 16px
+    font-size 11px
+    color #555
+    border 1px solid #d0d0d0
+    border-radius 4px
+
+    &__item
+      display inline-flex
+      align-items center
+
+    // Swatches mirror the graph points: same circle size and border, larger
+    // for participants than for the single "other editors" entry.
+    &__swatch
+      display inline-block
+      width 12px
+      height 12px
+      border-radius 50%
+      border 1px solid #666
+      margin-right 6px
+
+    &__swatch--other
+      width 8px
+      height 8px
+
+  .scoring-progress
+    display flex
+    flex-direction column
+    align-items center
+    justify-content center
+    min-height 300px
+    padding 0 40px
+
+    &__label
+      font-size 13px
+      color #555
+      margin 0 0 10px
+
+    &__track
+      width 70%
+      max-width 360px
+      height 8px
+      background #eee
+      border-radius 4px
+      overflow hidden
+      margin-bottom 14px
+
+    &__fill
+      height 100%
+      background $brand_primary
+      transition-property width
+      transition-timing-function linear
+
+  .graph-doc
+    margin 16px auto 8px
+    max-width 460px
+    font-size 11px
+    line-height 1.6
+    color #555
+    text-align left
+
+  .graph-toggle
+    display inline-flex
+    background #f0f0f0
+    border 1px solid #d0d0d0
+    border-radius 4px
+    overflow hidden
+    white-space nowrap
+    vertical-align middle
+
+    &__btn
+      padding 4px 14px
+      font-size 13px
+      font-weight 500
+      border none
+      background transparent
+      cursor pointer
+      color #666
+      transition all 0.2s ease
+      line-height 1.4
+      &:not(:last-child)
+        border-right 1px solid #d0d0d0
+      &:hover
+        background #e5e5e5
+      &.active
+        background $brand_primary
+        color white
 
 .ores-plot
   padding-top 10px

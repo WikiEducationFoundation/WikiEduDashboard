@@ -283,18 +283,20 @@ en:
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
+    article_size: Article Size
+    article_size_doc: Size of the article's wikitext (in bytes) after each edit
     edit_size: Edit Size
+    editor_other: Other editors
+    scoring_status: "Fetching scores for %{count} edits"
     wiki: Wiki
     wp10: Structural Completeness
     wp10_doc: >
       The 'Structural Completeness' score represents how closely an article fits
-      the mold of a mature Wikipedia article, based on the machine learning-based
-      Objective Revision Evaluation Service (https://ores.wikimedia.org/). These
-      scores are calculated based on the size of an article, the number of
-      references and wikilinks, and other basic text features. A high score
-      usually indicates that an article follow Wikipedia's conventions for the
-      structure of a good article, but it does not take into account the content
-      itself. (These scores are only available for English Wikipedia articles.)
+      the mold of a mature Wikipedia article, based on the legacy (~2015) machine learning-based
+      "Objective Revision Evaluation Service". These scores are calculated based on the size
+      of an article, the number of references and wikilinks, and other basic text features.
+      A high score usually indicates that an article follow Wikipedia's conventions for the
+      structure of a good article, but it does not take into account the content itself.
     articles_short: Articles
     deleted_message: >
       According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
@@ -1374,6 +1376,7 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    course_ended_notification: "This shows recent edits by enrolled users, but any edits after the 'end date' are not counted toward the stats or reflected on the Articles tab. You can use the 'Show Course Specific' filter to limit the view to activity that occurred before the end date."
     show_only_new_editors: Show Only New Editors
 
   resources:

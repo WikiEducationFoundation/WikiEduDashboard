@@ -35,7 +35,7 @@ const ArticlesHandler = (props) => {
   }
 
   let categories;
-  if (props.course.type === 'ArticleScopedProgram') {
+  if (props.course.article_scoped) {
     categories = <CategoryHandler course={props.course} current_user={props.current_user} />;
   }
 

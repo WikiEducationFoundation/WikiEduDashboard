@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import SubNavigation from '../common/sub_navigation.jsx';
 import CourseAlertsList from '../alerts/course_alerts_list';
 import RevisionHandler from '../revisions/revisions_handler';
+import CourseDateUtils from '../../utils/course_date_utils';
 
 const ActivityHandler = (props) => {
   const { course, current_user } = props;
@@ -22,8 +23,19 @@ const ActivityHandler = (props) => {
     });
   }
 
+  const showEndedNotification = props.usersLoaded && CourseDateUtils.isEnded(course);
+
+  const endedNotification = showEndedNotification ? (
+    <div className="notification notification--course-ended">
+      <div className="container">
+        <p>{I18n.t('revisions.course_ended_notification')}</p>
+      </div>
+    </div>
+  ) : null;
+
   return (
     <div className="activity-handler">
+      {endedNotification}
       <SubNavigation links={links} />
       <Routes>
         {props.usersLoaded && <Route path="recent" element={<RevisionHandler {...props} />} />}

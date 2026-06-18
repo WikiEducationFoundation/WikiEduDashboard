@@ -1,12 +1,18 @@
 # frozen_string_literal: true
+require_dependency "#{Rails.root}/lib/revision_score_manager"
 
 class ArticlesController < ApplicationController
   respond_to :json
-  before_action :set_course, except: :article_data
+  before_action :set_course, except: :revision_score
 
-  # returns revision score data for vega graphs
-  def article_data
+  # Scores the given revisions for the article development graphs. The frontend
+  # fetches the revision list itself (client-side, from the MediaWiki API) and
+  # POSTs the ids here for wp10 scoring.
+  #   params: { rev_ids: [123, 456] }  ->  { "123": 0.5, "456": null }
+  def revision_score
     @article = Article.find(params[:article_id])
+    rev_manager = RevisionScoreManager.new(@article)
+    render json: rev_manager.scores_for(params[:rev_ids]), root: false
   end
 
   # returns details about how an article changed during a course
@@ -28,4 +34,5 @@ class ArticlesController < ApplicationController
   def set_course
     @course = Course.find(params[:course_id])
   end
+
 end

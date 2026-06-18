@@ -11,6 +11,10 @@ json.course do
     json.title article.full_title
     json.language article.wiki.language
     json.project article.wiki.project
+    # Whether this wiki has a LiftWing articlequality model, so the frontend
+    # knows whether to offer the article development graphs. Reuses the
+    # already-loaded article.wiki (eager-loaded above) — no extra query.
+    json.scoreable LiftWingApi.valid_wiki?(article.wiki)
     json.rating_num rating_priority(article.rating)
     json.pretty_rating rating_display(article.rating)
     json.rating default_class(article.rating)

@@ -127,6 +127,11 @@ Rails.application.routes.draw do
   get 'timeslice_duration/update' => 'timeslice_duration#show'
   post 'timeslice_duration/update' => 'timeslice_duration#update'
 
+  # Manage course flags (admin only)
+  get 'course_flags' => 'course_flags#index'
+  get 'course_flags/show' => 'course_flags#show'
+  post 'course_flags/update' => 'course_flags#update'
+
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
@@ -247,7 +252,7 @@ Rails.application.routes.draw do
   post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
 
-  get 'articles/article_data' => 'articles#article_data'
+  post 'articles/:article_id/revision_score' => 'articles#revision_score'
   get 'articles/details' => 'articles#details'
   post 'articles/status' => 'articles#update_tracked_status'
 

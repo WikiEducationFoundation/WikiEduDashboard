@@ -6,7 +6,7 @@ describe ArticlesController, type: :request do
   let(:article) { create(:article) }
   let(:user) { create(:user) }
   let(:second_user) { create(:user, username: 'SecondUser') }
-  let(:course) { create(:course) }
+  let(:course) { create(:course, start: Time.zone.now, end: Time.zone.now + 1.week) }
 
   before do
     create(:courses_user, user_id: user.id, course_id: course.id)
@@ -15,10 +15,13 @@ describe ArticlesController, type: :request do
                              user_ids: [user.id, second_user.id])
   end
 
-  describe '#article_data' do
-    it 'sets the article from the id' do
-      get '/articles/article_data', params: { article_id: article.id, format: :json }
+  describe '#revision_score' do
+    it 'returns wp10 scores for the posted revision ids' do
+      allow_any_instance_of(LiftWingApi).to receive(:get_revision_data)
+        .and_return('1001' => { 'wp10' => 0.42 })
+      post "/articles/#{article.id}/revision_score", params: { rev_ids: [1001], format: :json }
       expect(assigns(:article)).to eq(article)
+      expect(Oj.load(response.body)).to eq('1001' => 0.42)
     end
   end
 

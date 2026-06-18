@@ -273,13 +273,17 @@ ko:
       페이지뷰 도구를 통해 정확한 조회수를 확인할 수 있습니다.
     view_on_wiki: 위키에서 보기
     views_added: '%{title}에 대한 새로운 조회수가 %{count}회 추가됨'
+    article_size: 문서 크기
+    article_size_doc: 각 편집 후 문서의 위키텍스트 크기(바이트)
     edit_size: 편집 크기
+    editor_other: 다른 편집자
+    scoring_status: '%{count}번의 편집에 대한 점수를 가져오는 중'
     wiki: 위키
     wp10: 구조적 완성도
-    wp10_doc: '''구조적 완성도'' 점수는 머신러닝 기반의 객관적 판 평가 서비스(https://ores.wikimedia.org/)를
-      통해 문서가 얼마나 완성도 높은 위키백과 문서의 틀에 부합하는지를 나타냅니다. 이 점수는 문서의 길이, 참조 및 위키링크 수, 기타 기본적인
-      텍스트 특징을 기반으로 계산됩니다. 높은 점수는 일반적으로 해당 문서가 위키백과에서 정립된 좋은 문서 구조의 관례를 따르고 있음을 의미하지만,
-      내용 자체는 고려하지 않습니다. (이 점수는 영어 위키백과 문서에만 제공됩니다.)'
+    wp10_doc: '''구조적 완성도'' 점수는 레거시 (~2015년) 머신러닝 기반의 "객관적 판 평가 서비스"를 통해 문서가 얼마나 완성도
+      높은 위키백과 문서의 틀에 부합하는지를 나타냅니다. 이 점수는 문서의 길이, 참조 및 위키링크 수, 기타 기본적인 텍스트 특징을 기반으로
+      계산됩니다. 높은 점수는 일반적으로 해당 문서가 위키백과에서 정립된 좋은 문서 구조의 관례를 따르고 있음을 의미하지만, 내용 자체는 고려하지
+      않습니다.'
     articles_short: 문서
     deleted_message: 대시보드 데이터에 따르면 이 문서는 삭제되었습니다. (문서 이동, 기록 병합 또는 기타 작업으로 인해 문서가
       삭제된 것으로 잘못 표시될 수 있습니다. 삭제된 문서는 나중에 복구될 수도 있습니다. 실제로 삭제되지 않았거나 나중에 복원된 문서의 경우
@@ -509,7 +513,7 @@ ko:
     add_this_psid: PSID 추가
     add_this_pileid: PetScan ID 추가
     add_this_template: 틀 추가
-    import_articles_description: 분류에 속한 게시글 목록은 주기적으로 업데이트되며, 게시글이 추가된 후 목록에 반영되기까지
+    import_articles_description: 분류에 속한 게시물 목록은 주기적으로 업데이트되며, 게시물이 추가된 후 목록에 반영되기까지
       다소 시간이 걸릴 수 있습니다.
     confirm_add_n_scoping_method: '%{n}개의 스코핑 방법을 추가합니까?'
     depth: 하위 분류 깊이
@@ -1155,7 +1159,7 @@ ko:
       각주를 세는 툴포지 API에 따라 제공됩니다.
     references_doc_wikidata: 이것은 항목에 추가된 각주 태그의 수이며, 같은 출처를 여러 번 인용한 것을 포함합니다. 이 데이터는
       ORES 품질 모델에 따라 제공되며 일부 언어에서만 지원됩니다.
-    replag_info: 대시보드는 WMF 클라우드 복제 데이터베이스에서 편집 데이터를 가져옵니다. 때때로 복제 지연(replag)으로 인해
+    replag_info: 대시보드는 WMF 클라우드 레플리카 데이터베이스에서 편집 데이터를 가져옵니다. 때때로 복제 지연(replag)으로 인해
       이러한 데이터베이스에 최근 편집 내용이 누락될 수 있습니다. 이러한 경우 누락된 편집 내용은 나중에 표시됩니다.
     replag_link: replag 확인
     tags: 태그
@@ -1278,6 +1282,8 @@ ko:
     see_more: 더 보기
     show_all: 모두 보기
     show_course_specific: 이 과정 관련 기여
+    course_ended_notification: 이 화면에는 등록된 사용자가 최근에 편집한 내용이 표시되지만, '종료일' 이후에 이루어진 편집은
+      통계에 포함되지 않으며 문서 탭에도 반영되지 않습니다. '이 과정 관련 기여' 필터를 사용하면 종료일 이전에 발생한 활동만 표시할 수 있습니다.
     show_only_new_editors: 새로운 편집자만 표시
   resources:
     label: 자료
@@ -1316,7 +1322,7 @@ ko:
         already_admin: '%{username}님은 이미 관리자입니다!'
         elevate_success: '%{username}님이 관리자로 승격되었습니다.'
       remove:
-        revoke_button: 관리자 철회
+        revoke_button: 관리자 취소
         revoke_button_confirm: '%{username}님의 관리자 권한 철회'
         revoking_button_working: 철회 중...
         already_instructor: '%{username}에게 이미 진행자가 부여되어 있습니다.'
@@ -1336,7 +1342,7 @@ ko:
         already_is: '%{username}님은 이미 {position}입니다!'
         elevate_success: '%{username}님은 {position}(으)로 승격되었습니다.'
       remove:
-        revoke_button: 특수 사용자 철회
+        revoke_button: 특수 사용자 취소
         revoke_button_confirm: '%{username} 사용자의 특수 사용자 권한을 철회'
         revoking_button_working: 철회 중...
         already_is_not: '%{username}님은 특수 사용자가 아닙니다!'
