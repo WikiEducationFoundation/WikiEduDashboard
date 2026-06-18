@@ -28,3 +28,4 @@ test:
  - daily_update
  - constant_update
  - very_long_update
+ - acuwt_update
