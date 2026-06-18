@@ -28,6 +28,6 @@ class RelevantArticlesForCourse
 
   def from_courses(courses_scope)
     Article.live.namespace(Article::Namespaces::MAINSPACE)
-           .joins(:courses).merge(courses_scope).distinct.limit(@limit)
+           .joins(:courses).merge(courses_scope).includes(:wiki).distinct.limit(@limit)
   end
 end

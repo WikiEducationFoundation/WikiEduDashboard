@@ -3,6 +3,9 @@
 require 'rails_helper'
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
+# The exercise UI is the course SPA (served by courses#show); this controller
+# only provides the flow's JSON and the slug-less entry funnel. These specs
+# cover those: state, annotated_article, take, and entry.
 describe 'Claim verification exercise', type: :request do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:course) do
@@ -37,63 +40,57 @@ describe 'Claim verification exercise', type: :request do
       .and_return(instance_double(GetRevisionHtmlWithCitations, html: article_html))
   end
 
-  it 'offers relevant prior-course articles when no claim is taken' do
-    get "/courses/#{course.slug}/verify_claim"
-    expect(response.body).to include(article.title)
-    expect(response.body).to include("article_id=#{article.id}")
+  describe 'GET state' do
+    it 'lists relevant prior-course articles when no claim is taken' do
+      get "/courses/#{course.slug}/verify_claim/state"
+      body = response.parsed_body
+      expect(body['assignment']).to be_nil
+      expect(body['articles'].first).to include('id' => article.id, 'title' => 'Sea otter')
+      expect(body['articles'].first).to include('language' => 'en', 'project' => 'wikipedia')
+    end
+
+    it 'returns the taken claim and the sandbox handoff when one is taken' do
+      claim = VerificationClaim.create!(wiki:, sentence: 'Otters use rocks.',
+                                        source_url: 'https://example.com/o', ref_id: 'cite_note-1',
+                                        article_title: 'Sea_otter', cite_text: 'Riedman 1990')
+      VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
+      get "/courses/#{course.slug}/verify_claim/state"
+      assignment = response.parsed_body['assignment']
+      expect(assignment['claim']['sentence']).to eq('Otters use rocks.')
+      expect(assignment['claim']['source_url']).to eq('https://example.com/o')
+      expect(assignment['sandbox_url']).to include('User:Otterfan/Claim_verification_exercise')
+    end
   end
 
-  it 'mounts the claim-highlighting article viewer for a chosen article' do
-    get "/courses/#{course.slug}/verify_claim", params: { article_id: article.id }
-    expect(response.body).to include("id='claim-verification-viewer'")
-    expect(response.body).to include("data-article-id='#{article.id}'")
-    expect(response.body).to include("data-course-slug='#{course.slug}'")
+  describe 'GET annotated_article' do
+    it 'serves the article HTML with its cited claims tagged' do
+      stub_article_harvest
+      get "/courses/#{course.slug}/verify_claim/annotated_article",
+          params: { article_id: article.id }
+      body = response.parsed_body
+      expect(body['mw_rev_id']).to eq(555)
+      expect(body['html']).to include('cv-claim')
+      expect(body['html']).to include('Sea otters use rocks as tools.')
+    end
   end
 
-  it 'serves the annotated article HTML as JSON for the in-viewer picker' do
-    stub_article_harvest
-    get "/courses/#{course.slug}/verify_claim/annotated_article",
-        params: { article_id: article.id }
-    body = response.parsed_body
-    expect(body['mw_rev_id']).to eq(555)
-    expect(body['html']).to include('cv-claim')
-    expect(body['html']).to include('Sea otters use rocks as tools.')
+  describe 'POST take' do
+    it 'persists the chosen claim and returns it as the assignment' do
+      stub_article_harvest
+      post "/courses/#{course.slug}/verify_claim/take",
+           params: { article_id: article.id, ref_id: 'cite_note-1',
+                     sentence: 'Sea otters use rocks as tools.' }
+      assignment = response.parsed_body['assignment']
+      expect(assignment['claim']['sentence']).to eq('Sea otters use rocks as tools.')
+      expect(assignment['claim']['source_url']).to eq('https://example.com/otters')
+      expect(VerificationClaimAssignment.find_by(user: student, course:)).to be_present
+    end
   end
 
-  it "shows a chosen claim's source and a take action" do
-    stub_article_harvest
-    get "/courses/#{course.slug}/verify_claim",
-        params: { article_id: article.id, sentence: 'Sea otters use rocks as tools.' }
-    expect(response.body).to include('https://example.com/otters')
-    expect(response.body).to include("#{course.slug}/verify_claim/take")
-  end
-
-  it 'takes a chosen claim and then shows it as the assignment' do
-    stub_article_harvest
-    post "/courses/#{course.slug}/verify_claim/take",
-         params: { article_id: article.id, ref_id: 'cite_note-1',
-                   sentence: 'Sea otters use rocks as tools.' }
-    expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
-    assignment = VerificationClaimAssignment.find_by(user: student, course:)
-    expect(assignment.verification_claim.sentence).to eq('Sea otters use rocks as tools.')
-
-    get "/courses/#{course.slug}/verify_claim"
-    expect(response.body).to include('Sea otters use rocks as tools.')
-    expect(response.body).to include('https://example.com/otters')
-  end
-
-  it 'lets a student with a taken claim choose a different one' do
-    taken = VerificationClaim.create!(wiki:, sentence: 'Previously taken claim.')
-    VerificationClaimAssignment.create!(user: student, course:, verification_claim: taken)
-    get "/courses/#{course.slug}/verify_claim", params: { choose: 1 }
-    expect(response.body).to include(article.title)          # the article picker
-    expect(response.body).not_to include('Previously taken claim.')
-  end
-
-  context 'with the slug-less entry point' do
-    it 'infers the sole course and offers its relevant articles' do
+  describe 'GET entry (slug-less)' do
+    it 'redirects to the inferred sole course exercise' do
       get '/verify_claim'
-      expect(response.body).to include(article.title)
+      expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
     end
 
     it 'shows a course picker when the student has several courses' do

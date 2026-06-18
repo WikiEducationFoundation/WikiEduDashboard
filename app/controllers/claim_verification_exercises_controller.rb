@@ -1,31 +1,25 @@
 # frozen_string_literal: true
 
-# Drives the student claim-verification exercise (issue #6910).
-# - GET show: if the student has taken a claim, show it; otherwise (or when they
-#   ask to choose again) let them pick an article from prior subject-matched
-#   courses and browse its cited claims. Reached course-scoped (from the
-#   timeline) or slug-less (from the exercise module, inferring the course — a
-#   course picker when it can't tell).
-# - POST take: persist the chosen claim and record it as their assignment.
+# Data + entry for the student claim-verification exercise (issue #6910).
+# The exercise UI itself is the course SPA: `/courses/*id/verify_claim` falls
+# through to `courses#show` and React Router renders the exercise (article
+# picker → in-viewer claim selection → taken claim) with no reloads. This
+# controller serves only that flow's JSON and the slug-less entry funnel:
+# - GET state: the student's taken claim (if any) + the articles they can pick.
+# - GET annotated_article: an article's parsed HTML with cited claims tagged.
+# - POST take: persist the chosen claim, record the assignment, return it.
+# - GET entry (slug-less): infer the course and send the student into its SPA
+#   exercise, else show a course picker.
 # Articles are harvested on demand; only the taken claim is persisted. The
 # student does the verification in their sandbox; nothing they produce is stored.
 class ClaimVerificationExercisesController < ApplicationController
   before_action :require_signed_in
 
-  def show
-    @course = course_from_slug || inferred_course
-    return render(:course_picker) if @course.nil?
-
-    @assignment = VerificationClaimAssignment.find_by(user: current_user, course: @course)
-    render_exercise
-  end
-
-  def take
+  def state
     @course = course_from_slug
-    TakeVerificationClaim.new(user: current_user, course: @course,
-                              article: Article.find(params[:article_id]),
-                              sentence: params[:sentence], ref_id: params[:ref_id])
-    redirect_to "/courses/#{@course.slug}/verify_claim"
+    @assignment = VerificationClaimAssignment.find_by(user: current_user, course: @course)
+    @articles = RelevantArticlesForCourse.new(@course).articles
+    # renders state.json.jbuilder
   end
 
   # JSON: the article's parsed HTML with its cited claims tagged, for the
@@ -36,48 +30,24 @@ class ClaimVerificationExercisesController < ApplicationController
     render json: { html: annotation.html, mw_rev_id: annotation.mw_rev_id }
   end
 
+  def take
+    @course = course_from_slug
+    TakeVerificationClaim.new(user: current_user, course: @course,
+                              article: Article.find(params[:article_id]),
+                              sentence: params[:sentence], ref_id: params[:ref_id])
+    @assignment = VerificationClaimAssignment.find_by(user: current_user, course: @course)
+    # renders take.json.jbuilder (the taken claim), so the SPA can transition.
+  end
+
+  # Slug-less entry: send the student into the inferred course's SPA exercise,
+  # or ask which course when we can't tell.
+  def entry
+    course = inferred_course
+    return render(:course_picker) if course.nil?
+    redirect_to "/courses/#{course.slug}/verify_claim"
+  end
+
   private
-
-  # Pick the screen: a chosen claim's detail, the highlighted article prose, the
-  # already-taken claim, or the article picker.
-  def render_exercise
-    return render_claim_detail if params[:article_id].present? && params[:sentence].present?
-    return render_article_prose if params[:article_id].present?
-    return render_taken_claim if @assignment && params[:choose].blank?
-
-    render_article_list
-  end
-
-  def render_taken_claim
-    @claim = @assignment.verification_claim
-    render :show
-  end
-
-  def render_article_list
-    @articles = RelevantArticlesForCourse.new(@course).articles
-    render :articles
-  end
-
-  # The chosen article, rendered by the claim-highlighting ArticleViewer (which
-  # fetches the annotated HTML itself), to browse and pick a claim from.
-  def render_article_prose
-    @article = Article.find(params[:article_id])
-    render :claims
-  end
-
-  # One chosen claim with its cited source(s) and a take action.
-  def render_claim_detail
-    @article = Article.find(params[:article_id])
-    @extraction = ExtractArticleClaims.new(@article)
-    @claim = @extraction.claims.find { |claim| claim.sentence == params[:sentence] }
-    @citations = claim_citations(@claim)
-    render :claim
-  end
-
-  def claim_citations(claim)
-    return [] if claim.nil?
-    @extraction.citations.select { |citation| claim.ref_ids.include?(citation.ref_id) }
-  end
 
   def course_from_slug
     return if params[:id].blank?

@@ -21,15 +21,20 @@ import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verific
   `{ html, legend, buttonLabel, pending, onInnerHTMLClick, overlay }`. The shell
   knows nothing about claims.
 
+  Taking a claim is an async POST; on success the hook calls `onTaken` with the
+  resulting assignment so the exercise can transition to the taken-claim view
+  without a reload.
+
   Claims only apply to the article's current version, so we fetch the annotation
   only when no specific revision is selected; on an old revision (or on fetch
   failure) we return `html: null` and the shell falls back to the plain parsed
   article.
 */
-const useClaimHighlighting = ({ article, course, revisionId, parsedSettle }) => {
+const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTaken }) => {
   const [annotatedHtml, setAnnotatedHtml] = useState(null);
   const [selectedClaim, setSelectedClaim] = useState(null);
   const [pending, setPending] = useState(false);
+  const [taking, setTaking] = useState(false);
 
   // Fetch the annotated article once the shell's parse settles for the current
   // version. A revision toggle clears the annotation (claims are current-version
@@ -68,6 +73,19 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle }) => 
     });
   };
 
+  // Take the selected claim on, then hand the new assignment back to the
+  // exercise to transition the view.
+  const takeClaim = () => {
+    setTaking(true);
+    new ClaimVerificationAPI({ courseSlug: course.slug })
+      .take({ articleId: article.id, sentence: selectedClaim.sentence, refId: selectedClaim.refId })
+      .then((data) => {
+        setTaking(false);
+        onTaken(data.assignment);
+      })
+      .catch(() => setTaking(false));
+  };
+
   const legend = annotatedHtml
     ? <p className="cv-pick-instructions">{I18n.t('claim_verification.pick_instructions')}</p>
     : null;
@@ -76,8 +94,8 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle }) => 
     ? (
       <ClaimSelectionPanel
         claim={selectedClaim}
-        article={article}
-        course={course}
+        onTake={takeClaim}
+        taking={taking}
         onClose={() => setSelectedClaim(null)}
       />
     )

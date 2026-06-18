@@ -5,7 +5,6 @@ import { render as renderMain } from './Main';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './util/create_store';
-import ClaimVerificationViewer from './common/ArticleViewer/containers/ClaimVerificationViewer.jsx';
 
 // The navbar is its own React element, independent of the
 // main React Router-based component tree.
@@ -34,27 +33,5 @@ if (reactRoot) {
   renderMain(
     reactRoot,
     store
-  );
-}
-
-// The claim-verification exercise is a server-rendered page that mounts the
-// ArticleViewer (claim-highlighting variant) as its main content. Its article
-// and course come from data attributes on the mount node.
-const claimViewer = document.getElementById('claim-verification-viewer');
-if (claimViewer) {
-  const { dataset } = claimViewer;
-  const article = {
-    id: Number(dataset.articleId),
-    title: dataset.articleTitle,
-    language: dataset.articleLanguage,
-    project: dataset.articleProject,
-    url: dataset.articleUrl,
-    mw_page_id: Number(dataset.articleMwPageId),
-  };
-  const course = { id: Number(dataset.courseId), slug: dataset.courseSlug };
-  createRoot(claimViewer).render(
-    <Provider store={store}>
-      <ClaimVerificationViewer article={article} course={course} />
-    </Provider>
   );
 }
