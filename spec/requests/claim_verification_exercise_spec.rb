@@ -43,11 +43,21 @@ describe 'Claim verification exercise', type: :request do
     expect(response.body).to include("article_id=#{article.id}")
   end
 
-  it 'renders the article prose with the cited claim highlighted' do
-    stub_article_harvest
+  it 'mounts the claim-highlighting article viewer for a chosen article' do
     get "/courses/#{course.slug}/verify_claim", params: { article_id: article.id }
-    expect(response.body).to include('Sea otters use rocks as tools.')
-    expect(response.body).to include('claim-verification-exercise__claim-mark')
+    expect(response.body).to include("id='claim-verification-viewer'")
+    expect(response.body).to include("data-article-id='#{article.id}'")
+    expect(response.body).to include("data-course-slug='#{course.slug}'")
+  end
+
+  it 'serves the annotated article HTML as JSON for the in-viewer picker' do
+    stub_article_harvest
+    get "/courses/#{course.slug}/verify_claim/annotated_article",
+        params: { article_id: article.id }
+    body = response.parsed_body
+    expect(body['mw_rev_id']).to eq(555)
+    expect(body['html']).to include('cv-claim')
+    expect(body['html']).to include('Sea otters use rocks as tools.')
   end
 
   it "shows a chosen claim's source and a take action" do

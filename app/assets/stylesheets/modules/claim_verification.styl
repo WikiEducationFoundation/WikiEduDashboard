@@ -112,24 +112,6 @@
     margin-bottom 10px
     font-size 1.05em
 
-  // Highlighted article prose: the article in context, each cited claim a
-  // clickable highlight.
-  &__prose
-    line-height 1.7
-    p
-      margin-bottom 16px
-
-  &__claim-mark
-    background-color rgba($brand_primary, .12)
-    border-bottom 2px solid rgba($brand_primary, .55)
-    border-radius 2px
-    color $text_dk
-    padding 0 2px
-    text-decoration none
-    &:hover
-      background-color rgba($brand_primary, .22)
-      color $text_dk
-
   &__detail-source
     margin-bottom 22px
 
@@ -144,6 +126,81 @@
     li
       margin-bottom 12px
       font-size 1.1em
+
+// In-viewer claim selection (the ArticleViewer claim-highlighting variant).
+// The annotated article HTML tags each cited claim's citation marker `.cv-claim`;
+// clicking one opens the selection panel that floats over the article.
+.parsed-article
+  sup.cv-claim
+    cursor pointer
+    a
+      background-color rgba($brand_primary, .15)
+      border-bottom 2px solid rgba($brand_primary, .55)
+      border-radius 2px
+      padding 0 3px
+      text-decoration none
+    &:hover a
+      background-color rgba($brand_primary, .3)
+
+// Pick instruction shown in the viewer footer legend.
+.cv-pick-instructions
+  margin 0
+  color $text_med
+  font-size .9em
+
+// The claim selection panel floats over the article viewer, above the footer.
+// `.article-viewer` is position:fixed, so this absolute panel anchors to it.
+.article-viewer
+  .cv-selection-panel
+    position absolute
+    left 50%
+    bottom 64px
+    transform translateX(-50%)
+    width 620px
+    max-width 92%
+    max-height 60%
+    overflow auto
+    background white
+    border 1px solid mischka
+    border-radius 4px
+    box-shadow 0 0 24px 0 rgba(0, 0, 0, .35)
+    padding 24px 28px 28px
+    z-index 20
+
+  .cv-selection-panel__close
+    position absolute
+    top 6px
+    /*@noflip*/ right 12px
+    border 0
+    background none
+    font-size 1.6em
+    line-height 1
+    cursor pointer
+    color $text_med
+    &:hover
+      color $text_dk
+
+  .cv-selection-panel__label
+    text-transform uppercase
+    letter-spacing .08em
+    font-size .75em
+    font-weight 600
+    color $text_med
+    margin 0 0 8px 0
+
+  .cv-selection-panel__claim-text
+    margin 0 0 18px 0
+    padding 0
+    border 0
+    font-family $header-font
+    font-size 1.3em
+    line-height 1.4
+    color $text_dk
+
+  .cv-selection-panel__citation
+    margin 0 0 14px 0
+    color body-color
+    line-height 1.5
 
 @media (max-width: 600px)
   .claim-verification-exercise__claim,

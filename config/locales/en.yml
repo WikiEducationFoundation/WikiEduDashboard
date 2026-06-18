@@ -1634,6 +1634,13 @@ en:
     loading: "Loading…"
     wiki_source: "wiki source"
 
+  claim_verification:
+    pick_instructions: Click a highlighted factual claim with an inline citation that you want to verify.
+    claim: Claim
+    cited_source: Cited source
+    source_url: Source URL
+    select_claim: Select this claim to verify
+
   update_username:
     header: Update a changed username
     not_found: User not found for entered username.

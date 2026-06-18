@@ -1,17 +1,19 @@
--# Highlighted article view (Slice D, quick first version): the article's prose
--# with cited claims highlighted; the student clicks one to check it. Interim
--# plain-text rendering — a richer view (via an ArticleViewer refactor) will
--# follow. Bracketed COPY notes are descriptive stubs; the article text/title
--# are data.
+-# The claim-selection view: mounts the ArticleViewer (claim-highlighting
+-# variant) as the page's main content. The student browses the live article with
+-# its cited claims highlighted and clicks one to take it on. The mount node
+-# carries the article and course as data attributes (read in app.jsx); the
+-# viewer fetches the annotated article HTML from the annotated_article endpoint.
+-# Article title/data are data, not copy. "Choose a different article" is
+-# operator-provided copy and stays available behind the viewer (and once it is
+-# closed).
 .container.narrow.claim-verification-exercise.claim-verification-exercise--article
   .claim-verification-exercise__intro
     %h1= @article.title
     %p
-      Click a highlighted factual claim with an inline citation that you want to verify.
       = link_to 'Choose a different article',
           "/courses/#{@course.slug}/verify_claim?choose=1"
-  - if @extraction.paragraphs.any?
-    .claim-verification-exercise__prose= highlighted_prose(@course, @article, @extraction.paragraphs)
-  - else
-    %p.claim-verification-exercise__empty
-      No cited claims could be extracted. Please try a different article.
+  #claim-verification-viewer{ data: { article_id: @article.id,
+    article_title: @article.full_title, article_language: @article.wiki.language,
+    article_project: @article.wiki.project, article_url: @article.url,
+    article_mw_page_id: @article.mw_page_id, course_id: @course.id,
+    course_slug: @course.slug } }

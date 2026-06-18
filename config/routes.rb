@@ -143,6 +143,12 @@ Rails.application.routes.draw do
   # Slug-less entry (eg from the course-agnostic exercise training module):
   # infers the course from return_to / the user's sole course, else a picker.
   get 'verify_claim' => 'claim_verification_exercises#show', :as => :verify_claim
+  # Annotated article HTML (the article's parsed HTML with cited claims tagged)
+  # for the in-viewer claim picker. JSON, fetched by the claim-highlighting hook.
+  get 'courses/*id/verify_claim/annotated_article' =>
+        'claim_verification_exercises#annotated_article',
+      :as => :verify_claim_annotated_article, constraints: { id: /.*/ },
+      defaults: { format: :json }
   # Take on a chosen claim (persist it as the student's assignment).
   post 'courses/*id/verify_claim/take' => 'claim_verification_exercises#take',
        :as => :take_verify_claim, constraints: { id: /.*/ }

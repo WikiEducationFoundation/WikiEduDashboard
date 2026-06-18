@@ -28,6 +28,14 @@ class ClaimVerificationExercisesController < ApplicationController
     redirect_to "/courses/#{@course.slug}/verify_claim"
   end
 
+  # JSON: the article's parsed HTML with its cited claims tagged, for the
+  # in-viewer claim picker. The claim-highlighting hook fetches this once the
+  # ArticleViewer shell has resolved the title.
+  def annotated_article
+    annotation = AnnotateArticleClaims.new(Article.find(params[:article_id]))
+    render json: { html: annotation.html, mw_rev_id: annotation.mw_rev_id }
+  end
+
   private
 
   # Pick the screen: a chosen claim's detail, the highlighted article prose, the
@@ -50,10 +58,10 @@ class ClaimVerificationExercisesController < ApplicationController
     render :articles
   end
 
-  # The article's prose, with cited claims highlighted to browse and pick from.
+  # The chosen article, rendered by the claim-highlighting ArticleViewer (which
+  # fetches the annotated HTML itself), to browse and pick a claim from.
   def render_article_prose
     @article = Article.find(params[:article_id])
-    @extraction = ExtractArticleClaims.new(@article)
     render :claims
   end
 

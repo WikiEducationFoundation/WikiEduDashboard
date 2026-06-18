@@ -34,10 +34,16 @@ import { crossCheckArticleTitle } from '@actions/article_actions';
   It knows nothing about authorship or claims. An optional highlight feature is
   injected as the `useHighlightFeature` hook, which the shell drives via
   `parsedSettle` (bumped on every parsed-fetch settle, after redirect resolution)
-  and `revisionId`, and whose `{ html, legend, buttonLabel, pending }` the shell
-  renders. The default no-op feature renders the plain parsed HTML with no legend.
+  and `revisionId`. The shell renders the feature's returned slots:
+  `html` (replaces the parsed HTML), `legend` (footer), `buttonLabel` (opener),
+  `pending` (footer spinner), and optionally `onInnerHTMLClick` (a click handler
+  for the injected HTML) and `overlay` (a node rendered inside the viewer, e.g. a
+  claim-selection panel). The default no-op feature renders the plain parsed HTML.
 */
-const noopHighlightFeature = () => ({ html: null, legend: null, buttonLabel: null, pending: false });
+const noopHighlightFeature = () => ({
+  html: null, legend: null, buttonLabel: null, pending: false,
+  onInnerHTMLClick: undefined, overlay: null,
+});
 
 const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   fetchArticleDetails, assignedUsers, article, course, current_user = {},
@@ -66,7 +72,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   // that resolved title — do not spread/clone `article` on this path.
   const requestTitleVerification = verify => setCheckArticleTitle(verify);
   const feature = useHighlightFeature({
-    article, users, assignedUsers, showArticleFinder,
+    article, course, users, assignedUsers, showArticleFinder,
     isOpen: showArticle, revisionId, parsedSettle,
     fetchArticleDetails, requestTitleVerification,
   });
@@ -95,9 +101,12 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
     return I18n.t('articles.show_current_version');
   };
 
-  // It takes the data sent as the parameter and appends to the current Url
+  // It takes the data sent as the parameter and appends to the current Url.
+  // The ?showArticle= permalink is only meaningful when this viewer is a modal
+  // popped over a page (showPermalink); a standalone viewer (e.g. the claim
+  // exercise, showPermalink=false) must leave the page's own query string intact.
   const addParamToURL = (urlParam) => {
-    if (showArticleFinder) { return; }
+    if (showArticleFinder || !showPermalink) { return; }
     window.history.pushState({}, '', `?showArticle=${urlParam}`);
   };
 
@@ -105,7 +114,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   // It checks if the node(viewer) doesn't exist
   // if either case is true, it removes all parameters from the URL(starting from the ?)
   const removeParamFromURL = (event) => {
-    if (showArticleFinder) { return; }
+    if (showArticleFinder || !showPermalink) { return; }
     const viewer = document.getElementsByClassName('article-viewer')[0];
     if (!viewer || event) {
       if (window.location.search) {
@@ -253,9 +262,12 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
         }
         <div id="article-scrollbox-id" className="article-scrollbox">
           {
-            fetched ? <ParsedArticle html={feature.html || parsedArticle} /> : <Loading />
+            fetched
+              ? <ParsedArticle html={feature.html || parsedArticle} onInnerHTMLClick={feature.onInnerHTMLClick} />
+              : <Loading />
           }
         </div>
+        {feature.overlay}
         <Footer
           pendingRequest={parsedPending || feature.pending}
           article={article}
