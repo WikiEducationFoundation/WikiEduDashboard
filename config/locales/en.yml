@@ -1646,6 +1646,10 @@ en:
     your_selected_claim: Your selected claim
     find_in_article: Find this in the article text
     show_surrounding: Show surrounding paragraph
+    choose_different_claim: Choose a different claim
+    no_online_source: This cited source doesn't include a URL.
+    course_picker_heading: Choose course
+    course_picker_no_courses: No courses
 
   update_username:
     header: Update a changed username

@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
   the verification in their Wikipedia sandbox. "Choose a different claim" returns
   to the picker client-side (no reload).
 
-  The bracketed [COPY — …] strings are operator placeholders carried verbatim
-  from the server-rendered view; the copy pass for them is still pending, so they
-  are intentionally NOT localized yet. The claim and source values are data.
+  The one remaining bracketed [COPY — …] string (the sandbox instructions
+  paragraph) is an operator placeholder whose copy is still pending, so it is
+  intentionally NOT localized yet. The claim and source values are data.
 */
 export const TakenClaim = ({ assignment, onChooseDifferent }) => {
   const { claim, sandbox_url: sandboxUrl } = assignment;
@@ -51,7 +51,7 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
           </a>
         ) : (
           <p className="claim-verification-exercise__no-source">
-            [COPY — note shown when the citation has no online source the student can open]
+            {I18n.t('claim_verification.no_online_source')}
           </p>
         )}
       </section>
@@ -67,7 +67,7 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          [COPY — button label, eg &quot;Start in your sandbox&quot;]
+          {I18n.t('training.exercise_sandbox')}
         </a>
       </section>
 
@@ -77,7 +77,7 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
           className="claim-verification-exercise__switch-button"
           onClick={onChooseDifferent}
         >
-          [COPY — link text, eg &quot;Choose a different claim&quot;]
+          {I18n.t('claim_verification.choose_different_claim')}
         </button>
       </div>
     </div>
