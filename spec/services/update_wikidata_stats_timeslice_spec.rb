@@ -25,6 +25,28 @@ describe UpdateWikidataStatsTimeslice do
       stub_wiki_validation
     end
 
+    context 'emits new Lexeme keys using revision 2414438514' do
+      let(:lexeme_revision) do
+        build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 2414438514, scoped: true)
+      end
+
+      it 'includes the 16 new Lexeme keys in the diff' do
+        VCR.use_cassette 'wikidata/lexeme_revision_new_keys' do
+          updater.update_revisions_with_stats([lexeme_revision])
+        end
+        expect(lexeme_revision.summary).not_to be_nil
+        diff = JSON.parse(lexeme_revision.summary)
+        expect(diff.keys).to include(
+          'added_language', 'changed_language',
+          'added_lexical_category', 'changed_lexical_category',
+          'added_form_references', 'removed_form_references', 'changed_form_references',
+          'added_form_qualifiers', 'removed_form_qualifiers', 'changed_form_qualifiers',
+          'added_sense_references', 'removed_sense_references', 'changed_sense_references',
+          'added_sense_qualifiers', 'removed_sense_qualifiers', 'changed_sense_qualifiers'
+        )
+      end
+    end
+
     it 'imports wikidata', :vcr do
       revisions.each do |rev|
         expect(rev.summary).to be_nil
