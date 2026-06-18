@@ -45,6 +45,39 @@ describe CourseQueueSorting do
       end
     end
 
+    context 'when the course has use_acuwt enabled' do
+      let(:course) do
+        create(:course, start: 1.day.ago, end: 2.months.from_now,
+                        flags: { use_acuwt: true })
+      end
+
+      it 'queues in acuwt_update' do
+        expect(subject.queue_for(course)).to eq 'acuwt_update'
+      end
+    end
+
+    context 'when the course has both use_acuwt and very_long_update enabled' do
+      let(:course) do
+        create(:course, start: 1.day.ago, end: 2.months.from_now,
+                        flags: { use_acuwt: true, very_long_update: true })
+      end
+
+      it 'prefers acuwt_update over very_long_update' do
+        expect(subject.queue_for(course)).to eq 'acuwt_update'
+      end
+    end
+
+    context 'when the course has only very_long_update enabled' do
+      let(:course) do
+        create(:course, start: 1.day.ago, end: 2.months.from_now,
+                        flags: { very_long_update: true })
+      end
+
+      it 'queues in very_long_update' do
+        expect(subject.queue_for(course)).to eq 'very_long_update'
+      end
+    end
+
     context 'when there are old unfinished entries that predate the last success' do
       let(:course) do
         create(:course, start: 1.day.ago, end: 2.months.from_now,
