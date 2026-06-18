@@ -1,0 +1,36 @@
+# Based on https://github.com/mperham/sidekiq/blob/master/examples/systemd/sidekiq.service
+#
+# A single long-update worker dedicated to the acuwt_update queue: instead of
+# being one more `sidekiq-long@` instance reading the normal long queues, this
+# process reads ONLY from acuwt_update, which holds courses flagged use_acuwt
+# (and very_long_update, to keep them out of the normal queues).
+
+[Unit]
+Description=sidekiq-acuwt
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ragesoss/WikiEduDashboard
+ExecStart=/home/ragesoss/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue acuwt_update --concurrency 1
+User=root
+Group=root
+UMask=0002
+
+# Greatly reduce Ruby memory fragmentation and heap usage
+# https://www.mikeperham.com/2018/04/25/taming-rails-memory-bloat/
+Environment=MALLOC_ARENA_MAX=2
+
+# if we crash, restart
+RestartSec=1
+Restart=on-failure
+
+# output goes to /var/log/syslog
+StandardOutput=syslog
+StandardError=syslog
+
+# This will default to "bundler" if we don't specify it
+SyslogIdentifier=sidekiq-acuwt
+
+[Install]
+WantedBy=multi-user.target
