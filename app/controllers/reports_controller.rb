@@ -10,13 +10,14 @@ class ReportsController < ApplicationController
                 only: %i[campaign_instructors_csv campaign_courses_csv campaign_articles_csv
                          campaign_students_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
-                         course_wikidata_csv all_courses_and_instructors_csv]
+                         course_wikidata_csv course_wikidata_editors_csv
+                         all_courses_and_instructors_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
   before_action :set_course, only: %i[course_csv course_uploads_csv
                                       course_students_csv course_articles_csv
-                                      course_wikidata_csv]
+                                      course_wikidata_csv course_wikidata_editors_csv]
 
   before_action :set_sidekiq_job_context
   before_action :require_admin_permissions, only: [:all_courses_and_instructors_csv]
@@ -71,6 +72,11 @@ class ReportsController < ApplicationController
     csv_of('course_wikidata')
   end
 
+  def course_wikidata_editors_csv
+    return csv_of('course_wikidata_editors') unless wikidata_editor_stats_incomplete?
+    render plain: I18n.t('courses.wikidata_editors_update_required'), status: :ok
+  end
+
   def all_courses_and_instructors_csv
     filename = "all-courses-and-instructors-#{Time.zone.today}.csv"
 
@@ -88,6 +94,18 @@ class ReportsController < ApplicationController
   end
 
   private
+
+  # Returns true if any Wikidata timeslice with revisions was processed before
+  # per-editor stats were tracked, meaning the CSV would show incomplete data.
+  # Uses a SQL-side check to avoid loading and deserializing every row.
+  def wikidata_editor_stats_incomplete?
+    wikidata = Wiki.get_or_create(language: nil, project: 'wikidata')
+    @course.course_user_wiki_timeslices
+           .where(wiki: wikidata)
+           .where('revision_count > 0')
+           .where('stats IS NULL OR stats NOT LIKE ?', '%total revisions%')
+           .exists?
+  end
 
   def set_course
     @course = find_course_by_slug(csv_params[:course])

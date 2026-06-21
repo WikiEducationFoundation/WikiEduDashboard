@@ -746,6 +746,9 @@ en:
     data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
     data_wikidata: Wikidata stats
     data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
+    data_wikidata_editors: Wikidata editor stats
+    data_wikidata_editors_info: Per-editor breakdown of Wikidata activity (items created, claims, labels, etc.)
+    wikidata_editors_update_required: Some historical revisions were recorded before per-editor Wikidata stats were tracked. Please request a full course update and try again.
     dates_too_long: The maximum length is one year.
     delete_course: Delete course
     delete_suggestion: Delete

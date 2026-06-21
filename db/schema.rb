@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_28_223445) do
+ActiveRecord::Schema[7.0].define(version: 2026_05_03_000001) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -242,6 +242,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_28_223445) do
     t.integer "character_sum_draft", default: 0
     t.integer "references_count", default: 0
     t.integer "revision_count", default: 0
+    t.text "stats"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id", "user_id", "wiki_id", "start", "end"], name: "course_user_wiki_timeslice_by_course_user_wiki_start_and_end", unique: true
