@@ -1,3 +1,12 @@
+# This file defines the ordered sequence of panels (questions) in the
+# research-write assignment wizard.
+#
+# COUPLING: the feature spec spec/features/course_creation_spec.rb walks through
+# this exact sequence in its `go_through_researchwrite_wizard` helper. If you
+# ADD, REMOVE, or REORDER a panel here, update that helper to match — otherwise
+# the wizard feature specs break, often confusingly on a *later* panel or at
+# "Generate Timeline" rather than where the change was made. Changing the blocks
+# in content.yml can also change `expected_course_blocks` in that spec.
 -
   key: essentials
   title: Training
@@ -616,6 +625,38 @@
       title: I don't know.
       tag: assignment_portion_unknown
 
+
+-
+  key: instructor_learner
+  title: Learning to edit with your students
+  description: |
+    The best way to understand what your students are experiencing with their
+    assignment is to try it yourself! Editing Wikipedia alongside your students will:
+
+    - Familiarize you with the Dashboard
+    - Teach you the basics of Wikipedia editing
+    - Show you the Wikipedia assignment from the student perspective
+    - Help you anticipate where they might need support
+    - Foster an atmosphere of shared learning in your classroom
+    - Build skills you’ll carry into future Wikipedia assignments
+
+    Through the Dashboard, you can select an article to work on that will parallel
+    your students’ experience.
+
+    #### Would you like to edit a Wikipedia article yourself?
+  type: 1  # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      blurb: Select yes and we’ll send you guidance on how to get started.
+      selected: true # selected by default
+      tag: instructor_learner
+      logic: instructor_learner
+    -
+      title: "No"
+      tag: not_instructor_learner
+      logic: not_instructor_learner
 
 -
   key: mentoring

@@ -66,6 +66,16 @@ describe JoinCourse do
     end
   end
 
+  context 'for a ClassroomProgramCourse with the instructor_learner flag' do
+    let(:course) { create(:course, flags: { instructor_learner: true }) }
+
+    it 'allows an instructor to also join as a student' do
+      result = subject.result
+      expect(result['failure']).to be_nil
+      expect(result['success']).not_to be_nil
+    end
+  end
+
   context 'for a withdrawn course' do
     let(:course) { withdrawn_course }
 

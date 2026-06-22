@@ -47,5 +47,17 @@ class WizardController < ApplicationController
     WizardTimelineManager.update_timeline_and_tags(@course, wizard_id, wizard_params)
     # JBuilder will not render weeks for previous-empty course without this...
     @course = Course.find_by(slug: params[:course_id])
+    enroll_current_instructor_as_learner
+  end
+
+  private
+
+  # When the instructor chose "learning to edit with your students", enroll the
+  # instructor running the wizard as a student of their own course. Admins who
+  # are not instructors of the course are skipped.
+  def enroll_current_instructor_as_learner
+    return unless @course.instructor_learner?
+    return unless current_user&.instructor?(@course)
+    EnrollInstructorAsLearner.new(course: @course, instructor: current_user)
   end
 end

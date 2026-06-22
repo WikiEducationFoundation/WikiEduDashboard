@@ -52,6 +52,39 @@ describe WizardTimelineManager do
     end
   end
 
+  describe 'instructor_learner flag' do
+    let(:course) do
+      create(:course, start: '2016-08-01', end: '2016-09-23',
+                      timeline_start: '2016-08-01', timeline_end: '2016-09-23',
+                      weekdays: '1111111')
+    end
+
+    def submit(logic, tags = [])
+      params = { 'wizard_output' => { 'output' => [], 'logic' => logic, 'tags' => tags } }
+      described_class.update_timeline_and_tags(course, 'researchwrite', params)
+    end
+
+    it 'sets the flag when the instructor opts in' do
+      submit(['instructor_learner'])
+      expect(course.flags[:instructor_learner]).to be true
+    end
+
+    it 'clears the flag when the instructor opts out' do
+      course.update(flags: { instructor_learner: true })
+      submit(['not_instructor_learner'])
+      expect(course.flags[:instructor_learner]).to be false
+    end
+
+    it 'updates the tag so opting out clears the opt-in marker' do
+      opt_in = [{ key: 'instructor_learner', tag: 'instructor_learner' }]
+      opt_out = [{ key: 'instructor_learner', tag: 'not_instructor_learner' }]
+      submit(['instructor_learner'], opt_in)
+      expect(course.reload.tag?('instructor_learner')).to be true
+      submit(['not_instructor_learner'], opt_out)
+      expect(course.reload.tag?('instructor_learner')).to be false
+    end
+  end
+
   describe 'wizard_id validation' do
     let(:course) do
       create(:course, start: '2016-08-01', end: '2016-09-23',

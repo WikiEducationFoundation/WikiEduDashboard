@@ -218,7 +218,9 @@ class WizardTimelineManager
     '3_peer_reviewers' => { peer_review_count: 3 },
     'working_in_groups' => { retain_available_articles: true },
     'no_sandboxes' => { no_sandboxes: true },
-    'yes_sandboxes' => { no_sandboxes: false }
+    'yes_sandboxes' => { no_sandboxes: false },
+    'instructor_learner' => { instructor_learner: true },
+    'not_instructor_learner' => { instructor_learner: false }
   }.freeze
   def add_flags
     FLAG_LOGIC.each_key do |logic_key|

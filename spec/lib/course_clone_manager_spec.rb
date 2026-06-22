@@ -117,6 +117,23 @@ describe CourseCloneManager do
     end
   end
 
+  context 'when the source course has the instructor_learner flag' do
+    before do
+      Course.find(1).update(flags: { instructor_learner: true })
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false).clone!
+    end
+
+    it 'carries over the ability to dual-enroll the instructor' do
+      expect(clone.multiple_roles_allowed?).to be true
+    end
+
+    it 'does not auto-enroll the instructor as a student' do
+      student_role = CoursesUsers::Roles::STUDENT_ROLE
+      expect(clone.courses_users.where(user_id: 1, role: student_role)).to be_empty
+    end
+  end
+
   context 'when open course creation is enabled' do
     before do
       allow(Features).to receive(:open_course_creation?).and_return(true)

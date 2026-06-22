@@ -31,6 +31,11 @@ def go_through_course_dates_and_timeline_dates
   sleep 1
 end
 
+# Walks through every panel of the research-write wizard, in order. This MUST
+# stay in sync with the panel sequence in config/wizard/researchwrite/wizard.yml:
+# adding, removing, or reordering a panel there requires a matching change to the
+# click-through steps below, or these specs break (often on a later panel or at
+# "Generate Timeline"). `expected_course_blocks` likewise tracks content.yml.
 def go_through_researchwrite_wizard(returning_instructor: true)
   go_through_course_dates_and_timeline_dates
 
@@ -106,6 +111,10 @@ def go_through_researchwrite_wizard(returning_instructor: true)
   # # sandboxes unacceptable
   # omniclick find('.wizard__option', match: :first).find('button', match: :first)
   # click_button 'Next'
+  sleep 1
+
+  # "Learning to edit with your students" panel; accept the default "Yes"
+  click_button 'Next'
   sleep 1
 
   # "Mentorship program" panel that only appears for new instructor
@@ -352,6 +361,11 @@ describe 'New course creation and editing', type: :feature do
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
       expect(Course.first.tag?('mentor_requested')).to be true
+
+      # The instructor accepted "Learning to edit with your students", so they
+      # are now also enrolled as a student of their own course.
+      expect(Course.first.instructor_learner?).to be true
+      expect(Course.first.students).to include(User.find(1))
     end
 
     it 'squeezes assignments into the course dates' do

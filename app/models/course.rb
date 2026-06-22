@@ -550,6 +550,10 @@ class Course < ApplicationRecord
     flags[:retain_available_articles].present?
   end
 
+  def instructor_learner?
+    flags[:instructor_learner].present?
+  end
+
   def disable_student_emails?
     flags[:disable_student_emails].present?
   end

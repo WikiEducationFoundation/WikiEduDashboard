@@ -73,8 +73,11 @@ class ClassroomProgramCourse < Course
     false
   end
 
+  # Normally instructors and students are mutually exclusive on a classroom
+  # course. When the "learning to edit with your students" wizard option is set,
+  # we allow dual roles so an instructor can also be enrolled as a student.
   def multiple_roles_allowed?
-    false
+    instructor_learner?
   end
 
   def timeline_enabled?

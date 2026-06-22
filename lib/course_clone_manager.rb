@@ -158,7 +158,11 @@ class CourseCloneManager
     :retain_available_articles,
     :stay_in_sandbox,
     :no_sandboxes,
-    :timeslice_duration
+    :timeslice_duration,
+    # Carries the ability to dual-enroll the instructor as a student. The
+    # instructor is not auto-enrolled on the clone; that happens when they
+    # complete the wizard (which also re-confirms the opt-in and its tag).
+    :instructor_learner
   ].freeze
   def add_flags
     FLAGS_TO_CARRY_OVER.each do |flag_key|
