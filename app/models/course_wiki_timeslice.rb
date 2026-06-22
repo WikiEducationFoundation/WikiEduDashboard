@@ -18,6 +18,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  mw_rev_count         :integer          default(0)
+#  needs_reaggregation  :boolean          default(FALSE)
 #
 class CourseWikiTimeslice < ApplicationRecord
   belongs_to :course
@@ -36,6 +37,7 @@ class CourseWikiTimeslice < ApplicationRecord
     in_period(period_start, period_end).or(for_datetime(period_start)).or(for_datetime(period_end))
   }
   scope :needs_update, -> { where(needs_update: true) }
+  scope :needs_reaggregation, -> { where(needs_reaggregation: true) }
 
   #################
   # Class methods #
@@ -57,21 +59,40 @@ class CourseWikiTimeslice < ApplicationRecord
     timeslices.first.update_cache_from_revisions revisions[:revisions]
   end
 
+  def self.update_from_acuwt(course, wiki, start, finish)
+    find_by!(course:, wiki:, start:, end: finish).update_cache_from_acuwt
+  end
+
   ####################
   # Instance methods #
   ####################
+
+  # Updates CWT stats from existing ACUWT rows without fetching from MediaWiki.
+  def update_cache_from_acuwt
+    @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
+    update_character_sum_from_acuwt
+    update_references_count_from_acuwt
+    update_revision_count_from_acuwt
+    update_mw_rev_count_from_acuwt
+    update_stats_from_acuwt
+    # needs_update is cleared unconditionally: any retry need is tracked at the ACUWT level
+    # (ArticleCourseUserWikiTimeslice.needs_update) and handled by
+    # ReprocessArticleCourseUserWikiTimeslices, not by re-fetching the full CWT.
+    self.needs_update = false
+    self.needs_reaggregation = false
+    save
+  end
 
   # Assumes that the revisions are for their own course wiki
   def update_cache_from_revisions(revisions)
     # Only work with scoped revisions
     @revisions = revisions.select(&:scoped)
     @students = course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE)
-
     update_character_sum
     update_references_count
     update_revision_count
-    update_mw_rev_count
     update_stats
+    update_mw_rev_count
     update_needs_update
     save
   end
@@ -104,10 +125,55 @@ class CourseWikiTimeslice < ApplicationRecord
     self.references_count = references_count
   end
 
+  def update_character_sum_from_acuwt
+    self.character_sum = acuwt_mainspace_tracked_student_records.sum(:character_sum)
+  end
+
+  def update_references_count_from_acuwt
+    self.references_count = acuwt_mainspace_tracked_student_records.sum(:references_count)
+  end
+
+  def update_revision_count_from_acuwt
+    query = ArticleCourseUserWikiTimeslice
+              .where(course:, wiki:, start:)
+              .where.not(article_id: not_tracked_article_ids)
+    query = query.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    self.revision_count = query.sum(:revision_count)
+  end
+
+  # Approximation: mw_rev_count normally includes deleted revisions (CourseRevisionUpdater
+  # cannot filter them without fetching scores), but ACUWT only stores live revisions,
+  # so deleted revisions are not counted here. This is imperfect and should be improved
+  # in the future to match exactly the same criteria as CourseRevisionUpdater#new_revisions?.
+  def update_mw_rev_count_from_acuwt
+    query = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
+    query = query.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    self.mw_rev_count = query.sum(:revision_count)
+  end
+
+  def acuwt_mainspace_tracked_student_records
+    @acuwt_mainspace_tracked_student_records ||= begin
+      student_user_ids = @students.pluck(:user_id)
+      query = ArticleCourseUserWikiTimeslice
+                .joins(:article)
+                .where(course:, wiki:, start:, user_id: student_user_ids)
+                .where.not(article_id: not_tracked_article_ids)
+                .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+      query = query.where(article_id: course.scoped_article_ids) if
+        course.only_scoped_articles_course?
+      query
+    end
+  end
+
+  def not_tracked_article_ids
+    @not_tracked_article_ids ||= course.articles_courses.not_tracked.pluck(:article_id)
+  end
+
   def update_revision_count
-    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_revisions = @revisions.reject do |revision|
-      excluded_article_ids.include?(revision.article_id)
+      not_tracked_article_ids.include?(revision.article_id)
     end
 
     self.revision_count = tracked_revisions.count { |rev| !rev.deleted && !rev.system }
@@ -125,7 +191,18 @@ class CourseWikiTimeslice < ApplicationRecord
     self.stats = UpdateWikidataStatsTimeslice.new(course).build_stats_from_revisions(@revisions)
   end
 
+  def update_stats_from_acuwt
+    return unless wiki.project == 'wikidata'
+    query = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
+    query = query.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    individual_stats = query.map(&:stats).compact
+    self.stats = UpdateWikidataStatsTimeslice.new(course).sum_up_stats(individual_stats)
+  end
+
   def update_needs_update
     self.needs_update = @revisions.any?(&:error)
   end
+
+
 end

@@ -11,7 +11,8 @@ describe UpdateTimeslicesScopedArticle do
   let(:assigned_article) { create(:article, title: 'Assigned', id: 2, namespace: 0) }
   let(:random_article) { create(:article, title: 'Random', id: 1, namespace: 0) }
 
-  context 'for ArticleScopedProgram' do
+  # Legacy path: course without use_acuwt? set
+  context 'for ArticleScopedProgram (legacy path)' do
     before do
       enwiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
       user = create(:user, username: 'Ragesoss')
@@ -45,6 +46,99 @@ describe UpdateTimeslicesScopedArticle do
       expect(course.article_course_timeslices.where(article_id: random_article.id).count).to eq(0)
       expect(course.articles_courses.count).to eq(1)
       expect(course.articles_courses.where(article_id: random_article).count).to eq(0)
+    end
+  end
+
+  # ACUWT path: course with use_acuwt? set
+  context 'for ArticleScopedProgram (ACUWT path)' do
+    let(:acuwt_course) { create(:article_scoped_program, flags: { use_acuwt: true }) }
+    let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:user) { create(:user, username: 'Ragesoss') }
+
+    before do
+      create(:assignment, user_id: user.id, course_id: acuwt_course.id, article_id: 2,
+             article_title: 'Assigned')
+      manager = TimesliceManager.new(acuwt_course)
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+    end
+
+    it 'fetches scores and sets needs_reaggregation for new scoped articles' do
+      create(:article_course_user_wiki_timeslice,
+             course: acuwt_course, article: assigned_article, user:, wiki: enwiki,
+             start: acuwt_course.start, end: acuwt_course.start + 1.day,
+             revision_count: 3, references_count: 0)
+      create(:article_course_timeslice, course: acuwt_course, article: assigned_article,
+             start: acuwt_course.start)
+
+      revision = build(:revision_on_memory,
+                       article_id: assigned_article.id, user_id: user.id, wiki_id: enwiki.id,
+                       mw_rev_id: 12345, mw_page_id: assigned_article.mw_page_id,
+                       date: acuwt_course.start + 1.hour, scoped: true, new_article: false)
+      allow_any_instance_of(RevisionDataManager)
+        .to receive(:fetch_revision_data_for_users_with_articles_only).and_return([revision])
+      allow_any_instance_of(RevisionDataManager)
+        .to receive(:fetch_score_data_for_course).and_return([revision])
+
+      described_class.new(acuwt_course).run
+
+      expect(acuwt_course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(1)
+      expect(acuwt_course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
+      expect(acuwt_course.article_course_timeslices
+                         .where(article_id: assigned_article.id).count).to eq(0)
+    end
+
+    it 'filters to target articles before calling the reference-counter API' do
+      create(:article_course_user_wiki_timeslice,
+             course: acuwt_course, article: assigned_article, user:, wiki: enwiki,
+             start: acuwt_course.start, end: acuwt_course.start + 1.day,
+             revision_count: 1, references_count: 0)
+
+      unrelated_revision = build(:revision_on_memory,
+                                 article_id: random_article.id, user_id: user.id,
+                                 wiki_id: enwiki.id, mw_rev_id: 99999,
+                                 mw_page_id: random_article.mw_page_id,
+                                 date: acuwt_course.start + 1.hour, scoped: false)
+      target_revision = build(:revision_on_memory,
+                              article_id: assigned_article.id, user_id: user.id,
+                              wiki_id: enwiki.id, mw_rev_id: 12345,
+                              mw_page_id: assigned_article.mw_page_id,
+                              date: acuwt_course.start + 1.hour, scoped: true)
+
+      allow_any_instance_of(RevisionDataManager)
+        .to receive(:fetch_revision_data_for_users_with_articles_only)
+        .and_return([unrelated_revision, target_revision])
+
+      # Reference-counter API must only be called with the filtered target revision
+      expect_any_instance_of(RevisionDataManager)
+        .to receive(:fetch_score_data_for_course)
+        .with([target_revision])
+        .and_return([target_revision])
+
+      described_class.new(acuwt_course).run
+    end
+
+    it 'sets needs_reaggregation and removes old unscoped articles' do
+      create(:articles_course, course: acuwt_course, article: assigned_article)
+      create(:articles_course, course: acuwt_course, article: random_article)
+      create(:article_course_user_wiki_timeslice,
+             course: acuwt_course, article: random_article, user:, wiki: enwiki,
+             start: acuwt_course.start + 1.day, end: acuwt_course.start + 2.days,
+             revision_count: 2, references_count: 0)
+      create(:article_course_timeslice, course: acuwt_course, article: random_article,
+             start: acuwt_course.start + 1.day)
+
+      described_class.new(acuwt_course).run
+
+      expect(acuwt_course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(1)
+      expect(acuwt_course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
+      expect(acuwt_course.course_wiki_timeslices.find_by(needs_reaggregation: true).start)
+        .to eq(acuwt_course.start + 1.day)
+      expect(acuwt_course.article_course_timeslices
+                         .where(article_id: random_article.id).count).to eq(0)
+      expect(acuwt_course.articles_courses.count).to eq(1)
+      expect(acuwt_course.articles_courses.where(article_id: random_article).count).to eq(0)
+      expect(ArticleCourseUserWikiTimeslice
+               .where(course: acuwt_course, article: random_article).count).to eq(1)
     end
   end
 

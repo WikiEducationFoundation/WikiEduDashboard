@@ -203,4 +203,48 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.first_revision).to be_nil
     end
   end
+
+  describe '.bulk_update_from_acuwt' do
+    let(:user1) { create(:user, username: 'User1') }
+    let(:user2) { create(:user, username: 'User2') }
+    let(:user3) { create(:user, username: 'User3') }
+    let(:ts_end) { start + 1.day }
+
+    before do
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: user1,
+             start:, end: ts_end, revision_count: 2, character_sum: 100,
+             references_count: 3, new_article: true, first_revision: start + 1.hour)
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: user2,
+             start:, end: ts_end, revision_count: 1, character_sum: 50,
+             references_count: 2, new_article: false, first_revision: start + 3.hours)
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: user3,
+             start:, end: ts_end, revision_count: 0, character_sum: 0,
+             references_count: 0, new_article: false, first_revision: nil)
+    end
+
+    it 'creates an article course timeslice aggregated from ACUWT' do
+      expect(described_class.find_by(course:, article:, start:)).to be_nil
+      described_class.bulk_update_from_acuwt(course, wiki, start, ts_end)
+      act = described_class.find_by(course:, article:, start:)
+      expect(act.revision_count).to eq(3)
+      expect(act.character_sum).to eq(150)
+      expect(act.references_count).to eq(5)
+      expect(act.new_article).to eq(true)
+      expect(act.user_ids).to contain_exactly(user1.id, user2.id)
+      expect(act.first_revision).to eq(start + 1.hour)
+    end
+
+    it 'updates an existing article course timeslice' do
+      create(:article_course_timeslice, course:, article:, start:, end: ts_end)
+      described_class.bulk_update_from_acuwt(course, wiki, start, ts_end)
+      expect(described_class.where(course:, article:).count).to eq(1)
+      expect(described_class.find_by(course:, article:, start:).revision_count).to eq(3)
+    end
+
+    it 'only includes in user_ids users with at least one revision' do
+      described_class.bulk_update_from_acuwt(course, wiki, start, ts_end)
+      expect(described_class.find_by(course:, article:, start:).user_ids)
+        .to contain_exactly(user1.id, user2.id)
+    end
+  end
 end
