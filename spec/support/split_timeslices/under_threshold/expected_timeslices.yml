@@ -56,6 +56,22 @@ timeslice_1:
     sense claims added: 0
     sense claims removed: 0
     sense claims changed: 0
+    form references added: 0
+    form references removed: 0
+    form references changed: 0
+    form qualifiers added: 0
+    form qualifiers removed: 0
+    form qualifiers changed: 0
+    sense references added: 0
+    sense references removed: 0
+    sense references changed: 0
+    sense qualifiers added: 0
+    sense qualifiers removed: 0
+    sense qualifiers changed: 0
+    language added: 0
+    language changed: 0
+    lexical category added: 0
+    lexical category changed: 0
     total revisions: 28
   last_mw_rev_datetime: 2025-08-26 22:57:06 UTC
   needs_update: false

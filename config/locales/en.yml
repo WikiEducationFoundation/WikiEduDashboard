@@ -1294,6 +1294,18 @@ en:
       or "Created claim" instead.
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
+    lemmas: Lemmas
+    language: Language
+    lexical_category: Lexical category
+    forms: Forms
+    form_claims: Form claims
+    form_references: Form references
+    form_qualifiers: Form qualifiers
+    senses: Senses
+    glosses: Glosses
+    sense_claims: Sense claims
+    sense_references: Sense references
+    sense_qualifiers: Sense qualifiers
 
   namespace:
     all: All
