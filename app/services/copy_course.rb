@@ -78,15 +78,7 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
   def symbolize_feature_flags(flags_hash)
     return unless flags_hash.is_a?(Hash)
 
-    feature_flag_keys = %w[
-      wiki_edits_enabled event_sync peer_review_count timeline_enabled
-      online_volunteers_enabled stay_in_sandbox no_sandboxes
-      retain_available_articles disable_student_emails review_bibliography
-      declined very_long_update max_group_size article_scoped
-      closed_date register_accounts
-    ]
-
-    feature_flag_keys.each do |key|
+    Course::FEATURE_FLAG_KEYS.each do |key|
       if flags_hash.key?(key)
         flags_hash[key.to_sym] = flags_hash.delete(key)
       end

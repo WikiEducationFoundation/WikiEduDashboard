@@ -499,6 +499,14 @@ class Course < ApplicationRecord
     edit_settings['enrollment_edits_enabled']
   end
 
+  FEATURE_FLAG_KEYS = %w[
+    wiki_edits_enabled event_sync peer_review_count timeline_enabled
+    online_volunteers_enabled stay_in_sandbox no_sandboxes
+    retain_available_articles disable_student_emails review_bibliography
+    declined very_long_update max_group_size article_scoped
+    closed_date register_accounts
+  ].freeze
+
   def controlled_by_event_center?
     flags[:event_sync].present?
   end
