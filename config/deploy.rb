@@ -75,6 +75,37 @@ namespace :deploy do
     end
   end
 
+  desc 'Remove stale Passenger instance directories left by past restarts/reboots'
+  task :clean_stale_passenger_instances do
+    on roles(:web) do
+      # Passenger's instance registry is pinned to a persistent shared dir (via
+      # PASSENGER_INSTANCE_REGISTRY_DIR) so the deploy user and Apache's
+      # root-owned Passenger agents look in the same place. The cost: dead
+      # instance dirs survive reboots/restarts instead of being cleared from
+      # /tmp, and being root-owned, the deploy user's `passenger-config
+      # restart-app` can't remove them -- it just logs a wall of "Permission
+      # denied" warnings on every deploy. Prune them here with sudo. (This runs
+      # after the restart, so the warnings only stop on the *next* deploy, but
+      # they never reaccumulate past one cycle.)
+      #
+      # Safety: we keep whichever instance dir the running Passenger processes
+      # still reference -- their lock file / mmaps live under it, found via
+      # /proc -- and delete the rest. We must NOT key off mtime alone: an idle
+      # instance's directory mtime is its old start time, so an age cutoff could
+      # delete the live instance. If no live instance is detected, we skip.
+      registry = "#{shared_path}/tmp/pids"
+      detect = 'live=$({ cat /proc/[0-9]*/maps; ls -l /proc/[0-9]*/fd/; } ' \
+               '2>/dev/null | grep -oE "passenger\\.[A-Za-z0-9]+" | sort -u)'
+      guard  = 'if [ -z "$live" ]; then ' \
+               'echo "No live Passenger instance found; skipping prune."; exit 0; fi'
+      build  = 'excl=; for name in $live; do excl="$excl ! -name $name"; done'
+      prune  = "find #{registry} -maxdepth 1 -type d -name \"passenger.*\" " \
+               '-mmin +60 $excl -print -exec rm -rf {} +'
+      execute :sudo, 'sh', '-c', "'#{[detect, guard, build, prune].join('; ')}'",
+              raise_on_non_zero_exit: false
+    end
+  end
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # nothing
@@ -85,6 +116,7 @@ namespace :deploy do
   before :deploy, 'deploy:local_yarn_build' unless ENV['skip_build'] || skip_assets
   before 'deploy:symlink:release', 'deploy:upload_compiled_assets' unless skip_assets
   before 'deploy:restart', 'deploy:ensure_tmp_permissions'
+  after 'deploy:restart', 'deploy:clean_stale_passenger_instances'
 
   ##############################
   # Sidekiq process management #
