@@ -165,4 +165,92 @@ describe UpdateTimeslicesCourseUser do
       expect(course.course_wiki_timeslices.needs_update.count).to eq(0)
     end
   end
+
+  # ACUWT path: course with use_acuwt? set. Instead of marking timeslices as needs_update
+  # for a full re-fetch, these paths operate on ArticleCourseUserWikiTimeslice rows and
+  # mark the affected CourseWikiTimeslices as needs_reaggregation.
+  context 'when some course user was removed (ACUWT path)' do
+    before do
+      stub_wiki_validation
+      course.flags = { use_acuwt: true }.merge(update_logs)
+      course.save
+      course.campaigns << Campaign.first
+      JoinCourse.new(course:, user: user1, role: CoursesUsers::Roles::STUDENT_ROLE)
+      JoinCourse.new(course:, user: user2, role: CoursesUsers::Roles::STUDENT_ROLE)
+      # Keep both users out of the "newly added" set so the add path is a no-op
+      course.courses_users.update_all(created_at: 2.hours.ago) # rubocop:disable Rails/SkipsModelValidations
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+
+      # CUWT rows for both users in the first period
+      create(:course_user_wiki_timeslice, course:, user: user1, wiki: enwiki, start:)
+      create(:course_user_wiki_timeslice, course:, user: user2, wiki: enwiki, start:)
+      # ACT rows for both articles in the first period
+      create(:article_course_timeslice, course:, article: article1, start:, user_ids: [user1.id])
+      create(:article_course_timeslice, course:, article: article2, start:, user_ids: [user2.id])
+      # ACUWT rows: article1/user1 and article2/user2, both in the first period
+      create(:article_course_user_wiki_timeslice, course:, article: article1, user: user1,
+             wiki: enwiki, start:, end: start + 1.day, revision_count: 1)
+      create(:article_course_user_wiki_timeslice, course:, article: article2, user: user2,
+             wiki: enwiki, start:, end: start + 1.day, revision_count: 1)
+      # Remove user1 from the course; their CUWT row makes them a "processed" (now-deleted) user
+      CoursesUsers.find_by(course:, user: user1).delete
+    end
+
+    it 'deletes the removed user ACUWT rows and marks affected timeslices for reaggregation' do
+      described_class.new(course).run
+
+      # The removed user's ACUWT rows are gone; the remaining user's are untouched
+      expect(ArticleCourseUserWikiTimeslice.where(course:, user: user1).count).to eq(0)
+      expect(ArticleCourseUserWikiTimeslice.where(course:, user: user2).count).to eq(1)
+      # The CWT for the affected period is flagged for reaggregation (not needs_update)
+      expect(course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(1)
+      expect(course.course_wiki_timeslices.find_by(needs_reaggregation: true).start).to eq(start)
+      expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
+      # ACT for the removed user's article/period is deleted; the other article's ACT remains
+      expect(course.article_course_timeslices.where(article: article1).count).to eq(0)
+      expect(course.article_course_timeslices.where(article: article2).count).to eq(1)
+      # CUWT rows for the affected (wiki, period) are deleted for all users
+      # (they are rebuilt during the reaggregation pass)
+      expect(course.course_user_wiki_timeslices.where(wiki: enwiki, start:).count).to eq(0)
+    end
+  end
+
+  context 'when some course user was added (ACUWT path)' do
+    before do
+      stub_wiki_validation
+      course.flags = { use_acuwt: true }.merge(update_logs)
+      course.save
+      course.campaigns << Campaign.first
+      # Existing, already-processed user
+      course_user = CoursesUsers.create(user: user1, course:,
+                                        role: CoursesUsers::Roles::STUDENT_ROLE)
+      course_user.update(created_at: 2.hours.ago)
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      create(:course_user_wiki_timeslice, course:, user: user1, wiki: enwiki, start:)
+      # Add a new student (created_at defaults to now, i.e. after the last update start)
+      JoinCourse.new(course:, user: user2, role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    it 'creates ACUWT rows for the new user and marks the period for reaggregation' do
+      revision = build(:revision_on_memory,
+                       article_id: article1.id, user_id: user2.id, wiki_id: enwiki.id,
+                       mw_rev_id: 12_345, mw_page_id: article1.mw_page_id,
+                       date: start + 1.hour, scoped: true, new_article: false)
+      allow_any_instance_of(CourseRevisionUpdater)
+        .to receive(:fetch_revisions_for_new_users).and_return([revision])
+
+      expect(ArticleCourseUserWikiTimeslice.where(course:, user: user2).count).to eq(0)
+
+      described_class.new(course).run
+
+      # An ACUWT row was created for the new user, in the period the revision falls in
+      acuwt = ArticleCourseUserWikiTimeslice.where(course:, user: user2)
+      expect(acuwt.count).to eq(1)
+      expect(acuwt.first.start).to eq(start)
+      expect(acuwt.first.revision_count).to eq(1)
+      # The CWT for that period is flagged for reaggregation
+      expect(course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(1)
+      expect(course.course_wiki_timeslices.find_by(needs_reaggregation: true).start).to eq(start)
+    end
+  end
 end
