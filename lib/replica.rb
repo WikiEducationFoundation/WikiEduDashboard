@@ -37,9 +37,8 @@ class Replica
 
   # Given a list of users and a start and end date, get data about revisions
   # those users made between those dates.
-  # As of 2015-02-24, revisions.php only queries namespaces:
-  #   0 ([mainspace])
-  #   2 (User:)
+  # The external revisions.php API queries a predefined set of content and talk namespaces
+  # (e.g., 0, 1, 2, 3, 118, etc.) which varies by project.
   def get_revisions_raw(users, rev_start, rev_end)
     user_list = compile_usernames_query(users)
     oauth_tags = compile_oauth_tags
