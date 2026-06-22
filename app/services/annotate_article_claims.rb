@@ -2,14 +2,16 @@
 
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 require_dependency "#{Rails.root}/lib/claim_verification/claim_citation_extractor"
+require_dependency "#{Rails.root}/lib/claim_verification/sentence_highlighter"
 
-# Renders an article's current revision and tags each cited claim's in-text
-# citation marker (the `[n]` <sup>) so it can be highlighted and clicked in the
-# ArticleViewer-based claim exercise. The real article HTML is preserved; we
-# only add a class and data attributes to the citation markers we identified as
-# cited claims, so the client can highlight them and, on click, show the claim's
-# source and let the student take it. (Marker-level for now; sentence-level
-# highlighting can refine the same tagging step later.)
+# Renders an article's current revision and wraps each cited claim's sentence —
+# the prose the citation is attached to, the content a student actually has to
+# verify — in a `cv-claim` span so it can be highlighted and clicked in the
+# ArticleViewer-based claim exercise. The real article HTML is preserved; we only
+# add a span (with class and data attributes) around the cited sentences, so the
+# client can highlight them and, on click, show the claim's source and let the
+# student take it. If a sentence can't be located we fall back to tagging just its
+# `[n]` citation marker.
 class AnnotateArticleClaims
   attr_reader :html, :mw_rev_id
 
@@ -32,7 +34,7 @@ class AnnotateArticleClaims
     extractor = ClaimVerification::ClaimCitationExtractor.new(source_html)
     citations_by_ref_id = extractor.citations.index_by(&:ref_id)
     doc = Nokogiri::HTML.fragment(source_html)
-    extractor.claims.each { |claim| tag_markers(doc, claim, citations_by_ref_id) }
+    extractor.claims.each { |claim| highlight(doc, claim, citations_by_ref_id) }
     absolutize_links(doc)
     doc.to_html
   end
@@ -45,21 +47,30 @@ class AnnotateArticleClaims
     doc.css('a[href^="/"]').each { |link| link['href'] = "#{base}#{link['href']}" }
   end
 
-  def tag_markers(doc, claim, citations_by_ref_id)
-    claim.ref_ids.each do |ref_id|
-      citation = citations_by_ref_id[ref_id]
-      next if citation.nil?
-      doc.css("sup.reference a[href='##{ref_id}']").each do |link|
-        tag(link.parent, claim, ref_id, citation)
-      end
+  # Wrap the claim's sentence at the marker for its (first available) citation.
+  # We try each matching marker and keep the one whose preceding prose matches the
+  # sentence; if none does, we tag the first marker as a fallback.
+  def highlight(doc, claim, citations_by_ref_id)
+    ref_id = claim.ref_ids.find { |id| citations_by_ref_id.key?(id) }
+    return if ref_id.nil?
+    data = data_for(claim, ref_id, citations_by_ref_id[ref_id])
+    markers = doc.css("sup.reference a[href='##{ref_id}']").map(&:parent)
+    return if markers.empty?
+    wrapped = markers.any? do |marker|
+      ClaimVerification::SentenceHighlighter.new(marker:, sentence: claim.sentence, data:).wrap
     end
+    tag(markers.first, data) unless wrapped
   end
 
-  def tag(marker, claim, ref_id, citation)
+  def data_for(claim, ref_id, citation)
+    { 'data-ref-id' => ref_id, 'data-sentence' => claim.sentence,
+      'data-cite-text' => citation.cite_text,
+      'data-source-url' => citation.urls.first || citation.archive_urls.first }
+  end
+
+  # Fallback: tag just the citation marker when the sentence can't be located.
+  def tag(marker, data)
     marker['class'] = "#{marker['class']} cv-claim".strip
-    marker['data-ref-id'] = ref_id
-    marker['data-sentence'] = claim.sentence
-    marker['data-cite-text'] = citation.cite_text
-    marker['data-source-url'] = citation.urls.first || citation.archive_urls.first
+    data.each { |key, value| marker[key] = value if value }
   end
 end

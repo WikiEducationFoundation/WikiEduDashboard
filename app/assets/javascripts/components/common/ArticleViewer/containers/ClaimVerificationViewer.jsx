@@ -6,18 +6,20 @@ import useClaimHighlighting from '@components/common/ArticleViewer/hooks/useClai
 
 // The article viewer for the claim-verification exercise: the generic
 // ArticleViewerShell composed with the claim-highlighting feature instead of
-// authorship. It opens on mount and hides the permalink (the course SPA owns the
-// URL). The shell stays authorship-agnostic; all claim behavior lives in the
-// injected hook. `onTaken` is bound into the hook here (rather than threaded
-// through the shell) since it's specific to how this viewer is used in the flow:
-// when the student takes a claim, the exercise transitions to the taken view.
+// authorship. The picker mounts one per candidate article and passes a
+// `renderOpener` (the article tile) through, so the tile itself opens the viewer
+// and closing it returns to the tile. It keeps the shell's default `?showArticle=`
+// permalink, so the open article is deep-linkable and refresh-stable; the picker
+// drives `showOnMount` off that param to reopen the right tile on load. The shell
+// stays authorship-agnostic; all claim behavior lives in the injected hook.
+// `onTaken` is bound into the hook here (rather than threaded through the shell)
+// since it's specific to how this viewer is used in the flow: when the student
+// takes a claim, the exercise transitions to the taken view.
 const ClaimVerificationViewer = ({ onTaken, ...props }) => {
   const useClaimFeature = args => useClaimHighlighting({ ...args, onTaken });
   return (
     <ArticleViewerShell
       {...props}
-      showOnMount
-      showPermalink={false}
       useHighlightFeature={useClaimFeature}
     />
   );

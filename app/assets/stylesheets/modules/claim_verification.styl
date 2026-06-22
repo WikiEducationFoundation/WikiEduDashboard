@@ -102,15 +102,57 @@
     font-size 13px
     padding 6px 16px
 
-  // Article picker.
-  &__article-list
+  // Article picker: a compact grid of title tiles. Tiles size to their content
+  // and pack several per row so a long candidate list (up to 50) stays short.
+  &__article-grid
     list-style none
     margin 20px 0 0 0
     padding 0
+    display grid
+    grid-template-columns repeat(auto-fill, minmax(150px, 1fr))
+    gap 8px
 
-  &__article-list li
-    margin-bottom 10px
-    font-size 1.05em
+  // Each tile is the closed-state opener button of an ArticleViewer, so it carries
+  // the button reset as well as the tile styling.
+  &__article-tile
+    display block
+    width 100%
+    height 100%
+    margin 0
+    padding 10px 12px
+    text-align left
+    background-color white
+    border 1px solid $border_lt
+    border-radius 4px
+    cursor pointer
+    -webkit-appearance none
+    appearance none
+    transition border-color .12s, background-color .12s, box-shadow .12s
+    &:hover
+      border-color $brand_primary
+      background-color $bg_light_gray
+      box-shadow 0 1px 6px rgba($brand_primary, .14)
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 2px
+
+  &__article-title
+    display block
+    font-family $header-font
+    font-size 14px
+    font-weight 600
+    line-height 1.3
+    color $text_dk
+  &__article-tile:hover &__article-title,
+  &__article-tile:focus-visible &__article-title
+    color $brand_primary
+
+  // Only rendered when the candidates span more than one wiki.
+  &__article-wiki
+    display block
+    margin-top 4px
+    font-size 11.5px
+    color $text_med
 
   &__detail-source
     margin-bottom 22px
@@ -130,23 +172,33 @@
 // In-viewer claim selection (the ArticleViewer claim-highlighting variant).
 // The annotated article HTML tags each cited claim's citation marker `.cv-claim`;
 // clicking one opens the selection panel that floats over the article.
+// The whole cited claim sentence is highlighted (not just the [n] marker), so a
+// student skimming the article sees the content to check. `box-decoration-break`
+// keeps the highlight continuous as the sentence wraps across lines.
 .parsed-article
-  sup.cv-claim
+  .cv-claim
     cursor pointer
-    a
-      background-color rgba($brand_primary, .15)
-      border-bottom 2px solid rgba($brand_primary, .55)
-      border-radius 2px
-      padding 0 3px
-      text-decoration none
-    &:hover a
-      background-color rgba($brand_primary, .3)
+    background-color rgba($brand_primary, .14)
+    border-radius 2px
+    box-decoration-break clone
+    -webkit-box-decoration-break clone
+    &:hover
+      background-color rgba($brand_primary, .26)
 
-// Pick instruction shown in the viewer footer legend.
-.cv-pick-instructions
+// Pick instructions: a prominent banner pinned to the top of the article scroll
+// area (an opaque tint so prose scrolling underneath stays hidden).
+.cv-pick-banner
+  position sticky
+  top 0
+  z-index 5
   margin 0
-  color $text_med
-  font-size .9em
+  padding 13px 18px
+  background lighten($brand_primary, 34%)
+  border-bottom 1px solid rgba($brand_primary, .4)
+  color $text_dk
+  font-size 1.05em
+  font-weight 600
+  line-height 1.4
 
 // The claim selection panel floats over the article viewer, above the footer.
 // `.article-viewer` is position:fixed, so this absolute panel anchors to it.

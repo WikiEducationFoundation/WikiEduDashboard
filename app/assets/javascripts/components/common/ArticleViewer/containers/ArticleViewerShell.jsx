@@ -35,19 +35,21 @@ import { crossCheckArticleTitle } from '@actions/article_actions';
   injected as the `useHighlightFeature` hook, which the shell drives via
   `parsedSettle` (bumped on every parsed-fetch settle, after redirect resolution)
   and `revisionId`. The shell renders the feature's returned slots:
-  `html` (replaces the parsed HTML), `legend` (footer), `buttonLabel` (opener),
-  `pending` (footer spinner), and optionally `onInnerHTMLClick` (a click handler
-  for the injected HTML) and `overlay` (a node rendered inside the viewer, e.g. a
-  claim-selection panel). The default no-op feature renders the plain parsed HTML.
+  `html` (replaces the parsed HTML), `banner` (pinned to the top of the article),
+  `legend` (footer), `buttonLabel` (opener), `pending` (footer spinner), and
+  optionally `onInnerHTMLClick` (a click handler for the injected HTML) and
+  `overlay` (a node rendered inside the viewer, e.g. a claim-selection panel). The
+  default no-op feature renders the plain parsed HTML.
 */
 const noopHighlightFeature = () => ({
-  html: null, legend: null, buttonLabel: null, pending: false,
+  html: null, banner: null, legend: null, buttonLabel: null, pending: false,
   onInnerHTMLClick: undefined, overlay: null,
 });
 
 const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   fetchArticleDetails, assignedUsers, article, course, current_user = {},
-  showButtonClass, showPermalink = true, title, useHighlightFeature = noopHighlightFeature }) => {
+  showButtonClass, showPermalink = true, title, useHighlightFeature = noopHighlightFeature,
+  renderOpener }) => {
   const [fetched, setFetched] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
   const [showBadArticleAlert, setShowBadArticleAlert] = useState(false);
@@ -208,8 +210,15 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
     }
   };
 
-  // If the article viewer is hidden, show the icon instead.
+  // When closed, render the opener — the surface that reopens the viewer.
+  // Consumers can supply their own trigger via `renderOpener` (e.g. the claim
+  // exercise, where each article tile is itself the opener and the default
+  // launcher icon would serve no purpose); otherwise fall back to the title
+  // button or the icon.
   if (!showArticle) {
+    if (renderOpener) {
+      return renderOpener({ open: openArticle });
+    }
     // If a title was provided, show the article viewer with the title.
     if (title) {
       return (
@@ -261,6 +270,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
           )
         }
         <div id="article-scrollbox-id" className="article-scrollbox">
+          {feature.banner}
           {
             fetched
               ? <ParsedArticle html={feature.html || parsedArticle} onInnerHTMLClick={feature.onInnerHTMLClick} />
@@ -301,6 +311,9 @@ ArticleViewerShell.propTypes = {
   title: PropTypes.string,
   users: PropTypes.array,
   useHighlightFeature: PropTypes.func,
+  // Optional render prop for the closed-state trigger surface; receives
+  // `{ open }`. Overrides the default title/icon opener when provided.
+  renderOpener: PropTypes.func,
 };
 
 export default ArticleViewerShell;

@@ -86,8 +86,10 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
       .catch(() => setTaking(false));
   };
 
-  const legend = annotatedHtml
-    ? <p className="cv-pick-instructions">{I18n.t('claim_verification.pick_instructions')}</p>
+  // Instructions render as a prominent banner pinned to the top of the article
+  // (via the shell's `banner` slot), not in the footer legend.
+  const banner = annotatedHtml
+    ? <p className="cv-pick-banner">{I18n.t('claim_verification.pick_instructions')}</p>
     : null;
 
   const overlay = selectedClaim
@@ -103,7 +105,8 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
 
   return {
     html: annotatedHtml,
-    legend,
+    banner,
+    legend: null,
     buttonLabel: null,
     pending,
     onInnerHTMLClick,

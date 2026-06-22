@@ -25,15 +25,30 @@ describe AnnotateArticleClaims do
       .and_return(instance_double(GetRevisionHtmlWithCitations, html: source_html))
   end
 
-  it 'tags the cited claim\'s in-text citation marker with class and data' do
-    marker = Nokogiri::HTML.fragment(described_class.new(article).html)
-                           .at_css('sup.cv-claim')
-    expect(marker['data-ref-id']).to eq('cite_note-1')
-    expect(marker['data-sentence']).to eq('Otters use tools.')
-    expect(marker['data-source-url']).to eq('https://example.com/otters')
+  it 'wraps the cited claim sentence in a span with class and data' do
+    claim = Nokogiri::HTML.fragment(described_class.new(article).html)
+                          .at_css('.cv-claim')
+    expect(claim.name).to eq('span')
+    # The span covers the whole sentence, not just the [n] marker, and stops at
+    # the sentence boundary (the following uncited sentence is left out).
+    expect(claim.text.strip).to eq('Otters use tools.')
+    expect(claim['data-ref-id']).to eq('cite_note-1')
+    expect(claim['data-sentence']).to eq('Otters use tools.')
+    expect(claim['data-source-url']).to eq('https://example.com/otters')
   end
 
-  it 'leaves the article HTML otherwise intact (only markers tagged)' do
+  it 'highlights only the cited sentence in a multi-sentence paragraph' do
+    paragraph = '<p>An uncited claim. A cited one.' \
+                '<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>' \
+                '<ol class="references"><li id="cite_note-1"><span class="reference-text">' \
+                '<cite><a class="external" href="https://example.com/x">X</a></cite></span></li></ol>'
+    allow(GetRevisionHtmlWithCitations).to receive(:new)
+      .and_return(instance_double(GetRevisionHtmlWithCitations, html: paragraph))
+    claim = Nokogiri::HTML.fragment(described_class.new(article).html).at_css('.cv-claim')
+    expect(claim.text.strip).to eq('A cited one.')
+  end
+
+  it 'leaves the article HTML otherwise intact (only the claim wrapped)' do
     html = described_class.new(article).html
     expect(html).to include('Otters use tools.')
     expect(html).to include('about')

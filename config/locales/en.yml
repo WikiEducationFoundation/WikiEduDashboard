@@ -1642,7 +1642,6 @@ en:
     select_claim: Select this claim to verify
     choose_article: Choose an article
     no_articles: No articles available
-    choose_different_article: Choose a different article
     your_selected_claim: Your selected claim
     find_in_article: Find this in the article text
     show_surrounding: Show surrounding paragraph

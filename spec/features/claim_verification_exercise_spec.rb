@@ -57,11 +57,13 @@ describe 'Claim verification exercise', type: :feature, js: true do
     # window so we can prove the rest of the flow never triggers a reload.
     expect(page).to have_content(I18n.t('claim_verification.choose_article'), wait: 20)
     page.execute_script('window.cvSameDocument = true;')
-    click_link 'Sea otter'
+    # Each article tile is itself the opener for its in-place viewer (a button,
+    # not a link).
+    click_on 'Sea otter'
 
     # The viewer renders the annotated article; clicking the highlighted claim
-    # opens the in-viewer panel.
-    find('.parsed-article sup.cv-claim', wait: 20).click
+    # sentence opens the in-viewer panel.
+    find('.parsed-article .cv-claim', wait: 20).click
     within '.cv-selection-panel' do
       expect(page).to have_content(sentence)
       click_button I18n.t('claim_verification.select_claim')
@@ -74,5 +76,13 @@ describe 'Claim verification exercise', type: :feature, js: true do
 
     assignment = VerificationClaimAssignment.find_by(user: student, course:)
     expect(assignment.verification_claim.sentence).to eq(sentence)
+  end
+
+  it 'deep-links straight into an open article via ?showArticle=' do
+    visit "/courses/#{course.slug}/verify_claim?showArticle=#{article.id}"
+
+    # The viewer opens on load from the permalink, with no tile click.
+    expect(page).to have_css('.article-viewer', wait: 20)
+    expect(page).to have_css('.parsed-article .cv-claim')
   end
 end
