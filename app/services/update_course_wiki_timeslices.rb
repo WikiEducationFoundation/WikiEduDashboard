@@ -21,6 +21,7 @@ class UpdateCourseWikiTimeslices
     @update_service = update_service
     @processed_timeslices_count = 0
     @reprocessed_timeslices = Hash.new { |h, k| h[k] = [] }
+    @reaggregated_timeslices_count = 0
     @revision_updater = CourseRevisionUpdater.new(@course, update_service:)
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
   end
@@ -29,7 +30,8 @@ class UpdateCourseWikiTimeslices
     pre_update(all_time)
     @course.update(needs_update: false)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count]
+    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count,
+     @reaggregated_timeslices_count]
   end
 
   private
@@ -51,12 +53,13 @@ class UpdateCourseWikiTimeslices
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
-      # Sometimes we need to reprocess timeslices due to changes such as
-      # users removed from a course.
       fetch_data_and_reprocess_timeslices(wiki, first_start)
+      fetch_data_and_reprocess_acuwt_timeslices(wiki) if @course.use_acuwt?
 
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-      @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
+      # Re-aggregate CWT/ACT/CUWT rows from existing ACUWT for timeslices
+      # that were not fully reprocessed in this cycle.
+      reaggregate_timeslices_from_acuwt(wiki) if @course.use_acuwt?
     end
   end
 
@@ -76,6 +79,13 @@ class UpdateCourseWikiTimeslices
         t.update(needs_update: true) # No effect if t has split
       end
     end
+    @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
+  end
+
+  def fetch_data_and_reprocess_acuwt_timeslices(wiki)
+    ReprocessArticleCourseUserWikiTimeslices.new(@course, wiki,
+                                                 update_service: @update_service).run
+    @debugger.log_update_progress :"acuwt_timeslices_reprocessed_#{wiki.id}"
   end
 
   def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
@@ -94,6 +104,7 @@ class UpdateCourseWikiTimeslices
         log_error(e, t.start, t.end, wiki.id)
       end
     end
+    @debugger.log_update_progress :"timeslices_reprocessed_#{wiki.id}"
   end
 
   # Given a wiki and limits of the timeslice, it fetches data for it
@@ -171,13 +182,19 @@ class UpdateCourseWikiTimeslices
   end
 
   def update_timeslices(wiki)
-    update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
-    update_article_course_timeslices_for_wiki(@revisions[wiki])
-
-    revs_to_scan = @revisions[wiki][:revisions]
+    revisions = @revisions[wiki]
+    if @course.use_acuwt?
+      update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+      update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
+      update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+      update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    else
+      update_article_course_timeslices_for_wiki(revisions)
+      update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+      CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, revisions)
+    end
+    revs_to_scan = revisions[:revisions]
     RevisionScanner.schedule_revision_checks(wiki:, revisions: revs_to_scan, course: @course)
-
-    CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
   end
 
   def update_article_course_timeslices_for_wiki(revisions)
@@ -205,6 +222,57 @@ class UpdateCourseWikiTimeslices
       CourseUserWikiTimeslice.update_course_user_wiki_timeslices(@course, user_id, wiki,
                                                                  course_user_wiki_data)
     end
+  end
+
+  def update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
+      @course, wiki, timeslice.start, timeslice.end, revisions[:revisions]
+    )
+  end
+
+  def update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
+  end
+
+  def update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    revisions[:revisions].map(&:user_id).uniq.each do |user_id|
+      CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki,
+                                               timeslice.start, timeslice.end)
+    end
+  end
+
+  def update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
+  end
+
+  def reaggregate_timeslices_from_acuwt(wiki)
+    to_reaggregate = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                        .needs_reaggregation
+                                        .where(needs_update: false)
+    to_reaggregate.each do |cwt|
+      reaggregate_timeslice_from_acuwt(cwt)
+      @reaggregated_timeslices_count += 1
+    end
+    @debugger.log_update_progress :"timeslices_reaggregated_#{wiki.id}"
+  end
+
+  def reaggregate_timeslice_from_acuwt(cwt)
+    wiki = cwt.wiki
+    ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, cwt.start, cwt.end)
+    ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: cwt.start)
+                                  .pluck(:user_id).uniq.each do |user_id|
+      CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki, cwt.start, cwt.end)
+    end
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, cwt.start, cwt.end)
+  end
+
+  def acuwt_timeslice_for(wiki, revisions)
+    @course.course_wiki_timeslices.where(wiki:)
+           .for_revisions_between(revisions[:start], revisions[:end]).first
   end
 
   def wikidata

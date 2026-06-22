@@ -318,6 +318,7 @@ Rails.application.routes.draw do
   get 'course_students_csv' => 'reports#course_students_csv'
   get 'course_articles_csv' => 'reports#course_articles_csv'
   get 'course_wikidata_csv' => 'reports#course_wikidata_csv'
+  get 'course_retention_csv' => 'reports#course_retention_csv'
   get "all_courses_and_instructors_csv" => "reports#all_courses_and_instructors_csv"
 
   # Campaign reports

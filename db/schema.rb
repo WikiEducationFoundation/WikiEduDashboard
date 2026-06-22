@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_06_16_213454) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_16_213454) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -58,6 +58,28 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_16_213454) do
     t.datetime "first_revision"
     t.index ["article_id", "course_id", "start", "end"], name: "article_course_timeslice_by_article_course_start_and_end", unique: true
     t.index ["course_id", "updated_at", "article_id"], name: "article_course_timeslice_by_updated_at"
+  end
+
+  create_table "article_course_user_wiki_timeslices", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.integer "article_id", null: false
+    t.integer "character_sum", default: 0
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "end"
+    t.datetime "first_revision"
+    t.boolean "needs_update", default: false
+    t.boolean "new_article", default: false
+    t.integer "references_count", default: 0
+    t.integer "revision_count", default: 0
+    t.datetime "start"
+    t.text "stats"
+    t.boolean "tracked", default: true
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "wiki_id", null: false
+    t.index ["course_id", "article_id", "user_id", "wiki_id", "start", "end"], name: "index_acuwt_unique", unique: true
+    t.index ["course_id", "user_id"], name: "index_acuwt_on_course_id_and_user_id"
+    t.index ["course_id", "wiki_id"], name: "index_acuwt_on_course_id_and_wiki_id"
   end
 
   create_table "articles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -266,6 +288,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_16_213454) do
     t.text "stats"
     t.datetime "last_mw_rev_datetime"
     t.boolean "needs_update", default: false
+    t.boolean "needs_reaggregation", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "mw_rev_count", default: 0
@@ -655,32 +678,32 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_16_213454) do
   end
 
   create_table "verification_claim_assignments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.integer "course_id", null: false
-    t.integer "verification_claim_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "verification_claim_id", null: false
     t.index ["user_id", "course_id"], name: "index_verification_claim_assignments_on_user_id_and_course_id", unique: true
     t.index ["verification_claim_id"], name: "index_verification_claim_assignments_on_verification_claim_id"
   end
 
   create_table "verification_claims", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.text "sentence", null: false
-    t.text "context"
-    t.text "cite_text"
-    t.text "source_url"
     t.text "archive_url"
-    t.boolean "offline_source"
-    t.string "ref_id"
     t.integer "article_id"
     t.string "article_title"
-    t.integer "wiki_id", null: false
-    t.integer "mw_rev_id"
-    t.integer "source_course_id"
+    t.text "cite_text"
+    t.text "context"
     t.integer "courses_users_id"
-    t.string "subject"
     t.datetime "created_at", null: false
+    t.integer "mw_rev_id"
+    t.boolean "offline_source"
+    t.string "ref_id"
+    t.text "sentence", null: false
+    t.integer "source_course_id"
+    t.text "source_url"
+    t.string "subject"
     t.datetime "updated_at", null: false
+    t.integer "wiki_id", null: false
     t.index ["courses_users_id"], name: "index_verification_claims_on_courses_users_id"
     t.index ["source_course_id"], name: "index_verification_claims_on_source_course_id"
     t.index ["subject"], name: "index_verification_claims_on_subject"

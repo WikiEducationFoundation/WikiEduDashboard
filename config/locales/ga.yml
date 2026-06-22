@@ -285,17 +285,20 @@ ga:
       a úsáid chun na huimhreacha cruinne a fheiceáil.
     view_on_wiki: Féach ar an vicí
     views_added: Cuireadh %{count} radharcanna nua leis do %{title}
+    article_size: Méid an Airteagail
+    article_size_doc: Méid téacs vicí an ailt (i mbéiteanna) i ndiaidh gach eagarthóireachta
     edit_size: Cuir Méid in Eagar
+    editor_other: Eagarthóirí eile
+    scoring_status: Ag fáil scóir le haghaidh %{count} eagarthóireacht
     wiki: Vicí
     wp10: Iomláine Struchtúrach
     wp10_doc: Léiríonn an scór 'Iomláine Struchtúrach' cé chomh dlúth agus a oireann
-      alt do mhúnla alt Vicipéide aibí, bunaithe ar an tSeirbhís Meastóireachta Athbhreithnithe
-      Cuspóire (https://ores.wikimedia.org/) atá bunaithe ar fhoghlaim meaisín. Ríomhtar
+      alt do mhúnla alt Vicipéide aibí, bunaithe ar an "Seirbhís Meastóireachta Athbhreithnithe
+      Cuspóire" atá bunaithe ar fhoghlaim meaisín, atá seanbhunaithe (~2015). Ríomhtar
       na scóir seo bunaithe ar mhéid an ailt, líon na dtagairtí agus na naisc vicí,
-      agus gnéithe bunúsacha téacs eile. De ghnáth léiríonn scór ard go leanann alt
+      agus gnéithe bunúsacha téacs eile. De ghnáth, léiríonn scór ard go leanann alt
       coinbhinsiúin Vicipéide maidir le struchtúr ailt mhaith, ach ní chuireann sé
-      an t-ábhar féin san áireamh. (Níl na scóir seo ar fáil ach d'ailt Vicipéide
-      Béarla.)
+      an t-ábhar féin san áireamh.
     articles_short: Airteagail
     deleted_message: De réir shonraí an Phainéal, tá an leathanach seo scriosta. (I
       gcásanna áirithe, is féidir le hathbhogadh leathanaigh, cumasc staire nó gníomhartha
@@ -1555,6 +1558,11 @@ ga:
     see_more: Féach níos mó
     show_all: Taispeáin Gach Rud
     show_course_specific: Taispeáin Sainiúil don Chúrsa
+    course_ended_notification: Taispeánann sé seo eagarthóireachtaí le déanaí ag úsáideoirí
+      cláraithe, ach ní chuirtear aon eagarthóireachtaí tar éis an 'dáta deiridh'
+      san áireamh sna staitisticí ná ní léirítear iad ar an táb Ailt. Is féidir leat
+      an scagaire 'Taispeáin Cúrsa-Shonrach' a úsáid chun an radharc a theorannú do
+      ghníomhaíocht a tharla roimh an dáta deiridh.
     show_only_new_editors: Taispeáin Eagarthóirí Nua Amháin
   resources:
     label: Acmhainní

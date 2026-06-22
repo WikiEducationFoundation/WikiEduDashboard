@@ -32,18 +32,43 @@ describe UpdateCourseWikiTimeslices do
     context 'when debugging is not enabled' do
       it 'posts no Sentry logs' do
         expect(Sentry).not_to receive(:capture_message)
-        processed, reprocessed = subject
+        processed, reprocessed, reaggregated = subject
         expect(processed).to eq(14)
         expect(reprocessed).to eq(0)
+        expect(reaggregated).to eq(0)
       end
     end
 
     context 'when :debug_updates flag is set' do
       let(:flags) { { debug_updates: true } }
 
-      it 'posts debug info to Sentry' do
-        expect(Sentry).to receive(:capture_message).at_least(:twice).and_call_original
-        subject
+      def captured_update_steps
+        messages = []
+        allow(Sentry).to receive(:capture_message) do |message, **_opts|
+          messages << message
+        end
+        VCR.use_cassette 'course_wiki_timeslices_update' do
+          subject
+        end
+        messages.filter_map { |m| m[/#{Regexp.escape(course.title)} update: (.+)/, 1] }
+      end
+
+      it 'logs the reprocessing stage for every wiki' do
+        steps = captured_update_steps
+        expect(steps).to include("timeslices_reprocessed_#{enwiki.id}")
+        expect(steps).to include("timeslices_reprocessed_#{wikidata.id}")
+      end
+
+      it 'logs the processing stage for every wiki' do
+        steps = captured_update_steps
+        expect(steps).to include("timeslices_processed_#{enwiki.id}")
+        expect(steps).to include("timeslices_processed_#{wikidata.id}")
+      end
+
+      it 'does not log the ACUWT-specific stages when use_acuwt? is not set' do
+        steps = captured_update_steps
+        expect(steps).not_to(include(a_string_matching(/acuwt_timeslices_reprocessed_/)))
+        expect(steps).not_to(include(a_string_matching(/timeslices_reaggregated_/)))
       end
     end
 
@@ -350,6 +375,95 @@ describe UpdateCourseWikiTimeslices do
         rescue StandardError
           expect(course.needs_update).to eq(false)
           expect(course.course_wiki_timeslices.where(needs_update: true).count).to be > 0
+        end
+      end
+    end
+
+    context 'when use_acuwt? flag is set' do
+      let(:article_id) { 12345 }
+
+      before do
+        course.add_flag(key: :use_acuwt)
+        allow_any_instance_of(CourseRevisionUpdater)
+          .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+            if wiki == enwiki
+              revision = RevisionOnMemory.new(article_id:, user_id: user.id, scoped: true)
+              { wiki => { start: ts_start, end: ts_end, new_data: true, revisions: [revision] } }
+            else
+              { wiki => { start: ts_start, end: ts_end, new_data: false, revisions: [] } }
+            end
+          end
+        allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_scores_for_revisions)
+        allow_any_instance_of(SplitTimeslice).to receive(:maybe_split).and_return([false, nil])
+        allow(RevisionScanner).to receive(:schedule_revision_checks)
+        allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
+        allow(ArticleCourseTimeslice).to receive(:bulk_update_from_acuwt)
+        allow(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
+      end
+
+      it 'calls ArticleCourseTimeslice.bulk_update_from_acuwt for revised timeslices' do
+        expect(ArticleCourseTimeslice).to receive(:bulk_update_from_acuwt)
+          .with(course, enwiki, anything, anything).at_least(:once)
+        subject
+      end
+
+      it 'calls CourseUserWikiTimeslice.update_from_acuwt for users in revised timeslices' do
+        expect(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
+          .with(course, user.id, enwiki, anything, anything).at_least(:once)
+        subject
+      end
+
+      it 'does not call the legacy article_course_timeslices updater' do
+        expect(ArticleCourseTimeslice).not_to receive(:update_article_course_timeslices)
+        subject
+      end
+
+      it 'does not call the legacy course_user_wiki_timeslices updater' do
+        expect(CourseUserWikiTimeslice).not_to receive(:update_course_user_wiki_timeslices)
+        subject
+      end
+
+      context 'when some timeslices need reaggregation' do
+        before do
+          # Override parent stub so normal processing never calls update_cache_from_acuwt
+          # (which would reset needs_reaggregation = false before reaggregation runs).
+          allow_any_instance_of(CourseRevisionUpdater)
+            .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+              { wiki => { start: ts_start, end: ts_end, new_data: false, revisions: [] } }
+            end
+          TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+          course.course_wiki_timeslices.where(wiki: enwiki).first(2)
+                .each { |cwt| cwt.update(needs_reaggregation: true, needs_update: false) }
+        end
+
+        it 'returns the count of reaggregated timeslices' do
+          _, _, reaggregated = subject
+          expect(reaggregated).to eq(2)
+        end
+      end
+
+      context 'when :debug_updates flag is also set' do
+        before { course.add_flag(key: :debug_updates) }
+
+        def captured_update_steps
+          messages = []
+          allow(Sentry).to receive(:capture_message) do |message, **_opts|
+            messages << message
+          end
+          subject
+          messages.filter_map { |m| m[/#{Regexp.escape(course.title)} update: (.+)/, 1] }
+        end
+
+        it 'logs the ACUWT reprocessing stage for every wiki' do
+          steps = captured_update_steps
+          expect(steps).to include("acuwt_timeslices_reprocessed_#{enwiki.id}")
+          expect(steps).to include("acuwt_timeslices_reprocessed_#{wikidata.id}")
+        end
+
+        it 'logs the reaggregation stage for every wiki' do
+          steps = captured_update_steps
+          expect(steps).to include("timeslices_reaggregated_#{enwiki.id}")
+          expect(steps).to include("timeslices_reaggregated_#{wikidata.id}")
         end
       end
     end

@@ -11,7 +11,10 @@ staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.rb$')
 [ -z "$staged" ] && exit 0
 
 echo "Running RuboCop on staged Ruby files..."
-bundle exec rubocop --no-color $staged
+# --force-exclusion makes RuboCop honor the AllCops Exclude list (e.g.
+# config/**/*) even though we pass file paths explicitly. Without it, staging
+# an excluded file surfaces pre-existing offenses that the full CI run ignores.
+bundle exec rubocop --no-color --force-exclusion $staged
 
 if [ $? -ne 0 ]; then
   echo "Linting failed. Please fix the offenses before committing."

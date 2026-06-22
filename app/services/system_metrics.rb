@@ -56,7 +56,8 @@ class SystemMetrics
     'medium_update' => 12.hours,
     'long_update' => 1.day,
     'daily_update' => 1.day,
-    'constant_update' => 15.minutes
+    'constant_update' => 15.minutes,
+    'acuwt_update' => 1.day
   }.freeze
 
   def get_queue_status(queue_name, latency)
