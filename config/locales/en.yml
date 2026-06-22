@@ -894,6 +894,7 @@ en:
     retain_available_articles_info_wikidata: >
       When enabled, selecting an Available Item does not remove it from
       the list, allowing a group of students to select the same item.
+    retention_predictors: Retention predictors
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.

@@ -71,6 +71,47 @@ describe ReportsController, type: :request do
     end
   end
 
+  describe '#course_retention_csv' do
+    let(:fellows_course) { create(:course, type: 'FellowsCohort', slug: 'fellows/cohort_(2026)') }
+    let(:admin) { create(:admin) }
+
+    before do
+      allow_any_instance_of(RetentionPredictorsCsvBuilder)
+        .to receive(:generate_csv).and_return("username\nstudent1\n")
+    end
+
+    context 'as an admin on a FellowsCohort course' do
+      before { login_as admin }
+
+      it 'generates and returns the retention predictors CSV' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get '/course_retention_csv', params: { course: fellows_course.slug }
+        expect(response.body).to include('file is being generated')
+        get '/course_retention_csv', params: { course: fellows_course.slug }
+        follow_redirect!
+        expect(response.body.force_encoding('utf-8')).to include('username')
+      end
+    end
+
+    context 'as a non-admin user' do
+      before { login_as user }
+
+      it 'is not authorized' do
+        get '/course_retention_csv', params: { course: fellows_course.slug }
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'as an admin on a non-FellowsCohort course' do
+      before { login_as admin }
+
+      it 'is not found' do
+        get '/course_retention_csv', params: { course: course.slug }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe '#campaign_students_csv' do
     let(:student) { create(:user) }
 
