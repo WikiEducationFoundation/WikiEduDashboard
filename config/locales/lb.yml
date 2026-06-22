@@ -128,6 +128,7 @@ lb:
       wiki_label: Wiki
       newness_label: Neiheet vum Artikel
     filter_text: 'Filteren:'
+    pageviews_label: 'Säitenopriff:'
     cumulative: Kumulativ
     find: Artikele sichen
     hide: Verstoppen

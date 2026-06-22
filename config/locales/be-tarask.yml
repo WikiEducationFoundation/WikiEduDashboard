@@ -362,7 +362,7 @@ be-tarask:
       expected_number: Чаканая колькасьць студэнтаў
     data_uploads: Зьвесткі пра загрузкі ў Вікісховішча
     download_stats_data: Спампаваць статыстыку
-    embed_course_stats: Убудаваць статыстыку курсу
+    embed_course_stats: Укласьці статыстыку курсу
     error:
       user_exists_on_wiki: Прабачце, %{username} не зьяўляецца існым удзельнікам на
         %{domain}.
