@@ -181,6 +181,13 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     ));
   }
 
+  // Retention predictors report, available to admins for Scholars & Scientists courses only.
+  if (user.admin && course.type === 'FellowsCohort') {
+    controls.push((
+      <div key="retention_predictors" className="available-action"><a href={`/course_retention_csv?course=${course.slug}`} className="button">{I18n.t('courses.retention_predictors')}</a></div>
+    ));
+  }
+
   if (user.admin && Features.wikiEd) {
     controls.push((
       <div key="notify_instructors" className="available-action"><NotifyInstructorsButton courseId={course.id} courseTitle={course.title} /></div>
