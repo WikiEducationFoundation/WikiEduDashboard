@@ -97,7 +97,11 @@
     -
       title: Fact verification (recommended)
       blurb: |
-        Every fact on Wikipedia should be cited to a reliable source. This is why Wikipedia is such a great place to start research. Anyone interested in a topic can take a deeper dive by following the citations. is what's known as verifiability, and it's a cornerstone of Wikipedia. In this exercise, students will engage more deeply with Wikipedia's verifiability policy. They'll learn how to verify claims and check articles for unverifiable content. They will gain a critical understanding of why verifiability is so important to the reliability of information on Wikipedia and why AI-generated content regularly produces facts that cannot be verified.
+        Wikipedia’s reliability hinges on its citations. When people consult Wikipedia, they don’t have to take the author’s word for it.
+        They can follow the citations and confirm the information is accurate  for themselves. This is what’s known as verifiability,
+        and it’s a cornerstone of Wikipedia. In this exercise, students will learn how to verify claims and will gain a critical understanding
+        of why verifiability is so important to Wikipedia’s reliability as well as why AI-generated content regularly produces facts that
+        cannot be verified and harm Wikipedia.
       logic: fact_verification
       selected: true # recommended; selected by default
 
