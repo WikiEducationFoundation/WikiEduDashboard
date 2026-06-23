@@ -1,0 +1,49 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@greeted_users},"
+              %p.paragraph
+                Your students are about to select their Wikipedia articles for their
+                Wikipedia assignment, which means it’s time for you to join in! As we
+                noted when you set up your course page, editing alongside your students
+                is a great way to build your own Wikipedia expertise while modeling the
+                collaborative spirit of the project.
+              %p.paragraph To get started:
+              %ol
+                %li.paragraph
+                  Review our
+                  %a.link{href: 'https://dashboard.wikiedu.org/training/students/finding-your-article'} training module
+                  on finding articles.
+                %li.paragraph
+                  Log in to your course page, go to the Home tab, and find the My
+                  Articles section.
+                %li.paragraph
+                  Click on the Assign Article button, type in the article’s name, and
+                  double-check spelling and punctuation. (Creating a brand new article?
+                  Type in the title and be sure it’s exactly how you will want it to
+                  appear on Wikipedia.)
+              %p.paragraph
+                That’s it! You’re now ready to edit the article you selected, following
+                the same steps as your students.
+              %p.paragraph
+                Best wishes for a meaningful editing experience!
+              %p.paragraph
+                Best,
+                %br
+                %em
+                  = @staffer.real_name
+                %br
+                %em Wiki Education
+                %br
+                %br
+              %p.info
+                This is an automated email from Wiki Education intended to help you with your Wikipedia assignment.
+                If you have thoughts about it — anything you found confusing or important things that are missing — you can let us know
+                by replying, or
+                %a.link{href: 'https://dashboard.wikiedu.org/feedback?subject=Editing-Your-Own-Article-Advice-email'} leave feedback here.
