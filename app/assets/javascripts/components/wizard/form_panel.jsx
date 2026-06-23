@@ -44,75 +44,78 @@ const FormPanel = (props) => {
     : <p>{I18n.t('wizard.confirm_course_dates')}</p>;
 
   const rawOptions = (
-    <div>
-      <div className="course-dates__step">
-        {step1}
-        <div className="vertical-form full-width">
-          <DatePicker
-            id="wizard_course_start"
-            onChange={updateCourseDates}
-            value={props.course.start}
-            value_key="start"
-            editable={true}
-            validation={CourseDateUtils.isDateValid}
-            label="Course Start"
-          />
-          <DatePicker
-            id="wizard_course_end"
-            onChange={updateCourseDates}
-            value={props.course.end}
-            value_key="end"
-            editable={true}
-            validation={CourseDateUtils.isDateValid}
-            label="Course End"
-            date_props={dateProps.end}
-            enabled={Boolean(props.course.start)}
-          />
+    <div className="wizard__course-dates-2col">
+      <div className="wizard__course-dates-2col__form">
+        <div className="course-dates__step">
+          {step1}
+          <div className="vertical-form full-width">
+            <DatePicker
+              id="wizard_course_start"
+              onChange={updateCourseDates}
+              value={props.course.start}
+              value_key="start"
+              editable={true}
+              validation={CourseDateUtils.isDateValid}
+              label="Course Start"
+            />
+            <DatePicker
+              id="wizard_course_end"
+              onChange={updateCourseDates}
+              value={props.course.end}
+              value_key="end"
+              editable={true}
+              validation={CourseDateUtils.isDateValid}
+              label="Course End"
+              date_props={dateProps.end}
+              enabled={Boolean(props.course.start)}
+            />
+          </div>
+        </div>
+        <hr />
+        <div className="course-dates__step">
+          <p>{I18n.t('wizard.assignment_description')}</p>
+          <div className="vertical-form full-width">
+            <DatePicker
+              id="wizard_timeline_start"
+              onChange={updateCourseDates}
+              value={props.course.timeline_start}
+              value_key="timeline_start"
+              editable={true}
+              validation={CourseDateUtils.isDateValid}
+              label={I18n.t('courses.assignment_start')}
+              date_props={dateProps.timeline_start}
+            />
+            <DatePicker
+              id="wizard_timeline_end"
+              onChange={updateCourseDates}
+              value={props.course.timeline_end}
+              value_key="timeline_end"
+              editable={true}
+              validation={CourseDateUtils.isDateValid}
+              label={I18n.t('courses.assignment_end')}
+              date_props={dateProps.timeline_end}
+              enabled={Boolean(props.course.start)}
+            />
+          </div>
         </div>
       </div>
-      <hr />
-      <div className="course-dates__step">
-        <p>{I18n.t('wizard.assignment_description')}</p>
-        <div className="vertical-form full-width">
-          <DatePicker
-            id="wizard_timeline_start"
-            onChange={updateCourseDates}
-            value={props.course.timeline_start}
-            value_key="timeline_start"
+      <div className="wizard__course-dates-2col__calendar">
+        <div className="wizard__form course-dates course-dates__step">
+          <Calendar
+            course={props.course}
             editable={true}
-            validation={CourseDateUtils.isDateValid}
-            label={I18n.t('courses.assignment_start')}
-            date_props={dateProps.timeline_start}
+            save={true}
+            calendarInstructions={I18n.t('wizard.calendar_instructions')}
+            updateCourse={props.updateCourse}
           />
-          <DatePicker
-            id="wizard_timeline_end"
-            onChange={updateCourseDates}
-            value={props.course.timeline_end}
-            value_key="timeline_end"
-            editable={true}
-            validation={CourseDateUtils.isDateValid}
-            label={I18n.t('courses.assignment_end')}
-            date_props={dateProps.timeline_end}
-            enabled={Boolean(props.course.start)}
-          />
+          <label> {I18n.t('wizard.no_class_holidays')}
+            <input
+              type="checkbox"
+              onChange={setNoBlackoutDatesChecked}
+              ref={noDates}
+            />
+          </label>
         </div>
-      </div>
-      <hr />
-      <div className="wizard__form course-dates course-dates__step">
-        <Calendar
-          course={props.course}
-          editable={true}
-          save={true}
-          calendarInstructions={I18n.t('wizard.calendar_instructions')}
-          updateCourse={props.updateCourse}
-        />
-        <label> {I18n.t('wizard.no_class_holidays')}
-          <input
-            type="checkbox"
-            onChange={setNoBlackoutDatesChecked}
-            ref={noDates}
-          />
-        </label>
       </div>
     </div>
   );
