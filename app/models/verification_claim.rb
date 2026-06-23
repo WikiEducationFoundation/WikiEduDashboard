@@ -21,21 +21,24 @@
 #  subject          :string(255)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  alert_id         :integer
 #
 
-# A cited factual claim harvested from an article a past-term course worked
-# on, stored as candidate material for the claim-verification exercise. Each
-# record is one (claim sentence, cited source) pair. Every cited claim is
-# kept; `offline_source` flags those whose citation exposes no openable URL,
-# and `courses_user` records the enrolling student when the claim was
-# harvested from that student's own added content. No serving/eligibility
-# filtering is applied here — that is left to a later serving layer.
+# A cited factual claim harvested from the exact revision a mainspace
+# AiEditAlert flagged — one (claim sentence, cited source) pair that was
+# *added* in that edit — stored as candidate material for the claim-
+# verification exercise. Every cited claim is kept; `offline_source` flags
+# those whose citation exposes no openable URL, `courses_user` records the
+# enrolling student who made the flagged edit, and `alert` ties the claim
+# back to the AiEditAlert it was harvested from. No serving/eligibility
+# filtering is applied here — that is left to the serving layer.
 class VerificationClaim < ApplicationRecord
   belongs_to :wiki
   belongs_to :article, optional: true
   belongs_to :source_course, class_name: 'Course', optional: true
   belongs_to :courses_user, class_name: 'CoursesUsers',
              foreign_key: 'courses_users_id', optional: true
+  belongs_to :alert, optional: true
 
   validates :sentence, presence: true
 

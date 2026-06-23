@@ -25,10 +25,10 @@ import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verific
   resulting assignment so the exercise can transition to the taken-claim view
   without a reload.
 
-  Claims only apply to the article's current version, so we fetch the annotation
-  only when no specific revision is selected; on an old revision (or on fetch
-  failure) we return `html: null` and the shell falls back to the plain parsed
-  article.
+  Claims belong to the flagged revision the article opens at (the shell's
+  `initialRevisionId`), so we fetch the annotation for whichever revision is shown
+  and clear it when the student toggles to the current version (which carries no
+  harvested claims). A failed parse or fetch also leaves the plain article in place.
 */
 const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTaken }) => {
   const [annotatedHtml, setAnnotatedHtml] = useState(null);
@@ -36,19 +36,20 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
   const [pending, setPending] = useState(false);
   const [taking, setTaking] = useState(false);
 
-  // Fetch the annotated article once the shell's parse settles for the current
-  // version. A revision toggle clears the annotation (claims are current-version
-  // only); a failed parse or fetch leaves the plain article in place.
+  // Fetch the annotated article once the shell's parse settles for the flagged
+  // revision. Toggling to the current version (revisionId null) clears the
+  // annotation (no harvested claims there); a failed parse or fetch leaves the
+  // plain article in place.
   useEffect(() => {
     if (!parsedSettle) { return; }
     setSelectedClaim(null);
-    if (!parsedSettle.ok || revisionId) {
+    if (!parsedSettle.ok || !revisionId) {
       setAnnotatedHtml(null);
       return;
     }
     setPending(true);
     new ClaimVerificationAPI({ courseSlug: course.slug })
-      .fetchAnnotatedArticle(article.id)
+      .fetchAnnotatedArticle(article.id, revisionId)
       .then((data) => {
         setAnnotatedHtml(data.html);
         setPending(false);
@@ -66,6 +67,7 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
     if (!marker) { return; }
     event.preventDefault();
     setSelectedClaim({
+      claimId: marker.getAttribute('data-claim-id'),
       sentence: marker.getAttribute('data-sentence'),
       refId: marker.getAttribute('data-ref-id'),
       citeText: marker.getAttribute('data-cite-text'),
@@ -73,12 +75,12 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
     });
   };
 
-  // Take the selected claim on, then hand the new assignment back to the
-  // exercise to transition the view.
+  // Take the selected (already-harvested) claim on by id, then hand the new
+  // assignment back to the exercise to transition the view.
   const takeClaim = () => {
     setTaking(true);
     new ClaimVerificationAPI({ courseSlug: course.slug })
-      .take({ articleId: article.id, sentence: selectedClaim.sentence, refId: selectedClaim.refId })
+      .take({ articleId: article.id, verificationClaimId: selectedClaim.claimId })
       .then((data) => {
         setTaking(false);
         onTaken(data.assignment);

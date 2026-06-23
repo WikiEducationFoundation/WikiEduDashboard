@@ -22,13 +22,16 @@ export class ClaimVerificationAPI {
       .then(response => this.__json(response, 'Exercise state request failed'));
   }
 
-  fetchAnnotatedArticle(articleId) {
-    return request(`${this.basePath()}/annotated_article?article_id=${articleId}`)
+  // The article is rendered at the flagged revision; its pre-harvested claims are
+  // tagged in the returned HTML.
+  fetchAnnotatedArticle(articleId, mwRevId) {
+    return request(`${this.basePath()}/annotated_article?article_id=${articleId}&mw_rev_id=${mwRevId}`)
       .then(response => this.__json(response, 'Annotated article request failed'));
   }
 
-  take({ articleId, sentence, refId }) {
-    const body = JSON.stringify({ article_id: articleId, sentence, ref_id: refId });
+  // The claim is already in the pool; we assign the chosen one by id.
+  take({ articleId, verificationClaimId }) {
+    const body = JSON.stringify({ article_id: articleId, verification_claim_id: verificationClaimId });
     return request(`${this.basePath()}/take`, { method: 'POST', body })
       .then(response => this.__json(response, 'Take claim request failed'));
   }

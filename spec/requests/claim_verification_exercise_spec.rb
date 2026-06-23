@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 # The exercise UI is the course SPA (served by courses#show); this controller
-# only provides the flow's JSON and the slug-less entry funnel. These specs
-# cover those: state, annotated_article, take, and entry.
+# only provides the flow's JSON and the slug-less entry funnel. These specs cover
+# those: state (pool-backed tiles), annotated_article (the flagged revision with
+# its harvested claims tagged), take (assigning a pool claim) and entry.
 describe 'Claim verification exercise', type: :request do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:course) do
@@ -15,8 +15,20 @@ describe 'Claim verification exercise', type: :request do
   let(:article) do
     create(:article, wiki:, title: 'Sea otter', namespace: Article::Namespaces::MAINSPACE)
   end
+  let(:flagged_rev) { 777 }
 
-  let(:article_html) do
+  # A claim pre-harvested from a same-subject course's flagged revision.
+  let!(:pool_claim) do
+    source_course = create(:course, slug: 'Old/Eco_2019', subject: 'Ecology')
+    alert = create(:ai_edit_alert, course: source_course, article:, revision_id: flagged_rev,
+                                   details: { article_title: 'Sea otter' })
+    VerificationClaim.create!(wiki:, article:, article_title: 'Sea_otter', mw_rev_id: flagged_rev,
+                              sentence: 'Sea otters use rocks as tools.', ref_id: 'cite_note-1',
+                              source_url: 'https://example.com/otters', cite_text: 'Riedman 1990',
+                              subject: 'Ecology', source_course:, alert:)
+  end
+
+  let(:revision_html) do
     <<~HTML
       <p>Sea otters use rocks as tools.<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
       <ol class="references"><li id="cite_note-1"><span class="reference-text"><cite>
@@ -26,64 +38,64 @@ describe 'Claim verification exercise', type: :request do
 
   before do
     create(:courses_user, course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
-    # A prior ended course in the same subject that worked on the article.
-    prior = create(:course, slug: 'Old/Eco_2019', subject: 'Ecology',
-                            start: 2.years.ago, end: 1.year.ago)
-    create(:articles_course, course: prior, article:)
     login_as student
   end
 
-  def stub_article_harvest
-    allow(WikiApi::ArticleContent).to receive(:new)
-      .and_return(instance_double(WikiApi::ArticleContent, latest_revision_id: 555))
-    allow(GetRevisionHtmlWithCitations).to receive(:new)
-      .and_return(instance_double(GetRevisionHtmlWithCitations, html: article_html))
-  end
-
   describe 'GET state' do
-    it 'lists relevant prior-course articles when no claim is taken' do
+    it 'lists the (article, flagged-revision) tiles from the pool when no claim is taken' do
       get "/courses/#{course.slug}/verify_claim/state"
       body = response.parsed_body
       expect(body['assignment']).to be_nil
-      expect(body['articles'].first).to include('id' => article.id, 'title' => 'Sea otter')
-      expect(body['articles'].first).to include('language' => 'en', 'project' => 'wikipedia')
+      expect(body['articles'].first)
+        .to include('id' => article.id, 'mw_rev_id' => flagged_rev, 'title' => 'Sea otter',
+                    'language' => 'en', 'project' => 'wikipedia')
     end
 
     it 'returns the taken claim and the sandbox handoff when one is taken' do
-      claim = VerificationClaim.create!(wiki:, sentence: 'Otters use rocks.',
-                                        source_url: 'https://example.com/o', ref_id: 'cite_note-1',
-                                        article_title: 'Sea_otter', cite_text: 'Riedman 1990')
-      VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
+      VerificationClaimAssignment.create!(user: student, course:, verification_claim: pool_claim)
       get "/courses/#{course.slug}/verify_claim/state"
       assignment = response.parsed_body['assignment']
-      expect(assignment['claim']['sentence']).to eq('Otters use rocks.')
-      expect(assignment['claim']['source_url']).to eq('https://example.com/o')
+      expect(assignment['claim']['sentence']).to eq('Sea otters use rocks as tools.')
+      expect(assignment['claim']['source_url']).to eq('https://example.com/otters')
       expect(assignment['sandbox_url']).to include('User:Otterfan/Claim_verification_exercise')
     end
   end
 
   describe 'GET annotated_article' do
-    it 'serves the article HTML with its cited claims tagged' do
-      stub_article_harvest
+    before do
+      allow(GetRevisionHtmlWithCitations).to receive(:new)
+        .and_return(instance_double(GetRevisionHtmlWithCitations, html: revision_html))
+    end
+
+    it "serves the flagged revision's HTML with its harvested claims tagged" do
       get "/courses/#{course.slug}/verify_claim/annotated_article",
-          params: { article_id: article.id }
+          params: { article_id: article.id, mw_rev_id: flagged_rev }
       body = response.parsed_body
-      expect(body['mw_rev_id']).to eq(555)
+      expect(body['mw_rev_id']).to eq(flagged_rev)
       expect(body['html']).to include('cv-claim')
-      expect(body['html']).to include('Sea otters use rocks as tools.')
+      expect(body['html']).to include(%(data-claim-id="#{pool_claim.id}"))
     end
   end
 
   describe 'POST take' do
-    it 'persists the chosen claim and returns it as the assignment' do
-      stub_article_harvest
+    it 'assigns the chosen pool claim and returns it as the assignment' do
       post "/courses/#{course.slug}/verify_claim/take",
-           params: { article_id: article.id, ref_id: 'cite_note-1',
-                     sentence: 'Sea otters use rocks as tools.' }
+           params: { article_id: article.id, verification_claim_id: pool_claim.id }
       assignment = response.parsed_body['assignment']
       expect(assignment['claim']['sentence']).to eq('Sea otters use rocks as tools.')
-      expect(assignment['claim']['source_url']).to eq('https://example.com/otters')
-      expect(VerificationClaimAssignment.find_by(user: student, course:)).to be_present
+      expect(VerificationClaimAssignment.find_by(user: student, course:).verification_claim)
+        .to eq(pool_claim)
+    end
+
+    it 'lets more than one student take the same claim (claims are not exclusive)' do
+      post "/courses/#{course.slug}/verify_claim/take",
+           params: { article_id: article.id, verification_claim_id: pool_claim.id }
+      other = create(:user, username: 'Otterfan2', onboarded: true)
+      create(:courses_user, course:, user: other, role: CoursesUsers::Roles::STUDENT_ROLE)
+      login_as other
+      post "/courses/#{course.slug}/verify_claim/take",
+           params: { article_id: article.id, verification_claim_id: pool_claim.id }
+      expect(VerificationClaimAssignment.where(verification_claim: pool_claim).count).to eq(2)
     end
   end
 

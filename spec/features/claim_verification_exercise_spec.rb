@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
-# End-to-end of the claim-selection flow, now folded into the course SPA: the
-# student goes picker -> article viewer -> take -> taken claim entirely
-# client-side, with no page reloads. The article harvest (annotated_article and
-# the take re-harvest) is stubbed for determinism; the viewer still fetches the
-# real parsed article from en.wikipedia.org to resolve the title (its content is
-# then replaced by our annotated HTML), so this spec needs network access, like
-# the existing article_viewer_spec.
+# End-to-end of the claim-selection flow, folded into the course SPA: the student
+# goes picker -> article viewer -> take -> taken claim entirely client-side, with
+# no page reloads. Candidates come from the pre-harvested claim pool; the article
+# opens at the AiEditAlert-flagged revision and the harvested claims are
+# highlighted. The server-side annotation (annotated_article) is stubbed for
+# determinism, but the viewer still fetches the real parsed revision from
+# en.wikipedia.org to resolve the title (its content is then replaced by our
+# annotated HTML), so this spec needs network access, like the article_viewer_spec.
+# `flagged_rev` is a real, permanent Sea otter revision so that fetch resolves.
 describe 'Claim verification exercise', type: :feature, js: true do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:course) do
@@ -18,9 +19,10 @@ describe 'Claim verification exercise', type: :feature, js: true do
   end
   let(:student) { create(:user, username: 'Otterfan', onboarded: true) }
   let(:article) do
-    create(:article, wiki:, title: 'Sea_otter', mw_page_id: 41207,
+    create(:article, wiki:, title: 'Sea_otter', mw_page_id: 567471,
                      namespace: Article::Namespaces::MAINSPACE)
   end
+  let(:flagged_rev) { 2_998_441 } # the first revision of en:Sea otter
   let(:sentence) { 'Sea otters use rocks as tools to break open shellfish.' }
 
   let(:article_html) do
@@ -36,14 +38,17 @@ describe 'Claim verification exercise', type: :feature, js: true do
   before do
     course.campaigns << Campaign.first
     create(:courses_user, course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
-    # A prior ended course in the same subject that worked on the article.
-    prior = create(:course, slug: 'Old/Eco_2019', subject: 'Ecology',
-                            start: 2.years.ago, end: 1.year.ago)
-    create(:articles_course, course: prior, article:)
 
-    # Deterministic harvest for the annotated_article endpoint and the take.
-    allow(WikiApi::ArticleContent).to receive(:new)
-      .and_return(instance_double(WikiApi::ArticleContent, latest_revision_id: 555))
+    # A claim pre-harvested from a same-subject course's flagged revision.
+    source_course = create(:course, slug: 'Old/Eco_2019', subject: 'Ecology')
+    alert = create(:ai_edit_alert, course: source_course, article:, revision_id: flagged_rev,
+                                   details: { article_title: 'Sea otter' })
+    VerificationClaim.create!(wiki:, article:, article_title: 'Sea_otter', mw_rev_id: flagged_rev,
+                              sentence:, ref_id: 'cite_note-1', cite_text: 'Riedman & Estes 1990',
+                              source_url: 'https://example.com/otters', subject: 'Ecology',
+                              source_course:, alert:)
+
+    # Deterministic server-side annotation of the flagged revision.
     allow(GetRevisionHtmlWithCitations).to receive(:new)
       .and_return(instance_double(GetRevisionHtmlWithCitations, html: article_html))
 
@@ -61,8 +66,8 @@ describe 'Claim verification exercise', type: :feature, js: true do
     # not a link).
     click_on 'Sea otter'
 
-    # The viewer renders the annotated article; clicking the highlighted claim
-    # sentence opens the in-viewer panel.
+    # The viewer renders the flagged revision annotated with its harvested claims;
+    # clicking the highlighted claim sentence opens the in-viewer panel.
     find('.parsed-article .cv-claim', wait: 20).click
     within '.cv-selection-panel' do
       expect(page).to have_content(sentence)

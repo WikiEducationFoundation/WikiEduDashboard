@@ -11,7 +11,7 @@ class HarvestRevisionClaims
   attr_reader :claims
 
   def initialize(html:, wiki:, subject: nil, article: nil, article_title: nil,
-                 mw_rev_id: nil, source_course: nil, courses_user: nil)
+                 mw_rev_id: nil, source_course: nil, courses_user: nil, alert: nil)
     @html = html
     @wiki = wiki
     @subject = subject
@@ -20,6 +20,7 @@ class HarvestRevisionClaims
     @mw_rev_id = mw_rev_id
     @source_course = source_course
     @courses_user = courses_user
+    @alert = alert
     @claims = []
     perform
   end
@@ -52,7 +53,7 @@ class HarvestRevisionClaims
       source_url: citation.urls.first, archive_url: citation.archive_urls.first,
       offline_source: citation.offline_source?, article: @article,
       article_title: @article_title, subject: @subject,
-      source_course: @source_course, courses_user: @courses_user
+      source_course: @source_course, courses_user: @courses_user, alert: @alert
     }
   end
 end

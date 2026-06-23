@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_16_213454) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_23_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -688,6 +688,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_213454) do
   end
 
   create_table "verification_claims", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "alert_id"
     t.text "archive_url"
     t.integer "article_id"
     t.string "article_title"
@@ -704,6 +705,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_16_213454) do
     t.string "subject"
     t.datetime "updated_at", null: false
     t.integer "wiki_id", null: false
+    t.index ["alert_id"], name: "index_verification_claims_on_alert_id"
     t.index ["courses_users_id"], name: "index_verification_claims_on_courses_users_id"
     t.index ["source_course_id"], name: "index_verification_claims_on_source_course_id"
     t.index ["subject"], name: "index_verification_claims_on_subject"

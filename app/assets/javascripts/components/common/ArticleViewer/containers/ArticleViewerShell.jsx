@@ -49,14 +49,17 @@ const noopHighlightFeature = () => ({
 const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonLabel,
   fetchArticleDetails, assignedUsers, article, course, current_user = {},
   showButtonClass, showPermalink = true, title, useHighlightFeature = noopHighlightFeature,
-  renderOpener }) => {
+  renderOpener, initialRevisionId = null }) => {
   const [fetched, setFetched] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
   const [showBadArticleAlert, setShowBadArticleAlert] = useState(false);
   const [parsedArticle, setParsedArticle] = useState(null);
   const [parsedPending, setParsedPending] = useState(false);
   const [parsedSettle, setParsedSettle] = useState(null);
-  const [revisionId, setRevisionId] = useState(null);
+  // A consumer can open the viewer at a specific revision (e.g. the claim
+  // exercise opens the article at the AiEditAlert-flagged revision); otherwise
+  // it opens at the current version (null).
+  const [revisionId, setRevisionId] = useState(initialRevisionId);
   const lastRevisionId = useSelector(state => state.articleDetails[article.id]?.last_revision?.revid);
 
   // State to track whether the article title needs to be verified and updated
@@ -206,7 +209,9 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
     if (revisionId) {
       setRevisionId(null);
     } else {
-      setRevisionId(lastRevisionId);
+      // Return to the revision the viewer was opened at when one was given
+      // (the claim exercise's flagged revision), else the article's last revision.
+      setRevisionId(initialRevisionId || lastRevisionId);
     }
   };
 
@@ -314,6 +319,9 @@ ArticleViewerShell.propTypes = {
   // Optional render prop for the closed-state trigger surface; receives
   // `{ open }`. Overrides the default title/icon opener when provided.
   renderOpener: PropTypes.func,
+  // Optional MediaWiki revision id to open the article at, instead of the
+  // current version (used by the claim exercise for the flagged revision).
+  initialRevisionId: PropTypes.number,
 };
 
 export default ArticleViewerShell;

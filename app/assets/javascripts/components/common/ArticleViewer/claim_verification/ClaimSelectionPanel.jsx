@@ -39,6 +39,7 @@ export const ClaimSelectionPanel = ({ claim, onTake, taking, onClose }) => (
 
 ClaimSelectionPanel.propTypes = {
   claim: PropTypes.shape({
+    claimId: PropTypes.string,
     sentence: PropTypes.string,
     refId: PropTypes.string,
     citeText: PropTypes.string,

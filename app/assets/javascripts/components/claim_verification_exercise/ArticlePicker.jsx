@@ -4,19 +4,24 @@ import PropTypes from 'prop-types';
 import ClaimVerificationViewer from '@components/common/ArticleViewer/containers/ClaimVerificationViewer.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
 
-// The article picker: each candidate article (sourced from prior subject-matched
-// courses) is its own ArticleViewer, laid out as a compact grid. The viewer's
-// closed state IS the tile — passed in as `renderOpener` — so clicking a tile
-// opens the article in place and closing it returns to the grid, with no separate
-// single-article view to get stranded on. This mirrors the Articles tab, where
-// every row carries its own viewer. Titles are data; the heading is
+// The article picker: each candidate is an (article, flagged-revision) tile from
+// the pre-harvested claim pool, and is its own ArticleViewer laid out in a compact
+// grid. The viewer's closed state IS the tile — passed in as `renderOpener` — so
+// clicking a tile opens the article (at the flagged revision, with its harvested
+// claims highlighted) in place and closing it returns to the grid, with no
+// separate single-article view to get stranded on. This mirrors the Articles tab,
+// where every row carries its own viewer. Titles are data; the heading is
 // operator-approved copy in the claim_verification locale namespace.
 //
 // The per-tile wiki domain is shown only when the candidates span more than one
 // wiki. With a single wiki (the common case) it would repeat on every tile, so it
 // is omitted as noise.
+//
+// The shell's `?showArticle=` deep link is article-keyed; when one article has
+// several flagged-revision tiles we auto-open the first of them on a deep link.
 export const ArticlePicker = ({ articles, course, onTaken, showArticleId }) => {
   const showWiki = new Set(articles.map(toWikiDomain)).size > 1;
+  const deepLinkedTile = articles.find(article => article.id === showArticleId);
 
   return (
     <div className="container narrow claim-verification-exercise claim-verification-exercise--articles">
@@ -26,12 +31,13 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId }) => {
       {articles.length ? (
         <ul className="claim-verification-exercise__article-grid">
           {articles.map(article => (
-            <li key={article.id}>
+            <li key={`${article.id}-${article.mw_rev_id}`}>
               <ClaimVerificationViewer
                 article={article}
                 course={course}
                 onTaken={onTaken}
-                showOnMount={showArticleId === article.id}
+                initialRevisionId={article.mw_rev_id}
+                showOnMount={article === deepLinkedTile}
                 renderOpener={({ open }) => (
                   <button
                     type="button"
@@ -61,6 +67,7 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId }) => {
 ArticlePicker.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
+    mw_rev_id: PropTypes.number,
     title: PropTypes.string,
     language: PropTypes.string,
     project: PropTypes.string,
