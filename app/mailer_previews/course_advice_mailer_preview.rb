@@ -16,7 +16,8 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
     drafting_and_moving: 'Advice on drafting in sandboxes and moving articles to mainspace',
     drafting_sandbox_only: 'Drafting advice for sandbox-only courses that never move to mainspace',
     peer_review: 'Tips on facilitating peer review between students',
-    assessing_contributions: 'Guidance on how to assess student Wikipedia contributions'
+    assessing_contributions: 'Guidance on how to assess student Wikipedia contributions',
+    learning_to_edit: 'Guidance for instructors editing an article alongside students'
   }.freeze
   RECIPIENTS = 'instructor(s)'
 
@@ -58,6 +59,10 @@ class CourseAdviceMailerPreview < ActionMailer::Preview
 
   def assessing_contributions
     CourseAdviceMailer.email(example_course, 'assessing_contributions', example_staffer)
+  end
+
+  def learning_to_edit
+    CourseAdviceMailer.email(example_course, 'learning_to_edit', example_staffer)
   end
 
   private

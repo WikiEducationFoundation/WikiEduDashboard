@@ -15,6 +15,7 @@ class ScheduleCourseAdviceEmails
     schedule_hype_video_email
     schedule_preliminary_work_email
     schedule_choosing_an_article_email
+    schedule_learning_to_edit_email
     schedule_bibliographies_email
     schedule_drafting_and_moving_email
     schedule_peer_review_email
@@ -76,6 +77,23 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'choosing_an_article',
+      send_at: block.calculated_date.to_datetime
+    )
+  end
+
+  # This goes to courses that took the "learning to edit with your students"
+  # wizard option, the week students start choosing their articles.
+  def schedule_learning_to_edit_email
+    return unless @course.tag?('instructor_learner')
+
+    block = @course.find_block_by_title 'Choose possible topics'
+    block ||= @course.find_block_by_title 'Choose your article'
+    return unless block
+    return if too_late?(block)
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'learning_to_edit',
       send_at: block.calculated_date.to_datetime
     )
   end

@@ -52,6 +52,30 @@ describe WizardTimelineManager do
     end
   end
 
+  describe 'instructor_learner tag' do
+    let(:course) do
+      create(:course, start: '2016-08-01', end: '2016-09-23',
+                      timeline_start: '2016-08-01', timeline_end: '2016-09-23',
+                      weekdays: '1111111')
+    end
+
+    def submit(tags)
+      params = { 'wizard_output' => { 'output' => [], 'logic' => [], 'tags' => tags } }
+      described_class.update_timeline_and_tags(course, 'researchwrite', params)
+    end
+
+    # Both wizard options carry a tag under the same key, so re-running the
+    # wizard and choosing "No" overwrites the "Yes" opt-in marker.
+    it 'updates the tag so opting out clears the opt-in marker' do
+      opt_in = [{ key: 'instructor_learner', tag: 'instructor_learner' }]
+      opt_out = [{ key: 'instructor_learner', tag: 'not_instructor_learner' }]
+      submit(opt_in)
+      expect(course.reload.tag?('instructor_learner')).to be true
+      submit(opt_out)
+      expect(course.reload.tag?('instructor_learner')).to be false
+    end
+  end
+
   describe 'wizard_id validation' do
     let(:course) do
       create(:course, start: '2016-08-01', end: '2016-09-23',
