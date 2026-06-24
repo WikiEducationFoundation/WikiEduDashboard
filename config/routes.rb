@@ -545,6 +545,11 @@ Rails.application.routes.draw do
   get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
   resources :ai_edit_alerts_stats, only: [:index]
 
+  # Claim verification admin (harvest the claim pool + watch progress)
+  get 'claim_verification' => 'claim_verification#index'
+  get 'claim_verification/status' => 'claim_verification#status'
+  post 'claim_verification/harvest' => 'claim_verification#harvest'
+
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'
   post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
