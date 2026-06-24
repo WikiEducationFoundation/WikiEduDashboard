@@ -73,17 +73,18 @@ describe GetRevisionHtmlWithCitations do
       expect(service.article_title).to eq('Test')
     end
 
-    it 'fetches the parent revision when from_rev is not given' do
-      allow_any_instance_of(WikiApi::ArticleContent)
-        .to receive(:parent_revision_id).and_return(99)
+    it 'fetches the parent revision and captures the timestamp when from_rev is not given' do
+      allow_any_instance_of(WikiApi::ArticleContent).to receive(:revision_metadata)
+        .and_return(parent_id: 99, timestamp: '2025-12-14T04:53:46Z')
       stub_citation_diff_api(citation_diff_row('New content.'))
       service = described_class.new(100, en_wiki)
       expect(service.html).to include('New content.')
+      expect(service.revision_timestamp).to eq('2025-12-14T04:53:46Z')
     end
 
     it 'falls back to full revision HTML for the first revision of a page' do
-      allow_any_instance_of(WikiApi::ArticleContent)
-        .to receive(:parent_revision_id).and_return(0)
+      allow_any_instance_of(WikiApi::ArticleContent).to receive(:revision_metadata)
+        .and_return(parent_id: 0, timestamp: '2025-12-14T04:53:46Z')
       stub_citation_revision_html('<p>First revision.</p>')
       service = described_class.new(100, en_wiki)
       expect(service.html).to eq('<p>First revision.</p>')
@@ -91,7 +92,7 @@ describe GetRevisionHtmlWithCitations do
 
     it 'returns nil html when the parent revision is unavailable' do
       allow_any_instance_of(WikiApi::ArticleContent)
-        .to receive(:parent_revision_id).and_return(nil)
+        .to receive(:revision_metadata).and_return(nil)
       service = described_class.new(100, en_wiki)
       expect(service.html).to be_nil
     end

@@ -8,7 +8,8 @@
 # then the general pool — topped up in that order until the tile limit is met, so
 # the picker is never empty when the pool has any entries. Pure DB query.
 class RelevantClaimRevisionsForCourse
-  Tile = Struct.new(:article, :mw_rev_id, :claim_count, keyword_init: true)
+  Tile = Struct.new(:article, :mw_rev_id, :claim_count, :mw_rev_timestamp,
+                    keyword_init: true)
 
   attr_reader :tiles
 
@@ -25,28 +26,31 @@ class RelevantClaimRevisionsForCourse
   def build_tiles
     groups = prioritized_groups
     articles = Article.where(id: groups.map(&:first)).includes(:wiki).index_by(&:id)
-    groups.filter_map do |article_id, mw_rev_id, count|
+    groups.filter_map do |article_id, mw_rev_id, count, timestamp|
       article = articles[article_id]
-      Tile.new(article:, mw_rev_id:, claim_count: count) if article
+      next unless article
+      Tile.new(article:, mw_rev_id:, claim_count: count, mw_rev_timestamp: timestamp)
     end
   end
 
-  # [[article_id, mw_rev_id, count], ...] in priority order, deduped, capped.
+  # [[article_id, mw_rev_id, count, timestamp], ...] priority order, deduped, capped.
   def prioritized_groups
     seen = {}
     [subject_tag_scope, subject_scope, general_scope].compact.each do |scope|
-      grouped(scope).each do |article_id, mw_rev_id, count|
-        seen[[article_id, mw_rev_id]] ||= [article_id, mw_rev_id, count]
+      grouped(scope).each do |article_id, mw_rev_id, count, timestamp|
+        seen[[article_id, mw_rev_id]] ||= [article_id, mw_rev_id, count, timestamp]
       end
       break if seen.size >= @limit
     end
     seen.values.first(@limit)
   end
 
+  # The revisions in a group share one timestamp, so MAX just picks it out.
   def grouped(scope)
     scope.group(:article_id, :mw_rev_id)
          .order(Arel.sql('COUNT(*) DESC, mw_rev_id DESC')).limit(@limit)
-         .pluck(:article_id, :mw_rev_id, Arel.sql('COUNT(*)'))
+         .pluck(:article_id, :mw_rev_id, Arel.sql('COUNT(*)'),
+                Arel.sql('MAX(mw_rev_timestamp)'))
   end
 
   def base

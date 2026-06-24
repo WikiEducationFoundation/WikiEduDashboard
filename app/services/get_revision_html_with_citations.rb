@@ -10,7 +10,7 @@ require_dependency "#{Rails.root}/lib/wiki_api/diff_wikitext_extractor"
 # claim verification needs them preserved so that claims can be paired
 # with the sources cited for them.
 class GetRevisionHtmlWithCitations
-  attr_reader :html, :article_title
+  attr_reader :html, :article_title, :revision_timestamp
 
   def initialize(mw_rev_id, wiki, diff_mode: true, from_rev: nil)
     @wiki = wiki
@@ -25,10 +25,14 @@ class GetRevisionHtmlWithCitations
   private
 
   def generate_html
-    # In diff mode, by default we are getting the diff for a single edit,
-    # so we fetch the mw_rev_id of the parent revision.
+    # In diff mode, by default we are getting the diff for a single edit, so we
+    # fetch the parent revision id — and the revision's timestamp rides along in
+    # the same query (no extra request).
     if @diff_mode && !@from_rev
-      @from_rev = @article_content.parent_revision_id(@mw_rev_id)
+      meta = @article_content.revision_metadata(@mw_rev_id)
+      return if meta.nil?
+      @revision_timestamp = meta[:timestamp]
+      @from_rev = meta[:parent_id]
       return if @from_rev.nil?
     end
 

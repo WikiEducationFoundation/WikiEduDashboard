@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ClaimVerificationViewer from '@components/common/ArticleViewer/containers/ClaimVerificationViewer.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
+import formatRevisionDate from '../../utils/format_revision_date';
 
 // The article picker: each candidate is an (article, flagged-revision) tile from
 // the pre-harvested claim pool, and is its own ArticleViewer laid out in a compact
@@ -45,6 +46,13 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId }) => {
                     onClick={open}
                   >
                     <span className="claim-verification-exercise__article-title">{article.title}</span>
+                    {article.mw_rev_timestamp && (
+                      <span className="claim-verification-exercise__article-date">
+                        {I18n.t('claim_verification.tile_revision_date', {
+                          date: formatRevisionDate(article.mw_rev_timestamp)
+                        })}
+                      </span>
+                    )}
                     {showWiki && (
                       <span className="claim-verification-exercise__article-wiki">{toWikiDomain(article)}</span>
                     )}
@@ -68,6 +76,7 @@ ArticlePicker.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     mw_rev_id: PropTypes.number,
+    mw_rev_timestamp: PropTypes.string,
     title: PropTypes.string,
     language: PropTypes.string,
     project: PropTypes.string,

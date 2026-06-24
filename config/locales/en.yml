@@ -1640,6 +1640,12 @@ en:
 
   claim_verification:
     pick_instructions: Click a highlighted factual claim with an inline citation that you want to verify.
+    revision_notice: You're viewing this article as it appeared on %{date}, not the current version.
+    tile_revision_date: as of %{date}
+    claims_highlighted:
+      one: "%{count} claim highlighted"
+      other: "%{count} claims highlighted"
+    next_claim: Next claim
     claim: Claim
     cited_source: Cited source
     source_url: Source URL

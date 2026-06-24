@@ -27,7 +27,8 @@ describe HarvestAiEditAlertClaims do
   before do
     create(:courses_user, course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
     allow(GetRevisionHtmlWithCitations).to receive(:new)
-      .and_return(instance_double(GetRevisionHtmlWithCitations, html: diff_html))
+      .and_return(instance_double(GetRevisionHtmlWithCitations, html: diff_html,
+                                  revision_timestamp: '2025-12-14T04:53:46Z'))
   end
 
   it 'harvests the claims added in the flagged revision into the pool' do
@@ -45,6 +46,7 @@ describe HarvestAiEditAlertClaims do
     expect([claim.alert_id, claim.source_course_id, claim.subject, claim.mw_rev_id,
             claim.article_id]).to eq([alert.id, course.id, 'Ecology', 777, article.id])
     expect(claim.courses_user.user_id).to eq(student.id)
+    expect(claim.mw_rev_timestamp).to eq(Time.utc(2025, 12, 14, 4, 53, 46))
   end
 
   it 'is idempotent when the same alert is harvested again' do

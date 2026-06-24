@@ -31,8 +31,20 @@ module ClaimVerification
                                    cite_html: citation_html(li),
                                    cite_text: citation_text(li),
                                    urls: source_urls,
-                                   archive_urls:)
+                                   archive_urls:,
+                                   unresolved: unresolved_reference?(li))
       end
+    end
+
+    # A reference invoked but not defined in this render (eg a named ref whose
+    # definition lives elsewhere in the article) renders as a Cite-extension
+    # error in its reference-list entry. We key on that extension's error
+    # marker — emitted for every unresolved-ref pattern regardless of the
+    # citation template/format inside, and language-independent — rather than
+    # on any particular template or wording. This is only a trigger to consult
+    # the full-revision render, never a correctness gate.
+    def unresolved_reference?(reference_li)
+      reference_li.at_css('.mw-ext-cite-error, .error').present?
     end
 
     def external_urls(reference_li)

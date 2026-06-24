@@ -147,6 +147,14 @@
   &__article-tile:focus-visible &__article-title
     color $brand_primary
 
+  // The flagged revision's date, so a tile reads as a point-in-time snapshot
+  // (and two revisions of one article are distinguishable).
+  &__article-date
+    display block
+    margin-top 4px
+    font-size 11.5px
+    color $text_med
+
   // Only rendered when the candidates span more than one wiki.
   &__article-wiki
     display block
@@ -184,6 +192,19 @@
     -webkit-box-decoration-break clone
     &:hover
       background-color rgba($brand_primary, .26)
+    // Briefly emphasized when the legend's "next claim" control jumps to it.
+    &--active
+      background-color rgba($brand_primary, .4)
+
+// Footer legend: claim count + jump-to-next control (left of the footer chrome).
+.cv-legend
+  display flex
+  align-items center
+  gap .75em
+  white-space nowrap
+  &__count
+    font-weight 600
+    color $text_dk
 
 // Pick instructions: a prominent banner pinned to the top of the article scroll
 // area (an opaque tint so prose scrolling underneath stays hidden).
@@ -199,6 +220,14 @@
   font-size 1.05em
   font-weight 600
   line-height 1.4
+  p
+    margin 0
+  // The point-in-time notice: secondary to the pick instructions below it.
+  .cv-revision-notice
+    margin-bottom 6px
+    font-size .82em
+    font-weight 400
+    color $text_med
 
 // The claim selection panel floats over the article viewer, above the footer.
 // `.article-viewer` is position:fixed, so this absolute panel anchors to it.

@@ -20,6 +20,30 @@ describe HarvestRevisionClaims do
     HTML
   end
 
+  # A diff that only *invokes* a named ref: its reference-list entry is a Cite
+  # extension error (no usable text/URL) because the definition is elsewhere.
+  let(:named_ref_diff_html) do
+    <<~HTML
+      <p>Topo II is a drug target.<sup class="reference"><a href="#cite_note-:3-1">[1]</a></sup></p>
+      <ol class="references">
+        <li id="cite_note-:3-1"><span class="error mw-ext-cite-error">
+          Cite error: The named reference :3 was invoked but never defined.</span></li>
+      </ol>
+    HTML
+  end
+
+  # The full revision resolves that named ref — note the trailing number differs
+  # (:3-5 vs :3-1), so it can only be matched by ref name.
+  let(:full_html) do
+    <<~HTML
+      <p>Elsewhere.<sup class="reference"><a href="#cite_note-:3-5">[3]</a></sup></p>
+      <ol class="references">
+        <li id="cite_note-:3-5"><span class="reference-text"><cite class="citation journal">
+          <a class="external text" href="https://doi.org/10.1007/x">Kibria (2014)</a>.</cite></span></li>
+      </ol>
+    HTML
+  end
+
   def harvest
     described_class.new(html:, wiki:, subject: 'Sociology', source_course: course,
                         article_title: 'Example', mw_rev_id: 12_345)
@@ -48,6 +72,24 @@ describe HarvestRevisionClaims do
   it 'does not duplicate pool entries when the same revision is re-harvested' do
     harvest
     expect { harvest }.not_to change(VerificationClaim, :count)
+  end
+
+  describe 'a named reference defined elsewhere in the article' do
+    it 'resolves the citation from the full-revision render, matched by ref name' do
+      described_class.new(html: named_ref_diff_html, wiki:, mw_rev_id: 99,
+                          full_html_provider: -> { full_html })
+      claim = VerificationClaim.find_by(ref_id: 'cite_note-:3-1')
+      expect(claim.source_url).to eq('https://doi.org/10.1007/x')
+      expect(claim.offline_source).to be(false)
+      expect(claim.cite_text).to include('Kibria')
+    end
+
+    it 'does not consult the full render when the diff citation already resolves' do
+      provider = -> { raise 'full_html_provider should not be called' }
+      expect do
+        described_class.new(html:, wiki:, mw_rev_id: 1, full_html_provider: provider)
+      end.not_to raise_error
+    end
   end
 
   describe 'student-added provenance' do

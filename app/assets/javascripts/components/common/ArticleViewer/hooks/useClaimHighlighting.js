@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 // Components
 import ClaimSelectionPanel from '@components/common/ArticleViewer/claim_verification/ClaimSelectionPanel.jsx';
+import ClaimLegend from '@components/common/ArticleViewer/claim_verification/ClaimLegend.jsx';
 
 // Helpers
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
+import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_date';
 
 /*
   Claim-verification highlighting feature for the ArticleViewer shell.
@@ -88,10 +90,23 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
       .catch(() => setTaking(false));
   };
 
-  // Instructions render as a prominent banner pinned to the top of the article
-  // (via the shell's `banner` slot), not in the footer legend.
+  // Pinned to the top of the article (the shell's `banner` slot): a notice that
+  // this is the article at the flagged revision (a point in time, not the
+  // current version), plus the claim-picking instructions. Shown only while the
+  // annotated flagged revision is in view.
   const banner = annotatedHtml
-    ? <p className="cv-pick-banner">{I18n.t('claim_verification.pick_instructions')}</p>
+    ? (
+      <div className="cv-pick-banner">
+        {article.mw_rev_timestamp && (
+          <p className="cv-revision-notice">
+            {I18n.t('claim_verification.revision_notice', {
+              date: formatRevisionDate(article.mw_rev_timestamp)
+            })}
+          </p>
+        )}
+        <p>{I18n.t('claim_verification.pick_instructions')}</p>
+      </div>
+    )
     : null;
 
   const overlay = selectedClaim
@@ -105,10 +120,15 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
     )
     : null;
 
+  // Footer legend: the count of highlighted claims plus a jump-to-next control.
+  // Each harvested claim is one `.cv-claim` marker in the annotated HTML.
+  const claimCount = annotatedHtml ? (annotatedHtml.match(/\bcv-claim\b/g) || []).length : 0;
+  const legend = claimCount ? <ClaimLegend count={claimCount} /> : null;
+
   return {
     html: annotatedHtml,
     banner,
-    legend: null,
+    legend,
     buttonLabel: null,
     pending,
     onInnerHTMLClick,

@@ -20,9 +20,9 @@ class HarvestAiEditAlertClaims
 
   def perform
     return unless harvestable?
-    html = revision_diff_html
-    return if html.nil?
-    @claims = harvest(html)
+    diff = GetRevisionHtmlWithCitations.new(@alert.revision_id, wiki, diff_mode: true)
+    return if diff.html.nil?
+    @claims = harvest(diff.html, diff.revision_timestamp)
   end
 
   def harvestable?
@@ -34,17 +34,22 @@ class HarvestAiEditAlertClaims
     @wiki ||= @alert.article&.wiki
   end
 
-  def revision_diff_html
-    GetRevisionHtmlWithCitations.new(@alert.revision_id, wiki, diff_mode: true).html
-  end
-
-  def harvest(html)
+  def harvest(html, mw_rev_timestamp)
     article = @alert.article
     HarvestRevisionClaims.new(
       html:, wiki:, subject: @alert.course&.subject, article:,
       article_title: article.title, mw_rev_id: @alert.revision_id,
-      source_course: @alert.course, courses_user:, alert: @alert
+      source_course: @alert.course, courses_user:, alert: @alert,
+      mw_rev_timestamp:, full_html_provider: -> { full_revision_html }
     ).claims
+  end
+
+  # The full revision rendered with all references resolved — used by
+  # HarvestRevisionClaims to recover citations for named refs that the diff
+  # only invoked (it fetches this lazily, so it costs nothing when every
+  # cited ref was defined within the diff).
+  def full_revision_html
+    GetRevisionHtmlWithCitations.new(@alert.revision_id, wiki, diff_mode: false).html
   end
 
   def courses_user

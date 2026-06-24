@@ -12,6 +12,7 @@ json.articles @tiles do |tile|
   article = tile.article
   json.id article.id
   json.mw_rev_id tile.mw_rev_id
+  json.mw_rev_timestamp tile.mw_rev_timestamp
   json.claim_count tile.claim_count
   json.title article.full_title
   json.language article.wiki.language

@@ -49,6 +49,19 @@ class WikiApi
       resp.data.dig('pages', page_id, 'revisions')&.first&.dig('parentid')
     end
 
+    # Returns { parent_id:, timestamp: } for +rev_id+ in a single query — the
+    # parent revision id and the revision's ISO8601 edit timestamp — or nil if
+    # the revision is missing/deleted. One query yields both, so callers that
+    # need the parent (eg to diff) get the timestamp for free.
+    def revision_metadata(rev_id)
+      params = { prop: 'revisions', revids: rev_id, rvprop: 'ids|timestamp' }
+      resp = @wiki_api.query(params)
+      return if resp.nil? || resp.data['badrevids'].present?
+      page_id = resp.data['pages'].keys.first
+      rev = resp.data.dig('pages', page_id, 'revisions')&.first
+      rev && { parent_id: rev['parentid'], timestamp: rev['timestamp'] }
+    end
+
     # Returns parent revision IDs for a batch of +rev_ids+.
     # Used by RevisionScoreImporter.
     # Returns a hash { mw_rev_id => parent_id_string } or nil on failure.
