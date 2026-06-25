@@ -13,6 +13,12 @@ module ClaimVerification
   #   render (a named ref defined elsewhere) — it renders as a cite error
   Citation = Data.define(:ref_id, :cite_html, :cite_text, :urls, :archive_urls,
                          :unresolved) do
+    # `unresolved` defaults to false so callers that don't track resolution
+    # state (eg source fetching) can construct a Citation without it.
+    def initialize(unresolved: false, **rest)
+      super(unresolved:, **rest)
+    end
+
     # The MediaWiki named-ref name embedded in a cite_note id, eg
     # 'cite_note-:3-1' -> ':3', 'cite_note-Smith-2' -> 'Smith'. The trailing
     # number differs between renders, so matching on the name links a citation

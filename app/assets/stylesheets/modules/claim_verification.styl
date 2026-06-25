@@ -205,6 +205,10 @@
   &__count
     font-weight 600
     color $text_dk
+  // While the highlights are still loading.
+  &--pending &__count
+    font-weight 400
+    color $text_med
 
 // Pick instructions: a prominent banner pinned to the top of the article scroll
 // area (an opaque tint so prose scrolling underneath stays hidden).

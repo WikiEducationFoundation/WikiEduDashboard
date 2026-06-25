@@ -16,12 +16,13 @@ import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_d
   `cv-claim` + data attributes), responding to clicks on those markers, and
   rendering the selection panel where the student takes a claim on.
 
-  It plugs into ArticleViewerShell as that shell's injected highlight feature,
-  with the same contract as useAuthorshipHighlighting: the shell drives it via
-  `parsedSettle` (bumped when the shell's parsed-article fetch settles, after
-  redirect resolution) and `revisionId`, and renders what this hook returns —
-  `{ html, legend, buttonLabel, pending, onInnerHTMLClick, overlay }`. The shell
-  knows nothing about claims.
+  It plugs into ArticleViewerShell as that shell's injected highlight feature and
+  renders what this hook returns — `{ html, legend, buttonLabel, pending,
+  onInnerHTMLClick, overlay }`. The shell knows nothing about claims. Unlike
+  useAuthorshipHighlighting (which waits for `parsedSettle` because it needs the
+  redirect-resolved title), this hook keys on `isOpen` + `revisionId`: the
+  annotation endpoint identifies the article by id, so it can fetch in parallel
+  with the shell's parse rather than after it.
 
   Taking a claim is an async POST; on success the hook calls `onTaken` with the
   resulting assignment so the exercise can transition to the taken-claim view
@@ -32,20 +33,22 @@ import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_d
   and clear it when the student toggles to the current version (which carries no
   harvested claims). A failed parse or fetch also leaves the plain article in place.
 */
-const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTaken }) => {
+const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) => {
   const [annotatedHtml, setAnnotatedHtml] = useState(null);
   const [selectedClaim, setSelectedClaim] = useState(null);
   const [pending, setPending] = useState(false);
   const [taking, setTaking] = useState(false);
 
-  // Fetch the annotated article once the shell's parse settles for the flagged
-  // revision. Toggling to the current version (revisionId null) clears the
-  // annotation (no harvested claims there); a failed parse or fetch leaves the
-  // plain article in place.
+  // Fetch the annotated article as soon as the viewer opens at a flagged
+  // revision — in parallel with the shell's own parse, not after it. The
+  // annotation endpoint keys on article id + revision (not the resolved title),
+  // so it needn't wait for parse to settle; firing it concurrently lets the
+  // highlights and legend arrive with the article instead of a round-trip later.
+  // Toggling to the current version (revisionId null) clears the annotation
+  // (no harvested claims there); a failed fetch leaves the plain article.
   useEffect(() => {
-    if (!parsedSettle) { return; }
     setSelectedClaim(null);
-    if (!parsedSettle.ok || !revisionId) {
+    if (!isOpen || !revisionId) {
       setAnnotatedHtml(null);
       return;
     }
@@ -60,7 +63,7 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
         setAnnotatedHtml(null);
         setPending(false);
       });
-  }, [parsedSettle?.id, revisionId]);
+  }, [isOpen, revisionId]);
 
   // Delegated click on the injected HTML: select the claim whose tagged citation
   // marker was clicked. Non-marker clicks (other article links) are ignored.
@@ -120,10 +123,13 @@ const useClaimHighlighting = ({ article, course, revisionId, parsedSettle, onTak
     )
     : null;
 
-  // Footer legend: the count of highlighted claims plus a jump-to-next control.
+  // Footer legend: while the annotation loads, a "loading claims" indicator;
+  // once it arrives, the count of highlighted claims plus a jump-to-next control.
   // Each harvested claim is one `.cv-claim` marker in the annotated HTML.
   const claimCount = annotatedHtml ? (annotatedHtml.match(/\bcv-claim\b/g) || []).length : 0;
-  const legend = claimCount ? <ClaimLegend count={claimCount} /> : null;
+  const legend = revisionId && (pending || claimCount)
+    ? <ClaimLegend count={claimCount} pending={pending} />
+    : null;
 
   return {
     html: annotatedHtml,

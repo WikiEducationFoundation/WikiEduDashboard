@@ -1646,6 +1646,7 @@ en:
       one: "%{count} claim highlighted"
       other: "%{count} claims highlighted"
     next_claim: Next claim
+    loading_claims: Loading claims…
     claim: Claim
     cited_source: Cited source
     source_url: Source URL
