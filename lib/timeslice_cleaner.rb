@@ -3,8 +3,39 @@
 #= Removes/resets ArticleCourseTimeslice, CourseUserWikiTimeslice, CourseWikiTimeslice
 #= and ArticleCourseUserWikiTimeslice records.
 class TimesliceCleaner
+  # Number of records deleted per batch when bulk-deleting timeslices.
+  TIMESLICE_DELETE_BATCH_SIZE = 5000
+
   def initialize(course)
     @course = course
+  end
+
+  # Deletes every timeslice record for the course across the four timeslice
+  # tables (ACUWT, ACT, CUWT, CWT). Used both when fully deleting a course and
+  # when purging timeslices for old courses that are no longer updated.
+  # Deletes in primary-key batches so each transaction stays small and ids are
+  # never loaded into memory wholesale.
+  def delete_all_timeslices_for_course
+    delete_all_article_course_user_wiki_timeslices
+    delete_all_article_course_timeslices
+    delete_all_course_user_wiki_timeslices
+    delete_all_course_wiki_timeslices
+  end
+
+  def delete_all_article_course_user_wiki_timeslices
+    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course))
+  end
+
+  def delete_all_article_course_timeslices
+    delete_in_batches(ArticleCourseTimeslice.where(course: @course))
+  end
+
+  def delete_all_course_user_wiki_timeslices
+    delete_in_batches(CourseUserWikiTimeslice.where(course: @course))
+  end
+
+  def delete_all_course_wiki_timeslices
+    delete_in_batches(CourseWikiTimeslice.where(course: @course))
   end
 
   # Deletes course user wiki timeslices records for removed course users
@@ -295,26 +326,33 @@ class TimesliceCleaner
     delete_article_course_timeslice_ids(timeslice_ids)
   end
 
+  # Deletes all records matching the relation in primary-key batches, without
+  # loading the ids into memory. Each batch is its own statement, so InnoDB
+  # purge and replication can keep up between batches.
+  def delete_in_batches(relation)
+    relation.in_batches(of: TIMESLICE_DELETE_BATCH_SIZE).delete_all
+  end
+
   def delete_article_course_user_wiki_timeslice_ids(ids)
-    ids.each_slice(5000) do |slice|
+    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
       ArticleCourseUserWikiTimeslice.where(id: slice).delete_all
     end
   end
 
   def delete_article_course_timeslice_ids(ids)
-    ids.each_slice(5000) do |slice|
+    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
       ArticleCourseTimeslice.where(id: slice).delete_all
     end
   end
 
   def delete_course_wiki_timeslice_ids(ids)
-    ids.each_slice(5000) do |slice|
+    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
       CourseWikiTimeslice.where(id: slice).delete_all
     end
   end
 
   def delete_course_user_wiki_timeslice_ids(ids)
-    ids.each_slice(5000) do |slice|
+    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
       CourseUserWikiTimeslice.where(id: slice).delete_all
     end
   end
