@@ -141,7 +141,7 @@ class TimesliceCleaner
   # - Marking timeslices as needs_update for dates with associated article course timeslices
   # - Deleting given article course timeslices if no soft
   # - Deleting course user wiki timeslices for those dates and wikis
-  # Takes a collection of article course timeslices
+  # Takes an ActiveRecord::Relation of article course timeslices
   def reset_timeslices_that_need_update_from_article_timeslices(timeslices,
                                                                 wiki: nil,
                                                                 soft: false)
@@ -161,8 +161,7 @@ class TimesliceCleaner
     # Update all CourseWikiTimeslice records with matching course, wiki and start dates
     course_wiki_timeslices.update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
 
-    # `timeslices` may be a plain Array (not a relation), so delete by id.
-    delete_in_batches(ArticleCourseTimeslice.where(id: timeslices.pluck(:id))) unless soft
+    delete_in_batches(timeslices) unless soft
 
     # Perform the query using raw SQL for specific (wiki_id, start_date) pairs
     cuw_imeslices = CourseUserWikiTimeslice.where(course: @course)

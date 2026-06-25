@@ -144,13 +144,12 @@ class UpdateTimeslicesCourseUser
     ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
   end
 
-  # Returns ArticleCourseTimeslice records that have edits from users
+  # Returns an ArticleCourseTimeslice relation with edits from the given users
   def get_article_course_timeslices_for_users(user_ids)
-    timeslices = user_ids.map do |user_id|
-      ArticleCourseTimeslice.search_by_course_and_user(@course, user_id)
-    end
+    return ArticleCourseTimeslice.none if user_ids.empty?
 
     # These are the ArticleCourseTimeslice records that were updated by users
-    timeslices.flatten
+    user_ids.map { |user_id| ArticleCourseTimeslice.search_by_course_and_user(@course, user_id) }
+            .reduce(:or)
   end
 end
