@@ -33,9 +33,12 @@ import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_d
   and clear it when the student toggles to the current version (which carries no
   harvested claims). A failed parse or fetch also leaves the plain article in place.
 */
+const SCROLLBOX = '#article-scrollbox-id';
+
 const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) => {
   const [annotatedHtml, setAnnotatedHtml] = useState(null);
   const [selectedClaim, setSelectedClaim] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(null);
   const [pending, setPending] = useState(false);
   const [taking, setTaking] = useState(false);
 
@@ -48,6 +51,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
   // (no harvested claims there); a failed fetch leaves the plain article.
   useEffect(() => {
     setSelectedClaim(null);
+    setActiveIndex(null);
     if (!isOpen || !revisionId) {
       setAnnotatedHtml(null);
       return;
@@ -65,25 +69,82 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
       });
   }, [isOpen, revisionId]);
 
-  // Delegated click on the injected HTML: select the claim whose tagged citation
-  // marker was clicked. Non-marker clicks (other article links) are ignored.
+  const claimNodes = () => [...document.querySelectorAll(`${SCROLLBOX} .cv-claim`)];
+
+  // Scroll a claim to just below the sticky banner. A plain
+  // scrollIntoView({block:'start'}) lands it at the scrollbox top — *under* the
+  // pinned banner, so it reads as "scrolled too far / not visible". Instead,
+  // position it against the scrollbox top offset by the banner's actual height,
+  // which also keeps it clear of the bottom selection panel.
+  const scrollClaimIntoView = (el) => {
+    const box = document.querySelector(SCROLLBOX);
+    if (!box) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    const banner = box.querySelector('.cv-pick-banner');
+    const offset = (banner ? banner.getBoundingClientRect().height : 0) + 16;
+    const top = box.scrollTop + el.getBoundingClientRect().top
+      - box.getBoundingClientRect().top - offset;
+    box.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+  };
+
+  // Mark the claim at `index` active (the bordered state) — the single source of
+  // truth for which claim is current, shared by clicking, keyboard activation
+  // and the legend's prev/next. Wraps around the ends. Optionally scrolls it into
+  // view (below the banner, above the bottom panel).
+  const activateClaim = (index, { scroll = false } = {}) => {
+    const claims = claimNodes();
+    if (!claims.length) { return null; }
+    const i = ((index % claims.length) + claims.length) % claims.length;
+    claims.forEach((el, j) => el.classList.toggle('cv-claim--active', j === i));
+    if (scroll) { scrollClaimIntoView(claims[i]); }
+    setActiveIndex(i);
+    return claims[i];
+  };
+
+  const selectClaim = (marker) => setSelectedClaim({
+    claimId: marker.getAttribute('data-claim-id'),
+    sentence: marker.getAttribute('data-sentence'),
+    refId: marker.getAttribute('data-ref-id'),
+    citeText: marker.getAttribute('data-cite-text'),
+    sourceUrl: marker.getAttribute('data-source-url'),
+  });
+
+  const openClaim = (marker) => {
+    activateClaim(claimNodes().indexOf(marker), { scroll: true });
+    selectClaim(marker);
+  };
+
+  // Delegated click on the injected HTML: open the claim whose tagged marker was
+  // clicked. Non-marker clicks (other article links) are ignored.
   const onInnerHTMLClick = (event) => {
     const marker = event.target.closest('.cv-claim');
     if (!marker) { return; }
     event.preventDefault();
-    // Mark the clicked claim active (bordered), clearing any previously active
-    // one — shares the legend's "next claim" cursor, so jumping continues from
-    // the claim you clicked.
-    document.querySelectorAll('#article-scrollbox-id .cv-claim--active')
-      .forEach(el => el.classList.remove('cv-claim--active'));
-    marker.classList.add('cv-claim--active');
-    setSelectedClaim({
-      claimId: marker.getAttribute('data-claim-id'),
-      sentence: marker.getAttribute('data-sentence'),
-      refId: marker.getAttribute('data-ref-id'),
-      citeText: marker.getAttribute('data-cite-text'),
-      sourceUrl: marker.getAttribute('data-source-url'),
-    });
+    openClaim(marker);
+  };
+
+  // The claim markers are focusable buttons (role=button, tabindex=0), so handle
+  // Enter/Space for keyboard users; the browser fires no click for non-anchors.
+  const onInnerHTMLKeyDown = (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') { return; }
+    const marker = event.target.closest('.cv-claim');
+    if (!marker) { return; }
+    event.preventDefault();
+    openClaim(marker);
+  };
+
+  // Legend prev/next: step the active claim, wrapping. From no selection, "next"
+  // goes to the first claim and "previous" to the last.
+  const goToClaim = (delta) => {
+    const start = activeIndex == null ? (delta > 0 ? -1 : 0) : activeIndex;
+    activateClaim(start + delta, { scroll: true });
+  };
+
+  // Closing the panel returns focus to the claim it was opened from, so keyboard
+  // users aren't dropped back at the top of the document.
+  const closePanel = () => {
+    setSelectedClaim(null);
+    const claims = claimNodes();
+    if (activeIndex != null && claims[activeIndex]) { claims[activeIndex].focus(); }
   };
 
   // Take the selected (already-harvested) claim on by id, then hand the new
@@ -124,17 +185,26 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
         claim={selectedClaim}
         onTake={takeClaim}
         taking={taking}
-        onClose={() => setSelectedClaim(null)}
+        onClose={closePanel}
       />
     )
     : null;
 
   // Footer legend: while the annotation loads, a "loading claims" indicator;
-  // once it arrives, the count of highlighted claims plus a jump-to-next control.
-  // Each harvested claim is one `.cv-claim` marker in the annotated HTML.
+  // once it arrives, the count of highlighted claims, the current position, and
+  // prev/next controls to step through them. Each harvested claim is one
+  // `.cv-claim` marker in the annotated HTML.
   const claimCount = annotatedHtml ? (annotatedHtml.match(/\bcv-claim\b/g) || []).length : 0;
   const legend = revisionId && (pending || claimCount)
-    ? <ClaimLegend count={claimCount} pending={pending} />
+    ? (
+      <ClaimLegend
+        total={claimCount}
+        activeIndex={activeIndex}
+        onPrev={() => goToClaim(-1)}
+        onNext={() => goToClaim(1)}
+        pending={pending}
+      />
+    )
     : null;
 
   return {
@@ -144,6 +214,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
     buttonLabel: null,
     pending,
     onInnerHTMLClick,
+    onInnerHTMLKeyDown,
     overlay,
   };
 };

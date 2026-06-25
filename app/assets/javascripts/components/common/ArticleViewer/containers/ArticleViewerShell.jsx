@@ -43,7 +43,7 @@ import { crossCheckArticleTitle } from '@actions/article_actions';
 */
 const noopHighlightFeature = () => ({
   html: null, banner: null, legend: null, buttonLabel: null, pending: false,
-  onInnerHTMLClick: undefined, overlay: null,
+  onInnerHTMLClick: undefined, onInnerHTMLKeyDown: undefined, overlay: null,
 });
 
 const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonLabel,
@@ -278,7 +278,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
           {feature.banner}
           {
             fetched
-              ? <ParsedArticle html={feature.html || parsedArticle} onInnerHTMLClick={feature.onInnerHTMLClick} />
+              ? <ParsedArticle html={feature.html || parsedArticle} onInnerHTMLClick={feature.onInnerHTMLClick} onInnerHTMLKeyDown={feature.onInnerHTMLKeyDown} />
               : <Loading />
           }
         </div>

@@ -2,7 +2,7 @@ name: 'Fact verification'
 id: 86
 kind: 'exercise'
 description: |
-  In this exercise, you'll fact-check a claim from a live Wikipedia article to see if the cited source backs it up.
+  In this exercise, you'll fact-check a claim added to a real Wikipedia article to see if the cited source backs it up.
 slides:
   - slug: about-fact-verification # 8601
   - slug: do-fact-verification # 8602

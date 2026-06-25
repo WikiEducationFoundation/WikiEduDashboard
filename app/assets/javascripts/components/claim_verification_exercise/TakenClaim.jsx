@@ -58,8 +58,7 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
 
       <section className="claim-verification-exercise__sandbox">
         <p>
-          [COPY — instructions: open your sandbox (it will be preloaded with a
-          worksheet) and write whether the source supports the claim, with reasoning]
+          Complete this exercise in your Wikipedia sandbox.
         </p>
         <a
           href={sandboxUrl}

@@ -22,7 +22,11 @@ module ClaimVerification
     def wrap
       nodes = sentence_nodes
       return false if nodes.empty?
-      span = nodes.first.document.create_element('span', class: 'cv-claim')
+      # role=button + tabindex make the highlighted claim a real, focusable
+      # control so it can be reached and activated by keyboard / screen reader;
+      # the wrapped sentence text is the control's accessible name.
+      span = nodes.first.document.create_element('span', class: 'cv-claim',
+                                                 role: 'button', tabindex: '0')
       @data.each { |key, value| span[key] = value if value }
       nodes.first.add_previous_sibling(span)
       nodes.each { |node| span.add_child(node) }

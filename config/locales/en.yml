@@ -1639,13 +1639,15 @@ en:
     wiki_source: "wiki source"
 
   claim_verification:
-    pick_instructions: Click a highlighted factual claim with an inline citation that you want to verify.
-    revision_notice: You're viewing this article as it appeared on %{date}, not the current version.
+    pick_instructions: Click a highlighted claim to see the citation details.
+    revision_notice: This is the article as of %{date} when the claims were added.
     tile_revision_date: as of %{date}
     claims_highlighted:
       one: "%{count} claim highlighted"
       other: "%{count} claims highlighted"
     next_claim: Next claim
+    previous_claim: Previous claim
+    claim_position: Claim %{current} of %{total}
     loading_claims: Loading claims…
     claim: Claim
     cited_source: Cited source

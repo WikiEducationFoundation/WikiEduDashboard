@@ -186,13 +186,20 @@
 .parsed-article
   .cv-claim
     cursor pointer
-    background-color rgba($brand_primary, .14)
+    background-color rgba($brand_primary, .2)
     border-radius 2px
     box-decoration-break clone
     -webkit-box-decoration-break clone
+    // Non-color affordance: an underline marks these as interactive targets,
+    // distinct from ordinary citation links — a faint tint alone is easy to miss
+    // and fails WCAG "use of color".
+    border-bottom 2px solid rgba($brand_primary, .65)
     &:hover
-      background-color rgba($brand_primary, .26)
-    // The active claim (clicked, or jumped to via the legend) is marked with a
+      background-color rgba($brand_primary, .32)
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 2px
+    // The active claim (clicked, jumped to, or arrowed to) is marked with a
     // border rather than a darker fill, so it stands out without relying on
     // shade. An inset shadow draws a border per line fragment without reflowing
     // the article text.
@@ -204,7 +211,8 @@
     .cv-claim, .cv-claim:hover
       background-color transparent
 
-// Footer legend: claim count + jump-to-next control (left of the footer chrome).
+// Footer legend: claim count + position + prev/next controls (left of the
+// footer's utility chrome).
 .cv-legend
   display flex
   align-items center
@@ -213,6 +221,25 @@
   &__count
     font-weight 600
     color $text_dk
+  &__nav
+    display inline-flex
+    gap .4em
+  // Task-navigation buttons, styled distinctly from the footer's utility
+  // buttons (View on wiki / Print) and dark enough for AA contrast with white
+  // text (the shared .button.dark periwinkle falls just short).
+  &__btn
+    border 0
+    border-radius 3px
+    padding 5px 12px
+    background darken($brand_primary, 16%)
+    color #fff
+    font-size .9em
+    cursor pointer
+    &:hover
+      background darken($brand_primary, 24%)
+    &:focus-visible
+      outline 2px solid $text_dk
+      outline-offset 1px
   // While the highlights are still loading.
   &--pending &__count
     font-weight 400
@@ -226,7 +253,9 @@
   z-index 5
   margin 0
   padding 13px 18px
-  background lighten($brand_primary, 34%)
+  // A paler band than before: lets the bold instruction carry the emphasis
+  // rather than the fill, and gives dark text plenty of contrast.
+  background lighten($brand_primary, 40%)
   border-bottom 1px solid rgba($brand_primary, .4)
   color $text_dk
   font-size 1.05em
@@ -234,12 +263,13 @@
   line-height 1.4
   p
     margin 0
-  // The point-in-time notice: secondary to the pick instructions below it.
+  // The point-in-time notice: secondary to the instruction below it, but still
+  // dark enough for AA contrast (was $text_med, which failed on the band).
   .cv-revision-notice
     margin-bottom 6px
     font-size .82em
     font-weight 400
-    color $text_med
+    color $text_dk
 
 // The claim selection panel floats over the article viewer, above the footer.
 // `.article-viewer` is position:fixed, so this absolute panel anchors to it.

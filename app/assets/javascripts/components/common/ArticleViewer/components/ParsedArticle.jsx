@@ -5,24 +5,25 @@ import PropTypes from 'prop-types';
 const httpLinkMatcher = /(<a href="http)/g;
 const blankTargetLink = '<a target="_blank" href="http';
 
-export const ParsedArticle = ({ html, onInnerHTMLClick }) => {
+export const ParsedArticle = ({ html, onInnerHTMLClick, onInnerHTMLKeyDown }) => {
   // This sets `target="_blank"` for all of the non-anchor links in the article HTML,
   // so that clicking one will open it in a new tab.
   const articleHTML = html?.replace(httpLinkMatcher, blankTargetLink);
 
-  // `onInnerHTMLClick` lets a highlight feature respond to clicks on the injected
-  // HTML (e.g. claim verification clicking a tagged citation marker). React's
-  // synthetic events bubble from dangerouslySetInnerHTML content to this onClick,
-  // so the feature can delegate via event.target.closest(...). Omitted by features
-  // that don't need it (authorship, the default no-op), leaving plain rendering.
-  // This div is a delegation root, not itself a control: the real interactive
-  // targets in the injected HTML are native <a> elements, so keyboard activation
-  // (Enter) already fires a click that bubbles here — hence the a11y disable.
+  // `onInnerHTMLClick`/`onInnerHTMLKeyDown` let a highlight feature respond to
+  // clicks and keyboard activation on the injected HTML (e.g. claim verification
+  // tagging citation markers as focusable buttons). React's synthetic events
+  // bubble from dangerouslySetInnerHTML content to these handlers, so the feature
+  // can delegate via event.target.closest(...). Native <a> links activate with
+  // Enter (firing a click) on their own; the keydown handler covers the
+  // role="button" claim spans, which need Enter/Space handled explicitly. Both
+  // are omitted by features that don't need them (authorship, the default no-op).
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       className="parsed-article"
       onClick={onInnerHTMLClick}
+      onKeyDown={onInnerHTMLKeyDown}
       dangerouslySetInnerHTML={{ __html: articleHTML }}
     />
   );
@@ -30,7 +31,8 @@ export const ParsedArticle = ({ html, onInnerHTMLClick }) => {
 
 ParsedArticle.propTypes = {
   html: PropTypes.string,
-  onInnerHTMLClick: PropTypes.func
+  onInnerHTMLClick: PropTypes.func,
+  onInnerHTMLKeyDown: PropTypes.func
 };
 
 export default ParsedArticle;

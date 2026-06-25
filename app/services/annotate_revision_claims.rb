@@ -64,8 +64,13 @@ class AnnotateRevisionClaims
   end
 
   # Fallback: tag just the citation marker when the sentence can't be located.
+  # Make it a focusable control and give it the sentence as its accessible name,
+  # since the bare "[n]" marker text would tell a screen-reader user nothing.
   def tag(marker, data)
     marker['class'] = "#{marker['class']} cv-claim".strip
+    marker['role'] = 'button'
+    marker['tabindex'] = '0'
+    marker['aria-label'] = data['data-sentence'] if data['data-sentence']
     data.each { |key, value| marker[key] = value if value }
   end
 
