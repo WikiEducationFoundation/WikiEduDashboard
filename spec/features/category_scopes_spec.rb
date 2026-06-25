@@ -6,6 +6,16 @@ describe 'Tracked categories and templates', js: true do
   let(:course) { create(:course, type: 'ArticleScopedProgram') }
   let(:user) { create(:user) }
 
+  def choose_select_option(selector, search_text, option_text, exact_text: false)
+    find(:css, "#{selector} input").set(search_text)
+    option_selector = "#{selector} div[class*=\"option\"]"
+    match_opts = { text: option_text }
+    match_opts[:exact_text] = true if exact_text
+
+    expect(page).to have_css(option_selector, match_opts)
+    find(:css, option_selector, wait: 10, **match_opts).click
+  end
+
   before do
     JoinCourse.new(course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as user
@@ -16,16 +26,14 @@ describe 'Tracked categories and templates', js: true do
     visit "/courses/#{course.slug}/articles"
     expect(page).to have_content 'Tracked Categories'
     click_button 'Add category'
-    find(:css, '#categories input').set('Earth ')
-    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    choose_select_option('#categories', 'Earth ', 'Earth sciences')
     click_button 'Add categories'
     click_button 'OK'
     expect(page).to have_content 'Category:Earth'
 
     # Re-add the same category
     click_button 'Add category'
-    find(:css, '#categories input').set('Earth ')
-    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    choose_select_option('#categories', 'Earth ', 'Earth sciences')
     click_button 'Add categories'
     click_button 'OK'
 
@@ -37,8 +45,7 @@ describe 'Tracked categories and templates', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add template'
 
-    find(:css, '#templates input').set('Earth ')
-    find(:css, '#templates div[class*="option"]', text: 'Earth mass').click
+    choose_select_option('#templates', 'Earth ', 'Earth mass')
 
     click_button 'Add Templates'
     click_button 'OK'
@@ -49,10 +56,8 @@ describe 'Tracked categories and templates', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add category'
 
-    find(:css, '#categories input').set('Earth ')
-    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
-    find(:css, '#categories input').set('Apple ')
-    find(:css, '#categories div[class*="option"]', text: 'en:Apple', exact_text: true).click
+    choose_select_option('#categories', 'Earth ', 'Earth sciences')
+    choose_select_option('#categories', 'Apple ', 'en:Apple', exact_text: true)
 
     click_button 'Add categories'
     click_button 'OK'
@@ -63,14 +68,11 @@ describe 'Tracked categories and templates', js: true do
   it 'lets a facilitator add multiple categories from different wikis at once' do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add category'
-    find(:css, '#categories input').set('Earth ')
-    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    choose_select_option('#categories', 'Earth ', 'Earth sciences')
 
-    find(:css, '.multi-wiki-selector input').set('fr')
-    find(:css, '.multi-wiki-selector div[class*="option"]', text: 'fr.wikipedia.org').click
+    choose_select_option('.multi-wiki-selector', 'fr', 'fr.wikipedia.org')
 
-    find(:css, '#categories input').set('Matériel Apple ')
-    find(:css, '#categories div[class*="option"]', text: 'fr:Matériel Apple', exact_text: true).click # rubocop:disable Layout/LineLength
+    choose_select_option('#categories', 'Matériel Apple ', 'fr:Matériel Apple', exact_text: true)
 
     click_button 'Add categories'
     click_button 'OK'
@@ -82,10 +84,8 @@ describe 'Tracked categories and templates', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add template'
 
-    find(:css, '#templates input').set('Earth ')
-    find(:css, '#templates div[class*="option"]', text: 'Earth mass').click
-    find(:css, '#templates input').set('Apple Inc. ')
-    find(:css, '#templates div[class*="option"]', text: 'en:Apple Inc.', exact_text: true).click
+    choose_select_option('#templates', 'Earth ', 'Earth mass')
+    choose_select_option('#templates', 'Apple Inc. ', 'en:Apple Inc.', exact_text: true)
 
     click_button 'Add Templates'
     click_button 'OK'
@@ -97,14 +97,11 @@ describe 'Tracked categories and templates', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add template'
 
-    find(:css, '#templates input').set('Earth ')
-    find(:css, '#templates div[class*="option"]', text: 'Earth mass').click
+    choose_select_option('#templates', 'Earth ', 'Earth mass')
 
-    find(:css, '.multi-wiki-selector input').set('fr')
-    find(:css, '.multi-wiki-selector div[class*="option"]', text: 'fr.wikipedia.org').click
+    choose_select_option('.multi-wiki-selector', 'fr', 'fr.wikipedia.org')
 
-    find(:css, '#templates input').set('Palette Apple ')
-    find(:css, '#templates div[class*="option"]', text: 'fr:Palette Apple', exact_text: true).click
+    choose_select_option('#templates', 'Palette Apple ', 'fr:Palette Apple', exact_text: true)
 
     click_button 'Add Templates'
     click_button 'OK'
@@ -116,11 +113,9 @@ describe 'Tracked categories and templates', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add category'
 
-    find(:css, '#categories input').set('Earth ')
-    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    choose_select_option('#categories', 'Earth ', 'Earth sciences')
     find(:css, '#category_depth').set('3')
-    find(:css, '#categories input').set('Apple ')
-    find(:css, '#categories div[class*="option"]', text: 'en:Apple', exact_text: true).click
+    choose_select_option('#categories', 'Apple ', 'en:Apple', exact_text: true)
 
     expect(page).to have_content 'en:Earth sciences - 0'
     expect(page).to have_content 'en:Apple - 3'
