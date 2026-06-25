@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 /*
   The student's taken claim: the claim, its cited source, and the handoff to do
   the verification in their Wikipedia sandbox. "Choose a different claim" returns
-  to the picker client-side (no reload).
-
-  The one remaining bracketed [COPY — …] string (the sandbox instructions
-  paragraph) is an operator placeholder whose copy is still pending, so it is
-  intentionally NOT localized yet. The claim and source values are data.
+  to the picker client-side (no reload). The claim and source values are data.
 */
 export const TakenClaim = ({ assignment, onChooseDifferent }) => {
   const { claim, sandbox_url: sandboxUrl } = assignment;
