@@ -9,6 +9,7 @@
 # Author: Bananax47
 # Author: Benoit Rochon
 # Author: C13m3n7
+# Author: Crowwhailord
 # Author: Dcausse
 # Author: Derugon
 # Author: DreZhsh
@@ -29,6 +30,7 @@
 # Author: MacOS Weed
 # Author: Macofe
 # Author: Mahabarata
+# Author: Majda GHARRABOU
 # Author: Melimeli
 # Author: Momo50WM
 # Author: Méthodes Bulebe Hangi
@@ -106,6 +108,8 @@ fr:
     show_current_revision: Affiche la version actuelle.
     show_last_revision: Afficher la dernière version modifiée
     font_label: Police
+    font_sans: sans serif
+    font_serif: Serif
     sign_up_extended: S’inscrire sur Wikipédia
     sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
@@ -120,6 +124,7 @@ fr:
     opt_yes: oui
     opt_no: non
     print: Imprimer
+    sort: Trier
   article_statuses:
     not_yet_started: Commencer
     in_progress: Travailler dans un bac à sable
@@ -329,18 +334,21 @@ fr:
       pouvez utiliser pageviews.toolforge.org pour voir les valeurs exactes.
     view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
+    article_size: Taille de l'article
+    article_size_doc: Taille du wikitexte de l'article (en octets) après chaque modification
     edit_size: Modifier la taille
+    editor_other: Autres éditeurs
+    scoring_status: Récupération des scores pour %{count} modifications
     wiki: Wiki
     wp10: Complétude structurale
     wp10_doc: L’évaluation de la « complétude structurale » mesure le degré d’adéquation
-      d’un article au modèle d’un article mature de Wikipédia, donné par le service
-      d’évaluation objective des versions (https://ores.wikimedia.org/) basé sur l’apprentissage
-      automatique. Ces valeurs sont calculées sur la taille de l’article, le nombre
-      de références et de liens Wiki, ainsi que d’autres caractéristiques de base
-      du texte. Une valeur élevée indique généralement qu’un article suit les conventions
-      de Wikipédia pour la structure d’un bon article, mais il ne prend pas en compte
-      le contenu lui-même. (Ces statistiques ne sont disponibles que pour les articles
-      de l’édition en anglais de Wikipédia).
+      d’un article au modèle d’un article mature de Wikipédia, donné par le "service
+      d’évaluation objective des versions" basé sur l’apprentissage automatique. Ces
+      valeurs sont calculées sur la taille de l’article, le nombre de références et
+      de liens Wiki, ainsi que d’autres caractéristiques de base du texte. Une valeur
+      élevée indique généralement qu’un article suit les conventions de Wikipédia
+      pour la structure d’un bon article, mais il ne prend pas en compte le contenu
+      lui-même.
     articles_short: Articles
     deleted_message: Selon les données du tableau de bord, cette page a été effacée.
       (Dans quelques cas, des déplacements de pages, des fusions d’historique ou d’autres
@@ -1042,6 +1050,7 @@ fr:
     retain_available_articles_info_wikidata: Si activé, la sélection d’un article
       disponible ne le retire pas de la liste, ce qui permet à un groupe d’étudiants
       de sélectionner le même article.
+    retention_predictors: Producteurs de rétention
     review_timeline: 'Veuillez consulter maintenant votre agenda d’affectation et
       y faire les adaptations qui conviennent. Une fois satisfait, soumettez-le pour
       approbation par l’équipe de Wiki Éducation. Une fois cet agenda approuvé, vous
@@ -1059,6 +1068,7 @@ fr:
     start: Démarrer
     start_typing: Commencer à taper
     stay_in_sandbox: Rester dans le bac à sable
+    max_group_size: Taille maximale du groupe
     max_group_size_tooltip: Nombre maximum d'étudiants pouvant travailler sur le même
       article. Laissez le vide pour l'infini.
     student: Étudiant(e)
@@ -1158,6 +1168,10 @@ fr:
     yourcourses: Vos cours
     declined_note: Cette voie a été rejetée. Veuillez contacter le personnel de Wiki
       Education si vous avez des questions.
+    decline_course: Refuser la Formation
+    decline_course_confirm: Êtes-vous sûr(e) de vouloir refuser cette formation ?
+      Cette action archivera la soumission et arrêtera les alertes automatiques de
+      non-soumission pour ce cours.
     survey:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
@@ -1363,6 +1377,8 @@ fr:
       submit_issue_placeholder: Plus vous pourrez fournir de perspective et de détails
         d’expert, mieux ce sera.
       thank_you: Merci ! Contactez votre Expert Wiki si vous avez des questions supplémentaires.
+      quality_problems_button: Problèmes de qualité ?
+      notify_wiki_expert: Notifier l'expert Wiki
     exercises_and_trainings: '%{prefix} Exercices et formations'
     no_assignments: Aucun article n’est affecté à cet(te) étudiant(e) pour le moment.
     can_assign_assignments: Vous pouvez attribuer un article en utilisant les boutons
@@ -1377,6 +1393,9 @@ fr:
       content: pour affecter et voir les affectations de l’article
       content_wikidata: pour affecter et afficher les affectations d’élément
   metrics:
+    editors_doc: C'est le nombre d'utilisateurs uniques qui ont modifié des articles
+      dans la formation.
+    program_date_doc: Voici la date du programme.
     label: Activité du cours
     last_update: Dernière mise à jour des statistiques
     last_articles_update: Mise à jour des derniers articles
@@ -1459,14 +1478,12 @@ fr:
       other: utilisations en tout (dans toutes les langues)
     view_count_description: Articles vus
     view_count_description_wikidata: Vues de l’élément
-    view_count_doc: Il s'agit du nombre estimé de vues basé sur une moyenne de 30
-      jours pour chaque article, à partir de la mise à jour des statistiques la plus
-      récente. Le nombre de vues peut diminuer si la moyenne mise à jour est inférieure
-      aux chiffres précédents.
-    view_count_doc_wikidata: Il s'agit du nombre estimé de vues basé sur une moyenne
-      de 30 jours pour chaque élément, à partir de la mise à jour des statistiques
-      la plus récente. Le nombre de vues peut diminuer si la moyenne mise à jour est
-      inférieure aux chiffres précédents.
+    view_count_doc: Il s'agit du nombre estimé de vues basé sur la moyenne quotidienne
+      de la première révision de l'article au cours de la formation jusqu'à la dernière
+      mise à jour des statistiques.
+    view_count_doc_wikidata: Le nombre estimé de vues basé sur la moyenne quotidienne
+      de la première révision du poste au cours de la formation jusqu'à la dernière
+      mise à jour des statistiques.
     view_data_unavailable: Aucune donnée visible disponible
     view: Vues
     wiki_ed_help: Utiliser le bouton « Obtenir de l’aide » pour signaler un problème.
@@ -1477,6 +1494,7 @@ fr:
     claims: Déclarations
     aliases: Alias
     merged: Fusionné à
+    merged_from: Fusionné à partir de
     created: Créé
     changed: Changé
     removed: Retiré
@@ -1496,6 +1514,18 @@ fr:
       modifiée » ou « Revendication créée ».
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
+    lemmas: Lemms
+    language: Langue
+    lexical_category: Catégorie lexicale
+    forms: Formulaires
+    form_claims: Déclation du formulaire
+    form_references: Référence des formes
+    form_qualifiers: Form qualifier
+    senses: Sens
+    glosses: Gloses
+    sense_claims: Affirmation du sens
+    sense_references: Référence des sens
+    sense_qualifiers: Qualificatifs de sens
   namespace:
     all: Tous
     main: Espace principal
@@ -1578,10 +1608,34 @@ fr:
     see_more: Voir plus
     show_all: Tout afficher
     show_course_specific: Afficher le spécifique au cours
+    course_ended_notification: Cela montre les modifications récentes effectuées par
+      les utilisateurs inscrits, mais les modifications après la "date de fin" ne
+      sont pas comptées dans les statistiques ni reflétées sur l'onglet Articles.
+      Vous pouvez utiliser le filtre "Montrer une formation spécifique" pour limiter
+      la vue à une activité qui s'est produite avant la date de fin.
+    show_only_new_editors: Afficher uniquement les nouveaux rédacteurs
   resources:
     label: Ressources
     header: Ressources et formation
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Création d'une formation
+        default_campaign_setting: Campagne par défaut
+        site_notice_setting: Mentions légales
+        site_notice_preview: Aperçu en direct
+      buttons:
+        add_admin_button: Ajouter un administrateur
+        add_special_user_button: Ajouter un utilisateur spécial
+        configure_site_notice:
+          update_site_notice_button: Mise à jour de l'avis du site
+          enable_button: Activer
+          disable_button: Désactiver
+        update_course_creation_settings: Mettre à jour les paramètres de création
+          de formation
+        update_default_campaign_setting: Mettre à jour la campagne par défaut
+        update_impact_stats: Mettre à jour les statistiques d'impact
+        update_salesforce_credentials: Mettre à jour les accréditations Salesforce
     categories:
       other_settings: Autres paramètres
       impact_stats: Statistiques d'impact
@@ -1624,9 +1678,34 @@ fr:
         revoking_button_working: Révocation en cours...
         already_is_not: '%{username} n’est pas un utilisateur spécial !'
         demote_success: '%{username} est dorénavant un(e) simple utilisateur/trice.'
+    disallowed_users:
+      none: Aucun utilisateur interdit n'est configuré.
+      already_disallowed: Déjà interdit
+      add_to_list: Ajouter à Non autorisé
+      add_button: Ajouter un utilisateur
+      remove_button: Supprimer
+      submit_button: Soumettre
+      title: Utilisateurs non autorisés
+      description: Comptes robots et autres noms d'utilisateurs qui ne devraient pas
+        être inscrits aux cours.
+      add:
+        success: '%{username} ajouté à la liste des utilisateurs non-autorisés.'
+        already_exists: '%{username} figure déjà dans la liste des utilisateurs non
+          autorisés.'
+      remove:
+        success: '%{username} ajouté à la liste des utilisateurs non-autorisés.'
+        not_found: '%{username} ne figure pas dans la liste des utilisateurs non-autorisés.'
+        confirm: Êtes-vous sûr de vouloir supprimer %{username} de la liste des utilisateurs
+          non autorisés ?
+    actions: Actions
   status:
     active_jobs: Tâches en cours
     active_jobs_doc: Le nombre de tâches en cours de traitement.
+    acuwt_update: Mise à jour d'ACUWT
+    acuwt_update_description: ACUWT met à jour les programmes de cours basés sur des
+      articles comportant des milliers d'articles.
+    acuwt_update_doc: Gérer les mise à jour des cours du programme portant sur des
+      articles de grande envergure.
     all_queues_operational: Toutes les files d’attente sont opérationnelles
     all_queues_not_operational: Toutes les files d’attente sont opérationnelles sauf
     constant_update: Mise à jour constante
@@ -1730,6 +1809,7 @@ fr:
     search_bar_placeholder: Recherchez des tickets
     chose_search_type: Choisissez votre type de recherche
   timeline:
+    add_assignment: Ajouter une assignation
     add_week: Ajouter une semaine
     arrange_timeline: Organiser l’agenda
     arrange_timeline_instructions: Organiser l’agenda en « glissant et déposant »
@@ -1794,11 +1874,16 @@ fr:
     save_all_changes: Tout enregistrer
     this_week_title_default: Cette semaine
     title: Agenda
+    too_many_weeks_warning: ATTENTION ! Il n’y a pas assez de semaines sans jours
+      fériés avant la date de fin du devoir ! Vous pouvez cliquer sur « Modifier les
+      dates du cours » pour définir les dates de réunion et les dates de jours fériés.
     unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
       agenda est saturé. Supprimez au moins une semaine ou modifiez vos dates d’affectation
       pour faire de la place pour une nouvelle semaine.
     view_full_timeline: Voir l’intégralité de l’agenda
     week_number: Semaine %{number}
+    add_block: Ajouter un bloc
+    delete_week: Supprimer la semaine
   training:
     continue: Continuer (%{progress})
     start: Démarrer
@@ -1837,6 +1922,12 @@ fr:
     exercise_sandbox: Bac à sable d’exercice
     remaining_exercise: '%{count} exercices supplémentaires restants.'
     view_all: Voir tous les exercices
+    take_your_time: Prenez votre temps !
+    alert_content: Il est très important que vous maîtrisiez parfaitement le contenu
+      de la formation.
+    close: FERMER
+    loading: Chargement en cours...
+    wiki_source: Source du wiki
   update_username:
     header: Mettre à jour un nom d’utilisateur modifié
     not_found: Utilisateur introuvable pour le nom d’utilisateur saisi.
@@ -1871,7 +1962,9 @@ fr:
     uploaded_on: Téléversé le
     usage_count: Nombre d’utilisations
     usage_doc: Nombre d’articles de Wikipédia où apparaît cette image.
-    usage_count_gallery_tile: Utilisé dans %{usage_count} articles
+    usage_count_gallery_tile:
+      one: Utilisé dans 1 article
+      other: Utilisé dans %{count} articles
     usages: Utilisations
     gallery_view: Vue en galerie
     list_view: Vue en liste
@@ -1924,6 +2017,7 @@ fr:
     my_reviewing: 'En cours de relecture :'
     name: Nom
     none: Il n’y a aucun participant.
+    more_articles: Cliquez pour charger les articles modifiés par les utilisateurs
     no_articles: Aucun article
     no_articles_wikidata: Aucun élément
     no_revisions: (aucune révision)
@@ -1998,7 +2092,7 @@ fr:
     ungreeted: Pas le bienvenu
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
-    useremail_placeholder: Courriel
+    useremail_placeholder: Entrez l’adresse de courriel
     userpasscode_placeholder: Code d’accès
     words_added: Mots ajoutés<br /> (article | utilisateur | brouillon)
     word_count_doc: Une estimation de la somme totale de contenu qu’un utilisateur
@@ -2016,6 +2110,10 @@ fr:
       campus_volunteer: Bénévole du campus
       online_volunteer: Bénévole en ligne
       wiki_ed_staff: Équipe de Wiki Éducation
+    email_required_instructor: Cette inscription est obligatoire pour les formateurs
+      actuels. Vous pouvez supprimer votre adresse courriel une fois les formations
+      actuelles terminés.
+    email_invalid: 'Invalide: Veuillez saisir un courriel valide'
   user_profiles:
     student_impact: Impact total fait par %{username} en tant qu’étudiant
     instructor_impact: Impact total fait par %{username} en tant que formateur
@@ -2092,6 +2190,8 @@ fr:
       Cela peut arriver si votre adresse IP est bloquée par Wikipédia ou a déjà atteint
       la limite quotidienne de nouveaux comptes. Essayez de vous connecter à partir
       d’un autre réseau.
+    login_success_download_html: Connexion réussie ! %{link}.
+    download_here: Cliquez ici pour télécharger votre fichier
   error_401:
     explanation: Vous n’avez pas l’autorisation d’exécuter cette requête. Si vous
       pensez avoir reçu cet avis par erreur, veuillez contacter les mainteneurs de
@@ -2122,6 +2222,11 @@ fr:
     explanation: Il semble qu’il y ait eu un problème avec le processus d’inscription.
       (Désolé à ce sujet ! Cela arrive de temps en temps.) Veuillez essayez à nouveau
       de vous connecter ou de vous inscrire.
+  notifications:
+    new_notifications: Vous avez de nouvelles notifications.
+    no_notifications: Vous n’avez aucune nouvelle notification.
+    aria_label:
+      bell: Notifications
   survey:
     login_message: Merci pour votre temps. Veuillez vous connecter au tableau de bord
       pour participer au sondage.
@@ -2333,4 +2438,9 @@ fr:
       weekday_unselected: '{{weekday}} non sélectionné'
   question_groups:
     edit_question_group: Modifier le groupe de questions
+  form_search:
+    search: Rechercher
+    advanced_search: Recherche avancée
+    clear: Effacer
+    program_date: Date du programme
 ...

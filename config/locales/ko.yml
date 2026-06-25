@@ -830,6 +830,7 @@ ko:
       선택할 수 있습니다.
     retain_available_articles_info_wikidata: 활성화하면 사용 가능한 항목을 선택해도 목록에서 제거되지 않아 학생
       그룹이 같은 항목을 선택할 수 있습니다.
+    retention_predictors: 리텐션 예측기
     review_timeline: '이제 과제 일정표를 검토하고 필요에 맞게 수정하세요. 만족스러우면 위키 교육 담당자에게 승인을 요청할 수 있습니다.
       승인이 완료되면 학생들이 과정에 참여하고 교육 자료에 접근할 수 있는 등록 URL을 받게 됩니다. (참고: 나중에 언제든지 편집할 수 있습니다.)'
     revisions_doc: 지난 기간의 일평균 편집 수를 기준으로 추정한 과거 %{timeframe}일 동안의 추정 편집 횟수입니다.
@@ -1206,6 +1207,18 @@ ko:
       추가하는 일부 편집은 "주장 변경" 또는 "주장 생성"으로 분류되기도 합니다.
     restorations_performed: 수행된 복원
     reverts_performed: 수행된 되돌리기
+    lemmas: 기본형
+    language: 언어
+    lexical_category: 어휘 범주
+    forms: 형태
+    form_claims: 형태 주장
+    form_references: 형태 참고문헌
+    form_qualifiers: 형태 한정어
+    senses: 의미
+    glosses: 주석
+    sense_claims: 의미 주장
+    sense_references: 의미 참고문헌
+    sense_qualifiers: 의미 한정어
   namespace:
     all: 모두
     main: (일반) 이름공간
@@ -1367,6 +1380,9 @@ ko:
   status:
     active_jobs: 활성 작업
     active_jobs_doc: 현재 처리 중인 작업 수입니다.
+    acuwt_update: ACUWT 업데이트
+    acuwt_update_description: 수 천개의 문서를 가진 ACUWT 업데이트 프로세스 문서 범위 집중 프로그램 과정입니다.
+    acuwt_update_doc: 큰 문서 범위 집중 프로그램 과정에 대한 업데이트를 처리합니다.
     all_queues_operational: 모든 대기열 정상 작동 중
     all_queues_not_operational: 다음 외의 모든 대기열 정상 작동 중
     constant_update: 지속적인 업데이트

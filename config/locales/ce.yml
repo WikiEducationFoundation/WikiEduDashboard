@@ -241,6 +241,9 @@ ce:
     no_data: Хаамаш бац
     other_updates: Кхин карлайаьхнарш
     qualifiers_added: Спецификаторш тӀетоьхна
+    language: Мотт
+    lexical_category: Лексикин категори
+    forms: Формаш
   namespace:
     main: Коьрта меттиг
     talk: дийцар

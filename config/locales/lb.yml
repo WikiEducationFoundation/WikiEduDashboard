@@ -520,6 +520,8 @@ lb:
     descriptions: Beschreiwungen
     labels: Etiketten
     no_data: Keng Donnéeën
+    language: Sprooch
+    lexical_category: Lexikalesch Kategorie
   namespace:
     all: All
     article: Artikel

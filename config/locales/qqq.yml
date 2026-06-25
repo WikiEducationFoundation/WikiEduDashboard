@@ -7,6 +7,7 @@
 # Author: BaRaN6161 TURK
 # Author: Base
 # Author: Beta16
+# Author: Fredrick Kafuka
 # Author: Hamilton Abreu
 # Author: Ixocactus
 # Author: Kizule
@@ -654,6 +655,7 @@ qqq:
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
+    form_qualifiers: Formaly used
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.

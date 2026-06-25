@@ -834,6 +834,17 @@ it:
     word_count_average: Conteggio medio parole
     general: Generale
     references_added: Riferimenti aggiunti
+    lemmas: Lemmi
+    language: Lingua
+    lexical_category: Categoria lessicale
+    forms: Forme
+    form_claims: Asserzioni della forma
+    form_references: Riferimenti della forma
+    form_qualifiers: Qualificatori della forma
+    senses: Sensi
+    sense_claims: Asserzioni del senso
+    sense_references: Riferimenti del senso
+    sense_qualifiers: Qualificatori del senso
   namespace:
     all: Tutto
     main: Ambiente principale

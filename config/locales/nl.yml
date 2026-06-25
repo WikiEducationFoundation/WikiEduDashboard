@@ -996,6 +996,7 @@ nl:
     retain_available_articles_info_wikidata: Indien ingeschakeld, wordt een beschikbaar
       item niet uit de lijst verwijderd wanneer dit wordt geselecteerd, zodat een
       groep studenten hetzelfde item kan selecteren.
+    retention_predictors: Voorspellers van behoud
     review_timeline: Bekijk nu de tijdlijn van uw opdracht en pas deze aan uw behoeften
       aan. Zodra u tevreden bent kunt u de tijdlijn ter goedkeuring voorleggen aan
       medewerkers van Wiki Education. Na goedkeuring ontvangt u een inschrijvings-url
@@ -1443,6 +1444,18 @@ nl:
       als een "Gewijzigde claim" of "Aangemaakte claim".
     restorations_performed: Uitgevoerde herstellingen
     reverts_performed: Uitgevoerde terugdraaiingen
+    lemmas: Lemma’s
+    language: Taal
+    lexical_category: Lexicale categorie
+    forms: Vormen
+    form_claims: Beweringen over de form
+    form_references: Referenties voor de vorm
+    form_qualifiers: Kwalificaties over de vorm
+    senses: Betekenissen
+    glosses: Glossen
+    sense_claims: Beweringen over de betekenis
+    sense_references: Referenties voor de betekenis
+    sense_qualifiers: Kwalificaties over de betekenis
   namespace:
     all: Alle
     main: Hoofdnaamruimte
@@ -1616,6 +1629,7 @@ nl:
   status:
     active_jobs: Actieve taken
     active_jobs_doc: Het aantal taken dat momenteel wordt verwerkt.
+    acuwt_update: Bijwerken van ACUWT
     all_queues_operational: Alle wachtrijen operationeel
     all_queues_not_operational: Alle wachtrijen operationeel behalve
     constant_update: Constante update
