@@ -37,12 +37,23 @@ module ClaimVerification
       acc = 0
       collected = []
       node = @marker.previous_sibling
-      while node && acc < target
+      # Walk back over the sentence's prose, but stop at an already-highlighted
+      # claim: a sentence must not extend into a previous claim's span. Without
+      # this, when the count falls a little short the walk swallows the whole
+      # neighbouring span (it can't be split), nesting the spans and stacking
+      # their highlight into an ever-darker shade. The previous claim's span ends
+      # exactly where this sentence begins, so the prose gathered up to it is the
+      # sentence even if a few characters short of the segmented length.
+      while node && acc < target && !already_highlighted?(node)
         prev = node.previous_sibling
         acc += consume(node, collected, target - acc)
         node = prev
       end
-      acc >= target ? collected : []
+      acc >= target || already_highlighted?(node) ? collected : []
+    end
+
+    def already_highlighted?(node)
+      node&.element? && node['class'].to_s.split.include?('cv-claim')
     end
 
     # Prepends `node` to the (forward-ordered) sentence run, returning how many

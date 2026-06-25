@@ -192,9 +192,17 @@
     -webkit-box-decoration-break clone
     &:hover
       background-color rgba($brand_primary, .26)
-    // Briefly emphasized when the legend's "next claim" control jumps to it.
+    // The active claim (clicked, or jumped to via the legend) is marked with a
+    // border rather than a darker fill, so it stands out without relying on
+    // shade. An inset shadow draws a border per line fragment without reflowing
+    // the article text.
     &--active
-      background-color rgba($brand_primary, .4)
+      box-shadow inset 0 0 0 2px $brand_primary
+    // Defense in depth: should two claims still genuinely overlap (nested
+    // spans), the inner one doesn't repaint its tint, so the region keeps a
+    // single shade instead of compounding into something darker.
+    .cv-claim, .cv-claim:hover
+      background-color transparent
 
 // Footer legend: claim count + jump-to-next control (left of the footer chrome).
 .cv-legend

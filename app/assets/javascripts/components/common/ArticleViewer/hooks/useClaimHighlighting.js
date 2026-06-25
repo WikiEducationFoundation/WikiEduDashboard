@@ -71,6 +71,12 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
     const marker = event.target.closest('.cv-claim');
     if (!marker) { return; }
     event.preventDefault();
+    // Mark the clicked claim active (bordered), clearing any previously active
+    // one — shares the legend's "next claim" cursor, so jumping continues from
+    // the claim you clicked.
+    document.querySelectorAll('#article-scrollbox-id .cv-claim--active')
+      .forEach(el => el.classList.remove('cv-claim--active'));
+    marker.classList.add('cv-claim--active');
     setSelectedClaim({
       claimId: marker.getAttribute('data-claim-id'),
       sentence: marker.getAttribute('data-sentence'),
