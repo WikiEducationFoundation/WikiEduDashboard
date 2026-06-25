@@ -43,11 +43,7 @@ class TimesliceCleaner
   def delete_course_user_timeslices_for_deleted_course_users(user_ids)
     return if user_ids.empty?
 
-    timeslice_ids = CourseUserWikiTimeslice.where(course: @course, user_id: user_ids).pluck(:id)
-
-    return if timeslice_ids.empty?
-
-    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+    delete_in_batches(CourseUserWikiTimeslice.where(course: @course, user_id: user_ids))
   end
 
   # Deletes course wiki timeslices records for removed course wikis
@@ -72,12 +68,7 @@ class TimesliceCleaner
 
   # Deletes course wiki timeslices records with a date prior to the current start date
   def delete_course_wiki_timeslices_prior_to_start_date
-    # Delete course wiki timeslices
-    timeslice_ids = CourseWikiTimeslice.where(course: @course)
-                                       .where('end <= ?', @course.start)
-                                       .pluck(:id)
-
-    delete_course_wiki_timeslice_ids(timeslice_ids)
+    delete_in_batches(CourseWikiTimeslice.where(course: @course).where('end <= ?', @course.start))
   end
 
   # Deletes course wiki timeslices records with a start date later than the current end date
@@ -88,24 +79,17 @@ class TimesliceCleaner
 
   # Deletes course wiki timeslices records with a start date later than the specific given date
   def delete_course_wiki_timeslices_after_date(wikis, date)
-    # Delete course wiki timeslices
-    timeslice_ids = CourseWikiTimeslice.where(course: @course)
-                                       .where(wiki: wikis)
-                                       .where('start > ?', date)
-                                       .pluck(:id)
-
-    delete_course_wiki_timeslice_ids(timeslice_ids)
+    timeslices = CourseWikiTimeslice.where(course: @course).where(wiki: wikis)
+                                    .where('start > ?', date)
+    delete_in_batches(timeslices)
   end
 
   # Deletes course user wiki timeslices records with a start date later than the
   # specific given date
   def delete_course_user_wiki_timeslices_after_date(wikis, date)
-    timeslice_ids = CourseUserWikiTimeslice.where(course: @course)
-                                           .where(wiki: wikis)
-                                           .where('start > ?', date)
-                                           .pluck(:id)
-
-    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+    timeslices = CourseUserWikiTimeslice.where(course: @course).where(wiki: wikis)
+                                        .where('start > ?', date)
+    delete_in_batches(timeslices)
   end
 
   # Deletes article course timeslices records with a start date later than the
@@ -114,22 +98,15 @@ class TimesliceCleaner
     # Collect the ids of articles to be deleted
     article_ids = @course.articles_from_timeslices(wikis).pluck(:id)
 
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where(article_id: article_ids)
-                                          .where('start > ?', date)
-                                          .pluck(:id)
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    timeslices = ArticleCourseTimeslice.where(course: @course).where(article_id: article_ids)
+                                       .where('start > ?', date)
+    delete_in_batches(timeslices)
   end
 
   # Deletes course user wiki timeslices records with a date prior to the current start date
   def delete_course_user_wiki_timeslices_prior_to_start_date
-    # Delete course user wiki timeslices
-    timeslice_ids = CourseUserWikiTimeslice.where(course: @course)
-                                           .where('end <= ?', @course.start)
-                                           .pluck(:id)
-
-    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+    delete_in_batches(CourseUserWikiTimeslice.where(course: @course)
+                                             .where('end <= ?', @course.start))
   end
 
   # Deletes course user wiki timeslices records with a start date later than the current end date
@@ -157,8 +134,7 @@ class TimesliceCleaner
   def delete_acuwt_for_deleted_course_users(user_ids)
     return if user_ids.empty?
 
-    ids = ArticleCourseUserWikiTimeslice.where(course: @course, user_id: user_ids).pluck(:id)
-    delete_article_course_user_wiki_timeslice_ids(ids)
+    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course, user_id: user_ids))
   end
 
   # Resets course wiki timeslices. This involves:
@@ -185,44 +161,32 @@ class TimesliceCleaner
     # Update all CourseWikiTimeslice records with matching course, wiki and start dates
     course_wiki_timeslices.update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
 
-    delete_article_course_timeslice_ids(timeslices.pluck(:id)) unless soft
+    # `timeslices` may be a plain Array (not a relation), so delete by id.
+    delete_in_batches(ArticleCourseTimeslice.where(id: timeslices.pluck(:id))) unless soft
 
     # Perform the query using raw SQL for specific (wiki_id, start_date) pairs
     cuw_imeslices = CourseUserWikiTimeslice.where(course: @course)
                                            .where("(wiki_id, start) IN (#{tuples_list})")
 
-    delete_course_user_wiki_timeslice_ids(cuw_imeslices.pluck(:id))
+    delete_in_batches(cuw_imeslices)
   end
 
   private
 
   # Deletes existing course wiki timeslices for a collection of wiki ids
   def delete_existing_course_wiki_timeslices(wiki_ids)
-    # Collect the ids of timeslices to be deleted
-    timeslice_ids = CourseWikiTimeslice.where(course_id: @course.id, wiki_id: wiki_ids).pluck(:id)
-
-    return if timeslice_ids.empty?
-
-    delete_course_wiki_timeslice_ids(timeslice_ids)
+    delete_in_batches(CourseWikiTimeslice.where(course_id: @course.id, wiki_id: wiki_ids))
   end
 
   # Deletes existing course user wiki timeslices for a collection of wiki ids
   def delete_existing_course_user_wiki_timeslices(wiki_ids)
-    # Collect the ids of timeslices to be deleted
-    timeslice_ids = CourseUserWikiTimeslice.where(course_id: @course.id,
-                                                  wiki_id: wiki_ids).pluck(:id)
-
-    return if timeslice_ids.empty?
-
-    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+    delete_in_batches(CourseUserWikiTimeslice.where(course_id: @course.id, wiki_id: wiki_ids))
   end
 
   # Deletes existing article course user wiki timeslices for a collection of wiki ids
   def delete_existing_article_course_user_wiki_timeslices(wiki_ids)
-    timeslice_ids = ArticleCourseUserWikiTimeslice.where(course_id: @course.id,
-                                                         wiki_id: wiki_ids).pluck(:id)
-    return if timeslice_ids.empty?
-    delete_article_course_user_wiki_timeslice_ids(timeslice_ids)
+    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course_id: @course.id,
+                                                           wiki_id: wiki_ids))
   end
 
   def mark_timeslices_for_reaggregation(wikis_and_starts)
@@ -241,20 +205,16 @@ class TimesliceCleaner
     tuples = article_starts.map do |article_id, s|
       "(#{article_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
     end.join(', ')
-    act_ids = ArticleCourseTimeslice.where(course: @course)
-                                    .where("(article_id, start) IN (#{tuples})")
-                                    .pluck(:id)
-    delete_article_course_timeslice_ids(act_ids)
+    delete_in_batches(ArticleCourseTimeslice.where(course: @course)
+                                            .where("(article_id, start) IN (#{tuples})"))
   end
 
   def delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
     tuples = wikis_and_starts.map do |wiki_id, s|
       "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
     end.join(', ')
-    cuwt_ids = CourseUserWikiTimeslice.where(course: @course)
-                                      .where("(wiki_id, start) IN (#{tuples})")
-                                      .pluck(:id)
-    delete_course_user_wiki_timeslice_ids(cuwt_ids)
+    delete_in_batches(CourseUserWikiTimeslice.where(course: @course)
+                                             .where("(wiki_id, start) IN (#{tuples})"))
   end
 
   # Deletes existing article course timeslices for a collection of wiki ids
@@ -262,13 +222,7 @@ class TimesliceCleaner
     # Collect the ids of articles to be deleted
     article_ids = @course.articles_from_timeslices(wiki_ids).pluck(:id)
 
-    # Collect the ids of timeslices to be deleted
-    timeslice_ids = ArticleCourseTimeslice.where(course_id: @course.id,
-                                                 article_id: article_ids).pluck(:id)
-
-    return if timeslice_ids.empty?
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    delete_in_batches(ArticleCourseTimeslice.where(course_id: @course.id, article_id: article_ids))
   end
 
   # Returns (wiki, start) tuples for timeslices to reprocess
@@ -291,25 +245,18 @@ class TimesliceCleaner
 
   # Deletes course wiki timeslices records in the period [start_date, end_date]
   def delete_course_wiki_timeslices_for_period(wikis, start_date, end_date)
-    # Delete course wiki timeslices
-    timeslice_ids = CourseWikiTimeslice.where(course: @course)
-                                       .where(wiki: wikis)
-                                       .where('start >= ?', start_date)
-                                       .where('end <= ?', end_date)
-                                       .pluck(:id)
-
-    delete_course_wiki_timeslice_ids(timeslice_ids)
+    timeslices = CourseWikiTimeslice.where(course: @course).where(wiki: wikis)
+                                    .where('start >= ?', start_date)
+                                    .where('end <= ?', end_date)
+    delete_in_batches(timeslices)
   end
 
   # Deletes course user wiki timeslices records in the period [start_date, end_date]
   def delete_course_user_wiki_timeslices_for_period(wikis, start_date, end_date)
-    timeslice_ids = CourseUserWikiTimeslice.where(course: @course)
-                                           .where(wiki: wikis)
-                                           .where('start >= ?', start_date)
-                                           .where('end <= ?', end_date)
-                                           .pluck(:id)
-
-    delete_course_user_wiki_timeslice_ids(timeslice_ids)
+    timeslices = CourseUserWikiTimeslice.where(course: @course).where(wiki: wikis)
+                                        .where('start >= ?', start_date)
+                                        .where('end <= ?', end_date)
+    delete_in_batches(timeslices)
   end
 
   # Deletes article course timeslices records in the period [start_date, end_date]
@@ -317,13 +264,10 @@ class TimesliceCleaner
     # Collect the ids of articles to be deleted
     article_ids = @course.articles_from_timeslices(wikis).pluck(:id)
 
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where(article_id: article_ids)
-                                          .where('start >= ?', start_date)
-                                          .where('end <= ?', end_date)
-                                          .pluck(:id)
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    timeslices = ArticleCourseTimeslice.where(course: @course).where(article_id: article_ids)
+                                       .where('start >= ?', start_date)
+                                       .where('end <= ?', end_date)
+    delete_in_batches(timeslices)
   end
 
   # Deletes all records matching the relation in primary-key batches, without
@@ -331,29 +275,5 @@ class TimesliceCleaner
   # purge and replication can keep up between batches.
   def delete_in_batches(relation)
     relation.in_batches(of: TIMESLICE_DELETE_BATCH_SIZE).delete_all
-  end
-
-  def delete_article_course_user_wiki_timeslice_ids(ids)
-    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
-      ArticleCourseUserWikiTimeslice.where(id: slice).delete_all
-    end
-  end
-
-  def delete_article_course_timeslice_ids(ids)
-    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
-      ArticleCourseTimeslice.where(id: slice).delete_all
-    end
-  end
-
-  def delete_course_wiki_timeslice_ids(ids)
-    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
-      CourseWikiTimeslice.where(id: slice).delete_all
-    end
-  end
-
-  def delete_course_user_wiki_timeslice_ids(ids)
-    ids.each_slice(TIMESLICE_DELETE_BATCH_SIZE) do |slice|
-      CourseUserWikiTimeslice.where(id: slice).delete_all
-    end
   end
 end
