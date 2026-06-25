@@ -6,6 +6,38 @@ describe 'Tracked categories and templates', js: true do
   let(:course) { create(:course, type: 'ArticleScopedProgram') }
   let(:user) { create(:user) }
 
+  def stub_fr_category_search_for_materiel_apple
+    page.execute_script(<<~JS)
+      (function() {
+        if (window.__stubFrCategorySearchInstalled) return;
+        window.__stubFrCategorySearchInstalled = true;
+        const originalFetch = window.fetch.bind(window);
+        window.fetch = function(input, init) {
+          const url = (typeof input === 'string') ? input : input.url;
+          const isFrCategorySearch = url.includes('fr.wikipedia.org/w/api.php') &&
+            url.includes('list=search') &&
+            url.includes('srnamespace=14') &&
+            url.includes('Mat%C3%A9riel%20Apple');
+
+          if (isFrCategorySearch) {
+            return Promise.resolve(
+              new Response(JSON.stringify({
+                query: {
+                  search: [{ title: 'Category:Matériel Apple' }]
+                }
+              }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              })
+            );
+          }
+
+          return originalFetch(input, init);
+        };
+      })();
+    JS
+  end
+
   before do
     JoinCourse.new(course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as user
@@ -62,14 +94,20 @@ describe 'Tracked categories and templates', js: true do
 
   it 'lets a facilitator add multiple categories from different wikis at once' do
     visit "/courses/#{course.slug}/articles"
+    stub_fr_category_search_for_materiel_apple
     click_button 'Add category'
     find(:css, '#categories input').set('Earth ')
     find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
 
     find(:css, '.multi-wiki-selector input').set('fr')
     find(:css, '.multi-wiki-selector div[class*="option"]', text: 'fr.wikipedia.org').click
+    expect(page).to have_css('.multi-wiki-selector', text: 'fr.wikipedia.org')
 
     find(:css, '#categories input').set('Matériel Apple ')
+    expect(page).to have_css('#categories div[class*="option"]',
+                             text: 'fr:Matériel Apple',
+                             exact_text: true,
+                             wait: 20)
     find(:css, '#categories div[class*="option"]', text: 'fr:Matériel Apple', exact_text: true).click # rubocop:disable Layout/LineLength
 
     click_button 'Add categories'
