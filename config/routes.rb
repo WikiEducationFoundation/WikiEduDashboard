@@ -420,6 +420,9 @@ Rails.application.routes.draw do
 
     # LTI
   get 'lti' => 'lti_launch#launch'
+  get 'lti/deep_link' => 'lti_launch#deep_link_launch'
+  get 'lti/deep_link/search' => 'lti_launch#deep_link_search'
+  post 'lti/deep_link/submit' => 'lti_launch#deep_link_submit'
 
   # frequenty asked questions
   resources :faq do
