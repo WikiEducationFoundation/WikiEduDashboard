@@ -3,9 +3,7 @@
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 
 #= Cleaner for ArticlesCourses that are not part of a course anymore.
-# This class has to be renamed to ArticlesCoursesCleaner when deleting
-# the existing ArticlesCoursesCleaner class.
-class ArticlesCoursesCleanerTimeslice # rubocop:disable Metrics/ClassLength
+class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   ################
   # Entry points #
   ################

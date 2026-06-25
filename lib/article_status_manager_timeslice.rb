@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
@@ -48,7 +48,7 @@ class ArticleStatusManagerTimeslice
       end
     end
 
-    ArticlesCoursesCleanerTimeslice.reset_articles_for_course(course)
+    ArticlesCoursesCleaner.reset_articles_for_course(course)
   end
 
   ####################
@@ -170,7 +170,7 @@ class ArticleStatusManagerTimeslice
     # If there is only one copy of the article, it was already found and updated
     # via `update_title_and_namespace`
     return unless nondeleted_article
-    ArticlesCoursesCleanerTimeslice.reset_specific_articles(@course, [article])
+    ArticlesCoursesCleaner.reset_specific_articles(@course, [article])
   end
 
   def data_matches_article?(article_data, article)

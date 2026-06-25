@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 
 class UpdateTimeslicesCourseWiki
   def initialize(course)
@@ -34,7 +34,7 @@ class UpdateTimeslicesCourseWiki
     # Delete timeslices for the deleted wikis
     @timeslice_cleaner.delete_timeslices_for_deleted_course_wikis wiki_ids
     # Delete articles courses
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_wiki_ids(@course, wiki_ids)
+    ArticlesCoursesCleaner.clean_articles_courses_for_wiki_ids(@course, wiki_ids)
   end
 
   def add_courses_wikis(wiki_ids)

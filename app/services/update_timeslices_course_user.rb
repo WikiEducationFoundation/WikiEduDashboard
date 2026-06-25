@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 
@@ -131,7 +131,7 @@ class UpdateTimeslicesCourseUser
       @article_course_timeslices_for_users
     )
     # Delete articles courses that were updated only for removed users
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
+    ArticlesCoursesCleaner.clean_articles_courses_for_user_ids(@course, user_ids)
   end
 
   def remove_courses_users_acuwt(user_ids)
@@ -141,7 +141,7 @@ class UpdateTimeslicesCourseUser
     # Delete ACUWT records for removed users
     @timeslice_cleaner.delete_acuwt_for_deleted_course_users(user_ids)
     # Delete articles courses that were updated only for removed users
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
+    ArticlesCoursesCleaner.clean_articles_courses_for_user_ids(@course, user_ids)
   end
 
   # Returns an ArticleCourseTimeslice relation with edits from the given users
