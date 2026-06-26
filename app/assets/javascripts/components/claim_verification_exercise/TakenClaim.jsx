@@ -53,9 +53,7 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
       </section>
 
       <section className="claim-verification-exercise__sandbox">
-        <p>
-          Complete this exercise in your Wikipedia sandbox.
-        </p>
+        <p>{I18n.t('claim_verification.complete_in_sandbox')}</p>
         <a
           href={sandboxUrl}
           className="button border claim-verification-exercise__sandbox-link"

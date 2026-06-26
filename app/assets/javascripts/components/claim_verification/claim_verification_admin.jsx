@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import request from '../../utils/request';
 
-// NOTE: the visible strings below are functional placeholders — wording should
-// be reviewed/replaced by the operator (see project text conventions).
+// Visible strings live in the `claim_verification.admin` locale namespace.
 
 const POLL_MS = 3000;
 
@@ -51,47 +50,60 @@ const ClaimVerificationAdmin = () => {
     }
   };
 
-  if (!status) return <div className="container"><p>Loading…</p></div>;
+  if (!status) return <div className="container"><p>{I18n.t('claim_verification.admin.loading')}</p></div>;
 
   const { job, last_summary: last } = status;
   const pct = job?.pct_complete || 0;
 
   return (
     <div className="container">
-      <h1 style={{ marginTop: '40px' }}>Claim verification</h1>
+      <h1 style={{ marginTop: '40px' }}>{I18n.t('claim_verification.admin.heading')}</h1>
       <hr />
 
       <section className="stat-display">
-        <p>Pool size: <strong>{status.pool_size}</strong> claims</p>
+        <p>{I18n.t('claim_verification.admin.pool_size', { count: status.pool_size })}</p>
         {status.last_run_at && last && (
           <p>
-            Last run {new Date(status.last_run_at).toLocaleString()}: +{last.harvested} claims
-            {' '}from {last.processed} alerts ({last.skipped} skipped
-            {last.full_rescan ? ', full re-scan' : ''})
+            {I18n.t('claim_verification.admin.last_run', {
+              time: new Date(status.last_run_at).toLocaleString(),
+              harvested: last.harvested,
+              processed: last.processed,
+              skipped: last.skipped,
+              rescan: last.full_rescan ? I18n.t('claim_verification.admin.full_rescan_note') : ''
+            })}
           </p>
         )}
       </section>
 
       <section style={{ margin: '1em 0' }}>
         <button className="button dark" disabled={active || busy} onClick={() => startHarvest(false)}>
-          Harvest claim pool
+          {I18n.t('claim_verification.admin.harvest')}
         </button>
         {' '}
         <button className="button" disabled={active || busy} onClick={() => startHarvest(true)}>
-          Full re-scan
+          {I18n.t('claim_verification.admin.full_rescan')}
         </button>
       </section>
 
       {job && (
         <section aria-live="polite">
           <p>
-            Status: <strong>{job.status}</strong>
-            {job.total ? ` — ${job.at || 0} / ${job.total} alerts (${pct}%)` : ''}
+            {I18n.t('claim_verification.admin.status', { status: job.status })}
+            {job.total
+              ? I18n.t('claim_verification.admin.progress', { at: job.at || 0, total: job.total, pct })
+              : ''}
           </p>
           <div style={{ background: '#eee', borderRadius: 4, height: 16, maxWidth: 480, overflow: 'hidden' }}>
             <div style={{ background: '#676eb4', height: '100%', transition: 'width .3s', width: `${pct}%` }} />
           </div>
-          <p>{job.harvested || 0} harvested · {job.processed || 0} processed · {job.skipped || 0} skipped · {job.errors || 0} errors</p>
+          <p>
+            {I18n.t('claim_verification.admin.counts', {
+              harvested: job.harvested || 0,
+              processed: job.processed || 0,
+              skipped: job.skipped || 0,
+              errors: job.errors || 0
+            })}
+          </p>
           {job.message && <p><small>{job.message}</small></p>}
         </section>
       )}

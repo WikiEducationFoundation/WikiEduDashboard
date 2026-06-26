@@ -1663,6 +1663,19 @@ en:
     course_picker_heading: Choose course
     course_picker_no_courses: No courses
     take_not_enrolled: You must be enrolled in the course to do that.
+    complete_in_sandbox: Complete this exercise in your Wikipedia sandbox.
+    # Internal staff harvest page.
+    admin:
+      loading: Loading…
+      heading: Claim verification
+      pool_size: "Pool size: %{count} claims"
+      last_run: "Last run %{time}: +%{harvested} claims from %{processed} alerts (%{skipped} skipped%{rescan})"
+      full_rescan_note: ", full re-scan"
+      harvest: Harvest claim pool
+      full_rescan: Full re-scan
+      status: "Status: %{status}"
+      progress: " — %{at} / %{total} alerts (%{pct}%)"
+      counts: "%{harvested} harvested · %{processed} processed · %{skipped} skipped · %{errors} errors"
 
   update_username:
     header: Update a changed username
