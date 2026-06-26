@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/cleaner_helper"
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 
 #= Cleaner for ArticlesCourses that are not part of a course anymore.
 class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
-  # Number of records deleted per batch when bulk-deleting.
-  DELETE_BATCH_SIZE = 5000
+  include CleanerHelper
 
   ################
   # Entry points #
@@ -206,12 +206,6 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     article_ids.each_slice(DELETE_BATCH_SIZE) do |slice|
       ArticlesCourses.where(course: @course).where(article_id: slice).delete_all
     end
-  end
-
-  # Deletes all records matching the relation in primary-key batches, without
-  # loading the ids into memory.
-  def delete_in_batches(relation)
-    relation.in_batches(of: DELETE_BATCH_SIZE).delete_all
   end
 
   def mark_as_needs_update(article_batch, wiki)

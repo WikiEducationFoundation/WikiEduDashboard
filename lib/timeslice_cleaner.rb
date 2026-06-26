@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/cleaner_helper"
+
 #= Removes/resets ArticleCourseTimeslice, CourseUserWikiTimeslice, CourseWikiTimeslice
 #= and ArticleCourseUserWikiTimeslice records.
 class TimesliceCleaner
-  # Number of records deleted per batch when bulk-deleting timeslices.
-  TIMESLICE_DELETE_BATCH_SIZE = 5000
+  include CleanerHelper
 
   def initialize(course)
     @course = course
@@ -267,12 +268,5 @@ class TimesliceCleaner
                                        .where('start >= ?', start_date)
                                        .where('end <= ?', end_date)
     delete_in_batches(timeslices)
-  end
-
-  # Deletes all records matching the relation in primary-key batches, without
-  # loading the ids into memory. Each batch is its own statement, so InnoDB
-  # purge and replication can keep up between batches.
-  def delete_in_batches(relation)
-    relation.in_batches(of: TIMESLICE_DELETE_BATCH_SIZE).delete_all
   end
 end
