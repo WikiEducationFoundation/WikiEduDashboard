@@ -15,7 +15,7 @@ describe ClaimVerification::SentenceSegmenter do
     %(<sup class="reference"><a href="##{note_id}">[x]</a></sup>)
   end
 
-  describe 'sentences that end cleanly' do
+  describe 'basic segmentation' do
     it 'pairs a sentence with the reference that trails it' do
       result = segments("The site opened to the public in 1990.#{ref('cite_note-1')}")
       expect(result).to eq([{ sentence: 'The site opened to the public in 1990.',
@@ -36,47 +36,64 @@ describe ClaimVerification::SentenceSegmenter do
                               ref_ids: %w[cite_note-1 cite_note-2] }])
     end
 
-    it 'keeps a trailing fragment that has no terminal punctuation' do
-      result = segments("A fact.#{ref('cite_note-1')} and then more text")
-      expect(result).to eq([
-                             { sentence: 'A fact.', ref_ids: ['cite_note-1'] },
-                             { sentence: 'and then more text', ref_ids: [] }
-                           ])
+    it 'keeps a reference that sits mid-sentence with that sentence' do
+      result = segments("The study,#{ref('cite_note-1')} which was large, found gains.")
+      expect(result).to eq([{ sentence: 'The study, which was large, found gains.',
+                              ref_ids: ['cite_note-1'] }])
     end
 
-    it 'drops a reference sup whose link is not a reference-list entry' do
+    it 'ignores a reference sup whose link is not a reference-list entry' do
       result = segments('A plain sentence.<sup class="reference"><a href="#section">x</a></sup>')
       expect(result).to eq([{ sentence: 'A plain sentence.', ref_ids: [] }])
     end
   end
 
-  # CHARACTERIZATION TESTS — these document the over-splitting flagged in the
-  # PR #6921 review, NOT desired behavior. SENTENCE_RE treats any '.'/'!'/'?' as a
-  # sentence end, so a period inside an abbreviation, initial, or decimal ends the
-  # "sentence" early and the citation binds to the trailing fragment — the stored
-  # claim loses everything before that last internal period. When the segmenter is
-  # fixed, these expectations should flip to the full sentence noted in each case.
-  describe 'over-splitting on internal periods (known limitation, documents the bug)' do
-    it 'truncates a claim with a decimal to the post-decimal fragment' do
-      # Desired: 'The population grew from 2.5 billion in 1950 to 8 billion today.'
-      result = segments("The population grew from 2.5 billion in 1950 to 8 billion " \
+  # The whole reason for using PragmaticSegmenter: a period inside an
+  # abbreviation, initial, acronym, or decimal must NOT end the sentence, so the
+  # cited claim keeps its full text instead of being truncated to a fragment.
+  describe 'does not split on internal periods' do
+    it 'keeps a decimal number intact' do
+      result = segments('The population grew from 2.5 billion in 1950 to 8 billion ' \
                         "today.#{ref('cite_note-1')}")
-      cited = result.find { |s| s[:ref_ids].any? }
-      expect(cited[:sentence]).to eq('5 billion in 1950 to 8 billion today.')
+      expect(result).to eq([{ sentence: 'The population grew from 2.5 billion in 1950 ' \
+                                         'to 8 billion today.', ref_ids: ['cite_note-1'] }])
     end
 
-    it 'truncates a claim that ends after an abbreviation' do
-      # Desired: 'He lived in the U.S. for a decade.'
+    it 'keeps an acronym intact' do
       result = segments("He lived in the U.S. for a decade.#{ref('cite_note-1')}")
-      cited = result.find { |s| s[:ref_ids].any? }
-      expect(cited[:sentence]).to eq('for a decade.')
+      expect(result).to eq([{ sentence: 'He lived in the U.S. for a decade.',
+                              ref_ids: ['cite_note-1'] }])
     end
 
-    it 'truncates a claim that contains a middle initial' do
-      # Desired: 'George W. Bush served two terms.'
+    it 'keeps a middle initial intact' do
       result = segments("George W. Bush served two terms.#{ref('cite_note-1')}")
-      cited = result.find { |s| s[:ref_ids].any? }
-      expect(cited[:sentence]).to eq('Bush served two terms.')
+      expect(result).to eq([{ sentence: 'George W. Bush served two terms.',
+                              ref_ids: ['cite_note-1'] }])
+    end
+
+    it 'keeps title abbreviations intact' do
+      result = segments("She met Dr. Smith at St. Mary's hospital.#{ref('cite_note-1')}")
+      expect(result).to eq([{ sentence: "She met Dr. Smith at St. Mary's hospital.",
+                              ref_ids: ['cite_note-1'] }])
+    end
+
+    it 'keeps a latin abbreviation intact' do
+      result = segments("Many places, e.g. cafes, now qualify.#{ref('cite_note-1')}")
+      expect(result).to eq([{ sentence: 'Many places, e.g. cafes, now qualify.',
+                              ref_ids: ['cite_note-1'] }])
+    end
+  end
+
+  # Documents a residual limitation, not desired behavior: an abbreviation at a
+  # true sentence end, immediately before a capitalized next sentence, is
+  # ambiguous, and the segmenter treats it as non-terminal — merging the two
+  # sentences. Both citations still attach to the merged sentence.
+  describe 'known residual ambiguity' do
+    it 'merges a sentence ending in an acronym before a capitalized sentence' do
+      result = segments("He moved to the U.S.#{ref('cite_note-1')} " \
+                        "He stayed for years.#{ref('cite_note-2')}")
+      expect(result).to eq([{ sentence: 'He moved to the U.S. He stayed for years.',
+                              ref_ids: %w[cite_note-1 cite_note-2] }])
     end
   end
 end

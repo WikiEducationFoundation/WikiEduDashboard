@@ -1,21 +1,29 @@
 # frozen_string_literal: true
 
+require 'pragmatic_segmenter'
+
 module ClaimVerification
-  # Splits a paragraph of MediaWiki parser output into sentences, with
-  # the <sup class="reference"> markers that trail each sentence
-  # resolved to reference-list ids.
+  # Splits a paragraph of MediaWiki parser output into sentences, with the
+  # <sup class="reference"> markers that trail each sentence resolved to
+  # reference-list ids.
   #
-  # Approach: replace each reference sup with an inline marker token,
-  # take the plain text, then scan for sentence-shaped chunks where a
-  # sentence ends with terminal punctuation plus any reference markers
-  # that immediately follow it.
+  # Approach: replace each reference sup with an inline marker token, then run
+  # PragmaticSegmenter over the text. PragmaticSegmenter is a corpus-tuned
+  # sentence boundary detector, so it keeps abbreviations ("Dr."), initials
+  # ("George W."), decimals ("2.5"), and the like from ending a sentence early —
+  # the failure mode of a plain "split on .!?" scan.
+  #
+  # PragmaticSegmenter treats a citation that follows a sentence-final period as
+  # the start of the *next* sentence, so a marker that leads a segment is folded
+  # back onto the preceding sentence; a marker sitting mid-segment stays with its
+  # own sentence. Either way each marker ends up on the sentence whose text it
+  # trailed in the source.
   class SentenceSegmenter
     # Bracket characters that are vanishingly unlikely in article prose.
     MARKER_OPEN = '⦗'
     MARKER_CLOSE = '⦘'
     MARKER_RE = /#{MARKER_OPEN}([^#{MARKER_CLOSE}]+)#{MARKER_CLOSE}/
-    # No capture groups here: String#scan must return whole matches.
-    SENTENCE_RE = /.*?[.!?]+['"”’)]*(?:\s*#{MARKER_OPEN}[^#{MARKER_CLOSE}]+#{MARKER_CLOSE})*/
+    LEADING_MARKER_RE = /\A#{MARKER_RE}/
 
     def initialize(paragraph_node)
       @paragraph_node = paragraph_node
@@ -23,14 +31,42 @@ module ClaimVerification
 
     # Returns an array of { sentence:, ref_ids: } hashes.
     def segments
-      chunks(text_with_markers).filter_map do |chunk|
-        sentence = chunk.gsub(MARKER_RE, '').strip
-        next if sentence.empty?
-        { sentence:, ref_ids: chunk.scan(MARKER_RE).flatten }
+      segment_chunks(text_with_markers).each_with_object([]) do |chunk, sentences|
+        fold_chunk(chunk, sentences)
       end
     end
 
     private
+
+    def segment_chunks(text)
+      PragmaticSegmenter::Segmenter.new(text:).segment
+    end
+
+    # Fold one segmenter chunk into the running list of sentences. Markers that
+    # lead the chunk cite the preceding sentence (PragmaticSegmenter starts the
+    # next sentence with a sentence-final citation); the rest is this chunk's
+    # sentence and carries any markers within it.
+    def fold_chunk(chunk, sentences)
+      leading, body = split_leading_markers(chunk)
+      sentences.last[:ref_ids].concat(leading) if leading.any? && sentences.any?
+      sentence = body.gsub(MARKER_RE, '').strip
+      return if sentence.empty?
+      ref_ids = body.scan(MARKER_RE).flatten
+      ref_ids = leading + ref_ids if sentences.empty?
+      sentences << { sentence:, ref_ids: }
+    end
+
+    # Peel the reference markers (and surrounding whitespace) off the front of a
+    # chunk, returning [leading_ref_ids, remaining_text].
+    def split_leading_markers(chunk)
+      leading = []
+      rest = chunk.lstrip
+      while (match = rest.match(LEADING_MARKER_RE))
+        leading << match[1]
+        rest = rest[match[0].length..].lstrip
+      end
+      [leading, rest]
+    end
 
     def text_with_markers
       paragraph = @paragraph_node.dup
@@ -38,8 +74,7 @@ module ClaimVerification
         note_id = note_id_for(sup)
         sup.replace(note_id ? "#{MARKER_OPEN}#{note_id}#{MARKER_CLOSE}" : '')
       end
-      # Normalized whitespace keeps the sentence scan contiguous, so the
-      # post-sentences remainder can be located by length.
+      # Normalized whitespace keeps the segmenter's input clean and single-spaced.
       paragraph.text.gsub(/\s+/, ' ')
     end
 
@@ -49,15 +84,6 @@ module ClaimVerification
       href = sup.at_css('a')&.[]('href')
       return unless href&.start_with?('#cite_note')
       href.delete_prefix('#')
-    end
-
-    # Splits text into sentence chunks; any trailing text without
-    # terminal punctuation becomes a final chunk.
-    def chunks(text)
-      sentence_chunks = text.scan(SENTENCE_RE)
-      remainder = text[sentence_chunks.sum(&:length)..]
-      sentence_chunks << remainder unless remainder.nil? || remainder.strip.empty?
-      sentence_chunks
     end
   end
 end
