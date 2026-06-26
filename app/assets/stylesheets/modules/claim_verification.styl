@@ -325,6 +325,13 @@
     color body-color
     line-height 1.5
 
+  // Inline take error (eg not enrolled), shown in the panel because the
+  // page-level notification banner is occluded by the viewer modal.
+  .cv-selection-panel__error
+    margin 0 0 14px 0
+    color $warning_text
+    font-size .9em
+
 @media (max-width: 600px)
   .claim-verification-exercise__claim,
   .claim-verification-exercise__source

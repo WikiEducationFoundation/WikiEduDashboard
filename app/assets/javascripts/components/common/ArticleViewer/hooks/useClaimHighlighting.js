@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 // Components
 import ClaimSelectionPanel from '@components/common/ArticleViewer/claim_verification/ClaimSelectionPanel.jsx';
@@ -7,7 +6,6 @@ import ClaimLegend from '@components/common/ArticleViewer/claim_verification/Cla
 
 // Helpers
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
-import { addNotification } from '~/app/assets/javascripts/actions/notification_actions';
 import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_date';
 
 /*
@@ -43,7 +41,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
   const [activeIndex, setActiveIndex] = useState(null);
   const [pending, setPending] = useState(false);
   const [taking, setTaking] = useState(false);
-  const dispatch = useDispatch();
+  const [takeError, setTakeError] = useState(null);
 
   // Fetch the annotated article as soon as the viewer opens at a flagged
   // revision — in parallel with the shell's own parse, not after it. The
@@ -55,21 +53,29 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
   useEffect(() => {
     setSelectedClaim(null);
     setActiveIndex(null);
+    setTakeError(null);
     if (!isOpen || !revisionId) {
       setAnnotatedHtml(null);
-      return;
+      return undefined;
     }
+    // Ignore a response that arrives after the viewer has moved on (e.g. the
+    // student toggled the revision again), so a stale fetch can't overwrite the
+    // current annotation or clear a newer pending state.
+    let ignore = false;
     setPending(true);
     new ClaimVerificationAPI({ courseSlug: course.slug })
       .fetchAnnotatedArticle(article.id, revisionId)
       .then((data) => {
+        if (ignore) { return; }
         setAnnotatedHtml(data.html);
         setPending(false);
       })
       .catch(() => {
+        if (ignore) { return; }
         setAnnotatedHtml(null);
         setPending(false);
       });
+    return () => { ignore = true; };
   }, [isOpen, revisionId]);
 
   const claimNodes = () => [...document.querySelectorAll(`${SCROLLBOX} .cv-claim`)];
@@ -103,13 +109,16 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
     return claims[i];
   };
 
-  const selectClaim = (marker) => setSelectedClaim({
-    claimId: marker.getAttribute('data-claim-id'),
-    sentence: marker.getAttribute('data-sentence'),
-    refId: marker.getAttribute('data-ref-id'),
-    citeText: marker.getAttribute('data-cite-text'),
-    sourceUrl: marker.getAttribute('data-source-url'),
-  });
+  const selectClaim = (marker) => {
+    setTakeError(null);
+    setSelectedClaim({
+      claimId: marker.getAttribute('data-claim-id'),
+      sentence: marker.getAttribute('data-sentence'),
+      refId: marker.getAttribute('data-ref-id'),
+      citeText: marker.getAttribute('data-cite-text'),
+      sourceUrl: marker.getAttribute('data-source-url'),
+    });
+  };
 
   const openClaim = (marker) => {
     activateClaim(claimNodes().indexOf(marker), { scroll: true });
@@ -163,12 +172,12 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
       .catch((error) => {
         setTaking(false);
         // 403 means the user isn't enrolled in this course; any other failure is
-        // unexpected, so reuse the app's generic error copy. Surface either via the
-        // notification banner.
+        // unexpected, so reuse the app's generic error copy. Shown inline in the
+        // panel, since the page-level notification banner sits behind the viewer.
         const message = error.status === 403
           ? I18n.t('claim_verification.take_not_enrolled')
           : I18n.t('error_500.explanation');
-        dispatch(addNotification({ message, type: 'error', closable: true }));
+        setTakeError(message);
       });
   };
 
@@ -197,6 +206,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
         claim={selectedClaim}
         onTake={takeClaim}
         taking={taking}
+        error={takeError}
         onClose={closePanel}
       />
     )
