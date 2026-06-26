@@ -29,9 +29,8 @@ class HarvestClaimPool
 
   attr_reader :harvested, :processed, :skipped, :errors
 
-  def initialize(full_rescan: false, limit: nil, total: nil, at: nil, store: nil)
+  def initialize(full_rescan: false, total: nil, at: nil, store: nil)
     @full_rescan = full_rescan
-    @limit = limit
     @total = total
     @at = at
     @store = store
@@ -80,7 +79,7 @@ class HarvestClaimPool
                        .where(articles: { namespace: Article::Namespaces::MAINSPACE })
                        .where.not(revision_id: nil)
     scope = scope.where(NOT_HARVESTED_SQL) unless @full_rescan
-    @limit ? scope.limit(@limit) : scope
+    scope
   end
 
   def record_run
