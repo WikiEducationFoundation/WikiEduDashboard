@@ -37,7 +37,13 @@ export class ClaimVerificationAPI {
   }
 
   __json(response, message) {
-    if (!response.ok) throw new Error(`${message} [${response.status}]`);
+    if (!response.ok) {
+      // Carry the HTTP status so callers can tailor the message (eg a 403 from
+      // taking a claim in a course the user isn't enrolled in).
+      const error = new Error(`${message} [${response.status}]`);
+      error.status = response.status;
+      throw error;
+    }
     return response.json();
   }
 }

@@ -59,6 +59,14 @@ describe 'Claim verification exercise', type: :request do
       expect(assignment['claim']['source_url']).to eq('https://example.com/otters')
       expect(assignment['sandbox_url']).to include('User:Otterfan/Claim_verification_exercise')
     end
+
+    it 'is open to any signed-in user, even one not enrolled in the course' do
+      outsider = create(:user, username: 'Outsider', onboarded: true)
+      login_as outsider
+      get "/courses/#{course.slug}/verify_claim/state"
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['articles']).to be_present
+    end
   end
 
   describe 'GET annotated_article' do
@@ -85,6 +93,15 @@ describe 'Claim verification exercise', type: :request do
       expect(assignment['claim']['sentence']).to eq('Sea otters use rocks as tools.')
       expect(VerificationClaimAssignment.find_by(user: student, course:).verification_claim)
         .to eq(pool_claim)
+    end
+
+    it 'forbids taking a claim in a course the user is not enrolled in' do
+      outsider = create(:user, username: 'Outsider', onboarded: true)
+      login_as outsider
+      post "/courses/#{course.slug}/verify_claim/take",
+           params: { article_id: article.id, verification_claim_id: pool_claim.id }
+      expect(response).to have_http_status(:forbidden)
+      expect(VerificationClaimAssignment.where(user: outsider)).to be_empty
     end
 
     it 'lets more than one student take the same claim (claims are not exclusive)' do

@@ -50,5 +50,11 @@ describe('ClaimVerificationAPI', () => {
       expect(JSON.parse(options.body)).toEqual({ article_id: 5, verification_claim_id: 42 });
       expect(result).toEqual(payload);
     });
+
+    it('rejects with the HTTP status attached when the take is forbidden', async () => {
+      global.fetch = jest.fn(() => Promise.resolve({ ok: false, status: 403, json: () => Promise.resolve({}) }));
+      await expect(api.take({ articleId: 5, verificationClaimId: 42 }))
+        .rejects.toMatchObject({ status: 403 });
+    });
   });
 });

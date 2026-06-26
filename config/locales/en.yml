@@ -1662,6 +1662,7 @@ en:
     no_online_source: This cited source doesn't include a URL.
     course_picker_heading: Choose course
     course_picker_no_courses: No courses
+    take_not_enrolled: You must be enrolled in the course to do that.
 
   update_username:
     header: Update a changed username

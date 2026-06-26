@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 // Components
 import ClaimSelectionPanel from '@components/common/ArticleViewer/claim_verification/ClaimSelectionPanel.jsx';
@@ -6,6 +7,7 @@ import ClaimLegend from '@components/common/ArticleViewer/claim_verification/Cla
 
 // Helpers
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
+import { addNotification } from '~/app/assets/javascripts/actions/notification_actions';
 import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_date';
 
 /*
@@ -41,6 +43,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
   const [activeIndex, setActiveIndex] = useState(null);
   const [pending, setPending] = useState(false);
   const [taking, setTaking] = useState(false);
+  const dispatch = useDispatch();
 
   // Fetch the annotated article as soon as the viewer opens at a flagged
   // revision — in parallel with the shell's own parse, not after it. The
@@ -157,7 +160,16 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
         setTaking(false);
         onTaken(data.assignment);
       })
-      .catch(() => setTaking(false));
+      .catch((error) => {
+        setTaking(false);
+        // 403 means the user isn't enrolled in this course; any other failure is
+        // unexpected, so reuse the app's generic error copy. Surface either via the
+        // notification banner.
+        const message = error.status === 403
+          ? I18n.t('claim_verification.take_not_enrolled')
+          : I18n.t('error_500.explanation');
+        dispatch(addNotification({ message, type: 'error', closable: true }));
+      });
   };
 
   // Pinned to the top of the article (the shell's `banner` slot): a notice that

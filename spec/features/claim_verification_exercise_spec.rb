@@ -90,4 +90,23 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_css('.article-viewer', wait: 20)
     expect(page).to have_css('.parsed-article .cv-claim')
   end
+
+  it 'tells a non-enrolled user they must enroll, and does not assign the claim' do
+    outsider = create(:user, username: 'Interloper', onboarded: true)
+    login_as outsider
+
+    visit "/courses/#{course.slug}/verify_claim"
+    expect(page).to have_content(I18n.t('claim_verification.choose_article'), wait: 20)
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+    within '.cv-selection-panel' do
+      click_button I18n.t('claim_verification.select_claim')
+    end
+
+    # The take is rejected (not enrolled): a notification banner explains why, and the
+    # view stays on the selection flow rather than transitioning to the taken claim.
+    expect(page).to have_content(I18n.t('claim_verification.take_not_enrolled'), wait: 10)
+    expect(page).to have_no_content(I18n.t('claim_verification.your_selected_claim'))
+    expect(VerificationClaimAssignment.find_by(user: outsider, course:)).to be_nil
+  end
 end

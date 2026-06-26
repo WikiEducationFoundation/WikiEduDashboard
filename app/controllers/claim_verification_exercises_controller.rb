@@ -34,8 +34,13 @@ class ClaimVerificationExercisesController < ApplicationController
     render json: { html: annotation.html, mw_rev_id: annotation.mw_rev_id }
   end
 
+  # Assigning a claim is the only write in this controller, so it's the only
+  # action that requires course enrollment: any signed-in user may browse a
+  # course's claims (state / annotated_article), but only a user enrolled in the
+  # course may create an assignment record in it.
   def take
     @course = course_from_slug
+    return head(:forbidden) unless enrolled_in_course?
     claim = VerificationClaim.find_by(id: params[:verification_claim_id])
     assign(claim) if claim
     # renders take.json.jbuilder (@assignment is nil if the claim was not found),
@@ -51,6 +56,11 @@ class ClaimVerificationExercisesController < ApplicationController
   end
 
   private
+
+  # Enrolled in @course via any courses_users role (student, instructor, …).
+  def enrolled_in_course?
+    current_user.courses.exists?(@course&.id)
+  end
 
   # One active pick per student per course (the assignment's uniqueness), but the
   # same pool claim may be assigned to any number of students.
