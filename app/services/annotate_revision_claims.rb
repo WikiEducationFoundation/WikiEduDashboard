@@ -87,10 +87,14 @@ class AnnotateRevisionClaims
 
   # MediaWiki parser output uses root-relative links (/wiki/...); make them
   # absolute so they work when this HTML is rendered in the viewer. In-page
-  # anchors (#cite_note-...) are left alone so footnote links still work.
+  # anchors (#cite_note-...) are left alone so footnote links still work, and so
+  # are protocol-relative URLs (//host/...), which would otherwise be
+  # double-prefixed into a broken link.
   def absolutize_links(doc)
     base = @article.wiki.base_url
-    doc.css('a[href^="/"]').each { |link| link['href'] = "#{base}#{link['href']}" }
+    doc.css('a[href^="/"]:not([href^="//"])').each do |link|
+      link['href'] = "#{base}#{link['href']}"
+    end
   end
 
   # The pool claims added in this revision, keyed by normalized sentence (first

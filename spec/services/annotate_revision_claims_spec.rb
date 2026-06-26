@@ -88,4 +88,29 @@ describe AnnotateRevisionClaims do
       expect(html).to include('Otters were studied for years.')
     end
   end
+
+  context 'when the revision links to other pages' do
+    let(:revision_html) do
+      <<~HTML
+        <p>Otters use rocks.<sup class="reference"><a href="#cite_note-r-1">[1]</a></sup>
+        See <a href="/wiki/Sea_otter">Sea otter</a> and
+        <a href="//upload.wikimedia.org/otter.jpg">a photo</a>.</p>
+        <ol class="references">
+          <li id="cite_note-r-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/r">Riedman</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-r-1',
+                                sentence: 'Otters use rocks.', cite_text: 'Riedman',
+                                source_url: 'https://example.com/r')
+    end
+
+    it 'absolutizes root-relative links but leaves protocol-relative ones alone' do
+      html = annotate.html
+      expect(html).to include(%(href="#{wiki.base_url}/wiki/Sea_otter"))
+      expect(html).to include('href="//upload.wikimedia.org/otter.jpg"')
+    end
+  end
 end

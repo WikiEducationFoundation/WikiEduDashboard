@@ -108,8 +108,8 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
 
   // It takes the data sent as the parameter and appends to the current Url.
   // The ?showArticle= permalink is only meaningful when this viewer is a modal
-  // popped over a page (showPermalink); a standalone viewer (e.g. the claim
-  // exercise, showPermalink=false) must leave the page's own query string intact.
+  // popped over a page (showPermalink); a standalone viewer (e.g. the article
+  // finder, showPermalink=false) must leave the page's own query string intact.
   const addParamToURL = (urlParam) => {
     if (showArticleFinder || !showPermalink) { return; }
     window.history.pushState({}, '', `?showArticle=${urlParam}`);
