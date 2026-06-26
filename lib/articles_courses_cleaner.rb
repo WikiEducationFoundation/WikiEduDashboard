@@ -4,6 +4,9 @@ require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 
 #= Cleaner for ArticlesCourses that are not part of a course anymore.
 class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
+  # Number of records deleted per batch when bulk-deleting.
+  DELETE_BATCH_SIZE = 5000
+
   ################
   # Entry points #
   ################
@@ -87,19 +90,15 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_article_course(article_ids_to_delete)
 
     # Delete article course timeslices for deleted articles
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where(article_id: article_ids_to_delete)
-                                          .pluck(:id)
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    delete_in_batches(
+      ArticleCourseTimeslice.where(course: @course, article_id: article_ids_to_delete)
+    )
 
     # Delete article course timeslices for dates prior to the course start date
-    timeslice_ids, article_ids = ArticleCourseTimeslice.where(course: @course)
-                                                       .where('end <= ?', @course.start)
-                                                       .pluck(:id, :article_id)
-                                                       .transpose
-    touch_timeslices(article_ids.uniq) unless article_ids.nil?
-    delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
+    prior_timeslices = ArticleCourseTimeslice.where(course: @course)
+                                             .where('end <= ?', @course.start)
+    touch_timeslices(prior_timeslices.distinct.pluck(:article_id))
+    delete_in_batches(prior_timeslices)
   end
 
   def remove_articles_courses_for_dates_after_end_date
@@ -109,19 +108,15 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_article_course(article_ids_to_delete)
 
     # Delete article course timeslices for deleted articles
-    timeslice_ids = ArticleCourseTimeslice.where(course: @course)
-                                          .where(article_id: article_ids_to_delete)
-                                          .pluck(:id)
-
-    delete_article_course_timeslice_ids(timeslice_ids)
+    delete_in_batches(
+      ArticleCourseTimeslice.where(course: @course, article_id: article_ids_to_delete)
+    )
 
     # Delete article course timeslices for dates after the course end date
-    timeslice_ids, article_ids = ArticleCourseTimeslice.where(course: @course)
-                                                       .where('start > ?', @course.end)
-                                                       .pluck(:id, :article_id)
-                                                       .transpose
-    touch_timeslices(article_ids.uniq) unless article_ids.nil?
-    delete_article_course_timeslice_ids(timeslice_ids) unless timeslice_ids.nil?
+    after_timeslices = ArticleCourseTimeslice.where(course: @course)
+                                             .where('start > ?', @course.end)
+    touch_timeslices(after_timeslices.distinct.pluck(:article_id))
+    delete_in_batches(after_timeslices)
   end
 
   def reset_deleted_or_untracked_articles
@@ -208,15 +203,15 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   end
 
   def delete_article_course(article_ids)
-    article_ids.each_slice(5000) do |slice|
+    article_ids.each_slice(DELETE_BATCH_SIZE) do |slice|
       ArticlesCourses.where(course: @course).where(article_id: slice).delete_all
     end
   end
 
-  def delete_article_course_timeslice_ids(ids)
-    ids.each_slice(5000) do |slice|
-      ArticleCourseTimeslice.where(id: slice).delete_all
-    end
+  # Deletes all records matching the relation in primary-key batches, without
+  # loading the ids into memory.
+  def delete_in_batches(relation)
+    relation.in_batches(of: DELETE_BATCH_SIZE).delete_all
   end
 
   def mark_as_needs_update(article_batch, wiki)
