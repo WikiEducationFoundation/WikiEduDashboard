@@ -8,7 +8,7 @@ describe ClaimVerification::ClaimCitationExtractor do
     # Parsed changed-wikitext of the Third_place diff (oldid=1340536495),
     # captured from the action=parse API.
     let(:html) do
-      File.read("#{Rails.root}/fixtures/claim_verification_eval/third_place_diff.html")
+      File.read("#{Rails.root}/fixtures/claim_verification/third_place_diff.html")
     end
     let(:extractor) { described_class.new(html) }
 

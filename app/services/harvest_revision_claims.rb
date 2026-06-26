@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/claim_verification/citation"
+require_dependency "#{Rails.root}/lib/claim_verification/claim_citation_extractor"
 
 # Extracts every cited claim from one revision's HTML and stores each
 # (claim, cited source) pair as a VerificationClaim pool entry. Nothing is
@@ -40,7 +41,7 @@ class HarvestRevisionClaims
   private
 
   def perform
-    extraction = ExtractClaimsAndSources.new(@html)
+    extraction = ClaimVerification::ClaimCitationExtractor.new(@html)
     @citations_by_ref_id = extraction.citations.index_by(&:ref_id)
     @claims = extraction.claims.flat_map { |claim| pool_entries(claim) }
   end
@@ -70,7 +71,7 @@ class HarvestRevisionClaims
   def load_full_citations
     html = @full_html_provider&.call
     return [] if html.blank?
-    ExtractClaimsAndSources.new(html).citations
+    ClaimVerification::ClaimCitationExtractor.new(html).citations
   end
 
   def store(claim, citation, ref_id)
