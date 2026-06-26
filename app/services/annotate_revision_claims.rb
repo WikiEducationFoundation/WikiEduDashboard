@@ -49,12 +49,23 @@ class AnnotateRevisionClaims
     ref_id = claim.ref_ids.find { |id| citations_by_ref_id.key?(id) }
     return if ref_id.nil?
     data = data_for(harvested, ref_id)
-    markers = doc.css("sup.reference a[href='##{ref_id}']").map(&:parent)
+    markers = markers_for(doc, ref_id)
     return if markers.empty?
     wrapped = markers.any? do |marker|
       ClaimVerification::SentenceHighlighter.new(marker:, sentence: claim.sentence, data:).wrap
     end
     tag(markers.first, data) unless wrapped
+  end
+
+  # The citation markers (the <sup>) for this ref id. Matched by reading each
+  # reference link's href in Ruby rather than via an interpolated CSS attribute
+  # selector, because a ref id can contain characters that break such a selector
+  # (eg an apostrophe, from a named ref like <ref name="O'Brien 2020">, which
+  # MediaWiki keeps in the cite_note id).
+  def markers_for(doc, ref_id)
+    doc.css('sup.reference a')
+       .select { |link| link['href'] == "##{ref_id}" }
+       .map(&:parent)
   end
 
   def data_for(harvested, ref_id)

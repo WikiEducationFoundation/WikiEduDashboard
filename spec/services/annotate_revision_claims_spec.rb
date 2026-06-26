@@ -61,4 +61,31 @@ describe AnnotateRevisionClaims do
   it 'returns no html when the revision has no harvested claims' do
     expect(described_class.new(article:, mw_rev_id: 999).html).to be_nil
   end
+
+  # A named ref like <ref name="O'Brien 2020"> renders with the apostrophe kept in
+  # the cite_note id, which used to break the interpolated CSS selector that
+  # located the marker (Nokogiri::CSS::SyntaxError, 500ing the endpoint).
+  context 'when a harvested claim cites a ref whose id contains an apostrophe' do
+    let(:revision_html) do
+      <<~HTML
+        <p>Otters were studied for years.<sup class="reference"><a href="#cite_note-O'Brien_2020-1">[1]</a></sup></p>
+        <ol class="references">
+          <li id="cite_note-O'Brien_2020-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/obrien">O'Brien 2020</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: "cite_note-O'Brien_2020-1",
+                                sentence: 'Otters were studied for years.',
+                                cite_text: "O'Brien 2020", source_url: 'https://example.com/obrien')
+    end
+
+    it 'highlights the claim without raising' do
+      html = annotate.html
+      expect(html).to include('cv-claim')
+      expect(html).to include(%(data-claim-id="#{harvested.id}"))
+      expect(html).to include('Otters were studied for years.')
+    end
+  end
 end
