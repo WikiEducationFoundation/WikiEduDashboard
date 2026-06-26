@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 
 class DeleteCourseWorker
   include Sidekiq::Worker
@@ -23,6 +24,11 @@ class DeleteCourseWorker
                              participants: course_users(course),
                              username: current_user.username
                            }
+    # Delete timeslices in batches first. They are not dependent: :destroy on
+    # Course (see the Course model), because the destroy cascade is far too slow
+    # for the millions of timeslice rows large courses can have. This must run
+    # before course.destroy, which no longer removes them.
+    TimesliceCleaner.new(course).delete_all_timeslices_for_course
     # destroy the course, clean up the on-wiki copy if necessary
     course.destroy
     WikiCourseEdits.new(action: :update_course,
