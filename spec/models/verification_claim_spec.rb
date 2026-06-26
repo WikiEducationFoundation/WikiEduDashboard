@@ -22,15 +22,4 @@ describe VerificationClaim do
       expect(described_class.for_subject('Ecology').map(&:sentence)).to eq(['Ecology fact.'])
     end
   end
-
-  describe '.student_added' do
-    it 'returns only claims linked to a courses_user' do
-      course = create(:course)
-      courses_user = create(:courses_user, course:, user: create(:user))
-      added = described_class.create!(wiki:, sentence: 'Added by a student.',
-                                      courses_user:)
-      described_class.create!(wiki:, sentence: 'Pre-existing.')
-      expect(described_class.student_added).to eq([added])
-    end
-  end
 end

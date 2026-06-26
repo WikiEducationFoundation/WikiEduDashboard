@@ -43,5 +43,4 @@ class VerificationClaim < ApplicationRecord
   validates :sentence, presence: true
 
   scope :for_subject, ->(subject) { where(subject:) }
-  scope :student_added, -> { where.not(courses_users_id: nil) }
 end
