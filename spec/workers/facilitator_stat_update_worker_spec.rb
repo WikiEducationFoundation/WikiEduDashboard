@@ -65,6 +65,15 @@ describe FacilitatorStatUpdateWorker do
   end
 
   describe '#perform' do
+    before do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+    end
+
+    it 'does not run on Wiki Ed dashboard' do
+      allow(Features).to receive(:wiki_ed?).and_return(true)
+      expect { described_class.new.perform }.not_to change(FacilitatorStat, :count)
+    end
+
     it 'creates a facilitator stat record' do
       expect { described_class.new.perform }.to change(FacilitatorStat, :count).by(1)
     end
@@ -116,6 +125,43 @@ describe FacilitatorStatUpdateWorker do
       count = FacilitatorStat.where(user_id: instructor.id,
                                      snapshot_date: Time.zone.today).count
       expect(count).to eq(1)
+    end
+
+    it 'falls back to 0 for missing metrics' do
+      empty_course = create(:course, start: 1.month.ago, end: 1.month.from_now,
+                                     slug: 'Empty', revision_count: 0, character_sum: 0,
+                                     private: false)
+      empty_instructor = create(:user, username: 'EmptyInst')
+      create(:courses_user, course: empty_course, user: empty_instructor,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      described_class.new.perform
+      stat = FacilitatorStat.find_by(user_id: empty_instructor.id, snapshot_date: Time.zone.today)
+      expect(stat.total_students_count).to eq(0)
+      expect(stat.new_editors_count).to eq(0)
+    end
+
+    it 'excludes private courses' do
+      private_course = create(:course, start: 1.month.ago, end: 1.month.from_now,
+                                       slug: 'Private', private: true)
+      private_instructor = create(:user, username: 'PrivateInst')
+      create(:courses_user, course: private_course, user: private_instructor,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      described_class.new.perform
+      expect(FacilitatorStat.find_by(user_id: private_instructor.id)).to be_nil
+    end
+
+    it 'sets active_in_last_year to false if no recent courses' do
+      old_course = create(:course, start: 2.years.ago, end: 13.months.ago,
+                                   slug: 'Old', private: false)
+      old_instructor = create(:user, username: 'OldInst')
+      create(:courses_user, course: old_course, user: old_instructor,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+
+      described_class.new.perform
+      stat = FacilitatorStat.find_by(user_id: old_instructor.id, snapshot_date: Time.zone.today)
+      expect(stat.active_in_last_year).to be false
     end
   end
 end

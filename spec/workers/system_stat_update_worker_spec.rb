@@ -84,6 +84,15 @@ describe SystemStatUpdateWorker do
   end
 
   describe '#perform' do
+    before do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+    end
+
+    it 'does not run on Wiki Ed dashboard' do
+      allow(Features).to receive(:wiki_ed?).and_return(true)
+      expect { described_class.new.perform }.not_to change(SystemStat, :count)
+    end
+
     it 'creates a system stat record for today' do
       expect { described_class.new.perform }.to change(SystemStat, :count).by(1)
       stat = SystemStat.find_by(snapshot_date: Time.zone.today)
@@ -146,6 +155,7 @@ describe SystemStatUpdateWorker do
       wiki_entry = stat.wiki_stats[wiki.domain]
       expect(wiki_entry['edits']).to eq(800)
       expect(wiki_entry['programs']).to eq(2)
+      expect(wiki_entry['new_editors_with_preregistration']).to eq(2)
     end
 
     it 'upserts when run twice on the same day' do

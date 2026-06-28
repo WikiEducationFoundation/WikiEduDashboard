@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'stat_update_helper'
-
 #= SystemStatUpdateWorker
 # Runs daily via sidekiq-cron (1 hour after DailyUpdateWorker).
 # Computes system-wide metrics across all non-private programs
@@ -11,6 +9,8 @@ class SystemStatUpdateWorker
   sidekiq_options queue: 'daily_update', lock: :until_executed
 
   def perform
+    return if Features.wiki_ed?
+
     snapshot_date = Time.zone.today
     Rails.logger.info { "SystemStatUpdateWorker: computing stats for #{snapshot_date}" }
 
@@ -46,7 +46,7 @@ class SystemStatUpdateWorker
   # Wikipedia account during the program period (start to end).
   def compute_new_editors_count
     new_editor_base_scope
-      .where(StatUpdateHelper.new_editor_date_condition(prereg: false))
+      .where('users.registered_at BETWEEN courses.start AND courses.end')
       .distinct
       .count
   end
@@ -55,7 +55,7 @@ class SystemStatUpdateWorker
   # 60 days before the program start.
   def compute_new_editors_count_with_preregistration
     new_editor_base_scope
-      .where(StatUpdateHelper.new_editor_date_condition(prereg: true))
+      .where('users.registered_at BETWEEN DATE_SUB(courses.start, INTERVAL 60 DAY) AND courses.end')
       .distinct
       .count
   end
@@ -76,18 +76,21 @@ class SystemStatUpdateWorker
   # Uses string keys for consistent serialization round-tripping.
   def compute_wiki_stats(courses)
     wiki_data = fetch_wiki_aggregates(courses)
-    new_editors_by_wiki = compute_new_editors_by_wiki
+    new_editors_with_prereg_by_wiki = compute_new_editors_with_preregistration_by_wiki
+
+    wiki_ids = wiki_data.map { |wd| wd[0] }
+    wikis_by_id = Wiki.where(id: wiki_ids).index_by(&:id)
 
     wiki_stats = {}
     wiki_data.each do |wiki_id, edits, programs, articles_created|
-      wiki = Wiki.find_by(id: wiki_id)
+      wiki = wikis_by_id[wiki_id]
       next unless wiki
 
       wiki_stats[wiki.domain] = {
         'edits' => edits.to_i,
         'programs' => programs.to_i,
         'articles_created' => articles_created.to_i,
-        'new_editors' => new_editors_by_wiki[wiki_id] || 0
+        'new_editors_with_preregistration' => new_editors_with_prereg_by_wiki[wiki_id] || 0
       }
     end
     wiki_stats
@@ -103,9 +106,9 @@ class SystemStatUpdateWorker
            )
   end
 
-  def compute_new_editors_by_wiki
+  def compute_new_editors_with_preregistration_by_wiki
     new_editor_base_scope
-      .where(StatUpdateHelper.new_editor_date_condition(prereg: true))
+      .where('users.registered_at BETWEEN DATE_SUB(courses.start, INTERVAL 60 DAY) AND courses.end')
       .group('courses.home_wiki_id')
       .distinct
       .count('users.id')
@@ -117,6 +120,4 @@ class SystemStatUpdateWorker
         .where(courses: { private: false },
                courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
   end
-
-
 end

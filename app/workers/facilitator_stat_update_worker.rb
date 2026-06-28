@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency 'stat_update_helper'
-
 #= FacilitatorStatUpdateWorker
 # Runs weekly via sidekiq-cron (Sunday 2:00 AM UTC).
 # Computes per-facilitator metrics using bulk SQL queries (GROUP BY)
@@ -12,20 +10,27 @@ class FacilitatorStatUpdateWorker
 
   # rubocop:disable Metrics/MethodLength
   def perform
+    return if Features.wiki_ed?
+
     Rails.logger.info { "FacilitatorStatUpdateWorker: starting for #{Time.zone.today}" }
     metrics = compute_all_metrics
     today = Time.zone.today
     upserted = 0
     errors = 0
 
-    metrics[:facilitator_ids].each do |user_id|
-      record = build_record(user_id, today, metrics)
-      FacilitatorStat.upsert(record)
-      upserted += 1
+    records = metrics[:facilitator_ids].map do |user_id|
+      build_record(user_id, today, metrics)
+    end
+
+    begin
+      if records.any?
+        FacilitatorStat.upsert_all(records)
+        upserted = records.size
+      end
     rescue StandardError => e
-      errors += 1
+      errors = records.size
       Rails.logger.error do
-        "FacilitatorStatUpdateWorker: failed for user_id=#{user_id}: #{e.message}"
+        "FacilitatorStatUpdateWorker: batch upsert failed: #{e.message}"
       end
     end
 
@@ -109,7 +114,7 @@ class FacilitatorStatUpdateWorker
   # New editors per facilitator (registered during program)
   def compute_new_editor_counts
     student_instructor_join
-      .where(StatUpdateHelper.new_editor_date_condition(prereg: false))
+      .where('users.registered_at BETWEEN courses.start AND courses.end')
       .group('instructor_cu.user_id')
       .count(Arel.sql('DISTINCT users.id'))
   end
@@ -117,7 +122,7 @@ class FacilitatorStatUpdateWorker
   # New editors per facilitator (registered with 60-day pre-window)
   def compute_new_editor_counts_with_preregistration
     student_instructor_join
-      .where(StatUpdateHelper.new_editor_date_condition(prereg: true))
+      .where('users.registered_at BETWEEN DATE_SUB(courses.start, INTERVAL 60 DAY) AND courses.end')
       .group('instructor_cu.user_id')
       .count(Arel.sql('DISTINCT users.id'))
   end
