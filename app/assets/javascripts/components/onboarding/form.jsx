@@ -92,15 +92,17 @@ const Form = (props) => {
       <h1>Let&apos;s get some business out of the way.</h1>
       <form className="panel" onSubmit={e => handleSubmit(e)} ref={formRef}>
         <div className="form-group">
-          <label>
+          <label htmlFor="onboarding-name">
             First and last name
             <span className="form-required-indicator">*</span>
           </label>
           <input
             required
+            id="onboarding-name"
             className="form-control"
             type="text"
             name="name"
+            autoComplete="name"
             defaultValue={state.name}
             onChange={e => handleFieldChange('name', e)}
           />
@@ -110,14 +112,16 @@ const Form = (props) => {
           </p>
         </div>
         <div className="form-group">
-          <label>
+          <label htmlFor="onboarding-email">
             Email <span className="form-required-indicator">*</span>
           </label>
           <input
             required
+            id="onboarding-email"
             className="form-control"
             type="email"
             name="email"
+            autoComplete="email"
             defaultValue={state.email}
             onChange={e => handleFieldChange('email', e)}
           />
@@ -126,11 +130,11 @@ const Form = (props) => {
           </p>
         </div>
         <div className={instructorFormClass}>
-          <label>
+          <div className="form-question-label" id="onboarding-instructor-label">
             Are you an instructor?
             <span className="form-required-indicator">*</span>
-          </label>
-          <div className="radio-group">
+          </div>
+          <div className="radio-group" role="radiogroup" aria-labelledby="onboarding-instructor-label">
             <div
               className={`radio-wrapped ${
                 state.instructor === 'true' ? 'checked' : ''

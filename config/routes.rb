@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq-status/web'
+
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
@@ -32,6 +35,12 @@ Rails.application.routes.draw do
   post '/settings/upgrade_special_user' => 'settings#upgrade_special_user'
   post '/settings/downgrade_special_user' => 'settings#downgrade_special_user'
 
+
+  get '/settings/disallowed_users' => 'settings#disallowed_users'
+  post '/settings/add_disallowed_user' => 'settings#add_disallowed_user'
+  post '/settings/remove_disallowed_user' => 'settings#remove_disallowed_user'
+
+
   post '/settings/update_salesforce_credentials' => 'settings#update_salesforce_credentials'
 
   get '/settings/course_creation' => 'settings#course_creation'
@@ -42,11 +51,12 @@ Rails.application.routes.draw do
   post '/settings/remove_featured_campaign' => 'settings#remove_featured_campaign'
   post '/settings/update_default_campaign' => 'settings#update_default_campaign'
 
+  get '/settings/fetch_impact_stats' => 'settings#fetch_impact_stats'
   post '/settings/update_impact_stats' => 'settings#update_impact_stats'
 
   get '/settings/fetch_site_notice' => 'settings#fetch_site_notice'
   post '/settings/update_site_notice' => 'settings#update_site_notice'
-  
+
 
   # Griddler allows us to receive incoming emails. By default,
   # the path for incoming emails is /email_processor
@@ -116,6 +126,11 @@ Rails.application.routes.draw do
   get 'timeslice_duration' => 'timeslice_duration#index'
   get 'timeslice_duration/update' => 'timeslice_duration#show'
   post 'timeslice_duration/update' => 'timeslice_duration#update'
+
+  # Manage course flags (admin only)
+  get 'course_flags' => 'course_flags#index'
+  get 'course_flags/show' => 'course_flags#show'
+  post 'course_flags/update' => 'course_flags#update'
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
@@ -191,9 +206,9 @@ Rails.application.routes.draw do
 
     post '/courses/:slug/students/add_to_watchlist', to: 'courses/watchlist#add_to_watchlist', as: 'add_to_watchlist',
         constraints: { slug: /.*/ }
-    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign', 
-      constraints: { 
-        slug: /.*/ 
+    delete 'courses/:slug/delete_from_campaign' => 'courses/delete_from_campaign#delete_course_from_campaign', as: 'delete_from_campaign',
+      constraints: {
+        slug: /.*/
       }
     get 'embed/course_stats/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'embed#course_stats',
     constraints: {
@@ -237,7 +252,7 @@ Rails.application.routes.draw do
   post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
 
-  get 'articles/article_data' => 'articles#article_data'
+  post 'articles/:article_id/revision_score' => 'articles#revision_score'
   get 'articles/details' => 'articles#details'
   post 'articles/status' => 'articles#update_tracked_status'
 
@@ -252,6 +267,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'alert_followup/:id' => 'alert_followup#show'
+  post 'alert_followup/:id' => 'alert_followup#update'
+
   put 'greeting' => 'greeting#greet_course_students'
 
   # Article Finder
@@ -262,15 +280,27 @@ Rails.application.routes.draw do
   post 'analytics(/*any)' => 'analytics#results'
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
-  get 'course_csv' => 'analytics#course_csv'
-  get 'course_uploads_csv' => 'analytics#course_uploads_csv'
-  get 'course_students_csv' => 'analytics#course_students_csv'
-  get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
-  get 'course_wikidata_csv' => 'analytics#course_wikidata_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
+
+  # Reports generated in background
+  # Course reports
+  get 'course_csv' => 'reports#course_csv'
+  get 'course_uploads_csv' => 'reports#course_uploads_csv'
+  get 'course_students_csv' => 'reports#course_students_csv'
+  get 'course_articles_csv' => 'reports#course_articles_csv'
+  get 'course_wikidata_csv' => 'reports#course_wikidata_csv'
+  get 'course_retention_csv' => 'reports#course_retention_csv'
+  get "all_courses_and_instructors_csv" => "reports#all_courses_and_instructors_csv"
+
+  # Campaign reports
+  get 'campaigns/:slug/students' => 'reports#campaign_students_csv'
+  get 'campaigns/:slug/instructors' => 'reports#campaign_instructors_csv'
+  get 'campaigns/:slug/courses' => 'reports#campaign_courses_csv'
+  get 'campaigns/:slug/articles_csv' => 'reports#campaign_articles_csv'
+  get 'campaigns/:slug/wikidata' => 'reports#campaign_wikidata_csv'
 
   # Campaigns
   get 'campaigns/current/alerts' => 'campaigns#current_alerts', defaults: { format: 'html' }
@@ -281,14 +311,8 @@ Rails.application.routes.draw do
       get 'articles'
       get 'users'
       get 'assignments'
-      get 'students'
-      get 'instructors'
-      get 'courses'
       get 'ores_plot'
-      get 'articles_csv'
-      get 'revisions_csv'
       get 'alerts'
-      get 'wikidata'
       put 'add_organizer'
       put 'remove_organizer'
       put 'remove_course'
@@ -308,6 +332,7 @@ Rails.application.routes.draw do
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
   get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
   get 'current_term(/:subpage)' => 'campaigns#current_term'
+  get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
   resources :tagged_courses, param: :tag, except: :show do
@@ -321,7 +346,7 @@ Rails.application.routes.draw do
   # Custom JSON route for tagged courses stats
   get 'tagged_courses/:tag.json',
     controller: :tagged_courses,
-    action: :stats 
+    action: :stats
 
   # Recent Activity
   get 'recent-activity(/*any)' => 'recent_activity#index', as: :recent_activity
@@ -363,6 +388,27 @@ Rails.application.routes.draw do
 
   # To find individual slides by id
   get 'find_training_slide/:slide_id' => 'training#find_slide'
+
+  # Training module composer (admin-only): compose new training modules as
+  # yml-file drafts, then export as a zip of production-layout files.
+  get 'training_module_drafts' => 'training_module_drafts#index'
+  post 'training_module_drafts' => 'training_module_drafts#create'
+  # Static subpaths must come before the :slug-parameterized routes so they
+  # aren't captured as draft slugs.
+  get 'training_module_drafts/existing_slide_slugs' => 'training_module_drafts#existing_slide_slugs'
+  post 'training_module_drafts/parse_paste' => 'training_module_drafts#parse_paste'
+  get 'training_module_drafts/:slug/export' => 'training_module_drafts#export',
+      constraints: { slug: %r{[^/.]+} }, as: :export_training_module_draft
+  get 'training_module_drafts/:slug/collisions' => 'training_module_drafts#collisions',
+      constraints: { slug: %r{[^/.]+} }
+  get 'training_module_drafts/:slug' => 'training_module_drafts#show',
+      constraints: { slug: %r{[^/.]+} }
+  patch 'training_module_drafts/:slug' => 'training_module_drafts#update',
+        constraints: { slug: %r{[^/.]+} }
+  put 'training_module_drafts/:slug' => 'training_module_drafts#update',
+      constraints: { slug: %r{[^/.]+} }
+  delete 'training_module_drafts/:slug' => 'training_module_drafts#destroy',
+         constraints: { slug: %r{[^/.]+} }
 
   # Misc
   # get 'courses' => 'courses#index'
@@ -464,6 +510,18 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :revision_ai_scores_stats
+
+  # AI alerts stats
+  get 'ai_edit_alerts_stats/select_campaign' => 'ai_edit_alerts_stats#select_campaign'
+  post 'ai_edit_alerts_stats/choose_campaign' => 'ai_edit_alerts_stats#choose_campaign'
+  get 'ai_edit_alerts_stats' => 'ai_edit_alerts_stats#redirect_to_default', constraints: { format: 'html' }
+  get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
+  resources :ai_edit_alerts_stats, only: [:index]
+
+  # AI tools for admins
+  get 'ai_tools' => 'ai_tools#show'
+  post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
 
   namespace :mass_email do
     get 'term_recap' => 'term_recap#index'
@@ -487,6 +545,13 @@ Rails.application.routes.draw do
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
+
+  # Backup system
+  namespace :system do
+    get 'can_start_backup.json' => 'backups#can_start_backup'
+  end
+
+  get '/mailer_previews' => 'mailer_previews#index'
 
   get '/private_information' => 'about_this_site#private_information'
   get '/styleguide' => 'styleguide#index'

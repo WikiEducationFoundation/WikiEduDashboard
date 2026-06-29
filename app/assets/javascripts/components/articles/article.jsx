@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import Switch from 'react-switch';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
 import { stringify } from 'query-string';
+import ArticleGraphs from './article_graphs.jsx';
 
 const Article = ({ article, index, course, fetchArticleDetails, updateArticleTrackedStatus, articleDetails, wikidataLabel,
   showOnMount, setSelectedIndex, lastIndex, selectedIndex, pageLogsMessage, deletedMessage, current_user }) => {
+  const pageviewDisplayMode = useSelector(state => state.articles.pageviewDisplayMode);
   const [tracked, setTracked] = useState(article.tracked);
 
   const fetchMissingArticleDetails = () => {
@@ -60,6 +63,13 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
   if (project === 'wikidata') language = 'www';
   const pageviewUrl = `https://pageviews.toolforge.org/?project=${language}.${project}.org&platform=all-access&agent=user&range=latest-90&pages=${title}`;
 
+  const getPageviewDisplay = () => {
+    if (pageviewDisplayMode === 'average') {
+      return article.average_views ? Math.round(article.average_views) : '-';
+    }
+    return article.view_count || 0;
+  };
+
   const isWikipedia = project === 'wikipedia';
 
   return (
@@ -73,7 +83,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
               !isDeleted ? I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' }) : deletedMessage
             }
           </p>
-          {/* eslint-disable-next-line */}
+          { }
         </div>}
       </td>
       <td>
@@ -85,9 +95,8 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
           {!isDeleted
             ? (
               <small>
-                {/* Disabling article development plot feature until re-implementing. See issue #6337 */}
-                {/* <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={article} /> */}
                 <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a>
+                {article.scoreable && <> | <ArticleGraphs article={article} courseStart={course.start} courseEnd={course.end}/></>}
               </small>
             )
             : (
@@ -101,7 +110,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
       {contentAdded}
       <td className="desktop-only-tc">{article.references_count || ''}</td>
       <td className="desktop-only-tc">
-        <a href={pageviewUrl} target="_blank" className="inline">{article.view_count}</a>
+        <a href={pageviewUrl} target="_blank" className="inline">{getPageviewDisplay()}</a>
       </td>
       <td className="article-diff-icons">
         <ArticleViewer

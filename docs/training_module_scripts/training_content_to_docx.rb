@@ -1,10 +1,10 @@
- 
+
  # Script to create a Google Doc for reviewing and preparing edits for training modules.
 
  def html_from_slide(slide)
   "\n<h2>#{slide.title}</h2><br />" <<
   PandocRuby.convert(slide.content, from: :markdown_github, to: :html) <<
-  "<hr />" 
+  "<hr />"
  end
 
  output = ''

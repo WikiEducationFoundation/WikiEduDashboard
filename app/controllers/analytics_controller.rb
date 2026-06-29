@@ -2,11 +2,6 @@
 
 require_dependency "#{Rails.root}/lib/analytics/monthly_report"
 require_dependency "#{Rails.root}/lib/analytics/course_statistics"
-require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
 require_dependency "#{Rails.root}/lib/analytics/tagged_courses_csv_builder"
@@ -16,9 +11,7 @@ class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
-  before_action :set_course, only: %i[course_csv course_uploads_csv
-                                      course_students_csv course_articles_csv
-                                      course_wikidata_csv]
+  before_action :require_admin_permissions, only: :tagged_courses_csv
 
   ########################
   # Routing entry points #
@@ -27,8 +20,10 @@ class AnalyticsController < ApplicationController
 
   def results
     if params[:monthly_report]
+      require_admin_permissions
       monthly_report
     elsif params[:campaign_intersection]
+      require_admin_permissions
       campaign_intersection
     end
     render 'index'
@@ -40,16 +35,12 @@ class AnalyticsController < ApplicationController
     @course_instructor_count = CoursesUsers.with_instructor_role.pluck(:user_id).uniq.count
     @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
     @total_wikis_touched = Wiki.count
+    @wiki_data = organize_wiki_data
   end
 
   def ungreeted
     send_data UngreetedList.new(current_user).csv,
               filename: "ungreeted-#{current_user.username}-#{Time.zone.today}.csv"
-  end
-
-  def course_csv
-    send_data CourseCsvBuilder.new(@course, per_wiki: true).generate_csv,
-              filename: "#{@course.slug}-#{Time.zone.today}.csv"
   end
 
   def tagged_courses_csv
@@ -58,28 +49,8 @@ class AnalyticsController < ApplicationController
               filename: "#{tag}-courses-#{Time.zone.today}.csv"
   end
 
-  def course_uploads_csv
-    send_data CourseUploadsCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-uploads-#{Time.zone.today}.csv"
-  end
-
-  def course_students_csv
-    send_data CourseStudentsCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-editors-#{Time.zone.today}.csv"
-  end
-
-  def course_articles_csv
-    send_data CourseArticlesCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-articles-#{Time.zone.today}.csv"
-  end
-
-  def course_wikidata_csv
-    send_data CourseWikidataCsvBuilder.new(@course).generate_csv,
-              filename: "#{@course.slug}-wikidata-#{Time.zone.today}.csv"
-  end
-
   def all_courses_csv
-    send_data CampaignCsvBuilder.new(nil).courses_to_csv,
+    send_data CampaignCsvBuilder.new(all_courses_scope).courses_to_csv,
               filename: "all_courses-#{Time.zone.today}.csv"
   end
 
@@ -93,15 +64,57 @@ class AnalyticsController < ApplicationController
   def all_courses
     # Anyone can get data for nonprivate courses; only admins can private course data.
     @courses = current_user&.admin? ? Course.all : Course.nonprivate
+    respond_to do |format|
+      format.json
+    end
   end
 
   def all_campaigns
     @campaigns = Campaign.all
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  private
+
+  # Mirrors #all_courses (JSON): admins see every course, including private;
+  # non-admins see only nonprivate courses.
+  def all_courses_scope
+    return CampaignCsvBuilder::AllCourses if current_user&.admin?
+    CampaignCsvBuilder::AllNonprivateCourses
   end
 
   ###################
   # Output builders #
   ###################
+
+  def organize_wiki_data
+    wikis_with_counts = build_wikis_with_counts
+    wikis_with_counts.sort_by! { |w| -w[:course_count] }
+
+    {
+      all: wikis_with_counts,
+      summary: build_wiki_summary(wikis_with_counts)
+    }
+  end
+
+  def build_wikis_with_counts
+    course_counts = Course.group(:home_wiki_id).count
+    Wiki.where(id: course_counts.keys).map do |wiki|
+      { wiki: wiki, domain: wiki.domain, language: wiki.language,
+        project: wiki.project, course_count: course_counts[wiki.id] || 0 }
+    end
+  end
+
+  def build_wiki_summary(wikis_with_counts)
+    {
+      total_wikis: wikis_with_counts.size,
+      total_courses: wikis_with_counts.sum { |w| w[:course_count] },
+      total_languages: wikis_with_counts.pluck(:language).compact.uniq.size,
+      total_projects: wikis_with_counts.pluck(:project).uniq.size
+    }
+  end
 
   def monthly_report
     @monthly_report = MonthlyReport.run
@@ -116,12 +129,6 @@ class AnalyticsController < ApplicationController
     stats = CourseStatistics.new(course_ids, campaign: campaign_name)
     @campaign_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
-  end
-
-  private
-
-  def set_course
-    @course = find_course_by_slug(params[:course])
   end
 
   def set_campaigns

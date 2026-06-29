@@ -25,14 +25,16 @@ class Alert < ApplicationRecord
   belongs_to :course
   belongs_to :user
   belongs_to :target_user, class_name: 'User'
-  belongs_to :revision
 
   include ArticleHelper
+  include ArticleViewerLinker
 
-  serialize :details, Hash
+  serialize :details, type: Hash
 
   ALERT_TYPES = %w[
     ActiveCourseAlert
+    AiEditAlert
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     BlockedEditsAlert
@@ -49,6 +51,7 @@ class Alert < ApplicationRecord
     GANominationAlert
     HighQualityArticleAssignmentAlert
     HighQualityArticleEditAlert
+    MainspaceAiFollowupAlert
     NeedHelpAlert
     NoTaEnrolledAlert
     NoEnrolledStudentsAlert
@@ -69,6 +72,7 @@ class Alert < ApplicationRecord
   validates_inclusion_of :type, in: ALERT_TYPES
 
   RESOLVABLE_ALERT_TYPES = %w[
+    AiSpikeAlert
     ArticlesForDeletionAlert
     BadWorkAlert
     CheckTimelineAlert
@@ -114,8 +118,21 @@ class Alert < ApplicationRecord
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
+  def alert_list_url
+    "https://#{ENV['dashboard_url']}/alerts_list/#{id}"
+  end
+
   def user_contributions_url
     courses_user&.contribution_url
+  end
+
+  # Returns the web diff url for the revision, e.g.,
+  # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
+  # Note: this assumes revision_id field contains a mediawiki revision id
+  def revision_url
+    return if article.nil? || revision_id.nil?
+    title = article.escaped_full_title
+    "#{article.wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{revision_id}"
   end
 
   def content_experts
@@ -147,6 +164,14 @@ class Alert < ApplicationRecord
     update(email_sent_at: Time.zone.now)
   end
 
+  def email_classroom_program_manager
+    return if emails_disabled?
+    recipient = SpecialUsers.classroom_program_manager
+    # return unless recipient
+    AlertMailer.send_alert_email(self, recipient)
+    update(email_sent_at: Time.zone.now)
+  end
+
   # Disable emails for specific alert types in application.yml, like so:
   #   ProductiveCourseAlert_email_disabled: 'true'
   def emails_disabled?
@@ -156,6 +181,15 @@ class Alert < ApplicationRecord
   # This can be used to copy dashboard emails to Salesforce
   def bcc_to_salesforce_email
     ENV['bcc_to_salesforce_email']
+  end
+
+  # Used when rendering individual views for alerts.
+  def details_to_show
+    details
+  end
+
+  def to_partial_path
+    'alerts_list/alert'
   end
 
   #########################

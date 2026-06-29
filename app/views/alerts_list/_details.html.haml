@@ -1,0 +1,15 @@
+- if !@alert.details_to_show.empty?
+  %h3 Details
+  %table.table.table--striped
+    - @alert.details_to_show.each do |key, value|
+      %tr
+        %th= key.to_s.humanize
+        %td
+          - if key == :pangram_share_link
+            %a{ href: value }= value
+          - elsif key.match? /prior_alert/
+            %a{ href: "/alerts_list/#{value}" }= value
+          - elsif value.is_a?(Array)
+            = value.map { |v| v.to_s.humanize }.join(', ')
+          - else
+            = value

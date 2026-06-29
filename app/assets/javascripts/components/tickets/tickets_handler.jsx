@@ -112,7 +112,7 @@ const TicketsHandler = () => {
   }
 
   return (
-    <main className="container ticket-dashboard">
+    <section className="container ticket-dashboard">
       <h1 className="mt4">Ticketing Dashboard</h1>
       <div>
         <div>
@@ -159,6 +159,7 @@ const TicketsHandler = () => {
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
           <button
+            type="button"
             onClick={doSearch}
             className="button dark"
             name="search_tickets"
@@ -167,6 +168,7 @@ const TicketsHandler = () => {
             {I18n.t('tickets.search_bar_placeholder')}
           </button>
           <button
+            type="button"
             onClick={clearSearch}
             className="button"
             name="clear_search"
@@ -197,7 +199,7 @@ const TicketsHandler = () => {
             </>
           )
       }
-    </main >
+    </section>
   );
 };
 

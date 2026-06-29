@@ -11,6 +11,9 @@ role :app, %w(sage@dashboard.wikiedu.org)
 role :web, %w(sage@dashboard.wikiedu.org)
 role :db,  %w(sage@dashboard.wikiedu.org)
 
+set :backup_host, 'sage@dashboard.wikiedu.org'
+set :backup_path, '/home/dbbackup/dumps'
+
 set :user, 'sage'
 set :address, 'dashboard.wikiedu.org'
 
@@ -22,9 +25,7 @@ set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/sha
 # The ENV variable is for deployment via travis-ci.
 set :newrelic_license_key, ENV['NEWRELIC_LICENSE_KEY']
 set :newrelic_appname, 'Wiki Ed Dashboard'
-namespace :deploy do
-  after "deploy:updated", "newrelic:notice_deployment"
-end
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the

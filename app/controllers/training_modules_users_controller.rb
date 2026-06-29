@@ -68,7 +68,7 @@ class TrainingModulesUsersController < ApplicationController
   def instructor_orientation_module?
     return false unless Features.wiki_ed?
     @training_module_user.completed_at.present? &&
-      (HOW_TO_TEACH_WITH_WIKIPEDIA_TRAINING_MODULE_ID == @training_module.id)
+      (@training_module.id == HOW_TO_TEACH_WITH_WIKIPEDIA_TRAINING_MODULE_ID)
   end
 
   def last_slide?

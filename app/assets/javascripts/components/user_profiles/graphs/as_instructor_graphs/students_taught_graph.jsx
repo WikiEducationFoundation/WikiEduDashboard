@@ -104,9 +104,9 @@ const StudentsTaughtGraph = (props) => {
     renderGraph(props.statsData, props.graphWidth, props.graphHeight, props.courseStringPrefix);
   }, []);
     return (
-      <div id ="stats_graph">
+      <div id="stats_graph">
         <h5> {I18n.t(`${props.courseStringPrefix}.students_taught`)} </h5>
-        <div id= "StudentsTaughGraph" />
+        <div id="StudentsTaughGraph" />
       </div>
     );
   };

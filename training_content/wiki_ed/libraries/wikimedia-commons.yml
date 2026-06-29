@@ -1,0 +1,24 @@
+name: Wikimedia Commons
+id: 5
+exclude_from_index: false
+introduction: |
+  This set of modules covers media contributions via Wikimedia Commons.
+categories:
+  - title: ''
+    description: ''
+    modules:
+      - slug: about-wikimedia-commons
+        name: About Wikimedia Commons
+        description: An overview of Wikimedia Commons
+      - slug: licensing-on-wikimedia-commons
+        name: Licensing on Wikimedia Commons
+        description: Learn about the copyright rules and standard licenses.
+      - slug: adding-images-on-wikipedia
+        name: Adding images on Wikipedia
+        description: The role of images in Wikipedia articles and how to add or replace them
+      - slug: categories-on-wikimedia-commons
+        name: Categories on Wikimedia Commons
+        description: Explore the importance of categories and subcategories on Wikimedia Commons.
+      - slug: using-glamorgan-to-track-views
+        name: Using GLAMorgan to track views
+        description: Learn about GLAMorgan, a tool for tracking image views across Wikimedia projects.

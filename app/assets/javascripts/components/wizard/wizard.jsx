@@ -56,7 +56,7 @@ const Wizard = createReactClass({
     try {
       document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
     } catch (_err) {
-      // eslint-disable-next-line no-console
+
       console.log('scrollTo not supported');
     }
   },
@@ -139,8 +139,9 @@ const Wizard = createReactClass({
       );
     });
 
+    const activePanelTitle = this.props.panels[this.props.activePanelIndex]?.title;
     return (
-      <Modal>
+      <Modal ariaLabel={activePanelTitle}>
         <TransitionGroup
           classNames="wizard__panel"
           component="div"

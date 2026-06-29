@@ -929,7 +929,6 @@ pl:
         nowymi wersjami Chrome i Firefoksa, a także z większością innych nowoczesnych
         przeglądarek.
   error_401:
-    header: Nieautoryzowane. >:-(
     explanation: Nie masz uprawnień do wykonania tego zapytania. Jeśli uważasz, że
       ten komunikat to dowód błędu, skontaktuj się z osobami nadzorującymi to Centrum
       i opowiedz im o problemie.

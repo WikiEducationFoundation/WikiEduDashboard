@@ -32,8 +32,8 @@ describe 'cloning a course', js: true do
     create(:course, start: 1.year.from_now.to_date,
                     title: 'CourseToClone',
                     school: 'OriginalSchool',
-                    term: 'OriginalTerm',
-                    slug: 'OriginalSchool/CourseToClone_(OriginalTerm)',
+                    term: 'OriginalTerm 2025',
+                    slug: 'OriginalSchool/CourseToClone_(OriginalTerm_2025)',
                     subject: 'OrginalSubject',
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0,
@@ -51,14 +51,9 @@ describe 'cloning a course', js: true do
     create(:assignment, course_id: course.id, id: 12345)
   end
 
-  # after do
-  #   logout
-  # end
-
   it 'copies relevant attributes of an existing course' do
-    pending 'This sometimes fails for unknown reasons.'
     course.wikis = Wiki.find([1, 3, 4]) # Let the original course have some tracked wikis.
-    login_as user, scope: :user, run_callbacks: false
+    login_as user
     visit root_path
     click_link 'Create Course'
     click_button 'Clone Previous Course'
@@ -72,7 +67,7 @@ describe 'cloning a course', js: true do
 
     # interact_with_clone_form
     find('input#course_term').click
-    fill_in 'course_term', with: 'OriginalTerm' # Same as original, not allowed
+    fill_in 'course_term', with: 'OriginalTerm 2025' # Same as original, not allowed
     fill_in 'course_subject', with: subject
 
     within '#details_column' do
@@ -116,8 +111,6 @@ describe 'cloning a course', js: true do
     expect(new_course.user_count).to be_zero
     expect(new_course.article_count).to be_zero
     expect(new_course.wikis.count).to eq(3) # Check if the tracked wikis are cloned.
-
-    pass_pending_spec
   end
 
   it 'copies relevant attributes of an existing course with assignments' do
@@ -137,7 +130,7 @@ describe 'cloning a course', js: true do
 
     # interact_with_clone_form
     find('input#course_term').click
-    fill_in 'course_term', with: 'OriginalTerm' # Same as original, not allowed
+    fill_in 'course_term', with: 'OriginalTerm 2025' # Same as original, not allowed
     fill_in 'course_subject', with: subject
 
     within '#details_column' do

@@ -1,3 +1,7 @@
+# WARNING!
+
+Docker isn't an actively maintained part of this project, so docker-related dependencies and instructions may be out of date, so you may need to make adjustments to the instructions. If you follow these setup instructions and successfully get a development environment running, please open a pull request with any changes that were necessary.
+
 # Docker Setup
 
 This document outlines how you can setup a containerized testing/development environment quickly using docker. Using a containerized dashboard image allows for a faster and reproducible test setup. We first have to build the Docker image and then run the container.

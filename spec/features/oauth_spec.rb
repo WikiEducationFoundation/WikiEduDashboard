@@ -18,6 +18,12 @@ end
 describe 'logging in', type: :feature, js: true do
   # Capybara.server_port = 3333
 
+  # Disable OmniAuth's CSRF protection in tests because Capybara doesn't preserve
+  # CSRF tokens through OAuth redirects
+  before do
+    OmniAuth.config.request_validation_phase = nil
+  end
+
   context 'without a stubbed OAuth flow' do
     it 'sends the user to log in on Wikipedia and allow the app' do
       pending 'This started failing in CI.'
@@ -46,8 +52,9 @@ describe 'logging in', type: :feature, js: true do
     it 'sets first_login on the user' do
       mock_and_stub_oauth_login
       visit '/'
+      expect(page).to be_axe_clean
       click_link 'Log in with Wikipedia'
-      expect(page).to have_content 'Log out'
+      expect(page).to have_content 'Ragesoss'
       expect(User.last.first_login).not_to be_nil
     end
 
@@ -59,7 +66,7 @@ describe 'logging in', type: :feature, js: true do
         extra: { raw_info: { login_failed: true } }
       )
       visit '/training'
-      click_link 'Log in'
+      find('a', text: 'Log in').click
       expect(page).to have_content 'Login Error'
     end
   end

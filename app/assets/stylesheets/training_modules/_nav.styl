@@ -15,12 +15,14 @@ body.training nav.top-nav
   li
     display inline
     margin 0
+    & + li::before
+      content " > "
 
 .training__slide-header
   padding 12px 0 16px 0
   height auto
   background $training_primary
-  ol.breadcrumbs 
+  ol.breadcrumbs
     width 85%
     @extends .breadcrumbs
     color $breadcrumb_light_text
@@ -80,7 +82,7 @@ a.slide-nav
   height 55px
   width 192px
   padding 19px 12px 12px 12px
-  h3
+  .training__slide__page-label
     font-weight 400
     font-size 15px
     letter-spacing 0.35px

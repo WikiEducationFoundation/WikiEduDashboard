@@ -31,6 +31,7 @@ const MultiSelectField = ({ label, options, disabled, selected, setSelectedFilte
   return (
     <div className="section">
       <Select
+        aria-label={label}
         closeOnSelect={!state.stayOpen}
         isDisabled={disabled || false}
         isMulti

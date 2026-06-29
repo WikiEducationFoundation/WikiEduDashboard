@@ -29,14 +29,20 @@
     Article:
     %a.link{href: @alert.article.url}= @alert.article.title
 
-- if @alert.revision
+- if @alert.revision_id
   %p.paragraph
-    %a.link{href: @alert.revision.url} diff
+    %a.link{href: @alert.revision_url} diff
 
 - if @details.present?
   %p.paragraph.preserve-whitespace
     Alert details:
     = @details
+
+- if @details[:ai_edit_alert_ids]
+  %p.paragraph.preserve-whitespace
+    AI Edit Alerts:
+    - @details[:ai_edit_alert_ids].each do |id|
+      %a.link{href: "https://#{ENV['dashboard_url']}/alerts_list/#{id}"}= id
 
 - if @recipient.admin? && @resolvable
   %table.row

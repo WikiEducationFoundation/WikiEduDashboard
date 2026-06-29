@@ -9,6 +9,7 @@ import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
+import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const DatePicker = createReactClass({
   displayName: 'DatePicker',
@@ -23,7 +24,6 @@ const DatePicker = createReactClass({
     valueClass: PropTypes.string,
     editable: PropTypes.bool,
     enabled: PropTypes.bool,
-    focus: PropTypes.bool,
     inline: PropTypes.bool,
     isClearable: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -285,7 +285,6 @@ const DatePicker = createReactClass({
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
             disabled={this.props.enabled && !this.props.enabled}
-            autoFocus={this.props.focus}
             onFocus={this.handleDateFieldFocus}
             onBlur={this.handleDateFieldBlur}
             onKeyDown={this.handleDateFieldKeyDown}
@@ -343,7 +342,14 @@ const DatePicker = createReactClass({
         <p className={this.props.p_tag_classname}>
           <span className="text-input-component__label"><strong>{label}</strong></span>
           <span>{(this.props.value !== null || this.props.editable) && !this.props.label ? spacer : null}</span>
-          <span onBlur={this.props.onBlur} onClick={this.props.onClick} className={valueClass}>
+          <span
+            role={this.props.onClick ? 'button' : undefined}
+            tabIndex={this.props.onClick ? 0 : undefined}
+            onBlur={this.props.onBlur}
+            onClick={this.props.onClick}
+            onKeyDown={this.props.onClick ? onEnterOrSpace(this.props.onClick) : undefined}
+            className={valueClass}
+          >
             {this.getFormattedDateTime()}
           </span>
           {this.props.append}

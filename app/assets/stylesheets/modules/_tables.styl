@@ -81,7 +81,7 @@
         font-size 13px
         font-weight 800
         vertical-align bottom
-        color #808080
+        color #595959
 
         &:first-child, &:last-child
           border-left none
@@ -195,6 +195,12 @@
       // .sortable-indicator-desc
   +below(tablet)
     width max-content
+
+.table-responsive
+  +below(tablet)
+    display block
+    overflow-x auto
+    -webkit-overflow-scrolling touch
 
 .revision-list-container
   +below(tablet)

@@ -48,6 +48,7 @@ describe UserImporter do
         user = described_class.new_from_username(username)
         expect(user).to be_a(User)
         expect(user.username).to eq(username)
+        expect(user.reload.registered_at).not_to be_nil
       end
     end
 

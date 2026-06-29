@@ -4,6 +4,6 @@ class CsvCleanupWorker
   include Sidekiq::Worker
 
   def perform(filename)
-    File.delete "public#{CampaignsController::CSV_PATH}/#{filename}"
+    File.delete "public#{ReportsController::CSV_PATH}/#{filename}"
   end
 end

@@ -1,0 +1,298 @@
+#!/usr/bin/env bash
+# Regenerate the full UI-inventory screenshots against a branch and diff them
+# against this repo's committed master baseline at docs/screenshots/.
+# Produces a side-by-side HTML report.
+#
+# Usage:
+#   bin/inventory-diff <branch>                 # full run: setup + build + capture + diff
+#   bin/inventory-diff <branch> --skip-build    # reuse cached yarn build
+#   bin/inventory-diff <branch> --skip-capture  # reuse existing PNGs; diff only
+#   bin/inventory-diff --clean                  # remove worktree(s) and output
+#
+# <branch> may be local or remote (e.g. VPAT-Prep, origin/foo, or any ref).
+# The script fetches origin first so plain branch names resolve to origin/<branch>.
+#
+# Why a worktree outside the repo tree:
+#   Yarn 3 walks upward looking for a project root. A worktree nested under
+#   the main repo (e.g. .claude/worktrees/...) causes yarn to chdir to the
+#   parent's package.json and write output into the wrong tree. Putting the
+#   worktree at /tmp/... avoids that.
+#
+# Outputs:
+#   tmp/inventory-diff/<slug>/index.html         # browsable side-by-side report
+#   tmp/inventory-diff/<slug>/composites/*.png   # master | branch stitched PNGs
+#   tmp/inventory-diff/<slug>/diff-mask/*.png    # per-page red highlight mask
+#   tmp/inventory-diff/<slug>/index.md           # markdown version
+
+set -euo pipefail
+
+# ── Paths ─────────────────────────────────────────────────────────────────────
+
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+SPEC_REL='spec/features/ui_inventory_screenshots_spec.rb'
+CASSETTE_REL='fixtures/vcr_cassettes/cached/ui_inventory_screenshots'
+BASELINE_REL='docs/screenshots'
+
+WT_ROOT="${INVENTORY_DIFF_WT_ROOT:-/tmp/wikiedu-inventory-diff}"
+OUT_ROOT="$REPO/tmp/inventory-diff"
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+die() { echo "error: $*" >&2; exit 1; }
+log() { printf '\n── %s\n' "$*"; }
+
+slugify() {
+  echo "$1" | tr '/' '-' | tr -c 'A-Za-z0-9._-' '-' | sed 's/-\+/-/g; s/^-//; s/-$//'
+}
+
+require_cmd() {
+  command -v "$1" >/dev/null 2>&1 || die "missing required command: $1"
+}
+
+# ── Args ──────────────────────────────────────────────────────────────────────
+
+if [[ "${1:-}" == '--clean' ]]; then
+  log "Removing $WT_ROOT and $OUT_ROOT"
+  rm -rf "$WT_ROOT" "$OUT_ROOT"
+  exit 0
+fi
+
+[[ $# -ge 1 ]] || die "usage: bin/inventory-diff <branch> [--skip-build] [--skip-capture]"
+
+BRANCH="$1"; shift
+SKIP_BUILD=0
+SKIP_CAPTURE=0
+for arg in "$@"; do
+  case "$arg" in
+    --skip-build)   SKIP_BUILD=1 ;;
+    --skip-capture) SKIP_CAPTURE=1 ;;
+    *) die "unknown flag: $arg" ;;
+  esac
+done
+
+require_cmd git
+require_cmd yarn
+require_cmd bundle
+require_cmd compare
+require_cmd convert
+
+SLUG="$(slugify "$BRANCH")"
+WT="$WT_ROOT/wt-$SLUG"
+OUT="$OUT_ROOT/$SLUG"
+
+# Resolve the branch ref. Prefer origin/<branch> if it exists.
+git -C "$REPO" fetch origin "$BRANCH" 2>/dev/null || true
+if git -C "$REPO" rev-parse --verify "origin/$BRANCH" >/dev/null 2>&1; then
+  REF="origin/$BRANCH"
+elif git -C "$REPO" rev-parse --verify "$BRANCH" >/dev/null 2>&1; then
+  REF="$BRANCH"
+else
+  die "couldn't resolve ref: $BRANCH"
+fi
+SHA="$(git -C "$REPO" rev-parse --short "$REF")"
+log "Branch:   $BRANCH  →  $REF  ($SHA)"
+log "Worktree: $WT"
+log "Output:   $OUT"
+
+[[ "$REF" != *master ]] || die "diffing master against itself is a no-op"
+
+# ── Stage 1: worktree ─────────────────────────────────────────────────────────
+
+mkdir -p "$WT_ROOT"
+if [[ -d "$WT/.git" || -f "$WT/.git" ]]; then
+  log "Reusing worktree (checking out $REF)"
+  git -C "$WT" fetch origin 2>/dev/null || true
+  git -C "$WT" checkout --detach "$REF"
+else
+  log "Creating worktree at $REF"
+  git -C "$REPO" worktree add --detach "$WT" "$REF"
+fi
+
+# Symlink gitignored config so Rails can boot, and node_modules so yarn install
+# is fast. node_modules can be shared because package.json/yarn.lock are
+# branch-invariant in practice; if they ever diverge, bundle/yarn will reinstall.
+ln -sfn "$REPO/node_modules"           "$WT/node_modules"
+ln -sfn "$REPO/config/database.yml"    "$WT/config/database.yml"
+ln -sfn "$REPO/config/application.yml" "$WT/config/application.yml"
+
+# Overlay master's spec + cassette so any branch (even older than the spec)
+# can be screenshotted. These are not committed in the worktree.
+cp "$REPO/$SPEC_REL" "$WT/$SPEC_REL"
+mkdir -p "$WT/$CASSETTE_REL"
+if [[ -d "$REPO/$CASSETTE_REL" ]]; then
+  cp -f "$REPO/$CASSETTE_REL"/*.yml "$WT/$CASSETTE_REL/" 2>/dev/null || true
+fi
+
+# bundle install only on first setup (cheap re-run if Gemfile diverged)
+(cd "$WT" && bundle check >/dev/null 2>&1 || bundle install)
+
+# ── Stage 2: yarn build ───────────────────────────────────────────────────────
+
+if (( SKIP_BUILD )); then
+  log "Skipping yarn build (--skip-build)"
+else
+  log "yarn build (compiling branch's stylus + jsx)"
+  (cd "$WT" && yarn build)
+fi
+
+# ── Stage 3: capture ──────────────────────────────────────────────────────────
+
+if (( SKIP_CAPTURE )); then
+  log "Skipping screenshot capture (--skip-capture)"
+else
+  log "SCREENSHOTS=1 rspec $SPEC_REL"
+  rm -f "$WT/$BASELINE_REL"/*.png
+  (cd "$WT" && SCREENSHOTS=1 bundle exec rspec "$SPEC_REL")
+fi
+
+# ── Stage 4: diff + composites + HTML ─────────────────────────────────────────
+
+log "Diffing against master baseline"
+mkdir -p "$OUT/composites" "$OUT/diff-mask"
+TSV="$OUT/changed.tsv"; : > "$TSV"
+MASTER_BASELINE="$REPO/$BASELINE_REL"
+CANDIDATE="$WT/$BASELINE_REL"
+
+only_master=(); only_branch=(); identical=(); changed=()
+mapfile -t names < <(
+  { ls "$MASTER_BASELINE" 2>/dev/null; ls "$CANDIDATE" 2>/dev/null; } \
+    | grep -E '\.png$' | sort -u
+)
+for name in "${names[@]}"; do
+  m="$MASTER_BASELINE/$name"; v="$CANDIDATE/$name"
+  if [[ ! -f "$m" ]]; then only_branch+=("$name"); continue; fi
+  if [[ ! -f "$v" ]]; then only_master+=("$name"); continue; fi
+
+  ae_raw="$(compare -metric AE -fuzz 1% "$m" "$v" /dev/null 2>&1 || true)"
+  ae="${ae_raw%% *}"
+  [[ "$ae" =~ ^[0-9]+$ ]] || ae=0
+
+  if [[ "$ae" -eq 0 ]]; then
+    identical+=("$name"); continue
+  fi
+  changed+=("$name|$ae")
+  printf '%s\t%s\n' "$name" "$ae" >> "$TSV"
+
+  convert \
+    \( "$m" -bordercolor '#888' -border 1 -gravity north -background '#222' \
+       -splice 0x24 -fill white -pointsize 20 -annotate +0+2 "master" \) \
+    \( "$v" -bordercolor '#888' -border 1 -gravity north -background '#222' \
+       -splice 0x24 -fill white -pointsize 20 -annotate +0+2 "$BRANCH ($SHA)" \) \
+    +append "$OUT/composites/$name"
+
+  compare -fuzz 1% -highlight-color red -lowlight-color white \
+          "$m" "$v" "$OUT/diff-mask/$name" 2>/dev/null || true
+done
+
+# ── Markdown report ───────────────────────────────────────────────────────────
+
+MD="$OUT/index.md"
+{
+  echo "# Inventory diff: $BRANCH ($SHA) vs master baseline"
+  echo
+  echo "_$(date '+%F %T %Z')_"
+  echo
+  echo "- Master baseline: \`$MASTER_BASELINE\`"
+  echo "- Candidate:       \`$CANDIDATE\`"
+  echo
+  echo "## Summary"
+  echo
+  echo "- Changed: ${#changed[@]}"
+  echo "- Identical: ${#identical[@]}"
+  echo "- Only in master: ${#only_master[@]}"
+  echo "- Only in $BRANCH: ${#only_branch[@]}"
+  echo
+  if (( ${#only_master[@]} > 0 )); then
+    echo "## Only in master"
+    for n in "${only_master[@]}"; do echo "- $n"; done
+    echo
+  fi
+  if (( ${#only_branch[@]} > 0 )); then
+    echo "## Only in $BRANCH"
+    for n in "${only_branch[@]}"; do echo "- $n"; done
+    echo
+  fi
+  echo "## Changed (sorted by pixel-diff count, largest first)"
+  echo
+  if (( ${#changed[@]} > 0 )); then
+    printf '%s\n' "${changed[@]}" | sort -t'|' -k2 -n -r | while IFS='|' read -r name ae; do
+      echo "### $name (Δ $ae px)"
+      echo
+      echo "[![$name](composites/$name)](composites/$name)"
+      echo
+      echo "[diff mask](diff-mask/$name)"
+      echo
+    done
+  fi
+  echo "## Identical"
+  echo
+  for n in "${identical[@]}"; do echo "- $n"; done
+} > "$MD"
+
+# ── HTML report ───────────────────────────────────────────────────────────────
+
+HTML="$OUT/index.html"
+{
+  cat <<HTML_HEAD
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Inventory diff: $BRANCH</title>
+<style>
+  body { font-family: -apple-system,Segoe UI,Roboto,sans-serif; background:#f4f4f4;
+         margin:0; padding:24px; color:#222; }
+  h1 { margin-top: 0; }
+  .summary { background:#fff; padding:12px 20px; border-radius:6px; margin-bottom:24px; }
+  .card { background:#fff; padding:16px; border-radius:6px; margin-bottom:24px;
+          box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+  .card img { max-width: 100%; height:auto; display:block; border:1px solid #ddd; }
+  .card h3 { margin: 0 0 12px 0; font-size: 16px; }
+  .ae { color:#888; font-weight: normal; font-size: 13px; margin-left: 8px; }
+  details > summary { cursor:pointer; padding:8px 0; font-weight:bold; }
+  details ul { columns: 3; }
+  li { font-family: monospace; font-size: 13px; }
+</style></head><body>
+<h1>Inventory diff: $BRANCH <code>($SHA)</code> vs master baseline</h1>
+<div class="summary">
+  <p><b>${#changed[@]}</b> changed · <b>${#identical[@]}</b> identical ·
+     <b>${#only_master[@]}</b> only-in-master · <b>${#only_branch[@]}</b> only-in-branch</p>
+</div>
+HTML_HEAD
+
+  if (( ${#only_master[@]} > 0 )); then
+    echo '<details><summary>Only in master ('"${#only_master[@]}"') — likely stale</summary><ul>'
+    for n in "${only_master[@]}"; do echo "<li>$n</li>"; done
+    echo '</ul></details>'
+  fi
+  if (( ${#only_branch[@]} > 0 )); then
+    echo '<details><summary>Only in branch ('"${#only_branch[@]}"')</summary><ul>'
+    for n in "${only_branch[@]}"; do echo "<li>$n</li>"; done
+    echo '</ul></details>'
+  fi
+  echo '<details><summary>Identical pages ('"${#identical[@]}"')</summary><ul>'
+  for n in "${identical[@]}"; do echo "<li>$n</li>"; done
+  echo '</ul></details>'
+
+  echo "<h2>Changed (${#changed[@]}) — sorted by pixel-diff count</h2>"
+  if (( ${#changed[@]} > 0 )); then
+    printf '%s\n' "${changed[@]}" | sort -t'|' -k2 -n -r | while IFS='|' read -r name ae; do
+      ae_fmt="$(printf "%'d" "$ae")"
+      cat <<HTML_CARD
+<div class="card">
+  <h3>$name <span class="ae">Δ $ae_fmt px</span></h3>
+  <a href="composites/$name"><img src="composites/$name" alt="$name"></a>
+  <p><a href="diff-mask/$name">diff mask</a></p>
+</div>
+HTML_CARD
+    done
+  fi
+  echo '</body></html>'
+} > "$HTML"
+
+# ── Done ──────────────────────────────────────────────────────────────────────
+
+log "Done"
+echo "  Changed:  ${#changed[@]}"
+echo "  Identical: ${#identical[@]}"
+echo "  Only in master: ${#only_master[@]}"
+echo "  Only in $BRANCH: ${#only_branch[@]}"
+echo
+echo "  Open: file://$HTML"

@@ -50,9 +50,8 @@ class WikiCourseEdits
     return unless @course.wiki_title # Don't post for courses that lack a wiki course page
 
     instructor ||= @current_user
-    add_course_template_to_instructor_userpage(instructor)
     # Announce the course on the Education Noticeboard or equivalent.
-    announce_course_on_announcement_page(instructor)
+    announce_course_on_announcement_page(instructor:)
   end
 
   # Adds a template to the enrolling student's userpage, and also
@@ -98,8 +97,11 @@ class WikiCourseEdits
   # is to use this for each assignment update to ensure that on-wiki assignment
   # templates remain accurate and up-to-date.
   def update_assignments(*)
-    homewiki_assignments_grouped_by_article.each do |article_id, assignments_for_same_article|
-      article = Article.find(article_id)
+    assignments_by_article = homewiki_assignments_grouped_by_article
+    articles = Article.where(id: assignments_by_article.keys)
+                      .index_by(&:id)
+    assignments_by_article.each do |article_id, assignments_for_same_article|
+      article = articles[article_id]
       next unless article.namespace == Article::Namespaces::MAINSPACE
       next if article.deleted
       update_assignments_for_article(title: article.title,
@@ -199,16 +201,16 @@ class WikiCourseEdits
     @wiki_editor.post_whole_page(@current_user, wiki_title, safe_wiki_text, summary)
   end
 
-  def add_course_template_to_instructor_userpage(instructor)
+  def add_course_template_to_instructor_userpage(instructor:)
     user_page = "User:#{instructor.username}"
-    template = "{{#{template_name(@templates, 'instructor')}"\
+    template = "{{#{template_name(@templates, 'instructor')}" \
                " | course = [[#{@course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
   end
 
-  def announce_course_on_announcement_page(instructor)
+  def announce_course_on_announcement_page(instructor:)
     announcement_page = ENV['course_announcement_page']
     # rubocop:disable Layout/LineLength
     announcement = "I have created a new course — #{@course.title} — at #{@dashboard_url}/courses/#{@course.slug}. If you'd like to see more details about my course, check out my course page.--~~~~"

@@ -8,7 +8,7 @@ class ArticleUtils
     unless wiki&.project == 'wiktionary'
       first_letter = formatted_title[0]
       # Use mb_chars so that we can capitalize unicode letters too.
-      formatted_title[0] = first_letter.mb_chars.capitalize.to_s
+      formatted_title[0] = first_letter.capitalize.to_s
     end
     formatted_title = formatted_title.tr(' ', '_')
     formatted_title

@@ -26,7 +26,7 @@ There are some basic requirements for the script to work:
 - git (to clone the repository)
 - node version 14 or newer
 - python 3.5 or newer
-- ruby 3.1.2
+- ruby 3.4.8
 - apt (debian) or homebrew (MacOS)
 
 ## Instructions
@@ -51,7 +51,7 @@ You can also contact us on slack for any further queries.
   - Please confirm your Password for MySQL
   - Delete `config/Database.yml`
   - Run the script again.
-- If you face the error that `Sorry! Your operating is not supported by this script`
+- If you face the error that `Sorry! Your operating system is not supported by this script`
   - You can try running the system dependent scripts from setup directory, according to your system
   - You can try manual installation
 - If you're running Windows and experience `RUNAS ERROR`
@@ -96,11 +96,11 @@ If you know your way around Rails, here's the very short version. Some additiona
 - In the console, download a copy of your forked repo with `git clone https://github.com/your_username/WikiEduDashboard.git` where `your_username` is your GitHub username.
 - Enter the new WikiEduDashboard directory with `cd WikiEduDashboard`.
 - On OSX/Debian, make sure you are in the "sudo" group.
-- Install Ruby 3.1.2 (RVM is documented here; rbenv also works fine.)
+- Install Ruby 3.4.8 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - Use **rvm:** `rvm install 3.1.2` followed by `rvm use 3.1.2`
-       - or use **rbenv:** `rbenv install 3.1.2` followed by `rbenv local 3.1.2`
+       - Use **rvm:** `rvm install 3.4.8` followed by `rvm use 3.4.8`
+       - or use **rbenv:** `rbenv install 3.4.8` followed by `rbenv local 3.4.8`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
@@ -122,6 +122,11 @@ If you know your way around Rails, here's the very short version. Some additiona
         - Windows: `C:\xampp\mysql\bin\mysql -u root`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';`
+    - `GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost';`
+    - `GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost';`
+    - `FLUSH PRIVILEGES;` # reload privilege tables so the new user/permissions take effect
+    - `SELECT User, Host FROM mysql.user WHERE User = 'wiki';`
     - `exit`
 
 - Install Gems:

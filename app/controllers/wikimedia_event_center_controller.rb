@@ -146,7 +146,7 @@ class WikimediaEventCenterController < ApplicationController
   def add_or_remove_participants
     return if params[:dry_run]
 
-    synced_participants = params[:participant_usernames].reject(&:blank?)
+    synced_participants = params[:participant_usernames].compact_blank
     current_participants = @course.students.pluck(:username)
 
     new_participants = synced_participants - current_participants

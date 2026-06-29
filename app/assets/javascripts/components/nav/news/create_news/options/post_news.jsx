@@ -21,7 +21,8 @@ const PostNews = ({ postNews }) => {
   }
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setPostNewsIcon(true)} // Show blue icon on hover
       onMouseLeave={() => setPostNewsIcon(false)} // Show grey icon when not hovered
       onClick={handlePostNews} // Trigger the post news action
@@ -30,7 +31,7 @@ const PostNews = ({ postNews }) => {
       {/* Display post icon, changing color based on hover state */}
       <span className={postNewsIcon ? 'icon-post-news--blue' : 'icon-post-news--grey'} />
       <p>{I18n.t('news.options.create_news.post_news')}</p>
-    </div>
+    </button>
   );
 };
 

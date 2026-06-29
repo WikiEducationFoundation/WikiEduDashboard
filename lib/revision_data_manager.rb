@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/article_utils"
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
@@ -7,6 +8,22 @@ require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
 
 #= Fetches revision data from API
+# This class is intended to be used in four main ways:
+# 1. To fetch revisions and scores for a given course over a period:
+#    - First, fetch the revisions using `fetch_revision_data_for_course`.
+#    - Then, fetch the scores by calling `fetch_score_data_for_course`, passing the array
+#      of revisions obtained earlier. These are done in separate steps for performance reasons,
+#      since fetching scores can be expensive.
+# 2. To fetch revisions (without scores) for a given set of users over a period:
+#    - Use `fetch_revision_data_for_users` as the entry point.
+# 3. To fetch revisions and scores for a given set of users over a period, also importing
+#    Article records as a side effect (used by UpdateTimeslicesScopedArticle):
+#    - Use `fetch_revision_data_for_users_with_articles_only` to get revisions with articles.
+#    - Filter the returned revisions to the target articles.
+#    - Then call `fetch_score_data_for_course` on the filtered revisions.
+# 4. To fetch revisions, import Article records, and fetch scores for a given set of users
+#    over a period in one step (used by CourseRevisionUpdater for new users):
+#    - Use `fetch_revision_data_for_users_with_articles` as the entry point.
 class RevisionDataManager
   include EncodingHelper
 
@@ -22,38 +39,40 @@ class RevisionDataManager
   # Returns an array of Revision records.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    all_sub_data, scoped_sub_data = get_course_revisions(@course.students, timeslice_start,
-                                                         timeslice_end)
-    @revisions = []
+    all_sub_data = get_course_revisions(@course.students, timeslice_start,
+                                        timeslice_end)
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
-    articles = sub_data_to_article_attributes(all_sub_data)
+    article_attributes = sub_data_to_article_attributes(all_sub_data)
 
     # Import articles. We do this here to avoid saving article data in memory.
     # Note that we create articles for all sub data (not only for scoped revisions).
-    import_and_resolve_duplicate_articles articles
+    import_articles(article_attributes)
+
+    # Retrieve article records
+    articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                             mw_page_id: article_attributes.map { |a| a['mw_page_id'] })
+
+    resolve_duplicate_articles(articles)
 
     # Prep: get a user dictionary for all users referred to by revisions.
     users = user_dict_from_sub_data(all_sub_data)
 
     # Now get all the revisions
     # We need a slightly different article dictionary format here
-    article_dict = @articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
-    @revisions = sub_data_to_revision_attributes(all_sub_data,
-                                                 users,
-                                                 scoped_sub_data:,
-                                                 articles: article_dict)
-    return @revisions
+    article_dict = articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
+    revisions = sub_data_to_revision_attributes(all_sub_data,
+                                                users,
+                                                articles: article_dict)
+    return revisions
   end
 
   # This method gets scores for specific revisions from different APIs.
   # Returns an array of Revision records with completed scores.
   def fetch_score_data_for_course(revisions)
-    @revisions = revisions
-
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
-    (revisions_in_spaces, revisions_out_spaces) = partition_revisions
+    (revisions_in_spaces, revisions_out_spaces) = partition_revisions(revisions)
 
     revisions_out_spaces.concat @importer.get_revision_scores(revisions_in_spaces)
   end
@@ -61,10 +80,37 @@ class RevisionDataManager
   # This method gets revisions for some specific users.
   # It does not fetch scores. It has no side effects.
   def fetch_revision_data_for_users(users, timeslice_start, timeslice_end)
-    all_sub_data, scoped_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
     users = user_dict_from_sub_data(all_sub_data)
 
-    sub_data_to_revision_attributes(all_sub_data, users, scoped_sub_data:)
+    sub_data_to_revision_attributes(all_sub_data, users)
+  end
+
+  # Like fetch_revision_data_for_users_with_articles but skips the reference-counter
+  # API call. Filter the returned revisions to specific articles before calling
+  # fetch_score_data_for_course — critical when users have many programmatic edits.
+  def fetch_revision_data_for_users_with_articles_only(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    return [] if all_sub_data.empty?
+
+    article_attributes = sub_data_to_article_attributes(all_sub_data)
+    import_articles(article_attributes)
+
+    articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                             mw_page_id: article_attributes.map { |a| a['mw_page_id'] })
+    resolve_duplicate_articles(articles)
+
+    users_dict = user_dict_from_sub_data(all_sub_data)
+    article_dict = articles.each_with_object({}) { |a, memo| memo[a.mw_page_id] = a.id }
+
+    sub_data_to_revision_attributes(all_sub_data, users_dict, articles: article_dict)
+  end
+
+  # Like fetch_revision_data_for_users_with_articles_only but also fetches scores.
+  def fetch_revision_data_for_users_with_articles(users, timeslice_start, timeslice_end)
+    revisions = fetch_revision_data_for_users_with_articles_only(users, timeslice_start,
+                                                                 timeslice_end)
+    fetch_score_data_for_course(revisions)
   end
 
   ###########
@@ -72,22 +118,20 @@ class RevisionDataManager
   ###########
   private
 
-  def import_and_resolve_duplicate_articles(articles)
-    ArticleImporter.new(@wiki, @course).import_articles_from_revision_data(articles)
-    @articles = Article.where(wiki_id: @wiki.id, deleted: false,
-                              mw_page_id: articles.map { |a| a['mw_page_id'] })
-    DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(@articles)
+  def import_articles(attributes)
+    ArticleImporter.new(@wiki, @course).import_articles_from_revision_data(attributes)
   end
 
-  # Returns a list of revisions for users during the given period:
-  # [all_sub_data, sub_data].
-  # - all_sub_data: all revisions within the period.
-  # - scoped_sub_data: revisions filtered based on the course type.
+  def resolve_duplicate_articles(articles)
+    DuplicateArticleDeleter.new(@wiki).resolve_duplicates_for_timeslices(articles)
+  end
+
+  # Returns revisions for users during the given period.
   def get_course_revisions(users, start, end_date)
     all_sub_data = get_revisions(users, start, end_date)
-    # Filter revisions based on the course type.
+    # Update the all_sub_data hash to mark scoped articles.
     # Important for ArticleScopedProgram/VisitingScholarship courses
-    [all_sub_data, @course.filter_revisions(@wiki, all_sub_data)]
+    mark_scoped_articles(@wiki, all_sub_data)
   end
 
   # Get revisions made by a set of users between two dates.
@@ -132,28 +176,32 @@ class RevisionDataManager
   end
 
   # Returns revisions from all_sub_data.
-  # scoped_sub_data contains filtered data according to the course type.
-  def sub_data_to_revision_attributes(all_sub_data, users, scoped_sub_data: nil, articles: nil)
+  def sub_data_to_revision_attributes(all_sub_data, users, articles: nil)
     all_sub_data.flat_map do |_a_id, article_data|
       article_data['revisions'].map do |rev_data|
-        create_revision(rev_data, scoped_sub_data, users, articles)
+        create_revision(rev_data, article_data['article'], users, articles)
       end
     end.uniq(&:mw_rev_id)
   end
 
-  def scoped_revision?(scoped_sub_data, mw_page_id, mw_rev_id)
-    scoped_sub_data.any? do |_, entry|
-      next unless entry.is_a?(Hash) && entry['article'] && entry['revisions']
-
-      entry['article']['mw_page_id'] == mw_page_id.to_s &&
-        entry['revisions'].any? { |rev| rev['mw_rev_id'] == mw_rev_id.to_s }
+  # Updates the revision data with a new 'scoped' field inside the article data.
+  # This field indicates if the article is scoped based on the course type.
+  def mark_scoped_articles(wiki, revisions)
+    # rubocop:disable Style/HashEachMethods -- revisions is an Array of pairs
+    revisions.each do |_, details|
+      article_title = details['article']['title']
+      formatted_article_title = ArticleUtils.format_article_title(article_title, wiki)
+      mw_page_id = details['article']['mw_page_id'].to_i
+      details['article']['scoped'] =
+        @course.scoped_article?(wiki, formatted_article_title, mw_page_id)
     end
+    # rubocop:enable Style/HashEachMethods
   end
 
   # Creates a revision record for the given revision data.
-  def create_revision(rev_data, scoped_sub_data, users, articles)
+  def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
-    Revision.new({
+    RevisionOnMemory.new({
           mw_rev_id: rev_data['mw_rev_id'],
           date: rev_data['date'],
           characters: rev_data['characters'] || 0,
@@ -163,7 +211,7 @@ class RevisionDataManager
           new_article: string_to_boolean(rev_data['new_article']),
           system: string_to_boolean(rev_data['system']),
           wiki_id: rev_data['wiki_id'],
-          scoped: scoped_revision?(scoped_sub_data, mw_page_id, rev_data['mw_rev_id'])
+          scoped: article_data['scoped']
         })
   end
 
@@ -175,16 +223,19 @@ class RevisionDataManager
   # for revisions which are not scoped (this is only important for articles with
   # only_scoped_articles_course? set to true).
   # Returns [scoped_revisions_in_spaces, non_scoped_revisions_or_out_spaces]
-  def partition_revisions
+  def partition_revisions(revisions)
+    articles = Article.where(wiki_id: @wiki.id, deleted: false,
+                             mw_page_id: revisions.map(&:mw_page_id))
+
     # Calculate articles out of mainspace/userspace/draftspace
-    excluded_articles = @articles
+    excluded_articles = articles
                         .reject { |article| INCLUDED_NAMESPACES.include?(article.namespace) }
                         .map(&:mw_page_id).freeze
 
     # Note that scoped is always true for non-only-scoped-articles courses
-    scoped_revisions_in_spaces = @revisions.select do |rev|
+    scoped_revisions_in_spaces = revisions.select do |rev|
       (excluded_articles.exclude?(rev.mw_page_id) && rev.scoped)
     end
-    [scoped_revisions_in_spaces, @revisions - scoped_revisions_in_spaces]
+    [scoped_revisions_in_spaces, revisions - scoped_revisions_in_spaces]
   end
 end

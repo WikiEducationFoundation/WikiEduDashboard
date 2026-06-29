@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Danmichaelo
 # Author: EdoAug
+# Author: Elisabeth Carrera (WMNO)
 # Author: JohSan65
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
@@ -27,7 +28,9 @@ nb:
     number_field: Dette er et nummerfelt. Knappene som vises i de fleste nettlesere
       vil øke eller minke tallet.
   application:
+    back: Tilbake
     cancel: Avbryt
+    next: Neste
     cookie_consent: Siden bruker nettkapsler («cookies») for å holde deg innlogget,
       og lagrer informasjon om Wikipedia-kontoen din.
     cookie_consent_acknowledge: Jeg forstår
@@ -51,6 +54,7 @@ nb:
     log_in: Logg inn
     log_out: Logg ut
     my_dashboard: Min oversikt
+    okay: OK
     recent_activity: Nylig aktivitet
     report_problem: Rapporter et problem
     request_account: Forespør en konto
@@ -58,6 +62,8 @@ nb:
     search: still et spørsmål
     search_results: 'Treff for: ''%{search_terms}'''
     no_results: Ingen treff for '%{query}'
+    show_current_revision: Vis gjeldende versjon
+    show_last_revision: Vis sist redigerte versjon
     sign_up_extended: Registrer deg med Wikipedia
     sign_up_wikipedia: Eller registrer deg på Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -71,6 +77,9 @@ nb:
     opt_out: Nei
     opt_yes: ja
     opt_no: nei
+    print: Skriv ut
+  article_statuses:
+    not_yet_started: Kom i gang
   dashboard:
     create_note: Klikk på «Opprett kurs» for å opprette ditt første kurs.
     create_preparation_note: Sørg for at du har den akademiske kalenderen tilgjengelig
@@ -267,9 +276,9 @@ nb:
     add_category: Legg til kategori
     add_psid: Legg til PetScan PSID
     add_template: Legg til mal
-    add_this_category: Legg til kategori
-    add_this_psid: Legg til PSID-en
-    add_this_template: Legg til malen
+    add_this_category: Legg til kategorier
+    add_this_psid: Legg til PetScan PSID-er
+    add_this_template: Legg til maler
     depth: Underkategoridydbe
     name: Navn
     category_name: Kategorinavn
@@ -426,8 +435,8 @@ nb:
       one: Instruktør
       other: Instruktører
     instructors: Instruktører
-    invitation: Du har blitt invitert til å bli med i %{title}. For å bli med i kurset
-      må du logge inn med en Wikipedia-konto.
+    invitation: Du har blitt invitert til å bli med i %{title}. For å bli med må du
+      logge inn med en Wikipedia-konto.
     invitation_username_advice: Om du ikke har en Wikipedia-konto ennå, registrer
       deg nå. Brukernavnet ditt kan være så anonymt – eller personlig – som du ønsker.
       (Delte kontoer tillates ikke.)
@@ -538,8 +547,8 @@ nb:
       one: Frivillig
       other: Frivillige
     weeks_none: Dette kurset har ingen tidslinje ennå.
-    warn_mirrored: |-
-      Ved innsending vil kurset automatisk postes på Wikipedia med din brukerkonto. Etter det vil nye redigeringer i tidslinja speiles på Wikipedia.
+    warn_mirrored: Ved innsending vil kurset automatisk postes på Wikipedia med din
+      brukerkonto. Etter det vil nye redigeringer i tidslinja speiles på Wikipedia.
       Er du sikker på at du vil gjøre dette?
     wiki_staff: Wiki Education-ansatte
     word_count_doc: Et estimat for antall ord lagt til i artikler av kursets studenter
@@ -681,9 +690,10 @@ nb:
     main_char_added: Tegn lagt til i hovednavnerommet
     user: Brukernavnerommet
     user_char_added: Tegn lagt til i brukernavnerommet
+    category: Kategori
   recent_activity:
     active_courses: Artikkelen er aktiv på
-    article_title: Artikkeltittel
+    article_title: Tittel
     datetime: Dato/tid
     did_you_know_eligible: Er skikket for «Visste du at ...?»
     image: Bilde
@@ -749,6 +759,8 @@ nb:
         revoking_button_working: Fjerner…
         already_is_not: '%{username} er ikke en spesialbruker!'
         demote_success: '%{username} er nå bare en vanlig bruker.'
+  status:
+    size: Størrelse
   suggestions:
     editing: Redigeringsforslag
     suggestion_docs:
@@ -828,6 +840,8 @@ nb:
     included_modules: Inkluderte moduler
     view_module_source: vis modulkilde
     reload_from_source: last inn igjen fra kilde
+  update_username:
+    label: Nytt brukernavn
   uploads:
     credit: Kreditering
     file_name: Filnavn
@@ -974,7 +988,6 @@ nb:
         siden fungerer bra i nyere versjoner av Chrome, Firefox, Edge og andre moderne
         nettlesere.
   error_401:
-    header: Uautorisert. >:-(
     explanation: Du er ikke autorisert til å utføre denne forespørselen. Om du tror
       du har fått denne beskjeden ved en feil, kontakt dashbordets vedlikeholdere
       for å la dem vite om feilen.
@@ -1003,8 +1016,7 @@ nb:
     explanation: Det ser ut som om det var et problem med innloggingsprosessen. (Beklager!
       Sånt skjer av og til.) PRøv å logge inn eller melde deg på igjen.
   survey:
-    login_message: Takk for tiden din. Logg inn på Wiki Education-dashbordet for å
-      ta undersøkelsen.
+    login_message: Takk for tiden din. Logg inn på dashbordet for å ta undersøkelsen.
     notification_explanation: Om boksen nedenfor er merket av vil brukerne få e-post
       i følge varselplanen, i tillegg til å få varsel i nettleseren. Om den ikke er
       merket av vil kun varsler i nettleseren vises.

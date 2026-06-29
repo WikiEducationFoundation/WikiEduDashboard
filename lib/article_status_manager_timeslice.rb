@@ -37,8 +37,13 @@ class ArticleStatusManagerTimeslice
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(course, wiki).update_status(article_batch)
+        # Touch through a fresh, non-distinct relation: `articles_from_timeslices`
+        # applies `.distinct`, and combining `.distinct` with `update_all` is
+        # deprecated in Rails 8.1 and will raise in 8.2. `update_status` above
+        # has already loaded the batch (it iterates `articles.map(&:mw_page_id)`),
+        # so `map(&:id)` reuses cached records instead of issuing a SELECT.
         # rubocop:disable Rails/SkipsModelValidations
-        article_batch.touch_all(:updated_at)
+        Article.where(id: article_batch.map(&:id)).touch_all(:updated_at)
         # rubocop:enable Rails/SkipsModelValidations
       end
     end

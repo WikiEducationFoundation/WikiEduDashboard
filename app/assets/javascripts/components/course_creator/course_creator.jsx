@@ -182,7 +182,8 @@ const CourseCreator = createReactClass({
   },
 
   updateCourseType(key, value) {
-    this.props.updateCourse({ [key]: value });
+    const isArticleScoped = value === 'ArticleScopedProgram';
+    this.props.updateCourse({ [key]: value, article_scoped: isArticleScoped });
   },
 
   expectedStudentsIsValid() {
@@ -206,6 +207,17 @@ const CourseCreator = createReactClass({
       this.props.setInvalid('description', I18n.t('application.field_required'));
       return false;
     }
+    // For ClassroomProgramCourse, validate that term contains a 4-digit year
+    if (this.state.default_course_type === 'ClassroomProgramCourse') {
+      if (!this.props.course.term || this.props.course.term === '') {
+        this.props.setInvalid('term', I18n.t('application.field_required'));
+        return false;
+      }
+      if (!this.termHasValidYear()) {
+        this.props.setInvalid('term', I18n.t('application.field_invalid_term'));
+        return false;
+      }
+    }
     return true;
   },
 
@@ -214,6 +226,12 @@ const CourseCreator = createReactClass({
     if (!this.props.course.school.match(CourseUtils.courseSlugRegex())) { return false; }
     if (this.props.course.term && !this.props.course.term.match(CourseUtils.courseSlugRegex())) { return false; }
     return true;
+  },
+
+  termHasValidYear() {
+    if (!this.props.course.term) { return false; }
+    // Check if term contains a 4-digit year
+    return /\d{4}/.test(this.props.course.term);
   },
 
   dateTimesAreValid() {
@@ -376,8 +394,8 @@ const CourseCreator = createReactClass({
     courseWizard += showWizardForm ? '' : ' hidden';
     courseDates += showCourseDates ? '' : ' hidden';
 
-    // the scoping modal is only enabled for ArticleScopedPrograms
-    const scopingModalEnabled = this.props.course.type === 'ArticleScopedProgram';
+    // the scoping modal is enabled for any article-scoped course
+    const scopingModalEnabled = this.props.course.article_scoped;
 
     // we're on the last page if
     // 1. scopingModalEnabled is enabled, and we're currently showing the course scoping modal's last page
@@ -423,17 +441,17 @@ const CourseCreator = createReactClass({
       </span>
     );
 
-    // set hasClonableCourses to true if the user has a clonable course
+    // set hasClonableCourses to true if the user has a cloneable course
     let hasClonableCourses;
     if (this.props.cloneableCourses.length > 0) {
       hasClonableCourses = true;
     }
     return (
-      <Modal key="modal">
+      <Modal key="modal" ariaLabelledBy="course-creator-modal-title">
         <Notifications />
         <div className="container">
           <div className="wizard__panel active" style={formStyle}>
-            {!showCourseScoping && <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>}
+            {!showCourseScoping && <h2 id="course-creator-modal-title">{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h2>}
             {specialNotice}
             {instructions && <p>{instructions}</p>}
             <NewOrClone
@@ -443,7 +461,7 @@ const CourseCreator = createReactClass({
               stringPrefix={this.state.course_string_prefix}
             />
             <CourseType
-              back = {this.hideWizardForm}
+              back={this.hideWizardForm}
               wizardClass={courseWizard}
               wizardAction={this.showCourseForm}
               hasClonableCourses={hasClonableCourses}
@@ -483,7 +501,7 @@ const CourseCreator = createReactClass({
               updateCourseProps={this.props.updateCourse}
               enableTimeline={this.props.courseCreator.useStartAndEndTimes}
               // the following properties are only required when scopingModalEnabled is enabled
-              // that is, when the selected course type is ArticleScopedProgram
+              // that is, when the course has article scoping enabled
               next={scopingModalEnabled && this.showCourseScoping}
               back={scopingModalEnabled && this.backToCourseForm}
               firstErrorMessage={scopingModalEnabled && this.props.firstErrorMessage}

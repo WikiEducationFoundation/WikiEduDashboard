@@ -162,6 +162,12 @@ describe 'Student users', type: :feature, js: true do
   end
 
   describe 'visiting the ?enroll=passcode url' do
+    # Disable OmniAuth's CSRF protection in tests because Capybara doesn't preserve
+    # CSRF tokens through OAuth redirects
+    before do
+      OmniAuth.config.request_validation_phase = nil
+    end
+
     it 'joins a course' do
       login_as(user, scope: :user)
       stub_oauth_edit
@@ -215,6 +221,7 @@ describe 'Student users', type: :feature, js: true do
         credentials: { token: 'foo', secret: 'bar' }
       )
       allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(234567)
+      allow_any_instance_of(WikiApi).to receive(:get_user_info).and_return(nil)
       stub_oauth_edit
       stub_raw_action
       logout
@@ -282,7 +289,7 @@ describe 'Student users', type: :feature, js: true do
       click_button 'Done'
       expect(page).to have_text 'Sandbox Draft'
       click_button 'Change sandbox'
-      find('input.edit_sandbox_url_input').fill_in with: 'https://en.wikipedia.org/wiki/User:Classmate/selfie'
+      find('input.edit_sandbox_url_input').fill_in with: classmate.username
       click_button 'Submit'
       expect(page).to have_text 'Sandbox url updated successfully.'
     end

@@ -111,7 +111,7 @@ const GetHelpButton = createReactClass({
       const wikipediaHelpUser = this.wikipediaHelpUser();
       wikipediaHelpButton = (
         <span className="contact-wikipedia-help" key={`${wikipediaHelpUser.username}-wikipedia-help`}>
-          <a href="#" className="wikipedia-help-link button dark small stacked" onClick={e => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</a>
+          <button type="button" className="wikipedia-help-link button dark small stacked" onClick={e => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</button>
           <br />
         </span>
       );
@@ -121,7 +121,7 @@ const GetHelpButton = createReactClass({
         const programHelpUser = this.programHelpUser();
         programHelpButton = (
           <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
-            <a href="#" className="program-help-link button dark stacked small" onClick={e => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</a>
+            <button type="button" className="program-help-link button dark stacked small" onClick={e => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</button>
             <br />
           </span>
         );
@@ -131,7 +131,7 @@ const GetHelpButton = createReactClass({
       const dashboardHelpUser = this.dashboardHelpUser();
       dashboardHelpButton = (
         <span className="contact-dashboard-help" key={`${dashboardHelpUser.username}-dashboard-help`}>
-          <a href="#" className="dashboard-help-link button dark stacked small" onClick={e => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</a>
+          <button type="button" className="dashboard-help-link button dark stacked small" onClick={e => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</button>
           <br />
         </span>
       );
@@ -166,7 +166,7 @@ const GetHelpButton = createReactClass({
           <p>
             We&apos;ll get back to you within 1 business day. Be sure to check your email for a response.
           </p>
-          <a href="#" className="button" onClick={this.reset}>Ok</a>
+          <button type="button" className="button" onClick={this.reset}>Ok</button>
         </div>
       );
     } else if (this.state.selectedTargetUser) {

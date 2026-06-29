@@ -2,6 +2,7 @@
 
 require 'oauth'
 require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency "#{Rails.root}/lib/lift_wing_api"
 require_dependency "#{Rails.root}/lib/list_course_manager"
 require_dependency "#{Rails.root}/lib/tag_manager"
 require_dependency "#{Rails.root}/lib/course_creation_manager"
@@ -9,10 +10,13 @@ require_dependency "#{Rails.root}/app/workers/update_course_worker"
 require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
+require_dependency "#{Rails.root}/lib/errors/rescue_errors"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
   include CourseHelper
+  include Errors::RescueErrors
+
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
@@ -231,7 +235,13 @@ class CoursesController < ApplicationController
   def manual_update
     require_super_admin_permissions
     @course = find_course_by_slug(params[:id])
-    UpdateCourseStatsTimeslice.new(@course)
+    # This is not completely safe, as there is always the possibility that the backup
+    # starts right after this check. However, it is an easy way to avoid running a
+    # manual update when we already know a backup is waiting or running.
+    if Backup.current_backup
+      return render json: { message: 'not_ready' }, status: :service_unavailable
+    end
+    UpdateCourseStats.new(@course)
     redirect_to "/courses/#{@course.slug}"
   end
 
@@ -279,18 +289,19 @@ class CoursesController < ApplicationController
   end
 
   def handle_course_announcement(instructor)
-    # Course announcements aren't particularly necessary, but we'll keep them on
-    # for Wiki Ed for now.
+    # Only send submission emails at submission time.
+    # Instructor userpage templates are now posted when the course is approved
+    # (via ListCourseManager) instead of at submission time.
     return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
     # Needs to be switched to submitted before the announcement edits are made
     @course.update(submitted: true)
     AddSubmittedTag.new(@course)
-    CourseSubmissionMailerWorker.schedule_email(@course, instructor)
+    CourseSubmissionMailerWorker.schedule_email(@course, instructor) if instructor
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
-                                               instructor:)
+                                               instructor:) if instructor
   end
 
   def should_set_slug?
@@ -365,6 +376,7 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_last_reviewed
+    update_assignment_settings
   end
 
   UPDATABLE_FLAGS = [
@@ -375,7 +387,8 @@ class CoursesController < ApplicationController
     :stay_in_sandbox,
     :no_sandboxes,
     :no_meeting_days,
-    :retain_available_articles
+    :retain_available_articles,
+    :declined
   ].freeze
   def update_boolean_flags
     UPDATABLE_FLAGS.each do |flag|
@@ -425,6 +438,14 @@ class CoursesController < ApplicationController
       'username' => username,
       'timestamp' => timestamp
     }
+    @course.save
+  end
+
+  def update_assignment_settings
+    max_group_size = params.dig(:course, :flags, :max_group_size)
+
+    @course.flags[:max_group_size] = max_group_size.to_i if max_group_size.present?
+
     @course.save
   end
 

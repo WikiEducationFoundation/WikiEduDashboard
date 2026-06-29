@@ -1,4 +1,4 @@
-# Remove the 'clonable' tag from all courses that are 'stay_in_sandbox'
+# Remove the 'cloneable' tag from all courses that are 'stay_in_sandbox'
 
 sandboxed = Course.all.select { |c| c.stay_in_sandbox? }
 sandoxed_cloneable = sandboxed.select { |c| c.tag?('cloneable') }

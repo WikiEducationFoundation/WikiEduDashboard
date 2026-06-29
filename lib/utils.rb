@@ -3,7 +3,7 @@
 #= Utilities
 class Utils
   # Take a list of items (ie, course ids) and breaks it into chunks of 50.
-  def self.chunk_requests(items, chunk_size=50)
+  def self.chunk_requests(items, chunk_size = 50)
     blocks = items.each_slice(chunk_size).to_a
     results = []
     blocks.each do |b|

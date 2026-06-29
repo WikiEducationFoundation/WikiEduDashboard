@@ -24,6 +24,7 @@ describe 'campaign alerts page', type: :feature, js: true do
     expect(page).to have_content('ArticlesForDeletionAlert')
     time_str = format_local_datetime afd_alert.created_at
     expect(page).to have_content(time_str)
+    expect(page).to be_axe_clean
   end
 
   # As the url is intented to be a bookmark, the test

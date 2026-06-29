@@ -38,10 +38,16 @@ class JoinCourse
       @result = { 'failure' => 'invalid_sync' }
     elsif student_joining_before_approval?
       @result = { 'failure' => 'not_yet_approved' }
+    elsif user_disallowed?
+      @result = { 'failure' => 'disallowed_user' }
     else
       return
     end
     yield
+  end
+
+  def user_disallowed?
+    DisallowedUsers.disallowed?(@user.username)
   end
 
   # For Wiki Ed courses, a user with any CoursesUsers record for the course is

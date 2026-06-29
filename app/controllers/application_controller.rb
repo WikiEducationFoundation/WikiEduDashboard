@@ -27,7 +27,27 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource_or_scope)
-    request.env['omniauth.origin'] || '/'
+    path = session.delete(:return_to) || request.env['omniauth.origin'] || '/'
+
+    # Security: ensure path is a relative path to prevent open redirects
+    begin
+      uri = URI.parse(path)
+      path = uri.path if uri.host
+      path = '/' unless path.start_with?('/')
+    rescue URI::InvalidURIError
+      path = '/'
+    end
+
+    # Special case for download/raw data paths:
+    # Sending users directly to these after login can be confusing (blank page or download starts).
+    # Instead, we send them to the home page with a clear success message and a link.
+    if path.include?('ungreeted') || path.include?('csv')
+      flash[:notice] = t('error.login_success_download_html',
+                         link: helpers.link_to(t('error.download_here'), path)).html_safe
+      return root_path
+    end
+
+    path
   end
 
   def check_onboarded
@@ -89,7 +109,7 @@ class ApplicationController < ActionController::Base
     Rack::MiniProfiler.authorize_request
   end
 
-  def course_slug_path(slug, args={})
+  def course_slug_path(slug, args = {})
     slug_parts = slug.split('/')
     show_path(args.merge(school: slug_parts[0], titleterm: slug_parts[1]))
   end
@@ -131,4 +151,6 @@ class ApplicationController < ActionController::Base
     return unless params[:locale]
     http_accept_language.user_preferred_languages.unshift(params[:locale])
   end
+
+
 end

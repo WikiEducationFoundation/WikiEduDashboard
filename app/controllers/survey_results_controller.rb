@@ -16,11 +16,4 @@ class SurveyResultsController < SurveysController
       end
     end
   end
-
-  private
-
-  def set_question_groups
-    super
-    @survey_user_cache = {}
-  end
 end

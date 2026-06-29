@@ -23,53 +23,93 @@ class CourseRevisionUpdater
     @course.assignments.none? && @course.categories.none?
   end
 
-  # Returns a hash with start, end, new_data and revisions fetched by wiki or an empty
-  # hash if no point in importing revisions.
+  # Returns a hash with start, end, new_data and revisions (without scores) fetched by wiki.
+  # The new_data field is true if new revisions were found.
   # Example:
   # {wiki0 => {:start=>"20160320", :end=>"20160401", :new_data=>true, :revisions=>[...]}}
-  # If the only_new argument is true, revisions scores will only be fetched if there are new
-  # revisions for that timeslice. The new_data field is true if new revisions were found.
+  # :revisions array is empty if no point in importing revisions.
+  # Creates ArticlesCourses records as side effect.
+  def fetch_revisions_for_course_wiki(wiki, ts_start, ts_end)
+    return empty_response(wiki, ts_start, ts_end) if no_point_in_importing_revisions?
+    revision_data = fetch_revisions(wiki, ts_start, ts_end)
+    create_articles_courses(revision_data)
+
+    format_revision_response(wiki, ts_start, ts_end, revision_data)
+  end
+
+  # Fetches revisions for specific users, imports articles, fetches scores,
+  # fetches wikidata stats if applicable, and creates ArticlesCourses records
+  # as a side effect. Used when adding new users in the ACUWT path.
+  def fetch_revisions_for_new_users(wiki, users, ts_start, ts_end)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
+    revisions = manager.fetch_revision_data_for_users_with_articles(users, ts_start, ts_end)
+    create_articles_courses(revisions)
+    return revisions unless wiki.project == 'wikidata'
+    live_revisions = revisions.reject(&:deleted)
+    UpdateWikidataStatsTimeslice.new(@course).update_revisions_with_stats(live_revisions)
+  end
+
+  # Add scores to revisions, except if only_new argument is set to true and there are no new
+  # revisions. That means, if the only_new argument is true, revisions scores will only be
+  # fetched if there are new revisions for that timeslice.
   # This optimization was added to improve performance.
-  def fetch_data_for_course_wiki(wiki, ts_start, ts_end, only_new: false)
-    return {} if no_point_in_importing_revisions?
-    revision_data, new_revisions = fetch_data(wiki, ts_start, ts_end, only_new:)
-    response = format_revision_response(wiki, ts_start, ts_end, revision_data, new_revisions)
-    # Get an array with all revisions
-    revisions = response.values.flat_map { |data| data[:revisions] }.flatten
-    ArticlesCourses.update_from_course_revisions(@course, revisions)
-    response
+  def fetch_scores_for_revisions(revision_data, only_new: false)
+    wiki = revision_data.keys.first
+    values = revision_data.values.first
+
+    # Do not fetch scores if we're only interested in new revisions and there are no new revisions
+    return revision_data if only_new && !values[:new_data]
+
+    # Add scores
+    values[:revisions] = fetch_scores(wiki, values[:revisions])
+    revision_data
   end
 
   private
 
-  def format_revision_response(wiki, timeslice_start, timeslice_end, revision_data, new_revisions)
-    # Fetches revision for wiki
+  def create_articles_courses(revisions)
+    ArticlesCourses.update_from_course_revisions(@course, revisions)
+  end
+
+  def format_revision_response(wiki, timeslice_start, timeslice_end, revisions_array)
+    new_revisions = new_revisions?(revisions_array, wiki, timeslice_start)
     results = {}
     revisions = {}
     revisions[:start] = timeslice_start
     revisions[:end] = timeslice_end
     revisions[:new_data] = new_revisions
-    revisions[:revisions] = revision_data
+    revisions[:revisions] = revisions_array
     results[wiki] = revisions
     results
   end
 
-  # Fetches revisions and maybe scores for them.
-  # Returns revisions and a boolean indicating if new revisions were found (always
-  # true if only_new is false).
-  def fetch_data(wiki, timeslice_start, timeslice_end, only_new: false)
+  def empty_response(wiki, timeslice_start, timeslice_end)
+    format_revision_response(wiki, timeslice_start, timeslice_end, [])
+  end
+
+  def fetch_revisions(wiki, timeslice_start, timeslice_end)
     manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
-    revisions = manager.fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    new_revisions = new_revisions?(revisions, wiki, timeslice_start) if only_new
-    # Do not fetch scores if we're only interested in new revisions and there are no new revisions
-    return revisions, false if only_new && !new_revisions
-    return manager.fetch_score_data_for_course(revisions), true
+    manager.fetch_revision_data_for_course(timeslice_start, timeslice_end)
+  end
+
+  def fetch_scores(wiki, revisions)
+    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
+    manager.fetch_score_data_for_course(revisions)
   end
 
   # Determines if there are new revisions, based on the number of revisions and the
   # last revision datetime.
+  #
+  # The count comparison is against `timeslice.mw_rev_count`, NOT
+  # `timeslice.revision_count`. The two columns apply different filters:
+  # `revision_count` excludes deleted revs and revs in `articles_courses.not_tracked`
+  # in addition to system revs and non-scoped revisions, while this method (and `mw_rev_count`)
+  # excludes only system revs and non-scoped revisions. Comparing against `revision_count` would
+  # falsely report new data every cycle for any timeslice that contains a deleted or not-tracked
+  # rev. Note that we have to fetch scores to determine if a revision is deleted.
+  # See CourseWikiTimeslice#update_mw_rev_count.
   def new_revisions?(revisions, wiki, timeslice_start)
-    live_revisions = revisions.reject(&:system)
+    live_revisions = revisions.reject { |rev| rev.system || !rev.scoped }
     revision_count = live_revisions.count
     timeslice = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                    .for_datetime(timeslice_start)
@@ -77,7 +117,7 @@ class CourseRevisionUpdater
     if timeslice.nil?
       # This scenario is unexpected, so we log the message to understand why this happens.
       Sentry.capture_message 'No timeslice found for revision date',
-                             level: 'warning',
+                             level: 'error',
                              extra: { course_name: @course.slug,
                                        wiki: wiki.id,
                                        date: timeslice_start }
@@ -85,6 +125,6 @@ class CourseRevisionUpdater
     end
 
     latest_revision = revisions.maximum(:date)
-    revision_count != timeslice.revision_count || latest_revision != timeslice.last_mw_rev_datetime
+    revision_count != timeslice.mw_rev_count || latest_revision != timeslice.last_mw_rev_datetime
   end
 end

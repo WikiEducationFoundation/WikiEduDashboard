@@ -16,7 +16,6 @@ const TextAreaInput = ({
   value,
   editable,
   id,
-  focus,
   placeholder,
   autoExpand,
   rows,
@@ -96,7 +95,6 @@ const TextAreaInput = ({
           rows={rows || '8'}
           value={value || ''}
           onChange={onChange}
-          autoFocus={focus}
           onFocus={onFocus}
           onBlur={onBlur}
           maxLength="30000"
@@ -136,7 +134,6 @@ TextAreaInput.propTypes = {
   value_key: PropTypes.string,
   editable: PropTypes.bool, // switch between read and edit mode
   id: PropTypes.string,
-  focus: PropTypes.bool,
   placeholder: PropTypes.string,
   autoExpand: PropTypes.bool, // start with one line and expand as needed — plain text only
   rows: PropTypes.string, // set the number of rows — plain text only

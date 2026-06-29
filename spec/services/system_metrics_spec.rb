@@ -7,7 +7,9 @@ describe SystemMetrics do
 
   describe '#initialize' do
     it 'initializes with valid Sidekiq queue data' do
-      queues = YAML.load_file('config/sidekiq.yml')[:queues].reject { |q| q == 'very_long_update' }
+      queues = YAML.safe_load_file('config/sidekiq.yml', permitted_classes: [Symbol],
+                                                                       aliases: true)[:queues]
+                    .reject { |q| q == 'very_long_update' }
       expect(service.instance_variable_get(:@queues)).to eq(queues)
     end
   end
@@ -58,6 +60,7 @@ describe SystemMetrics do
       expect(service.get_queue_status('long_update', 12.hours)).to eq('Normal')
       expect(service.get_queue_status('daily_update', 12.hours)).to eq('Normal')
       expect(service.get_queue_status('constant_update', 12.minutes)).to eq('Normal')
+      expect(service.get_queue_status('acuwt_update', 12.hours)).to eq('Normal')
       expect(service.get_queue_status('default', 0)).to eq('Normal')
     end
 
@@ -67,6 +70,7 @@ describe SystemMetrics do
       expect(service.get_queue_status('long_update', 26.hours)).to eq('Backlogged')
       expect(service.get_queue_status('daily_update', 26.hours)).to eq('Backlogged')
       expect(service.get_queue_status('constant_update', 16.minutes)).to eq('Backlogged')
+      expect(service.get_queue_status('acuwt_update', 26.hours)).to eq('Backlogged')
       expect(service.get_queue_status('default', 2)).to eq('Backlogged')
     end
   end

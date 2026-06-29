@@ -1,0 +1,22 @@
+id: 7408
+title: Wikipedia-to-LLMs
+content: |
+  We don’t know the full details of how commercial LLMs are trained,
+  but we do know that Wikipedia is an important part of the training
+  data. The designers of ChatGPT released considerably more details
+  about the composition of training data for LLM behind the initial
+  ChatGPT launch (GPT3) than they have for later releases. That training
+  data consisted of two collections of general webpage text, two collections
+  of digitized books, and all of English Wikipedia. Wikipedia was only a
+  small fraction of the total text, but was weighted more heavily in the
+  training process than any other data source.
+
+  While most AI developers refuse to share the specifics of their training
+  data — even in cases where the resulting LLMs are open source — we know
+  that Wikipedia is an important component for most or all of them. It’s
+  likely that Wikipedia articles are the most influential source of AI
+  training data on a per-word basis.
+
+  On a more practical level, the Wikipedia community has observed that
+  new Wikipedia content doesn’t take long to find its way into chatbot
+  responses.

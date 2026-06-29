@@ -94,7 +94,7 @@ const NamespaceSelect = (props) => {
         </strong>
       </label>
       <div className="tooltip-trigger">
-        <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+        <img src="/assets/images/info.svg" alt="tooltip default logo" />
         <div className="tooltip large dark">
           <p>
             {I18n.t('namespace.tracked_namespaces_info')}
@@ -102,12 +102,12 @@ const NamespaceSelect = (props) => {
         </div>
       </div>
       <Select
-        id = "namespace_select"
-        value = {selectedNamespaces}
-        onChange = {handleChange}
-        options = {options}
+        id="namespace_select"
+        value={selectedNamespaces}
+        onChange={handleChange}
+        options={options}
         styles={props.styles}
-        isMulti = {true}
+        isMulti={true}
         isClearable={false}
         aria-labelledby="namespace-label"
       />

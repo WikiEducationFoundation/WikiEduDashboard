@@ -41,6 +41,11 @@ class AlertsListController < ApplicationController
 
   def check_user_auth
     return if current_user&.admin?
+    if request.format.json?
+      render json: { message: "You don't have access to that page." },
+             status: :unauthorized
+      return
+    end
     flash[:notice] = "You don't have access to that page."
     redirect_to root_path
   end

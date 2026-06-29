@@ -131,7 +131,6 @@ az:
       dashboard@wikiedu.org ilə əlaqə saxlayın.
   alerts:
     alert_label: Xəbərdarlıqlar
-    no_alerts: Heç bir xəbərdarlıq tapılmadı.
   activity:
     all: Fəaliyyət
     edited_by: tərəfindən dəyişdirildi

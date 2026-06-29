@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import TextResults from './TextResults.jsx';
 
 const FollowUpQuestionResults = (props) => {
-  const answerCount = Object.keys(props.follow_up_answers).length;
-  if (answerCount === 0) {
-    return null;
-  }
   return (
     <div>
-      <h4>Follow Up Question</h4>
+      <h2>Follow Up Question</h2>
       <TextResults {...props} followUpOnly={true} />
     </div>
   );

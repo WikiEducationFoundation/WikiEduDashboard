@@ -1,0 +1,16 @@
+---
+id: 8404
+title: Using Source Editor to add categories
+summary: ''
+content: "You can also add categories by clicking “Edit” on any Wikimedia Commons
+  file. All editing on Wikimedia Commons needs to be done in Source Editor (Wiki markup
+  language) as unlike Wikipedia, there is no Visual Editor on Commons. (See image
+  below)\n\nIf a category already exists, add it to the file using this code, replacing
+  “Sample Category” with the name of your intended category: [[Category:Sample Category]]\nJust
+  like when you edit Wikipedia, you’ll write an edit summary for this change. Create
+  your edit summary in the space at the bottom of the page and click the blue button
+  “Publish changes”. \n\nYour edit summary can be simple, like “added category”.\n<figure
+  class=\"alt-layout-100\">\n  <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Categories_source_editing_demo.png/1280px-Categories_source_editing_demo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\"
+  />\n</figure>\n\n\nYou can also add categories to a file during the upload process:<figure
+  class=\"alt-layout-100\">\n  <img src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Adding_categories_%28optional%29.png/1280px-Adding_categories_%28optional%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail\"
+  />\n</figure>\n"

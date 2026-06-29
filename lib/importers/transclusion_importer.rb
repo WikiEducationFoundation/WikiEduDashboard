@@ -19,7 +19,7 @@ class TransclusionImporter
   private
 
   def all_transcluded_pages
-    wiki_api = WikiApi.new(@wiki, update_service: @update_service)
+    wiki_api = WikiApi.new(@wiki, @update_service)
     @query = transclusion_query
     @transcluded_in = []
     until @continue == 'done'

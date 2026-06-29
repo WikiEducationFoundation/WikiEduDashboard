@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveyNotificationsManager
-  def self.create_notifications(survey_assignments=nil)
+  def self.create_notifications(survey_assignments = nil)
     survey_assignments ||= SurveyAssignment.published
     survey_assignments.each do |survey_assignment|
       new(survey_assignment).create_notifications_for_assignment

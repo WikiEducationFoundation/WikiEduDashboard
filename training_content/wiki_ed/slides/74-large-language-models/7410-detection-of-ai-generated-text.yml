@@ -1,0 +1,30 @@
+id: 7410
+title: Detection of AI-generated text
+content: |
+  The LLM training process distills a huge diversity of language
+  usage into a relatively small amount of information. Many small
+  language patterns occur very consistently in AI text, even though
+  each particular pattern is relatively rare in human writing. This
+  is what AI detectors look for. Any time an LLM is involved in
+  creating or transforming text, it leaves behind some degree of a
+  statistical footprint.
+
+  Wiki Education uses the AI detector Pangram. We’ve found that it
+  works very consistently on Wikipedia article content, reliably
+  detecting articles that came straight out of an AI tool while
+  consistently marking human-written articles as such.
+
+  There is a broad middle ground between AI text and human writing.
+  “Mixed writing” — where AI text is hand-edited, or human writing
+  is copyedited with AI, or pieces of AI text are interspersed with
+  human writing — can still be detected fairly consistently. Pangram
+  typically reports an intermediate probability of AI text for these
+  sorts of texts. However, it doesn’t give much insight into the
+  writing process; it can’t tell benign LLM copyediting from
+  hallucinations that were hand-edited to escape detection.
+
+  The Wikipedia editing community has found that, unfortunately,
+  even Grammarly can insert hallucinations or change the meaning
+  of text. So even that sort of mixed writing is still suspicious
+  from the perspective of the Wikipedia editing community, as we
+  try to keep the encyclopedia from being compromised by AI misinformation.

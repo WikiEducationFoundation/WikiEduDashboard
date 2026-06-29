@@ -1,0 +1,306 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+describe ReportsController, type: :request do
+  let(:user) { create(:user) }
+  let(:course) { create(:course, id: 1, slug: 'foo/bar_(baz)') }
+  let(:campaign) { create(:campaign) }
+
+  before do
+    campaign.courses << course
+  end
+
+  after do
+    FileUtils.remove_dir('public/system/analytics') if File.directory?('public/system/analytics')
+  end
+
+  describe 'authenticated course CSV endpoints' do
+    before do
+      login_as user
+    end
+
+    it '#course_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.title)
+    end
+
+    it '#course_uploads_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_uploads_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_uploads_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('filename')
+    end
+
+    it '#course_students_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_students_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_students_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('username')
+    end
+
+    it '#course_articles_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_articles_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_articles_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('pageviews_link')
+    end
+
+    it '#course_wikidata_csv returns a CSV' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/course_wikidata_csv', params: { course: course.slug }
+      expect(response.body).to include('file is being generated')
+      get '/course_wikidata_csv', params: { course: course.slug }
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('total revisions')
+    end
+  end
+
+  describe '#course_retention_csv' do
+    let(:fellows_course) { create(:course, type: 'FellowsCohort', slug: 'fellows/cohort_(2026)') }
+    let(:admin) { create(:admin) }
+
+    before do
+      allow_any_instance_of(RetentionPredictorsCsvBuilder)
+        .to receive(:generate_csv).and_return("username\nstudent1\n")
+    end
+
+    context 'as an admin on a FellowsCohort course' do
+      before { login_as admin }
+
+      it 'generates and returns the retention predictors CSV' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get '/course_retention_csv', params: { course: fellows_course.slug }
+        expect(response.body).to include('file is being generated')
+        get '/course_retention_csv', params: { course: fellows_course.slug }
+        follow_redirect!
+        expect(response.body.force_encoding('utf-8')).to include('username')
+      end
+    end
+
+    context 'as a non-admin user' do
+      before { login_as user }
+
+      it 'is not authorized' do
+        get '/course_retention_csv', params: { course: fellows_course.slug }
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'as an admin on a non-FellowsCohort course' do
+      before { login_as admin }
+
+      it 'is not found' do
+        get '/course_retention_csv', params: { course: course.slug }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe '#campaign_students_csv' do
+    let(:student) { create(:user) }
+
+    before do
+      login_as student
+      create(:courses_user, course_id: course.id, user_id: student.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    context 'without "course" option' do
+      let(:request_params) { { slug: campaign.slug, format: :csv } }
+
+      it 'returns a csv of student usernames' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get "/campaigns/#{campaign.slug}/students", params: request_params
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/students", params: request_params
+        follow_redirect!
+        csv = response.body.force_encoding('utf-8')
+        expect(csv).to include(student.username)
+      end
+    end
+
+    context 'with "course" option' do
+      let(:request_params) { { slug: campaign.slug, course: true, format: :csv } }
+
+      it 'returns a csv of student usernames with course slugs' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get "/campaigns/#{campaign.slug}/students", params: request_params
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/students", params: request_params
+        follow_redirect!
+        csv = response.body.force_encoding('utf-8')
+        expect(csv).to include(student.username)
+        expect(csv).to include(course.slug)
+      end
+    end
+  end
+
+  describe '#campaign_instructors_csv' do
+    let(:instructor) { create(:user) }
+
+    before do
+      login_as instructor
+      create(:courses_user, course_id: course.id, user_id: instructor.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    context 'without "course" option' do
+      let(:request_params) { { slug: campaign.slug, format: :csv } }
+
+      it 'returns a csv of instructor usernames' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        follow_redirect!
+        expect(response.body).to include(instructor.username)
+      end
+    end
+
+    context 'with "course" option' do
+      let(:request_params) { { slug: campaign.slug, course: true, format: :csv } }
+
+      it 'returns a csv of instructor usernames with course slugs' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        expect(response.body).to include('file is being generated')
+        get "/campaigns/#{campaign.slug}/instructors", params: request_params
+        follow_redirect!
+        csv = response.body.force_encoding('utf-8')
+        expect(csv).to include(instructor.username)
+        expect(csv).to include(course.slug)
+      end
+    end
+  end
+
+  describe '#campaign_courses_csv' do
+    let(:instructor) { create(:user) }
+    let(:request_params) { { slug: campaign.slug, format: :csv } }
+
+    before do
+      login_as instructor
+      create(:courses_user, course_id: course.id, user_id: instructor.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    it 'returns a csv of course data' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.slug)
+      expect(csv).to include(course.title)
+      expect(csv).to include(course.school)
+    end
+
+    it 'cleans up the files afterwards' do
+      # This normally happens long afterwards, but in test mode
+      # sidekiq will execute all jobs immediately, so the file
+      # will be created and immediately deleted.
+      expect(CsvCleanupWorker).to receive(:perform_at).and_call_original
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      expect(response.body).to include('file is being generated')
+    end
+  end
+
+  describe 'CSV actions' do
+    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+    let(:another_course) { create(:course, home_wiki: wikidata, slug: 'campaign/acourse') }
+    let(:article) { create(:article) }
+    let(:user) { create(:user) }
+    let!(:act) do
+      create(:article_course_timeslice, course:, article:, user_ids: [user.id], revision_count: 12,
+      start: course.start, end: course.start + 1.day)
+    end
+    let!(:course_stats) do
+      create(:course_stats, stats_hash: { 'www.wikidata.org' => {
+               'claims created' => 12, 'other updates' => 1, 'unknown' => 1
+             } },
+             course:)
+    end
+    let(:request_params) { { slug: campaign.slug, format: :csv } }
+
+    before do
+      stub_wiki_validation
+      login_as(user)
+      campaign.courses << another_course
+      create(:courses_user, course:, user:)
+    end
+
+    it 'return a csv of article data' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
+      get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include(course.slug)
+      expect(csv).to include(article.title)
+    end
+
+    it 'returns a csv of wikidata' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get "/campaigns/#{campaign.slug}/wikidata"
+      get "/campaigns/#{campaign.slug}/wikidata"
+      follow_redirect!
+      csv = response.body.force_encoding('utf-8')
+      expect(csv).to include('course name,claims created')
+    end
+  end
+
+  describe '#set_sidekiq_job_context' do
+    context 'when user is signed in' do
+      let(:signed_in_user) { create(:user, username: 'wiki_edu_') }
+
+      before do
+        login_as signed_in_user
+      end
+
+      it 'sets the SidekiqJobContext username to current user username' do
+        expect(SidekiqJobContext).to receive(:username=).with(signed_in_user.username)
+        get '/course_csv', params: { course: course.slug }
+      end
+
+      context 'with non-ASCII usernames' do
+        UsernameTestHelper.test_usernames.each do |test_username|
+          it "handles username '#{test_username}' correctly" do
+            user_with_special_chars = create(:user, username: test_username)
+            login_as user_with_special_chars
+
+            expect(SidekiqJobContext).to receive(:username=).with(test_username)
+            get '/course_csv', params: { course: course.slug }
+          end
+        end
+      end
+    end
+
+    context 'when user is not signed in' do
+      before do
+        logout
+      end
+
+      it 'does not set the SidekiqJobContext username' do
+        expect(SidekiqJobContext).not_to receive(:username=)
+        get '/course_csv', params: { course: course.slug }
+        unauthorized = '401'
+        expect(response).to have_http_status(unauthorized)
+      end
+    end
+  end
+end

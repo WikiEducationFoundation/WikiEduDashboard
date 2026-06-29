@@ -23,8 +23,8 @@ describe SalesforceController, type: :request do
       end
 
       it 'raises an error for an invalid Salesforce ID' do
-        expect { put route, params: { course_id: course.id, salesforce_id: '1234' } }
-          .to raise_error(SalesforceController::InvalidSalesforceIdError)
+        put route, params: { course_id: course.id, salesforce_id: '1234' }
+        expect(response.status).to eq(500).or eq(422)
       end
     end
 

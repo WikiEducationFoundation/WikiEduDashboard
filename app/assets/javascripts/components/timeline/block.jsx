@@ -65,8 +65,19 @@ const updateBlock = (valueKey, value) => {
     if (isEditable) {
       blockActions = (
         <div className="float-container block__block-actions">
-          <button onClick={props.saveBlockChanges.bind(null, block.id)} className="button dark pull-right no-clear">Save</button>
-          <span role="button" tabIndex={0} onClick={props.cancelBlockEditable.bind(null, block.id)} className="span-link pull-right no-clear">Cancel</span>
+          <button type="button" onClick={props.saveBlockChanges.bind(null, block.id)} className="button dark pull-right no-clear">Save</button>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={props.cancelBlockEditable.bind(null, block.id)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                props.cancelBlockEditable(block.id);
+              }
+            }}
+            className="span-link pull-right no-clear"
+          >Cancel</span>
         </div>
       );
     }
@@ -97,7 +108,7 @@ const updateBlock = (valueKey, value) => {
     // let graded;
     if (isEditable) {
       if (!block.is_new) {
-        deleteBlock = (<div className="delete-block-container"><button className="danger" onClick={deleteBlocks}>Delete Block</button></div>);
+        deleteBlock = (<div className="delete-block-container"><button type="button" className="danger" onClick={deleteBlocks}>Delete Block</button></div>);
       }
       className += ' editable';
       if (props.isDragging) { className += ' dragging'; }
@@ -163,7 +174,7 @@ const updateBlock = (valueKey, value) => {
 
     const editButton = props.editPermissions ? (
       <div className="block__edit-button-container">
-        <button className="pull-right button ghost-button block__edit-block" onClick={_setEditable}>Edit</button>
+        <button type="button" className="pull-right button ghost-button block__edit-block" onClick={_setEditable}>{I18n.t('editable.edit')}</button>
       </div>
     ) : undefined;
 

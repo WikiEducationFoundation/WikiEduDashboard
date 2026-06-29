@@ -1,0 +1,6 @@
+-# Wiki data is passed as JSON for client-side rendering
+-# This enables search, filtering, and sorting without page reloads
+- wiki_json = @wiki_data[:all].map { |w|
+-     w.slice(:domain, :project, :language, :course_count) }.to_json
+
+#wiki-list-container{'data-wikis' => wiki_json}

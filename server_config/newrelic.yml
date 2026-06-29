@@ -30,7 +30,7 @@ common: &default_settings
 
   error_collector:
     ignore_errors: "ActionController::RoutingError,AbstractController::ActionNotFound"
-  
+
   rake:
     tasks: [".+"]
 

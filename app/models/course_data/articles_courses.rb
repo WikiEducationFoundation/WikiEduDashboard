@@ -3,21 +3,24 @@
 #
 # Table name: articles_courses
 #
-#  id               :integer          not null, primary key
-#  created_at       :datetime
-#  updated_at       :datetime
-#  article_id       :integer
-#  course_id        :integer
-#  view_count       :bigint           default(0)
-#  character_sum    :integer          default(0)
-#  new_article      :boolean          default(FALSE)
-#  references_count :integer          default(0)
-#  tracked          :boolean          default(TRUE)
-#  user_ids         :text(65535)
-#  first_revision   :datetime
+#  id                       :integer          not null, primary key
+#  created_at               :datetime
+#  updated_at               :datetime
+#  article_id               :integer
+#  course_id                :integer
+#  view_count               :bigint           default(0)
+#  character_sum            :integer          default(0)
+#  new_article              :boolean          default(FALSE)
+#  references_count         :integer          default(0)
+#  tracked                  :boolean          default(TRUE)
+#  user_ids                 :text(65535)
+#  first_revision           :datetime
+#  average_views            :float(24)
+#  average_views_updated_at :date
 #
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/cumulative_diff_url_builder"
 
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
@@ -36,11 +39,17 @@ class ArticlesCourses < ApplicationRecord
   scope :tracked, -> { where(tracked: true).distinct }
   scope :not_tracked, -> { where(tracked: false).distinct }
 
-  serialize :user_ids, Array # This text field only stores user ids as text
+  serialize :user_ids, type: Array # This text field only stores user ids as text
+
+  include ArticleViewerLinker
 
   ####################
   # Instance methods #
   ####################
+  def cumulative_diff_url
+    CumulativeDiffUrlBuilder.new(self).url
+  end
+
   def update_cache_from_timeslices
     self.character_sum = article_course_timeslices.sum(&:character_sum)
     self.references_count = article_course_timeslices.sum(&:references_count)

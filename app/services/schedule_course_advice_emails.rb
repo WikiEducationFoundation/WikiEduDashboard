@@ -11,9 +11,11 @@ class ScheduleCourseAdviceEmails
     return unless @course.tag?('research_write_assignment')
 
     schedule_biographies_email
+    schedule_generative_ai_email
     schedule_hype_video_email
     schedule_preliminary_work_email
     schedule_choosing_an_article_email
+    schedule_learning_to_edit_email
     schedule_bibliographies_email
     schedule_drafting_and_moving_email
     schedule_peer_review_email
@@ -29,6 +31,17 @@ class ScheduleCourseAdviceEmails
       course: @course,
       subject: 'biographies',
       send_at: Time.zone.now
+    )
+  end
+
+  def schedule_generative_ai_email
+    # A little before the assignment starts
+    send_date = @course.timeline_start - 7.days
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'generative_ai',
+      send_at: send_date
     )
   end
 
@@ -64,6 +77,23 @@ class ScheduleCourseAdviceEmails
     CourseAdviceEmailWorker.schedule_email(
       course: @course,
       subject: 'choosing_an_article',
+      send_at: block.calculated_date.to_datetime
+    )
+  end
+
+  # This goes to courses that took the "learning to edit with your students"
+  # wizard option, the week students start choosing their articles.
+  def schedule_learning_to_edit_email
+    return unless @course.tag?('instructor_learner')
+
+    block = @course.find_block_by_title 'Choose possible topics'
+    block ||= @course.find_block_by_title 'Choose your article'
+    return unless block
+    return if too_late?(block)
+
+    CourseAdviceEmailWorker.schedule_email(
+      course: @course,
+      subject: 'learning_to_edit',
       send_at: block.calculated_date.to_datetime
     )
   end

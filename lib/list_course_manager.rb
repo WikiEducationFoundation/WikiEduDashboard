@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/app/workers/list_course_worker"
+
 #= Routines for adding or removing a course to/from a campaign
 class ListCourseManager
   def initialize(course, campaign)
@@ -19,6 +21,7 @@ class ListCourseManager
     add_instructor_real_names if Features.wiki_ed?
     send_approval_notification_emails if Features.wiki_ed?
     add_classroom_program_manager_if_exists if Features.wiki_ed?
+    post_instructor_userpage_templates if Features.wiki_ed?
   end
 
   def handle_delete
@@ -55,5 +58,16 @@ class ListCourseManager
     CourseApprovalFollowupWorker.schedule_followup_email(course: @course)
 
     ScheduleCourseAdviceEmails.new(@course).schedule_emails
+  end
+
+  def post_instructor_userpage_templates
+    # Post instructor userpage template and course announcement when course is approved
+    return unless @course.instructors.any?
+    instructor = @course.instructors.first
+    editing_user = SpecialUsers.classroom_program_manager
+    return unless editing_user
+    ListCourseWorker.schedule_edits(course: @course,
+                                    editing_user:,
+                                    instructor:)
   end
 end

@@ -1,39 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// Components
-import ArticleViewerLegend from '@components/common/article_viewer_legend.jsx';
 import { printArticleViewer } from '../../../../utils/article_viewer';
 
 export const Footer = ({
-  article, colors, failureMessage, showArticleFinder, highlightedHtml, isWhocolorLang,
-  whoColorFailed, users, unhighlightedContributors, revisionId, toggleRevisionHandler, pendingRequest
+  article, legend, showArticleFinder, revisionId, toggleRevisionHandler, pendingRequest
 }) => {
-  // Determine the Article Viewer Legend status based on what information
-  // has returned from various API calls.
-  let articleViewerLegend;
-  if (!showArticleFinder) {
-    let legendStatus;
-    if (highlightedHtml && unhighlightedContributors.length) {
-      legendStatus = 'ready';
-    } else if (whoColorFailed) {
-      legendStatus = 'failed';
-    } else if (isWhocolorLang()) {
-      legendStatus = 'loading';
-    }
-
-    articleViewerLegend = (
-      <ArticleViewerLegend
-        article={article}
-        users={users}
-        colors={colors}
-        status={legendStatus}
-        failureMessage={failureMessage}
-        unhighlightedContributors={unhighlightedContributors}
-      />
-    );
-  }
-
   const revision_button_text = revisionId ? I18n.t('application.show_current_revision') : I18n.t('application.show_last_revision');
   const revision_button = !showArticleFinder && (
     <div>
@@ -64,7 +36,7 @@ export const Footer = ({
       padding: '0 1em',
     }}
     >
-      {articleViewerLegend}
+      {legend}
       <div
         style={{
           display: 'flex',
@@ -105,13 +77,11 @@ export const Footer = ({
 
 Footer.propTypes = {
   article: PropTypes.object.isRequired,
-  colors: PropTypes.array.isRequired,
-  failureMessage: PropTypes.string,
+  legend: PropTypes.node,
   showArticleFinder: PropTypes.bool,
-  highlightedHtml: PropTypes.string,
-  isWhocolorLang: PropTypes.func.isRequired,
-  whocolorFailed: PropTypes.bool,
-  users: PropTypes.array
+  revisionId: PropTypes.number,
+  toggleRevisionHandler: PropTypes.func,
+  pendingRequest: PropTypes.bool,
 };
 
 export default Footer;

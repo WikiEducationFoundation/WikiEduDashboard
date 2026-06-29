@@ -1,0 +1,27 @@
+- if @alert.followup_student
+  %h3 Student followup
+  %table.table.table--striped
+    - @alert.followup_student.each do |key, value|
+      %tr
+        %th= key.to_s.humanize
+        %td
+          - if value.is_a?(Array)
+            = value.map { |v| v.to_s.humanize }.join(', ')
+          - elsif value.blank?
+            %em none
+          - else
+            = value
+
+- @alert.followup_non_student.each do |username, response|
+  %h3 #{username} followup
+  %table.table.table--striped
+    - response.each do |key, value|
+      %tr
+        %th= key.to_s.humanize
+        %td
+          - if value.is_a?(Array)
+            = value.map { |v| v.to_s.humanize }.join(', ')
+          - elsif value.blank?
+            %em none
+          - else
+            = value

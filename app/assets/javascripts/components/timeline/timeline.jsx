@@ -200,11 +200,12 @@ const Timeline = createReactClass({
     if (this.tooManyWeeks()) {
       tooManyWeeksWarning = (
         <li className="timeline-warning">
-          WARNING! There are not enough non-holiday weeks before the assignment end date! You can click &apos;Edit Course Dates&apos; to set the meeting dates and holiday dates.
+          {I18n.t('timeline.too_many_weeks_warning')}
         </li>
       );
     }
     // Using allWeeks prop to render all the weeks
+    const effectiveTimelineStart = CourseDateUtils.effectiveTimelineStart(this.props.course);
     this.props.allWeeks.forEach((week, index) => {
       const weekAnchorName = `week-${index + 1 + weeksBeforeTimeline}`;
       // if week is empty
@@ -212,26 +213,25 @@ const Timeline = createReactClass({
         const emptyWeekKey = `empty-week-${index}`;
         weekNavInfo.push({ emptyWeek: true, title: undefined });
         weekComponents.push((
-          <div key={emptyWeekKey}>
-            <a className="timeline__anchor" name={weekAnchorName} />
-            <EmptyWeek
-              course={this.props.course}
-              edit_permissions={this.props.edit_permissions}
-              index={index + 1}
-              usingCustomTitles={usingCustomTitles}
-              timeline_start={this.props.course.timeline_start}
-              timeline_end={this.props.course.timeline_end}
-              weeksBeforeTimeline={weeksBeforeTimeline}
-              addWeek={this.props.addWeek}
-            />
-          </div>
+          <EmptyWeek
+            key={emptyWeekKey}
+            anchorId={weekAnchorName}
+            course={this.props.course}
+            edit_permissions={this.props.edit_permissions}
+            index={index + 1}
+            usingCustomTitles={usingCustomTitles}
+            timeline_start={effectiveTimelineStart}
+            timeline_end={this.props.course.timeline_end}
+            weeksBeforeTimeline={weeksBeforeTimeline}
+            addWeek={this.props.addWeek}
+          />
         ));
       } else {
         weekNavInfo.push({ emptyWeek: false, title: week.title });
         weekComponents.push((
-          <div key={week.id}>
-            <a className="timeline__anchor" name={weekAnchorName} />
-            <Week
+          <Week
+            key={week.id}
+            anchorId={weekAnchorName}
               week={week}
               index={index + 1}
               reorderable={this.props.reorderable}
@@ -241,7 +241,7 @@ const Timeline = createReactClass({
               blocks={week.blocks}
               deleteWeek={this.deleteWeek.bind(this, week.id)}
               meetings={week.meetings}
-              timeline_start={this.props.course.timeline_start}
+              timeline_start={effectiveTimelineStart}
               timeline_end={this.props.course.timeline_end}
               all_training_modules={this.props.all_training_modules}
               editableBlockIds={this.props.editableBlockIds}
@@ -264,9 +264,7 @@ const Timeline = createReactClass({
               no_meeting_days={this.props.course.no_meeting_days}
               moveBlock={this._moveBlock}
             />
-          </div>
-        )
-        );
+        ));
       }
     });
 
@@ -279,7 +277,7 @@ const Timeline = createReactClass({
           course={this.props.course}
           index={1}
           emptyTimeline
-          timeline_start={this.props.course.timeline_start}
+          timeline_start={CourseDateUtils.effectiveTimelineStart(this.props.course)}
           timeline_end={this.props.course.timeline_end}
           edit_permissions={this.props.edit_permissions}
           addWeek={this.props.addWeek}
@@ -290,21 +288,21 @@ const Timeline = createReactClass({
     let wizardLink;
     if (weekComponents.length <= 0 && this.props.edit_permissions && this.props.course.type === 'ClassroomProgramCourse') {
       const wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
-      wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
+      wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">{I18n.t('timeline.add_assignment')}</CourseLink>;
     }
 
     const saveChangesButton = (
-      <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
+      <button type="button" className="button dark button--block" onClick={this.props.saveGlobalChanges}>
         {I18n.t('timeline.save_all_changes')}
       </button>
     );
     const cancelChangesButton = (
-      <button className="button button--clear button--block" onClick={this.props.cancelGlobalChanges}>
+      <button type="button" className="button button--clear button--block" onClick={this.props.cancelGlobalChanges}>
         {I18n.t('timeline.discard_all_changes')}
       </button>
     );
     const resetTitlesButton = (
-      <button className="button button--clear button--block" onClick={this.props.resetTitles}>
+      <button type="button" className="button button--clear button--block" onClick={this.props.resetTitles}>
         {I18n.t('timeline.reset_titles')}
       </button>
     );
@@ -337,7 +335,7 @@ const Timeline = createReactClass({
       } else if (this.props.editableBlockIds.length === 0) {
         reorderableControls = (
           <div className="reorderable-controls">
-            <button className="button border button--block" onClick={this.props.enableReorderable}>{I18n.t('timeline.arrange_timeline')}</button>
+            <button type="button" className="button border button--block" onClick={this.props.enableReorderable}>{I18n.t('timeline.arrange_timeline')}</button>
           </div>
         );
       }
@@ -353,7 +351,7 @@ const Timeline = createReactClass({
       } else {
         editWeekTitles = (
           <div className="edit-week-titles">
-            <button className="button border button--block" onClick={this.props.enableEditTitles}>{I18n.t('timeline.edit_titles')}</button>
+            <button type="button" className="button border button--block" onClick={this.props.enableEditTitles}>{I18n.t('timeline.edit_titles')}</button>
           </div>
         );
       }
@@ -378,7 +376,7 @@ const Timeline = createReactClass({
         </li>
       ) : (
         <li>
-          <button className="week-nav__add-week" onClick={this.addWeek}>Add Week</button>
+          <button type="button" className="week-nav__add-week" onClick={this.addWeek}>{I18n.t('timeline.add_week')}</button>
         </li>
       );
     }
@@ -424,7 +422,7 @@ const Timeline = createReactClass({
     // and the timeline is not already empty.
     if (this.props.edit_permissions && !this.props.course.submitted && this.hasTimeline()) {
       restartTimeline = (
-        <button className="button border danger button--block" onClick={this.deleteAllWeeks}>
+        <button type="button" className="button border danger button--block" onClick={this.deleteAllWeeks}>
           {I18n.t('timeline.delete_timeline_and_start_over')}
         </button>
       );

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Components
 import BibliographyLink from './BibliographyLink';
+import OutlineLink from './OutlineLink';
 import EditorLink from './EditorLink';
 import SandboxLink from './SandboxLink';
 import GroupMembersLink from './GroupMembersLink';
@@ -10,7 +11,7 @@ import PeerReviewLink from './PeerReviewLink';
 import AllPeerReviewLinks from './AllPeerReviewLinks';
 import Separator from '@components/overview/my_articles/common/Separator.jsx';
 import ArticleUtils from '../../../utils/article_utils';
-
+import { isUserSandbox } from '@components/overview/my_articles/utils/processAssignments';
 // constants
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '~/app/assets/javascripts/constants/assignments';
 
@@ -26,7 +27,7 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   const { article_url, id, role, editors } = assignment;
   const actions = [];
 
-  if ((editors && editors.length) || assignment.role === ASSIGNED_ROLE) {
+  if (((editors && editors.length) || assignment.role === ASSIGNED_ROLE) && !isUserSandbox(assignment)) {
     // Exclude sandbox link for 'no_sandboxes' courses for existing articles.
     // New articles will still use sandboxes for drafting in 'no_sandboxes' courses.
     if (!assignment.article_id || !course?.no_sandboxes) {
@@ -37,6 +38,9 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   }
 
   if (courseType === 'ClassroomProgramCourse') {
+    actions.unshift(
+      <OutlineLink key={`outline-${id}`} assignment={assignment} />
+    );
     actions.unshift(
       <BibliographyLink key={`bibliography-${id}`} assignment={assignment} />
     );
@@ -49,7 +53,7 @@ const AssignmentLinks = ({ assignment, courseType, user, course, project, editMo
   }
 
   // Only show mainspace article link if the article already exists.
-  if (assignment.article_id) {
+  if (assignment.article_id || isUserSandbox(assignment)) {
     const articleLink = (
       <a key={`article-${id}`} href={article_url} target="_blank">{I18n.t(`assignments.${ArticleUtils.projectSuffix(project, 'article_link')}`)}</a>
     );

@@ -13,6 +13,7 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
+  config.action_mailer.preview_paths << "#{Rails.root}/app/mailer_previews"
   config.action_mailer.default_url_options = { host: ENV['dashboard_url'] }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true

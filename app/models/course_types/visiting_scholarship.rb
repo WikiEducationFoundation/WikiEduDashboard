@@ -50,7 +50,6 @@
 #
 
 class VisitingScholarship < Course
-  include CustomRevisionFilter
 
   def wiki_edits_enabled?
     false

@@ -1,0 +1,146 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvprop=ids&titles=Common_loon
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - e8d404c6231e46ad81d19c0e3e1c9371-e6d4d52394e142b2
+      Baggage:
+      - sentry-trace_id=e8d404c6231e46ad81d19c0e3e1c9371,sentry-sample_rand=0.171946,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 14 May 2026 20:36:47 GMT
+      Server:
+      - mw-api-ext.codfw.main-7b56956d8b-67bmj
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4044 miss, cp4044 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4044"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:WA:Seattle:47.54:-122.28:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=14-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Mon,
+        15 Jun 2026 12:00:00 GMT
+      - WMF-Last-Access=14-May-2026;Path=/;HttpOnly;secure;Expires=Mon, 15 Jun 2026
+        12:00:00 GMT
+      - WMF-Uniq=uo1oOdfGpJz4_zDXBPcjogNgAAAAAFvd7uyZdnRQE1P4XVh1_-tXkDILi9w804kG;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Fri,
+        14 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 75.172.21.34
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '210'
+      X-Request-Id:
+      - eae955df-b992-4c36-99b5-2c749cecc737
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Common_loon","to":"Common
+        loon"}],"pages":{"183527":{"pageid":183527,"ns":0,"title":"Common loon","revisions":[{"revid":1352997528,"parentid":1352997398}]}}}}'
+  recorded_at: Wed, 14 May 2025 00:00:00 GMT
+- request:
+    method: post
+    uri: https://api.wikimedia.org/service/lw/inference/v1/models/enwiki-articlequality:predict
+    body:
+      encoding: UTF-8
+      string: '{"rev_id":1352997528,"extended_output":true}'
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - e8d404c6231e46ad81d19c0e3e1c9371-e6d4d52394e142b2
+      Baggage:
+      - sentry-trace_id=e8d404c6231e46ad81d19c0e3e1c9371,sentry-sample_rand=0.171946,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 14 May 2026 20:36:46 GMT
+      Server:
+      - istio-envoy
+      Age:
+      - '3'
+      Vary:
+      - Accept-Encoding
+      X-Cache:
+      - cp4044 miss, cp4044 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4044"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      X-Client-Ip:
+      - 75.172.21.34
+      Set-Cookie:
+      - WMF-Uniq=-Afyiw8RfeUAcINE06sTxwNgAAAAAFvdYWW30HwBIUvxGYxaXCnvERJJpz3FjvZE;Domain=api.wikimedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Fri,
+        14 May 2027 00:00:00 GMT
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - 975ef23f-591b-4fe3-aac0-4dfce78346d1
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"enwiki":{"models":{"articlequality":{"version":"0.9.2"}},"scores":{"1352997528":{"articlequality":{"score":{"prediction":"FA","probability":{"B":0.02222286982152959,"C":0.009311777795701855,"FA":0.8683817885240503,"GA":0.09439457435781204,"Start":0.00407683390709281,"Stub":0.0016121555938133116}},"features":{"feature.wikitext.revision.chars":97973.0,"feature.wikitext.revision.content_chars":45734.0,"feature.wikitext.revision.ref_tags":244.0,"feature.wikitext.revision.wikilinks":311.0,"feature.wikitext.revision.external_links":76.0,"feature.wikitext.revision.headings_by_level(2)":12.0,"feature.wikitext.revision.headings_by_level(3)":10.0,"feature.wikitext.revision.list_items":9.0,"feature.enwiki.revision.image_links":9.0,"feature.enwiki.revision.image_template":0.0,"feature.enwiki.revision.images_in_templates":0,"feature.enwiki.revision.images_in_tags":0,"feature.enwiki.infobox_images":0,"feature.enwiki.revision.category_links":14.0,"feature.enwiki.revision.shortened_footnote_templates":6.0,"feature.enwiki.revision.cite_templates":120.0,"feature.wikitext.revision.templates":183.0,"feature.enwiki.revision.infobox_templates":0.0,"feature.enwiki.revision.cn_templates":0.0,"feature.enwiki.revision.who_templates":0.0,"feature.enwiki.main_article_templates":0.0,"feature.english.stemmed.revision.stems_length":58081,"feature.enwiki.revision.paragraphs_without_refs_total_length":29580.0,"feature.len(<datasource.english.words_to_watch.revision.matches>)":129.0,"feature.len(<datasource.wikitext.revision.words>)":12700.0,"feature.len(<datasource.english.idioms.revision.matches>)":3.0}}}}}}'
+  recorded_at: Wed, 14 May 2025 00:00:00 GMT
+recorded_with: VCR 6.1.0

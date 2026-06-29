@@ -129,7 +129,6 @@ sl:
       na dashboard@wikiedu.org.
   alerts:
     alert_label: Opomniki
-    no_alerts: Ni najdenih opomnikov.
   activity:
     all: Dejavnost
     edited_by: Uredil
@@ -272,6 +271,7 @@ sl:
     add_this_template: Dodaj predloge
     confirm_add_n_scoping_method: Želite dodati metod(e) obsega %{n}?
     name: Ime
+    category_name: Ime kategorije
     template_name: Ime predloge
     none: Ni sledenih kategorij.
     remove: Odstrani
@@ -501,6 +501,7 @@ sl:
     all: Vsi
     project: Projekt
     template: Predloga
+    category: Kategorija
     page: Stran
     translation: Prevod
     query: Poizvedba
@@ -546,6 +547,8 @@ sl:
     featured_campaigns:
       no_featured_campaigns: Ni določenih izbranih kampanj
       update_featured_campaigns_button: Posodobi izbrane kampanje
+  status:
+    queue: Čakalna vrsta
   suggestions:
     editing: Predlogi za urejanje
     suggestion_docs:

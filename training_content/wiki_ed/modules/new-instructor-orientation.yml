@@ -23,16 +23,14 @@ slides:
   - slug: concerning-notability # 311
   - slug: concerning-conflicts-of-interest # 309
   - slug: student-learning-outcomes # 340
-  - slug: digital-literacy # 341
-  - slug: writing-and-communication # 306
-  - slug: npov-and-critical-thinking # 308
   - slug: designing-a-wikipedia-assignment # 313
   - slug: create-or-expand-an-article # 314
   - slug: translate-an-article # 315
   - slug: create-images-and-multimedia # 316
   - slug: setting-expectations # 319
+  - slug: generative-ai-and-wikipedia # 345
+  - slug: ai-detection # 346
   - slug: avoiding-plagiarism # 310
-  - slug: responding-to-plagiarism # 343
   - slug: grading-your-assignment # 335
   - slug: avoid-minimum-requirements # 318
   - slug: never-grade-on-what-sticks # 317

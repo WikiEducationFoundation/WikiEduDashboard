@@ -74,7 +74,7 @@ const Quiz = (props) => {
             {answers}
           </ul>
         </fieldset>
-        <button className="btn btn-primary ghost-button capitalize btn-med" onClick={verifyAnswer}> {I18n.t('training.check_answer')} </button>
+        <button type="button" className="btn btn-primary ghost-button capitalize btn-med" onClick={verifyAnswer}> {I18n.t('training.check_answer')} </button>
       </form>
     );
   };

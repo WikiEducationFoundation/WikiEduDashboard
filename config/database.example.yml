@@ -20,7 +20,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: dashboard_testing
+  database: dashboard_testing<%= ENV['TEST_ENV_NUMBER'] %>
 
 staging:
   <<: *default

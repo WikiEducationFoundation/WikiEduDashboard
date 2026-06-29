@@ -8,6 +8,7 @@ import { formatCategoryName } from '../components/util/scoping_methods';
 
 const SentryLogger = {};
 
+
 /* eslint-disable */
 const API = {
   // /////////
@@ -108,18 +109,6 @@ const API = {
 
   async fetchArticleDetails(articleId, courseId) {
     const response = await request(`/articles/details.json?article_id=${articleId}&course_id=${courseId}`);
-
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
-    return response.json();
-  },
-
-  async fetchDykArticles(opts = {}) {
-    const response = await request(`/revision_analytics/dyk_eligible.json?scoped=${opts.scoped || false}`);
 
     if (!response.ok) {
       logErrorMessage(response);
@@ -232,13 +221,26 @@ const API = {
         return Promise.reject({ error });
       });
   },
+  // Throttle cache for fetchNews to avoid duplicate API calls
+  FETCH_NEWS_THROTTLE_MS: 5000, // 5-second throttle window
+  _lastFetchNewsTime: 0,
+  _lastFetchNewsResult: null,
 
   async fetchNews() {
+    // Return cached result if within throttle window to avoid duplicate calls
+    const now = Date.now();
+    if (this._lastFetchNewsResult && (now - this._lastFetchNewsTime) < this.FETCH_NEWS_THROTTLE_MS) {
+      return this._lastFetchNewsResult;
+    }
+
     // Determine the type of newsTitle content to fetch based on the `Features.wikiEd` flag
     const newsTitle = Features.wikiEd ? 'Wiki Education News' : 'Programs & Events Dashboard News';
      try {
          const response = await request(`/faq/${newsTitle}/handle_special_faq_query`);
          const { newsDetails } = await response.json();
+         // Update throttle cache
+         this._lastFetchNewsTime = Date.now();
+         this._lastFetchNewsResult = newsDetails;
          return newsDetails;
      } catch (error) {
          logErrorMessage('Error creating news:', error)
@@ -296,10 +298,14 @@ const API = {
       console.error('Couldn\'t save timeline!');
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
-      Sentry.captureMessage('saveTimeline failed', {
-        level: 'error',
-        extra: SentryLogger
-      });
+
+      // Ensure Sentry is defined to prevent failing silently
+      if (typeof Sentry !== 'undefined') {
+        Sentry.captureMessage('saveTimeline failed', {
+          level: 'error',
+          extra: SentryLogger
+        });
+      }
       response.responseText = data;
       throw response;
     }
@@ -326,10 +332,13 @@ const API = {
       this.status = response.statusText;
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
-      Sentry.captureMessage('saveCourse failed', {
-        level: 'error',
-        extra: SentryLogger
-      });
+
+      if (typeof Sentry !== 'undefined') {
+        Sentry.captureMessage('saveCourse failed', {
+          level: 'error',
+          extra: SentryLogger
+        });
+      }
       response.responseText = data;
       throw response;
     }
@@ -700,6 +709,49 @@ const API = {
         label,
       };
     });
+  },
+
+  // Disallowed Users API
+  // Fetches list of usernames blocked from enrolling in any course
+  async fetchDisallowedUsers() {
+    const response = await request('/settings/disallowed_users');
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
+  },
+
+  // Adds a user to the disallowed list, preventing them from enrolling in courses
+  async addDisallowedUser(username) {
+    const response = await request('/settings/add_disallowed_user', {
+      method: 'POST',
+      body: JSON.stringify({ username })
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
+  },
+
+  // Removes a user from the disallowed list, allowing them to enroll again
+  async removeDisallowedUser(username) {
+    const response = await request('/settings/remove_disallowed_user', {
+      method: 'POST',
+      body: JSON.stringify({ username })
+    });
+    if (!response.ok) {
+      logErrorMessage(response);
+      const data = await response.text();
+      response.responseText = data;
+      throw response;
+    }
+    return response.json();
   }
 };
 

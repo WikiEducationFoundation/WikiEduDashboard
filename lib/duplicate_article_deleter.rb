@@ -34,15 +34,23 @@ class DuplicateArticleDeleter
   private
 
   def articles_grouped_by_title_and_namespace(articles)
-    articles ||= Article.where(deleted: false, wiki_id: @wiki.id)
-    titles = articles.map(&:title)
-    Article.where(title: titles, wiki_id: @wiki.id).group(%w[title namespace]).count
+    article_group = {}
+    namespaces = articles.pluck(:namespace).uniq
+    titles = articles.pluck(:title)
+
+    titles.each_slice(30_000) do |title_batch|
+      article_group.merge!(Article.where(namespace: namespaces, wiki_id: @wiki.id, title: title_batch) # rubocop:disable Layout/LineLength
+                                  .group(%w[namespace wiki_id title])
+                                  .count)
+    end
+
+    article_group
   end
 
   def delete_duplicates_in(article_group)
     return unless article_group[1] > 1
-    title = article_group[0][0]
-    namespace = article_group[0][1]
+    title = article_group[0][2]
+    namespace = article_group[0][0]
     Rails.logger.debug { "Resolving duplicates for '#{title}, ns #{namespace}'" }
     @deleted_ids += delete_duplicates(title, namespace)
   end
@@ -51,7 +59,7 @@ class DuplicateArticleDeleter
   # and namespace except for the most recently created
   def delete_duplicates(title, ns)
     articles = Article.where(title:, namespace: ns, wiki_id: @wiki.id, deleted: false)
-                      .order(:created_at)
+                      .order(:updated_at)
     # Default order is ascendent, so we want to keep the last article
     keeper = articles.last
     return [] if keeper.nil?

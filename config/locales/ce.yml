@@ -49,7 +49,6 @@ ce:
     sign_up: Википедин гӀоьнца дӀайазло
   alerts:
     alert_label: ДӀахаийтарш
-    no_alerts: ДӀахаийтарш цакарий
   activity:
     all: Жигаралла
     edited_by: Хийцина
@@ -242,6 +241,9 @@ ce:
     no_data: Хаамаш бац
     other_updates: Кхин карлайаьхнарш
     qualifiers_added: Спецификаторш тӀетоьхна
+    language: Мотт
+    lexical_category: Лексикин категори
+    forms: Формаш
   namespace:
     main: Коьрта меттиг
     talk: дийцар

@@ -15,6 +15,7 @@
 # Author: Otokoume
 # Author: RYOUMA1117
 # Author: Shirayuki
+# Author: Ska101~translate
 # Author: Sudachi
 # Author: Sujiniku
 # Author: Suyama
@@ -124,7 +125,6 @@ ja:
       までメールで連絡してください。
   alerts:
     alert_label: 通知
-    no_alerts: 通知は届いていません。
   activity:
     all: 活動
     edited_by: 編集担当

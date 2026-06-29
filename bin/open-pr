@@ -1,0 +1,217 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Open a GitHub pull request using tmp/pr_description.md, automatically
+# uploading local screenshots so they render inline.
+#
+# Screenshots referenced as screenshots/... (relative to tmp/) are pushed
+# to an orphan branch `pr-screenshots/<current-branch>` on the remote, and
+# the description is rewritten to reference them by raw.githubusercontent.com
+# URLs. The PR is then created (or updated if it already exists) in a single
+# pass — no manual drag-and-drop step.
+#
+# Usage:
+#   bin/open-pr              # prompts for PR title on first run
+#   bin/open-pr "My title"   # pass title as argument
+#
+# Authentication (tried in order):
+#   1. GITHUB_TOKEN env var
+#   2. `gh auth token` output, if the GitHub CLI is installed and logged in
+#
+# If neither is available, the script prints instructions for generating a
+# classic PAT with `repo` scope.
+
+require 'json'
+require 'net/http'
+require 'tempfile'
+require 'uri'
+
+OWNER       = 'WikiEducationFoundation'
+REPO        = 'WikiEduDashboard'
+BASE_BRANCH = 'master'
+API_BASE    = 'https://api.github.com'
+DESC_PATH   = File.expand_path('../tmp/pr_description.md', __dir__)
+TMP_ROOT    = File.expand_path('../tmp', __dir__)
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+def token
+  @token ||= env_token || gh_cli_token || abort_with_token_instructions
+end
+
+def env_token
+  t = ENV['GITHUB_TOKEN']
+  t if t && !t.empty?
+end
+
+def gh_cli_token
+  out = `gh auth token 2>/dev/null`.strip
+  out.empty? ? nil : out
+end
+
+def abort_with_token_instructions
+  abort <<~MSG
+    Error: no GitHub auth available.
+
+    Either set GITHUB_TOKEN, or install and log into the GitHub CLI:
+      gh auth login
+
+    If you prefer a PAT: GitHub → Settings → Developer settings →
+    Personal access tokens → Generate new token (classic) → repo scope.
+
+      export GITHUB_TOKEN=ghp_...
+      bin/open-pr
+  MSG
+end
+
+def api_headers
+  {
+    'Authorization'        => "Bearer #{token}",
+    'Accept'               => 'application/vnd.github+json',
+    'X-GitHub-Api-Version' => '2022-11-28',
+    'Content-Type'         => 'application/json'
+  }
+end
+
+def http_request(uri, req, allow_codes: [])
+  Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+    res = http.request(req)
+    unless res.is_a?(Net::HTTPSuccess) || allow_codes.include?(res.code.to_i)
+      abort "GitHub API error #{res.code} at #{uri}\n#{res.body}"
+    end
+    [res.code.to_i, JSON.parse(res.body)]
+  end
+end
+
+def api_get(path)
+  uri = URI("#{API_BASE}#{path}")
+  req = Net::HTTP::Get.new(uri, api_headers)
+  _code, body = http_request(uri, req)
+  body
+end
+
+def api_post(path, payload, allow_codes: [])
+  uri = URI("#{API_BASE}#{path}")
+  req = Net::HTTP::Post.new(uri, api_headers)
+  req.body = payload.to_json
+  http_request(uri, req, allow_codes:)
+end
+
+def api_patch(path, payload)
+  uri = URI("#{API_BASE}#{path}")
+  req = Net::HTTP::Patch.new(uri, api_headers)
+  req.body = payload.to_json
+  http_request(uri, req)
+end
+
+def find_existing_pr(branch)
+  results = api_get("/repos/#{OWNER}/#{REPO}/pulls?head=#{OWNER}:#{branch}&base=#{BASE_BRANCH}&state=open")
+  results.first
+end
+
+# ── screenshot upload ────────────────────────────────────────────────────────
+
+# Extract local screenshot paths (relative to tmp/) from the description.
+def extract_local_paths(body)
+  md = body.scan(/!\[[^\]]*\]\((screenshots\/[^)]+)\)/).flatten
+  html = body.scan(/src="(screenshots\/[^"]+)"/).flatten
+  (md + html).uniq
+end
+
+# Build an orphan commit containing the given files and push it to
+# `refs/heads/<branch>` on origin. Paths in `local_paths` are relative to
+# `tmp/` and preserved in the commit tree.
+def push_screenshots_branch(local_paths, branch)
+  index_file = Tempfile.new('pr-screenshots-index')
+  index_file.close
+  # git wants to either read an existing index or create a fresh one; an
+  # empty file fails with "index file smaller than expected".
+  File.delete(index_file.path)
+
+  local_paths.each { |path| stage_file(path, index_file.path) }
+  tree = capture_git('write-tree', index_file.path)
+  commit = capture_git("commit-tree #{tree} -m \"Screenshots for #{branch}\"", index_file.path)
+
+  run("git update-ref refs/heads/#{branch} #{commit}")
+  run("git push -f origin refs/heads/#{branch}:refs/heads/#{branch}")
+ensure
+  File.delete(index_file.path) if index_file && File.exist?(index_file.path)
+end
+
+def stage_file(relative_path, index_path)
+  full_path = File.join(TMP_ROOT, relative_path)
+  abort "Screenshot not found: #{full_path}" unless File.exist?(full_path)
+  blob = `git hash-object -w -- "#{full_path}"`.strip
+  abort "git hash-object failed for #{full_path}" if blob.empty?
+  run_with_index("git update-index --add --cacheinfo 100644,#{blob},#{relative_path}",
+                 index_path)
+end
+
+def run(cmd)
+  system(cmd, out: File::NULL) or abort "Command failed: #{cmd}"
+end
+
+def run_with_index(cmd, index_path)
+  system({ 'GIT_INDEX_FILE' => index_path }, cmd, out: File::NULL) \
+    or abort "Command failed: #{cmd}"
+end
+
+def capture_git(args, index_path)
+  out = IO.popen({ 'GIT_INDEX_FILE' => index_path }, "git #{args}", &:read).strip
+  abort "git #{args} failed" unless $?.success? && !out.empty?
+  out
+end
+
+def rewrite_description(body, local_paths, branch)
+  base = "https://raw.githubusercontent.com/#{OWNER}/#{REPO}/#{branch}"
+  local_paths.each do |path|
+    escaped = Regexp.escape(path)
+    body = body.gsub(/!\[([^\]]*)\]\(#{escaped}\)/, "![\\1](#{base}/#{path})")
+    body = body.gsub(/src="#{escaped}"/, %(src="#{base}/#{path}"))
+  end
+  body
+end
+
+# ── main ─────────────────────────────────────────────────────────────────────
+
+abort "No PR description found at #{DESC_PATH}. Run bin/pr-screenshots first." \
+  unless File.exist?(DESC_PATH)
+
+branch = `git rev-parse --abbrev-ref HEAD`.strip
+abort 'Could not determine current branch.' if branch.empty?
+
+description = File.read(DESC_PATH)
+local_paths = extract_local_paths(description)
+
+if local_paths.any?
+  screenshot_branch = "pr-screenshots/#{branch}"
+  puts "Uploading #{local_paths.length} screenshot(s) to #{screenshot_branch}..."
+  push_screenshots_branch(local_paths, screenshot_branch)
+  description = rewrite_description(description, local_paths, screenshot_branch)
+  puts "  → raw URLs: https://raw.githubusercontent.com/#{OWNER}/#{REPO}/#{screenshot_branch}/"
+end
+
+existing_pr = find_existing_pr(branch)
+
+if existing_pr
+  pr_number = existing_pr['number']
+  pr_url    = existing_pr['html_url']
+  puts "Updating existing PR ##{pr_number}..."
+  api_patch("/repos/#{OWNER}/#{REPO}/pulls/#{pr_number}", { body: description })
+  puts "  → #{pr_url}"
+else
+  title = ARGV[0]
+  if title.nil? || title.empty?
+    last_commit = `git log -1 --pretty=%s`.strip
+    print "PR title [#{last_commit}]: "
+    input = $stdin.gets&.strip
+    title = input.empty? ? last_commit : input
+  end
+
+  puts "Creating draft PR on #{OWNER}/#{REPO} (#{branch} → #{BASE_BRANCH})..."
+  _code, pr = api_post(
+    "/repos/#{OWNER}/#{REPO}/pulls",
+    { title:, body: description, head: branch, base: BASE_BRANCH, draft: true }
+  )
+  puts "  → #{pr['html_url']}"
+end

@@ -4,10 +4,12 @@
 # Author: Aa10240tw
 # Author: Cookai1205
 # Author: Cwlin0416
+# Author: Entropy lover nagnto
 # Author: Ffaarr
 # Author: Kly
 # Author: LNDDYL
 # Author: Liuxinyu970226
+# Author: LowensteinYang
 # Author: Reke
 # Author: S8321414
 # Author: Shangkuanlc
@@ -36,6 +38,8 @@ zh-TW:
   application:
     back: 返回
     cancel: 取消
+    next: 下一個
+    skip_to_main_content: 跳至主要內容
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
     cookie_consent_acknowledge: 我了解
     cookie_consent_see_more: 查看更多。
@@ -46,6 +50,7 @@ zh-TW:
     explore: 探索
     field_required: 此為必填欄位
     field_invalid_characters: 此欄位的字元無效
+    field_invalid_term: 學期必須包含年份（例如：2025 年春季）
     field_invalid_date: 此欄位需要以年-月-日 (YYYY-MM-DD) 格式填入日期
     field_invalid_date_time: 結束必須晚於起始。（時刻從 0 至 23。）
     greeting2: 歡迎！
@@ -57,6 +62,7 @@ zh-TW:
     log_in: 登入
     log_out: 登出
     my_dashboard: 我的功能面板
+    okay: 了解
     recent_activity: 最近活動
     report_problem: 回報問題
     request_account: 申請帳號
@@ -68,6 +74,9 @@ zh-TW:
     no_results: 查無「%{query}」的結果
     show_current_revision: 顯示目前版本
     show_last_revision: 檢視最新編輯修訂
+    font_label: 字型
+    font_sans: 無襯線體
+    font_serif: 襯線字體
     sign_up_extended: 註冊維基百科
     sign_up_wikipedia: 或在維基百科註冊
     sign_up_log_in_extended: 參與維基百科
@@ -75,13 +84,14 @@ zh-TW:
     submit: 送出
     training: 培訓
     change: 變更
-    details: 詳細內容
+    details: 詳細資訊
     confirm: 好
     opt_in: 是
     opt_out: 否
     opt_yes: 是
     opt_no: 否
     print: 列印
+    sort: 排序
   article_statuses:
     not_yet_started: 入門
     in_progress: 在沙盒裡作業
@@ -124,7 +134,45 @@ zh-TW:
       dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
-    no_alerts: 找不到提醒。
+    no_data: 查無資料。
+    ai_stats:
+      timestamp: 時間戳記
+      title: 針對%{campaign_name}的AI編輯提醒統計
+      total_alerts: 全面AI編輯提醒
+      with_followup: 帶有後續跟進的AI編輯提醒
+      multiple_alerts_students: 收到多項提醒的學生
+      multiple_alerts_pages: 包含多項提醒的頁面
+      pangram_url: 全字母句網址
+      go_to_pangram: 前往全字母句
+      revision_diff: 修訂版本差異
+      single_alert_view: 提醒
+      alerts_in_mainspace: 主空間提醒
+      users_involved: 參與使用者
+      total: 總計
+      last_week: 上週
+      sections:
+        contents: 頁面內容
+        general_stats: 總體統計數據
+        name: 名稱
+        description: 描述
+        courses_with_ai_alerts: 具有多樣 AI 提醒的課程
+        recent_followup: 近期跟進的提醒
+        multiple_alerts_students: 近期有多項提醒的學生提醒
+        in_mainspace: 主空間近期提醒
+        alerts_trend_over_time: AI 提醒隨時間變化的趨勢
+        descriptions:
+          courses_with_ai_alerts: 整個課程期間（不一定是最近的）發出超過 3 次 AI 提醒的課程。
+          recent_followup: 過去 14 天內提交後續回覆的提醒，按後續回覆日期排序。
+          multiple_alerts_students: 過去 14 天內為收到多個提醒的學生建立的提醒，按建立日期排序。
+          in_mainspace: 過去 14 天內為主空間條目建立的提醒，按建立日期排序。
+  ai_scores_stats:
+    title: 修訂版 AI 分數統計
+    graphs:
+      daily_checks: 依命名空間每日檢查
+      avg_likelihood: 每日平均 AI 可能性分佈
+      max_likelihood: 每日最大 AI 可能性分佈
+      overall_avg_likelihood: 整體平均 AI 可能性分佈
+      overall_max_likelihood: 整體最大 AI 可能性分佈
   activity:
     all: 活動
     edited_by: 編輯自
@@ -139,6 +187,8 @@ zh-TW:
     available: 尚待分配的條目
     no_available: 沒有可用的條目
     next: 下一個
+    page_info: '%{total_pages}頁的第%{current}頁（%{total}的%{count}）'
+    permalink: 固定連結
     previous: 上一個
     article_title: 條目標題
     assigned_to: 分配給
@@ -159,7 +209,13 @@ zh-TW:
       tracked: 已追蹤
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
+      wiki_label: wiki
+      newness_label: 條目的新穎性
+      tracked_label: 追蹤狀態
     filter_text: 篩選：
+    pageviews_label: 頁面瀏覽量：
+    cumulative: 累計
+    daily_avg: 每日平均
     find: 尋找條目
     how_to_find: 如何查找條目
     hide: 隱藏
@@ -167,9 +223,11 @@ zh-TW:
     label: 條目
     loading: 讀取條目中...
     mark_as_complete: 標記為完成
+    mark_as_incomplete: 標記為未完成
     new: ' (新)'
     none: 此課程沒有編輯任何條目。
     preview: 條目簡要預覽
+    quality_checklist: 品質檢查表
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
@@ -200,10 +258,15 @@ zh-TW:
     view_doc: 透過最新統計更新，各條目從首次編輯後的估計檢視次數。您可以使用 pageviews.toolforge.org 來查看準確數字。
     view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
+    article_size: 條目大小
+    article_size_doc: 每次編輯條目後的 wikitext 大小（以位元組為單位）
     edit_size: 編輯大小
+    editor_other: 其他編輯者
+    scoring_status: 取得 %{count} 次編輯的分數
     wiki: wiki
     wp10: 結構完整性
-    wp10_doc: 「結構完整性」評分，是以採用機器學習架構的客觀性修訂版本評估服務（https://ores.wikimedia.org/）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
+    wp10_doc: 「結構完整性」評分，是以採用過去（~2015）機器學習架構的「客觀性修訂版本評估服務」（Objective Revision Evaluation
+      Service）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。
     articles_short: 條目
     deleted_message: 根據控制面板的資料，該頁面已被刪除。（在某些情況下，頁面移動、歷史紀錄合併、或是其他操作可能導致條目被錯誤地列為已被刪除。已刪除的條目也可能事後會被取消刪除。對於實際未被刪除或是事後已恢復的條目，面板通常會在一兩天內反應出。）
     page_logs: （頁面日誌）
@@ -244,6 +307,7 @@ zh-TW:
     blocked_assignment: 無法分配%{title}，因為這在維基百科社群的 Wiki 教育分配黑名單中。
     already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
+    max_group_size_exceeded: 課程%{title}已分配給 %{current} 名學生。該課程的群組最多人數為 %{max}。
     assignees: 被分配者
     assign_other: 分配/移除條目
     assign_other_wikidata: 分配/移除項目
@@ -253,7 +317,9 @@ zh-TW:
     add_available_placeholder_wikidata: 在每行添加一個項目標題或 URL
     add_available_submit: 添加條目
     add_available_submit_wikidata: 添加項目
+    add_placeholder: 輸入條目標題或 URL
     assign_self: 指定自己一個條目
+    invalid_mainspace_article: 這必須是一篇有效的主空間條目。
     assign_self_wikidata: 給自己分配一個項目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     assign_tooltip_wikidata: 分配的是您計劃建立或改善的項目。
@@ -273,6 +339,7 @@ zh-TW:
     none_short_wikidata: 沒有已分配的項目
     none: 這個課程還沒有任何條目被分派。
     no_available: 此課程沒有任何尚待分配的條目。
+    outline: 大綱
     peer_review_count: '%{currentCount}/%{total} 已選'
     peer_review_count_tooltip: 您必須選擇 %{total} 個條目來同行評審。
     peer_review_link: 同行評審
@@ -300,12 +367,28 @@ zh-TW:
     submit: 提交
     invalid_url: 無法更新沙盒的 URL。%{url} 不是有效的維基百科 URL。
     mismatched_wiki: 無法更新沙盒的 URL。%{url} 不在相同的 wiki 上。
+    invalid_username: 使用者名稱「%{username}」無效或該使用者名稱不存在。
+    change_sandbox_instructions: 輸入維基百科使用者名稱來更新此分配的沙盒網址。這會把目前使用者名稱的沙盒更改為您指定的內容。
+    username_label: 維基百科使用者名稱
+    username_placeholder: 請輸入使用者名稱（例如：您的使用者名稱）
+    username_or_url_label: 維基百科使用者名稱或網址
+    username_or_url_placeholder: 輸入使用者名稱或完整的沙盒網址
+    preview_label: 新網址預覽：
+    sandbox_label: 沙盒
+    bibliography_label: 參考書目
+    outline_label: 大綱
     warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下 wiki
       到此課程裡：%{wiki}
   blocks:
     milestones:
       title: 里程碑
   campaign:
+    campaign_ores_plot:
+      change_button: 結構完整性的變化
+      no_data: 無可用的結構完整性資料
+      graph_description_html: 此圖表以匯總形式，視覺化條目從競賽參與者的首次編輯，到最近一次編輯期間的變化歷程。<em>結構完整性</em>評估是基於一個機器學習專案（<a
+        href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>），該專案根據條目的文字量、wiki
+        連結數量、圖片、章節標題數量以及其他特徵來評估條目的品質。
     active_campaigns: 活躍競賽
     add_organizer: 新增籌辦人員
     alert_article: 條目標題
@@ -320,6 +403,7 @@ zh-TW:
     campaign_deleted: 競賽「%{title}」已被刪除
     campaign_not_updated: 不能更新競賽
     campaign_updated: 競賽已更新
+    refresh_campaign_stats: 競賽統計內容重整成功
     created_at: 日期
     confirm_campaign_deletion: 確定要刪除比賽「%{title}」？是就輸入比賽標題繼續。
     confirm_campaign_deletion_failed: 「%{title}」不是此競賽的標題。競賽未被刪除
@@ -400,12 +484,16 @@ zh-TW:
     name: 名稱
     category_name: 分類名稱
     psid_name: PSID
+    psid_description: PetScan 查詢功能每次只能在控制面板中針對一個 wiki 進行操作。請確認您的 PetScan 查詢僅包含來自單一
+      wiki 的條目，且該 wiki 與下方列出的內容相符。
     pileid_name: 頁面檔案 ID
+    pileid_description: 請確保 PagePile 的 wiki 已列入此方案的追蹤 wiki 清單中。
     template_name: 模板名稱
     none: 沒有被追蹤的分類。
     remove: 移除
     tracked_categories: 已追蹤分類、PSID、頁面檔案 ID 與模板
     timestamp: 最後更新於
+    category_error: 此範圍方法需要更新的項目過多。請嘗試使用較少的項目。
   courses:
     school_system: 學院系統
     assignment_edits_enabled: 分配編輯已啟用
@@ -496,7 +584,7 @@ zh-TW:
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
-      course_term_placeholder: 學期
+      course_term_placeholder: 學期（含年份）
       course_title: 課程名稱
       course_types:
         basic_course_name: 基本方案
@@ -508,6 +596,7 @@ zh-TW:
         article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
           wiki 編輯。
         single_user_name: 個人編輯者
+        single_user_description: 此方案類型旨在透過簡化介面來追蹤您自己的貢獻。如果您不需要追蹤其他使用者的編輯，請使用此類型。
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程
@@ -516,6 +605,7 @@ zh-TW:
       end_date: 結束日期
       end_date_placeholder: YYYY-MM-DD
       expected_number: 預計學生人數
+      field_invalid_term: 學期必須包含年份（例如：2025 年春季）
       find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
@@ -540,6 +630,7 @@ zh-TW:
       URL。
     data_revisions_info: 修訂資料包含課程修訂次數、修訂 ID、條目 ID，該頁面為新的頁面和頁面瀏覽次數總計。
     data_download_info: 以 CSV 格式下載資料。
+    data_download_warning: 此課程尚未在新系統中更新，統計內容可能會不完整。在下載前，請安排此課程的資料更新並等待更新完成。如果這是一門持續的課程，請等待目前的更新完成。
     data_overview: 概要資料
     data_overview_info: 概要資料提供出整體專案的累計統計。
     data_edits: 編輯資料
@@ -580,6 +671,7 @@ zh-TW:
       user_exists_on_wiki: 很抱歉，%{username} 並非存在於 %{domain} 的使用者。
       invalid_language_or_project: 無法使用的語言或專案
       invalid_wiki: 無法連接到 %{domain}。它可能不是有效的 wiki。
+      duplicate_course_slug: URL %{slug} 已被佔用。請更改標題、學校或學期。
       invalid_slug: 清空用於課程的學校/標題。
       duplicate_slug: 另一個稱為%{slug}的方案已存在。
     expected_students: 預計學生
@@ -610,6 +702,7 @@ zh-TW:
       not_yet_approved: 此課程尚未批准開放登記。
       withdrawn: 此課程已被標記為撤銷 — 這可能是出自於錯誤。請聯絡 Wiki 教育成員來重新啟動。
       invalid_sync: 此事項的登記由維基媒體活動中心控制。它不能從功能面板加入。
+      disallowed_user: 該使用者已被列入禁止使用者清單，無法登記課程。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
     join_no_passcode: 您確定要加入這個課程嗎？
     launch_wizard: 啟動精靈
@@ -620,6 +713,7 @@ zh-TW:
     my_articles: 我的所有條目。
     my_articles_wikidata: 我的項目
     needs_update: 行事曆資料更新
+    update_scheduled_label: 更新行事
     new_week: 新增新的一週
     new_account_check_username: 檢查用戶名可用性
     new_account_email: 電子郵件地址
@@ -634,6 +728,8 @@ zh-TW:
     new_account_submitted: 您的帳號申請已提交。此方案的主持者現在完成您的帳戶創建。一旦創建後，您將會透過電子郵件收到新帳號的密碼。
     new_account_submitted_admin: 您申請的帳戶已創建。請通知您的學生檢查其電子郵件收件箱以獲取密碼
     no_campaign: 要讓此方案生效並允許使用者加入，需要添加一項競賽。若您不確定要添加何種競賽，請使用「雜集」。
+    no_sandboxes: 沒有沙盒
+    no_sandboxes_info: 啟用後，課程將不再使用沙盒模式。若有必要，請務必更改標籤和時間軸內容。
     nocourses: 您尚未參加任何課程。
     nocourse: 未參與任何課程。
     none: 無
@@ -643,6 +739,10 @@ zh-TW:
     online_volunteers_enabled: 線上志工已啟用
     online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
     ores_plot: ORES
+    ores_plot_description: 此圖表視覺化展示出學生首次編輯條目之前到最近一次編輯期間條目的擴充進度。結構完整性評級是基於機器學習專案（%{ores_link}），該專案根據條目內文數量、維基連結數量、圖片和章節標題、以及其他特徵來評估條目的品質評級。（%{refresh_link}）
+    ores_plot_no_data: 沒有可用的結構完整性資料
+    ores_plot_refresh_data: 重整快取資料
+    ores_plot_show_button: 結構完整性的變化
     overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
@@ -675,6 +775,8 @@ zh-TW:
     start: 開始日
     start_typing: 開始輸入
     stay_in_sandbox: 留在沙盒
+    max_group_size: 群組最多人數
+    max_group_size_tooltip: 同一篇條目可讓多名學生共同協作的最多人數。留空表示人數不限。
     student: 學生
     students: 學生
     students_taught: 學生教導
@@ -696,6 +798,14 @@ zh-TW:
     subject: 主題
     submitted: 已提交
     submitted_at: 提交於
+    approval_form_heading: 課程核准表單
+    add_program_manager: 添加方案管理員：
+    add_wiki_expert: 添加維基百科專家：
+    add_tags: 添加標籤：
+    add_campaigns: 添加競賽：
+    invalid_salesforce_id: 所輸入的 ID 無效。
+    add_salesforce_id: 添加 Salesforce ID：
+    approve_course: 核准課程
     tag_select: 選擇或建立一個標籤
     tags: 標籤：
     term: 學期
@@ -736,6 +846,9 @@ zh-TW:
     word_count_doc: 在課程期間由選課學生所添增到主命名空間條目的增加字詞估計量
     word_count_doc_wikidata: 在課程期間由選課學生所添增到主命名空間項目的增加字詞估計量
     yourcourses: 您的課程
+    declined_note: 此課程已被放棄。若有任何疑問，請聯絡 Wiki Education 成員。
+    decline_course: 放棄課程
+    decline_course_confirm: 您確定要放棄這門課程嗎？這將存檔您的提交內容，並停止自動發送該課程的未提交提醒。
     survey:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
@@ -896,6 +1009,8 @@ zh-TW:
       submit_issue_wikidata: 此項目重大的問題是什麼？
       submit_issue_placeholder: 您能提供越多專業的觀點與細節，就能夠更好。
       thank_you: 謝謝您！若您有額外的問題，請聯絡您的 Wiki 專家。
+      quality_problems_button: 品質問題？
+      notify_wiki_expert: 通知 wiki 專家
     exercises_and_trainings: '%{prefix}練習與培訓'
     no_assignments: 此學生目前沒有分配到條目。
     can_assign_assignments: 您可以使用上面的按鈕來分配條目。
@@ -908,6 +1023,8 @@ zh-TW:
       content: 分配與檢視條目分配
       content_wikidata: 分配與檢視項目分配
   metrics:
+    editors_doc: 這是編輯過課程條目的不重複使用者數量。
+    program_date_doc: 這是專案日期。
     label: 課程活動
     last_update: 最後一次統計更新
     last_articles_update: 最新條目更新
@@ -973,8 +1090,8 @@ zh-TW:
       other: 跨語言項目使用總計
     view_count_description: 條目檢視數
     view_count_description_wikidata: 項目查看
-    view_count_doc: 這是根據近期統計更新，平均30天每篇文章的平均瀏覽次數所推估的瀏覽次數。瀏覽次數可能因為更新後的次數比先前少而減少。
-    view_count_doc_wikidata: 這是根據近期統計更新，平均30天每個項目的平均瀏覽次數所推估的瀏覽次數。瀏覽次數可能因為更新後的次數比先前少而減少。
+    view_count_doc: 此為根據該條目自課程期間首次修訂至最近一次統計更新期間的每日平均值所估算的瀏覽次數。
+    view_count_doc_wikidata: 此為根據該項目自課程期間首次修訂至最近一次統計更新期間的每日平均值所估算的瀏覽次數。
     view_data_unavailable: 沒有可用的檢視資料
     view: 檢視數
     wiki_ed_help: 使用「取得協助」按鈕來回報問題。
@@ -984,7 +1101,8 @@ zh-TW:
     total_revisions: 修訂總計
     claims: 聲明
     aliases: 別名
-    merged: 已合併
+    merged: 已合併到
+    merged_from: 合併自
     created: 已建立
     changed: 已變更
     removed: 已移除
@@ -1074,10 +1192,29 @@ zh-TW:
     see_more: 查看更多
     show_all: 顯示全部
     show_course_specific: 顯示課程規格
+    course_ended_notification: 此處顯示已註冊使用者近期的編輯紀錄，但「截止日期」之後的任何編輯都不會列入統計數據，也不會反映在條目分頁中。您可以使用「顯示課程規格」篩選器來限制檢視截止日期之前活動的內容。
+    show_only_new_editors: 僅顯示新編輯者
   resources:
     label: 資源
     header: 資源與培訓
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: 課程建立
+        default_campaign_setting: 預設競賽
+        site_notice_setting: 網站通知
+        site_notice_preview: 即時預覽
+      buttons:
+        add_admin_button: 新增管理員
+        add_special_user_button: 新增特殊使用者
+        configure_site_notice:
+          update_site_notice_button: 更新網站通知
+          enable_button: 啟用
+          disable_button: 停用
+        update_course_creation_settings: 更新課程建立設定
+        update_default_campaign_setting: 更新預設競賽
+        update_impact_stats: 更新影響統計數據
+        update_salesforce_credentials: 更新 Salesforce 憑證
     categories:
       other_settings: 其他設定
       impact_stats: 影響統計
@@ -1119,6 +1256,23 @@ zh-TW:
         revoking_button_working: 正在撤回…
         already_is_not: '%{username} 不是特殊使用者！'
         demote_success: '%{username} 現在僅是一般使用者。'
+    disallowed_users:
+      none: 未配置任何禁止使用者。
+      already_disallowed: 已被禁止
+      add_to_list: 添加到禁止
+      add_button: 新增使用者
+      remove_button: 移除
+      submit_button: 提交
+      title: 已禁止的使用者
+      description: 機器人帳號和其他不應登記課程的使用者名稱。
+      add:
+        success: 已新增%{username}至禁止使用者清單。
+        already_exists: '%{username}已在禁止使用者清單中。'
+      remove:
+        success: 已將%{username}從禁止使用者清單移除。
+        not_found: '%{username}不在禁止使用者清單中。'
+        confirm: 您確定要從禁止使用者清單中移除%{username}嗎？
+    actions: 操作
   status:
     active_jobs: 有效任務
     active_jobs_doc: 目前正在處理的任務數量。
@@ -1128,7 +1282,29 @@ zh-TW:
     constant_update_description: 對於所有當前課程，持續更新獨立於主要課程統計資料、提取修訂元資料、產生警報以及執行其他資料和網路密集型任務。
     constant_update_doc: 處理事務性工作，例如 wiki 編輯和發送電子郵件。
     daily_update: 每日更新
+    daily_update_description: 這會提取額外資料，並執行不需每天多次辦理的其他任務。
+    daily_update_doc: 處理每天一次長期運作的資料更新任務。
     default: 預設
+    default_description: 依據課程運作時間長短排序課程到佇列裡，來安排課程更新。
+    default_doc: 處理經常運作的任務，例如將課程新增至更新佇列。
+    enqueued_jobs: 入列的佇列任務
+    enqueued_jobs_doc: 所有佇列中目前入列的任務數目。
+    latency: 延遲
+    latency_doc: 作業在佇列中開始處理的等待時間。高延遲可能代表系統繁忙或處理延遲。
+    long_update: 漫長更新
+    long_update_description: 漫長更新會處理修訂次數多於 1000 次的課程。
+    long_update_doc: 處理大型課程的更新。
+    medium_update: 中等更新
+    medium_update_description: 中等更新會處理修訂次數少於 10000 次的課程。
+    medium_update_doc: 處理典型規模課程的更新。
+    no_info: 沒有可用資訊。
+    purpose: 目的
+    queues_overview: 佇列概要
+    queue: 佇列
+    short_update: 簡短更新
+    short_update_description: 簡短更新會處理修訂次數少於 1000 次的課程。
+    short_update_doc: 處理迷你課程的更新。
+    sidekiq_stats: Sidekiq 統計
     size: 大小
     size_doc: 佇列中的任務數。
     status: 狀態
@@ -1158,6 +1334,7 @@ zh-TW:
     search_bar_placeholder: 搜尋 ticket
     chose_search_type: 選擇搜尋類型
   timeline:
+    add_assignment: 添加分配
     add_week: 增加週
     arrange_timeline: 安排時間軸
     arrange_timeline_instructions: 以 "拖曳" 區塊至預期的位置、或週間來編排時間軸，或以卡片上的箭頭來重新定位區塊。
@@ -1208,9 +1385,12 @@ zh-TW:
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間軸
+    too_many_weeks_warning: 警告！距離分配截止日期前的非假日週數不足！您可以點選「編輯課程日期」來設定會議日期和假日日期。
     unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的分配作業日期來為新一週挪出空間。
     view_full_timeline: 查看完整時間表
     week_number: 第 %{number} 週
+    add_block: 新增封鎖
+    delete_week: 刪除週
   training:
     continue: 進度 (%{progress})
     start: 開始
@@ -1244,6 +1424,11 @@ zh-TW:
     exercise_sandbox: 練習沙盒
     remaining_exercise: 剩下 %{count} 個額外練習。
     view_all: 查看所有練習
+    take_your_time: 請不用急！
+    alert_content: 徹底學習您的培訓內容至關重要。
+    close: 關閉
+    loading: 載入中…
+    wiki_source: wiki 來源
   update_username:
     header: 更新已更改的使用者名稱
     not_found: 找不到所輸入名稱的使用者。
@@ -1275,7 +1460,9 @@ zh-TW:
     uploaded_on: 上傳於
     usage_count: 使用量
     usage_doc: 有出現此圖片的維基百科條目數量。
-    usage_count_gallery_tile: 使用在 %{usage_count} 個條目
+    usage_count_gallery_tile:
+      one: 在1個條目中使用
+      other: 在%{count}個條目中使用
     usages: 使用狀況
     gallery_view: 圖庫檢視
     list_view: 清單檢視
@@ -1324,6 +1511,7 @@ zh-TW:
     my_reviewing: 審核中：
     name: 名稱
     none: 沒有參與者。
+    more_articles: 點擊來載入使用者所編輯條目
     no_articles: 沒有條目
     no_articles_wikidata: 沒有項目
     no_revisions: （無修訂）
@@ -1386,7 +1574,7 @@ zh-TW:
     ungreeted: 不歡迎
     username: 使用者名稱
     username_placeholder: 使用者名稱
-    useremail_placeholder: 電子郵件
+    useremail_placeholder: 請輸入電子郵件
     userpasscode_placeholder: 選課代碼
     words_added: 已增加詞<br>（條目|使用者|草稿）
     word_count_doc: 使用者添加到現存條目、使用者空間頁面（沙盒）、和草稿命名空間的總容量估計值。字數估計值是根據所有多於刪除內容的添加編輯內容之頁面大小變化總和計算出的。此數字不一定會精確反應出使用者所添加的新內容的數量。恢復移除的內容也會增加到總數裡。
@@ -1398,6 +1586,8 @@ zh-TW:
       campus_volunteer: 校園志工
       online_volunteer: 線上志工
       wiki_ed_staff: 維基教育成員
+    email_required_instructor: 僅限現有導師使用。課程結束後，您可以移除您的電子郵件地址。
+    email_invalid: 無效：請輸入有效的電子郵件
   user_profiles:
     student_impact: 由%{username}以學生身份做出的所有影響
     instructor_impact: 由%{username}以導師身份做出的所有影響
@@ -1407,6 +1597,8 @@ zh-TW:
     location_placeholder: 新增所在位置（非必填）
     institution_placeholder: 機構名稱（非必填）
     image_link_placeholder: 添加連結到圖片（可選）
+    references_disclaimer: 如果同一使用者的編輯被視為多門課程的一部分，參考來源可能會被多算。
+    words_added_disclaimer: 如果同一使用者的編輯被視為多門課程的一部分，添加的單字可能會被多算。
   wiki_edits:
     notify_overdue:
       button_label: 提醒學生關於過期的培訓
@@ -1444,8 +1636,9 @@ zh-TW:
       header: 未受支援的瀏覽器。  :-(
       explanation: 您使用的瀏覽器與此功能面板不相容。此網站在 Chrome、Firefox、Egde，等其它新型瀏覽器的最新版本下可正常運作。
     ip_blocked: 您目前無法從此設備建立帳號。如果您的 IP 位址被維基百科封鎖，或是達到用同一 IP 位址建立新帳號的每日限制，就會發生這種情況。請嘗試從不同的網路連線。
+    login_success_download_html: 登入成功！%{link}。
+    download_here: 在此點擊來下載您的檔案
   error_401:
-    header: 未授權。 :-(
     explanation: 您未被授權執行此請求。如果您認為您會遇到此通知是因為有錯誤發生，請聯繫此功能面板的維護人員讓他們知道此問題。
     json_explanation: 看起來您似乎有退出。請重整、登入並再試一次。
   error_incorrect_passcode:
@@ -1465,6 +1658,11 @@ zh-TW:
   login_error:
     header: 登入錯誤
     explanation: "登入過程似乎發生了一些問題 (抱歉，這種事情偶而會發生！) \n請嘗試再次登入或登記。"
+  notifications:
+    new_notifications: 您有新的通知。
+    no_notifications: 你沒有新的通知。
+    aria_label:
+      bell: 通知
   survey:
     login_message: 感謝您挪出時間。請登入教育功能面板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不，僅會顯示訊息於瀏覽器裡。
@@ -1646,4 +1844,9 @@ zh-TW:
       weekday_unselected: '{{weekday}} 未選擇'
   question_groups:
     edit_question_group: 編輯問題群組
+  form_search:
+    search: 搜尋
+    advanced_search: 進階搜尋
+    clear: 清除
+    program_date: 專案日期
 ...

@@ -44,8 +44,8 @@ const Week = createReactClass({
     const hash = location.hash.substring(1);
     const weekNo = this.weekNumber();
     if (hash === `week-${weekNo}`) {
-      const week = document.getElementsByName(hash)[0];
-      week.scrollIntoView();
+      const week = document.getElementById(hash);
+      if (week) week.scrollIntoView();
     }
   },
   handleMouseEnter() {
@@ -143,11 +143,11 @@ const Week = createReactClass({
     });
 
     const addBlock = !this.props.reorderable ? (
-      <button className="pull-right week__add-block" href="" onClick={this.addBlock}>Add Block <span className="icon-plus-blue" /></button>
+      <button type="button" className="pull-right week__add-block" href="" onClick={this.addBlock}>{I18n.t('timeline.add_block')}<span className="icon-plus-blue" /></button>
     ) : undefined;
 
     const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
-      <button onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
+      <button type="button" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>{I18n.t('timeline.delete_week')} <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
     ) : undefined;
 
     const weekAddDelete = this.props.edit_permissions ? (
@@ -173,7 +173,7 @@ const Week = createReactClass({
     }
 
     return (
-      <li className={weekClassName}>
+      <li className={weekClassName} id={this.props.anchorId}>
         <div className="week__week-header">
           {weekAddDelete}
           {weekTitle}

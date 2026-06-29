@@ -13,7 +13,7 @@ class IndividualStatisticsTimeslicePresenter
   end
 
   def individual_courses
-    @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
+    @individual_courses ||= @user.courses.nonprivate.where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE }) # rubocop:disable Layout/LineLength
   end
 
   def course_string_prefix
@@ -50,41 +50,50 @@ class IndividualStatisticsTimeslicePresenter
     @course_user_data = {}
     @course_user_data[:characters] = 0
     @course_user_data[:references] = 0
-    individual_courses.each do |course|
-      course_user_records(course).each do |course_user|
-        @course_user_data[:characters] += course_user.character_sum_ms
-        @course_user_data[:references] += course_user.references_count
-      end
+
+    course_user_records(individual_courses.pluck(:id)).each do |course_user|
+      @course_user_data[:characters] += course_user.character_sum_ms
+      @course_user_data[:references] += course_user.references_count
     end
   end
 
   def set_data_from_article_course
     @article_course_data = {}
-    individual_courses.each do |course|
-      article_course_records(course).each do |article_course|
-        @article_course_data[article_course.article_id] = 1
-      end
+    article_course_records(individual_courses.pluck(:id)).each do |article_course|
+      @article_course_data[article_course.article_id] = 1
     end
   end
 
   def set_upload_usage_counts
     @upload_usage_counts = {}
-    individual_courses.each do |course|
-      course.uploads.where(user_id: @user.id).each do |upload|
-        @upload_usage_counts[upload.id] = upload.usage_count || 0
-      end
+    return unless individual_courses.any?
+
+    # Get the earliest start date from all individual courses
+    start_date = individual_courses.map(&:start).min.strftime('%Y-%m-%d %H:%M:%S')
+    # Get the latest end date from all individual courses
+    end_date = individual_courses.map(&:end).max.strftime('%Y-%m-%d %H:%M:%S')
+
+    # Query all uploads for this user within the combined date range
+    common_upload_data = CommonsUpload.where(user_id: @user.id)
+                                      .where('uploaded_at >= ? AND uploaded_at <= ?', start_date, end_date) # rubocop:disable Layout/LineLength
+                                      .select(:id, :usage_count)
+
+    common_upload_data.each do |upload|
+      @upload_usage_counts[upload.id] = upload.usage_count || 0
     end
   end
 
-  def article_course_records(course)
-    course.articles_courses
-          .where('user_ids LIKE ?', "%- #{@user.id}\n%")
-          .joins(:article)
-          .includes(:article)
-          .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+  def article_course_records(course_id)
+    ArticlesCourses
+      .where('user_ids LIKE ?', "%- #{@user.id}\n%")
+      .where(course_id:)
+      .joins(:article)
+      .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+      .select(:article_id)
   end
 
-  def course_user_records(course)
-    course.courses_users.where(user: @user)
+  def course_user_records(course_id)
+    @course_user_records ||= CoursesUsers.where(course_id:, user: @user).select(:character_sum_ms,
+                                                                                :references_count)
   end
 end

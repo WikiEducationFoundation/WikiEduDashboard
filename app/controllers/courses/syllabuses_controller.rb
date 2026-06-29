@@ -8,7 +8,7 @@ class Courses::SyllabusesController < ApplicationController
       render json: { success: true, url: @course.syllabus.url }
     else
       render json: { message: I18n.t('error.invalid_file_format') },
-             status: :unprocessable_entity
+             status: :unprocessable_content
     end
   end
 

@@ -6,9 +6,11 @@
 # Author: Arief
 # Author: Arifin.wijaya
 # Author: ArlandGa
+# Author: Bennylin
 # Author: DARMAS BUDI SANTOSO
 # Author: Daud I.F. Argana
 # Author: Fafau06
+# Author: Felianiwiki
 # Author: HaidirAndiNovianto
 # Author: Hidayatsrf
 # Author: Joseagush
@@ -16,6 +18,7 @@
 # Author: Mirws
 # Author: Mnam23
 # Author: Pebaryan
+# Author: Penyuwangi
 # Author: Presidenvolksraad
 # Author: RXerself
 # Author: Rachmat.Wahidi
@@ -95,7 +98,10 @@ id:
     sign_up: Masuk dengan Wikipedia
   alerts:
     alert_label: Peringatan
-    no_alerts: Peringatan tidak ditemukan.
+  ai_scores_stats:
+    title: Statistik Revisi Skor AI
+    graphs:
+      max_likelihood: Pengedaran kemungkinan AI maksimum per hari
   activity:
     all: Aktivitas
     edited_by: Disunting Oleh
@@ -137,7 +143,7 @@ id:
     confirm_addition: Apakah Anda yakin Anda ingin menetapkan%{title} ke %{username}%?
     loading: Memuat tugas...
     reviewers: Peninjau
-    sandbox_draft_link: Draf Kotak Pasir
+    sandbox_draft_link: Draf Bak Pasir
   campaign:
     created_at: Tanggal
     confirm_campaign_deletion: Apakah Anda yakin ingin menghapus kampanye berjudul
@@ -149,7 +155,7 @@ id:
   categories:
     add_template: Tambahkan templat
   courses:
-    accounts_generation_confirm_message: Apakah Anda yakin ingin mengaktifkan permintaan
+    accounts_generation_confirm_message: Apakah Anda yakin ingin menyalakan permintaan
       pembuatan akun?
     activity: Aktivitas
     alerts: Peringatan
@@ -192,9 +198,9 @@ id:
       updates_active: Statistik akan terus diperbarui hingga %{date}.
       updates_inactive: Statistik untuk program ini tidak lagi diperbarui secara berkala.
     references_count: Referensi Ditambahkan
-    references_doc: Ini adalah jumlah dari tag referensi yang ditambahkan ke artikel,
-      dan bisa memasukkan beberapa referensi ke sumber yang sama. Data diambil dari
-      model kualitas artikel ORES, dan hanya tersedia untuk beberapa bahasa.
+    references_doc: Ini adalah jumlah tanda referensi dan templat catatan kaki yang
+      dipersingkat yang ditambahkan ke artikel, dan dapat mencakup beberapa referensi
+      ke sumber yang sama. Data ini berasal dari API penghitung referensi Toolforge.
     update_statistics_link: Lihat selengkapnya
     word_count: Kata ditambahkan
   namespace:
@@ -227,7 +233,7 @@ id:
     class: Kelas
     date_time: Tanggal/Waktu
     diff: beda
-    time_doc: Waktu setiap revisi dalam waktu lokal Anda
+    time_doc: Waktu tiap revisi dalam waktu setempat Anda
     see_more: Lihat selengkapnya
   settings:
     admin_users:

@@ -109,7 +109,7 @@ describe('CourseDateUtils.formattedDateTime', () => {
   test('returns a datetime string with timezone if showTime is true', () => {
     const input = new Date(2016, 10, 19, 17, 15, 14);
     const output = CourseDateUtils.formattedDateTime(input, true);
-    expect(output).toContain(['2016-11-19 17:15']);
+    expect(output).toContain('2016-11-19 17:15');
   });
 });
 
@@ -124,10 +124,11 @@ describe('courseDateUtils.weeksBeforeTimeline', () => {
     const output = CourseDateUtils.weeksBeforeTimeline(course);
     expect(output).toBe(1);
   });
-  test('counts partial weeks if they cross between Sunday-bounded weeks', () => {
+  test('does not count partial weeks as full weeks for short gaps', () => {
+    // Thu Jul 6 → Mon Jul 10: only 4 days apart, should not create a phantom week
     const course = { start: '2017-07-06', timeline_start: '2017-07-10' };
     const output = CourseDateUtils.weeksBeforeTimeline(course);
-    expect(output).toBe(1);
+    expect(output).toBe(0);
   });
   test('rounds down to the number of week boundaries crossed', () => {
     const course = { start: '2017-07-02', timeline_start: '2017-07-13' };
@@ -136,9 +137,29 @@ describe('courseDateUtils.weeksBeforeTimeline', () => {
   });
   test('works for longer stretches', () => {
     // Example dates from a Fall 2017 course
+    // Aug 29 → Oct 23 = 55 days = 7 full weeks
     const course = { start: '2017-08-29', timeline_start: '2017-10-23' };
     const output = CourseDateUtils.weeksBeforeTimeline(course);
-    expect(output).toBe(8);
+    expect(output).toBe(7);
+  });
+
+  // Regression tests previously detailed in pull request issue reports setup where same day starts produced off-by-one errors when beginning on Week boundaries
+  test('correctly calculates zero offset when timeline starts on the same day as the course start, specifically on a Sunday', () => {
+    const sameDayCourse = {
+      start: '2026-02-15', // Sunday
+      timeline_start: '2026-02-15', // Same Sunday
+    };
+    const wbt = CourseDateUtils.weeksBeforeTimeline(sameDayCourse);
+    expect(wbt).toBe(0);
+  });
+
+  test('correctly calculates zero offset when timeline starts on a Sunday, and course started the day before (Saturday)', () => {
+    const satSunCourse = {
+      start: '2026-02-14', // Saturday
+      timeline_start: '2026-02-15', // Sunday (next day)
+    };
+    const wbt = CourseDateUtils.weeksBeforeTimeline(satSunCourse);
+    expect(wbt).toBe(0);
   });
 });
 
@@ -175,5 +196,37 @@ describe('CourseDateUtils.wouldCreateBlackoutWeek', () => {
     const output = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, '2015-08-28', meeting_exceptions);
     // this would cause it to be not a blackout week
     expect(output).toBe(false);
+  });
+});
+
+// https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/651
+describe('CourseDateUtils.weekMeetings boundary cases', () => {
+  test('excludes meeting days after timeline_end even if they are before course.end', () => {
+    // Current time (March 2026) scenario:
+    // Week 6 starts on 2026-04-05 (Sunday)
+    // timeline_end is 2026-04-07 (Tuesday)
+    // course.end is 2026-06-01 (Later)
+    // weekdays is set to every day (1111111)
+    const course = {
+      timeline_start: '2026-03-01', // Sunday
+      timeline_end: '2026-04-07', // Tuesday
+      end: '2026-06-01', // way later
+      weekdays: '1111111', // meets every day
+      day_exceptions: ''
+    };
+
+    const meetings = CourseDateUtils.weekMeetings(course, '');
+    const lastWeekMeetings = meetings[meetings.length - 1];
+
+    // Expected: Only Sunday, Monday, Tuesday
+    expect(lastWeekMeetings).toContain('Sunday (04/05)');
+    expect(lastWeekMeetings).toContain('Monday (04/06)');
+    expect(lastWeekMeetings).toContain('Tuesday (04/07)');
+
+    // Should NOT contain Wednesday or later
+    expect(lastWeekMeetings).not.toContain('Wednesday (04/08)');
+    expect(lastWeekMeetings).not.toContain('Thursday (04/09)');
+    expect(lastWeekMeetings).not.toContain('Friday (04/10)');
+    expect(lastWeekMeetings).not.toContain('Saturday (04/11)');
   });
 });

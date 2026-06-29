@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe SurveysController, type: :request do
   let(:admin) { create(:admin) }
+  let(:superadmin) { create(:user, username: 'sa', permissions: User::Permissions::SUPER_ADMIN) }
   let(:user) { create(:user) }
   let(:survey) { create(:survey, confidential_results:, closed:) }
   let(:confidential_results) { false }
@@ -64,9 +65,16 @@ describe SurveysController, type: :request do
     context 'when the survey is confidential' do
       let(:confidential_results) { true }
 
-      it 'renders a 403' do
+      it 'renders a 403 for a regular admin' do
         get "/survey/results/#{survey.id}"
         expect(response.status).to eq(403)
+      end
+
+      it 'returns results for a super-admin' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user)
+                                                    .and_return(superadmin)
+        get "/survey/results/#{survey.id}"
+        expect(response.status).to eq(200)
       end
     end
   end

@@ -7,18 +7,20 @@ The **Programs & Events Dashboard** ([outreachdashboard.wmflabs.org](https://out
 This guide provides an overview of the **Program & Events Dashboard** infrastructure, detailing the servers, tools, and third-party dependencies that power the system. It also provides resources for managing and troubleshooting the system.
 
 ## Table of Contents
-1. [Infrastructure Overview](#infrastructure-overview)
-   - [Servers](#servers)
-   - [Integrated Toolforge Tools](#integrated-toolforge-tools)
-   - [Other Integrated APIs and Third-Party Dependencies](#other-integrated-apis-and-third-party-dependencies)
-2. [Monitoring and Logs](#monitoring-and-logs)
-   - [Toolforge](#toolforge)
-   - [Cloud VPS](#cloud-vps)
-3. [Troubleshooting](#troubleshooting)
-   - [Web Server Issues](#web-server-issues)
-   - [Database Issues](#database-issues)
-   - [Data Dumps and Recovery](#data-dumps-and-recovery)
-4. [More Resources](#more-resources)
+- [Admin Guide for Program \& Events Dashboard](#admin-guide-for-program--events-dashboard)
+- [Table of Contents](#table-of-contents)
+- [Infrastructure Overview](#infrastructure-overview)
+  - [Servers](#servers)
+  - [Integrated Toolforge Tools](#integrated-toolforge-tools)
+  - [Other Integrated APIs and Third-Party Dependencies](#other-integrated-apis-and-third-party-dependencies)
+- [Monitoring and Logs](#monitoring-and-logs)
+    - [Toolforge](#toolforge)
+    - [Cloud VPS](#cloud-vps)
+- [Troubleshooting](#troubleshooting)
+  - [Web Server Issues](#web-server-issues)
+  - [Database Issues](#database-issues)
+  - [Data Dumps and Recovery](#data-dumps-and-recovery)
+- [More Resources](#more-resources)
 
 ## Infrastructure Overview
 The **Program & Events Dashboard** is hosted within the **Wikimedia Cloud VPS** project [globaleducation](https://openstack-browser.toolforge.org/project/globaleducation), which provides the infrastructure for all servers, allowing the dashboard to run on virtual machines that are flexible and easily managed within Wikimedia Cloud. 
@@ -34,15 +36,14 @@ Below is a breakdown of the key servers and their roles within the infrastructur
    - **`peony-web.globaleducation.eqiad1.wikimedia.cloud`**  
      - Hosts the main web application and core Sidekiq processes using **RVM (Ruby Version Manager)**, **Phusion Passenger**, and **Apache**.
      - **Capistrano** is used for deployments  
-     - Sidekiq processes hosted:  
+     - Sidekiq processes hosted:
        - `sidekiq-default`: Manages frequently run tasks (e.g., adding courses to update queues).  
-       - `sidekiq-constant`: Handles transactional jobs (e.g., wiki edits, email notifications).  
        - `sidekiq-daily`: Executes long-running daily update tasks.  
 
 2. **Sidekiq Servers**: These dedicated servers handle the other Sidekiq processes to isolate bottlenecks and failures:  
-   - **`peony-sidekiq.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-long` for long-running course updates with higher queue latency.    
+   - **`peony-sidekiq.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-long` for long-running course updates with higher queue latency, as well as `sidekiq-constant`.
    - **`peony-sidekiq-medium.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-medium` for typical course updates.  
-   - **`peony-sidekiq-3.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.  
+   - **`peony-sidekiq-3.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.
 
 3. **Database Server**  
    - **`peony-database.globaleducation.eqiad1.wikimedia.cloud`**: Stores program, user, and revision data. It supports the dashboard’s data queries and updates.
@@ -96,7 +97,7 @@ Below is a breakdown of the key servers and their roles within the infrastructur
    **[[Source Code](https://github.com/wikimedia/wikiwho_api), [Documentation](https://wikiwho-api.wmcloud.org/gesis_home)]**
 
 - **[WikidataDiffAnalyzer](https://github.com/WikiEducationFoundation/wikidata-diff-analyzer)**  
-   The WikidataDiffAnalyzer gem is used to analyze differences between Wikidata revisions. It is utilized by the [`update_wikidata_stats.rb`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/services/update_wikidata_stats.rb#L91) service to process a list of revision IDs and determine the changes made between them, such as diffs added, removed, or changed claims, references, and labels. The results of the analysis are serialized and stored in the summary field of Wikidata revisions, providing detailed statistics about the nature of the edits. This enables the Dashboard to track and display revision-level changes.
+   The WikidataDiffAnalyzer gem is used to analyze differences between Wikidata revisions. It is utilized by the [`update_wikidata_stats_timeslice.rb`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/services/update_wikidata_stats_timeslice.rb) service to process a list of revision IDs and determine the changes made between them, such as diffs added, removed, or changed claims, references, and labels. The results of the analysis are serialized and stored in the summary field of Wikidata revisions, providing detailed statistics about the nature of the edits. This enables the Dashboard to track and display revision-level changes.
 
    **[[Source Code and Documentation](https://github.com/WikiEducationFoundation/wikidata-diff-analyzer)]**
 

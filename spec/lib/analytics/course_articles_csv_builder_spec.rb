@@ -43,8 +43,8 @@ describe CourseArticlesCsvBuilder do
 
   it 'metrics are right' do
     first_row = subject.split("\n").second.split(',')
-    expect(first_row[4]).to include('Absa') # usernames
-    expect(first_row[5]).to include('Ragesock') # usernames
+    expect(first_row[4]).to include('Ragesock') # usernames
+    expect(first_row[5]).to include('Absa') # usernames
     expect(first_row[7]).to eq('10') # edit_count
     expect(first_row[8]).to eq('20') # characters_added
   end

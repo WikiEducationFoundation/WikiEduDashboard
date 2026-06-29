@@ -35,6 +35,7 @@ smn:
     confirm: OK
     opt_in: Joo
     opt_out: Ij
+    print: Printtii
   home:
     log_in: Čáládât siisâ Wikipedia peht
   articles:
@@ -67,10 +68,12 @@ smn:
     submit: Vuolgât
   campaign:
     alert_user_id: Kevttee
+    data_wikidata: Wikidata-statistiik
     description: Kuvvim
     search: Uusâ
   categories:
     add_category: Lasseet luoka
+    add_this_category: Lasseet luokkaid
     name: Nommâ
     template_name: Myenster nommâ
     remove: Siho
@@ -108,7 +111,9 @@ smn:
     upload_count: Vuorkkiimeh Commonsin
     removed: Sikkum
   namespace:
+    category: Luokka
     book: Kirje
+    translation: Jurgâlus
     lexeme: Lekseem
   recent_activity:
     image: Kove
@@ -128,6 +133,8 @@ smn:
     special_users:
       new:
         form_placeholder: Kevtteenommâ
+  status:
+    size: Stuárudâh
   timeline:
     save_all_changes: Vuorkkii puoh
   training:

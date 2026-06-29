@@ -76,7 +76,6 @@ describe Course, type: :model do
     build(:article,
           id: 1,
           title: 'Selfie',
-          average_views: 1234,
           namespace: 0).save
 
     create(:course_wiki_timeslice,
@@ -107,6 +106,7 @@ describe Course, type: :model do
           id: 1,
           article_id: 1,
           course_id: 1,
+          average_views: 1234,
           first_revision: 1.day.ago).save
 
     # Update caches
@@ -273,11 +273,9 @@ describe Course, type: :model do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       # mainspace article
       article = create(:article, namespace: Article::Namespaces::MAINSPACE)
-      create(:revision, article_id: article.id, user_id: student.id)
       create(:articles_course, article_id: article.id, course_id: course.id)
       # non-mainspace page
-      sandbox = create(:article, namespace: Article::Namespaces::TALK)
-      create(:revision, article_id: sandbox.id, user_id: student.id)
+      create(:article, namespace: Article::Namespaces::TALK)
 
       course.update_cache_from_timeslices
       expect(course.article_count).to eq(1)
@@ -293,12 +291,10 @@ describe Course, type: :model do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
       # mainspace article
       article = create(:article, namespace: Article::Namespaces::MAINSPACE)
-      create(:revision, article_id: article.id, user_id: student.id)
       create(:articles_course, article_id: article.id, course_id: course.id,
                                new_article: true)
       # non-mainspace page
-      sandbox = create(:article, namespace: Article::Namespaces::TALK)
-      create(:revision, article_id: sandbox.id, user_id: student.id)
+      create(:article, namespace: Article::Namespaces::TALK)
 
       course.update_cache_from_timeslices
       expect(course.new_article_count).to eq(1)
@@ -486,10 +482,25 @@ describe Course, type: :model do
       end
     end
 
-    context 'for a ClassroomProgramCourse without the cloneable tag' do
+    context 'for an unapproved ClassroomProgramCourse without the cloneable tag' do
       let(:course) { build(:course) }
 
+      it 'returns true' do
+        expect(course.approved?).to be false
+        expect(subject).to be true
+      end
+    end
+
+    context 'for an approved ClassroomProgramCourse without the cloneable tag' do
+      let(:course) { build(:course) }
+      let(:campaign) { create(:campaign, title: 'Test', slug: 'test') }
+
+      before do
+        course.campaigns << campaign
+      end
+
       it 'returns false' do
+        expect(course.approved?).to be true
         expect(subject).to be false
       end
     end
@@ -876,7 +887,8 @@ describe Course, type: :model do
     end
 
     context 'when the course has a campaign' do
-      before { course.campaigns << Campaign.first }
+      let(:campaign) { create(:campaign, title: 'Approved Test', slug: 'approved-test') }
+      before { course.campaigns << campaign }
 
       it 'returns the time the first campaign was added' do
         expect(course.approved_at).to be_within(1.second).of(Time.zone.now)

@@ -7,17 +7,20 @@
 # Author: BaRaN6161 TURK
 # Author: Base
 # Author: Beta16
+# Author: Fredrick Kafuka
 # Author: Hamilton Abreu
 # Author: Ixocactus
 # Author: Kizule
 # Author: Liuxinyu970226
 # Author: Macofe
+# Author: McDutchie
 # Author: MojoMann
 # Author: MuratTheTurkish
 # Author: Nemo bis
 # Author: Ragesoss
 # Author: Raymond
 # Author: Robby
+# Author: SaldırganSincap
 # Author: Stjn
 # Author: Verdy p
 # Author: Vojtěch Dostál
@@ -56,6 +59,8 @@ qqq:
       {{Identical|Required}}
     field_invalid_characters: Error message shown when a user submits a form with
       invalid data
+    field_invalid_term: Error message shown when a user submits form without mentioning
+      the term year.
     field_invalid_date: Error message demonstrating the correct format for entering
       a date.
     greeting2: |-
@@ -147,6 +152,7 @@ qqq:
     article_development: Label for article development link
     assigned: Label for a list of assigned articles
     available: Label for a list of articles not assigned to anyone
+    page_info: Pagination information showing current page and total elements.
     previous: '{{Identical|Previous}}'
     assigned_to: Table header for the user who is assigned to work on an article
     character_doc: Documentation for an article's character total add and remove count.
@@ -403,7 +409,10 @@ qqq:
         You may translate/adapt symbols indicating where to input digits, but not change the ISO date format required (keep fields in the same order and length, preserve hyphens).
       find: Button for finding an existing course that you are participating in (Wiki
         Ed only)
-      intro: Instructions for filling out the course creation form (Wiki Ed only)
+      intro: |-
+        Instructions for filling out the course creation form (Wiki Ed only)
+
+        "Create my Course!" should be translated as in {{msg-wm|Wikiedudashboard-courses.creator.create button}}
       no_class_holidays: Assertion that there are no holidays for a course (Wiki Ed
         only)
       save_cloned_course: Button to finish cloning a course (Wiki Ed only)
@@ -439,14 +448,10 @@ qqq:
     feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
-    instructor:
-      one: |-
-        Label for a single instructor of a course (Wiki Ed only)
-        {{Identical|Label for several instructors of a course (Wiki Ed only)
-        {{Identical|Instructor}}}}
-      other: |-
-        Instructor|Label for several instructors of a course (Wiki Ed only)
-        {{Identical|Instructor}}}}
+    instructor: |-
+      {<nowiki/>{PLURAL|one=Label for a single instructor of a course (Wiki Ed only)
+      {{Identical|Instructor}}|Label for several instructors of a course (Wiki Ed only)
+      {{Identical|Instructor}}}}
     instructors: |-
       Label for the list of instructors for a program.
       {{Identical|Instructor}}
@@ -623,6 +628,8 @@ qqq:
     no_assignments: Message displayed when no assignment is assigned to students
     can_assign_assignments: Message displayed when the user can assign the assignment
   metrics:
+    editors_doc: Description of the editors metric.
+    program_date_doc: Description of the program date metric.
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned
       trainings that are incomplete and overdue. (Wiki Ed only)
@@ -648,6 +655,7 @@ qqq:
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
+    form_qualifiers: Formaly used
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.
@@ -661,7 +669,10 @@ qqq:
 
       {{Identical|Title}}
     datetime: Label for the date and time of an activity
-    did_you_know_eligible: Label for "Did You Know" Eligible tab (Wiki Ed only)
+    did_you_know_eligible: |-
+      Label for "Did You Know" Eligible tab (Wiki Ed only)
+
+      "Did You Know" should be translated as in {{msg-wm|Wikipedia-android-strings-description edit success did you know}} or {{msg-wm|Wikipedia-ios-article-tabs-did-you-know-title}}
     image: |-
       Label for a table column of images
       {{Identical|Image}}
@@ -688,7 +699,7 @@ qqq:
     show_courses: Checkbox for option to show user courses only (Wiki Ed only)
     uploaded_by: Label for the user who uploaded a file
     usage_count: Label for the number of global usages of a file across Wikimedia
-      sites
+      projects
   revisions:
     chars_added: Label for counter of added chars
     class: |-
@@ -707,6 +718,8 @@ qqq:
     title: |-
       Label for title of the article
       {{Identical|Title}}
+    show_all: Label for button to show all revisions and all editors of an article
+    show_only_new_editors: Label for button to show only new editors
   settings:
     categories:
       salesforce: |-
@@ -949,4 +962,9 @@ qqq:
         link_text: '{{optional}}'
   question_groups:
     edit_question_group: Button label for editing a question group
+  form_search:
+    search: Label for search button
+    advanced_search: Label for advanced search toggle
+    clear: Label for clear search button
+    program_date: Label for program date
 ...

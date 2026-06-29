@@ -2,9 +2,11 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Arianit
+# Author: INNERLMNT
 # Author: Kosovastar
 # Author: Liridon
 # Author: Ritam
+# Author: Xhulianoo
 ---
 sq:
   accessibility:
@@ -205,10 +207,10 @@ sq:
     title: Titulli
     use_start_end_dates: Përdor datat e fillimit dhe mbarimit
   categories:
-    add_category: Shtoni kategori
-    add_template: Shtoni gjedhe
-    add_this_category: Shtoni këtë kategori
-    add_this_template: Shtoni këtë gjedhe
+    add_category: Shto kategori
+    add_template: Shto stampë
+    add_this_category: Shto kategori
+    add_this_template: Shto Stampa
     name: Emri
     category_name: Emri i kategorisë
     remove: Largo
@@ -405,7 +407,7 @@ sq:
         të programit wiki.
     delete_course: Fshini programin
     edit_course_dates: Ndrysho Datat e Projektit
-    enroll: Shtoni Redaktor
+    enroll: Shto Redaktor
     enrollment: Pjesëmarrja
     explore: Gjeni Programet
     expected_students: Redaktorët e Pritur
@@ -444,6 +446,8 @@ sq:
     bad_work:
       learn_more_button: Mëso më shumë
   metrics:
+    editors_doc: Ky është numri i përdoruesve unikë që kanë redaktuar artikuj në kurs.
+    program_date_doc: Kjo është data e programit.
     activity: Aktiviteti së fundi
     are_trained: kanë përfunduar trajnimin
     articles_created: Artikuj të Krijuar
@@ -510,7 +514,7 @@ sq:
     paused: Detyra %{task} nuk mund të bëhet sepse freskimet e planifikuara janë ndërprerë.
       Aktivizo 'rake batch:resume' për të rifilluar freskimet.
   timeline:
-    add_week: Shtoni Javën
+    add_week: Shto Javë
     arrange_timeline: Organizoni Kohën e Realizimit
     arrange_timeline_instructions: Caktoni afatin kohor duke 'kapë dhe lëshuar' blloqe
       në vendndodhjen/javën e dëshiruar, ose ripozicionuar blloqet duke përdorur shigjetat
@@ -682,7 +686,6 @@ sq:
         Ky sajt punon mirë në Internet Explorer versioni 11 apo më vonë, në versionet
         e fundit të Chrome dhe Firefox, dhe në të tjerë shfletues modern.
   error_401:
-    header: I paautorizuar. >:-(
     explanation: Nuk jeni i autorizuar të ekzekutoni këtë kërkesë. Nëse besoni se
       keni arritur në këtë njoftim gabimisht, ju lutem njoftoni mirëmbajtësit e këtij
       pulti për problemin.
@@ -723,4 +726,6 @@ sq:
       closing: Sinqerisht,
       signed: '- ekipi i Wiki Ed'
       link: Merrni Anketën
+  form_search:
+    program_date: Data e Programit
 ...

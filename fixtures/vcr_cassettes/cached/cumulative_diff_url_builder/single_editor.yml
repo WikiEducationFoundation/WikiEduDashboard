@@ -1,0 +1,327 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=newer&rvend=2025-12-10T23:59:59Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-08-18T00:00:00Z&rvuser=Nateiac7&titles=Social_constructionism
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:38 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-4v698
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=4_HG-eCALEYVHzAu6BiO6ANWAAAAAFvdhNjLJ0B5PKcxnz3kK9OuM-db3UykG_j3;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '347'
+      X-Request-Id:
+      - d498d264-b944-415d-99ce-0a9273649022
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"continue":{"rvcontinue":"20251117005104|1322581156","continue":"||"},"query":{"normalized":[{"from":"Social_constructionism","to":"Social
+        constructionism"}],"pages":{"203510":{"pageid":203510,"ns":0,"title":"Social
+        constructionism","revisions":[{"revid":1322578885,"parentid":1316523874,"user":"Nateiac7","timestamp":"2025-11-17T00:36:59Z"}]}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:38 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=newer&rvend=2025-12-10T23:59:59Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-08-18T00:00:00Z&rvuser=Julia.kennedy2004&titles=Social_constructionism
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:39 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-pvn97
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=YF8Dgtrp-5up2SuMG7HCVQNWAAAAAFvdQcw2xyS2zbGkclvUn8KaK4nPkQhtDp2L;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '186'
+      X-Request-Id:
+      - 8beae212-9704-480c-a011-7a96ee4b11d9
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Social_constructionism","to":"Social
+        constructionism"}],"pages":{"203510":{"pageid":203510,"ns":0,"title":"Social
+        constructionism"}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:39 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=older&rvend=2025-08-18T00:00:00Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-12-10T23:59:59Z&rvuser=Nateiac7&titles=Social_constructionism
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:39 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-fdcrn
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=XRrRb1VcEjR3MQj0UFnr0wNWAAAAAFvdWu0QdGrh-M1gSZ3d3gq0iH3hpf1ddBNR;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '347'
+      X-Request-Id:
+      - 441f6842-3882-4f22-9c1e-6b8ca5c1fe3c
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"continue":{"rvcontinue":"20251118171303|1322926164","continue":"||"},"query":{"normalized":[{"from":"Social_constructionism","to":"Social
+        constructionism"}],"pages":{"203510":{"pageid":203510,"ns":0,"title":"Social
+        constructionism","revisions":[{"revid":1323073695,"parentid":1322926164,"user":"Nateiac7","timestamp":"2025-11-19T14:56:35Z"}]}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:39 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvdir=older&rvend=2025-08-18T00:00:00Z&rvlimit=1&rvprop=timestamp%7Cuser%7Cids&rvstart=2025-12-10T23:59:59Z&rvuser=Julia.kennedy2004&titles=Social_constructionism
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.14.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 9dee93985bcd42c6add82bb58d1f20d4-3a6ec0fa4c734329
+      Baggage:
+      - sentry-trace_id=9dee93985bcd42c6add82bb58d1f20d4,sentry-sample_rand=0.431405,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 04 May 2026 05:16:39 GMT
+      Server:
+      - mw-api-ext.codfw.main-fc5885ff4-6n6wn
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4037 miss, cp4037 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4037"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=US:HI:Honolulu:21.31:-157.82:v4; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-May-2026;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        05 Jun 2026 00:00:00 GMT
+      - WMF-Last-Access=04-May-2026;Path=/;HttpOnly;secure;Expires=Fri, 05 Jun 2026
+        00:00:00 GMT
+      - WMF-Uniq=bUQqH_xgFpSGiRvA3wUEJANWAAAAAFvd8ExyWP0RInGqCs0MLCBzHBfF1m1wkj05;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        04 May 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 4.43.228.235
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '186'
+      X-Request-Id:
+      - cafc151e-ca3b-4fd2-a194-44a4646fd4c6
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"normalized":[{"from":"Social_constructionism","to":"Social
+        constructionism"}],"pages":{"203510":{"pageid":203510,"ns":0,"title":"Social
+        constructionism"}}}}'
+  recorded_at: Mon, 04 May 2026 05:16:39 GMT
+recorded_with: VCR 6.1.0

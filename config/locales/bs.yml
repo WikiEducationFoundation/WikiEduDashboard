@@ -181,8 +181,6 @@ bs:
   error:
     unsupported_browser:
       header: Preglednik nije podržan.  :-(
-  error_401:
-    header: Niste ovlašteni. >:-(
   error_404:
     header: Stranica nije pronađena. :-(
   error_422:

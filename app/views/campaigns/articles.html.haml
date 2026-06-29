@@ -11,7 +11,7 @@
       %h3
         = t('courses.campaign_articles', title: @campaign.title)
       .sort-select
-        %select.sorts{rel: 'campaign-articles'}
+        %select.sorts{rel: 'campaign-articles', 'aria-label': t('application.sort')}
           %option{rel: 'asc', value: 'title'}
             = t("articles.title")
           %option{rel: 'desc', value: 'char_added'}
@@ -25,7 +25,7 @@
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
 
-    %table.table.table--hoverable.table--sortable
+    %table.table.table--hoverable.table--sortable.table-responsive
       %thead
         %tr
           %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
@@ -59,18 +59,23 @@
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
 
-      - articles = @presenter.campaign_articles
+      -  result = @presenter.campaign_articles
+      -  articles_courses = result[:articles_courses]
+      -  courses = result[:courses]
+      -  articles = result[:articles]
 
-      = will_paginate articles
+      = will_paginate articles_courses
 
       %tbody.list
-        - if articles.empty?
+        - if articles_courses.empty?
           %tr.disabled
             %td{:class => "text-center", :colSpan => 7}
               %span= I18n.t('articles.none')
         - else
-          - articles.each do |ac|
-            - cache [ac, locale] do
-              = render 'campaigns/article_row', article: ac.article, article_course: ac
+          - articles_courses.each do |ac|
+            - course = courses[ac.course_id]
+            - article = articles[ac.article_id]
+            - cache ["article_row", ac.article_id, ac.course_id, ac.updated_at, locale] do
+              = render 'campaigns/article_row', article:, article_course: ac, course:
 
-    = will_paginate articles
+    = will_paginate articles_courses

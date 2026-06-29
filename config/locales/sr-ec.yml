@@ -36,9 +36,10 @@ sr-ec:
   application:
     back: Назад
     cancel: Откажи
-    cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним, и чувао
-      информације везаних за ваш налог на Википедији.
-    cookie_consent_acknowledge: Разумем.
+    next: Следеће
+    cookie_consent: Овај сајт користи колачиће како би вас држао пријављеним и чувао
+      информације везане за Ваш налог на Википедији.
+    cookie_consent_acknowledge: Разумео
     cookie_consent_see_more: Погледај више.
     create_accounts: Направи налоге на Википедији
     dashboard: Контролна табла Вики Ед-а
@@ -47,7 +48,7 @@ sr-ec:
     explore: Истражи
     field_required: Ово поље је обавезно.
     field_invalid_characters: Поље садржи неважеће знакове
-    field_invalid_date: Ово поље захтева датум у формату ГГГГ-ММ-ДД
+    field_invalid_date: Ово поље захтева датум у формату YYYY-MM-DD
     field_invalid_date_time: Крај мора да буде након почетка. (Часови су у распону
       од 0 до 23.)
     greeting2: Добро дошли!
@@ -59,6 +60,7 @@ sr-ec:
     log_in: Пријави ме
     log_out: Одјави ме
     my_dashboard: Управљачка табла
+    okay: У реду
     recent_activity: Скорашња активност
     report_problem: Пријавите проблем
     request_account: Захтевај налог
@@ -70,11 +72,14 @@ sr-ec:
     no_results: Нема пронађених резултата за термин „%{query}”
     show_current_revision: Прикажи тренутну верзију
     show_last_revision: Прикажи последњу измењену верзију
-    sign_up_extended: Отвори налог са Википедијом
+    font_label: Фонт
+    font_sans: Sans
+    font_serif: Serif
+    sign_up_extended: Отвори налог на Википедији
     sign_up_wikipedia: Или се пријавите на Википедију
     sign_up_log_in_extended: са Википедијом
     sign_up: Отвори налог
-    submit: Пошаљи
+    submit: Проследи
     training: Обука
     change: Промени
     details: Детаљи
@@ -84,6 +89,7 @@ sr-ec:
     opt_yes: да
     opt_no: не
     print: Штампај
+    sort: Сортирај
   article_statuses:
     not_yet_started: Увод
     in_progress: Рад у песку
@@ -122,7 +128,7 @@ sr-ec:
   home:
     explore: Истражи
     log_in: Пријава са Википедијом
-    sign_up: Отвори налог са Википедијом
+    sign_up: Отвори налог на Википедији
     registration_advice:
       username_rules:
         heading: Правила о корисничком имену
@@ -138,7 +144,13 @@ sr-ec:
       налог, контактирајте dashboard@wikiedu.org.
   alerts:
     alert_label: Обавештења
-    no_alerts: Ниједно упозорење није пронађено.
+    no_data: Нису пронађени подаци.
+    ai_stats:
+      total: Укупно
+      last_week: Прошла недеља
+      sections:
+        name: Име
+        description: Опис
   activity:
     all: Активност
     edited_by: Уредио корисник
@@ -153,6 +165,7 @@ sr-ec:
     available: Доступни чланци
     no_available: Нема доступних чланака
     next: Следећи
+    permalink: Трајна веза
     previous: Претходни
     article_title: Наслов чланка
     assigned_to: Додељено
@@ -177,7 +190,10 @@ sr-ec:
       tracked: Праћено
       untracked: Отпраћено
       tracked_and_untracked: Праћено и отпраћено
+      wiki_label: Вики
     filter_text: 'Филтери:'
+    pageviews_label: 'Прегледа:'
+    daily_avg: Дневни просек
     find: Пронађи чланке
     how_to_find: Како пронаћи чланке
     hide: Сакриј
@@ -226,15 +242,14 @@ sr-ec:
     views_added: '{{PLURAL:%{count}|Додат %{count} нови преглед|Додата %{count} нова
       прегледа|Додато %{count} нових прегледа}} за %{title}'
     edit_size: Величина измене
+    editor_other: Остали уредници
     wiki: Вики
     wp10: Структурна потпуност
     wp10_doc: Оцена „Структурне потпуности” представља колико добро се чланак уклапа
-      у калуп зрелих Википедијиних чланака, на основу ОРЕС сервиса базираног на машинском
-      учењу (https://ores.wikimedia.org/). Ове оцене се рачунају на основу величине
-      чланка, броја референци и викивеза и осталих основних одлика текста. Висока
-      оцена обично сугерише да чланак прати Википедијине конвенције за структуру доброг
-      чланка, али не узима у обзир сам садржај. (Ове оцене су доступне само за чланке
-      на Википедији на енглеском језику.)
+      у калуп зрелих Википедијиних чланака, на основу ранијег (~2015) сервиса базираног
+      на машинском учењу —ORES. Ове оцене се рачунају на основу величине чланка, броја
+      референци и викивеза и осталих основних одлика текста. Висока оцена обично значи
+      да чланак има добру структуру, али не узима у обзир сам садржај.
     articles_short: Чланци
     page_logs: (дневници странице)
     tracked_articles: Праћени чланци
@@ -302,6 +317,9 @@ sr-ec:
     sandbox_draft_link: Нацрт песка
     select: Изабери
     submit: Пошаљи
+    username_label: Корисничко име на Википедији
+    sandbox_label: Песак
+    bibliography_label: Библиографија
   blocks:
     milestones:
       title: Миљоказ
@@ -458,7 +476,7 @@ sr-ec:
     course_description: Курсеви
     courses: Курсеви
     courses_taught: Предавани курсеви
-    creation_date: Датум креирања
+    creation_date: Датум настанка
     start_date: Датум почетка
     creator:
       already_exists: Овај курс већ постоји. Размотрите промену имена, школе или полугодишта
@@ -489,10 +507,11 @@ sr-ec:
       course_school: Школа курса
       course_subject: Предмет курса
       course_term: Полугодиште курса
-      course_term_placeholder: Полугодиште
+      course_term_placeholder: Полугодиште (укључујући годину)
       course_title: Назив курса
       course_types:
         basic_course_name: Основни програм
+        single_user_name: Индивидуални уредник
       create_button: Направи мој курс!
       create_label: Направи нови курс
       create_new: Направи нови курс
@@ -681,7 +700,8 @@ sr-ec:
       план рада мора да се одобри пре почетка пројекта. То је релевантно само за тип
       курса Програм учионице.
     subject: Предмет
-    submitted: Послато
+    submitted: Прослеђено
+    add_tags: 'Додај ознаке:'
     tag_select: Изаберите или направите ознаку
     tags: 'Ознаке:'
     term: Полугодиште
@@ -814,7 +834,7 @@ sr-ec:
     explore: Пронађи програме
     courses_enrolled: Програми са учешћем
     expected_students: Очекивани уредници
-    instructors: Фацилитатори
+    instructors: Организатори
     join_course: Придружи се програму
     join_details: Да бисте се придружили овом програму, морате да набавите лозинку
       (или везу која укључује лозинку) од фацилитатора.
@@ -852,13 +872,14 @@ sr-ec:
     cancel: Откажи
     save: Сачувај
     edit_description: Измени опис
-    edit_details: Измени детаље
+    edit_details: Уреди детаље
     edit_template: Уреди шаблон
     rename_confirmation: Поља курса која формирају URL су промењена. Ово ће променити
       URL адресу и прекинути све долазне везе. Желите ли заиста да учитите то?
   instructor_view:
     assignments_table:
       article_name: Име
+      current_stage: Тренутни ниво
       relevant_links: Релевантне везе
     assigned_articles: Додељени чланци
     assigned_articles_wikidata: Додељене ставке
@@ -908,12 +929,12 @@ sr-ec:
     view_count_description_wikidata: Прегледи ставке
     view_data_unavailable: Нема података
     view: Прегледа
-    word_count: Додате речи
+    word_count: Додато речи
     word_count_average: Просечан број речи
     general: Опште
     total_revisions: Укупно измена
     aliases: Псеудоними
-    merged: Спојено
+    merged: Спојено са
     created: Направљено
     changed: Измењено
     removed: Уклоњено
@@ -998,6 +1019,11 @@ sr-ec:
     label: Ресурси
     header: Ресурси и тренинг
   settings:
+    common_settings_components:
+      buttons:
+        configure_site_notice:
+          enable_button: Омогући
+          disable_button: Онемогући
     categories:
       other_settings: Остала подешавања
       featured_campaigns: Истакнуте кампање
@@ -1035,6 +1061,10 @@ sr-ec:
         revoking_button_working: Опозивање…
         already_is_not: Корисник %{username} није посебан!
         demote_success: '%{username} је сада само корисник.'
+    disallowed_users:
+      remove_button: Уклони
+      submit_button: Проследи
+    actions: Радње
   status:
     active_jobs: Активни послови
     active_jobs_doc: Број послова који се тренутно обрађују.
@@ -1090,6 +1120,7 @@ sr-ec:
     search_bar_placeholder: Претражи тикете
     chose_search_type: Изаберите тип претраге
   timeline:
+    add_assignment: Додај задатак
     add_week: Додај недељу
     arrange_timeline: Уреди временску линију
     arrange_timeline_instructions: Организујте временску линију превлачењем блокова
@@ -1145,6 +1176,7 @@ sr-ec:
       места за нове.
     view_full_timeline: Погледај потпуну временску линију
     week_number: Недеља %{number}
+    add_block: Додај блок
   training:
     continue: Настави (%{progress})
     start: Започни
@@ -1166,9 +1198,11 @@ sr-ec:
     view_module_source: изворник модула
     reload_from_source: поново учитај из изворника
     kind:
+      exercise: Вежба
       discussion: Дискусија
       training: Обука
     view_all: Види све вежбе
+    loading: Учитавање…
   update_username:
     username_updated: Корисничко име је успешно промењено!
     label: Ново корисничко име
@@ -1196,7 +1230,9 @@ sr-ec:
     uploaded_on: Отпремљено на
     usage_count: Број употреба
     usage_doc: Број чланака на Википедији на којима се појављује ова слика.
-    usage_count_gallery_tile: Користи се у чланцима (%{usage_count})
+    usage_count_gallery_tile:
+      one: Користи се у једном чланку
+      other: Користи се у %{count} чланка
     usages: Коришћења
     source: 'Извор:'
     views_per_day: Прегледи по дану
@@ -1264,6 +1300,8 @@ sr-ec:
     reviewing: Прегледање
     revisions: Измене
     sandboxes: песци
+    sub_navigation:
+      assignments_and_exercises: Задаци и вежбе
     total_uploads: Укупно отпремања
     training_complete:
       one: је развршио тренинг
@@ -1289,7 +1327,7 @@ sr-ec:
     ungreeted: Непријављен
     username: Корисничко име
     username_placeholder: Корисничко име
-    useremail_placeholder: Имејл
+    useremail_placeholder: Унесите имејл-адресу
     userpasscode_placeholder: Лозинка
     words_added: Речи додато<br>(чланак | корисник | скица)
     role:
@@ -1305,7 +1343,7 @@ sr-ec:
     instructor_impact: Укупни учинак који је остварио %{username} као наставник
     instructors_student_impact: Укупни учинак који су остварили студенти наставника
       %{username}
-    disclaimer: Информације које пружите ће бити јавно доступне.
+    disclaimer: Информације које наведете ће бити јавно доступне.
     bio_placeholder: Додајте своју биографију (необавезно)
     location_placeholder: Додајте своју локацију (необавезно)
     institution_placeholder: Име институције (необавезно)
@@ -1363,7 +1401,6 @@ sr-ec:
         Овај сајт ради добро на последњим верзијама Chrome-а, Firefox-а, Edge-а и
         осталим савременим веб-прегледачима.
   error_401:
-    header: Неовлашћено. >:-(
     explanation: Нисте овлашћени да извршите овај захтев. Ако сматрате да сте овде
       дошли грешком, контактирајте одржаватеље ове контролне табле како бисте их обавестили
       о овом проблему.
@@ -1492,6 +1529,8 @@ sr-ec:
     options:
       news_content:
         delete_news: Обришите вести
+        confirm_delete: Потврди
+        cancel_delete: Откажи
         edit_news: Уреди новости
       create_news:
         confirm_post: Потврди објаву
@@ -1525,4 +1564,8 @@ sr-ec:
     delete_note: Обриши белешку
   tagged_courses:
     download_csv: Преузми као CSV
+  form_search:
+    search: Претрага
+    advanced_search: Напредна претрага
+    clear: Очисти
 ...

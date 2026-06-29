@@ -1,0 +1,10 @@
+%p
+  Prediction:
+  - if originality_result['results']['ai']['classification']['AI'] == 1
+    AI written
+  - else
+    Human written
+%p AI confidence: #{originality_result['results']['ai']['confidence']['AI']}
+%p Human confidence: #{originality_result['results']['ai']['confidence']['Original']}
+%a.button{ href: originality_result['results']['properties']['publicLink'], target: '_blank' } Originality Report
+%br

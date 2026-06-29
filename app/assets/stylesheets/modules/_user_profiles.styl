@@ -63,7 +63,9 @@
 				float left
 				padding-top 8px
 
-				p
+				h1, p
+					color #fff
+					font-size 1.25em
 					font-weight 700
 					margin 0 auto
 					text-decoration underline
@@ -147,6 +149,11 @@
 
 	#statistics
 		padding-top 20px
+
+		// h3 → h2 promotion (for accessible heading hierarchy) made the
+		// "Contribution Statistics" header larger. Preserve the prior size.
+		> h2
+			font-size 1.563em
 
 		#inner_statistics
 			padding-top 10px

@@ -41,6 +41,20 @@ const CourseForm = (props) => {
     }
   }, []);
 
+  const termValidation = (value) => {
+    // First check basic slug regex
+    if (!CourseUtils.courseSlugRegex().test(value)) {
+      return false;
+    }
+
+    if (props.defaultCourse === 'ClassroomProgramCourse') {
+      // Check if term contains a 4-digit year
+      const hasYear = /\d{4}/.test(value);
+      return hasYear;
+    }
+
+    return true;
+  };
 
   let term;
   let courseSubject;
@@ -61,7 +75,9 @@ const CourseForm = (props) => {
         value={props.course.term}
         value_key="term"
         required
-        validation={CourseUtils.courseSlugRegex()}
+        validation={termValidation}
+        validateOnBlur={true}
+        invalidMessage={I18n.t('application.field_invalid_term')}
         editable
         label={CourseUtils.i18n('creator.course_term', props.stringPrefix)}
         placeholder={CourseUtils.i18n(
@@ -217,8 +233,11 @@ const CourseForm = (props) => {
     );
   }
 
+
+
   return (
     <div className={props.courseFormClass}>
+      {props.firstErrorMessage && <div className="warning"><p style={{ color: '#7c1c1c' }}>{props.firstErrorMessage}</p></div>}
       <div className="column">
         {campaign}
         <TextInput
@@ -259,8 +278,6 @@ const CourseForm = (props) => {
           {backOrCancelButton}
           <p className="tempEduCourseIdText">
             {props.tempCourseId || '\xa0'}
-          &nbsp;
-            <span className="red">{props.firstErrorMessage || '\xa0'}</span>
           </p>
         </div>
 
@@ -294,7 +311,7 @@ const CourseForm = (props) => {
           id="next"
           className="dark button button__submit next"
         >
-          Next
+          {I18n.t('application.next')}
         </button>
       </div>
     </div>

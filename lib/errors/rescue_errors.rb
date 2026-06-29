@@ -6,8 +6,8 @@ module Errors
       ##
       # dynamically include each rescue method
       # When implementing a new rescue, add its base name here (minus the _rescue part).
-      rescues = %i[invalid_token unknown_format not_signed_in not_permitted not_admin
-                   participating_user].freeze
+      rescues = %i[invalid_token unknown_format not_found not_signed_in not_permitted
+                   not_admin participating_user slug_not_unique].freeze
       rescues.each do |err|
         send("rescue_#{err}", base)
       end
@@ -31,13 +31,24 @@ module Errors
       end
     end
 
+    def self.rescue_not_found(base)
+      base.rescue_from ActionController::RoutingError do |e|
+        if json?(request)
+          render json: { message: e.message }, status: :not_found
+        else
+          raise e
+        end
+      end
+    end
+
     def self.rescue_not_signed_in(base)
       base.rescue_from AuthenticationErrors::NotSignedInError do |e|
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          session[:return_to] = request.fullpath
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
@@ -47,8 +58,8 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
@@ -58,8 +69,8 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
@@ -69,11 +80,25 @@ module Errors
         if json?(request)
           render json: { message: e.message }, status: :unauthorized
         else
-          # TODO: need more user friendly error handling for html
-          render plain: e.message, status: :unauthorized
+          flash.now[:alert] = e.message
+          render 'errors/unauthorized', status: :unauthorized, layout: 'application'
         end
       end
     end
+
+    def self.rescue_slug_not_unique(base)
+      base.rescue_from ActiveRecord::RecordNotUnique do |e|
+         # Target the duplicate slug error
+        if e.message.include?('index_courses_on_slug')
+          dup_slug = e.message[/Duplicate entry '([^']+)'/, 1]
+          message = I18n.t('courses.error.duplicate_course_slug', slug: dup_slug)
+          render json: { message: message, error: e.message }, status: :conflict
+        else
+          raise e # Let other uniqueness errors (if any) bubble up
+        end
+      end
+    end
+
 
     private
 

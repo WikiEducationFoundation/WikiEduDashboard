@@ -63,7 +63,7 @@
             .right
               / show only one error at a time
               - if @campaign.errors.any?
-                %span.red{style: 'margin-right:10px'}
+                %span.red{style: 'margin-right:10px', role: 'alert'}
                   = @campaign.errors.messages.first[1].first
               %button.button.button__cancel
                 = t('editable.cancel')

@@ -15,6 +15,7 @@ export const TicketOwnerHandler = ({ updateOwner, ticket, admins, arialabelledby
       options={options}
       styles={{ ...selectStyles, singleValue: null }}
       value={{ label: (ticket.owner && ticket.owner.username) || '— none — ', value: ticket.owner && ticket.owner.id }}
+      aria-label="Ticket owner"
       aria-labelledby={arialabelledby}
     />
   );

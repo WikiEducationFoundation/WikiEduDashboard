@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Popover = (props) => {
   let divClass = 'pop';
-  // eslint-disable-next-line
+
   if (props.is_open) {
     divClass += ' open';
   }

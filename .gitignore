@@ -3,7 +3,6 @@
 /config/newrelic.yml
 /config/secrets.yml
 /dockerAuth.json
-/fixtures
 /node_modules
 /js_coverage
 /vendor/*
@@ -28,6 +27,7 @@ capybara-*.html
 /coverage/
 /coverage.deep/
 /spec/tmp
+/training_content_drafts
 **.orig
 rerun.txt
 pickle-email-*.html
@@ -62,4 +62,7 @@ stats.json
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-
+/fixtures/vcr_cassettes/*
+!/fixtures/vcr_cassettes/cached/
+!/fixtures/vcr_cassettes/cached/*
+/backups/

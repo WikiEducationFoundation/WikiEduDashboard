@@ -12,19 +12,18 @@ class PetScanApi
   rescue StandardError => e
     log_error(e, update_service:,
               sentry_extra: { psid:, api_url: url })
-    raise e unless TYPICAL_ERRORS.include?(e.class)
-    return {}
+    raise e
   end
 
   def page_titles_for_psid(psid, update_service: nil)
     titles = []
     titles_response = get_data(psid, update_service:)
     return titles if titles_response.empty?
-    # Using an invalid PSID, such as a non-integer or nonexistent ID,
-    # returns something like {"error":"ParseIntError { kind: InvalidDigit }"}
-    # Since this is typically user error, we just treat it as 0 titles
-    # and move on gracefully.
-    return titles if titles_response.key? 'error'
+    # Petscan query errors (such as invalid PSID but also server bugs) often return responses like:
+    # {"error":"some error message"}.
+    # We don't want to fail gracefully in these cases, as we risk
+    # emptying a category that was previously updated correctly.
+    raise PetscanResponseError if titles_response.key? 'error'
 
     page_data = titles_response['*'][0]['a']['*']
     page_data.each { |page| titles << page['title'] }
@@ -42,10 +41,15 @@ class PetScanApi
 
   def petscan
     conn = Faraday.new(url: 'https://petscan.wmcloud.org')
+    conn.options.timeout = TIMEOUT
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn
   end
 
-  TYPICAL_ERRORS = [Faraday::TimeoutError,
-                    Errno::EHOSTUNREACH].freeze
+  TYPICAL_ERRORS = [Errno::EHOSTUNREACH].freeze
+
+  # The petscan request may take more than default timeout to complete so we set it to 4 minutes
+  TIMEOUT = 240
+
+  class PetscanResponseError < StandardError; end
 end

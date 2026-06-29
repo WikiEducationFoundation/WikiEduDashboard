@@ -40,4 +40,6 @@ FactoryBot.define do
   factory :onboarding_alert, class: 'OnboardingAlert'
 
   factory :unsubmitted_course_alert, class: 'UnsubmittedCourseAlert'
+
+  factory :ai_edit_alert, class: 'AiEditAlert'
 end

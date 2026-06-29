@@ -69,7 +69,6 @@ roa-tara:
     explore: Esplore
   alerts:
     alert_label: Avvise
-    no_alerts: Nisciune avvise acchiate.
   activity:
     all: Attività
     edited_by: Cangiate da

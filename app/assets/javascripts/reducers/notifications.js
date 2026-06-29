@@ -41,8 +41,8 @@ const handleErrorNotification = function (data) {
   }
 
   if (isEmpty(data)) {
-    console.error('Error: ', data); // eslint-disable-line no-console
-    console.log(data); // eslint-disable-line no-console
+    const url = data.requestUrl || data.url || '';
+    console.error(`API_FAIL (${url}):`, data);
   }
 
   if (typeof notification.message !== 'string') {

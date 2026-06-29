@@ -81,7 +81,9 @@ class PushCourseToSalesforce
       Stay_in_sandbox__c: @course.stay_in_sandbox?,
       No_sandboxes__c: @course.no_sandboxes?,
       Submitted_at__c: @course.submitted_at&.iso8601,
-      Approved_at__c: @course.approved_at&.iso8601
+      Approved_at__c: @course.approved_at&.iso8601,
+      AI_students_with_sandbox_or_draft_alert__c: students_with_ai_draft_alerts,
+      AI_students_with_mainspace_alerts__c: students_with_ai_mainspace_alerts
     }
   end
   # rubocop:enable Metrics/MethodLength
@@ -152,5 +154,26 @@ class PushCourseToSalesforce
     end
     return if staff_content_expert.nil?
     content_expert_ids[staff_content_expert.username]
+  end
+
+  def ai_alerts_by_type_and_user
+    @alerts_by_type_and_user ||= AiEditAlert.where(course: @course).map do |alert|
+      [alert.page_type, alert.user_id]
+    end
+  end
+
+  CONTENT_DRAFT_TYPES = [:sandbox, :draft].freeze
+  def students_with_ai_draft_alerts
+    sandbox_and_draft_users = ai_alerts_by_type_and_user.filter_map do |page_type, user_id|
+      user_id if CONTENT_DRAFT_TYPES.include? page_type
+    end
+    sandbox_and_draft_users.uniq.count
+  end
+
+  def students_with_ai_mainspace_alerts
+    mainspace_users = ai_alerts_by_type_and_user.filter_map do |page_type, user_id|
+      user_id if page_type == :mainspace
+    end
+    mainspace_users.uniq.count
   end
 end

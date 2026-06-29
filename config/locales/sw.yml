@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Edwingudfriend
+# Author: Fredrick Kafuka
 # Author: Joeamj
 # Author: Killy95
 # Author: Magotech
@@ -117,10 +118,29 @@ sw:
   campaign:
     too_large: Kampeni hii ni kubwa sana kwa data iliyoombwa kuonyeshwa.
   courses:
+    retention_predictors: Vitabili vya uhifadhi
     view: Tazama msimbo
   courses_generic:
     user_uploads_none: Watumiaji waliochaguliwa hawajachangia picha zozote au midia
       zingine zozote katika mradi huu
+  metrics:
+    lemmas: Maneno msingi
+    language: Lugha
+    lexical_category: Jamii ya maneno
+    forms: Fomu
+    form_claims: Maombi ya fomu
+    form_references: Marejeleo ya fomu
+    form_qualifiers: Vibainishi vya fomu
+    senses: Maana
+    glosses: Ufafanuzi mfupi
+    sense_claims: Madai ya maana
+    sense_references: Marejeleo ya maana
+    sense_qualifiers: Vibainishi vya maana
+  status:
+    acuwt_update: Sasisho la ACUWT
+    acuwt_update_description: ACUWT husasisha makala za mchakato zilizo na kozi za
+      programu maalumu zenye maelfu ya makala.
+    acuwt_update_doc: Shughulikia masasisho ya makala kubwa kwa kozi za program husika
   timeline:
     week_number: Wiki ya %{number}
   training:

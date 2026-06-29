@@ -17,7 +17,7 @@ export const toDate = (date, suppressError) => {
   // this is what moment js does for invalid dates
   if (date === null || date === undefined) {
     if (!suppressError) {
-      // eslint-disable-next-line no-console
+
       console.error('date is null or undefined');
     }
     return new Date();
@@ -25,7 +25,7 @@ export const toDate = (date, suppressError) => {
 
   const parsedDate = parseISO(date);
   if (!isValid(parsedDate)) {
-    // eslint-disable-next-line no-console
+
     console.log(`Invalid date - ${date}`);
   }
   return parsedDate;

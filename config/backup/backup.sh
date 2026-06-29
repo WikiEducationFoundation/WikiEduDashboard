@@ -1,0 +1,115 @@
+#!/bin/bash
+
+set -euo pipefail
+
+BACKUP_ROUTE="ROUTE_TO_BACKUPS"
+QUERY_ROUTE="ROUTE_TO_QUERIES"
+DASHBOARD_URL="URL_TO_DASHBOARD"
+JSON_ENDPOINT="$DASHBOARD_URL/system/can_start_backup.json"
+
+log() {
+  printf '%s : %s\n' "$(date '+%m%d%Y %T')" "$1" >> "$LOG_FILE"
+}
+
+on_error() {
+  local exit_code=$?
+  log "ERROR at line $1: command '$BASH_COMMAND' exited with $exit_code"
+
+  mysql < "$QUERY_ROUTE/failed.sql" || true
+
+  exit "$exit_code"
+}
+
+check_app_is_ready_for_backup() {
+  curl -s \
+  -o /dev/null  \
+  -w "%{http_code}" \
+  $JSON_ENDPOINT
+}
+
+wait_until_ready_for_backup() {
+  local status=$(check_app_is_ready_for_backup)
+
+  while [ $status != 200 ];
+  do
+      sleep 300
+      status=$(check_app_is_ready_for_backup)
+  done
+}
+
+trap 'on_error $LINENO' ERR
+
+# Set datetime
+printf -v datetime '%(%Y-%m-%d-%H:%M:%S)T' -1
+BACKUP_DIR="$BACKUP_ROUTE/$datetime"
+
+# Create backup folder
+mkdir -p $BACKUP_DIR
+
+LOG_FILE="$BACKUP_DIR/log-$datetime.log"
+exec >>"$LOG_FILE" 2>&1
+
+log "Starting"
+
+# Calculate min free space in bytes based on last successful backup
+LAST_BACKUP=""
+while IFS= read -r dir; do
+  candidate=$(find "$dir" -maxdepth 1 -name "*.sql.gz" | head -1)
+  if [ -n "$candidate" ]; then
+    LAST_BACKUP="$candidate"
+    break
+  fi
+done < <(ls -1d "$BACKUP_ROUTE"/*/ | sort -r | tail -n +2)
+
+if [ -n "$LAST_BACKUP" ]; then
+  LAST_BACKUP_SIZE=$(stat -c%s "$LAST_BACKUP")
+  # Backups are stored in compressed form. We require 30x the size of the previous backup,
+  # assuming the compressed version is about 10 times smaller
+  MIN_FREE_SPACE=$(( LAST_BACKUP_SIZE * 30 ))
+
+  # Calculate free space in bytes
+  FREE_SPACE=$(df -B 1 --output=avail $BACKUP_DIR | tail -1 | tr -dc '0-9')
+  if [ $FREE_SPACE -lt $MIN_FREE_SPACE ]; then
+    log "Not enough free space. Aborting"
+    exit 1
+  fi
+else
+  log "No previous successful backup found, skipping free space check"
+fi
+
+# Create waiting backup record
+mysql < $QUERY_ROUTE/waiting.sql
+
+# Sleep two minutes to guarantee that all processes see the new data table record
+sleep 120
+
+wait_until_ready_for_backup
+
+log "Ready"
+# Update waiting backup record to 'running'
+mysql < $QUERY_ROUTE/running.sql
+
+log "Running backup"
+# Run backup
+mariadb-dump --single-transaction --routines --databases dashboard | gzip > $BACKUP_DIR/dashboard-dump-$datetime.sql.gz
+
+log "Finishing"
+# Update running backup record to 'finished'
+mysql < $QUERY_ROUTE/finished.sql
+
+# Remove oldest backup if there are more than MIN_BACKUPS_NUMBER real backups.
+# A real backup is a folder that contains a .sql.gz file; empty or failed
+# folders are excluded from the count so they never block deletion.
+MIN_BACKUPS_NUMBER=3
+REAL_BACKUPS=()
+while IFS= read -r dir; do
+  if find "$dir" -maxdepth 1 -name "*.sql.gz" | grep -q .; then
+    REAL_BACKUPS+=("$dir")
+  fi
+done < <(ls -1d "$BACKUP_ROUTE"/*/ | sort)
+
+if [ ${#REAL_BACKUPS[@]} -gt $MIN_BACKUPS_NUMBER ]; then
+  OLDEST_BACKUP="${REAL_BACKUPS[0]}"
+  log "Removing $OLDEST_BACKUP"
+  rm -r "$OLDEST_BACKUP"
+fi

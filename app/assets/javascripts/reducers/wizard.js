@@ -88,7 +88,17 @@ const initialState = {
 // Remove panels based on course properties
 const filterPanels = function (receivedPanels, course) {
   return receivedPanels.filter((panel) => {
+    // Include all panels without the `only_if` attribute
     if (!panel.only_if) { return true; }
+    // If the `only_if` attribute begins with `!`
+    // then include the panel if that attribute
+    // is false.
+    // For example, `only_if: '!returning_instructor'` means to
+    // exclude the panel unless course.returning_instructor is false.
+    if (panel.only_if[0] === '!') {
+      const only_if_not = panel.only_if.substring(1);
+      return !course[only_if_not];
+    }
     return course[panel.only_if];
   });
 };

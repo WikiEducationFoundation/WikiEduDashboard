@@ -18,14 +18,14 @@ class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
   belongs_to :training_module
 
-  serialize :flags, Hash
+  serialize :flags, type: Hash
 
   def furthest_slide?(slide_slug)
     return true if last_slide_completed.nil?
     training_progress_manager.slide_further_than_previous?(slide_slug, last_slide_completed)
   end
 
-  def mark_completion(value=true, course_id=nil)
+  def mark_completion(value = true, course_id = nil)
     flags[course_id] = { marked_complete: value }
   end
 

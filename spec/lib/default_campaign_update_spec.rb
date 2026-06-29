@@ -5,8 +5,8 @@ require "#{Rails.root}/lib/default_campaign_update.rb"
 
 describe DefaultCampaignUpdate do
   before do
-    Setting.create(key: 'default_campaign',
-                   value: { slug: 'default_campaign' })
+    Setting.find_or_create_by(key: 'default_campaign')
+           .update(value: { slug: 'default_campaign' })
   end
 
   context 'when fall semester starts' do

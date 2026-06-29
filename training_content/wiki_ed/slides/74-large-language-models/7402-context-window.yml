@@ -1,0 +1,21 @@
+id: 7402
+title: "Context window"
+content: |
+  When a chatbot generates text, it starts from a user's prompt,
+  along with additional text from the chatbot service itself that
+  influences the output — for example, by specifying a persona for
+  the chatbot or indicating a set of topics to avoid. The user's
+  prompt (possibly transformed, censored or extended), combined with
+  that additional text make up the [context window](https://en.wikipedia.org/wiki/Reasoning_language_model)
+  — essentially the starting point of the text that the LLM will
+  generate new text to extend. The context window is what makes
+  chatbots so flexible in the kinds of responses they can generate.
+
+  As of 2025, many of the LLMs used by AI companies can operate on
+  very large context windows. This is the basis for customization
+  features where a chatbot "learns" about a user or "remembers"
+  instructions from a previous interaction. It's also the basis
+  for special-purpose AI tools like NotebookLM that work with
+  user-supplied documents; those documents (for example, a set
+  of research papers) become part of the context window, heavily
+  influencing the output.

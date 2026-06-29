@@ -19,8 +19,8 @@ require_dependency "#{Rails.root}/lib/training/training_base"
 
 #= Class representing an individual training module
 class TrainingLibrary < ApplicationRecord
-  serialize :categories, Array
-  serialize :translations, Hash
+  serialize :categories, type: Array
+  serialize :translations, type: Hash
 
   validates_uniqueness_of :slug, case_sensitive: false
 

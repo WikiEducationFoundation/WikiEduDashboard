@@ -4,6 +4,7 @@ description: |
   How to use My Articles and other assignment-tracking features
 slides:
   - slug: add-an-article-to-work-on
+  - slug: assign-yourself-an-article-video # 8003
   - slug: add-peer-review-articles
   - slug: stage-1-bibliography
   - slug: stage-2-create-in-the-sandbox

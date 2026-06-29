@@ -7,10 +7,10 @@ Rails.application.config.to_prepare do
     def sender
       message = messages.first
       return {} unless message
-      
+
       user = message.sender if message
       return { email: message.details[:sender_email] } if user.nil?
-      
+
       {
         username: user.username,
         real_name: user.real_name,
@@ -21,6 +21,9 @@ Rails.application.config.to_prepare do
   end
 
   TicketDispenser::Message.class_eval do
+    # Fix Rails 7.2 serialize syntax for TicketDispenser gem
+    serialize :details, type: Hash
+
     def serialized_sender
       return {} if sender.nil?
       {

@@ -11,7 +11,7 @@ const UserUploads = ({ uploads }) => {
   }
   return (
     <div id="recent-uploads">
-      <h3>Recent Uploads</h3>
+      <h3>{I18n.t('courses.user_recent_uploads')}</h3>
       {uploadList}
     </div>
   );

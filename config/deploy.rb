@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.17.1'
+lock '3.20.0'
 
 set :application, 'wiki_edu_dashboard'
 set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
@@ -31,7 +31,8 @@ set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/newrelic.yml')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/system')
+set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/system',
+                                                 'training_content_drafts')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -129,7 +130,7 @@ namespace :deploy do
         end
       end
     end
-  
+
     desc 'Stop sidekiq (graceful shutdown within timeout, put unfinished tasks back to Redis)'
     task :stop do
       on roles fetch(:sidekiq_roles) do
@@ -138,7 +139,7 @@ namespace :deploy do
         end
       end
     end
-  
+
     desc 'Start sidekiq'
     task :start do
       on roles fetch(:sidekiq_roles) do

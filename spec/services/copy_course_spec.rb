@@ -6,6 +6,7 @@ describe CopyCourse do
     wiki_dashboard = 'https://dashboard.wikiedu.org'
     outreach_dashboard = 'https://outreachdashboard.wmflabs.org'
     @selected_dashboard = Features.wiki_ed? ? wiki_dashboard : outreach_dashboard
+    stub_wiki_validation
   end
 
   let(:url_base) { 'https://dashboard.wikiedu.org/courses/' }
@@ -43,9 +44,14 @@ describe CopyCourse do
             }
           }
         },
+        "training_library_slug": "students",
         "wikis": [
           {
             "language": "en",
+            "project": "wikipedia"
+          },
+          {
+            "language": "es",
             "project": "wikipedia"
           }
         ]
@@ -124,7 +130,8 @@ describe CopyCourse do
                 "title": "Introduction to the Wikipedia assignment",
                 "order": 1,
                 "due_date": null,
-                "points": null
+                "points": null,
+                "training_module_ids": [1, 15]
               }
             ]
           }
@@ -213,8 +220,14 @@ describe CopyCourse do
       stub_request(:get, categories_url)
         .to_return(status: 200, body: categories_response_body, headers: {})
 
+      training_modules_body = {
+        training_modules: [
+          { id: 1, slug: 'wikipedia-essentials', name: 'Wikipedia essentials', kind: 0 },
+          { id: 15, slug: 'editing-basics', name: 'Editing basics', kind: 1 }
+        ]
+      }.to_json
       stub_request(:get, training_modules_url)
-        .to_return(status: 200, body: '{}', headers: {})
+        .to_return(status: 200, body: training_modules_body, headers: {})
 
       # Stub the response to the timeline request
       stub_request(:get, timeline_url)
@@ -246,8 +259,10 @@ describe CopyCourse do
       expect(course.students.first.username).to eq('CharlieJ385')
       expect(course.students.second.username).to eq('Diqi Yan')
 
-      # Wiki exists
+      # Wikis exist, including the additional tracked wiki
       expect(Wiki.exists?(language: 'en', project: 'wikipedia')).to eq(true)
+      expect(Wiki.exists?(language: 'es', project: 'wikipedia')).to eq(true)
+      expect(course.wikis.count).to eq(2)
 
       # Category was created
       expect(Category.exists?(name: 'Category 0', depth: 0, source: 'Source 0',
@@ -263,8 +278,129 @@ describe CopyCourse do
       expect(User.exists?(username: 'Diqi Yan')).to eq(true)
 
       # Update logs were correctly created
-      course.flags['update_logs'].each do |key, _value|
+      course.flags['update_logs'].each_key do |key|
         expect(key).to be_a(Integer)
+      end
+
+      # Training modules were copied into block content
+      block = Block.last
+      expect(block.content).to include('Wikipedia essentials')
+      expect(block.content).to include('Editing basics')
+      expect(block.content).to include('training-module')
+      expect(block.content).to include('<h4 class="timeline-exercise">Training</h4>')
+      expect(block.content).to include('<h4 class="timeline-exercise">Exercise</h4>')
+    end
+  end
+
+  describe 'additional copy features' do
+    let(:slug) { 'University_of_South_Carolina/Invertebrate_Zoology_(COPIED_FROM_Spring_2022)' }
+    let(:course_url) { url_base + slug + '/course.json' }
+    let(:categories_url) { url_base + slug + '/categories.json' }
+    let(:users_url) { url_base + slug + '/users.json' }
+    let(:timeline_url) { url_base + slug + '/timeline.json' }
+    let(:training_modules_url) { @selected_dashboard + '/training_modules.json' }
+
+    let(:course_response_body) do
+      {
+        course: {
+          id: 15_907,
+          slug: 'University_of_South_Carolina/Invertebrate_Zoology_(Spring_2022)',
+          school: 'University of South Carolina',
+          title: 'Invertebrate Zoology',
+          term: 'Spring 2022',
+          start: '2022-01-11T00:00:00.000Z',
+          end: '2022-04-30T23:59:59.000Z',
+          type: 'ClassroomProgramCourse',
+          home_wiki: { id: 1, language: 'en', project: 'wikipedia' },
+          flags: { 'peer_review_count' => 2, 'online_volunteers_enabled' => true },
+          training_library_slug: 'students',
+          wikis: [{ language: 'en', project: 'wikipedia' }]
+        }
+      }.to_json
+    end
+
+    let(:categories_response_body) { { course: { categories: [] } }.to_json }
+    let(:users_response_body) { { course: { users: [] } }.to_json }
+
+    let(:timeline_response_body) do
+      {
+        course: {
+          weeks: [
+            {
+              id: 57_366, order: 1, title: 'Week 1',
+              blocks: [
+                {
+                  id: 1, kind: 0, week_id: 57_366, order: 1,
+                  title: 'Journal',
+                  content: 'See <a href="/training/students/' \
+                           'keeping-a-research-journal">the journal</a> ' \
+                           'and <a href="https://en.wikipedia.org/wiki/Foo">Foo</a>.',
+                  due_date: nil, points: nil, training_module_ids: []
+                },
+                {
+                  id: 2, kind: 1, week_id: 57_366, order: 2,
+                  title: 'Custom assignment',
+                  content: 'Do the thing.',
+                  due_date: '2022-03-15', points: 25, training_module_ids: []
+                }
+              ]
+            }
+          ]
+        }
+      }.to_json
+    end
+
+    def stub_all_requests
+      stub_request(:get, course_url).to_return(status: 200, body: course_response_body)
+      stub_request(:get, categories_url).to_return(status: 200, body: categories_response_body)
+      stub_request(:get, users_url).to_return(status: 200, body: users_response_body)
+      stub_request(:get, timeline_url).to_return(status: 200, body: timeline_response_body)
+      stub_request(:get, training_modules_url)
+        .to_return(status: 200, body: { training_modules: [] }.to_json)
+    end
+
+    let(:copied_course) do
+      described_class.new(url: url_base + slug, user_data: '0').make_copy
+      Course.find_by(slug: slug)
+    end
+
+    describe 'flag preservation' do
+      before { stub_all_requests }
+
+      it 'keeps the raw flags hash from the source course' do
+        expect(copied_course.flags).to include(peer_review_count: 2)
+      end
+
+      it 'exposes peer_review_count through the model reader after copy' do
+        expect(copied_course.peer_review_count).to eq(2)
+      end
+
+      it 'exposes online_volunteers_enabled? through the model reader after copy' do
+        expect(copied_course.online_volunteers_enabled?).to eq(true)
+      end
+    end
+
+    describe 'relative link rewriting' do
+      before { stub_all_requests }
+
+      it 'rewrites relative hrefs to absolute against the source host' do
+        block = copied_course.weeks.first.blocks.find_by(title: 'Journal')
+        expect(block.content).to include('href="https://dashboard.wikiedu.org/training/students/')
+      end
+
+      it 'leaves already-absolute hrefs untouched' do
+        block = copied_course.weeks.first.blocks.find_by(title: 'Journal')
+        expect(block.content).to include('href="https://en.wikipedia.org/wiki/Foo"')
+      end
+    end
+
+    describe 'custom assignment fields' do
+      before { stub_all_requests }
+
+      it 'preserves due_date and points' do
+        block = copied_course.weeks.first.blocks.find_by(title: 'Custom assignment')
+        expect(block.due_date).to eq(Date.parse('2022-03-15'))
+        expect(block.points).to eq(25)
       end
     end
   end

@@ -18,9 +18,8 @@ describe 'email links for Fall 2017 CMU experiment', type: :feature do
     end
 
     it 'errors if email_code is wrong' do
-      expect do
-        visit "/experiments/fall2017_cmu_experiment/#{course.id}/wrongcode/opt_in"
-      end.to raise_error Experiments::IncorrectEmailCodeError
+      visit "/experiments/fall2017_cmu_experiment/#{course.id}/wrongcode/opt_in"
+      expect(page.status_code).to eq(500).or eq(422)
     end
   end
 
@@ -31,9 +30,8 @@ describe 'email links for Fall 2017 CMU experiment', type: :feature do
     end
 
     it 'errors if email_code is wrong' do
-      expect do
-        visit "/experiments/fall2017_cmu_experiment/#{course.id}/wrongcode/opt_out"
-      end.to raise_error Experiments::IncorrectEmailCodeError
+      visit "/experiments/fall2017_cmu_experiment/#{course.id}/wrongcode/opt_out"
+      expect(page.status_code).to eq(500).or eq(422)
     end
   end
 

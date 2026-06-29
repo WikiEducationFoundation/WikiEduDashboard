@@ -7,7 +7,7 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
   describe 'when ActionView::Template::Error is raised' do
     controller(ApplicationController) do
       def index
-        error_message = 'No such file or directory @ rb_sysopen - '\
+        error_message = 'No such file or directory @ rb_sysopen - ' \
                         '/home/me/WikiEduDashboard/public/assets/stylesheets/rev-manifest.json'
         # First we raise a standard error to set the original error, which
         # is needed by ActionView::Template::Error

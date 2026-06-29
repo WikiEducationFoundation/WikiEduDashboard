@@ -1,15 +1,23 @@
 #!/bin/bash
 
-echo "⚡ Pre-commit hook is running..."
-
-# Run Rubocop with parallel processing
-bundle exec rubocop --parallel
-
-# Check the status of Rubocop
-if [ $? -ne 0 ]; then
-  echo -e "🔴 Linting failed! Please fix the offenses before committing."
-  echo "You can run 'bundle exec rubocop -a' to auto-correct the issues."
+# Check for whitespace errors in staged changes
+if ! git diff --cached --check > /dev/null 2>&1; then
+  echo "Whitespace errors found (trailing whitespace or missing final newline)."
+  git diff --cached --check
   exit 1
 fi
 
-echo -e "🟢 No linting issues found. Proceeding with commit.\n"
+staged=$(git diff --cached --name-only --diff-filter=ACM | grep '\.rb$')
+[ -z "$staged" ] && exit 0
+
+echo "Running RuboCop on staged Ruby files..."
+# --force-exclusion makes RuboCop honor the AllCops Exclude list (e.g.
+# config/**/*) even though we pass file paths explicitly. Without it, staging
+# an excluded file surfaces pre-existing offenses that the full CI run ignores.
+bundle exec rubocop --no-color --force-exclusion $staged
+
+if [ $? -ne 0 ]; then
+  echo "Linting failed. Please fix the offenses before committing."
+  echo "You can run 'bundle exec rubocop -a' to auto-correct some issues."
+  exit 1
+fi

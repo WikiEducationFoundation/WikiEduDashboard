@@ -159,10 +159,10 @@ const NewsPopoverContent = ({ createNews }) => {
           {/* Show the edit dropdown if the user is an admin and hovering over the news item */}
           {isHovered && currentUserIsAdmin === 'true' ? (
             <div className="dot-circle">
-              <span className="icon-edit_news news-edit" onClick={() => setNewsEditDropdown(value => !value)}>
+              <button type="button" className="icon-edit_news news-edit" onClick={() => setNewsEditDropdown(value => !value)}>
                 <span className={`${newsEditDropdown ? 'dot-icon-circle dot-clicked' : ''}`} />
                 {newsEditDropdown && newsDropDownOptions}
-              </span>
+              </button>
             </div>
           ) : (
             <span />

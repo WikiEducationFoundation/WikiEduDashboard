@@ -33,6 +33,7 @@ const NotesModalTrigger = ({ setIsModalOpen, notesList, setNoteFetchTimestamp })
   return (
     <div className="admin-notes-modal-trigger">
       <button
+        type="button"
         onClick={onClickAdminButton}
         className="button admin-focus-highlight admin-action-button"
         aria-haspopup="dialog"

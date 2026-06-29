@@ -1,9 +1,18 @@
+# This file defines the ordered sequence of panels (questions) in the
+# research-write assignment wizard.
+#
+# COUPLING: the feature spec spec/features/course_creation_spec.rb walks through
+# this exact sequence in its `go_through_researchwrite_wizard` helper. If you
+# ADD, REMOVE, or REORDER a panel here, update that helper to match — otherwise
+# the wizard feature specs break, often confusingly on a *later* panel or at
+# "Generate Timeline" rather than where the change was made. Changing the blocks
+# in content.yml can also change `expected_course_blocks` in that spec.
 -
   key: essentials
   title: Training
   description: |
     To help your students familiarize themselves with the basics of Wikipedia editing
-    and its policy and community norms, we've developed a series of online training modules. 
+    and its policy and community norms, we've developed a series of online training modules.
 
     Students should create user accounts and complete the core student training modules.
     This training helps students understand the Wikipedia fundamentals, walks students
@@ -11,7 +20,7 @@
     and shows how to find support. Students who complete the training are better prepared
     to focus on your course's learning outcomes, and generally have better experiences.
     The training modules are embedded throughout your assignment and provide students with
-    relevant help as they undertake different tasks of their Wikipedia assignment. 
+    relevant help as they undertake different tasks of their Wikipedia assignment.
 
     You can track which training modules your students have taken through your course
     Dashboard. **Grading students for completing the training is recommended.**
@@ -30,11 +39,47 @@
       logic: ungraded_training
 
 -
+  key: generative_ai
+  title: Generative AI and the Wikipedia assignment
+  description: |
+    Many of our training modules include guidance for students on how to thoughtfully and critically
+    use generative AI tools to support their work on Wikipedia – **and only if permitted by your own
+    course policies.**
+
+    All students will be assigned to take the training module
+    “[Using generative AI tools with Wikipedia](https://dashboard.wikiedu.org/training/students/generative-ai),”
+    which explains why AI-generated text is bad for Wikipedia and offers tips for using AI tools in
+    limited and specific ways during the research phase of the Wikipedia assignment (again, if permitted
+    by your course policies).
+
+    Key highlights:
+      * Students should not use generative AI output for _**any part**_ of their Wikipedia assignment. **This includes all exercises.**
+      * The “No generative AI output” policy also includes text copyedited by AI tools like Grammarly.
+      * Student work on Wikipedia will be monitored by Pangram, an AI detector.
+
+    All materials have been developed to create a more rewarding experience for you, your students, and
+    the Wikipedia editing community. *Explore our [FAQ on Gen AI](https://dashboard.wikiedu.org/faq/24).*
+
+    We also offer a second, optional
+    [training module about large language models (LLMS)](https://dashboard.wikiedu.org/training/students/large-language-models)
+    that provides more background information on how chatbots like ChatGPT work, and how they relate to Wikipedia.
+
+    #### In addition to the required Generative AI training, would you like to assign your students the supplemental training module on LLMs?
+  options:
+    -
+      title: "Yes"
+      tag: llm_training
+      logic: llm_training
+    -
+      title: "No"
+      logic: no_llm_training
+
+-
   key: early_editing_tasks
   title: Getting started with editing
   description: |
     It's best for students to start editing Wikipedia early on. We require an evaluation exercise to get you started;
-    we recommend assigning a few additional Wikipedia assignments to ease them in. 
+    we recommend assigning a few additional Wikipedia assignments to ease them in.
 
     #### Which introductory assignments would you like to use?
   type: 0 # multiple choice
@@ -69,17 +114,21 @@
     not only includes gaps in article content but also in areas like the diversity of the
     authors cited, which means that students across all disciplines have the opportunity to
     improve equity on Wikipedia.
- 
-    To help your students understand the impact and challenges of working on articles
+
+    To help instructors explore these themes with their students, we offer a **curriculum
+    guide**, “[Improving Knowledge Equity with the Wikipedia Assignment](https://wikiedu.org/knowledge-equity-curriculum-guide/).”
+
+    To help students understand the impact and challenges of working on articles
     related to historically underrepresented and misrepresented subjects and groups, or
-    of enhancing representation in articles of any topic, we offer the training module
+    of enhancing representation in articles of any topic, we offer the **student training module**
     “Improving Representation on Wikipedia.”
+
 
     This training explores why this kind of work is important, gives examples of how to
     identify representation gaps, and offers strategies for enhancing representation in
     an article’s text, references, images, and image captions.
 
-    #### Would you like your students to take the training module “Improving Representation on Wikipedia”? 
+    #### Would you like your students to take the training module “Improving Representation on Wikipedia”?
   type: 1  # single choice
   minimum: 1
   options:
@@ -95,35 +144,46 @@
 
 -
   key: sandboxes
-  title: Starting in sandboxes
+  title: Sandboxes or edit live?
   # only_if: returning_instructor
   description: |
-    For improving existing articles, we support two different strategies: have students prepare their initial improvements
-    in a Wikipedia sandbox, or have students directly improve the live versions incrementally. Sandboxes will give you a
-    chance to review student work before it reaches Wikipedia readers, but working live encourages incremental changes, provides
-    more opportunity for community interaction, and eliminates the error-prone step of copying student work from a
-    sandbox into a live article. Most instructors who have tried both strategies find that bypassing sandboxes and
-    working live simplifies the project.
-    
-    Whether students use sandboxes or work on live articles for their main contributions
-    Students creating new articles, rather than improving existing ones, will still prepare
-    their initial drafts in a sandbox. They will also use sandboxes to prepare a bibliography and an outline of proposed changes
-    before changing the live articles.
+    All students will use drafting spaces called sandboxes to prepare their bibliographies
+    and outlines of their proposed changes before they edit any live articles.
+    Additionally, any student creating a new article instead of improving an existing
+    article will need to first draft their text in their sandbox.
 
-    Choose 'Prepare drafts in sandboxes' if you would like to use sandbox drafts. If you would like students to work incrementally on
-    the live articles instead, choose 'Work live without sandbox drafts'.
+    But heads up, you still have a decision to make about sandboxes!
+
+    For **improving existing Wikipedia articles**, you’ll need to **choose between two different methods**:
+
+    1. Students draft their text in a Wikipedia sandbox (not directly within the live article)
+
+    OR
+
+    2. Students incrementally make direct edits to the live versions of Wikipedia articles
+
+    #### How to decide?
+
+    When students draft in sandboxes, you get the chance to review their text before it reaches
+    Wikipedia readers. However, editing directly in live articles encourages them to make incremental
+    changes, provides more opportunity for community interaction, and eliminates the error-prone step
+    of copying work from a sandbox into a live article.
+
+    Choose 'Draft text for articles in sandboxes' if you would like students to draft their text
+    for articles in sandboxes. If you would like students to work incrementally on live articles
+    instead, choose 'Edit directly in live articles'.
+
   type: 1 # single choice
   minimum: 1
   options:
     -
-      title: Prepare drafts in sandboxes
+      title: Draft text for articles in sandboxes, then copy over to article
       tag: yes_sandboxes
       logic: yes_sandboxes
     -
-      title: Work live without sandbox drafts
+      title: Edit directly in live articles
       tag: no_sandboxes
       logic: no_sandboxes
-      selected: true # selected by default
 
 -
   key: working_in_groups
@@ -139,7 +199,7 @@
 
 
     **When students work individually, they can:**
- 
+
       * independently control the way they navigate and participate on Wikipedia.
       * experience every aspect of contributing to Wikipedia, from choosing their
       topic and finding sources to updating their chosen entry.
@@ -151,9 +211,9 @@
       * They may focus on one aspect of contributing to Wikipedia (e.g., one student might gather sources, while another writes up the contribution).
       * They might find it easier to socialize and connect.
       * They’ll work on fewer articles overall which means you’ll have less content to assess.
-    
+
     #### Will your students be working in groups or individually during this Wikipedia assignment?
- 
+
   type: 1 # single choice
   minimum: 1
   options:
@@ -188,8 +248,8 @@
     Regardless of your unique method of teaching students to choose articles, you can recognize
     and identify where Wikipedia falls short in your area of subject-matter expertise. Overall,
     you know what topics your students should be able to handle within the larger constraints
-    of a typical term. 
-    
+    of a typical term.
+
     #### How will your class select articles?
   type: 1 # single choice
   minimum: 1
@@ -408,7 +468,7 @@
         special attention to gaps related to knowledge equity. Students will begin to
         understand the complex issues surrounding Wikipedia's coverage of women and minorities,
         why these equity gaps have arisen, and how students can begin to rectify these gaps
-        and address issues related to systemic bias on Wikipedia. 
+        and address issues related to systemic bias on Wikipedia.
       description:
       logic: content_gaps_discussion
     -
@@ -489,7 +549,7 @@
         only choose this extra credit option if they have the time and capacity to make a well-thought out and
         carefully written contribution.
 
-        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.   
+        This exercise will allow students to magnify their impact and become more deeply involved in the editing process.
 
         You will decide how much additional credit to offer students who choose this option.
       logic: additional_article_extra_credit
@@ -565,27 +625,59 @@
       title: I don't know.
       tag: assignment_portion_unknown
 
-# -
-#   key: staying_in_sandboxes
-#   title: Staying in sandboxes
-#   description: |
-#     In Fall 2020, we will be asking many classes to leave student work in draft spaces ("sandboxes") on Wikipedia,
-#     rather than making edits to live articles. Wiki Education staff would then evaluate and move good student work
-#     live in the weeks following the conclusion of the term. This measure will greatly help us support more courses
-#     as we deal with a high demand for support in Fall 2020. How do you feel about this for your class?
-#   type: 1 # single choice
-#   minimum: 1
-#   options:
-#     -
-#       title: I would only be comfortable doing this assignment if my students worked on live articles.
-#       tag: sandboxes_unacceptable
-#     -
-#       title: I would prefer they worked on live articles, but it would be acceptable to leave work in sandboxes if that's what it takes to participate in the program this term.
-#       tag: sandboxes_not_preferred
-#     -
-#       title: I would prefer my students' work stays in sandboxes until it can be evaluated by a Wiki Education staff person.
-#       tag: sandboxes_preferred
-#     -
-#       title: I don't know.
-#       tag: sandboxes_unknown
-      
+
+-
+  key: instructor_learner
+  title: Learning to edit with your students
+  description: |
+    The best way to understand what your students are experiencing with their
+    assignment is to try it yourself! Editing Wikipedia alongside your students will:
+
+    - Familiarize you with the Dashboard
+    - Teach you the basics of Wikipedia editing
+    - Show you the Wikipedia assignment from the student perspective
+    - Help you anticipate where they might need support
+    - Foster an atmosphere of shared learning in your classroom
+    - Build skills you’ll carry into future Wikipedia assignments
+
+    Through the Dashboard, you can select an article to work on that will parallel
+    your students’ experience.
+
+    #### Would you like to edit a Wikipedia article yourself?
+  type: 1  # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      blurb: Select yes and we’ll send you guidance on how to get started.
+      selected: true # selected by default
+      tag: instructor_learner
+    -
+      title: "No"
+      tag: not_instructor_learner
+
+-
+  key: mentoring
+  title: Mentorship program
+  only_if: '!returning_instructor'
+  description: |
+    Each term, Wiki Education runs a small mentorship program to match faculty new
+    to the Wikipedia assignment with faculty experienced with the project. It’s a
+    great opportunity for the program’s veteran faculty to share their expertise and
+    guidance, and to build community among faculty teaching with Wikipedia.
+
+    Our mentorship program is relatively informal; we ask that mentors meet with
+    their mentees at least twice in the term. As space is limited, spots are not
+    guaranteed.
+
+    Are you interested in being matched with a mentor this term?
+
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Yes.
+      tag: mentor_requested
+    -
+      title: No.
+      tag: no_mentor_requested

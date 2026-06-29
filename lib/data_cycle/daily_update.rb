@@ -7,6 +7,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/import_ratings_worker
 require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_alert_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/wiki_discouraged_article_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/mainspace_ai_followup_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
@@ -35,6 +36,7 @@ class DailyUpdate
     update_wiki_discouraged_article if Features.wiki_ed?
     send_term_recap_emails if Features.wiki_ed?
     generate_overdue_training_alerts if Features.wiki_ed?
+    generate_mainspace_ai_followup_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
@@ -85,6 +87,11 @@ class DailyUpdate
   def generate_overdue_training_alerts
     log_message 'Generating alerts for overdue trainings'
     OverdueTrainingAlertWorker.set(queue: QUEUE).perform_async
+  end
+
+  def generate_mainspace_ai_followup_alerts
+    log_message 'Generating followup alerts for mainspace AI edits'
+    MainspaceAiFollowupWorker.set(queue: QUEUE).perform_async
   end
 
   ###############

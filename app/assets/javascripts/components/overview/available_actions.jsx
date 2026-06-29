@@ -122,9 +122,12 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
       ));
     }
     // If the course is ended, show the 'needs update' button.
-    if (CourseDateUtils.isEnded(course)) {
+    // Admins can also schedule a full update for any course.
+    if (CourseDateUtils.isEnded(course) || user.admin) {
+      const label = course.needs_update ? I18n.t('courses.update_scheduled_label') : I18n.t('courses.needs_update');
+      const className = course.needs_update ? 'button disabled' : 'button';
       controls.push((
-        <div key="needs_update" className="available-action"><button className="button" onClick={needsUpdateFunc}>{I18n.t('courses.needs_update')}</button></div>
+        <div key="needs_update" className="available-action"><button className={className} onClick={needsUpdateFunc} disabled={course.needs_update}>{label}</button></div>
       ));
     }
   // If user has no role and is logged in, and if he is not on enrollment page, show 'Join course' button.
@@ -175,6 +178,13 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   if (user.admin) {
     controls.push((
       <div key="clone_course" className="available-action"><CloneCourseButton courseId={course.id} courseCreationNotice={courseCreationNotice}/></div>
+    ));
+  }
+
+  // Retention predictors report, available to admins for Scholars & Scientists courses only.
+  if (user.admin && course.type === 'FellowsCohort') {
+    controls.push((
+      <div key="retention_predictors" className="available-action"><a href={`/course_retention_csv?course=${course.slug}`} className="button">{I18n.t('courses.retention_predictors')}</a></div>
     ));
   }
 

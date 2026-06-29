@@ -4,15 +4,18 @@ import {
   SUBMITTING_NEW_SPECIAL_USER, REVOKING_SPECIAL_USER,
   SET_COURSE_CREATION_SETTINGS, SET_FEATURED_CAMPAIGNS,
   SET_DEFAULT_CAMPAIGN, REMOVE_FEATURED_CAMPAIGN, ADD_FEATURED_CAMPAIGN,
-  SET_SITE_NOTICE
+  SET_SITE_NOTICE, SET_DISALLOWED_USERS, SUBMITTING_DISALLOWED_USER,
+  SET_IMPACT_STATS
 } from '../constants/settings';
 
 const initialState = {
   adminUsers: [],
   specialUsers: {},
+  disallowedUsers: [],
   fetchingUsers: false,
   submittingNewAdmin: false,
   submittingNewSpecialUser: false,
+  submittingDisallowedUser: false,
   featuredCampaigns: [],
   revokingAdmin: {
     status: false,
@@ -25,7 +28,8 @@ const initialState = {
   siteNotice: {
     status: false,
     message: null,
-  }
+  },
+  impactStats: {}
 };
 
 const settings = (state = initialState, action) => {
@@ -34,6 +38,10 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { adminUsers: action.data.admins });
     case SET_SPECIAL_USERS:
       return Object.assign({}, state, { specialUsers: action.data.special_users });
+    case SET_DISALLOWED_USERS:
+      return Object.assign({}, state, { disallowedUsers: action.data.disallowed_users });
+    case SUBMITTING_DISALLOWED_USER:
+      return Object.assign({}, state, { submittingDisallowedUser: action.data.submitting });
     case SET_COURSE_CREATION_SETTINGS:
       return Object.assign({}, state, { courseCreation: action.data });
     case ADD_FEATURED_CAMPAIGN:
@@ -54,6 +62,8 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { revokingSpecialUser: action.data.revoking });
     case SET_SITE_NOTICE:
       return Object.assign({}, state, { siteNotice: action.data.site_notice });
+    case SET_IMPACT_STATS:
+      return Object.assign({}, state, { impactStats: action.data.impact_stats });
     default:
       return state;
   }

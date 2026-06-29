@@ -69,7 +69,7 @@ const List = ({
       // the words added column also contains the average word count information so it is not necessary
       // for it to have its own column
 
-      // eslint-disable-next-line no-continue
+
       continue;
     }
     let headerOnClick;
@@ -92,16 +92,22 @@ const List = ({
       )];
     }
     const order = (keyObj.order) ? keyObj.order : '';
+
+    // Support both string labels and React element labels
+    const labelContent = typeof keyObj.label === 'string'
+      ? <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+      : keyObj.label;
+
     headers.push((
       <th onClick={headerOnClick} className={`${headerClass} ${order}`} key={key}>
-        <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+        {labelContent}
         <span className={`sortable-indicator-${order} ${order}`} />
         {tooltip}
       </th>
     ));
   }
 
-  // eslint-disable-next-line
+
   let defaultClassName = `${table_key} table `;
 
   if (className) { defaultClassName += className; }
@@ -131,9 +137,9 @@ const List = ({
     );
   }
   let fixedHeader;
-  let fixedArea;
+  let fixedArea = 'table-responsive';
   if (stickyHeader) {
-    fixedArea = 'persist-area';
+    fixedArea += ' persist-area';
     const fixheader = fixHeader === true ? 'floatingHeader' : '';
     fixedHeader = 'persist-header';
     fixedHeader += ` ${fixheader}`;

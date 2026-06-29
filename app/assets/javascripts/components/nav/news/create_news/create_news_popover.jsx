@@ -63,13 +63,14 @@ const CreateNewsPopover = ({ setCreateNews }) => {
         </span>
         {isHovered && (
           <div className={`dot-circle ${disableOptions}`}>
-            <span
+            <button
+              type="button"
               className="icon-edit_news news-edit"
               onClick={() => setNewsCreateDropdown(value => !value)}
             >
               <span className={`${newsCreateDropdown ? 'dot-icon-circle dot-clicked' : ''}`} />
               {newsCreateDropdown && createNewsDropDownOptions}
-            </span>
+            </button>
           </div>
         )}
       </div>

@@ -63,6 +63,8 @@ class DeUserfyingEditAlertMonitor
 
   def create_alert(user_id, course_id, article_id, revision_id, details)
     return if alert_already_exists?(course_id, article_id, revision_id)
+    connect_related_alerts(details, article_id)
+
     alert = Alert.create!(type: 'DeUserfyingAlert',
                           user_id:,
                           course_id:,
@@ -77,6 +79,14 @@ class DeUserfyingEditAlertMonitor
                   course_id:,
                   article_id:,
                   revision_id:)
+  end
+
+  def connect_related_alerts(details, article_id)
+    return unless article_id
+    ai_edit_alert_ids = AiEditAlert.where(article_id:).pluck(:id)
+    return if ai_edit_alert_ids.empty?
+
+    details[:ai_edit_alert_ids] = ai_edit_alert_ids
   end
 
   def courses_for_user(user_id)

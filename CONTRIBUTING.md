@@ -5,11 +5,19 @@
 We love contributions! If you're looking for a way to get involved, contact
 Sage Ross (`ragesoss`). Our main venue for collaboration is Slack; ask Sage (sage at wikiedu.org) for an invite.
 
+[![🚀 Join Slack Now](https://img.shields.io/badge/🚀%20Join%20Slack%20Now-Click%20Here-ff6b6b?style=for-the-badge&logo=slack&logoColor=white)](https://mail.google.com/mail/?view=cm&fs=1&to=sage@wikiedu.org&su=Request%20to%20join%20Slack%20Community&body=Hey%20Sage%2C%0AI%20hope%20you're%20doing%20well.%0AI%20would%20like%20to%20join%20the%20Slack%20community.%20Kindly%20send%20me%20an%20invite%20at%20your%20convenience.%0AThank%20you!)
+
 ## Quick start guide
 
 * Set up a dev environment. Follow the [setup docs](docs/setup.md). Try the automatic scripts, and report any problems that force you to use the manual instructions. For Windows, use WSL 2 (not RubyInstaller or RailsInstaller).
 * Explore the issues, choose one to work on, and leave a comment. Work on only one issue at a time. We do not assign issues, but if it looks like someone else is working on one you are interested, give them a ping to ask if they are still active on it.
-* Open a Pull Request. Mark it as a draft if you know it is not ready to merge. Small change sets are preferred; the fewer lines changed per PR, the easier it is to think about, provide feedback on, and review. Make sure only changes related to the main issure are included; unrelated changes can be made in a separate PR. Include before/after screenshots or videos, if applicable. If you have many commits, consider squashing them into one or a few commits with well-written commit messages.
+* Open a Pull Request.
+  * Mark it as a draft if you know it is not ready to merge. A reviewer may mark your PR as draft if it requires changes; you should mark it as ready for review if you've completed those changes.
+  * Small change sets are preferred; the fewer lines changed per PR, the easier it is to think about, provide feedback on, and review.
+  * Make sure only changes related to the main issure are included; unrelated changes (including whitespace and formatting changes to that don't affect functionality) can be made in a separate PR.
+  * Include before/after screenshots or videos, if applicable.
+  * Curate the commits in your git branch. (`git commit --amend` and `git force-push` are your friends!) If you have many commits, consider squashing them into one or a few commits with well-written commit messages, or recreating the final version in a clean branch. Each commit should stand on its own as a step towards the complete PR.
+  * Close your pull request if you are no longer want to work on it.
 * If you are stuck, ask on Slack.
 * If you are here because you want to apply for Google Summer of Code or Outreachy, read the [students and interns doc](docs/students_and_interns.md) too.
 
@@ -37,7 +45,7 @@ If you're a new developer and you're looking for an easy way to get involved, tr
 - [Quarry](http://quarry.wmflabs.org/): Public querying interface for the Labs replica database. Very useful for testing SQL queries and for figuring out what data is available.
 - [Guide to the front end](docs/frontend.md)
 - [Admin Guide](docs/admin_guide.md): Overview of the Dashboard infrastructure, including servers, tools, dependencies, and troubleshooting resources.
-- [Vagrant](https://github.com/marxarelli/wikied-vagrant): a configuration to quickly get a development environment up and running using Vagrant. If you already have VirtualBox and/or Vagrant on your machine, this might be a simple way to set up a dev environment. However, it is not actively maintained. If you try it and run into problems, let us know!
+- [AI guidelines](docs/ai_guidelines.md): rules for using AI. Most important: **be transparent** about any AI usage.
 
 #### Code Style
 This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
@@ -64,7 +72,7 @@ If your changes modify the model schema, please regenerate `erd.pdf` and regener
 
 Also, ensure that the corresponding schema.rb changes only reflect the new migrations.
 
-## Pull request process
+## Pull Request process
 
 ### Before opening a PR
 - Create a git branch for the issue you are working on, rather than working directly on `master`.
@@ -77,8 +85,9 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
 ### PR format
 - Title your pull request to indicate its purpose. (This will likely be similar to the title of the issue it addresses.)
 - Include a reference to the issue(s).
-- If it is a work-in-progress, include `[WIP]` in the title. Remove this and leave a message once the PR is complete and ready for review.
-- Include before-and-after screenshots (or animations) for user interface changes.
+- If it is a work-in-progress, include `[WIP]` in the title and mark it as a draft. Remove this and leave a message once the PR is complete and ready for review.
+- Include before-and-after screenshots or videos for user interface changes. Update them to reflect the latest version after making changes.
+- Fill out all the sections of the PR template.
 
 ### After opening a PR
 - Check the travis-ci continuous integration build once it completes. This usually takes about 30 minutes, and if any tests fail you can find details in the build log.

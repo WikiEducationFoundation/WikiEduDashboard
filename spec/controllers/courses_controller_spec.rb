@@ -31,6 +31,27 @@ describe CoursesController, type: :request do
     end
   end
 
+  describe '#users' do
+    let(:course) { create(:course, slug: slug_params) }
+    let(:student) { create(:user, username: 'Global Student', global_id: 12_345) }
+
+    before do
+      create(:courses_user,
+             course_id: course.id,
+             user_id: student.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    it 'includes each user global_id in the json payload' do
+      get "/courses/#{course.slug}/users.json"
+
+      body = JSON.parse(response.body)
+      user = body.dig('course', 'users')&.find { |course_user| course_user['id'] == student.id }
+
+      expect(user['global_id']).to eq(student.global_id)
+    end
+  end
+
   describe '#destroy' do
     let!(:course)           { create(:course, submitted: true, slug: slug_params) }
     let!(:user)             { create(:test_user) }
@@ -124,6 +145,12 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+    end
+
+    it 'does not post the details to the announcement page or the userpage' do
+      params = { id: course.slug, course: course_params }
+      expect(AnnounceCourseWorker).not_to receive(:schedule_announcement)
+      put "/courses/#{course.slug}", params: params, as: :json
     end
 
     it 'updates all values' do
@@ -280,8 +307,8 @@ describe CoursesController, type: :request do
 
     it 'raises if course is not found' do
       params = { id: 'peanut-butter', course: course_params }
-      expect { put "/courses/#{course.id}", params:, as: :json }
-        .to raise_error(ActionController::RoutingError)
+      put "/courses/#{course.id}", params:, as: :json
+      expect(response.status).to eq(404)
     end
 
     it 'returns the new course as json' do
@@ -307,14 +334,32 @@ describe CoursesController, type: :request do
     context 'course is new' do
       let(:submitted_2) { true }
 
-      it 'announces course and emails the instructor' do
+      it 'emails the instructor but does not announce course' do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
         headers = { 'HTTP_ACCEPT' => 'application/json' }
-        expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
+        # Course announcement is posted at submission time, but
+        # userpage template is at approval time
+        expect(AnnounceCourseWorker).to receive(:schedule_announcement)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
         put "/courses/#{course.slug}", params:, headers:, as: :json
+      end
+    end
+
+    context 'when a slug collision occurs at the database level' do
+      let!(:course1) { create(:course, slug: 'Mongolia-Outreach') }
+      let!(:course2) { create(:course, slug: 'Summer-Camp') }
+
+      it 'rescues from RecordNotUnique and returns a 409 Conflict with a helpful message' do
+        # Force a collision by attempting to set course2's slug to match course1
+        params = { course: { slug: course1.slug } }
+        put "/courses/#{course2.slug}", params: params, as: :json
+
+        expect(response).to have_http_status(:conflict)
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['message']).to include('already taken')
       end
     end
   end
@@ -538,6 +583,7 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
       allow(SpecialUsers).to receive(:classroom_program_manager).and_return(user)
+      allow_any_instance_of(WikiCourseEdits).to receive(:add_course_template_to_instructor_userpage)
       # Make it look like a typical full assignment, so that
       # course advice emails get scheduled
       course.tags << Tag.new(tag: 'research_write_assignment')
@@ -562,6 +608,12 @@ describe CoursesController, type: :request do
           create(:courses_user, user_id: teaching_assistant.id,
                                 course_id: course.id,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
+        it 'posts the instructor userpage template' do
+          params = { id: course.slug, campaign: { title: campaign.title } }
+          expect(ListCourseWorker).to receive(:schedule_edits)
+          post "/courses/#{course.slug}/campaign", params: params, as: :json
         end
 
         it 'creates a CampaignsCourse' do
@@ -808,6 +860,62 @@ describe CoursesController, type: :request do
     it 'redirects to a course page' do
       get "/find_course/#{course.id}"
       expect(response).to redirect_to("/courses/#{course.slug}")
+    end
+  end
+
+  describe 'program participant JSON endpoints' do
+    let(:student) { create(:user, username: 'StudentUser') }
+    let(:instructor) { create(:user, username: 'InstructorUser') }
+    let(:campaign) { create(:campaign) }
+    let!(:classroom_course) { create(:course, slug: 'School/Classroom_(Term)') }
+    let!(:fellows_course) { create(:fellows_cohort, slug: 'School/Fellows_(Term)') }
+
+    before do
+      # Both courses need a campaign to appear in these queries
+      classroom_course.campaigns << campaign
+      fellows_course.campaigns << campaign
+
+      # Add student and instructor to both courses
+      [classroom_course, fellows_course].each do |course|
+        create(:courses_user, user: student, course:,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+        create(:courses_user, user: instructor, course:,
+                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+    end
+
+    it 'returns classroom program students' do
+      get '/courses/classroom_program_students.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['slug']).to eq('School/Classroom_(Term)')
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors']).to be_nil
+    end
+
+    it 'returns classroom program students and instructors' do
+      get '/courses/classroom_program_students_and_instructors.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors'].first['username']).to eq('InstructorUser')
+    end
+
+    it 'returns fellows cohort students' do
+      get '/courses/fellows_cohort_students.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['slug']).to eq('School/Fellows_(Term)')
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors']).to be_nil
+    end
+
+    it 'returns fellows cohort students and instructors' do
+      get '/courses/fellows_cohort_students_and_instructors.json'
+      courses = response.parsed_body['courses']
+      expect(courses.length).to eq(1)
+      expect(courses[0]['students'].first['username']).to eq('StudentUser')
+      expect(courses[0]['instructors'].first['username']).to eq('InstructorUser')
     end
   end
 end

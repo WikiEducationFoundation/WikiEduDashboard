@@ -33,7 +33,7 @@ class RevisionFeedbackService
     # Articles have a lead section even without a section header
     average_section_size = content_characters / (h2_headers + h3_headers + 1)
     return unless average_section_size > MAXIMUM_AVERAGE_SECTION_SIZE
-    @feedback << 'Try improving the structure and organization of this article. '\
+    @feedback << 'Try improving the structure and organization of this article. ' \
                  'Use headers and sub-headers to divide the article into distinct sub-topics.'
   end
 

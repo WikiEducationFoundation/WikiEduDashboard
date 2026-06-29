@@ -19,7 +19,7 @@ const NewsPopoverHeader = ({ setCreateNews, createNews }) => {
         <p>{headerTitle}</p>
         {/* Render the "Add News" button only if the current user is an admin */}
         {currentUserIsAdmin === 'true' && (
-          <div onClick={() => setCreateNews(true)} className="tooltip-trigger">
+          <button type="button" onClick={() => setCreateNews(true)} className="tooltip-trigger">
             <p className="news-header__add">
               {/* Render a plus icon with dynamic styles based on the createNews state */}
               <span className={`icon-plus-blue ${disableCreateNews}`}>
@@ -31,7 +31,7 @@ const NewsPopoverHeader = ({ setCreateNews, createNews }) => {
                 <p>{I18n.t('news.add_news')}</p>
               </span>
             )}
-          </div>
+          </button>
         )}
       </div>
       <hr className="news-hr" />

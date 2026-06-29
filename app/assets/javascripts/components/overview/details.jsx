@@ -33,7 +33,6 @@ import NamespaceSelect from '../common/namespace_select.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
-import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
@@ -78,15 +77,34 @@ const Details = createReactClass({
   },
 
   updateDetails(valueKey, value) {
-    const updatedCourse = this.props.course;
-    updatedCourse[valueKey] = value;
+    // Create a shallow copy to avoid state mutation
+    const updatedCourse = {
+      ...this.props.course,
+      [valueKey]: value
+    };
     return this.props.updateCourse(updatedCourse);
   },
 
   updateSlugPart(valueKey, value) {
-    const updatedCourse = this.props.course;
-    updatedCourse[valueKey] = value;
+    // Create a shallow copy with updated slug to avoid state mutation
+    const updatedCourse = {
+      ...this.props.course,
+      [valueKey]: value
+    };
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
+  },
+
+  updateFlags(flagKey, value) {
+    // Create a shallow copy with updated flags to avoid state mutation
+    const updatedCourse = {
+      ...this.props.course,
+      flags: {
+        ...this.props.course.flags,
+        // Convert empty string to null for numeric fields
+        [flagKey]: value === '' ? null : value
+      }
+    };
     return this.props.updateCourse(updatedCourse);
   },
 
@@ -244,7 +262,7 @@ const Details = createReactClass({
             value={this.props.course.term}
             value_key="term"
             validation={CourseUtils.courseSlugRegex()}
-            editable= {eventSync ? false : canRename}
+            editable={eventSync ? false : canRename}
             type="text"
             label={CourseUtils.i18n('term', this.props.course.string_prefix)}
             required={false}
@@ -361,6 +379,7 @@ const Details = createReactClass({
     let stayInSandboxToggle;
     let noSandboxesToggle;
     let retainAvailableArticlesToggle;
+    let maxGroupSizeInput;
     let wikiSelector;
     let multiWikiSelector;
     let namespaceSelector;
@@ -416,6 +435,17 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
           updateCourse={this.props.updateCourse}
+        />
+      );
+      maxGroupSizeInput = (
+        <TextInput
+          onChange={this.updateFlags}
+          value={this.props.course.flags.max_group_size || ''}
+          value_key="max_group_size"
+          editable={this.props.editable}
+          type="number"
+          label={I18n.t('courses.max_group_size')}
+          placeholder={I18n.t('courses.max_group_size_tooltip')}
         />
       );
     }
@@ -567,7 +597,7 @@ const Details = createReactClass({
     const shared = (
       <div className="module course-details">
         <div className="section-header">
-          <h3>{I18n.t('application.details')}</h3>
+          <h3 id="course-details-modal-title">{I18n.t('application.details')}</h3>
           {this.props.controls()}
         </div>
         <div className="module__data extra-line-height">
@@ -624,6 +654,7 @@ const Details = createReactClass({
               {stayInSandboxToggle}
               {noSandboxesToggle}
               {retainAvailableArticlesToggle}
+              {maxGroupSizeInput}
               {privacySelector}
               {timelineToggle}
               {onlineVolunteersToggle}
@@ -648,8 +679,7 @@ const Details = createReactClass({
 
     return (
       <div className="modal-course-details">
-        <Modal>
-          <Notifications />
+        <Modal ariaLabelledBy="course-details-modal-title">
           {shared}
         </Modal>
       </div>

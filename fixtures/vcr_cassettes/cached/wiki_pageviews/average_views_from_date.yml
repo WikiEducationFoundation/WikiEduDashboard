@@ -1,0 +1,607 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Facebook/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:00 GMT
+      Content-Length:
+      - '741'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6015 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - 932e734b-55d7-4298-9c64-58096b4287e2
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"project":"en.wikipedia","article":"Facebook","granularity":"daily","timestamp":"2025081500","access":"all-access","agent":"user","views":19225},{"project":"en.wikipedia","article":"Facebook","granularity":"daily","timestamp":"2025081600","access":"all-access","agent":"user","views":19328},{"project":"en.wikipedia","article":"Facebook","granularity":"daily","timestamp":"2025081700","access":"all-access","agent":"user","views":18155},{"project":"en.wikipedia","article":"Facebook","granularity":"daily","timestamp":"2025081800","access":"all-access","agent":"user","views":20395},{"project":"en.wikipedia","article":"Facebook","granularity":"daily","timestamp":"2025081900","access":"all-access","agent":"user","views":22844}]}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/HIV%2FAIDS/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:01 GMT
+      Content-Length:
+      - '736'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6013 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - e10844bd-1480-44a3-a68a-56ca22290a47
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"project":"en.wikipedia","article":"HIV/AIDS","granularity":"daily","timestamp":"2025081500","access":"all-access","agent":"user","views":2097},{"project":"en.wikipedia","article":"HIV/AIDS","granularity":"daily","timestamp":"2025081600","access":"all-access","agent":"user","views":2016},{"project":"en.wikipedia","article":"HIV/AIDS","granularity":"daily","timestamp":"2025081700","access":"all-access","agent":"user","views":2071},{"project":"en.wikipedia","article":"HIV/AIDS","granularity":"daily","timestamp":"2025081800","access":"all-access","agent":"user","views":2255},{"project":"en.wikipedia","article":"HIV/AIDS","granularity":"daily","timestamp":"2025081900","access":"all-access","agent":"user","views":2303}]}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Broussard's/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:01 GMT
+      Content-Length:
+      - '737'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6015 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - 1b26d72f-08e6-4afe-8fdd-0727e3509616
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081500","access":"all-access","agent":"user","views":9},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081600","access":"all-access","agent":"user","views":6},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081700","access":"all-access","agent":"user","views":6},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081800","access":"all-access","agent":"user","views":7},{"project":"en.wikipedia","article":"Broussard''s","granularity":"daily","timestamp":"2025081900","access":"all-access","agent":"user","views":11}]}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/%22Weird_Al%22_Yankovic/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:02 GMT
+      Content-Length:
+      - '803'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6016 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - 076e9117-e6cf-4f8e-a7b3-4abd718c7c11
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"project":"en.wikipedia","article":"\"Weird_Al\"_Yankovic","granularity":"daily","timestamp":"2025081500","access":"all-access","agent":"user","views":5572},{"project":"en.wikipedia","article":"\"Weird_Al\"_Yankovic","granularity":"daily","timestamp":"2025081600","access":"all-access","agent":"user","views":37991},{"project":"en.wikipedia","article":"\"Weird_Al\"_Yankovic","granularity":"daily","timestamp":"2025081700","access":"all-access","agent":"user","views":49374},{"project":"en.wikipedia","article":"\"Weird_Al\"_Yankovic","granularity":"daily","timestamp":"2025081800","access":"all-access","agent":"user","views":6691},{"project":"en.wikipedia","article":"\"Weird_Al\"_Yankovic","granularity":"daily","timestamp":"2025081900","access":"all-access","agent":"user","views":4869}]}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Andr%C3%A9_the_Giant/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:03 GMT
+      Content-Length:
+      - '776'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6012 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - 645aa75d-784f-43f7-9912-e3c701b378bd
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJpdGVtcyI6W3sicHJvamVjdCI6ImVuLndpa2lwZWRpYSIsImFydGljbGUiOiJBbmRyw6lfdGhlX0dpYW50IiwiZ3JhbnVsYXJpdHkiOiJkYWlseSIsInRpbWVzdGFtcCI6IjIwMjUwODE1MDAiLCJhY2Nlc3MiOiJhbGwtYWNjZXNzIiwiYWdlbnQiOiJ1c2VyIiwidmlld3MiOjYxNjJ9LHsicHJvamVjdCI6ImVuLndpa2lwZWRpYSIsImFydGljbGUiOiJBbmRyw6lfdGhlX0dpYW50IiwiZ3JhbnVsYXJpdHkiOiJkYWlseSIsInRpbWVzdGFtcCI6IjIwMjUwODE2MDAiLCJhY2Nlc3MiOiJhbGwtYWNjZXNzIiwiYWdlbnQiOiJ1c2VyIiwidmlld3MiOjY1NDN9LHsicHJvamVjdCI6ImVuLndpa2lwZWRpYSIsImFydGljbGUiOiJBbmRyw6lfdGhlX0dpYW50IiwiZ3JhbnVsYXJpdHkiOiJkYWlseSIsInRpbWVzdGFtcCI6IjIwMjUwODE3MDAiLCJhY2Nlc3MiOiJhbGwtYWNjZXNzIiwiYWdlbnQiOiJ1c2VyIiwidmlld3MiOjYzMjl9LHsicHJvamVjdCI6ImVuLndpa2lwZWRpYSIsImFydGljbGUiOiJBbmRyw6lfdGhlX0dpYW50IiwiZ3JhbnVsYXJpdHkiOiJkYWlseSIsInRpbWVzdGFtcCI6IjIwMjUwODE4MDAiLCJhY2Nlc3MiOiJhbGwtYWNjZXNzIiwiYWdlbnQiOiJ1c2VyIiwidmlld3MiOjU2MzJ9LHsicHJvamVjdCI6ImVuLndpa2lwZWRpYSIsImFydGljbGUiOiJBbmRyw6lfdGhlX0dpYW50IiwiZ3JhbnVsYXJpdHkiOiJkYWlseSIsInRpbWVzdGFtcCI6IjIwMjUwODE5MDAiLCJhY2Nlc3MiOiJhbGwtYWNjZXNzIiwiYWdlbnQiOiJ1c2VyIiwidmlld3MiOjQ5ODh9XX0=
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/wikidata/all-access/user/Q42/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - s-maxage=14400, max-age=14400
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:04 GMT
+      Content-Length:
+      - '682'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp6011 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - 02bbfe65-17b1-4600-ba72-31540881d424
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"items":[{"project":"wikidata","article":"Q42","granularity":"daily","timestamp":"2025081500","access":"all-access","agent":"user","views":71},{"project":"wikidata","article":"Q42","granularity":"daily","timestamp":"2025081600","access":"all-access","agent":"user","views":78},{"project":"wikidata","article":"Q42","granularity":"daily","timestamp":"2025081700","access":"all-access","agent":"user","views":80},{"project":"wikidata","article":"Q42","granularity":"daily","timestamp":"2025081800","access":"all-access","agent":"user","views":87},{"project":"wikidata","article":"Q42","granularity":"daily","timestamp":"2025081900","access":"all-access","agent":"user","views":129}]}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+- request:
+    method: get
+    uri: https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/THIS_IS_NOT_A_REAL_ARTICLE/daily/2025081500/2025081900
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - wikimedia.org
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Cache-Control:
+      - s-maxage=600
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/problem+json
+      Etag:
+      - W/"20-da39a3ee5e6b4b0d3255bfef95601890afd80709"
+      Date:
+      - Tue, 04 Nov 2025 21:08:05 GMT
+      Content-Length:
+      - '382'
+      Server:
+      - main-tls
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Methods:
+      - GET,HEAD
+      Access-Control-Allow-Headers:
+      - accept, content-type, content-length, cache-control, accept-language, api-user-agent,
+        if-match, if-modified-since, if-none-match, dnt, accept-encoding
+      Access-Control-Expose-Headers:
+      - etag
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Xss-Protection:
+      - 1; mode=block
+      Age:
+      - '0'
+      X-Cache:
+      - cp6015 miss, cp6016 miss
+      X-Cache-Status:
+      - miss
+      Server-Timing:
+      - cache;desc="miss", host;desc="cp6016"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=NG:LA:Lagos:6.45:3.39:v4; Path=/; secure; Domain=.wikimedia.org
+      - NetworkProbeLimit=0.001;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=04-Nov-2025;Path=/;Domain=.wikimedia.org;HttpOnly;secure;Expires=Sat,
+        06 Dec 2025 12:00:00 GMT
+      - WMF-Last-Access=04-Nov-2025;Path=/;HttpOnly;secure;Expires=Sat, 06 Dec 2025
+        12:00:00 GMT
+      X-Client-Ip:
+      - 102.88.112.22
+      X-Request-Id:
+      - 9021021a-6b19-4ddd-aca6-e62836cb7202
+      X-Analytics:
+      - ''
+    body:
+      encoding: UTF-8
+      string: '{"detail":"The date(s) you used are valid, but we either do not have
+        data for those date(s), or the project you asked for is not loaded yet. Please
+        check documentation for more information","method":"get","status":404,"title":"Not
+        Found","type":"about:blank","uri":"/metrics/pageviews/per-article/en.wikipedia/all-access/user/THIS_IS_NOT_A_REAL_ARTICLE/daily/2025081500/2025081900"}'
+  recorded_at: Wed, 20 Aug 2025 00:00:00 GMT
+recorded_with: VCR 6.1.0

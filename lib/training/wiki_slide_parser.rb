@@ -8,6 +8,7 @@ class WikiSlideParser
     @wikitext = wikitext&.dup || +''
     set_utf8_encoding
     remove_noinclude
+    remove_languages_tag
     remove_translation_markers
     remove_translate_tags
     remove_span_tags
@@ -33,6 +34,8 @@ class WikiSlideParser
     wikitext = @wikitext.lines.drop(1).join # First line is the title
     wikitext[0] = '' while wikitext[0] == "\n" # Remove leading newlines
     markdown = Wikitext.mediawiki_to_markdown(wikitext)
+    # Pandoc 3.x escapes < and > in HTML with backslashes; undo that for our injected markup.
+    markdown = markdown.gsub('\<', '<').gsub('\>', '>')
     # Make sure first line after a figure gets parsed as a new paragraph
     markdown.gsub("figure>\n", "figure>\n\n")
   end
@@ -59,6 +62,11 @@ class WikiSlideParser
 
   def remove_noinclude
     @wikitext.gsub!(%r{<noinclude>.*?</noinclude>\n*}m, '')
+  end
+
+  def remove_languages_tag
+    @wikitext.gsub!(%r{<languages\s*/>\n*}i, '')
+    @wikitext.gsub!(%r{<languages>\s*</languages>\n*}i, '')
   end
 
   def remove_translation_markers
@@ -224,9 +232,10 @@ class WikiSlideParser
     # - #{parameter}:  Inserts the parameter name to match.
     # - \s*=\s*:       Matches the equals sign with optional whitespace around it.
     # - (?<value>.*?): Captures the value after the equals sign into a named group 'value'.
-    # - (?=\||\Z):     Positive lookahead to ensure the match ends at the next pipe
-    #                   or the end of the string.
-    match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*?)(?=\||\Z)/m)
+    # - (?=\||\}\}|\Z): Positive lookahead to ensure the match ends at the next pipe
+    #                   or the end of the string or the end of the template (}}).
+
+    match = template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*?)\s*(?=\||\}\}|\Z)/m)
 
     # Check if match is present and value is not nil
     value = match && match['value']

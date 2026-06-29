@@ -38,6 +38,8 @@ en:
   application:
     back: Back
     cancel: Cancel
+    next: Next
+    skip_to_main_content: Skip to main content
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
     cookie_consent_acknowledge: I understand
     cookie_consent_see_more: See more.
@@ -48,6 +50,7 @@ en:
     explore: Explore
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
+    field_invalid_term: Term must include year (e.g., "Spring 2025")
     field_invalid_date: This field requires a date in YYYY-MM-DD format
     field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
     greeting2: Welcome!
@@ -59,6 +62,7 @@ en:
     log_in: Log in
     log_out: Log out
     my_dashboard: My Dashboard
+    okay: Okay
     recent_activity: Recent Activity
     report_problem: Report a problem
     request_account: Request an account
@@ -70,6 +74,9 @@ en:
     no_results: "No results found for '%{query}'"
     show_current_revision: Show current version
     show_last_revision: Show last edited version
+    font_label: Font
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -86,6 +93,7 @@ en:
     opt_yes: "yes"
     opt_no: "no"
     print: Print
+    sort: Sort
 
   article_statuses:
     not_yet_started: Getting Started
@@ -147,8 +155,45 @@ en:
       contact dashboard@wikiedu.org.
   alerts:
     alert_label: Alerts
-    no_alerts: No alerts found.
-
+    no_data: No data found.
+    ai_stats:
+      timestamp: Timestamp
+      title: AI Edit Alerts Stats for %{campaign_name}
+      total_alerts: Total AI Edit Alerts
+      with_followup: AI Edit Alerts with followup
+      multiple_alerts_students: Students with multiple alerts
+      multiple_alerts_pages: Pages with multiple alerts
+      pangram_url: Pangram URL
+      go_to_pangram: Go to Pangram
+      revision_diff: Revision diff
+      single_alert_view: Alert
+      alerts_in_mainspace: Alerts in mainspace
+      users_involved: Users involved
+      total: Total
+      last_week: Last week
+      sections:
+        contents: Page contents
+        general_stats: General stats
+        name: Name
+        description: Description
+        courses_with_ai_alerts: Courses with multiple AI alerts
+        recent_followup: Alerts with recent followup
+        multiple_alerts_students: Recent alerts for students with multiple alerts
+        in_mainspace: Recent alerts in mainspace
+        alerts_trend_over_time: AI alerts trends over time
+        descriptions:
+          courses_with_ai_alerts: Courses with more than 3 AI alerts over the entire course period (not necessarily recent).
+          recent_followup: Alerts with followup responses submitted within the last 14 days, ordered by the date of the followup response.
+          multiple_alerts_students: Alerts created within the last 14 days for students with multiple alerts, ordered by creation date.
+          in_mainspace: Alerts created within the last 14 days for articles in mainspace, ordered by creation date.
+  ai_scores_stats:
+    title: Revision AI Scores Stats
+    graphs:
+      daily_checks: Daily checks by namespace
+      avg_likelihood: Avg AI likelihood distribution per day
+      max_likelihood: Max AI likelihood distribution per day
+      overall_avg_likelihood: Overall avg AI likelihood distribution
+      overall_max_likelihood: Overall max AI likelihood distribution
   activity:
     all: Activity
     edited_by: Edited By
@@ -164,6 +209,8 @@ en:
     available: Available Articles
     no_available: No Available Articles
     next: Next
+    page_info: "Page %{current} of %{total_pages} (%{count} out of %{total})"
+    permalink: Permalink
     previous: Previous
     article_title: Article Title
     assigned_to: Assigned To
@@ -186,7 +233,13 @@ en:
       tracked: Tracked
       untracked: Untracked
       tracked_and_untracked: Tracked and Untracked
+      wiki_label: Wiki
+      newness_label: Article newness
+      tracked_label: Tracking status
     filter_text: "Filters:"
+    pageviews_label: "Pageviews:"
+    cumulative: "Cumulative"
+    daily_avg: "Daily Avg"
     find: Find Articles
     how_to_find: How to find articles
     hide: Hide
@@ -194,9 +247,11 @@ en:
     label: Articles
     loading: Loading articles...
     mark_as_complete: Mark as Complete
+    mark_as_incomplete: Mark as Incomplete
     new: (new)
     none: This course has not edited any articles.
     preview: Brief preview of Article
+    quality_checklist: Quality checklist
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may correspond to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
@@ -228,18 +283,20 @@ en:
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
+    article_size: Article Size
+    article_size_doc: Size of the article's wikitext (in bytes) after each edit
     edit_size: Edit Size
+    editor_other: Other editors
+    scoring_status: "Fetching scores for %{count} edits"
     wiki: Wiki
     wp10: Structural Completeness
     wp10_doc: >
       The 'Structural Completeness' score represents how closely an article fits
-      the mold of a mature Wikipedia article, based on the machine learning-based
-      Objective Revision Evaluation Service (https://ores.wikimedia.org/). These
-      scores are calculated based on the size of an article, the number of
-      references and wikilinks, and other basic text features. A high score
-      usually indicates that an article follow Wikipedia's conventions for the
-      structure of a good article, but it does not take into account the content
-      itself. (These scores are only available for English Wikipedia articles.)
+      the mold of a mature Wikipedia article, based on the legacy (~2015) machine learning-based
+      "Objective Revision Evaluation Service". These scores are calculated based on the size
+      of an article, the number of references and wikilinks, and other basic text features.
+      A high score usually indicates that an article follow Wikipedia's conventions for the
+      structure of a good article, but it does not take into account the content itself.
     articles_short: Articles
     deleted_message: >
       According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
@@ -289,6 +346,7 @@ en:
     blocked_assignment: "%{title} could not be assigned because it is on the Wikipedia community's Wiki Education assignment blocklist."
     already_exists: This assignment already exists!
     title_too_large: The title shouldn't exceed 255 characters
+    max_group_size_exceeded: "%{title} already has %{current} student(s) assigned. The maximum group size for this course is %{max}."
     assignees: Assignee(s)
     assign_other: Assign/remove an article
     assign_other_wikidata: Assign/remove an item
@@ -298,7 +356,9 @@ en:
     add_available_placeholder_wikidata: Add one item title or URL per line
     add_available_submit: Add articles
     add_available_submit_wikidata: Add items
+    add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
+    invalid_mainspace_article: This must be a valid mainspace article.
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
@@ -318,6 +378,7 @@ en:
     none_short_wikidata: No items assigned
     none: This course has no assigned articles.
     no_available: This course has no available articles.
+    outline: Outline
     peer_review_count: "%{currentCount}/%{total} selected"
     peer_review_count_tooltip: You should select %{total} articles to peer review.
     peer_review_link: Peer Review
@@ -353,6 +414,16 @@ en:
     submit: Submit
     invalid_url: Cannot update sandbox url. The URL %{url} is not a valid Wikipedia URL.
     mismatched_wiki: Cannot update sandbox url. The URL %{url} is not on the same wiki.
+    invalid_username: 'The username "%{username}" is invalid Or the username does not exist.'
+    change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
+    username_label: Wikipedia Username
+    username_placeholder: 'Enter username (e.g., YourUsername)'
+    username_or_url_label: Wikipedia Username or URL
+    username_or_url_placeholder: 'Enter username or full sandbox URL'
+    preview_label: 'Preview of new URLs:'
+    sandbox_label: Sandbox
+    bibliography_label: Bibliography
+    outline_label: Outline
     warning_untracked_wiki: >
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
@@ -362,6 +433,15 @@ en:
       title: Milestones
 
   campaign:
+    campaign_ores_plot:
+      change_button: "Change in Structural Completeness"
+      no_data: "No Structural Completeness data available"
+      graph_description_html: >
+        This graph visualizes, in aggregate, how much articles developed from
+        before campaign participants first edited them until the most recent campagin edits. The <em>Structural Completeness </em>
+        rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
+        that estimates an article&apos;s quality rating based on the amount of
+        prose, the number of wikilinks, images and section headers, and other features.
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
     alert_article: Article title
@@ -376,6 +456,7 @@ en:
     campaign_deleted: Campaign "%{title}" has been deleted
     campaign_not_updated: Campaign could not be updated
     campaign_updated: Campaign updated
+    refresh_campaign_stats: Campaign stats refreshed successfully
     created_at: Date
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
@@ -459,12 +540,18 @@ en:
     name: Name
     category_name: Category name
     psid_name: PSID
+    psid_description: >
+      PetScan queries only work with the Dashboard one wiki at a time.
+      Ensure that your PetScan query includes only articles from a single wiki, and that it matches the wiki set below.
     pileid_name: PagePile id
+    pileid_description: >
+      Make sure the PagePile's wiki is one of the tracked wikis for this program.
     template_name: Template name
     none: There are no categories being tracked.
     remove: Remove
     tracked_categories: Tracked Categories, PSID, PagePile id & Templates
     timestamp: Last Updated On
+    category_error: This scoping method has too many items to be updated. Please try using smaller ones.
 
   courses:
     school_system: Academic System
@@ -579,7 +666,7 @@ en:
       course_school: Course school
       course_subject: Course subject
       course_term: Course term
-      course_term_placeholder: Term
+      course_term_placeholder: Term (including year)
       course_title: Course title
       course_types:
         basic_course_name: Basic Program
@@ -598,6 +685,7 @@ en:
       end_date: End date
       end_date_placeholder: YYYY-MM-DD
       expected_number: Expected number of students
+      field_invalid_term: Term must include year (e.g., "Spring 2025")
       find: Find Your Course
       intro: >
         The title, school, and term create your course page’s URL, and can't be
@@ -689,6 +777,7 @@ en:
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
       invalid_language_or_project: Invalid language/project
       invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
+      duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
       invalid_slug: Blank school/title for course.
       duplicate_slug: "Another program called %{slug} already exists."
     expected_students: Expected Students
@@ -724,6 +813,8 @@ en:
       not_yet_approved: This course has not yet been approved for enrollment.
       withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
       invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
+      disallowed_user: This user is on the disallowed users list and cannot be enrolled in courses.
+
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
     launch_wizard: Launch the Wizard
@@ -734,6 +825,7 @@ en:
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update
+    update_scheduled_label: Update Scheduled
     new_week: Add New Week
     new_account_check_username: Check username availability
     new_account_email: Email address
@@ -772,6 +864,15 @@ en:
     online_volunteers_enabled: Online Volunteers enabled
     online_volunteers_tooltip: Enabling Online Volunteers allows user editors to join as a volunteer. Their edits will not be tracked.
     ores_plot: ORES
+    ores_plot_description: >
+      This graph visualizes, in aggregate, how much articles developed from
+      before students first edited them until their most recent edits. The Structural Completeness
+      rating is based on a machine learning project (%{ores_link})
+      that estimates an article's quality rating based on the amount of
+      prose, the number of wikilinks, images and section headers, and other features. (%{refresh_link})
+    ores_plot_no_data: No Structural Completeness data available
+    ores_plot_refresh_data: Refresh Cached Data
+    ores_plot_show_button: Change in Structural Completeness
     overview: Home
     passcode: Passcode
     passcode_none: No passcode
@@ -793,6 +894,7 @@ en:
     retain_available_articles_info_wikidata: >
       When enabled, selecting an Available Item does not remove it from
       the list, allowing a group of students to select the same item.
+    retention_predictors: Retention predictors
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
@@ -809,6 +911,8 @@ en:
     start: Start
     start_typing: Start typing
     stay_in_sandbox: Stay in sandbox
+    max_group_size: Max. group size
+    max_group_size_tooltip: Maximum number of students who can work on the same article. Leave blank for unlimited.
     student: Student
     students: Students
     students_taught: Students Taught
@@ -835,6 +939,14 @@ en:
     subject: Subject
     submitted: Submitted
     submitted_at: Submitted at
+    approval_form_heading: "Course Approval Form"
+    add_program_manager: "Add Program Manager:"
+    add_wiki_expert: "Add Wikipedia Expert:"
+    add_tags: "Add Tags:"
+    add_campaigns: "Add Campaigns:"
+    invalid_salesforce_id: "The entered Id is not valid."
+    add_salesforce_id: "Add Salesforce Id:"
+    approve_course: "Approve Course"
     tag_select: "Select or create a tag"
     tags: "Tags:"
     term: Term
@@ -882,6 +994,9 @@ en:
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
+    declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
+    decline_course: "Decline Course"
+    decline_course_confirm: "Are you sure you want to decline this course? This will archive the submission and stop automatic unsubmitted alerts for this course."
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
@@ -1064,6 +1179,8 @@ en:
       submit_issue_wikidata: "What are the significant problems with this item?"
       submit_issue_placeholder: "The more expert perspective and detail you can provide, the better."
       thank_you: "Thank you! Contact your Wiki Expert if you have additional questions."
+      quality_problems_button: "Quality Problems?"
+      notify_wiki_expert: "Notify Wiki Expert"
     exercises_and_trainings: "%{prefix} Exercises & Trainings"
     no_assignments: "This student currently has no assigned articles."
     can_assign_assignments: "You can assign an article by using the buttons above."
@@ -1077,6 +1194,8 @@ en:
       content_wikidata: to assign and view item assignments
 
   metrics:
+    editors_doc: This is the number of unique users who have edited articles in the course.
+    program_date_doc: This is the date of the program.
     label: Course Activity
     last_update: Last statistics update
     last_articles_update: Last articles update
@@ -1142,8 +1261,8 @@ en:
       other: total usages across languages
     view_count_description: Article Views
     view_count_description_wikidata: Item Views
-    view_count_doc: This is the estimated number of views based on a 30-day average for each article, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
-    view_count_doc_wikidata: This is the estimated number of views based on a 30-day average for each item, through the most recent stats update. Views may decrease if the updated average is lower than previous counts.
+    view_count_doc: This is the estimated number of views based on the daily average from the article's first revision during the course up to the most recent stats update.
+    view_count_doc_wikidata: This is the estimated number of views based on the daily average from the item's first revision during the course up to the most recent stats update.
     view_data_unavailable: No view data available
     view: Views
     wiki_ed_help: Use the 'Get Help' button to report a problem.
@@ -1153,7 +1272,8 @@ en:
     total_revisions: Total revisions
     claims: Claims
     aliases: Aliases
-    merged: Merged
+    merged: Merged to
+    merged_from: Merged from
     created: Created
     changed: Changed
     removed: Removed
@@ -1174,6 +1294,18 @@ en:
       or "Created claim" instead.
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
+    lemmas: Lemmas
+    language: Language
+    lexical_category: Lexical category
+    forms: Forms
+    form_claims: Form claims
+    form_references: Form references
+    form_qualifiers: Form qualifiers
+    senses: Senses
+    glosses: Glosses
+    sense_claims: Sense claims
+    sense_references: Sense references
+    sense_qualifiers: Sense qualifiers
 
   namespace:
     all: All
@@ -1257,12 +1389,31 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    course_ended_notification: "This shows recent edits by enrolled users, but any edits after the 'end date' are not counted toward the stats or reflected on the Articles tab. You can use the 'Show Course Specific' filter to limit the view to activity that occurred before the end date."
+    show_only_new_editors: Show Only New Editors
 
   resources:
     label: Resources
     header: Resources and Training
 
   settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Course creation
+        default_campaign_setting: Default Campaign
+        site_notice_setting: Site Notice
+        site_notice_preview: Live Preview
+      buttons:
+        add_admin_button: Add Admin
+        add_special_user_button: Add Special User
+        configure_site_notice:
+          update_site_notice_button: Update Site Notice
+          enable_button: Enable
+          disable_button: Disable
+        update_course_creation_settings: Update course creation settings
+        update_default_campaign_setting: Update Default Campaign
+        update_impact_stats: Update Impact Stats
+        update_salesforce_credentials: Update Salesforce Credentials
     categories:
       other_settings: Other settings
       impact_stats: Impact Stats
@@ -1305,15 +1456,36 @@ en:
         revoking_button_working: "Revoking..."
         already_is_not: "%{username} is not a Special User!"
         demote_success: "%{username} is now just a user."
+    disallowed_users:
+      none: No disallowed users configured.
+      already_disallowed: Already disallowed
+      add_to_list: Add to Disallowed
+      add_button: Add User
+      remove_button: Remove
+      submit_button: Submit
+      title: Disallowed Users
+      description: Bot accounts and other usernames that should not be enrolled in courses.
+      add:
+        success: "%{username} added to disallowed users list."
+        already_exists: "%{username} is already in the disallowed users list."
+      remove:
+        success: "%{username} removed from disallowed users list."
+        not_found: "%{username} is not in the disallowed users list."
+        confirm: "Are you sure you want to remove %{username} from the disallowed users list?"
+    actions: Actions
+
 
   status:
     active_jobs: Active jobs
     active_jobs_doc: The number of currently processing jobs.
+    acuwt_update: ACUWT update
+    acuwt_update_description: ACUWT updates process article scoped program courses with thousands of articles.
+    acuwt_update_doc: Handle updates for large article scoped program courses.
     all_queues_operational: All Queues Operational
     all_queues_not_operational: All Queues Operational except
     constant_update: Constant update
     constant_update_description: Constant updates are independent of the main course stats, pulling in revision metadata, generating alerts, and doing other data and network-intensive tasks, for all current courses.
-    constant_update_doc: Handles transactional jobs like wiki edits and sending email. 
+    constant_update_doc: Handles transactional jobs like wiki edits and sending email.
     daily_update: Daily update
     daily_update_description: This pulls in additional data and performs other tasks that do not need to be done many times per day.
     daily_update_doc: Handles once-daily long-running data update tasks.
@@ -1373,6 +1545,7 @@ en:
     chose_search_type: Choose a search type
 
   timeline:
+    add_assignment: Add Assignment
     add_week: Add Week
     arrange_timeline: Arrange Timeline
     arrange_timeline_instructions: >
@@ -1427,11 +1600,16 @@ en:
     save_all_changes: Save All
     this_week_title_default: This Week
     title: Timeline
+    too_many_weeks_warning: >
+      WARNING! There are not enough non-holiday weeks before the assignment end date! You can click 'Edit Course Dates' to set the meeting dates and holiday dates.
     unable_to_add_week: >
       You cannot add new weeks when your timeline is full. Delete at least one
       week or change your assignment dates to make room for a new one.
     view_full_timeline: View Full Timeline
     week_number: "Week %{number}"
+    add_block: Add Block
+    delete_week: Delete Week
+
 
   training:
     continue: Continue (%{progress})
@@ -1465,6 +1643,11 @@ en:
     exercise_sandbox: Exercise Sandbox
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
+    take_your_time: "Please take your time!"
+    alert_content: "It is very important that you learn the training content thoroughly."
+    close: "CLOSE"
+    loading: "Loading…"
+    wiki_source: "wiki source"
 
   update_username:
     header: Update a changed username
@@ -1498,7 +1681,9 @@ en:
     uploaded_on: Uploaded On
     usage_count: Usage Count
     usage_doc: Number of Wikipedia articles that this image appears in.
-    usage_count_gallery_tile: Used in %{usage_count} articles
+    usage_count_gallery_tile:
+      one: "Used in 1 article"
+      other: "Used in %{count} articles"
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
@@ -1553,6 +1738,7 @@ en:
     my_reviewing: "Reviewing:"
     name: Name
     none: There are no participants.
+    more_articles: Click to load user edited articles
     no_articles: No articles
     no_articles_wikidata: No items
     no_revisions: (no revisions)
@@ -1637,7 +1823,9 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Education Staff
-
+    useremail_placeholder: "Enter Email Address"
+    email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
+    email_invalid: "Invalid: Please enter a valid email"
   user_profiles:
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor
@@ -1676,9 +1864,8 @@ en:
       assignments. Click the date to change between unselected, selected, and
       holiday state. If you have no holidays, check "I have no class holidays"
       below.
-    no_meetings: Do not include meeting days or holidays/breaks in the course timeline
-    no_meetings_notes: "Note: If you don't include meeting days and your course includes
-     vacation weeks, you may need to manually adjust the timeline to account for them."
+    no_meetings: "Specify course meeting days, holidays and breaks?"
+    no_meetings_notes: "Note: If you don't add meeting days and your course has break weeks, you may need to manually adjust the timeline to account for them."
     confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates
@@ -1713,9 +1900,10 @@ en:
         site works well on recent versions of Chrome, Firefox, Edge, and other modern browsers.
     ip_blocked: >
       You cannot currently create an account from this device. This my happen if your IP address is blocked by Wikipedia or has already reached the daily limit for new accounts. Try connecting from a different network.
+    login_success_download_html: "Successfully signed in! %{link}."
+    download_here: Click here to download your file
 
   error_401:
-    header: "Unauthorized. >:-("
     explanation: >
       You are not authorized to execute this request. If you believe you have
       reached this notice in error, please contact the maintainers of this
@@ -1752,6 +1940,12 @@ en:
       It looks like there was a problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
   # This is a maintenance script message.
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
+
+  notifications:
+    new_notifications: You have new notifications.
+    no_notifications: You have no new notifications.
+    aria_label:
+      bell: Notifications
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
@@ -1931,7 +2125,7 @@ en:
         note_edit_cancel_button_focused: "Cancel note edit {{title}}"
         note_delete_button_focused: "Delete the note {{title}}"
         note_edit_mode: "Entered Edit mode for note titled: {{title}}. You can now edit the title and content."
-  
+
   customize_error_message:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
 
@@ -1946,4 +2140,9 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
-      
+
+  form_search:
+    search: "Search"
+    advanced_search: "Advanced Search"
+    clear: "Clear"
+    program_date: "Program Date"

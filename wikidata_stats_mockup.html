@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wikidata Stats — Tab Design Mockup</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Top stats bar (unchanged, for context) ── */
+    .course-stats-bar {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px 4px 0 0;
+      border-bottom: none;
+      padding: 16px 24px;
+      display: flex;
+      gap: 0;
+      width: 900px;
+    }
+
+    .course-stat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-right: 1px solid #e8e8e8;
+      padding: 4px 8px;
+    }
+
+    .course-stat:last-child { border-right: none; }
+
+    .course-stat .big-num {
+      font-size: 2rem;
+      color: #5b6dc8;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .course-stat .label {
+      font-size: 0.72rem;
+      color: #666;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ── Wikidata section ── */
+    .wikidata-section {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 0 0 4px 4px;
+      padding: 24px 32px;
+      width: 900px;
+      min-height: 280px;
+      margin-top: 20px;
+    }
+
+    .wiki-link {
+      color: #5b6dc8;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      text-decoration: none;
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      border-bottom: 2px solid #e0e0e0;
+      margin-bottom: 16px;
+      padding-top: 20px;
+    }
+
+
+    .tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      padding: 7px 16px;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .tab-btn:hover { color: #5b6dc8; }
+
+    .tab-btn.active {
+      color: #5b6dc8;
+      border-bottom-color: #5b6dc8;
+      font-weight: 600;
+    }
+
+    .tab-btn.disabled {
+      color: #bbb;
+      cursor: default;
+    }
+
+    /* Stat grid — matches the actual dashboard layout */
+    .wikidata-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .wikidata-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .wikidata-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .wikidata-grid.cols-1 { grid-template-columns: 1fr; max-width: 220px; }
+
+    .stat-section {
+      padding: 0;
+    }
+
+    .stat-section-header {
+      background: #f2f2f2;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #333;
+      padding: 5px 10px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: baseline;
+      padding: 4px 10px;
+    }
+
+    .stat-num {
+      font-size: 1.35rem;
+      color: #5b6dc8;
+      font-weight: 400;
+      min-width: 44px;
+      text-align: right;
+      margin-right: 10px;
+      line-height: 1.3;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: #555;
+    }
+
+    /* Placeholder */
+    .coming-soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      color: #aaa;
+      font-size: 0.88rem;
+      border: 2px dashed #e0e0e0;
+      border-radius: 4px;
+      gap: 6px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- Top stats bar — unchanged -->
+<div class="course-stats-bar">
+  <div class="course-stat"><span class="big-num">2</span><span class="label">Items Created</span></div>
+  <div class="course-stat"><span class="big-num">49</span><span class="label">Items Edited</span></div>
+  <div class="course-stat"><span class="big-num">190</span><span class="label">Total Edits</span></div>
+  <div class="course-stat"><span class="big-num">3</span><span class="label">Editors</span></div>
+  <div class="course-stat"><span class="big-num">2</span><span class="label">References Added</span></div>
+  <div class="course-stat"><span class="big-num">0</span><span class="label">Item Views</span></div>
+  <div class="course-stat"><span class="big-num">66</span><span class="label">Commons Uploads</span></div>
+</div>
+
+<!-- Wikidata detail section -->
+<div class="wikidata-section">
+  <a class="wiki-link">www.wikidata.org</a>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('summary', this)">Summary</button>
+    <button class="tab-btn" onclick="showTab('statements', this)">Statements</button>
+    <button class="tab-btn" onclick="showTab('content', this)">Content</button>
+    <button class="tab-btn" onclick="showTab('lexemes', this)">Lexemes</button>
+    <button class="tab-btn disabled">Edit Quality <small>(coming soon)</small></button>
+  </div>
+
+  <!-- SUMMARY -->
+  <div id="tab-summary" class="tab-panel active">
+    <div class="wikidata-grid cols-4">
+      <div class="stat-section">
+        <div class="stat-section-header">General</div>
+        <div class="stat-row"><span class="stat-num">190</span><span class="stat-label">Total revisions</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Merged</span></div>
+        <div class="stat-row"><span class="stat-num">28</span><span class="stat-label">Interwiki links added</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">Items</div>
+        <div class="stat-row"><span class="stat-num">1</span><span class="stat-label">Created</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Cleared</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">Claims</div>
+        <div class="stat-row"><span class="stat-num">42</span><span class="stat-label">Created</span></div>
+        <div class="stat-row"><span class="stat-num">6</span><span class="stat-label">Changed</span></div>
+        <div class="stat-row"><span class="stat-num">4</span><span class="stat-label">Removed</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">References</div>
+        <div class="stat-row"><span class="stat-num">11</span><span class="stat-label">Added</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATEMENTS -->
+  <div id="tab-statements" class="tab-panel">
+    <div class="wikidata-grid cols-3">
+      <div class="stat-section">
+        <div class="stat-section-header">Claims</div>
+        <div class="stat-row"><span class="stat-num">42</span><span class="stat-label">Created</span></div>
+        <div class="stat-row"><span class="stat-num">6</span><span class="stat-label">Changed</span></div>
+        <div class="stat-row"><span class="stat-num">4</span><span class="stat-label">Removed</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">References</div>
+        <div class="stat-row"><span class="stat-num">11</span><span class="stat-label">Added</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">Qualifiers</div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Added</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="tab-content" class="tab-panel">
+    <div class="wikidata-grid cols-4">
+      <div class="stat-section">
+        <div class="stat-section-header">Items</div>
+        <div class="stat-row"><span class="stat-num">1</span><span class="stat-label">Created</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Cleared</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">Labels</div>
+        <div class="stat-row"><span class="stat-num">8</span><span class="stat-label">Added</span></div>
+        <div class="stat-row"><span class="stat-num">2</span><span class="stat-label">Changed</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Removed</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">Descriptions</div>
+        <div class="stat-row"><span class="stat-num">15</span><span class="stat-label">Added</span></div>
+        <div class="stat-row"><span class="stat-num">2</span><span class="stat-label">Changed</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Removed</span></div>
+      </div>
+      <div class="stat-section">
+        <div class="stat-section-header">Aliases</div>
+        <div class="stat-row"><span class="stat-num">4</span><span class="stat-label">Added</span></div>
+        <div class="stat-row"><span class="stat-num">1</span><span class="stat-label">Changed</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Removed</span></div>
+      </div>
+    </div>
+    <div class="wikidata-grid cols-3">
+      <div class="stat-section">
+        <div class="stat-section-header">Other</div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Qualifiers added</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Redirects created</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Reverts performed</span></div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Restorations performed</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT QUALITY -->
+  <div id="tab-editquality" class="tab-panel">
+    <div class="coming-soon">
+      <strong>Coming soon</strong>
+      <span>Manual vs automated edit distinction is under development.</span>
+    </div>
+  </div>
+
+  <!-- LEXEMES -->
+  <div id="tab-lexemes" class="tab-panel">
+    <div class="wikidata-grid cols-4">
+      <div class="stat-section">
+        <div class="stat-section-header">Lexeme</div>
+        <div class="stat-row"><span class="stat-num">0</span><span class="stat-label">Created</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn:not(.disabled)').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>

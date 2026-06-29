@@ -3,27 +3,35 @@
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
+require_dependency "#{Rails.root}/lib/revision_scanner"
 
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
 # up to the end of update (today or end date course).
-class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
+# Timeslices are updated using the adaptive timeslice splitting strategy.
+# The algorithm starts with a default timeslice, fetches revisions for that period
+# and, if the timeslice exceeds the threshold, recursively splits it until all
+# timeslices are within limits.
+class UpdateCourseWikiTimeslices
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
+    @splitter = SplitTimeslice.new(@course)
     @debugger = debugger
     @update_service = update_service
+    @processed_timeslices_count = 0
+    @reprocessed_timeslices = Hash.new { |h, k| h[k] = [] }
+    @reaggregated_timeslices_count = 0
     @revision_updater = CourseRevisionUpdater.new(@course, update_service:)
     @wikidata_stats_updater = UpdateWikidataStatsTimeslice.new(@course) if wikidata
-    @processed_timeslices = 0
-    @reprocessed_timeslices = 0
   end
 
   def run(all_time:)
     pre_update(all_time)
     @course.update(needs_update: false)
     fetch_data_and_process_timeslices_for_every_wiki(all_time)
-    [@processed_timeslices, @reprocessed_timeslices]
+    [@processed_timeslices_count, @reprocessed_timeslices.values.flatten.count,
+     @reaggregated_timeslices_count]
   end
 
   private
@@ -35,10 +43,6 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
 
   def fetch_data_and_process_timeslices_for_every_wiki(all_time)
     @course.wikis.each do |wiki|
-      # Sometimes we need to reprocess timeslices due to changes such as
-      # users removed from a course.
-      fetch_data_and_reprocess_timeslices(wiki)
-
       # Get start time from first timeslice to update
       first_start = if all_time
                       CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
@@ -49,61 +53,117 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
       # Get start time from latest timeslice to update
       latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
 
+      fetch_data_and_reprocess_timeslices(wiki, first_start)
+      fetch_data_and_reprocess_acuwt_timeslices(wiki) if @course.use_acuwt?
+
       fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-      @debugger.log_update_progress "timeslices_processed_#{wiki.id}".to_sym
+      # Re-aggregate CWT/ACT/CUWT rows from existing ACUWT for timeslices
+      # that were not fully reprocessed in this cycle.
+      reaggregate_timeslices_from_acuwt(wiki) if @course.use_acuwt?
     end
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
-    current_start = first_start
-    while current_start <= latest_start
-      start_date = [current_start, @course.start].max
-      end_date = [current_start + @timeslice_manager.timeslice_duration(wiki) - 1.second,
-                  @course.end].min
+    to_process = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                    .where('start >= ?', first_start)
+                                    .where('start <= ?', latest_start)
+    to_process.each do |t|
+      # If the timeslice was reprocessed in this update, then skip it
+      next if timeslice_reprocessed?(wiki.id, t.start)
 
-      log_processing(wiki, start_date, end_date)
-
-      fetch_data(wiki, start_date, end_date, only_new: true)
-      # Only process timeslices if there is new data
-      process_timeslices(wiki) if new_data?(wiki)
-      current_start += @timeslice_manager.timeslice_duration(wiki)
-      @processed_timeslices += 1
+      begin
+        processed = handle_timeslice(wiki, t.start, t.end, only_new: true)
+        @processed_timeslices_count += processed.count
+      rescue StandardError => e
+        log_error(e, t.start, t.end, wiki.id)
+        t.update(needs_update: true) # No effect if t has split
+      end
     end
+    @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
   end
 
-  def fetch_data_and_reprocess_timeslices(wiki)
+  def fetch_data_and_reprocess_acuwt_timeslices(wiki)
+    ReprocessArticleCourseUserWikiTimeslices.new(@course, wiki,
+                                                 update_service: @update_service).run
+    @debugger.log_update_progress :"acuwt_timeslices_reprocessed_#{wiki.id}"
+  end
+
+  def fetch_data_and_reprocess_timeslices(wiki, ingestion_start)
     to_reprocess = CourseWikiTimeslice.for_course_and_wiki(@course, wiki).needs_update
     to_reprocess.each do |t|
-      start_date = [t.start, @course.start].max
-      end_date = [t.end - 1.second, @course.end].min
+      # Never reprocess a future timeslice
+      if t.start > ingestion_start
+        t.update(needs_update: false)
+        next
+      end
 
-      log_reprocessing(wiki, start_date, end_date)
+      begin
+        reprocessed_dates = handle_timeslice(wiki, t.start, t.end, only_new: false)
+        @reprocessed_timeslices[wiki.id] += reprocessed_dates
+      rescue StandardError => e
+        log_error(e, t.start, t.end, wiki.id)
+      end
+    end
+    @debugger.log_update_progress :"timeslices_reprocessed_#{wiki.id}"
+  end
 
-      fetch_data(wiki, start_date, end_date, only_new: false)
-      process_timeslices(wiki) if data?
-      @reprocessed_timeslices += 1
+  # Given a wiki and limits of the timeslice, it fetches data for it
+  # (maybe splitting the timeslice if too many revisions) and
+  # returns an array with start dates for timeslices that were processed.
+  # start_date and end_date are the limits of the timeslice records
+  def handle_timeslice(wiki, start_date, end_date, only_new:)
+    fetch_only_revisions(wiki, start_date, end_date)
+    split, dates = @splitter.maybe_split(wiki, start_date, end_date, @revisions)
+    if split
+      new_start, midpoint, new_end = dates
+      handle_timeslice(wiki, new_start, midpoint, only_new:) +
+        handle_timeslice(wiki, midpoint, new_end, only_new:)
+    else
+      process_leaf_timeslice(wiki, start_date, end_date, only_new:)
     end
   end
 
-  def fetch_data(wiki, timeslice_start, timeslice_end, only_new:)
-    # Fetches revision for wiki
-    @revisions = @revision_updater.fetch_data_for_course_wiki(
-      wiki,
-      timeslice_start.strftime('%Y%m%d%H%M%S'),
-      timeslice_end.strftime('%Y%m%d%H%M%S'),
-      only_new:
-    )
-    # Return if only_new was true but no new data was found
-    return unless new_data?(wiki)
-    fetch_wikidata_stats(wiki) if wiki.project == 'wikidata' && @revisions.present?
+  def process_leaf_timeslice(wiki, start_date, end_date, only_new:)
+    log_processing(wiki, start_date, end_date, only_new)
+    add_scores(only_new:)
+    if should_update_timeslice?(wiki, only_new:)
+      fetch_wikidata_stats(wiki) if wiki.project == 'wikidata'
+      process_timeslices(wiki)
+    end
+    [start_date]
   end
 
-  def data?
-    @revisions.present?
+  def timeslice_reprocessed?(wiki_id, start_date)
+    @reprocessed_timeslices[wiki_id].include?(start_date)
+  end
+
+  def add_scores(only_new:)
+    @revision_updater.fetch_scores_for_revisions(@revisions, only_new:)
+  end
+
+  def fetch_only_revisions(wiki, timeslice_start, timeslice_end)
+    # Fetches only revision for wiki
+    @revisions = @revision_updater.fetch_revisions_for_course_wiki(
+      wiki,
+      real_start(timeslice_start).strftime('%Y%m%d%H%M%S'),
+      real_end(timeslice_end).strftime('%Y%m%d%H%M%S')
+    )
+  end
+
+  def real_start(timeslice_start)
+    [timeslice_start, @course.start].max
+  end
+
+  def real_end(timeslice_end)
+    [timeslice_end - 1.second, @course.end].min
+  end
+
+  def should_update_timeslice?(wiki, only_new:)
+    !only_new || new_data?(wiki)
   end
 
   def new_data?(wiki)
-    data? && @revisions[wiki][:new_data]
+    @revisions[wiki][:new_data]
   end
 
   # Only for wikidata project, fetch wikidata stats
@@ -115,21 +175,26 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
 
   def process_timeslices(wiki)
     @course.reload
-    # Update timeslices
     ActiveRecord::Base.transaction do
       update_timeslices(wiki)
       @timeslice_manager.update_last_mw_rev_datetime(@revisions)
-
-    rescue StandardError => e
-      log_error(e)
-      raise ActiveRecord::Rollback
     end
   end
 
   def update_timeslices(wiki)
-    update_course_user_wiki_timeslices_for_wiki(wiki, @revisions[wiki])
-    update_article_course_timeslices_for_wiki(@revisions[wiki])
-    CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, @revisions[wiki])
+    revisions = @revisions[wiki]
+    if @course.use_acuwt?
+      update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+      update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
+      update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+      update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    else
+      update_article_course_timeslices_for_wiki(revisions)
+      update_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+      CourseWikiTimeslice.update_course_wiki_timeslices(@course, wiki, revisions)
+    end
+    revs_to_scan = revisions[:revisions]
+    RevisionScanner.schedule_revision_checks(wiki:, revisions: revs_to_scan, course: @course)
   end
 
   def update_article_course_timeslices_for_wiki(revisions)
@@ -137,8 +202,7 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
     end_period = revisions[:end]
     revs = revisions[:revisions]
     revs.group_by(&:article_id).each do |article_id, article_revisions|
-      # We create articles courses for every article
-
+      # We create articles courses timeslices for every article
       # Update cache for ArticleCourseTimeslice
       article_revisions_data = { start: start_period, end: end_period,
                                  revisions: article_revisions }
@@ -160,22 +224,78 @@ class UpdateCourseWikiTimeslices # rubocop:disable Metrics/ClassLength
     end
   end
 
+  def update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
+      @course, wiki, timeslice.start, timeslice.end, revisions[:revisions]
+    )
+  end
+
+  def update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
+  end
+
+  def update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    revisions[:revisions].map(&:user_id).uniq.each do |user_id|
+      CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki,
+                                               timeslice.start, timeslice.end)
+    end
+  end
+
+  def update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
+  end
+
+  def reaggregate_timeslices_from_acuwt(wiki)
+    to_reaggregate = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+                                        .needs_reaggregation
+                                        .where(needs_update: false)
+    to_reaggregate.each do |cwt|
+      reaggregate_timeslice_from_acuwt(cwt)
+      @reaggregated_timeslices_count += 1
+    end
+    @debugger.log_update_progress :"timeslices_reaggregated_#{wiki.id}"
+  end
+
+  def reaggregate_timeslice_from_acuwt(cwt)
+    wiki = cwt.wiki
+    ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, cwt.start, cwt.end)
+    ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: cwt.start)
+                                  .pluck(:user_id).uniq.each do |user_id|
+      CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki, cwt.start, cwt.end)
+    end
+    CourseWikiTimeslice.update_from_acuwt(@course, wiki, cwt.start, cwt.end)
+  end
+
+  def acuwt_timeslice_for(wiki, revisions)
+    @course.course_wiki_timeslices.where(wiki:)
+           .for_revisions_between(revisions[:start], revisions[:end]).first
+  end
+
   def wikidata
     @course.wikis.find { |wiki| wiki.project == 'wikidata' }
   end
 
-  def log_error(error)
+  def log_processing(wiki, start_date, end_date, processing)
+    if processing
+      Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
+      Processing timeslice [#{start_date}, #{end_date}]"
+    else
+      Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
+      Reprocessing timeslice [#{start_date}, #{end_date}]"
+    end
+  end
+
+  def log_error(error, start_date, end_date, wiki_id)
     Sentry.capture_message "#{@course.slug} update timeslices error: #{error}",
-                           level: 'error'
-  end
-
-  def log_processing(wiki, start_date, end_date)
-    Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
-    Processing timeslice [#{start_date}, #{end_date}]"
-  end
-
-  def log_reprocessing(wiki, start_date, end_date)
-    Rails.logger.info "UpdateCourseWikiTimeslices: Course: #{@course.slug} Wiki: #{wiki.id}.\
-    Reprocessing timeslice [#{start_date}, #{end_date}]"
+                           level: 'error',
+                            extra: {
+                              start: start_date,
+                              end: end_date,
+                              wiki_id:
+                           }
   end
 end

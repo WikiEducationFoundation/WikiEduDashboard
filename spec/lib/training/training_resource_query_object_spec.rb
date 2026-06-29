@@ -20,10 +20,10 @@ describe TrainingResourceQueryObject do
       expect(query_object('azertyuiop').selected_slides_and_excerpt.size).to eq 0
     end
 
-    # At the time of writing, there are 2 occurences of CNN in DB
+    # At the time of writing, there is 1 occurence of CNN in DB
     # In content text field in the TrainingSlide object
     it 'returns an array of modules' do
-      expect(query_object('cnn').selected_slides_and_excerpt.size).to eq 2
+      expect(query_object('cnn').selected_slides_and_excerpt.size).to eq 1
     end
 
     context 'add some data to test missing modules/lib' do

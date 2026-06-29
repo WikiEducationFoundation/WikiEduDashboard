@@ -430,7 +430,7 @@ describe SettingsController, type: :request do
       it 'returns the right message' do
         expect(response.body).to include(
           I18n.t(
-            'settings.special_users.new.already_is_not',
+            'settings.special_users.remove.already_is_not',
             username: @user.username,
             position: @position
           )
@@ -511,24 +511,40 @@ describe SettingsController, type: :request do
     end
   end
 
-  describe '#update_impact_stats' do
-    let(:admin) { create(:super_admin) }
+  describe '#fetch_impact_stats' do
+    let(:impact_stats) { { 'students' => 1000, 'universities' => 50 } }
 
     before do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(admin)
+      Setting.set_hash('impact_stats', 'students', 1000)
+      Setting.set_hash('impact_stats', 'universities', 50)
     end
 
-    context 'when updating impact stats' do
-      let(:impact_stats) { { 'first' => 234, 'second' => 234 } }
-
-      it 'updates the impact stats and clears the cache' do
-        post '/settings/update_impact_stats', params: { impactStats: impact_stats }
-
+    %i[admin super_admin].each do |role|
+      it "returns current impact stats for #{role}" do
+        user = create(role)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
+        get '/settings/fetch_impact_stats'
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)).to eq({
-          'message' => 'Impact Stats Updated Successfully.'
-})
+        body = JSON.parse(response.body)
+        expect(body['impact_stats']['students']).to eq(1000)
+        expect(body['impact_stats']['universities']).to eq(50)
+      end
+    end
+  end
+
+  describe '#update_impact_stats' do
+    let(:impact_stats) { { 'first' => 234, 'second' => 234 } }
+
+    %i[admin super_admin].each do |role|
+      it "updates the impact stats and clears the cache for #{role}" do
+        user = create(role)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(user)
+        post '/settings/update_impact_stats', params: { impactStats: impact_stats }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body)).to eq(
+          { 'message' => 'Impact Stats Updated Successfully.' })
         expect(Rails.cache.read('impact_stats')).to be_nil
       end
     end
@@ -586,6 +602,85 @@ describe SettingsController, type: :request do
                               campaign_slug: not_found_slug)
         )
       end
+    end
+  end
+
+  describe '#disallowed_users' do
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:super_admin))
+    end
+
+    it 'returns the list of disallowed usernames' do
+      DisallowedUsers.add_user('TestBot')
+      get '/settings/disallowed_users', params: { format: :json }
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['disallowed_users']).to include('TestBot')
+    end
+
+    it 'returns 401 for non-admin' do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:user))
+      get '/settings/disallowed_users', params: { format: :json }
+      expect(response.status).to eq(401)
+    end
+  end
+
+  describe '#add_disallowed_user' do
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:super_admin))
+    end
+
+    it 'adds a user to the disallowed list' do
+      create(:user, username: 'NewBot')
+      post '/settings/add_disallowed_user',
+           params: { username: 'NewBot', format: :json }
+      expect(response.status).to eq(200)
+      expect(DisallowedUsers.disallowed?('NewBot')).to be true
+    end
+
+    it 'returns 404 if user does not exist' do
+      post '/settings/add_disallowed_user',
+           params: { username: 'NonExistentUser', format: :json }
+      expect(response.status).to eq(404)
+    end
+
+    it 'returns error if user already exists' do
+      create(:user, username: 'ExistingBot')
+      DisallowedUsers.add_user('ExistingBot')
+      post '/settings/add_disallowed_user',
+           params: { username: 'ExistingBot', format: :json }
+      expect(response.status).to eq(422)
+    end
+
+    it 'denies access for regular admins' do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:admin))
+      post '/settings/add_disallowed_user',
+           params: { username: 'NewBot', format: :json }
+      expect(response.status).not_to eq(200)
+    end
+  end
+
+  describe '#remove_disallowed_user' do
+    before do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(create(:super_admin))
+      DisallowedUsers.add_user('BotToRemove')
+    end
+
+    it 'removes a user from the disallowed list' do
+      post '/settings/remove_disallowed_user',
+           params: { username: 'BotToRemove', format: :json }
+      expect(response.status).to eq(200)
+      expect(DisallowedUsers.disallowed?('BotToRemove')).to be false
+    end
+
+    it 'returns error if user not found' do
+      post '/settings/remove_disallowed_user',
+           params: { username: 'NonExistent', format: :json }
+      expect(response.status).to eq(422)
     end
   end
 end

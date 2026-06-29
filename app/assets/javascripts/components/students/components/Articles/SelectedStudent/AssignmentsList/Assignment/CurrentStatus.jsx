@@ -5,6 +5,7 @@ const STATUSES = {
   not_yet_started: I18n.t('article_statuses.not_yet_started'),
 
   // assignments
+  bibliography_complete: I18n.t('article_statuses.bibliography_complete'),
   in_progress: I18n.t('article_statuses.in_progress'),
   ready_for_review: I18n.t('article_statuses.ready_for_review'),
   ready_for_mainspace: I18n.t('article_statuses.ready_for_mainspace'),

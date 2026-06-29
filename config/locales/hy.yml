@@ -81,6 +81,9 @@ hy:
         heading: Խորհուրդ
   alerts:
     alert_label: Հաղորդագրություններ
+    ai_stats:
+      sections:
+        description: Նկարագրություն
   activity:
     all: Ակտիվություն
     edited_by: Խմբագրված
@@ -155,6 +158,8 @@ hy:
     review_self: Վերանայել հոդված
     sandbox_draft_link: Սևագիր
     select: Ընտրել
+    sandbox_label: Սևագրություն
+    bibliography_label: Մատենագրություն
   blocks:
     milestones:
       title: Փուլեր

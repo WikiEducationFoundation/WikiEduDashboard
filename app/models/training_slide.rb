@@ -22,8 +22,8 @@ require_dependency "#{Rails.root}/lib/training/training_base"
 #= Class representing an individual training slide
 class TrainingSlide < ApplicationRecord
   validates_presence_of :id, :slug, :title
-  serialize :assessment, Hash
-  serialize :translations, Hash
+  serialize :assessment, type: Hash
+  serialize :translations, type: Hash
 
   #################
   # Class Methods #

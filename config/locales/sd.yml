@@ -24,6 +24,7 @@ sd:
       کي وَڌائڻ يا گهٽ ڪري سگهن ٿا.
   application:
     cancel: رد
+    next: اڳيون
     cookie_consent: هيءَ سائيٽ توهان کي لاگ اِن (داخل رکڻ) لاءِ ڪوڪيز استعمال ڪندي
       آهي، ۽ توهان جي وڪيپيڊيا کاتو يا اڪائونٽ بابت معلومات جمع ڪندي آهي.
     cookie_consent_acknowledge: مان سمجهان ٿو
@@ -95,7 +96,6 @@ sd:
       Wikipedia account, or create a new one.
   alerts:
     alert_label: چِتاوڻيون
-    no_alerts: ڪي بہ چِتاوڻيون نہ لڌيون.
   activity:
     all: سرگرمي
     edited_by: سنواريندڙ
@@ -262,6 +262,9 @@ sd:
       other: استادَ
     instructors: سکيا ڏيندڙ
     join: شامل ٿيو
+    join_failure_details:
+      disallowed_user: هي واپرائيندڙ واپرائيندڙن جي فهرست ۾ جهليل آهي ۽ ڪورسن ۾ داخلا
+        نٿو وٺي سگهي.
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو وجهو
     new_account_email: ايميل پتو
@@ -334,6 +337,7 @@ sd:
     view_count_description: مضمون جون ڏيٿون
     view: ڏيٺون
     general: عام
+    labels: ليبل
     redirects_created: چورڻا سرجيا ويا
   namespace:
     all: سڀ
@@ -358,6 +362,10 @@ sd:
     none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
     time_doc: توهان جي مقامي وقت مطابق هر هڪ ورجاءَ جو وقت
     title: عنوان
+  settings:
+    disallowed_users:
+      remove:
+        success: '%{username} کي اجازت نه ڏنل واپرائيندڙن جي فهرست مان هٽايو ويو.'
   timeline:
     add_week: هفتو شامل ڪريو
     block_in_class: ڪلاس ۾
@@ -371,6 +379,7 @@ sd:
   training:
     view: ڏسو
     page: صفحو
+    previous: < پويون
   uploads:
     file_name: فائيل جو نالو
     header: وڪيپيڊيا العام تي فائيل چاڙهيا ويا
@@ -421,8 +430,6 @@ sd:
       explanation: توهان اهڙو جھانگُو استعمال ڪري رهيا آهيو، جيڪو ڊيشبورڊ سان موافق
         نہ آهي. هيءَ سرزمين انٽرنيت ايڪسپلورر جي 11هين يا اڃا نئين ورزن، ڪروم ۽ فائرفاڪس
         جي نون ورزنس، ۽ ڪن ٻين جديد جھانگُوئن تي ٺيڪ نظر ايندي آهي.
-  error_401:
-    header: غير منظور شده. >:-(
   error_404:
     header: صفحو نہ لڌو. :-(
     explanation: هيءُ صفحو وجود نٿو رکي. جيڪڏهن توهان ڪنھن ڪورس لاءِ ڊيشبورڊ تائين

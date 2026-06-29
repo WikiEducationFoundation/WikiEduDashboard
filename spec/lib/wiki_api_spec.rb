@@ -46,6 +46,129 @@ describe WikiApi do
         /Failed to fetch content for Ragesoss with response status: nil/
       )
     end
+
+    it 'bubbles errors the caller wants to handle, without retry or Sentry capture' do
+      api_error = MediawikiApi::ApiError.new
+      call_count = 0
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send) do
+        call_count += 1
+        raise api_error
+      end
+      expect_any_instance_of(described_class).not_to receive(:log_error)
+      expect do
+        described_class.new.query(titles: 'X') { |e| e.is_a?(MediawikiApi::ApiError) }
+      end.to raise_error(MediawikiApi::ApiError)
+      expect(call_count).to eq(1)
+    end
+
+    it 'still retries and logs errors the caller declines to handle' do
+      api_error = MediawikiApi::ApiError.new
+      call_count = 0
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send) do
+        call_count += 1
+        raise api_error
+      end
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      result = described_class.new.query(titles: 'X') { |_e| false }
+      expect(result).to be_nil
+      expect(call_count).to eq(3)
+    end
+
+    it 'ticks update_service.record_too_many_requests for each 429 observed' do
+      update_service = double('UpdateService', record_too_many_requests: nil)
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::HttpError.new(429))
+      allow_any_instance_of(described_class).to receive(:sleep)
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      # 3 tries → 3 observed 429s
+      expect(update_service).to receive(:record_too_many_requests).exactly(3).times
+      described_class.new(nil, update_service).query(titles: 'X')
+    end
+
+    it 'tags Sentry with http_status and host when the final error is a 429' do
+      allow(Sentry).to receive(:capture_exception)
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::HttpError.new(429))
+      allow_any_instance_of(described_class).to receive(:sleep)
+      described_class.new.query(titles: 'X')
+      expect(Sentry).to have_received(:capture_exception).with(
+        anything,
+        hash_including(tags: hash_including(http_status: 429, host: 'en.wikipedia.org'))
+      )
+    end
+
+    it 'does not add http_status tag when the final error is not a 429' do
+      allow(Sentry).to receive(:capture_exception)
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::ApiError)
+      described_class.new.query(titles: 'X')
+      expect(Sentry).to have_received(:capture_exception).with(
+        anything,
+        hash_excluding(tags: hash_including(:http_status))
+      )
+    end
+
+    context 'Retry-After handling on 429' do
+      def http_error_with_retry_after(value)
+        response = instance_double('Faraday::Response',
+                                   status: 429, headers: { 'Retry-After' => value })
+        MediawikiApi::HttpError.new(response)
+      end
+
+      it 'sleeps the integer seconds the server requested' do
+        allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+          .and_raise(http_error_with_retry_after('12'))
+        expect_any_instance_of(described_class).to receive(:sleep).with(12).at_least(:once)
+        described_class.new.query(titles: 'X')
+      end
+
+      it 'falls back to a 5-second default when Retry-After is absent' do
+        response = instance_double('Faraday::Response', status: 429, headers: {})
+        allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+          .and_raise(MediawikiApi::HttpError.new(response))
+        expect_any_instance_of(described_class).to receive(:sleep).with(5).at_least(:once)
+        described_class.new.query(titles: 'X')
+      end
+
+      it 'falls back to 5 s when the header is unparseable' do
+        allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+          .and_raise(http_error_with_retry_after('Wed, 21 Oct 2026 07:28:00 GMT'))
+        expect_any_instance_of(described_class).to receive(:sleep).with(5).at_least(:once)
+        described_class.new.query(titles: 'X')
+      end
+
+      it 'caps absurdly long Retry-After values at 60 s' do
+        allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+          .and_raise(http_error_with_retry_after('3600'))
+        expect_any_instance_of(described_class).to receive(:sleep).with(60).at_least(:once)
+        described_class.new.query(titles: 'X')
+      end
+
+      it 'puts the requested Retry-After value in Sentry extra' do
+        allow(Sentry).to receive(:capture_exception)
+        allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+          .and_raise(http_error_with_retry_after('30'))
+        allow_any_instance_of(described_class).to receive(:sleep)
+        described_class.new.query(titles: 'X')
+        expect(Sentry).to have_received(:capture_exception).with(
+          anything,
+          hash_including(extra: hash_including(retry_after: 30))
+        )
+      end
+
+      it 'omits retry_after from Sentry extra when no header was sent' do
+        allow(Sentry).to receive(:capture_exception)
+        response = instance_double('Faraday::Response', status: 429, headers: {})
+        allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+          .and_raise(MediawikiApi::HttpError.new(response))
+        allow_any_instance_of(described_class).to receive(:sleep)
+        described_class.new.query(titles: 'X')
+        expect(Sentry).to have_received(:capture_exception).with(
+          anything,
+          hash_excluding(extra: hash_including(:retry_after))
+        )
+      end
+    end
   end
 
   describe '#get_page_content' do

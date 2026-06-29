@@ -360,9 +360,10 @@ export const getTicketsById = createSelector(
 export const getAllWeekDates = createSelector(
   [getAllWeeksArray, getCourse],
   (weeksArray, course) => {
+    const effectiveStart = CourseDateUtils.effectiveTimelineStart(course);
     return weeksArray.map((_, index) => {
       const dateCalc = new DateCalculator(
-        course.timeline_start,
+        effectiveStart,
         course.timeline_end,
         index,
         { zeroIndexed: true }

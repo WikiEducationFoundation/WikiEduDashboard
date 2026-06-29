@@ -48,5 +48,15 @@ describe BlockedUserMonitor do
       msg = BlockedUserAlertMailer.deliveries.first
       expect(msg.to).to match_array([instructor_1, instructor_2, user, staff].map(&:email))
     end
+
+    context 'when the blocked user has no course' do
+      before { CoursesUsers.where(user:).destroy_all }
+
+      it 'creates an alert without raising and sends no mail' do
+        expect { described_class.create_alerts_for_recently_blocked_users }
+          .to change(BlockedUserAlert, :count).by(1)
+        expect(BlockedUserAlertMailer.deliveries).to be_empty
+      end
+    end
   end
 end

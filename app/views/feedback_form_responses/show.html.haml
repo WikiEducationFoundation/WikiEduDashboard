@@ -1,14 +1,14 @@
 .container
   %h1 Feedback
 
-  %h3 Timestamp
+  %h2 Timestamp
   %p= @response.created_at
 
-  %h3 Username
+  %h2 Username
   %p= link_to @user.username, "/users/#{@user.url_encoded_username}" if @user
 
-  %h3 Subject
+  %h2 Subject
   %p= @response.subject
 
-  %h3 Body
+  %h2 Body
   %p= @response.body

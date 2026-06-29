@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: %i[index create]
-  before_action :require_signed_in, only: %i[instructors courses articles_csv
-                                             revisions_csv]
+  before_action :set_page, only: %i[programs articles users]
+  before_action :set_sort, only: %i[programs articles users]
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
-                                        remove_course courses ores_plot articles_csv
-                                        revisions_csv alerts students instructors
-                                        wikidata active_courses]
+                                        remove_course ores_plot
+                                        alerts active_courses]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -133,9 +131,18 @@ class CampaignsController < ApplicationController
 
   def programs
     set_page
+    set_sort
     set_presenter
-    @search_terms = params[:courses_query]
-    @results = @presenter.search_courses(@search_terms) if @search_terms.present?
+    filters = extract_program_filters
+
+    if filters.values.any?(&:present?)
+      presenter = programs_presenter
+      @search_terms = presenter.build_search_terms(filters)
+      @results = presenter.filter_courses(filters)
+    elsif params[:courses_query].present?
+      @search_terms = params[:courses_query]
+      @results = @presenter.search_courses(@search_terms)
+    end
   end
 
   def ores_plot
@@ -231,48 +238,33 @@ class CampaignsController < ApplicationController
     redirect_to "/campaigns/#{Campaign.default_campaign.slug}/#{params[:subpage]}"
   end
 
-  #######################
-  # CSV-related actions #
-  #######################
+  def refresh_stats
+    set_campaign
+    @campaign.clear_course_sums_cache
 
-  CSV_PATH = '/system/analytics'
-
-  def students
-    csv_of('students')
-  end
-
-  def instructors
-    csv_of('instructors')
-  end
-
-  def courses
-    csv_of('courses')
-  end
-
-  def articles_csv
-    csv_of('articles')
-  end
-
-  def revisions_csv
-    csv_of('revisions')
-  end
-
-  def wikidata
-    csv_of('wikidata')
+    flash[:notice] = t('campaign.refresh_campaign_stats')
+    redirect_to overview_campaign_path(@campaign.slug)
   end
 
   private
 
-  def csv_of(type)
-    include_course_segment = csv_params[:course] ? '-with_courses' : ''
-    filename = "#{@campaign.slug}-#{type}#{include_course_segment}-#{Time.zone.today}.csv"
-    if File.exist? "public#{CSV_PATH}/#{filename}"
-      redirect_to "#{CSV_PATH}/#{filename}"
-    else
-      CampaignCsvWorker.generate_csv(campaign: @campaign, filename:, type:,
-                                     include_course: csv_params[:course])
-      render plain: 'This file is being generated. Please try again shortly.', status: :ok
-    end
+  def extract_program_filters
+    params.slice(:title_query, :creation_start, :creation_end,
+                 :start_date_start, :start_date_end,
+                 :school, :revisions_min, :revisions_max,
+                 :word_count_min, :word_count_max,
+                 :references_min, :references_max,
+                 :views_min, :views_max,
+                 :users_min, :users_max)
+  end
+
+  def programs_presenter
+    CampaignProgramsPresenter.new(
+      courses: @presenter.courses,
+      page: @page,
+      sort_column: @sort_column,
+      sort_direction: @sort_direction
+    )
   end
 
   def require_create_permissions
@@ -298,9 +290,38 @@ class CampaignsController < ApplicationController
     @page = nil unless @page&.positive?
   end
 
+  def set_sort
+    default_direction = 'DESC'
+    @sort_column = params[:sort] || default_sort_column
+    @sort_direction = params[:direction] || default_direction
+
+    valid_columns = %w[title school recent_revision_count character_sum
+                       average_word_count references_count view_sum
+                       user_count trained_count created_at start
+                       char_added references views lang_project course_title
+                       username revision_count]
+
+    @sort_column = default_sort_column unless valid_columns.include?(@sort_column)
+    @sort_direction = default_direction unless %w[ASC DESC].include?(@sort_direction.upcase)
+  end
+
+  def default_sort_column
+    case action_name
+    when 'articles'
+      'char_added'
+    when 'users'
+      'revision_count'
+    else
+      'recent_revision_count'
+    end
+  end
+
   def set_presenter
     @presenter = CoursesPresenter.new(current_user:,
-                                      campaign_param: @campaign.slug, page: @page)
+                                      campaign_param: @campaign.slug,
+                                      page: @page,
+                                      sort_column: @sort_column,
+                                      sort_direction: @sort_direction)
   end
 
   def add_organizer_to_campaign(user)

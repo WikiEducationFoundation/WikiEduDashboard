@@ -18,10 +18,10 @@ describe 'course stats', type: :feature, js: true do
   let(:average_views) { 10 }
   let(:chars)      { 10 }
   let(:student)    { 0 }
-  let(:article)    { create(:article, namespace: 0, average_views:) }
+  let(:article)    { create(:article, namespace: 0) }
   let!(:ac)        do
     create(:articles_course, course_id: course.id, article_id: article.id,
-                             new_article: true, first_revision:)
+                             new_article: true, first_revision:, average_views:)
   end
   let(:cwt1) do
     create(:course_wiki_timeslice, course:, wiki:, character_sum: chars, references_count: 5,

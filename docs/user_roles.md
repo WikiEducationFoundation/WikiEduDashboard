@@ -103,7 +103,7 @@ To reproduce a working course with active editors, complete the following:
 1. For populating the Uploads, find users [who have recently uploaded files](https://en.wikipedia.org/wiki/Special:Log/upload).
 1. As an instructor or admin, create a course with dates _that encompass the dates of the changes_. For example, if the editor you're looking to add made changes on February 1st, 2019. Start your course in January and end it after February.
 1. Then, go to the "Students" tab of the course and add those students. (Note: If you do not see the students tab, you may need to approve the course. You can do so by clicking "Edit Details" on the course's home page and adding it to a campaign.)
-4. Import course data by triggering a manual update. Either add `/manual_update` to the end of the base course URL, or use a console to load the Course record (e.g., `course = Course.last`) and then run `UpdateCourseStatsTimeslice.new(course)`.
+4. Import course data by triggering a manual update. Either add `/manual_update` to the end of the base course URL, or use a console to load the Course record (e.g., `course = Course.last`) and then run `UpdateCourseStats.new(course)`.
 5. Optionally, load additional metadata by running a `ConstantUpdate` in a console:
     * `require "#{Rails.root}/lib/data_cycle/constant_update`
     * `ConstantUpdate.new`

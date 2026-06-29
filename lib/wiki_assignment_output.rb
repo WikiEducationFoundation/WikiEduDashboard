@@ -92,9 +92,7 @@ class WikiAssignmentOutput
     page_content = page_content.dup.force_encoding('utf-8')
     # Return if tag already exists on page.
     # However, if the tag is empty, that means to blank the prior tag (if any).
-    if new_tag.present?
-      return nil if page_content.include? new_tag
-    end
+    return nil if new_tag.present? && page_content.include?(new_tag)
 
     # If we're removing the tag, also try to remove the immediately preceding
     # header, if it's there.
@@ -213,7 +211,7 @@ class WikiAssignmentOutput
   end
 
   def en_wiki?
-    @wiki.language == 'en' && @wiki.project == 'wikipedia'
+    @wiki.en_wiki?
   end
 
   # This is what do on wikis other than English Wikipedia

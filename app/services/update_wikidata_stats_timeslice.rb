@@ -1,14 +1,18 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/lib/wikidata_summary_parser"
+
+require_dependency "#{Rails.root}/lib/errors/api_error_handling"
+
 # require the installed wikidata-diff-analyzer gem
 require 'wikidata-diff-analyzer'
 
 class UpdateWikidataStatsTimeslice
+  include ApiErrorHandling
   # This hash contains the keys of the wikidata-diff-analyzer output hash
   # and maps them to the values used in the UI and CourseStat Hash
   STATS_CLASSIFICATION = {
     # UI section: General
     'merge_to' => 'merged to',
+    'merge_from' => 'merged from',
     'added_sitelinks' => 'interwiki links added',
     # UI section: Claims
     'added_claims' => 'claims created',
@@ -42,7 +46,6 @@ class UpdateWikidataStatsTimeslice
     'changed_qualifiers' => 'qualifiers changed',
     'removed_sitelinks' => 'interwiki links removed',
     'changed_sitelinks' => 'interwiki links updated',
-    'merge_from' => 'merged from',
     'added_lemmas' => 'lemmas added',
     'removed_lemmas' => 'lemmas removed',
     'changed_lemmas' => 'lemmas changed',
@@ -65,43 +68,53 @@ class UpdateWikidataStatsTimeslice
     'changed_formclaims' => 'form claims changed',
     'added_senseclaims' => 'sense claims added',
     'removed_senseclaims' => 'sense claims removed',
-    'changed_senseclaims' => 'sense claims changed'
+    'changed_senseclaims' => 'sense claims changed',
+    'added_form_references' => 'form references added',
+    'removed_form_references' => 'form references removed',
+    'changed_form_references' => 'form references changed',
+    'added_form_qualifiers' => 'form qualifiers added',
+    'removed_form_qualifiers' => 'form qualifiers removed',
+    'changed_form_qualifiers' => 'form qualifiers changed',
+    'added_sense_references' => 'sense references added',
+    'removed_sense_references' => 'sense references removed',
+    'changed_sense_references' => 'sense references changed',
+    'added_sense_qualifiers' => 'sense qualifiers added',
+    'removed_sense_qualifiers' => 'sense qualifiers removed',
+    'changed_sense_qualifiers' => 'sense qualifiers changed',
+    'added_language' => 'language added',
+    'changed_language' => 'language changed',
+    'added_lexical_category' => 'lexical category added',
+    'changed_lexical_category' => 'lexical category changed'
   }.freeze
 
   def initialize(course)
     @course = course
   end
 
-  # Given an array of revisions, it updates the summary field for each one with
-  # the wikidata stats. wikidata-diff-analyzer gem is used to fetch the stats.
-  # Returns the updated array.
+  # Updates the summary field of each revision with its wikidata diff stats,
+  # and marks revisions as `deleted` when the analyzer couldn't retrieve their
+  # content (suppressed/missing/deleted) — this replaces Lift Wing as the
+  # source of truth for deletion detection on Wikidata. Scoped revisions get
+  # the full diff; non-scoped revisions admit only merge_to into an in-scope
+  # target (see issue #6813).
   def update_revisions_with_stats(revisions)
-    revision_ids = revisions.pluck(:mw_rev_id)
-    analyzed_revisions = WikidataDiffAnalyzer.analyze(revision_ids)[:diffs]
-    revisions.each do |revision|
-      rev_id = revision.mw_rev_id
-      individual_stat = analyzed_revisions[rev_id]
-      serialized_stat = individual_stat.to_json
-      revision.summary = serialized_stat
-    end
+    result = analyze_revisions(revisions.map(&:mw_rev_id))
+    not_analyzed = result[:diffs_not_analyzed].to_set
+    revisions.each { |rev| apply_diff(rev, result[:diffs], not_analyzed) }
+    revisions
+  rescue WikidataDiffAnalyzerError
+    revisions.each { |rev| rev.error = true }
     revisions
   end
 
   # Given an array of revisions, it builds the stats for those revisions
   def build_stats_from_revisions(revisions)
-    stats = {}
-    STATS_CLASSIFICATION.each_key do |key|
-      stats[STATS_CLASSIFICATION[key]] = 0
-    end
-
-    # create a sum of stats after deserializing the stats for each revision object
+    stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
     revisions.each do |revision|
-      # Deserialize the summary field to get the stats
-      deserialized_stat = summary(revision)
-      next if deserialized_stat.nil?
-      # create a stats which sums up each field of the deserialized_stat and create a stats hash
-      deserialized_stat.each do |key, value|
-        stats[STATS_CLASSIFICATION[key]] += value
+      revision.diff_stats&.each do |key, value|
+        # Skip non-counter fields the analyzer may include (e.g. merge_target).
+        ui_label = STATS_CLASSIFICATION[key] or next
+        stats[ui_label] += value
       end
     end
     stats['total revisions'] = revisions.count
@@ -118,35 +131,57 @@ class UpdateWikidataStatsTimeslice
     crs_stat.save
   end
 
-  private
-
+  # Given an array of stats hashes, returns a single hash with all values summed.
   def sum_up_stats(individual_stats)
-    total_stats = {}
-    STATS_CLASSIFICATION.each_key do |key|
-      total_stats[STATS_CLASSIFICATION[key]] = 0
-    end
-    # Add total revisions
+    total_stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
     total_stats['total revisions'] = 0
-
-    # Iterate over each individual stat and sum up the values
     individual_stats.each do |hash|
-      hash.each do |key, value|
-        total_stats[key] += value
-      end
+      hash.each { |key, value| total_stats[key] += value }
     end
     total_stats
+  end
+
+  private
+
+  def apply_diff(revision, diffs, not_analyzed)
+    if not_analyzed.include?(revision.mw_rev_id)
+      revision.deleted = true
+      return
+    end
+    diff = diffs[revision.mw_rev_id]
+    if revision.scoped
+      revision.summary = diff.to_json
+    elsif merge_into_in_scope_target?(diff)
+      revision.summary = { 'merge_to' => 1 }.to_json
+    end
+  end
+
+  # Admit a non-scoped revision's merge_to contribution iff the merge target
+  # parsed from the edit comment is itself a scoped article on this course.
+  def merge_into_in_scope_target?(diff)
+    return false unless diff && diff[:merge_to] == 1
+    target = diff[:merge_target]
+    return false unless target
+    @course.scoped_article?(wikidata, target, nil)
+  end
+
+  TYPICAL_ERRORS = [].freeze
+
+  RETRY_COUNT = 3
+
+  def analyze_revisions(revision_ids)
+    tries ||= RETRY_COUNT
+    WikidataDiffAnalyzer.analyze(revision_ids)
+  rescue StandardError => e
+    tries -= 1
+    retry unless tries.zero?
+    log_error(e, sentry_extra: { revision_ids: })
+    raise WikidataDiffAnalyzerError
   end
 
   def wikidata
     Wiki.get_or_create(language: nil, project: 'wikidata')
   end
 
-  # This function parses the serialized stats saved in the summary field, in case of any errors
-  # it returns nil meaning the field contains an edit summary
-  def summary(revision)
-    summary = revision.summary
-    JSON.parse(summary) if summary.present? && summary.start_with?('{', '[')
-  rescue JSON::ParserError
-    nil # Return nil if parsing fails (i.e., not diff_stats)
-  end
+  class WikidataDiffAnalyzerError < StandardError; end
 end

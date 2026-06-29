@@ -47,13 +47,14 @@ class Assignment < ApplicationRecord
   before_validation :set_defaults_and_normalize
   before_save :set_sandbox_url
 
-  serialize :flags, Hash
+  serialize :flags, type: Hash
 
   delegate :status, to: :assignment_pipeline
   delegate :update_status, to: :assignment_pipeline
   delegate :all_statuses, to: :assignment_pipeline
   delegate :draft_sandbox_status, to: :assignment_pipeline
   delegate :bibliography_sandbox_status, to: :assignment_pipeline
+  delegate :outline_sandbox_status, to: :assignment_pipeline
   delegate :update_sandbox_status, to: :assignment_pipeline
   delegate :peer_review_sandbox_status, to: :assignment_pipeline
 
@@ -90,6 +91,10 @@ class Assignment < ApplicationRecord
     role == Roles::ASSIGNED_ROLE
   end
 
+  def reviewing?
+    role == Roles::REVIEWING_ROLE
+  end
+
   def sandbox_pagename
     URI.decode_www_form_component sandbox_url.gsub("#{wiki.base_url}/wiki/", '')
   # Fallback for cases where the URL doesn't match URI's requirements
@@ -99,6 +104,10 @@ class Assignment < ApplicationRecord
 
   def bibliography_pagename
     "#{sandbox_pagename}/Bibliography"
+  end
+
+  def outline_pagename
+    "#{sandbox_pagename}/Outline"
   end
 
   def peer_review_pagename
@@ -119,6 +128,16 @@ class Assignment < ApplicationRecord
     editing_user.can_edit?(course)
   end
 
+  def default_sandbox_url(username = nil)
+    language = wiki.language || 'www'
+    project = wiki.project || 'wikipedia'
+    base_url = "https://#{language}.#{project}.org/wiki"
+    encoded_title = url_encoded_mediawiki_title(article_title)
+    username_to_use = username || user.username
+
+    "#{base_url}/User:#{username_to_use}/#{encoded_title}"
+  end
+
   private
 
   def assignment_pipeline
@@ -128,6 +147,13 @@ class Assignment < ApplicationRecord
   def set_defaults_and_normalize
     self.wiki_id ||= course.home_wiki.id
     return if article_title.nil?
+    return unless new_record? || article_title_changed?
+
+    self.article_title = if article_title.include?('%')
+                           CGI.unescape(article_title.gsub('+', '%2B'))
+                         else
+                           article_title
+                         end
     self.article_title = ArticleUtils.format_article_title(article_title, wiki)
   end
 
@@ -139,14 +165,5 @@ class Assignment < ApplicationRecord
                          .where.not(user:).first
 
     self.sandbox_url = existing&.sandbox_url || default_sandbox_url
-  end
-
-  def default_sandbox_url
-    language = wiki.language || 'www'
-    project = wiki.project || 'wikipedia'
-    base_url = "https://#{language}.#{project}.org/wiki"
-    encoded_title = url_encoded_mediawiki_title(article_title)
-
-    "#{base_url}/User:#{user.username}/#{encoded_title}"
   end
 end

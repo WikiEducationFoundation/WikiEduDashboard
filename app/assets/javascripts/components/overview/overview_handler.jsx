@@ -88,7 +88,7 @@ const Overview = createReactClass({
     const query = parse(this.props.router.location.search);
     if (query.syllabus_upload === 'true' && this.props.current_user.admin) {
       syllabusUpload = (
-        <Modal modalClass="course__syllabus-upload">
+        <Modal modalClass="course__syllabus-upload" ariaLabelledBy="syllabus-upload-modal-title">
           <SyllabusUpload course={this.props.course} />
         </Modal>
       );

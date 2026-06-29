@@ -1,4 +1,10 @@
 - content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
+- sort_class = ->(backend_column, default_order) { @sort_column.blank? ? default_order.downcase : (@sort_column == backend_column ? @sort_direction.downcase : '') }
+- backend_to_sort_value = {'title' => 'title', 'school' => 'school', 'recent_revision_count' => 'revisions', 'character_sum' => 'characters', 'average_word_count' => 'average-words', 'references_count' => 'references', 'view_sum' => 'views', 'user_count' => 'students', 'trained_count' => 'untrained', 'created_at' => 'start-date'}
+- current_sort_value = params[:sort].present? ? backend_to_sort_value[@sort_column] : nil
+
+
+= hot_javascript_tag 'campaigns_programs'
 
 #react_root{data: {slug: @campaign.slug}}
 
@@ -7,87 +13,127 @@
     .section-header
       %h3
         = t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title)
-      .sort-select
-        %select.sorts{rel: 'courses'}
-          %option{rel: 'asc', value: 'title'}
-            = t("courses.title")
-          %option{rel: 'asc', value: 'school'}
-            = t("courses.school")
-          %option{rel: 'desc', value: 'revisions'}
-            = t("metrics.revisions")
-          %option{rel: 'desc', value: 'characters'}
-            = t("metrics.word_count")
-          %option{rel: 'desc', value: 'average-words'}
-            = t("metrics.word_count_average")
-          %option{rel: 'desc', value: 'references'}
-            = t("metrics.references_count")
-          %option{rel: 'desc', value: 'views'}
-            = t("metrics.view")
-          %option{rel: 'desc', value: 'students'}
-            = t("users.editors")
-          %option{rel: 'desc', value: 'untrained'}
-            = t("courses.untrained")
-          - unless Features.wiki_ed?
-            %option{rel: 'desc', value: 'creation-date'}
-              = t("courses.creation_date")
-          %option{rel: 'asc', value: 'start-date'}
-            = t("courses.start_date")
+      = form_tag programs_campaign_path(@campaign.slug, anchor: 'courses_table'), method: :get, accept_charset: 'UTF-8', id: 'campaign_search_form', onsubmit: 'this.action = this.action.replace(/#.*$/, "") + "#courses_table";' do
+        = hidden_field_tag :sort, params[:sort]
+        = hidden_field_tag :direction, params[:direction]
+        .form-fields
+          .form-row
+            = text_field_tag :title_query, params[:title_query], placeholder: t('form_search.search') + ' ' + t('courses_generic.course'), id: 'title_query', class: 'w100'
+          .form-row
+            %button.button.border.small.advanced-search-toggle-button#toggle_advanced_search{type: 'button'}
+              = t('form_search.advanced_search')
+          .advanced-search.advanced-search-container.hidden#advanced_search_fields
+            .form-row.relative.advanced-search-grid-large
+              %label{for: 'school_select'}= t('courses_generic.creator.course_school')
+              .school-select-wrapper.grid-span-3
+                = select_tag 'school[]', options_for_select(@presenter.school_options, params[:school]), multiple: true, id: 'school_select'
+            .form-row.advanced-search-grid-small
+              %label{for: 'creation_date_range'}= t("courses.creation_date")
+              = text_field_tag :creation_date_range, nil, id: 'creation_date_range', class: 'w100', placeholder: t('courses.creation_date')
+              = hidden_field_tag :creation_start, params[:creation_start], id: 'creation_start'
+              = hidden_field_tag :creation_end, params[:creation_end], id: 'creation_end'
+            .form-row.advanced-search-grid-small
+              %label{for: 'start_date_range'}= t("form_search.program_date")
+              = text_field_tag :start_date_range, nil, id: 'start_date_range', class: 'w100', placeholder: t('form_search.program_date')
+              = hidden_field_tag :start_date_start, params[:start_date_start], id: 'start_date_start'
+              = hidden_field_tag :start_date_end, params[:start_date_end], id: 'start_date_end'
+            .form-row.advanced-search-grid-small
+              %label{for: 'revisions_min'}= t("metrics.revisions")
+              .input-group.flex-input-group
+                = number_field_tag :revisions_min, params[:revisions_min], id: 'revisions_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :revisions_max, params[:revisions_max], id: 'revisions_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'word_count_min'}= t("metrics.word_count")
+              .input-group.flex-input-group
+                = number_field_tag :word_count_min, params[:word_count_min], id: 'word_count_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :word_count_max, params[:word_count_max], id: 'word_count_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'references_min'}= t("metrics.references_count")
+              .input-group.flex-input-group
+                = number_field_tag :references_min, params[:references_min], id: 'references_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :references_max, params[:references_max], id: 'references_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'views_min'}= t("metrics.view")
+              .input-group.flex-input-group
+                = number_field_tag :views_min, params[:views_min], id: 'views_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :views_max, params[:views_max], id: 'views_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+            .form-row.advanced-search-grid-small
+              %label{for: 'users_min'}= t("users.editors")
+              .input-group.flex-input-group
+                = number_field_tag :users_min, params[:users_min], id: 'users_min', min: 0, class: 'form-control input-sm', placeholder: 'Min'
+                %span -
+                = number_field_tag :users_max, params[:users_max], id: 'users_max', min: 0, class: 'form-control input-sm', placeholder: 'Max'
+        .form-actions
+          %button.button{type: 'submit'}= t('campaign.search')
+          %button.button.button--clear#clear_filters{type: 'button'}= t('form_search.clear')
 
-    %table.table.table--hoverable.table--sortable
+    %table.table.table--hoverable.table--sortable{ id: 'courses_table' }
       %thead
         %tr
-          %th.sort.sortable{'data-default-order' => 'asc', 'data-sort' => 'title'}
+          %th.sort.sortable{class: sort_class.call('title', 'asc'), 'data-default-order' => 'asc', 'data-sort' => 'title', 'data-backend-column' => 'title'}
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
-          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school'}
+          %th.sort.sortable{class: sort_class.call('school', 'asc'), style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school', 'data-backend-column' => 'school'}
             = t("#{@presenter.course_string_prefix}.school_and_term")
             %span.sortable-indicator
           - if Features.wiki_ed?
             %th Instructor
-          %th.sort.sortable.desc{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
+          %th.sort.sortable{class: sort_class.call('recent_revision_count', 'desc'), style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions', 'data-backend-column' => 'recent_revision_count'}
             .tooltip-trigger
               = t('metrics.revisions')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('courses.revisions_doc', timeframe: RevisionStatTimeslice::REVISION_WINDOW_DAYS)
-          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
+          %th.sort.sortable{class: sort_class.call('character_sum', 'desc'), style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters', 'data-backend-column' => 'character_sum'}
             .tooltip-trigger
               = t('metrics.word_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= course_i18n('word_count_doc')
-          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references'}
+          %th.sort.sortable{class: sort_class.call('references_count', 'desc'), style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'references', 'data-backend-column' => 'references_count'}
             .tooltip-trigger
               = t('metrics.references_count')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('metrics.references_doc')
-          %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views'}
+          %th.sort.sortable{class: sort_class.call('view_sum', 'desc'), style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views', 'data-backend-column' => 'view_sum'}
             .tooltip-trigger
               = t('metrics.view')
               %span.sortable-indicator
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('courses.view_doc')
-          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
-            = t('users.editors')
-            %span.sortable-indicator
+          %th.sort.sortable{class: sort_class.call('user_count', 'desc'), style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students', 'data-backend-column' => 'user_count'}
+            .tooltip-trigger
+              = t('users.editors')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.editors_doc')
           - unless Features.wiki_ed?
-            %th.sort.sortable{'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
+            %th.sort.sortable{class: sort_class.call('created_at', 'desc'), 'data-default-order' => 'desc', 'data-sort' => 'creation-date', style: 'width: 160px'}
               = t('courses.creation_date')
               %span.sortable-indicator
 
-          %th.sort.sortable{style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date'}
-            = t('courses.start_date')
-            %span.sortable-indicator
-          
+          %th.sort.sortable{class: sort_class.call('created_at', 'desc'), style: 'width: 160px;', 'data-default-order' => 'desc', 'data-sort' => 'start-date', 'data-backend-column' => 'created_at'}
+            .tooltip-trigger
+              = t('form_search.program_date')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('metrics.program_date_doc')
+
           - if @presenter.can_remove_course?
             %th{style: 'width:100px'}
               = t('courses.actions')
-      %tbody.list
+      %tbody
         - if @search_terms.present?
           - if @results.count > 1
             %h4= t('application.search_results.other', search_terms: @search_terms, count: @results.count)
@@ -97,7 +143,16 @@
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else
           - programs = @presenter.courses_by_recent_edits
-          = will_paginate programs
           - programs.each do |course|
             - cache [course, locale, @presenter.can_remove_course?]  do
               = render 'campaigns/course_row', course: course, admin: false, user: false
+
+    - if @search_terms.present? && @results.respond_to?(:total_pages)
+      = will_paginate @results, renderer: WillPaginate::LinkRenderer, previous_label: t('articles.previous'), next_label: t('articles.next'), inner_window: 1, outer_window: 1
+      .page-entries-info{style: 'text-align: center; color: #666; font-size: 14px; margin-top: 10px;'}
+        = t('articles.page_info', current: @results.current_page, total_pages: @results.total_pages, count: @results.length, total: @results.total_entries)
+    - else
+      - programs = @presenter.courses_by_recent_edits
+      = will_paginate programs, renderer: WillPaginate::LinkRenderer, previous_label: t('articles.previous'), next_label: t('articles.next'), inner_window: 1, outer_window: 1
+      .page-entries-info{style: 'text-align: center; color: #666; font-size: 14px; margin-top: 10px;'}
+        = t('articles.page_info', current: programs.current_page, total_pages: programs.total_pages, count: programs.length, total: programs.total_entries)

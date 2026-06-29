@@ -12,7 +12,7 @@
 
 #= Generic store of global settings, with a key mapping to a hash of associated data.
 class Setting < ApplicationRecord
-  serialize :value, Hash
+  serialize :value, type: Hash
   def self.set_hash(property, key, value)
     setting = find_or_create_by(key: property)
     setting.value = (setting.value || {}).merge(key => value)

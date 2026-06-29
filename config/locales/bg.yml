@@ -103,6 +103,8 @@ bg:
     view_on_wiki: Вижте на Уики
     views_added: Добавени %{count} нови посещения на %{title}
     wiki: Уики
+  articles_generic:
+    articles_short: Страници
   assignments:
     loading: Зареждане на заданията...
     remove: Премахване
@@ -247,6 +249,7 @@ bg:
     bytes_added: Добавени байта
     char_added: Добавени знаци
     char: Добавени знаци
+    close_modal: Затваряне
     date_time: Дата/Час
     edit_count_description: Общо редакции
     revisions: Скорошни редакции
@@ -255,6 +258,7 @@ bg:
     view_count_description: Посетени статии
     view: Посещения
     word_count: Добавени думи
+    labels: Етикети
     references_added: Добавени източници
   namespace:
     main_char_added: Добавени знаци в основното пространство
@@ -349,4 +353,7 @@ bg:
     options:
       news_content:
         confirm_delete: Потвърждаване
+        cancel_delete: Отказ
+  form_search:
+    search: Търсене
 ...

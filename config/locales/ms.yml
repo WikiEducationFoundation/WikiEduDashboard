@@ -43,7 +43,7 @@ ms:
       0 hingga 23.)
     greeting2: Selamat datang!
     greeting_extended: Selamat datang ke Wikipedia
-    greeting: Helo!
+    greeting: Apa khabar!
     help: Bantuan
     home: Laman Utama
     log_in_extended: Log masuk dengan Wikipedia
@@ -87,9 +87,9 @@ ms:
     create_note: Klik Cipta Kursus untuk mencipta kursus pertama anda.
     create_preparation_note: Pastikan anda mempunyai kalendar akademik anda sebelum
       anda mula; alat reka bentuk tugasan akan menggunakan tarikh mesyuarat kelas
-      anda — termasuk sebarang cuti sekolah dan hari perayaan — untuk menyesuaikan
-      garis masa anda dengan julat tarikh yang anda pilih. Ingat, anda sentiasa boleh
-      mengedit garis masa untuk memenuhi keperluan anda.
+      anda (termasuk sebarang cuti sekolah dan hari perayaan) untuk menyesuaikan garis
+      masa anda dengan julat tarikh yang anda pilih. Ingat, anda sentiasa boleh menyunting
+      garis masa untuk memenuhi keperluan anda.
     explore_course_pages: Jelajah Laman Kursus
     explore_examples: Jelajah Contoh Kursus
     join_note: Sesudah anda menerima kod laluan dari pengajar, klik Cari Kursus Anda
@@ -362,7 +362,7 @@ ms:
   revisions:
     chars_added: Aks Ditambah
     references: Rujukan Ditambah
-    none: Kursus ini tiada kegiatan menyunting terkini.
+    none: Kursus ini tidak mempunyai kegiatan penyuntingan terkini.
     see_more: Lihat lagi
     show_course_specific: Tunjuk Khusus Kursus
   update_username:
@@ -396,6 +396,7 @@ ms:
       editor_overview: Gambaran Keseluruhan Penyunting
     total_uploads: Jumlah Muat Naik
     uploads_doc: Bilangan muat naik fail ke Wikimedia Commons
+    useremail_placeholder: Masukkan Alamat E-Mel
     userpasscode_placeholder: Kod laluan
     words_added: Perkataan Ditambah<br>(rencana | pengguna | draf)
   user_profiles:

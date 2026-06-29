@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Aram
 # Author: Arya sarhan
+# Author: Ayub Abdulla
 # Author: Sakura emad
 # Author: Épine
 # Author: ئارام بکر
@@ -85,7 +86,6 @@ ckb:
     sign_up: لەڕێگەی ویکیپیدیا ناوت تۆمار بکە
   alerts:
     alert_label: ھۆشدارەکان
-    no_alerts: ھیچ ھۆشدارێک نەدۆزرایەوە.
   activity:
     all: چالاکی
     edited_by: دەستکاری کراوە لەلایەن
@@ -101,6 +101,7 @@ ckb:
     filter:
       wiki_all: ھەموو
       new: نوێ
+    pageviews_label: 'بینینی لاپەڕەکان:'
     hide: شاردنەوە
     history: (مێژوو)
     new: (نوێ)

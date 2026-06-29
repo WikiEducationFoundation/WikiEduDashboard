@@ -22,8 +22,6 @@ ku:
   uploads:
     none: Pel nehatiye barkirin
     usages: Bikaranîn
-  error_401:
-    header: Bêdestûr. >:-(
   error_404:
     header: Rûpel nehate dîtin. :-(
 ...

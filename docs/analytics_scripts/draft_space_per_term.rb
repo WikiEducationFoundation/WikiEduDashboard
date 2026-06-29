@@ -26,6 +26,6 @@ end
 drafts.flatten!
 puts drafts.count
 
-File.open("/home/sage/drafts_2023.txt", "w+") do |f| 
-  f.puts(drafts) 
+File.open("/home/sage/drafts_2023.txt", "w+") do |f|
+  f.puts(drafts)
 end

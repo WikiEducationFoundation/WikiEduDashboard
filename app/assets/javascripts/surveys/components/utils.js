@@ -1,8 +1,8 @@
-export function answerTotals(question) {
+export function answerTotals(answers, answer_options) {
   const optionTotals = {};
-  question.answer_options.forEach((option) => {
+  answer_options.forEach((option) => {
     let count = 0;
-    question.answers.forEach((answer) => {
+    answers.forEach((answer) => {
       if (option === answer) {
         count += 1;
       }

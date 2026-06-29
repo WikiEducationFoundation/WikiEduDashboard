@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 const NoMeetingDaysSwitch = ({ noMeetingDates, course, updateCourse }) => {
   const handleNoMeetingDays = () => {
     const { checked } = noMeetingDates.current;
-    course.no_meeting_days = checked;
-    if (checked) {
+    course.no_meeting_days = !checked;
+    if (!checked) {
       course.weekdays = '1111111';
     } else {
       course.weekdays = '0000000';
@@ -20,7 +20,7 @@ const NoMeetingDaysSwitch = ({ noMeetingDates, course, updateCourse }) => {
           <input
             type="checkbox"
             onChange={handleNoMeetingDays}
-            checked={!!course.no_meeting_days}
+            checked={!course.no_meeting_days}
             ref={noMeetingDates}
             className="no-meeting-day-checkbox"
           />

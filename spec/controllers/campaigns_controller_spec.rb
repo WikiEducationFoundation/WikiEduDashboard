@@ -132,7 +132,7 @@ describe CampaignsController, type: :request do
       expect(Campaign.find_by(slug: campaign.slug)).not_to be_nil
     end
 
-    it 'adds the given user as an organizer of the campaign '\
+    it 'adds the given user as an organizer of the campaign ' \
        'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
@@ -162,7 +162,7 @@ describe CampaignsController, type: :request do
       expect(CampaignsUsers.find_by(id: organizer.id)).not_to be_nil
     end
 
-    it 'removes the given organizer from the campaign '\
+    it 'removes the given organizer from the campaign ' \
        'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
@@ -251,185 +251,6 @@ describe CampaignsController, type: :request do
     end
   end
 
-  describe '#students' do
-    let(:course) { create(:course) }
-    let(:campaign) { create(:campaign) }
-    let(:student) { create(:user) }
-
-    before do
-      login_as build(:user)
-      campaign.courses << course
-      create(:courses_user, course_id: course.id, user_id: student.id,
-                            role: CoursesUsers::Roles::STUDENT_ROLE)
-    end
-
-    after do
-      FileUtils.remove_dir('public/system/analytics')
-    end
-
-    context 'without "course" option' do
-      let(:request_params) { { slug: campaign.slug, format: :csv } }
-
-      it 'returns a csv of student usernames' do
-        expect(CsvCleanupWorker).to receive(:perform_at)
-        get "/campaigns/#{campaign.slug}/students", params: request_params
-        expect(response.body).to include('file is being generated')
-        get "/campaigns/#{campaign.slug}/students", params: request_params
-        follow_redirect!
-        csv = response.body.force_encoding('utf-8')
-        expect(csv).to include(student.username)
-      end
-    end
-
-    context 'with "course" option' do
-      let(:request_params) { { slug: campaign.slug, course: true, format: :csv } }
-
-      it 'returns a csv of student usernames with course slugs' do
-        expect(CsvCleanupWorker).to receive(:perform_at)
-        get "/campaigns/#{campaign.slug}/students", params: request_params
-        expect(response.body).to include('file is being generated')
-        get "/campaigns/#{campaign.slug}/students", params: request_params
-        follow_redirect!
-        csv = response.body.force_encoding('utf-8')
-        expect(csv).to include(student.username)
-        expect(csv).to include(course.slug)
-      end
-    end
-  end
-
-  describe '#instructors' do
-    let(:course) { create(:course) }
-    let(:campaign) { create(:campaign) }
-    let(:instructor) { create(:user) }
-
-    before do
-      login_as instructor
-      campaign.courses << course
-      create(:courses_user, course_id: course.id, user_id: instructor.id,
-                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    end
-
-    after do
-      FileUtils.remove_dir('public/system/analytics')
-    end
-
-    context 'without "course" option' do
-      let(:request_params) { { slug: campaign.slug, format: :csv } }
-
-      it 'returns a csv of instructor usernames' do
-        expect(CsvCleanupWorker).to receive(:perform_at)
-        get "/campaigns/#{campaign.slug}/instructors", params: request_params
-        expect(response.body).to include('file is being generated')
-        get "/campaigns/#{campaign.slug}/instructors", params: request_params
-        follow_redirect!
-        expect(response.body).to include(instructor.username)
-      end
-    end
-
-    context 'with "course" option' do
-      let(:request_params) { { slug: campaign.slug, course: true, format: :csv } }
-
-      it 'returns a csv of instructor usernames with course slugs' do
-        expect(CsvCleanupWorker).to receive(:perform_at)
-        get "/campaigns/#{campaign.slug}/instructors", params: request_params
-        expect(response.body).to include('file is being generated')
-        get "/campaigns/#{campaign.slug}/instructors", params: request_params
-        follow_redirect!
-        csv = response.body.force_encoding('utf-8')
-        expect(csv).to include(instructor.username)
-        expect(csv).to include(course.slug)
-      end
-    end
-  end
-
-  describe '#courses' do
-    let(:course) { create(:course, user_count: 1) }
-    let(:campaign) { create(:campaign) }
-    let(:instructor) { create(:user) }
-    let(:request_params) { { slug: campaign.slug, format: :csv } }
-
-    before do
-      login_as instructor
-      campaign.courses << course
-      create(:courses_user, course_id: course.id, user_id: instructor.id,
-                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    end
-
-    after do
-      FileUtils.remove_dir('public/system/analytics')
-    end
-
-    it 'returns a csv of course data' do
-      expect(CsvCleanupWorker).to receive(:perform_at)
-      get "/campaigns/#{campaign.slug}/courses", params: request_params
-      get "/campaigns/#{campaign.slug}/courses", params: request_params
-      follow_redirect!
-      csv = response.body.force_encoding('utf-8')
-      expect(csv).to include(course.slug)
-      expect(csv).to include(course.title)
-      expect(csv).to include(course.school)
-    end
-
-    it 'cleans up the files afterwards' do
-      # This normally happens long afterwards, but in test mode
-      # sidekiq will execute all jobs immediately, so the file
-      # will be created and immediately deleted.
-      expect(CsvCleanupWorker).to receive(:perform_at).and_call_original
-      get "/campaigns/#{campaign.slug}/courses", params: request_params
-      expect(response.body).to include('file is being generated')
-    end
-  end
-
-  describe 'CSV actions' do
-    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
-    let(:course) { create(:course) }
-    let(:another_course) { create(:course, home_wiki: wikidata, slug: 'campaign/acourse') }
-    let(:campaign) { create(:campaign) }
-    let(:article) { create(:article) }
-    let(:user) { create(:user) }
-    let!(:act) do
-      create(:article_course_timeslice, course:, article:, user_ids: [user.id], revision_count: 12,
-      start: course.start, end: course.start + 1.day)
-    end
-    let!(:course_stats) do
-      create(:course_stats, stats_hash: { 'www.wikidata.org' => {
-               'claims created' => 12, 'other updates' => 1, 'unknown' => 1
-             } },
-             course:)
-    end
-    let(:request_params) { { slug: campaign.slug, format: :csv } }
-
-    before do
-      stub_wiki_validation
-      login_as(user)
-      campaign.courses.push course, another_course
-      create(:courses_user, course:, user:)
-    end
-
-    after do
-      FileUtils.remove_dir('public/system/analytics')
-    end
-
-    it 'return a csv of article data' do
-      expect(CsvCleanupWorker).to receive(:perform_at)
-      get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
-      get "/campaigns/#{campaign.slug}/articles_csv", params: request_params
-      follow_redirect!
-      csv = response.body.force_encoding('utf-8')
-      expect(csv).to include(course.slug)
-      expect(csv).to include(article.title)
-    end
-
-    it 'returns a csv of wikidata' do
-      expect(CsvCleanupWorker).to receive(:perform_at)
-      get "/campaigns/#{campaign.slug}/wikidata.csv"
-      get "/campaigns/#{campaign.slug}/wikidata.csv"
-      follow_redirect!
-      csv = response.body.force_encoding('utf-8')
-      expect(csv).to include('course name,claims created')
-    end
-  end
-
   describe '#overview' do
     let(:user) { create(:user) }
     let(:campaign) { create(:campaign, description: 'New description') }
@@ -508,6 +329,142 @@ describe CampaignsController, type: :request do
     it 'redirects to the corresponding subpage for the default term' do
       get '/current_term/articles'
       expect(response).to redirect_to '/campaigns/spring_2015/articles'
+    end
+  end
+
+  describe 'CampaignsController#articles' do
+    let(:campaign) { create(:campaign) }
+    let(:course) { create(:course) }
+    let(:article) { create(:article) }
+
+    before do
+      create(:campaigns_course, campaign:, course:)
+      create(:articles_course, course:, article:, tracked: true)
+    end
+
+    describe 'GET #articles' do
+      context 'when caching is enabled' do
+        before do
+          # Enable caching to reproduce production behavior
+          Rails.application.config.action_controller.perform_caching = true
+          ActionController::Base.perform_caching = true
+        end
+
+        after do
+          # Restore original caching setting
+          Rails.application.config.action_controller.perform_caching = false
+          ActionController::Base.perform_caching = false
+        end
+
+        it 'renders articles page successfully with caching enabled' do
+          get "/campaigns/#{campaign.slug}/articles"
+
+          expect(response).to be_successful
+          expect(response).to render_template(:articles)
+          expect(assigns(:presenter)).to be_present
+        end
+
+        it 'does not raise missing attribute error when fragment caching is used' do
+          expect do
+            get "/campaigns/#{campaign.slug}/articles"
+          end.not_to raise_error
+        end
+
+        it 'includes required attributes for caching in articles_courses data' do
+          get "/campaigns/#{campaign.slug}/articles"
+
+          result = assigns(:presenter).campaign_articles
+          articles_courses = result[:articles_courses]
+
+          # Ensure the first article_course has the required attributes for caching
+          expect(articles_courses.first).to respond_to(:updated_at)
+          expect(articles_courses.first).to respond_to(:id)
+          expect(articles_courses.first).to respond_to(:article_id)
+          expect(articles_courses.first).to respond_to(:course_id)
+        end
+      end
+
+      context 'when too_many_articles is true' do
+        before do
+          allow_any_instance_of(CoursesPresenter).to receive(:too_many_articles?).and_return(true)
+        end
+
+        it 'renders too_many_articles template' do
+          get "/campaigns/#{campaign.slug}/articles"
+
+          expect(response).to render_template(:too_many_articles)
+          expect(assigns(:too_many_message)).to be_present
+        end
+      end
+
+      context 'when requesting JSON format' do
+        it 'returns campaign articles as JSON' do
+          get "/campaigns/#{campaign.slug}/articles.json"
+
+          expect(response).to be_successful
+          expect(response.content_type).to include('application/json')
+
+          json_response = JSON.parse(response.body)
+          expect(json_response['campaign']).to eq(campaign.slug)
+          expect(json_response).to have_key('articles')
+        end
+      end
+
+      context 'with pagination' do
+        before do
+          # Create more articles to test pagination
+          10.times do |i|
+            article = create(:article, title: "Test Article #{i}")
+            create(:articles_course, course:, article:, tracked: true)
+          end
+        end
+
+        it 'handles pagination correctly' do
+          get "/campaigns/#{campaign.slug}/articles?page=2"
+
+          expect(response).to be_successful
+          expect(assigns(:page)).to eq(2)
+        end
+      end
+
+      context 'when campaign does not exist' do
+        it 'raises routing error' do
+          get '/campaigns/non-existent-campaign/articles'
+          expect(response.status).to eq(404)
+        end
+      end
+    end
+  end
+
+  describe 'Clear Campaign cache and recalculate stats' do
+    let(:campaign) { create(:campaign, slug: 'test-refresh') }
+
+    it 'clears the course sums cache and redirects to overview with notice' do
+      original_cache = Rails.cache
+      # Use MemoryStore in since default tests uses NullStore which (ignores writes)
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+
+      begin
+        key = campaign.course_sums_cache_key
+
+        Rails.cache.write(key, { courses_count: 42 })
+        expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
+
+        # Trigger the refresh (should clear)
+        get "/campaigns/#{campaign.slug}/refresh"
+
+        expect(response).to redirect_to(overview_campaign_path(campaign.slug))
+        expect(flash[:notice]).to eq('Campaign stats refreshed successfully')
+
+        expect(Rails.cache.read(key)).to be_nil
+      ensure
+        Rails.cache = original_cache
+      end
+    end
+
+    it 'returns 404 if campaign does not exists' do
+      get '/campaigns/non-existent-slug/refresh'
+      expect(response.status).to eq(404)
     end
   end
 end

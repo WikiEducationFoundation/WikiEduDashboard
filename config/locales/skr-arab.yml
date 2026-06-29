@@ -48,6 +48,10 @@ skr-arab:
     explore: پھرولو
     log_in: وکی پیڈیا نال لاگ ان تھیوو
     sign_up: وکی پیڈیا نال نواں کھاتہ بݨاؤ
+  alerts:
+    ai_stats:
+      total: میزان
+      last_week: پچھلا ہفتہ
   activity:
     all: سرگرمی
     edited_by: لکھݨ آلا
@@ -60,6 +64,7 @@ skr-arab:
       wiki_all: یکے
       new: نواں
       existing: زیر ترمیم
+    cumulative: مجموعی
     hide: لُکاؤ
     history: (تاریخ)
     label: مقالے
@@ -83,6 +88,7 @@ skr-arab:
     article_link: مضمون
     clone: کلون
     label: سپرد کرو
+    outline: خاکہ
     remove: ہٹاؤ
     review_self: مضمون تے نظرثانی کرو
     select: چݨو
@@ -178,6 +184,8 @@ skr-arab:
     user_role: رول
     subject: مضمون
     submitted: جمع تھی ڳیا
+    add_tags: 'ٹیگ شامل کرو:'
+    add_campaigns: مہماں شامل کرو
     term: ٹرم
     timeline_link: ٹائم لائن
     timeline_nav: ٹائم لائن تے ون٘ڄو
@@ -253,6 +261,9 @@ skr-arab:
     special_users:
       new:
         form_placeholder: ورتݨ ناں
+    disallowed_users:
+      remove_button: ہٹاؤ
+    actions: عمل
   status:
     default: پہلے کنوں طے تھیا ہویا
     purpose: مقصد
@@ -282,6 +293,8 @@ skr-arab:
     next: اڳلا ورقہ
     page: ورقہ
     done: مکمل!
+    close: بند
+    loading: لوڈ تھین٘دا پئے۔۔۔
   update_username:
     label: نواں ورتݨ ناں
     button: اپ ݙیٹ

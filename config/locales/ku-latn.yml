@@ -104,7 +104,6 @@ ku-latn:
       dashboard@wikiedu.org re têkiliyê deyne.
   alerts:
     alert_label: Alarm
-    no_alerts: Ti alarmekî nehat dîtin.
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Aliyê
@@ -257,6 +256,7 @@ ku-latn:
     recent_revisions: Guhartinên Dawî
     username: Navê bikarhêner
     username_placeholder: Navê bikarhêner
+    email_invalid: 'Nederbasdar: Ji kerema xwe e-nameyeke derbasdar binivîse.'
   wizard:
     course_dates: Dîroka Kursê
     read_more: Zêdetir Bixwîne
@@ -265,8 +265,6 @@ ku-latn:
     oauth_invalid: Wextê te yê bidestûrbûnê tije bû. Ji kerema xwe dîsa têkeve.
     unsupported_browser:
       header: Geroka bêpiştgir. :-(
-  error_401:
-    header: Bêdestûr. >:-(
   error_404:
     header: Rûpel nehate dîtin. :-(
   survey:

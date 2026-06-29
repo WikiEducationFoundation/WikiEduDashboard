@@ -3,20 +3,14 @@ import SelectedWikiOption from '../common/selected_wiki_option';
 
 const NewAssignmentInput = ({
   language, project, title,
-  assign, handleChangeTitle, handleWikiChange, trackedWikis
+  assign, handleChangeTitle, handleWikiChange, trackedWikis,
+  multiline
 }) => {
   const articles = title.split('\n').length;
   const multipleArticles = articles > 1;
-  return (
-    <form
-      onSubmit={assign}
-      style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-end',
-      gap: '5px'
-    }}
-    >
+  let input;
+  if (multiline) {
+    input = (
       <textarea
         placeholder={I18n.t('assignments.add_available_placeholder')}
         value={title}
@@ -28,7 +22,34 @@ const NewAssignmentInput = ({
         width: '100%',
         minWidth: '275px',
       }}
-      />
+      />);
+  } else {
+    input = (
+      <input
+        placeholder={I18n.t('assignments.add_placeholder')}
+        value={title}
+        onSubmit={assign}
+        onChange={handleChangeTitle}
+        style={{
+        padding: '10px',
+        width: '100%',
+        minWidth: '275px',
+      }}
+      />);
+  }
+
+  return (
+    <form
+      id="assignment-input"
+      onSubmit={assign}
+      style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: '5px'
+    }}
+    >
+      { input }
       <button
         className="button border"
         type="submit"

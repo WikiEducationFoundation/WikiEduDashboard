@@ -18,7 +18,7 @@ RSpec.describe ApiErrorHandling do
       include ApiErrorHandling
 
       # Define a mock TYPICAL_ERRORS constant for testing
-      const_set(:TYPICAL_ERRORS, [StandardError])  # Mocking TYPICAL_ERRORS
+      const_set(:TYPICAL_ERRORS, [StandardError]) # Mocking TYPICAL_ERRORS
     end.new
   end
 

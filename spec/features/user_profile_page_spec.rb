@@ -7,7 +7,6 @@ describe 'user profile pages', type: :feature, js: true do
   let(:course) { create(:course) }
   let(:course2) { create(:course, slug: 'course/2') }
   let(:article) { create(:article) }
-  let!(:revision) { create(:revision, date: course.start + 1.hour, user:, article:) }
 
   before do
     create(:courses_user, user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
@@ -21,7 +20,7 @@ describe 'user profile pages', type: :feature, js: true do
     click_button 'Edit Details'
     expect(page).to have_button 'Save'
     expect(page).to have_button 'Cancel'
-    expect(page).not_to have_button 'Edit Details'
+    expect(page).to have_no_button 'Edit Details'
     fill_in 'email_email', with: 'tester@wikiedu.org'
     fill_in 'user_profile_bio', with: 'Wikipedian from Seattle'
     click_button 'Save'
@@ -34,6 +33,7 @@ describe 'user profile pages', type: :feature, js: true do
     expect(page).to have_content 'Total impact made by Sage as an instructor'
     expect(page).to have_content "Total impact made by Sage's students"
     expect(page).to have_content 'Total impact made by Sage as a student'
+    expect(page).to be_axe_clean
   end
 
   context 'when user has done training(s)' do
@@ -43,7 +43,8 @@ describe 'user profile pages', type: :feature, js: true do
                                       completed_at: Time.zone.now)
     end
 
-    it 'shows training status' do
+    it 'shows training status (to that user)' do
+      login_as user
       visit "/users/#{user.username}"
       expect(page).to have_content TrainingModule.first.name
       expect(page).to have_content 'Completed at'

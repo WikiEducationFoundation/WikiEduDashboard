@@ -16,6 +16,8 @@ describe 'article finder', type: :feature, js: true do
 
   it 'performs searches and returns results' do
     visit "/courses/#{course.slug}/article_finder"
+    expect(page).to have_field('article-searchbar')
+    expect(page).to be_axe_clean
     within '.article-finder-form' do
       fill_in 'article-searchbar', with: 'Selfie'
       click_button 'Search'
@@ -24,9 +26,15 @@ describe 'article finder', type: :feature, js: true do
     expect(page).to have_content 'Add as available article'
   end
 
+  it 'works on the standalone /article_finder page' do
+    visit '/article_finder'
+    expect(page).to have_field('article-searchbar')
+    expect(page).to be_axe_clean
+  end
+
   it 'works for other tracked wikis besides the home wiki' do
     visit "/courses/#{course.slug}/article_finder"
-    click_link 'Change'
+    click_button 'Change'
     find('div.wiki-select').click
     within('.wiki-select') do
       find('input').send_keys('www.wikidata', :enter)

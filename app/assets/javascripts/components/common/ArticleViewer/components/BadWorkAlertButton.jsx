@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const BadWorkAlertButton = ({ showBadArticleAlert }) => (
-  <a
+  <button
+    type="button"
     className="button small pull-right article-viewer-button"
     onClick={showBadArticleAlert}
   >
-    Quality Problems?
-  </a>
+    {I18n.t('instructor_view.bad_work.quality_problems_button')}
+  </button>
 );
 
 BadWorkAlertButton.propTypes = {

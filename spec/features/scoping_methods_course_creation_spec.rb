@@ -151,11 +151,11 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
     find(:css, '#categories input').set('Earth ')
     find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
     find(:css, '#category_depth').set('3')
-    find(:css, '#categories input').set('Apple ')
-    find(:css, '#categories div[class*="option"]', text: 'en:Apple', exact_text: true).click
+    find(:css, '#categories input').set('Apple Inc. ')
+    find(:css, '#categories div[class*="option"]', text: 'en:Apple Inc.', exact_text: true).click
 
     expect(page).to have_content 'en:Earth sciences - 0'
-    expect(page).to have_content 'en:Apple - 3'
+    expect(page).to have_content 'en:Apple Inc. - 3'
 
     expect(page).to have_content 'Create my Program!'
     click_button 'Create my Program!'
@@ -167,11 +167,11 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
 
     click_link 'Articles'
     expect(page).to have_content 'Earth_sciences'
-    expect(page).to have_content 'Apple'
+    expect(page).to have_content 'Apple_Inc.'
 
     # check that the category depth is saved
     depth_for_earth_sciences = Course.all.first.categories.find_by(name: 'Earth_sciences').depth
-    depth_for_apple = Course.all.first.categories.find_by(name: 'Apple').depth
+    depth_for_apple = Course.all.first.categories.find_by(name: 'Apple_Inc.').depth
 
     expect(depth_for_apple).to eq(3)
     expect(depth_for_earth_sciences).to eq(0)

@@ -125,8 +125,10 @@ se:
   namespace:
     article: Artihkal
     file: Fiila
+    category: Kategoriija
     page: Siidu
     book: Girji
+    translation: Jorgalus
   recent_activity:
     file_name: Fiilanamma
   revisions:
@@ -145,6 +147,8 @@ se:
     special_users:
       new:
         form_placeholder: Geavaheaddjinamma
+  status:
+    size: Sturrodat
   timeline:
     add_week: Lasit vahkku
     arrange_timeline: Ordne áigelinnjá

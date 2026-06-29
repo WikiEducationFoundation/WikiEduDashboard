@@ -14,7 +14,14 @@ const ConfigureSiteNotice = (props) => {
   };
 
   const { isOpen, ref, open } = useExpandablePopover(getKey);
-  const form = <SiteNoticeForm handlePopoverClose={open} updateSiteNotice={updateSiteNotice} currentStatus={props.currentSiteNotice.status} />;
+  const form = (
+    <SiteNoticeForm
+      handlePopoverClose={open}
+      updateSiteNotice={updateSiteNotice}
+      currentStatus={props.currentSiteNotice.status}
+      currentSiteNotice={props.currentSiteNotice}
+    />
+  );
 
   const toggleHandler = (e) => {
     e.preventDefault();
@@ -29,19 +36,23 @@ const ConfigureSiteNotice = (props) => {
 
   return (
     <div className="pop__container" ref={ref}>
-      <button className="button dark" onClick={open}>Update Site Notice</button>
+      <button className="button dark" onClick={open}>{I18n.t('settings.common_settings_components.buttons.configure_site_notice.update_site_notice_button')}</button>
       <button
         className="button dark"
         disabled={isSiteNotice || props.currentSiteNotice.message === null}
         onClick={toggleHandler}
       >
-        Enable
+        {I18n.t('settings.common_settings_components.buttons.configure_site_notice.enable_button')}
       </button>
-      <button className="button dark" disabled={!isSiteNotice} onClick={toggleHandler}>Disable</button>
+      <button className="button dark" disabled={!isSiteNotice} onClick={toggleHandler}>{I18n.t('settings.common_settings_components.buttons.configure_site_notice.disable_button')}</button>
       <Popover
         is_open={isOpen}
         edit_row={form}
         right
+        styles={{
+          tableLayout: 'fixed',
+          width: 'min(800px, 75vw)',
+        }}
       />
     </div>
   );

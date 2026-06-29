@@ -10,9 +10,13 @@ body > .container
   .container
     padding 0
 
-
-  +above(1140px)
-    padding 0
+  // Note: we deliberately keep the 10px inline padding at all viewport
+  // widths. Removing it at >=1140px (the prior behaviour) leaves page
+  // headers and other inside-container content flush against the
+  // window edge at high browser zoom, since zoom does not change the
+  // reported viewport width. WCAG 1.4.4 conformance is more important
+  // than recovering the 20px of horizontal content area at wide
+  // viewports.
 
   &.narrow
     center(800px)
@@ -76,6 +80,16 @@ footer
     a
       position relative
 
+// h3 → h2 promotion (for accessible heading hierarchy) made these section
+// headers visually larger and changed their color. Preserve the prior h3
+// look. Scoped to these specific containers because intentional
+// .section-header h2s exist elsewhere (e.g. analytics/usage.html.haml).
+.campaign_main.alerts .section-header h2
+  color body-color
+  font-size 1.563em
+#campaign-articles .section-header h2,
+#courses .section-header h2
+  font-size 1.563em
 
 
 section

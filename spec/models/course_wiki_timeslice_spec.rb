@@ -17,6 +17,8 @@
 #  needs_update         :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  mw_rev_count         :integer          default(0)
+#  needs_reaggregation  :boolean          default(FALSE)
 #
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
@@ -25,6 +27,7 @@ describe CourseWikiTimeslice, type: :model do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:array_revisions) { [] }
   let(:article) { create(:article, id: 1, namespace: 0) }
+  let(:article_id) { article.id }
   let(:course) do
     create(:course, start: Time.zone.today - 1.month, end: Time.zone.today + 1.month)
   end
@@ -79,47 +82,65 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
            references_count: 4,
            revision_count: 4)
 
-    array_revisions << build(:revision, article:, user_id: 1, date: start, scoped: true)
-    array_revisions << build(:revision, article:, user_id: 1, date: start + 2.hours, scoped: true)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, scoped: true)
-    array_revisions << build(:revision, article:, user_id: 2, date: start + 3.hours, system: true,
-                             scoped: true)
-    array_revisions << build(:revision, article:, deleted: true, user_id: 1, date: start + 8.hours,
-                             scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start,
+scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 2.hours,
+scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
+scoped: false)
+    array_revisions << build(:revision_on_memory, article_id:, user_id: 2, date: start + 3.hours,
+                             system: true, scoped: true)
+    array_revisions << build(:revision_on_memory, article_id:, deleted: true, user_id: 1,
+                             date: start + 8.hours, scoped: true)
   end
 
   describe '.update_course_wiki_timeslices' do
     before do
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 26.hours,
-                               scoped: true)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 50.hours,
-                               scoped: true)
-      array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
-                               scoped: true)
     end
 
-    it 'updates the right course wiki timeslices based on the revisions' do
+    it 'updates the right course wiki timeslice based on the revisions' do
       course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
-      course_wiki_timeslice_1 = described_class.find_by(course:, wiki:, start: start + 1.day)
-      course_wiki_timeslice_2 = described_class.find_by(course:, wiki:, start: start + 2.days)
 
       expect(course_wiki_timeslice_0.revision_count).to eq(0)
-      expect(course_wiki_timeslice_1.revision_count).to eq(0)
-      expect(course_wiki_timeslice_2.revision_count).to eq(0)
 
       start_period = start.strftime('%Y%m%d%H%M%S')
-      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
       revisions = { start: start_period, end: end_period, revisions: array_revisions }
       described_class.update_course_wiki_timeslices(course, wiki, revisions)
 
       course_wiki_timeslice_0 = described_class.find_by(course:, wiki:, start:)
-      course_wiki_timeslice_1 = described_class.find_by(course:, wiki:, start: start + 1.day)
-      course_wiki_timeslice_2 = described_class.find_by(course:, wiki:, start: start + 2.days)
 
-      expect(course_wiki_timeslice_0.revision_count).to eq(3)
-      expect(course_wiki_timeslice_1.revision_count).to eq(1)
-      expect(course_wiki_timeslice_2.revision_count).to eq(2)
+      expect(course_wiki_timeslice_0.revision_count).to eq(2)
+    end
+
+    it 'sets mw_rev_count to the non-system count, including deleted revs' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
+      revisions = { start: start_period, end: end_period, revisions: array_revisions }
+      described_class.update_course_wiki_timeslices(course, wiki, revisions)
+
+      # First slice has 2 normal + 1 non-scoped + 1 system + 1 deleted =
+      # 3 scoped non-system revs.
+      # revision_count excludes the deleted one and the non-scoped one (2);
+      # mw_rev_count keeps the deleted one (3).
+      slice_0 = described_class.find_by(course:, wiki:, start:)
+      expect(slice_0.revision_count).to eq(2)
+      expect(slice_0.mw_rev_count).to eq(3)
+    end
+
+    it 'sends a Sentry error when multiple timeslices are matched' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+
+      expect(Sentry).to receive(:capture_message)
+        .with("Multiple timeslices matched for course #{course.slug}",
+              level: 'error',
+              extra: hash_including(course_id: course.id, wiki_id: wiki.id,
+                                    start: start_period, end: end_period))
+
+      revisions = { start: start_period, end: end_period, revisions: array_revisions }
+      described_class.update_course_wiki_timeslices(course, wiki, revisions)
     end
   end
 
@@ -138,7 +159,7 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
 
         expect(course_wiki_timeslice.character_sum).to eq(9010)
         expect(course_wiki_timeslice.references_count).to eq(7)
-        expect(course_wiki_timeslice.revision_count).to eq(3)
+        expect(course_wiki_timeslice.revision_count).to eq(2)
         expect(course_wiki_timeslice.needs_update).to eq(false)
       end
 
@@ -154,13 +175,28 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         # Don't add any new revision count
         expect(course_wiki_timeslice.revision_count).to eq(0)
       end
+
+      it 'mw_rev_count ignores tracked status and deleted, excludes system and non-scoped' do
+        # Even when the only article is untracked, mw_rev_count counts every
+        # non-system rev — it must mirror what CourseRevisionUpdater#new_revisions?
+        # computes from the live fetched revisions.
+        ArticlesCourses.find(1).update(tracked: 0)
+
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_revisions array_revisions
+
+        expect(course_wiki_timeslice.revision_count).to eq(0)
+        # 2 normal + 1 deleted, minus the 1 system and the 1 non-scoped = 3
+        expect(course_wiki_timeslice.mw_rev_count).to eq(3)
+      end
     end
 
     context 'if revision with error' do
       before do
         TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
-        array_revisions << build(:revision, article:, user_id: 1, date: start + 51.hours,
-        scoped: true, error: true) # add revision with error
+        array_revisions << build(:revision_on_memory, article_id:, user_id: 1,
+                                 date: start + 1.hour, scoped: true,
+                                 error: true) # add revision with error
       end
 
       it 'keeps needs_update flag if revisions with error' do
@@ -170,6 +206,222 @@ role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         course_wiki_timeslice.reload
 
         expect(course_wiki_timeslice.needs_update).to eq(true)
+      end
+    end
+
+    context 'when course.use_acuwt? is true' do
+      let(:timeslice_end) { send(:end) }
+
+      before do
+        course.add_flag(key: :use_acuwt)
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([wiki])
+        create(:article_course_user_wiki_timeslice, course:, wiki:, article:, user_id: 1,
+               start:, end: timeslice_end, character_sum: 500, references_count: 3,
+               revision_count: 3)
+        create(:article_course_user_wiki_timeslice, course:, wiki:, article:, user_id: 2,
+               start:, end: timeslice_end, character_sum: 200, references_count: 1,
+               revision_count: 2)
+      end
+
+      it 'computes character_sum and references_count from ACUWT for student mainspace articles' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_acuwt
+
+        expect(course_wiki_timeslice.character_sum).to eq(700)
+        expect(course_wiki_timeslice.references_count).to eq(4)
+      end
+
+      it 'computes revision_count from ACUWT across all tracked articles' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_acuwt
+
+        expect(course_wiki_timeslice.revision_count).to eq(5)
+      end
+
+      it 'computes mw_rev_count from ACUWT across all articles' do
+        course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+        course_wiki_timeslice.update_cache_from_acuwt
+
+        expect(course_wiki_timeslice.mw_rev_count).to eq(5)
+      end
+
+      context 'when a student also has ACUWT for a non-mainspace article' do
+        let(:draft_article) { create(:article, namespace: Article::Namespaces::DRAFT) }
+
+        before do
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article: draft_article,
+                 user_id: 1, start:, end: timeslice_end, character_sum: 888, references_count: 10,
+                 revision_count: 4)
+        end
+
+        it 'excludes non-mainspace articles from character_sum and references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+          expect(course_wiki_timeslice.references_count).to eq(4)
+        end
+
+        it 'includes non-mainspace articles in revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.revision_count).to eq(9)
+        end
+      end
+
+      context 'when the article course is not tracked' do
+        before do
+          ArticlesCourses.find(1).update(tracked: false)
+        end
+
+        it 'excludes non-tracked articles from character_sum and references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.character_sum).to eq(0)
+          expect(course_wiki_timeslice.references_count).to eq(0)
+        end
+
+        it 'excludes non-tracked articles from revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.revision_count).to eq(0)
+        end
+
+        it 'includes non-tracked articles in mw_rev_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.mw_rev_count).to eq(5)
+        end
+      end
+
+      context 'when an instructor has ACUWT records' do
+        before do
+          create(:user, id: 3, username: 'InstructorUser')
+          create(:courses_user, course:, user_id: 3, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article:, user_id: 3,
+                 start:, end: timeslice_end, character_sum: 999, references_count: 10,
+                 revision_count: 4)
+        end
+
+        it 'includes instructor revisions in revision_count but not character_sum' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.revision_count).to eq(9)
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+        end
+      end
+
+      context 'when course is article-scoped' do
+        let(:unscoped_article) { create(:article, id: 10, namespace: 0) }
+
+        before do
+          course.add_flag(key: :article_scoped)
+          create(:assignment, course_id: course.id, article_id: article.id,
+                 article_title: article.title, wiki_id: wiki.id)
+          create(:articles_course, article: unscoped_article, course:)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article: unscoped_article,
+                 user_id: 1, start:, end: timeslice_end, revision_count: 7,
+                 character_sum: 999, references_count: 50)
+        end
+
+        it 'excludes out-of-scope articles from revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
+          expect(course_wiki_timeslice.revision_count).to eq(5)
+        end
+
+        it 'excludes out-of-scope articles from mw_rev_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          # Only scoped article ACUWT: 3 + 2 = 5; unscoped article (7) is excluded
+          expect(course_wiki_timeslice.mw_rev_count).to eq(5)
+        end
+
+        it 'excludes out-of-scope articles from character_sum' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          # Only scoped article ACUWT: 500 + 200 = 700; unscoped (999) is excluded
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+        end
+
+        it 'excludes out-of-scope articles from references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          # Only scoped article ACUWT: 3 + 1 = 4; unscoped (50) is excluded
+          expect(course_wiki_timeslice.references_count).to eq(4)
+        end
+      end
+
+      context 'when wiki is wikidata' do
+        let(:wikidata_wiki) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
+        before do
+          stub_wiki_validation
+          TimesliceManager.new(course)
+                         .create_timeslices_for_new_course_wiki_records([wikidata_wiki])
+          create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki, article:,
+                 user_id: 1, start:, end: timeslice_end,
+                 stats: { 'claims created' => 3, 'labels added' => 2, 'total revisions' => 5 })
+          create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki, article:,
+                 user_id: 2, start:, end: timeslice_end,
+                 stats: { 'claims created' => 1, 'total revisions' => 2 })
+        end
+
+        it 'aggregates wikidata stats from ACUWT records' do
+          cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+          cuwt.update_cache_from_acuwt
+
+          expect(cuwt.stats['claims created']).to eq(4)
+          expect(cuwt.stats['labels added']).to eq(2)
+          expect(cuwt.stats['total revisions']).to eq(7)
+        end
+
+        it 'sets zero for stats keys with no ACUWT contributions' do
+          cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+          cuwt.update_cache_from_acuwt
+
+          expect(cuwt.stats['descriptions added']).to eq(0)
+        end
+
+        context 'when course is article-scoped' do
+          let(:unscoped_article) { create(:article, id: 10, namespace: 0) }
+
+          before do
+            course.add_flag(key: :article_scoped)
+            create(:assignment, course_id: course.id, article_id: article.id,
+                   article_title: article.title, wiki_id: wikidata_wiki.id)
+            create(:articles_course, article: unscoped_article, course:)
+            create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki,
+                   article: unscoped_article, user_id: 1, start:, end: timeslice_end,
+                   stats: { 'claims created' => 99, 'total revisions' => 50 })
+          end
+
+          it 'excludes out-of-scope articles from wikidata stats' do
+            cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+            cuwt.update_cache_from_acuwt
+
+            # Only scoped article ACUWT: claims created 3+1=4; unscoped (99) excluded
+            expect(cuwt.stats['claims created']).to eq(4)
+            expect(cuwt.stats['total revisions']).to eq(7)
+          end
+        end
+      end
+
+      it 'always clears needs_update on the CWT' do
+        cwt = described_class.find_by(course:, wiki:, start:)
+        cwt.update(needs_update: true)
+        cwt.update_cache_from_acuwt
+        expect(cwt.needs_update).to eq(false)
       end
     end
   end

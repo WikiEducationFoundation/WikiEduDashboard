@@ -29,12 +29,16 @@ const Assignment = (props) => {
     const isWikipedia = article.project === 'wikipedia';
     for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
+      const assignmentWiki = {
+        language: assignment.language || props.course.home_wiki.language,
+        project: assignment.project || props.course.home_wiki.project
+      };
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
-        const usernameLink = userLink(props.course.home_wiki, assignment);
+        const usernameLink = userLink(assignmentWiki, assignment);
         assignees.push(usernameLink);
         assignees.push(', ');
       } else if (assignment.role === 1 && assignment.user_id && assignment.username) {
-        const usernameLink = userLink(props.course.home_wiki, assignment);
+        const usernameLink = userLink(assignmentWiki, assignment);
         reviewers.push(usernameLink);
         reviewers.push(', ');
       }
@@ -49,7 +53,7 @@ const Assignment = (props) => {
     // If the article doesn't exist, then Feedback is based on a user's sandbox only if a single user is assigned
     if (props.course.type === 'ClassroomProgramCourse') {
       if (props.assignmentGroup.length === 1 || props.assignmentGroup[0].article_id) {
-        feedback = <Feedback assignment={props.assignmentGroup[0]} username={props.assignmentGroup[0].username} current_user={props.current_user} />;
+        feedback = <Feedback assignment={props.assignmentGroup[0]} username={props.assignmentGroup[0].username} current_user={props.current_user} course={props.course} />;
       }
     }
 
@@ -60,7 +64,7 @@ const Assignment = (props) => {
           {isWikipedia && <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>}
           {isWikipedia && <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' })}</p>
-            {/* eslint-disable-next-line */}
+            { }
           </div>}
         </td>
         <td>

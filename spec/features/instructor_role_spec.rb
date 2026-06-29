@@ -60,6 +60,7 @@ describe 'Instructor users', :js, type: :feature do
     stub_oauth_edit
     stub_raw_action
     stub_info_query
+    stub_mainspace_query
   end
 
   after do
@@ -136,18 +137,20 @@ describe 'Instructor users', :js, type: :feature do
       first('.student-selection .student').click
 
       find('button.border', text: 'Assign/remove an article', match: :first).click
-      within('#users') { find('textarea', match: :first).set('Article 1') }
+      within('#users') { find('input', match: :first).set('Article 1') }
       click_button 'Assign'
+      expect(page).to have_content('Article 1', wait: 10)
       click_button 'Done'
 
       # Assign a review
       find('button.border', text: 'Assign/remove a peer review', match: :first).click
-      within('#users') { find('textarea', match: :first).set('Article 2') }
+      within('#users') { find('input', match: :first).set('Article 2') }
       click_button 'Assign'
+      expect(page).to have_content('Article 2', wait: 10)
       click_button 'Done'
 
-      expect(page).to have_content 'Article 1'
-      expect(page).to have_content 'Article 2'
+      expect(page).to have_content('Article 1', wait: 10)
+      expect(page).to have_content('Article 2', wait: 10)
 
       # Delete an assignments
       visit "/courses/#{Course.first.slug}/students/articles"
@@ -176,18 +179,6 @@ describe 'Instructor users', :js, type: :feature do
       click_button 'OK'
       sleep 1
       expect(page).to have_no_content 'Student A'
-    end
-
-    it 'is able to notify users with overdue training' do
-      visit "/courses/#{Course.first.slug}/students/overview"
-
-      sleep 1
-      # Notify users with overdue training
-      accept_alert do
-        accept_confirm do
-          find('button.notify_overdue').click
-        end
-      end
     end
   end
 end

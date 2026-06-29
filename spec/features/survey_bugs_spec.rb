@@ -83,56 +83,42 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
 
       click_button('Start')
 
-      sleep 1
-
+      # Q1: answer and proceed
+      expect(page).to have_css('.label', text: 'hindi')
       find('.label', text: 'hindi').click
-      within('div[data-progress-index="2"]') do
-        click_button('Next', visible: true) # Q1
-      end
+      click_button('Next', visible: true)
 
-      sleep 1
-
-      # First select No. This means Q3 is skipped
-      # and the last question is shown next.
+      # Q2: select No first (Q3 is conditionally skipped)
+      expect(page).to have_text('Show the next question?')
       find('.label', text: 'No').click
-      within('div[data-progress-index="3"]') do
-        click_button('Next', visible: true) # Q2
-      end
+      click_button('Next', visible: true)
 
+      # Q4 appears (Q3 was skipped)
       expect(page).to have_content('Submit Survey')
 
-      # Now go back to the previous question
-      within('div[data-progress-index="4"]') do
-        click_button('Previous', visible: true) # Q4
-      end
+      # Go back to Q2
+      click_button('Previous', visible: true)
 
-      # Now change answer to yes, which inserts
-      # Q3 into the flow.
+      # Q2: change answer to Yes, which inserts Q3 into the flow
+      expect(page).to have_text('Show the next question?')
       find('.label', text: 'Yes').click
-      within('div[data-progress-index="3"]') do
-        click_button('Next', visible: true) # Q2
-      end
+      click_button('Next', visible: true)
 
-      sleep 1
+      # Q3 now appears
+      expect(page).to have_text('Should this be shown?')
 
-      # Now go back to the previous question
-      within('div[data-progress-index="4"]') do
-        click_button('Previous', visible: true) # Q3
-      end
+      # Go back to Q2
+      click_button('Previous', visible: true)
 
-      sleep 1
-
-      # Change the answer again and proceed
+      # Q2: change answer back to No
+      expect(page).to have_text('Show the next question?')
       find('.label', text: 'No').click
-      within('div[data-progress-index="3"]') do
-        click_button('Next', visible: true) # Q2
-      end
+      click_button('Next', visible: true)
 
-      sleep 2
+      # Q4 appears again (Q3 skipped again)
       expect(page).to have_content('Submit Survey')
 
-      # Now we can actually submit the survey
-      # and finish.
+      # Submit the survey
       fill_in("answer_group_#{Rapidfire::Question.last.id}_answer_text", with: 'Done!')
       click_button('Submit Survey', visible: true)
       expect(page).to have_content 'You made it!'

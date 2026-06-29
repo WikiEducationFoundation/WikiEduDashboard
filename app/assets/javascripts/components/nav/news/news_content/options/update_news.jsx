@@ -28,7 +28,8 @@ const UpdateNews = ({ saveEditedNews, newsId }) => {
   }
 
   return (
-    <div
+    <button
+      type="button"
       onMouseEnter={() => setUpdateNews(true)} // Show blue icon on hover
       onMouseLeave={() => setUpdateNews(false)} // Revert to grey icon on mouse leave
       onClick={() => handleEditedNews()} // Trigger save action for edited news
@@ -37,7 +38,7 @@ const UpdateNews = ({ saveEditedNews, newsId }) => {
       {/* Display update icon, changing based on hover state */}
       <span className={updateNews ? 'icon-check icon-check--blue' : 'icon-check icon-check--grey'} />
       <p>{I18n.t('news.options.news_content.update_news')}</p>
-    </div>
+    </button>
   );
 };
 

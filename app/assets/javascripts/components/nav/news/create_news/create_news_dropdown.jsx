@@ -23,6 +23,9 @@ const CreateNewsDropdown = ({ setCreateNews, postNews, confirmPost, setConfirmPo
   }
 
   return (
+    // onClick only stops propagation so clicks inside don't bubble up to
+    // close the surrounding dropdown — not a real interaction.
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       onClick={(e) => { e.stopPropagation(); }} // Prevent click event from propagating
       className="pop__container news-dropdown-options"

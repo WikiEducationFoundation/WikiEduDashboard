@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# unset SDKROOT set by xcode tools to resolve bug in ruby 3.1.2
+# unset SDKROOT set by xcode tools to resolve bug in ruby 3.4.8
 # https://github.com/rbenv/ruby-build/discussions/2123
 unset SDKROOT
 
@@ -41,12 +41,12 @@ echo '[+] Creating log file...'
 touch setup/log.txt
 echo '[+] Log File created'
 
-printf '[*] Checking for Ruby-3.1.2...\n'
-if ruby -v | grep "ruby 3.1.2" >/dev/null; then
+printf '[*] Checking for Ruby-3.4.8...\n'
+if ruby -v | grep "ruby 3.4.8" >/dev/null; then
   printf "${CLEAR_LINE}Ruby already installed\n"
 else
-  print_error "Ruby-3.1.2 not found. Please install ruby-3.1.2 and run this script again."
-  echo "One way to install ruby-3.1.2 is through RVM, Visit: https://rvm.io/"
+  print_error "Ruby-3.4.8 not found. Please install ruby-3.4.8 and run this script again."
+  echo "One way to install ruby-3.4.8 is through RVM, Visit: https://rvm.io/"
   exit 0;
 fi
 

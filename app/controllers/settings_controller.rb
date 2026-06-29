@@ -7,8 +7,8 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   before_action :require_super_admin_permissions,
                 only: [:upgrade_admin, :downgrade_admin,
                        :upgrade_special_user, :downgrade_special_user,
-                       :update_salesforce_credentials, :update_impact_stats,
-                       :update_site_notice]
+                       :add_disallowed_user, :remove_disallowed_user,
+                       :update_salesforce_credentials, :update_site_notice]
 
   layout 'application'
 
@@ -68,6 +68,34 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     end
   end
 
+  def disallowed_users
+    respond_to do |format|
+      format.json do
+        render json: { disallowed_users: DisallowedUsers.disallowed_usernames }
+      end
+    end
+  end
+
+  def add_disallowed_user
+    respond_to do |format|
+      format.json do
+        @user = User.find_by(username: params[:username])
+        ensure_user_exists(params[:username]) { return }
+        result = DisallowedUsers.add_user(params[:username])
+        render_disallowed_user_response(result, :add, params[:username])
+      end
+    end
+  end
+
+  def remove_disallowed_user
+    respond_to do |format|
+      format.json do
+        result = DisallowedUsers.remove_user(params[:username])
+        render_disallowed_user_response(result, :remove, params[:username])
+      end
+    end
+  end
+
   def update_special_user
     respond_to do |format|
       format.json do
@@ -76,7 +104,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
         ensure_user_exists(special_user_params[:username]) { return }
         unless SpecialUsers.respond_to? @position
           return render json: { message: 'position is invalid' },
-                        status: :unprocessable_entity
+                        status: :unprocessable_content
         end
         yield
       end
@@ -140,6 +168,10 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: 'Default campaign updated.' }, status: :ok
   end
 
+  def fetch_impact_stats
+    render json: { impact_stats: current_impact_stats }, status: :ok
+  end
+
   def update_impact_stats
     updated_stats = params[:impactStats]
     updated_stats.each do |key, value|
@@ -163,6 +195,12 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   private
+
+  def current_impact_stats
+    Rails.cache.fetch('impact_stats') do
+      Setting.find_by(key: 'impact_stats')&.value.presence || {}
+    end
+  end
 
   def current_site_notice
     Rails.cache.fetch('site_notice') do
@@ -218,7 +256,7 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     # Check if the user already has the position
     unless SpecialUsers.is?(@user, @position)
       message = I18n.t(
-        'settings.special_users.new.already_is_not',
+        'settings.special_users.remove.already_is_not',
         username: @user.username,
         position: @position
       )
@@ -274,5 +312,19 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     render json: { message: I18n.t('courses.error.user_exists', username:) },
            status: :not_found
     yield
+  end
+
+  def render_disallowed_user_response(success, action, username)
+    if success
+      render json: {
+        message: I18n.t("settings.disallowed_users.#{action}.success", username:),
+        disallowed_users: DisallowedUsers.disallowed_usernames
+      }, status: :ok
+    else
+      error_key = action == :add ? 'already_exists' : 'not_found'
+      render json: {
+        message: I18n.t("settings.disallowed_users.#{action}.#{error_key}", username:)
+      }, status: :unprocessable_content
+    end
   end
 end

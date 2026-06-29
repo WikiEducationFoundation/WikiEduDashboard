@@ -7,6 +7,7 @@ class CourseArticlesCsvBuilder
 
   def initialize(course)
     @course = course
+    set_users
     set_articles_edited
   end
 
@@ -26,10 +27,14 @@ class CourseArticlesCsvBuilder
 
   private
 
+  def set_users
+    @usernames = @course.users.pluck(:id, :username).to_h
+  end
+
   # rubocop:disable Metrics/AbcSize
   def set_articles_edited
     @articles_edited = {}
-    @course.scoped_article_timeslices.includes(article: :wiki).each do |act|
+    @course.scoped_article_timeslices.includes(article: :wiki).find_each do |act|
       next unless valid_timeslice(act)
 
       article_edits = @articles_edited[act.article_id] || new_article_entry(act)
@@ -100,7 +105,9 @@ class CourseArticlesCsvBuilder
   end
 
   def to_usernames(user_ids)
-    User.where(id: user_ids).pluck(:username).join(', ')
+    user_ids.uniq.map do |user_id|
+      @usernames[user_id]
+    end.join(', ')
   end
 
   # Example:

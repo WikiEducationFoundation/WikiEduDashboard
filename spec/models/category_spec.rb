@@ -61,6 +61,43 @@ RSpec.describe Category, type: :model do
       end
     end
 
+    context 'for a category labeled with error' do
+      let(:category) do
+        create(:category, name: 'Harvard_University', source: 'categoryError')
+      end
+      let(:course) { create(:course) }
+
+      it 'does not try to update the category' do
+        expect(ArticleUtils).not_to receive(:format_article_title)
+        described_class.refresh_categories_for(course)
+      end
+    end
+
+    context 'for a category with too many articles' do
+      let(:category) do
+        create(:category, name: 9964305, source: 'psid', article_titles: ['Q0'])
+      end
+      let(:course) { create(:course) }
+
+      it 'labels the source with error and article_titles is not cleared' do
+        allow_any_instance_of(PetScanApi).to receive(:page_titles_for_psid).and_return(%w[Q1 Q2])
+        call_count = 0
+        allow_any_instance_of(described_class).to receive(:save)
+          .and_wrap_original do |original_method, *args, &block|
+          if call_count == 0
+            call_count += 1
+            raise ActiveRecord::ValueTooLong
+          else
+            original_method.call(*args, &block)
+          end
+        end
+
+        described_class.refresh_categories_for(course)
+        expect(category.reload.source).to eq('psidError')
+        expect(category.article_titles).to eq(['Q0'])
+      end
+    end
+
     context 'for category-source Category' do
       let(:category) { create(:category, name: 'Homo sapiens fossils') }
       let(:course) { create(:course) }
@@ -78,9 +115,13 @@ RSpec.describe Category, type: :model do
     end
 
     context 'for psid-source Category' do
-      let(:category) { create(:category, name: 9964305, source: 'psid') }
+      let(:category) do
+        create(:category, name: 9964305, source: 'psid',
+               created_at: 2.days.ago, updated_at: 2.days.ago)
+      end
       let(:course) { create(:course) }
       let!(:article) { create(:article, title: 'A cappella') }
+      let(:error_response) { { 'error' => 'PageList::run_batch_query: SQL query error[1]' } }
 
       it 'updates article titles for categories associated with courses' do
         # Pending is used here to make sure that the build passes when PetScan is down
@@ -95,10 +136,18 @@ RSpec.describe Category, type: :model do
         pass_pending_spec
       end
 
-      it 'fails gracefully when PetScan is unreachable' do
+      it 'fails when PetScan is unreachable but article_titles is not cleared' do
+        category.update_column(:article_titles, ['Q0'])
         expect_any_instance_of(PetScanApi).to receive(:petscan).and_raise(Errno::EHOSTUNREACH)
         described_class.refresh_categories_for(course)
-        expect(described_class.last.article_ids).to be_empty
+        expect(described_class.last.article_titles).to eq(['Q0'])
+      end
+
+      it 'fails when PetScan is invalid but article_titles is not cleared' do
+        category.update_column(:article_titles, ['Q0'])
+        expect_any_instance_of(PetScanApi).to receive(:get_data).and_return(error_response)
+        described_class.refresh_categories_for(course)
+        expect(described_class.last.article_titles).to eq(['Q0'])
       end
     end
 
@@ -106,7 +155,10 @@ RSpec.describe Category, type: :model do
     # both existing and not — on a single wiki: https://pagepile.toolforge.org/
     context 'for pileid-source Category' do
       # Example pile from `lawiktionary`: https://pagepile.toolforge.org/api.php?action=get_data&format=json&id=28301
-      let(:category) { create(:category, name: 28301, source: 'pileid') }
+      let(:category) do
+        create(:category, name: 28301, source: 'pileid',
+               created_at: 2.days.ago, updated_at: 2.days.ago)
+      end
       let(:course) { create(:course) }
       let(:lawiktionary) { Wiki.get_or_create(language: 'la', project: 'wiktionary') }
       let(:article) { create(:article, wiki: lawiktionary, title: 'America') }
@@ -126,11 +178,12 @@ RSpec.describe Category, type: :model do
         pass_pending_spec
       end
 
-      it 'fails gracefully when fetching a PagePile errors' do
+      it 'fails when fetching a PagePile errors but article_titles is not cleared' do
+        category.update_column(:article_titles, ['Q0'])
         expect_any_instance_of(PagePileApi).to receive(:pagepile).and_raise(StandardError)
-        expect(Sentry).to receive(:capture_exception)
+        expect(Sentry).to receive(:capture_exception).twice
         described_class.refresh_categories_for(course)
-        expect(described_class.last.article_titles).to be_empty
+        expect(described_class.last.article_titles).to eq(['Q0'])
       end
     end
 
@@ -172,6 +225,16 @@ RSpec.describe Category, type: :model do
     end
   end
 
+  describe '#article_ids' do
+    it 'excludes articles whose titles differ only in diacritics from the category titles' do
+      accented   = create(:article, title: 'Orgullo_de_Hanói', wiki_id: 1)
+      unaccented = create(:article, title: 'Orgullo_de_Hanoi', wiki_id: 1)
+      category = create(:category, wiki_id: 1, article_titles: ['Orgullo_de_Hanói'])
+      expect(category.article_ids).to     include(accented.id)
+      expect(category.article_ids).not_to include(unaccented.id)
+    end
+  end
+
   describe '.refresh_titles' do
     let(:pt_wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
     # Portuguese language category with 'Discussão:' in prefixes
@@ -186,6 +249,11 @@ RSpec.describe Category, type: :model do
 
     let(:emoji_cat) do
       create(:category, name: 'Redirects from emoji', wiki: Wiki.find(1), source: 'category')
+    end
+
+    let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
+    let(:duplicate_cat) do
+      create(:category, name: 'Lesbianas', wiki: es_wiki, source: 'category', depth: 2)
     end
 
     it 'escapes four-byte emoji titles' do
@@ -207,6 +275,13 @@ RSpec.describe Category, type: :model do
       VCR.use_cassette 'categories' do
         category2.refresh_titles
         expect(category2.article_titles.select { |title| title.include? 'Talk:' }).to eq([])
+      end
+    end
+
+    it 'does not include duplicate titles' do
+      VCR.use_cassette 'categories' do
+        duplicate_cat.refresh_titles
+        expect(duplicate_cat.article_titles.count).to eq(duplicate_cat.article_titles.uniq.count)
       end
     end
   end

@@ -15,5 +15,6 @@ describe 'campaign ORES plot tab', type: :feature, js: true do
     visit "/campaigns/#{campaign.slug}/ores_plot"
     click_button 'Change in Structural Completeness'
     expect(page).to have_content('This graph visualizes')
+    expect(page).to be_axe_clean
   end
 end

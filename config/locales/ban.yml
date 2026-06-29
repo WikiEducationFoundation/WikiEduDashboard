@@ -103,6 +103,10 @@ ban:
     delete_campaign: Usap proyék puniki
   courses:
     cancel: Wangdé
+  courses_generic:
+    creator:
+      scoping_methods:
+        categories: Kategori
   metrics:
     upload_count: Unggah Commons
   namespace:

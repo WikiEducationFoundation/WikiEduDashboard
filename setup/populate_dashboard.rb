@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'net/http'
 require_dependency "#{Rails.root}/lib/importers/user_importer"
-require_dependency "#{Rails.root}/app/services/update_course_stats_timeslice"
+require_dependency "#{Rails.root}/app/services/update_course_stats"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 
 def make_copy_of(url)
@@ -63,7 +63,7 @@ def populate_dashboard
     'https://outreachdashboard.wmflabs.org/courses/QCA/Brisbane_QCA_ArtandFeminism_2018',
     'https://dashboard.wikiedu.org/courses/Stanford_Law_School/Advanced_Legal_Research_Winter_2020_(Winter)'
   ]
-  
+
   example_courses.each do |url|
     begin
       # Try to find or create the default campaign
@@ -79,7 +79,7 @@ def populate_dashboard
         # Add the course to the campaign if it doesn't already exist
         default_campaign.courses << course
         puts "Getting data for #{course.slug}..."
-        UpdateCourseStatsTimeslice.new(course)
+        UpdateCourseStats.new(course)
       end
     rescue ActiveRecord::RecordInvalid => e
       # Handle specific error when record creation fails

@@ -32,9 +32,11 @@ module.exports = (env) => {
     survey_admin: [`${jsSource}/surveys/survey-admin.js`],
     survey_results: [`${jsSource}/surveys/survey-results.jsx`],
     campaigns: [`${jsSource}/campaigns.js`],
+    campaigns_programs: [`${jsSource}/campaigns_programs.js`],
     charts: [`${jsSource}/charts.js`],
     accordian: [`${jsSource}/accordian.js`],
     editable: [`${jsSource}/utils/editable.js`],
+    faq_editor: [`${jsSource}/faq_editor.js`],
     i18n: [`${jsSource}/i18n.js`],
 
     surveys: [`${cssSource}/surveys.styl`],
@@ -99,9 +101,7 @@ module.exports = (env) => {
       !env.DISABLE_ESLINT && new ESLintPlugin({
         files: 'app/assets/javascripts/**/*.{js,jsx}',
         failOnError: isProductionOrCI,
-        threads: isProductionOrCI,
-        lintDirtyModulesOnly: !isProductionOrCI,
-        cache: !isProductionOrCI
+        lintDirtyModulesOnly: !isProductionOrCI
       }),
 
       new MiniCssExtractPlugin({
@@ -123,9 +123,11 @@ module.exports = (env) => {
           return file;
         }
       }),
-      (env.development && !env.coverage) && new ReactRefreshWebpackPlugin({ overlay: {
-        sockPort: 8080
-      } }),
+      (env.development && !env.coverage) && new ReactRefreshWebpackPlugin({
+        overlay: {
+          sockPort: 8080
+        }
+      }),
       (env.analyze && new BundleAnalyzerPlugin())
     ].filter(Boolean),
 

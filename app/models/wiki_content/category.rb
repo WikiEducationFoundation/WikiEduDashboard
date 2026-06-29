@@ -26,7 +26,7 @@ class Category < ApplicationRecord
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
   has_many :courses, through: :categories_courses
 
-  serialize :article_titles, Array
+  serialize :article_titles, type: Array
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :name, numericality: { only_integer: true }, on: :create,
@@ -37,6 +37,13 @@ class Category < ApplicationRecord
     greater_than_or_equal_to: 0,
     less_than_or_equal_to: 3
   }
+
+  VALID_SOURCES = %w[
+    category
+    psid
+    pileid
+    template
+  ].freeze
 
   def self.get_or_create(wiki:, name:, depth:, source:)
     if source == 'pileid'
@@ -66,19 +73,42 @@ class Category < ApplicationRecord
   end
 
   def refresh_titles(update_service: nil)
+    # Do not try to refresh titles for error sources
+    return unless VALID_SOURCES.include? source
     self.article_titles = title_list_from_wiki(update_service:).map do |title|
       sanitize_4_byte_string ArticleUtils.format_article_title(title)
-    end
+    end.uniq
     save
     # rubocop:disable Rails/SkipsModelValidations
     # Using touch to update the timestamps even when there is actually no
     # updation (SQL update query) in the category
     touch(:updated_at)
     # rubocop:enable Rails/SkipsModelValidations
+  rescue ActiveRecord::ValueTooLong
+    # This means we couldn't save the article titles in the db because they're too long.
+    # Revert article_titles change
+    self.article_titles = attribute_was(:article_titles)
+    # Update source to indicate it's a source with error
+    self.source = source + 'Error'
+    save
+  rescue StandardError => e
+    # If something went wrong when refresing titles, we don't want to replace article_titles field.
+    Sentry.capture_exception(e)
   end
 
   def article_ids
-    @article_ids ||= Article.where(namespace: 0, wiki_id:, title: article_titles).pluck(:id)
+    return @article_ids if @article_ids.present?
+
+    @article_ids = []
+    article_titles.each_slice(5000) do |titles_batch|
+      titles_set = titles_batch.to_set
+      # Pluck id+title and filter in Ruby: MySQL's accent-insensitive collation would otherwise
+      # return articles whose titles differ only in diacritics from the requested titles.
+      results = Article.where(namespace: 0, wiki_id:, title: titles_batch).pluck(:id, :title)
+      @article_ids.concat(results.filter_map { |id, title| id if titles_set.include?(title) })
+    end
+
+    @article_ids
   end
 
   def name_with_prefix

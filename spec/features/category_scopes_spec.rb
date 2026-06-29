@@ -69,7 +69,7 @@ describe 'Tracked categories and templates', js: true do
     find(:css, '.multi-wiki-selector input').set('fr')
     find(:css, '.multi-wiki-selector div[class*="option"]', text: 'fr.wikipedia.org').click
 
-    find(:css, '#categories input').set('Apple ')
+    find(:css, '#categories input').set('Matériel Apple ')
     find(:css, '#categories div[class*="option"]', text: 'fr:Matériel Apple', exact_text: true).click # rubocop:disable Layout/LineLength
 
     click_button 'Add categories'
@@ -84,7 +84,7 @@ describe 'Tracked categories and templates', js: true do
 
     find(:css, '#templates input').set('Earth ')
     find(:css, '#templates div[class*="option"]', text: 'Earth mass').click
-    find(:css, '#templates input').set('Apple ')
+    find(:css, '#templates input').set('Apple Inc. ')
     find(:css, '#templates div[class*="option"]', text: 'en:Apple Inc.', exact_text: true).click
 
     click_button 'Add Templates'
@@ -103,7 +103,7 @@ describe 'Tracked categories and templates', js: true do
     find(:css, '.multi-wiki-selector input').set('fr')
     find(:css, '.multi-wiki-selector div[class*="option"]', text: 'fr.wikipedia.org').click
 
-    find(:css, '#templates input').set('Apple ')
+    find(:css, '#templates input').set('Palette Apple ')
     find(:css, '#templates div[class*="option"]', text: 'fr:Palette Apple', exact_text: true).click
 
     click_button 'Add Templates'

@@ -50,7 +50,12 @@ class GANominationMonitor
   end
 
   def set_article_ids
-    @article_ids = Article.where(title: @page_titles, wiki_id: @wiki.id).pluck(:id)
+    # Use only relevant namespaces:
+    # - MAINSPACE: actual articles being nominated
+    # - TALK: source of GA nominations (e.g., Talk:Some_Article)
+    # Matches CategoryImporter scope and supports index-efficient queries.
+    namespace = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK]
+    @article_ids = Article.where(namespace:, wiki_id: @wiki.id, title: @page_titles).pluck(:id)
   end
 
   def create_alert(articles_course)

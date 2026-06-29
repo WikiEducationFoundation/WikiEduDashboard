@@ -6,13 +6,16 @@ function FastTrainingAlert() {
   return (
     <>
       {open && (
+        // Backdrop click is a mouse affordance to close; keyboard users use
+        // the visible "Close" button inside the alert.
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div className="blur-backdrop-for-alert-box" onClick={() => setOpen(false)}>
           <div className="alert-box-container">
             <div className="alert-box">
-              <h2 className="alert-title">Please take your time!</h2>
-              <p className="alert-content">It is very important that you learn the training content thoroughly.</p>
+              <h2 className="alert-title">{I18n.t('training.take_your_time')}</h2>
+              <p className="alert-content">{I18n.t('training.alert_content')}</p>
               <div className="alert-button-container">
-                <button className="alert-button" onClick={() => setOpen(false)}>CLOSE</button>
+                <button className="alert-button" onClick={() => setOpen(false)}>{I18n.t('training.close')}</button>
               </div>
             </div>
           </div>

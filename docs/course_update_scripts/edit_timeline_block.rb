@@ -44,3 +44,18 @@ ClassroomProgramCourse.where('start > ?', '2025-07-01'.to_date).each do |course|
   block.save
   puts course.slug
 end
+
+new_training = 71 # gen AI
+block_title = 'Evaluate Wikipedia'
+
+fall_2025 = Campaign.find_by_slug 'fall_2025'
+missing = fall_2025.courses.select { |c| !c.training_module_ids.include? new_training }
+
+missing.each do |course|
+  block = course.blocks.where(title: block_title).first
+  next unless block
+  next if block.training_module_ids.include? new_training
+  block.training_module_ids << new_training
+  block.save
+  puts course.slug
+end

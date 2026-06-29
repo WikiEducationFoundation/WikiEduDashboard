@@ -1,5 +1,5 @@
 %tr{:class => "#{user ? date_highlight_class(course) : private_highlight_class(course)}", "data-link" => "#{course_slug_path(course.slug)}"}
-  %td{:class => "table-link-cell", :role => "button", :tabindex => "0"}
+  %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.title
         = course.title
@@ -11,10 +11,10 @@
       - expert = @wiki_experts.find { |user| user.course_id == course.id }
       = expert ? expert.user.username : "N/A"
   - if Features.wiki_ed?
-    %td{:class => "table-link-cell"}   
+    %td{:class => "table-link-cell"}
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
         %span.first_instructor
-          = course.courses_users.where(role: 1).first&.real_name
+          = course.courses_users.where(role: 1).first&.real_name.presence || '—'
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.revisions

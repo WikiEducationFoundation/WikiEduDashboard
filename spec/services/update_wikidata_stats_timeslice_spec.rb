@@ -9,13 +9,42 @@ describe UpdateWikidataStatsTimeslice do
       create(:course, start: Date.new(2022, 1, 5), end: Date.new(2022, 1, 7),
                       home_wiki: wikidata)
     end
-    let(:revision1) { create(:revision, wiki: wikidata, mw_rev_id: 1556860240) }
-    let(:revision2) { create(:revision, wiki: wikidata, mw_rev_id: 99682036) }
-    let(:revisions) { [revision1, revision2] }
+    let(:revision1) do
+      build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 1556860240, scoped: true)
+    end
+    let(:revision2) do
+      build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 99682035, scoped: true)
+    end
+    let(:unscoped_revision) do
+      build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 99682036)
+    end
+    let(:revisions) { [revision1, revision2, unscoped_revision] }
     let(:updater) { described_class.new(course) }
 
     before do
       stub_wiki_validation
+    end
+
+    context 'emits new Lexeme keys using revision 2414438514' do
+      let(:lexeme_revision) do
+        build(:revision_on_memory, wiki_id: wikidata.id, mw_rev_id: 2414438514, scoped: true)
+      end
+
+      it 'includes the 16 new Lexeme keys in the diff' do
+        VCR.use_cassette 'wikidata/lexeme_revision_new_keys' do
+          updater.update_revisions_with_stats([lexeme_revision])
+        end
+        expect(lexeme_revision.summary).not_to be_nil
+        diff = JSON.parse(lexeme_revision.summary)
+        expect(diff.keys).to include(
+          'added_language', 'changed_language',
+          'added_lexical_category', 'changed_lexical_category',
+          'added_form_references', 'removed_form_references', 'changed_form_references',
+          'added_form_qualifiers', 'removed_form_qualifiers', 'changed_form_qualifiers',
+          'added_sense_references', 'removed_sense_references', 'changed_sense_references',
+          'added_sense_qualifiers', 'removed_sense_qualifiers', 'changed_sense_qualifiers'
+        )
+      end
     end
 
     it 'imports wikidata', :vcr do
@@ -23,9 +52,57 @@ describe UpdateWikidataStatsTimeslice do
         expect(rev.summary).to be_nil
       end
       updater.update_revisions_with_stats(revisions)
-      revisions.each do |rev|
-        expect(rev.summary).not_to be_nil
-      end
+      expect(revision1.summary).not_to be_nil
+      expect(revision1.summary).not_to eq('null')
+      expect(revision2.summary).not_to be_nil
+      expect(revision2.summary).not_to eq('null')
+      expect(unscoped_revision.summary).to be_nil
+    end
+
+    it 'counts merge_from in built stats' do
+      revision = build(:revision_on_memory, wiki_id: wikidata.id, scoped: true)
+      revision.summary = { 'merge_from' => 1 }.to_json
+      stats = updater.build_stats_from_revisions([revision])
+      expect(stats['merged from']).to eq(1)
+    end
+
+    it 'counts new lexeme stat keys in built stats' do
+      revision = build(:revision_on_memory, wiki_id: wikidata.id, scoped: true)
+      revision.summary = {
+        'added_language' => 1,
+        'changed_language' => 2,
+        'added_lexical_category' => 1,
+        'changed_lexical_category' => 1,
+        'added_form_references' => 3,
+        'removed_form_references' => 1,
+        'changed_form_references' => 2,
+        'added_form_qualifiers' => 2,
+        'removed_form_qualifiers' => 1,
+        'changed_form_qualifiers' => 1,
+        'added_sense_references' => 4,
+        'removed_sense_references' => 2,
+        'changed_sense_references' => 1,
+        'added_sense_qualifiers' => 3,
+        'removed_sense_qualifiers' => 1,
+        'changed_sense_qualifiers' => 2
+      }.to_json
+      stats = updater.build_stats_from_revisions([revision])
+      expect(stats['language added']).to eq(1)
+      expect(stats['language changed']).to eq(2)
+      expect(stats['lexical category added']).to eq(1)
+      expect(stats['lexical category changed']).to eq(1)
+      expect(stats['form references added']).to eq(3)
+      expect(stats['form references removed']).to eq(1)
+      expect(stats['form references changed']).to eq(2)
+      expect(stats['form qualifiers added']).to eq(2)
+      expect(stats['form qualifiers removed']).to eq(1)
+      expect(stats['form qualifiers changed']).to eq(1)
+      expect(stats['sense references added']).to eq(4)
+      expect(stats['sense references removed']).to eq(2)
+      expect(stats['sense references changed']).to eq(1)
+      expect(stats['sense qualifiers added']).to eq(3)
+      expect(stats['sense qualifiers removed']).to eq(1)
+      expect(stats['sense qualifiers changed']).to eq(2)
     end
 
     it 'creates record in CourseStat table', :vcr do
@@ -36,6 +113,41 @@ describe UpdateWikidataStatsTimeslice do
       expect(CourseStat.count).to eq(1)
       expect(CourseStat.last.stats_hash).not_to be_nil
       expect(CourseStat.last.course_id).to eq(Course.last.id)
+    end
+
+    context 'request fails' do
+      it 'retries 3 times', :vcr do
+        call_count = 0
+        allow(WikidataDiffAnalyzer).to receive(:analyze)
+          .and_wrap_original do |original_method, *args, &block|
+          if call_count < 2
+            call_count += 1
+            raise MediawikiApi::HttpError
+          else
+            original_method.call(*args, &block)
+          end
+        end
+
+        updater.update_revisions_with_stats(revisions)
+        expect(revision1.summary).not_to be_nil
+        expect(revision1.summary).not_to eq('null')
+        expect(revision2.summary).not_to be_nil
+        expect(revision2.summary).not_to eq('null')
+      end
+
+      it 'logs error once and marks revisions with error if request fails 3 times' do
+        allow(WikidataDiffAnalyzer).to receive(:analyze)
+          .and_raise(MediawikiApi::HttpError, '')
+        expect(updater).to receive(:log_error).once
+        updater.update_revisions_with_stats(revisions)
+        # Non-scoped revisions are now also analyzed (so merge_to on
+        # now-redirected source items can still be classified — see #6813),
+        # so an analyzer outage marks them all with error.
+        revisions.each do |rev|
+          expect(rev.summary).to be_nil
+          expect(rev.error).to eq(true)
+        end
+      end
     end
   end
 end

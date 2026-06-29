@@ -42,7 +42,7 @@ class RequestedAccountsController < ApplicationController
 
   # List of requested accounts for a user's courses. @courses set in before action
   def index
-    raise_unauthorized_exception unless user_signed_in? && current_user.admin?
+    return render_unauthorized_json unless current_user&.admin?
     respond_to do |format|
       format.html do
         @courses = all_requested_accounts
@@ -60,7 +60,7 @@ class RequestedAccountsController < ApplicationController
     requested_account = RequestedAccount.find_by(id: params[:id])
     raise_unauthorized_exception unless @course.id == requested_account.course_id
     requested_account.delete
-    redirect_back fallback_location: '/'
+    redirect_back_or_to('/')
   end
 
   # Try to create each of the requested accounts for a course, and show the
@@ -107,6 +107,14 @@ class RequestedAccountsController < ApplicationController
     raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
   end
 
+  def render_unauthorized_json
+    if request.format.json?
+      render json: { message: 'Unauthorized' }, status: :unauthorized
+    else
+      raise_unauthorized_exception
+    end
+  end
+
   def set_course
     @course = Course.find_by(slug: params[:course_slug])
   end
@@ -119,7 +127,7 @@ class RequestedAccountsController < ApplicationController
 
   def handle_invalid_request
     return if @requested.valid?
-    render json: { message: @requested.invalid_email_message }, status: :unprocessable_entity
+    render json: { message: @requested.invalid_email_message }, status: :unprocessable_content
     yield
   end
 

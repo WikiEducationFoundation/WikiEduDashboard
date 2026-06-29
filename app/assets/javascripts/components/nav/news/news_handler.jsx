@@ -18,11 +18,11 @@ const NewsHandler = () => {
   const closeNewsPopover = useOutsideClick(closePopoverOnClickOutside);
 
   return (
-    <span ref={closeNewsPopover}>
+    <li ref={closeNewsPopover} aria-describedby="notification-message" className="notifications tooltip-trigger">
       <NewsNavIcon setIsOpen={setIsOpen} />
       {/* Conditionally render the NewsPopoverHandler component if isOpen is true */}
       {isOpen && <NewsPopoverHandler />}
-    </span>
+    </li>
   );
 };
 

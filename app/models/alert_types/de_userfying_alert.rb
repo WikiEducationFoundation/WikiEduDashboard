@@ -24,10 +24,15 @@
 # the edits are automatically tagged de-userfying.
 class DeUserfyingAlert < Alert
   def main_subject
-    "#{user.username} moved article #{details[:title]} from sandbox into mainspace"
+    "#{user.username} moved article #{details[:title]}#{ai_alerts_tag} from sandbox into mainspace"
   end
 
   def url
     "#{course.home_wiki.base_url}/w/index.php?title=Special:Log&logid=#{details[:logid]}"
+  end
+
+  def ai_alerts_tag
+    return '' unless details[:ai_edit_alert_ids]
+    " (#{details[:ai_edit_alert_ids].count} AI alerts)"
   end
 end

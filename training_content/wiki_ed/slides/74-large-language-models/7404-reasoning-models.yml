@@ -1,0 +1,17 @@
+id: 7404
+title: Reasoning models
+content: |
+  Newer versions of ChatGPT and other AI tools have wrapped
+  additional steps around their Large Language Models. The
+  "[reasoning models](https://en.wikipedia.org/wiki/Reasoning_language_model)"
+  break up the response generation processes into a series of steps that
+  roughly imitate a human's reasoning process, and use an LLM to generate
+  a response for each stage of that process. These reasoning models can
+  often provide more sophisticated and useful responses, but are still
+  subject to hallucinations at every step that uses LLMs.
+
+  Chatbots can also incorporate web searches into the process of generating
+  a response, essentially adding the content they find into the context window.
+  However, they are still ultimately generating text by using those same
+  statistical relationships (heavily influenced by the context window) to
+  build up a response one bit at a time.

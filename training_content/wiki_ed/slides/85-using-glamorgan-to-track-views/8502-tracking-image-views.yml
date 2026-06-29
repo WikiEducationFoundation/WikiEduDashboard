@@ -1,0 +1,13 @@
+---
+id: 8502
+title: Tracking image views
+summary: ''
+content: |
+  The “Overview” section shows the total number of images in the category, how many are being used in Wikipedia articles, and the total views for the month for all images in the category.
+
+  For each individual image, you will see its unique view count, which pages it appears on, and the views for each page. You can also click through to see how the image appears on each page.
+
+  Overview section example:
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/GLAMorgan_usage_data_%28demo%29.png/1280px-GLAMorgan_usage_data_%28demo%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail" />
+  </figure>

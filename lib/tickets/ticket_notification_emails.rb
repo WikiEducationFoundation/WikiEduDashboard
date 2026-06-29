@@ -7,6 +7,7 @@ class TicketNotificationEmails
 
   def initialize
     User.admin.each do |admin|
+      next unless admin.email.present?
       notify_of_open_tickets(admin)
     end
   end

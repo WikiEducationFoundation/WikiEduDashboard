@@ -15,19 +15,22 @@ class UserImporter
   end
 
   def self.new_from_omniauth(auth)
-    User.create(
+    user = User.create(
       username: auth.info.name,
       global_id: auth.uid,
       wiki_token: auth.credentials.token,
       wiki_secret: auth.credentials.secret
     )
+    # Populates the registered_at field whenever a new user is created via omniauth
+    FetchUserRegistrationWorker.perform_async(user.id)
+    user
   end
 
   LTR_MARK = 8206.chr # left-to-right mark, Ruby character 8206
   RTL_MARK = 8207.chr # right-to-left mark, Ruby character 8207
   CHARACTERS_TO_TRIM = [LTR_MARK, RTL_MARK].freeze
 
-  def self.new_from_username(username, home_wiki=nil)
+  def self.new_from_username(username, home_wiki = nil)
     username = sanitize_username(username)
     user = User.find_by(username:)
     return user if user
@@ -43,13 +46,16 @@ class UserImporter
 
     # At this point, if we still can't find a record with this username,
     # we finally create and return it.
-    return User.find_or_create_by(username:)
+    user = User.find_or_create_by(username:)
+    # Populates registered_at for users newly created, existing users rely on the daily job.
+    FetchUserRegistrationWorker.perform_async(user.id) if user.registered_at.nil?
+    user
   end
 
   # There are some users who have a local wiki account, but do not have one
   # on MetaWiki, so this can be used to check for registration date on MetaWiki by default,
   # but also for other wikis if needed.
-  def self.update_users(users=nil, wiki=nil)
+  def self.update_users(users = nil, wiki = nil)
     wiki ||= MetaWiki.new
     users ||= User.where(registered_at: nil)
     users.each do |user|

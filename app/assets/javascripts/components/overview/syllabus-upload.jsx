@@ -60,7 +60,7 @@ const SyllabusUpload = ({ course }) => {
   return (
     <div className="module course-description course__syllabus-upload__inner">
       <div className="module__data">
-        <h3>Syllabus</h3>
+        <h3 id="syllabus-upload-modal-title">Syllabus</h3>
         <SyllabusLink />
         {' '}
         {(canUploadSyllabus && editingSyllabus ? <Uploader /> : editButton)}

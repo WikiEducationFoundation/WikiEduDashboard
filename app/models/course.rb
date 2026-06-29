@@ -57,6 +57,8 @@ require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
+  before_save :clear_declined_if_submitted
+
   ######################
   # Users for a course #
   ######################
@@ -88,7 +90,7 @@ class Course < ApplicationRecord
   end, through: :students)
 
   has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
-  has_many :articles, -> { distinct }, through: :articles_courses
+  has_many :articles, through: :articles_courses
   has_many :assignments, dependent: :destroy
 
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
@@ -120,7 +122,7 @@ class Course < ApplicationRecord
     distinct.sandbox
   }, source: :article, through: :article_course_timeslices
 
-  serialize :flags, Hash
+  serialize :flags, type: Hash
 
   module ClonedStatus
     NOT_A_CLONE = 0
@@ -211,18 +213,28 @@ class Course < ApplicationRecord
     ready_for_update.uniq
   end
 
+  VALID_SURVEY_DATE_COLUMNS = %w[start end timeline_start timeline_end].freeze
+
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
+    unless VALID_SURVEY_DATE_COLUMNS.include?(relative_to)
+      raise ArgumentError, "Invalid column: #{relative_to}"
+    end
     today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
-    where("courses.#{relative_to} > '#{ready_date}'")
+    column = connection.quote_column_name(relative_to)
+    where("courses.#{column} > ?", ready_date)
   end
 
   def self.ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
+    unless VALID_SURVEY_DATE_COLUMNS.include?(relative_to)
+      raise ArgumentError, "Invalid column: #{relative_to}"
+    end
     today = Time.zone.now
     ready_date = before ? today + days_offset.days : today - days_offset.days
-    where("courses.#{relative_to} <= '#{ready_date}'")
+    column = connection.quote_column_name(relative_to)
+    where("courses.#{column} <= ?", ready_date)
   end
 
   ###########
@@ -327,7 +339,7 @@ class Course < ApplicationRecord
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
-      if wiki_namespaces.length.zero?
+      if wiki_namespaces.empty?
         { wiki:, namespace: 0 }
       else
         wiki_namespaces.map do |wiki_ns|
@@ -337,29 +349,41 @@ class Course < ApplicationRecord
     end.flatten
   end
 
+  # Returns true if the course only tracks specific assigned/category articles.
   def only_scoped_articles_course?
-    false
+    flags[:article_scoped].present?
   end
 
-  # The default implemention retrieves all the revisions.
-  # A course type may override this implementation.
-  def filter_revisions(_wiki, revisions)
-    revisions
+  # This is true for ArticleScopedProgram courses (by type) and
+  # for any course with the explicit article_scoped flag.
+  def article_scoped_enabled?
+    is_a?(ArticleScopedProgram) || flags[:article_scoped].present?
   end
 
-  # The default implemention retrieves all the ACTs.
-  # A course type may override this implementation.
+  # Checks if an article is in scope (assigned or in a tracked category).
+  def scoped_article?(wiki, title, mw_page_id)
+    return true unless only_scoped_articles_course?
+    # Normally, scoped_article_titles will include all the in-scope articles
+    # but if the title of an assigned article has changed, we still want to process
+    # edits to that article so that we can update the Assignment#article_title.
+    # A secondary check against the mw_page_ids for assigned articles covers that.
+    scoped_article_titles(wiki).include?(title) ||
+      assigned_article_page_ids(wiki).include?(mw_page_id)
+  end
+
+  # Returns article course timeslices for scoped articles only.
   def scoped_article_timeslices
-    article_course_timeslices
+    return article_course_timeslices unless only_scoped_articles_course?
+    article_course_timeslices.where(article_id: scoped_article_ids)
   end
 
   def scoped_article_titles(wiki)
-    assigned_article_titles(wiki) + category_article_titles(wiki)
+    (assigned_article_titles(wiki) + category_article_titles(wiki)).uniq
   end
 
   def assigned_article_titles(wiki)
     @assigned_article_titles ||= {}
-    @assigned_article_titles[wiki] ||= assignments.where(wiki:).pluck(:article_title)
+    @assigned_article_titles[wiki] ||= assignments.where(wiki:).pluck(:article_title).uniq
   end
 
   def category_article_titles(wiki)
@@ -491,6 +515,14 @@ class Course < ApplicationRecord
     edit_settings['enrollment_edits_enabled']
   end
 
+  FEATURE_FLAG_KEYS = %w[
+    wiki_edits_enabled event_sync peer_review_count timeline_enabled
+    online_volunteers_enabled stay_in_sandbox no_sandboxes
+    retain_available_articles disable_student_emails review_bibliography
+    declined very_long_update max_group_size article_scoped
+    closed_date register_accounts
+  ].freeze
+
   def controlled_by_event_center?
     flags[:event_sync].present?
   end
@@ -538,8 +570,29 @@ class Course < ApplicationRecord
     flags[:review_bibliography].present?
   end
 
+  def declined?
+    flags && flags[:declined].present?
+  end
+
+  def clear_declined_if_submitted
+    return unless submitted? && flags && flags[:declined]
+    flags.delete(:declined)
+  end
+
   def very_long_update?
     flags[:very_long_update].present?
+  end
+
+  def use_acuwt?
+    flags[:use_acuwt].present?
+  end
+
+  def debug_updates?
+    flags[:debug_updates].present?
+  end
+
+  def max_group_size
+    flags[:max_group_size]
   end
 
   # TODO: find a better way to check if the course was already updated

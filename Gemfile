@@ -1,14 +1,16 @@
 source 'https://rubygems.org'
-ruby '3.1.2'
+ruby '3.4.8'
 
 ### Basic Framework
-gem 'rails', '7.0.7'
+gem 'rails', '8.1.3'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
+gem 'csv' # CSV library (required for Ruby 3.4+ as it's no longer a default gem)
+gem 'observer' # Observer library (required for Ruby 3.1+ as it's no longer in standard library)
 
 ### Database and caching
 gem 'mysql2' # MariaDB integration for ActiveRecord
@@ -21,6 +23,7 @@ gem "kt-paperclip" # used by Course and UserProfile for file attachments.
 gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'sidekiq-cron' # Plugin for cron-style recurring jobs in Sidekiq
+gem 'sidekiq-status' # Plugin for tracking information about Sidekiq
 gem 'dalli' # Caching
 gem 'connection_pool'
 gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
@@ -29,7 +32,6 @@ gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 gem 'devise' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
-gem "omniauth-rails_csrf_protection" # Makes Rails work with Omniauth 2
 # Parses user agent strings to determine which browser is in use.
 # Used for browser support warnings.
 gem 'browser'
@@ -38,6 +40,7 @@ gem 'browser'
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
+gem 'rubyzip', require: 'zip' # used by ExportTrainingModuleDraft
 gem 'mailgun-ruby' # email sending service
 
 ### Incoming Mail
@@ -53,7 +56,13 @@ gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', br
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
-gem 'mediawiki_api', git: 'https://github.com/ragesoss/mediawiki-ruby-api', branch: 'master' # Library for querying mediawiki API
+# Pointing at our fork so we get HttpError#response — needed to honor
+# Retry-After on 429s. Switch back to plain `gem 'mediawiki_api'` once
+# https://gerrit.wikimedia.org/r/admin/repos/mediawiki/ruby/api releases
+# the upstream merge.
+gem 'mediawiki_api',
+    git: 'https://github.com/WikiEducationFoundation/mediawiki-ruby-api',
+    branch: 'expose-response-on-http-error'
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 gem 'rss' # Standard RSS library
@@ -66,7 +75,6 @@ gem 'i18n-js'
 gem 'sentry-ruby' # error reporting for both server-side Ruby and client-side JS
 gem 'sentry-rails' # Sentry extension for Rails
 gem 'sentry-sidekiq' # Sentry extension for Sidekiq
-gem 'piwik_analytics', git: 'https://github.com/ragesoss/piwik-ruby-tracking' # traffic analytics
 gem 'newrelic_rpm' # performance monitoring
 
 ### Assorted conveniences and tools
@@ -110,8 +118,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
-  gem 'openssl', '~> 3'
-  gem 'x25519' # workaround for openssl bug: https://github.com/ruby/openssl/issues/489
   gem 'rails-erd' # Generates`erd.pdf`
   gem 'annotate' # Generates automatic schema notations on model files
   gem 'memory_profiler' # Unsafe for production use
@@ -120,12 +126,16 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'byebug'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '6.1.0'
   gem 'rubocop',  require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-performance', require: false
+  gem 'rubocop-rspec_rails', require: false
+  gem 'rubocop-factory_bot', require: false
+  gem 'rubocop-capybara', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
+  gem 'parallel_tests'
   gem 'rack-proxy', '~> 0.7.6'
 end
 
@@ -139,4 +149,5 @@ group :test do
   gem 'simplecov', require: false
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'axe-core-rspec' # Accessibility assertions for feature specs
 end

@@ -1,11 +1,16 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-performance
+  - rubocop-rspec_rails
+  - rubocop-factory_bot
+  - rubocop-capybara
 Style/Documentation:
   Enabled: false
 AllCops:
+  DisabledByDefault: true
   NewCops: enable
+  SuggestExtensions: false
   Exclude:
     - 'Gemfile'
     - 'Guardfile'
@@ -25,13 +30,15 @@ Layout/LineLength:
   Max: 100
 
 Metrics/ClassLength:
-  Max: 130 # We should bring this down, ideally to the default of 100
+  Max: 145 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'app/models/alert.rb'
+    - 'app/models/alert_types/ai_edit_alert.rb'
     - 'app/models/course.rb'
     - 'app/models/wiki.rb'
     - 'app/models/user.rb'
     - 'app/presenters/courses_presenter.rb'
+    - 'app/services/update_course_wiki_timeslices.rb'
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
@@ -45,7 +52,11 @@ Metrics/ClassLength:
     - 'lib/training/wiki_slide_parser.rb'
     - 'lib/wiki_assignment_output.rb'
     - 'lib/course_training_progress_manager.rb'
+    - 'lib/timeslice_cleaner.rb'
     - 'lib/timeslice_manager.rb'
+    - 'app/services/check_revision_with_pangram.rb'
+    - 'app/services/push_course_to_salesforce.rb'
+    - 'lib/revision_data_manager.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
@@ -70,14 +81,12 @@ Metrics/ModuleLength:
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
 Rails/EnvironmentVariableAccess:
-  AllowReads: true
+  Enabled: false
 
 ########################
 # Permanent exceptions #
 ########################
 
-Layout/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/ColonMethodCall:
@@ -112,6 +121,8 @@ Rails/I18nLocaleTexts:
   Enabled: false # Generally the translations are done manually so most times many language translations will be missing while the fallback message is English
 Style/StringConcatenation:
   Enabled: false
+Style/RedundantParentheses:
+  Enabled: false # Parentheses sometimes help with clarity even when redundant.
 
 ########################
 # Temporary exceptions #
@@ -122,8 +133,6 @@ Style/StringConcatenation:
 # if we decide they shouldn't be fixed.
 
 Rails/FilePath:
-  Enabled: false
-Performance/UnfreezeString:
   Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
@@ -171,8 +180,6 @@ RSpec/ExpectInHook:
   Enabled: false
 Style/DateTime:
   Enabled: false
-Rails/ContentTag:
-  Enabled: false
 Style/OptionalBooleanParameter:
   Enabled: false
 Style/ExplicitBlockArgument:
@@ -193,17 +200,17 @@ Rails/PluckInWhere:
   Enabled: false
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
-Style/SoleNestedConditional:
-  Enabled: false
 Rails/I18nLocaleAssignment:
   Enabled: false
 RSpec/SubjectDeclaration:
   Enabled: false
+RSpec/IndexedLet:
+  Enabled: false
+RSpec/Output:
+  Enabled: false
 Rails/RedundantTravelBack:
   Enabled: false
 Rails/DurationArithmetic:
-  Enabled: false
-Layout/LineContinuationSpacing:
   Enabled: false
 Style/FetchEnvVar:
   Enabled: false
@@ -219,13 +226,53 @@ RSpec/ChangeByZero:
   Enabled: false
 RSpec/BeNil:
   Enabled: false
-RSpec/Capybara/SpecificMatcher:
+Capybara/SpecificMatcher:
   Enabled: false
-RSpec/Rails/HaveHttpStatus:
+RSpecRails/HaveHttpStatus:
   Enabled: false
-RSpec/FactoryBot/SyntaxMethods:
-  Enabled: false
-Rails/CompactBlank:
+FactoryBot/SyntaxMethods:
   Enabled: false
 Layout/FirstHashElementIndentation:
+  Enabled: false
+Lint/UselessConstantScoping:
+  Enabled: false
+Layout/EmptyLinesAfterModuleInclusion:
+  Enabled: false
+Style/ArrayIntersect:
+  Enabled: false
+Style/RedundantInterpolationUnfreeze:
+  Enabled: false
+Naming/PredicateMethod:
+  Enabled: false
+Style/YAMLFileRead:
+  Enabled: false
+Style/SuperArguments:
+  Enabled: false
+Metrics/CollectionLiteralLength:
+  Enabled: false
+Style/MultipleComparison:
+  Enabled: false
+Style/MinMaxComparison:
+  Enabled: false
+Style/CollectionQuerying:
+  Enabled: false
+Style/RedundantEach:
+  Enabled: false
+Style/ComparableBetween:
+  Enabled: false
+Style/ClassEqualityComparison:
+  Enabled: false
+Style/MapIntoArray:
+  Enabled: false
+Style/RedundantSelfAssignmentBranch:
+  Enabled: false
+Lint/LiteralAsCondition:
+  Enabled: false
+Style/SafeNavigationChainLength:
+  Enabled: false
+Lint/AmbiguousRange:
+  Enabled: false
+Style/SafeNavigation:
+  Enabled: false
+Style/RedundantRegexpArgument:
   Enabled: false

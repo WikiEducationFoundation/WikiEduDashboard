@@ -19,10 +19,14 @@ class WikiApi
   # Entry points #
   ################
 
-  # General entry point for making arbitrary queries of a MediaWiki wiki's API
-  def query(query_parameters)
+  # General entry point for making arbitrary queries of a MediaWiki wiki's API.
+  # An optional block can be passed to intercept errors: if the block returns
+  # truthy for a given exception, the exception bubbles up to the caller
+  # without retry or Sentry logging. Otherwise the default retry/log/return-nil
+  # behavior applies.
+  def query(query_parameters, &caller_handles)
     http_method = query_parameters[:http_method] || :get
-    mediawiki('query', query_parameters.merge(http_method:))
+    mediawiki('query', query_parameters.merge(http_method:), &caller_handles)
   end
 
   def meta(type, params = {})
@@ -105,19 +109,55 @@ class WikiApi
     @data
   end
 
-  def mediawiki(action, query)
+  def mediawiki(action, query, &caller_handles)
     tries ||= 3
     @mediawiki = api_client
     @mediawiki.send(action, query)
   rescue StandardError => e
+    raise if caller_handles&.call(e)
     tries -= 1
-    # Continue for typical errors so that the request can be retried, but wait
-    # a short bit in the case of 429 — too many request — errors.
-    sleep 1 if too_many_requests?(e)
+    if too_many_requests?(e)
+      @update_service&.record_too_many_requests
+      sleep retry_delay_for(e)
+    end
     retry unless tries.zero?
     log_error(e, update_service: @update_service,
-              sentry_extra: { action:, query:, api_url: @api_url })
+              sentry_extra: rate_limit_sentry_extra(e).merge(action:, query:, api_url: @api_url),
+              sentry_tags: rate_limit_sentry_tags(e))
     return nil
+  end
+
+  def rate_limit_sentry_tags(error)
+    return unless too_many_requests?(error)
+    { http_status: 429, host: URI(@api_url).host }
+  end
+
+  # Per Wikimedia's rate-limit policy: honor Retry-After when present, else
+  # back off ≥5 s. https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits
+  DEFAULT_RETRY_AFTER_SECONDS = 5
+  # Cap to prevent a misbehaving server from hanging a worker for hours.
+  MAX_RETRY_AFTER_SECONDS = 60
+
+  def retry_delay_for(error)
+    seconds = retry_after_seconds(error) || DEFAULT_RETRY_AFTER_SECONDS
+    seconds.clamp(0, MAX_RETRY_AFTER_SECONDS)
+  end
+
+  # Returns the integer seconds requested by the server's Retry-After header,
+  # or nil if the header is absent / unparseable / the gem version in use
+  # doesn't expose the response on HttpError. Wikimedia uses delay-seconds;
+  # HTTP-date form (RFC 7231) is not parsed.
+  def retry_after_seconds(error)
+    return nil unless error.respond_to?(:response) && error.response
+    raw = error.response.headers['Retry-After']
+    Integer(raw) if raw.present?
+  rescue ArgumentError, TypeError
+    nil
+  end
+
+  def rate_limit_sentry_extra(error)
+    raw = retry_after_seconds(error)
+    raw ? { retry_after: raw } : {}
   end
 
   def api_client

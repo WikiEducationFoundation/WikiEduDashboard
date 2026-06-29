@@ -63,6 +63,44 @@ describe RevisionDataManager do
             'title' => 'Draft article',
             'namespace' => '118',
             'wiki_id' => 1
+        },
+          'revisions' => [
+            { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '123', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
+    let(:scoped_data1) do
+      [
+        '777',
+        {
+          'article' => {
+            'mw_page_id' => '777',
+            'title' => 'Ragesoss/citing_sources',
+            'namespace' => '4',
+            'wiki_id' => 1,
+            'scoped' => true
+          },
+          'revisions' => [
+            { 'mw_rev_id' => '849116430', 'date' => '20180706', 'characters' => '569',
+              'mw_page_id' => '777', 'username' => 'Ragesoss', 'new_article' => 'false',
+              'system' => 'false', 'wiki_id' => 1 }
+          ]
+        }
+      ]
+    end
+    let(:non_scoped_data2) do
+      [
+        '123',
+        {
+          'article' => {
+            'mw_page_id' => '123',
+            'title' => 'Draft article',
+            'namespace' => '118',
+            'wiki_id' => 1,
+            'scoped' => false
           },
           'revisions' => [
             { 'mw_rev_id' => '456', 'date' => '20180706', 'characters' => '569',
@@ -72,7 +110,6 @@ describe RevisionDataManager do
         }
       ]
     end
-    let(:filtered_sub_data) { [data1] }
 
     before do
       create(:courses_user, course:, user:)
@@ -80,7 +117,7 @@ describe RevisionDataManager do
     end
 
     it 'fetches all the revisions that occurred during the given period of time' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         expect(revisions.length).to eq(4)
         # Fetches the right revision ids
@@ -96,14 +133,14 @@ describe RevisionDataManager do
         .once
         .with(revision_data)
 
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         subject
       end
     end
 
     it 'creates articles for all revisions even for article scoped programs' do
       allow_any_instance_of(described_class).to receive(:get_course_revisions)
-        .and_return([sub_data, filtered_sub_data])
+        .and_return([scoped_data1, non_scoped_data2])
 
       article_importer = instance_double(ArticleImporter)
       allow(ArticleImporter).to receive(:new).and_return(article_importer)
@@ -116,12 +153,29 @@ describe RevisionDataManager do
     end
 
     it 'ensures all revisions have a non-nil character field' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         # Revisions retrieved from the replica may have a nil characters field.
         # This spec ensures that the created Revision record always has a non-nil
         # characters value, defaulting to zero if nil.
         subject2.each { |rev| expect(rev.characters).not_to be_nil }
       end
+    end
+
+    it 'marks scoped revisions based on scoped articles' do
+      allow(instance_class).to receive(:get_revisions).and_return([data1, data2])
+      expect(subject.first.scoped).to eq(true)
+      expect(subject.second.scoped).to eq(true)
+    end
+
+    it 'marks scoped revisions based on scoped articles for artcile scoped programs' do
+      # Use article scoped course since otherwise all revisions are scoped
+      scoped_course = create(:article_scoped_program, start: '2018-01-01', end: '2018-12-31')
+      scoped_instance_class = described_class.new(home_wiki, scoped_course)
+      allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2])
+      allow(scoped_course).to receive(:scoped_article_titles).and_return(['Draft_article'])
+      revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
+      expect(revisions.first.scoped).to eq(false)
+      expect(revisions.second.scoped).to eq(true)
     end
   end
 
@@ -194,30 +248,23 @@ describe RevisionDataManager do
     end
 
     it 'fetches all the revisions scores' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         expect(revisions.length).to eq(4)
-        # Fetches the scores
-        expect(revisions[0].wp10).to be_within(0.01).of(18.29)
-        expect(revisions[0].wp10_previous).to be_within(0.01).of(11.96)
+        # Fetches the reference counts and deletion status. wp10 / prediction
+        # are no longer populated during updates (Lift Wing is not called).
         expect(revisions[0].features).to eq({ 'num_ref' => 2 })
         expect(revisions[0].features_previous).to eq({ 'num_ref' => 2 })
         expect(revisions[0].deleted).to eq(false)
 
-        expect(revisions[1].wp10).to be_within(0.01).of(20.09)
-        expect(revisions[1].wp10_previous).to be_within(0.01).of(18.29)
         expect(revisions[1].features).to eq({ 'num_ref' => 3 })
         expect(revisions[1].features_previous).to eq({ 'num_ref' => 2 })
         expect(revisions[1].deleted).to eq(false)
 
-        expect(revisions[2].wp10).to be_within(0.01).of(21.37)
-        expect(revisions[2].wp10_previous).to be_within(0.01).of(20.09)
         expect(revisions[2].features).to eq({ 'num_ref' => 3 })
         expect(revisions[2].features_previous).to eq({ 'num_ref' => 3 })
         expect(revisions[2].deleted).to eq(false)
 
-        expect(revisions[3].wp10).to be_within(0.01).of(21.34)
-        expect(revisions[3].wp10_previous).to be_within(0.01).of(21.37)
         expect(revisions[3].features).to eq({ 'num_ref' => 3 })
         expect(revisions[3].features_previous).to eq({ 'num_ref' => 3 })
         expect(revisions[3].deleted).to eq(false)
@@ -226,7 +273,7 @@ describe RevisionDataManager do
 
     it 'does not calculate scores for revisions out mainspace/userspace/draftspace' do
       allow(instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         # Returns all revisions
         expect(revisions.length).to eq(3)
@@ -251,7 +298,7 @@ describe RevisionDataManager do
       scoped_instance_class = described_class.new(home_wiki, scoped_course)
       allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
       allow(scoped_course).to receive(:scoped_article_titles).and_return(['Scoped_article'])
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
         revisions = scoped_instance_class.fetch_score_data_for_course(revisions)
         # Returns all revisions
@@ -284,11 +331,10 @@ describe RevisionDataManager do
     end
 
     it 'fetches all the revisions for the specific users during the given period of time' do
-      VCR.use_cassette 'revision_importer/all' do
+      VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
         expect(revisions.length).to eq(10)
         # Revisions don't have scores
-        expect(revisions[0].wp10).to eq(nil)
         expect(revisions[0].features).to eq({})
       end
     end

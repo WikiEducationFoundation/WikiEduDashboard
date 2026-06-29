@@ -11,10 +11,12 @@ describe 'settings', type: :feature, js: true do
     login_as(super_admin, scope: :user)
     SpecialUsers.set_user('communications_manager', special_user.username)
     visit '/settings'
+    expect(page).to have_content(special_user.username)
   end
 
   context 'for special users' do
     it 'adds a special user' do
+      expect(page).to be_axe_clean
       click_button 'Add Special User'
       fill_in('new_special_user', with: user.username)
       find('#specialUserPosition').click

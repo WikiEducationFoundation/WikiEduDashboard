@@ -136,7 +136,7 @@ const TrainingSlideHandler = () => {
   if (training.loading === true) {
     return (
       <div className="training-loader">
-        <h1 className="h2">Loading…</h1>
+        <h1 className="h2">{I18n.t('training.loading')}</h1>
         <div className="training-loader__spinner" />
       </div>
     );
@@ -239,7 +239,7 @@ const TrainingSlideHandler = () => {
 
  let sourceLink;
  if (training.currentSlide.wiki_page) {
-   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">{I18n.t('training.wiki_source')}</a></span>;
  }
 
 
@@ -259,15 +259,26 @@ const TrainingSlideHandler = () => {
     <div>
       <Notifications />
       <header>
-        <div className="pull-right training__slide__nav" onClick={toggleMenuOpen_FC}>
+        <div
+          role="button"
+          tabIndex={0}
+          className="pull-right training__slide__nav"
+          onClick={toggleMenuOpen_FC}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              toggleMenuOpen_FC();
+            }
+          }}
+        >
           <div className="pull-right hamburger">
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
           </div>
-          <h3 className="pull-right">
-            <a href="" onFocus={toggleMenuOpen_FC}>{I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}</a>
-          </h3>
+          <span className="pull-right training__slide__page-label">
+            {I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}
+          </span>
         </div>
         <SlideMenu
           closeMenu={closeMenu_FC}

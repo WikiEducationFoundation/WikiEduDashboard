@@ -50,7 +50,6 @@
 #
 
 class ArticleScopedProgram < Course
-  include CustomRevisionFilter
 
   def wiki_course_page_enabled?
     return super if edit_settings_present?

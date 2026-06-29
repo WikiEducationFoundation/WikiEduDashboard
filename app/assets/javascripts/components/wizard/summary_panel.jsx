@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withRouter from '../util/withRouter';
 import Panel from './panel.jsx';
+import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
 
 const answersFromPanels = (panels) => {
   const answers = [];
@@ -43,10 +44,10 @@ const SummaryPanel = (props) => {
     if (i === 0) {
       details = [
         <p key={'course_dates_summary'}>
-          {I18n.t('timeline.course_start')} — {props.course.start} <br />
-          {I18n.t('timeline.course_end')} — {props.course.end} <br />
-          {I18n.t('courses.assignment_start')} — {props.course.timeline_start} <br />
-          {I18n.t('courses.assignment_end')} — {props.course.timeline_end}
+          {I18n.t('timeline.course_start')} — {formatDateWithoutTime(toDate(props.course.start))} <br />
+          {I18n.t('timeline.course_end')} — {formatDateWithoutTime(toDate(props.course.end))} <br />
+          {I18n.t('courses.assignment_start')} — {formatDateWithoutTime(toDate(props.course.timeline_start))} <br />
+          {I18n.t('courses.assignment_end')} — {formatDateWithoutTime(toDate(props.course.timeline_end))}
         </p>
       ];
     } else {
@@ -66,7 +67,7 @@ const SummaryPanel = (props) => {
     <Panel
       {...props}
       advance={submit}
-      raw_options={rawOptions}
+      raw_options={<div className="summary-grid">{rawOptions}</div>}
       button_text="Generate Timeline"
     />
   );

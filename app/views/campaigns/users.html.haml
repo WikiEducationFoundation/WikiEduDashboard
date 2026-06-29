@@ -11,7 +11,7 @@
       %h3
         = t("#{@presenter.course_string_prefix}.students")
       .sort-select
-        %select.sorts{rel: "users"}
+        %select.sorts{rel: "users", 'aria-label': t('application.sort')}
           %option{rel: "asc", value: "username"}= t('users.username')
           %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
           %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
