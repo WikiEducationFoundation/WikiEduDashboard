@@ -40,22 +40,22 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
   reachable. Exposure depends on our specific TinyMCE configuration — needs
   review before prioritizing.
 
-### 2. linkify-it (needs markdown-it major upgrade)
+### 2. linkify-it (needs markdown-it major upgrade) — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-22p9-wv53-3rq4 (high) — quadratic ReDoS in `LinkifyIt#match`.
 - **Range / patch:** `<= 5.0.0`, patched `5.0.1`.
-- **Current:** `linkify-it 3.0.3`, pulled **only** by `markdown-it@12.3.2`
-  (direct dependency `markdown-it ^12.3.2`).
-- **Why deferred:** `linkify-it` is required by `markdown-it`; the 12.x line uses
-  `linkify-it` 3.x. Forcing `linkify-it` 5.x under markdown-it 12 would break it
-  (API differs across the 3 → 5 majors). The clean fix is bumping
-  `markdown-it` 12 → 14, which uses `linkify-it` 5.x and also clears the separate
-  **medium** markdown-it alert #389 (patched `14.2.0`).
-- **Recommended:** Upgrade `markdown-it ^12.3.2` → `^14.x` together with a
-  compatible `markdown-it-footnote`, then regression-check rendered markdown
-  (used in haml templates/helpers; confirm whether any user-supplied markdown is
-  rendered). markdown-it 12 → 14 has output and plugin-API changes.
-- **Risk:** ReDoS (DoS) on inputs run through the linkifier; moderate.
+- **Was:** `linkify-it 3.0.3`, pulled **only** by `markdown-it@12.3.2`. linkify-it
+  is bundled by markdown-it, so the only path to the patched 5.x line was a
+  markdown-it major upgrade.
+- **Fix shipped:** Bumped `markdown-it` ^12.3.2 → **^14.2.0** and
+  `markdown-it-footnote` ^3.0.2 → **^4.0.0** (branch
+  `linkify-it-markdown-it-upgrade`). This pulled `linkify-it` 5.0.1 and also
+  cleared the separate medium markdown-it alert #389 (patched 14.2.0). Our usage
+  is centralized in `app/assets/javascripts/utils/markdown_it.js` (a thin wrapper
+  using only `html`/`linkify`/`.use(footnotes)`/`.render()` and a stable
+  token-API renderer override), so no app code changed. Verified: the existing
+  markdown specs, the full Jest suite (406 tests), the production build, and an
+  ad-hoc footnote+linkify render all pass.
 
 ### 3. js-cookie (needs react-cookie-consent upgrade)
 
@@ -73,95 +73,85 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
 - **Risk:** Runtime, but the attack requires control over cookie-attribute input;
   low-to-moderate. Still, a functional check of the banner is required.
 
-### 4. tar (only patched on the 7.x line; cacache pins 6.x)
+### 4. tar (only patched on the 7.x line; cacache pins 6.x) — ✅ RESOLVED 2026-06-29
 
 - **Alerts (all high):** GHSA-9ppj-qmqm-q256, GHSA-qffp-2rhf-9h96,
   GHSA-83g3-92jg-28cx, GHSA-34x7-hfp2-rc4v, GHSA-r6q2-hw4h-h46w,
   GHSA-8qq5-rm4j-mr97 — symlink/hardlink path traversal and extraction race
   conditions in node-tar.
-- **Range / patch:** Various, with patched versions **only** on the 7.5.x line
-  (e.g. `7.5.7`, `7.5.8`, … up to `7.5.16`). Our installed `tar 6.2.1` is matched
-  by these ranges.
-- **Current:** `tar 6.2.1`, held by the existing resolution `"tar": "^6.2.1"`;
-  required by `cacache@16.1.1` (`tar ^6.2.1`) and `node-gyp@9.0.0`.
-  **Build/install-time only** — used for native-module build caching, not in the
-  running server or the browser bundle, and we do not extract untrusted archives
-  at runtime.
-- **Why deferred:** The only patched line is tar 7.x. `cacache@16` pins
-  `tar ^6.2.1`; forcing tar 7 via a resolution risks breaking cacache/node-gyp
-  (the tar 6 → 7 API changed). The robust fix is upgrading the toolchain that
-  pulls `cacache@16` / `node-gyp@9` so it depends on tar 7.
-- **Recommended:** Either (a) bump the `node-gyp`/`cacache` chain to versions
-  that use tar 7, or (b) change the resolution `"tar"` → `^7.5.16` and verify a
-  clean `yarn install` with native dependency builds. Verify before merging.
-- **Risk:** **Low** real-world exposure (build-time, no untrusted archives), but
-  this is the single largest cluster of open High alerts.
+- **Was:** `tar 6.2.1`, held by the resolution `"tar": "^6.2.1"`; required by
+  `cacache@16.1.1` (`tar ^6.1.11`) and `node-gyp@9.0.0`. That whole subtree
+  exists only to build `fsevents` (a macOS-only native file-watcher) at install
+  time — not in the server runtime or browser bundle, and nothing extracts
+  untrusted archives, so real-world exposure was minimal.
+- **Fix shipped (branch `linkify-it-markdown-it-upgrade`):** tar is patched only
+  on the 7.x line, and `cacache@16` uses the tar 6 API, so rather than forcing
+  tar 7 under it the whole toolchain was bumped: resolution `node-gyp` →
+  `^11.5.0` (lenient engine `^18.17.0 || >=20.5.0`), which cascades
+  `make-fetch-happen` 10 → 14 → `cacache` 16 → 19, all on `tar ^7.4.3`; and the
+  `tar` resolution `^6.2.1` → `^7.5.4`. Result: a single `tar 7.5.19` in the
+  lockfile (no 6.x copy), which also clears the related medium tar alert.
+  Verified: clean `yarn install`, full Jest suite (406 tests), and production
+  webpack build. The macOS native-build path can't be exercised on CI but is
+  build-time-only by nature.
 
-### 5. serialize-javascript (needs css-minimizer-webpack-plugin upgrade)
+### 5. serialize-javascript — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-5c6j-r48x-rmvq (high) — RCE via `RegExp.flags` /
   `Date.prototype.toISOString()`.
 - **Range / patch:** `<= 7.0.2` (high) and `< 7.0.5` (medium); patched `7.0.3` /
   `7.0.5`.
-- **Current:** `serialize-javascript 6.0.0`, pulled by
-  `css-minimizer-webpack-plugin@4.0.0` (`serialize-javascript ^6.0.0`).
-  **Build-time only** — serializes the build/minifier config, not attacker input.
-- **Why deferred:** 6 → 7 is a major bump and `css-minimizer-webpack-plugin@4`
-  expects `^6.0.0`; forcing 7.x could break the minifier.
-- **Recommended:** Bump `css-minimizer-webpack-plugin` (direct dependency) to a
-  release that uses serialize-javascript 7.x and verify the production CSS build.
-- **Risk:** **Low** (build-time, no untrusted input).
+- **Was:** `serialize-javascript 6.0.0`, pulled by `css-minimizer-webpack-plugin@4.0.0`
+  (`serialize-javascript ^6.0.0`). **Build-time only** — serializes the minifier
+  cache key, not attacker input.
+- **Correction to the original plan:** "bump css-minimizer-webpack-plugin to a
+  release that uses serialize-javascript 7.x" turned out to be unviable — *every*
+  css-minimizer-webpack-plugin version (through the current 8.x) pins
+  serialize-javascript at `^6.0.x`, and the high advisory covers everything
+  `<= 7.0.2`, so 6.0.x is vulnerable too.
+- **Fix shipped:** forced serialize-javascript to 7.x with a resolution
+  (`serialize-javascript@^6.0.0` → `^7.0.5`, resolves to 7.0.6).
+  css-minimizer-webpack-plugin@4 is its only consumer (terser-webpack-plugin no
+  longer depends on it) and its `serialize()` usage is compatible across 6 → 7.
+  Verified by the production webpack build (CSS minified and emitted) plus the
+  Jest suite.
 
-### 6. flatted (legacy 2.x line) — shares a fix with tmp
+### 6. flatted (legacy 2.x line) — shares a fix with tmp — ✅ RESOLVED 2026-06-29
 
 - **Alerts (high):** GHSA-rf6f-7fwh-wjgh (`<= 3.4.1`, prototype pollution),
   GHSA-25h7-pfq9-p65f (`< 3.4.0`, unbounded-recursion DoS).
-- **Note:** The project's **3.x** flatted line is already pinned to `3.4.2`
-  (patched) via the existing `"flatted@^3.1.0": "^3.4.2"` resolution. Only the
-  legacy **`flatted 2.0.2`** copy remains vulnerable.
-- **Current chain:** `flatted 2.0.2` ← `flat-cache@2.0.1` ←
-  `file-entry-cache@5.0.1` ← `eslint@6.8.0` ← **`rewire@5.0.0`** (direct
-  devDependency). **Dev-only** (lint/test caching).
-- **Why deferred:** Forcing flatted 3.x onto `flat-cache@2` (which uses the
-  flatted 2.x API) would break it.
-- **Recommended fix (shared with tmp below):** Upgrade `rewire ^5.0.0` → `^9.0.1`.
-  rewire 5 depends on the ancient `eslint ^6.8.0`; rewire 9.0.1 instead depends on
-  `eslint ^9.30`, which matches the project's existing `eslint ^9.39.4` direct
-  dependency. Bumping rewire therefore lets eslint dedupe to the modern 9.x copy
-  and drops the entire `eslint@6.8.0` subtree — including `flat-cache@2` /
-  `flatted@2` **and** `inquirer@7` / `external-editor` / `tmp` (see below).
-  Verify rewire-based tests still pass after the bump (rewire spans the 5 → 9
-  majors, so confirm the resulting tree and re-run the JS suite).
-- **Risk:** **Low** (dev-only).
+- **Was:** The 3.x flatted line was already patched (`3.4.2`); only the legacy
+  `flatted 2.0.2` was vulnerable, via `flat-cache@2.0.1` ← `file-entry-cache@5.0.1`
+  ← `eslint@6.8.0` ← `rewire@5.0.0`. **Dev-only.**
+- **Fix shipped:** the `rewire` bump below removed the `eslint@6.8.0` subtree;
+  `flatted@2.0.2` is gone and only the patched `flatted@3.4.2` remains.
 
-### 7. tmp — shares a fix with flatted (rewire)
+### 7. tmp — shares a fix with flatted (rewire) — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-ph9p-34f9-6g65 (high) — path traversal via unsanitized
   prefix/postfix enabling directory escape.
-- **Range / patch:** `< 0.2.6`, patched `0.2.6`.
-- **Current chain:** `tmp 0.0.33` ← `external-editor@3.1.0` ← `inquirer@7.3.3` ←
-  `eslint@6.8.0` ← **`rewire@5.0.0`** (direct devDependency). **Dev-only.**
-- **Why deferred:** `external-editor@3.1.0` pins `tmp ^0.0.33`; forcing 0.2.6
-  could break it.
-- **Recommended fix:** Same as flatted — upgrade `rewire` 5 → 7 to drop the
-  `eslint@6.8.0` subtree that pulls `inquirer → external-editor → tmp`.
-- **Risk:** **Low** (dev-only).
+- **Was:** `tmp 0.0.33` ← `external-editor@3.1.0` ← `inquirer@7.3.3` ←
+  `eslint@6.8.0` ← `rewire@5.0.0`. **Dev-only.**
+- **Fix shipped:** the `rewire` bump below removed the `eslint@6.8.0` subtree
+  (which pulled `inquirer → external-editor → tmp`); `tmp` is gone from the tree
+  entirely.
 
 ---
 
-## A single high-value follow-up: upgrade `rewire`
+## A single high-value follow-up: upgrade `rewire` — ✅ DONE 2026-06-29
 
-`rewire@5.0.0` is a direct devDependency that drags in the obsolete
-`eslint@6.8.0` (rewire 5 depends on `eslint ^6.8.0`). That one subtree is the
+`rewire@5.0.0` was a direct devDependency that dragged in the obsolete
+`eslint@6.8.0` (rewire 5 depends on `eslint ^6.8.0`). That one subtree was the
 sole source of **two** High alerts — `flatted@2.0.2` and `tmp@0.0.33`.
 
-The project already uses `eslint ^9.39.4` directly, and `rewire@9.0.1` depends on
-`eslint ^9.30`. So bumping `rewire ^5.0.0` → `^9.0.1` in `package.json` lets
-eslint dedupe to the existing 9.x copy, removing `eslint@6.8.0` and the whole
-vulnerable subtree below it, clearing both alerts at once. It was left out of the
-"safe and simple" commits only because it is a direct-dependency bump across
-several majors (5 → 9) touching test infrastructure (rewire is used in tests for
-module mocking), so it deserves its own verification pass with the full JS suite.
+**Shipped (branch `linkify-it-markdown-it-upgrade`):** bumped `rewire ^5.0.0` →
+`^9.0.1`. rewire 9 depends on `eslint ^9.30`, which dedupes with the project's
+existing `eslint ^9.39.4`, so `eslint@6.8.0` and its whole subtree dropped out,
+clearing both alerts at once. In practice `rewire` is not imported anywhere in
+the repo, so the major bump carried no test-behavior risk (and the package could
+reasonably be removed outright in a future cleanup). Verified: `eslint@6.8.0`,
+`flatted@2.0.2`, `tmp`, `flat-cache@2`, `inquirer@7`, and `external-editor` are
+all gone; full Jest suite, production build, and `yarn lint-non-build` all pass.
 
 ---
 
