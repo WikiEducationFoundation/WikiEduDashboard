@@ -127,6 +127,7 @@ describe CourseMeetingsManager do
         expect(subject).to include('(Tue, Wed, Thu)')
       end
     end
+
   end
 
   describe '#day_meetings' do
@@ -191,6 +192,7 @@ describe CourseMeetingsManager do
         expect(subject).to be_zero
       end
     end
+
   end
 
   describe '#meeting_dates_of' do
@@ -312,6 +314,45 @@ describe CourseMeetingsManager do
     it 'works for exactly two weeks between start and timeline start' do
       course = create(:course, slug:, start: '2018-01-09', timeline_start: '2018-01-23')
       expect(described_class.new(course).weeks_before_timeline).to be(2)
+    end
+  end
+
+  context 'when no_meeting_days is set' do
+    let(:async_course) do
+      create(:course,
+             id: 9999,
+             title: 'Async Course',
+             school: 'Open University',
+             term: 'Fall 2015',
+             slug: 'Open_University/Async_Course_(Fall_2015)',
+             timeline_start: t_start,
+             timeline_end: t_end,
+             day_exceptions: '',
+             weekdays: '1111111',
+             flags: { no_meeting_days: true },
+             type: course_type)
+    end
+
+    # Stub weeks on the instance after creation to avoid triggering
+    # Course#reorder_weeks callbacks that cause recursive after_save loops.
+    let(:manager) do
+      allow(async_course).to receive(:weeks).and_return(Array.new(12))
+      described_class.new(async_course)
+    end
+
+    it 'returns all seven days from day_meetings' do
+      expect(manager.send(:day_meetings)).to eq(CourseMeetingsManager::DAYS_AS_SYM)
+    end
+
+    it 'has no blackout weeks in week_meetings so timeline blocks can be inserted' do
+      # A blackout week is represented as '()' — empty meeting string.
+      # With no_meeting_days all days count as meeting days, so no week is blacked out.
+      expect(manager.week_meetings).not_to include('()')
+    end
+
+    it 'counts no blackout weeks when calculating open_weeks' do
+      # 21 timeline weeks - 0 blackout weeks - 12 assigned weeks = 9
+      expect(manager.open_weeks).to eq(9)
     end
   end
 end

@@ -84,7 +84,7 @@ const Calendar = ({
       return !inrange(day);
     },
     ['selected']: (day) => {
-      if (this.props.course.no_meeting_days) return false;
+      if (course.no_meeting_days) return false;
       if ((course.weekdays !== undefined) && course.weekdays.charAt(day) === '1') {
         return true;
       } else if (day < 8) {

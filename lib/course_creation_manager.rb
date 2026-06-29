@@ -45,6 +45,8 @@ class CourseCreationManager
     set_course_type
     set_initial_campaign
     @course = Course.new(@course_params.merge(@overrides))
+    @course.flags[:no_meeting_days] = true
+    @course.weekdays = '1111111'
     if @course.save
       add_instructor_to_course
       add_tags_to_course

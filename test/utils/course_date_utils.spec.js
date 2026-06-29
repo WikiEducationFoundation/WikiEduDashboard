@@ -199,6 +199,32 @@ describe('CourseDateUtils.wouldCreateBlackoutWeek', () => {
   });
 });
 
+describe('CourseDateUtils.weekMeetings with no_meeting_days', () => {
+  // When no_meeting_days is true the course is async — all days are treated as
+  // meeting days regardless of weekdays, so no week should be blacked out.
+  const asyncCourse = {
+    timeline_start: '2026-03-01', // Sunday — full weeks for easy counting
+    timeline_end: '2026-03-14',   // Saturday
+    end: '2026-03-14',
+    weekdays: '0000000',
+    day_exceptions: '',
+    no_meeting_days: true
+  };
+
+  test('every week has meetings when no_meeting_days is true', () => {
+    const meetings = CourseDateUtils.weekMeetings(asyncCourse, []);
+    meetings.forEach(week => {
+      expect(week.length).toBeGreaterThan(0);
+    });
+  });
+
+  test('open_weeks counts all weeks as available when no_meeting_days is true', () => {
+    const meetings = CourseDateUtils.weekMeetings(asyncCourse, []);
+    const open = CourseDateUtils.openWeeks(meetings);
+    expect(open).toBe(meetings.length);
+  });
+});
+
 // https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/651
 describe('CourseDateUtils.weekMeetings boundary cases', () => {
   test('excludes meeting days after timeline_end even if they are before course.end', () => {

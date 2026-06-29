@@ -18,6 +18,7 @@ def interact_with_clone_form
 end
 
 def go_through_course_dates_and_timeline_dates
+  find('label.switch').click
   find('span[title="Wednesday"]', match: :first).click
   within('.wizard__panel.active') do
     expect(page).to have_css('button.dark')
@@ -344,12 +345,10 @@ describe 'New course creation and editing', type: :feature do
       end_input = find('input.end', match: :first).value
       expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
 
-      # Click checkbox to opt out of meeting days
-      find('input.no-meeting-day-checkbox').click
+      # Toggle is OFF by default (no meeting days), so no click needed
       within('.wizard__panel.active') do
         expect(page).to have_css('button.dark')
       end
-      find('.wizard__form.course-dates input[type=checkbox]', match: :first).set(true)
       within('.wizard__panel.active') do
         expect(page).not_to have_css('button.dark[disabled=disabled]')
       end
@@ -392,8 +391,9 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 1'
       expect(page).to have_content 'Week 2'
 
-      # Ensuring all days are considered as a meeting day
-      # and no specific meeting day is display for each week
+      # Ensuring all days are considered as a meeting day,
+      # no_meeting_days flag is persisted, and meeting days are not displayed per week
+      expect(Course.last.no_meeting_days?).to be true
       expect(Course.last.weekdays).to eq('1111111')
       expect(page).not_to have_css('div.margin-bottom')
 
