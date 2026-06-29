@@ -57,21 +57,25 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
   markdown specs, the full Jest suite (406 tests), the production build, and an
   ad-hoc footnote+linkify render all pass.
 
-### 3. js-cookie (needs react-cookie-consent upgrade)
+### 3. js-cookie (needs react-cookie-consent upgrade) — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-qjx8-664m-686j (high) — per-instance prototype hijack in
   `assign()` enabling cookie-attribute injection.
 - **Range / patch:** `<= 3.0.5`, patched `3.0.7`.
-- **Current:** `js-cookie 2.2.1`, pulled by `react-cookie-consent@8.0.1`
-  (`js-cookie ^2.2.1`). **Runtime** — the cookie-consent banner.
-- **Why deferred:** `js-cookie` 2 → 3 is a major API change.
-  `react-cookie-consent@8.0.1` expects js-cookie 2.x; forcing 3.x via a
-  resolution could break the consent banner in the browser.
-- **Recommended:** Upgrade `react-cookie-consent` to a release that depends on
-  js-cookie 3.x, then functionally verify the cookie-consent banner (set/read/
-  expiry behavior).
-- **Risk:** Runtime, but the attack requires control over cookie-attribute input;
-  low-to-moderate. Still, a functional check of the banner is required.
+- **Was:** `js-cookie 2.2.1`, pulled by `react-cookie-consent@8.0.1`. **Runtime**
+  — the cookie-consent banner, and the re-exported `Cookies` used by
+  notes_panel / notes_modal_trigger / news_nav_icon.
+- **Fix shipped (branch `js-cookie-upgrade`):** bumped `react-cookie-consent`
+  ^8.0.1 → ^10.0.1, the first release on js-cookie 3.x (requires React ≥18, which
+  we satisfy). That carries js-cookie 2.2.1 → 3.0.8 (patched). v10 still
+  re-exports `Cookies` and `CookieConsent` (default), and js-cookie's
+  `set(name, value, { expires })` / `get(name)` API is unchanged 2 → 3, so no app
+  source changed.
+- **Verification:** js-cookie resolves to a single 3.0.8; production build
+  compiles; Jest suite passes; and a throwaway Capybara feature spec rendered the
+  banner and confirmed "I understand" dismisses it in a real browser (the banner
+  is disabled in the test env, so the spec temporarily enabled it; that edit was
+  reverted).
 
 ### 4. tar (only patched on the 7.x line; cacache pins 6.x) — ✅ RESOLVED 2026-06-29
 
