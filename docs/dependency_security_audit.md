@@ -110,56 +110,42 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
   release that uses serialize-javascript 7.x and verify the production CSS build.
 - **Risk:** **Low** (build-time, no untrusted input).
 
-### 6. flatted (legacy 2.x line) — shares a fix with tmp
+### 6. flatted (legacy 2.x line) — shares a fix with tmp — ✅ RESOLVED 2026-06-29
 
 - **Alerts (high):** GHSA-rf6f-7fwh-wjgh (`<= 3.4.1`, prototype pollution),
   GHSA-25h7-pfq9-p65f (`< 3.4.0`, unbounded-recursion DoS).
-- **Note:** The project's **3.x** flatted line is already pinned to `3.4.2`
-  (patched) via the existing `"flatted@^3.1.0": "^3.4.2"` resolution. Only the
-  legacy **`flatted 2.0.2`** copy remains vulnerable.
-- **Current chain:** `flatted 2.0.2` ← `flat-cache@2.0.1` ←
-  `file-entry-cache@5.0.1` ← `eslint@6.8.0` ← **`rewire@5.0.0`** (direct
-  devDependency). **Dev-only** (lint/test caching).
-- **Why deferred:** Forcing flatted 3.x onto `flat-cache@2` (which uses the
-  flatted 2.x API) would break it.
-- **Recommended fix (shared with tmp below):** Upgrade `rewire ^5.0.0` → `^9.0.1`.
-  rewire 5 depends on the ancient `eslint ^6.8.0`; rewire 9.0.1 instead depends on
-  `eslint ^9.30`, which matches the project's existing `eslint ^9.39.4` direct
-  dependency. Bumping rewire therefore lets eslint dedupe to the modern 9.x copy
-  and drops the entire `eslint@6.8.0` subtree — including `flat-cache@2` /
-  `flatted@2` **and** `inquirer@7` / `external-editor` / `tmp` (see below).
-  Verify rewire-based tests still pass after the bump (rewire spans the 5 → 9
-  majors, so confirm the resulting tree and re-run the JS suite).
-- **Risk:** **Low** (dev-only).
+- **Was:** The 3.x flatted line was already patched (`3.4.2`); only the legacy
+  `flatted 2.0.2` was vulnerable, via `flat-cache@2.0.1` ← `file-entry-cache@5.0.1`
+  ← `eslint@6.8.0` ← `rewire@5.0.0`. **Dev-only.**
+- **Fix shipped:** the `rewire` bump below removed the `eslint@6.8.0` subtree;
+  `flatted@2.0.2` is gone and only the patched `flatted@3.4.2` remains.
 
-### 7. tmp — shares a fix with flatted (rewire)
+### 7. tmp — shares a fix with flatted (rewire) — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-ph9p-34f9-6g65 (high) — path traversal via unsanitized
   prefix/postfix enabling directory escape.
-- **Range / patch:** `< 0.2.6`, patched `0.2.6`.
-- **Current chain:** `tmp 0.0.33` ← `external-editor@3.1.0` ← `inquirer@7.3.3` ←
-  `eslint@6.8.0` ← **`rewire@5.0.0`** (direct devDependency). **Dev-only.**
-- **Why deferred:** `external-editor@3.1.0` pins `tmp ^0.0.33`; forcing 0.2.6
-  could break it.
-- **Recommended fix:** Same as flatted — upgrade `rewire` 5 → 7 to drop the
-  `eslint@6.8.0` subtree that pulls `inquirer → external-editor → tmp`.
-- **Risk:** **Low** (dev-only).
+- **Was:** `tmp 0.0.33` ← `external-editor@3.1.0` ← `inquirer@7.3.3` ←
+  `eslint@6.8.0` ← `rewire@5.0.0`. **Dev-only.**
+- **Fix shipped:** the `rewire` bump below removed the `eslint@6.8.0` subtree
+  (which pulled `inquirer → external-editor → tmp`); `tmp` is gone from the tree
+  entirely.
 
 ---
 
-## A single high-value follow-up: upgrade `rewire`
+## A single high-value follow-up: upgrade `rewire` — ✅ DONE 2026-06-29
 
-`rewire@5.0.0` is a direct devDependency that drags in the obsolete
-`eslint@6.8.0` (rewire 5 depends on `eslint ^6.8.0`). That one subtree is the
+`rewire@5.0.0` was a direct devDependency that dragged in the obsolete
+`eslint@6.8.0` (rewire 5 depends on `eslint ^6.8.0`). That one subtree was the
 sole source of **two** High alerts — `flatted@2.0.2` and `tmp@0.0.33`.
 
-The project already uses `eslint ^9.39.4` directly, and `rewire@9.0.1` depends on
-`eslint ^9.30`. So bumping `rewire ^5.0.0` → `^9.0.1` in `package.json` lets
-eslint dedupe to the existing 9.x copy, removing `eslint@6.8.0` and the whole
-vulnerable subtree below it, clearing both alerts at once. It was left out of the
-"safe and simple" commits only because it is a direct-dependency bump across
-several majors (5 → 9) touching test infrastructure (rewire is used in tests for
-module mocking), so it deserves its own verification pass with the full JS suite.
+**Shipped (branch `linkify-it-markdown-it-upgrade`):** bumped `rewire ^5.0.0` →
+`^9.0.1`. rewire 9 depends on `eslint ^9.30`, which dedupes with the project's
+existing `eslint ^9.39.4`, so `eslint@6.8.0` and its whole subtree dropped out,
+clearing both alerts at once. In practice `rewire` is not imported anywhere in
+the repo, so the major bump carried no test-behavior risk (and the package could
+reasonably be removed outright in a future cleanup). Verified: `eslint@6.8.0`,
+`flatted@2.0.2`, `tmp`, `flat-cache@2`, `inquirer@7`, and `external-editor` are
+all gone; full Jest suite, production build, and `yarn lint-non-build` all pass.
 
 ---
 
