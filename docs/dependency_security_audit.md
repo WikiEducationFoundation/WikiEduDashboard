@@ -95,20 +95,26 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
   webpack build. The macOS native-build path can't be exercised on CI but is
   build-time-only by nature.
 
-### 5. serialize-javascript (needs css-minimizer-webpack-plugin upgrade)
+### 5. serialize-javascript — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-5c6j-r48x-rmvq (high) — RCE via `RegExp.flags` /
   `Date.prototype.toISOString()`.
 - **Range / patch:** `<= 7.0.2` (high) and `< 7.0.5` (medium); patched `7.0.3` /
   `7.0.5`.
-- **Current:** `serialize-javascript 6.0.0`, pulled by
-  `css-minimizer-webpack-plugin@4.0.0` (`serialize-javascript ^6.0.0`).
-  **Build-time only** — serializes the build/minifier config, not attacker input.
-- **Why deferred:** 6 → 7 is a major bump and `css-minimizer-webpack-plugin@4`
-  expects `^6.0.0`; forcing 7.x could break the minifier.
-- **Recommended:** Bump `css-minimizer-webpack-plugin` (direct dependency) to a
-  release that uses serialize-javascript 7.x and verify the production CSS build.
-- **Risk:** **Low** (build-time, no untrusted input).
+- **Was:** `serialize-javascript 6.0.0`, pulled by `css-minimizer-webpack-plugin@4.0.0`
+  (`serialize-javascript ^6.0.0`). **Build-time only** — serializes the minifier
+  cache key, not attacker input.
+- **Correction to the original plan:** "bump css-minimizer-webpack-plugin to a
+  release that uses serialize-javascript 7.x" turned out to be unviable — *every*
+  css-minimizer-webpack-plugin version (through the current 8.x) pins
+  serialize-javascript at `^6.0.x`, and the high advisory covers everything
+  `<= 7.0.2`, so 6.0.x is vulnerable too.
+- **Fix shipped:** forced serialize-javascript to 7.x with a resolution
+  (`serialize-javascript@^6.0.0` → `^7.0.5`, resolves to 7.0.6).
+  css-minimizer-webpack-plugin@4 is its only consumer (terser-webpack-plugin no
+  longer depends on it) and its `serialize()` usage is compatible across 6 → 7.
+  Verified by the production webpack build (CSS minified and emitted) plus the
+  Jest suite.
 
 ### 6. flatted (legacy 2.x line) — shares a fix with tmp — ✅ RESOLVED 2026-06-29
 
