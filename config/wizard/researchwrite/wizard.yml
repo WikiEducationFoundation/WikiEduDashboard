@@ -7,6 +7,43 @@
 # the wizard feature specs break, often confusingly on a *later* panel or at
 # "Generate Timeline" rather than where the change was made. Changing the blocks
 # in content.yml can also change `expected_course_blocks` in that spec.
+
+# Research study opt-in (Fall 2026). This panel only appears for courses
+# eligible for an active opt-in research experiment (see OptInExperiment and
+# Course#eligible_for_active_research_experiment?). The selected option's tag is
+# persisted by WizardTimelineManager#add_tags and read back by the experiment.
+-
+  key: fall_2026_research_optin
+  title: 'Please participate in our research experiment'
+  only_if: 'eligible_for_active_research_experiment'
+  description: |
+    Wiki Education is working with researchers at Princeton University on a study of a tool
+    that gives students feedback while they edit Wikipedia (Princeton University IRB #XXXXX).
+    We are inviting instructors of WikiEdu courses to enroll their courses.
+
+    The tool is a small add-on that students can enable on top of their Wikipedia experience.
+    It will be installed automatically by the Wiki Education Dashboard platform for students
+    who choose to participate. While a student edits, the tool may show short feedback about
+    common problems, such as a sentence added without a citation or a bad source. We are studying
+    whether this kind of in-editor feedback helps students write better-sourced content over time.
+    Some enrolled courses receive a version of the tool that shows the feedback, and others
+    receive a version that does not; this is assigned at random.
+
+    Taking part adds nothing to your teaching. Students do the same Wikipedia assignment
+    they would do anyway. Participation is voluntary for each student, and student data
+    will not be shared with you or used for grading.
+
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: Yes, my class will participate
+      tag: fall_2026_research_opted_in
+      selected: true # selected by default
+    -
+      title: No, I want to opt out
+      tag: fall_2026_research_opted_out
+
 -
   key: essentials
   title: Training

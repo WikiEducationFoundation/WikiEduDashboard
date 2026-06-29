@@ -54,6 +54,7 @@ require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require_dependency "#{Rails.root}/lib/trained_students_manager"
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/experiments/opt_in_experiment"
 
 #= Course model
 class Course < ApplicationRecord
@@ -621,6 +622,24 @@ class Course < ApplicationRecord
 
   def returning_instructor?
     tag?('returning_instructor')
+  end
+
+  # Mirrors the client-side inferDefaultCampaign.js term inference: derives a
+  # term slug (e.g. 'fall_2026') from the course start date.
+  def inferred_term
+    return unless start
+    year = start.year
+    case start.month
+    when 12 then "spring_#{year + 1}"
+    when 1..4 then "spring_#{year}"
+    when 5..7 then "summer_#{year}"
+    when 8..11 then "fall_#{year}"
+    end
+  end
+
+  # Drives the `only_if` gate on the wizard's research-study opt-in panel.
+  def eligible_for_active_research_experiment?
+    OptInExperiment.for_course(self).present?
   end
 
   # Overridden for some course types

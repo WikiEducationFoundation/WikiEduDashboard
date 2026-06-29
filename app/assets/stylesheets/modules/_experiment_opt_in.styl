@@ -1,0 +1,29 @@
+// Styling for the research-experiment student opt-in modal
+// (components/overview/experiment_opt_in_invitation.jsx). Reuses the shared
+// `.wizard` overlay from the Modal component and adds a centered panel with a
+// scrollable consent-form area to hold the long invitation + consent text.
+.wizard.experiment-opt-in
+  .experiment-opt-in__panel
+    background-color white
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+    display inline-block
+    margin 0 auto 40px
+    max-width 720px
+    padding 30px
+    text-align left
+    width 92%
+    h2
+      font-size 1.563em
+      font-weight 300
+      margin-bottom 15px
+  .experiment-opt-in__consent
+    border 1px solid border_lt
+    margin 20px 0
+    max-height 320px
+    overflow-y auto
+    padding 15px
+  .experiment-opt-in__actions
+    margin-top 20px
+    text-align right
+    .button
+      margin-left 10px
