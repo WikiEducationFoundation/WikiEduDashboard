@@ -6,6 +6,31 @@ require "#{Rails.root}/lib/wiki_api"
 class UnexpectedError < StandardError; end
 
 describe WikiApi do
+  describe '#action' do
+    it 'routes an arbitrary action through the API client and returns the response' do
+      response = double('response')
+      expect_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .with(:action, 'parse', { text: 'x' }).and_return(response)
+      expect(described_class.new.action('parse', text: 'x')).to eq(response)
+    end
+
+    it 'retries 429 rate-limits with backoff, then returns nil' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::HttpError.new(429))
+      allow_any_instance_of(described_class).to receive(:sleep)
+      expect_any_instance_of(described_class).to receive(:log_error).once
+      expect(described_class.new.action('parse', text: 'x')).to be_nil
+    end
+
+    it 'lets the caller bubble API errors without retry' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::ApiError)
+      expect do
+        described_class.new.action('compare', {}) { |e| e.is_a?(MediawikiApi::ApiError) }
+      end.to raise_error(MediawikiApi::ApiError)
+    end
+  end
+
   describe 'handles errors by calling ApiErrorHandling method and raising a PageFetchError' do
     let(:subject) { described_class.new.get_page_content('Ragesoss') }
 

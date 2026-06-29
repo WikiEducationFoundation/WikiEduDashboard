@@ -1,0 +1,341 @@
+// Student claim-verification exercise (/verify_claim). Two focal elements: the
+// claim, and the source it cites. Intro, context and the sandbox handoff are
+// kept visually subordinate so attention lands on the claim and the source.
+// Variables come from _variables.styl (globally in scope via _shared).
+
+.claim-verification-exercise
+  margin-top 24px
+  margin-bottom 60px
+
+  &__intro
+    margin-bottom 28px
+    h1
+      font-size 1.6em
+      margin-bottom 8px
+    p
+      color $text_med
+      max-width 40em
+
+  // Shared shell for the two focal cards.
+  &__claim,
+  &__source
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 28px 32px
+    margin-bottom 20px
+
+  // Small uppercase eyebrow label (kept as an h2 for screen-reader navigation).
+  &__label
+    text-transform uppercase
+    letter-spacing .08em
+    font-size .8em
+    font-weight 600
+    color $text_med
+    margin 0 0 14px 0
+
+  // The claim is the hero: large type, white, with a brand accent rail.
+  &__claim
+    background white
+    border-left 4px solid $brand_primary
+
+  &__claim-text
+    margin 0
+    padding 0
+    border 0
+    font-family $header-font
+    font-size 1.75em
+    line-height 1.4
+    color $text_dk
+
+  &__context
+    margin-top 18px
+    summary
+      cursor pointer
+      color bayoux
+      font-size .9em
+      &:hover
+        color darken(bayoux, 10%)
+    p
+      margin 12px 0 0 0
+      color $text_med
+      font-size .95em
+      line-height 1.6
+
+  // The source: a distinct shaded card holding the citation and the primary
+  // "open the source" action.
+  &__source
+    background $bg_light_gray
+
+  &__citation
+    margin 0 0 22px 0
+    color body-color
+    font-size 1.05em
+    line-height 1.55
+
+  &__no-source
+    margin 0
+    color $text_med
+    font-style italic
+
+  // Handoff to the sandbox, set off below a divider as the follow-on step.
+  &__sandbox
+    margin-top 28px
+    padding-top 24px
+    border-top 1px solid $border_lt
+    p
+      color $text_med
+      margin-bottom 16px
+
+  // Small link from the claim into the source article (at the cited footnote).
+  &__article-link
+    margin 14px 0 0 0
+    font-size .9em
+
+  // "Switch claim" — a tertiary action below the exercise, kept low-emphasis
+  // so it doesn't compete with opening the source or the sandbox handoff.
+  &__switch
+    margin-top 22px
+    form
+      margin 0
+
+  &__switch-button
+    font-size 13px
+    padding 6px 16px
+
+  // Article picker: a compact grid of title tiles. Tiles size to their content
+  // and pack several per row so a long candidate list (up to 50) stays short.
+  &__article-grid
+    list-style none
+    margin 20px 0 0 0
+    padding 0
+    display grid
+    grid-template-columns repeat(auto-fill, minmax(150px, 1fr))
+    gap 8px
+
+  // Each tile is the closed-state opener button of an ArticleViewer, so it carries
+  // the button reset as well as the tile styling.
+  &__article-tile
+    display block
+    width 100%
+    height 100%
+    margin 0
+    padding 10px 12px
+    text-align left
+    background-color white
+    border 1px solid $border_lt
+    border-radius 4px
+    cursor pointer
+    -webkit-appearance none
+    appearance none
+    transition border-color .12s, background-color .12s, box-shadow .12s
+    &:hover
+      border-color $brand_primary
+      background-color $bg_light_gray
+      box-shadow 0 1px 6px rgba($brand_primary, .14)
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 2px
+
+  &__article-title
+    display block
+    font-family $header-font
+    font-size 14px
+    font-weight 600
+    line-height 1.3
+    color $text_dk
+  &__article-tile:hover &__article-title,
+  &__article-tile:focus-visible &__article-title
+    color $brand_primary
+
+  // The flagged revision's date, so a tile reads as a point-in-time snapshot
+  // (and two revisions of one article are distinguishable).
+  &__article-date
+    display block
+    margin-top 4px
+    font-size 11.5px
+    color $text_med
+
+  // Only rendered when the candidates span more than one wiki.
+  &__article-wiki
+    display block
+    margin-top 4px
+    font-size 11.5px
+    color $text_med
+
+  &__detail-source
+    margin-bottom 22px
+
+  &__empty
+    color $text_med
+
+  // Course picker (slug-less entry, multiple courses).
+  &__course-list
+    list-style none
+    margin 20px 0 0 0
+    padding 0
+    li
+      margin-bottom 12px
+      font-size 1.1em
+
+// In-viewer claim selection (the ArticleViewer claim-highlighting variant).
+// The annotated article HTML tags each cited claim's citation marker `.cv-claim`;
+// clicking one opens the selection panel that floats over the article.
+// The whole cited claim sentence is highlighted (not just the [n] marker), so a
+// student skimming the article sees the content to check. `box-decoration-break`
+// keeps the highlight continuous as the sentence wraps across lines.
+.parsed-article
+  .cv-claim
+    cursor pointer
+    background-color rgba($brand_primary, .2)
+    border-radius 2px
+    box-decoration-break clone
+    -webkit-box-decoration-break clone
+    // Non-color affordance: an underline marks these as interactive targets,
+    // distinct from ordinary citation links — a faint tint alone is easy to miss
+    // and fails WCAG "use of color".
+    border-bottom 2px solid rgba($brand_primary, .65)
+    &:hover
+      background-color rgba($brand_primary, .32)
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 2px
+    // The active claim (clicked, jumped to, or arrowed to) is marked with a
+    // border rather than a darker fill, so it stands out without relying on
+    // shade. An inset shadow draws a border per line fragment without reflowing
+    // the article text.
+    &--active
+      box-shadow inset 0 0 0 2px $brand_primary
+    // Defense in depth: should two claims still genuinely overlap (nested
+    // spans), the inner one doesn't repaint its tint, so the region keeps a
+    // single shade instead of compounding into something darker.
+    .cv-claim, .cv-claim:hover
+      background-color transparent
+
+// Footer legend: claim count + position + prev/next controls (left of the
+// footer's utility chrome).
+.cv-legend
+  display flex
+  align-items center
+  gap .75em
+  white-space nowrap
+  &__count
+    font-weight 600
+    color $text_dk
+  &__nav
+    display inline-flex
+    gap .4em
+  // Task-navigation buttons, styled distinctly from the footer's utility
+  // buttons (View on wiki / Print) and dark enough for AA contrast with white
+  // text (the shared .button.dark periwinkle falls just short).
+  &__btn
+    border 0
+    border-radius 3px
+    padding 5px 12px
+    background darken($brand_primary, 16%)
+    color #fff
+    font-size .9em
+    cursor pointer
+    &:hover
+      background darken($brand_primary, 24%)
+    &:focus-visible
+      outline 2px solid $text_dk
+      outline-offset 1px
+  // While the highlights are still loading.
+  &--pending &__count
+    font-weight 400
+    color $text_med
+
+// Pick instructions: a prominent banner pinned to the top of the article scroll
+// area (an opaque tint so prose scrolling underneath stays hidden).
+.cv-pick-banner
+  position sticky
+  top 0
+  z-index 5
+  margin 0
+  padding 13px 18px
+  // A paler band than before: lets the bold instruction carry the emphasis
+  // rather than the fill, and gives dark text plenty of contrast.
+  background lighten($brand_primary, 40%)
+  border-bottom 1px solid rgba($brand_primary, .4)
+  color $text_dk
+  font-size 1.05em
+  font-weight 600
+  line-height 1.4
+  p
+    margin 0
+  // The point-in-time notice: secondary to the instruction below it, but still
+  // dark enough for AA contrast (was $text_med, which failed on the band).
+  .cv-revision-notice
+    margin-bottom 6px
+    font-size .82em
+    font-weight 400
+    color $text_dk
+
+// The claim selection panel floats over the article viewer, above the footer.
+// `.article-viewer` is position:fixed, so this absolute panel anchors to it.
+.article-viewer
+  .cv-selection-panel
+    position absolute
+    left 50%
+    bottom 64px
+    transform translateX(-50%)
+    width 620px
+    max-width 92%
+    max-height 60%
+    overflow auto
+    background white
+    border 1px solid mischka
+    border-radius 4px
+    box-shadow 0 0 24px 0 rgba(0, 0, 0, .35)
+    padding 24px 28px 28px
+    z-index 20
+
+  .cv-selection-panel__close
+    position absolute
+    top 6px
+    /*@noflip*/ right 12px
+    border 0
+    background none
+    font-size 1.6em
+    line-height 1
+    cursor pointer
+    color $text_med
+    &:hover
+      color $text_dk
+
+  .cv-selection-panel__label
+    text-transform uppercase
+    letter-spacing .08em
+    font-size .75em
+    font-weight 600
+    color $text_med
+    margin 0 0 8px 0
+
+  .cv-selection-panel__claim-text
+    margin 0 0 18px 0
+    padding 0
+    border 0
+    font-family $header-font
+    font-size 1.3em
+    line-height 1.4
+    color $text_dk
+
+  .cv-selection-panel__citation
+    margin 0 0 14px 0
+    color body-color
+    line-height 1.5
+
+  // Inline take error (eg not enrolled), shown in the panel because the
+  // page-level notification banner is occluded by the viewer modal.
+  .cv-selection-panel__error
+    margin 0 0 14px 0
+    color $warning_text
+    font-size .9em
+
+@media (max-width: 600px)
+  .claim-verification-exercise__claim,
+  .claim-verification-exercise__source
+    padding 20px 22px
+
+  .claim-verification-exercise__claim-text
+    font-size 1.4em

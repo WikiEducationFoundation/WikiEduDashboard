@@ -1,2 +1,7 @@
 /.yarn/releases/** binary
 /.yarn/plugins/** binary
+
+# Captured MediaWiki parser output, kept verbatim: its NewPP-report comment
+# carries trailing whitespace that a re-capture would reintroduce, so don't let
+# `git diff --check` police whitespace in these fixtures.
+fixtures/claim_verification/*.html -whitespace

@@ -6,6 +6,11 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # Moves raw query logic into named methods to hide implementation details.
 class WikiApi
   class ArticleContent
+    # API-level errors (bad params, missing/suppressed content) should surface
+    # to the caller; transient transport errors (429 rate-limits, timeouts,
+    # connection failures) are retried with backoff by WikiApi#action.
+    BUBBLE_API_ERRORS = ->(e) { e.is_a?(MediawikiApi::ApiError) }
+
     def initialize(wiki, update_service: nil)
       @wiki = wiki
       @wiki_api = WikiApi.new(@wiki, update_service)
@@ -44,6 +49,19 @@ class WikiApi
       resp.data.dig('pages', page_id, 'revisions')&.first&.dig('parentid')
     end
 
+    # Returns { parent_id:, timestamp: } for +rev_id+ in a single query — the
+    # parent revision id and the revision's ISO8601 edit timestamp — or nil if
+    # the revision is missing/deleted. One query yields both, so callers that
+    # need the parent (eg to diff) get the timestamp for free.
+    def revision_metadata(rev_id)
+      params = { prop: 'revisions', revids: rev_id, rvprop: 'ids|timestamp' }
+      resp = @wiki_api.query(params)
+      return if resp.nil? || resp.data['badrevids'].present?
+      page_id = resp.data['pages'].keys.first
+      rev = resp.data.dig('pages', page_id, 'revisions')&.first
+      rev && { parent_id: rev['parentid'], timestamp: rev['timestamp'] }
+    end
+
     # Returns parent revision IDs for a batch of +rev_ids+.
     # Used by RevisionScoreImporter.
     # Returns a hash { mw_rev_id => parent_id_string } or nil on failure.
@@ -73,7 +91,8 @@ class WikiApi
     # Returns a hash: { html:, title:, page_id: }
     def revision_html(rev_id)
       params = { oldid: rev_id }
-      resp = api_client.send(:action, 'parse', params)
+      resp = @wiki_api.action('parse', params, &BUBBLE_API_ERRORS)
+      return {} if resp.nil?
       {
         html: resp.data.dig('text', '*'),
         title: resp.data.dig('title'),
@@ -84,8 +103,8 @@ class WikiApi
     # Parses raw wikitext into HTML string.
     def parse_wikitext(wikitext)
       params = { text: wikitext, contentmodel: 'wikitext' }
-      resp = api_client.send(:action, 'parse', params)
-      resp.data.dig('text', '*')
+      resp = @wiki_api.action('parse', params, &BUBBLE_API_ERRORS)
+      resp&.data&.dig('text', '*')
     end
 
     # ---- Diffs ----
@@ -96,7 +115,8 @@ class WikiApi
     # between scheduling and processing (compare raises missingcontent).
     def revision_diff(from_rev, to_rev)
       params = { torev: to_rev, fromrev: from_rev, difftype: 'table' }
-      resp = api_client.send(:action, 'compare', params)
+      resp = @wiki_api.action('compare', params, &BUBBLE_API_ERRORS)
+      return if resp.nil?
       {
         diff_html: resp.data['*'],
         title: resp.data.dig('totitle'),
@@ -166,10 +186,6 @@ class WikiApi
       end
 
       all_revisions
-    end
-
-    def api_client
-      @wiki_api.send(:api_client)
     end
   end
 end

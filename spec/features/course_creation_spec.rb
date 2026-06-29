@@ -150,7 +150,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 28 }
+    let(:expected_course_blocks) { 29 } # +1 for the fact_verification exercise block
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'allows the user to create a course' do

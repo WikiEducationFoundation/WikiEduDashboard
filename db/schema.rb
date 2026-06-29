@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_27_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -675,6 +675,42 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_27_000001) do
     t.datetime "registered_at", precision: nil
     t.datetime "first_login", precision: nil
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "verification_claim_assignments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "verification_claim_id", null: false
+    t.index ["user_id", "course_id"], name: "index_verification_claim_assignments_on_user_id_and_course_id", unique: true
+    t.index ["verification_claim_id"], name: "index_verification_claim_assignments_on_verification_claim_id"
+  end
+
+  create_table "verification_claims", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "alert_id"
+    t.text "archive_url"
+    t.integer "article_id"
+    t.string "article_title"
+    t.text "cite_text"
+    t.text "context"
+    t.integer "courses_users_id"
+    t.datetime "created_at", null: false
+    t.integer "mw_rev_id"
+    t.datetime "mw_rev_timestamp"
+    t.boolean "offline_source"
+    t.string "ref_id"
+    t.text "sentence", null: false
+    t.integer "source_course_id"
+    t.text "source_url"
+    t.string "subject"
+    t.datetime "updated_at", null: false
+    t.integer "wiki_id", null: false
+    t.index ["alert_id"], name: "index_verification_claims_on_alert_id"
+    t.index ["courses_users_id"], name: "index_verification_claims_on_courses_users_id"
+    t.index ["source_course_id"], name: "index_verification_claims_on_source_course_id"
+    t.index ["subject"], name: "index_verification_claims_on_subject"
+    t.index ["wiki_id", "mw_rev_id"], name: "index_verification_claims_on_wiki_id_and_mw_rev_id"
   end
 
   create_table "versions", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

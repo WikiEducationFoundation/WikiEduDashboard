@@ -1630,6 +1630,9 @@ nl:
     active_jobs: Actieve taken
     active_jobs_doc: Het aantal taken dat momenteel wordt verwerkt.
     acuwt_update: Bijwerken van ACUWT
+    acuwt_update_description: ACUWT-updates werken cursussen met paginagerichte programma's
+      bij met duizenden pagina's.
+    acuwt_update_doc: Beheer updates voor grote cursussen met paginagerichte programma's.
     all_queues_operational: Alle wachtrijen operationeel
     all_queues_not_operational: Alle wachtrijen operationeel behalve
     constant_update: Constante update
