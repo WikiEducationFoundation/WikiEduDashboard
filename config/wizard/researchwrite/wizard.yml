@@ -181,7 +181,7 @@
 
     Choose 'Draft text for articles in sandboxes' if you would like students to draft their text
     for articles in sandboxes. If you would like students to work incrementally on live articles
-    instead, choose 'Edit directly in live articles'.
+    instead, choose 'Edit directly in live articles'. **But don’t pick this option if you want them to draft off Wikipedia.**
 
   type: 1 # single choice
   minimum: 1
