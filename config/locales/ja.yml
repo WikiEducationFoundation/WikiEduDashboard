@@ -20,6 +20,7 @@
 # Author: Sujiniku
 # Author: Suyama
 # Author: Tamaki Wakita
+# Author: Tensama0415
 # Author: Thibaut120094
 # Author: Tmv
 # Author: Yusuke1109
@@ -201,8 +202,8 @@ ja:
     edit_size: 長さを編集
     wiki: ウィキ
     wp10: 構造の完成度
-    wp10_doc: 「Structural Completeness」指数は特定の記事がウィキペディアの成長した記事の型にどれほど適合するかを示し、機械学習に基づく
-      Objective Revision Evaluation Service を使います(https://ores.wikimedia.org/)。指数の算出は記事のサイズ、参考文献と内部リンクの件数やその他の文の基本要素に依拠します。通常、高得点はその記事がウィキペディアで採用する良質な記事の構造の規則に従っているという意味ですが、記事の内容そのものは考慮していません。(これらのスコア提示は英語版ウィキペディア限定です。)
+    wp10_doc: 「Structural Completeness」指数は特定の記事がウィキペディアの成長した記事の型にどれほど適合するかを示し、レガシー(～2015)機械学習に基づく「Objective
+      Revision Evaluation Service」を使います。指数の算出は記事のサイズ、参考文献と内部リンクの件数やその他の文の基本要素に依拠します。通常、高得点はその記事がウィキペディアで採用する良質な記事の構造の規則に従っているという意味ですが、記事の内容そのものは考慮していません。
     articles_short: 記事
     deleted_message: ダッシュボードのデータによると、このページは削除済みです（記事が誤って削除済みと表示される原因に、ページの移動・改名、履歴の統合その他の操作の結果である可能性があります。あるいはいったんは削除されても、後で復活する場合もあります。実際に削除されていない、または復元された場合、そのきじは通常、１日か２日でダッシュボードに反映されます。）
     page_logs: （ページの記録）
@@ -362,10 +363,10 @@ ja:
     add_psid: PetScan PSID を追加
     add_pileid: PagePile ID を追加
     add_template: テンプレートを追加
-    add_this_category: このカテゴリに追加
-    add_this_psid: この PSID を追加
-    add_this_pileid: この PagePile ID を追加
-    add_this_template: このテンプレートを追加
+    add_this_category: カテゴリを追加
+    add_this_psid: PetScan PSID を追加
+    add_this_pileid: PagePile ID を追加
+    add_this_template: テンプレートを追加
     import_articles_description: カテゴリごとの記事一覧は定期的に更新され、新規に追加した記事がこの一覧に反映されるまで、しばらく時間がかかります。
     depth: 下位カテゴリの深さ
     articles_count: 記事数
@@ -774,7 +775,7 @@ ja:
     uploads_none: このプロジェクトからウィキメディア コモンズに投稿された画像その他のメディアはありません。
     user_uploads_none: 選択した利用者は、このプロジェクトにまだ画像その他のメディア・ファイルを投稿していません。
     view_other: 他の告知を見る
-    view_page: プログラム ページを見る
+    view_page: ページを見る
     word_count_doc: メイン空間の記事に追加された文字数増分の推計のうち、プログラム期間中にプログラムの編集者が加筆した部分
     word_count_doc_wikidata: メイン空間の項目に追加された文字数増分の推計のうち、プログラム期間中にプログラムの編集者が加筆した部分
     yourcourses: 自分のプログラム
@@ -793,7 +794,7 @@ ja:
     bad_work:
       learn_more: 生徒の作業のせいで記事の質が下がった場合は、ご自分で編集するようにお勧めします。それ以外の場合は問題についてお知らせをお願いしており、後日、こちらで修正に努めます。
       submit_issue: この記事にはどんな重大な問題がありますか？
-    no_assignments: この学生は現在、 記事の割り当てを受けていません。上のボタンを押すと、記事の割り当てができます。
+    no_assignments: この学生は現在、 記事の割り当てを受けていません。
     reviewing_articles: 記事の査読
     select_student:
       content: 記事を割り当てたり、記事の割り当て方を確認する
@@ -889,7 +890,7 @@ ja:
     diff: 差分
     diff_show: 表示
     diff_hide: 非表示
-    edit_time_span: 編集の実行は%{first_time}から%{last_time}まで
+    edit_time_span: 編集の実行：%{first_time}から%{last_time}まで
     edited_by: 編集担当
     edited_on: '%{edit_date}付の編集'
     loading: 版を読み込み中...
@@ -979,7 +980,8 @@ ja:
     image: 画像
     label: アップロード
     usage_doc: この画像を使用するウィキペディアの記事の件数
-    usage_count_gallery_tile: '%{usage_count}件の記事で使用'
+    usage_count_gallery_tile:
+      other: '%{count}件の記事で使用'
     usages: 使用法
     wiki_big: ウィキ
   users:
@@ -1017,7 +1019,7 @@ ja:
     no_articles: 記事はありません
     no_articles_wikidata: アイテムがありません
     no_revisions: （変更履歴なし）
-    no_highlighting: 記事の現在の版に、この編集者による文章はありません。ページの変更履歴をチェックして、当該の編集者の編集内容を確認してください。
+    no_highlighting: この版の記事に、編集者 %{editor}による文章はありません。ページの変更履歴をチェックして、当該の編集者の編集内容を確認してください。
     number_of_articles:
       other: '%{count}件の記事'
     recent_revisions: 最近の編集
@@ -1033,7 +1035,7 @@ ja:
     training_module_status: 状態
     username: 利用者名
     username_placeholder: 利用者名
-    useremail_placeholder: メール
+    useremail_placeholder: メールアドレスを入力
     userpasscode_placeholder: パスコード
     words_added: 追加した文字数<br>(記事 | 利用者 | 下書き)
     word_count_doc: 特定の利用者による活発な記事、利用者空間ページ（サンドボックス）および 下書き名前空間に追加したコンテンツの合計の見積もり。文字数の見積もりは、編集により削除した文字数を超過する文字数の追加に着目して、ページ
@@ -1110,7 +1112,7 @@ ja:
     article_finder: 記事を見つける
     article_finder_wikidata: 項目検索
     article_quality: 記事の品質（0-100）
-    article_quality_wikidata: 項目の質（0-100点として）
+    article_quality_wikidata: 項目の質（0-100）
     assign_article_self: 担当に立候補する
     average_views: 1日平均の閲覧回数
     category_search: カテゴリ検索
