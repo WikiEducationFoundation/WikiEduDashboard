@@ -114,9 +114,14 @@ class Course < ApplicationRecord
 
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
 
-  has_many :article_course_timeslices, dependent: :destroy
-  has_many :course_user_wiki_timeslices, dependent: :destroy
-  has_many :course_wiki_timeslices, dependent: :destroy
+  # Timeslices are intentionally NOT dependent: :destroy. They can number in the
+  # millions for large courses, so deleting them through the destroy cascade (one
+  # instantiated record at a time) is prohibitively slow. DeleteCourseWorker
+  # deletes them in batches via TimesliceCleaner#delete_all_timeslices_for_course
+  # before destroying the course.
+  has_many :article_course_timeslices
+  has_many :course_user_wiki_timeslices
+  has_many :course_wiki_timeslices
 
   has_many :sandboxes, lambda {
     distinct.sandbox
