@@ -135,6 +135,8 @@
     "babel-core": "7.0.0-bridge.0",
     "body-parser@1.20.0": "^1.20.3",
     "node-forge": "^1.4.0",
+    "path-to-regexp@0.1.7": "^0.1.13",
+    "path-to-regexp@^1.7.0": "^1.9.0",
     "tar": "^6.2.1",
     "minimatch@^3.0.4": "^3.1.4",
     "minimatch@^5.0.1": "^5.1.8",
