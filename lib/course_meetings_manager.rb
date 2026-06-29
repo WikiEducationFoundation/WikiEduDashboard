@@ -123,7 +123,7 @@ class CourseMeetingsManager
   end
 
   def course_has_meeting_date_data?
-    @course.weekdays != '0000000' || @course.day_exceptions != ''
+    @course.weekdays != '0000000' || @course.day_exceptions != '' || @course.no_meeting_days == true
   end
 
   def course_has_timeline_dates?
