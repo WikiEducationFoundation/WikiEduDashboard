@@ -10,7 +10,6 @@ const Option = ({
   open_weeks,
   multiple,
   selectWizardOption,
-  no_meeeting_days,
 }) => {
   const descriptionRef = useRef(null);
 
@@ -24,7 +23,7 @@ const Option = ({
   };
 
 
-  const disabled = (option.min_weeks && option.min_weeks > open_weeks) || no_meeeting_days;
+  const disabled = option.min_weeks && option.min_weeks > open_weeks;
   let className = 'wizard__option section-header';
   if (option.small) {
     className += ' wizard__option__small';
@@ -77,7 +76,7 @@ const Option = ({
 
   return (
     <div className={className}>
-      <button onClick={onClick} role="checkbox" aria-checked={option.selected || false}>
+      <button type="buton" onClick={onClick} role="checkbox" aria-checked={option.selected || false}>
         {checkbox}
         {notice}
         <h3>{option.title}</h3>

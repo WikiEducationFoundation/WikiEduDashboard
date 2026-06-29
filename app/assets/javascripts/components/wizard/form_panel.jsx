@@ -33,7 +33,7 @@ const FormPanel = (props) => {
   };
 
   const nextEnabled = () => {
-    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0 || props.course.no_meeting_days) {
+    if (props.course.no_meeting_days || __guard__(props.course.weekdays, x => x.indexOf(1)) >= 0) {
       return true;
     }
     return false;
@@ -68,11 +68,12 @@ const FormPanel = (props) => {
   );
 
   const rawOptions = (
-    <div>
+    <>
       <div className="course-dates__step">
         {step1}
-        <div className="vertical-form" >
+        <div className="vertical-form full-width">
           <DatePicker
+            id="wizard_course_start"
             onChange={updateCourseDates}
             value={props.course.start}
             value_key="start"
@@ -81,6 +82,7 @@ const FormPanel = (props) => {
             label="Course Start"
           />
           <DatePicker
+            id="wizard_course_end"
             onChange={updateCourseDates}
             value={props.course.end}
             value_key="end"
@@ -95,8 +97,9 @@ const FormPanel = (props) => {
       <hr />
       <div className="course-dates__step">
         <p>{I18n.t('wizard.assignment_description')}</p>
-        <div className="vertical-form">
+        <div className="vertical-form full-width">
           <DatePicker
+            id="wizard_timeline_start"
             onChange={updateCourseDates}
             value={props.course.timeline_start}
             value_key="timeline_start"
@@ -106,6 +109,7 @@ const FormPanel = (props) => {
             date_props={dateProps.timeline_start}
           />
           <DatePicker
+            id="wizard_timeline_end"
             onChange={updateCourseDates}
             value={props.course.timeline_end}
             value_key="timeline_end"
@@ -124,7 +128,7 @@ const FormPanel = (props) => {
         updateCourse={props.updateCourse}
       />
       {!props.course.no_meeting_days && meetingDays}
-    </div>
+    </>
   );
 
   return (

@@ -79,6 +79,7 @@ class CourseMeetingsManager
   # Returns an array of symbols on which the course meets,
   # e.g., [:tuesday, :thursday]
   def day_meetings
+    return DAYS_AS_SYM if @course.no_meeting_days?
     days = []
     @course.weekdays.each_char.each_with_index do |w, i|
       days.push(DAYS_AS_SYM[i]) if w.to_i == 1

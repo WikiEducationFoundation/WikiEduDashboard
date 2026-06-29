@@ -18,6 +18,7 @@ def interact_with_clone_form
 end
 
 def go_through_course_dates_and_timeline_dates
+  find('label.switch').click
   find('span[title="Wednesday"]', match: :first).click
   within('.wizard__panel.active') do
     expect(page).to have_css('button.dark')
@@ -31,7 +32,12 @@ def go_through_course_dates_and_timeline_dates
   sleep 1
 end
 
-def go_through_researchwrite_wizard
+# Walks through every panel of the research-write wizard, in order. This MUST
+# stay in sync with the panel sequence in config/wizard/researchwrite/wizard.yml:
+# adding, removing, or reordering a panel there requires a matching change to the
+# click-through steps below, or these specs break (often on a later panel or at
+# "Generate Timeline"). `expected_course_blocks` likewise tracks content.yml.
+def go_through_researchwrite_wizard(returning_instructor: true)
   go_through_course_dates_and_timeline_dates
 
   # Choose researchwrite option
@@ -44,10 +50,18 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
+  find('.wizard__option', match: :first).find('button', match: :first).click # Yes "LLMs" training
+  click_button 'Next'
+  sleep 1
+
   click_button 'Next' # Default getting started options
   sleep 1
 
   click_button 'Next' # Default "Improving representation" option
+  sleep 1
+
+  find('.wizard__option', match: :first).find('button', match: :first).click # Work in sandboxes
+  click_button 'Next'
   sleep 1
 
   # Working in groups
@@ -98,6 +112,17 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
+  # "Learning to edit with your students" panel; accept the default "Yes"
+  click_button 'Next'
+  sleep 1
+
+  # "Mentorship program" panel that only appears for new instructor
+  unless returning_instructor
+    omniclick find('.wizard__option', match: :first).find('button', match: :first)
+    click_button 'Next'
+    sleep 1
+  end
+
   click_button 'Generate Timeline'
   sleep 1
 end
@@ -124,7 +149,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 24 }
+    let(:expected_course_blocks) { 28 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'allows the user to create a course' do
@@ -132,6 +157,7 @@ describe 'New course creation and editing', type: :feature do
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
+      expect(page).to be_axe_clean
       find('#course_title').set('My awesome new course - Foo 101')
 
       click_button 'Next'
@@ -160,6 +186,7 @@ describe 'New course creation and editing', type: :feature do
         all('div', text: 'In-person')[2].click
       end
       find('#course_description').set('In this course, we study things.')
+      expect(page).to be_axe_clean
       click_button 'Next'
 
       start_date = '2015-01-01'
@@ -170,6 +197,8 @@ describe 'New course creation and editing', type: :feature do
       find('div.DayPicker-Day', text: '15').click
 
       sleep 1
+      # react-day-picker 7.x has unfixable role= markup; exclude until upgrade.
+      expect(page).to be_axe_clean.excluding('.DayPicker')
 
       # This click should create the course and start the wizard
       click_button 'Create my Course!'
@@ -186,32 +215,38 @@ describe 'New course creation and editing', type: :feature do
       expect(start_input.to_date).to be_within(1.day).of(start_date.to_date)
       end_input = find('input.end', match: :first).value
       expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
+      expect(page).to be_axe_clean.excluding('.DayPicker')
 
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
       go_through_course_dates_and_timeline_dates
 
       # This is the assignment type chooser
+      expect(page).to be_axe_clean
       # Translation assignment
       page.all('.wizard__option')[2].first('button').click
       sleep 1
       click_button 'Next'
       sleep 1
+      expect(page).to be_axe_clean
       click_button 'Yes, training will be graded.'
       click_button 'Next'
 
       # Choosing articles
       sleep 1
+      expect(page).to be_axe_clean
       page.all('div.wizard__option')[0].click # Instructor prepares list
       click_button 'Next'
 
       # Optional assignment
       sleep 1
+      expect(page).to be_axe_clean
       click_button 'Do not include fact-checking assignment'
       click_button 'Next'
 
       # on the summary
       sleep 1
+      expect(page).to be_axe_clean
       # go back and change a choice
       page.all('button.wizard__option.summary')[2].click
       sleep 1
@@ -228,6 +263,7 @@ describe 'New course creation and editing', type: :feature do
 
       # Edit course dates and save
       click_link 'Edit Course Dates'
+      expect(page).to be_axe_clean.excluding('.DayPicker')
       find('span[title="Thursday"]', match: :first).click
       click_link 'Done'
       sleep 1
@@ -309,8 +345,7 @@ describe 'New course creation and editing', type: :feature do
       end_input = find('input.end', match: :first).value
       expect(end_input.to_date).to be_within(1.day).of(end_date.to_date)
 
-      # Click checkbox to opt out of meeting days
-      find('label.switch').click
+      # Toggle is OFF by default (no meeting days), so no click needed
       within('.wizard__panel.active') do
         expect(page).to have_css('button.dark')
       end
@@ -373,8 +408,8 @@ describe 'New course creation and editing', type: :feature do
              id: 10001,
              title: 'Course',
              school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term_2025)',
              submitted: false,
              passcode: 'passcode',
              start: '2015-08-24'.to_date,
@@ -386,7 +421,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Create a New Course'
       find('#course_title').set('Course')
       find('#course_school').set('University')
-      find('#course_term').set('Term')
+      find('#course_term').set('Term 2025')
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('15')
       find('#course_description').set('My course')
@@ -409,8 +444,8 @@ describe 'New course creation and editing', type: :feature do
              id: 10001,
              title: 'Course',
              school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term_2025)',
              submitted: false,
              passcode: 'passcode',
              start: '2015-08-24'.to_date,
@@ -426,7 +461,7 @@ describe 'New course creation and editing', type: :feature do
       visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
-      go_through_researchwrite_wizard
+      go_through_researchwrite_wizard(returning_instructor: false)
 
       sleep 1
 
@@ -442,6 +477,11 @@ describe 'New course creation and editing', type: :feature do
         expect(week.order).to eq(i + 1)
       end
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
+      expect(Course.first.tag?('mentor_requested')).to be true
+
+      # The instructor accepted the default "Yes" on the "Learning to edit with
+      # your students" panel, so the course carries the opt-in tag.
+      expect(Course.first.tag?('instructor_learner')).to be true
     end
 
     it 'squeezes assignments into the course dates' do
@@ -449,8 +489,8 @@ describe 'New course creation and editing', type: :feature do
              id: 10001,
              title: 'Course',
              school: 'University',
-             term: 'Term',
-             slug: 'University/Course_(Term)',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term 2025)',
              submitted: false,
              passcode: 'passcode',
              start: '2015-09-01'.to_date,
@@ -462,11 +502,11 @@ describe 'New course creation and editing', type: :feature do
              course_id: 10001,
              role: 1)
 
-      # Visit timline and open wizard
+      # Visit timeline and open wizard
       visit "/courses/#{Course.first.slug}/timeline/wizard"
       sleep 1
 
-      go_through_researchwrite_wizard
+      go_through_researchwrite_wizard(returning_instructor: false)
 
       expect(page).to have_content 'Week 6'
       expect(page).not_to have_content 'Week 7'
