@@ -75,6 +75,7 @@ const ThisWeek = ({ course, weeks, current_user }) => {
         weeksBeforeTimeline={weeksBeforeTimeline}
         trainingLibrarySlug={course.training_library_slug}
         current_user={current_user}
+        no_meeting_days={course.no_meeting_days}
       />
     );
   } else {

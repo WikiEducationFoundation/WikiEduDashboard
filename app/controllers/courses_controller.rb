@@ -387,7 +387,8 @@ class CoursesController < ApplicationController
     :stay_in_sandbox,
     :no_sandboxes,
     :retain_available_articles,
-    :declined
+    :declined,
+    :no_meeting_days
   ].freeze
   def update_boolean_flags
     UPDATABLE_FLAGS.each do |flag|
@@ -462,7 +463,8 @@ class CoursesController < ApplicationController
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type, :level, :private, :withdrawn)
+              :no_day_exceptions, :cloned_status, :type,
+              :level, :private, :withdrawn)
   end
 
   def update_params

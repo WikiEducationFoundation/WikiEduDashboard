@@ -158,6 +158,7 @@ class CourseCloneManager
     :retain_available_articles,
     :stay_in_sandbox,
     :no_sandboxes,
+    :no_meeting_days,
     :timeslice_duration
   ].freeze
   def add_flags
