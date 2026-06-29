@@ -374,6 +374,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_203000) do
     t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"
   end
 
+  create_table "experiment_courses_users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "experiment_slug", null: false
+    t.integer "courses_user_id", null: false
+    t.integer "status", null: false
+    t.datetime "userscript_installed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_user_id"], name: "index_experiment_courses_users_on_courses_user_id"
+    t.index ["experiment_slug", "courses_user_id"], name: "index_experiment_courses_users_on_slug_and_courses_user", unique: true
+  end
+
   create_table "facilitator_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.date "snapshot_date", null: false
     t.integer "user_id", null: false
