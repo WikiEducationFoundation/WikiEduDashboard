@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 class UpdateTimeslicesUntrackedArticle

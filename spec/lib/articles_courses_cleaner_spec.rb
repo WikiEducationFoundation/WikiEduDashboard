@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/timeslice_manager"
 
-describe ArticlesCoursesCleanerTimeslice do
+describe ArticlesCoursesCleaner do
   let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
   let(:wikidata) { Wiki.get_or_create(project: 'wikidata', language: nil) }
   let(:start) { '2024-01-01'.to_datetime }
