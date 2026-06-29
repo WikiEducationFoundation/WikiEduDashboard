@@ -11,6 +11,7 @@ import ArticlesHandler from '../articles/articles_handler.jsx';
 import UploadsHandler from '../uploads/uploads_handler.jsx';
 import Resources from '../resources/resources.jsx';
 import ArticleFinder from '../article_finder/article_finder.jsx';
+import ClaimVerificationExercise from '../claim_verification_exercise/ClaimVerificationExercise.jsx';
 
 import Confirm from '../common/confirm.jsx';
 import { fetchUsers } from '../../actions/user_actions.js';
@@ -147,6 +148,7 @@ const Course = withRouter((props) => {
           <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />
           <Route path="timeline/*" element={<TimelineHandler {...courseProps} />} />
           <Route path="resources" element={<Resources {...courseProps} />} />
+          <Route path="verify_claim/*" element={<ClaimVerificationExercise course={course} />} />
         </Routes>
       </div>
     </div>

@@ -65,6 +65,29 @@ describe WikiApi::ArticleContent do
     end
   end
 
+  describe '#revision_metadata' do
+    it 'returns the parent id and timestamp from a single query' do
+      response_data = {
+        'pages' => {
+          '100' => {
+            'revisions' => [{ 'parentid' => 199, 'timestamp' => '2025-12-14T04:53:46Z' }]
+          }
+        }
+      }
+      response = double('response', data: response_data, status: 200)
+      allow_any_instance_of(WikiApi).to receive(:query).and_return(response)
+
+      expect(subject.revision_metadata(200))
+        .to eq(parent_id: 199, timestamp: '2025-12-14T04:53:46Z')
+    end
+
+    it 'returns nil for a missing/deleted revision' do
+      response = double('response', data: { 'badrevids' => { '999' => {} } }, status: 200)
+      allow_any_instance_of(WikiApi).to receive(:query).and_return(response)
+      expect(subject.revision_metadata(999)).to be_nil
+    end
+  end
+
   describe '#parent_revision_ids' do
     it 'returns a hash of rev_id => parent_id for a batch' do
       response_data = {

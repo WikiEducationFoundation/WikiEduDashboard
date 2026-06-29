@@ -133,6 +133,8 @@ categories:
       - slug: extra-credit-article
         name: 'Exercise: Select an extra credit article'
         description: Optionally, choose another article to work on for extra credit.
+      - slug: fact-verification-exercise
+        name: 'Exercise: Fact verification'
   - title: Discussions
     description: |
       Prompts for in-class discussions

@@ -136,6 +136,32 @@ Rails.application.routes.draw do
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
 
+  # Claim-verification exercise. The exercise page itself is the course SPA:
+  # `/courses/*id/verify_claim` is not routed here — it falls through to
+  # `courses#show`, and React Router renders the exercise as a nested course
+  # route. Only the JSON data endpoints (and the slug-less entry funnel) are
+  # served here. These deeper paths are declared before the courses#show
+  # catch-all so they win.
+  #
+  # Exercise state: the student's taken claim (if any) and the articles they
+  # can choose from.
+  get 'courses/*id/verify_claim/state' => 'claim_verification_exercises#state',
+      :as => :verify_claim_state, constraints: { id: /.*/ }, defaults: { format: :json }
+  # Annotated article HTML (the article's parsed HTML with cited claims tagged)
+  # for the in-viewer claim picker, fetched by the claim-highlighting hook.
+  get 'courses/*id/verify_claim/annotated_article' =>
+        'claim_verification_exercises#annotated_article',
+      :as => :verify_claim_annotated_article, constraints: { id: /.*/ },
+      defaults: { format: :json }
+  # Take on a chosen claim (persist it as the student's assignment); returns the
+  # assignment so the SPA can transition without a reload.
+  post 'courses/*id/verify_claim/take' => 'claim_verification_exercises#take',
+       :as => :take_verify_claim, constraints: { id: /.*/ }, defaults: { format: :json }
+  # Slug-less entry (eg from the course-agnostic exercise training module):
+  # infers the course and sends the student into its SPA exercise, else asks
+  # which course.
+  get 'verify_claim' => 'claim_verification_exercises#entry', :as => :verify_claim
+
   # Courses
   controller :courses do
     get 'courses/new' => 'courses#new',
@@ -518,6 +544,11 @@ Rails.application.routes.draw do
   get 'ai_edit_alerts_stats' => 'ai_edit_alerts_stats#redirect_to_default', constraints: { format: 'html' }
   get 'ai_edit_alerts_stats/:campaign_slug' => 'ai_edit_alerts_stats#index'
   resources :ai_edit_alerts_stats, only: [:index]
+
+  # Claim verification admin (harvest the claim pool + watch progress)
+  get 'claim_verification' => 'claim_verification#index'
+  get 'claim_verification/status' => 'claim_verification#status'
+  post 'claim_verification/harvest' => 'claim_verification#harvest'
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'

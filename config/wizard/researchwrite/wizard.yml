@@ -103,6 +103,16 @@
       blurb: Students browse Wikipedia until they find an article they'd like to improve. They make edits to improve the language or formatting.
       # description:
       logic: copyedit
+    -
+      title: Fact verification (recommended)
+      blurb: |
+        Wikipedia’s reliability hinges on its citations. When people consult Wikipedia, they don’t have to take the author’s word for it.
+        They can follow the citations and confirm the information is accurate for themselves. This is what’s known as verifiability,
+        and it’s a cornerstone of Wikipedia. In this exercise, students will learn how to verify claims and will gain a critical understanding
+        of why verifiability is so important to Wikipedia’s reliability as well as why AI-generated content regularly produces facts that
+        cannot be verified and harm Wikipedia.
+      logic: fact_verification
+      selected: true # recommended; selected by default
 
 -
   key: improving_representation
