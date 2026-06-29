@@ -17,8 +17,8 @@ def interact_with_clone_form
   click_button 'Save This Course'
 end
 
-def go_through_course_dates_and_timeline_dates
-  find('label.switch').click
+def go_through_course_dates_and_timeline_dates(toggle_on_days: false)
+  find('label.switch').click if toggle_on_days
   find('span[title="Wednesday"]', match: :first).click
   within('.wizard__panel.active') do
     expect(page).to have_css('button.dark')
@@ -89,7 +89,9 @@ def go_through_researchwrite_wizard(returning_instructor: true)
   click_button 'Next' # Default 3 discussions
   sleep 1
 
-  click_button 'Next' # No supplementary assignments except the default
+  # Select the non-default extra credit option
+  find('h3', text: 'Extra credit assignment').click
+  click_button 'Next'
   sleep 1
 
   # DYK/GA option removed for ~Spring 2021
@@ -107,12 +109,9 @@ def go_through_researchwrite_wizard(returning_instructor: true)
   omniclick find('.wizard__option', match: :first).find('button', match: :first)
   click_button 'Next'
   sleep 1
-  # # sandboxes unacceptable
-  omniclick find('.wizard__option', match: :first).find('button', match: :first)
-  click_button 'Next'
-  sleep 1
 
-  # "Learning to edit with your students" panel; accept the default "Yes"
+  # "Learning to edit with your students" panel; click "Yes" option
+  omniclick find('.wizard__option', match: :first).find('button', match: :first)
   click_button 'Next'
   sleep 1
 
@@ -219,7 +218,7 @@ describe 'New course creation and editing', type: :feature do
 
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
-      go_through_course_dates_and_timeline_dates
+      go_through_course_dates_and_timeline_dates(toggle_on_days: true)
 
       # This is the assignment type chooser
       expect(page).to be_axe_clean
