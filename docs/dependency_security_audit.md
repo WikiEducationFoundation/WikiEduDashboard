@@ -40,22 +40,22 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
   reachable. Exposure depends on our specific TinyMCE configuration — needs
   review before prioritizing.
 
-### 2. linkify-it (needs markdown-it major upgrade)
+### 2. linkify-it (needs markdown-it major upgrade) — ✅ RESOLVED 2026-06-29
 
 - **Alert:** GHSA-22p9-wv53-3rq4 (high) — quadratic ReDoS in `LinkifyIt#match`.
 - **Range / patch:** `<= 5.0.0`, patched `5.0.1`.
-- **Current:** `linkify-it 3.0.3`, pulled **only** by `markdown-it@12.3.2`
-  (direct dependency `markdown-it ^12.3.2`).
-- **Why deferred:** `linkify-it` is required by `markdown-it`; the 12.x line uses
-  `linkify-it` 3.x. Forcing `linkify-it` 5.x under markdown-it 12 would break it
-  (API differs across the 3 → 5 majors). The clean fix is bumping
-  `markdown-it` 12 → 14, which uses `linkify-it` 5.x and also clears the separate
-  **medium** markdown-it alert #389 (patched `14.2.0`).
-- **Recommended:** Upgrade `markdown-it ^12.3.2` → `^14.x` together with a
-  compatible `markdown-it-footnote`, then regression-check rendered markdown
-  (used in haml templates/helpers; confirm whether any user-supplied markdown is
-  rendered). markdown-it 12 → 14 has output and plugin-API changes.
-- **Risk:** ReDoS (DoS) on inputs run through the linkifier; moderate.
+- **Was:** `linkify-it 3.0.3`, pulled **only** by `markdown-it@12.3.2`. linkify-it
+  is bundled by markdown-it, so the only path to the patched 5.x line was a
+  markdown-it major upgrade.
+- **Fix shipped:** Bumped `markdown-it` ^12.3.2 → **^14.2.0** and
+  `markdown-it-footnote` ^3.0.2 → **^4.0.0** (branch
+  `linkify-it-markdown-it-upgrade`). This pulled `linkify-it` 5.0.1 and also
+  cleared the separate medium markdown-it alert #389 (patched 14.2.0). Our usage
+  is centralized in `app/assets/javascripts/utils/markdown_it.js` (a thin wrapper
+  using only `html`/`linkify`/`.use(footnotes)`/`.render()` and a stable
+  token-API renderer override), so no app code changed. Verified: the existing
+  markdown specs, the full Jest suite (406 tests), the production build, and an
+  ad-hoc footnote+linkify render all pass.
 
 ### 3. js-cookie (needs react-cookie-consent upgrade)
 
