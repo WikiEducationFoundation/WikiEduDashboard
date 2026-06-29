@@ -73,29 +73,27 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
 - **Risk:** Runtime, but the attack requires control over cookie-attribute input;
   low-to-moderate. Still, a functional check of the banner is required.
 
-### 4. tar (only patched on the 7.x line; cacache pins 6.x)
+### 4. tar (only patched on the 7.x line; cacache pins 6.x) — ✅ RESOLVED 2026-06-29
 
 - **Alerts (all high):** GHSA-9ppj-qmqm-q256, GHSA-qffp-2rhf-9h96,
   GHSA-83g3-92jg-28cx, GHSA-34x7-hfp2-rc4v, GHSA-r6q2-hw4h-h46w,
   GHSA-8qq5-rm4j-mr97 — symlink/hardlink path traversal and extraction race
   conditions in node-tar.
-- **Range / patch:** Various, with patched versions **only** on the 7.5.x line
-  (e.g. `7.5.7`, `7.5.8`, … up to `7.5.16`). Our installed `tar 6.2.1` is matched
-  by these ranges.
-- **Current:** `tar 6.2.1`, held by the existing resolution `"tar": "^6.2.1"`;
-  required by `cacache@16.1.1` (`tar ^6.2.1`) and `node-gyp@9.0.0`.
-  **Build/install-time only** — used for native-module build caching, not in the
-  running server or the browser bundle, and we do not extract untrusted archives
-  at runtime.
-- **Why deferred:** The only patched line is tar 7.x. `cacache@16` pins
-  `tar ^6.2.1`; forcing tar 7 via a resolution risks breaking cacache/node-gyp
-  (the tar 6 → 7 API changed). The robust fix is upgrading the toolchain that
-  pulls `cacache@16` / `node-gyp@9` so it depends on tar 7.
-- **Recommended:** Either (a) bump the `node-gyp`/`cacache` chain to versions
-  that use tar 7, or (b) change the resolution `"tar"` → `^7.5.16` and verify a
-  clean `yarn install` with native dependency builds. Verify before merging.
-- **Risk:** **Low** real-world exposure (build-time, no untrusted archives), but
-  this is the single largest cluster of open High alerts.
+- **Was:** `tar 6.2.1`, held by the resolution `"tar": "^6.2.1"`; required by
+  `cacache@16.1.1` (`tar ^6.1.11`) and `node-gyp@9.0.0`. That whole subtree
+  exists only to build `fsevents` (a macOS-only native file-watcher) at install
+  time — not in the server runtime or browser bundle, and nothing extracts
+  untrusted archives, so real-world exposure was minimal.
+- **Fix shipped (branch `linkify-it-markdown-it-upgrade`):** tar is patched only
+  on the 7.x line, and `cacache@16` uses the tar 6 API, so rather than forcing
+  tar 7 under it the whole toolchain was bumped: resolution `node-gyp` →
+  `^11.5.0` (lenient engine `^18.17.0 || >=20.5.0`), which cascades
+  `make-fetch-happen` 10 → 14 → `cacache` 16 → 19, all on `tar ^7.4.3`; and the
+  `tar` resolution `^6.2.1` → `^7.5.4`. Result: a single `tar 7.5.19` in the
+  lockfile (no 6.x copy), which also clears the related medium tar alert.
+  Verified: clean `yarn install`, full Jest suite (406 tests), and production
+  webpack build. The macOS native-build path can't be exercised on CI but is
+  build-time-only by nature.
 
 ### 5. serialize-javascript (needs css-minimizer-webpack-plugin upgrade)
 
