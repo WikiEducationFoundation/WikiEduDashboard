@@ -254,4 +254,22 @@ describe TrainingModuleDueDateManager do
       end
     end
   end
+
+  describe '#exercise_url' do
+    subject { described_class.new(course:, training_module:, user:).exercise_url }
+
+    context 'for an in-app exercise (settings.exercise_path set)' do
+      let(:training_module) { TrainingModule.find(86) } # fact-verification-exercise
+
+      it 'returns the course-relative exercise path' do
+        expect(subject).to eq("/courses/#{course.slug}/verify_claim")
+      end
+    end
+
+    context 'for a module without an exercise_path' do
+      let(:training_module) { t_module }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end

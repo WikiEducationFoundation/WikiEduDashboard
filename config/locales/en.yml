@@ -1641,6 +1641,7 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    open_exercise: Start Exercise
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
     take_your_time: "Please take your time!"
@@ -1648,6 +1649,45 @@ en:
     close: "CLOSE"
     loading: "Loading…"
     wiki_source: "wiki source"
+
+  claim_verification:
+    pick_instructions: Click a highlighted claim to see the citation details.
+    revision_notice: This is the article as of %{date} when the claims were added.
+    tile_revision_date: as of %{date}
+    claims_highlighted:
+      one: "%{count} claim highlighted"
+      other: "%{count} claims highlighted"
+    next_claim: Next claim
+    previous_claim: Previous claim
+    claim_position: Claim %{current} of %{total}
+    loading_claims: Loading claims…
+    claim: Claim
+    cited_source: Cited source
+    source_url: Source URL
+    select_claim: Select this claim to verify
+    choose_article: Choose an article
+    no_articles: No articles available
+    your_selected_claim: Your selected claim
+    find_in_article: Find this in the article text
+    show_surrounding: Show surrounding paragraph
+    choose_different_claim: Choose a different claim
+    no_online_source: This cited source doesn't include a URL.
+    course_picker_heading: Choose course
+    course_picker_no_courses: No courses
+    take_not_enrolled: You must be enrolled in the course to do that.
+    complete_in_sandbox: Complete this exercise in your Wikipedia sandbox.
+    # Internal staff harvest page.
+    admin:
+      loading: Loading…
+      heading: Claim verification
+      pool_size: "Pool size: %{count} claims"
+      last_run: "Last run %{time}: +%{harvested} claims from %{processed} alerts (%{skipped} skipped%{rescan})"
+      full_rescan_note: ", full re-scan"
+      harvest: Harvest claim pool
+      full_rescan: Full re-scan
+      status: "Status: %{status}"
+      progress: " — %{at} / %{total} alerts (%{pct}%)"
+      counts: "%{harvested} harvested · %{processed} processed · %{skipped} skipped · %{errors} errors"
 
   update_username:
     header: Update a changed username

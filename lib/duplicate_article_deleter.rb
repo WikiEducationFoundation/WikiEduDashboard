@@ -24,7 +24,7 @@ class DuplicateArticleDeleter
     course_ids = ArticlesCourses.where(article_id: @deleted_ids).pluck(:course_id).uniq
     course_ids.each do |course_id|
       # Reset articles for every course involved
-      ArticlesCoursesCleanerTimeslice.reset_specific_articles(Course.find(course_id), articles)
+      ArticlesCoursesCleaner.reset_specific_articles(Course.find(course_id), articles)
     end
   end
 

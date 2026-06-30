@@ -164,7 +164,7 @@ fr:
       depuis la page de la Campagne.
   home:
     explore: Explorer
-    log_in: Se connecter à Wikipédia
+    log_in: Se connecter avec Wikipédia
     sign_up: S’inscrire à Wikipédia
     registration_advice:
       username_rules:
@@ -202,7 +202,7 @@ fr:
       total: Total
       last_week: La semaine dernière
       sections:
-        contents: Contenus de page.
+        contents: Contenus de la page.
         general_stats: Statistiques générales
         name: Nom
         description: Description
@@ -273,7 +273,7 @@ fr:
       newness_label: Nouveauté de l'article
       tracked_label: Statut du suivi
     filter_text: 'Filtres :'
-    pageviews_label: 'Pages vues :'
+    pageviews_label: Vues de la page
     cumulative: Cumulatif
     daily_avg: Moyenne quotidienne
     find: Trouver des articles

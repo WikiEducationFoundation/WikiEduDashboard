@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 # Adjusts timeslices when articles enter or leave scope in ArticleScopedProgram
@@ -20,7 +20,7 @@ require_dependency "#{Rails.root}/lib/revision_data_manager"
 #   articles_courses and ACUWT rows, then marks affected CWT timeslices for reaggregation.
 #
 # Legacy path (course.use_acuwt? == false):
-#   Both cases are handled by ArticlesCoursesCleanerTimeslice, marking CWT timeslices
+#   Both cases are handled by ArticlesCoursesCleaner, marking CWT timeslices
 #   as needs_update for a full re-fetch.
 class UpdateTimeslicesScopedArticle
   def initialize(course, update_service: nil)
@@ -150,7 +150,7 @@ class UpdateTimeslicesScopedArticle
     log_info "Resetting #{article_ids}"
 
     articles = Article.where(id: article_ids)
-    ArticlesCoursesCleanerTimeslice.reset_specific_articles(@course, articles)
+    ArticlesCoursesCleaner.reset_specific_articles(@course, articles)
   end
 
   ###########

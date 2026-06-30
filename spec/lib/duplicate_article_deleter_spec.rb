@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/duplicate_article_deleter"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 
 describe DuplicateArticleDeleter do
   describe '.resolve_duplicates_for_timeslices' do
@@ -94,7 +94,7 @@ describe DuplicateArticleDeleter do
       create(:articles_course, course_id: course1.id, article_id: new_article.id)
       create(:articles_course, course_id: course2.id, article_id: duplicate_article.id)
 
-      expect(ArticlesCoursesCleanerTimeslice).to receive(:reset_specific_articles).once
+      expect(ArticlesCoursesCleaner).to receive(:reset_specific_articles).once
 
       described_class.new.resolve_duplicates_for_timeslices([new_article, extant_article])
     end

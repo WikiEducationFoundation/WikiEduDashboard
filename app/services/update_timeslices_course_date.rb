@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 
 class UpdateTimeslicesCourseDate
   def initialize(course)
@@ -88,7 +88,7 @@ class UpdateTimeslicesCourseDate
     @timeslice_cleaner.delete_course_user_wiki_timeslices_prior_to_start_date
 
     # Delete articles courses
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_prior_to_course_start(@course)
+    ArticlesCoursesCleaner.clean_articles_courses_prior_to_course_start(@course)
   end
 
   def remove_timeslices_after_end_date
@@ -102,7 +102,7 @@ class UpdateTimeslicesCourseDate
     @timeslice_cleaner.delete_course_user_wiki_timeslices_after_end_date
 
     # Delete articles courses
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_after_course_end(@course)
+    ArticlesCoursesCleaner.clean_articles_courses_after_course_end(@course)
   end
 
   def add_wiki_timeslices_from_new_start_date(wiki)

@@ -29,6 +29,16 @@ class WikiApi
     mediawiki('query', query_parameters.merge(http_method:), &caller_handles)
   end
 
+  # Entry point for arbitrary API actions not covered by a named method
+  # (e.g. 'parse', 'compare'), routed through the same retry/backoff and error
+  # logging as #query — so 429 rate-limits and transient transport errors are
+  # retried (honoring Retry-After) instead of raised. An optional block can
+  # intercept errors (see #query). Returns the API response, or nil once retries
+  # are exhausted.
+  def action(action_name, params, &caller_handles)
+    mediawiki(:action, action_name, params, &caller_handles)
+  end
+
   def meta(type, params = {})
     @mediawiki = api_client
     @mediawiki.meta(type, params)
@@ -109,10 +119,10 @@ class WikiApi
     @data
   end
 
-  def mediawiki(action, query, &caller_handles)
+  def mediawiki(action, *args, &caller_handles)
     tries ||= 3
     @mediawiki = api_client
-    @mediawiki.send(action, query)
+    @mediawiki.send(action, *args)
   rescue StandardError => e
     raise if caller_handles&.call(e)
     tries -= 1
@@ -121,8 +131,8 @@ class WikiApi
       sleep retry_delay_for(e)
     end
     retry unless tries.zero?
-    log_error(e, update_service: @update_service,
-              sentry_extra: rate_limit_sentry_extra(e).merge(action:, query:, api_url: @api_url),
+    extra = rate_limit_sentry_extra(e).merge(action:, query: args, api_url: @api_url)
+    log_error(e, update_service: @update_service, sentry_extra: extra,
               sentry_tags: rate_limit_sentry_tags(e))
     return nil
   end

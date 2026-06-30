@@ -58,6 +58,12 @@ class TrainingModuleDueDateManager
     "#{@user.userpage_url(@course)}/#{@training_module.sandbox_location}"
   end
 
+  # The in-app page an exercise launches, eg "/courses/<slug>/verify_claim".
+  def exercise_url
+    return unless @training_module.exercise_path
+    "/courses/#{@course.slug}/#{@training_module.exercise_path}"
+  end
+
   private
 
   def blocks_with_training_modules_for_user

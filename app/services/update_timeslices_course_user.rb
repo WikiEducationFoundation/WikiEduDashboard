@@ -2,7 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 
@@ -131,7 +131,7 @@ class UpdateTimeslicesCourseUser
       @article_course_timeslices_for_users
     )
     # Delete articles courses that were updated only for removed users
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
+    ArticlesCoursesCleaner.clean_articles_courses_for_user_ids(@course, user_ids)
   end
 
   def remove_courses_users_acuwt(user_ids)
@@ -141,16 +141,15 @@ class UpdateTimeslicesCourseUser
     # Delete ACUWT records for removed users
     @timeslice_cleaner.delete_acuwt_for_deleted_course_users(user_ids)
     # Delete articles courses that were updated only for removed users
-    ArticlesCoursesCleanerTimeslice.clean_articles_courses_for_user_ids(@course, user_ids)
+    ArticlesCoursesCleaner.clean_articles_courses_for_user_ids(@course, user_ids)
   end
 
-  # Returns ArticleCourseTimeslice records that have edits from users
+  # Returns an ArticleCourseTimeslice relation with edits from the given users
   def get_article_course_timeslices_for_users(user_ids)
-    timeslices = user_ids.map do |user_id|
-      ArticleCourseTimeslice.search_by_course_and_user(@course, user_id)
-    end
+    return ArticleCourseTimeslice.none if user_ids.empty?
 
     # These are the ArticleCourseTimeslice records that were updated by users
-    timeslices.flatten
+    user_ids.map { |user_id| ArticleCourseTimeslice.search_by_course_and_user(@course, user_id) }
+            .reduce(:or)
   end
 end

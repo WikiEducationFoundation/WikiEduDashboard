@@ -948,6 +948,7 @@ sr-ec:
     qualifiers_added: Додато квалификатора
     redirects_created: Додато преусмерења
     references_added: Додато референци
+    language: Језик
   namespace:
     all: Све
     main: Главни именски простор

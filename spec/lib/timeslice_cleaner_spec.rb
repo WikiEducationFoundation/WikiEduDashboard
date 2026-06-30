@@ -290,7 +290,8 @@ describe TimesliceCleaner do
   end
 
   describe '#reset_timeslices_that_need_update_from_article_timeslices' do
-    let(:timeslices) { [] }
+    let(:timeslice_ids) { [] }
+    let(:timeslices) { ArticleCourseTimeslice.where(id: timeslice_ids) }
 
     before do
       timeslice_manager.create_timeslices_for_new_course_wiki_records([wikidata,
@@ -301,10 +302,10 @@ describe TimesliceCleaner do
               start: '2024-04-10'.to_datetime, end: '2024-04-11'.to_datetime)
       create(:course_user_wiki_timeslice, course:, user_id: 1, wiki: wikidata,
               start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
-      timeslices << create(:article_course_timeslice, course:, article: article1,
-             start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
-      timeslices << create(:article_course_timeslice, course:, article: article1,
-             start: '2024-04-10'.to_datetime, end: '2024-04-11'.to_datetime)
+      timeslice_ids << create(:article_course_timeslice, course:, article: article1,
+             start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime).id
+      timeslice_ids << create(:article_course_timeslice, course:, article: article1,
+             start: '2024-04-10'.to_datetime, end: '2024-04-11'.to_datetime).id
       create(:article_course_timeslice, course:, article: article3,
              start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
     end

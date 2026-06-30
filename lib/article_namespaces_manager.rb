@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/articles_courses_cleaner_timeslice"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 
 ##= Identifies articles that move to a different namespace during the course timeline.
 # Specifically, it handles the following cases:
@@ -25,14 +25,14 @@ class ArticleNamespacesManager
 
     reset_articles_that_moved_to_mainspace
 
-    ArticlesCoursesCleanerTimeslice.reset_articles_in_untracked_namespaces(@course)
+    ArticlesCoursesCleaner.reset_articles_in_untracked_namespaces(@course)
   end
 
   private
 
   def reset_articles_that_moved_to_mainspace
     articles = Article.find(moved_to_mainspace)
-    ArticlesCoursesCleanerTimeslice.reset_specific_articles(@course, articles)
+    ArticlesCoursesCleaner.reset_specific_articles(@course, articles)
   end
 
   # Articles that have an article course record that was created *after* some of its article

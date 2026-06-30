@@ -33,7 +33,8 @@ export const Footer = ({
       style={{
       display: 'flex',
       alignItems: 'center',
-      padding: '0 1em',
+      gap: '1em',
+      padding: '0.6em 1em',
     }}
     >
       {legend}
