@@ -113,7 +113,10 @@ blockquote
 code
   display inline-block
   font-size 0.8em
-  font-family Courier, monospace
+  // Not bare "Courier": Chrome matches the installed Type1 "Courier 10 Pitch"
+  // face and paints blank glyphs (invisible code; Firefox is unaffected).
+  // Use a TrueType monospace stack that always ends in the generic keyword.
+  font-family ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace
   background-color rgba(0,0,0,0.04)
   border-radius 3px
   line-height 1.4
