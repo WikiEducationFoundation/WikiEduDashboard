@@ -15,7 +15,7 @@ Wiki Education Dashboard — `dashboard.wikiedu.org`.
 
 ## Report Date
 
-2026-05-15
+2026-06-01
 
 ## Product Description
 
@@ -206,16 +206,12 @@ the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
 
 ## Legal Disclaimer
 
-*Filled in at each signed snapshot. Start from the standard
-disclaimer language in the ITI VPAT 2.5 template
-(<https://www.itic.org/policy/accessibility/vpat>) and adapt as
-needed.*
+This Voluntary Product Accessibility Template (VPAT) is provided for informational purposes only. Although the information herein is provided in good faith based on the analysis of the product as of the date of publication, it is subject to change without notice. Electronic information technology is a dynamic field, and accessibility standards and assistive technologies continue to evolve.
+
+The VPAT does not constitute a legally binding guarantee or certification of compliance with any accessibility standard (such as WCAG or Section 508). Conformance levels are subject to interpretation and the context in which the product is used. Reliance on this report is at your own risk. Wiki Education makes no warranty, express or implied, regarding the accuracy of the information contained herein, including any warranty of merchantability or fitness for a particular purpose, and Wiki Education disclaims any liability for inaccuracies, omissions, or any decisions or actions taken based upon the information provided in this report.
 
 ## Signature
 
-**Sage Ross**, Chief Technology Officer
-Wiki Education Foundation
+**Sage Ross**, Chief Technology Officer, Wiki Education Foundation
 
-Signature: ____________________________
-
-Date: ____________________________
+Attested 2026-06-01
