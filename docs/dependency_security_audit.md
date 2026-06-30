@@ -18,27 +18,27 @@ time of triage (local HEAD matched `origin/master`, i.e. what Dependabot scans).
 
 ## Deferred — needs more than a safe bump
 
-### 1. tinymce (no fixed release exists)
+### 1. tinymce (no fixed release exists) — ✅ RESOLVED 2026-06-29 (replaced)
 
 - **Alerts (all high, XSS):** GHSA-vg35-5wq7-3x7w (media plugin
   `data-mce-object` injection), GHSA-v98h-vmpc-fpqv (`mce:protected` comments),
   GHSA-q742-qvgc-gc2f (`data-mce-` prefixed `src`/`href`/`style`).
-- **Range / patch:** `< 5.11.1`; **`first_patched_version` is null** — there is
-  no patched release on the TinyMCE 5.x line.
-- **Current:** `tinymce ^5.2.2` (direct dependency) plus
-  `@tinymce/tinymce-react ^3.12.6`, which only supports TinyMCE 5.
-- **Why deferred:** No 5.x fix is available. Clearing these requires migrating to
-  TinyMCE 6 or 7 — a major editor API change that also forces an upgrade of
-  `@tinymce/tinymce-react` (to v4/v5). TinyMCE 6+ additionally changed its
-  licensing model (self-hosted open-source build still exists but warrants a
-  deliberate review).
-- **Recommended:** Scope a TinyMCE 5 → 7 migration as its own project. In the
-  interim, assess real exposure: check whether the affected plugins/attribute
-  paths (notably the `media` plugin) are actually enabled in our editor config,
-  and whether output sanitization (DOMPurify) already neutralizes these vectors.
-- **Risk:** Editor is user-facing; XSS is real if the vulnerable surfaces are
-  reachable. Exposure depends on our specific TinyMCE configuration — needs
-  review before prioritizing.
+- **Was:** `tinymce ^5.2.2` + `@tinymce/tinymce-react ^3.12.6`, used for
+  TextAreaInput's wysiwyg mode (timeline blocks, ticket replies).
+- **What the deeper look found:** the advisories' affected ranges are `< 5.11.1`
+  (no fix — that release never shipped), `>= 6.0.0, < 7.9.3` (fixed 7.9.3), and
+  `>= 8.0.0, < 8.5.1` (fixed 8.5.1). So TinyMCE 6 does **not** fix it; the real
+  floor is 7.9.3 / 8.5.1 — and TinyMCE 7+ relicensed to GPL-2.0-or-later (8.3+ to
+  a custom license). That's a heavy, copyleft editor for what is only light
+  formatting here, with one real requirement: occasional direct HTML editing of
+  block content.
+- **Fix shipped (branch `tinymce-to-tiptap`):** replaced TinyMCE with a TipTap
+  (ProseMirror) editor — MIT-licensed, lighter, no skins build step. The HTML-
+  editing need is met by a source-view toggle. Dropping TinyMCE removes the
+  vulnerable package from the tree entirely. Standard authored content
+  round-trips faithfully; legacy blocks with out-of-schema markup normalize on
+  save (an accepted tradeoff). Verified by build, Jest, and two real-browser
+  feature specs (timeline block edit+save, ticket reply incl. an axe a11y check).
 
 ### 2. linkify-it (needs markdown-it major upgrade) — ✅ RESOLVED 2026-06-29
 
