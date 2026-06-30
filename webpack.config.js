@@ -136,7 +136,7 @@ module.exports = (env) => {
         cacheGroups: {
           defaultVendors: {
             // all of these modules are imported dynamically so they should not be included in the vendor bundle
-            test: /[\\/]node_modules[\\/]((?!(chart|tinymce|jquery-ui)).*)[\\/]/,
+            test: /[\\/]node_modules[\\/]((?!(chart|@tiptap|prosemirror|jquery-ui)).*)[\\/]/,
             chunks: 'all',
             name: 'vendors'
           },
