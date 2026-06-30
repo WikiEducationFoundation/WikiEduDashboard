@@ -11,7 +11,6 @@
     "@rails/ujs": "^7.0.3-1",
     "@reduxjs/toolkit": "^2.2.6",
     "@sentry/browser": "^6.18.1",
-    "@tiptap/extension-text-align": "^3.27.1",
     "@tiptap/pm": "^3.27.1",
     "@tiptap/react": "^3.27.1",
     "@tiptap/starter-kit": "^3.27.1",

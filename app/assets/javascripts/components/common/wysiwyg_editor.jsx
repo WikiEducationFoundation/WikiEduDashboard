@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import TextAlign from '@tiptap/extension-text-align';
 
 // A lightweight TipTap-based rich text editor. It replaces the previous TinyMCE
 // editor used by TextAreaInput's `wysiwyg` mode. The external contract is the
@@ -46,7 +45,6 @@ const WysiwygEditor = ({ value, onChange, onFocus, onBlur, invalid }) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ link: { openOnClick: false } }),
-      TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
     content: value || '',
     immediatelyRender: true,
@@ -120,8 +118,6 @@ const WysiwygEditor = ({ value, onChange, onFocus, onBlur, invalid }) => {
   return (
     <div className="wysiwyg-editor">
       <div className="wysiwyg-editor__toolbar" role="toolbar" aria-label="Formatting">
-        <ToolbarButton onClick={() => editor.chain().focus().undo().run()} label="Undo" disabled={sourceMode || !editor.can().undo()} />
-        <ToolbarButton onClick={() => editor.chain().focus().redo().run()} label="Redo" disabled={sourceMode || !editor.can().redo()} />
         <select
           className="wysiwyg-editor__select"
           aria-label="Text style"
@@ -136,12 +132,8 @@ const WysiwygEditor = ({ value, onChange, onFocus, onBlur, invalid }) => {
         </select>
         <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} isActive={editor.isActive('bold')} label="Bold" disabled={sourceMode} />
         <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()} isActive={editor.isActive('italic')} label="Italic" disabled={sourceMode} />
-        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('left').run()} isActive={editor.isActive({ textAlign: 'left' })} label="Align left" disabled={sourceMode} />
-        <ToolbarButton onClick={() => editor.chain().focus().setTextAlign('right').run()} isActive={editor.isActive({ textAlign: 'right' })} label="Align right" disabled={sourceMode} />
         <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} isActive={editor.isActive('bulletList')} label="Bullet list" disabled={sourceMode} />
         <ToolbarButton onClick={() => editor.chain().focus().toggleOrderedList().run()} isActive={editor.isActive('orderedList')} label="Numbered list" disabled={sourceMode} />
-        <ToolbarButton onClick={() => editor.chain().focus().sinkListItem('listItem').run()} label="Indent" disabled={sourceMode || !editor.can().sinkListItem('listItem')} />
-        <ToolbarButton onClick={() => editor.chain().focus().liftListItem('listItem').run()} label="Outdent" disabled={sourceMode || !editor.can().liftListItem('listItem')} />
         <ToolbarButton onClick={onLink} isActive={editor.isActive('link')} label="Link" disabled={sourceMode} />
         <ToolbarButton onClick={sourceMode ? exitSourceMode : enterSourceMode} isActive={sourceMode} label="HTML" />
       </div>

@@ -2809,15 +2809,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extension-text-align@npm:^3.27.1":
-  version: 3.27.1
-  resolution: "@tiptap/extension-text-align@npm:3.27.1"
-  peerDependencies:
-    "@tiptap/core": 3.27.1
-  checksum: 295a40f42420891dbc194230ab5cabda6908dd974847fe3d7268d70e340278149a1b6cbaf247ce94ebbe24d8e11e449fcf273b4abafe0a4f4ab3b1cee1f6d2ba
-  languageName: node
-  linkType: hard
-
 "@tiptap/extension-text@npm:^3.27.1":
   version: 3.27.1
   resolution: "@tiptap/extension-text@npm:3.27.1"
@@ -3711,7 +3702,6 @@ __metadata:
     "@rails/ujs": ^7.0.3-1
     "@reduxjs/toolkit": ^2.2.6
     "@sentry/browser": ^6.18.1
-    "@tiptap/extension-text-align": ^3.27.1
     "@tiptap/pm": ^3.27.1
     "@tiptap/react": ^3.27.1
     "@tiptap/starter-kit": ^3.27.1
