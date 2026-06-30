@@ -14,6 +14,7 @@ const Week = createReactClass({
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
     meetings: PropTypes.array,
+    noMeetingDays: PropTypes.bool,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
     editableBlockIds: PropTypes.array,
@@ -76,7 +77,9 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings && this.props.meetings.length > 0) {
+    // Async courses (no meeting days set) have content every week but no
+    // meeting days to display.
+    if (!this.props.noMeetingDays && this.props.meetings && this.props.meetings.length > 0) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
     }
     if (this.props.meetings) {

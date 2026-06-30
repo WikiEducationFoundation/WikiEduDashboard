@@ -85,12 +85,9 @@ describe 'cloning a course', js: true do
     omniclick find('span', text: 'MO')
     omniclick find('span', text: 'WE')
     click_button 'Save New Course'
-    expect(page).to have_content 'Mark the holidays' # Error message upon click.
-    find('input#no_holidays').click
-    expect(page).not_to have_content 'Mark the holidays'
-    click_button 'Save New Course'
 
-    # Fix the term to create an original slug, and try again
+    # Meeting days are optional now, so there's no holiday validation to clear;
+    # the only thing blocking the save is the duplicate term. Fix it and retry.
     expect(page).to have_content('This course already exists')
     fill_in 'course_term', with: new_term
     click_button 'Save New Course'
@@ -148,11 +145,9 @@ describe 'cloning a course', js: true do
     omniclick find('span', text: 'MO')
     omniclick find('span', text: 'WE')
     click_button 'Save New Course'
-    expect(page).to have_content 'Mark the holidays' # Error message upon click.
-    find('input#no_holidays').click
-    click_button 'Save New Course'
 
-    # Fix the term to create an original slug, and try again
+    # Meeting days are optional now, so there's no holiday validation to clear;
+    # the only thing blocking the save is the duplicate term. Fix it and retry.
     expect(page).to have_content('This course already exists')
     fill_in 'course_term', with: new_term
     click_button 'Save New Course'
