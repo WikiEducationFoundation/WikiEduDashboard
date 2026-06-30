@@ -32,16 +32,16 @@ describe 'ticket system', type: :feature, js: true do
 
     # Reply to the ticket
     within('form.tickets-reply') do
-      find('.mce-content-body').click
-      find('.mce-content-body').send_keys('Please review this training module.')
+      find('.wysiwyg-editor__content').click
+      find('.wysiwyg-editor__content').send_keys('Please review this training module.')
     end
     click_button 'Send Reply'
     expect(page).to have_content 'Ticket is currently Awaiting Response'
 
     # Add and delete a Note
     within('form.tickets-reply') do
-      find('.mce-content-body').click
-      find('.mce-content-body').send_keys('Note for staff')
+      find('.wysiwyg-editor__content').click
+      find('.wysiwyg-editor__content').send_keys('Note for staff')
     end
     click_button 'Create Note'
     find('button.delete-note').click
