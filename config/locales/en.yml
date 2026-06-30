@@ -1902,8 +1902,7 @@ en:
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). This helps the course creation tool accurately space out your
       assignments. Click the date to change between unselected, selected, and
-      holiday state. If you have no holidays, check "I have no class holidays"
-      below.
+      holiday state.
     confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates

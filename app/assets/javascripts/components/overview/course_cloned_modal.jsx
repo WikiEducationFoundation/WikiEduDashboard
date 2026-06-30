@@ -41,12 +41,6 @@ const CourseClonedModal = createReactClass({
     };
   },
 
-  componentDidMount() {
-    if (this.props.course.type !== 'ClassroomProgramCourse') { return; }
-    this.props.addValidation('weekdays', 'Set the meeting days.');
-    return this.props.addValidation('holidays', 'Mark the holidays, or check "I have no class holidays".');
-  },
-
   componentDidUpdate(prevProps, prevState) {
     let isPersisting = prevState.isPersisting;
     if (this.props.firstErrorMessage && !prevProps.firstErrorMessage) {
@@ -71,12 +65,6 @@ const CourseClonedModal = createReactClass({
 
   setBlackoutDatesSelected(bool) {
     return this.setState({ blackoutDatesSelected: bool });
-  },
-
-  setNoBlackoutDatesChecked() {
-    const { checked } = this.noDates;
-    if (checked) { this.props.setValid('holidays'); }
-    return this.updateCourse('no_day_exceptions', checked);
   },
 
   cloneCompletedStatus: 2,
@@ -109,15 +97,8 @@ const CourseClonedModal = createReactClass({
   },
 
   updateCalendar(updatedCourse) {
-    if (updatedCourse.weekdays.indexOf(1) >= 0) {
-      this.props.setValid('weekdays');
-    }
-    if (__guard__(updatedCourse.day_exceptions, x => x.length) > 0 || updatedCourse.no_day_exceptions) {
-      this.props.setValid('holidays');
-    }
-
+    // Meeting days are optional: a clone with none is treated as asynchronous.
     this.setState({ course: updatedCourse });
-
     return this.props.updateCourse(updatedCourse);
   },
 
@@ -297,9 +278,6 @@ const CourseClonedModal = createReactClass({
             calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
             updateCourse={this.updateCalendar}
           />
-          <label> {I18n.t('courses.creator.no_class_holidays')}
-            <input id="no_holidays" type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />
-          </label>
         </div>
       );
     // Specific to non-ClassroomProgramCourse
@@ -435,7 +413,3 @@ const CourseClonedModal = createReactClass({
 });
 
 export default CourseClonedModal;
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}

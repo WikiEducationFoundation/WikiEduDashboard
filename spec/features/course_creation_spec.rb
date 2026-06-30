@@ -17,14 +17,14 @@ def interact_with_clone_form
   click_button 'Save This Course'
 end
 
-def go_through_course_dates_and_timeline_dates
-  find('span[title="Wednesday"]', match: :first).click
+def go_through_course_dates_and_timeline_dates(set_meeting_days: true)
+  # Meeting days are optional: a meeting day is selected here when requested, but
+  # the Next button is enabled as soon as the course dates are valid, with or
+  # without meeting days.
+  find('span[title="Wednesday"]', match: :first).click if set_meeting_days
   within('.wizard__panel.active') do
-    expect(page).to have_css('button.dark[disabled=""]')
-  end
-  find('.wizard__form.course-dates input[type=checkbox]', match: :first).set(true)
-  within('.wizard__panel.active') do
-    expect(page).not_to have_css('button.dark[disabled=disabled]')
+    expect(page).to have_css('button.dark')
+    expect(page).not_to have_css('button.dark[disabled]')
   end
 
   click_button 'Next'
@@ -36,8 +36,8 @@ end
 # adding, removing, or reordering a panel there requires a matching change to the
 # click-through steps below, or these specs break (often on a later panel or at
 # "Generate Timeline"). `expected_course_blocks` likewise tracks content.yml.
-def go_through_researchwrite_wizard(returning_instructor: true)
-  go_through_course_dates_and_timeline_dates
+def go_through_researchwrite_wizard(returning_instructor: true, set_meeting_days: true)
+  go_through_course_dates_and_timeline_dates(set_meeting_days:)
 
   # Choose researchwrite option
   find('.wizard__option', match: :first).find('button', match: :first).click
@@ -208,9 +208,10 @@ describe 'New course creation and editing', type: :feature do
 
       # This is the course dates screen
       sleep 3
-      # validate either blackout date chosen
-      # or "no blackout dates" checkbox checked
-      expect(page).to have_css('button.dark[disabled=""]')
+      # Meeting days are optional, so the Next button is enabled as soon as the
+      # course dates are valid.
+      expect(page).to have_css('button.dark')
+      expect(page).not_to have_css('button.dark[disabled]')
       start_input = find('input.start', match: :first).value
       sleep 1
       expect(start_input.to_date).to be_within(1.day).of(start_date.to_date)
@@ -398,6 +399,42 @@ describe 'New course creation and editing', type: :feature do
       within '.week-1' do
         expect(page).to have_content module_name
       end
+    end
+
+    it 'lets an instructor build a timeline without setting any meeting days' do
+      create(:course,
+             id: 10001,
+             title: 'Course',
+             school: 'University',
+             term: 'Term 2025',
+             slug: 'University/Course_(Term_2025)',
+             submitted: false,
+             passcode: 'passcode',
+             start: '2015-08-24'.to_date,
+             end: '2015-12-15'.to_date,
+             timeline_start: '2015-08-31'.to_date,
+             timeline_end: '2015-12-15'.to_date)
+      create(:courses_user,
+             user_id: 1,
+             course_id: 10001,
+             role: 1)
+
+      visit "/courses/#{Course.first.slug}/timeline/wizard"
+      sleep 1
+
+      # Walk the entire wizard without ever selecting a meeting day.
+      go_through_researchwrite_wizard(returning_instructor: false, set_meeting_days: false)
+      sleep 1
+
+      # The timeline generates even though no meeting days were set, and content
+      # is distributed across every week (no week is treated as a blackout).
+      expect(page).to have_content 'Week 1'
+      expect(page).to have_content 'Week 12'
+
+      # The course stays asynchronous: no meeting days are persisted and none are
+      # displayed on the timeline.
+      expect(Course.first.weekdays).to eq('0000000')
+      expect(page).not_to have_content 'Meetings:'
     end
   end
 end
