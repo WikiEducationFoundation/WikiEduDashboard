@@ -31,12 +31,13 @@ require 'fileutils'
 
 ROOT = File.expand_path('..', __dir__)
 
-# flow => screenshot spec, walked in this order. The Canvas-admin flow lands
-# in a later tranche.
+# flow => screenshot spec, walked in this order. `admin` is read-only for now
+# (the full create->teardown admin walk is a later tranche).
 ROLE_SPECS = {
   'instructor'      => 'spec/staging/instructor_setup_screenshots_spec.rb',
   'student'         => 'spec/staging/student_screenshots_spec.rb',
-  'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb'
+  'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb',
+  'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
 }.freeze
 
 # Cool slate neutrals with a single dashboard-blue accent; monospace caption
