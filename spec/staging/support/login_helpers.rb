@@ -99,12 +99,36 @@ module LoginHelpers
             "manually with 'Keep me logged in' checked to refresh the " \
             'loginnotify_prevlogins cookie so future runs stay silent.'
     end
-    return unless emailauth_challenge_present?
+    await_emailauth_resolution! if emailauth_challenge_present?
+  end
 
-    raise 'Wikipedia EmailAuth code prompt appeared (login from an ' \
-          "unrecognized device). Enter the code manually once with 'Keep " \
-          "me logged in' checked so the profile keeps loginnotify_prevlogins " \
-          'for ~180 days; subsequent runs will be silent.'
+  # The email verification code is a human-in-the-loop step: Wikipedia emails
+  # a one-time code only the operator can retrieve. Rather than failing
+  # instantly, surface a clear prompt and give them time to enter it in the
+  # headed browser and click "Continue login". Configurable via CHALLENGE_WAIT
+  # (seconds, default 60); only raise if still unresolved after the window.
+  def await_emailauth_resolution!
+    warn "\n  [challenge] Wikipedia emailed a login verification code. Enter " \
+         "it in the browser and click 'Continue login' (tick 'Keep me logged " \
+         "in'). Waiting up to #{challenge_wait}s…"
+    deadline = Time.now + challenge_wait
+    sleep 1 while emailauth_challenge_present? && Time.now < deadline
+    raise emailauth_timeout_message if emailauth_challenge_present?
+
+    # Let the post-code redirect settle onto the OAuth "Allow" page or the
+    # dashboard so the caller's next step finds what it expects.
+    settle_oauth_redirect
+  end
+
+  def challenge_wait
+    Integer(ENV.fetch('CHALLENGE_WAIT', '60'))
+  end
+
+  def emailauth_timeout_message
+    "Wikipedia's login verification code was not entered within " \
+      "#{challenge_wait}s. Enter it (with 'Keep me logged in' checked) so the " \
+      'profile keeps loginnotify_prevlogins ~180 days and future runs stay ' \
+      'silent, then re-run. Raise CHALLENGE_WAIT to allow more time.'
   end
 
   def ensure_canvas_logged_in(login:, password:)
