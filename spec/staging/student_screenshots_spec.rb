@@ -3,9 +3,10 @@
 require_relative 'spec_helper'
 
 # Captures the student-facing UX of the Canvas integration, surface by
-# surface, into
-# `.claude/canvas_integration/screenshots/student/`. Re-run to refresh the
-# images when the student flow changes:
+# surface, into the harvest run directory
+# (`tmp/canvas-ux-screenshots/student/`, override with CANVAS_SHOTS_DIR);
+# `bin/harvest-canvas-screenshots` collects it into the review gallery.
+# Re-run to refresh the images when the student flow changes:
 #
 #   bin/staging-feature-spec spec/staging/student_screenshots_spec.rb
 #
@@ -41,9 +42,7 @@ describe 'Student UX screenshots', :staging do
   let(:dashboard_school)   { 'StagingTest' }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
-  let(:screenshot_dir) do
-    File.expand_path('../../.claude/canvas_integration/screenshots/student', __dir__)
-  end
+  let(:screenshot_dir) { canvas_shots_dir('student') }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }

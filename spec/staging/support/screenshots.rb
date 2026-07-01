@@ -19,6 +19,19 @@ module ScreenshotHelper
     path
   end
 
+  # Per-role output directory for the deliberate UX captures. Overridable via
+  # CANVAS_SHOTS_DIR so `bin/harvest-canvas-screenshots` can point every role
+  # spec at one run directory. Defaults under tmp/ (gitignored) — these
+  # screenshots are surfaced via the harvest gallery, never committed.
+  def canvas_shots_dir(subdir)
+    base = ENV.fetch('CANVAS_SHOTS_DIR') do
+      File.expand_path('../../../tmp/canvas-ux-screenshots', __dir__)
+    end
+    dir = File.join(base, subdir)
+    FileUtils.mkdir_p(dir)
+    dir
+  end
+
   # Scroll an element to the middle of the viewport before capturing, so
   # sidebar surfaces (like the LMS-integration status panel) aren't below
   # the fold in the screenshot. Returns the element.
