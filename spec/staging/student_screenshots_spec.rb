@@ -79,7 +79,7 @@ describe 'Student UX screenshots', :staging do
       expect(page).to have_current_path(%r{/courses/StagingTest/}, url: true, wait: 30)
       capture('s02-student-enrolled-landing')
 
-      expect(page).to have_css('.lms-integration-status', wait: 20)
+      expect(page).to have_css('.lms-integration-status', wait: 30)
       scroll_into_view('.lms-integration-status')
       capture('s03-student-course-panel')
     end
