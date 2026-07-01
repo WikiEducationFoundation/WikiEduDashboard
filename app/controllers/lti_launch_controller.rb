@@ -26,6 +26,14 @@
 class LtiLaunchController < ApplicationController
   include LtiDeepLinking
 
+  # Every launch-flow view is a minimal, chrome-less page rather than the full
+  # dashboard React shell. The setup / setup_pending / enrollment_* views were
+  # relying on the default `application` layout, whose client JS swallowed the
+  # plain setup form's submit (the bind POST never reached the server); the
+  # navbar also reads a misleading logged-out state inside the Canvas iframe.
+  # Individual renders may still override this default.
+  layout 'lti_iframe'
+
   before_action :require_canvas_integration_enabled
   after_action :allow_iframe, only: %i[launch assignment_view]
 
