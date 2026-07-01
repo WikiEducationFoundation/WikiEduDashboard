@@ -7,6 +7,7 @@
 # Author: BaRaN6161 TURK
 # Author: Base
 # Author: Beta16
+# Author: Fredrick Kafuka
 # Author: Hamilton Abreu
 # Author: Ixocactus
 # Author: Kizule
@@ -654,6 +655,7 @@ qqq:
     view: Label for the number of article views.
     descriptions: '{{identical|Description}}'
     labels: '{{identical|Label}}'
+    form_qualifiers: Formaly used
   namespace:
     main: Long label for the Main namespace.
     main_char_added: Label for number of characters added to the Main namespace.
@@ -697,7 +699,7 @@ qqq:
     show_courses: Checkbox for option to show user courses only (Wiki Ed only)
     uploaded_by: Label for the user who uploaded a file
     usage_count: Label for the number of global usages of a file across Wikimedia
-      sites
+      projects
   revisions:
     chars_added: Label for counter of added chars
     class: |-

@@ -30,7 +30,7 @@ Layout/LineLength:
   Max: 100
 
 Metrics/ClassLength:
-  Max: 130 # We should bring this down, ideally to the default of 100
+  Max: 145 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'app/models/alert.rb'
     - 'app/models/alert_types/ai_edit_alert.rb'
@@ -56,6 +56,7 @@ Metrics/ClassLength:
     - 'lib/timeslice_manager.rb'
     - 'app/services/check_revision_with_pangram.rb'
     - 'app/services/push_course_to_salesforce.rb'
+    - 'lib/revision_data_manager.rb'
 
 Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15

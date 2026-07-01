@@ -1,0 +1,12 @@
+-# Shown when the slug-less /verify_claim entry can't infer which course the
+-# exercise is for (the student has several and there's no return-to). Course
+-# titles are data.
+.container.narrow.claim-verification-exercise.claim-verification-exercise--picker
+  .claim-verification-exercise__intro
+    %h1= t('claim_verification.course_picker_heading')
+  - if @courses.any?
+    %ul.claim-verification-exercise__course-list
+      - @courses.each do |course|
+        %li= link_to course.title, "/courses/#{course.slug}/verify_claim"
+  - else
+    %p.claim-verification-exercise__empty= t('claim_verification.course_picker_no_courses')

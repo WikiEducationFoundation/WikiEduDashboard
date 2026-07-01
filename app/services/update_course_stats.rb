@@ -35,9 +35,9 @@ class UpdateCourseStats
     import_uploads
     update_categories
     update_articles
-    @processed, @reprocessed = UpdateCourseWikiTimeslices.new(@course, @debugger,
-                                                              update_service: self)
-                                                         .run(all_time: @full_update)
+    @processed, @reprocessed, @reaggregated = UpdateCourseWikiTimeslices.new(@course, @debugger,
+                                                                             update_service: self)
+                                                                        .run(all_time: @full_update)
     update_average_pageviews
     update_caches
     update_wikidata_stats if wikidata
@@ -127,7 +127,8 @@ class UpdateCourseStats
                                'reference_counter_403_count' => reference_counter_403_count,
                                'too_many_requests_count' => too_many_requests_count,
                                'processed' => @processed,
-                               'reprocessed' => @reprocessed)
+                               'reprocessed' => @reprocessed,
+                               'reaggregated' => @reaggregated)
   end
 
   def wikidata

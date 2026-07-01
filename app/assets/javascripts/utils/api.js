@@ -694,7 +694,12 @@ const API = {
     );
     const json = await response.json();
 
-    return json.query.search.map((category) => {
+    // A throttled or errored MediaWiki response omits `query` entirely.
+    // Degrade to no results rather than throwing an uncaught error.
+    const results = json?.query?.search;
+    if (!Array.isArray(results)) return [];
+
+    return results.map((category) => {
       const label = formatCategoryName({
         category: map(category.title),
         wiki,

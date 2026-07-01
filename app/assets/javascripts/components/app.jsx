@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './nav/nav.jsx';
+import SerifModeToggle from './nav/serif_mode_toggle.jsx';
 import { render as renderMain } from './Main';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -18,6 +19,11 @@ if (navBar) {
       <Nav />
     </Provider>
   );
+}
+
+const fontToggle = document.getElementById('font_toggle_root');
+if (fontToggle) {
+  createRoot(fontToggle).render(<SerifModeToggle />);
 }
 
 const reactRoot = document.getElementById('react_root');

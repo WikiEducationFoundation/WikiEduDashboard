@@ -14,8 +14,8 @@ class CopyCourseController < ApplicationController
                   flash: { error: "Course not created: #{response[:error]}" })
     else
       course = response[:course]
+      course.flags = course.flags.merge(timeline_enabled: true)
       course.update(
-        flags: { timeline_enabled: true },
         cloned_status: 3,
         expected_students: course.expected_students || 0,
         term: ''

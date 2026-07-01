@@ -80,6 +80,7 @@ gem 'newrelic_rpm' # performance monitoring
 ### Assorted conveniences and tools
 gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages
 gem 'redcarpet' # Markdown parser, used sparingly in haml templates and helpers
+gem 'pragmatic_segmenter' # Sentence boundary detection for claim-verification harvesting
 gem 'hashugar' # Users to make yaml/json based training objects easy to access
 gem 'simple_form' # Alternative to basic rails form helpers
 gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQuestionGroups

@@ -41,6 +41,10 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
       copied_data['flags']['update_logs'] =
         fix_update_logs_parsing(copied_data['flags']['update_logs'])
     end
+    # The flags hash is copied via JSON so all keys are strings.
+    # We must convert known feature flags to symbols because Course model
+    # readers (e.g. peer_review_count) look for symbol keys.
+    symbolize_feature_flags(copied_data['flags'])
     # Create the course
     @course = Course.create!(copied_data)
   end
@@ -69,6 +73,16 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
   # This causes problems, so we need to force the keys to be integers.
   def fix_update_logs_parsing(update_logs)
     update_logs.transform_keys(&:to_i)
+  end
+
+  def symbolize_feature_flags(flags_hash)
+    return unless flags_hash.is_a?(Hash)
+
+    Course::FEATURE_FLAG_KEYS.each do |key|
+      if flags_hash.key?(key)
+        flags_hash[key.to_sym] = flags_hash.delete(key)
+      end
+    end
   end
 
   def add_tracked_wikis
@@ -160,7 +174,8 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
   def copy_blocks(week, blocks)
     blocks.each do |block_data|
       block = Block.create!(content: block_data['content'], title: block_data['title'],
-                            week_id: week.id, order: block_data['order'], kind: block_data['kind'])
+                            week_id: week.id, order: block_data['order'], kind: block_data['kind'],
+                            due_date: block_data['due_date'], points: block_data['points'])
       update_block_content(block, block_data)
     end
   end
@@ -180,6 +195,8 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     content_additions.reverse_each do |kind, addition|
       final_content = headings[kind] + addition + final_content unless addition.empty?
     end
+
+    final_content.gsub!('href="/', "href=\"#{@host}/") if final_content.present?
 
     block.update!(content: final_content)
   end

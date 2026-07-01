@@ -39,7 +39,7 @@ describe 'Article Viewer', type: :feature, js: true do
     visit "/courses/#{course.slug}/articles"
     find('button.icon-article-viewer').click
     expect(page).to have_content("Edits by: \nRagesoss", wait: 10)
-    find('a', text: 'Quality Problems?').click
+    find('button', text: 'Quality Problems?').click
     fill_in 'submit-bad-work-alert', with: 'Something has gone terribly wrong'
     click_button 'Notify Wiki Expert'
     expect(page).to have_content('Thank you! Contact your Wiki Expert')

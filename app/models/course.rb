@@ -114,9 +114,14 @@ class Course < ApplicationRecord
 
   has_many :course_wiki_namespaces, class_name: 'CourseWikiNamespaces', through: :courses_wikis
 
-  has_many :article_course_timeslices, dependent: :destroy
-  has_many :course_user_wiki_timeslices, dependent: :destroy
-  has_many :course_wiki_timeslices, dependent: :destroy
+  # Timeslices are intentionally NOT dependent: :destroy. They can number in the
+  # millions for large courses, so deleting them through the destroy cascade (one
+  # instantiated record at a time) is prohibitively slow. DeleteCourseWorker
+  # deletes them in batches via TimesliceCleaner#delete_all_timeslices_for_course
+  # before destroying the course.
+  has_many :article_course_timeslices
+  has_many :course_user_wiki_timeslices
+  has_many :course_wiki_timeslices
 
   has_many :sandboxes, lambda {
     distinct.sandbox
@@ -354,6 +359,12 @@ class Course < ApplicationRecord
     flags[:article_scoped].present?
   end
 
+  # This is true for ArticleScopedProgram courses (by type) and
+  # for any course with the explicit article_scoped flag.
+  def article_scoped_enabled?
+    is_a?(ArticleScopedProgram) || flags[:article_scoped].present?
+  end
+
   # Checks if an article is in scope (assigned or in a tracked category).
   def scoped_article?(wiki, title, mw_page_id)
     return true unless only_scoped_articles_course?
@@ -509,6 +520,14 @@ class Course < ApplicationRecord
     edit_settings['enrollment_edits_enabled']
   end
 
+  FEATURE_FLAG_KEYS = %w[
+    wiki_edits_enabled event_sync peer_review_count timeline_enabled
+    online_volunteers_enabled stay_in_sandbox no_sandboxes
+    retain_available_articles disable_student_emails review_bibliography
+    declined very_long_update max_group_size article_scoped
+    closed_date register_accounts
+  ].freeze
+
   def controlled_by_event_center?
     flags[:event_sync].present?
   end
@@ -563,6 +582,14 @@ class Course < ApplicationRecord
 
   def very_long_update?
     flags[:very_long_update].present?
+  end
+
+  def use_acuwt?
+    flags[:use_acuwt].present?
+  end
+
+  def debug_updates?
+    flags[:debug_updates].present?
   end
 
   def max_group_size

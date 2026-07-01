@@ -23,7 +23,7 @@ describe 'language_switcher', type: :feature, js: true do
         find('.language-picker__option', text: 'Français').click
       end
       expect(page).to have_current_path(root_path(locale: 'fr'))
-      expect(page).to have_text('Se connecter à Wikipédia')
+      expect(page).to have_text(I18n.t('home.log_in', locale: 'fr'))
     end
 
     it 'fallbacks to en for locales with incomplete translations' do

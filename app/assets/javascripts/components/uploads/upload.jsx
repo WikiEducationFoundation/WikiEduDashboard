@@ -52,7 +52,7 @@ const Upload = ({ upload, view, linkUsername }) => {
 
   let usage = '';
   if (upload.usage_count) {
-    usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: upload.usage_count })}`;
+    usage = `${I18n.t('uploads.usage_count_gallery_tile', { count: upload.usage_count })}`;
   }
 
   let uploadDivStyle;
@@ -69,7 +69,7 @@ const Upload = ({ upload, view, linkUsername }) => {
       <p className="tablet-only">
         <span>{upload.uploader}</span>
         <span>&nbsp;|&nbsp;</span>
-        <span>Usages: {upload.usage_count}</span>
+        <span>{I18n.t('uploads.usages')}: {upload.usage_count}</span>
       </p>
     );
   } else {

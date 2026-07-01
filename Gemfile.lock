@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/WikiEducationFoundation/wikidata-diff-analyzer
-  revision: 683c88e6744f6c95cc4653dd4a0df4e32a092c65
+  revision: 21a2914a32554b4372633463a34b2801c16c3311
   specs:
     wikidata-diff-analyzer (2.2.0)
       json (~> 2.1)
@@ -202,7 +202,7 @@ GEM
     coderay (1.1.3)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (3.0.2)
     crack (0.4.5)
       rexml
@@ -242,7 +242,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.23.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.1)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
@@ -253,7 +253,7 @@ GEM
       faraday (>= 1, < 3)
     faraday-multipart (1.2.0)
       multipart-post (~> 2.0)
-    faraday-net_http (3.4.2)
+    faraday-net_http (3.4.4)
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
@@ -331,8 +331,9 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.19.4)
-    jwt (2.5.0)
+    json (2.19.9)
+    jwt (2.10.3)
+      base64
     kt-paperclip (7.2.2)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -399,7 +400,7 @@ GEM
     newrelic_rpm (10.2.0)
       logger
     nio4r (2.7.5)
-    nokogiri (1.19.2)
+    nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -408,7 +409,7 @@ GEM
     numerizer (0.1.1)
     oauth (0.5.6)
     observer (0.1.2)
-    oj (3.17.0)
+    oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     omniauth (2.1.4)
@@ -434,6 +435,7 @@ GEM
       racc
     pp (0.6.3)
       prettyprint
+    pragmatic_segmenter (0.3.24)
     premailer (1.21.0)
       addressable
       css_parser (>= 1.12.0)
@@ -454,7 +456,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.0)
+    puma (7.2.1)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
@@ -767,6 +769,7 @@ DEPENDENCIES
   pandoc-ruby
   paper_trail
   parallel_tests
+  pragmatic_segmenter
   premailer-rails
   pry-rails
   puma

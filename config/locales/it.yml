@@ -223,17 +223,19 @@ it:
       per vedere i numeri esatti.
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
+    article_size: Dimensione voce
+    article_size_doc: Dimensione del wikitesto della voce (in byte) dopo ogni modifica
     edit_size: Modifica dimensione
     wiki: Wiki
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
       una voce si avvicina al modello di una voce di Wikipedia matura, basato sul
-      Servizio di revisione e valutazione obiettivo di apprendimento della macchina  (https://ores.wikimedia.org/).
-      Questi punteggi sono calcolati in base alla dimensione di una voce, il numero
-      di riferimenti e wikilink e altre caratteristiche di base del testo. Un punteggio
-      più alto indica in genere che una voce segue le convenzioni di Wikipedia per
-      la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
-      punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
+      vecchio (~2015) "Objective Revision Evaluation Service" (Servizio di revisione
+      e valutazione obiettivo) basato sull'apprendimento automatico. Questi punteggi
+      sono calcolati in base alla dimensione di una voce, il numero di riferimenti
+      e wikilink e altre caratteristiche di base del testo. Un punteggio più alto
+      indica in genere che una voce segue le convenzioni di Wikipedia per la struttura
+      di una buona voce, ma non tiene conto del contenuto stesso.
     articles_short: Voci
   items:
     items: Elementi
@@ -832,6 +834,17 @@ it:
     word_count_average: Conteggio medio parole
     general: Generale
     references_added: Riferimenti aggiunti
+    lemmas: Lemmi
+    language: Lingua
+    lexical_category: Categoria lessicale
+    forms: Forme
+    form_claims: Asserzioni della forma
+    form_references: Riferimenti della forma
+    form_qualifiers: Qualificatori della forma
+    senses: Sensi
+    sense_claims: Asserzioni del senso
+    sense_references: Riferimenti del senso
+    sense_qualifiers: Qualificatori del senso
   namespace:
     all: Tutto
     main: Ambiente principale
@@ -994,7 +1007,9 @@ it:
     uploaded_on: Caricato il
     usage_count: Numero di utilizzi
     usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
-    usage_count_gallery_tile: Usata in %{usage_count} voci
+    usage_count_gallery_tile:
+      one: Usata in 1 voce
+      other: Usata in %{count} voci
     usages: Usi
     source: 'Fonte:'
     views_per_day: Visualizzazioni al giorno

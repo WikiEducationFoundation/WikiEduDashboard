@@ -46,40 +46,51 @@ class ArticleCourseTimeslice < ApplicationRecord
   end
 
   # Given a course, an article, and a hash of revisions like the following:
-  # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
-  # updates the article course timeslices based on the revisions.
-  def self.update_article_course_timeslices(course, article_id, revisions) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-    rev_start = revisions[:start]
-    rev_end = revisions[:end]
+  # {:start=>"20160320000000", :end=>"20160320235959", :revisions=>[...]},
+  # where start and end span a single timeslice period (end is 1 second
+  # before the next timeslice boundary), updates the article course timeslice.
+  def self.update_article_course_timeslices(course, article_id, revisions)
     wiki_id = revisions[:revisions].first.wiki_id
-    # For debugging purposes only. TODO: delete this sentry message
-    if article_id.nil?
-      Sentry.capture_message "Article id nil for course #{course.id}",
-                             level: 'error',
-                             extra: {
-                               wiki_id:,
-                               mw_page_ids: revisions[:revisions].map(&:mw_page_id),
-                               revision_ids: revisions[:revisions].map(&:mw_rev_id)
-                             }
-    end
-    # Timeslice dates to update are determined based on course wiki timeslices
+
+    # For debugging purposes only. TODO: delete this sentry message log
+    log_nil_article_id(course, article_id, wiki_id, revisions) if article_id.nil?
+
     timeslices = course.course_wiki_timeslices.where(wiki_id:)
-                       .for_revisions_between(rev_start, rev_end)
-    timeslices.each do |timeslice|
-      # Group revisions that belong to the timeslice
-      revisions_in_timeslice = revisions[:revisions].select do |revision|
-        timeslice.start <= revision.date && revision.date < timeslice.end
-      end
-      # Get or create article course timeslice based on course, article_id,
-      # timeslice.start and timeslice.end
-      ac_timeslice = ArticleCourseTimeslice.find_or_create_by(course:,
-                                                              article_id:,
-                                                              start: timeslice.start,
-                                                              end: timeslice.end)
-      # Update cache for ArticleCourseTimeslice
-      ac_timeslice.update_cache_from_revisions revisions_in_timeslice
+                       .for_revisions_between(revisions[:start], revisions[:end])
+    if timeslices.size > 1
+      message = "Multiple article course timeslices matched for course #{course.slug}"
+      Sentry.capture_message message,
+                             level: 'error',
+                             extra: { course_id: course.id, wiki_id:, article_id:,
+                                      start: revisions[:start], end: revisions[:end] }
     end
+    timeslice = timeslices.first
+    ac_timeslice = find_or_create_by(course:, article_id:,
+                                     start: timeslice.start, end: timeslice.end)
+    ac_timeslice.update_cache_from_revisions revisions[:revisions]
   end
+
+  # Bulk-update ACT rows for a single timeslice window from stored ACUWT records.
+  # Replaces the per-article find_or_create_by + N aggregate queries with one SELECT
+  # (all ACUWT for the window) + one upsert_all.
+  def self.bulk_update_from_acuwt(course, wiki, ts_start, ts_end)
+    records = act_records_from_acuwt(course, wiki, ts_start, ts_end)
+    return if records.empty?
+    upsert_all(records,
+               update_only: %i[revision_count character_sum references_count
+                               user_ids new_article first_revision updated_at])
+  end
+
+  def self.log_nil_article_id(course, article_id, wiki_id, revisions)
+    Sentry.capture_message "Article id nil for course #{course.id}",
+                           level: 'error',
+                           extra: {
+                             wiki_id:,
+                             mw_page_ids: revisions[:revisions].map(&:mw_page_id),
+                             revision_ids: revisions[:revisions].map(&:mw_rev_id)
+                           }
+  end
+  private_class_method :log_nil_article_id
 
   ####################
   # Instance methods #
@@ -98,6 +109,29 @@ class ArticleCourseTimeslice < ApplicationRecord
     self.first_revision = live_revisions.minimum(:date)
     save
   end
+
+  def self.act_records_from_acuwt(course, wiki, ts_start, ts_end)
+    now = Time.current
+    base = { course_id: course.id, start: ts_start, end: ts_end }
+    ArticleCourseUserWikiTimeslice
+      .where(course:, wiki:, start: ts_start, end: ts_end)
+      .group_by(&:article_id)
+      .map do |article_id, rows|
+        { **base, article_id:, created_at: now, updated_at: now,
+          **act_stats_from_acuwt(rows) }
+      end
+  end
+  private_class_method :act_records_from_acuwt
+
+  def self.act_stats_from_acuwt(rows)
+    { revision_count: rows.sum(&:revision_count),
+      character_sum: rows.sum(&:character_sum),
+      references_count: rows.sum(&:references_count),
+      user_ids: rows.select { |r| r.revision_count.positive? }.map(&:user_id),
+      new_article: rows.any?(&:new_article),
+      first_revision: rows.map(&:first_revision).compact.min }
+  end
+  private_class_method :act_stats_from_acuwt
 
   private
 

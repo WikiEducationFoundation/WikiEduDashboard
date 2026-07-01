@@ -1,6 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ExerciseButton = ({ module }) => {
+  // An in-app exercise (eg fact verification) is a nested route of the course
+  // SPA, so link to it with React Router to keep the student in-app (no reload).
+  if (module.exercise_url) {
+    return (
+      <td className="block__training-modules-table__module-exercise-button">
+        <Link className="button" to={module.exercise_url}>
+          {I18n.t('training.open_exercise')}
+        </Link>
+      </td>
+    );
+  }
+
   if (!module.sandbox_url) { return null; }
 
   let sandboxUrl = module.sandbox_url;

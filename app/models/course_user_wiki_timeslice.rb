@@ -40,29 +40,32 @@ class CourseUserWikiTimeslice < ApplicationRecord
   #################
 
   # Given a course, a user_id, a wiki and a hash of revisions like the following:
-  # {:start=>"20160320", :end=>"20160401", :revisions=>[...]},
-  # updates the article course timeslices based on the revisions.
+  # {:start=>"20160320000000", :end=>"20160320235959", :revisions=>[...]},
+  # where start and end span a single timeslice period (end is 1 second
+  # before the next timeslice boundary), updates the course user wiki timeslice.
   def self.update_course_user_wiki_timeslices(course, user_id, wiki, revisions)
-    rev_start = revisions[:start]
-    rev_end = revisions[:end]
-    # Timeslice dates to update are determined based on course wiki timeslices
     timeslices = course.course_wiki_timeslices.where(wiki:)
-                       .for_revisions_between(rev_start, rev_end)
-    timeslices.each do |timeslice|
-      # Group revisions that belong to the timeslice
-      revisions_in_timeslice = revisions[:revisions].select do |revision|
-        timeslice.start <= revision.date && revision.date < timeslice.end
-      end
-      # Get or create article course timeslice based on course, article_id,
-      # timeslice.start and timeslice.end
-      cu_timeslice = CourseUserWikiTimeslice.find_or_create_by(course:,
-                                                               user_id:,
-                                                               wiki:,
-                                                               start: timeslice.start,
-                                                               end: timeslice.end)
-      # Update cache for CourseUserWikiTimeslice
-      cu_timeslice.update_cache_from_revisions revisions_in_timeslice
+                       .for_revisions_between(revisions[:start], revisions[:end])
+    if timeslices.size > 1
+      message = "Multiple course user wiki timeslices matched for course #{course.slug}"
+      Sentry.capture_message message,
+                             level: 'error',
+                             extra: { course_id: course.id, wiki_id: wiki.id, user_id:,
+                                      start: revisions[:start], end: revisions[:end] }
     end
+    timeslice = timeslices.first
+    cu_timeslice = find_or_create_by(course:, user_id:, wiki:,
+                                     start: timeslice.start, end: timeslice.end)
+    cu_timeslice.update_cache_from_revisions revisions[:revisions]
+  end
+
+  def self.update_from_acuwt(course, user_id, wiki, start, finish)
+    acuwt_records = ArticleCourseUserWikiTimeslice
+                      .where(course:, user_id:, wiki:, start:, end: finish)
+    acuwt_records = acuwt_records.where(article_id: course.scoped_article_ids) if
+      course.only_scoped_articles_course?
+    cu_timeslice = find_or_create_by(course:, user_id:, wiki:, start:, end: finish)
+    cu_timeslice.update_cache_from_acuwt(acuwt_records)
   end
 
   ####################
@@ -79,6 +82,16 @@ class CourseUserWikiTimeslice < ApplicationRecord
     self.references_count = references_sum(tracked_namespace_revisions)
 
     self.revision_count = filtered_live_revisions.size || 0
+    save
+  end
+
+  def update_cache_from_acuwt(acuwt_records)
+    records = acuwt_records.to_a
+    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
+    tracked_records = records.reject { |r| excluded_article_ids.include?(r.article_id) }
+    by_ns = records_by_namespace(tracked_records)
+    update_character_sum_from_acuwt(by_ns)
+    self.revision_count = filtered_live_acuwt_records(tracked_records).sum(&:revision_count)
     save
   end
 
@@ -119,6 +132,12 @@ class CourseUserWikiTimeslice < ApplicationRecord
     end
   end
 
+  def filtered_live_acuwt_records(records)
+    article_ids = records.map(&:article_id)
+    live_article_ids = Article.where(id: article_ids, deleted: false).pluck(:id)
+    records.select { |r| live_article_ids.include?(r.article_id) }
+  end
+
   def update_character_sum(revisions, tracked_namespace_revisions)
     self.character_sum_ms = character_sum(tracked_namespace_revisions,
                                           Article::Namespaces::MAINSPACE)
@@ -155,5 +174,21 @@ class CourseUserWikiTimeslice < ApplicationRecord
       article_ids_in_mainspace.include?(rev.article_id)
     end
     filtered_revisions.sum(&:references_added)
+  end
+
+  def records_by_namespace(records)
+    article_ids = records.map(&:article_id)
+    articles_by_id = Article.where(id: article_ids, deleted: false).index_by(&:id)
+    records.group_by { |r| articles_by_id[r.article_id]&.namespace }
+  end
+
+  def update_character_sum_from_acuwt(by_ns)
+    ms_records = by_ns[Article::Namespaces::MAINSPACE] || []
+    us_records = by_ns[Article::Namespaces::USER] || []
+    draft_records = by_ns[Article::Namespaces::DRAFT] || []
+    self.character_sum_ms = ms_records.sum(&:character_sum)
+    self.character_sum_us = us_records.sum(&:character_sum)
+    self.character_sum_draft = draft_records.sum(&:character_sum)
+    self.references_count = ms_records.sum(&:references_count)
   end
 end

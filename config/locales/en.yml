@@ -74,6 +74,9 @@ en:
     no_results: "No results found for '%{query}'"
     show_current_revision: Show current version
     show_last_revision: Show last edited version
+    font_label: Font
+    font_sans: Sans
+    font_serif: Serif
     sign_up_extended: Sign up with Wikipedia
     sign_up_wikipedia: Or sign up on Wikipedia
 
@@ -280,18 +283,20 @@ en:
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
+    article_size: Article Size
+    article_size_doc: Size of the article's wikitext (in bytes) after each edit
     edit_size: Edit Size
+    editor_other: Other editors
+    scoring_status: "Fetching scores for %{count} edits"
     wiki: Wiki
     wp10: Structural Completeness
     wp10_doc: >
       The 'Structural Completeness' score represents how closely an article fits
-      the mold of a mature Wikipedia article, based on the machine learning-based
-      Objective Revision Evaluation Service (https://ores.wikimedia.org/). These
-      scores are calculated based on the size of an article, the number of
-      references and wikilinks, and other basic text features. A high score
-      usually indicates that an article follow Wikipedia's conventions for the
-      structure of a good article, but it does not take into account the content
-      itself. (These scores are only available for English Wikipedia articles.)
+      the mold of a mature Wikipedia article, based on the legacy (~2015) machine learning-based
+      "Objective Revision Evaluation Service". These scores are calculated based on the size
+      of an article, the number of references and wikilinks, and other basic text features.
+      A high score usually indicates that an article follow Wikipedia's conventions for the
+      structure of a good article, but it does not take into account the content itself.
     articles_short: Articles
     deleted_message: >
       According to the Dashboard's data, this page has been deleted. (In some cases, page moves, history merges or other actions can result in an article being incorrectly listed as deleted. Deleted articles may also be later undeleted. For articles that are not actually deleted, or have been subsequently restored, the Dashboard will usually reflect this within one or two days.)
@@ -889,6 +894,7 @@ en:
     retain_available_articles_info_wikidata: >
       When enabled, selecting an Available Item does not remove it from
       the list, allowing a group of students to select the same item.
+    retention_predictors: Retention predictors
     review_timeline: >
       Now, review your assignment timeline, customizing it to fit your needs.
       Once you're satisfied, you can submit it for approval by Wiki Education staff.
@@ -1288,6 +1294,18 @@ en:
       or "Created claim" instead.
     restorations_performed: Restorations performed
     reverts_performed: Reverts performed
+    lemmas: Lemmas
+    language: Language
+    lexical_category: Lexical category
+    forms: Forms
+    form_claims: Form claims
+    form_references: Form references
+    form_qualifiers: Form qualifiers
+    senses: Senses
+    glosses: Glosses
+    sense_claims: Sense claims
+    sense_references: Sense references
+    sense_qualifiers: Sense qualifiers
 
   namespace:
     all: All
@@ -1371,6 +1389,7 @@ en:
     see_more: See more
     show_all: Show All
     show_course_specific: Show Course Specific
+    course_ended_notification: "This shows recent edits by enrolled users, but any edits after the 'end date' are not counted toward the stats or reflected on the Articles tab. You can use the 'Show Course Specific' filter to limit the view to activity that occurred before the end date."
     show_only_new_editors: Show Only New Editors
 
   resources:
@@ -1459,6 +1478,9 @@ en:
   status:
     active_jobs: Active jobs
     active_jobs_doc: The number of currently processing jobs.
+    acuwt_update: ACUWT update
+    acuwt_update_description: ACUWT updates process article scoped program courses with thousands of articles.
+    acuwt_update_doc: Handle updates for large article scoped program courses.
     all_queues_operational: All Queues Operational
     all_queues_not_operational: All Queues Operational except
     constant_update: Constant update
@@ -1619,6 +1641,7 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    open_exercise: Start Exercise
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
     take_your_time: "Please take your time!"
@@ -1626,6 +1649,45 @@ en:
     close: "CLOSE"
     loading: "Loading…"
     wiki_source: "wiki source"
+
+  claim_verification:
+    pick_instructions: Click a highlighted claim to see the citation details.
+    revision_notice: This is the article as of %{date} when the claims were added.
+    tile_revision_date: as of %{date}
+    claims_highlighted:
+      one: "%{count} claim highlighted"
+      other: "%{count} claims highlighted"
+    next_claim: Next claim
+    previous_claim: Previous claim
+    claim_position: Claim %{current} of %{total}
+    loading_claims: Loading claims…
+    claim: Claim
+    cited_source: Cited source
+    source_url: Source URL
+    select_claim: Select this claim to verify
+    choose_article: Choose an article
+    no_articles: No articles available
+    your_selected_claim: Your selected claim
+    find_in_article: Find this in the article text
+    show_surrounding: Show surrounding paragraph
+    choose_different_claim: Choose a different claim
+    no_online_source: This cited source doesn't include a URL.
+    course_picker_heading: Choose course
+    course_picker_no_courses: No courses
+    take_not_enrolled: You must be enrolled in the course to do that.
+    complete_in_sandbox: Complete this exercise in your Wikipedia sandbox.
+    # Internal staff harvest page.
+    admin:
+      loading: Loading…
+      heading: Claim verification
+      pool_size: "Pool size: %{count} claims"
+      last_run: "Last run %{time}: +%{harvested} claims from %{processed} alerts (%{skipped} skipped%{rescan})"
+      full_rescan_note: ", full re-scan"
+      harvest: Harvest claim pool
+      full_rescan: Full re-scan
+      status: "Status: %{status}"
+      progress: " — %{at} / %{total} alerts (%{pct}%)"
+      counts: "%{harvested} harvested · %{processed} processed · %{skipped} skipped · %{errors} errors"
 
   update_username:
     header: Update a changed username
@@ -1659,7 +1721,9 @@ en:
     uploaded_on: Uploaded On
     usage_count: Usage Count
     usage_doc: Number of Wikipedia articles that this image appears in.
-    usage_count_gallery_tile: Used in %{usage_count} articles
+    usage_count_gallery_tile:
+      one: "Used in 1 article"
+      other: "Used in %{count} articles"
     usages: Usages
     gallery_view: Gallery View
     list_view: List View
@@ -1838,8 +1902,7 @@ en:
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). This helps the course creation tool accurately space out your
       assignments. Click the date to change between unselected, selected, and
-      holiday state. If you have no holidays, check "I have no class holidays"
-      below.
+      holiday state.
     confirm_course_dates: Confirm the course's start and end dates.
     confirm_dates: Choose the course dates, weekly meetings, and holidays for your course.
     course_dates: Course Dates

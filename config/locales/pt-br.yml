@@ -12,6 +12,7 @@
 # Author: Cristofer Alves
 # Author: Dianakc
 # Author: Duke of Wikipädia
+# Author: EGobi
 # Author: EVinente
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
@@ -1780,12 +1781,12 @@ pt-br:
     userpasscode_placeholder: Código de acesso
     words_added: Palavras adicionadas<br>(article | usuário | rascunho)
     word_count_doc: Uma estimativa da quantidade total de conteúdo que um usuário
-      adicionou aos artigos ativos, páginas do espaço do usuário (caixas de proteção)
-      e ao namespace de rascunho. As estimativas de contagem de palavras são calculadas
-      a partir da soma das alterações no tamanho da página em todas as edições que
-      adicionaram mais do que removeram. Este número não reflete necessariamente a
-      quantidade de novos conteúdos que o usuário adicionou. Restaurar o conteúdo
-      removido também aumentará esse total.
+      adicionou aos artigos ativos, às páginas do espaço de usuário (caixas de areia)
+      e ao espaço nominal “Draft”. As estimativas de contagem de palavras são calculadas
+      a partir da soma das mudanças no tamanho da página em todas as edições que adicionaram
+      mais do que removeram. Este número não reflete necessariamente a quantidade
+      de novos conteúdos que o usuário adicionou. Restaurar o conteúdo removido também
+      aumentará esse total.
     role:
       description: Função no curso
       visitor: Visitante
@@ -1848,7 +1849,7 @@ pt-br:
     invalid_date: A data %{key} é inválida
     invalid_file_format: O arquivo não pôde ser salvo. Por favor, envie um documento
       PDF ou Word.
-    oauth_invalid: Sua sessão na Wikipedia se expirou. Por favor, entre novamente.
+    oauth_invalid: Sua autorização da Wikipédia expirou. Entre novamente.
     start_date_before_end_date: Data de início deve ser anterior a data de término
     unsupported_browser:
       header: Navegador sem suporte. :-(
@@ -1959,7 +1960,7 @@ pt-br:
     searching_articles_wikidata: Pesquisando itens
     search_placeholder: Digite sua palavra-chave
     show_options: Mostrar opções
-    subheading_message: Vamos encontrar um artigo da Wikipedia para trabalhar.
+    subheading_message: Vamos encontrar um artigo da Wikipédia para trabalhar.
     subheading_message_wikidata: Vamos encontrar um item do Wikidata para trabalhar.
     submit: Enviar
     tools: Ferramentas

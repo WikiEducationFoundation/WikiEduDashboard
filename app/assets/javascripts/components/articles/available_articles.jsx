@@ -17,6 +17,13 @@ const AvailableArticles = (props) => {
     document.title = `${props.course.title} - ${ArticleUtils.I18n('available', project)}`;
   }, []);
 
+  // Refetch assignments whenever this tab is opened so that available articles
+  // added since the initial page load appear without a full page reload.
+  // Navigating between the article tabs does not otherwise refetch assignments.
+  useEffect(() => {
+    props.fetchAssignments(props.course_id);
+  }, []);
+
   let assignCell;
   let availableArticles;
   let elements = [];
@@ -108,6 +115,7 @@ AvailableArticles.propTypes = {
   course: PropTypes.object,
   current_user: PropTypes.object,
   assignments: PropTypes.array,
+  fetchAssignments: PropTypes.func,
 };
 
 export default AvailableArticles;

@@ -19,7 +19,8 @@ class CourseAdviceMailer < ApplicationMailer
     'bibliographies' => '[Wiki Education] The bibliography is key to success!',
     'drafting_and_moving' => '[Wiki Education] Tips for drafting, moving work to live article',
     'peer_review' => '[Wiki Education] Tips for peer review',
-    'assessing_contributions' => '[Wiki Education] Student work: The good, the bad, and the AI generated'
+    'assessing_contributions' => '[Wiki Education] Student work: The good, the bad, and the AI generated',
+    'learning_to_edit' => '[Wiki Education] Editing your own assigned Wikipedia article'
   }.freeze
   # rubocop:enable Layout/LineLength
 

@@ -309,6 +309,67 @@ p.red
   .DayPicker
     float none
 
+// Two-column layout for the wizard's Course Dates panel: date inputs on the
+// left, holiday calendar + legend on the right, so the whole step fits above
+// the fold. Collapses to a single column below desktop width.
+.wizard__course-dates-2col
+  +above(desktop)
+    display flex
+    align-items flex-start
+    gap 40px
+
+    .wizard__course-dates-2col__form
+      flex 0 0 34%
+      min-width 0
+      hr
+        margin 20px 0
+      // pair each date range (start + end) on one row; grid keeps the inputs
+      // from collapsing the way the legacy flex datetime-control does
+      .vertical-form.full-width
+        display grid
+        grid-template-columns 1fr 1fr
+        gap 0 16px
+        padding-left 0
+        width 100%
+        margin-top 0
+        .datetime-control, .date-picker--form-group, .date-input
+          display block
+          width 100%
+          max-width none
+        .date-input
+          margin-right 0
+        input
+          width 100%
+          box-sizing border-box
+
+    .wizard__course-dates-2col__calendar
+      flex 1 1 auto
+      min-width 0
+      .vertical-form
+        width auto
+      // instructions span the column; the month calendar and its legend sit
+      // side by side beneath, mirroring the original full-width layout (legend
+      // keeps its styling and divider border). flex-wrap drops the legend below
+      // the calendar if the column gets too narrow.
+      .course-dates__calendar-container
+        display flex
+        flex-wrap wrap
+        align-items flex-start
+        gap 0 12px
+        > p
+          width 100%
+        .DayPicker
+          float none !important
+          flex 0 0 auto
+          width auto
+          margin 0
+        .course-dates__calendar-key
+          float none
+          flex 1 1 0
+          min-width 130px
+          width auto
+          margin-left 0
+
 .course-dates__step
   display inline-block
   width 100%
@@ -409,3 +470,35 @@ p.red
   background url('../images/loader.gif') #fff 99% center no-repeat
   background-size 15px 15px
   color dove
+
+// Summary panel: lay the click-to-edit answer cards out in a multi-column grid
+// instead of one full-width card per row, so the review fits on ~one screen.
+.wizard__panel .summary-grid
+  display grid
+  grid-template-columns 1fr 1fr
+  align-items start
+  gap 14px
+  padding 10px 0
+  width 100%
+  +below(desktop)
+    grid-template-columns 1fr
+  .wizard__option.summary
+    border 1px solid mischka
+    border-top-width 1px
+    border-radius 4px
+    margin-bottom 0
+    padding 14px 16px
+    width 100%
+    &:first-child
+      border-top-width 1px
+    > p:not(:last-child)
+      width 100%
+    h3
+      font-size 16px
+      line-height 1.35
+      margin-bottom 6px
+      padding-right 40px
+    .edit
+      top 14px
+      right 16px
+      margin-top 0

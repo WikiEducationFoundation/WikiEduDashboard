@@ -67,7 +67,7 @@ const StatisticsUpdateModal = (props) => {
             </a>
           </li>
 
-          {course.type === 'ArticleScopedProgram' && (
+          {course.article_scoped && (
             <li>
               {I18n.t(
                 `metrics.${ArticleUtils.projectSuffix(

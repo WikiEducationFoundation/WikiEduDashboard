@@ -17,6 +17,8 @@
 #  needs_update         :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  mw_rev_count         :integer          default(0)
+#  needs_reaggregation  :boolean          default(FALSE)
 #
 
 FactoryBot.define do

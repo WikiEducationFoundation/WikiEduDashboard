@@ -86,10 +86,6 @@ describe ArticleCourseTimeslice, type: :model do
 
   describe '.update_article_course_timeslices' do
     before do
-      revisions << build(:revision_on_memory, article_id:, user_id: 1, date: start + 26.hours)
-      revisions << build(:revision_on_memory, article_id:, user_id: 3, date: start + 50.hours)
-      revisions << build(:revision_on_memory, article_id:, user_id: 7, date: start + 51.hours)
-
       create(:course_wiki_timeslice, course:, wiki:, start:, end: start + 1.day)
       create(:course_wiki_timeslice, course:, wiki:, start: start + 1.day,
              end: start + 2.days)
@@ -97,30 +93,22 @@ describe ArticleCourseTimeslice, type: :model do
             end: start + 3.days)
     end
 
-    it 'creates the right article timeslices based on the revisions' do
+    it 'creates the right article timeslice based on the revisions' do
       article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
-      article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
-      article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
 
       expect(article_course_timeslice_0).to be_nil
-      expect(article_course_timeslice_1).to be_nil
-      expect(article_course_timeslice_2).to be_nil
 
       start_period = start.strftime('%Y%m%d%H%M%S')
-      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
       revision_data = { start: start_period, end: end_period, revisions: }
       described_class.update_article_course_timeslices(course, article.id, revision_data)
 
+      expect(described_class.where(course:, article:).count).to eq(1)
       article_course_timeslice_0 = described_class.find_by(course:, article:, start:)
-      article_course_timeslice_1 = described_class.find_by(course:, article:, start: start + 1.day)
-      article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
-
       expect(article_course_timeslice_0.user_ids).to eq([25, 1])
-      expect(article_course_timeslice_1.user_ids).to eq([1])
-      expect(article_course_timeslice_2.user_ids).to eq([3, 7])
     end
 
-    it 'updates the right article timeslices based on the revisions' do
+    it 'updates the right article timeslice based on the revisions' do
       create(:article_course_timeslice, course:, article:, start:, end: start + 1.day)
       create(:article_course_timeslice, course:, article:, start: start + 1.day,
              end: start + 2.days)
@@ -136,7 +124,7 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice_2.user_ids).to eq([])
 
       start_period = start.strftime('%Y%m%d%H%M%S')
-      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+      end_period = (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')
       revision_data = { start: start_period, end: end_period, revisions: }
       described_class.update_article_course_timeslices(course, article.id, revision_data)
 
@@ -147,8 +135,22 @@ describe ArticleCourseTimeslice, type: :model do
       article_course_timeslice_2 = described_class.find_by(course:, article:, start: start + 2.days)
 
       expect(article_course_timeslice_0.user_ids).to eq([25, 1])
-      expect(article_course_timeslice_1.user_ids).to eq([1])
-      expect(article_course_timeslice_2.user_ids).to eq([3, 7])
+      expect(article_course_timeslice_1.user_ids).to eq([])
+      expect(article_course_timeslice_2.user_ids).to eq([])
+    end
+
+    it 'sends a Sentry error when multiple timeslices are matched' do
+      start_period = start.strftime('%Y%m%d%H%M%S')
+      end_period = (start + 55.hours).strftime('%Y%m%d%H%M%S')
+
+      expect(Sentry).to receive(:capture_message)
+        .with("Multiple article course timeslices matched for course #{course.slug}",
+              level: 'error',
+              extra: hash_including(course_id: course.id, wiki_id: wiki.id,
+                                    article_id:, start: start_period, end: end_period))
+
+      revision_data = { start: start_period, end: end_period, revisions: }
+      described_class.update_article_course_timeslices(course, article.id, revision_data)
     end
   end
 
@@ -199,6 +201,50 @@ describe ArticleCourseTimeslice, type: :model do
       expect(article_course_timeslice.user_ids).to eq([])
       expect(article_course_timeslice.new_article).to eq(false)
       expect(article_course_timeslice.first_revision).to be_nil
+    end
+  end
+
+  describe '.bulk_update_from_acuwt' do
+    let(:user1) { create(:user, username: 'User1') }
+    let(:user2) { create(:user, username: 'User2') }
+    let(:user3) { create(:user, username: 'User3') }
+    let(:ts_end) { start + 1.day }
+
+    before do
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: user1,
+             start:, end: ts_end, revision_count: 2, character_sum: 100,
+             references_count: 3, new_article: true, first_revision: start + 1.hour)
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: user2,
+             start:, end: ts_end, revision_count: 1, character_sum: 50,
+             references_count: 2, new_article: false, first_revision: start + 3.hours)
+      create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: user3,
+             start:, end: ts_end, revision_count: 0, character_sum: 0,
+             references_count: 0, new_article: false, first_revision: nil)
+    end
+
+    it 'creates an article course timeslice aggregated from ACUWT' do
+      expect(described_class.find_by(course:, article:, start:)).to be_nil
+      described_class.bulk_update_from_acuwt(course, wiki, start, ts_end)
+      act = described_class.find_by(course:, article:, start:)
+      expect(act.revision_count).to eq(3)
+      expect(act.character_sum).to eq(150)
+      expect(act.references_count).to eq(5)
+      expect(act.new_article).to eq(true)
+      expect(act.user_ids).to contain_exactly(user1.id, user2.id)
+      expect(act.first_revision).to eq(start + 1.hour)
+    end
+
+    it 'updates an existing article course timeslice' do
+      create(:article_course_timeslice, course:, article:, start:, end: ts_end)
+      described_class.bulk_update_from_acuwt(course, wiki, start, ts_end)
+      expect(described_class.where(course:, article:).count).to eq(1)
+      expect(described_class.find_by(course:, article:, start:).revision_count).to eq(3)
+    end
+
+    it 'only includes in user_ids users with at least one revision' do
+      described_class.bulk_update_from_acuwt(course, wiki, start, ts_end)
+      expect(described_class.find_by(course:, article:, start:).user_ids)
+        .to contain_exactly(user1.id, user2.id)
     end
   end
 end

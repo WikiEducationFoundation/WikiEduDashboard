@@ -35,7 +35,7 @@ straightforward, say that too.>
 
 (Commit message written by Claude Code.)
 
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Co-Authored-By: <current agent's trailer, per the harness/environment instructions>
 ```
 
 ### Subject line guidelines
@@ -99,7 +99,7 @@ Subject line here
 
 (Commit message written by Claude Code.)
 
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+Co-Authored-By: <current agent's trailer, per the harness/environment instructions>
 EOF
 )"
 ```

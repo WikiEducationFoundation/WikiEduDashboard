@@ -726,6 +726,7 @@ fi:
     no_data: Ei tietoja
     other_updates: Muut päivitykset
     redirects_created: Ohjaukset luotu
+    language: Kieli
   namespace:
     all: Kaikki
     main: Päänimiavaruus

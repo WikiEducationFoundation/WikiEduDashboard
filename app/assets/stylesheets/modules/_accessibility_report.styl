@@ -1,0 +1,48 @@
+// Styles for the public /accessibility page (rendered VPAT).
+// The content is generated from docs/vpat_draft.md as Markdown, so
+// these rules target the plain element output rather than BEM classes.
+.accessibility-report
+  padding 20px 0 60px
+  max-width 900px
+
+  h1
+    margin-bottom 0.5em
+
+  h2
+    margin-top 1.5em
+    padding-bottom 0.2em
+    border-bottom 1px solid $border_lt
+
+  h3
+    margin-top 1.25em
+
+  p, li
+    line-height 1.5
+
+  ul
+    margin-bottom 1em
+    padding-left 1.5em
+    list-style disc
+
+  table
+    width 100%
+    border-collapse collapse
+    margin 1em 0
+
+    th, td
+      border 1px solid $border_lt
+      padding 8px 12px
+      text-align left
+      vertical-align top
+
+    th
+      background-color $bg_light_gray
+
+    // The conformance-level column reads better without wrapping.
+    td:nth-child(2)
+      white-space nowrap
+
+  code
+    background-color $bg_light_gray
+    padding 1px 4px
+    border-radius 3px
