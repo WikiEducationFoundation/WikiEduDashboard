@@ -81,8 +81,13 @@ module LaunchHelpers
 
   # Signature of the intermittent bare Apache/Passenger 500 — it never reaches
   # Rails, so it's the generic server-error page, not a dashboard error view.
+  # Guarded because the caller may check mid-navigation (e.g. the OAuth-redirect
+  # tab), when the document root isn't queryable yet; "can't tell" means "not an
+  # error" so the caller's own waits take over.
   def on_server_error?
     page.has_content?('Internal Server Error', wait: 0)
+  rescue Capybara::ElementNotFound, Selenium::WebDriver::Error::WebDriverError
+    false
   end
 
   # Canvas's external-tool iframe has a dynamic id `tool_content_<N>`

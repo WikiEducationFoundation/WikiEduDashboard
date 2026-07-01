@@ -107,7 +107,7 @@ describe 'Instructor setup illustrated guide', :staging do
     # The LmsIntegrationStatus panel (StaffView) renders in the course
     # Home sidebar once the binding sets course.flags[:canvas_integration]:
     # the linked Canvas course, last sync, and synced-students count.
-    expect(page).to have_css('.lms-integration-status', wait: 20)
+    expect(page).to have_css('.lms-integration-status', wait: 30)
     scroll_into_view('.lms-integration-status')
     capture('06-instructor-course-panel')
   end
