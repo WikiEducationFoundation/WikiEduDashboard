@@ -563,6 +563,28 @@ class Course < ApplicationRecord
     flags[:retain_available_articles].present?
   end
 
+  # True once MarkPurgeableCourses has flagged this course for timeslice purging
+  # (it ended long ago, was tracked in the timeslice system, and has no pending
+  # timeslice work).
+  def purgeable?
+    flags[:purgeable].present?
+  end
+
+  # An unfinished update log more recent than this is treated as a possibly
+  # running update; an older one is stale (left behind by a deploy or restart
+  # mid-update), since real updates usually take hours, not weeks.
+  RUNNING_UPDATE_WINDOW = 14.days
+
+  # True if an update might currently be running: there is an unfinished update
+  # log whose start time is within RUNNING_UPDATE_WINDOW.
+  def update_possibly_running?
+    unfinished = flags['unfinished_update_logs']
+    return false if unfinished.blank?
+
+    cutoff = RUNNING_UPDATE_WINDOW.ago.to_f
+    unfinished.values.any? { |log| log['start_time'].to_f > cutoff }
+  end
+
   def disable_student_emails?
     flags[:disable_student_emails].present?
   end
