@@ -67,7 +67,7 @@ jobs:
            bundler-cache: true
 
       - name: setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'yarn'
@@ -106,14 +106,14 @@ jobs:
 
       - name: Cache Webpack cache
         id: cache-webpack
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache/
           key: ${{ runner.os }}-webpack
 
       # Create cache or restore cache for Tests
       - name: Cache VCR cassettes
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: fixtures/vcr_cassettes
           key: vcr-cached-v1
@@ -131,7 +131,7 @@ jobs:
         run: yarn lint-non-build
 
       - name: Cache parallel runtime log
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: tmp/parallel_runtime_rspec.log
           key: parallel-runtime-${{ hashFiles('spec/**/*_spec.rb') }}
@@ -157,7 +157,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Upload JS coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: success()
         with:
           name: js-coverage
@@ -165,7 +165,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Archive capybara failure screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: dist-without-markdown
