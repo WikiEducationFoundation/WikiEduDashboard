@@ -75,11 +75,26 @@ module StagingSessions
         FileUtils.mkdir_p(dir)
         Capybara.current_session.save_screenshot(File.join(dir, 'screenshot.png'))
         File.write(File.join(dir, 'page.html'), Capybara.current_session.html)
+        dump_browser_console(Capybara.current_session, dir)
         warn "  [student-failure-artifact] saved to #{dir} " \
              "(at #{Capybara.current_session.current_url})"
       end
     end
   rescue StandardError => e
     warn "  [student-failure-artifact] couldn't capture: #{e.message}"
+  end
+
+  # Write the browser console log (uncaught JS errors, console.error) next to
+  # the failure artifact when the driver captured any — the thing that
+  # explains a blank React render. Needs goog:loggingPrefs on the driver
+  # (set in spec_helper). No-op / quiet when the log type isn't available.
+  def dump_browser_console(session, dir)
+    entries = session.driver.browser.logs.get(:browser)
+    return if entries.nil? || entries.empty?
+
+    File.write(File.join(dir, 'console.log'),
+               entries.map { |e| "[#{e.level}] #{e.message}" }.join("\n"))
+  rescue StandardError => e
+    warn "  [console] couldn't capture browser log: #{e.message}"
   end
 end

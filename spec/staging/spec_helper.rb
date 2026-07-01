@@ -43,6 +43,9 @@ def register_staging_chrome(name, profile_dir)
             '--disable-blink-features=AutomationControlled']
     args.prepend('--headless=new') if ENV['HEADLESS']
     options = Selenium::WebDriver::Chrome::Options.new(args: args)
+    # Capture the browser console (uncaught JS errors, console.error) so the
+    # failure artifacts can explain a blank React render, not just show it.
+    options.add_option('goog:loggingPrefs', { browser: 'ALL' })
     Capybara::Selenium::Driver.new(app, browser: :chrome, options: options,
                                         clear_session_storage: false,
                                         clear_local_storage: false)

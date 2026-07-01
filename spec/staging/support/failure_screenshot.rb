@@ -24,6 +24,7 @@ RSpec.configure do |config|
     html = File.join(dir, 'page.html')
     session.save_screenshot(png)
     File.write(html, session.html)
+    dump_browser_console(session, dir)
     warn "  [staging failure-artifact] saved to #{dir} (at #{url})"
   rescue StandardError => e
     warn "  [staging failure-artifact] couldn't capture: #{e.message}"
