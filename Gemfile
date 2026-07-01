@@ -105,7 +105,6 @@ gem 'wikidata-diff-analyzer', git: 'https://github.com/WikiEducationFoundation/w
 # gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
 
 ### Performance
-gem 'rack-mini-profiler'
 gem 'stackprof'
 
 group :development do
