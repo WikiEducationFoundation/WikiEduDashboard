@@ -9,6 +9,18 @@ require_relative 'spec_helper'
 # dashboard's /lti dispatch — the instructor roster, or the launching
 # student's own panel.
 #
+# ⚠️ SKIPPED — KNOWN GAP (2026-07-01). This spec provisions the exercise
+# column via the AUTO-CREATE model (`sync_line_items` -> LtiLineItemSyncWorker
+# -> SyncLtiLineItems), whose course-level line items have no resourceLinkId
+# and so carry no AGS `lineItemId` on launch. `assignment_launch?` therefore
+# returns false and the drill-down launch falls through to the course page —
+# the roster is never reached. The assignment_view is only reachable from a
+# DEEP-LINK-created assignment (the per-assignment picker / Canvas Find-dialog
+# flow that `deep_link_lineitem_diagnostic_spec` demonstrates). To fix, rework
+# the provisioning below to create the assignment via deep linking instead of
+# `sync_line_items`. Full write-up:
+# .claude/canvas_integration/assignment_view_roster_gap-2026-07-01.md
+#
 # Prerequisite: the assignment_view dispatch (commits adding
 # AssignmentViewContext + the /lti branch) must be DEPLOYED to staging.
 # The entry point itself — Canvas rendering our tool on an AGS column's
@@ -49,6 +61,13 @@ describe 'Assignment view drill-down screenshots', :staging do
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
     skip("missing env vars: #{missing.join(', ')}") if missing.any?
+
+    # Known gap — see the ⚠️ note at the top of this file. Skip before
+    # provisioning so we don't create/tear-down live Canvas state for a walk
+    # that can't reach the roster until the provisioning uses deep linking.
+    skip('assignment_view roster needs a deep-link-created assignment; ' \
+         'auto-created line items carry no lineItemId, so the drill-down ' \
+         'falls through to the course page (see KNOWN GAP note above)')
 
     canvas_course = canvas_api.create_course(name: canvas_course_name, course_code: "AV-#{run_id}")
     provisioned[:canvas_course_id] = canvas_course['id']
