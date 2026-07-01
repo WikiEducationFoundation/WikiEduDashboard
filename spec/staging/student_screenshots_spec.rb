@@ -76,10 +76,15 @@ describe 'Student UX screenshots', :staging do
       student_walk_to_dashboard(
         before_breakout: -> { sleep 2; capture('s01-canvas-iframe-landing') }
       )
-      expect(page).to have_current_path(%r{/courses/StagingTest/}, url: true, wait: 30)
+      # The post-OAuth landing occasionally comes back an edge-500; reload it,
+      # then allow extra time for the enroll -> redirect -> React render, which
+      # the intermittent upstream 500s can slow past the old 30s budget.
+      wait_out_server_error
+      expect(page).to have_current_path(%r{/courses/StagingTest/}, url: true, wait: 60)
+      expect(page).to have_css('#react_root *', wait: 30)
       capture('s02-student-enrolled-landing')
 
-      expect(page).to have_css('.lms-integration-status', wait: 30)
+      await_lms_panel
       scroll_into_view('.lms-integration-status')
       capture('s03-student-course-panel')
     end

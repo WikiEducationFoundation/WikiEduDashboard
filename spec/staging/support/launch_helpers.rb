@@ -90,6 +90,20 @@ module LaunchHelpers
     false
   end
 
+  # The LMS-status panel renders from a `lms_integration_status.json` fetch,
+  # which is subject to the same intermittent staging edge-500. That fetch
+  # degrades gracefully client-side (the panel just doesn't render), so a
+  # transient 500 silently costs us the screenshot. Reload a few times so one
+  # bad fetch doesn't fail the walk; assert on the last try.
+  def await_lms_panel(attempts: 3)
+    attempts.times do
+      return if page.has_css?('.lms-integration-status', wait: 20)
+
+      page.refresh
+    end
+    expect(page).to have_css('.lms-integration-status', wait: 20)
+  end
+
   # Canvas's external-tool iframe has a dynamic id `tool_content_<N>`
   # (the N is the assignment / placement id, which changes per launch
   # context). Stable selectors: `iframe.tool_launch` and
