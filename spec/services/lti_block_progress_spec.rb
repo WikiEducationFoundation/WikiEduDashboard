@@ -55,16 +55,16 @@ describe LtiBlockProgress do
       expect(described_class.new(block, user).score_given).to eq(0.0)
     end
 
-    it 'is 1.0 when the exercise is marked complete and includes sandbox URL in comment' do
+    it 'is 1.0 without leaking the sandbox URL or username into the comment' do
       tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module,
                                      completed_at: 2.days.ago)
       tmu.flags = { course.id => { marked_complete: true } }
       tmu.save!
       progress = described_class.new(block, user)
       expect(progress.score_given).to eq(1.0)
-      expect(progress.comment).to include('Bibliography exercise:')
-      expect(progress.comment).to include('en.wikipedia.org')
-      expect(progress.comment).to include('sandbox/Bibliography')
+      expect(progress.comment.to_s).not_to include('sandbox/Bibliography')
+      expect(progress.comment.to_s).not_to include('en.wikipedia.org')
+      expect(progress.comment.to_s).not_to include('User:')
     end
 
     it 'prefixes [Late] in the comment when completed past due_date' do
@@ -98,14 +98,14 @@ describe LtiBlockProgress do
     end
 
     context 'in exercises_only mode (the lumped per-block exercise column)' do
-      it 'is 1.0 when the exercise is marked complete even with untouched trainings' do
+      it 'is 1.0 with no sandbox URL or username in the comment' do
         tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module)
         tmu.flags = { course.id => { marked_complete: true } }
         tmu.save!
         progress = described_class.new(block, user, exercises_only: true)
         expect(progress.score_given).to eq(1.0)
-        expect(progress.comment).to include('Bibliography exercise:')
-        expect(progress.comment).to include('sandbox/Bibliography')
+        expect(progress.comment.to_s).not_to include('sandbox/Bibliography')
+        expect(progress.comment.to_s).not_to include('User:')
       end
 
       it 'is 0.0 when the exercise is not marked complete even if trainings are done' do
