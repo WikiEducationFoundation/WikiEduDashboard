@@ -40,6 +40,7 @@ json.course do
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
   json.wiki_string_prefix @course.home_wiki.string_prefix
   json.returning_instructor @course.returning_instructor?
+  json.eligible_for_active_research_experiment @course.eligible_for_active_research_experiment?
 
   if @course&.course_stat&.stats_hash.present?
     formatted_stats = format_course_stats(@course.course_stat.stats_hash)

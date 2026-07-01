@@ -18,6 +18,7 @@ import MyArticles from './my_articles/containers';
 import MyExercises from './my_exercises/containers/Container';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
+import ExperimentOptInInvitation from './experiment_opt_in_invitation.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 import { deleteCourse, updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse, greetStudents } from '../../actions/course_actions';
 import { fetchOnboardingAlert } from '../../actions/course_alert_actions';
@@ -174,6 +175,7 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         {syllabusUpload}
+        <ExperimentOptInInvitation course={course} current_user={current_user} />
         <OverviewStats course={course} />
         {overviewStatsTabs}
         <StatisticsUpdateInfo course={course} />
