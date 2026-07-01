@@ -15,14 +15,19 @@
 # mode the binding represents the whole block as a single cell, so the
 # default all-or-nothing behavior across every module kind stays.
 #
-# The comment field carries:
-#   - A "[Late]" marker prefix when the block has a calculated due date in
-#     the past and the user has completed it. Score remains 1.0; Wiki Ed
-#     practice doesn't auto-penalize late training, but the marker shows
-#     up in the gradebook so instructors with their own policy can act.
-#   - For each exercise module the user has engaged with, a "<Module>:
-#     <sandbox-url>" line so instructors can link straight to the
-#     student's bibliography / outline / etc.
+# The comment field carries only a "[Late]" marker prefix when the block
+# has a calculated due date in the past and the user has completed it.
+# Score remains 1.0; Wiki Ed practice doesn't auto-penalize late training,
+# but the marker shows up in the gradebook so instructors with their own
+# policy can act. Otherwise the comment is nil.
+#
+# It deliberately does NOT include exercise sandbox URLs. Those URLs embed
+# the student's Wikipedia username ("User:<username>/..."), and an AGS
+# comment is stored in Canvas's gradebook (visible to TAs, co-instructors,
+# the registrar, and CSV exports) — a FERPA correlation we don't want.
+# Instructors reach a student's sandbox through the role-gated in-Canvas
+# assignment_view instead, which serves the link from the Dashboard rather
+# than persisting it in Canvas.
 #
 # `signature` is a stable hash of (score_given, comment) for dedup —
 # SyncLtiGrades skips a POST when the LtiLineItem's last_pushed_signature
@@ -62,10 +67,7 @@ class LtiBlockProgress
   end
 
   def compute_comment
-    parts = []
-    parts << '[Late]' if late_completion?
-    sandbox_lines.each { |line| parts << line }
-    parts.join("\n").presence
+    '[Late]' if late_completion?
   end
 
   def late_completion?
@@ -77,16 +79,6 @@ class LtiBlockProgress
     Time.zone.today > due
   end
 
-  def sandbox_lines
-    @training_modules.select(&:exercise?).filter_map do |mod|
-      tmu = TrainingModulesUsers.find_by(user: @user, training_module: mod)
-      next unless tmu&.completed_at || tmu&.flags&.dig(@course.id, :marked_complete)
-      next unless mod.respond_to?(:sandbox_location) && mod.sandbox_location
-
-      "#{mod.name}: #{sandbox_url_for(tmu)}"
-    end
-  end
-
   def module_complete?(mod)
     tmu = TrainingModulesUsers.find_by(user: @user, training_module: mod)
     return false unless tmu
@@ -94,9 +86,5 @@ class LtiBlockProgress
     return tmu.flags.dig(@course.id, :marked_complete) ? true : false if mod.exercise?
 
     tmu.completed_at.present?
-  end
-
-  def sandbox_url_for(tmu)
-    "#{@course.home_wiki.base_url}/wiki/#{tmu.exercise_sandbox_location}"
   end
 end
