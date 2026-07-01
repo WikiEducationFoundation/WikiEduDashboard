@@ -169,30 +169,45 @@ they're a local, operator-run loop — never CI.
 
 ## UX screenshots
 
-Two specs walk the integration and save PNGs at named moments, so the
-team can review the actual per-role experience without clicking through
-it. They provision + tear down their own state, same as the flow specs.
+`bin/harvest-canvas-screenshots` walks the per-role screenshot specs in
+order, points them all at one run directory, and assembles a self-contained
+`gallery.html` for review:
+
+```sh
+bin/harvest-canvas-screenshots                 # every known role
+bin/harvest-canvas-screenshots instructor      # just one role
+HEADLESS=1 bin/harvest-canvas-screenshots      # no visible browser
+```
+
+Or run a single role spec directly:
 
 ```sh
 bin/staging-feature-spec spec/staging/instructor_setup_screenshots_spec.rb
 bin/staging-feature-spec spec/staging/student_screenshots_spec.rb
 ```
 
-- **`instructor_setup_screenshots_spec.rb`** →
-  `.claude/canvas_integration/canvas_integration_instructor_guide/screenshots/`:
-  Canvas course w/ tab, in-iframe landing, the empty setup view, course
-  selected, the bound course page, and the instructor's
-  LmsIntegrationStatus (StaffView) panel.
-- **`student_screenshots_spec.rb`** →
-  `.claude/canvas_integration/screenshots/student/`: in-iframe landing,
-  post-OAuth enrollment landing, the student's LmsIntegrationStatus
-  (StudentView) panel, the `setup_pending` view (instructor hasn't linked
-  a course), and the `enrollment_pending_approval` view (course not yet
-  approved).
+Each spec walks the integration and saves PNGs at named moments, so the team
+can review the actual per-role experience without clicking through it. They
+provision + tear down their own state, same as the flow specs.
 
-`save_screenshot_to` / `scroll_into_view` live in
-`support/screenshots.rb`. Screenshots land under `.claude/` (tracked), so
-review the diff before committing — they may contain test fixture names.
+- **`instructor_setup_screenshots_spec.rb`** →
+  `tmp/canvas-ux-screenshots/instructor/`: Canvas course w/ tab, in-iframe
+  landing, the empty setup view, course selected, the bound course page, and
+  the instructor's LmsIntegrationStatus (StaffView) panel.
+- **`student_screenshots_spec.rb`** →
+  `tmp/canvas-ux-screenshots/student/`: in-iframe landing, post-OAuth
+  enrollment landing, the student's LmsIntegrationStatus (StudentView) panel,
+  the `setup_pending` view (instructor hasn't linked a course), and the
+  `enrollment_pending_approval` view (course not yet approved).
+- **`assignment_view_screenshots_spec.rb`** →
+  `tmp/canvas-ux-screenshots/assignment_view/`: the in-Canvas assignment page,
+  the instructor roster drill-down, and the launching student's own panel.
+
+`save_screenshot_to` / `scroll_into_view` / `canvas_shots_dir` live in
+`support/screenshots.rb`. Screenshots land under `tmp/` (gitignored) and are
+**not committed** — they're surfaced for review via the harvest gallery
+(published as an Artifact and linked from the PR). Override the output root
+with `CANVAS_SHOTS_DIR`.
 
 ### Surfaces not yet auto-captured
 

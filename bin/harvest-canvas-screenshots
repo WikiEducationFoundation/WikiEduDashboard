@@ -1,0 +1,110 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Harvest screenshots of the Canvas integration's per-role UX against the
+# deployed staging stack (`dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org`)
+# and assemble a self-contained HTML gallery for review.
+#
+# Each role is a `:staging` screenshot spec that provisions + tears down its
+# own hermetic state; this runner just walks the roles in order, points them
+# all at one gitignored run directory via CANVAS_SHOTS_DIR, and builds the
+# gallery from whatever landed there.
+#
+# Usage:
+#   bin/harvest-canvas-screenshots [role ...]     # default: every known role
+#   HEADLESS=1 bin/harvest-canvas-screenshots      # no visible browser
+#   CANVAS_SHOTS_DIR=/some/dir bin/harvest-canvas-screenshots
+#
+# Output (gitignored, never committed):
+#   tmp/canvas-ux-screenshots/<role>/*.png
+#   tmp/canvas-ux-screenshots/gallery.html   # publish as an Artifact; link in the PR
+#
+# Requires the one-time staging bootstrap (warm Chrome profiles +
+# `.env.staging-tests`) — see docs/staging_feature_specs.md. Roles whose env
+# vars are missing skip cleanly and simply contribute no screenshots.
+
+require 'base64'
+require 'fileutils'
+
+ROOT = File.expand_path('..', __dir__)
+
+# flow => screenshot spec, walked in this order. The Canvas-admin flow lands
+# in a later tranche.
+ROLE_SPECS = {
+  'instructor'      => 'spec/staging/instructor_setup_screenshots_spec.rb',
+  'student'         => 'spec/staging/student_screenshots_spec.rb',
+  'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb'
+}.freeze
+
+GALLERY_CSS = <<~CSS
+  body { font-family: system-ui, sans-serif; margin: 2rem; color: #222; }
+  h1 { font-size: 1.5rem; }
+  h2 { margin-top: 2rem; text-transform: capitalize; border-bottom: 1px solid #ddd; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+  figure { margin: 0; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { padding: .5rem; font: .85rem/1.3 ui-monospace, monospace; background: #fafafa; }
+CSS
+
+def run_dir
+  ENV.fetch('CANVAS_SHOTS_DIR', File.join(ROOT, 'tmp', 'canvas-ux-screenshots'))
+end
+
+def roles_to_run
+  unknown = ARGV - ROLE_SPECS.keys
+  abort "Unknown role(s): #{unknown.join(', ')}. Known: #{ROLE_SPECS.keys.join(', ')}" if unknown.any?
+  ARGV.empty? ? ROLE_SPECS.keys : ARGV
+end
+
+# Wipe just this role's subdir so the gallery reflects the current run rather
+# than accumulating shots from steps that have since been renamed or removed.
+def harvest(role)
+  spec = ROLE_SPECS.fetch(role)
+  dir = File.join(run_dir, role)
+  FileUtils.rm_rf(dir)
+  warn "\n== Harvesting #{role} (#{spec}) =="
+  system({ 'CANVAS_SHOTS_DIR' => run_dir },
+         File.join(ROOT, 'bin', 'staging-feature-spec'), spec)
+end
+
+def gallery_card(path)
+  name = File.basename(path, '.png')
+  data = Base64.strict_encode64(File.binread(path))
+  %(<figure><img src="data:image/png;base64,#{data}" alt="#{name}">) +
+    %(<figcaption>#{name}</figcaption></figure>)
+end
+
+def gallery_section(role)
+  pngs = Dir[File.join(run_dir, role, '*.png')].sort
+  return if pngs.empty?
+
+  cards = pngs.map { |p| gallery_card(p) }.join("\n")
+  %(<section><h2>#{role}</h2><div class="grid">\n#{cards}\n</div></section>)
+end
+
+# Fragment HTML (no <html>/<head>/<body>) so it can be published verbatim as
+# an Artifact, while still rendering fine when opened directly in a browser.
+def build_gallery(roles)
+  sections = roles.filter_map { |role| gallery_section(role) }
+  body = sections.empty? ? '<p>No screenshots captured.</p>' : sections.join("\n")
+  html = "<style>#{GALLERY_CSS}</style>\n" \
+         "<h1>Canvas integration UX — screenshot harvest</h1>\n#{body}\n"
+  path = File.join(run_dir, 'gallery.html')
+  File.write(path, html)
+  path
+end
+
+def main
+  FileUtils.mkdir_p(run_dir)
+  roles = roles_to_run
+  results = roles.to_h { |role| [role, harvest(role)] }
+  gallery = build_gallery(roles)
+  warn "\nGallery: #{gallery}"
+  failed = results.reject { |_, ok| ok }.keys
+  warn "Roles that did not pass cleanly: #{failed.join(', ')}" if failed.any?
+  exit(failed.empty? ? 0 : 1)
+end
+
+# Guarded so the gallery/helper methods can be required in isolation (e.g. a
+# smoke test) without shelling out to a live staging run.
+main if $PROGRAM_NAME == __FILE__
