@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'fileutils'
 require_relative 'spec_helper'
 
 # Captures the assignment_view drill-down (user story I-11, plus the
@@ -37,10 +36,6 @@ describe 'Assignment view drill-down screenshots', :staging do
     ]
   end
 
-  SCREENSHOT_DIR = File.expand_path(
-    '../../.claude/canvas_integration/screenshots/assignment_view', __dir__
-  )
-
   let(:run_id)             { Time.now.strftime('%Y%m%d%H%M%S') }
   let(:canvas_course_name) { "Wiki Editing Demo (AV) #{run_id}" }
   let(:dashboard_title)    { 'Wiki Editing Demo AV' }
@@ -49,12 +44,11 @@ describe 'Assignment view drill-down screenshots', :staging do
   let(:student_canvas_id)  { ENV.fetch('CANVAS_TEST_STUDENT_USER_ID') }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
+  let(:screenshot_dir)     { canvas_shots_dir('assignment_view') }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
     skip("missing env vars: #{missing.join(', ')}") if missing.any?
-
-    FileUtils.mkdir_p(SCREENSHOT_DIR)
 
     canvas_course = canvas_api.create_course(name: canvas_course_name, course_code: "AV-#{run_id}")
     provisioned[:canvas_course_id] = canvas_course['id']
@@ -157,8 +151,6 @@ describe 'Assignment view drill-down screenshots', :staging do
   end
 
   def capture(name)
-    path = File.join(SCREENSHOT_DIR, "#{name}.png")
-    page.save_screenshot(path)
-    warn "  [screenshot] #{path}"
+    save_screenshot_to(screenshot_dir, name)
   end
 end

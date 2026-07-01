@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'fileutils'
 require_relative 'spec_helper'
 
 # Drives the same instructor-launch flow as `g2_instructor_launch_spec`,
-# but pauses at named moments to write screenshots into the tracked
-# `.claude/canvas_integration/canvas_integration_instructor_guide/screenshots/`
-# directory. Those screenshots back the illustrated guide of the same name.
+# but pauses at named moments to save screenshots of the instructor's Canvas
+# integration UX. Output goes to the harvest run directory
+# (`tmp/canvas-ux-screenshots/instructor/`, override with CANVAS_SHOTS_DIR);
+# `bin/harvest-canvas-screenshots` collects it into the review gallery.
 #
-# Re-run to refresh the guide when the UX changes:
+# Re-run to refresh the screenshots when the UX changes:
 #
 #   bin/staging-feature-spec spec/staging/instructor_setup_screenshots_spec.rb
 #
@@ -32,14 +32,6 @@ describe 'Instructor setup illustrated guide', :staging do
     ]
   end
 
-  SCREENSHOT_DIR = Rails.root.join('.claude', 'canvas_integration',
-                                   'canvas_integration_instructor_guide',
-                                   'screenshots') if defined?(Rails)
-  SCREENSHOT_DIR ||= File.expand_path(
-    '../../.claude/canvas_integration/canvas_integration_instructor_guide/screenshots',
-    __dir__
-  )
-
   let(:run_id)             { Time.now.strftime('%Y%m%d%H%M%S') }
   let(:canvas_course_name) { 'Wiki Editing Demo Course' }
   let(:canvas_course_code) { 'WED-101' }
@@ -48,12 +40,11 @@ describe 'Instructor setup illustrated guide', :staging do
   let(:dashboard_term)     { "Demo #{run_id}" }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
+  let(:screenshot_dir)     { canvas_shots_dir('instructor') }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
     skip("missing env vars: #{missing.join(', ')}") if missing.any?
-
-    FileUtils.mkdir_p(SCREENSHOT_DIR)
 
     canvas_course = canvas_api.create_course(name: canvas_course_name,
                                              course_code: canvas_course_code)
@@ -122,8 +113,6 @@ describe 'Instructor setup illustrated guide', :staging do
   end
 
   def capture(name)
-    path = File.join(SCREENSHOT_DIR, "#{name}.png")
-    page.save_screenshot(path)
-    warn "  [guide screenshot] #{path}"
+    save_screenshot_to(screenshot_dir, name)
   end
 end
