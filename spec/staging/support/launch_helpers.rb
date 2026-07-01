@@ -33,12 +33,56 @@ module LaunchHelpers
   # walk the Wikipedia OAuth bounce if it appears (handled silently
   # when the OAuth grant is already in place on Wikipedia's side).
   def break_out_of_canvas_iframe(role: :instructor, iframe: canvas_tool_iframe_locator)
-    frame = find(iframe, match: :first)
-    within_frame(frame) do
-      click_link 'Open the Wiki Education Dashboard'
-    end
+    open_dashboard_from_iframe(iframe)
     switch_to_new_tab
+    # The connect_course tab occasionally comes back a bare staging 500;
+    # reload it before walking the OAuth bounce.
+    wait_out_server_error
     complete_wikipedia_oauth_if_needed(role: role)
+  end
+
+  # The in-iframe /lti launch intermittently returns a bare 500 (a staging
+  # infra hiccup that never reaches Rails), leaving the iframe without the
+  # "Open the Wiki Education Dashboard" link. Reload the Canvas page to
+  # re-launch the tool and retry before giving up.
+  def open_dashboard_from_iframe(iframe, attempts: 4)
+    attempts.times do |i|
+      frame = first(iframe, wait: 10)
+      return if frame && within_frame(frame) { click_dashboard_link_if_present }
+
+      warn "  [retry] Canvas tool iframe had no dashboard link " \
+           "(attempt #{i + 1}/#{attempts}); reloading Canvas page"
+      page.refresh
+    end
+    raise 'Canvas tool iframe never rendered the dashboard link after reloads ' \
+          '(likely an intermittent staging 500 inside the iframe)'
+  end
+
+  def click_dashboard_link_if_present
+    return false unless has_link?('Open the Wiki Education Dashboard', wait: 5)
+
+    click_link 'Open the Wiki Education Dashboard'
+    true
+  end
+
+  # Reload the current page while it's showing a bare staging 500, up to
+  # `attempts` times. No-op when the page isn't an error; raises if it never
+  # clears (so a genuinely down server still fails loudly).
+  def wait_out_server_error(attempts: 4)
+    attempts.times do |i|
+      return unless on_server_error?
+
+      warn "  [retry] staging returned a 500; reloading (attempt #{i + 1}/#{attempts})"
+      page.refresh
+      sleep 1
+    end
+    raise 'staging kept returning a 500 after reloads' if on_server_error?
+  end
+
+  # Signature of the intermittent bare Apache/Passenger 500 — it never reaches
+  # Rails, so it's the generic server-error page, not a dashboard error view.
+  def on_server_error?
+    page.has_content?('Internal Server Error', wait: 0)
   end
 
   # Canvas's external-tool iframe has a dynamic id `tool_content_<N>`
@@ -112,19 +156,33 @@ module LaunchHelpers
   # options' visible text is the slug itself; older deployed-staging
   # builds rendered it as a text input, so the helper branches.
   def complete_dashboard_setup(course_slug:, granularity: 'lumped')
+    submit_course_link(course_slug:, granularity:)
+    # The setup POST occasionally 500s on staging; go back to the form and
+    # resubmit rather than failing the whole walk on a transient blip.
+    2.times do
+      break if page.has_current_path?(%r{/courses/}, url: true, wait: 20)
+      break unless on_server_error?
+
+      warn '  [retry] setup POST returned a 500; going back and resubmitting'
+      page.go_back
+      submit_course_link(course_slug:, granularity:)
+    end
+    expect(page).to have_current_path(%r{/courses/}, url: true, wait: 30)
+  end
+
+  # Pick the course + granularity on the setup view and submit. The
+  # `course_slug` field is a select whose option text is the slug; older
+  # deployed builds rendered a text input, so branch on what's present.
+  def submit_course_link(course_slug:, granularity: 'lumped')
     expect(page).to have_content('Set up the Wiki Education Dashboard')
     if page.has_select?('course_slug')
       select course_slug, from: 'course_slug'
     else
       fill_in 'course_slug', with: course_slug
     end
-    # `lumped` is the default-checked radio in the view; only click
-    # when a different granularity is requested.
+    # `lumped` is the default-checked radio; only click for a different value.
     find(:css, "input[type=radio][value='#{granularity}']").click if granularity != 'lumped'
     click_button 'Link this course'
-    # The setup POST redirects to /courses/<slug>; wait for that landing
-    # before returning so callers don't assert on the in-flight setup URL.
-    expect(page).to have_current_path(%r{/courses/}, url: true, wait: 30)
   end
 
   # Walk the dashboard's React onboarding flow as a real first-time
