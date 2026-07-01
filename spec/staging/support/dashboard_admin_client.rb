@@ -25,7 +25,7 @@ module DashboardAdminClient
     script = <<~RUBY
       require 'json'
       instructor = User.find_by!(username: #{instructor_username.inspect})
-      slug = "#{school}/#{title.tr(' ', '_')}_(#{term})"
+      slug = "#{school.tr(' ', '_')}/#{title.tr(' ', '_')}_(#{term.tr(' ', '_')})"
       home_wiki = Wiki.find_or_create_by(language: 'en', project: 'wikipedia')
       course = Course.find_or_initialize_by(slug: slug)
       course.assign_attributes(
