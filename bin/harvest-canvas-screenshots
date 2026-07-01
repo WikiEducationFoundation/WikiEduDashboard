@@ -13,6 +13,9 @@
 # Usage:
 #   bin/harvest-canvas-screenshots [role ...]     # default: every known role
 #   HEADLESS=1 bin/harvest-canvas-screenshots      # no visible browser
+#   XEPHYR=1 bin/harvest-canvas-screenshots        # visible Chrome in a nested
+#                                                  # X window that can't steal
+#                                                  # your desktop keyboard focus
 #   CANVAS_SHOTS_DIR=/some/dir bin/harvest-canvas-screenshots
 #
 # Output (gitignored, never committed):
@@ -94,10 +97,66 @@ def build_gallery(roles)
   path
 end
 
+# --- Nested-display support (XEPHYR=1) --------------------------------------
+# Run the visible browser inside a nested Xephyr X server, so Chrome's window
+# raises and focus grabs land on that display instead of the operator's real
+# desktop — they can keep typing elsewhere while the harness churns, and only
+# click into the nested window to clear a login challenge. No-op under HEADLESS
+# (no window at all) or when the flag is unset. The Chrome window size lives in
+# spec/staging/spec_helper.rb (1280x900); the nested screen must exceed it.
+XEPHYR_SCREEN = '1440x960'
+
+def xephyr_requested?
+  !ENV['XEPHYR'].to_s.empty? && ENV['HEADLESS'].to_s.empty?
+end
+
+def with_optional_xephyr
+  return yield unless xephyr_requested?
+  unless system('which', 'Xephyr', out: File::NULL, err: File::NULL)
+    warn '  [xephyr] Xephyr not on PATH; running on the normal display.'
+    return yield
+  end
+
+  display = free_display
+  pid = spawn('Xephyr', display, '-screen', XEPHYR_SCREEN, '-resizeable',
+              '-no-host-grab', out: File::NULL, err: File::NULL)
+  wait_for_x_socket(display)
+  ENV['DISPLAY'] = display
+  warn "  [xephyr] visible Chrome runs in a nested window on #{display}; focus " \
+       'stays there. Click into it only to clear a login challenge.'
+  yield
+ensure
+  terminate(pid)
+end
+
+# Lowest display number with no socket in /tmp/.X11-unix yet.
+def free_display
+  taken = Dir.glob('/tmp/.X11-unix/X*').map { |s| File.basename(s)[1..].to_i }
+  n = (1..99).find { |i| !taken.include?(i) } || abort('no free X display')
+  ":#{n}"
+end
+
+def wait_for_x_socket(display, timeout: 10)
+  socket = "/tmp/.X11-unix/X#{display[1..]}"
+  deadline = Time.now + timeout
+  sleep 0.1 until File.exist?(socket) || Time.now > deadline
+  abort "Xephyr #{display} did not start" unless File.exist?(socket)
+end
+
+def terminate(pid)
+  return unless pid
+
+  Process.kill('TERM', pid)
+  Process.wait(pid)
+rescue Errno::ESRCH, Errno::ECHILD
+  nil # already gone
+end
+
 def main
   FileUtils.mkdir_p(run_dir)
   roles = roles_to_run
-  results = roles.to_h { |role| [role, harvest(role)] }
+  results = {}
+  with_optional_xephyr { results = roles.to_h { |role| [role, harvest(role)] } }
   gallery = build_gallery(roles)
   warn "\nGallery: #{gallery}"
   failed = results.reject { |_, ok| ok }.keys
