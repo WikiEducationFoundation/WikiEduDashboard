@@ -97,7 +97,7 @@ describe SyncLtiGrades do
     expect(binding.reload.last_grade_sync_at).to be_present
   end
 
-  it 'pushes 1.0 + sandbox-URL comment when the exercise is marked complete' do
+  it 'pushes 1.0 without leaking the sandbox URL into the score comment' do
     tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module,
                                    completed_at: 1.day.ago)
     tmu.flags = { course.id => { marked_complete: true } }
@@ -112,6 +112,10 @@ describe SyncLtiGrades do
 
     described_class.new(binding)
     expect(stub).to have_been_requested
+    # The student's Wikipedia username must not cross into the Canvas gradebook
+    # via the AGS comment (the sandbox URL embeds "User:<username>").
+    expect(WebMock).not_to have_requested(:post, %r{/scores})
+      .with { |req| req.body.to_s.include?('sandbox') }
   end
 
   it 'pushes 1.0 for a lumped-mode mixed block whose exercise is the only completion' do
