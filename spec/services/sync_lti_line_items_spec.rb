@@ -32,6 +32,13 @@ describe SyncLtiLineItems do
     # synchronous Sidekiq runner doesn't double-fire during setup.
     allow(LtiLineItemSyncWorker).to receive(:perform_in)
     allow(LtiLineItemSyncWorker).to receive(:perform_async)
+    # The always-present setup ("connected") column, matched by tag since its
+    # label is operator-supplied.
+    stub_request(:post, "https://#{domain}/api/lineitems")
+      .with(body: hash_including(tag: LtiLineItem::SETUP_TYPE))
+      .to_return(status: 201,
+                 body: { id: 'https://lms.example.com/li/setup', scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
   end
 
   def stub_post_lineitem(label:, lineitem_id: nil)
@@ -61,10 +68,11 @@ describe SyncLtiLineItems do
                          lineitem_id: 'https://lms.example.com/li/find-sources')
 
       expect { described_class.new(binding) }
-        .to change(LtiLineItem, :count).by(2)
+        .to change(LtiLineItem, :count).by(3)
 
       types = LtiLineItem.pluck(:gradable_type)
-      expect(types).to contain_exactly(LtiLineItem::TRAINING_PROGRESS_TYPE, 'Block')
+      expect(types).to contain_exactly(LtiLineItem::SETUP_TYPE,
+                                       LtiLineItem::TRAINING_PROGRESS_TYPE, 'Block')
       expect(LtiLineItem.find_by(gradable_type: 'Block').gradable_id)
         .to eq(exercise_block.id)
     end
@@ -89,9 +97,10 @@ describe SyncLtiLineItems do
       stub_post_lineitem(label: 'Wk1 Find sources')
 
       expect { described_class.new(binding) }
-        .to change(LtiLineItem, :count).by(2)
+        .to change(LtiLineItem, :count).by(3)
       expect(LtiLineItem.pluck(:gradable_type, :gradable_id))
-        .to contain_exactly(['Block', training_block.id], ['Block', exercise_block.id])
+        .to contain_exactly([LtiLineItem::SETUP_TYPE, nil],
+                            ['Block', training_block.id], ['Block', exercise_block.id])
     end
   end
 
@@ -136,12 +145,12 @@ describe SyncLtiLineItems do
       stub_post_lineitem(label: 'Wk1 Find sources',
                          lineitem_id: 'https://lms.example.com/li/find-sources')
       described_class.new(binding)
-      expect(LtiLineItem.active.count).to eq(2)
+      expect(LtiLineItem.active.count).to eq(3) # setup + trainings + exercise
 
       exercise_block.destroy
       described_class.new(binding)
 
-      expect(LtiLineItem.active.count).to eq(1) # only the trainings sentinel
+      expect(LtiLineItem.active.count).to eq(2) # setup + trainings sentinels
       archived = LtiLineItem.archived.first
       expect(archived.gradable_type).to eq('Block')
       expect(archived.gradable_id).to eq(exercise_block.id)

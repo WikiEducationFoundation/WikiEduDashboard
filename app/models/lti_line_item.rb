@@ -25,13 +25,18 @@
 # `gradable_type='Block'` is the per-block mapping used when a binding's
 # granularity is 'per_block'. `gradable_type='TrainingProgress'` is a
 # sentinel used in 'lumped' mode for the rolled-up trainings column;
-# `gradable_id` is null in that case.
+# `gradable_id` is null in that case. `gradable_type='WikipediaSetup'` is a
+# sentinel (also `gradable_id` null) for the per-student "connected a Wikipedia
+# account" indicator column — see LtiSetupProgress; it exists on every bound
+# course regardless of timeline, and unlike the others is posted for *every*
+# discovered student (1.0 once linked, 0.0 while still unlinked).
 #
 # We never destroy LTIAAS-side line items (it would erase Canvas gradebook
 # columns and student grades). When the Dashboard timeline drops a block,
 # we set `archived_at` and stop pushing scores to the orphaned line item.
 class LtiLineItem < ApplicationRecord
   TRAINING_PROGRESS_TYPE = 'TrainingProgress'
+  SETUP_TYPE = 'WikipediaSetup'
 
   belongs_to :lti_course_binding
   belongs_to :gradable, polymorphic: true, optional: true

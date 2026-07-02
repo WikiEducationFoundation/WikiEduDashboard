@@ -45,7 +45,10 @@ class SyncLtiLineItems
   end
 
   def desired_line_items
-    @binding.lumped? ? lumped_desired : per_block_desired
+    # The setup ("connected a Wikipedia account") column exists on every bound
+    # course, independent of the timeline and granularity.
+    setup = [[LtiLineItem::SETUP_TYPE, nil, setup_label]]
+    setup + (@binding.lumped? ? lumped_desired : per_block_desired)
   end
 
   def lumped_desired
@@ -95,6 +98,11 @@ class SyncLtiLineItems
 
   def lumped_training_label
     'Wikipedia trainings'
+  end
+
+  # User-facing Canvas gradebook column name — operator-supplied.
+  def setup_label
+    'Wikipedia account'
   end
 
   def reconcile(gradable_type, gradable_id, label, existing)

@@ -31,15 +31,26 @@ class SyncLtiGrades
   end
 
   def push_scores_for_each_student
-    linked_contexts.find_each do |context|
-      active_line_items.each do |line_item|
+    active_line_items.each do |line_item|
+      contexts_for(line_item).find_each do |context|
         push_one(context, line_item)
       end
     end
   end
 
+  # The setup indicator is posted for every discovered student (so the
+  # instructor also sees who has NOT connected); every other line item grades
+  # only students who have actually linked a Wikipedia account.
+  def contexts_for(line_item)
+    line_item.gradable_type == LtiLineItem::SETUP_TYPE ? all_contexts : linked_contexts
+  end
+
+  def all_contexts
+    LtiContext.where(lti_course_binding_id: @binding.id)
+  end
+
   def linked_contexts
-    LtiContext.where(lti_course_binding_id: @binding.id).where.not(user_id: nil)
+    all_contexts.where.not(user_id: nil)
   end
 
   def active_line_items
@@ -47,7 +58,7 @@ class SyncLtiGrades
   end
 
   def push_one(context, line_item)
-    progress = compute_progress(line_item, context.user)
+    progress = compute_progress(line_item, context)
     return unless progress&.gradable?
     return if signature_unchanged?(line_item, context, progress.signature)
 
@@ -86,13 +97,15 @@ class SyncLtiGrades
     row.save!
   end
 
-  def compute_progress(line_item, user)
+  def compute_progress(line_item, context)
     case line_item.gradable_type
+    when LtiLineItem::SETUP_TYPE
+      LtiSetupProgress.new(context)
     when LtiLineItem::TRAINING_PROGRESS_TYPE
-      LtiTrainingProgress.new(@binding.course, user)
+      LtiTrainingProgress.new(@binding.course, context.user)
     when 'Block'
       block = Block.find_by(id: line_item.gradable_id)
-      block && LtiBlockProgress.new(block, user, exercises_only: @binding.lumped?)
+      block && LtiBlockProgress.new(block, context.user, exercises_only: @binding.lumped?)
     end
   end
 end

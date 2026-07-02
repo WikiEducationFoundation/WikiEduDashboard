@@ -50,6 +50,7 @@ describe SyncLtiGrades do
 
   let(:trainings_lineitem_url) { 'https://lms.example.com/li/trainings' }
   let(:exercise_lineitem_url) { 'https://lms.example.com/li/find-sources' }
+  let(:setup_lineitem_url) { 'https://lms.example.com/li/setup' }
 
   before do
     ENV['LTIAAS_DOMAIN'] = domain
@@ -69,6 +70,15 @@ describe SyncLtiGrades do
                  body: { id: exercise_lineitem_url, label: 'Wk1 Find sources',
                          scoreMaximum: 1.0 }.to_json,
                  headers: { 'Content-Type' => 'application/json' })
+    # The always-present setup ("connected") column — matched by tag, since its
+    # label is operator-supplied. Stub its score POST too, so every example can
+    # push the setup mark for both the linked and unlinked student.
+    stub_request(:post, "https://#{domain}/api/lineitems")
+      .with(body: hash_including(tag: LtiLineItem::SETUP_TYPE))
+      .to_return(status: 201,
+                 body: { id: setup_lineitem_url, scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+    stub_post_score(setup_lineitem_url)
   end
 
   def stub_post_score(lineitem_url)
@@ -77,7 +87,7 @@ describe SyncLtiGrades do
       .to_return(status: 204, body: '', headers: {})
   end
 
-  it 'pushes scores only for linked students' do
+  it 'grades training/exercise only for linked students, but marks setup for all' do
     trainings_stub = stub_post_score(trainings_lineitem_url)
     exercise_stub = stub_post_score(exercise_lineitem_url)
 
@@ -85,8 +95,16 @@ describe SyncLtiGrades do
 
     expect(trainings_stub).to have_been_requested.once
     expect(exercise_stub).to have_been_requested.once
-    expect(WebMock).not_to have_requested(:post, /scores/)
+    # Training/exercise columns never grade the unlinked student (lti-bob)...
+    expect(WebMock).not_to have_requested(:post, %r{trainings/scores})
       .with(body: hash_including(userId: 'lti-bob'))
+    expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+      .with(body: hash_including(userId: 'lti-bob'))
+    # ...but the setup column marks both: linked (1.0) and unlinked (0.0).
+    expect(WebMock).to have_requested(:post, %r{setup/scores})
+      .with(body: hash_including(userId: 'lti-alice', scoreGiven: 1.0))
+    expect(WebMock).to have_requested(:post, %r{setup/scores})
+      .with(body: hash_including(userId: 'lti-bob', scoreGiven: 0.0))
   end
 
   it 'updates last_grade_sync_at' do
@@ -169,7 +187,8 @@ describe SyncLtiGrades do
 
       expect(trainings_stub).to have_been_requested.once
       expect(exercise_stub).to have_been_requested.once
-      expect(LtiScoreSignature.count).to eq(2)
+      # 4 = Alice's trainings + exercise + setup, plus Bob's setup (0.0).
+      expect(LtiScoreSignature.count).to eq(4)
 
       described_class.new(binding) # second call: state unchanged → no POSTs
 
@@ -205,8 +224,8 @@ describe SyncLtiGrades do
       stub_post_score(exercise_lineitem_url)
       described_class.new(binding)
       sigs = LtiScoreSignature.where(lti_context_id: linked_context.id)
-      expect(sigs.count).to eq(2)
-      expect(sigs.map(&:signature).uniq.size).to eq(2) # one per line item
+      expect(sigs.count).to eq(3) # trainings + exercise + setup
+      expect(sigs.map(&:signature).uniq.size).to eq(3) # one per line item
       expect(sigs.first.last_pushed_at).to be_within(5.seconds).of(Time.current)
     end
 
