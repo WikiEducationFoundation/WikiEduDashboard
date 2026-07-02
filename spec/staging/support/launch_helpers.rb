@@ -41,28 +41,31 @@ module LaunchHelpers
     complete_wikipedia_oauth_if_needed(role: role)
   end
 
-  # The in-iframe /lti launch intermittently returns a bare 500 (a staging
-  # infra hiccup that never reaches Rails), leaving the iframe without the
-  # "Open the Wiki Education Dashboard" link. Reload the Canvas page to
-  # re-launch the tool and retry before giving up.
-  def open_dashboard_from_iframe(iframe, attempts: 4)
+  # Reload the Canvas page until the tool iframe renders the launch landing
+  # (the "Open the Wiki Education Dashboard" link) — riding through the
+  # intermittent edge-500 that can hit the in-iframe /lti launch. Returns the
+  # settled iframe element, so a caller can screenshot a *clean* landing before
+  # breaking out (rather than freezing a transient 500 into the gallery).
+  def settle_canvas_tool_iframe(iframe = canvas_tool_iframe_locator, attempts: 4)
     attempts.times do |i|
       frame = first(iframe, wait: 10)
-      return if frame && within_frame(frame) { click_dashboard_link_if_present }
+      return frame if frame && iframe_shows_landing?(frame)
 
-      warn "  [retry] Canvas tool iframe had no dashboard link " \
+      warn "  [retry] Canvas tool iframe not showing the launch landing " \
            "(attempt #{i + 1}/#{attempts}); reloading Canvas page"
       page.refresh
     end
-    raise 'Canvas tool iframe never rendered the dashboard link after reloads ' \
-          '(likely an intermittent staging 500 inside the iframe)'
+    raise 'Canvas tool iframe never rendered the launch landing after ' \
+          'reloads (likely an intermittent staging 500 inside the iframe)'
   end
 
-  def click_dashboard_link_if_present
-    return false unless has_link?('Open the Wiki Education Dashboard', wait: 5)
+  def open_dashboard_from_iframe(iframe)
+    frame = settle_canvas_tool_iframe(iframe)
+    within_frame(frame) { click_link 'Open the Wiki Education Dashboard' }
+  end
 
-    click_link 'Open the Wiki Education Dashboard'
-    true
+  def iframe_shows_landing?(frame)
+    within_frame(frame) { has_link?('Open the Wiki Education Dashboard', wait: 5) }
   end
 
   # Reload the current page while it's showing a bare staging 500, up to

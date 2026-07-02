@@ -77,8 +77,9 @@ describe 'Instructor setup illustrated guide', :staging do
       capture('01-canvas-course-with-tab')
 
       click_wiki_education_tab
-      # Let the iframe finish loading the dashboard landing page.
-      sleep 2
+      # Settle the iframe (reload past any transient edge-500) so the shot
+      # shows the real launch landing, not a momentary server error.
+      settle_canvas_tool_iframe
       capture('02-canvas-iframe-landing')
 
       break_out_of_canvas_iframe(role: :instructor)
