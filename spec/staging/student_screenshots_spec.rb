@@ -74,7 +74,7 @@ describe 'Student UX screenshots', :staging do
 
     in_student_browser do
       student_walk_to_dashboard(
-        before_breakout: -> { sleep 2; capture('s01-canvas-iframe-landing') }
+        before_breakout: -> { settle_canvas_tool_iframe; capture('s01-canvas-iframe-landing') }
       )
       # The post-OAuth landing occasionally comes back an edge-500; reload it,
       # then allow extra time for the enroll -> redirect -> React render, which
