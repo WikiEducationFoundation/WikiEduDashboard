@@ -16,6 +16,21 @@ const isEnrollUrl = (returnToParam) => {
   return false;
 };
 
+// An LTI launch from an LMS course nav is, by definition, a student
+// joining that course — instructors are expected to have a Dashboard
+// account already from setting up the binding. Treat it the same as an
+// enroll-link return_to: still collect real_name + email, but don't ask
+// "are you an instructor?", because the answer is always no.
+const isLtiLaunchUrl = (returnToParam) => {
+  if (returnToParam.includes('/lti?ltik')) {
+    return true;
+  }
+  if (returnToParam.includes('%2Flti%3Fltik')) {
+    return true;
+  }
+  return false;
+};
+
 const Form = (props) => {
   const [state, setState] = useState({
     started: false,
@@ -80,10 +95,14 @@ const Form = (props) => {
   }, [state]);
 
   useEffect(() => {
-    // Hide the 'are you an instructor' question if user is returning to an enrollment URL.
-    // That means they are trying to join a course as a student, so assume that they are one.
+    // Hide the 'are you an instructor' question when the user is on their
+    // way back to either an enrollment URL or a Canvas LTI launch — both
+    // mean they're a student joining a course, so the question is
+    // unnecessary (and confusing on a first LTI launch).
+    const isStudentEnrolling =
+      isEnrollUrl(props.returnToParam) || isLtiLaunchUrl(props.returnToParam);
     setInstructorFormClass(
-      isEnrollUrl(props.returnToParam) ? 'form-group hidden' : 'form-group'
+      isStudentEnrolling ? 'form-group hidden' : 'form-group'
     );
   }, [props.returnToParam]);
 

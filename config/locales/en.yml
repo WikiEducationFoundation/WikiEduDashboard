@@ -2183,3 +2183,72 @@ en:
     advanced_search: "Advanced Search"
     clear: "Clear"
     program_date: "Program Date"
+
+  lms_integration:
+    heading: "%{lms_name} link"
+    linked_to: "Course:"
+    last_sync: "Last sync:"
+    last_sync_error: "Last sync error"
+    synced_students: "Students synced"
+    never_synced: "Not yet synced"
+    my_last_sync: "Last sync"
+    no_grades_yet: "No synced progress yet"
+    not_yet_linked: "Your account hasn't been linked to Canvas for this course."
+
+  lti:
+    iframe_landing:
+      button: "Open the Wiki Education Dashboard"
+    oauth_redirect:
+      title: "Continuing to Wikipedia sign-in…"
+      button: "Continue"
+    setup:
+      header: "Set up the Wiki Education Dashboard for this Canvas course"
+      link_existing:
+        header: "Link an existing Wiki Education course"
+        label: "Course"
+      granularity:
+        header: "Canvas gradebook layout"
+        explanation: "How would you like Wikipedia training and exercise progress to appear in your Canvas gradebook? You can change this later."
+        lumped:
+          label: "One column for all trainings, plus one column per exercise (recommended)"
+          example: "Wikipedia trainings: 5/12 complete · Bibliography: 1.0 (sandbox link in comment) · Outline: 0.0"
+        per_block:
+          label: "A separate column for every training and exercise"
+          example: "Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …"
+      submit: "Link this course"
+      no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
+    deep_link:
+      # PLACEHOLDER COPY — pending an operator copy pass before launch.
+      header: "<picker heading: choose which Wikipedia task this Canvas column tracks>"
+      instruction: "<instruction: pick one Wikipedia assignment for this Canvas assignment>"
+      submit: "Add to Canvas"
+      no_gradables: "<shown when the linked course has no gradable trainings or exercises yet>"
+      unbound:
+        header: "<shown when this Canvas course isn't linked to a Wiki Education course yet>"
+        explanation: "<tell the instructor to do the course-navigation set-up launch first, then return>"
+    setup_pending:
+      header: "Wiki Education Dashboard is being set up"
+      explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
+    enrollment_error:
+      header: "Couldn't enroll you in the Wiki Education course"
+      explanation: "Something prevented enrollment. Please contact your instructor or Wiki Education staff for help; the issue has been logged for review."
+    enrollment_pending_approval:
+      header: "This course is awaiting Wiki Education approval"
+      explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
+      contact_hint: "If you have questions, contact your instructor or Wiki Education staff."
+    assignment_view:
+      # Short column/status labels.
+      status:
+        completed: "Completed"
+        not_started: "Not started"
+      view_sandbox: "View sandbox"
+      roster:
+        student: "Student"
+        status: "Status"
+        sandbox: "Sandbox"
+        empty: "No students have connected Wikipedia accounts yet."
+      student:
+        your_sandbox: "Your sandbox"
+      orphan:
+        header: "—"
+        explanation: "There is no Dashboard content to show for this assignment."

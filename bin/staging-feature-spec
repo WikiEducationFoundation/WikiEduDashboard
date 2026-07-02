@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Run a feature spec against the deployed staging environment
+# (`dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org`) with a real
+# Chrome browser and a persistent profile that carries Wikipedia OAuth +
+# Canvas + dashboard session state across runs.
+#
+# Usage:
+#   bin/staging-feature-spec spec/staging/<file>_spec.rb [rspec_args...]
+#   HEADLESS=1 bin/staging-feature-spec ...   # run without a visible browser
+#
+# Defaults to HEADED (visible browser) because the whole point of this
+# harness is visual iteration on the integration's UX.
+#
+# See `docs/staging_feature_specs.md` for the one-time bootstrap.
+
+spec_file = ARGV[0] or abort 'Usage: bin/staging-feature-spec <spec_file> [rspec_args...]'
+
+extra = ARGV[1..]
+
+# Load local credentials + overrides from `.env.staging-tests` (gitignored).
+# Quiet no-op if the file doesn't exist; specs that need specific vars will
+# fail with a clear message of their own. Existing ENV always wins, so
+# command-line `CANVAS_ADMIN_TOKEN=... bin/staging-feature-spec ...` works.
+env_path = File.expand_path('../.env.staging-tests', __dir__)
+if File.exist?(env_path)
+  File.foreach(env_path) do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?('#')
+    next unless (match = line.match(/\A(\w+)=(.*)\z/))
+
+    key, value = match[1], match[2]
+    ENV[key] ||= value
+  end
+end
+
+# Tag filter is enforced inside spec/staging/spec_helper.rb via
+# filter_run_when_matching :staging — passing --tag here too is belt and
+# suspenders, since we never want this runner to pick up a regular feature
+# spec by accident.
+cmd = ['bundle', 'exec', 'rspec', spec_file,
+       '--tag', 'staging',
+       '--format', 'documentation',
+       *extra]
+
+system(*cmd)
+exit($?.exitstatus)

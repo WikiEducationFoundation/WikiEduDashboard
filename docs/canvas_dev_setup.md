@@ -355,6 +355,78 @@ development:
 This is needed because the domain set here is what Canvas claims its identity is and uses for OAuth, the LTI flow, JWKS endpoints and absolute URL generation. `canvas.docker` fails here because it is http only and OAuth and LTI 1.3 require https.
 
 
+## Beyond a basic launch: NRPS roster + AGS grade passback
+
+Once a basic launch works, the integration adds three flows on top of the launch handshake:
+
+1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The setup view also presents the Canvas gradebook layout choice (lumped trainings vs. per-block columns) which is stored on the binding.
+2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New students appear as `LtiContext` rows; those whose Canvas email matches an existing dashboard `User.email` are auto-linked and enrolled in the bound course. Unmatched students get linked when they personally launch from Canvas and complete Wikipedia OAuth.
+3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Sandbox URLs for completed exercises (bibliography, outline, etc.) are included as score comments.
+
+### Required LTIAAS scopes
+
+The LTIAAS tool registration must include:
+
+- **NRPS read** — to pull rosters
+- **AGS line items** — to create/update/list gradebook columns
+- **AGS scores** — to post per-student scores
+
+If any of these are missing, the relevant Sidekiq jobs will surface 4xx errors from LTIAAS into Sentry.
+
+### Course Navigation placement
+
+For v1 the integration is registered exclusively as a Course Navigation tool: a single "Wiki Education Dashboard" tab in the Canvas course sidebar. Deep linking (per-module-item content selection) is deferred. In LTIAAS' Canvas registration:
+
+- `text`: `Wiki Education Dashboard`
+- `target_link_uri`: `https://<your-public-domain>/lti`
+- `default`: `enabled`
+- `enabled`: `true`
+
+### Service authentication (background workers)
+
+LTIAAS issues a long-lived `serviceKey` per launch context, surfaced in `idtoken.services.serviceKey`. The dashboard captures this key on every launch and persists it on `LtiCourseBinding.ltiaas_service_credentials`. Background workers (NRPS roster sync, AGS line-item sync, AGS grade sync) authenticate with the `SERVICE-AUTH-V1 <api_key>:<service_key>` header — the `<api_key>` is the same `LTIAAS_API_KEY` used for launch-time LTIK auth.
+
+The serviceKey is refreshed on every launch in case the underlying NRPS/AGS endpoint URLs change (per LTIAAS docs).
+
+### Feature flag
+
+All Canvas-integration entry points (the `/lti` routes, the periodic workers, the Block / Wizard hooks that enqueue them) are gated behind:
+
+```
+canvas_integration_enabled: 'true'
+```
+
+in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
+
+## Manual smoke test (against a live LTIAAS + Canvas pair)
+
+Once the LTIAAS tool is installed, `canvas_integration_enabled` is `true`, and the dashboard is reachable from your test Canvas:
+
+1. **Instructor first launch**. As an instructor, click the "Wiki Education Dashboard" tab in a Canvas test course. Inside the Canvas iframe you'll see a minimal landing page (centered Wiki Ed wordmark + one button "Open the Wiki Education Dashboard"). Clicking the button opens `/lti/connect_course?ltik=...` in a new tab (via `target=_blank`), leaving the Canvas page in place. If you're not signed in to the dashboard, you'll be bounced through Wikipedia OAuth at top level in the new tab and returned to `/lti?ltik=...` and the setup view after sign-in.
+2. **Bind to a dashboard course**. In the setup view, pick one of your active or upcoming Wiki Education courses from the dropdown (or use the "Create a Wiki Education course" link to open the dashboard in a new tab if you don't have one yet), pick a gradebook granularity (lumped is the default), and submit. Expect a redirect to `/courses/<slug>`.
+3. **Roster sync**. Within a few seconds of the bind, every Canvas course member should appear as an `LtiContext` row (`LtiContext.where(lti_course_binding_id: <id>)` in a Rails console). Members whose email matches a dashboard `User.email` should also appear as `CoursesUsers` enrolments.
+4. **Line-item sync**. Within ~2 minutes of any timeline change (or immediately after the bind), the Canvas gradebook should show columns matching the binding's granularity:
+   - **Lumped**: one "Wikipedia trainings" column + one column per exercise block.
+   - **Per-block**: one column per training-bearing or exercise-bearing block (`Wk1 Get started`, `Wk3 Bibliography`, etc.).
+5. **Student first launch**. As a student in the Canvas course, click the tab. Same minimal iframe landing → top-level handoff → Wikipedia OAuth on first launch → redirect to `/courses/<slug>` with the student enrolled. Subsequent launches skip the OAuth step (top-level session cookie carries them through).
+6. **Grade passback**. Complete a training module on the dashboard. Within 30 minutes, expect a fractional score in the Canvas gradebook (lumped mode pushes `completed_count / total_count` with a `<count> of <total> trainings completed` score comment). Mark an exercise complete and expect a `1.0` plus the sandbox URL in the score comment. Per-(student, line item) dedup ensures unchanged state doesn't produce redundant Canvas submission attempts.
+
+## Production rollout checklist
+
+Before flipping `canvas_integration_enabled` to `'true'` in production:
+
+1. **LTIAAS prod tenant registered against the production Canvas (canvas.wikiedu.org)** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side.
+2. **`config/application.yml`** on the prod box — `LTIAAS_DOMAIN`, `LTIAAS_API_KEY`, and `canvas_integration_enabled: 'true'` set.
+3. **Migrations applied** — three migrations from PR 1 (`create_lti_course_bindings`, `create_lti_line_items`, `add_binding_fields_to_lti_contexts`) plus `create_lti_score_signatures` from the dedup pass.
+4. **Sidekiq cron loaded** — confirm `LtiDailyRosterSyncWorker` and `LtiPeriodicGradeSyncWorker` appear in the cron list (check the sidekiq-cron dashboard at `/sidekiq/cron`).
+5. **Sentry monitoring** — confirm Sentry's `extra` filter doesn't drop fields named `binding_id`, `user_lti_id`, or `lineitem_id` (used by per-record error capture in the sync services).
+6. **Smoke test** against `dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org` first; only flip prod after the staging end-to-end checklist passes.
+
 ## Other Guides, References and Sources
 - [Troubleshooting error messages by LTIAAS](https://docs.ltiaas.com/guides/troubleshooting/troubleshooting_error_messages)
 - [Collection of LTI Related Links by LTI Bootcamp](https://github.com/1EdTech/ltibootcamp)
+- [LTIAAS authentication guide](https://docs.ltiaas.com/guides/api/authentication) (covers SERVICE-AUTH-V1 vs. LTIK-AUTH-V2)
+- [LTIAAS async API guide](https://docs.ltiaas.com/guides/api/async) (background-job patterns)
+- [LTIAAS NRPS / Names and Roles](https://docs.ltiaas.com/api/get-memberships/)
+- [LTIAAS AGS / Manipulating grade lines](https://docs.ltiaas.com/guides/api/manipulating-grade-lines/)
+- [LTIAAS AGS / Manipulating grades](https://docs.ltiaas.com/guides/api/manipulating-grades/)

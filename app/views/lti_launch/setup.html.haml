@@ -1,0 +1,33 @@
+.container.narrow
+  .section-header
+    %h3= t('lti.setup.header')
+  %hr
+  - if @user_courses.any?
+    = form_with url: '/lti/setup', method: :post, local: true do |f|
+      = hidden_field_tag :binding_id, @binding.id
+      = hidden_field_tag :ltik, params[:ltik]
+      .module
+        %h4= t('lti.setup.link_existing.header')
+        = label_tag :course_slug, t('lti.setup.link_existing.label')
+        = select_tag :course_slug,
+                     options_for_select(@user_courses.map(&:slug)),
+                     required: true, include_blank: true
+      .module
+        %h4= t('lti.setup.granularity.header')
+        %p= t('lti.setup.granularity.explanation')
+        .lti-granularity-options
+          %label
+            = radio_button_tag :gradebook_granularity, 'lumped', true
+            %strong= t('lti.setup.granularity.lumped.label')
+            %p.lti-granularity-example
+              = t('lti.setup.granularity.lumped.example')
+          %label
+            = radio_button_tag :gradebook_granularity, 'per_block'
+            %strong= t('lti.setup.granularity.per_block.label')
+            %p.lti-granularity-example
+              = t('lti.setup.granularity.per_block.example')
+      %button.button{ type: 'submit' }= t('lti.setup.submit')
+  - else
+    .module
+      %p= t('lti.setup.no_approved_courses')
+      = link_to t('application.my_dashboard'), root_path, class: 'button'

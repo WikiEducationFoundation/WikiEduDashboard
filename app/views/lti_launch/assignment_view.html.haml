@@ -1,0 +1,13 @@
+- # In-Canvas drill-down for one Wikipedia gradebook column, rendered in
+- # a top-level tab (broken out of the Canvas iframe). Instructors see the
+- # roster of students × completion + sandbox links; a student sees their
+- # own panel. Heading is the line item's own label (real timeline content,
+- # e.g. "Wk2 Evaluate Wikipedia").
+.container.narrow
+  .section-header
+    %h3= @context.title
+  %hr
+  - if @context.instructor?
+    = render 'lti_launch/assignment_roster'
+  - else
+    = render 'lti_launch/assignment_student_panel'

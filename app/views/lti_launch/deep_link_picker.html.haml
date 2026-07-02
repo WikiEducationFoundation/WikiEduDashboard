@@ -1,0 +1,17 @@
+.container.narrow
+  .section-header
+    %h3= t('lti.deep_link.header')
+  %hr
+  - if @gradables.any?
+    %p= t('lti.deep_link.instruction')
+    = form_with url: '/lti/deep_link/select', method: :post, local: true do
+      = hidden_field_tag :ltik, @ltik
+      .lti-deep-link-options
+        - @gradables.each do |gradable|
+          %label
+            = radio_button_tag :resource, gradable.resource, false, required: true
+            %strong= gradable.label
+      %button.button{ type: 'submit' }= t('lti.deep_link.submit')
+  - else
+    .module
+      %p= t('lti.deep_link.no_gradables')

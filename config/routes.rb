@@ -209,6 +209,8 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
+        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -446,6 +448,11 @@ Rails.application.routes.draw do
 
     # LTI
   get 'lti' => 'lti_launch#launch'
+  get 'lti/connect_course' => 'lti_launch#connect_course'
+  get 'lti/assignment_view' => 'lti_launch#assignment_view'
+  get 'lti/deep_link' => 'lti_launch#deep_link'
+  post 'lti/deep_link/select' => 'lti_launch#deep_link_select'
+  post 'lti/setup' => 'lti_launch#complete_setup'
 
   # frequenty asked questions
   resources :faq do

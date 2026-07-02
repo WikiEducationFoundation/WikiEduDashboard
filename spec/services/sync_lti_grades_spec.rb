@@ -1,0 +1,220 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+describe SyncLtiGrades do
+  let(:domain) { 'tenant.ltiaas.com' }
+  let(:course) do
+    create(:course).tap { |c| c.campaigns << Campaign.first }
+  end
+  let(:binding) do
+    LtiCourseBinding.create!(
+      course: course,
+      lms_id: 'platform-x', lms_family: 'canvas',
+      lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99',
+      ltiaas_service_credentials: 'svc-key',
+      gradebook_granularity: 'lumped'
+    )
+  end
+
+  let(:training_module) do
+    create(:training_module, slug: 'tr-1', name: 'Training', kind: 0)
+  end
+  let(:exercise_module) do
+    create(:training_module, slug: 'ex-1', name: 'Bibliography',
+                             kind: 1, settings: { 'sandbox_location' => 'sandbox/Bib' })
+  end
+  let!(:week) { create(:week, course: course, order: 1) }
+  let!(:training_block) do
+    create(:block, week: week, order: 0, title: 'Get started',
+                   training_module_ids: [training_module.id])
+  end
+  let!(:exercise_block) do
+    create(:block, week: week, order: 1, title: 'Find sources',
+                   training_module_ids: [exercise_module.id])
+  end
+
+  let(:student_user) { create(:user, username: 'Alice', email: 'alice@example.edu') }
+  let!(:linked_context) do
+    LtiContext.create!(
+      lti_course_binding: binding, user: student_user, user_lti_id: 'lti-alice',
+      lms_id: 'platform-x', linked_at: 1.day.ago
+    )
+  end
+  let!(:unlinked_context) do
+    LtiContext.create!(
+      lti_course_binding: binding, user: nil, user_lti_id: 'lti-bob',
+      lms_id: 'platform-x', email: 'bob@example.edu'
+    )
+  end
+
+  let(:trainings_lineitem_url) { 'https://lms.example.com/li/trainings' }
+  let(:exercise_lineitem_url) { 'https://lms.example.com/li/find-sources' }
+
+  before do
+    ENV['LTIAAS_DOMAIN'] = domain
+    ENV['LTIAAS_API_KEY'] = 'api-key'
+    allow(LtiLineItemSyncWorker).to receive(:perform_in)
+
+    # Stub the upstream POST/PUT calls SyncLtiLineItems will make.
+    stub_request(:post, "https://#{domain}/api/lineitems")
+      .with(body: hash_including(label: 'Wikipedia trainings'))
+      .to_return(status: 201,
+                 body: { id: trainings_lineitem_url, label: 'Wikipedia trainings',
+                         scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+    stub_request(:post, "https://#{domain}/api/lineitems")
+      .with(body: hash_including(label: 'Wk1 Find sources'))
+      .to_return(status: 201,
+                 body: { id: exercise_lineitem_url, label: 'Wk1 Find sources',
+                         scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+  end
+
+  def stub_post_score(lineitem_url)
+    stub_request(:post, "https://#{domain}/api/lineitems/" \
+                        "#{CGI.escape(lineitem_url)}/scores")
+      .to_return(status: 204, body: '', headers: {})
+  end
+
+  it 'pushes scores only for linked students' do
+    trainings_stub = stub_post_score(trainings_lineitem_url)
+    exercise_stub = stub_post_score(exercise_lineitem_url)
+
+    described_class.new(binding)
+
+    expect(trainings_stub).to have_been_requested.once
+    expect(exercise_stub).to have_been_requested.once
+    expect(WebMock).not_to have_requested(:post, /scores/)
+      .with(body: hash_including(userId: 'lti-bob'))
+  end
+
+  it 'updates last_grade_sync_at' do
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+
+    described_class.new(binding)
+    expect(binding.reload.last_grade_sync_at).to be_present
+  end
+
+  it 'pushes 1.0 without leaking the sandbox URL into the score comment' do
+    tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module,
+                                   completed_at: 1.day.ago)
+    tmu.flags = { course.id => { marked_complete: true } }
+    tmu.save!
+    stub_post_score(trainings_lineitem_url)
+    stub = stub_request(:post,
+                        "https://#{domain}/api/lineitems/" \
+                        "#{CGI.escape(exercise_lineitem_url)}/scores")
+           .with(body: hash_including(scoreGiven: 1.0,
+                                      userId: 'lti-alice'))
+           .to_return(status: 204, body: '', headers: {})
+
+    described_class.new(binding)
+    expect(stub).to have_been_requested
+    # The student's Wikipedia username must not cross into the Canvas gradebook
+    # via the AGS comment (the sandbox URL embeds "User:<username>").
+    expect(WebMock).not_to have_requested(:post, %r{/scores})
+      .with { |req| req.body.to_s.include?('sandbox') }
+  end
+
+  it 'pushes 1.0 for a lumped-mode mixed block whose exercise is the only completion' do
+    other_training = create(:training_module, slug: 'tr-2', name: 'Side training', kind: 0)
+    mixed_block = create(:block, week: week, order: 2, title: 'Evaluate Wikipedia',
+                                 training_module_ids: [other_training.id,
+                                                       exercise_module.id])
+    mixed_lineitem_url = 'https://lms.example.com/li/mixed'
+    stub_request(:post, "https://#{domain}/api/lineitems")
+      .with(body: hash_including(label: 'Wk1 Evaluate Wikipedia'))
+      .to_return(status: 201,
+                 body: { id: mixed_lineitem_url, label: 'Wk1 Evaluate Wikipedia',
+                         scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+
+    tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module)
+    tmu.flags = { course.id => { marked_complete: true } }
+    tmu.save!
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+    mixed_stub = stub_request(:post,
+                              "https://#{domain}/api/lineitems/" \
+                              "#{CGI.escape(mixed_lineitem_url)}/scores")
+                 .with(body: hash_including(scoreGiven: 1.0, userId: 'lti-alice'))
+                 .to_return(status: 204, body: '', headers: {})
+
+    described_class.new(binding)
+    expect(mixed_stub).to have_been_requested
+    expect(mixed_block).to be_persisted # silence rubocop unused-var
+  end
+
+  it 'is a no-op when binding has no service credentials' do
+    binding.update!(ltiaas_service_credentials: nil)
+    described_class.new(binding)
+    expect(WebMock).not_to have_requested(:post, /scores/)
+  end
+
+  it 'continues past per-record failures and reports them to Sentry' do
+    expect(Sentry).to receive(:capture_exception).at_least(:once)
+    stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
+    described_class.new(binding) # should not raise
+    expect(binding.reload.last_grade_sync_at).to be_present
+  end
+
+  describe 'dedup via LtiScoreSignature' do
+    it 'skips the POST when the next signature matches a stored one' do
+      trainings_stub = stub_post_score(trainings_lineitem_url)
+      exercise_stub = stub_post_score(exercise_lineitem_url)
+
+      described_class.new(binding) # first call: signatures get written
+
+      expect(trainings_stub).to have_been_requested.once
+      expect(exercise_stub).to have_been_requested.once
+      expect(LtiScoreSignature.count).to eq(2)
+
+      described_class.new(binding) # second call: state unchanged → no POSTs
+
+      expect(trainings_stub).to have_been_requested.once
+      expect(exercise_stub).to have_been_requested.once
+    end
+
+    it 'POSTs again when the score signature changes between cycles' do
+      stub_post_score(trainings_lineitem_url)
+      stub_post_score(exercise_lineitem_url)
+      described_class.new(binding) # establishes signatures at 0.0 across the board
+
+      # Complete a training so the lumped TrainingProgress signature changes.
+      training = create(:training_module, slug: 'tr-2', name: 'Other', kind: 0)
+      create(:block, week: week, order: 5, title: 'Wk1 trainings',
+                     training_module_ids: [training.id])
+      TrainingModulesUsers.create!(user: student_user, training_module: training,
+                                   completed_at: 1.day.ago)
+
+      # Force a fresh AR fetch of binding.course.blocks (in production each
+      # worker run loads its own binding; in this test we reuse the let).
+      binding.reload
+      described_class.new(binding)
+
+      # Trainings line item POSTed again (signature changed: 1/2 now);
+      # exercise line item unchanged → still 1 POST total.
+      expect(WebMock).to have_requested(:post, %r{trainings/scores\z}).twice
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores\z}).once
+    end
+
+    it 'records a signature row keyed to (line item, context) after a successful POST' do
+      stub_post_score(trainings_lineitem_url)
+      stub_post_score(exercise_lineitem_url)
+      described_class.new(binding)
+      sigs = LtiScoreSignature.where(lti_context_id: linked_context.id)
+      expect(sigs.count).to eq(2)
+      expect(sigs.map(&:signature).uniq.size).to eq(2) # one per line item
+      expect(sigs.first.last_pushed_at).to be_within(5.seconds).of(Time.current)
+    end
+
+    it 'does not record a signature when the POST fails' do
+      allow(Sentry).to receive(:capture_exception)
+      stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
+      described_class.new(binding)
+      expect(LtiScoreSignature.count).to eq(0)
+    end
+  end
+end
