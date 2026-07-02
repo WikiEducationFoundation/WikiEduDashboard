@@ -13,8 +13,6 @@ end
 
 describe 'Students Page', type: :feature, js: true do
   before do
-    include type: :feature
-    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
     allow_any_instance_of(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)

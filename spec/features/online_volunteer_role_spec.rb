@@ -10,8 +10,6 @@ describe 'Online Volunteer users', type: :feature, js: true do
   end
 
   before do
-    include type: :feature
-    include Devise::TestHelpers
 
     login_as(user, scope: :user)
     allow(Features).to receive(:wiki_ed?).and_return(false)
