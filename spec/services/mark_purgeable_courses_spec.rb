@@ -62,6 +62,28 @@ describe MarkPurgeableCourses do
       expect(old_course.reload.purgeable?).to be false
     end
 
+    it 'skips a course with an ACUWT row still needing update' do
+      add_timeslice(old_course)
+      create(:article_course_user_wiki_timeslice, course: old_course, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: true)
+
+      result = described_class.new
+
+      expect(result.marked_count).to eq(0)
+      expect(old_course.reload.purgeable?).to be false
+    end
+
+    it 'flags a course whose ACUWT rows are all up to date' do
+      add_timeslice(old_course)
+      create(:article_course_user_wiki_timeslice, course: old_course, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: false)
+
+      result = described_class.new
+
+      expect(result.marked_count).to eq(1)
+      expect(old_course.reload.purgeable?).to be true
+    end
+
     it 'does not re-flag a course already marked purgeable' do
       add_timeslice(old_course)
       old_course.add_flag(key: :purgeable)
