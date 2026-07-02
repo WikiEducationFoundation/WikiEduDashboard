@@ -35,6 +35,8 @@ gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.g
 # Parses user agent strings to determine which browser is in use.
 # Used for browser support warnings.
 gem 'browser'
+# OAuth 2.0
+gem 'oauth2'
 
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
@@ -66,6 +68,8 @@ gem 'mediawiki_api',
 gem 'restforce' # Salesforce API access
 gem 'oj' # JSON Parsing library
 gem 'rss' # Standard RSS library
+
+
 
 ### Internationalization
 gem 'http_accept_language'
