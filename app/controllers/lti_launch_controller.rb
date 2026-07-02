@@ -35,7 +35,10 @@ class LtiLaunchController < ApplicationController
   layout 'lti_iframe'
 
   before_action :require_canvas_integration_enabled
-  after_action :allow_iframe, only: %i[launch assignment_view]
+  # deep_link / deep_link_select render inside Canvas's deep-linking picker
+  # iframe (the "Find" dialog), so they need X-Frame-Options cleared too — without
+  # this the picker shows "refused to connect" and no gradable can be selected.
+  after_action :allow_iframe, only: %i[launch assignment_view deep_link deep_link_select]
 
   def launch
     return redirect_to errors_login_error_path if params[:ltik].blank?

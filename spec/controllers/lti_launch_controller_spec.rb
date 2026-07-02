@@ -513,6 +513,8 @@ describe LtiLaunchController, type: :request do
       expect(response).to render_template('lti_launch/deep_link_picker')
       expect(response.body).to include('Wk1 Find sources')
       expect(response.body).to include("Block:#{exercise_block.id}")
+      # Renders inside Canvas's deep-linking picker iframe, so it must be framable.
+      expect(response.headers).not_to have_key('X-Frame-Options')
     end
   end
 
@@ -550,6 +552,8 @@ describe LtiLaunchController, type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(form_html)
       expect(stub).to have_been_requested
+      # The self-submitting form also renders inside the picker iframe.
+      expect(response.headers).not_to have_key('X-Frame-Options')
     end
 
     it 'rejects a resource that is not one of the bound course gradables' do
