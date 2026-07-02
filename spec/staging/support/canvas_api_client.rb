@@ -2,6 +2,7 @@
 
 require 'faraday'
 require 'json'
+require 'securerandom'
 
 # Thin wrapper around the Canvas REST API for provisioning + teardown of
 # test-course state. Surface kept narrow to what the staging specs
@@ -52,6 +53,21 @@ class CanvasApiClient
   def enroll_user(course_id:, user_id:, role:)
     post("/api/v1/courses/#{course_id}/enrollments",
          enrollment: { user_id:, type: role, enrollment_state: 'active' })
+  end
+
+  # Find (or create) a persistent, dedicated test user by login id, so a spec
+  # can enroll a second student without a second credential set. The user never
+  # logs in — it only needs to exist and be enrollable so the roster sync
+  # discovers it. Reused across runs (matched by login id).
+  def find_or_create_user(unique_id:, name:)
+    match = get("/api/v1/accounts/#{@account_id}/users", search_term: unique_id)
+            &.find { |u| u['login_id'] == unique_id }
+    return match['id'] if match
+
+    post("/api/v1/accounts/#{@account_id}/users",
+         user: { name: },
+         pseudonym: { unique_id:, password: SecureRandom.hex(16),
+                      send_confirmation: false })['id']
   end
 
   # Adds the Wiki Education Dashboard external tool to the course's
