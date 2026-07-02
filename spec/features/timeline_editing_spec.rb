@@ -42,8 +42,6 @@ describe 'timeline editing', type: :feature, js: true do
 
   before do
     TrainingModule.load_all
-    include type: :feature
-    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
     login_as create(:admin)

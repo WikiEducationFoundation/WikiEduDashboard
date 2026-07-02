@@ -31,8 +31,6 @@ describe 'Student users', type: :feature, js: true do
   end
 
   before do
-    include type: :feature
-    include Devise::TestHelpers
     ActionController::Base.allow_forgery_protection = true
     page.current_window.resize_to(1920, 1080)
     create(:courses_user,
