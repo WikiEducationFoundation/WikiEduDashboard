@@ -2,19 +2,23 @@
 
 require_relative 'spec_helper'
 
-# Captures the Canvas-side instructor view of Wikipedia-account setup: the
-# "Wikipedia account" gradebook column the Dashboard pushes (see LtiSetupProgress
-# / SyncLtiGrades), showing which students have connected and which have not.
-# Output goes to tmp/canvas-ux-screenshots/canvas_gradebook/ (override with
-# CANVAS_SHOTS_DIR); bin/harvest-canvas-screenshots collects it.
+# Captures the Canvas-side instructor gradebook the Dashboard pushes (see
+# SyncLtiGrades): the "Wikipedia account" setup column (LtiSetupProgress) plus the
+# "Wikipedia trainings" (LtiTrainingProgress) and per-exercise (LtiBlockProgress)
+# completion columns, so an instructor sees who's set up and each student's
+# training/exercise progress at a glance. Output goes to
+# tmp/canvas-ux-screenshots/canvas_gradebook/ (override with CANVAS_SHOTS_DIR);
+# bin/harvest-canvas-screenshots collects it.
 #
 #   bin/staging-feature-spec spec/staging/canvas_gradebook_screenshots_spec.rb
 #
-# Scenario — a bound course with two students:
-#   - the real test student, set up (linked → the "Wikipedia account" column
-#     posts 1.0, comment "✓");
+# Scenario — a bound course (with a one-training, one-exercise timeline) and two
+# students:
+#   - the real test student, set up (linked → "Wikipedia account" 1.0/"✓") and
+#     marked complete on the training + exercise (→ those columns post 1.0);
 #   - a dedicated, never-launching second student (find_or_create_user), enrolled
-#     and roster-discovered but unlinked → posts 0.0, comment "not connected".
+#     and roster-discovered but unlinked → "Wikipedia account" 0.0/"not connected"
+#     (training/exercise columns stay blank — those grade only linked students).
 # The connected student is linked via the console (link_student_context, the way
 # G8 fabricates a launch) rather than a real browser walk, so this stays a single
 # (instructor) browser persona and the state is deterministic — link_student_context
@@ -63,6 +67,10 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
     provisioned[:dashboard_course_slug] = dashboard_course['slug']
     DashboardAdminClient.approve_course(slug: dashboard_course['slug'],
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
+    # A minimal timeline (one training module + one exercise module) so the
+    # gradebook carries the "Wikipedia trainings" + exercise columns too.
+    provisioned[:timeline] =
+      DashboardAdminClient.build_timeline(course_slug: provisioned[:dashboard_course_slug])
   end
 
   after do
@@ -88,12 +96,19 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
     capture_instructor_gradebook(canvas_id)
   end
 
-  # Roster-sync so the real student is discovered, then link that (sole unlinked)
-  # context — the deterministic stand-in for their launch + Wikipedia OAuth.
+  # Roster-sync so the real student is discovered, link that (sole unlinked)
+  # context — the deterministic stand-in for their launch + Wikipedia OAuth —
+  # then mark their training + exercise complete so the gradebook columns fill.
   def set_up_connected_student(slug, binding_id)
     DashboardAdminClient.run_roster_sync(binding_id:)
-    DashboardAdminClient.link_student_context(
-      course_slug: slug, username: ENV.fetch('WIKIPEDIA_TEST_STUDENT_USERNAME')
+    student = ENV.fetch('WIKIPEDIA_TEST_STUDENT_USERNAME')
+    DashboardAdminClient.link_student_context(course_slug: slug, username: student)
+    DashboardAdminClient.mark_training_complete(
+      username: student, training_module_id: provisioned[:timeline]['training_module_id']
+    )
+    DashboardAdminClient.mark_exercise_complete(
+      course_slug: slug, username: student,
+      exercise_module_id: provisioned[:timeline]['exercise_module_id']
     )
   end
 
@@ -112,9 +127,11 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
     in_canvas do
       ensure_canvas_logged_in_as_instructor
       visit "/courses/#{canvas_id}/gradebook"
-      expect(page).to have_content('Wikipedia account', wait: 40)
+      # Wait for a timeline column (proves the trainings/exercise line items,
+      # not just the setup column, have rendered).
+      expect(page).to have_content('Wikipedia trainings', wait: 40)
       sleep 2 # let the grid finish painting the scores
-      capture('c01-canvas-gradebook-wikipedia-account')
+      capture('c01-canvas-gradebook-progress')
     end
   end
 
