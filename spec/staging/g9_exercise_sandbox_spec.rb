@@ -2,22 +2,24 @@
 
 require_relative 'spec_helper'
 
-# G9: exercise-completion score push with the sandbox link. Marking the
-# exercise module complete for a linked student and running grade sync
-# should land a 1.0 on the exercise's gradebook column in Canvas, with a
-# comment that links to the student's sandbox page so the instructor can
-# jump straight to their work (smoke-test step G9, the bug fixed in
-# commit 77a608580 / note [G9a]).
+# G9: exercise-completion score push. Marking the exercise module complete for a
+# linked student and running grade sync should land a 1.0 on the exercise's
+# gradebook column in Canvas. The score comment must NOT carry the student's
+# sandbox URL: that URL embeds their Wikipedia username, and an AGS comment is
+# visible to TAs/co-instructors/the registrar/CSV exports — a FERPA correlation
+# we deliberately don't persist in Canvas (removed in commit 98c1d8ade).
+# Instructors reach the sandbox through the role-gated in-Canvas assignment_view
+# instead. So this asserts the 1.0 lands WITHOUT leaking the sandbox URL.
 #
-# Single browser persona (instructor); the student is enrolled via the
-# Canvas REST API and linked via console, as in G8. The score + comment
-# are read back through the Canvas REST submissions API.
+# Single browser persona (instructor); the student is enrolled via the Canvas
+# REST API and linked via console, as in G8. The score + comment are read back
+# through the Canvas REST submissions API.
 #
 # Provisions a fresh Canvas course + dashboard course (with timeline) per
 # run and tears both down on completion (pass OR fail). Skips cleanly if
 # the staging training library has no exercise module with a
 # sandbox_location to grade.
-describe 'G9: exercise score push with sandbox link', :staging do
+describe 'G9: exercise score push', :staging do
   let(:required_env) do
     %w[
       CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID
@@ -72,7 +74,7 @@ describe 'G9: exercise score push with sandbox link', :staging do
     end
   end
 
-  it 'pushes a 1.0 to the exercise column with the sandbox URL in the comment' do
+  it 'pushes a 1.0 to the exercise column without leaking the sandbox URL' do
     slug = provisioned[:dashboard_course_slug]
     timeline = provisioned[:timeline]
     bind_course_as_instructor(canvas_course_id: provisioned[:canvas_course_id], course_slug: slug)
@@ -93,10 +95,12 @@ describe 'G9: exercise score push with sandbox link', :staging do
     expect(submission).not_to be_nil
     expect(submission['score'].to_f).to be_within(0.01).of(1.0)
 
+    # The 1.0 confirms the exercise-completion sync landed; the comment must NOT
+    # carry the sandbox URL / username (FERPA — see the class comment).
     text = comment_text(submission)
-    expect(text).to include(timeline['exercise_module_name'])
-    expect(text).to include('/wiki/User:')
-    expect(text).to include(timeline['exercise_sandbox_location'])
+    expect(text).not_to include('/wiki/User:')
+    expect(text).not_to include(student_username)
+    expect(text).not_to include(timeline['exercise_sandbox_location'])
   end
 
   def fetch_scored_submission(label:)
