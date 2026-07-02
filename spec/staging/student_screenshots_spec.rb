@@ -74,6 +74,8 @@ describe 'Student UX screenshots', :staging do
 
     in_student_browser do
       student_walk_to_dashboard(
+        canvas_course_id: provisioned[:canvas_course_id],
+        email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'),
         before_breakout: -> { settle_canvas_tool_iframe; capture('s01-canvas-iframe-landing') }
       )
       # The post-OAuth landing occasionally comes back an edge-500; reload it,
@@ -94,7 +96,8 @@ describe 'Student UX screenshots', :staging do
     reach_instructor_setup_view(canvas_course_id: provisioned[:canvas_course_id])
 
     in_student_browser do
-      student_walk_to_dashboard
+      student_walk_to_dashboard(canvas_course_id: provisioned[:canvas_course_id],
+                                email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
       expect(page).to have_content('Wiki Education Dashboard is being set up', wait: 30)
       capture('s04-setup-pending')
     end
@@ -106,7 +109,8 @@ describe 'Student UX screenshots', :staging do
     DashboardAdminClient.unapprove_course(slug:)
 
     in_student_browser do
-      student_walk_to_dashboard
+      student_walk_to_dashboard(canvas_course_id: provisioned[:canvas_course_id],
+                                email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
       expect(page).to have_content('awaiting Wiki Education approval', wait: 30)
       capture('s05-enrollment-pending-approval')
     end
@@ -123,26 +127,6 @@ describe 'Student UX screenshots', :staging do
     DashboardAdminClient.approve_course(slug: course['slug'],
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
     course['slug']
-  end
-
-  # The student-side Canvas walk: log into Canvas, open the course's Wiki
-  # Education tab, break out of the iframe through Wikipedia OAuth, and
-  # land at top level on the dashboard. `before_breakout` runs after the
-  # tab is open but before the break-out, for capturing the in-iframe
-  # landing. Must be called inside `in_student_browser`.
-  def student_walk_to_dashboard(before_breakout: nil)
-    in_canvas do
-      ensure_canvas_logged_in_as_student
-      visit_canvas_course(provisioned[:canvas_course_id])
-      click_wiki_education_tab
-      before_breakout&.call
-      break_out_of_canvas_iframe(role: :student)
-    end
-    dismiss_consent_banner
-    # A brand-new dashboard user gets routed through /onboarding before
-    # the LTI launch resumes; walk it. Silent no-op on a returning user.
-    walk_through_onboarding(real_name: 'LTI Test Student',
-                            email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
   end
 
   def capture(name)

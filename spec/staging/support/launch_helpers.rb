@@ -173,6 +173,25 @@ module LaunchHelpers
     expect(page).to have_content('Set up the Wiki Education Dashboard')
   end
 
+  # The student-side Canvas walk: log into Canvas, open the course's Wiki
+  # Education tab, break out of the iframe through Wikipedia OAuth, and land
+  # at top level on the dashboard. `before_breakout` runs after the tab is
+  # open but before the break-out, for capturing the in-iframe landing. A
+  # brand-new dashboard user gets routed through /onboarding before the LTI
+  # launch resumes; walk it (silent no-op on a returning, already-onboarded
+  # user). Must be called inside `in_student_browser`.
+  def student_walk_to_dashboard(canvas_course_id:, email:, before_breakout: nil)
+    in_canvas do
+      ensure_canvas_logged_in_as_student
+      visit_canvas_course(canvas_course_id)
+      click_wiki_education_tab
+      before_breakout&.call
+      break_out_of_canvas_iframe(role: :student)
+    end
+    dismiss_consent_banner
+    walk_through_onboarding(real_name: 'LTI Test Student', email:)
+  end
+
   # On the dashboard's setup view, identify the course we want to link
   # and submit. The form's `course_slug` field is a select whose
   # options' visible text is the slug itself; older deployed-staging

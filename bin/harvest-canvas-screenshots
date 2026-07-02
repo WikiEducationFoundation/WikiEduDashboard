@@ -36,6 +36,7 @@ ROOT = File.expand_path('..', __dir__)
 ROLE_SPECS = {
   'instructor'      => 'spec/staging/instructor_setup_screenshots_spec.rb',
   'student'         => 'spec/staging/student_screenshots_spec.rb',
+  'active_course'   => 'spec/staging/instructor_active_course_screenshots_spec.rb',
   'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb',
   'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
 }.freeze
