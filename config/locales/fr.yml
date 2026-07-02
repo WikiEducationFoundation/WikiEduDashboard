@@ -1050,7 +1050,7 @@ fr:
     retain_available_articles_info_wikidata: Si activé, la sélection d’un article
       disponible ne le retire pas de la liste, ce qui permet à un groupe d’étudiants
       de sélectionner le même article.
-    retention_predictors: Producteurs de rétention
+    retention_predictors: Prédicteurs de rétention
     review_timeline: 'Veuillez consulter maintenant votre agenda d’affectation et
       y faire les adaptations qui conviennent. Une fois satisfait, soumettez-le pour
       approbation par l’équipe de Wiki Éducation. Une fois cet agenda approuvé, vous
@@ -1514,17 +1514,17 @@ fr:
       modifiée » ou « Revendication créée ».
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
-    lemmas: Lemms
+    lemmas: Lemmes
     language: Langue
     lexical_category: Catégorie lexicale
     forms: Formulaires
-    form_claims: Déclation du formulaire
-    form_references: Référence des formes
-    form_qualifiers: Form qualifier
+    form_claims: Déclarations du formulaire
+    form_references: Références de formes
+    form_qualifiers: Qualificatifs de formulaire
     senses: Sens
     glosses: Gloses
-    sense_claims: Affirmation du sens
-    sense_references: Référence des sens
+    sense_claims: Affirmations de sens
+    sense_references: Références des sens
     sense_qualifiers: Qualificatifs de sens
   namespace:
     all: Tous
@@ -1701,10 +1701,10 @@ fr:
   status:
     active_jobs: Tâches en cours
     active_jobs_doc: Le nombre de tâches en cours de traitement.
-    acuwt_update: Mise à jour d'ACUWT
+    acuwt_update: Mise à jour d’ACUWT
     acuwt_update_description: ACUWT met à jour les programmes de cours basés sur des
-      articles comportant des milliers d'articles.
-    acuwt_update_doc: Gérer les mise à jour des cours du programme portant sur des
+      articles comportant des milliers d’articles.
+    acuwt_update_doc: Gérer les mises à jour des cours du programme portant sur des
       articles de grande envergure.
     all_queues_operational: Toutes les files d’attente sont opérationnelles
     all_queues_not_operational: Toutes les files d’attente sont opérationnelles sauf

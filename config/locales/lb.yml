@@ -655,6 +655,9 @@ lb:
     exercise_sandbox: Übungssandkaul
     take_your_time: Huelt Iech wgl. Zäit!
     close: ZOUMAACHEN
+  claim_verification:
+    admin:
+      status: 'Status: %{status}'
   update_username:
     label: Neie Benotzernumm
     button: Aktualiséieren

@@ -149,4 +149,9 @@ sw:
     contributions_history_full: Tazama historia kamili ya uchangiaji
     no_highlighting: Hakuna maandishi kutoka kwa toleo la sasa la kifungu hicho yanayotokana
       na mhariri huyu. Angalia historia ya ukurasa ili uone mabadiliko yao.
+  wizard:
+    calendar_instructions: Chagua tarehe za kuziongeza au kuziondoa kwenye ratiba
+      (km, likizo, hakuna shule). Hii husaidia zana ya kuunda kozi kupanga kwa usahihi
+      kazi zako. Bofya tarehe ili kubadilisha kati ya hali isiyochaguliwa, iliyochaguliwa,
+      na hali ya likizo.
 ...
