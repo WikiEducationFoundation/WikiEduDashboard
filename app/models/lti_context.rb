@@ -37,4 +37,13 @@ class LtiContext < ApplicationRecord
   def linked?
     user_id.present?
   end
+
+  # Whether this membership's LMS roles mark it as course staff
+  # (instructor/administrator/mentor) rather than a learner. The "Synced
+  # students" metric excludes these; mirrors LtiSession's role classification.
+  def instructor?
+    Array(roles).any? do |role|
+      LtiSession::INSTRUCTOR_ROLES.any? { |suffix| role.to_s.end_with?(suffix) }
+    end
+  end
 end

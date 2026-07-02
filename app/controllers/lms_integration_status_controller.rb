@@ -59,7 +59,9 @@ class LmsIntegrationStatusController < ApplicationController
     {
       last_sync_at: binding.last_grade_sync_at,
       last_sync_error_present: binding.last_grade_sync_error.present?,
-      synced_students_count: binding.lti_contexts.linked.count
+      # Students only — a bound course's instructor also has a linked context,
+      # and counting it would report "1 synced student" before anyone signs in.
+      synced_students_count: binding.lti_contexts.linked.reject(&:instructor?).size
     }
   end
 

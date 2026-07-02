@@ -79,6 +79,19 @@ describe LmsIntegrationStatusController, type: :request do
         get request_path
         expect(JSON.parse(response.body)['synced_students_count']).to eq(1)
       end
+
+      it 'excludes the instructor-role linked context from the count' do
+        learner = create(:user, username: 'LinkedLearner')
+        teacher = create(:user, username: 'LinkedTeacher')
+        LtiContext.create!(lti_course_binding: binding, user: learner,
+                           user_lti_id: 's1', lms_id: 'platform-x',
+                           roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'])
+        LtiContext.create!(lti_course_binding: binding, user: teacher,
+                           user_lti_id: 't1', lms_id: 'platform-x',
+                           roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor'])
+        get request_path
+        expect(JSON.parse(response.body)['synced_students_count']).to eq(1)
+      end
     end
 
     context 'viewed by a site admin who is not enrolled on the course' do

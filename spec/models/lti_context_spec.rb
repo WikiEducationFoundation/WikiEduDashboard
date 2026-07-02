@@ -61,4 +61,24 @@ describe LtiContext do
       expect(unlinked).not_to be_linked
     end
   end
+
+  describe '#instructor?' do
+    it 'is true when a role matches an instructor suffix' do
+      ctx = described_class.new(
+        roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor']
+      )
+      expect(ctx).to be_instructor
+    end
+
+    it 'is false for a learner role' do
+      ctx = described_class.new(
+        roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+      )
+      expect(ctx).not_to be_instructor
+    end
+
+    it 'is false when no roles are recorded' do
+      expect(described_class.new).not_to be_instructor
+    end
+  end
 end

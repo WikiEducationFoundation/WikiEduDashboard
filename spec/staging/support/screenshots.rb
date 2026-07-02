@@ -40,4 +40,22 @@ module ScreenshotHelper
     page.execute_script('arguments[0].scrollIntoView({ block: "center" })', el)
     el
   end
+
+  # Screenshot the whole page, not just the viewport, so a surface that lives
+  # below the fold — like the LMS-integration status panel in the course sidebar
+  # — is included. Grows the window to the document height and uses the reliable
+  # viewport-capture path (direct CDP element/full-page capture hangs against
+  # this harness's software renderer). Needs a headless run: a nested Xephyr
+  # screen can't grow past its fixed height. Dismiss the consent banner first, or
+  # its fixed bottom overlay covers whatever sits at the fold.
+  def save_full_page_screenshot_to(dir, name)
+    window = page.current_window
+    original = window.size
+    height = [page.evaluate_script('document.documentElement.scrollHeight').to_i + 120, 4000].min
+    window.resize_to(original.first, height)
+    sleep 0.4 # let the taller layout settle before capturing
+    save_screenshot_to(dir, name)
+  ensure
+    window.resize_to(*original)
+  end
 end

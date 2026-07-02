@@ -12,18 +12,21 @@ require_relative 'spec_helper'
 #   bin/staging-feature-spec spec/staging/instructor_active_course_screenshots_spec.rb
 #
 # The instructor binds the course (arriving via the Canvas launch), then:
-#   - BEFORE any student has launched: the instructor's course home shows a
-#     student-editor count of 0 and the roster (which lists students only) is empty.
+#   - BEFORE any student has launched: the LMS-integration status panel reads
+#     "Synced students: 0" and the roster (which lists students only) is empty.
 #   - A student walks their own launch + Wikipedia OAuth, linking their account;
 #     a roster sync then enrolls the now-linked student into the Dashboard course.
-#   - AFTER: the course home's student-editor count is 1 and the student appears
-#     in the roster.
+#   - AFTER: the panel reads "Synced students: 1" and the student appears in the
+#     roster.
 #
-# A student's own launch links their LTI context (link_lti_user sets user_id); a
-# Canvas enrollment alone stays "deferred" (see LtiMemberLinker). Enrollment into
-# the Dashboard course/roster (JoinCourse) — which is what the home count and the
-# roster reflect — happens when the roster sync processes that linked context,
-# which is why the after shots run one first.
+# The panel counts linked, non-instructor contexts, so a student's own launch
+# (link_lti_user sets user_id) advances it; a Canvas enrollment alone stays
+# "deferred" (see LtiMemberLinker). Enrollment into the Dashboard roster
+# (JoinCourse) happens when the roster sync processes that linked context, which
+# is why the after shots run one first. The panel lives in the course sidebar, so
+# the course-home shots are full-page captures (save_full_page_screenshot_to) to
+# include it — RUN THIS SPEC HEADLESS (HEADLESS=1): the full-page capture grows the
+# window past a nested Xephyr screen's fixed height.
 #
 # Two browser personas (instructor default profile + student profile); both must
 # be bootstrapped once — see docs/staging_feature_specs.md.
@@ -107,15 +110,19 @@ describe 'Instructor active-course screenshots', :staging do
     course['slug']
   end
 
-  # Screenshot the instructor's course home (overview stats, incl. the
-  # student-editor count) and the students roster. `await_lms_panel` doubles as a
-  # load gate that the bound course + its integration data have rendered. When
-  # `expect_student` is given, wait for that username in the roster first, so the
-  # "after" shots are captured only once the sync has landed.
+  # Screenshot the instructor's full course home (a full-page capture, so the
+  # LMS-integration status panel — "Synced students" — in the sidebar is included,
+  # not just the above-the-fold overview stats) and the students roster.
+  # `await_lms_panel` doubles as a load gate that the bound course + its
+  # integration data have rendered. When `expect_student` is given, wait for that
+  # username in the roster first, so the "after" shots land only once the sync has.
   def capture_instructor_course_state(slug, home:, roster:, expect_student: nil)
     in_dashboard { visit "/courses/#{slug}/home" }
     await_lms_panel
-    capture(home)
+    # The consent banner is a fixed bottom overlay; dismiss it (sets a cookie, so
+    # it stays gone) or it covers the panel where it sits near the page fold.
+    dismiss_consent_banner
+    save_full_page_screenshot_to(screenshot_dir, home)
     in_dashboard { visit "/courses/#{slug}/students/overview" }
     expect(page).to have_css('.list__wrapper', wait: 20)
     expect(page).to have_content(expect_student, wait: 30) if expect_student
