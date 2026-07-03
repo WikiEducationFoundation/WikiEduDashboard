@@ -278,6 +278,35 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip
   end
 
+  # Fabricate linked LtiContexts for a set of Wikipedia usernames on the course's
+  # bound binding, so the instructor roster shows a realistic multi-student class
+  # without driving N browser logins (the way real launches would populate it).
+  # Creates the Dashboard user when missing. Returns the usernames that linked.
+  def link_students(course_slug:, usernames:)
+    script = <<~'RUBY'.gsub('__SLUG__', course_slug).gsub('__USERNAMES__', usernames.to_json)
+      require 'json'
+      course = Course.find_by!(slug: '__SLUG__')
+      binding = LtiCourseBinding.find_by!(course_id: course.id)
+      linked = []
+      JSON.parse('__USERNAMES__').each_with_index do |username, i|
+        user = User.find_or_create_by(username: username)
+        next unless user.persisted?
+
+        ctx = LtiContext.find_or_initialize_by(lti_course_binding_id: binding.id,
+                                               user_lti_id: "gallery-#{i}")
+        ctx.user = user
+        ctx.lms_id = binding.lms_id
+        ctx.name = username
+        ctx.roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+        ctx.linked_at = Time.current
+        ctx.save!
+        linked << username
+      end
+      puts linked.to_json
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
   # Promote the NRPS-discovered (but Wikipedia-unlinked) student context to
   # a fully linked one, the way a real student launch would: point its
   # user_id at the dashboard User for the given Wikipedia username and

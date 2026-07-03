@@ -3,32 +3,27 @@
 require_relative 'spec_helper'
 
 # Captures the assignment_view drill-down (user story I-11, plus the
-# student-facing S-11/S-14 panel) as it renders through a real Canvas
-# launch: opening a Wikipedia gradebook column's assignment page inside
-# Canvas, breaking out of the embedded tool iframe, and landing on the
-# dashboard's /lti dispatch — the instructor roster, or the launching
-# student's own panel.
+# student-facing S-11/S-14 panel) as it renders through a real Canvas launch:
+# opening a Wikipedia gradebook column's assignment page inside Canvas, breaking
+# out of the embedded tool iframe, and landing on the dashboard's /lti dispatch —
+# the instructor roster, or the launching student's own panel.
+#
+# The roster is populated with several students (link_students) so it reads like a
+# real class: some completed the exercise with sandbox content, some didn't. Each
+# row's "Preview" toggle renders that student's Wikipedia sandbox inline via a
+# client-side fetch; this spec expands + captures it for a student who has content.
 #
 # The assignment_view is reached from a DEEP-LINK-created assignment. Canvas does
 # NOT echo the deep-link content-item custom, so the launch carries no `resource`
 # marker — only its own AGS lineItemId. `BuildLtiDeepLinkForm` tags that line item
 # with the gradable, so `ResolveAssignmentLineItem` reads the tag off it (via AGS)
 # and binds the deep-link assignment's own column — the gradable's canonical one.
-# The provisioning below just creates the launchable assignment through the picker
-# (`create_deep_linked_assignment`), named distinctly from any auto-synced column
-# so it's unambiguously findable; no separate line-item sync is needed.
 #
-# Prerequisite: deployed staging must carry the deep-link fixes — the picker's
-# framing fix (deep_link/deep_link_select in #allow_iframe) and
-# `ResolveAssignmentLineItem`'s tag-based binding — or the launch orphans.
+# Prerequisite: deployed staging must carry the deep-link fixes (framing +
+# tag-based binding + inline sandbox preview), and the "completed" gallery accounts
+# must have sandbox content at User:<name>/Evaluate_an_Article (Sage-provided).
 #
 #   bin/staging-feature-spec spec/staging/assignment_view_screenshots_spec.rb
-#
-# Provisions a fresh Canvas + dashboard course with one linked student who
-# has completed the exercise (so the roster shows a Completed row with a
-# sandbox link), captures the screenshots, and tears everything down on
-# completion. Skips cleanly if the student dashboard account doesn't exist
-# yet (run g7 once to create it).
 describe 'Assignment view drill-down screenshots', :staging do
   let(:required_env) do
     %w[
@@ -47,11 +42,16 @@ describe 'Assignment view drill-down screenshots', :staging do
   let(:canvas_course_name) { "Wiki Editing Demo (AV) #{run_id}" }
   let(:dashboard_title)    { 'Wiki Editing Demo AV' }
   let(:dashboard_school)   { 'Demo School' }
-  let(:student_username)   { ENV.fetch('WIKIPEDIA_TEST_STUDENT_USERNAME') }
   let(:student_canvas_id)  { ENV.fetch('CANVAS_TEST_STUDENT_USER_ID') }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
   let(:screenshot_dir)     { canvas_shots_dir('assignment_view') }
+  # Sage-provided test accounts. The first two have sandbox content at
+  # User:<name>/Evaluate_an_Article (→ "Completed" + a rendered preview); the
+  # others have none (→ "Not started", empty preview).
+  let(:gallery_students)   { ['Ragetest 9', 'Ragetest 37', 'Ragetest 11', 'Ragetest 14'] }
+  let(:completed_students) { ['Ragetest 9', 'Ragetest 37'] }
+  let(:preview_student)    { 'Ragetest_9' } # URL-encoded; has the richest sandbox
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
@@ -86,34 +86,32 @@ describe 'Assignment view drill-down screenshots', :staging do
     end
   end
 
-  it 'captures the instructor roster and the student panel' do
+  it 'captures the multi-student roster, a sandbox preview, and the student panel' do
     slug = provisioned[:dashboard_course_slug]
     timeline = provisioned[:timeline]
     label = timeline['exercise_line_item_label']
 
     assignment_id = prepare_completed_exercise_column(slug:, timeline:, label:)
-    skip('student account not found on dashboard; run g7 once') if assignment_id == :no_student
+    skip('gallery student accounts not found on staging') if assignment_id == :no_student
 
     capture_instructor_roster(assignment_id:, label:)
     capture_student_panel(assignment_id:)
   end
 
-  # Bind the course, sync the roster, link + complete the exercise for one student,
-  # then create a launchable deep-link assignment whose launch resolves (via its
-  # line item's tag) to that gradable. Returns the Canvas assignment id, or
-  # :no_student when the student dashboard account isn't present.
+  # Bind the course, link a roster of students (fabricated contexts), mark the ones
+  # with sandbox content complete, then create the launchable deep-link assignment
+  # whose launch resolves (via its line item's tag) to that gradable. Returns the
+  # Canvas assignment id, or :no_student when no gallery accounts could be linked.
   def prepare_completed_exercise_column(slug:, timeline:, label:)
     bind_course_as_instructor(canvas_course_id: provisioned[:canvas_course_id], course_slug: slug)
-    binding = DashboardAdminClient.find_binding(course_slug: slug)
-    DashboardAdminClient.run_roster_sync(binding_id: binding['id'])
-    linked = DashboardAdminClient.link_student_context(course_slug: slug,
-                                                       username: student_username)
-    return :no_student if linked == 'no_user'
+    linked = DashboardAdminClient.link_students(course_slug: slug, usernames: gallery_students)
+    return :no_student if linked.empty?
 
-    DashboardAdminClient.mark_exercise_complete(
-      course_slug: slug, username: student_username,
-      exercise_module_id: timeline['exercise_module_id']
-    )
+    completed_students.each do |username|
+      DashboardAdminClient.mark_exercise_complete(
+        course_slug: slug, username:, exercise_module_id: timeline['exercise_module_id']
+      )
+    end
     create_and_find_drilldown_assignment(label:)
   end
 
@@ -140,8 +138,18 @@ describe 'Assignment view drill-down screenshots', :staging do
     end
     dismiss_consent_banner
     expect(page).to have_content(label, wait: 20)
-    expect(page).to have_content('Completed')
+    expect(page).to have_content('Ragetest 9')
     capture('02-instructor-roster')
+    expand_sandbox_preview
+    capture('03-instructor-sandbox-preview')
+  end
+
+  # Expand a completed student's "Preview" toggle and wait for the client-side
+  # fetch to render their sandbox content inline.
+  def expand_sandbox_preview
+    find(".lti-sandbox__toggle[data-sandbox-url*='#{preview_student}']").click
+    expect(page).to have_css('.lti-sandbox__content--rendered', wait: 25)
+    sleep 1 # let the injected content settle before capturing
   end
 
   def capture_student_panel(assignment_id:)
@@ -154,7 +162,7 @@ describe 'Assignment view drill-down screenshots', :staging do
       end
       dismiss_consent_banner
       expect(page).to have_content('Your sandbox', wait: 20)
-      capture('03-student-panel')
+      capture('04-student-panel')
     end
   end
 
