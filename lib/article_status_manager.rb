@@ -16,7 +16,7 @@ require_dependency "#{Rails.root}/lib/assignment_updater"
 #   should be included in course statistics.
 #   TODO: this class can probably be made simpler
 
-class ArticleStatusManagerTimeslice
+class ArticleStatusManager
   def initialize(course, wiki = nil)
     @course = course
     @wiki = wiki || Wiki.default_wiki

@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
-require "#{Rails.root}/lib/article_status_manager_timeslice"
+require "#{Rails.root}/lib/article_status_manager"
 
-describe ArticleStatusManagerTimeslice do
+describe ArticleStatusManager do
   before do
     stub_wiki_validation
     stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
