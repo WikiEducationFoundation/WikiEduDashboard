@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'cgi'
+
 # Resolves which LtiLineItem an `assignment_view` launch refers to, so the
 # controller can render the right gradebook column's drill-down.
 #
@@ -79,6 +81,10 @@ class ResolveAssignmentLineItem
     resource = @lti_session.deep_link_resource
     return if resource.blank? || @binding.course.nil?
 
-    DeepLinkableGradables.new(@binding.course).result.find { |g| g.resource == resource }
+    # Match the raw marker and a CGI-unescaped form: the deep-link launch URL
+    # carries the resource CGI-escaped (e.g. "Block%3A42"), and some launches
+    # surface that escaped value rather than the clean content-item custom.
+    candidates = [resource, CGI.unescape(resource)].uniq
+    DeepLinkableGradables.new(@binding.course).result.find { |g| candidates.include?(g.resource) }
   end
 end
