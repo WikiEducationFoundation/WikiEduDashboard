@@ -39,6 +39,7 @@ ROLE_SPECS = {
   'active_course'   => 'spec/staging/instructor_active_course_screenshots_spec.rb',
   'canvas_gradebook' => 'spec/staging/canvas_gradebook_screenshots_spec.rb',
   'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb',
+  'full_course'     => 'spec/staging/full_course_screenshots_spec.rb',
   'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
 }.freeze
 
@@ -71,7 +72,8 @@ end
 
 def roles_to_run
   unknown = ARGV - ROLE_SPECS.keys
-  abort "Unknown role(s): #{unknown.join(', ')}. Known: #{ROLE_SPECS.keys.join(', ')}" if unknown.any?
+  abort "Unknown role(s): #{unknown.join(', ')}. Known: #{ROLE_SPECS.keys.join(', ')}" \
+    if unknown.any?
   ARGV.empty? ? ROLE_SPECS.keys : ARGV
 end
 

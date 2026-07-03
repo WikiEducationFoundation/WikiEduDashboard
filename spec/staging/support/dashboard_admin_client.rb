@@ -216,6 +216,68 @@ module DashboardAdminClient
     DashboardConsole.run_json(script)
   end
 
+  # Build a realistic multi-week timeline — the standard article-writing
+  # milestones, one exercise per week, plus one training block on week 1 (so the
+  # trainings-rollup column exists). Picked by slug from the staging library.
+  # Returns the training module id and one entry per exercise block
+  # ({ block_id, label, module_id, sandbox }) in timeline order, so the gallery
+  # spec can build its columns, drill into the sandbox ones, and mark progress.
+  def build_full_timeline(course_slug:)
+    script = <<~'RUBY'.gsub('__SLUG__', course_slug)
+      require 'json'
+      course = Course.find_by!(slug: '__SLUG__')
+      milestone_slugs = %w[
+        evaluate-wikipedia-exercise choose-topic-exercise bibliography-exercise
+        outline-exercise continue-improving-exercise copyedit-exercise
+        reflective-essay-exercise
+      ]
+      by_slug = TrainingModule.all.index_by(&:slug)
+      training = TrainingModule.all.reject(&:exercise?).first
+      blocks = []
+      milestone_slugs.each_with_index do |slug, idx|
+        mod = by_slug[slug]
+        next unless mod
+
+        wk = idx + 1
+        week = course.weeks.find_or_create_by!(order: wk) { |w| w.title = "Week #{wk}" }
+        if idx.zero? && training
+          week.blocks.find_or_create_by!(title: 'Trainings') do |b|
+            b.kind = Block::KINDS['in_class']
+            b.order = 1
+            b.training_module_ids = [training.id]
+          end
+        end
+        block = week.blocks.find_or_create_by!(title: mod.name) do |b|
+          b.kind = Block::KINDS['assignment']
+          b.order = 2
+          b.training_module_ids = [mod.id]
+        end
+        blocks << { block_id: block.id, label: "Wk#{wk} #{mod.name}",
+                    module_id: mod.id, sandbox: mod.sandbox_location }
+      end
+      puts({ training_module_id: training&.id, blocks: blocks }.to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
+  # Fast path for the full-course gallery: create a Canvas gradebook column per
+  # given exercise block via AGS (tagged `Block:<id>`), standing in for the
+  # instructor deep-linking each. SyncLtiLineItems' discovery then binds them.
+  # `blocks` is the build_full_timeline entries to columnize. Returns 'ok'.
+  def upsert_exercise_columns(binding_id:, blocks:)
+    items = blocks.map { |b| { 'id' => b['block_id'], 'label' => b['label'] } }
+    script = <<~RUBY
+      require 'json'
+      b = LtiCourseBinding.find(#{binding_id})
+      svc = LtiServiceSession.new(b)
+      JSON.parse(#{items.to_json.inspect}).each do |item|
+        svc.upsert_line_item(label: item['label'], tag: "Block:\#{item['id']}")
+      end
+      puts 'ok'
+    RUBY
+    DashboardConsole.run(script).strip
+  end
+
   # Promote the NRPS-discovered (but Wikipedia-unlinked) student context to
   # a fully linked one, the way a real student launch would: point its
   # user_id at the dashboard User for the given Wikipedia username and
