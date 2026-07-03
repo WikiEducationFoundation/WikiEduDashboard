@@ -433,6 +433,27 @@ describe LtiLaunchController, type: :request do
         end
       end
 
+      context 'when it launches through its own (deep-link) resource link' do
+        # A deep-link-created assignment launches via a distinct resource link, so
+        # find_or_create_binding! makes a fresh, empty binding for the launch. The
+        # course + line items live on the context's bound binding, and the roster
+        # must resolve against that one.
+        let(:idtoken) do
+          base = idtoken_for(role)
+          base['launch']['resourceLink'] = { 'id' => 'rl-deep-link-1' }
+          base['custom'] = { 'resource' => "Block:#{block.id}" }
+          base
+        end
+
+        it 'resolves the roster via the context-bound binding, not the launch binding' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Wk2 Evaluate Wikipedia')
+          expect(LtiCourseBinding.find_by(lms_resource_link_id: 'rl-deep-link-1').course_id)
+            .to be_nil
+        end
+      end
+
       context 'when the launch matches no known line item' do
         let(:idtoken) do
           idtoken_for(role).merge('custom' => { 'canvas_assignment_id' => 'unmatched' })

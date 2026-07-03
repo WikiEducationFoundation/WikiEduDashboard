@@ -131,8 +131,13 @@ class LtiLaunchController < ApplicationController
   end
 
   def render_assignment_view
-    line_item = ResolveAssignmentLineItem.new(binding: @binding,
-                                              lti_session: @lti_session).result
+    # A deep-link-created assignment launches through its own Canvas resource
+    # link, so `@binding` (keyed on lms_resource_link_id) is a fresh, empty
+    # binding — the course + synced line items live on the context's *bound*
+    # binding. Resolve against that; fall back to the launch binding if the
+    # context isn't linked to a Dashboard course yet.
+    binding = @lti_session.bound_binding || @binding
+    line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
     if line_item.nil? || line_item.gradable_type != 'Block'
       return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe'
     end
