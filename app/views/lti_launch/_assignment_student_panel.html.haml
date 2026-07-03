@@ -7,6 +7,6 @@
       = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,
                 target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'
       %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': 'sandbox-self', 'aria-expanded': 'false' }
-        = t('lti.assignment_view.preview')
+        = t('lti.assignment_view.show')
     .lti-sandbox__detail{ id: 'sandbox-self', hidden: true }
       .lti-sandbox__content

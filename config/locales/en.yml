@@ -2241,8 +2241,8 @@ en:
       status:
         completed: "Completed"
         not_started: "Not started"
-      view_sandbox: "View sandbox"
-      preview: "Preview"
+      open_on_wikipedia: "Open on Wikipedia"
+      show: "Show"
       roster:
         student: "Student"
         status: "Status"

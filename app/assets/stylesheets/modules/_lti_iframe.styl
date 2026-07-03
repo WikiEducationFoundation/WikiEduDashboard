@@ -100,10 +100,28 @@ body.lti-iframe
   background #eef1f5
   color #5a6b7b
 
-// Sandbox preview: the "Preview" toggle + the lazily-fetched Wikipedia content.
+// Sandbox actions: the "Show" toggle reveals the lazily-fetched Wikipedia
+// content inline; the "Open on Wikipedia" link opens the sandbox in a new tab.
 .lti-sandbox__link
+  display inline-flex
+  align-items center
+  gap 4px
   color #2a5db0
-  margin-right 12px
+  font-size 13px
+  text-decoration none
+
+  &:hover
+    text-decoration underline
+
+  // The shared external-link icon is a padded background image sized for
+  // buttons; shrink and re-center it to sit snugly after this smaller label.
+  .icon-z-external-link
+    display inline-block
+    width 13px
+    height 13px
+    padding 0
+    background-size 11px
+    background-position center
 
 .lti-sandbox__toggle
   background none
@@ -116,6 +134,25 @@ body.lti-iframe
 
 .lti-sandbox__toggle[aria-expanded='true']
   background #eef2f8
+
+// In the instructor roster the "Show" toggle is the primary action — revealing
+// a student's work inline is the point of the view — so it reads as a filled
+// button, while "Open on Wikipedia" stays a quiet secondary link.
+.lti-assignment-roster
+  .lti-sandbox__toggle
+    background #2a5db0
+    border-color #2a5db0
+    color #fff
+    font-weight 600
+    padding 4px 14px
+
+    &:hover
+      background #244f97
+      border-color #244f97
+
+    &[aria-expanded='true']
+      background #244f97
+      border-color #244f97
 
 .lti-sandbox__actions
   display flex

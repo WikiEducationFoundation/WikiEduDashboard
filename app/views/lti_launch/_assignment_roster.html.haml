@@ -17,9 +17,12 @@
               = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
           %td
             - if row.sandbox_url
-              = link_to t('lti.assignment_view.view_sandbox'), row.sandbox_url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link'
-              %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': "sandbox-#{i}", 'aria-expanded': 'false' }
-                = t('lti.assignment_view.preview')
+              .lti-sandbox__actions
+                %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': "sandbox-#{i}", 'aria-expanded': 'false' }
+                  = t('lti.assignment_view.show')
+                = link_to row.sandbox_url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link' do
+                  = t('lti.assignment_view.open_on_wikipedia')
+                  %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
         - if row.sandbox_url
           %tr.lti-sandbox__detail{ id: "sandbox-#{i}", hidden: true }
             %td{ colspan: 3 }
