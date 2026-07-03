@@ -91,9 +91,21 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
 
     set_up_connected_student(slug, binding_id)
     add_not_connected_student(canvas_id, binding_id)
+    add_exercise_column(canvas_id, binding_id)
     DashboardAdminClient.run_grade_sync(binding_id:)
 
     capture_instructor_gradebook(canvas_id)
+  end
+
+  # The exercise column is a deep-link-created assignment (deep-link is canonical
+  # — exercises aren't auto-synced). Create it via the picker, then sync line items
+  # so discovery binds its local row before grade sync posts the exercise score.
+  def add_exercise_column(canvas_id, binding_id)
+    create_deep_linked_assignment(
+      course_id: canvas_id,
+      gradable_label: provisioned[:timeline]['exercise_line_item_label']
+    )
+    DashboardAdminClient.run_line_item_sync(binding_id:)
   end
 
   # Roster-sync so the real student is discovered, link that (sole unlinked)

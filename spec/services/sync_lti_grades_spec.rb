@@ -57,17 +57,14 @@ describe SyncLtiGrades do
     ENV['LTIAAS_API_KEY'] = 'api-key'
     allow(LtiLineItemSyncWorker).to receive(:perform_in)
 
-    # Stub the upstream POST/PUT calls SyncLtiLineItems will make.
+    # Stub the upstream calls SyncLtiLineItems makes: it POSTs the setup + trainings
+    # sentinels and DISCOVERS the deep-link exercise column via GET (exercises are
+    # no longer auto-created). Return that column so its local row binds and grade
+    # sync can push to it.
     stub_request(:post, "https://#{domain}/api/lineitems")
       .with(body: hash_including(label: 'Wikipedia trainings'))
       .to_return(status: 201,
                  body: { id: trainings_lineitem_url, label: 'Wikipedia trainings',
-                         scoreMaximum: 1.0 }.to_json,
-                 headers: { 'Content-Type' => 'application/json' })
-    stub_request(:post, "https://#{domain}/api/lineitems")
-      .with(body: hash_including(label: 'Wk1 Find sources'))
-      .to_return(status: 201,
-                 body: { id: exercise_lineitem_url, label: 'Wk1 Find sources',
                          scoreMaximum: 1.0 }.to_json,
                  headers: { 'Content-Type' => 'application/json' })
     # The always-present setup ("connected") column — matched by tag, since its
@@ -77,6 +74,11 @@ describe SyncLtiGrades do
       .with(body: hash_including(tag: LtiLineItem::SETUP_TYPE))
       .to_return(status: 201,
                  body: { id: setup_lineitem_url, scoreMaximum: 1.0 }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+    stub_request(:get, %r{https://#{domain}/api/lineitems})
+      .to_return(status: 200,
+                 body: { lineItems: [{ 'id' => exercise_lineitem_url,
+                                       'tag' => "Block:#{exercise_block.id}" }] }.to_json,
                  headers: { 'Content-Type' => 'application/json' })
     stub_post_score(setup_lineitem_url)
   end
@@ -142,11 +144,13 @@ describe SyncLtiGrades do
                                  training_module_ids: [other_training.id,
                                                        exercise_module.id])
     mixed_lineitem_url = 'https://lms.example.com/li/mixed'
-    stub_request(:post, "https://#{domain}/api/lineitems")
-      .with(body: hash_including(label: 'Wk1 Evaluate Wikipedia'))
-      .to_return(status: 201,
-                 body: { id: mixed_lineitem_url, label: 'Wk1 Evaluate Wikipedia',
-                         scoreMaximum: 1.0 }.to_json,
+    # Both exercise blocks are deep-link-created; discovery binds them by tag.
+    stub_request(:get, %r{https://#{domain}/api/lineitems})
+      .to_return(status: 200,
+                 body: { lineItems: [
+                   { 'id' => exercise_lineitem_url, 'tag' => "Block:#{exercise_block.id}" },
+                   { 'id' => mixed_lineitem_url, 'tag' => "Block:#{mixed_block.id}" }
+                 ] }.to_json,
                  headers: { 'Content-Type' => 'application/json' })
 
     tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module)

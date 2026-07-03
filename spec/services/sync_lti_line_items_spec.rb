@@ -39,6 +39,8 @@ describe SyncLtiLineItems do
       .to_return(status: 201,
                  body: { id: 'https://lms.example.com/li/setup', scoreMaximum: 1.0 }.to_json,
                  headers: { 'Content-Type' => 'application/json' })
+    # Deep-link exercise-column discovery lists AGS line items; default to none.
+    stub_line_item_list([])
   end
 
   def stub_post_lineitem(label:, lineitem_id: nil)
@@ -51,6 +53,12 @@ describe SyncLtiLineItems do
     lineitem_id
   end
 
+  def stub_line_item_list(items)
+    stub_request(:get, %r{https://#{domain}/api/lineitems})
+      .to_return(status: 200, body: { lineItems: items }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+  end
+
   describe 'lumped granularity' do
     let!(:training_block) do
       create(:block, week: week, order: 0, title: 'Get started on Wikipedia',
@@ -61,20 +69,40 @@ describe SyncLtiLineItems do
                      training_module_ids: [exercise_module.id])
     end
 
-    it 'creates one TrainingProgress sentinel + one line item per exercise block' do
+    it 'creates the setup + trainings sentinels but no exercise columns' do
       stub_post_lineitem(label: 'Wikipedia trainings',
                          lineitem_id: 'https://lms.example.com/li/trainings')
-      stub_post_lineitem(label: 'Wk1 Find sources',
-                         lineitem_id: 'https://lms.example.com/li/find-sources')
 
-      expect { described_class.new(binding) }
-        .to change(LtiLineItem, :count).by(3)
+      expect { described_class.new(binding) }.to change(LtiLineItem, :count).by(2)
+      expect(LtiLineItem.pluck(:gradable_type))
+        .to contain_exactly(LtiLineItem::SETUP_TYPE, LtiLineItem::TRAINING_PROGRESS_TYPE)
+    end
 
-      types = LtiLineItem.pluck(:gradable_type)
-      expect(types).to contain_exactly(LtiLineItem::SETUP_TYPE,
-                                       LtiLineItem::TRAINING_PROGRESS_TYPE, 'Block')
-      expect(LtiLineItem.find_by(gradable_type: 'Block').gradable_id)
-        .to eq(exercise_block.id)
+    it 'discovers a deep-link exercise column by tag and binds a local row' do
+      stub_post_lineitem(label: 'Wikipedia trainings')
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
+                             'tag' => "Block:#{exercise_block.id}" }])
+
+      expect { described_class.new(binding) }.to change(LtiLineItem, :count).by(3)
+      row = LtiLineItem.find_by(gradable_type: 'Block', gradable_id: exercise_block.id)
+      expect(row.lineitem_id).to eq('https://lms.example.com/li/ex')
+      expect(row).not_to be_archived
+    end
+
+    it 'archives a bound exercise row once its Canvas column is gone' do
+      stub_post_lineitem(label: 'Wikipedia trainings')
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
+                             'tag' => "Block:#{exercise_block.id}" }])
+      described_class.new(binding)
+      expect(LtiLineItem.active.count).to eq(3) # setup + trainings + discovered exercise
+
+      exercise_block.destroy
+      stub_line_item_list([]) # column no longer discoverable
+      described_class.new(binding)
+
+      row = LtiLineItem.find_by(gradable_type: 'Block', gradable_id: exercise_block.id)
+      expect(row).to be_archived
+      expect(WebMock).not_to have_requested(:delete, %r{/api/lineitems/})
     end
   end
 
@@ -102,16 +130,9 @@ describe SyncLtiLineItems do
         .to contain_exactly([LtiLineItem::SETUP_TYPE, nil],
                             ['Block', training_block.id], ['Block', exercise_block.id])
     end
-  end
 
-  describe 're-sync after a block is renamed' do
-    let!(:exercise_block) do
-      create(:block, week: week, order: 1, title: 'Find sources',
-                     training_module_ids: [exercise_module.id])
-    end
-
-    it 'PUTs a label change to LTIAAS' do
-      stub_post_lineitem(label: 'Wikipedia trainings')
+    it 'PUTs a label change to LTIAAS when a block it owns is renamed' do
+      stub_post_lineitem(label: 'Wk1 Get started')
       stub_post_lineitem(label: 'Wk1 Find sources',
                          lineitem_id: 'https://lms.example.com/li/find-sources')
       described_class.new(binding)
@@ -127,34 +148,6 @@ describe SyncLtiLineItems do
       described_class.new(binding)
 
       expect(put_stub).to have_been_requested
-    end
-  end
-
-  describe 'soft-archive on stale gradable' do
-    let!(:training_block) do
-      create(:block, week: week, order: 0, title: 'Get started',
-                     training_module_ids: [training_module.id])
-    end
-    let!(:exercise_block) do
-      create(:block, week: week, order: 1, title: 'Find sources',
-                     training_module_ids: [exercise_module.id])
-    end
-
-    it 'archives the LtiLineItem locally without DELETEing in LTIAAS' do
-      stub_post_lineitem(label: 'Wikipedia trainings')
-      stub_post_lineitem(label: 'Wk1 Find sources',
-                         lineitem_id: 'https://lms.example.com/li/find-sources')
-      described_class.new(binding)
-      expect(LtiLineItem.active.count).to eq(3) # setup + trainings + exercise
-
-      exercise_block.destroy
-      described_class.new(binding)
-
-      expect(LtiLineItem.active.count).to eq(2) # setup + trainings sentinels
-      archived = LtiLineItem.archived.first
-      expect(archived.gradable_type).to eq('Block')
-      expect(archived.gradable_id).to eq(exercise_block.id)
-      expect(WebMock).not_to have_requested(:delete, %r{/api/lineitems/})
     end
   end
 

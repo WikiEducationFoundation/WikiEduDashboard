@@ -5,9 +5,12 @@
 #
 # Granularity controls the desired line-item set
 # (LtiCourseBinding#gradebook_granularity):
-#   - 'lumped' (default): one rolled-up `TrainingProgress` line item for
-#     all training-kind module progress, plus one line item per *exercise*
-#     block (a Block whose training_module_ids include any kind=1 module).
+#   - 'lumped' (default): one rolled-up `TrainingProgress` line item for all
+#     training-kind module progress. Exercise columns are NOT auto-created —
+#     instructors add the ones they want via the deep-link picker (deep-link is
+#     canonical). This service instead DISCOVERS those columns (matched by our
+#     `Block:<id>` tag) and binds local rows, so grade sync reaches them without
+#     waiting for an instructor to open the tool.
 #   - 'per_block': one line item per Block that has any training_module_ids.
 #
 # v1 line-item lifecycle:
@@ -41,7 +44,9 @@ class SyncLtiLineItems
     desired.each do |gradable_type, gradable_id, label|
       reconcile(gradable_type, gradable_id, label, existing)
     end
-    archive_stale(existing, desired)
+    kept = desired.map { |type, id, _| [type, id] }
+    kept += discover_deep_linked_exercises(existing) if @binding.lumped?
+    archive_stale(existing, kept)
   end
 
   def desired_line_items
@@ -52,12 +57,32 @@ class SyncLtiLineItems
   end
 
   def lumped_desired
-    desired = []
-    desired << [LtiLineItem::TRAINING_PROGRESS_TYPE, nil, lumped_training_label] if any_trainings?
-    exercise_blocks.each do |block|
-      desired << ['Block', block.id, label_for_block(block)]
+    return [] unless any_trainings?
+
+    [[LtiLineItem::TRAINING_PROGRESS_TYPE, nil, lumped_training_label]]
+  end
+
+  # Instructors create exercise columns via the deep-link picker; we don't. Find
+  # any that exist in Canvas — matched by our `Block:<id>` tag — and bind a local
+  # row (creating or reviving) so grade sync + the roster resolve to them. Returns
+  # the bound gradable keys so archive_stale keeps them (they aren't in `desired`).
+  def discover_deep_linked_exercises(existing)
+    by_tag = @service.list_line_items.index_by { |item| item['tag'] }
+    exercise_blocks.filter_map do |block|
+      canvas_item = by_tag[tag_for('Block', block.id)]
+      next unless canvas_item
+
+      bind_discovered_line_item(block, canvas_item, existing)
+      ['Block', block.id]
     end
-    desired
+  end
+
+  def bind_discovered_line_item(block, canvas_item, existing)
+    line_item = existing[['Block', block.id]] ||
+                LtiLineItem.new(lti_course_binding: @binding,
+                                gradable_type: 'Block', gradable_id: block.id)
+    line_item.update!(lineitem_id: canvas_item['id'],
+                      label: label_for_block(block), archived_at: nil)
   end
 
   def per_block_desired
@@ -142,11 +167,11 @@ class SyncLtiLineItems
     line_item.update!(label:)
   end
 
-  def archive_stale(existing, desired)
-    desired_keys = desired.map { |type, id, _| [type, id] }.to_set
-    existing.each do |key, line_item|
-      next if desired_keys.include?(key)
-      next if line_item.archived?
+  def archive_stale(existing, kept_keys)
+    kept = kept_keys.to_set
+    existing.each_value do |line_item|
+      key = [line_item.gradable_type, line_item.gradable_id]
+      next if kept.include?(key) || line_item.archived?
 
       line_item.archive!
     end
