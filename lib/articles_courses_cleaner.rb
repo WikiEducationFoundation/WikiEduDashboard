@@ -132,7 +132,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   def reset_undeleted_or_retracked_articles
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
-      @course.articles_from_timeslices(wiki.id)
+      @course.legacy_articles_from_timeslices(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
         tracked = @course.tracked_namespaces.flat_map do |wiki_ns|
           wiki_id = wiki_ns[:wiki].id

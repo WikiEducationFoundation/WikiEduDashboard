@@ -415,10 +415,23 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
-  # Retrieve articles based on the existing article course timeslices.
+  # Retrieve articles based on the existing article course user wiki timeslices.
   # This includes both tracked and untracked articles, such as those that
   # don't belong to a tracked namespace.
+  # ACUWT carries its own wiki_id, so we filter on the timeslice's wiki_id directly
+  # instead of joining through the article's wiki. This also surfaces out-of-scope
+  # articles that keep their ACUWT rows after their ACT rows are removed, which the
+  # legacy ACT-based query below would miss.
   def articles_from_timeslices(wiki_id)
+    Article.joins(:article_course_user_wiki_timeslices)
+           .where(article_course_user_wiki_timeslices: { course_id: id, wiki_id: })
+           .distinct
+  end
+
+  # Legacy, ACT-based counterpart of articles_from_timeslices. Still used by the
+  # timeslice cleaners and by ArticleStatusManager's non-ACUWT path. To be removed
+  # once every course is on the ACUWT update path.
+  def legacy_articles_from_timeslices(wiki_id)
     Article.joins(:article_course_timeslices)
            .where(article_course_timeslices: { course_id: id })
            .where(wiki_id:)
