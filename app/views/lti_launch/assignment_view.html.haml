@@ -3,10 +3,8 @@
 - # roster of students × completion + sandbox links; a student sees their
 - # own panel. Heading is the line item's own label (real timeline content,
 - # e.g. "Wk2 Evaluate Wikipedia").
-.container.narrow
-  .section-header
-    %h3= @context.title
-  %hr
+.lti-iframe__drilldown
+  %h2.lti-iframe__drilldown-title= @context.title
   - if @context.instructor?
     = render 'lti_launch/assignment_roster'
   - else

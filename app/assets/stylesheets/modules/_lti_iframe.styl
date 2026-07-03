@@ -33,3 +33,69 @@ body.lti-iframe
 
 .lti-iframe__button
   display inline-block
+
+// Assignment_view drill-down (instructor roster / student panel). Unlike the
+// centered landing, this is a top-aligned card that can hold a full roster.
+.lti-iframe__drilldown
+  align-self flex-start
+  width 100%
+  max-width 640px
+  margin 40px auto
+  padding 28px 32px
+  background #fff
+  border 1px solid #e3e8ee
+  border-radius 8px
+  box-shadow 0 1px 3px rgba(0, 0, 0, .06)
+  text-align left
+
+.lti-iframe__drilldown-title
+  margin 0 0 20px
+  padding-bottom 14px
+  border-bottom 2px solid #2a5db0
+  font-size 20px
+  color #17212b
+
+.lti-iframe__empty
+  color #5a6b7b
+
+.lti-iframe__panel
+  display flex
+  flex-direction column
+  align-items flex-start
+  gap 16px
+
+.lti-assignment-roster
+  width 100%
+  border-collapse collapse
+  font-size 14px
+
+  th
+    text-align left
+    font-weight 600
+    color #5a6b7b
+    padding 8px 12px
+    border-bottom 2px solid #e3e8ee
+
+  td
+    padding 10px 12px
+    border-bottom 1px solid #eef1f5
+    color #17212b
+    vertical-align middle
+
+.lti-assignment-roster__link
+  color #2a5db0
+
+.lti-status
+  display inline-block
+  padding 2px 10px
+  border-radius 999px
+  font-size 12px
+  font-weight 600
+
+.lti-status--done
+  background #e6f4ea
+  color #1e7e34
+
+.lti-status--pending
+  background #eef1f5
+  color #5a6b7b

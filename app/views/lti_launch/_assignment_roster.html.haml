@@ -1,6 +1,6 @@
 - roster = @context.roster
 - if roster.empty?
-  %p= t('lti.assignment_view.roster.empty')
+  %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
 - else
   %table.lti-assignment-roster
     %thead
@@ -13,10 +13,8 @@
         %tr
           %td= row.name
           %td
-            - if row.completed?
-              = t('lti.assignment_view.status.completed')
-            - else
-              = t('lti.assignment_view.status.not_started')
+            %span.lti-status{ class: row.completed? ? 'lti-status--done' : 'lti-status--pending' }
+              = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
           %td
             - if row.sandbox_url
-              = link_to t('lti.assignment_view.view_sandbox'), row.sandbox_url, target: '_blank', rel: 'noopener'
+              = link_to t('lti.assignment_view.view_sandbox'), row.sandbox_url, target: '_blank', rel: 'noopener', class: 'lti-assignment-roster__link'

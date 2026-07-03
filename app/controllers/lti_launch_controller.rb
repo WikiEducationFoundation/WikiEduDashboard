@@ -138,7 +138,6 @@ class LtiLaunchController < ApplicationController
     # context isn't linked to a Dashboard course yet.
     binding = @lti_session.bound_binding || @binding
     line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
-    log_assignment_view_resolution(binding, line_item) unless Rails.env.production?
     if line_item.nil? || line_item.gradable_type != 'Block'
       return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe'
     end
@@ -146,20 +145,6 @@ class LtiLaunchController < ApplicationController
     @context = AssignmentViewContext.new(line_item:, user: current_user,
                                          instructor: @lti_session.instructor?)
     render 'lti_launch/assignment_view', layout: 'lti_iframe'
-  end
-
-  # Non-production diagnostic for the assignment-view resolution. Logs the marker
-  # value(s) the launch actually carries and whether a line item resolved — no PII
-  # (Canvas ids + our resource marker only). Helps trace launches that orphan.
-  def log_assignment_view_resolution(binding, line_item)
-    ags = @lti_session.idtoken.dig('services', 'assignmentAndGrades')
-    Rails.logger.warn(
-      "[AV] deep_link_resource=#{@lti_session.deep_link_resource.inspect} " \
-      "param_resource=#{params[:resource].inspect} " \
-      "custom=#{@lti_session.idtoken['custom'].inspect} " \
-      "ags_url=#{@lti_session.ags_lineitem_url.inspect} ags_keys=#{ags&.keys.inspect} " \
-      "bound_binding=#{binding&.id} line_item=#{line_item&.id}"
-    )
   end
 
   def handle_instructor_launch
