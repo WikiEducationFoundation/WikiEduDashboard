@@ -5,15 +5,16 @@ require_relative 'spec_helper'
 # Full-course instructor gallery: a bound course with a realistic multi-week
 # timeline (the standard article-writing milestones), one linked student with
 # MIXED progress (early stages done, later ones not), showing how the whole
-# course looks to the instructor:
-#   - the Canvas gradebook with every milestone as a column (Wikipedia account +
-#     Wikipedia trainings + one per exercise), some complete, some not;
-#   - the assignment_view drill-down for the milestones that have sandbox pages.
+# course looks to the instructor — the Canvas gradebook with every milestone as
+# a column (Wikipedia account + Wikipedia trainings + one per exercise), some
+# complete, some not.
 #
-# Exercise columns are deep-link-created (deep-link canonical). The sandbox
-# milestones are deep-linked authentically so they're launchable (→ drill-down);
-# the rest are created fast via AGS (upsert_exercise_columns) as a stand-in for
-# the instructor deep-linking each — the gradebook is identical either way.
+# The per-assignment drill-down (instructor roster + inline sandbox preview) is
+# captured separately in assignment_view_screenshots_spec, which shows it with a
+# full multi-student roster. Here the sandbox milestones are still deep-linked
+# authentically so they're launchable; the rest are created fast via AGS
+# (upsert_exercise_columns) as a stand-in for the instructor deep-linking each —
+# the gradebook is identical either way.
 #
 #   bin/staging-feature-spec spec/staging/full_course_screenshots_spec.rb
 describe 'Full course — instructor gallery', :staging do
@@ -71,7 +72,7 @@ describe 'Full course — instructor gallery', :staging do
     end
   end
 
-  it 'captures the full-course gradebook and the sandbox drill-downs' do
+  it 'captures the full-course gradebook with every milestone column' do
     slug = provisioned[:dashboard_course_slug]
     canvas_id = provisioned[:canvas_course_id]
     blocks = provisioned[:timeline]['blocks']
@@ -80,8 +81,9 @@ describe 'Full course — instructor gallery', :staging do
     result = prepare_full_course(slug:, canvas_id:, blocks:)
     skip('student dashboard account not found; run g7 once') if result == :no_student
 
+    # The per-assignment drill-down (roster + inline sandbox preview) is captured
+    # in assignment_view_screenshots_spec; here we only want the gradebook overview.
     capture_full_gradebook(canvas_id)
-    capture_sandbox_drilldowns(canvas_id, blocks)
   end
 
   # Bind, link the student, build every milestone column (deep-link the sandbox
@@ -115,10 +117,6 @@ describe 'Full course — instructor gallery', :staging do
     !block['sandbox'].to_s.empty?
   end
 
-  def slugify(label)
-    label.downcase.gsub(/[^a-z0-9]+/, '-').gsub(/\A-+|-+\z/, '')
-  end
-
   # Complete the first half of the milestones for the student (early stages done,
   # later ones not), so the gradebook shows a realistic mix of marked/unmarked.
   def mark_mixed_progress(slug, blocks)
@@ -139,25 +137,6 @@ describe 'Full course — instructor gallery', :staging do
       sleep 2 # let the grid finish painting the scores
       capture('f01-full-course-gradebook')
     end
-  end
-
-  def capture_sandbox_drilldowns(canvas_id, blocks)
-    blocks.select { |b| sandbox?(b) }.each_with_index do |b, index|
-      assignment = eventually { canvas_api.find_assignment(course_id: canvas_id, name: b['label']) }
-      capture_drilldown(canvas_id, assignment['id'], b['label'], index) if assignment
-    end
-  end
-
-  def capture_drilldown(canvas_id, assignment_id, label, index)
-    in_canvas do
-      ensure_canvas_logged_in_as_instructor
-      visit "/courses/#{canvas_id}/assignments/#{assignment_id}"
-      sleep 3
-      break_out_of_canvas_iframe(role: :instructor, iframe: canvas_assignment_iframe_locator)
-    end
-    dismiss_consent_banner
-    expect(page).to have_content(label, wait: 20)
-    capture(format('f%02d-drilldown-%s', index + 2, slugify(label)))
   end
 
   def capture(name)
