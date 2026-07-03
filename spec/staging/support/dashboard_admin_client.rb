@@ -123,6 +123,18 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip
   end
 
+  # Run one binding's AGS line-item sync inline (SyncLtiLineItems via its
+  # worker) so the local line items exist deterministically instead of
+  # racing the async enqueue that binding kicks off. Returns the resulting
+  # count of active local line items for the binding.
+  def run_line_item_sync(binding_id:)
+    script = <<~RUBY
+      LtiLineItemSyncWorker.new.perform(#{binding_id})
+      puts LtiLineItem.active.where(lti_course_binding_id: #{binding_id}).count
+    RUBY
+    DashboardConsole.run(script).strip
+  end
+
   # Run one binding's AGS grade sync inline. Returns the binding's
   # resulting grade-sync timestamp (or the error column if it failed).
   def run_grade_sync(binding_id:)

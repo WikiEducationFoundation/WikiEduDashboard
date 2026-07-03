@@ -42,15 +42,25 @@ class ResolveAssignmentLineItem
     line_item
   end
 
-  # First launch of a deep-link-created assignment: the `resource` marker
-  # (e.g. "Block:42") and the launch's line-item URL together let us create
-  # the local row binding that Canvas column to its Dashboard gradable. The
-  # resource is validated against the bound course's own gradables, so a
-  # stale or forged marker can't bind to an arbitrary gradable.
+  # Resolve via the deep-link `resource` marker (e.g. "Block:42"), validated
+  # against the bound course's own gradables so a stale/forged marker can't bind
+  # an arbitrary one. If a local row for that gradable already exists (e.g. from
+  # SyncLtiLineItems), return it — a deep-link launch reliably carries the marker
+  # but not always a scoped line-item URL, so we can't depend on the URL. Only
+  # when there's no local row yet do we need the launch's URL, to create one.
   def bind_from_deep_link
     gradable = deep_link_gradable
+    return if gradable.nil?
+
+    existing = LtiLineItem.active.find_by(lti_course_binding_id: @binding.id,
+                                          gradable_type: gradable.gradable_type,
+                                          gradable_id: gradable.gradable_id)
+    existing || bind_line_item_from_launch(gradable)
+  end
+
+  def bind_line_item_from_launch(gradable)
     lineitem_url = @lti_session.ags_lineitem_url
-    return if gradable.nil? || lineitem_url.blank?
+    return if lineitem_url.blank?
 
     line_item = LtiLineItem.find_or_initialize_by(
       lti_course_binding_id: @binding.id,

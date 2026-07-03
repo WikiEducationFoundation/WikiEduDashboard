@@ -116,15 +116,18 @@ class LtiLaunchController < ApplicationController
     @lti_session.link_lti_user(current_user, binding: @binding)
   end
 
-  # An assignment-context launch is identifiable two ways: the singular AGS
-  # line-item URL (present only when the launch is scoped to one line item,
-  # i.e. the assignment_view placement) and/or the canvas_assignment_id
-  # custom field. The course-navigation launch has neither, so it falls
-  # through to the normal instructor/student handling. Accepting either
-  # means the dispatch doesn't depend on the custom variable being
-  # configured on the placement.
+  # An assignment-context launch is identifiable three ways: the deep-link
+  # `resource` marker we stamp on every deep-link-created assignment (echoed back
+  # under the `custom` claim), the singular AGS line-item URL, and/or the
+  # `canvas_assignment_id` custom field. A deep-link-created assignment reliably
+  # carries only the resource marker — Canvas doesn't always deliver a scoped
+  # lineItemId on the launch, and we don't set canvas_assignment_id on the content
+  # item — so without the marker those launches fall through to the course page
+  # instead of the roster. The course-navigation launch carries none of the three.
   def assignment_launch?
-    @lti_session.canvas_assignment_id.present? || @lti_session.ags_lineitem_url.present?
+    @lti_session.deep_link_resource.present? ||
+      @lti_session.canvas_assignment_id.present? ||
+      @lti_session.ags_lineitem_url.present?
   end
 
   def render_assignment_view

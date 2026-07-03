@@ -418,6 +418,21 @@ describe LtiLaunchController, type: :request do
         end
       end
 
+      context 'when the launch carries only the deep-link resource marker' do
+        # A deep-link-created assignment reliably carries only custom.resource —
+        # no scoped lineItemId, no canvas_assignment_id — so the resource marker
+        # must dispatch it, or the launch falls through to the course page.
+        let(:idtoken) do
+          idtoken_for(role).merge('custom' => { 'resource' => "Block:#{block.id}" })
+        end
+
+        it 'dispatches to the roster via the resource marker' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Wk2 Evaluate Wikipedia')
+        end
+      end
+
       context 'when the launch matches no known line item' do
         let(:idtoken) do
           idtoken_for(role).merge('custom' => { 'canvas_assignment_id' => 'unmatched' })

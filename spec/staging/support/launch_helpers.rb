@@ -192,6 +192,46 @@ module LaunchHelpers
     walk_through_onboarding(real_name: 'LTI Test Student', email:)
   end
 
+  # Create a Canvas assignment via LTI deep linking, bound to a Dashboard
+  # gradable (an exercise block or the trainings rollup), so launching it opens
+  # the assignment_view. Drives Canvas's new-assignment editor → External Tool →
+  # "Find" dialog → our picker → Select → publish, in the instructor session.
+  # `gradable_label` picks the gradable in the deep-link picker (its radio label);
+  # `assignment_name` is the Canvas assignment's own name. Keep them distinct when
+  # the gradable already has an auto-synced gradebook column of the same name, so
+  # the created assignment is unambiguously findable.
+  def create_deep_linked_assignment(course_id:, gradable_label:, assignment_name: gradable_label)
+    in_canvas do
+      ensure_canvas_logged_in_as_instructor
+      visit "/courses/#{course_id}/assignments/new"
+      select 'External Tool', from: 'Submission Type'
+      click_button 'Find'
+      pick_gradable_in_deep_link_dialog(gradable_label)
+      fill_in 'assignment_name', with: assignment_name
+      fill_in 'assignment_points_possible', with: '1'
+      find('.save_and_publish').click
+    end
+    dismiss_consent_banner
+  end
+
+  # Inside Canvas's External Tool "Find" dialog: click our tool, pick the gradable
+  # in the deep-link picker (served in the resource-selection iframe) and submit.
+  # Canvas stages the returned content item into the dialog's hidden line-item
+  # field; wait for that, then Select to apply + close the dialog.
+  def pick_gradable_in_deep_link_dialog(gradable_label)
+    within('#context_external_tools_select') { click_link 'wikiedu.org testing key' }
+    within_frame(find('#resource_selection_iframe', wait: 20)) do
+      choose(gradable_label, wait: 20)
+      find('button[type="submit"]').click
+    end
+    staged = eventually(attempts: 30, interval: 1) do
+      find('#external_tool_create_line_item', visible: false).value.to_s.include?(gradable_label)
+    end
+    expect(staged).to be_truthy
+    find('.add_item_button', text: 'Select').click
+    expect(page).to have_no_css('.add_item_button', wait: 15)
+  end
+
   # On the dashboard's setup view, identify the course we want to link
   # and submit. The form's `course_slug` field is a select whose
   # options' visible text is the slug itself; older deployed-staging
