@@ -41,6 +41,9 @@
         var open = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!open));
         panel.hidden = open;
+        if (btn.dataset.labelShow && btn.dataset.labelHide) {
+          btn.textContent = open ? btn.dataset.labelShow : btn.dataset.labelHide;
+        }
         if (open) { return; }
         var target = panel.querySelector('.lti-sandbox__content');
         if (target && !target.dataset.loaded) {

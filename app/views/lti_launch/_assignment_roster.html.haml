@@ -18,7 +18,7 @@
           %td
             - if row.sandbox_url
               .lti-sandbox__actions
-                %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': "sandbox-#{i}", 'aria-expanded': 'false' }
+                %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': "sandbox-#{i}", 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
                   = t('lti.assignment_view.show')
                 = link_to row.sandbox_url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link' do
                   = t('lti.assignment_view.open_on_wikipedia')

@@ -2243,6 +2243,7 @@ en:
         not_started: "Not started"
       open_on_wikipedia: "Open on Wikipedia"
       show: "Show"
+      hide: "Hide"
       roster:
         student: "Student"
         status: "Status"

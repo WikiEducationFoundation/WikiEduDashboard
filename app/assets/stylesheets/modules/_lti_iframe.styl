@@ -146,13 +146,30 @@ body.lti-iframe
     font-weight 600
     padding 4px 14px
 
+    // A caret makes the open/closed state legible at a glance; it points down
+    // when collapsed and flips up when this row's preview is showing.
+    &::after
+      content ''
+      display inline-block
+      margin-left 8px
+      vertical-align middle
+      border-left 4px solid transparent
+      border-right 4px solid transparent
+      border-top 5px solid currentColor
+      transition transform .15s ease
+
     &:hover
       background #244f97
       border-color #244f97
 
+    // Open row: invert to an outlined button and flip the caret, so the one
+    // currently showing its preview is unmistakable among the solid closed ones.
     &[aria-expanded='true']
-      background #244f97
-      border-color #244f97
+      background #fff
+      color #2a5db0
+
+    &[aria-expanded='true']::after
+      transform rotate(180deg)
 
 .lti-sandbox__actions
   display flex

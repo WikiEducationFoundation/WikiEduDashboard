@@ -51,7 +51,10 @@ describe 'Assignment view drill-down screenshots', :staging do
   # others have none (→ "Not started", empty preview).
   let(:gallery_students)   { ['Ragetest 9', 'Ragetest 37', 'Ragetest 11', 'Ragetest 14'] }
   let(:completed_students) { ['Ragetest 9', 'Ragetest 37'] }
-  let(:preview_student)    { 'Ragetest_9' } # URL-encoded; has the richest sandbox
+  # A middle-of-the-roster student (URL-encoded, alphabetical order puts 37
+  # third of four) so the expanded preview clearly renders below THAT row
+  # rather than below the whole table.
+  let(:preview_student)    { 'Ragetest_37' }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
