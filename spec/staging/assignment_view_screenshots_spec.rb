@@ -9,19 +9,18 @@ require_relative 'spec_helper'
 # dashboard's /lti dispatch — the instructor roster, or the launching
 # student's own panel.
 #
-# The assignment_view is reached from a DEEP-LINK-created assignment: its launch
-# carries the deep-link `resource` marker that `assignment_launch?` keys on. That
-# launch does NOT carry a scoped AGS line-item URL, so `ResolveAssignmentLineItem`
-# maps the marker to the line item SyncLtiLineItems already creates for the
-# exercise on binding. The provisioning below therefore both syncs line items
-# (`run_line_item_sync`) and creates the launchable Canvas assignment through the
-# deep-link picker (`create_deep_linked_assignment`) — named distinctly from the
-# auto-synced column so it's unambiguously findable.
+# The assignment_view is reached from a DEEP-LINK-created assignment. Canvas does
+# NOT echo the deep-link content-item custom, so the launch carries no `resource`
+# marker — only its own AGS lineItemId. `BuildLtiDeepLinkForm` tags that line item
+# with the gradable, so `ResolveAssignmentLineItem` reads the tag off it (via AGS)
+# and binds the deep-link assignment's own column — the gradable's canonical one.
+# The provisioning below just creates the launchable assignment through the picker
+# (`create_deep_linked_assignment`), named distinctly from any auto-synced column
+# so it's unambiguously findable; no separate line-item sync is needed.
 #
 # Prerequisite: deployed staging must carry the deep-link fixes — the picker's
-# framing fix (deep_link/deep_link_select in #allow_iframe), `assignment_launch?`
-# recognizing the `resource` marker, and `ResolveAssignmentLineItem` resolving via
-# the existing line item — or the launch falls through to the course page.
+# framing fix (deep_link/deep_link_select in #allow_iframe) and
+# `ResolveAssignmentLineItem`'s tag-based binding — or the launch orphans.
 #
 #   bin/staging-feature-spec spec/staging/assignment_view_screenshots_spec.rb
 #
@@ -99,10 +98,10 @@ describe 'Assignment view drill-down screenshots', :staging do
     capture_student_panel(assignment_id:)
   end
 
-  # Bind the course, sync the roster + line items, link + complete the exercise for
-  # one student, then create a launchable deep-link assignment whose launch resolves
-  # (via its `resource` marker) to the synced exercise line item. Returns the Canvas
-  # assignment id, or :no_student when the student dashboard account isn't present.
+  # Bind the course, sync the roster, link + complete the exercise for one student,
+  # then create a launchable deep-link assignment whose launch resolves (via its
+  # line item's tag) to that gradable. Returns the Canvas assignment id, or
+  # :no_student when the student dashboard account isn't present.
   def prepare_completed_exercise_column(slug:, timeline:, label:)
     bind_course_as_instructor(canvas_course_id: provisioned[:canvas_course_id], course_slug: slug)
     binding = DashboardAdminClient.find_binding(course_slug: slug)
@@ -115,7 +114,6 @@ describe 'Assignment view drill-down screenshots', :staging do
       course_slug: slug, username: student_username,
       exercise_module_id: timeline['exercise_module_id']
     )
-    DashboardAdminClient.run_line_item_sync(binding_id: binding['id'])
     create_and_find_drilldown_assignment(label:)
   end
 

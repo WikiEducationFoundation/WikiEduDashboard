@@ -454,6 +454,32 @@ describe LtiLaunchController, type: :request do
         end
       end
 
+      context 'when only the launch line item (tagged) identifies the gradable' do
+        # Canvas doesn't echo the content-item custom, so the launch carries no
+        # marker — only its own AGS lineItemId. Resolve reads the gradable off the
+        # line item's tag and repoints the local row to this deep-link column.
+        let(:idtoken) do
+          base = idtoken_for(role)
+          base['services']['assignmentAndGrades'] = { 'lineItemId' => 'https://canvas/li/deep' }
+          base
+        end
+
+        before do
+          allow(LtiServiceSession).to receive(:new).and_return(
+            instance_double(LtiServiceSession, list_line_items: [
+                              { 'id' => 'https://canvas/li/deep', 'tag' => "Block:#{block.id}" }
+                            ])
+          )
+        end
+
+        it 'binds the deep-link column via its tag and renders the roster' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Wk2 Evaluate Wikipedia')
+          expect(line_item.reload.lineitem_id).to eq('https://canvas/li/deep')
+        end
+      end
+
       context 'when the launch matches no known line item' do
         let(:idtoken) do
           idtoken_for(role).merge('custom' => { 'canvas_assignment_id' => 'unmatched' })
