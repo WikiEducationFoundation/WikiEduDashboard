@@ -2242,6 +2242,7 @@ en:
         completed: "Completed"
         not_started: "Not started"
       view_sandbox: "View sandbox"
+      preview: "Preview"
       roster:
         student: "Student"
         status: "Status"

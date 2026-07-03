@@ -3,5 +3,10 @@
   %span.lti-status{ class: row.completed? ? 'lti-status--done' : 'lti-status--pending' }
     = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
   - if row.sandbox_url
-    = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,
-              target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'
+    .lti-sandbox__actions
+      = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,
+                target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'
+      %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': 'sandbox-self', 'aria-expanded': 'false' }
+        = t('lti.assignment_view.preview')
+    .lti-sandbox__detail{ id: 'sandbox-self', hidden: true }
+      .lti-sandbox__content

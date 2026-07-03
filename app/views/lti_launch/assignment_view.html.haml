@@ -9,3 +9,44 @@
     = render 'lti_launch/assignment_roster'
   - else
     = render 'lti_launch/assignment_student_panel'
+
+-# Minimal, no-framework sandbox preview: each "Preview" toggle lazily fetches
+-# the sandbox page's parsed HTML straight from the MediaWiki API (CORS) and
+-# inserts it, so an instructor sees a student's work without leaving Canvas.
+:javascript
+  (function () {
+    function loadSandbox(url, target) {
+      target.textContent = '…';
+      var wiki;
+      try { wiki = new URL(url); } catch (e) { target.textContent = ''; return; }
+      var title = decodeURIComponent(wiki.pathname.replace(/^\/wiki\//, ''));
+      var api = wiki.origin + '/w/api.php?action=parse&prop=text&format=json' +
+        '&formatversion=2&redirects=1&origin=*&page=' + encodeURIComponent(title);
+      fetch(api).then(function (r) { return r.json(); }).then(function (data) {
+        if (data.parse && data.parse.text) {
+          target.innerHTML = data.parse.text;
+          target.classList.add('lti-sandbox__content--rendered');
+        } else {
+          target.textContent = '[PLACEHOLDER - message when the student has no sandbox page yet]';
+        }
+      }).catch(function () {
+        target.textContent = '[PLACEHOLDER - message when the sandbox preview fails to load]';
+      });
+    }
+
+    document.querySelectorAll('.lti-sandbox__toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var panel = document.getElementById(btn.getAttribute('aria-controls'));
+        if (!panel) { return; }
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        panel.hidden = open;
+        if (open) { return; }
+        var target = panel.querySelector('.lti-sandbox__content');
+        if (target && !target.dataset.loaded) {
+          target.dataset.loaded = '1';
+          loadSandbox(btn.getAttribute('data-sandbox-url'), target);
+        }
+      });
+    });
+  })();
