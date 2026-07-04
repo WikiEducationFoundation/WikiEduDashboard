@@ -157,6 +157,10 @@ class TrainingModule < ApplicationRecord
     settings['preload']
   end
 
+  def article_title_input
+    settings['article_title_input']
+  end
+
   # For an in-app exercise: the course-relative path it launches (eg
   # 'verify_claim'), rather than an external sandbox.
   def exercise_path

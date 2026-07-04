@@ -87,6 +87,18 @@ class WikiApi
     response&.status == 200 ? response.data : nil
   end
 
+  def user_has_edited_article?(username, title)
+    query_params = { prop: 'revisions',
+                     titles: title,
+                     rvprop: 'user',
+                     rvlimit: 1,
+                     rvuser: username }
+    response = query(query_params)
+    pages = response&.data&.dig('pages')
+    return false unless pages
+    pages.values.any? { |page| page['revisions'].present? }
+  end
+
   def get_article_rating(titles)
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)

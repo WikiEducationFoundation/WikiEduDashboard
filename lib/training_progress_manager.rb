@@ -51,11 +51,12 @@ class TrainingProgressManager
 
   # This is shown for the logged in user where the module is listed
   def assignment_status
-    return unless @training_module.training?
-    if due_date_manager.blocks_with_module_assigned(@training_module).any?
-      parenthetical = I18n.t('training_status.due', due_date: overall_due_date)
-      assingment_status = module_completed? ? I18n.t('training_status.completed') : parenthetical
-      return I18n.t('training_status.assignment_status', status: assingment_status)
+    if @training_module.training?
+      if due_date_manager.blocks_with_module_assigned(@training_module).any?
+        parenthetical = I18n.t('training_status.due', due_date: overall_due_date)
+        assingment_status = module_completed? ? I18n.t('training_status.completed') : parenthetical
+        return I18n.t('training_status.assignment_status', status: assingment_status)
+      end
     end
     return I18n.t('training_status.completed') if module_completed?
   end

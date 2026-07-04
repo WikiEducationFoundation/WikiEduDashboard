@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 describe TrainingModulesUsersController, type: :request do
-  before { TrainingModule.load_all }
-
   describe '#create_or_update' do
+    before { TrainingModule.load_all }
     let(:user) { create(:user) }
     let(:training_module) { TrainingModule.find_by(slug: 'editing-basics') }
     let(:slide) { TrainingModule.find(training_module.id).slides.first }
@@ -68,6 +67,121 @@ describe TrainingModulesUsersController, type: :request do
       it 'sets the correct module_id' do
         expect(TrainingModulesUsers.last.training_module_id)
           .to eq(training_module.id)
+      end
+    end
+  end
+
+  describe '#mark_exercise_complete' do
+    let(:user) { create(:user) }
+    let(:course) { create(:course) }
+    let(:week) { create(:week, course: course) }
+    let(:block) { create(:block, week: week) }
+    let(:training_module) do
+      TrainingModule.find_by(slug: 'update-a-biography-exercise') ||
+        create(:training_module, slug: 'update-a-biography-exercise',
+                                 settings: { 'article_title_input' => true }, kind: 1)
+    end
+    let!(:tmu) do
+      TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
+    end
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    context 'when article_title_input has not been verified' do
+      before do
+        post '/training_modules_users/exercise',
+             params: { module_id: training_module.slug, block_id: block.id, complete: true }
+      end
+
+      it 'returns forbidden status' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'returns the article verification message' do
+        expect(response.parsed_body['message']).to include('verify your Wikipedia edit')
+      end
+    end
+
+    context 'when article title has already been verified' do
+      before do
+        tmu.store_exercise_article_title('Selfie')
+        tmu.save
+        post '/training_modules_users/exercise',
+             params: { module_id: training_module.slug, block_id: block.id, complete: true }
+      end
+
+      it 'does not return forbidden' do
+        expect(response.status).not_to eq(403)
+      end
+    end
+  end
+
+  describe '#verify_exercise_article' do
+    let(:user) { create(:user) }
+    let(:training_module) do
+      TrainingModule.find_by(slug: 'update-a-biography-exercise') ||
+        create(:training_module, slug: 'update-a-biography-exercise',
+                                 settings: { 'article_title_input' => true }, kind: 1)
+    end
+    let!(:tmu) do
+      TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
+    end
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    context 'when the user has edited the article' do
+      before do
+        allow_any_instance_of(WikiApi).to receive(:user_has_edited_article?).and_return(true)
+        post '/training_modules_users/verify_exercise_article',
+             params: { module_id: training_module.slug, article_title: 'Selfie' }
+      end
+
+      it 'returns verified status' do
+        expect(response.parsed_body['status']).to eq('verified')
+      end
+
+      it 'saves the article title in flags' do
+        expect(tmu.reload.flags['exercise_article_title']).to eq('Selfie')
+      end
+    end
+
+    context 'when the user has not edited the article' do
+      before do
+        allow_any_instance_of(WikiApi).to receive(:user_has_edited_article?).and_return(false)
+        post '/training_modules_users/verify_exercise_article',
+             params: { module_id: training_module.slug, article_title: 'SomeArticle' }
+      end
+
+      it 'returns not_found status' do
+        expect(response.parsed_body['status']).to eq('not_found')
+      end
+
+      it 'does not save the article title in flags' do
+        expect(tmu.reload.flags['exercise_article_title']).to be_nil
+      end
+    end
+
+    context 'when the user is enrolled as a student in a course with this module' do
+      let(:course) { create(:course) }
+      let(:week) { create(:week, course: course) }
+      let!(:block) { create(:block, week: week, training_module_ids: [training_module.id]) }
+      let!(:courses_user) do
+        create(:courses_user, course: course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      before do
+        allow_any_instance_of(WikiApi).to receive(:user_has_edited_article?).and_return(true)
+        post '/training_modules_users/verify_exercise_article',
+             params: { module_id: training_module.slug,
+                       article_title: 'Computational neuroscience' }
+      end
+
+      it 'auto-marks the exercise complete for the course' do
+        expect(tmu.reload.flags[course.id]).to include(marked_complete: true)
       end
     end
   end

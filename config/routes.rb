@@ -397,6 +397,7 @@ Rails.application.routes.draw do
   get 'training_modules_users' => 'training_modules_users#index'
   post 'training_modules_users' => 'training_modules_users#create_or_update'
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
+  post 'training_modules_users/verify_exercise_article' => 'training_modules_users#verify_exercise_article'
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
