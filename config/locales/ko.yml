@@ -423,7 +423,7 @@ ko:
     active_campaigns: 진행중인 캠페인
     add_organizer: 주최자 추가
     alert_article: 문서 제목
-    alert_label: 켐페인 알림
+    alert_label: 캠페인 알림
     alert_select_label: 경고 유형별 필터
     alert_type: 유형
     alert_user_id: 사용자
@@ -1545,6 +1545,7 @@ ko:
     search_training_resources: 교육 자료를 검색
     no_training_resource_match_your_search: 검색 조건에 맞는 교육 자료가 없습니다
     exercise_sandbox: 연습용 샌드박스
+    open_exercise: 연습 시작
     remaining_exercise: '%{count}개 추가 연습이 남아 있습니다'
     view_all: 모든 연습 보기
     take_your_time: 천천히 하셔도 괜찮습니다!
@@ -1552,6 +1553,43 @@ ko:
     close: 닫기
     loading: 불러오는 중…
     wiki_source: 위키 출처
+  claim_verification:
+    pick_instructions: 강조 표시된 주장을 클릭하면 인용 세부 정보를 볼 수 있습니다.
+    revision_notice: 이 문서는 해당 주장이 추가된 %{date} 시점의 문서입니다.
+    tile_revision_date: '%{date} 기준'
+    claims_highlighted:
+      other: 주장 %{count}개 강조 표시됨
+    next_claim: 다음 주장
+    previous_claim: 이전 주장
+    claim_position: 주장 %{total} 중 %{current}개
+    loading_claims: 주장 불러오는 중…
+    claim: 주장
+    cited_source: 인용된 출처
+    source_url: 출처 URL
+    select_claim: 이 주장을 선택하여 확인하세요
+    choose_article: 문서를 선택하세요
+    no_articles: 이용 가능한 문서 없음
+    your_selected_claim: 선택된 주장
+    find_in_article: 이것을 문서 본문에서 찾기
+    show_surrounding: 주변 문단 보기
+    choose_different_claim: 다른 주장을 고르세요
+    no_online_source: 이 인용된 출처에는 URL이 포함되지 않았습니다.
+    course_picker_heading: 과정을 선택하세요
+    course_picker_no_courses: 과정 없음
+    take_not_enrolled: 그러려면 해당 과정에 등록되어 있어야 합니다.
+    complete_in_sandbox: 이 연습을 당신의 위키백과 연습장에서 마무리하세요.
+    admin:
+      loading: 불러오는 중…
+      heading: 주장 확인
+      pool_size: '풀 크기: 주장 %{count}개'
+      last_run: '마지막 실행 %{time}: %{processed}개의 경고 알림에서  +%{harvested}개 이상의 주장 (%{skipped}개
+        건너뜀%{rescan})'
+      full_rescan_note: ', 전체 재스캔'
+      harvest: 주장 풀 수집
+      full_rescan: 전체 재스캔
+      status: '상태: %{status}'
+      progress: ' — %{at} / %{total} 경고 알림 (%{pct}%)'
+      counts: '%{harvested} 수집됨 · %{processed} 처리됨 · %{skipped} 건너뜀 · %{errors} 오류'
   update_username:
     header: 변경된 사용자 이름을 업데이트
     not_found: 입력한 사용자 이름과 일치하는 사용자를 찾을 수 없습니다.
@@ -1732,8 +1770,7 @@ ko:
       과제 시작일을 과정 시작일로부터 1주 후로 설정하세요. 이 과제 설계 도구는 선택한 타임라인 날짜 안에 맞는 초안 타임라인을 생성합니다.
     assignment_type: 학생들이 완료해야 하는 위키백과 과제는 무엇인가요?
     calendar_instructions: '일정에서 추가하거나 제거할 날짜를 선택하세요(예: 공휴일, 휴교일). 이렇게 하면 과정 생성 도구가
-      과제를 정확하게 간격 배치하는 데 도움이 됩니다. 날짜를 클릭하면 선택 안 함, 선택됨, 공휴일 상태가 전환됩니다. 공휴일이 없다면 아래의
-      "휴강이 없습니다"를 선택하세요.'
+      과제를 정확하게 간격 배치하는 데 도움이 됩니다. 날짜를 클릭하면 선택 안 함, 선택됨, 공휴일 상태가 전환됩니다.'
     confirm_course_dates: 과정의 시작일과 종료일을 확인하세요.
     confirm_dates: 과정 날짜, 주간 모임, 공휴일을 선택하세요.
     course_dates: 과정 날짜

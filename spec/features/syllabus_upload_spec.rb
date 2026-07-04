@@ -8,8 +8,6 @@ describe 'syllabus upload', type: :feature, js: true do
   let(:user)       { create(:admin) }
 
   before do
-    include type: :feature
-    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
     stub_oauth_edit
   end
