@@ -92,6 +92,36 @@ describe LmsIntegrationStatusController, type: :request do
         get request_path
         expect(JSON.parse(response.body)['synced_students_count']).to eq(1)
       end
+
+      it 'reports the most recent of the roster and grade sync times' do
+        binding.update!(last_roster_sync_at: 2.days.ago, last_grade_sync_at: 1.hour.ago)
+        get request_path
+        reported = Time.zone.parse(JSON.parse(response.body)['last_sync_at'])
+        expect(reported).to be_within(1.minute).of(1.hour.ago)
+      end
+
+      it 'shows the roster sync time (not "never synced") when only the roster has synced' do
+        binding.update!(last_roster_sync_at: 10.minutes.ago, last_grade_sync_at: nil)
+        learner_role = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'
+        LtiContext.create!(lti_course_binding: binding, user: create(:user, username: 'Rostered'),
+                           user_lti_id: 's3', lms_id: 'platform-x', roles: [learner_role])
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['synced_students_count']).to eq(1)
+        expect(body['last_sync_at']).to be_present
+      end
+
+      it 'falls back to the latest student link when neither sync has run yet' do
+        binding.update!(last_roster_sync_at: nil, last_grade_sync_at: nil)
+        learner_role = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'
+        LtiContext.create!(lti_course_binding: binding, user: create(:user, username: 'Fresh'),
+                           user_lti_id: 's2', lms_id: 'platform-x',
+                           linked_at: 5.minutes.ago, roles: [learner_role])
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['synced_students_count']).to eq(1)
+        expect(body['last_sync_at']).to be_present
+      end
     end
 
     context 'viewed by a site admin who is not enrolled on the course' do
