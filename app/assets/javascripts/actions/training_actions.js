@@ -93,6 +93,13 @@ const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatc
 export const setExerciseModuleComplete = setExerciseModule();
 export const setExerciseModuleIncomplete = setExerciseModule(false);
 
+export const verifyExerciseArticle = (block_id, module_id, article_title) => () => {
+  return request('/training_modules_users/verify_exercise_article.json', {
+    body: JSON.stringify({ block_id, module_id, article_title }),
+    method: 'POST'
+  }).then(resp => resp.json());
+};
+
 export const toggleMenuOpen = opts => (dispatch) => {
   return dispatch({
     type: MENU_TOGGLE,

@@ -27,6 +27,7 @@ export const ModuleStatus = ({
 
   // Display current information about the training module
   if (isTrainingModule || isExercise) {
+    const isExerciseVerified = isExercise && (flags?.exercise_article_title || flags?.marked_complete);
     const button = (
       <ExerciseButton
         block_id={block_id}
@@ -43,7 +44,7 @@ export const ModuleStatus = ({
     const progress = module_progress || '--';
     return (
       <td className={progressClass}>
-        { isTrainingModule ? progress : button }
+        { (isTrainingModule || isExerciseVerified) ? progress : button }
         { isOverdue ? ` (due on ${due_date})` : null }
       </td>
     );
