@@ -405,6 +405,36 @@ describe ArticleStatusManager do
         expect(Article.find(50661367).updated_at <= 12.hours.ago).to eq(true)
       end
     end
+
+    context 'when the course is on the ACUWT update path' do
+      before { course.add_flag(key: :use_acuwt) }
+
+      it 'retrieves articles from ACUWT rows that have no ACT row' do
+        VCR.use_cassette 'article_status_manager/main' do
+          # 'Noarticle' (mw_page_id 1) does not exist on Wikipedia. It has an ACUWT
+          # row but no ACT row, so the legacy ACT-based query would miss it.
+          create(:article, id: 1, mw_page_id: 1, title: 'Noarticle', namespace: 0,
+                 updated_at: 2.days.ago)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, user:, article_id: 1,
+                 start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+
+          described_class.update_article_status_for_course(course)
+          expect(Article.find(1).deleted).to be true
+        end
+      end
+    end
+
+    context 'when the course is not on the ACUWT update path' do
+      it 'does not pick up articles that only have ACUWT rows' do
+        create(:article, id: 1, mw_page_id: 1, title: 'Noarticle', namespace: 0,
+               updated_at: 2.days.ago)
+        create(:article_course_user_wiki_timeslice, course:, wiki:, user:, article_id: 1,
+               start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+
+        described_class.update_article_status_for_course(course)
+        expect(Article.find(1).deleted).to be false
+      end
+    end
   end
 
   describe '#update_status' do

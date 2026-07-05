@@ -29,15 +29,15 @@ class ArticleStatusManager
   def self.update_article_status_for_course(course)
     course.wikis.each do |wiki|
       # Retrieve articles based on ac timeslices to also include current untracked articles.
-      course.legacy_articles_from_timeslices(wiki.id)
-            # Updating only those articles which are updated more than 1 day ago
-            .where('articles.updated_at < ?', 1.day.ago)
-            .in_batches do |article_batch|
+      articles_to_check(course, wiki.id)
+        # Updating only those articles which are updated more than 1 day ago
+        .where('articles.updated_at < ?', 1.day.ago)
+        .in_batches do |article_batch|
         # Using in_batches so that the update_at of all articles in the batch can be
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(course, wiki).update_status(article_batch)
-        # Touch through a fresh, non-distinct relation: `legacy_articles_from_timeslices`
+        # Touch through a fresh, non-distinct relation: the retrieval above
         # applies `.distinct`, and combining `.distinct` with `update_all` is
         # deprecated in Rails 8.1 and will raise in 8.2. `update_status` above
         # has already loaded the batch (it iterates `articles.map(&:mw_page_id)`),
@@ -50,6 +50,19 @@ class ArticleStatusManager
 
     ArticlesCoursesCleaner.reset_articles_for_course(course)
   end
+
+  # Courses on the ACUWT update path retrieve articles from ACUWT, which also
+  # surfaces out-of-scope articles that no longer have ACT rows. All other courses
+  # fall back to the legacy ACT-based query. Remove this branch (and the legacy
+  # query) once every course is on the ACUWT path.
+  def self.articles_to_check(course, wiki_id)
+    if course.use_acuwt?
+      course.articles_from_timeslices(wiki_id)
+    else
+      course.legacy_articles_from_timeslices(wiki_id)
+    end
+  end
+  private_class_method :articles_to_check
 
   ####################
   # Per-wiki methods #
