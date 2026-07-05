@@ -123,7 +123,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     # Note that this could remove articles courses records for manually untracked articles
     # Find articles with an articles_courses record but without a non-deleted article record.
     @course.articles.where(deleted: true).in_batches do |article_batch|
-      reset(article_batch)
+      reset_excluded(article_batch)
     end
 
     reset_articles_in_untracked_namespaces
@@ -151,6 +151,20 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_article_course(articles.pluck(:id))
   end
 
+  # Exclusion reset for articles that should no longer count in course stats
+  # (deleted, or in an untracked namespace). For ACUWT courses this reaggregates
+  # the covering timeslices from the existing ACUWT rows (which are kept, not
+  # re-fetched); other courses fall back to the legacy needs_update reprocess. In
+  # both cases the articles_courses records are removed.
+  def reset_excluded(articles)
+    if @course.use_acuwt?
+      reaggregate_from_acuwt(articles)
+      delete_article_course(articles.pluck(:id))
+    else
+      reset(articles)
+    end
+  end
+
   def reset_articles_in_untracked_namespaces
     @course.articles.in_batches do |article_batch|
       tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
@@ -160,7 +174,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
       end
       # Find articles with articles_courses records but not in tracked namespaces
       untracked_articles = article_batch.where.not(id: tracked)
-      reset(untracked_articles)
+      reset_excluded(untracked_articles)
     end
   end
 
@@ -214,6 +228,14 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     timeslice_cleaner.reset_timeslices_that_need_update_from_article_timeslices(
       timeslices, wiki:
     )
+  end
+
+  # Marks the covering (wiki, period) CWTs for reaggregation from the article's
+  # ACUWT rows (deleting the stale ACT/CUWT rows for those periods; the ACUWT rows
+  # themselves are kept). No revisions are re-fetched.
+  def reaggregate_from_acuwt(article_batch)
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article: article_batch)
+    TimesliceCleaner.new(@course).reset_timeslices_for_reaggregation_from_acuwt(acuwt)
   end
 
   def touch_timeslices(article_batch)

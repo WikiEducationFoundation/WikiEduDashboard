@@ -208,4 +208,32 @@ describe ArticlesCoursesCleaner do
       expect(course_wiki_timeslice.needs_update).to eq(true)
     end
   end
+
+  describe '.reset_articles_for_course when the course is on the ACUWT update path' do
+    before do
+      stub_wiki_validation
+      course.add_flag(key: :use_acuwt)
+      create(:articles_course, course:, article: article1)
+      create(:article_course_timeslice, course:, article: article1, start: '2024-04-11',
+             end: '2024-04-12')
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki, user: create(:user),
+             article: article1, start: '2024-04-11', end: '2024-04-12')
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      article1.update(deleted: true)
+    end
+
+    it 'reaggregates the covering timeslices and keeps the ACUWT rows' do
+      described_class.reset_articles_for_course(course)
+
+      # articles_courses and ACT are removed, but the ACUWT rows are kept
+      expect(course.articles_courses.where(article: article1)).to be_empty
+      expect(course.article_course_timeslices.where(article: article1)).to be_empty
+      expect(ArticleCourseUserWikiTimeslice.where(course:, article: article1)).not_to be_empty
+
+      # The covering CWT is marked for reaggregation, not a full reprocess
+      cwt = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-04-11')
+      expect(cwt.needs_reaggregation).to eq(true)
+      expect(cwt.needs_update).to eq(false)
+    end
+  end
 end
