@@ -73,7 +73,7 @@ ja:
       other: '''%{search_terms}''に対して：検索結果は%{count}件'
     no_results: 「%{query}」で検索しましたがヒットしませんでした
     show_current_revision: 現在の版を表示
-    show_last_revision: 最新の版を表示
+    show_last_revision: 最終編集バージョンを表示
     sign_up_extended: ウィキペディアに利用者登録
     sign_up_wikipedia: またはWikipediaにサインアップする
     sign_up_log_in_extended: ウィキペディアに
@@ -462,7 +462,7 @@ ja:
       course_school: コース学校
       course_subject: コースの科目
       course_term: コース期間
-      course_term_placeholder: 規約
+      course_term_placeholder: 学期（年を含む）
       course_title: コース名
       course_types:
         basic_course_name: 基本プログラム
@@ -618,7 +618,7 @@ ja:
     retain_available_articles_info_wikidata: 有効にすると選択した対象の項目は一覧に残り、同じ項目を受講者（生徒）のグループにも表示、選択できるようにします。
     review_timeline: さて、課題の日程表の案ができたところで点検してみましょう。必要に応じて細部をカスタム化します。満足する形にまとまった段階で、ウィキ教育の担当者から承認を得てください。承認されるとURLが発給され、受講生がコースに登録したりトレーニングに参加したりできるようになります。
       (注記： 公開した後でも編集ができます。)
-    revisions_doc: 過去%{timeframe}日にわたる編集の件数
+    revisions_doc: 過去%{timeframe}日にわたる編集の推定件数（過去期間の1日あたりの平均編集回数に基づく）。
     revisions_none: このコースでは最近、ウィキペディアを編集していません。
     school: 学校
     school_and_term: 機関／学期（時期）
@@ -819,8 +819,8 @@ ja:
     last_update_success: 直近の更新は成功しており、統計は最新版のはずです。
     per_user: '%{number}ワード/利用者'
     revisions: 最近の編集
-    references_doc: この数字は記事に追加された参照タグの総数を示し、同一の情報源を指す複数の参照も含まれる可能性があります。データの基本は ORES
-      記事品質モデルで、設定言語は限定されています。
+    references_doc: この数字は記事に追加された参照タグと短縮脚注テンプレートの総数を示し、同一の情報源を指す複数の参照も含まれる可能性があります。データの基本は
+      Toolforgeの参照カウンターAPIです。
     tags: タグ
     uploads_in_use_count:
       other: 件のファイルを記事内で使用
@@ -1027,7 +1027,7 @@ ja:
     requested_account_status:
       success_message: '成功: %{result_description}件'
     revision_characters_and_views: '追加された文字: %{characters}文字、ビュー: %{views}件'
-    revisions_doc: 過去7日間にわたるこの編集者の編集実績
+    revisions_doc: 過去7日間にわたるこの編集者の推定編集実績（過去期間の1日あたりの平均編集回数に基づく）。
     references_doc: この編集者が追加もしくは削除した参照項目の件数
     revisions: 版
     sandboxes: サンドボックス
@@ -1058,8 +1058,7 @@ ja:
     assignment_dates: 課題の日程
     assignment_description: 課題の日程表の開始日と終了日を選びます。例えば学期の2週目からウィキペディアのプロジェクトを開始するには、学期開始日の1週間後を課題の開始日に設定します。するとこの課題設計ツールは、選択された日付に沿った日程表の案を作成します。
     assignment_type: ウィキペディアの課題提出のため、受講者は何を完了するように求められましたか？
-    calendar_instructions: 日程から除外したい日付を指定します (休日、休校日など)。これにより、コース設定ツールが課題の設定を適切に行うことができます。変更したい日付をクリックし、未選択、選択済み、休日のいずれかを選択します。休日がゼロの場合は、「休講日なし」を選択します
-      。
+    calendar_instructions: 日程から除外したい日付を指定します (休日、休校日など)。これにより、コース設定ツールが課題の設定を適切に行うことができます。変更したい日付をクリックし、未選択、選択済み、休日のいずれかを選択します。
     confirm_dates: コースの日付、毎週のミーティング、休日を選択します。
     course_dates: コースの日程
     min_weeks: この課題には最低%{min_weeks}週間が必要です。このタイプの課題を利用するには、課題の開始日と終了日を調節してください。
