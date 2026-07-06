@@ -132,8 +132,8 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   def reset_undeleted_or_retracked_articles
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
-      @course.legacy_articles_from_timeslices(wiki.id)
-             .where(deleted: false).in_batches do |article_batch|
+      timeslice_articles(wiki.id)
+        .where(deleted: false).in_batches do |article_batch|
         tracked = @course.tracked_namespaces.flat_map do |wiki_ns|
           wiki_id = wiki_ns[:wiki].id
           namespace = wiki_ns[:namespace]
@@ -141,7 +141,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
         end
 
         tracked_without_articles_courses = tracked - @course.articles.to_a
-        reset(tracked_without_articles_courses, wiki)
+        reset_included(tracked_without_articles_courses, wiki)
       end
     end
   end
@@ -162,6 +162,21 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
       delete_article_course(articles.pluck(:id))
     else
       reset(articles)
+    end
+  end
+
+  # Inclusion reset for articles that should count again (undeleted, or moved back
+  # into a tracked namespace). For ACUWT courses this flags the articles' ACUWT rows
+  # needs_update, so ReprocessArticleCourseUserWikiTimeslices rescores and
+  # reaggregates them (a re-tracked article may have been left unscored while out of
+  # scope); other courses fall back to the legacy needs_update reprocess. The
+  # articles_courses records are not touched here (these articles have none); they
+  # are recreated during aggregation.
+  def reset_included(articles, wiki = nil)
+    if @course.use_acuwt?
+      mark_acuwt_needs_update(articles)
+    else
+      reset(articles, wiki)
     end
   end
 
@@ -236,6 +251,24 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   def reaggregate_from_acuwt(article_batch)
     acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article: article_batch)
     TimesliceCleaner.new(@course).reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+  end
+
+  # Flags the articles' ACUWT rows needs_update so they are rescored and
+  # reaggregated by ReprocessArticleCourseUserWikiTimeslices in the same update cycle.
+  def mark_acuwt_needs_update(article_batch)
+    ArticleCourseUserWikiTimeslice.where(course: @course, article: article_batch)
+                                  .update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  # Articles with timeslice data for the given wiki, honoring the course's update
+  # path: ACUWT rows (which are kept even when ACT rows are removed) for ACUWT
+  # courses, legacy ACT rows otherwise.
+  def timeslice_articles(wiki_id)
+    if @course.use_acuwt?
+      @course.articles_from_timeslices(wiki_id)
+    else
+      @course.legacy_articles_from_timeslices(wiki_id)
+    end
   end
 
   def touch_timeslices(article_batch)

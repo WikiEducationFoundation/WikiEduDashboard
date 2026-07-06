@@ -236,4 +236,27 @@ describe ArticlesCoursesCleaner do
       expect(cwt.needs_update).to eq(false)
     end
   end
+
+  describe '.reset_articles_for_course inclusion when the course is on the ACUWT update path' do
+    before do
+      stub_wiki_validation
+      course.add_flag(key: :use_acuwt)
+      course.wikis << wikidata
+      # article4 is non-deleted, in a tracked namespace and has ACUWT rows (kept from
+      # a prior exclusion) but no articles_courses record and no ACT rows.
+      create(:article_course_user_wiki_timeslice, course:, wiki: wikidata, user: create(:user),
+             article: article4, start: '2024-03-15', end: '2024-03-16')
+    end
+
+    it 'flags the ACUWT rows needs_update instead of reaggregating or reprocessing' do
+      described_class.reset_articles_for_course(course)
+
+      acuwt = ArticleCourseUserWikiTimeslice.where(course:, article: article4)
+      expect(acuwt.count).to be_positive
+      expect(acuwt.where(needs_update: false)).to be_empty
+
+      # The reset itself neither recreates articles_courses nor a full-reprocess flag
+      expect(course.articles_courses.where(article: article4)).to be_empty
+    end
+  end
 end
