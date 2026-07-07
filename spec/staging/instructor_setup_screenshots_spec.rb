@@ -91,7 +91,10 @@ describe 'Instructor setup illustrated guide', :staging do
     capture('03-dashboard-setup-empty')
 
     if page.has_select?('course_slug')
-      select provisioned[:dashboard_course_slug], from: 'course_slug'
+      # The option is labelled with the readable course title; its value is
+      # still the slug, so pick it by value rather than the displayed text.
+      slug = provisioned[:dashboard_course_slug]
+      find("#course_slug option[value='#{slug}']").select_option
     else
       fill_in 'course_slug', with: provisioned[:dashboard_course_slug]
     end
