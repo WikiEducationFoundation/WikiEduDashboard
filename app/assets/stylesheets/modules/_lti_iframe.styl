@@ -34,6 +34,13 @@ body.lti-iframe
 .lti-iframe__button
   display inline-block
 
+// Setup form: "Link this course" is a primary action that only makes sense
+// once a course is chosen, so JS disables it until then; dim it and swap the
+// cursor so the disabled state clearly reads as "not ready yet".
+.lti-setup__submit[disabled]
+  opacity .5
+  cursor not-allowed
+
 // Assignment_view drill-down (instructor roster / student panel). Unlike the
 // centered landing, this is a top-aligned card that can hold a full roster.
 .lti-iframe__drilldown

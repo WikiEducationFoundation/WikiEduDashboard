@@ -26,7 +26,20 @@
             %strong= t('lti.setup.granularity.per_block.label')
             %p.lti-granularity-example
               = t('lti.setup.granularity.per_block.example')
-      %button.button{ type: 'submit' }= t('lti.setup.submit')
+      %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
+    :javascript
+      // Keep the primary action disabled until a course is picked, so its
+      // enabled/disabled state mirrors whether the form can actually submit.
+      // Progressive enhancement: without JS the button stays active and the
+      // `required` select still blocks an empty submit.
+      (function () {
+        var select = document.getElementById('course_slug');
+        var submit = document.querySelector('.lti-setup__submit');
+        if (!select || !submit) { return; }
+        var sync = function () { submit.disabled = !select.value; };
+        select.addEventListener('change', sync);
+        sync();
+      })();
   - else
     .module
       %p= t('lti.setup.no_approved_courses')
