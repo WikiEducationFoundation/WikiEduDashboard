@@ -1,5 +1,5 @@
-.container.narrow
-  .section-header
-    %h3= t('lti.enrollment_pending_approval.header')
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h3.lti-iframe__title= t('lti.enrollment_pending_approval.header')
   %p= t('lti.enrollment_pending_approval.explanation')
   %p= t('lti.enrollment_pending_approval.contact_hint')
