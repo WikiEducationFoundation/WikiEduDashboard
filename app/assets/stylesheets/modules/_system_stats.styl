@@ -1,0 +1,91 @@
+// System Stats Dashboard — minimal additions over existing framework styles
+// Uses: .main-page, .stat-display, .module, .section-header, .table from global stylesheets
+
+.system-stats__filters
+  display flex
+  gap 16px
+  flex-wrap wrap
+  align-items flex-end
+  margin-bottom 20px
+  padding 20px
+  background-color #fff
+  border 1px solid #e2e2e2
+
+  .system-stats__filter-group
+    display flex
+    flex-direction column
+    flex 1
+    min-width 160px
+
+    label
+      font-size 12px
+      font-weight 700
+      text-transform uppercase
+      color #666
+      margin-bottom 6px
+
+    select, input
+      padding 8px 10px
+      border 1px solid #ddd
+      border-radius 3px
+      font-size 14px
+
+      &:focus
+        outline none
+        border-color $brand_primary
+
+  .system-stats__filter-actions
+    flex none
+    min-width auto
+
+.system-stats__metric-selector
+  margin 0 0 10px 0
+  display flex
+  align-items center
+  gap 10px
+
+  label
+    font-size 13px
+    font-weight 600
+    color #666
+    white-space nowrap
+
+  select
+    padding 6px 28px 6px 10px
+    border 1px solid #ddd
+    border-radius 3px
+    font-size 13px
+    background-position calc(100% - 6px) 50%
+    background-color #fff
+    cursor pointer
+
+.system-stats__charts
+  display grid
+  grid-template-columns 1fr 1fr
+  gap 20px
+  margin-bottom 30px
+
+  +below(desktop)
+    grid-template-columns 1fr
+
+  .module
+    margin 0
+
+.system-stats__chart-canvas
+  position relative
+  height 320px
+  width 100%
+
+.system-stats__search-input
+  padding 8px 12px
+  border 1px solid #ddd
+  border-radius 3px
+  font-size 14px
+  min-width 220px
+
+  &:focus
+    outline none
+    border-color $brand_primary
+
+#facilitators
+  margin-bottom 40px
