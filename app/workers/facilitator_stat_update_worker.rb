@@ -8,7 +8,7 @@ class FacilitatorStatUpdateWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'daily_update', lock: :until_executed
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def perform
     return if Features.wiki_ed?
 
@@ -16,7 +16,6 @@ class FacilitatorStatUpdateWorker
     metrics = compute_all_metrics
     today = Time.zone.today
     upserted = 0
-    errors = 0
 
     records = metrics[:facilitator_ids].map do |user_id|
       build_record(user_id, today, metrics)
@@ -24,21 +23,23 @@ class FacilitatorStatUpdateWorker
 
     begin
       if records.any?
-        FacilitatorStat.upsert_all(records)
-        upserted = records.size
+        records.each_slice(100) do |batch|
+          FacilitatorStat.upsert_all(batch)
+          upserted += batch.size
+        end
       end
     rescue StandardError => e
-      errors = records.size
       Rails.logger.error do
         "FacilitatorStatUpdateWorker: batch upsert failed: #{e.message}"
       end
+      raise e
     end
 
     Rails.logger.info do
-      "FacilitatorStatUpdateWorker: finished. upserted=#{upserted}, errors=#{errors}"
+      "FacilitatorStatUpdateWorker: finished. upserted=#{upserted}"
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 
