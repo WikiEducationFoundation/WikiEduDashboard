@@ -10,7 +10,7 @@
         %h4= t('lti.setup.link_existing.header')
         = label_tag :course_slug, t('lti.setup.link_existing.label')
         = select_tag :course_slug,
-                     options_for_select(@user_courses.map(&:slug)),
+                     options_for_select(@user_courses.map { |c| [pretty_course_title(c), c.slug] }),
                      required: true, include_blank: true
       .module
         %h4= t('lti.setup.granularity.header')
