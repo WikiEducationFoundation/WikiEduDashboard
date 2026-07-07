@@ -27,10 +27,10 @@
           target.innerHTML = data.parse.text;
           target.classList.add('lti-sandbox__content--rendered');
         } else {
-          target.textContent = '[PLACEHOLDER - message when the student has no sandbox page yet]';
+          target.textContent = 'No sandbox found';
         }
       }).catch(function () {
-        target.textContent = '[PLACEHOLDER - message when the sandbox preview fails to load]';
+        target.textContent = 'Sandbox failed to load';
       });
     }
 

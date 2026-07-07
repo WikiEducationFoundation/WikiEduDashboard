@@ -2216,18 +2216,16 @@ en:
           label: "A separate column for every training and exercise"
           example: "Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …"
       submit: "Link this course"
-      # PLACEHOLDER COPY — pending an operator copy pass before launch.
-      create_prompt: "[PLACEHOLDER - one line for an instructor whose course isn't in the list: tell them to set up their course on the Wiki Education Dashboard and have it approved first; it is immediately followed by a 'My Dashboard' link]"
+      create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
     deep_link:
-      # PLACEHOLDER COPY — pending an operator copy pass before launch.
-      header: "<picker heading: choose which Wikipedia task this Canvas column tracks>"
-      instruction: "<instruction: pick one Wikipedia assignment for this Canvas assignment>"
-      submit: "Add to Canvas"
-      no_gradables: "<shown when the linked course has no gradable trainings or exercises yet>"
+      header: "Choose Wikipedia task"
+      instruction: "Choose a Wikipedia task for this gradable item"
+      submit: "Add to course"
+      no_gradables: "No gradable items found"
       unbound:
-        header: "<shown when this Canvas course isn't linked to a Wiki Education course yet>"
-        explanation: "<tell the instructor to do the course-navigation set-up launch first, then return>"
+        header: "This Canvas course isn't linked to a Wiki Education course yet"
+        explanation: "Try again once you've set up your course page on dashboard.wikiedu.org"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"
       explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."

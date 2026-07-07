@@ -28,8 +28,7 @@
               = t('lti.setup.granularity.per_block.example')
       %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
     %p.lti-setup__alt-path
-      = t('lti.setup.create_prompt')
-      = link_to t('application.my_dashboard'), root_path, class: 'lti-setup__alt-link'
+      = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link'
     :javascript
       // Keep the primary action disabled until a course is picked, so its
       // enabled/disabled state mirrors whether the form can actually submit.
