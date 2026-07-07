@@ -115,20 +115,17 @@ describe 'Assignment view drill-down screenshots', :staging do
         course_slug: slug, username:, exercise_module_id: timeline['exercise_module_id']
       )
     end
-    create_and_find_drilldown_assignment(label:)
+    create_drilldown_assignment(label:)
   end
 
-  # Create the launchable deep-link assignment (named distinctly from the
-  # auto-synced column so find_assignment is unambiguous) and return its id.
-  def create_and_find_drilldown_assignment(label:)
-    name = "#{label} (drill-down)"
-    create_deep_linked_assignment(course_id: provisioned[:canvas_course_id],
-                                  gradable_label: label, assignment_name: name)
-    assignment = eventually do
-      canvas_api.find_assignment(course_id: provisioned[:canvas_course_id], name:)
-    end
-    expect(assignment).not_to be_nil
-    assignment['id']
+  # Create the launchable deep-link assignment (named as the instructor would
+  # see it — the gradable's own label) and return its Canvas id, taken from the
+  # post-save redirect so no disambiguating name suffix is needed.
+  def create_drilldown_assignment(label:)
+    id = create_deep_linked_assignment(course_id: provisioned[:canvas_course_id],
+                                       gradable_label: label)
+    expect(id).not_to be_nil
+    id
   end
 
   def capture_instructor_roster(assignment_id:, label:)

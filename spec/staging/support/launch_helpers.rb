@@ -201,6 +201,7 @@ module LaunchHelpers
   # the gradable already has an auto-synced gradebook column of the same name, so
   # the created assignment is unambiguously findable.
   def create_deep_linked_assignment(course_id:, gradable_label:, assignment_name: gradable_label)
+    assignment_id = nil
     in_canvas do
       ensure_canvas_logged_in_as_instructor
       visit "/courses/#{course_id}/assignments/new"
@@ -210,8 +211,13 @@ module LaunchHelpers
       fill_in 'assignment_name', with: assignment_name
       fill_in 'assignment_points_possible', with: '1'
       find('.save_and_publish').click
+      # Canvas redirects to the new assignment's page; capture its id so callers
+      # can address it directly, without a disambiguating name search.
+      expect(page).to have_current_path(%r{/assignments/\d+}, url: true, wait: 20)
+      assignment_id = page.current_url[%r{/assignments/(\d+)}, 1]
     end
     dismiss_consent_banner
+    assignment_id
   end
 
   # Inside Canvas's External Tool "Find" dialog: click our tool, pick the gradable

@@ -83,7 +83,11 @@ describe 'Student UX screenshots', :staging do
       # the intermittent upstream 500s can slow past the old 30s budget.
       wait_out_server_error
       expect(page).to have_current_path(%r{/courses/StagingTest/}, url: true, wait: 60)
-      expect(page).to have_css('#react_root *', wait: 30)
+      # Wait for the loaded course home, not just the React root — the root
+      # mounts with the "Loading…" spinner still showing. Then clear the consent
+      # overlay before capturing.
+      expect(page).to have_content('My Articles', wait: 30)
+      dismiss_consent_banner
       capture('s02-student-enrolled-landing')
 
       await_lms_panel

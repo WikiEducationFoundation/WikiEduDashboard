@@ -101,17 +101,19 @@ describe 'Instructor setup illustrated guide', :staging do
     capture('04-dashboard-setup-course-selected')
 
     click_button 'Link this course'
-    sleep 2
+    # Gate on the bound course home + its LMS panel rendering (which implies the
+    # redirect finished) so the shot isn't a blank mid-load page, then clear the
+    # fixed cookie-consent overlay before capturing.
+    await_lms_panel
+    dismiss_consent_banner
     capture('05-dashboard-course-bound')
 
     # Spaces in the slug come through URL-encoded in the browser bar.
     expect(CGI.unescape(page.current_url))
       .to include("/courses/#{provisioned[:dashboard_course_slug]}")
 
-    # The LmsIntegrationStatus panel (StaffView) renders in the course
-    # Home sidebar once the binding sets course.flags[:canvas_integration]:
-    # the linked Canvas course, last sync, and synced-students count.
-    await_lms_panel
+    # The LmsIntegrationStatus panel (StaffView) shows the linked Canvas course,
+    # last sync, and synced-students count; scroll it into view.
     scroll_into_view('.lms-integration-status')
     capture('06-instructor-course-panel')
   end
