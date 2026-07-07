@@ -252,12 +252,13 @@ module LaunchHelpers
   end
 
   # Pick the course + granularity on the setup view and submit. The
-  # `course_slug` field is a select whose option text is the slug; older
-  # deployed builds rendered a text input, so branch on what's present.
+  # `course_slug` select is labelled with the readable course title but its
+  # option value is the slug, so pick by value; older deployed builds
+  # rendered a text input, so branch on what's present.
   def submit_course_link(course_slug:, granularity: 'lumped')
     expect(page).to have_content('Set up the Wiki Education Dashboard')
     if page.has_select?('course_slug')
-      select course_slug, from: 'course_slug'
+      find("#course_slug option[value='#{course_slug}']").select_option
     else
       fill_in 'course_slug', with: course_slug
     end
