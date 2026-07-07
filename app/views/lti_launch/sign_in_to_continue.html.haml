@@ -8,6 +8,7 @@
 - # session cookies behave as first-party.
 .lti-iframe__landing
   = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %p.lti-iframe__title= t('lti.iframe_landing.explanation')
   = link_to "/lti/connect_course?ltik=#{CGI.escape(@ltik.to_s)}",
             target: '_blank', rel: 'noopener',
             class: 'button dark lti-iframe__button' do

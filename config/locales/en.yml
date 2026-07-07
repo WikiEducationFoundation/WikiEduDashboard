@@ -2197,6 +2197,8 @@ en:
 
   lti:
     iframe_landing:
+      # PLACEHOLDER COPY — pending an operator copy pass before launch.
+      explanation: "[PLACEHOLDER - a line explaining that the button opens the Wiki Education Dashboard in a new tab to continue (sign in if needed, then set up the course or open the assignment); stance-neutral about whether they're already signed in, since this shows for instructors, students, and assignment launches]"
       button: "Open the Wiki Education Dashboard"
     oauth_redirect:
       title: "Continuing to Wikipedia sign-in…"
