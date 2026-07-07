@@ -33,10 +33,10 @@ describe 'LTI instructor setup view', type: :feature, js: true do
     before do
       campaign = create(:campaign)
       active = create(:course, slug: 'School/Active_Course_(2026)',
-                               title: 'Wikipedia Writing 101',
+                               school: 'Demo U', title: 'Active Course', term: '2026',
                                start: 1.week.ago, end: 2.months.from_now)
       future = create(:course, slug: 'School/Upcoming_Course_(2026)',
-                               title: 'Spring Editathon',
+                               school: 'Demo U', title: 'Upcoming Course', term: '2026',
                                start: 1.month.from_now, end: 4.months.from_now)
       [active, future].each do |c|
         CoursesUsers.create!(user: instructor, course: c,
@@ -51,10 +51,13 @@ describe 'LTI instructor setup view', type: :feature, js: true do
 
       expect(page).to have_content('Set up the Wiki Education Dashboard')
       expect(page).to have_select('course_slug')
-      expect(page).to have_select('course_slug', options: ['',
-                                                           'School/Upcoming_Course_(2026)',
-                                                           'School/Active_Course_(2026)'])
+      # Options are labelled with the readable course title but submit the slug.
+      expect(page).to have_css("#course_slug option[value='School/Active_Course_(2026)']",
+                               text: 'Demo U - Active Course (2026)')
+      expect(page).to have_css("#course_slug option[value='School/Upcoming_Course_(2026)']",
+                               text: 'Demo U - Upcoming Course (2026)')
       expect(page).to have_content('One column for all trainings')
+      expect(page).to have_link('Create a course on the Dashboard', href: '/')
     end
   end
 
