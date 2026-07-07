@@ -127,8 +127,10 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
   # Enroll a dedicated, never-launching student and roster-sync again so it's
   # discovered as an unlinked (not-connected) context.
   def add_not_connected_student(canvas_id, binding_id)
-    student = canvas_api.find_or_create_user(unique_id: 'lti-unconnected-student',
-                                             name: 'LTI Test Student (unconnected)')
+    # Distinct name (and login) from the real "LTI Test Student" so the two
+    # gradebook rows don't read as duplicates when the name column truncates.
+    student = canvas_api.find_or_create_user(unique_id: 'lti-unconnected-demo-student',
+                                             name: 'Unconnected Demo Student')
     canvas_api.enroll_user(course_id: canvas_id, user_id: student, role: 'StudentEnrollment')
     DashboardAdminClient.run_roster_sync(binding_id:)
   end
