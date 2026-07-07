@@ -43,8 +43,8 @@ ROLE_SPECS = {
   'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
 }.freeze
 
-# Cool slate neutrals with a single dashboard-blue accent; monospace caption
-# labels so the step filenames read as data, not prose.
+# Cool slate neutrals with a single dashboard-blue accent. Section titles and
+# captions read as plain language, not slugs/filenames.
 GALLERY_CSS = <<~CSS
   :root { --ground:#f6f8fb; --surface:#fff; --ink:#17212b; --muted:#5a6b7b;
           --line:#e3e8ee; --accent:#2a5db0; }
@@ -55,16 +55,100 @@ GALLERY_CSS = <<~CSS
   header.g { border-bottom:2px solid var(--accent); padding-bottom:1rem; margin-bottom:1rem; }
   header.g h1 { margin:0 0 .35rem; font-size:1.6rem; letter-spacing:-.01em; text-wrap:balance; }
   header.g p { margin:0; color:var(--muted); font-size:.95rem; }
-  section.role { margin-top:2.5rem; }
-  section.role > h2 { margin:0 0 1rem; font-size:1.05rem; text-transform:capitalize;
-                      color:var(--accent); letter-spacing:.02em; }
+  section.role { margin-top:2.75rem; }
+  section.role > h2 { margin:0 0 .3rem; font-size:1.15rem; color:var(--accent);
+                      letter-spacing:.01em; text-wrap:balance; }
+  .blurb { margin:0 0 1.25rem; color:var(--muted); font-size:.95rem; max-width:72ch; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1.25rem; }
   figure { margin:0; background:var(--surface); border:1px solid var(--line);
            border-radius:8px; overflow:hidden; box-shadow:0 1px 3px rgba(20,33,43,.05); }
   figure img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
-  figcaption { padding:.55rem .7rem; color:var(--muted);
-               font:.8rem/1.3 ui-monospace, "SF Mono", Menlo, monospace; }
+  figcaption { padding:.6rem .75rem; color:var(--muted); font-size:.85rem; line-height:1.4; }
 CSS
+
+# Display order = the order an instructor meets each surface, from the one-time
+# admin install through the per-assignment drill-down. Each entry is a role's
+# shot subdir, a plain-language section title, and a one-line blurb.
+SECTIONS = [
+  { role: 'admin',
+    title: 'Canvas admin — install the integration',
+    blurb: 'One-time account-admin setup: the Wiki Education developer key and app, ' \
+           'enabled across the Canvas instance.' },
+  { role: 'instructor',
+    title: 'Instructor — first-time course setup',
+    blurb: 'Opening the tool from the course, linking a Wiki Education course, and ' \
+           'choosing how progress appears in the gradebook.' },
+  { role: 'student',
+    title: 'Student — joining the course',
+    blurb: "The student's launch from Canvas, the waiting states before setup and " \
+           'approval, and their course home.' },
+  { role: 'active_course',
+    title: 'Instructor — roster sync as students join',
+    blurb: "The instructor's course home and student roster, before and after a " \
+           'student connects through Canvas.' },
+  { role: 'canvas_gradebook',
+    title: 'Canvas gradebook — who has connected',
+    blurb: 'Wikipedia progress pushed back to Canvas, contrasting a connected student ' \
+           'with one who has not linked their account.' },
+  { role: 'full_course',
+    title: 'Canvas gradebook — a full assignment timeline',
+    blurb: 'The same gradebook for a complete multi-week assignment: one column per ' \
+           'milestone.' },
+  { role: 'assignment_view',
+    title: 'Assignment drill-down',
+    blurb: "Opening a Wikipedia column's assignment: the instructor's per-milestone " \
+           "roster with inline sandbox previews, and the student's own panel." }
+].freeze
+
+# Plain-language caption per screenshot, keyed by file basename.
+CAPTIONS = {
+  'a01-developer-keys' =>
+    'The Wiki Education developer key, enabled in Canvas admin.',
+  'a02-canvas-apps-manage' =>
+    'The installed tool under Canvas Apps, Manage.',
+  '01-canvas-course-with-tab' =>
+    'The Wiki Education Dashboard item in the course navigation.',
+  '02-canvas-iframe-landing' =>
+    'Opening the tool inside Canvas: a button to continue on the Dashboard in a new tab.',
+  '03-dashboard-setup-empty' =>
+    'The setup page: pick a Wiki Education course and a gradebook layout.',
+  '04-dashboard-setup-course-selected' =>
+    'A course chosen; Link this course becomes active.',
+  '05-dashboard-course-bound' =>
+    'After linking, the instructor lands on the connected course home.',
+  '06-instructor-course-panel' =>
+    'The Canvas link panel: linked course, last sync, and students synced.',
+  's01-canvas-iframe-landing' =>
+    "The student's launch from Canvas: the same break-out button.",
+  's02-student-enrolled-landing' =>
+    "The student's course home once enrolled.",
+  's03-student-course-panel' =>
+    "The student's course panel, including their Canvas link status.",
+  's04-setup-pending' =>
+    'Shown to a student before the instructor has finished setup.',
+  's05-enrollment-pending-approval' =>
+    'Shown while the course is awaiting Wiki Education approval.',
+  'i01-before-course-home' =>
+    'Instructor course home before any student has connected.',
+  'i02-before-students-roster' =>
+    'The student roster, still empty.',
+  'i03-after-course-home' =>
+    'After a student connects: last sync and students-synced update.',
+  'i04-after-students-roster' =>
+    'The roster now showing the connected student.',
+  'c01-canvas-gradebook-progress' =>
+    'Wikipedia columns in Canvas: a connected student graded, and one who has not linked at zero.',
+  'f01-full-course-gradebook' =>
+    'A full assignment timeline: one gradebook column per weekly milestone.',
+  '01-canvas-assignment-page' =>
+    "A Wikipedia milestone's assignment page inside Canvas.",
+  '02-instructor-roster' =>
+    "The drill-down: each student's status and sandbox for this milestone.",
+  '03-instructor-sandbox-preview' =>
+    "Show renders a student's Wikipedia sandbox inline.",
+  '04-student-panel' =>
+    "The same milestone as the student sees it: their status and sandbox."
+}.freeze
 
 def run_dir
   ENV.fetch('CANVAS_SHOTS_DIR', File.join(ROOT, 'tmp', 'canvas-ux-screenshots'))
@@ -90,34 +174,45 @@ end
 
 def gallery_card(path)
   name = File.basename(path, '.png')
+  caption = CAPTIONS.fetch(name, name)
   data = Base64.strict_encode64(File.binread(path))
-  %(<figure><img src="data:image/png;base64,#{data}" alt="#{name}">) +
-    %(<figcaption>#{name}</figcaption></figure>)
+  %(<figure><img src="data:image/png;base64,#{data}" alt="#{caption}">) +
+    %(<figcaption>#{caption}</figcaption></figure>)
 end
 
-def gallery_section(role)
-  pngs = Dir[File.join(run_dir, role, '*.png')].sort
+def gallery_section(section)
+  pngs = Dir[File.join(run_dir, section[:role], '*.png')].sort
   return if pngs.empty?
 
   cards = pngs.map { |p| gallery_card(p) }.join("\n")
-  %(<section class="role"><h2>#{role.tr('_', ' ')}</h2>) +
+  %(<section class="role"><h2>#{section[:title]}</h2>) +
+    %(<p class="blurb">#{section[:blurb]}</p>) +
     %(<div class="grid">\n#{cards}\n</div></section>)
 end
 
 # Fragment HTML (no <html>/<head>/<body>) so it can be published verbatim as
 # an Artifact, while still rendering fine when opened directly in a browser.
+def shot_count(roles)
+  roles.sum { |r| Dir[File.join(run_dir, r, '*.png')].length }
+end
+
 def build_gallery(roles)
-  sections = roles.filter_map { |role| gallery_section(role) }
-  shots = roles.sum { |r| Dir[File.join(run_dir, r, '*.png')].length }
+  chosen = SECTIONS.select { |s| roles.include?(s[:role]) }
+  sections = chosen.filter_map { |s| gallery_section(s) }
+  shots = shot_count(roles)
   body = sections.empty? ? '<p>No screenshots captured.</p>' : sections.join("\n")
   html = +"<title>Canvas integration UX</title>\n<style>#{GALLERY_CSS}</style>\n"
-  html << %(<div class="wrap">\n<header class="g"><h1>Canvas integration UX</h1>)
-  html << %(<p>#{shots} screenshot#{'s' unless shots == 1} across )
-  html << %(#{sections.length} flow#{'s' unless sections.length == 1}, )
-  html << "harvested from the deployed staging stack.</p></header>\n#{body}\n</div>\n"
+  html << gallery_header(shots, sections.length) << body << "\n</div>\n"
   path = File.join(run_dir, 'gallery.html')
   File.write(path, html)
   path
+end
+
+def gallery_header(shots, flows)
+  %(<div class="wrap">\n<header class="g"><h1>Canvas integration UX</h1>) +
+    %(<p>#{shots} screenshot#{'s' unless shots == 1} across ) +
+    %(#{flows} flow#{'s' unless flows == 1}, in the order an instructor meets them, ) +
+    "from the deployed staging stack.</p></header>\n"
 end
 
 # --- Nested-display support (XEPHYR=1) --------------------------------------
