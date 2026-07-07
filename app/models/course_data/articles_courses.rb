@@ -75,7 +75,7 @@ class ArticlesCourses < ApplicationRecord
   # and upate the cache only for them.
   # If no course update exists yet, then we update all the articles courses.
   def self.articles_courses_to_update(course)
-    last_update = course.flags['update_logs'].values.last['end_time']
+    last_update = course.last_update_end_time
     Rails.logger.info "Updating partial ArticlesCourses caches for #{course.title}"
     course.article_course_timeslices.where('updated_at >= ?', last_update)
           .distinct

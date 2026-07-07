@@ -29,7 +29,7 @@ class UpdateTimeslicesCourseUser
 
     # Users that were added after the last course update start are considered new
     # It's not safe to rely on new_user_ids = current_user_ids - processed_users
-    @course_update_start = @course.flags['update_logs'].values.last['start_time']
+    @course_update_start = @course.last_update_start_time
     new_user_ids = @course.students.where('courses_users.created_at >= ?',
                                           @course_update_start).pluck(:id)
     add_user_ids(new_user_ids)
