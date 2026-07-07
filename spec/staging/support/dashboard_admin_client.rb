@@ -198,7 +198,7 @@ module DashboardAdminClient
         b.order = 1
         b.training_module_ids = [training.id]
       end
-      week.blocks.find_or_create_by!(title: #{exercise_block_title.inspect}) do |b|
+      exercise_block = week.blocks.find_or_create_by!(title: #{exercise_block_title.inspect}) do |b|
         b.kind = Block::KINDS['assignment']
         b.order = 2
         b.training_module_ids = [exercise.id]
@@ -210,7 +210,7 @@ module DashboardAdminClient
         exercise_module_name: exercise.name,
         exercise_sandbox_location: exercise.sandbox_location,
         training_line_item_label: 'Wikipedia trainings',
-        exercise_line_item_label: "Wk1 #{exercise_block_title}"
+        exercise_line_item_label: LtiGradebookLabel.for_block(exercise_block)
       }.to_json)
     RUBY
     DashboardConsole.run_json(script)
@@ -252,7 +252,7 @@ module DashboardAdminClient
           b.order = 2
           b.training_module_ids = [mod.id]
         end
-        blocks << { block_id: block.id, label: "Wk#{wk} #{mod.name}",
+        blocks << { block_id: block.id, label: LtiGradebookLabel.for_block(block),
                     module_id: mod.id, sandbox: mod.sandbox_location }
       end
       puts({ training_module_id: training&.id, blocks: blocks }.to_json)

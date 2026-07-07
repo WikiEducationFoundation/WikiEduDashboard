@@ -151,6 +151,25 @@ describe SyncLtiLineItems do
     end
   end
 
+  describe 'short exercise labels' do
+    let(:gradebook_granularity) { 'per_block' }
+    let(:mapped_exercise) do
+      create(:training_module, slug: 'bibliography-exercise',
+                               name: 'Building your bibliography', kind: 1)
+    end
+    let!(:mapped_block) do
+      create(:block, week: week, order: 0, title: 'A long timeline block title',
+                     training_module_ids: [mapped_exercise.id])
+    end
+
+    it 'labels the column with the operator short name, not the block title' do
+      stub_post_lineitem(label: 'Wk1 Bibliography')
+      described_class.new(binding)
+      row = LtiLineItem.find_by(gradable_type: 'Block', gradable_id: mapped_block.id)
+      expect(row.label).to eq('Wk1 Bibliography')
+    end
+  end
+
   describe 'no-op cases' do
     it 'is a no-op when binding has no course' do
       binding.update!(course: nil)

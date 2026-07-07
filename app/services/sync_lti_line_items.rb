@@ -116,9 +116,7 @@ class SyncLtiLineItems
   end
 
   def label_for_block(block)
-    week_order = block.week&.order
-    prefix = week_order ? "Wk#{week_order} " : ''
-    "#{prefix}#{block.title}".byteslice(0, 64)
+    LtiGradebookLabel.for_block(block)
   end
 
   def lumped_training_label
