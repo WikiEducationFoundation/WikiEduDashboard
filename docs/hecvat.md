@@ -1,4 +1,4 @@
-> **Draft — not approved for publication.** The questions below are the official **HECVAT 4.1.6** critical-question set (the asterisked "Core"/Lite-equivalent subset), © EDUCAUSE. The answers are a Claude Code first pass: pre-filled **only** where a fact is verifiable from the public codebase (each marked `[DRAFT]`), with everything substantive left as `[PLACEHOLDER]` for Wiki Education to complete and verify. No security claim here is authoritative until Wiki Education reviews it. [PLACEHOLDER - Wiki Education to complete/verify and remove this banner before sharing.]
+> **Draft — work in progress.** This response (the official **HECVAT 4.1.6** critical-question "Core" set, © EDUCAUSE) accompanies the in-development Canvas integration and will be finalized before that integration ships to production. Answers were drafted with Claude Code — from the public codebase and Wiki Education's infrastructure details — and reviewed and confirmed by Wiki Education (Sage Ross, Chief Technology Officer).
 
 # HECVAT 4.1.6 (Core) — Wiki Education Dashboard
 

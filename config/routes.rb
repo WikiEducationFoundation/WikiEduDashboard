@@ -596,6 +596,7 @@ Rails.application.routes.draw do
 
   get '/private_information' => 'about_this_site#private_information'
   get '/accessibility' => 'about_this_site#accessibility'
+  get '/hecvat' => 'about_this_site#hecvat'
   get '/styleguide' => 'styleguide#index'
 
   get '/status' => 'system_status#index'

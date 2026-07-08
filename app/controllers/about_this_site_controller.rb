@@ -19,4 +19,10 @@ class AboutThisSiteController < ApplicationController
   def canvas_integration_guide
     raise ActionController::RoutingError, 'Not Found' unless Features.wiki_ed?
   end
+
+  # Public HECVAT (security/privacy assessment) for the Canvas integration,
+  # published alongside the VPAT. Wiki-Ed-only, same as the VPAT.
+  def hecvat
+    raise ActionController::RoutingError, 'Not Found' unless Features.wiki_ed?
+  end
 end

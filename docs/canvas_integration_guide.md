@@ -47,8 +47,9 @@ installing. For the Dashboard:
   published at
   [dashboard.wikiedu.org/accessibility](https://dashboard.wikiedu.org/accessibility)
   (VPAT 2.5, WCAG edition; evaluated against WCAG 2.1 A and AA).
-- **Security & privacy (HECVAT):** [PLACEHOLDER - link to, or current status of,
-  the Dashboard's HECVAT (Higher Education Community Vendor Assessment Toolkit).]
+- **Security & privacy (HECVAT):** the Dashboard's Higher Education Community
+  Vendor Assessment Toolkit response is published at
+  [dashboard.wikiedu.org/hecvat](https://dashboard.wikiedu.org/hecvat).
 - **What data is shared:** when a student launches the tool, Canvas shares their
   name and course-roster membership with the Dashboard (through LTIAAS) so they can
   be added to the course; the Dashboard sends scores, and links to the students'
