@@ -409,6 +409,86 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
+## Installing at a partner university (Canvas admin walkthrough)
+
+The real-world install path, from the perspective of a **Canvas admin at a
+partner university**. On Instructure-hosted Canvas they have **root-account**
+admin access but **not Site Admin** (that belongs to Instructure).
+`canvas.wikiedu.org` is self-hosted, so Site Admin exists there — but we install
+at the root account precisely so this walkthrough matches what a partner does.
+
+### 1. The request
+
+A course instructor — already using the Wiki Education Dashboard for their
+Wikipedia assignment — asks their Canvas admin to add the integration, so that
+training and exercise progress shows up in the Canvas gradebook and students can
+launch the Dashboard from the course.
+
+### 2. Evaluate the integration
+
+Before installing anything account-wide, the admin does the usual vendor due
+diligence:
+
+- **Canvas integration guide** — what the tool is (an LTI 1.3 tool fronted by
+  LTIAAS), what it does (course-navigation launch, NRPS roster sync, AGS grade
+  passback), and what it needs (a root-account install with specific scopes and
+  placements). [PLACEHOLDER - link to Wiki Education's Canvas integration guide]
+- **VPAT** (Voluntary Product Accessibility Template) — the accessibility
+  conformance report the university's accessibility office will ask for.
+  [PLACEHOLDER - link to the Dashboard's VPAT, or note its status]
+- **HECVAT** (Higher Education Community Vendor Assessment Toolkit) — the
+  security/privacy self-assessment for the university's vendor-risk review.
+  [PLACEHOLDER - link to the Dashboard's HECVAT, or note its status]
+- **Data flow** (for the security review): the tool is fronted by **LTIAAS**, a
+  third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
+  Canvas ↔ LTIAAS ↔ Dashboard; the Dashboard stores the linked Canvas identities
+  and pushes fractional scores plus sandbox-link comments back. See
+  [Beyond a basic launch](#beyond-a-basic-launch-nrps-roster--ags-grade-passback).
+
+### 3. Register the university's Canvas with LTIAAS
+
+The Dashboard is fronted by a shared LTIAAS tenant, so each university's Canvas
+is registered with LTIAAS once.
+
+> [CONFIRM: who performs this hand-off — does the university admin self-register
+> in the LTIAAS portal, or does Wiki Education register the platform given the
+> university's Canvas issuer + client_id? Document the actual process here.]
+
+Either way, the registration needs the university's Canvas **issuer** and the
+**Client ID** from the developer key in the next step, so create the key first
+and hand those two values to whoever completes the LTIAAS registration.
+
+### 4. Create the LTI 1.3 developer key (root account)
+
+**Admin → Developer Keys → + Developer Key → + LTI Key.** Paste Wiki Education's
+LTIAAS tool configuration (JSON URL or paste JSON), set the redirect URIs,
+**Save**, then set **State → ON**. Note the generated **Client ID**. See
+[Placements](#placements) and [Required LTIAAS scopes](#required-ltiaas-scopes)
+for what the configuration contains.
+
+### 5. Install the app (root account)
+
+**Admin → Apps → + App → By Client ID** → paste the Client ID → **Install**. The
+tool now lives on the root account, available to every course and sub-account.
+Confirm the scopes (NRPS, AGS line items, AGS scores) and the placements are
+present — this is the read-only state the admin screenshot capture documents.
+
+### 6. Choose how it appears (course-navigation default)
+
+- **`default: disabled`** (recommended for a first rollout) — installed but off;
+  the requesting instructor turns it on for just their course via
+  **Settings → Navigation**, and no other course changes.
+- **`default: enabled`** — the tab appears in every course automatically.
+
+### 7. Hand back to the instructor, and verify
+
+Tell the instructor the tool is available. They enable it in their course (if
+it's default-disabled) and complete the Dashboard-side setup — linking the
+Canvas course to their Wiki Education course. Confirm a test launch reaches the
+Dashboard and, once the instructor binds the course, that the roster and
+gradebook columns sync. The full check is in
+[End-to-end manual test](#end-to-end-manual-test-live-ltiaas--canvas).
+
 ## End-to-end manual test (live LTIAAS + Canvas)
 
 A full walkthrough of the four roles, in the order they happen. Staging pair:

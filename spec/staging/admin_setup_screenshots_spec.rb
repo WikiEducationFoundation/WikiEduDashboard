@@ -40,8 +40,6 @@ describe 'Canvas admin setup (read-only) screenshots', :staging do
       expect(page).to have_content(tool_name, wait: 20)
       capture('a01-developer-keys')
 
-      # Open the key's LTI configuration (read-only: capture, then navigate away
-      # without saving) to show its placements, scopes, and redirect URIs.
       # Open the key's LTI config (read-only: capture, then navigate away without
       # saving). Two shots: the endpoints/redirect URIs at the top, and the LTI
       # Advantage scopes + placements lower down.
