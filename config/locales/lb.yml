@@ -656,6 +656,7 @@ lb:
     take_your_time: Huelt Iech wgl. Zäit!
     close: ZOUMAACHEN
   claim_verification:
+    no_articles: Keng Artikelen disponibel
     admin:
       status: 'Status: %{status}'
   update_username:
