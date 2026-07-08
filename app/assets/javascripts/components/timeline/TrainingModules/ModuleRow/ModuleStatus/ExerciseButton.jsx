@@ -12,7 +12,7 @@ export const ExerciseButton = ({
   );
 
   if (isComplete && isExercise) {
-    const isVerified = flags?.marked_complete || flags?.exercise_article_title;
+    const isVerified = !!flags?.marked_complete;
     if (isVerified) {
       const onClick = () => incomplete(block_id, slug).then(() => fetchExercises(course.id));
       button = (

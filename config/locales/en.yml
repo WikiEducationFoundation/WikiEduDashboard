@@ -1650,7 +1650,7 @@ en:
     loading: "Loading…"
     wiki_source: "wiki source"
     article_title_input:
-      submit: "Submit your article"
+      submit: "Submit Article"
       modal_title: "Which article did you edit?"
       success: "Great work! Your edit has been verified. You can now mark this exercise complete."
       placeholder: "e.g. Marie Curie or https://en.wikipedia.org/wiki/Marie_Curie"

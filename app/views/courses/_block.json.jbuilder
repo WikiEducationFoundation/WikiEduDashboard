@@ -14,7 +14,8 @@ if block.training_module_ids.present?
       training_module: tm,
       user:
     )
-    json.call(tm, :slug, :id, :name, :kind, :sandbox_preload, :translated_name)
+    json.call(tm, :slug, :id, :name, :kind, :sandbox_preload, :translated_name,
+    :article_title_input)
     json.module_progress due_date_manager.module_progress
     json.due_date due_date_manager.computed_due_date
     json.overdue due_date_manager.overdue?
