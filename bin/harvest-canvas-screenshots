@@ -107,7 +107,8 @@ CAPTIONS = {
   'a02-canvas-apps-manage' =>
     'The installed tool under Canvas Apps, Manage.',
   '00-canvas-enable-nav' =>
-    'The instructor enables Wiki Education Dashboard in the course Navigation settings.',
+    'Enabling the tool: Wiki Education Dashboard starts in the course\'s disabled ' \
+    'navigation items until the instructor turns it on.',
   '01-canvas-course-with-tab' =>
     'The Wiki Education Dashboard item in the course navigation.',
   '02-canvas-iframe-landing' =>

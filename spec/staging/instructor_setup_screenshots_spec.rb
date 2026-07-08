@@ -71,20 +71,27 @@ describe 'Instructor setup illustrated guide', :staging do
   end
 
   it 'walks the instructor flow and captures a screenshot at each named step' do
-    # The account tool's course-navigation placement can be default-disabled, so
-    # opt it into this course's nav the way an instructor would before launching.
-    canvas_api.enable_course_nav(course_id: provisioned[:canvas_course_id])
+    canvas_id = provisioned[:canvas_course_id]
+    # Stage the realistic opt-in independent of the account tool's default:
+    # start with the tab hidden (in the course's disabled nav items) so the
+    # enabling step reads truthfully rather than already-on.
+    canvas_api.set_course_nav(course_id: canvas_id, hidden: true)
 
     in_canvas do
       ensure_canvas_logged_in_as_instructor
-      # Show the enabling step: the course's Navigation settings with the
-      # Wiki Education Dashboard tab now enabled. The URL fragment activates the
-      # Navigation tab on load.
-      visit "/courses/#{provisioned[:canvas_course_id]}/settings#tab-navigation"
-      expect(page).to have_content('Wiki Education Dashboard', wait: 20)
+      # The enabling step: the course's Navigation settings, with Wiki Education
+      # Dashboard sitting in the disabled items lower in the list — scroll that
+      # item into view (it's the only occurrence, since it's out of the nav now).
+      visit "/courses/#{canvas_id}/settings#tab-navigation"
+      item = find(:xpath, "//*[contains(text(), 'Wiki Education Dashboard')]",
+                  match: :first, wait: 20)
+      page.execute_script('arguments[0].scrollIntoView({ block: "center" })', item)
+      sleep 0.5
       capture('00-canvas-enable-nav')
 
-      visit_canvas_course(provisioned[:canvas_course_id])
+      # Enable it (as the instructor would) so the rest of the flow launches.
+      canvas_api.set_course_nav(course_id: canvas_id, hidden: false)
+      visit_canvas_course(canvas_id)
       capture('01-canvas-course-with-tab')
 
       click_wiki_education_tab
