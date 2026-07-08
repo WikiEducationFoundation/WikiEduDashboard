@@ -433,9 +433,10 @@ diligence:
   LTIAAS), what it does (course-navigation launch, NRPS roster sync, AGS grade
   passback), and what it needs (a root-account install with specific scopes and
   placements). [PLACEHOLDER - link to Wiki Education's Canvas integration guide]
-- **VPAT** (Voluntary Product Accessibility Template) — the accessibility
-  conformance report the university's accessibility office will ask for.
-  [PLACEHOLDER - link to the Dashboard's VPAT, or note its status]
+- **VPAT** (Voluntary Product Accessibility Template) — the Dashboard's
+  accessibility conformance report, which the university's accessibility office
+  will ask for: [VPAT 2.5, WCAG edition](https://dashboard.wikiedu.org/accessibility)
+  (evaluates against WCAG 2.1 A/AA).
 - **HECVAT** (Higher Education Community Vendor Assessment Toolkit) — the
   security/privacy self-assessment for the university's vendor-risk review.
   [PLACEHOLDER - link to the Dashboard's HECVAT, or note its status]
