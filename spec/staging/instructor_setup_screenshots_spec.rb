@@ -71,8 +71,19 @@ describe 'Instructor setup illustrated guide', :staging do
   end
 
   it 'walks the instructor flow and captures a screenshot at each named step' do
+    # The account tool's course-navigation placement can be default-disabled, so
+    # opt it into this course's nav the way an instructor would before launching.
+    canvas_api.enable_course_nav(course_id: provisioned[:canvas_course_id])
+
     in_canvas do
       ensure_canvas_logged_in_as_instructor
+      # Show the enabling step: the course's Navigation settings with the
+      # Wiki Education Dashboard tab now enabled. The URL fragment activates the
+      # Navigation tab on load.
+      visit "/courses/#{provisioned[:canvas_course_id]}/settings#tab-navigation"
+      expect(page).to have_content('Wiki Education Dashboard', wait: 20)
+      capture('00-canvas-enable-nav')
+
       visit_canvas_course(provisioned[:canvas_course_id])
       capture('01-canvas-course-with-tab')
 

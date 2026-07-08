@@ -108,6 +108,17 @@ class CanvasApiClient
         'include[]' => 'submission_comments')
   end
 
+  # Enable the Wiki Education Dashboard tab in the course's Course Navigation
+  # when it's hidden. The account tool's course_navigation placement can be
+  # default-disabled, so an instructor opts in per course. No-op when the tab is
+  # already visible or absent, so it's safe whatever the placement default is.
+  def enable_course_nav(course_id:, label: 'Wiki Education Dashboard')
+    tab = get("/api/v1/courses/#{course_id}/tabs").find { |t| t['label'] == label }
+    return unless tab && tab['hidden']
+
+    put("/api/v1/courses/#{course_id}/tabs/#{tab['id']}", hidden: false)
+  end
+
   private
 
   def build_conn
@@ -129,6 +140,10 @@ class CanvasApiClient
 
   def delete(path, params = {})
     handle(@conn.delete(path) { |req| req.params = params })
+  end
+
+  def put(path, params = {})
+    handle(@conn.put(path, params))
   end
 
   def handle(response)
