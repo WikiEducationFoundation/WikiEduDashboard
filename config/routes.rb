@@ -447,6 +447,9 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
     # LTI
+  # Public installation guide (a rendered docs/ Markdown page, not part of the
+  # launch flow and not behind the canvas_integration feature gate).
+  get 'lti/guide' => 'about_this_site#canvas_integration_guide'
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'

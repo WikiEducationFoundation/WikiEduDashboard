@@ -11,4 +11,12 @@ class AboutThisSiteController < ApplicationController
   def accessibility
     raise ActionController::RoutingError, 'Not Found' unless Features.wiki_ed?
   end
+
+  # Public "how to install the Dashboard in Canvas" guide at /lti/guide.
+  # Wiki-Ed-only, like the VPAT: the Canvas integration is a Wiki Education
+  # Dashboard feature. Intentionally NOT behind the canvas_integration launch
+  # flag, so prospective institutions can read it before the tool is enabled.
+  def canvas_integration_guide
+    raise ActionController::RoutingError, 'Not Found' unless Features.wiki_ed?
+  end
 end
