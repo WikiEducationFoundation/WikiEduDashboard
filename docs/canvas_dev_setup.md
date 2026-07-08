@@ -12,7 +12,7 @@ Once a canvas dev environment is running locally and the LTIAAS tool is installe
 1. User (student/admin/other role) logs into Canvas LMS
 2. User clicks on the tool link (displayed as a course assignment or as configured in Canvas)
 3. Canvas initiates login with LTIAAS using an OIDC flow; uses LTI protocol to confirm user identity (see: [LTI Launch Overview](https://developerdocs.instructure.com/services/canvas/external-tools/lti/file.lti_launch_overview))
-4. If successful, LTIAAS redirects user to Dashboard's lti route; currently just the home page
+4. If successful, LTIAAS redirects the user to the Dashboard's `/lti` route, which dispatches by role and placement (see the flows below)
 
 
 ## Table of Contents
@@ -373,14 +373,25 @@ The LTIAAS tool registration must include:
 
 If any of these are missing, the relevant Sidekiq jobs will surface 4xx errors from LTIAAS into Sentry.
 
-### Course Navigation placement
+### Placements
 
-For v1 the integration is registered exclusively as a Course Navigation tool: a single "Wiki Education Dashboard" tab in the Canvas course sidebar. Deep linking (per-module-item content selection) is deferred. In LTIAAS' Canvas registration:
+The integration registers three Canvas placements, each with its own
+`target_link_uri`:
 
-- `text`: `Wiki Education Dashboard`
-- `target_link_uri`: `https://<your-public-domain>/lti`
-- `default`: `enabled`
-- `enabled`: `true`
+| Placement | `target_link_uri` | Purpose |
+|---|---|---|
+| Course Navigation | `https://<domain>/lti` | The "Wiki Education Dashboard" tab in the course sidebar — the instructor's and student's entry point. |
+| Assignment / Link Selection | `https://<domain>/lti/deep_link` | The deep-link picker (reached from a Canvas assignment's "External Tool → Find") that creates a Wikipedia gradebook column for a training/exercise. |
+| Assignment View | `https://<domain>/lti/assignment_view` | The per-milestone drill-down opened from a Wikipedia column's assignment: the instructor roster with inline sandbox previews, or the launching student's own panel. |
+
+Course Navigation config (`text: Wiki Education Dashboard`, `enabled: true`):
+
+- **`default: enabled`** — the tab appears in every course automatically.
+- **`default: disabled`** — the tool is installed but off; each instructor opts
+  in per course via **Settings → Navigation**. Switching between these is a
+  developer-key placement setting in Canvas; nothing in the codebase changes.
+
+`visibility` controls who sees the tab (`admins` / `members` / `public`).
 
 ### Service authentication (background workers)
 
@@ -398,18 +409,83 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
-## Manual smoke test (against a live LTIAAS + Canvas pair)
+## End-to-end manual test (live LTIAAS + Canvas)
 
-Once the LTIAAS tool is installed, `canvas_integration_enabled` is `true`, and the dashboard is reachable from your test Canvas:
+A full walkthrough of the four roles, in the order they happen. Staging pair:
+`canvas.wikiedu.org` ↔ `dashboard-testing.wikiedu.org`. You need an instructor
+and a student Canvas account enrolled in a test course, each able to connect a
+Wikipedia account.
 
-1. **Instructor first launch**. As an instructor, click the "Wiki Education Dashboard" tab in a Canvas test course. Inside the Canvas iframe you'll see a minimal landing page (centered Wiki Ed wordmark + one button "Open the Wiki Education Dashboard"). Clicking the button opens `/lti/connect_course?ltik=...` in a new tab (via `target=_blank`), leaving the Canvas page in place. If you're not signed in to the dashboard, you'll be bounced through Wikipedia OAuth at top level in the new tab and returned to `/lti?ltik=...` and the setup view after sign-in.
-2. **Bind to a dashboard course**. In the setup view, pick one of your active or upcoming Wiki Education courses from the dropdown (or use the "Create a Wiki Education course" link to open the dashboard in a new tab if you don't have one yet), pick a gradebook granularity (lumped is the default), and submit. Expect a redirect to `/courses/<slug>`.
-3. **Roster sync**. Within a few seconds of the bind, every Canvas course member should appear as an `LtiContext` row (`LtiContext.where(lti_course_binding_id: <id>)` in a Rails console). Members whose email matches a dashboard `User.email` should also appear as `CoursesUsers` enrolments.
-4. **Line-item sync**. Within ~2 minutes of any timeline change (or immediately after the bind), the Canvas gradebook should show columns matching the binding's granularity:
-   - **Lumped**: one "Wikipedia trainings" column + one column per exercise block.
-   - **Per-block**: one column per training-bearing or exercise-bearing block (`Wk1 Get started`, `Wk3 Bibliography`, etc.).
-5. **Student first launch**. As a student in the Canvas course, click the tab. Same minimal iframe landing → top-level handoff → Wikipedia OAuth on first launch → redirect to `/courses/<slug>` with the student enrolled. Subsequent launches skip the OAuth step (top-level session cookie carries them through).
-6. **Grade passback**. Complete a training module on the dashboard. Within 30 minutes, expect a fractional score in the Canvas gradebook (lumped mode pushes `completed_count / total_count` with a `<count> of <total> trainings completed` score comment). Mark an exercise complete and expect a `1.0` plus the sandbox URL in the score comment. Per-(student, line item) dedup ensures unchanged state doesn't produce redundant Canvas submission attempts.
+### 0. Admin — confirm install & configuration
+
+The tool is installed once per Canvas instance (see
+[Integrate the Dashboard into Canvas](#integrate-the-dashboard-into-canvas));
+on staging it already is. Confirm:
+
+- **Admin → Developer Keys**: the Dashboard LTI key is **ON**.
+- **Admin → Apps → Manage**: the tool shows **On / Up to date**.
+- The [placements](#placements) and [required LTIAAS scopes](#required-ltiaas-scopes)
+  are registered, and the Course Navigation `default` is set how you want it
+  (`enabled` = tab in every course; `disabled` = instructors opt in per course).
+- Dashboard side: `canvas_integration_enabled: 'true'` plus `LTIAAS_DOMAIN` /
+  `LTIAAS_API_KEY` in `config/application.yml`.
+
+### 1. Instructor — prepare the course
+
+Prereq: a Wiki Education dashboard course that is **created and approved** (in a
+campaign) to link. If you don't have one, create it on the dashboard first
+(instructor orientation → Create Course) and get it approved.
+
+1. **Enable the tab** (only if Course Navigation is `default: disabled`):
+   **Course → Settings → Navigation → enable "Wiki Education Dashboard" → Save.**
+2. Click the **Wiki Education Dashboard** tab. Inside the Canvas iframe is a
+   minimal landing (Wiki Ed wordmark + "Open the Wiki Education Dashboard").
+   The button opens `/lti/connect_course?ltik=...` in a new tab
+   (`target=_blank`), leaving Canvas in place. If you're not signed in you're
+   bounced through Wikipedia OAuth at top level and returned to the setup view
+   at `/lti?ltik=...`.
+3. **Bind the course**: in the setup view, pick your approved course from the
+   dropdown (or use the create-a-course link if you have none), pick a gradebook
+   layout (lumped is the default), and **Link this course**. Expect a redirect
+   to `/courses/<slug>`; the course home's "Canvas link" panel shows the linked
+   course, last sync, and synced-students count.
+4. **Create the exercise columns** (lumped mode): for each exercise you want
+   graded, **Assignments → + Assignment → Submission Type: External Tool →
+   Find → Wiki Education Dashboard → pick the task → Save & Publish.** (Per-block
+   mode instead auto-creates a column per block; no deep-linking needed.)
+5. Open the Canvas **Gradebook** — expect **Wikipedia account**, **Wikipedia
+   trainings**, and a `Wk# <exercise>` column per deep-linked exercise (short
+   labels, e.g. `Wk3 Bibliography`).
+
+Verify (Rails console): `LtiContext.where(lti_course_binding_id: <id>)` shows a
+row per Canvas member within seconds of the bind; members whose email matches a
+dashboard `User.email` also appear as `CoursesUsers` enrolments.
+
+### 2. Student — do the assignments
+
+1. As a student, click the tab (or a deep-linked assignment). Same iframe
+   landing → top-level handoff → **Wikipedia OAuth on first launch** → redirect
+   to `/courses/<slug>`, enrolled. Later launches skip the OAuth step. (Before
+   the instructor links/approves, students see "…is being set up" or
+   "…awaiting Wiki Education approval".)
+2. On the course home, complete the **Wikipedia trainings** and the timeline
+   **exercises** (evaluate an article, create/edit the sandbox, bibliography,
+   …). Connecting marks "Wikipedia account"; each completed item marks its
+   column.
+
+### 3. Instructor — grade & review
+
+1. Progress syncs back automatically: roster within seconds of a launch;
+   **grades every 30 minutes** via AGS.
+2. Gradebook: **Wikipedia account** = 1 for connected students; **Wikipedia
+   trainings** pushes `completed_count / total_count` with a
+   `<count> of <total> trainings completed` score comment; each exercise column
+   = `1.0` with the **sandbox URL** in the score comment. Per-(student, line
+   item) dedup avoids redundant pushes when nothing changed.
+3. **Drill-down**: open a Wikipedia column's **assignment → Open the Wiki
+   Education Dashboard** → the per-milestone roster (each student's status +
+   sandbox; **Show** previews the sandbox inline, **Open on Wikipedia** opens
+   the page). A student opening the same assignment sees only their own panel.
 
 ## Production rollout checklist
 
