@@ -104,7 +104,13 @@ SECTIONS = [
 CAPTIONS = {
   'a01-developer-keys' =>
     'The Wiki Education developer key, enabled in Canvas admin.',
-  'a02-canvas-apps-manage' =>
+  'a02-developer-key-config' =>
+    "The key's LTI config: redirect URIs, target link, and OIDC/JWK endpoints (LTIAAS).",
+  'a03-developer-key-scopes-placements' =>
+    'The key\'s Canvas placements (Course Navigation, Link/Assignment Selection, ' \
+    'Assignment View, and more), below the collapsed LTI Advantage (scopes) and ' \
+    'Additional Settings sections.',
+  'a04-canvas-apps-manage' =>
     'The installed tool under Canvas Apps, Manage.',
   '00-canvas-enable-nav' =>
     'Enabling the tool: Wiki Education Dashboard starts in the course\'s disabled ' \
