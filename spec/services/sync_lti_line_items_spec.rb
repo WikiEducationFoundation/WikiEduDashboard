@@ -153,9 +153,12 @@ describe SyncLtiLineItems do
 
   describe 'short exercise labels' do
     let(:gradebook_granularity) { 'per_block' }
+    # Reuse the seeded module if the CI test DB already has it, rather than
+    # creating a duplicate 'bibliography-exercise' slug.
     let(:mapped_exercise) do
-      create(:training_module, slug: 'bibliography-exercise',
-                               name: 'Building your bibliography', kind: 1)
+      TrainingModule.find_by(slug: 'bibliography-exercise') ||
+        create(:training_module, slug: 'bibliography-exercise',
+                                 name: 'Building your bibliography', kind: 1)
     end
     let!(:mapped_block) do
       create(:block, week: week, order: 0, title: 'A long timeline block title',
