@@ -18,6 +18,11 @@ require 'csv'
 #   4. Edits in the 30-day window that begins 60 days after the course ends
 #      (course.end+60..course.end+90); a "survivor" made at least 5 such edits.
 #
+# The summary block also reports two aggregate conveniences derived from the
+# per-student metrics above: the count of participants with zero editing sessions
+# during the course, and the count of participants who edited in the 30 days
+# after it ended.
+#
 # Metrics are computed on each student's combined cross-wiki edit timeline, from
 # the live MediaWiki usercontribs API (all namespaces), which is why the report
 # has no dependency on stored revision data.
@@ -74,8 +79,10 @@ class RetentionPredictorsCsvBuilder
       ['Summary'],
       ['participants', @students.size],
       ['total editing sessions during course', during],
+      ['participants with no editing sessions during course', zero_edit_participants(stats)],
       ['avg days to first independent edit', avg_gap],
       ['avg editing sessions in 30 days after course', avg_after],
+      ['participants who edited in 30 days after course', returning_participants(stats)],
       ['participants with 5+ edits in days 60-90 (survivors)', survivors(stats)]
     ]
   end
@@ -137,6 +144,20 @@ class RetentionPredictorsCsvBuilder
     counts = stats.map { |s| s[:edits_60_90] }
     return nil if counts.any?(&:nil?)
     counts.count { |count| count >= SURVIVAL_THRESHOLD }
+  end
+
+  # Participants with zero editing sessions during the course. Always available,
+  # since the during-course metric never depends on a not-yet-closed window.
+  def zero_edit_participants(stats)
+    stats.count { |s| s[:sessions_during].zero? }
+  end
+
+  # Participants who made at least one edit in the 30 days after the course.
+  # Blank (nil) until the return window has closed.
+  def returning_participants(stats)
+    counts = stats.map { |s| s[:sessions_after] }
+    return nil if counts.any?(&:nil?)
+    counts.count(&:positive?)
   end
 
   # Number of distinct editing sessions: a new session starts whenever the gap

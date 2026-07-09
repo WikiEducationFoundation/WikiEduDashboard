@@ -81,6 +81,12 @@ describe RetentionPredictorsCsvBuilder do
         expect(summary_value('avg editing sessions in 30 days after course')).to eq('0.5')
         expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to eq('1')
       end
+
+      it 'counts zero-edit and returning participants' do
+        # user2 made no edits; user1 edited during the course and returned on day 14.
+        expect(summary_value('participants with no editing sessions during course')).to eq('1')
+        expect(summary_value('participants who edited in 30 days after course')).to eq('1')
+      end
     end
 
     context 'when the course ended fewer than 31 days ago' do
@@ -98,6 +104,13 @@ describe RetentionPredictorsCsvBuilder do
         expect(summary_value('avg editing sessions in 30 days after course')).to be_nil
         expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to be_nil
       end
+
+      it 'counts zero-edit participants but leaves returning participants blank' do
+        # user2 made no edits; the return window has not yet closed, so the
+        # returning-participants aggregate cannot be finalized.
+        expect(summary_value('participants with no editing sessions during course')).to eq('1')
+        expect(summary_value('participants who edited in 30 days after course')).to be_nil
+      end
     end
 
     context 'when the course ended between 31 and 90 days ago' do
@@ -114,6 +127,12 @@ describe RetentionPredictorsCsvBuilder do
         expect(summary_value('avg days to first independent edit')).to eq('17.5')
         expect(summary_value('avg editing sessions in 30 days after course')).to eq('0.5')
         expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to be_nil
+      end
+
+      it 'counts zero-edit and returning participants once the window has closed' do
+        # user2 made no edits; user1 edited during the course and returned on day 5.
+        expect(summary_value('participants with no editing sessions during course')).to eq('1')
+        expect(summary_value('participants who edited in 30 days after course')).to eq('1')
       end
     end
   end
