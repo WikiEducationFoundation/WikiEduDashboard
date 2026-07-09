@@ -12,9 +12,8 @@ the Dashboard's Canvas integration.
 
 The integration is an **LTI 1.3** tool, fronted by [LTIAAS](https://ltiaas.com), a
 third-party LTI service. Installing it follows the standard Canvas path for any LTI
-1.3 tool — create a developer key, install it by its Client ID, and register your
-Canvas with the tool. The steps below use Canvas's own labels so you can follow
-along one-to-one in the admin interface.
+1.3 tool. The steps below use Canvas's own labels so you can follow along
+one-to-one in the admin interface.
 
 ## What the integration does
 
@@ -45,9 +44,6 @@ control whether it actually appears:
   own course. Nothing changes for courses that don't use it.
 - **On by default:** the link appears in every course's navigation.
 
-You choose this when you configure the developer key (below), and can change it
-later.
-
 ## Before you install: review and approvals
 
 Most institutions review a tool's accessibility and data handling first:
@@ -57,7 +53,7 @@ Most institutions review a tool's accessibility and data handling first:
   — VPAT 2.5 (WCAG edition), evaluated against WCAG 2.1 A and AA.
 - **Security & privacy (HECVAT):**
   [dashboard.wikiedu.org/hecvat](https://dashboard.wikiedu.org/hecvat).
-- **What the tool requests from Canvas:** the LTI key asks for read access to a
+- **What the tool requests from Canvas:** the tool asks for read access to a
   course's roster (NRPS — `contextmembership.readonly`) and permission to create
   and post gradebook line items and scores (AGS). Its placements are limited to
   course navigation, the assignment / deep-linking pickers, and the assignment
@@ -71,60 +67,61 @@ Most institutions review a tool's accessibility and data handling first:
 ## What you'll need
 
 - Canvas **root-account administrator** access.
-- The Dashboard's **LTI configuration**, and a registration with Wiki Education
-  (step 1).
+- Either Wiki Education's **registration URL** (for the self-service path) or the
+  Dashboard's **LTI configuration** (for the manual path) — see below.
+  [PLACEHOLDER - where an institution obtains these from Wiki Education.]
 - About 15 minutes.
 
 ## Installation
 
-One wrinkle to know up front: because the tool is fronted by LTIAAS, your Canvas
-has to be **registered** with it once — and that registration needs the **Client
-ID** Canvas generates in step 2. So you'll start the registration (step 1), create
-the key and copy its Client ID (step 2), and hand the Client ID and Deployment ID
-back to finish (step 4). Steps 1 and 4 are the two halves of that handshake.
+There are two ways to install, depending on whether your Canvas has the **Dynamic
+Registration** feature:
 
-### 1. Request the integration from Wiki Education
+- **Dynamic Registration (recommended — fully self-service):** you paste one URL,
+  and Canvas and the Dashboard configure everything automatically, *including
+  registering your Canvas with the tool* — so there's nothing to send back.
+  Dynamic Registration is a paid Canvas add-on, so not every institution has it.
+- **Manual install (fallback):** if you don't have Dynamic Registration, you
+  configure the key yourself and Wiki Education completes one step on its end.
 
-[PLACEHOLDER / CONFIRM - the onboarding hand-off. Each institution's Canvas is
-registered with the Dashboard's LTIAAS tenant once. Confirm whether the admin
-self-registers in the LTIAAS portal or Wiki Education registers the platform (given
-the Canvas issuer and the Client ID from step 2), and give the admin a contact or
-request form to start that here.] Wiki Education provides the **LTI configuration**
-you enter in step 2.
+### Path A — Dynamic Registration (recommended)
 
-### 2. Create the LTI 1.3 developer key
+1. In Canvas, go to **Admin → Developer Keys → + Developer Key → + LTI
+   Registration**. Paste Wiki Education's registration URL — of the form
+   `https://<subdomain>.ltiaas.com/lti/register` [PLACEHOLDER - Wiki Education's
+   production registration URL; the staging tenant is `wikiedu-testing.ltiaas.com`]
+   — and click **Continue**. Canvas and the Dashboard exchange the configuration
+   automatically (endpoints, scopes, and placements); review the summary and click
+   **Enable & Close**.
+2. In the **Developer Keys** list, set the key's **State** to **ON** and copy the
+   **Client ID** from the **Details** column.
+3. Install it: **Admin → Settings → Apps → View App Configurations → + App**, set
+   **Configuration Type** to **By Client ID**, paste the Client ID, and
+   **Install**.
 
-In Canvas: **Admin → Developer Keys → + Developer Key → + LTI Key.**
+That's all — the Dashboard registered your Canvas automatically in step 1, so
+there is nothing to send back. [PLACEHOLDER - if Wiki Education gates new
+registrations, note here that Wiki Education approves each institution before
+launches work; otherwise say registration is immediate.]
 
-1. Enter the configuration Wiki Education provided, using the **Method** they
-   specify — usually **Enter URL** (paste a configuration URL) or **Paste JSON**.
-   That fills in the redirect URIs, target link, OpenID Connect URL, public JWK
-   URL, scopes, and placements for you.
-2. **Save**, then set the key's **State** to **ON** in the Developer Keys list.
-3. Copy the **Client ID** — the numeric value shown in the **Details** column (not
-   the "Show Key" secret). You need it in step 3, and Wiki Education needs it to
-   finish the registration.
+### Path B — Manual install (if Dynamic Registration isn't available)
 
-### 3. Install the app by Client ID
+1. Go to **Admin → Developer Keys → + Developer Key → + LTI Key**. Enter the
+   configuration Wiki Education provides, using the **Method** they specify
+   (**Enter URL** or **Paste JSON**). **Save**, set the **State** to **ON**, and
+   copy the **Client ID** from the **Details** column.
+2. Install it: **Admin → Settings → Apps → View App Configurations → + App**, set
+   **Configuration Type** to **By Client ID**, paste the Client ID, and
+   **Install**.
+3. **Finish the registration.** On the installed app under **Settings → Apps**,
+   open its settings (the gear/cog icon) and copy the **Deployment ID**. Send your
+   **Client ID**, **Deployment ID**, and Canvas site URL to Wiki Education
+   [PLACEHOLDER - contact / request form] so they can register your Canvas in
+   LTIAAS. Launches will not succeed until this step is done.
 
-Go to **Admin → Settings → Apps → View App Configurations → + App.** Set
-**Configuration Type** to **By Client ID**, paste the Client ID from step 2, click
-**Submit**, then **Install** in the confirmation dialog. (Do this on the root
-account, or on a sub-account to scope the tool there.) The Wiki Education Dashboard
-is now installed.
+### Choose how it appears
 
-### 4. Finish the registration
-
-On the installed app under **Settings → Apps**, open its settings (the gear/cog
-icon) and copy the **Deployment ID**. Send your **Client ID**, **Deployment ID**,
-and Canvas site URL back to Wiki Education [PLACEHOLDER - via the contact/form from
-step 1] to complete the LTIAAS registration. Launches will not succeed until this
-is done.
-
-### 5. Choose how it appears
-
-Decide whether the course-navigation link shows up automatically (this can also be
-set by the configuration in step 2):
+For either path, decide whether the course-navigation link shows up automatically:
 
 - **Off by default (recommended):** instructors enable it per course under
   **Settings → Navigation**.
@@ -147,9 +144,10 @@ flows back to the gradebook.
 - **The link doesn't appear in a course.** If you installed it opt-in, the
   instructor needs to enable it under **Settings → Navigation** (and click Save).
   Confirm the app is listed under **Settings → Apps**.
-- **Launching shows an error right after install.** The LTIAAS registration (step
-  4) may not be complete — confirm the Client ID and Deployment ID were sent to,
-  and acknowledged by, Wiki Education.
+- **Launching shows an error right after install.** The tool may not be registered
+  yet. On Path A, registration is automatic [PLACEHOLDER - unless Wiki Education
+  gates approvals]; on Path B, confirm you sent the Client ID and Deployment ID to
+  Wiki Education and they've acknowledged it.
 - **"Refused to connect" inside the Canvas frame.** [PLACEHOLDER - Wiki Education
   to confirm the expected first-launch behavior (the Dashboard opens in a new tab
   for sign-in) and any known browser third-party-cookie caveats.]
