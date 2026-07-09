@@ -76,13 +76,14 @@ class ArticlesCourses < ApplicationRecord
   # If no course update exists yet, then we update all the articles courses.
   def self.articles_courses_to_update(course)
     last_update = course.last_update_end_time
+    if last_update.nil?
+      Rails.logger.info "Updating caches for all ArticlesCourses for #{course.title}"
+      return course.articles_courses.pluck(:article_id)
+    end
     Rails.logger.info "Updating partial ArticlesCourses caches for #{course.title}"
     course.article_course_timeslices.where('updated_at >= ?', last_update)
           .distinct
           .pluck(:article_id)
-  rescue StandardError
-    Rails.logger.info "Updating caches for all ArticlesCourses for #{course.title}"
-    course.articles_courses.pluck(:article_id)
   end
 
   def self.update_required_caches_from_timeslices(course)
