@@ -16,10 +16,16 @@ FactoryBot.define do
     wiki_stats do
       {
         'en.wikipedia.org' => {
-          'edits' => 80_000, 'programs' => 200, 'articles_created' => 800, 'new_editors_with_preregistration' => 2_500
+          'edits' => 80_000,
+          'programs' => 200,
+          'articles_created' => 800,
+          'new_editors_with_preregistration' => 2_500
         },
         'de.wikipedia.org' => {
-          'edits' => 10_000, 'programs' => 30, 'articles_created' => 100, 'new_editors_with_preregistration' => 300
+          'edits' => 10_000,
+          'programs' => 30,
+          'articles_created' => 100,
+          'new_editors_with_preregistration' => 300
         }
       }
     end
