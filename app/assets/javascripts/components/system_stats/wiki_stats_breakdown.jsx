@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
 
 const ROWS_PER_PAGE = 10;
@@ -24,16 +24,17 @@ const WikiStatsBreakdown = ({ wikiTrends, loading }) => {
     setCurrentPage(0);
   };
 
-  const wikiStats = (wikiTrends && wikiTrends.wiki_stats) || [];
-
-  const sortedStats = [...wikiStats].sort((a, b) => {
-    let valA = a[sortField];
-    let valB = b[sortField];
-    if (typeof valA === 'string') {
-      return sortOrder === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
-    }
-    return sortOrder === 'asc' ? valA - valB : valB - valA;
-  });
+  const sortedStats = useMemo(() => {
+    const wikiStats = (wikiTrends && wikiTrends.wiki_stats) || [];
+    return [...wikiStats].sort((a, b) => {
+      const valA = a[sortField] ?? 0;
+      const valB = b[sortField] ?? 0;
+      if (typeof valA === 'string') {
+        return sortOrder === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
+      }
+      return sortOrder === 'asc' ? valA - valB : valB - valA;
+    });
+  }, [wikiTrends, sortField, sortOrder]);
 
   const totalPages = Math.max(1, Math.ceil(sortedStats.length / ROWS_PER_PAGE));
   const startIdx = currentPage * ROWS_PER_PAGE;

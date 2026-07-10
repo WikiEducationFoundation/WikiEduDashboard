@@ -29,16 +29,15 @@ class SystemStatsController < ApplicationController
 
   def index_json_data
     latest_snapshot = SystemStat.current
-    dates = recent_snapshots_dates
+    snapshots = recent_monthly_snapshots
     {
       kpis: kpis_for(latest_snapshot),
-      trends: trends_for(dates)
+      trends: trends_for(snapshots)
     }
   end
 
   def wiki_trends_json_data
-    dates = recent_snapshots_dates
-    snapshots = SystemStat.where(snapshot_date: dates).order(:snapshot_date)
+    snapshots = recent_monthly_snapshots
     {
       months: snapshots.map { |s| s.snapshot_date.strftime('%b %Y') },
       wiki_trends: wiki_trends_for(snapshots),
@@ -61,10 +60,12 @@ class SystemStatsController < ApplicationController
     end
   end
 
-  def recent_snapshots_dates
+  def recent_monthly_snapshots
     SystemStat.where('snapshot_date >= ?', 12.months.ago.to_date)
-              .group(Arel.sql("DATE_FORMAT(snapshot_date, '%Y-%m')"))
-              .pluck(Arel.sql('MAX(snapshot_date)'))
+              .order(:snapshot_date)
+              .group_by { |s| s.snapshot_date.strftime('%Y-%m') }
+              .values
+              .map(&:last)
   end
 
   def kpis_for(latest_snapshot)
@@ -89,8 +90,8 @@ class SystemStatsController < ApplicationController
       charactersAdded: 0, newEditors: 0, activePrograms: 0, activeFacilitators: 0 }
   end
 
-  def trends_for(monthly_snapshots_dates)
-    SystemStat.where(snapshot_date: monthly_snapshots_dates).order(:snapshot_date).map do |s|
+  def trends_for(snapshots)
+    snapshots.map do |s|
       {
         month: s.snapshot_date.strftime('%b %Y'),
         edits: s.total_edits,

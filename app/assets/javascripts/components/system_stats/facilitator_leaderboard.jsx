@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import ReactPaginate from 'react-paginate';
 import request from '../../utils/request';
 
@@ -48,15 +48,16 @@ const FacilitatorLeaderboard = () => {
     setCurrentPage(0);
   };
 
-  const sortedFacilitators = [...(facilitators || [])]
-    .sort((a, b) => {
-      let valA = a[sortField];
-      let valB = b[sortField];
+  const sortedFacilitators = useMemo(() => {
+    return [...(facilitators || [])].sort((a, b) => {
+      const valA = a[sortField] ?? 0;
+      const valB = b[sortField] ?? 0;
       if (typeof valA === 'string') {
         return sortOrder === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
       }
       return sortOrder === 'asc' ? valA - valB : valB - valA;
     });
+  }, [facilitators, sortField, sortOrder]);
 
   const totalPages = Math.max(1, Math.ceil(sortedFacilitators.length / ROWS_PER_PAGE));
   const startIdx = currentPage * ROWS_PER_PAGE;
