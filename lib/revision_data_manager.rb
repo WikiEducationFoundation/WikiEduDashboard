@@ -36,7 +36,7 @@ class RevisionDataManager
 
   INCLUDED_NAMESPACES = [0, 2, 118].freeze
   # This method gets course revisions for a given period.
-  # Returns an array of Revision records.
+  # Returns an array of RevisionOnMemory objects.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
     all_sub_data = get_course_revisions(@course.students, timeslice_start,
@@ -68,7 +68,7 @@ class RevisionDataManager
   end
 
   # This method gets scores for specific revisions from different APIs.
-  # Returns an array of Revision records with completed scores.
+  # Returns an array of RevisionOnMemory objects with completed scores.
   def fetch_score_data_for_course(revisions)
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
@@ -198,7 +198,7 @@ class RevisionDataManager
     # rubocop:enable Style/HashEachMethods
   end
 
-  # Creates a revision record for the given revision data.
+  # Creates a RevisionOnMemory object for the given revision data.
   def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
     RevisionOnMemory.new({
