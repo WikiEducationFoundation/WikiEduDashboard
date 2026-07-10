@@ -19,10 +19,10 @@ describe ReferenceCounterApi do
     end.to raise_error(described_class::InvalidProjectError)
   end
 
-  it 'raises InvalidProjectError for wikimedia projects (commons, meta, etc.)' do
+  it 'does not raise InvalidProjectError for wikimedia projects (commons, meta, incubator)' do
     expect do
       described_class.new(commons)
-    end.to raise_error(described_class::InvalidProjectError)
+    end.not_to raise_error
   end
 
   context 'when the API returns 200 responses' do

@@ -16,14 +16,10 @@ class ReferenceCounterApi
   RETRY_COUNT = 5
   MAX_NON_200_RESPONSE_LOGS = 5
 
-  # The reference-counter Toolforge API only supports language-edition wikis
-  # (en.wikipedia, fr.wiktionary, etc.). Wikidata is excluded because it has
-  # its own data model and reference-counting approach. The wikimedia
-  # pseudo-project (commons, meta, incubator, species, foundationwiki) is
-  # excluded because none of its members are language-edition wikis with
-  # article-style <ref> markup; the API responds with 400 "Language X is not
-  # a valid language" for any of them.
-  UNSUPPORTED_PROJECTS = %w[wikidata wikimedia].freeze
+  # Wikidata is excluded because it has its own data model and
+  # reference-counting approach; the API rejects it server-side with
+  # "Project wikidata is not a valid project."
+  UNSUPPORTED_PROJECTS = %w[wikidata].freeze
 
   def self.valid_wiki?(wiki)
     !UNSUPPORTED_PROJECTS.include?(wiki.project)
