@@ -40,6 +40,7 @@
 # Author: MarcoAurelio
 # Author: Monicapozo03
 # Author: Samthony
+# Author: SaraiSan-WMF
 # Author: Silverie04
 # Author: Themasterriot
 # Author: Tiberius1701
@@ -998,6 +999,7 @@ es:
       o «afirmación creada».
     restorations_performed: Restauraciones realizadas
     reverts_performed: Reversiones realizadas
+    language: Idioma
   namespace:
     all: Todos
     main: Espacio principal

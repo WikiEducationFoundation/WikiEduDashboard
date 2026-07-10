@@ -56,6 +56,12 @@ jobs:
       # Paperclip.options[:command_path] in config/environments/test.rb.
       - name: install ImageMagick
         run: |
+          # The ubuntu-24.04 runner preinstalls Microsoft/Azure apt repos whose
+          # signatures intermittently break ("Clearsigned file isn't valid ...
+          # got 'NOSPLIT'"), which makes `apt-get update` exit non-zero and abort
+          # this step (it runs under `bash -e`). ImageMagick comes from Ubuntu's
+          # own repos, so drop those third-party sources before updating.
+          sudo rm -f /etc/apt/sources.list.d/*microsoft* /etc/apt/sources.list.d/*azure*
           sudo apt-get update
           sudo apt-get install -y imagemagick
 
