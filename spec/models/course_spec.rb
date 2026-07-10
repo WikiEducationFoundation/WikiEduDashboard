@@ -445,6 +445,69 @@ describe Course, type: :model do
     end
   end
 
+  describe '#last_update_start_time / #last_update_end_time' do
+    let(:course) { build(:basic_course, flags:) }
+    let(:start_time) { DateTime.new(2023, 1, 1, 10, 0, 0) }
+    let(:end_time) { DateTime.new(2023, 1, 1, 10, 5, 0) }
+
+    context 'when there are no update logs' do
+      let(:flags) { {} }
+
+      it 'returns nil for both' do
+        expect(course.last_update_start_time).to be_nil
+        expect(course.last_update_end_time).to be_nil
+      end
+    end
+
+    context 'when the times are stored as DateTimes (normal update)' do
+      let(:flags) do
+        { 'update_logs' => { 1 => { 'start_time' => start_time, 'end_time' => end_time } } }
+      end
+
+      it 'returns the times from the most recent log' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to eq(end_time)
+      end
+    end
+
+    context 'when the times are stored as Strings (copied course)' do
+      let(:flags) do
+        { 'update_logs' => { 1 => { 'start_time' => start_time.to_s,
+                                    'end_time' => end_time.to_s } } }
+      end
+
+      it 'coerces the values to DateTimes' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to eq(end_time)
+      end
+    end
+
+    context 'when the last update never finished (no end_time)' do
+      let(:flags) do
+        { 'update_logs' => { 1 => { 'start_time' => start_time } } }
+      end
+
+      it 'returns the start time but nil for the end time' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to be_nil
+      end
+    end
+
+    context 'with multiple logs' do
+      let(:flags) do
+        { 'update_logs' => {
+          1 => { 'start_time' => DateTime.new(2022, 1, 1), 'end_time' => DateTime.new(2022, 1, 2) },
+          2 => { 'start_time' => start_time, 'end_time' => end_time }
+        } }
+      end
+
+      it 'uses the most recent log entry' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to eq(end_time)
+      end
+    end
+  end
+
   describe '#cloneable?' do
     let(:subject) { course.cloneable? }
 
