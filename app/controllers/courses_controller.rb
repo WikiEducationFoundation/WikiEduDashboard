@@ -55,6 +55,9 @@ class CoursesController < ApplicationController
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
+  rescue ActiveRecord::RecordNotUnique
+    render json: { message: I18n.t('courses.creator.already_exists') },
+           status: :unprocessable_entity
   rescue Wiki::InvalidWikiError => e
     message = I18n.t('courses.error.invalid_wiki', domain: e.domain)
     render json: { errors: e, message: },
