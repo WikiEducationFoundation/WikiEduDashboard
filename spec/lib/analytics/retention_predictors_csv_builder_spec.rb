@@ -79,6 +79,7 @@ describe RetentionPredictorsCsvBuilder do
         expect(summary_value('total editing sessions during course')).to eq('2')
         expect(summary_value('avg days to first independent edit')).to eq('22.0')
         expect(summary_value('avg editing sessions in 30 days after course')).to eq('0.5')
+        expect(summary_value('participants with 1+ edits in days 60-90')).to eq('1')
         expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to eq('1')
       end
 
@@ -102,6 +103,7 @@ describe RetentionPredictorsCsvBuilder do
         expect(summary_value('total editing sessions during course')).to eq('1')
         expect(summary_value('avg days to first independent edit')).to be_nil
         expect(summary_value('avg editing sessions in 30 days after course')).to be_nil
+        expect(summary_value('participants with 1+ edits in days 60-90')).to be_nil
         expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to be_nil
       end
 
@@ -126,6 +128,7 @@ describe RetentionPredictorsCsvBuilder do
         expect(detail_row('user2')).to eq(['user2', '0', '30', '0', nil])
         expect(summary_value('avg days to first independent edit')).to eq('17.5')
         expect(summary_value('avg editing sessions in 30 days after course')).to eq('0.5')
+        expect(summary_value('participants with 1+ edits in days 60-90')).to be_nil
         expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to be_nil
       end
 
@@ -133,6 +136,25 @@ describe RetentionPredictorsCsvBuilder do
         # user2 made no edits; user1 edited during the course and returned on day 5.
         expect(summary_value('participants with no editing sessions during course')).to eq('1')
         expect(summary_value('participants who edited in 30 days after course')).to eq('1')
+      end
+    end
+
+    context 'when participants differ across the 1+ and 5+ edit thresholds' do
+      let(:course) { create(:course, start: 130.days.ago, end: 100.days.ago) }
+
+      before do
+        e = course.end
+        stub_wiki(wiki1,
+                  # user1: 2 edits in the window (1+ but below the 5+ survivor threshold).
+                  'user1' => [e + 65.days, e + 80.days],
+                  # user2: 6 edits in the window (counts toward both thresholds).
+                  'user2' => [e + 61.days, e + 62.days, e + 63.days,
+                              e + 64.days, e + 65.days, e + 66.days])
+      end
+
+      it 'counts each threshold independently' do
+        expect(summary_value('participants with 1+ edits in days 60-90')).to eq('2')
+        expect(summary_value('participants with 5+ edits in days 60-90 (survivors)')).to eq('1')
       end
     end
   end

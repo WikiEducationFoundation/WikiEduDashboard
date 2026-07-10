@@ -83,7 +83,9 @@ class RetentionPredictorsCsvBuilder
       ['avg days to first independent edit', avg_gap],
       ['avg editing sessions in 30 days after course', avg_after],
       ['participants who edited in 30 days after course', returning_participants(stats)],
-      ['participants with 5+ edits in days 60-90 (survivors)', survivors(stats)]
+      ['participants with 1+ edits in days 60-90', edited_in_survival_window(stats, 1)],
+      ['participants with 5+ edits in days 60-90 (survivors)',
+       edited_in_survival_window(stats, SURVIVAL_THRESHOLD)]
     ]
   end
 
@@ -140,10 +142,12 @@ class RetentionPredictorsCsvBuilder
     (values.sum.to_f / values.size).round(1)
   end
 
-  def survivors(stats)
+  # Participants with at least `threshold` edits in the 60-90-day survival
+  # window. Blank (nil) until that window has closed.
+  def edited_in_survival_window(stats, threshold)
     counts = stats.map { |s| s[:edits_60_90] }
     return nil if counts.any?(&:nil?)
-    counts.count { |count| count >= SURVIVAL_THRESHOLD }
+    counts.count { |count| count >= threshold }
   end
 
   # Participants with zero editing sessions during the course. Always available,
