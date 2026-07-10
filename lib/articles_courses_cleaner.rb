@@ -27,22 +27,8 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     new(course).remove_articles_courses_for_dates_after_end_date
   end
 
-  # Reset articles involves the following actions:
-  # - Mark timeslices for those articles as needs_update
-  # - Remove article course records for those articles (if they exist)
-  # - Remove article course timeslices for those articles
-  def self.reset_articles_for_course(course)
-    cleaner = new(course)
-    cleaner.reset_deleted_or_untracked_articles
-    cleaner.reset_undeleted_or_retracked_articles
-  end
-
   def self.reset_specific_articles(course, articles)
     new(course).reset(articles)
-  end
-
-  def self.reset_articles_in_untracked_namespaces(course)
-    new(course).reset_articles_in_untracked_namespaces
   end
 
   def initialize(course)
@@ -119,49 +105,13 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_in_batches(after_timeslices)
   end
 
-  def reset_deleted_or_untracked_articles
-    # Note that this could remove articles courses records for manually untracked articles
-    # Find articles with an articles_courses record but without a non-deleted article record.
-    @course.articles.where(deleted: true).in_batches do |article_batch|
-      reset(article_batch)
-    end
-
-    reset_articles_in_untracked_namespaces
-  end
-
-  def reset_undeleted_or_retracked_articles
-    @course.wikis.each do |wiki|
-      # Find non-deleted and tracked articles without an articles_courses record
-      @course.articles_from_timeslices(wiki.id)
-             .where(deleted: false).in_batches do |article_batch|
-        tracked = @course.tracked_namespaces.flat_map do |wiki_ns|
-          wiki_id = wiki_ns[:wiki].id
-          namespace = wiki_ns[:namespace]
-          article_batch.where(wiki_id:, namespace:)
-        end
-
-        tracked_without_articles_courses = tracked - @course.articles.to_a
-        reset(tracked_without_articles_courses, wiki)
-      end
-    end
-  end
-
+  # Reset articles involves the following actions:
+  # - Mark timeslices for those articles as needs_update
+  # - Remove article course records for those articles (if they exist)
+  # - Remove article course timeslices for those articles
   def reset(articles, wiki = nil)
     mark_as_needs_update(articles, wiki)
     delete_article_course(articles.pluck(:id))
-  end
-
-  def reset_articles_in_untracked_namespaces
-    @course.articles.in_batches do |article_batch|
-      tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
-        wiki_id = wiki_ns[:wiki].id
-        namespace = wiki_ns[:namespace]
-        article_batch.where(wiki_id:, namespace:).pluck(:id)
-      end
-      # Find articles with articles_courses records but not in tracked namespaces
-      untracked_articles = article_batch.where.not(id: tracked)
-      reset(untracked_articles)
-    end
   end
 
   private

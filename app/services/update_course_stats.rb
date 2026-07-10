@@ -65,14 +65,15 @@ class UpdateCourseStats
     @debugger.log_update_progress :article_status_updated
   end
 
-  def update_article_namespaces
-    ArticleNamespacesManager.new(@course)
+  def update_article_namespaces(statuses_synced)
+    ArticleNamespacesManager.new(@course, statuses_synced:)
     @debugger.log_update_progress :article_namespaces_updated
   end
 
   def update_articles
-    update_article_status if should_update_article_status?
-    update_article_namespaces
+    statuses_synced = should_update_article_status?
+    update_article_status if statuses_synced
+    update_article_namespaces(statuses_synced)
   end
 
   def update_average_pageviews

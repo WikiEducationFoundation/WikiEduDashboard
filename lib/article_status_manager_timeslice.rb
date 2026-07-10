@@ -4,17 +4,14 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
-# This class is responsible for two main things (we may separate it in the future).
-# - Iterate over article course timeslices to sync articles. This updates title,
+# It iterates over article course timeslices to sync articles. This updates title,
 # namespace, deleted and mw_page_id fields.
-# - Reset articles according to their new status:
-#   * Articles that were deleted or untracked. These are articles that were either
-#   deleted or moved to a namespace not traceable by the course. Such articles
-#   should be excluded from course statistics.
-#   * Articles that were restored or re-tracked: These are articles that were
-#   either undeleted or moved to a namespace relevant to the course. Such articles
-#   should be included in course statistics.
-#   TODO: this class can probably be made simpler
+# Resetting articles according to their new status (so they are included in or
+# excluded from course statistics) is mostly handled by ArticleNamespacesManager,
+# which runs after this class during the course update. The exception is articles
+# with duplicate records for the same mw_page_id (see #handle_undeletion), which
+# are reset here as soon as they are detected.
+# TODO: this class can probably be made simpler
 
 class ArticleStatusManagerTimeslice
   def initialize(course, wiki = nil)
@@ -47,8 +44,6 @@ class ArticleStatusManagerTimeslice
         # rubocop:enable Rails/SkipsModelValidations
       end
     end
-
-    ArticlesCoursesCleaner.reset_articles_for_course(course)
   end
 
   ####################
