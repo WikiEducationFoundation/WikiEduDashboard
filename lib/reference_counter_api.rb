@@ -153,7 +153,11 @@ class ReferenceCounterApi
   end
 
   def batch_query_url
-    "/api/v1/references/#{@project_code}/#{@language_code}"
+    # Multilingual Wikisource (wikisource.org) is stored with language = nil;
+    # the reference-counter API reaches it as www.wikisource.org.
+    language = @language_code
+    language = 'www' if @project_code == 'wikisource' && language.nil?
+    "/api/v1/references/#{@project_code}/#{language}"
   end
 
   # A batch lookup has no reason to take longer than this. Without timeouts,
