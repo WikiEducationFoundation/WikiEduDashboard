@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Admin analytics dashboard for system-wide metrics and facilitator stats.
+# Not to be confused with SystemStatusController (/status), which is a
+# health-check endpoint.
 class SystemStatsController < ApplicationController
   before_action :require_admin_permissions
 
@@ -44,7 +47,7 @@ class SystemStatsController < ApplicationController
   end
 
   def facilitators_data
-    stats = FacilitatorStat.current.order(total_edits: :desc).first(5)
+    stats = FacilitatorStat.current.order(total_edits: :desc).first(100)
     stats.map do |s|
       {
         username: s.user.username,
@@ -59,10 +62,9 @@ class SystemStatsController < ApplicationController
   end
 
   def recent_snapshots_dates
-    recent_snapshots = SystemStat.order(:snapshot_date)
-                                 .where('snapshot_date >= ?', 12.months.ago.to_date)
-    recent_snapshots.group_by { |s| s.snapshot_date.strftime('%Y-%m') }
-                    .map { |_month, group| group.max_by(&:snapshot_date).snapshot_date }
+    SystemStat.where('snapshot_date >= ?', 12.months.ago.to_date)
+              .group(Arel.sql("DATE_FORMAT(snapshot_date, '%Y-%m')"))
+              .pluck(Arel.sql('MAX(snapshot_date)'))
   end
 
   def kpis_for(latest_snapshot)
@@ -129,10 +131,8 @@ class SystemStatsController < ApplicationController
   def append_wiki_trend_metrics(trends, wiki_data)
     trends[:edits] << (wiki_data['edits'] || 0)
     trends[:programs] << (wiki_data['programs'] || 0)
-    trends[:articles_created] << (wiki_data['articles_created'] ||
-                                  wiki_data['articles_created_count'] || 0)
-    trends[:new_editors] << (wiki_data['new_editors_with_preregistration'] ||
-                             wiki_data['new_editors'] || 0)
+    trends[:articles_created] << (wiki_data['articles_created'] || 0)
+    trends[:new_editors] << (wiki_data['new_editors_with_preregistration'] || 0)
   end
 
   def wiki_stats_for(latest_snapshot)
@@ -142,10 +142,10 @@ class SystemStatsController < ApplicationController
         name: domain,
         edits: stats['edits'] || 0,
         programs: stats['programs'] || 0,
-        articles_created: stats['articles_created'] || stats['articles_created_count'] || 0,
-        new_editors: stats['new_editors_with_preregistration'] || stats['new_editors'] || 0
+        articles_created: stats['articles_created'] || 0,
+        new_editors: stats['new_editors_with_preregistration'] || 0
       }
     end
-    wiki_data.sort_by { |w| -w[:edits] }.first(5)
+    wiki_data.sort_by { |w| -w[:edits] }.first(100)
   end
 end
