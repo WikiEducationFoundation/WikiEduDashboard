@@ -900,7 +900,7 @@ pl:
     calendar_instructions: Wybierz daty by dodać je lub usunąć z harmonogramu (n.p.
       wakacje czy dni wolne). Dzięki temu narzędzie do tworzenia kursów lepiej rozplanuje
       Twój kurs i zadania domowe. Kliknięcie zmienia stan daty (wybrane, niewybrane,
-      dzień wolny). Jeśli zakres nie obejmuje wakacji wybierz "nie mam wakacji".
+      dzień wolny).
     confirm_dates: Podaj terminy początku i końca kursu, cotygodniowych spotkań i
       dni wolnych.
     course_dates: Daty kursu

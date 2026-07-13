@@ -6,6 +6,7 @@
 # Author: Luky001
 # Author: Pmikolas44
 # Author: TomášPolonec
+# Author: Wizzard
 ---
 sk:
   number:
@@ -22,7 +23,10 @@ sk:
     number_field: Toto je číselné pole. Tlačidlá zobrazené väčšinou prehliadačov môžu
       zvýšiť alebo znížiť hodnotu.
   application:
+    back: Späť
     cancel: Zrušiť
+    next: Ďalej
+    skip_to_main_content: Preskočiť na hlavný obsah
     cookie_consent: Na zapamätanie si prihlásenia táto stránka používa súbory cookies
       a ukladá informácie spojené s vaším účtom na Wikipédii.
     cookie_consent_acknowledge: Rozumiem
@@ -34,6 +38,7 @@ sk:
     explore: Preskúmať
     field_required: Toto pole je povinné.
     field_invalid_characters: Toto pole obsahuje neplatné znaky
+    field_invalid_term: Semester musí obsahovať rok (napr. „Jar 2025“)
     field_invalid_date: Toto pole vyžaduje dátum vo formáte RRRR-MM-DD
     field_invalid_date_time: Koniec musí byť po začiatku (možné hodiny sú od 0 do
       23).
@@ -46,13 +51,22 @@ sk:
     log_in: Prihlásiť sa
     log_out: Odhlásiť sa
     my_dashboard: Moja nástenka
+    okay: OK
     recent_activity: Nedávna činnosť
     report_problem: Nahlásiť problém
     request_account: Požiadať o účet
     request_account_create: Vytvoriť účet
     search: Položiť otázku
-    search_results: 'Výsledky pre: „%{search_terms}“'
+    search_results:
+      one: '%{count} výsledok pre: „%{search_terms}“'
+      few: '%{count} výsledky pre: „%{search_terms}“'
+      other: '%{count} výsledkov pre: „%{search_terms}“'
     no_results: Žiadne výsledky pre '%{query}'
+    show_current_revision: Zobraziť aktuálnu verziu
+    show_last_revision: Zobraziť naposledy upravenú verziu
+    font_label: Písmo
+    font_sans: Bezpätkové
+    font_serif: Pätkové
     sign_up_extended: Zaregistrovať sa cez Wikipédiu
     sign_up_wikipedia: Alebo sa prihláste na Wikipédii
     sign_up_log_in_extended: s Wikipédiou
@@ -66,8 +80,24 @@ sk:
     opt_out: Nie
     opt_yes: áno
     opt_no: nie
+    print: Tlačiť
+    sort: Zoradiť
+  article_statuses:
+    not_yet_started: Začíname
+    in_progress: Práca v pieskovisku
+    ready_for_review: Rozširovanie konceptu
+    ready_for_mainspace: Presun práce do hlavného menného priestoru
+    assignment_completed: Zadanie označené ako dokončené
+    reading_the_article: Čítanie článku
+    providing_feedback: Poskytovanie spätnej väzby
+    post_to_talk: Pridávanie na diskusnú stránku
+    peer_review_completed: Hodnotenie dokončené
   dashboard:
     create_note: Stlačte tlačidlo „Vytvoriť kurz“ a vytvorte svoj prvý kurz.
+    create_preparation_note: Skôr než začnete, majte poruke svoj akademický kalendár;
+      nástroj na návrh zadania použije dátumy stretnutí vašej triedy — vrátane prázdnin
+      a sviatkov — na to, aby vašu časovú os vložil do vami zvoleného rozsahu dátumov.
+      Pamätajte, že časovú os môžete kedykoľvek upraviť podľa svojich potrieb.
     explore_course_pages: Preskúmať kurzové stránky
     explore_examples: Preskúmať príklady
     join_note: Hneď ako obdržíte heslo od svojho inštruktora kliknite na „Nájsť váš
@@ -80,30 +110,109 @@ sk:
     review_orientation: Prezrieť sprievodcu
     start_orientation: Spustiť sprievodcu
     blog_headline: Najnovšie správy z Wiki Education
+    about_programs: Táto stránka sleduje wiki aktivity prostredníctvom programov —
+      jednotlivých podujatí, ako je edit-a-thon alebo školský kurz. Každý program
+      je súčasťou jednej alebo viacerých kampaní, ktoré poskytujú súhrnné štatistiky
+      naprieč programami.
+    about_creating_programs: Ak organizujete jedno samostatné podujatie, môžete teraz
+      vytvoriť program. Ak je vaše podujatie súčasťou niečoho väčšieho, nájdite alebo
+      preň vytvorte kampaň. Potom môžete vytvoriť nový program zo stránky kampane.
   home:
     explore: Preskúmať
     log_in: Prihláste sa pomocou Wikipédie
     sign_up: Zaregistrovať sa pomocou Wikipédie
+    registration_advice:
+      username_rules:
+        heading: Pravidlá pre používateľské mená
+        avoid_offensive_usernames: Nevoľte si používateľské meno, ktoré je urážlivé,
+          zavádzajúce, rušivé alebo propagačné.
+        represent_individual: Používateľské mená musia predstavovať jednotlivého redaktora.
+          Nepoužívajte názov školy alebo organizácie.
+      additional_advice:
+        heading: Rada
+        anonymous_username_recommendation: Wiki Education odporúča zvoliť si anonymné
+          používateľské meno, nie také, ktoré obsahuje vaše skutočné meno alebo iné
+          identifikačné údaje.
+    sign_up_help: Ak chcete používať nástenku, musíte sa prihlásiť cez Wikipédiu a
+      udeliť jej povolenie na prístup k vášmu účtu. Môžete sa prihlásiť existujúcim
+      účtom na Wikipédii alebo si vytvoriť nový. Ak si nemôžete vytvoriť účet, kontaktujte
+      dashboard@wikiedu.org.
   alerts:
     alert_label: Upozornenia
+    no_data: Nenašli sa žiadne údaje.
+    ai_stats:
+      timestamp: Časová značka
+      title: Štatistiky AI upozornení na úpravy pre %{campaign_name}
+      total_alerts: Celkový počet AI upozornení na úpravy
+      with_followup: AI upozornenia na úpravy s následnou reakciou
+      multiple_alerts_students: Študenti s viacerými upozorneniami
+      multiple_alerts_pages: Stránky s viacerými upozorneniami
+      pangram_url: URL Pangramu
+      go_to_pangram: Prejsť na Pangram
+      revision_diff: Rozdiel revízií
+      single_alert_view: Upozornenie
+      alerts_in_mainspace: Upozornenia v hlavnom mennom priestore
+      users_involved: Zapojení používatelia
+      total: Celkovo
+      last_week: Minulý týždeň
+      sections:
+        contents: Obsah stránky
+        general_stats: Všeobecné štatistiky
+        name: Názov
+        description: Popis
+        courses_with_ai_alerts: Kurzy s viacerými AI upozorneniami
+        recent_followup: Upozornenia s nedávnou následnou reakciou
+        multiple_alerts_students: Nedávne upozornenia pre študentov s viacerými upozorneniami
+        in_mainspace: Nedávne upozornenia v hlavnom mennom priestore
+        alerts_trend_over_time: Trendy AI upozornení v čase
+        descriptions:
+          courses_with_ai_alerts: Kurzy s viac než 3 AI upozorneniami za celé obdobie
+            kurzu (nie nutne nedávne).
+          recent_followup: Upozornenia s následnými odpoveďami odoslanými za posledných
+            14 dní, zoradené podľa dátumu následnej odpovede.
+          multiple_alerts_students: Upozornenia vytvorené za posledných 14 dní pre
+            študentov s viacerými upozorneniami, zoradené podľa dátumu vytvorenia.
+          in_mainspace: Upozornenia vytvorené za posledných 14 dní pre články v hlavnom
+            mennom priestore, zoradené podľa dátumu vytvorenia.
+  ai_scores_stats:
+    title: Štatistiky AI skóre revízií
+    graphs:
+      daily_checks: Denné kontroly podľa menného priestoru
+      avg_likelihood: Priemerné rozdelenie pravdepodobnosti AI za deň
+      max_likelihood: Maximálne rozdelenie pravdepodobnosti AI za deň
+      overall_avg_likelihood: Celkové priemerné rozdelenie pravdepodobnosti AI
+      overall_max_likelihood: Celkové maximálne rozdelenie pravdepodobnosti AI
   activity:
     all: Aktivita
     edited_by: Upravil(a)
     label: Aktivita
   articles:
+    articles: Články
+    article_not_found: Tento článok ešte nebol vytvorený.
     article_development: (rozvoj článku)
+    articles_shown: Zobrazuje sa %{count} z %{total}
     assigned: Priradené články
+    assignments_none: Zatiaľ nie sú priradené žiadne články.
     available: Dostupné články
     no_available: Žiadne dostupné články
     next: Ďalší
+    page_info: Strana %{current} z %{total_pages} (%{count} z %{total})
+    permalink: Trvalý odkaz
     previous: Predchádzajúci
     article_title: Názov článku
     assigned_to: 'Priradené k:'
     character_doc: Počet znakov pridaných do článkov editormi počas prebiehania kurzu
+    cross_wiki_tracking: Nižšie sú uvedené stránky v hlavnom mennom priestore upravené
+      medzi dátumom začiatku a konca. Nástenka načítava príspevky z domovskej wiki
+      tohto programu spolu s ľubovoľnými ďalšími wiki, pre ktoré existuje zadanie
+      alebo dostupný článok.
     deleted: (zmazaný)
+    does_not_exist: Článok neexistuje. Vytvorte stránku pieskoviska a priraďte sa
+      k nej, aby ste dostávali návrhy.
     edited: Upravené články
     edited_by: 'Upravil(a):'
     edited_mobile: Články
+    edited_none: Zatiaľ nie sú žiadne upravené články.
     filter:
       wiki_all: Všetko
       new: Nové
@@ -112,14 +221,27 @@ sk:
       tracked: Sledované
       untracked: Nesledované
       tracked_and_untracked: Sledované a Nesledované
+      wiki_label: Wiki
+      newness_label: Novosť článku
+      tracked_label: Stav sledovania
+    filter_text: 'Filtre:'
+    pageviews_label: 'Zobrazenia stránky:'
+    cumulative: Kumulatívne
+    daily_avg: Denný priemer
+    find: Nájsť články
+    how_to_find: Ako nájsť článok
     hide: Skryť
     history: (história)
     label: Články
     loading: Načítanie článkov...
+    mark_as_complete: Označiť ako dokončené
+    mark_as_incomplete: Označiť ako nedokončené
     new: (nový)
     none: Počas tohto kurzu neboli upravené žiadne články.
+    preview: Stručný náhľad článku
+    quality_checklist: Kontrolný zoznam kvality
     rating: Trieda
-    rating_doc: Hodnotenie článku bolo priradené WikiProjektmi na Wikipédiu. Tieto
+    rating_doc: Hodnotenie článku bolo priradené WikiProjektmi na Wikipédii. Tieto
       hodnotenia môžu patriť k staršej verzii článku, čiže sú len hrubým ukazovateľom
       kvality článku.
     rating_docs:
@@ -139,6 +261,9 @@ sk:
       '?': Neohodnotený článok – článok zatiaľ nebol ohodnotený
       does_not_exist: Tento článok na Wikipédii ešte nie je
     see_more: Zobraziť viac
+    see_more_tooltip: Spočiatku sa načíta len prvých 500 upravených článkov. Kliknutím
+      načítate ďalšie články.
+    search: Vyhľadať článok na Wikipédii
     show_cumulative_changes: Zobraziť kumulatívne zmeny
     show_current_version: Zobraziť aktuálnu verziu
     show_current_version_with_authorship_highlighting: Aktuálna verzia so zvýraznením
@@ -155,51 +280,344 @@ sk:
       poslednej aktualizácie štatistík. Presné čísla môžete nájsť na pageviews.toolforge.org.
     view_on_wiki: Zobraziť na wiki
     views_added: '%{title} bol zobrazený %{count}-krát'
+    article_size: Veľkosť článku
+    article_size_doc: Veľkosť wikitextu článku (v bajtoch) po každej úprave
     edit_size: Veľkosť úpravy
+    editor_other: Ďalší redaktori
+    scoring_status: Načítavajú sa skóre pre %{count} úprav
     wiki: Wiki
     wp10: Kompletnosť
+    wp10_doc: Skóre „štrukturálnej úplnosti“ predstavuje, ako veľmi článok zapadá
+      do podoby vyzretého článku Wikipédie, na základe staršej (~2015) služby „Objective
+      Revision Evaluation Service“ založenej na strojovom učení. Tieto skóre sa počítajú
+      na základe veľkosti článku, počtu referencií a wikiodkazov a ďalších základných
+      textových vlastností. Vysoké skóre zvyčajne naznačuje, že článok dodržiava konvencie
+      Wikipédie pre štruktúru dobrého článku, no neberie do úvahy samotný obsah.
+    articles_short: Články
+    deleted_message: Podľa údajov nástenky bola táto stránka odstránená. (V niektorých
+      prípadoch môžu presuny stránok, zlúčenia histórie alebo iné akcie spôsobiť,
+      že článok je nesprávne uvedený ako odstránený. Odstránené články môžu byť tiež
+      neskôr obnovené. Pri článkoch, ktoré v skutočnosti nie sú odstránené alebo boli
+      následne obnovené, to nástenka zvyčajne premietne do jedného alebo dvoch dní.)
+    page_logs: (záznamy stránky)
+    tracked_articles: Sledované články
+    view_articles: Zobraziť články
+    no_tracked_articles: Táto kategória nemá žiadne sledované články
+    not_choosen_article: Nevybrali ste si článok, na ktorom by ste pracovali. Keď
+      nájdete článok na prácu, priraďte si ho pomocou tlačidla vyššie.
+    use_dashboard: Ako používať nástenku
+    evaluate_and_source: Hodnotenie článkov a zdrojov
+  items:
+    items: Položky
+    lexeme: Lexéma
+    article_not_found: Táto položka ešte nebola vytvorená.
+    assigned: Priradené položky
+    assignments_none: Zatiaľ nie sú priradené žiadne položky.
+    available: Dostupné položky
+    character_doc: Súčet znakov pridaných do položiek zapísanými redaktormi medzi
+      dátumom začiatku a konca
+    cross_wiki_tracking: Nižšie sú uvedené stránky v hlavnom mennom priestore upravené
+      medzi dátumom začiatku a konca. Nástenka načítava príspevky z domovskej wiki
+      tohto programu spolu s ľubovoľnými ďalšími wiki, pre ktoré existuje zadanie
+      alebo dostupná položka.
+    does_not_exist: Položka neexistuje. Vytvorte stránku pieskoviska a priraďte sa
+      k nej, aby ste dostávali návrhy.
+    edited: Upravené položky
+    edited_none: Zatiaľ nie sú žiadne upravené položky.
+    find: Nájsť položky
+    how_to_find: Ako nájsť položky
+    preview: Stručný náhľad položky
+    search: Vyhľadať položku na Wikidátach
+    tracked_doc: Do štatistík tohto programu prispievajú iba sledované položky. Keď
+      sú položky označené ako nesledované, budú počas nasledujúcej aktualizácie údajov
+      odstránené zo štatistík.
+    view_doc: Odhadovaný počet zobrazení každej položky od jej prvej úpravy až po
+      najnovšiu aktualizáciu štatistík. Presné čísla si môžete pozrieť na pageviews.toolforge.org.
+    title_example: Názov položky
+  articles_wikidata:
+    articles_short: Položky
+  articles_generic:
+    articles_short: Stránky
   assignments:
+    article: Článok %{title} je vám teraz priradený.
     article_link: Článok
+    article_link_wikidata: Položka
+    blocked_assignment: '%{title} nebolo možné priradiť, pretože je na zozname blokovaných
+      zadaní Wiki Education komunity Wikipédie.'
     already_exists: Tento článok už existuje!
     title_too_large: Názov by nemal presiahnuť 255 znakov
+    max_group_size_exceeded: '%{title} už má priradených %{current} študentov. Maximálna
+      veľkosť skupiny pre tento kurz je %{max}.'
     assignees: Priraďovač(i)
-    assign_other: Zadať článok
+    assign_other: Priradiť/odobrať článok
+    assign_other_wikidata: Priradiť/odobrať položku
     add_available: Pridať dostupné články
+    add_available_wikidata: Pridať dostupné položky
+    add_available_placeholder: Pridajte jeden názov článku alebo URL na riadok
+    add_available_placeholder_wikidata: Pridajte jeden názov položky alebo URL na
+      riadok
     add_available_submit: Pridať články
+    add_available_submit_wikidata: Pridať položky
+    add_placeholder: Zadajte názov článku alebo URL
     assign_self: Zadať si článok
+    invalid_mainspace_article: Musí to byť platný článok v hlavnom mennom priestore.
+    assign_self_wikidata: Priradiť si položku
     assign_tooltip: Priradený článok je ten, ktorý plánujete vytvoriť alebo vylepšiť.
+    assign_tooltip_wikidata: Priradená položka je taká, ktorú plánujete vytvoriť alebo
+      vylepšiť.
     bibliography: Bibliografia
+    clone: Klonovať
     confirm_add_available: Určite chcete pridať %{title}?
     confirm_addition: Určite chcete zadať článok %{title} redaktorovi %{username}?
     confirm_deletion: Určite chcete odstrániť tento zadaný článok?
+    delete: Odobrať a odstrániť
     editors: Priradené k
+    change_sandbox_url: Zmeniť pieskovisko
+    group_members: Členovia skupiny
     label: Zadať
+    label_all: Priradiť všetko
     loading: Načítanie zadaných článkov...
     none_short: Žiadne zadané články
+    none_short_wikidata: Nie sú priradené žiadne položky
     none: Tento kurz nemá žiadne priradené články.
     no_available: V tomto kurze nie sú dostupné žiadne články na úpravu.
+    outline: Osnova
+    peer_review_count: Vybraných %{currentCount}/%{total}
+    peer_review_count_tooltip: Mali by ste vybrať %{total} článkov na partnerské hodnotenie.
+    peer_review_link: Partnerské hodnotenie
+    peer_review_link_personalized: Partnerské hodnotenie používateľa %{username}
+    random_peer_review:
+      confirm_addition: Vo väčšine prípadov by ste toto mali použiť až po tom, ako
+        boli všetkým študentom priradené ich hlavné články. Prípadne môžete požiadať
+        študentov, aby si vybrali vlastné partnerské hodnotenia, alebo môžete partnerské
+        hodnotenia priradiť ručne kliknutím na riadok študenta a následným použitím
+        tlačidla „Priradiť/odobrať partnerské hodnotenie“. Kliknutím na „OK“ sa priradí
+        celkovo %{count} ďalších partnerských hodnotení, s maximom %{maximum} pre
+        každého študenta, vybraných spomedzi článkov jeho spolužiakov.
+      confirm_addition_wikidata: Vo väčšine prípadov by ste toto mali použiť až po
+        tom, ako boli všetkým študentom priradené ich hlavné položky. Prípadne môžete
+        požiadať študentov, aby si vybrali vlastné partnerské hodnotenia, alebo môžete
+        partnerské hodnotenia priradiť ručne kliknutím na riadok študenta a následným
+        použitím tlačidla „Priradiť/odobrať partnerské hodnotenie“. Kliknutím na „OK“
+        sa priradí celkovo %{count} ďalších partnerských hodnotení, s maximom %{maximum}
+        pre každého študenta, vybraných spomedzi položiek jeho spolužiakov.
+      heading: Priradiť náhodné partnerské hodnotenia
+      tooltip_message: Priradí každému študentovi náhodné články (pričom počet partnerských
+        hodnotení je maximum).
+      tooltip_message_wikidata: Priradí každému študentovi náhodné položky (pričom
+        počet partnerských hodnotení je maximum).
+      limit_exceeded: Každý študent už hodnotí aspoň %{maximum} článkov.
+      limit_exceeded_wikidata: Každý študent už hodnotí aspoň %{maximum} položiek.
     remove: Odstrániť
     reviewers: Hodnotiaci
-    review_other: Zadať hodnotenie
+    review_other: Priradiť/odobrať partnerské hodnotenie
     review_self: Hodnotiť článok
+    review_self_wikidata: Hodnotiť položku
+    review_tooltip: Toto je pre články, ktoré plánujete partnersky hodnotiť alebo
+      k nim poskytnúť spätnú väzbu.
+    review_tooltip_wikidata: Toto je pre položky, ktoré plánujete partnersky hodnotiť
+      alebo k nim poskytnúť spätnú väzbu.
+    sandbox_draft_link: Koncept v pieskovisku
+    sandbox_redlink_info: Tento odkaz je červený, pretože stránka ešte nebola vytvorená.
+      (Ak bola vytvorená nedávno, nástenka čoskoro aktualizuje svoje údaje.)
     select: Zvoliť
+    submit: Odoslať
+    invalid_url: Nemožno aktualizovať URL pieskoviska. URL %{url} nie je platná URL
+      adresa Wikipédie.
+    mismatched_wiki: Nemožno aktualizovať URL pieskoviska. URL %{url} nie je na tej
+      istej wiki.
+    invalid_username: Používateľské meno „%{username}“ je neplatné alebo neexistuje.
+    change_sandbox_instructions: Zadajte používateľské meno na Wikipédii na aktualizáciu
+      URL adries pieskoviska pre toto zadanie. Tým sa pieskovisko zmení z aktuálneho
+      používateľského mena na to, ktoré určíte.
+    username_label: Používateľské meno na Wikipédii
+    username_placeholder: Zadajte používateľské meno (napr. VašePoužívateľskéMeno)
+    username_or_url_label: Používateľské meno na Wikipédii alebo URL
+    username_or_url_placeholder: Zadajte používateľské meno alebo úplnú URL pieskoviska
+    preview_label: 'Náhľad nových URL adries:'
+    sandbox_label: Pieskovisko
+    bibliography_label: Bibliografia
+    outline_label: Osnova
+    warning_untracked_wiki: 'Upozorňujeme, že článok, ktorý ste si vybrali, je na
+      wiki, ktorú tento kurz nesleduje. Ak chcete sledovať príspevky do tohto článku,
+      inštruktor musí do tohto kurzu pridať nasledujúcu wiki: %{wiki}'
   blocks:
     milestones:
       title: Míľniky
   campaign:
+    campaign_ores_plot:
+      change_button: Zmena štrukturálnej úplnosti
+      no_data: Nie sú dostupné žiadne údaje o štrukturálnej úplnosti
+      graph_description_html: Tento graf súhrnne znázorňuje, ako veľmi sa články vyvinuli
+        od doby pred tým, ako ich účastníci kampane prvýkrát upravili, až po najnovšie
+        úpravy v kampani. Hodnotenie <em>štrukturálnej úplnosti </em> je založené
+        na projekte strojového učenia (<a href="https://www.mediawiki.org/wiki/ORES/FAQ"
+        target="_blank">ORES</a>), ktorý odhaduje hodnotenie kvality článku na základe
+        množstva textu, počtu wikiodkazov, obrázkov a nadpisov sekcií a ďalších vlastností.
+    active_campaigns: Aktívne kampane
+    add_organizer: Pridať organizátora
+    alert_article: Názov článku
+    alert_label: Upozornenia kampane
+    alert_select_label: Filtrovať podľa typu upozornenia
     alert_type: Typ
     alert_user_id: Používateľ
+    all_campaigns: Všetky kampane
+    already_exists: Táto kampaň už existuje! Skúste to znova s iným názvom alebo skratkou
+      (slug).
+    campaign: Kampaň
+    campaigns: Kampane
+    campaign_deleted: Kampaň „%{title}“ bola odstránená
+    campaign_not_updated: Kampaň sa nepodarilo aktualizovať
+    campaign_updated: Kampaň aktualizovaná
+    refresh_campaign_stats: Štatistiky kampane boli úspešne obnovené
     created_at: Dátum
+    confirm_campaign_deletion: Naozaj chcete odstrániť kampaň s názvom „%{title}“?
+      Ak áno, pokračujte zadaním názvu kampane.
+    confirm_campaign_deletion_failed: „%{title}“ nie je názov tejto kampane. Kampaň
+      nebola odstránená.
+    confirm_course_removal: Naozaj chcete odstrániť „%{title}“ z kampane „%{campaign_title}“?
+    course_already_removed: „%{title}“ už bol odstránený z kampane „%{campaign_title}“
+    course: Kurz
+    course_data: údaje kurzu
+    course_removed: „%{title}“ bol odstránený z kampane „%{campaign_title}“
+    course_removed_and_deleted: „%{title}“ bol vymazaný a odstránený z kampane „%{campaign_title}“
+    course_removed_but_not_deleted: „%{title}“ bol odstránený z „%{campaign_title}“,
+      ale nebol vymazaný, keďže sa nachádza aj v iných kampaniach
+    create_campaign: Vytvoriť novú kampaň
+    create_my_campaign: Vytvoriť moju kampaň!
+    customize_passcode: predvolený prístupový kód
+    data_download_info: Stiahnuť údaje kampane ako súbory CSV
+    data_courses: Prehľadové údaje o kurze
+    data_courses_info: Základné metriky pre každý kurz/program
     data_articles: Upravených stránok
+    data_revisions: Údaje o revíziách
+    data_articles_info: Podrobnosti o každej sledovanej stránke upravenej v rámci
+      kampane
+    data_revisions_info: Podrobnosti o každej sledovanej revízii kampane
+    data_instructors: Inštruktori
+    data_instructors_info: Zoznam inštruktorov/facilitátorov a ich kurzov/programov
+    data_editors_by_course: Redaktori podľa kurzu
+    data_editors_by_course_info: Zoznam zapísaných redaktorov a ich kurzov/programov
+    data_editor_usernames: Používateľské mená redaktorov
+    data_editor_usernames_info: Zoznam používateľských mien redaktorov, jedno na riadok
+    data_wikidata: Štatistiky Wikidát
+    data_wikidata_info: Podrobný rozpis aktivity na Wikidátach na základe zhrnutí
+      úprav
+    default_course_type: Predvolený typ kurzu
+    default_passcode: Predvolený prístupový kód
+    default_passcode_explanation: 'Nové programy v tejto kampani by mali mať predvolene:'
     description: Popis
+    delete_campaign: Odstrániť túto kampaň
+    delete_course_tooltip: Vymazať a odstrániť z kampane.
+    disable_account_requests: Zakázať žiadosti o účet
+    enable_account_requests: Povoliť žiadosti o účet
+    enable_account_requests_doc: Funkcia žiadostí o účet pridá k odkazu na zápis na
+      podujatie formulár žiadosti o účet. Používatelia, ktorí ešte nemajú účet, môžu
+      zadať svoj e-mail a želané používateľské meno a facilitátori podujatia môžu
+      pomocou nástenky vytvoriť požadované účty. Používatelia, ktorí požiadajú o účet,
+      sú po vytvorení účtu automaticky pridaní na podujatie.
+    newest_campaigns: Najnovšie kampane
+    featured_campaigns: Odporúčané kampane
+    instructors_course: inštruktori podľa kurzu
+    no_alerts: Táto kampaň nemá žiadne upozornenia
+    no_passcode: bez prístupového kódu
     none: Žiadne
+    organizers: Organizátori
+    organizer_added: '%{user} je teraz organizátorom kampane „%{title}“'
+    organizer_removed: '%{user} bol odstránený ako organizátor kampane „%{title}“'
+    pages_edited_small: upravených stránok
+    program_template: Šablóna programu
+    program_template_tooltip: Keď organizátor vytvorí program v tejto kampani, text
+      v tejto oblasti sa skopíruje ako popis na stránku programu
+    random_passcode: náhodný prístupový kód
+    remove_course_tooltip: Odstrániť z kampane.
+    requested_accounts: Požadované účty
+    resolve: Vyriešiť
+    revision_data: údaje o revízii
+    students_small: študenti
+    student_course: študenti podľa kurzu
+    title: Názov
+    too_large: Táto kampaň je príliš veľká na to, aby sa zobrazili požadované údaje.
+    too_many_articles: Zoznam upravených článkov pre túto kampaň je príliš dlhý na
+      zobrazenie. Ak chcete vidieť upravené články, pozrite si jednotlivé kurzy/programy/podujatia.
+    slug: Slug
+    search_campaigns: Hľadať kampane
+    use_start_end_dates: Použiť dátumy začiatku a konca
+    search: Hľadať
+  categories:
+    searching_for_category: Vyhľadávanie kategórií v
+    add_category: Pridať kategóriu
+    add_psid: Pridať PetScan PSID
+    add_pileid: Pridať PagePile id
+    add_template: Pridať šablónu
+    add_this_category: Pridať kategórie
+    add_this_psid: Pridať PetScan PSID
+    add_this_pileid: Pridať PagePile id
+    add_this_template: Pridať šablóny
+    import_articles_description: Zoznam článkov v kategórii sa pravidelne aktualizuje
+      a po pridaní môže chvíľu trvať, kým sa zoznam naplní.
+    confirm_add_n_scoping_method: Pridať %{n} metód vymedzenia?
+    depth: Hĺbka podkategórií
+    articles_count: Počet článkov
+    name: Názov
+    category_name: Názov kategórie
+    psid_name: PSID
+    psid_description: PetScan dotazy fungujú s nástenkou vždy len pre jednu wiki.
+      Uistite sa, že váš PetScan dotaz obsahuje iba články z jednej wiki a že sa zhoduje
+      s wiki nastavenou nižšie.
+    pileid_name: PagePile id
+    pileid_description: Uistite sa, že wiki súboru PagePile je jednou zo sledovaných
+      wiki pre tento program.
+    template_name: Názov šablóny
+    none: Nesledujú sa žiadne kategórie.
+    remove: Odstrániť
+    tracked_categories: Sledované kategórie, PSID, PagePile id a šablóny
+    timestamp: Naposledy aktualizované
+    category_error: Táto metóda vymedzenia má príliš veľa položiek na aktualizáciu.
+      Skúste použiť menšie.
   courses:
+    school_system: Akademický systém
+    assignment_edits_enabled: Úpravy zadaní povolené
+    assignment_edits_enabled_tooltip: Ak je povolené, nástenka pridá na diskusnú stránku
+      šablónu pre každý priradený článok.
+    accounts_generation_enabled: Vytváranie žiadostí o účet povolené
+    accounts_generation_explanation: Toto umožní účastníkom zadať svoju e-mailovú
+      adresu a želané používateľské meno namiesto toho, aby si sami vytvárali nové
+      účty. Vy potom budete môcť vytvoriť účty z tejto nástenky a zároveň ich pridať
+      ako účastníkov programu.
+    accounts_generation_confirm_message: Naozaj chcete povoliť žiadosti o účet?
     activity: Aktivita
+    active_courses: Aktívne kurzy
+    add_trainings: Pridajte do časovej osi zadaní školenia pre študentov. Priraďovanie
+      školiacich modulov je základnou súčasťou osvedčených postupov Wiki Ed.
+    alerts: Upozornenia
+    does_not_exist: Položka neexistuje. Vytvorte stránku pieskoviska a priraďte sa
+      k nej, aby ste dostávali návrhy.
+    all_courses: Všetky kurzy
     already_enrolled: Už si súčasťou kurzu %{title}!
     already_exists: Toto už existuje v tomto kurze!
     archived: Archivované kurzy
     actions: Akcie
     articles: Články
+    article_viewer: Prehliadač článkov
+    article_viewer_wikidata: Prehliadač položiek
+    articles_i_am_reviewing_wikidata: Položky, ktoré partnersky hodnotím
+    articles_i_am_reviewing: Články, ktoré partnersky hodnotím
+    articles_i_will_create: Články, ktoré vytvorím
+    articles_i_will_create_wikidata: Položky, ktoré vytvorím
+    articles_i_am_updating: Články, ktoré aktualizujem
+    articles_i_am_updating_wikidata: Položky, ktoré aktualizujem
+    add_campaign_aria_label: Tlačidlo na pridanie kampane
+    new_tag_button_aria_label: Tlačidlo na vytvorenie alebo aktualizáciu značky
+    enroll_button_aria_label: Tlačidlo na zápis
+    assignment_headings:
+      assigned_articles: Priradené články
+      assigned_articles_wikidata: Priradené položky
+      assigned_reviews: Priradené hodnotenia
+      available_articles: Dostupné články
+      available_articles_wikidata: Dostupné položky
+      available_reviews: Články spolužiakov
+      available_reviews_wikidata: Položky spolužiakov
     assignment_end: Koniec kurzu
     assignment_start: Začiatok kurzu
     calendar:
@@ -209,78 +627,1682 @@ sk:
       legend_class_not_meeting: Žiadne naplánované stretnutie
       select_meeting_days: Zvoľte dni v týždni, počas ktorých sa vaša trieda bude
         stretávať.
+    cancel: Zrušiť
     character_doc: Počet znakov, ktoré boli študentmi pridané do hlavného menného
       priestoru počas kurzu
     campaigns: 'Skupiny:'
+    campaign_articles: Články %{title}
+    campaign_courses: Kurzy %{title}
+    campaign_select: Vyberte kampaň
+    campaign_users: Redaktori %{title}
     confirm_course_deletion: Skutočne chcete zmazať kurz %{title}? Ak áno, prosím
       vpíšte názov kurzu.
     confirm_course_deletion_failed: „%{title}“ nie je názov kurzu. Kurz nebol odstránený.
+    confirm_manual_update: Naozaj chcete spustiť manuálnu aktualizáciu? Naimportujú
+      sa najnovšie revízie a potom sa stránka znova načíta. Tento proces môže chvíľu
+      trvať.
+    controlled_by_event_center: Zápis na toto podujatie riadi Wikimedia Event Center.
+      Nedá sa pripojiť z nástenky.
+    course: Kurz
+    course_type_label: 'Typ:'
     course_dates_calendar_instructions: Vyberte dátumy, ktoré chcete pridať alebo
       odstrániť z časového plánu (napr. prázdniny, sviatky, obdobia bez výuky...).
       Kliknutím na dátum môžete nastaviť neoznačený, označený alebo prázdninový stav.
       Dĺžka kurzu sa tým zmení, aby odrážala týždne, počas ktorých výuka neprebieha.
     course_description: Kurzy
     courses: Kurzy
+    courses_taught: Vyučované kurzy
     creation_date: Dátum vytvorenia
+    start_date: Dátum začiatku
     creator:
       already_exists: Tento kurz už existuje. Zvážte zmenu mena, školy alebo podmienky.
       assignment_end: Koniec kurzu
-      assignment_end_placeholder: Koniec kurzu (RRRR-MM-DD)
+      assignment_end_placeholder: RRRR-MM-DD
       assignment_start: Začiatok kurzu
-      assignment_start_placeholder: Začiatok kurzu (RRRR-MM-DD)
+      assignment_start_placeholder: RRRR-MM-DD
+      cancel_course_clone: Zrušiť klonovanie kurzu
+      cancel_course_clone_confirm: Naozaj chcete zastaviť klonovanie tohto kurzu?
       checking_for_uniqueness: Tento kurz je overene jedinečný.
+      choose_clone: Vyberte kurz na klonovanie.
+      clone_previous: Klonovať predchádzajúci kurz
+      clone_this: Klonovať tento kurz
+      cloned_course_calendar_instructions: Vyberte dátumy, ktoré chcete pridať do
+        rozvrhu alebo z neho odstrániť (napr. sviatky, dni bez vyučovania). Kliknutím
+        na dátum prepínate medzi stavmi nevybraté, vybraté a sviatok. Ak nemáte žiadne
+        prázdniny, začiarknite „Nemám žiadne prázdniny počas kurzu“. Klonovaná časová
+        os automaticky upraví dátumy, aby zohľadnila týždne bez naplánovaných stretnutí.
+      clone_successful: Aktualizovať podrobnosti pre klonovaný kurz
+      copy_successful: Aktualizovať podrobnosti pre skopírovaný kurz
+      clone_successful_details: Váš kurz bol naklonovaný vrátane prvkov časovej osi
+        (týždňov a blokov). Nezabudnite pridať dátumy, ktoré sa neprenášajú. Zmenilo
+        sa na vašom kurze niečo iné? Pokojne to teraz aktualizujte.
+      copy_successful_details: Váš kurz bol skopírovaný vrátane prvkov časovej osi
+        (týždňov a blokov). Nezabudnite pridať dátumy, ktoré sa neprenášajú. Zmenilo
+        sa na vašom kurze niečo iné? Pokojne to teraz aktualizujte.
+      course_dates_info: Zadajte dátumy začiatku a konca svojho kurzu. V ďalšom kroku
+        si môžete vybrať, kedy v rámci tohto obdobia začne zadanie na Wikipédii.
+      course_description: Popis kurzu
       course_description_placeholder: Čo obsahuje váš kurz a čo budú študenti na Wikipédii
         robiť? Uveďte prosím dostatok podrobností čím poskytnete zmysel kontextu príspevkov,
         ktoré budú vaši študenti pridávať.
+      course_private: Súkromný program (viditeľný len pre administrátorov a facilitátorov)
+      course_ta_support: Kurz bude mať ďalších inštruktorov alebo asistentov
+      course_school: Škola kurzu
+      course_subject: Predmet kurzu
+      course_term: Semester kurzu
+      course_term_placeholder: Semester (vrátane roka)
+      course_title: Názov kurzu
+      course_types:
+        basic_course_name: Základný program
+        basic_course_description: Tento typ programu bude sledovať úpravy ľubovoľných
+          článkov alebo stránok v hlavnom mennom priestore od ľubovoľných účastníkov.
+          Ak sú na domovskej wiki programu povolené automatické wiki úpravy, automaticky
+          sa vytvorí a aktualizuje verzia tohto programu na wiki.
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: Program Edit-A-Thon bude sledovať úpravy ľubovoľných
+          článkov alebo stránok v hlavnom mennom priestore. Pre tento program sa predvolene
+          nebudú vykonávať žiadne automatické úpravy.
+        article_scoped_program_name: Program vymedzený článkami
+        article_scoped_program_description: Tento typ programu sleduje úpravy len
+          pre priradené články alebo kategórie. Použite tento typ, ak chcete štatistiky
+          obmedziť na známu skupinu článkov alebo tematických oblastí. Automatické
+          wiki úpravy sú predvolene zapnuté.
+        single_user_name: Individuálny redaktor
+        single_user_description: Tento typ programu je určený na sledovanie vlastných
+          príspevkov so zjednodušeným rozhraním. Použite tento typ, ak nepotrebujete
+          sledovať úpravy iných používateľov.
+      create_button: Vytvoriť môj kurz!
+      create_label: Vytvoriť nový kurz
+      create_new: Vytvoriť nový kurz
+      copy_courses_with_assignments: Klonovať zoznam dostupných článkov
+      create_short: Vytvoriť kurz
+      end_date: Dátum konca
+      end_date_placeholder: RRRR-MM-DD
+      expected_number: Očakávaný počet študentov
+      field_invalid_term: Semester musí obsahovať rok (napr. „Jar 2025“)
+      find: Nájdite svoj kurz
+      intro: Názov, škola a semester tvoria URL adresu stránky vášho kurzu a nedajú
+        sa zmeniť. Všetko ostatné môžete upraviť neskôr. Kliknutím na „Vytvoriť môj
+        kurz!“ začnete budovať časovú os svojho zadania na Wikipédii.
+      new_or_clone: Kliknutím na „Vytvoriť nový kurz“ prejdete do sprievodcu návrhom
+        zadania. Vaša časová os bude obsahovať najnovšie možnosti odporúčaných školiacich
+        modulov a ďalších zdrojov od Wiki Education. Ak máte z predchádzajúceho kurzu
+        veľmi prispôsobenú časovú os, ktorú chcete znova použiť, môžete si vytvoriť
+        jej klon s novými dátumami. Možnosť klonovania môžete použiť aj na vytvorenie
+        ďalších sekcií pre kurz, ktorý ste už nastavili.
+      no_class_holidays: Nemám žiadne prázdniny počas kurzu
       role_description: Vaša úloha v kurze
+      role_description_options:
+      - Inštruktor
+      - Asistent učiteľa
       role_description_placeholder: Inštruktor, asistent učiteľa atď.
+      separate_event_dates: Zadajte samostatné časy začiatku/konca podujatia (voliteľné)
+      separate_event_dates_info: Štatistiky aktivity pre tento program sa budú sledovať
+        na základe dátumov a časov uvedených vyššie, ale môžete zadať samostatné časy,
+        kedy sa samotné podujatie alebo program začína a končí (napríklad aby účastníci
+        vedeli, kedy sa majú dostaviť alebo kedy sa miesto konania zatvára).
+      save_cloned_course: Uložiť nový kurz
+      start_date: Dátum začiatku
+      start_date_placeholder: RRRR-MM-DD
+      subject: Predmet
+      update_scheduled: Aktualizácia naplánovaná. Údaje sa aktualizujú spolu so všetkými
+        aktuálnymi programami počas nasledujúceho aktualizačného cyklu. To zvyčajne
+        trvá niekoľko hodín.
+      creating_course: Vytvára sa kurz
+    current: Aktuálne kurzy
+    data_articles: Údaje o článkoch
+    data_articles_info: Údaje o článkoch zahŕňajú počet úprav každej stránky, ktoré
+      stránky sú nové a celkové počty zobrazení stránok. Tieto hodnoty zobrazení môžu
+      byť pri už skončených kurzoch neaktuálne, preto je pripojená URL adresa nástroja
+      na zobrazenia stránok WMF Tool Labs.
+    data_revisions_info: Údaje o revíziách zahŕňajú počet revízií kurzu, ID revízie,
+      ID článku, ktoré stránky sú nové a celkové počty zobrazení stránok.
+    data_download_info: Stiahnuť údaje vo formáte CSV.
+    data_download_warning: Tento kurz ešte nie je v novom systéme aktuálny. Štatistiky
+      môžu byť neúplné. Pred ich stiahnutím naplánujte aktualizáciu údajov pre tento
+      kurz a počkajte, kým sa dokončí. Ak ide o prebiehajúci kurz, počkajte, kým sa
+      dokončí aktuálna aktualizácia.
+    data_overview: Prehľadové údaje
+    data_overview_info: Prehľadové údaje poskytujú kumulatívne štatistiky za celý
+      projekt.
+    data_edits: Údaje o úpravách
+    data_edits_info: Údaje o úpravách zobrazujú podrobnosti o každej úprave vykonanej
+      počas projektu.
+    data_students: Údaje o redaktoroch
+    data_students_info: Údaje o redaktoroch uvádzajú všetkých zapísaných redaktorov,
+      koľko upravovali a či si zaregistrovali účty počas projektu.
+    data_uploads: Údaje o nahratých súboroch na Commons
+    data_revisions: Údaje o revíziách
+    data_uploads_info: Údaje o nahratých súboroch na Commons zobrazujú názov a počet
+      použití každého nahratého mediálneho súboru.
+    data_wikidata: Štatistiky Wikidát
+    data_wikidata_info: Podrobný rozpis aktivity na Wikidátach na základe zhrnutí
+      úprav
+    dates_too_long: Maximálna dĺžka je jeden rok.
+    delete_course: Odstrániť kurz
+    delete_suggestion: Odstrániť
+    delete_course_instructions: Túto stránku môžete odstrániť, ak najprv odstránite
+      všetky kampane.
+    disable_student_emails: Zakázať e-maily študentom
+    disable_student_emails_tooltip: Zakázanie e-mailov študentom zastaví odosielanie
+      niektorých notifikačných e-mailov študentom tohto kurzu.
+    dismiss_survey: Zamietnuť
+    dismiss_survey_confirm: Naozaj chcete natrvalo zamietnuť tento prieskum?
+    download_stats_data: Stiahnuť štatistiky
+    duration: Trvanie kurzu
+    edit_count: Počet úprav
+    edit_course_dates: Upraviť dátumy kurzu
+    embed_course_stats: Vložiť štatistiky kurzu
+    embed_course_stats_description: Ak chcete vložiť štatistiky tohto programu na
+      inú webovú stránku, skopírujte a vložte tento útržok kódu do
+    enable_account_requests: Povoliť žiadosti o účet
+    end: Koniec
+    ended: Kurz sa skončil.
+    enroll: Zapísať sa
+    enrollment: Pridať/odobrať študentov
+    enrollment_edits_enabled: Úpravy pri zápise povolené
+    enrollment_edits_enabled_tooltip: Ak je povolené, nástenka pridá šablónu na používateľskú
+      a diskusnú stránku každého redaktora, ktorý sa pripojí k programu.
+    event_sync: 'Úpravy zakázané: Toto pole nemožno zmeniť, pretože kurz je už prepojený
+      s podujatím. Jeho zmena by narušila integráciu podujatia.'
+    courses_enrolled: Zapísané kurzy
+    error:
+      exists: Tento kurz už existuje! Skúste to znova s iným názvom, školou alebo
+        semestrom.
+      user_exists: Prepáčte, %{username} nie je existujúci používateľ.
+      user_exists_on_wiki: Prepáčte, %{username} nie je existujúci používateľ na %{domain}.
+      invalid_language_or_project: Neplatný jazyk/projekt
+      invalid_wiki: Nemožno sa pripojiť k %{domain}. Možno nejde o platnú wiki.
+      duplicate_course_slug: URL adresa %{slug} je už obsadená. Zmeňte názov, školu
+        alebo semester.
+      invalid_slug: Prázdna škola/názov kurzu.
+      duplicate_slug: Iný program s názvom %{slug} už existuje.
+    expected_students: Očakávaní študenti
+    features_feedback: 'Automatické návrhy:'
+    feedback: Spätná väzba
+    feedback_loading: Počkajte, prosím, kým sa načítajú návrhy...
+    gradeables_none: Tento kurz nemá žiadne hodnotiteľné zadania.
     home_wiki: Domovská wiki
+    multi_wiki: Sledované wiki
+    namespaces: Sledované menné priestory
     instructor:
       one: Inštruktor
       other: Inštruktori
-    invitation: Boli ste pozvaní k pripojeniu sa ku kurzu %{title}, ale najprv sa
-      musíte prihlásiť k svojmu účtu.
+    instructors: Inštruktori
+    instructor_message: Toto je rovnaké rozhranie Moje články, aké majú študenti.
+      Môžete ho použiť na prejdenie rovnakých krokov, ktorými prejdú študenti. Sledovať
+      sa však budú len príspevky študentov.
+    instructor_message_wikidata: Toto je rovnaké rozhranie Moje položky, aké majú
+      študenti. Môžete ho použiť na prejdenie rovnakých krokov, ktorými prejdú študenti.
+      Sledovať sa však budú len príspevky študentov.
+    invitation: Boli ste pozvaní k pripojeniu sa ku %{title}. Ak sa chcete pripojiť,
+      musíte sa prihlásiť účtom na Wikipédii.
+    invitation_username_advice: Ak ešte nemáte účet na Wikipédii, zaregistrujte si
+      ho teraz. Vaše používateľské meno môže byť také anonymné — alebo také osobne
+      identifikujúce —, ako chcete. (Zdieľané účty nie sú povolené.)
+    join: Pripojiť sa
+    join_course: Pripojiť sa ku kurzu
+    join_course_as_volunteer: Prihlásiť sa ako dobrovoľník
+    join_prompt: Pripojiť sa ku kurzu „%{title}“?
+    join_successful: Úspešne ste sa pripojili ku kurzu %{title}. Nástenka bude automaticky
+      sledovať vaše príspevky pomocou pravidelných aktualizácií. Vráťte sa neskôr
+      a pozrite si, aký vplyv ste dosiahli!
+    join_failed: Zápis zlyhal.
+    join_failure_details:
+      cannot_join_twice: Používatelia sa nemôžu pripojiť k tomu istému kurzu dvakrát.
+      not_yet_approved: Tento kurz ešte nebol schválený na zápis.
+      withdrawn: Tento kurz bol označený ako stiahnutý — možno omylom. Ak ho chcete
+        znova povoliť, kontaktujte tím Wiki Education.
+      invalid_sync: Zápis na toto podujatie riadi Wikimedia Event Center. Nedá sa
+        pripojiť z nástenky.
+      disallowed_user: Tento používateľ je na zozname nepovolených používateľov a
+        nemôže byť zapísaný do kurzov.
+    join_details: Ak sa chcete pripojiť k tomuto kurzu, potrebujete od inštruktora
+      prístupový kód — alebo odkaz na zápis, ktorý prístupový kód obsahuje. Ak ste
+      ho nedostali, kontaktujte svojho inštruktora.
+    join_no_passcode: Naozaj sa chcete pripojiť k tomuto kurzu?
+    launch_wizard: Spustiť sprievodcu
+    leave_confirmation: Naozaj chcete opustiť tento kurz?
+    leave_course: Opustiť kurz
+    loading: Načítava sa…
+    milestones_none: Tento kurz momentálne nemá žiadne míľniky.
+    my_articles: Moje články
+    my_articles_wikidata: Moje položky
+    needs_update: Naplánovať aktualizáciu údajov
+    update_scheduled_label: Aktualizácia naplánovaná
+    new_week: Pridať nový týždeň
+    new_account_check_username: Skontrolovať dostupnosť používateľského mena
+    new_account_email: E-mailová adresa
+    new_account_email_placeholder: meno@example.org
+    new_account_info: Ak chcete požiadať o účet, zadajte svoju e-mailovú adresu a
+      želané používateľské meno. Po vytvorení účtu jedným z facilitátorov vám bude
+      e-mailom zaslané heslo.
+    new_account_info_admin: Ak chcete vytvoriť účet pre nového redaktora, zadajte
+      jeho e-mailovú adresu a želané používateľské meno. Po vytvorení účtu mu bude
+      e-mailom zaslané heslo.
+    new_account_username: Požadované používateľské meno
+    new_account_username_invalid: Toto nie je platné používateľské meno.
+    new_account_username_placeholder: Wiki Editor 123
+    new_account_username_taken: Toto používateľské meno je už obsadené. Vyberte si
+      iné.
+    new_account_submit: Požiadať o účet
+    new_account_submitted: Vaša žiadosť o účet bola odoslaná. Facilitátor tohto programu
+      teraz môže dokončiť vytvorenie vášho účtu. Po jeho vytvorení dostanete heslo
+      k novému účtu e-mailom.
+    new_account_submitted_admin: Vaša žiadosť o účet bola vytvorená. Informujte svojich
+      študentov, aby si skontrolovali e-mailovú schránku a získali svoje nové heslo.
+    no_campaign: Ak chcete tento program aktivovať a umožniť používateľom pripojiť
+      sa, musí byť pridaný do kampane. Ak si nie ste istí, ktorú kampaň vybrať, použite
+      „Miscellanea“ (Rôzne).
+    no_sandboxes: Bez pieskovísk
+    no_sandboxes_info: Keď je táto možnosť povolená, kurz bude v režime bez pieskoviska.
+      V prípade potreby nezabudnite zmeniť aj značky a obsah časovej osi.
+    nocourses: Nezúčastňujete sa žiadnych kurzov.
+    nocourse: sa nezúčastnil žiadnych kurzov.
+    none: Žiadne
+    not_permitted: Nemáte povolenie upravovať tento kurz.
+    notify_untrained_confirmation: Toto pridá pripomienku na diskusné stránky všetkých
+      študentov, ktorí meškajú s dokončením priradených školiacich modulov. Naozaj
+      to chcete urobiť?
+    no_available_actions: Žiadne dostupné akcie
+    online_volunteers_enabled: Online dobrovoľníci povolení
+    online_volunteers_tooltip: Povolenie online dobrovoľníkov umožňuje redaktorom
+      pripojiť sa ako dobrovoľník. Ich úpravy sa nebudú sledovať.
+    ores_plot: ORES
+    ores_plot_description: Tento graf súhrnne znázorňuje, ako veľmi sa články vyvinuli
+      od doby pred tým, ako ich študenti prvýkrát upravili, až po ich najnovšie úpravy.
+      Hodnotenie štrukturálnej úplnosti je založené na projekte strojového učenia
+      (%{ores_link}), ktorý odhaduje hodnotenie kvality článku na základe množstva
+      textu, počtu wikiodkazov, obrázkov a nadpisov sekcií a ďalších vlastností. (%{refresh_link})
+    ores_plot_no_data: Nie sú dostupné žiadne údaje o štrukturálnej úplnosti
+    ores_plot_refresh_data: Obnoviť údaje z vyrovnávacej pamäte
+    ores_plot_show_button: Zmena štrukturálnej úplnosti
     overview: Domov
+    passcode: Prístupový kód
+    passcode_none: Bez prístupového kódu
+    passcode_prompt: 'Zadajte prístupový kód na pripojenie:'
+    please_log_in: Prihláste sa, prosím.
+    private: Súkromné
+    published: 'Váš kurz bol zverejnený! Študenti sa môžu do kurzu zapísať návštevou
+      nasledujúcej URL adresy:'
+    rating_feedback: 'Predpovedané hodnotenie článku je:'
+    requested_accounts: Požadované účty
+    requested_accounts_alert:
+      one: '%{count} požadovaný účet čaká na vybavenie.'
+      few: '%{count} požadované účty čakajú na vybavenie.'
+      other: '%{count} požadovaných účtov čaká na vybavenie.'
+    requested_accounts_alert_view: Zobraziť
+    retain_available_articles: Ponechať dostupné články
+    retain_available_articles_wikidata: Ponechať dostupné položky
+    retain_available_articles_info: Keď je táto možnosť povolená, výber dostupného
+      článku ho neodstráni zo zoznamu, čím umožní skupine študentov vybrať si ten
+      istý článok.
+    retain_available_articles_info_wikidata: Keď je táto možnosť povolená, výber dostupnej
+      položky ju neodstráni zo zoznamu, čím umožní skupine študentov vybrať si tú
+      istú položku.
+    retention_predictors: Prediktory udržania
+    review_timeline: 'Teraz si prezrite časovú os svojho zadania a prispôsobte si
+      ju podľa svojich potrieb. Keď budete spokojní, môžete ju odoslať na schválenie
+      tímu Wiki Education. Po schválení dostanete URL adresu na zápis, ktorú študenti
+      môžu použiť na pripojenie sa ku kurzu a prístup k školeniam. (Poznámka: úpravy
+      budete môcť vykonať aj neskôr.)'
+    revisions_doc: Odhadovaný počet úprav za posledných %{timeframe} dní na základe
+      priemerného počtu úprav za deň za posledné obdobie.
+    revisions_none: Tento kurz nemá žiadnu nedávnu aktivitu úprav na Wikipédii.
+    school: Škola
+    school_and_term: Inštitúcia/semester
+    search_all_tickets_for_this_course: Prehľadať všetky tikety pre tento kurz
+    search_courses: Hľadať kurzy
+    start: Začiatok
+    start_typing: Začnite písať
+    stay_in_sandbox: Zostať v pieskovisku
+    max_group_size: Max. veľkosť skupiny
+    max_group_size_tooltip: Maximálny počet študentov, ktorí môžu pracovať na tom
+      istom článku. Pre neobmedzený počet nechajte prázdne.
+    student: Študent
     students: Študenti
+    students_taught: Vyučovaní študenti
+    students_count: Počet študentov
+    student_editors: Študenti redaktori
+    students_none: Tento kurz nemá žiadnych študentov.
     students_short: Študenti
+    submitted_admin: Tento kurz bol odoslaný na schválenie jeho tvorcom. Ak ho chcete
+      schváliť, pridajte ho do kampane na stránke Prehľad.
+    submitted_and_pending_heading: Odoslané a čakajúce na schválenie
+    submitted_heading: Odoslané kurzy
+    submitted_note: Váš kurz bol úspešne odoslaný. Tím Wiki Education ho preskúma
+      a v prípade otázok vás bude kontaktovať. Medzitým, ak si chcete prezrieť školiace
+      materiály Wiki Education, môžete si pozrieť úplný zoznam zdrojov pre inštruktorov
+      a študentov.
+    suggestions_feedback: Máte návrhy na vylepšenie tejto funkcie? Dajte nám vedieť!
+    suggestions_sending: Odosiela sa spätná väzba...
+    suggestions_sent: Spätná väzba odoslaná. Ďakujeme za váš podnet.
+    suggestions_failed: Nepodarilo sa odoslať spätnú väzbu. Skúste to znova neskôr.
+    user_role: Rola
+    course_details: Podrobnosti o kurze
+    course_submitted: Stav „odoslané“ sa používa pre kurzy vzdelávacieho programu,
+      kde musí byť plán kurzu schválený pred začatím projektu. Je relevantný len pre
+      typ kurzu ClassroomProgram.
+    subject: Predmet
+    submitted: Odoslané
+    submitted_at: Odoslané o
     approval_form_heading: Formulár schválenia kurzu
     add_program_manager: 'Pridať správcu programu:'
     add_wiki_expert: 'Pridať experta z Wikipédie:'
     add_tags: 'Pridať značky:'
     add_campaigns: 'Pridať kampane:'
     invalid_salesforce_id: Zadané ID nie je platné.
+    add_salesforce_id: 'Pridať Salesforce Id:'
     approve_course: Schváliť kurz
+    tag_select: Vyberte alebo vytvorte značku
+    tags: 'Značky:'
+    term: Semester
+    timeline: Podrobnosti o zadaní
+    timeline_enabled: Časová os povolená
+    timeline_link: Časová os
+    timeline_tooltip: Povolenie časovej osi vám umožní špecifikovať aktivity týždeň
+      po týždni a priraďovať školiace moduly. Je užitočné pre kurzy vzdelávacieho
+      programu a iné dlhé, vysoko štruktúrované programy.
+    timeline_nav: Prejsť na časovú os
+    time_zone_message: Časy začiatku a konca sa zobrazujú vo vašom miestnom časovom
+      pásme.
+    title: Názov
+    training_due: Školiaci modul „%{title}“ je priradený k tomuto kurzu a termín jeho
+      dokončenia je %{date}.
+    training_nav: Prejsť na školenie
+    training_overdue: Školiaci modul „%{title}“ je priradený k tomuto kurzu a termín
+      jeho dokončenia bol %{date}.
+    unsubmitted: Neodoslané kurzy
+    untrained: Nezaškolení
+    update_stats: Aktualizovať štatistiky
+    uploads_none: Táto trieda neprispela žiadnymi obrázkami ani inými mediálnymi súbormi
+      do Wikimedia Commons.
+    user_uploads_none: Tento používateľ neprispel žiadnymi obrázkami ani inými mediálnymi
+      súbormi do Wikimedia Commons.
+    user_recent_uploads: Nedávno nahraté súbory
+    user_suggestions: 'Návrhy pre používateľa:'
+    user_suggestions_prompt: Vaše návrhy pre redaktorov článku
+    view_other: Zobraziť ďalšie kampane
+    view: Zobraziť kurz
+    view_doc: Odhadovaný počet zobrazení článkov upravených zapísanými redaktormi
+      od doby, keď redaktor vykonal svoju prvú úpravu každého článku
+    view_page: Zobraziť stránku kurzu
+    view_wiki: Zobraziť na Wikipédii
+    volunteer:
+      one: Dobrovoľník
+      few: Dobrovoľníci
+      other: Dobrovoľníkov
+    weeks_none: Tento kurz zatiaľ nemá časovú os.
+    warn_mirrored: Po odoslaní bude tento kurz automaticky zverejnený na Wikipédii
+      pod vaším používateľským účtom. Potom sa nové úpravy časovej osi budú zrkadliť
+      na Wikipédiu. Naozaj to chcete urobiť?
+    wiki_course_page_enabled: Wiki stránka kurzu povolená
+    wiki_course_page_enabled_tooltip: Ak je povolené, zrkadlo stránky na wiki sa aktualizuje
+      vždy, keď sa zmení program alebo jeho používatelia a zadania.
+    wiki_edits_enabled: Wiki úpravy povolené
+    wiki_edits_enabled_tooltip: Ak sú wiki úpravy povolené, pre tento program sa budú
+      vykonávať automatické úpravy na wiki. Zakážte wiki úpravy, ak nechcete, aby
+      sa pridávali šablóny na používateľské stránky, diskusné stránky priradených
+      článkov atď.
+    wiki_staff: Tím Wiki Education
+    withdrawn: Nesplnil zadanie
+    word_count_doc: Odhad počtu slov pridaných do článkov v hlavnom mennom priestore
+      študentmi kurzu počas semestra kurzu
+    word_count_doc_wikidata: Odhad počtu slov pridaných do položiek v hlavnom mennom
+      priestore študentmi kurzu počas semestra kurzu
+    yourcourses: Vaše kurzy
     declined_note: Tento kurz bol zamietnutý. V prípade otázok kontaktujte, prosím,
       personál Wiki Education.
+    decline_course: Odmietnuť kurz
+    decline_course_confirm: Naozaj chcete odmietnuť tento kurz? Tým sa odoslanie archivuje
+      a zastavia sa automatické upozornenia na neodoslanie pre tento kurz.
+    survey:
+      notification_message: Vyplňte náš prieskum pre tento kurz.
+      link: Vyplniť prieskum
+  course_instructor_notification:
+    notify_instructors: Napísať inštruktorom e-mail
+    notify_instructors_feature_description: Odoslať inštruktorom správu e-mailom
+    send_notification_button_text: Odoslať
+    notification_sent_success: Správa odoslaná všetkým inštruktorom kurzu %{courseTitle}
+    notification_send_error_no_internet: Nepodarilo sa odoslať požiadavku. Skontrolujte,
+      či ste pripojení k internetu.
+    notification_send_error_server: 'Chyba servera: Nepodarilo sa odoslať upozornenie
+      (%{status} %{statusText})'
+    notification_empty_message: Predmet ani správa nemôžu byť prázdne
+    confirm_send_notification: Odoslať všetkým inštruktorom tohto kurzu?
+    write_subject: Predmet
+    write_message_placeholder: Správa
+    sending_notification: Odosiela sa
+    bcc_to_salesforce: Skrytá kópia (BCC) do Salesforce
   courses_generic:
+    school_system: Akademický systém
+    add_campaign: Pridať kampaň
+    all_courses: Všetky programy
+    archived: Archivované programy
+    articles_i_am_reviewing: Články, ktoré hodnotím
+    assignment_headings:
+      available_reviews: Dostupné na hodnotenie
+      available_reviews_wikidata: Dostupné na hodnotenie
+    assignment_end: Koniec podujatia
+    assignments_none: Tento projekt nemá žiadne priradené články.
+    assignment_start: Začiatok podujatia
+    cancel: Zrušiť
+    course: Program
+    courses: Programy
+    courses_taught: Vedené programy
+    campaigns: 'Kampane:'
+    campaign_courses: Programy %{title}
     creator:
+      assignment_end: Koniec podujatia
+      assignment_end_placeholder: RRRR-MM-DD
+      assignment_start: Začiatok podujatia
+      assignment_start_placeholder: RRRR-MM-DD
+      cancel_course_clone: Zrušiť klonovanie programu
+      cancel_course_clone_confirm: Naozaj chcete zastaviť klonovanie tohto programu?
+      checking_for_uniqueness: Kontroluje sa jedinečnosť tohto programu.
+      choose_clone: Vyberte program na klonovanie.
+      clone_previous: Klonovať predchádzajúci program
+      clone_this: Klonovať tento program
+      clone_successful: Program bol úspešne naklonovaný
+      clone_successful_details: Váš program bol naklonovaný. Kliknutím na „Uložiť“
+        nižšie ho dokončíte.
+      course_when: Do poľa „Kedy“ pridajte niečo (napríklad mesiac a rok), aby ste
+        to odlíšili od originálu.
+      course_dates_info: Zadajte dátumy začiatku a konca svojho programu. Možno budete
+        chcieť predĺžiť koniec o niekoľko hodín alebo dní po skončení hlavných aktivít,
+        aby zahŕňal súvisiace úpravy, ktoré sa udejú krátko po podujatí.
+      course_description: Popis programu
       course_description_placeholder: O čom je tento program, a čo budú účastníci
         wiki(s) robiť? Uveďte prosím dostatok podrobností, aby ste ostatným editorom
         poskytli zmysel kontextu príspevkov, ktoré budú pridávať účastníci.
       course_school: Inštitúcia
       course_term: Kedy
+      course_term_placeholder: Kedy
+      course_title: Názov programu
+      create_button: Vytvoriť môj program!
+      create_label: Vytvoriť nový program
+      create_new: Vytvoriť nezávislý program
+      create_short: Vytvoriť program
+      end_date: Koniec sledovania aktivity
+      find: Nájsť program
+      intro: Názov programu a inštitúcia tvoria URL adresu programu. Domovská wiki
+        je hlavná wiki, na ktorej budú účastníci pracovať, a úpravy na tejto wiki
+        sa budú predvolene sledovať. Ak sa váš program rozprestiera cez viacero jazykov
+        alebo projektov, príspevky sa budú sledovať aj pre každú wiki, ktorá bola
+        výslovne pridaná do „sledovaných wiki“. Kliknutím na „Vytvoriť môj program!“
+        začnete budovať stránku svojho wiki programu.
+      new_or_clone: Vytvorte nový program teraz, alebo použite možnosť „klonovať“
+        na skopírovanie iného programu, ktorého ste sa zúčastnili.
+      participate_in_campaign: Zúčastniť sa kampane
+      save_cloned_course: Uložiť
+      start_date: Začiatok sledovania aktivity
+      scoping_methods:
+        scoping_methods: Metódy vymedzenia
+        configure: Nakonfigurovať metódy vymedzenia
+        about: |-
+          Pri programe vymedzenom článkami bude nástenka sledovať iba úpravy článkov, pre ktoré ste ju nakonfigurovali. Po vytvorení vašej stránky môžete pridávať jednotlivé články na sledovanie tak, že články priradíte jednotlivým redaktorom alebo ich pridáte ako dostupné články. Pri väčších skupinách článkov môžete použiť ktorýkoľvek z týchto nástrojov na definovanie článkov, ktoré chcete sledovať.
+          Vyberte metódy vymedzenia, ktoré chcete teraz nakonfigurovať. Metódy vymedzenia môžete pridať aj neskôr na karte Články.
+        categories: Kategórie
+        categories_short_desc: Funkcia kategórií na wiki sa používa na zoskupovanie
+          súvisiacich článkov. Názov kategórie môžete použiť na to, aby ste nástenke
+          povedali, nech sleduje všetky články v tejto kategórii.
+        categories_desc: |-
+          Sledovanie kategórie znamená, že nástenka bude počítať úpravy ľubovoľných článkov v tejto kategórii. Predvolene (hĺbka 0) sa budú sledovať len články, ktoré sú priamo v tejto kategórii.
+          Hodnotu hĺbky môžete zvýšiť (maximálne na 3), ak chcete zahrnúť články, ktoré sú v podkategóriách tejto kategórie. Najprv si kategóriu prezrite, aby ste sa uistili, že podkategórie zodpovedajú tomu, čo chcete sledovať.
+        templates: Šablóny
+        templates_short_desc: Články môžete sledovať na základe šablóny, ktorú obsahujú,
+          čo funguje bez ohľadu na to, či sa šablóna používa v samotnom článku alebo
+          na zodpovedajúcej diskusnej stránke — ako napríklad šablóny WikiProjektov.
+        petscan: PetScan
+        petscan_short_desc: PetScan je nástroj, ktorý vám umožňuje dopytovať wiki
+          stránky na základe širokej škály kritérií — vrátane kategórií, šablón, wikiodkazov
+          a mnohého ďalšieho. PetScan ID dotazu môžete použiť na nakonfigurovanie
+          sady článkov na sledovanie na nástenke.
+        pagepile: PagePile
+        pagepile_short_desc: PagePile je nástroj, ktorý vám umožňuje vytvoriť zoznam
+          stránok, ktorý sa časom nemení a je identifikovaný jedinečným ID.
+        templates_desc: Šablóny sa na wiki stránkach používajú na širokú škálu účelov,
+          no niektoré sú špecifické pre danú tému. Navigačné šablóny, šablóny WikiProjektov
+          a tematické infoboxové šablóny sú obzvlášť užitočné pri používaní šablóny
+          na nakonfigurovanie programu vymedzeného článkami.
+        pagepile_desc: |-
+          PagePile je nástroj vo Wikimedia Cloud. Umožňuje používateľom zhromaždiť a usporiadať skupinu wiki stránok do jedného balíka nazývaného „pile“ (kopa). Tieto kopy sa potom dajú ľahko zdieľať s ostatnými, čo umožňuje spoločnú prácu a zdieľanie informácií.
+          Na rozdiel od PetScan sa články v kope časom nemenia, aj keď sa zmenili kategórie, šablóny alebo iné údaje použité na vytvorenie tejto skupiny článkov.
+        petscan_desc: |-
+          PetScan je výkonný, no zložitý nástroj na dopytovanie skupiny wiki stránok na základe širokej škály kritérií a zdrojov údajov. PetScan môžete použiť priamo na vytvorenie dotazu pre skupinu článkov, ktoré chcete sledovať, čo vám dáva prístup k úplnej sade možností na veľmi presné zacielenie dotazu. Prípadne môžete vytvoriť PetScan dotaz z niektorých najbežnejších možností priamo z nástenky.
+          PetScan uloží parametre dotazu a poskytne ID pre tento dotaz. Výsledky tohto dotazu sa môžu časom meniť, napríklad keď sa do kategórie, ktorú dotaz zahŕňa, pridajú nové články. Nástenka bude pravidelne obnovovať výsledky dotazu pre dané ID a aktualizovať svoje štatistiky na základe najnovšej sady článkov, ktorú PetScan vytvorí.
+        petscan_create_psid: Vytvorte PetScan ID pomocou oficiálneho nástroja PetScan
+        pagepile_create_id: Vytvorte PagePile pomocou oficiálneho nástroja PagePile
+        categories_include_OR: Budú sa sledovať články obsahujúce KTORÚKOĽVEK z týchto
+          kategórií
+        templates_include_OR: Budú sa sledovať články obsahujúce KTORÚKOĽVEK z týchto
+          šablón
+        start_typing_to_search: Začnite písať pre vyhľadávanie
+    delete_course: Odstrániť program
+    edit_course_dates: Upraviť dátumy projektu
+    end: Koniec sledovania aktivity
+    enroll: Pridať redaktora
+    enrollment: Pridať/odobrať redaktorov
+    explore: Nájsť programy
+    courses_enrolled: Programy, ktorých ste sa zúčastnili
+    expected_students: Očakávaní redaktori
+    instructors: Facilitátori
+    join_course: Pripojiť sa k programu
+    join_details: Ak sa chcete pripojiť k tomuto programu, potrebujete od facilitátora
+      prístupový kód — alebo odkaz, ktorý prístupový kód obsahuje.
+    leave_course: Opustiť program
+    milestones_none: Tento projekt momentálne nemá žiadne míľniky.
+    not_permitted: Nemáte povolenie upravovať tento program.
+    published: 'Tento projekt bol zverejnený! Redaktori sa môžu zapísať návštevou
+      nasledujúcej URL adresy:'
+    request_accounts: Požiadať o účty
+    revisions_none: Tento projekt nemá žiadnu nedávnu aktivitu úprav.
     school: Inštitúcia
+    school_and_term: Inštitúcia/kedy
+    search_courses: Hľadať programy
+    start: Začiatok sledovania aktivity
     student_editors: Redaktori
+    student: Redaktor
+    students: Redaktori
+    students_taught: Celkový počet redaktorov
+    students_none: V tomto projekte nie sú zapísaní žiadni redaktori.
+    students_short: Redaktori
+    students_count: Počet účastníkov
     term: Kedy
+    unsubmitted: Neodoslané programy
+    uploads_none: Tento projekt neprispel žiadnymi obrázkami ani inými mediálnymi
+      súbormi do Wikimedia Commons.
+    user_uploads_none: Vybraní používatelia neprispeli do tohto projektu žiadnymi
+      obrázkami ani inými mediálnymi súbormi.
+    view_other: Zobraziť ďalšie kampane
+    view_page: Zobraziť stránku
+    word_count_doc: Odhad počtu slov pridaných do článkov v hlavnom mennom priestore
+      redaktormi programu počas trvania programu
+    word_count_doc_wikidata: Odhad počtu slov pridaných do položiek v hlavnom mennom
+      priestore redaktormi programu počas trvania programu
+    yourcourses: Vaše programy
   editable:
+    edit: Upraviť
+    cancel: Zrušiť
+    save: Uložiť
+    edit_description: Upraviť popis
+    edit_details: Upraviť podrobnosti
     edit_template: Upraviť šablónu
+    rename_confirmation: Polia kurzu, ktoré tvoria URL adresu, sa zmenili. Tým sa
+      zmení URL adresa a prestanú fungovať všetky prichádzajúce odkazy. Naozaj to
+      chcete urobiť?
+  instructor_view:
+    article_assignments: '%{prefix} – zadania'
+    assignments_table:
+      article_name: Názov
+      current_stage: Aktuálna fáza
+      relevant_links: Relevantné odkazy
+    assigned_articles: Priradené články
+    assigned_articles_wikidata: Priradené položky
+    bad_work:
+      learn_more: Ak práca študenta zhoršila článok, odporúčame vám upraviť ho sami.
+        V opačnom prípade nám dajte vedieť o problémoch, aby sme ich mohli neskôr
+        opraviť.
+      learn_more_wikidata: Ak práca študenta zhoršila položku, odporúčame vám upraviť
+        ju sami. V opačnom prípade nám dajte vedieť o problémoch, aby sme ich mohli
+        neskôr opraviť.
+      learn_more_button: Zistiť viac
+      submit_issue: Aké sú závažné problémy s týmto článkom?
+      submit_issue_wikidata: Aké sú závažné problémy s touto položkou?
+      submit_issue_placeholder: Čím viac odborného pohľadu a podrobností poskytnete,
+        tým lepšie.
+      thank_you: Ďakujeme! Ak máte ďalšie otázky, kontaktujte svojho wiki experta.
+      quality_problems_button: Problémy s kvalitou?
+      notify_wiki_expert: Upozorniť wiki experta
+    exercises_and_trainings: '%{prefix} – cvičenia a školenia'
+    no_assignments: Tento študent momentálne nemá žiadne priradené články.
+    can_assign_assignments: Článok môžete priradiť pomocou tlačidiel vyššie.
+    no_assignments_wikidata: Tento študent momentálne nemá žiadne priradené položky.
+      Položku môžete priradiť pomocou tlačidiel vyššie.
+    overview: '%{prefix} – prehľad'
+    reviewing_articles: Hodnotenie článkov
+    reviewing_articles_wikidata: Hodnotenie položiek
+    select_student:
+      title: Vyberte %{prefix}
+      content: na priradenie a zobrazenie zadaní článkov
+      content_wikidata: na priradenie a zobrazenie zadaní položiek
   metrics:
     editors_doc: Toto je počet unikátnych používateľov, ktorí v kurze upravili články.
     program_date_doc: Toto je dátum programu.
+    label: Aktivita kurzu
     last_update: Posledná akualizácia štatistík
+    last_articles_update: Posledná aktualizácia článkov
     next_update: Ďalšia predpokladaná aktualizácia
+    late_update: Nová aktualizácia sa očakávala %{late_update_time}. Môže to znamenať,
+      že aktualizácia trvá dlhšie, než sa očakávalo, alebo môže naznačovať problém,
+      ktorý blokuje aktualizácie.
+    no_update: Nástenka pre tento program zatiaľ neimportovala žiadne údaje.
+    enqueued_update: Tento program bol pridaný do frontu aktualizácií.
+    first_update: Odhadovaný začiatok aktualizácie štatistík
+    activity: Nedávna aktivita
+    are_trained: majú aktuálne školenia
     articles_created: Vytvorené stránky
+    articles_created_wikidata: Vytvorené položky
+    articles_created_generic: Vytvorené stránky
+    articles_created_generic_wikidata: Vytvorené položky
     articles_edited: Upravené stránky
+    articles_edited_wikidata: Upravené položky
+    articles_edited_generic: Upravené stránky
+    articles_edited_generic_wikidata: Upravené položky
+    article_scoped_program_info: Toto je „program vymedzený článkami“, ktorý počíta
+      iba úpravy priradených článkov a kategórií.
+    article_scoped_program_info_wikidata: Toto je „program vymedzený článkami“, ktorý
+      počíta iba úpravy priradených položiek a kategórií.
     bytes_added: Pridaných bajtov
+    characters: Znaky
+    char_added: Pridané znaky
+    char_changed: Zmenené znaky
+    char: Pridané znaky
+    close_modal: Zavrieť
+    date_time: Dátum/čas
     edit_count_description: Celkový počet úprav
+    error_count_message: Nástenka narazila počas poslednej aktualizácie na %{error_count}
+      chýb.
+    future_updates_remaining:
+      updates_active: Štatistiky sa budú naďalej aktualizovať do %{date}.
+      updates_inactive: Štatistiky tohto programu sa už pravidelne neaktualizujú.
+    last_reviewed: Naposledy skontrolované
+    missing_data_heading: Chýbajúce alebo neočakávané výsledky?
+    missing_data_info: Medzi bežné problémy patria
+    non_updating_course_update: Bola naplánovaná jednorazová aktualizácia, ktorá by
+      mala prebehnúť čoskoro.
+    last_update_failed: Posledná aktualizácia tohto kurzu zlyhala.
+    last_update_success: Posledná aktualizácia prebehla úspešne, takže štatistiky
+      by mali byť aktuálne.
+    outreach_help: Potrebujete pomoc? Pozrite si „Nahlásiť problém“ v navigačnom paneli.
+    per_user: '%{number}/používateľa'
+    recent_updates_summary: Z posledných %{total} aktualizácií %{failure_count} zlyhalo
+      a %{error_count} narazilo na chyby.
+    revisions: Nedávne úpravy
+    references_count: Pridané referencie
+    references_doc: Toto je počet referenčných značiek a šablón skrátených poznámok
+      pod čiarou pridaných do článkov a môže zahŕňať viacero referencií na ten istý
+      zdroj. Údaje pochádzajú z API nástroja reference-counter na Toolforge.
+    references_doc_wikidata: Toto je počet referenčných značiek pridaných do položiek
+      a môže zahŕňať viacero referencií na ten istý zdroj. Údaje pochádzajú z modelu
+      ORES na hodnotenie kvality položiek a sú dostupné len pre niektoré jazyky.
+    replag_info: Nástenka získava údaje o úpravách z replík databáz WMF Cloud. Niekedy
+      v týchto databázach chýbajú najnovšie úpravy z dôvodu oneskorenia replikácie
+      (replag). V takom prípade sa chýbajúce úpravy objavia neskôr.
+    replag_link: Skontrolovať replag
+    tags: Značky
+    total_updates: Celkový počet aktualizácií doteraz
+    update_status_heading: Stav aktualizácie
+    update_statistics_link: Zobraziť viac
     upload_count: Nahrané súbory na Commons
+    uploads_in_use_count:
+      one: súbor použitý v článku
+      few: súbory použité v článkoch
+      other: súborov použitých v článkoch
+    uploads_in_use_count_wikidata:
+      one: súbor použitý v položke
+      few: súbory použité v položkách
+      other: súborov použitých v položkách
+    upload_usages_count:
+      one: celkové použitie naprieč jazykmi
+      few: celkové použitia naprieč jazykmi
+      other: celkových použití naprieč jazykmi
     view_count_description: Návštevnosť článkov
+    view_count_description_wikidata: Zobrazenia položky
+    view_count_doc: Toto je odhadovaný počet zobrazení na základe denného priemeru
+      od prvej revízie článku počas kurzu až po najnovšiu aktualizáciu štatistík.
+    view_count_doc_wikidata: Toto je odhadovaný počet zobrazení na základe denného
+      priemeru od prvej revízie položky počas kurzu až po najnovšiu aktualizáciu štatistík.
+    view_data_unavailable: Nie sú dostupné žiadne údaje o zobrazeniach
+    view: Zobrazenia
+    wiki_ed_help: Na nahlásenie problému použite tlačidlo „Získať pomoc“.
+    word_count: Pridané slová
+    word_count_average: Priemerný počet slov
+    general: Všeobecné
+    total_revisions: Celkový počet revízií
+    claims: Tvrdenia
+    aliases: Aliasy
+    merged: Zlúčené do
+    merged_from: Zlúčené z
+    created: Vytvorené
+    changed: Zmenené
+    removed: Odstránené
+    cleared: Vymazané
+    added: Pridané
+    descriptions: Popisy
+    interwiki_links_added: Pridané interwiki odkazy
+    labels: Označenia
+    no_data: Žiadne údaje
+    other_updates: Ďalšie aktualizácie
+    qualifiers_added: Pridané kvalifikátory
+    redirects_created: Vytvorené presmerovania
+    references_added: Pridané referencie
+    references_added_info: Toto môže byť len čiastočný počet pridaných referencií.
+      Vychádza zo zhrnutí úprav na Wikidátach a niektoré úpravy, ktoré pridávajú referencie,
+      sú namiesto toho klasifikované ako „zmenené tvrdenie“ alebo „vytvorené tvrdenie“.
+    restorations_performed: Vykonané obnovenia
+    reverts_performed: Vykonané vrátenia
+    lemmas: Lemy
+    language: Jazyk
+    lexical_category: Lexikálna kategória
+    forms: Formy
+    form_claims: Tvrdenia foriem
+    form_references: Referencie foriem
+    form_qualifiers: Kvalifikátory foriem
+    senses: Významy
+    glosses: Glosy
+    sense_claims: Tvrdenia významov
+    sense_references: Referencie významov
+    sense_qualifiers: Kvalifikátory významov
+  namespace:
+    all: Všetko
+    main: Hlavný menný priestor
+    main_char_added: Pridané znaky v hlavnom mennom priestore
+    article: Článok
+    talk: Diskusia
+    user: Používateľský priestor
+    user_char_added: Pridané znaky v používateľskom priestore
+    project: Projekt
+    file: Súbor
+    mediaWiki: MediaWiki
+    template: Šablóna
+    help: Pomoc
+    category: Kategória
+    page: Stránka
+    book: Kniha
+    wikijunior: WikiJunior
+    translation: Preklad
+    draft: Koncept
+    property: Vlastnosť
+    query: Dotaz
+    lexeme: Lexéma
+    appendix: Príloha
+    portal: Portál
+    school: Škola
+    author: Autor
+    cookbook: Kuchárka
+    rhymes: Rýmy
+    index: Register
+    collection: Zbierka
+    tracked_namespaces_info: Do súhrnných prehľadových štatistík, ako sú „upravené
+      články“, „celkový počet úprav“, „pridané slová“ atď., budú prispievať iba články
+      zodpovedajúce sledovaným menným priestorom. Preto sledujte iba tie menné priestory,
+      ktoré má váš program za cieľ zlepšiť.
+  recent_activity:
+    active_courses: Článok je aktívny v
+    article_title: Názov
+    datetime: Dátum/čas
+    did_you_know_eligible: Vhodné do „Vedeli ste, že“
+    image: Obrázok
+    file_name: Názov súboru
+    no_dyk_eligible: Momentálne nie sú žiadne články vhodné do rubriky „Vedeli ste,
+      že“.
+    no_plagiarism: Momentálne nie sú žiadne nedávne revízie podozrivé z plagiátorstva.
+    no_edits: Nie sú žiadne nedávne úpravy.
+    plagiarism_report: Správa o plagiátorstve
+    possible_plagiarism: Možné plagiátorstvo
+    plagiarism_explanation: Systém Wikipédie na detekciu plagiátorstva používa Turnitin/iThenticate
+      na porovnanie nových úprav s publikovaným textom. Tieto správy nie sú 100 %
+      presné. Napríklad priama citácia so správnym uvedením zdroja môže spustiť falošne
+      pozitívnu správu o plagiátorstve. Pred podniknutím akýchkoľvek krokov si, prosím,
+      prezrite príspevky študenta a podrobnosti správy. (Ak zistíte, že zmena — alebo
+      celý článok — nie je dostupná, obsah mohol byť odstránený z dôvodu autorských
+      práv.)
+    recent_edits: Nedávne úpravy
+    recent_uploads: Nedávno nahraté súbory
+    report: Správa
+    revision_author: Autor revízie
+    revision_datetime: Dátum/čas revízie
+    revision_score: Skóre revízie
+    show_courses: Zobraziť len moje kurzy
+    uploaded_by: Nahral
+    usage_count: Počet použití
   revisions:
+    chars_added: Pridané znaky
+    references: Pridané referencie
+    class: Trieda
+    date_time: Dátum/čas
+    diff: rozdiel
+    diff_show: Zobraziť
+    diff_hide: Skryť
+    edit_time_span: 'Úpravy nastali od: %{first_time} do %{last_time}'
     edited_by: Upravil(a)
+    edited_on: Upravené dňa %{edit_date}
+    loading: Načítavajú sa revízie...
+    none: Tento kurz nemá žiadnu nedávnu aktivitu úprav.
+    time_doc: Čas každej revízie vo vašom miestnom čase
+    title: Názov
+    view_on_wiki: Zobraziť rozdiel na wiki
+    see_more: Zobraziť viac
+    show_all: Zobraziť všetko
+    show_course_specific: Zobraziť špecifické pre kurz
+    course_ended_notification: Toto zobrazuje nedávne úpravy zapísaných používateľov,
+      no žiadne úpravy po „dátume konca“ sa nezapočítavajú do štatistík ani sa neprejavia
+      na karte Články. Pomocou filtra „Zobraziť špecifické pre kurz“ môžete obmedziť
+      zobrazenie na aktivitu, ktorá nastala pred dátumom konca.
+    show_only_new_editors: Zobraziť len nových redaktorov
+  resources:
+    label: Zdroje
+    header: Zdroje a školenia
+  settings:
+    common_settings_components:
+      headings:
+        course_creation_settings: Vytváranie kurzov
+        default_campaign_setting: Predvolená kampaň
+        site_notice_setting: Oznam stránky
+        site_notice_preview: Živý náhľad
+      buttons:
+        add_admin_button: Pridať administrátora
+        add_special_user_button: Pridať špeciálneho používateľa
+        configure_site_notice:
+          update_site_notice_button: Aktualizovať oznam stránky
+          enable_button: Povoliť
+          disable_button: Zakázať
+        update_course_creation_settings: Aktualizovať nastavenia vytvárania kurzov
+        update_default_campaign_setting: Aktualizovať predvolenú kampaň
+        update_impact_stats: Aktualizovať štatistiky dosahu
+        update_salesforce_credentials: Aktualizovať prihlasovacie údaje Salesforce
+    categories:
+      other_settings: Ďalšie nastavenia
+      impact_stats: Štatistiky dosahu
+      salesforce: Salesforce
+      featured_campaigns: Odporúčané kampane
+      special_users: Špeciálni používatelia
+      admin_users: Používatelia administrátori
+      users: Používatelia
+    admin_users:
+      new:
+        form_label: Udeliť administrátorské práva
+        form_placeholder: Používateľské meno
+        confirm_add_admin: Udeliť administrátora
+        confirm_remove_admin: Odobrať administrátorské práva pre
+        already_admin: '%{username} už je administrátor!'
+        elevate_success: '%{username} bol povýšený na administrátora.'
+      remove:
+        revoke_button: Odobrať administrátora
+        revoke_button_confirm: Odobrať administrátorské práva používateľovi %{username}
+        revoking_button_working: Odoberá sa...
+        already_instructor: '%{username} už je inštruktor!'
+        demote_success: '%{username} bol zmenený na inštruktora.'
+        no_super_admin: Nemožno odobrať status administrátora superadministrátorovi
+    featured_campaigns:
+      campaign_not_found: Kampaň so skratkou „%{campaign_slug}“ sa nenašla
+      no_featured_campaigns: Nie sú definované žiadne odporúčané kampane
+      update_featured_campaigns_button: Aktualizovať odporúčané kampane
+      add_button: Pridať kampaň
+      remove_button: Odstrániť kampaň
+    special_users:
+      new:
+        form_label: Udeliť práva špeciálneho používateľa
+        form_placeholder: Používateľské meno
+        confirm_add_special_user: Pridať špeciálneho používateľa
+        already_is: '%{username} už je {position}!'
+        elevate_success: '%{username} bol povýšený na {position}.'
+      remove:
+        revoke_button: Odobrať špeciálneho používateľa
+        revoke_button_confirm: Odobrať práva špeciálneho používateľa používateľovi
+          %{username}
+        revoking_button_working: Odoberá sa...
+        already_is_not: '%{username} nie je špeciálny používateľ!'
+        demote_success: '%{username} je teraz len bežný používateľ.'
+    disallowed_users:
+      none: Nie sú nakonfigurovaní žiadni nepovolení používatelia.
+      already_disallowed: Už je nepovolený
+      add_to_list: Pridať medzi nepovolených
+      add_button: Pridať používateľa
+      remove_button: Odstrániť
+      submit_button: Odoslať
+      title: Nepovolení používatelia
+      description: Botové účty a iné používateľské mená, ktoré by nemali byť zapísané
+        do kurzov.
+      add:
+        success: '%{username} bol pridaný do zoznamu nepovolených používateľov.'
+        already_exists: '%{username} už je v zozname nepovolených používateľov.'
+      remove:
+        success: '%{username} bol odstránený zo zoznamu nepovolených používateľov.'
+        not_found: '%{username} nie je v zozname nepovolených používateľov.'
+        confirm: Naozaj chcete odstrániť %{username} zo zoznamu nepovolených používateľov?
+    actions: Akcie
+  status:
+    active_jobs: Aktívne úlohy
+    active_jobs_doc: Počet práve spracovávaných úloh.
+    acuwt_update: Aktualizácia ACUWT
+    acuwt_update_description: Aktualizácie ACUWT spracúvajú kurzy programov vymedzených
+      článkami s tisíckami článkov.
+    acuwt_update_doc: Spracúva aktualizácie pre veľké kurzy programov vymedzených
+      článkami.
+    all_queues_operational: Všetky fronty funkčné
+    all_queues_not_operational: Všetky fronty funkčné okrem
+    constant_update: Neustála aktualizácia
+    constant_update_description: Neustále aktualizácie sú nezávislé od hlavných štatistík
+      kurzu, načítavajú metaúdaje revízií, generujú upozornenia a vykonávajú iné dátovo
+      a sieťovo náročné úlohy pre všetky aktuálne kurzy.
+    constant_update_doc: Spracúva transakčné úlohy ako wiki úpravy a odosielanie e-mailov.
+    daily_update: Denná aktualizácia
+    daily_update_description: Toto načítava ďalšie údaje a vykonáva iné úlohy, ktoré
+      netreba robiť mnohokrát za deň.
+    daily_update_doc: Spracúva raz denne bežiace, dlhotrvajúce úlohy aktualizácie
+      údajov.
+    default: Predvolené
+    default_description: Plánuje aktualizácie kurzov triedením kurzov do frontov podľa
+      toho, ako dlho bežia.
+    default_doc: Spracúva často spúšťané úlohy ako pridávanie kurzov do frontov aktualizácií.
+    enqueued_jobs: Úlohy vo fronte
+    enqueued_jobs_doc: Počet práve zaradených úloh vo všetkých frontoch.
+    latency: Latencia
+    latency_doc: Čas čakania na začatie spracovania úloh vo fronte. Vysoká latencia
+      môže naznačovať zaneprázdnený systém alebo oneskorenia spracovania.
+    long_update: Dlhá aktualizácia
+    long_update_description: Dlhé aktualizácie spracúvajú kurzy s viac ako 10 000
+      revíziami.
+    long_update_doc: Spracúva aktualizácie pre veľké kurzy.
+    medium_update: Stredná aktualizácia
+    medium_update_description: Stredné aktualizácie spracúvajú kurzy s menej ako 10
+      000 revíziami.
+    medium_update_doc: Spracúva aktualizácie pre kurzy typickej veľkosti.
+    no_info: Nie sú dostupné žiadne informácie.
+    purpose: Účel
+    queues_overview: Prehľad frontov
+    queue: Front
+    short_update: Krátka aktualizácia
+    short_update_description: Krátke aktualizácie spracúvajú kurzy s menej ako 1 000
+      revíziami.
+    short_update_doc: Spracúva aktualizácie pre malé kurzy.
+    sidekiq_stats: Štatistiky Sidekiq
+    size: Veľkosť
+    size_doc: Počet úloh vo fronte.
+    status: Stav
+  suggestions:
+    editing: Návrhy na úpravu
+    suggestion_docs:
+      fa: Žiadne ďalšie doplnenie obsahu by nemalo byť potrebné, pokiaľ nebudú k dispozícii
+        nové informácie; často sú možné ďalšie vylepšenia kvality textu.
+      a: Na doladenie článku môžu byť potrebné odborné znalosti a možno bude treba
+        vyriešiť štylistické problémy. Môže pomôcť partnerské hodnotenie.
+      ga: Užitočná je určitá úprava od odborníkov na tému a štýl; porovnanie s existujúcim
+        najlepším článkom na podobnú tému môže poukázať na oblasti, kde je obsah slabý
+        alebo chýba.
+      bplus: Môže sa vylepšiť podnetmi od odborníkov na posúdenie, kde stále chýba
+        pokrytie, a tiež ilustráciami, historickým pozadím a ďalšími referenciami.
+        Zvážte partnerské hodnotenie alebo nomináciu na status dobrého článku. Ak
+        článok ešte nie je úplne wikifikovaný, teraz je ten správny čas.
+      b: Je potrebné vyriešiť niekoľko aspektov obsahu a štýlu. Môžu byť potrebné
+        odborné znalosti. Ak je to praktické, malo by sa zvážiť zahrnutie podporných
+        materiálov a článok by sa mal skontrolovať na všeobecný súlad s Manuálom štýlu
+        a súvisiacimi štylistickými pokynmi.
+      c: Na uzavretie medzier v obsahu a vyriešenie problémov s vyčistením je potrebná
+        značná úprava.
+      start: Najprv by malo prísť uvedenie odkazov na spoľahlivé zdroje; článok tiež
+        potrebuje podstatné vylepšenie obsahu a usporiadania. Zlepšite tiež gramatiku,
+        pravopis, štýl písania a používanie žargónu.
+      stub: Akákoľvek úprava alebo doplnkový materiál môže byť užitočný. Prioritou
+        by malo byť poskytnutie zmysluplného obsahu. Najlepším riešením, ako posunúť
+        článok triedy „pahýľ“ na článok triedy „začiatok“, je pridať podložené dôvody,
+        prečo je téma významná.
+      fl: Žiadne ďalšie doplnenie obsahu by nemalo byť potrebné, pokiaľ nebudú k dispozícii
+        nové informácie.
+      list: Zoznamy by mali byť zoznamy aktívnych odkazov na články Wikipédie, vhodne
+        pomenované a usporiadané.
+      future: Pridaný materiál môže byť špekulatívny a mal by byť starostlivo podložený
+        zdrojmi.
+      disambig: Doplnky by sa mali pridávať, keď sa vytvárajú nové články s daným
+        názvom. Venujte veľkú pozornosť správnemu pomenovaniu takýchto stránok, keďže
+        často nepotrebujú za názvom pridané „(rozlišovacia stránka)“.
+      '?': Návrhy nie sú dostupné – článok buď nie je ohodnotený, alebo pre dané hodnotenie
+        nie sú dostupné návrhy.
+      does_not_exist: Tento článok na Wikipédii neexistuje.
+  tasks:
+    conseq: Úloha %{task} už beží!
+    constant: Úloha %{task} nemôže bežať, kým beží úloha update_daily.
+    paused: Úloha %{task} nemôže bežať, pretože naplánované aktualizácie boli pozastavené.
+      Aktualizácie obnovíte spustením „rake batch:resume“.
+  tickets:
+    none: Žiadne tikety
+    search_bar_placeholder: Hľadať tikety
+    chose_search_type: Vyberte typ vyhľadávania
+  timeline:
+    add_assignment: Pridať zadanie
+    add_week: Pridať týždeň
+    arrange_timeline: Usporiadať časovú os
+    arrange_timeline_instructions: Usporiadajte časovú os „ťahaním a pustením“ blokov
+      na požadované miesto/týždeň alebo bloky premiestnite pomocou šípok na karte.
+    assignment_dates_instructions: Vyberte dátumy začiatku a konca časovej osi zadania
+      na Wikipédii. Zmena dátumu začiatku posunie dátumy celej časovej osi.
+    blackout_week_created: Na tento týždeň sú naplánované bloky. Skôr než z tohto
+      týždňa odstránite posledné stretnutie triedy, presuňte ich do iného týždňa.
+    block_assignment: Zadanie
+    block_custom: Vlastné
+    block_in_class: V triede
+    block_milestone: Míľnik
+    block_handouts: Materiály
+    block_resources: Zdroje
+    block_type: Typ bloku sa používa na komunikáciu so študentmi o tejto položke na
+      ich časovej osi a na vytvorenie užitočných nástrojov pre vás (ako je osnova
+      míľnikov na stránke Prehľad)
+    course_dates: Dátumy kurzu
+    course_dates_instructions: Vyberte dátumy začiatku a konca celého kurzu (nielen
+      zadania na Wikipédii).
+    course_end: Koniec kurzu
+    course_start: Začiatok kurzu
+    delete_week_confirmation: |-
+      Naozaj chcete odstrániť tento týždeň? Odstráni sa týždeň a všetky jeho súvisiace bloky.
+
+      Toto sa nedá vrátiť späť.
+    delete_weeks_confirmation: "Naozaj chcete odstrániť celú túto časovú os a začať
+      odznova? \n\nToto sa nedá vrátiť späť."
+    discard_all_changes: Zahodiť všetky zmeny
+    delete_timeline_and_start_over: Odstrániť časovú os
+    done: Hotovo
+    due_default: Termín budúci týždeň
+    edit_titles: Upraviť názvy týždňov
+    edit_titles_info: Upravte názvy týždňov v časovej osi. Vlastné názvy možno priradiť
+      len týždňom s naplánovanými stretnutiami. Ak sa použijú akékoľvek vlastné názvy,
+      týždne bez stretnutí budú namiesto číslovania označené dátumom.
+    empty_week_1: Ak chcete začať,
+    empty_week_2: začnite upravovať tento týždeň
+    empty_week_3: alebo
+    empty_week_4: použite sprievodcu zadaním na vytvorenie časovej osi.
+    empty_week_drag_items: Prázdny týždeň. Sem môžete presunúť blok z iného týždňa.
+    first_week_title: Prvý aktívny týždeň
+    gradeable_value: Hodnota
+    gradeables_none: Táto časová os nemá žiadne zadania označené ako hodnotené.
+    grading_header: 'Hodnotenie (spolu: %{total})'
+    move_block_down: Presunúť blok nadol
+    move_block_up: Presunúť blok nahor
+    no_class_holidays: Nemám žiadne prázdniny počas kurzu
+    no_timeline: Tento kurz nemá časovú os.
+    no_activity_this_week: Tento týždeň nie sú naplánované žiadne stretnutia
+    nothing_this_week: Na tento týždeň nie je v rozvrhu nič.
+    reset_titles: Obnoviť na predvolené
+    reset_titles_confirmation: Naozaj chcete obnoviť všetky názvy týždňov? Toto sa
+      nedá vrátiť späť.
+    save_all_changes: Uložiť všetko
+    this_week_title_default: Tento týždeň
+    title: Časová os
+    too_many_weeks_warning: UPOZORNENIE! Pred dátumom konca zadania nie je dostatok
+      týždňov bez sviatkov! Kliknutím na „Upraviť dátumy kurzu“ môžete nastaviť dátumy
+      stretnutí a dátumy sviatkov.
+    unable_to_add_week: Keď je vaša časová os plná, nemôžete pridávať nové týždne.
+      Odstráňte aspoň jeden týždeň alebo zmeňte dátumy zadania, aby ste uvoľnili miesto
+      pre nový.
+    view_full_timeline: Zobraziť celú časovú os
+    week_number: Týždeň %{number}
+    add_block: Pridať blok
+    delete_week: Odstrániť týždeň
+  training:
+    continue: Pokračovať (%{progress})
+    start: Začať
+    view: Zobraziť
+    next: Ďalšia strana
+    page: Strana
+    page_number: Strana %{number} z %{total}
+    previous: < Predchádzajúca
+    table_of_contents: Obsah
+    training_library: Knižnica školení
+    additional_training: Ďalšie školiace moduly
+    orientation_modules: Orientačné moduly pre inštruktorov
+    logged_out: Ste odhlásení. Za dokončenie tohto modulu nedostanete kredit, pokiaľ
+      sa neprihlásite.
+    done: Hotovo!
+    invalid: Prepáčte, táto snímka neexistuje!
+    wait: Neopúšťajte stránku, kým sa aktualizuje váš pokrok v školení.
+    check_answer: Skontrolovať odpoveď
+    included_modules: Zahrnuté moduly
+    view_library_source: zobraziť zdroj knižnice
+    view_module_source: zobraziť zdroj modulu
+    reload_from_source: znovu načítať zo zdroja
+    kind:
+      exercise: Cvičenie
+      discussion: Diskusia
+      training: Školenie
+    no_training_library_records_wiki_ed_mode: V databáze nie sú žiadne záznamy TrainingLibrary.
+      Kliknutím <a href="%{url}"> sem</a> načítate školiace údaje zo súborov yaml
+      v training_content/.
+    no_training_library_records_non_wiki_ed_mode: V databáze nie sú žiadne záznamy
+      TrainingLibrary.
+    search_training_resources: Hľadať školiace zdroje
+    no_training_resource_match_your_search: Vášmu vyhľadávaniu nezodpovedá žiadny
+      školiaci zdroj
+    exercise_sandbox: Pieskovisko cvičenia
+    open_exercise: Začať cvičenie
+    remaining_exercise: Zostáva %{count} ďalších cvičení.
+    view_all: Zobraziť všetky cvičenia
+    take_your_time: Neponáhľajte sa!
+    alert_content: Je veľmi dôležité, aby ste sa dôkladne naučili obsah školenia.
+    close: ZAVRIEŤ
+    loading: Načítava sa…
+    wiki_source: wiki zdroj
+  claim_verification:
+    pick_instructions: Kliknutím na zvýraznené tvrdenie zobrazíte podrobnosti o citácii.
+    revision_notice: Toto je článok v stave k %{date}, keď boli tvrdenia pridané.
+    tile_revision_date: k %{date}
+    claims_highlighted:
+      one: '%{count} zvýraznené tvrdenie'
+      few: '%{count} zvýraznené tvrdenia'
+      other: '%{count} zvýraznených tvrdení'
+    next_claim: Ďalšie tvrdenie
+    previous_claim: Predchádzajúce tvrdenie
+    claim_position: Tvrdenie %{current} z %{total}
+    loading_claims: Načítavajú sa tvrdenia…
+    claim: Tvrdenie
+    cited_source: Citovaný zdroj
+    source_url: URL zdroja
+    select_claim: Vyberte toto tvrdenie na overenie
+    choose_article: Vyberte článok
+    no_articles: Nie sú dostupné žiadne články
+    your_selected_claim: Vaše vybrané tvrdenie
+    find_in_article: Nájsť toto v texte článku
+    show_surrounding: Zobraziť okolitý odsek
+    choose_different_claim: Vyberte iné tvrdenie
+    no_online_source: Tento citovaný zdroj neobsahuje URL adresu.
+    course_picker_heading: Vyberte kurz
+    course_picker_no_courses: Žiadne kurzy
+    take_not_enrolled: Aby ste to mohli urobiť, musíte byť zapísaní v kurze.
+    complete_in_sandbox: Dokončite toto cvičenie vo svojom pieskovisku na Wikipédii.
+    admin:
+      loading: Načítava sa…
+      heading: Overovanie tvrdení
+      pool_size: 'Veľkosť fondu: %{count} tvrdení'
+      last_run: 'Posledné spustenie %{time}: +%{harvested} tvrdení z %{processed}
+        upozornení (%{skipped} preskočených%{rescan})'
+      full_rescan_note: ', úplné opätovné prehľadanie'
+      harvest: Vyzbierať fond tvrdení
+      full_rescan: Úplné opätovné prehľadanie
+      status: 'Stav: %{status}'
+      progress: ' — %{at} / %{total} upozornení (%{pct}%)'
+      counts: '%{harvested} vyzbieraných · %{processed} spracovaných · %{skipped}
+        preskočených · %{errors} chýb'
+  update_username:
+    header: Aktualizovať zmenené používateľské meno
+    not_found: Pre zadané používateľské meno sa nenašiel žiadny používateľ.
+    username_updated: Používateľské meno bolo úspešne aktualizované!
+    info: Ak používateľ zmenil používateľské meno svojho účtu Wikimedia, zadajte tu
+      nové používateľské meno na jeho aktualizáciu na nástenke.
+    label: Nové používateľské meno
+    button: Aktualizovať
   uploads:
+    article_name: Názov článku
+    author: 'Autor:'
+    categories: Kategórie
+    credit: Uvedenie autora
+    date: 'Dátum:'
+    description: Popis
+    file_name: Názov súboru
+    file_usage: Použitie súboru na iných wiki
+    header: Súbory nahraté do Wikimedia Commons
+    image: Obrázok
     label: Nahrané súbory
+    license: 'Licencia:'
+    loading: Načítavajú sa nahraté súbory...
+    none: Táto trieda neprispela žiadnymi obrázkami ani inými mediálnymi súbormi do
+      Wikimedia Commons.
+    original_file: Pôvodný súbor
+    select_label: Filtrovať podľa nahrávateľa
+    time_doc: Čas každého nahratia vo vašom miestnom čase
+    uploaded_at: Čas nahratia
+    uploader: Nahrávateľ
+    uploaded_by: Nahral
+    uploaded_on: Nahraté dňa
+    usage_count: Počet použití
+    usage_doc: Počet článkov Wikipédie, v ktorých sa tento obrázok vyskytuje.
+    usage_count_gallery_tile:
+      one: Použité v 1 článku
+      few: Použité v %{count} článkoch
+      other: Použité v %{count} článkoch
+    usages: Použitia
+    gallery_view: Zobrazenie galérie
+    list_view: Zobrazenie zoznamu
+    source: 'Zdroj:'
+    tile_view: Zobrazenie dlaždíc
+    views_per_day: Zobrazenia za deň
+    view_commons: Zobraziť na Commons
+    wiki_big: Wiki
   users:
+    already_enrolled: Tento používateľ je už zapísaný!
+    assign_articles: Priradiť články
+    assign_articles_wikidata: Priradiť položky
+    assign_articles_done: Hotovo
+    assigned: Priradené články
+    assigned_wikidata: Priradené položky
+    assignees: Priradení
+    loading_authorship_data: načítavajú sa údaje o autorstve
+    authorship_data_not_fetched: Nepodarilo sa načítať údaje o autorstve
+    character_doc: Celkové množstvo obsahu, ktoré používateľ pridal do tohto menného
+      priestoru, vypočítané sčítaním pridaných znakov za všetky úpravy, ktoré zväčšili
+      veľkosť stránky. Toto číslo nemusí nutne odrážať množstvo nového obsahu, ktoré
+      používateľ pridal. Obnovenie odstráneného obsahu tiež zvýši tento súčet.
+    chars_added: Pridané znaky<br>(článok | používateľ | koncept)
+    chars_added_wikidata: Pridané znaky<br>(položka | používateľ | koncept)
+    contributions: Príspevky používateľa
+    contributions_history_full: Zobraziť úplnú históriu príspevkov
+    contributions_more: Zobraziť ďalšie príspevky
+    contribution_statistics: Štatistiky príspevkov
+    course_passcode: 'Prístupový kód:'
     editors: Redaktori
+    edits: úprav
+    edits_by: 'Úpravy od:'
+    enroll_confirmation: Naozaj chcete pridať %{username}?
+    enroll_url: 'Používatelia sa môžu pripojiť návštevou tejto URL adresy:'
+    enrolled_success: '%{username} bol úspešne pridaný!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} dokončené cvičenie'
+      few: '%{completed_count}/%{count} dokončené cvičenia'
+      other: '%{completed_count}/%{count} dokončených cvičení'
+    exercises_and_trainings: Cvičenia a školenia
+    first_name: Meno
+    last_name: Priezvisko
+    loading: Načítavajú sa používatelia...
+    characters_added_mainspace: Pridané znaky (článok)
+    characters_added_mainspace_wikidata: Pridané znaky (položka)
+    characters_added_short: 'HP: %{mainspace}, PP: %{userspace}'
+    characters_added_userspace: Pridané znaky (používateľ)
+    characters_added_draftspace: Pridané znaky (koncept)
+    my_assigned: 'Priradené:'
+    my_reviewing: 'Hodnotí:'
+    name: Meno
+    none: Nie sú žiadni účastníci.
+    more_articles: Kliknutím načítate články upravené používateľom
+    no_articles: Žiadne články
+    no_articles_wikidata: Žiadne položky
+    no_revisions: (žiadne revízie)
+    no_highlighting: Žiadny text z tejto verzie článku nie je pripísaný používateľovi
+      %{editor}. Jeho úpravy si pozrite v histórii stránky.
+    contributions_not_highlighted: Príspevky od používateľa %{username} sú prítomné,
+      no nemožno ich zvýrazniť. Zvyčajne sa to stáva pri pridaných referenciách alebo
+      šablónach. Ich úpravy si pozrite v histórii stránky.
+    number_of_articles:
+      one: '%{count} článok'
+      few: '%{count} články'
+      other: '%{count} článkov'
+    number_of_articles_wikidata:
+      one: '%{count} položka'
+      few: '%{count} položky'
+      other: '%{count} položiek'
+    profile: profil
+    recent_revisions: Nedávne úpravy
+    references_count: Pridané referencie
+    training_modules: Školiace moduly
+    remove_confirmation: Naozaj chcete odstrániť %{username}?
+    request_confirmation: Naozaj chcete požiadať o tento účet?
+    requested_account_status:
+      success_message: 'Úspech: %{result_description}'
+      failure_message: 'Neúspech: %{result_description}'
+    revision_characters_and_views: 'Pridané znaky: %{characters}, zobrazenia: %{views}'
+    revisions_doc: Odhadovaný počet úprav vykonaných týmto redaktorom za posledných
+      7 dní na základe priemerného počtu úprav za deň za posledné obdobie.
+    references_doc: Počet referencií pridaných alebo odstránených týmto redaktorom
+    reviewers: Hodnotitelia
+    reviewing: Hodnotí
+    revisions: Revízie
+    sandboxes: pieskoviská
+    sub_navigation:
+      assignments_and_exercises: Zadania a cvičenia
+      editor_overview: Prehľad redaktora
+      exercises_and_trainings: Cvičenia a školenia
+      student_overview: '%{prefix} – prehľad'
+      watch_list:
+        students_add: Pridať všetkých %{prefix} do zoznamu sledovaných
+        instructional_message: Chystáte sa pridať diskusné stránky svojich študentov
+          do zoznamu sledovaných, aby ste mali prehľad o ich diskusiách a príspevkoch.
+          Kliknutím na „OK“ pridáte všetkých študentov do zoznamu sledovaných. Pokračovať?
+        tooltip_message: Jednoducho sledujte diskusie na diskusných stránkach študentov
+          ich pridaním do svojho zoznamu sledovaných.
+        success_message: '%{prefix} bol úspešne pridaný do zoznamu sledovaných.'
+        error_message: Nepodarilo sa pridať %{prefix} do zoznamu sledovaných. Skúste
+          to znova neskôr.
+    total_uploads: Celkový počet nahratých súborov
+    training_complete:
+      one: má aktuálne školenie
+      few: majú aktuálne školenia
+      other: majú aktuálne školenia
+    training_complete_count:
+      one: '%{count} aktuálne školenie'
+      few: '%{count} aktuálne školenia'
+      other: '%{count} aktuálnych školení'
+    training_doc: Redaktori, ktorí dokončili všetky priradené školiace moduly, ktorých
+      termín nastal, sa počítajú ako aktuálni so svojím školením.
+    training_incomplete: Školenie nedokončené
+    training_modules_completed:
+      one: '%{completed_count}/%{count} dokončený školiaci modul'
+      few: '%{completed_count}/%{count} dokončené školiace moduly'
+      other: '%{completed_count}/%{count} dokončených školiacich modulov'
+    training_module_name: Školiaci modul
+    training_module_status: Stav
+    training_module_time:
+      minutes: min
+      seconds: s
+    user_training_status: Stav školenia
+    user_no_training_status: Tento používateľ nedokončil žiadne školiace moduly.
+    up_to_date_with_training: aktuálni so školením
+    uploads_doc: Počet nahratých súborov do Wikimedia Commons
+    ungreeted: Nepozdravení
+    username: Používateľské meno
+    username_placeholder: Používateľské meno
+    useremail_placeholder: Zadajte e-mailovú adresu
+    userpasscode_placeholder: Prístupový kód
+    words_added: Pridané slová<br>(článok | používateľ | koncept)
+    word_count_doc: Odhad celkového množstva obsahu, ktoré používateľ pridal do živých
+      článkov, stránok používateľského priestoru (pieskovísk) a menného priestoru
+      Koncept. Odhady počtu slov sa počítajú zo súčtu zmien veľkosti stránky za všetky
+      úpravy, ktoré pridali viac, než odstránili. Toto číslo nemusí nutne odrážať
+      množstvo nového obsahu, ktoré používateľ pridal. Obnovenie odstráneného obsahu
+      tiež zvýši tento súčet.
+    role:
+      description: Rola v kurze
+      visitor: Návštevník
+      student: Študent
+      instructor: Inštruktor
+      campus_volunteer: Dobrovoľník na kampuse
+      online_volunteer: Online dobrovoľník
+      wiki_ed_staff: Tím Wiki Education
+    email_required_instructor: Vyžaduje sa pre aktuálnych inštruktorov. Svoju e-mailovú
+      adresu môžete odstrániť po skončení aktuálnych kurzov.
+    email_invalid: 'Neplatné: Zadajte platný e-mail'
+  user_profiles:
+    student_impact: Celkový dosah, ktorý dosiahol %{username} ako študent
+    instructor_impact: Celkový dosah, ktorý dosiahol %{username} ako inštruktor
+    instructors_student_impact: Celkový dosah, ktorý dosiahli študenti používateľa
+      %{username}
+    disclaimer: Informácie, ktoré poskytnete, budú verejne dostupné.
+    bio_placeholder: Pridajte svoj životopis (voliteľné)
+    location_placeholder: Pridajte svoje miesto (voliteľné)
+    institution_placeholder: Názov inštitúcie (voliteľné)
+    image_link_placeholder: Pridajte odkaz na obrázok (voliteľné)
+    references_disclaimer: Referencie môžu byť započítané viackrát, ak sa tá istá
+      úprava používateľa považuje za súčasť viacerých kurzov.
+    words_added_disclaimer: Pridané slová môžu byť započítané viackrát, ak sa tá istá
+      úprava používateľa považuje za súčasť viacerých kurzov.
+  wiki_edits:
+    notify_overdue:
+      button_label: Pripomenúť študentom omeškané školenie
+      confirm: Toto pridá pripomienku na diskusné stránky všetkých študentov, ktorí
+        majú omeškané školenie. Naozaj to chcete urobiť?
+      header: Máte omeškané školiace zadanie.
+      message: Dokončite priradené [%{link} školiace moduly].
+      summary: omeškané školenie študenta
+  wizard:
+    assignment_dates: Dátumy zadania
+    assignment_description: Vyberte dátumy začiatku a konca časovej osi svojho zadania.
+      Ak napríklad chcete začať projekt na Wikipédii v druhom týždni výučby, nastavte
+      dátum začiatku zadania na jeden týždeň po dátume začiatku kurzu. Tento nástroj
+      na návrh zadania vytvorí koncept časovej osi, ktorý zapadne do vami zvolených
+      dátumov časovej osi.
+    assignment_type: Čo budú študenti vypracúvať v rámci svojho zadania na Wikipédii?
+    calendar_instructions: Vyberte dátumy, ktoré chcete pridať do rozvrhu alebo z
+      neho odstrániť (napr. sviatky, dni bez vyučovania). Pomáha to nástroju na vytváranie
+      kurzov presne rozvrhnúť vaše zadania. Kliknutím na dátum prepínate medzi stavmi
+      nevybraté, vybraté a sviatok.
+    confirm_course_dates: Potvrďte dátumy začiatku a konca kurzu.
+    confirm_dates: Vyberte dátumy kurzu, týždenné stretnutia a prázdniny pre svoj
+      kurz.
+    course_dates: Dátumy kurzu
+    min_weeks: Toto zadanie vyžaduje aspoň %{min_weeks} dostupných týždňov. Ak chcete
+      použiť tento typ zadania, upravte dátumy začiatku a konca zadania.
+    select_one_option: Vyberte 1 možnosť.
+    minimum_options:
+      one: Vyberte %{count} alebo viac možností.
+      other: Vyberte %{count} alebo viac možností.
+    no_class_holidays: Nemám žiadne prázdniny počas kurzu
+    read_less: Zobraziť menej
+    read_more: Čítať viac
+    review_selections: Nižšie si prezrite svoje výbery. Kliknutím výber upravíte.
+      Po dokončení kliknite na „Odoslať“, čím ukončíte sprievodcu a zostavíte svoju
+      časovú os.
+    select_assignment: Vyberte druh zadania, ktoré chcete pridať do svojej časovej
+      osi.
+    summary: Zhrnutie
+  error:
+    form_errors: Skontrolujte, či formulár neobsahuje chyby.
+    invalid_assignment: Neplatné zadanie
+    invalid_date: Dátum %{key} je neplatný
+    invalid_file_format: Súbor sa nepodarilo uložiť. Nahrajte dokument PDF alebo Word.
+    oauth_invalid: Vaše oprávnenie na Wikipédii vypršalo. Prihláste sa znova.
+    start_date_before_end_date: Dátum začiatku musí byť pred dátumom konca
+    unsupported_browser:
+      header: Nepodporovaný prehliadač.  :-(
+      explanation: Používate prehliadač, ktorý nie je kompatibilný s nástenkou. Táto
+        stránka dobre funguje v nedávnych verziách prehliadačov Chrome, Firefox, Edge
+        a ďalších moderných prehliadačoch.
+    ip_blocked: Z tohto zariadenia momentálne nemôžete vytvoriť účet. Môže sa to stať,
+      ak je vaša IP adresa zablokovaná Wikipédiou alebo už dosiahla denný limit nových
+      účtov. Skúste sa pripojiť z inej siete.
+    login_success_download_html: Úspešné prihlásenie! %{link}.
+    download_here: Kliknutím sem stiahnete svoj súbor
+  error_401:
+    explanation: Nemáte oprávnenie vykonať túto požiadavku. Ak si myslíte, že ste
+      toto oznámenie dostali omylom, kontaktujte správcov tejto nástenky a informujte
+      ich o probléme.
+    json_explanation: Zdá sa, že ste boli odhlásení. Obnovte stránku, prihláste sa
+      a skúste to znova.
+  error_incorrect_passcode:
+    header: Nesprávny prístupový kód.  :-(
+    explanation: Prístupový kód na zápis do tohto kurzu je nesprávny. Požiadajte inštruktora
+      o aktuálny prístupový kód na zápis do tohto kurzu. Môžete to skúsiť znova zadaním
+      správneho prístupového kódu nižšie.
+  error_no_course:
+    explanation: Žiadny taký kurz %{slug} neexistuje.
+  error_404:
+    header: Stránka sa nenašla. :-(
+    explanation: Táto stránka neexistuje. Ak ste sa pokúšali dostať na nástenku kurzu,
+      tento kurz možno nie je pre túto nástenku zaregistrovaný.
+  error_422:
+    header: 422 — nespracovateľná entita.  :-(
+    explanation: Niečo sa pokazilo. Kontaktujte správcov tejto nástenky a informujte
+      ich o probléme.
+  error_500:
+    header: 500 — interná chyba servera.  :-(
+    explanation: Niečo sa pokazilo. Kontaktujte správcov tejto nástenky a informujte
+      ich o probléme.
+  login_error:
+    header: Chyba prihlásenia
+    explanation: Zdá sa, že sa vyskytol problém s procesom prihlásenia. (Ospravedlňujeme
+      sa! Občas sa to stáva.) Skúste sa prihlásiť alebo zapísať znova.
+  notifications:
+    new_notifications: Máte nové upozornenia.
+    no_notifications: Nemáte žiadne nové upozornenia.
+    aria_label:
+      bell: Upozornenia
+  survey:
+    login_message: Ďakujeme za váš čas. Prihláste sa na nástenku a vyplňte prieskum.
+    notification_explanation: Ak je nižšie začiarknuté, používatelia budú okrem zobrazenia
+      notifikácií v prehliadači dostávať aj e-maily podľa harmonogramu notifikácií.
+      Ak nie, budú sa zobrazovať len notifikácie v prehliadači.
+    notification_schedule_explanation: Notifikácie zahŕňajú notifikácie v prehliadači
+      a e-maily, ak sú povolené vyššie.
+    follow_up_explanation: Ak nechcete žiadne pripomienkové notifikačné e-maily, nechajte
+      prázdne.
+    email:
+      headline: Ahoj, %{username}
+      message_line1: Dúfame, že ste mali skvelý semester! Wiki Education žiada o vašu
+        spätnú väzbu na zlepšenie našich zdrojov a podpory pre vaše zadania na Wikipédii.
+        Vaša odpoveď je kľúčová pre zlepšenie našej súčasnej ponuky.
+      message_line2: Ste ochotní venovať 15 minút vyplneniu nášho prieskumu pre inštruktorov?
+        Kliknutím na tlačidlo nižšie nám pomôžete urobiť z výučby s Wikipédiou ešte
+        prínosnejší a hodnotnejší zážitok.
+      course: 'Kurz: %{course_info}'
+      closing: S pozdravom,
+      signed: – tím Wiki Education
+      link: Vyplniť prieskum
+    follow_up:
+      message: Toto je pripomienka o prieskume pre váš kurz %{course_title}. Spätná
+        väzba z tohto prieskumu nám pomáha zlepšovať našu podporu pre zadania na Wikipédii,
+        ako je to vaše.
+    edit_survey: Upraviť prieskum
+  feedback_form_responses:
+    no_responses: Zatiaľ nie sú žiadne odpovede so spätnou väzbou.
+  wiki_api:
+    create_account_reason: Tento používateľ sa zúčastňuje na %{event}.
+  onboarding:
+    supplementary:
+      header: Ako ste sa o nás dozvedeli?
+      where_did_you_hear: Kde alebo od koho ste sa prvýkrát dozvedeli o Wiki Education?
+      why_are_you_here: Čo by ste chceli robiť?
+  article_finder:
+    add_available_article: Pridať ako dostupný článok
+    add_available_article_wikidata: Pridať ako dostupnú položku
+    article_finder: Vyhľadávač článkov
+    article_finder_wikidata: Vyhľadávač položiek
+    article_quality: Kvalita článku (0 – 100)
+    article_quality_wikidata: Kvalita položky (0 – 100)
+    assign_article_self: Priradiť sa
+    average_views: Priemerný počet zobrazení za deň
+    category_search: Vyhľadávanie podľa kategórie
+    completeness_estimate: Skóre úplnosti
+    estimation_score_not_found: Odhadované skóre sa nenašlo!
+    fetching_assessments: Načítavajú sa hodnotenia stránky
+    fetching_scores: Načítava sa skóre úplnosti
+    fetching_pageviews: Načítavajú sa zobrazenia stránky
+    fetching_revisions: Načítavajú sa revízie stránky
+    fetched_articles: Načítané články
+    fetched_articles_wikidata: Načítané položky
+    filtered_articles: Filtrované články
+    filtered_articles_wikidata: Filtrované položky
+    hide_options: Skryť možnosti
+    keyword_search: Vyhľadávanie podľa kľúčového slova
+    minimum_views_label: Minimálny počet zobrazení
+    more_results: Ďalšie výsledky
+    no_article_found: V tejto kategórii sa nenašli žiadne články
+    no_article_found_wikidata: V tejto kategórii sa nenašli žiadne položky
+    page_assessment_class: Trieda
+    page_views_not_found: Zobrazenia stránky sa nenašli!
+    relevanceIndex: Index relevantnosti
+    remove_article: Odstrániť článok
+    remove_article_wikidata: Odstrániť položky
+    search: Hľadať
+    searching_articles: Vyhľadávajú sa články
+    searching_articles_wikidata: Vyhľadávajú sa položky
+    search_placeholder: Zadajte kľúčové slovo
+    show_options: Zobraziť možnosti
+    subheading_message: Nájdime si článok na Wikipédii, na ktorom budeme pracovať.
+    subheading_message_wikidata: Nájdime si položku na Wikidátach, na ktorej budeme
+      pracovať.
+    submit: Odoslať
+    tools: Nástroje
+    unassign_article_self: Zrušiť priradenie článku
+    unassign_article_self_wikidata: Zrušiť priradenie položky
+  training_status:
+    completed: Dokončené
+    continue: Pokračovať
+    completed_at: Dokončené o
+    completion_time: Čas dokončenia
+    late: Oneskorené
+    view: Zobraziť
+    started: Začaté
+    not_started: Nezačaté
+    due: termín %{due_date}
+    assignment_status: Školiace zadanie (%{status})
+  multi_wiki:
+    selector_placeholder: Začnite písať doménu wiki
+  news:
+    nav_tooltip: Novinky a nedávne zmeny
+    add_news: Pridať novinky
+    post_confirmation:
+      title: Pokračovať v uverejnení noviniek?
+      confirmation: Potvrďte, prosím.
+    delete_confirmation:
+      title: Pokračovať v odstránení obsahu noviniek?
+      confirmation: Potvrďte, prosím.
+    no_updates:
+      message: Momentálne nie sú dostupné žiadne novinky
+      check_later: Skontrolujte to znova neskôr.
+    header:
+      P&E_dashboard_title: Novinky a nedávne zmeny
+      wiki_education_dashboard_title: Novinky nástenky Wiki Education
+    footer:
+      P&E_dashboard:
+        link_text: Wikimedia
+        footer_text: Čítať novinky a nedávne zmeny
+      wiki_education_dashboard:
+        link_text: wikiedu.org/blog
+        footer_text: Ďalšie novinky od Wiki Education
+    options:
+      news_content:
+        delete_news: Odstrániť novinky
+        confirm_delete: Potvrdiť
+        cancel_delete: Zrušiť
+        cancel_edit: Zrušiť úpravu
+        edit_news: Upraviť novinky
+        update_news: Aktualizovať novinky
+      create_news:
+        cancel_post: Zrušiť uverejnenie
+        confirm_post: Potvrdiť uverejnenie
+        discard_post: Zahodiť novinky
+        post_news: Uverejniť novinky
+    notification:
+      delete: Obsah noviniek bol úspešne odstránený
+      update: Obsah noviniek bol úspešne aktualizovaný
+      create_news: Obsah noviniek bol úspešne zverejnený
+      create_news_error: Chyba pri vytváraní obsahu noviniek. Skúste to znova.
+      update_error: Chyba pri aktualizácii obsahu noviniek. Skúste to znova.
+      empty_create_news_content_error: Pred uverejnením zadajte obsah noviniek.
+      empty_update_news_content_error: Pred aktualizáciou zadajte obsah noviniek.
+    text_area_input:
+      placeholder: Pridať novinky a nedávne zmeny
+  notes:
+    title: Názov
+    note_title: Názov poznámky
+    note_text: Text poznámky
+    created: Poznámka bola úspešne vytvorená.
+    updated: Poznámka bola úspešne aktualizovaná.
+    failure: Chyba! Skúste to znova neskôr.
+    empty_fields: Uistite sa, že sú vyplnené všetky vstupné polia, a skúste to znova.
+    edit: Čas každej úpravy sa zobrazuje vo vašom miestnom čase.
+    edited_by: Upravil
+    last_edited_by: Zobrazuje meno administrátora, ktorý naposledy upravil poznámku.
+    deleted: Poznámka bola úspešne odstránená. Už nie je dostupná vo vašich poznámkach.
+    delete_note_confirmation: 'Odstrániť poznámku: Táto akcia natrvalo odstráni poznámku.
+      Naozaj chcete pokračovať?'
+    delete_note_error: Poznámku sa nepodarilo odstrániť. Skúste to znova.
+    no_notes: Tento kurz momentálne nemá žiadne priradené poznámky.
+    create_note: Vytvoriť poznámku
+    cancel_note_creation: Zrušiť
+    post_note: Uverejniť
+    edit_note: Upraviť poznámku
+    cancel_edit_note: Zrušiť
+    save_note: Uložiť
+    delete_note: Odstrániť poznámku
+    admin:
+      button_text: Poznámky administrátora
+      header_text: Panel poznámok administrátora
+      aria_label:
+        no_notes_available: V paneli nie sú dostupné žiadne poznámky administrátora.
+          Stlačením klávesu Enter otvoríte panel poznámok administrátora.
+        new_notes_message: K dispozícii je %{count} nových poznámok administrátora.
+        notes_panel_opened: Okno panela poznámok administrátora sa otvorilo. Panel
+          môžete zavrieť stlačením klávesu Escape.
+        close_admin: Zavrieť okno panela poznámok administrátora
+        note_action_button: Tlačidlo akcie poznámok
+        create_note: Tlačidlo na vytvorenie poznámky
+        note_creation: Oblasť na vytvorenie poznámky je teraz k dispozícii.
+        cancel_note_creation: Zrušiť vytvorenie poznámky.
+        post_created_note: Uverejniť vytvorenú poznámku
+        note_title_field: Pole názvu poznámky je zamerané. Sem zadajte názov poznámky.
+        note_text_field: Textové pole poznámky je zamerané. Sem zadajte obsah poznámky.
+        collapse_note: Stlačením klávesu Enter zbalíte text poznámky {{title}}.
+        expand_note: Stlačením klávesu Enter rozbalíte a zobrazíte text poznámky {{title}}.
+        note_details_focused: Podrobnosti o poznámke {{title}}
+        note_edit_button_focused: Upraviť podrobnosti poznámky {{title}}
+        note_edit_save_button_focused: Uložiť upravenú poznámku {{title}}
+        note_edit_cancel_button_focused: Zrušiť úpravu poznámky {{title}}
+        note_delete_button_focused: Odstrániť poznámku {{title}}
+        note_edit_mode: 'Prešli ste do režimu úprav pre poznámku s názvom: {{title}}.
+          Teraz môžete upraviť názov a obsah.'
+  customize_error_message:
+    JSONP_request_failed: Požiadavka na načítanie údajov z Wikipédie vypršala. Môže
+      to byť spôsobené pomalým internetovým pripojením alebo dočasnými problémami
+      servera. Skúste to znova neskôr.
+  tagged_courses:
+    download_csv: Stiahnuť CSV
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}} Stlačením klávesu Enter vyberiete'
+      weekday_selected: '{{weekday}} Vybraté. Stlačením klávesu Enter zrušíte výber'
+      weekday_unselected: '{{weekday}} Nevybraté'
+  question_groups:
+    edit_question_group: Upraviť skupinu otázok
   form_search:
+    search: Hľadať
+    advanced_search: Rozšírené vyhľadávanie
+    clear: Vymazať
     program_date: Dátum programu
 ...
