@@ -9,7 +9,7 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 # (see ArticlesCoursesCleaner#reset).
 #
 # The following cases are handled for every course, including article scoped
-# programs (which never run ArticleStatusManagerTimeslice), as a best effort to
+# programs (which never run ArticleStatusManager), as a best effort to
 # detect namespace moves without re-syncing article statuses:
 #
 # 1- Articles that moved from a non-tracked namespace to a tracked namespace (usually mainspace).
@@ -35,7 +35,7 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 #
 # Note: This class depends on the namespace and deleted attributes in the articles table.
 # It does not update those attributes; it simply trusts their current values
-# (ArticleStatusManagerTimeslice is responsible for syncing them).
+# (ArticleStatusManager is responsible for syncing them).
 
 class ArticleNamespacesManager
   def initialize(course, statuses_synced: false)
