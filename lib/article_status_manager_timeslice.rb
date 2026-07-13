@@ -119,9 +119,11 @@ class ArticleStatusManagerTimeslice
   end
 
   def sync_article(article, article_data)
+    old_namespace = article.namespace
     article.update!(title: article_data['page_title'],
                     namespace: article_data['page_namespace'],
                     deleted: false)
+    log_namespace_change(article, old_namespace) if article.namespace != old_namespace
     # Find corresponding Assignment records and update the titles
     AssignmentUpdater.update_assignments_for_article(article)
   rescue ActiveRecord::RecordNotUnique => e
@@ -168,6 +170,24 @@ class ArticleStatusManagerTimeslice
     # via `update_title_and_namespace`
     return unless nondeleted_article
     ArticlesCoursesCleaner.reset_specific_articles(@course, [article])
+    log_reset(article)
+  end
+
+  # These scenarios are hard to reproduce (they depend on on-wiki events happening
+  # in the middle of course updates), so we log them to learn how frequent they are.
+  def log_reset(article)
+    Sentry.capture_message 'Article retracked',
+                           level: 'info',
+                           extra: { course_slug: @course.slug, course_id: @course.id,
+                                    reason: 'undeleted_duplicate', article_ids: [article.id] }
+  end
+
+  def log_namespace_change(article, old_namespace)
+    Sentry.capture_message 'Article namespace changed',
+                           level: 'info',
+                           extra: { course_slug: @course.slug, course_id: @course.id,
+                                    article_id: article.id, old_namespace:,
+                                    new_namespace: article.namespace }
   end
 
   def data_matches_article?(article_data, article)
