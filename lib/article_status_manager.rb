@@ -4,19 +4,16 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
-# This class is responsible for two main things (we may separate it in the future).
-# - Iterate over article course timeslices to sync articles. This updates title,
+# It iterates over article course timeslices to sync articles. This updates title,
 # namespace, deleted and mw_page_id fields.
-# - Reset articles according to their new status:
-#   * Articles that were deleted or untracked. These are articles that were either
-#   deleted or moved to a namespace not traceable by the course. Such articles
-#   should be excluded from course statistics.
-#   * Articles that were restored or re-tracked: These are articles that were
-#   either undeleted or moved to a namespace relevant to the course. Such articles
-#   should be included in course statistics.
-#   TODO: this class can probably be made simpler
+# Resetting articles according to their new status (so they are included in or
+# excluded from course statistics) is mostly handled by ArticleNamespacesManager,
+# which runs after this class during the course update. The exception is articles
+# with duplicate records for the same mw_page_id (see #handle_undeletion), which
+# are reset here as soon as they are detected.
+# TODO: this class can probably be made simpler
 
-class ArticleStatusManagerTimeslice
+class ArticleStatusManager
   def initialize(course, wiki = nil)
     @course = course
     @wiki = wiki || Wiki.default_wiki
@@ -47,8 +44,6 @@ class ArticleStatusManagerTimeslice
         # rubocop:enable Rails/SkipsModelValidations
       end
     end
-
-    ArticlesCoursesCleaner.reset_articles_for_course(course)
   end
 
   ####################
@@ -119,28 +114,32 @@ class ArticleStatusManagerTimeslice
       # These titles are saved as their URL-encoded equivalents.
       next if article.title[0] == '%'
 
-      begin
-        article.update!(title: article_data['page_title'],
-                        namespace: article_data['page_namespace'],
-                        deleted: false)
-        # Find corresponding Assignment records and update the titles
-        AssignmentUpdater.update_assignments_for_article(article)
-      rescue ActiveRecord::RecordNotUnique => e
-        # If we reach this point, it's most likely that @article has been set. This only
-        # happens when update_status is invoked with a single article, which probably indicates
-        # it was called from a cleanup script. In this case, we consider @article as
-        # a duplicate article record, so we re-process timeslices for it.
-
-        # If this is a duplicate article record, moving the revisions to the non-deleted
-        # copy should prevent it from being part of a future update.
-        # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
-        # so this rescue comes first.
-        handle_undeletion(article)
-        Sentry.capture_exception e, level: 'warning'
-      rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
-        Sentry.capture_exception e
-      end
+      sync_article(article, article_data)
     end
+  end
+
+  def sync_article(article, article_data)
+    old_namespace = article.namespace
+    article.update!(title: article_data['page_title'],
+                    namespace: article_data['page_namespace'],
+                    deleted: false)
+    log_namespace_change(article, old_namespace) if article.namespace != old_namespace
+    # Find corresponding Assignment records and update the titles
+    AssignmentUpdater.update_assignments_for_article(article)
+  rescue ActiveRecord::RecordNotUnique => e
+    # If we reach this point, it's most likely that @article has been set. This only
+    # happens when update_status is invoked with a single article, which probably indicates
+    # it was called from a cleanup script. In this case, we consider @article as
+    # a duplicate article record, so we re-process timeslices for it.
+
+    # If this is a duplicate article record, moving the revisions to the non-deleted
+    # copy should prevent it from being part of a future update.
+    # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
+    # so this rescue comes first.
+    handle_undeletion(article)
+    Sentry.capture_exception e, level: 'warning'
+  rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
+    Sentry.capture_exception e
   end
 
   def update_deleted_articles(articles)
@@ -171,6 +170,24 @@ class ArticleStatusManagerTimeslice
     # via `update_title_and_namespace`
     return unless nondeleted_article
     ArticlesCoursesCleaner.reset_specific_articles(@course, [article])
+    log_reset(article)
+  end
+
+  # These scenarios are hard to reproduce (they depend on on-wiki events happening
+  # in the middle of course updates), so we log them to learn how frequent they are.
+  def log_reset(article)
+    Sentry.capture_message 'Article retracked',
+                           level: 'info',
+                           extra: { course_slug: @course.slug, course_id: @course.id,
+                                    reason: 'undeleted_duplicate', article_ids: [article.id] }
+  end
+
+  def log_namespace_change(article, old_namespace)
+    Sentry.capture_message 'Article namespace changed',
+                           level: 'info',
+                           extra: { course_slug: @course.slug, course_id: @course.id,
+                                    article_id: article.id, old_namespace:,
+                                    new_namespace: article.namespace }
   end
 
   def data_matches_article?(article_data, article)
