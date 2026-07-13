@@ -114,28 +114,30 @@ class ArticleStatusManagerTimeslice
       # These titles are saved as their URL-encoded equivalents.
       next if article.title[0] == '%'
 
-      begin
-        article.update!(title: article_data['page_title'],
-                        namespace: article_data['page_namespace'],
-                        deleted: false)
-        # Find corresponding Assignment records and update the titles
-        AssignmentUpdater.update_assignments_for_article(article)
-      rescue ActiveRecord::RecordNotUnique => e
-        # If we reach this point, it's most likely that @article has been set. This only
-        # happens when update_status is invoked with a single article, which probably indicates
-        # it was called from a cleanup script. In this case, we consider @article as
-        # a duplicate article record, so we re-process timeslices for it.
-
-        # If this is a duplicate article record, moving the revisions to the non-deleted
-        # copy should prevent it from being part of a future update.
-        # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
-        # so this rescue comes first.
-        handle_undeletion(article)
-        Sentry.capture_exception e, level: 'warning'
-      rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
-        Sentry.capture_exception e
-      end
+      sync_article(article, article_data)
     end
+  end
+
+  def sync_article(article, article_data)
+    article.update!(title: article_data['page_title'],
+                    namespace: article_data['page_namespace'],
+                    deleted: false)
+    # Find corresponding Assignment records and update the titles
+    AssignmentUpdater.update_assignments_for_article(article)
+  rescue ActiveRecord::RecordNotUnique => e
+    # If we reach this point, it's most likely that @article has been set. This only
+    # happens when update_status is invoked with a single article, which probably indicates
+    # it was called from a cleanup script. In this case, we consider @article as
+    # a duplicate article record, so we re-process timeslices for it.
+
+    # If this is a duplicate article record, moving the revisions to the non-deleted
+    # copy should prevent it from being part of a future update.
+    # NOTE: ActiveRecord::RecordNotUnique is a subtype of ActiveRecord::StatementInvalid
+    # so this rescue comes first.
+    handle_undeletion(article)
+    Sentry.capture_exception e, level: 'warning'
+  rescue ActiveRecord::StatementInvalid => e # workaround for 4-byte unicode errors
+    Sentry.capture_exception e
   end
 
   def update_deleted_articles(articles)
