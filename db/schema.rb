@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_29_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -371,6 +371,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_24_210000) do
     t.index ["course_id", "wiki_id"], name: "index_courses_wikis_on_course_id_and_wiki_id", unique: true
     t.index ["course_id"], name: "index_courses_wikis_on_course_id"
     t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"
+  end
+
+  create_table "experiment_courses_users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "experiment_slug", null: false
+    t.integer "courses_user_id", null: false
+    t.integer "status", null: false
+    t.datetime "userscript_installed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["courses_user_id"], name: "index_experiment_courses_users_on_courses_user_id"
+    t.index ["experiment_slug", "courses_user_id"], name: "index_experiment_courses_users_on_slug_and_courses_user", unique: true
   end
 
   create_table "faqs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

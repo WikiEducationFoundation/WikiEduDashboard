@@ -32,6 +32,8 @@ class CoursesUsers < ApplicationRecord
 
   has_many :survey_notifications
 
+  has_many :experiment_courses_users, foreign_key: 'courses_user_id', inverse_of: :courses_user
+
   has_many :course_user_wiki_timeslices, lambda { |courses_users|
                                            where user: courses_users.user
                                          }, through: :course
@@ -124,6 +126,7 @@ class CoursesUsers < ApplicationRecord
   def cleanup
     Assignment.where(user_id:, course_id:).destroy_all
     survey_notifications.destroy_all
+    experiment_courses_users.destroy_all
   end
 
   #################
