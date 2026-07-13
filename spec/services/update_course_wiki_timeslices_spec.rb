@@ -331,7 +331,7 @@ describe UpdateCourseWikiTimeslices do
           expect(wikidata_timeslice.revision_count).to eq(0)
           expect(wikidata_timeslice.needs_update).to eq(false)
           expect(wikidata_timeslice.last_mw_rev_datetime).to eq(nil)
-          expect(wikidata_timeslice.stats['total revisions']).to eq(0)
+          expect(wikidata_timeslice.stats).to be_empty
         end
       end
     end
