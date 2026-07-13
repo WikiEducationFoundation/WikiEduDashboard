@@ -588,6 +588,18 @@ class Course < ApplicationRecord
     flags[:use_acuwt].present?
   end
 
+  # True once MarkPurgeableCourses has flagged this course for timeslice purging
+  # (it ended long ago, was tracked in the timeslice system, and has no pending
+  # timeslice work).
+  def purgeable?
+    flags[:purgeable].present?
+  end
+
+  # True once PurgeTimeslicesWorker has deleted this course's timeslice records.
+  def purged?
+    flags[:purged].present?
+  end
+
   def debug_updates?
     flags[:debug_updates].present?
   end

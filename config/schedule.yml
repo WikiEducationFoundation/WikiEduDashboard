@@ -44,3 +44,11 @@ update_default_campaign:
   cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
   class: "DefaultCampaignUpdateWorker"
   queue: default
+
+# Deletes timeslices for courses flagged as purgeable by MarkPurgeableCourses.
+# Runs on Fridays so a course spends a few days flagged before its timeslices
+# are actually removed, leaving a window to catch a mistake.
+purge_timeslices:
+  cron: "0 10 * * 5" # every Friday at 3am PT (UTC -7)
+  class: "PurgeTimeslicesWorker"
+  queue: daily_update
