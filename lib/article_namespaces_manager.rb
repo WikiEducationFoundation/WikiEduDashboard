@@ -72,7 +72,7 @@ class ArticleNamespacesManager
     retracked_ids = []
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
-      @course.articles_from_timeslices(wiki.id)
+      @course.articles_from_timeslices_legacy(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
         tracked = articles_in_tracked_namespaces(article_batch)
         tracked_without_articles_courses = tracked - @course.articles.to_a
