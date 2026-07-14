@@ -36,6 +36,9 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 #   This must never run for courses that only track a specific list of articles: non-scoped
 #   articles get article course timeslices but never an articles_courses record, so they
 #   would be reset (and reprocessed) on every update.
+#   For ACUWT courses, candidates are retrieved from ACUWT rows (exclusion resets keep
+#   ACUWT but delete AC records) and re-included via
+#   ArticlesCourses.create_records_and_mark_acuwt instead of a full re-fetch.
 #
 # Note: This class depends on the namespace and deleted attributes in the articles table.
 # It does not update those attributes; it simply trusts their current values
@@ -72,12 +75,12 @@ class ArticleNamespacesManager
     retracked_ids = []
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
-      @course.articles_from_timeslices_legacy(wiki.id)
+      @course.articles_from_timeslices(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
         tracked = articles_in_tracked_namespaces(article_batch)
         tracked_without_articles_courses = tracked - @course.articles.to_a
         retracked_ids += tracked_without_articles_courses.map(&:id)
-        @cleaner.reset_legacy(tracked_without_articles_courses, wiki)
+        @cleaner.reset_included(tracked_without_articles_courses, wiki)
       end
     end
     log_reset('Article retracked', 'undeleted_or_retracked', retracked_ids)

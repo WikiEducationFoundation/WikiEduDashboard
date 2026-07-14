@@ -131,6 +131,20 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_article_course(article_ids)
   end
 
+  # Resets articles that should be included in the course stats from now on
+  # (e.g. undeleted or re-tracked articles: tracked articles that have timeslices
+  # but no articles_courses record).
+  # For ACUWT courses, this is exactly the create-articles-courses-and-rescore case:
+  # ArticlesCourses.create_records_and_mark_acuwt creates the records and marks the
+  # articles' ACUWT rows as needs_update, so they are re-scored and the affected
+  # timeslices reaggregated. No re-fetch of full periods is needed.
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_included(articles, wiki = nil)
+    return reset_legacy(articles, wiki) unless @course.use_acuwt?
+
+    ArticlesCourses.create_records_and_mark_acuwt(@course, articles.map(&:id))
+  end
+
   private
 
   # Returns article ids for every article edited before the current course start date

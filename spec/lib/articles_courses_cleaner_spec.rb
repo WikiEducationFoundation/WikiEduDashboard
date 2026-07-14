@@ -63,6 +63,46 @@ describe ArticlesCoursesCleaner do
     end
   end
 
+  describe '#reset_included' do
+    let(:user) { create(:user) }
+    let(:articles) { Article.where(id: article1.id) }
+
+    before do
+      stub_wiki_validation
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      create(:article_course_timeslice, course:, article: article1,
+             start: '2024-01-10', end: '2024-01-11')
+      create(:article_course_user_wiki_timeslice, course:, article: article1, user:,
+             wiki: enwiki, start: '2024-01-10', end: '2024-01-11')
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'creates articles_courses and marks ACUWT records as needs_update' do
+        described_class.new(course).reset_included(articles)
+
+        expect(course.articles_courses.where(article: article1)).not_to be_empty
+        expect(ArticleCourseUserWikiTimeslice.find_by(course:, article: article1).needs_update)
+          .to eq(true)
+        timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
+        expect(timeslice.needs_update).to eq(false)
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'marks timeslices as needs_update' do
+        described_class.new(course).reset_included(articles)
+
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
+        expect(timeslice.needs_update).to eq(true)
+      end
+    end
+  end
+
   describe '.clean_articles_courses_for_wiki_ids' do
     before do
       stub_wiki_validation

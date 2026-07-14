@@ -138,6 +138,19 @@ describe ArticleNamespacesManager do
         expect(course_wiki_timeslice.needs_update).to eq(false)
         expect(ArticleCourseUserWikiTimeslice.where(course:, article: article1).count).to eq(1)
       end
+
+      it 'includes undeleted or retracked articles through rescoring when statuses were synced' do
+        create(:article_course_user_wiki_timeslice, course:, article: article4, user:,
+               wiki: wikidata, start: '2024-03-15', end: '2024-03-16')
+        described_class.new(course, statuses_synced: true)
+
+        expect(course.articles_courses.where(article: article4)).not_to be_empty
+        expect(ArticleCourseUserWikiTimeslice.find_by(course:, article: article4).needs_update)
+          .to eq(true)
+        course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
+                                                                      start: '2024-03-15')
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+      end
     end
 
     it 'reset articles for deleted articles when statuses were synced' do
