@@ -124,6 +124,20 @@ describe ArticleNamespacesManager do
         expect(course_wiki_timeslice.needs_update).to eq(false)
         expect(ArticleCourseUserWikiTimeslice.where(course:, article: article3).count).to eq(1)
       end
+
+      it 'resets deleted articles through reaggregation when statuses were synced' do
+        create(:article_course_user_wiki_timeslice, course:, article: article1, user:,
+               wiki: enwiki, start: '2024-04-11', end: '2024-04-12')
+        described_class.new(course, statuses_synced: true)
+
+        expect(course.articles_courses.where(article: article1)).to be_empty
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
+                                                                      start: '2024-04-11')
+        expect(course_wiki_timeslice.needs_reaggregation).to eq(true)
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+        expect(ArticleCourseUserWikiTimeslice.where(course:, article: article1).count).to eq(1)
+      end
     end
 
     it 'reset articles for deleted articles when statuses were synced' do

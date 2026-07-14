@@ -63,7 +63,7 @@ class ArticleNamespacesManager
     # Note that this could remove articles courses records for manually untracked articles
     @course.articles.where(deleted: true).in_batches do |article_batch|
       deleted_ids += article_batch.pluck(:id)
-      @cleaner.reset_legacy(article_batch)
+      @cleaner.reset_excluded(article_batch)
     end
     log_reset('Article untracked', 'deleted', deleted_ids)
   end
