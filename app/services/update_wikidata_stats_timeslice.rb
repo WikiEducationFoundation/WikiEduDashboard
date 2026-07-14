@@ -107,9 +107,11 @@ class UpdateWikidataStatsTimeslice
     revisions
   end
 
-  # Given an array of revisions, it builds the stats for those revisions
+  # Given an array of revisions, it builds the stats for those revisions.
+  # Zero-valued counters are omitted to keep serialized timeslice stats small;
+  # absent keys mean zero.
   def build_stats_from_revisions(revisions)
-    stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
+    stats = Hash.new(0)
     revisions.each do |revision|
       revision.diff_stats&.each do |key, value|
         # Skip non-counter fields the analyzer may include (e.g. merge_target).
@@ -118,12 +120,13 @@ class UpdateWikidataStatsTimeslice
       end
     end
     stats['total revisions'] = revisions.count
-    stats
+    stats.reject { |_label, count| count.zero? }
   end
 
   # Given an array of indivual stats, it creates or updates the CourseStats row for it.
   def update_wikidata_statistics(individual_stats)
-    stats = sum_up_stats individual_stats
+    # CourseStat keeps the complete hash (zeros included), since it's what the UI reads.
+    stats = full_stats_template.merge(sum_up_stats(individual_stats))
     crs_stat = CourseStat.find_by(course_id: @course.id) || CourseStat.create(course_id: @course.id)
 
     # Update the stats_hash in the CourseStat model and save it
@@ -132,16 +135,22 @@ class UpdateWikidataStatsTimeslice
   end
 
   # Given an array of stats hashes, returns a single hash with all values summed.
+  # Like build_stats_from_revisions, it omits zero-valued counters.
   def sum_up_stats(individual_stats)
-    total_stats = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
-    total_stats['total revisions'] = 0
+    total_stats = Hash.new(0)
     individual_stats.each do |hash|
       hash.each { |key, value| total_stats[key] += value }
     end
-    total_stats
+    total_stats.reject { |_label, count| count.zero? }
   end
 
   private
+
+  def full_stats_template
+    template = STATS_CLASSIFICATION.values.to_h { |label| [label, 0] }
+    template['total revisions'] = 0
+    template
+  end
 
   def apply_diff(revision, diffs, not_analyzed)
     if not_analyzed.include?(revision.mw_rev_id)
