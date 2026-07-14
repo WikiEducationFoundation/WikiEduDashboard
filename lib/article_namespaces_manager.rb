@@ -96,7 +96,7 @@ class ArticleNamespacesManager
       # Find articles with articles_courses records but not in tracked namespaces
       untracked_articles = article_batch.where.not(id: tracked_ids)
       untracked_ids += untracked_articles.pluck(:id)
-      @cleaner.reset_legacy(untracked_articles)
+      @cleaner.reset_excluded(untracked_articles)
     end
     log_reset('Article untracked', 'moved_to_untracked_namespace', untracked_ids)
   end

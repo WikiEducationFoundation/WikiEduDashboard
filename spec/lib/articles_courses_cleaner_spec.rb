@@ -17,6 +17,52 @@ describe ArticlesCoursesCleaner do
 
   before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
 
+  describe '#reset_excluded' do
+    let(:user) { create(:user) }
+    let(:articles) { Article.where(id: article1.id) }
+
+    before do
+      stub_wiki_validation
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      create(:articles_course, course:, article: article1)
+      create(:article_course_timeslice, course:, article: article1,
+             start: '2024-01-10', end: '2024-01-11')
+      create(:article_course_user_wiki_timeslice, course:, article: article1, user:,
+             wiki: enwiki, start: '2024-01-10', end: '2024-01-11')
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'marks timeslices for reaggregation and keeps ACUWT records' do
+        described_class.new(course).reset_excluded(articles)
+
+        expect(course.articles_courses.where(article: article1)).to be_empty
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
+        expect(timeslice.needs_reaggregation).to eq(true)
+        expect(timeslice.needs_update).to eq(false)
+        acuwt = ArticleCourseUserWikiTimeslice.where(course:, article: article1)
+        expect(acuwt.count).to eq(1)
+        expect(acuwt.first.needs_update).to eq(false)
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'marks timeslices as needs_update' do
+        described_class.new(course).reset_excluded(articles)
+
+        expect(course.articles_courses.where(article: article1)).to be_empty
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
+        expect(timeslice.needs_update).to eq(true)
+        expect(timeslice.needs_reaggregation).to eq(false)
+      end
+    end
+  end
+
   describe '.clean_articles_courses_for_wiki_ids' do
     before do
       stub_wiki_validation

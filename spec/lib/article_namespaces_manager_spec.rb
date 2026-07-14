@@ -104,6 +104,28 @@ describe ArticleNamespacesManager do
       expect(course_wiki_timeslice.needs_update).to eq(true)
     end
 
+    context 'when the course uses ACUWT' do
+      let(:user) { create(:user) }
+
+      before do
+        course.add_flag(key: :use_acuwt)
+        create(:article_course_user_wiki_timeslice, course:, article: article3, user:,
+               wiki: wikidata, start: '2024-01-11', end: '2024-01-12')
+      end
+
+      it 'resets untracked articles through reaggregation' do
+        described_class.new(course)
+
+        expect(course.articles_courses.where(article: article3)).to be_empty
+        expect(course.article_course_timeslices.where(article: article3)).to be_empty
+        course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
+                                                                      start: '2024-01-11')
+        expect(course_wiki_timeslice.needs_reaggregation).to eq(true)
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+        expect(ArticleCourseUserWikiTimeslice.where(course:, article: article3).count).to eq(1)
+      end
+    end
+
     it 'reset articles for deleted articles when statuses were synced' do
       described_class.new(course, statuses_synced: true)
 

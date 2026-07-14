@@ -114,6 +114,23 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_article_course(articles.pluck(:id))
   end
 
+  # Resets articles that should be excluded from the course stats from now on
+  # (e.g. articles that moved to an untracked namespace).
+  # For ACUWT courses, no re-fetching is needed: the articles' ACUWT rows already hold
+  # complete scored data, so reaggregating the affected timeslices is enough (the
+  # aggregation filters exclude the articles). ACUWT rows are kept, so the articles can
+  # be re-included later without a full re-fetch
+  # (see ArticlesCourses.create_records_and_mark_acuwt).
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_excluded(articles)
+    return reset_legacy(articles) unless @course.use_acuwt?
+
+    article_ids = articles.pluck(:id)
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
+    TimesliceCleaner.new(@course).reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    delete_article_course(article_ids)
+  end
+
   private
 
   # Returns article ids for every article edited before the current course start date
