@@ -63,7 +63,7 @@ class ArticleNamespacesManager
     # Note that this could remove articles courses records for manually untracked articles
     @course.articles.where(deleted: true).in_batches do |article_batch|
       deleted_ids += article_batch.pluck(:id)
-      @cleaner.reset(article_batch)
+      @cleaner.reset_legacy(article_batch)
     end
     log_reset('Article untracked', 'deleted', deleted_ids)
   end
@@ -77,7 +77,7 @@ class ArticleNamespacesManager
         tracked = articles_in_tracked_namespaces(article_batch)
         tracked_without_articles_courses = tracked - @course.articles.to_a
         retracked_ids += tracked_without_articles_courses.map(&:id)
-        @cleaner.reset(tracked_without_articles_courses, wiki)
+        @cleaner.reset_legacy(tracked_without_articles_courses, wiki)
       end
     end
     log_reset('Article retracked', 'undeleted_or_retracked', retracked_ids)
@@ -85,7 +85,7 @@ class ArticleNamespacesManager
 
   def reset_articles_that_moved_to_mainspace
     articles = Article.find(moved_to_mainspace)
-    @cleaner.reset(articles)
+    @cleaner.reset_legacy(articles)
     log_reset('Article retracked', 'moved_to_mainspace', articles.map(&:id))
   end
 
@@ -96,7 +96,7 @@ class ArticleNamespacesManager
       # Find articles with articles_courses records but not in tracked namespaces
       untracked_articles = article_batch.where.not(id: tracked_ids)
       untracked_ids += untracked_articles.pluck(:id)
-      @cleaner.reset(untracked_articles)
+      @cleaner.reset_legacy(untracked_articles)
     end
     log_reset('Article untracked', 'moved_to_untracked_namespace', untracked_ids)
   end
