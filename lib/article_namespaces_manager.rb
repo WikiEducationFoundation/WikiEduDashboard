@@ -20,6 +20,10 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 #   the article moved to a tracked namespace and became relevant.
 #   In such cases, we need to flag the timeslices for reprocessing, since previous stats weren't
 #   counted as tracked-namespace stats.
+#   This case is not handled here for ACUWT courses: reaggregation rebuilds article course
+#   timeslices from ACUWT rows, so the created_at ordering this detection relies on is not
+#   preserved. Instead, ArticlesCourses.update_from_course_revisions marks the article's
+#   preexisting ACUWT rows as needs_update when it creates the article course record.
 #
 # 2- Articles that moved from a tracked namespace to a non-tracked namespace.
 #
@@ -46,7 +50,9 @@ class ArticleNamespacesManager
       reset_deleted_articles
       reset_undeleted_or_retracked_articles unless @course.only_scoped_articles_course?
     end
-    reset_articles_that_moved_to_mainspace
+    # For ACUWT courses, this case is detected when the articles_courses record is
+    # created instead (see ArticlesCourses.update_from_course_revisions).
+    reset_articles_that_moved_to_mainspace unless @course.use_acuwt?
     reset_articles_in_untracked_namespaces
   end
 

@@ -45,6 +45,21 @@ describe ArticleNamespacesManager do
                        reason: 'moved_to_mainspace',
                        article_ids: [mainspace_article.id] })
     end
+
+    # For ACUWT courses, this case is detected when the articles_courses record is
+    # created instead (see ArticlesCourses.update_from_course_revisions).
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'does not reset the article' do
+        subject
+        expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
+        expect(ArticlesCourses.where(article_id: mainspace_article.id).count).to eq(1)
+        expect(ArticleCourseTimeslice.where(article_id: mainspace_article.id).count).to eq(2)
+      end
+    end
   end
 
   context 'when the tracked status of articles changed' do
