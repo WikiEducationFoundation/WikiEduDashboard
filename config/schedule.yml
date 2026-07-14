@@ -45,13 +45,6 @@ update_default_campaign:
   class: "DefaultCampaignUpdateWorker"
   queue: default
 
-# Computes daily system-wide metrics snapshot (total edits, articles, new editors, etc.)
-# Runs 1 hour after DailyUpdateWorker so course caches are fresh.
-system_stat_update:
-  cron: "30 12 * * *" # every day at 12:30 UTC
-  class: "SystemStatUpdateWorker"
-  queue: daily_update
-
 # Computes weekly per-facilitator metrics (programs, edits, new editors per organizer).
 facilitator_stat_update:
   cron: "0 2 * * 0" # every Sunday at 2:00 AM UTC

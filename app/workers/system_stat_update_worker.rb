@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 #= SystemStatUpdateWorker
-# Runs daily via sidekiq-cron (1 hour after DailyUpdateWorker).
+# Enqueued by DailyUpdate after the daily update cycle completes,
+# ensuring course caches are fresh before computing the snapshot.
 # Computes system-wide metrics across all non-private programs
 # and upserts a single row into the system_stats table for today.
 class SystemStatUpdateWorker
@@ -46,7 +47,7 @@ class SystemStatUpdateWorker
   # Wikipedia account during the program period (start to end).
   def compute_new_editors_count
     new_editor_base_scope
-      .where('users.registered_at BETWEEN courses.start AND courses.end')
+      .where(NewEditorDateConditions::DURING_PROGRAM)
       .distinct
       .count
   end
@@ -55,7 +56,7 @@ class SystemStatUpdateWorker
   # 60 days before the program start.
   def compute_new_editors_count_with_preregistration
     new_editor_base_scope
-      .where('users.registered_at BETWEEN DATE_SUB(courses.start, INTERVAL 60 DAY) AND courses.end')
+      .where(NewEditorDateConditions::WITH_PREREGISTRATION)
       .distinct
       .count
   end
@@ -108,7 +109,7 @@ class SystemStatUpdateWorker
 
   def compute_new_editors_with_preregistration_by_wiki
     new_editor_base_scope
-      .where('users.registered_at BETWEEN DATE_SUB(courses.start, INTERVAL 60 DAY) AND courses.end')
+      .where(NewEditorDateConditions::WITH_PREREGISTRATION)
       .group('courses.home_wiki_id')
       .distinct
       .count('users.id')

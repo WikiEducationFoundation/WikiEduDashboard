@@ -115,7 +115,7 @@ class FacilitatorStatUpdateWorker
   # New editors per facilitator (registered during program)
   def compute_new_editor_counts
     student_instructor_join
-      .where('users.registered_at BETWEEN courses.start AND courses.end')
+      .where(NewEditorDateConditions::DURING_PROGRAM)
       .group('instructor_cu.user_id')
       .count(Arel.sql('DISTINCT users.id'))
   end
@@ -123,7 +123,7 @@ class FacilitatorStatUpdateWorker
   # New editors per facilitator (registered with 60-day pre-window)
   def compute_new_editor_counts_with_preregistration
     student_instructor_join
-      .where('users.registered_at BETWEEN DATE_SUB(courses.start, INTERVAL 60 DAY) AND courses.end')
+      .where(NewEditorDateConditions::WITH_PREREGISTRATION)
       .group('instructor_cu.user_id')
       .count(Arel.sql('DISTINCT users.id'))
   end
@@ -158,6 +158,4 @@ class FacilitatorStatUpdateWorker
         .where(courses_users: { role: CoursesUsers::Roles::STUDENT_ROLE })
         .merge(Course.nonprivate)
   end
-
-
 end
