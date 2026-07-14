@@ -44,3 +44,11 @@ update_default_campaign:
   cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
   class: "DefaultCampaignUpdateWorker"
   queue: default
+
+# Once a week, flag old courses (ended over 6 months ago, tracked in the timeslice
+# system, with no pending timeslice work) as purgeable, so a later job can delete
+# their timeslices and keep the timeslice tables from growing without bound.
+mark_purgeable_courses:
+  cron: "0 8 * * 6" # every Saturday at 1am PT (UTC -7)
+  class: "MarkPurgeableCoursesWorker"
+  queue: default

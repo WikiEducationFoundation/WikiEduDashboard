@@ -958,4 +958,39 @@ describe Course, type: :model do
       end
     end
   end
+
+  describe '.needs_partial_update' do
+    let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
+    let(:course) { create(:course) }
+
+    it 'includes a course with a course wiki timeslice needing update' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_update: true)
+      expect(described_class.needs_partial_update).to include(course)
+    end
+
+    it 'includes a course with a course wiki timeslice needing reaggregation' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_reaggregation: true)
+      expect(described_class.needs_partial_update).to include(course)
+    end
+
+    it 'includes a course with an ACUWT needing update' do
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: true)
+      expect(described_class.needs_partial_update).to include(course)
+    end
+
+    it 'excludes a course whose timeslices are all up to date' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_update: false)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: false)
+      expect(described_class.needs_partial_update).not_to include(course)
+    end
+
+    it 'returns a course only once when both CWT and ACUWT need update' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_update: true)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: true)
+      expect(described_class.needs_partial_update.to_a.count(course)).to eq(1)
+    end
+  end
 end
