@@ -31,11 +31,25 @@ class TrainingModulesUsers < ApplicationRecord
 
   def eligible_for_completion?(wiki)
     # If module doesn't have a sandbox_location, there's nothing to check.
-    return true unless training_module.sandbox_location
+    return true unless training_module.sandbox_location || training_module.article_title_input
 
-    # Via the API, we send the title without the URL encoding of special characters.
-    sandbox_content = WikiApi.new(wiki).get_page_content CGI.unescape exercise_sandbox_location
-    sandbox_content.present?
+    if training_module.sandbox_location
+      # Via the API, we send the title without the URL encoding of special characters.
+      sandbox_content = WikiApi.new(wiki).get_page_content CGI.unescape exercise_sandbox_location
+      return sandbox_content.present?
+    end
+
+    # For article_title_input exercises: the title is only saved after WikiApi
+    # confirmed the edit in verify_exercise_article, so presence is sufficient.
+    exercise_article_title.present?
+  end
+
+  def store_exercise_article_title(title)
+    flags['exercise_article_title'] = title
+  end
+
+  def exercise_article_title
+    flags['exercise_article_title']
   end
 
   # This is only used on Wiki Education Dashboard

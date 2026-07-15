@@ -24,11 +24,13 @@
     left: 50%
     transform: translate(-50%, -50%)
     background: white
-    padding: 20px
+    padding: 30px
     border-radius: 5px
     box-shadow: 0px 0px 10px #ccc
     z-index: 1000
     text-align: left
+    width: 480px
+    min-height: 220px
     h2
      font-weight: 500
      text-align: left
@@ -40,14 +42,35 @@
       font-weight: 200
       font-size: 16px
       color: rgb(111, 111, 111)
+    .alert-box__input
+      width: 100%
+      padding: 8px 12px
+      font-size: 15px
+      border: 1px solid #ccc
+      border-radius: 4px
+      margin-bottom: 10px
+      box-sizing: border-box
+      &:focus
+        outline: none
+        border-color: #4CAF50
+    .alert-content--success
+      color: #2e7d32
+    .alert-content--error
+      color: #c62828
+      font-size: 14px
     div
       text-align: right
-      button
-        color: green
+      margin-top: 10px
+      .alert-button
+        color: $training_primary
         padding: 10px 20px
         font-size: 1.0em
         border-radius: 500px
         border: none
-        margin: 0 auto
         cursor: pointer
         background: transparent
+      .btn.btn-primary
+        margin-left: 8px
+        &:disabled
+          opacity: 0.5
+          cursor: not-allowed

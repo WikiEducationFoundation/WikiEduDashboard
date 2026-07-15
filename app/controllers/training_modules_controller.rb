@@ -10,6 +10,10 @@ class TrainingModulesController < ApplicationController
 
   def show
     @training_module = TrainingModule.find_by(slug: params[:module_id])
+    if @training_module&.article_title_input && current_user
+      @exercise_tmu = TrainingModulesUsers.find_by(user: current_user,
+                                                    training_module: @training_module)
+    end
   end
 
   def find

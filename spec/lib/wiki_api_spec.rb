@@ -225,6 +225,27 @@ describe WikiApi do
     end
   end
 
+  describe '#user_has_edited_article?' do
+    let(:wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
+    let(:subject) { described_class.new(wiki) }
+
+    it 'returns true when the API response includes a revision for the user' do
+      revision = { 'revid' => 1_102_334_271, 'user' => 'Ragesoss' }
+      pages = { '2082' => { 'pageid' => 2082, 'ns' => 0, 'title' => 'Ada Lovelace',
+                            'revisions' => [revision] } }
+      allow(subject).to receive(:query)
+        .and_return(double(data: { 'pages' => pages }))
+      expect(subject.user_has_edited_article?('Ragesoss', 'Ada Lovelace')).to be true
+    end
+
+    it 'returns false when the API response has no revisions for the user' do
+      pages = { '20604' => { 'pageid' => 20604, 'ns' => 0, 'title' => 'Marie Curie' } }
+      allow(subject).to receive(:query)
+        .and_return(double(data: { 'pages' => pages }))
+      expect(subject.user_has_edited_article?('Ragesoss', 'Marie Curie')).to be false
+    end
+  end
+
   describe '#fetch_all' do
     it 'returns the same data as a single complete query would' do
       VCR.use_cassette 'wiki/continue_response' do

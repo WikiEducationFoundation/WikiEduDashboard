@@ -12,7 +12,8 @@ export const ExerciseButton = ({
   );
 
   if (isComplete && isExercise) {
-    if (flags.marked_complete) {
+    const isVerified = !!flags?.marked_complete;
+    if (isVerified) {
       const onClick = () => incomplete(block_id, slug).then(() => fetchExercises(course.id));
       button = (
         <div>
@@ -41,7 +42,8 @@ ExerciseButton.propTypes = {
     id: PropTypes.number.isRequired
   }).isRequired,
   flags: PropTypes.shape({
-    marked_complete: PropTypes.bool
+    marked_complete: PropTypes.bool,
+    exercise_article_title: PropTypes.string,
   }),
   isComplete: PropTypes.bool.isRequired,
   isExercise: PropTypes.bool.isRequired,
