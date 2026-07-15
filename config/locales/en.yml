@@ -1665,7 +1665,6 @@ en:
     cited_source: Cited source
     source_url: Source URL
     select_claim: Select this claim to verify
-    choose_article: Choose an article
     no_articles: No articles available
     your_selected_claim: Your selected claim
     find_in_article: Find this in the article text
@@ -1675,7 +1674,47 @@ en:
     course_picker_heading: Choose course
     course_picker_no_courses: No courses
     take_not_enrolled: You must be enrolled in the course to do that.
-    complete_in_sandbox: Complete this exercise in your Wikipedia sandbox.
+    # Exercise copy (operator-provided; see claim_verification_instructions.txt).
+    intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the author’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, and it’s one of the most critical policies behind Wikipedia’s credibility."
+    intro_p2: "As AI tools become more widely used, it's more important than ever to learn how to verify information. AI-generated content often mismatches facts and sources — which is one of the major reasons why you cannot use it to add content to Wikipedia."
+    intro_p3: "In this exercise, you’ll see verifiability in action. You’ll practice how to verify claims by trying to find a specific fact in a cited source."
+    step_select_article: "Step 1: Select an article."
+    select_claim_instructions: "The following claims need to be checked against the cited sources, because they may be AI-generated. (Note: the article may have changed since these claims were added.)"
+    form:
+      step_find_source: "Step 3: Find the source"
+      find_source_instructions: "Now that you’ve selected your claim, track down the cited source. You may need to consult your instructor or librarian to find the source."
+      source_access_question: "Were you able to access the full text of the cited source for your claim?"
+      source_access_options:
+        accessed: "Yes, I got the source."
+        nonexistent: "No, the source does not exist."
+        inaccessible: "No, the source exists but I could not get access to it."
+      source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
+      step_verify: "Step 4: Verify the claim"
+      verify_instructions: "Once you’ve found the cited source, examine it carefully to determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it. (Some citations are too imprecise for a reader to practically verify.)"
+      verdict_question: "Does the source back up the claim?"
+      verdict_options:
+        full_support: "Yes — it explicitly supports the full claim."
+        mostly_supports: "Mostly yes — the core of the claim comes from this source."
+        partial_support: "Partially — some elements of the claim come from this source, but a significant part does not."
+        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
+        unsupported: "No — the source does not cover what the claim says."
+        contradicted: "The opposite — the source actually contradicts the claim."
+        undetermined: "I was unable to determine whether the claim was in the cited source."
+      claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
+      verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
+      other_comments_label: "Any other comments about this exercise?"
+      submit: Submit
+      submitted_heading: "Submitted response"
+      edit_response: Edit response
+      submit_failed: "Error! Your response was not saved."
+    # Instructor view of everyone's responses.
+    responses:
+      heading: Student responses
+      preview_exercise: Preview exercise
+      submitted_at: "Submitted %{date}"
+      pending_heading: "In progress"
+      taken_at: "Claim taken %{date}"
+      none_yet: "No students have selected a claim yet."
     # Internal staff harvest page.
     admin:
       loading: Loading…

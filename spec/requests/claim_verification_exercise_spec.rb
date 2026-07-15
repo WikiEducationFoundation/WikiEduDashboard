@@ -51,13 +51,21 @@ describe 'Claim verification exercise', type: :request do
                     'language' => 'en', 'project' => 'wikipedia')
     end
 
-    it 'returns the taken claim and the sandbox handoff when one is taken' do
+    it 'returns the taken claim when one is taken' do
       VerificationClaimAssignment.create!(user: student, course:, verification_claim: pool_claim)
       get "/courses/#{course.slug}/verify_claim/state"
       assignment = response.parsed_body['assignment']
       expect(assignment['claim']['sentence']).to eq('Sea otters use rocks as tools.')
       expect(assignment['claim']['source_url']).to eq('https://example.com/otters')
-      expect(assignment['sandbox_url']).to include('User:Otterfan/Claim_verification_exercise')
+      expect(response.parsed_body['response']).to be_nil
+    end
+
+    it 'returns the submitted response alongside the taken claim' do
+      VerificationClaimAssignment.create!(user: student, course:, verification_claim: pool_claim)
+      VerificationClaimResponse.create!(user: student, course:, verification_claim: pool_claim,
+                                        source_access: 'accessed', verdict: 'full_support')
+      get "/courses/#{course.slug}/verify_claim/state"
+      expect(response.parsed_body['response']['verdict']).to eq('full_support')
     end
 
     it 'is open to any signed-in user, even one not enrolled in the course' do
