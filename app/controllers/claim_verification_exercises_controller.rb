@@ -5,22 +5,30 @@
 # through to `courses#show` and React Router renders the exercise (article
 # picker → in-viewer claim selection → taken claim) with no reloads. This
 # controller serves only that flow's JSON and the slug-less entry funnel:
-# - GET state: the student's taken claim (if any) + the (article, flagged
-#   revision) tiles they can pick, drawn from the pre-harvested claim pool.
+# - GET state: the student's taken claim + submitted response (if any) + the
+#   (article, flagged revision) tiles they can pick, drawn from the
+#   pre-harvested claim pool.
 # - GET annotated_article: the flagged revision's HTML with its pre-harvested
 #   claims tagged.
 # - POST take: assign the chosen (already-persisted) pool claim, return it.
 # - GET entry (slug-less): infer the course and send the student into its SPA
 #   exercise, else show a course picker.
 # Claims are harvested ahead of time (rake claim_verification:harvest_pool) from
-# mainspace AiEditAlert revisions; the student does the verification in their
-# sandbox, so nothing they produce is stored.
+# mainspace AiEditAlert revisions; the student then does the verification in
+# the dashboard, submitting the form handled by
+# ClaimVerificationResponsesController.
 class ClaimVerificationExercisesController < ApplicationController
   before_action :require_signed_in
 
   def state
     @course = course_from_slug
     @assignment = VerificationClaimAssignment.find_by(user: current_user, course: @course)
+    # The response for the *current* claim (responses are keyed per claim);
+    # after switching claims, the fresh claim has no response yet.
+    @response = @assignment && VerificationClaimResponse.find_by(
+      user: current_user, course: @course,
+      verification_claim: @assignment.verification_claim
+    )
     @tiles = RelevantClaimRevisionsForCourse.new(@course).tiles
     # renders state.json.jbuilder
   end
@@ -43,6 +51,11 @@ class ClaimVerificationExercisesController < ApplicationController
     return head(:forbidden) unless enrolled_in_course?
     claim = VerificationClaim.find_by(id: params[:verification_claim_id])
     assign(claim) if claim
+    # An earlier response for this same claim, if any (responses are keyed per
+    # claim, so switching claims never orphans one) — re-taking a claim brings
+    # the student back to their submitted answers.
+    @response = claim && VerificationClaimResponse.find_by(user: current_user, course: @course,
+                                                           verification_claim: claim)
     # renders take.json.jbuilder (@assignment is nil if the claim was not found),
     # so the SPA can transition. Claims are shareable: no exclusivity is enforced.
   end

@@ -1,6 +1,7 @@
 // Student claim-verification exercise (/verify_claim). Two focal elements: the
-// claim, and the source it cites. Intro, context and the sandbox handoff are
-// kept visually subordinate so attention lands on the claim and the source.
+// claim, and the source it cites; the verification form follows as the work
+// area. Intro and context are kept visually subordinate so attention lands on
+// the claim and the source.
 // Variables come from _variables.styl (globally in scope via _shared).
 
 .claim-verification-exercise
@@ -77,14 +78,13 @@
     color $text_med
     font-style italic
 
-  // Handoff to the sandbox, set off below a divider as the follow-on step.
-  &__sandbox
-    margin-top 28px
-    padding-top 24px
-    border-top 1px solid $border_lt
-    p
-      color $text_med
-      margin-bottom 16px
+  // The submitted-answers section (post-submission resting view).
+  &__response
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 28px 32px
+    margin-bottom 20px
+    background white
 
   // Small link from the claim into the source article (at the cited footnote).
   &__article-link
@@ -177,6 +177,204 @@
       margin-bottom 12px
       font-size 1.1em
 
+// Staff-only link to the submissions view, tucked under the timeline module
+// row's "Open Exercise" button.
+.block__training-modules-table__responses-link
+  display block
+  margin-top 6px
+  font-size .9em
+
+// "Submitted response" popover on the students-tab exercise rows: the claim
+// and the form answers, shown in place of navigating anywhere.
+.cv-response-pop
+  .pop
+    max-height 420px
+    overflow-y auto
+    text-align left
+    // The base .pop styles assume a compact edit-form popover and force
+    // nowrap on cells; this popover is prose, so wrap it and keep the table
+    // at its set width (long unbroken tokens break rather than overflow).
+    table
+      table-layout fixed
+      max-width 76vw
+    td
+      padding 16px 18px
+      white-space normal
+      overflow-wrap break-word
+
+  &__item blockquote
+    margin 0 0 12px 0
+    padding 0 0 0 12px
+    border-left 3px solid $brand_primary
+    font-family $header-font
+    color $text_dk
+
+  &__item + &__item
+    margin-top 18px
+    padding-top 18px
+    border-top 1px solid $border_lt
+
+// The verification form (steps 3 and 4 of the exercise): each step is a card
+// in the same family as the claim/source cards above, with the questions
+// inside kept quiet so the operator-provided wording carries the structure.
+.cv-form
+  &__step
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 28px 32px
+    margin-bottom 20px
+    background white
+
+  &__step-heading
+    font-size 1.15em
+    margin 0 0 10px 0
+
+  &__step-instructions
+    color $text_med
+    max-width 40em
+    margin-bottom 20px
+
+  &__question
+    border 0
+    padding 0
+    margin 0 0 22px 0
+    &:last-child
+      margin-bottom 0
+
+  &__question-label
+    display block
+    font-weight 600
+    color $text_dk
+    margin-bottom 10px
+    max-width 44em
+    line-height 1.45
+
+  &__option
+    display flex
+    align-items baseline
+    gap 8px
+    margin-bottom 8px
+    cursor pointer
+    max-width 44em
+    line-height 1.45
+    input
+      flex none
+      cursor pointer
+
+  &__textarea
+    display block
+    width 100%
+    max-width 44em
+    padding 8px 10px
+    border 1px solid $border_lt
+    border-radius 4px
+    font inherit
+    line-height 1.5
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 1px
+
+  &__error
+    color $warning_text
+    margin-bottom 14px
+
+  &__actions
+    display flex
+    gap 10px
+
+// A submitted response as question/answer pairs — the student's own summary
+// and the instructor cards share this.
+.cv-response
+  &__answers
+    margin 0 0 18px 0
+
+  &__answer
+    margin-bottom 16px
+    &:last-child
+      margin-bottom 0
+    dt
+      font-weight 600
+      color $text_med
+      font-size .92em
+      max-width 44em
+      line-height 1.45
+      margin-bottom 4px
+    dd
+      margin 0
+      color $text_dk
+      line-height 1.5
+      max-width 44em
+
+// Instructor view (/verify_claim/responses): heading row with the
+// open-the-exercise action, then one card per response (and per pending
+// student).
+.claim-verification-responses__header
+  display flex
+  align-items baseline
+  justify-content space-between
+  gap 12px
+  flex-wrap wrap
+
+// Return bar on the single-student-filtered submissions view: the way back to
+// the full list. The content below brings its own top margin.
+.cv-preview-return
+  margin-top 24px
+  font-size .95em
+  a
+    display inline-block
+
+.cv-response-card
+  border 1px solid $border_lt
+  border-radius 4px
+  padding 24px 28px
+  margin-bottom 20px
+  background white
+
+  &__header
+    display flex
+    align-items baseline
+    justify-content space-between
+    gap 12px
+    flex-wrap wrap
+    margin-bottom 14px
+    // The card header is a <header> element, which the site-wide layout rule
+    // gives 20px padding and centering; neutralize that here.
+    padding 0
+    text-align left
+    h2, h3
+      font-size 1.15em
+      margin 0
+
+  &__date
+    color $text_med
+    font-size .88em
+
+  &__claim
+    margin-bottom 18px
+    blockquote
+      margin 0 0 8px 0
+      padding 0 0 0 14px
+      border-left 3px solid $brand_primary
+      font-family $header-font
+      font-size 1.05em
+      line-height 1.45
+      color $text_dk
+
+  &__claim-links
+    margin 0
+    font-size .9em
+    a
+      margin-right 16px
+
+  &--pending
+    background $bg_light_gray
+
+.cv-response-pending
+  margin-top 34px
+  h2
+    font-size 1.2em
+    margin-bottom 14px
+
 // In-viewer claim selection (the ArticleViewer claim-highlighting variant).
 // The annotated article HTML tags each cited claim's citation marker `.cv-claim`;
 // clicking one opens the selection panel that floats over the article.
@@ -268,6 +466,14 @@
   .cv-revision-notice
     margin-bottom 6px
     font-size .82em
+    font-weight 400
+    color $text_dk
+
+  // The step-2 explanation (why these claims need checking): supporting copy
+  // above the bold click instruction.
+  .cv-select-claim-note
+    margin-bottom 6px
+    font-size .88em
     font-weight 400
     color $text_dk
 

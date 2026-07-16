@@ -8,6 +8,14 @@ else
   json.assignment nil
 end
 
+# The student's submitted form answers, if any: the SPA shows the submitted
+# view (with editing) instead of the form, and stops offering claim switching.
+if @response
+  json.response { json.partial! 'claim_verification_responses/response', response: @response }
+else
+  json.response nil
+end
+
 json.articles @tiles do |tile|
   article = tile.article
   json.id article.id

@@ -51,6 +51,7 @@ const updateBlock = (valueKey, value) => {
     const block = props.block;
     const isEditable = _isEditable();
     const isStudent = props.current_user && props.current_user.isStudent;
+    const isStaff = Boolean(props.current_user && props.current_user.isAdvancedRole);
     if (_hidden()) { return null; }
 
     let className = 'block';
@@ -134,6 +135,7 @@ const updateBlock = (valueKey, value) => {
           block={block}
           editable={isEditable}
           isStudent={isStudent}
+          isStaff={isStaff}
           trainingLibrarySlug={props.trainingLibrarySlug}
         />);
       }

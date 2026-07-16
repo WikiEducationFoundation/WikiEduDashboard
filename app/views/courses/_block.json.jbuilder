@@ -15,6 +15,8 @@ if block.training_module_ids.present?
       user:
     )
     json.call(tm, :slug, :id, :name, :kind, :sandbox_preload, :translated_name)
+    # A slide-less module (an in-app exercise) has no training page to link to.
+    json.slide_count tm.slide_slugs.count
     json.module_progress due_date_manager.module_progress
     json.due_date due_date_manager.computed_due_date
     json.overdue due_date_manager.overdue?
