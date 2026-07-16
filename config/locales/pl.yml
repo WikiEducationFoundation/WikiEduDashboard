@@ -8,6 +8,7 @@
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
+# Author: PanWor
 # Author: Rail
 # Author: Railfail536
 # Author: Rzuwig
@@ -472,7 +473,7 @@ pl:
       z ewentualnymi pytaniami.
     suggestions_feedback: Czy masz uwagi co do poprawy tego narzędzia? Daj nam znać!
     suggestions_sending: Wysyłanie opinii...
-    suggestions_sent: Opinia została przekazana. Dziekujemy za twój poświęcony czas.
+    suggestions_sent: Opinia została przekazana. Dziekujemy za Twój poświęcony czas.
     suggestions_failed: Wystąpił problem z wysyłaniem opinii. Spróbuj ponownie później.
     user_role: Rola
     course_details: Szczegóły kursu

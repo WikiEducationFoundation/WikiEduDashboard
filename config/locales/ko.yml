@@ -1567,7 +1567,6 @@ ko:
     cited_source: 인용된 출처
     source_url: 출처 URL
     select_claim: 이 주장을 선택하여 확인하세요
-    choose_article: 문서를 선택하세요
     no_articles: 이용 가능한 문서 없음
     your_selected_claim: 선택된 주장
     find_in_article: 이것을 문서 본문에서 찾기
@@ -1577,7 +1576,6 @@ ko:
     course_picker_heading: 과정을 선택하세요
     course_picker_no_courses: 과정 없음
     take_not_enrolled: 그러려면 해당 과정에 등록되어 있어야 합니다.
-    complete_in_sandbox: 이 연습을 당신의 위키백과 연습장에서 마무리하세요.
     admin:
       loading: 불러오는 중…
       heading: 주장 확인

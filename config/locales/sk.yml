@@ -1788,7 +1788,6 @@ sk:
     cited_source: Citovaný zdroj
     source_url: URL zdroja
     select_claim: Vyberte toto tvrdenie na overenie
-    choose_article: Vyberte článok
     no_articles: Nie sú dostupné žiadne články
     your_selected_claim: Vaše vybrané tvrdenie
     find_in_article: Nájsť toto v texte článku
@@ -1798,7 +1797,6 @@ sk:
     course_picker_heading: Vyberte kurz
     course_picker_no_courses: Žiadne kurzy
     take_not_enrolled: Aby ste to mohli urobiť, musíte byť zapísaní v kurze.
-    complete_in_sandbox: Dokončite toto cvičenie vo svojom pieskovisku na Wikipédii.
     admin:
       loading: Načítava sa…
       heading: Overovanie tvrdení
