@@ -47,8 +47,12 @@ class UpdateTimeslicesCourseUser
       add_user_ids_acuwt(user_ids)
     else
       add_user_ids_legacy(user_ids)
+      update_created_at_for_users(user_ids)
     end
-    # Update created_at field for courses users to prevent re-marking them as newly added
+  end
+
+  # Update created_at field for courses users to prevent re-marking them as newly added
+  def update_created_at_for_users(user_ids)
     @course.courses_users.where(user_id: user_ids)
            .update_all(created_at: @course_update_start - 1.second) # rubocop:disable Rails/SkipsModelValidations
   end
@@ -59,35 +63,64 @@ class UpdateTimeslicesCourseUser
     end
   end
 
+  # Process new users one at a time, marking each as no-longer-new as soon as all their
+  # revisions were processed, so that an interrupted update doesn't redo completed users.
+  # If processing fails for some wiki, the user stays new (to be retried next update),
+  # so we skip their remaining wikis instead of doing work that would be redone anyway.
   def add_user_ids_acuwt(user_ids)
-    @course.wikis.each do |wiki|
-      fetch_and_create_acuwt_for_new_users(wiki, user_ids)
+    user_ids.each do |user_id|
+      user = User.find(user_id)
+      failed = false
+      @course.wikis.each do |wiki|
+        fetch_and_create_acuwt_for_new_user(wiki, user)
+      rescue StandardError => e
+        failed = true
+        log_user_processing_error(e, user_id, wiki.id)
+        break
+      end
+      update_created_at_for_users([user_id]) unless failed
     end
   end
 
-  def fetch_and_create_acuwt_for_new_users(wiki, user_ids)
+  # Fetch the new user's revisions one course wiki timeslice at a time, so that a single
+  # fetch/processing pass is never bigger than what the timeslice splitting already
+  # determined this course can handle.
+  def fetch_and_create_acuwt_for_new_user(wiki, user)
     updater = CourseRevisionUpdater.new(@course, update_service: @update_service)
-    revisions = updater.fetch_revisions_for_new_users(
-      wiki, User.find(user_ids),
-      @course.start.strftime('%Y%m%d%H%M%S'),
-      @course.end.strftime('%Y%m%d%H%M%S')
-    )
-    mark_timeslices_and_create_acuwt(wiki, revisions) if revisions.any?
+    timeslices_to_process(wiki).each do |cwt|
+      revisions = updater.fetch_revisions_for_new_users(
+        wiki, [user], real_start(cwt.start), real_end(cwt.end)
+      )
+      next if revisions.empty?
+
+      create_acuwt_records_for_timeslice(wiki, cwt, revisions)
+      CourseWikiTimeslice.where(id: cwt.id)
+                         .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
+    end
   end
 
-  def mark_timeslices_and_create_acuwt(wiki, revisions)
-    needs_reaggregation_ids = []
-    CourseWikiTimeslice.for_course_and_wiki(@course, wiki).each do |cwt|
-      revs_in_period = revisions.select { |r| cwt.start <= r.date && r.date < cwt.end }
-      next if revs_in_period.empty?
+  # Every timeslice up to the current ingestion limit. Future timeslices can't
+  # contain revisions yet, so fetching them would be wasted requests.
+  def timeslices_to_process(wiki)
+    timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+    latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
+    latest_start ? timeslices.where('start <= ?', latest_start) : timeslices
+  end
 
-      create_acuwt_records_for_timeslice(wiki, cwt, revs_in_period)
-      needs_reaggregation_ids << cwt.id
-    end
-    return if needs_reaggregation_ids.empty?
+  def real_start(timeslice_start)
+    [timeslice_start, @course.start].max.strftime('%Y%m%d%H%M%S')
+  end
 
-    CourseWikiTimeslice.where(id: needs_reaggregation_ids)
-                       .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
+  # Replica treats both bounds as inclusive, so subtract a second from the timeslice
+  # end to avoid fetching boundary revisions for two adjacent timeslices.
+  def real_end(timeslice_end)
+    [timeslice_end - 1.second, @course.end].min.strftime('%Y%m%d%H%M%S')
+  end
+
+  def log_user_processing_error(error, user_id, wiki_id)
+    Sentry.capture_message "#{@course.slug} new user processing error: #{error}",
+                           level: 'error',
+                           extra: { course_id: @course.id, user_id:, wiki_id: }
   end
 
   def create_acuwt_records_for_timeslice(wiki, cwt, revisions)

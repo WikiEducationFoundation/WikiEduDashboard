@@ -43,6 +43,7 @@ class CourseRevisionUpdater
   def fetch_revisions_for_new_users(wiki, users, ts_start, ts_end)
     manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
     revisions = manager.fetch_revision_data_for_users_with_articles(users, ts_start, ts_end)
+    return revisions if revisions.empty?
     create_articles_courses(revisions)
     return revisions unless wiki.project == 'wikidata'
     live_revisions = revisions.reject(&:deleted)
