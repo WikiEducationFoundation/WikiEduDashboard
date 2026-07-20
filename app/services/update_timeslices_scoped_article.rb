@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
-require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 
 # Adjusts timeslices when articles enter or leave scope in ArticleScopedProgram
@@ -17,7 +16,9 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 #   ArticlesCourses.update_from_course_revisions).
 #
 #   Old articles (articles_courses present but no longer scoped): removes the
-#   articles_courses and ACUWT rows, then marks affected CWT timeslices for reaggregation.
+#   articles_courses records and marks affected CWT timeslices for reaggregation, via
+#   ArticlesCoursesCleaner#reset_excluded — the same mechanism used when an article
+#   moves out of a tracked namespace or is deleted. ACUWT rows are kept.
 #
 # Legacy path (course.use_acuwt? == false):
 #   Both cases are handled by ArticlesCoursesCleaner, marking CWT timeslices
@@ -25,7 +26,6 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 class UpdateTimeslicesScopedArticle
   def initialize(course, update_service: nil)
     @course = course
-    @timeslice_cleaner = TimesliceCleaner.new(course)
     @scoped_article_ids = course.scoped_article_ids
     @update_service = update_service
   end
@@ -61,10 +61,7 @@ class UpdateTimeslicesScopedArticle
     return if old_article_ids.empty?
 
     log_info "Removing old unscoped articles: #{old_article_ids}"
-
-    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: old_article_ids)
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
-    ArticlesCourses.where(course: @course, article_id: old_article_ids).delete_all
+    ArticlesCoursesCleaner.new(@course).reset_excluded(Article.where(id: old_article_ids))
   end
 
   # Scoped article IDs that lack articles_courses records but have existing ACUWT rows
