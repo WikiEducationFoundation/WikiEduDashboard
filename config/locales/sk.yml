@@ -1797,6 +1797,68 @@ sk:
     course_picker_heading: Vyberte kurz
     course_picker_no_courses: Žiadne kurzy
     take_not_enrolled: Aby ste to mohli urobiť, musíte byť zapísaní v kurze.
+    intro_p1: Každý fakt na Wikipédii by mal byť podložený spoľahlivým zdrojom. Keď
+      na Wikipédii hľadáte informácie, nemali by ste musieť veriť autorovi na slovo;
+      môžete si nájsť citovaný zdroj a prečítať si danú informáciu sami. Toto sa nazýva
+      overiteľnosť a je to jedno z najdôležitejších pravidiel, na ktorých stojí dôveryhodnosť
+      Wikipédie.
+    intro_p2: S tým, ako sa nástroje umelej inteligencie čoraz viac používajú, je
+      dôležitejšie než kedykoľvek predtým naučiť sa overovať informácie. Obsah generovaný
+      umelou inteligenciou často nesprávne priraďuje fakty k zdrojom – a to je jeden
+      z hlavných dôvodov, prečo ho nemôžete použiť na pridávanie obsahu do Wikipédie.
+    intro_p3: V tomto cvičení uvidíte overiteľnosť v praxi. Precvičíte si overovanie
+      tvrdení tým, že sa pokúsite nájsť konkrétny fakt v citovanom zdroji.
+    step_select_article: 'Krok 1: Vyberte článok.'
+    select_claim_instructions: 'Nasledujúce tvrdenia je potrebné overiť oproti citovaným
+      zdrojom, pretože môžu byť generované umelou inteligenciou. (Poznámka: článok
+      sa mohol od pridania týchto tvrdení zmeniť.)'
+    form:
+      step_find_source: 'Krok 3: Nájdite zdroj'
+      find_source_instructions: Teraz, keď ste si vybrali tvrdenie, dohľadajte citovaný
+        zdroj. Pri hľadaní zdroja sa možno budete musieť poradiť so svojím vyučujúcim
+        alebo knihovníkom.
+      source_access_question: Podarilo sa vám získať prístup k celému textu zdroja
+        citovaného pri vašom tvrdení?
+      source_access_options:
+        accessed: Áno, zdroj som získal.
+        nonexistent: Nie, zdroj neexistuje.
+        inaccessible: Nie, zdroj existuje, ale nepodarilo sa mi k nemu získať prístup.
+      source_access_notes_label: 'Ak sa vám zdroj nepodarilo nájsť, povedzte nám o
+        tom viac:'
+      step_verify: 'Krok 4: Overte tvrdenie'
+      verify_instructions: Keď citovaný zdroj nájdete, dôkladne ho preskúmajte a posúďte,
+        nakoľko podporuje tvrdenie, ktoré ste si vybrali. Ak nájdete presne to miesto,
+        odkiaľ informácia pochádza, poznačte si, kde v dokumente ste ju našli. (Niektoré
+        citácie sú príliš nepresné na to, aby ich čitateľ dokázal v praxi overiť.)
+      verdict_question: Podporuje zdroj toto tvrdenie?
+      verdict_options:
+        full_support: Áno – výslovne podporuje celé tvrdenie.
+        mostly_supports: Väčšinou áno – jadro tvrdenia pochádza z tohto zdroja.
+        partial_support: Čiastočne – niektoré prvky tvrdenia pochádzajú z tohto zdroja,
+          no podstatná časť nie.
+        mostly_unsupported: Väčšinou nie – zdroj nie je s tvrdením v rozpore, ale
+          priamo ho nepodporuje.
+        unsupported: Nie – zdroj sa tomu, čo tvrdenie hovorí, nevenuje.
+        contradicted: Práve naopak – zdroj tvrdeniu v skutočnosti protirečí.
+        undetermined: Nepodarilo sa mi zistiť, či sa tvrdenie v citovanom zdroji nachádza.
+      claim_location_label: Ak sa vám tvrdenie podarilo nájsť, kde v zdroji sa nachádzalo?
+        (napr. číslo strany, kapitola atď.)
+      verification_notes_label: Ak sa vám informáciu nepodarilo overiť, povedzte nám
+        o tom viac. (Napr. bol zdroj nejasný alebo ťažko čitateľný? Nesúvisel zdroj
+        s tvrdením? Bola citácia nepresná a zdroj príliš dlhý na to, aby sa dal rozumne
+        prezrieť?)
+      other_comments_label: Máte k tomuto cvičeniu ďalšie pripomienky?
+      submit: Odoslať
+      submitted_heading: Odoslaná odpoveď
+      edit_response: Upraviť odpoveď
+      submit_failed: Chyba! Vaša odpoveď nebola uložená.
+    responses:
+      heading: Odpovede študentov
+      preview_exercise: Náhľad cvičenia
+      submitted_at: Odoslané %{date}
+      pending_heading: Prebieha
+      taken_at: Tvrdenie prevzaté %{date}
+      none_yet: Zatiaľ si žiadny študent nevybral tvrdenie.
     admin:
       loading: Načítava sa…
       heading: Overovanie tvrdení

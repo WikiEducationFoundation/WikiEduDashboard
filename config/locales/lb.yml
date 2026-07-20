@@ -657,6 +657,8 @@ lb:
     close: ZOUMAACHEN
   claim_verification:
     no_articles: Keng Artikelen disponibel
+    form:
+      edit_response: Äntwert änneren
     admin:
       status: 'Status: %{status}'
   update_username:
