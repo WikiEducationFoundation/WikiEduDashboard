@@ -32,6 +32,19 @@ class LtiTrainingProgress
     @training_modules.any?
   end
 
+  # Exposed (alongside the derived score/comment) for the in-Canvas
+  # assignment view of the roll-up column, which shows "X of Y" per student.
+  def total_count
+    @training_modules.size
+  end
+
+  def completed_count
+    @completed_count ||= @training_modules.count do |mod|
+      tmu = TrainingModulesUsers.find_by(user: @user, training_module: mod)
+      tmu&.completed_at.present?
+    end
+  end
+
   private
 
   def collect_training_modules
@@ -43,19 +56,12 @@ class LtiTrainingProgress
   def compute_score
     return 0.0 if @training_modules.empty?
 
-    completed_count.to_f / @training_modules.size
+    completed_count.to_f / total_count
   end
 
   def compute_comment
     return nil if @training_modules.empty?
 
-    "#{completed_count} of #{@training_modules.size} trainings completed"
-  end
-
-  def completed_count
-    @completed_count ||= @training_modules.count do |mod|
-      tmu = TrainingModulesUsers.find_by(user: @user, training_module: mod)
-      tmu&.completed_at.present?
-    end
+    "#{completed_count} of #{total_count} trainings completed"
   end
 end

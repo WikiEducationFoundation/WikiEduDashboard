@@ -105,7 +105,8 @@ class SyncLtiGrades
       LtiTrainingProgress.new(@binding.course, context.user)
     when 'Block'
       block = Block.find_by(id: line_item.gradable_id)
-      block && LtiBlockProgress.new(block, context.user, exercises_only: @binding.lumped?)
+      block && LtiBlockProgress.new(block, context.user,
+                                    exercises_only: @binding.rolled_up_trainings?)
     end
   end
 end

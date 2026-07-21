@@ -106,6 +106,42 @@ describe SyncLtiLineItems do
     end
   end
 
+  describe 'standard granularity' do
+    let(:gradebook_granularity) { 'standard' }
+    let!(:training_block) do
+      create(:block, week: week, order: 0, title: 'Get started on Wikipedia',
+                     training_module_ids: [training_module.id])
+    end
+    let!(:exercise_block) do
+      create(:block, week: week, order: 1, title: 'Find sources',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    it 'creates setup + trainings roll-up + one column per exercise block' do
+      stub_post_lineitem(label: 'Wikipedia trainings')
+      stub_post_lineitem(label: 'Wk1 Find sources')
+
+      expect { described_class.new(binding) }.to change(LtiLineItem, :count).by(3)
+      expect(LtiLineItem.pluck(:gradable_type, :gradable_id))
+        .to contain_exactly([LtiLineItem::SETUP_TYPE, nil],
+                            [LtiLineItem::TRAINING_PROGRESS_TYPE, nil],
+                            ['Block', exercise_block.id])
+    end
+
+    it 'archives an exercise column when its block leaves the timeline' do
+      stub_post_lineitem(label: 'Wikipedia trainings')
+      stub_post_lineitem(label: 'Wk1 Find sources')
+      described_class.new(binding)
+
+      exercise_block.destroy
+      described_class.new(binding)
+
+      row = LtiLineItem.find_by(gradable_type: 'Block', gradable_id: exercise_block.id)
+      expect(row).to be_archived
+      expect(WebMock).not_to have_requested(:delete, %r{/api/lineitems/})
+    end
+  end
+
   describe 'per_block granularity' do
     let(:gradebook_granularity) { 'per_block' }
     let!(:training_block) do

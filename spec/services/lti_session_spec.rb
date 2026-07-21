@@ -119,7 +119,7 @@ describe LtiSession do
       expect(binding.lms_family).to eq('canvas')
       expect(binding.lms_context_id).to eq('canvas-course-77')
       expect(binding.lms_resource_link_id).to eq('rl-99')
-      expect(binding.gradebook_granularity).to eq('lumped')
+      expect(binding.gradebook_granularity).to eq('standard')
       expect(binding.nrps_url)
         .to eq('https://canvas.example.com/api/lti/courses/1/names_and_roles')
       expect(binding.ags_lineitems_url)

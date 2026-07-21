@@ -8,8 +8,8 @@
 # item to its Dashboard gradable.
 #
 # The exercise/training classification and the line-item label format mirror
-# `SyncLtiLineItems#lumped_desired`; the two will be unified onto this service
-# when line-item creation moves fully to deep linking.
+# `SyncLtiLineItems`; the two are slated to unify if line-item creation ever
+# moves fully to deep linking.
 class DeepLinkableGradables
   Gradable = Struct.new(:resource, :gradable_type, :gradable_id, :label, keyword_init: true)
 

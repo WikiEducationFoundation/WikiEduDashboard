@@ -1,0 +1,31 @@
+- # In-Canvas drill-down for the "Wikipedia account" setup column: which
+- # Canvas students have connected a Wikipedia account via the Dashboard.
+- # Not-yet-connected memberships are listed first — surfacing them is the
+- # point of this column. A student reaching this view has, by definition,
+- # already connected (the launch itself links them), so the student branch
+- # is a simple confirmation.
+.lti-iframe__drilldown
+  %h2.lti-iframe__drilldown-title= @context.title
+  - if @context.instructor?
+    %p.lti-iframe__lead
+      = t('lti.assignment_view.setup.summary',
+          connected: @context.connected_count, total: @context.total_count)
+    - if @context.rows.empty?
+      %p.lti-iframe__empty= t('lti.assignment_view.setup.empty')
+    - else
+      %table.lti-assignment-roster
+        %thead
+          %tr
+            %th= t('lti.assignment_view.roster.student')
+            %th= t('lti.assignment_view.roster.status')
+        %tbody
+          - @context.rows.each do |row|
+            %tr
+              %td= row.name
+              %td
+                %span.lti-status{ class: row.connected? ? 'lti-status--done' : 'lti-status--pending' }
+                  = row.connected? ? t('lti.assignment_view.status.connected') : t('lti.assignment_view.status.not_connected')
+  - else
+    .lti-iframe__panel
+      %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
+      %p= t('lti.assignment_view.setup.student_connected')

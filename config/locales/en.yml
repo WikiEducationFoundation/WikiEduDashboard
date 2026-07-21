@@ -2191,6 +2191,7 @@ en:
     last_sync_error: "Last sync error"
     synced_students: "Students synced"
     never_synced: "Not yet synced"
+    time_ago: "%{time_ago} ago"
     my_last_sync: "Last sync"
     no_grades_yet: "No synced progress yet"
     not_yet_linked: "Your account hasn't been linked to Canvas for this course."
@@ -2210,12 +2211,15 @@ en:
       granularity:
         header: "Canvas gradebook layout"
         explanation: "How would you like Wikipedia training and exercise progress to appear in your Canvas gradebook? You can change this later."
-        lumped:
+        standard:
           label: "One column for all trainings, plus one column per exercise (recommended)"
           example: "Wikipedia trainings: 5/12 complete · Bibliography: 1.0 (sandbox link in comment) · Outline: 0.0"
         per_block:
           label: "A separate column for every training and exercise"
           example: "Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …"
+        lumped:
+          label: "[PLACEHOLDER - radio label for the minimal layout: one column for all trainings; the instructor adds individual exercise columns manually via the Canvas assignment picker]"
+          example: "[PLACEHOLDER - gradebook example for the minimal layout, matching the style of the other two examples]"
       submit: "Link this course"
       already_linked: "[PLACEHOLDER - message: the chosen Wiki Education course is already linked to another Canvas course; ask the instructor to pick a different one]"
       create_prompt: Create a course on the Dashboard
@@ -2228,6 +2232,12 @@ en:
       unbound:
         header: "This Canvas course isn't linked to a Wiki Education course yet"
         explanation: "Try again once you've set up your course page on dashboard.wikiedu.org"
+    instructor_status:
+      header: "[PLACEHOLDER - headline confirming this Canvas course is linked to the instructor's Wiki Education Dashboard course]"
+      explanation: "[PLACEHOLDER - 1-2 sentences: the link is working; the roster and gradebook sync automatically, and the course is managed from the Dashboard (linked below)]"
+      sync_hint: "[PLACEHOLDER - short note that opening this page starts a fresh roster sync, so counts may take a minute to update]"
+      grade_sync_error: "[PLACEHOLDER - notice that the most recent gradebook sync hit an error, and what the instructor should do (e.g. contact Wiki Education staff)]"
+      open_course: "Open course"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"
       explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
@@ -2239,10 +2249,13 @@ en:
       explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
       contact_hint: "If you have questions, contact your instructor or Wiki Education staff."
     assignment_view:
-      # Short column/status labels.
+      # Short column/status labels. connected/not_connected mirror the
+      # operator-supplied gradebook comments in LtiSetupProgress.
       status:
         completed: "Completed"
         not_started: "Not started"
+        connected: "Connected"
+        not_connected: "Not connected"
       open_on_wikipedia: "Open on Wikipedia"
       show: "Show"
       hide: "Hide"
@@ -2253,6 +2266,16 @@ en:
         empty: "No students have connected Wikipedia accounts yet."
       student:
         your_sandbox: "Your sandbox"
+      setup:
+        summary: "[PLACEHOLDER - instructor summary line for the account column, interpolating %{connected} and %{total}: how many students have connected a Wikipedia account]"
+        empty: "[PLACEHOLDER - shown when no Canvas roster members have been discovered yet (roster sync pending); suggest checking back shortly]"
+        student_connected: "[PLACEHOLDER - student-facing confirmation that their Wikipedia account is connected for this course]"
+      trainings:
+        # Mirrors the operator-supplied gradebook comment phrasing in
+        # LtiTrainingProgress ("X of Y trainings completed").
+        progress: "%{completed} of %{total} trainings completed"
+        student_hint: "[PLACEHOLDER - student-facing pointer that trainings are completed on the Dashboard course timeline (button below)]"
+        open_course: "Open course"
       orphan:
         header: "—"
         explanation: "There is no Dashboard content to show for this assignment."

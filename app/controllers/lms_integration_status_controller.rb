@@ -59,27 +59,12 @@ class LmsIntegrationStatusController < ApplicationController
   end
 
   def staff_metrics
-    synced = synced_students
+    status = LtiSyncStatus.new(binding)
     {
-      last_sync_at: last_synced_at(synced),
-      last_sync_error_present: binding.last_grade_sync_error.present?,
-      synced_students_count: synced.size
+      last_sync_at: status.last_synced_at,
+      last_sync_error_present: status.grade_sync_error?,
+      synced_students_count: status.synced_students_count
     }
-  end
-
-  # Students only — a bound course's instructor also has a linked context,
-  # and counting it would report "1 synced student" before anyone signs in.
-  def synced_students
-    binding.lti_contexts.linked.reject(&:instructor?)
-  end
-
-  # The most recent Canvas sync. Falls through roster sync → grade sync → the
-  # latest student link (a student can link via their own launch before either
-  # sync runs), so "Last sync" never reads "Not yet synced" while students are
-  # already synced.
-  def last_synced_at(synced)
-    [binding.last_roster_sync_at, binding.last_grade_sync_at,
-     synced.filter_map(&:linked_at).max].compact.max
   end
 
   def student_metrics

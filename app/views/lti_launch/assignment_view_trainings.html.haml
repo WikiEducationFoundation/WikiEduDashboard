@@ -1,0 +1,34 @@
+- # In-Canvas drill-down for the rolled-up "Wikipedia trainings" column.
+- # Instructors get a per-student completed-count roster (same numbers the
+- # grade sync pushes); a student sees their own progress plus a new-tab
+- # link to the course timeline, where the trainings are actually done.
+.lti-iframe__drilldown
+  %h2.lti-iframe__drilldown-title= @context.title
+  - if @context.instructor?
+    - roster = @context.roster
+    - if roster.empty?
+      %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
+    - else
+      %table.lti-assignment-roster
+        %thead
+          %tr
+            %th= t('lti.assignment_view.roster.student')
+            %th= t('lti.assignment_view.roster.status')
+        %tbody
+          - roster.each do |row|
+            %tr
+              %td= row.name
+              %td
+                %span.lti-status{ class: row.done? ? 'lti-status--done' : 'lti-status--pending' }
+                  = t('lti.assignment_view.trainings.progress',
+                      completed: row.completed_count, total: row.total_count)
+  - else
+    - row = @context.student_panel
+    .lti-iframe__panel
+      %span.lti-status{ class: row.done? ? 'lti-status--done' : 'lti-status--pending' }
+        = t('lti.assignment_view.trainings.progress',
+            completed: row.completed_count, total: row.total_count)
+      %p= t('lti.assignment_view.trainings.student_hint')
+      = link_to t('lti.assignment_view.trainings.open_course'),
+                "/courses/#{@context.course.slug}",
+                target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'

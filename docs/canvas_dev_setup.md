@@ -359,7 +359,7 @@ This is needed because the domain set here is what Canvas claims its identity is
 
 Once a basic launch works, the integration adds three flows on top of the launch handshake:
 
-1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The setup view also presents the Canvas gradebook layout choice (lumped trainings vs. per-block columns) which is stored on the binding.
+1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The setup view also presents the Canvas gradebook layout choice (`standard`: trainings roll-up + auto-created per-exercise columns; `per_block`: a column per graded block; `lumped`: roll-up only, exercise columns added manually via deep linking) which is stored on the binding.
 2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New students appear as `LtiContext` rows; those whose Canvas email matches an existing dashboard `User.email` are auto-linked and enrolled in the bound course. Unmatched students get linked when they personally launch from Canvas and complete Wikipedia OAuth.
 3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Sandbox URLs for completed exercises (bibliography, outline, etc.) are included as score comments.
 
@@ -527,13 +527,14 @@ campaign) to link. If you don't have one, create it on the dashboard first
    at `/lti?ltik=...`.
 3. **Bind the course**: in the setup view, pick your approved course from the
    dropdown (or use the create-a-course link if you have none), pick a gradebook
-   layout (lumped is the default), and **Link this course**. Expect a redirect
+   layout (standard is the default), and **Link this course**. Expect a redirect
    to `/courses/<slug>`; the course home's "Canvas link" panel shows the linked
    course, last sync, and synced-students count.
-4. **Create the exercise columns** (lumped mode): for each exercise you want
-   graded, **Assignments → + Assignment → Submission Type: External Tool →
-   Find → Wiki Education Dashboard → pick the task → Save & Publish.** (Per-block
-   mode instead auto-creates a column per block; no deep-linking needed.)
+4. **Create the exercise columns** (lumped mode only): for each exercise you
+   want graded, **Assignments → + Assignment → Submission Type: External Tool →
+   Find → Wiki Education Dashboard → pick the task → Save & Publish.** (Standard
+   mode auto-creates a column per exercise, and per-block mode a column per
+   block; no deep-linking needed in either.)
 5. Open the Canvas **Gradebook** — expect **Wikipedia account**, **Wikipedia
    trainings**, and a `Wk# <exercise>` column per deep-linked exercise (short
    labels, e.g. `Wk3 Bibliography`).

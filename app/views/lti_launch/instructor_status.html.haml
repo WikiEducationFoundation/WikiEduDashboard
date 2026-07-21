@@ -1,0 +1,33 @@
+- # In-iframe view for an instructor's course-navigation launch once the
+- # course is linked: confirms the link and shows roster/grade sync status
+- # (same LtiSyncStatus data as the course page's "Canvas link" sidebar).
+- # Links out to the Dashboard course in a new tab — the full dashboard
+- # can't render usefully inside the Canvas iframe (partitioned cookies).
+- course = @binding.course
+- course_path = "/courses/#{course.slug}"
+.lti-iframe__drilldown
+  %h2.lti-iframe__drilldown-title= t('lti.instructor_status.header')
+  %p.lti-iframe__lead= t('lti.instructor_status.explanation')
+  %dl.lti-status-list
+    .lti-status-list__row
+      %dt= t('lms_integration.linked_to')
+      %dd
+        = link_to course.title, course_path, target: '_blank', rel: 'noopener',
+                  class: 'lti-status-list__link'
+    .lti-status-list__row
+      %dt= t('lms_integration.synced_students')
+      %dd= @sync_status.synced_students_count
+    .lti-status-list__row
+      %dt= t('lms_integration.last_sync')
+      %dd
+        - if @sync_status.last_synced_at
+          = t('lms_integration.time_ago',
+              time_ago: time_ago_in_words(@sync_status.last_synced_at))
+        - else
+          = t('lms_integration.never_synced')
+  - if @sync_status.grade_sync_error?
+    .lti-setup__error
+      %p= t('lti.instructor_status.grade_sync_error')
+  %p.lti-iframe__hint= t('lti.instructor_status.sync_hint')
+  = link_to t('lti.instructor_status.open_course'), course_path,
+            target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'

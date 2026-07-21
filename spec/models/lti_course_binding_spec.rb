@@ -27,11 +27,26 @@ describe LtiCourseBinding do
       expect(binding.errors[:gradebook_granularity]).to be_present
     end
 
-    it "defaults gradebook_granularity to 'lumped'" do
+    it "defaults gradebook_granularity to 'standard'" do
       binding = described_class.create!(base_attrs)
-      expect(binding.gradebook_granularity).to eq('lumped')
-      expect(binding).to be_lumped
+      expect(binding.gradebook_granularity).to eq('standard')
+      expect(binding).to be_standard
+      expect(binding).not_to be_lumped
       expect(binding).not_to be_per_block
+    end
+  end
+
+  describe '#rolled_up_trainings?' do
+    it 'is true for the modes with a single trainings column' do
+      expect(described_class.new(base_attrs.merge(gradebook_granularity: 'standard')))
+        .to be_rolled_up_trainings
+      expect(described_class.new(base_attrs.merge(gradebook_granularity: 'lumped')))
+        .to be_rolled_up_trainings
+    end
+
+    it 'is false when every training block has its own column' do
+      expect(described_class.new(base_attrs.merge(gradebook_granularity: 'per_block')))
+        .not_to be_rolled_up_trainings
     end
 
     it 'allows only one binding per linked course' do

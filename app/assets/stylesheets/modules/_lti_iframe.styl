@@ -83,6 +83,41 @@ body.lti-iframe
 .lti-iframe__empty
   color #5a6b7b
 
+// Lead / hint copy inside a drilldown card (e.g. the instructor's post-link
+// status view): quieter than the title, above/below the stat list.
+.lti-iframe__lead
+  margin 0 0 20px
+  color #17212b
+
+.lti-iframe__hint
+  margin 16px 0 20px
+  color #5a6b7b
+  font-size 13px
+
+// Post-link status list: label/value rows for course link, synced-student
+// count, and last sync time.
+.lti-status-list
+  margin 0
+  display flex
+  flex-direction column
+  gap 10px
+
+.lti-status-list__row
+  display flex
+  gap 8px
+
+  dt
+    font-weight 600
+    color #5a6b7b
+    min-width 140px
+
+  dd
+    margin 0
+    color #17212b
+
+.lti-status-list__link
+  color #2a5db0
+
 .lti-iframe__panel
   display flex
   flex-direction column

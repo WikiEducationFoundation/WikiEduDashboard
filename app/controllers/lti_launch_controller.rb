@@ -25,6 +25,7 @@
 #      - Student + unbound         => "instructor isn't done yet" view
 class LtiLaunchController < ApplicationController
   include LtiDeepLinking
+  include LtiAssignmentViews
 
   # Every launch-flow view is a minimal, chrome-less page rather than the full
   # dashboard React shell. The setup / setup_pending / enrollment_* views were
@@ -124,29 +125,24 @@ class LtiLaunchController < ApplicationController
       @lti_session.ags_lineitem_url.present?
   end
 
-  def render_assignment_view
-    # A deep-link-created assignment launches through its own Canvas resource
-    # link, so `@binding` (keyed on lms_resource_link_id) is a fresh, empty
-    # binding — the course + synced line items live on the context's *bound*
-    # binding. Resolve against that; fall back to the launch binding if the
-    # context isn't linked to a Dashboard course yet.
-    binding = @lti_session.bound_binding || @binding
-    line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
-    if line_item.nil? || line_item.gradable_type != 'Block'
-      return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe'
-    end
-
-    @context = AssignmentViewContext.new(line_item:, user: current_user,
-                                         instructor: @lti_session.instructor?)
-    render 'lti_launch/assignment_view', layout: 'lti_iframe'
-  end
-
   def handle_instructor_launch
-    LtiRosterSyncWorker.perform_async(@binding.id) if @binding.course
-    return redirect_to "/courses/#{@binding.course.slug}" if @binding.course
+    return render_instructor_status if @binding.course
 
     @user_courses = linkable_courses
     render 'lti_launch/setup'
+  end
+
+  # The course-navigation launch for an already-linked course. Confirm the
+  # link and show sync status in the iframe rather than redirecting into the
+  # full dashboard: the React shell reads a logged-out session inside the
+  # Canvas iframe (cookies are partitioned), and instructors re-open this
+  # nav item mainly to check that roster/grade sync is working. Each launch
+  # also kicks off a fresh roster sync, so the numbers shown may lag it by
+  # a few moments.
+  def render_instructor_status
+    LtiRosterSyncWorker.perform_async(@binding.id)
+    @sync_status = LtiSyncStatus.new(@binding)
+    render 'lti_launch/instructor_status'
   end
 
   # Approved, not-yet-ended courses the instructor teaches, minus any already

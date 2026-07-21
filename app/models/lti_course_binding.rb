@@ -12,7 +12,7 @@
 #  ltiaas_service_credentials :text(65535)
 #  nrps_url                   :string(255)
 #  ags_lineitems_url          :string(255)
-#  gradebook_granularity      :string(255)      default("lumped"), not null
+#  gradebook_granularity      :string(255)      default("standard"), not null
 #  last_roster_sync_at        :datetime
 #  last_grade_sync_at         :datetime
 #  last_grade_sync_error      :text(65535)
@@ -34,12 +34,15 @@
 # instructor's setup-flow choice (link existing / create new).
 #
 # `gradebook_granularity` controls how AGS line items map to the Dashboard
-# timeline:
-#   - 'lumped'    => one line item rolling up training-module completion
-#                    plus one line item per exercise block
-#   - 'per_block' => one line item per graded block
+# timeline (constant order = display order of the setup-form radios):
+#   - 'standard'  (default) => one line item rolling up training-module
+#                    completion, plus one auto-created line item per
+#                    exercise block
+#   - 'per_block' => one line item per graded block (trainings included)
+#   - 'lumped'    => the trainings roll-up only; the instructor adds the
+#                    exercise columns they want via the deep-link picker
 class LtiCourseBinding < ApplicationRecord
-  GRADEBOOK_GRANULARITIES = %w[lumped per_block].freeze
+  GRADEBOOK_GRANULARITIES = %w[standard per_block lumped].freeze
 
   # Human-readable LMS labels keyed by the LTI 1.3 `product_family_code`
   # values we expect to see. Unknown families fall back to a titleized
@@ -66,11 +69,30 @@ class LtiCourseBinding < ApplicationRecord
     LMS_DISPLAY_NAMES[lms_family] || lms_family.to_s.titleize
   end
 
+  def standard?
+    gradebook_granularity == 'standard'
+  end
+
   def lumped?
     gradebook_granularity == 'lumped'
   end
 
   def per_block?
     gradebook_granularity == 'per_block'
+  end
+
+  # The modes that roll every training into the single "Wikipedia trainings"
+  # column. Block-backed columns in these modes grade only their exercise
+  # modules — grading the block's trainings too would double-count them
+  # against the roll-up and zero the exercise column until the surrounding
+  # trainings happen to be complete.
+  def rolled_up_trainings?
+    !per_block?
+  end
+
+  # All student (non-staff) memberships that have linked a Wikipedia
+  # account — the set that sync status counts and assignment rosters list.
+  def linked_student_contexts
+    lti_contexts.linked.reject(&:instructor?)
   end
 end

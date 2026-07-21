@@ -19,16 +19,14 @@
         %h4= t('lti.setup.granularity.header')
         %p= t('lti.setup.granularity.explanation')
         .lti-granularity-options
-          %label
-            = radio_button_tag :gradebook_granularity, 'lumped', true
-            %strong= t('lti.setup.granularity.lumped.label')
-            %p.lti-granularity-example
-              = t('lti.setup.granularity.lumped.example')
-          %label
-            = radio_button_tag :gradebook_granularity, 'per_block'
-            %strong= t('lti.setup.granularity.per_block.label')
-            %p.lti-granularity-example
-              = t('lti.setup.granularity.per_block.example')
+          - # Constant order is display order; the first (recommended) mode is
+          - # preselected. Labels/examples live under lti.setup.granularity.<mode>.
+          - LtiCourseBinding::GRADEBOOK_GRANULARITIES.each_with_index do |mode, index|
+            %label
+              = radio_button_tag :gradebook_granularity, mode, index.zero?
+              %strong= t("lti.setup.granularity.#{mode}.label")
+              %p.lti-granularity-example
+                = t("lti.setup.granularity.#{mode}.example")
       %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
     %p.lti-setup__alt-path
       = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link'

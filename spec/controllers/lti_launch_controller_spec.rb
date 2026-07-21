@@ -145,22 +145,45 @@ describe LtiLaunchController, type: :request do
 
       context 'with a bound course' do
         let!(:course) { create(:course) }
-        before do
+        let!(:binding) do
           LtiCourseBinding.create!(
             course: course, lms_id: 'platform-x', lms_family: 'canvas',
             lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
           )
         end
 
-        it 'redirects to the bound course' do
+        # Rather than redirecting into the full dashboard (which renders
+        # logged-out inside the Canvas iframe), the nav launch confirms the
+        # link and shows sync status, with a new-tab link out to the course.
+        it 'renders the link confirmation / sync status view' do
           get '/lti', params: { ltik: 'ltik-abc' }
-          expect(response).to redirect_to("/courses/#{course.slug}")
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/instructor_status')
+          expect(response.body).to include(course.title)
+          expect(response.body).to include("/courses/#{course.slug}")
+          expect(response.body).to include('target="_blank"')
+        end
+
+        it 'shows the synced-student count and last sync time' do
+          student = create(:user, username: 'Stu')
+          LtiContext.create!(user: student, lti_course_binding: binding,
+                             user_lti_id: 'lti-stu', lms_id: 'platform-x',
+                             roles: ['vocab/membership#Learner'], linked_at: 2.hours.ago)
+          binding.update!(last_roster_sync_at: 5.minutes.ago)
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Students synced')
+          expect(response.body).to include('5 minutes ago')
+        end
+
+        it 'reports "Not yet synced" before any sync or student link' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Not yet synced')
         end
 
         it 'enqueues a roster sync' do
           get '/lti', params: { ltik: 'ltik-abc' }
           expect(LtiRosterSyncWorker).to have_received(:perform_async)
-            .with(LtiCourseBinding.last.id)
+            .with(binding.id)
         end
       end
     end
@@ -564,6 +587,106 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('User:')
         expect(response.body).to include('Evaluate_an_Article')
         expect(response.body).to include('Your sandbox')
+      end
+    end
+
+    context 'when the launch resolves to the "Wikipedia account" setup column' do
+      let!(:setup_item) do
+        LtiLineItem.create!(lti_course_binding: binding,
+                            gradable_type: LtiLineItem::SETUP_TYPE,
+                            lineitem_id: 'https://canvas/li/setup',
+                            label: 'Wikipedia account')
+      end
+      let(:idtoken) do
+        base = idtoken_for(role)
+        base['services']['assignmentAndGrades'] = { 'lineItemId' => 'https://canvas/li/setup' }
+        base
+      end
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'renders the connection roster, including not-yet-connected members' do
+        linked_student = create(:user, username: 'LinkedStu')
+        LtiContext.create!(user: linked_student, lti_course_binding: binding,
+                           user_lti_id: 'lti-linked', lms_id: 'platform-x', name: 'Linked Stu',
+                           roles: ['vocab/membership#Learner'], linked_at: Time.current)
+        LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-pending-1',
+                           lms_id: 'platform-x', roles: ['vocab/membership#Learner'])
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/assignment_view_setup')
+        expect(response.body).to include('Linked Stu')
+        # The unlinked member has no name (anonymized mode), so the roster
+        # falls back to the opaque LMS user id.
+        expect(response.body).to include('lti-pending-1')
+        expect(response.body).to include('Connected')
+        expect(response.body).to include('Not connected')
+      end
+
+      context 'as a student' do
+        let(:role) { 'Learner' }
+
+        it 'renders their own connected confirmation, not the roster' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/assignment_view_setup')
+          expect(response.body).to include('Connected')
+          expect(response.body).not_to include('lti-assignment-roster')
+        end
+      end
+    end
+
+    context 'when the launch resolves to the "Wikipedia trainings" roll-up column' do
+      let(:training_mod) do
+        create(:training_module, slug: 'wiki-intro', name: 'Wiki intro', kind: 0)
+      end
+      let!(:training_block) do
+        create(:block, week: week, order: 1, title: 'Trainings',
+                       training_module_ids: [training_mod.id])
+      end
+      let!(:trainings_item) do
+        LtiLineItem.create!(lti_course_binding: binding,
+                            gradable_type: LtiLineItem::TRAINING_PROGRESS_TYPE,
+                            lineitem_id: 'https://canvas/li/trainings',
+                            label: 'Wikipedia trainings')
+      end
+      let(:idtoken) do
+        base = idtoken_for(role)
+        base['services']['assignmentAndGrades'] =
+          { 'lineItemId' => 'https://canvas/li/trainings' }
+        base
+      end
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'renders each linked student\'s completed-trainings count' do
+        student = create(:user, username: 'Stu')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
+                           lms_id: 'platform-x', name: 'Stu Dent',
+                           roles: ['vocab/membership#Learner'], linked_at: Time.current)
+        TrainingModulesUsers.create!(user: student, training_module: training_mod,
+                                     completed_at: 1.day.ago)
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/assignment_view_trainings')
+        expect(response.body).to include('Stu Dent')
+        expect(response.body).to include('1 of 1 trainings completed')
+      end
+
+      context 'as a student' do
+        let(:role) { 'Learner' }
+
+        it 'renders their own progress with a link out to the course timeline' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/assignment_view_trainings')
+          expect(response.body).to include('0 of 1 trainings completed')
+          expect(response.body).to include("/courses/#{course.slug}")
+        end
       end
     end
   end

@@ -5,10 +5,9 @@
 # single student's row (student-facing panel) or one row per linked student
 # (instructor roster).
 #
-# v1 supports Block-backed line items — the per-exercise gradebook columns,
-# including "Evaluate Wikipedia". The lumped TrainingProgress line item has
-# no single block to break down and is routed to the orphan view by the
-# controller instead; per-training drill-down is a follow-up.
+# Handles Block-backed line items — the per-exercise gradebook columns,
+# including "Evaluate Wikipedia". The sentinel columns have their own
+# contexts (SetupAssignmentViewContext, TrainingsAssignmentViewContext).
 class AssignmentViewContext
   StudentRow = Struct.new(:name, :username, :completed, :sandbox_url,
                           keyword_init: true) do
@@ -66,12 +65,15 @@ class AssignmentViewContext
                    sandbox_url: sandbox_url_for(user))
   end
 
-  # Reuses the same completion logic that drives the pushed AGS score, so
-  # the roster can't disagree with the gradebook.
+  # Reuses the same completion logic — including the same exercises_only
+  # setting — that drives the pushed AGS score, so the roster can't disagree
+  # with the gradebook. (In per_block mode a block's column grades trainings
+  # too; in the roll-up modes it grades only the exercises.)
   def completed_for?(user)
     return false if @block.nil?
 
-    LtiBlockProgress.new(@block, user, exercises_only: true).score_given >= 1.0
+    LtiBlockProgress.new(@block, user, exercises_only: @binding.rolled_up_trainings?)
+                    .score_given >= 1.0
   end
 
   # Built even before the student starts, so the link points to where their
@@ -86,14 +88,8 @@ class AssignmentViewContext
   # Wikipedia-linked students on this binding, excluding instructors/admins,
   # ordered by display name for a stable roster.
   def student_contexts
-    @binding.lti_contexts.linked
-            .select { |context| context.user && !instructor_context?(context) }
+    @binding.linked_student_contexts
+            .select(&:user)
             .sort_by { |context| (context.name.presence || context.user.username).downcase }
-  end
-
-  def instructor_context?(context)
-    Array(context.roles).any? do |role|
-      LtiSession::INSTRUCTOR_ROLES.any? { |suffix| role.end_with?(suffix) }
-    end
   end
 end
