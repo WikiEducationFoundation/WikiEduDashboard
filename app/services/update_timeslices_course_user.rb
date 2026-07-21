@@ -89,7 +89,7 @@ class UpdateTimeslicesCourseUser
     updater = CourseRevisionUpdater.new(@course, update_service: @update_service)
     timeslices_to_process(wiki).each do |cwt|
       revisions = updater.fetch_revisions_for_new_users(
-        wiki, [user], real_start(cwt.start), real_end(cwt.end)
+        wiki, [user], cwt.start, cwt.end
       )
       next if revisions.empty?
 
@@ -105,16 +105,6 @@ class UpdateTimeslicesCourseUser
     timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
     latest_start = @timeslice_manager.get_latest_start_time_for_wiki(wiki)
     latest_start ? timeslices.where('start <= ?', latest_start) : timeslices
-  end
-
-  def real_start(timeslice_start)
-    [timeslice_start, @course.start].max.strftime('%Y%m%d%H%M%S')
-  end
-
-  # Replica treats both bounds as inclusive, so subtract a second from the timeslice
-  # end to avoid fetching boundary revisions for two adjacent timeslices.
-  def real_end(timeslice_end)
-    [timeslice_end - 1.second, @course.end].min.strftime('%Y%m%d%H%M%S')
   end
 
   def log_user_processing_error(error, user_id, wiki_id)

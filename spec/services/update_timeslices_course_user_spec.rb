@@ -258,10 +258,10 @@ describe UpdateTimeslicesCourseUser do
 
     it 'fetches revisions once per course wiki timeslice' do
       fetch_calls = []
-      allow_any_instance_of(CourseRevisionUpdater)
-        .to receive(:fetch_revisions_for_new_users) do |_updater, _wiki, _users, ts_start, ts_end|
+      allow_any_instance_of(Replica)
+        .to receive(:get_revisions) do |_replica, _users, ts_start, ts_end|
         fetch_calls << [ts_start, ts_end]
-        []
+        {}
       end
 
       described_class.new(course).run
