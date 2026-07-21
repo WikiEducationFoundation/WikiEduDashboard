@@ -4,12 +4,15 @@
 #
 # Flow:
 #   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.
-#   2. If no current_user, render `sign_in_to_continue` — a minimal iframe
-#      view with a `target=_blank` link to /lti/connect_course?ltik=...
-#      (browsers refuse to frame Wikipedia OAuth, and cookies inside the
-#      Canvas iframe are partitioned away from the top-level dashboard
-#      session, so the rest of the launch has to happen outside the iframe).
-#      Opens in a new tab so the Canvas page stays put.
+#   2. If no current_user (the normal state in the iframe — cookies there
+#      are partitioned away from the top-level dashboard session), the ltik
+#      still authenticates the launch, so read-only views render in place:
+#      assignment drill-downs and the bound-course status view (see
+#      LtiAnonymousLaunch). Everything else gets `sign_in_to_continue` — a
+#      minimal iframe view with a `target=_blank` link to
+#      /lti/connect_course?ltik=... (browsers refuse to frame Wikipedia
+#      OAuth, so account flows happen outside the iframe). Opens in a new
+#      tab so the Canvas page stays put.
 #   3. /lti/connect_course runs at top-level in the new tab. Without a
 #      current_user, it stashes the ltik in session and renders an
 #      auto-submitting POST form to Devise's omniauth-mediawiki. After
@@ -26,6 +29,8 @@
 class LtiLaunchController < ApplicationController
   include LtiDeepLinking
   include LtiAssignmentViews
+  include LtiStudentEnrollment
+  include LtiAnonymousLaunch
 
   # Every launch-flow view is a minimal, chrome-less page rather than the full
   # dashboard React shell. The setup / setup_pending / enrollment_* views were
@@ -43,11 +48,7 @@ class LtiLaunchController < ApplicationController
 
   def launch
     return redirect_to errors_login_error_path if params[:ltik].blank?
-
-    unless current_user
-      @ltik = params[:ltik]
-      return render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
-    end
+    return handle_anonymous_launch unless current_user
 
     start_lti_session
     log_launch_claims if ENV['LTI_LAUNCH_DEBUG']
@@ -84,7 +85,11 @@ class LtiLaunchController < ApplicationController
     return render_already_linked if course_bound_elsewhere?
 
     bind_course_and_sync
-    redirect_to "/courses/#{course_from_params.slug}"
+    # Lands on the course page's flash banner (shared/_flash) so the
+    # instructor gets explicit confirmation that the link took effect.
+    redirect_to "/courses/#{course_from_params.slug}",
+                notice: t('lti.setup.linked_notice',
+                          lms_course: @binding.lms_context_title || @binding.lms_display_name)
   end
 
   private
@@ -160,44 +165,6 @@ class LtiLaunchController < ApplicationController
                 .where('courses.end > ?', Time.zone.now)
                 .where.not(id: bound)
                 .distinct.order(start: :desc).to_a
-  end
-
-  def handle_student_launch
-    return render 'lti_launch/setup_pending' if @binding.course.nil?
-    return redirect_to "/courses/#{@binding.course.slug}" if enrolled?
-
-    result = join_course_for_student
-    return redirect_to "/courses/#{@binding.course.slug}" if join_succeeded?(result)
-    return render 'lti_launch/enrollment_pending_approval' if pending_approval?(result)
-
-    report_join_failure(result)
-    render 'lti_launch/enrollment_error'
-  end
-
-  def join_course_for_student
-    JoinCourse.new(course: @binding.course, user: current_user,
-                   role: CoursesUsers::Roles::STUDENT_ROLE,
-                   real_name: current_user.real_name).result
-  end
-
-  def join_succeeded?(result)
-    result['success'] || result['failure'] == 'cannot_join_twice'
-  end
-
-  def pending_approval?(result)
-    result['failure'] == 'not_yet_approved'
-  end
-
-  def report_join_failure(result)
-    Sentry.capture_message(
-      'LTI student launch JoinCourse failure',
-      extra: { binding_id: @binding.id, user_id: current_user.id,
-               failure: result['failure'] }
-    )
-  end
-
-  def enrolled?
-    CoursesUsers.exists?(user_id: current_user.id, course_id: @binding.course_id)
   end
 
   def course_from_params

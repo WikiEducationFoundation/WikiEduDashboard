@@ -167,6 +167,27 @@ describe SyncLtiLineItems do
                             ['Block', training_block.id], ['Block', exercise_block.id])
     end
 
+    it 'creates block columns in timeline order so Canvas lists them that way' do
+      # Insertion order deliberately reversed: a week-2 block created before
+      # a week-1 block. Canvas shows assignments in creation order, so the
+      # sync must walk the timeline, not row-insertion (id) order.
+      week2 = create(:week, course: course, order: 2)
+      later = create(:block, week: week2, order: 0, title: 'Later',
+                     training_module_ids: [exercise_module.id])
+      early = create(:block, week: week, order: 2, title: 'Early',
+                     training_module_ids: [exercise_module.id])
+      stub_post_lineitem(label: 'Wk1 Get started')
+      stub_post_lineitem(label: 'Wk1 Find sources')
+      stub_post_lineitem(label: 'Wk1 Early')
+      stub_post_lineitem(label: 'Wk2 Later')
+
+      described_class.new(binding)
+
+      created_order = LtiLineItem.where(gradable_type: 'Block').order(:id).pluck(:gradable_id)
+      expect(created_order)
+        .to eq([training_block.id, exercise_block.id, early.id, later.id])
+    end
+
     it 'PUTs a label change to LTIAAS when a block it owns is renamed' do
       stub_post_lineitem(label: 'Wk1 Get started')
       stub_post_lineitem(label: 'Wk1 Find sources',

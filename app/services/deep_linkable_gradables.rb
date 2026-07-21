@@ -41,9 +41,13 @@ class DeepLinkableGradables
                  gradable_id: nil, label: TRAININGS_LABEL)
   end
 
+  # In timeline order (week, then block position) so the picker mirrors
+  # the timeline rather than row-insertion order.
   def gradable_blocks
     @gradable_blocks ||=
-      @course.blocks.includes(:week).to_a.select { |b| b.training_module_ids.any? }
+      @course.blocks.includes(:week).to_a
+             .select { |b| b.training_module_ids.any? }
+             .sort_by { |b| [b.week.order, b.order] }
   end
 
   def exercise_blocks

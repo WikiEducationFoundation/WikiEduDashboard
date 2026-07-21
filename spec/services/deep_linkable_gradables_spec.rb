@@ -51,6 +51,25 @@ describe DeepLinkableGradables do
     end
   end
 
+  context 'with exercise blocks created out of timeline order' do
+    let!(:week2) { create(:week, course:, order: 2) }
+    # Insertion order deliberately reversed: the week-2 block gets the
+    # lower id, so default (id) ordering would list it first.
+    let!(:later_block) do
+      create(:block, week: week2, order: 0, title: 'Later exercise',
+                     training_module_ids: [exercise_module.id])
+    end
+    let!(:early_block) do
+      create(:block, week:, order: 0, title: 'Early exercise',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    it 'lists options in timeline order, not insertion order' do
+      block_ids = gradables.select { |g| g.gradable_type == 'Block' }.map(&:gradable_id)
+      expect(block_ids).to eq([early_block.id, later_block.id])
+    end
+  end
+
   context 'when the course has exercises but no training modules' do
     let!(:exercise_block) do
       create(:block, week:, order: 0, title: 'Find sources',

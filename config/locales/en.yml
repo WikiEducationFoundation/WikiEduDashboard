@@ -2200,6 +2200,7 @@ en:
     iframe_landing:
       explanation: "Open dashboard.wikiedu.org in a new tab"
       button: "Open the Wiki Education Dashboard"
+      not_linked: "This Canvas course is not yet linked to the Wiki Education Dashboard. Open the Dashboard to set up the integration."
     oauth_redirect:
       title: "Continuing to Wikipedia sign-in…"
       button: "Continue"
@@ -2221,6 +2222,7 @@ en:
           label: "[PLACEHOLDER - radio label for the minimal layout: one column for all trainings; the instructor adds individual exercise columns manually via the Canvas assignment picker]"
           example: "[PLACEHOLDER - gradebook example for the minimal layout, matching the style of the other two examples]"
       submit: "Link this course"
+      linked_notice: "[PLACEHOLDER - flash confirmation on the course page right after linking; %{lms_course} is the Canvas course title]"
       already_linked: "[PLACEHOLDER - message: the chosen Wiki Education course is already linked to another Canvas course; ask the instructor to pick a different one]"
       create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."

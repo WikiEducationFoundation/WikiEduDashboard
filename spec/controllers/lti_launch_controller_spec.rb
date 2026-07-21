@@ -65,6 +65,50 @@ describe LtiLaunchController, type: :request do
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(session['ltik']).to be_nil
       end
+
+      # The launch token identifies the Canvas course without a signed-in
+      # user, so the landing can report link state to the instructor.
+      it 'tells an instructor the course is not yet linked' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('not yet linked')
+      end
+
+      # The ltik authenticates the launch on its own, so once the course is
+      # linked an instructor gets the real status view right in the iframe —
+      # no sign-in bounce for read-only state.
+      it 'renders the status view instead of the landing once the course is linked' do
+        course = create(:course)
+        LtiCourseBinding.create!(
+          course: course, lms_id: 'platform-x', lms_family: 'canvas',
+          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+        )
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to render_template('lti_launch/instructor_status')
+        expect(response.body).to include(course.title)
+        expect(response.body).not_to include('not yet linked')
+      end
+
+      context 'for a student launch' do
+        let(:role) { 'Learner' }
+
+        it 'omits the not-linked notice (students cannot set up the link)' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).not_to include('not yet linked')
+        end
+      end
+
+      context 'when the LTIAAS idtoken fetch fails' do
+        before do
+          stub_request(:get, idtoken_url).to_return(status: 500, body: 'oops')
+        end
+
+        it 'still renders the landing, without the notice' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include('Open the Wiki Education Dashboard')
+          expect(response.body).not_to include('not yet linked')
+        end
+      end
     end
 
     context 'when signed in as an instructor' do
@@ -335,6 +379,15 @@ describe LtiLaunchController, type: :request do
         }
         expect(course.reload.flags[:canvas_integration]).to be true
       end
+
+      it 'sets a flash notice so the course page confirms the link' do
+        post '/lti/setup', params: {
+          binding_id: binding.id,
+          course_slug: course.slug,
+          gradebook_granularity: 'standard'
+        }
+        expect(flash[:notice]).to be_present
+      end
     end
 
     context 'when the chosen course is already linked to another Canvas course' do
@@ -587,6 +640,45 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('User:')
         expect(response.body).to include('Evaluate_an_Article')
         expect(response.body).to include('Your sandbox')
+      end
+    end
+
+    context 'when not signed in (in-iframe launch, partitioned cookies)' do
+      # The ltik authenticates the launch, so assignment drill-downs render
+      # in the iframe with the viewer resolved from the LTI identity.
+      it 'renders the instructor roster without a Rails session' do
+        student = create(:user, username: 'Stu Dent')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
+                           lms_id: 'platform-x', name: 'Stu Dent',
+                           roles: ['vocab/membership#Learner'], linked_at: Time.current)
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/assignment_view')
+        expect(response.body).to include('Stu Dent')
+      end
+
+      context 'as a student with a linked Wikipedia account' do
+        let(:role) { 'Learner' }
+
+        it 'renders their own panel, resolved from the launch LTI identity' do
+          LtiContext.create!(user: user, lti_course_binding: binding,
+                             user_lti_id: 'lti-user-1', lms_id: 'platform-x',
+                             roles: ['vocab/membership#Learner'], linked_at: Time.current)
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/assignment_view')
+          expect(response.body).to include('Your sandbox')
+        end
+      end
+
+      context 'as a student who has not linked a Wikipedia account' do
+        let(:role) { 'Learner' }
+
+        it 'renders the landing so the new-tab flow can link them' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/sign_in_to_continue')
+        end
       end
     end
 

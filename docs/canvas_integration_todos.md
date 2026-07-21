@@ -110,6 +110,18 @@ launch + Wikipedia OAuth is the only linking path.
   re-sync existing staging bindings after deploy, flipping any that should use
   the new `standard` mode.
 
+- [x] **Assignment + nav launches render in-iframe without a Dashboard
+  session.** _(Implemented on CanvasStaging.)_ Inside the Canvas iframe there
+  is never a Rails session (partitioned cookies), so every launch used to show
+  the generic "open in a new tab" landing. The ltik itself authenticates the
+  launch (the deep-link picker already relied on this), so `LtiAnonymousLaunch`
+  now renders the read-only views directly in the iframe: assignment
+  drill-downs (viewer resolved from the launch's LTI identity via LtiContext)
+  and the bound-course instructor status view. The landing remains only for
+  account-dependent flows: setup on an unlinked course (with the operator's
+  "not yet linked" notice for instructors) and students who haven't connected
+  a Wikipedia account yet.
+
 - [ ] **No UI to change gradebook layout after linking.** The setup form's
   granularity explanation promises "You can change this later," but nothing in
   the product lets an instructor change `gradebook_granularity` post-link. The
@@ -119,10 +131,12 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## Deep-link picker (`DeepLinkableGradables`)
 
-- [ ] **Picker list isn't in timeline order.** `gradable_blocks` uses `@course.blocks`
-  in default (id/insertion) order, so exercises appear arbitrarily rather than in
-  the order they sit in the course timeline. Sort by `week.order` then `block.order`
-  so the picker mirrors the timeline.
+- [x] **Picker list isn't in timeline order.** _(Fixed on CanvasStaging.)_
+  `gradable_blocks` now sorts by `week.order` then `block.order` in both
+  `DeepLinkableGradables` (picker) and `SyncLtiLineItems` (auto-created columns —
+  Canvas lists assignments in creation order, so creation must walk the
+  timeline). Note: already-created Canvas assignments keep their positions; the
+  order fix shows only for columns created after it deployed.
 - [ ] **Picker offers the trainings roll-up even though it's auto-created.** `perform`
   unshifts the "Wikipedia trainings" roll-up whenever the course has trainings, but
   that column is already auto-created on sync (trainings stay auto-present in every

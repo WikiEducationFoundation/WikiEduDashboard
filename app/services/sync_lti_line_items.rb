@@ -101,12 +101,16 @@ class SyncLtiLineItems
                       label: label_for_block(block), archived_at: nil)
   end
 
+  # In timeline order (week, then block position): Canvas lists assignments
+  # in creation order, so creating them in timeline order is what makes the
+  # Assignments tab mirror the timeline.
   def gradable_blocks
     @gradable_blocks ||=
       @binding.course.blocks
               .includes(:week)
               .to_a
               .select { |b| b.training_module_ids.any? }
+              .sort_by { |b| [b.week.order, b.order] }
   end
 
   def exercise_blocks
