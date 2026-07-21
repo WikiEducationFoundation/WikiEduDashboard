@@ -33,7 +33,7 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     const exportUrl = `/system_csv${queryString ? `?${queryString}` : ''}`;
 
     let attempts = 0;
-    const maxAttempts = 12;
+    const maxAttempts = 15; // 15 attempts x 6s = 90s total polling window
 
     const stopExport = () => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -55,9 +55,18 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
           const contentType = resp.headers.get('content-type') || '';
           const isCsv = resp.url.endsWith('.csv') || contentType.includes('csv');
 
+          const triggerDownload = (url) => {
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', url.split('/').pop());
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+
           if (isCsv) {
             stopExport();
-            window.location.href = exportUrl;
+            triggerDownload(resp.url);
             return;
           }
 
@@ -65,14 +74,14 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
             if (text.includes('generated')) {
               if (attempts < maxAttempts) {
                 setNotice(I18n.t('system_stats.filters.generation_queued'));
-                timerRef.current = setTimeout(poll, 2500);
+                timerRef.current = setTimeout(poll, 6000);
               } else {
                 setExporting(false);
                 setNotice(I18n.t('system_stats.filters.fetch_error'));
               }
             } else {
               stopExport();
-              window.location.href = exportUrl;
+              triggerDownload(resp.url);
             }
           });
         })
