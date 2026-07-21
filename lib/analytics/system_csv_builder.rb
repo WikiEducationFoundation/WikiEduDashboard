@@ -20,8 +20,15 @@ require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 #   SystemCsvBuilder.new(filters: { status: 'active' }).generate_csv
 #
 class SystemCsvBuilder
+  VALID_COURSE_TYPES = %w[
+    ClassroomProgramCourse Editathon BasicCourse FellowsCohort
+    ArticleScopedProgram VisitingScholarship LegacyCourse SingleUser
+  ].freeze
+  VALID_STATUSES = %w[active archived].freeze
+
   def initialize(filters: {})
     @filters = filters
+    validate_filters!
   end
 
   def generate_csv
@@ -38,7 +45,7 @@ class SystemCsvBuilder
       ).row
     end
 
-    CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
+    CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
 
   # Returns the filtered course scope. Public so it can be tested directly.
@@ -56,42 +63,56 @@ class SystemCsvBuilder
     Course.nonprivate
   end
 
-  def build_filtered_scope # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
+  def build_filtered_scope
     scope = base_scope
-
-    if @filters[:campaign_slug].present?
-      scope = scope.joins(:campaigns)
-                   .where(campaigns: { slug: @filters[:campaign_slug] })
-    end
-
-    if @filters[:start_date].present?
-      scope = scope.where('courses.start >= ?', @filters[:start_date].to_date)
-    end
-
-    if @filters[:end_date].present?
-      scope = scope.where('courses.end <= ?', @filters[:end_date].to_date)
-    end
-
-    if @filters[:wiki_domain].present?
-      wiki_language, wiki_project = parse_wiki_domain(@filters[:wiki_domain])
-      scope = scope.joins(:home_wiki)
-                   .where(wikis: { language: wiki_language, project: wiki_project })
-    end
-
-    if @filters[:course_type].present?
-      scope = scope.where(type: @filters[:course_type])
-    end
-
-    case @filters[:status]
-    when 'active'
-      scope = scope.current_and_future
-    when 'archived'
-      scope = scope.archived
-    end
-
+    scope = apply_campaign_filter(scope)
+    scope = apply_date_filters(scope)
+    scope = apply_wiki_filter(scope)
+    scope = apply_type_filter(scope)
+    scope = apply_status_filter(scope)
     scope.distinct
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
+
+  def apply_campaign_filter(scope)
+    return scope unless @filters[:campaign_slug].present?
+    scope.joins(:campaigns).where(campaigns: { slug: @filters[:campaign_slug] })
+  end
+
+  def apply_date_filters(scope)
+    scope = scope.where('courses.start >= ?', @filters[:start_date].to_date) if @filters[:start_date].present?
+    scope = scope.where('courses.end <= ?', @filters[:end_date].to_date) if @filters[:end_date].present?
+    scope
+  end
+
+  def apply_wiki_filter(scope)
+    return scope unless @filters[:wiki_domain].present?
+    wiki_language, wiki_project = parse_wiki_domain(@filters[:wiki_domain])
+    scope.joins(:home_wiki).where(wikis: { language: wiki_language, project: wiki_project })
+  end
+
+  def apply_type_filter(scope)
+    return scope unless @filters[:course_type].present?
+    scope.where(type: @filters[:course_type])
+  end
+
+  def apply_status_filter(scope)
+    case @filters[:status]
+    when 'active'
+      scope.where('courses.end > ?', Time.zone.now - Course::UPDATE_LENGTH)
+    when 'archived'
+      scope.where('courses.end <= ?', Time.zone.now - Course::UPDATE_LENGTH)
+    else scope
+    end
+  end
+
+  def validate_filters!
+    if @filters[:course_type].present? && !VALID_COURSE_TYPES.include?(@filters[:course_type])
+      raise ArgumentError, "Invalid course_type: #{@filters[:course_type]}"
+    end
+    if @filters[:status].present? && !VALID_STATUSES.include?(@filters[:status])
+      raise ArgumentError, "Invalid status: #{@filters[:status]}"
+    end
+  end
 
   # Parses a wiki domain string into [language, project] for DB queries.
   # 'en.wikipedia.org'   → ['en', 'wikipedia']

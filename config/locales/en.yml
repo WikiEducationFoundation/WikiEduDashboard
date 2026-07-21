@@ -207,6 +207,12 @@ en:
       generating: "Generating Export..."
       generation_queued: "Your CSV export is being generated in the background. Retrying..."
       fetch_error: "Could not generate CSV export. Please try again."
+      course_type: "COURSE TYPE"
+      status: "STATUS"
+      all_types: "All Types"
+      all_statuses: "All Statuses"
+      active: "Active"
+      archived: "Archived"
     kpis:
       total_edits: "Total Edits"
       article_views: "Article Views"
