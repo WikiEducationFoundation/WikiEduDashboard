@@ -41,6 +41,17 @@ body.lti-iframe
   opacity .5
   cursor not-allowed
 
+// Shown when the setup POST rejects the chosen course (e.g. it's already linked
+// to another Canvas course). The picker normally omits such courses, so this is
+// a rare fallback; make it read clearly as an error above the form.
+.lti-setup__error
+  margin 0 0 18px
+  padding 12px 16px
+  border-radius 6px
+  background #fdecea
+  border 1px solid #f5c6c2
+  color #8a1c13
+
 // Secondary path for instructors whose course isn't listed yet: a quiet line
 // under the form pointing them to their dashboard to set one up.
 .lti-setup__alt-path

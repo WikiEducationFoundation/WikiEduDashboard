@@ -52,7 +52,10 @@ class LmsIntegrationStatusController < ApplicationController
 
   def lms_course_url
     return nil if binding.lms_platform_url.blank?
-    "#{binding.lms_platform_url.chomp('/')}/courses/#{binding.lms_context_id}"
+    # `lms_context_id` is the opaque LTI context id, not Canvas's numeric course
+    # id, so it must go through Canvas's `lti_context_id:` API-id lookup prefix —
+    # a bare `/courses/<context_id>` 404s ("Couldn't find Course with API id ...").
+    "#{binding.lms_platform_url.chomp('/')}/courses/lti_context_id:#{binding.lms_context_id}"
   end
 
   def staff_metrics

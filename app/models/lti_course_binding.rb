@@ -53,6 +53,10 @@ class LtiCourseBinding < ApplicationRecord
 
   validates :lms_id, :lms_context_id, :lms_resource_link_id, presence: true
   validates :gradebook_granularity, inclusion: { in: GRADEBOOK_GRANULARITIES }
+  # A Dashboard course backs only one LMS course. There is a unique DB index on
+  # course_id, but without this validation a duplicate surfaces as an uncaught
+  # RecordNotUnique (500); the validation turns it into a handleable error.
+  validates :course_id, uniqueness: { allow_nil: true }
 
   def self.lookup(lms_id:, lms_context_id:, lms_resource_link_id:)
     find_by(lms_id:, lms_context_id:, lms_resource_link_id:)

@@ -33,6 +33,19 @@ describe LtiCourseBinding do
       expect(binding).to be_lumped
       expect(binding).not_to be_per_block
     end
+
+    it 'allows only one binding per linked course' do
+      course = create(:course)
+      described_class.create!(base_attrs.merge(course:))
+      dup = described_class.new(base_attrs.merge(course:, lms_resource_link_id: 'rl-2'))
+      expect(dup).not_to be_valid
+      expect(dup.errors[:course_id]).to be_present
+    end
+
+    it 'allows many bindings that have no course yet' do
+      described_class.create!(base_attrs)
+      expect(described_class.new(base_attrs.merge(lms_resource_link_id: 'rl-2'))).to be_valid
+    end
   end
 
   describe '.lookup' do

@@ -80,15 +80,9 @@ class LtiLaunchController < ApplicationController
   def complete_setup
     @binding = LtiCourseBinding.find(params[:binding_id])
     return head :forbidden unless instructor_on_course?(course_from_params)
+    return render_already_linked if course_bound_elsewhere?
 
-    @binding.update!(
-      course: course_from_params,
-      gradebook_granularity: params[:gradebook_granularity]
-    )
-    course_from_params.flags[:canvas_integration] = true
-    course_from_params.save
-    LtiRosterSyncWorker.perform_async(@binding.id)
-    LtiLineItemSyncWorker.perform_async(@binding.id)
+    bind_course_and_sync
     redirect_to "/courses/#{course_from_params.slug}"
   end
 
@@ -151,12 +145,25 @@ class LtiLaunchController < ApplicationController
     LtiRosterSyncWorker.perform_async(@binding.id) if @binding.course
     return redirect_to "/courses/#{@binding.course.slug}" if @binding.course
 
-    @user_courses = current_user.instructed_courses
-                                .joins(:campaigns_courses)
-                                .where(withdrawn: false)
-                                .where('courses.end > ?', Time.zone.now)
-                                .distinct.order(start: :desc).to_a
+    @user_courses = linkable_courses
     render 'lti_launch/setup'
+  end
+
+  # Approved, not-yet-ended courses the instructor teaches, minus any already
+  # bound to another LMS course — a Dashboard course backs only one LMS course
+  # (unique index on course_id), so listing a linked one would dead-end the
+  # setup POST. complete_setup guards the same case server-side.
+  def linkable_courses
+    # The course_id filter is load-bearing: `NOT IN (subquery)` would exclude
+    # every course if the subquery yielded a NULL.
+    bound = LtiCourseBinding.where.not(id: @binding&.id)
+                            .where.not(course_id: nil).select(:course_id)
+    current_user.instructed_courses
+                .joins(:campaigns_courses)
+                .where(withdrawn: false)
+                .where('courses.end > ?', Time.zone.now)
+                .where.not(id: bound)
+                .distinct.order(start: :desc).to_a
   end
 
   def handle_student_launch
@@ -206,6 +213,32 @@ class LtiLaunchController < ApplicationController
 
     CoursesUsers.exists?(user_id: current_user.id, course_id: course.id,
                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+  end
+
+  # A Dashboard course can back only one LMS course. If the chosen one is already
+  # bound to a different binding, re-render setup (the picker already omits it)
+  # rather than letting the unique index raise a 500 from update!.
+  def course_bound_elsewhere?
+    course_from_params &&
+      LtiCourseBinding.where.not(id: @binding.id)
+                      .exists?(course_id: course_from_params.id)
+  end
+
+  def render_already_linked
+    @user_courses = linkable_courses
+    @setup_error = t('lti.setup.already_linked')
+    render 'lti_launch/setup', status: :unprocessable_entity
+  end
+
+  def bind_course_and_sync
+    @binding.update!(
+      course: course_from_params,
+      gradebook_granularity: params[:gradebook_granularity]
+    )
+    course_from_params.flags[:canvas_integration] = true
+    course_from_params.save
+    LtiRosterSyncWorker.perform_async(@binding.id)
+    LtiLineItemSyncWorker.perform_async(@binding.id)
   end
 
   def allow_iframe

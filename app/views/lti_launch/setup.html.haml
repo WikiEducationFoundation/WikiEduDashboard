@@ -2,6 +2,9 @@
   .section-header
     %h3= t('lti.setup.header')
   %hr
+  - if @setup_error
+    .lti-setup__error
+      %p= @setup_error
   - if @user_courses.any?
     = form_with url: '/lti/setup', method: :post, local: true do |f|
       = hidden_field_tag :binding_id, @binding.id

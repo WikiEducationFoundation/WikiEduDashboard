@@ -2217,6 +2217,7 @@ en:
           label: "A separate column for every training and exercise"
           example: "Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …"
       submit: "Link this course"
+      already_linked: "[PLACEHOLDER - message: the chosen Wiki Education course is already linked to another Canvas course; ask the instructor to pick a different one]"
       create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
     deep_link:

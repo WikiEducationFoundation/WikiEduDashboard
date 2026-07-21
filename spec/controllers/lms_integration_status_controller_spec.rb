@@ -57,7 +57,7 @@ describe LmsIntegrationStatusController, type: :request do
         expect(body['bound']).to be true
         expect(body['lms_name']).to eq('Canvas')
         expect(body['course_title']).to eq('WRIT 2010')
-        expect(body['course_url']).to eq('https://canvas.example.com/courses/canvas-77')
+        expect(body['course_url']).to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
         expect(body).to have_key('last_sync_at')
         expect(body).not_to have_key('last_roster_sync_at')
         expect(body['last_sync_error_present']).to be false
@@ -148,7 +148,7 @@ describe LmsIntegrationStatusController, type: :request do
       it 'treats them as instructor (includes the LMS course URL)' do
         get request_path
         body = JSON.parse(response.body)
-        expect(body['course_url']).to eq('https://canvas.example.com/courses/canvas-77')
+        expect(body['course_url']).to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
       end
     end
 
@@ -169,7 +169,7 @@ describe LmsIntegrationStatusController, type: :request do
         body = JSON.parse(response.body)
         expect(body['bound']).to be true
         expect(body['course_title']).to eq('WRIT 2010')
-        expect(body['course_url']).to eq('https://canvas.example.com/courses/canvas-77')
+        expect(body['course_url']).to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
         expect(body['my_linked']).to be true
       end
 

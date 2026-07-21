@@ -117,6 +117,20 @@ describe LtiLaunchController, type: :request do
             expect(response.body).not_to include('School/Pending_Course_(2026)')
             expect(response.body).not_to include('School/Withdrawn_Course_(2026)')
           end
+
+          it 'excludes a course already linked to another Canvas course' do
+            linked = create(:course, slug: 'School/Linked_Course_(2026)',
+                                     title: 'Linked Course',
+                                     start: 1.week.ago, end: 2.months.from_now)
+            CampaignsCourses.create!(course: linked, campaign: campaign)
+            CoursesUsers.create!(user: user, course: linked,
+                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+            LtiCourseBinding.create!(course: linked, lms_id: 'platform-x', lms_family: 'canvas',
+                                     lms_context_id: 'other-ctx', lms_resource_link_id: 'other-rl')
+            get '/lti', params: { ltik: 'ltik-abc' }
+            expect(response.body).to include('School/Active_Course_(2026)')
+            expect(response.body).not_to include('School/Linked_Course_(2026)')
+          end
         end
 
         context 'and the instructor has zero approved not-yet-ended courses' do
@@ -297,6 +311,28 @@ describe LtiLaunchController, type: :request do
           gradebook_granularity: 'lumped'
         }
         expect(course.reload.flags[:canvas_integration]).to be true
+      end
+    end
+
+    context 'when the chosen course is already linked to another Canvas course' do
+      before do
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        LtiCourseBinding.create!(
+          course: course, lms_id: 'platform-x', lms_family: 'canvas',
+          lms_context_id: 'other-ctx', lms_resource_link_id: 'other-rl'
+        )
+      end
+
+      it 're-renders setup without binding, instead of raising a 500' do
+        post '/lti/setup', params: {
+          binding_id: binding.id,
+          course_slug: course.slug,
+          gradebook_granularity: 'lumped'
+        }
+        expect(response).to have_http_status(422)
+        expect(binding.reload.course).to be_nil
+        expect(response.body).to include('lti-setup__error')
       end
     end
 
