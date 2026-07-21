@@ -196,6 +196,17 @@ en:
       overall_max_likelihood: Overall max AI likelihood distribution
   system_stats:
     title: "System & Facilitator Stats"
+    filters:
+      campaign: "CAMPAIGN"
+      home_wiki: "HOME WIKI"
+      start_date: "START DATE"
+      end_date: "END DATE"
+      all_campaigns: "All Campaigns"
+      all_wikis: "All Wikis"
+      export_csv: "Export CSV"
+      generating: "Generating Export..."
+      generation_queued: "Your CSV export is being generated in the background. Retrying..."
+      fetch_error: "Could not generate CSV export. Please try again."
     kpis:
       total_edits: "Total Edits"
       article_views: "Article Views"

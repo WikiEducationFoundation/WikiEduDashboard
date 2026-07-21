@@ -5,6 +5,7 @@ import MonthlyActivityChart from './monthly_activity_chart';
 import WikiTrendsChart from './wiki_trends_chart';
 import WikiStatsBreakdown from './wiki_stats_breakdown';
 import FacilitatorLeaderboard from './facilitator_leaderboard';
+import SystemCsvExportBar from './system_csv_export_bar';
 
 const formatHumanNumber = (num) => {
   if (num === undefined || num === null) return '0';
@@ -113,6 +114,12 @@ const SystemStatsHandler = () => {
             </div>
           </div>
         )}
+
+        {/* Filter & Export Bar */}
+        <SystemCsvExportBar
+          campaigns={activeStats.campaigns || []}
+          wikis={activeStats.wikis || []}
+        />
 
         {/* Loading Spinner Overlay or Main Block */}
         {loading && !stats ? (

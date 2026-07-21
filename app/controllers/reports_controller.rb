@@ -10,7 +10,8 @@ class ReportsController < ApplicationController
                 only: %i[campaign_instructors_csv campaign_courses_csv campaign_articles_csv
                          campaign_students_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
-                         course_wikidata_csv course_retention_csv all_courses_and_instructors_csv]
+                         course_wikidata_csv course_retention_csv all_courses_and_instructors_csv
+                         system_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
@@ -20,7 +21,7 @@ class ReportsController < ApplicationController
 
   before_action :set_sidekiq_job_context
   before_action :require_admin_permissions,
-                only: %i[all_courses_and_instructors_csv course_retention_csv]
+                only: %i[all_courses_and_instructors_csv course_retention_csv system_csv]
   before_action :require_fellows_cohort, only: [:course_retention_csv]
 
   #######################
@@ -28,6 +29,15 @@ class ReportsController < ApplicationController
   #######################
 
   CSV_PATH = '/system/analytics'
+  SYSTEM_CSV_FILENAME_PREFIXES = {
+    campaign_slug: 'campaign',
+    start_date: 'from',
+    end_date: 'to',
+    wiki_domain: 'wiki',
+    course_type: 'type',
+    status: 'status'
+  }.freeze
+
 
   def set_sidekiq_job_context
     SidekiqJobContext.username = current_user.username if current_user
@@ -93,6 +103,19 @@ class ReportsController < ApplicationController
     end
   end
 
+  # Admin-only system-wide CSV export with dynamic filters.
+  # Supports: campaign_slug, start_date, end_date, wiki_domain, course_type, status
+  def system_csv
+    filters = system_csv_filters
+    filename = build_system_csv_filename(filters)
+
+    if File.exist?("public#{CSV_PATH}/#{filename}")
+      redirect_to "#{CSV_PATH}/#{filename}"
+    else
+      generate_system_csv(filename, filters)
+    end
+  end
+
   private
 
   def set_course
@@ -136,6 +159,32 @@ class ReportsController < ApplicationController
 
   def csv_params
     params.permit(:slug, :course)
+  end
+
+  def system_csv_filters
+    params.permit(:campaign_slug, :start_date, :end_date,
+                  :wiki_domain, :course_type, :status)
+          .to_h.symbolize_keys
+          .reject { |_, v| v.blank? }
+  end
+
+  def generate_system_csv(filename, filters)
+    if Rails.env.development?
+      ReportCsvWorker.new.perform(nil, filename, 'system_csv', nil, filters.to_json)
+      redirect_to "#{CSV_PATH}/#{filename}"
+    else
+      ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_csv',
+                                   include_course: nil, filters:)
+      render plain: 'This file is being generated. Please try again shortly.', status: :ok
+    end
+  end
+
+  def build_system_csv_filename(filters)
+    filter_parts = SYSTEM_CSV_FILENAME_PREFIXES.filter_map do |key, prefix|
+      "#{prefix}-#{filters[key]}" if filters[key].present?
+    end
+    parts = ['system-csv', *filter_parts, Time.zone.today.to_s]
+    "#{parts.join('-')}.csv".tr('/', '-')
   end
 
   def course_report?(type)
