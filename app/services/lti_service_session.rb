@@ -47,13 +47,21 @@ class LtiServiceSession
   # Returns the lineitem `id` (a URL string) which we persist on
   # LtiLineItem.lineitem_id for later PUT/score calls.
   # See https://docs.ltiaas.com/guides/api/manipulating-grade-lines/
-  def upsert_line_item(label:, tag: nil, score_maximum: 1.0,
-                       resource_link_id: nil, resource_id: nil, end_date_time: nil)
+  def upsert_line_item(label:, tag: nil, score_maximum: 1.0, resource_link_id: nil,
+                       resource_id: nil, end_date_time: nil, launch_url: nil)
     body = { label:, scoreMaximum: score_maximum }
     body[:tag] = tag if tag.present?
     body[:resourceLinkId] = resource_link_id if resource_link_id.present?
     body[:resourceId] = resource_id if resource_id.present?
     body[:endDateTime] = end_date_time.iso8601 if end_date_time.present?
+    # Canvas-only AGS extension, passed through verbatim by LTIAAS: makes the
+    # created assignment an external_tool one that launches `launch_url`,
+    # instead of a bare no-submission gradebook column. Without it, students
+    # get no tool view at all from the assignment page.
+    if launch_url.present?
+      body['https://canvas.instructure.com/lti/submission_type'] =
+        { type: 'external_tool', external_tool_url: launch_url }
+    end
     response = @client.post('/api/lineitems', body)
     response['id']
   end

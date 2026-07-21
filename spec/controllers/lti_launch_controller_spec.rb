@@ -22,12 +22,20 @@ describe LtiLaunchController, type: :request do
     }
   end
 
+  # Raw JWT claims (GET /api/idtoken?raw=true) — carries the deep-linking
+  # settings the processed idtoken omits. Empty = single-item placements.
+  let(:raw_idtoken) { {} }
+
   before do
     ENV['LTIAAS_DOMAIN'] = ltiaas_domain
     ENV['LTIAAS_API_KEY'] = 'k'
     allow(Features).to receive(:canvas_integration?).and_return(true)
     stub_request(:get, idtoken_url)
       .to_return(status: 200, body: idtoken.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+    stub_request(:get, idtoken_url)
+      .with(query: { 'raw' => 'true' })
+      .to_return(status: 200, body: raw_idtoken.to_json,
                  headers: { 'Content-Type' => 'application/json' })
     allow(LtiRosterSyncWorker).to receive(:perform_async)
     allow(LtiLineItemSyncWorker).to receive(:perform_async)
@@ -208,6 +216,14 @@ describe LtiLaunchController, type: :request do
           expect(response.body).to include('target="_blank"')
         end
 
+        # The refresh link re-requests the launch URL inside the iframe only,
+        # so the Canvas page stays put while the sync status re-renders.
+        it 'includes an in-iframe refresh link carrying the ltik' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Refresh')
+          expect(response.body).to include('href="/lti?ltik=ltik-abc"')
+        end
+
         it 'shows the synced-student count and last sync time' do
           student = create(:user, username: 'Stu')
           LtiContext.create!(user: student, lti_course_binding: binding,
@@ -262,6 +278,19 @@ describe LtiLaunchController, type: :request do
           expect { get '/lti', params: { ltik: 'ltik-abc' } }
             .not_to change(CoursesUsers, :count)
           expect(response).to redirect_to("/courses/#{course.slug}")
+        end
+
+        # Firefox re-grants the session inside the Canvas iframe after the
+        # top-level login, and the course page's X-Frame-Options makes an
+        # in-iframe redirect a hard dead end there — so framed launches get
+        # an in-iframe status view with a new-tab link instead.
+        it 'renders the in-iframe student status view for a framed launch' do
+          get '/lti', params: { ltik: 'ltik-abc' },
+                      headers: { 'Sec-Fetch-Dest' => 'iframe' }
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/student_status')
+          expect(response.body).to include("/courses/#{course.slug}")
+          expect(response.body).to include('target="_blank"')
         end
       end
 
@@ -387,6 +416,21 @@ describe LtiLaunchController, type: :request do
           gradebook_granularity: 'standard'
         }
         expect(flash[:notice]).to be_present
+      end
+
+      # A framed setup POST (Firefox keeps the session in the iframe) can't
+      # redirect to the unframable course page; the status view IS the
+      # confirmation there, and it must be allowed to render in the frame.
+      it 'renders the in-iframe status view when submitted from the iframe' do
+        post '/lti/setup', params: {
+          binding_id: binding.id,
+          course_slug: course.slug,
+          gradebook_granularity: 'standard'
+        }, headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/instructor_status')
+        expect(response.headers).not_to have_key('X-Frame-Options')
+        expect(binding.reload.course).to eq(course)
       end
     end
 
@@ -826,8 +870,35 @@ describe LtiLaunchController, type: :request do
       expect(response).to render_template('lti_launch/deep_link_picker')
       expect(response.body).to include('Wk1 Find sources')
       expect(response.body).to include("Block:#{exercise_block.id}")
+      # Single-item placement (no accept_multiple) => radios, not checkboxes.
+      expect(response.body).to include('type="radio"')
       # Renders inside Canvas's deep-linking picker iframe, so it must be framable.
       expect(response.headers).not_to have_key('X-Frame-Options')
+    end
+
+    it 'omits gradables that already have an active gradebook column' do
+      binding = bind_course!
+      LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                          gradable_id: exercise_block.id,
+                          lineitem_id: 'https://canvas/li/existing', label: 'Wk1 Find sources')
+      get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+      expect(response.body).not_to include("Block:#{exercise_block.id}")
+    end
+
+    context 'when the placement accepts multiple content items (Modules bulk flow)' do
+      let(:raw_idtoken) do
+        { 'https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings' =>
+          { 'accept_multiple' => true } }
+      end
+
+      it 'renders a pre-checked multi-select picker' do
+        bind_course!
+        get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('type="checkbox"')
+        expect(response.body).to include('name="resources[]"')
+        expect(response.body).to include('checked="checked"')
+      end
     end
   end
 
@@ -872,6 +943,62 @@ describe LtiLaunchController, type: :request do
     it 'rejects a resource that is not one of the bound course gradables' do
       post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resource: 'Block:999999' }
       expect(response).to have_http_status(422)
+    end
+
+    it 'schedules a line-item sync so the new column is discovered and bound' do
+      stub_request(:post, form_url)
+        .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      # at_least: creating the spec's blocks also fires the Block-edit hook
+      # with identical arguments.
+      expect(LtiLineItemSyncWorker).to have_received(:perform_in)
+        .with(2.minutes, LtiCourseBinding.last.id).at_least(:once)
+    end
+
+    let!(:second_exercise_block) do
+      create(:block, week:, order: 1, title: 'Draft your article',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    it 'rejects multiple resources when the placement accepts only one' do
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc',
+                     resources: ["Block:#{exercise_block.id}",
+                                 "Block:#{second_exercise_block.id}"] }
+      expect(response).to have_http_status(422)
+    end
+
+    context 'when the placement accepts multiple content items' do
+      let(:raw_idtoken) do
+        { 'https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings' =>
+          { 'accept_multiple' => true } }
+      end
+
+      it 'posts one content item per selected resource' do
+        stub = stub_request(:post, form_url)
+               .with do |request|
+                 items = JSON.parse(request.body)['contentItems']
+                 items.length == 2 &&
+                   items.map { |i| i['custom']['resource'] }.sort ==
+                     ["Block:#{exercise_block.id}", "Block:#{second_exercise_block.id}"].sort
+               end
+               .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                          headers: { 'Content-Type' => 'application/json' })
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc',
+                       resources: ["Block:#{exercise_block.id}",
+                                   "Block:#{second_exercise_block.id}"] }
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(form_html)
+        expect(stub).to have_been_requested
+      end
+
+      it 'rejects an empty selection' do
+        post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resources: [] }
+        expect(response).to have_http_status(422)
+      end
     end
   end
 

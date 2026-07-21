@@ -44,7 +44,8 @@ class LtiLaunchController < ApplicationController
   # deep_link / deep_link_select render inside Canvas's deep-linking picker
   # iframe (the "Find" dialog), so they need X-Frame-Options cleared too — without
   # this the picker shows "refused to connect" and no gradable can be selected.
-  after_action :allow_iframe, only: %i[launch assignment_view deep_link deep_link_select]
+  after_action :allow_iframe,
+               only: %i[launch assignment_view complete_setup deep_link deep_link_select]
 
   def launch
     return redirect_to errors_login_error_path if params[:ltik].blank?
@@ -85,8 +86,12 @@ class LtiLaunchController < ApplicationController
     return render_already_linked if course_bound_elsewhere?
 
     bind_course_and_sync
-    # Lands on the course page's flash banner (shared/_flash) so the
-    # instructor gets explicit confirmation that the link took effect.
+    # In-iframe setup (Firefox lets the iframe keep the session) can't
+    # redirect to the course page — its X-Frame-Options blocks framing —
+    # so the status view IS the confirmation there. Top level, the course
+    # page's flash banner (shared/_flash) confirms the link instead.
+    return render_instructor_status if framed_request?
+
     redirect_to "/courses/#{course_from_params.slug}",
                 notice: t('lti.setup.linked_notice',
                           lms_course: @binding.lms_context_title || @binding.lms_display_name)
@@ -113,7 +118,19 @@ class LtiLaunchController < ApplicationController
   def start_lti_session
     @lti_session = build_lti_session(params[:ltik])
     @binding = @lti_session.find_or_create_binding!
-    @lti_session.link_lti_user(current_user, binding: @binding)
+    context = @lti_session.link_lti_user(current_user, binding: @binding)
+    schedule_first_link_grade_push(context)
+  end
+
+  # The "Wikipedia account" column should flip to ✓ the moment a student
+  # connects their account, not at the next half-hourly cron — that launch
+  # is exactly when they go looking for confirmation. Fires only when this
+  # launch newly linked the context (user_id just changed), so routine
+  # relaunches don't enqueue redundant syncs.
+  def schedule_first_link_grade_push(context)
+    return unless @binding.course && context.previous_changes.key?('user_id')
+
+    LtiGradeSyncWorker.perform_async(@binding.id)
   end
 
   # An assignment-context launch is identifiable three ways: the deep-link
@@ -206,6 +223,14 @@ class LtiLaunchController < ApplicationController
 
   def allow_iframe
     response.headers.except! 'X-Frame-Options'
+  end
+
+  # Whether this request is being rendered inside a frame (the Canvas
+  # iframe) rather than a top-level tab. All current browsers send
+  # Sec-Fetch-Dest; a missing header (very old browser) reads as top-level,
+  # which degrades to the old redirect behavior.
+  def framed_request?
+    request.headers['Sec-Fetch-Dest'] == 'iframe'
   end
 
   def require_canvas_integration_enabled

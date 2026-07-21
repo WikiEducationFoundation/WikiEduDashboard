@@ -1,0 +1,22 @@
+- # Student-facing launch view inside the Canvas iframe once they're
+- # enrolled: confirms the connection and links out to the course in a new
+- # tab. Rendered instead of redirecting to the course page — the full
+- # dashboard can't render inside the iframe (Firefox enforces the course
+- # page's X-Frame-Options outright, and the React shell reads logged-out
+- # under partitioned cookies elsewhere). Top-level launches still redirect.
+- course = @binding.course
+- course_path = "/courses/#{course.slug}"
+.lti-iframe__drilldown
+  %h2.lti-iframe__drilldown-title
+    = t('lti.status.header')
+    %span.lti-iframe__linked-check{ role: 'img', 'aria-label': t('lti.status.linked') } ✓
+  %dl.lti-status-list
+    .lti-status-list__row
+      %dt= t('lms_integration.linked_to')
+      %dd
+        = link_to course.title, course_path, target: '_blank', rel: 'noopener',
+                  class: 'lti-status-list__link'
+  = link_to course_path, target: '_blank', rel: 'noopener',
+            class: 'button dark lti-iframe__button' do
+    = t('lti.status.open_course')
+    %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }

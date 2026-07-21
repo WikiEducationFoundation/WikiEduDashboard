@@ -2192,6 +2192,9 @@ en:
     synced_students: "Students synced"
     never_synced: "Not yet synced"
     time_ago: "%{time_ago} ago"
+    my_account_link: "Your account:"
+    linked: "Linked"
+    not_linked: "Not linked"
     my_last_sync: "Last sync"
     no_grades_yet: "No synced progress yet"
     not_yet_linked: "Your account hasn't been linked to Canvas for this course."
@@ -2227,17 +2230,20 @@ en:
       create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
     deep_link:
+      assignment_description: "[PLACEHOLDER - Canvas assignment description for a deep-linked Dashboard task; %{label} is the gradebook label. Baked into the Canvas assignment at creation time, so finalize before real courses use the picker]"
       header: "Choose Wikipedia task"
       instruction: "Choose a Wikipedia task for this gradable item"
+      instruction_multiple: "[PLACEHOLDER - instruction above the multi-select checkbox list: all the course's Wikipedia assignments are pre-selected; uncheck any they don't want, then add them all at once]"
       submit: "Add to course"
+      all_added: "[PLACEHOLDER - shown when every Wikipedia task already has a Canvas assignment, so there is nothing left to add]"
       no_gradables: "No gradable items found"
       unbound:
         header: "This Canvas course isn't linked to a Wiki Education course yet"
         explanation: "Try again once you've set up your course page on dashboard.wikiedu.org"
-    instructor_status:
-      header: "[PLACEHOLDER - headline confirming this Canvas course is linked to the instructor's Wiki Education Dashboard course]"
-      explanation: "[PLACEHOLDER - 1-2 sentences: the link is working; the roster and gradebook sync automatically, and the course is managed from the Dashboard (linked below)]"
-      sync_hint: "[PLACEHOLDER - short note that opening this page starts a fresh roster sync, so counts may take a minute to update]"
+    status:
+      header: "Wiki Education Dashboard"
+      linked: "Linked"
+      refresh: "Refresh"
       grade_sync_error: "[PLACEHOLDER - notice that the most recent gradebook sync hit an error, and what the instructor should do (e.g. contact Wiki Education staff)]"
       open_course: "Open course"
     setup_pending:

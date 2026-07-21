@@ -6,8 +6,9 @@
 - course = @binding.course
 - course_path = "/courses/#{course.slug}"
 .lti-iframe__drilldown
-  %h2.lti-iframe__drilldown-title= t('lti.instructor_status.header')
-  %p.lti-iframe__lead= t('lti.instructor_status.explanation')
+  %h2.lti-iframe__drilldown-title
+    = t('lti.status.header')
+    %span.lti-iframe__linked-check{ role: 'img', 'aria-label': t('lti.status.linked') } ✓
   %dl.lti-status-list
     .lti-status-list__row
       %dt= t('lms_integration.linked_to')
@@ -25,9 +26,16 @@
               time_ago: time_ago_in_words(@sync_status.last_synced_at))
         - else
           = t('lms_integration.never_synced')
+        - # Re-requests the launch URL inside the iframe only (an in-iframe
+        - # anchor never navigates the Canvas page), which also kicks off a
+        - # fresh roster sync — so "check back in a moment" needs no copy.
+        = link_to t('lti.status.refresh'),
+                  "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
+                  class: 'lti-status-list__refresh'
   - if @sync_status.grade_sync_error?
     .lti-setup__error
-      %p= t('lti.instructor_status.grade_sync_error')
-  %p.lti-iframe__hint= t('lti.instructor_status.sync_hint')
-  = link_to t('lti.instructor_status.open_course'), course_path,
-            target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'
+      %p= t('lti.status.grade_sync_error')
+  = link_to course_path, target: '_blank', rel: 'noopener',
+            class: 'button dark lti-iframe__button' do
+    = t('lti.status.open_course')
+    %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }

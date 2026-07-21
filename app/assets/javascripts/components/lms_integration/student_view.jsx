@@ -24,6 +24,13 @@ const StudentView = ({ status }) => {
         {' '}
         {courseTitle}
       </p>
+      <p>
+        <strong>{I18n.t('lms_integration.my_account_link')}</strong>
+        {' '}
+        {status.my_linked
+          ? <span className="lms-integration-status__linked">{I18n.t('lms_integration.linked')}</span>
+          : <span className="lms-integration-status__not-linked">{I18n.t('lms_integration.not_linked')}</span>}
+      </p>
       {status.my_linked
         ? <LinkedSyncRow lastSyncAt={status.my_last_sync_at} />
         : <NotYetLinkedHint />}

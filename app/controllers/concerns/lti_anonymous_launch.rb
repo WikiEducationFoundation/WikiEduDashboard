@@ -20,6 +20,9 @@ module LtiAnonymousLaunch
     @binding = @lti_session&.bound_binding
     return render_anonymous_assignment_view if @binding && assignment_launch?
     return render_instructor_status if @binding && @lti_session.instructor?
+    # A linked student who's already enrolled needs nothing from the new-tab
+    # flow — confirm and link out. (Enrolling itself still needs a session.)
+    return render 'lti_launch/student_status' if @binding && enrolled?(launch_viewer)
 
     @show_not_linked_notice = @lti_session.present? && @binding.nil? &&
                               @lti_session.instructor?

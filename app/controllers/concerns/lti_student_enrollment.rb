@@ -14,14 +14,25 @@ module LtiStudentEnrollment
 
   def handle_student_launch
     return render 'lti_launch/setup_pending' if @binding.course.nil?
-    return redirect_to "/courses/#{@binding.course.slug}" if enrolled?
+    return student_destination if enrolled?
 
     result = join_course_for_student
-    return redirect_to "/courses/#{@binding.course.slug}" if join_succeeded?(result)
+    return student_destination if join_succeeded?(result)
     return render 'lti_launch/enrollment_pending_approval' if pending_approval?(result)
 
     report_join_failure(result)
     render 'lti_launch/enrollment_error'
+  end
+
+  # Where an enrolled student's launch lands. Top level (the new tab after
+  # OAuth): the course page itself. Inside the Canvas iframe: an in-iframe
+  # status view — the course page can't be framed (its X-Frame-Options
+  # blocks the iframe outright in Firefox, which regains the session inside
+  # the iframe via storage-access heuristics after the top-level login).
+  def student_destination
+    return redirect_to "/courses/#{@binding.course.slug}" unless framed_request?
+
+    render 'lti_launch/student_status'
   end
 
   def join_course_for_student
@@ -46,7 +57,7 @@ module LtiStudentEnrollment
     )
   end
 
-  def enrolled?
-    CoursesUsers.exists?(user_id: current_user.id, course_id: @binding.course_id)
+  def enrolled?(user = current_user)
+    user && CoursesUsers.exists?(user_id: user.id, course_id: @binding.course_id)
   end
 end

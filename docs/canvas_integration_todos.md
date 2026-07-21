@@ -49,6 +49,22 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## Linking / launch model (design)
 
+- [ ] **Bulk deep-linking via `module_index_menu_modal` (researched; being built).**
+  Canvas's Modules-page placement accepts a deep-linking response with MANY
+  content items: "creates a new module and adds all given content items to it
+  as either module items or assignments, based on the presence or absence of
+  the lineItem property." That makes a one-click "add all Wikipedia
+  assignments" flow possible — with real assignment descriptions (content-item
+  `text`), which AGS-created columns can never have. True background creation
+  remains impossible (a deep-linking response must POST through the
+  instructor's browser to a launch-specific return URL). Direction per
+  operator (2026-07-21): if the instructor story is smooth, this becomes the
+  basis for the whole assignment-creation model, superseding AGS
+  auto-creation (and likely the granularity modes). Open interactions: dedup
+  against already-created AGS columns, placement must be added to the LTIAAS
+  config (+ re-registration or installed-tool API edit), and re-running the
+  bulk add must skip already-bound gradables.
+
 - [ ] **Consider a nav-link-free, deep-link-first linking model.** The
   course-navigation link is heavyweight for what is mainly a one-time instructor
   action (linking the course). Explore linking via the `assignment_selection`
@@ -64,6 +80,20 @@ launch + Wikipedia OAuth is the only linking path.
   teaches that course), so it needs a solution to that before it's viable.
 
 ## UX rough edges
+
+- [ ] **Auto-created assignments can't have descriptions (platform limitation).**
+  Canvas shows "No additional details were added for this assignment." on every
+  AGS-created column: the AGS line-item API accepts only
+  label/scoreMaximum/resourceId/tag/resourceLinkId/start/end plus the
+  `submission_type` extension — no description field (confirmed in Canvas's
+  `lti/ims/line_items_controller.rb`). Deep-linked assignments DO support one
+  (content-item `text` → assignment description), now sent by
+  `BuildLtiDeepLinkForm` with placeholder copy
+  (`lti.deep_link.assignment_description`) — verify LTIAAS passes `text`
+  through on the next staging deep-link. For the auto-created columns the
+  options are: live with Canvas's default text, have instructors hand-edit, or
+  petition Canvas/LTIAAS for an extension. Copy for the deep-link description
+  is needed before real courses use the picker (it's baked in at creation).
 
 - [ ] **Rejected / pre-activation launch shows raw JSON.** Launching before LTIAAS
   activates the registration (or any LTIAAS-rejected launch) surfaces a raw JSON
@@ -192,6 +222,9 @@ launch + Wikipedia OAuth is the only linking path.
   manual-path config source, the support/activation contact, and the two
   troubleshooting specifics.
 - [ ] **Fill the launch-view copy placeholders.** `grep '\[PLACEHOLDER' config/locales/en.yml`
-  — the instructor status view (header, explanation, sync hint, grade-sync
-  error), the setup/trainings assignment views (summary, empty state, student
-  strings), and the `lumped` granularity radio label + example.
+  — the instructor status view's grade-sync error notice (header/explanation/
+  sync-hint were resolved by the operator: "Wiki Education Dashboard" + ✓
+  header, no explanation, refresh link instead of the hint), the post-link
+  flash (`lti.setup.linked_notice`), the setup/trainings assignment views
+  (summary, empty state, student strings), and the `lumped` granularity radio
+  label + example.

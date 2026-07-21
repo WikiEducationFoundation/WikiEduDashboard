@@ -1,8 +1,9 @@
-// Minimal styling for the in-iframe LTI launch landing page and the
-// top-level OAuth-redirect interstitial. No navbar/footer; the layout
-// renders a single centered call to action.
+// Minimal styling for the in-iframe LTI launch views. No navbar/footer.
+// White background so the content sits seamlessly inside Canvas's white
+// pages — these views render in Canvas iframes, often the small default
+// assignment embed, so chrome and spacing stay minimal throughout.
 body.lti-iframe
-  background #f6f6f6
+  background #fff
   font-family inherit
 
 .lti-iframe__main
@@ -10,7 +11,7 @@ body.lti-iframe
   justify-content center
   align-items center
   min-height 100vh
-  padding 24px
+  padding 16px
 
 .lti-iframe__landing
   text-align center
@@ -66,40 +67,38 @@ body.lti-iframe
   color #5a6b7b
   font-size 13px
 
-// Assignment_view drill-down (instructor roster / student panel). Unlike the
-// centered landing, this is a top-aligned card that can hold a full roster.
+// Assignment_view drill-down (instructor roster / student panel) and the
+// instructor status view. Top-aligned plain content, no card chrome — the
+// default Canvas assignment iframe is small, and a bordered/padded card
+// wastes enough space to force scrolling.
 .lti-iframe__drilldown
   align-self flex-start
   width 100%
   max-width 640px
-  margin 40px auto
-  padding 28px 32px
-  background #fff
-  border 1px solid #e3e8ee
-  border-radius 8px
-  box-shadow 0 1px 3px rgba(0, 0, 0, .06)
+  margin 0 auto
   text-align left
 
 .lti-iframe__drilldown-title
-  margin 0 0 20px
-  padding-bottom 14px
+  margin 0 0 12px
+  padding-bottom 8px
   border-bottom 2px solid #2a5db0
-  font-size 20px
+  font-size 18px
   color #17212b
 
 .lti-iframe__empty
   color #5a6b7b
 
-// Lead / hint copy inside a drilldown card (e.g. the instructor's post-link
-// status view): quieter than the title, above/below the stat list.
+// Lead copy inside a drilldown (e.g. the setup view's connected-count
+// summary): quieter than the title, above the main content.
 .lti-iframe__lead
-  margin 0 0 20px
+  margin 0 0 12px
   color #17212b
 
-.lti-iframe__hint
-  margin 16px 0 20px
-  color #5a6b7b
-  font-size 13px
+// Green check beside the status-view heading: the linked-and-working signal.
+.lti-iframe__linked-check
+  margin-left 8px
+  color #1e7e34
+  font-weight 700
 
 // Post-link status list: label/value rows for course link, synced-student
 // count, and last sync time.
@@ -107,7 +106,7 @@ body.lti-iframe
   margin 0
   display flex
   flex-direction column
-  gap 10px
+  gap 8px
 
 .lti-status-list__row
   display flex
@@ -125,6 +124,13 @@ body.lti-iframe
 .lti-status-list__link
   color #2a5db0
 
+// Reloads the iframe (and with it, kicks a roster sync); quiet action
+// beside the last-sync value.
+.lti-status-list__refresh
+  margin-left 10px
+  color #2a5db0
+  font-size 13px
+
 .lti-iframe__panel
   display flex
   flex-direction column
@@ -140,11 +146,11 @@ body.lti-iframe
     text-align left
     font-weight 600
     color #5a6b7b
-    padding 8px 12px
+    padding 6px 10px
     border-bottom 2px solid #e3e8ee
 
   td
-    padding 10px 12px
+    padding 8px 10px
     border-bottom 1px solid #eef1f5
     color #17212b
     vertical-align middle

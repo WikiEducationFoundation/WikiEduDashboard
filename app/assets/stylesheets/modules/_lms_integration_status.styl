@@ -9,3 +9,15 @@
 
   &__hint
     font-style italic
+
+  // Account-link indicator: the linked/not-linked state at a glance.
+  // Decorative check lives in CSS so the JSX stays literal-string-free.
+  &__linked
+    color #1e7e34
+    font-weight 600
+    &::after
+      content ' ✓'
+
+  &__not-linked
+    color #5a6b7b
+    font-weight 600

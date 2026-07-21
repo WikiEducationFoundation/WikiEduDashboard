@@ -29,6 +29,7 @@
         = t('lti.assignment_view.trainings.progress',
             completed: row.completed_count, total: row.total_count)
       %p= t('lti.assignment_view.trainings.student_hint')
-      = link_to t('lti.assignment_view.trainings.open_course'),
-                "/courses/#{@context.course.slug}",
-                target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'
+      = link_to "/courses/#{@context.course.slug}", target: '_blank', rel: 'noopener',
+                class: 'button dark lti-iframe__button' do
+        = t('lti.assignment_view.trainings.open_course')
+        %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }

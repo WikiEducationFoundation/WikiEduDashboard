@@ -109,6 +109,19 @@ class LtiSession
     @idtoken.dig('custom', 'canvas_assignment_id').presence
   end
 
+  # Whether this deep-linking launch's placement accepts more than one
+  # content item (Canvas: true from the Modules-page bulk placement, false
+  # from assignment_selection). The processed idtoken omits the
+  # deep-linking-settings claim, so this reads the raw JWT claims via a
+  # second, lazy LTIAAS fetch. Defaults to single-item on any failure —
+  # the mode every placement accepts.
+  def accepts_multiple_content_items?
+    settings = raw_idtoken['https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings']
+    settings.present? && settings['accept_multiple'].to_s == 'true'
+  rescue StandardError
+    false
+  end
+
   # The deep-link resource marker (e.g. "Block:42" or "TrainingProgress") we
   # set on the content item, echoed back under the `custom` claim on launches
   # of the Canvas assignment created from it. Lets the first such launch bind
@@ -174,6 +187,10 @@ class LtiSession
   end
 
   private
+
+  def raw_idtoken
+    @raw_idtoken ||= @client.get('/api/idtoken?raw=true')
+  end
 
   def apply_context_attributes(context, current_user)
     context.user = current_user

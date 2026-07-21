@@ -158,10 +158,13 @@ class SyncLtiLineItems
     # passing it makes Canvas reject the create with "resource does not
     # exist" 404. The `tag` (gradable_type[:gradable_id]) is what we use
     # to identify our line items locally and via list filters; we don't
-    # need a resourceLinkId for any of our operations.
+    # need a resourceLinkId for any of our operations. launch_url makes
+    # the Canvas assignment launch the tool (Canvas submission_type
+    # extension) so students/instructors get the drill-down views.
     lineitem_id = @service.upsert_line_item(
       label:,
-      tag: tag_for(gradable_type, gradable_id)
+      tag: tag_for(gradable_type, gradable_id),
+      launch_url: "https://#{ENV['LTIAAS_DOMAIN']}/lti/launch"
     )
     LtiLineItem.create!(
       lti_course_binding: @binding,
