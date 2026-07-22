@@ -194,6 +194,52 @@ en:
       max_likelihood: Max AI likelihood distribution per day
       overall_avg_likelihood: Overall avg AI likelihood distribution
       overall_max_likelihood: Overall max AI likelihood distribution
+  system_stats:
+    title: "System & Facilitator Stats"
+    kpis:
+      total_edits: "Total Edits"
+      article_views: "Article Views"
+      articles_created: "Articles Created"
+      articles_improved: "Articles Improved"
+      characters_added: "Characters Added"
+      new_editors: "New Editors"
+      active_programs: "Active Programs"
+      active_facilitators: "Active Facilitators"
+    charts:
+      monthly_trends: "Monthly Activity Trends"
+      wiki_trends: "Wiki Trends (Top 5)"
+      plot_metric: "Plot metric:"
+    tables:
+      wiki_breakdown: "Wiki Stats Breakdown"
+      wiki: "Wiki"
+      edits: "Edits"
+      programs: "Programs"
+      articles_created: "Articles Created"
+      new_editors: "New Editors"
+    facilitators:
+      title: "Facilitator Leaderboard"
+      username: "Username"
+      courses: "Courses"
+      active: "Active"
+      students: "Students"
+      active_in_year: "Active in Year"
+      "yes": "Yes"
+      "no": "No"
+    pagination:
+      previous: "Previous"
+      next: "Next"
+    loading:
+      data: "Loading data from server..."
+      facilitators: "Loading facilitators..."
+      wiki_stats: "Loading wiki stats..."
+      wiki_trends: "Loading wiki trends..."
+    empty:
+      no_trend_data: "No trend data available."
+      no_wiki_trend_data: "No wiki trend data available."
+      no_wiki_stats: "No wiki project stats available."
+      no_facilitators: "No facilitators found."
+    errors:
+      fetch_failed: "Failed to load data. Please try refreshing the page."
   activity:
     all: Activity
     edited_by: Edited By

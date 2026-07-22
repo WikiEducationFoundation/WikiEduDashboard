@@ -10,8 +10,6 @@ class SystemStatUpdateWorker
   sidekiq_options queue: 'daily_update', lock: :until_executed
 
   def perform
-    return if Features.wiki_ed?
-
     snapshot_date = Time.zone.today
     Rails.logger.info { "SystemStatUpdateWorker: computing stats for #{snapshot_date}" }
 

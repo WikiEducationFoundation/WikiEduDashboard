@@ -10,8 +10,6 @@ class FacilitatorStatUpdateWorker
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def perform
-    return if Features.wiki_ed?
-
     Rails.logger.info { "FacilitatorStatUpdateWorker: starting for #{Time.zone.today}" }
     metrics = compute_all_metrics
     today = Time.zone.today

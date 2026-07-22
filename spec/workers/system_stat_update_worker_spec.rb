@@ -88,9 +88,9 @@ describe SystemStatUpdateWorker do
       allow(Features).to receive(:wiki_ed?).and_return(false)
     end
 
-    it 'does not run on Wiki Ed dashboard' do
+    it 'runs on Wiki Ed dashboard' do
       allow(Features).to receive(:wiki_ed?).and_return(true)
-      expect { described_class.new.perform }.not_to change(SystemStat, :count)
+      expect { described_class.new.perform }.to change(SystemStat, :count).by(1)
     end
 
     it 'creates a system stat record for today' do

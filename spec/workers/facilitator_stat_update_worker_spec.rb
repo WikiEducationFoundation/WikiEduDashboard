@@ -69,9 +69,9 @@ describe FacilitatorStatUpdateWorker do
       allow(Features).to receive(:wiki_ed?).and_return(false)
     end
 
-    it 'does not run on Wiki Ed dashboard' do
+    it 'runs on Wiki Ed dashboard' do
       allow(Features).to receive(:wiki_ed?).and_return(true)
-      expect { described_class.new.perform }.not_to change(FacilitatorStat, :count)
+      expect { described_class.new.perform }.to change(FacilitatorStat, :count).by(1)
     end
 
     it 'creates a facilitator stat record' do

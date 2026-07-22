@@ -321,6 +321,9 @@ Rails.application.routes.draw do
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
+  get 'system_stats' => 'system_stats#index'
+  get 'system_stats/wiki_trends' => 'system_stats#wiki_trends'
+  get 'system_stats/facilitators' => 'system_stats#facilitators'
 
   # Reports generated in background
   # Course reports
