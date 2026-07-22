@@ -38,7 +38,7 @@ class SystemStatsController < ApplicationController
 
   def wiki_trends_json_data
     snapshots = SystemStat.recent_monthly_snapshots(13, include_wiki_stats: true)
-    display_snapshots = snapshots.length > 1 ? snapshots[1..] : snapshots
+    display_snapshots = snapshots[trend_snapshots_range(snapshots)]
     {
       months: display_snapshots.map { |s| s.snapshot_date.to_s },
       wiki_trends: wiki_trends_for(snapshots),
@@ -83,13 +83,17 @@ class SystemStatsController < ApplicationController
       charactersAdded: 0, newEditors: 0, activePrograms: 0, activeFacilitators: 0 }
   end
 
+  def trend_snapshots_range(snapshots)
+    start_idx = snapshots.length > 1 ? 1 : 0
+    (start_idx...snapshots.length)
+  end
+
   def trends_for(snapshots)
     return [] if snapshots.empty?
 
     prev = snapshots.first
-    start_idx = snapshots.length > 1 ? 1 : 0
 
-    (start_idx...snapshots.length).map do |i|
+    trend_snapshots_range(snapshots).map do |i|
       curr = snapshots[i]
       base = i.zero? ? nil : prev
       prev = curr
@@ -132,8 +136,7 @@ class SystemStatsController < ApplicationController
   end
 
   def populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
-    start_idx = snapshots.length > 1 ? 1 : 0
-    (start_idx...snapshots.length).each do |i|
+    trend_snapshots_range(snapshots).each do |i|
       curr_stats = snapshots[i].wiki_stats || {}
       prev_stats = (i.zero? ? {} : snapshots[i - 1].wiki_stats) || {}
 

@@ -45,13 +45,16 @@ class SystemStat < ApplicationRecord
   end
 
   # Returns month-end snapshots for the last N months.
-  # Deferring wiki_stats by default prevents loading and deserializing heavy text blobs.
+  # Plucks lightweight ID/date pairs first to ensure only month-end rows are loaded into memory.
   def self.recent_monthly_snapshots(months = 12, include_wiki_stats: false)
-    scope = where('snapshot_date >= ?', months.months.ago.to_date)
+    month_end_ids = where('snapshot_date >= ?', months.months.ago.to_date)
+                    .pluck(:id, :snapshot_date)
+                    .group_by { |_, date| date.strftime('%Y-%m') }
+                    .values
+                    .map { |rows| rows.max_by { |_, date| date }.first }
+
+    scope = where(id: month_end_ids).order(:snapshot_date)
     scope = scope.select(column_names - ['wiki_stats']) unless include_wiki_stats
-    scope.order(:snapshot_date)
-         .group_by { |s| s.snapshot_date.strftime('%Y-%m') }
-         .values
-         .map(&:last)
+    scope
   end
 end

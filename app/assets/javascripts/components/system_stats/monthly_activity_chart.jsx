@@ -29,12 +29,7 @@ const METRIC_COLORS = {
   activeFacilitators: { color: '#4a5568', bg: 'rgba(74, 85, 104, 0.1)' }
 };
 
-const formatMonthLabel = (monthStr) => {
-  if (!monthStr) return '';
-  const date = new Date(monthStr);
-  if (isNaN(date.getTime())) return monthStr;
-  return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric', timeZone: 'UTC' });
-};
+import { formatMonthLabel } from '../../utils/system_stats_utils';
 
 const MonthlyActivityChart = ({ trends }) => {
   const [selectedMetric, setSelectedMetric] = useState('edits');

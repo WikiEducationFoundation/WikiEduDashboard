@@ -25,12 +25,7 @@ const WIKI_COLORS = [
   '#0f766e'  // Darker Teal
 ];
 
-const formatMonthLabel = (monthStr) => {
-  if (!monthStr) return '';
-  const date = new Date(monthStr);
-  if (isNaN(date.getTime())) return monthStr;
-  return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric', timeZone: 'UTC' });
-};
+import { formatMonthLabel } from '../../utils/system_stats_utils';
 
 const WikiTrendsChart = ({ wikiTrends, loading }) => {
   const [selectedWikiMetric, setSelectedWikiMetric] = useState('edits');

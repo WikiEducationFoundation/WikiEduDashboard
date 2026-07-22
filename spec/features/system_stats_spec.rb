@@ -11,9 +11,9 @@ describe 'System Stats Dashboard', type: :feature do
       login_as(user, scope: :user)
     end
 
-    it 'denies access or redirects' do
+    it 'denies access to non-admin users with 401 status' do
       visit '/system_stats'
-      expect(page).not_to have_content('System & Facilitator Stats')
+      expect(page.status_code).to eq(401)
     end
   end
 
