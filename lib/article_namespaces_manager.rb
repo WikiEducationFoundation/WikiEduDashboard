@@ -20,6 +20,10 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 #   the article moved to a tracked namespace and became relevant.
 #   In such cases, we need to flag the timeslices for reprocessing, since previous stats weren't
 #   counted as tracked-namespace stats.
+#   This case is not handled here for ACUWT courses: reaggregation rebuilds article course
+#   timeslices from ACUWT rows, so the created_at ordering this detection relies on is not
+#   preserved. Instead, ArticlesCourses.update_from_course_revisions marks the article's
+#   preexisting ACUWT rows as needs_update when it creates the article course record.
 #
 # 2- Articles that moved from a tracked namespace to a non-tracked namespace.
 #
@@ -32,6 +36,9 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 #   This must never run for courses that only track a specific list of articles: non-scoped
 #   articles get article course timeslices but never an articles_courses record, so they
 #   would be reset (and reprocessed) on every update.
+#   For ACUWT courses, candidates are retrieved from ACUWT rows (exclusion resets keep
+#   ACUWT but delete AC records) and re-included via
+#   ArticlesCourses.create_records_and_mark_acuwt instead of a full re-fetch.
 #
 # Note: This class depends on the namespace and deleted attributes in the articles table.
 # It does not update those attributes; it simply trusts their current values
@@ -46,7 +53,9 @@ class ArticleNamespacesManager
       reset_deleted_articles
       reset_undeleted_or_retracked_articles unless @course.only_scoped_articles_course?
     end
-    reset_articles_that_moved_to_mainspace
+    # For ACUWT courses, this case is detected when the articles_courses record is
+    # created instead (see ArticlesCourses.update_from_course_revisions).
+    reset_articles_that_moved_to_mainspace unless @course.use_acuwt?
     reset_articles_in_untracked_namespaces
   end
 
@@ -57,7 +66,7 @@ class ArticleNamespacesManager
     # Note that this could remove articles courses records for manually untracked articles
     @course.articles.where(deleted: true).in_batches do |article_batch|
       deleted_ids += article_batch.pluck(:id)
-      @cleaner.reset(article_batch)
+      @cleaner.reset_excluded(article_batch)
     end
     log_reset('Article untracked', 'deleted', deleted_ids)
   end
@@ -71,7 +80,7 @@ class ArticleNamespacesManager
         tracked = articles_in_tracked_namespaces(article_batch)
         tracked_without_articles_courses = tracked - @course.articles.to_a
         retracked_ids += tracked_without_articles_courses.map(&:id)
-        @cleaner.reset(tracked_without_articles_courses, wiki)
+        @cleaner.reset_included(tracked_without_articles_courses, wiki)
       end
     end
     log_reset('Article retracked', 'undeleted_or_retracked', retracked_ids)
@@ -79,7 +88,7 @@ class ArticleNamespacesManager
 
   def reset_articles_that_moved_to_mainspace
     articles = Article.find(moved_to_mainspace)
-    @cleaner.reset(articles)
+    @cleaner.reset_legacy(articles)
     log_reset('Article retracked', 'moved_to_mainspace', articles.map(&:id))
   end
 
@@ -90,7 +99,7 @@ class ArticleNamespacesManager
       # Find articles with articles_courses records but not in tracked namespaces
       untracked_articles = article_batch.where.not(id: tracked_ids)
       untracked_ids += untracked_articles.pluck(:id)
-      @cleaner.reset(untracked_articles)
+      @cleaner.reset_excluded(untracked_articles)
     end
     log_reset('Article untracked', 'moved_to_untracked_namespace', untracked_ids)
   end

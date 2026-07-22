@@ -45,15 +45,9 @@ class ArticleCourseUserWikiTimeslice < ApplicationRecord
   # Class methods #
   #################
 
-  # Returns distinct (start, end) pairs for rows matching the given course, wiki, and articles.
-  # Used by UpdateTimeslicesScopedArticle to iterate over timeslice windows that need rescoring.
-  def self.periods_for_articles(course, wiki, article_ids)
-    where(course:, wiki:, article_id: article_ids)
-      .distinct.pluck(:start, :end)
-  end
-
   # Returns Users who have ACUWT rows for the given course, wiki, articles, and period start.
-  # Used by UpdateTimeslicesScopedArticle to find which users to re-fetch revisions for.
+  # Used by ReprocessArticleCourseUserWikiTimeslices to find which users to re-fetch
+  # revisions for.
   def self.users_for_articles_in_period(course, wiki, article_ids, ts_start)
     user_ids = where(course:, wiki:, article_id: article_ids, start: ts_start)
                  .distinct.pluck(:user_id)

@@ -28,7 +28,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   end
 
   def self.reset_specific_articles(course, articles)
-    new(course).reset(articles)
+    new(course).reset_legacy(articles)
   end
 
   def initialize(course)
@@ -105,13 +105,44 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_in_batches(after_timeslices)
   end
 
-  # Reset articles involves the following actions:
+  # Legacy reset (full re-fetch). It involves the following actions:
   # - Mark timeslices for those articles as needs_update
   # - Remove article course records for those articles (if they exist)
   # - Remove article course timeslices for those articles
-  def reset(articles, wiki = nil)
+  def reset_legacy(articles, wiki = nil)
     mark_as_needs_update(articles, wiki)
     delete_article_course(articles.pluck(:id))
+  end
+
+  # Resets articles that should be excluded from the course stats from now on
+  # (e.g. articles that moved to an untracked namespace).
+  # For ACUWT courses, no re-fetching is needed: the articles' ACUWT rows already hold
+  # complete scored data, so reaggregating the affected timeslices is enough (the
+  # aggregation filters exclude the articles). ACUWT rows are kept, so the articles can
+  # be re-included later without a full re-fetch
+  # (see ArticlesCourses.create_records_and_mark_acuwt).
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_excluded(articles)
+    return reset_legacy(articles) unless @course.use_acuwt?
+
+    article_ids = articles.pluck(:id)
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
+    TimesliceCleaner.new(@course).reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    delete_article_course(article_ids)
+  end
+
+  # Resets articles that should be included in the course stats from now on
+  # (e.g. undeleted or re-tracked articles: tracked articles that have timeslices
+  # but no articles_courses record).
+  # For ACUWT courses, this is exactly the create-articles-courses-and-rescore case:
+  # ArticlesCourses.create_records_and_mark_acuwt creates the records and marks the
+  # articles' ACUWT rows as needs_update, so they are re-scored and the affected
+  # timeslices reaggregated. No re-fetch of full periods is needed.
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_included(articles, wiki = nil)
+    return reset_legacy(articles, wiki) unless @course.use_acuwt?
+
+    ArticlesCourses.create_records_and_mark_acuwt(@course, articles.map(&:id))
   end
 
   private
