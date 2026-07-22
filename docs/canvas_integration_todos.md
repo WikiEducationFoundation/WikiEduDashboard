@@ -57,14 +57,21 @@ launch + Wikipedia OAuth is the only linking path.
   placeholder; once deep-link-first is validated on staging, decide whether
   standard/per_block survive at all and redesign the setup step accordingly.
 
-- [ ] **Bulk deep-linking via `module_index_menu_modal` (built; verified on
-  staging except module naming).** The import flow works end-to-end. The
-  created module's default name is Canvas's "New Content From App"; Canvas
-  reads a tool-settable override from the deep-linking response JWT claim
+- [ ] **Bulk deep-linking via `module_index_menu_modal` (built; working).** The
+  import flow works end-to-end (verified: one submit → one published module
+  with all nine assignments). The created module's default name is Canvas's
+  "New Content From App"; Canvas reads a tool-settable override from the
+  deep-linking response JWT claim
   `https://canvas.instructure.com/lti/module_name` (found in
-  `deep_linking_services.rb`), which we now send ("Research and write a
-  Wikipedia article", operator-supplied) with a retry-without-it fallback in
-  case LTIAAS rejects the extra field — pass-through unverified. Assignment
+  `deep_linking_services.rb`), which we send ("Research and write a Wikipedia
+  article", operator-supplied) — but LTIAAS silently drops it: its
+  `/api/deeplinking/form` accepts only `contentItems` + `options`
+  (message/log/errMessage/errLog), no custom claims (verified live 2026-07-21
+  + docs). We keep sending the claim (harmless; starts working if LTIAAS adds
+  pass-through) with a retry-without-it fallback. Action: ask LTIAAS to pass
+  the claim (or an additionalClaims option) through — they already pass AGS
+  line-item extensions verbatim, so there's precedent. Until then, the guide
+  should note instructors can rename the module after import. Assignment
   descriptions pull from existing Dashboard content (block body → module
   catalog descriptions; the roll-up lists its training modules); only the
   setup column's description is still a `[PLACEHOLDER]`. (Background: true
@@ -90,6 +97,15 @@ launch + Wikipedia OAuth is the only linking path.
   teaches that course), so it needs a solution to that before it's viable.
 
 ## UX rough edges
+
+- [ ] **Trainings/exercise rosters: N×M queries and LMS-name identity.** The
+  in-Canvas trainings roster computes `LtiTrainingProgress` per student (each
+  doing a `TrainingModulesUsers` lookup per module) and `LtiBlockProgress` has
+  the same per-row shape — fine at walkthrough scale, worth batching before
+  real course sizes. Relatedly, those two rosters still label students
+  LMS-name-first (`LtiContext#name` → username); the setup roster now uses
+  Dashboard-side identity (CoursesUsers real name + username, designed around
+  anonymized mode) and the others should probably align.
 
 - [ ] **Auto-created assignments can't have descriptions (platform limitation).**
   Canvas shows "No additional details were added for this assignment." on every

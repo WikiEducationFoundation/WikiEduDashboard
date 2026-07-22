@@ -2231,7 +2231,6 @@ en:
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
     deep_link:
       module_name: "Research and write a Wikipedia article"
-      setup_assignment_description: "[PLACEHOLDER - Canvas assignment description for the Wikipedia account column: connecting a Wikipedia account via this assignment is how students join the Dashboard course. Baked into the Canvas assignment at creation time]"
       header: "Choose Wikipedia task"
       header_multiple: "Import Wikipedia assignments"
       instruction: "Choose a Wikipedia task for this gradable item"
@@ -2247,7 +2246,6 @@ en:
       linked: "Linked"
       refresh: "Refresh"
       grade_sync_error: "[PLACEHOLDER - notice that the most recent gradebook sync hit an error, and what the instructor should do (e.g. contact Wiki Education staff)]"
-      open_course: "Open course"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"
       explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
@@ -2271,6 +2269,7 @@ en:
       hide: "Hide"
       roster:
         student: "Student"
+        username: "Username"
         status: "Status"
         sandbox: "Sandbox"
         empty: "No students have connected Wikipedia accounts yet."
@@ -2279,13 +2278,12 @@ en:
       setup:
         summary: "[PLACEHOLDER - instructor summary line for the account column, interpolating %{connected} and %{total}: how many students have connected a Wikipedia account]"
         empty: "[PLACEHOLDER - shown when no Canvas roster members have been discovered yet (roster sync pending); suggest checking back shortly]"
-        student_connected: "[PLACEHOLDER - student-facing confirmation that their Wikipedia account is connected for this course]"
       trainings:
         # Mirrors the operator-supplied gradebook comment phrasing in
         # LtiTrainingProgress ("X of Y trainings completed").
         progress: "%{completed} of %{total} trainings completed"
-        student_hint: "[PLACEHOLDER - student-facing pointer that trainings are completed on the Dashboard course timeline (button below)]"
-        open_course: "Open course"
+        module: "Training"
+        due_date: "Due date"
       orphan:
         header: "—"
         explanation: "There is no Dashboard content to show for this assignment."

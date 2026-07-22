@@ -510,7 +510,8 @@ describe LtiLaunchController, type: :request do
     end
     let(:block) do
       create(:block, week: week, order: 0, title: 'Evaluate Wikipedia',
-                     training_module_ids: [exercise_module.id])
+                     training_module_ids: [exercise_module.id],
+                     content: '<p>Read an article and evaluate its sourcing.</p>')
     end
     let!(:binding) do
       LtiCourseBinding.create!(
@@ -685,6 +686,11 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('Evaluate_an_Article')
         expect(response.body).to include('Your sandbox')
       end
+
+      it "renders the block's timeline body as the in-iframe description" do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('Read an article and evaluate its sourcing.')
+      end
     end
 
     context 'when not signed in (in-iframe launch, partitioned cookies)' do
@@ -745,15 +751,21 @@ describe LtiLaunchController, type: :request do
 
       it 'renders the connection roster, including not-yet-connected members' do
         linked_student = create(:user, username: 'LinkedStu')
+        CoursesUsers.create!(user: linked_student, course: course,
+                             role: CoursesUsers::Roles::STUDENT_ROLE,
+                             real_name: 'Linda Linked')
         LtiContext.create!(user: linked_student, lti_course_binding: binding,
-                           user_lti_id: 'lti-linked', lms_id: 'platform-x', name: 'Linked Stu',
+                           user_lti_id: 'lti-linked', lms_id: 'platform-x',
                            roles: ['vocab/membership#Learner'], linked_at: Time.current)
         LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-pending-1',
                            lms_id: 'platform-x', roles: ['vocab/membership#Learner'])
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('lti_launch/assignment_view_setup')
-        expect(response.body).to include('Linked Stu')
+        # Connected rows show the Dashboard-side identity: the enrollment's
+        # real name plus the Wikipedia username (same as the Students tab).
+        expect(response.body).to include('Linda Linked')
+        expect(response.body).to include('LinkedStu')
         # The unlinked member has no name (anonymized mode), so the roster
         # falls back to the opaque LMS user id.
         expect(response.body).to include('lti-pending-1')
@@ -770,6 +782,13 @@ describe LtiLaunchController, type: :request do
           expect(response).to render_template('lti_launch/assignment_view_setup')
           expect(response.body).to include('Connected')
           expect(response.body).not_to include('lti-assignment-roster')
+        end
+
+        it 'shows their username linked to their Dashboard student details view' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include(user.username)
+          expect(response.body)
+            .to include("/courses/#{course.slug}/students/articles/#{user.url_encoded_username}")
         end
       end
     end
@@ -811,6 +830,9 @@ describe LtiLaunchController, type: :request do
         expect(response).to render_template('lti_launch/assignment_view_trainings')
         expect(response.body).to include('Stu Dent')
         expect(response.body).to include('1 of 1 trainings completed')
+        # The descriptive content — what the roll-up covers — lives in the
+        # iframe, since the Canvas assignment carries no description.
+        expect(response.body).to include('Wiki intro')
       end
 
       context 'as a student' do
@@ -822,6 +844,16 @@ describe LtiLaunchController, type: :request do
           expect(response).to render_template('lti_launch/assignment_view_trainings')
           expect(response.body).to include('0 of 1 trainings completed')
           expect(response.body).to include("/courses/#{course.slug}")
+        end
+
+        it 'lists each training with status and a link to the module itself' do
+          TrainingModulesUsers.create!(user: user, training_module: training_mod,
+                                       completed_at: 1.day.ago)
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Wiki intro')
+          expect(response.body).to include('Completed')
+          expect(response.body)
+            .to include("/training/#{course.training_library_slug}/wiki-intro")
         end
       end
     end

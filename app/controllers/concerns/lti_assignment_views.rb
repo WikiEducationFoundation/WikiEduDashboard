@@ -37,7 +37,7 @@ module LtiAssignmentViews
     when 'Block'
       ['assignment_view', AssignmentViewContext.new(line_item:, user:, instructor:)]
     when LtiLineItem::SETUP_TYPE
-      ['assignment_view_setup', SetupAssignmentViewContext.new(line_item:, instructor:)]
+      ['assignment_view_setup', SetupAssignmentViewContext.new(line_item:, instructor:, user:)]
     when LtiLineItem::TRAINING_PROGRESS_TYPE
       ['assignment_view_trainings',
        TrainingsAssignmentViewContext.new(line_item:, user:, instructor:)]

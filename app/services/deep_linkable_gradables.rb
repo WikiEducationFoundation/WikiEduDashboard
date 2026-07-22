@@ -10,13 +10,11 @@
 # This list is also what `SyncLtiLineItems` discovery matches Canvas columns
 # against (by tag == resource), so the picker's offer and the sync's
 # reconciliation can't drift apart.
-# Each gradable also carries a `description` for the created Canvas
-# assignment, sourced from existing Dashboard content rather than new copy:
-# a block's own timeline body (falling back to its modules' descriptions),
-# and the training-module list for the roll-up.
+# Gradables carry no description: the created Canvas assignments launch the
+# tool, and the launched iframe presents the descriptive content live from
+# the Dashboard (so it can't go stale the way baked-in text would).
 class DeepLinkableGradables
-  Gradable = Struct.new(:resource, :gradable_type, :gradable_id, :label, :description,
-                        keyword_init: true)
+  Gradable = Struct.new(:resource, :gradable_type, :gradable_id, :label, keyword_init: true)
 
   # User-facing Canvas gradebook column names — operator-supplied.
   TRAININGS_LABEL = 'Wikipedia trainings'
@@ -41,43 +39,18 @@ class DeepLinkableGradables
   def setup_indicator
     Gradable.new(resource: LtiLineItem::SETUP_TYPE,
                  gradable_type: LtiLineItem::SETUP_TYPE,
-                 gradable_id: nil, label: SETUP_LABEL,
-                 description: I18n.t('lti.deep_link.setup_assignment_description'))
+                 gradable_id: nil, label: SETUP_LABEL)
   end
 
   def gradable_for_block(block)
     Gradable.new(resource: "Block:#{block.id}", gradable_type: 'Block',
-                 gradable_id: block.id, label: label_for_block(block),
-                 description: block_description(block))
+                 gradable_id: block.id, label: label_for_block(block))
   end
 
   def trainings_rollup
     Gradable.new(resource: LtiLineItem::TRAINING_PROGRESS_TYPE,
                  gradable_type: LtiLineItem::TRAINING_PROGRESS_TYPE,
-                 gradable_id: nil, label: TRAININGS_LABEL,
-                 description: trainings_description)
-  end
-
-  # The block's own timeline body is the assignment's natural description;
-  # blocks without one fall back to their modules' catalog descriptions.
-  def block_description(block)
-    return block.content if block.content.present?
-
-    block.training_modules.filter_map(&:description).join("\n\n")
-  end
-
-  # The roll-up column tracks every training-kind module in the timeline;
-  # its description is that list, sourced from the timeline itself.
-  def trainings_description
-    items = rollup_training_modules.map do |mod|
-      "<li>#{ERB::Util.html_escape(mod.name)}</li>"
-    end
-    "<ul>#{items.join}</ul>"
-  end
-
-  def rollup_training_modules
-    ids = gradable_blocks.flat_map(&:training_module_ids).uniq
-    TrainingModule.where(id: ids).reject(&:exercise?)
+                 gradable_id: nil, label: TRAININGS_LABEL)
   end
 
   # In timeline order (week, then block position) so the picker mirrors

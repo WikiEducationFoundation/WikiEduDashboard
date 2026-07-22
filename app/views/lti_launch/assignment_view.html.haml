@@ -4,7 +4,12 @@
 - # own panel. Heading is the line item's own label (real timeline content,
 - # e.g. "Wk2 Evaluate Wikipedia").
 .lti-iframe__drilldown
-  %h2.lti-iframe__drilldown-title= @context.title
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
+  - # The block's own timeline body serves as the assignment description,
+  - # rendered live from the Dashboard (deep-linked assignments carry no
+  - # baked-in Canvas description, which would go stale).
+  - if @context.block&.content.present?
+    .lti-iframe__description= sanitize(@context.block.content)
   - if @context.instructor?
     = render 'lti_launch/assignment_roster'
   - else

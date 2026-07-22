@@ -34,6 +34,14 @@ describe LtiTrainingProgress do
     expect(progress.score_given).to eq(0.0)
   end
 
+  it 'reports per-module completion for the drill-down view' do
+    TrainingModulesUsers.create!(user: user, training_module: training_a,
+                                 completed_at: 2.days.ago)
+    statuses = described_class.new(course, user).module_statuses
+    expect(statuses.map { |mod, done| [mod.slug, done] })
+      .to contain_exactly(['tr-a', true], ['tr-b', false])
+  end
+
   it 'is 1.0 when all trainings are complete' do
     TrainingModulesUsers.create!(user: user, training_module: training_a,
                                  completed_at: 2.days.ago)

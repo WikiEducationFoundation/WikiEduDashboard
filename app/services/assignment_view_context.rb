@@ -16,7 +16,7 @@ class AssignmentViewContext
     end
   end
 
-  attr_reader :line_item, :block
+  attr_reader :line_item, :block, :course
 
   def initialize(line_item:, user:, instructor:)
     @line_item = line_item

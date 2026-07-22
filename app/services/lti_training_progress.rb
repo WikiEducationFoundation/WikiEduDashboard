@@ -33,19 +33,29 @@ class LtiTrainingProgress
   end
 
   # Exposed (alongside the derived score/comment) for the in-Canvas
-  # assignment view of the roll-up column, which shows "X of Y" per student.
+  # assignment view of the roll-up column, which shows "X of Y" per student
+  # plus the per-module breakdown.
+  attr_reader :training_modules
+
   def total_count
     @training_modules.size
   end
 
   def completed_count
-    @completed_count ||= @training_modules.count do |mod|
-      tmu = TrainingModulesUsers.find_by(user: @user, training_module: mod)
-      tmu&.completed_at.present?
-    end
+    @completed_count ||= module_statuses.count { |_mod, done| done }
+  end
+
+  # [module, completed?] pairs, in timeline-collection order.
+  def module_statuses
+    @module_statuses ||= @training_modules.map { |mod| [mod, module_complete?(mod)] }
   end
 
   private
+
+  def module_complete?(mod)
+    TrainingModulesUsers.find_by(user: @user, training_module: mod)
+                        &.completed_at.present?
+  end
 
   def collect_training_modules
     module_ids = @course.blocks.flat_map(&:training_module_ids).uniq

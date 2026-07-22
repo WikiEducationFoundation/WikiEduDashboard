@@ -9,8 +9,7 @@ describe BuildLtiDeepLinkForm do
   let(:form_html) { '<form id="ltiaas-dl"></form><script>document.forms[0].submit()</script>' }
   let(:gradable) do
     DeepLinkableGradables::Gradable.new(resource: 'Block:42', gradable_type: 'Block',
-                                        gradable_id: 42, label: 'Wk1 Find sources',
-                                        description: '<p>Find three reliable sources.</p>')
+                                        gradable_id: 42, label: 'Wk1 Find sources')
   end
 
   before do
@@ -46,9 +45,9 @@ describe BuildLtiDeepLinkForm do
                item['custom'] == { 'resource' => 'Block:42' } &&
                item['url'].include?('resource=Block%3A42') &&
                item['lineItem']['label'] == 'Wk1 Find sources' &&
-               # Canvas turns content-item `text` into the assignment
-               # description — sourced from the Dashboard block body.
-               item['text'] == '<p>Find three reliable sources.</p>'
+               # No baked-in description: the launched iframe carries the
+               # descriptive content live instead.
+               !item.key?('text')
            end
            .to_return(status: 200, body: { 'form' => form_html }.to_json,
                       headers: { 'Content-Type' => 'application/json' })
@@ -59,15 +58,14 @@ describe BuildLtiDeepLinkForm do
   it 'posts one content item per gradable, in the given order (bulk mode)' do
     second = DeepLinkableGradables::Gradable.new(
       resource: 'TrainingProgress', gradable_type: 'TrainingProgress',
-      gradable_id: nil, label: 'Wikipedia trainings',
-      description: '<ul><li>Wikipedia essentials</li></ul>'
+      gradable_id: nil, label: 'Wikipedia trainings'
     )
     stub = stub_request(:post, form_url)
            .with do |request|
              items = JSON.parse(request.body)['contentItems']
              items.length == 2 &&
                items.map { |i| i['title'] } == ['Wikipedia trainings', 'Wk1 Find sources'] &&
-               items.all? { |i| i['lineItem'].present? && i['text'].present? }
+               items.all? { |i| i['lineItem'].present? }
            end
            .to_return(status: 200, body: { 'form' => form_html }.to_json,
                       headers: { 'Content-Type' => 'application/json' })

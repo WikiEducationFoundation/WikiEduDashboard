@@ -104,15 +104,53 @@ body.lti-iframe
   margin 0 auto
   text-align left
 
-.lti-iframe__drilldown-title
+// Header line: view title left, the bound course's title right (linking
+// out to the Dashboard course in a new tab).
+.lti-iframe__header
+  display flex
+  align-items baseline
+  justify-content space-between
+  gap 12px
   margin 0 0 12px
   padding-bottom 8px
   border-bottom 2px solid #2a5db0
+
+.lti-iframe__drilldown-title
+  margin 0
   font-size 18px
   color #17212b
 
+.lti-iframe__course-link
+  color #2a5db0
+  font-size 14px
+  text-align right
+
 .lti-iframe__empty
   color #5a6b7b
+
+// Descriptive content rendered live from the Dashboard (block bodies, the
+// roll-up's training list): the assignment "description" lives here rather
+// than baked into Canvas, so it can't go stale.
+.lti-iframe__description
+  margin 0 0 16px
+  color #17212b
+  font-size 14px
+  line-height 1.5
+
+  img
+    max-width 100%
+    height auto
+
+.lti-trainings-list
+  margin 0
+  padding 0
+  list-style none
+  display flex
+  flex-direction column
+  gap 6px
+
+  .lti-status
+    margin-right 8px
 
 // Lead copy inside a drilldown (e.g. the setup view's connected-count
 // summary): quieter than the title, above the main content.
@@ -162,6 +200,17 @@ body.lti-iframe
   flex-direction column
   align-items flex-start
   gap 16px
+
+// Setup assignment, student branch: the Connected pill with the student's
+// username beside it, linking to their Dashboard details view.
+.lti-setup-connected
+  display flex
+  align-items center
+  gap 10px
+  margin 0
+
+.lti-setup-connected__user
+  color #2a5db0
 
 .lti-assignment-roster
   width 100%

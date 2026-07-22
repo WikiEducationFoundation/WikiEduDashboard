@@ -56,8 +56,13 @@ class BuildLtiDeepLinkForm
     @gradables.map { |gradable| content_item_for(gradable) }
   end
 
+  # No `text`/description on any item: a baked-in description goes stale the
+  # moment the Dashboard timeline changes, and Canvas renders an external-tool
+  # assignment with an empty description cleanly (verified on staging) — so
+  # the launched iframe carries all descriptive content instead (operator
+  # decision 2026-07-21).
   def content_item_for(gradable)
-    item = {
+    {
       type: 'ltiResourceLink',
       url: launch_url(gradable),
       title: gradable.label,
@@ -65,12 +70,6 @@ class BuildLtiDeepLinkForm
       lineItem: { scoreMaximum: DEFAULT_SCORE_MAXIMUM, label: gradable.label,
                   tag: gradable.resource }
     }
-    # Canvas turns the content item's `text` into the assignment description
-    # — the only creation path that supports one (AGS line-item creates
-    # can't set descriptions at all). Sourced from existing Dashboard
-    # content by DeepLinkableGradables and baked in at creation time.
-    item[:text] = gradable.description if gradable.description.present?
-    item
   end
 
   def launch_url(gradable)

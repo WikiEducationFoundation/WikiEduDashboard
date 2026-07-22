@@ -1,20 +1,12 @@
 - # In-iframe view for an instructor's course-navigation launch once the
 - # course is linked: confirms the link and shows roster/grade sync status
 - # (same LtiSyncStatus data as the course page's "Canvas link" sidebar).
-- # Links out to the Dashboard course in a new tab — the full dashboard
-- # can't render usefully inside the Canvas iframe (partitioned cookies).
-- course = @binding.course
-- course_path = "/courses/#{course.slug}"
+- # The header's course-title link opens the Dashboard course in a new tab —
+- # the full dashboard can't render usefully inside the Canvas iframe.
 .lti-iframe__drilldown
-  %h2.lti-iframe__drilldown-title
-    = t('lti.status.header')
-    %span.lti-iframe__linked-check{ role: 'img', 'aria-label': t('lti.status.linked') } ✓
+  = render 'lti_launch/drilldown_header',
+           title: t('lti.status.header'), course: @binding.course, linked_check: true
   %dl.lti-status-list
-    .lti-status-list__row
-      %dt= t('lms_integration.linked_to')
-      %dd
-        = link_to course.title, course_path, target: '_blank', rel: 'noopener',
-                  class: 'lti-status-list__link'
     .lti-status-list__row
       %dt= t('lms_integration.synced_students')
       %dd= @sync_status.synced_students_count
@@ -35,7 +27,3 @@
   - if @sync_status.grade_sync_error?
     .lti-setup__error
       %p= t('lti.status.grade_sync_error')
-  = link_to course_path, target: '_blank', rel: 'noopener',
-            class: 'button dark lti-iframe__button' do
-    = t('lti.status.open_course')
-    %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }

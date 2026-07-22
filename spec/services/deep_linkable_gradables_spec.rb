@@ -55,31 +55,6 @@ describe DeepLinkableGradables do
       block_ids = gradables.select { |g| g.gradable_type == 'Block' }.map(&:gradable_id)
       expect(block_ids).not_to include(training_block.id)
     end
-
-    # Descriptions reuse existing Dashboard content, not new copy.
-    it "uses the block's own timeline body as the exercise description" do
-      exercise = gradables.find { |g| g.gradable_type == 'Block' }
-      expect(exercise.description).to eq('<p>Find three reliable sources.</p>')
-    end
-
-    it "lists the timeline's training modules as the roll-up description" do
-      rollup = gradables.find { |g| g.gradable_type == LtiLineItem::TRAINING_PROGRESS_TYPE }
-      expect(rollup.description).to include('<li>Get started</li>')
-      expect(rollup.description).not_to include('Bibliography') # exercises excluded
-    end
-  end
-
-  context 'when an exercise block has no body content' do
-    let!(:exercise_block) do
-      create(:block, week:, order: 0, title: 'Find sources', content: '',
-                     training_module_ids: [exercise_module.id])
-    end
-
-    it "falls back to the modules' catalog descriptions" do
-      exercise_module.update!(description: 'Build a bibliography of sources.')
-      exercise = gradables.find { |g| g.gradable_type == 'Block' }
-      expect(exercise.description).to eq('Build a bibliography of sources.')
-    end
   end
 
   context 'with exercise blocks created out of timeline order' do

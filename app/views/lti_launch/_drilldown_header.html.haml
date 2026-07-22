@@ -1,0 +1,12 @@
+- # Header line for every linked-course iframe: the view's title on the
+- # left; the bound course's title on the right, linking out to the
+- # Dashboard course in a new tab (this replaces per-view "Open course"
+- # buttons). Locals: title (required), course, linked_check (optional).
+.lti-iframe__header
+  %h2.lti-iframe__drilldown-title
+    = title
+    - if defined?(linked_check) && linked_check
+      %span.lti-iframe__linked-check{ role: 'img', 'aria-label': t('lti.status.linked') } ✓
+  - if course
+    = link_to course.title, "/courses/#{course.slug}", target: '_blank', rel: 'noopener',
+              class: 'lti-iframe__course-link'

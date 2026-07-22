@@ -5,7 +5,7 @@
 - # already connected (the launch itself links them), so the student branch
 - # is a simple confirmation.
 .lti-iframe__drilldown
-  %h2.lti-iframe__drilldown-title= @context.title
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
   - if @context.instructor?
     %p.lti-iframe__lead
       = t('lti.assignment_view.setup.summary',
@@ -17,15 +17,22 @@
         %thead
           %tr
             %th= t('lti.assignment_view.roster.student')
+            %th= t('lti.assignment_view.roster.username')
             %th= t('lti.assignment_view.roster.status')
         %tbody
           - @context.rows.each do |row|
             %tr
               %td= row.name
+              %td= row.username
               %td
                 %span.lti-status{ class: row.connected? ? 'lti-status--done' : 'lti-status--pending' }
                   = row.connected? ? t('lti.assignment_view.status.connected') : t('lti.assignment_view.status.not_connected')
   - else
+    - # The iframe itself is the confirmation: the pill plus the student's
+    - # own username, linking to their details view on the Dashboard.
     .lti-iframe__panel
-      %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
-      %p= t('lti.assignment_view.setup.student_connected')
+      %p.lti-setup-connected
+        %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
+        - if @context.student_details_path
+          = link_to @context.user.username, @context.student_details_path,
+                    target: '_blank', rel: 'noopener', class: 'lti-setup-connected__user'

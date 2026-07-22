@@ -60,6 +60,21 @@ describe TrainingsAssignmentViewContext do
     expect(row.done?).to be(false)
   end
 
+  it 'builds the student module table with due dates, statuses, and training links' do
+    student = create(:user, username: 'Tabler')
+    link_student(student)
+    TrainingModulesUsers.create!(user: student, training_module: training_a,
+                                 completed_at: 1.day.ago)
+
+    rows = described_class.new(line_item:, user: student, instructor: false)
+                          .viewer_training_rows
+    expect(rows.map(&:name)).to contain_exactly('A', 'B')
+    row_a = rows.find { |r| r.name == 'A' }
+    expect(row_a.completed?).to be(true)
+    expect(row_a.training_url).to eq("/training/#{course.training_library_slug}/tr-a")
+    expect(rows.find { |r| r.name == 'B' }.completed?).to be(false)
+  end
+
   it 'excludes instructor memberships from the roster' do
     prof = create(:user, username: 'Prof')
     LtiContext.create!(lti_course_binding: binding, user: prof, user_lti_id: 'lti-prof',
