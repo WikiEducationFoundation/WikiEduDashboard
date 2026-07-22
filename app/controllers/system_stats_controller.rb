@@ -14,15 +14,11 @@ class SystemStatsController < ApplicationController
   end
 
   def wiki_trends
-    respond_to do |format|
-      format.json { render json: wiki_trends_json_data }
-    end
+    render json: wiki_trends_json_data
   end
 
   def facilitators
-    respond_to do |format|
-      format.json { render json: { facilitators: facilitators_data } }
-    end
+    render json: { facilitators: facilitators_data }
   end
 
   private
@@ -66,20 +62,17 @@ class SystemStatsController < ApplicationController
   end
 
   def kpis_for(latest_snapshot)
-    if latest_snapshot
-      {
-        edits: latest_snapshot.total_edits,
-        articleViews: latest_snapshot.total_article_views,
-        articlesCreated: latest_snapshot.total_articles_created,
-        articlesImproved: latest_snapshot.total_articles_improved,
-        charactersAdded: latest_snapshot.total_characters_added,
-        newEditors: latest_snapshot.new_editors_count_with_preregistration,
-        activePrograms: latest_snapshot.active_programs_count,
-        activeFacilitators: latest_snapshot.active_facilitators_count
-      }
-    else
-      empty_kpis
-    end
+    return empty_kpis unless latest_snapshot
+    {
+      edits: latest_snapshot.total_edits,
+      articleViews: latest_snapshot.total_article_views,
+      articlesCreated: latest_snapshot.total_articles_created,
+      articlesImproved: latest_snapshot.total_articles_improved,
+      charactersAdded: latest_snapshot.total_characters_added,
+      newEditors: latest_snapshot.new_editors_count_with_preregistration,
+      activePrograms: latest_snapshot.active_programs_count,
+      activeFacilitators: latest_snapshot.active_facilitators_count
+    }
   end
 
   def empty_kpis
