@@ -252,9 +252,9 @@ launch + Wikipedia OAuth is the only linking path.
   specs now target the current **"wikiedu.org testing" (tool 5)** registration via
   `LaunchHelpers#tool_label` (override `CANVAS_TOOL_LABEL`), and were reworked for the
   deep-link-first model (Modules-page bulk import, in-iframe drill-downs). Gallery
-  rebuilt: 32 shots, 7 flows. One residual gap: the student profile needs a one-time
-  top-level dashboard-OAuth bootstrap before the enrolled-home shots (s02/s03) capture
-  (currently soft-skipped).
+  rebuilt: **34 shots, 7 flows, all green** including the full student journey
+  (the earlier s02/s03 "gap" was a harness bug — GET vs POST-only omniauth request
+  phase — fixed, not a profile-bootstrap need).
 - [ ] **Finalize guide + HECVAT placeholders.** Remaining `[PLACEHOLDER]`s: the
   manual-path config source, the support/activation contact, and the two
   troubleshooting specifics.
