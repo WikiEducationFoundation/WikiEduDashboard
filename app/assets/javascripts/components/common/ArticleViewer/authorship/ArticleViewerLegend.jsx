@@ -41,28 +41,21 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
             if (!target.hasAttribute('tabindex')) {
               target.setAttribute('tabindex', '-1');
             }
-            target.focus();
+            target.focus({ preventScroll: true });
           }
         };
 
-        // Accessible label for the scroll button, tailored by state
-        let scrollAriaLabel;
-        if (status === 'loading') {
-          scrollAriaLabel = I18n.t('users.loading_authorship_for', { username: user.name });
-        } else if (user.activeRevision === true) {
-          scrollAriaLabel = I18n.t('users.scroll_to_users_edits', { username: user.name });
-        } else if (UnhighlightedContributions) {
-          scrollAriaLabel = I18n.t('users.contributions_not_highlighted', { username: user.name });
-        } else {
-          scrollAriaLabel = I18n.t('users.no_highlighting', { editor: user.name });
-        }
-
         const isClickable = status !== 'loading' && user.activeRevision === true;
+
+        // Accessible label for the scroll button, tailored by state
+        const scrollAriaLabel = isClickable
+          ? I18n.t('users.scroll_to_users_edits', { username: user.name })
+          : undefined;
 
         // Common wrapper class
         const wrapperClassNames = [
           'article-viewer-legend',
-          'user-legend-name',
+          (user.activeRevision === true ? 'user-legend-name' : ''),
           (user.activeRevision === true ? colorClass : ''),
           (UnhighlightedContributions || (!user.activeRevision && status !== 'loading') ? 'tooltip-trigger' : '')
         ].filter(Boolean).join(' ');
@@ -109,7 +102,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
             target="_blank"
             rel="noopener noreferrer"
             className="user-legend-talk-link"
-            aria-label="View User Talk Page"
+            aria-label={I18n.t('users.view_user_talk_page', { username: user.name })}
           >
             {/* Simple visual hint; marked aria-hidden so SR users rely on label */}
             <span aria-hidden="true">↗</span>
