@@ -100,10 +100,8 @@ class SystemCsvBuilder
 
   def apply_status_filter(scope)
     case @filters[:status]
-    when 'active'
-      scope.where('courses.end > ?', Time.zone.now - Course::UPDATE_LENGTH)
-    when 'archived'
-      scope.where('courses.end <= ?', Time.zone.now - Course::UPDATE_LENGTH)
+    when 'active'   then scope.current_and_future
+    when 'archived' then scope.archived
     else scope
     end
   end

@@ -198,11 +198,11 @@ class Course < ApplicationRecord
   UPDATE_LENGTH = ENV['update_length'].to_i.days.seconds.to_i
 
   scope :current_and_future, lambda {
-    where('end > ?', Time.zone.now - UPDATE_LENGTH)
+    where('courses.end > ?', Time.zone.now - UPDATE_LENGTH)
   }
 
   scope :archived, lambda {
-    where('end <= ?', Time.zone.now - UPDATE_LENGTH)
+    where('courses.end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
   scope :needs_partial_update, lambda {
