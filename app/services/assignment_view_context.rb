@@ -47,6 +47,17 @@ class AssignmentViewContext
     end
   end
 
+  # Some exercises happen at a dedicated in-app page (e.g. the fact
+  # verification exercise's /courses/<slug>/verify_claim) rather than in a
+  # user sandbox; nil for sandbox-based exercises. When present, the student
+  # panel is just status + a button out to this URL.
+  def exercise_url
+    mod = exercise_modules.find { |m| m.exercise_path.present? }
+    return unless mod
+
+    "/courses/#{@course.slug}/#{mod.exercise_path}"
+  end
+
   private
 
   def resolve_block

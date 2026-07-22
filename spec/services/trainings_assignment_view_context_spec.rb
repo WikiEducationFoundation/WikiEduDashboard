@@ -71,8 +71,29 @@ describe TrainingsAssignmentViewContext do
     expect(rows.map(&:name)).to contain_exactly('A', 'B')
     row_a = rows.find { |r| r.name == 'A' }
     expect(row_a.completed?).to be(true)
-    expect(row_a.training_url).to eq("/training/#{course.training_library_slug}/tr-a")
+    expect(row_a.completion_date).to be_within(1.hour).of(1.day.ago)
+    expect(row_a.training_url).to eq(
+      "/training/#{course.training_library_slug}/tr-a" \
+      "?return_to=#{CGI.escape("/courses/#{course.slug}")}"
+    )
     expect(rows.find { |r| r.name == 'B' }.completed?).to be(false)
+  end
+
+  it 'reports per-module completion counts across connected students' do
+    done = create(:user, username: 'Done')
+    partway = create(:user, username: 'Partway')
+    link_student(done)
+    link_student(partway)
+    [training_a, training_b].each do |mod|
+      TrainingModulesUsers.create!(user: done, training_module: mod, completed_at: 1.day.ago)
+    end
+    TrainingModulesUsers.create!(user: partway, training_module: training_a,
+                                 completed_at: 1.day.ago)
+
+    stats = described_class.new(line_item:, user: done, instructor: true).module_stats
+    expect(stats.map { |s| [s.name, s.completed_count, s.total_count] })
+      .to contain_exactly(['A', 2, 2], ['B', 1, 2])
+    expect(stats.first.training_url).to include('/training/')
   end
 
   it 'excludes instructor memberships from the roster' do

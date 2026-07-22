@@ -120,10 +120,31 @@ body.lti-iframe
   font-size 18px
   color #17212b
 
+// Small inline external-link icon treatment shared by the quiet links
+// (the shared icon class is padded/sized for buttons).
+inline-external-icon()
+  .icon-z-external-link
+    display inline-block
+    width 14px
+    height 14px
+    padding 0
+    background-size 12px
+    background-position center
+
 .lti-iframe__course-link
-  color #2a5db0
-  font-size 14px
+  display inline-flex
+  align-items center
+  gap 6px
+  color $brand_primary
+  font-size 16px
+  font-weight 600
   text-align right
+  text-decoration none
+
+  &:hover
+    text-decoration underline
+
+  inline-external-icon()
 
 .lti-iframe__empty
   color #5a6b7b
@@ -151,6 +172,20 @@ body.lti-iframe
 
   .lti-status
     margin-right 8px
+
+// Instructor list: students-completed count after each linked module name.
+.lti-trainings-list__count
+  margin-left 8px
+  color #5a6b7b
+  font-size 13px
+  white-space nowrap
+
+// When a training is completed, the date sits after the status pill.
+.lti-trainings__completed-at
+  margin-left 8px
+  color #5a6b7b
+  font-size 13px
+  white-space nowrap
 
 // Lead copy inside a drilldown (e.g. the setup view's connected-count
 // summary): quieter than the title, above the main content.
@@ -210,7 +245,12 @@ body.lti-iframe
   margin 0
 
 .lti-setup-connected__user
+  display inline-flex
+  align-items center
+  gap 6px
   color #2a5db0
+
+  inline-external-icon()
 
 .lti-assignment-roster
   width 100%

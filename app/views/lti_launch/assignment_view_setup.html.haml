@@ -34,5 +34,7 @@
       %p.lti-setup-connected
         %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
         - if @context.student_details_path
-          = link_to @context.user.username, @context.student_details_path,
-                    target: '_blank', rel: 'noopener', class: 'lti-setup-connected__user'
+          = link_to @context.student_details_path, target: '_blank', rel: 'noopener',
+                    class: 'lti-setup-connected__user' do
+            = @context.user.username
+            %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }

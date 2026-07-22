@@ -2275,6 +2275,7 @@ en:
         empty: "No students have connected Wikipedia accounts yet."
       student:
         your_sandbox: "Your sandbox"
+        open_exercise: "Open exercise"
       setup:
         summary: "[PLACEHOLDER - instructor summary line for the account column, interpolating %{connected} and %{total}: how many students have connected a Wikipedia account]"
         empty: "[PLACEHOLDER - shown when no Canvas roster members have been discovered yet (roster sync pending); suggest checking back shortly]"

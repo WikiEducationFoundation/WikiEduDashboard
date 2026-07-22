@@ -2,6 +2,13 @@
 .lti-iframe__panel
   %span.lti-status{ class: row.completed? ? 'lti-status--done' : 'lti-status--pending' }
     = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
+  - # Dedicated-page exercises (e.g. fact verification): status + a button
+  - # out to the exercise page; there's no sandbox to preview.
+  - if @context.exercise_url
+    = link_to @context.exercise_url, target: '_blank', rel: 'noopener',
+              class: 'button dark lti-iframe__button' do
+      = t('lti.assignment_view.student.open_exercise')
+      %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
   - if row.sandbox_url
     .lti-sandbox__actions
       = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,

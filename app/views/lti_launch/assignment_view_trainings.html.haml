@@ -7,10 +7,15 @@
 .lti-iframe__drilldown
   = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
   - if @context.instructor?
+    - # What the roll-up covers: each module linked, with how many of the
+    - # connected students have completed it.
     .lti-iframe__description
       %ul.lti-trainings-list
-        - @context.training_module_names.each do |name|
-          %li= name
+        - @context.module_stats.each do |stat|
+          %li
+            = link_to stat.name, stat.training_url, target: '_blank', rel: 'noopener'
+            %span.lti-trainings-list__count
+              = "#{stat.completed_count} / #{stat.total_count}"
     - roster = @context.roster
     - if roster.empty?
       %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
@@ -50,3 +55,6 @@
               %td
                 %span.lti-status{ class: training.completed? ? 'lti-status--done' : 'lti-status--pending' }
                   = training.status
+                - if training.completion_date
+                  %span.lti-trainings__completed-at
+                    = training.completion_date.strftime('%b %-d, %Y')

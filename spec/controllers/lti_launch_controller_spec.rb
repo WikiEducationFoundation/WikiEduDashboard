@@ -691,6 +691,23 @@ describe LtiLaunchController, type: :request do
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response.body).to include('Read an article and evaluate its sourcing.')
       end
+
+      context 'for a dedicated-page exercise (e.g. fact verification)' do
+        let(:exercise_module) do
+          create(:training_module, slug: 'fact-check-ex', name: 'Fact verification', kind: 1,
+                                   settings: { 'exercise_path' => 'verify_claim' })
+        end
+
+        it 'renders status plus a button to the exercise page, nothing else' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response.body).to include("/courses/#{course.slug}/verify_claim")
+          expect(response.body).to include('Open exercise')
+          # No sandbox actions and no block-body description for these.
+          expect(response.body).not_to include('Your sandbox')
+          expect(response.body).not_to include('Read an article and evaluate its sourcing.')
+        end
+      end
     end
 
     context 'when not signed in (in-iframe launch, partitioned cookies)' do
@@ -831,8 +848,11 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('Stu Dent')
         expect(response.body).to include('1 of 1 trainings completed')
         # The descriptive content — what the roll-up covers — lives in the
-        # iframe, since the Canvas assignment carries no description.
+        # iframe: each module linked, with its students-completed count.
         expect(response.body).to include('Wiki intro')
+        expect(response.body)
+          .to include("/training/#{course.training_library_slug}/wiki-intro")
+        expect(response.body).to include('1 / 1')
       end
 
       context 'as a student' do

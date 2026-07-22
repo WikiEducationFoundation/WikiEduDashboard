@@ -8,5 +8,7 @@
     - if defined?(linked_check) && linked_check
       %span.lti-iframe__linked-check{ role: 'img', 'aria-label': t('lti.status.linked') } ✓
   - if course
-    = link_to course.title, "/courses/#{course.slug}", target: '_blank', rel: 'noopener',
-              class: 'lti-iframe__course-link'
+    = link_to "/courses/#{course.slug}", target: '_blank', rel: 'noopener',
+              class: 'lti-iframe__course-link' do
+      = course.title
+      %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }

@@ -37,6 +37,25 @@ describe AssignmentViewContext do
                        lms_id: 'p', name:, roles:, linked_at: Time.current)
   end
 
+  describe '#exercise_url' do
+    it 'is nil for sandbox-based exercises' do
+      context = described_class.new(line_item:, user: create(:user), instructor: false)
+      expect(context.exercise_url).to be_nil
+    end
+
+    context 'for a dedicated-page exercise (exercise_path in module settings)' do
+      let(:exercise_module) do
+        create(:training_module, slug: 'fact-check-ex', name: 'Fact verification', kind: 1,
+                                 settings: { 'exercise_path' => 'verify_claim' })
+      end
+
+      it "is the exercise's in-app page on the bound course" do
+        context = described_class.new(line_item:, user: create(:user), instructor: false)
+        expect(context.exercise_url).to eq("/courses/#{course.slug}/verify_claim")
+      end
+    end
+  end
+
   describe '#title' do
     it 'is the line item label' do
       context = described_class.new(line_item:, user: create(:user), instructor: false)

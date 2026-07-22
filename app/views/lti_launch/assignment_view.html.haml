@@ -7,8 +7,10 @@
   = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
   - # The block's own timeline body serves as the assignment description,
   - # rendered live from the Dashboard (deep-linked assignments carry no
-  - # baked-in Canvas description, which would go stale).
-  - if @context.block&.content.present?
+  - # baked-in Canvas description, which would go stale). Dedicated-page
+  - # exercises skip it — their iframe is just header + status + the button
+  - # out to the exercise page, which explains itself.
+  - if @context.block&.content.present? && @context.exercise_url.nil?
     .lti-iframe__description= sanitize(@context.block.content)
   - if @context.instructor?
     = render 'lti_launch/assignment_roster'

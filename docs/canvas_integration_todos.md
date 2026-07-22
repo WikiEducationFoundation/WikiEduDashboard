@@ -107,6 +107,14 @@ launch + Wikipedia OAuth is the only linking path.
   Dashboard-side identity (CoursesUsers real name + username, designed around
   anonymized mode) and the others should probably align.
 
+- [ ] **Score-comment attribution shows "- Someone" (platform limitation).**
+  AGS score comments ("1 of 19 trainings completed", the setup "✓") are
+  created "with an unknown author" per Canvas's Score API docs; "Someone" is
+  Canvas's UI label for authorless comments and no AGS field can set it.
+  Option if wanted: append an origin ("— dashboard.wikiedu.org") to the
+  comment text itself, though Canvas still renders its own "- Someone" line
+  beneath.
+
 - [ ] **Auto-created assignments can't have descriptions (platform limitation).**
   Canvas shows "No additional details were added for this assignment." on every
   AGS-created column: the AGS line-item API accepts only

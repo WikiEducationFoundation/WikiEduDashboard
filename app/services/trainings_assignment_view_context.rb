@@ -18,12 +18,15 @@ class TrainingsAssignmentViewContext
     end
   end
 
-  ModuleRow = Struct.new(:name, :due_date, :status, :completed, :training_url,
-                         keyword_init: true) do
+  ModuleRow = Struct.new(:name, :due_date, :status, :completed, :completion_date,
+                         :training_url, keyword_init: true) do
     def completed?
       completed
     end
   end
+
+  ModuleStat = Struct.new(:name, :training_url, :completed_count, :total_count,
+                          keyword_init: true)
 
   attr_reader :line_item, :course
 
@@ -62,9 +65,18 @@ class TrainingsAssignmentViewContext
     rows.sort_by { |row| [row.due_date ? 0 : 1, row.due_date || Date.jd(0), row.name] }
   end
 
-  # What the roll-up covers, for the instructor view.
-  def training_module_names
-    viewer_progress.training_modules.map(&:name)
+  # What the roll-up covers, for the instructor view: each module linked,
+  # with how many of the binding's connected students have completed it.
+  # Due-date order, matching the student table.
+  def module_stats
+    counts = completion_counts
+    stats = viewer_progress.training_modules.map do |mod|
+      [module_due_date(mod),
+       ModuleStat.new(name: mod.name, training_url: training_url(mod),
+                      completed_count: counts[mod.id] || 0,
+                      total_count: student_contexts.size)]
+    end
+    stats.sort_by { |due, stat| [due ? 0 : 1, due || Date.jd(0), stat.name] }.map(&:last)
   end
 
   private
@@ -73,16 +85,39 @@ class TrainingsAssignmentViewContext
     @viewer_progress ||= LtiTrainingProgress.new(@course, @user)
   end
 
+  # One grouped query: per-module completion counts across the binding's
+  # connected students.
+  def completion_counts
+    TrainingModulesUsers
+      .where(training_module_id: viewer_progress.training_modules.map(&:id),
+             user_id: student_contexts.map(&:user_id))
+      .where.not(completed_at: nil)
+      .group(:training_module_id).count
+  end
+
+  def module_due_date(mod)
+    TrainingModuleDueDateManager.new(course: @course, training_module: mod, user: nil)
+                                .computed_due_date
+  end
+
   # Same sources as the Students-tab drawer (TrainingStatusController):
   # due date from the module's timeline block, status strings from
   # TrainingProgressManager.
   def viewer_module_row(mod)
-    due_date = TrainingModuleDueDateManager.new(course: @course, training_module: mod,
-                                                user: @user).computed_due_date
+    due_date = module_due_date(mod)
     progress = TrainingProgressManager.new(@user, mod)
     ModuleRow.new(name: mod.name, due_date:, status: progress.status,
                   completed: progress.module_completed?,
-                  training_url: "/training/#{@course.training_library_slug}/#{mod.slug}")
+                  completion_date: progress.completion_date,
+                  training_url: training_url(mod))
+  end
+
+  # return_to sends the end-of-training "return" to the course home page —
+  # by default it uses the referer, which for these links would be the LTI
+  # iframe launch URL.
+  def training_url(mod)
+    "/training/#{@course.training_library_slug}/#{mod.slug}" \
+      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
   end
 
   def row_for(user, name:)
@@ -93,8 +128,9 @@ class TrainingsAssignmentViewContext
 
   # Wikipedia-linked students on this binding, ordered by display name.
   def student_contexts
-    @binding.linked_student_contexts
-            .select(&:user)
-            .sort_by { |context| (context.name.presence || context.user.username).downcase }
+    @student_contexts ||=
+      @binding.linked_student_contexts
+              .select(&:user)
+              .sort_by { |context| (context.name.presence || context.user.username).downcase }
   end
 end
