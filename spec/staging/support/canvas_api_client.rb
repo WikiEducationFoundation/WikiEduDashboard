@@ -82,6 +82,20 @@ class CanvasApiClient
     delete("/api/v1/courses/#{course_id}", event: 'delete')
   end
 
+  # Deep-link-created assignments (and the module a bulk import builds)
+  # arrive unpublished — invisible to students until published.
+  def publish_assignment(course_id:, assignment_id:)
+    put("/api/v1/courses/#{course_id}/assignments/#{assignment_id}",
+        'assignment[published]' => true)
+  end
+
+  def publish_all_modules(course_id:)
+    (get("/api/v1/courses/#{course_id}/modules") || []).each do |mod|
+      put("/api/v1/courses/#{course_id}/modules/#{mod['id']}",
+          'module[published]' => true)
+    end
+  end
+
   def find_course(course_id:)
     get("/api/v1/courses/#{course_id}")
   end
@@ -108,12 +122,15 @@ class CanvasApiClient
         'include[]' => 'submission_comments')
   end
 
-  # Show or hide the Wiki Education Dashboard tab in the course's Course
-  # Navigation. The account tool's course_navigation placement can be
-  # default-disabled (instructors opt in per course); the harvest also uses this
-  # to stage the "before enabling" state so the enabling step reads truthfully.
-  # No-op when the tab is already in the desired state or absent.
-  def set_course_nav(course_id:, hidden:, label: 'Wiki Education Dashboard')
+  # Show or hide the tool's tab in the course's Course Navigation. The
+  # account tool's course_navigation placement can be default-disabled
+  # (instructors opt in per course); the harvest also uses this to stage the
+  # "before enabling" state so the enabling step reads truthfully. No-op when
+  # the tab is already in the desired state or absent. The label defaults to
+  # the current staging registration's tool name (no placement title is set);
+  # override via CANVAS_TOOL_LABEL alongside LaunchHelpers#tool_label.
+  def set_course_nav(course_id:, hidden:,
+                     label: ENV.fetch('CANVAS_TOOL_LABEL', 'wikiedu.org testing'))
     tab = get("/api/v1/courses/#{course_id}/tabs").find { |t| t['label'] == label }
     return unless tab && tab['hidden'] != hidden
 

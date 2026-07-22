@@ -23,7 +23,7 @@ describe 'Canvas admin setup (read-only) screenshots', :staging do
   end
 
   # The dev key + account external tool are both named this on staging.
-  let(:tool_name)      { 'wikiedu.org testing key' }
+  let(:tool_name)      { 'wikiedu.org testing' }
   let(:account_id)     { ENV.fetch('CANVAS_TEST_ACCOUNT_ID', '1') }
   let(:screenshot_dir) { canvas_shots_dir('admin') }
 
@@ -41,11 +41,11 @@ describe 'Canvas admin setup (read-only) screenshots', :staging do
       capture('a01-developer-keys')
 
       # Open the key's LTI config (read-only: capture, then navigate away without
-      # saving). Two shots: the endpoints/redirect URIs at the top, and the LTI
-      # Advantage scopes + placements lower down.
+      # saving). Two shots: the registration overview, and the scopes/placements
+      # (a tab on dynamic-registration keys; a scroll on manual ones).
       open_developer_key_config
       capture('a02-developer-key-config')
-      scroll_config_to('LTI Advantage Services')
+      show_scopes_and_placements
       capture('a03-developer-key-scopes-placements')
 
       # Canvas moved LTI tool management to the "Apps" (Canvas Apps) page —
@@ -58,14 +58,24 @@ describe 'Canvas admin setup (read-only) screenshots', :staging do
     end
   end
 
-  # Open the LTI 1.3 key's config tray from its row (edit pencil, stable id;
-  # scoped to the row so it can't hit the toggle or delete). Read-only — we
-  # navigate away without saving. Settle the tray animation before capturing.
+  # Open the LTI 1.3 key's config from its row (edit pencil — an <a> on
+  # dynamic-registration keys, a <button> on manual ones; the stable id
+  # prefix covers both). Read-only — we navigate away without saving.
   def open_developer_key_config
     row = find(:xpath, "//*[normalize-space()='#{tool_name}']/ancestor::tr[1]", wait: 20)
-    within(row) { find('button[id^="edit-developer-key-button"]').click }
-    expect(page).to have_content('Redirect URIs', wait: 20)
-    sleep 2 # let the tray finish animating in (opaque) before capturing
+    within(row) { find('[id^="edit-developer-key-button"]').click }
+    # Dynamic-registration keys land on a "<tool> Settings" page (Permissions,
+    # anonymized data-sharing, Placements); manual keys open the config tray.
+    expect(page).to have_text(/Permissions|Placements|Redirect URIs/, wait: 30)
+    sleep 2 # let the page/tray finish rendering before capturing
+  end
+
+  # Dynamic-registration settings pages put per-placement config under a
+  # "Placements" heading; manual-key trays under "LTI Advantage Services".
+  def show_scopes_and_placements
+    scroll_config_to('Placements')
+  rescue Capybara::ElementNotFound
+    scroll_config_to('LTI Advantage Services')
   end
 
   # Scroll a section of the config tray to the top of view (scrolls the tray's

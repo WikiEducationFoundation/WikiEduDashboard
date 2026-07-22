@@ -75,9 +75,10 @@ SECTIONS = [
     blurb: 'One-time account-admin setup: the Wiki Education developer key and app, ' \
            'enabled across the Canvas instance.' },
   { role: 'instructor',
-    title: 'Instructor — first-time course setup',
-    blurb: 'Opening the tool from the course, linking a Wiki Education course, and ' \
-           'choosing how progress appears in the gradebook.' },
+    title: 'Instructor — first-time course setup and assignment import',
+    blurb: 'Opening the tool from the course, linking a Wiki Education course, the ' \
+           'in-iframe link status, and importing every Wikipedia assignment in one ' \
+           'step from the Modules page.' },
   { role: 'student',
     title: 'Student — joining the course',
     blurb: "The student's launch from Canvas, the waiting states before setup and " \
@@ -95,9 +96,11 @@ SECTIONS = [
     blurb: 'The same gradebook for a complete multi-week assignment: one column per ' \
            'milestone.' },
   { role: 'assignment_view',
-    title: 'Assignment drill-down',
-    blurb: "Opening a Wikipedia column's assignment: the instructor's per-milestone " \
-           "roster with inline sandbox previews, and the student's own panel." }
+    title: 'Assignment drill-downs — in the iframe',
+    blurb: 'Every imported assignment renders its drill-down directly inside the ' \
+           "Canvas iframe: the exercise roster with inline sandbox previews, the " \
+           'Wikipedia-account connection roster, the trainings tables, and the ' \
+           "student's own panels." }
 ].freeze
 
 # Plain-language caption per screenshot, keyed by file basename.
@@ -105,20 +108,22 @@ CAPTIONS = {
   'a01-developer-keys' =>
     'The Wiki Education developer key, enabled in Canvas admin.',
   'a02-developer-key-config' =>
-    "The key's LTI config: redirect URIs, target link, and OIDC/JWK endpoints (LTIAAS).",
+    "The registration's settings: permission scopes in plain language, and the " \
+    'None (Anonymized) data-sharing mode.',
   'a03-developer-key-scopes-placements' =>
-    'The key\'s Canvas placements (Course Navigation, Link/Assignment Selection, ' \
-    'Assignment View, and more), below the collapsed LTI Advantage (scopes) and ' \
-    'Additional Settings sections.',
+    "The registration's per-placement settings (Title and Icon are optional — " \
+    'blank falls back to the tool name and logo).',
   'a04-canvas-apps-manage' =>
     'The installed tool under Canvas Apps, Manage.',
   '00-canvas-enable-nav' =>
-    'Enabling the tool: Wiki Education Dashboard starts in the course\'s disabled ' \
-    'navigation items until the instructor turns it on.',
+    "Enabling the tool from the course's navigation settings — it starts disabled " \
+    'until the instructor turns it on. (The tab label is the staging ' \
+    "registration's tool name; real installs set a placement title.)",
   '01-canvas-course-with-tab' =>
-    'The Wiki Education Dashboard item in the course navigation.',
+    "The tool's item in the course navigation.",
   '02-canvas-iframe-landing' =>
-    'Opening the tool inside Canvas: a button to continue on the Dashboard in a new tab.',
+    'Opening the tool inside Canvas before linking: the not-yet-linked notice and ' \
+    'a button to continue on the Dashboard in a new tab.',
   '03-dashboard-setup-empty' =>
     'The setup page: pick a Wiki Education course and a gradebook layout.',
   '04-dashboard-setup-course-selected' =>
@@ -127,12 +132,26 @@ CAPTIONS = {
     'After linking, the instructor lands on the connected course home.',
   '06-instructor-course-panel' =>
     'The Canvas link panel: linked course, last sync, and students synced.',
+  '07-canvas-nav-status' =>
+    'Relaunching the course tab: the link status renders right in the iframe — ' \
+    'course link, students synced, last sync, and a refresh action.',
+  '08-import-picker' =>
+    'Import Wikipedia assignments from the Modules page: every task pre-selected.',
+  '09-module-created' =>
+    'One submit creates the module with every assignment in timeline order.',
+  '10-assignments-index' =>
+    'The Assignments tab after the import: account, trainings, and each exercise.',
   's01-canvas-iframe-landing' =>
-    "The student's launch from Canvas: the same break-out button.",
+    "The student's first launch: with an active Dashboard session the iframe " \
+    'enrolls them and confirms immediately; a signed-out student instead gets ' \
+    'the break-out button to connect their Wikipedia account first.',
   's02-student-enrolled-landing' =>
     "The student's course home once enrolled.",
   's03-student-course-panel' =>
-    "The student's course panel, including their Canvas link status.",
+    "The student's course panel: their account-link status and last sync.",
+  's06-canvas-nav-status' =>
+    "Relaunching the course tab as an enrolled student: the in-iframe confirmation " \
+    'header with the course link.',
   's04-setup-pending' =>
     'Shown to a student before the instructor has finished setup.',
   's05-enrollment-pending-approval' =>
@@ -149,14 +168,24 @@ CAPTIONS = {
     'Wikipedia columns in Canvas: a connected student graded, and one who has not linked at zero.',
   'f01-full-course-gradebook' =>
     'A full assignment timeline: one gradebook column per weekly milestone.',
-  '01-canvas-assignment-page' =>
-    "A Wikipedia milestone's assignment page inside Canvas.",
-  '02-instructor-roster' =>
-    "The drill-down: each student's status and sandbox for this milestone.",
-  '03-instructor-sandbox-preview' =>
+  '01-exercise-instructor-roster' =>
+    "An exercise assignment: each student's status and sandbox, right in the iframe.",
+  '02-exercise-sandbox-preview' =>
     "Show renders a student's Wikipedia sandbox inline.",
-  '04-student-panel' =>
-    "The same milestone as the student sees it: their status and sandbox."
+  '03-setup-instructor-roster' =>
+    'The Wikipedia account assignment: who has connected (real name + username, ' \
+    'from the Dashboard) and who is still pending.',
+  '04-trainings-instructor' =>
+    'The trainings roll-up: each module linked with its students-completed count, ' \
+    "above the per-student progress roster.",
+  '05-exercise-student-panel' =>
+    "The same exercise as the student sees it: their status and sandbox.",
+  '06-setup-student-panel' =>
+    "The student's Wikipedia account view: Connected, with their username linking " \
+    'to their Dashboard details.',
+  '07-trainings-student-table' =>
+    "The student's trainings table: every assigned training with due date, status, " \
+    'and a link straight to the module.'
 }.freeze
 
 def run_dir

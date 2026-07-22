@@ -322,15 +322,36 @@ module DashboardAdminClient
       if user.nil?
         puts 'no_user'
       else
-        context = binding.lti_contexts.where(user_id: nil).order(:id).first
-        raise 'no unlinked context to promote' unless context
-        context.update!(user_id: user.id, linked_at: Time.current)
+        # Roster sync may already have auto-linked the user (email match on a
+        # non-anonymized install); promoting is only needed when it hasn't.
+        unless binding.lti_contexts.exists?(user_id: user.id)
+          context = binding.lti_contexts.where(user_id: nil).order(:id).first
+          raise 'no unlinked context to promote' unless context
+          context.update!(user_id: user.id, linked_at: Time.current)
+        end
         CoursesUsers.find_or_create_by!(user_id: user.id, course_id: course.id,
                                         role: CoursesUsers::Roles::STUDENT_ROLE)
         puts user.id
       end
     RUBY
     DashboardConsole.run(script).strip
+  end
+
+  # Undo a student's enrollment + context link on a bound course, so a
+  # subsequent launch exercises the join flow again (e.g. the
+  # awaiting-approval state, which roster-sync auto-enrollment would
+  # otherwise skip past on a name-sharing install).
+  def unenroll_student(course_slug:, username:)
+    script = <<~RUBY
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      user = User.find_by!(username: #{username.inspect})
+      CoursesUsers.where(course_id: course.id, user_id: user.id).destroy_all
+      binding = LtiCourseBinding.find_by(course_id: course.id)
+      binding&.lti_contexts&.where(user_id: user.id)
+             &.update_all(user_id: nil, linked_at: nil)
+      puts 'ok'
+    RUBY
+    DashboardConsole.run(script).strip == 'ok'
   end
 
   # Mark a training-kind module complete for the student (sets

@@ -42,6 +42,24 @@ module LoginHelpers
     click_oauth_allow_if_present
   end
 
+  # Sign the current browser into the dashboard at TOP level via Wikipedia
+  # OAuth (silent once the profile carries the grant). Needed when a launch
+  # completed inside the iframe — its (partitioned) session doesn't reach
+  # top-level tabs, and logged-in surfaces like the course home's student
+  # widgets or the LMS panel need a first-party session. No-op if signed in.
+  def ensure_dashboard_logged_in(role: :instructor)
+    in_dashboard { visit '/' }
+    return unless page.has_link?('Log in', wait: 5)
+
+    # Hit the omniauth entry point directly rather than clicking a nav link
+    # (avoids ambiguous "Log in" matches and any interstitial); the profile's
+    # standing OAuth grant makes the bounce silent.
+    in_dashboard { visit '/users/auth/mediawiki' }
+    complete_wikipedia_oauth_if_needed(role:)
+    in_dashboard { visit '/' }
+    expect(page).to have_no_link('Log in', wait: 15)
+  end
+
   private
 
   # The break-out tab runs through several OAuth redirects (connect_course

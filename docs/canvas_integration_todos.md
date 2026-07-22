@@ -248,10 +248,13 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## Housekeeping (after the walkthrough)
 
-- [ ] **Re-point the staging specs.** The old dev key + app were removed to reset for
-  the walkthrough, so the existing `spec/staging/` specs and the screenshot harness
-  (which reference the "wikiedu.org testing key" name / client id) are broken. Update
-  them to the new registration once it's finalized.
+- [x] **Re-point the staging specs.** _(Done 2026-07-22.)_ The harness + `spec/staging/`
+  specs now target the current **"wikiedu.org testing" (tool 5)** registration via
+  `LaunchHelpers#tool_label` (override `CANVAS_TOOL_LABEL`), and were reworked for the
+  deep-link-first model (Modules-page bulk import, in-iframe drill-downs). Gallery
+  rebuilt: 32 shots, 7 flows. One residual gap: the student profile needs a one-time
+  top-level dashboard-OAuth bootstrap before the enrolled-home shots (s02/s03) capture
+  (currently soft-skipped).
 - [ ] **Finalize guide + HECVAT placeholders.** Remaining `[PLACEHOLDER]`s: the
   manual-path config source, the support/activation contact, and the two
   troubleshooting specifics.

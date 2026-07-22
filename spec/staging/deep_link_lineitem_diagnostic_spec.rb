@@ -122,7 +122,7 @@ describe 'DIAGNOSTIC: deep-link resource link delivers lineItemId', :staging do
 
   # Inside Canvas's External Tool "Find" dialog (#context_external_tools_select,
   # a list of `ul.tools li.tool a.name` links), click our tool. On staging the
-  # tool is the dev key named "wikiedu.org testing key". Clicking it fires the
+  # tool is the dev key named "wikiedu.org testing". Clicking it fires the
   # assignment_selection deep-linking launch (LTIAAS forwards it to our
   # /lti/deep_link); the returned content item is staged into the dialog's
   # hidden fields — confirmed on staging: #external_tool_create_line_item gets
@@ -131,7 +131,7 @@ describe 'DIAGNOSTIC: deep-link resource link delivers lineItemId', :staging do
   # content item to the assignment and close the dialog.
   def select_probe_resource_in_modal
     within('#context_external_tools_select') do
-      click_link 'wikiedu.org testing key'
+      click_link 'wikiedu.org testing'
     end
     # The hidden line_item field is staged from the deep-linking response.
     # (have_field with a regex `with:` on a hidden input is unreliable, so

@@ -9,6 +9,15 @@
 # Selectors are best-guess for Canvas's stock UI; first real run may
 # need them tweaked. TODO markers below flag the suspects.
 module LaunchHelpers
+  # The installed tool's user-visible label. The current staging registration
+  # sets no per-placement Title, so Canvas falls back to the tool's LTIAAS
+  # name; the placement-title todo tracks making this "Wiki Education
+  # Dashboard" for real installs. Override via CANVAS_TOOL_LABEL when the
+  # registration changes.
+  def tool_label
+    ENV.fetch('CANVAS_TOOL_LABEL', 'wikiedu.org testing')
+  end
+
   # Visit a Canvas course in the active session (the surrounding spec
   # is expected to have called `in_canvas`).
   def visit_canvas_course(canvas_course_id)
@@ -16,13 +25,10 @@ module LaunchHelpers
     expect(page).to have_no_text('Please log in', wait: 2)
   end
 
-  # Click the Wiki Education Dashboard tab in the Canvas course nav.
-  # TODO: confirm the link text; Canvas uses `:text` for nav items but
-  # the placement text comes from our developer-key config
-  # ("Wiki Education Dashboard").
+  # Click the tool's tab in the Canvas course nav.
   def click_wiki_education_tab
     within('nav#section-tabs, #section-tabs') do
-      click_link 'Wiki Education Dashboard'
+      click_link tool_label
     end
   end
 
@@ -146,6 +152,7 @@ module LaunchHelpers
   # `in_student_browser`. The binding is what captures the LTIAAS
   # service_key, so this step is a prerequisite for any roster/grade sync.
   def bind_course_as_instructor(canvas_course_id:, course_slug:, granularity: 'lumped')
+    enable_course_nav_tab(canvas_course_id)
     in_canvas do
       ensure_canvas_logged_in_as_instructor
       visit_canvas_course(canvas_course_id)
@@ -157,12 +164,20 @@ module LaunchHelpers
     expect(page).to have_current_path(%r{/courses/}, wait: 20)
   end
 
+  # The course_navigation placement is default-disabled (opt-in per course),
+  # so a freshly provisioned course has no tool tab until it's enabled — the
+  # step a real instructor does in course Settings → Navigation.
+  def enable_course_nav_tab(canvas_course_id)
+    CanvasApiClient.new.set_course_nav(course_id: canvas_course_id, hidden: false)
+  end
+
   # The instructor launch up to — but not through — the setup view: the
   # binding is created (with a nil course) but never linked to a Dashboard
   # course. Leaves the LMS course in the "instructor hasn't finished setup"
   # state a student then hits as `setup_pending`. Runs in the current
   # (instructor) session.
   def reach_instructor_setup_view(canvas_course_id:)
+    enable_course_nav_tab(canvas_course_id)
     in_canvas do
       ensure_canvas_logged_in_as_instructor
       visit_canvas_course(canvas_course_id)
@@ -173,23 +188,70 @@ module LaunchHelpers
     expect(page).to have_content('Set up the Wiki Education Dashboard')
   end
 
-  # The student-side Canvas walk: log into Canvas, open the course's Wiki
-  # Education tab, break out of the iframe through Wikipedia OAuth, and land
-  # at top level on the dashboard. `before_breakout` runs after the tab is
-  # open but before the break-out, for capturing the in-iframe landing. A
-  # brand-new dashboard user gets routed through /onboarding before the LTI
-  # launch resumes; walk it (silent no-op on a returning, already-onboarded
-  # user). Must be called inside `in_student_browser`.
+  # The student-side Canvas walk. The launch iframe resolves to one of three
+  # real states, depending on whether the profile's dashboard session reaches
+  # the iframe:
+  #   :landing — no session; break out through Wikipedia OAuth (the
+  #     first-time flow) and land top-level on the dashboard course.
+  #   :status  — session present; the launch enrolled the student and shows
+  #     the in-iframe confirmation. Follow its course link to a new tab.
+  #   :waiting — session present on an unbound/unapproved course; the
+  #     setup-pending / awaiting-approval view renders in the iframe and
+  #     there is nowhere further to go. Returned for the caller to capture.
+  # `before_breakout` runs once the iframe has settled, for capturing it.
+  # Returns the state symbol. Must be called inside `in_student_browser`.
   def student_walk_to_dashboard(canvas_course_id:, email:, before_breakout: nil)
+    state = nil
     in_canvas do
       ensure_canvas_logged_in_as_student
       visit_canvas_course(canvas_course_id)
       click_wiki_education_tab
+      frame, state = settle_student_iframe
       before_breakout&.call
-      break_out_of_canvas_iframe(role: :student)
+      leave_iframe(frame, state)
     end
+    return state if state == :waiting
+
+    wait_out_server_error
     dismiss_consent_banner
-    walk_through_onboarding(real_name: 'LTI Test Student', email:)
+    walk_through_onboarding(real_name: 'LTI Test Student', email:) if state == :landing
+    state
+  end
+
+  def leave_iframe(frame, state)
+    case state
+    when :landing
+      within_frame(frame) { click_link 'Open the Wiki Education Dashboard' }
+      switch_to_new_tab
+      wait_out_server_error
+      complete_wikipedia_oauth_if_needed(role: :student)
+    when :status
+      within_frame(frame) { find('.lti-iframe__course-link').click }
+      switch_to_new_tab
+    end
+  end
+
+  def settle_student_iframe(attempts: 4)
+    attempts.times do |i|
+      frame = first(canvas_tool_iframe_locator, wait: 10)
+      state = frame && within_frame(frame) { student_iframe_state }
+      return [frame, state] if state
+
+      warn "  [retry] student iframe not in a known launch state " \
+           "(attempt #{i + 1}/#{attempts}); reloading"
+      page.refresh
+    end
+    raise 'student iframe never settled into a known launch state'
+  end
+
+  def student_iframe_state
+    return :landing if has_link?('Open the Wiki Education Dashboard', wait: 5)
+    return :status if has_css?('.lti-iframe__course-link', wait: 2)
+    if has_text?(/being set up|awaiting Wiki Education approval/, wait: 2)
+      return :waiting
+    end
+
+    nil
   end
 
   # Create a Canvas assignment via LTI deep linking, bound to a Dashboard
@@ -225,7 +287,7 @@ module LaunchHelpers
   # Canvas stages the returned content item into the dialog's hidden line-item
   # field; wait for that, then Select to apply + close the dialog.
   def pick_gradable_in_deep_link_dialog(gradable_label)
-    within('#context_external_tools_select') { click_link 'wikiedu.org testing key' }
+    within('#context_external_tools_select') { click_link tool_label }
     within_frame(find('#resource_selection_iframe', wait: 20)) do
       choose(gradable_label, wait: 20)
       find('button[type="submit"]').click
@@ -268,9 +330,100 @@ module LaunchHelpers
     else
       fill_in 'course_slug', with: course_slug
     end
-    # `lumped` is the default-checked radio; only click for a different value.
-    find(:css, "input[type=radio][value='#{granularity}']").click if granularity != 'lumped'
+    # Always click the requested radio — don't assume which one is
+    # default-checked (it has changed as the granularity model evolved).
+    find(:css, "input[type=radio][value='#{granularity}']").click
     click_button 'Link this course'
+  end
+
+  # Wait for an in-iframe launch view (the assignment drill-downs and the
+  # nav status views render directly inside the Canvas iframe now — no
+  # break-out) to show `text`, reloading past transient staging 500s.
+  # Returns the settled iframe element for further within_frame work.
+  def settle_in_iframe_view(text, iframe: canvas_assignment_iframe_locator, attempts: 4)
+    attempts.times do |i|
+      frame = first(iframe, wait: 10)
+      return frame if frame && within_frame(frame) { has_text?(text, wait: 10) }
+
+      warn "  [retry] iframe not showing #{text.inspect} " \
+           "(attempt #{i + 1}/#{attempts}); reloading"
+      page.refresh
+    end
+    raise "iframe never rendered #{text.inspect} after reloads"
+  end
+
+  # Bulk-import every Wikipedia assignment through the Modules-page
+  # placement (module_index_menu_modal): open the modules index, launch the
+  # tool from the header kebab menu, submit the pre-checked multi-select
+  # picker, and wait for Canvas to create the module. Runs in the current
+  # (instructor) Canvas session. `before_submit` runs with the picker
+  # visible, for capturing it.
+  DIALOG_IFRAME = '.ui-dialog iframe, #external_tool_dialog iframe, ' \
+                  '[role="dialog"] iframe, iframe[data-lti-launch="true"]'
+
+  def import_assignments_via_modules(course_id, before_submit: nil)
+    # Open the modal, reopening past a transient blank picker (the modal's
+    # own iframe launch is subject to the same edge-500s as any launch). Each
+    # attempt re-fetches the frame handle inside the block — a handle from a
+    # prior attempt goes stale once the page reloads (CDP "node ... does not
+    # belong to the document").
+    3.times do |i|
+      visit "/courses/#{course_id}/modules"
+      open_modules_tool_modal
+      break if import_picker_ready?
+      warn "  [retry] import picker blank (attempt #{i + 1}/3); reopening"
+    end
+    within_frame(find(DIALOG_IFRAME, match: :first, wait: 20)) do
+      expect(page).to have_content('Import Wikipedia assignments', wait: 20)
+      expect(page).to have_css('input[type=checkbox][name="resources[]"]', wait: 10)
+      before_submit&.call
+      click_button 'Add to course'
+    end
+    # Canvas processes the deep-linking response, closes the dialog, and
+    # shows the new module (some versions reload the page first). The module
+    # name is Canvas's default until LTIAAS passes our module_name claim
+    # through; accept either.
+    expect(page).to have_content(
+      /New Content From App|Research and write a Wikipedia article/, wait: 30
+    )
+  end
+
+  # True once the just-opened modal's picker iframe shows the picker. Fetches
+  # a fresh frame handle each call (never reuse one across a page reload).
+  def import_picker_ready?
+    frame = first(DIALOG_IFRAME, wait: 20)
+    frame && within_frame(frame) { has_content?('Import Wikipedia assignments', wait: 15) }
+  rescue Selenium::WebDriver::Error::WebDriverError
+    false
+  end
+
+  # The Modules-page header kebab ("⋮"/gear) menu hosts module_index_menu_modal
+  # tools. Selector layers cover legacy + InstUI header variants; first
+  # candidate that exists wins (minimum: 0 keeps the misses nil, not raises).
+  def open_modules_tool_modal
+    expect(page).to have_content('Module', wait: 20)
+    # The header trigger is an <a class="al-trigger"> whose screenreader label
+    # is "Modules Settings" (per-module kebabs are also .al-trigger but hidden
+    # pre-import; Capybara matches visible elements only).
+    candidates = ['a.al-trigger', 'button.al-trigger', '.al-trigger',
+                  'button[aria-label*="Modules"]']
+    trigger = candidates.lazy.map { |sel| first(sel, minimum: 0, wait: 2) }.find(&:itself)
+    raise 'no Modules-page menu trigger found (selectors need updating)' unless trigger
+
+    trigger.click
+    click_tool_menu_item
+  end
+
+  def click_tool_menu_item
+    # module_index_menu_modal items render as a.menu_tray_tool_link inside the
+    # al-options menu; older/other placements as a.menu_tool_link; InstUI
+    # menus as role=menuitem.
+    ['a.menu_tray_tool_link', 'a.menu_tool_link', '[role="menuitem"]'].each do |sel|
+      next unless page.has_css?(sel, text: tool_label, wait: 3)
+
+      return find(sel, text: tool_label).click
+    end
+    raise "tool menu item #{tool_label.inspect} not found in the modules menu"
   end
 
   # Walk the dashboard's React onboarding flow as a real first-time

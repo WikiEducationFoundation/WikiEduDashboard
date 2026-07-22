@@ -59,6 +59,9 @@ describe 'Instructor setup illustrated guide', :staging do
     provisioned[:dashboard_course_slug] = dashboard_course['slug']
     DashboardAdminClient.approve_course(slug: dashboard_course['slug'],
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
+    # A realistic multi-week timeline so the import picker offers the full
+    # assignment set (account + trainings + one per exercise).
+    DashboardAdminClient.build_full_timeline(course_slug: dashboard_course['slug'])
   end
 
   after do
@@ -83,7 +86,7 @@ describe 'Instructor setup illustrated guide', :staging do
       # Dashboard sitting in the disabled items lower in the list — scroll that
       # item into view (it's the only occurrence, since it's out of the nav now).
       visit "/courses/#{canvas_id}/settings#tab-navigation"
-      item = find(:xpath, "//*[contains(text(), 'Wiki Education Dashboard')]",
+      item = find(:xpath, "//*[contains(text(), '#{tool_label}')]",
                   match: :first, wait: 20)
       page.execute_script('arguments[0].scrollIntoView({ block: "center" })', item)
       sleep 0.5
@@ -118,6 +121,10 @@ describe 'Instructor setup illustrated guide', :staging do
     end
     capture('04-dashboard-setup-course-selected')
 
+    # The deep-link-first mode: nothing auto-created; assignments arrive via
+    # the Modules-page import below. (The capture above shows the default
+    # selection; the switch itself isn't part of the story.)
+    find(:css, "input[type=radio][value='lumped']").click
     click_button 'Link this course'
     # Gate on the bound course home + its LMS panel rendering (which implies the
     # redirect finished) so the shot isn't a blank mid-load page, then clear the
@@ -134,6 +141,33 @@ describe 'Instructor setup illustrated guide', :staging do
     # last sync, and synced-students count; scroll it into view.
     scroll_into_view('.lms-integration-status')
     capture('06-instructor-course-panel')
+
+    capture_nav_status_and_import(canvas_id)
+  end
+
+  # Back in Canvas: the nav tab now renders the link-status view right in the
+  # iframe, and the Modules-page placement imports every Wikipedia assignment
+  # in one submit — the deep-link-first flow.
+  def capture_nav_status_and_import(canvas_id)
+    in_canvas do
+      visit_canvas_course(canvas_id)
+      click_wiki_education_tab
+      # 'Students synced' is unique to the in-iframe status view (the landing
+      # also mentions "Wiki Education Dashboard", so that text can't settle it).
+      settle_in_iframe_view('Students synced', iframe: canvas_tool_iframe_locator)
+      sleep 1
+      capture('07-canvas-nav-status')
+
+      import_assignments_via_modules(canvas_id,
+                                     before_submit: -> { capture('08-import-picker') })
+      sleep 1
+      capture('09-module-created')
+
+      visit "/courses/#{canvas_id}/assignments"
+      expect(page).to have_content('Wikipedia account', wait: 20)
+      sleep 1
+      capture('10-assignments-index')
+    end
   end
 
   def capture(name)

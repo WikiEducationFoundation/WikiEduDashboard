@@ -2,29 +2,27 @@
 
 require_relative 'spec_helper'
 
-# Captures the assignment_view drill-down (user story I-11, plus the
-# student-facing S-11/S-14 panel) as it renders through a real Canvas launch:
-# opening a Wikipedia gradebook column's assignment page inside Canvas, breaking
-# out of the embedded tool iframe, and landing on the dashboard's /lti dispatch —
-# the instructor roster, or the launching student's own panel.
+# Captures the in-Canvas assignment drill-downs as they render TODAY: directly
+# inside each assignment's tool iframe (no break-out button — the launch token
+# authenticates the view; see LtiAnonymousLaunch). Covers all three assignment
+# types the deep-link-first import creates:
+#   - an exercise (Block) — instructor roster with inline sandbox preview, and
+#     the student's own panel;
+#   - "Wikipedia account" (setup) — the connection roster (Dashboard-side real
+#     name + username, plus a pending never-connected member), and the
+#     student's Connected confirmation;
+#   - "Wikipedia trainings" (roll-up) — the instructor's linked module list
+#     with per-module completion counts above the roster, and the student's
+#     due-date table.
 #
-# The roster is populated with several students (link_students) so it reads like a
-# real class: some completed the exercise with sandbox content, some didn't. Each
-# row's "Preview" toggle renders that student's Wikipedia sandbox inline via a
-# client-side fetch; this spec expands + captures it for a student who has content.
-#
-# The assignment_view is reached from a DEEP-LINK-created assignment. Canvas does
-# NOT echo the deep-link content-item custom, so the launch carries no `resource`
-# marker — only its own AGS lineItemId. `BuildLtiDeepLinkForm` tags that line item
-# with the gradable, so `ResolveAssignmentLineItem` reads the tag off it (via AGS)
-# and binds the deep-link assignment's own column — the gradable's canonical one.
-#
-# Prerequisite: deployed staging must carry the deep-link fixes (framing +
-# tag-based binding + inline sandbox preview), and the "completed" gallery accounts
-# must have sandbox content at User:<name>/Evaluate_an_Article (Sage-provided).
+# Assignments are created the canonical way: the Modules-page bulk import
+# (module_index_menu_modal), then a line-item sync binds the columns and a
+# grade sync fills scores. The roster is padded with fabricated linked
+# students (link_students) so it reads like a real class; a dedicated
+# never-launching Canvas student provides the "Not connected" row.
 #
 #   bin/staging-feature-spec spec/staging/assignment_view_screenshots_spec.rb
-describe 'Assignment view drill-down screenshots', :staging do
+describe 'Assignment drill-down screenshots', :staging do
   let(:required_env) do
     %w[
       CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID
@@ -42,18 +40,16 @@ describe 'Assignment view drill-down screenshots', :staging do
   let(:canvas_course_name) { "Wiki Editing Demo (AV) #{run_id}" }
   let(:dashboard_title)    { 'Wiki Editing Demo AV' }
   let(:dashboard_school)   { 'Demo School' }
-  let(:student_canvas_id)  { ENV.fetch('CANVAS_TEST_STUDENT_USER_ID') }
+  let(:student_username)   { ENV.fetch('WIKIPEDIA_TEST_STUDENT_USERNAME') }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
   let(:screenshot_dir)     { canvas_shots_dir('assignment_view') }
   # Sage-provided test accounts. The first two have sandbox content at
   # User:<name>/Evaluate_an_Article (→ "Completed" + a rendered preview); the
-  # others have none (→ "Not started", empty preview).
-  let(:gallery_students)   { ['Ragetest 9', 'Ragetest 37', 'Ragetest 11', 'Ragetest 14'] }
+  # real test student walks the launch themselves and contributes their own
+  # row, so they aren't fabricated here.
+  let(:gallery_students)   { ['Ragetest 9', 'Ragetest 37', 'Ragetest 14'] }
   let(:completed_students) { ['Ragetest 9', 'Ragetest 37'] }
-  # A middle-of-the-roster student (URL-encoded, alphabetical order puts 37
-  # third of four) so the expanded preview clearly renders below THAT row
-  # rather than below the whole table.
   let(:preview_student)    { 'Ragetest_37' }
 
   before do
@@ -66,7 +62,8 @@ describe 'Assignment view drill-down screenshots', :staging do
                            user_id: ENV.fetch('CANVAS_TEST_INSTRUCTOR_USER_ID'),
                            role: 'TeacherEnrollment')
     canvas_api.enroll_user(course_id: canvas_course['id'],
-                           user_id: student_canvas_id, role: 'StudentEnrollment')
+                           user_id: ENV.fetch('CANVAS_TEST_STUDENT_USER_ID'),
+                           role: 'StudentEnrollment')
     dashboard_course = DashboardAdminClient.create_course(
       title: dashboard_title, school: dashboard_school, term: run_id,
       instructor_username: ENV.fetch('WIKIPEDIA_TEST_INSTRUCTOR_USERNAME')
@@ -89,80 +86,137 @@ describe 'Assignment view drill-down screenshots', :staging do
     end
   end
 
-  it 'captures the multi-student roster, a sandbox preview, and the student panel' do
+  it 'captures every assignment type, instructor and student' do
     slug = provisioned[:dashboard_course_slug]
+    canvas_id = provisioned[:canvas_course_id]
     timeline = provisioned[:timeline]
-    label = timeline['exercise_line_item_label']
+    exercise_label = timeline['exercise_line_item_label']
 
-    assignment_id = prepare_completed_exercise_column(slug:, timeline:, label:)
-    skip('gallery student accounts not found on staging') if assignment_id == :no_student
+    prepare_course_state(slug:, canvas_id:, timeline:)
+    assignments = find_imported_assignments(canvas_id, exercise_label)
+    publish_assignments(canvas_id, assignments)
 
-    capture_instructor_roster(assignment_id:, label:)
-    capture_student_panel(assignment_id:)
+    capture_instructor_views(canvas_id, assignments, exercise_label)
+    capture_student_views(canvas_id, assignments)
   end
 
-  # Bind the course, link a roster of students (fabricated contexts), mark the ones
-  # with sandbox content complete, then create the launchable deep-link assignment
-  # whose launch resolves (via its line item's tag) to that gradable. Returns the
-  # Canvas assignment id, or :no_student when no gallery accounts could be linked.
-  def prepare_completed_exercise_column(slug:, timeline:, label:)
-    bind_course_as_instructor(canvas_course_id: provisioned[:canvas_course_id], course_slug: slug)
+  # Imported assignments (and their module) arrive unpublished; students
+  # can't open them until they're published, as an instructor would do.
+  def publish_assignments(canvas_id, assignments)
+    assignments.each_value do |assignment_id|
+      canvas_api.publish_assignment(course_id: canvas_id, assignment_id:)
+    end
+    canvas_api.publish_all_modules(course_id: canvas_id)
+  end
+
+  # Bind deep-link-first, walk the real student through the launch (links +
+  # enrolls them), fabricate the rest of the roster, import all assignments
+  # via the Modules placement, then sync line items + grades.
+  def prepare_course_state(slug:, canvas_id:, timeline:)
+    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug,
+                              granularity: 'lumped')
+    in_student_browser do
+      student_walk_to_dashboard(canvas_course_id: canvas_id,
+                                email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
+      expect(page).to have_current_path(%r{/courses/}, url: true, wait: 60)
+    end
+    populate_roster(slug, timeline)
+    in_canvas do
+      ensure_canvas_logged_in_as_instructor
+      import_assignments_via_modules(canvas_id)
+    end
+    binding = DashboardAdminClient.find_binding(course_slug: slug)
+    DashboardAdminClient.run_line_item_sync(binding_id: binding['id'])
+    DashboardAdminClient.run_grade_sync(binding_id: binding['id'])
+  end
+
+  def populate_roster(slug, timeline)
     linked = DashboardAdminClient.link_students(course_slug: slug, usernames: gallery_students)
-    return :no_student if linked.empty?
+    skip('gallery student accounts not found on staging') if linked.empty?
 
     completed_students.each do |username|
       DashboardAdminClient.mark_exercise_complete(
         course_slug: slug, username:, exercise_module_id: timeline['exercise_module_id']
       )
     end
-    create_drilldown_assignment(label:)
+    # The real student completes the training, so the trainings views show
+    # genuine completion state (status, date, and the instructor count).
+    DashboardAdminClient.mark_training_complete(
+      username: student_username, training_module_id: timeline['training_module_id']
+    )
+    add_never_connected_student
   end
 
-  # Create the launchable deep-link assignment (named as the instructor would
-  # see it — the gradable's own label) and return its Canvas id, taken from the
-  # post-save redirect so no disambiguating name suffix is needed.
-  def create_drilldown_assignment(label:)
-    id = create_deep_linked_assignment(course_id: provisioned[:canvas_course_id],
-                                       gradable_label: label)
-    expect(id).not_to be_nil
-    id
+  # A dedicated, never-launching Canvas student: roster-synced into a pending
+  # (unlinked) context — the "Not connected" row the setup roster exists for.
+  def add_never_connected_student
+    student = canvas_api.find_or_create_user(unique_id: 'lti-unconnected-demo-student',
+                                             name: 'Unconnected Demo Student')
+    canvas_api.enroll_user(course_id: provisioned[:canvas_course_id],
+                           user_id: student, role: 'StudentEnrollment')
+    binding = DashboardAdminClient.find_binding(course_slug: provisioned[:dashboard_course_slug])
+    DashboardAdminClient.run_roster_sync(binding_id: binding['id'])
   end
 
-  def capture_instructor_roster(assignment_id:, label:)
+  def find_imported_assignments(canvas_id, exercise_label)
+    {
+      exercise: canvas_api.find_assignment(course_id: canvas_id, name: exercise_label),
+      setup: canvas_api.find_assignment(course_id: canvas_id, name: 'Wikipedia account'),
+      trainings: canvas_api.find_assignment(course_id: canvas_id, name: 'Wikipedia trainings')
+    }.transform_values { |a| a&.fetch('id') }
+  end
+
+  def capture_instructor_views(canvas_id, assignments, exercise_label)
     in_canvas do
       ensure_canvas_logged_in_as_instructor
-      visit "/courses/#{provisioned[:canvas_course_id]}/assignments/#{assignment_id}"
-      sleep 3
-      capture('01-canvas-assignment-page')
-      break_out_of_canvas_iframe(role: :instructor, iframe: canvas_assignment_iframe_locator)
+      visit_assignment(canvas_id, assignments[:exercise])
+      settle_in_iframe_view(exercise_label)
+      capture('01-exercise-instructor-roster')
+      expand_sandbox_preview
+      capture('02-exercise-sandbox-preview')
+
+      visit_assignment(canvas_id, assignments[:setup])
+      settle_in_iframe_view('Wikipedia account')
+      capture('03-setup-instructor-roster')
+
+      visit_assignment(canvas_id, assignments[:trainings])
+      settle_in_iframe_view('Wikipedia trainings')
+      capture('04-trainings-instructor')
     end
-    dismiss_consent_banner
-    expect(page).to have_content(label, wait: 20)
-    expect(page).to have_content('Ragetest 9')
-    capture('02-instructor-roster')
-    expand_sandbox_preview
-    capture('03-instructor-sandbox-preview')
   end
 
-  # Expand a completed student's "Preview" toggle and wait for the client-side
-  # fetch to render their sandbox content inline.
-  def expand_sandbox_preview
-    find(".lti-sandbox__toggle[data-sandbox-url*='#{preview_student}']").click
-    expect(page).to have_css('.lti-sandbox__content--rendered', wait: 25)
-    sleep 1 # let the injected content settle before capturing
-  end
-
-  def capture_student_panel(assignment_id:)
+  def capture_student_views(canvas_id, assignments)
     in_student_browser do
       in_canvas do
         ensure_canvas_logged_in_as_student
-        visit "/courses/#{provisioned[:canvas_course_id]}/assignments/#{assignment_id}"
-        sleep 3
-        break_out_of_canvas_iframe(role: :student, iframe: canvas_assignment_iframe_locator)
+        visit_assignment(canvas_id, assignments[:exercise])
+        settle_in_iframe_view('Your sandbox')
+        capture('05-exercise-student-panel')
+
+        visit_assignment(canvas_id, assignments[:setup])
+        settle_in_iframe_view('Connected')
+        capture('06-setup-student-panel')
+
+        visit_assignment(canvas_id, assignments[:trainings])
+        settle_in_iframe_view('Due date')
+        capture('07-trainings-student-table')
       end
-      dismiss_consent_banner
-      expect(page).to have_content('Your sandbox', wait: 20)
-      capture('04-student-panel')
+    end
+  end
+
+  def visit_assignment(canvas_id, assignment_id)
+    expect(assignment_id).not_to be_nil
+    visit "/courses/#{canvas_id}/assignments/#{assignment_id}"
+    sleep 2
+  end
+
+  # Expand a completed student's "Show" toggle inside the tool iframe and wait
+  # for the client-side fetch to render their sandbox content inline.
+  def expand_sandbox_preview
+    within_frame(first(canvas_assignment_iframe_locator, wait: 10)) do
+      find(".lti-sandbox__toggle[data-sandbox-url*='#{preview_student}']").click
+      expect(page).to have_css('.lti-sandbox__content--rendered', wait: 25)
+      sleep 1
     end
   end
 

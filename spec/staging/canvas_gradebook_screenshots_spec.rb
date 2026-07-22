@@ -86,26 +86,18 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
   it 'shows the connected student marked and the not-connected student unmarked' do
     slug = provisioned[:dashboard_course_slug]
     canvas_id = provisioned[:canvas_course_id]
-    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug)
+    # 'standard' auto-creates the full column set (account + trainings +
+    # per-exercise); the gradebook story is the same in every mode.
+    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug,
+                              granularity: 'standard')
     binding_id = DashboardAdminClient.find_binding(course_slug: slug)['id']
 
     set_up_connected_student(slug, binding_id)
     add_not_connected_student(canvas_id, binding_id)
-    add_exercise_column(canvas_id, binding_id)
+    DashboardAdminClient.run_line_item_sync(binding_id:)
     DashboardAdminClient.run_grade_sync(binding_id:)
 
     capture_instructor_gradebook(canvas_id)
-  end
-
-  # The exercise column is a deep-link-created assignment (deep-link is canonical
-  # — exercises aren't auto-synced). Create it via the picker, then sync line items
-  # so discovery binds its local row before grade sync posts the exercise score.
-  def add_exercise_column(canvas_id, binding_id)
-    create_deep_linked_assignment(
-      course_id: canvas_id,
-      gradable_label: provisioned[:timeline]['exercise_line_item_label']
-    )
-    DashboardAdminClient.run_line_item_sync(binding_id:)
   end
 
   # Roster-sync so the real student is discovered, link that (sole unlinked)

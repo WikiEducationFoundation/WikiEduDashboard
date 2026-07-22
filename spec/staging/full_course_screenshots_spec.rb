@@ -86,35 +86,22 @@ describe 'Full course — instructor gallery', :staging do
     capture_full_gradebook(canvas_id)
   end
 
-  # Bind, link the student, build every milestone column (deep-link the sandbox
-  # ones so they're launchable; fast-create the rest), mark ~half complete for a
-  # realistic mix, then sync line items + grade. Returns nil, or :no_student.
+  # Bind in 'standard' mode (auto-creates every milestone column, launchable),
+  # link the student, mark ~half the milestones complete for a realistic mix,
+  # then sync line items + grade. Returns nil, or :no_student.
   def prepare_full_course(slug:, canvas_id:, blocks:)
-    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug)
+    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug,
+                              granularity: 'standard')
     binding = DashboardAdminClient.find_binding(course_slug: slug)
     DashboardAdminClient.run_roster_sync(binding_id: binding['id'])
     linked = DashboardAdminClient.link_student_context(course_slug: slug,
                                                        username: student_username)
     return :no_student if linked == 'no_user'
 
-    build_all_columns(canvas_id, binding['id'], blocks)
     mark_mixed_progress(slug, blocks)
     DashboardAdminClient.run_line_item_sync(binding_id: binding['id'])
     DashboardAdminClient.run_grade_sync(binding_id: binding['id'])
     nil
-  end
-
-  def build_all_columns(canvas_id, binding_id, blocks)
-    sandbox, plain = blocks.partition { |b| sandbox?(b) }
-    sandbox.each do |b|
-      create_deep_linked_assignment(course_id: canvas_id, gradable_label: b['label'])
-    end
-    DashboardAdminClient.upsert_exercise_columns(binding_id:, blocks: plain)
-  end
-
-  # ActiveSupport isn't loaded in the staging-spec process, so use plain Ruby.
-  def sandbox?(block)
-    !block['sandbox'].to_s.empty?
   end
 
   # Complete the first half of the milestones for the student (early stages done,
