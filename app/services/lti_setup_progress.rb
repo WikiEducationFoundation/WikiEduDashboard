@@ -4,9 +4,11 @@
 # (LtiLineItem::SETUP_TYPE). A student counts as set up once their LtiContext is
 # linked — i.e. they launched from Canvas and connected a Wikipedia account via
 # OAuth (LtiSession#link_lti_user sets user_id). Scores 1.0 when linked and 0.0
-# while still unlinked, and is always `gradable?`, so SyncLtiGrades can post an
-# explicit mark for every discovered student — the connected ones and the
-# not-yet-connected ones alike — giving the instructor a clear who's-set-up view.
+# while still unlinked. A connected student's 1.0 is pushed to the gradebook; the
+# unlinked 0.0 is NOT seeded (SyncLtiGrades#skip_zero?), because Canvas has no LTI
+# way to make this column not count toward the course total, so a pushed 0 would
+# read as a failing 0%. Who-hasn't-connected is surfaced in the in-Canvas
+# "Wikipedia account" roster instead.
 class LtiSetupProgress
   attr_reader :score_given, :score_maximum, :comment
 

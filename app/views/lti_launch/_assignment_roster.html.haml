@@ -2,28 +2,29 @@
 - if roster.empty?
   %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
 - else
-  %table.lti-assignment-roster
-    %thead
-      %tr
-        %th= t('lti.assignment_view.roster.student')
-        %th= t('lti.assignment_view.roster.status')
-        %th= t('lti.assignment_view.roster.sandbox')
-    %tbody
-      - roster.each_with_index do |row, i|
+  .lti-table-scroll
+    %table.lti-assignment-roster
+      %thead
         %tr
-          %td= row.name
-          %td
-            %span.lti-status{ class: row.completed? ? 'lti-status--done' : 'lti-status--pending' }
-              = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
-          %td
-            - if row.sandbox_url
-              .lti-sandbox__actions
-                %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': "sandbox-#{i}", 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
-                  = t('lti.assignment_view.show')
-                = link_to row.sandbox_url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link' do
-                  = t('lti.assignment_view.open_on_wikipedia')
-                  %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
-        - if row.sandbox_url
-          %tr.lti-sandbox__detail{ id: "sandbox-#{i}", hidden: true }
-            %td{ colspan: 3 }
-              .lti-sandbox__content
+          %th= t('lti.assignment_view.roster.student')
+          %th= t('lti.assignment_view.roster.status')
+          %th= t('lti.assignment_view.roster.sandbox')
+      %tbody
+        - roster.each_with_index do |row, i|
+          %tr
+            %td= row.name
+            %td
+              %span.lti-status{ class: row.completed? ? 'lti-status--done' : 'lti-status--pending' }
+                = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
+            %td
+              - if row.sandbox_url
+                .lti-sandbox__actions
+                  %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': "sandbox-#{i}", 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
+                    = t('lti.assignment_view.show')
+                  = link_to row.sandbox_url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link' do
+                    = t('lti.assignment_view.open_on_wikipedia')
+                    %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+          - if row.sandbox_url
+            %tr.lti-sandbox__detail{ id: "sandbox-#{i}", hidden: true }
+              %td{ colspan: 3 }
+                .lti-sandbox__content

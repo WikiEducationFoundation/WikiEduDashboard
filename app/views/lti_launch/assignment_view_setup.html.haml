@@ -13,20 +13,21 @@
     - if @context.rows.empty?
       %p.lti-iframe__empty= t('lti.assignment_view.setup.empty')
     - else
-      %table.lti-assignment-roster
-        %thead
-          %tr
-            %th= t('lti.assignment_view.roster.student')
-            %th= t('lti.assignment_view.roster.username')
-            %th= t('lti.assignment_view.roster.status')
-        %tbody
-          - @context.rows.each do |row|
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
             %tr
-              %td= row.name
-              %td= row.username
-              %td
-                %span.lti-status{ class: row.connected? ? 'lti-status--done' : 'lti-status--pending' }
-                  = row.connected? ? t('lti.assignment_view.status.connected') : t('lti.assignment_view.status.not_connected')
+              %th= t('lti.assignment_view.roster.student')
+              %th= t('lti.assignment_view.roster.username')
+              %th= t('lti.assignment_view.roster.status')
+          %tbody
+            - @context.rows.each do |row|
+              %tr
+                %td= row.name.presence || content_tag(:span, '—', class: 'lti-muted')
+                %td= row.username.presence || content_tag(:span, '—', class: 'lti-muted')
+                %td
+                  %span.lti-status{ class: row.connected? ? 'lti-status--done' : 'lti-status--pending' }
+                    = row.connected? ? t('lti.assignment_view.status.connected') : t('lti.assignment_view.status.not_connected')
   - else
     - # The iframe itself is the confirmation: the pill plus the student's
     - # own username, linking to their details view on the Dashboard.

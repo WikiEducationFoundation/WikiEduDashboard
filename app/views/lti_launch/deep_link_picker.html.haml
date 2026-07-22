@@ -20,7 +20,7 @@
             - else
               = radio_button_tag :resource, gradable.resource, false, required: true
             %strong= gradable.label
-      %button.button.lti-deep-link__submit{ type: 'submit' }= t('lti.deep_link.submit')
+      %button.button.dark.lti-deep-link__submit{ type: 'submit' }= t('lti.deep_link.submit')
     - if @accept_multiple
       :javascript
         // Keep the submit disabled while nothing is checked, mirroring the

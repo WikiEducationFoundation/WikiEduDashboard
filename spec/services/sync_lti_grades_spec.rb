@@ -80,24 +80,45 @@ describe SyncLtiGrades do
       .to_return(status: 204, body: '', headers: {})
   end
 
-  it 'grades training/exercise only for linked students, but marks setup for all' do
-    trainings_stub = stub_post_score(trainings_lineitem_url)
-    exercise_stub = stub_post_score(exercise_lineitem_url)
+  it 'marks the connected student set up (1.0) and never seeds a failing 0 for others' do
+    # Alice is linked and complete on the training + exercise, so those post 1.0.
+    TrainingModulesUsers.create!(user: student_user, training_module:,
+                                 completed_at: 1.day.ago)
+    tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module)
+    tmu.flags = { course.id => { marked_complete: true } }
+    tmu.save!
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
 
     described_class.new(binding)
 
-    expect(trainings_stub).to have_been_requested.once
-    expect(exercise_stub).to have_been_requested.once
-    # Training/exercise columns never grade the unlinked student (lti-bob)...
+    # Setup: the connected student gets 1.0; the not-yet-connected student
+    # (lti-bob) is NOT posted a 0 — Canvas can't exclude the column from the
+    # total, so a 0 would read as failing. Left ungraded/blank instead.
+    expect(WebMock).to have_requested(:post, %r{setup/scores})
+      .with(body: hash_including(userId: 'lti-alice', scoreGiven: 1.0))
+    expect(WebMock).not_to have_requested(:post, %r{setup/scores})
+      .with(body: hash_including(userId: 'lti-bob'))
+    # Training/exercise columns only ever grade the linked student.
     expect(WebMock).not_to have_requested(:post, %r{trainings/scores})
       .with(body: hash_including(userId: 'lti-bob'))
     expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
       .with(body: hash_including(userId: 'lti-bob'))
-    # ...but the setup column marks both: linked (1.0) and unlinked (0.0).
-    expect(WebMock).to have_requested(:post, %r{setup/scores})
-      .with(body: hash_including(userId: 'lti-alice', scoreGiven: 1.0))
-    expect(WebMock).to have_requested(:post, %r{setup/scores})
-      .with(body: hash_including(userId: 'lti-bob', scoreGiven: 0.0))
+  end
+
+  it 'leaves a linked student with no progress ungraded rather than posting 0' do
+    # No completions for alice → training roll-up and exercise are both 0.
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+
+    described_class.new(binding)
+
+    # A fresh 0 is never seeded (it would read as a failing 0% in the course
+    # total); the column stays blank until there's real progress.
+    expect(WebMock).not_to have_requested(:post, %r{trainings/scores})
+      .with(body: hash_including(userId: 'lti-alice'))
+    expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+      .with(body: hash_including(userId: 'lti-alice'))
   end
 
   it 'updates last_grade_sync_at' do
@@ -174,7 +195,18 @@ describe SyncLtiGrades do
   end
 
   describe 'dedup via LtiScoreSignature' do
+    # Give Alice real progress so every column posts a non-zero score — zeros
+    # are no longer seeded, so an all-zero run would post (and dedup) nothing.
+    def complete_alice
+      TrainingModulesUsers.create!(user: student_user, training_module:,
+                                   completed_at: 1.day.ago)
+      tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module)
+      tmu.flags = { course.id => { marked_complete: true } }
+      tmu.save!
+    end
+
     it 'skips the POST when the next signature matches a stored one' do
+      complete_alice
       trainings_stub = stub_post_score(trainings_lineitem_url)
       exercise_stub = stub_post_score(exercise_lineitem_url)
 
@@ -182,8 +214,9 @@ describe SyncLtiGrades do
 
       expect(trainings_stub).to have_been_requested.once
       expect(exercise_stub).to have_been_requested.once
-      # 4 = Alice's trainings + exercise + setup, plus Bob's setup (0.0).
-      expect(LtiScoreSignature.count).to eq(4)
+      # 3 = Alice's trainings + exercise + setup. Bob's unlinked setup 0 is
+      # not seeded, so no signature for it.
+      expect(LtiScoreSignature.count).to eq(3)
 
       described_class.new(binding) # second call: state unchanged → no POSTs
 
@@ -192,29 +225,30 @@ describe SyncLtiGrades do
     end
 
     it 'POSTs again when the score signature changes between cycles' do
+      # Alice completes the one training → roll-up 1/1 = 1.0 (signature set).
+      TrainingModulesUsers.create!(user: student_user, training_module:,
+                                   completed_at: 1.day.ago)
       stub_post_score(trainings_lineitem_url)
       stub_post_score(exercise_lineitem_url)
-      described_class.new(binding) # establishes signatures at 0.0 across the board
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{trainings/scores\z}).once
 
-      # Complete a training so the lumped TrainingProgress signature changes.
+      # Add a second training (incomplete) → roll-up drops to 1/2 → changed.
       training = create(:training_module, slug: 'tr-2', name: 'Other', kind: 0)
       create(:block, week: week, order: 5, title: 'Wk1 trainings',
                      training_module_ids: [training.id])
-      TrainingModulesUsers.create!(user: student_user, training_module: training,
-                                   completed_at: 1.day.ago)
 
       # Force a fresh AR fetch of binding.course.blocks (in production each
       # worker run loads its own binding; in this test we reuse the let).
       binding.reload
       described_class.new(binding)
 
-      # Trainings line item POSTed again (signature changed: 1/2 now);
-      # exercise line item unchanged → still 1 POST total.
+      # Trainings line item POSTed again (signature changed: 1/2 now).
       expect(WebMock).to have_requested(:post, %r{trainings/scores\z}).twice
-      expect(WebMock).to have_requested(:post, %r{find-sources/scores\z}).once
     end
 
     it 'records a signature row keyed to (line item, context) after a successful POST' do
+      complete_alice
       stub_post_score(trainings_lineitem_url)
       stub_post_score(exercise_lineitem_url)
       described_class.new(binding)
@@ -225,6 +259,7 @@ describe SyncLtiGrades do
     end
 
     it 'does not record a signature when the POST fails' do
+      complete_alice
       allow(Sentry).to receive(:capture_exception)
       stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
       described_class.new(binding)

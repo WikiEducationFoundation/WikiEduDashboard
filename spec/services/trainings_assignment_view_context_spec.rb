@@ -47,6 +47,23 @@ describe TrainingsAssignmentViewContext do
       .to contain_exactly(['Done', 2, 2, true], ['Partway', 1, 2, false])
   end
 
+  it 'reports a three-state progress so partial/none read distinctly from complete' do
+    done = create(:user, username: 'AllDone')
+    partway = create(:user, username: 'Halfway')
+    none = create(:user, username: 'NotStarted')
+    [done, partway, none].each { |u| link_student(u) }
+    [training_a, training_b].each do |mod|
+      TrainingModulesUsers.create!(user: done, training_module: mod, completed_at: 1.day.ago)
+    end
+    TrainingModulesUsers.create!(user: partway, training_module: training_a,
+                                 completed_at: 1.day.ago)
+
+    states = described_class.new(line_item:, user: done, instructor: true)
+             .roster.to_h { |r| [r.name, r.progress_state] }
+    expect(states).to eq('AllDone' => :complete, 'Halfway' => :partial,
+                         'NotStarted' => :none)
+  end
+
   it 'builds the launching student\'s own panel row' do
     student = create(:user, username: 'Solo')
     link_student(student)

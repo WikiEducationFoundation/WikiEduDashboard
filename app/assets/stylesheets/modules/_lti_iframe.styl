@@ -4,24 +4,34 @@
 // assignment embed, so chrome and spacing stay minimal throughout.
 body.lti-iframe
   background #fff
-  font-family inherit
+  // Use the brand font, not `inherit` — inherit fell through to the browser
+  // default (serif) and made every in-iframe view look like a broken page.
+  font-family body-font
+  // Belt-and-suspenders against sideways scroll in the narrow Canvas embed;
+  // wide tables scroll within their own container instead (see below).
+  overflow-x hidden
 
+  *
+    box-sizing border-box
+
+// Block, not flex-centered: a flex row made each view a flex item with
+// min-width:auto, so content wider than the narrow Canvas iframe overflowed
+// sideways (and the vertical centering left short content floating in a tall
+// empty frame). Block layout + margin-auto children is responsive and
+// top-aligned, which fits the embed.
 .lti-iframe__main
-  display flex
-  justify-content center
-  align-items center
-  min-height 100vh
   padding 16px
 
 .lti-iframe__landing
   text-align center
   max-width 480px
-  padding 32px 24px
+  margin 0 auto
+  padding 24px
 
 .lti-iframe__logo
   display block
-  margin 0 auto 32px
-  max-width 260px
+  margin 0 auto 28px
+  max-width min(260px, 100%)
   max-height 120px
   width auto
   height auto
@@ -33,11 +43,20 @@ body.lti-iframe
   color #333
 
 // Link-state notice on the anonymous landing ("not yet linked"): the
-// substantive status line above the open-in-new-tab hint and button.
+// substantive status line, given slightly more weight than the open-in-new-tab
+// hint below it so the actionable message leads.
 .lti-iframe__status
   margin 0 0 16px
   color #17212b
-  font-size 15px
+  font-size 16px
+  font-weight 600
+
+// Quiet "check again" re-launch link on the waiting states (setup pending /
+// awaiting approval), so a student can re-check without knowing to reload.
+.lti-iframe__check-again
+  display inline-block
+  margin-top 8px
+  color $brand_primary
 
 .lti-iframe__button
   display inline-block
@@ -98,7 +117,6 @@ body.lti-iframe
 // default Canvas assignment iframe is small, and a bordered/padded card
 // wastes enough space to force scrolling.
 .lti-iframe__drilldown
-  align-self flex-start
   width 100%
   max-width 640px
   margin 0 auto
@@ -139,12 +157,23 @@ inline-external-icon()
   font-size 16px
   font-weight 600
   text-align right
-  text-decoration none
-
-  &:hover
-    text-decoration underline
+  // Underlined (not color-only) so the link is distinguishable without
+  // relying on color — the external-link icon reinforces "opens elsewhere".
+  text-decoration underline
 
   inline-external-icon()
+
+// Wide content (rosters) scrolls within its own container rather than
+// forcing the whole embed sideways (body sets overflow-x: hidden).
+.lti-table-scroll
+  width 100%
+  overflow-x auto
+  margin 0 0 4px
+
+// Muted placeholder for an empty roster cell (e.g. an anonymized member with
+// no Dashboard name) so the row never reads as broken/missing data.
+.lti-muted
+  color #8a95a3
 
 .lti-iframe__empty
   color #5a6b7b
@@ -157,10 +186,18 @@ inline-external-icon()
   color #17212b
   font-size 14px
   line-height 1.5
+  overflow-wrap anywhere
 
   img
     max-width 100%
     height auto
+
+  // Block bodies are instructor-authored HTML and can contain wide tables;
+  // let them scroll within the description rather than overflow the embed.
+  table
+    display block
+    max-width 100%
+    overflow-x auto
 
 .lti-trainings-list
   margin 0
@@ -176,14 +213,14 @@ inline-external-icon()
 // Instructor list: students-completed count after each linked module name.
 .lti-trainings-list__count
   margin-left 8px
-  color #5a6b7b
+  color #4a5a6b
   font-size 13px
   white-space nowrap
 
 // When a training is completed, the date sits after the status pill.
 .lti-trainings__completed-at
   margin-left 8px
-  color #5a6b7b
+  color #4a5a6b
   font-size 13px
   white-space nowrap
 
@@ -284,9 +321,16 @@ inline-external-icon()
   background #e6f4ea
   color #1e7e34
 
+// Some progress but not complete (e.g. "3 of 5 trainings"): amber, so a
+// partially-done student is unmistakable from both complete (green) and
+// not-started (neutral) at a glance.
+.lti-status--partial
+  background #fdecd6
+  color #8a4b06
+
 .lti-status--pending
   background #eef1f5
-  color #5a6b7b
+  color #55606e
 
 // Sandbox actions: the "Show" toggle reveals the lazily-fetched Wikipedia
 // content inline; the "Open on Wikipedia" link opens the sandbox in a new tab.

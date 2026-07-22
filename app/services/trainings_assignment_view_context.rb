@@ -16,6 +16,16 @@ class TrainingsAssignmentViewContext
     def done?
       total_count.positive? && completed_count == total_count
     end
+
+    # :complete / :partial / :none — drives a three-color pill so a
+    # not-started or partially-done student is unmistakable from a complete
+    # one (a single "done vs not" color made 0-of-N look the same as N-of-N).
+    def progress_state
+      return :complete if done?
+      return :partial if completed_count.positive?
+
+      :none
+    end
   end
 
   ModuleRow = Struct.new(:name, :due_date, :status, :completed, :completion_date,

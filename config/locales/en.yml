@@ -2246,6 +2246,7 @@ en:
       linked: "Linked"
       refresh: "Refresh"
       grade_sync_error: "[PLACEHOLDER - notice that the most recent gradebook sync hit an error, and what the instructor should do (e.g. contact Wiki Education staff)]"
+    check_again: "Check again"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"
       explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."

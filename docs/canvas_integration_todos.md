@@ -98,6 +98,23 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## UX rough edges
 
+- [x] **Gradebook no longer reports not-started students as failing.**
+  _(Fixed on CanvasStaging.)_ A UX review found that an unconnected student read
+  **Total 0%** — our onboarding/milestone columns are graded points columns, and
+  a pushed 0 counts as a failing 0%. Canvas offers **no LTI way** to make these
+  columns Complete/Incomplete or omit-from-final-grade (only the `submission_type`
+  AGS extension is writable — confirmed against `lti/ims/line_items_controller.rb`
+  and `deep_linking_controller.rb`), so the only lever is which scores we post.
+  Fix: `SyncLtiGrades#skip_zero?` no longer seeds a fresh 0 for not-done /
+  not-connected work (Canvas excludes ungraded items from the total by default);
+  a connected student still gets 1.0, and a genuine downward correction (a
+  previously-positive score going to 0) still posts. **This supersedes the
+  earlier design that pushed 0.0 = "not connected" for every student** — the
+  who-hasn't-connected signal now lives in the in-Canvas "Wikipedia account"
+  roster instead. _Operator decision to confirm:_ this is the only way to avoid
+  the failing-grade signal given Canvas's constraints; the alternative (accept
+  0% in the total to keep the gradebook nudge) is worse.
+
 - [ ] **Trainings/exercise rosters: N×M queries and LMS-name identity.** The
   in-Canvas trainings roster computes `LtiTrainingProgress` per student (each
   doing a `TrainingModulesUsers` lookup per module) and `LtiBlockProgress` has

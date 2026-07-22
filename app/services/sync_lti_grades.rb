@@ -38,9 +38,10 @@ class SyncLtiGrades
     end
   end
 
-  # The setup indicator is posted for every discovered student (so the
-  # instructor also sees who has NOT connected); every other line item grades
-  # only students who have actually linked a Wikipedia account.
+  # The setup indicator is evaluated for every discovered student (a connected
+  # student scores 1.0; a not-yet-connected one is left ungraded by skip_zero?,
+  # not posted a failing 0 — see push_one). Every other line item grades only
+  # students who have actually linked a Wikipedia account.
   def contexts_for(line_item)
     line_item.gradable_type == LtiLineItem::SETUP_TYPE ? all_contexts : linked_contexts
   end
@@ -60,6 +61,7 @@ class SyncLtiGrades
   def push_one(context, line_item)
     progress = compute_progress(line_item, context)
     return unless progress&.gradable?
+    return if skip_zero?(progress, line_item, context)
     return if signature_unchanged?(line_item, context, progress.signature)
 
     post_score(context, line_item, progress)
@@ -70,6 +72,20 @@ class SyncLtiGrades
       extra: { binding_id: @binding.id, user_lti_id: context.user_lti_id,
                lineitem_id: line_item.lineitem_id }
     )
+  end
+
+  # Don't seed a counting zero for not-yet-done / not-connected work. Canvas
+  # offers no LTI way to make our columns Complete/Incomplete or exclude them
+  # from the course total (only the `submission_type` AGS extension is
+  # writable), so a posted 0 reads as a failing 0% — e.g. a student who simply
+  # hasn't connected their Wikipedia account yet would show 0% in the course.
+  # Leaving it ungraded (blank) keeps it out of Canvas's total by default until
+  # there's real progress. Who-hasn't-connected still shows in the in-Canvas
+  # "Wikipedia account" roster. A zero still posts if we've previously recorded
+  # a score for this pair (a genuine correction downward, e.g. un-completion).
+  def skip_zero?(progress, line_item, context)
+    progress.score_given.to_f.zero? &&
+      !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
   end
 
   def post_score(context, line_item, progress)

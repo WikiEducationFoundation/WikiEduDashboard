@@ -262,6 +262,12 @@ describe LtiLaunchController, type: :request do
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('being set up')
         end
+
+        it 'offers a check-again re-launch link carrying the ltik' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Check again')
+          expect(response.body).to include('href="/lti?ltik=ltik-abc"')
+        end
       end
 
       context 'with a bound course and student already enrolled' do

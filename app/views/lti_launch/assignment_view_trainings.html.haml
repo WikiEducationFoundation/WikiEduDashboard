@@ -20,41 +20,43 @@
     - if roster.empty?
       %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
     - else
-      %table.lti-assignment-roster
-        %thead
-          %tr
-            %th= t('lti.assignment_view.roster.student')
-            %th= t('lti.assignment_view.roster.status')
-        %tbody
-          - roster.each do |row|
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
             %tr
-              %td= row.name
-              %td
-                %span.lti-status{ class: row.done? ? 'lti-status--done' : 'lti-status--pending' }
-                  = t('lti.assignment_view.trainings.progress',
-                      completed: row.completed_count, total: row.total_count)
+              %th= t('lti.assignment_view.roster.student')
+              %th= t('lti.assignment_view.roster.status')
+          %tbody
+            - roster.each do |row|
+              %tr
+                %td= row.name
+                %td
+                  %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+                    = t('lti.assignment_view.trainings.progress',
+                        completed: row.completed_count, total: row.total_count)
   - else
     - row = @context.student_panel
     .lti-iframe__panel
-      %span.lti-status{ class: row.done? ? 'lti-status--done' : 'lti-status--pending' }
+      %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
         = t('lti.assignment_view.trainings.progress',
             completed: row.completed_count, total: row.total_count)
-      %table.lti-assignment-roster
-        %thead
-          %tr
-            %th= t('lti.assignment_view.trainings.module')
-            %th= t('lti.assignment_view.trainings.due_date')
-            %th= t('lti.assignment_view.roster.status')
-        %tbody
-          - @context.viewer_training_rows.each do |training|
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
             %tr
-              %td
-                = link_to training.name, training.training_url,
-                          target: '_blank', rel: 'noopener'
-              %td= training.due_date&.strftime('%b %-d, %Y')
-              %td
-                %span.lti-status{ class: training.completed? ? 'lti-status--done' : 'lti-status--pending' }
-                  = training.status
-                - if training.completion_date
-                  %span.lti-trainings__completed-at
-                    = training.completion_date.strftime('%b %-d, %Y')
+              %th= t('lti.assignment_view.trainings.module')
+              %th= t('lti.assignment_view.trainings.due_date')
+              %th= t('lti.assignment_view.roster.status')
+          %tbody
+            - @context.viewer_training_rows.each do |training|
+              %tr
+                %td
+                  = link_to training.name, training.training_url,
+                            target: '_blank', rel: 'noopener'
+                %td= training.due_date&.strftime('%b %-d, %Y')
+                %td
+                  %span.lti-status{ class: training.completed? ? 'lti-status--done' : 'lti-status--pending' }
+                    = training.status
+                  - if training.completion_date
+                    %span.lti-trainings__completed-at
+                      = training.completion_date.strftime('%b %-d, %Y')
