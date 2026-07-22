@@ -59,9 +59,7 @@ class ReprocessArticleCourseUserWikiTimeslices
 
   def fetch_filtered_revisions(users, article_ids, ts_start, ts_end)
     revisions = revision_data_manager.fetch_revision_data_for_users_with_articles_only(
-      users,
-      ts_start.strftime('%Y%m%d%H%M%S'),
-      (ts_end - 1.second).strftime('%Y%m%d%H%M%S')
+      users, ts_start, ts_end
     )
     revisions.select { |r| article_ids.include?(r.article_id) }
   end
