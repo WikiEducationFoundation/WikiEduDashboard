@@ -51,13 +51,38 @@ module LoginHelpers
     in_dashboard { visit '/' }
     return unless page.has_link?('Log in', wait: 5)
 
-    # Hit the omniauth entry point directly rather than clicking a nav link
-    # (avoids ambiguous "Log in" matches and any interstitial); the profile's
-    # standing OAuth grant makes the bounce silent.
-    in_dashboard { visit '/users/auth/mediawiki' }
+    start_dashboard_omniauth
     complete_wikipedia_oauth_if_needed(role:)
     in_dashboard { visit '/' }
     expect(page).to have_no_link('Log in', wait: 15)
+  end
+
+  # Initiate the dashboard's Wikipedia OAuth. The login controls are
+  # rails-ujs `data-method="post"` links; a plain GET to /users/auth/mediawiki
+  # is refused (omniauth request phase is POST-only) and bounces back
+  # logged-out. Rather than depend on rails-ujs intercepting a click, submit
+  # the POST form ourselves with the page's own CSRF token — exactly what UJS
+  # would build.
+  def start_dashboard_omniauth
+    in_dashboard do
+      visit '/'
+      page.execute_script(<<~JS)
+        var f = document.createElement('form');
+        f.method = 'POST';
+        f.action = '/users/auth/mediawiki';
+        var meta = document.querySelector('meta[name="csrf-token"]');
+        var param = document.querySelector('meta[name="csrf-param"]');
+        if (meta && param) {
+          var t = document.createElement('input');
+          t.type = 'hidden';
+          t.name = param.content;
+          t.value = meta.content;
+          f.appendChild(t);
+        }
+        document.body.appendChild(f);
+        f.submit();
+      JS
+    end
   end
 
   private

@@ -115,8 +115,9 @@ describe 'Student UX screenshots', :staging do
     capture('s02-student-enrolled-landing')
 
     await_lms_panel
-    scroll_into_view('.lms-integration-status')
-    capture('s03-student-course-panel')
+    # Full-page so the LMS-integration panel (sidebar, below the fold) — with
+    # the student's account-link status — is in frame, not just the overview.
+    save_full_page_screenshot_to(screenshot_dir, 's03-student-course-panel')
   rescue RSpec::Expectations::ExpectationNotMetError, Capybara::ElementNotFound => e
     warn "  [skip] enrolled course-home shots need a top-level student login " \
          "(profile bootstrap): #{e.message.lines.first&.strip}"
