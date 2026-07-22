@@ -29,7 +29,7 @@ class SystemStatsController < ApplicationController
 
   def index_json_data
     latest_snapshot = SystemStat.current
-    snapshots = recent_monthly_snapshots
+    snapshots = SystemStat.recent_monthly_snapshots(13, include_wiki_stats: false)
     {
       kpis: kpis_for(latest_snapshot),
       trends: trends_for(snapshots)
@@ -37,9 +37,10 @@ class SystemStatsController < ApplicationController
   end
 
   def wiki_trends_json_data
-    snapshots = recent_monthly_snapshots
+    snapshots = SystemStat.recent_monthly_snapshots(13, include_wiki_stats: true)
+    display_snapshots = snapshots.length > 1 ? snapshots[1..] : snapshots
     {
-      months: snapshots.map { |s| s.snapshot_date.strftime('%b %Y') },
+      months: display_snapshots.map { |s| s.snapshot_date.to_s },
       wiki_trends: wiki_trends_for(snapshots),
       wiki_stats: wiki_stats_for(SystemStat.current)
     }
@@ -55,17 +56,9 @@ class SystemStatsController < ApplicationController
         edits: s.total_edits,
         students: s.total_students_count,
         newEditors: s.new_editors_count_with_preregistration,
-        activeInYear: s.active_in_last_year ? 'Yes' : 'No'
+        activeInYear: s.active_in_last_year
       }
     end
-  end
-
-  def recent_monthly_snapshots
-    SystemStat.where('snapshot_date >= ?', 12.months.ago.to_date)
-              .order(:snapshot_date)
-              .group_by { |s| s.snapshot_date.strftime('%Y-%m') }
-              .values
-              .map(&:last)
   end
 
   def kpis_for(latest_snapshot)
@@ -91,49 +84,74 @@ class SystemStatsController < ApplicationController
   end
 
   def trends_for(snapshots)
-    snapshots.map do |s|
-      {
-        month: s.snapshot_date.strftime('%b %Y'),
-        edits: s.total_edits,
-        articleViews: s.total_article_views,
-        articlesCreated: s.total_articles_created,
-        articlesImproved: s.total_articles_improved,
-        charactersAdded: s.total_characters_added,
-        newEditors: s.new_editors_count_with_preregistration,
-        activePrograms: s.active_programs_count,
-        activeFacilitators: s.active_facilitators_count
-      }
+    return [] if snapshots.empty?
+
+    prev = snapshots.first
+    start_idx = snapshots.length > 1 ? 1 : 0
+
+    (start_idx...snapshots.length).map do |i|
+      curr = snapshots[i]
+      base = i.zero? ? nil : prev
+      prev = curr
+      snapshot_trend_point(curr, base)
     end
+  end
+
+  def snapshot_trend_point(curr, base)
+    {
+      month: curr.snapshot_date.to_s,
+      edits: calculate_delta(curr.total_edits, base&.total_edits),
+      articleViews: calculate_delta(curr.total_article_views, base&.total_article_views),
+      articlesCreated: calculate_delta(curr.total_articles_created, base&.total_articles_created),
+      articlesImproved: calculate_delta(curr.total_articles_improved,
+                                        base&.total_articles_improved),
+      charactersAdded: calculate_delta(curr.total_characters_added, base&.total_characters_added),
+      newEditors: calculate_delta(curr.new_editors_count_with_preregistration,
+                                  base&.new_editors_count_with_preregistration),
+      activePrograms: curr.active_programs_count,
+      activeFacilitators: curr.active_facilitators_count
+    }
+  end
+
+  def calculate_delta(current_val, previous_val)
+    return current_val.to_i unless previous_val
+    delta = current_val.to_i - previous_val.to_i
+    delta.positive? ? delta : 0
   end
 
   def wiki_trends_for(snapshots)
-    wiki_domains = snapshots.flat_map { |s| (s.wiki_stats || {}).keys }.uniq
-    wiki_trends_data = initialize_wiki_trends(wiki_domains)
-    populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
-  end
+    return {} if snapshots.empty?
 
-  def initialize_wiki_trends(wiki_domains)
-    wiki_domains.each_with_object({}) do |domain, hash|
+    wiki_domains = snapshots.flat_map { |s| (s.wiki_stats || {}).keys }.uniq
+    wiki_trends_data = wiki_domains.each_with_object({}) do |domain, hash|
       hash[domain] = { edits: [], programs: [], articles_created: [], new_editors: [] }
     end
-  end
 
-  def populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
-    snapshots.each do |s|
-      stats_for_date = s.wiki_stats || {}
-      wiki_domains.each do |domain|
-        wiki_data = stats_for_date[domain] || {}
-        append_wiki_trend_metrics(wiki_trends_data[domain], wiki_data)
-      end
-    end
+    populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
     wiki_trends_data
   end
 
-  def append_wiki_trend_metrics(trends, wiki_data)
-    trends[:edits] << (wiki_data['edits'] || 0)
-    trends[:programs] << (wiki_data['programs'] || 0)
-    trends[:articles_created] << (wiki_data['articles_created'] || 0)
-    trends[:new_editors] << (wiki_data['new_editors_with_preregistration'] || 0)
+  def populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
+    start_idx = snapshots.length > 1 ? 1 : 0
+    (start_idx...snapshots.length).each do |i|
+      curr_stats = snapshots[i].wiki_stats || {}
+      prev_stats = (i.zero? ? {} : snapshots[i - 1].wiki_stats) || {}
+
+      wiki_domains.each do |domain|
+        append_wiki_trend_metrics(wiki_trends_data[domain], curr_stats[domain] || {},
+                                  prev_stats[domain] || {}, i.zero?)
+      end
+    end
+  end
+
+  def append_wiki_trend_metrics(trends, curr_data, prev_data, is_first)
+    base_editors = is_first ? nil : prev_data['new_editors_with_preregistration']
+    trends[:edits] << calculate_delta(curr_data['edits'], is_first ? nil : prev_data['edits'])
+    trends[:programs] << (curr_data['programs'] || 0)
+    trends[:articles_created] << calculate_delta(curr_data['articles_created'],
+                                                 is_first ? nil : prev_data['articles_created'])
+    trends[:new_editors] << calculate_delta(curr_data['new_editors_with_preregistration'],
+                                            base_editors)
   end
 
   def wiki_stats_for(latest_snapshot)

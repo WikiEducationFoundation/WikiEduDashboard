@@ -52,6 +52,11 @@ const FacilitatorLeaderboard = () => {
     return [...(facilitators || [])].sort((a, b) => {
       const valA = a[sortField] ?? 0;
       const valB = b[sortField] ?? 0;
+      if (typeof valA === 'boolean') {
+        const numA = valA ? 1 : 0;
+        const numB = valB ? 1 : 0;
+        return sortOrder === 'asc' ? numA - numB : numB - numA;
+      }
       if (typeof valA === 'string') {
         return sortOrder === 'asc' ? valA.localeCompare(valB) : valB.localeCompare(valA);
       }
@@ -123,7 +128,7 @@ const FacilitatorLeaderboard = () => {
                   <td>{f.edits.toLocaleString()}</td>
                   <td>{f.students}</td>
                   <td>{f.newEditors}</td>
-                  <td>{f.activeInYear}</td>
+                  <td>{I18n.t(f.activeInYear ? 'system_stats.facilitators.yes' : 'system_stats.facilitators.no')}</td>
                 </tr>
               ))
             ) : (

@@ -131,7 +131,19 @@ describe SystemStatsController, type: :request do
         expect(first_facilitator['activeCourses']).to eq(1)
         expect(first_facilitator['students']).to eq(45)
         expect(first_facilitator['newEditors']).to eq(25)
-        expect(first_facilitator['activeInYear']).to eq('Yes')
+        expect(first_facilitator['activeInYear']).to eq(true)
+      end
+
+      it 'calculates monthly activity deltas correctly' do
+        create(:system_stat, snapshot_date: 2.months.ago.end_of_month.to_date, total_edits: 100)
+        create(:system_stat, snapshot_date: 1.month.ago.end_of_month.to_date, total_edits: 300)
+
+        get '/system_stats.json'
+        json = JSON.parse(response.body)
+        expect(json['trends']).to be_an(Array)
+        # Delta for 1.month.ago should be 300 - 100 = 200
+        latest_trend = json['trends'].last
+        expect(latest_trend['edits']).to eq(200)
       end
     end
   end

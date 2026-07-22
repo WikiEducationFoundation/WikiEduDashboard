@@ -43,4 +43,15 @@ class SystemStat < ApplicationRecord
   def self.recent_months(months = 12)
     for_date_range(months.months.ago.to_date, Date.today)
   end
+
+  # Returns month-end snapshots for the last N months.
+  # Deferring wiki_stats by default prevents loading and deserializing heavy text blobs.
+  def self.recent_monthly_snapshots(months = 12, include_wiki_stats: false)
+    scope = where('snapshot_date >= ?', months.months.ago.to_date)
+    scope = scope.select(column_names - ['wiki_stats']) unless include_wiki_stats
+    scope.order(:snapshot_date)
+         .group_by { |s| s.snapshot_date.strftime('%Y-%m') }
+         .values
+         .map(&:last)
+  end
 end

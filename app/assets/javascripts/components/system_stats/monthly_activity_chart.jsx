@@ -29,6 +29,13 @@ const METRIC_COLORS = {
   activeFacilitators: { color: '#4a5568', bg: 'rgba(74, 85, 104, 0.1)' }
 };
 
+const formatMonthLabel = (monthStr) => {
+  if (!monthStr) return '';
+  const date = new Date(monthStr);
+  if (isNaN(date.getTime())) return monthStr;
+  return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric', timeZone: 'UTC' });
+};
+
 const MonthlyActivityChart = ({ trends }) => {
   const [selectedMetric, setSelectedMetric] = useState('edits');
   const chartRef = useRef(null);
@@ -47,7 +54,7 @@ const MonthlyActivityChart = ({ trends }) => {
     chartInstance.current = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: trends.map(t => t.month),
+        labels: trends.map(t => formatMonthLabel(t.month)),
         datasets: [
           {
             label: metricLabel,

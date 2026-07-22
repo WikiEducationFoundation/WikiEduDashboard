@@ -65,6 +65,7 @@ const SystemStatsHandler = () => {
       })
       .catch(err => {
         console.error(err);
+        setError(I18n.t('system_stats.errors.fetch_failed'));
         setLoadingWikiTrends(false);
       });
   }, []);

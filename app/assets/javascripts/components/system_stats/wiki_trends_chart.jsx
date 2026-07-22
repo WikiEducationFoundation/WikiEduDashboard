@@ -25,6 +25,13 @@ const WIKI_COLORS = [
   '#0f766e'  // Darker Teal
 ];
 
+const formatMonthLabel = (monthStr) => {
+  if (!monthStr) return '';
+  const date = new Date(monthStr);
+  if (isNaN(date.getTime())) return monthStr;
+  return date.toLocaleDateString(undefined, { month: 'short', year: 'numeric', timeZone: 'UTC' });
+};
+
 const WikiTrendsChart = ({ wikiTrends, loading }) => {
   const [selectedWikiMetric, setSelectedWikiMetric] = useState('edits');
   const chartRef = useRef(null);
@@ -64,7 +71,7 @@ const WikiTrendsChart = ({ wikiTrends, loading }) => {
     chartInstance.current = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: wikiTrends.months,
+        labels: (wikiTrends.months || []).map(m => formatMonthLabel(m)),
         datasets: datasets
       },
       options: {

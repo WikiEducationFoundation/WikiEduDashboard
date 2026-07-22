@@ -223,8 +223,9 @@ en:
       active: "Active"
       students: "Students"
       active_in_year: "Active in Year"
+      "yes": "Yes"
+      "no": "No"
     pagination:
-      page_info: "Page %{current} of %{total}"
       previous: "Previous"
       next: "Next"
     loading:
