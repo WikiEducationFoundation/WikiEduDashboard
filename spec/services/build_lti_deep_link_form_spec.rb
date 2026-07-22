@@ -9,7 +9,8 @@ describe BuildLtiDeepLinkForm do
   let(:form_html) { '<form id="ltiaas-dl"></form><script>document.forms[0].submit()</script>' }
   let(:gradable) do
     DeepLinkableGradables::Gradable.new(resource: 'Block:42', gradable_type: 'Block',
-                                        gradable_id: 42, label: 'Wk1 Find sources')
+                                        gradable_id: 42, label: 'Wk1 Find sources',
+                                        description: '<p>Find three reliable sources.</p>')
   end
 
   before do
@@ -46,8 +47,8 @@ describe BuildLtiDeepLinkForm do
                item['url'].include?('resource=Block%3A42') &&
                item['lineItem']['label'] == 'Wk1 Find sources' &&
                # Canvas turns content-item `text` into the assignment
-               # description, so every picked item must carry it.
-               item['text'].present?
+               # description — sourced from the Dashboard block body.
+               item['text'] == '<p>Find three reliable sources.</p>'
            end
            .to_return(status: 200, body: { 'form' => form_html }.to_json,
                       headers: { 'Content-Type' => 'application/json' })
@@ -58,7 +59,8 @@ describe BuildLtiDeepLinkForm do
   it 'posts one content item per gradable, in the given order (bulk mode)' do
     second = DeepLinkableGradables::Gradable.new(
       resource: 'TrainingProgress', gradable_type: 'TrainingProgress',
-      gradable_id: nil, label: 'Wikipedia trainings'
+      gradable_id: nil, label: 'Wikipedia trainings',
+      description: '<ul><li>Wikipedia essentials</li></ul>'
     )
     stub = stub_request(:post, form_url)
            .with do |request|
@@ -71,5 +73,30 @@ describe BuildLtiDeepLinkForm do
                       headers: { 'Content-Type' => 'application/json' })
     described_class.new(ltik:, gradables: [second, gradable])
     expect(stub).to have_been_requested
+  end
+
+  it 'asks Canvas to name the created module via the module_name claim' do
+    stub = stub_request(:post, form_url)
+           .with(body: hash_including(
+             'https://canvas.instructure.com/lti/module_name' =>
+               'Research and write a Wikipedia article'
+           ))
+           .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                      headers: { 'Content-Type' => 'application/json' })
+    service
+    expect(stub).to have_been_requested
+  end
+
+  it 'retries without the module_name claim if LTIAAS rejects it' do
+    stub_request(:post, form_url)
+      .with(body: hash_including('https://canvas.instructure.com/lti/module_name'))
+      .to_return(status: 400, body: { error: 'unknown field' }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+    fallback = stub_request(:post, form_url)
+               .with { |req| !JSON.parse(req.body).key?('https://canvas.instructure.com/lti/module_name') }
+               .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                          headers: { 'Content-Type' => 'application/json' })
+    expect(service.form).to eq(form_html)
+    expect(fallback).to have_been_requested
   end
 end

@@ -6,14 +6,17 @@
 # Granularity controls the desired line-item set
 # (LtiCourseBinding#gradebook_granularity):
 #   - 'standard' (default): one rolled-up `TrainingProgress` line item for all
-#     training-kind module progress, plus one line item per exercise Block.
-#   - 'per_block': one line item per Block that has any training_module_ids
-#     (no roll-up; trainings grade through their own block's column).
-#   - 'lumped': the roll-up only. Exercise columns are NOT auto-created —
-#     instructors add the ones they want via the deep-link picker. This service
-#     instead DISCOVERS those columns (matched by our `Block:<id>` tag) and
-#     binds local rows, so grade sync reaches them without waiting for an
-#     instructor to open the tool.
+#     training-kind module progress, plus one line item per exercise Block,
+#     plus the setup ("Wikipedia account") indicator.
+#   - 'per_block': the setup indicator plus one line item per Block that has
+#     any training_module_ids (no roll-up; trainings grade through their own
+#     block's column).
+#   - 'lumped' (deep-link-first): NOTHING is auto-created — the instructor
+#     imports the columns they want (setup indicator, trainings roll-up,
+#     exercises) via the deep-linking picker. This service instead DISCOVERS
+#     those columns (matched by tag == the gradable's resource marker) and
+#     binds local rows, so grade sync reaches them without waiting for each
+#     column to be launched.
 #
 # v1 line-item lifecycle:
 #   - Create on first sync where the gradable is missing locally.
@@ -47,13 +50,17 @@ class SyncLtiLineItems
       reconcile(gradable_type, gradable_id, label, existing)
     end
     kept = desired.map { |type, id, _| [type, id] }
-    kept += discover_deep_linked_exercises(existing) if @binding.lumped?
+    kept += discover_deep_linked_columns(existing) if @binding.lumped?
     archive_stale(existing, kept)
   end
 
   def desired_line_items
-    # The setup ("connected a Wikipedia account") column exists on every bound
-    # course, independent of the timeline and granularity.
+    # Deep-link-first mode: the instructor imports every column via the
+    # picker; nothing is created behind their back.
+    return [] if @binding.lumped?
+
+    # The setup ("connected a Wikipedia account") column exists on every
+    # auto-creating binding, independent of the timeline.
     setup = [[LtiLineItem::SETUP_TYPE, nil, setup_label]]
     setup + trainings_rollup_desired + block_columns_desired
   end
@@ -66,39 +73,35 @@ class SyncLtiLineItems
 
   # Which blocks get their own auto-created column: every gradable block in
   # per_block mode, just the exercise blocks in standard mode (trainings live
-  # in the roll-up), and none in lumped mode (instructor deep-links instead).
+  # in the roll-up).
   def block_columns_desired
-    blocks = if @binding.per_block?
-               gradable_blocks
-             elsif @binding.standard?
-               exercise_blocks
-             else
-               []
-             end
+    blocks = @binding.per_block? ? gradable_blocks : exercise_blocks
     blocks.map { |block| ['Block', block.id, label_for_block(block)] }
   end
 
-  # Instructors create exercise columns via the deep-link picker; we don't. Find
-  # any that exist in Canvas — matched by our `Block:<id>` tag — and bind a local
-  # row (creating or reviving) so grade sync + the roster resolve to them. Returns
-  # the bound gradable keys so archive_stale keeps them (they aren't in `desired`).
-  def discover_deep_linked_exercises(existing)
+  # In deep-link-first mode instructors create every column via the picker;
+  # we don't. Find the ones that exist in Canvas — each is tagged with its
+  # gradable's resource marker — and bind a local row (creating or reviving)
+  # so grade sync + the roster resolve to them. Returns the bound gradable
+  # keys so archive_stale keeps them (they aren't in `desired`).
+  def discover_deep_linked_columns(existing)
     by_tag = @service.list_line_items.index_by { |item| item['tag'] }
-    exercise_blocks.filter_map do |block|
-      canvas_item = by_tag[tag_for('Block', block.id)]
+    DeepLinkableGradables.new(@binding.course).result.filter_map do |gradable|
+      canvas_item = by_tag[gradable.resource]
       next unless canvas_item
 
-      bind_discovered_line_item(block, canvas_item, existing)
-      ['Block', block.id]
+      bind_discovered_line_item(gradable, canvas_item, existing)
+      [gradable.gradable_type, gradable.gradable_id]
     end
   end
 
-  def bind_discovered_line_item(block, canvas_item, existing)
-    line_item = existing[['Block', block.id]] ||
+  def bind_discovered_line_item(gradable, canvas_item, existing)
+    line_item = existing[[gradable.gradable_type, gradable.gradable_id]] ||
                 LtiLineItem.new(lti_course_binding: @binding,
-                                gradable_type: 'Block', gradable_id: block.id)
+                                gradable_type: gradable.gradable_type,
+                                gradable_id: gradable.gradable_id)
     line_item.update!(lineitem_id: canvas_item['id'],
-                      label: label_for_block(block), archived_at: nil)
+                      label: gradable.label, archived_at: nil)
   end
 
   # In timeline order (week, then block position): Canvas lists assignments

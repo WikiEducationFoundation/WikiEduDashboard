@@ -32,10 +32,24 @@ class BuildLtiDeepLinkForm
 
   private
 
+  # Canvas names the module it creates for a bulk response from this custom
+  # claim (falls back to "New Content From App" without it).
+  MODULE_NAME_CLAIM = 'https://canvas.instructure.com/lti/module_name'
+
   def perform
     client = LtiaasClient.with_ltik(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], @ltik)
-    result = client.post('/api/deeplinking/form', contentItems: content_items)
-    @form = result['form']
+    @form = request_form(client, module_name: true)['form']
+  rescue LtiaasClient::LtiaasClientError
+    # LTIAAS hasn't documented pass-through of the Canvas module_name claim;
+    # if it rejects the extra field, retry without it — the import matters
+    # more than the module's name (Canvas falls back to its default).
+    @form = request_form(client, module_name: false)['form']
+  end
+
+  def request_form(client, module_name:)
+    body = { contentItems: content_items }
+    body[MODULE_NAME_CLAIM] = I18n.t('lti.deep_link.module_name') if module_name
+    client.post('/api/deeplinking/form', body)
   end
 
   def content_items
@@ -43,19 +57,20 @@ class BuildLtiDeepLinkForm
   end
 
   def content_item_for(gradable)
-    {
+    item = {
       type: 'ltiResourceLink',
       url: launch_url(gradable),
       title: gradable.label,
-      # Canvas turns the content item's `text` into the assignment
-      # description — the only creation path that supports one (AGS
-      # line-item creates can't set descriptions at all). Baked into the
-      # Canvas assignment at creation; later copy edits don't propagate.
-      text: I18n.t('lti.deep_link.assignment_description', label: gradable.label),
       custom: { resource: gradable.resource },
       lineItem: { scoreMaximum: DEFAULT_SCORE_MAXIMUM, label: gradable.label,
                   tag: gradable.resource }
     }
+    # Canvas turns the content item's `text` into the assignment description
+    # — the only creation path that supports one (AGS line-item creates
+    # can't set descriptions at all). Sourced from existing Dashboard
+    # content by DeepLinkableGradables and baked in at creation time.
+    item[:text] = gradable.description if gradable.description.present?
+    item
   end
 
   def launch_url(gradable)

@@ -59,7 +59,7 @@ describe SyncLtiLineItems do
                  headers: { 'Content-Type' => 'application/json' })
   end
 
-  describe 'lumped granularity' do
+  describe 'lumped granularity (deep-link-first)' do
     let!(:training_block) do
       create(:block, week: week, order: 0, title: 'Get started on Wikipedia',
                      training_module_ids: [training_module.id])
@@ -69,32 +69,34 @@ describe SyncLtiLineItems do
                      training_module_ids: [exercise_module.id])
     end
 
-    it 'creates the setup + trainings sentinels but no exercise columns' do
-      stub_post_lineitem(label: 'Wikipedia trainings',
-                         lineitem_id: 'https://lms.example.com/li/trainings')
-
-      expect { described_class.new(binding) }.to change(LtiLineItem, :count).by(2)
-      expect(LtiLineItem.pluck(:gradable_type))
-        .to contain_exactly(LtiLineItem::SETUP_TYPE, LtiLineItem::TRAINING_PROGRESS_TYPE)
+    it 'auto-creates nothing — the instructor imports columns via deep linking' do
+      expect { described_class.new(binding) }.not_to change(LtiLineItem, :count)
+      expect(WebMock).not_to have_requested(:post, %r{/api/lineitems})
     end
 
-    it 'discovers a deep-link exercise column by tag and binds a local row' do
-      stub_post_lineitem(label: 'Wikipedia trainings')
-      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
-                             'tag' => "Block:#{exercise_block.id}" }])
+    it 'discovers imported columns of every type by tag and binds local rows' do
+      stub_line_item_list(
+        [{ 'id' => 'https://lms.example.com/li/setup', 'tag' => LtiLineItem::SETUP_TYPE },
+         { 'id' => 'https://lms.example.com/li/tr',
+           'tag' => LtiLineItem::TRAINING_PROGRESS_TYPE },
+         { 'id' => 'https://lms.example.com/li/ex', 'tag' => "Block:#{exercise_block.id}" }]
+      )
 
       expect { described_class.new(binding) }.to change(LtiLineItem, :count).by(3)
+      expect(LtiLineItem.pluck(:gradable_type, :gradable_id))
+        .to contain_exactly([LtiLineItem::SETUP_TYPE, nil],
+                            [LtiLineItem::TRAINING_PROGRESS_TYPE, nil],
+                            ['Block', exercise_block.id])
       row = LtiLineItem.find_by(gradable_type: 'Block', gradable_id: exercise_block.id)
       expect(row.lineitem_id).to eq('https://lms.example.com/li/ex')
       expect(row).not_to be_archived
     end
 
     it 'archives a bound exercise row once its Canvas column is gone' do
-      stub_post_lineitem(label: 'Wikipedia trainings')
       stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
                              'tag' => "Block:#{exercise_block.id}" }])
       described_class.new(binding)
-      expect(LtiLineItem.active.count).to eq(3) # setup + trainings + discovered exercise
+      expect(LtiLineItem.active.count).to eq(1)
 
       exercise_block.destroy
       stub_line_item_list([]) # column no longer discoverable

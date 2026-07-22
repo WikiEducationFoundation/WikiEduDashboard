@@ -5,7 +5,7 @@
 - # Already-column-backed gradables never appear (see LtiDeepLinking).
 .container.narrow
   .section-header
-    %h3= t('lti.deep_link.header')
+    %h3= @accept_multiple ? t('lti.deep_link.header_multiple') : t('lti.deep_link.header')
   %hr
   - if @gradables.any?
     %p= @accept_multiple ? t('lti.deep_link.instruction_multiple') : t('lti.deep_link.instruction')

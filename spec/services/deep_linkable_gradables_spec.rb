@@ -21,6 +21,11 @@ describe DeepLinkableGradables do
 
   subject(:gradables) { described_class.new(course).result }
 
+  it 'always offers the Wikipedia account setup indicator first' do
+    expect(gradables.first.gradable_type).to eq(LtiLineItem::SETUP_TYPE)
+    expect(gradables.first.label).to eq('Wikipedia account')
+  end
+
   context 'with a training-only block and an exercise block' do
     let!(:training_block) do
       create(:block, week:, order: 0, title: 'Get started on Wikipedia',
@@ -28,7 +33,8 @@ describe DeepLinkableGradables do
     end
     let!(:exercise_block) do
       create(:block, week:, order: 1, title: 'Find sources',
-                     training_module_ids: [exercise_module.id])
+                     training_module_ids: [exercise_module.id],
+                     content: '<p>Find three reliable sources.</p>')
     end
 
     it 'offers one option per exercise block, keyed Block:<id>' do
@@ -48,6 +54,31 @@ describe DeepLinkableGradables do
     it 'does not offer a training-only block as its own exercise option' do
       block_ids = gradables.select { |g| g.gradable_type == 'Block' }.map(&:gradable_id)
       expect(block_ids).not_to include(training_block.id)
+    end
+
+    # Descriptions reuse existing Dashboard content, not new copy.
+    it "uses the block's own timeline body as the exercise description" do
+      exercise = gradables.find { |g| g.gradable_type == 'Block' }
+      expect(exercise.description).to eq('<p>Find three reliable sources.</p>')
+    end
+
+    it "lists the timeline's training modules as the roll-up description" do
+      rollup = gradables.find { |g| g.gradable_type == LtiLineItem::TRAINING_PROGRESS_TYPE }
+      expect(rollup.description).to include('<li>Get started</li>')
+      expect(rollup.description).not_to include('Bibliography') # exercises excluded
+    end
+  end
+
+  context 'when an exercise block has no body content' do
+    let!(:exercise_block) do
+      create(:block, week:, order: 0, title: 'Find sources', content: '',
+                     training_module_ids: [exercise_module.id])
+    end
+
+    it "falls back to the modules' catalog descriptions" do
+      exercise_module.update!(description: 'Build a bibliography of sources.')
+      exercise = gradables.find { |g| g.gradable_type == 'Block' }
+      expect(exercise.description).to eq('Build a bibliography of sources.')
     end
   end
 
@@ -86,8 +117,8 @@ describe DeepLinkableGradables do
       create(:block, week:, order: 0, title: 'Read this', training_module_ids: [])
     end
 
-    it 'returns an empty list' do
-      expect(gradables).to be_empty
+    it 'offers only the setup indicator' do
+      expect(gradables.map(&:gradable_type)).to eq([LtiLineItem::SETUP_TYPE])
     end
   end
 end

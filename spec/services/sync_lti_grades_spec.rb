@@ -57,28 +57,19 @@ describe SyncLtiGrades do
     ENV['LTIAAS_API_KEY'] = 'api-key'
     allow(LtiLineItemSyncWorker).to receive(:perform_in)
 
-    # Stub the upstream calls SyncLtiLineItems makes: it POSTs the setup + trainings
-    # sentinels and DISCOVERS the deep-link exercise column via GET (exercises are
-    # no longer auto-created). Return that column so its local row binds and grade
-    # sync can push to it.
-    stub_request(:post, "https://#{domain}/api/lineitems")
-      .with(body: hash_including(label: 'Wikipedia trainings'))
-      .to_return(status: 201,
-                 body: { id: trainings_lineitem_url, label: 'Wikipedia trainings',
-                         scoreMaximum: 1.0 }.to_json,
-                 headers: { 'Content-Type' => 'application/json' })
-    # The always-present setup ("connected") column — matched by tag, since its
-    # label is operator-supplied. Stub its score POST too, so every example can
-    # push the setup mark for both the linked and unlinked student.
-    stub_request(:post, "https://#{domain}/api/lineitems")
-      .with(body: hash_including(tag: LtiLineItem::SETUP_TYPE))
-      .to_return(status: 201,
-                 body: { id: setup_lineitem_url, scoreMaximum: 1.0 }.to_json,
-                 headers: { 'Content-Type' => 'application/json' })
+    # Stub the upstream call SyncLtiLineItems makes first: in lumped
+    # (deep-link-first) mode it creates nothing and DISCOVERS the
+    # instructor-imported columns via GET, matching each by its resource-
+    # marker tag. Return all three so their local rows bind and grade sync
+    # can push to them.
     stub_request(:get, %r{https://#{domain}/api/lineitems})
       .to_return(status: 200,
-                 body: { lineItems: [{ 'id' => exercise_lineitem_url,
-                                       'tag' => "Block:#{exercise_block.id}" }] }.to_json,
+                 body: { lineItems: [
+                   { 'id' => setup_lineitem_url, 'tag' => LtiLineItem::SETUP_TYPE },
+                   { 'id' => trainings_lineitem_url,
+                     'tag' => LtiLineItem::TRAINING_PROGRESS_TYPE },
+                   { 'id' => exercise_lineitem_url, 'tag' => "Block:#{exercise_block.id}" }
+                 ] }.to_json,
                  headers: { 'Content-Type' => 'application/json' })
     stub_post_score(setup_lineitem_url)
   end

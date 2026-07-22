@@ -2230,8 +2230,10 @@ en:
       create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
     deep_link:
-      assignment_description: "[PLACEHOLDER - Canvas assignment description for a deep-linked Dashboard task; %{label} is the gradebook label. Baked into the Canvas assignment at creation time, so finalize before real courses use the picker]"
+      module_name: "Research and write a Wikipedia article"
+      setup_assignment_description: "[PLACEHOLDER - Canvas assignment description for the Wikipedia account column: connecting a Wikipedia account via this assignment is how students join the Dashboard course. Baked into the Canvas assignment at creation time]"
       header: "Choose Wikipedia task"
+      header_multiple: "Import Wikipedia assignments"
       instruction: "Choose a Wikipedia task for this gradable item"
       instruction_multiple: "[PLACEHOLDER - instruction above the multi-select checkbox list: all the course's Wikipedia assignments are pre-selected; uncheck any they don't want, then add them all at once]"
       submit: "Add to course"

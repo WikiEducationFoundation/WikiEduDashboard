@@ -895,6 +895,7 @@ describe LtiLaunchController, type: :request do
         bind_course!
         get '/lti/deep_link', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Import Wikipedia assignments')
         expect(response.body).to include('type="checkbox"')
         expect(response.body).to include('name="resources[]"')
         expect(response.body).to include('checked="checked"')

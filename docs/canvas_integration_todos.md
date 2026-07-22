@@ -49,21 +49,31 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## Linking / launch model (design)
 
-- [ ] **Bulk deep-linking via `module_index_menu_modal` (researched; being built).**
-  Canvas's Modules-page placement accepts a deep-linking response with MANY
-  content items: "creates a new module and adds all given content items to it
-  as either module items or assignments, based on the presence or absence of
-  the lineItem property." That makes a one-click "add all Wikipedia
-  assignments" flow possible — with real assignment descriptions (content-item
-  `text`), which AGS-created columns can never have. True background creation
-  remains impossible (a deep-linking response must POST through the
-  instructor's browser to a launch-specific return URL). Direction per
-  operator (2026-07-21): if the instructor story is smooth, this becomes the
-  basis for the whole assignment-creation model, superseding AGS
-  auto-creation (and likely the granularity modes). Open interactions: dedup
-  against already-created AGS columns, placement must be added to the LTIAAS
-  config (+ re-registration or installed-tool API edit), and re-running the
-  bulk add must skip already-bound gradables.
+- [ ] **Collapse the granularity model around deep-link-first.** `lumped` has
+  been repurposed as the deep-link-first mode: it now auto-creates NOTHING
+  (not even the setup/roll-up sentinels — those are importable via the picker,
+  per operator direction 2026-07-21) and discovery binds any tagged column.
+  The setup form still offers three radios with the `lumped` label as a
+  placeholder; once deep-link-first is validated on staging, decide whether
+  standard/per_block survive at all and redesign the setup step accordingly.
+
+- [ ] **Bulk deep-linking via `module_index_menu_modal` (built; verified on
+  staging except module naming).** The import flow works end-to-end. The
+  created module's default name is Canvas's "New Content From App"; Canvas
+  reads a tool-settable override from the deep-linking response JWT claim
+  `https://canvas.instructure.com/lti/module_name` (found in
+  `deep_linking_services.rb`), which we now send ("Research and write a
+  Wikipedia article", operator-supplied) with a retry-without-it fallback in
+  case LTIAAS rejects the extra field — pass-through unverified. Assignment
+  descriptions pull from existing Dashboard content (block body → module
+  catalog descriptions; the roll-up lists its training modules); only the
+  setup column's description is still a `[PLACEHOLDER]`. (Background: true
+  server-side creation is impossible — a deep-linking response must POST
+  through the instructor's browser to a launch-specific return URL — which is
+  why the flow is one-click-bulk rather than automatic.) Remaining: verify the
+  module_name pass-through live, and add `module_index_menu_modal` to the
+  LTIAAS config so future registrations carry it (the staging tool got it via
+  a Canvas API edit only).
 
 - [ ] **Consider a nav-link-free, deep-link-first linking model.** The
   course-navigation link is heavyweight for what is mainly a one-time instructor
