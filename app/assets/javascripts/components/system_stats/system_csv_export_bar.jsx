@@ -29,6 +29,15 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     };
   }, []);
 
+  const triggerDownload = (url) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', url.split('/').pop());
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleExport = () => {
     if (exporting) return;
 
@@ -50,61 +59,44 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     let attempts = 0;
     const maxAttempts = 15; // 15 attempts x 6s = 90s total polling window
 
-    const stopExport = () => {
+    const stopExport = (noticeMsg = null) => {
       if (timerRef.current) clearTimeout(timerRef.current);
       setExporting(false);
-      setNotice(null);
+      setNotice(noticeMsg);
     };
 
     const poll = () => {
       attempts += 1;
-      fetch(exportUrl)
-        .then(resp => {
-          if (!resp.ok) {
-            if (timerRef.current) clearTimeout(timerRef.current);
-            setExporting(false);
-            setNotice(I18n.t('system_stats.filters.fetch_error'));
+      fetch(exportUrl, { headers: { Accept: 'application/json' } })
+        .then(resp => resp.json().then(data => ({ resp, data })))
+        .then(({ resp, data }) => {
+          if (resp.status === 422) {
+            stopExport(data.error || I18n.t('system_stats.filters.fetch_error'));
             return;
           }
 
-          const contentType = resp.headers.get('content-type') || '';
-          const isCsv = resp.url.endsWith('.csv') || contentType.includes('csv');
+          if (!resp.ok && resp.status !== 202) {
+            stopExport(I18n.t('system_stats.filters.fetch_error'));
+            return;
+          }
 
-          const triggerDownload = (url) => {
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', url.split('/').pop());
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          };
-
-          if (isCsv) {
+          if (data.status === 'ready') {
             stopExport();
-            triggerDownload(resp.url);
+            triggerDownload(data.url);
             return;
           }
 
-          return resp.text().then(text => {
-            if (text.includes('generated')) {
-              if (attempts < maxAttempts) {
-                setNotice(I18n.t('system_stats.filters.generation_queued'));
-                timerRef.current = setTimeout(poll, 6000);
-              } else {
-                setExporting(false);
-                setNotice(I18n.t('system_stats.filters.fetch_error'));
-              }
-            } else {
-              stopExport();
-              triggerDownload(resp.url);
-            }
-          });
+          // status === 'generating' (202 Accepted)
+          if (attempts < maxAttempts) {
+            setNotice(I18n.t('system_stats.filters.generation_queued'));
+            timerRef.current = setTimeout(poll, 6000);
+          } else {
+            stopExport(I18n.t('system_stats.filters.fetch_error'));
+          }
         })
         .catch(err => {
           console.error(err);
-          if (timerRef.current) clearTimeout(timerRef.current);
-          setExporting(false);
-          setNotice(I18n.t('system_stats.filters.fetch_error'));
+          stopExport(I18n.t('system_stats.filters.fetch_error'));
         });
     };
 

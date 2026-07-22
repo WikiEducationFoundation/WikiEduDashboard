@@ -2,6 +2,7 @@
 
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/system_csv_filter_validator"
 
 # Generates system-wide CSV exports with dynamic filter support.
 # This is a standalone builder designed for admin-only, async exports
@@ -20,15 +21,11 @@ require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 #   SystemCsvBuilder.new(filters: { status: 'active' }).generate_csv
 #
 class SystemCsvBuilder
-  VALID_COURSE_TYPES = %w[
-    ClassroomProgramCourse Editathon BasicCourse FellowsCohort
-    ArticleScopedProgram VisitingScholarship LegacyCourse SingleUser
-  ].freeze
-  VALID_STATUSES = %w[active archived].freeze
+  VALID_COURSE_TYPES = SystemCsvFilterValidator::VALID_COURSE_TYPES
+  VALID_STATUSES = SystemCsvFilterValidator::VALID_STATUSES
 
   def initialize(filters: {})
     @filters = filters
-    validate_filters!
   end
 
   def generate_csv
@@ -79,8 +76,14 @@ class SystemCsvBuilder
   end
 
   def apply_date_filters(scope)
-    scope = scope.where('courses.start >= ?', @filters[:start_date].to_date) if @filters[:start_date].present?
-    scope = scope.where('courses.end <= ?', @filters[:end_date].to_date) if @filters[:end_date].present?
+    if @filters[:start_date].present?
+      scope = scope.where('courses.start >= ?',
+                          @filters[:start_date].to_date)
+    end
+    if @filters[:end_date].present?
+      scope = scope.where('courses.end <= ?',
+                          @filters[:end_date].to_date)
+    end
     scope
   end
 
@@ -102,15 +105,6 @@ class SystemCsvBuilder
     when 'archived'
       scope.where('courses.end <= ?', Time.zone.now - Course::UPDATE_LENGTH)
     else scope
-    end
-  end
-
-  def validate_filters!
-    if @filters[:course_type].present? && !VALID_COURSE_TYPES.include?(@filters[:course_type])
-      raise ArgumentError, "Invalid course_type: #{@filters[:course_type]}"
-    end
-    if @filters[:status].present? && !VALID_STATUSES.include?(@filters[:status])
-      raise ArgumentError, "Invalid status: #{@filters[:status]}"
     end
   end
 

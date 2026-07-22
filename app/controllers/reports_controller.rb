@@ -22,6 +22,7 @@ class ReportsController < ApplicationController
   before_action :set_sidekiq_job_context
   before_action :require_admin_permissions,
                 only: %i[all_courses_and_instructors_csv course_retention_csv system_csv]
+  before_action :validate_system_csv_filters!, only: [:system_csv]
   before_action :require_fellows_cohort, only: [:course_retention_csv]
 
   #######################
@@ -37,7 +38,6 @@ class ReportsController < ApplicationController
     course_type: 'type',
     status: 'status'
   }.freeze
-
 
   def set_sidekiq_job_context
     SidekiqJobContext.username = current_user.username if current_user
@@ -104,15 +104,17 @@ class ReportsController < ApplicationController
   end
 
   # Admin-only system-wide CSV export with dynamic filters.
-  # Supports: campaign_slug, start_date, end_date, wiki_domain, course_type, status
+  # Returns JSON: { status: 'ready', url: ... } or { status: 'generating' } (202).
   def system_csv
     filters = system_csv_filters
     filename = build_system_csv_filename(filters)
 
     if File.exist?("public#{CSV_PATH}/#{filename}")
-      redirect_to "#{CSV_PATH}/#{filename}"
+      render json: { status: 'ready', url: "#{CSV_PATH}/#{filename}" }
     else
-      generate_system_csv(filename, filters)
+      ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_csv',
+                                   include_course: nil, filters:)
+      render json: { status: 'generating' }, status: :accepted
     end
   end
 
@@ -168,15 +170,11 @@ class ReportsController < ApplicationController
           .reject { |_, v| v.blank? }
   end
 
-  def generate_system_csv(filename, filters)
-    if Rails.env.development?
-      ReportCsvWorker.new.perform(nil, filename, 'system_csv', nil, filters.to_json)
-      redirect_to "#{CSV_PATH}/#{filename}"
-    else
-      ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_csv',
-                                   include_course: nil, filters:)
-      render plain: 'This file is being generated. Please try again shortly.', status: :ok
-    end
+  def validate_system_csv_filters!
+    errors = SystemCsvFilterValidator.new(system_csv_filters).errors
+    return if errors.empty?
+    render json: { error: errors.join(', ') },
+           status: :unprocessable_content
   end
 
   def build_system_csv_filename(filters)

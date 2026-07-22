@@ -44,19 +44,26 @@ describe ReportsController, '#system_csv', type: :request do
     before { login_as admin }
 
     describe 'without filters' do
-      it 'enqueues a background job and returns generation message' do
+      it 'enqueues a background job and returns 202 with generating status' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv'
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
+        json = response.parsed_body
+        expect(json['status']).to eq('generating')
       end
 
-      it 'returns CSV on second request after generation' do
+      it 'returns ready status with URL on second request after generation' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv'
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv'
-        follow_redirect!
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+        expect(json['url']).to end_with('.csv')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('course_slug')
         expect(csv).to include('Test Course')
@@ -71,10 +78,13 @@ describe ReportsController, '#system_csv', type: :request do
       it 'generates CSV filtered by campaign' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv', params: { campaign_slug: 'test_campaign' }
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv', params: { campaign_slug: 'test_campaign' }
-        follow_redirect!
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('Test Course')
       end
@@ -84,10 +94,13 @@ describe ReportsController, '#system_csv', type: :request do
       it 'generates CSV filtered by course type' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv', params: { course_type: 'ClassroomProgramCourse' }
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv', params: { course_type: 'ClassroomProgramCourse' }
-        follow_redirect!
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('Test Course')
       end
@@ -97,10 +110,13 @@ describe ReportsController, '#system_csv', type: :request do
       it 'generates CSV filtered by active status' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv', params: { status: 'active' }
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv', params: { status: 'active' }
-        follow_redirect!
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('Test Course')
       end
@@ -110,10 +126,13 @@ describe ReportsController, '#system_csv', type: :request do
       it 'generates CSV filtered by wiki domain' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv', params: { wiki_domain: 'en.wikipedia.org' }
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv', params: { wiki_domain: 'en.wikipedia.org' }
-        follow_redirect!
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('Test Course')
       end
@@ -126,13 +145,16 @@ describe ReportsController, '#system_csv', type: :request do
           start_date: 2.months.ago.to_date.to_s,
           end_date: 2.months.from_now.to_date.to_s
         }
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv', params: {
           start_date: 2.months.ago.to_date.to_s,
           end_date: 2.months.from_now.to_date.to_s
         }
-        follow_redirect!
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('Test Course')
       end
@@ -146,14 +168,17 @@ describe ReportsController, '#system_csv', type: :request do
           status: 'active',
           wiki_domain: 'en.wikipedia.org'
         }
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
 
         get '/system_csv', params: {
           course_type: 'ClassroomProgramCourse',
           status: 'active',
           wiki_domain: 'en.wikipedia.org'
         }
-        follow_redirect!
+        json = response.parsed_body
+        expect(json['status']).to eq('ready')
+
+        get json['url']
         csv = response.body.force_encoding('utf-8')
         expect(csv).to include('Test Course')
       end
@@ -163,9 +188,50 @@ describe ReportsController, '#system_csv', type: :request do
       it 'generates different filenames for different filter combos' do
         expect(CsvCleanupWorker).to receive(:perform_at).twice
         get '/system_csv', params: { status: 'active' }
+        expect(response).to have_http_status(:accepted)
         get '/system_csv', params: { status: 'archived' }
-        # Both should trigger generation (different filenames)
-        expect(response.body).to include('file is being generated')
+        expect(response).to have_http_status(:accepted)
+      end
+    end
+
+    describe 'filter validation' do
+      it 'returns 422 for invalid course_type' do
+        get '/system_csv', params: { course_type: 'Bogus' }
+        expect(response).to have_http_status(422)
+        json = response.parsed_body
+        expect(json['error']).to include('Invalid course_type')
+      end
+
+      it 'returns 422 for invalid status' do
+        get '/system_csv', params: { status: 'invalid' }
+        expect(response).to have_http_status(422)
+        json = response.parsed_body
+        expect(json['error']).to include('Invalid status')
+      end
+
+      it 'returns 422 for malformed date' do
+        get '/system_csv', params: { start_date: 'not-a-date' }
+        expect(response).to have_http_status(422)
+        json = response.parsed_body
+        expect(json['error']).to include('Invalid start_date')
+      end
+
+      it 'returns 422 for nonexistent campaign' do
+        get '/system_csv', params: { campaign_slug: 'nonexistent' }
+        expect(response).to have_http_status(422)
+        json = response.parsed_body
+        expect(json['error']).to include('Campaign not found')
+      end
+
+      it 'returns 422 with multiple errors' do
+        get '/system_csv', params: {
+          course_type: 'Bogus',
+          status: 'invalid'
+        }
+        expect(response).to have_http_status(422)
+        json = response.parsed_body
+        expect(json['error']).to include('Invalid course_type')
+        expect(json['error']).to include('Invalid status')
       end
     end
   end
