@@ -80,6 +80,41 @@ describe SyncLtiGrades do
       .to_return(status: 204, body: '', headers: {})
   end
 
+  it 'never grades an instructor (Canvas rejects a non-student score with a 422)' do
+    # A linked instructor context would otherwise get the setup 1.0 posted,
+    # which Canvas rejects — the source of the Sentry flood.
+    instructor = create(:user, username: 'Prof')
+    LtiContext.create!(
+      lti_course_binding: binding, user: instructor, user_lti_id: 'lti-prof',
+      lms_id: 'platform-x', linked_at: 1.day.ago,
+      roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor']
+    )
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+
+    described_class.new(binding)
+
+    expect(WebMock).not_to have_requested(:post, %r{/scores})
+      .with(body: hash_including(userId: 'lti-prof'))
+  end
+
+  it 'does not report to Sentry when Canvas says the user is not a student (422)' do
+    allow(Sentry).to receive(:capture_exception)
+    # The connected student's setup post comes back a membership-gone 422.
+    stub_request(:post, "https://#{domain}/api/lineitems/" \
+                        "#{CGI.escape(setup_lineitem_url)}/scores")
+      .to_return(status: 422,
+                 body: { error: 'User not found in course or is not a student' }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+
+    described_class.new(binding)
+
+    expect(Sentry).not_to have_received(:capture_exception)
+    expect(binding.reload.last_grade_sync_at).to be_present
+  end
+
   it 'marks the connected student set up (1.0) and never seeds a failing 0 for others' do
     # Alice is linked and complete on the training + exercise, so those post 1.0.
     TrainingModulesUsers.create!(user: student_user, training_module:,

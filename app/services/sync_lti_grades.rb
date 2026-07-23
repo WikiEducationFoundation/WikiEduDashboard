@@ -32,31 +32,41 @@ class SyncLtiGrades
 
   def push_scores_for_each_student
     active_line_items.each do |line_item|
-      contexts_for(line_item).find_each do |context|
+      contexts_for(line_item).each do |context|
         push_one(context, line_item)
       end
     end
   end
 
-  # The setup indicator is evaluated for every discovered student (a connected
-  # student scores 1.0; a not-yet-connected one is left ungraded by skip_zero?,
-  # not posted a failing 0 — see push_one). Every other line item grades only
-  # students who have actually linked a Wikipedia account.
+  # Only STUDENTS are ever graded — never instructors/staff. Canvas rejects an
+  # AGS score for a non-student with a 422 ("User not found in course or is not
+  # a student"), so posting the instructor's own setup mark used to fail every
+  # cycle and flood Sentry. The setup indicator covers every discovered student
+  # (a connected one scores 1.0; a not-yet-connected one is left ungraded by
+  # skip_zero? rather than a failing 0). Every other line item grades only
+  # students who have linked a Wikipedia account.
   def contexts_for(line_item)
-    line_item.gradable_type == LtiLineItem::SETUP_TYPE ? all_contexts : linked_contexts
+    line_item.gradable_type == LtiLineItem::SETUP_TYPE ? student_contexts : linked_student_contexts
   end
 
-  def all_contexts
-    LtiContext.where(lti_course_binding_id: @binding.id)
+  # All non-staff members (linked or not); instructors excluded via LMS roles.
+  def student_contexts
+    @binding.lti_contexts.reject(&:instructor?)
   end
 
-  def linked_contexts
-    all_contexts.where.not(user_id: nil)
+  def linked_student_contexts
+    @binding.linked_student_contexts
   end
 
   def active_line_items
     LtiLineItem.where(lti_course_binding_id: @binding.id, archived_at: nil)
   end
+
+  # LTIAAS/Canvas 422 when the target user isn't a gradable student in the
+  # course (removed from the roster, or not a student). Expected and handled,
+  # not an error to report — otherwise a stale membership floods Sentry on
+  # every 30-min cycle.
+  MEMBERSHIP_GONE = /not found in (?:the )?course|not a student/i
 
   def push_one(context, line_item)
     progress = compute_progress(line_item, context)
@@ -66,9 +76,28 @@ class SyncLtiGrades
 
     post_score(context, line_item, progress)
     record_signature(line_item, context, progress.signature)
+  rescue LtiaasClient::LtiaasClientError => e
+    return log_non_gradable(context, line_item) if membership_gone?(e)
+
+    report_push_failure(e, context, line_item)
   rescue StandardError => e
+    report_push_failure(e, context, line_item)
+  end
+
+  def membership_gone?(error)
+    error.status_code == 422 && error.response_body.to_s.match?(MEMBERSHIP_GONE)
+  end
+
+  def log_non_gradable(context, line_item)
+    Rails.logger.info(
+      "[LTI grade sync] skipping non-gradable member: binding=#{@binding.id} " \
+      "user_lti_id=#{context.user_lti_id} lineitem=#{line_item.lineitem_id}"
+    )
+  end
+
+  def report_push_failure(error, context, line_item)
     Sentry.capture_exception(
-      e,
+      error,
       extra: { binding_id: @binding.id, user_lti_id: context.user_lti_id,
                lineitem_id: line_item.lineitem_id }
     )
