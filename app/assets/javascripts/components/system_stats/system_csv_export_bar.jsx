@@ -57,7 +57,7 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     const exportUrl = `/system_csv${queryString ? `?${queryString}` : ''}`;
 
     let attempts = 0;
-    const maxAttempts = 15; // 15 attempts x 6s = 90s total polling window
+    const maxAttempts = 20; // 20 attempts x 6s = 120s (2 mins) polling window
 
     const stopExport = (noticeMsg = null) => {
       if (timerRef.current) clearTimeout(timerRef.current);
