@@ -28,7 +28,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   end
 
   def self.reset_specific_articles(course, articles)
-    new(course).reset_legacy(articles)
+    new(course).reset_specific_articles(articles)
   end
 
   def initialize(course)
@@ -143,6 +143,25 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     return reset_legacy(articles, wiki) unless @course.use_acuwt?
 
     ArticlesCourses.create_records_and_mark_acuwt(@course, articles.map(&:id))
+  end
+
+  # Resets specific articles detected during the article status sync (stale,
+  # deleted duplicates of a live copy for the same mw_page_id: see
+  # ArticleStatusManager#handle_undeletion). This is a history-merge / undeletion
+  # case where revisions must be re-ingested, so it needs a full per-period
+  # re-fetch rather than a targeted rescore (reset_included) or reaggregation
+  # (reset_excluded).
+  # For ACUWT courses, the covering periods are derived from the articles' ACUWT
+  # rows: those CWTs are marked needs_update (so they are fully re-fetched, and the
+  # revisions re-attributed to the live copy, on the next update) and the ACUWT
+  # rows for those periods (along with the ACT/CUWT rows derived from them) are
+  # deleted so the re-fetch regenerates them cleanly, leaving no stale rows.
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_specific_articles(articles)
+    return reset_legacy(articles) unless @course.use_acuwt?
+
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: articles.map(&:id))
+    TimesliceCleaner.new(@course).reset_timeslices_for_update_from_acuwt(acuwt)
   end
 
   private

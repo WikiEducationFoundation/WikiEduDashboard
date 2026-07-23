@@ -103,6 +103,49 @@ describe ArticlesCoursesCleaner do
     end
   end
 
+  describe '#reset_specific_articles' do
+    let(:user) { create(:user) }
+    let(:articles) { Article.where(id: article1.id) }
+
+    before do
+      stub_wiki_validation
+      manager.create_timeslices_for_new_course_wiki_records([enwiki])
+      create(:articles_course, course:, article: article1)
+      create(:article_course_timeslice, course:, article: article1,
+             start: '2024-01-10', end: '2024-01-11')
+      create(:article_course_user_wiki_timeslice, course:, article: article1, user:,
+             wiki: enwiki, start: '2024-01-10', end: '2024-01-11')
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'marks the covering CWT for re-fetch and deletes the period ACUWT and ACT rows' do
+        described_class.reset_specific_articles(course, articles)
+
+        timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
+        expect(timeslice.needs_update).to eq(true)
+        expect(timeslice.needs_reaggregation).to eq(false)
+        expect(ArticleCourseUserWikiTimeslice.where(course:, article: article1)).to be_empty
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'marks timeslices as needs_update and removes articles courses (legacy reset)' do
+        described_class.reset_specific_articles(course, articles)
+
+        timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
+        expect(timeslice.needs_update).to eq(true)
+        expect(timeslice.needs_reaggregation).to eq(false)
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        expect(course.articles_courses.where(article: article1)).to be_empty
+      end
+    end
+  end
+
   describe '.clean_articles_courses_for_wiki_ids' do
     before do
       stub_wiki_validation

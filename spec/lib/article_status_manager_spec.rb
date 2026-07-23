@@ -453,6 +453,36 @@ describe ArticleStatusManager do
         expect(Article.find(50661367).updated_at <= 12.hours.ago).to eq(true)
       end
     end
+
+    context 'when the course uses ACUWT' do
+      before { course.add_flag(key: :use_acuwt) }
+
+      it 'marks deleted an article surfaced only by its ACUWT rows (no ACT rows)' do
+        VCR.use_cassette 'article_status_manager/main' do
+          create(:article, id: 1, mw_page_id: 1, title: 'Noarticle', namespace: 0,
+                 updated_at: 2.days.ago)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article_id: 1, user:,
+                 start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+
+          described_class.update_article_status_for_course(course)
+          expect(Article.find(1).deleted).to be true
+        end
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'ignores an article that has only ACUWT rows (no ACT rows)' do
+        VCR.use_cassette 'article_status_manager/main' do
+          create(:article, id: 1, mw_page_id: 1, title: 'Noarticle', namespace: 0,
+                 updated_at: 2.days.ago)
+          create(:article_course_user_wiki_timeslice, course:, wiki:, article_id: 1, user:,
+                 start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+
+          described_class.update_article_status_for_course(course)
+          expect(Article.find(1).deleted).to be false
+        end
+      end
+    end
   end
 
   describe '#update_status' do
