@@ -224,4 +224,21 @@ describe SystemCsvBuilder do
       expect(courses.pluck(:title)).to include('Wikidata Course')
     end
   end
+
+  describe '#new_editor_counts' do
+    let!(:old_student) { create(:user, username: 'old_student_user', registered_at: 1.day.ago) }
+    let!(:current_student) { create(:user, username: 'current_student_user', registered_at: 1.month.ago) }
+
+    before do
+      create(:courses_user, course: archived_fr_course, user: old_student, role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, course: active_en_course, user: current_student, role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    it 'only counts students registered during their course duration' do
+      builder = described_class.new(filters: {})
+      counts = builder.send(:fetch_new_editor_counts, [active_en_course.id, archived_fr_course.id])
+      expect(counts[active_en_course.id]).to eq(1)
+      expect(counts[archived_fr_course.id]).to be_nil
+    end
+  end
 end

@@ -6,8 +6,8 @@ require_dependency "#{Rails.root}/lib/analytics/system_csv_filter_validator"
 
 # Generates system-wide CSV exports with dynamic filter support.
 # This is a standalone builder designed for admin-only, async exports
-# across all non-private programs. It uses find_each for memory-safe
-# batching and preloads associated data in bulk.
+# across all non-private programs. It preloads associated data in memory-safe
+# batches (1,000 courses at a time) to keep RAM consumption low.
 #
 # Filters supported:
 #   campaign_slug  — Courses belonging to a specific campaign
@@ -23,6 +23,7 @@ require_dependency "#{Rails.root}/lib/analytics/system_csv_filter_validator"
 class SystemCsvBuilder
   VALID_COURSE_TYPES = SystemCsvFilterValidator::VALID_COURSE_TYPES
   VALID_STATUSES = SystemCsvFilterValidator::VALID_STATUSES
+  BATCH_SIZE = 1000
 
   def initialize(filters: {})
     @filters = filters
@@ -30,16 +31,23 @@ class SystemCsvBuilder
 
   def generate_csv
     csv_data = [CourseCsvBuilder::CSV_HEADERS]
-    preload_course_data
 
-    filtered_courses.find_each do |course|
-      csv_data << CourseCsvBuilder.new(
-        course,
-        tag: tags[course.id]&.first&.tag || 'unknown',
-        revision: revision_counts,
-        new_editors: new_editor_counts[course.id] || 0,
-        home_wiki: home_wiki_url(course)
-      ).row
+    course_scope.find_in_batches(batch_size: BATCH_SIZE) do |batch|
+      batch_course_ids = batch.map(&:id)
+      tags = fetch_tags(batch_course_ids)
+      revisions = fetch_revision_counts(batch_course_ids)
+      new_editors = fetch_new_editor_counts(batch_course_ids)
+      wikis = fetch_wikis(batch)
+
+      batch.each do |course|
+        csv_data << CourseCsvBuilder.new(
+          course,
+          tag: tags[course.id]&.first&.tag || 'unknown',
+          revision: revisions,
+          new_editors: new_editors[course.id] || 0,
+          home_wiki: wikis[course.home_wiki_id]&.first&.domain || ''
+        ).row
+      end
     end
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
@@ -51,6 +59,10 @@ class SystemCsvBuilder
   end
 
   private
+
+  def course_scope
+    Course.where(id: filtered_courses.select(:id))
+  end
 
   # ————————————————————————————————
   # Scope & filter construction
@@ -120,78 +132,50 @@ class SystemCsvBuilder
   end
 
   # ————————————————————————————————
-  # Batched preloading (mirrors CampaignCsvBuilder pattern)
+  # Batch data fetching helpers
   # ————————————————————————————————
 
-  def preload_course_data
-    return if course_ids.empty?
+  def fetch_tags(course_ids)
+    return {} if course_ids.empty?
 
-    tags
-    revision_counts
-    new_editor_counts
-    wikis
+    Tag
+      .where(course_id: course_ids, tag: %w[first_time_instructor returning_instructor])
+      .select(:tag, :course_id)
+      .group_by(&:course_id)
   end
 
-  def course_ids
-    @course_ids ||= filtered_courses.pluck(:id)
+  def fetch_revision_counts(course_ids)
+    return {} if course_ids.empty?
+
+    namespaces = [
+      Article::Namespaces::MAINSPACE,
+      Article::Namespaces::TALK,
+      Article::Namespaces::USER
+    ]
+    ArticleCourseTimeslice
+      .where(tracked: true, course_id: course_ids)
+      .select(:revision_count, :course_id)
+      .joins(:article)
+      .where(articles: { namespace: namespaces })
+      .group(:course_id, :namespace)
+      .sum(:revision_count)
   end
 
-  def tags
-    @tags ||= begin
-      return {} if course_ids.empty?
+  def fetch_new_editor_counts(course_ids)
+    return {} if course_ids.empty?
 
-      Tag
-        .where(course_id: course_ids, tag: %w[first_time_instructor returning_instructor])
-        .select(:tag, :course_id)
-        .group_by(&:course_id)
-    end
+    User
+      .joins(courses_users: :course)
+      .where(courses_users: { course_id: course_ids, role: CoursesUsers::Roles::STUDENT_ROLE })
+      .where('users.registered_at >= courses.start AND users.registered_at <= courses.end')
+      .group('courses_users.course_id')
+      .count
   end
 
-  def revision_counts
-    @revision_counts ||= begin
-      return {} if course_ids.empty?
+  def fetch_wikis(batch)
+    home_wiki_ids = batch.map(&:home_wiki_id).compact.uniq
+    return {} if home_wiki_ids.empty?
 
-      namespaces = [
-        Article::Namespaces::MAINSPACE,
-        Article::Namespaces::TALK,
-        Article::Namespaces::USER
-      ]
-      ArticleCourseTimeslice
-        .where(tracked: true, course_id: course_ids)
-        .select(:revision_count, :course_id)
-        .joins(:article)
-        .where(articles: { namespace: namespaces })
-        .group(:course_id, :namespace)
-        .sum(:revision_count)
-    end
-  end
-
-  def new_editor_counts
-    @new_editor_counts ||= begin
-      return {} if course_ids.empty?
-
-      min_start = filtered_courses.minimum(:start)
-      max_end = filtered_courses.maximum(:end)
-      return {} unless min_start && max_end
-
-      User
-        .where(registered_at: min_start..max_end)
-        .joins(:courses_users)
-        .where(courses_users: { course_id: course_ids, role: CoursesUsers::Roles::STUDENT_ROLE })
-        .group(:course_id)
-        .count
-    end
-  end
-
-  def wikis
-    @wikis ||= begin
-      return {} if course_ids.empty?
-
-      Wiki.where(id: filtered_courses.pluck(:home_wiki_id)).group_by(&:id)
-    end
-  end
-
-  def home_wiki_url(course)
-    wikis[course.home_wiki_id]&.first&.domain || ''
+    Wiki.where(id: home_wiki_ids).group_by(&:id)
   end
 end
