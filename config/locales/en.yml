@@ -2226,9 +2226,6 @@ en:
       submit: "Add to course"
       all_added: "All available items have been added."
       no_gradables: "No gradable items found"
-      unbound:
-        header: "This Canvas course isn't linked to a Wiki Education course yet"
-        explanation: "Try again once you've set up your course page on dashboard.wikiedu.org"
     status:
       header: "Wiki Education Dashboard"
       linked: "Linked"

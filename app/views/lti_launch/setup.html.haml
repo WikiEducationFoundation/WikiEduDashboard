@@ -12,9 +12,13 @@
       .module
         %h4= t('lti.setup.link_existing.header')
         = label_tag :course_slug, t('lti.setup.link_existing.label')
+        - # With a single course, preselect it (no blank prompt) so the
+        - # instructor can just click Link. With several, require an explicit pick.
+        - single_course = @user_courses.one?
         = select_tag :course_slug,
-                     options_for_select(@user_courses.map { |c| [pretty_course_title(c), c.slug] }),
-                     required: true, include_blank: true
+                     options_for_select(@user_courses.map { |c| [pretty_course_title(c), c.slug] },
+                                        single_course ? @user_courses.first.slug : nil),
+                     required: true, include_blank: !single_course
       %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
     %p.lti-setup__alt-path
       = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link'

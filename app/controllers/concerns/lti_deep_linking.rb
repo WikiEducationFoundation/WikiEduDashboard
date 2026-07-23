@@ -36,10 +36,19 @@ module LtiDeepLinking
     return head :forbidden unless @lti_session.instructor?
 
     @binding = @lti_session.bound_binding
-    return render 'lti_launch/deep_link_unbound', layout: 'lti_iframe' if @binding.nil?
+    # Not linked yet: render the same "not yet linked" landing the course-nav
+    # launch shows, so the instructor's next step is the obvious "Open the
+    # Wiki Education Dashboard" button (there's nothing to pick until the
+    # course is linked there first).
+    return render_not_linked_landing if @binding.nil?
 
     prepare_picker
     render 'lti_launch/deep_link_picker', layout: 'lti_iframe'
+  end
+
+  def render_not_linked_landing
+    @show_not_linked_notice = true
+    render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
   end
 
   def deep_link_select

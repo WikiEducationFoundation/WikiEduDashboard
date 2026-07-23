@@ -185,6 +185,29 @@ describe LtiLaunchController, type: :request do
           end
         end
 
+        context 'and the instructor has exactly one linkable course' do
+          let(:solo_user) { create(:user, username: 'SoloInstructor') }
+
+          before do
+            allow_any_instance_of(ApplicationController)
+              .to receive(:current_user).and_return(solo_user)
+            solo_campaign = create(:campaign, slug: 'solo-campaign', title: 'Solo')
+            only = create(:course, slug: 'School/Only_Course_(2026)', title: 'Only Course',
+                                   start: 1.week.ago, end: 2.months.from_now)
+            CampaignsCourses.create!(course: only, campaign: solo_campaign)
+            CoursesUsers.create!(user: solo_user, course: only,
+                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          end
+
+          it 'preselects the sole course (no blank prompt) so the instructor can just link' do
+            get '/lti', params: { ltik: 'ltik-abc' }
+            expect(response.body)
+              .to include("<option selected=\"selected\" value=\"School/Only_Course_(2026)\"")
+            # No empty prompt option when there's only one choice.
+            expect(response.body).not_to include('<option value=""></option>')
+          end
+        end
+
         context 'and the instructor has zero approved not-yet-ended courses' do
           it 'hides the link-existing form and links to the dashboard home' do
             get '/lti', params: { ltik: 'ltik-abc' }
@@ -908,10 +931,13 @@ describe LtiLaunchController, type: :request do
       expect(response).to have_http_status(:forbidden)
     end
 
-    it 'renders the unbound view when no course is linked to this context' do
+    it 'renders the not-yet-linked landing (with the open-Dashboard button) when unbound' do
       get '/lti/deep_link', params: { ltik: 'ltik-abc' }
       expect(response).to have_http_status(:ok)
-      expect(response).to render_template('lti_launch/deep_link_unbound')
+      expect(response).to render_template('lti_launch/sign_in_to_continue')
+      expect(response.body).to include('not yet linked')
+      expect(response.body).to include('Open the Wiki Education Dashboard')
+      expect(response.body).to include('/lti/connect_course?ltik=ltik-abc')
     end
 
     it 'renders the picker listing the bound course gradables' do
