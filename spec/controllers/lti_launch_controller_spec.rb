@@ -783,6 +783,14 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('Read an article and evaluate its sourcing.')
       end
 
+      # Sandbox exercises keep their how-to in the exercise module's training
+      # page, so the panel links to it prominently alongside the sandbox.
+      it 'links to the exercise module instructions alongside the sandbox' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('Launch instructions')
+        expect(response.body).to match(%r{href="/training/[^"]*/eval-ex})
+      end
+
       context 'for a dedicated-page exercise (e.g. fact verification)' do
         let(:exercise_module) do
           create(:training_module, slug: 'fact-check-ex', name: 'Fact verification', kind: 1,

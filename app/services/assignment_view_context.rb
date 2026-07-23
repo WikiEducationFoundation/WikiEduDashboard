@@ -58,6 +58,19 @@ class AssignmentViewContext
     "/courses/#{@course.slug}/#{mod.exercise_path}"
   end
 
+  # Sandbox-based (mark-complete) exercises keep their how-to instructions in
+  # the exercise module's own training page. The student panel links to it
+  # prominently alongside the sandbox, since the sandbox alone doesn't explain
+  # the task. nil for dedicated-page exercises — their in-app page (exercise_url)
+  # carries the instructions itself.
+  def instructions_url
+    mod = exercise_modules.find(&:sandbox_location)
+    return unless mod
+
+    "/training/#{@course.training_library_slug}/#{mod.slug}" \
+      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+  end
+
   private
 
   def resolve_block

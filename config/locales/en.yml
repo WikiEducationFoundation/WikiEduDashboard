@@ -2355,6 +2355,7 @@ en:
       student:
         your_sandbox: "Your sandbox"
         open_exercise: "Open exercise"
+        launch_instructions: "Launch instructions"
       setup:
         summary: "%{connected} of %{total} have connected a Wikipedia account."
         empty: "The roster sync is pending. Check back shortly."

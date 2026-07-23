@@ -9,6 +9,13 @@
               class: 'button dark lti-iframe__button' do
       = t('lti.assignment_view.student.open_exercise')
       %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
+  - # Sandbox exercises: the instructions live in the exercise's training
+  - # module, so lead with a prominent link to it, then the sandbox itself.
+  - if @context.instructions_url
+    = link_to @context.instructions_url, target: '_blank', rel: 'noopener',
+              class: 'button dark lti-iframe__button' do
+      = t('lti.assignment_view.student.launch_instructions')
+      %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
   - if row.sandbox_url
     .lti-sandbox__actions
       = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,
