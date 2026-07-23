@@ -32,7 +32,7 @@ module LtiStudentEnrollment
   def student_destination
     return redirect_to "/courses/#{@binding.course.slug}" unless framed_request?
 
-    render 'lti_launch/student_status'
+    render_student_status(user: current_user)
   end
 
   def join_course_for_student

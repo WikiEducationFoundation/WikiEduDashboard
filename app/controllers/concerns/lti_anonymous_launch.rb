@@ -21,12 +21,21 @@ module LtiAnonymousLaunch
     return render_anonymous_assignment_view if @binding && assignment_launch?
     return render_instructor_status if @binding && @lti_session.instructor?
     # A linked student who's already enrolled needs nothing from the new-tab
-    # flow — confirm and link out. (Enrolling itself still needs a session.)
-    return render 'lti_launch/student_status' if @binding && enrolled?(launch_viewer)
+    # flow — show their progress overview in place. (Enrolling itself still
+    # needs a session.)
+    return render_student_status(user: launch_viewer) if @binding && enrolled?(launch_viewer)
 
     @show_not_linked_notice = @lti_session.present? && @binding.nil? &&
                               @lti_session.instructor?
     render 'lti_launch/sign_in_to_continue', layout: 'lti_iframe'
+  end
+
+  # The student progress overview (assigned articles + training/exercise
+  # completion + next step). Shared by the enrolled-student anonymous launch and
+  # the post-enrollment redirect, so both build the same context.
+  def render_student_status(user:)
+    @student_status = StudentStatusContext.new(course: @binding.course, user:)
+    render 'lti_launch/student_status'
   end
 
   # nil on any failure (expired ltik, LTIAAS hiccup): the landing must keep

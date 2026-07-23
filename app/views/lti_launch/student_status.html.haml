@@ -1,10 +1,54 @@
-- # Student-facing launch view inside the Canvas iframe once they're
-- # enrolled: the header confirms the connection, with the course title
-- # linking out to the Dashboard course in a new tab. Rendered instead of
-- # redirecting to the course page — the full dashboard can't render inside
-- # the iframe (Firefox enforces the course page's X-Frame-Options outright,
-- # and the React shell reads logged-out under partitioned cookies
-- # elsewhere). Top-level launches still redirect.
+- # Student progress overview inside the Canvas iframe once enrolled: a
+- # next-step banner, their assigned articles (mirroring "My Articles"), and
+- # rolled-up training + exercise completion. Rendered in place instead of
+- # redirecting to the course page — the full dashboard can't render inside the
+- # iframe (Firefox enforces the course page's X-Frame-Options, and the React
+- # shell reads logged-out under partitioned cookies). Every link opens the
+- # Dashboard in a new tab. Top-level launches still redirect to the course.
 .lti-iframe__drilldown
   = render 'lti_launch/drilldown_header',
-           title: t('lti.status.header'), course: @binding.course, linked_check: true
+           title: t('lti.status.header'), course: @student_status.course, linked_check: true
+
+  - step = @student_status.next_step
+  - if step
+    .lti-iframe__next-step
+      %h4= t('lti.student_overview.next_step')
+      %p
+        - if step.url
+          = link_to step.label, step.url, target: '_blank', rel: 'noopener'
+        - else
+          = step.label
+
+  - if @student_status.articles.any?
+    %section.lti-overview-section
+      %h4= t('lti.student_overview.my_articles')
+      %ul.lti-overview-list
+        - @student_status.articles.each do |article|
+          %li.lti-overview-item
+            .lti-overview-item__main
+              - if article.url
+                = link_to article.title, article.url, target: '_blank', rel: 'noopener'
+              - else
+                = article.title
+              %span.lti-overview-role= t("lti.student_overview.role.#{article.role}")
+              - if article.status_label.present?
+                %span.lti-muted= article.status_label
+            - if article.sandbox_url
+              = link_to t('lti.assignment_view.student.your_sandbox'), article.sandbox_url,
+                        target: '_blank', rel: 'noopener', class: 'lti-overview-link'
+
+  - if @student_status.training_items.any?
+    %section.lti-overview-section
+      %h4
+        = t('lti.student_overview.trainings')
+        %span.lti-overview-count
+          = "#{@student_status.trainings_completed} / #{@student_status.training_items.size}"
+      = render 'lti_launch/overview_items', items: @student_status.training_items
+
+  - if @student_status.exercise_items.any?
+    %section.lti-overview-section
+      %h4
+        = t('lti.student_overview.exercises')
+        %span.lti-overview-count
+          = "#{@student_status.exercises_completed} / #{@student_status.exercise_items.size}"
+      = render 'lti_launch/overview_items', items: @student_status.exercise_items

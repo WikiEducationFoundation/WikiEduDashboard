@@ -2324,6 +2324,14 @@ en:
         header: "[PLACEHOLDER - short heading prompting the instructor to add the Wikipedia assignments, e.g. \"Add your Wikipedia assignments\"]"
         instruction: "[PLACEHOLDER - next-step instruction: to add the assignments to this course, go to the Modules page, open the ⋮ (options) menu at the top, and choose \"Import Wikipedia assignments\"]"
     check_again: "Check again"
+    student_overview:
+      next_step: "Next step"
+      my_articles: "My articles"
+      trainings: "Trainings"
+      exercises: "Exercises"
+      role:
+        editing: "Editing"
+        reviewing: "Reviewing"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"
       explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
