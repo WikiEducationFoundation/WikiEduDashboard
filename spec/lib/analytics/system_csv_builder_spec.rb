@@ -226,8 +226,8 @@ describe SystemCsvBuilder do
   end
 
   describe '#new_editor_counts' do
-    let!(:old_student) { create(:user, username: 'old_student_user', registered_at: 1.day.ago) }
-    let!(:current_student) { create(:user, username: 'current_student_user', registered_at: 1.month.ago) }
+    let!(:old_student) { create(:user, username: 'old_student', registered_at: 1.day.ago) }
+    let!(:current_student) { create(:user, username: 'curr_student', registered_at: 1.month.ago) }
 
     before do
       create(:courses_user, course: archived_fr_course, user: old_student, role: CoursesUsers::Roles::STUDENT_ROLE)
