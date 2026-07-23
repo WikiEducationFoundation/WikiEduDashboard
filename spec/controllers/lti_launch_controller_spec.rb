@@ -268,6 +268,21 @@ describe LtiLaunchController, type: :request do
           expect(LtiRosterSyncWorker).to have_received(:perform_async)
             .with(binding.id)
         end
+
+        # Deep-link-first: before anything is imported, the status view points
+        # the instructor at the Modules import path.
+        it 'shows the import next-step when no assignments are imported yet' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('lti-iframe__next-step')
+        end
+
+        it 'drops the import next-step once an assignment is imported' do
+          LtiLineItem.create!(lti_course_binding: binding,
+                              gradable_type: LtiLineItem::SETUP_TYPE,
+                              lineitem_id: 'https://canvas/li/setup', label: 'Wikipedia account')
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).not_to include('lti-iframe__next-step')
+        end
       end
     end
 

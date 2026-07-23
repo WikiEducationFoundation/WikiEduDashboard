@@ -2231,6 +2231,9 @@ en:
       linked: "Linked"
       refresh: "Refresh"
       grade_sync_error: "There was an error syncing the grades."
+      import_next_step:
+        header: "[PLACEHOLDER - short heading prompting the instructor to add the Wikipedia assignments, e.g. \"Add your Wikipedia assignments\"]"
+        instruction: "[PLACEHOLDER - next-step instruction: to add the assignments to this course, go to the Modules page, open the ⋮ (options) menu at the top, and choose \"Import Wikipedia assignments\"]"
     check_again: "Check again"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"

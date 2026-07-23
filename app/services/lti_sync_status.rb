@@ -26,6 +26,13 @@ class LtiSyncStatus
     @binding.last_grade_sync_error.present?
   end
 
+  # Deep-link-first: nothing is created until the instructor imports. When no
+  # column has been imported/bound yet, the status view shows the how-to-import
+  # next step.
+  def assignments_imported?
+    @binding.lti_line_items.active.exists?
+  end
+
   private
 
   # Students only — a bound course's instructor also has a linked context,

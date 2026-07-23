@@ -24,6 +24,13 @@
         = link_to t('lti.status.refresh'),
                   "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
                   class: 'lti-status-list__refresh'
+  -# Deep-link-first: before anything is imported, point the instructor at the
+  -# Modules import path — the non-obvious next step once a course is linked.
+  -# Drops away as soon as any assignment is imported.
+  - unless @sync_status.assignments_imported?
+    .lti-iframe__next-step
+      %h4= t('lti.status.import_next_step.header')
+      %p= t('lti.status.import_next_step.instruction')
   - if @sync_status.grade_sync_error?
     .lti-setup__error
       %p= t('lti.status.grade_sync_error')
