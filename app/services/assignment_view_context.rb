@@ -9,10 +9,10 @@
 # including "Evaluate Wikipedia". The sentinel columns have their own
 # contexts (SetupAssignmentViewContext, TrainingsAssignmentViewContext).
 class AssignmentViewContext
-  StudentRow = Struct.new(:name, :username, :completed, :sandbox_url,
+  StudentRow = Struct.new(:name, :username, :progress_state, :sandbox_url,
                           keyword_init: true) do
     def completed?
-      completed
+      progress_state == :complete
     end
   end
 
@@ -72,8 +72,19 @@ class AssignmentViewContext
 
   def row_for(user, name:)
     StudentRow.new(name:, username: user.username,
-                   completed: completed_for?(user),
+                   progress_state: progress_state_for(user),
                    sandbox_url: sandbox_url_for(user))
+  end
+
+  # :complete once the exercise is marked done, :partial while a dedicated-page
+  # exercise is under way (the student has started but not submitted), else
+  # :none — so the pill and next-step read truthfully rather than showing
+  # "not started" to someone mid-exercise.
+  def progress_state_for(user)
+    return :complete if completed_for?(user)
+    return :partial if exercise_in_progress?(user)
+
+    :none
   end
 
   # Reuses the same completion logic — including the same exercises_only
@@ -85,6 +96,20 @@ class AssignmentViewContext
 
     LtiBlockProgress.new(@block, user, exercises_only: @binding.rolled_up_trainings?)
                     .score_given >= 1.0
+  end
+
+  # In-progress is only detectable for the fact-verification exercise: taking a
+  # claim creates a VerificationClaimAssignment (a re-pointable cursor), and
+  # submitting the response is what marks the module complete. Sandbox exercises
+  # have no comparable "started" signal, so they stay :none until complete.
+  def exercise_in_progress?(user)
+    return false unless fact_verification_block?
+
+    VerificationClaimAssignment.exists?(user_id: user.id, course_id: @course.id)
+  end
+
+  def fact_verification_block?
+    exercise_modules.any? { |mod| mod.exercise_path == 'verify_claim' }
   end
 
   # Built even before the student starts, so the link points to where their

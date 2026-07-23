@@ -798,6 +798,23 @@ describe LtiLaunchController, type: :request do
           expect(response.body).not_to include('Your sandbox')
           expect(response.body).not_to include('Read an article and evaluate its sourcing.')
         end
+
+        it 'reads "Not started" before the student takes a claim' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Not started')
+        end
+
+        # Taking a claim creates a VerificationClaimAssignment; until the
+        # response is submitted (which marks the module complete) the exercise
+        # is in progress, not "Not started".
+        it 'reads "In progress" once the student has taken a claim' do
+          claim = VerificationClaim.create!(sentence: 'A cited claim.', wiki: Wiki.default_wiki)
+          VerificationClaimAssignment.create!(user: user, course: course,
+                                              verification_claim: claim)
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('In progress')
+          expect(response.body).not_to include('Not started')
+        end
       end
     end
 

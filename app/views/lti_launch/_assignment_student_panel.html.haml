@@ -1,7 +1,7 @@
 - row = @context.student_panel
 .lti-iframe__panel
-  %span.lti-status{ class: row.completed? ? 'lti-status--done' : 'lti-status--pending' }
-    = row.completed? ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
+  %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+    = lti_progress_status_label(row.progress_state)
   - # Dedicated-page exercises (e.g. fact verification): status + a button
   - # out to the exercise page; there's no sandbox to preview.
   - if @context.exercise_url

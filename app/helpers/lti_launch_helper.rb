@@ -15,6 +15,18 @@ module LtiLaunchHelper
     PROGRESS_PILL_CLASSES.fetch(state, 'lti-status--pending')
   end
 
+  # Status-label i18n key for a three-state progress value, so the exercise
+  # roster and student panel share one complete/in-progress/not-started label.
+  PROGRESS_STATUS_KEYS = {
+    complete: 'completed',
+    partial: 'in_progress',
+    none: 'not_started'
+  }.freeze
+
+  def lti_progress_status_label(state)
+    t("lti.assignment_view.status.#{PROGRESS_STATUS_KEYS.fetch(state, 'not_started')}")
+  end
+
   # "%{time} ago" for a sync timestamp, or the "not yet synced" copy when nil.
   # Shared by the roster row and the grade-sync partial so the two read the same.
   def lti_last_synced(time)

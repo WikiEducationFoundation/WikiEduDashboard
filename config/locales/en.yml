@@ -2339,6 +2339,7 @@ en:
       # operator-supplied gradebook comments in LtiSetupProgress.
       status:
         completed: "Completed"
+        in_progress: "In progress"
         not_started: "Not started"
         connected: "Connected"
         not_connected: "Not connected"
