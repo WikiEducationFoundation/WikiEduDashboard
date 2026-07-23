@@ -121,10 +121,8 @@ describe 'Instructor setup illustrated guide', :staging do
     end
     capture('04-dashboard-setup-course-selected')
 
-    # The deep-link-first mode: nothing auto-created; assignments arrive via
-    # the Modules-page import below. (The capture above shows the default
-    # selection; the switch itself isn't part of the story.)
-    find(:css, "input[type=radio][value='lumped']").click
+    # Deep-link-first: no gradebook-layout choice — just link. Assignments
+    # arrive via the Modules-page import below.
     click_button 'Link this course'
     # Gate on the bound course home + its LMS panel rendering (which implies the
     # redirect finished) so the shot isn't a blank mid-load page, then clear the

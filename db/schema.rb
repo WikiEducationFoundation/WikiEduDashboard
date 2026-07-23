@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_23_000000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -415,7 +415,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_21_000000) do
     t.text "ltiaas_service_credentials"
     t.string "nrps_url"
     t.string "ags_lineitems_url"
-    t.string "gradebook_granularity", default: "standard", null: false
+    t.string "gradebook_granularity", default: "lumped", null: false
     t.datetime "last_roster_sync_at"
     t.datetime "last_grade_sync_at"
     t.text "last_grade_sync_error"

@@ -211,10 +211,10 @@ class LtiLaunchController < ApplicationController
   end
 
   def bind_course_and_sync
-    @binding.update!(
-      course: course_from_params,
-      gradebook_granularity: params[:gradebook_granularity]
-    )
+    # Deep-link-first: no gradebook-layout choice — the binding keeps its
+    # default (lumped), nothing is auto-created, and the instructor imports
+    # columns via the Canvas Modules "Import Wikipedia assignments" flow.
+    @binding.update!(course: course_from_params)
     course_from_params.flags[:canvas_integration] = true
     course_from_params.save
     LtiRosterSyncWorker.perform_async(@binding.id)

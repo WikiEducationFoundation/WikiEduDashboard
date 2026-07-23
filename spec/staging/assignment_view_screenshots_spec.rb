@@ -113,8 +113,9 @@ describe 'Assignment drill-down screenshots', :staging do
   # enrolls them), fabricate the rest of the roster, import all assignments
   # via the Modules placement, then sync line items + grades.
   def prepare_course_state(slug:, canvas_id:, timeline:)
-    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug,
-                              granularity: 'lumped')
+    # Deep-link-first is the default now; nothing to select at setup. The
+    # import via the Modules placement (below) creates every column.
+    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug)
     in_student_browser do
       student_walk_to_dashboard(canvas_course_id: canvas_id,
                                 email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))

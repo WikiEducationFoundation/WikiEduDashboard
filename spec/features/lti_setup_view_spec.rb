@@ -56,7 +56,8 @@ describe 'LTI instructor setup view', type: :feature, js: true do
                                text: 'Demo U - Active Course (2026)')
       expect(page).to have_css("#course_slug option[value='School/Upcoming_Course_(2026)']",
                                text: 'Demo U - Upcoming Course (2026)')
-      expect(page).to have_content('One column for all trainings')
+      # Deep-link-first: no gradebook-layout choice in the setup step.
+      expect(page).to have_no_content('gradebook layout')
       expect(page).to have_link('Create a course on the Dashboard', href: '/')
     end
   end

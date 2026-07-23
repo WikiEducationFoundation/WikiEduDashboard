@@ -27,11 +27,11 @@ describe LtiCourseBinding do
       expect(binding.errors[:gradebook_granularity]).to be_present
     end
 
-    it "defaults gradebook_granularity to 'standard'" do
+    it "defaults gradebook_granularity to 'lumped' (deep-link-first)" do
       binding = described_class.create!(base_attrs)
-      expect(binding.gradebook_granularity).to eq('standard')
-      expect(binding).to be_standard
-      expect(binding).not_to be_lumped
+      expect(binding.gradebook_granularity).to eq('lumped')
+      expect(binding).to be_lumped
+      expect(binding).not_to be_standard
       expect(binding).not_to be_per_block
     end
   end

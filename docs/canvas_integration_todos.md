@@ -49,13 +49,20 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## Linking / launch model (design)
 
-- [ ] **Collapse the granularity model around deep-link-first.** `lumped` has
-  been repurposed as the deep-link-first mode: it now auto-creates NOTHING
-  (not even the setup/roll-up sentinels — those are importable via the picker,
-  per operator direction 2026-07-21) and discovery binds any tagged column.
-  The setup form still offers three radios with the `lumped` label as a
-  placeholder; once deep-link-first is validated on staging, decide whether
-  standard/per_block survive at all and redesign the setup step accordingly.
+- [x] **Deep-link-first is now the model (decided + shipped 2026-07-23).** Per
+  operator direction, the gradebook-layout radios were removed from the setup
+  step entirely — linking a course just links it. New bindings default to
+  `lumped` (auto-create nothing); the instructor imports every column (account
+  indicator, trainings roll-up, exercises) via the Modules "Import Wikipedia
+  assignments" flow, and `SyncLtiLineItems` discovers + binds them.
+  - **Vestigial follow-up:** `standard`/`per_block` (auto-create) remain as
+    valid `gradebook_granularity` values with working code, but are no longer
+    user-selectable (retained only so existing rows / the gradebook & full-course
+    screenshot galleries keep working — those galleries force `standard` via
+    `DashboardAdminClient.set_granularity` as a shortcut). Removing
+    standard/per_block entirely (and reworking those two galleries onto the
+    deep-link import flow) is the remaining cleanup. `gradebook_granularity`
+    could then collapse to a boolean or be dropped.
 
 - [ ] **Bulk deep-linking via `module_index_menu_modal` (built; working).** The
   import flow works end-to-end (verified: one submit → one published module

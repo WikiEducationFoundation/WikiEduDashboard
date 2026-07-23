@@ -385,42 +385,39 @@ describe LtiLaunchController, type: :request do
                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       end
 
-      it 'binds the course and persists the chosen granularity' do
+      it 'binds the course as deep-link-first (no layout choice)' do
         post '/lti/setup', params: {
           binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'per_block'
+          course_slug: course.slug
         }
         binding.reload
         expect(binding.course).to eq(course)
-        expect(binding.gradebook_granularity).to eq('per_block')
+        # No gradebook-layout radios anymore; the binding keeps the
+        # deep-link-first default regardless of any submitted param.
+        expect(binding.gradebook_granularity).to eq('lumped')
         expect(response).to redirect_to("/courses/#{course.slug}")
       end
 
-      it 'enqueues a roster sync after binding' do
+      it 'ignores a stray gradebook_granularity param' do
         post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'lumped'
+          binding_id: binding.id, course_slug: course.slug,
+          gradebook_granularity: 'per_block'
         }
+        expect(binding.reload.gradebook_granularity).to eq('lumped')
+      end
+
+      it 'enqueues a roster sync after binding' do
+        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
         expect(LtiRosterSyncWorker).to have_received(:perform_async).with(binding.id)
       end
 
       it 'sets the canvas_integration flag on the linked course' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'lumped'
-        }
+        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
         expect(course.reload.flags[:canvas_integration]).to be true
       end
 
       it 'sets a flash notice so the course page confirms the link' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'standard'
-        }
+        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
         expect(flash[:notice]).to be_present
       end
 
@@ -430,8 +427,7 @@ describe LtiLaunchController, type: :request do
       it 'renders the in-iframe status view when submitted from the iframe' do
         post '/lti/setup', params: {
           binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'standard'
+          course_slug: course.slug
         }, headers: { 'Sec-Fetch-Dest' => 'iframe' }
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('lti_launch/instructor_status')
@@ -453,8 +449,7 @@ describe LtiLaunchController, type: :request do
       it 're-renders setup without binding, instead of raising a 500' do
         post '/lti/setup', params: {
           binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'lumped'
+          course_slug: course.slug
         }
         expect(response).to have_http_status(422)
         expect(binding.reload.course).to be_nil
@@ -466,8 +461,7 @@ describe LtiLaunchController, type: :request do
       it 'returns 403 and does not bind' do
         post '/lti/setup', params: {
           binding_id: binding.id,
-          course_slug: course.slug,
-          gradebook_granularity: 'lumped'
+          course_slug: course.slug
         }
         expect(response).to have_http_status(:forbidden)
         expect(binding.reload.course).to be_nil
@@ -478,8 +472,7 @@ describe LtiLaunchController, type: :request do
       it 'returns 403' do
         post '/lti/setup', params: {
           binding_id: binding.id,
-          course_slug: 'nope/missing',
-          gradebook_granularity: 'lumped'
+          course_slug: 'nope/missing'
         }
         expect(response).to have_http_status(:forbidden)
       end

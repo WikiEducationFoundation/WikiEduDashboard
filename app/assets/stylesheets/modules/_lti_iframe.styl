@@ -61,12 +61,10 @@ body.lti-iframe
 .lti-iframe__button
   display inline-block
 
-// Option lists in the deep-link picker and the setup form's gradebook-layout
-// chooser: one option per row (bare inline labels otherwise wrap into a
-// horizontal jumble). Grid keeps the input in its own column with the label
-// text — and any example/description line — aligned beside it.
-.lti-deep-link-options,
-.lti-granularity-options
+// Option list in the deep-link import picker: one option per row (bare inline
+// labels otherwise wrap into a horizontal jumble). Grid keeps the input in its
+// own column with the label text aligned beside it.
+.lti-deep-link-options
   display flex
   flex-direction column
   gap 10px
@@ -78,14 +76,6 @@ body.lti-iframe
     column-gap 8px
     align-items baseline
     cursor pointer
-
-    p
-      grid-column 2
-      margin 2px 0 0
-
-.lti-granularity-example
-  color #5a6b7b
-  font-size 13px
 
 // Setup form: "Link this course" is a primary action that only makes sense
 // once a course is chosen, so JS disables it until then; dim it and swap the

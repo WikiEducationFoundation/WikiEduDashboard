@@ -90,8 +90,11 @@ describe 'Full course — instructor gallery', :staging do
   # link the student, mark ~half the milestones complete for a realistic mix,
   # then sync line items + grade. Returns nil, or :no_student.
   def prepare_full_course(slug:, canvas_id:, blocks:)
-    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug,
-                              granularity: 'standard')
+    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug)
+    # Gallery shortcut: force 'standard' to auto-create every milestone column
+    # for the full-course gradebook shot (deep-link-first is the product
+    # default; follow-up to rework this gallery onto the import flow).
+    DashboardAdminClient.set_granularity(course_slug: slug, granularity: 'standard')
     binding = DashboardAdminClient.find_binding(course_slug: slug)
     DashboardAdminClient.run_roster_sync(binding_id: binding['id'])
     linked = DashboardAdminClient.link_student_context(course_slug: slug,

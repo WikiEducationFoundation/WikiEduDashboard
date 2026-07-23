@@ -86,10 +86,13 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
   it 'shows the connected student marked and the not-connected student unmarked' do
     slug = provisioned[:dashboard_course_slug]
     canvas_id = provisioned[:canvas_course_id]
-    # 'standard' auto-creates the full column set (account + trainings +
-    # per-exercise); the gradebook story is the same in every mode.
-    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug,
-                              granularity: 'standard')
+    bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug)
+    # Force 'standard' to auto-create the full column set (account + trainings +
+    # per-exercise) for the gradebook shot, rather than driving the Modules
+    # import. The gradebook looks the same either way; deep-link-first is the
+    # product default now, so this is a gallery shortcut (follow-up: rework
+    # onto the import flow).
+    DashboardAdminClient.set_granularity(course_slug: slug, granularity: 'standard')
     binding_id = DashboardAdminClient.find_binding(course_slug: slug)['id']
 
     set_up_connected_student(slug, binding_id)

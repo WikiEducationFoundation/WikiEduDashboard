@@ -151,7 +151,7 @@ module LaunchHelpers
   # this in the default session and the student walk inside
   # `in_student_browser`. The binding is what captures the LTIAAS
   # service_key, so this step is a prerequisite for any roster/grade sync.
-  def bind_course_as_instructor(canvas_course_id:, course_slug:, granularity: 'lumped')
+  def bind_course_as_instructor(canvas_course_id:, course_slug:)
     enable_course_nav_tab(canvas_course_id)
     in_canvas do
       ensure_canvas_logged_in_as_instructor
@@ -160,7 +160,7 @@ module LaunchHelpers
       break_out_of_canvas_iframe(role: :instructor)
     end
     dismiss_consent_banner
-    complete_dashboard_setup(course_slug:, granularity:)
+    complete_dashboard_setup(course_slug:)
     expect(page).to have_current_path(%r{/courses/}, wait: 20)
   end
 
@@ -300,12 +300,11 @@ module LaunchHelpers
     expect(page).to have_no_css('.add_item_button', wait: 15)
   end
 
-  # On the dashboard's setup view, identify the course we want to link
-  # and submit. The form's `course_slug` field is a select whose
-  # options' visible text is the slug itself; older deployed-staging
-  # builds rendered it as a text input, so the helper branches.
-  def complete_dashboard_setup(course_slug:, granularity: 'lumped')
-    submit_course_link(course_slug:, granularity:)
+  # On the dashboard's setup view, pick the course to link and submit.
+  # Deep-link-first: there's no gradebook-layout choice — just the course
+  # select + "Link this course".
+  def complete_dashboard_setup(course_slug:)
+    submit_course_link(course_slug:)
     # The setup POST occasionally 500s on staging; go back to the form and
     # resubmit rather than failing the whole walk on a transient blip.
     2.times do
@@ -314,25 +313,16 @@ module LaunchHelpers
 
       warn '  [retry] setup POST returned a 500; going back and resubmitting'
       page.go_back
-      submit_course_link(course_slug:, granularity:)
+      submit_course_link(course_slug:)
     end
     expect(page).to have_current_path(%r{/courses/}, url: true, wait: 30)
   end
 
-  # Pick the course + granularity on the setup view and submit. The
-  # `course_slug` select is labelled with the readable course title but its
-  # option value is the slug, so pick by value; older deployed builds
-  # rendered a text input, so branch on what's present.
-  def submit_course_link(course_slug:, granularity: 'lumped')
+  # Pick the course on the setup view and submit. The `course_slug` select is
+  # labelled with the readable course title but its option value is the slug.
+  def submit_course_link(course_slug:)
     expect(page).to have_content('Set up the Wiki Education Dashboard')
-    if page.has_select?('course_slug')
-      find("#course_slug option[value='#{course_slug}']").select_option
-    else
-      fill_in 'course_slug', with: course_slug
-    end
-    # Always click the requested radio — don't assume which one is
-    # default-checked (it has changed as the granularity model evolved).
-    find(:css, "input[type=radio][value='#{granularity}']").click
+    find("#course_slug option[value='#{course_slug}']").select_option
     click_button 'Link this course'
   end
 

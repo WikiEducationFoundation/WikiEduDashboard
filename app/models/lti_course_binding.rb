@@ -12,7 +12,7 @@
 #  ltiaas_service_credentials :text(65535)
 #  nrps_url                   :string(255)
 #  ags_lineitems_url          :string(255)
-#  gradebook_granularity      :string(255)      default("standard"), not null
+#  gradebook_granularity      :string(255)      default("lumped"), not null
 #  last_roster_sync_at        :datetime
 #  last_grade_sync_at         :datetime
 #  last_grade_sync_error      :text(65535)
@@ -33,16 +33,20 @@
 # `course_id` may be nil briefly between binding creation and the
 # instructor's setup-flow choice (link existing / create new).
 #
-# `gradebook_granularity` controls how AGS line items map to the Dashboard
-# timeline (constant order = display order of the setup-form radios):
-#   - 'standard'  (default) => one line item rolling up training-module
-#                    completion, plus one auto-created line item per
-#                    exercise block
-#   - 'per_block' => one line item per graded block (trainings included)
-#   - 'lumped'    => the trainings roll-up only; the instructor adds the
-#                    exercise columns they want via the deep-link picker
+# `gradebook_granularity` is now effectively single-valued: the integration
+# is **deep-link-first** — nothing is auto-created; the instructor imports the
+# columns they want (account indicator, trainings roll-up, exercises) via the
+# Canvas Modules "Import Wikipedia assignments" flow, and this service
+# discovers + binds them. New bindings default to 'lumped' (the deep-link-first
+# mode) and the setup step no longer offers a layout choice.
+#
+# 'standard' (auto-create roll-up + per-exercise) and 'per_block' (a column per
+# block) remain valid values with working code, but are no longer user-
+# selectable — retained only for any existing rows / tooling. Removing them
+# entirely is a follow-up (see docs/canvas_integration_todos.md).
 class LtiCourseBinding < ApplicationRecord
   GRADEBOOK_GRANULARITIES = %w[standard per_block lumped].freeze
+  DEFAULT_GRANULARITY = 'lumped'
 
   # Human-readable LMS labels keyed by the LTI 1.3 `product_family_code`
   # values we expect to see. Unknown families fall back to a titleized

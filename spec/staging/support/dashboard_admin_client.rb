@@ -101,6 +101,21 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip == 'false'
   end
 
+  # Force a binding's gradebook_granularity. Deep-link-first ('lumped') is now
+  # the only mode the setup step produces; the gradebook/full-course galleries
+  # still want the auto-create modes ('standard'/'per_block') to populate a
+  # gradebook without driving the Modules import, so they set it here after
+  # binding. (Those galleries are a follow-up to rework onto deep-link import.)
+  def set_granularity(course_slug:, granularity:)
+    script = <<~RUBY
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      LtiCourseBinding.find_by!(course_id: course.id)
+                      .update!(gradebook_granularity: #{granularity.inspect})
+      puts 'ok'
+    RUBY
+    DashboardConsole.run(script).strip == 'ok'
+  end
+
   def find_binding(course_slug:)
     script = <<~RUBY
       require 'json'

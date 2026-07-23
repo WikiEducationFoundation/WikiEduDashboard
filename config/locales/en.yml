@@ -2212,21 +2212,9 @@ en:
       link_existing:
         header: "Link an existing Wiki Education course"
         label: "Course"
-      granularity:
-        header: "Canvas gradebook layout"
-        explanation: "How would you like Wikipedia training and exercise progress to appear in your Canvas gradebook? You can change this later."
-        standard:
-          label: "One column for all trainings, plus one column per exercise (recommended)"
-          example: "Wikipedia trainings: 5/12 complete · Bibliography: 1.0 (sandbox link in comment) · Outline: 0.0"
-        per_block:
-          label: "A separate column for every training and exercise"
-          example: "Wk 1 Trainings: 1.0 · Wk 2 Trainings: 1.0 · Wk 3 Bibliography: 1.0 (sandbox link) · Wk 4 Outline: 0.0 · …"
-        lumped:
-          label: "[PLACEHOLDER - radio label for the minimal layout: one column for all trainings; the instructor adds individual exercise columns manually via the Canvas assignment picker]"
-          example: "[PLACEHOLDER - gradebook example for the minimal layout, matching the style of the other two examples]"
       submit: "Link this course"
-      linked_notice: "[PLACEHOLDER - flash confirmation on the course page right after linking; %{lms_course} is the Canvas course title]"
-      already_linked: "[PLACEHOLDER - message: the chosen Wiki Education course is already linked to another Canvas course; ask the instructor to pick a different one]"
+      linked_notice: "Your course %{lms_course} is linked!"
+      already_linked: "Error: This course is already linked."
       create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
     deep_link:
@@ -2234,9 +2222,9 @@ en:
       header: "Choose Wikipedia task"
       header_multiple: "Import Wikipedia assignments"
       instruction: "Choose a Wikipedia task for this gradable item"
-      instruction_multiple: "[PLACEHOLDER - instruction above the multi-select checkbox list: all the course's Wikipedia assignments are pre-selected; uncheck any they don't want, then add them all at once]"
+      instruction_multiple: "Choose which items from the Wiki Education Dashboard timeline to import."
       submit: "Add to course"
-      all_added: "[PLACEHOLDER - shown when every Wikipedia task already has a Canvas assignment, so there is nothing left to add]"
+      all_added: "All available items have been added."
       no_gradables: "No gradable items found"
       unbound:
         header: "This Canvas course isn't linked to a Wiki Education course yet"
@@ -2245,7 +2233,7 @@ en:
       header: "Wiki Education Dashboard"
       linked: "Linked"
       refresh: "Refresh"
-      grade_sync_error: "[PLACEHOLDER - notice that the most recent gradebook sync hit an error, and what the instructor should do (e.g. contact Wiki Education staff)]"
+      grade_sync_error: "There was an error syncing the grades."
     check_again: "Check again"
     setup_pending:
       header: "Wiki Education Dashboard is being set up"
@@ -2278,8 +2266,8 @@ en:
         your_sandbox: "Your sandbox"
         open_exercise: "Open exercise"
       setup:
-        summary: "[PLACEHOLDER - instructor summary line for the account column, interpolating %{connected} and %{total}: how many students have connected a Wikipedia account]"
-        empty: "[PLACEHOLDER - shown when no Canvas roster members have been discovered yet (roster sync pending); suggest checking back shortly]"
+        summary: "%{connected} of %{total} have connected a Wikipedia account."
+        empty: "The roster sync is pending. Check back shortly."
       trainings:
         # Mirrors the operator-supplied gradebook comment phrasing in
         # LtiTrainingProgress ("X of Y trainings completed").
