@@ -101,6 +101,25 @@ lb:
       sections:
         name: Numm
         description: Beschreiwung
+  system_stats:
+    kpis:
+      new_editors: Nei Editeuren
+      active_programs: Aktiv Programmen
+    tables:
+      wiki: Wiki
+      edits: Ännerungen
+      programs: Programmen
+      new_editors: Nei Editeuren
+    facilitators:
+      username: Benotzernumm
+      courses: Coursen
+      active: Aktiv
+      active_in_year: Aktiv am Joer
+      "yes": Jo
+      "no": Nee
+    pagination:
+      previous: Vireg
+      next: Nächst
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -416,15 +435,15 @@ lb:
   courses_generic:
     school_system: Akademesche System
     all_courses: All Progtrammer
-    archived: Archivéiert Programmer
+    archived: Archivéiert Programmen
     articles_i_am_reviewing: Artikelen, déi ech nokucken
     assignment_end: Enn vum Evenement
     assignment_start: Ufank vum Evenement
     cancel: Ofbriechen
     course: Programm
-    courses: Programmer
+    courses: Programmen
     campaigns: 'Campagnen:'
-    campaign_courses: '%{title} Programmer'
+    campaign_courses: '%{title} Programmen'
     creator:
       assignment_end: Enn vum Evenement
       assignment_end_placeholder: JJJJ-MM-DD
@@ -463,7 +482,7 @@ lb:
     term: Wéini
     view_other: Aner Campagne weisen
     view_page: Säit weisen
-    yourcourses: Är Programmer
+    yourcourses: Är Programmen
   editable:
     edit: Änneren
     cancel: Ofbriechen
@@ -659,6 +678,7 @@ lb:
     no_articles: Keng Artikelen disponibel
     form:
       edit_response: Äntwert änneren
+      submit_failed: Feeler! Är Äntwert gouf net gespäichert.
     admin:
       status: 'Status: %{status}'
   update_username:
