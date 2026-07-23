@@ -373,6 +373,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_23_000000) do
     t.index ["wiki_id"], name: "index_courses_wikis_on_wiki_id"
   end
 
+  create_table "facilitator_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.date "snapshot_date", null: false
+    t.integer "user_id", null: false
+    t.integer "total_programs_count", default: 0
+    t.integer "active_programs_count", default: 0
+    t.integer "total_edits", default: 0
+    t.integer "new_editors_count", default: 0
+    t.integer "new_editors_count_with_preregistration", default: 0
+    t.integer "total_students_count", default: 0
+    t.bigint "total_characters_added", default: 0
+    t.boolean "active_in_last_year", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["snapshot_date", "user_id"], name: "index_facilitator_stats_on_snapshot_date_and_user_id", unique: true
+    t.index ["user_id"], name: "index_facilitator_stats_on_user_id"
+  end
+
   create_table "faqs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -601,6 +618,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_23_000000) do
     t.index ["survey_id"], name: "index_surveys_question_groups_on_survey_id"
   end
 
+  create_table "system_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.date "snapshot_date", null: false
+    t.bigint "total_edits", default: 0
+    t.bigint "total_article_views", default: 0
+    t.integer "total_articles_improved", default: 0
+    t.integer "total_articles_created", default: 0
+    t.integer "active_programs_count", default: 0
+    t.integer "archived_programs_count", default: 0
+    t.integer "new_editors_count", default: 0
+    t.integer "new_editors_count_with_preregistration", default: 0
+    t.integer "active_facilitators_count", default: 0
+    t.bigint "total_characters_added", default: 0
+    t.text "wiki_stats"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["snapshot_date"], name: "index_system_stats_on_snapshot_date", unique: true
+  end
+
   create_table "tags", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "course_id"
     t.string "tag"
@@ -743,6 +778,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_23_000000) do
     t.index ["verification_claim_id"], name: "index_verification_claim_assignments_on_verification_claim_id"
   end
 
+  create_table "verification_claim_responses", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "claim_location"
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.text "other_comments"
+    t.string "source_access", null: false
+    t.text "source_access_notes"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.string "verdict"
+    t.integer "verification_claim_id", null: false
+    t.text "verification_notes"
+    t.index ["course_id"], name: "index_verification_claim_responses_on_course_id"
+    t.index ["verification_claim_id"], name: "index_verification_claim_responses_on_verification_claim_id"
+    t.index ["user_id", "course_id", "verification_claim_id"], name: "index_verification_claim_responses_uniqueness", unique: true
+  end
+
   create_table "verification_claims", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "alert_id"
     t.text "archive_url"
@@ -797,6 +849,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_23_000000) do
   add_foreign_key "admin_course_notes", "courses", column: "courses_id"
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
+  add_foreign_key "facilitator_stats", "users"
   add_foreign_key "lti_contexts", "lti_course_bindings", on_delete: :cascade
   add_foreign_key "lti_contexts", "users", on_delete: :cascade
   add_foreign_key "lti_course_bindings", "courses", on_delete: :cascade

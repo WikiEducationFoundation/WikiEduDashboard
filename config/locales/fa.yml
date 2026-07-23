@@ -221,6 +221,8 @@ fa:
     campaigns: کمپین‌ها
     customize_passcode: گذرواژهٔ پیش‌فرض
     data_articles: صفحه‌های ویرایش‌شده
+    data_wikidata: آمار ویکی‌داده
+    data_wikidata_info: جزئیات مفصل از فعالیت ویکی‌داده، بر اساس خلاصه‌های ویرایش
     default_passcode: رمز عبور پیش‌فرض
     description: توضیحات
     none: هیچ‌کدام
@@ -304,6 +306,8 @@ fa:
       start_date_placeholder: YYYY-MM-DD
       subject: موضوع
     current: دوره‌های کنونی
+    data_wikidata: آمار ویکی‌داده
+    data_wikidata_info: جزئیات مفصل از فعالیت ویکی‌داده، بر اساس خلاصه‌های ویرایش
     dates_too_long: بیشینهٔ طول، یک سال است.
     delete_course: حذف دوره
     delete_suggestion: حذف
@@ -511,6 +515,7 @@ fa:
     user: فضای نام کاربر
     user_char_added: کاراکترهای افزوده‌شده فضای کاربر
     project: پروژه
+    mediaWiki: مدیاویکی
   recent_activity:
     active_courses: مقاله فعال است در
     article_title: عنوان مقاله
@@ -735,4 +740,5 @@ fa:
     filtered_articles_wikidata: آیتم‌های پالایش‌شده
     remove_article_wikidata: حذف آیتم‌ها
     searching_articles_wikidata: جستجو برای آیتم‌ها
+    subheading_message_wikidata: بیایید یک آیتم ویکی‌داده برای کار پیدا کنیم.
 ...

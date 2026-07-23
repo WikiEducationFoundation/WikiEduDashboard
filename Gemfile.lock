@@ -210,8 +210,9 @@ GEM
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
-    css_parser (1.22.0)
+    css_parser (3.0.0)
       addressable
+      ssrf_filter (~> 1.5)
     csv (3.3.5)
     dalli (3.2.3)
     date (3.5.1)
@@ -351,7 +352,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.7.0)
-    loofah (2.25.1)
+    loofah (2.25.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     lumberjack (1.4.2)
@@ -670,6 +671,7 @@ GEM
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
       ostruct
+    ssrf_filter (1.5.0)
     stackprof (0.2.23)
     stringio (3.2.0)
     temple (0.10.4)
@@ -703,7 +705,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.11)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -735,7 +737,7 @@ DEPENDENCIES
   capybara-screenshot
   chartkick
   connection_pool
-  css_parser (~> 1.22)
+  css_parser (~> 3.0)
   csv
   dalli
   deep_cloneable

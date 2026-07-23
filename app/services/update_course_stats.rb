@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
-require_dependency "#{Rails.root}/lib/article_status_manager_timeslice"
+require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/article_namespaces_manager"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
@@ -61,18 +61,19 @@ class UpdateCourseStats
   end
 
   def update_article_status
-    ArticleStatusManagerTimeslice.update_article_status_for_course(@course)
+    ArticleStatusManager.update_article_status_for_course(@course)
     @debugger.log_update_progress :article_status_updated
   end
 
-  def update_article_namespaces
-    ArticleNamespacesManager.new(@course)
+  def update_article_namespaces(statuses_synced)
+    ArticleNamespacesManager.new(@course, statuses_synced:)
     @debugger.log_update_progress :article_namespaces_updated
   end
 
   def update_articles
-    update_article_status if should_update_article_status?
-    update_article_namespaces
+    statuses_synced = should_update_article_status?
+    update_article_status if statuses_synced
+    update_article_namespaces(statuses_synced)
   end
 
   def update_average_pageviews

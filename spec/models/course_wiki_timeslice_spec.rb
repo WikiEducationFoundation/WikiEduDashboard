@@ -386,11 +386,11 @@ scoped: false)
           expect(cuwt.stats['total revisions']).to eq(7)
         end
 
-        it 'sets zero for stats keys with no ACUWT contributions' do
+        it 'omits stats keys with no ACUWT contributions' do
           cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
           cuwt.update_cache_from_acuwt
 
-          expect(cuwt.stats['descriptions added']).to eq(0)
+          expect(cuwt.stats).not_to have_key('descriptions added')
         end
 
         context 'when course is article-scoped' do

@@ -157,6 +157,17 @@ Rails.application.routes.draw do
   # assignment so the SPA can transition without a reload.
   post 'courses/*id/verify_claim/take' => 'claim_verification_exercises#take',
        :as => :take_verify_claim, constraints: { id: /.*/ }, defaults: { format: :json }
+  # The student's verification form answers (an upsert; submitting completes
+  # the exercise).
+  post 'courses/*id/verify_claim/response' => 'claim_verification_responses#create',
+       :as => :verify_claim_response, constraints: { id: /.*/ }, defaults: { format: :json }
+  # Everyone's responses, for the course's instructional staff. The explicit
+  # `.json` is mandatory (format: true): the bare path then falls through to
+  # courses#show, so `/courses/*id/verify_claim/responses` is an SPA page (the
+  # instructor view) while this same path with .json is its data.
+  get 'courses/*id/verify_claim/responses' => 'claim_verification_responses#index',
+      :as => :verify_claim_responses, format: true,
+      constraints: { id: /.*/, format: :json }
   # Slug-less entry (eg from the course-agnostic exercise training module):
   # infers the course and sends the student into its SPA exercise, else asks
   # which course.
@@ -312,6 +323,9 @@ Rails.application.routes.draw do
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
+  get 'system_stats' => 'system_stats#index'
+  get 'system_stats/wiki_trends' => 'system_stats#wiki_trends'
+  get 'system_stats/facilitators' => 'system_stats#facilitators'
 
   # Reports generated in background
   # Course reports

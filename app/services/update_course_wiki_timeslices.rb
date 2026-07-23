@@ -144,18 +144,8 @@ class UpdateCourseWikiTimeslices
   def fetch_only_revisions(wiki, timeslice_start, timeslice_end)
     # Fetches only revision for wiki
     @revisions = @revision_updater.fetch_revisions_for_course_wiki(
-      wiki,
-      real_start(timeslice_start).strftime('%Y%m%d%H%M%S'),
-      real_end(timeslice_end).strftime('%Y%m%d%H%M%S')
+      wiki, timeslice_start, timeslice_end
     )
-  end
-
-  def real_start(timeslice_start)
-    [timeslice_start, @course.start].max
-  end
-
-  def real_end(timeslice_end)
-    [timeslice_end - 1.second, @course.end].min
   end
 
   def should_update_timeslice?(wiki, only_new:)

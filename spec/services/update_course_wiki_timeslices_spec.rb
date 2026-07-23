@@ -198,13 +198,13 @@ describe UpdateCourseWikiTimeslices do
 
       it 'fetches revisions up to end date' do
         expected_dates = [
-          %w[20181124000000 20181124235959],
-          %w[20181125000000 20181125235959],
-          %w[20181126000000 20181126235959],
-          %w[20181127000000 20181127235959],
-          %w[20181128000000 20181128235959],
-          %w[20181129000000 20181129235959],
-          %w[20181130000000 20181130235500]
+          %w[20181124000000 20181125000000],
+          %w[20181125000000 20181126000000],
+          %w[20181126000000 20181127000000],
+          %w[20181127000000 20181128000000],
+          %w[20181128000000 20181129000000],
+          %w[20181129000000 20181130000000],
+          %w[20181130000000 20181201000000]
         ]
 
         expected_wikis = [enwiki, wikidata]
@@ -213,7 +213,7 @@ describe UpdateCourseWikiTimeslices do
           expected_wikis.each do |wiki|
             expect_any_instance_of(CourseRevisionUpdater)
               .to receive(:fetch_revisions_for_course_wiki)
-              .with(wiki, start_time, end_time)
+              .with(wiki, start_time.to_datetime, end_time.to_datetime)
               .once
               .and_call_original
           end
@@ -331,7 +331,7 @@ describe UpdateCourseWikiTimeslices do
           expect(wikidata_timeslice.revision_count).to eq(0)
           expect(wikidata_timeslice.needs_update).to eq(false)
           expect(wikidata_timeslice.last_mw_rev_datetime).to eq(nil)
-          expect(wikidata_timeslice.stats['total revisions']).to eq(0)
+          expect(wikidata_timeslice.stats).to be_empty
         end
       end
     end

@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
+require_dependency "#{Rails.root}/lib/utils/replica_timeslice_bounds"
 
 #= Fetches revision data from API
 # This class is intended to be used in four main ways:
@@ -36,11 +37,12 @@ class RevisionDataManager
 
   INCLUDED_NAMESPACES = [0, 2, 118].freeze
   # This method gets course revisions for a given period.
-  # Returns an array of Revision records.
+  # Returns an array of RevisionOnMemory objects.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    all_sub_data = get_course_revisions(@course.students, timeslice_start,
-                                        timeslice_end)
+    all_sub_data = get_course_revisions(@course.students,
+                                        ReplicaTimesliceBounds.real_start(@course, timeslice_start),
+                                        ReplicaTimesliceBounds.real_end(@course, timeslice_end))
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
     article_attributes = sub_data_to_article_attributes(all_sub_data)
@@ -68,7 +70,7 @@ class RevisionDataManager
   end
 
   # This method gets scores for specific revisions from different APIs.
-  # Returns an array of Revision records with completed scores.
+  # Returns an array of RevisionOnMemory objects with completed scores.
   def fetch_score_data_for_course(revisions)
     # We need to partition revisions because we don't want to calculate scores for revisions
     # out of important spaces
@@ -90,7 +92,10 @@ class RevisionDataManager
   # API call. Filter the returned revisions to specific articles before calling
   # fetch_score_data_for_course — critical when users have many programmatic edits.
   def fetch_revision_data_for_users_with_articles_only(users, timeslice_start, timeslice_end)
-    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(
+      users, ReplicaTimesliceBounds.real_start(@course, timeslice_start),
+      ReplicaTimesliceBounds.real_end(@course, timeslice_end)
+    )
     return [] if all_sub_data.empty?
 
     article_attributes = sub_data_to_article_attributes(all_sub_data)
@@ -198,7 +203,7 @@ class RevisionDataManager
     # rubocop:enable Style/HashEachMethods
   end
 
-  # Creates a revision record for the given revision data.
+  # Creates a RevisionOnMemory object for the given revision data.
   def create_revision(rev_data, article_data, users, articles)
     mw_page_id = rev_data['mw_page_id'].to_i
     RevisionOnMemory.new({

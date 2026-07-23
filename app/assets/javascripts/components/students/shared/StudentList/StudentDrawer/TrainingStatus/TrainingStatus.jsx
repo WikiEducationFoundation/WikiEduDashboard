@@ -10,7 +10,7 @@ import {
 } from '~/app/assets/javascripts/constants';
 import { useSelector } from 'react-redux';
 
-const TrainingStatus = ({ trainingModules }) => {
+const TrainingStatus = ({ trainingModules, student }) => {
   const exercises = useSelector(state => state.exercises);
   if (!trainingModules.length) return <div />;
 
@@ -23,7 +23,7 @@ const TrainingStatus = ({ trainingModules }) => {
         </tr>
       </thead>
       <tbody>
-        <ExerciseRows exercises={exercises} />
+        <ExerciseRows exercises={exercises} student={student} />
       </tbody>
     </table>
   );
@@ -53,7 +53,10 @@ const TrainingStatus = ({ trainingModules }) => {
 };
 
 TrainingStatus.propTypes = {
-  trainingModules: PropTypes.array
+  trainingModules: PropTypes.array,
+  // The student whose drawer this is; used for per-student links into the
+  // in-app exercise submissions view.
+  student: PropTypes.object
 };
 
 export default TrainingStatus;

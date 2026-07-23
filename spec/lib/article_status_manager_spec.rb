@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
-require "#{Rails.root}/lib/article_status_manager_timeslice"
+require "#{Rails.root}/lib/article_status_manager"
 
-describe ArticleStatusManagerTimeslice do
+describe ArticleStatusManager do
   before do
     stub_wiki_validation
     stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
@@ -37,10 +37,9 @@ describe ArticleStatusManagerTimeslice do
 
         described_class.update_article_status_for_course(course)
         expect(Article.find(1).deleted).to be true
-        # It also deletes articles courses, timeslices and set them to reprocess
-        expect(course.articles_courses.count).to eq(0)
-        expect(course.article_course_timeslices.count).to eq(0)
-        expect(course.course_wiki_timeslices.first.needs_update).to eq(true)
+        # Deleting articles courses and timeslices and setting them to reprocess
+        # is up to ArticleNamespacesManager, which runs after the status sync
+        # during the course update (see its own specs)
       end
     end
 
@@ -123,11 +122,9 @@ describe ArticleStatusManagerTimeslice do
         described_class.update_article_status_for_course(course)
         expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
         expect(Article.find_by(mw_page_id: 848).deleted).to eq(false)
-        # It also deletes articles courses, timeslices and set them to reprocess
-        expect(course.articles_courses.first.article_id).to eq(848)
-        expect(course.article_course_timeslices.first.article_id).to eq(848)
-        expect(course.course_wiki_timeslices.first.needs_update).to eq(true)
-        expect(course.course_wiki_timeslices.second.needs_update).to eq(false)
+        # Deleting articles courses and timeslices and setting them to reprocess
+        # is up to ArticleNamespacesManager, which runs after the status sync
+        # during the course update (see its own specs)
       end
     end
 
@@ -173,6 +170,26 @@ describe ArticleStatusManagerTimeslice do
       end
     end
 
+    it 'logs namespace changes to Sentry' do
+      VCR.use_cassette 'article_status_manager/main' do
+        create(:article,
+               id: 848,
+               mw_page_id: 848,
+               title: 'Audi_Cars', # 'Audi' is the actual title
+               namespace: 2,
+               updated_at: 2.days.ago)
+        create(:article_course_timeslice, course:, article_id: 848,
+               start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+        allow(Sentry).to receive(:capture_message)
+
+        described_class.update_article_status_for_course(course)
+        expect(Sentry).to have_received(:capture_message)
+          .with('Article namespace changed', level: 'info',
+                extra: { course_slug: course.slug, course_id: course.id,
+                         article_id: 848, old_namespace: 2, new_namespace: 0 })
+      end
+    end
+
     it 'handles cases with deleted and nondeleted copies of an article' do
       create(:article,
              id: 53001516,
@@ -203,6 +220,37 @@ describe ArticleStatusManagerTimeslice do
       expect(timeslice.needs_update).to eq(true)
     end
 
+    it 'logs the reset to Sentry when there are deleted and nondeleted copies of an article' do
+      create(:article,
+             id: 53001516,
+             mw_page_id: 66653200,
+             title: 'Port_of_Spain_Gazette',
+             updated_at: 2.days.ago)
+      create(:article,
+             id: 53058287,
+             mw_page_id: 66653200,
+             title: 'Port_of_Spain_Gazette',
+             deleted: true,
+             updated_at: 2.days.ago)
+      create(:articles_course, course:, article_id: 53001516)
+      create(:article_course_timeslice, course:, article_id: 53001516,
+             start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+      create(:articles_course, course:, article_id: 53058287)
+      create(:article_course_timeslice, course:, article_id: 53058287,
+             start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
+      # Create course wiki timeslices
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([course.home_wiki])
+      allow(Sentry).to receive(:capture_message)
+
+      VCR.use_cassette 'article_status_manager/undeletion_duplicate' do
+        described_class.update_article_status_for_course(course)
+      end
+      expect(Sentry).to have_received(:capture_message)
+        .with('Article retracked', level: 'info',
+              extra: { course_slug: course.slug, course_id: course.id,
+                       reason: 'undeleted_duplicate', article_ids: [53058287] })
+    end
+
     it 'handles undeleted articles' do
       create(:article,
              id: 53058287,
@@ -219,8 +267,8 @@ describe ArticleStatusManagerTimeslice do
         described_class.update_article_status_for_course(course)
       end
       expect(Article.find(53058287).deleted).to eq(false)
-      timeslice = course.course_wiki_timeslices.find_by(start: 2.days.ago.beginning_of_day)
-      expect(timeslice.needs_update).to eq(true)
+      # Resetting the undeleted article is up to ArticleNamespacesManager, which
+      # runs after the status sync during the course update (see its own specs)
     end
 
     context 'when a title is a unicode dump' do
@@ -371,8 +419,8 @@ describe ArticleStatusManagerTimeslice do
         )
         described_class.update_article_status_for_course(course)
         expect(Article.find(50661367).deleted).to eq(false)
-        timeslice = course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day)
-        expect(timeslice.needs_update).to eq(true)
+        # Resetting the undeleted article is up to ArticleNamespacesManager, which
+        # runs after the status sync during the course update (see its own specs)
       end
     end
 

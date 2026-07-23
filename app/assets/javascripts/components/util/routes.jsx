@@ -27,6 +27,7 @@ const ActiveCoursesHandler = lazy(() => import('../active_courses/active_courses
 const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wiki_handler.jsx'));
 const RevisionAiScoresStats = lazy(() => import('../revision_ai_scores/revision_ai_scores_stats.jsx'));
 const ClaimVerificationAdmin = lazy(() => import('../claim_verification/claim_verification_admin.jsx'));
+const SystemStatsHandler = lazy(() => import('../system_stats/system_stats_handler.jsx'));
 
 const routes = () => {
   const location = useLocation();
@@ -80,6 +81,7 @@ const routes = () => {
         <Route path="/active_courses" element={<ActiveCoursesHandler dashboardTitle={window.dashboardTitle}/>}/>
         <Route path="/courses_by_wiki/:wiki_url" element={<CoursesByWikiHandler />}/>
         <Route path="/revision_ai_scores_stats" element={<RevisionAiScoresStats />} />
+        <Route path="/system_stats" element={<SystemStatsHandler />} />
 
         {/* this prevents the "route not found" warning for pages which are server rendered */}
         <Route path="*" element={<div style={{ display: 'none' }}/>} />

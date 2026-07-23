@@ -601,6 +601,21 @@ class Course < ApplicationRecord
     flags['update_logs'].present?
   end
 
+  # Start time of the most recent update log entry, as a DateTime (nil if the
+  # course was never updated). Copied courses store this via JSON, so the flag
+  # comes back as a String; we coerce it here to guarantee callers get a
+  # DateTime, matching how the value is stored during a normal update.1
+  def last_update_start_time
+    time_from_last_update_log('start_time')
+  end
+
+  # End time of the most recent update log entry, as a DateTime (nil if the
+  # course was never updated or the last update didn't finish). See
+  # last_update_start_time for why coercion is needed.
+  def last_update_end_time
+    time_from_last_update_log('end_time')
+  end
+
   # Determines if at least one timeslice update ran for the course based on the
   # 'processed' field into update_logs flag.
   def timeslice_update_ran?
@@ -691,6 +706,22 @@ class Course < ApplicationRecord
   end
 
   private
+
+  # Returns the given time field ('start_time' or 'end_time') from the most
+  # recent update log entry, coerced to a DateTime. Returns nil when the course
+  # has no update logs or the field is blank (e.g. an update that never
+  # finished has no end_time). The value comes back as a String for courses
+  # copied via JSON and as a DateTime during a normal update, so we coerce in
+  # both cases to give callers a consistent type.
+  def time_from_last_update_log(field)
+    update_logs = flags['update_logs']
+    return if update_logs.blank?
+
+    value = update_logs.values.last[field]
+    return if value.blank?
+
+    value.to_datetime
+  end
 
   def trained_students_manager
     TrainedStudentsManager.new(self)

@@ -559,9 +559,9 @@ ar:
       already_exists: هذه الدورة موجودة بالفعل؛ جرب تغيير الاسم، أوالمدرسة، أو المصطلح
         لجعله فريدًا من نوعه.
       assignment_end: نهاية التعيين
-      assignment_end_placeholder: سسسس-شش-يي
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: بداية التعيين
-      assignment_start_placeholder: سسسس-شش-يي
+      assignment_start_placeholder: YYYY-MM-DD
       cancel_course_clone: إلغاء استنساخ الدورة
       cancel_course_clone_confirm: هل أنت متأكد من أنك تريد إيقاف استنساخ هذه الدورة؟
       checking_for_uniqueness: يتم التحقق من هذه الدورة من حيث التفرد.
@@ -614,7 +614,7 @@ ar:
       copy_courses_with_assignments: استنساخ قائمة المقالات المتاحة
       create_short: أنشئ المساق
       end_date: تاريخ الانتهاء
-      end_date_placeholder: سسسس-شش-يي
+      end_date_placeholder: YYYY-MM-DD
       expected_number: عدد الطلاب المتوقع
       find: البحث عن مقررك
       intro: ينشئ العنوان والمدرسة والفصل مسار صفحة دورتك التدريبية ولا يمكن تغييره،
@@ -638,7 +638,7 @@ ar:
         أو متى يغلق المكان).
       save_cloned_course: حفظ دورة جديدة
       start_date: تاريخ البدء
-      start_date_placeholder: سسسس-شش-يي
+      start_date_placeholder: YYYY-MM-DD
       subject: الموضوع
       update_scheduled: تحديث المقرر، سيتم تحديث البيانات جنبا إلى جنب مع جميع البرامج
         الحالية خلال دورة التحديث القادمة، هذا عادةً ما يستغرق عدة ساعات.
@@ -924,9 +924,9 @@ ar:
     campaign_courses: برامج %{title}
     creator:
       assignment_end: نهاية الحدث
-      assignment_end_placeholder: سسسس-شش-يي
+      assignment_end_placeholder: YYYY-MM-DD
       assignment_start: بداية الحدث
-      assignment_start_placeholder: سسسس-شش-يي
+      assignment_start_placeholder: YYYY-MM-DD
       cancel_course_clone: إلغاء استنساخ البرنامج
       cancel_course_clone_confirm: هل أنت متأكد من أنك تريد إيقاف استنساخ هذا البرنامج؟
       checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
@@ -1578,12 +1578,9 @@ ar:
       أداة تصميم المهمة هذه بإنشاء مخطط زمني للمسودة يناسب تواريخ الفترة الزمنية التي
       تختارها.
     assignment_type: ما الذي سيكمله الطلاب لمهمة ويكيبيديا الخاصة بهم؟
-    calendar_instructions: حدد تواريخ لإضافتها أو إزالتها من الجدول الزمني (على سبيل
-      المثال، أيام العطل، لا مدرسة)، يساعد هذا أداة إنشاء الدورة التدريبية على تعيين
-      مهامك بدقة، انقر على التاريخ المراد تغييره بين حالة عدم التحديد، وحالة الاختيار،
-      وحالة العطلات، إذا لم تكن لديك عطلات، فحدِّد "ليس لدي أية عطلات فصول"، سيعمل
-      الجدول الزمني المستنسخ على ضبط تواريخ الحساب تلقائيا لأسابيع لا تحتوي على اجتماعات
-      مجدولة.
+    calendar_instructions: حدد التواريخ لإضافتها أو إزالتها من الجدول (مثل العطلات
+      الرسمية، أيام العطل). يساعد هذا أداة إنشاء المقرر الدراسي على توزيع واجباتك
+      بدقة. انقر على التاريخ لتغيير حالته بين غير محدد، محدد، أو عطلة رسمية.
     confirm_dates: اختيار مواعيد الدورة، والاجتماعات الأسبوعية، وأيام عطل دراستك.
     course_dates: تواريخ الدورات
     min_weeks: تتطلب هذه المهمة على الأقل %{min_weeks} أسابيع متاحة؛ يُرجَى تعديل

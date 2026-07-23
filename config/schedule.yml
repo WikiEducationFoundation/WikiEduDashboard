@@ -60,3 +60,9 @@ lti_periodic_grade_sync:
   cron: "*/30 * * * *" # every 30 minutes
   class: "LtiPeriodicGradeSyncWorker"
   queue: medium_update
+
+# Computes weekly per-facilitator metrics (programs, edits, new editors per organizer).
+facilitator_stat_update:
+  cron: "0 2 * * 0" # every Sunday at 2:00 AM UTC
+  class: "FacilitatorStatUpdateWorker"
+  queue: daily_update

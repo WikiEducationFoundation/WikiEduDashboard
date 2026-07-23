@@ -1119,6 +1119,7 @@ zh-TW:
     references_added_info: 這可能只是所添加參考來源的部分計數。基於維基數據的編輯摘要，一些添加參考來源的編輯會被歸類為「更改的聲明」或「建立的聲明」。
     restorations_performed: 還原已執行
     reverts_performed: 還原已執行
+    language: 語言
   namespace:
     all: 全部
     main: 主空間
