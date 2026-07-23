@@ -2230,6 +2230,10 @@ en:
       header: "Wiki Education Dashboard"
       linked: "Linked"
       refresh: "Refresh"
+      roster_sync_label: "Roster sync"
+      grade_sync_label: "Grade sync"
+      sync_grades: "Sync grades"
+      grade_sync_started: "[PLACEHOLDER - confirmation shown after an instructor queues a grade sync; should say the sync has started, runs in the background, and to refresh in a moment to see updated grades]"
       grade_sync_error: "There was an error syncing the grades."
       import_next_step:
         header: "[PLACEHOLDER - short heading prompting the instructor to add the Wikipedia assignments, e.g. \"Add your Wikipedia assignments\"]"

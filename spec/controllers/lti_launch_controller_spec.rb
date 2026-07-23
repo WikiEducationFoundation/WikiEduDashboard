@@ -269,6 +269,60 @@ describe LtiLaunchController, type: :request do
             .with(binding.id)
         end
 
+        # Roster and grade sync run on different cadences, so the status view
+        # reports each separately and offers an on-demand grade-sync trigger.
+        it 'shows separate roster/grade sync rows and a grade-sync trigger' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('Roster sync')
+          expect(response.body).to include('Grade sync')
+          expect(response.body).to include('Sync grades')
+          expect(response.body).to include('action="/lti/sync_grades"')
+          # The trigger must carry the ltik so the POST re-authenticates the
+          # launch (the iframe has no Rails session to fall back on).
+          expect(response.body).to match(/name="ltik"[^>]*value="ltik-abc"/)
+        end
+
+        it 'shows the last grade sync time separately from the roster sync' do
+          binding.update!(last_roster_sync_at: 5.minutes.ago,
+                          last_grade_sync_at: 1.hour.ago)
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body).to include('5 minutes ago')
+          expect(response.body).to include('about 1 hour ago')
+        end
+
+        describe 'POST /lti/sync_grades' do
+          before { allow(LtiGradeSyncWorker).to receive(:perform_async) }
+
+          it 'enqueues a grade sync and re-renders the status view' do
+            post '/lti/sync_grades', params: { ltik: 'ltik-abc' }
+            expect(LtiGradeSyncWorker).to have_received(:perform_async).with(binding.id)
+            expect(response).to render_template('lti_launch/instructor_status')
+          end
+
+          # The grade-sync POST is a grade sync only — it must not also re-queue
+          # a roster sync the way the status launch (GET) does.
+          it 'does not enqueue a roster sync' do
+            post '/lti/sync_grades', params: { ltik: 'ltik-abc' }
+            expect(LtiRosterSyncWorker).not_to have_received(:perform_async)
+          end
+
+          it 'redirects to the login error page without an ltik' do
+            post '/lti/sync_grades'
+            expect(response).to redirect_to('/errors/login_error')
+            expect(LtiGradeSyncWorker).not_to have_received(:perform_async)
+          end
+
+          context 'when the launcher is a student, not an instructor' do
+            let(:role) { 'Learner' }
+
+            it 'refuses to sync (instructor-only) and enqueues nothing' do
+              post '/lti/sync_grades', params: { ltik: 'ltik-abc' }
+              expect(response).to redirect_to('/errors/login_error')
+              expect(LtiGradeSyncWorker).not_to have_received(:perform_async)
+            end
+          end
+        end
+
         # Deep-link-first: before anything is imported, the status view points
         # the instructor at the Modules import path.
         it 'shows the import next-step when no assignments are imported yet' do

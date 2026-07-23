@@ -34,6 +34,8 @@
                   %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
                     = t('lti.assignment_view.trainings.progress',
                         completed: row.completed_count, total: row.total_count)
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
   - else
     - row = @context.student_panel
     .lti-iframe__panel

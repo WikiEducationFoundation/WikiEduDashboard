@@ -1,0 +1,19 @@
+-# Grade-sync status + instructor trigger, shared by the instructor status view
+-# and every instructor assignment drill-down. Grade sync otherwise runs only on
+-# the ~30-min cron, so this surfaces when it last ran and lets the instructor
+-# push fresh grades on demand. The POST enqueues LtiGradeSyncWorker (runs in the
+-# background), so the confirmation says it has started rather than showing a
+-# result inline. Locals: `binding` (the bound LtiCourseBinding that owns the
+-# line items), `ltik` (carried so the re-render re-authenticates the launch).
+.lti-grade-sync
+  %dl.lti-status-list
+    .lti-status-list__row
+      %dt= t('lti.status.grade_sync_label')
+      %dd= lti_last_synced(binding.last_grade_sync_at)
+  = button_to t('lti.status.sync_grades'), '/lti/sync_grades',
+              params: { ltik: }, class: 'button dark lti-grade-sync__button'
+  - if @grade_sync_started
+    %p.lti-grade-sync__started= t('lti.status.grade_sync_started')
+  - if binding.last_grade_sync_error.present?
+    .lti-setup__error
+      %p= t('lti.status.grade_sync_error')

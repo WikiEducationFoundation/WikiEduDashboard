@@ -28,6 +28,8 @@
                 %td
                   %span.lti-status{ class: row.connected? ? 'lti-status--done' : 'lti-status--pending' }
                     = row.connected? ? t('lti.assignment_view.status.connected') : t('lti.assignment_view.status.not_connected')
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
   - else
     - # The iframe itself is the confirmation: the pill plus the student's
     - # own username, linking to their details view on the Dashboard.

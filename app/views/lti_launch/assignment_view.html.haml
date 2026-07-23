@@ -14,6 +14,8 @@
     .lti-iframe__description= sanitize(@context.block.content)
   - if @context.instructor?
     = render 'lti_launch/assignment_roster'
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
   - else
     = render 'lti_launch/assignment_student_panel'
 

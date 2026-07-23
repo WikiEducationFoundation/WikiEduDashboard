@@ -22,6 +22,17 @@ class LtiSyncStatus
      synced_students.filter_map(&:linked_at).max].compact.max
   end
 
+  # Roster and grade sync are separate operations on different cadences, so the
+  # in-iframe status view reports each on its own line rather than collapsing
+  # them into the single `last_synced_at` the course-page sidebar shows.
+  def last_roster_sync_at
+    @binding.last_roster_sync_at
+  end
+
+  def last_grade_sync_at
+    @binding.last_grade_sync_at
+  end
+
   def grade_sync_error?
     @binding.last_grade_sync_error.present?
   end

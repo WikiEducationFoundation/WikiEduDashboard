@@ -31,6 +31,7 @@ class LtiLaunchController < ApplicationController
   include LtiAssignmentViews
   include LtiStudentEnrollment
   include LtiAnonymousLaunch
+  include LtiGradeSyncTrigger
 
   # Every launch-flow view is a minimal, chrome-less page rather than the full
   # dashboard React shell. The setup / setup_pending / enrollment_* views were
@@ -161,8 +162,8 @@ class LtiLaunchController < ApplicationController
   # nav item mainly to check that roster/grade sync is working. Each launch
   # also kicks off a fresh roster sync, so the numbers shown may lag it by
   # a few moments.
-  def render_instructor_status
-    LtiRosterSyncWorker.perform_async(@binding.id)
+  def render_instructor_status(sync_roster: true)
+    LtiRosterSyncWorker.perform_async(@binding.id) if sync_roster
     @sync_status = LtiSyncStatus.new(@binding)
     render 'lti_launch/instructor_status'
   end

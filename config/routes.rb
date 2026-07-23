@@ -456,6 +456,7 @@ Rails.application.routes.draw do
   get 'lti/deep_link' => 'lti_launch#deep_link'
   post 'lti/deep_link/select' => 'lti_launch#deep_link_select'
   post 'lti/setup' => 'lti_launch#complete_setup'
+  post 'lti/sync_grades' => 'lti_launch#sync_grades'
 
   # frequenty asked questions
   resources :faq do
