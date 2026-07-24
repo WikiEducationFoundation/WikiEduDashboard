@@ -98,9 +98,12 @@ describe 'Instructor setup illustrated guide', :staging do
       capture('01-canvas-course-with-tab')
 
       click_wiki_education_tab
-      # Settle the iframe (reload past any transient edge-500) so the shot
-      # shows the real launch landing, not a momentary server error.
+      # Settle the iframe (reload past any transient edge-500) so the shot shows
+      # the real launch landing, not a momentary server error. settle confirms
+      # the landing is in the DOM; the sleep lets the just-loaded frame actually
+      # paint before capture, or the shot comes out blank.
       settle_canvas_tool_iframe
+      sleep 1.5
       capture('02-canvas-iframe-landing')
 
       break_out_of_canvas_iframe(role: :instructor)
