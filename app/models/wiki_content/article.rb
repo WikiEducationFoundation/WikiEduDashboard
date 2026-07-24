@@ -67,6 +67,7 @@ class Article < ApplicationRecord
     PROPERTY       = 120
     QUERY          = 122
     LEXEME         = 146
+    PAGE_A         = 250
   end
 
   NS_PREFIX = {
@@ -86,6 +87,7 @@ class Article < ApplicationRecord
     Namespaces::BOOK => 'Book:',
     Namespaces::WIKIJUNIOR => 'Wikijunior:',
     Namespaces::TRANSLATION => 'Translation:',
+    Namespaces::PAGE_A => 'Page:',
     # The following namespace index are spread over
     # several wikis and needs to be additionally
     # namespaced via project
