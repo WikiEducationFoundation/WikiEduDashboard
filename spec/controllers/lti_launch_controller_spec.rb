@@ -635,7 +635,7 @@ describe LtiLaunchController, type: :request do
       it 'dispatches /lti to the roster for the matched block line item' do
         student = create(:user, username: 'Stu Dent')
         LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
-                           lms_id: 'platform-x', name: 'Stu Dent',
+                           lms_id: 'platform-x',
                            roles: ['vocab/membership#Learner'], linked_at: Time.current)
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
@@ -835,7 +835,7 @@ describe LtiLaunchController, type: :request do
       it 'renders the instructor roster without a Rails session' do
         student = create(:user, username: 'Stu Dent')
         LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
-                           lms_id: 'platform-x', name: 'Stu Dent',
+                           lms_id: 'platform-x',
                            roles: ['vocab/membership#Learner'], linked_at: Time.current)
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
@@ -955,9 +955,9 @@ describe LtiLaunchController, type: :request do
       end
 
       it 'renders each linked student\'s completed-trainings count' do
-        student = create(:user, username: 'Stu')
+        student = create(:user, username: 'Stu Dent')
         LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
-                           lms_id: 'platform-x', name: 'Stu Dent',
+                           lms_id: 'platform-x',
                            roles: ['vocab/membership#Learner'], linked_at: Time.current)
         TrainingModulesUsers.create!(user: student, training_module: training_mod,
                                      completed_at: 1.day.ago)

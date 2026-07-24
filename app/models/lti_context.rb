@@ -14,8 +14,6 @@
 #  lms_id                :string(255)      not null
 #  lms_family            :string(255)      e.g. 'canvas'
 #  lti_course_binding_id :integer          - replaces the legacy context_id
-#  email                 :string(255)
-#  name                  :string(255)
 #  roles                 :text(65535)      - serialized array of LTI roles
 #  linked_at             :datetime         - set when user_id populated
 #

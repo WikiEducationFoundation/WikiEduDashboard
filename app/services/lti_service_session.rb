@@ -25,9 +25,9 @@ class LtiServiceSession
   end
 
   # Fetch the LMS course roster via NRPS, paginating through all pages.
-  # Returns an array of member hashes with normalized keys:
-  #   { user_lti_id, name, email, given_name, family_name, picture,
-  #     roles: [...], status: 'Active' | 'Inactive' | 'Deleted' }
+  # Returns an array of member hashes with normalized keys — deliberately
+  # PII-free (see normalize_member):
+  #   { user_lti_id, roles: [...], status: 'Active' | 'Inactive' | 'Deleted' }
   # See https://docs.ltiaas.com/api/get-memberships/
   def fetch_memberships(role: nil)
     members = []
@@ -135,14 +135,13 @@ class LtiServiceSession
     "/api/lineitems?#{params.to_query}"
   end
 
+  # Anonymized posture: we deliberately keep only the opaque LTI user id, the
+  # roles (needed to tell staff from students), and the membership status. Names,
+  # emails, and pictures the roster may carry are dropped here so no Canvas PII
+  # enters the Dashboard — identity comes from the student's own Wikipedia OAuth.
   def normalize_member(member)
     {
       user_lti_id: member['userId'],
-      name: member['name'],
-      email: member['email'],
-      given_name: member['givenName'],
-      family_name: member['familyName'],
-      picture: member['picture'],
       roles: Array(member['roles']),
       status: member['status']
     }

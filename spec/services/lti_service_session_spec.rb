@@ -64,8 +64,10 @@ describe LtiServiceSession do
       members = service.fetch_memberships
       expect(members.size).to eq(2)
       expect(members.first[:user_lti_id]).to eq('lti-1')
-      expect(members.first[:email]).to eq('alice@example.edu')
       expect(members.first[:status]).to eq('Active')
+      # Anonymized: only the opaque id, roles, and status survive — the raw
+      # response's name/email are dropped, never passed through.
+      expect(members.first.keys).to contain_exactly(:user_lti_id, :roles, :status)
       expect(members.last[:user_lti_id]).to eq('lti-2')
     end
 

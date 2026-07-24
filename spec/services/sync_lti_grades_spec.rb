@@ -44,7 +44,7 @@ describe SyncLtiGrades do
   let!(:unlinked_context) do
     LtiContext.create!(
       lti_course_binding: binding, user: nil, user_lti_id: 'lti-bob',
-      lms_id: 'platform-x', email: 'bob@example.edu'
+      lms_id: 'platform-x'
     )
   end
 

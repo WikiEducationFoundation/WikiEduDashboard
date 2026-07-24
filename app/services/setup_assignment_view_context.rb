@@ -5,7 +5,8 @@
 # students have connected a Wikipedia account. Unlike the Block-backed
 # views, not-yet-linked memberships matter here — they are exactly the rows
 # the instructor opens this column to find, so they're listed (first) even
-# though all we can show for them is the LMS-supplied name or an opaque id.
+# though, under the anonymized posture, all we can show for them is the
+# opaque LTI user id.
 class SetupAssignmentViewContext
   Row = Struct.new(:name, :username, :connected, keyword_init: true) do
     def connected?
@@ -77,11 +78,11 @@ class SetupAssignmentViewContext
 
   # Connected rows show the Dashboard-side real name (the CoursesUsers
   # enrollment record, same source as the Students tab) — may be blank if
-  # the student didn't provide one. Pending rows have no Dashboard identity;
-  # under anonymized mode all the LMS shares is the opaque LTI user id, so
+  # the student didn't provide one. Pending rows have no Dashboard identity,
+  # and the anonymized LMS shares no name — only the opaque LTI user id — so
   # that's their label (legibility follow-up tracked in the todos).
   def display_name(context)
-    return context.name.presence || context.user_lti_id unless context.linked?
+    return context.user_lti_id unless context.linked?
 
     enrollment_real_names[context.user_id]
   end

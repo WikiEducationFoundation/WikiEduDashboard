@@ -58,8 +58,6 @@ describe LtiSession do
   describe 'launch context accessors' do
     it 'exposes user identity, role, platform, and context fields' do
       expect(lti_session.user_lti_id).to eq('lti-user-1')
-      expect(lti_session.user_name).to eq('Jane Doe')
-      expect(lti_session.user_email).to eq('jane@example.edu')
       expect(lti_session.lms_id).to eq('platform-x')
       expect(lti_session.lms_family).to eq('canvas')
       expect(lti_session.lms_context_id).to eq('canvas-course-77')
@@ -164,8 +162,7 @@ describe LtiSession do
       expect(ctx.user).to eq(user)
       expect(ctx.user_lti_id).to eq('lti-user-1')
       expect(ctx.lti_course_binding_id).to eq(LtiCourseBinding.last.id)
-      expect(ctx.email).to eq('jane@example.edu')
-      expect(ctx.name).to eq('Jane Doe')
+      # Anonymized: no name/email is stored (columns removed).
       expect(ctx.roles).to include(
         'http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor'
       )
@@ -182,15 +179,13 @@ describe LtiSession do
       binding = lti_session.find_or_create_binding!
       pre = LtiContext.create!(user_lti_id: 'lti-user-1',
                                lti_course_binding: binding,
-                               lms_id: 'platform-x',
-                               email: 'old@example.edu')
+                               lms_id: 'platform-x')
 
       ctx = lti_session.link_lti_user(user)
 
       expect(ctx.id).to eq(pre.id)
       expect(ctx.user).to eq(user)
       expect(ctx.linked_at).to be_present
-      expect(ctx.email).to eq('jane@example.edu')
     end
 
     it 'does not POST any grade signal during linking' do

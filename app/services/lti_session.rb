@@ -24,13 +24,9 @@ class LtiSession
     @idtoken['user']['id']
   end
 
-  def user_name
-    @idtoken['user']['name']
-  end
-
-  def user_email
-    @idtoken['user']['email']
-  end
+  # Anonymized posture: the Dashboard never reads the launch's name/email (the
+  # tool is registered so Canvas doesn't send them, and we don't consume them
+  # even if a platform did). Identity comes from the student's Wikipedia OAuth.
 
   def user_roles
     @idtoken['user']['roles'] || []
@@ -197,8 +193,6 @@ class LtiSession
     context.lms_id = lms_id
     context.lms_family = lms_family
     context.context_id = legacy_context_id
-    context.email = user_email
-    context.name = user_name
     context.roles = user_roles
   end
 

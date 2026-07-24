@@ -59,7 +59,7 @@ class TrainingsAssignmentViewContext
   # One row per linked student, for the instructor roster.
   def roster
     student_contexts.map do |context|
-      row_for(context.user, name: context.name.presence || context.user.username)
+      row_for(context.user, name: context.user.username)
     end
   end
 
@@ -141,6 +141,6 @@ class TrainingsAssignmentViewContext
     @student_contexts ||=
       @binding.linked_student_contexts
               .select(&:user)
-              .sort_by { |context| (context.name.presence || context.user.username).downcase }
+              .sort_by { |context| context.user.username.downcase }
   end
 end

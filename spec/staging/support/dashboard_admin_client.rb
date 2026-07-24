@@ -367,7 +367,6 @@ module DashboardAdminClient
                                                user_lti_id: "gallery-#{i}")
         ctx.user = user
         ctx.lms_id = binding.lms_id
-        ctx.name = username
         ctx.roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
         ctx.linked_at = Time.current
         ctx.save!

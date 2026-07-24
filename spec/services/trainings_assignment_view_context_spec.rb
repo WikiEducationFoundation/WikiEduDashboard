@@ -25,8 +25,8 @@ describe TrainingsAssignmentViewContext do
                    training_module_ids: [training_a.id, training_b.id])
   end
 
-  def link_student(user, name: nil)
-    LtiContext.create!(lti_course_binding: binding, user:, name:,
+  def link_student(user)
+    LtiContext.create!(lti_course_binding: binding, user:,
                        user_lti_id: "lti-#{user.username}", lms_id: 'platform-x',
                        roles: ['vocab/membership#Learner'], linked_at: Time.current)
   end

@@ -32,9 +32,9 @@ describe AssignmentViewContext do
     tmu.save!
   end
 
-  def link_student(user, name:, roles: ['vocab/membership#Learner'])
+  def link_student(user, roles: ['vocab/membership#Learner'])
     LtiContext.create!(user:, lti_course_binding: binding, user_lti_id: "lti-#{user.id}",
-                       lms_id: 'p', name:, roles:, linked_at: Time.current)
+                       lms_id: 'p', roles:, linked_at: Time.current)
   end
 
   describe '#exercise_url' do
@@ -84,15 +84,15 @@ describe AssignmentViewContext do
     let(:instructor) { create(:user) }
     let(:context) { described_class.new(line_item:, user: instructor, instructor: true) }
 
-    it 'lists linked students by name, with completion and sandbox links' do
+    it 'lists linked students by Wikipedia username, with completion and sandbox links' do
       amy = create(:user, username: 'amy')
       zed = create(:user, username: 'zed')
-      link_student(amy, name: 'Amy')
-      link_student(zed, name: 'Zed')
+      link_student(amy)
+      link_student(zed)
       mark_complete(amy)
 
       rows = context.roster
-      expect(rows.map(&:name)).to eq(%w[Amy Zed])
+      expect(rows.map(&:name)).to eq(%w[amy zed])
       expect(rows.first.completed?).to be(true)
       expect(rows.first.sandbox_url).to include('User:amy/Evaluate_an_Article')
       expect(rows.second.completed?).to be(false)
@@ -101,14 +101,14 @@ describe AssignmentViewContext do
     it 'excludes instructors from the roster' do
       student = create(:user, username: 'pupil')
       teacher = create(:user, username: 'prof')
-      link_student(student, name: 'Pupil')
-      link_student(teacher, name: 'Prof', roles: ['vocab/membership#Instructor'])
-      expect(context.roster.map(&:name)).to eq(['Pupil'])
+      link_student(student)
+      link_student(teacher, roles: ['vocab/membership#Instructor'])
+      expect(context.roster.map(&:name)).to eq(['pupil'])
     end
 
     it 'excludes members who have not linked a Wikipedia account' do
       LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-unlinked',
-                         lms_id: 'p', name: 'Not Linked', roles: ['vocab/membership#Learner'])
+                         lms_id: 'p', roles: ['vocab/membership#Learner'])
       expect(context.roster).to be_empty
     end
   end
