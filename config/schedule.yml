@@ -44,3 +44,9 @@ update_default_campaign:
   cron: "1 0 1 1,7 *" # every January, 1st and July, 1st at 00:01 (UTC -7)
   class: "DefaultCampaignUpdateWorker"
   queue: default
+
+# Computes weekly per-facilitator metrics (programs, edits, new editors per organizer).
+facilitator_stat_update:
+  cron: "0 2 * * 0" # every Sunday at 2:00 AM UTC
+  class: "FacilitatorStatUpdateWorker"
+  queue: daily_update

@@ -868,7 +868,6 @@ fi:
     claim_position: Väite %{current}/%{total}
     cited_source: Lainauksen lähde
     source_url: Lähde-URL
-    choose_article: Valitse artikkeli
     no_articles: Artikkeleja ei ole saatavilla
     your_selected_claim: Valitsemasi väite
     find_in_article: Etsi tämä artikkelin tekstistä

@@ -25,7 +25,8 @@ import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_d
   with the shell's parse rather than after it.
 
   Taking a claim is an async POST; on success the hook calls `onTaken` with the
-  resulting assignment so the exercise can transition to the taken-claim view
+  result — the assignment, plus the student's earlier response for that claim
+  if they had one — so the exercise can transition to the taken-claim view
   without a reload.
 
   Claims belong to the flagged revision the article opens at (the shell's
@@ -167,7 +168,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
       .take({ articleId: article.id, verificationClaimId: selectedClaim.claimId })
       .then((data) => {
         setTaking(false);
-        onTaken(data.assignment);
+        onTaken(data);
       })
       .catch((error) => {
         setTaking(false);
@@ -195,6 +196,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
             })}
           </p>
         )}
+        <p className="cv-select-claim-note">{I18n.t('claim_verification.select_claim_instructions')}</p>
         <p>{I18n.t('claim_verification.pick_instructions')}</p>
       </div>
     )

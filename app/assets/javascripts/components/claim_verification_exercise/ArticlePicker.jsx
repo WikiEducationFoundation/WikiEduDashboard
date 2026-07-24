@@ -27,7 +27,10 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId }) => {
   return (
     <div className="container narrow claim-verification-exercise claim-verification-exercise--articles">
       <div className="claim-verification-exercise__intro">
-        <h1>{I18n.t('claim_verification.choose_article')}</h1>
+        <p>{I18n.t('claim_verification.intro_p1')}</p>
+        <p>{I18n.t('claim_verification.intro_p2')}</p>
+        <p>{I18n.t('claim_verification.intro_p3')}</p>
+        <h1>{I18n.t('claim_verification.step_select_article')}</h1>
       </div>
       {articles.length ? (
         <ul className="claim-verification-exercise__article-grid">

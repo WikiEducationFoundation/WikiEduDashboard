@@ -141,6 +141,11 @@ qqq:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
     sign_up_help: Instructions about how to log in via Wikipedia.
+  alerts:
+    ai_stats:
+      last_week: Button that filters the list of courses with AI edit alerts to
+        show only alerts from the previous week (the most recent 7 days), instead
+        of all-time totals. Here "last" means most recent, not final.
   activity:
     all: '{{Identical|Activity}}'
     edited_by: Column label for username of user who made an edit

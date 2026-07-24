@@ -1831,6 +1831,7 @@ nl:
     no_training_resource_match_your_search: Geen trainingsbron komt overeen met uw
       zoekopdracht
     exercise_sandbox: Oefenkladblok
+    open_exercise: Met de oefening beginnen
     remaining_exercise: '%{count} aanvullende oefeningen resterend.'
     view_all: Alle oefeningen bekijken
     take_your_time: Neem de tijd!
@@ -1838,6 +1839,102 @@ nl:
     close: SLUITEN
     loading: Bezig met laden...
     wiki_source: wikibron
+  claim_verification:
+    pick_instructions: Klik op een gemarkeerde bewering om de bronvermelding te bekijken.
+    revision_notice: Dit is de pagina zoals die was op %{date} toen de beweringen
+      werden toegevoegd.
+    tile_revision_date: per %{date}
+    claims_highlighted:
+      one: één bewering gemarkeerd
+      other: '%{count} beweringen gemarkeerd'
+    next_claim: Volgende bewering
+    previous_claim: Vorige bewering
+    claim_position: Bewering %{current} van %{total}
+    loading_claims: Beweringen laden…
+    claim: Bewering
+    cited_source: Geciteerde bron
+    source_url: Bron-url
+    select_claim: Selecteer deze bewering om te verifiëren
+    no_articles: Geen pagina's beschikbaar
+    your_selected_claim: Uw geselecteerde bewering
+    find_in_article: Zoek dit in de paginatekst.
+    show_surrounding: Omringende alinea weergeven
+    choose_different_claim: Kies een andere bewering
+    no_online_source: De geciteerde bron bevat geen url.
+    course_picker_heading: Kies een cursus
+    course_picker_no_courses: Geen cursussen
+    take_not_enrolled: U moet wel ingeschreven zijn voor de cursus om dat te kunnen
+      doen.
+    intro_p1: Elk feit op Wikipedia moet worden onderbouwd door een betrouwbare bron.
+      Wanneer u Wikipedia raadpleegt voor informatie, hoeft u niet zomaar het woord
+      van de auteur aan te nemen; u kunt de geciteerde bron opzoeken en de informatie
+      zelf controleren. Dit noemen we verifieerbaarheid, en het is een van de belangrijkste
+      principes achter de geloofwaardigheid van Wikipedia.
+    intro_p2: Naarmate AI-hulpmiddelen steeds vaker worden gebruikt, is het belangrijker
+      dan ooit om te leren hoe u informatie kunt verifiëren. Door AI gegenereerde
+      inhoud komt vaak niet overeen met de feiten en bronnen – en dat is een van de
+      belangrijkste redenen waarom u het niet kunt gebruiken om inhoud aan Wikipedia
+      toe te voegen.
+    intro_p3: In deze oefening ziet u hoe u beweringen kunt verifiëren. U oefent met
+      het controleren van beweringen door te proberen een specifiek feit in een geciteerde
+      bron te vinden.
+    step_select_article: 'Stap 1: Selecteer een pagina.'
+    select_claim_instructions: 'De volgende beweringen moeten worden gecontroleerd
+      aan de hand van de geciteerde bronnen, omdat ze mogelijk door AI zijn gegenereerd.
+      Let op: de pagina kan zijn gewijzigd sinds deze beweringen zijn toegevoegd.'
+    form:
+      step_find_source: 'Stap 3: Zoek de bron'
+      find_source_instructions: Nu u uw bewerking hebt gekozen, gaat u op zoek naar
+        de geciteerde bron. Mogelijk moet u uw docent of de bibliothecaris raadplegen
+        om de bron te vinden.
+      source_access_question: Heeft u de volledige tekst van de aangehaalde bron voor
+        uw bewering kunnen inzien?
+      source_access_options:
+        accessed: Ja, ik heb de bron.
+        nonexistent: Nee, de bron bestaat niet.
+        inaccessible: Nee, de bron bestaat wel, maar ik kon er geen toegang toe krijgen.
+      source_access_notes_label: 'Als u de bron niet hebt kunnen vinden, vertel ons
+        dan meer over uw ervaring:'
+      step_verify: 'Stap 4: Verifieer de bewering'
+      verify_instructions: Zodra u de geciteerde bron hebt gevonden, onderzoek deze
+        dan zorgvuldig om te bepalen in hoeverre deze uw gekozen bewering ondersteunt.
+        Als u precies weet waar de informatie vandaan komt, noteer dan waar in het
+        document u deze hebt gevonden. Sommige citaten zijn te onnauwkeurig om door
+        een lezer in de praktijk te worden gecontroleerd.
+      verdict_question: Wordt de bewering door de bron ondersteund?
+      verdict_options:
+        full_support: Ja, deze ondersteunt de volledige bewering expliciet.
+        mostly_supports: Grotendeels wel, de kern van de bewering komt uit deze bron.
+        partial_support: Gedeeltelijk, sommige elementen van de bewering zijn afkomstig
+          uit deze bron, maar een aanzienlijk deel niet.
+        mostly_unsupported: Meestal niet, de bron is weliswaar in overeenstemming
+          met de bewering, maar ondersteunt deze niet direct.
+        unsupported: Nee, de bron dekt niet wat er beweerd wordt.
+        contradicted: Het tegendeel, de bron weerspreekt de bewering.
+        undetermined: Ik kon niet vaststellen of de bewering in de aangehaalde bron
+          voorkwam.
+      claim_location_label: Als u de bewering hebt kunnen vinden, waar in de bron
+        stond deze dan? (bijv. paginanummer, hoofdstuk, enz.)
+      verification_notes_label: 'Als u de informatie niet kon verifiëren, vertel ons
+        dan meer over uw ervaring. Bijvoorbeeld: was de bron onduidelijk of moeilijk
+        leesbaar? Was de bron niet relevant voor de bewering? Was de bronvermelding
+        onnauwkeurig en de bron te lang om redelijkerwijs te raadplegen?'
+      other_comments_label: Zijn er nog andere opmerkingen over deze oefening?
+      submit: Opslaan
+      submitted_heading: Opgeslagen antwoord
+      edit_response: Antwoord bewerken
+      submit_failed: Fout! Uw antwoord is niet opgeslagen.
+    responses:
+      heading: Antwoorden van studenten
+      preview_exercise: Voorbeeldoefening
+      submitted_at: Ingediend %{date}
+      pending_heading: Wordt uitgevoerd
+      taken_at: Bewerking gekozen op %{date}
+      none_yet: Geen enkele student heeft nog een bewering geselecteerd.
+    admin:
+      loading: Bezig met laden...
+      heading: Beweringverificatie
+      pool_size: 'Poolgrootte: %{count} bewerking'
   update_username:
     header: Een wijziging van gebruikersnaam doorvoeren
     not_found: Gebruiker niet gevonden voor ingevoerde gebruikersnaam.
@@ -2056,8 +2153,7 @@ nl:
     calendar_instructions: Selecteer datums om deze toe te voegen aan of te verwijderen
       uit het schema (bv. vakantie of feestdag). Zo kan het hulpmiddel uw opdrachten
       gelijker over de tijd verdelen. Klik op de datum om de status op niet-geselecteerd,
-      geselecteerd en vakantie te zetten. Indien u geen vakantie hebt, vink dan “Er
-      is geen vakantie” aan.
+      geselecteerd en vakantie te zetten.
     confirm_course_dates: Bevestig de begin- en einddatum van de cursus.
     confirm_dates: Kies de cursusdatums, wekelijkse bijeenkomsten en vakanties voor
       uw cursus.

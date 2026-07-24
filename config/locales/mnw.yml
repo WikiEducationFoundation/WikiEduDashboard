@@ -210,6 +210,8 @@ mnw:
     special_users:
       new:
         form_placeholder: ယၟု ညးလွပ်
+  timeline:
+    reset_titles: မကလေၚ်နကဵုအတိုၚ်မူလ
   training:
     next: မုက်လိက် ဂတ
     page: မုက်လိက်

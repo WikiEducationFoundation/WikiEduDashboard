@@ -36,6 +36,20 @@ export class ClaimVerificationAPI {
       .then(response => this.__json(response, 'Take claim request failed'));
   }
 
+  // The student's verification form answers (an upsert; submitting completes
+  // the exercise).
+  submitResponse(answers) {
+    return request(`${this.basePath()}/response`, { method: 'POST', body: JSON.stringify(answers) })
+      .then(response => this.__json(response, 'Submit response request failed'));
+  }
+
+  // Everyone's responses, for the instructor view. The explicit .json matters:
+  // the bare path is the instructor view's own SPA page.
+  fetchResponses() {
+    return request(`${this.basePath()}/responses.json`)
+      .then(response => this.__json(response, 'Responses request failed'));
+  }
+
   __json(response, message) {
     if (!response.ok) {
       // Carry the HTTP status so callers can tailor the message (eg a 403 from

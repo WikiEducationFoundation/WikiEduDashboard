@@ -3,8 +3,8 @@ id: 86
 kind: 'exercise'
 description: |
   In this exercise, you'll fact-check a claim added to a real Wikipedia article to see if the cited source backs it up.
-slides:
-  - slug: about-fact-verification # 8601
-  - slug: do-fact-verification # 8602
+# This module has no slides: the whole exercise (instructions included) lives
+# in the dashboard at the exercise_path below. The module exists so that
+# timeline blocks can assign the exercise and completion can be tracked.
 settings:
   exercise_path: verify_claim
