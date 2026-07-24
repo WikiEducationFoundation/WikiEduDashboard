@@ -58,11 +58,13 @@ Most institutions review a tool's accessibility and data handling first:
   and post gradebook line items and scores (AGS). Its placements are limited to
   course navigation, the assignment / deep-linking pickers, and the assignment
   view.
-- **What data is shared:** when a student launches the tool, Canvas shares their
-  name and course-roster membership with the Dashboard (via LTIAAS) so they can be
-  enrolled; the Dashboard sends scores, and links to the students' work, back to
-  your gradebook. [PLACEHOLDER - Wiki Education to confirm and expand this
-  data-sharing summary so it matches the HECVAT and the privacy policy.]
+- **What data is shared:** Canvas shares only an anonymized identifier and
+  course-roster membership with the Dashboard (via LTIAAS) — no student names or
+  email addresses. A student's identity comes from the Wikipedia account they
+  connect on the Dashboard, not from Canvas. The Dashboard sends scores, and
+  links to the students' work, back to your gradebook. [PLACEHOLDER - Wiki
+  Education to confirm and expand this data-sharing summary so it matches the
+  HECVAT and the privacy policy.]
 
 ## What you'll need
 

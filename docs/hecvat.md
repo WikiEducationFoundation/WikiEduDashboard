@@ -154,7 +154,7 @@ Sections such as HIPAA, PCI DSS, Consulting Services, and AI apply only if the p
 
 **Answer:** Yes
 
-**Notes:** The Dashboard receives the Canvas course roster (student names and enrollment) and returns grades/scores, and stores the linked Canvas identities.
+**Notes:** The Dashboard receives the Canvas course roster as anonymized memberships — an opaque LMS user id and role per member, with no student names or email addresses — and returns grades/scores. A student's identity (name, Wikipedia account) comes from the student's own Wikipedia login on the Dashboard, not from Canvas; the Dashboard stores only the link between that opaque LMS id and the Dashboard account.
 
 
 ## Authentication, Authorization, and Account Management
