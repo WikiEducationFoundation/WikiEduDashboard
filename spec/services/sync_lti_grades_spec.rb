@@ -141,6 +141,15 @@ describe SyncLtiGrades do
       .with(body: hash_including(userId: 'lti-bob'))
   end
 
+  it 'appends the Dashboard origin to a posted score comment' do
+    # Alice is connected, so the setup column posts "✓"; the appended origin
+    # makes Canvas's authorless "- Someone" attribution legible.
+    stub_post_score(setup_lineitem_url)
+    described_class.new(binding)
+    expect(WebMock).to have_requested(:post, %r{setup/scores})
+      .with { |req| req.body.include?('✓ — dashboard.wikiedu.org') }
+  end
+
   it 'leaves a linked student with no progress ungraded rather than posting 0' do
     # No completions for alice → training roll-up and exercise are both 0.
     stub_post_score(trainings_lineitem_url)
