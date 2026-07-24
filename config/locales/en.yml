@@ -2374,5 +2374,4 @@ en:
         module: "Training"
         due_date: "Due date"
       orphan:
-        header: "—"
         explanation: "There is no Dashboard content to show for this assignment."

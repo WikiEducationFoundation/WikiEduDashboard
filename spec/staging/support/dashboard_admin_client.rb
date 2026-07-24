@@ -231,6 +231,62 @@ module DashboardAdminClient
     DashboardConsole.run_json(script)
   end
 
+  # Like build_timeline, but the exercise block is the dedicated-page
+  # fact-verification exercise (kind exercise, exercise_path 'verify_claim', no
+  # sandbox) — so the gallery can show the "Open exercise" drill-down and its
+  # in-progress state. Returns the training + exercise module ids and the
+  # exercise line-item label. Build BEFORE binding, so block creation doesn't
+  # enqueue a line-item-sync whose log line would pollute this console JSON.
+  def build_fact_verification_timeline(course_slug:)
+    script = <<~RUBY
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      training = TrainingModule.all.reject(&:exercise?).first
+      exercise = TrainingModule.all.select(&:exercise?).find { |m| m.exercise_path == 'verify_claim' }
+      raise 'no training-kind module available' unless training
+      raise 'no verify_claim exercise module available' unless exercise
+      week = course.weeks.find_or_create_by!(order: 1) { |w| w.title = 'Week 1' }
+      week.blocks.find_or_create_by!(title: 'Trainings') do |b|
+        b.kind = Block::KINDS['in_class']
+        b.order = 1
+        b.training_module_ids = [training.id]
+      end
+      exercise_block = week.blocks.find_or_create_by!(title: 'Fact verification') do |b|
+        b.kind = Block::KINDS['assignment']
+        b.order = 2
+        b.training_module_ids = [exercise.id]
+      end
+      puts({
+        training_module_id: training.id,
+        exercise_module_id: exercise.id,
+        exercise_line_item_label: LtiGradebookLabel.for_block(exercise_block)
+      }.to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
+  # Point the student's "current claim" cursor (VerificationClaimAssignment) at a
+  # pooled claim the course would be served, so the fact-verification drill-down
+  # reads "In progress" (taken, not yet submitted). Returns the claim's article
+  # title, or 'no_claim' when the serving pool is empty.
+  def take_verification_claim(course_slug:, username:)
+    script = <<~RUBY
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      user = User.find_by!(username: #{username.inspect})
+      tile = RelevantClaimRevisionsForCourse.new(course).tiles.first
+      if tile.nil?
+        puts 'no_claim'
+      else
+        claim = VerificationClaim.where(article_id: tile.article.id, mw_rev_id: tile.mw_rev_id).first
+        assignment = VerificationClaimAssignment.find_or_initialize_by(user: user, course: course)
+        assignment.verification_claim = claim
+        assignment.save!
+        puts claim.article_title.to_s
+      end
+    RUBY
+    DashboardConsole.run(script).strip
+  end
+
   # Build a realistic multi-week timeline — the standard article-writing
   # milestones, one exercise per week, plus one training block on week 1 (so the
   # trainings-rollup column exists). Picked by slug from the staging library.

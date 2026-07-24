@@ -39,6 +39,7 @@ ROLE_SPECS = {
   'active_course'   => 'spec/staging/instructor_active_course_screenshots_spec.rb',
   'canvas_gradebook' => 'spec/staging/canvas_gradebook_screenshots_spec.rb',
   'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb',
+  'fact_verification' => 'spec/staging/fact_verification_screenshots_spec.rb',
   'full_course'     => 'spec/staging/full_course_screenshots_spec.rb',
   'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
 }.freeze
@@ -100,7 +101,13 @@ SECTIONS = [
     blurb: 'Every imported assignment renders its drill-down directly inside the ' \
            "Canvas iframe: the exercise roster with inline sandbox previews, the " \
            'Wikipedia-account connection roster, the trainings tables, and the ' \
-           "student's own panels." }
+           "student's own panels." },
+  { role: 'fact_verification',
+    title: 'Fact-verification exercise — the dedicated-page exercise',
+    blurb: 'The one exercise that runs entirely in the Dashboard rather than a ' \
+           'sandbox: its in-Canvas drill-down (status plus a button out to the ' \
+           'exercise), the in-progress state once a student takes a claim, and ' \
+           'the instructor roster.' }
 ].freeze
 
 # Plain-language caption per screenshot, keyed by file basename.
@@ -191,7 +198,16 @@ CAPTIONS = {
     'to their Dashboard details.',
   '07-trainings-student-table' =>
     "The student's trainings table: every assigned training with due date, status, " \
-    'and a link straight to the module.'
+    'and a link straight to the module.',
+  'fv01-instructor-roster' =>
+    'The fact-verification exercise from the instructor side: the per-student ' \
+    'roster with the grade-sync footer below.',
+  'fv02-student-not-started' =>
+    "The student's view before starting: status plus a button out to the " \
+    'in-Dashboard exercise — no sandbox, since the whole exercise happens there.',
+  'fv03-student-in-progress' =>
+    'After the student takes a claim, the status reads In progress until they ' \
+    'submit their response.'
 }.freeze
 
 def run_dir
