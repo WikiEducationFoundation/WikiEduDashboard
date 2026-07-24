@@ -77,20 +77,16 @@ launch + Wikipedia OAuth is the only linking path.
   article", operator-supplied) — but LTIAAS drops it. **Confirmed 2026-07-24 by
   decoding the actual signed DeepLinkingResponse JWT LTIAAS returned:** all nine
   content items are present, but the top-level `.../lti/module_name` claim is
-  absent (no key containing "module" at all). LTIAAS support says they "pass
-  through all extra content" and suspect a formatting issue; the reply-back with
-  the exact request object + the decoded JWT is drafted, asking where they want a
-  top-level DeepLinkingResponse claim in the request body. We keep sending the
-  claim (harmless; a 200, no fallback fires) so it starts working if/when LTIAAS
-  passes it through. Until then, the guide should note instructors can rename the
-  module after import. Until then, the guide
-  should note instructors can rename the module after import. Assignment
-  descriptions pull from existing Dashboard content (block body → module
-  catalog descriptions; the roll-up lists its training modules); only the
-  setup column's description is still a `[PLACEHOLDER]`. (Background: true
-  server-side creation is impossible — a deep-linking response must POST
-  through the instructor's browser to a launch-specific return URL — which is
-  why the flow is one-click-bulk rather than automatic.) Remaining: verify the
+  absent (no key containing "module" at all). After we sent the decoded
+  JWT, **LTIAAS confirmed (2026-07-24) they don't pass that extra deep-linking
+  key through the way they pass other claims, and a hotfix is expected early the
+  week of 2026-07-28.** We already send the claim (harmless; a 200, no fallback
+  fires), so the module should start naming itself once the hotfix lands —
+  **verify on staging then**. Until it lands, the guide should note instructors
+  can rename the module after import. (Background: true server-side creation is
+  impossible — a deep-linking response must POST through the instructor's browser
+  to a launch-specific return URL — which is why the flow is one-click-bulk
+  rather than automatic.) Remaining: verify the
   module_name pass-through live, and add `module_index_menu_modal` to the
   LTIAAS config so future registrations carry it (the staging tool got it via
   a Canvas API edit only).
@@ -128,21 +124,25 @@ launch + Wikipedia OAuth is the only linking path.
   the failing-grade signal given Canvas's constraints; the alternative (accept
   0% in the total to keep the gradebook nudge) is worse.
 
-- [ ] **Trainings/exercise rosters: N×M queries.** The in-Canvas trainings roster
-  computes `LtiTrainingProgress` per student (each doing a `TrainingModulesUsers`
-  lookup per module) and `LtiBlockProgress` has the same per-row shape — fine at
-  walkthrough scale, worth batching before real course sizes.
+- [x] **Trainings/exercise rosters: N×M queries.** _(Batched 2026-07-24.)_ Both
+  rosters were N students × M modules of `TrainingModulesUsers` lookups
+  (LtiTrainingProgress / LtiBlockProgress per row). Now a constant number of
+  queries: `TrainingsAssignmentViewContext#roster` uses one grouped
+  completed-count query; `AssignmentViewContext#roster` preloads all students'
+  TrainingModulesUsers for the block once and threads each slice into
+  `LtiBlockProgress`'s new `completions:` param (with a memoized taken-claim set
+  for the fact-verification "in progress" check).
   - _LMS-name identity: resolved 2026-07-24._ The anonymization removed
     `LtiContext#name`, so all three rosters now show the Wikipedia username (the
     setup roster still shows the CoursesUsers real name for connected students).
 
-- [ ] **Score-comment attribution shows "- Someone" (platform limitation).**
-  AGS score comments ("1 of 19 trainings completed", the setup "✓") are
-  created "with an unknown author" per Canvas's Score API docs; "Someone" is
-  Canvas's UI label for authorless comments and no AGS field can set it.
-  Option if wanted: append an origin ("— dashboard.wikiedu.org") to the
-  comment text itself, though Canvas still renders its own "- Someone" line
-  beneath.
+- [x] **Score-comment attribution shows "- Someone" (platform limitation).**
+  _(Origin appended 2026-07-24.)_ Canvas creates AGS score comments with an
+  authorless "- Someone" byline and no AGS field can set the author.
+  `SyncLtiGrades#with_origin` now appends " — <dashboard host>"
+  (`ENV['dashboard_url']`) to non-blank comments, so the note says where the
+  score came from. Canvas still renders its own "- Someone" line beneath — that
+  part is unfixable via AGS.
 
 - [~] **Assignments show "No additional details" in Canvas (by design now).**
   Canvas shows "No additional details were added for this assignment" on every
