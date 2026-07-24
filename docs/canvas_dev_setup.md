@@ -360,7 +360,7 @@ This is needed because the domain set here is what Canvas claims its identity is
 Once a basic launch works, the integration adds three flows on top of the launch handshake:
 
 1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The binding's gradebook granularity defaults to `lumped` (deep-link-first): the instructor imports the columns they want via the Modules deep-link flow, and nothing is auto-created. The `standard` and `per_block` granularities (auto-created per-exercise or per-block columns) still exist on the model, but the setup view no longer offers a choice.
-2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New members appear as `LtiContext` rows, unlinked (`user_id` nil) — the anonymized roster carries only an opaque LMS id and role, no email to match on. Each links and enrolls when they personally launch from Canvas and complete Wikipedia OAuth.
+2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New members appear as `LtiContext` rows, unlinked (`user_id` nil) — the anonymized roster carries only an opaque LMS id and role, no email to match on. Each links and enrolls when they personally launch from Canvas and complete Wikipedia OAuth — from the course-navigation tab or from any Wikipedia assignment, since a course may not have the tab enabled at all.
 3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Sandbox URLs for completed exercises (bibliography, outline, etc.) are included as score comments.
 
 ### Required LTIAAS scopes
@@ -380,7 +380,7 @@ The integration registers three Canvas placements, each with its own
 
 | Placement | `target_link_uri` | Purpose |
 |---|---|---|
-| Course Navigation | `https://<domain>/lti` | The "Wiki Education Dashboard" tab in the course sidebar — the instructor's and student's entry point. |
+| Course Navigation | `https://<domain>/lti` | The "Wiki Education Dashboard" tab in the course sidebar — a convenient entry point, and the home of the instructor's sync-status view. Optional: linking and student enrollment also happen from the deep-link and assignment launches, so a course with the tab off still works end to end. |
 | Assignment / Link Selection | `https://<domain>/lti/deep_link` | The deep-link picker, reached from the Modules page's ⋮ menu ("Import Wikipedia assignments"), that bulk-creates the Wikipedia gradebook columns (the account indicator, the trainings roll-up, and one per exercise). |
 | Assignment View | `https://<domain>/lti/assignment_view` | The per-milestone drill-down opened from a Wikipedia column's assignment: the instructor roster with inline sandbox previews, or the launching student's own panel. |
 

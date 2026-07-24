@@ -26,6 +26,12 @@ describe LtiLaunchController, type: :request do
   # settings the processed idtoken omits. Empty = single-item placements.
   let(:raw_idtoken) { {} }
 
+  # Pre-existing Dashboard enrollment, for the specs whose subject is what a
+  # student's launch *renders* rather than what it enrolls.
+  def enroll_student(student = user)
+    CoursesUsers.create!(user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+  end
+
   before do
     ENV['LTIAAS_DOMAIN'] = ltiaas_domain
     ENV['LTIAAS_API_KEY'] = 'k'
@@ -426,6 +432,61 @@ describe LtiLaunchController, type: :request do
         end
       end
 
+      # With the course-navigation tab off (the placement default we want),
+      # a student's only launch is the assignment itself — so that launch has
+      # to carry the enrollment the nav launch used to.
+      context 'when the only launch is an assignment' do
+        let(:idtoken) do
+          base = idtoken_for(role)
+          base['launch']['resourceLink'] = { 'id' => 'rl-assignment-1' }
+          base['services']['assignmentAndGrades'] = { 'lineItemId' => 'https://canvas/li/setup' }
+          base
+        end
+        let!(:bound) do
+          LtiCourseBinding.create!(
+            course: course, lms_id: 'platform-x', lms_family: 'canvas',
+            lms_context_id: 'canvas-77', lms_resource_link_id: 'nav-rl'
+          )
+        end
+
+        before do
+          LtiLineItem.create!(lti_course_binding: bound, gradable_type: LtiLineItem::SETUP_TYPE,
+                              lineitem_id: 'https://canvas/li/setup', label: 'Wikipedia account')
+        end
+
+        context 'on an approved course' do
+          before { course.campaigns << Campaign.first }
+
+          it 'enrolls the student and still renders the drill-down' do
+            expect { get '/lti', params: { ltik: 'ltik-abc' } }
+              .to change(CoursesUsers, :count).by(1)
+            expect(response).to render_template('lti_launch/assignment_view_setup')
+          end
+
+          # The context has to land on the bound binding: grade sync and the
+          # rosters read that row, so a link anywhere else is invisible to them.
+          it "links the student's LtiContext to the bound binding" do
+            get '/lti', params: { ltik: 'ltik-abc' }
+            expect(bound.lti_contexts.where(user_id: user.id)).to exist
+          end
+
+          it 'does not re-enroll a student who already joined' do
+            enroll_student
+            expect { get '/lti', params: { ltik: 'ltik-abc' } }
+              .not_to change(CoursesUsers, :count)
+            expect(response).to render_template('lti_launch/assignment_view_setup')
+          end
+        end
+
+        # An unapproved course can't enroll anyone, and the drill-down would
+        # just look empty — explain instead, as the nav launch does.
+        it 'renders pending-approval when the course is not approved yet' do
+          expect { get '/lti', params: { ltik: 'ltik-abc' } }
+            .not_to change(CoursesUsers, :count)
+          expect(response.body).to include('awaiting Wiki Education approval')
+        end
+      end
+
       context 'with a bound course that has been withdrawn' do
         before do
           course.campaigns << Campaign.first
@@ -685,10 +746,12 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'when it launches through its own (deep-link) resource link' do
-        # A deep-link-created assignment launches via a distinct resource link, so
-        # find_or_create_binding! makes a fresh, empty binding for the launch. The
-        # course + line items live on the context's bound binding, and the roster
-        # must resolve against that one.
+        # A deep-link-created assignment launches via a distinct resource link.
+        # Since a binding models a Canvas *course*, the launch resolves to the
+        # context's already-bound binding rather than minting a row per
+        # assignment — those strays stranded the launcher's LtiContext where
+        # grade sync never reads it, and left the bound row's service
+        # credentials to go stale.
         let(:idtoken) do
           base = idtoken_for(role)
           base['launch']['resourceLink'] = { 'id' => 'rl-deep-link-1' }
@@ -696,12 +759,16 @@ describe LtiLaunchController, type: :request do
           base
         end
 
-        it 'resolves the roster via the context-bound binding, not the launch binding' do
+        it 'resolves the roster via the context-bound binding' do
           get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('Wk2 Evaluate Wikipedia')
-          expect(LtiCourseBinding.find_by(lms_resource_link_id: 'rl-deep-link-1').course_id)
-            .to be_nil
+        end
+
+        it 'creates no separate binding for the assignment resource link' do
+          expect { get '/lti', params: { ltik: 'ltik-abc' } }
+            .not_to change(LtiCourseBinding, :count)
+          expect(LtiCourseBinding.find_by(lms_resource_link_id: 'rl-deep-link-1')).to be_nil
         end
       end
 
@@ -771,6 +838,9 @@ describe LtiLaunchController, type: :request do
 
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        # A student with sandbox/training state is one who is already enrolled;
+        # the enroll-on-assignment-launch path has its own specs below.
+        enroll_student
       end
 
       it 'renders the student panel with their own sandbox link' do
@@ -912,6 +982,8 @@ describe LtiLaunchController, type: :request do
       context 'as a student' do
         let(:role) { 'Learner' }
 
+        before { enroll_student }
+
         it 'renders their own connected confirmation, not the roster' do
           get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to have_http_status(:ok)
@@ -977,6 +1049,8 @@ describe LtiLaunchController, type: :request do
       context 'as a student' do
         let(:role) { 'Learner' }
 
+        before { enroll_student }
+
         it 'renders their own progress with a link out to the course timeline' do
           get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to have_http_status(:ok)
@@ -1035,6 +1109,42 @@ describe LtiLaunchController, type: :request do
       expect(response.body).to include('not yet linked')
       expect(response.body).to include('Open the Wiki Education Dashboard')
       expect(response.body).to include('/lti/connect_course?ltik=ltik-abc')
+    end
+
+    # The picker's "not yet linked" landing sends the instructor out to
+    # /lti/connect_course with the deep-linking launch's own ltik — which is
+    # the only way to link a course when the nav tab is off. A deep-linking
+    # request carries no resourceLink claim, which used to blow up binding
+    # creation (NoMethodError) the moment that ltik came back through /lti.
+    context 'when the launch carries no resourceLink (a deep-linking request)' do
+      let(:idtoken) do
+        base = idtoken_for(role)
+        base['launch'].delete('resourceLink')
+        base
+      end
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'renders the setup view rather than erroring' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/setup')
+      end
+
+      it 'creates one context-scoped binding the setup form can bind' do
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .to change(LtiCourseBinding, :count).by(1)
+        expect(LtiCourseBinding.last.lms_resource_link_id)
+          .to eq(LtiSession::DEEP_LINKING_RESOURCE_LINK_ID)
+      end
+
+      it 'reuses the bound binding once the course is linked' do
+        bind_course!
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiCourseBinding, :count)
+      end
     end
 
     it 'renders the picker listing the bound course gradables' do

@@ -13,6 +13,11 @@ class LtiSession
     'membership#Mentor'
   ].freeze
 
+  # Stands in for the resource link id on a deep-linking request, which has
+  # none. Context-scoped by the binding's unique index, so one row per Canvas
+  # course rather than one per picker visit.
+  DEEP_LINKING_RESOURCE_LINK_ID = 'lti:deep-linking-request'
+
   attr_reader :idtoken
 
   def initialize(ltiaas_domain, api_key, ltik)
@@ -57,8 +62,13 @@ class LtiSession
     @idtoken['launch']['context']['id']
   end
 
+  # A deep-linking request carries no resource link of its own, so fall back
+  # to a synthetic, context-stable key: the launch still needs a binding row
+  # to hang a course off when the instructor links from the picker's
+  # break-out flow (the only linking entry point when the course-navigation
+  # tab is off). Reading it unguarded used to raise NoMethodError there.
   def lms_resource_link_id
-    @idtoken['launch']['resourceLink']['id']
+    @idtoken.dig('launch', 'resourceLink', 'id').presence || DEEP_LINKING_RESOURCE_LINK_ID
   end
 
   def context_title
@@ -135,13 +145,19 @@ class LtiSession
     @idtoken.dig('services', 'serviceKey')
   end
 
-  # Looks up or creates the LtiCourseBinding for this launch. The binding's
-  # `course_id` is left nil; the controller's setup flow populates it once
-  # the instructor links to or creates a Dashboard course. Snapshot fields
-  # (service_key, NRPS/AGS URLs, lms_family) are refreshed on every launch
-  # so background-job credentials track the most recent launch.
+  # Looks up or creates the LtiCourseBinding for this launch. Once the Canvas
+  # course is linked, every launch from it — nav, assignment, deep-link —
+  # resolves to that one bound binding: a binding models a Canvas *course*,
+  # and keying new rows on the resource link would otherwise mint a throwaway
+  # row per assignment, stranding the student's LtiContext somewhere grade
+  # sync never reads and letting the bound row's service credentials go stale.
+  # Before linking there is nothing to resolve to, so the row is keyed on the
+  # launch's (context, resource link) identity and `course_id` stays nil until
+  # the controller's setup flow populates it. Snapshot fields (service_key,
+  # NRPS/AGS URLs, lms_family) are refreshed on every launch so background-job
+  # credentials track the most recent launch.
   def find_or_create_binding!
-    binding = LtiCourseBinding.find_or_initialize_by(
+    binding = bound_binding || LtiCourseBinding.find_or_initialize_by(
       lms_id:,
       lms_context_id:,
       lms_resource_link_id:

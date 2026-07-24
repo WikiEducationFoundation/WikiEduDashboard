@@ -12,6 +12,32 @@ module LtiStudentEnrollment
 
   private
 
+  # Enrollment for launches that aren't the course-navigation one — i.e. a
+  # student opening a Dashboard assignment. That is the *only* launch a
+  # student ever makes in a course whose navigation tab is off, so it has to
+  # carry the enrollment the nav launch used to: without it the student is
+  # never joined to the Dashboard course and their LtiContext never links, so
+  # grade sync skips them and the setup roster counts them pending forever.
+  #
+  # Returns false only when the course isn't approved yet — the one failure
+  # the student can act on, and where an assignment drill-down would just
+  # look empty. Any other failure is reported and the drill-down still
+  # renders; a read-only view is better than a dead end.
+  def ensure_launch_enrollment
+    return true unless enrollable_student?
+
+    result = join_course_for_student
+    return true if join_succeeded?(result)
+    return false if pending_approval?(result)
+
+    report_join_failure(result)
+    true
+  end
+
+  def enrollable_student?
+    current_user && @lti_session.student? && @binding&.course && !enrolled?
+  end
+
   def handle_student_launch
     return render 'lti_launch/setup_pending' if @binding.course.nil?
     return student_destination if enrolled?

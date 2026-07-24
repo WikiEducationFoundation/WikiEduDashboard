@@ -22,10 +22,17 @@
 #      falls through to the launch flow directly (no OAuth bounce).
 #   4. With a current_user, build an LtiSession, look up or create the
 #      LtiCourseBinding, and link the user via LtiContext. Then:
-#      - Instructor + bound course => redirect to course slug
+#      - Assignment launch         => the drill-down (enrolling a student
+#                                     first, since that may be the only
+#                                     launch they ever make)
+#      - Instructor + bound course => the in-iframe status view
 #      - Instructor + unbound      => render the setup view
 #      - Student + bound course    => enroll (if needed) and redirect
 #      - Student + unbound         => "instructor isn't done yet" view
+#
+# Nothing in that dispatch is specific to the course-navigation placement:
+# an institution can leave the nav tab off and drive the whole integration
+# from the deep-link / assignment launches instead.
 class LtiLaunchController < ApplicationController
   include LtiDeepLinking
   include LtiAssignmentViews
@@ -54,7 +61,7 @@ class LtiLaunchController < ApplicationController
 
     start_lti_session
     log_launch_claims if ENV['LTI_LAUNCH_DEBUG']
-    return render_assignment_view if assignment_launch?
+    return assignment_launch_response if assignment_launch?
 
     @lti_session.instructor? ? handle_instructor_launch : handle_student_launch
   end
@@ -146,6 +153,15 @@ class LtiLaunchController < ApplicationController
     @lti_session.deep_link_resource.present? ||
       @lti_session.canvas_assignment_id.present? ||
       @lti_session.ags_lineitem_url.present?
+  end
+
+  # An assignment launch renders the drill-down, but for a student it also
+  # has to do the enrolling the course-navigation launch would have done —
+  # see LtiStudentEnrollment#ensure_launch_enrollment.
+  def assignment_launch_response
+    return render 'lti_launch/enrollment_pending_approval' unless ensure_launch_enrollment
+
+    render_assignment_view
   end
 
   def handle_instructor_launch

@@ -75,6 +75,10 @@ launch + Wikipedia OAuth is the only linking path.
   to fix this on the installed tool via the Canvas API during the walkthrough). Set
   both in the LTIAAS config so future institutions' registrations come out correct.
   Also add `link_selection` etc. if desired.
+  - _Unblocked 2026-07-24:_ `default: disabled` used to be unsafe — in a course
+    without the tab, students silently never enrolled and linking from the
+    picker 500'd. Both are fixed (see **Nav-link-free, deep-link-first linking
+    model** below), so the config change is now a config change only.
 - [ ] **Guide: install shortcut + optional titles.** Point the guide at the "View
   in Canvas Apps" link (from the dev key's Client ID column) as the easy route to
   install/manage the app, and note the placement Title/Icon fields are optional —
@@ -122,19 +126,49 @@ launch + Wikipedia OAuth is the only linking path.
   LTIAAS config so future registrations carry it (the staging tool got it via
   a Canvas API edit only).
 
-- [ ] **Consider a nav-link-free, deep-link-first linking model.** The
-  course-navigation link is heavyweight for what is mainly a one-time instructor
-  action (linking the course). Explore linking via the `assignment_selection`
-  deep-link placement instead: the instructor links the course the first time they
-  add a Dashboard assignment, and students launch/enroll via those assignments — no
-  persistent course-nav item. Requires code changes: the bind
-  (`handle_instructor_launch`) and student enroll (`handle_student_launch`)
-  currently fire on the course-navigation launch and would need to fire from the
-  deep-link / assignment launches. Note: the core machinery (binding, NRPS roster
-  sync, AGS grade passback) is unchanged — only the entry point moves. A pure
-  Dashboard-initiated "enter your Canvas course URL" flow is also possible for the
-  data sync, but has an authorization gap (the launch is what proves the user
-  teaches that course), so it needs a solution to that before it's viable.
+- [x] **Nav-link-free, deep-link-first linking model.** _(Explored 2026-07-24;
+  decoupled rather than removed.)_ Outcome: the launch dispatch no longer
+  depends on the course-navigation placement, so an institution can leave the
+  tab off and drive everything from the deep-link / assignment launches — but
+  the placement stays available (it's also the only home for the instructor
+  sync-status view). Three defects were found in the process, all now fixed;
+  each of them would have bitten the **`course_navigation` `default: disabled`**
+  change above, independent of this exploration:
+  - **Linking from a deep-link placement 500'd.** An `LtiDeepLinkingRequest`
+    carries no `resourceLink` claim, and `LtiSession#lms_resource_link_id` read
+    it unguarded → `NoMethodError` in `find_or_create_binding!`. The picker's
+    own "not yet linked" landing sends the instructor through exactly that path
+    (break out to `/lti/connect_course?ltik=…`, OAuth, back to `/lti?ltik=…`),
+    so the only nav-free way to link a course was a 500. Verified locally with
+    a synthetic deep-linking idtoken; never seen in staging logs because
+    everyone links via the nav tab first. Fixed with a synthetic,
+    context-stable `DEEP_LINKING_RESOURCE_LINK_ID` key.
+  - **A student whose only launch is an assignment was never enrolled.**
+    `launch` short-circuited to the drill-down before the student branch, so
+    the launch rendered 200 and did nothing else: no `CoursesUsers` row, and
+    their `LtiContext` linked to a throwaway per-assignment binding instead of
+    the bound one — invisible to grade sync and to the setup roster, forever.
+    Fixed by `LtiStudentEnrollment#ensure_launch_enrollment`, called from the
+    assignment-launch branch (and rendering the pending-approval view when the
+    course isn't approved yet, matching the nav launch).
+  - **Per-assignment binding rows.** `find_or_create_binding!` keyed on
+    (context, resource link), minting a row per assignment resource link —
+    stranding contexts as above and letting the *bound* row's service
+    credentials go stale, since only launches through its own resource link
+    refreshed them. Now every launch from a linked Canvas course resolves to
+    that course's bound binding. Staging still has 7 pre-existing unbound rows
+    (harmless; they just hold credentials).
+  - _Not done:_ dropping `lms_resource_link_id` from the binding's identity
+    entirely (a binding models a Canvas course; the resource-link component is
+    now vestigial). Needs a migration + unique-index change — worth doing if
+    that table is touched again.
+  - _Still open if the nav link is ever actually removed:_ `instructor_status`
+    (sync status, "View in Canvas", the sync trigger) would need a new home,
+    and first-time linking from the Modules picker is a two-pass flow (link in
+    the new tab, return to Canvas, re-open the picker) because binding needs a
+    Dashboard session the iframe can't have. A pure Dashboard-initiated "enter
+    your Canvas course URL" flow remains blocked on the authorization gap: the
+    launch is what proves the user teaches that course.
 
 ## UX rough edges
 

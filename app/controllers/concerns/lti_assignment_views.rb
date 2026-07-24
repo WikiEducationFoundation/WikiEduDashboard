@@ -16,11 +16,11 @@ module LtiAssignmentViews
   private
 
   def render_assignment_view
-    # A deep-link-created assignment launches through its own Canvas resource
-    # link, so `@binding` (keyed on lms_resource_link_id) is a fresh, empty
-    # binding — the course + synced line items live on the context's *bound*
-    # binding. Resolve against that; fall back to the launch binding if the
-    # context isn't linked to a Dashboard course yet.
+    # The course + synced line items live on the context's *bound* binding.
+    # `find_or_create_binding!` resolves there too once a course is linked,
+    # but the anonymous path sets `@binding` straight from the launch, so
+    # resolve explicitly and fall back to the launch binding when the context
+    # isn't linked to a Dashboard course yet.
     binding = @lti_session.bound_binding || @binding
     line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
     template, @context = assignment_view_for(line_item)
