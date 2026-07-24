@@ -40,6 +40,8 @@
 #     mediawiki-api-announce mailing list at &lt;
 #     https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt;
 #     for notice of API deprecations and breaking changes." }}
+# The #details may also include a top-level 'wiki_domain' key with the domain of
+# the wiki where the blocked edit was attempted.
 class BlockedEditsAlert < Alert
   def main_subject
     "Edit by #{user.username} was blocked"
@@ -67,6 +69,8 @@ class BlockedEditsAlert < Alert
 
       Blocking user talk page: #{blocked_by_talk_page}
 
+      Wiki: #{wiki_domain}
+
       Affected user: #{user.username}
 
       Info: #{details}
@@ -79,15 +83,42 @@ class BlockedEditsAlert < Alert
     details.dig('error', 'blockinfo', 'blockid')
   end
 
+  def error_code
+    details.dig('error', 'code')
+  end
+
+  def error_info
+    details.dig('error', 'info').to_s
+  end
+
+  # Global blocks may arrive with the generic 'blocked' error code, so we also
+  # sniff the info text for the '[[m:Special:MyLanguage/Global blocks|...]]'
+  # link target, which stays intact in translated versions of the message.
+  def global_block?
+    error_code.to_s.include?('globalblocking') || error_info.include?('Global blocks')
+  end
+
+  def wiki_domain
+    details['wiki_domain'] || 'en.wikipedia.org'
+  end
+
+  # Global blocks live in a shared table; Meta is their canonical home, and
+  # local block IDs are only meaningful on the wiki where the edit was blocked.
   def block_log_url
-    "https://en.wikipedia.org/wiki/Special:BlockList?wpTarget=%23#{block_id}"
+    if global_block?
+      "https://meta.wikimedia.org/wiki/Special:GlobalBlockList?target=%23#{block_id}"
+    else
+      "https://#{wiki_domain}/wiki/Special:BlockList?wpTarget=%23#{block_id}"
+    end
   end
 
   def blocked_by
     details.dig('error', 'blockinfo', 'blockedby')
   end
 
+  # Global blocks are made by stewards, whose talk pages are on Meta.
   def blocked_by_talk_page
-    "https://en.wikipedia.org/wiki/User_talk:#{blocked_by}"
+    domain = global_block? ? 'meta.wikimedia.org' : wiki_domain
+    "https://#{domain}/wiki/User_talk:#{blocked_by&.tr(' ', '_')}"
   end
 end

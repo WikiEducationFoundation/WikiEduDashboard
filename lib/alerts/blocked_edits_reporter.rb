@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 class BlockedEditsReporter
-  def self.create_alerts_for_blocked_edits(user, response_data)
-    new.create_alert(user, response_data)
+  def self.create_alerts_for_blocked_edits(user, response_data, wiki = nil)
+    new.create_alert(user, response_data, wiki)
   end
 
-  def create_alert(user, response_data)
+  def create_alert(user, response_data, wiki = nil)
     return if alert_already_exists?
+    details = wiki ? response_data.merge('wiki_domain' => wiki.domain) : response_data
     @alert = Alert.create!(type: 'BlockedEditsAlert',
                            user_id: user.id,
                            target_user_id: technical_help_staff&.id,
-                           details: response_data)
+                           details:)
     generate_ticket
   end
 
