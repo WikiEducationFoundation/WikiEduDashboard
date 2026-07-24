@@ -359,8 +359,8 @@ This is needed because the domain set here is what Canvas claims its identity is
 
 Once a basic launch works, the integration adds three flows on top of the launch handshake:
 
-1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The setup view also presents the Canvas gradebook layout choice (`standard`: trainings roll-up + auto-created per-exercise columns; `per_block`: a column per graded block; `lumped`: roll-up only, exercise columns added manually via deep linking) which is stored on the binding.
-2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New students appear as `LtiContext` rows; those whose Canvas email matches an existing dashboard `User.email` are auto-linked and enrolled in the bound course. Unmatched students get linked when they personally launch from Canvas and complete Wikipedia OAuth.
+1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The binding's gradebook granularity defaults to `lumped` (deep-link-first): the instructor imports the columns they want via the Modules deep-link flow, and nothing is auto-created. The `standard` and `per_block` granularities (auto-created per-exercise or per-block columns) still exist on the model, but the setup view no longer offers a choice.
+2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New members appear as `LtiContext` rows, unlinked (`user_id` nil) — the anonymized roster carries only an opaque LMS id and role, no email to match on. Each links and enrolls when they personally launch from Canvas and complete Wikipedia OAuth.
 3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Sandbox URLs for completed exercises (bibliography, outline, etc.) are included as score comments.
 
 ### Required LTIAAS scopes
@@ -381,7 +381,7 @@ The integration registers three Canvas placements, each with its own
 | Placement | `target_link_uri` | Purpose |
 |---|---|---|
 | Course Navigation | `https://<domain>/lti` | The "Wiki Education Dashboard" tab in the course sidebar — the instructor's and student's entry point. |
-| Assignment / Link Selection | `https://<domain>/lti/deep_link` | The deep-link picker (reached from a Canvas assignment's "External Tool → Find") that creates a Wikipedia gradebook column for a training/exercise. |
+| Assignment / Link Selection | `https://<domain>/lti/deep_link` | The deep-link picker, reached from the Modules page's ⋮ menu ("Import Wikipedia assignments"), that bulk-creates the Wikipedia gradebook columns (the account indicator, the trainings roll-up, and one per exercise). |
 | Assignment View | `https://<domain>/lti/assignment_view` | The per-milestone drill-down opened from a Wikipedia column's assignment: the instructor roster with inline sandbox previews, or the launching student's own panel. |
 
 Course Navigation config (`text: Wiki Education Dashboard`, `enabled: true`):
@@ -409,13 +409,16 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
-## Installing at a partner university (Canvas admin walkthrough)
+## Installing on a dev / self-hosted Canvas (manual walkthrough)
 
-The real-world install path, from the perspective of a **Canvas admin at a
-partner university**. On Instructure-hosted Canvas they have **root-account**
-admin access but **not Site Admin** (that belongs to Instructure).
-`canvas.wikiedu.org` is self-hosted, so Site Admin exists there — but we install
-at the root account precisely so this walkthrough matches what a partner does.
+How to install the tool **by hand** on a Canvas you control. This is the dev
+path: a development or self-hosted Canvas (like `canvas.wikiedu.org`) typically
+lacks the paid **Dynamic Registration** add-on, so you create the LTI key
+yourself. Real partner institutions install via self-service Dynamic
+Registration instead — paste one URL, no manual key — see the
+[Canvas integration guide](./canvas_integration_guide.md) for that flow. Either
+way you install at the **root account** (not Site Admin, which on
+Instructure-hosted Canvas belongs to Instructure).
 
 ### 1. The request
 
@@ -442,8 +445,10 @@ diligence:
   [PLACEHOLDER - link to the Dashboard's HECVAT, or note its status]
 - **Data flow** (for the security review): the tool is fronted by **LTIAAS**, a
   third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
-  Canvas ↔ LTIAAS ↔ Dashboard; the Dashboard stores the linked Canvas identities
-  and pushes fractional scores plus sandbox-link comments back. See
+  Canvas ↔ LTIAAS ↔ Dashboard. The roster is anonymized — an opaque LMS user id
+  and role per member, no names or emails — so the Dashboard stores only the
+  link between that opaque id and the Dashboard account, and pushes fractional
+  scores plus sandbox-link comments back. See
   [Beyond a basic launch](#beyond-a-basic-launch-nrps-roster--ags-grade-passback).
 
 ### 3. Register the university's Canvas with LTIAAS
@@ -526,22 +531,25 @@ campaign) to link. If you don't have one, create it on the dashboard first
    bounced through Wikipedia OAuth at top level and returned to the setup view
    at `/lti?ltik=...`.
 3. **Bind the course**: in the setup view, pick your approved course from the
-   dropdown (or use the create-a-course link if you have none), pick a gradebook
-   layout (standard is the default), and **Link this course**. Expect a redirect
-   to `/courses/<slug>`; the course home's "Canvas link" panel shows the linked
-   course, last sync, and synced-students count.
-4. **Create the exercise columns** (lumped mode only): for each exercise you
-   want graded, **Assignments → + Assignment → Submission Type: External Tool →
-   Find → Wiki Education Dashboard → pick the task → Save & Publish.** (Standard
-   mode auto-creates a column per exercise, and per-block mode a column per
-   block; no deep-linking needed in either.)
+   dropdown (or use the create-a-course link if you have none) and **Link this
+   course** — there's no gradebook-layout choice; the integration is
+   deep-link-first. Expect a redirect to `/courses/<slug>`; the course home's
+   "Canvas link" panel shows the linked course, last sync, and synced-students
+   count.
+4. **Import the assignments**: on the **Modules** page, open the **⋮ (options)**
+   menu at the top and choose **Wiki Education Dashboard** ("Import Wikipedia
+   assignments"). This deep-links every column at once — the "Wikipedia account"
+   indicator, the "Wikipedia trainings" roll-up, and one per exercise — and
+   Canvas creates a module with an assignment per column. They arrive
+   unpublished; publish them so students can open them.
 5. Open the Canvas **Gradebook** — expect **Wikipedia account**, **Wikipedia
-   trainings**, and a `Wk# <exercise>` column per deep-linked exercise (short
+   trainings**, and a `Wk# <exercise>` column per imported exercise (short
    labels, e.g. `Wk3 Bibliography`).
 
 Verify (Rails console): `LtiContext.where(lti_course_binding_id: <id>)` shows a
-row per Canvas member within seconds of the bind; members whose email matches a
-dashboard `User.email` also appear as `CoursesUsers` enrolments.
+row per Canvas member within seconds of the bind — unlinked (`user_id` nil)
+until each student connects a Wikipedia account by launching, since the
+anonymized roster carries no email to auto-enroll against.
 
 ### 2. Student — do the assignments
 
