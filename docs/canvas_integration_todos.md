@@ -13,13 +13,16 @@ launch + Wikipedia OAuth is the only linking path.
   Once a student launches and links via Wikipedia OAuth they show by their Wikipedia
   identity, so only *pending* members are opaque. Explore surfacing something more
   legible for unlinked members.
-- [ ] **Data-sharing copy.** Update the data-sharing statements in
-  `docs/canvas_integration_guide.md` and `docs/hecvat.md`: under anonymized mode
-  Canvas shares only an **opaque user id + roster membership — no names or emails**.
-  This is more accurate, and a stronger privacy statement than the current wording.
-- [ ] **`auto_link_by_email` is now unused.** With anonymized mode there is no email,
-  so `LtiMemberLinker#auto_link_by_email` never fires. Decide whether to remove it or
-  keep it for any non-anonymized deployments.
+- [x] **Data-sharing copy.** _(Done 2026-07-24.)_ The data-sharing statements in
+  `docs/canvas_integration_guide.md`, `docs/hecvat.md`, and
+  `docs/canvas_dev_setup.md` now say the Dashboard receives only an **opaque LMS
+  user id + role — no names or emails**; identity comes from the student's own
+  Wikipedia OAuth. (Final compliance wording is still the operator's to confirm.)
+- [x] **`auto_link_by_email` is now unused → removed.** _(Done 2026-07-24.)_
+  Hardened to a true anonymized posture: `normalize_member` keeps only id/roles/
+  status, `LtiSession`/`LtiMemberLinker` no longer read or store name/email,
+  `auto_link_by_email` is gone (members link only via their own Wikipedia OAuth),
+  and a migration dropped `lti_contexts.name`/`.email`.
 
 ## Admin registration UX
 
@@ -71,13 +74,16 @@ launch + Wikipedia OAuth is the only linking path.
   deep-linking response JWT claim
   `https://canvas.instructure.com/lti/module_name` (found in
   `deep_linking_services.rb`), which we send ("Research and write a Wikipedia
-  article", operator-supplied) — but LTIAAS silently drops it: its
-  `/api/deeplinking/form` accepts only `contentItems` + `options`
-  (message/log/errMessage/errLog), no custom claims (verified live 2026-07-21
-  + docs). We keep sending the claim (harmless; starts working if LTIAAS adds
-  pass-through) with a retry-without-it fallback. Action: ask LTIAAS to pass
-  the claim (or an additionalClaims option) through — they already pass AGS
-  line-item extensions verbatim, so there's precedent. Until then, the guide
+  article", operator-supplied) — but LTIAAS drops it. **Confirmed 2026-07-24 by
+  decoding the actual signed DeepLinkingResponse JWT LTIAAS returned:** all nine
+  content items are present, but the top-level `.../lti/module_name` claim is
+  absent (no key containing "module" at all). LTIAAS support says they "pass
+  through all extra content" and suspect a formatting issue; the reply-back with
+  the exact request object + the decoded JWT is drafted, asking where they want a
+  top-level DeepLinkingResponse claim in the request body. We keep sending the
+  claim (harmless; a 200, no fallback fires) so it starts working if/when LTIAAS
+  passes it through. Until then, the guide should note instructors can rename the
+  module after import. Until then, the guide
   should note instructors can rename the module after import. Assignment
   descriptions pull from existing Dashboard content (block body → module
   catalog descriptions; the roll-up lists its training modules); only the
@@ -122,14 +128,13 @@ launch + Wikipedia OAuth is the only linking path.
   the failing-grade signal given Canvas's constraints; the alternative (accept
   0% in the total to keep the gradebook nudge) is worse.
 
-- [ ] **Trainings/exercise rosters: N×M queries and LMS-name identity.** The
-  in-Canvas trainings roster computes `LtiTrainingProgress` per student (each
-  doing a `TrainingModulesUsers` lookup per module) and `LtiBlockProgress` has
-  the same per-row shape — fine at walkthrough scale, worth batching before
-  real course sizes. Relatedly, those two rosters still label students
-  LMS-name-first (`LtiContext#name` → username); the setup roster now uses
-  Dashboard-side identity (CoursesUsers real name + username, designed around
-  anonymized mode) and the others should probably align.
+- [ ] **Trainings/exercise rosters: N×M queries.** The in-Canvas trainings roster
+  computes `LtiTrainingProgress` per student (each doing a `TrainingModulesUsers`
+  lookup per module) and `LtiBlockProgress` has the same per-row shape — fine at
+  walkthrough scale, worth batching before real course sizes.
+  - _LMS-name identity: resolved 2026-07-24._ The anonymization removed
+    `LtiContext#name`, so all three rosters now show the Wikipedia username (the
+    setup roster still shows the CoursesUsers real name for connected students).
 
 - [ ] **Score-comment attribution shows "- Someone" (platform limitation).**
   AGS score comments ("1 of 19 trainings completed", the setup "✓") are
@@ -139,19 +144,17 @@ launch + Wikipedia OAuth is the only linking path.
   comment text itself, though Canvas still renders its own "- Someone" line
   beneath.
 
-- [ ] **Auto-created assignments can't have descriptions (platform limitation).**
-  Canvas shows "No additional details were added for this assignment." on every
-  AGS-created column: the AGS line-item API accepts only
-  label/scoreMaximum/resourceId/tag/resourceLinkId/start/end plus the
-  `submission_type` extension — no description field (confirmed in Canvas's
-  `lti/ims/line_items_controller.rb`). Deep-linked assignments DO support one
-  (content-item `text` → assignment description), now sent by
-  `BuildLtiDeepLinkForm` with placeholder copy
-  (`lti.deep_link.assignment_description`) — verify LTIAAS passes `text`
-  through on the next staging deep-link. For the auto-created columns the
-  options are: live with Canvas's default text, have instructors hand-edit, or
-  petition Canvas/LTIAAS for an extension. Copy for the deep-link description
-  is needed before real courses use the picker (it's baked in at creation).
+- [~] **Assignments show "No additional details" in Canvas (by design now).**
+  Canvas shows "No additional details were added for this assignment" on every
+  imported column, and there's no way around it in-assignment: the AGS line-item
+  API has no description field, and deep-linked content items _could_ carry a
+  `text` description but **we deliberately don't send one** —
+  `BuildLtiDeepLinkForm` sets no `text` (operator decision 2026-07-21), because a
+  baked-in description goes stale the moment the Dashboard timeline changes.
+  Instead the descriptive content renders **live in the iframe drill-down** (block
+  body, roll-up module list, exercise instructions), which is always current. So
+  the empty Canvas description is intentional, not a gap. No action unless we
+  decide a short static blurb is worth the staleness.
 
 - [ ] **Rejected / pre-activation launch shows raw JSON.** Launching before LTIAAS
   activates the registration (or any LTIAAS-rejected launch) surfaces a raw JSON
@@ -210,12 +213,12 @@ launch + Wikipedia OAuth is the only linking path.
   "not yet linked" notice for instructors) and students who haven't connected
   a Wikipedia account yet.
 
-- [ ] **No UI to change gradebook layout after linking.** The setup form's
-  granularity explanation promises "You can change this later," but nothing in
-  the product lets an instructor change `gradebook_granularity` post-link. The
-  new `instructor_status` launch view is the natural home. Needs design care:
-  switching modes re-syncs the line-item set (columns get archived/created, never
-  deleted from Canvas), so explain the consequences or constrain the switch.
+- [x] **No UI to change gradebook layout after linking.** _(Moot as of the
+  deep-link-first change, 2026-07-23.)_ The setup step no longer offers a
+  gradebook-layout choice at all — linking just links, and columns are imported
+  via Modules — so there's nothing to change post-link and no "you can change
+  this later" promise. Revisit only if `standard`/`per_block` ever become
+  user-selectable again.
 
 ## Deep-link picker (`DeepLinkableGradables`)
 
@@ -225,13 +228,12 @@ launch + Wikipedia OAuth is the only linking path.
   Canvas lists assignments in creation order, so creation must walk the
   timeline). Note: already-created Canvas assignments keep their positions; the
   order fix shows only for columns created after it deployed.
-- [ ] **Picker offers the trainings roll-up even though it's auto-created.** `perform`
-  unshifts the "Wikipedia trainings" roll-up whenever the course has trainings, but
-  that column is already auto-created on sync (trainings stay auto-present in every
-  granularity mode) — so picking it creates a duplicate. Drop the roll-up from the
-  picker (not something an instructor should add manually), or hide it when already
-  present. Naturally folds into the granularity redesign, since the code comment
-  already notes `DeepLinkableGradables` and `SyncLtiLineItems` are slated to unify.
+- [x] **Picker offers the trainings roll-up even though it's auto-created.**
+  _(Moot as of deep-link-first, 2026-07-23.)_ In `lumped` (the only mode setup
+  now produces) nothing is auto-created, so the picker offering the roll-up is
+  correct — it's how the instructor imports that column. The duplicate risk only
+  existed under `standard`/`per_block` auto-create, which are no longer
+  user-selectable. Revisit if those modes return.
 
 ## Bugs (found during the walkthrough)
 
@@ -252,23 +254,16 @@ launch + Wikipedia OAuth is the only linking path.
   bare id → 404, prefixed → 200 (course 178). Also confirm `lms_platform_url` is the
   institution's actual Canvas web host (not a generic `canvas.instructure.com`
   issuer) when testing a hosted institution, or the link host will be wrong.
-- [ ] **Deep-linked exercise shows the orphan view on first launch (no discovery
-  sync after deep-linking).** Deep-linking an exercise (e.g. "Wk4 Bibliography",
-  Block:530) creates the Canvas assignment correctly — resource marker in the launch
-  URL + `custom_params` (`resource=Block:530`) and a gradebook line item (points 1.0).
-  But opening it renders `assignment_view_orphan`, not the rich roster/sandbox panel.
-  Root cause: `LtiDeepLinking#deep_link_select` does NOT schedule a line-item sync, so
-  no local `LtiLineItem` row is created for the new column (line-item syncs only fire
-  at link time, on `Block` edits via `perform_in(2.min)`, and from the wizard — none
-  on deep-linking). With no local row, `ResolveAssignmentLineItem` can only bind from
-  the launch's scoped AGS `lineItemId`, which Canvas doesn't reliably deliver (the code
-  comments on this) → nil → orphan. Fixes: (a) schedule `LtiLineItemSyncWorker` after
-  `deep_link_select` (like `Block` does) so the column is discovered + bound shortly
-  after creation; and/or (b) make `ResolveAssignmentLineItem` discover the line item by
-  tag via AGS (list line items, match `Block:<id>`) when it has the gradable but no
-  local row and no launch `lineItemId` — mirroring
-  `SyncLtiLineItems#discover_deep_linked_exercises`. Workaround to confirm: trigger a
-  line-item sync for the binding, then re-open the assignment → rich view.
+- [x] **Deep-linked exercise shows the orphan view on first launch.** _(Fixed —
+  both proposed fixes are in place.)_ (a) `LtiDeepLinking#deep_link_select`
+  schedules `LtiLineItemSyncWorker.perform_in(2.minutes, binding.id)`, so the new
+  column is discovered + bound shortly after creation; and (b)
+  `ResolveAssignmentLineItem#bind_from_launch_line_item` discovers the line item
+  by tag via AGS (lists line items, reads the launch line item's `tag`, matches
+  the gradable's `resource`) and binds/repoints the local row — so a launch that
+  carries the AGS `lineItemId` resolves immediately, even before the 2-minute
+  sync. Only a launch that carries neither the marker nor a scoped `lineItemId`
+  falls through to orphan until the sync runs.
 
 ## Housekeeping (after the walkthrough)
 
@@ -276,16 +271,17 @@ launch + Wikipedia OAuth is the only linking path.
   specs now target the current **"wikiedu.org testing" (tool 5)** registration via
   `LaunchHelpers#tool_label` (override `CANVAS_TOOL_LABEL`), and were reworked for the
   deep-link-first model (Modules-page bulk import, in-iframe drill-downs). Gallery
-  rebuilt: **34 shots, 7 flows, all green** including the full student journey
-  (the earlier s02/s03 "gap" was a harness bug — GET vs POST-only omniauth request
-  phase — fixed, not a profile-bootstrap need).
-- [ ] **Finalize guide + HECVAT placeholders.** Remaining `[PLACEHOLDER]`s: the
-  manual-path config source, the support/activation contact, and the two
-  troubleshooting specifics.
-- [ ] **Fill the launch-view copy placeholders.** `grep '\[PLACEHOLDER' config/locales/en.yml`
-  — the instructor status view's grade-sync error notice (header/explanation/
-  sync-hint were resolved by the operator: "Wiki Education Dashboard" + ✓
-  header, no explanation, refresh link instead of the hint), the post-link
-  flash (`lti.setup.linked_notice`), the setup/trainings assignment views
-  (summary, empty state, student strings), and the `lumped` granularity radio
-  label + example.
+  rebuilt and extended since: **37 shots, 8 flows, all green** (added the
+  fact-verification exercise flow — not-started / in-progress / instructor
+  roster — plus the student progress overview and the grade-sync surfaces).
+- [ ] **Finalize guide placeholders.** `docs/hecvat.md` is clean; the dev guide's
+  guide/HECVAT links are filled; the manual-path config source is gone (manual
+  path removed). Remaining `[PLACEHOLDER]`s are all operator copy in
+  `docs/canvas_integration_guide.md`: the fuller data-sharing summary, the two
+  troubleshooting specifics (refused-to-connect, sync timing), and the
+  support/activation contact.
+- [x] **Fill the launch-view copy placeholders.** _(Done — `grep '\[PLACEHOLDER'
+  config/locales/en.yml` now returns nothing.)_ The operator filled the grade-sync
+  started/error notices, the import next-step, the post-link flash
+  (`lti.setup.linked_notice`), and the setup/trainings assignment-view strings;
+  the `lumped` granularity radio label was removed with the deep-link-first change.

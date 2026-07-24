@@ -435,14 +435,15 @@ diligence:
 - **Canvas integration guide** — what the tool is (an LTI 1.3 tool fronted by
   LTIAAS), what it does (course-navigation launch, NRPS roster sync, AGS grade
   passback), and what it needs (a root-account install with specific scopes and
-  placements). [PLACEHOLDER - link to Wiki Education's Canvas integration guide]
+  placements). See [the Canvas integration guide](./canvas_integration_guide.md).
 - **VPAT** (Voluntary Product Accessibility Template) — the Dashboard's
   accessibility conformance report, which the university's accessibility office
   will ask for: [VPAT 2.5, WCAG edition](https://dashboard.wikiedu.org/accessibility)
   (evaluates against WCAG 2.1 A/AA).
 - **HECVAT** (Higher Education Community Vendor Assessment Toolkit) — the
-  security/privacy self-assessment for the university's vendor-risk review.
-  [PLACEHOLDER - link to the Dashboard's HECVAT, or note its status]
+  security/privacy self-assessment for the university's vendor-risk review. See
+  the [HECVAT draft](./hecvat.md) in this repo (to be published at
+  dashboard.wikiedu.org/hecvat).
 - **Data flow** (for the security review): the tool is fronted by **LTIAAS**, a
   third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
   Canvas ↔ LTIAAS ↔ Dashboard. The roster is anonymized — an opaque LMS user id
