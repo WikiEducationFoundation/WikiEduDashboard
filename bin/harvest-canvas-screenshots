@@ -186,7 +186,9 @@ CAPTIONS = {
     "Show renders a student's Wikipedia sandbox inline.",
   '03-setup-instructor-roster' =>
     'The Wikipedia account assignment: who has connected (real name + username, ' \
-    'from the Dashboard) and who is still pending, with the grade-sync footer below.',
+    'from the Dashboard), plus how many have not — those carry only an opaque LMS ' \
+    'id, so they are counted here and named in the Canvas gradebook column instead. ' \
+    'Grade-sync footer below.',
   '04-trainings-instructor' =>
     'The trainings roll-up: each module linked with its students-completed count, ' \
     'above the per-student progress roster, with the grade-sync footer below.',
