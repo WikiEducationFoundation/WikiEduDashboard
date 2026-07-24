@@ -70,6 +70,12 @@ describe 'Student UX screenshots', :staging do
 
   it 'captures the in-iframe landing, the enrollment landing, and the student panel' do
     slug = provision_dashboard_course
+    # Give the course a timeline (a training block + an exercise block) so the
+    # in-iframe nav overview has real trainings/exercises and a next step to
+    # show, not just the header. Build it BEFORE binding: creating blocks after a
+    # binding exists would enqueue a line-item-sync job whose log line pollutes
+    # the console JSON this helper parses.
+    DashboardAdminClient.build_timeline(course_slug: slug)
     bind_course_as_instructor(canvas_course_id: provisioned[:canvas_course_id], course_slug: slug)
 
     in_student_browser do
@@ -88,8 +94,9 @@ describe 'Student UX screenshots', :staging do
     end
   end
 
-  # Relaunching the nav tab once enrolled renders the confirmation header
-  # right in the iframe — no break-out button.
+  # Relaunching the nav tab once enrolled renders the student's progress
+  # overview right in the iframe (next step + trainings + exercises) — no
+  # break-out button.
   def capture_student_nav_status
     in_canvas do
       visit_canvas_course(provisioned[:canvas_course_id])

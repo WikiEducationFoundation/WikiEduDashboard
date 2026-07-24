@@ -80,9 +80,9 @@ SECTIONS = [
            'in-iframe link status, and importing every Wikipedia assignment in one ' \
            'step from the Modules page.' },
   { role: 'student',
-    title: 'Student — joining the course',
+    title: 'Student — joining the course and tracking progress',
     blurb: "The student's launch from Canvas, the waiting states before setup and " \
-           'approval, and their course home.' },
+           'approval, their in-iframe progress overview, and their course home.' },
   { role: 'active_course',
     title: 'Instructor — roster sync as students join',
     blurb: "The instructor's course home and student roster, before and after a " \
@@ -125,7 +125,8 @@ CAPTIONS = {
     'Opening the tool inside Canvas before linking: the not-yet-linked notice and ' \
     'a button to continue on the Dashboard in a new tab.',
   '03-dashboard-setup-empty' =>
-    'The setup page: pick a Wiki Education course and a gradebook layout.',
+    'The setup page: pick the Wiki Education course to link (deep-link-first — no ' \
+    'gradebook-layout choice; the instructor imports the columns they want).',
   '04-dashboard-setup-course-selected' =>
     'A course chosen; Link this course becomes active.',
   '05-dashboard-course-bound' =>
@@ -134,7 +135,9 @@ CAPTIONS = {
     'The Canvas link panel: linked course, last sync, and students synced.',
   '07-canvas-nav-status' =>
     'Relaunching the course tab: the link status renders right in the iframe — ' \
-    'course link, students synced, last sync, and a refresh action.',
+    'course link, students synced, roster sync and grade sync each with their own ' \
+    'last-synced time, a refresh action, and a Sync grades button to push grades ' \
+    'to the gradebook on demand.',
   '08-import-picker' =>
     'Import Wikipedia assignments from the Modules page: every task pre-selected.',
   '09-module-created' =>
@@ -150,8 +153,9 @@ CAPTIONS = {
   's03-student-course-panel' =>
     "The student's course panel: their account-link status and last sync.",
   's06-canvas-nav-status' =>
-    "Relaunching the course tab as an enrolled student: the in-iframe confirmation " \
-    'header with the course link.',
+    "Relaunching the course tab as an enrolled student: their progress overview in " \
+    'the iframe — a next step, plus rolled-up training and exercise completion ' \
+    '(assigned articles appear here too, once the student has any).',
   's04-setup-pending' =>
     'Shown to a student before the instructor has finished setup.',
   's05-enrollment-pending-approval' =>
@@ -169,17 +173,19 @@ CAPTIONS = {
   'f01-full-course-gradebook' =>
     'A full assignment timeline: one gradebook column per weekly milestone.',
   '01-exercise-instructor-roster' =>
-    "An exercise assignment: each student's status and sandbox, right in the iframe.",
+    "An exercise assignment: each student's status and sandbox, right in the iframe, " \
+    'with the grade-sync footer (last grade sync + a Sync grades trigger) below.',
   '02-exercise-sandbox-preview' =>
     "Show renders a student's Wikipedia sandbox inline.",
   '03-setup-instructor-roster' =>
     'The Wikipedia account assignment: who has connected (real name + username, ' \
-    'from the Dashboard) and who is still pending.',
+    'from the Dashboard) and who is still pending, with the grade-sync footer below.',
   '04-trainings-instructor' =>
     'The trainings roll-up: each module linked with its students-completed count, ' \
-    "above the per-student progress roster.",
+    'above the per-student progress roster, with the grade-sync footer below.',
   '05-exercise-student-panel' =>
-    "The same exercise as the student sees it: their status and sandbox.",
+    "The same exercise as the student sees it: their status, a Launch instructions " \
+    "button to the exercise's training module, and their sandbox.",
   '06-setup-student-panel' =>
     "The student's Wikipedia account view: Connected, with their username linking " \
     'to their Dashboard details.',
