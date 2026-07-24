@@ -69,26 +69,17 @@ Most institutions review a tool's accessibility and data handling first:
 ## What you'll need
 
 - Canvas **root-account administrator** access.
-- For the self-service path, Wiki Education's registration URL:
-  `https://wikiedu.ltiaas.com/lti/register`. For the manual path, the Dashboard's
-  **LTI configuration** [PLACEHOLDER - where an institution obtains the manual
-  configuration from Wiki Education].
+- Canvas's **Dynamic Registration** feature (a paid Canvas add-on). If your
+  Canvas doesn't have it, contact Wiki Education (see Getting help).
+- Wiki Education's registration URL: `https://wikiedu.ltiaas.com/lti/register`.
 - About 15 minutes.
 
 ## Installation
 
-There are two ways to install, depending on whether your Canvas has the **Dynamic
-Registration** feature:
-
-- **Dynamic Registration (recommended):** you paste one URL and Canvas and the
-  Dashboard configure everything automatically, including registering your Canvas
-  with the tool — no configuration to copy back and forth. Wiki Education then
-  activates your registration (see below). Dynamic Registration is a paid Canvas
-  add-on, so not every institution has it.
-- **Manual install (fallback):** if you don't have Dynamic Registration, you
-  configure the key yourself and Wiki Education completes one step on its end.
-
-### Path A — Dynamic Registration (recommended)
+Installation uses Canvas's **Dynamic Registration**: you paste one URL and Canvas
+and the Dashboard configure everything automatically — endpoints, scopes, and
+placements, and registering your Canvas with the tool — with no configuration to
+copy back and forth. Wiki Education then activates your registration (see below).
 
 1. In Canvas, go to **Admin → Developer Keys → + Developer Key → + LTI
    Registration**. Paste Wiki Education's registration URL —
@@ -104,27 +95,12 @@ Registration** feature:
 Your Canvas is now registered with the Dashboard automatically — there's no
 configuration to send back. **Wiki Education reviews and activates each new
 institution's registration** before launches work, so let them know you've
-registered [PLACEHOLDER - contact / request form]; the tool starts working once
+registered by emailing sage at wikiedu.org; the tool starts working once
 they activate it.
-
-### Path B — Manual install (if Dynamic Registration isn't available)
-
-1. Go to **Admin → Developer Keys → + Developer Key → + LTI Key**. Enter the
-   configuration Wiki Education provides, using the **Method** they specify
-   (**Enter URL** or **Paste JSON**). **Save**, set the **State** to **ON**, and
-   copy the **Client ID** from the **Details** column.
-2. Install it: **Admin → Settings → Apps → View App Configurations → + App**, set
-   **Configuration Type** to **By Client ID**, paste the Client ID, and
-   **Install**.
-3. **Finish the registration.** On the installed app under **Settings → Apps**,
-   open its settings (the gear/cog icon) and copy the **Deployment ID**. Send your
-   **Client ID**, **Deployment ID**, and Canvas site URL to Wiki Education
-   [PLACEHOLDER - contact / request form] so they can register your Canvas in
-   LTIAAS. Launches will not succeed until this step is done.
 
 ### Choose how it appears
 
-For either path, decide whether the course-navigation link shows up automatically:
+Decide whether the course-navigation link shows up automatically:
 
 - **Off by default (recommended):** instructors enable it per course under
   **Settings → Navigation**.
@@ -148,9 +124,7 @@ flows back to the gradebook.
   instructor needs to enable it under **Settings → Navigation** (and click Save).
   Confirm the app is listed under **Settings → Apps**.
 - **Launching shows an error right after install.** The tool may not be active
-  yet. On Path A, confirm Wiki Education has activated your registration; on Path
-  B, confirm you sent the Client ID and Deployment ID to Wiki Education and they've
-  acknowledged it.
+  yet — confirm Wiki Education has activated your registration.
 - **"Refused to connect" inside the Canvas frame.** [PLACEHOLDER - Wiki Education
   to confirm the expected first-launch behavior (the Dashboard opens in a new tab
   for sign-in) and any known browser third-party-cookie caveats.]
@@ -161,4 +135,4 @@ For anything else, contact Wiki Education (below).
 
 ## Getting help
 
-[PLACEHOLDER - Wiki Education support contact (email / help URL) for admins.]
+For support, contact sage at wikiedu.org.
