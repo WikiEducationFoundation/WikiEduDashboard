@@ -1,8 +1,69 @@
 // System Stats Dashboard — minimal additions over existing framework styles
 // Uses: .main-page, .stat-display, .module, .section-header, .table from global stylesheets
 
-// Note: Filter styles removed — filter UI not yet wired to backend.
-// Re-add when filters are implemented.
+.system-stats__filter-card
+  background #fff
+  border 1px solid #e2e8f0
+  border-radius 4px
+  padding 20px
+  margin-bottom 35px
+  box-shadow 0 1px 3px rgba(0, 0, 0, 0.05)
+
+.system-stats__filter-row
+  display flex
+  flex-wrap wrap
+  gap 20px
+  align-items flex-end
+
+.system-stats__filter-group
+  display flex
+  flex-direction column
+  gap 6px
+  flex 1
+  min-width 160px
+
+  label
+    font-size 11px
+    font-weight 700
+    color #718096
+    letter-spacing 0.5px
+    text-transform uppercase
+    margin 0
+
+  select, input[type="date"]
+    padding 8px 12px
+    border 1px solid #cbd5e0
+    border-radius 4px
+    font-size 13px
+    background-color #fff
+    color #2d3748
+    height 38px
+    width 100%
+    box-sizing border-box
+
+    &:focus
+      outline none
+      border-color #7e22ce
+
+.system-stats__export-button
+  background-color #7e22ce
+  color #fff
+  font-weight 600
+  font-size 13px
+  border none
+  border-radius 4px
+  padding 0 24px
+  height 38px
+  cursor pointer
+  white-space nowrap
+  transition background-color 0.2s, opacity 0.2s
+
+  &:hover
+    background-color #6b21a8
+
+  &:disabled
+    opacity 0.6
+    cursor not-allowed
 
 main header.system-stats-header
   padding 40px 0 15px
