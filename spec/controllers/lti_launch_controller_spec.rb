@@ -442,6 +442,9 @@ describe LtiLaunchController, type: :request do
             .not_to change(CoursesUsers, :count)
           expect(response).to have_http_status(:ok)
           expect(response.body).to include("Couldn&#39;t enroll")
+          # Offers a re-launch retry for when the underlying issue clears.
+          expect(response.body).to include('Check again')
+          expect(response.body).to include('href="/lti?ltik=ltik-abc"')
           expect(Sentry).to have_received(:capture_message)
             .with('LTI student launch JoinCourse failure',
                   hash_including(extra: hash_including(failure: 'withdrawn')))
