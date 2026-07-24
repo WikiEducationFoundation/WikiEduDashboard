@@ -416,6 +416,37 @@ describe Course, type: :model do
     end
   end
 
+  describe '#articles_from_timeslices' do
+    let(:course) { create(:course) }
+    let(:wiki) { course.home_wiki }
+    let(:user) { create(:user) }
+    let(:article_with_acuwt) { create(:article, title: 'ACUWT Article', wiki:) }
+    let(:article_with_act) { create(:article, title: 'ACT Article', wiki:) }
+
+    before do
+      create(:article_course_user_wiki_timeslice, course:, wiki:, user:,
+             article: article_with_acuwt, start: course.start, end: course.start + 1.day)
+      create(:article_course_timeslice, course:, article: article_with_act,
+             start: course.start, end: course.start + 1.day)
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'returns articles based on article course user wiki timeslices' do
+        expect(course.articles_from_timeslices(wiki.id)).to contain_exactly(article_with_acuwt)
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'returns articles based on article course timeslices' do
+        expect(course.articles_from_timeslices(wiki.id)).to contain_exactly(article_with_act)
+      end
+    end
+  end
+
   describe '#timeslice_update_ran?' do
     let(:course) { build(:basic_course, flags:) }
     let(:subject) { course.timeslice_update_ran? }

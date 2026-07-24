@@ -34,41 +34,6 @@ describe ArticleCourseUserWikiTimeslice, type: :model do
   let(:article1) { create(:article, wiki:) }
   let(:article2) { create(:article, title: 'SecondArticle', wiki:) }
 
-  describe '.periods_for_articles' do
-    before do
-      create(:article_course_user_wiki_timeslice,
-             course:, wiki:, article: article1, user: user1,
-             start: ts_start, end: ts_end)
-      create(:article_course_user_wiki_timeslice,
-             course:, wiki:, article: article1, user: user1,
-             start: ts_start + 1.day, end: ts_start + 2.days)
-      create(:article_course_user_wiki_timeslice,
-             course:, wiki:, article: article2, user: user1,
-             start: ts_start, end: ts_end)
-    end
-
-    it 'returns distinct (start, end) pairs for the given articles' do
-      pairs = described_class.periods_for_articles(course, wiki, [article1.id])
-      expect(pairs).to contain_exactly(
-        [ts_start, ts_end],
-        [ts_start + 1.day, ts_start + 2.days]
-      )
-    end
-
-    it 'excludes rows for other articles' do
-      pairs = described_class.periods_for_articles(course, wiki, [article2.id])
-      expect(pairs).to contain_exactly([ts_start, ts_end])
-    end
-
-    it 'deduplicates periods when multiple users have rows for the same period' do
-      create(:article_course_user_wiki_timeslice,
-             course:, wiki:, article: article1, user: user2,
-             start: ts_start, end: ts_end)
-      pairs = described_class.periods_for_articles(course, wiki, [article1.id])
-      expect(pairs.count { |(s, _)| s == ts_start }).to eq(1)
-    end
-  end
-
   describe '.users_for_articles_in_period' do
     before do
       create(:article_course_user_wiki_timeslice,

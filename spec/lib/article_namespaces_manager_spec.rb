@@ -45,6 +45,21 @@ describe ArticleNamespacesManager do
                        reason: 'moved_to_mainspace',
                        article_ids: [mainspace_article.id] })
     end
+
+    # For ACUWT courses, this case is detected when the articles_courses record is
+    # created instead (see ArticlesCourses.update_from_course_revisions).
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'does not reset the article' do
+        subject
+        expect(course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
+        expect(ArticlesCourses.where(article_id: mainspace_article.id).count).to eq(1)
+        expect(ArticleCourseTimeslice.where(article_id: mainspace_article.id).count).to eq(2)
+      end
+    end
   end
 
   context 'when the tracked status of articles changed' do
@@ -87,6 +102,55 @@ describe ArticleNamespacesManager do
       course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
                                                                     start: '2024-01-11')
       expect(course_wiki_timeslice.needs_update).to eq(true)
+    end
+
+    context 'when the course uses ACUWT' do
+      let(:user) { create(:user) }
+
+      before do
+        course.add_flag(key: :use_acuwt)
+        create(:article_course_user_wiki_timeslice, course:, article: article3, user:,
+               wiki: wikidata, start: '2024-01-11', end: '2024-01-12')
+      end
+
+      it 'resets untracked articles through reaggregation' do
+        described_class.new(course)
+
+        expect(course.articles_courses.where(article: article3)).to be_empty
+        expect(course.article_course_timeslices.where(article: article3)).to be_empty
+        course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
+                                                                      start: '2024-01-11')
+        expect(course_wiki_timeslice.needs_reaggregation).to eq(true)
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+        expect(ArticleCourseUserWikiTimeslice.where(course:, article: article3).count).to eq(1)
+      end
+
+      it 'resets deleted articles through reaggregation when statuses were synced' do
+        create(:article_course_user_wiki_timeslice, course:, article: article1, user:,
+               wiki: enwiki, start: '2024-04-11', end: '2024-04-12')
+        described_class.new(course, statuses_synced: true)
+
+        expect(course.articles_courses.where(article: article1)).to be_empty
+        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
+                                                                      start: '2024-04-11')
+        expect(course_wiki_timeslice.needs_reaggregation).to eq(true)
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+        expect(ArticleCourseUserWikiTimeslice.where(course:, article: article1).count).to eq(1)
+      end
+
+      it 'includes undeleted or retracked articles through rescoring when statuses were synced' do
+        create(:article_course_user_wiki_timeslice, course:, article: article4, user:,
+               wiki: wikidata, start: '2024-03-15', end: '2024-03-16')
+        described_class.new(course, statuses_synced: true)
+
+        expect(course.articles_courses.where(article: article4)).not_to be_empty
+        expect(ArticleCourseUserWikiTimeslice.find_by(course:, article: article4).needs_update)
+          .to eq(true)
+        course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
+                                                                      start: '2024-03-15')
+        expect(course_wiki_timeslice.needs_update).to eq(false)
+      end
     end
 
     it 'reset articles for deleted articles when statuses were synced' do

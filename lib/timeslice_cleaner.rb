@@ -97,7 +97,7 @@ class TimesliceCleaner
   # specific given date
   def delete_article_course_timeslices_after_date(wikis, date)
     # Collect the ids of articles to be deleted
-    article_ids = @course.articles_from_timeslices(wikis).pluck(:id)
+    article_ids = @course.articles_from_timeslices_legacy(wikis).pluck(:id)
 
     timeslices = ArticleCourseTimeslice.where(course: @course).where(article_id: article_ids)
                                        .where('start > ?', date)
@@ -220,7 +220,7 @@ class TimesliceCleaner
   # Deletes existing article course timeslices for a collection of wiki ids
   def delete_existing_article_course_timeslices(wiki_ids)
     # Collect the ids of articles to be deleted
-    article_ids = @course.articles_from_timeslices(wiki_ids).pluck(:id)
+    article_ids = @course.articles_from_timeslices_legacy(wiki_ids).pluck(:id)
 
     delete_in_batches(ArticleCourseTimeslice.where(course_id: @course.id, article_id: article_ids))
   end
@@ -262,7 +262,7 @@ class TimesliceCleaner
   # Deletes article course timeslices records in the period [start_date, end_date]
   def delete_article_course_timeslices_for_period(wikis, start_date, end_date)
     # Collect the ids of articles to be deleted
-    article_ids = @course.articles_from_timeslices(wikis).pluck(:id)
+    article_ids = @course.articles_from_timeslices_legacy(wikis).pluck(:id)
 
     timeslices = ArticleCourseTimeslice.where(course: @course).where(article_id: article_ids)
                                        .where('start >= ?', start_date)
