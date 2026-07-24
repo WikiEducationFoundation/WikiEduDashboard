@@ -223,6 +223,13 @@ describe ReportsController, '#system_csv', type: :request do
         expect(json['error']).to include('Campaign not found')
       end
 
+      it 'returns 422 for malformed wiki_domain' do
+        get '/system_csv', params: { wiki_domain: 'invalid domain!' }
+        expect(response).to have_http_status(422)
+        json = response.parsed_body
+        expect(json['error']).to include('Invalid wiki_domain')
+      end
+
       it 'returns 422 with multiple errors' do
         get '/system_csv', params: {
           course_type: 'Bogus',

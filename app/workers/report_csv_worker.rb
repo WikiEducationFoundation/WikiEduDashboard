@@ -13,7 +13,7 @@ require_dependency "#{Rails.root}/lib/analytics/system_csv_builder"
 
 class ReportCsvWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
+  sidekiq_options queue: 'daily_update', lock: :until_executed
 
   # Generate the csv for the given source (course or campaign)
   # if type is global, then can access source as nil

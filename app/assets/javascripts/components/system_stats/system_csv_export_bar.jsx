@@ -91,7 +91,7 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
             setNotice(I18n.t('system_stats.filters.generation_queued'));
             timerRef.current = setTimeout(poll, 6000);
           } else {
-            stopExport(I18n.t('system_stats.filters.fetch_error'));
+            stopExport(I18n.t('system_stats.filters.still_processing'));
           }
         })
         .catch(err => {

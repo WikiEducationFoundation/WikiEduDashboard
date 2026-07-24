@@ -18,6 +18,7 @@ class SystemCsvFilterValidator
     validate_status(errs)
     validate_dates(errs)
     validate_campaign_slug(errs)
+    validate_wiki_domain(errs)
     errs
   end
 
@@ -48,5 +49,12 @@ class SystemCsvFilterValidator
     return unless @filters[:campaign_slug].present?
     return if Campaign.exists?(slug: @filters[:campaign_slug])
     errs << "Campaign not found: #{@filters[:campaign_slug]}"
+  end
+
+  def validate_wiki_domain(errs)
+    domain = @filters[:wiki_domain]
+    return unless domain.present?
+    return if domain.length <= 255 && domain.match?(/\A[a-z0-9.-]+\z/i)
+    errs << "Invalid wiki_domain: #{domain}"
   end
 end

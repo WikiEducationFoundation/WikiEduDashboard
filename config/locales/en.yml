@@ -206,6 +206,7 @@ en:
       export_csv: "Export CSV"
       generating: "Generating Export..."
       generation_queued: "Your CSV export is being generated in the background. Retrying..."
+      still_processing: "Your CSV export is still generating in the background. Please check back shortly and click Export again."
       fetch_error: "Could not generate CSV export. Please try again."
       course_type: "Course Type"
       status: "Status"

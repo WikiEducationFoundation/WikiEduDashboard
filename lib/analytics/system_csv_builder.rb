@@ -148,6 +148,11 @@ class SystemCsvBuilder
       .group_by(&:course_id)
   end
 
+  # Aggregates revision counts for tracked timeslices across namespaces.
+  # Note: Follows CampaignCsvBuilder precedent by aggregating all tracked timeslices
+  # per course in a single bulk query for batch performance efficiency across large course sets.
+  # For article-scoped programs, canonical single-course CSVs filter by scoped_article_ids,
+  # but bulk exports (Campaign and System CSVs) use bulk tracked timeslices.
   def fetch_revision_counts(course_ids)
     return {} if course_ids.empty?
 
