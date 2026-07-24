@@ -514,6 +514,25 @@ on staging it already is. Confirm:
 - The [placements](#placements) and [required LTIAAS scopes](#required-ltiaas-scopes)
   are registered, and the Course Navigation `default` is set how you want it
   (`enabled` = tab in every course; `disabled` = instructors opt in per course).
+- **Privacy level is `anonymous` on the _installed_ tool.** What Canvas shares
+  (launch claims *and* the NRPS roster) is governed by the installed tool, which
+  can drift from the developer key's `tool_configuration` — on staging the key's
+  config said `anonymous` while the installed tool was still `public`, so NRPS
+  was returning names and emails (the Dashboard discards them, but they were
+  being sent). Check and fix over the API:
+
+  ```bash
+  # what the installed tool actually uses
+  curl -H "Authorization: Bearer $TOKEN" \
+    "$CANVAS/api/v1/accounts/1/external_tools/<tool_id>" | jq .privacy_level
+  # what the developer key's config asks for
+  curl -H "Authorization: Bearer $TOKEN" \
+    "$CANVAS/api/lti/accounts/1/developer_keys/<key_id>/tool_configuration" \
+    | jq '.tool_configuration.settings.extensions[0].privacy_level'
+  # correct the installed tool
+  curl -X PUT -H "Authorization: Bearer $TOKEN" \
+    "$CANVAS/api/v1/accounts/1/external_tools/<tool_id>" -d privacy_level=anonymous
+  ```
 - Dashboard side: `canvas_integration_enabled: 'true'` plus `LTIAAS_DOMAIN` /
   `LTIAAS_API_KEY` in `config/application.yml`.
 

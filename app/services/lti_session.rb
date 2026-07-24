@@ -168,8 +168,8 @@ class LtiSession
   end
 
   # Idempotently records that `current_user` is the Dashboard user for this
-  # LMS identity within the binding. Updates NRPS-supplied profile fields
-  # (email/name/roles) on each launch so they stay fresh.
+  # LMS identity within the binding. Refreshes the launch's roles each time
+  # so they stay current; no name or email is read (anonymized posture).
   def link_lti_user(current_user, binding: nil)
     binding ||= find_or_create_binding!
     context = LtiContext.find_or_initialize_by(

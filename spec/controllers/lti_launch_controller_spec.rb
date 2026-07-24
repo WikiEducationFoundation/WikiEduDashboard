@@ -885,7 +885,7 @@ describe LtiLaunchController, type: :request do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
-      it 'renders the connection roster, including not-yet-connected members' do
+      it 'renders the connection roster, counting not-yet-connected members' do
         linked_student = create(:user, username: 'LinkedStu')
         CoursesUsers.create!(user: linked_student, course: course,
                              role: CoursesUsers::Roles::STUDENT_ROLE,
@@ -902,11 +902,11 @@ describe LtiLaunchController, type: :request do
         # real name plus the Wikipedia username (same as the Students tab).
         expect(response.body).to include('Linda Linked')
         expect(response.body).to include('LinkedStu')
-        # The unlinked member has no name (anonymized mode), so the roster
-        # falls back to the opaque LMS user id.
-        expect(response.body).to include('lti-pending-1')
         expect(response.body).to include('Connected')
-        expect(response.body).to include('Not connected')
+        # The unlinked member has no legible identity (anonymized mode), so it
+        # is counted in the pending callout rather than shown as an opaque id.
+        expect(response.body).not_to include('lti-pending-1')
+        expect(response.body).to include('lti-iframe__next-step')
       end
 
       context 'as a student' do

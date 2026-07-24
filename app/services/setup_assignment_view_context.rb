@@ -2,17 +2,17 @@
 
 # Bundles the data for the in-Canvas assignment view of the "Wikipedia
 # account" (WikipediaSetup) gradebook column: which of the Canvas course's
-# students have connected a Wikipedia account. Unlike the Block-backed
-# views, not-yet-linked memberships matter here — they are exactly the rows
-# the instructor opens this column to find, so they're listed (first) even
-# though, under the anonymized posture, all we can show for them is the
-# opaque LTI user id.
+# students have connected a Wikipedia account.
+#
+# Not-yet-connected members are counted, not listed. Under the anonymized
+# posture the only label we hold for them is the opaque LMS user id, which
+# identifies nobody — and no Canvas page an instructor can reach resolves it
+# (`lti_user_id:` works on the API and the account-admin user page, but the
+# course roster page rejects it). The legible list of the same students is
+# the Canvas gradebook column itself, where they appear by Canvas's own names
+# with no score, so the view points there instead of printing opaque ids.
 class SetupAssignmentViewContext
-  Row = Struct.new(:name, :username, :connected, keyword_init: true) do
-    def connected?
-      connected
-    end
-  end
+  Row = Struct.new(:name, :username, keyword_init: true)
 
   attr_reader :line_item, :user
 
@@ -44,47 +44,47 @@ class SetupAssignmentViewContext
     @line_item.label
   end
 
-  # Identity comes from the Dashboard side, mirroring the course's Students
-  # tab (designed around anonymized mode, where the LMS shares no names):
-  # `name` is the real name on the student's CoursesUsers enrollment and
-  # `username` their Wikipedia account — both blank until they connect.
+  # One row per connected student. Identity comes from the Dashboard side,
+  # mirroring the course's Students tab (designed around anonymized mode,
+  # where the LMS shares no names): `name` is the real name on the student's
+  # CoursesUsers enrollment — blank if they didn't give one — and `username`
+  # their Wikipedia account.
   def rows
-    @rows ||= student_contexts.map do |context|
-      Row.new(name: display_name(context), username: context.user&.username,
-              connected: context.linked?)
+    @rows ||= connected_contexts.map do |context|
+      Row.new(name: enrollment_real_names[context.user_id],
+              username: context.user&.username)
     end
   end
 
   def connected_count
-    rows.count(&:connected?)
+    connected_contexts.size
   end
 
+  # Student memberships still awaiting a Wikipedia OAuth link — the roster's
+  # actionable state, carried as a count because they have no legible label.
+  def pending_count
+    total_count - connected_count
+  end
+
+  # Every student membership, connected or not. Zero means the roster sync
+  # hasn't run (or found nobody) yet, which the view reports differently from
+  # "nobody has connected".
   def total_count
-    rows.size
+    student_contexts.size
   end
 
   private
 
-  # Every student membership (linked or not), not-yet-connected first —
-  # those are the actionable rows — then by name.
   def student_contexts
-    @binding.lti_contexts.reject(&:instructor?)
-            .sort_by { |context| [context.linked? ? 1 : 0, sort_key(context)] }
+    @student_contexts ||= @binding.lti_contexts.reject(&:instructor?)
+  end
+
+  def connected_contexts
+    @connected_contexts ||= student_contexts.select(&:linked?).sort_by { |c| sort_key(c) }
   end
 
   def sort_key(context)
-    (display_name(context) || context.user&.username || '').downcase
-  end
-
-  # Connected rows show the Dashboard-side real name (the CoursesUsers
-  # enrollment record, same source as the Students tab) — may be blank if
-  # the student didn't provide one. Pending rows have no Dashboard identity,
-  # and the anonymized LMS shares no name — only the opaque LTI user id — so
-  # that's their label (legibility follow-up tracked in the todos).
-  def display_name(context)
-    return context.user_lti_id unless context.linked?
-
-    enrollment_real_names[context.user_id]
+    (enrollment_real_names[context.user_id] || context.user&.username || '').downcase
   end
 
   # One query for the whole roster, not one per row.

@@ -2367,6 +2367,11 @@ en:
       setup:
         summary: "%{connected} of %{total} have connected a Wikipedia account."
         empty: "The roster sync is pending. Check back shortly."
+        # Not-yet-connected students are counted here rather than listed: all
+        # the anonymized roster gives us for them is an opaque LMS user id.
+        # The same students are identifiable by name in the Canvas gradebook,
+        # where this column shows no score for them. %{count} is how many.
+        pending: "[PLACEHOLDER - tell the instructor that %{count} student(s) have not connected a Wikipedia account yet, and that they can see which ones by name in this assignment's column in the Canvas gradebook, where a student with no score has not connected]"
       trainings:
         # Mirrors the operator-supplied gradebook comment phrasing in
         # LtiTrainingProgress ("X of Y trainings completed").

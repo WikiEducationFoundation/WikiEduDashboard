@@ -17,8 +17,8 @@ describe SetupAssignmentViewContext do
   end
   let(:context) { described_class.new(line_item:, instructor: true) }
 
-  # Anonymized mode: LtiContext carries no name; a pending member is known only
-  # by their opaque LTI user id until they connect a Wikipedia account.
+  # Anonymized mode: LtiContext carries no name, so a pending member has no
+  # legible identity at all until they connect a Wikipedia account.
   def student_context(user_lti_id:, user: nil)
     LtiContext.create!(lti_course_binding: binding, user_lti_id:, user:,
                        lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
@@ -30,7 +30,7 @@ describe SetupAssignmentViewContext do
                          real_name:)
   end
 
-  it 'lists not-yet-connected members first (by opaque id), then connected (by name)' do
+  it 'lists the connected students by name' do
     zoe = create(:user, username: 'WikiZoe')
     anna = create(:user, username: 'WikiAnna')
     enroll(zoe, real_name: 'Zoe Real')
@@ -38,10 +38,8 @@ describe SetupAssignmentViewContext do
     student_context(user_lti_id: 'lti-1', user: zoe)
     student_context(user_lti_id: 'lti-2', user: anna)
     student_context(user_lti_id: 'lti-3')
-    student_context(user_lti_id: 'lti-4')
 
-    expect(context.rows.map(&:name)).to eq(['lti-3', 'lti-4', 'Anna Real', 'Zoe Real'])
-    expect(context.rows.map(&:connected?)).to eq([false, false, true, true])
+    expect(context.rows.map(&:name)).to eq(['Anna Real', 'Zoe Real'])
   end
 
   it 'counts connected members against the full roster' do
@@ -50,6 +48,7 @@ describe SetupAssignmentViewContext do
 
     expect(context.connected_count).to eq(1)
     expect(context.total_count).to eq(2)
+    expect(context.pending_count).to eq(1)
   end
 
   # Identity is Dashboard-side (same sources as the Students tab); the anonymized
@@ -69,12 +68,14 @@ describe SetupAssignmentViewContext do
     expect(context.rows.map { |r| [r.name, r.username] }).to eq([[nil, 'WikiUser']])
   end
 
-  it 'labels pending rows with the opaque LTI id (no name under anonymized mode)' do
+  # The opaque id names nobody, and no instructor-reachable Canvas page
+  # resolves it, so pending members are a count rather than a row.
+  it 'keeps pending members out of the rows, counting them instead' do
     student_context(user_lti_id: 'lti-opaque-1')
     student_context(user_lti_id: 'lti-opaque-2')
 
-    expect(context.rows.map(&:name)).to contain_exactly('lti-opaque-1', 'lti-opaque-2')
-    expect(context.rows.map(&:username)).to eq([nil, nil])
+    expect(context.rows).to be_empty
+    expect(context.pending_count).to eq(2)
   end
 
   describe '#student_details_path' do
@@ -92,9 +93,13 @@ describe SetupAssignmentViewContext do
 
   it 'excludes instructor and staff memberships' do
     LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-inst',
-                       lms_id: 'platform-x', roles: ['vocab/membership#Instructor'])
-    student_context(user_lti_id: 'lti-1')
+                       lms_id: 'platform-x', roles: ['vocab/membership#Instructor'],
+                       user: create(:user, username: 'WikiTeacher'))
+    anna = create(:user, username: 'WikiAnna')
+    enroll(anna, real_name: 'Anna Real')
+    student_context(user_lti_id: 'lti-1', user: anna)
 
-    expect(context.rows.map(&:name)).to eq(['lti-1'])
+    expect(context.rows.map(&:name)).to eq(['Anna Real'])
+    expect(context.total_count).to eq(1)
   end
 end

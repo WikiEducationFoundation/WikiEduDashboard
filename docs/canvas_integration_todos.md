@@ -8,11 +8,42 @@ current staging walkthrough; revisit as noted.
 Decision: **anonymized ("None (Anonymized)") is the main supported mode**, and
 launch + Wikipedia OAuth is the only linking path.
 
-- [ ] **Roster legibility.** In anonymized mode, students who haven't launched yet
-  appear in the instructor/staff LMS panels as bare Canvas user IDs (no name/email).
-  Once a student launches and links via Wikipedia OAuth they show by their Wikipedia
-  identity, so only *pending* members are opaque. Explore surfacing something more
-  legible for unlinked members.
+- [x] **Roster legibility.** _(Explored + resolved 2026-07-24.)_ Only one surface
+  ever printed a bare Canvas user id: `SetupAssignmentViewContext` (the trainings
+  and per-block rosters list connected students only). Resolution: **the opaque
+  ids are gone** — the "Wikipedia account" drill-down now lists connected students
+  and carries the not-yet-connected as a count plus a callout pointing at the same
+  column in the Canvas gradebook, where those students appear against Canvas's own
+  names with no score. Copy is a `[PLACEHOLDER]` (`lti.assignment_view.setup.pending`).
+  Re-harvest `03-setup-instructor-roster` after this deploys — the gallery shot
+  still shows the old opaque-id row.
+  - _Why not a click-through "who is this?" link:_ NRPS does hand us
+    `lti11LegacyUserId` alongside the LTI 1.3 UUID, and Canvas resolves that via
+    its `lti_user_id:` id prefix — but only where an instructor can't go. Verified
+    against staging Canvas: `/api/v1/users/lti_user_id:<legacy>` and
+    `/api/v1/courses/<id>/users/lti_user_id:<legacy>` → 200; `/users/lti_user_id:<legacy>`
+    (web) → 200 but `users#show` requires `:read_full_profile`, which comes from an
+    **account-level** `:read_roster` right, so admins only; and the course roster
+    page `/courses/<id>/users/lti_user_id:<legacy>` → **404** (`context#roster_user`
+    doesn't accept id prefixes). Still useful for Wiki Ed staff support: an account
+    admin token can resolve an opaque id to a Canvas user.
+  - _Also rejected:_ fetching NRPS live at render time to show LMS names when the
+    platform provides them. Would work (see the privacy-level note below) but
+    displays LMS names, which reads against the "opaque id + role only" wording in
+    the guide and HECVAT.
+
+- [x] **Staging's tool registration wasn't actually anonymized.** _(Fixed
+  2026-07-24.)_ Discovered while exploring the above: the raw NRPS payload for a
+  staging binding came back with `name`, `givenName`, `familyName`, `email`, and
+  `picture` for every member. The developer key's `tool_configuration` did say
+  `privacy_level: anonymous`, but the **installed** tool (account tool 5) was
+  `public` — the installed tool is what governs launch claims and NRPS, and it
+  had drifted from the key's config. Set to `anonymous` via
+  `PUT /api/v1/accounts/1/external_tools/5`; re-dumped the payload and it now
+  carries only `userId` / `lti11LegacyUserId` / `roles` / `status`. The Dashboard
+  was already discarding the PII (`normalize_member`), so no behavior changed —
+  but it was being sent. Now documented as an admin check in
+  `docs/canvas_dev_setup.md` §0.
 - [x] **Data-sharing copy.** _(Done 2026-07-24.)_ The data-sharing statements in
   `docs/canvas_integration_guide.md`, `docs/hecvat.md`, and
   `docs/canvas_dev_setup.md` now say the Dashboard receives only an **opaque LMS
@@ -178,8 +209,8 @@ launch + Wikipedia OAuth is the only linking path.
 - [x] **Setup + trainings assignment launches show the empty/orphan panel.**
   _(Implemented on CanvasStaging; copy placeholders pending.)_
   `render_assignment_view` (now in the `LtiAssignmentViews` concern) dispatches on
-  `gradable_type`: SETUP renders an account-connection roster (not-yet-connected
-  members listed first, opaque-id fallback for anonymized unlinked rows) via
+  `gradable_type`: SETUP renders an account-connection roster (connected students
+  listed; not-yet-connected carried as a count — see **Roster legibility**) via
   `SetupAssignmentViewContext`; TRAINING_PROGRESS renders per-student
   "X of Y trainings completed" via `TrainingsAssignmentViewContext` (counts from
   `LtiTrainingProgress`, same as the pushed grades). Students see their own
@@ -280,8 +311,10 @@ launch + Wikipedia OAuth is the only linking path.
   `docs/canvas_integration_guide.md`: the fuller data-sharing summary, the two
   troubleshooting specifics (refused-to-connect, sync timing), and the
   support/activation contact.
-- [x] **Fill the launch-view copy placeholders.** _(Done — `grep '\[PLACEHOLDER'
-  config/locales/en.yml` now returns nothing.)_ The operator filled the grade-sync
+- [~] **Fill the launch-view copy placeholders.** _(Done once; one new
+  placeholder since.)_ `lti.assignment_view.setup.pending` — the
+  not-yet-connected callout added by the roster-legibility change (2026-07-24) —
+  is the only `[PLACEHOLDER]` left in `config/locales/en.yml`. The operator filled the grade-sync
   started/error notices, the import next-step, the post-link flash
   (`lti.setup.linked_notice`), and the setup/trainings assignment-view strings;
   the `lumped` granularity radio label was removed with the deep-link-first change.
