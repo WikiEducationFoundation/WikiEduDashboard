@@ -37,10 +37,15 @@ class LtiBlockProgress
 
   SCORE_MAXIMUM = 1.0
 
-  def initialize(block, user, exercises_only: false)
+  # `completions`, when given, is this user's TrainingModulesUsers preloaded by
+  # the caller and keyed by `training_module_id` — so a roster can look up
+  # completion in memory instead of a per-(student, module) query. When nil,
+  # each module is looked up on demand (the single-user path).
+  def initialize(block, user, exercises_only: false, completions: nil)
     @block = block
     @user = user
     @course = block.course
+    @completions = completions
     modules = block.training_modules.to_a
     modules = modules.select(&:exercise?) if exercises_only
     @training_modules = modules
@@ -80,7 +85,8 @@ class LtiBlockProgress
   end
 
   def module_complete?(mod)
-    tmu = TrainingModulesUsers.find_by(user: @user, training_module: mod)
+    tmu = @completions ? @completions[mod.id] : TrainingModulesUsers.find_by(user: @user,
+                                                                             training_module: mod)
     return false unless tmu
 
     return tmu.flags.dig(@course.id, :marked_complete) ? true : false if mod.exercise?

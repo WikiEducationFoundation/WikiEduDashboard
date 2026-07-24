@@ -42,8 +42,10 @@ class AssignmentViewContext
 
   # One row per linked student on this binding, for the instructor roster.
   def roster
+    completions_by_user = roster_completions
     student_contexts.map do |context|
-      row_for(context.user, name: context.user.username)
+      row_for(context.user, name: context.user.username,
+              completions: completions_by_user[context.user_id] || {})
     end
   end
 
@@ -83,9 +85,9 @@ class AssignmentViewContext
     @exercise_modules ||= @block ? @block.training_modules.select(&:exercise?) : []
   end
 
-  def row_for(user, name:)
+  def row_for(user, name:, completions: nil)
     StudentRow.new(name:, username: user.username,
-                   progress_state: progress_state_for(user),
+                   progress_state: progress_state_for(user, completions:),
                    sandbox_url: sandbox_url_for(user))
   end
 
@@ -93,8 +95,8 @@ class AssignmentViewContext
   # exercise is under way (the student has started but not submitted), else
   # :none — so the pill and next-step read truthfully rather than showing
   # "not started" to someone mid-exercise.
-  def progress_state_for(user)
-    return :complete if completed_for?(user)
+  def progress_state_for(user, completions: nil)
+    return :complete if completed_for?(user, completions:)
     return :partial if exercise_in_progress?(user)
 
     :none
@@ -103,12 +105,13 @@ class AssignmentViewContext
   # Reuses the same completion logic — including the same exercises_only
   # setting — that drives the pushed AGS score, so the roster can't disagree
   # with the gradebook. (In per_block mode a block's column grades trainings
-  # too; in the roll-up modes it grades only the exercises.)
-  def completed_for?(user)
+  # too; in the roll-up modes it grades only the exercises.) `completions` is the
+  # user's preloaded TrainingModulesUsers when the roster batched them.
+  def completed_for?(user, completions: nil)
     return false if @block.nil?
 
-    LtiBlockProgress.new(@block, user, exercises_only: @binding.rolled_up_trainings?)
-                    .score_given >= 1.0
+    LtiBlockProgress.new(@block, user, exercises_only: @binding.rolled_up_trainings?,
+                                       completions:).score_given >= 1.0
   end
 
   # In-progress is only detectable for the fact-verification exercise: taking a
@@ -118,7 +121,7 @@ class AssignmentViewContext
   def exercise_in_progress?(user)
     return false unless fact_verification_block?
 
-    VerificationClaimAssignment.exists?(user_id: user.id, course_id: @course.id)
+    taken_claim_user_ids.include?(user.id)
   end
 
   def fact_verification_block?
@@ -134,11 +137,32 @@ class AssignmentViewContext
     "#{@course.home_wiki.base_url}/wiki/User:#{user.url_encoded_username}/#{mod.sandbox_location}"
   end
 
+  # One query: every roster student's TrainingModulesUsers for this block's
+  # modules, keyed { user_id => { training_module_id => tmu } }, so
+  # LtiBlockProgress reads completion in memory instead of per-(student, module).
+  def roster_completions
+    return {} if @block.nil?
+
+    TrainingModulesUsers
+      .where(user_id: student_contexts.map(&:user_id),
+             training_module_id: @block.training_module_ids)
+      .group_by(&:user_id)
+      .transform_values { |tmus| tmus.index_by(&:training_module_id) }
+  end
+
+  # One query for the whole roster: users who have taken a claim, so
+  # exercise_in_progress? is a set-membership test, not a per-student exists?.
+  def taken_claim_user_ids
+    @taken_claim_user_ids ||=
+      VerificationClaimAssignment.where(course_id: @course.id).pluck(:user_id).to_set
+  end
+
   # Wikipedia-linked students on this binding, excluding instructors/admins,
   # ordered by display name for a stable roster.
   def student_contexts
-    @binding.linked_student_contexts
-            .select(&:user)
-            .sort_by { |context| context.user.username.downcase }
+    @student_contexts ||=
+      @binding.linked_student_contexts
+              .select(&:user)
+              .sort_by { |context| context.user.username.downcase }
   end
 end

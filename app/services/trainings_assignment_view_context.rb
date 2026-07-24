@@ -56,10 +56,14 @@ class TrainingsAssignmentViewContext
     @line_item.label
   end
 
-  # One row per linked student, for the instructor roster.
+  # One row per linked student, for the instructor roster. Completed counts come
+  # from one grouped query (not an LtiTrainingProgress per student).
   def roster
+    completed = roster_completed_counts
+    total = training_module_ids.size
     student_contexts.map do |context|
-      row_for(context.user, name: context.user.username)
+      Row.new(name: context.user.username,
+              completed_count: completed[context.user_id] || 0, total_count: total)
     end
   end
 
@@ -96,13 +100,27 @@ class TrainingsAssignmentViewContext
   end
 
   # One grouped query: per-module completion counts across the binding's
-  # connected students.
+  # connected students (for module_stats).
   def completion_counts
     TrainingModulesUsers
-      .where(training_module_id: viewer_progress.training_modules.map(&:id),
-             user_id: student_contexts.map(&:user_id))
+      .where(training_module_id: training_module_ids, user_id: student_contexts.map(&:user_id))
       .where.not(completed_at: nil)
       .group(:training_module_id).count
+  end
+
+  # One grouped query: completed-training count per roster student (for the
+  # instructor roster) — the batched equivalent of an LtiTrainingProgress each.
+  def roster_completed_counts
+    TrainingModulesUsers
+      .where(training_module_id: training_module_ids, user_id: student_contexts.map(&:user_id))
+      .where.not(completed_at: nil)
+      .group(:user_id).count
+  end
+
+  # The course's training-kind module ids (user-independent); memoized so the
+  # two grouped counts above and the roster total share one derivation.
+  def training_module_ids
+    @training_module_ids ||= viewer_progress.training_modules.map(&:id)
   end
 
   def module_due_date(mod)
