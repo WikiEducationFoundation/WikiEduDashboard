@@ -2318,11 +2318,11 @@ en:
       roster_sync_label: "Roster sync"
       grade_sync_label: "Grade sync"
       sync_grades: "Sync grades"
-      grade_sync_started: "[PLACEHOLDER - confirmation shown after an instructor queues a grade sync; should say the sync has started, runs in the background, and to refresh in a moment to see updated grades]"
+      grade_sync_started: "Grade sync started."
       grade_sync_error: "There was an error syncing the grades."
       import_next_step:
-        header: "[PLACEHOLDER - short heading prompting the instructor to add the Wikipedia assignments, e.g. \"Add your Wikipedia assignments\"]"
-        instruction: "[PLACEHOLDER - next-step instruction: to add the assignments to this course, go to the Modules page, open the ⋮ (options) menu at the top, and choose \"Import Wikipedia assignments\"]"
+        header: "Import Wikipedia assignments from your Dashboard timeline"
+        instruction: "Go to Modules, open the ⋮ (options) menu, and choose wikiedu.org."
     check_again: "Check again"
     student_overview:
       next_step: "Next step"
