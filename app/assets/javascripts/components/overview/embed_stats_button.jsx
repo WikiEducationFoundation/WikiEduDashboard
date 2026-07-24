@@ -8,7 +8,7 @@ const EmbedStatsButton = ({ title }) => {
   const copyToClipboard = (e) => {
     const el = e.target;
     navigator.clipboard.writeText(el.value).then(() => {
-      setStatus('Copied!');
+      setStatus(I18n.t('courses.copied'));
     });
   };
 
@@ -21,13 +21,11 @@ const EmbedStatsButton = ({ title }) => {
   return (
     <div className="basic-modal course-stats-download-modal embed_stats">
       <button onClick={() => setShow(false)} className="pull-right article-viewer-button icon-close" />
-      <h4>{I18n.t('courses.embed_course_stats_description')} <code>&lt;body&gt;</code></h4>
+      <h4>{I18n.t('courses.embed_course_stats_description')} <code>{I18n.t('courses.embed_course_stats_location')}</code></h4>
       <textarea
         id="embed"
         readOnly
-        value={
-          `<a href="${location.href}">${title}</a><!-- This is optional -->
-<iframe src="${url}" style="width:100%;border:0px none transparent;"></iframe>`}
+        value={I18n.t('courses.embed_course_stats_body', { location: window.location.href, title, url })}
         onClick={copyToClipboard}
       />
       <small>{status}</small>
