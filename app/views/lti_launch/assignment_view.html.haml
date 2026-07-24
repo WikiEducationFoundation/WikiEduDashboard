@@ -1,0 +1,64 @@
+- # In-Canvas drill-down for one Wikipedia gradebook column, rendered in
+- # a top-level tab (broken out of the Canvas iframe). Instructors see the
+- # roster of students × completion + sandbox links; a student sees their
+- # own panel. Heading is the line item's own label (real timeline content,
+- # e.g. "Wk2 Evaluate Wikipedia").
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
+  - # The block's own timeline body serves as the assignment description,
+  - # rendered live from the Dashboard (deep-linked assignments carry no
+  - # baked-in Canvas description, which would go stale). Dedicated-page
+  - # exercises skip it — their iframe is just header + status + the button
+  - # out to the exercise page, which explains itself.
+  - if @context.block&.content.present? && @context.exercise_url.nil?
+    .lti-iframe__description= sanitize(@context.block.content)
+  - if @context.instructor?
+    = render 'lti_launch/assignment_roster'
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
+  - else
+    = render 'lti_launch/assignment_student_panel'
+
+-# Minimal, no-framework sandbox preview: each "Preview" toggle lazily fetches
+-# the sandbox page's parsed HTML straight from the MediaWiki API (CORS) and
+-# inserts it, so an instructor sees a student's work without leaving Canvas.
+:javascript
+  (function () {
+    function loadSandbox(url, target) {
+      target.textContent = '…';
+      var wiki;
+      try { wiki = new URL(url); } catch (e) { target.textContent = ''; return; }
+      var title = decodeURIComponent(wiki.pathname.replace(/^\/wiki\//, ''));
+      var api = wiki.origin + '/w/api.php?action=parse&prop=text&format=json' +
+        '&formatversion=2&redirects=1&origin=*&page=' + encodeURIComponent(title);
+      fetch(api).then(function (r) { return r.json(); }).then(function (data) {
+        if (data.parse && data.parse.text) {
+          target.innerHTML = data.parse.text;
+          target.classList.add('lti-sandbox__content--rendered');
+        } else {
+          target.textContent = 'No sandbox found';
+        }
+      }).catch(function () {
+        target.textContent = 'Sandbox failed to load';
+      });
+    }
+
+    document.querySelectorAll('.lti-sandbox__toggle').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var panel = document.getElementById(btn.getAttribute('aria-controls'));
+        if (!panel) { return; }
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        panel.hidden = open;
+        if (btn.dataset.labelShow && btn.dataset.labelHide) {
+          btn.textContent = open ? btn.dataset.labelShow : btn.dataset.labelHide;
+        }
+        if (open) { return; }
+        var target = panel.querySelector('.lti-sandbox__content');
+        if (target && !target.dataset.loaded) {
+          target.dataset.loaded = '1';
+          loadSandbox(btn.getAttribute('data-sandbox-url'), target);
+        }
+      });
+    });
+  })();

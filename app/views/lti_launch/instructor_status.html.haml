@@ -1,0 +1,30 @@
+- # In-iframe view for an instructor's course-navigation launch once the
+- # course is linked: confirms the link and shows roster/grade sync status
+- # (same LtiSyncStatus data as the course page's "Canvas link" sidebar).
+- # The header's course-title link opens the Dashboard course in a new tab —
+- # the full dashboard can't render usefully inside the Canvas iframe.
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header',
+           title: t('lti.status.header'), course: @binding.course, linked_check: true
+  %dl.lti-status-list
+    .lti-status-list__row
+      %dt= t('lms_integration.synced_students')
+      %dd= @sync_status.synced_students_count
+    .lti-status-list__row
+      %dt= t('lti.status.roster_sync_label')
+      %dd
+        = lti_last_synced(@sync_status.last_roster_sync_at)
+        - # Re-requests the launch URL inside the iframe only (an in-iframe
+        - # anchor never navigates the Canvas page), which also kicks off a
+        - # fresh roster sync — so "check back in a moment" needs no copy.
+        = link_to t('lti.status.refresh'),
+                  "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
+                  class: 'lti-status-list__refresh'
+  = render 'lti_launch/grade_sync', binding: @binding, ltik: params[:ltik]
+  -# Deep-link-first: before anything is imported, point the instructor at the
+  -# Modules import path — the non-obvious next step once a course is linked.
+  -# Drops away as soon as any assignment is imported.
+  - unless @sync_status.assignments_imported?
+    .lti-iframe__next-step
+      %h4= t('lti.status.import_next_step.header')
+      %p= t('lti.status.import_next_step.instruction')

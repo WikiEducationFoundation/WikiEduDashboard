@@ -1,0 +1,26 @@
+- row = @context.student_panel
+.lti-iframe__panel
+  %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+    = lti_progress_status_label(row.progress_state)
+  - # Dedicated-page exercises (e.g. fact verification): status + a button
+  - # out to the exercise page; there's no sandbox to preview.
+  - if @context.exercise_url
+    = link_to @context.exercise_url, target: '_blank', rel: 'noopener',
+              class: 'button dark lti-iframe__button' do
+      = t('lti.assignment_view.student.open_exercise')
+      %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
+  - # Sandbox exercises: the instructions live in the exercise's training
+  - # module, so lead with a prominent link to it, then the sandbox itself.
+  - if @context.instructions_url
+    = link_to @context.instructions_url, target: '_blank', rel: 'noopener',
+              class: 'button dark lti-iframe__button' do
+      = t('lti.assignment_view.student.launch_instructions')
+      %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
+  - if row.sandbox_url
+    .lti-sandbox__actions
+      = link_to t('lti.assignment_view.student.your_sandbox'), row.sandbox_url,
+                target: '_blank', rel: 'noopener', class: 'button dark lti-iframe__button'
+      %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': row.sandbox_url, 'aria-controls': 'sandbox-self', 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
+        = t('lti.assignment_view.show')
+    .lti-sandbox__detail{ id: 'sandbox-self', hidden: true }
+      .lti-sandbox__content

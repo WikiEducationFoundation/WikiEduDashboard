@@ -1,0 +1,8 @@
+- # Shown when an assignment_view launch can't be matched to any known line
+- # item — e.g. a manually created Canvas assignment, or a column whose mapping
+- # isn't captured yet. Styled like the other in-iframe landings so it doesn't
+- # read as a broken page; the explanation is the whole message (there's no
+- # Dashboard content to drill into for an unmatched assignment).
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %p.lti-iframe__title= t('lti.assignment_view.orphan.explanation')

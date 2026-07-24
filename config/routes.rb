@@ -220,6 +220,8 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
+        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -459,7 +461,16 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
     # LTI
+  # Public installation guide (a rendered docs/ Markdown page, not part of the
+  # launch flow and not behind the canvas_integration feature gate).
+  get 'lti/guide' => 'about_this_site#canvas_integration_guide'
   get 'lti' => 'lti_launch#launch'
+  get 'lti/connect_course' => 'lti_launch#connect_course'
+  get 'lti/assignment_view' => 'lti_launch#assignment_view'
+  get 'lti/deep_link' => 'lti_launch#deep_link'
+  post 'lti/deep_link/select' => 'lti_launch#deep_link_select'
+  post 'lti/setup' => 'lti_launch#complete_setup'
+  post 'lti/sync_grades' => 'lti_launch#sync_grades'
 
   # frequenty asked questions
   resources :faq do
@@ -600,6 +611,7 @@ Rails.application.routes.draw do
 
   get '/private_information' => 'about_this_site#private_information'
   get '/accessibility' => 'about_this_site#accessibility'
+  get '/hecvat' => 'about_this_site#hecvat'
   get '/styleguide' => 'styleguide#index'
 
   get '/status' => 'system_status#index'

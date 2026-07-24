@@ -1,0 +1,8 @@
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h3.lti-iframe__title= t('lti.setup_pending.header')
+  %p= t('lti.setup_pending.explanation')
+  -# Re-launches in the iframe: once the instructor finishes setup, this lands
+  -# the student straight in the course instead of them having to know to reload.
+  = link_to t('lti.check_again'), "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
+            class: 'lti-iframe__check-again'

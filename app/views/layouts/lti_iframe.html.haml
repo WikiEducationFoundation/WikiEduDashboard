@@ -1,0 +1,22 @@
+- # Minimal layout for the in-Canvas LTI iframe views. Deliberately does NOT
+- # render `shared/head`: these tiny chrome-less pages don't need the full
+- # dashboard head, and loading it (the whole `main` CSS bundle, two external
+- # Google Fonts stylesheets, and the vendors / i18n / Sentry JS bundles) made
+- # the iframe slow to load and flash unstyled text while the webfont swapped
+- # in. Instead we load one small dedicated CSS bundle (`lti_iframe`, a
+- # render-blocking <link> so content is styled on first paint) and no app JS —
+- # the couple of interactive views carry their own small inline scripts. The
+- # navbar/footer are omitted too: the navbar reads `current_user`, which is
+- # always logged-out inside the partitioned Canvas iframe.
+!!!
+%html{ dir: rtl? ? 'rtl' : nil, lang: I18n.locale }
+  %head
+    %meta{ charset: 'utf-8' }
+    %meta{ content: 'width=device-width, initial-scale=1.0', name: 'viewport' }
+    %title= raw ENV['dashboard_title'].to_s
+    = logo_favicon_tag
+    = dashboard_stylesheet_tag('lti_iframe')
+    = csrf_meta_tags
+  %body.lti-iframe
+    %main.lti-iframe__main{ role: 'main' }
+      = yield

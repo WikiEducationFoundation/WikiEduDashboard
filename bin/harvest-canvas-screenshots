@@ -1,0 +1,347 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Harvest screenshots of the Canvas integration's per-role UX against the
+# deployed staging stack (`dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org`)
+# and assemble a self-contained HTML gallery for review.
+#
+# Each role is a `:staging` screenshot spec that provisions + tears down its
+# own hermetic state; this runner just walks the roles in order, points them
+# all at one gitignored run directory via CANVAS_SHOTS_DIR, and builds the
+# gallery from whatever landed there.
+#
+# Usage:
+#   bin/harvest-canvas-screenshots [role ...]     # default: every known role
+#   HEADLESS=1 bin/harvest-canvas-screenshots      # no visible browser
+#   XEPHYR=1 bin/harvest-canvas-screenshots        # visible Chrome in a nested
+#                                                  # X window that can't steal
+#                                                  # your desktop keyboard focus
+#   CANVAS_SHOTS_DIR=/some/dir bin/harvest-canvas-screenshots
+#
+# Output (gitignored, never committed):
+#   tmp/canvas-ux-screenshots/<role>/*.png
+#   tmp/canvas-ux-screenshots/gallery.html   # publish as an Artifact; link in the PR
+#
+# Requires the one-time staging bootstrap (warm Chrome profiles +
+# `.env.staging-tests`) — see docs/staging_feature_specs.md. Roles whose env
+# vars are missing skip cleanly and simply contribute no screenshots.
+
+require 'base64'
+require 'fileutils'
+
+ROOT = File.expand_path('..', __dir__)
+
+# flow => screenshot spec, walked in this order. `admin` is read-only for now
+# (the full create->teardown admin walk is a later tranche).
+ROLE_SPECS = {
+  'instructor'      => 'spec/staging/instructor_setup_screenshots_spec.rb',
+  'student'         => 'spec/staging/student_screenshots_spec.rb',
+  'active_course'   => 'spec/staging/instructor_active_course_screenshots_spec.rb',
+  'canvas_gradebook' => 'spec/staging/canvas_gradebook_screenshots_spec.rb',
+  'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb',
+  'fact_verification' => 'spec/staging/fact_verification_screenshots_spec.rb',
+  'full_course'     => 'spec/staging/full_course_screenshots_spec.rb',
+  'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
+}.freeze
+
+# Cool slate neutrals with a single dashboard-blue accent. Section titles and
+# captions read as plain language, not slugs/filenames.
+GALLERY_CSS = <<~CSS
+  :root { --ground:#f6f8fb; --surface:#fff; --ink:#17212b; --muted:#5a6b7b;
+          --line:#e3e8ee; --accent:#2a5db0; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--ground); color:var(--ink); line-height:1.5;
+         font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  header.g { border-bottom:2px solid var(--accent); padding-bottom:1rem; margin-bottom:1rem; }
+  header.g h1 { margin:0 0 .35rem; font-size:1.6rem; letter-spacing:-.01em; text-wrap:balance; }
+  header.g p { margin:0; color:var(--muted); font-size:.95rem; }
+  section.role { margin-top:2.75rem; }
+  section.role > h2 { margin:0 0 .3rem; font-size:1.15rem; color:var(--accent);
+                      letter-spacing:.01em; text-wrap:balance; }
+  .blurb { margin:0 0 1.25rem; color:var(--muted); font-size:.95rem; max-width:72ch; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1.25rem; }
+  figure { margin:0; background:var(--surface); border:1px solid var(--line);
+           border-radius:8px; overflow:hidden; box-shadow:0 1px 3px rgba(20,33,43,.05); }
+  figure img { display:block; width:100%; height:auto; border-bottom:1px solid var(--line); }
+  figcaption { padding:.6rem .75rem; color:var(--muted); font-size:.85rem; line-height:1.4; }
+CSS
+
+# Display order = the order an instructor meets each surface, from the one-time
+# admin install through the per-assignment drill-down. Each entry is a role's
+# shot subdir, a plain-language section title, and a one-line blurb.
+SECTIONS = [
+  { role: 'admin',
+    title: 'Canvas admin — install the integration',
+    blurb: 'One-time account-admin setup: the Wiki Education developer key and app, ' \
+           'enabled across the Canvas instance.' },
+  { role: 'instructor',
+    title: 'Instructor — first-time course setup and assignment import',
+    blurb: 'Opening the tool from the course, linking a Wiki Education course, the ' \
+           'in-iframe link status, and importing every Wikipedia assignment in one ' \
+           'step from the Modules page.' },
+  { role: 'student',
+    title: 'Student — joining the course and tracking progress',
+    blurb: "The student's launch from Canvas, the waiting states before setup and " \
+           'approval, their in-iframe progress overview, and their course home.' },
+  { role: 'active_course',
+    title: 'Instructor — roster sync as students join',
+    blurb: "The instructor's course home and student roster, before and after a " \
+           'student connects through Canvas.' },
+  { role: 'canvas_gradebook',
+    title: 'Canvas gradebook — who has connected',
+    blurb: 'Wikipedia progress pushed back to Canvas, contrasting a connected student ' \
+           'with one who has not linked their account.' },
+  { role: 'full_course',
+    title: 'Canvas gradebook — a full assignment timeline',
+    blurb: 'The same gradebook for a complete multi-week assignment: one column per ' \
+           'milestone.' },
+  { role: 'assignment_view',
+    title: 'Assignment drill-downs — in the iframe',
+    blurb: 'Every imported assignment renders its drill-down directly inside the ' \
+           "Canvas iframe: the exercise roster with inline sandbox previews, the " \
+           'Wikipedia-account connection roster, the trainings tables, and the ' \
+           "student's own panels." },
+  { role: 'fact_verification',
+    title: 'Fact-verification exercise — the dedicated-page exercise',
+    blurb: 'The one exercise that runs entirely in the Dashboard rather than a ' \
+           'sandbox: its in-Canvas drill-down (status plus a button out to the ' \
+           'exercise), the in-progress state once a student takes a claim, and ' \
+           'the instructor roster.' }
+].freeze
+
+# Plain-language caption per screenshot, keyed by file basename.
+CAPTIONS = {
+  'a01-developer-keys' =>
+    'The Wiki Education developer key, enabled in Canvas admin.',
+  'a02-developer-key-config' =>
+    "The registration's settings: permission scopes in plain language, and the " \
+    'None (Anonymized) data-sharing mode.',
+  'a03-developer-key-scopes-placements' =>
+    "The registration's per-placement settings (Title and Icon are optional — " \
+    'blank falls back to the tool name and logo).',
+  'a04-canvas-apps-manage' =>
+    'The installed tool under Canvas Apps, Manage.',
+  '00-canvas-enable-nav' =>
+    "Enabling the tool from the course's navigation settings — it starts disabled " \
+    'until the instructor turns it on. (The tab label is the staging ' \
+    "registration's tool name; real installs set a placement title.)",
+  '01-canvas-course-with-tab' =>
+    "The tool's item in the course navigation.",
+  '02-canvas-iframe-landing' =>
+    'Opening the tool inside Canvas before linking: the not-yet-linked notice and ' \
+    'a button to continue on the Dashboard in a new tab.',
+  '03-dashboard-setup-empty' =>
+    'The setup page: pick the Wiki Education course to link (deep-link-first — no ' \
+    'gradebook-layout choice; the instructor imports the columns they want).',
+  '04-dashboard-setup-course-selected' =>
+    'A course chosen; Link this course becomes active.',
+  '05-dashboard-course-bound' =>
+    'After linking, the instructor lands on the connected course home.',
+  '06-instructor-course-panel' =>
+    'The Canvas link panel: linked course, last sync, and students synced.',
+  '07-canvas-nav-status' =>
+    'Relaunching the course tab: the link status renders right in the iframe — ' \
+    'course link, students synced, roster sync and grade sync each with their own ' \
+    'last-synced time, a refresh action, and a Sync grades button to push grades ' \
+    'to the gradebook on demand.',
+  '08-import-picker' =>
+    'Import Wikipedia assignments from the Modules page: every task pre-selected.',
+  '09-module-created' =>
+    'One submit creates the module with every assignment in timeline order.',
+  '10-assignments-index' =>
+    'The Assignments tab after the import: account, trainings, and each exercise.',
+  's01-canvas-iframe-landing' =>
+    "The student's first launch: with an active Dashboard session the iframe " \
+    'enrolls them and confirms immediately; a signed-out student instead gets ' \
+    'the break-out button to connect their Wikipedia account first.',
+  's02-student-enrolled-landing' =>
+    "The student's course home once enrolled.",
+  's03-student-course-panel' =>
+    "The student's course panel: their account-link status and last sync.",
+  's06-canvas-nav-status' =>
+    "Relaunching the course tab as an enrolled student: their progress overview in " \
+    'the iframe — a next step, plus rolled-up training and exercise completion ' \
+    '(assigned articles appear here too, once the student has any).',
+  's04-setup-pending' =>
+    'Shown to a student before the instructor has finished setup.',
+  's05-enrollment-pending-approval' =>
+    'Shown while the course is awaiting Wiki Education approval.',
+  'i01-before-course-home' =>
+    'Instructor course home before any student has connected.',
+  'i02-before-students-roster' =>
+    'The student roster, still empty.',
+  'i03-after-course-home' =>
+    'After a student connects: last sync and students-synced update.',
+  'i04-after-students-roster' =>
+    'The roster now showing the connected student.',
+  'c01-canvas-gradebook-progress' =>
+    'Wikipedia columns in Canvas: a connected student graded, and one who has not linked at zero.',
+  'f01-full-course-gradebook' =>
+    'A full assignment timeline: one gradebook column per weekly milestone.',
+  '01-exercise-instructor-roster' =>
+    "An exercise assignment: each student's status and sandbox, right in the iframe, " \
+    'with the grade-sync footer (last grade sync + a Sync grades trigger) below.',
+  '02-exercise-sandbox-preview' =>
+    "Show renders a student's Wikipedia sandbox inline.",
+  '03-setup-instructor-roster' =>
+    'The Wikipedia account assignment: who has connected (real name + username, ' \
+    'from the Dashboard) and who is still pending, with the grade-sync footer below.',
+  '04-trainings-instructor' =>
+    'The trainings roll-up: each module linked with its students-completed count, ' \
+    'above the per-student progress roster, with the grade-sync footer below.',
+  '05-exercise-student-panel' =>
+    "The same exercise as the student sees it: their status, a Launch instructions " \
+    "button to the exercise's training module, and their sandbox.",
+  '06-setup-student-panel' =>
+    "The student's Wikipedia account view: Connected, with their username linking " \
+    'to their Dashboard details.',
+  '07-trainings-student-table' =>
+    "The student's trainings table: every assigned training with due date, status, " \
+    'and a link straight to the module.',
+  'fv01-instructor-roster' =>
+    'The fact-verification exercise from the instructor side: the per-student ' \
+    'roster with the grade-sync footer below.',
+  'fv02-student-not-started' =>
+    "The student's view before starting: status plus a button out to the " \
+    'in-Dashboard exercise — no sandbox, since the whole exercise happens there.',
+  'fv03-student-in-progress' =>
+    'After the student takes a claim, the status reads In progress until they ' \
+    'submit their response.'
+}.freeze
+
+def run_dir
+  ENV.fetch('CANVAS_SHOTS_DIR', File.join(ROOT, 'tmp', 'canvas-ux-screenshots'))
+end
+
+def roles_to_run
+  unknown = ARGV - ROLE_SPECS.keys
+  abort "Unknown role(s): #{unknown.join(', ')}. Known: #{ROLE_SPECS.keys.join(', ')}" \
+    if unknown.any?
+  ARGV.empty? ? ROLE_SPECS.keys : ARGV
+end
+
+# Wipe just this role's subdir so the gallery reflects the current run rather
+# than accumulating shots from steps that have since been renamed or removed.
+def harvest(role)
+  spec = ROLE_SPECS.fetch(role)
+  dir = File.join(run_dir, role)
+  FileUtils.rm_rf(dir)
+  warn "\n== Harvesting #{role} (#{spec}) =="
+  system({ 'CANVAS_SHOTS_DIR' => run_dir },
+         File.join(ROOT, 'bin', 'staging-feature-spec'), spec)
+end
+
+def gallery_card(path)
+  name = File.basename(path, '.png')
+  caption = CAPTIONS.fetch(name, name)
+  data = Base64.strict_encode64(File.binread(path))
+  %(<figure><img src="data:image/png;base64,#{data}" alt="#{caption}">) +
+    %(<figcaption>#{caption}</figcaption></figure>)
+end
+
+def gallery_section(section)
+  pngs = Dir[File.join(run_dir, section[:role], '*.png')].sort
+  return if pngs.empty?
+
+  cards = pngs.map { |p| gallery_card(p) }.join("\n")
+  %(<section class="role"><h2>#{section[:title]}</h2>) +
+    %(<p class="blurb">#{section[:blurb]}</p>) +
+    %(<div class="grid">\n#{cards}\n</div></section>)
+end
+
+# Fragment HTML (no <html>/<head>/<body>) so it can be published verbatim as
+# an Artifact, while still rendering fine when opened directly in a browser.
+def shot_count(roles)
+  roles.sum { |r| Dir[File.join(run_dir, r, '*.png')].length }
+end
+
+def build_gallery(roles)
+  chosen = SECTIONS.select { |s| roles.include?(s[:role]) }
+  sections = chosen.filter_map { |s| gallery_section(s) }
+  shots = shot_count(roles)
+  body = sections.empty? ? '<p>No screenshots captured.</p>' : sections.join("\n")
+  html = +"<title>Canvas integration UX</title>\n<style>#{GALLERY_CSS}</style>\n"
+  html << gallery_header(shots, sections.length) << body << "\n</div>\n"
+  path = File.join(run_dir, 'gallery.html')
+  File.write(path, html)
+  path
+end
+
+def gallery_header(shots, flows)
+  %(<div class="wrap">\n<header class="g"><h1>Canvas integration UX</h1>) +
+    %(<p>#{shots} screenshot#{'s' unless shots == 1} across ) +
+    %(#{flows} flow#{'s' unless flows == 1}, in the order an instructor meets them, ) +
+    "from the deployed staging stack.</p></header>\n"
+end
+
+# --- Nested-display support (XEPHYR=1) --------------------------------------
+# Run the visible browser inside a nested Xephyr X server, so Chrome's window
+# raises and focus grabs land on that display instead of the operator's real
+# desktop — they can keep typing elsewhere while the harness churns, and only
+# click into the nested window to clear a login challenge. No-op under HEADLESS
+# (no window at all) or when the flag is unset. The Chrome window size lives in
+# spec/staging/spec_helper.rb (1280x900); the nested screen must exceed it.
+XEPHYR_SCREEN = '1440x960'
+
+def xephyr_requested?
+  !ENV['XEPHYR'].to_s.empty? && ENV['HEADLESS'].to_s.empty?
+end
+
+def with_optional_xephyr
+  return yield unless xephyr_requested?
+  unless system('which', 'Xephyr', out: File::NULL, err: File::NULL)
+    warn '  [xephyr] Xephyr not on PATH; running on the normal display.'
+    return yield
+  end
+
+  display = free_display
+  pid = spawn('Xephyr', display, '-screen', XEPHYR_SCREEN, '-resizeable',
+              '-no-host-grab', out: File::NULL, err: File::NULL)
+  wait_for_x_socket(display)
+  ENV['DISPLAY'] = display
+  warn "  [xephyr] visible Chrome runs in a nested window on #{display}; focus " \
+       'stays there. Click into it only to clear a login challenge.'
+  yield
+ensure
+  terminate(pid)
+end
+
+# Lowest display number with no socket in /tmp/.X11-unix yet.
+def free_display
+  taken = Dir.glob('/tmp/.X11-unix/X*').map { |s| File.basename(s)[1..].to_i }
+  n = (1..99).find { |i| !taken.include?(i) } || abort('no free X display')
+  ":#{n}"
+end
+
+def wait_for_x_socket(display, timeout: 10)
+  socket = "/tmp/.X11-unix/X#{display[1..]}"
+  deadline = Time.now + timeout
+  sleep 0.1 until File.exist?(socket) || Time.now > deadline
+  abort "Xephyr #{display} did not start" unless File.exist?(socket)
+end
+
+def terminate(pid)
+  return unless pid
+
+  Process.kill('TERM', pid)
+  Process.wait(pid)
+rescue Errno::ESRCH, Errno::ECHILD
+  nil # already gone
+end
+
+def main
+  FileUtils.mkdir_p(run_dir)
+  roles = roles_to_run
+  results = {}
+  with_optional_xephyr { results = roles.to_h { |role| [role, harvest(role)] } }
+  gallery = build_gallery(roles)
+  warn "\nGallery: #{gallery}"
+  failed = results.reject { |_, ok| ok }.keys
+  warn "Roles that did not pass cleanly: #{failed.join(', ')}" if failed.any?
+  exit(failed.empty? ? 0 : 1)
+end
+
+# Guarded so the gallery/helper methods can be required in isolation (e.g. a
+# smoke test) without shelling out to a live staging run.
+main if $PROGRAM_NAME == __FILE__

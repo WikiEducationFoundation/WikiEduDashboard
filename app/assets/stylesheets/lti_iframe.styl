@@ -1,0 +1,24 @@
+/* /////////////////////////////////////////////////////
+
+Dedicated stylesheet for the in-Canvas LTI iframe views (lti_iframe layout).
+
+These are minimal, chrome-less pages embedded in a small Canvas iframe. They
+must NOT pull in the whole dashboard: the `main` bundle plus its external
+Google Fonts and the app JS (vendors, i18n, Sentry) made the iframe load
+slowly and flash unstyled text while the webfont swapped in.
+
+So this bundle cherry-picks only the foundation (reset + shared variables/
+mixins + icons + layout + base) and the three component modules the iframe
+views actually use — buttons (_controls), .module (_modules), and the LTI
+iframe module — instead of `@import "modules/*"`. Fonts fall back to the
+system/arial stack (no external webfont request, no swap).
+
+///////////////////////////////////////////////////// */
+@import "_reset"
+@import "_shared"
+@import "_icons"
+@import "_layout"
+@import "_base"
+@import "modules/_controls"
+@import "modules/_modules"
+@import "modules/_lti_iframe"

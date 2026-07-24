@@ -2268,3 +2268,110 @@ en:
     advanced_search: "Advanced Search"
     clear: "Clear"
     program_date: "Program Date"
+
+  lms_integration:
+    heading: "%{lms_name} link"
+    linked_to: "Course:"
+    last_sync: "Last sync:"
+    last_sync_error: "Last sync error"
+    synced_students: "Students synced"
+    never_synced: "Not yet synced"
+    time_ago: "%{time_ago} ago"
+    my_account_link: "Your account:"
+    linked: "Linked"
+    not_linked: "Not linked"
+    my_last_sync: "Last sync"
+    no_grades_yet: "No synced progress yet"
+    not_yet_linked: "Your account hasn't been linked to Canvas for this course."
+
+  lti:
+    iframe_landing:
+      explanation: "Open dashboard.wikiedu.org in a new tab"
+      button: "Open the Wiki Education Dashboard"
+      not_linked: "This Canvas course is not yet linked to the Wiki Education Dashboard. Open the Dashboard to set up the integration."
+    oauth_redirect:
+      title: "Continuing to Wikipedia sign-in…"
+      button: "Continue"
+    setup:
+      header: "Set up the Wiki Education Dashboard for this Canvas course"
+      link_existing:
+        header: "Link an existing Wiki Education course"
+        label: "Course"
+      submit: "Link this course"
+      linked_notice: "Your course %{lms_course} is linked!"
+      already_linked: "Error: This course is already linked."
+      create_prompt: Create a course on the Dashboard
+      no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
+    deep_link:
+      module_name: "Research and write a Wikipedia article"
+      header: "Choose Wikipedia task"
+      header_multiple: "Import Wikipedia assignments"
+      instruction: "Choose a Wikipedia task for this gradable item"
+      instruction_multiple: "Choose which items from the Wiki Education Dashboard timeline to import."
+      submit: "Add to course"
+      all_added: "All available items have been added."
+      no_gradables: "No gradable items found"
+    status:
+      header: "Wiki Education Dashboard"
+      linked: "Linked"
+      refresh: "Refresh"
+      roster_sync_label: "Roster sync"
+      grade_sync_label: "Grade sync"
+      sync_grades: "Sync grades"
+      grade_sync_started: "Grade sync started."
+      grade_sync_error: "There was an error syncing the grades."
+      import_next_step:
+        header: "Import Wikipedia assignments from your Dashboard timeline"
+        instruction: "Go to Modules, open the ⋮ (options) menu, and choose wikiedu.org."
+    check_again: "Check again"
+    student_overview:
+      next_step: "Next step"
+      my_articles: "My articles"
+      trainings: "Trainings"
+      exercises: "Exercises"
+      role:
+        editing: "Editing"
+        reviewing: "Reviewing"
+    setup_pending:
+      header: "Wiki Education Dashboard is being set up"
+      explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
+    enrollment_error:
+      header: "Couldn't enroll you in the Wiki Education course"
+      explanation: "Something prevented enrollment. Please contact your instructor or Wiki Education staff for help; the issue has been logged for review."
+    enrollment_pending_approval:
+      header: "This course is awaiting Wiki Education approval"
+      explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
+      contact_hint: "If you have questions, contact your instructor or Wiki Education staff."
+    assignment_view:
+      # Short column/status labels. connected/not_connected mirror the
+      # operator-supplied gradebook comments in LtiSetupProgress.
+      status:
+        completed: "Completed"
+        in_progress: "In progress"
+        not_started: "Not started"
+        connected: "Connected"
+        not_connected: "Not connected"
+      open_on_wikipedia: "Open on Wikipedia"
+      show: "Show"
+      hide: "Hide"
+      roster:
+        student: "Student"
+        username: "Username"
+        status: "Status"
+        sandbox: "Sandbox"
+        empty: "No students have connected Wikipedia accounts yet."
+      student:
+        your_sandbox: "Your sandbox"
+        open_exercise: "Open exercise"
+        launch_instructions: "Launch instructions"
+      setup:
+        summary: "%{connected} of %{total} have connected a Wikipedia account."
+        empty: "The roster sync is pending. Check back shortly."
+      trainings:
+        # Mirrors the operator-supplied gradebook comment phrasing in
+        # LtiTrainingProgress ("X of Y trainings completed").
+        progress: "%{completed} of %{total} trainings completed"
+        module: "Training"
+        due_date: "Due date"
+      orphan:
+        explanation: "There is no Dashboard content to show for this assignment."

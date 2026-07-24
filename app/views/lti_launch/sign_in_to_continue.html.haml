@@ -1,0 +1,18 @@
+- # Rendered inside the Canvas iframe. Stance-neutral on signed-in
+- # state because the iframe's cookie jar is partitioned away from the
+- # top-level dashboard session — we genuinely can't tell whether the
+- # user is signed in elsewhere. The button opens a new tab via
+- # target=_blank rather than navigating the Canvas page away, so the
+- # instructor can keep Canvas in place; the rest of the launch flow
+- # (and any needed Wikipedia OAuth) happens in the new tab where
+- # session cookies behave as first-party.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  - if @show_not_linked_notice
+    %p.lti-iframe__status= t('lti.iframe_landing.not_linked')
+  %p.lti-iframe__title= t('lti.iframe_landing.explanation')
+  = link_to "/lti/connect_course?ltik=#{CGI.escape(@ltik.to_s)}",
+            target: '_blank', rel: 'noopener',
+            class: 'button dark lti-iframe__button' do
+    = t('lti.iframe_landing.button')
+    %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }

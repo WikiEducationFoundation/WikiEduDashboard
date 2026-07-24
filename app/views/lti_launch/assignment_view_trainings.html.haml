@@ -1,0 +1,64 @@
+- # In-Canvas drill-down for the rolled-up "Wikipedia trainings" column.
+- # Instructors get what the roll-up covers plus a per-student
+- # completed-count roster (same numbers the grade sync pushes); a student
+- # gets the same per-module table as the Students-tab details drawer —
+- # every assigned training in due-date order, its due date, their status,
+- # each linked straight to the training module on the Dashboard.
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
+  - if @context.instructor?
+    - # What the roll-up covers: each module linked, with how many of the
+    - # connected students have completed it.
+    .lti-iframe__description
+      %ul.lti-trainings-list
+        - @context.module_stats.each do |stat|
+          %li
+            = link_to stat.name, stat.training_url, target: '_blank', rel: 'noopener'
+            %span.lti-trainings-list__count
+              = "#{stat.completed_count} / #{stat.total_count}"
+    - roster = @context.roster
+    - if roster.empty?
+      %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
+    - else
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
+            %tr
+              %th= t('lti.assignment_view.roster.student')
+              %th= t('lti.assignment_view.roster.status')
+          %tbody
+            - roster.each do |row|
+              %tr
+                %td= row.name
+                %td
+                  %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+                    = t('lti.assignment_view.trainings.progress',
+                        completed: row.completed_count, total: row.total_count)
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
+  - else
+    - row = @context.student_panel
+    .lti-iframe__panel
+      %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+        = t('lti.assignment_view.trainings.progress',
+            completed: row.completed_count, total: row.total_count)
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
+            %tr
+              %th= t('lti.assignment_view.trainings.module')
+              %th= t('lti.assignment_view.trainings.due_date')
+              %th= t('lti.assignment_view.roster.status')
+          %tbody
+            - @context.viewer_training_rows.each do |training|
+              %tr
+                %td
+                  = link_to training.name, training.training_url,
+                            target: '_blank', rel: 'noopener'
+                %td= training.due_date&.strftime('%b %-d, %Y')
+                %td
+                  %span.lti-status{ class: training.completed? ? 'lti-status--done' : 'lti-status--pending' }
+                    = training.status
+                  - if training.completion_date
+                    %span.lti-trainings__completed-at
+                      = training.completion_date.strftime('%b %-d, %Y')

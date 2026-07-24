@@ -47,5 +47,20 @@ class WizardController < ApplicationController
     WizardTimelineManager.update_timeline_and_tags(@course, wizard_id, wizard_params)
     # JBuilder will not render weeks for previous-empty course without this...
     @course = Course.find_by(slug: params[:course_id])
+    sync_lti_line_items_if_bound
+  end
+
+  private
+
+  # If this course is bound to a Canvas placement via LTIAAS, the new
+  # timeline shape changes which gradebook columns the binding should own.
+  # Fire-and-forget; the worker has its own idempotency lock.
+  def sync_lti_line_items_if_bound
+    return unless Features.canvas_integration?
+
+    binding = LtiCourseBinding.find_by(course_id: @course&.id)
+    return unless binding
+
+    LtiLineItemSyncWorker.perform_async(binding.id)
   end
 end

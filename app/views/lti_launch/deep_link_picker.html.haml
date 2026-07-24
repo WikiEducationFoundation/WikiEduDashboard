@@ -1,0 +1,44 @@
+- # Deep-linking picker inside Canvas's selection iframe. Two modes keyed to
+- # the placement's accept_multiple: the Modules-page bulk flow gets
+- # checkboxes with everything pre-selected ("add all Wikipedia assignments"
+- # in one submit); assignment_selection keeps single-choice radios.
+- # Already-column-backed gradables never appear (see LtiDeepLinking).
+.container.narrow
+  .section-header
+    %h3= @accept_multiple ? t('lti.deep_link.header_multiple') : t('lti.deep_link.header')
+  %hr
+  - if @gradables.any?
+    %p= @accept_multiple ? t('lti.deep_link.instruction_multiple') : t('lti.deep_link.instruction')
+    = form_with url: '/lti/deep_link/select', method: :post, local: true do
+      = hidden_field_tag :ltik, @ltik
+      .lti-deep-link-options
+        - @gradables.each do |gradable|
+          %label
+            - if @accept_multiple
+              = check_box_tag 'resources[]', gradable.resource, true,
+                              id: nil, class: 'lti-deep-link-option'
+            - else
+              = radio_button_tag :resource, gradable.resource, false, required: true
+            %strong= gradable.label
+      %button.button.dark.lti-deep-link__submit{ type: 'submit' }= t('lti.deep_link.submit')
+    - if @accept_multiple
+      :javascript
+        // Keep the submit disabled while nothing is checked, mirroring the
+        // single-mode radios' `required`. Progressive enhancement: without
+        // JS the server still 422s an empty selection.
+        (function () {
+          var boxes = document.querySelectorAll('.lti-deep-link-option');
+          var submit = document.querySelector('.lti-deep-link__submit');
+          if (!boxes.length || !submit) { return; }
+          var sync = function () {
+            submit.disabled = !Array.prototype.some.call(boxes, function (b) { return b.checked; });
+          };
+          boxes.forEach(function (b) { b.addEventListener('change', sync); });
+          sync();
+        })();
+  - elsif @all_added
+    .module
+      %p= t('lti.deep_link.all_added')
+  - else
+    .module
+      %p= t('lti.deep_link.no_gradables')

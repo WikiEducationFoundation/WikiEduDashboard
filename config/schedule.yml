@@ -45,6 +45,22 @@ update_default_campaign:
   class: "DefaultCampaignUpdateWorker"
   queue: default
 
+# Sync rosters for every active Canvas-bound course via LTIAAS NRPS.
+# On-launch syncs already keep instructors fresh; the daily run catches
+# students who haven't launched recently and surfaces inactive memberships.
+lti_daily_roster_sync:
+  cron: "30 12 * * *" # every day at 5:30am PT (UTC -7), after update_daily
+  class: "LtiDailyRosterSyncWorker"
+  queue: medium_update
+
+# Push training and exercise progress to Canvas gradebooks via LTIAAS AGS
+# every 30 minutes. Caps at 50 bindings per cycle (oldest-pushed first)
+# to keep a single tick bounded; remaining bindings pick up next tick.
+lti_periodic_grade_sync:
+  cron: "*/30 * * * *" # every 30 minutes
+  class: "LtiPeriodicGradeSyncWorker"
+  queue: medium_update
+
 # Computes weekly per-facilitator metrics (programs, edits, new editors per organizer).
 facilitator_stat_update:
   cron: "0 2 * * 0" # every Sunday at 2:00 AM UTC

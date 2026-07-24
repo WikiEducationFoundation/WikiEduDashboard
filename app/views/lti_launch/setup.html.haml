@@ -1,0 +1,41 @@
+.container.narrow
+  .section-header
+    %h3= t('lti.setup.header')
+  %hr
+  - if @setup_error
+    .lti-setup__error
+      %p= @setup_error
+  - if @user_courses.any?
+    = form_with url: '/lti/setup', method: :post, local: true do |f|
+      = hidden_field_tag :binding_id, @binding.id
+      = hidden_field_tag :ltik, params[:ltik]
+      .module
+        %h4= t('lti.setup.link_existing.header')
+        = label_tag :course_slug, t('lti.setup.link_existing.label')
+        - # With a single course, preselect it (no blank prompt) so the
+        - # instructor can just click Link. With several, require an explicit pick.
+        - single_course = @user_courses.one?
+        = select_tag :course_slug,
+                     options_for_select(@user_courses.map { |c| [pretty_course_title(c), c.slug] },
+                                        single_course ? @user_courses.first.slug : nil),
+                     required: true, include_blank: !single_course
+      %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
+    %p.lti-setup__alt-path
+      = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link'
+    :javascript
+      // Keep the primary action disabled until a course is picked, so its
+      // enabled/disabled state mirrors whether the form can actually submit.
+      // Progressive enhancement: without JS the button stays active and the
+      // `required` select still blocks an empty submit.
+      (function () {
+        var select = document.getElementById('course_slug');
+        var submit = document.querySelector('.lti-setup__submit');
+        if (!select || !submit) { return; }
+        var sync = function () { submit.disabled = !select.value; };
+        select.addEventListener('change', sync);
+        sync();
+      })();
+  - else
+    .module
+      %p= t('lti.setup.no_approved_courses')
+      = link_to t('application.my_dashboard'), root_path, class: 'button dark'
