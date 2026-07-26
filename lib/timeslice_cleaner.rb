@@ -65,6 +65,7 @@ class TimesliceCleaner
     delete_course_wiki_timeslices_for_period(wikis, start_date, end_date)
     delete_course_user_wiki_timeslices_for_period(wikis, start_date, end_date)
     delete_article_course_timeslices_for_period(wikis, start_date, end_date)
+    delete_article_course_user_wiki_timeslices_for_period(wikis, start_date, end_date)
   end
 
   # Deletes course wiki timeslices records with a date prior to the current start date
@@ -277,6 +278,17 @@ class TimesliceCleaner
     timeslices = CourseUserWikiTimeslice.where(course: @course).where(wiki: wikis)
                                         .where('start >= ?', start_date)
                                         .where('end <= ?', end_date)
+    delete_in_batches(timeslices)
+  end
+
+  # Deletes article course user wiki timeslices records in the period [start_date, end_date].
+  # ACUWT rows are keyed by (course, wiki, article, user, start, end), so rows written for a
+  # period that no longer exists as a timeslice (for example, after that period was split)
+  # would otherwise linger and keep contributing to the aggregations derived from ACUWT.
+  def delete_article_course_user_wiki_timeslices_for_period(wikis, start_date, end_date)
+    timeslices = ArticleCourseUserWikiTimeslice.where(course: @course).where(wiki: wikis)
+                                               .where('start >= ?', start_date)
+                                               .where('end <= ?', end_date)
     delete_in_batches(timeslices)
   end
 
