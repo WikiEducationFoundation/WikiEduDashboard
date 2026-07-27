@@ -115,16 +115,31 @@ launch + Wikipedia OAuth is the only linking path.
   absent (no key containing "module" at all). After we sent the decoded
   JWT, **LTIAAS confirmed (2026-07-24) they don't pass that extra deep-linking
   key through the way they pass other claims, and a hotfix is expected early the
-  week of 2026-07-28.** We already send the claim (harmless; a 200, no fallback
-  fires), so the module should start naming itself once the hotfix lands —
-  **verify on staging then**. Until it lands, the guide should note instructors
-  can rename the module after import. (Background: true server-side creation is
-  impossible — a deep-linking response must POST through the instructor's browser
-  to a launch-specific return URL — which is why the flow is one-click-bulk
-  rather than automatic.) Remaining: verify the
-  module_name pass-through live, and add `module_index_menu_modal` to the
-  LTIAAS config so future registrations carry it (the staging tool got it via
-  a Canvas API edit only).
+  week of 2026-07-28.**
+  - **LTIAAS side: fixed and verified 2026-07-25.** They reported the hotfix
+    deployed; `spec/staging/deep_link_module_name_diagnostic_spec.rb` (new)
+    decodes the signed DeepLinkingResponse and finds the claim **present**, at
+    both 2 and 9 content items, with `BuildLtiDeepLinkForm`'s
+    retry-without-the-claim fallback never firing. Nothing left to do on our
+    side or theirs.
+  - **Canvas side: blocked on the Canvas version.** Imports against
+    `canvas.wikiedu.org` still create "New Content From App" even with the
+    claim present, because Canvas only *reads* it as of canvas-lms
+    [8565b537](https://github.com/instructure/canvas-lms/commit/8565b53775aa)
+    (2026-04-09, no feature flag) — before that the module name is hardcoded.
+    `canvas.wikiedu.org` is self-hosted, so it presumably predates that
+    release. _To confirm:_ check the deployed Canvas release on that host; if
+    it's older than ~2026-04-22, a Canvas upgrade is the whole fix. Institutions
+    on Instructure-hosted Canvas should already get the named module.
+    Meanwhile `import_assignments_via_modules` accepts either name and warns on
+    the default one, so the harvest stays green and says why.
+  - Until named modules work everywhere, the guide should note instructors can
+    rename the module after import. (Background: true server-side creation is
+    impossible — a deep-linking response must POST through the instructor's
+    browser to a launch-specific return URL — which is why the flow is
+    one-click-bulk rather than automatic.) Remaining: add
+    `module_index_menu_modal` to the LTIAAS config so future registrations
+    carry it (the staging tool got it via a Canvas API edit only).
 
 - [x] **Nav-link-free, deep-link-first linking model.** _(Explored 2026-07-24;
   decoupled rather than removed.)_ Outcome: the launch dispatch no longer

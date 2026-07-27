@@ -370,12 +370,23 @@ module LaunchHelpers
       click_button 'Add to course'
     end
     # Canvas processes the deep-linking response, closes the dialog, and
-    # shows the new module (some versions reload the page first). The module
-    # name is Canvas's default until LTIAAS passes our module_name claim
-    # through; accept either.
-    expect(page).to have_content(
-      /New Content From App|Research and write a Wikipedia article/, wait: 30
-    )
+    # shows the new module (some versions reload the page first).
+    #
+    # Either name passes. The module is named from the module_name claim we
+    # send, which LTIAAS does now pass through (verified — see
+    # deep_link_module_name_diagnostic_spec), but Canvas only *reads* that
+    # claim as of canvas-lms 8565b537 (2026-04-09); before that the name is
+    # hardcoded to "New Content From App". So a default-named module here is a
+    # fact about the Canvas instance, not a regression — warn, don't fail.
+    #
+    # Literal rather than I18n.t: these specs don't boot Rails. Keep in sync
+    # with `lti.deep_link.module_name` in config/locales/en.yml.
+    module_name = 'Research and write a Wikipedia article'
+    expect(page).to have_content(/New Content From App|#{Regexp.escape(module_name)}/, wait: 30)
+    return if has_content?(module_name, wait: 0)
+
+    warn "  [module_name] module imported under Canvas's default name — this " \
+         'Canvas predates the 2026-04-09 module_name support'
   end
 
   # True once the just-opened modal's picker iframe shows the picker. Fetches
