@@ -93,6 +93,14 @@ class TimesliceCleaner
     delete_in_batches(timeslices)
   end
 
+  # Deletes article course user wiki timeslices records with a start date later than
+  # the specific given date
+  def delete_article_course_user_wiki_timeslices_after_date(wikis, date)
+    timeslices = ArticleCourseUserWikiTimeslice.where(course: @course).where(wiki: wikis)
+                                               .where('start > ?', date)
+    delete_in_batches(timeslices)
+  end
+
   # Deletes article course timeslices records with a start date later than the
   # specific given date
   def delete_article_course_timeslices_after_date(wikis, date)
@@ -113,6 +121,19 @@ class TimesliceCleaner
   # Deletes course user wiki timeslices records with a start date later than the current end date
   def delete_course_user_wiki_timeslices_after_end_date
     delete_course_user_wiki_timeslices_after_date(@course.wikis, @course.end)
+  end
+
+  # Deletes article course user wiki timeslices records with a date prior to the
+  # current start date
+  def delete_article_course_user_wiki_timeslices_prior_to_start_date
+    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course)
+                                                    .where('end <= ?', @course.start))
+  end
+
+  # Deletes article course user wiki timeslices records with a start date later than
+  # the current end date
+  def delete_article_course_user_wiki_timeslices_after_end_date
+    delete_article_course_user_wiki_timeslices_after_date(@course.wikis, @course.end)
   end
 
   # Marks CWT rows as needs_reaggregation for every (wiki, start) period covered
