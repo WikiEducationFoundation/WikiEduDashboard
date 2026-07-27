@@ -26,7 +26,7 @@ describe ReportsController, '#system_csv', type: :request do
 
   context 'when not signed in' do
     it 'returns 401 unauthorized' do
-      get '/system_csv'
+      get '/system_csv', headers: { 'ACCEPT' => 'application/json' }
       expect(response).to have_http_status(:unauthorized)
     end
   end
@@ -35,7 +35,7 @@ describe ReportsController, '#system_csv', type: :request do
     before { login_as user }
 
     it 'returns 401 unauthorized' do
-      get '/system_csv'
+      get '/system_csv', headers: { 'ACCEPT' => 'application/json' }
       expect(response).to have_http_status(:unauthorized)
     end
   end

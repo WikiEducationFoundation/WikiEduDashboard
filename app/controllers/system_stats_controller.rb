@@ -31,7 +31,7 @@ class SystemStatsController < ApplicationController
       trends: trends_for(snapshots),
       campaigns: Campaign.select(:slug, :title).order(:title)
                           .map { |c| { slug: c.slug, title: c.title } },
-      wikis: Wiki.where(id: Course.nonprivate.pluck(:home_wiki_id).compact.uniq)
+      wikis: Wiki.where(id: Course.nonprivate.select(:home_wiki_id))
                  .select(:language, :project)
                  .map(&:domain).compact.uniq.sort
     }

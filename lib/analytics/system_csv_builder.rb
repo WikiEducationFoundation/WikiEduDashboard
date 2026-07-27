@@ -23,7 +23,7 @@ require_dependency "#{Rails.root}/lib/analytics/system_csv_filter_validator"
 class SystemCsvBuilder
   VALID_COURSE_TYPES = SystemCsvFilterValidator::VALID_COURSE_TYPES
   VALID_STATUSES = SystemCsvFilterValidator::VALID_STATUSES
-  BATCH_SIZE = 1000
+  BATCH_SIZE = 500
 
   def initialize(filters: {})
     @filters = filters
@@ -49,19 +49,27 @@ class SystemCsvBuilder
   def build_batch_rows(batch)
     batch_course_ids = batch.map(&:id)
     tags = fetch_tags(batch_course_ids)
-    revisions = fetch_revision_counts(batch_course_ids)
+    revisions = fetch_revision_counts(active_course_ids(batch))
     new_editors = fetch_new_editor_counts(batch_course_ids)
     wikis = fetch_wikis(batch)
 
     batch.map do |course|
-      CourseCsvBuilder.new(
-        course,
-        tag: tags[course.id]&.first&.tag || 'unknown',
-        revision: revisions,
-        new_editors: new_editors[course.id] || 0,
-        home_wiki: wikis[course.home_wiki_id]&.first&.domain || ''
-      ).row
+      build_course_csv_row(course, tags, revisions, new_editors, wikis)
     end
+  end
+
+  def active_course_ids(batch)
+    batch.select { |c| c.revision_count.to_i.positive? }.map(&:id)
+  end
+
+  def build_course_csv_row(course, tags, revisions, new_editors, wikis)
+    CourseCsvBuilder.new(
+      course,
+      tag: tags[course.id]&.first&.tag || 'unknown',
+      revision: revisions,
+      new_editors: new_editors[course.id] || 0,
+      home_wiki: wikis[course.home_wiki_id]&.first&.domain || ''
+    ).row
   end
 
   def course_scope
