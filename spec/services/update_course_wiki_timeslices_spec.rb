@@ -379,6 +379,50 @@ describe UpdateCourseWikiTimeslices do
       end
     end
 
+    context 'when cleaning timeslices before reprocessing' do
+      before do
+        allow_any_instance_of(CourseRevisionUpdater)
+          .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+            { wiki => { start: ts_start, end: ts_end, new_data: true, revisions: [] } }
+          end
+        allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_scores_for_revisions)
+        allow_any_instance_of(UpdateWikidataStatsTimeslice)
+          .to receive(:update_revisions_with_stats).and_return([])
+        allow(RevisionScanner).to receive(:schedule_revision_checks)
+        TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+      end
+
+      it 'does not clean a timeslice that is only being processed for new data' do
+        expect_any_instance_of(TimesliceCleaner)
+          .not_to receive(:clean_timeslices_before_reprocessing)
+        subject
+      end
+
+      context 'when a timeslice needs update' do
+        let(:timeslice) { course.course_wiki_timeslices.where(wiki: enwiki).first }
+
+        before { timeslice.update(needs_update: true) }
+
+        it 'does not clean a course that does not use ACUWT' do
+          expect_any_instance_of(TimesliceCleaner)
+            .not_to receive(:clean_timeslices_before_reprocessing)
+          subject
+        end
+
+        context 'when the course uses ACUWT' do
+          before { course.add_flag(key: :use_acuwt) }
+
+          it 'cleans the period being reprocessed' do
+            expect_any_instance_of(TimesliceCleaner)
+              .to receive(:clean_timeslices_before_reprocessing)
+              .with(enwiki, timeslice.start, timeslice.end, [])
+              .and_return([])
+            subject
+          end
+        end
+      end
+    end
+
     context 'when use_acuwt? flag is set' do
       let(:article_id) { 12345 }
 

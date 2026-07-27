@@ -17,6 +17,52 @@ describe ArticlesCoursesCleaner do
 
   before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
 
+  describe '#remove_articles_courses_without_timeslices' do
+    let(:user) { create(:user) }
+
+    before do
+      stub_wiki_validation
+      create(:articles_course, course:, article: article1)
+      create(:articles_course, course:, article: article2)
+      create(:articles_course, course:, article: article4)
+      # article2 still has an ACUWT row, article4 still has an article course timeslice
+      create(:article_course_user_wiki_timeslice, course:, article: article2, user:,
+             wiki: wikidata, start: '2024-01-10', end: '2024-01-11')
+      create(:article_course_timeslice, course:, article: article4,
+             start: '2024-01-10', end: '2024-01-11')
+    end
+
+    it 'removes the records of the articles left without timeslices' do
+      described_class.new(course)
+                     .remove_articles_courses_without_timeslices([article1.id, article2.id,
+                                                                  article4.id])
+
+      expect(course.articles_courses.where(article: article1)).to be_empty
+    end
+
+    it 'keeps the records of the articles that still have an ACUWT row' do
+      described_class.new(course)
+                     .remove_articles_courses_without_timeslices([article1.id, article2.id,
+                                                                  article4.id])
+
+      expect(course.articles_courses.where(article: article2).count).to eq(1)
+    end
+
+    it 'keeps the records of the articles that still have an article course timeslice' do
+      described_class.new(course)
+                     .remove_articles_courses_without_timeslices([article1.id, article2.id,
+                                                                  article4.id])
+
+      expect(course.articles_courses.where(article: article4).count).to eq(1)
+    end
+
+    it 'leaves alone the articles that were not passed in' do
+      described_class.new(course).remove_articles_courses_without_timeslices([article2.id])
+
+      expect(course.articles_courses.where(article: article1).count).to eq(1)
+    end
+  end
+
   describe '#reset_excluded' do
     let(:user) { create(:user) }
     let(:articles) { Article.where(id: article1.id) }

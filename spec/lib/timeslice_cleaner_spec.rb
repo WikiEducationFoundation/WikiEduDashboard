@@ -148,6 +148,93 @@ describe TimesliceCleaner do
     end
   end
 
+  describe '#clean_timeslices_before_reprocessing' do
+    let(:start_date) { DateTime.new(2024, 3, 29) }
+    let(:end_date) { DateTime.new(2024, 3, 30) }
+    let(:deleted_article) { create(:article, wiki_id: enwiki.id, deleted: true) }
+    let(:other_article) { create(:article, wiki_id: enwiki.id) }
+    let(:student) { create(:user, username: 'Student') }
+    let(:other_student) { create(:user, username: 'OtherStudent') }
+    # Covers article1/student only, so the rows for other_article/other_student are stale
+    let(:revisions) do
+      [build(:revision_on_memory, article_id: article1.id, user_id: student.id)]
+    end
+
+    def clean
+      timeslice_cleaner.clean_timeslices_before_reprocessing(enwiki, start_date, end_date,
+                                                            revisions)
+    end
+
+    def acuwt_rows
+      ArticleCourseUserWikiTimeslice.where(course:, start: start_date, end: end_date)
+    end
+
+    before do
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki, article: article1,
+             user_id: student.id, start: start_date, end: end_date)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki, article: other_article,
+             user_id: other_student.id, start: start_date, end: end_date)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+             article: deleted_article, user_id: student.id, start: start_date, end: end_date)
+      create(:article_course_timeslice, course:, article: other_article,
+             start: start_date, end: end_date)
+      create(:course_user_wiki_timeslice, course:, wiki: enwiki, user_id: other_student.id,
+             start: start_date, end: end_date)
+    end
+
+    it 'keeps the rows whose article and user are still in the fetched revisions' do
+      clean
+
+      expect(acuwt_rows.where(article: article1, user_id: student.id).count).to eq(1)
+    end
+
+    it 'deletes the rows whose article and user are not in the fetched revisions' do
+      clean
+
+      expect(acuwt_rows.where(article: other_article)).to be_empty
+    end
+
+    it 'keeps the rows for articles deleted on wiki, which no re-fetch can reproduce' do
+      clean
+
+      expect(acuwt_rows.where(article: deleted_article).count).to eq(1)
+    end
+
+    it 'deletes the article course timeslice of an article left without rows' do
+      clean
+
+      expect(ArticleCourseTimeslice.where(course:, article: other_article)).to be_empty
+    end
+
+    it 'deletes the course user wiki timeslice of a user left without rows' do
+      clean
+
+      expect(CourseUserWikiTimeslice.where(course:, user_id: other_student.id)).to be_empty
+    end
+
+    it 'returns the ids of the articles left without rows for the period' do
+      expect(clean).to eq([other_article.id])
+    end
+
+    context 'when the fetched revisions cover every stored row' do
+      let(:revisions) do
+        [build(:revision_on_memory, article_id: article1.id, user_id: student.id),
+         build(:revision_on_memory, article_id: other_article.id, user_id: other_student.id),
+         build(:revision_on_memory, article_id: deleted_article.id, user_id: student.id)]
+      end
+
+      it 'deletes no rows' do
+        clean
+
+        expect(acuwt_rows.count).to eq(3)
+      end
+
+      it 'reports no article left without rows' do
+        expect(clean).to be_empty
+      end
+    end
+  end
+
   describe '#delete_course_wiki_timeslices_prior_to_start_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)
