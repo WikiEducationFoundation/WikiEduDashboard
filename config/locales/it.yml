@@ -982,6 +982,22 @@ it:
     kind:
       discussion: Discussione
     loading: Caricamento…
+  claim_verification:
+    form:
+      source_access_options:
+        nonexistent: No, la fonte non esiste.
+        inaccessible: No, la fonte esiste ma non sono riuscito ad accedervi.
+      verdict_options:
+        full_support: Sì, supporta esplicitamente l'affermazione completa.
+        contradicted: Al contrario, la fonte contraddice l'affermazione.
+      other_comments_label: Altri commenti su questo esercizio?
+      submitted_heading: Risposta inviata
+      edit_response: Modifica risposta
+      submit_failed: Errore! La tua risposta non è stata salvata.
+    responses:
+      heading: Risposte degli studenti
+      submitted_at: Inviato il %{date}
+      pending_heading: In corso
   update_username:
     label: Nuovo nome utente
     button: Aggiorna

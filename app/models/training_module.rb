@@ -114,7 +114,8 @@ class TrainingModule < ApplicationRecord
     self.estimated_ttc = content['estimated_ttc']
     self.translations = TrainingBase.format_translation_keys content['translations']
     self.settings = content['settings']
-    self.slide_slugs = content['slides'].pluck('slug')
+    # An in-app exercise module (see exercise_path) may have no slides at all.
+    self.slide_slugs = (content['slides'] || []).pluck('slug')
   end
 
   ####################

@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import VerificationForm from './VerificationForm.jsx';
+import ResponseSummary from './ResponseSummary.jsx';
+
 /*
-  The student's taken claim: the claim, its cited source, and the handoff to do
-  the verification in their Wikipedia sandbox. "Choose a different claim" returns
-  to the picker client-side (no reload). The claim and source values are data.
+  The student's taken claim: the claim, its cited source, and the verification
+  form (steps 3 and 4 of the exercise) — the whole exercise happens here in the
+  dashboard. Once a response is submitted the form gives way to a summary of
+  their answers (editable, since submitting is an upsert). Responses are keyed
+  per claim, so choosing a different claim stays available even after
+  submitting — the summary belongs to this claim and survives a switch. The
+  claim and source values are data.
 */
-export const TakenClaim = ({ assignment, onChooseDifferent }) => {
-  const { claim, sandbox_url: sandboxUrl } = assignment;
+export const TakenClaim = ({ assignment, response, courseSlug, onChooseDifferent, onResponseSaved }) => {
+  const { claim } = assignment;
+  const [editing, setEditing] = useState(false);
+
+  const saved = (savedResponse) => {
+    setEditing(false);
+    onResponseSaved(savedResponse);
+  };
 
   return (
     <div className="container narrow claim-verification-exercise">
@@ -52,17 +65,21 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
         )}
       </section>
 
-      <section className="claim-verification-exercise__sandbox">
-        <p>{I18n.t('claim_verification.complete_in_sandbox')}</p>
-        <a
-          href={sandboxUrl}
-          className="button border claim-verification-exercise__sandbox-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {I18n.t('training.exercise_sandbox')}
-        </a>
-      </section>
+      {response && !editing ? (
+        <section className="claim-verification-exercise__response">
+          <h2 className="claim-verification-exercise__label">
+            {I18n.t('claim_verification.form.submitted_heading')}
+          </h2>
+          <ResponseSummary response={response} onEdit={() => setEditing(true)} />
+        </section>
+      ) : (
+        <VerificationForm
+          courseSlug={courseSlug}
+          initial={response}
+          onSaved={saved}
+          onCancel={editing ? () => setEditing(false) : null}
+        />
+      )}
 
       <div className="claim-verification-exercise__switch">
         <button
@@ -80,9 +97,12 @@ export const TakenClaim = ({ assignment, onChooseDifferent }) => {
 TakenClaim.propTypes = {
   assignment: PropTypes.shape({
     claim: PropTypes.object.isRequired,
-    sandbox_url: PropTypes.string,
   }).isRequired,
+  // The submitted response, if any.
+  response: PropTypes.object,
+  courseSlug: PropTypes.string.isRequired,
   onChooseDifferent: PropTypes.func.isRequired,
+  onResponseSaved: PropTypes.func.isRequired,
 };
 
 export default TakenClaim;

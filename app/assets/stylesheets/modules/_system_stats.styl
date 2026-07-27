@@ -1,0 +1,87 @@
+// System Stats Dashboard — minimal additions over existing framework styles
+// Uses: .main-page, .stat-display, .module, .section-header, .table from global stylesheets
+
+// Note: Filter styles removed — filter UI not yet wired to backend.
+// Re-add when filters are implemented.
+
+main header.system-stats-header
+  padding 40px 0 15px
+
+.system-stats__stat-display.stat-display
+  margin-top 15px
+
+
+.system-stats__metric-selector
+  margin 0 0 10px 0
+  display flex
+  align-items center
+  gap 10px
+
+  label
+    font-size 13px
+    font-weight 600
+    color #666
+    white-space nowrap
+
+  select
+    padding 6px 28px 6px 10px
+    border 1px solid #ddd
+    border-radius 3px
+    font-size 13px
+    background-position calc(100% - 6px) 50%
+    background-color #fff
+    cursor pointer
+
+.system-stats__charts
+  display grid
+  grid-template-columns 1fr 1fr
+  gap 20px
+  margin-bottom 30px
+
+  +below(desktop)
+    grid-template-columns 1fr
+
+  .module
+    margin 0
+
+.system-stats__chart-canvas
+  position relative
+  height 320px
+  width 100%
+
+#facilitators
+  margin-bottom 40px
+
+// Utility classes replacing inline styles
+
+.system-stats__loading-container
+  min-height 200px
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+
+.system-stats__loading-text
+  margin-top 15px
+  color #718096
+
+.system-stats__faded
+  opacity 0.6
+  transition opacity 0.2s
+
+.system-stats__empty-state
+  padding 40px
+  text-align center
+  color #a0aec0
+
+.system-stats__table-empty
+  text-align center
+  color #a0aec0
+
+.system-stats__breakdown-table
+  margin-top 20px
+
+.system-stats__leaderboard-header
+  display flex
+  align-items center
+  justify-content space-between

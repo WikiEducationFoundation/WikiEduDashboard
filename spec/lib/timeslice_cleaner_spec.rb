@@ -227,6 +227,70 @@ describe TimesliceCleaner do
     end
   end
 
+  describe '#delete_article_course_user_wiki_timeslices_prior_to_start_date' do
+    before do
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-01-10'.to_datetime, end: '2024-01-11'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-01-11'.to_datetime, end: '2024-01-12'.to_datetime)
+    end
+
+    it 'deletes article course user wiki timeslices for dates prior to start date properly' do
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(3)
+
+      # Update course start date
+      course.update(start: '2024-01-10'.to_datetime)
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_prior_to_start_date
+
+      # Article course user wiki timeslices prior to the new start date were deleted
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(2)
+    end
+  end
+
+  describe '#delete_article_course_user_wiki_timeslices_after_end_date' do
+    before do
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-04-10'.to_datetime, end: '2024-04-11'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
+    end
+
+    it 'deletes article course user wiki timeslices for dates after the end date properly' do
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(3)
+
+      # Update course end date
+      course.update(end: '2024-04-10'.to_datetime)
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_after_end_date
+
+      # Article course user wiki timeslices after the new end date were deleted
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(2)
+    end
+  end
+
+  describe '#delete_article_course_user_wiki_timeslices_after_date' do
+    before do
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-01-08'.to_datetime, end: '2024-01-09'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article2.id, user_id: 1,
+             wiki: wikidata, start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
+             wiki: enwiki, start: '2024-04-11'.to_datetime, end: '2024-04-12'.to_datetime)
+    end
+
+    it 'deletes article course user wiki timeslices after date properly' do
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(3)
+
+      date = '2024-04-11'.to_datetime - 1.second
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_after_date([enwiki], date)
+
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(2)
+    end
+  end
+
   describe '#delete_course_wiki_timeslices_after_date' do
     before do
       create(:courses_wikis, wiki: wikibooks, course:)

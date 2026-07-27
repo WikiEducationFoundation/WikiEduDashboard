@@ -52,6 +52,11 @@ skr-arab:
     ai_stats:
       total: میزان
       last_week: پچھلا ہفتہ
+  system_stats:
+    tables:
+      wiki: وکی
+    facilitators:
+      "yes": جیا
   activity:
     all: سرگرمی
     edited_by: لکھݨ آلا

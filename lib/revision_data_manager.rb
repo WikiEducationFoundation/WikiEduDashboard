@@ -6,6 +6,7 @@ require_dependency "#{Rails.root}/lib/importers/article_importer"
 require_dependency "#{Rails.root}/app/helpers/encoding_helper"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/duplicate_article_deleter"
+require_dependency "#{Rails.root}/lib/utils/replica_timeslice_bounds"
 
 #= Fetches revision data from API
 # This class is intended to be used in four main ways:
@@ -39,8 +40,9 @@ class RevisionDataManager
   # Returns an array of RevisionOnMemory objects.
   # As a side effect, it imports Article records.
   def fetch_revision_data_for_course(timeslice_start, timeslice_end)
-    all_sub_data = get_course_revisions(@course.students, timeslice_start,
-                                        timeslice_end)
+    all_sub_data = get_course_revisions(@course.students,
+                                        ReplicaTimesliceBounds.real_start(@course, timeslice_start),
+                                        ReplicaTimesliceBounds.real_end(@course, timeslice_end))
 
     # Extract all article data from the slice. Outputs a hash with article attrs.
     article_attributes = sub_data_to_article_attributes(all_sub_data)
@@ -90,7 +92,10 @@ class RevisionDataManager
   # API call. Filter the returned revisions to specific articles before calling
   # fetch_score_data_for_course — critical when users have many programmatic edits.
   def fetch_revision_data_for_users_with_articles_only(users, timeslice_start, timeslice_end)
-    all_sub_data = get_course_revisions(users, timeslice_start, timeslice_end)
+    all_sub_data = get_course_revisions(
+      users, ReplicaTimesliceBounds.real_start(@course, timeslice_start),
+      ReplicaTimesliceBounds.real_end(@course, timeslice_end)
+    )
     return [] if all_sub_data.empty?
 
     article_attributes = sub_data_to_article_attributes(all_sub_data)

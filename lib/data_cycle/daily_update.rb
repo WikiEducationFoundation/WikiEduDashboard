@@ -38,6 +38,7 @@ class DailyUpdate
     generate_overdue_training_alerts if Features.wiki_ed?
     generate_mainspace_ai_followup_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
+    enqueue_system_stat_update unless Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
   rescue Exception => e
@@ -100,5 +101,13 @@ class DailyUpdate
   def push_course_data_to_salesforce
     log_message 'Pushing course data to Salesforce'
     SalesforceSyncWorker.set(queue: QUEUE).perform_async
+  end
+
+  ###############
+  # Stats       #
+  ###############
+  def enqueue_system_stat_update
+    log_message 'Enqueuing system stats snapshot'
+    SystemStatUpdateWorker.set(queue: QUEUE).perform_async
   end
 end

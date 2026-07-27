@@ -101,6 +101,25 @@ lb:
       sections:
         name: Numm
         description: Beschreiwung
+  system_stats:
+    kpis:
+      new_editors: Nei Editeuren
+      active_programs: Aktiv Programmen
+    tables:
+      wiki: Wiki
+      edits: Ännerungen
+      programs: Programmen
+      new_editors: Nei Editeuren
+    facilitators:
+      username: Benotzernumm
+      courses: Coursen
+      active: Aktiv
+      active_in_year: Aktiv am Joer
+      "yes": Jo
+      "no": Nee
+    pagination:
+      previous: Vireg
+      next: Nächst
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -198,6 +217,8 @@ lb:
     review_self: En Artikel nokucken
     sandbox_draft_link: Sandkaul-Brouillon
     select: Eraussichen
+    invalid_username: De Benotzernumm „%{username}“ ass ongülteg oder de Benotzernumm
+      existéiert net.
     username_label: Wikipedia-Benotzernumm
     username_or_url_label: Wikipedia-Benotzernumm oder URL
     sandbox_label: Sandkaul
@@ -416,15 +437,15 @@ lb:
   courses_generic:
     school_system: Akademesche System
     all_courses: All Progtrammer
-    archived: Archivéiert Programmer
+    archived: Archivéiert Programmen
     articles_i_am_reviewing: Artikelen, déi ech nokucken
     assignment_end: Enn vum Evenement
     assignment_start: Ufank vum Evenement
     cancel: Ofbriechen
     course: Programm
-    courses: Programmer
+    courses: Programmen
     campaigns: 'Campagnen:'
-    campaign_courses: '%{title} Programmer'
+    campaign_courses: '%{title} Programmen'
     creator:
       assignment_end: Enn vum Evenement
       assignment_end_placeholder: JJJJ-MM-DD
@@ -463,7 +484,7 @@ lb:
     term: Wéini
     view_other: Aner Campagne weisen
     view_page: Säit weisen
-    yourcourses: Är Programmer
+    yourcourses: Är Programmen
   editable:
     edit: Änneren
     cancel: Ofbriechen
@@ -657,6 +678,9 @@ lb:
     close: ZOUMAACHEN
   claim_verification:
     no_articles: Keng Artikelen disponibel
+    form:
+      edit_response: Äntwert änneren
+      submit_failed: Feeler! Är Äntwert gouf net gespäichert.
     admin:
       status: 'Status: %{status}'
   update_username:
@@ -741,6 +765,7 @@ lb:
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Education
+    email_invalid: 'Ongülteg: Gitt wgl. eng gülteg E-Mail an'
   user_profiles:
     student_impact: Gesamtimpakt duerch %{username} als Student
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter

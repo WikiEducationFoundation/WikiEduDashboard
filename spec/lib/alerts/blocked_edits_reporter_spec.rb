@@ -43,6 +43,13 @@ describe BlockedEditsReporter do
       expect(Alert.count).to eq(1)
     end
 
+    it 'records the domain of the wiki where the edit was blocked' do
+      stub_wiki_validation
+      wiki = create(:wiki, language: 'es', project: 'wikipedia')
+      described_class.create_alerts_for_blocked_edits(student, response_data, wiki)
+      expect(Alert.last.details['wiki_domain']).to eq('es.wikipedia.org')
+    end
+
     it 'does not create multiple alerts' do
       described_class.create_alerts_for_blocked_edits(student, response_data)
       described_class.create_alerts_for_blocked_edits(student2, response_data)

@@ -476,6 +476,7 @@ be-tarask:
     main: Асноўная прастора
     talk: Гутаркі
     category: Катэґорыя
+    query: Запыт
   revisions:
     references: Дададзена крыніцаў
     diff_show: Паказаць

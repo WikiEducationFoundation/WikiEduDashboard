@@ -13,6 +13,12 @@ describe RevisionScoreApiHandler do
 
     let(:handler) { described_class.new(wiki: Wiki.find(1)) }
 
+    describe '#scores_available?' do
+      it 'is true' do
+        expect(handler.scores_available?).to eq(true)
+      end
+    end
+
     describe '#get_revision_data' do
       let(:subject) { handler.get_revision_data [829840090, 829840091] }
 
@@ -64,6 +70,12 @@ describe RevisionScoreApiHandler do
     # Wikidata is no longer scored via either API: Lift Wing features/wp10 aren't used for
     # Wikidata, and reference-counter doesn't support Wikidata. Deletion detection has
     # moved to UpdateWikidataStatsTimeslice (via WikidataDiffAnalyzer).
+    describe '#scores_available?' do
+      it 'is false' do
+        expect(handler.scores_available?).to eq(false)
+      end
+    end
+
     describe '#get_revision_data' do
       it 'returns no scores and makes no HTTP calls' do
         stub_request(:any, /.*api.wikimedia.org.*/).to_raise('should not be called')

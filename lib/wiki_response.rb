@@ -22,6 +22,7 @@ class WikiResponse
     @current_user = opts[:current_user] || {}
     @post_data = opts[:post_data]
     @type = opts[:type]
+    @wiki = opts[:wiki]
   end
 
   def parse_api_response
@@ -117,7 +118,9 @@ class WikiResponse
       # The authorization headers in your request are not valid: Nonce already used: kj7w9...
       @current_user.update(wiki_token: 'invalid') unless info.include?('Nonce already used')
     when 'blocked', 'autoblocked', 'wikimedia-globalblocking-ipblocked-range'
-      BlockedEditsWorker.schedule_notifications(user: @current_user, response_data: @response_data)
+      BlockedEditsWorker.schedule_notifications(user: @current_user,
+                                                response_data: @response_data,
+                                                wiki: @wiki)
     end
 
     @title = "Failed #{@type}: #{code}"
