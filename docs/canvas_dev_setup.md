@@ -29,6 +29,7 @@ Once a canvas dev environment is running locally and the LTIAAS tool is installe
    - [Install and configure Rich Content Editor API](#7-install-and-configure-rich-content-editor-api)
    - [Start Docker/Canvas on instance startup (optional)](#8-start-dockercanvas-on-instance-startup-optional)
    - [Configure Apache](#9-configure-apache)
+- [Upgrading the test Canvas](#upgrading-the-test-canvas)
 - [Self hosting with a tunneling service](#self-hosting-by-exposing-localhost-through-a-tunneling-service)
    - [Configure Canvas](#6-configuring-canvas)
    - [Install and configure Rich Content Editor API](#7-installing-and-configuring-rich-content-editor-api)
@@ -154,6 +155,62 @@ sudo systemctl restart apache2
 ```
 
 
+
+## Upgrading the test Canvas
+
+`canvas.wikiedu.org` is our own Docker-Compose Canvas at `/opt/canvas-lms`
+(bind-mounted into the `web` container, `RAILS_ENV: development`, started by
+`docker-compose-app.service` as the `emptycodes` user). Canvas ships fixes we
+need — the LTI deep-linking `module_name` claim, for instance, only started
+working in `8565b537` (2026-04-09) — so it needs bumping now and then.
+
+Done once, 2026-02-11 → 2026-05-20, in about 35 minutes of downtime. The
+sequence, and the traps:
+
+1. **Back up first.** Migrations are effectively one-way, so the dump *is* the
+   rollback: `docker exec canvas-lms-postgres-1 pg_dump -U postgres
+   canvas_development | gzip > …`. Note the live DB is `canvas_development`
+   (dev mode), not `canvas_production`. Also save `git rev-parse HEAD`, the
+   `docker images` IDs (old images aren't pruned, so they can be retagged to
+   roll back), and `git diff` — see the next point.
+2. **Preserve the local modifications.** The checkout carries two:
+   `config/environments/development.rb` forces `https` in generated URLs
+   (without it LTI launches break behind the TLS terminator) and
+   `docker-compose/rce-api.override.yml` sets the RCE `VIRTUAL_HOST`. Save
+   them as a patch, `git stash`, switch branch, then re-apply.
+3. **Work as `emptycodes`, not root**, or you leave root-owned files in the
+   tree. (Root also needs `git -c safe.directory=/opt/canvas-lms` to read the
+   repo at all.)
+4. `systemctl stop docker-compose-app`, fetch, `git checkout -B stable/<date>
+   origin/stable/<date>`, re-apply the patch, `docker compose build`.
+5. **Don't bother with `script/docker_dev_update.sh`** — it can't run
+   unattended. It dies on `tput` unless `TERM` is set, then blocks on a
+   `/dev/tty` prompt asking whether to rebuild images. Run its steps directly
+   instead (they're in `script/common/canvas/build_helpers.sh`):
+
+   ```bash
+   docker compose up -d
+   docker compose run --rm -T web bundle install
+   docker compose run --rm -T web bundle exec rake js:yarn_install
+   docker compose run --rm -T web bundle exec rake canvas:compile_assets_dev
+   docker compose run --rm -T web bundle exec rake db:migrate RAILS_ENV=development
+   docker compose run --rm -T web bundle exec rake db:migrate RAILS_ENV=test
+   ```
+
+   `db:migrate:status` will still show one `down` afterwards — the
+   `99999999999999999999 Ensure test db empty` sentinel never runs in
+   development. That's expected, not a failed migration.
+6. **Verify the LTI registration survived**: tool privacy still `anonymous`,
+   `course_navigation` still `default: disabled`, all placements present (see
+   the admin checks in the [end-to-end manual test](#0-admin--confirm-install--configuration)),
+   then run the staging screenshot harness.
+7. **Expect UI drift to break the harness.** The 2026-05 upgrade moved the
+   per-module kebabs ahead of the Modules-page settings kebab in the DOM, so
+   an unscoped `first('a.al-trigger')` opened the wrong menu, and Canvas's
+   new-user tutorial tray began floating over the header and intercepting
+   clicks. Fixes: scope to `.module_index_tools a.al-trigger`, and turn the
+   tray off for the harness user —
+   `PUT /api/v1/users/<id>/features/flags/new_user_tutorial_on_off?state=off`.
 
 ## Self hosting by exposing localhost through a tunneling service
 The default http://canvas.docker domain is used in this case. The instructions here differ from the parent guide in that no ssl is required and port numbers are changed to prevent conflict with other local applications that also use locahost.
@@ -601,7 +658,7 @@ anonymized roster carries no email to auto-enroll against.
 
 Before flipping `canvas_integration_enabled` to `'true'` in production:
 
-1. **LTIAAS prod tenant registered against the production Canvas (canvas.wikiedu.org)** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side.
+1. **LTIAAS prod tenant configured** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side. Note there is no "Wiki Education production Canvas" to register against: each institution registers the tool into **their own** Canvas (dynamic registration), and `canvas.wikiedu.org` exists only to develop and test the integration.
 2. **`config/application.yml`** on the prod box — `LTIAAS_DOMAIN`, `LTIAAS_API_KEY`, and `canvas_integration_enabled: 'true'` set.
 3. **Migrations applied** — three migrations from PR 1 (`create_lti_course_bindings`, `create_lti_line_items`, `add_binding_fields_to_lti_contexts`) plus `create_lti_score_signatures` from the dedup pass.
 4. **Sidekiq cron loaded** — confirm `LtiDailyRosterSyncWorker` and `LtiPeriodicGradeSyncWorker` appear in the cron list (check the sidekiq-cron dashboard at `/sidekiq/cron`).

@@ -370,23 +370,17 @@ module LaunchHelpers
       click_button 'Add to course'
     end
     # Canvas processes the deep-linking response, closes the dialog, and
-    # shows the new module (some versions reload the page first).
-    #
-    # Either name passes. The module is named from the module_name claim we
-    # send, which LTIAAS does now pass through (verified — see
-    # deep_link_module_name_diagnostic_spec), but Canvas only *reads* that
-    # claim as of canvas-lms 8565b537 (2026-04-09); before that the name is
-    # hardcoded to "New Content From App". So a default-named module here is a
-    # fact about the Canvas instance, not a regression — warn, don't fail.
+    # shows the new module (some versions reload the page first), named from
+    # the module_name claim we send with the response. A module called "New
+    # Content From App" means the name didn't survive the trip: either LTIAAS
+    # dropped the claim (their pre-2026-07 behaviour) or Canvas is older than
+    # canvas-lms 8565b537 (2026-04-09), which is where Canvas started reading
+    # it. Both are fixed as of the 2026-07-27 Canvas upgrade, so require the
+    # real name — a default-named module is now a genuine regression.
     #
     # Literal rather than I18n.t: these specs don't boot Rails. Keep in sync
     # with `lti.deep_link.module_name` in config/locales/en.yml.
-    module_name = 'Research and write a Wikipedia article'
-    expect(page).to have_content(/New Content From App|#{Regexp.escape(module_name)}/, wait: 30)
-    return if has_content?(module_name, wait: 0)
-
-    warn "  [module_name] module imported under Canvas's default name — this " \
-         'Canvas predates the 2026-04-09 module_name support'
+    expect(page).to have_content('Research and write a Wikipedia article', wait: 30)
   end
 
   # True once the just-opened modal's picker iframe shows the picker. Fetches
@@ -403,23 +397,45 @@ module LaunchHelpers
   # candidate that exists wins (minimum: 0 keeps the misses nil, not raises).
   def open_modules_tool_modal
     expect(page).to have_content('Module', wait: 20)
-    # The header trigger is an <a class="al-trigger"> whose screenreader label
-    # is "Modules Settings" (per-module kebabs are also .al-trigger but hidden
-    # pre-import; Capybara matches visible elements only).
-    candidates = ['a.al-trigger', 'button.al-trigger', '.al-trigger',
-                  'button[aria-label*="Modules"]']
+    # An open tray (Canvas's contextual "Organize course content" help panel
+    # is easy to trigger by a stray click) overlays the header and swallows
+    # the trigger click, leaving the menu shut.
+    find('body').send_keys(:escape)
+    # The header trigger is the <a class="al-trigger"> inside
+    # `.module_index_tools`, labelled "Modules Settings" for screenreaders.
+    # Scope to that container rather than taking the first .al-trigger on the
+    # page: as of Canvas 2026-05 the per-module kebabs ("Manage module") render
+    # earlier in the DOM, so the unscoped selector opened the wrong menu.
+    candidates = ['.module_index_tools a.al-trigger', 'a.al-trigger[aria-owns^="toolbar"]',
+                  'a.al-trigger', 'button.al-trigger', '.al-trigger']
     trigger = candidates.lazy.map { |sel| first(sel, minimum: 0, wait: 2) }.find(&:itself)
     raise 'no Modules-page menu trigger found (selectors need updating)' unless trigger
 
-    trigger.click
+    click_past_overlays(trigger, '.module_index_tools a.al-trigger')
     click_tool_menu_item
   end
 
+  # Canvas overlays float above the Modules header and swallow the click —
+  # the new-user tutorial tray is the usual culprit (disabled for the harness
+  # user via the new_user_tutorial_on_off feature flag, but anything modal
+  # would do it). Fall back to dispatching the click through the DOM, which
+  # reaches the jQuery handler regardless of what is painted on top.
+  def click_past_overlays(element, selector)
+    element.click
+  rescue Selenium::WebDriver::Error::ElementClickInterceptedError => e
+    warn "  [modules menu] click intercepted (#{e.message[/receive the click: <(\w+)/, 1]}); " \
+         'dispatching via JS'
+    page.execute_script("document.querySelector('#{selector}').click()")
+  end
+
   def click_tool_menu_item
+    # Prefer the placement's own data attribute — it identifies the item
+    # regardless of label or menu framework. Then the historical fallbacks:
     # module_index_menu_modal items render as a.menu_tray_tool_link inside the
     # al-options menu; older/other placements as a.menu_tool_link; InstUI
     # menus as role=menuitem.
-    ['a.menu_tray_tool_link', 'a.menu_tool_link', '[role="menuitem"]'].each do |sel|
+    ['a[data-tool-launch-type="module_index_menu_modal"]', 'a.menu_tray_tool_link',
+     'a.menu_tool_link', '[role="menuitem"]'].each do |sel|
       next unless page.has_css?(sel, text: tool_label, wait: 3)
 
       return find(sel, text: tool_label).click

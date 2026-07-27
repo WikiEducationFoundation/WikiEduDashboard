@@ -102,39 +102,38 @@ launch + Wikipedia OAuth is the only linking path.
     deep-link import flow) is the remaining cleanup. `gradebook_granularity`
     could then collapse to a boolean or be dropped.
 
-- [ ] **Bulk deep-linking via `module_index_menu_modal` (built; working).** The
-  import flow works end-to-end (verified: one submit → one published module
-  with all nine assignments). The created module's default name is Canvas's
-  "New Content From App"; Canvas reads a tool-settable override from the
-  deep-linking response JWT claim
-  `https://canvas.instructure.com/lti/module_name` (found in
-  `deep_linking_services.rb`), which we send ("Research and write a Wikipedia
-  article", operator-supplied) — but LTIAAS drops it. **Confirmed 2026-07-24 by
-  decoding the actual signed DeepLinkingResponse JWT LTIAAS returned:** all nine
-  content items are present, but the top-level `.../lti/module_name` claim is
-  absent (no key containing "module" at all). After we sent the decoded
-  JWT, **LTIAAS confirmed (2026-07-24) they don't pass that extra deep-linking
-  key through the way they pass other claims, and a hotfix is expected early the
-  week of 2026-07-28.**
+- [x] **Bulk deep-linking via `module_index_menu_modal` — done, module names
+  included (2026-07-27).** The import creates one published module with all
+  nine assignments in timeline order, now titled "Research and write a
+  Wikipedia article". The full chain works: we send the claim → LTIAAS passes
+  it into the signed JWT (their hotfix) → Canvas reads it (the upgrade below).
+  History of the two blockers is kept because both were third-party fixes:
+
+  Canvas takes the module's name from the deep-linking response JWT claim
+  `https://canvas.instructure.com/lti/module_name` (read in
+  `deep_linking_services.rb`), which we have always sent ("Research and write a
+  Wikipedia article", operator-supplied), falling back to "New Content From
+  App" without it. Two independent links in that chain were broken:
+  LTIAAS dropped the claim — **confirmed 2026-07-24 by decoding the signed
+  DeepLinkingResponse LTIAAS returned:** all nine content items present, no
+  key containing "module" at all — and after we sent them that decode, LTIAAS
+  confirmed they didn't pass the extra key through and shipped a hotfix.
   - **LTIAAS side: fixed and verified 2026-07-25.** They reported the hotfix
     deployed; `spec/staging/deep_link_module_name_diagnostic_spec.rb` (new)
     decodes the signed DeepLinkingResponse and finds the claim **present**, at
     both 2 and 9 content items, with `BuildLtiDeepLinkForm`'s
     retry-without-the-claim fallback never firing. Nothing left to do on our
     side or theirs.
-  - **Canvas side: blocked on the Canvas version.** Imports against
-    `canvas.wikiedu.org` still create "New Content From App" even with the
-    claim present, because Canvas only *reads* it as of canvas-lms
+  - **Canvas side: fixed by upgrading the box, 2026-07-27.** Canvas only
+    *reads* the claim as of canvas-lms
     [8565b537](https://github.com/instructure/canvas-lms/commit/8565b53775aa)
-    (2026-04-09, no feature flag) — before that the module name is hardcoded.
-    `canvas.wikiedu.org` is self-hosted, so it presumably predates that
-    release. _To confirm:_ check the deployed Canvas release on that host; if
-    it's older than ~2026-04-22, a Canvas upgrade is the whole fix. Institutions
-    on Instructure-hosted Canvas should already get the named module.
-    Meanwhile `import_assignments_via_modules` accepts either name and warns on
-    the default one, so the harvest stays green and says why.
-  - Until named modules work everywhere, the guide should note instructors can
-    rename the module after import. (Background: true server-side creation is
+    (2026-04-09, no feature flag); `canvas.wikiedu.org` was running
+    `release/2026-02-11.378`, confirmed by grepping the deployed source for the
+    reader (absent). Upgraded to `release/2026-05-20.143` (recipe + gotchas in
+    `docs/canvas_dev_setup.md` → "Upgrading the test Canvas") and the very next
+    import produced a correctly named module. Institutions on
+    Instructure-hosted Canvas were never affected.
+  - (Background: true server-side creation is
     impossible — a deep-linking response must POST through the instructor's
     browser to a launch-specific return URL — which is why the flow is
     one-click-bulk rather than automatic.) Remaining: add
