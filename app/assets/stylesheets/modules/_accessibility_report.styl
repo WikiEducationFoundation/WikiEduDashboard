@@ -47,3 +47,20 @@
     background-color $bg_light_gray
     padding 1px 4px
     border-radius 3px
+
+  // A code block on these pages is something the reader is meant to copy —
+  // on /lti/guide it's the registration URL the whole install hinges on. Set
+  // it apart from the prose, size it up, and make one click select the lot.
+  pre
+    margin 1em 0
+    padding 12px 16px
+    background-color $bg_light_gray
+    border 1px solid $border_lt
+    border-radius 4px
+    overflow-x auto
+
+    code
+      background-color transparent
+      padding 0
+      font-size 1.2em
+      user-select all

@@ -78,11 +78,15 @@ and the Dashboard configure everything automatically — endpoints, scopes, and
 placements, and registering your Canvas with the tool — with no configuration to
 copy back and forth. Wiki Education then activates your registration (see below).
 
+Wiki Education's registration URL:
+
+    https://wikiedu.ltiaas.com/lti/register
+
 1. In Canvas, go to **Admin → Developer Keys → + Developer Key → + LTI
-   Registration**. Paste Wiki Education's registration URL —
-   `https://wikiedu.ltiaas.com/lti/register` — and click **Continue**. Canvas and
-   the Dashboard exchange the configuration automatically (endpoints, scopes, and
-   placements); review the summary and click **Enable & Close**.
+   Registration**. Paste Wiki Education's registration URL and click
+   **Continue**. Canvas and the Dashboard exchange the configuration
+   automatically (endpoints, scopes, and placements); review the summary and
+   click **Enable & Close**.
 2. In the **Developer Keys** list, set the key's **State** to **ON** and copy the
    **Client ID** from the **Details** column.
 3. Install it: **Admin → Settings → Apps → View App Configurations → + App**, set
