@@ -208,6 +208,52 @@ nl:
       max_likelihood: Maximale AI-waarschijnlijkheidsverdeling per dag
       overall_avg_likelihood: Algemene gemiddelde AI-waarschijnlijkheidsverdeling
       overall_max_likelihood: Algemene maximale AI-waarschijnlijkheidsverdeling
+  system_stats:
+    title: Systeem- en begeleidersstatistieken
+    kpis:
+      total_edits: Totaal bewerkingen
+      article_views: Paginaweergaven
+      articles_created: Pagina's aangemaakt
+      articles_improved: Pagina's verbeterd
+      characters_added: Tekens toegevoegd
+      new_editors: Nieuwe bewerkers
+      active_programs: Actieve programma's
+      active_facilitators: Actieve begeleiders
+    charts:
+      monthly_trends: Maandelijkse activiteitstrends
+      wiki_trends: Wikitrends (Top 5)
+      plot_metric: 'Grafiekmeeteindheid:'
+    tables:
+      wiki_breakdown: Wikistatistiekenoverzicht
+      wiki: Wiki
+      edits: Bewerkingen
+      programs: Programma's
+      articles_created: Pagina's aangemaakt
+      new_editors: Nieuwe bewerkers
+    facilitators:
+      title: Begeleidersscorebord
+      username: Gebruikersnaam
+      courses: Cursussen
+      active: Actief
+      students: Studenten
+      active_in_year: Actief in jaar
+      "yes": Ja
+      "no": Nee
+    pagination:
+      previous: Vorige
+      next: Volgende
+    loading:
+      data: Gegevens laden van de server...
+      facilitators: Begeleiders worden geladen...
+      wiki_stats: Wikistatistieken worden geladen...
+      wiki_trends: Wikitrends worden geladen...
+    empty:
+      no_trend_data: Er zijn geen trendgegevens beschikbaar.
+      no_wiki_trend_data: Er zijn geen trendgegevens beschikbaar op de wiki.
+      no_wiki_stats: Er zijn geen statistieken beschikbaar voor dit wikiproject.
+      no_facilitators: Geen begeleiders gevonden.
+    errors:
+      fetch_failed: Gegevens konden niet worden geladen. Probeer de pagina te vernieuwen.
   activity:
     all: Activiteit
     edited_by: Bewerkt door
@@ -535,7 +581,7 @@ nl:
       bewerkt.
     data_revisions_info: Details over elke bijgehouden versie van de campagne
     data_instructors: Instructeurs
-    data_instructors_info: Lijst van instructeurs/facilitatoren en hun cursussen/programma's
+    data_instructors_info: Lijst van instructeurs/begeleiders en hun cursussen/programma's
     data_editors_by_course: Bewerkers per cursus
     data_editors_by_course_info: Lijst van ingeschreven bewerkers en hun cursussen/programma's
     data_editor_usernames: Gebruikersnamen van bewerkers
@@ -1935,6 +1981,15 @@ nl:
       loading: Bezig met laden...
       heading: Beweringverificatie
       pool_size: 'Poolgrootte: %{count} bewerking'
+      last_run: 'Laatste uitvoering %{time}: +%{harvested} claims van %{processed}
+        alarmen (%{skipped} overgeslagen%{rescan})'
+      full_rescan_note: ', volledig opnieuw scannen'
+      harvest: Claimpool ophalen
+      full_rescan: Volledig opnieuw scannen
+      status: 'Status: %{status}'
+      progress: ' — %{at} / %{total} alarmen (%{pct}%)'
+      counts: '%{harvested} opgehaald · %{processed} verwerkt · %{skipped} overgeslagen
+        · %{errors} fouten'
   update_username:
     header: Een wijziging van gebruikersnaam doorvoeren
     not_found: Gebruiker niet gevonden voor ingevoerde gebruikersnaam.

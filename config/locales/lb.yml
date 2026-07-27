@@ -217,6 +217,8 @@ lb:
     review_self: En Artikel nokucken
     sandbox_draft_link: Sandkaul-Brouillon
     select: Eraussichen
+    invalid_username: De Benotzernumm „%{username}“ ass ongülteg oder de Benotzernumm
+      existéiert net.
     username_label: Wikipedia-Benotzernumm
     username_or_url_label: Wikipedia-Benotzernumm oder URL
     sandbox_label: Sandkaul
@@ -763,6 +765,7 @@ lb:
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Education
+    email_invalid: 'Ongülteg: Gitt wgl. eng gülteg E-Mail an'
   user_profiles:
     student_impact: Gesamtimpakt duerch %{username} als Student
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
