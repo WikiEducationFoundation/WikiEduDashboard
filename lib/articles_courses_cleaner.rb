@@ -105,6 +105,22 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_in_batches(after_timeslices)
   end
 
+  # Removes the articles courses records of the given articles that have no timeslice left in
+  # the course. Called after a reprocessed period dropped an article's last revisions for that
+  # period: articles_courses is course wide, so the article may still have revisions in another
+  # period, and only the ones left with nothing anywhere can go.
+  # Resolved with one query per timeslice table over the given ids, rather than per article.
+  # Both queries hit indexes that lead with article_id or (course_id, article_id).
+  def remove_articles_courses_without_timeslices(article_ids)
+    return if article_ids.empty?
+
+    still_present = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
+                                                 .distinct.pluck(:article_id)
+    still_present += ArticleCourseTimeslice.where(course: @course, article_id: article_ids)
+                                           .distinct.pluck(:article_id)
+    delete_article_course(article_ids - still_present)
+  end
+
   # Legacy reset (full re-fetch). It involves the following actions:
   # - Mark timeslices for those articles as needs_update
   # - Remove article course records for those articles (if they exist)

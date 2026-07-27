@@ -152,6 +152,42 @@ class TimesliceCleaner
     delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
   end
 
+  # Deletes the rows for the [start_date, end_date] period of a timeslice that is about to be
+  # rewritten from a full re-fetch of that period, so that no rows survive for (article, user)
+  # pairs the re-fetch did not return. Takes the fetched revisions for the period.
+  #
+  # Only the rows the rewrite will not cover are deleted. A timeslice holds up to
+  # SplitTimeslice::REVISION_THRESHOLD revisions, so deleting the period wholesale and letting
+  # the rewrite recreate it would mean thousands of deletes and inserts on every reprocess;
+  # this way a reprocess that finds the same data as before deletes nothing. It also means the
+  # rows that survive are updated in place, so the columns the rewrite does not write
+  # (`tracked`) keep their value.
+  #
+  # ACUWT rows for articles deleted on wiki are kept: their revisions are gone from the
+  # replica, so no re-fetch can reproduce them, and they are retained on purpose so the
+  # articles can be re-included cheaply if they get undeleted (see
+  # ArticlesCoursesCleaner#reset_included).
+  #
+  # Returns the ids of the articles left without any row for the period, so the caller can drop
+  # the articles_courses records of those left without any timeslice in the course, once the
+  # period has been rewritten (see
+  # ArticlesCoursesCleaner#remove_articles_courses_without_timeslices).
+  #
+  # ACUWT courses only, since it diffs the stored ACUWT rows to decide what to delete.
+  # The plucked rows are [id, article_id, user_id] tuples.
+  def clean_timeslices_before_reprocessing(wiki, start_date, end_date, revisions)
+    stored = ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: start_date,
+                                                  end: end_date)
+                                           .pluck(:id, :article_id, :user_id)
+    stale = stale_acuwt_rows(stored, fetched_pairs(revisions))
+    return [] if stale.empty?
+
+    delete_in_batches(ArticleCourseUserWikiTimeslice.where(id: stale.map { |row| row[0] }))
+    article_ids, user_ids = emptied_article_and_user_ids(stored, stale)
+    delete_aggregated_timeslices(wiki, start_date, end_date, article_ids, user_ids)
+    article_ids
+  end
+
   # Deletes ACUWT records for users removed from the course.
   # Takes a collection of user ids.
   def delete_acuwt_for_deleted_course_users(user_ids)
@@ -290,6 +326,51 @@ class TimesliceCleaner
                                                .where('start >= ?', start_date)
                                                .where('end <= ?', end_date)
     delete_in_batches(timeslices)
+  end
+
+  # The [article_id, user_id] pairs found in the fetched revisions. Mirrors the filter in
+  # ArticleCourseUserWikiTimeslice.acuwt_records_from_revisions, so that the pairs match the
+  # rows the rewrite is going to write.
+  def fetched_pairs(revisions)
+    revisions.filter_map do |rev|
+      [rev.article_id, rev.user_id] unless rev.article_id.nil? || rev.user_id.nil?
+    end.to_set
+  end
+
+  # The stored rows whose (article, user) pair has no revision in the fetched data, leaving out
+  # the ones for articles deleted on wiki. The Article lookup only runs when there is something
+  # to delete, which is the uncommon case.
+  def stale_acuwt_rows(stored, pairs)
+    candidates = stored.reject { |row| pairs.include?([row[1], row[2]]) }
+    return [] if candidates.empty?
+
+    deleted_ids = Article.where(id: candidates.map { |row| row[1] }.uniq, deleted: true)
+                         .pluck(:id)
+    candidates.reject { |row| deleted_ids.include?(row[1]) }
+  end
+
+  # The articles and users whose every stored row for the period is being deleted, so their
+  # aggregated rows for the period have to go too. Derived from the plucked rows, no queries.
+  def emptied_article_and_user_ids(stored, stale)
+    stale_ids = stale.map { |row| row[0] }.to_set
+    surviving = stored.reject { |row| stale_ids.include?(row[0]) }
+    [stale.map { |row| row[1] }.uniq - surviving.map { |row| row[1] },
+     stale.map { |row| row[2] }.uniq - surviving.map { |row| row[2] }]
+  end
+
+  # Deletes the ACT and CUWT rows for the period belonging to the given articles and users.
+  # Both tables' unique indexes lead with article_id and (course_id, user_id), so passing the
+  # id lists is what keeps these deletes from scanning every row the course has.
+  # ACT has no wiki_id, but an article belongs to a single wiki, so the article ids scope it.
+  def delete_aggregated_timeslices(wiki, start_date, end_date, article_ids, user_ids)
+    unless article_ids.empty?
+      delete_in_batches(ArticleCourseTimeslice.where(course: @course, article_id: article_ids,
+                                                     start: start_date, end: end_date))
+    end
+    return if user_ids.empty?
+
+    delete_in_batches(CourseUserWikiTimeslice.where(course: @course, wiki:, user_id: user_ids,
+                                                    start: start_date, end: end_date))
   end
 
   # Deletes article course timeslices records in the period [start_date, end_date]

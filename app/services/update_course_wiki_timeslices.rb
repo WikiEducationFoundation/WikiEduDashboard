@@ -2,6 +2,8 @@
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
+require_dependency "#{Rails.root}/lib/timeslice_cleaner"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 require_dependency "#{Rails.root}/lib/revision_scanner"
 
@@ -16,6 +18,8 @@ class UpdateCourseWikiTimeslices
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
+    @timeslice_cleaner = TimesliceCleaner.new(@course)
+    @articles_courses_cleaner = ArticlesCoursesCleaner.new(@course)
     @splitter = SplitTimeslice.new(@course)
     @debugger = debugger
     @update_service = update_service
@@ -128,7 +132,7 @@ class UpdateCourseWikiTimeslices
     add_scores(only_new:)
     if should_update_timeslice?(wiki, only_new:)
       fetch_wikidata_stats(wiki) if wiki.project == 'wikidata'
-      process_timeslices(wiki)
+      process_timeslices(wiki, only_new:)
     end
     [start_date]
   end
@@ -163,15 +167,47 @@ class UpdateCourseWikiTimeslices
       @wikidata_stats_updater.update_revisions_with_stats(wikidata_revisions)
   end
 
-  def process_timeslices(wiki)
+  # Processing timeslices involves:
+  # - deleting existing timeslices if reprocessing (only_new = false)
+  # - writing timeslices for the period on the db
+  # - deleting articles courses without timeslices if reprocessing
+  # - updating last mw rev datetime
+  def process_timeslices(wiki, only_new:)
     @course.reload
     ActiveRecord::Base.transaction do
-      update_timeslices(wiki)
+      emptied_article_ids = only_new ? [] : clean_timeslices_before_reprocessing(wiki)
+      write_timeslices(wiki)
+      # The articles_courses cleanup has to run after rewriting the timeslices.
+      # Otherwise, it would drop the records of every article in the period.
+      @articles_courses_cleaner.remove_articles_courses_without_timeslices(emptied_article_ids)
       @timeslice_manager.update_last_mw_rev_datetime(@revisions)
     end
   end
 
-  def update_timeslices(wiki)
+  # A reprocess re-fetches the whole period and rewrites it, so rows for (article, user) pairs
+  # that no longer have revisions in the period have to go, or they would keep contributing to
+  # the aggregated timeslices. This is only done when reprocessing: the regular ingestion path
+  # runs many times a day for a single course, and there the fetch is not expected to return
+  # less data than the previous one.
+  #
+  # Only for ACUWT courses: the clean works by diffing the period's stored ACUWT rows against
+  # the fetched revisions. The legacy path is left as it was, since it is on its way out.
+  #
+  # Skipped when the fetch never asked the replica, which happens for an article scoped course
+  # with no assignments and no categories. Such a course keeps its ACUWT rows on purpose (see
+  # ArticlesCoursesCleaner#reset_excluded) while every fetch comes back empty, so cleaning
+  # would read 'not fetched' as 'the period has no revisions' and wipe them for good.
+  def clean_timeslices_before_reprocessing(wiki)
+    return [] unless @course.use_acuwt?
+    return [] if @revision_updater.no_point_in_importing_revisions?
+
+    revisions = @revisions[wiki]
+    timeslice = acuwt_timeslice_for(wiki, revisions)
+    @timeslice_cleaner.clean_timeslices_before_reprocessing(wiki, timeslice.start, timeslice.end,
+                                                            revisions[:revisions])
+  end
+
+  def write_timeslices(wiki)
     revisions = @revisions[wiki]
     if @course.use_acuwt?
       update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
@@ -228,10 +264,19 @@ class UpdateCourseWikiTimeslices
 
   def update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
     timeslice = acuwt_timeslice_for(wiki, revisions)
-    revisions[:revisions].map(&:user_id).uniq.each do |user_id|
+    acuwt_user_ids(wiki, timeslice).each do |user_id|
       CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki,
                                                timeslice.start, timeslice.end)
     end
+  end
+
+  # Users come from the period's stored ACUWT rows rather than from the fetched revisions: a
+  # user whose revisions are no longer in the period still needs their CUWT row rebuilt, or it
+  # would keep stale values. This is what reaggregate_timeslice_from_acuwt already does.
+  def acuwt_user_ids(wiki, timeslice)
+    ArticleCourseUserWikiTimeslice.where(course: @course, wiki:, start: timeslice.start,
+                                         end: timeslice.end)
+                                  .distinct.pluck(:user_id)
   end
 
   def update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
