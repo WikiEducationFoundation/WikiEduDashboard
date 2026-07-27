@@ -1,7 +1,6 @@
 > **Draft — work in progress.** This guide accompanies the in-development Canvas
 > integration and will be finalized before it ships to production. It was drafted
-> with Claude Code and is pending Wiki Education's review; the `[PLACEHOLDER]`
-> markers flag details Wiki Education still needs to fill in.
+> with Claude Code and is pending Wiki Education's review.
 
 # Adding the Wiki Education Dashboard to your Canvas
 
@@ -62,9 +61,7 @@ Most institutions review a tool's accessibility and data handling first:
   course-roster membership with the Dashboard (via LTIAAS) — no student names or
   email addresses. A student's identity comes from the Wikipedia account they
   connect on the Dashboard, not from Canvas. The Dashboard sends scores, and
-  links to the students' work, back to your gradebook. [PLACEHOLDER - Wiki
-  Education to confirm and expand this data-sharing summary so it matches the
-  HECVAT and the privacy policy.]
+  links to the students' work, back to your gradebook.
 
 ## What you'll need
 
@@ -125,11 +122,6 @@ flows back to the gradebook.
   Confirm the app is listed under **Settings → Apps**.
 - **Launching shows an error right after install.** The tool may not be active
   yet — confirm Wiki Education has activated your registration.
-- **"Refused to connect" inside the Canvas frame.** [PLACEHOLDER - Wiki Education
-  to confirm the expected first-launch behavior (the Dashboard opens in a new tab
-  for sign-in) and any known browser third-party-cookie caveats.]
-- **Grades or the roster aren't syncing.** [PLACEHOLDER - Wiki Education to
-  describe sync timing and how to confirm or trigger a sync.]
 
 For anything else, contact Wiki Education (below).
 

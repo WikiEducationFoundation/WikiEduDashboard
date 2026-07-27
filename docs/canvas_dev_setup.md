@@ -654,6 +654,35 @@ anonymized roster carries no email to auto-enroll against.
    sandbox; **Show** previews the sandbox inline, **Open on Wikipedia** opens
    the page). A student opening the same assignment sees only their own panel.
 
+### "Refused to connect" in the Canvas frame — what it means
+
+Worth recognizing when supporting a launch, because the message is usually a
+symptom rather than the problem. The Dashboard sends Rails' default
+`X-Frame-Options: SAMEORIGIN` on everything, and `allow_iframe` strips it on
+exactly the launch endpoints (`launch`, `assignment_view`, `complete_setup`,
+`deep_link`, `deep_link_select`, `sync_grades`). Anything else the iframe lands
+on refuses to render. So the message means the frame is showing a Dashboard URL
+that isn't one of those — in practice:
+
+- **A launch that errored.** `config.exceptions_app = self.routes`, so error
+  pages render through `ErrorsController` and carry `SAMEORIGIN` — Canvas shows
+  "Refused to connect" *instead of* the error. A blank/missing `ltik` does the
+  same via `/errors/login_error`. Check the app logs (on staging, Apache's
+  `error.log`), not the browser.
+- **`canvas_integration_enabled` is not `'true'`.** The gate returns
+  `head :not_found`, and a halted `before_action` skips `after_action`, so the
+  404 keeps the header.
+- **The frame navigated to a normal Dashboard page** — course pages, sign-in,
+  training modules all refuse. In-iframe views link out with `target="_blank"`
+  precisely to avoid this; a link that loses it reintroduces the bug.
+- **Wikipedia OAuth in the frame.** Wikimedia refuses framing outright, which
+  is why account linking breaks out to a new tab via `connect_course` (itself
+  `SAMEORIGIN`, so loading it framed shows the message).
+
+Not to be confused with blocked third-party cookies, which never produce this
+message — a partitioned cookie jar makes the iframe read as logged-out, which
+`LtiAnonymousLaunch` handles by rendering read-only views from the `ltik`.
+
 ## Production rollout checklist
 
 Before flipping `canvas_integration_enabled` to `'true'` in production:

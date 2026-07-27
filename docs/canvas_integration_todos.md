@@ -14,9 +14,9 @@ launch + Wikipedia OAuth is the only linking path.
   ids are gone** — the "Wikipedia account" drill-down now lists connected students
   and carries the not-yet-connected as a count plus a callout pointing at the same
   column in the Canvas gradebook, where those students appear against Canvas's own
-  names with no score. Copy is a `[PLACEHOLDER]` (`lti.assignment_view.setup.pending`).
-  Re-harvest `03-setup-instructor-roster` after this deploys — the gallery shot
-  still shows the old opaque-id row.
+  names with no score. Operator copy for the callout
+  (`lti.assignment_view.setup.pending`) landed 2026-07-27; note it states the
+  count without repeating the gradebook pointer.
   - _Why not a click-through "who is this?" link:_ NRPS does hand us
     `lti11LegacyUserId` alongside the LTI 1.3 UUID, and Canvas resolves that via
     its `lti_user_id:` id prefix — but only where an instructor can't go. Verified
@@ -353,16 +353,19 @@ launch + Wikipedia OAuth is the only linking path.
   rebuilt and extended since: **37 shots, 8 flows, all green** (added the
   fact-verification exercise flow — not-started / in-progress / instructor
   roster — plus the student progress overview and the grade-sync surfaces).
-- [ ] **Finalize guide placeholders.** `docs/hecvat.md` is clean; the dev guide's
-  guide/HECVAT links are filled; the manual-path config source is gone (manual
-  path removed). Remaining `[PLACEHOLDER]`s are all operator copy in
-  `docs/canvas_integration_guide.md`: the fuller data-sharing summary, the two
-  troubleshooting specifics (refused-to-connect, sync timing), and the
-  support/activation contact.
-- [~] **Fill the launch-view copy placeholders.** _(Done once; one new
-  placeholder since.)_ `lti.assignment_view.setup.pending` — the
-  not-yet-connected callout added by the roster-legibility change (2026-07-24) —
-  is the only `[PLACEHOLDER]` left in `config/locales/en.yml`. The operator filled the grade-sync
+- [x] **Finalize guide placeholders.** _(Done 2026-07-27.)_ `docs/hecvat.md` was
+  already clean and the dev guide's guide/HECVAT links were filled. The operator
+  then resolved the rest of `docs/canvas_integration_guide.md`: the data-sharing
+  summary now stands on its own wording, and both troubleshooting placeholders
+  were dropped rather than written — "refused to connect" because none of its
+  triggers can reach an institution's admin (it's a symptom of a Dashboard-side
+  error, so the diagnostic detail moved to `docs/canvas_dev_setup.md`), and sync
+  timing because the in-Canvas panel now carries a Sync grades trigger. The
+  draft banner no longer advertises placeholders.
+- [x] **Fill the launch-view copy placeholders.** _(Done — `grep '\[PLACEHOLDER'`
+  across `config/locales/en.yml`, `app/`, and `docs/` now returns nothing.)_ The
+  last one was `lti.assignment_view.setup.pending`, the not-yet-connected
+  callout from the roster-legibility change, filled 2026-07-27. Earlier, the operator filled the grade-sync
   started/error notices, the import next-step, the post-link flash
   (`lti.setup.linked_notice`), and the setup/trainings assignment-view strings;
   the `lumped` granularity radio label was removed with the deep-link-first change.
