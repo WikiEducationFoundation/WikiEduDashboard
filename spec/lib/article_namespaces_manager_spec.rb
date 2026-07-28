@@ -117,7 +117,9 @@ describe ArticleNamespacesManager do
         described_class.new(course)
 
         expect(course.articles_courses.where(article: article3)).to be_empty
-        expect(course.article_course_timeslices.where(article: article3)).to be_empty
+        # The article course timeslice is left for the reaggregation pass to rewrite from the
+        # kept ACUWT rows, which is what applies the exclusion
+        expect(course.article_course_timeslices.where(article: article3).count).to eq(1)
         course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: wikidata,
                                                                       start: '2024-01-11')
         expect(course_wiki_timeslice.needs_reaggregation).to eq(true)
@@ -131,7 +133,9 @@ describe ArticleNamespacesManager do
         described_class.new(course, statuses_synced: true)
 
         expect(course.articles_courses.where(article: article1)).to be_empty
-        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        # The article course timeslice is left for the reaggregation pass to rewrite from the
+        # kept ACUWT rows, which is what applies the exclusion
+        expect(course.article_course_timeslices.where(article: article1).count).to eq(1)
         course_wiki_timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki,
                                                                       start: '2024-04-11')
         expect(course_wiki_timeslice.needs_reaggregation).to eq(true)
