@@ -37,7 +37,7 @@ class ReprocessArticleCourseUserWikiTimeslices
       @course, @wiki, article_ids, ts_start
     )
     fetch_scores_and_update_acuwt(users, article_ids, ts_start, ts_end) if users.any?
-    reset_for_reaggregation(article_ids, ts_start)
+    mark_for_reaggregation(article_ids, ts_start)
   end
 
   def failing_article_ids_for(ts_start)
@@ -69,14 +69,15 @@ class ReprocessArticleCourseUserWikiTimeslices
     UpdateWikidataStatsTimeslice.new(@course).update_revisions_with_stats(live_revisions)
   end
 
-  # Marks the CWT for reaggregation (deleting the stale ACT/CUWT rows) and clears
-  # needs_update so the reaggregation pass picks it up. Reaggregation then rebuilds
-  # ACT, CUWT and CWT from ACUWT and re-derives needs_update from ACUWT state.
-  def reset_for_reaggregation(article_ids, ts_start)
+  # Marks the CWT for reaggregation and clears needs_update so the reaggregation pass picks it
+  # up. Reaggregation then rebuilds ACT, CUWT and CWT from ACUWT and re-derives needs_update
+  # from ACUWT state. The re-scored ACUWT rows are kept, so the rebuild covers every ACT and
+  # CUWT row of the period and there is nothing to delete first.
+  def mark_for_reaggregation(article_ids, ts_start)
     acuwt = ArticleCourseUserWikiTimeslice.where(
       course: @course, wiki: @wiki, start: ts_start, article_id: article_ids
     )
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    @timeslice_cleaner.mark_timeslices_for_reaggregation_from_acuwt(acuwt)
   end
 
   def revision_data_manager

@@ -40,7 +40,9 @@ describe ArticlesCoursesCleaner do
         described_class.new(course).reset_excluded(articles)
 
         expect(course.articles_courses.where(article: article1)).to be_empty
-        expect(course.article_course_timeslices.where(article: article1)).to be_empty
+        # The article course timeslice is left for the reaggregation pass to rewrite from the
+        # kept ACUWT rows, which is what applies the exclusion
+        expect(course.article_course_timeslices.where(article: article1).count).to eq(1)
         timeslice = course.course_wiki_timeslices.find_by(wiki: enwiki, start: '2024-01-10')
         expect(timeslice.needs_reaggregation).to eq(true)
         expect(timeslice.needs_update).to eq(false)

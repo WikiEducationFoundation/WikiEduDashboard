@@ -113,7 +113,7 @@ describe UpdateTimeslicesUntrackedArticle do
         ArticlesCourses.find_by(course: acuwt_course, article: article2).update(tracked: false)
       end
 
-      it 'sets needs_reaggregation, deletes ACT and CUWT rows, and marks ACUWT as untracked' do
+      it 'sets needs_reaggregation and marks ACUWT as untracked' do
         expect(acuwt_course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(0)
         expect(acuwt_course.article_course_timeslices.count).to eq(3)
         expect(CourseUserWikiTimeslice.where(course: acuwt_course).count).to eq(2)
@@ -124,11 +124,10 @@ describe UpdateTimeslicesUntrackedArticle do
 
         # CWT marked for reaggregation for the two periods covered by article2's ACUWT rows
         expect(acuwt_course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(2)
-        # ACT rows for article2 deleted; article1's row survives
-        expect(acuwt_course.article_course_timeslices.count).to eq(1)
-        expect(acuwt_course.article_course_timeslices.first.article).to eq(article1)
-        # CUWT rows deleted for the affected periods
-        expect(CourseUserWikiTimeslice.where(course: acuwt_course).count).to eq(0)
+        # ACT and CUWT rows are left for the reaggregation pass to rewrite from the kept
+        # ACUWT rows, whose tracked flag is what applies the exclusion
+        expect(acuwt_course.article_course_timeslices.count).to eq(3)
+        expect(CourseUserWikiTimeslice.where(course: acuwt_course).count).to eq(2)
         # ACUWT rows for article2 marked as untracked; article1's row unaffected
         expect(ArticleCourseUserWikiTimeslice
                  .where(course: acuwt_course, tracked: false).count).to eq(2)
@@ -144,7 +143,7 @@ describe UpdateTimeslicesUntrackedArticle do
                                       .update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
       end
 
-      it 'sets needs_reaggregation, deletes ACT and CUWT rows, and marks ACUWT as tracked' do
+      it 'sets needs_reaggregation and marks ACUWT as tracked' do
         expect(acuwt_course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(0)
         expect(acuwt_course.article_course_timeslices.count).to eq(3)
         expect(ArticleCourseUserWikiTimeslice
@@ -154,10 +153,10 @@ describe UpdateTimeslicesUntrackedArticle do
 
         # CWT marked for reaggregation for the two periods covered by article2's ACUWT rows
         expect(acuwt_course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(2)
-        # ACT rows for article2 deleted; article1's row survives
-        expect(acuwt_course.article_course_timeslices.count).to eq(1)
-        # CUWT rows deleted for the affected periods
-        expect(CourseUserWikiTimeslice.where(course: acuwt_course).count).to eq(0)
+        # ACT and CUWT rows are left for the reaggregation pass to rewrite from the kept
+        # ACUWT rows, whose tracked flag is what applies the re-inclusion
+        expect(acuwt_course.article_course_timeslices.count).to eq(3)
+        expect(CourseUserWikiTimeslice.where(course: acuwt_course).count).to eq(2)
         # All ACUWT rows now tracked
         expect(ArticleCourseUserWikiTimeslice
                  .where(course: acuwt_course, tracked: false).count).to eq(0)

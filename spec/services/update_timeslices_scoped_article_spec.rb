@@ -108,8 +108,10 @@ describe UpdateTimeslicesScopedArticle do
       expect(acuwt_course.course_wiki_timeslices.where(needs_update: true).count).to eq(0)
       expect(acuwt_course.course_wiki_timeslices.find_by(needs_reaggregation: true).start)
         .to eq(acuwt_course.start + 1.day)
+      # Left for the reaggregation pass to rewrite from the kept ACUWT rows, which is what
+      # applies the exclusion
       expect(acuwt_course.article_course_timeslices
-                         .where(article_id: random_article.id).count).to eq(0)
+                         .where(article_id: random_article.id).count).to eq(1)
       expect(acuwt_course.articles_courses.count).to eq(1)
       expect(acuwt_course.articles_courses.where(article_id: random_article).count).to eq(0)
       expect(ArticleCourseUserWikiTimeslice
