@@ -10,6 +10,8 @@ describe LtiGradeSyncWorker do
     )
   end
 
+  before { allow(Features).to receive(:canvas_integration?).and_return(true) }
+
   it 'invokes SyncLtiGrades with the binding' do
     expect(SyncLtiGrades).to receive(:new).with(binding)
     described_class.new.perform(binding.id)
@@ -18,5 +20,13 @@ describe LtiGradeSyncWorker do
   it 'is a no-op for a missing binding' do
     expect(SyncLtiGrades).not_to receive(:new)
     described_class.new.perform(0)
+  end
+
+  # A job queued (or mid-retry) before the integration was switched off must not
+  # keep calling out to LTIAAS; the cron dispatchers gate too, but not these.
+  it 'is a no-op when the canvas integration feature is disabled' do
+    allow(Features).to receive(:canvas_integration?).and_return(false)
+    expect(SyncLtiGrades).not_to receive(:new)
+    described_class.new.perform(binding.id)
   end
 end

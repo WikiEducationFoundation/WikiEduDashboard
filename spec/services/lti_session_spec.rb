@@ -193,5 +193,49 @@ describe LtiSession do
       lti_session.link_lti_user(user)
       expect(WebMock).not_to have_requested(:post, /api\/lineitems/)
     end
+
+    # Both directions of the map have to be 1:1 within a course. Two Canvas
+    # members resolving to one Wikipedia account would make grade sync post the
+    # same progress at both of their gradebook rows.
+    context 'when the Dashboard user is already linked to another LMS identity' do
+      let(:binding) { lti_session.find_or_create_binding! }
+
+      before do
+        LtiContext.create!(user_lti_id: 'lti-someone-else', lti_course_binding: binding,
+                           lms_id: 'platform-x', user:, linked_at: 1.day.ago)
+      end
+
+      it 'refuses the second link' do
+        expect { described_class.new(domain, api_key, ltik).link_lti_user(user) }
+          .to raise_error(LtiSession::DuplicateUserLinkError)
+      end
+
+      it 'leaves the first link intact' do
+        expect { described_class.new(domain, api_key, ltik).link_lti_user(user) }
+          .to raise_error(LtiSession::DuplicateUserLinkError)
+        expect(LtiContext.find_by(user_lti_id: 'lti-someone-else').user).to eq(user)
+      end
+
+      it 'still allows the same identity to relink on a later launch' do
+        other = create(:user, username: 'Someone Else')
+        ctx = lti_session.link_lti_user(other)
+        expect { described_class.new(domain, api_key, ltik).link_lti_user(other) }
+          .not_to raise_error
+        expect(ctx.reload.user).to eq(other)
+      end
+    end
+
+    # Allowed on purpose: it's the only self-service fix for a student who
+    # connected the wrong Wikipedia account.
+    it 'moves an LMS identity to a different Dashboard user, and logs it' do
+      lti_session.link_lti_user(user)
+      corrected = create(:user, username: 'Right Account')
+      allow(Rails.logger).to receive(:warn)
+
+      ctx = described_class.new(domain, api_key, ltik).link_lti_user(corrected)
+
+      expect(ctx.user).to eq(corrected)
+      expect(Rails.logger).to have_received(:warn).with(/relinking LMS identity/)
+    end
   end
 end

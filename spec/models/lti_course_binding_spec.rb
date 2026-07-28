@@ -52,22 +52,39 @@ describe LtiCourseBinding do
     it 'allows only one binding per linked course' do
       course = create(:course)
       described_class.create!(base_attrs.merge(course:))
-      dup = described_class.new(base_attrs.merge(course:, lms_resource_link_id: 'rl-2'))
+      dup = described_class.new(base_attrs.merge(course:, lms_context_id: 'canvas-course-88'))
       expect(dup).not_to be_valid
       expect(dup.errors[:course_id]).to be_present
     end
 
-    it 'allows many bindings that have no course yet' do
+    it 'allows many unbound bindings for different LMS courses' do
       described_class.create!(base_attrs)
-      expect(described_class.new(base_attrs.merge(lms_resource_link_id: 'rl-2'))).to be_valid
+      expect(described_class.new(base_attrs.merge(lms_context_id: 'canvas-course-88')))
+        .to be_valid
+    end
+
+    # One row per LMS course, whichever resource link the launch came from.
+    # Before this was enforced, two pre-link launches from different resource
+    # links in one Canvas course minted two rows competing to be the bound one.
+    it 'refuses a second row for the same LMS course' do
+      described_class.create!(base_attrs)
+      expect { described_class.create!(base_attrs.merge(lms_resource_link_id: 'rl-2')) }
+        .to raise_error(ActiveRecord::RecordNotUnique)
     end
   end
 
   describe '.lookup' do
-    it 'finds an existing binding by LMS identity tuple' do
+    it 'finds an existing binding by its LMS course identity' do
       binding = described_class.create!(base_attrs)
-      expect(described_class.lookup(**base_attrs.slice(:lms_id, :lms_context_id,
-                                                       :lms_resource_link_id)))
+      expect(described_class.lookup(**base_attrs.slice(:lms_id, :lms_context_id)))
+        .to eq(binding)
+    end
+
+    # A binding models an LMS course, so the resource link that created it is a
+    # snapshot, not part of the key.
+    it 'finds it regardless of which resource link the launch came from' do
+      binding = described_class.create!(base_attrs.merge(lms_resource_link_id: 'rl-later'))
+      expect(described_class.lookup(**base_attrs.slice(:lms_id, :lms_context_id)))
         .to eq(binding)
     end
   end
@@ -102,6 +119,56 @@ describe LtiCourseBinding do
       expect { binding.destroy }
         .to change(LtiContext, :count).by(-1)
         .and change(LtiLineItem, :count).by(-1)
+    end
+  end
+
+  # `courses.flags[:canvas_integration]` is what the course page reads to decide
+  # whether the course is LMS-linked (and to suppress the self-enroll alert). It
+  # used to be written once at bind time and never cleared, so a course kept
+  # reading as Canvas-linked after its binding moved away or was deleted.
+  describe 'the linked-course flag' do
+    let(:course) { create(:course) }
+    let(:other_course) { create(:course, slug: 'School/Other_(2026)') }
+
+    def flagged?(a_course)
+      a_course.reload.flags[:canvas_integration] == true
+    end
+
+    it 'is set on the course a binding is linked to' do
+      described_class.create!(base_attrs.merge(course:))
+      expect(flagged?(course)).to be true
+    end
+
+    it 'is not set while the binding has no course' do
+      described_class.create!(base_attrs)
+      expect(flagged?(course)).to be false
+    end
+
+    it 'moves with the binding, clearing the course it left' do
+      binding = described_class.create!(base_attrs.merge(course:))
+      binding.update!(course: other_course)
+      expect(flagged?(course)).to be false
+      expect(flagged?(other_course)).to be true
+    end
+
+    it 'is cleared when the binding is unlinked from its course' do
+      binding = described_class.create!(base_attrs.merge(course:))
+      binding.update!(course: nil)
+      expect(flagged?(course)).to be false
+    end
+
+    it 'is cleared when the binding is destroyed' do
+      binding = described_class.create!(base_attrs.merge(course:))
+      binding.destroy
+      expect(flagged?(course)).to be false
+    end
+
+    it 'leaves unrelated course flags alone' do
+      course.flags[:first_time_instructor] = true
+      course.save!
+      binding = described_class.create!(base_attrs.merge(course:))
+      binding.destroy
+      expect(course.reload.flags[:first_time_instructor]).to be true
     end
   end
 end

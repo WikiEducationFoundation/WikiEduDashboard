@@ -10,11 +10,35 @@
 # always reflects the current timeline before scores are posted at it.
 #
 # A binding without a stored serviceKey or a bound course is a no-op.
+#
+# Failure semantics, in three tiers:
+#
+#   - Whole-run failures (network/5xx, rate limit, auth) abort the sync, record
+#     `last_grade_sync_error`, leave `last_grade_sync_at` where it was, and
+#     re-raise so Sidekiq's retry gets a chance. These affect every push, so
+#     swallowing them would report a fresh successful sync at the exact moment
+#     no grade reached Canvas.
+#   - Per-student permanent failures (a rejected score for one student) are
+#     recorded, reported to Sentry, and skipped; the run continues and finishes
+#     as a partial success — the timestamp advances *and* the error field says
+#     what didn't land.
+#   - A membership that's gone from the Canvas course is neither: expected,
+#     logged, and not counted as a failure.
 class SyncLtiGrades
+  # Aborting tier. Order matters at the rescue sites: LtiaasRateLimitError and
+  # LtiaasAuthError are both LtiaasClientError subclasses, so they have to be
+  # matched before the generic per-score rescue.
+  ABORTING_ERRORS = [LtiaasClient::LtiaasTransientError,
+                     LtiaasClient::LtiaasRateLimitError,
+                     LtiaasClient::LtiaasAuthError].freeze
+
+  ERROR_TEXT_LIMIT = 1000
+
   attr_reader :binding
 
   def initialize(binding)
     @binding = binding
+    @failures = []
     perform
   end
 
@@ -27,7 +51,34 @@ class SyncLtiGrades
     SyncLtiLineItems.new(@binding) # bring line-item set up to date first
     @service = LtiServiceSession.new(@binding)
     push_scores_for_each_student
-    @binding.update!(last_grade_sync_at: Time.current)
+    record_completed_sync
+  rescue *ABORTING_ERRORS => e
+    record_aborted_sync(e)
+    raise
+  end
+
+  # A clean pass clears the error field; a pass with rejected scores keeps the
+  # timestamp honest (the pass did run) while saying how much didn't land. Only
+  # `grade_sync_error?` — a boolean — is ever surfaced to users, so the text
+  # here is a diagnostic for staff, not copy.
+  def record_completed_sync
+    @binding.update!(last_grade_sync_at: Time.current,
+                     last_grade_sync_error: partial_failure_summary)
+  end
+
+  def partial_failure_summary
+    return nil if @failures.empty?
+
+    truncate_error("#{@failures.size} score push(es) failed; last: #{@failures.last}")
+  end
+
+  def record_aborted_sync(error)
+    @binding.update!(last_grade_sync_error:
+      truncate_error("#{error.class}: #{error.message}"))
+  end
+
+  def truncate_error(text)
+    text.truncate(ERROR_TEXT_LIMIT)
   end
 
   def push_scores_for_each_student
@@ -76,6 +127,8 @@ class SyncLtiGrades
 
     post_score(context, line_item, progress)
     record_signature(line_item, context, progress.signature)
+  rescue *ABORTING_ERRORS
+    raise # whole-run failure; #perform records it and lets Sidekiq retry
   rescue LtiaasClient::LtiaasClientError => e
     return log_non_gradable(context, line_item) if membership_gone?(e)
 
@@ -96,6 +149,8 @@ class SyncLtiGrades
   end
 
   def report_push_failure(error, context, line_item)
+    @failures << "#{error.class} for user_lti_id=#{context.user_lti_id} " \
+                 "lineitem=#{line_item.lineitem_id}"
     Sentry.capture_exception(
       error,
       extra: { binding_id: @binding.id, user_lti_id: context.user_lti_id,

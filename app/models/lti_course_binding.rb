@@ -8,7 +8,11 @@
 #  lms_id                     :string(255)      not null
 #  lms_family                 :string(255)
 #  lms_context_id             :string(255)      not null
-#  lms_resource_link_id       :string(255)      not null
+#  lms_resource_link_id       :string(255)      not null - snapshot of the launch
+#                                                 that created/refreshed the row;
+#                                                 NOT part of the row's identity
+#                                                 (see the (lms_id,
+#                                                 lms_context_id) unique index)
 #  ltiaas_service_credentials :text(65535)
 #  nrps_url                   :string(255)
 #  ags_lineitems_url          :string(255)
@@ -28,10 +32,11 @@
 #  updated_at                 :datetime         not null
 #
 
-# Persists the 1:1 binding between an LMS course/placement and a Dashboard
-# Course. Created during an instructor's first launch from Canvas; the
-# `course_id` may be nil briefly between binding creation and the
-# instructor's setup-flow choice (link existing / create new).
+# Persists the 1:1 binding between an LMS course and a Dashboard Course. Keyed
+# on the LMS course — (lms_id, lms_context_id) — so every launch from that
+# course, from any placement, resolves to one row. Created during an
+# instructor's first launch from Canvas; the `course_id` may be nil briefly
+# between binding creation and the instructor's setup-flow choice.
 #
 # `gradebook_granularity` is now effectively single-valued: the integration
 # is **deep-link-first** — nothing is auto-created; the instructor imports the
@@ -58,6 +63,17 @@ class LtiCourseBinding < ApplicationRecord
   has_many :lti_contexts, dependent: :destroy
   has_many :lti_line_items, dependent: :destroy
 
+  # `courses.flags[:canvas_integration]` is a denormalized copy of "this course
+  # has an LMS binding", kept so the course page can decide whether to fetch LMS
+  # status — and whether the self-enroll alert applies — without an extra
+  # request on every course view. Maintained here rather than at the call site
+  # so it can't outlive the binding: set on the course a binding moves to,
+  # cleared on the one it leaves, cleared when the binding is destroyed.
+  # Best-effort by design (it's a cache): every server-side consumer re-checks
+  # for a real binding plus the global feature gate.
+  after_save :sync_linked_course_flags, if: :saved_change_to_course_id?
+  after_destroy :clear_flag_on_bound_course
+
   validates :lms_id, :lms_context_id, :lms_resource_link_id, presence: true
   validates :gradebook_granularity, inclusion: { in: GRADEBOOK_GRANULARITIES }
   # A Dashboard course backs only one LMS course. There is a unique DB index on
@@ -65,8 +81,10 @@ class LtiCourseBinding < ApplicationRecord
   # RecordNotUnique (500); the validation turns it into a handleable error.
   validates :course_id, uniqueness: { allow_nil: true }
 
-  def self.lookup(lms_id:, lms_context_id:, lms_resource_link_id:)
-    find_by(lms_id:, lms_context_id:, lms_resource_link_id:)
+  # A binding is identified by its LMS course, not by the resource link that
+  # happened to create it (see LtiSession#find_or_create_binding!).
+  def self.lookup(lms_id:, lms_context_id:)
+    find_by(lms_id:, lms_context_id:)
   end
 
   def lms_display_name
@@ -98,5 +116,34 @@ class LtiCourseBinding < ApplicationRecord
   # account — the set that sync status counts and assignment rosters list.
   def linked_student_contexts
     lti_contexts.linked.reject(&:instructor?)
+  end
+
+  private
+
+  def sync_linked_course_flags
+    previous_course_id, current_course_id = saved_change_to_course_id
+    clear_linked_flag(Course.find_by(id: previous_course_id))
+    set_linked_flag(Course.find_by(id: current_course_id))
+  end
+
+  # Re-read rather than using the cached association: the flag may have been
+  # written through a different Course instance (see sync_linked_course_flags),
+  # so an association loaded before that write has a stale flags hash.
+  def clear_flag_on_bound_course
+    clear_linked_flag(Course.find_by(id: course_id))
+  end
+
+  def set_linked_flag(target)
+    return if target.nil? || target.flags[:canvas_integration] == true
+
+    target.flags[:canvas_integration] = true
+    target.save
+  end
+
+  def clear_linked_flag(target)
+    return if target.nil? || !target.flags.key?(:canvas_integration)
+
+    target.flags.delete(:canvas_integration)
+    target.save
   end
 end

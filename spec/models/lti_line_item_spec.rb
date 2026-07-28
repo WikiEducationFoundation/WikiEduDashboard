@@ -38,6 +38,32 @@ describe LtiLineItem do
                                 lineitem_id: 'http://lms/li/2')
       expect(dup).not_to be_valid
     end
+
+    # The sentinel types carry gradable_id = NULL, which MySQL exempts from the
+    # composite unique index, so the validator is the only thing holding the
+    # "one trainings roll-up / one account column per binding" invariant.
+    it 'rejects a duplicate sentinel line item for the same binding' do
+      described_class.create!(lti_course_binding: binding,
+                              gradable_type: LtiLineItem::SETUP_TYPE,
+                              lineitem_id: 'http://lms/li/1')
+      dup = described_class.new(lti_course_binding: binding,
+                                gradable_type: LtiLineItem::SETUP_TYPE,
+                                lineitem_id: 'http://lms/li/2')
+      expect(dup).not_to be_valid
+      expect(dup.errors[:gradable_id]).to be_present
+    end
+
+    it 'still allows the same sentinel type on a different binding' do
+      other = LtiCourseBinding.create!(lms_id: 'platform-x', lms_family: 'canvas',
+                                       lms_context_id: 'canvas-course-88',
+                                       lms_resource_link_id: 'rl-1')
+      described_class.create!(lti_course_binding: binding,
+                              gradable_type: LtiLineItem::SETUP_TYPE,
+                              lineitem_id: 'http://lms/li/1')
+      expect(described_class.new(lti_course_binding: other,
+                                 gradable_type: LtiLineItem::SETUP_TYPE,
+                                 lineitem_id: 'http://lms/li/2')).to be_valid
+    end
   end
 
   describe 'archiving' do

@@ -59,7 +59,8 @@ class LtiLaunchController < ApplicationController
     return redirect_to errors_login_error_path if params[:ltik].blank?
     return handle_anonymous_launch unless current_user
 
-    start_lti_session
+    return render_enrollment_error unless start_lti_session
+
     log_launch_claims if ENV['LTI_LAUNCH_DEBUG']
     return assignment_launch_response if assignment_launch?
 
@@ -88,21 +89,26 @@ class LtiLaunchController < ApplicationController
     launch
   end
 
+  # The binding being linked is derived from a freshly verified ltik, never
+  # from a submitted id. Trusting `params[:binding_id]` let any signed-in
+  # instructor bind an arbitrary unbound binding — some other institution's
+  # Canvas course, found by guessing a small integer — to a Dashboard course
+  # they teach, which would then pull that Canvas roster in and push grades
+  # back to it. The ltik is what proves this POST belongs to a real launch
+  # from the Canvas course being linked, and the launch's own roles have to
+  # say instructor. The target course is restricted to the same server-derived
+  # `linkable_courses` list the picker was built from.
   def complete_setup
-    @binding = LtiCourseBinding.find(params[:binding_id])
-    return head :forbidden unless instructor_on_course?(course_from_params)
+    return redirect_to errors_login_error_path if params[:ltik].blank?
+    return head :forbidden unless current_user
+
+    return render_enrollment_error unless start_lti_session
+    return head :forbidden unless @lti_session.instructor? && binding_unclaimed?
     return render_already_linked if course_bound_elsewhere?
+    return head :forbidden unless linkable_courses.include?(course_from_params)
+    return render_already_linked unless bind_course_and_sync
 
-    bind_course_and_sync
-    # In-iframe setup (Firefox lets the iframe keep the session) can't
-    # redirect to the course page — its X-Frame-Options blocks framing —
-    # so the status view IS the confirmation there. Top level, the course
-    # page's flash banner (shared/_flash) confirms the link instead.
-    return render_instructor_status if framed_request?
-
-    redirect_to "/courses/#{course_from_params.slug}",
-                notice: t('lti.setup.linked_notice',
-                          lms_course: @binding.lms_context_title || @binding.lms_display_name)
+    confirm_setup
   end
 
   private
@@ -123,11 +129,27 @@ class LtiLaunchController < ApplicationController
                       "ags_keys=#{ags.keys.inspect} lineItemId=#{ags['lineItemId'].inspect}")
   end
 
+  # False means the launch authenticated fine but its LMS identity can't be
+  # linked: this Dashboard user is already the linked identity for a different
+  # member of the same Canvas course, and letting both stand would post one
+  # student's progress at two gradebook rows.
   def start_lti_session
     @lti_session = build_lti_session(params[:ltik])
     @binding = @lti_session.find_or_create_binding!
     context = @lti_session.link_lti_user(current_user, binding: @binding)
     schedule_first_link_grade_push(context)
+    true
+  rescue LtiSession::DuplicateUserLinkError => e
+    Sentry.capture_exception(e, extra: { binding_id: @binding&.id,
+                                         user_id: current_user&.id })
+    false
+  end
+
+  # Reuses the "couldn't enroll you" view: from the student's side a duplicate
+  # link and a failed enrollment are the same dead end with the same remedy —
+  # contact the instructor — and the view already offers a re-launch retry.
+  def render_enrollment_error
+    render 'lti_launch/enrollment_error', status: :conflict
   end
 
   # The "Wikipedia account" column should flip to ✓ the moment a student
@@ -201,15 +223,29 @@ class LtiLaunchController < ApplicationController
                 .distinct.order(start: :desc).to_a
   end
 
+  # In-iframe setup (Firefox lets the iframe keep the session) can't redirect
+  # to the course page — its X-Frame-Options blocks framing — so the status
+  # view IS the confirmation there. Top level, the course page's flash banner
+  # (shared/_flash) confirms the link instead.
+  def confirm_setup
+    return render_instructor_status if framed_request?
+
+    redirect_to "/courses/#{course_from_params.slug}",
+                notice: t('lti.setup.linked_notice',
+                          lms_course: @binding.lms_context_title || @binding.lms_display_name)
+  end
+
   def course_from_params
     @course_from_params ||= Course.find_by(slug: params[:course_slug])
   end
 
-  def instructor_on_course?(course)
-    return false unless course && current_user
-
-    CoursesUsers.exists?(user_id: current_user.id, course_id: course.id,
-                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+  # Rebinding an already-linked Canvas course isn't part of any flow: an
+  # instructor launch for a bound binding renders the status view, never the
+  # setup form. So a POST that would move a claimed binding is a replayed form
+  # or tampering; reassignment needs its own authorized flow. Re-submitting the
+  # same pairing stays idempotent.
+  def binding_unclaimed?
+    @binding.course_id.nil? || @binding.course_id == course_from_params&.id
   end
 
   # A Dashboard course can back only one LMS course. If the chosen one is already
@@ -227,15 +263,22 @@ class LtiLaunchController < ApplicationController
     render 'lti_launch/setup', status: :unprocessable_entity
   end
 
+  # Deep-link-first: no gradebook-layout choice — the binding keeps its default
+  # (lumped), nothing is auto-created, and the instructor imports columns via
+  # the Canvas Modules "Import Wikipedia assignments" flow. The course's
+  # `canvas_integration` flag follows from the binding (LtiCourseBinding keeps
+  # the two in step), so it isn't set here.
+  #
+  # Returning false means a concurrent bind of the same Dashboard course won the
+  # race — the unique index on course_id is the authority — which the caller
+  # reports the same way as the pre-checked case.
   def bind_course_and_sync
-    # Deep-link-first: no gradebook-layout choice — the binding keeps its
-    # default (lumped), nothing is auto-created, and the instructor imports
-    # columns via the Canvas Modules "Import Wikipedia assignments" flow.
     @binding.update!(course: course_from_params)
-    course_from_params.flags[:canvas_integration] = true
-    course_from_params.save
     LtiRosterSyncWorker.perform_async(@binding.id)
     LtiLineItemSyncWorker.perform_async(@binding.id)
+    true
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
+    false
   end
 
   def allow_iframe

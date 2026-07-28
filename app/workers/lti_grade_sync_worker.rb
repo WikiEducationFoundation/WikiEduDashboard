@@ -13,6 +13,11 @@ class LtiGradeSyncWorker
   end
 
   def perform(binding_id)
+    # Gate at entry, not just in the cron dispatchers: jobs already queued or
+    # mid-retry when the integration is switched off would otherwise keep
+    # calling out to LTIAAS.
+    return unless Features.canvas_integration?
+
     binding = LtiCourseBinding.find_by(id: binding_id)
     return if binding.nil?
 

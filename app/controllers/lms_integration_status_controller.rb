@@ -18,8 +18,11 @@ class LmsIntegrationStatusController < ApplicationController
 
   private
 
+  # The course flag alone isn't enough: it's a denormalized cache, and this
+  # endpoint is reachable independently of the gated launch controller, so a
+  # disabled integration must stop answering here too.
   def integration_active?
-    @course&.flags&.[](:canvas_integration) && binding.present?
+    Features.canvas_integration? && @course.present? && binding.present?
   end
 
   def binding

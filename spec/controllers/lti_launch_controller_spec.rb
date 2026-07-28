@@ -518,11 +518,49 @@ describe LtiLaunchController, type: :request do
       get '/lti', params: { ltik: 'ltik-abc' }
       expect(response.headers).not_to have_key('X-Frame-Options')
     end
+
+    # Two Canvas members in one course can't share a Wikipedia account: grade
+    # sync would post the same progress at both of their gradebook rows.
+    context 'when the signed-in user is already linked to another LMS identity' do
+      let!(:course) { create(:course) }
+      let!(:binding) do
+        LtiCourseBinding.create!(
+          course:, lms_id: 'platform-x', lms_family: 'canvas',
+          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+        )
+      end
+
+      before do
+        allow(Sentry).to receive(:capture_exception)
+        LtiContext.create!(user_lti_id: 'lti-someone-else', lti_course_binding: binding,
+                           lms_id: 'platform-x', user:, linked_at: 1.day.ago)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'renders the enrollment-error view instead of raising' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:conflict)
+        expect(response).to render_template('lti_launch/enrollment_error')
+      end
+
+      it 'creates no second context and reports the conflict' do
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiContext, :count)
+        expect(Sentry).to have_received(:capture_exception)
+      end
+
+      it 'still renders inside the Canvas iframe' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.headers).not_to have_key('X-Frame-Options')
+      end
+    end
   end
 
   describe 'POST /lti/setup' do
     let(:instructor) { create(:user) }
-    let!(:course) { create(:course) }
+    # Production-realistic: only an approved (campaign-assigned, not withdrawn),
+    # not-yet-ended course is linkable, which is the set the picker is built from.
+    let!(:course) { create(:course, end: 2.months.from_now) }
     let!(:binding) do
       LtiCourseBinding.create!(
         lms_id: 'platform-x', lms_family: 'canvas',
@@ -530,7 +568,12 @@ describe LtiLaunchController, type: :request do
       )
     end
 
+    def approve(a_course)
+      create(:campaigns_course, campaign: Campaign.first || create(:campaign), course: a_course)
+    end
+
     before do
+      approve(course)
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(instructor)
     end
@@ -542,10 +585,7 @@ describe LtiLaunchController, type: :request do
       end
 
       it 'binds the course as deep-link-first (no layout choice)' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug
-        }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
         binding.reload
         expect(binding.course).to eq(course)
         # No gradebook-layout radios anymore; the binding keeps the
@@ -556,24 +596,24 @@ describe LtiLaunchController, type: :request do
 
       it 'ignores a stray gradebook_granularity param' do
         post '/lti/setup', params: {
-          binding_id: binding.id, course_slug: course.slug,
+          ltik: 'ltik-abc', course_slug: course.slug,
           gradebook_granularity: 'per_block'
         }
         expect(binding.reload.gradebook_granularity).to eq('lumped')
       end
 
       it 'enqueues a roster sync after binding' do
-        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
         expect(LtiRosterSyncWorker).to have_received(:perform_async).with(binding.id)
       end
 
       it 'sets the canvas_integration flag on the linked course' do
-        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
         expect(course.reload.flags[:canvas_integration]).to be true
       end
 
       it 'sets a flash notice so the course page confirms the link' do
-        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
         expect(flash[:notice]).to be_present
       end
 
@@ -581,14 +621,79 @@ describe LtiLaunchController, type: :request do
       # redirect to the unframable course page; the status view IS the
       # confirmation there, and it must be allowed to render in the frame.
       it 'renders the in-iframe status view when submitted from the iframe' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug
-        }, headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug },
+                           headers: { 'Sec-Fetch-Dest' => 'iframe' }
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('lti_launch/instructor_status')
         expect(response.headers).not_to have_key('X-Frame-Options')
         expect(binding.reload.course).to eq(course)
+      end
+    end
+
+    # The binding comes from the verified launch, not the form. Submitting
+    # another binding's id used to be enough to bind an unrelated Canvas
+    # course — one the submitter has no launch for — to a course they teach.
+    context 'when a binding id for a different Canvas course is submitted' do
+      let!(:other_binding) do
+        LtiCourseBinding.create!(
+          lms_id: 'platform-x', lms_family: 'canvas',
+          lms_context_id: 'someone-elses-ctx', lms_resource_link_id: 'rl-1'
+        )
+      end
+
+      before do
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'leaves that binding alone and binds only the launch it verified' do
+        post '/lti/setup', params: {
+          ltik: 'ltik-abc', binding_id: other_binding.id, course_slug: course.slug
+        }
+        expect(other_binding.reload.course).to be_nil
+        expect(binding.reload.course).to eq(course)
+      end
+    end
+
+    context 'when the ltik is missing' do
+      it 'redirects to the login error page and does not bind' do
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        post '/lti/setup', params: { binding_id: binding.id, course_slug: course.slug }
+        expect(response).to redirect_to('/errors/login_error')
+        expect(binding.reload.course).to be_nil
+      end
+    end
+
+    context 'when the verified launch is not an instructor launch' do
+      let(:role) { 'Learner' }
+
+      it 'returns 403 and does not bind' do
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
+        expect(response).to have_http_status(:forbidden)
+        expect(binding.reload.course).to be_nil
+      end
+    end
+
+    # Moving a claimed binding isn't reachable from any flow (an instructor
+    # launch for a bound binding renders the status view), so a POST that
+    # would move one is a replay or tampering.
+    context 'when the launch binding is already linked to another course' do
+      let!(:already_linked) { create(:course, slug: 'other/Course_(2026)', end: 2.months.from_now) }
+
+      before do
+        approve(already_linked)
+        binding.update!(course: already_linked)
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'returns 403 and leaves the existing link in place' do
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
+        expect(response).to have_http_status(:forbidden)
+        expect(binding.reload.course).to eq(already_linked)
       end
     end
 
@@ -603,10 +708,7 @@ describe LtiLaunchController, type: :request do
       end
 
       it 're-renders setup without binding, instead of raising a 500' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug
-        }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
         expect(response).to have_http_status(422)
         expect(binding.reload.course).to be_nil
         expect(response.body).to include('lti-setup__error')
@@ -615,10 +717,25 @@ describe LtiLaunchController, type: :request do
 
     context "when the current_user is not an instructor on the course" do
       it 'returns 403 and does not bind' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: course.slug
-        }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
+        expect(response).to have_http_status(:forbidden)
+        expect(binding.reload.course).to be_nil
+      end
+    end
+
+    # An unapproved or already-ended course never appears in the picker, so
+    # the server refuses it too rather than trusting the submitted slug.
+    context 'when the chosen course is not in the linkable set' do
+      let!(:ended) { create(:course, slug: 'past/Course_(2015)', end: 1.month.ago) }
+
+      before do
+        approve(ended)
+        CoursesUsers.create!(user: instructor, course: ended,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'returns 403 and does not bind' do
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: ended.slug }
         expect(response).to have_http_status(:forbidden)
         expect(binding.reload.course).to be_nil
       end
@@ -626,10 +743,7 @@ describe LtiLaunchController, type: :request do
 
     context 'when the course slug does not exist' do
       it 'returns 403' do
-        post '/lti/setup', params: {
-          binding_id: binding.id,
-          course_slug: 'nope/missing'
-        }
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: 'nope/missing' }
         expect(response).to have_http_status(:forbidden)
       end
     end
@@ -768,7 +882,14 @@ describe LtiLaunchController, type: :request do
         it 'creates no separate binding for the assignment resource link' do
           expect { get '/lti', params: { ltik: 'ltik-abc' } }
             .not_to change(LtiCourseBinding, :count)
-          expect(LtiCourseBinding.find_by(lms_resource_link_id: 'rl-deep-link-1')).to be_nil
+          expect(LtiCourseBinding.where(lms_context_id: 'canvas-77').count).to eq(1)
+        end
+
+        # The resource link is a snapshot of the latest launch, not part of the
+        # binding's identity, so it follows this launch onto the one row.
+        it 'refreshes the resource-link snapshot on the context-bound binding' do
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(binding.reload.lms_resource_link_id).to eq('rl-deep-link-1')
         end
       end
 

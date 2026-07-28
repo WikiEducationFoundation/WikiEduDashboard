@@ -10,6 +10,8 @@ describe LtiRosterSyncWorker do
     )
   end
 
+  before { allow(Features).to receive(:canvas_integration?).and_return(true) }
+
   it 'invokes SyncLtiRoster with the binding' do
     expect(SyncLtiRoster).to receive(:new).with(binding)
     described_class.new.perform(binding.id)
@@ -25,5 +27,13 @@ describe LtiRosterSyncWorker do
       expect(described_class).to receive(:perform_async).with(binding.id)
       described_class.schedule(binding.id)
     end
+  end
+
+  # A job queued (or mid-retry) before the integration was switched off must not
+  # keep calling out to LTIAAS; the cron dispatchers gate too, but not these.
+  it 'is a no-op when the canvas integration feature is disabled' do
+    allow(Features).to receive(:canvas_integration?).and_return(false)
+    expect(SyncLtiRoster).not_to receive(:new)
+    described_class.new.perform(binding.id)
   end
 end

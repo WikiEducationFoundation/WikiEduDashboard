@@ -78,4 +78,75 @@ describe LtiMemberLinker do
         .not_to change(LtiContext, :count)
     end
   end
+
+  # JoinCourse refuses any second enrollment on a Wiki Ed course, so routing a
+  # role change through it silently no-ops and the LMS role change never lands.
+  describe 'role transitions' do
+    let!(:user) { create(:user, username: 'Alice') }
+    let(:instructor_member) do
+      learner_member.merge(
+        roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor']
+      )
+    end
+
+    before do
+      LtiContext.create!(user: user, lti_course_binding: binding,
+                         user_lti_id: 'lti-1', lms_id: 'platform-x',
+                         roles: ['stale'], linked_at: 1.day.ago)
+    end
+
+    def dashboard_role
+      CoursesUsers.find_by(user:, course:).role
+    end
+
+    it 'promotes an existing student when the LMS makes them course staff' do
+      CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      described_class.new(binding, instructor_member)
+      expect(dashboard_role).to eq(CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    it 'does not add a second enrollment when promoting' do
+      CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      expect { described_class.new(binding, instructor_member) }
+        .not_to change(CoursesUsers, :count)
+    end
+
+    # Deliberate: Canvas co-instructors are often TAs, which doesn't map to an
+    # instructor role here, so demoting on that basis would lock the person who
+    # set the course up out of it.
+    it 'leaves an existing instructor alone when the LMS role is Learner' do
+      CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      described_class.new(binding, learner_member)
+      expect(dashboard_role).to eq(CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+  end
+
+  # No auto-disenrollment, but nothing should newly join a course on behalf of
+  # someone Canvas has already removed from it.
+  describe 'a member Canvas has deleted from the course' do
+    let!(:user) { create(:user, username: 'Alice') }
+    let(:deleted_member) { learner_member.merge(status: 'Deleted') }
+
+    before do
+      LtiContext.create!(user: user, lti_course_binding: binding,
+                         user_lti_id: 'lti-1', lms_id: 'platform-x',
+                         linked_at: 1.day.ago)
+    end
+
+    it 'does not enroll them' do
+      expect { described_class.new(binding, deleted_member) }
+        .not_to change(CoursesUsers, :count)
+    end
+
+    it 'still records the membership so the roster reflects Canvas' do
+      described_class.new(binding, deleted_member)
+      expect(LtiContext.find_by(user_lti_id: 'lti-1').roles).to include(/Learner/)
+    end
+
+    it 'leaves an enrollment they already had in place' do
+      CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      described_class.new(binding, deleted_member)
+      expect(CoursesUsers.exists?(user:, course:)).to be true
+    end
+  end
 end

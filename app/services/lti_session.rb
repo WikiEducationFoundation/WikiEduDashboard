@@ -145,23 +145,22 @@ class LtiSession
     @idtoken.dig('services', 'serviceKey')
   end
 
-  # Looks up or creates the LtiCourseBinding for this launch. Once the Canvas
-  # course is linked, every launch from it — nav, assignment, deep-link —
-  # resolves to that one bound binding: a binding models a Canvas *course*,
-  # and keying new rows on the resource link would otherwise mint a throwaway
-  # row per assignment, stranding the student's LtiContext somewhere grade
-  # sync never reads and letting the bound row's service credentials go stale.
-  # Before linking there is nothing to resolve to, so the row is keyed on the
-  # launch's (context, resource link) identity and `course_id` stays nil until
-  # the controller's setup flow populates it. Snapshot fields (service_key,
-  # NRPS/AGS URLs, lms_family) are refreshed on every launch so background-job
-  # credentials track the most recent launch.
+  # Looks up or creates the LtiCourseBinding for this launch. A binding models a
+  # Canvas *course*, so it is keyed on (lms_id, lms_context_id) alone — every
+  # launch from that Canvas course, whether nav, assignment or deep-link, and
+  # whether before or after linking, resolves to the same row. Keying on the
+  # resource link as well used to mint a throwaway row per assignment: the
+  # student's LtiContext landed somewhere grade sync never reads, the bound
+  # row's service credentials went stale, and a pre-link course could end up
+  # with several rows competing to be the bound one.
+  #
+  # `course_id` stays nil until the controller's setup flow populates it.
+  # Snapshot fields (service_key, NRPS/AGS URLs, lms_family, resource link) are
+  # refreshed on every launch so background-job credentials track the most
+  # recent launch.
   def find_or_create_binding!
-    binding = bound_binding || LtiCourseBinding.find_or_initialize_by(
-      lms_id:,
-      lms_context_id:,
-      lms_resource_link_id:
-    )
+    binding = LtiCourseBinding.find_or_initialize_by(lms_id:, lms_context_id:)
+    binding.lms_resource_link_id = lms_resource_link_id
     binding.lms_family = lms_family
     binding.lms_context_title = context_title
     binding.lms_platform_url = platform_url
@@ -172,12 +171,11 @@ class LtiSession
     binding
   end
 
-  # The binding whose Dashboard course is linked to this launch's Canvas
-  # course (context), if any. Unlike find_or_create_binding!, this resolves
-  # by context alone, not the full (lms_id, context, resource_link) identity:
-  # a deep-linking-request launch arrives with no resource link of its own,
-  # so the picker has to find the bound course by which Canvas course it came
-  # from. Returns nil when the instructor hasn't linked a course yet.
+  # This launch's binding, but only once it has a Dashboard course — callers use
+  # it as "is this Canvas course linked yet?" and rely on the nil. Unlike
+  # find_or_create_binding! it never creates a row, so a read-only path (the
+  # anonymous launch views, the deep-link picker) can ask without side effects.
+  # The (lms_id, lms_context_id) key is unique, so this is at most one row.
   def bound_binding
     LtiCourseBinding.where(lms_id:, lms_context_id:)
                     .where.not(course_id: nil).first
@@ -192,13 +190,49 @@ class LtiSession
       user_lti_id:,
       lti_course_binding_id: binding.id
     )
+    reject_duplicate_user_link!(context, current_user, binding)
+    log_identity_move(context, current_user)
     apply_context_attributes(context, current_user)
     context.linked_at ||= Time.current
     context.save!
     context
   end
 
+  # Raised when the launching Dashboard user is already the linked identity for
+  # a *different* LMS member of the same course. Callers turn this into the
+  # "couldn't enroll you" view rather than a 500.
+  class DuplicateUserLinkError < StandardError; end
+
   private
+
+  # One Dashboard user per LMS course. Two Canvas identities linked to a single
+  # Wikipedia account would make grade sync post the same progress at both
+  # students' gradebook rows, so the second link is refused instead of silently
+  # duplicating credit. A unique index enforces the same thing; this is the path
+  # that makes it a handled error.
+  def reject_duplicate_user_link!(context, current_user, binding)
+    conflicts = LtiContext.where(lti_course_binding_id: binding.id,
+                                 user_id: current_user.id)
+    conflicts = conflicts.where.not(id: context.id) if context.persisted?
+    return unless conflicts.exists?
+
+    raise DuplicateUserLinkError,
+          "user #{current_user.id} is already linked to another LMS identity " \
+          "in binding #{binding.id}"
+  end
+
+  # Moving an LMS identity to a different Dashboard user is allowed: it's the
+  # only self-service fix for a student who connected the wrong Wikipedia
+  # account. But it also moves grade attribution silently, so leave a trail for
+  # support.
+  def log_identity_move(context, current_user)
+    return if context.user_id.nil? || context.user_id == current_user.id
+
+    Rails.logger.warn(
+      "[LTI] relinking LMS identity #{user_lti_id} in binding " \
+      "#{context.lti_course_binding_id}: user #{context.user_id} -> #{current_user.id}"
+    )
+  end
 
   def raw_idtoken
     @raw_idtoken ||= @client.get('/api/idtoken?raw=true')

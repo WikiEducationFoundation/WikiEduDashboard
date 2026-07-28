@@ -53,7 +53,10 @@ launch + Wikipedia OAuth is the only linking path.
   Hardened to a true anonymized posture: `normalize_member` keeps only id/roles/
   status, `LtiSession`/`LtiMemberLinker` no longer read or store name/email,
   `auto_link_by_email` is gone (members link only via their own Wikipedia OAuth),
-  and a migration dropped `lti_contexts.name`/`.email`.
+  and `lti_contexts.name`/`.email` are gone. _(Originally added then dropped by
+  a later migration; since neither had shipped, the pair was consolidated
+  2026-07-28 so the columns are never created at all — see "Follow-ups from the
+  code review" below.)_
 
 ## Admin registration UX
 
@@ -199,12 +202,16 @@ launch + Wikipedia OAuth is the only linking path.
     stranding contexts as above and letting the *bound* row's service
     credentials go stale, since only launches through its own resource link
     refreshed them. Now every launch from a linked Canvas course resolves to
-    that course's bound binding. Staging still has 7 pre-existing unbound rows
-    (harmless; they just hold credentials).
-  - _Not done:_ dropping `lms_resource_link_id` from the binding's identity
-    entirely (a binding models a Canvas course; the resource-link component is
-    now vestigial). Needs a migration + unique-index change — worth doing if
-    that table is touched again.
+    that course's bound binding. (Staging had 7 pre-existing unbound rows at the
+    time; a probe on 2026-07-28 found just the one bound row left, so they were
+    cleaned up somewhere along the way.)
+  - **`lms_resource_link_id` dropped from the binding's identity.** _(Done
+    2026-07-28, from the code review.)_ The unique index still included it while
+    `bound_binding` resolved by context alone, so two pre-link launches from
+    different resource links in one Canvas course could mint two rows competing
+    to be the bound one, and the lookup was nondeterministic if both got linked.
+    Identity is now `(lms_id, lms_context_id)` for both the index and the
+    lookup; the column stays as a snapshot of the most recent launch.
   - _Still open if the nav link is ever actually removed:_ `instructor_status`
     (sync status, "View in Canvas", the sync trigger) would need a new home,
     and first-time linking from the Modules picker is a two-pass flow (link in
@@ -299,7 +306,9 @@ launch + Wikipedia OAuth is the only linking path.
   trainings roll-up + auto per-exercise columns), `per_block` (option 2,
   unchanged), `lumped` (option 3, unchanged: roll-up + manual deep-linked
   exercises — matching how existing rows actually behaved, so no data migration;
-  only the column default changed). Setup radios render from
+  only the column default changed, and the two default flips were later folded
+  into the create migration when the deep-link-first change made `lumped` the
+  default again). Setup radios render from
   `GRADEBOOK_GRANULARITIES` order with the recommended mode first/preselected.
   The old `lumped` radio label already described option 1's behavior, so that
   copy moved to `standard`; the `lumped` label + example are `[PLACEHOLDER]`s.
@@ -398,3 +407,56 @@ launch + Wikipedia OAuth is the only linking path.
   started/error notices, the import next-step, the post-link flash
   (`lti.setup.linked_notice`), and the setup/trainings assignment-view strings;
   the `lumped` granularity radio label was removed with the deep-link-first change.
+
+## Follow-ups from the gpt-5.6-sol code review (2026-07-28)
+
+Items from that review that were assessed as real but deliberately left out of
+this PR. The review's other findings were fixed on the branch.
+
+> **Migrations were consolidated (2026-07-28), on the review's recommendation.**
+> None of the LTI migrations had run on either production server, so the
+> add-then-remove pairs and the two `gradebook_granularity` default flips are
+> gone: `lti_contexts.name`/`.email` and `lti_line_items.last_pushed_signature`
+> are never created, `lms_context_title` / `lms_platform_url` /
+> `canvas_assignment_id` are created with their tables, and both index changes
+> from this review are folded in. Four migrations remain
+> (`2026050513320{0,1,2}`, `20260511105551`).
+>
+> **The staging database needed two index changes**, since it had already
+> recorded the superseded migration versions and so would never run the folded-in
+> ones. Probed 2026-07-28: everything else already matched (the PII columns were
+> already dropped, `canvas_assignment_id` / `lms_context_title` /
+> `lms_platform_url` present, `last_pushed_signature` gone,
+> `gradebook_granularity` defaulting to `lumped`), and there were no rows
+> violating either new index — 1 binding, 10 contexts, no duplicates. So a full
+> reset wasn't needed; the two indexes were applied by hand and are recorded
+> below. Note staging's `schema_migrations` still holds the five superseded
+> version rows, which is harmless — no file matches them, so nothing re-runs.
+
+- [ ] **Encrypt long-lived external credentials — app-wide, not just here.**
+  `lti_course_bindings.ltiaas_service_credentials` is plain text. So are
+  `users.wiki_token` / `users.wiki_secret`, the Wikipedia OAuth credentials for
+  every account on the site. This app has no Active Record encryption anywhere,
+  so encrypting one new column means standing up
+  `active_record_encryption` key management on both production deployments
+  (Wiki Ed and Peony) plus dev and CI, for one column, while the larger and more
+  numerous credential store stays in the clear. Worth doing as its own change,
+  covering both.
+- [ ] **Remove the `standard` / `per_block` gradebook granularities.** Already
+  tracked above under "Linking / launch model" — the blocker is that the
+  gradebook and full-course screenshot galleries force `standard` via
+  `DashboardAdminClient.set_granularity`; those two galleries need reworking onto
+  the deep-link import flow first. `gradebook_granularity` can then collapse or
+  be dropped.
+- [ ] **Move the live-Canvas harness out of `spec/`.** `spec/staging/` is
+  excluded from default runs (`filter_run_excluding :staging` plus derived
+  metadata on the path), which is verified working, but RSpec still *loads* those
+  files — and with them the Selenium helpers — on every normal suite run. A
+  top-level `staging_specs/` or `tools/canvas/` would isolate it properly. Needs
+  `bin/staging-feature-spec` and `.rspec` updated with it.
+- [ ] **Persist NRPS membership status.** `LtiServiceSession#normalize_member`
+  reads Canvas's Active/Inactive/Deleted status and `LtiMemberLinker` now uses it
+  to avoid newly enrolling a removed member, but nothing stores it, so there's no
+  staff-visible "was removed in Canvas" state to reconcile against. A status
+  column plus a reconciliation view is the real fix; the disenrollment policy
+  (what, if anything, should happen automatically) is an operator decision.

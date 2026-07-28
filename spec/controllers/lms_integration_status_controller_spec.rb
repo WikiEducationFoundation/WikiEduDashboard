@@ -16,11 +16,12 @@ describe LmsIntegrationStatusController, type: :request do
   # URL, and another spec sets LTIAAS_DOMAIN globally without clearing it, so
   # leaving this to chance makes the expectations order-dependent.
   before do
+    allow(Features).to receive(:canvas_integration?).and_return(true)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(viewer)
     ENV['LTIAAS_DOMAIN'] = 'tenant.ltiaas.com'
   end
 
-  describe 'when the course has no canvas_integration flag set' do
+  describe 'when the course has no binding' do
     let(:viewer) { create(:user) }
 
     it 'returns bound: false' do
@@ -30,7 +31,7 @@ describe LmsIntegrationStatusController, type: :request do
     end
   end
 
-  describe 'when the course has the flag but no binding' do
+  describe 'when the course has a stale flag but no binding' do
     let(:viewer) { create(:user) }
 
     before { course.flags[:canvas_integration] = true; course.save! }
@@ -51,7 +52,22 @@ describe LmsIntegrationStatusController, type: :request do
       )
     end
 
-    before { course.flags[:canvas_integration] = true; course.save! }
+    # This endpoint is reachable independently of the gated launch controller,
+    # so the global switch has to reach it too.
+    context 'when the canvas integration feature is disabled' do
+      let(:viewer) { create(:user) }
+
+      before do
+        allow(Features).to receive(:canvas_integration?).and_return(false)
+        CoursesUsers.create!(user: viewer, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'returns bound: false and no LMS metadata' do
+        get request_path
+        expect(JSON.parse(response.body)).to eq('bound' => false)
+      end
+    end
 
     context 'viewed by a course instructor' do
       let(:viewer) { create(:user) }

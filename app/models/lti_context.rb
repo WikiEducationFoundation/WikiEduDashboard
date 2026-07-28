@@ -21,6 +21,14 @@
 # Per-user, per-binding link between a Dashboard User and an LMS user
 # identity. May exist with `user_id=nil` when a Canvas member is known
 # from NRPS but hasn't yet linked a Wikipedia account via Dashboard OAuth.
+#
+# The map is 1:1 in both directions within a binding, enforced by two unique
+# indexes: (user_lti_id, binding) and (binding, user_id). The second one is why
+# two Canvas members in a course can't both resolve to one Wikipedia account,
+# which would post the same progress at both of their gradebook rows.
+# `user_id = NULL` is exempt (MySQL treats NULLs as distinct), so a course can
+# hold any number of not-yet-connected members. See
+# LtiSession#reject_duplicate_user_link!.
 class LtiContext < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :lti_course_binding, optional: true

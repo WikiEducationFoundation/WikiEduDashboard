@@ -231,11 +231,76 @@ describe SyncLtiGrades do
     expect(WebMock).not_to have_requested(:post, /scores/)
   end
 
+  # A 422 that isn't the membership-gone case is a permanent rejection of one
+  # student's score: skip it, report it, keep going.
+  def stub_rejected_score(lineitem_url)
+    stub_request(:post, "https://#{domain}/api/lineitems/" \
+                        "#{CGI.escape(lineitem_url)}/scores")
+      .to_return(status: 422, body: { error: 'scoreGiven is invalid' }.to_json,
+                 headers: { 'Content-Type' => 'application/json' })
+  end
+
   it 'continues past per-record failures and reports them to Sentry' do
     expect(Sentry).to receive(:capture_exception).at_least(:once)
-    stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
+    stub_rejected_score(setup_lineitem_url)
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
     described_class.new(binding) # should not raise
     expect(binding.reload.last_grade_sync_at).to be_present
+  end
+
+  it 'records a partial-success run in last_grade_sync_error' do
+    allow(Sentry).to receive(:capture_exception)
+    stub_rejected_score(setup_lineitem_url)
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+    described_class.new(binding)
+    expect(binding.reload.last_grade_sync_error).to include('score push(es) failed')
+  end
+
+  it 'clears a stale last_grade_sync_error after a clean run' do
+    binding.update!(last_grade_sync_error: 'AGS POST failed: 401')
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+    described_class.new(binding)
+    expect(binding.reload.last_grade_sync_error).to be_nil
+  end
+
+  # A 5xx, a rate limit, or an auth failure hits every push in the run, so
+  # reporting a fresh successful sync would be actively misleading. Let it out
+  # so Sidekiq retries.
+  describe 'whole-run LTIAAS failures' do
+    before do
+      binding.update!(last_grade_sync_at: 3.hours.ago)
+      allow(Sentry).to receive(:capture_exception)
+    end
+
+    it 'raises rather than reporting success when LTIAAS returns a 500' do
+      stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
+      expect { described_class.new(binding) }
+        .to raise_error(LtiaasClient::LtiaasTransientError)
+    end
+
+    it 'leaves last_grade_sync_at untouched and records the error on a 500' do
+      stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
+      expect { described_class.new(binding) }.to raise_error(StandardError)
+      expect(binding.reload.last_grade_sync_at).to be_within(5.seconds).of(3.hours.ago)
+      expect(binding.last_grade_sync_error).to include('LtiaasTransientError')
+    end
+
+    it 'raises on a rate limit so the retry backs off' do
+      stub_request(:post, /scores/).to_return(status: 429, body: 'slow down')
+      expect { described_class.new(binding) }
+        .to raise_error(LtiaasClient::LtiaasRateLimitError)
+      expect(binding.reload.last_grade_sync_at).to be_within(5.seconds).of(3.hours.ago)
+    end
+
+    it 'raises on an auth failure so a stale service key surfaces' do
+      stub_request(:post, /scores/).to_return(status: 401, body: 'nope')
+      expect { described_class.new(binding) }
+        .to raise_error(LtiaasClient::LtiaasAuthError)
+      expect(binding.reload.last_grade_sync_error).to include('LtiaasAuthError')
+    end
   end
 
   describe 'dedup via LtiScoreSignature' do
@@ -306,7 +371,7 @@ describe SyncLtiGrades do
       complete_alice
       allow(Sentry).to receive(:capture_exception)
       stub_request(:post, /scores/).to_return(status: 500, body: 'boom')
-      described_class.new(binding)
+      expect { described_class.new(binding) }.to raise_error(StandardError)
       expect(LtiScoreSignature.count).to eq(0)
     end
   end

@@ -7,7 +7,9 @@
       %p= @setup_error
   - if @user_courses.any?
     = form_with url: '/lti/setup', method: :post, local: true do |f|
-      = hidden_field_tag :binding_id, @binding.id
+      - # The ltik is the only binding identifier the POST carries: the server
+      - # re-verifies the launch and derives the binding from it, so a submitted
+      - # binding id would be ignored (and was forgeable).
       = hidden_field_tag :ltik, params[:ltik]
       .module
         %h4= t('lti.setup.link_existing.header')

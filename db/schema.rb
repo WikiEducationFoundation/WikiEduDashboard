@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_24_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -415,6 +415,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_24_000000) do
     t.integer "lti_course_binding_id"
     t.text "roles"
     t.datetime "linked_at"
+    t.index ["lti_course_binding_id", "user_id"], name: "index_lti_contexts_on_binding_and_user", unique: true
     t.index ["user_id"], name: "index_lti_contexts_on_user_id"
     t.index ["user_lti_id", "lti_course_binding_id"], name: "index_lti_contexts_on_user_lti_id_and_binding", unique: true
   end
@@ -437,7 +438,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_24_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true
-    t.index ["lms_id", "lms_context_id", "lms_resource_link_id"], name: "index_lti_course_bindings_on_lms_identity", unique: true
+    t.index ["lms_id", "lms_context_id"], name: "index_lti_course_bindings_on_lms_context", unique: true
   end
 
   create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -448,9 +449,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_24_000000) do
     t.string "label"
     t.decimal "score_maximum", precision: 10, scale: 4, default: "1.0", null: false
     t.datetime "archived_at"
+    t.string "canvas_assignment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "canvas_assignment_id"
     t.index ["lti_course_binding_id", "canvas_assignment_id"], name: "index_lti_line_items_on_binding_and_canvas_assignment", unique: true
     t.index ["lti_course_binding_id", "gradable_type", "gradable_id"], name: "index_lti_line_items_on_binding_and_gradable", unique: true
     t.index ["lti_course_binding_id", "lineitem_id"], name: "index_lti_line_items_on_binding_and_lineitem", unique: true, length: { lineitem_id: 191 }
