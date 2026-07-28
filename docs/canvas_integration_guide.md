@@ -58,13 +58,15 @@ Most institutions review a tool's accessibility and data handling first:
 - **What the tool requests from Canvas:** the tool asks for read access to a
   course's roster (NRPS — `contextmembership.readonly`) and permission to create
   and post gradebook line items and scores (AGS). Its placements are limited to
-  course navigation, the assignment / deep-linking pickers, and the assignment
-  view.
-- **What data is shared:** Canvas shares only an anonymized identifier and
-  course-roster membership with the Dashboard (via LTIAAS) — no student names or
-  email addresses. A student's identity comes from the Wikipedia account they
-  connect on the Dashboard, not from Canvas. The Dashboard sends scores, and
-  links to the students' work, back to your gradebook.
+  course navigation, the Modules index menu, and the assignment view.
+- **What data is shared:** The integration is designed around Canvas's
+  Anonymized data-sharing model: the only Canvas data it requires or saves for
+  each student is that student's Canvas ID and their role in the course. Where
+  Canvas is set to share more, the Dashboard neither uses nor stores the
+  additional fields. A student's identity comes from the Wikipedia account they
+  connect on the Dashboard, not from Canvas. The Dashboard sends scores back to
+  your gradebook; links to a student's work are shown in the Dashboard's own
+  view inside Canvas, not written into your gradebook.
 
 ## What you'll need
 

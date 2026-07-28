@@ -503,10 +503,17 @@ diligence:
   dashboard.wikiedu.org/hecvat).
 - **Data flow** (for the security review): the tool is fronted by **LTIAAS**, a
   third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
-  Canvas ↔ LTIAAS ↔ Dashboard. The roster is anonymized — an opaque LMS user id
-  and role per member, no names or emails — so the Dashboard stores only the
-  link between that opaque id and the Dashboard account, and pushes fractional
-  scores plus sandbox-link comments back. See
+  Canvas ↔ LTIAAS ↔ Dashboard. The Dashboard requires and saves only an opaque
+  LMS user id and role per member, so it stores just the link between that id
+  and the Dashboard account, and pushes fractional scores plus sandbox-link
+  comments back. What Canvas actually *transmits* depends on the installed
+  tool's privacy level: under Anonymous it is only the id and role, and under a
+  more permissive setting Canvas also sends names and emails, which
+  `LtiServiceSession#normalize_member` and `LtiSession` discard on receipt.
+  Worth knowing that the admin's Anonymized choice does not currently reach the
+  installed tool — see
+  `.claude/canvas_integration/canvas_overlay_privacy_bug_brief-2026-07-27.md`.
+  See
   [Beyond a basic launch](#beyond-a-basic-launch-nrps-roster--ags-grade-passback).
 
 ### 3. Register the university's Canvas with LTIAAS

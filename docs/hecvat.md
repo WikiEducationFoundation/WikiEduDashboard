@@ -154,7 +154,7 @@ Sections such as HIPAA, PCI DSS, Consulting Services, and AI apply only if the p
 
 **Answer:** Yes
 
-**Notes:** The Dashboard receives the Canvas course roster as anonymized memberships — an opaque LMS user id and role per member, with no student names or email addresses — and returns grades/scores. A student's identity (name, Wikipedia account) comes from the student's own Wikipedia login on the Dashboard, not from Canvas; the Dashboard stores only the link between that opaque LMS id and the Dashboard account.
+**Notes:** The integration is designed around Canvas's Anonymous data-sharing model: the only Canvas data it requires or saves for each student is that student's Canvas ID (an opaque LMS user id) and their role in the course. Canvas's privacy setting governs what a launch and roster sync actually transmit, and where it is set to something more permissive the Dashboard neither uses nor stores the additional fields — names and email addresses are discarded on receipt. A student's identity (name, Wikipedia account) comes from the student's own Wikipedia login on the Dashboard, not from Canvas; the Dashboard stores only the link between the Canvas ID and the Dashboard account, and returns grades/scores.
 
 
 ## Authentication, Authorization, and Account Management
