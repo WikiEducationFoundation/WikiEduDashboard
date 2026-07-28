@@ -94,10 +94,11 @@ with an app that exists but appears nowhere.
    Paste Wiki Education's registration URL and click
    **Continue**. Canvas and the Dashboard exchange the configuration
    automatically (endpoints, scopes, and placements). When the dialog asks
-   about **User data shared with this tool**, choose **Anonymized**
-   ([PLACEHOLDER - Wiki Education to word why: the Dashboard uses no names or
-   email addresses, students identify themselves by their own Wikipedia login,
-   and note the current Canvas limitation described in Troubleshooting]).
+   about **User data shared with this tool**, you can choose **Anonymized**.
+   (Our app only needs the Canvas ID of each student, and does not use or
+   store the name or email that Canvas can provide. Students separately provide
+   name and email when they register with Wikipedia accounts, and these are not
+   shared back to Canvas.)
    Review the summary and click **Enable & Close**.
 2. **Turn the key on.** In the **Developer Keys** list, set the key's **State**
    to **ON**.
@@ -121,9 +122,9 @@ appears:
 
 | Placement | Where it shows up | What it's for |
 |---|---|---|
-| Course navigation | A **wikiedu.org** item in a course's left-hand nav | [PLACEHOLDER - one line: the instructor's way in, and where they link the Canvas course to their Dashboard course] |
-| Modules index menu | The **⋮** menu on a course's Modules page | [PLACEHOLDER - one line: imports the Wikipedia assignments in one step, creating the gradebook columns] |
-| Assignment view | Inside each imported Wikipedia assignment | [PLACEHOLDER - one line: instructors see per-student progress; a student sees their own] |
+| Course navigation | A **wikiedu.org** item in a course's left-hand nav | Entry point for setting up the Wiki Education Dashboard integration |
+| Modules index menu | The **⋮** menu on a course's Modules page | Importing the Wikipedia assignments from the Dashboard Timeline |
+| Assignment view | Inside each imported Wikipedia assignment | Details of each Dashboard assignment |
 
 The course-navigation item is hidden by default, so instructors turn it on for
 their own course under **Settings → Navigation**.
@@ -155,11 +156,6 @@ flows back to the gradebook.
 - **The link doesn't appear in a course.** The instructor needs to enable it
   under **Settings → Navigation** (and click Save). If you are using
   exceptions, confirm that course has one.
-- **Data sharing shows Anonymized but the Dashboard still receives names.**
-  [PLACEHOLDER - Wiki Education to word: a current Canvas defect means the
-  data-sharing choice on an app installed by dynamic registration is displayed
-  but not applied; say what the Dashboard does with the extra data and who to
-  contact.]
 - **Launching shows an error right after install.** The tool may not be active
   yet — confirm Wiki Education has activated your registration.
 
