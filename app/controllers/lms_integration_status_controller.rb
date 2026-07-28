@@ -50,12 +50,34 @@ class LmsIntegrationStatusController < ApplicationController
     }
   end
 
+  # Links to the Dashboard's own view *inside* the Canvas course rather than the
+  # course home page: `external_tools/retrieve` asks Canvas to find the installed
+  # tool whose URL matches ours and launch it in the course frame, so the link
+  # lands on the same in-iframe view the course-navigation item gives — the
+  # instructor status panel, or a student's progress overview.
+  #
+  # `lms_context_id` is the opaque LTI context id, not Canvas's numeric course
+  # id, so it must go through Canvas's `lti_context_id:` API-id lookup prefix —
+  # a bare `/courses/<context_id>` 404s ("Couldn't find Course with API id ...").
+  # Verified against staging Canvas that `retrieve` accepts the prefixed id too,
+  # so no numeric course id is needed.
+  #
+  # Falls back to the course home page when LTIAAS_DOMAIN isn't configured,
+  # since without it there is no launch URL for Canvas to match against.
   def lms_course_url
     return nil if binding.lms_platform_url.blank?
-    # `lms_context_id` is the opaque LTI context id, not Canvas's numeric course
-    # id, so it must go through Canvas's `lti_context_id:` API-id lookup prefix —
-    # a bare `/courses/<context_id>` 404s ("Couldn't find Course with API id ...").
-    "#{binding.lms_platform_url.chomp('/')}/courses/lti_context_id:#{binding.lms_context_id}"
+
+    course_url = "#{binding.lms_platform_url.chomp('/')}" \
+                 "/courses/lti_context_id:#{binding.lms_context_id}"
+    return course_url if ENV['LTIAAS_DOMAIN'].blank?
+
+    "#{course_url}/external_tools/retrieve?url=#{CGI.escape(tool_launch_url)}"
+  end
+
+  # The tool's target_link_uri, as registered with the platform — the same URL
+  # BuildLtiDeepLinkForm puts on deep-linked content items.
+  def tool_launch_url
+    "https://#{ENV.fetch('LTIAAS_DOMAIN', nil)}/lti/launch"
   end
 
   def staff_metrics

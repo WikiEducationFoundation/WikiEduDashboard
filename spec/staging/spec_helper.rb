@@ -23,6 +23,10 @@ require 'selenium-webdriver'
 # additionally drives the :student profile via `in_student_browser`.
 PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile', __dir__).freeze
 STUDENT_PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile-student', __dir__).freeze
+# The admin walkthrough logs in as a root-account-only admin, which has to be
+# a separate profile: ensure_canvas_logged_in no-ops when a session already
+# exists, so sharing the default profile would silently keep the instructor.
+ADMIN_PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile-admin', __dir__).freeze
 
 # Where screenshots + page sources go on failure.
 FAILURE_ARTIFACT_DIR = File.expand_path('../../tmp/staging-failures', __dir__).freeze
@@ -54,6 +58,7 @@ end
 
 register_staging_chrome(:staging_chrome, PROFILE_DIR)
 register_staging_chrome(:staging_chrome_student, STUDENT_PROFILE_DIR)
+register_staging_chrome(:staging_chrome_admin, ADMIN_PROFILE_DIR)
 
 # Load support files (in_canvas/in_dashboard helpers, screenshot-on-failure).
 Dir[File.join(__dir__, 'support', '*.rb')].each { |f| require f }

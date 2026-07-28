@@ -48,6 +48,18 @@ module StagingSessions
     capture_student_failure_artifact if $!
   end
 
+  # Run a block as the Canvas admin persona: same pattern as
+  # `in_student_browser`, on the `:staging_chrome_admin` driver. Separate
+  # because the admin is a *different Canvas user* from the instructor —
+  # a root-account-only admin, with no Site Admin role — and
+  # `ensure_canvas_logged_in` no-ops on an already-authenticated profile, so
+  # sharing the default profile would keep us logged in as the instructor.
+  def in_admin_browser(&block)
+    Capybara.using_driver(:staging_chrome_admin) do
+      Capybara.using_session(:admin, &block)
+    end
+  end
+
   # Follow a `target=_blank` link to the new tab the click opened.
   # Selenium reports the new tab as another window handle; switch
   # the active window so subsequent `page.visit` / `find` / etc. talk

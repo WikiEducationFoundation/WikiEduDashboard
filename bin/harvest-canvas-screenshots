@@ -113,15 +113,25 @@ SECTIONS = [
 # Plain-language caption per screenshot, keyed by file basename.
 CAPTIONS = {
   'a01-developer-keys' =>
-    'The Wiki Education developer key, enabled in Canvas admin.',
-  'a02-developer-key-config' =>
-    "The registration's settings: permission scopes in plain language, and the " \
-    'None (Anonymized) data-sharing mode.',
-  'a03-developer-key-scopes-placements' =>
-    "The registration's per-placement settings (Title and Icon are optional — " \
-    'blank falls back to the tool name and logo).',
-  'a04-canvas-apps-manage' =>
-    'The installed tool under Canvas Apps, Manage.',
+    'The Wiki Education developer key, enabled in Canvas admin. Registering ' \
+    'creates the key; the key still has to be switched on, and the app still ' \
+    'has to be installed and made available, before any course sees it.',
+  'a02-canvas-apps-manage' =>
+    'The installed app under Canvas Apps, Manage.',
+  'a03-app-overview' =>
+    "The app's page: client id, on/off state, and the tabs for availability, " \
+    'configuration, usage, and history.',
+  'a04-app-availability' =>
+    'Availability and exceptions. An app can be installed and still be ' \
+    'invisible everywhere; note Canvas flagging a course exception as having ' \
+    "no effect because the account already grants access.",
+  'a05-app-data-sharing' =>
+    'Data sharing and placements as the admin sees them: privacy level ' \
+    'None (Anonymized), the three placements the Dashboard registers, and the ' \
+    'per-placement titles left unset (they fall back to the tool name).',
+  'a06-app-placements' =>
+    'The placement list on its own: Course Navigation, Assignment View, and ' \
+    'Modules Index Menu (Modal) — the bulk import entry point.',
   '00-canvas-enable-nav' =>
     "Enabling the tool from the course's navigation settings — it starts disabled " \
     'until the instructor turns it on. (The tab label is the staging ' \

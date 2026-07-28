@@ -57,6 +57,35 @@ launch + Wikipedia OAuth is the only linking path.
 
 ## Admin registration UX
 
+> **Walkthrough 2026-07-27.** The registration was deleted and redone from
+> scratch by a root-account-only admin (no Site Admin) following the live guide,
+> to see what an institution actually gets. Findings are folded into the items
+> below; the four that matter:
+> 1. **Registering is not installing, and installing is not availability.**
+>    Dynamic registration creates the developer key and an install that Canvas
+>    already marks "Installed in <account>" — but with availability **Not
+>    Available**, which means no `ContextExternalTool` exists and *nothing*
+>    appears in any course. The fix is Developer Keys → the row's **Details**
+>    column → **View in Canvas Apps** → Edit the installation → **Not Available
+>    → Available**. The guide's step 3 ("+ App → By Client ID") describes a
+>    different, unnecessary path, and following the guide as written twice
+>    produced a silently invisible tool.
+>    - _Alternative worth documenting:_ leaving it Not Available and using
+>      **Add Exception** per course. That is admin-controlled per-course
+>      enablement of the whole tool — arguably a better fit for Wiki Ed than
+>      `course_navigation default: disabled` (which only hides the tab and
+>      leaves the instructor to find it).
+> 2. **The admin's "Anonymized" choice does not reach the installed tool.**
+>    Selected during registration, it is stored as `overlay.privacy_level:
+>    anonymous`, yet the tool installs as `privacy_level: public`. Reproduced
+>    twice (tool 5 in February, tool 9 on 2026-07-27). So an institution that
+>    does the right thing still sends us names and emails. Report to
+>    Instructure, and treat the LTIAAS-side fix as the real remedy.
+> 3. **`module_index_menu_modal` is absent**, as expected — the Modules bulk
+>    import does not exist on a fresh registration.
+> 4. **Every placement is labelled with the tool name** ("wikiedu.org
+>    testing"), confirming the Title fallback below.
+
 - [ ] **Placement Title / Icon URL.** The dynamic-registration "Register App" dialog
   shows empty **Title** and **Icon URL** fields per placement, and a blank Title
   falls back to the tool's internal name (e.g. "wikiedu.org testing"). LTIAAS does

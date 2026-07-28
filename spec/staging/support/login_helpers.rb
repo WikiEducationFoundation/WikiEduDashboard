@@ -31,6 +31,18 @@ module LoginHelpers
     )
   end
 
+  # A Canvas admin on the root account only. Deliberately NOT the Canvas user
+  # behind CANVAS_ADMIN_TOKEN, who also holds Site Admin: that user's Admin
+  # menu lists Site Admin rather than the institution's account, so following
+  # the install guide from it registers the tool where no course can see it —
+  # a trap a Canvas-hosted institution's admin cannot fall into.
+  def ensure_canvas_logged_in_as_admin
+    ensure_canvas_logged_in(
+      login: ENV.fetch('CANVAS_TEST_ADMIN_LOGIN'),
+      password: ENV.fetch('CANVAS_TEST_ADMIN_PASSWORD')
+    )
+  end
+
   # During the LTI launch's OAuth bounce, if Wikipedia shows a login
   # form or an OAuth-approval page, drive them automatically. Falls
   # through silently when the session + grant are already in place.

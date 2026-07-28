@@ -5,9 +5,19 @@ require 'rails_helper'
 describe LmsIntegrationStatusController, type: :request do
   let(:course) { create(:course, slug: 'School/Demo_(2026)') }
   let(:request_path) { "/courses/#{course.slug}/lms_integration_status.json" }
+  # The bound course's Canvas link: the tool's in-course view, reached through
+  # Canvas's external_tools/retrieve with our launch URL to match on.
+  let(:expected_course_url) do
+    'https://canvas.example.com/courses/lti_context_id:canvas-77' \
+      '/external_tools/retrieve?url=https%3A%2F%2Ftenant.ltiaas.com%2Flti%2Flaunch'
+  end
 
+  # Pinned rather than inherited: the course URL now embeds the tool's launch
+  # URL, and another spec sets LTIAAS_DOMAIN globally without clearing it, so
+  # leaving this to chance makes the expectations order-dependent.
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(viewer)
+    ENV['LTIAAS_DOMAIN'] = 'tenant.ltiaas.com'
   end
 
   describe 'when the course has no canvas_integration flag set' do
@@ -57,11 +67,22 @@ describe LmsIntegrationStatusController, type: :request do
         expect(body['bound']).to be true
         expect(body['lms_name']).to eq('Canvas')
         expect(body['course_title']).to eq('WRIT 2010')
-        expect(body['course_url']).to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
+        expect(body['course_url']).to eq(expected_course_url)
         expect(body).to have_key('last_sync_at')
         expect(body).not_to have_key('last_roster_sync_at')
         expect(body['last_sync_error_present']).to be false
         expect(body['synced_students_count']).to eq(0)
+      end
+
+      # The link points into the tool's in-course view via Canvas's
+      # external_tools/retrieve, which needs our launch URL to match against.
+      # Without LTIAAS_DOMAIN there is no such URL, so it degrades to the
+      # course home page rather than emitting a broken link.
+      it 'falls back to the plain course URL when LTIAAS_DOMAIN is unset' do
+        ENV['LTIAAS_DOMAIN'] = nil
+        get request_path
+        expect(JSON.parse(response.body)['course_url'])
+          .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
       end
 
       it 'flags a recent grade-sync failure when one is recorded' do
@@ -148,7 +169,7 @@ describe LmsIntegrationStatusController, type: :request do
       it 'treats them as instructor (includes the LMS course URL)' do
         get request_path
         body = JSON.parse(response.body)
-        expect(body['course_url']).to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
+        expect(body['course_url']).to eq(expected_course_url)
       end
     end
 
@@ -169,7 +190,7 @@ describe LmsIntegrationStatusController, type: :request do
         body = JSON.parse(response.body)
         expect(body['bound']).to be true
         expect(body['course_title']).to eq('WRIT 2010')
-        expect(body['course_url']).to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
+        expect(body['course_url']).to eq(expected_course_url)
         expect(body['my_linked']).to be true
       end
 
