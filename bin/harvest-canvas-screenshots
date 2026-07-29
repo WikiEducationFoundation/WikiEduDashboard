@@ -132,10 +132,6 @@ CAPTIONS = {
   'a06-app-placements' =>
     'The placement list on its own: Course Navigation, Assignment View, and ' \
     'Modules Index Menu (Modal) — the bulk import entry point.',
-  '00-canvas-enable-nav' =>
-    "Enabling the tool from the course's navigation settings — it starts disabled " \
-    'until the instructor turns it on. (The tab label is the staging ' \
-    "registration's tool name; real installs set a placement title.)",
   '01-canvas-course-with-tab' =>
     "The tool's item in the course navigation.",
   '02-canvas-iframe-landing' =>

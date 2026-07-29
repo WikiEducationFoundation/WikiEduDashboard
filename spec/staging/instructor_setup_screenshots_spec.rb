@@ -75,25 +75,15 @@ describe 'Instructor setup illustrated guide', :staging do
 
   it 'walks the instructor flow and captures a screenshot at each named step' do
     canvas_id = provisioned[:canvas_course_id]
-    # Stage the realistic opt-in independent of the account tool's default:
-    # start with the tab hidden (in the course's disabled nav items) so the
-    # enabling step reads truthfully rather than already-on.
-    canvas_api.set_course_nav(course_id: canvas_id, hidden: true)
+    # No enabling step to capture. The nav item is on by default now — that was
+    # accepted for beta rather than fixed with `default: disabled` — so an
+    # instructor's flow starts at their course with the tab already present. This
+    # only ensures that's true regardless of how a given staging tool's placement
+    # default happens to be set; it is a no-op when the tab is already showing.
+    enable_course_nav_tab(canvas_id)
 
     in_canvas do
       ensure_canvas_logged_in_as_instructor
-      # The enabling step: the course's Navigation settings, with Wiki Education
-      # Dashboard sitting in the disabled items lower in the list — scroll that
-      # item into view (it's the only occurrence, since it's out of the nav now).
-      visit "/courses/#{canvas_id}/settings#tab-navigation"
-      item = find(:xpath, "//*[contains(text(), '#{tool_label}')]",
-                  match: :first, wait: 20)
-      page.execute_script('arguments[0].scrollIntoView({ block: "center" })', item)
-      sleep 0.5
-      capture('00-canvas-enable-nav')
-
-      # Enable it (as the instructor would) so the rest of the flow launches.
-      canvas_api.set_course_nav(course_id: canvas_id, hidden: false)
       visit_canvas_course(canvas_id)
       capture('01-canvas-course-with-tab')
 

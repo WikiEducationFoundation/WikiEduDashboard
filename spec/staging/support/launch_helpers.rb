@@ -164,9 +164,11 @@ module LaunchHelpers
     expect(page).to have_current_path(%r{/courses/}, wait: 20)
   end
 
-  # The course_navigation placement is default-disabled (opt-in per course),
-  # so a freshly provisioned course has no tool tab until it's enabled — the
-  # step a real instructor does in course Settings → Navigation.
+  # Makes sure the course shows the tool's nav tab, whatever the account tool's
+  # `course_navigation` default is set to. Beta ships with it enabled, so for a
+  # real institution this is already true and the call is a no-op; it stays because
+  # a staging tool can still be configured `default: disabled`, and because a
+  # freshly provisioned course shouldn't depend on which.
   def enable_course_nav_tab(canvas_course_id)
     CanvasApiClient.new.set_course_nav(course_id: canvas_course_id, hidden: false)
   end
