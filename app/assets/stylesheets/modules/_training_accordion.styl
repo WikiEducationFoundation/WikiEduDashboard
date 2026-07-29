@@ -1,0 +1,65 @@
+// Collapsible disclosure box for training slide content.
+// Authored in slide markdown as:
+//   <details class="training-accordion">
+//   <summary>Label</summary>
+//
+//   Body markdown, separated from the tags by blank lines.
+//
+//   </details>
+
+.training-accordion
+  background #FFF
+  border 1px solid $border_lt
+  border-radius 3px
+  margin-bottom 25px
+
+  > summary
+    color sprout-dark
+    cursor pointer
+    font-weight 600
+    padding 12px 16px 12px 40px
+    position relative
+    // Suppress the native disclosure marker in favor of the triangle below
+    list-style none
+
+    &::-webkit-details-marker
+      display none
+
+    &::marker
+      content ''
+
+    &::before
+      border-bottom 5px solid transparent
+      border-left 7px solid currentColor
+      border-top 5px solid transparent
+      content ''
+      height 0
+      left 16px
+      position absolute
+      top 50%
+      transform translateY(-50%)
+      transition transform ts-speed ease
+      width 0
+
+    &:hover
+      background $bg_light_gray
+
+    &:focus-visible
+      outline 2px solid sprout
+      outline-offset -2px
+
+  &[open]
+    padding-bottom 1px
+
+    > summary
+      border-bottom 1px solid $border_lt
+
+      &::before
+        transform translateY(-50%) rotate(90deg)
+
+  > :not(summary)
+    margin-left 16px
+    margin-right 16px
+
+  > :not(summary):first-of-type
+    margin-top 16px
