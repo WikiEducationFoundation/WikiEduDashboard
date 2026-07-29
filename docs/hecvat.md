@@ -9,7 +9,7 @@
 
 This is a Higher Education Community Vendor Assessment Toolkit (HECVAT) response for the Wiki Education Dashboard's Canvas (LTI 1.3) integration, covering the **critical ("Core") questions** — the asterisked subset EDUCAUSE recommends for a Lite-style review. (Full HECVAT 4 has 332 questions across seven tabs; this Core answers the critical and identification questions.) Answers use **Yes / No / N/A**; the Notes field is optional context.
 
-Sections such as HIPAA, PCI DSS, Consulting Services, and AI apply only if the product handles those categories; where they don't apply they are marked N/A (verify).
+Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the product handles those categories; where they don't apply they are marked N/A (verify).
 
 
 ## General Information
@@ -139,9 +139,9 @@ Sections such as HIPAA, PCI DSS, Consulting Services, and AI apply only if the p
 
 **REQU-04** — Does your solution have AI features, or are there plans to implement AI features in the next 12 months?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** Wiki Education develops no generative AI and hosts no AI model of its own. The Dashboard integrates two third-party machine-learning services that operate only on public Wikipedia content — not on institutional data: Wikimedia's article-quality models (ORES/LiftWing) to display article quality, and the Pangram API to flag suspected LLM-generated text in Wikipedia edits.
+**Notes:** Wiki Education develops no generative AI and hosts no AI model of its own. As part of normal operation the Dashboard calls two third-party machine-learning services, both only on public Wikipedia content and neither on institutional data: Wikimedia's article-quality models (ORES/LiftWing), to display an article's quality rating, and the Pangram API, to flag suspected LLM-generated text in a student's Wikipedia edits. Wiki Education staff also have an admin-only page for evaluating AI-detection services against public Wikipedia text on demand; it is used rarely, by staff only, and is not part of any course workflow.
 
 **REQU-05** — Does your solution process protected health information (PHI) or any data covered by the Health Insurance Portability and Accountability Act (HIPAA)?
 
@@ -492,20 +492,19 @@ _Additional Information_
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own, so there is no model development to risk-model. The third-party services it calls (Wikimedia article-quality models; the Pangram LLM-detection API) operate only on public Wikipedia content, not on institutional data — see REQU-04.
 
 **AIGN-02** — Can your solution's AI features be disabled by tenant and/or user?
 
-**Answer:** N/A
+**Answer:** No
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Neither can be switched off per institution or per user; there is no such control. Article-quality ratings are shown to everyone. LLM-detection of student edits runs only on the Wiki Education Dashboard, only for English Wikipedia, and only while a course is still running — but those are limits on where it applies, not settings an institution can change. Both services operate only on public Wikipedia content, so an institution's own data is not sent to either regardless.
 
 **AIGN-03** — Have your staff completed responsible AI training?
 
-**Answer:** N/A
+**Answer:** No
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
-
+**Notes:** Wiki Education staff have not completed a formal responsible-AI training programme. The AI the Dashboard uses is two traditional machine-learning classifiers — Wikimedia's article-quality models and an LLM-detection service — rather than open-ended generative AI: each takes public Wikipedia text or an article identifier and returns a score or rating, and neither generates content, takes actions, or receives institutional data. Wiki Education develops and trains no model of its own.
 
 ## AI Policy
 
@@ -513,26 +512,25 @@ _Additional Information_
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AIPL-02** — Have you identified and measured AI risks?
 
-**Answer:** N/A
+**Answer:** No
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Wiki Education has not carried out a formal AI risk assessment. The judgement behind that: the AI it uses is two traditional machine-learning classifiers — Wikimedia's article-quality models and an LLM-detection service — not open-ended generative AI. Each takes public Wikipedia text or an article identifier and returns a score or a rating. Neither generates content, takes actions, holds a conversation, or receives institutional data, so the risks a generative system raises — prompt injection, fabricated output presented as fact, training on customer data, unbounded tool use — do not arise here.
 
 **AIPL-03** — In the event of an incident, can your solution's AI features be disabled in a timely manner?
 
-**Answer:** N/A
+**Answer:** Yes
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** There is no purpose-built off switch. The operational lever is withdrawing the third-party API credential, which stops the LLM-detection calls promptly and can be done by Wiki Education at any time without a release. Article-quality ratings come from Wikimedia's own public service and would require a code change to remove. Neither service receives institutional data, so an incident at either does not expose an institution's roster, grades, or accounts.
 
 **AIPL-04** — If disabled because of an incident, can your solution's AI features be re-enabled in a timely manner?
 
-**Answer:** N/A
+**Answer:** Yes
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
-
+**Notes:** Restoring the withdrawn credential resumes LLM detection; no release is required.
 
 ## AI Data Security
 
@@ -540,20 +538,19 @@ _Additional Information_
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AISC-02** — Is user input data used to influence your solution's AI model?
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AISC-03** — Do you provide logging for your solution's AI feature(s) that includes user, date, and action taken?
 
-**Answer:** N/A
+**Answer:** Yes
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
-
+**Notes:** Every LLM-detection check is recorded against the revision it examined, with the contributing user, the course, the article, the check type, whether it was run automatically or by a named staff member, and the timestamp. Results are retained with that record.
 
 ## AI Machine Learning
 
@@ -561,13 +558,13 @@ _Additional Information_
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AIML-02** — Do you authenticate and verify your ML model's feedback?
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 
 ## AI Large Language Model (LLM)
@@ -576,25 +573,25 @@ _Additional Information_
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AILM-02** — Is your LLM training data vetted, validated, and verified before training the solution's AI model?
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AILM-03** — Do any actions taken by your solution's LLM features or plugins require human intervention?
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 **AILM-04** — Do you limit multiple LLM model plugins being called as part of a single input?
 
 **Answer:** N/A
 
-**Notes:** Not applicable: Wiki Education develops and hosts no AI model of its own (see REQU-04). The third-party machine learning it integrates (Wikimedia article-quality models; the Pangram LLM-detection API) operates only on public Wikipedia content, not on institutional data.
+**Notes:** Not applicable: this concerns an AI or LLM model that the vendor develops, trains, or hosts, and Wiki Education has none. The AI features it does have (see REQU-04) are calls to third-party services over public Wikipedia content, with no model, training data, or fine-tuning of its own.
 
 
 ## Privacy-Specific Company Details
@@ -651,7 +648,7 @@ Three limits on that combination: the student establishes it themselves by loggi
 
 **Answer:** No
 
-**Notes:** There are no AI features (see REQU-04); the third-party machine learning the Dashboard integrates operates only on public Wikipedia content, so no institutional data is retained in AI processing.
+**Notes:** What these services receive is public Wikipedia content — an article's identifiers for quality rating, and the text of a student's Wikipedia edit for LLM detection — not institutional data, and not the roster, grade, or account data an LMS integration exchanges. Detection results are stored by the Dashboard against the revision. Note for completeness that a Pangram submission also produces a report hosted by Pangram at a URL that is not access-controlled; its content is the public Wikipedia text that was submitted.
 
 **DPAI-03** — Do you have agreements in place with third parties or subprocessors regarding the protection of customer data and use of AI?
 

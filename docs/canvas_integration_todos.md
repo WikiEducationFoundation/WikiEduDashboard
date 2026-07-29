@@ -603,13 +603,39 @@ left, in the order it seems worth doing:
   reader skims past as body text is not much of a disclosure. Flagged by the third
   review; `_accessibility_report.styl` now gives them a left rule and a tinted
   ground, which applies to `/accessibility`, `/lti/guide`, and `/hecvat`.
-- [ ] **HECVAT REQU-04 is still a factual question, not a wording one.** It answers
-  **No** to "Does your solution have AI features?", with 26 AI-tab questions N/A'd
-  on that basis, while Pangram and Originality.ai both run on the Wiki Ed
-  deployment. Sage has accepted the HECVAT's *wording*; this is a different
-  question — where the line falls between "an AI feature of the product" (a
-  classifier the app calls on student revisions) and "content about AI" (a training
-  module teaching about generative AI). That answer also determines AIGN-02,
-  DPAI-02 (which sits against `lib/pangram_api.rb`'s `public_dashboard_link: true`
-  producing a publicly reachable report), and the DPAI-03 subprocessor list, which
-  omits New Relic, Salesforce, Pangram, and Originality.ai.
+- [x] **HECVAT REQU-04 answered Yes, and the AI tab reconciled.** _(2026-07-29.)_
+  Sage changed REQU-04 from No to Yes, which made fourteen AI-tab answers
+  self-contradictory: each was N/A on the stated ground that "there are no AI
+  features (see REQU-04)". Resolved as:
+  - **Ten stay N/A**, rewritten to stand on what is still true — Wiki Education
+    develops, trains, and hosts no model of its own — rather than on the retired
+    claim. Sage's framing carries these: the AI in use is two traditional ML
+    classifiers, not open-ended generative AI, so the LLM and training-data
+    questions genuinely don't apply.
+  - **AIGN-02 (disableable per tenant/user): No.** There is no such control.
+    `Features.wiki_ed?`, `wiki.en_wiki?` and the course-still-running check bound
+    *where* LLM detection applies; none is a setting an institution can change, and
+    there is no AI-specific feature flag anywhere.
+  - **AIPL-02 (AI risks identified/measured): No**, and **AIGN-03 (staff
+    responsible-AI training): No**, both with the classifier-vs-generative
+    rationale.
+  - **AIPL-03 / AIPL-04 (disable / re-enable on incident): Yes** — withdrawing the
+    Pangram credential (`ENV['pangram_api_key']`) stops the calls without a
+    release; restoring it resumes them.
+  - **AISC-03 (logging with user, date, action): Yes** — `revision_ai_scores`
+    records the contributing user, course, article, revision, check type, whether
+    the check was automatic or run by a named staff member, and the timestamp.
+  - **DPAI-02** keeps its **No**, rejustified on what the services actually
+    receive, and now discloses that a Pangram submission produces a report at a URL
+    that is not access-controlled, whose content is the public Wikipedia text
+    submitted.
+  - **Originality.ai deliberately omitted**, per Sage: `lib/originality_api.rb` is
+    reached only from `/ai_tools`, which is `require_admin_permissions`-gated, run
+    manually and rarely by staff, and operates on public Wikipedia text. REQU-04's
+    note now describes what runs "as part of normal operation" and mentions the
+    admin-only evaluation page in general terms, so the boundary is stated without
+    listing a service the product does not call programmatically.
+  - Still open: **DPAI-03's subprocessor list** omits New Relic and Salesforce.
+    Pangram's absence there is arguably fine — it receives public Wikipedia text,
+    and the list is scoped to subprocessors receiving personal/institutional data —
+    but that reasoning is worth stating explicitly rather than leaving to inference.
