@@ -635,7 +635,12 @@ left, in the order it seems worth doing:
     note now describes what runs "as part of normal operation" and mentions the
     admin-only evaluation page in general terms, so the boundary is stated without
     listing a service the product does not call programmatically.
-  - Still open: **DPAI-03's subprocessor list** omits New Relic and Salesforce.
-    Pangram's absence there is arguably fine — it receives public Wikipedia text,
-    and the list is scoped to subprocessors receiving personal/institutional data —
-    but that reasoning is worth stating explicitly rather than leaving to inference.
+  - **DPAI-03's subprocessor list** now includes New Relic (transaction and error
+    traces carry request paths, and Dashboard paths contain course slugs and
+    Wikipedia usernames) and Salesforce (course-level records for Wiki Education's
+    own programs — enumerated from `PushCourseToSalesforce#base_salesforce_fields`,
+    which sends titles, URLs, dates, participant and edit counts, assignment
+    settings and AI-alert counts, and no student names or emails). The list also now
+    says why the machine-learning services aren't on it: they receive public
+    Wikipedia content, not personal or institutional data. THRD-02 carries no
+    parallel list, so there was only one copy to update.
