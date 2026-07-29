@@ -44,12 +44,21 @@ describe 'Assignment drill-down screenshots', :staging do
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
   let(:screenshot_dir)     { canvas_shots_dir('assignment_view') }
-  # Sage-provided test accounts. The first two have sandbox content at
-  # User:<name>/Evaluate_an_Article (→ "Completed" + a rendered preview); the
-  # real test student walks the launch themselves and contributes their own
-  # row, so they aren't fabricated here.
-  let(:gallery_students)   { ['Ragetest 9', 'Ragetest 37', 'Ragetest 14'] }
-  let(:completed_students) { ['Ragetest 9', 'Ragetest 37'] }
+  # Sage-provided test accounts, fabricated as extra roster rows so the drill-downs
+  # read like a real class. 'Ragetest 37' has sandbox content at
+  # User:<name>/Evaluate_an_Article (→ "Completed" + a rendered preview).
+  #
+  # These must exclude BOTH the real test student, who walks the launch and
+  # contributes their own row, AND the instructor. 'Ragetest 9' was in this list
+  # and is `WIKIPEDIA_TEST_INSTRUCTOR_USERNAME`: the instructor's launch already
+  # creates a staff LtiContext for that Dashboard user, so fabricating a second,
+  # student-role context for them gave one Wikipedia account two identities in one
+  # course — which put the instructor in their own student roster in every
+  # published gallery, and is the double-credit state
+  # `index_lti_contexts_on_binding_and_user` now refuses outright. The index is
+  # what surfaced this; before it, the insert simply succeeded.
+  let(:gallery_students)   { ['Ragetest 37', 'Ragetest 14'] }
+  let(:completed_students) { ['Ragetest 37'] }
   let(:preview_student)    { 'Ragetest_37' }
 
   before do

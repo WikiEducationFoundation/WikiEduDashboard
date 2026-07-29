@@ -28,6 +28,57 @@ describe LtiContext do
     end
   end
 
+  # The 1:1 identity map is scoped to a binding, and a binding is one LMS course.
+  # Worth pinning explicitly: if it were scoped any wider, the ordinary case of one
+  # person in two Canvas courses would break — an instructor teaching two sections,
+  # or a student enrolled in two Wikipedia assignments.
+  describe 'the (binding, user) uniqueness scope' do
+    let(:other_binding) do
+      LtiCourseBinding.create!(lms_id: 'platform-x', lms_family: 'canvas',
+                               lms_context_id: 'canvas-course-88',
+                               lms_resource_link_id: 'rl-88')
+    end
+
+    it 'lets one Dashboard user hold a context in two different courses' do
+      described_class.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                              lti_course_binding: binding, user:)
+      expect do
+        described_class.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                                lti_course_binding: other_binding, user:)
+      end.to change(described_class, :count).by(1)
+    end
+
+    # Same person, same Canvas account, two Canvas courses — so the same
+    # user_lti_id as well. Both indexes are binding-scoped, so this is fine.
+    it 'lets the same LMS identity appear in two different courses' do
+      described_class.create!(user_lti_id: 'lti-same', lms_id: 'platform-x',
+                              lti_course_binding: binding, user:)
+      other = described_class.create!(user_lti_id: 'lti-same', lms_id: 'platform-x',
+                                      lti_course_binding: other_binding, user:)
+      expect(other).to be_persisted
+    end
+
+    # What it does refuse: two LMS identities resolving to one Dashboard user
+    # inside the *same* course, which would post one student's progress at two
+    # gradebook rows.
+    it 'refuses two identities for one user within a single course' do
+      described_class.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                              lti_course_binding: binding, user:)
+      expect do
+        described_class.create!(user_lti_id: 'lti-2', lms_id: 'platform-x',
+                                lti_course_binding: binding, user:)
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
+    it 'still allows many not-yet-connected members in one course' do
+      3.times do |i|
+        described_class.create!(user_lti_id: "pending-#{i}", lms_id: 'platform-x',
+                                lti_course_binding: binding, user: nil)
+      end
+      expect(described_class.where(lti_course_binding: binding, user_id: nil).count).to eq(3)
+    end
+  end
+
   describe 'roles serialization' do
     it 'persists and reads back an array' do
       ctx = described_class.create!(
