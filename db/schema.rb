@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_28_203000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -99,6 +99,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
     t.virtual "index_hash", type: :string, as: "if(`deleted`,NULL,concat(`mw_page_id`,_utf8mb4'-',`wiki_id`))", stored: true
     t.index ["index_hash"], name: "index_articles_on_index_hash", unique: true
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
+    t.index ["id", "namespace"], name: "index_articles_on_id_and_namespace"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
   end
 
