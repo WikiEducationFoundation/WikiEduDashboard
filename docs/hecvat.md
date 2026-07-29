@@ -1,6 +1,11 @@
-> **Draft — work in progress.** This response (the official **HECVAT 4.1.6** critical-question "Core" set, © EDUCAUSE) accompanies the in-development Canvas integration and will be finalized before that integration ships to production. Answers were drafted with Claude Code — from the public codebase and Wiki Education's infrastructure details — and reviewed and confirmed by Wiki Education (Sage Ross, Chief Technology Officer).
-
 # HECVAT 4.1.6 (Core) — Wiki Education Dashboard
+
+> **About this response.** This is the official **HECVAT 4.1.6** critical-question
+> ("Core") set, © EDUCAUSE, answered for the Wiki Education Dashboard's Canvas
+> integration — an integration that is new and still changing. Answers were drafted
+> with Claude Code, an AI assistant, from the public codebase and Wiki Education's
+> infrastructure details, then reviewed and confirmed by Wiki Education (Sage Ross,
+> Chief Technology Officer).
 
 This is a Higher Education Community Vendor Assessment Toolkit (HECVAT) response for the Wiki Education Dashboard's Canvas (LTI 1.3) integration, covering the **critical ("Core") questions** — the asterisked subset EDUCAUSE recommends for a Lite-style review. (Full HECVAT 4 has 332 questions across seven tabs; this Core answers the critical and identification questions.) Answers use **Yes / No / N/A**; the Notes field is optional context.
 
@@ -619,11 +624,6 @@ _Additional Information_
 **Answer:** No
 
 **PDAT-03** — Do you combine institutional data (including "de-identified," "anonymized," or otherwise masked data) with personal data from any other sources?
-
-> [DRAFT - answer and notes below were drafted by Claude Code, not the operator,
-> after a code review flagged the previous "No" as inaccurate. The facts are
-> checked against the implementation, but the compliance wording is Sage's to
-> rewrite and sign off before this HECVAT goes to any institution.]
 
 **Answer:** Yes
 

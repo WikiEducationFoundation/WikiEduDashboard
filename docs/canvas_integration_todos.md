@@ -520,7 +520,10 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
       so staging transmits names and emails until it is re-registered with the
       parameter (or corrected with the `PUT` in `canvas_dev_setup.md` §0). Left
       alone deliberately — no real users or data are on staging.
-- [ ] **`docs/canvas_integration_guide.md`: "already signed in".** The
+- [x] **`docs/canvas_integration_guide.md`: "already signed in".** _(Fixed
+  2026-07-29, with Sage's go-ahead on guide wording.)_ Also fixed in the same pass:
+  the troubleshooting entry that still told admins the instructor must enable the
+  nav item per course. Original note: The
   course-navigation bullet says instructors and students open the Dashboard from
   the nav link "already signed in." That isn't what happens. Inside the Canvas
   iframe, cookies are partitioned away from the top-level Dashboard session, so
@@ -535,10 +538,8 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
   "Anonymized". Both have a basis — `anonymous` is the API/`privacy_level` value,
   "None (Anonymized)" is the label in Canvas's admin UI — but the two documents
   should agree, and the UI label is what an institution's admin will recognize.
-- [ ] **`docs/hecvat.md` PDAT-03 is a marked draft.** Claude Code drafted the
-  corrected "Yes" answer and notes at Sage's request; the `[DRAFT - ...]` marker
-  above it has to be resolved (rewritten and the marker removed) before the HECVAT
-  goes to any institution.
+- [x] **`docs/hecvat.md` PDAT-03.** _(Resolved 2026-07-29: Sage accepted the
+  drafted wording, so the `[DRAFT]` marker is removed.)_
 
 ## Third-review follow-ups (2026-07-29)
 
@@ -587,3 +588,28 @@ left, in the order it seems worth doing:
   connect" rather than an error; `sign_in_to_continue` is the one landing without
   a re-launch link and the one guaranteed to be stale; and no LTI view has an
   `<h1>`, with drill-downs jumping `h2` → `h4`.
+
+## Published-document notices (2026-07-29)
+
+- [x] **Permanent AI disclosure on `/lti/guide`, and draft banners retired.** The
+  guide's only AI attribution had been a clause inside its "Draft — work in
+  progress" banner, so the disclosure would have vanished the moment the banner did.
+  Both that banner and the HECVAT's are now permanent "About this…" notes carrying
+  the same substance — what the document is, that Claude Code drafted it, and who
+  reviewed it — without the will-be-finalized framing. `docs/vpat.md` already had a
+  permanent note of this shape and was left alone.
+- [x] **Blockquotes are styled on the rendered-Markdown pages.** They carry these
+  notices, and unstyled they rendered as ordinary indented prose — a disclosure a
+  reader skims past as body text is not much of a disclosure. Flagged by the third
+  review; `_accessibility_report.styl` now gives them a left rule and a tinted
+  ground, which applies to `/accessibility`, `/lti/guide`, and `/hecvat`.
+- [ ] **HECVAT REQU-04 is still a factual question, not a wording one.** It answers
+  **No** to "Does your solution have AI features?", with 26 AI-tab questions N/A'd
+  on that basis, while Pangram and Originality.ai both run on the Wiki Ed
+  deployment. Sage has accepted the HECVAT's *wording*; this is a different
+  question — where the line falls between "an AI feature of the product" (a
+  classifier the app calls on student revisions) and "content about AI" (a training
+  module teaching about generative AI). That answer also determines AIGN-02,
+  DPAI-02 (which sits against `lib/pangram_api.rb`'s `public_dashboard_link: true`
+  producing a publicly reachable report), and the DPAI-03 subprocessor list, which
+  omits New Relic, Salesforce, Pangram, and Originality.ai.

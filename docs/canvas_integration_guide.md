@@ -1,8 +1,12 @@
-> **Draft — work in progress.** This guide accompanies the in-development Canvas
-> integration and will be finalized before it ships to production. It was drafted
-> with Claude Code and is pending Wiki Education's review.
-
 # Adding the Wiki Education Dashboard to your Canvas
+
+> **About this guide.** It documents a Canvas integration that is new, and both the
+> integration and this guide are still changing. Most of the guide was drafted by
+> Claude Code, an AI coding assistant, working from the integration's source and
+> from walkthroughs of a real Canvas install; Wiki Education staff direct and
+> review it, and the installation steps have been followed end to end against a
+> live Canvas. If something here doesn't match what you see, trust Canvas and
+> [tell us](#getting-help).
 
 This guide is for **Canvas administrators** at colleges and universities whose
 instructors use the [Wiki Education Dashboard](https://dashboard.wikiedu.org) to
@@ -21,7 +25,9 @@ listed as **wikiedu.org** in your developer keys, your apps, and course
 navigation:
 
 - **Course-navigation link** — instructors and students open the Dashboard from a
-  link in the course's left-hand navigation, already signed in.
+  **wikiedu.org** link in the course's left-hand navigation. The first time, they
+  connect their Wikipedia account in a new tab; after that the tool shows their
+  course and progress in place.
 - **Roster sync (NRPS)** — students who launch the tool are added to the
   instructor's Dashboard course automatically.
 - **Gradebook passback (AGS)** — the training modules and exercises students
@@ -141,9 +147,10 @@ flows back to the gradebook.
 - **The key looks ON but the app won't install.** Toggle the key's **State**
   off and back on in **Developer Keys**, then retry. Canvas can display the key
   as enabled when it isn't, and the install has nothing to attach to.
-- **The link doesn't appear in a course.** The instructor needs to enable it
-  under **Settings → Navigation** (and click Save). If you are using
-  exceptions, confirm that course has one.
+- **The link doesn't appear in a course.** Confirm the app is available to that
+  course — if you are using exceptions, confirm that course has one. An instructor
+  can also have hidden the item under **Settings → Navigation**, in which case they
+  re-enable it there.
 - **Launching shows an error right after install.** The tool may not be active
   yet — confirm Wiki Education has activated your registration.
 
