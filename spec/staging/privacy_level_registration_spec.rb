@@ -35,6 +35,16 @@ require_relative 'spec_helper'
 # (`docs/canvas_dev_setup.md` §0) accepting that staging needs re-provisioning
 # afterwards. A refusal here is information, not a flake — read the failure.
 #
+# ## The LTIAAS approval step
+#
+# Wiki Education reviews and activates each new registration on the LTIAAS side
+# before launches work, so a run leaves a registration awaiting approval. That
+# does not block what this spec asserts — Canvas's configuration exchange
+# completes regardless, which is what the privacy level rides on — but it does
+# mean each run leaves something to approve or discard in the LTIAAS portal, and
+# that a *launch* against the registration this creates would need approval first.
+# Deliberately a run-it-when-verifying spec, not something for CI.
+#
 # ## Guards
 #
 # Creating a developer key and an account-level tool is real admin mutation on
@@ -90,14 +100,23 @@ describe 'LTIAAS privacy_level registration parameter', :staging do
     key_id = newly_created_key_id
     expect(key_id).not_to be_nil, 'dynamic registration created no new developer key'
 
-    tool_id = newly_created_tool_id
-    expect(tool_id).not_to be_nil, <<~MSG
-      A developer key was created but no account-level external tool was.
-      Registering is not installing — see docs/canvas_integration_guide.md.
-    MSG
-
-    # Both sides, and the installed tool is the one that matters.
+    # What LTIAAS handed Canvas. This is the half the URL parameter directly
+    # controls, and it is readable whether or not the app is ever deployed.
     expect(canvas_api.developer_key_privacy_level(key_id)).to eq('anonymous')
+
+    # Registering is not installing: a dynamic registration leaves the app
+    # undeployed, with no ContextExternalTool and so nothing whose privacy_level
+    # can be read. Flipping the registration's account binding to "on" is what
+    # deploys it — the API equivalent of the guide's "Make it available" step.
+    registration = canvas_api.find_lti_registration_by_key(key_id)
+    expect(registration).not_to be_nil, 'no lti_registration for the new developer key'
+    canvas_api.deploy_lti_registration(registration['id'])
+
+    tool_id = eventually(attempts: 10, interval: 2) { newly_created_tool_id }
+    expect(tool_id).not_to be_nil, 'deploying the registration created no external tool'
+
+    # The one that actually governs launch claims and the NRPS roster, and the one
+    # that came out `public` when an admin chose Anonymized in the dialog.
     expect(canvas_api.external_tool_privacy_level(tool_id)).to eq('anonymous')
   end
 
@@ -109,29 +128,61 @@ describe 'LTIAAS privacy_level registration parameter', :staging do
   # a failure here should read as "the dialog changed", not as a privacy result.
   def register_via_dynamic_registration
     visit "/accounts/#{account_id}/developer_keys"
-    click_any_button(['+ Developer Key', 'Developer Key'])
-    click_any_button(['+ LTI Registration', 'LTI Registration'])
+    # Canvas's own ids, which have outlived the relabeling of these controls: the
+    # menu button reads "Create a Developer Key" on canvas.wikiedu.org, not the
+    # "+ Developer Key" the guide describes.
+    find('#add-developer-key-button', wait: 20).click
+    find('#add-lti-registration-button', wait: 10).click
     fill_in_registration_url
     click_any_button(%w[Continue Next])
     accept_registration_dialog
   end
 
+  # The "Register App" dialog holds one input, labelled "Dynamic Registration
+  # Url". Matched by label because InstUI generates ids (`TextInput___2`) that
+  # change between renders; falls back to the dialog's only text input.
   def fill_in_registration_url
-    field = eventually(attempts: 8, interval: 2) do
-      first(:fillable_field, type: 'url', minimum: 0) || first(:fillable_field, minimum: 0)
+    dialog = find('[role="dialog"]', match: :first, wait: 15)
+    within(dialog) do
+      fill_in 'Dynamic Registration Url', with: registration_url
     end
-    raise 'no URL field in the LTI registration dialog' if field.nil?
+  rescue Capybara::ElementNotFound
+    field = dialog.all('input[type="text"]', minimum: 0).first
+    raise 'no URL field in the Register App dialog' if field.nil?
 
     field.set(registration_url)
   end
 
-  # The dialog ends in a review step whose final action has been labelled
-  # "Enable & Close", "Install", and "Enable" across Canvas versions. LTIAAS
-  # refusing the registration surfaces here, so the wait is generous and the
-  # failure deliberately carries the page text.
+  # After Continue, Canvas contacts LTIAAS and LTIAAS registers itself; only then
+  # does the dialog offer its final action. That round-trip is why the window is
+  # generous.
+  #
+  # The label list deliberately excludes "Close" and "Cancel". The dialog carries
+  # a persistent X/Close from the moment it opens, so matching it dismissed the
+  # dialog instantly and the run finished in five seconds having registered
+  # nothing — a false negative that looked like LTIAAS refusing.
+  ACCEPT_LABELS = ['Enable & Close', 'Install', 'Enable', 'Register'].freeze
+
   def accept_registration_dialog
-    click_any_button(['Enable & Close', 'Install', 'Enable', 'Close'], attempts: 30)
+    button = eventually(attempts: 40, interval: 3) do
+      ACCEPT_LABELS.filter_map { |label| first(:button, label, minimum: 0) }.first
+    end
+    raise registration_stalled_message if button.nil?
+
+    button.click
     expect(page).to have_no_button('Enable & Close', wait: 30)
+  end
+
+  # LTIAAS refusing an already-registered platform surfaces as the dialog never
+  # reaching its final step, so the dialog's own text is the diagnosis.
+  def registration_stalled_message
+    dialog = first('[role="dialog"]', minimum: 0)
+    <<~MSG
+      The registration dialog never offered any of: #{ACCEPT_LABELS.join(', ')}.
+      If LTIAAS refused the platform as already registered, that is the answer
+      this spec exists to find — see the header. Dialog said:
+      #{dialog ? dialog.text.to_s[0, 1200] : '(no dialog present)'}
+    MSG
   end
 
   # Clicks whichever of `labels` appears first, polling until one does.
@@ -174,12 +225,28 @@ describe 'LTIAAS privacy_level registration parameter', :staging do
 
   def remove_keys_created_by_this_run
     ids = canvas_api.list_developer_keys.map { |k| k['id'].to_s } - preexisting_key_ids.to_a
-    ids.each { |id| attempt_removal("developer key #{id}") { canvas_api.delete_developer_key(id) } }
+    ids.each do |id|
+      registration = canvas_api.find_lti_registration_by_key(id)
+      if registration
+        attempt_removal("lti registration #{registration['id']}") do
+          canvas_api.delete_lti_registration(registration['id'])
+        end
+      end
+      attempt_removal("developer key #{id}") { canvas_api.delete_developer_key(id) }
+    end
   end
 
+  # Deleting an lti_registration takes its developer key with it, so the key
+  # delete that follows legitimately 404s. Anything else is reported — a teardown
+  # problem must not mask the result, but it must not be silent either, since the
+  # leftovers then need removing by hand.
   def attempt_removal(what)
     yield
     warn "[teardown] removed #{what}"
+  rescue CanvasApiClient::ApiError => e
+    raise unless e.status == 404
+
+    warn "[teardown] #{what} was already gone"
   rescue StandardError => e
     warn "[teardown] FAILED to remove #{what} (#{e.class}: #{e.message}) — remove it by hand"
   end

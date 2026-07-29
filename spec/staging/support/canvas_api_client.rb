@@ -165,6 +165,29 @@ class CanvasApiClient
     get("/api/v1/accounts/#{@account_id}/external_tools/#{tool_id}")['privacy_level']
   end
 
+  # Canvas's newer LTI-registration API, which the Apps page is built on. The
+  # record carries an `account_binding` whose workflow_state is the availability
+  # switch: flipping it to "on" is what deploys the ContextExternalTool. Until
+  # then a dynamic registration has a developer key and no installed tool at all,
+  # so there is nothing whose privacy_level can be read — "registering is not
+  # installing", in the guide's terms.
+  def list_lti_registrations
+    get("/api/v1/accounts/#{@account_id}/lti_registrations", per_page: 100)['data']
+  end
+
+  def find_lti_registration_by_key(key_id)
+    list_lti_registrations.find { |r| r['developer_key_id'].to_s == key_id.to_s }
+  end
+
+  def deploy_lti_registration(registration_id)
+    put("/api/v1/accounts/#{@account_id}/lti_registrations/#{registration_id}/binding",
+        workflow_state: 'on')
+  end
+
+  def delete_lti_registration(registration_id)
+    delete("/api/v1/accounts/#{@account_id}/lti_registrations/#{registration_id}")
+  end
+
   def delete_developer_key(key_id)
     delete("/api/v1/developer_keys/#{key_id}")
   end
