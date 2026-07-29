@@ -448,6 +448,9 @@ Course Navigation config (`text: Wiki Education Dashboard`, `enabled: true`):
   in per course via **Settings → Navigation**. Switching between these is a
   developer-key placement setting in Canvas; nothing in the codebase changes.
 
+The LTIAAS config does not set `default`, so a fresh registration comes out
+`enabled`. That is the beta posture (see §6).
+
 `visibility` controls who sees the tab (`admins` / `members` / `public`).
 
 ### Service authentication (background workers)
@@ -547,12 +550,14 @@ tool now lives on the root account, available to every course and sub-account.
 Confirm the scopes (NRPS, AGS line items, AGS scores) and the placements are
 present — this is the read-only state the admin screenshot capture documents.
 
-### 6. Choose how it appears (course-navigation default)
+### 6. How it appears (course-navigation default)
 
-- **`default: disabled`** (recommended for a first rollout) — installed but off;
-  the requesting instructor turns it on for just their course via
-  **Settings → Navigation**, and no other course changes.
-- **`default: enabled`** — the tab appears in every course automatically.
+Beta testing ships with the tab **on by default** — `default: enabled`, the tab
+appears in every course automatically. `default: disabled` (installed but off,
+each instructor opting in via **Settings → Navigation**) is the other value
+Canvas offers and the LTIAAS config does not currently set it; that was accepted
+rather than fixed for beta, so the guide says nothing about instructors enabling
+the tab.
 
 ### 7. Hand back to the instructor, and verify
 
@@ -580,7 +585,8 @@ on staging it already is. Confirm:
 - **Admin → Apps → Manage**: the tool shows **On / Up to date**.
 - The [placements](#placements) and [required LTIAAS scopes](#required-ltiaas-scopes)
   are registered, and the Course Navigation `default` is set how you want it
-  (`enabled` = tab in every course; `disabled` = instructors opt in per course).
+  (`enabled` = tab in every course, which is the beta posture; `disabled` =
+  instructors opt in per course).
 - **Privacy level is `anonymous` on the _installed_ tool.** What Canvas shares
   (launch claims *and* the NRPS roster) is governed by the installed tool, and it
   can differ from the developer key's `tool_configuration`. That's not a

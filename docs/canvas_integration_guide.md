@@ -38,13 +38,8 @@ tools. It does **not** require Site Admin access (on Instructure-hosted Canvas y
 won't have that anyway). You can also install on a **sub-account** to limit the
 tool to one division.
 
-Installing on the root account makes the tool *available* everywhere, but you
-control whether it actually appears:
-
-- **Opt-in (recommended for a first rollout):** the tool is installed but its
-  course-navigation link is off by default; each instructor turns it on for their
-  own course. Nothing changes for courses that don't use it.
-- **On by default:** the link appears in every course's navigation.
+Installing on the root account makes the tool *available* everywhere, and its
+course-navigation link appears in every course's navigation.
 
 ## Before you install: review and approvals
 
@@ -124,18 +119,13 @@ appears:
 | Modules index menu | The **⋮** menu on a course's Modules page | Importing the Wikipedia assignments from the Dashboard Timeline |
 | Assignment view | Inside each imported Wikipedia assignment | Details of each Dashboard assignment |
 
-The course-navigation item is hidden by default, so instructors turn it on for
-their own course under **Settings → Navigation**.
-
 ## Enabling it for a course (the instructor)
 
 Once the app is available in their course, the instructor:
 
-1. Opens their course's **Settings → Navigation**, enables **wikiedu.org** (if
-   the item is hidden), and saves.
-2. Clicks the new navigation link to launch the Dashboard, and links the Canvas
-   course to their Wiki Education course.
-3. On the course's **Modules** page, opens the **⋮** menu and chooses
+1. Clicks the **wikiedu.org** navigation link to launch the Dashboard, and links
+   the Canvas course to their Wiki Education course.
+2. On the course's **Modules** page, opens the **⋮** menu and chooses
    **wikiedu.org** to import the Wikipedia assignments and their gradebook
    columns.
 

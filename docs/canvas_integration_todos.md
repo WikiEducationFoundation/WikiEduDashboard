@@ -96,8 +96,14 @@ launch + Wikipedia OAuth is the only linking path.
 >      and the installed tool disagreeing.
 >      `spec/staging/privacy_level_registration_spec.rb` drives a fresh
 >      registration and asserts both sides; run it before the guide is published.
-> 3. **`module_index_menu_modal` is absent**, as expected — the Modules bulk
->    import does not exist on a fresh registration.
+> 3. ~~**`module_index_menu_modal` is absent**, as expected — the Modules bulk
+>    import does not exist on a fresh registration.~~ **Not reproduced, and this
+>    note was wrong.** Sage's later walkthrough had the Modules import working,
+>    and checking the installed tool from that same 2026-07-27 registration
+>    confirms it (`GET /api/v1/accounts/1/external_tools/10` on 2026-07-29 lists
+>    `course_navigation`, `assignment_view`, and `module_index_menu_modal`). A
+>    registration against the current LTIAAS config gets all three placements, so
+>    the guide's description of the Modules import is accurate.
 > 4. **Every placement is labelled with the tool name** ("wikiedu.org
 >    testing"), confirming the Title fallback below.
 
@@ -110,7 +116,13 @@ launch + Wikipedia OAuth is the only linking path.
   and (b) double-check whether LTIAAS supports per-placement `text`/`icon_url` via
   some other config path.
 
-- [ ] **LTIAAS config: add `course_navigation`, `default: disabled`.** Dynamic
+- [x] **LTIAAS config: add `course_navigation`, `default: disabled`.** _(Decided
+  against for beta, 2026-07-29: the nav item appearing in every course is good
+  enough for beta testing, so the config keeps its `enabled` default and the docs
+  were made consistent with that by omission — the guide no longer offers the
+  opt-in choice, no longer says the item is hidden by default, and no longer has
+  the instructor enable the tab. `docs/canvas_dev_setup.md` §6 records which value
+  ships and why.)_ Original item, for when this is revisited: dynamic
   registration sources placements from the LTIAAS config, which initially lacked
   `course_navigation` (the old manual keys set placements directly in Canvas, so the
   config never needed it). It's now been added to the config — but it also needs
@@ -491,17 +503,22 @@ this PR. The review's other findings were fixed on the branch.
 Two documentation statements the second review flagged that are the operator's to
 word, not Claude's. Neither was rewritten; both are recorded here instead.
 
-- [ ] **The guide's three contradictions are now two.** The "Anonymized" one is
-  resolved by LTIAAS's `?privacy_level=anonymous` parameter (see "Admin
-  registration UX" above) — pending the staging verification. Still open, and both
-  are LTIAAS *config* rather than a URL parameter, so worth asking them the same
-  question: `course_navigation` needs `default: disabled` (otherwise every course
-  grows a nav item the moment the app is made available), and
-  `module_index_menu_modal` was absent from a fresh registration, so a newly
-  registered institution has no Modules import — which is what
-  `lti.status.import_next_step.instruction` tells their instructors to use. Until
-  both are true, following the guide misconfigures Canvas; consider unpublishing
-  `/lti/guide` in the meantime.
+- [ ] **The guide's three contradictions are down to one — the privacy level.**
+  Of the three the review found:
+  - **Nav item "hidden by default"** — resolved by deciding not to make it
+    default-disabled, and removing the claim (see "Admin registration UX" above).
+  - **Modules import absent from a fresh registration** — was never true; our own
+    walkthrough note was wrong, and the installed tool has the placement.
+  - **"Anonymized" meaning Canvas doesn't transmit names** — still open, and now
+    known to be worse than a doc problem. `?privacy_level=anonymous` on the
+    registration URL does not work: a registration made with it produced a
+    developer key whose `tool_configuration` said `public`
+    (`spec/staging/privacy_level_registration_spec.rb`, 2026-07-29). Separately,
+    even the hand-registration path that *does* get `anonymous` onto the key still
+    installs the tool as `public`, so Canvas drops it between the two. LTIAAS says
+    there is a programmatic way to force it; awaiting details. Until the installed
+    tool actually comes out `anonymous`, the guide's data-sharing paragraph
+    overstates what an institution's Canvas transmits.
 - [ ] **`docs/canvas_integration_guide.md`: "already signed in".** The
   course-navigation bullet says instructors and students open the Dashboard from
   the nav link "already signed in." That isn't what happens. Inside the Canvas
