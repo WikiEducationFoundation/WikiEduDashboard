@@ -125,14 +125,16 @@ launch + Wikipedia OAuth is the only linking path.
   `lumped` (auto-create nothing); the instructor imports every column (account
   indicator, trainings roll-up, exercises) via the Modules "Import Wikipedia
   assignments" flow, and `SyncLtiLineItems` discovers + binds them.
-  - **Vestigial follow-up:** `standard`/`per_block` (auto-create) remain as
-    valid `gradebook_granularity` values with working code, but are no longer
-    user-selectable (retained only so existing rows / the gradebook & full-course
-    screenshot galleries keep working — those galleries force `standard` via
-    `DashboardAdminClient.set_granularity` as a shortcut). Removing
-    standard/per_block entirely (and reworking those two galleries onto the
-    deep-link import flow) is the remaining cleanup. `gradebook_granularity`
-    could then collapse to a boolean or be dropped.
+  - **`standard`/`per_block` removed.** _(Done 2026-07-29, from the second code
+    review.)_ Both auto-creating layouts and the `gradebook_granularity` column
+    are gone; deep-link-first is the only layout. That also removed the
+    auto-create and label-push branches in `SyncLtiLineItems`, the
+    `exercises_only:` flag on `LtiBlockProgress` (every caller wanted it), and
+    the unused `update_line_item` / `delete_line_item` AGS verbs plus the
+    `LtiaasClient` PUT/DELETE they relied on. The two screenshot galleries that
+    forced `standard` now seed the same columns the Modules import produces
+    (`DashboardAdminClient.import_all_columns`), so they exercise the shipped
+    discovery path.
 
 - [x] **Bulk deep-linking via `module_index_menu_modal` — done, module names
   included (2026-07-27).** The import creates one published module with all
@@ -433,21 +435,32 @@ this PR. The review's other findings were fixed on the branch.
 > below. Note staging's `schema_migrations` still holds the five superseded
 > version rows, which is harmless — no file matches them, so nothing re-runs.
 
-- [ ] **Encrypt long-lived external credentials — app-wide, not just here.**
-  `lti_course_bindings.ltiaas_service_credentials` is plain text. So are
-  `users.wiki_token` / `users.wiki_secret`, the Wikipedia OAuth credentials for
-  every account on the site. This app has no Active Record encryption anywhere,
-  so encrypting one new column means standing up
-  `active_record_encryption` key management on both production deployments
-  (Wiki Ed and Peony) plus dev and CI, for one column, while the larger and more
-  numerous credential store stays in the clear. Worth doing as its own change,
-  covering both.
-- [ ] **Remove the `standard` / `per_block` gradebook granularities.** Already
-  tracked above under "Linking / launch model" — the blocker is that the
-  gradebook and full-course screenshot galleries force `standard` via
-  `DashboardAdminClient.set_granularity`; those two galleries need reworking onto
-  the deep-link import flow first. `gradebook_granularity` can then collapse or
-  be dropped.
+- [ ] **Encrypt long-lived external credentials — a pre-production dependency,
+  and app-wide rather than just here.** `lti_course_bindings.ltiaas_service_credentials`
+  is plain text. So are `users.wiki_token` / `users.wiki_secret`, the Wikipedia
+  OAuth credentials for every account on the site. This app has no Active Record
+  encryption anywhere, so encrypting one new column means standing up
+  `active_record_encryption` key management on both production deployments (Wiki
+  Ed and Peony) plus dev and CI, for one column, while the larger and more
+  numerous credential store stays in the clear — which is why it isn't in this PR.
+  It is not a reason to treat the new credential as fine, though, so recording
+  what has to be true before this ships to real institutions:
+  - **Blast radius, written down.** An `ltiaas_service_credentials` value grants
+    NRPS (roster read) and AGS (gradebook read/write) on that one Canvas course,
+    via LTIAAS, until rotated. It does not grant anything else in Canvas, and it's
+    per-binding rather than tenant-wide.
+  - **Rotation.** Each launch refreshes the stored key from the launch idtoken
+    (`LtiSession#find_or_create_binding!`), so a course that's actively used
+    rotates on its own; there is no operator-driven rotation path, and no way to
+    revoke one binding's key without LTIAAS. Decide whether that's sufficient and
+    document it.
+  - **Incident response.** Decide the procedure for a suspected database
+    disclosure: at minimum, what to null out (`UPDATE lti_course_bindings SET
+    ltiaas_service_credentials = NULL` stops all background NRPS/AGS calls
+    immediately and is safe — the next launch re-populates it), who at LTIAAS to
+    contact, and what to tell affected institutions.
+- [x] **Remove the `standard` / `per_block` gradebook granularities.** _(Done
+  2026-07-29 — see "Linking / launch model" above for what came out with them.)_
 - [ ] **Move the live-Canvas harness out of `spec/`.** `spec/staging/` is
   excluded from default runs (`filter_run_excluding :staging` plus derived
   metadata on the path), which is verified working, but RSpec still *loads* those
@@ -460,3 +473,28 @@ this PR. The review's other findings were fixed on the branch.
   staff-visible "was removed in Canvas" state to reconcile against. A status
   column plus a reconciliation view is the real fix; the disenrollment policy
   (what, if anything, should happen automatically) is an operator decision.
+
+## Operator copy still to confirm (second review, 2026-07-29)
+
+Two documentation statements the second review flagged that are the operator's to
+word, not Claude's. Neither was rewritten; both are recorded here instead.
+
+- [ ] **`docs/canvas_integration_guide.md`: "already signed in".** The
+  course-navigation bullet says instructors and students open the Dashboard from
+  the nav link "already signed in." That isn't what happens. Inside the Canvas
+  iframe, cookies are partitioned away from the top-level Dashboard session, so
+  there is usually no session at all; the launch renders read-only views from the
+  ltik alone, and anyone who hasn't yet connected a Wikipedia account has to
+  break out to a new tab and complete OAuth first. Accurate copy needs to say
+  something closer to "open the Dashboard from a link in the course's left-hand
+  navigation — the first time, students connect their Wikipedia account in a new
+  tab; after that the tool shows their progress in place."
+- [ ] **"Anonymous" vs "Anonymized".** `docs/hecvat.md` REQU-08 says "Canvas's
+  Anonymous data-sharing model"; `docs/canvas_integration_guide.md` says
+  "Anonymized". Both have a basis — `anonymous` is the API/`privacy_level` value,
+  "None (Anonymized)" is the label in Canvas's admin UI — but the two documents
+  should agree, and the UI label is what an institution's admin will recognize.
+- [ ] **`docs/hecvat.md` PDAT-03 is a marked draft.** Claude Code drafted the
+  corrected "Yes" answer and notes at Sage's request; the `[DRAFT - ...]` marker
+  above it has to be resolved (rewritten and the marker removed) before the HECVAT
+  goes to any institution.

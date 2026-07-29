@@ -46,14 +46,12 @@ class LtiLineItem < ApplicationRecord
 
   validates :gradable_type, :lineitem_id, presence: true
   validates :score_maximum, numericality: { greater_than: 0 }
-  # One line item per (binding, gradable). `allow_nil` used to exempt the
-  # sentinel types — TrainingProgress and WikipediaSetup, which carry
-  # gradable_id = NULL — from the only check that covers them: MySQL treats
-  # NULLs as distinct, so the composite unique index doesn't constrain them at
-  # all. Without allow_nil the validator generates `gradable_id IS NULL AND ...`
-  # and the invariant actually holds for the sentinels. (A concurrent double
-  # create still has to lose to the unique index on (binding, lineitem_id),
-  # which every creation path populates.)
+  # One line item per (binding, gradable). Enforced in the database by the unique
+  # index on (lti_course_binding_id, gradable_key) — `gradable_key` is a stored
+  # generated column that folds the sentinels' null gradable_id into a non-null
+  # string, because MySQL exempts NULLs from unique indexes. This validation
+  # exists on top of it only to turn the race's loser into a handleable error
+  # instead of a bare RecordNotUnique.
   validates :gradable_id, uniqueness: { scope: %i[lti_course_binding_id gradable_type] }
 
   def archived?

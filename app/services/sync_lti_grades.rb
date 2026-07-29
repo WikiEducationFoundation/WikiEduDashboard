@@ -100,9 +100,11 @@ class SyncLtiGrades
     line_item.gradable_type == LtiLineItem::SETUP_TYPE ? student_contexts : linked_student_contexts
   end
 
-  # All non-staff members (linked or not); instructors excluded via LMS roles.
+  # Every learner membership (linked or not). Learners by LMS role, so staff and
+  # Canvas observers/designers are both left out — posting a score for a
+  # non-student is what Canvas rejects with the 422 handled below.
   def student_contexts
-    @binding.lti_contexts.reject(&:instructor?)
+    @binding.lti_contexts.select(&:learner?)
   end
 
   def linked_student_contexts
@@ -215,8 +217,7 @@ class SyncLtiGrades
       LtiTrainingProgress.new(@binding.course, context.user)
     when 'Block'
       block = Block.find_by(id: line_item.gradable_id)
-      block && LtiBlockProgress.new(block, context.user,
-                                    exercises_only: @binding.rolled_up_trainings?)
+      block && LtiBlockProgress.new(block, context.user)
     end
   end
 end

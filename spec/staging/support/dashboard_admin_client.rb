@@ -101,16 +101,28 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip == 'false'
   end
 
-  # Force a binding's gradebook_granularity. Deep-link-first ('lumped') is now
-  # the only mode the setup step produces; the gradebook/full-course galleries
-  # still want the auto-create modes ('standard'/'per_block') to populate a
-  # gradebook without driving the Modules import, so they set it here after
-  # binding. (Those galleries are a follow-up to rework onto deep-link import.)
-  def set_granularity(course_slug:, granularity:)
+  # Seed the Canvas gradebook with every column the deep-link picker offers for
+  # this course — the account indicator, the trainings roll-up, and one per
+  # exercise block — by creating each AGS line item tagged with its gradable's
+  # resource marker. That is exactly what Canvas ends up with after an instructor
+  # runs the Modules "Import Wikipedia assignments" flow, so SyncLtiLineItems'
+  # discovery binds them the same way; it just skips the browser round-trip so a
+  # gallery run is deterministic.
+  #
+  # Replaces an older shortcut that forced the binding into a 'standard'
+  # gradebook_granularity to make the Dashboard auto-create the columns. That
+  # layout no longer exists — deep-link-first is the only one — so these
+  # galleries now exercise the shipped path.
+  def import_all_columns(course_slug:)
     script = <<~RUBY
       course = Course.find_by!(slug: #{course_slug.inspect})
-      LtiCourseBinding.find_by!(course_id: course.id)
-                      .update!(gradebook_granularity: #{granularity.inspect})
+      binding = LtiCourseBinding.find_by!(course_id: course.id)
+      svc = LtiServiceSession.new(binding)
+      launch_url = "https://\#{ENV['LTIAAS_DOMAIN']}/lti/launch"
+      DeepLinkableGradables.new(course).result.each do |gradable|
+        svc.upsert_line_item(label: gradable.label, tag: gradable.resource,
+                             launch_url: launch_url)
+      end
       puts 'ok'
     RUBY
     DashboardConsole.run(script).strip == 'ok'
@@ -121,8 +133,8 @@ module DashboardAdminClient
       require 'json'
       course = Course.find_by(slug: #{course_slug.inspect})
       binding = course && LtiCourseBinding.find_by(course_id: course.id)
-      puts((binding ? binding.attributes.slice('id', 'course_id', 'lms_context_id',
-                                               'gradebook_granularity') : nil).to_json)
+      puts((binding ? binding.attributes.slice('id', 'course_id',
+                                               'lms_context_id') : nil).to_json)
     RUBY
     DashboardConsole.run_json(script)
   end

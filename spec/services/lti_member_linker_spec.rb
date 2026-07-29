@@ -121,6 +121,55 @@ describe LtiMemberLinker do
     end
   end
 
+  # Canvas maps ObserverEnrollment to Mentor, which used to be in
+  # INSTRUCTOR_ROLES — so an observer who connected a Wikipedia account was
+  # enrolled as a Dashboard *instructor* on the course, and (once role promotion
+  # landed) an observer already enrolled as a student was promoted into one.
+  describe 'a Canvas member who is neither staff nor learner' do
+    let!(:user) { create(:user, username: 'Observer') }
+    let(:vocab) { 'http://purl.imsglobal.org/vocab/lis/v2/membership' }
+
+    before do
+      LtiContext.create!(user: user, lti_course_binding: binding,
+                         user_lti_id: 'lti-1', lms_id: 'platform-x',
+                         linked_at: 1.day.ago)
+    end
+
+    def link(role_suffix)
+      described_class.new(binding, learner_member.merge(roles: ["#{vocab}##{role_suffix}"]))
+    end
+
+    it 'does not enroll an observer at all' do
+      expect { link('Mentor') }.not_to change(CoursesUsers, :count)
+    end
+
+    it 'does not enroll a designer at all' do
+      expect { link('ContentDeveloper') }.not_to change(CoursesUsers, :count)
+    end
+
+    it 'does not promote an observer who is already a student' do
+      CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      link('Mentor')
+      expect(CoursesUsers.find_by(user:, course:).role)
+        .to eq(CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    it 'still records the membership so the roster reflects Canvas' do
+      link('Mentor')
+      expect(LtiContext.find_by(user_lti_id: 'lti-1').roles).to include(/Mentor/)
+    end
+
+    # A TA carries the base Instructor role, so they are staff.
+    it 'enrolls a teaching assistant as an instructor' do
+      described_class.new(binding, learner_member.merge(
+                                     roles: ["#{vocab}#Instructor",
+                                             "#{vocab}/Instructor#TeachingAssistant"]
+                                   ))
+      expect(CoursesUsers.find_by(user:, course:).role)
+        .to eq(CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+  end
+
   # No auto-disenrollment, but nothing should newly join a course on behalf of
   # someone Canvas has already removed from it.
   describe 'a member Canvas has deleted from the course' do

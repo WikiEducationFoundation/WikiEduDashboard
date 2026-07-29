@@ -107,6 +107,74 @@ describe LtiSession do
     end
   end
 
+  # Pinned against Canvas's published enrollment → LTI 1.3 role table:
+  # https://developerdocs.instructure.com/services/canvas/external-tools/file.canvas_roles
+  # The classification is an allowlist in both directions, so a role Canvas adds
+  # later lands in `unsupported_role?` rather than silently becoming a student.
+  describe 'Canvas role classification' do
+    def session_with(roles)
+      idtoken['user']['roles'] = roles
+      stub_request(:get, idtoken_url)
+        .to_return(status: 200, body: idtoken.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      described_class.new(domain, api_key, ltik)
+    end
+
+    vocab = 'http://purl.imsglobal.org/vocab/lis/v2/membership'
+
+    it 'treats a TeacherEnrollment as staff' do
+      expect(session_with(["#{vocab}#Instructor"])).to be_instructor
+    end
+
+    # Canvas sends the base Instructor role alongside the sub-role for a TA, so
+    # the base match is what classifies them — the sub-role string alone would
+    # not match `membership#Instructor`.
+    it 'treats a TaEnrollment as staff via the base Instructor role' do
+      session = session_with(["#{vocab}#Instructor", "#{vocab}/Instructor#TeachingAssistant"])
+      expect(session).to be_instructor
+      expect(session).not_to be_unsupported_role
+    end
+
+    it 'treats a StudentEnrollment as a learner' do
+      session = session_with(["#{vocab}#Learner"])
+      expect(session).to be_student
+      expect(session).not_to be_unsupported_role
+    end
+
+    # The escalation this allowlist exists to stop: Canvas maps
+    # ObserverEnrollment to Mentor, which used to be in INSTRUCTOR_ROLES.
+    it 'treats an ObserverEnrollment (Mentor) as neither staff nor learner' do
+      session = session_with(["#{vocab}#Mentor"])
+      expect(session).not_to be_instructor
+      expect(session).not_to be_student
+      expect(session).to be_unsupported_role
+    end
+
+    it 'treats a DesignerEnrollment (ContentDeveloper) as neither' do
+      session = session_with(["#{vocab}#ContentDeveloper"])
+      expect(session).not_to be_instructor
+      expect(session).not_to be_student
+      expect(session).to be_unsupported_role
+    end
+
+    it 'treats an unrecognized role as neither' do
+      session = session_with(["#{vocab}#Officer"])
+      expect(session).to be_unsupported_role
+    end
+
+    it 'treats a launch with no roles as neither' do
+      session = session_with([])
+      expect(session).not_to be_student
+      expect(session).to be_unsupported_role
+    end
+
+    it 'lets staff win when a launch carries both roles' do
+      session = session_with(["#{vocab}#Learner", "#{vocab}#Instructor"])
+      expect(session).to be_instructor
+      expect(session).not_to be_student
+    end
+  end
+
   describe '#find_or_create_binding!' do
     it 'creates a binding the first time' do
       expect { lti_session.find_or_create_binding! }
@@ -117,7 +185,6 @@ describe LtiSession do
       expect(binding.lms_family).to eq('canvas')
       expect(binding.lms_context_id).to eq('canvas-course-77')
       expect(binding.lms_resource_link_id).to eq('rl-99')
-      expect(binding.gradebook_granularity).to eq('lumped')
       expect(binding.nrps_url)
         .to eq('https://canvas.example.com/api/lti/courses/1/names_and_roles')
       expect(binding.ags_lineitems_url)
@@ -207,16 +274,16 @@ describe LtiSession do
 
       it 'refuses the second link' do
         expect { described_class.new(domain, api_key, ltik).link_lti_user(user) }
-          .to raise_error(LtiSession::DuplicateUserLinkError)
+          .to raise_error(LtiSession::ConflictingLinkError)
       end
 
       it 'leaves the first link intact' do
         expect { described_class.new(domain, api_key, ltik).link_lti_user(user) }
-          .to raise_error(LtiSession::DuplicateUserLinkError)
+          .to raise_error(LtiSession::ConflictingLinkError)
         expect(LtiContext.find_by(user_lti_id: 'lti-someone-else').user).to eq(user)
       end
 
-      it 'still allows the same identity to relink on a later launch' do
+      it 'still allows the same identity to relaunch as the same user' do
         other = create(:user, username: 'Someone Else')
         ctx = lti_session.link_lti_user(other)
         expect { described_class.new(domain, api_key, ltik).link_lti_user(other) }
@@ -225,17 +292,33 @@ describe LtiSession do
       end
     end
 
-    # Allowed on purpose: it's the only self-service fix for a student who
-    # connected the wrong Wikipedia account.
-    it 'moves an LMS identity to a different Dashboard user, and logs it' do
-      lti_session.link_lti_user(user)
-      corrected = create(:user, username: 'Right Account')
-      allow(Rails.logger).to receive(:warn)
+    # The ltik travels in the URL, so if a launch could move an LMS identity onto
+    # whoever is currently signed in, a student could hand their launch link to
+    # someone else and have that person's Dashboard progress feed the student's
+    # own Canvas grade.
+    describe 'when the LMS identity already belongs to a different Dashboard user' do
+      let(:other) { create(:user, username: 'Someone Else') }
 
-      ctx = described_class.new(domain, api_key, ltik).link_lti_user(corrected)
+      before { lti_session.link_lti_user(user) }
 
-      expect(ctx.user).to eq(corrected)
-      expect(Rails.logger).to have_received(:warn).with(/relinking LMS identity/)
+      it 'refuses to move the link' do
+        expect { described_class.new(domain, api_key, ltik).link_lti_user(other) }
+          .to raise_error(LtiSession::ConflictingLinkError)
+      end
+
+      it 'leaves the original link in place' do
+        expect { described_class.new(domain, api_key, ltik).link_lti_user(other) }
+          .to raise_error(LtiSession::ConflictingLinkError)
+        expect(LtiContext.find_by(user_lti_id: 'lti-user-1').user).to eq(user)
+      end
+
+      it 'creates no second context for the same identity' do
+        expect do
+          described_class.new(domain, api_key, ltik).link_lti_user(other)
+        rescue LtiSession::ConflictingLinkError
+          nil
+        end.not_to change(LtiContext, :count)
+      end
     end
   end
 end

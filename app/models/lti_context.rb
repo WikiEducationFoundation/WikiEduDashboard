@@ -27,8 +27,12 @@
 # two Canvas members in a course can't both resolve to one Wikipedia account,
 # which would post the same progress at both of their gradebook rows.
 # `user_id = NULL` is exempt (MySQL treats NULLs as distinct), so a course can
-# hold any number of not-yet-connected members. See
-# LtiSession#reject_duplicate_user_link!.
+# hold any number of not-yet-connected members.
+#
+# The link is also write-once: a launch may establish one but never move one, so
+# a shared launch URL can't reassign a Canvas identity to whoever is signed in.
+# Clearing a bad link is a staff operation. See
+# LtiSession#reject_conflicting_link!.
 class LtiContext < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :lti_course_binding, optional: true
@@ -45,11 +49,17 @@ class LtiContext < ApplicationRecord
   end
 
   # Whether this membership's LMS roles mark it as course staff
-  # (instructor/administrator/mentor) rather than a learner. The "Synced
-  # students" metric excludes these; mirrors LtiSession's role classification.
+  # (instructor/administrator) rather than a learner. Mirrors LtiSession's role
+  # classification.
   def instructor?
-    Array(roles).any? do |role|
-      LtiSession::INSTRUCTOR_ROLES.any? { |suffix| role.to_s.end_with?(suffix) }
-    end
+    LtiSession.role_match?(roles, LtiSession::INSTRUCTOR_ROLES)
+  end
+
+  # Whether this membership is a learner. Deliberately not `!instructor?` —
+  # Canvas observers and designers are neither, and the sets that drive grade
+  # pushes and the "synced students" metric must exclude them rather than treat
+  # them as students by default. See LtiSession::LEARNER_ROLES.
+  def learner?
+    !instructor? && LtiSession.role_match?(roles, LtiSession::LEARNER_ROLES)
   end
 end

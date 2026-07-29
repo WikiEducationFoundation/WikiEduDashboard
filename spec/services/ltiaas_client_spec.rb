@@ -106,24 +106,5 @@ describe LtiaasClient do
       client.post('/api/lineitems', body)
       expect(stub).to have_been_requested
     end
-
-    it 'PUTs JSON body' do
-      stub = stub_request(:put, "https://#{domain}/api/lineitems/1")
-             .with(body: { foo: 'bar' }.to_json)
-             .to_return(status: 200, body: '{}',
-                        headers: { 'Content-Type' => 'application/json' })
-
-      client.put('/api/lineitems/1', body)
-      expect(stub).to have_been_requested
-    end
-
-    it 'DELETEs' do
-      stub = stub_request(:delete, "https://#{domain}/api/lineitems/1")
-             .to_return(status: 200, body: '{}',
-                        headers: { 'Content-Type' => 'application/json' })
-
-      client.delete('/api/lineitems/1')
-      expect(stub).to have_been_requested
-    end
   end
 end

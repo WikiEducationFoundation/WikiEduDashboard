@@ -75,18 +75,8 @@ module LtiDeepLinking
   # auto-created trainings roll-up from the offer).
   def prepare_picker
     @accept_multiple = @lti_session.accepts_multiple_content_items?
-    offered = DeepLinkableGradables.new(@binding.course).result
-    @gradables = offered.reject { |gradable| taken_keys.include?(gradable_key(gradable)) }
-    @all_added = offered.any? && @gradables.empty?
-  end
-
-  def taken_keys
-    @taken_keys ||= @binding.lti_line_items.active
-                            .pluck(:gradable_type, :gradable_id).to_set
-  end
-
-  def gradable_key(gradable)
-    [gradable.gradable_type, gradable.gradable_id]
+    @gradables = offerable_gradables(@binding)
+    @all_added = @gradables.empty? && DeepLinkableGradables.new(@binding.course).result.any?
   end
 
   # The gradables matching the submitted selection (`resources[]` from the
@@ -94,6 +84,14 @@ module LtiDeepLinking
   # course so only that course's own gradables are accepted. Empty if
   # unbound, nothing was picked, or ANY submitted resource isn't offerable —
   # reject the whole request rather than silently dropping entries.
+  #
+  # "Offerable" has to mean the same thing here as it did when the picker was
+  # rendered, which is why the taken-column exclusion is recomputed rather than
+  # trusted from the form. Validating only course membership let a replayed or
+  # tampered POST ask for a gradable that already has a Canvas assignment,
+  # producing a second column with the same tag — and two columns for one
+  # gradable is exactly the duplicate the line-item uniqueness index now refuses
+  # to record, so the extra column would be stranded in the gradebook.
   def chosen_gradables(binding)
     return [] if binding.nil?
 
@@ -101,9 +99,17 @@ module LtiDeepLinking
     requested = requested.uniq
     return [] if requested.empty?
 
-    offered = DeepLinkableGradables.new(binding.course).result.index_by(&:resource)
+    offered = offerable_gradables(binding).index_by(&:resource)
     chosen = requested.map { |resource| offered[resource] }
     chosen.include?(nil) ? [] : chosen
+  end
+
+  # The set the picker would offer right now: the course's gradables minus any
+  # already backed by an active gradebook column.
+  def offerable_gradables(binding)
+    taken = binding.lti_line_items.active.pluck(:gradable_type, :gradable_id).to_set
+    DeepLinkableGradables.new(binding.course).result
+                         .reject { |g| taken.include?([g.gradable_type, g.gradable_id]) }
   end
 
   # A multi-item response to a single-item placement would be rejected by

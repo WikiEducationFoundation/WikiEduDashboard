@@ -7,11 +7,28 @@
 # Background jobs that need NRPS or AGS without an active launch should use
 # LtiServiceSession instead.
 class LtiSession
+  # LTI 1.3 context roles that mean course staff. Canvas sends the base
+  # `membership#Instructor` for both TeacherEnrollment and TaEnrollment (a TA
+  # additionally carries the `membership/Instructor#TeachingAssistant`
+  # sub-role), so both land here.
+  #
+  # `membership#Mentor` is deliberately NOT here. Canvas maps
+  # ObserverEnrollment — typically a guardian or an auditor — to Mentor, so
+  # listing it made every Canvas observer a Dashboard *instructor*: they saw the
+  # instructor status panel and its sync controls, and once they connected a
+  # Wikipedia account LtiMemberLinker enrolled them as an instructor on the
+  # course. See Canvas's role table:
+  # https://developerdocs.instructure.com/services/canvas/external-tools/file.canvas_roles
   INSTRUCTOR_ROLES = [
     'membership#Administrator',
-    'membership#Instructor',
-    'membership#Mentor'
+    'membership#Instructor'
   ].freeze
+
+  # The only role we treat as a learner. An allowlist, not "anything that isn't
+  # staff": Canvas also sends Mentor (observers) and ContentDeveloper
+  # (designers), a launch can arrive with no roles claim at all, and a role we
+  # don't recognize must not become an enrollment by default.
+  LEARNER_ROLES = ['membership#Learner'].freeze
 
   # Stands in for the resource link id on a deep-linking request, which has
   # none. Context-scoped by the binding's unique index, so one row per Canvas
@@ -38,13 +55,24 @@ class LtiSession
   end
 
   def instructor?
-    user_roles.any? do |str|
-      INSTRUCTOR_ROLES.any? { |suffix| str.end_with?(suffix) }
-    end
+    LtiSession.role_match?(user_roles, INSTRUCTOR_ROLES)
   end
 
+  # Staff wins when a launch carries both, which Canvas does for anyone holding
+  # more than one enrollment in the course.
   def student?
-    !instructor?
+    !instructor? && LtiSession.role_match?(user_roles, LEARNER_ROLES)
+  end
+
+  # Neither staff nor learner: a Canvas observer or designer, a role we don't
+  # recognize, or a launch with no roles claim. These launches get read-only
+  # views — never a Dashboard enrollment, never a grade.
+  def unsupported_role?
+    !instructor? && !student?
+  end
+
+  def self.role_match?(roles, suffixes)
+    Array(roles).any? { |role| suffixes.any? { |suffix| role.to_s.end_with?(suffix) } }
   end
 
   # Backwards-compatible alias for callers still on the old name.
@@ -56,6 +84,19 @@ class LtiSession
 
   def lms_family
     @idtoken['platform']['productFamilyCode']
+  end
+
+  # Canvas is the only platform this integration has been built and tested
+  # against: the deep-linking flow depends on Canvas's Modules placement, line
+  # items are created with a Canvas-only AGS submission_type extension, and the
+  # role classification is pinned to Canvas's enrollment mapping. So launches
+  # fail closed on anything else rather than reaching that Canvas-shaped code
+  # with a platform nobody has exercised. Widening this is a deliberate change,
+  # not an accident of whatever a platform reports.
+  SUPPORTED_LMS_FAMILY = 'canvas'
+
+  def supported_lms?
+    lms_family.to_s.casecmp(SUPPORTED_LMS_FAMILY).zero?
   end
 
   def lms_context_id
@@ -184,54 +225,61 @@ class LtiSession
   # Idempotently records that `current_user` is the Dashboard user for this
   # LMS identity within the binding. Refreshes the launch's roles each time
   # so they stay current; no name or email is read (anonymized posture).
+  #
+  # The link is write-once per (LMS identity, course): a launch can establish one
+  # but never move one. See #reject_conflicting_link!.
   def link_lti_user(current_user, binding: nil)
     binding ||= find_or_create_binding!
     context = LtiContext.find_or_initialize_by(
       user_lti_id:,
       lti_course_binding_id: binding.id
     )
-    reject_duplicate_user_link!(context, current_user, binding)
-    log_identity_move(context, current_user)
+    reject_conflicting_link!(context, current_user, binding)
     apply_context_attributes(context, current_user)
     context.linked_at ||= Time.current
     context.save!
     context
   end
 
-  # Raised when the launching Dashboard user is already the linked identity for
-  # a *different* LMS member of the same course. Callers turn this into the
-  # "couldn't enroll you" view rather than a 500.
-  class DuplicateUserLinkError < StandardError; end
+  # Raised when this launch would change an existing link rather than create one:
+  # either the launching Dashboard user already belongs to a different LMS
+  # member of the course, or this LMS identity already belongs to a different
+  # Dashboard user. Callers turn it into the "couldn't enroll you" view rather
+  # than a 500.
+  class ConflictingLinkError < StandardError; end
+
+  # Raised when a launch arrives from a platform this integration hasn't been
+  # built for. See SUPPORTED_LMS_FAMILY.
+  class UnsupportedLmsError < StandardError; end
 
   private
 
-  # One Dashboard user per LMS course. Two Canvas identities linked to a single
-  # Wikipedia account would make grade sync post the same progress at both
-  # students' gradebook rows, so the second link is refused instead of silently
-  # duplicating credit. A unique index enforces the same thing; this is the path
-  # that makes it a handled error.
-  def reject_duplicate_user_link!(context, current_user, binding)
+  # The identity map is 1:1 in both directions within a course, and a plain GET
+  # launch may only ever *add* an entry.
+  #
+  # Two Canvas members sharing one Wikipedia account would make grade sync post
+  # the same progress at both of their gradebook rows. And a launch that moved an
+  # LMS identity onto whoever happens to be signed in is worse than it sounds:
+  # the ltik travels in the URL, so a student could hand their launch link to
+  # somebody else and have that person's Dashboard progress feed the student's
+  # own Canvas grade. Neither is worth the one thing overwriting bought — a
+  # self-service fix for connecting the wrong Wikipedia account. That case now
+  # ends at the "contact your instructor" view, and staff clear the context.
+  def reject_conflicting_link!(context, current_user, binding)
+    if context.user_id.present? && context.user_id != current_user.id
+      raise ConflictingLinkError,
+            "LMS identity #{user_lti_id} in binding #{binding.id} is already " \
+            "linked to user #{context.user_id}, not #{current_user.id}"
+    end
+
     conflicts = LtiContext.where(lti_course_binding_id: binding.id,
                                  user_id: current_user.id)
     conflicts = conflicts.where.not(id: context.id) if context.persisted?
     return unless conflicts.exists?
 
-    raise DuplicateUserLinkError,
+    raise ConflictingLinkError,
           "user #{current_user.id} is already linked to another LMS identity " \
           "in binding #{binding.id}"
-  end
-
-  # Moving an LMS identity to a different Dashboard user is allowed: it's the
-  # only self-service fix for a student who connected the wrong Wikipedia
-  # account. But it also moves grade attribution silently, so leave a trail for
-  # support.
-  def log_identity_move(context, current_user)
-    return if context.user_id.nil? || context.user_id == current_user.id
-
-    Rails.logger.warn(
-      "[LTI] relinking LMS identity #{user_lti_id} in binding " \
-      "#{context.lti_course_binding_id}: user #{context.user_id} -> #{current_user.id}"
-    )
   end
 
   def raw_idtoken

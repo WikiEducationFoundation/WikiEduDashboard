@@ -102,16 +102,13 @@ class AssignmentViewContext
     :none
   end
 
-  # Reuses the same completion logic — including the same exercises_only
-  # setting — that drives the pushed AGS score, so the roster can't disagree
-  # with the gradebook. (In per_block mode a block's column grades trainings
-  # too; in the roll-up modes it grades only the exercises.) `completions` is the
-  # user's preloaded TrainingModulesUsers when the roster batched them.
+  # Reuses the same completion logic that drives the pushed AGS score, so the
+  # roster can't disagree with the gradebook. `completions` is the user's
+  # preloaded TrainingModulesUsers when the roster batched them.
   def completed_for?(user, completions: nil)
     return false if @block.nil?
 
-    LtiBlockProgress.new(@block, user, exercises_only: @binding.rolled_up_trainings?,
-                                       completions:).score_given >= 1.0
+    LtiBlockProgress.new(@block, user, completions:).score_given >= 1.0
   end
 
   # In-progress is only detectable for the fact-verification exercise: taking a

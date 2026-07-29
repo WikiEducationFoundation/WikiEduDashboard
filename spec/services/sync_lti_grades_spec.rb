@@ -12,8 +12,7 @@ describe SyncLtiGrades do
       course: course,
       lms_id: 'platform-x', lms_family: 'canvas',
       lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99',
-      ltiaas_service_credentials: 'svc-key',
-      gradebook_granularity: 'lumped'
+      ltiaas_service_credentials: 'svc-key'
     )
   end
 
@@ -35,16 +34,20 @@ describe SyncLtiGrades do
   end
 
   let(:student_user) { create(:user, username: 'Alice', email: 'alice@example.edu') }
+  # Roles are load-bearing, not decoration: only LEARNER_ROLES memberships are
+  # graded, so a context with no roles claim is not a student. Every real
+  # context gets its roles from the launch or from NRPS.
+  let(:learner_roles) { ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'] }
   let!(:linked_context) do
     LtiContext.create!(
       lti_course_binding: binding, user: student_user, user_lti_id: 'lti-alice',
-      lms_id: 'platform-x', linked_at: 1.day.ago
+      lms_id: 'platform-x', roles: learner_roles, linked_at: 1.day.ago
     )
   end
   let!(:unlinked_context) do
     LtiContext.create!(
       lti_course_binding: binding, user: nil, user_lti_id: 'lti-bob',
-      lms_id: 'platform-x'
+      lms_id: 'platform-x', roles: learner_roles
     )
   end
 

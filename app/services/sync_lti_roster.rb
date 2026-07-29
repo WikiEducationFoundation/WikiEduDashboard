@@ -1,14 +1,39 @@
 # frozen_string_literal: true
 
-# Pulls the LMS course roster via NRPS for one LtiCourseBinding and runs
-# LtiMemberLinker on each member. Idempotent: every successful sync
-# advances `last_roster_sync_at`; failures are surfaced via raised
-# exceptions so Sidekiq can retry transient failures and dead-letter
-# authoritative ones.
+# Pulls the LMS roster via NRPS for one LtiCourseBinding and runs
+# LtiMemberLinker on each member.
+#
+# Failure semantics mirror SyncLtiGrades, in three tiers:
+#
+#   - Whole-run failures (network/5xx, rate limit, auth) abort the sync, leave
+#     `last_roster_sync_at` where it was, and propagate so Sidekiq retries. These
+#     affect the whole roster, so recording a successful recent sync when nothing
+#     was reconciled would be worse than recording nothing.
+#   - Per-member failures — bad or unexpected data for one membership — are
+#     reported to Sentry and skipped. The run finishes and the timestamp advances,
+#     because the rest of the roster really was reconciled.
+#   - Anything that isn't clearly one member's problem (a persistence error, a
+#     bug in the linker) propagates too. Swallowing every StandardError per
+#     member is how this used to report a fresh successful sync in the case where
+#     every single member failed.
 #
 # A binding without a stored serviceKey is a no-op (we haven't seen a
 # launch from this Canvas course yet, so we don't have credentials).
 class SyncLtiRoster
+  # Same aborting tier as grade sync. Order matters at the rescue site:
+  # LtiaasRateLimitError and LtiaasAuthError are LtiaasClientError subclasses.
+  ABORTING_ERRORS = SyncLtiGrades::ABORTING_ERRORS
+
+  # Per-member failures worth skipping past rather than failing the job. Narrow
+  # on purpose: a member whose data the linker rejects (a validation failure on
+  # the context, an unexpected NRPS shape) shouldn't stop the other members from
+  # reconciling, but nothing broader is assumed to be one member's fault.
+  MEMBER_ERRORS = [ActiveRecord::RecordInvalid,
+                   ActiveRecord::RecordNotUnique,
+                   KeyError,
+                   TypeError,
+                   NoMethodError].freeze
+
   attr_reader :binding
 
   def initialize(binding)
@@ -29,9 +54,15 @@ class SyncLtiRoster
 
   def link_member(member)
     LtiMemberLinker.new(@binding, member)
-  rescue StandardError => e
+  rescue *ABORTING_ERRORS
+    raise # whole-run failure; let Sidekiq retry rather than half-syncing
+  rescue *MEMBER_ERRORS => e
+    report_member_failure(e, member)
+  end
+
+  def report_member_failure(error, member)
     Sentry.capture_exception(
-      e,
+      error,
       extra: { binding_id: @binding.id, user_lti_id: member[:user_lti_id] }
     )
   end

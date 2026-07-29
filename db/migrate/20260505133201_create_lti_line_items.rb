@@ -6,11 +6,17 @@
 # `gradable_type='Block'` covers per-block gradebook columns.
 # `gradable_type='TrainingProgress'` and `'WikipediaSetup'` are sentinels for the
 # rolled-up trainings column and the "connected a Wikipedia account" indicator;
-# both carry a null `gradable_id`. MySQL treats NULLs as distinct in a unique
-# index, so the (binding, gradable_type, gradable_id) index does not constrain
-# the sentinels — LtiLineItem's uniqueness validation is what holds that
-# invariant, and the (binding, lineitem_id) index catches a concurrent double
-# create.
+# both carry a null `gradable_id`.
+#
+# That null is why `gradable_key` exists. MySQL treats NULLs as distinct in a
+# unique index, so a (binding, gradable_type, gradable_id) index constrains the
+# Block rows but not the sentinels — and a model validation can't close the gap,
+# because two concurrent creates for one gradable can both pass validation and
+# then insert different `lineitem_id`s, which is reachable from a replayed
+# deep-link submission. `gradable_key` is a stored generated column that folds
+# the null away ("Block:42", "TrainingProgress"), so one unique index per binding
+# enforces the invariant for every row type. Same device as
+# `articles.index_hash`.
 #
 # `canvas_assignment_id` records the Canvas-side assignment id so an
 # `assignment_view` launch (which carries `$Canvas.assignment.id` in its custom
@@ -27,8 +33,8 @@ class CreateLtiLineItems < ActiveRecord::Migration[8.1]
       add_columns(t)
       t.timestamps
     end
-    add_index :lti_line_items, %i[lti_course_binding_id gradable_type gradable_id],
-              unique: true, name: 'index_lti_line_items_on_binding_and_gradable'
+    add_index :lti_line_items, %i[lti_course_binding_id gradable_key],
+              unique: true, name: 'index_lti_line_items_on_binding_and_gradable_key'
     add_index :lti_line_items, %i[lti_course_binding_id lineitem_id], unique: true,
               length: { lineitem_id: 191 }, name: 'index_lti_line_items_on_binding_and_lineitem'
     add_index :lti_line_items, %i[lti_course_binding_id canvas_assignment_id], unique: true,
@@ -40,6 +46,8 @@ class CreateLtiLineItems < ActiveRecord::Migration[8.1]
                                           foreign_key: { on_delete: :cascade }, type: :integer
     table.string :gradable_type, null: false
     table.integer :gradable_id
+    table.virtual :gradable_key, type: :string, stored: true,
+                                 as: "concat(`gradable_type`, ':', ifnull(`gradable_id`, ''))"
     table.string :lineitem_id, null: false, limit: 512
     table.string :label
     table.decimal :score_maximum, precision: 10, scale: 4, null: false, default: 1.0

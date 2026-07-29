@@ -53,6 +53,35 @@ describe LtiLineItem do
       expect(dup.errors[:gradable_id]).to be_present
     end
 
+    # The validation is a convenience; `gradable_key` (a stored generated column
+    # folding the sentinels' null gradable_id into a non-null string) is what
+    # actually holds the invariant, because MySQL exempts NULLs from unique
+    # indexes and two concurrent creates can both pass validation.
+    it 'rejects a duplicate sentinel at the database level, bypassing validation' do
+      described_class.create!(lti_course_binding: binding,
+                              gradable_type: LtiLineItem::SETUP_TYPE,
+                              lineitem_id: 'http://lms/li/1')
+      expect do
+        described_class.insert_all!([{ lti_course_binding_id: binding.id,
+                                       gradable_type: LtiLineItem::SETUP_TYPE,
+                                       lineitem_id: 'http://lms/li/2',
+                                       score_maximum: 1.0,
+                                       created_at: Time.current, updated_at: Time.current }])
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
+    it 'rejects a duplicate Block line item at the database level too' do
+      described_class.create!(lti_course_binding: binding, gradable_type: 'Block',
+                              gradable_id: 7, lineitem_id: 'http://lms/li/1')
+      expect do
+        described_class.insert_all!([{ lti_course_binding_id: binding.id,
+                                       gradable_type: 'Block', gradable_id: 7,
+                                       lineitem_id: 'http://lms/li/2',
+                                       score_maximum: 1.0,
+                                       created_at: Time.current, updated_at: Time.current }])
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
     it 'still allows the same sentinel type on a different binding' do
       other = LtiCourseBinding.create!(lms_id: 'platform-x', lms_family: 'canvas',
                                        lms_context_id: 'canvas-course-88',

@@ -620,7 +620,16 @@ _Additional Information_
 
 **PDAT-03** — Do you combine institutional data (including "de-identified," "anonymized," or otherwise masked data) with personal data from any other sources?
 
-**Answer:** No
+> [DRAFT - answer and notes below were drafted by Claude Code, not the operator,
+> after a code review flagged the previous "No" as inaccurate. The facts are
+> checked against the implementation, but the compliance wording is Sage's to
+> rewrite and sign off before this HECVAT goes to any institution.]
+
+**Answer:** Yes
+
+**Notes:** The integration's purpose requires linking two records. From Canvas it receives an opaque LMS user id and that user's role in the course, and nothing else — no name and no email address. It links that id to a Wiki Education Dashboard account, which the student creates and controls themselves by logging in with their own Wikipedia account, and which may hold a real name, an email address, and optional demographic fields the student supplied to the Dashboard directly. The link is what makes the integration work: it is how Wikipedia contributions are attributed to the right student and how that student's progress is returned to the correct row of the Canvas gradebook.
+
+Three limits on that combination: the student establishes it themselves by logging in with their own Wikipedia account, so it is not inferred or matched behind the scenes; nothing is combined with purchased, brokered, or other third-party data; and the combined record exists only in the Dashboard's own database, which is not sold, licensed, or shared for advertising.
 
 
 ## Privacy Policies and Procedures

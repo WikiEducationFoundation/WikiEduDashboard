@@ -8,11 +8,6 @@
 # the first launch and the instructor's setup choice, and a Dashboard course
 # backs at most one LMS course.
 #
-# `gradebook_granularity` selects the gradebook layout. New bindings default to
-# 'lumped', the deep-link-first mode: nothing is auto-created and the instructor
-# imports the columns they want via the Canvas Modules "Import Wikipedia
-# assignments" flow.
-#
 # `ltiaas_service_credentials` holds the service-auth credentials used by
 # background jobs (NRPS roster sync, AGS grade passback). Stored in plain text,
 # like every other external credential this app persists — users.wiki_token /
@@ -44,7 +39,6 @@ class CreateLtiCourseBindings < ActiveRecord::Migration[8.1]
     table.text :ltiaas_service_credentials
     table.string :nrps_url
     table.string :ags_lineitems_url
-    table.string :gradebook_granularity, null: false, default: 'lumped'
     table.datetime :last_roster_sync_at
     table.datetime :last_grade_sync_at
     table.text :last_grade_sync_error

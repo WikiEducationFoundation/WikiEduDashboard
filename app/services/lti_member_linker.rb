@@ -28,9 +28,11 @@
 class LtiMemberLinker
   INSTRUCTOR_ROLE_SUFFIXES = LtiSession::INSTRUCTOR_ROLES
 
-  # LTI 1.3 NRPS membership statuses. "Deleted" means Canvas has removed the
-  # member from the course outright.
-  REMOVED_STATUSES = %w[Deleted].freeze
+  # LTI 1.3 NRPS membership statuses that mean "don't newly enroll this member".
+  # `Deleted` is a member Canvas removed from the course outright; `Inactive` is
+  # one whose enrollment is suspended and who can't reach the course either.
+  # Neither should be joined to a Dashboard course on their behalf.
+  REMOVED_STATUSES = %w[Deleted Inactive].freeze
 
   attr_reader :context
 
@@ -65,6 +67,7 @@ class LtiMemberLinker
 
   def enroll_in_course
     role = target_role
+    return if role.nil?
     return if CoursesUsers.exists?(user_id: @context.user_id,
                                    course_id: @binding.course_id, role:)
 
@@ -77,9 +80,17 @@ class LtiMemberLinker
                    role:, real_name: @context.user.real_name)
   end
 
+  # nil for a membership that is neither staff nor learner — a Canvas observer
+  # or designer, or a role we don't recognize. Those are recorded in
+  # lti_contexts so the roster reflects Canvas, but never enrolled. Before the
+  # learner allowlist existed this fell through to STUDENT_ROLE, and because
+  # `Mentor` was also treated as staff, a Canvas observer was enrolled as a
+  # Dashboard *instructor*.
   def target_role
-    instructor_role? ? CoursesUsers::Roles::INSTRUCTOR_ROLE
-                     : CoursesUsers::Roles::STUDENT_ROLE
+    return CoursesUsers::Roles::INSTRUCTOR_ROLE if instructor_role?
+    return CoursesUsers::Roles::STUDENT_ROLE if learner_role?
+
+    nil
   end
 
   # An enrollment in some *other* role. On a Wiki Ed course that is exactly why
@@ -105,8 +116,10 @@ class LtiMemberLinker
   end
 
   def instructor_role?
-    Array(@member[:roles]).any? do |str|
-      INSTRUCTOR_ROLE_SUFFIXES.any? { |suffix| str.end_with?(suffix) }
-    end
+    LtiSession.role_match?(@member[:roles], INSTRUCTOR_ROLE_SUFFIXES)
+  end
+
+  def learner_role?
+    LtiSession.role_match?(@member[:roles], LtiSession::LEARNER_ROLES)
   end
 end

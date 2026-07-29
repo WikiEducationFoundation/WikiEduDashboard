@@ -46,35 +46,7 @@ describe 'LtiServiceSession AGS line-item verbs', type: :service do
     end
   end
 
-  describe '#update_line_item (PUT /api/lineitems/{id})' do
-    let(:lineitem_id) { 'https://lms.example.com/li/abc' }
-    let(:url) do
-      "https://#{domain}/api/lineitems/#{CGI.escape(lineitem_id)}"
-    end
 
-    it 'PUTs label and scoreMaximum to the URL-encoded lineitem URL' do
-      stub = stub_request(:put, url)
-             .with(headers: { 'Authorization' => 'SERVICE-AUTH-V1 api-key:svc-key' },
-                   body: { label: 'Renamed', scoreMaximum: 1.0 })
-             .to_return(status: 200, body: '{}',
-                        headers: { 'Content-Type' => 'application/json' })
-
-      service.update_line_item(lineitem_id, label: 'Renamed')
-      expect(stub).to have_been_requested
-    end
-  end
-
-  describe '#delete_line_item (DELETE /api/lineitems/{id})' do
-    it 'sends a DELETE to the URL-encoded lineitem URL' do
-      lineitem_id = 'https://lms.example.com/li/abc'
-      stub = stub_request(:delete,
-                          "https://#{domain}/api/lineitems/#{CGI.escape(lineitem_id)}")
-             .to_return(status: 200, body: '{}',
-                        headers: { 'Content-Type' => 'application/json' })
-      service.delete_line_item(lineitem_id)
-      expect(stub).to have_been_requested
-    end
-  end
 
   describe '#list_line_items (GET /api/lineitems, paginated)' do
     it 'follows the next field to aggregate all pages' do

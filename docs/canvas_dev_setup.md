@@ -416,9 +416,9 @@ This is needed because the domain set here is what Canvas claims its identity is
 
 Once a basic launch works, the integration adds three flows on top of the launch handshake:
 
-1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The binding's gradebook granularity defaults to `lumped` (deep-link-first): the instructor imports the columns they want via the Modules deep-link flow, and nothing is auto-created. The `standard` and `per_block` granularities (auto-created per-exercise or per-block columns) still exist on the model, but the setup view no longer offers a choice.
+1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The integration is deep-link-first and has one gradebook layout: the instructor imports the columns they want via the Modules deep-link flow, and the Dashboard auto-creates nothing. (Two auto-creating layouts, selected by a `gradebook_granularity` column, existed during development and were removed before release along with the column.)
 2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New members appear as `LtiContext` rows, unlinked (`user_id` nil) — the anonymized roster carries only an opaque LMS id and role, no email to match on. Each links and enrolls when they personally launch from Canvas and complete Wikipedia OAuth — from the course-navigation tab or from any Wikipedia assignment, since a course may not have the tab enabled at all.
-3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Sandbox URLs for completed exercises (bibliography, outline, etc.) are included as score comments.
+3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Score comments carry only a lateness marker and the Dashboard's origin; sandbox URLs are deliberately kept out of them, because they embed the student's Wikipedia username and gradebook comments are visible to everyone with gradebook access (see `LtiBlockProgress`). Instructors reach a student's sandbox through the role-gated in-Canvas drill-down instead.
 
 ### Required LTIAAS scopes
 
@@ -505,8 +505,9 @@ diligence:
   third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
   Canvas ↔ LTIAAS ↔ Dashboard. The Dashboard requires and saves only an opaque
   LMS user id and role per member, so it stores just the link between that id
-  and the Dashboard account, and pushes fractional scores plus sandbox-link
-  comments back. What Canvas actually *transmits* depends on the installed
+  and the Dashboard account, and pushes fractional scores back with comments
+  that carry only a lateness marker and the Dashboard's origin — no sandbox
+  links, no usernames. What Canvas actually *transmits* depends on the installed
   tool's privacy level: under Anonymous it is only the id and role, and under a
   more permissive setting Canvas also sends names and emails, which
   `LtiServiceSession#normalize_member` and `LtiSession` discard on receipt.
@@ -521,9 +522,11 @@ diligence:
 The Dashboard is fronted by a shared LTIAAS tenant, so each university's Canvas
 is registered with LTIAAS once.
 
-> [CONFIRM: who performs this hand-off — does the university admin self-register
-> in the LTIAAS portal, or does Wiki Education register the platform given the
-> university's Canvas issuer + client_id? Document the actual process here.]
+> [PLACEHOLDER - who performs this hand-off: does the university admin
+> self-register in the LTIAAS portal, or does Wiki Education register the platform
+> given the university's Canvas issuer + client_id? Needs the actual operational
+> process from the operator. Was written as a `[CONFIRM: ...]` note, which the
+> `grep '[PLACEHOLDER'` sweep for unresolved copy doesn't catch.]
 
 Either way, the registration needs the university's Canvas **issuer** and the
 **Client ID** from the developer key in the next step, so create the key first
@@ -654,7 +657,8 @@ anonymized roster carries no email to auto-enroll against.
 2. Gradebook: **Wikipedia account** = 1 for connected students; **Wikipedia
    trainings** pushes `completed_count / total_count` with a
    `<count> of <total> trainings completed` score comment; each exercise column
-   = `1.0` with the **sandbox URL** in the score comment. Per-(student, line
+   = `1.0`, with a `[Late]` marker in the comment when it was completed after the
+   block's due date. Sandbox URLs never appear in a comment. Per-(student, line
    item) dedup avoids redundant pushes when nothing changed.
 3. **Drill-down**: open a Wikipedia column's **assignment → Open the Wiki
    Education Dashboard** → the per-milestone roster (each student's status +

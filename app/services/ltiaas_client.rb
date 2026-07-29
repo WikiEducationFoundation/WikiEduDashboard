@@ -52,14 +52,6 @@ class LtiaasClient
     handle_response { @conn.post(path, body) }
   end
 
-  def put(path, body)
-    handle_response { @conn.put(path, body) }
-  end
-
-  def delete(path)
-    handle_response { @conn.delete(path) }
-  end
-
   private
 
   def build_connection

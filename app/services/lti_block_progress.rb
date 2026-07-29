@@ -7,13 +7,13 @@
 # set, and an exercise-kind module complete when
 # `flags[course_id][:marked_complete]` is truthy.
 #
-# Pass `exercises_only: true` when grading the lumped-mode per-block
-# exercise column: training-kind modules in the block belong to the
-# lumped "Wikipedia trainings" column, so requiring them here too would
-# double-count and zero out the exercise column on mixed-content blocks
-# until the surrounding trainings happen to be complete. In per-block
-# mode the binding represents the whole block as a single cell, so the
-# default all-or-nothing behavior across every module kind stays.
+# Only the block's *exercise* modules are considered. Its training-kind modules
+# are graded by the rolled-up "Wikipedia trainings" column, so requiring them
+# here too would double-count them and zero out the exercise column on
+# mixed-content blocks until the surrounding trainings happened to be complete.
+# This used to be an `exercises_only:` flag, defaulting to false for the
+# per-block gradebook layout, where one column represented a whole block; that
+# layout is gone, so every caller wanted exercises-only.
 #
 # The comment field carries only a "[Late]" marker prefix when the block
 # has a calculated due date in the past and the user has completed it.
@@ -30,8 +30,8 @@
 # than persisting it in Canvas.
 #
 # `signature` is a stable hash of (score_given, comment) for dedup —
-# SyncLtiGrades skips a POST when the LtiLineItem's last_pushed_signature
-# matches what we'd push next.
+# SyncLtiGrades skips a POST when the stored LtiScoreSignature for this
+# (line item, student) matches what we'd push next.
 class LtiBlockProgress
   attr_reader :score_given, :score_maximum, :comment
 
@@ -41,14 +41,12 @@ class LtiBlockProgress
   # the caller and keyed by `training_module_id` — so a roster can look up
   # completion in memory instead of a per-(student, module) query. When nil,
   # each module is looked up on demand (the single-user path).
-  def initialize(block, user, exercises_only: false, completions: nil)
+  def initialize(block, user, completions: nil)
     @block = block
     @user = user
     @course = block.course
     @completions = completions
-    modules = block.training_modules.to_a
-    modules = modules.select(&:exercise?) if exercises_only
-    @training_modules = modules
+    @training_modules = block.training_modules.to_a.select(&:exercise?)
     @score_maximum = SCORE_MAXIMUM
     @score_given = compute_score
     @comment = compute_comment

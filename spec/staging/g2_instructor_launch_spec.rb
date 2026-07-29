@@ -80,6 +80,5 @@ describe 'G2: instructor first launch', :staging do
 
     binding = DashboardAdminClient.find_binding(course_slug: provisioned[:dashboard_course_slug])
     expect(binding).to include('course_id' => provisioned[:dashboard_course_id])
-    expect(binding['gradebook_granularity']).to eq('lumped')
   end
 end

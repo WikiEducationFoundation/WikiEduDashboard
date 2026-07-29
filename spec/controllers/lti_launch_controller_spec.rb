@@ -519,6 +519,79 @@ describe LtiLaunchController, type: :request do
       expect(response.headers).not_to have_key('X-Frame-Options')
     end
 
+    # Canvas is the only platform this integration is built and tested for: the
+    # deep-link flow, the AGS submission_type extension, and the role mapping are
+    # all Canvas-shaped. A launch from anything else fails closed instead of
+    # reaching that code.
+    context 'when the launch comes from a non-Canvas platform' do
+      let(:idtoken) do
+        base = idtoken_for(role)
+        base['platform']['productFamilyCode'] = 'moodle'
+        base
+      end
+
+      before { allow(Sentry).to receive(:capture_exception) }
+
+      it 'refuses the launch' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'creates no binding for it' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiCourseBinding, :count)
+      end
+
+      # The anonymous path normally degrades to the landing page on any error;
+      # this one has to fail closed instead.
+      it 'refuses the signed-out launch too rather than showing the landing' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).not_to include('Open the Wiki Education Dashboard')
+      end
+
+      it 'reports it, since only a registered platform can reach this' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(Sentry).to have_received(:capture_exception)
+      end
+    end
+
+    # Canvas maps ObserverEnrollment to Mentor. While Mentor counted as staff, an
+    # observer's course-nav launch rendered the instructor status panel — roster
+    # counts, last-sync state, and the Sync grades trigger.
+    context 'when the launch role is one the integration does not serve' do
+      let(:role) { 'Mentor' }
+      let!(:course) { create(:course) }
+      let!(:binding) do
+        LtiCourseBinding.create!(
+          course:, lms_id: 'platform-x', lms_family: 'canvas',
+          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+        )
+      end
+
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'does not render the instructor status view' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:forbidden)
+        expect(response).to render_template('lti_launch/enrollment_error')
+      end
+
+      it 'does not enroll them in the Dashboard course' do
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .not_to change(CoursesUsers, :count)
+      end
+
+      it 'does not kick off a roster sync on their behalf' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(LtiRosterSyncWorker).not_to have_received(:perform_async)
+      end
+    end
+
     # Two Canvas members in one course can't share a Wikipedia account: grade
     # sync would post the same progress at both of their gradebook rows.
     context 'when the signed-in user is already linked to another LMS identity' do
@@ -554,6 +627,33 @@ describe LtiLaunchController, type: :request do
         expect(response.headers).not_to have_key('X-Frame-Options')
       end
     end
+
+    # The ltik is in the URL, so a launch that relinked to whoever is signed in
+    # would let a student share their link and collect someone else's progress
+    # against their own Canvas grade.
+    context 'when this LMS identity is already linked to a different user' do
+      let(:original) { create(:user, username: 'First Account') }
+      let!(:course) { create(:course) }
+      let!(:binding) do
+        LtiCourseBinding.create!(
+          course:, lms_id: 'platform-x', lms_family: 'canvas',
+          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
+        )
+      end
+
+      before do
+        allow(Sentry).to receive(:capture_exception)
+        LtiContext.create!(user_lti_id: 'lti-user-1', lti_course_binding: binding,
+                           lms_id: 'platform-x', user: original, linked_at: 1.day.ago)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+      it 'refuses the launch rather than moving the link' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:conflict)
+        expect(LtiContext.find_by(user_lti_id: 'lti-user-1').user).to eq(original)
+      end
+    end
   end
 
   describe 'POST /lti/setup' do
@@ -584,22 +684,17 @@ describe LtiLaunchController, type: :request do
                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       end
 
-      it 'binds the course as deep-link-first (no layout choice)' do
+      it 'binds the course' do
         post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
-        binding.reload
-        expect(binding.course).to eq(course)
-        # No gradebook-layout radios anymore; the binding keeps the
-        # deep-link-first default regardless of any submitted param.
-        expect(binding.gradebook_granularity).to eq('lumped')
+        expect(binding.reload.course).to eq(course)
         expect(response).to redirect_to("/courses/#{course.slug}")
       end
 
-      it 'ignores a stray gradebook_granularity param' do
-        post '/lti/setup', params: {
-          ltik: 'ltik-abc', course_slug: course.slug,
-          gradebook_granularity: 'per_block'
-        }
-        expect(binding.reload.gradebook_granularity).to eq('lumped')
+      # Deep-link-first is the only layout, so setup has nothing to choose and
+      # nothing to auto-create: the instructor imports columns from Canvas.
+      it 'creates no gradebook columns' do
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
+        expect(LtiLineItem.count).to eq(0)
       end
 
       it 'enqueues a roster sync after binding' do
@@ -1349,6 +1444,44 @@ describe LtiLaunchController, type: :request do
     it 'rejects a resource that is not one of the bound course gradables' do
       post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resource: 'Block:999999' }
       expect(response).to have_http_status(422)
+    end
+
+    # The picker hides gradables that already have a column, but the submission
+    # used to validate only course membership — so a replayed or hand-built POST
+    # could ask for one anyway and mint a second Canvas assignment with the same
+    # tag. Submission now recomputes the same offerable set the picker showed.
+    context 'when the chosen gradable already has an active gradebook column' do
+      before do
+        LtiLineItem.create!(
+          lti_course_binding: LtiCourseBinding.find_by(course:),
+          gradable_type: 'Block', gradable_id: exercise_block.id,
+          lineitem_id: 'https://canvas/li/existing', label: 'Find sources'
+        )
+      end
+
+      it 'refuses the submission' do
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        expect(response).to have_http_status(422)
+      end
+
+      it 'never asks LTIAAS to build a content-item form for it' do
+        stub = stub_request(:post, form_url)
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        expect(stub).not_to have_been_requested
+      end
+
+      # An archived column means the gradable is back on the menu.
+      it 'allows it again once the existing column is archived' do
+        LtiLineItem.find_by(gradable_id: exercise_block.id).archive!
+        stub_request(:post, form_url)
+          .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        expect(response).to have_http_status(:ok)
+      end
     end
 
     it 'schedules a line-item sync so the new column is discovered and bound' do

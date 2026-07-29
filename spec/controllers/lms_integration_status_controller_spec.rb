@@ -107,12 +107,15 @@ describe LmsIntegrationStatusController, type: :request do
         expect(JSON.parse(response.body)['last_sync_error_present']).to be true
       end
 
+      # Roles come from the launch or NRPS on every real context, and only
+      # learner memberships are counted, so they belong in the fixture.
       it 'counts only LtiContexts that have been linked to a User' do
+        learner_roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
         other_student = create(:user, username: 'OtherStudent')
         LtiContext.create!(lti_course_binding: binding, user: other_student,
-                           user_lti_id: 'l1', lms_id: 'platform-x')
+                           user_lti_id: 'l1', lms_id: 'platform-x', roles: learner_roles)
         LtiContext.create!(lti_course_binding: binding, user_id: nil,
-                           user_lti_id: 'l2', lms_id: 'platform-x')
+                           user_lti_id: 'l2', lms_id: 'platform-x', roles: learner_roles)
         get request_path
         expect(JSON.parse(response.body)['synced_students_count']).to eq(1)
       end

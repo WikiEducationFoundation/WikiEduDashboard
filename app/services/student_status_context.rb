@@ -81,7 +81,7 @@ class StudentStatusContext
   end
 
   def exercise_done?(block)
-    LtiBlockProgress.new(block, @user, exercises_only: true).score_given >= 1.0
+    LtiBlockProgress.new(block, @user).score_given >= 1.0
   end
 
   def exercise_url(block)

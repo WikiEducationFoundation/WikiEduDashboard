@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-# Service-auth LTIAAS session for background work (NRPS roster sync, AGS
-# line-item management, AGS score posting). Distinct from LtiSession, which
-# is launch-scoped and uses LTIK auth.
+# Service-auth LTIAAS session for background work: reading the roster over NRPS
+# (fetch_memberships), reading the gradebook's line items over AGS
+# (list_line_items), and posting scores at them (post_score). Distinct from
+# LtiSession, which is launch-scoped and uses LTIK auth.
 #
-# Construct with an LtiCourseBinding; the binding holds the persisted
-# LTIAAS service-auth credentials (encrypted before any real population).
-#
-# This is a v1-PR-1 skeleton: the actual NRPS/AGS verbs are stubbed and
-# raise NotImplementedError. Implementations land in subsequent PRs:
-#   - fetch_memberships         => PR 3 (roster sync)
-#   - upsert_line_item, etc.    => PR 4 (line-item sync)
-#   - post_score                => PR 5 (grade sync)
+# Construct with an LtiCourseBinding; the binding holds the persisted LTIAAS
+# service-auth credentials, in plain text — see the
+# CreateLtiCourseBindings migration for why, and
+# docs/canvas_integration_todos.md for the pre-production dependency that
+# tracks it.
 class LtiServiceSession
   attr_reader :binding
 
@@ -45,8 +43,14 @@ class LtiServiceSession
 
   # POST /api/lineitems — creates a new gradebook line item.
   # Returns the lineitem `id` (a URL string) which we persist on
-  # LtiLineItem.lineitem_id for later PUT/score calls.
+  # LtiLineItem.lineitem_id for later score calls.
   # See https://docs.ltiaas.com/guides/api/manipulating-grade-lines/
+  #
+  # The runtime never calls this: deep-link-first means Canvas creates every
+  # column when the instructor imports, and SyncLtiLineItems only discovers them.
+  # It stays because the live-Canvas screenshot harness
+  # (spec/staging/support/dashboard_admin_client.rb) uses it to seed a gradebook
+  # deterministically instead of driving the Modules picker through a browser.
   def upsert_line_item(label:, tag: nil, score_maximum: 1.0, resource_link_id: nil,
                        resource_id: nil, end_date_time: nil, launch_url: nil)
     body = { label:, scoreMaximum: score_maximum }
@@ -66,23 +70,12 @@ class LtiServiceSession
     response['id']
   end
 
-  # PUT /api/lineitems/{urlencoded(lineitem_id)} — replaces the line
-  # item's metadata. label and scoreMaximum are required by LTIAAS.
-  def update_line_item(lineitem_id, label:, score_maximum: 1.0)
-    @client.put(
-      "/api/lineitems/#{CGI.escape(lineitem_id)}",
-      label:, scoreMaximum: score_maximum
-    )
-  end
-
-  # DELETE /api/lineitems/{urlencoded(lineitem_id)}.
-  # v1 grade-sync policy never calls this (we soft-archive locally
-  # instead, since deleting from LTIAAS destroys the corresponding
-  # Canvas gradebook column and its scores). Kept available for
-  # admin tooling.
-  def delete_line_item(lineitem_id)
-    @client.delete("/api/lineitems/#{CGI.escape(lineitem_id)}")
-  end
+  # No update_line_item / delete_line_item here on purpose. Canvas owns a column
+  # once the instructor has imported it: we never rename one (renaming a block
+  # updates the local row's label only) and never delete one, because deleting
+  # from LTIAAS destroys the Canvas gradebook column and its scores — a stale
+  # column is soft-archived locally instead. Both verbs existed for the
+  # auto-creating gradebook layouts and went unused once those were dropped.
 
   # GET /api/lineitems[?resourceLinkId=&tag=&...] — paginated.
   def list_line_items(resource_link_id: nil, tag: nil)
@@ -103,8 +96,11 @@ class LtiServiceSession
   # student's score on one line item. Per LTIAAS docs (and LTI Advantage
   # AGS), `userId`, `activityProgress`, `gradingProgress` are required.
   # `scoreGiven` and `scoreMaximum` come together when the score should
-  # update the gradebook. `comment` is a free-form text field surfaced in
-  # the Canvas gradebook (we use it for sandbox URLs and lateness flags).
+  # update the gradebook. `comment` is a free-form text field surfaced in the
+  # Canvas gradebook; we put a lateness marker and the Dashboard's origin there,
+  # and deliberately never a sandbox URL — those embed the student's Wikipedia
+  # username and a gradebook comment is visible to anyone with gradebook access
+  # (see LtiBlockProgress).
   # 204 No Content on success.
   # See https://docs.ltiaas.com/guides/api/manipulating-grades/
   # rubocop:disable Metrics/ParameterLists

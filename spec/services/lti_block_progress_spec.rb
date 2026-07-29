@@ -17,29 +17,25 @@ describe LtiBlockProgress do
 
   before { allow(LtiLineItemSyncWorker).to receive(:perform_in) }
 
-  describe 'a block with a single training module' do
+  # A block's column grades its exercises only — its training-kind modules are
+  # graded by the rolled-up "Wikipedia trainings" column, so counting them here
+  # too would double-count them and hold the exercise column at 0 until the
+  # surrounding trainings happened to be complete.
+  describe 'a block with only training modules' do
     let(:block) do
       create(:block, week: week, order: 0, title: 'Get started',
                      training_module_ids: [training_module.id])
     end
 
-    it 'is 0.0 when the user has no completion record' do
+    it 'is not gradable — it has no exercise to grade' do
       progress = described_class.new(block, user)
-      expect(progress.score_given).to eq(0.0)
-      expect(progress.gradable?).to be(true)
+      expect(progress.gradable?).to be(false)
     end
 
-    it 'is 0.0 when the training is started but not completed' do
-      TrainingModulesUsers.create!(user: user, training_module: training_module,
-                                   last_slide_completed: 'slide-1')
-      expect(described_class.new(block, user).score_given).to eq(0.0)
-    end
-
-    it 'is 1.0 when the training is completed' do
+    it 'stays ungradable even once the training is complete' do
       TrainingModulesUsers.create!(user: user, training_module: training_module,
                                    completed_at: 2.days.ago)
-      progress = described_class.new(block, user)
-      expect(progress.score_given).to eq(1.0)
+      expect(described_class.new(block, user).gradable?).to be(false)
     end
   end
 
@@ -83,44 +79,38 @@ describe LtiBlockProgress do
                      training_module_ids: [training_module.id, exercise_module.id])
     end
 
-    it 'is 1.0 only when all modules are complete' do
-      # Training done, exercise not.
-      TrainingModulesUsers.create!(user: user, training_module: training_module,
-                                   completed_at: 1.day.ago)
-      TrainingModulesUsers.create!(user: user, training_module: exercise_module)
-      expect(described_class.new(block, user).score_given).to eq(0.0)
-
-      # Both done.
-      tmu = TrainingModulesUsers.find_by(user: user, training_module: exercise_module)
+    # The block's training module is ignored here: it's graded by the trainings
+    # roll-up column, so the exercise alone decides this column's score.
+    it 'is 1.0 once the exercise is complete, whatever the trainings say' do
+      TrainingModulesUsers.create!(user: user, training_module: training_module)
+      tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module)
       tmu.flags = { course.id => { marked_complete: true } }
       tmu.save!
       expect(described_class.new(block, user).score_given).to eq(1.0)
     end
 
-    context 'in exercises_only mode (the lumped per-block exercise column)' do
-      it 'is 1.0 with no sandbox URL or username in the comment' do
-        tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module)
-        tmu.flags = { course.id => { marked_complete: true } }
-        tmu.save!
-        progress = described_class.new(block, user, exercises_only: true)
-        expect(progress.score_given).to eq(1.0)
-        expect(progress.comment.to_s).not_to include('sandbox/Bibliography')
-        expect(progress.comment.to_s).not_to include('User:')
-      end
+    it 'is 0.0 when the exercise is not marked complete even if trainings are done' do
+      TrainingModulesUsers.create!(user: user, training_module: training_module,
+                                   completed_at: 1.day.ago)
+      TrainingModulesUsers.create!(user: user, training_module: exercise_module)
+      expect(described_class.new(block, user).score_given).to eq(0.0)
+    end
 
-      it 'is 0.0 when the exercise is not marked complete even if trainings are done' do
-        TrainingModulesUsers.create!(user: user, training_module: training_module,
-                                     completed_at: 1.day.ago)
-        TrainingModulesUsers.create!(user: user, training_module: exercise_module)
-        expect(described_class.new(block, user, exercises_only: true).score_given).to eq(0.0)
-      end
+    it 'keeps the sandbox URL and username out of the comment' do
+      tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module)
+      tmu.flags = { course.id => { marked_complete: true } }
+      tmu.save!
+      progress = described_class.new(block, user)
+      expect(progress.score_given).to eq(1.0)
+      expect(progress.comment.to_s).not_to include('sandbox/Bibliography')
+      expect(progress.comment.to_s).not_to include('User:')
     end
   end
 
   describe 'signature stability' do
     let(:block) do
-      create(:block, week: week, order: 0, title: 'Get started',
-                     training_module_ids: [training_module.id])
+      create(:block, week: week, order: 0, title: 'Find sources',
+                     training_module_ids: [exercise_module.id])
     end
 
     it 'is the same SHA1 hash for two equivalent computations' do
@@ -131,8 +121,9 @@ describe LtiBlockProgress do
 
     it 'changes when score changes' do
       before_sig = described_class.new(block, user).signature
-      TrainingModulesUsers.create!(user: user, training_module: training_module,
-                                   completed_at: 1.day.ago)
+      tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module)
+      tmu.flags = { course.id => { marked_complete: true } }
+      tmu.save!
       after_sig = described_class.new(block, user).signature
       expect(after_sig).not_to eq(before_sig)
     end

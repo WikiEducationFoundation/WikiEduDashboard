@@ -5,23 +5,26 @@ import StaffView from './staff_view.jsx';
 import StudentView from './student_view.jsx';
 
 // Sidebar panel that surfaces LMS-integration status on a bound
-// course. Self-gating: when `course.flags.canvas_integration` is
-// absent, returns null without firing any network calls — non-LMS
-// courses pay nothing. When the flag is present, fetches the
-// role-scoped payload from /lms_integration_status.json and dispatches
-// to the matching subview.
+// course. Self-gating: unless the integration is globally enabled AND
+// `course.flags.canvas_integration` is set, returns null without firing
+// any network calls — non-LMS courses pay nothing, and a disabled
+// integration doesn't even ask. When both hold, fetches the role-scoped
+// payload from /lms_integration_status.json (which re-checks the gate
+// and the binding server-side) and dispatches to the matching subview.
+const isLinked = course => Boolean(Features.canvasIntegration && course?.flags?.canvas_integration);
+
 const LmsIntegrationStatus = ({ course }) => {
   const [status, setStatus] = useState(null);
 
   useEffect(() => {
-    if (!course?.flags?.canvas_integration) return;
+    if (!isLinked(course)) return;
     request(`/courses/${course.slug}/lms_integration_status.json`)
       .then(response => response.json())
       .then(setStatus)
       .catch(() => setStatus({ bound: false }));
   }, [course?.slug, course?.flags?.canvas_integration]);
 
-  if (!course?.flags?.canvas_integration) return null;
+  if (!isLinked(course)) return null;
   if (!status || status.bound === false) return null;
 
   // Payload shape discriminates role:

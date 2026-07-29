@@ -75,8 +75,10 @@ class SetupAssignmentViewContext
 
   private
 
+  # Learners by LMS role, so the connected/not-connected counts don't include
+  # staff or a Canvas observer (who is neither).
   def student_contexts
-    @student_contexts ||= @binding.lti_contexts.reject(&:instructor?)
+    @student_contexts ||= @binding.lti_contexts.select(&:learner?)
   end
 
   def connected_contexts

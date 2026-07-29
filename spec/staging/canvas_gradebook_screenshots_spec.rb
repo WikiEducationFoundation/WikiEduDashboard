@@ -87,12 +87,10 @@ describe 'Canvas gradebook — Wikipedia account setup', :staging do
     slug = provisioned[:dashboard_course_slug]
     canvas_id = provisioned[:canvas_course_id]
     bind_course_as_instructor(canvas_course_id: canvas_id, course_slug: slug)
-    # Force 'standard' to auto-create the full column set (account + trainings +
-    # per-exercise) for the gradebook shot, rather than driving the Modules
-    # import. The gradebook looks the same either way; deep-link-first is the
-    # product default now, so this is a gallery shortcut (follow-up: rework
-    # onto the import flow).
-    DashboardAdminClient.set_granularity(course_slug: slug, granularity: 'standard')
+    # Seed the column set the Modules import would create (account + trainings +
+    # per-exercise), tagged the same way, so discovery binds them exactly as it
+    # does for a real import — without driving the picker through a browser.
+    DashboardAdminClient.import_all_columns(course_slug: slug)
     binding_id = DashboardAdminClient.find_binding(course_slug: slug)['id']
 
     set_up_connected_student(slug, binding_id)

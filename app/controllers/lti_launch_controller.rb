@@ -39,6 +39,7 @@ class LtiLaunchController < ApplicationController
   include LtiStudentEnrollment
   include LtiAnonymousLaunch
   include LtiGradeSyncTrigger
+  include LtiLaunchSession
 
   # Every launch-flow view is a minimal, chrome-less page rather than the full
   # dashboard React shell. The setup / setup_pending / enrollment_* views were
@@ -63,6 +64,10 @@ class LtiLaunchController < ApplicationController
 
     log_launch_claims if ENV['LTI_LAUNCH_DEBUG']
     return assignment_launch_response if assignment_launch?
+    # An assignment launch above still renders (read-only, no enrollment — see
+    # LtiStudentEnrollment#enrollable_student?), but there is no course-nav view
+    # for someone who is neither staff nor learner.
+    return render_unsupported_role if @lti_session.unsupported_role?
 
     @lti_session.instructor? ? handle_instructor_launch : handle_student_launch
   end
@@ -112,56 +117,6 @@ class LtiLaunchController < ApplicationController
   end
 
   private
-
-  def build_lti_session(ltik)
-    LtiSession.new(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], ltik)
-  end
-
-  # Diagnostic, off unless LTI_LAUNCH_DEBUG is set. Logs the launch idtoken's
-  # top-level keys, the full `custom` object (Canvas ids + our resource
-  # marker — not PII), and the AGS service keys + lineItemId value (never the
-  # serviceKey value). Confirms what a deep-link-created resource link's
-  # launch actually carries on staging.
-  def log_launch_claims
-    idt = @lti_session.idtoken
-    ags = idt.dig('services', 'assignmentAndGrades') || {}
-    Rails.logger.warn("[LTI launch] top=#{idt.keys.inspect} custom=#{idt['custom'].inspect} " \
-                      "ags_keys=#{ags.keys.inspect} lineItemId=#{ags['lineItemId'].inspect}")
-  end
-
-  # False means the launch authenticated fine but its LMS identity can't be
-  # linked: this Dashboard user is already the linked identity for a different
-  # member of the same Canvas course, and letting both stand would post one
-  # student's progress at two gradebook rows.
-  def start_lti_session
-    @lti_session = build_lti_session(params[:ltik])
-    @binding = @lti_session.find_or_create_binding!
-    context = @lti_session.link_lti_user(current_user, binding: @binding)
-    schedule_first_link_grade_push(context)
-    true
-  rescue LtiSession::DuplicateUserLinkError => e
-    Sentry.capture_exception(e, extra: { binding_id: @binding&.id,
-                                         user_id: current_user&.id })
-    false
-  end
-
-  # Reuses the "couldn't enroll you" view: from the student's side a duplicate
-  # link and a failed enrollment are the same dead end with the same remedy —
-  # contact the instructor — and the view already offers a re-launch retry.
-  def render_enrollment_error
-    render 'lti_launch/enrollment_error', status: :conflict
-  end
-
-  # The "Wikipedia account" column should flip to ✓ the moment a student
-  # connects their account, not at the next half-hourly cron — that launch
-  # is exactly when they go looking for confirmation. Fires only when this
-  # launch newly linked the context (user_id just changed), so routine
-  # relaunches don't enqueue redundant syncs.
-  def schedule_first_link_grade_push(context)
-    return unless @binding.course && context.previous_changes.key?('user_id')
-
-    LtiGradeSyncWorker.perform_async(@binding.id)
-  end
 
   # An assignment-context launch is identifiable three ways: the deep-link
   # `resource` marker we stamp on every deep-link-created assignment (echoed back
