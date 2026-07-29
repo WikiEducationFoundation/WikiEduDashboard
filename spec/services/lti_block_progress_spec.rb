@@ -63,13 +63,29 @@ describe LtiBlockProgress do
       expect(progress.comment.to_s).not_to include('User:')
     end
 
-    it 'prefixes [Late] in the comment when completed past due_date' do
+    # There is no lateness marker any more. It was computed from "score at maximum
+    # and the due date has passed", never from a completion time, so once the due
+    # date went by every student who finished on time got marked late. An exercise
+    # completion records no timestamp (`flags[course_id] = { marked_complete: }`),
+    # so the marker isn't computable here at all — and a gradebook comment feeds
+    # real grade decisions, so being silent beats being wrong for everyone.
+    it 'adds no comment for a completion after the due date' do
       tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module,
                                      completed_at: 1.day.ago)
       tmu.flags = { course.id => { marked_complete: true } }
       tmu.save!
       progress = described_class.new(block, user)
-      expect(progress.comment).to start_with('[Late]')
+      expect(progress.score_given).to eq(1.0)
+      expect(progress.comment).to be_nil
+    end
+
+    it 'adds no comment for an on-time completion either' do
+      block.week.course.update!(start: 1.month.ago)
+      tmu = TrainingModulesUsers.new(user: user, training_module: exercise_module,
+                                     completed_at: 30.days.ago)
+      tmu.flags = { course.id => { marked_complete: true } }
+      tmu.save!
+      expect(described_class.new(block, user).comment).to be_nil
     end
   end
 

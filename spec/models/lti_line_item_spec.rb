@@ -12,6 +12,47 @@ describe LtiLineItem do
     )
   end
 
+  # Deleting an imported Canvas assignment and re-importing it repoints this row
+  # at a new Canvas line item. Signatures are keyed on the row, so without this
+  # they described a column that no longer exists — grade sync saw an unchanged
+  # signature, skipped the push, and left the new column blank.
+  describe 'score signatures when the Canvas line item is repointed' do
+    let(:line_item) do
+      described_class.create!(lti_course_binding: binding, gradable_type: 'Block',
+                              gradable_id: 5, lineitem_id: 'https://canvas/li/old')
+    end
+    let(:context) do
+      LtiContext.create!(lti_course_binding: binding, user: create(:user),
+                         user_lti_id: 'lti-1', lms_id: 'platform-x')
+    end
+
+    before do
+      LtiScoreSignature.create!(lti_line_item: line_item, lti_context: context,
+                                signature: 'abc', last_pushed_at: 1.hour.ago)
+    end
+
+    it 'discards them when lineitem_id changes' do
+      expect { line_item.update!(lineitem_id: 'https://canvas/li/new') }
+        .to change(LtiScoreSignature, :count).by(-1)
+    end
+
+    it 'keeps them when some other attribute changes' do
+      expect { line_item.update!(label: 'Renamed') }
+        .not_to change(LtiScoreSignature, :count)
+    end
+
+    it 'keeps them when the row is re-saved with the same lineitem_id' do
+      expect { line_item.update!(lineitem_id: 'https://canvas/li/old', archived_at: nil) }
+        .not_to change(LtiScoreSignature, :count)
+    end
+
+    # The shape of the update that bind_discovered_line_item performs.
+    it 'discards them on the repoint a re-import performs' do
+      line_item.update!(lineitem_id: 'https://canvas/li/reimported', archived_at: nil)
+      expect(LtiScoreSignature.where(lti_line_item_id: line_item.id)).to be_empty
+    end
+  end
+
   describe 'validations' do
     it 'is valid as a TrainingProgress sentinel with no gradable_id' do
       li = described_class.new(

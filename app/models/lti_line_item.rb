@@ -40,6 +40,19 @@ class LtiLineItem < ApplicationRecord
 
   belongs_to :lti_course_binding
   belongs_to :gradable, polymorphic: true, optional: true
+  has_many :lti_score_signatures, dependent: :destroy
+
+  # A stored signature means "we already pushed this exact score to this column".
+  # `lineitem_id` is mutable — an instructor who deletes an imported Canvas
+  # assignment and re-imports it gets a new Canvas line item, and both
+  # SyncLtiLineItems#bind_discovered_line_item and
+  # ResolveAssignmentLineItem#bind_line_item repoint this row at it rather than
+  # creating another. The signatures are keyed on this row's id, so they survived
+  # that repoint and described a column that no longer exists: grade sync's
+  # `signature_unchanged?` matched, the push was skipped, and the new gradebook
+  # column stayed blank with no error and no Sentry event. Because zeros are never
+  # seeded either, it wouldn't necessarily self-heal.
+  after_update :discard_score_signatures, if: :saved_change_to_lineitem_id?
 
   scope :active, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
@@ -60,5 +73,11 @@ class LtiLineItem < ApplicationRecord
 
   def archive!
     update!(archived_at: Time.current) unless archived?
+  end
+
+  private
+
+  def discard_score_signatures
+    LtiScoreSignature.where(lti_line_item_id: id).delete_all
   end
 end

@@ -65,16 +65,20 @@ class LtiMemberLinker
     @context.roles = @member[:roles]
   end
 
+  # Both guards come before any path that changes an enrollment. They used to sit
+  # after the promotion branch, which meant a member Canvas had deleted from the
+  # course could still be promoted to Dashboard instructor on the strength of
+  # their stale staff roles, and promotion skipped the approval check that the
+  # JoinCourse path applies.
   def enroll_in_course
     role = target_role
-    return if role.nil?
+    return if role.nil? || removed_from_lms?
+    return unless @binding.course.approved?
     return if CoursesUsers.exists?(user_id: @context.user_id,
                                    course_id: @binding.course_id, role:)
 
     conflicting = conflicting_enrollment
     return promote(conflicting, role) if conflicting
-    return if removed_from_lms?
-    return unless @binding.course.approved?
 
     JoinCourse.new(course: @binding.course, user: @context.user,
                    role:, real_name: @context.user.real_name)

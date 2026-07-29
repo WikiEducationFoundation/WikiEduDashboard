@@ -10,7 +10,10 @@ slowly and flash unstyled text while the webfont swapped in.
 So this bundle cherry-picks only the foundation (reset + shared variables/
 mixins + icons + layout + base) and the three component modules the iframe
 views actually use — buttons (_controls), .module (_modules), and the LTI
-iframe module — instead of `@import "modules/*"`. Fonts fall back to the
+iframe module — instead of `@import "modules/*"`. Its own partial lives at
+the top level rather than under `modules/` for exactly that reason: anything
+in `modules/` is swept into `main.css` by that glob, and these selectors are
+only ever used by the `lti_iframe` layout. Fonts fall back to the
 system/arial stack (no external webfont request, no swap).
 
 ///////////////////////////////////////////////////// */
@@ -21,4 +24,4 @@ system/arial stack (no external webfont request, no swap).
 @import "_base"
 @import "modules/_controls"
 @import "modules/_modules"
-@import "modules/_lti_iframe"
+@import "_lti_iframe"

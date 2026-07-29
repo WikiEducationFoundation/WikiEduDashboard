@@ -304,6 +304,28 @@ describe SyncLtiGrades do
         .to raise_error(LtiaasClient::LtiaasAuthError)
       expect(binding.reload.last_grade_sync_error).to include('LtiaasAuthError')
     end
+
+    # The line-item sync runs first and can fail on its own. A 404 from it is a
+    # plain LtiaasClientError, outside the per-score aborting tier, and used to
+    # escape with neither field written — so the job dead-lettered while the
+    # status views reported a healthy binding.
+    it 'records a failure from the line-item sync that runs first' do
+      stub_request(:get, %r{https://#{domain}/api/lineitems})
+        .to_return(status: 404, body: 'no such context')
+      expect { described_class.new(binding) }
+        .to raise_error(LtiaasClient::LtiaasClientError)
+      expect(binding.reload.last_grade_sync_error).to include('LtiaasClientError')
+      expect(binding.last_grade_sync_at).to be_within(5.seconds).of(3.hours.ago)
+    end
+
+    # TLS and body-parsing failures are siblings of ConnectionFailed under
+    # Faraday::Error, so they used to slip past the client's transient mapping.
+    it 'treats a TLS failure as a whole-run transient failure' do
+      stub_request(:post, /scores/).to_raise(Faraday::SSLError.new('handshake failed'))
+      expect { described_class.new(binding) }
+        .to raise_error(LtiaasClient::LtiaasTransientError)
+      expect(binding.reload.last_grade_sync_at).to be_within(5.seconds).of(3.hours.ago)
+    end
   end
 
   describe 'dedup via LtiScoreSignature' do

@@ -2,10 +2,8 @@
 
 # Computes a single (Block, User) AGS score payload for the LTIAAS grade
 # sync. A block scores 1.0/1.0 if every considered TrainingModule attached
-# to it is complete for that user; 0.0/1.0 otherwise. v1 considers a
-# training-kind module complete when TrainingModulesUsers.completed_at is
-# set, and an exercise-kind module complete when
-# `flags[course_id][:marked_complete]` is truthy.
+# to it is complete for that user; 0.0/1.0 otherwise. An exercise-kind module
+# counts as complete when `flags[course_id][:marked_complete]` is truthy.
 #
 # Only the block's *exercise* modules are considered. Its training-kind modules
 # are graded by the rolled-up "Wikipedia trainings" column, so requiring them
@@ -15,11 +13,16 @@
 # per-block gradebook layout, where one column represented a whole block; that
 # layout is gone, so every caller wanted exercises-only.
 #
-# The comment field carries only a "[Late]" marker prefix when the block
-# has a calculated due date in the past and the user has completed it.
-# Score remains 1.0; Wiki Ed practice doesn't auto-penalize late training,
-# but the marker shows up in the gradebook so instructors with their own
-# policy can act. Otherwise the comment is nil.
+# `comment` is always nil, and there is no lateness marker. There used to be a
+# "[Late]" prefix, but it was computed from the score being at maximum plus the
+# due date having passed — no completion time was consulted — so once a due date
+# went by, every student who had finished *on time* acquired the marker. Since
+# this only grades exercises now, and `TrainingModulesUsers#mark_completion`
+# records no timestamp for a per-course exercise completion
+# (`flags[course_id] = { marked_complete: value }`), lateness is not computable
+# here at all. Re-introducing it needs a completion timestamp first; a marker
+# that is wrong for the whole roster is worse than none, because the gradebook
+# comment feeds real grade decisions. See docs/canvas_integration_todos.md.
 #
 # It deliberately does NOT include exercise sandbox URLs. Those URLs embed
 # the student's Wikipedia username ("User:<username>/..."), and an AGS
@@ -33,6 +36,9 @@
 # SyncLtiGrades skips a POST when the stored LtiScoreSignature for this
 # (line item, student) matches what we'd push next.
 class LtiBlockProgress
+  # `comment` is part of the progress duck type SyncLtiGrades posts (alongside
+  # LtiSetupProgress and LtiTrainingProgress, which do set one); it stays nil
+  # here. A blank comment is left off the AGS payload entirely.
   attr_reader :score_given, :score_maximum, :comment
 
   SCORE_MAXIMUM = 1.0
@@ -49,7 +55,6 @@ class LtiBlockProgress
     @training_modules = block.training_modules.to_a.select(&:exercise?)
     @score_maximum = SCORE_MAXIMUM
     @score_given = compute_score
-    @comment = compute_comment
   end
 
   def signature
@@ -67,19 +72,6 @@ class LtiBlockProgress
     return SCORE_MAXIMUM if @training_modules.all? { |m| module_complete?(m) }
 
     0.0
-  end
-
-  def compute_comment
-    '[Late]' if late_completion?
-  end
-
-  def late_completion?
-    return false unless @score_given >= SCORE_MAXIMUM
-
-    due = @block.calculated_due_date
-    return false if due.nil?
-
-    Time.zone.today > due
   end
 
   def module_complete?(mod)

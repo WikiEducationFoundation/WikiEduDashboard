@@ -79,10 +79,16 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  # `:staging` tagged specs are opt-in only — `spec/spec_helper.rb` adds
-  # `filter_run_excluding :staging` to the default rspec config, and our
-  # `bin/staging-feature-spec` runner passes `--tag staging` to re-enable
-  # them. CI never runs them.
+  # `:staging` tagged specs are opt-in only, and the exclusion has to be declared
+  # HERE as well as in `spec/spec_helper.rb`. These specs require this helper
+  # rather than `rails_helper`, so a run scoped to this directory
+  # (`bundle exec rspec spec/staging`) never loads the default config at all —
+  # which meant that invocation happily drove a real browser against
+  # dashboard-testing.wikiedu.org, created and deleted real Canvas courses, and
+  # SSHed to the staging host as root. Verified with `--dry-run`: 25 examples, no
+  # exclusion in the run options. `bin/staging-feature-spec` passes
+  # `--tag staging`, which removes it from the exclusion set. CI never runs them.
+  config.filter_run_excluding :staging
 
   config.include Capybara::DSL, :staging
   config.include StagingSessions, :staging

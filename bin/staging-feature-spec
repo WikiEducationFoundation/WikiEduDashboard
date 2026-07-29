@@ -35,10 +35,10 @@ if File.exist?(env_path)
   end
 end
 
-# Tag filter is enforced inside spec/staging/spec_helper.rb via
-# filter_run_when_matching :staging — passing --tag here too is belt and
-# suspenders, since we never want this runner to pick up a regular feature
-# spec by accident.
+# `--tag staging` is load-bearing, not belt and suspenders: spec/staging/spec_helper.rb
+# excludes :staging by default (so a plain `rspec spec/staging` can't fire live
+# Canvas + SSH work by accident), and this flag is what opts back in. It also
+# keeps this runner from picking up a regular feature spec.
 cmd = ['bundle', 'exec', 'rspec', spec_file,
        '--tag', 'staging',
        '--format', 'documentation',

@@ -197,5 +197,45 @@ describe LtiMemberLinker do
       described_class.new(binding, deleted_member)
       expect(CoursesUsers.exists?(user:, course:)).to be true
     end
+
+    # The guard used to sit after the promotion branch, so a member Canvas had
+    # removed could still be promoted on the strength of stale staff roles.
+    it 'does not promote them even when their LMS roles say staff' do
+      CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+      described_class.new(binding, deleted_member.merge(
+                                     roles: ['http://purl.imsglobal.org/vocab/lis/v2/' \
+                                             'membership#Instructor']
+                                   ))
+      expect(CoursesUsers.find_by(user:, course:).role)
+        .to eq(CoursesUsers::Roles::STUDENT_ROLE)
+    end
+  end
+
+  # Promotion used to skip the approval check that the JoinCourse path applies.
+  describe 'a course that is not approved' do
+    let!(:user) { create(:user, username: 'Alice') }
+    let(:unapproved) { create(:course, slug: 'School/Unapproved_(2026)') }
+    let(:unapproved_binding) do
+      LtiCourseBinding.create!(course: unapproved, lms_id: 'platform-x',
+                               lms_family: 'canvas', lms_context_id: 'canvas-88',
+                               lms_resource_link_id: 'rl-88')
+    end
+
+    before do
+      LtiContext.create!(user: user, lti_course_binding: unapproved_binding,
+                         user_lti_id: 'lti-1', lms_id: 'platform-x',
+                         linked_at: 1.day.ago)
+    end
+
+    it 'does not promote an existing student to instructor' do
+      CoursesUsers.create!(user:, course: unapproved,
+                           role: CoursesUsers::Roles::STUDENT_ROLE)
+      described_class.new(unapproved_binding, learner_member.merge(
+                                                roles: ['http://purl.imsglobal.org/vocab/' \
+                                                        'lis/v2/membership#Instructor']
+                                              ))
+      expect(CoursesUsers.find_by(user:, course: unapproved).role)
+        .to eq(CoursesUsers::Roles::STUDENT_ROLE)
+    end
   end
 end

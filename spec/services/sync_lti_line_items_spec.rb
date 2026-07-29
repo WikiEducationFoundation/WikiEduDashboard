@@ -111,6 +111,29 @@ describe SyncLtiLineItems do
       expect(LtiLineItem.find_by(gradable_id: exercise_block.id)).not_to be_archived
     end
 
+    # An instructor who deletes an imported assignment and re-imports it gets a
+    # new Canvas line item on the same local row. The stored signatures described
+    # the old column, so grade sync used to see them as unchanged, skip the push,
+    # and leave the new column permanently blank.
+    it 'discards stale score signatures when a re-import repoints the row' do
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
+                             'tag' => "Block:#{exercise_block.id}" }])
+      described_class.new(binding)
+      row = LtiLineItem.find_by(gradable_id: exercise_block.id)
+      context = LtiContext.create!(lti_course_binding: binding, user: create(:user),
+                                   user_lti_id: 'lti-1', lms_id: 'platform-x')
+      LtiScoreSignature.create!(lti_line_item: row, lti_context: context,
+                                signature: 'pushed-to-the-old-column',
+                                last_pushed_at: 1.hour.ago)
+
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex-reimported',
+                             'tag' => "Block:#{exercise_block.id}" }])
+      described_class.new(binding)
+
+      expect(row.reload.lineitem_id).to eq('https://lms.example.com/li/ex-reimported')
+      expect(LtiScoreSignature.where(lti_line_item_id: row.id)).to be_empty
+    end
+
     # Canvas owns the assignment's name once it exists; we never rename it.
     it 'never pushes a label change to Canvas' do
       stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',

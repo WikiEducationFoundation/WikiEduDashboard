@@ -52,7 +52,13 @@ class SyncLtiGrades
     @service = LtiServiceSession.new(@binding)
     push_scores_for_each_student
     record_completed_sync
-  rescue *ABORTING_ERRORS => e
+    # Deliberately broader than ABORTING_ERRORS, which is only the *per-score*
+    # classification. Anything that escapes this far failed the whole run —
+    # including the line-item sync above, which can raise a plain
+    # LtiaasClientError (any 4xx that isn't 401/403/429) or an ActiveRecord
+    # error. Those used to propagate with neither field written, so the job
+    # dead-lettered every cycle while LtiSyncStatus reported healthy.
+  rescue StandardError => e
     record_aborted_sync(e)
     raise
   end

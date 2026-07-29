@@ -498,3 +498,51 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
   corrected "Yes" answer and notes at Sage's request; the `[DRAFT - ...]` marker
   above it has to be resolved (rewritten and the marker removed) before the HECVAT
   goes to any institution.
+
+## Third-review follow-ups (2026-07-29)
+
+The mechanical findings and the two design ones are fixed on the branch. What's
+left, in the order it seems worth doing:
+
+- [ ] **Lateness signalling was removed, not fixed.** `LtiBlockProgress` no longer
+  emits a `[Late]` gradebook comment. The old one was computed from "score at
+  maximum and the due date has passed" with no completion time consulted, so every
+  student who finished on time picked up the marker as soon as the due date went
+  by — and the class comment invited instructors to act on it. Re-introducing it
+  needs a per-course completion timestamp for exercises first:
+  `TrainingModulesUsers#mark_completion` writes
+  `flags[course_id] = { marked_complete: value }` and records no time, and the
+  flags column is shared with the non-LTI course views, so this is a change to
+  core training data rather than to the integration. Worth deciding whether Wiki
+  Ed wants lateness in the gradebook at all before building it.
+- [ ] **`SyncLtiRoster` has no error field to surface.** Its failure tiers are now
+  right (whole-run failures propagate, per-member data errors are skipped), but
+  there is no `last_roster_sync_error` column, so a roster sync that dead-letters
+  is invisible in both status surfaces while `last_roster_sync_at` simply stops
+  advancing. Adding the column is cheap while the migrations are unshipped; it
+  also needs `LtiSyncStatus`, the JSON payload, and the two views.
+- [ ] **`LtiPeriodicGradeSyncWorker` can be starved by a broken binding.**
+  `last_grade_sync_at` only advances on a completed sync and the dispatcher orders
+  by it ascending under a 50-per-cycle cap, so a binding that always fails in the
+  aborting tier keeps its stale timestamp and sorts first every cycle. Enough of
+  those and healthy bindings stop being graded. Ordering on an attempt timestamp,
+  or excluding bindings with a recorded error, would fix it.
+- [ ] **Links in rendered timeline content navigate the Canvas iframe away.**
+  `assignment_view` renders `sanitize(@context.block.content)` in the iframe, and
+  Rails' sanitizer strips `target`, so an instructor can't fix it from the timeline
+  editor. Dashboard-relative links are worse: `X-Frame-Options` blanks the frame
+  with no in-frame recovery. Shipped wizard content already contains such links.
+  Needs a server-side post-process over the sanitized HTML.
+- [ ] **`lti_contexts` still migrates with the wrong collation.** Its `create_table`
+  shipped in Feb 2025 without the `utf8mb4_unicode_ci` pin the other LTI tables
+  now carry, so a forward `db:migrate` on modern MariaDB gives it
+  `utf8mb4_uca1400_ai_ci` — which is what re-dumps a `schema.rb` that then breaks
+  `db:schema:load` on MySQL. Fixing it means a `CONVERT TO` migration on a table
+  with production rows, so it isn't part of this PR.
+- [ ] **UI/UX list from the third review.** Roughly ten reachable rough edges, the
+  sharpest being: a first-time instructor with no Dashboard course gets the
+  "awaiting approval" message with no way forward; an expired ltik 500s with the
+  default `X-Frame-Options`, so in-frame the user sees a blank "refused to
+  connect" rather than an error; `sign_in_to_continue` is the one landing without
+  a re-launch link and the one guaranteed to be stale; and no LTI view has an
+  `<h1>`, with drill-downs jumping `h2` → `h4`.

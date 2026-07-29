@@ -9,6 +9,11 @@
 # the block's exercise (config/lti_exercise_gradebook_labels.yml) when one is
 # defined, otherwise the full timeline block title. Truncated to Canvas's
 # 64-character AGS label limit.
+#
+# `truncate`, not `byteslice`: the limit is characters, and cutting UTF-8 by byte
+# could land mid-character, yielding an invalid string that MySQL rejects with
+# "Incorrect string value" when the discovered line item is saved. It also cut a
+# CJK title — ordinary on the P&E Dashboard — to roughly 21 characters.
 module LtiGradebookLabel
   EXERCISE_LABELS = YAML.safe_load_file(
     Rails.root.join('config/lti_exercise_gradebook_labels.yml')
@@ -19,7 +24,7 @@ module LtiGradebookLabel
   def for_block(block)
     week_order = block.week&.order
     prefix = week_order ? "Wk#{week_order} " : ''
-    "#{prefix}#{exercise_name(block)}".byteslice(0, 64)
+    "#{prefix}#{exercise_name(block)}".truncate(64)
   end
 
   def exercise_name(block)

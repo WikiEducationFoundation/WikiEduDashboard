@@ -65,11 +65,19 @@ class LtiaasClient
     end
   end
 
+  # Every transport-level Faraday failure is transient, not just timeouts and
+  # refused connections: SSLError and ParsingError are *siblings* of
+  # ConnectionFailed under Faraday::Error, not subclasses, so naming a couple of
+  # them let a TLS hiccup or a malformed body past this and into callers' generic
+  # rescues — where grade sync recorded it as one student's permanent rejection
+  # and still reported the run a success. HTTP status is not routed through here
+  # at all (no raise_error middleware; see classify_failure), so this catches
+  # only "the request didn't complete", which is what Sidekiq should retry.
   def handle_response
     response = yield
     classify_failure(response) unless response.success?
     response.body
-  rescue Faraday::TimeoutError, Faraday::ConnectionFailed => e
+  rescue Faraday::Error => e
     raise LtiaasTransientError, "LTIAAS network failure: #{e.class}: #{e.message}"
   end
 

@@ -29,7 +29,12 @@
 # because that destroys gradebook column data in Canvas.
 class CreateLtiLineItems < ActiveRecord::Migration[8.1]
   def change
-    create_table :lti_line_items, id: :integer do |t|
+    # Collation pinned to utf8mb4_unicode_ci to match every other table in the
+    # schema. Modern MariaDB defaults to utf8mb4_uca1400_ai_ci, which MySQL
+    # doesn't recognize — so without this a forward `db:migrate` re-dumps
+    # schema.rb with a collation that then breaks `db:schema:load` on CI.
+    create_table :lti_line_items, id: :integer,
+                                      options: 'CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci' do |t|
       add_columns(t)
       t.timestamps
     end
