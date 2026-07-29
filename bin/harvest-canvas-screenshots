@@ -283,6 +283,66 @@ def gallery_header(shots, flows)
     "from the deployed staging stack.</p></header>\n"
 end
 
+
+# --- PR-comment markdown ----------------------------------------------------
+# `--pr-comment=<raw base url>` emits the markdown gallery for a PR comment,
+# built from the same SECTIONS/CAPTIONS the HTML gallery uses and from the shots
+# actually on disk. Generated rather than hand-assembled on purpose: the previous
+# comment was written by hand and went on describing an "enable the nav tab" step
+# for a while after that step was removed from the harness.
+#
+#   bin/harvest-canvas-screenshots --pr-comment=https://raw.githubusercontent.com/OWNER/REPO/BRANCH
+#
+# Captures nothing — reads the current run dir. Harvest first, push the branch,
+# then run this.
+def pr_comment_flag
+  arg = ARGV.find { |a| a.start_with?('--pr-comment') }
+  return nil unless arg
+
+  ARGV.delete(arg)
+  url = arg.split('=', 2)[1]
+  abort 'usage: --pr-comment=<raw base url, ending in the branch name>' if url.to_s.empty?
+  url.chomp('/')
+end
+
+def pr_comment_section(section, base_url)
+  pngs = Dir[File.join(run_dir, section[:role], '*.png')].sort
+  return if pngs.empty?
+
+  shots = pngs.map do |path|
+    name = File.basename(path, '.png')
+    rel = "canvas-ux-screenshots/#{section[:role]}/#{name}.png"
+    "**#{name}** — #{CAPTIONS.fetch(name, name)}\n\n![#{name}](#{base_url}/#{rel})"
+  end
+  <<~MD
+    <details>
+    <summary><b>#{section[:title]}</b> (#{pngs.length})</summary>
+
+    #{section[:blurb]}
+
+    #{shots.join("\n\n")}
+
+    </details>
+  MD
+end
+
+def pr_comment_markdown(base_url, roles)
+  chosen = SECTIONS.select { |s| roles.include?(s[:role]) }
+  sections = chosen.filter_map { |s| pr_comment_section(s, base_url) }
+  branch = base_url.split('/').last(2).join('/')
+  <<~MD
+    ## Canvas integration UX — #{shot_count(roles)} screenshots across #{sections.length} flows
+
+    Harvested #{Time.now.strftime('%Y-%m-%d')} from the deployed staging stack
+    (`dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org`), in the order an
+    instructor meets them. Each flow is collapsed; expand to view.
+
+    #{sections.join("\n")}
+    Screenshots are kept out of git; they live on the orphan branch `#{branch}`
+    so they render here.
+  MD
+end
+
 # --- Nested-display support (XEPHYR=1) --------------------------------------
 # Run the visible browser inside a nested Xephyr X server, so Chrome's window
 # raises and focus grabs land on that display instead of the operator's real
@@ -339,8 +399,11 @@ rescue Errno::ESRCH, Errno::ECHILD
 end
 
 def main
+  base_url = pr_comment_flag
   FileUtils.mkdir_p(run_dir)
   roles = roles_to_run
+  return puts(pr_comment_markdown(base_url, roles)) if base_url
+
   results = {}
   with_optional_xephyr { results = roles.to_h { |role| [role, harvest(role)] } }
   gallery = build_gallery(roles)
