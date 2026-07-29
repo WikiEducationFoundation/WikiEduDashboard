@@ -250,7 +250,13 @@ module DashboardAdminClient
   # working: a representative training module and exercise (the first exercise with
   # a sandbox_location, which is what the sandbox-preview shots need), plus every
   # deep-linkable gradable so a gallery can import the whole column set.
-  def build_timeline(course_slug:, wizard_id: 'researchwrite')
+  # `subject_exercise_path` picks which of the timeline's exercises the caller
+  # treats as its subject — the one whose label and module the payload's
+  # `exercise_*` fields describe. Default is the first exercise with a
+  # sandbox_location, which is what the sandbox-preview shots need; the
+  # fact-verification gallery passes 'verify_claim' to get the one exercise that
+  # runs entirely in the Dashboard.
+  def build_timeline(course_slug:, wizard_id: 'researchwrite', subject_exercise_path: nil)
     script = <<~RUBY
       require 'json'
       require_dependency "\#{Rails.root}/lib/wizard_timeline_manager"
@@ -267,10 +273,13 @@ module DashboardAdminClient
 
       gradables = DeepLinkableGradables.new(course).result
       exercise_blocks = gradables.select { |g| g.gradable_type == 'Block' }
+      wanted_path = #{subject_exercise_path.inspect}
       subject = exercise_blocks.find do |g|
-        Block.find(g.gradable_id).training_modules.find(&:exercise?)&.sandbox_location.present?
+        mod = Block.find(g.gradable_id).training_modules.find(&:exercise?)
+        wanted_path ? mod&.exercise_path == wanted_path : mod&.sandbox_location.present?
       end
-      raise 'no exercise block with a sandbox_location in the wizard timeline' unless subject
+      raise "no exercise block matching \#{wanted_path || 'a sandbox_location'} in the " \
+            'wizard timeline' unless subject
 
       subject_module = Block.find(subject.gradable_id).training_modules.find(&:exercise?)
       training = blocks.flat_map(&:training_modules).reject(&:exercise?).first
@@ -300,39 +309,6 @@ module DashboardAdminClient
     DashboardConsole.run_json(script)
   end
 
-  # Like build_timeline, but the exercise block is the dedicated-page
-  # fact-verification exercise (kind exercise, exercise_path 'verify_claim', no
-  # sandbox) — so the gallery can show the "Open exercise" drill-down and its
-  # in-progress state. Returns the training + exercise module ids and the
-  # exercise line-item label. Build BEFORE binding, so block creation doesn't
-  # enqueue a line-item-sync whose log line would pollute this console JSON.
-  def build_fact_verification_timeline(course_slug:)
-    script = <<~RUBY
-      require 'json'
-      course = Course.find_by!(slug: #{course_slug.inspect})
-      training = TrainingModule.all.reject(&:exercise?).first
-      exercise = TrainingModule.all.select(&:exercise?).find { |m| m.exercise_path == 'verify_claim' }
-      raise 'no training-kind module available' unless training
-      raise 'no verify_claim exercise module available' unless exercise
-      week = course.weeks.find_or_create_by!(order: 1) { |w| w.title = 'Week 1' }
-      week.blocks.find_or_create_by!(title: 'Trainings') do |b|
-        b.kind = Block::KINDS['in_class']
-        b.order = 1
-        b.training_module_ids = [training.id]
-      end
-      exercise_block = week.blocks.find_or_create_by!(title: 'Fact verification') do |b|
-        b.kind = Block::KINDS['assignment']
-        b.order = 2
-        b.training_module_ids = [exercise.id]
-      end
-      puts({
-        training_module_id: training.id,
-        exercise_module_id: exercise.id,
-        exercise_line_item_label: LtiGradebookLabel.for_block(exercise_block)
-      }.to_json)
-    RUBY
-    DashboardConsole.run_json(script)
-  end
 
   # Point the student's "current claim" cursor (VerificationClaimAssignment) at a
   # pooled claim the course would be served, so the fact-verification drill-down

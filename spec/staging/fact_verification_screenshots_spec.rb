@@ -55,8 +55,13 @@ describe 'Fact-verification exercise screenshots', :staging do
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
     # Build the timeline before binding: creating blocks after a binding exists
     # enqueues a line-item sync whose log line pollutes the console JSON.
-    provisioned[:timeline] = DashboardAdminClient.build_fact_verification_timeline(
-      course_slug: dashboard_course['slug']
+    # Same wizard-built timeline every other gallery gets, so this flow shows the
+    # fact-verification exercise inside a realistic course rather than a two-block
+    # one. The wizard's canonical answer set includes the `fact_verification` tag,
+    # so the block is already there; `subject_exercise_path` just points the
+    # payload's exercise_* fields at it instead of the sandbox exercise.
+    provisioned[:timeline] = DashboardAdminClient.build_timeline(
+      course_slug: dashboard_course['slug'], subject_exercise_path: 'verify_claim'
     )
   end
 
