@@ -582,11 +582,19 @@ on staging it already is. Confirm:
   are registered, and the Course Navigation `default` is set how you want it
   (`enabled` = tab in every course; `disabled` = instructors opt in per course).
 - **Privacy level is `anonymous` on the _installed_ tool.** What Canvas shares
-  (launch claims *and* the NRPS roster) is governed by the installed tool, which
-  can drift from the developer key's `tool_configuration` — on staging the key's
-  config said `anonymous` while the installed tool was still `public`, so NRPS
-  was returning names and emails (the Dashboard discards them, but they were
-  being sent). Check and fix over the API:
+  (launch claims *and* the NRPS roster) is governed by the installed tool, and it
+  can differ from the developer key's `tool_configuration`. That's not a
+  hypothetical: registering by hand and choosing **Anonymized** in Canvas's
+  Register App dialog put `anonymous` on the key and left the installed tool
+  `public`, twice — so NRPS returned names and emails (the Dashboard discards
+  them, but they were being sent).
+
+  The registration URL now carries the level as a query parameter
+  (`?privacy_level=anonymous`, per LTIAAS), so the admin's dialog choice isn't
+  what it depends on any more, and the guide no longer asks them to make one.
+  Verify rather than assume — the read-backs below check both sides, and
+  `spec/staging/privacy_level_registration_spec.rb` drives a whole fresh
+  registration and asserts them.
 
   ```bash
   # what the installed tool actually uses
@@ -596,7 +604,7 @@ on staging it already is. Confirm:
   curl -H "Authorization: Bearer $TOKEN" \
     "$CANVAS/api/lti/accounts/1/developer_keys/<key_id>/tool_configuration" \
     | jq '.tool_configuration.settings.extensions[0].privacy_level'
-  # correct the installed tool
+  # correct the installed tool, if a registration predates the URL parameter
   curl -X PUT -H "Authorization: Bearer $TOKEN" \
     "$CANVAS/api/v1/accounts/1/external_tools/<tool_id>" -d privacy_level=anonymous
   ```

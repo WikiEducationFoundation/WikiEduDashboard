@@ -73,7 +73,8 @@ Most institutions review a tool's accessibility and data handling first:
 - Canvas **root-account administrator** access.
 - Canvas's **Dynamic Registration** feature (a paid Canvas add-on). If your
   Canvas doesn't have it, contact Wiki Education (see Getting help).
-- Wiki Education's registration URL: `https://wikiedu.ltiaas.com/lti/register`.
+- Wiki Education's registration URL:
+  `https://wikiedu.ltiaas.com/lti/register?privacy_level=anonymous`.
 - About 15 minutes.
 
 ## Installation
@@ -85,7 +86,7 @@ copy back and forth. Wiki Education then activates your registration (see below)
 
 Wiki Education's registration URL:
 
-    https://wikiedu.ltiaas.com/lti/register
+    https://wikiedu.ltiaas.com/lti/register?privacy_level=anonymous
 
 Registering, installing, and making the app available are three separate steps.
 Canvas reports success after each one, so it's easy to stop early and end up
@@ -95,12 +96,7 @@ with an app that exists but appears nowhere.
    **Admin → Developer Keys → + Developer Key → + LTI Registration**.
    Paste Wiki Education's registration URL and click
    **Continue**. Canvas and the Dashboard exchange the configuration
-   automatically (endpoints, scopes, and placements). When the dialog asks
-   about **User data shared with this tool**, you can choose **Anonymized**.
-   (Our app only needs the Canvas ID of each student, and does not use or
-   store the name or email that Canvas can provide. Students separately provide
-   name and email when they register with Wikipedia accounts, and these are not
-   shared back to Canvas.)
+   automatically (endpoints, scopes, and placements).
    Review the summary and click **Enable & Close**.
 2. **Turn the key on.** In the **Developer Keys** list, set the key's **State**
    to **ON**.

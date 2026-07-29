@@ -137,6 +137,42 @@ class CanvasApiClient
     put("/api/v1/courses/#{course_id}/tabs/#{tab['id']}", hidden: hidden)
   end
 
+  # --- LTI registration inspection -------------------------------------------
+  # Read-backs for the privacy-level check. The distinction these exist to make
+  # is that the *installed tool* is what governs launch claims and the NRPS
+  # roster, and it can differ from what the developer key's tool_configuration
+  # asks for — which is exactly what happened when an admin chose "Anonymized"
+  # in Canvas's Register App dialog.
+
+  def list_developer_keys
+    get("/api/v1/accounts/#{@account_id}/developer_keys")
+  end
+
+  # The privacy level the key's LTI configuration *asks* for. Canvas nests it
+  # under the tool_configuration's Canvas extension.
+  def developer_key_privacy_level(key_id)
+    config = get("/api/lti/accounts/#{@account_id}/developer_keys/#{key_id}/tool_configuration")
+    config.dig('tool_configuration', 'settings', 'extensions')
+          &.first&.dig('privacy_level')
+  end
+
+  def list_external_tools
+    get("/api/v1/accounts/#{@account_id}/external_tools", per_page: 100)
+  end
+
+  # The privacy level the installed tool actually uses.
+  def external_tool_privacy_level(tool_id)
+    get("/api/v1/accounts/#{@account_id}/external_tools/#{tool_id}")['privacy_level']
+  end
+
+  def delete_developer_key(key_id)
+    delete("/api/v1/developer_keys/#{key_id}")
+  end
+
+  def delete_external_tool(tool_id)
+    delete("/api/v1/accounts/#{@account_id}/external_tools/#{tool_id}")
+  end
+
   private
 
   def build_conn

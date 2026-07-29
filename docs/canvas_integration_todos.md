@@ -84,6 +84,18 @@ launch + Wikipedia OAuth is the only linking path.
 >    twice (tool 5 in February, tool 9 on 2026-07-27). So an institution that
 >    does the right thing still sends us names and emails. Report to
 >    Instructure, and treat the LTIAAS-side fix as the real remedy.
+>    - **LTIAAS answered (2026-07-29): the level can be set as a query parameter
+>      on the registration URL** —
+>      `https://<tenant>.ltiaas.com/lti/register?privacy_level=anonymous`. That
+>      takes the decision out of the dialog Canvas drops, so the guide no longer
+>      asks the admin about it at all: both registration URLs in
+>      `docs/canvas_integration_guide.md` carry the parameter and the
+>      privacy-overlay instruction is gone. **Not yet verified against Canvas** —
+>      LTIAAS's example used `privacy_level=public`, so `anonymous` being accepted
+>      is inferred, and the failure mode this replaces was specifically the key
+>      and the installed tool disagreeing.
+>      `spec/staging/privacy_level_registration_spec.rb` drives a fresh
+>      registration and asserts both sides; run it before the guide is published.
 > 3. **`module_index_menu_modal` is absent**, as expected — the Modules bulk
 >    import does not exist on a fresh registration.
 > 4. **Every placement is labelled with the tool name** ("wikiedu.org
@@ -479,6 +491,17 @@ this PR. The review's other findings were fixed on the branch.
 Two documentation statements the second review flagged that are the operator's to
 word, not Claude's. Neither was rewritten; both are recorded here instead.
 
+- [ ] **The guide's three contradictions are now two.** The "Anonymized" one is
+  resolved by LTIAAS's `?privacy_level=anonymous` parameter (see "Admin
+  registration UX" above) — pending the staging verification. Still open, and both
+  are LTIAAS *config* rather than a URL parameter, so worth asking them the same
+  question: `course_navigation` needs `default: disabled` (otherwise every course
+  grows a nav item the moment the app is made available), and
+  `module_index_menu_modal` was absent from a fresh registration, so a newly
+  registered institution has no Modules import — which is what
+  `lti.status.import_next_step.instruction` tells their instructors to use. Until
+  both are true, following the guide misconfigures Canvas; consider unpublishing
+  `/lti/guide` in the meantime.
 - [ ] **`docs/canvas_integration_guide.md`: "already signed in".** The
   course-navigation bullet says instructors and students open the Dashboard from
   the nav link "already signed in." That isn't what happens. Inside the Canvas
