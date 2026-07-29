@@ -179,9 +179,26 @@ class CanvasApiClient
     list_lti_registrations.find { |r| r['developer_key_id'].to_s == key_id.to_s }
   end
 
-  def deploy_lti_registration(registration_id)
-    put("/api/v1/accounts/#{@account_id}/lti_registrations/#{registration_id}/binding",
-        workflow_state: 'on')
+  # Creating a *deployment* is what makes the app available — the API equivalent of
+  # the guide's "Make it available" step, and what brings a ContextExternalTool
+  # (and so a readable privacy_level) into existence. A dynamic registration on its
+  # own leaves the app installed-but-unavailable with no deployment at all.
+  #
+  # Found by probing, since the newer LTI-registration API isn't documented
+  # alongside the old external_tools one:
+  #   PUT  .../lti_registrations/:id/binding          404
+  #   POST .../lti_registrations/:id/bind             422 "Dynamic Registrations
+  #                                                        cannot be used as templates"
+  #   POST .../developer_keys/:key/developer_key_account_bindings
+  #                                                   201, but deploys nothing
+  #   POST .../lti_registrations/:id/deployments      200 — this one
+  def create_deployment(registration_id)
+    post("/api/v1/accounts/#{@account_id}/lti_registrations/#{registration_id}/deployments")
+  end
+
+  def delete_deployment(registration_id, deployment_id)
+    delete("/api/v1/accounts/#{@account_id}/lti_registrations/" \
+           "#{registration_id}/deployments/#{deployment_id}")
   end
 
   def delete_lti_registration(registration_id)

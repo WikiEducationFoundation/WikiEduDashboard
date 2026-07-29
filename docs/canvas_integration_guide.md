@@ -69,7 +69,7 @@ Most institutions review a tool's accessibility and data handling first:
 - Canvas's **Dynamic Registration** feature (a paid Canvas add-on). If your
   Canvas doesn't have it, contact Wiki Education (see Getting help).
 - Wiki Education's registration URL:
-  `https://wikiedu.ltiaas.com/lti/register?privacy_level=anonymous`.
+  `https://wikiedu.ltiaas.com/lti/register?privacyLevel=anonymous`.
 - About 15 minutes.
 
 ## Installation
@@ -81,7 +81,7 @@ copy back and forth. Wiki Education then activates your registration (see below)
 
 Wiki Education's registration URL:
 
-    https://wikiedu.ltiaas.com/lti/register?privacy_level=anonymous
+    https://wikiedu.ltiaas.com/lti/register?privacyLevel=anonymous
 
 Registering, installing, and making the app available are three separate steps.
 Canvas reports success after each one, so it's easy to stop early and end up

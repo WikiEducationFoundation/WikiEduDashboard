@@ -59,10 +59,13 @@ describe 'LTIAAS privacy_level registration parameter', :staging do
   let(:account_id) { ENV.fetch('CANVAS_TEST_ACCOUNT_ID', '1') }
   let(:canvas_api) { CanvasApiClient.new }
 
-  # The URL under test. Defaults to the parameter the guide now publishes.
+  # The URL under test. `privacyLevel` is camelCase — LTIAAS's first answer gave the
+  # parameter as `privacy_level`, which Canvas accepted silently and LTIAAS ignored,
+  # so the registration came out with the tenant default (`public`) and looked for
+  # all the world like `anonymous` being unsupported.
   let(:registration_url) do
     base = ENV.fetch('LTIAAS_REGISTRATION_URL')
-    base.include?('privacy_level') ? base : "#{base}?privacy_level=anonymous"
+    base.include?('privacyLevel') ? base : "#{base}?privacyLevel=anonymous"
   end
 
   # Keys and tools that existed before this run. Anything outside these sets is
@@ -85,6 +88,11 @@ describe 'LTIAAS privacy_level registration parameter', :staging do
   after do
     next unless ENV['ALLOW_CANVAS_REGISTRATION'] == '1'
 
+    if @deployment && @registration_id
+      attempt_removal("deployment #{@deployment['id']}") do
+        canvas_api.delete_deployment(@registration_id, @deployment['id'])
+      end
+    end
     remove_tools_created_by_this_run
     remove_keys_created_by_this_run
   end
@@ -110,7 +118,8 @@ describe 'LTIAAS privacy_level registration parameter', :staging do
     # deploys it — the API equivalent of the guide's "Make it available" step.
     registration = canvas_api.find_lti_registration_by_key(key_id)
     expect(registration).not_to be_nil, 'no lti_registration for the new developer key'
-    canvas_api.deploy_lti_registration(registration['id'])
+    @deployment = canvas_api.create_deployment(registration['id'])
+    @registration_id = registration['id']
 
     tool_id = eventually(attempts: 10, interval: 2) { newly_created_tool_id }
     expect(tool_id).not_to be_nil, 'deploying the registration created no external tool'

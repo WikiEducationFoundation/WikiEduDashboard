@@ -84,18 +84,20 @@ launch + Wikipedia OAuth is the only linking path.
 >    twice (tool 5 in February, tool 9 on 2026-07-27). So an institution that
 >    does the right thing still sends us names and emails. Report to
 >    Instructure, and treat the LTIAAS-side fix as the real remedy.
->    - **LTIAAS answered (2026-07-29): the level can be set as a query parameter
->      on the registration URL** —
->      `https://<tenant>.ltiaas.com/lti/register?privacy_level=anonymous`. That
->      takes the decision out of the dialog Canvas drops, so the guide no longer
->      asks the admin about it at all: both registration URLs in
->      `docs/canvas_integration_guide.md` carry the parameter and the
->      privacy-overlay instruction is gone. **Not yet verified against Canvas** —
->      LTIAAS's example used `privacy_level=public`, so `anonymous` being accepted
->      is inferred, and the failure mode this replaces was specifically the key
->      and the installed tool disagreeing.
->      `spec/staging/privacy_level_registration_spec.rb` drives a fresh
->      registration and asserts both sides; run it before the guide is published.
+>    - **Resolved 2026-07-29: set the level as a query parameter on the
+>      registration URL** —
+>      `https://<tenant>.ltiaas.com/lti/register?privacyLevel=anonymous`. That takes
+>      the decision out of the dialog Canvas drops, so the guide no longer asks the
+>      admin about it at all. **Verified against Canvas** by
+>      `spec/staging/privacy_level_registration_spec.rb`, which registers a fresh app
+>      with the parameter, deploys it, and asserts `anonymous` on both the developer
+>      key's `tool_configuration` and the installed tool — the latter being the half
+>      that governs launch claims and NRPS, and the half the dialog never reached.
+>      - Note the camelCase. LTIAAS's first answer gave it as `privacy_level`, which
+>        Canvas forwards and LTIAAS ignores, so the registration comes out at the
+>        tenant default (`public`) — a result indistinguishable from `anonymous`
+>        being unsupported. That cost a round trip and a wrong guide; the docs were
+>        published with the wrong spelling before the spec existed to catch it.
 > 3. ~~**`module_index_menu_modal` is absent**, as expected — the Modules bulk
 >    import does not exist on a fresh registration.~~ **Not reproduced, and this
 >    note was wrong.** Sage's later walkthrough had the Modules import working,
@@ -503,22 +505,21 @@ this PR. The review's other findings were fixed on the branch.
 Two documentation statements the second review flagged that are the operator's to
 word, not Claude's. Neither was rewritten; both are recorded here instead.
 
-- [ ] **The guide's three contradictions are down to one — the privacy level.**
-  Of the three the review found:
+- [x] **The guide's three contradictions are all closed.** _(2026-07-29.)_ Of the
+  three the review found:
   - **Nav item "hidden by default"** — resolved by deciding not to make it
     default-disabled, and removing the claim (see "Admin registration UX" above).
   - **Modules import absent from a fresh registration** — was never true; our own
     walkthrough note was wrong, and the installed tool has the placement.
-  - **"Anonymized" meaning Canvas doesn't transmit names** — still open, and now
-    known to be worse than a doc problem. `?privacy_level=anonymous` on the
-    registration URL does not work: a registration made with it produced a
-    developer key whose `tool_configuration` said `public`
-    (`spec/staging/privacy_level_registration_spec.rb`, 2026-07-29). Separately,
-    even the hand-registration path that *does* get `anonymous` onto the key still
-    installs the tool as `public`, so Canvas drops it between the two. LTIAAS says
-    there is a programmatic way to force it; awaiting details. Until the installed
-    tool actually comes out `anonymous`, the guide's data-sharing paragraph
-    overstates what an institution's Canvas transmits.
+  - **"Anonymized" meaning Canvas doesn't transmit names** — resolved, and
+    verified. `?privacyLevel=anonymous` on the registration URL yields `anonymous`
+    on both the developer key and the installed tool
+    (`spec/staging/privacy_level_registration_spec.rb`, green 2026-07-29). The
+    guide's data-sharing paragraph is now accurate for a new registration.
+    - Still worth doing: staging's own tool 10 predates this and remains `public`,
+      so staging transmits names and emails until it is re-registered with the
+      parameter (or corrected with the `PUT` in `canvas_dev_setup.md` §0). Left
+      alone deliberately — no real users or data are on staging.
 - [ ] **`docs/canvas_integration_guide.md`: "already signed in".** The
   course-navigation bullet says instructors and students open the Dashboard from
   the nav link "already signed in." That isn't what happens. Inside the Canvas

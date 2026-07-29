@@ -595,12 +595,17 @@ on staging it already is. Confirm:
   `public`, twice — so NRPS returned names and emails (the Dashboard discards
   them, but they were being sent).
 
-  The registration URL now carries the level as a query parameter
-  (`?privacy_level=anonymous`, per LTIAAS), so the admin's dialog choice isn't
-  what it depends on any more, and the guide no longer asks them to make one.
-  Verify rather than assume — the read-backs below check both sides, and
-  `spec/staging/privacy_level_registration_spec.rb` drives a whole fresh
-  registration and asserts them.
+  The registration URL now carries the level as a query parameter —
+  `?privacyLevel=anonymous`, camelCase — so the admin's dialog choice isn't what it
+  depends on any more, and the guide no longer asks them to make one. **Verified
+  2026-07-29** by `spec/staging/privacy_level_registration_spec.rb`, which registers
+  a fresh app with the parameter, deploys it, and asserts `anonymous` on both the
+  developer key's `tool_configuration` and the installed tool.
+
+  Note the spelling. LTIAAS first gave the parameter as `privacy_level`, which
+  Canvas passes along happily and LTIAAS ignores, so the registration silently comes
+  out at the tenant default (`public`) — indistinguishable from `anonymous` being
+  unsupported. The read-backs below are the cheap way to tell the difference.
 
   ```bash
   # what the installed tool actually uses
