@@ -61,7 +61,7 @@ describe 'Instructor setup illustrated guide', :staging do
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
     # A realistic multi-week timeline so the import picker offers the full
     # assignment set (account + trainings + one per exercise).
-    DashboardAdminClient.build_full_timeline(course_slug: dashboard_course['slug'])
+    DashboardAdminClient.build_timeline(course_slug: dashboard_course['slug'])
   end
 
   after do

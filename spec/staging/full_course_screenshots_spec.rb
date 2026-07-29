@@ -59,7 +59,7 @@ describe 'Full course — instructor gallery', :staging do
     DashboardAdminClient.approve_course(slug: dashboard_course['slug'],
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
     provisioned[:timeline] =
-      DashboardAdminClient.build_full_timeline(course_slug: dashboard_course['slug'])
+      DashboardAdminClient.build_timeline(course_slug: dashboard_course['slug'])
   end
 
   after do

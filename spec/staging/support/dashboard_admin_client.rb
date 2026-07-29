@@ -211,33 +211,90 @@ module DashboardAdminClient
   # module metadata plus the line-item labels SyncLtiLineItems will derive
   # (so the spec knows which Canvas assignment to read back). Raises (→
   # the caller skips) if the library lacks a usable module of either kind.
-  def build_timeline(course_slug:, exercise_block_title: 'Evaluate Wikipedia')
+  # Build the course's timeline by running the **real course wizard**, rather than
+  # hand-assembling a couple of blocks. This is what makes the galleries a faithful
+  # picture of a typical course: the researchwrite wizard is what an instructor
+  # actually runs, and its output is the default assignment set students meet.
+  #
+  # Measured against a hand-built timeline, for the record:
+  #
+  #                        hand-built   wizard
+  #   weeks                         1       12
+  #   blocks                        2       29
+  #   assigned module refs          1       28
+  #   deep-linkable gradables       3        9
+  #
+  # The `logic` set below is the canonical walk through the wizard's 16 panels —
+  # graded training, LLM training, the recommended early-editing tasks, sandboxes,
+  # individual work, an instructor-prepared article list, medical topics, one
+  # handout, two peer reviewers, all three discussions, and the presentation /
+  # reflective-essay / extra-credit supplements. It mirrors
+  # `go_through_researchwrite_wizard` in spec/features/course_creation_spec.rb,
+  # whose `expected_course_blocks` is 29 — so the assertion below is a live check
+  # that this set still tracks `config/wizard/researchwrite/content.yml`. If
+  # content.yml changes, this and that feature spec notice together.
+  WIZARD_LOGIC = %w[
+    graded_training llm_training
+    critique add_to_article fact_verification
+    improving_representation yes_sandboxes working_individually
+    choose_articles_from_list medical_topics art_history_handout
+    2_peer_reviewers
+    content_gaps_discussion sources_and_plagiarism_discussion
+    thinking_about_wikipedia_discussion
+    additional_article_extra_credit presentation reflective_essay
+  ].freeze
+
+  EXPECTED_WIZARD_BLOCKS = 29
+
+  # Returns a superset of what build_timeline returned, so existing callers keep
+  # working: a representative training module and exercise (the first exercise with
+  # a sandbox_location, which is what the sandbox-preview shots need), plus every
+  # deep-linkable gradable so a gallery can import the whole column set.
+  def build_timeline(course_slug:, wizard_id: 'researchwrite')
     script = <<~RUBY
       require 'json'
+      require_dependency "\#{Rails.root}/lib/wizard_timeline_manager"
       course = Course.find_by!(slug: #{course_slug.inspect})
-      training = TrainingModule.all.reject(&:exercise?).first
-      exercise = TrainingModule.all.select(&:exercise?).find { |m| m.sandbox_location.present? }
-      raise 'no training-kind module available' unless training
-      raise 'no exercise module with a sandbox_location available' unless exercise
-      week = course.weeks.find_or_create_by!(order: 1) { |w| w.title = 'Week 1' }
-      week.blocks.find_or_create_by!(title: 'Trainings') do |b|
-        b.kind = Block::KINDS['in_class']
-        b.order = 1
-        b.training_module_ids = [training.id]
+      WizardTimelineManager.update_timeline_and_tags(
+        course, #{wizard_id.inspect},
+        { 'wizard_output' => { 'output' => ['essentials'],
+                               'logic' => #{WIZARD_LOGIC.inspect}, 'tags' => [] } }
+      )
+      course.reload
+      blocks = course.blocks.to_a
+      raise "expected #{EXPECTED_WIZARD_BLOCKS} blocks, got \#{blocks.size} — the wizard " \\
+            'content or the logic set has changed' unless blocks.size == #{EXPECTED_WIZARD_BLOCKS}
+
+      gradables = DeepLinkableGradables.new(course).result
+      exercise_blocks = gradables.select { |g| g.gradable_type == 'Block' }
+      subject = exercise_blocks.find do |g|
+        Block.find(g.gradable_id).training_modules.find(&:exercise?)&.sandbox_location.present?
       end
-      exercise_block = week.blocks.find_or_create_by!(title: #{exercise_block_title.inspect}) do |b|
-        b.kind = Block::KINDS['assignment']
-        b.order = 2
-        b.training_module_ids = [exercise.id]
-      end
+      raise 'no exercise block with a sandbox_location in the wizard timeline' unless subject
+
+      subject_module = Block.find(subject.gradable_id).training_modules.find(&:exercise?)
+      training = blocks.flat_map(&:training_modules).reject(&:exercise?).first
       puts({
-        training_module_id: training.id,
-        training_module_name: training.name,
-        exercise_module_id: exercise.id,
-        exercise_module_name: exercise.name,
-        exercise_sandbox_location: exercise.sandbox_location,
-        training_line_item_label: 'Wikipedia trainings',
-        exercise_line_item_label: LtiGradebookLabel.for_block(exercise_block)
+        weeks: course.weeks.count,
+        blocks: blocks.size,
+        training_module_id: training&.id,
+        training_module_name: training&.name,
+        exercise_block_id: subject.gradable_id,
+        exercise_module_id: subject_module.id,
+        exercise_module_name: subject_module.name,
+        exercise_sandbox_location: subject_module.sandbox_location,
+        training_line_item_label: DeepLinkableGradables::TRAININGS_LABEL,
+        exercise_line_item_label: subject.label,
+        gradables: gradables.map { |g| { resource: g.resource, label: g.label,
+                                        type: g.gradable_type, id: g.gradable_id } },
+        # One entry per exercise block, which is what the gradebook galleries walk
+        # to mark mixed progress. This shape is what the old hand-built
+        # full-timeline builder returned, so its callers needed no changes.
+        blocks: exercise_blocks.map { |g|
+          mod = Block.find(g.gradable_id).training_modules.find(&:exercise?)
+          { block_id: g.gradable_id, label: g.label, module_id: mod&.id,
+            sandbox: mod&.sandbox_location }
+        }
       }.to_json)
     RUBY
     DashboardConsole.run_json(script)
@@ -305,48 +362,11 @@ module DashboardAdminClient
   # Returns the training module id and one entry per exercise block
   # ({ block_id, label, module_id, sandbox }) in timeline order, so the gallery
   # spec can build its columns, drill into the sandbox ones, and mark progress.
-  def build_full_timeline(course_slug:)
-    script = <<~'RUBY'.gsub('__SLUG__', course_slug)
-      require 'json'
-      course = Course.find_by!(slug: '__SLUG__')
-      milestone_slugs = %w[
-        evaluate-wikipedia-exercise choose-topic-exercise bibliography-exercise
-        outline-exercise continue-improving-exercise copyedit-exercise
-        reflective-essay-exercise
-      ]
-      by_slug = TrainingModule.all.index_by(&:slug)
-      training = TrainingModule.all.reject(&:exercise?).first
-      blocks = []
-      milestone_slugs.each_with_index do |slug, idx|
-        mod = by_slug[slug]
-        next unless mod
-
-        wk = idx + 1
-        week = course.weeks.find_or_create_by!(order: wk) { |w| w.title = "Week #{wk}" }
-        if idx.zero? && training
-          week.blocks.find_or_create_by!(title: 'Trainings') do |b|
-            b.kind = Block::KINDS['in_class']
-            b.order = 1
-            b.training_module_ids = [training.id]
-          end
-        end
-        block = week.blocks.find_or_create_by!(title: mod.name) do |b|
-          b.kind = Block::KINDS['assignment']
-          b.order = 2
-          b.training_module_ids = [mod.id]
-        end
-        blocks << { block_id: block.id, label: LtiGradebookLabel.for_block(block),
-                    module_id: mod.id, sandbox: mod.sandbox_location }
-      end
-      puts({ training_module_id: training&.id, blocks: blocks }.to_json)
-    RUBY
-    DashboardConsole.run_json(script)
-  end
 
   # Fast path for the full-course gallery: create a Canvas gradebook column per
   # given exercise block via AGS (tagged `Block:<id>`), standing in for the
   # instructor deep-linking each. SyncLtiLineItems' discovery then binds them.
-  # `blocks` is the build_full_timeline entries to columnize. Returns 'ok'.
+  # `blocks` is build_timeline's exercise-block entries to columnize. Returns 'ok'.
   def upsert_exercise_columns(binding_id:, blocks:)
     items = blocks.map { |b| { 'id' => b['block_id'], 'label' => b['label'] } }
     script = <<~RUBY
