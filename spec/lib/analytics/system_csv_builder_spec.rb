@@ -241,4 +241,34 @@ describe SystemCsvBuilder do
       expect(counts[archived_fr_course.id]).to be_nil
     end
   end
+
+  describe 'revision counts aggregation' do
+    let!(:stale_course) do
+      create(:course, slug: 'school/stale_cache_(term)',
+                      title: 'Stale Cache Course',
+                      home_wiki: en_wiki,
+                      start: 2.months.ago,
+                      end: 2.months.from_now)
+    end
+    let!(:article) do
+      create(:article, title: 'Mainspace_Article', wiki: en_wiki,
+                       namespace: Article::Namespaces::MAINSPACE)
+    end
+
+    mainspace_index = CourseCsvBuilder::CSV_HEADERS.index('mainspace_edits')
+
+    before do
+      create(:article_course_timeslice, course: stale_course, article:,
+                                        revision_count: 100, tracked: true,
+                                        start: 1.month.ago, end: 1.month.ago + 1.day)
+    end
+
+    it 'reports mainspace edits even if cached courses.revision_count is stale at 0' do
+      stale_course.update_column(:revision_count, 0)
+      csv = described_class.new(filters: {}).generate_csv
+      rows = CSV.parse(csv)
+      course_row = rows.find { |r| r[0] == 'school/stale_cache_(term)' }
+      expect(course_row[mainspace_index].to_i).to eq(100)
+    end
+  end
 end
