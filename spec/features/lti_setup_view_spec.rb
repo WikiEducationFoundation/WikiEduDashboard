@@ -62,8 +62,29 @@ describe 'LTI instructor setup view', type: :feature, js: true do
     end
   end
 
-  context 'with no approved, current or future instructor-role courses' do
-    it 'hides the link form and elevates the create-new path' do
+  context 'with no Dashboard courses at all' do
+    it 'points at course creation rather than the approval message' do
+      login_as(instructor)
+      visit '/lti?ltik=ltik-abc'
+
+      within('.container.narrow') do
+        expect(page).to have_no_select('course_slug')
+        expect(page).to have_content('no course on the Wiki Education Dashboard yet')
+        expect(page).to have_link('Create a course on the Dashboard', href: '/')
+      end
+    end
+  end
+
+  context 'with an instructor-role course that is not yet approved' do
+    before do
+      unapproved = create(:course, slug: 'School/Unapproved_Course_(2026)',
+                                   school: 'Demo U', title: 'Unapproved Course', term: '2026',
+                                   start: 1.week.ago, end: 2.months.from_now)
+      CoursesUsers.create!(user: instructor, course: unapproved,
+                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    it 'hides the link form and shows the awaiting-approval message' do
       login_as(instructor)
       visit '/lti?ltik=ltik-abc'
 
