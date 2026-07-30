@@ -11,7 +11,10 @@
 # launches the `lineItemId` the assignment_view drill-down resolves.
 # Already-column-backed gradables are excluded from the offer so re-running
 # the picker (or running it after the sync auto-created columns) can't
-# create duplicates.
+# create duplicates. Each accepted selection is also reserved with a pending
+# LtiLineItem row before the form is returned, closing the window between
+# form and discovery in which a duplicate submission would otherwise still
+# look offerable.
 #
 # Lives in a concern so the shared launch plumbing (build_lti_session,
 # allow_iframe, the canvas-integration flag gate) stays in one place while
@@ -59,8 +62,7 @@ module LtiDeepLinking
 
     binding = @lti_session.bound_binding
     gradables = chosen_gradables(binding)
-    return head :unprocessable_entity if gradables.blank?
-    return head :unprocessable_entity if too_many_for_placement?(gradables)
+    return head :unprocessable_entity unless selection_accepted?(binding, gradables)
 
     @deep_link_form = BuildLtiDeepLinkForm.new(ltik: params[:ltik], gradables:).form
     schedule_line_item_discovery(binding)
@@ -114,8 +116,21 @@ module LtiDeepLinking
     chosen.include?(nil) ? [] : chosen
   end
 
+  # Every refusal is the same bare 422: a blank or tampered selection, a
+  # multi-item response to a single-item placement, or a reservation lost to
+  # a concurrent duplicate of this request (a double-submit or replayed POST,
+  # whose losing response is unseen inside Canvas's picker anyway). The
+  # reservation must succeed before the deep-link form is built: the pending
+  # rows it creates are what make these gradables read as taken to any
+  # concurrent duplicate.
+  def selection_accepted?(binding, gradables)
+    gradables.present? && !too_many_for_placement?(gradables) &&
+      ReserveLtiLineItems.new(binding:, gradables:).reserved
+  end
+
   # The set the picker would offer right now: the course's gradables minus any
-  # already backed by an active gradebook column.
+  # already backed by an active row — a bound gradebook column or a pending
+  # reservation, which counts as taken by design.
   def offerable_gradables(binding)
     taken = binding.lti_line_items.active.pluck(:gradable_type, :gradable_id).to_set
     DeepLinkableGradables.new(binding.course).result

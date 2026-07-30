@@ -1563,6 +1563,16 @@ describe LtiLaunchController, type: :request do
       expect(response.body).not_to include("Block:#{exercise_block.id}")
     end
 
+    # A pending reservation (another picker submission awaiting discovery)
+    # holds its gradable off the menu just like a bound column.
+    it 'omits gradables held by a pending reservation' do
+      binding = bind_course!
+      LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                          gradable_id: exercise_block.id, label: 'Wk1 Find sources')
+      get '/lti/deep_link', params: { ltik: 'ltik-abc' }
+      expect(response.body).not_to include("Block:#{exercise_block.id}")
+    end
+
     context 'when the placement accepts multiple content items (Modules bulk flow)' do
       let(:raw_idtoken) do
         { 'https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings' =>
@@ -1632,6 +1642,51 @@ describe LtiLaunchController, type: :request do
       expect(response).to have_http_status(422)
     end
 
+    # The local row for the new column only lands minutes after the form
+    # submits (discovery by tag, or a launch-time bind), so the accepted
+    # selection is reserved with a pending row before the form is returned —
+    # otherwise a duplicate of this POST inside that window would still see
+    # the gradable as offerable.
+    it 'reserves the chosen gradable with a pending row before returning the form' do
+      stub_request(:post, form_url)
+        .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      expect do
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      end.to change(LtiLineItem.pending, :count).by(1)
+      row = LtiLineItem.last
+      expect(row.gradable_id).to eq(exercise_block.id)
+      expect(row.lineitem_id).to be_nil
+      expect(row.label).to eq('Wk1 Find sources')
+    end
+
+    # The double-submit / replayed-POST race: the first request's reservation
+    # is already committed, so the duplicate must lose even though no bound
+    # column exists yet.
+    context 'when a concurrent request already reserved the chosen gradable' do
+      before do
+        LtiLineItem.create!(
+          lti_course_binding: LtiCourseBinding.find_by(course:),
+          gradable_type: 'Block', gradable_id: exercise_block.id,
+          label: 'Wk1 Find sources'
+        )
+      end
+
+      it 'refuses the submission' do
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        expect(response).to have_http_status(422)
+      end
+
+      it 'never asks LTIAAS to build a content-item form for it' do
+        stub = stub_request(:post, form_url)
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        expect(stub).not_to have_been_requested
+      end
+    end
+
     # The picker hides gradables that already have a column, but the submission
     # used to validate only course membership — so a replayed or hand-built POST
     # could ask for one anyway and mint a second Canvas assignment with the same
@@ -1667,6 +1722,23 @@ describe LtiLaunchController, type: :request do
         post '/lti/deep_link/select',
              params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
         expect(response).to have_http_status(:ok)
+      end
+
+      # The archived row occupies the (binding, gradable_key) unique slot, so
+      # the re-import's reservation must re-use it — revived as pending, its
+      # dead column identifier cleared — rather than collide with it.
+      it 'revives the archived row as the pending reservation' do
+        row = LtiLineItem.find_by(gradable_id: exercise_block.id)
+        row.archive!
+        stub_request(:post, form_url)
+          .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+        expect do
+          post '/lti/deep_link/select',
+               params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        end.not_to change(LtiLineItem, :count)
+        expect(row.reload).to be_pending
+        expect(row).not_to be_archived
       end
     end
 
@@ -1722,6 +1794,24 @@ describe LtiLaunchController, type: :request do
 
       it 'rejects an empty selection' do
         post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resources: [] }
+        expect(response).to have_http_status(422)
+      end
+
+      # Reject-the-whole-request semantics extend to reservations: when any
+      # chosen gradable is already held, the submission is refused and no
+      # pending row is left behind to block the instructor's own retry.
+      it 'reserves nothing when one of the chosen gradables is already reserved' do
+        LtiLineItem.create!(
+          lti_course_binding: LtiCourseBinding.find_by(course:),
+          gradable_type: 'Block', gradable_id: exercise_block.id,
+          label: 'Wk1 Find sources'
+        )
+        expect do
+          post '/lti/deep_link/select',
+               params: { ltik: 'ltik-abc',
+                         resources: ["Block:#{second_exercise_block.id}",
+                                     "Block:#{exercise_block.id}"] }
+        end.not_to change(LtiLineItem, :count)
         expect(response).to have_http_status(422)
       end
     end

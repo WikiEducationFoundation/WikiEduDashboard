@@ -62,7 +62,8 @@ Most institutions review a tool's accessibility and data handling first:
   course navigation, the Modules index menu, and the assignment view.
 - **What data is shared:** The integration is designed around Canvas's
   Anonymized data-sharing model: the only Canvas data it requires or saves for
-  each student is that student's Canvas ID and their role in the course. Where
+  each student is that student's Canvas ID, their role in the course, and their
+  enrollment status in the course (active, inactive, or deleted). Where
   Canvas is set to share more, the Dashboard neither uses nor stores the
   additional fields. A student's identity comes from the Wikipedia account they
   connect on the Dashboard, not from Canvas. The Dashboard sends scores back to

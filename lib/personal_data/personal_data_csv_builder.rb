@@ -87,9 +87,11 @@ module PersonalData
       # never receives LMS-supplied names or emails, and the columns that once
       # held them are gone from lti_contexts.
       contexts.each do |context|
-        csv << ['LMS', 'LMS User ID', 'Roles (from LMS)', 'Linked At']
+        csv << ['LMS', 'LMS User ID', 'Roles (from LMS)', 'Membership Status (from LMS)',
+                'Linked At']
         csv << [context.lms_family, context.user_lti_id,
-                Array(context.roles).join(', '), context.linked_at]
+                Array(context.roles).join(', '), context.lms_membership_status,
+                context.linked_at]
       end
     end
   end

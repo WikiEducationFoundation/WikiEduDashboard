@@ -18,6 +18,14 @@
 # enforces the invariant for every row type. Same device as
 # `articles.index_hash`.
 #
+# `lineitem_id` is nullable because a row can exist before its Canvas column
+# does: the deep-link picker reserves each chosen gradable with a pending row
+# (lineitem_id NULL) before returning the self-submitting form, so a
+# double-submitted or replayed picker POST can't mint a second Canvas
+# assignment during the window before discovery binds the real column.
+# MariaDB exempts NULLs from the (binding, lineitem_id) unique index, so
+# multiple pending rows per binding coexist.
+#
 # `canvas_assignment_id` records the Canvas-side assignment id so an
 # `assignment_view` launch (which carries `$Canvas.assignment.id` in its custom
 # claim) can be routed back to the matching line item. Nullable: it's backfilled
@@ -53,7 +61,7 @@ class CreateLtiLineItems < ActiveRecord::Migration[8.1]
     table.integer :gradable_id
     table.virtual :gradable_key, type: :string, stored: true,
                                  as: "concat(`gradable_type`, ':', ifnull(`gradable_id`, ''))"
-    table.string :lineitem_id, null: false, limit: 512
+    table.string :lineitem_id, limit: 512
     table.string :label
     table.decimal :score_maximum, precision: 10, scale: 4, null: false, default: 1.0
     table.datetime :archived_at

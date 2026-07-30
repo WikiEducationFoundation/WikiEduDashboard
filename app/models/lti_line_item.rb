@@ -7,7 +7,9 @@
 #  lti_course_binding_id    :integer          not null
 #  gradable_type            :string(255)      not null
 #  gradable_id              :integer
-#  lineitem_id              :string(512)      not null
+#  lineitem_id              :string(512)      - NULL while the row is a pending
+#                                               deep-link reservation, filled in
+#                                               once the Canvas column exists
 #  label                    :string(255)
 #  score_maximum            :decimal(10, 4)   default(1.0), not null
 #  archived_at              :datetime
@@ -34,6 +36,15 @@
 # We never destroy LTIAAS-side line items (it would erase Canvas gradebook
 # columns and student grades). When the Dashboard timeline drops a block,
 # we set `archived_at` and stop pushing scores to the orphaned line item.
+#
+# A row with a NULL `lineitem_id` is a PENDING reservation: the deep-link
+# picker creates it before returning the self-submitting form to Canvas, so a
+# double-submitted or replayed picker POST in the window before discovery
+# binds the real column hits the (binding, gradable_key) unique index instead
+# of minting a duplicate Canvas assignment. SyncLtiLineItems adopts the row
+# (fills lineitem_id) when the column appears, and destroys it if the form
+# never reached Canvas. Pending rows are not live AGS columns — anything that
+# posts scores or reports imported assignments must use the `bound` scope.
 class LtiLineItem < ApplicationRecord
   TRAINING_PROGRESS_TYPE = 'TrainingProgress'
   SETUP_TYPE = 'WikipediaSetup'
@@ -56,8 +67,10 @@ class LtiLineItem < ApplicationRecord
 
   scope :active, -> { where(archived_at: nil) }
   scope :archived, -> { where.not(archived_at: nil) }
+  scope :pending, -> { where(lineitem_id: nil) }
+  scope :bound, -> { where.not(lineitem_id: nil) }
 
-  validates :gradable_type, :lineitem_id, presence: true
+  validates :gradable_type, presence: true
   validates :score_maximum, numericality: { greater_than: 0 }
   # One line item per (binding, gradable). Enforced in the database by the unique
   # index on (lti_course_binding_id, gradable_key) — `gradable_key` is a stored
@@ -69,6 +82,10 @@ class LtiLineItem < ApplicationRecord
 
   def archived?
     archived_at.present?
+  end
+
+  def pending?
+    lineitem_id.nil?
   end
 
   def archive!

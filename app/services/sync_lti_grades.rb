@@ -18,10 +18,13 @@
 #     re-raise so Sidekiq's retry gets a chance. These affect every push, so
 #     swallowing them would report a fresh successful sync at the exact moment
 #     no grade reached Canvas.
-#   - Per-student permanent failures (a rejected score for one student) are
-#     recorded, reported to Sentry, and skipped; the run continues and finishes
-#     as a partial success — the timestamp advances *and* the error field says
-#     what didn't land.
+#   - Per-student permanent failures — an AGS rejection of one student's score
+#     (LtiaasClientError) — are recorded, reported to Sentry, and skipped; the
+#     run continues and finishes as a partial success — the timestamp advances
+#     *and* the error field says what didn't land. Non-API errors (a progress
+#     computation bug, a failed signature save) are NOT in this tier: they
+#     abort the run, so a systemic application error gets a retry instead of
+#     masquerading as N per-student rejections.
 #   - A membership that's gone from the Canvas course is neither: expected,
 #     logged, and not counted as a failure.
 class SyncLtiGrades
@@ -117,8 +120,11 @@ class SyncLtiGrades
     @binding.linked_student_contexts
   end
 
+  # Bound only: a pending deep-link reservation has no lineitem_id yet, so
+  # there is nothing to post a score at — and with the per-student rescue now
+  # excluding non-API errors, letting one through would abort the whole run.
   def active_line_items
-    LtiLineItem.where(lti_course_binding_id: @binding.id, archived_at: nil)
+    LtiLineItem.bound.where(lti_course_binding_id: @binding.id, archived_at: nil)
   end
 
   # LTIAAS/Canvas 422 when the target user isn't a gradable student in the
@@ -127,6 +133,11 @@ class SyncLtiGrades
   # every 30-min cycle.
   MEMBERSHIP_GONE = /not found in (?:the )?course|not a student/i
 
+  # No bare StandardError rescue here: only an AGS rejection of one score is a
+  # per-student failure. A bug in progress computation or a signature-save
+  # failure is systemic — swallowing it per-student let a broken deploy reject
+  # every score while the run recorded a completed partial sync with no Sidekiq
+  # retry. Those now escape to #perform's whole-run handler.
   def push_one(context, line_item)
     progress = compute_progress(line_item, context)
     return unless progress&.gradable?
@@ -140,8 +151,6 @@ class SyncLtiGrades
   rescue LtiaasClient::LtiaasClientError => e
     return log_non_gradable(context, line_item) if membership_gone?(e)
 
-    report_push_failure(e, context, line_item)
-  rescue StandardError => e
     report_push_failure(e, context, line_item)
   end
 

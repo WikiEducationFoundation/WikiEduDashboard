@@ -33,6 +33,13 @@ Branch state, so a fresh session doesn't have to reconstruct it:
       ADD COLUMN lms_membership_status VARCHAR(255) AFTER linked_at;
     ```
 
+    A fourth change followed the same day, from the fourth review's deep-link
+    fix (also applied to staging by hand, verified nullable):
+
+    ```sql
+    ALTER TABLE lti_line_items MODIFY lineitem_id VARCHAR(512) NULL;
+    ```
+
 ### Which open items a real user can actually hit
 
 _(2026-07-30: all three user-reachable priorities below were addressed in a
@@ -791,6 +798,48 @@ left, in the order it seems worth doing:
     (`sign_in_to_continue` and `assignment_view_orphan` got headings from their
     existing title strings); `_lti_iframe.styl` adjusted so nothing changes
     visually, `yarn build` run and the compiled CSS verified.
+
+## Fourth-review follow-ups (2026-07-30, gpt-5.6-sol)
+
+All four findings were assessed against the code with Sage the same day; three
+produced fixes on the branch, one produced a recorded policy decision.
+
+- [x] **Canvas role revocation does not revoke Dashboard instructor access.**
+  _(Facts confirmed; decided: leave as is.)_ `LtiMemberLinker` promotes and
+  never demotes, so a former Canvas instructor keeps Dashboard edit rights
+  until revoked manually, and the removal flag surfaces only in the
+  learners-only setup roster. Kept deliberately: Dashboard instructor roles
+  carry no provenance (nothing records whether the linker or an ordinary
+  Dashboard flow granted one), and the course creator may not be on the Canvas
+  roster at all, so demoting on NRPS could strip the course owner's own
+  access. Provenance-tracked demotion and a staff-visible flag were considered
+  and not taken. The class comment's TA rationale was corrected — Canvas sends
+  the base Instructor role for TAEnrollments, so the old "TAs don't map"
+  argument was wrong.
+- [x] **Deep-link double-submit could create duplicate Canvas assignments.**
+  _(Fixed.)_ `deep_link_select` now takes a transactional pending reservation
+  per chosen gradable (new `ReserveLtiLineItems`; `lti_line_items.lineitem_id`
+  made nullable in the unshipped create migration; staging ALTER recorded and
+  applied — see "Where things stand"). The `(binding, gradable_key)` unique
+  index makes the loser of a race 422 instead of minting a second Canvas
+  column. Discovery (`SyncLtiLineItems`) and launch resolution
+  (`ResolveAssignmentLineItem`) adopt pending rows; abandoned reservations are
+  destroyed after 30 minutes (`PENDING_EXPIRY` — no Canvas column ever existed
+  behind them); archived rows are revived by compare-and-swap so a re-import
+  after column deletion still works. Every `lti_line_items` consumer was
+  audited: grade sync and `assignments_imported?` are now bound-only, the
+  picker's taken-set deliberately counts reservations.
+- [x] **Grade-sync per-student tier swallowed application errors.** _(Fixed
+  as the review suggested.)_ `push_one` no longer rescues bare StandardError:
+  only an AGS rejection (`LtiaasClientError`) is per-student; compute or
+  persistence failures abort the run, record the error, and reach Sidekiq's
+  retry. Accepted trade-off: one student's corrupted data now blocks that
+  binding's sync loudly instead of failing quietly per-student forever.
+- [x] **`lms_membership_status` was missing from the privacy surfaces.**
+  _(Fixed; field kept per the flag-only decision.)_ The personal-data CSV
+  exports "Membership Status (from LMS)", and the guide's data-sharing bullet,
+  HECVAT REQU-08, and PDAT-03 all state the enrollment status with
+  operator-approved wording (2026-07-30).
 
 ## Copy placeholders from the 2026-07-30 pass
 

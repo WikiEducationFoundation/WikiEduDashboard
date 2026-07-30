@@ -145,6 +145,48 @@ describe SyncLtiLineItems do
     end
   end
 
+  describe 'pending reservations from the deep-link picker' do
+    let!(:exercise_block) do
+      create(:block, week: week, order: 0, title: 'Find sources',
+                     training_module_ids: [exercise_module.id])
+    end
+    let!(:pending_row) do
+      LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                          gradable_id: exercise_block.id, label: 'Wk1 Find sources')
+    end
+
+    it 'adopts a pending row when discovery finds its column, instead of duplicating' do
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
+                             'tag' => "Block:#{exercise_block.id}" }])
+      expect { described_class.new(binding) }.not_to change(LtiLineItem, :count)
+      expect(pending_row.reload.lineitem_id).to eq('https://lms.example.com/li/ex')
+      expect(pending_row).not_to be_archived
+    end
+
+    # The reservation must keep holding its slot while the 2-minute discovery
+    # window (or a slow Canvas) plays out — archiving it would put the
+    # gradable back on the picker's menu mid-race.
+    it 'leaves a fresh pending row alone when its column has not appeared yet' do
+      described_class.new(binding)
+      expect(pending_row.reload).to be_pending
+      expect(pending_row).not_to be_archived
+    end
+
+    it 'destroys a pending row still unbound after the expiry window' do
+      pending_row.update_column(:updated_at, (described_class::PENDING_EXPIRY + 1.minute).ago)
+      described_class.new(binding)
+      expect(LtiLineItem.find_by(id: pending_row.id)).to be_nil
+    end
+
+    it 'adopts rather than expires a stale pending row whose column finally shows up' do
+      pending_row.update_column(:updated_at, (described_class::PENDING_EXPIRY + 1.minute).ago)
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
+                             'tag' => "Block:#{exercise_block.id}" }])
+      described_class.new(binding)
+      expect(pending_row.reload.lineitem_id).to eq('https://lms.example.com/li/ex')
+    end
+  end
+
   describe 'the local label of a discovered column' do
     # Reuse the seeded module if the CI test DB already has it, rather than
     # creating a duplicate 'bibliography-exercise' slug.

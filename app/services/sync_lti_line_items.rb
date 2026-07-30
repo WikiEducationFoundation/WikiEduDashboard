@@ -12,10 +12,15 @@
 #
 # Line-item lifecycle:
 #   - Bind (or re-bind) a local row for every Canvas column whose tag matches one
-#     of the course's gradables.
+#     of the course's gradables. A pending reservation (lineitem_id NULL, created
+#     by the deep-link picker before the column existed) is adopted here — the
+#     same row gets the discovered lineitem_id — rather than duplicated.
 #   - Soft-archive locally (set archived_at) the rows whose gradable has left the
 #     timeline, or whose Canvas column has gone. We never DELETE from LTIAAS —
 #     that would erase the corresponding Canvas gradebook column and its scores.
+#   - Destroy pending reservations still unbound after PENDING_EXPIRY: the picker
+#     form never reached Canvas, and an undying reservation would block the
+#     gradable from ever being imported.
 #
 # Labels are not pushed: the instructor named the assignment at import time and
 # Canvas owns it from there. Renaming a block updates the local row's label (what
@@ -23,6 +28,14 @@
 #
 # A binding without a stored serviceKey, or without a bound course, is a no-op.
 class SyncLtiLineItems
+  # How long a pending reservation may stay unbound before it's judged
+  # abandoned. The deep-link form auto-submits within seconds and the
+  # discovery worker fires 2 minutes after it's returned, so a reservation
+  # still pending after 30 minutes — several sync cycles later — means the
+  # form never reached Canvas (closed modal, abandoned tab), not that
+  # discovery is merely slow.
+  PENDING_EXPIRY = 30.minutes
+
   attr_reader :binding
 
   def initialize(binding)
@@ -65,13 +78,26 @@ class SyncLtiLineItems
                       label: gradable.label, archived_at: nil)
   end
 
+  # A pending row is a deep-link reservation, not a stale column — no Canvas
+  # line item backs it yet, so archiving it is meaningless and would reopen
+  # the gradable to a duplicate import. Keep a fresh one holding its slot and
+  # destroy an expired one; there is no Canvas-side data behind an unbound
+  # reservation, so the never-delete rule doesn't apply.
   def archive_stale(existing, kept_keys)
     kept = kept_keys.to_set
     existing.each_value do |line_item|
-      key = [line_item.gradable_type, line_item.gradable_id]
-      next if kept.include?(key) || line_item.archived?
+      next if kept.include?([line_item.gradable_type, line_item.gradable_id])
+      next expire_if_abandoned(line_item) if line_item.pending?
+      next if line_item.archived?
 
       line_item.archive!
     end
+  end
+
+  # updated_at, not created_at: reserving via an archived row's revival only
+  # touches updated_at, and an expiry clock that predates the reservation
+  # could destroy it before its form's column is discovered.
+  def expire_if_abandoned(line_item)
+    line_item.destroy! if line_item.updated_at < PENDING_EXPIRY.ago
   end
 end

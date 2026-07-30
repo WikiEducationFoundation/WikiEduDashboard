@@ -269,6 +269,36 @@ describe SyncLtiGrades do
     expect(binding.reload.last_grade_sync_error).to be_nil
   end
 
+  # A fresh deep-link reservation has no lineitem_id — there is nothing to post
+  # at, and letting it into the push loop would raise a TypeError that (as a
+  # non-API error) aborts the whole run.
+  it 'skips pending deep-link reservations rather than posting at a nil line item' do
+    LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                        gradable_id: training_block.id, label: 'Get started')
+    stub_post_score(trainings_lineitem_url)
+    stub_post_score(exercise_lineitem_url)
+    described_class.new(binding)
+    expect(binding.reload.last_grade_sync_error).to be_nil
+    expect(binding.last_grade_sync_at).to be_present
+  end
+
+  # A bug in progress computation (or any other non-API failure) is systemic,
+  # not a per-student rejection: it must abort the run and reach Sidekiq's
+  # retry rather than recording a completed partial sync.
+  describe 'internal application errors' do
+    before do
+      binding.update!(last_grade_sync_at: 3.hours.ago)
+      allow(Sentry).to receive(:capture_exception)
+    end
+
+    it 'aborts the run instead of recording per-student failures' do
+      allow(LtiSetupProgress).to receive(:new).and_raise(RuntimeError, 'progress bug')
+      expect { described_class.new(binding) }.to raise_error(RuntimeError, 'progress bug')
+      expect(binding.reload.last_grade_sync_at).to be_within(5.seconds).of(3.hours.ago)
+      expect(binding.last_grade_sync_error).to include('RuntimeError')
+    end
+  end
+
   # A 5xx, a rate limit, or an auth failure hits every push in the run, so
   # reporting a fresh successful sync would be actively misleading. Let it out
   # so Sidekiq retries.

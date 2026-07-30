@@ -448,7 +448,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
     t.string "gradable_type", null: false
     t.integer "gradable_id"
     t.virtual "gradable_key", type: :string, as: "concat(`gradable_type`,':',ifnull(`gradable_id`,''))", stored: true
-    t.string "lineitem_id", limit: 512, null: false
+    t.string "lineitem_id", limit: 512
     t.string "label"
     t.decimal "score_maximum", precision: 10, scale: 4, default: "1.0", null: false
     t.datetime "archived_at"

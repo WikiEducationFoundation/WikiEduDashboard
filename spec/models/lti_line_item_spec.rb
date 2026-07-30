@@ -63,11 +63,18 @@ describe LtiLineItem do
       expect(li).to be_valid
     end
 
-    it 'requires gradable_type and lineitem_id' do
+    it 'requires gradable_type' do
       li = described_class.new(lti_course_binding: binding)
       expect(li).not_to be_valid
       expect(li.errors[:gradable_type]).to be_present
-      expect(li.errors[:lineitem_id]).to be_present
+    end
+
+    # A nil lineitem_id is a pending reservation from the deep-link picker,
+    # created before Canvas has made the column.
+    it 'is valid as a pending reservation with no lineitem_id' do
+      li = described_class.new(lti_course_binding: binding,
+                               gradable_type: 'Block', gradable_id: 1)
+      expect(li).to be_valid
     end
 
     it 'rejects duplicate (binding, gradable_type, gradable_id)' do
@@ -133,6 +140,37 @@ describe LtiLineItem do
       expect(described_class.new(lti_course_binding: other,
                                  gradable_type: LtiLineItem::SETUP_TYPE,
                                  lineitem_id: 'http://lms/li/2')).to be_valid
+    end
+  end
+
+  describe 'pending reservations' do
+    let!(:pending_li) do
+      described_class.create!(lti_course_binding: binding,
+                              gradable_type: 'Block', gradable_id: 1)
+    end
+    let!(:bound_li) do
+      described_class.create!(lti_course_binding: binding,
+                              gradable_type: 'Block', gradable_id: 2,
+                              lineitem_id: 'http://lms/li/2')
+    end
+
+    it 'partitions via pending / bound scopes' do
+      expect(described_class.pending).to contain_exactly(pending_li)
+      expect(described_class.bound).to contain_exactly(bound_li)
+    end
+
+    it '#pending? reflects the missing lineitem_id' do
+      expect(pending_li).to be_pending
+      expect(bound_li).not_to be_pending
+    end
+
+    # MariaDB exempts NULLs from the (binding, lineitem_id) unique index, so
+    # one binding can hold reservations for several gradables at once.
+    it 'allows multiple pending rows on one binding despite the unique index' do
+      expect do
+        described_class.create!(lti_course_binding: binding,
+                                gradable_type: 'Block', gradable_id: 3)
+      end.to change(described_class.pending, :count).by(1)
     end
   end
 

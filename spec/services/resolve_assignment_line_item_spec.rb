@@ -80,5 +80,44 @@ describe ResolveAssignmentLineItem do
       expect { described_class.new(binding:, lti_session: sess) }
         .not_to change(LtiLineItem, :count)
     end
+
+    # The deep-link picker reserves the gradable with a pending row before
+    # Canvas creates the column, so the first launch usually arrives while
+    # that reservation still holds the slot. It must be adopted — filled in
+    # from the launch — not collided with, and never returned column-less.
+    context 'when the picker reservation (pending row) still holds the gradable' do
+      let!(:pending_row) do
+        LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                            gradable_id: exercise_block.id, label: 'Wk1 Find sources')
+      end
+
+      it 'adopts the pending row via the resource marker instead of colliding' do
+        lti_session = session(canvas_assignment_id: 'ca-9',
+                              ags_lineitem_url: 'https://canvas/li/NEW',
+                              deep_link_resource: "Block:#{exercise_block.id}")
+        result = nil
+        expect { result = described_class.new(binding:, lti_session:).result }
+          .not_to change(LtiLineItem, :count)
+        expect(result.id).to eq(pending_row.id)
+        expect(pending_row.reload.lineitem_id).to eq('https://canvas/li/NEW')
+        expect(pending_row.canvas_assignment_id).to eq('ca-9')
+      end
+
+      it 'adopts the pending row via the tagged launch line item when no marker is echoed' do
+        service = instance_double(
+          LtiServiceSession,
+          list_line_items: [{ 'id' => 'https://canvas/li/NEW',
+                              'tag' => "Block:#{exercise_block.id}" }]
+        )
+        allow(LtiServiceSession).to receive(:new).and_return(service)
+        lti_session = session(canvas_assignment_id: nil,
+                              ags_lineitem_url: 'https://canvas/li/NEW')
+        result = nil
+        expect { result = described_class.new(binding:, lti_session:).result }
+          .not_to change(LtiLineItem, :count)
+        expect(result.id).to eq(pending_row.id)
+        expect(pending_row.reload.lineitem_id).to eq('https://canvas/li/NEW')
+      end
+    end
   end
 end

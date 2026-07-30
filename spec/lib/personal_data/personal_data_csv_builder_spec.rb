@@ -88,13 +88,15 @@ describe PersonalData::PersonalDataCsvBuilder, type: :request do
                          lms_family: 'canvas',
                          roles: ['http://purl.imsglobal.org/vocab/lis/v2/' \
                                  'membership#Learner'],
+                         lms_membership_status: 'Active',
                          linked_at: '2026-01-05 12:00:00 UTC')
     end
 
     it 'exports the LMS identity fields that survive the anonymized posture' do
       csv_content = described_class.new(user).generate_csv
-      expect(csv_content).to include('LMS', 'LMS User ID', 'Roles (from LMS)', 'Linked At')
-      expect(csv_content).to include('canvas', 'lti-user-9', 'membership#Learner')
+      expect(csv_content).to include('LMS', 'LMS User ID', 'Roles (from LMS)',
+                                     'Membership Status (from LMS)', 'Linked At')
+      expect(csv_content).to include('canvas', 'lti-user-9', 'membership#Learner', 'Active')
     end
 
     it 'does not export LMS-supplied name or email columns' do

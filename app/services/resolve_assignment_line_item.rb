@@ -49,14 +49,17 @@ class ResolveAssignmentLineItem
   end
 
   # Deep-link `resource` marker path (validated against the bound course's own
-  # gradables). Returns an existing local row for that gradable, else binds one
-  # from the launch's line-item URL.
+  # gradables). Returns an existing bound row for that gradable, else binds one
+  # from the launch's line-item URL. A pending row (the picker's reservation,
+  # no column behind it yet) must not be returned as-is — falling through to
+  # bind_line_item adopts it, filling its lineitem_id from this launch instead
+  # of colliding with it.
   def bind_from_deep_link
     gradable = deep_link_gradable
     return if gradable.nil?
 
     existing = active_line_item_for(gradable)
-    return existing if existing
+    return existing if existing && !existing.pending?
 
     url = @lti_session.ags_lineitem_url
     url.present? ? bind_line_item(gradable, url) : nil
@@ -102,6 +105,10 @@ class ResolveAssignmentLineItem
                                gradable_id: gradable.gradable_id)
   end
 
+  # find_or_initialize_by keys on the gradable, so this is also the adoption
+  # point for a pending reservation or an archived row — the slot's one row is
+  # repointed at the launch's column, never duplicated against the
+  # (binding, gradable_key) unique index.
   def bind_line_item(gradable, lineitem_url)
     line_item = LtiLineItem.find_or_initialize_by(
       lti_course_binding_id: @binding.id,

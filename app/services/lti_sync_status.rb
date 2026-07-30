@@ -53,9 +53,12 @@ class LtiSyncStatus
 
   # Deep-link-first: nothing is created until the instructor imports. When no
   # column has been imported/bound yet, the status view shows the how-to-import
-  # next step.
+  # next step. Bound rows only: a pending deep-link reservation is not an
+  # imported assignment — counting one would hide the how-to for up to the
+  # reservation's expiry when the picker form never reached Canvas, while a
+  # real import flips its reservation to bound within minutes.
   def assignments_imported?
-    @binding.lti_line_items.active.exists?
+    @binding.lti_line_items.active.bound.exists?
   end
 
   private

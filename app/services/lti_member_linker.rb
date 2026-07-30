@@ -22,9 +22,15 @@
 #     staff can see a "was removed in Canvas" member to reconcile, but here it
 #     only stops us *newly* enrolling someone Canvas has already removed.
 #   - **No auto-demotion.** A member the LMS no longer calls staff keeps their
-#     Dashboard role. Co-instructors are commonly enrolled in Canvas as TAs,
-#     which doesn't map to an instructor role here, so demoting on that basis
-#     would strip course access from the person who set the course up.
+#     Dashboard role — reaffirmed as policy 2026-07-30. Dashboard instructor
+#     roles carry no provenance (nothing records whether this linker or an
+#     ordinary Dashboard flow granted one), and the Dashboard course exists
+#     independently of Canvas — its creator may not be on the Canvas roster at
+#     all — so demoting on NRPS could strip the course owner's own access.
+#     Consequence, accepted: a former Canvas instructor keeps Dashboard edit
+#     rights until revoked manually. (An earlier version of this comment argued
+#     from Canvas TAs not mapping to instructor here; that was wrong — Canvas
+#     sends the base Instructor role for TAEnrollments, so TAs do map.)
 class LtiMemberLinker
   INSTRUCTOR_ROLE_SUFFIXES = LtiSession::INSTRUCTOR_ROLES
 
