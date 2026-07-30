@@ -9,11 +9,12 @@ Branch state, so a fresh session doesn't have to reconstruct it:
 - **PR #6934**, branch `CanvasStaging`. `staging` tracks it and is what
   `cap staging deploy` ships — see the deploy notes in that memory, especially
   checking out `CanvasStaging` again afterwards.
-- **Three code reviews** have been answered, all against `a1beefd9` or its parent:
-  two from gpt-5.6-sol and one multi-agent Claude Code review. Replies are posted as
-  PR comments; the second reply covers both later rounds and opens with corrections
-  to the first.
-- **Screenshot gallery**: `pr-screenshots/CanvasStaging-gallery-20260729`, 38 shots
+- **Five code reviews** have been answered: two gpt-5.6-sol rounds and one
+  multi-agent Claude Code review against `a1beefd9` or its parent, then a fourth
+  (gpt-5.6-sol, at `d43b6fe38`) and a fifth (Claude Code fix-verification +
+  delta pass, same head) on 2026-07-30 — see the two follow-up sections dated
+  that day. Replies are posted as PR comments.
+- **Screenshot gallery**: `pr-screenshots/CanvasStaging-gallery-20260730`, 38 shots
   across 8 flows, posted as a PR comment. Regenerate the comment with
   `bin/harvest-canvas-screenshots --pr-comment=<raw base url>` rather than by hand.
 - **Staging** is deployed and its LTI schema verified against the branch. Note that
@@ -151,7 +152,7 @@ launch + Wikipedia OAuth is the only linking path.
 >      `https://<tenant>.ltiaas.com/lti/register?privacyLevel=anonymous`. That takes
 >      the decision out of the dialog Canvas drops, so the guide no longer asks the
 >      admin about it at all. **Verified against Canvas** by
->      `spec/staging/privacy_level_registration_spec.rb`, which registers a fresh app
+>      `staging_specs/privacy_level_registration_spec.rb`, which registers a fresh app
 >      with the parameter, deploys it, and asserts `anonymous` on both the developer
 >      key's `tool_configuration` and the installed tool — the latter being the half
 >      that governs launch claims and NRPS, and the half the dialog never reached.
@@ -261,7 +262,7 @@ launch + Wikipedia OAuth is the only linking path.
   key containing "module" at all — and after we sent them that decode, LTIAAS
   confirmed they didn't pass the extra key through and shipped a hotfix.
   - **LTIAAS side: fixed and verified 2026-07-25.** They reported the hotfix
-    deployed; `spec/staging/deep_link_module_name_diagnostic_spec.rb` (new)
+    deployed; `staging_specs/deep_link_module_name_diagnostic_spec.rb` (new)
     decodes the signed DeepLinkingResponse and finds the claim **present**, at
     both 2 and 9 content items, with `BuildLtiDeepLinkForm`'s
     retry-without-the-claim fallback never firing. Nothing left to do on our
@@ -643,7 +644,7 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
   - **"Anonymized" meaning Canvas doesn't transmit names** — resolved, and
     verified. `?privacyLevel=anonymous` on the registration URL yields `anonymous`
     on both the developer key and the installed tool
-    (`spec/staging/privacy_level_registration_spec.rb`, green 2026-07-29). The
+    (`staging_specs/privacy_level_registration_spec.rb`, green 2026-07-29). The
     guide's data-sharing paragraph is now accurate for a new registration.
     - **Staging's own tool stays `public`** — decided 2026-07-29, not an oversight.
       Tool 10 predates the parameter, so staging transmits names and emails that
@@ -653,7 +654,7 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
       consequences to keep in mind: the admin gallery's data-sharing screenshot shows
       `public` rather than the `Anonymized` a new institution will get, and anyone
       verifying the privacy posture on staging is verifying the wrong tool — use
-      `spec/staging/privacy_level_registration_spec.rb`, which registers its own.
+      `staging_specs/privacy_level_registration_spec.rb`, which registers its own.
 - [x] **`docs/canvas_integration_guide.md`: "already signed in".** _(Fixed
   2026-07-29, with Sage's go-ahead on guide wording.)_ Also fixed in the same pass:
   the troubleshooting entry that still told admins the instructor must enable the
@@ -840,6 +841,35 @@ produced fixes on the branch, one produced a recorded policy decision.
   exports "Membership Status (from LMS)", and the guide's data-sharing bullet,
   HECVAT REQU-08, and PDAT-03 all state the enrollment status with
   operator-approved wording (2026-07-30).
+
+## Claude third-round review follow-ups (2026-07-30)
+
+The fifth review overall (a Claude Code session's fix-verification + delta
+pass at `d43b6fe38`). Nothing blocking; everything addressed or decided the
+same day.
+
+- [x] **One wording correction accepted.** The reply to the `a1beefd9` reviews
+  overstated "the dormant modes' wizard hook" as removed. It wasn't — and it
+  shouldn't be: with `SyncLtiLineItems` now discovery/archival-only, the
+  wizard/Block hooks are what keep line items tracking timeline edits. The
+  auto-creation risk the original finding described is gone regardless.
+- [x] **Stale comments and docs fixed.** `config/schedule.yml` (membership
+  status now stored + surfaced), the `?privacy_level=` misspelling in the
+  registration spec's opening comment and `.env.staging-tests.example`, the
+  lateness-marker comments in `LtiServiceSession`/`SyncLtiGrades`, the
+  `per_block`/`lumped` granularity and "sync auto-created columns" language in
+  `LtiLineItem`/`LtiDeepLinking` (plus the same comment's "0.0 while still
+  unlinked" claim, which the review didn't flag but predates `skip_zero?`),
+  and this file's four current-path `spec/staging/` references.
+- [x] **`lti.student_overview.empty` = `"[none]"` is intentional copy.**
+  Operator-confirmed 2026-07-30 — the review read it as an unfilled stub; it
+  is the deliberate label for an empty list.
+- [x] **The awaiting-approval message's four collapsed causes stay
+  collapsed.** _(Operator decision 2026-07-30.)_ An instructor whose courses
+  have all ended/been withdrawn is a rare state, and every cause has the same
+  remedy the message already points at — go to the Dashboard, where the
+  courses' actual state is visible. Splitting the copy per cause was
+  considered and not taken.
 
 ## Copy placeholders from the 2026-07-30 pass
 

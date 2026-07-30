@@ -201,8 +201,8 @@ class SyncLtiGrades
 
   # Append the Dashboard's origin to a score comment so Canvas's authorless
   # "- Someone" attribution (its Score API can't set the comment author) reads
-  # less mysteriously. Blank comments (e.g. an exercise with no "[Late]" marker)
-  # stay blank — we don't post a bare attribution with no other content.
+  # less mysteriously. Blank comments (most progress types emit none) stay
+  # blank — we don't post a bare attribution with no other content.
   def with_origin(comment)
     return comment if comment.blank? || ENV['dashboard_url'].blank?
 

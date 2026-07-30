@@ -3,7 +3,7 @@
 require_relative 'spec_helper'
 
 # Verifies the one thing the guide now depends on: that appending
-# `?privacy_level=anonymous` to the LTIAAS registration URL puts `anonymous` on
+# `?privacyLevel=anonymous` to the LTIAAS registration URL puts `anonymous` on
 # the **installed tool**, not just on the developer key's configuration.
 #
 # Why that distinction is the whole point: registering by hand and choosing

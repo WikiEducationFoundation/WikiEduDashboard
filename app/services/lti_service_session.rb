@@ -97,8 +97,8 @@ class LtiServiceSession
   # AGS), `userId`, `activityProgress`, `gradingProgress` are required.
   # `scoreGiven` and `scoreMaximum` come together when the score should
   # update the gradebook. `comment` is a free-form text field surfaced in the
-  # Canvas gradebook; we put a lateness marker and the Dashboard's origin there,
-  # and deliberately never a sandbox URL — those embed the student's Wikipedia
+  # Canvas gradebook; we put the Dashboard's origin there, and deliberately
+  # never a sandbox URL — those embed the student's Wikipedia
   # username and a gradebook comment is visible to anyone with gradebook access
   # (see LtiBlockProgress).
   # 204 No Content on success.

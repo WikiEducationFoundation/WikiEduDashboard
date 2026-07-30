@@ -10,8 +10,7 @@
 # assignments tied to our tool (resource link + AGS line item) — giving later
 # launches the `lineItemId` the assignment_view drill-down resolves.
 # Already-column-backed gradables are excluded from the offer so re-running
-# the picker (or running it after the sync auto-created columns) can't
-# create duplicates. Each accepted selection is also reserved with a pending
+# the picker can't create duplicates. Each accepted selection is also reserved with a pending
 # LtiLineItem row before the form is returned, closing the window between
 # form and discovery in which a duplicate submission would otherwise still
 # look offerable.
