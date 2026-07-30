@@ -641,6 +641,7 @@ lb:
     course_dates: Datume vum Cours
     course_end: Ënn vum Cours
     course_start: Ufank vum Cours
+    discard_all_changes: All Ännerunge verwerfen
     delete_timeline_and_start_over: Zäitplang läschen
     done: Fäerdeg
     due_default: Nächst Woch fälleg
