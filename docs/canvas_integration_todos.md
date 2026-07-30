@@ -1,7 +1,44 @@
 # Canvas integration — follow-ups
 
-Deferred items from the Canvas / LTI integration work. None are blockers for the
-current staging walkthrough; revisit as noted.
+Deferred items from the Canvas / LTI integration work. Revisit as noted.
+
+## Where things stand (2026-07-30)
+
+Branch state, so a fresh session doesn't have to reconstruct it:
+
+- **PR #6934**, branch `CanvasStaging`. `staging` tracks it and is what
+  `cap staging deploy` ships — see the deploy notes in that memory, especially
+  checking out `CanvasStaging` again afterwards.
+- **Three code reviews** have been answered, all against `a1beefd9` or its parent:
+  two from gpt-5.6-sol and one multi-agent Claude Code review. Replies are posted as
+  PR comments; the second reply covers both later rounds and opens with corrections
+  to the first.
+- **Screenshot gallery**: `pr-screenshots/CanvasStaging-gallery-20260729`, 38 shots
+  across 8 flows, posted as a PR comment. Regenerate the comment with
+  `bin/harvest-canvas-screenshots --pr-comment=<raw base url>` rather than by hand.
+- **Staging** is deployed and its LTI schema verified against the branch. Note that
+  deploys do **not** apply this work's migrations — schema changes go on by hand over
+  SSH. See the `lti_contexts` collation item below for the one known difference.
+
+### Which open items a real user can actually hit
+
+Most of the list is internal or operator-facing. These are the ones reachable by an
+instructor or student in an ordinary course, and so the ones worth doing first:
+
+1. **Links in rendered timeline content** (below) — a link in *shipped wizard
+   content* blanks the Canvas iframe with no in-frame recovery, and the wizard
+   timeline is now what every gallery and every real course uses.
+2. **Pre-activation launch shows raw JSON** (below) — hit by an instructor who
+   launches before Wiki Education activates the LTIAAS registration, which is the
+   normal sequence for a new institution rather than an edge case.
+3. **Several of the UI/UX items** (below), particularly the first-time instructor
+   with no Dashboard course landing on the "awaiting approval" message with no way
+   forward, and an expired ltik 500ing behind the default `X-Frame-Options` so the
+   frame reads as a blank "refused to connect".
+
+The rest — the roster-sync error field, periodic-sync starvation, collation,
+encryption, harness relocation — are correctness and hygiene items that no instructor
+will notice, and can be scheduled rather than rushed.
 
 ## Privacy / anonymized mode
 
@@ -538,6 +575,20 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
   something closer to "open the Dashboard from a link in the course's left-hand
   navigation — the first time, students connect their Wikipedia account in a new
   tab; after that the tool shows their progress in place."
+- [ ] **HECVAT REQU-08 understates what a binding stores.** It says the Dashboard
+  "stores only the link between the Canvas ID and the Dashboard account". A
+  `LtiCourseBinding` also persists `lms_context_title` (the Canvas course name),
+  `lms_context_id`, `lms_platform_url`, `lms_resource_link_id`, `nrps_url`,
+  `ags_lineitems_url`, and the service credential. None of it is student personal
+  data, and the guide's version of the same claim (its "What data is shared" bullet)
+  is correctly scoped — but the HECVAT's sentence is narrower than the truth. From
+  the third review; relayed at the time but not written down until now.
+- [ ] **Check the DPAI-02 wording I volunteered.** Its note now discloses that a
+  Pangram submission produces a report hosted at a URL that is not access-controlled,
+  its content being the public Wikipedia text submitted — from
+  `public_dashboard_link: true` in `lib/pangram_api.rb:14`. True, and a reviewer would
+  want it, but it is the one place in the AI tab where Claude Code added a disclosure
+  rather than reworded an existing answer, so it deserves an operator read.
 - [ ] **"Anonymous" vs "Anonymized".** `docs/hecvat.md` REQU-08 says "Canvas's
   Anonymous data-sharing model"; `docs/canvas_integration_guide.md` says
   "Anonymized". Both have a basis — `anonymous` is the API/`privacy_level` value,
