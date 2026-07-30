@@ -5,6 +5,8 @@
 #     `context_id` string identifier going forward)
 #   - capture the LMS roles NRPS supplies, so staff can be told from students
 #   - track when the User association was actually established (`linked_at`)
+#   - record the LMS's own membership status (`lms_membership_status`), so a
+#     member Canvas has removed or suspended is visible to staff
 #
 # Anonymized posture: no LMS-supplied name or email is stored. NRPS gives us the
 # opaque LTI user id, roles, and membership status and nothing else; identity
@@ -36,6 +38,10 @@ class AddBindingFieldsToLtiContexts < ActiveRecord::Migration[8.1]
                   index: false
     add_column :lti_contexts, :roles, :text
     add_column :lti_contexts, :linked_at, :datetime
+    # Last NRPS-reported membership status (Active/Inactive/Deleted), refreshed
+    # on every roster sync. Read-only reconciliation state: it flags "removed
+    # in Canvas" members for staff, and never drives automatic disenrollment.
+    add_column :lti_contexts, :lms_membership_status, :string
 
     add_index :lti_contexts, %i[user_lti_id lti_course_binding_id],
               unique: true,

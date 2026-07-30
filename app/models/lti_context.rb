@@ -16,6 +16,9 @@
 #  lti_course_binding_id :integer          - replaces the legacy context_id
 #  roles                 :text(65535)      - serialized array of LTI roles
 #  linked_at             :datetime         - set when user_id populated
+#  lms_membership_status :string(255)      - last NRPS-reported status
+#                                            (Active/Inactive/Deleted); nil until
+#                                            a roster sync has seen the member
 #
 
 # Per-user, per-binding link between a Dashboard User and an LMS user
@@ -34,6 +37,12 @@
 # Clearing a bad link is a staff operation. See
 # LtiSession#reject_conflicting_link!.
 class LtiContext < ApplicationRecord
+  # LTI 1.3 NRPS membership statuses that mean the LMS can no longer reach this
+  # member: `Deleted` is a member Canvas removed from the course outright;
+  # `Inactive` is one whose enrollment is suspended and who can't reach the
+  # course either. LtiMemberLinker refuses to newly enroll either kind.
+  REMOVED_STATUSES = %w[Deleted Inactive].freeze
+
   belongs_to :user, optional: true
   belongs_to :lti_course_binding, optional: true
 
@@ -46,6 +55,14 @@ class LtiContext < ApplicationRecord
 
   def linked?
     user_id.present?
+  end
+
+  # Whether the LMS's last roster report said this member can no longer reach
+  # the Canvas course. nil — a member no NRPS response has covered yet — is not
+  # removed. Reconciliation state for staff only: the Dashboard never
+  # disenrolls anyone on the strength of it (an operator decision, not ours).
+  def removed_from_lms?
+    REMOVED_STATUSES.include?(lms_membership_status)
   end
 
   # Whether this membership's LMS roles mark it as course staff

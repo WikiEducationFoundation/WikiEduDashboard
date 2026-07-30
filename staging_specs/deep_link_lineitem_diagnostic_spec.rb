@@ -55,7 +55,7 @@ describe 'DIAGNOSTIC: deep-link resource link delivers lineItemId', :staging do
   let(:canvas_course_name) { "Staging DL-diag #{run_id}" }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
-  let(:artifact_dir)       { File.expand_path('../../tmp/staging-diagnostics', __dir__) }
+  let(:artifact_dir)       { File.expand_path('../tmp/staging-diagnostics', __dir__) }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }

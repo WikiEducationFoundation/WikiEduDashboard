@@ -8,7 +8,7 @@ require_relative 'spec_helper'
 # `bin/harvest-canvas-screenshots` collects it into the review gallery.
 # Re-run to refresh the images when the student flow changes:
 #
-#   bin/staging-feature-spec spec/staging/student_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/student_screenshots_spec.rb
 #
 # Three scenarios, each provisioning its own fresh Canvas + dashboard
 # state and tearing it down afterward:

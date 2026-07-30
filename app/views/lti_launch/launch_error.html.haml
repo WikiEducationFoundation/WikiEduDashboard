@@ -1,0 +1,14 @@
+- # In-frame error page for a launch the Dashboard couldn't honor: LTIAAS
+- # refused or failed mid-launch (most commonly an expired ltik on a stale
+- # Canvas tab), or a framed request arrived without its ltik. Styled like the
+- # other in-iframe landings; a fresh Canvas launch (reloading the Canvas
+- # page) mints a new ltik, which is the usual remedy.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h1.lti-iframe__title= t('lti.launch_error.header')
+  %p= t('lti.launch_error.explanation')
+  - if params[:ltik].present?
+    -# Re-launches in the iframe, for the transient failures that clear on
+    -# retry. (An expired ltik re-launch degrades to the sign-in landing.)
+    = link_to t('lti.check_again'), "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
+              class: 'lti-iframe__check-again'

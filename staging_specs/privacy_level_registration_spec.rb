@@ -15,7 +15,7 @@ require_relative 'spec_helper'
 # is the URL parameter, which moves the decision out of that dialog. This spec is
 # what stops us taking their word for it.
 #
-#   bin/staging-feature-spec spec/staging/privacy_level_registration_spec.rb
+#   bin/staging-feature-spec staging_specs/privacy_level_registration_spec.rb
 #
 # ## Why this creates a *second* registration rather than redoing the first
 #

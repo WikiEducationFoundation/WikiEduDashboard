@@ -10,7 +10,7 @@ require_relative 'spec_helper'
 #
 # Re-run to refresh the screenshots when the UX changes:
 #
-#   bin/staging-feature-spec spec/staging/instructor_setup_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/instructor_setup_screenshots_spec.rb
 #
 # Uses friendlier course names ("Demo School", "Wiki Editing Demo
 # Course") than the G2 spec's timestamped placeholders so the screenshots

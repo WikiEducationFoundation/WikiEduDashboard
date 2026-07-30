@@ -9,7 +9,7 @@ require_relative 'spec_helper'
 # CANVAS_SHOTS_DIR); `bin/harvest-canvas-screenshots` collects it into the
 # review gallery.
 #
-#   bin/staging-feature-spec spec/staging/instructor_active_course_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/instructor_active_course_screenshots_spec.rb
 #
 # The instructor binds the course (arriving via the Canvas launch), then:
 #   - BEFORE any student has launched: the LMS-integration status panel reads

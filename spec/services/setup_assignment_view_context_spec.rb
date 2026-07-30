@@ -19,10 +19,10 @@ describe SetupAssignmentViewContext do
 
   # Anonymized mode: LtiContext carries no name, so a pending member has no
   # legible identity at all until they connect a Wikipedia account.
-  def student_context(user_lti_id:, user: nil)
+  def student_context(user_lti_id:, user: nil, status: nil)
     LtiContext.create!(lti_course_binding: binding, user_lti_id:, user:,
                        lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
-                       linked_at: user && Time.current)
+                       linked_at: user && Time.current, lms_membership_status: status)
   end
 
   def enroll(user, real_name:)
@@ -76,6 +76,32 @@ describe SetupAssignmentViewContext do
 
     expect(context.rows).to be_empty
     expect(context.pending_count).to eq(2)
+  end
+
+  # Stored NRPS status, surfaced as a per-row flag: staff-visible reconciliation
+  # state only, never automatic disenrollment.
+  describe 'the removed-in-Canvas flag' do
+    it 'flags a connected student Canvas has since removed' do
+      student_context(user_lti_id: 'lti-1', user: create(:user), status: 'Deleted')
+      expect(context.rows.map(&:removed_in_lms)).to eq([true])
+    end
+
+    it 'flags a connected student whose Canvas enrollment is suspended' do
+      student_context(user_lti_id: 'lti-1', user: create(:user), status: 'Inactive')
+      expect(context.rows.map(&:removed_in_lms)).to eq([true])
+    end
+
+    it 'does not flag an Active student' do
+      student_context(user_lti_id: 'lti-1', user: create(:user), status: 'Active')
+      expect(context.rows.map(&:removed_in_lms)).to eq([false])
+    end
+
+    # nil status means no NRPS response has covered the member yet (they linked
+    # via their own launch); absence of data is not a removal.
+    it 'does not flag a student the roster sync has not covered yet' do
+      student_context(user_lti_id: 'lti-1', user: create(:user))
+      expect(context.rows.map(&:removed_in_lms)).to eq([false])
+    end
   end
 
   describe '#student_details_path' do

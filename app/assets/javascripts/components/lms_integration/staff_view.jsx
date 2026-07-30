@@ -26,9 +26,18 @@ const StaffView = ({ status }) => {
         {' '}
         {formatTimestamp(status.last_sync_at)}
       </p>
-      {status.last_sync_error_present && (
+      {status.last_roster_sync_error && (
         <p className="lms-integration-status__error">
-          {I18n.t('lms_integration.last_sync_error')}
+          <strong>{I18n.t('lms_integration.last_roster_sync_error')}</strong>
+          {' '}
+          {status.last_roster_sync_error}
+        </p>
+      )}
+      {status.last_sync_error && (
+        <p className="lms-integration-status__error">
+          <strong>{I18n.t('lms_integration.last_sync_error')}</strong>
+          {' '}
+          {status.last_sync_error}
         </p>
       )}
       <p>
@@ -51,7 +60,10 @@ StaffView.propTypes = {
     course_title: PropTypes.string,
     course_url: PropTypes.string,
     last_sync_at: PropTypes.string,
-    last_sync_error_present: PropTypes.bool,
+    // Recorded exception class + message from the last failed sync of each
+    // kind (null when the last run succeeded); rendered verbatim for staff.
+    last_roster_sync_error: PropTypes.string,
+    last_sync_error: PropTypes.string,
     synced_students_count: PropTypes.number
   }).isRequired
 };

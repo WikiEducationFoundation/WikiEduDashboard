@@ -42,6 +42,13 @@ body.lti-iframe
   margin 0 0 24px
   color #333
 
+// p → h1 retag (each page gets one h1, levels without gaps): these landing
+// titles were plain <p>s, so keep the body-text line-height/tracking they
+// had rather than picking up the base heading treatment.
+.lti-iframe__title--plain
+  line-height 1.56
+  letter-spacing normal
+
 // Link-state notice on the anonymous landing ("not yet linked"): the
 // substantive status line, given slightly more weight than the open-in-new-tab
 // hint below it so the actionable message leads.
@@ -76,6 +83,18 @@ body.lti-iframe
     column-gap 8px
     align-items baseline
     cursor pointer
+
+// h3 → h1 / h4 → h2 promotion on the setup and picker pages (each page gets
+// one h1, levels without gaps), same approach as _layout.styl's
+// section-header promotions: preserve the prior look. This partial is only
+// bundled for the lti_iframe layout, so these element selectors can't leak
+// into the main dashboard styles.
+.section-header h1
+  color body-color
+  font-size 1.563em
+
+.module h2
+  font-size 1.25em
 
 // Setup form: "Link this course" is a primary action that only makes sense
 // once a course is chosen, so JS disables it until then; dim it and swap the
@@ -231,9 +250,11 @@ inline-external-icon()
   border-radius 8px
   background #f3f5fb
 
-  h4
+  // h4 → h2 retag (heading levels must not skip); keep the prior h4 size.
+  h2
     margin 0 0 6px
     color #17212b
+    font-size 1.25em
 
   p
     margin 0
@@ -301,11 +322,13 @@ inline-external-icon()
 .lti-overview-section
   margin-top 18px
 
-  h4
+  // h4 → h2 retag (heading levels must not skip); keep the prior h4 size.
+  h2
     display flex
     align-items baseline
     gap 8px
     margin 0 0 8px
+    font-size 1.25em
 
 .lti-overview-count
   font-weight 400
@@ -407,6 +430,13 @@ inline-external-icon()
 .lti-status--pending
   background #eef1f5
   color #55606e
+
+// A connected student whose Canvas enrollment the LMS has since suspended or
+// deleted: error-red (same palette as .lti-setup__error) so the roster's one
+// reconcile-me state stands apart from the routine progress pills.
+.lti-status--removed
+  background #fdecea
+  color #8a1c13
 
 // Sandbox actions: the "Show" toggle reveals the lazily-fetched Wikipedia
 // content inline; the "Open on Wikipedia" link opens the sandbox in a new tab.

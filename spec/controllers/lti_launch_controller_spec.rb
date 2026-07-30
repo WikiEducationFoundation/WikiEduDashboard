@@ -80,6 +80,14 @@ describe LtiLaunchController, type: :request do
         expect(session['ltik']).to be_nil
       end
 
+      # The landing is guaranteed stale once the user completes the new-tab
+      # flow, so it offers the same re-launch link as the waiting states.
+      it 'offers a check-again re-launch link carrying the ltik' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('Check again')
+        expect(response.body).to include('href="/lti?ltik=ltik-abc"')
+      end
+
       # The launch token identifies the Canvas course without a signed-in
       # user, so the landing can report link state to the instructor.
       it 'tells an instructor the course is not yet linked' do
@@ -214,8 +222,29 @@ describe LtiLaunchController, type: :request do
           end
         end
 
-        context 'and the instructor has zero approved not-yet-ended courses' do
-          it 'hides the link-existing form and links to the dashboard home' do
+        # An empty picker has two distinct causes with different next steps:
+        # no Dashboard courses at all (create one) vs. courses that just
+        # aren't linkable yet (wait for approval).
+        context 'and the instructor has no Dashboard courses at all' do
+          it 'offers the create-a-course path instead of the approval message' do
+            get '/lti', params: { ltik: 'ltik-abc' }
+            expect(response.body).not_to include('name="course_slug"')
+            expect(response.body).to include('Create a course on the Dashboard')
+            expect(response.body).to include('href="/"')
+            expect(response.body).not_to include('approved by Wiki Education staff')
+          end
+        end
+
+        context 'and the instructor has courses, but none approved and current' do
+          before do
+            unapproved = create(:course, slug: 'School/Pending_Course_(2026)',
+                                         title: 'Pending Course',
+                                         start: 1.week.ago, end: 2.months.from_now)
+            CoursesUsers.create!(user: user, course: unapproved,
+                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          end
+
+          it 'hides the link-existing form and explains the approval requirement' do
             get '/lti', params: { ltik: 'ltik-abc' }
             expect(response.body).not_to include('name="course_slug"')
             expect(response.body).to include('approved by Wiki Education staff')
@@ -327,6 +356,29 @@ describe LtiLaunchController, type: :request do
               expect(LtiGradeSyncWorker).not_to have_received(:perform_async)
             end
           end
+
+          # The button keeps working long after the 24h ltik dies, and the POST
+          # comes from inside the iframe — where a redirect to the login-error
+          # page (X-Frame-Options) renders as a blank frame.
+          context 'when the ltik has expired on a stale tab' do
+            before do
+              stub_request(:get, idtoken_url).to_return(status: 401, body: 'expired')
+            end
+
+            it 'renders the in-frame launch error for the framed POST' do
+              post '/lti/sync_grades', params: { ltik: 'ltik-stale' },
+                                       headers: { 'Sec-Fetch-Dest' => 'iframe' }
+              expect(response).to have_http_status(422)
+              expect(response).to render_template('lti_launch/launch_error')
+              expect(response.headers).not_to have_key('X-Frame-Options')
+              expect(LtiGradeSyncWorker).not_to have_received(:perform_async)
+            end
+
+            it 'keeps the login-error redirect for a top-level POST' do
+              post '/lti/sync_grades', params: { ltik: 'ltik-stale' }
+              expect(response).to redirect_to('/errors/login_error')
+            end
+          end
         end
 
         # Deep-link-first: before anything is imported, the status view points
@@ -395,6 +447,16 @@ describe LtiLaunchController, type: :request do
           expect(response).to render_template('lti_launch/student_status')
           expect(response.body).to include("/courses/#{course.slug}")
           expect(response.body).to include('target="_blank"')
+        end
+
+        # Linking is taught before timeline-building, so a student can launch
+        # a course with no timeline content — which used to render a header
+        # and nothing else.
+        it 'explains the empty state when the course has no timeline content yet' do
+          get '/lti', params: { ltik: 'ltik-abc' },
+                      headers: { 'Sec-Fetch-Dest' => 'iframe' }
+          expect(response.body)
+            .to include(CGI.escapeHTML(I18n.t('lti.student_overview.empty')))
         end
       end
 
@@ -654,6 +716,62 @@ describe LtiLaunchController, type: :request do
         expect(LtiContext.find_by(user_lti_id: 'lti-user-1').user).to eq(original)
       end
     end
+
+    # An unrescued LTIAAS failure 500s with the default X-Frame-Options,
+    # which the Canvas iframe shows as a blank "refused to connect".
+    context 'when LTIAAS refuses the ltik (expired launch on a stale tab)' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow(Sentry).to receive(:capture_exception)
+        stub_request(:get, idtoken_url).to_return(status: 401, body: 'expired')
+      end
+
+      it 'renders the in-frame launch error instead of a blank 500' do
+        get '/lti', params: { ltik: 'ltik-stale' }
+        expect(response).to have_http_status(:bad_gateway)
+        expect(response).to render_template('lti_launch/launch_error')
+        expect(response.headers).not_to have_key('X-Frame-Options')
+      end
+
+      it 'offers a re-launch retry carrying the ltik' do
+        get '/lti', params: { ltik: 'ltik-stale' }
+        expect(response.body).to include('Check again')
+        expect(response.body).to include('href="/lti?ltik=ltik-stale"')
+      end
+
+      # A 24h token expiring is routine, not an incident.
+      it 'does not report the routine expiry to Sentry' do
+        get '/lti', params: { ltik: 'ltik-stale' }
+        expect(Sentry).not_to have_received(:capture_exception)
+      end
+    end
+
+    context 'when LTIAAS itself fails mid-launch (5xx)' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        allow(Sentry).to receive(:capture_exception)
+        stub_request(:get, idtoken_url).to_return(status: 503, body: 'down')
+      end
+
+      it 'renders the in-frame launch error and reports the outage' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:bad_gateway)
+        expect(response).to render_template('lti_launch/launch_error')
+        expect(response.headers).not_to have_key('X-Frame-Options')
+        expect(Sentry).to have_received(:capture_exception)
+      end
+    end
+
+    # A redirect to the login-error page is itself blocked by that page's
+    # X-Frame-Options, so framed refusals must render in place.
+    context 'when a framed launch arrives without an ltik' do
+      it 'renders the in-frame error rather than redirecting to a frame-blocked page' do
+        get '/lti', headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        expect(response).to have_http_status(422)
+        expect(response).to render_template('lti_launch/launch_error')
+        expect(response.headers).not_to have_key('X-Frame-Options')
+      end
+    end
   end
 
   describe 'POST /lti/setup' do
@@ -722,6 +840,52 @@ describe LtiLaunchController, type: :request do
         expect(response).to render_template('lti_launch/instructor_status')
         expect(response.headers).not_to have_key('X-Frame-Options')
         expect(binding.reload.course).to eq(course)
+      end
+    end
+
+    # A link conflict during setup is shown to the *instructor* running it, so
+    # it must not reuse the student-facing "couldn't enroll you / contact your
+    # instructor" view.
+    context "when the instructor's Canvas identity is already linked to another account" do
+      before do
+        allow(Sentry).to receive(:capture_exception)
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        LtiContext.create!(user_lti_id: 'lti-user-1', lti_course_binding: binding,
+                           lms_id: 'platform-x',
+                           user: create(:user, username: 'FirstDashboardAccount'),
+                           linked_at: 1.day.ago)
+      end
+
+      # The one conflict with a self-service remedy: signing back in with the
+      # Dashboard account that was connected first.
+      it 're-renders setup naming the duplicate-link remedy, and does not bind' do
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
+        expect(response).to have_http_status(:conflict)
+        expect(response).to render_template('lti_launch/setup')
+        expect(response.body)
+          .to include(CGI.escapeHTML(I18n.t('lti.setup.duplicate_link_error')))
+        expect(binding.reload.course).to be_nil
+      end
+    end
+
+    context 'when the instructor Dashboard account is already linked to another Canvas user' do
+      before do
+        allow(Sentry).to receive(:capture_exception)
+        CoursesUsers.create!(user: instructor, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        LtiContext.create!(user_lti_id: 'lti-someone-else', lti_course_binding: binding,
+                           lms_id: 'platform-x', user: instructor, linked_at: 1.day.ago)
+      end
+
+      it 're-renders setup with the instructor-facing conflict error, not the student one' do
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: course.slug }
+        expect(response).to have_http_status(:conflict)
+        expect(response).to render_template('lti_launch/setup')
+        expect(response).not_to render_template('lti_launch/enrollment_error')
+        expect(response.body)
+          .to include(CGI.escapeHTML(I18n.t('lti.setup.link_conflict_error')))
+        expect(binding.reload.course).to be_nil
       end
     end
 
@@ -917,6 +1081,15 @@ describe LtiLaunchController, type: :request do
       it 'backfills canvas_assignment_id from the launch line-item URL' do
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(line_item.reload.canvas_assignment_id).to eq('canvas-assign-55')
+      end
+
+      # The sandbox-preview script's user-visible strings come from the locale
+      # file (the lti_iframe layout loads no i18n JS bundle, so the view
+      # serializes them into the inline script).
+      it 'passes the sandbox-preview messages from the locale file into the script' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('"not_found":"No sandbox found"')
+        expect(response.body).to include('"error":"Sandbox failed to load"')
       end
 
       it 'is also reachable via the /lti/assignment_view fallback route' do
@@ -1312,10 +1485,15 @@ describe LtiLaunchController, type: :request do
       expect(response).to redirect_to('/errors/login_error')
     end
 
-    it 'forbids non-instructor launches' do
+    # e.g. a Canvas observer or designer opening the picker placement: the
+    # refusal stays a 403, but a bare `head :forbidden` rendered as a blank
+    # page inside Canvas's picker modal, so it now carries an explanation.
+    it 'forbids non-instructor launches with an in-frame message, not a blank page' do
       allow_any_instance_of(LtiSession).to receive(:instructor?).and_return(false)
       get '/lti/deep_link', params: { ltik: 'ltik-abc' }
       expect(response).to have_http_status(:forbidden)
+      expect(response).to render_template('lti_launch/deep_link_forbidden')
+      expect(response.headers).not_to have_key('X-Frame-Options')
     end
 
     it 'renders the not-yet-linked landing (with the open-Dashboard button) when unbound' do
@@ -1426,6 +1604,14 @@ describe LtiLaunchController, type: :request do
     it 'requires a ltik' do
       post '/lti/deep_link/select', params: { resource: "Block:#{exercise_block.id}" }
       expect(response).to redirect_to('/errors/login_error')
+    end
+
+    it 'refuses non-instructor submissions with the same in-frame message as the picker' do
+      allow_any_instance_of(LtiSession).to receive(:instructor?).and_return(false)
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      expect(response).to have_http_status(:forbidden)
+      expect(response).to render_template('lti_launch/deep_link_forbidden')
     end
 
     it 'returns the self-submitting form for a valid chosen gradable' do

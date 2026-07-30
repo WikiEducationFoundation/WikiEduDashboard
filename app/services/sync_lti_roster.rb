@@ -5,10 +5,11 @@
 #
 # Failure semantics mirror SyncLtiGrades, in three tiers:
 #
-#   - Whole-run failures (network/5xx, rate limit, auth) abort the sync, leave
-#     `last_roster_sync_at` where it was, and propagate so Sidekiq retries. These
-#     affect the whole roster, so recording a successful recent sync when nothing
-#     was reconciled would be worse than recording nothing.
+#   - Whole-run failures (network/5xx, rate limit, auth) abort the sync, record
+#     `last_roster_sync_error`, leave `last_roster_sync_at` where it was, and
+#     propagate so Sidekiq retries. These affect the whole roster, so recording
+#     a successful recent sync when nothing was reconciled would be worse than
+#     recording nothing.
 #   - Per-member failures — bad or unexpected data for one membership — are
 #     reported to Sentry and skipped. The run finishes and the timestamp advances,
 #     because the rest of the roster really was reconciled.
@@ -49,7 +50,15 @@ class SyncLtiRoster
     service = LtiServiceSession.new(@binding)
     members = service.fetch_memberships
     members.each { |member| link_member(member) }
-    @binding.update!(last_roster_sync_at: Time.current)
+    @binding.update!(last_roster_sync_at: Time.current, last_roster_sync_error: nil)
+    # Anything that escapes this far failed the whole run — the fetch, or a
+    # per-member error outside MEMBER_ERRORS. Same shape as SyncLtiGrades:
+    # record it before re-raising, otherwise a roster sync that dead-letters is
+    # invisible on both status surfaces while `last_roster_sync_at` just stops
+    # advancing.
+  rescue StandardError => e
+    record_aborted_sync(e)
+    raise
   end
 
   def link_member(member)
@@ -65,5 +74,13 @@ class SyncLtiRoster
       error,
       extra: { binding_id: @binding.id, user_lti_id: member[:user_lti_id] }
     )
+  end
+
+  # A clean pass clears the field (in #perform); an aborted run records what
+  # failed. As with the grade-sync field, only a boolean (`roster_sync_error?`)
+  # is ever surfaced to users — the text is a diagnostic for staff, not copy.
+  def record_aborted_sync(error)
+    @binding.update!(last_roster_sync_error:
+      "#{error.class}: #{error.message}".truncate(SyncLtiGrades::ERROR_TEXT_LIMIT))
   end
 end

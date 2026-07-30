@@ -45,7 +45,13 @@ class CreateLtiCourseBindings < ActiveRecord::Migration[8.1]
     table.string :nrps_url
     table.string :ags_lineitems_url
     table.datetime :last_roster_sync_at
+    table.text :last_roster_sync_error
     table.datetime :last_grade_sync_at
     table.text :last_grade_sync_error
+    # Dispatcher bookkeeping, distinct from last_grade_sync_at (which only a
+    # *completed* sync advances): stamped whenever the periodic dispatcher
+    # enqueues the binding, so a binding whose syncs always abort still moves
+    # to the back of the queue instead of starving the healthy ones.
+    table.datetime :last_grade_sync_attempt_at
   end
 end

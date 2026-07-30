@@ -2273,6 +2273,7 @@ en:
     heading: "%{lms_name} link"
     linked_to: "Course:"
     last_sync: "Last sync:"
+    last_roster_sync_error: "There was an error syncing the roster."
     last_sync_error: "Last sync error"
     synced_students: "Students synced"
     never_synced: "Not yet synced"
@@ -2302,6 +2303,11 @@ en:
       already_linked: "Error: This course is already linked."
       create_prompt: Create a course on the Dashboard
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
+      no_courses_yet: "You have no course on the Wiki Education Dashboard yet. Please create one first."
+      # Setup link failures are shown to the instructor running setup, so they
+      # must not reuse the student-facing "contact your instructor" copy.
+      link_conflict_error: "There was a conflict with linking your Canvas and Dashboard accounts. Please contact Wiki Education staff for help."
+      duplicate_link_error: "This Canvas user is already linked to a different Wikipedia account. Sign in to the Dashboard with the account that was connected before, then relaunch."
     deep_link:
       module_name: "Research and write a Wikipedia article"
       header: "Choose Wikipedia task"
@@ -2311,6 +2317,10 @@ en:
       submit: "Add to course"
       all_added: "All available items have been added."
       no_gradables: "No gradable items found"
+      # Shown inside Canvas's import dialog to non-instructor roles (which
+      # roles count as instructors is set by LtiSession::INSTRUCTOR_ROLES).
+      forbidden_header: "Only instructors may do this."
+      forbidden_explanation: "Importing Dashboard assignments is only available to course instructors."
     status:
       header: "Wiki Education Dashboard"
       linked: "Linked"
@@ -2320,6 +2330,7 @@ en:
       sync_grades: "Sync grades"
       grade_sync_started: "Grade sync started."
       grade_sync_error: "There was an error syncing the grades."
+      roster_sync_error: "There was an error syncing the roster."
       import_next_step:
         header: "Import Wikipedia assignments from your Dashboard timeline"
         instruction: "Go to Modules, open the ⋮ (options) menu, and choose wikiedu.org."
@@ -2329,6 +2340,7 @@ en:
       my_articles: "My articles"
       trainings: "Trainings"
       exercises: "Exercises"
+      empty: "[none]"
       role:
         editing: "Editing"
         reviewing: "Reviewing"
@@ -2338,6 +2350,9 @@ en:
     enrollment_error:
       header: "Couldn't enroll you in the Wiki Education course"
       explanation: "Something prevented enrollment. Please contact your instructor or Wiki Education staff for help; the issue has been logged for review."
+    launch_error:
+      header: "There was an error launching the Dashboard's Canvas integration."
+      explanation: "Try reloading the Canvas page. If the problem persists, contact Wiki Education staff."
     enrollment_pending_approval:
       header: "This course is awaiting Wiki Education approval"
       explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
@@ -2351,9 +2366,17 @@ en:
         not_started: "Not started"
         connected: "Connected"
         not_connected: "Not connected"
+        removed_in_lms: "Not enrolled in Canvas"
       open_on_wikipedia: "Open on Wikipedia"
       show: "Show"
       hide: "Hide"
+      # Relocated verbatim from the sandbox-preview inline script in
+      # assignment_view.html.haml (the lti_iframe layout loads no i18n JS
+      # bundle, so the view passes these in).
+      sandbox_preview:
+        loading: "…"
+        not_found: "No sandbox found"
+        error: "Sandbox failed to load"
       roster:
         student: "Student"
         username: "Username"

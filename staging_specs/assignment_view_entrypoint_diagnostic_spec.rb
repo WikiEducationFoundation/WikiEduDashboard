@@ -35,7 +35,7 @@ describe 'DIAGNOSTIC: assignment_view entry point on an AGS column', :staging do
   let(:dashboard_school)   { 'StagingTest' }
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
-  let(:artifact_dir)       { File.expand_path('../../tmp/staging-diagnostics', __dir__) }
+  let(:artifact_dir)       { File.expand_path('../tmp/staging-diagnostics', __dir__) }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }

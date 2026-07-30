@@ -49,7 +49,7 @@ class LtiServiceSession
   # The runtime never calls this: deep-link-first means Canvas creates every
   # column when the instructor imports, and SyncLtiLineItems only discovers them.
   # It stays because the live-Canvas screenshot harness
-  # (spec/staging/support/dashboard_admin_client.rb) uses it to seed a gradebook
+  # (staging_specs/support/dashboard_admin_client.rb) uses it to seed a gradebook
   # deterministically instead of driving the Modules picker through a browser.
   def upsert_line_item(label:, tag: nil, score_maximum: 1.0, resource_link_id: nil,
                        resource_id: nil, end_date_time: nil, launch_url: nil)

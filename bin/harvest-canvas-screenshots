@@ -34,14 +34,14 @@ ROOT = File.expand_path('..', __dir__)
 # flow => screenshot spec, walked in this order. `admin` is read-only for now
 # (the full create->teardown admin walk is a later tranche).
 ROLE_SPECS = {
-  'instructor'      => 'spec/staging/instructor_setup_screenshots_spec.rb',
-  'student'         => 'spec/staging/student_screenshots_spec.rb',
-  'active_course'   => 'spec/staging/instructor_active_course_screenshots_spec.rb',
-  'canvas_gradebook' => 'spec/staging/canvas_gradebook_screenshots_spec.rb',
-  'assignment_view' => 'spec/staging/assignment_view_screenshots_spec.rb',
-  'fact_verification' => 'spec/staging/fact_verification_screenshots_spec.rb',
-  'full_course'     => 'spec/staging/full_course_screenshots_spec.rb',
-  'admin'           => 'spec/staging/admin_setup_screenshots_spec.rb'
+  'instructor'      => 'staging_specs/instructor_setup_screenshots_spec.rb',
+  'student'         => 'staging_specs/student_screenshots_spec.rb',
+  'active_course'   => 'staging_specs/instructor_active_course_screenshots_spec.rb',
+  'canvas_gradebook' => 'staging_specs/canvas_gradebook_screenshots_spec.rb',
+  'assignment_view' => 'staging_specs/assignment_view_screenshots_spec.rb',
+  'fact_verification' => 'staging_specs/fact_verification_screenshots_spec.rb',
+  'full_course'     => 'staging_specs/full_course_screenshots_spec.rb',
+  'admin'           => 'staging_specs/admin_setup_screenshots_spec.rb'
 }.freeze
 
 # Cool slate neutrals with a single dashboard-blue accent. Section titles and
@@ -349,7 +349,7 @@ end
 # desktop — they can keep typing elsewhere while the harness churns, and only
 # click into the nested window to clear a login challenge. No-op under HEADLESS
 # (no window at all) or when the flag is unset. The Chrome window size lives in
-# spec/staging/spec_helper.rb (1280x900); the nested screen must exceed it.
+# staging_specs/spec_helper.rb (1280x900); the nested screen must exceed it.
 XEPHYR_SCREEN = '1440x960'
 
 def xephyr_requested?

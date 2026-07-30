@@ -21,15 +21,15 @@ require 'selenium-webdriver'
 # processes, so each persona gets its own directory. The :instructor
 # profile is the default for single-persona specs (g2/g3/g8/g9); g7
 # additionally drives the :student profile via `in_student_browser`.
-PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile', __dir__).freeze
-STUDENT_PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile-student', __dir__).freeze
+PROFILE_DIR = File.expand_path('../tmp/staging-browser-profile', __dir__).freeze
+STUDENT_PROFILE_DIR = File.expand_path('../tmp/staging-browser-profile-student', __dir__).freeze
 # The admin walkthrough logs in as a root-account-only admin, which has to be
 # a separate profile: ensure_canvas_logged_in no-ops when a session already
 # exists, so sharing the default profile would silently keep the instructor.
-ADMIN_PROFILE_DIR = File.expand_path('../../tmp/staging-browser-profile-admin', __dir__).freeze
+ADMIN_PROFILE_DIR = File.expand_path('../tmp/staging-browser-profile-admin', __dir__).freeze
 
 # Where screenshots + page sources go on failure.
-FAILURE_ARTIFACT_DIR = File.expand_path('../../tmp/staging-failures', __dir__).freeze
+FAILURE_ARTIFACT_DIR = File.expand_path('../tmp/staging-failures', __dir__).freeze
 
 # Register the staging drivers at load time. Registration is
 # side-effect-free — it just adds entries to Capybara's driver
@@ -79,16 +79,20 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 
-  # `:staging` tagged specs are opt-in only, and the exclusion has to be declared
-  # HERE as well as in `spec/spec_helper.rb`. These specs require this helper
-  # rather than `rails_helper`, so a run scoped to this directory
-  # (`bundle exec rspec spec/staging`) never loads the default config at all —
-  # which meant that invocation happily drove a real browser against
+  # `:staging` tagged specs are opt-in only, and this helper is the sole
+  # declaration point. `staging_specs/` lives outside `spec/`, so a default
+  # `bundle exec rspec` run never loads these files at all; but a run scoped
+  # here (`bundle exec rspec staging_specs`) loads only this config — without
+  # the exclusion, that invocation happily drove a real browser against
   # dashboard-testing.wikiedu.org, created and deleted real Canvas courses, and
-  # SSHed to the staging host as root. Verified with `--dry-run`: 25 examples, no
-  # exclusion in the run options. `bin/staging-feature-spec` passes
+  # SSHed to the staging host as root. The derived-metadata rule auto-tags
+  # everything in this directory, so even a spec file that forgets its own
+  # `:staging` tag stays excluded. `bin/staging-feature-spec` passes
   # `--tag staging`, which removes it from the exclusion set. CI never runs them.
   config.filter_run_excluding :staging
+  config.define_derived_metadata(file_path: %r{/staging_specs/}) do |meta|
+    meta[:staging] = true
+  end
 
   config.include Capybara::DSL, :staging
   config.include StagingSessions, :staging

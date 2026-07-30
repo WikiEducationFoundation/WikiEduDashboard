@@ -57,7 +57,7 @@ class LtiLaunchController < ApplicationController
                only: %i[launch assignment_view complete_setup deep_link deep_link_select]
 
   def launch
-    return redirect_to errors_login_error_path if params[:ltik].blank?
+    return render_launch_error_or_redirect if params[:ltik].blank?
     return handle_anonymous_launch unless current_user
 
     return render_enrollment_error unless start_lti_session
@@ -104,10 +104,10 @@ class LtiLaunchController < ApplicationController
   # say instructor. The target course is restricted to the same server-derived
   # `linkable_courses` list the picker was built from.
   def complete_setup
-    return redirect_to errors_login_error_path if params[:ltik].blank?
+    return render_launch_error_or_redirect if params[:ltik].blank?
     return head :forbidden unless current_user
 
-    return render_enrollment_error unless start_lti_session
+    return render_setup_link_error unless start_lti_session
     return head :forbidden unless @lti_session.instructor? && binding_unclaimed?
     return render_already_linked if course_bound_elsewhere?
     return head :forbidden unless linkable_courses.include?(course_from_params)
@@ -144,7 +144,7 @@ class LtiLaunchController < ApplicationController
   def handle_instructor_launch
     return render_instructor_status if @binding.course
 
-    @user_courses = linkable_courses
+    prepare_setup_view
     render 'lti_launch/setup'
   end
 
@@ -159,6 +159,16 @@ class LtiLaunchController < ApplicationController
     LtiRosterSyncWorker.perform_async(@binding.id) if sync_roster
     @sync_status = LtiSyncStatus.new(@binding)
     render 'lti_launch/instructor_status'
+  end
+
+  # Assigns for the setup view. An instructor with no Dashboard courses at
+  # all is a different case from one whose courses just aren't linkable
+  # (unapproved, ended, withdrawn, or already linked): the first needs the
+  # create-a-course path, not an approval message about courses that don't
+  # exist.
+  def prepare_setup_view
+    @user_courses = linkable_courses
+    @no_courses_yet = @user_courses.empty? && current_user.instructed_courses.none?
   end
 
   # Approved, not-yet-ended courses the instructor teaches, minus any already
@@ -213,7 +223,7 @@ class LtiLaunchController < ApplicationController
   end
 
   def render_already_linked
-    @user_courses = linkable_courses
+    prepare_setup_view
     @setup_error = t('lti.setup.already_linked')
     render 'lti_launch/setup', status: :unprocessable_entity
   end

@@ -36,6 +36,12 @@ describe LtiMemberLinker do
       expect(ctx.roles).to include(/Learner/)
     end
 
+    it 'stores the NRPS membership status' do
+      described_class.new(binding, learner_member)
+      expect(LtiContext.find_by(user_lti_id: 'lti-1').lms_membership_status)
+        .to eq('Active')
+    end
+
     it 'does not enroll anyone' do
       expect { described_class.new(binding, learner_member) }
         .not_to change(CoursesUsers, :count)
@@ -190,6 +196,16 @@ describe LtiMemberLinker do
     it 'still records the membership so the roster reflects Canvas' do
       described_class.new(binding, deleted_member)
       expect(LtiContext.find_by(user_lti_id: 'lti-1').roles).to include(/Learner/)
+    end
+
+    # The stored status must track what NRPS reports even for an already-linked
+    # member, or the "was removed in Canvas" state would never appear for the
+    # students it exists to flag.
+    it 'updates the stored status when a linked member is removed' do
+      LtiContext.find_by(user_lti_id: 'lti-1').update!(lms_membership_status: 'Active')
+      described_class.new(binding, deleted_member)
+      expect(LtiContext.find_by(user_lti_id: 'lti-1').lms_membership_status)
+        .to eq('Deleted')
     end
 
     it 'leaves an enrollment they already had in place' do

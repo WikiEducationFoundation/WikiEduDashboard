@@ -12,7 +12,7 @@
 # the Canvas gradebook column itself, where they appear by Canvas's own names
 # with no score, so the view points there instead of printing opaque ids.
 class SetupAssignmentViewContext
-  Row = Struct.new(:name, :username, keyword_init: true)
+  Row = Struct.new(:name, :username, :removed_in_lms, keyword_init: true)
 
   attr_reader :line_item, :user
 
@@ -48,11 +48,14 @@ class SetupAssignmentViewContext
   # mirroring the course's Students tab (designed around anonymized mode,
   # where the LMS shares no names): `name` is the real name on the student's
   # CoursesUsers enrollment — blank if they didn't give one — and `username`
-  # their Wikipedia account.
+  # their Wikipedia account. `removed_in_lms` flags one whose stored NRPS
+  # status says Canvas has since removed or suspended them — reconciliation
+  # info for the instructor; nothing is disenrolled automatically.
   def rows
     @rows ||= connected_contexts.map do |context|
       Row.new(name: enrollment_real_names[context.user_id],
-              username: context.user&.username)
+              username: context.user&.username,
+              removed_in_lms: context.removed_from_lms?)
     end
   end
 

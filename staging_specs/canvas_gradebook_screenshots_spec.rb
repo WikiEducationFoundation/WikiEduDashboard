@@ -10,7 +10,7 @@ require_relative 'spec_helper'
 # tmp/canvas-ux-screenshots/canvas_gradebook/ (override with CANVAS_SHOTS_DIR);
 # bin/harvest-canvas-screenshots collects it.
 #
-#   bin/staging-feature-spec spec/staging/canvas_gradebook_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/canvas_gradebook_screenshots_spec.rb
 #
 # Scenario — a bound course (with a one-training, one-exercise timeline) and two
 # students:

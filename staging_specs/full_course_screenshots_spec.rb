@@ -16,7 +16,7 @@ require_relative 'spec_helper'
 # (upsert_exercise_columns) as a stand-in for the instructor deep-linking each —
 # the gradebook is identical either way.
 #
-#   bin/staging-feature-spec spec/staging/full_course_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/full_course_screenshots_spec.rb
 describe 'Full course — instructor gallery', :staging do
   let(:required_env) do
     %w[

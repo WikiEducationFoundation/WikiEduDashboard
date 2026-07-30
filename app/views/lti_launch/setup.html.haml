@@ -1,6 +1,6 @@
 .container.narrow
   .section-header
-    %h3= t('lti.setup.header')
+    %h1= t('lti.setup.header')
   %hr
   - if @setup_error
     .lti-setup__error
@@ -12,7 +12,7 @@
       - # binding id would be ignored (and was forgeable).
       = hidden_field_tag :ltik, params[:ltik]
       .module
-        %h4= t('lti.setup.link_existing.header')
+        %h2= t('lti.setup.link_existing.header')
         = label_tag :course_slug, t('lti.setup.link_existing.label')
         - # With a single course, preselect it (no blank prompt) so the
         - # instructor can just click Link. With several, require an explicit pick.
@@ -39,5 +39,12 @@
       })();
   - else
     .module
-      %p= t('lti.setup.no_approved_courses')
-      = link_to t('application.my_dashboard'), root_path, class: 'button dark'
+      - if @no_courses_yet
+        - # No Dashboard courses at all: the approval message would be a dead
+        - # end (nothing is awaiting approval). Point at course creation, the
+        - # same path the alt-path link offers under the form.
+        %p= t('lti.setup.no_courses_yet')
+        = link_to t('lti.setup.create_prompt'), root_path, class: 'button dark'
+      - else
+        %p= t('lti.setup.no_approved_courses')
+        = link_to t('application.my_dashboard'), root_path, class: 'button dark'

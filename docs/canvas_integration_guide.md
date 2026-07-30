@@ -97,7 +97,10 @@ with an app that exists but appears nowhere.
    **Admin → Developer Keys → + Developer Key → + LTI Registration**.
    Paste Wiki Education's registration URL and click
    **Continue**. Canvas and the Dashboard exchange the configuration
-   automatically (endpoints, scopes, and placements).
+   automatically (endpoints, scopes, and placements). The registration dialog
+   also shows optional **Title** and **Icon URL** fields for each placement.
+   Leave them blank: each placement is then labeled with the tool's own name,
+   **Wiki Education Dashboard**, and its logo.
    Review the summary and click **Enable & Close**.
 2. **Turn the key on.** In the **Developer Keys** list, set the key's **State**
    to **ON**.

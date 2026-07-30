@@ -94,6 +94,34 @@ describe SyncLtiRoster do
     expect(binding.reload.last_roster_sync_at).to be_present
   end
 
+  # Skipped members are Sentry's problem, not the status surfaces': the run
+  # still reconciled the rest of the roster, so it doesn't set the error field.
+  it 'does not record an error for a skipped member' do
+    two_learners
+    fail_one_member(KeyError.new('missing key'))
+    allow(Sentry).to receive(:capture_exception)
+
+    described_class.new(binding)
+    expect(binding.reload.last_roster_sync_error).to be_nil
+  end
+
+  it 'stores the NRPS membership status on each member context' do
+    stub_memberships(
+      'members' => [
+        { 'userId' => 'lti-1',
+          'roles' => ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'],
+          'status' => 'Active' },
+        { 'userId' => 'lti-2',
+          'roles' => ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'],
+          'status' => 'Inactive' }
+      ]
+    )
+
+    described_class.new(binding)
+    expect(LtiContext.find_by(user_lti_id: 'lti-1').lms_membership_status).to eq('Active')
+    expect(LtiContext.find_by(user_lti_id: 'lti-2').lms_membership_status).to eq('Inactive')
+  end
+
   # The defect this replaced: every per-member StandardError was swallowed and
   # then last_roster_sync_at advanced, so a sync in which every member failed —
   # or one that failed for a reason that had nothing to do with member data —
@@ -126,6 +154,31 @@ describe SyncLtiRoster do
       fail_one_member(LtiaasClient::LtiaasAuthError.new('nope', 401))
       expect { described_class.new(binding) }
         .to raise_error(LtiaasClient::LtiaasAuthError)
+    end
+
+    # A dead-lettering roster sync used to be invisible on both status
+    # surfaces: no error field, and last_roster_sync_at simply stopped
+    # advancing. Same recording shape as SyncLtiGrades.
+    it 'records last_roster_sync_error when the run aborts' do
+      two_learners
+      fail_one_member(StandardError.new('boom'))
+      expect { described_class.new(binding) }.to raise_error(StandardError)
+      expect(binding.reload.last_roster_sync_error).to eq('StandardError: boom')
+    end
+
+    it 'records the error when the membership fetch itself fails' do
+      stub_request(:get, memberships_url).to_return(status: 500, body: 'boom')
+      expect { described_class.new(binding) }
+        .to raise_error(LtiaasClient::LtiaasTransientError)
+      expect(binding.reload.last_roster_sync_error)
+        .to include('LtiaasTransientError')
+    end
+
+    it 'clears the recorded error on the next successful run' do
+      binding.update!(last_roster_sync_error: 'LtiaasClient::LtiaasTransientError: boom')
+      two_learners
+      described_class.new(binding)
+      expect(binding.reload.last_roster_sync_error).to be_nil
     end
   end
 

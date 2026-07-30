@@ -24,12 +24,15 @@ module LtiGradeSyncTrigger
   end
 
   def sync_grades
-    return redirect_to errors_login_error_path if params[:ltik].blank?
+    return render_launch_error_or_redirect if params[:ltik].blank?
 
     @ltik = params[:ltik]
     @lti_session = anonymous_lti_session
     @binding = @lti_session&.bound_binding
-    return redirect_to errors_login_error_path unless @binding && @lti_session.instructor?
+    # An expired ltik lands here too (anonymous_lti_session degrades to nil),
+    # and this POST usually comes from inside the iframe — where the old
+    # login-error redirect rendered as a blank frame on a stale tab.
+    return render_launch_error_or_redirect unless @binding && @lti_session.instructor?
 
     LtiGradeSyncWorker.perform_async(@binding.id) if @binding.course
     @grade_sync_started = true

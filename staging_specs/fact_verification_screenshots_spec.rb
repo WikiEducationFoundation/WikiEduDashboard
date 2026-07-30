@@ -10,7 +10,7 @@ require_relative 'spec_helper'
 # Relies on the shared verification-claim pool having entries so the exercise
 # has something to serve; the in-progress shot skips cleanly if it's empty.
 #
-#   bin/staging-feature-spec spec/staging/fact_verification_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/fact_verification_screenshots_spec.rb
 describe 'Fact-verification exercise screenshots', :staging do
   let(:required_env) do
     %w[

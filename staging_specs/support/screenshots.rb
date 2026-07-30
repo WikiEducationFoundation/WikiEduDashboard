@@ -25,7 +25,7 @@ module ScreenshotHelper
   # screenshots are surfaced via the harvest gallery, never committed.
   def canvas_shots_dir(subdir)
     base = ENV.fetch('CANVAS_SHOTS_DIR') do
-      File.expand_path('../../../tmp/canvas-ux-screenshots', __dir__)
+      File.expand_path('../../tmp/canvas-ux-screenshots', __dir__)
     end
     dir = File.join(base, subdir)
     FileUtils.mkdir_p(dir)

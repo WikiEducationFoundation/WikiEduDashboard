@@ -9,10 +9,16 @@
   = render 'lti_launch/drilldown_header',
            title: t('lti.status.header'), course: @student_status.course, linked_check: true
 
+  - # Reachable in the ordinary setup order (the guide teaches linking the
+  - # course before building the timeline), so an early launch must explain
+  - # itself rather than render a bare header.
+  - if @student_status.empty?
+    %p.lti-iframe__empty= t('lti.student_overview.empty')
+
   - step = @student_status.next_step
   - if step
     .lti-iframe__next-step
-      %h4= t('lti.student_overview.next_step')
+      %h2= t('lti.student_overview.next_step')
       %p
         - if step.url
           = link_to step.label, step.url, target: '_blank', rel: 'noopener'
@@ -21,7 +27,7 @@
 
   - if @student_status.articles.any?
     %section.lti-overview-section
-      %h4= t('lti.student_overview.my_articles')
+      %h2= t('lti.student_overview.my_articles')
       %ul.lti-overview-list
         - @student_status.articles.each do |article|
           %li.lti-overview-item
@@ -39,7 +45,7 @@
 
   - if @student_status.training_items.any?
     %section.lti-overview-section
-      %h4
+      %h2
         = t('lti.student_overview.trainings')
         %span.lti-overview-count
           = "#{@student_status.trainings_completed} / #{@student_status.training_items.size}"
@@ -47,7 +53,7 @@
 
   - if @student_status.exercise_items.any?
     %section.lti-overview-section
-      %h4
+      %h2
         = t('lti.student_overview.exercises')
         %span.lti-overview-count
           = "#{@student_status.exercises_completed} / #{@student_status.exercise_items.size}"

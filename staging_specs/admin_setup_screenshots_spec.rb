@@ -20,7 +20,7 @@ require_relative 'spec_helper'
 # course down with it on every run. Registration-dialog screenshots are
 # captured by hand during a real re-registration instead.
 #
-#   bin/staging-feature-spec spec/staging/admin_setup_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/admin_setup_screenshots_spec.rb
 #
 # Output goes to the harvest run dir (`tmp/canvas-ux-screenshots/admin/`,
 # override with CANVAS_SHOTS_DIR); `bin/harvest-canvas-screenshots` collects it.

@@ -415,6 +415,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
     t.integer "lti_course_binding_id"
     t.text "roles"
     t.datetime "linked_at"
+    t.string "lms_membership_status"
     t.index ["lti_course_binding_id", "user_id"], name: "index_lti_contexts_on_binding_and_user", unique: true
     t.index ["user_id"], name: "index_lti_contexts_on_user_id"
     t.index ["user_lti_id", "lti_course_binding_id"], name: "index_lti_contexts_on_user_lti_id_and_binding", unique: true
@@ -432,8 +433,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
     t.string "nrps_url"
     t.string "ags_lineitems_url"
     t.datetime "last_roster_sync_at"
+    t.text "last_roster_sync_error"
     t.datetime "last_grade_sync_at"
     t.text "last_grade_sync_error"
+    t.datetime "last_grade_sync_attempt_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true

@@ -10,9 +10,16 @@
   = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
   - if @show_not_linked_notice
     %p.lti-iframe__status= t('lti.iframe_landing.not_linked')
-  %p.lti-iframe__title= t('lti.iframe_landing.explanation')
+  %h1.lti-iframe__title.lti-iframe__title--plain= t('lti.iframe_landing.explanation')
   = link_to "/lti/connect_course?ltik=#{CGI.escape(@ltik.to_s)}",
             target: '_blank', rel: 'noopener',
             class: 'button dark lti-iframe__button' do
     = t('lti.iframe_landing.button')
     %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
+  -# Re-launches in the iframe: after the user finishes the new-tab flow, this
+  -# refreshes their state (the other landings offer the same link) — the
+  -# frame is otherwise guaranteed stale once that flow completes. Wrapped so
+  -# it sits on its own line below the button.
+  %div
+    = link_to t('lti.check_again'), "/lti?ltik=#{CGI.escape(@ltik.to_s)}",
+              class: 'lti-iframe__check-again'

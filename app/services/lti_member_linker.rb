@@ -17,10 +17,10 @@
 #
 #   - **No auto-disenrollment.** An Inactive or Deleted NRPS member keeps
 #     whatever Dashboard enrollment they already have — dropping it would take
-#     their assignment and article records with it. The status is used only to
-#     stop us *newly* enrolling someone Canvas has already removed. It isn't
-#     persisted, so there is no "was removed in Canvas" state to report on
-#     either; a staff-visible reconciliation view would need a status column.
+#     their assignment and article records with it. The status is persisted
+#     (`lms_membership_status`, refreshed for every member on every sync) so
+#     staff can see a "was removed in Canvas" member to reconcile, but here it
+#     only stops us *newly* enrolling someone Canvas has already removed.
 #   - **No auto-demotion.** A member the LMS no longer calls staff keeps their
 #     Dashboard role. Co-instructors are commonly enrolled in Canvas as TAs,
 #     which doesn't map to an instructor role here, so demoting on that basis
@@ -28,11 +28,9 @@
 class LtiMemberLinker
   INSTRUCTOR_ROLE_SUFFIXES = LtiSession::INSTRUCTOR_ROLES
 
-  # LTI 1.3 NRPS membership statuses that mean "don't newly enroll this member".
-  # `Deleted` is a member Canvas removed from the course outright; `Inactive` is
-  # one whose enrollment is suspended and who can't reach the course either.
-  # Neither should be joined to a Dashboard course on their behalf.
-  REMOVED_STATUSES = %w[Deleted Inactive].freeze
+  # "Don't newly enroll this member" — see the definition on the model, where
+  # the persisted status is also read back for the staff-facing roster flag.
+  REMOVED_STATUSES = LtiContext::REMOVED_STATUSES
 
   attr_reader :context
 
@@ -63,6 +61,7 @@ class LtiMemberLinker
     @context.lms_id = @binding.lms_id
     @context.lms_family = @binding.lms_family
     @context.roles = @member[:roles]
+    @context.lms_membership_status = @member[:status]
   end
 
   # Both guards come before any path that changes an enrollment. They used to sit

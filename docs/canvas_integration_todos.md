@@ -19,8 +19,30 @@ Branch state, so a fresh session doesn't have to reconstruct it:
 - **Staging** is deployed and its LTI schema verified against the branch. Note that
   deploys do **not** apply this work's migrations — schema changes go on by hand over
   SSH. See the `lti_contexts` collation item below for the one known difference.
+  - **Three columns added 2026-07-30 were applied to staging by hand the same
+    day** (they were folded into the unshipped migrations, whose versions
+    staging already recorded, so a deploy would never have added them).
+    Verified by `SHOW COLUMNS` after applying; the columns sit unused until the
+    next deploy ships the code that reads them. For the record:
+
+    ```sql
+    ALTER TABLE lti_course_bindings
+      ADD COLUMN last_roster_sync_error TEXT AFTER last_roster_sync_at,
+      ADD COLUMN last_grade_sync_attempt_at DATETIME(6) AFTER last_grade_sync_error;
+    ALTER TABLE lti_contexts
+      ADD COLUMN lms_membership_status VARCHAR(255) AFTER linked_at;
+    ```
 
 ### Which open items a real user can actually hit
+
+_(2026-07-30: all three user-reachable priorities below were addressed in a
+parallel-agent pass — links fixed, pre-activation documented and decided, and
+the whole UI/UX list fixed, with all new copy since filled by the operator. Of
+the hygiene items, the roster-sync error field, periodic-sync starvation, and
+harness relocation are also done, and the staging ALTERs above are applied.
+Every operator decision was settled in the same day's walkthrough; the only
+open items left in this file are the two deliberate deferrals, encryption and
+collation.)_
 
 Most of the list is internal or operator-facing. These are the ones reachable by an
 instructor or student in an ordinary course, and so the ones worth doing first:
@@ -35,10 +57,6 @@ instructor or student in an ordinary course, and so the ones worth doing first:
    with no Dashboard course landing on the "awaiting approval" message with no way
    forward, and an expired ltik 500ing behind the default `X-Frame-Options` so the
    frame reads as a blank "refused to connect".
-
-The rest — the roster-sync error field, periodic-sync starvation, collation,
-encryption, harness relocation — are correctness and hygiene items that no instructor
-will notice, and can be scheduled rather than rushed.
 
 ## Privacy / anonymized mode
 
@@ -146,7 +164,13 @@ launch + Wikipedia OAuth is the only linking path.
 > 4. **Every placement is labelled with the tool name** ("wikiedu.org
 >    testing"), confirming the Title fallback below.
 
-- [ ] **Placement Title / Icon URL.** The dynamic-registration "Register App" dialog
+- [x] **Placement Title / Icon URL.** _(Closed 2026-07-30: the guide's
+  Installation step 1 now carries operator-approved wording — leave Title/Icon
+  blank, placements take the tool's name "Wiki Education Dashboard" and logo.
+  That promise makes the production tenant's Tool Name the load-bearing setting;
+  a check for it is now first in `docs/canvas_dev_setup.md`'s production rollout
+  checklist. Per-placement titles are a possible LTIAAS feature request, not
+  filed.)_ Original item: the dynamic-registration "Register App" dialog
   shows empty **Title** and **Icon URL** fields per placement, and a blank Title
   falls back to the tool's internal name (e.g. "wikiedu.org testing"). LTIAAS does
   **not** appear to expose per-placement titles/icons (only the overall tool logo),
@@ -154,6 +178,19 @@ launch + Wikipedia OAuth is the only linking path.
   must document the Title field and recommend a value ("Wiki Education Dashboard"),
   and (b) double-check whether LTIAAS supports per-placement `text`/`icon_url` via
   some other config path.
+  - _(b) answered definitively, 2026-07-30:_ **No.** Confirmed three ways — the
+    LTIAAS portal exposes only tool-wide Name/Logo; the Complete Registration
+    API's `messages` schema is `{type, placements}` and nothing else (verified in
+    LTIAAS's own Node SDK, whose zod schema can't even represent extra keys); and
+    the upstream ltijs source builds registration messages bare, with only
+    top-level `client_name`/`logo_uri`. Canvas's dynamic-registration endpoint
+    *does* read per-message `label`/`icon_uri` (and extensions like
+    `default_enabled`) — LTIAAS simply never sends them, so the blank Title
+    falling back to the tool name is expected behavior, not a config miss. The
+    levers: keep the account-wide Tool Name presentable, have the admin type the
+    Title during registration, or file a feature request (no public support
+    email; ltiaas.com/contact-us or portal.ltiaas.com). Remaining here: (a) only —
+    guide wording, which is the operator's.
 
 - [x] **LTIAAS config: add `course_navigation`, `default: disabled`.** _(Decided
   against for beta, 2026-07-29: the nav item appearing in every course is good
@@ -174,11 +211,12 @@ launch + Wikipedia OAuth is the only linking path.
     without the tab, students silently never enrolled and linking from the
     picker 500'd. Both are fixed (see **Nav-link-free, deep-link-first linking
     model** below), so the config change is now a config change only.
-- [ ] **Guide: install shortcut + optional titles.** Point the guide at the "View
-  in Canvas Apps" link (from the dev key's Client ID column) as the easy route to
-  install/manage the app, and note the placement Title/Icon fields are optional —
-  leave blank to use the tool's LTIAAS name + logo. (Fold in once the placement set
-  is sorted, so the install section is revised once.)
+- [x] **Guide: install shortcut + optional titles.** _(Closed 2026-07-30 —
+  mostly already done.)_ The guide's Installation section had already gained the
+  "View in Canvas Apps" route (steps 3–4) in the operator's earlier rewrite; the
+  optional-titles note landed with the Placement Title item above. Original
+  item: point the guide at the "View in Canvas Apps" link as the easy route to
+  install/manage the app, and note the placement Title/Icon fields are optional.
 
 ## Linking / launch model (design)
 
@@ -336,12 +374,29 @@ launch + Wikipedia OAuth is the only linking path.
   the empty Canvas description is intentional, not a gap. No action unless we
   decide a short static blurb is worth the staleness.
 
-- [ ] **Rejected / pre-activation launch shows raw JSON.** Launching before LTIAAS
+- [x] **Rejected / pre-activation launch shows raw JSON.** Launching before LTIAAS
   activates the registration (or any LTIAAS-rejected launch) surfaces a raw JSON
   error in the Canvas iframe — LTIAAS returns it before the launch reaches our app,
   so we can't render a friendly page. Manageable since Wiki Education controls
   activation timing, but: document "activate before instructors launch," and check
   whether LTIAAS can present a friendlier pre-activation message.
+  - _Researched + documented 2026-07-30; what's left is an operator decision._
+    LTIAAS has **no custom error page** — the raw JSON
+    (`UNREGISTERED_OR_INACTIVE_PLATFORM`) is its documented behavior. But two
+    documented mechanisms close the window entirely: the portal's **Dynamic
+    Registration Auto-Activation** toggle (registrations activate on creation —
+    also removes the chance to vet who registers), and the **Pre-Approval flow**
+    (registering admin's iframe redirects to a Wiki Ed URL with
+    `?registrationId=`; approve via `POST /api/registrations/{id}/complete` with
+    `autoActivate: true` — keeps the vetting gate, doubles as real-time
+    pending-registration notification, costs a small endpoint). The
+    "activate before instructors launch" guidance plus both options are now in
+    `docs/canvas_dev_setup.md` → "Production rollout checklist".
+  - _Decided 2026-07-30:_ **manual, prompt activation.** Keeps the vetting gate
+    at zero build cost, which fits the beta posture of hand-picked institutions;
+    the raw-JSON window is managed by process (activate promptly, tell the
+    institution not to point instructors at the tool until confirmed). Revisit
+    the pre-approval endpoint if self-service registration ever scales.
 
 ## Instructor launch UX
 
@@ -508,6 +563,19 @@ this PR. The review's other findings were fixed on the branch.
   numerous credential store stays in the clear — which is why it isn't in this PR.
   It is not a reason to treat the new credential as fine, though, so recording
   what has to be true before this ships to real institutions:
+  - _Reviewed with the operator 2026-07-30: **stays fully deferred**, gated on
+    real institutions._ Encrypting just the new column pre-ship (zero backfill;
+    production would never hold a plaintext service key) was considered and
+    declined; the rotation and incident-response decisions below stay bundled
+    here rather than being settled early. One finding from that review worth
+    keeping: **both credential families are half-credentials.** The service key
+    is only usable together with the ENV-held `LTIAAS_API_KEY`, and
+    `wiki_token`/`wiki_secret` only together with the ENV-held OAuth consumer
+    secret — so a database-only leak (dump, backup, injection read) does not by
+    itself grant API access to either external system. That makes this item
+    defense-in-depth plus institutional-review posture (the HECVAT's DATA-03
+    already answers an honest "No" on at-rest encryption) rather than a direct
+    exposure.
   - **Blast radius, written down.** An `ltiaas_service_credentials` value grants
     NRPS (roster read) and AGS (gradebook read/write) on that one Canvas course,
     via LTIAAS, until rotated. It does not grant anything else in Canvas, and it's
@@ -524,18 +592,35 @@ this PR. The review's other findings were fixed on the branch.
     contact, and what to tell affected institutions.
 - [x] **Remove the `standard` / `per_block` gradebook granularities.** _(Done
   2026-07-29 — see "Linking / launch model" above for what came out with them.)_
-- [ ] **Move the live-Canvas harness out of `spec/`.** `spec/staging/` is
-  excluded from default runs (`filter_run_excluding :staging` plus derived
-  metadata on the path), which is verified working, but RSpec still *loads* those
-  files — and with them the Selenium helpers — on every normal suite run. A
-  top-level `staging_specs/` or `tools/canvas/` would isolate it properly. Needs
-  `bin/staging-feature-spec` and `.rspec` updated with it.
-- [ ] **Persist NRPS membership status.** `LtiServiceSession#normalize_member`
-  reads Canvas's Active/Inactive/Deleted status and `LtiMemberLinker` now uses it
-  to avoid newly enrolling a removed member, but nothing stores it, so there's no
-  staff-visible "was removed in Canvas" state to reconcile against. A status
-  column plus a reconciliation view is the real fix; the disenrollment policy
-  (what, if anything, should happen automatically) is an operator decision.
+- [x] **Move the live-Canvas harness out of `spec/`.** _(Done 2026-07-30.)_
+  `git mv spec/staging staging_specs` — 30 files, all tracked as renames;
+  `bin/staging-feature-spec` and `bin/harvest-canvas-screenshots` re-pointed, and
+  the `.rubocop.yml` excludes that used to reach these files via `spec/**/*`
+  carried over. The `:staging` tag machinery moved from `spec/spec_helper.rb`
+  into `staging_specs/spec_helper.rb`, which closed a pre-existing hole: the
+  auto-tagging derived-metadata rule used to live in a spec_helper the staging
+  path never loaded, so an untagged staging file run directly would have executed
+  live — now the rule sits in the helper those specs actually require, and
+  `bundle exec rspec staging_specs/...` without `--tag staging` runs 0 examples.
+  There was no `.rspec` file to update (the original item guessed wrong). Default
+  suite dry-run after the move: 3330 examples, zero loaded from the harness.
+  Original item, for the record: RSpec used to *load* the staging files — and
+  with them the Selenium helpers — on every normal suite run.
+- [x] **Persist NRPS membership status.** _(Stored + surfaced 2026-07-30.
+  Disenrollment policy decided the same day: **flag only, nothing automatic** —
+  removal in Canvas doesn't always mean removal from the Wikipedia assignment,
+  so staff act on the flag manually. "Flag + staff notification" was considered
+  and can be revisited if flags go unnoticed in practice.)_ `lti_contexts.lms_membership_status` (folded into
+  `20260505133202`; staging ALTER recorded under "Where things stand") is written
+  in `LtiMemberLinker#apply_member_attributes`, so every member — new, deferred,
+  or already linked — carries the current NRPS status after each roster sync.
+  `LtiContext#removed_from_lms?` (nil = never synced = not removed) drives a
+  flag pill next to "Connected" in the setup roster
+  (`lti.assignment_view.status.removed_in_lms`, label filled by the operator
+  2026-07-30).
+  Original item: `normalize_member` read Canvas's Active/Inactive/Deleted status
+  and the linker used it transiently, but nothing stored it, so there was no
+  staff-visible "was removed in Canvas" state to reconcile against.
 
 ## Operator copy still to confirm (second review, 2026-07-29)
 
@@ -575,7 +660,12 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
   something closer to "open the Dashboard from a link in the course's left-hand
   navigation — the first time, students connect their Wikipedia account in a new
   tab; after that the tool shows their progress in place."
-- [ ] **HECVAT REQU-08 understates what a binding stores.** It says the Dashboard
+- [x] **HECVAT REQU-08 understates what a binding stores.** _(Fixed 2026-07-30
+  with operator-approved wording: a sentence appended to the REQU-08 note
+  describing the course-level configuration record — course ID and name, Canvas
+  URL, service endpoints and per-course credential — as institutional
+  configuration data rather than student data. The per-student sentence is
+  untouched.)_ Original item: it said the Dashboard
   "stores only the link between the Canvas ID and the Dashboard account". A
   `LtiCourseBinding` also persists `lms_context_title` (the Canvas course name),
   `lms_context_id`, `lms_platform_url`, `lms_resource_link_id`, `nrps_url`,
@@ -583,17 +673,22 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
   data, and the guide's version of the same claim (its "What data is shared" bullet)
   is correctly scoped — but the HECVAT's sentence is narrower than the truth. From
   the third review; relayed at the time but not written down until now.
-- [ ] **Check the DPAI-02 wording I volunteered.** Its note now discloses that a
+- [x] **Check the DPAI-02 wording I volunteered.** _(Confirmed by the operator
+  2026-07-30 — the disclosure stays as written; the alternative of flipping
+  `public_dashboard_link` to make reports access-controlled was considered and
+  not taken.)_ Original item: its note now discloses that a
   Pangram submission produces a report hosted at a URL that is not access-controlled,
   its content being the public Wikipedia text submitted — from
   `public_dashboard_link: true` in `lib/pangram_api.rb:14`. True, and a reviewer would
   want it, but it is the one place in the AI tab where Claude Code added a disclosure
   rather than reworded an existing answer, so it deserves an operator read.
-- [ ] **"Anonymous" vs "Anonymized".** `docs/hecvat.md` REQU-08 says "Canvas's
-  Anonymous data-sharing model"; `docs/canvas_integration_guide.md` says
-  "Anonymized". Both have a basis — `anonymous` is the API/`privacy_level` value,
-  "None (Anonymized)" is the label in Canvas's admin UI — but the two documents
-  should agree, and the UI label is what an institution's admin will recognize.
+- [x] **"Anonymous" vs "Anonymized".** _(Decided 2026-07-30: **"Anonymized"**,
+  the Canvas admin-UI label, in prose in both documents — a one-word change to
+  the HECVAT's REQU-08, since the guide already used it. Literal API values
+  (`privacyLevel=anonymous`) are untouched.)_ Original item: the two documents
+  disagreed — `anonymous` is the API/`privacy_level` value, "None (Anonymized)"
+  is the label in Canvas's admin UI — and the UI label is what an institution's
+  admin will recognize.
 - [x] **`docs/hecvat.md` PDAT-03.** _(Resolved 2026-07-29: Sage accepted the
   drafted wording, so the `[DRAFT]` marker is removed.)_
 
@@ -602,7 +697,12 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
 The mechanical findings and the two design ones are fixed on the branch. What's
 left, in the order it seems worth doing:
 
-- [ ] **Lateness signalling was removed, not fixed.** `LtiBlockProgress` no longer
+- [x] **Lateness signalling was removed, not fixed.** _(Decided 2026-07-30:
+  **not for the beta — revisit on instructor demand.** The Dashboard shows
+  completion state itself, and the correct version requires per-course
+  completion timestamps in core training data, so it isn't built until someone
+  actually wants it.)_ Original item, kept because it documents why the naive
+  version can't come back: `LtiBlockProgress` no longer
   emits a `[Late]` gradebook comment. The old one was computed from "score at
   maximum and the due date has passed" with no completion time consulted, so every
   student who finished on time picked up the marker as soon as the due date went
@@ -613,37 +713,110 @@ left, in the order it seems worth doing:
   flags column is shared with the non-LTI course views, so this is a change to
   core training data rather than to the integration. Worth deciding whether Wiki
   Ed wants lateness in the gradebook at all before building it.
-- [ ] **`SyncLtiRoster` has no error field to surface.** Its failure tiers are now
-  right (whole-run failures propagate, per-member data errors are skipped), but
-  there is no `last_roster_sync_error` column, so a roster sync that dead-letters
-  is invisible in both status surfaces while `last_roster_sync_at` simply stops
-  advancing. Adding the column is cheap while the migrations are unshipped; it
-  also needs `LtiSyncStatus`, the JSON payload, and the two views.
-- [ ] **`LtiPeriodicGradeSyncWorker` can be starved by a broken binding.**
-  `last_grade_sync_at` only advances on a completed sync and the dispatcher orders
-  by it ascending under a 50-per-cycle cap, so a binding that always fails in the
-  aborting tier keeps its stale timestamp and sorts first every cycle. Enough of
-  those and healthy bindings stop being graded. Ordering on an attempt timestamp,
-  or excluding bindings with a recorded error, would fix it.
-- [ ] **Links in rendered timeline content navigate the Canvas iframe away.**
-  `assignment_view` renders `sanitize(@context.block.content)` in the iframe, and
-  Rails' sanitizer strips `target`, so an instructor can't fix it from the timeline
-  editor. Dashboard-relative links are worse: `X-Frame-Options` blanks the frame
-  with no in-frame recovery. Shipped wizard content already contains such links.
-  Needs a server-side post-process over the sanitized HTML.
+- [x] **`SyncLtiRoster` has no error field to surface.** _(Fixed 2026-07-30.)_
+  `lti_course_bindings.last_roster_sync_error` (folded into `20260505133200`;
+  staging ALTER recorded under "Where things stand"), written and cleared by the
+  service in the exact shape of the grade pattern: any whole-run failure records
+  `"Class: message"` (truncated to the same limit) and re-raises for Sidekiq; a
+  completed run clears it in the same `update!` as `last_roster_sync_at`;
+  per-member skips stay Sentry-only. Surfaced via
+  `LtiSyncStatus#roster_sync_error?`, the JSON payload, the course-page sidebar
+  (`staff_view.jsx`), and the in-Canvas instructor view — two `[PLACEHOLDER]`
+  strings pending (`lms_integration.last_roster_sync_error`,
+  `lti.status.roster_sync_error`). Original problem: a roster sync that
+  dead-lettered was invisible in both surfaces while `last_roster_sync_at`
+  simply stopped advancing.
+- [x] **`LtiPeriodicGradeSyncWorker` can be starved by a broken binding.**
+  _(Fixed 2026-07-30, via the attempt timestamp.)_ The dispatcher stamps
+  `lti_course_bindings.last_grade_sync_attempt_at` (same folded migration) as it
+  enqueues each binding and orders on that, never-attempted first; the
+  50-per-cycle cap is unchanged. A binding that always aborts now rotates to the
+  back after each attempt instead of holding a front slot with its stale
+  completion timestamp. Original problem: `last_grade_sync_at` only advanced on
+  a completed sync, so a persistently failing binding sorted first every cycle
+  and enough of them would stop healthy bindings from being graded.
+- [x] **Links in rendered timeline content navigate the Canvas iframe away.**
+  _(Fixed 2026-07-30.)_ New `RewriteLtiContentLinks` service, applied through an
+  `lti_iframe_content` helper (sanitize first, post-process second): every
+  anchor gets `target="_blank"` + `rel="noopener"`, and relative/root-relative
+  hrefs are absolutized against `ENV['dashboard_url']`; fragment-only and
+  href-less anchors untouched. Applied at `assignment_view`'s block-content
+  render — audited the other lti_launch views and none renders raw user/wizard
+  HTML (the deep-link auto-submit form is app-generated and deliberately
+  skipped; the `link_to`-built partials already carry target/rel). Original
+  problem: Rails' sanitizer strips `target`, so a link in shipped wizard content
+  navigated the iframe away, and Dashboard-relative links blanked it behind
+  `X-Frame-Options` with no in-frame recovery.
 - [ ] **`lti_contexts` still migrates with the wrong collation.** Its `create_table`
   shipped in Feb 2025 without the `utf8mb4_unicode_ci` pin the other LTI tables
   now carry, so a forward `db:migrate` on modern MariaDB gives it
   `utf8mb4_uca1400_ai_ci` — which is what re-dumps a `schema.rb` that then breaks
   `db:schema:load` on MySQL. Fixing it means a `CONVERT TO` migration on a table
   with production rows, so it isn't part of this PR.
-- [ ] **UI/UX list from the third review.** Roughly ten reachable rough edges, the
-  sharpest being: a first-time instructor with no Dashboard course gets the
-  "awaiting approval" message with no way forward; an expired ltik 500s with the
-  default `X-Frame-Options`, so in-frame the user sees a blank "refused to
-  connect" rather than an error; `sign_in_to_continue` is the one landing without
-  a re-launch link and the one guaranteed to be stale; and no LTI view has an
-  `<h1>`, with drill-downs jumping `h2` → `h4`.
+- [x] **UI/UX list from the third review.** _(All nine actionable items fixed
+  2026-07-30; the tenth — the pending-count callout naming no next step — was
+  left alone because the operator chose that copy deliberately on 2026-07-27.)_
+  What landed, with new copy as `[PLACEHOLDER]`s throughout (keys listed in the
+  "Fill the 2026-07-30 copy placeholders" item below):
+  - Setup now distinguishes zero-Dashboard-courses (create-a-course path) from
+    courses-awaiting-approval, so the first-time instructor has a way forward.
+  - `LtiaasClient` errors are rescued to a friendly in-frame error view (502,
+    framing explicitly allowed since `rescue_from` skips the `after_action`),
+    and the framed actions that used to `redirect_to errors_login_error_path` —
+    including "Sync grades" on a stale tab, the most reachable case — render
+    in-frame when the request comes from an iframe (`Sec-Fetch-Dest`) and keep
+    the redirect top-level otherwise.
+  - `complete_setup` no longer shows instructors the student-audience
+    enrollment error; a new `DuplicateUserLinkError` distinguishes the
+    self-service case (identity already linked to a different account) from
+    other link conflicts, each with its own message (409).
+  - `sign_in_to_continue` gained the same check-again re-launch link as the
+    other landings (existing string reused; it was the one landing without
+    one and the one guaranteed to be stale).
+  - `student_status` shows an empty state instead of a bare header when the
+    course has no timeline yet.
+  - The deep-link picker's bare `head :forbidden` (blank page in the Canvas
+    modal) is now a friendly 403 view. **Role policy untouched — and the
+    review's TA claim looks wrong:** Canvas sends base `membership#Instructor`
+    for TAEnrollment too, so TAs likely already counted as instructors; the
+    blank-page audience was observers/designers/unknown roles. _Decided
+    2026-07-30: TAs acting as instructors (linking, importing, rosters) is the
+    intended policy, not an accident — no role-mapping change._
+  - The course-page sidebar now renders the actual grade/roster error strings
+    and timestamps instead of a bare "Last sync error" field name.
+  - The sandbox preview marks itself loaded only on success (failures are
+    retryable by re-toggling), and its three hardcoded English strings moved
+    verbatim into `en.yml`.
+  - Every LTI page has exactly one `<h1>` and no heading-level gaps
+    (`sign_in_to_continue` and `assignment_view_orphan` got headings from their
+    existing title strings); `_lti_iframe.styl` adjusted so nothing changes
+    visually, `yarn build` run and the compiled CSS verified.
+
+## Copy placeholders from the 2026-07-30 pass
+
+- [x] **Fill the eleven new `[PLACEHOLDER]` strings in `config/locales/en.yml`.**
+  _(Operator filled all eleven 2026-07-30; `grep '\[PLACEHOLDER'` across `app/`,
+  `config/`, and `spec/` is clean again, and the view-rendering specs pass with
+  the real strings.)_ What each needed:
+  - `lms_integration.last_roster_sync_error` — staff sidebar notice that the most
+    recent roster sync from the LMS failed (sibling of "Last sync error").
+  - `lti.status.roster_sync_error` — instructor-facing in-Canvas notice that the
+    roster sync failed, parallel to "There was an error syncing the grades."
+  - `lti.assignment_view.status.removed_in_lms` — short pill label for a
+    connected student whose Canvas enrollment is now inactive or deleted.
+  - `lti.setup.no_courses_yet` — instructor with zero Dashboard courses: create
+    one first, then relaunch.
+  - `lti.setup.link_conflict_error` — instructor-facing setup link-conflict
+    error (points at Wiki Ed staff).
+  - `lti.setup.duplicate_link_error` — this Canvas identity is already linked to
+    a different Dashboard account; name the sign-in-with-that-account remedy.
+  - `lti.deep_link.forbidden_header` / `lti.deep_link.forbidden_explanation` —
+    a non-instructor opened the import picker.
+  - `lti.launch_error.header` / `lti.launch_error.explanation` — the launch
+    couldn't be verified (expired ltik / LTIAAS outage); remedy: reload the
+    Canvas page.
+  - `lti.student_overview.empty` — linked course whose timeline has no content
+    yet.
 
 ## Published-document notices (2026-07-29)
 

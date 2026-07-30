@@ -27,6 +27,15 @@ module LtiLaunchHelper
     t("lti.assignment_view.status.#{PROGRESS_STATUS_KEYS.fetch(state, 'not_started')}")
   end
 
+  # Timeline block content rendered inside the Canvas iframe: sanitized
+  # first, then links are rewritten to open outside the iframe (the
+  # sanitizer strips `target`, and Dashboard-relative links would otherwise
+  # blank the frame via X-Frame-Options). html_safe rests solely on that
+  # sanitize + post-process pipeline.
+  def lti_iframe_content(content)
+    RewriteLtiContentLinks.new(sanitize(content)).html.html_safe # rubocop:disable Rails/OutputSafety
+  end
+
   # "%{time} ago" for a sync timestamp, or the "not yet synced" copy when nil.
   # Shared by the roster row and the grade-sync partial so the two read the same.
   def lti_last_synced(time)

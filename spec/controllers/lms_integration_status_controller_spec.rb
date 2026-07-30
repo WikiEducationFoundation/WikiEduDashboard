@@ -86,7 +86,8 @@ describe LmsIntegrationStatusController, type: :request do
         expect(body['course_url']).to eq(expected_course_url)
         expect(body).to have_key('last_sync_at')
         expect(body).not_to have_key('last_roster_sync_at')
-        expect(body['last_sync_error_present']).to be false
+        expect(body['last_roster_sync_error']).to be_nil
+        expect(body['last_sync_error']).to be_nil
         expect(body['synced_students_count']).to eq(0)
       end
 
@@ -101,10 +102,19 @@ describe LmsIntegrationStatusController, type: :request do
           .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
       end
 
-      it 'flags a recent grade-sync failure when one is recorded' do
+      # The recorded error is exception class + message — diagnostic data the
+      # staff sidebar displays verbatim, not user copy.
+      it 'carries the recorded grade-sync failure so staff can see what went wrong' do
         binding.update!(last_grade_sync_error: 'AGS POST failed: 401')
         get request_path
-        expect(JSON.parse(response.body)['last_sync_error_present']).to be true
+        expect(JSON.parse(response.body)['last_sync_error']).to eq('AGS POST failed: 401')
+      end
+
+      it 'carries the recorded roster-sync failure so staff can see what went wrong' do
+        binding.update!(last_roster_sync_error: 'LtiaasClient::LtiaasTransientError: 502')
+        get request_path
+        expect(JSON.parse(response.body)['last_roster_sync_error'])
+          .to eq('LtiaasClient::LtiaasTransientError: 502')
       end
 
       # Roles come from the launch or NRPS on every real context, and only

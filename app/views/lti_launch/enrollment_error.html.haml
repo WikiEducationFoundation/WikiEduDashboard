@@ -4,7 +4,7 @@
 - # issue clears; the contact hint lives in the explanation copy.
 .lti-iframe__landing
   = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
-  %h3.lti-iframe__title= t('lti.enrollment_error.header')
+  %h1.lti-iframe__title= t('lti.enrollment_error.header')
   %p= t('lti.enrollment_error.explanation')
   -# Re-launches in the iframe so the student can retry once the issue is
   -# resolved, without having to know to reload the Canvas tab.

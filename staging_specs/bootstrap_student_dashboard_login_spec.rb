@@ -15,7 +15,7 @@ require_relative 'spec_helper'
 # runs stay silent, and persists the dashboard session in the profile.
 #
 #   CHALLENGE_WAIT=300 bin/staging-feature-spec \
-#     spec/staging/bootstrap_student_dashboard_login_spec.rb
+#     staging_specs/bootstrap_student_dashboard_login_spec.rb
 #
 # (Not part of the default harvest set — it's a bootstrap utility.)
 describe 'Bootstrap student dashboard login', :staging do

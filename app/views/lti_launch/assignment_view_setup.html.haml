@@ -30,6 +30,11 @@
                   %td= row.username.presence || content_tag(:span, '—', class: 'lti-muted')
                   %td
                     %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
+                    - # Stored NRPS status says Canvas removed or suspended this
+                    - # student since they connected. Flag only — reconciling
+                    - # (or not) is the instructor's call.
+                    - if row.removed_in_lms
+                      %span.lti-status.lti-status--removed= t('lti.assignment_view.status.removed_in_lms')
       - if @context.pending_count.positive?
         .lti-iframe__next-step
           %p= t('lti.assignment_view.setup.pending', count: @context.pending_count)

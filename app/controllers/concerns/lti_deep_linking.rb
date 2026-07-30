@@ -29,11 +29,11 @@ module LtiDeepLinking
   end
 
   def deep_link
-    return redirect_to errors_login_error_path if params[:ltik].blank?
+    return render_launch_error_or_redirect if params[:ltik].blank?
 
     @ltik = params[:ltik]
     @lti_session = build_lti_session(@ltik)
-    return head :forbidden unless @lti_session.instructor?
+    return render_deep_link_forbidden unless @lti_session.instructor?
 
     @binding = @lti_session.bound_binding
     # Not linked yet: render the same "not yet linked" landing the course-nav
@@ -52,10 +52,10 @@ module LtiDeepLinking
   end
 
   def deep_link_select
-    return redirect_to errors_login_error_path if params[:ltik].blank?
+    return render_launch_error_or_redirect if params[:ltik].blank?
 
     @lti_session = build_lti_session(params[:ltik])
-    return head :forbidden unless @lti_session.instructor?
+    return render_deep_link_forbidden unless @lti_session.instructor?
 
     binding = @lti_session.bound_binding
     gradables = chosen_gradables(binding)
@@ -68,6 +68,16 @@ module LtiDeepLinking
   end
 
   private
+
+  # The picker placements are reachable by non-instructor course roles too
+  # (a Canvas observer or designer). Only INSTRUCTOR_ROLES may import, but a
+  # bare `head :forbidden` renders as a blank page inside Canvas's picker
+  # modal — so keep the 403 and explain the refusal in-frame. Which roles
+  # count as instructors is the operator's LtiSession::INSTRUCTOR_ROLES
+  # policy, deliberately untouched here.
+  def render_deep_link_forbidden
+    render 'lti_launch/deep_link_forbidden', layout: 'lti_iframe', status: :forbidden
+  end
 
   # Multi-select when the placement takes multiple content items. Gradables
   # already backed by an active gradebook column are off the menu — picking

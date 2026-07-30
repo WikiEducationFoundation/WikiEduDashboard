@@ -18,6 +18,14 @@ module LtiLaunchSession
     # response to render prettily inside its iframe (this path skips the
     # allow_iframe after_action, so X-Frame-Options stays put — deliberately).
     rescue_from LtiSession::UnsupportedLmsError, with: :render_unsupported_lms
+    # Any LTIAAS refusal or outage mid-launch — most commonly an expired ltik
+    # on a stale Canvas tab. Unrescued, these 500 with the default
+    # X-Frame-Options, which the Canvas iframe shows as a blank "refused to
+    # connect"; render a friendly in-frame page instead. (The anonymous
+    # launch's landing already degrades on these — see anonymous_lti_session —
+    # so this covers the signed-in and picker paths.)
+    rescue_from LtiaasClient::LtiaasClientError, LtiaasClient::LtiaasTransientError,
+                with: :render_ltiaas_error
   end
 
   private
@@ -36,7 +44,8 @@ module LtiLaunchSession
   # False means the launch authenticated fine but its LMS identity can't be
   # linked to this Dashboard user without changing an existing link — either
   # direction of the 1:1 map is already taken. See
-  # LtiSession#reject_conflicting_link!.
+  # LtiSession#reject_conflicting_link!. The error is kept so callers can
+  # tell the duplicate-link case (which has a self-service remedy) apart.
   def start_lti_session
     @lti_session = build_lti_session(params[:ltik])
     @binding = @lti_session.find_or_create_binding!
@@ -46,6 +55,7 @@ module LtiLaunchSession
   rescue LtiSession::ConflictingLinkError => e
     Sentry.capture_exception(e, extra: { binding_id: @binding&.id,
                                          user_id: current_user&.id })
+    @link_conflict = e
     false
   end
 
@@ -65,6 +75,51 @@ module LtiLaunchSession
   # contact the instructor — and the view already offers a re-launch retry.
   def render_enrollment_error
     render 'lti_launch/enrollment_error', status: :conflict
+  end
+
+  # complete_setup's audience is the instructor running setup, so its link
+  # refusal must not reuse the student-facing "contact your instructor"
+  # enrollment error. Re-render setup with an error banner instead, naming
+  # the self-service remedy for the one conflict that has one: a duplicate
+  # link (this Canvas user already linked a different Dashboard account —
+  # signing back in with that account fixes it without staff).
+  def render_setup_link_error
+    prepare_setup_view
+    @setup_error = t(setup_link_error_key)
+    render 'lti_launch/setup', status: :conflict
+  end
+
+  def setup_link_error_key
+    if @link_conflict.is_a?(LtiSession::DuplicateUserLinkError)
+      'lti.setup.duplicate_link_error'
+    else
+      'lti.setup.link_conflict_error'
+    end
+  end
+
+  # An expired ltik (LTIAAS 401) is routine, so it's logged rather than
+  # reported; anything else — rate limits, outages, unexpected 4xx — goes to
+  # Sentry. Framing is re-allowed explicitly because rescue_from skips the
+  # allow_iframe after_action that would normally clear X-Frame-Options.
+  def render_ltiaas_error(error)
+    if error.is_a?(LtiaasClient::LtiaasAuthError)
+      Rails.logger.info("[LTI] LTIAAS auth failure on #{action_name}: #{error.message}")
+    else
+      Sentry.capture_exception(error)
+    end
+    allow_iframe
+    render 'lti_launch/launch_error', layout: 'lti_iframe', status: :bad_gateway
+  end
+
+  # Refusals on the framed entry points can't redirect to the login-error
+  # page: its X-Frame-Options blocks the Canvas iframe, so the redirect shows
+  # up as a blank "refused to connect". Render the friendly in-frame error
+  # instead; a top-level request keeps the old redirect.
+  def render_launch_error_or_redirect
+    return redirect_to errors_login_error_path unless framed_request?
+
+    allow_iframe
+    render 'lti_launch/launch_error', layout: 'lti_iframe', status: :unprocessable_entity
   end
 
   # A Canvas observer or designer, an unrecognized role, or a launch with no

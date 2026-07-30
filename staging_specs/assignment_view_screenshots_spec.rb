@@ -21,7 +21,7 @@ require_relative 'spec_helper'
 # students (link_students) so it reads like a real class; a dedicated
 # never-launching Canvas student provides the "Not connected" row.
 #
-#   bin/staging-feature-spec spec/staging/assignment_view_screenshots_spec.rb
+#   bin/staging-feature-spec staging_specs/assignment_view_screenshots_spec.rb
 describe 'Assignment drill-down screenshots', :staging do
   let(:required_env) do
     %w[

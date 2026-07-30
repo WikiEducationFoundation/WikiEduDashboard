@@ -1,6 +1,6 @@
 # Live-staging feature specs — operator guide
 
-The `spec/staging/` suite drives a real Chrome browser against the
+The `staging_specs/` suite drives a real Chrome browser against the
 deployed staging environment (`dashboard-testing.wikiedu.org` and
 `canvas.wikiedu.org`) so we can iterate on the Canvas integration's
 end-to-end UX without manual click-throughs.
@@ -99,7 +99,7 @@ instructor profile did.
 ### 2. Run the canary
 
 ```sh
-bin/staging-feature-spec spec/staging/canary_spec.rb
+bin/staging-feature-spec staging_specs/canary_spec.rb
 ```
 
 A visible Chrome window will open, navigate to
@@ -111,10 +111,10 @@ gitignored under the project's `/tmp` rule.
 ## Day-to-day usage
 
 ```sh
-bin/staging-feature-spec spec/staging/canary_spec.rb            # one spec
-bin/staging-feature-spec spec/staging/                          # all staging specs
+bin/staging-feature-spec staging_specs/canary_spec.rb            # one spec
+bin/staging-feature-spec staging_specs/                          # all staging specs
 
-HEADLESS=1 bin/staging-feature-spec spec/staging/canary_spec.rb # no visible browser
+HEADLESS=1 bin/staging-feature-spec staging_specs/canary_spec.rb # no visible browser
 ```
 
 Default is HEADED — visible browser, because the whole point is
@@ -122,10 +122,12 @@ visual iteration. Set `HEADLESS=1` if you're running over SSH or
 just want quieter output.
 
 The standard `bundle exec rspec` invocation does NOT pick up
-`spec/staging/`: `spec/spec_helper.rb` adds
-`filter_run_excluding :staging` plus a `define_derived_metadata`
-rule that auto-tags everything in `spec/staging/`. CI never runs
-these specs.
+`staging_specs/`: it lives outside RSpec's default `spec/` path, so
+normal runs never load these files at all. As a second guard,
+`staging_specs/spec_helper.rb` adds `filter_run_excluding :staging`
+plus a `define_derived_metadata` rule that auto-tags everything in
+`staging_specs/`; `bin/staging-feature-spec` opts back in with
+`--tag staging`. CI never runs these specs.
 
 ## Smoke-test flows (Tranche 3)
 
@@ -134,10 +136,10 @@ Canvas course + dashboard course, runs its slice, and tears both down
 on completion (pass or fail), so re-runs are hermetic.
 
 ```sh
-bin/staging-feature-spec spec/staging/g3_nrps_roster_sync_spec.rb
-bin/staging-feature-spec spec/staging/g7_student_first_launch_spec.rb
-bin/staging-feature-spec spec/staging/g8_score_push_spec.rb
-bin/staging-feature-spec spec/staging/g9_exercise_sandbox_spec.rb
+bin/staging-feature-spec staging_specs/g3_nrps_roster_sync_spec.rb
+bin/staging-feature-spec staging_specs/g7_student_first_launch_spec.rb
+bin/staging-feature-spec staging_specs/g8_score_push_spec.rb
+bin/staging-feature-spec staging_specs/g9_exercise_sandbox_spec.rb
 ```
 
 - **g2** — instructor first launch → bind → land on `/courses/<slug>`.
@@ -182,8 +184,8 @@ HEADLESS=1 bin/harvest-canvas-screenshots      # no visible browser
 Or run a single role spec directly:
 
 ```sh
-bin/staging-feature-spec spec/staging/instructor_setup_screenshots_spec.rb
-bin/staging-feature-spec spec/staging/student_screenshots_spec.rb
+bin/staging-feature-spec staging_specs/instructor_setup_screenshots_spec.rb
+bin/staging-feature-spec staging_specs/student_screenshots_spec.rb
 ```
 
 Each spec walks the integration and saves PNGs at named moments, so the team
@@ -231,7 +233,7 @@ reason — worth picking up if we want exhaustive coverage:
 ## Layout
 
 ```
-spec/staging/
+staging_specs/
 ├── spec_helper.rb            # staging-specific Capybara + Selenium config (2 drivers)
 ├── canary_spec.rb            # connectivity probe (T1)
 ├── provisioning_spec.rb      # provisioning-layer smoke test (T2)

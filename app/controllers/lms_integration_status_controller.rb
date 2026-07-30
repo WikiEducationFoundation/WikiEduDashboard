@@ -83,11 +83,15 @@ class LmsIntegrationStatusController < ApplicationController
     "https://#{ENV.fetch('LTIAAS_DOMAIN', nil)}/lti/launch"
   end
 
+  # The error values are the recorded exception class + message (diagnostic
+  # data, not copy) — staff_view displays them verbatim, and their presence
+  # doubles as the "show the error row" flag.
   def staff_metrics
     status = LtiSyncStatus.new(binding)
     {
       last_sync_at: status.last_synced_at,
-      last_sync_error_present: status.grade_sync_error?,
+      last_roster_sync_error: status.last_roster_sync_error,
+      last_sync_error: status.last_grade_sync_error,
       synced_students_count: status.synced_students_count
     }
   end

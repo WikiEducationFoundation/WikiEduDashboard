@@ -43,6 +43,14 @@ class StudentStatusContext
     exercise_items.count(&:done)
   end
 
+  # True when the course gives this student nothing to list yet — no assigned
+  # articles and no timeline-derived trainings or exercises. Reachable in the
+  # ordinary setup order (courses get linked before the timeline is built),
+  # so the view shows an explanatory empty state instead of a bare header.
+  def empty?
+    articles.empty? && training_items.empty? && exercise_items.empty?
+  end
+
   # Earliest-due incomplete training/exercise; article work once those are done.
   def next_step
     return @next_step if defined?(@next_step)

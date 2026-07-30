@@ -17,8 +17,15 @@
 #  nrps_url                   :string(255)
 #  ags_lineitems_url          :string(255)
 #  last_roster_sync_at        :datetime
+#  last_roster_sync_error     :text(65535)
 #  last_grade_sync_at         :datetime
 #  last_grade_sync_error      :text(65535)
+#  last_grade_sync_attempt_at :datetime         - stamped when the periodic
+#                                                 dispatcher enqueues the binding
+#                                                 (not on completion); dispatch
+#                                                 orders on it so a binding whose
+#                                                 syncs always abort can't starve
+#                                                 the healthy ones
 #  lms_context_title          :string(255)      - LMS course title snapshot from
 #                                                 the launch IdToken at binding
 #                                                 creation; may drift if the

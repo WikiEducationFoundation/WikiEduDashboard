@@ -248,6 +248,13 @@ class LtiSession
   # than a 500.
   class ConflictingLinkError < StandardError; end
 
+  # The distinguishable flavor of ConflictingLinkError: this LMS identity is
+  # already linked to a *different* Dashboard account — i.e. the person at
+  # the keyboard previously connected another account. Unlike the general
+  # conflict it has a self-service remedy (sign back in with the account
+  # that was connected first), so the setup flow names it separately.
+  class DuplicateUserLinkError < ConflictingLinkError; end
+
   # Raised when a launch arrives from a platform this integration hasn't been
   # built for. See SUPPORTED_LMS_FAMILY.
   class UnsupportedLmsError < StandardError; end
@@ -267,7 +274,7 @@ class LtiSession
   # ends at the "contact your instructor" view, and staff clear the context.
   def reject_conflicting_link!(context, current_user, binding)
     if context.user_id.present? && context.user_id != current_user.id
-      raise ConflictingLinkError,
+      raise DuplicateUserLinkError,
             "LMS identity #{user_lti_id} in binding #{binding.id} is already " \
             "linked to user #{context.user_id}, not #{current_user.id}"
     end

@@ -11,7 +11,7 @@
   - # exercises skip it — their iframe is just header + status + the button
   - # out to the exercise page, which explains itself.
   - if @context.block&.content.present? && @context.exercise_url.nil?
-    .lti-iframe__description= sanitize(@context.block.content)
+    .lti-iframe__description= lti_iframe_content(@context.block.content)
   - if @context.instructor?
     = render 'lti_launch/assignment_roster'
     = render 'lti_launch/grade_sync',
@@ -22,10 +22,17 @@
 -# Minimal, no-framework sandbox preview: each "Preview" toggle lazily fetches
 -# the sandbox page's parsed HTML straight from the MediaWiki API (CORS) and
 -# inserts it, so an instructor sees a student's work without leaving Canvas.
+-# The lti_iframe layout loads no i18n JS bundle, so the script's messages are
+-# passed in from the locale file here (same idea as the toggles' data-label-*
+-# attributes).
+- sandbox_messages = { loading: t('lti.assignment_view.sandbox_preview.loading'),
+                       not_found: t('lti.assignment_view.sandbox_preview.not_found'),
+                       error: t('lti.assignment_view.sandbox_preview.error') }.to_json
 :javascript
   (function () {
+    var messages = #{sandbox_messages.html_safe};
     function loadSandbox(url, target) {
-      target.textContent = '…';
+      target.textContent = messages.loading;
       var wiki;
       try { wiki = new URL(url); } catch (e) { target.textContent = ''; return; }
       var title = decodeURIComponent(wiki.pathname.replace(/^\/wiki\//, ''));
@@ -35,11 +42,15 @@
         if (data.parse && data.parse.text) {
           target.innerHTML = data.parse.text;
           target.classList.add('lti-sandbox__content--rendered');
+          // Marked loaded only on success, so closing and reopening the row
+          // retries a failed fetch (or a sandbox created since) instead of
+          // freezing the failure for the life of the page.
+          target.dataset.loaded = '1';
         } else {
-          target.textContent = 'No sandbox found';
+          target.textContent = messages.not_found;
         }
       }).catch(function () {
-        target.textContent = 'Sandbox failed to load';
+        target.textContent = messages.error;
       });
     }
 
@@ -56,7 +67,6 @@
         if (open) { return; }
         var target = panel.querySelector('.lti-sandbox__content');
         if (target && !target.dataset.loaded) {
-          target.dataset.loaded = '1';
           loadSandbox(btn.getAttribute('data-sandbox-url'), target);
         }
       });

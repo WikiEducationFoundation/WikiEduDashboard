@@ -33,8 +33,22 @@ class LtiSyncStatus
     @binding.last_grade_sync_at
   end
 
+  def roster_sync_error?
+    @binding.last_roster_sync_error.present?
+  end
+
   def grade_sync_error?
     @binding.last_grade_sync_error.present?
+  end
+
+  # The recorded failure strings (exception class + message, diagnostic data
+  # rather than copy), for the staff-facing sidebar to display verbatim.
+  def last_roster_sync_error
+    @binding.last_roster_sync_error
+  end
+
+  def last_grade_sync_error
+    @binding.last_grade_sync_error
   end
 
   # Deep-link-first: nothing is created until the instructor imports. When no

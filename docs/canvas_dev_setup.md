@@ -598,7 +598,7 @@ on staging it already is. Confirm:
   The registration URL now carries the level as a query parameter —
   `?privacyLevel=anonymous`, camelCase — so the admin's dialog choice isn't what it
   depends on any more, and the guide no longer asks them to make one. **Verified
-  2026-07-29** by `spec/staging/privacy_level_registration_spec.rb`, which registers
+  2026-07-29** by `staging_specs/privacy_level_registration_spec.rb`, which registers
   a fresh app with the parameter, deploys it, and asserts `anonymous` on both the
   developer key's `tool_configuration` and the installed tool.
 
@@ -718,6 +718,29 @@ message — a partitioned cookie jar makes the iframe read as logged-out, which
 Before flipping `canvas_integration_enabled` to `'true'` in production:
 
 1. **LTIAAS prod tenant configured** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side. Note there is no "Wiki Education production Canvas" to register against: each institution registers the tool into **their own** Canvas (dynamic registration), and `canvas.wikiedu.org` exists only to develop and test the integration.
+   - **Tool Name reads "Wiki Education Dashboard"** in the LTIAAS portal's API
+     Settings. Blank per-placement Titles during registration fall back to it,
+     and the integration guide now promises admins that name — LTIAAS cannot
+     send per-placement titles, so the account-wide Tool Name is the only lever.
+   - **Activate registrations before instructors launch.** Dynamic registrations
+     arrive in LTIAAS **inactive**, and until someone activates the registration
+     every launch from that institution's Canvas shows a raw JSON error
+     (`UNREGISTERED_OR_INACTIVE_PLATFORM`) in the iframe — LTIAAS rejects the
+     launch before it reaches the Dashboard, and no custom error page can be
+     configured (checked 2026-07-30; the JSON error is LTIAAS's documented
+     behavior). So either activate promptly after an institution registers, and
+     tell the institution not to point instructors at the tool until Wiki
+     Education confirms activation — or close the window with one of LTIAAS's two
+     [documented mechanisms](https://docs.ltiaas.com/guides/api/dynamic-registration/),
+     both operator decisions: the portal's **Dynamic Registration
+     Auto-Activation** toggle (every dynamic registration activates on creation,
+     which also removes Wiki Education's chance to vet who registers), or the
+     **Pre-Approval flow** (the registering admin's iframe redirects to a Wiki
+     Education URL with `?registrationId=<id>`, and the registration is approved
+     programmatically via `POST /api/registrations/{id}/complete` with
+     `autoActivate: true` — keeps the vetting gate, removes the dead-end, and
+     doubles as real-time notification that a registration is pending, at the
+     cost of building the approval endpoint).
 2. **`config/application.yml`** on the prod box — `LTIAAS_DOMAIN`, `LTIAAS_API_KEY`, and `canvas_integration_enabled: 'true'` set.
 3. **Migrations applied** — three migrations from PR 1 (`create_lti_course_bindings`, `create_lti_line_items`, `add_binding_fields_to_lti_contexts`) plus `create_lti_score_signatures` from the dedup pass.
 4. **Sidekiq cron loaded** — confirm `LtiDailyRosterSyncWorker` and `LtiPeriodicGradeSyncWorker` appear in the cron list (check the sidekiq-cron dashboard at `/sidekiq/cron`).

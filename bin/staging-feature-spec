@@ -7,7 +7,7 @@
 # Canvas + dashboard session state across runs.
 #
 # Usage:
-#   bin/staging-feature-spec spec/staging/<file>_spec.rb [rspec_args...]
+#   bin/staging-feature-spec staging_specs/<file>_spec.rb [rspec_args...]
 #   HEADLESS=1 bin/staging-feature-spec ...   # run without a visible browser
 #
 # Defaults to HEADED (visible browser) because the whole point of this
@@ -35,8 +35,8 @@ if File.exist?(env_path)
   end
 end
 
-# `--tag staging` is load-bearing, not belt and suspenders: spec/staging/spec_helper.rb
-# excludes :staging by default (so a plain `rspec spec/staging` can't fire live
+# `--tag staging` is load-bearing, not belt and suspenders: staging_specs/spec_helper.rb
+# excludes :staging by default (so a plain `rspec staging_specs` can't fire live
 # Canvas + SSH work by accident), and this flag is what opts back in. It also
 # keeps this runner from picking up a regular feature spec.
 cmd = ['bundle', 'exec', 'rspec', spec_file,
