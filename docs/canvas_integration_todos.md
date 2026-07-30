@@ -516,10 +516,15 @@ word, not Claude's. Neither was rewritten; both are recorded here instead.
     on both the developer key and the installed tool
     (`spec/staging/privacy_level_registration_spec.rb`, green 2026-07-29). The
     guide's data-sharing paragraph is now accurate for a new registration.
-    - Still worth doing: staging's own tool 10 predates this and remains `public`,
-      so staging transmits names and emails until it is re-registered with the
-      parameter (or corrected with the `PUT` in `canvas_dev_setup.md` §0). Left
-      alone deliberately — no real users or data are on staging.
+    - **Staging's own tool stays `public`** — decided 2026-07-29, not an oversight.
+      Tool 10 predates the parameter, so staging transmits names and emails that
+      `LtiServiceSession#normalize_member` discards on receipt. Left as-is because no
+      real users or data are on staging, and re-registering would cost the developer
+      key, its AGS line items, the demo course's bindings, and a gallery rebuild. Two
+      consequences to keep in mind: the admin gallery's data-sharing screenshot shows
+      `public` rather than the `Anonymized` a new institution will get, and anyone
+      verifying the privacy posture on staging is verifying the wrong tool — use
+      `spec/staging/privacy_level_registration_spec.rb`, which registers its own.
 - [x] **`docs/canvas_integration_guide.md`: "already signed in".** _(Fixed
   2026-07-29, with Sage's go-ahead on guide wording.)_ Also fixed in the same pass:
   the troubleshooting entry that still told admins the instructor must enable the
@@ -644,3 +649,13 @@ left, in the order it seems worth doing:
     says why the machine-learning services aren't on it: they receive public
     Wikipedia content, not personal or institutional data. THRD-02 carries no
     parallel list, so there was only one copy to update.
+
+## Gallery scope (decided 2026-07-29)
+
+- [x] **`full_course` keeps its own flow.** With every flow now provisioned by the
+  real wizard, its shot is close to `canvas_gradebook`'s — same 9-column gradebook
+  from the same timeline, differing mainly in being captured at 2200px so every
+  column fits. Folding it in would have saved a Canvas course and ~3.5 minutes per
+  harvest. Sage's call is to keep it: the deliberately wide, everything-visible
+  gradebook is worth its own section for reviewers. Not revisited unless harvest
+  runtime becomes a problem.
