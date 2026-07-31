@@ -903,6 +903,24 @@ residual, also fixed here). All three findings confirmed and fixed.
 - [x] The verification pass's cosmetic residual ("auto-created trainings
   roll-up" phrasing in the picker comment) is fixed.
 
+A Codex follow-up round at `6b76db12d` found two more reservation-lifecycle
+gaps, both confirmed and fixed the same day (2026-07-31):
+
+- [x] **Release now covers every failure after the reservation.** The rescue
+  wrapped only the LTIAAS form build; a failed discovery enqueue (Redis down)
+  or render also left Canvas without the form while the reservation squatted
+  the gradables. `deep_link_select` now runs build + enqueue + render inside
+  one `releasing_on_failure` envelope. Controller spec: enqueue failure →
+  released → retry succeeds.
+- [x] **`release` is atomic and restores revived rows.** `destroy_all`'s
+  select-then-delete-by-PK had the same time-of-check/time-of-use shape fixed
+  for expiry, and it hard-deleted a revived archived row (erasing the
+  historical mapping and its signatures). Release is now a rollback: fresh
+  rows go via a conditional single-statement `delete_all`, revived rows are
+  restored to their snapshotted prior archived state via a pending-guarded
+  `update_all` — an adopted row survives both paths. Specs cover
+  adopted-survives-release and archived-state restoration (signatures kept).
+
 ## Copy placeholders from the 2026-07-30 pass
 
 - [x] **Fill the eleven new `[PLACEHOLDER]` strings in `config/locales/en.yml`.**

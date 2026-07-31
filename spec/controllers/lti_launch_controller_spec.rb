@@ -1682,6 +1682,26 @@ describe LtiLaunchController, type: :request do
       expect(LtiLineItem.pending.count).to eq(1)
     end
 
+    # Failures after the form build — the discovery enqueue (Redis down) or
+    # the render — must release the reservation too: Canvas never received
+    # the form, so nothing will ever adopt it.
+    it 'releases the reservation when the discovery enqueue fails' do
+      stub_request(:post, form_url)
+        .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      allow(LtiLineItemSyncWorker).to receive(:perform_in)
+        .and_raise(RuntimeError, 'redis down')
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      expect(response).to have_http_status(:internal_server_error)
+      expect(LtiLineItem.pending.count).to eq(0)
+
+      allow(LtiLineItemSyncWorker).to receive(:perform_in)
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      expect(response).to have_http_status(:ok)
+    end
+
     # The double-submit / replayed-POST race: the first request's reservation
     # is already committed, so the duplicate must lose even though no bound
     # column exists yet.

@@ -64,9 +64,11 @@ module LtiDeepLinking
     reservation = reserve_selection(binding, gradables)
     return head :unprocessable_entity if reservation.nil?
 
-    @deep_link_form = build_form_releasing_on_failure(reservation, gradables)
-    schedule_line_item_discovery(binding)
-    render 'lti_launch/deep_link_form', layout: 'lti_iframe'
+    releasing_on_failure(reservation) do
+      @deep_link_form = BuildLtiDeepLinkForm.new(ltik: params[:ltik], gradables:).form
+      schedule_line_item_discovery(binding)
+      render 'lti_launch/deep_link_form', layout: 'lti_iframe'
+    end
   end
 
   private
@@ -132,13 +134,14 @@ module LtiDeepLinking
     reservation.reserved ? reservation : nil
   end
 
-  # The reservation commits before this LTIAAS call, and the discovery job
-  # that would eventually clean it up is only scheduled after a successful
-  # build — so a failed build must release the reservation itself, or a
-  # transient LTIAAS error squats the gradables for the whole pending lease
-  # and the instructor's immediate retry 422s.
-  def build_form_releasing_on_failure(reservation, gradables)
-    BuildLtiDeepLinkForm.new(ltik: params[:ltik], gradables:).form
+  # The reservation commits before anything else in the flow can still fail —
+  # the LTIAAS form build, the Sidekiq enqueue (Redis down), the render — and
+  # on any of those Canvas never receives the self-submitting form, so nothing
+  # will ever adopt the reservation. Release it, or the gradables stay
+  # squatted for the whole pending lease and the instructor's immediate
+  # retry 422s against their own dead reservation.
+  def releasing_on_failure(reservation)
+    yield
   rescue StandardError
     reservation.release
     raise

@@ -87,4 +87,58 @@ describe ReserveLtiLineItems do
       expect(described_class.new(binding:, gradables: [gradable]).reserved).to be(false)
     end
   end
+
+  describe '#release' do
+    it 'deletes a fresh reservation' do
+      reservation = described_class.new(binding:, gradables: [gradable])
+      expect { reservation.release }.to change(LtiLineItem, :count).by(-1)
+    end
+
+    # Adoption can land between the failure and the release (a concurrent
+    # discovery run); release must not delete a live, bound mapping.
+    it 'keeps a reservation that was adopted before the release' do
+      reservation = described_class.new(binding:, gradables: [gradable])
+      row = LtiLineItem.last
+      LtiLineItem.where(id: row.id).update_all(lineitem_id: 'https://canvas/li/live')
+      reservation.release
+      expect(row.reload.lineitem_id).to eq('https://canvas/li/live')
+    end
+
+    describe 'when the reservation revived an archived row' do
+      let!(:archived_row) do
+        LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
+                            gradable_id: 1, lineitem_id: 'https://canvas/li/old',
+                            canvas_assignment_id: 'ca-old', label: 'Old label',
+                            archived_at: 1.day.ago)
+      end
+      let!(:signature) do
+        context = LtiContext.create!(lti_course_binding: binding, user: create(:user),
+                                     user_lti_id: 'lti-1', lms_id: 'platform-x')
+        LtiScoreSignature.create!(lti_line_item: archived_row, lti_context: context,
+                                  signature: 'abc', last_pushed_at: 1.day.ago)
+      end
+
+      # A hard delete here would erase the historical mapping and its
+      # signatures; release is a rollback, not a teardown.
+      it 'restores the prior archived state instead of deleting the row' do
+        reservation = described_class.new(binding:, gradables: [gradable])
+        reservation.release
+        archived_row.reload
+        expect(archived_row).to be_archived
+        expect(archived_row.lineitem_id).to eq('https://canvas/li/old')
+        expect(archived_row.canvas_assignment_id).to eq('ca-old')
+        expect(archived_row.label).to eq('Old label')
+        expect(LtiScoreSignature.exists?(signature.id)).to be(true)
+      end
+
+      it 'keeps the row when it was adopted before the release' do
+        reservation = described_class.new(binding:, gradables: [gradable])
+        LtiLineItem.where(id: archived_row.id)
+                   .update_all(lineitem_id: 'https://canvas/li/new')
+        reservation.release
+        expect(archived_row.reload.lineitem_id).to eq('https://canvas/li/new')
+        expect(archived_row).not_to be_archived
+      end
+    end
+  end
 end

@@ -19,18 +19,25 @@ class ReserveLtiLineItems
   def initialize(binding:, gradables:)
     @binding = binding
     @gradables = gradables
-    @row_ids = []
+    @created_ids = []
+    @revived = {}
     @reserved = perform
   end
 
-  # Frees this reservation when the caller can't finish the flow — the form
-  # build failed before Canvas ever saw it, so without this the gradables
-  # stay squatted for the whole pending lease (and the discovery job that
-  # would eventually clean them up is only scheduled after a successful
-  # build). Destroys only rows still pending: an adopted row is a live
-  # column mapping and stays.
+  # Rolls this reservation back when the caller can't finish the flow — the
+  # form never reached Canvas, so without this the gradables stay squatted
+  # for the whole pending lease (and the discovery job that would eventually
+  # clean them up may never have been scheduled). Fresh rows are deleted;
+  # a revived row goes back to the archived state it had before the
+  # reservation, keeping its historical mapping and score signatures. Both
+  # statements are conditioned on the row still being pending — the
+  # single-statement equivalent of the locked re-check expiry uses — so a
+  # row adopted in the meantime is a live column mapping and stays.
   def release
-    LtiLineItem.pending.where(id: @row_ids).destroy_all
+    LtiLineItem.pending.where(id: @created_ids).delete_all
+    @revived.each do |id, prior|
+      LtiLineItem.pending.where(id:).update_all(prior.merge('updated_at' => Time.current))
+    end
   end
 
   private
@@ -60,7 +67,7 @@ class ReserveLtiLineItems
                               gradable_type: gradable.gradable_type,
                               gradable_id: gradable.gradable_id,
                               label: gradable.label)
-    @row_ids << row.id
+    @created_ids << row.id
     true
   end
 
@@ -71,11 +78,15 @@ class ReserveLtiLineItems
   # signature-discard callback; the stale signatures from the row's previous
   # column are discarded when adoption fills the new lineitem_id (see
   # LtiLineItem#discard_score_signatures).
+  # The prior attributes are snapshotted from the row as loaded; if this CAS
+  # wins, the row was archived (and so quiescent) between that load and now,
+  # which is what makes the snapshot safe to restore from in #release.
   def revive_as_pending(row, gradable)
+    prior = row.slice('archived_at', 'lineitem_id', 'canvas_assignment_id', 'label')
     won = LtiLineItem.where(id: row.id).where.not(archived_at: nil)
                      .update_all(archived_at: nil, lineitem_id: nil, canvas_assignment_id: nil,
                                  label: gradable.label, updated_at: Time.current) == 1
-    @row_ids << row.id if won
+    @revived[row.id] = prior if won
     won
   end
 end
