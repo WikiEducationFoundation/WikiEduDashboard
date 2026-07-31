@@ -168,9 +168,9 @@ class UpdateCourseWikiTimeslices
   end
 
   # Processing timeslices involves:
-  # - deleting existing timeslices if reprocessing (only_new = false)
+  # - deleting existing timeslices if reprocessing (only_new = false) and use_acuwt? flag
   # - writing timeslices for the period on the db
-  # - deleting articles courses without timeslices if reprocessing
+  # - deleting articles courses without timeslices if reprocessing and use_acuwt? flag
   # - updating last mw rev datetime
   def process_timeslices(wiki, only_new:)
     @course.reload
