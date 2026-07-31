@@ -187,6 +187,10 @@ describe ArticleScopedProgram, type: :model do
       expect(course.scoped_article_titles(wiki)).to equal(course.scoped_article_titles(wiki))
     end
 
+    it 'returns a Set, so that looking a title up does not scan the whole scope' do
+      expect(course.scoped_article_titles(wiki)).to be_a(Set)
+    end
+
     it 'memoizes per wiki rather than for the whole course' do
       other_wiki = Wiki.get_or_create(language: 'es', project: 'wikipedia')
       course.scoped_article_titles(wiki)

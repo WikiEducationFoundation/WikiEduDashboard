@@ -382,10 +382,12 @@ class Course < ApplicationRecord
     article_course_timeslices.where(article_id: scoped_article_ids)
   end
 
+  # A Set rather than a uniq'd Array because scoped_article? looks a title up once per
+  # article of every fetched timeslice; the pricier build only pays off thanks to the memo.
   def scoped_article_titles(wiki)
     @scoped_article_titles ||= {}
     @scoped_article_titles[wiki] ||= (assigned_article_titles(wiki) + category_article_titles(wiki))
-                                     .uniq
+                                     .to_set
   end
 
   def assigned_article_titles(wiki)
