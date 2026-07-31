@@ -162,4 +162,42 @@ describe ArticleScopedProgram, type: :model do
       expect(course.scoped_article?(wiki, 'Unassigned_article', mw_page_id)).to eq(false)
     end
   end
+
+  # scoped_article? calls scoped_article_titles once per article of every fetched timeslice,
+  # so rebuilding the list on each call is the dominant cost for a course with a large
+  # scope. The memo below is what keeps that list from being rebuilt.
+  describe '#scoped_article_titles' do
+    before do
+      stub_wiki_validation
+      create(:assignment, course:, article:, article_title: article.title, wiki:)
+      create(:categories_courses, course:, category:)
+    end
+
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:course) { create(:article_scoped_program, start: '2018-01-01', end: '2018-12-31') }
+    let(:category) { create(:category, wiki:, article_titles: ['Category_article']) }
+    let(:article) { create(:article, title: 'Assigned_article') }
+
+    it 'includes both assigned and category article titles' do
+      expect(course.scoped_article_titles(wiki))
+        .to contain_exactly('Assigned_article', 'Category_article')
+    end
+
+    it 'returns the same object on repeated calls, without rebuilding the list' do
+      expect(course.scoped_article_titles(wiki)).to equal(course.scoped_article_titles(wiki))
+    end
+
+    it 'memoizes per wiki rather than for the whole course' do
+      other_wiki = Wiki.get_or_create(language: 'es', project: 'wikipedia')
+      course.scoped_article_titles(wiki)
+      expect(course.scoped_article_titles(other_wiki)).to be_empty
+    end
+
+    it 'picks up category changes for a freshly loaded course' do
+      course.scoped_article_titles(wiki)
+      category.update(article_titles: %w[Category_article New_category_article])
+      expect(Course.find(course.id).scoped_article_titles(wiki))
+        .to include('New_category_article')
+    end
+  end
 end

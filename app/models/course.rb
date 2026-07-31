@@ -383,7 +383,9 @@ class Course < ApplicationRecord
   end
 
   def scoped_article_titles(wiki)
-    (assigned_article_titles(wiki) + category_article_titles(wiki)).uniq
+    @scoped_article_titles ||= {}
+    @scoped_article_titles[wiki] ||= (assigned_article_titles(wiki) + category_article_titles(wiki))
+                                     .uniq
   end
 
   def assigned_article_titles(wiki)
