@@ -61,9 +61,10 @@ module LtiDeepLinking
 
     binding = @lti_session.bound_binding
     gradables = chosen_gradables(binding)
-    return head :unprocessable_entity unless selection_accepted?(binding, gradables)
+    reservation = reserve_selection(binding, gradables)
+    return head :unprocessable_entity if reservation.nil?
 
-    @deep_link_form = BuildLtiDeepLinkForm.new(ltik: params[:ltik], gradables:).form
+    @deep_link_form = build_form_releasing_on_failure(reservation, gradables)
     schedule_line_item_discovery(binding)
     render 'lti_launch/deep_link_form', layout: 'lti_iframe'
   end
@@ -83,7 +84,7 @@ module LtiDeepLinking
   # Multi-select when the placement takes multiple content items. Gradables
   # already backed by an active gradebook column are off the menu — picking
   # one would create a duplicate Canvas assignment (this also removes the
-  # auto-created trainings roll-up from the offer).
+  # already-imported trainings roll-up from the offer).
   def prepare_picker
     @accept_multiple = @lti_session.accepts_multiple_content_items?
     @gradables = offerable_gradables(@binding)
@@ -122,9 +123,25 @@ module LtiDeepLinking
   # reservation must succeed before the deep-link form is built: the pending
   # rows it creates are what make these gradables read as taken to any
   # concurrent duplicate.
-  def selection_accepted?(binding, gradables)
-    gradables.present? && !too_many_for_placement?(gradables) &&
-      ReserveLtiLineItems.new(binding:, gradables:).reserved
+  # nil when the selection is refused — blank/tampered, too many items for the
+  # placement, or the reservation lost a race for a slot.
+  def reserve_selection(binding, gradables)
+    return nil if gradables.blank? || too_many_for_placement?(gradables)
+
+    reservation = ReserveLtiLineItems.new(binding:, gradables:)
+    reservation.reserved ? reservation : nil
+  end
+
+  # The reservation commits before this LTIAAS call, and the discovery job
+  # that would eventually clean it up is only scheduled after a successful
+  # build — so a failed build must release the reservation itself, or a
+  # transient LTIAAS error squats the gradables for the whole pending lease
+  # and the instructor's immediate retry 422s.
+  def build_form_releasing_on_failure(reservation, gradables)
+    BuildLtiDeepLinkForm.new(ltik: params[:ltik], gradables:).form
+  rescue StandardError
+    reservation.release
+    raise
   end
 
   # The set the picker would offer right now: the course's gradables minus any

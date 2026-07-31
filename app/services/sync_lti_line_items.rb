@@ -96,8 +96,11 @@ class SyncLtiLineItems
 
   # updated_at, not created_at: reserving via an archived row's revival only
   # touches updated_at, and an expiry clock that predates the reservation
-  # could destroy it before its form's column is discovered.
+  # could destroy it before its form's column is discovered. The destroy is
+  # re-checked under a row lock (see LtiLineItem#expire_reservation!) because
+  # this run's `existing` snapshot predates the remote fetch — a launch can
+  # adopt the reservation in between.
   def expire_if_abandoned(line_item)
-    line_item.destroy! if line_item.updated_at < PENDING_EXPIRY.ago
+    line_item.expire_reservation!(older_than: PENDING_EXPIRY.ago)
   end
 end

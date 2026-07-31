@@ -4,7 +4,7 @@ There is ongoing work to integrate the Dashboard with the widely-used **[Canvas 
 
 The dashboard has integrated the third-party **[LTIAAS API](https://docs.ltiaas.com/guides/introduction)** (see [LTIAAS Integration PR](https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/6201)) and is configured on the LTIAAS portal allowing the codebase act as a LTI 1.3 compliant learning tool.
 
-To use the tool, a Canvas admin installs the Dashboard's LTIAAS tool into their canvas environment / instance by [manual registration](https://docs.ltiaas.com/guides/lms/canvas#manual-registration).
+To use the tool, a Canvas admin installs the Dashboard's LTIAAS tool into their canvas environment / instance via [Dynamic Registration](https://docs.ltiaas.com/guides/api/dynamic-registration/) — pasting the tenant's registration URL into Canvas, as documented step by step in the [Canvas integration guide](./canvas_integration_guide.md).
 
 ## Basic LTI Launch
 Once a canvas dev environment is running locally and the LTIAAS tool is installed in it, the integration is successful if a basic LTI launch can be completed:
@@ -372,9 +372,7 @@ At this stage, you should be able to access the canvas environment via the publi
 ## Integrate the Dashboard into Canvas
 
 ### Install the Dashboard's LTIAAS tool in your canvas environment
-The first step is installing the Dashboard's LTIAAS tool into the canvas environment / instance and then registering your canvas instance in LTIAAS.
-
-Detailed instructions can be found here: [Canvas manual registration](https://docs.ltiaas.com/guides/lms/canvas#manual-registration).
+The first step is registering your canvas instance with the Dashboard's LTIAAS tenant via Canvas's **Dynamic Registration** — the same one-URL flow institutions use, documented step by step in the [Canvas integration guide](./canvas_integration_guide.md). For the test Canvas, paste the **testing** tenant's URL (`https://wikiedu-testing.ltiaas.com/lti/register?privacyLevel=anonymous`) into **Admin → Developer Keys → + Developer Key → + LTI Registration**, then turn the key on, install via **View in Canvas Apps**, and make it available. The registration arrives **inactive** in LTIAAS and must be activated in the portal before launches work.
 
 
 ### Test launch
@@ -418,7 +416,7 @@ Once a basic launch works, the integration adds three flows on top of the launch
 
 1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The integration is deep-link-first and has one gradebook layout: the instructor imports the columns they want via the Modules deep-link flow, and the Dashboard auto-creates nothing. (Two auto-creating layouts, selected by a `gradebook_granularity` column, existed during development and were removed before release along with the column.)
 2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New members appear as `LtiContext` rows, unlinked (`user_id` nil) — the anonymized roster carries only an opaque LMS id and role, no email to match on. Each links and enrolls when they personally launch from Canvas and complete Wikipedia OAuth — from the course-navigation tab or from any Wikipedia assignment, since a course may not have the tab enabled at all.
-3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Score comments carry only a lateness marker and the Dashboard's origin; sandbox URLs are deliberately kept out of them, because they embed the student's Wikipedia username and gradebook comments are visible to everyone with gradebook access (see `LtiBlockProgress`). Instructors reach a student's sandbox through the role-gated in-Canvas drill-down instead.
+3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Score comments carry at most a progress note (the trainings roll-up's `<count> of <total> trainings completed`) and the Dashboard's origin; sandbox URLs are deliberately kept out of them, because they embed the student's Wikipedia username and gradebook comments are visible to everyone with gradebook access (see `LtiBlockProgress`). Instructors reach a student's sandbox through the role-gated in-Canvas drill-down instead.
 
 ### Required LTIAAS scopes
 
@@ -449,7 +447,9 @@ Course Navigation config (`text: Wiki Education Dashboard`, `enabled: true`):
   developer-key placement setting in Canvas; nothing in the codebase changes.
 
 The LTIAAS config does not set `default`, so a fresh registration comes out
-`enabled`. That is the beta posture (see §6).
+`enabled` — the tab appears in every course automatically. That is the beta
+posture, accepted rather than fixed, so the guide says nothing about
+instructors enabling the tab.
 
 `visibility` controls who sees the tab (`admins` / `members` / `public`).
 
@@ -469,28 +469,15 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
-## Installing on a dev / self-hosted Canvas (manual walkthrough)
+## Institutional review: VPAT, HECVAT, and data flow
 
-How to install the tool **by hand** on a Canvas you control. This is the dev
-path: a development or self-hosted Canvas (like `canvas.wikiedu.org`) typically
-lacks the paid **Dynamic Registration** add-on, so you create the LTI key
-yourself. Real partner institutions install via self-service Dynamic
-Registration instead — paste one URL, no manual key — see the
-[Canvas integration guide](./canvas_integration_guide.md) for that flow. Either
-way you install at the **root account** (not Site Admin, which on
-Instructure-hosted Canvas belongs to Instructure).
-
-### 1. The request
-
-A course instructor — already using the Wiki Education Dashboard for their
-Wikipedia assignment — asks their Canvas admin to add the integration, so that
-training and exercise progress shows up in the Canvas gradebook and students can
-launch the Dashboard from the course.
-
-### 2. Evaluate the integration
-
-Before installing anything account-wide, the admin does the usual vendor due
-diligence:
+Every install — the test Canvas included — goes through the same self-service
+Dynamic Registration flow the [Canvas integration guide](./canvas_integration_guide.md)
+documents: paste one URL at the **root account** (not Site Admin, which on
+Instructure-hosted Canvas belongs to Instructure), then Wiki Education
+activates the registration. What this section carries is the review material a
+university's Canvas admin works through before installing anything
+account-wide — the usual vendor due diligence:
 
 - **Canvas integration guide** — what the tool is (an LTI 1.3 tool fronted by
   LTIAAS), what it does (course-navigation launch, NRPS roster sync, AGS grade
@@ -507,66 +494,20 @@ diligence:
 - **Data flow** (for the security review): the tool is fronted by **LTIAAS**, a
   third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
   Canvas ↔ LTIAAS ↔ Dashboard. The Dashboard requires and saves only an opaque
-  LMS user id and role per member, so it stores just the link between that id
-  and the Dashboard account, and pushes fractional scores back with comments
-  that carry only a lateness marker and the Dashboard's origin — no sandbox
-  links, no usernames. What Canvas actually *transmits* depends on the installed
-  tool's privacy level: under Anonymous it is only the id and role, and under a
-  more permissive setting Canvas also sends names and emails, which
-  `LtiServiceSession#normalize_member` and `LtiSession` discard on receipt.
-  Worth knowing that the admin's Anonymized choice does not currently reach the
-  installed tool — see
-  `.claude/canvas_integration/canvas_overlay_privacy_bug_brief-2026-07-27.md`.
+  LMS user id, role, and enrollment status per member, so it stores just the
+  link between that id and the Dashboard account, and pushes fractional scores
+  back with comments that carry at most a progress note and the Dashboard's
+  origin — no sandbox links, no usernames. What Canvas actually *transmits*
+  depends on the installed tool's privacy level: under Anonymized it is only
+  the id, role, and status, and under a more permissive setting Canvas also
+  sends names and emails, which `LtiServiceSession#normalize_member` and
+  `LtiSession` discard on receipt. The admin's Anonymized choice in Canvas's
+  Register App dialog never reaches the installed tool, which is why the
+  registration URL carries the level itself (`?privacyLevel=anonymous`,
+  verified by `staging_specs/privacy_level_registration_spec.rb` — see §0's
+  admin check above).
   See
   [Beyond a basic launch](#beyond-a-basic-launch-nrps-roster--ags-grade-passback).
-
-### 3. Register the university's Canvas with LTIAAS
-
-The Dashboard is fronted by a shared LTIAAS tenant, so each university's Canvas
-is registered with LTIAAS once.
-
-> [PLACEHOLDER - who performs this hand-off: does the university admin
-> self-register in the LTIAAS portal, or does Wiki Education register the platform
-> given the university's Canvas issuer + client_id? Needs the actual operational
-> process from the operator. Was written as a `[CONFIRM: ...]` note, which the
-> `grep '[PLACEHOLDER'` sweep for unresolved copy doesn't catch.]
-
-Either way, the registration needs the university's Canvas **issuer** and the
-**Client ID** from the developer key in the next step, so create the key first
-and hand those two values to whoever completes the LTIAAS registration.
-
-### 4. Create the LTI 1.3 developer key (root account)
-
-**Admin → Developer Keys → + Developer Key → + LTI Key.** Paste Wiki Education's
-LTIAAS tool configuration (JSON URL or paste JSON), set the redirect URIs,
-**Save**, then set **State → ON**. Note the generated **Client ID**. See
-[Placements](#placements) and [Required LTIAAS scopes](#required-ltiaas-scopes)
-for what the configuration contains.
-
-### 5. Install the app (root account)
-
-**Admin → Apps → + App → By Client ID** → paste the Client ID → **Install**. The
-tool now lives on the root account, available to every course and sub-account.
-Confirm the scopes (NRPS, AGS line items, AGS scores) and the placements are
-present — this is the read-only state the admin screenshot capture documents.
-
-### 6. How it appears (course-navigation default)
-
-Beta testing ships with the tab **on by default** — `default: enabled`, the tab
-appears in every course automatically. `default: disabled` (installed but off,
-each instructor opting in via **Settings → Navigation**) is the other value
-Canvas offers and the LTIAAS config does not currently set it; that was accepted
-rather than fixed for beta, so the guide says nothing about instructors enabling
-the tab.
-
-### 7. Hand back to the instructor, and verify
-
-Tell the instructor the tool is available. They enable it in their course (if
-it's default-disabled) and complete the Dashboard-side setup — linking the
-Canvas course to their Wiki Education course. Confirm a test launch reaches the
-Dashboard and, once the instructor binds the course, that the roster and
-gradebook columns sync. The full check is in
-[End-to-end manual test](#end-to-end-manual-test-live-ltiaas--canvas).
 
 ## End-to-end manual test (live LTIAAS + Canvas)
 
@@ -676,8 +617,7 @@ anonymized roster carries no email to auto-enroll against.
 2. Gradebook: **Wikipedia account** = 1 for connected students; **Wikipedia
    trainings** pushes `completed_count / total_count` with a
    `<count> of <total> trainings completed` score comment; each exercise column
-   = `1.0`, with a `[Late]` marker in the comment when it was completed after the
-   block's due date. Sandbox URLs never appear in a comment. Per-(student, line
+   = `1.0`, with no comment. Sandbox URLs never appear in a comment. Per-(student, line
    item) dedup avoids redundant pushes when nothing changed.
 3. **Drill-down**: open a Wikipedia column's **assignment → Open the Wiki
    Education Dashboard** → the per-milestone roster (each student's status +

@@ -1661,6 +1661,27 @@ describe LtiLaunchController, type: :request do
       expect(row.label).to eq('Wk1 Find sources')
     end
 
+    # The reservation commits before the LTIAAS form call, and discovery is
+    # only scheduled after a successful build — so a failed build must release
+    # the reservation itself, or the instructor's immediate retry 422s against
+    # their own dead reservation for the rest of the pending lease.
+    it 'releases the reservation when the form build fails, so a retry succeeds' do
+      stub_request(:post, form_url)
+        .to_return({ status: 500, body: 'boom' },
+                   { status: 200, body: { 'form' => form_html }.to_json,
+                     headers: { 'Content-Type' => 'application/json' } })
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      expect(response).to have_http_status(:bad_gateway)
+      expect(LtiLineItem.pending.count).to eq(0)
+
+      post '/lti/deep_link/select',
+           params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(form_html)
+      expect(LtiLineItem.pending.count).to eq(1)
+    end
+
     # The double-submit / replayed-POST race: the first request's reservation
     # is already committed, so the duplicate must lose even though no bound
     # column exists yet.

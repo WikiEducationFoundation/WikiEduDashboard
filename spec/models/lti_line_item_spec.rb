@@ -199,4 +199,44 @@ describe LtiLineItem do
       expect(active_li.reload.archived_at).to eq(first_archived_at)
     end
   end
+
+  # Expiry re-checks under a row lock because the sync's snapshot of the row
+  # predates its remote fetch — a launch can adopt the reservation in between,
+  # and an unconditional destroy would delete a live, bound column mapping.
+  describe '#expire_reservation!' do
+    let(:cutoff) { 30.minutes.ago }
+
+    def create_reservation(updated_at: 31.minutes.ago)
+      described_class.create!(lti_course_binding: binding, gradable_type: 'Block',
+                              gradable_id: 5).tap do |row|
+        row.update_column(:updated_at, updated_at)
+      end
+    end
+
+    it 'destroys a stale pending reservation' do
+      row = create_reservation
+      row.expire_reservation!(older_than: cutoff)
+      expect(described_class.exists?(row.id)).to be(false)
+    end
+
+    it 'keeps a reservation younger than the cutoff' do
+      row = create_reservation(updated_at: 5.minutes.ago)
+      row.expire_reservation!(older_than: cutoff)
+      expect(described_class.exists?(row.id)).to be(true)
+    end
+
+    it 'keeps a reservation that was adopted after this copy was loaded' do
+      row = create_reservation
+      stale_copy = described_class.find(row.id)
+      described_class.where(id: row.id).update_all(lineitem_id: 'https://canvas/li/live')
+      stale_copy.expire_reservation!(older_than: cutoff)
+      expect(row.reload.lineitem_id).to eq('https://canvas/li/live')
+    end
+
+    it 'tolerates a reservation another sync already expired' do
+      row = create_reservation
+      described_class.where(id: row.id).delete_all
+      expect { row.expire_reservation!(older_than: cutoff) }.not_to raise_error
+    end
+  end
 end

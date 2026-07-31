@@ -89,6 +89,19 @@ class LtiLineItem < ApplicationRecord
     lineitem_id.nil?
   end
 
+  # Destroys this abandoned reservation — but only after re-checking the row
+  # under a lock. Between a sync loading the row and deciding to expire it, a
+  # launch or another sync can adopt it; an unconditional destroy would then
+  # delete a live, bound column mapping and reopen the gradable to a duplicate
+  # import. `with_lock` reloads, so the check runs against the current row.
+  def expire_reservation!(older_than:)
+    with_lock do
+      destroy! if pending? && updated_at < older_than
+    end
+  rescue ActiveRecord::RecordNotFound
+    nil # a concurrent sync already expired it
+  end
+
   def archive!
     update!(archived_at: Time.current) unless archived?
   end

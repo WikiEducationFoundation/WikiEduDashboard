@@ -19,7 +19,18 @@ class ReserveLtiLineItems
   def initialize(binding:, gradables:)
     @binding = binding
     @gradables = gradables
+    @row_ids = []
     @reserved = perform
+  end
+
+  # Frees this reservation when the caller can't finish the flow — the form
+  # build failed before Canvas ever saw it, so without this the gradables
+  # stay squatted for the whole pending lease (and the discovery job that
+  # would eventually clean them up is only scheduled after a successful
+  # build). Destroys only rows still pending: an adopted row is a live
+  # column mapping and stays.
+  def release
+    LtiLineItem.pending.where(id: @row_ids).destroy_all
   end
 
   private
@@ -45,10 +56,11 @@ class ReserveLtiLineItems
   end
 
   def create_pending(gradable)
-    LtiLineItem.create!(lti_course_binding_id: @binding.id,
-                        gradable_type: gradable.gradable_type,
-                        gradable_id: gradable.gradable_id,
-                        label: gradable.label)
+    row = LtiLineItem.create!(lti_course_binding_id: @binding.id,
+                              gradable_type: gradable.gradable_type,
+                              gradable_id: gradable.gradable_id,
+                              label: gradable.label)
+    @row_ids << row.id
     true
   end
 
@@ -60,8 +72,10 @@ class ReserveLtiLineItems
   # column are discarded when adoption fills the new lineitem_id (see
   # LtiLineItem#discard_score_signatures).
   def revive_as_pending(row, gradable)
-    LtiLineItem.where(id: row.id).where.not(archived_at: nil)
-               .update_all(archived_at: nil, lineitem_id: nil, canvas_assignment_id: nil,
-                           label: gradable.label, updated_at: Time.current) == 1
+    won = LtiLineItem.where(id: row.id).where.not(archived_at: nil)
+                     .update_all(archived_at: nil, lineitem_id: nil, canvas_assignment_id: nil,
+                                 label: gradable.label, updated_at: Time.current) == 1
+    @row_ids << row.id if won
+    won
   end
 end

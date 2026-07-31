@@ -9,11 +9,9 @@ Branch state, so a fresh session doesn't have to reconstruct it:
 - **PR #6934**, branch `CanvasStaging`. `staging` tracks it and is what
   `cap staging deploy` ships — see the deploy notes in that memory, especially
   checking out `CanvasStaging` again afterwards.
-- **Five code reviews** have been answered: two gpt-5.6-sol rounds and one
-  multi-agent Claude Code review against `a1beefd9` or its parent, then a fourth
-  (gpt-5.6-sol, at `d43b6fe38`) and a fifth (Claude Code fix-verification +
-  delta pass, same head) on 2026-07-30 — see the two follow-up sections dated
-  that day. Replies are posted as PR comments.
+- **Seven review rounds** have been answered (gpt-5.6-sol ×3, Claude Code ×3
+  including a verification pass, Codex/GPT-5 ×1) — see the dated follow-up
+  sections below for the 2026-07-30 rounds. Replies are posted as PR comments.
 - **Screenshot gallery**: `pr-screenshots/CanvasStaging-gallery-20260730`, 38 shots
   across 8 flows, posted as a PR comment. Regenerate the comment with
   `bin/harvest-canvas-screenshots --pr-comment=<raw base url>` rather than by hand.
@@ -870,6 +868,40 @@ same day.
   remedy the message already points at — go to the Dashboard, where the
   courses' actual state is visible. Splitting the copy per cause was
   considered and not taken.
+
+## Codex review follow-ups (2026-07-30)
+
+The seventh review round (Codex / GPT-5, at `398e021c6`; a Claude verification
+pass at the same head found everything prior verified plus one cosmetic
+residual, also fixed here). All three findings confirmed and fixed.
+
+- [x] **Reservations now release on a failed form build.** The pending
+  reservation used to commit before `BuildLtiDeepLinkForm`'s LTIAAS call, and
+  the discovery job that would clean it up was only scheduled after a
+  successful build — so a transient failure squatted the gradables for the
+  whole 30-minute lease and the instructor's immediate retry 422'd.
+  `ReserveLtiLineItems` now tracks its rows and exposes `release`;
+  `deep_link_select` releases on any build failure before re-raising into the
+  in-frame error handler. Controller spec covers failure-then-successful-retry.
+- [x] **Reservation expiry is an atomic conditional destroy.**
+  `expire_if_abandoned` used to check a row snapshot loaded before the remote
+  fetch, then `destroy!` unconditionally — a launch adopting the reservation
+  in between would have its live, bound mapping deleted.
+  `LtiLineItem#expire_reservation!` re-checks `pending?` and the cutoff under
+  `with_lock`; model specs cover the adopted-after-load race directly.
+- [x] **`docs/canvas_dev_setup.md` reconciled — and the manual path removed
+  outright.** The data-flow bullet now includes stored enrollment status; the
+  three lateness-marker claims are gone (exercise comments are blank; the
+  trainings note is the only comment); the stale "Anonymized choice does not
+  reach the installed tool" claim is replaced by the `?privacyLevel=anonymous`
+  resolution (dropping the pointer to an uncommitted `.claude/` brief). The
+  installation-handoff `[PLACEHOLDER]` was resolved by operator decision
+  rather than an answer: **the manual-registration walkthrough is deleted** —
+  every install, the test Canvas included, uses the Dynamic Registration flow
+  the public guide documents — and the section's institutional-review
+  material (VPAT, HECVAT, data flow) survives as its own section.
+- [x] The verification pass's cosmetic residual ("auto-created trainings
+  roll-up" phrasing in the picker comment) is fixed.
 
 ## Copy placeholders from the 2026-07-30 pass
 
