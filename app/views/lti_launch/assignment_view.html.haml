@@ -31,6 +31,34 @@
 :javascript
   (function () {
     var messages = #{sandbox_messages.html_safe};
+
+    // The parsed HTML comes from the wiki but is inserted into a Dashboard page,
+    // so its root-relative URLs (/wiki/Foo, /w/index.php, thumbnails) would
+    // resolve against the Dashboard and 404. Rebase every URL against the wiki
+    // the sandbox lives on, and send links out to a new tab rather than letting
+    // them replace this view — the same rule the timeline content follows
+    // (RewriteLtiContentLinks), which matters more here because this view can be
+    // the one inside the Canvas iframe.
+    function rebaseAgainstWiki(target, origin) {
+      target.querySelectorAll('a[href]').forEach(function (link) {
+        var href = absolute(link.getAttribute('href'), origin);
+        if (href) { link.setAttribute('href', href); }
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      });
+      target.querySelectorAll('img[src]').forEach(function (img) {
+        var src = absolute(img.getAttribute('src'), origin);
+        if (src) { img.setAttribute('src', src); }
+      });
+    }
+
+    // Fragment-only links (#References) stay as they are: they address this
+    // preview, not the wiki. Anything unparseable is left untouched.
+    function absolute(value, origin) {
+      if (!value || value.charAt(0) === '#') { return null; }
+      try { return new URL(value, origin).href; } catch (e) { return null; }
+    }
+
     function loadSandbox(url, target) {
       target.textContent = messages.loading;
       var wiki;
@@ -41,6 +69,7 @@
       fetch(api).then(function (r) { return r.json(); }).then(function (data) {
         if (data.parse && data.parse.text) {
           target.innerHTML = data.parse.text;
+          rebaseAgainstWiki(target, wiki.origin);
           target.classList.add('lti-sandbox__content--rendered');
           // Marked loaded only on success, so closing and reopening the row
           // retries a failed fetch (or a sandbox created since) instead of

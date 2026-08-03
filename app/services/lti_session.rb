@@ -199,17 +199,23 @@ class LtiSession
   # Snapshot fields (service_key, NRPS/AGS URLs, lms_family, resource link) are
   # refreshed on every launch so background-job credentials track the most
   # recent launch.
+  #
+  # find-then-create is not atomic: two first launches from the same Canvas
+  # course (two instructors, or a nav launch racing a deep-link launch) can both
+  # find no row, and the unique index on (lms_id, lms_context_id) then makes one
+  # of the saves raise. Retry once — the second pass finds the winner's row and
+  # refreshes the same snapshot onto it, so the losing launch continues instead
+  # of rendering a 500 inside the Canvas iframe.
   def find_or_create_binding!
-    binding = LtiCourseBinding.find_or_initialize_by(lms_id:, lms_context_id:)
-    binding.lms_resource_link_id = lms_resource_link_id
-    binding.lms_family = lms_family
-    binding.lms_context_title = context_title
-    binding.lms_platform_url = platform_url
-    binding.nrps_url = nrps_url
-    binding.ags_lineitems_url = ags_lineitems_url
-    binding.ltiaas_service_credentials = service_key if service_key.present?
-    binding.save!
-    binding
+    retry_on_unique_race do
+      binding = LtiCourseBinding.find_or_initialize_by(lms_id:, lms_context_id:)
+      binding.assign_attributes(lms_resource_link_id:, lms_family:, nrps_url:,
+                                ags_lineitems_url:, lms_context_title: context_title,
+                                lms_platform_url: platform_url)
+      binding.ltiaas_service_credentials = service_key if service_key.present?
+      binding.save!
+      binding
+    end
   end
 
   # This launch's binding, but only once it has a Dashboard course — callers use
@@ -228,17 +234,24 @@ class LtiSession
   #
   # The link is write-once per (LMS identity, course): a launch can establish one
   # but never move one. See #reject_conflicting_link!.
+  #
+  # Both of the table's unique indexes — (user_lti_id, binding) and
+  # (binding, user_id) — can be lost in a race here: a roster sync creating the
+  # NRPS-discovered row while the student's own launch creates it, or two tabs of
+  # the same launch. Retry once rather than 500: the second pass re-reads the
+  # winner's row, so an ordinary race lands as an idempotent no-op update and a
+  # genuine conflict still raises ConflictingLinkError from the re-check.
   def link_lti_user(current_user, binding: nil)
     binding ||= find_or_create_binding!
-    context = LtiContext.find_or_initialize_by(
-      user_lti_id:,
-      lti_course_binding_id: binding.id
-    )
-    reject_conflicting_link!(context, current_user, binding)
-    apply_context_attributes(context, current_user)
-    context.linked_at ||= Time.current
-    context.save!
-    context
+    retry_on_unique_race do
+      context = LtiContext.find_or_initialize_by(user_lti_id:,
+                                                 lti_course_binding_id: binding.id)
+      reject_conflicting_link!(context, current_user, binding)
+      apply_context_attributes(context, current_user)
+      context.linked_at ||= Time.current
+      context.save!
+      context
+    end
   end
 
   # Raised when this launch would change an existing link rather than create one:
@@ -293,18 +306,25 @@ class LtiSession
     @raw_idtoken ||= @client.get('/api/idtoken?raw=true')
   end
 
+  # Find-then-create is not atomic, and both tables this class writes are under
+  # unique indexes. When a concurrent launch wins the race, the loser's save
+  # raises rather than returning a 500-shaped iframe: run the block again, this
+  # time against the row the winner has made visible. Once only — a second
+  # refusal is a real conflict, not a race, and belongs to the caller.
+  def retry_on_unique_race
+    yield
+  rescue ActiveRecord::RecordNotUnique
+    yield
+  end
+
   def apply_context_attributes(context, current_user)
     context.user = current_user
     context.lms_id = lms_id
     context.lms_family = lms_family
-    context.context_id = legacy_context_id
+    # The legacy concatenated identifier persisted on the existing
+    # `lti_contexts.context_id` column. Retained until the column is dropped in
+    # a follow-up PR.
+    context.context_id = "#{lms_context_id}::#{lms_resource_link_id}"
     context.roles = user_roles
-  end
-
-  # The legacy concatenated identifier persisted on the existing
-  # `lti_contexts.context_id` column. Retained until the column is dropped
-  # in a follow-up PR.
-  def legacy_context_id
-    "#{lms_context_id}::#{lms_resource_link_id}"
   end
 end

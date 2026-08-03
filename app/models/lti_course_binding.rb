@@ -100,6 +100,17 @@ class LtiCourseBinding < ApplicationRecord
     lti_contexts.linked.select(&:learner?)
   end
 
+  # Every learner the LMS roster has reported, connected or not. This is the
+  # denominator for the connected-accounts count: the two are different numbers
+  # (a roster sync of 30 students who have connected nothing is 30 and 0), and
+  # reporting only the latter under a roster-sounding label read as a roster sync
+  # that had found nobody. Members the LMS says are gone are left out — they
+  # can't reach the course, so counting them would overstate the roster the
+  # instructor sees in Canvas.
+  def student_contexts
+    lti_contexts.select { |context| context.learner? && !context.removed_from_lms? }
+  end
+
   private
 
   def sync_linked_course_flags

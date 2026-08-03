@@ -108,7 +108,9 @@ class ResolveAssignmentLineItem
   # find_or_initialize_by keys on the gradable, so this is also the adoption
   # point for a pending reservation or an archived row — the slot's one row is
   # repointed at the launch's column, never duplicated against the
-  # (binding, gradable_key) unique index.
+  # (binding, gradable_key) unique index. Adopting a reservation clears its
+  # rollback snapshot: the column exists now, so there is no prior state for a
+  # later expiry to restore (see LtiLineItem#expire_reservation!).
   def bind_line_item(gradable, lineitem_url)
     line_item = LtiLineItem.find_or_initialize_by(
       lti_course_binding_id: @binding.id,
@@ -117,6 +119,7 @@ class ResolveAssignmentLineItem
     line_item.lineitem_id = lineitem_url
     line_item.label = gradable.label
     line_item.archived_at = nil
+    line_item.reserved_prior_state = nil
     line_item.canvas_assignment_id = @lti_session.canvas_assignment_id.presence ||
                                      line_item.canvas_assignment_id
     line_item.save!

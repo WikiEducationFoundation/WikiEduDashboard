@@ -12,11 +12,16 @@
 #     recording nothing.
 #   - Per-member failures — bad or unexpected data for one membership — are
 #     reported to Sentry and skipped. The run finishes and the timestamp advances,
-#     because the rest of the roster really was reconciled.
+#     because the rest of the roster really was reconciled — but it records how
+#     many members it lost, so the run doesn't read as clean when it wasn't.
 #   - Anything that isn't clearly one member's problem (a persistence error, a
 #     bug in the linker) propagates too. Swallowing every StandardError per
 #     member is how this used to report a fresh successful sync in the case where
 #     every single member failed.
+#   - A run where EVERY member failed on a per-member error aborts as a whole-run
+#     failure, even though each individual error was in the skippable tier: a
+#     roster that fails all the way through is a systemic problem wearing
+#     per-member clothes (see #check_total_failure!).
 #
 # A binding without a stored serviceKey is a no-op (we haven't seen a
 # launch from this Canvas course yet, so we don't have credentials).
@@ -35,10 +40,16 @@ class SyncLtiRoster
                    TypeError,
                    NoMethodError].freeze
 
+  # Raised when a roster failed one member at a time, all the way through. Its
+  # own class so the recorded text names the condition rather than whichever
+  # per-member error happened to be last.
+  class TotalMemberFailureError < StandardError; end
+
   attr_reader :binding
 
   def initialize(binding)
     @binding = binding
+    @failures = []
     perform
   end
 
@@ -50,7 +61,9 @@ class SyncLtiRoster
     service = LtiServiceSession.new(@binding)
     members = service.fetch_memberships
     members.each { |member| link_member(member) }
-    @binding.update!(last_roster_sync_at: Time.current, last_roster_sync_error: nil)
+    check_total_failure!(members)
+    @binding.update!(last_roster_sync_at: Time.current,
+                     last_roster_sync_error: partial_failure_text(members))
     # Anything that escapes this far failed the whole run — the fetch, or a
     # per-member error outside MEMBER_ERRORS. Same shape as SyncLtiGrades:
     # record it before re-raising, otherwise a roster sync that dead-letters is
@@ -70,10 +83,37 @@ class SyncLtiRoster
   end
 
   def report_member_failure(error, member)
+    @failures << "#{error.class}: #{error.message}"
     Sentry.capture_exception(
       error,
       extra: { binding_id: @binding.id, user_lti_id: member[:user_lti_id] }
     )
+  end
+
+  # Every member of a non-empty roster failing is not a roster of individually
+  # bad memberships — it's one systemic failure repeated per member (a linker bug
+  # raising NoMethodError on every row, an NRPS shape change turning every lookup
+  # into a KeyError). Skipping past all of them and stamping a fresh
+  # `last_roster_sync_at` is how an instructor ends up looking at a successful
+  # sync with none of their students in it. Abort instead: the timestamp stays
+  # put, the failure is recorded, and Sidekiq retries the run.
+  def check_total_failure!(members)
+    return unless members.any? && @failures.size == members.size
+
+    raise TotalMemberFailureError,
+          "all #{members.size} memberships failed; last: #{@failures.last}"
+  end
+
+  # A run that lost only some members still advances the timestamp — the rest of
+  # the roster really was reconciled — but it must not read as clean, or the
+  # missing students are invisible on both status surfaces. Recording the counts
+  # sets `roster_sync_error?`, which is the "check the roster" signal the
+  # instructor status view and the staff sidebar already render.
+  def partial_failure_text(members)
+    return nil if @failures.empty?
+
+    "#{@failures.size} of #{members.size} memberships failed; last: #{@failures.last}"
+      .truncate(SyncLtiGrades::ERROR_TEXT_LIMIT)
   end
 
   # A clean pass clears the field (in #perform); an aborted run records what

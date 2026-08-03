@@ -61,8 +61,14 @@ class BuildLtiDeepLinkForm
   # assignment with an empty description cleanly (verified on staging) — so
   # the launched iframe carries all descriptive content instead (operator
   # decision 2026-07-21).
+  #
+  # A due date IS baked in, where the gradable has one (operator decision
+  # 2026-08-03) — see DeepLinkableGradables for which do and why. Canvas reads
+  # `submission.endDateTime` as the assignment's due date, which is what puts the
+  # deadline in the student's Calendar and To Do list. It does not follow later
+  # timeline edits; the instructor adjusts the date in Canvas if that happens.
   def content_item_for(gradable)
-    {
+    item = {
       type: 'ltiResourceLink',
       url: launch_url(gradable),
       title: gradable.label,
@@ -70,6 +76,14 @@ class BuildLtiDeepLinkForm
       lineItem: { scoreMaximum: DEFAULT_SCORE_MAXIMUM, label: gradable.label,
                   tag: gradable.resource }
     }
+    due = due_date_time(gradable)
+    due ? item.merge(submission: { endDateTime: due }) : item
+  end
+
+  # End of the due day rather than midnight-at-its-start, so a Canvas deadline
+  # matches how the Dashboard timeline reads ("due" that day, not before it).
+  def due_date_time(gradable)
+    gradable.due_date&.to_time(:utc)&.end_of_day&.iso8601
   end
 
   def launch_url(gradable)

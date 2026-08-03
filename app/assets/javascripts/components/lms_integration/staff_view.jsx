@@ -40,10 +40,19 @@ const StaffView = ({ status }) => {
           {status.last_sync_error}
         </p>
       )}
+      {/* Roster size and connected accounts are separate numbers: a full roster
+          with nobody connected yet is the normal state early in a term, and
+          reporting only the latter made a working roster sync look like it had
+          found no students. */}
       <p>
-        <strong>{I18n.t('lms_integration.synced_students')}</strong>
+        <strong>{I18n.t('lms_integration.roster_students')}</strong>
         {' '}
-        {status.synced_students_count}
+        {status.roster_students_count}
+      </p>
+      <p>
+        <strong>{I18n.t('lms_integration.connected_accounts')}</strong>
+        {' '}
+        {status.connected_accounts_count}
       </p>
     </div>
   );
@@ -64,7 +73,8 @@ StaffView.propTypes = {
     // kind (null when the last run succeeded); rendered verbatim for staff.
     last_roster_sync_error: PropTypes.string,
     last_sync_error: PropTypes.string,
-    synced_students_count: PropTypes.number
+    roster_students_count: PropTypes.number,
+    connected_accounts_count: PropTypes.number
   }).isRequired
 };
 

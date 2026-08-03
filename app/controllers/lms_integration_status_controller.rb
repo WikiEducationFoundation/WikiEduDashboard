@@ -92,7 +92,8 @@ class LmsIntegrationStatusController < ApplicationController
       last_sync_at: status.last_synced_at,
       last_roster_sync_error: status.last_roster_sync_error,
       last_sync_error: status.last_grade_sync_error,
-      synced_students_count: status.synced_students_count
+      roster_students_count: status.roster_students_count,
+      connected_accounts_count: status.connected_accounts_count
     }
   end
 

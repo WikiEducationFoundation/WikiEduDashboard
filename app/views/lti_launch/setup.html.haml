@@ -22,8 +22,14 @@
                                         single_course ? @user_courses.first.slug : nil),
                      required: true, include_blank: !single_course
       %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
+    - # Course creation happens on the full Dashboard, which keeps its
+    - # SAMEORIGIN framing — following this link in place would blank the Canvas
+    - # frame on any browser that let the Dashboard session through to the
+    - # iframe. New tab, and the instructor comes back here and relaunches.
     %p.lti-setup__alt-path
-      = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link'
+      = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link',
+                target: '_blank', rel: 'noopener'
+      %span.lti-setup__alt-note= t('lti.setup.create_return_note')
     :javascript
       // Keep the primary action disabled until a course is picked, so its
       // enabled/disabled state mirrors whether the form can actually submit.
@@ -44,7 +50,10 @@
         - # end (nothing is awaiting approval). Point at course creation, the
         - # same path the alt-path link offers under the form.
         %p= t('lti.setup.no_courses_yet')
-        = link_to t('lti.setup.create_prompt'), root_path, class: 'button dark'
+        = link_to t('lti.setup.create_prompt'), root_path, class: 'button dark',
+                  target: '_blank', rel: 'noopener'
+        %p.lti-setup__alt-note= t('lti.setup.create_return_note')
       - else
         %p= t('lti.setup.no_approved_courses')
-        = link_to t('application.my_dashboard'), root_path, class: 'button dark'
+        = link_to t('application.my_dashboard'), root_path, class: 'button dark',
+                  target: '_blank', rel: 'noopener'

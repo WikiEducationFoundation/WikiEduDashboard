@@ -19,6 +19,13 @@
 #                                               to route assignment_view launches
 #                                               back to this line item; nil until
 #                                               first captured/backfilled
+#  reserved_prior_state     :text(65535)      - JSON snapshot of the attributes a
+#                                               deep-link reservation overwrote
+#                                               when it revived an archived row,
+#                                               so an abandoned reservation can be
+#                                               rolled back instead of destroyed;
+#                                               NULL unless the row is a revived
+#                                               pending reservation
 #
 
 # Maps a Dashboard gradable unit to an LTIAAS-managed LMS gradebook line
@@ -43,9 +50,15 @@
 # double-submitted or replayed picker POST in the window before discovery
 # binds the real column hits the (binding, gradable_key) unique index instead
 # of minting a duplicate Canvas assignment. SyncLtiLineItems adopts the row
-# (fills lineitem_id) when the column appears, and destroys it if the form
+# (fills lineitem_id) when the column appears, and expires it if the form
 # never reached Canvas. Pending rows are not live AGS columns — anything that
 # posts scores or reports imported assignments must use the `bound` scope.
+#
+# A reservation that was taken by REVIVING an archived row carries the archived
+# attributes it overwrote in `reserved_prior_state`, so expiry restores them
+# rather than destroying a row that predates the reservation (see
+# #expire_reservation!). Adoption clears the snapshot: once the column exists,
+# the prior mapping is superseded and there is nothing to roll back to.
 class LtiLineItem < ApplicationRecord
   TRAINING_PROGRESS_TYPE = 'TrainingProgress'
   SETUP_TYPE = 'WikipediaSetup'
@@ -89,17 +102,36 @@ class LtiLineItem < ApplicationRecord
     lineitem_id.nil?
   end
 
-  # Destroys this abandoned reservation — but only after re-checking the row
-  # under a lock. Between a sync loading the row and deciding to expire it, a
-  # launch or another sync can adopt it; an unconditional destroy would then
-  # delete a live, bound column mapping and reopen the gradable to a duplicate
-  # import. `with_lock` reloads, so the check runs against the current row.
+  # Ends this abandoned reservation — but only after re-checking the row under a
+  # lock. Between a sync loading the row and deciding to expire it, a launch or
+  # another sync can adopt it; an unconditional write would then clobber a live,
+  # bound column mapping and reopen the gradable to a duplicate import.
+  # `with_lock` reloads, so the check runs against the current row.
+  #
+  # A reservation that created its own row is destroyed: nothing preceded it, and
+  # a row that was never bound has no score signatures to lose. A revived one is
+  # rolled back to the archived state it overwrote instead — destroying it would
+  # throw away a mapping and signature history that predate the reservation, for
+  # a column that may well still exist in Canvas.
   def expire_reservation!(older_than:)
     with_lock do
-      destroy! if pending? && updated_at < older_than
+      next unless pending? && updated_at < older_than
+
+      prior = reserved_prior_attributes
+      prior ? restore_prior_state!(prior) : destroy!
     end
   rescue ActiveRecord::RecordNotFound
     nil # a concurrent sync already expired it
+  end
+
+  # The attributes a reservation overwrote to revive this row, or nil if it
+  # created the row (see ReserveLtiLineItems).
+  def reserved_prior_attributes
+    return if reserved_prior_state.blank?
+
+    JSON.parse(reserved_prior_state)
+  rescue JSON::ParserError
+    nil
   end
 
   def archive!
@@ -107,6 +139,18 @@ class LtiLineItem < ApplicationRecord
   end
 
   private
+
+  # update_columns, not update!: putting back the row's own previous
+  # `lineitem_id` is exactly the case where the signature-discard callback must
+  # NOT fire — those signatures describe the column being restored, and
+  # discarding them would re-push every score if that column is bound again.
+  # (The revival that overwrote these attributes skipped the callback for the
+  # same reason.) updated_at is bumped by hand for the same skipped-callback
+  # reason, so the row's archived state carries the time it was rolled back.
+  def restore_prior_state!(prior)
+    update_columns(prior.slice('archived_at', 'lineitem_id', 'canvas_assignment_id', 'label')
+                        .merge('reserved_prior_state' => nil, 'updated_at' => Time.current))
+  end
 
   def discard_score_signatures
     LtiScoreSignature.where(lti_line_item_id: id).delete_all

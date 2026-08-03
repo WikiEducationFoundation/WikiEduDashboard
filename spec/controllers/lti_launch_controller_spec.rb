@@ -282,14 +282,22 @@ describe LtiLaunchController, type: :request do
           expect(response.body).to include('href="/lti?ltik=ltik-abc"')
         end
 
-        it 'shows the synced-student count and last sync time' do
+        # Roster size and connected accounts are reported as separate numbers:
+        # one count under a roster-sounding label showed "0" for a course whose
+        # roster sync had just discovered its students.
+        it 'shows the roster and connected-account counts and the last sync time' do
           student = create(:user, username: 'Stu')
           LtiContext.create!(user: student, lti_course_binding: binding,
                              user_lti_id: 'lti-stu', lms_id: 'platform-x',
                              roles: ['vocab/membership#Learner'], linked_at: 2.hours.ago)
+          LtiContext.create!(lti_course_binding: binding, user_id: nil,
+                             user_lti_id: 'lti-unconnected', lms_id: 'platform-x',
+                             roles: ['vocab/membership#Learner'])
           binding.update!(last_roster_sync_at: 5.minutes.ago)
+
           get '/lti', params: { ltik: 'ltik-abc' }
-          expect(response.body).to include('Students synced')
+          expect(response.body).to include(I18n.t('lms_integration.roster_students'))
+          expect(response.body).to include(I18n.t('lms_integration.connected_accounts'))
           expect(response.body).to include('5 minutes ago')
         end
 
@@ -388,12 +396,17 @@ describe LtiLaunchController, type: :request do
           expect(response.body).to include('lti-iframe__next-step')
         end
 
-        it 'drops the import next-step once an assignment is imported' do
+        # Canvas creates every imported assignment and its module unpublished,
+        # and students can't see an unpublished assignment — so importing isn't
+        # the end of setup, and the import step gives way to the publish step
+        # rather than to nothing.
+        it 'replaces the import next-step with the publish step once an assignment is imported' do
           LtiLineItem.create!(lti_course_binding: binding,
                               gradable_type: LtiLineItem::SETUP_TYPE,
                               lineitem_id: 'https://canvas/li/setup', label: 'Wikipedia account')
           get '/lti', params: { ltik: 'ltik-abc' }
-          expect(response.body).not_to include('lti-iframe__next-step')
+          expect(response.body).not_to include(I18n.t('lti.status.import_next_step.header'))
+          expect(response.body).to include(I18n.t('lti.status.publish_next_step.header'))
         end
       end
     end
@@ -1718,6 +1731,17 @@ describe LtiLaunchController, type: :request do
         post '/lti/deep_link/select',
              params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
         expect(response).to have_http_status(422)
+      end
+
+      # A bare 422 renders as a blank panel inside Canvas's import dialog. Most
+      # refusals here are invisible by nature (Canvas discards the losing half of
+      # a double-submit), but a picker left open until its reservation expired
+      # refuses an ordinary click and has to say so in the frame.
+      it 'explains the refusal in-frame rather than returning a blank body' do
+        post '/lti/deep_link/select',
+             params: { ltik: 'ltik-abc', resource: "Block:#{exercise_block.id}" }
+        expect(response.body).to include(I18n.t('lti.deep_link.unavailable_header'))
+        expect(response.body).to include(I18n.t('lti.deep_link.unavailable_explanation'))
       end
 
       it 'never asks LTIAAS to build a content-item form for it' do

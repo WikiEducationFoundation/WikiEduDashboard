@@ -9,8 +9,18 @@ class LtiSyncStatus
     @binding = binding
   end
 
-  def synced_students_count
+  # Students who have connected a Wikipedia account. NOT the size of the Canvas
+  # roster — see #roster_students_count, which both status surfaces show next to
+  # this one so the pair can't be mistaken for each other.
+  def connected_accounts_count
     synced_students.size
+  end
+
+  # Learners the LMS roster has reported. Zero here with a recent roster sync
+  # means the sync genuinely found nobody; a healthy course early in the term is
+  # a full roster with few connected accounts.
+  def roster_students_count
+    @binding.student_contexts.size
   end
 
   # The most recent Canvas sync of any kind. Falls through roster sync →

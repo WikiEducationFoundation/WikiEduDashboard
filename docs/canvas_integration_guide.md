@@ -33,8 +33,9 @@ navigation:
 - **Gradebook passback (AGS)** — the training modules and exercises students
   complete on the Dashboard report back as scores in your Canvas gradebook.
 - **Assignment import (Deep Linking)** — from a course's Modules page, an
-  instructor imports the Wikipedia assignments in one step, and Canvas creates a
-  gradebook column for each.
+  instructor imports the Wikipedia assignments, and Canvas creates a gradebook
+  column for each. Canvas creates them unpublished, so publishing them is part of
+  the flow (see [Enabling it for a course](#enabling-it-for-a-course-the-instructor)).
 
 ## Who installs it, and where
 
@@ -138,6 +139,9 @@ Once the app is available in their course, the instructor:
 2. On the course's **Modules** page, opens the **⋮** menu and chooses
    **wikiedu.org** to import the Wikipedia assignments and their gradebook
    columns.
+3. Publishes the imported assignments and the module holding them. Canvas creates
+   both **unpublished**, and students cannot see or open an unpublished
+   assignment.
 
 From then on, their students launch the Dashboard from Canvas, and their progress
 flows back to the gradebook.

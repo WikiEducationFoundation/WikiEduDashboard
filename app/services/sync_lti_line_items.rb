@@ -18,9 +18,11 @@
 #   - Soft-archive locally (set archived_at) the rows whose gradable has left the
 #     timeline, or whose Canvas column has gone. We never DELETE from LTIAAS —
 #     that would erase the corresponding Canvas gradebook column and its scores.
-#   - Destroy pending reservations still unbound after PENDING_EXPIRY: the picker
-#     form never reached Canvas, and an undying reservation would block the
-#     gradable from ever being imported.
+#   - End pending reservations still unbound after PENDING_EXPIRY: the picker form
+#     never reached Canvas, and an undying reservation would block the gradable
+#     from ever being imported. A reservation that created its own row is
+#     destroyed; one that revived an archived row is rolled back to that archived
+#     state (see LtiLineItem#expire_reservation!).
 #
 # Labels are not pushed: the instructor named the assignment at import time and
 # Canvas owns it from there. Renaming a block updates the local row's label (what
@@ -69,20 +71,24 @@ class SyncLtiLineItems
     end
   end
 
+  # `reserved_prior_state` is cleared here: this row now maps a real Canvas
+  # column, so the archived state a reservation may have overwritten is
+  # superseded and must not be restorable by a later expiry.
   def bind_discovered_line_item(gradable, canvas_item, existing)
     line_item = existing[[gradable.gradable_type, gradable.gradable_id]] ||
                 LtiLineItem.new(lti_course_binding: @binding,
                                 gradable_type: gradable.gradable_type,
                                 gradable_id: gradable.gradable_id)
-    line_item.update!(lineitem_id: canvas_item['id'],
-                      label: gradable.label, archived_at: nil)
+    line_item.update!(lineitem_id: canvas_item['id'], label: gradable.label,
+                      archived_at: nil, reserved_prior_state: nil)
   end
 
   # A pending row is a deep-link reservation, not a stale column — no Canvas
   # line item backs it yet, so archiving it is meaningless and would reopen
   # the gradable to a duplicate import. Keep a fresh one holding its slot and
-  # destroy an expired one; there is no Canvas-side data behind an unbound
-  # reservation, so the never-delete rule doesn't apply.
+  # expire an abandoned one; there is no Canvas-side data behind an unbound
+  # reservation, so the never-delete rule doesn't apply to the reservation
+  # itself (it still applies to whatever the reservation revived).
   def archive_stale(existing, kept_keys)
     kept = kept_keys.to_set
     existing.each_value do |line_item|

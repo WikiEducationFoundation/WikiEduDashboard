@@ -195,8 +195,20 @@ class SyncLtiGrades
       user_lti_id: context.user_lti_id,
       score_given: progress.score_given,
       score_maximum: progress.score_maximum,
-      comment: with_origin(progress.comment)
+      comment: with_origin(progress.comment),
+      activity_progress: activity_progress(progress)
     )
+  end
+
+  # AGS carries the state of the activity next to the score, and the platform is
+  # entitled to act on it — an activity reported `Completed` is finished work as
+  # far as Canvas is concerned. The trainings roll-up legitimately pushes
+  # fractions (1 of 4 modules done is 0.25), so the blanket `Completed` this
+  # replaces contradicted the score it travelled with. `gradingProgress` stays
+  # FullyGraded in both cases: what the student has done so far is fully graded,
+  # nothing is pending on our side.
+  def activity_progress(progress)
+    progress.score_given.to_f < progress.score_maximum.to_f ? 'InProgress' : 'Completed'
   end
 
   # Append the Dashboard's origin to a score comment so Canvas's authorless

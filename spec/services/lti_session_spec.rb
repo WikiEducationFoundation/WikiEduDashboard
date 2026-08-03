@@ -216,6 +216,50 @@ describe LtiSession do
       binding = described_class.new(domain, api_key, ltik).find_or_create_binding!
       expect(binding.ltiaas_service_credentials).to eq('svc-key-rotated')
     end
+
+    # find-then-create is not atomic. Two first launches from one Canvas course
+    # can both find no row, and the unique index then makes one save raise — a
+    # 500 inside the Canvas iframe for whichever instructor lost. The error here
+    # is the real one from the real index: the first lookup is forced to return
+    # an unsaved record even though the winner's row already exists.
+    describe 'when a concurrent launch creates the binding first' do
+      let(:winner) do
+        LtiCourseBinding.create!(lms_id: 'platform-x', lms_context_id: 'canvas-course-77',
+                                 lms_resource_link_id: 'rl-1')
+      end
+
+      before do
+        winner
+        calls = 0
+        allow(LtiCourseBinding).to receive(:find_or_initialize_by)
+          .and_wrap_original do |orig, *args|
+            calls += 1
+            calls == 1 ? LtiCourseBinding.new(**args.first) : orig.call(*args)
+          end
+      end
+
+      it 'returns the winning row instead of raising' do
+        expect(lti_session.find_or_create_binding!.id).to eq(winner.id)
+      end
+
+      it 'creates no second binding' do
+        expect { lti_session.find_or_create_binding! }
+          .not_to change(LtiCourseBinding, :count)
+      end
+
+      it 'still refreshes the launch snapshot onto it' do
+        expect(lti_session.find_or_create_binding!.lms_resource_link_id).to eq('rl-99')
+      end
+
+      # One retry, not a loop: a second failure is a real error, not a race.
+      it 'gives up after one retry' do
+        allow(LtiCourseBinding).to receive(:find_or_initialize_by) do |**args|
+          LtiCourseBinding.new(**args)
+        end
+        expect { lti_session.find_or_create_binding! }
+          .to raise_error(ActiveRecord::RecordNotUnique)
+      end
+    end
   end
 
   describe '#link_lti_user' do
@@ -259,6 +303,53 @@ describe LtiSession do
       stub_request(:post, /api\/lineitems/).to_return(status: 500)
       lti_session.link_lti_user(user)
       expect(WebMock).not_to have_requested(:post, /api\/lineitems/)
+    end
+
+    # The roster sync creating this member's row while the student's own launch
+    # creates it, or two tabs of one launch: both observe no row, and the
+    # (user_lti_id, binding) unique index makes one save raise. The first lookup
+    # is forced to return an unsaved record so the index fires for real.
+    describe 'when a concurrent launch creates the context first' do
+      let!(:binding) { lti_session.find_or_create_binding! }
+
+      def force_stale_first_lookup
+        calls = 0
+        allow(LtiContext).to receive(:find_or_initialize_by).and_wrap_original do |orig, *args|
+          calls += 1
+          calls == 1 ? LtiContext.new(**args.first) : orig.call(*args)
+        end
+      end
+
+      it 'adopts the winning row instead of raising' do
+        winner = LtiContext.create!(user_lti_id: 'lti-user-1', lti_course_binding: binding,
+                                    lms_id: 'platform-x')
+        force_stale_first_lookup
+
+        ctx = lti_session.link_lti_user(user)
+        expect(ctx.id).to eq(winner.id)
+        expect(ctx.user).to eq(user)
+      end
+
+      it 'creates no second context' do
+        LtiContext.create!(user_lti_id: 'lti-user-1', lti_course_binding: binding,
+                           lms_id: 'platform-x')
+        force_stale_first_lookup
+
+        expect { lti_session.link_lti_user(user) }.not_to change(LtiContext, :count)
+      end
+
+      # The retry re-runs the write-once check against the winner's row, so a
+      # race that is actually a conflict still ends at the handled error rather
+      # than a 500.
+      it 'raises ConflictingLinkError when the winner linked a different user' do
+        LtiContext.create!(user_lti_id: 'lti-user-1', lti_course_binding: binding,
+                           lms_id: 'platform-x', user: create(:user, username: 'Other'),
+                           linked_at: 1.day.ago)
+        force_stale_first_lookup
+
+        expect { lti_session.link_lti_user(user) }
+          .to raise_error(LtiSession::DuplicateUserLinkError)
+      end
     end
 
     # Both directions of the map have to be 1:1 within a course. Two Canvas

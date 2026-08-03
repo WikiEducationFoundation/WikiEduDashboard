@@ -144,6 +144,40 @@ describe SyncLtiGrades do
       .with(body: hash_including(userId: 'lti-bob'))
   end
 
+  # activityProgress travels with the score and Canvas may act on it: an
+  # activity reported Completed is finished work. The trainings roll-up pushes
+  # fractions, so a blanket Completed contradicted the score beside it.
+  describe 'the activity progress reported alongside a score' do
+    let!(:second_training) do
+      other = create(:training_module, slug: 'tr-2', name: 'Second training', kind: 0)
+      create(:block, week: week, order: 3, title: 'More training',
+                     training_module_ids: [other.id])
+    end
+
+    before do
+      stub_post_score(exercise_lineitem_url)
+      stub_post_score(setup_lineitem_url)
+      stub_post_score(trainings_lineitem_url)
+      # One of the two trainings done: the roll-up posts 0.5.
+      TrainingModulesUsers.create!(user: student_user, training_module:,
+                                   completed_at: 1.day.ago)
+    end
+
+    it 'reports partial training progress as InProgress' do
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{trainings/scores})
+        .with(body: hash_including(scoreGiven: 0.5, activityProgress: 'InProgress',
+                                   gradingProgress: 'FullyGraded'))
+      expect(second_training).to be_persisted
+    end
+
+    it 'still reports a full score as Completed' do
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
+        .with(body: hash_including(scoreGiven: 1.0, activityProgress: 'Completed'))
+    end
+  end
+
   it 'appends the Dashboard origin to a posted score comment' do
     # Alice is connected, so the setup column posts "✓"; the appended origin
     # makes Canvas's authorless "- Someone" attribution legible.

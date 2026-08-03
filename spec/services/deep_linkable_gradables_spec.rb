@@ -51,6 +51,33 @@ describe DeepLinkableGradables do
       expect(rollup.first.gradable_id).to be_nil
     end
 
+    # Canvas needs a date on the imported assignment or the deadline reaches no
+    # calendar and no To Do list. See the class comment for the per-gradable
+    # policy — this is the exercise case, the block's own due date.
+    it 'carries the exercise block due date' do
+      exercise = gradables.find { |g| g.gradable_type == 'Block' }
+      expect(exercise.due_date).to eq(exercise_block.calculated_due_date)
+    end
+
+    # The roll-up is complete only when every training is, so the last training
+    # block's date is the column's.
+    it 'carries the last training block due date on the rollup' do
+      late_week = create(:week, course:, order: 4)
+      late_training = create(:block, week: late_week, order: 0, title: 'Last training',
+                                     training_module_ids: [training_module.id])
+
+      rollup = gradables.find { |g| g.gradable_type == LtiLineItem::TRAINING_PROGRESS_TYPE }
+      expect(rollup.due_date).to eq(late_training.calculated_due_date)
+      expect(rollup.due_date).to be > training_block.calculated_due_date
+    end
+
+    # Connecting an account is a state a student reaches once and keeps, not work
+    # due by a date; a deadline would mark them late for something unrepeatable.
+    it 'leaves the setup indicator without a due date' do
+      setup = gradables.find { |g| g.gradable_type == LtiLineItem::SETUP_TYPE }
+      expect(setup.due_date).to be_nil
+    end
+
     it 'does not offer a training-only block as its own exercise option' do
       block_ids = gradables.select { |g| g.gradable_type == 'Block' }.map(&:gradable_id)
       expect(block_ids).not_to include(training_block.id)

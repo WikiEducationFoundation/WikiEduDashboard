@@ -2275,7 +2275,11 @@ en:
     last_sync: "Last sync:"
     last_roster_sync_error: "There was an error syncing the roster."
     last_sync_error: "Last sync error"
-    synced_students: "Students synced"
+    # Two distinct counts, shown together on both status surfaces. "Students
+    # synced" was one label over the connected-accounts number, so a course whose
+    # roster sync had just pulled in 30 students read "Students synced: 0".
+    roster_students: "Canvas roster"
+    connected_accounts: "Connected"
     never_synced: "Not yet synced"
     time_ago: "%{time_ago} ago"
     my_account_link: "Your account:"
@@ -2302,6 +2306,10 @@ en:
       linked_notice: "Your course %{lms_course} is linked!"
       already_linked: "Error: This course is already linked."
       create_prompt: Create a course on the Dashboard
+      # Sits next to the course-creation link, which opens in a new tab because
+      # the full Dashboard can't be framed by Canvas. Tells the instructor how to
+      # get back to this step once the course exists.
+      create_return_note: "Course creation opens in a new tab. Reload once you have a Dashboard course."
       no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
       no_courses_yet: "You have no course on the Wiki Education Dashboard yet. Please create one first."
       # Setup link failures are shown to the instructor running setup, so they
@@ -2321,6 +2329,12 @@ en:
       # roles count as instructors is set by LtiSession::INSTRUCTOR_ROLES).
       forbidden_header: "Only instructors may do this."
       forbidden_explanation: "Importing Dashboard assignments is only available to course instructors."
+      # Shown when a submitted selection can no longer be reserved — an import
+      # dialog left open past the reservation window, the same items already
+      # imported from another tab, or a replayed submission. The instructor's
+      # next step is to close and reopen the import dialog.
+      unavailable_header: Unavailable
+      unavailable_explanation: "These items are no longer available to import."
     status:
       header: "Wiki Education Dashboard"
       linked: "Linked"
@@ -2334,13 +2348,23 @@ en:
       import_next_step:
         header: "Import Wikipedia assignments from your Dashboard timeline"
         instruction: "Go to Modules, open the ⋮ (options) menu, and choose wikiedu.org."
+      # Replaces the import step once anything has been imported. Canvas creates
+      # imported assignments and their module unpublished, and AGS gives us no
+      # way to tell whether the instructor has published them, so this stands as
+      # long as the course has imported columns.
+      publish_next_step:
+        header: "Wikipedia assignments imported"
+        instruction: "Don't forget to publish the module if you haven't already done so."
     check_again: "Check again"
     student_overview:
       next_step: "Next step"
       my_articles: "My articles"
       trainings: "Trainings"
       exercises: "Exercises"
-      empty: "[none]"
+      # A student launching before the instructor has built the timeline. Reached
+      # in the ordinary setup order (the guide teaches linking the course first),
+      # so it has to explain itself rather than name the emptiness.
+      empty: "No Wikipedia activities"
       role:
         editing: "Editing"
         reviewing: "Reviewing"

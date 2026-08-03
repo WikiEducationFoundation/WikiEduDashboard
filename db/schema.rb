@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_31_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -453,6 +453,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_15_120000) do
     t.decimal "score_maximum", precision: 10, scale: 4, default: "1.0", null: false
     t.datetime "archived_at"
     t.string "canvas_assignment_id"
+    t.text "reserved_prior_state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lti_course_binding_id", "canvas_assignment_id"], name: "index_lti_line_items_on_binding_and_canvas_assignment", unique: true

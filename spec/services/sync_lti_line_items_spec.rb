@@ -185,6 +185,35 @@ describe SyncLtiLineItems do
       described_class.new(binding)
       expect(pending_row.reload.lineitem_id).to eq('https://lms.example.com/li/ex')
     end
+
+    # A reservation that revived an archived row rolls back to that archived
+    # state rather than being destroyed — the row and its Canvas mapping predate
+    # the reservation (see LtiLineItem#expire_reservation!).
+    it 'rolls back an expired revived reservation instead of destroying it' do
+      pending_row.update_columns(
+        updated_at: (described_class::PENDING_EXPIRY + 1.minute).ago,
+        reserved_prior_state: { 'archived_at' => 2.days.ago,
+                                'lineitem_id' => 'https://lms.example.com/li/gone',
+                                'canvas_assignment_id' => 'ca-gone',
+                                'label' => 'Wk1 Find sources' }.to_json
+      )
+
+      described_class.new(binding)
+
+      pending_row.reload
+      expect(pending_row).to be_archived
+      expect(pending_row.lineitem_id).to eq('https://lms.example.com/li/gone')
+    end
+
+    it 'clears the rollback snapshot when discovery adopts the reservation' do
+      pending_row.update_column(:reserved_prior_state,
+                                { 'lineitem_id' => 'https://lms.example.com/li/gone' }.to_json)
+      stub_line_item_list([{ 'id' => 'https://lms.example.com/li/ex',
+                             'tag' => "Block:#{exercise_block.id}" }])
+
+      described_class.new(binding)
+      expect(pending_row.reload.reserved_prior_state).to be_nil
+    end
   end
 
   describe 'the local label of a discovered column' do

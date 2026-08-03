@@ -33,10 +33,17 @@ class ReserveLtiLineItems
   # statements are conditioned on the row still being pending — the
   # single-statement equivalent of the locked re-check expiry uses — so a
   # row adopted in the meantime is a live column mapping and stays.
+  #
+  # This is the in-request path only. A reservation whose form response WAS
+  # returned but which Canvas never acted on is rolled back by expiry instead,
+  # off the same snapshot persisted in `reserved_prior_state` — see
+  # LtiLineItem#expire_reservation!.
   def release
     LtiLineItem.pending.where(id: @created_ids).delete_all
     @revived.each do |id, prior|
-      LtiLineItem.pending.where(id:).update_all(prior.merge('updated_at' => Time.current))
+      LtiLineItem.pending.where(id:)
+                 .update_all(prior.merge('reserved_prior_state' => nil,
+                                         'updated_at' => Time.current))
     end
   end
 
@@ -81,11 +88,20 @@ class ReserveLtiLineItems
   # The prior attributes are snapshotted from the row as loaded; if this CAS
   # wins, the row was archived (and so quiescent) between that load and now,
   # which is what makes the snapshot safe to restore from in #release.
+  #
+  # The snapshot is also written to the row itself, because #release only covers
+  # failures inside this request. When the form response succeeds and Canvas
+  # never creates the assignment, the rollback happens minutes later in a sync
+  # process that has nothing but the row — and without the persisted snapshot
+  # that path destroyed the archived mapping and its signatures. Adoption clears
+  # the column (SyncLtiLineItems, ResolveAssignmentLineItem): once a real column
+  # is bound there is no prior state to return to.
   def revive_as_pending(row, gradable)
     prior = row.slice('archived_at', 'lineitem_id', 'canvas_assignment_id', 'label')
     won = LtiLineItem.where(id: row.id).where.not(archived_at: nil)
                      .update_all(archived_at: nil, lineitem_id: nil, canvas_assignment_id: nil,
-                                 label: gradable.label, updated_at: Time.current) == 1
+                                 label: gradable.label, reserved_prior_state: prior.to_json,
+                                 updated_at: Time.current) == 1
     @revived[row.id] = prior if won
     won
   end

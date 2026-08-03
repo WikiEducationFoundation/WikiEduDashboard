@@ -55,6 +55,37 @@ describe BuildLtiDeepLinkForm do
     expect(stub).to have_been_requested
   end
 
+  # Canvas reads submission.endDateTime as the assignment's due date, which is
+  # what reaches the student's Calendar and To Do list. End of the due day, so
+  # the deadline matches how the Dashboard timeline reads it.
+  it 'carries a gradable due date as the content item submission end date' do
+    dated = DeepLinkableGradables::Gradable.new(
+      resource: 'Block:42', gradable_type: 'Block', gradable_id: 42,
+      label: 'Wk1 Find sources', due_date: Date.new(2026, 9, 13)
+    )
+    stub = stub_request(:post, form_url)
+           .with do |request|
+             item = JSON.parse(request.body)['contentItems'].first
+             item['submission'] == { 'endDateTime' => '2026-09-13T23:59:59Z' }
+           end
+           .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                      headers: { 'Content-Type' => 'application/json' })
+
+    described_class.new(ltik:, gradables: [dated])
+    expect(stub).to have_been_requested
+  end
+
+  # The "Wikipedia account" indicator has no due date, and an empty or null
+  # submission window is worse than none — Canvas would take it as a date.
+  it 'omits the submission window for a gradable with no due date' do
+    stub = stub_request(:post, form_url)
+           .with { |request| !JSON.parse(request.body)['contentItems'].first.key?('submission') }
+           .to_return(status: 200, body: { 'form' => form_html }.to_json,
+                      headers: { 'Content-Type' => 'application/json' })
+    service
+    expect(stub).to have_been_requested
+  end
+
   it 'posts one content item per gradable, in the given order (bulk mode)' do
     second = DeepLinkableGradables::Gradable.new(
       resource: 'TrainingProgress', gradable_type: 'TrainingProgress',

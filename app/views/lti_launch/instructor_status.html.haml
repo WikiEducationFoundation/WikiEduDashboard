@@ -7,9 +7,15 @@
   = render 'lti_launch/drilldown_header',
            title: t('lti.status.header'), course: @binding.course, linked_check: true
   %dl.lti-status-list
+    - # Roster size and connected accounts are separate rows on purpose: one
+    - # number under a roster-sounding label reported "Students synced: 0" for a
+    - # course whose roster sync had just pulled in everybody.
     .lti-status-list__row
-      %dt= t('lms_integration.synced_students')
-      %dd= @sync_status.synced_students_count
+      %dt= t('lms_integration.roster_students')
+      %dd= @sync_status.roster_students_count
+    .lti-status-list__row
+      %dt= t('lms_integration.connected_accounts')
+      %dd= @sync_status.connected_accounts_count
     .lti-status-list__row
       %dt= t('lti.status.roster_sync_label')
       %dd
@@ -26,8 +32,18 @@
   = render 'lti_launch/grade_sync', binding: @binding, ltik: params[:ltik]
   -# Deep-link-first: before anything is imported, point the instructor at the
   -# Modules import path — the non-obvious next step once a course is linked.
-  -# Drops away as soon as any assignment is imported.
-  - unless @sync_status.assignments_imported?
+  -# Drops away as soon as any assignment is imported, replaced by the publish
+  -# reminder: Canvas creates every imported assignment and its module
+  -# unpublished, and an unpublished assignment is invisible to students, so an
+  -# instructor who stops at import has finished setup in their own view while
+  -# their students see none of the work. Nothing in AGS reports whether an
+  -# assignment is published, so this can't be shown conditionally on the real
+  -# state — it stands as long as the course has imported columns.
+  - if @sync_status.assignments_imported?
+    .lti-iframe__next-step
+      %h2= t('lti.status.publish_next_step.header')
+      %p= t('lti.status.publish_next_step.instruction')
+  - else
     .lti-iframe__next-step
       %h2= t('lti.status.import_next_step.header')
       %p= t('lti.status.import_next_step.instruction')

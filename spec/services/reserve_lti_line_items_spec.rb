@@ -86,6 +86,24 @@ describe ReserveLtiLineItems do
       archived_row.update!(archived_at: nil, lineitem_id: nil)
       expect(described_class.new(binding:, gradables: [gradable]).reserved).to be(false)
     end
+
+    # #release only covers failures inside this request. When the form response
+    # succeeds and Canvas never creates the assignment, the rollback happens in a
+    # sync process minutes later that has nothing but the row — so the snapshot
+    # has to be on the row itself (see LtiLineItem#expire_reservation!).
+    it 'persists the overwritten attributes on the row' do
+      described_class.new(binding:, gradables: [gradable])
+
+      prior = archived_row.reload.reserved_prior_attributes
+      expect(prior['lineitem_id']).to eq('https://canvas/li/old')
+      expect(prior['canvas_assignment_id']).to eq('ca-old')
+      expect(prior['archived_at']).to be_present
+    end
+
+    it 'leaves no snapshot on a reservation that created its own row' do
+      described_class.new(binding:, gradables: [gradable(id: 2)])
+      expect(LtiLineItem.find_by(gradable_id: 2).reserved_prior_state).to be_nil
+    end
   end
 
   describe '#release' do

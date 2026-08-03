@@ -88,7 +88,7 @@ describe LmsIntegrationStatusController, type: :request do
         expect(body).not_to have_key('last_roster_sync_at')
         expect(body['last_roster_sync_error']).to be_nil
         expect(body['last_sync_error']).to be_nil
-        expect(body['synced_students_count']).to eq(0)
+        expect(body['connected_accounts_count']).to eq(0)
       end
 
       # The link points into the tool's in-course view via Canvas's
@@ -127,7 +127,39 @@ describe LmsIntegrationStatusController, type: :request do
         LtiContext.create!(lti_course_binding: binding, user_id: nil,
                            user_lti_id: 'l2', lms_id: 'platform-x', roles: learner_roles)
         get request_path
-        expect(JSON.parse(response.body)['synced_students_count']).to eq(1)
+        expect(JSON.parse(response.body)['connected_accounts_count']).to eq(1)
+      end
+
+      # The pair of numbers the sidebar shows: a roster the sync has pulled in,
+      # most of whom haven't connected an account yet. Reporting only the second
+      # one under a roster-sounding label is what made a working sync read as
+      # having found nobody.
+      it 'reports the roster size separately from the connected-account count' do
+        learner_roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+        LtiContext.create!(lti_course_binding: binding, user: create(:user, username: 'Connected'),
+                           user_lti_id: 'l1', lms_id: 'platform-x', roles: learner_roles)
+        LtiContext.create!(lti_course_binding: binding, user_id: nil,
+                           user_lti_id: 'l2', lms_id: 'platform-x', roles: learner_roles)
+
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['roster_students_count']).to eq(2)
+        expect(body['connected_accounts_count']).to eq(1)
+      end
+
+      # A member Canvas has removed can't reach the course, so counting them
+      # would overstate the roster against what the instructor sees in Canvas.
+      it 'leaves LMS-removed members out of the roster count' do
+        learner_roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+        LtiContext.create!(lti_course_binding: binding, user_id: nil, user_lti_id: 'l1',
+                           lms_id: 'platform-x', roles: learner_roles,
+                           lms_membership_status: 'Active')
+        LtiContext.create!(lti_course_binding: binding, user_id: nil, user_lti_id: 'l2',
+                           lms_id: 'platform-x', roles: learner_roles,
+                           lms_membership_status: 'Deleted')
+
+        get request_path
+        expect(JSON.parse(response.body)['roster_students_count']).to eq(1)
       end
 
       it 'excludes the instructor-role linked context from the count' do
@@ -140,7 +172,7 @@ describe LmsIntegrationStatusController, type: :request do
                            user_lti_id: 't1', lms_id: 'platform-x',
                            roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor'])
         get request_path
-        expect(JSON.parse(response.body)['synced_students_count']).to eq(1)
+        expect(JSON.parse(response.body)['connected_accounts_count']).to eq(1)
       end
 
       it 'reports the most recent of the roster and grade sync times' do
@@ -157,7 +189,7 @@ describe LmsIntegrationStatusController, type: :request do
                            user_lti_id: 's3', lms_id: 'platform-x', roles: [learner_role])
         get request_path
         body = JSON.parse(response.body)
-        expect(body['synced_students_count']).to eq(1)
+        expect(body['connected_accounts_count']).to eq(1)
         expect(body['last_sync_at']).to be_present
       end
 
@@ -169,7 +201,7 @@ describe LmsIntegrationStatusController, type: :request do
                            linked_at: 5.minutes.ago, roles: [learner_role])
         get request_path
         body = JSON.parse(response.body)
-        expect(body['synced_students_count']).to eq(1)
+        expect(body['connected_accounts_count']).to eq(1)
         expect(body['last_sync_at']).to be_present
       end
     end

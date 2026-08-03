@@ -13,8 +13,26 @@
 # Gradables carry no description: the created Canvas assignments launch the
 # tool, and the launched iframe presents the descriptive content live from
 # the Dashboard (so it can't go stale the way baked-in text would).
+#
+# They DO carry a due date, which is a deliberately different call (operator
+# decision 2026-08-03). A date baked into a Canvas assignment can go stale the
+# same way a description would — the Dashboard timeline is the authority and
+# nothing pushes a correction after import — but without one Canvas has no
+# deadline to put in the student's Calendar or To Do list, which is most of what
+# an imported assignment is for. Timelines are rarely rearranged after import,
+# and an instructor can edit a date in Canvas; a missing deadline is not
+# something they can fix at all. The policy per gradable:
+#
+#   - Exercise blocks take their block's due date (explicit, or the end of the
+#     block's week — see BlockDateManager).
+#   - The trainings roll-up takes the LAST training block's due date: the column
+#     is complete only when every training is, so the last one sets the deadline.
+#   - The "Wikipedia account" indicator takes none. It reports a state a student
+#     reaches once and keeps, not work due by a date, and a deadline on it would
+#     mark students late for something they can't do twice.
 class DeepLinkableGradables
-  Gradable = Struct.new(:resource, :gradable_type, :gradable_id, :label, keyword_init: true)
+  Gradable = Struct.new(:resource, :gradable_type, :gradable_id, :label, :due_date,
+                        keyword_init: true)
 
   # User-facing Canvas gradebook column names — operator-supplied.
   TRAININGS_LABEL = 'Wikipedia trainings'
@@ -44,13 +62,22 @@ class DeepLinkableGradables
 
   def gradable_for_block(block)
     Gradable.new(resource: "Block:#{block.id}", gradable_type: 'Block',
-                 gradable_id: block.id, label: label_for_block(block))
+                 gradable_id: block.id, label: label_for_block(block),
+                 due_date: block.calculated_due_date)
   end
 
   def trainings_rollup
     Gradable.new(resource: LtiLineItem::TRAINING_PROGRESS_TYPE,
                  gradable_type: LtiLineItem::TRAINING_PROGRESS_TYPE,
-                 gradable_id: nil, label: TRAININGS_LABEL)
+                 gradable_id: nil, label: TRAININGS_LABEL,
+                 due_date: last_training_due_date)
+  end
+
+  # Every training has to be done for the roll-up to be complete, so the last
+  # one's deadline is the column's. Nil if none of the training blocks yields a
+  # date, rather than a guess.
+  def last_training_due_date
+    training_blocks.filter_map(&:calculated_due_date).max
   end
 
   # In timeline order (week, then block position) so the picker mirrors
@@ -66,10 +93,16 @@ class DeepLinkableGradables
     gradable_blocks.select { |b| b.training_modules.any?(&:exercise?) }
   end
 
-  def any_trainings?
-    gradable_blocks.any? do |b|
+  # The blocks the trainings roll-up covers — training-kind modules only, the
+  # same set LtiTrainingProgress scores. Exercises have their own columns.
+  def training_blocks
+    gradable_blocks.select do |b|
       b.training_modules.any? { |m| m.kind == TrainingModule::Kinds::TRAINING }
     end
+  end
+
+  def any_trainings?
+    training_blocks.any?
   end
 
   def label_for_block(block)

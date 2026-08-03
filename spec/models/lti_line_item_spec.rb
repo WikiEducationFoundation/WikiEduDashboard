@@ -238,5 +238,62 @@ describe LtiLineItem do
       described_class.where(id: row.id).delete_all
       expect { row.expire_reservation!(older_than: cutoff) }.not_to raise_error
     end
+
+    # A reservation taken by reviving an archived row must not be destroyed on
+    # expiry: the row, its mapping to a Canvas column that may still exist, and
+    # its score signatures all predate the reservation. Destroying was the same
+    # rollback the in-request release path already avoids (ReserveLtiLineItems).
+    describe 'when the reservation revived an archived row' do
+      let(:prior) do
+        { 'archived_at' => 1.day.ago.change(usec: 0), 'lineitem_id' => 'https://canvas/li/old',
+          'canvas_assignment_id' => 'ca-old', 'label' => 'Old label' }
+      end
+
+      def create_revived_reservation
+        create_reservation.tap do |row|
+          row.update_columns(label: 'New label', reserved_prior_state: prior.to_json)
+        end
+      end
+
+      it 'restores the archived state instead of destroying the row' do
+        row = create_revived_reservation
+        row.expire_reservation!(older_than: cutoff)
+
+        row.reload
+        expect(row.lineitem_id).to eq('https://canvas/li/old')
+        expect(row.canvas_assignment_id).to eq('ca-old')
+        expect(row.label).to eq('Old label')
+        expect(row.archived_at).to be_within(1.second).of(prior['archived_at'])
+      end
+
+      it 'clears the rollback snapshot' do
+        row = create_revived_reservation
+        row.expire_reservation!(older_than: cutoff)
+        expect(row.reload.reserved_prior_state).to be_nil
+      end
+
+      # Restoring the row's own previous lineitem_id must not fire the
+      # signature-discard callback: those signatures describe the very column
+      # being restored, and discarding them would re-push every score.
+      it 'keeps the score signatures of the restored column' do
+        row = create_revived_reservation
+        context = LtiContext.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                                     lti_course_binding: binding)
+        LtiScoreSignature.create!(lti_line_item: row, lti_context: context,
+                                  signature: 'sig', last_pushed_at: 1.day.ago)
+
+        row.expire_reservation!(older_than: cutoff)
+        expect(LtiScoreSignature.where(lti_line_item_id: row.id)).to exist
+      end
+
+      it 'leaves an adopted revival alone' do
+        row = create_revived_reservation
+        stale_copy = described_class.find(row.id)
+        described_class.where(id: row.id).update_all(lineitem_id: 'https://canvas/li/live')
+
+        stale_copy.expire_reservation!(older_than: cutoff)
+        expect(row.reload.lineitem_id).to eq('https://canvas/li/live')
+      end
+    end
   end
 end

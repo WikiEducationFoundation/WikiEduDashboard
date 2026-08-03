@@ -62,7 +62,7 @@ module LtiDeepLinking
     binding = @lti_session.bound_binding
     gradables = chosen_gradables(binding)
     reservation = reserve_selection(binding, gradables)
-    return head :unprocessable_entity if reservation.nil?
+    return render_selection_unavailable if reservation.nil?
 
     releasing_on_failure(reservation) do
       @deep_link_form = BuildLtiDeepLinkForm.new(ltik: params[:ltik], gradables:).form
@@ -118,11 +118,18 @@ module LtiDeepLinking
     chosen.include?(nil) ? [] : chosen
   end
 
-  # Every refusal is the same bare 422: a blank or tampered selection, a
-  # multi-item response to a single-item placement, or a reservation lost to
-  # a concurrent duplicate of this request (a double-submit or replayed POST,
-  # whose losing response is unseen inside Canvas's picker anyway). The
-  # reservation must succeed before the deep-link form is built: the pending
+  # Refusals render in-frame rather than as a bare 422. Most of them are
+  # invisible to the instructor by nature — a tampered selection, or the losing
+  # half of a double-submit, whose response Canvas discards — but one is not: a
+  # picker left open long enough for its reservation to expire refuses an
+  # ordinary click, and a blank white panel inside Canvas's modal is no way to
+  # say so. The 422 status is kept so the refusal stays visible as one.
+  def render_selection_unavailable
+    render 'lti_launch/deep_link_unavailable', layout: 'lti_iframe',
+           status: :unprocessable_entity
+  end
+
+  # The reservation must succeed before the deep-link form is built: the pending
   # rows it creates are what make these gradables read as taken to any
   # concurrent duplicate.
   # nil when the selection is refused — blank/tampered, too many items for the

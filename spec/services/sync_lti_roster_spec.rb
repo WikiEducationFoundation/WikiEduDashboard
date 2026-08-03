@@ -94,15 +94,18 @@ describe SyncLtiRoster do
     expect(binding.reload.last_roster_sync_at).to be_present
   end
 
-  # Skipped members are Sentry's problem, not the status surfaces': the run
-  # still reconciled the rest of the roster, so it doesn't set the error field.
-  it 'does not record an error for a skipped member' do
+  # A skipped member is still a student missing from the course, so the run
+  # records the counts rather than reading as clean — `roster_sync_error?` is
+  # what puts the "check the roster" notice on the status surfaces.
+  it 'records the counts when a member is skipped' do
     two_learners
     fail_one_member(KeyError.new('missing key'))
     allow(Sentry).to receive(:capture_exception)
 
     described_class.new(binding)
-    expect(binding.reload.last_roster_sync_error).to be_nil
+    expect(binding.reload.last_roster_sync_error).to eq(
+      '1 of 2 memberships failed; last: KeyError: missing key'
+    )
   end
 
   it 'stores the NRPS membership status on each member context' do
@@ -180,6 +183,45 @@ describe SyncLtiRoster do
       described_class.new(binding)
       expect(binding.reload.last_roster_sync_error).to be_nil
     end
+  end
+
+  # A per-member error class that hits every member is not a roster of bad
+  # memberships; it's one systemic failure (a linker bug, an NRPS shape change)
+  # repeated per row. Skipping all of them and stamping a fresh timestamp showed
+  # the instructor a successful sync with none of their students in it.
+  describe 'when every member fails on a per-member error' do
+    before do
+      binding.update!(last_roster_sync_at: 3.hours.ago)
+      two_learners
+      allow(Sentry).to receive(:capture_exception)
+      allow(LtiMemberLinker).to receive(:new).and_raise(KeyError.new('missing key'))
+    end
+
+    it 'aborts the run so Sidekiq retries it' do
+      expect { described_class.new(binding) }
+        .to raise_error(described_class::TotalMemberFailureError, /all 2 memberships failed/)
+    end
+
+    it 'does not advance last_roster_sync_at' do
+      expect { described_class.new(binding) }.to raise_error(StandardError)
+      expect(binding.reload.last_roster_sync_at).to be_within(5.seconds).of(3.hours.ago)
+    end
+
+    it 'records the failure' do
+      expect { described_class.new(binding) }.to raise_error(StandardError)
+      expect(binding.reload.last_roster_sync_error)
+        .to include('TotalMemberFailureError', 'all 2 memberships failed')
+    end
+  end
+
+  # An empty roster is a legitimate state (a course with no enrollments yet), not
+  # a total failure — it must not be mistaken for one and retried forever.
+  it 'records a successful sync for an empty roster' do
+    stub_memberships('members' => [])
+
+    described_class.new(binding)
+    expect(binding.reload.last_roster_sync_at).to be_present
+    expect(binding.last_roster_sync_error).to be_nil
   end
 
   # Canvas can't reach a suspended or removed member either, so nothing should
