@@ -184,6 +184,7 @@ lb:
     view_all: All weisen
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
     view_on_wiki: Op der Wiki weisen
+    article_size: Artikelgréisst
     edit_size: Gréisst änneren
     wiki: Wiki
     articles_short: Artikelen
@@ -209,6 +210,7 @@ lb:
     add_placeholder: Gitt den Titel oder d'URL vun engem Artikel an
     bibliography: Bibliographie
     clone: Eng Kopie maachen
+    confirm_add_available: Sidd Dir sécher, datt Dir %{title} derbäisetze wëllt?
     delete: Entfernen a Läschen
     editors: Net gespäichert
     group_members: Membere vum Grupp
