@@ -2,16 +2,21 @@
 
 Deferred items from the Canvas / LTI integration work. Revisit as noted.
 
-## Where things stand (2026-07-30)
+## Where things stand (2026-08-03)
 
 Branch state, so a fresh session doesn't have to reconstruct it:
 
 - **PR #6934**, branch `CanvasStaging`. `staging` tracks it and is what
   `cap staging deploy` ships — see the deploy notes in that memory, especially
   checking out `CanvasStaging` again afterwards.
-- **Seven review rounds** have been answered (gpt-5.6-sol ×3, Claude Code ×3
-  including a verification pass, Codex/GPT-5 ×1) — see the dated follow-up
-  sections below for the 2026-07-30 rounds. Replies are posted as PR comments.
+- **Nine review rounds** have been answered (gpt-5.6-sol ×3, Claude Code ×3
+  including a verification pass, Codex/GPT-5 ×3, the last of them the ten-finding
+  UX round at `641662977`) — see the dated follow-up sections below. Replies are
+  posted as PR comments.
+- **Staging has not been redeployed** since the 2026-08-03 round, so the deployed
+  stack predates the due-date, publish-step, and status-count changes. The new
+  `lti_line_items.reserved_prior_state` column is listed under that round's
+  section below.
 - **Screenshot gallery**: `pr-screenshots/CanvasStaging-gallery-20260730`, 38 shots
   across 8 flows, posted as a PR comment. Regenerate the comment with
   `bin/harvest-canvas-screenshots --pr-comment=<raw base url>` rather than by hand.
@@ -920,6 +925,102 @@ gaps, both confirmed and fixed the same day (2026-07-31):
   restored to their snapshotted prior archived state via a pending-guarded
   `update_all` — an adopted row survives both paths. Specs cover
   adopted-survives-release and archived-state restoration (signatures kept).
+
+## Codex UX review follow-ups (2026-08-03)
+
+A ten-finding UX-focused Codex round at `641662977`, recommending changes. All
+ten were verified against the source before anything changed and all held, though
+three were narrower or more conditional than stated and one was a product
+decision rather than a defect. Fixed in `a88489972`; reply posted as a PR
+comment.
+
+- [x] **Imported assignments stayed unpublished with nothing saying so.** Canvas
+  creates every imported assignment *and* its module unpublished, and an
+  unpublished assignment is invisible to students — so an instructor could finish
+  the documented flow while their students saw none of the work. The guide now has
+  a publish step, and the in-Canvas status replaces the import next-step with a
+  publish reminder once anything is imported. AGS reports nothing about published
+  state, so the reminder can't be conditional on reality; it stands as long as the
+  course has imported columns. **Still open:** the staging suite publishes through
+  the Canvas API (`publish_assignments`), which is what hid this — exercising
+  publish through the UI is the remaining half of the recommendation.
+- [x] **A roster sync that lost every member reported success.** `MEMBER_ERRORS`
+  was already narrowed to five classes and Sentry saw each failure, so the
+  condition was invisible to instructors rather than to staff — but `TypeError` /
+  `NoMethodError` from a linker bug hits every row, and the run still stamped
+  `last_roster_sync_at`. Failures are now counted: a partial run advances the
+  timestamp and records "N of M memberships failed" (setting the
+  `roster_sync_error?` boolean both surfaces render), and a run where every member
+  of a non-empty roster failed raises `SyncLtiRoster::TotalMemberFailureError` so
+  the timestamp stays put and Sidekiq retries. An empty roster is still a success.
+- [x] **Due dates now cross into Canvas** — `submission.endDateTime` on each
+  content item, which is what reaches a student's Calendar and To Do list.
+  Deliberately the opposite call from the 2026-07-21 no-baked-in-descriptions
+  decision, and recorded as such in both files: a date can go just as stale, but
+  timelines are rarely rearranged after import and an instructor can edit a date
+  in Canvas, whereas a missing deadline they cannot fix (operator decision
+  2026-08-03). Policy: exercise blocks take their own date, the trainings roll-up
+  takes the **last** training block's, the "Wikipedia account" indicator takes
+  none. End-of-day UTC, since a Dashboard due date carries no time and courses
+  carry no timezone. **Unverified:** that Canvas honours `submission.endDateTime`
+  through LTIAAS is from the spec and Canvas's docs, not observation — the next
+  harvest is the check, since the gallery currently shows every imported
+  assignment as "No Due Date".
+- [x] **Concurrent first launches 500ed.** Binding creation and identity linking
+  both did find-then-create against unique indexes; the only `RecordNotUnique`
+  rescue covered the setup POST. Both now run inside a one-shot
+  `retry_on_unique_race`. The identity retry reruns the write-once check, so a
+  race that is genuinely a conflict still raises `ConflictingLinkError` rather
+  than a 500. Specs force the real index to fire instead of stubbing the error.
+- [x] **Expiring a revived reservation destroyed archived history.** The
+  overwritten attributes lived only in the request, so `release` could roll back
+  but expiry called `destroy!` — taking the row's prior Canvas mapping and its
+  score signatures, for a column that may still exist in Canvas. The snapshot is
+  now persisted on the row (`reserved_prior_state`, new migration
+  `20260731120000`) and expiry restores it. Restoration uses `update_columns` on
+  purpose: putting back the row's own previous `lineitem_id` must not fire the
+  signature-discard callback, since those signatures describe the column being
+  restored. Both adoption points clear the snapshot.
+- [x] **Fractional training progress claimed completion.** `activityProgress` is
+  derived from the score — `InProgress` below full, `Completed` at it —
+  instead of always `Completed`. `gradingProgress` stays `FullyGraded`.
+- [x] **A refused deep-link selection was a blank panel.** Refusals render an
+  in-frame explanation at the same 422. The old reasoning (a losing double-submit
+  is unseen inside Canvas's modal) still holds; what it missed is a picker left
+  open until its reservation expired, which refuses an ordinary click. The picker
+  also disables its submit after the first submission, in both modes.
+- [x] **Sandbox previews resolved their links against the Dashboard.** MediaWiki's
+  parsed HTML went into `innerHTML` untouched, so root-relative URLs 404ed and
+  links could navigate the view away. Links and images are rebased against the
+  wiki's origin and links get `target=_blank rel=noopener noreferrer` — the rule
+  timeline content already follows via `RewriteLtiContentLinks`. This JS is inline
+  in a HAML view and has no automated coverage; only a staging run exercises it.
+- [x] **Setup links could blank the Canvas frame.** Conditional on the Dashboard
+  session reaching the iframe (partitioned cookies put the instructor in a
+  top-level tab, where it's harmless), but cheap either way: all three links out
+  to the Dashboard open in a new tab, with a return-and-relaunch note.
+- [x] **"Students synced" counted connected accounts, not the roster.** A course
+  whose roster sync had just pulled in 30 students read "Students synced: 0".
+  Roster size and connected accounts are now separate counts on both surfaces
+  (payload keys `roster_students_count` / `connected_accounts_count`), with
+  LMS-removed members left out of the roster figure. The literal `[none]` a
+  student saw before any timeline existed is replaced.
+- [x] **Nine new `[PLACEHOLDER]` strings filled by the operator** the same day
+  (`grep '\[PLACEHOLDER'` across `app/`, `config/`, and the guide is clean). One
+  review recommendation was declined: the publish reminder names the module rather
+  than module-and-assignments, because Canvas has a single control that publishes
+  both.
+
+### Staging schema for this round
+
+Unlike the 2026-07-30 columns, this one is a **new** migration version staging
+has never recorded, so a deploy that runs migrations will apply it. Verify with
+`SHOW COLUMNS` afterwards, and apply by hand if not:
+
+```sql
+ALTER TABLE lti_line_items
+  ADD COLUMN reserved_prior_state TEXT AFTER canvas_assignment_id;
+```
 
 ## Copy placeholders from the 2026-07-30 pass
 
