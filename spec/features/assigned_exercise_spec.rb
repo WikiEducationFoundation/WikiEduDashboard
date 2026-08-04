@@ -2,8 +2,16 @@
 
 require 'rails_helper'
 
-def stub_sandbox_existence_query(content)
-  allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return content
+# The completion check asks for page info for every page an exercise expects, so
+# echo each requested title back as either an existing or a missing page.
+def stub_sandbox_existence_query(sandbox_exists)
+  allow_any_instance_of(WikiApi).to receive(:get_page_info) do |_api, titles|
+    pages = Array(titles).each_with_index.to_h do |title, index|
+      page = sandbox_exists ? { 'length' => 42 } : { 'missing' => '' }
+      [index.to_s, page.merge('title' => title)]
+    end
+    { 'pages' => pages }
+  end
 end
 
 describe 'students with assigned exercise modules', type: :feature, js: true do
@@ -31,7 +39,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
 
   it 'can go mark a module complete, then mark it incomplete' do
     # Assume exercise sandbox has been created
-    stub_sandbox_existence_query 'sandbox content'
+    stub_sandbox_existence_query true
 
     visit "/courses/#{course.slug}"
 
@@ -45,7 +53,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
   end
 
   it 'see an error message if exercise sandbox does not exist' do
-    stub_sandbox_existence_query ''
+    stub_sandbox_existence_query false
 
     visit "/courses/#{course.slug}"
 
@@ -59,7 +67,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
 
     it 'shows the next incomplete exercise after complete one' do
       # Assume exercise sandbox has been created
-      stub_sandbox_existence_query 'sandbox content'
+      stub_sandbox_existence_query true
 
       visit "/courses/#{course.slug}"
 
@@ -82,7 +90,7 @@ describe 'students with assigned exercise modules', type: :feature, js: true do
 
     it 'shows the next incomplete exercise after complete one' do
       # Assume exercise sandbox has been created
-      stub_sandbox_existence_query 'sandbox content'
+      stub_sandbox_existence_query true
 
       visit "/courses/#{course.slug}"
 
