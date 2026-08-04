@@ -361,6 +361,31 @@ module DashboardAdminClient
   # bound binding, so the instructor roster shows a realistic multi-student class
   # without driving N browser logins (the way real launches would populate it).
   # Creates the Dashboard user when missing. Returns the usernames that linked.
+  # Editing and reviewing article assignments for the gallery roster. Without them
+  # the article panel and the peer-review column have nothing to report — they'd
+  # read "No article chosen yet" and "None assigned yet", which is one worthwhile
+  # shot, not the state every shot should be in.
+  #
+  # `editing` / `reviewing` are { username => article title }.
+  def assign_articles(course_slug:, editing: {}, reviewing: {})
+    script = <<~RUBY
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      wiki = course.home_wiki
+      { assigned: #{editing.inspect}, reviewing: #{reviewing.inspect} }.each do |kind, pairs|
+        role = kind == :assigned ? Assignment::Roles::ASSIGNED_ROLE
+                                 : Assignment::Roles::REVIEWING_ROLE
+        pairs.each do |username, title|
+          user = User.find_by(username:)
+          next if user.nil?
+
+          Assignment.find_or_create_by!(course:, user:, wiki:, role:, article_title: title)
+        end
+      end
+      puts Assignment.where(course:).count
+    RUBY
+    DashboardConsole.run(script).strip.to_i
+  end
+
   def link_students(course_slug:, usernames:)
     script = <<~'RUBY'.gsub('__SLUG__', course_slug).gsub('__USERNAMES__', usernames.to_json)
       require 'json'

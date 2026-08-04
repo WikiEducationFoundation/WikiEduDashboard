@@ -37,9 +37,12 @@
               %td{ colspan: 3 }
                 .lti-sandbox__content
           - # The whole state of this student's article, on the stages of the
-          - # writing process that call for it.
+          - # writing process that call for it. Labelled, like the student's own
+          - # panel is: a bare block of sandbox links under a roster row doesn't
+          - # say what it is.
           - if @context.article_panel?
             %tr.lti-article-work__row
               %td{ colspan: 3 }
+                %h3.lti-article-work__heading= t('lti.assignment_view.article_work.header')
                 = render 'lti_launch/article_work', articles: row.assigned_articles,
                                                    scope: "row-#{i}"

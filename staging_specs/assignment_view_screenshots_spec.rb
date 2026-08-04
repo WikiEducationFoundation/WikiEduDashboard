@@ -102,8 +102,9 @@ describe 'Assignment drill-down screenshots', :staging do
     exercise_label = timeline['exercise_line_item_label']
 
     prepare_course_state(slug:, canvas_id:, timeline:)
-    assignments = find_imported_assignments(canvas_id, exercise_label)
+    assignments = find_imported_assignments(canvas_id, exercise_label, timeline)
     publish_assignments(canvas_id, assignments)
+    sync_grades_for(slug)
 
     capture_instructor_views(canvas_id, assignments, exercise_label)
     capture_student_views(canvas_id, assignments)
@@ -113,6 +114,8 @@ describe 'Assignment drill-down screenshots', :staging do
   # can't open them until they're published, as an instructor would do.
   def publish_assignments(canvas_id, assignments)
     assignments.each_value do |assignment_id|
+      next if assignment_id.nil? # a column this timeline doesn't carry
+
       canvas_api.publish_assignment(course_id: canvas_id, assignment_id:)
     end
     canvas_api.publish_all_modules(course_id: canvas_id)
@@ -137,6 +140,14 @@ describe 'Assignment drill-down screenshots', :staging do
     end
     binding = DashboardAdminClient.find_binding(course_slug: slug)
     DashboardAdminClient.run_line_item_sync(binding_id: binding['id'])
+  end
+
+  # Deliberately after publishing (see the example): a score posted at an
+  # unpublished assignment appears to leave Canvas with no submission to attach the
+  # launch URL to, which is what left the submission-placeholder shot with nothing
+  # to open. Publishing first is also the order an instructor works in.
+  def sync_grades_for(slug)
+    binding = DashboardAdminClient.find_binding(course_slug: slug)
     DashboardAdminClient.run_grade_sync(binding_id: binding['id'])
   end
 
@@ -154,7 +165,28 @@ describe 'Assignment drill-down screenshots', :staging do
     DashboardAdminClient.mark_training_complete(
       username: student_username, training_module_id: timeline['training_module_id']
     )
+    # And the exercise, because they are the only student who is also a Canvas
+    # user: the submission placeholder shot needs a submission in Canvas, which
+    # only exists once something has been reported for a real enrolled student.
+    # The fabricated gallery students have no Canvas identity to submit as.
+    DashboardAdminClient.mark_exercise_complete(
+      course_slug: slug, username: student_username,
+      exercise_module_id: timeline['exercise_module_id']
+    )
     add_never_connected_student
+    assign_gallery_articles(slug)
+  end
+
+  # One article each for the students the gallery shows, and a peer review of a
+  # classmate's article for the real student — so the article panel and the
+  # peer-review column report actual assignments rather than empty states.
+  def assign_gallery_articles(slug)
+    DashboardAdminClient.assign_articles(
+      course_slug: slug,
+      editing: { student_username => 'Chromatic aberration',
+                 gallery_students.first => 'Selfie' },
+      reviewing: { student_username => 'Selfie' }
+    )
   end
 
   # A dedicated, never-launching Canvas student: roster-synced into a pending
@@ -168,12 +200,35 @@ describe 'Assignment drill-down screenshots', :staging do
     DashboardAdminClient.run_roster_sync(binding_id: binding['id'])
   end
 
-  def find_imported_assignments(canvas_id, exercise_label)
+  # The imported columns this flow drills into. `article_stage` is whichever
+  # imported exercise carries the shared article panel (choosing the article, the
+  # bibliography, the outline, continuing to improve) — the stage views that report
+  # the student's article rather than a tick. `peer_review` exists only when the
+  # course expects reviews, which the wizard timeline does.
+  def find_imported_assignments(canvas_id, exercise_label, timeline)
     {
       exercise: canvas_api.find_assignment(course_id: canvas_id, name: exercise_label),
       setup: canvas_api.find_assignment(course_id: canvas_id, name: 'Wikipedia account'),
-      trainings: canvas_api.find_assignment(course_id: canvas_id, name: 'Wikipedia trainings')
+      trainings: canvas_api.find_assignment(course_id: canvas_id, name: 'Wikipedia trainings'),
+      peer_review: peer_review_assignment(canvas_id, timeline),
+      article_stage: find_article_stage_assignment(canvas_id)
     }.transform_values { |a| a&.fetch('id') }
+  end
+
+  # The column's own label, read off the gradables the timeline reported rather
+  # than duplicating DeepLinkableGradables::PEER_REVIEW_LABEL (this process doesn't
+  # boot Rails, so the constant isn't reachable).
+  def peer_review_assignment(canvas_id, timeline)
+    label = timeline['gradables'].to_a.find { |g| g['resource'] == 'PeerReview' }&.dig('label')
+    label && canvas_api.find_assignment(course_id: canvas_id, name: label)
+  end
+
+  # Matched by label against the panel-bearing stages, in the order a student
+  # meets them, so the shot is of the earliest one this timeline happens to carry.
+  def find_article_stage_assignment(canvas_id)
+    labels = canvas_api.list_assignments(course_id: canvas_id).to_a.map { |a| a['name'] }
+    wanted = labels.find { |name| name =~ /choose|bibliograph|outline|keep improving/i }
+    wanted && canvas_api.find_assignment(course_id: canvas_id, name: wanted)
   end
 
   def capture_instructor_views(canvas_id, assignments, exercise_label)
@@ -192,7 +247,66 @@ describe 'Assignment drill-down screenshots', :staging do
       visit_assignment(canvas_id, assignments[:trainings])
       settle_in_iframe_view('Wikipedia trainings')
       capture('04-trainings-instructor')
+
+      capture_article_stage_instructor(canvas_id, assignments)
+      capture_peer_review_instructor(canvas_id, assignments)
+      capture_submission_placeholder(canvas_id, assignments)
     end
+  end
+
+  # The stage views that report the article itself: which article each student took
+  # on, and the state of every page of their work (bibliography, outline, draft)
+  # plus what they've written live.
+  def capture_article_stage_instructor(canvas_id, assignments)
+    return warn '  [skip] no article-stage assignment imported' unless assignments[:article_stage]
+
+    visit_assignment(canvas_id, assignments[:article_stage])
+    # Gated on a page label inside the panel rather than its heading: the heading
+    # is on the student's panel but not (yet) on the roster's, and this drives the
+    # DEPLOYED app — a view change here only counts once it ships. "Draft sandbox"
+    # is unique to the panel and always rendered for a course that uses sandboxes,
+    # which the harness timeline does (`yes_sandboxes`).
+    settle_in_iframe_view(t_lti('assignment_view.article_work.pages.draft'))
+    capture('05-article-stage-instructor')
+  end
+
+  # Peer review reaches Canvas as its own column now — it has no exercise module,
+  # so before that it couldn't be imported at all. The roster lists who is
+  # reviewing what, not just a count.
+  def capture_peer_review_instructor(canvas_id, assignments)
+    return warn '  [skip] no peer-review column imported' unless assignments[:peer_review]
+
+    visit_assignment(canvas_id, assignments[:peer_review])
+    settle_in_iframe_view(t_lti('assignment_view.peer_review.reviews'))
+    capture('06-peer-review-instructor')
+  end
+
+  # What an instructor gets when they open one student's submission: Canvas's own
+  # answer is "No Preview Available", because an AGS score carries no artifact.
+  # Reached via the launch URL posted with the score, so this shot is of the same
+  # page SpeedGrader shows.
+  def capture_submission_placeholder(canvas_id, assignments)
+    submission = submission_launch_path(canvas_id, assignments[:exercise])
+    return warn '  [skip] no submission URL stored yet' if submission.nil?
+
+    visit submission
+    expect(page).to have_content(t_lti('assignment_view.submission.explanation'), wait: 20)
+    sleep 1
+    capture('07-submission-placeholder')
+  end
+
+  # Canvas stores our launch URL as the submission's own, wrapped in its
+  # external_tools/retrieve. Read it back off the API rather than rebuilding it.
+  def submission_launch_path(canvas_id, assignment_id)
+    student_id = ENV.fetch('CANVAS_TEST_STUDENT_USER_ID')
+    submission = canvas_api.submission(course_id: canvas_id, assignment_id:,
+                                       user_id: student_id)
+    return submission['url'] if submission&.dig('url')
+
+    # Say what Canvas actually has, so a skip is diagnosable rather than mute.
+    warn "  [diagnostic] submission=#{submission&.slice('workflow_state', 'submission_type',
+                                                        'attempt', 'score').inspect}"
+    nil
   end
 
   def capture_student_views(canvas_id, assignments)
@@ -201,15 +315,27 @@ describe 'Assignment drill-down screenshots', :staging do
         ensure_canvas_logged_in_as_student
         visit_assignment(canvas_id, assignments[:exercise])
         settle_in_iframe_view('Your sandbox')
-        capture('05-exercise-student-panel')
+        capture('08-exercise-student-panel')
 
         visit_assignment(canvas_id, assignments[:setup])
         settle_in_iframe_view('Connected')
-        capture('06-setup-student-panel')
+        capture('09-setup-student-panel')
 
         visit_assignment(canvas_id, assignments[:trainings])
         settle_in_iframe_view('Due date')
-        capture('07-trainings-student-table')
+        capture('10-trainings-student-table')
+
+        if assignments[:article_stage]
+          visit_assignment(canvas_id, assignments[:article_stage])
+          settle_in_iframe_view(t_lti('assignment_view.article_work.pages.draft'))
+          capture('11-article-stage-student')
+        end
+
+        if assignments[:peer_review]
+          visit_assignment(canvas_id, assignments[:peer_review])
+          settle_in_iframe_view(t_lti('assignment_view.peer_review.your_reviews'))
+          capture('12-peer-review-student')
+        end
       end
     end
   end

@@ -137,25 +137,35 @@ CAPTIONS = {
   '02-canvas-iframe-landing' =>
     'Opening the tool inside Canvas before linking: the not-yet-linked notice and ' \
     'a button to continue on the Dashboard in a new tab.',
-  '03-dashboard-setup-empty' =>
+  '03-connect-account' =>
+    'Connecting an account is now its own step, not something a launch does on the ' \
+    'way past: the instructor sees which Wikipedia account is about to be tied to ' \
+    'this Canvas course, and confirms. The connection is write-once, so getting it ' \
+    'wrong used to need staff to undo.',
+  '04-dashboard-setup-empty' =>
     'The setup page: pick the Wiki Education course to link (deep-link-first — no ' \
     'gradebook-layout choice; the instructor imports the columns they want).',
-  '04-dashboard-setup-course-selected' =>
+  '05-dashboard-setup-course-selected' =>
     'A course chosen; Link this course becomes active.',
-  '05-dashboard-course-bound' =>
+  '06-dashboard-course-bound' =>
     'After linking, the instructor lands on the connected course home.',
-  '06-instructor-course-panel' =>
+  '07-instructor-course-panel' =>
     'The Canvas link panel: linked course, last sync, and students synced.',
-  '07-canvas-nav-status' =>
+  '08-canvas-nav-status' =>
     'Relaunching the course tab: the link status renders right in the iframe — ' \
     'course link, students synced, roster sync and grade sync each with their own ' \
     'last-synced time, a refresh action, and a Sync grades button to push grades ' \
     'to the gradebook on demand.',
-  '08-import-picker' =>
+  '09-import-picker' =>
     'Import Wikipedia assignments from the Modules page: every task pre-selected.',
-  '09-module-created' =>
+  '10-module-created' =>
     'One submit creates the module with every assignment in timeline order.',
-  '10-assignments-index' =>
+  '12-canvas-nav-status-publish' =>
+    'After importing, the status view swaps its how-to for the publish reminder. ' \
+    'Canvas creates every imported assignment and its module unpublished, and ' \
+    'nothing else tells the instructor that — students would simply see none of ' \
+    'the work.',
+  '11-assignments-index' =>
     'The Assignments tab after the import: account, trainings, and each exercise.',
   's01-canvas-iframe-landing' =>
     "The student's first launch: with an active Dashboard session the iframe " \
@@ -198,13 +208,32 @@ CAPTIONS = {
   '04-trainings-instructor' =>
     'The trainings roll-up: each module linked with its students-completed count, ' \
     'above the per-student progress roster, with the grade-sync footer below.',
-  '05-exercise-student-panel' =>
+  '05-article-stage-instructor' =>
+    "The stages of the writing process report the article itself, not a tick: each " \
+    "student's assigned article, whether their bibliography, outline and draft pages " \
+    'exist yet, and what they have written on the live article.',
+  '06-peer-review-instructor' =>
+    'Peer review as its own gradebook column — it has no exercise module, so until ' \
+    'now the stage could not be imported into Canvas at all. The roster shows who is ' \
+    'reviewing what, not just how many reviews each student has finished.',
+  '07-submission-placeholder' =>
+    "Opening one student's submission. Canvas's own answer here is \"No Preview " \
+    'Available\", because a score posted over AGS carries no submitted artifact; ' \
+    'this says so plainly and points at the Dashboard until per-student submission ' \
+    'views are built.',
+  '08-exercise-student-panel' =>
     "The same exercise as the student sees it: their status, a Launch instructions " \
     "button to the exercise's training module, and their sandbox.",
-  '06-setup-student-panel' =>
+  '09-setup-student-panel' =>
     "The student's Wikipedia account view: Connected, with their username linking " \
     'to their Dashboard details.',
-  '07-trainings-student-table' =>
+  '11-article-stage-student' =>
+    'The same article panel as the student sees it: their own article and the state ' \
+    'of each page of their work.',
+  '12-peer-review-student' =>
+    'The student\'s own peer reviews: which articles they were assigned to review, ' \
+    'and the page each review belongs on.',
+  '10-trainings-student-table' =>
     "The student's trainings table: every assigned training with due date, status, " \
     'and a link straight to the module.',
   'fv01-instructor-roster' =>

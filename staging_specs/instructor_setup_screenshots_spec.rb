@@ -99,10 +99,16 @@ describe 'Instructor setup illustrated guide', :staging do
       break_out_of_canvas_iframe(role: :instructor)
     end
 
-    # New tab is now active; dashboard setup view rendered.
+    # New tab is now active. Connecting the Wikipedia account is its own approved
+    # step now, so it lands here before setup — the instructor sees which account
+    # is about to be tied to this Canvas course, and says yes.
     sleep 1
     dismiss_consent_banner
-    capture('03-dashboard-setup-empty')
+    capture('03-connect-account')
+
+    approve_identity_connection
+    sleep 1
+    capture('04-dashboard-setup-empty')
 
     if page.has_select?('course_slug')
       # The option is labelled with the readable course title; its value is
@@ -112,7 +118,7 @@ describe 'Instructor setup illustrated guide', :staging do
     else
       fill_in 'course_slug', with: provisioned[:dashboard_course_slug]
     end
-    capture('04-dashboard-setup-course-selected')
+    capture('05-dashboard-setup-course-selected')
 
     # Deep-link-first: no gradebook-layout choice — just link. Assignments
     # arrive via the Modules-page import below.
@@ -122,7 +128,7 @@ describe 'Instructor setup illustrated guide', :staging do
     # fixed cookie-consent overlay before capturing.
     await_lms_panel
     dismiss_consent_banner
-    capture('05-dashboard-course-bound')
+    capture('06-dashboard-course-bound')
 
     # Spaces in the slug come through URL-encoded in the browser bar.
     expect(CGI.unescape(page.current_url))
@@ -131,7 +137,7 @@ describe 'Instructor setup illustrated guide', :staging do
     # The LmsIntegrationStatus panel (StaffView) shows the linked Canvas course,
     # last sync, and synced-students count; scroll it into view.
     scroll_into_view('.lms-integration-status')
-    capture('06-instructor-course-panel')
+    capture('07-instructor-course-panel')
 
     capture_nav_status_and_import(canvas_id)
   end
@@ -143,21 +149,42 @@ describe 'Instructor setup illustrated guide', :staging do
     in_canvas do
       visit_canvas_course(canvas_id)
       click_wiki_education_tab
-      # 'Students synced' is unique to the in-iframe status view (the landing
+      # The roster-count label is unique to the in-iframe status view (the landing
       # also mentions "Wiki Education Dashboard", so that text can't settle it).
-      settle_in_iframe_view('Students synced', iframe: canvas_tool_iframe_locator)
+      # It reads out of en.yml because it's operator copy: this used to gate on
+      # "Students synced", which the roster/connected split renamed away.
+      settle_in_iframe_view(t_lms('roster_students'), iframe: canvas_tool_iframe_locator)
       sleep 1
-      capture('07-canvas-nav-status')
+      capture('08-canvas-nav-status')
 
       import_assignments_via_modules(canvas_id,
-                                     before_submit: -> { capture('08-import-picker') })
+                                     before_submit: -> { capture('09-import-picker') })
       sleep 1
-      capture('09-module-created')
+      capture('10-module-created')
 
       visit "/courses/#{canvas_id}/assignments"
       expect(page).to have_content('Wikipedia account', wait: 20)
       sleep 1
-      capture('10-assignments-index')
+      capture('11-assignments-index')
+
+      # Discovery binds the local rows to the Canvas columns, and the publish
+      # reminder is gated on a BOUND row (a pending reservation is not an import).
+      # In production that job runs two minutes after the import; run it inline so
+      # the shot isn't of the import how-to the instructor has just finished with.
+      binding = DashboardAdminClient.find_binding(
+        course_slug: provisioned[:dashboard_course_slug]
+      )
+      DashboardAdminClient.run_line_item_sync(binding_id: binding['id'])
+
+      # Relaunching the nav tab now shows the publish reminder in place of the
+      # import how-to: Canvas creates every imported assignment unpublished, and
+      # nothing else tells the instructor that.
+      visit_canvas_course(canvas_id)
+      click_wiki_education_tab
+      settle_in_iframe_view(t_lti('status.publish_next_step.header'),
+                            iframe: canvas_tool_iframe_locator)
+      sleep 1
+      capture('12-canvas-nav-status-publish')
     end
   end
 

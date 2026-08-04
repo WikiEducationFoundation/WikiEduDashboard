@@ -158,6 +158,17 @@ module LaunchHelpers
     # Raced with a relaunch that had already connected the account.
   end
 
+  # The `lms_integration.*` strings — the staff sidebar and the in-iframe status
+  # counts. Same reasoning as t_lti: gating a spec on operator copy means reading
+  # it rather than duplicating it (a hard-coded "Students synced" broke the
+  # instructor harvest when the roster/connected split renamed it).
+  def t_lms(key)
+    lms = YAML.load_file(
+      File.expand_path('../../config/locales/en.yml', __dir__)
+    ).dig('en', 'lms_integration')
+    lms.fetch(key) { raise "no lms_integration.#{key} in config/locales/en.yml" }
+  end
+
   # Reads copy straight out of `config/locales/en.yml` rather than hard-coding
   # it: these strings are operator-supplied and get reworded, and this harness
   # doesn't boot Rails, so there's no I18n to ask.
