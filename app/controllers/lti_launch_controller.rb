@@ -50,17 +50,30 @@ class LtiLaunchController < ApplicationController
   layout 'lti_iframe'
 
   before_action :require_canvas_integration_enabled
-  # deep_link / deep_link_select render inside Canvas's deep-linking picker
-  # iframe (the "Find" dialog), so they need X-Frame-Options cleared too — without
-  # this the picker shows "refused to connect" and no gradable can be selected.
+  # THE one registration of allow_iframe for this controller, listing every
+  # action whose response renders inside a Canvas iframe: the launch views, the
+  # setup POST, the deep-linking picker and its form (Canvas's "Find" dialog),
+  # and the in-frame grade-sync POST.
+  #
+  # It has to be one registration. ActiveSupport's callback chain treats two
+  # `after_action :allow_iframe` declarations as duplicates of the same filter
+  # and keeps only the last one, so a concern that registered its own action
+  # here — as LtiGradeSyncTrigger did for sync_grades — had its registration
+  # silently deleted by this line, which is evaluated after the includes above.
+  # The action still rendered 200, and the browser refused the frame: the
+  # instructor's grade-sync button produced "refused to connect" with no
+  # in-frame anything. Add actions to this list; never re-register the filter.
   after_action :allow_iframe,
-               only: %i[launch assignment_view complete_setup deep_link deep_link_select]
+               only: %i[launch assignment_view complete_setup connect_identity
+                        deep_link deep_link_select sync_grades]
 
   def launch
     return render_launch_error_or_redirect if params[:ltik].blank?
     return handle_anonymous_launch unless current_user
 
     return render_enrollment_error unless start_lti_session
+    # Nothing links until the user says so — see #connect_identity.
+    return render_connect_identity if @lti_context.nil?
 
     log_launch_claims if ENV['LTI_LAUNCH_DEBUG']
     return assignment_launch_response if assignment_launch?
@@ -92,6 +105,32 @@ class LtiLaunchController < ApplicationController
   # #launch's logic, including the same iframe break-out + OAuth flow.
   def assignment_view
     launch
+  end
+
+  # Connects the signed-in Dashboard account to this launch's LMS identity —
+  # the only path that creates a link, and only ever from the user's own click on
+  # the approval view. A launch used to do this silently, which connected
+  # whichever account the browser was signed into and, because the link is
+  # write-once, could not be corrected without staff clearing the row.
+  #
+  # CSRF protection is deliberately NOT skipped here, unlike the in-frame picker
+  # POST: this action requires `current_user`, so a Rails session always exists
+  # and the token both applies and works. The identity itself comes from the
+  # re-verified ltik, never from submitted params.
+  def connect_identity
+    return render_launch_error_or_redirect if params[:ltik].blank?
+    return head :forbidden unless current_user
+
+    return render_enrollment_error unless start_lti_session
+    return launch if @lti_context # already linked; nothing to approve
+
+    @lti_context = @lti_session.link_lti_user(current_user, binding: @binding)
+    schedule_first_link_grade_push(@lti_context)
+    launch
+  rescue LtiSession::ConflictingLinkError
+    # Lost a race between the approval view's check and this write.
+    @link_conflict = :identity_taken
+    render_enrollment_error
   end
 
   # The binding being linked is derived from a freshly verified ltik, never

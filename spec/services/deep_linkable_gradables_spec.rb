@@ -21,6 +21,51 @@ describe DeepLinkableGradables do
 
   subject(:gradables) { described_class.new(course).result }
 
+  # Peer review is the one stage with no exercise module, so it never reached the
+  # picker — and therefore couldn't become a Canvas column at all. The course's
+  # expected-review count is what says the stage is part of the course.
+  describe 'the peer-review stage' do
+    let(:peer_review_module) do
+      create(:training_module, slug: 'peer-review', name: 'Peer review', kind: 0)
+    end
+
+    def expect_reviews(count)
+      course.flags[:peer_review_count] = count
+      course.save!
+    end
+
+    it 'is not offered when the course expects no peer reviews' do
+      expect(gradables.map(&:gradable_type)).not_to include(LtiLineItem::PEER_REVIEW_TYPE)
+    end
+
+    it 'is offered once the course expects peer reviews' do
+      expect_reviews(2)
+      stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
+      expect(stage).to be_present
+      expect(stage.resource).to eq('PeerReview')
+      expect(stage.gradable_id).to be_nil
+    end
+
+    # The stage has no exercise, so its deadline comes from the timeline block
+    # that carries the peer-review training.
+    it 'takes its due date from the peer-review timeline block' do
+      expect_reviews(1)
+      block = create(:block, week:, order: 5, title: 'Peer review your classmates',
+                             training_module_ids: [peer_review_module.id])
+
+      stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
+      expect(stage.due_date).to eq(block.calculated_due_date)
+    end
+
+    # A course can expect reviews without the timeline naming them; the column is
+    # still worth offering, just without a deadline.
+    it 'carries no due date when the timeline has no peer-review block' do
+      expect_reviews(1)
+      stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
+      expect(stage.due_date).to be_nil
+    end
+  end
+
   it 'always offers the Wikipedia account setup indicator first' do
     expect(gradables.first.gradable_type).to eq(LtiLineItem::SETUP_TYPE)
     expect(gradables.first.label).to eq('Wikipedia account')

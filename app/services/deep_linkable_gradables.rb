@@ -37,6 +37,13 @@ class DeepLinkableGradables
   # User-facing Canvas gradebook column names — operator-supplied.
   TRAININGS_LABEL = 'Wikipedia trainings'
   SETUP_LABEL = 'Wikipedia account'
+  # [PLACEHOLDER - gradebook column name for the peer review stage]
+  PEER_REVIEW_LABEL = 'Wikipedia peer review'
+
+  # The training module that marks the peer-review stage on the timeline. Peer
+  # review has no exercise, so the block holding this training is what gives the
+  # column its due date.
+  PEER_REVIEW_MODULE_SLUG = 'peer-review'
 
   attr_reader :result
 
@@ -49,6 +56,7 @@ class DeepLinkableGradables
 
   def perform
     options = exercise_blocks.map { |block| gradable_for_block(block) }
+    options << peer_review_stage if peer_reviews_expected?
     options.unshift(trainings_rollup) if any_trainings?
     options.unshift(setup_indicator)
     options
@@ -78,6 +86,31 @@ class DeepLinkableGradables
   # date, rather than a guess.
   def last_training_due_date
     training_blocks.filter_map(&:calculated_due_date).max
+  end
+
+  # The peer-review stage as its own column. Offered on the strength of the
+  # course's expected-review count rather than a timeline block, because that
+  # setting is what says the stage is part of the course; the block is only where
+  # the due date comes from, and a course can expect reviews with the block
+  # retitled or moved.
+  def peer_review_stage
+    Gradable.new(resource: LtiLineItem::PEER_REVIEW_TYPE,
+                 gradable_type: LtiLineItem::PEER_REVIEW_TYPE,
+                 gradable_id: nil, label: PEER_REVIEW_LABEL,
+                 due_date: peer_review_block&.calculated_due_date)
+  end
+
+  def peer_reviews_expected?
+    @course.peer_review_count.to_i.positive?
+  end
+
+  # Peer review's own timeline block: the one holding the peer-review training.
+  # nil when the course expects reviews but its timeline never mentions them, in
+  # which case the column simply carries no due date.
+  def peer_review_block
+    @peer_review_block ||= @course.blocks.includes(:week).to_a.find do |block|
+      block.training_modules.any? { |mod| mod.slug == PEER_REVIEW_MODULE_SLUG }
+    end
   end
 
   # In timeline order (week, then block position) so the picker mirrors

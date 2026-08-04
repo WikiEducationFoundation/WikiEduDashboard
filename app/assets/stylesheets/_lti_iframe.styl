@@ -542,3 +542,90 @@ inline-external-icon()
     display block
     max-width 100%
     overflow-x auto
+
+// Article-selection columns report which article each student took on instead of
+// a completion pill (see AssignmentViewContext#article_selection?). Inside a
+// roster cell a default <ul> would carry bullets and block margins, so the list
+// is stripped back to plain stacked lines.
+.lti-assigned-articles
+  margin 0
+  padding 0
+  list-style none
+
+  li + li
+    margin-top 4px
+
+  a
+    color #2a5db0
+
+.lti-assigned-article__empty
+  color #5a6b7b
+  font-size 13px
+  font-style italic
+
+// The student's own panel leads with their article rather than a status pill.
+.lti-iframe__assigned-article
+  margin-bottom 14px
+
+  h2
+    margin 0 0 6px
+    font-size 15px
+    color #17212b
+
+// Which Dashboard account the page is acting as, at the foot of every in-Canvas
+// view (see the lti_iframe layout). Quiet by design: it's a standing fact, not a
+// message — but it has to be legible, because a silent first-launch link
+// connected the wrong account precisely because nothing said which one.
+.lti-iframe__identity
+  margin 20px 0 0
+  padding-top 10px
+  border-top 1px solid #e3e8ee
+  color #5a6b7b
+  font-size 12px
+
+// The shared assigned-article panel: the whole state of one student's article
+// work, rendered at each stage of the writing process. Inside a roster row it
+// sits in a full-width cell, so it needs its own indent rather than the table's.
+.lti-article-work
+  padding 10px 0 4px
+
+  & + &
+    border-top 1px solid #e3e8ee
+    margin-top 10px
+
+.lti-article-work__title
+  margin 0 0 4px
+  font-size 14px
+
+  a
+    color #2a5db0
+
+.lti-article-work__not-live
+  display inline-block
+  margin-bottom 6px
+  color #8a6d3b
+  font-size 12px
+
+.lti-article-work__pages
+  margin 0 0 8px
+  padding 0
+  list-style none
+
+  li
+    display flex
+    align-items center
+    flex-wrap wrap
+    gap 8px
+    padding 3px 0
+
+.lti-article-work__page-label
+  min-width 96px
+  color #5a6b7b
+  font-size 13px
+  font-weight 600
+
+.lti-article-work__stats
+  margin-top 6px
+
+  dt
+    font-size 12px

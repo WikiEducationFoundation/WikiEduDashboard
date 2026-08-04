@@ -182,14 +182,25 @@ class SyncLtiGrades
   # hasn't connected their Wikipedia account yet would show 0% in the course.
   # Leaving it ungraded (blank) keeps it out of Canvas's total by default until
   # there's real progress. Who-hasn't-connected still shows in the in-Canvas
-  # "Wikipedia account" roster. A zero still posts if we've previously recorded
-  # a score for this pair (a genuine correction downward, e.g. un-completion).
+  # "Wikipedia account" roster. On a mechanical column a zero still posts once
+  # we've recorded a score for this pair — that's a genuine correction downward,
+  # e.g. an un-completed training.
+  #
+  # An instructor-graded column has no such correction to make: it reports
+  # submission, not a score, and the grade belongs to the instructor. So
+  # unfinished exercise work is simply never reported — including work that was
+  # finished and then un-marked, where retracting the submission isn't something
+  # AGS can express and overwriting the instructor's grade isn't ours to do.
   def skip_zero?(progress, line_item, context)
-    progress.score_given.to_f.zero? &&
-      !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
+    return false unless progress.score_given.to_f.zero?
+    return true if line_item.instructor_graded?
+
+    !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
   end
 
   def post_score(context, line_item, progress)
+    return post_for_grading(context, line_item, progress) if line_item.instructor_graded?
+
     @service.post_score(
       lineitem_id: line_item.lineitem_id,
       user_lti_id: context.user_lti_id,
@@ -200,13 +211,36 @@ class SyncLtiGrades
     )
   end
 
+  # Exercise work is evaluated by the instructor; the Dashboard only knows the
+  # student said they finished it. Reporting that as 1/1 claimed a judgment
+  # nobody had made and pre-empted the instructor's (operator decision
+  # 2026-08-03). Submitted + PendingManual with NO score is the AGS way to say
+  # "this student has submitted; grade it": Canvas creates the submission, leaves
+  # it ungraded, and puts it in the needs-grading queue.
+  #
+  # Also non-destructive by construction, which matters because this can re-post:
+  # with no scoreGiven, Canvas skips grade submission entirely, so a grade the
+  # instructor has already entered survives. What a re-post CAN disturb is the
+  # needs-grading state, which is why the signature dedup below is load-bearing
+  # rather than merely an optimization.
+  def post_for_grading(context, line_item, progress)
+    @service.post_score(
+      lineitem_id: line_item.lineitem_id,
+      user_lti_id: context.user_lti_id,
+      comment: with_origin(progress.comment),
+      activity_progress: 'Submitted',
+      grading_progress: 'PendingManual'
+    )
+  end
+
   # AGS carries the state of the activity next to the score, and the platform is
   # entitled to act on it — an activity reported `Completed` is finished work as
   # far as Canvas is concerned. The trainings roll-up legitimately pushes
   # fractions (1 of 4 modules done is 0.25), so the blanket `Completed` this
   # replaces contradicted the score it travelled with. `gradingProgress` stays
   # FullyGraded in both cases: what the student has done so far is fully graded,
-  # nothing is pending on our side.
+  # nothing is pending on our side. Instructor-graded columns don't come through
+  # here at all — see #post_for_grading.
   def activity_progress(progress)
     progress.score_given.to_f < progress.score_maximum.to_f ? 'InProgress' : 'Completed'
   end
@@ -237,14 +271,6 @@ class SyncLtiGrades
   end
 
   def compute_progress(line_item, context)
-    case line_item.gradable_type
-    when LtiLineItem::SETUP_TYPE
-      LtiSetupProgress.new(context)
-    when LtiLineItem::TRAINING_PROGRESS_TYPE
-      LtiTrainingProgress.new(@binding.course, context.user)
-    when 'Block'
-      block = Block.find_by(id: line_item.gradable_id)
-      block && LtiBlockProgress.new(block, context.user)
-    end
+    LtiGradableProgress.for(line_item:, context:, course: @binding.course)
   end
 end

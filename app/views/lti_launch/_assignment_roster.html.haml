@@ -7,15 +7,23 @@
       %thead
         %tr
           %th= t('lti.assignment_view.roster.student')
-          %th= t('lti.assignment_view.roster.status')
+          - # An article-selection column reports which article each student took
+          - # on; "Completed" says nothing an instructor can act on there.
+          - if @context.article_selection?
+            %th= t('lti.assignment_view.roster.assigned_article')
+          - else
+            %th= t('lti.assignment_view.roster.status')
           %th= t('lti.assignment_view.roster.sandbox')
       %tbody
         - roster.each_with_index do |row, i|
           %tr
             %td= row.name
-            %td
-              %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
-                = lti_progress_status_label(row.progress_state)
+            - if @context.article_selection?
+              %td= render 'lti_launch/assigned_articles', articles: row.assigned_articles
+            - else
+              %td
+                %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+                  = lti_progress_status_label(row.progress_state)
             %td
               - if row.sandbox_url
                 .lti-sandbox__actions
@@ -28,3 +36,10 @@
             %tr.lti-sandbox__detail{ id: "sandbox-#{i}", hidden: true }
               %td{ colspan: 3 }
                 .lti-sandbox__content
+          - # The whole state of this student's article, on the stages of the
+          - # writing process that call for it.
+          - if @context.article_panel?
+            %tr.lti-article-work__row
+              %td{ colspan: 3 }
+                = render 'lti_launch/article_work', articles: row.assigned_articles,
+                                                   scope: "row-#{i}"

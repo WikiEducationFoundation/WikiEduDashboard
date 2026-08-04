@@ -92,29 +92,36 @@ class LtiServiceSession
     items
   end
 
-  # POST /api/lineitems/{urlencoded(lineitem_id)}/scores — submits a
-  # student's score on one line item. Per LTIAAS docs (and LTI Advantage
+  # POST /api/lineitems/{urlencoded(lineitem_id)}/scores — reports one
+  # student's result on one line item. Per LTIAAS docs (and LTI Advantage
   # AGS), `userId`, `activityProgress`, `gradingProgress` are required.
-  # `scoreGiven` and `scoreMaximum` come together when the score should
-  # update the gradebook. `comment` is a free-form text field surfaced in the
-  # Canvas gradebook; we put the Dashboard's origin there, and deliberately
-  # never a sandbox URL — those embed the student's Wikipedia
-  # username and a gradebook comment is visible to anyone with gradebook access
-  # (see LtiBlockProgress).
+  # `comment` is a free-form text field surfaced in the Canvas gradebook; we put
+  # the Dashboard's origin there, and deliberately never a sandbox URL — those
+  # embed the student's Wikipedia username and a gradebook comment is visible to
+  # anyone with gradebook access (see LtiBlockProgress).
+  #
+  # `score_given` is optional, and omitting it is a distinct, deliberate signal
+  # rather than a degenerate case: AGS requires scoreMaximum only alongside a
+  # score, and Canvas leaves the submission ungraded when a PendingManual result
+  # arrives without one ("the assignment will not be graded" — its Score docs;
+  # `reset_score?` in Canvas's scores_controller skips grade submission). That is
+  # how instructor-evaluated work reaches Canvas as "submitted, please grade"
+  # instead of as marks the Dashboard never awarded. See SyncLtiGrades.
   # 204 No Content on success.
   # See https://docs.ltiaas.com/guides/api/manipulating-grades/
   # rubocop:disable Metrics/ParameterLists
-  def post_score(lineitem_id:, user_lti_id:, score_given:, score_maximum: 1.0,
+  def post_score(lineitem_id:, user_lti_id:, score_given: nil, score_maximum: 1.0,
                  comment: nil, activity_progress: 'Completed',
                  grading_progress: 'FullyGraded', timestamp: Time.current)
     body = {
       userId: user_lti_id,
-      scoreGiven: score_given,
-      scoreMaximum: score_maximum,
       activityProgress: activity_progress,
       gradingProgress: grading_progress,
       timestamp: timestamp.iso8601
     }
+    # Both together or neither: a scoreMaximum with no scoreGiven would assert a
+    # denominator for a grade that isn't being reported.
+    body.merge!(scoreGiven: score_given, scoreMaximum: score_maximum) unless score_given.nil?
     body[:comment] = comment if comment.present?
     @client.post("/api/lineitems/#{CGI.escape(lineitem_id)}/scores", body)
   end

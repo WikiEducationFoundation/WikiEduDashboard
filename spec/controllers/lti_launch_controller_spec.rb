@@ -32,6 +32,34 @@ describe LtiLaunchController, type: :request do
     CoursesUsers.create!(user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
+  # Connecting a Dashboard account to an LMS identity is its own approved step
+  # now (LtiLaunchController#connect_identity), not something a launch does on
+  # the way past. Examples whose subject is what a launch *renders* start from an
+  # already-connected account; the approval itself has its own describe block.
+  def approve_identity_link(dashboard_user = user, lti_user_id: 'lti-user-1')
+    binding = LtiCourseBinding.find_or_create_by!(lms_id: 'platform-x',
+                                                 lms_context_id: 'canvas-77') do |b|
+      b.lms_family = 'canvas'
+      b.lms_resource_link_id = 'rl-99'
+    end
+    context = LtiContext.find_or_initialize_by(user_lti_id: lti_user_id,
+                                              lti_course_binding_id: binding.id)
+    context.update!(user: dashboard_user, lms_id: 'platform-x', linked_at: Time.current,
+                    roles: ["http://purl.imsglobal.org/vocab/lis/v2/membership##{role}"])
+    context
+  end
+
+  # Find-or-create so a fixture binding and a pre-approved link can be set up in
+  # either order — the link needs a binding, and RSpec runs `let!` hooks in
+  # declaration order.
+  def lti_binding_for(course)
+    LtiCourseBinding.find_or_create_by!(lms_id: 'platform-x',
+                                        lms_context_id: 'canvas-77') do |b|
+      b.lms_family = 'canvas'
+      b.lms_resource_link_id = 'rl-99'
+    end.tap { |b| b.update!(course:) }
+  end
+
   before do
     ENV['LTIAAS_DOMAIN'] = ltiaas_domain
     ENV['LTIAAS_API_KEY'] = 'k'
@@ -100,10 +128,7 @@ describe LtiLaunchController, type: :request do
       # no sign-in bounce for read-only state.
       it 'renders the status view instead of the landing once the course is linked' do
         course = create(:course)
-        LtiCourseBinding.create!(
-          course: course, lms_id: 'platform-x', lms_family: 'canvas',
-          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-        )
+        lti_binding_for(course)
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to render_template('lti_launch/instructor_status')
         expect(response.body).to include(course.title)
@@ -138,10 +163,13 @@ describe LtiLaunchController, type: :request do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
+      before { approve_identity_link }
+
       context 'with no existing course binding' do
-        it 'creates the binding and renders the setup view' do
-          expect { get '/lti', params: { ltik: 'ltik-abc' } }
-            .to change(LtiCourseBinding, :count).by(1)
+        before { approve_identity_link }
+
+        it 'renders the setup view for a connected instructor' do
+          get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to have_http_status(:ok)
           expect(response.body).to include('Set up the Wiki Education Dashboard')
         end
@@ -211,6 +239,7 @@ describe LtiLaunchController, type: :request do
             CampaignsCourses.create!(course: only, campaign: solo_campaign)
             CoursesUsers.create!(user: solo_user, course: only,
                                  role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+            approve_identity_link(solo_user)
           end
 
           it 'preselects the sole course (no blank prompt) so the instructor can just link' do
@@ -254,12 +283,11 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'with a bound course' do
+        before { approve_identity_link }
+
         let!(:course) { create(:course) }
         let!(:binding) do
-          LtiCourseBinding.create!(
-            course: course, lms_id: 'platform-x', lms_family: 'canvas',
-            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-          )
+          lti_binding_for(course)
         end
 
         # Rather than redirecting into the full dashboard (which renders
@@ -342,6 +370,19 @@ describe LtiLaunchController, type: :request do
             expect(response).to render_template('lti_launch/instructor_status')
           end
 
+          # This POST comes from a button inside the Canvas iframe and re-renders
+          # in place, so its response has to be framable. It wasn't: the concern
+          # registered its own `after_action :allow_iframe`, ActiveSupport
+          # treated it as a duplicate of the controller's and kept only the
+          # latter, and the button produced "refused to connect" — a 200 the
+          # browser wouldn't render. The stale-ltik path below passed throughout,
+          # because it calls allow_iframe directly.
+          it 'clears X-Frame-Options so the re-render is framable' do
+            post '/lti/sync_grades', params: { ltik: 'ltik-abc' }
+            expect(response).to have_http_status(:ok)
+            expect(response.headers).not_to have_key('X-Frame-Options')
+          end
+
           # The grade-sync POST is a grade sync only — it must not also re-queue
           # a roster sync the way the status launch (GET) does.
           it 'does not enqueue a roster sync' do
@@ -420,6 +461,8 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'with no bound course' do
+        before { approve_identity_link }
+
         it 'renders the "instructor not done yet" view' do
           get '/lti', params: { ltik: 'ltik-abc' }
           expect(response).to have_http_status(:ok)
@@ -434,11 +477,10 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'with a bound course and student already enrolled' do
+        before { approve_identity_link }
+
         before do
-          LtiCourseBinding.create!(
-            course: course, lms_id: 'platform-x', lms_family: 'canvas',
-            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-          )
+          lti_binding_for(course)
           CoursesUsers.create!(user: user, course: course,
                                role: CoursesUsers::Roles::STUDENT_ROLE)
         end
@@ -474,12 +516,11 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'with a bound course and student not yet enrolled' do
+        before { approve_identity_link }
+
         before do
           course.campaigns << Campaign.first
-          LtiCourseBinding.create!(
-            course: course, lms_id: 'platform-x', lms_family: 'canvas',
-            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-          )
+          lti_binding_for(course)
         end
 
         it 'enrolls the student and redirects to the course' do
@@ -490,13 +531,12 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'with a bound course that has not yet been approved' do
+        before { approve_identity_link }
+
         before do
           # No campaign attached → JoinCourse#student_joining_before_approval?
           # returns true → enrollment is silently skipped without our handling.
-          LtiCourseBinding.create!(
-            course: course, lms_id: 'platform-x', lms_family: 'canvas',
-            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-          )
+          lti_binding_for(course)
         end
 
         it 'renders the pending-approval view and does not enroll the student' do
@@ -511,6 +551,8 @@ describe LtiLaunchController, type: :request do
       # a student's only launch is the assignment itself — so that launch has
       # to carry the enrollment the nav launch used to.
       context 'when the only launch is an assignment' do
+        before { approve_identity_link }
+
         let(:idtoken) do
           base = idtoken_for(role)
           base['launch']['resourceLink'] = { 'id' => 'rl-assignment-1' }
@@ -518,10 +560,7 @@ describe LtiLaunchController, type: :request do
           base
         end
         let!(:bound) do
-          LtiCourseBinding.create!(
-            course: course, lms_id: 'platform-x', lms_family: 'canvas',
-            lms_context_id: 'canvas-77', lms_resource_link_id: 'nav-rl'
-          )
+          lti_binding_for(course)
         end
 
         before do
@@ -563,13 +602,12 @@ describe LtiLaunchController, type: :request do
       end
 
       context 'with a bound course that has been withdrawn' do
+        before { approve_identity_link }
+
         before do
           course.campaigns << Campaign.first
           course.update!(withdrawn: true)
-          LtiCourseBinding.create!(
-            course: course, lms_id: 'platform-x', lms_family: 'canvas',
-            lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-          )
+          lti_binding_for(course)
           allow(Sentry).to receive(:capture_message)
         end
 
@@ -637,13 +675,12 @@ describe LtiLaunchController, type: :request do
     # observer's course-nav launch rendered the instructor status panel — roster
     # counts, last-sync state, and the Sync grades trigger.
     context 'when the launch role is one the integration does not serve' do
+      before { approve_identity_link }
+
       let(:role) { 'Mentor' }
       let!(:course) { create(:course) }
       let!(:binding) do
-        LtiCourseBinding.create!(
-          course:, lms_id: 'platform-x', lms_family: 'canvas',
-          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-        )
+        lti_binding_for(course)
       end
 
       before do
@@ -672,10 +709,7 @@ describe LtiLaunchController, type: :request do
     context 'when the signed-in user is already linked to another LMS identity' do
       let!(:course) { create(:course) }
       let!(:binding) do
-        LtiCourseBinding.create!(
-          course:, lms_id: 'platform-x', lms_family: 'canvas',
-          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-        )
+        lti_binding_for(course)
       end
 
       before do
@@ -710,10 +744,7 @@ describe LtiLaunchController, type: :request do
       let(:original) { create(:user, username: 'First Account') }
       let!(:course) { create(:course) }
       let!(:binding) do
-        LtiCourseBinding.create!(
-          course:, lms_id: 'platform-x', lms_family: 'canvas',
-          lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-        )
+        lti_binding_for(course)
       end
 
       before do
@@ -783,6 +814,142 @@ describe LtiLaunchController, type: :request do
         expect(response).to have_http_status(422)
         expect(response).to render_template('lti_launch/launch_error')
         expect(response.headers).not_to have_key('X-Frame-Options')
+      end
+    end
+  end
+
+  # Connecting a Dashboard account to a Canvas identity is the user's decision,
+  # not a side effect of launching. A launch used to link whichever account the
+  # browser was signed into, and because the link is write-once, the mistake
+  # could only be undone by staff clearing the row.
+  describe 'identity approval' do
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    describe 'a launch with nothing connected yet' do
+      it 'asks instead of linking' do
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiContext, :count)
+        expect(response).to render_template('lti_launch/connect_identity')
+      end
+
+      it 'names both the Canvas course and the account being connected' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('WRIT 2010')
+        expect(response.body).to include(user.username)
+      end
+
+      # The binding is this launch's identity as a Canvas course, and predates any
+      # decision about who is connecting to it.
+      it 'still records the binding' do
+        expect { get '/lti', params: { ltik: 'ltik-abc' } }
+          .to change(LtiCourseBinding, :count).by(1)
+      end
+
+      it 'offers a way to connect a different account' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include(destroy_user_session_path)
+      end
+    end
+
+    describe 'POST /lti/connect_identity' do
+      it 'connects the signed-in account and continues into the launch' do
+        expect { post '/lti/connect_identity', params: { ltik: 'ltik-abc' } }
+          .to change(LtiContext, :count).by(1)
+        context = LtiContext.last
+        expect(context.user).to eq(user)
+        expect(context.user_lti_id).to eq('lti-user-1')
+        expect(context.linked_at).to be_present
+        expect(response).not_to render_template('lti_launch/connect_identity')
+      end
+
+      it 'fills in an NRPS-discovered row rather than creating a second one' do
+        binding = lti_binding_for(nil)
+        discovered = LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-user-1',
+                                        lms_id: 'platform-x',
+                                        roles: ['vocab/membership#Learner'])
+
+        expect { post '/lti/connect_identity', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiContext, :count)
+        expect(discovered.reload.user).to eq(user)
+      end
+
+      # The whole point of the step: the roles a launch refreshes are fine to
+      # take automatically, but the identity itself needs the click.
+      it 'is the only path that creates a link' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(LtiContext.where(user_id: user.id)).not_to exist
+      end
+
+      it 'requires an ltik' do
+        post '/lti/connect_identity'
+        expect(response).to redirect_to('/errors/login_error')
+        expect(LtiContext.count).to eq(0)
+      end
+
+      it 'refuses when nobody is signed in' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+        post '/lti/connect_identity', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:forbidden)
+        expect(LtiContext.count).to eq(0)
+      end
+
+      it 'is idempotent once the account is connected' do
+        approve_identity_link
+        expect { post '/lti/connect_identity', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiContext, :count)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    # Write-once in both directions. Both conflicts are refused before anything
+    # is written, and the identity-taken one names its self-service remedy —
+    # which is what the launch path used to withhold, sending an instructor the
+    # student-facing "contact your instructor" copy instead.
+    describe 'when the Canvas identity belongs to another Dashboard account' do
+      before do
+        approve_identity_link(create(:user, username: 'SomeoneElse'))
+      end
+
+      it 'refuses the launch and names the remedy' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:conflict)
+        expect(response.body)
+          .to include(CGI.escapeHTML(I18n.t('lti.setup.duplicate_link_error')))
+      end
+
+      # Naming the account would identify the remedy precisely, but it would put
+      # a Wikipedia username in front of whoever holds the launch URL.
+      it 'does not disclose which account holds the link' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).not_to include('SomeoneElse')
+      end
+
+      it 'refuses the approval POST too, leaving the existing link alone' do
+        expect { post '/lti/connect_identity', params: { ltik: 'ltik-abc' } }
+          .not_to change(LtiContext, :count)
+        expect(response).to have_http_status(:conflict)
+        expect(LtiContext.find_by(user_lti_id: 'lti-user-1').user.username)
+          .to eq('SomeoneElse')
+      end
+    end
+
+    describe 'when this account already holds another Canvas identity here' do
+      before do
+        binding = lti_binding_for(nil)
+        LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-someone-else',
+                           lms_id: 'platform-x', user:, linked_at: 1.day.ago,
+                           roles: ['vocab/membership#Learner'])
+      end
+
+      # No self-service remedy for this one — staff have to clear the link — so
+      # it keeps the generic view.
+      it 'refuses without offering the sign-in-again remedy' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:conflict)
+        expect(response.body)
+          .not_to include(CGI.escapeHTML(I18n.t('lti.setup.duplicate_link_error')))
       end
     end
   end
@@ -1055,10 +1222,7 @@ describe LtiLaunchController, type: :request do
                      content: '<p>Read an article and evaluate its sourcing.</p>')
     end
     let!(:binding) do
-      LtiCourseBinding.create!(
-        course: course, lms_id: 'platform-x', lms_family: 'canvas',
-        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-      )
+      lti_binding_for(course)
     end
     let!(:line_item) do
       LtiLineItem.create!(lti_course_binding: binding, gradable_type: 'Block',
@@ -1078,6 +1242,8 @@ describe LtiLaunchController, type: :request do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
+
+      before { approve_identity_link }
 
       it 'dispatches /lti to the roster for the matched block line item' do
         student = create(:user, username: 'Stu Dent')
@@ -1243,6 +1409,7 @@ describe LtiLaunchController, type: :request do
         # A student with sandbox/training state is one who is already enrolled;
         # the enroll-on-assignment-launch path has its own specs below.
         enroll_student
+        approve_identity_link
       end
 
       it 'renders the student panel with their own sandbox link' do
@@ -1301,6 +1468,40 @@ describe LtiLaunchController, type: :request do
       end
     end
 
+    # The stage's outcome is which article each student took on, so the roster
+    # reports that instead of a completion pill it can't act on.
+    context 'when the launch resolves to an article-selection exercise' do
+      let(:exercise_module) do
+        create(:training_module, slug: 'choose-topic-from-list-exercise',
+                                 name: 'Choose your article from a list', kind: 1)
+      end
+
+      it "lists each student's assigned article in place of the status" do
+        student = create(:user, username: 'Stu Dent')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
+                           lms_id: 'platform-x',
+                           roles: ['vocab/membership#Learner'], linked_at: Time.current)
+        Assignment.create!(course:, user: student, wiki: course.home_wiki,
+                           role: Assignment::Roles::ASSIGNED_ROLE,
+                           article_title: 'Chromatic aberration')
+
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('Chromatic aberration')
+        expect(response.body).to include(I18n.t('lti.assignment_view.roster.assigned_article'))
+        expect(response.body).not_to include(I18n.t('lti.assignment_view.roster.status'))
+      end
+
+      it 'says so for a student who has not chosen an article yet' do
+        student = create(:user, username: 'Stu Dent')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
+                           lms_id: 'platform-x',
+                           roles: ['vocab/membership#Learner'], linked_at: Time.current)
+
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include(I18n.t('lti.assignment_view.no_article_yet'))
+      end
+    end
+
     context 'when not signed in (in-iframe launch, partitioned cookies)' do
       # The ltik authenticates the launch, so assignment drill-downs render
       # in the iframe with the viewer resolved from the LTI identity.
@@ -1341,6 +1542,8 @@ describe LtiLaunchController, type: :request do
     end
 
     context 'when the launch resolves to the "Wikipedia account" setup column' do
+      before { approve_identity_link }
+
       let!(:setup_item) do
         LtiLineItem.create!(lti_course_binding: binding,
                             gradable_type: LtiLineItem::SETUP_TYPE,
@@ -1403,7 +1606,75 @@ describe LtiLaunchController, type: :request do
       end
     end
 
+    # Peer review had no way into Canvas before this column: no exercise module
+    # means DeepLinkableGradables never offered it.
+    context 'when the launch resolves to the peer-review column' do
+      before { approve_identity_link }
+
+      let!(:peer_review_item) do
+        LtiLineItem.create!(lti_course_binding: binding,
+                            gradable_type: LtiLineItem::PEER_REVIEW_TYPE,
+                            lineitem_id: 'https://canvas/li/peer-review',
+                            label: 'Peer review')
+      end
+      let(:idtoken) do
+        base = idtoken_for(role)
+        base['services']['assignmentAndGrades'] = {
+          'lineItemId' => 'https://canvas/li/peer-review'
+        }
+        base
+      end
+
+      before do
+        course.flags[:peer_review_count] = 2
+        course.save!
+      end
+
+      it 'renders the roster with each student’s reviews-done count' do
+        student = create(:user, username: 'Rev Iewer')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-rev',
+                           lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
+                           linked_at: Time.current)
+        review = Assignment.create!(course:, user: student, wiki: course.home_wiki,
+                                    role: Assignment::Roles::REVIEWING_ROLE,
+                                    article_title: 'Someone elses article')
+        review.update_sandbox_status(:review,
+                                     AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
+
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/assignment_view_peer_review')
+        expect(response.body).to include('Rev Iewer')
+      end
+
+      context 'as a student' do
+        let(:role) { 'Learner' }
+
+        it 'lists their own reviews with the page each belongs on' do
+          enroll_student
+          Assignment.create!(course:, user:, wiki: course.home_wiki,
+                             role: Assignment::Roles::REVIEWING_ROLE,
+                             article_title: 'Someone elses article')
+
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/assignment_view_peer_review')
+          expect(response.body).to include('Someone elses article')
+          expect(response.body).to include('_Peer_Review')
+        end
+
+        it 'says so when no reviews have been assigned to them yet' do
+          enroll_student
+          get '/lti', params: { ltik: 'ltik-abc' }
+          expect(response.body)
+            .to include(I18n.t('lti.assignment_view.peer_review.none_assigned'))
+        end
+      end
+    end
+
     context 'when the launch resolves to the "Wikipedia trainings" roll-up column' do
+      before { approve_identity_link }
+
       let(:training_mod) do
         create(:training_module, slug: 'wiki-intro', name: 'Wiki intro', kind: 0)
       end
@@ -1485,10 +1756,7 @@ describe LtiLaunchController, type: :request do
     end
 
     def bind_course!
-      LtiCourseBinding.create!(
-        course:, lms_id: 'platform-x', lms_family: 'canvas',
-        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-      )
+      lti_binding_for(course)
     end
 
     before { allow(LtiLineItemSyncWorker).to receive(:perform_in) }
@@ -1534,7 +1802,11 @@ describe LtiLaunchController, type: :request do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
+      # Binding creation is what the examples below are about, so they launch
+      # without a connected account (the binding is created either way — the
+      # approval step comes after it).
       it 'renders the setup view rather than erroring' do
+        approve_identity_link
         get '/lti', params: { ltik: 'ltik-abc' }
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('lti_launch/setup')
@@ -1618,10 +1890,7 @@ describe LtiLaunchController, type: :request do
 
     before do
       allow(LtiLineItemSyncWorker).to receive(:perform_in)
-      LtiCourseBinding.create!(
-        course:, lms_id: 'platform-x', lms_family: 'canvas',
-        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99'
-      )
+      lti_binding_for(course)
     end
 
     it 'requires a ltik' do
@@ -1905,6 +2174,30 @@ describe LtiLaunchController, type: :request do
     it '404s on /lti/deep_link/select when the flag is off' do
       post '/lti/deep_link/select', params: { ltik: 'ltik-abc', resource: 'Block:1' }
       expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  # A structural guard, not a behaviour test. Every framed action needs
+  # X-Frame-Options cleared, and the way that breaks is silent: ActiveSupport's
+  # callback chain treats a second `after_action :allow_iframe` as a duplicate
+  # of the first and keeps only the last registration, so a concern declaring
+  # one for its own action deletes the controller's list — for every OTHER
+  # action too. The response stays 200 and only the browser notices.
+  #
+  # Asserting the whole set in one place is what makes that visible: a lost
+  # registration shows up as actions missing from this set, and a new framed
+  # action can't be added to the controller without being named here.
+  describe 'the allow_iframe callback' do
+    it 'covers exactly the actions that render inside the Canvas iframe' do
+      registrations = LtiLaunchController._process_action_callbacks
+                                         .select { |c| c.filter == :allow_iframe }
+      expect(registrations.size).to eq(1)
+
+      conditions = registrations.first.instance_variable_get(:@if)
+      actions = conditions.filter_map { |c| c.instance_variable_get(:@actions) }.first
+      expect(actions).to contain_exactly('launch', 'assignment_view', 'complete_setup',
+                                         'connect_identity', 'deep_link', 'deep_link_select',
+                                         'sync_grades')
     end
   end
 end

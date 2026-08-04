@@ -43,20 +43,39 @@ module LtiLaunchSession
 
   # False means the launch authenticated fine but its LMS identity can't be
   # linked to this Dashboard user without changing an existing link — either
-  # direction of the 1:1 map is already taken. See
-  # LtiSession#reject_conflicting_link!. The error is kept so callers can
-  # tell the duplicate-link case (which has a self-service remedy) apart.
+  # direction of the 1:1 map is already taken. `@link_conflict` says which,
+  # because the identity-taken case has a self-service remedy and the other
+  # doesn't.
+  #
+  # This no longer creates a link. It refreshes one that exists (LMS role
+  # changes have to keep propagating) and leaves `@lti_context` nil otherwise,
+  # which is the caller's signal to ask the user first — see
+  # LtiLaunchController#connect_identity. Linking as a side effect of arriving
+  # with a session is how an instructor's Canvas identity got silently connected
+  # to whichever Dashboard account their browser was signed into.
   def start_lti_session
     @lti_session = build_lti_session(params[:ltik])
     @binding = @lti_session.find_or_create_binding!
-    context = @lti_session.link_lti_user(current_user, binding: @binding)
-    schedule_first_link_grade_push(context)
+    @link_conflict = @lti_session.link_conflict(current_user, binding: @binding)
+    return report_link_conflict if @link_conflict
+
+    @lti_context = @lti_session.refresh_existing_link(current_user, binding: @binding)
     true
-  rescue LtiSession::ConflictingLinkError => e
-    Sentry.capture_exception(e, extra: { binding_id: @binding&.id,
-                                         user_id: current_user&.id })
-    @link_conflict = e
+  end
+
+  def report_link_conflict
+    Sentry.capture_exception(
+      LtiSession::ConflictingLinkError.new("#{@link_conflict} on launch"),
+      extra: { binding_id: @binding&.id, user_id: current_user&.id }
+    )
     false
+  end
+
+  # Nothing is linked yet, so ask before writing: the approval view names the
+  # Canvas course and the Dashboard account, and its POST is the only path that
+  # creates a link.
+  def render_connect_identity
+    render 'lti_launch/connect_identity', layout: 'lti_iframe'
   end
 
   # The "Wikipedia account" column should flip to ✓ the moment a student
@@ -70,10 +89,26 @@ module LtiLaunchSession
     LtiGradeSyncWorker.perform_async(@binding.id)
   end
 
-  # Reuses the "couldn't enroll you" view: from the student's side a duplicate
-  # link and a failed enrollment are the same dead end with the same remedy —
-  # contact the instructor — and the view already offers a re-launch retry.
+  # Reuses the "couldn't enroll you" view: from the student's side a failed
+  # enrollment and a link this launch may not move are the same dead end with the
+  # same remedy — contact the instructor — and the view already offers a
+  # re-launch retry.
+  #
+  # Except for the one conflict that has a self-service remedy. When this Canvas
+  # identity is already connected to a different Dashboard account, the fix is to
+  # sign back in as that account, and the setup flow has said so all along
+  # (`lti.setup.duplicate_link_error`) while the launch path sent instructors and
+  # students alike to "contact your instructor". Deliberately does NOT name the
+  # account that holds the link: it would identify the remedy precisely, but a
+  # Wikipedia username would then be disclosed to whoever holds the launch URL.
   def render_enrollment_error
+    return render_duplicate_link_error if @link_conflict == :identity_taken
+
+    render 'lti_launch/enrollment_error', status: :conflict
+  end
+
+  def render_duplicate_link_error
+    @setup_error = t('lti.setup.duplicate_link_error')
     render 'lti_launch/enrollment_error', status: :conflict
   end
 
@@ -90,7 +125,7 @@ module LtiLaunchSession
   end
 
   def setup_link_error_key
-    if @link_conflict.is_a?(LtiSession::DuplicateUserLinkError)
+    if @link_conflict == :identity_taken
       'lti.setup.duplicate_link_error'
     else
       'lti.setup.link_conflict_error'

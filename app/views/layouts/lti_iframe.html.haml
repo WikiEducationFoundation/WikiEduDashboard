@@ -20,3 +20,14 @@
   %body.lti-iframe
     %main.lti-iframe__main{ role: 'main' }
       = yield
+      - # Which Dashboard account these pages are acting as, on every integration
+      - # page, framed or not. A silent first-launch link connected the wrong
+      - # account precisely because nothing on screen said which one was signed
+      - # in. `current_user` being absent is itself worth stating: inside the
+      - # Canvas iframe the session cookie is partitioned away, which is why the
+      - # anonymous landings ask the user to continue in a new tab.
+      %p.lti-iframe__identity
+        - if current_user
+          = t('lti.identity.signed_in_as', username: current_user.username)
+        - else
+          = t('lti.identity.not_signed_in')

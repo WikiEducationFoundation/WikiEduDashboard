@@ -471,6 +471,10 @@ Rails.application.routes.draw do
   post 'lti/deep_link/select' => 'lti_launch#deep_link_select'
   post 'lti/setup' => 'lti_launch#complete_setup'
   post 'lti/sync_grades' => 'lti_launch#sync_grades'
+  # Connecting a Dashboard account to an LMS identity is a decision the user
+  # makes, not a side effect of arriving with a session — hence a POST of its own
+  # rather than something a launch does. See LtiLaunchController#connect_identity.
+  post 'lti/connect_identity' => 'lti_launch#connect_identity'
 
   # frequenty asked questions
   resources :faq do

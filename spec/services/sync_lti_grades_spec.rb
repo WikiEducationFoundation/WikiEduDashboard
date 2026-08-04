@@ -144,6 +144,73 @@ describe SyncLtiGrades do
       .with(body: hash_including(userId: 'lti-bob'))
   end
 
+  # Exercise work is the instructor's to evaluate; the Dashboard only knows the
+  # student marked it done. Reporting that as 1/1 asserted a judgment nobody had
+  # made. Submitted + PendingManual with no score is how AGS says "submitted,
+  # please grade" — Canvas creates the submission and leaves it ungraded.
+  describe 'an instructor-graded exercise column' do
+    before do
+      tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module)
+      tmu.flags = { course.id => { marked_complete: true } }
+      tmu.save!
+      stub_post_score(trainings_lineitem_url)
+      stub_post_score(setup_lineitem_url)
+      stub_post_score(exercise_lineitem_url)
+    end
+
+    it 'reports submission for grading instead of a score' do
+      described_class.new(binding)
+
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| !JSON.parse(req.body).key?('scoreGiven') }
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with(body: hash_including(activityProgress: 'Submitted',
+                                   gradingProgress: 'PendingManual'))
+    end
+
+    # scoreMaximum without scoreGiven would assert a denominator for a grade
+    # that isn't being reported.
+    it 'omits scoreMaximum along with the score' do
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| !JSON.parse(req.body).key?('scoreMaximum') }
+    end
+
+    # The mechanical columns are unaffected: there, completion IS the grade.
+    it 'still posts a real score for the setup indicator' do
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
+        .with(body: hash_including(scoreGiven: 1.0, gradingProgress: 'FullyGraded'))
+    end
+  end
+
+  describe 'an exercise the student has not finished' do
+    before do
+      stub_post_score(trainings_lineitem_url)
+      stub_post_score(setup_lineitem_url)
+      stub_post_score(exercise_lineitem_url)
+    end
+
+    it 'reports nothing at all' do
+      described_class.new(binding)
+      expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+    end
+
+    # Un-marking finished work can't be retracted through AGS, and overwriting
+    # the instructor's grade isn't ours to do — so an unfinished exercise stays
+    # silent even where a mechanical column would post a correcting zero.
+    it 'does not post a zero even once something has been reported before' do
+      described_class.new(binding) # binds the line items via discovery
+      line_item = LtiLineItem.find_by(lineitem_id: exercise_lineitem_url)
+      LtiScoreSignature.create!(lti_line_item: line_item, lti_context: linked_context,
+                                signature: 'stale', last_pushed_at: 1.day.ago)
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+    end
+  end
+
   # activityProgress travels with the score and Canvas may act on it: an
   # activity reported Completed is finished work. The trainings roll-up pushes
   # fractions, so a blanket Completed contradicted the score beside it.
@@ -210,7 +277,10 @@ describe SyncLtiGrades do
     expect(binding.reload.last_grade_sync_at).to be_present
   end
 
-  it 'pushes 1.0 without leaking the sandbox URL into the score comment' do
+  # The exercise column reports submission for grading rather than a score (see
+  # the instructor-graded describe below); what this example guards is the
+  # privacy rule that holds either way.
+  it 'reports a finished exercise without leaking the sandbox URL into the comment' do
     tmu = TrainingModulesUsers.new(user: student_user, training_module: exercise_module,
                                    completed_at: 1.day.ago)
     tmu.flags = { course.id => { marked_complete: true } }
@@ -219,8 +289,8 @@ describe SyncLtiGrades do
     stub = stub_request(:post,
                         "https://#{domain}/api/lineitems/" \
                         "#{CGI.escape(exercise_lineitem_url)}/scores")
-           .with(body: hash_including(scoreGiven: 1.0,
-                                      userId: 'lti-alice'))
+           .with(body: hash_including(userId: 'lti-alice',
+                                      gradingProgress: 'PendingManual'))
            .to_return(status: 204, body: '', headers: {})
 
     described_class.new(binding)
@@ -231,7 +301,10 @@ describe SyncLtiGrades do
       .with { |req| req.body.to_s.include?('sandbox') }
   end
 
-  it 'pushes 1.0 for a lumped-mode mixed block whose exercise is the only completion' do
+  # The point here is which modules count: a mixed block's exercise completion is
+  # enough on its own, and the surrounding trainings (graded by the roll-up
+  # column) must not zero it out.
+  it 'reports a mixed block whose exercise is the only completion' do
     other_training = create(:training_module, slug: 'tr-2', name: 'Side training', kind: 0)
     mixed_block = create(:block, week: week, order: 2, title: 'Evaluate Wikipedia',
                                  training_module_ids: [other_training.id,
@@ -254,7 +327,8 @@ describe SyncLtiGrades do
     mixed_stub = stub_request(:post,
                               "https://#{domain}/api/lineitems/" \
                               "#{CGI.escape(mixed_lineitem_url)}/scores")
-                 .with(body: hash_including(scoreGiven: 1.0, userId: 'lti-alice'))
+                 .with(body: hash_including(userId: 'lti-alice',
+                                            activityProgress: 'Submitted'))
                  .to_return(status: 204, body: '', headers: {})
 
     described_class.new(binding)

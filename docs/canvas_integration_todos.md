@@ -962,10 +962,10 @@ comment.
   2026-08-03). Policy: exercise blocks take their own date, the trainings roll-up
   takes the **last** training block's, the "Wikipedia account" indicator takes
   none. End-of-day UTC, since a Dashboard due date carries no time and courses
-  carry no timezone. **Unverified:** that Canvas honours `submission.endDateTime`
-  through LTIAAS is from the spec and Canvas's docs, not observation — the next
-  harvest is the check, since the gallery currently shows every imported
-  assignment as "No Due Date".
+  carry no timezone. **Verified on staging 2026-08-03**: an imported "Wk2 Fact
+  verification" landed in Canvas with `due_at: "2026-08-15T23:59:59Z"`, matching
+  the date the Dashboard computed for that block. Canvas does honour
+  `submission.endDateTime` through LTIAAS.
 - [x] **Concurrent first launches 500ed.** Binding creation and identity linking
   both did find-then-create against unique indexes; the only `RecordNotUnique`
   rescue covered the setup POST. Both now run inside a one-shot
@@ -1021,6 +1021,348 @@ has never recorded, so a deploy that runs migrations will apply it. Verify with
 ALTER TABLE lti_line_items
   ADD COLUMN reserved_prior_state TEXT AFTER canvas_assignment_id;
 ```
+
+## Identity linking needs consent, and every page needs to name the account (2026-08-03)
+
+Found by walking the instructor flow on a freshly prepared staging course. The
+first launch silently linked the Canvas instructor identity to **whichever
+Dashboard account the browser happened to be signed into** — `Ragetest 14`, a
+fabricated gallery-roster student left over in that browser profile, not the
+intended instructor. Nothing on screen said which account was being connected,
+and because the link is write-once, signing in as the right instructor and
+relaunching then produced a refusal rather than a correction. Staff had to clear
+the context by hand.
+
+Three items, in the order they'd be worth doing.
+
+_All three built 2026-08-03. What landed, and where it differed from the plan
+below: the launch's linking half moved into a new `LtiLaunchLinker` (LtiSession
+had grown three responsibilities and was over its class-length budget), the
+conflict check became a query — `#link_conflict` returning `:identity_taken` /
+`:user_taken` — so the refusal can name a remedy before anything is written, and
+`retry_on_unique_race` became a shared `RetryOnUniqueRace` module now that two
+classes need it. The 52 existing controller examples that had relied on
+launch-time linking now start from a pre-approved link via one spec helper, which
+is itself the clearest statement of the behaviour change._
+
+- [x] **An explicit approval step before any identity link is created.** Today
+  `start_lti_session` calls `link_lti_user` on every launch entry point
+  (`launch`, `complete_setup`), so the link is a side effect of arriving with a
+  session. It should be a decision: a view naming both sides — this Canvas
+  course, and the Dashboard account currently signed in — with a confirm button,
+  and an escape hatch to sign in as a different account instead.
+
+  This is the whole of the consent surface: `LtiMemberLinker` matches NRPS
+  members purely by `user_lti_id` and never links by email (anonymized posture),
+  so the launch is the only path that can create a link. Gating it gates
+  everything. (The PR description's claim that students are "matched from the
+  Canvas roster by email via NRPS sync" is stale and should be corrected.)
+
+  Design constraints, mostly discovered the hard way elsewhere in this work:
+
+  - **Split "refresh an existing link" from "create one."** Role refresh
+    (`apply_context_attributes`) has to keep happening automatically on every
+    launch, or LMS role changes stop propagating. Only the create path needs
+    approval.
+  - **The approval needs a Dashboard session, so it belongs in the top-level
+    tab.** In-frame the session cookie is partitioned away, `current_user` is
+    nil, and the launch already bounces out through `/lti/connect_course` for
+    OAuth — the approval is the natural landing at the end of that bounce.
+    Where the cookie *does* reach the iframe, the same view can render in place.
+  - **Do NOT skip CSRF on the approval POST.** The deep-link picker skips
+    `verify_authenticity_token` because it posts from inside the frame with no
+    session; this action requires `current_user` by definition, so a session
+    always exists and token protection both applies and works.
+  - **Authenticate from the ltik, never from submitted ids** — the same rule
+    `complete_setup` follows after `params[:binding_id]` turned out to be
+    forgeable.
+  - **Surface the conflicts before the write.** With approval, "this Canvas
+    account is already connected to a different Dashboard account" and "this
+    Dashboard account is already connected to a different Canvas member" can be
+    stated on the approval view, with their remedies, instead of arriving as a
+    refusal after the fact.
+  - `schedule_first_link_grade_push` moves to the approval action.
+  - **The staging harness assumes auto-linking.** `student_walk_to_dashboard`
+    and `bind_course_as_instructor` (and so every screenshot flow) will need to
+    click the new button.
+
+  Specs to add: prompt shown for an unlinked identity, no prompt once linked,
+  approval creates the link and fires the first grade push, each conflict state
+  renders its own remedy, and the write-once rule still holds against a replayed
+  approval POST.
+
+- [x] **Every integration page states which Dashboard account is signed in.**
+  Both the framed pages and the top-level ones — the walkthrough failure was
+  invisible precisely because no page named the account. The `lti_iframe` layout
+  is the single implementation point: it wraps every `lti_launch` view in both
+  contexts.
+
+  `current_user` is the right source, and its absence is itself the useful
+  signal: every non-anonymous launch view has a session (the anonymous ones
+  render before `current_user` is required), so a page that can't name an
+  account should say "not signed in" — which is also the explanation for why
+  the in-frame landing is asking the user to open a new tab.
+
+  One privacy call for the operator: this puts the viewer's own Wikipedia
+  username on a page rendered inside Canvas. It is self-disclosure of their own
+  account rather than anyone else's, and the student's own views already show it,
+  but the branch has been deliberate about what crosses into Canvas, so it's a
+  decision rather than an obvious yes.
+
+- [x] **The nav launch shows student-facing copy to instructors on a link
+  conflict.** `render_enrollment_error` routes every `ConflictingLinkError` to
+  the "Couldn't enroll you… contact your instructor" view, which is what an
+  instructor sees when they hit a duplicate link on a course-navigation launch.
+  The distinction already exists in the code — `@link_conflict` records whether
+  it was a `DuplicateUserLinkError`, and `lti.setup.duplicate_link_error` names
+  the self-service remedy — but only `complete_setup` uses it
+  (`render_setup_link_error`). The launch path should name the remedy too.
+  Mostly moot if the approval step above lands, since the conflict then appears
+  before any write; worth doing on its own if that slips.
+
+  Open question for the operator: should the copy name the account that *is*
+  linked? It would have identified the problem instantly, but it discloses a
+  Wikipedia username to whoever holds the launch URL.
+
+All new copy here is operator-supplied: the approval heading, explanation, and
+button; the "use a different account" path; the signed-in indicator's label and
+its not-signed-in state; and the launch-path duplicate-link message.
+
+### Also found during that walkthrough
+
+- [x] **The in-frame grade-sync button rendered "refused to connect."** The POST
+  returned a clean 200 that the browser refused to frame, because
+  `LtiGradeSyncTrigger` registered its own `after_action :allow_iframe, only:
+  :sync_grades` in its `included do` block. ActiveSupport's callback chain treats
+  a second registration of the same filter as a duplicate and keeps only the
+  last, so `LtiLaunchController`'s class-body registration — evaluated after the
+  includes — deleted the concern's, and `sync_grades` never cleared
+  X-Frame-Options. Fixed by making the controller's the single registration and
+  listing `sync_grades` in it; both concern-level registrations are gone, with
+  comments saying why they must not come back. Note the trap is general: any
+  concern re-registering that filter silently disables framing for **every other**
+  action too. Covered now by a behavioural spec (200 + no X-Frame-Options) and a
+  structural one asserting exactly one registration over the full action set.
+  Existing specs missed it because the only sync_grades framing assertion was on
+  the stale-ltik path, which calls `allow_iframe` directly.
+
+- [ ] **A tool-graded submission has no preview, in SpeedGrader or the submission
+  page.** Both show "No preview available" for an imported assignment with a
+  posted AGS score, so an instructor grading through the normal Canvas workflow
+  never reaches the per-student drill-down that already exists. Confirmed on
+  staging against a healthy assignment: `submission_types: ["external_tool"]`,
+  published, and the submission `graded` with score 1.0 and attempt 1. We post
+  scores with no submission-side data, so Canvas has a graded attempt with
+  nothing to render.
+
+  The mechanism for fixing it, verified against Canvas's own source rather than
+  inferred: the AGS Score payload accepts a
+  `https://canvas.instructure.com/lti/submission` extension whose
+  `SCORE_SUBMISSION_TYPES` are `none`, `basic_lti_launch`, `online_text_entry`,
+  `online_url`, `external_tool`, `online_upload`. For `basic_lti_launch` and
+  `online_url`, `submission_data` becomes the submission's URL, which is what
+  SpeedGrader renders.
+
+  **Constraint, from the operator (2026-08-03): a submission URL must not encode
+  the student's Wikipedia username.** That rules out the otherwise obvious
+  choice — pointing `online_url` at the student's sandbox, which embeds
+  `User:<username>` and is exactly what score comments already exclude for this
+  reason (see `LtiBlockProgress`). What's left is `basic_lti_launch` pointed at
+  our own launch URL, which carries only a `resource` marker today.
+
+  Design notes for whoever builds it:
+
+  - SpeedGrader launches as the *instructor*, so a launch URL carrying only
+    `resource` renders the roster drill-down, not the student whose submission is
+    open. Showing the right student needs a per-student marker in the URL, and it
+    has to be an opaque one: the LMS `user_lti_id` (Canvas's own identifier,
+    already our context key) or the `LtiContext` id. Never a username.
+  - Authorization must come from the launch, not the marker — the same lesson as
+    the forgeable `params[:binding_id]` in `complete_setup`. An instructor may
+    open any student in their course; a student passing someone else's marker
+    must be refused.
+  - `new_submission` decides whether each post creates a new attempt. Grade sync
+    re-posts whenever a score changes, so sending `new_submission: true` every
+    time would pile up attempts in the submission history. The
+    `LtiScoreSignature` dedup already suppresses unchanged pushes; changed ones
+    still need a deliberate answer here.
+  - Whether this is worth doing at all is a product call: the drill-down is
+    reachable from the assignment page, and the alternative reading is that "no
+    preview" is simply honest — there is no submitted artifact, only Dashboard
+    progress.
+
+- [x] **Peer review is a gradable column now.** It was the one stage the picker
+  could never offer: no exercise module means no Block to hang a gradable off, so
+  the stage — and its dated timeline block — had no way into Canvas at all.
+  Operator's call (2026-08-03) is to base it on `Course#peer_review_count`, so
+  `DeepLinkableGradables` offers a `PeerReview` sentinel column whenever the
+  course expects reviews, with its due date taken from the timeline block carrying
+  the `peer-review` training module. `LtiPeerReviewProgress` scores the fraction
+  of expected reviews written, counting a review as done when its
+  `<sandbox>/<username>_Peer_Review` page exists (taking a review is not doing
+  it), capped at the maximum. It is classed as instructor-graded, so it reports
+  submitted-for-grading rather than marks — the Dashboard can see that a review
+  page was written but not whether the review is any good. That's a judgment
+  call and a one-line reversal if the operator would rather the count itself be
+  the grade: add `PEER_REVIEW_TYPE` to `LtiLineItem::MECHANICAL_TYPES`.
+
+- [ ] **The guide overstates what installing does.** It says installing on the
+  root account makes the course-navigation link "appear in every course's
+  navigation". On `canvas.wikiedu.org` a freshly created course has the tab
+  present but `hidden=true`, so an instructor sees nothing until it's enabled
+  per course (Settings → Navigation) or the account default changes. The harness
+  has `CanvasApiClient#set_course_nav` precisely for this, and its comment notes
+  the placement "can be default-disabled". The troubleshooting section only
+  covers an instructor having hidden it, not it starting hidden.
+
+## Exercises should arrive ungraded, not 1/1 (2026-08-03)
+
+Operator observation: training completion and account linking are mechanical —
+you did them or you didn't — but exercises need the instructor to evaluate the
+work. Posting 1/1 because the student ticked "complete" claims a judgment the
+Dashboard hasn't made, and pre-empts the one the instructor is supposed to make.
+
+Canvas supports the wanted behaviour directly, verified against
+`lti/ims/scores_controller.rb` and the Score docs rather than inferred:
+
+- `scoreGiven` is **optional**. "If a score object is sent with either of
+  FullyGraded or PendingManual as the value for gradingProgress and scoreGiven is
+  missing, the assignment will not be graded." The controller's `reset_score?`
+  returns true when `scoreGiven` is nil and skips grade submission entirely.
+- `gradingProgress: PendingManual` "will require intervention by a grader".
+  `score_submission` only applies a grade for `ACCEPT_GIVEN_SCORE_TYPES`, which
+  excludes PendingManual, so the submission lands in the needs-grading queue
+  with no grade.
+- Paired with the `https://canvas.instructure.com/lti/submission` extension
+  (`new_submission`, `submitted_at`, `submission_type`, `submission_data`), that
+  creates a real submission for the instructor to open and grade — which is also
+  the fix for the no-preview finding above.
+
+- [ ] **Split the columns by who does the grading.** Mechanical columns
+  (`WikipediaSetup`, `TrainingProgress`) keep posting real scores as
+  FullyGraded. Block-backed exercise columns post `activityProgress: Submitted`
+  + `gradingProgress: PendingManual` with **no** scoreGiven, so completion
+  reaches Canvas as "this student has submitted; grade it" rather than as full
+  marks. The split falls cleanly along `gradable_type`, which is worth keeping
+  that way rather than introducing a per-block flag.
+
+  **The dangerous detail:** grade sync re-posts whenever state changes, and a
+  re-post with `new_submission: true` creates another attempt and can push an
+  already-graded submission back into needs-grading — undoing the instructor's
+  work in the queue even though their grade survives. Use the
+  `LtiScoreSignature` dedup as the guard (it already suppresses unchanged
+  pushes), send `new_submission: false` on any re-post, and set
+  `prioritize_non_tool_grade` — "flag to prevent a request from overwriting an
+  existing grade for a submission" — so the tool can never win against a
+  human-entered grade. `preserve_score` guards the related case of clearing one.
+
+  Consequences elsewhere, all simplifications:
+
+  - `SyncLtiGrades#skip_zero?` exists because Canvas offers no way to mark our
+    columns complete/incomplete and a posted 0 therefore reads as a failing 0%.
+    For exercises that stops applying — nothing is posted as a score at all —
+    though it still governs the mechanical columns.
+  - The `activityProgress` derivation added on 2026-08-03 (InProgress below full
+    score, Completed at it) stays for the mechanical columns and is superseded
+    for exercises by Submitted + PendingManual.
+  - The student-facing story improves: an exercise reads "needs grading" in
+    Canvas instead of asserting full marks the instructor never gave.
+
+  Two decisions needed before this can be built:
+
+  1. **What are exercises graded out of?** Every line item is currently created
+     with `DEFAULT_SCORE_MAXIMUM` (1.0), so an instructor would be grading out of
+     one point. Blocks carry their own `points` column (`Block::DEFAULT_POINTS`
+     is 10), which is the obvious alternative. This has to be decided at import
+     time: the Dashboard never updates a line item's scoreMaximum afterwards, so
+     changing it later means re-importing the column.
+  2. **Does the submission carry a link to the work?** See the no-preview
+     finding: a username-free `basic_lti_launch` URL into our own drill-down is
+     the only option compatible with the privacy constraint, and it needs an
+     opaque per-student marker to show the right student in SpeedGrader.
+
+## The assigned article doesn't reach Canvas at all (2026-08-03)
+
+Operator observation from the walkthrough: the integration carries training
+completion and per-exercise completion, but nothing about the thing the course is
+actually about — the student's assigned article and the work leading to it. Every
+exercise column drills down to its own completion state, and none of them shows
+where the student is on the article.
+
+Wanted: one shared panel, rendered in the drill-down for every exercise tied to
+the main assigned article, showing that student's overall state —
+
+- bibliography sandbox: created or not, with a link and a "show" toggle
+- outline sandbox: created or not, same
+- draft sandbox, where the course works in sandboxes: created or not, same
+- how much the student has edited the live article, if it exists
+
+**Almost all of this already exists server-side; the work is assembly and a
+shared partial, not new plumbing.** What's there today:
+
+| Need | Source |
+|---|---|
+| Draft sandbox page | `Assignment#sandbox_url` (`User:<name>/<Article>`) |
+| Bibliography page | `Assignment#bibliography_pagename` (`<sandbox>/Bibliography`) |
+| Outline page | `Assignment#outline_pagename` (`<sandbox>/Outline`) |
+| Peer review page | `Assignment#peer_review_pagename` |
+| Created-or-not, per sandbox | `AssignmentPipeline#draft_sandbox_status` / `#bibliography_sandbox_status` / `#outline_sandbox_status` / `#peer_review_sandbox_status`, delegated from `Assignment`, persisted in `assignment.flags` |
+| Richer than a boolean | `SandboxStatuses` distinguishes DOES_NOT_EXIST / EXISTS_IN_USERSPACE / EXISTS_IN_DRAFT_SPACE / EXISTS_IN_MAINSPACE / EXISTS_ELSEWHERE — so "moved to mainspace" is already expressible |
+| Who refreshes those | `CheckAssignmentStatus` |
+| Live article | `Assignment#article_url`, and `article_id` is nil until the article exists |
+| Per-student live-article stats | `ArticleCourseTimeslice.search_by_course_and_user(course, user_id)` → `character_sum`, `references_count`, `revision_count`, `new_article`, `first_revision` |
+| Editing vs reviewing | `Assignment#editing?` / `#reviewing?` |
+| Does this course use sandboxes | `Course#no_sandboxes?` and `Course#stay_in_sandbox?` (both `FEATURE_FLAG_KEYS`) — so "if the course is working in sandboxes" has a real answer to key the draft card off, rather than needing a new setting |
+
+The in-Canvas views also already have the two interaction pieces: the sandbox
+"show" toggle with its live MediaWiki parse fetch (`assignment_view.html.haml`,
+now rebasing links against the wiki origin) and the roster/own-panel split.
+
+- [x] **Build the shared assigned-article panel.** One partial rendered by the
+  exercise drill-down — instructor view listing it per student, student view
+  showing their own — with a row per sandbox (bibliography, outline, draft) and a
+  live-article block. Reuse the existing `lti-sandbox__toggle` markup and its
+  fetch so "show" behaves the same everywhere, rather than a second preview
+  implementation.
+
+  Design points and open questions:
+
+  - **Which exercises get it.** "Connected to the main assigned article" isn't a
+    property the timeline models — an exercise Block knows its training modules,
+    not which article they concern. Options: show the panel on every exercise
+    drill-down for that student (simplest, slightly redundant), or key off the
+    exercise's `sandbox_location` (`Assignment` sandboxes vs a module's own).
+    Needs a decision.
+  - **A student with several assignments.** `editing?` vs `reviewing?` and
+    multiple assigned articles mean "the main assigned article" can be ambiguous;
+    the panel needs a rule (all editing assignments? the first? group by role?).
+  - **Privacy stays as it is, and this doesn't strain it.** These links live in
+    our own role-gated view, rendered from the Dashboard per request — the same
+    posture as the existing sandbox links. It is *not* the same as putting a
+    sandbox URL into Canvas (score comments, submission URLs), which stays
+    forbidden because those persist a `User:<username>` correlation in Canvas.
+    Worth stating in the code, since the two look similar and only one is safe.
+  - **Status freshness.** The sandbox statuses come from `CheckAssignmentStatus`
+    rather than from a live check at render time, so a sandbox created minutes ago
+    can still read "not created". Either accept it, or let the panel's "show"
+    fetch correct the display client-side (it already knows the difference: its
+    `not_found` message is exactly that state).
+  - **What the live-article stats should say.** `character_sum`,
+    `references_count`, `revision_count`, `new_article` and `first_revision` are
+    all available per (course, article, student). Which of them belong in a
+    Canvas-framed panel, and in what wording, is an operator call — as is whether
+    a red-link state for an article that doesn't exist yet is useful there.
+  - Copy for every label and empty state is operator-supplied.
+
+  _Built 2026-08-03. Operator's answers to the open questions: the panel shows on
+  choosing the article, the bibliography, the outline, and continuing to improve
+  (`AssignmentViewContext::ARTICLE_PANEL_SLUGS`); every `editing` assignment is
+  listed, so a student with two articles gets two; the live-article numbers are
+  characters, references and edits, from `article_course_timeslices` filtered to
+  that student. Data assembly lives in `AssignedArticleWork`, built once per
+  drill-down for the whole roster rather than per row. Stale statuses were left as
+  they are — `CheckAssignmentStatus` is the source, and the panel's own preview
+  fetch is the live check._
 
 ## Copy placeholders from the 2026-07-30 pass
 

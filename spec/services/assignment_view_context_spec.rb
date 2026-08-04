@@ -112,4 +112,87 @@ describe AssignmentViewContext do
       expect(context.roster).to be_empty
     end
   end
+
+  # "Completed" tells an instructor nothing on an article-selection exercise;
+  # which article each student took on is the whole point of the stage.
+  describe 'an article-selection exercise' do
+    let(:exercise_module) do
+      create(:training_module, slug: 'choose-topic-from-list-exercise',
+                               name: 'Choose your article from a list', kind: 1)
+    end
+    let(:student) { create(:user, username: 'chooser') }
+
+    def assign_article(user, title, role)
+      Assignment.create!(course:, user:, role:, article_title: title,
+                         wiki: course.home_wiki)
+    end
+
+    it 'reports article assignments rather than completion' do
+      expect(described_class.new(line_item:, user: student, instructor: false))
+        .to be_article_selection
+    end
+
+    it 'is not an article-selection column for an ordinary exercise' do
+      other = create(:training_module, slug: 'eval-ex-2', name: 'Evaluate', kind: 1)
+      block.update!(training_module_ids: [other.id])
+      expect(described_class.new(line_item:, user: student, instructor: false))
+        .not_to be_article_selection
+    end
+
+    it "carries the student's editing assignments on their own panel" do
+      assign_article(student, 'Chromatic aberration', Assignment::Roles::ASSIGNED_ROLE)
+
+      row = described_class.new(line_item:, user: student, instructor: false).student_panel
+      expect(row.assigned_articles.map(&:title)).to eq(['Chromatic aberration'])
+      expect(row.assigned_articles.first.url).to include('Chromatic_aberration')
+    end
+
+    # A reviewing assignment is the peer-review stage — a different timeline
+    # block. Listing it here would report an article the student is only
+    # reviewing as one they chose to write.
+    it 'leaves out reviewing assignments' do
+      assign_article(student, 'Mine to write', Assignment::Roles::ASSIGNED_ROLE)
+      assign_article(student, 'Someone elses', Assignment::Roles::REVIEWING_ROLE)
+
+      row = described_class.new(line_item:, user: student, instructor: false).student_panel
+      expect(row.assigned_articles.map(&:title)).to eq(['Mine to write'])
+    end
+
+    it 'lists every editing assignment when a student has more than one' do
+      assign_article(student, 'First article', Assignment::Roles::ASSIGNED_ROLE)
+      assign_article(student, 'Second article', Assignment::Roles::ASSIGNED_ROLE)
+
+      row = described_class.new(line_item:, user: student, instructor: false).student_panel
+      expect(row.assigned_articles.map(&:title))
+        .to contain_exactly('First article', 'Second article')
+    end
+
+    # The state an instructor is looking for on this column.
+    it 'is empty for a student who has not chosen yet' do
+      row = described_class.new(line_item:, user: student, instructor: false).student_panel
+      expect(row.assigned_articles).to be_empty
+    end
+
+    it 'carries each roster row its own articles' do
+      amy = create(:user, username: 'amy')
+      zed = create(:user, username: 'zed')
+      link_student(amy)
+      link_student(zed)
+      assign_article(amy, 'Amys article', Assignment::Roles::ASSIGNED_ROLE)
+
+      rows = described_class.new(line_item:, user: nil, instructor: true).roster
+      expect(rows.first.assigned_articles.map(&:title)).to eq(['Amys article'])
+      expect(rows.second.assigned_articles).to be_empty
+    end
+
+    # Ordinary columns must not pay for a query they don't use.
+    it 'loads no assignments for a non-selection column' do
+      other = create(:training_module, slug: 'eval-ex-3', name: 'Evaluate', kind: 1)
+      block.update!(training_module_ids: [other.id])
+      assign_article(student, 'Not shown here', Assignment::Roles::ASSIGNED_ROLE)
+
+      row = described_class.new(line_item:, user: student, instructor: false).student_panel
+      expect(row.assigned_articles).to be_empty
+    end
+  end
 end

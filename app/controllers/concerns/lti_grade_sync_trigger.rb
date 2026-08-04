@@ -20,7 +20,11 @@ module LtiGradeSyncTrigger
 
   included do
     skip_before_action :verify_authenticity_token, only: :sync_grades
-    after_action :allow_iframe, only: :sync_grades
+    # No `after_action :allow_iframe` here, however much it belongs with the
+    # action it serves: a second registration of that filter deletes the
+    # controller's, and the controller's is what every other framed action
+    # depends on. `sync_grades` is listed in LtiLaunchController's single
+    # registration instead. See the comment there.
   end
 
   def sync_grades

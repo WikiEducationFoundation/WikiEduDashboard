@@ -41,6 +41,9 @@ module LtiAssignmentViews
     when LtiLineItem::TRAINING_PROGRESS_TYPE
       ['assignment_view_trainings',
        TrainingsAssignmentViewContext.new(line_item:, user:, instructor:)]
+    when LtiLineItem::PEER_REVIEW_TYPE
+      ['assignment_view_peer_review',
+       PeerReviewAssignmentViewContext.new(line_item:, user:, instructor:)]
     end
   end
 

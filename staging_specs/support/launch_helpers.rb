@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'yaml'
+
 # Helpers that drive the Canvas → dashboard LTI launch flow inside a
 # persistent-profile Chrome browser. Assumes the profile is already
 # bootstrapped (one-time manual login to Canvas + one-time approval
@@ -142,6 +144,31 @@ module LaunchHelpers
     # Banner vanished between detection and click — fine.
   end
 
+  # Connecting a Dashboard account to a Canvas identity is now an explicit
+  # approval, not something the launch does on the way past (see
+  # LtiLaunchController#connect_identity), so every persona's first launch stops
+  # here. Idempotent: a relaunch by an already-connected account never shows it,
+  # which is why this is a conditional rather than a step.
+  def approve_identity_connection
+    button = t_lti('connect_identity.confirm')
+    return unless page.has_button?(button, wait: 5)
+
+    click_button button
+  rescue Capybara::ElementNotFound
+    # Raced with a relaunch that had already connected the account.
+  end
+
+  # Reads copy straight out of `config/locales/en.yml` rather than hard-coding
+  # it: these strings are operator-supplied and get reworded, and this harness
+  # doesn't boot Rails, so there's no I18n to ask.
+  def t_lti(key)
+    @lti_copy ||= YAML.load_file(
+      File.expand_path('../../config/locales/en.yml', __dir__)
+    ).dig('en', 'lti')
+    key.split('.').reduce(@lti_copy) { |copy, part| copy && copy[part] } or
+      raise "no lti.#{key} in config/locales/en.yml"
+  end
+
   # The full instructor first-launch sequence, end to end: Canvas login →
   # course → Wiki Education tab → break out of the iframe → Wikipedia
   # OAuth (silent once bootstrapped) → dashboard setup view → link the
@@ -160,6 +187,7 @@ module LaunchHelpers
       break_out_of_canvas_iframe(role: :instructor)
     end
     dismiss_consent_banner
+    approve_identity_connection
     complete_dashboard_setup(course_slug:)
     expect(page).to have_current_path(%r{/courses/}, wait: 20)
   end
@@ -187,6 +215,7 @@ module LaunchHelpers
       break_out_of_canvas_iframe(role: :instructor)
     end
     dismiss_consent_banner
+    approve_identity_connection
     expect(page).to have_content('Set up the Wiki Education Dashboard')
   end
 
@@ -217,6 +246,7 @@ module LaunchHelpers
     wait_out_server_error
     dismiss_consent_banner
     walk_through_onboarding(real_name: 'LTI Test Student', email:) if state == :landing
+    approve_identity_connection
     state
   end
 

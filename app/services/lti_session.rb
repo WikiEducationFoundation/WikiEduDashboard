@@ -7,6 +7,8 @@
 # Background jobs that need NRPS or AGS without an active launch should use
 # LtiServiceSession instead.
 class LtiSession
+  include RetryOnUniqueRace
+
   # LTI 1.3 context roles that mean course staff. Canvas sends the base
   # `membership#Instructor` for both TeacherEnrollment and TaEnrollment (a TA
   # additionally carries the `membership/Instructor#TeachingAssistant`
@@ -228,31 +230,12 @@ class LtiSession
                     .where.not(course_id: nil).first
   end
 
-  # Idempotently records that `current_user` is the Dashboard user for this
-  # LMS identity within the binding. Refreshes the launch's roles each time
-  # so they stay current; no name or email is read (anonymized posture).
-  #
-  # The link is write-once per (LMS identity, course): a launch can establish one
-  # but never move one. See #reject_conflicting_link!.
-  #
-  # Both of the table's unique indexes — (user_lti_id, binding) and
-  # (binding, user_id) — can be lost in a race here: a roster sync creating the
-  # NRPS-discovered row while the student's own launch creates it, or two tabs of
-  # the same launch. Retry once rather than 500: the second pass re-reads the
-  # winner's row, so an ordinary race lands as an idempotent no-op update and a
-  # genuine conflict still raises ConflictingLinkError from the re-check.
-  def link_lti_user(current_user, binding: nil)
-    binding ||= find_or_create_binding!
-    retry_on_unique_race do
-      context = LtiContext.find_or_initialize_by(user_lti_id:,
-                                                 lti_course_binding_id: binding.id)
-      reject_conflicting_link!(context, current_user, binding)
-      apply_context_attributes(context, current_user)
-      context.linked_at ||= Time.current
-      context.save!
-      context
-    end
-  end
+  # Identity linking — refreshing a link, the conflict query, and the write-once
+  # creation — lives in its own collaborator (LtiLaunchLinker). This class had
+  # grown three responsibilities: reading launch claims, resolving the binding,
+  # and the link lifecycle, which is the one with policy in it. The error classes
+  # stay here because callers rescue them by this name.
+  delegate :link_lti_user, :refresh_existing_link, :link_conflict, to: :linker
 
   # Raised when this launch would change an existing link rather than create one:
   # either the launching Dashboard user already belongs to a different LMS
@@ -274,57 +257,11 @@ class LtiSession
 
   private
 
-  # The identity map is 1:1 in both directions within a course, and a plain GET
-  # launch may only ever *add* an entry.
-  #
-  # Two Canvas members sharing one Wikipedia account would make grade sync post
-  # the same progress at both of their gradebook rows. And a launch that moved an
-  # LMS identity onto whoever happens to be signed in is worse than it sounds:
-  # the ltik travels in the URL, so a student could hand their launch link to
-  # somebody else and have that person's Dashboard progress feed the student's
-  # own Canvas grade. Neither is worth the one thing overwriting bought — a
-  # self-service fix for connecting the wrong Wikipedia account. That case now
-  # ends at the "contact your instructor" view, and staff clear the context.
-  def reject_conflicting_link!(context, current_user, binding)
-    if context.user_id.present? && context.user_id != current_user.id
-      raise DuplicateUserLinkError,
-            "LMS identity #{user_lti_id} in binding #{binding.id} is already " \
-            "linked to user #{context.user_id}, not #{current_user.id}"
-    end
-
-    conflicts = LtiContext.where(lti_course_binding_id: binding.id,
-                                 user_id: current_user.id)
-    conflicts = conflicts.where.not(id: context.id) if context.persisted?
-    return unless conflicts.exists?
-
-    raise ConflictingLinkError,
-          "user #{current_user.id} is already linked to another LMS identity " \
-          "in binding #{binding.id}"
-  end
-
   def raw_idtoken
     @raw_idtoken ||= @client.get('/api/idtoken?raw=true')
   end
 
-  # Find-then-create is not atomic, and both tables this class writes are under
-  # unique indexes. When a concurrent launch wins the race, the loser's save
-  # raises rather than returning a 500-shaped iframe: run the block again, this
-  # time against the row the winner has made visible. Once only — a second
-  # refusal is a real conflict, not a race, and belongs to the caller.
-  def retry_on_unique_race
-    yield
-  rescue ActiveRecord::RecordNotUnique
-    yield
-  end
-
-  def apply_context_attributes(context, current_user)
-    context.user = current_user
-    context.lms_id = lms_id
-    context.lms_family = lms_family
-    # The legacy concatenated identifier persisted on the existing
-    # `lti_contexts.context_id` column. Retained until the column is dropped in
-    # a follow-up PR.
-    context.context_id = "#{lms_context_id}::#{lms_resource_link_id}"
-    context.roles = user_roles
+  def linker
+    @linker ||= LtiLaunchLinker.new(self)
   end
 end

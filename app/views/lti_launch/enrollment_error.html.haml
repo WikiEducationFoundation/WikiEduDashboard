@@ -5,7 +5,13 @@
 .lti-iframe__landing
   = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
   %h1.lti-iframe__title= t('lti.enrollment_error.header')
-  %p= t('lti.enrollment_error.explanation')
+  - # @setup_error is set for the one conflict with a self-service remedy (this
+  - # Canvas identity is connected to a different Dashboard account): name the
+  - # remedy instead of the generic "contact your instructor".
+  - if @setup_error
+    %p= @setup_error
+  - else
+    %p= t('lti.enrollment_error.explanation')
   -# Re-launches in the iframe so the student can retry once the issue is
   -# resolved, without having to know to reload the Canvas tab.
   = link_to t('lti.check_again'), "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",

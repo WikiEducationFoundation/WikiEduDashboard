@@ -62,6 +62,11 @@
 class LtiLineItem < ApplicationRecord
   TRAINING_PROGRESS_TYPE = 'TrainingProgress'
   SETUP_TYPE = 'WikipediaSetup'
+  # The peer-review stage. A sentinel like the two above (`gradable_id` null)
+  # because peer review has no exercise module to hang a Block off — what it has
+  # is a dated timeline block and a course setting for how many reviews are
+  # expected. See LtiPeerReviewProgress.
+  PEER_REVIEW_TYPE = 'PeerReview'
 
   belongs_to :lti_course_binding
   belongs_to :gradable, polymorphic: true, optional: true
@@ -93,6 +98,21 @@ class LtiLineItem < ApplicationRecord
   # exists on top of it only to turn the race's loser into a handleable error
   # instead of a bare RecordNotUnique.
   validates :gradable_id, uniqueness: { scope: %i[lti_course_binding_id gradable_type] }
+
+  # Sentinel columns the Dashboard can grade by itself: an account is connected
+  # or it isn't, a training module is completed or it isn't. Everything else is
+  # student work whose quality only the instructor can assess — the exercise
+  # Blocks, and peer review, where the Dashboard can see that a review page was
+  # written but not whether the review is any good. Those report submission and
+  # leave the grade to the instructor (see SyncLtiGrades#post_for_grading).
+  #
+  # Keyed on gradable_type rather than a per-block flag: nothing to keep in step
+  # with the timeline, and a new sentinel column has to pick a side explicitly.
+  MECHANICAL_TYPES = [SETUP_TYPE, TRAINING_PROGRESS_TYPE].freeze
+
+  def instructor_graded?
+    MECHANICAL_TYPES.exclude?(gradable_type)
+  end
 
   def archived?
     archived_at.present?

@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
-# Computes a single (Block, User) AGS score payload for the LTIAAS grade
-# sync. A block scores 1.0/1.0 if every considered TrainingModule attached
-# to it is complete for that user; 0.0/1.0 otherwise. An exercise-kind module
-# counts as complete when `flags[course_id][:marked_complete]` is truthy.
+# Computes a single (Block, User) completion state for the LTIAAS grade sync.
+# A block scores 1.0/1.0 if every considered TrainingModule attached to it is
+# complete for that user; 0.0/1.0 otherwise. An exercise-kind module counts as
+# complete when `flags[course_id][:marked_complete]` is truthy.
+#
+# That 1.0 is NOT a grade, and since 2026-08-03 it does not reach Canvas as one.
+# Exercise work is evaluated by the instructor, so SyncLtiGrades reports a
+# complete block as Submitted + PendingManual with no score, and Canvas leaves
+# the submission ungraded in the needs-grading queue. The score here is read as
+# "did the student finish it" — see SyncLtiGrades#post_for_grading.
 #
 # Only the block's *exercise* modules are considered. Its training-kind modules
 # are graded by the rolled-up "Wikipedia trainings" column, so requiring them

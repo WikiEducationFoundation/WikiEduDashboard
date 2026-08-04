@@ -22,7 +22,11 @@ module LtiDeepLinking
   extend ActiveSupport::Concern
 
   included do
-    after_action :allow_iframe, only: %i[deep_link deep_link_select]
+    # deep_link / deep_link_select are framed by Canvas's picker modal, but their
+    # allow_iframe registration lives in LtiLaunchController's single one — a
+    # duplicate registration of that filter deletes the controller's. See the
+    # comment there.
+    #
     # The picker submits back to us from inside the Canvas iframe, where the
     # dashboard session cookie is partitioned away. The launch is authenticated
     # by the ltik (validated by LTIAAS), not the Rails session, so session-based

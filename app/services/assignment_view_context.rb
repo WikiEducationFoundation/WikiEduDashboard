@@ -10,11 +10,33 @@
 # contexts (SetupAssignmentViewContext, TrainingsAssignmentViewContext).
 class AssignmentViewContext
   StudentRow = Struct.new(:name, :username, :progress_state, :sandbox_url,
-                          keyword_init: true) do
+                          :assigned_articles, keyword_init: true) do
     def completed?
       progress_state == :complete
     end
   end
+
+  # Exercises whose outcome is *which article* the student took on, not whether
+  # they ticked a box. "Completed" is a useless thing to report for these: the
+  # instructor wants to know that this student is writing about Foo, and that
+  # this other student hasn't chosen anything yet. Both current selection
+  # exercises are listed — one where students pick from an instructor's list
+  # (no sandbox of its own) and one where they draft candidates in a sandbox
+  # (which still renders alongside).
+  #
+  # Keyed on module slug, the same way the fact-verification in-progress check
+  # keys on exercise_path. Wiki Ed's training library only; the integration is
+  # gated to that deployment.
+  ARTICLE_SELECTION_SLUGS = %w[choose-topic-exercise choose-topic-from-list-exercise].freeze
+
+  # The stages of the writing process where the shared article panel belongs —
+  # the whole state of the student's article (bibliography, outline, draft, and
+  # what they've written live) rather than this one exercise's tick. Operator's
+  # list, 2026-08-03: choosing the article, the bibliography, the outline, and
+  # continuing to improve.
+  ARTICLE_PANEL_SLUGS = (ARTICLE_SELECTION_SLUGS +
+                         %w[bibliography-exercise outline-exercise
+                            continue-improving-exercise]).freeze
 
   attr_reader :line_item, :block, :course
 
@@ -33,6 +55,20 @@ class AssignmentViewContext
 
   def title
     @line_item.label
+  end
+
+  # Whether this column reports article assignments rather than completion. The
+  # views swap the status cell for the article list; the pushed AGS score is
+  # untouched — completion still drives that, so the gradebook and this view
+  # continue to agree about what was submitted.
+  def article_selection?
+    exercise_modules.any? { |mod| ARTICLE_SELECTION_SLUGS.include?(mod.slug) }
+  end
+
+  # Whether the drill-down carries the shared article panel: every piece of the
+  # student's article work, not just this exercise's own state.
+  def article_panel?
+    exercise_modules.any? { |mod| ARTICLE_PANEL_SLUGS.include?(mod.slug) }
   end
 
   # The launching student's own row, for the student-facing panel.
@@ -88,7 +124,26 @@ class AssignmentViewContext
   def row_for(user, name:, completions: nil)
     StudentRow.new(name:, username: user.username,
                    progress_state: progress_state_for(user, completions:),
-                   sandbox_url: sandbox_url_for(user))
+                   sandbox_url: sandbox_url_for(user),
+                   assigned_articles: assigned_articles_for(user))
+  end
+
+  # This student's assigned articles and the state of their work on each — the
+  # `editing` role only, since a `reviewing` assignment is the peer-review stage
+  # and has its own column. Empty (and cheap) for columns that report neither.
+  def assigned_articles_for(user)
+    return [] unless article_selection? || article_panel?
+
+    article_work.articles_for(user)
+  end
+
+  # Built once for the roster plus the panel's own user, so a 30-student roster
+  # doesn't run four queries per row.
+  def article_work
+    @article_work ||= AssignedArticleWork.new(
+      course: @course,
+      user_ids: student_contexts.map(&:user_id) + [@user&.id]
+    )
   end
 
   # :complete once the exercise is marked done, :partial while a dedicated-page
