@@ -16,6 +16,15 @@ describe 'LTI instructor setup view', type: :feature, js: true do
     allow(LtiRosterSyncWorker).to receive(:perform_async)
   end
 
+  # A launch no longer connects the instructor's account on the way past: it stops
+  # at the approval step (LtiLaunchController#connect_identity). These examples
+  # are about the setup view that follows, so they click through it; the approval
+  # step has its own examples below.
+  def launch_and_connect
+    visit '/lti?ltik=ltik-abc'
+    click_button I18n.t('lti.connect_identity.confirm')
+  end
+
   def idtoken_body
     {
       user: { id: 'lti-inst-1', name: 'Inst', email: 'inst@example.edu',
@@ -47,7 +56,7 @@ describe 'LTI instructor setup view', type: :feature, js: true do
 
     it 'shows a course picker with the instructor\'s current and upcoming courses' do
       login_as(instructor)
-      visit '/lti?ltik=ltik-abc'
+      launch_and_connect
 
       expect(page).to have_content('Set up the Wiki Education Dashboard')
       expect(page).to have_select('course_slug')
@@ -65,13 +74,53 @@ describe 'LTI instructor setup view', type: :feature, js: true do
   context 'with no Dashboard courses at all' do
     it 'points at course creation rather than the approval message' do
       login_as(instructor)
-      visit '/lti?ltik=ltik-abc'
+      launch_and_connect
 
       within('.container.narrow') do
         expect(page).to have_no_select('course_slug')
         expect(page).to have_content('no course on the Wiki Education Dashboard yet')
         expect(page).to have_link('Create a course on the Dashboard', href: '/')
       end
+    end
+  end
+
+  # The mistake this step exists to prevent: a launch used to connect whichever
+  # Dashboard account the browser happened to be signed into, and the link is
+  # write-once, so undoing it needed staff.
+  context 'before the instructor has connected their account' do
+    it 'asks first, naming the Canvas course and the account being connected' do
+      login_as(instructor)
+      visit '/lti?ltik=ltik-abc'
+
+      expect(page).to have_content(I18n.t('lti.connect_identity.header'))
+      expect(page).to have_content('Demo Canvas Course')
+      expect(page).to have_content('Inst')
+      expect(page).to have_no_content('Set up the Wiki Education Dashboard')
+    end
+
+    it 'links nothing until the button is clicked' do
+      login_as(instructor)
+      visit '/lti?ltik=ltik-abc'
+
+      expect(page).to have_content(I18n.t('lti.connect_identity.header'))
+      expect(LtiContext.count).to eq(0)
+    end
+
+    it 'connects the account and carries on into setup' do
+      login_as(instructor)
+      launch_and_connect
+
+      expect(page).to have_content('Set up the Wiki Education Dashboard')
+      expect(LtiContext.last.user).to eq(instructor)
+    end
+
+    # Every in-Canvas page says which account it is acting as, which is what
+    # would have made the original mistake visible.
+    it 'names the signed-in account on the page' do
+      login_as(instructor)
+      launch_and_connect
+
+      expect(page).to have_content(I18n.t('lti.identity.signed_in_as', username: 'Inst'))
     end
   end
 
@@ -86,7 +135,7 @@ describe 'LTI instructor setup view', type: :feature, js: true do
 
     it 'hides the link form and shows the awaiting-approval message' do
       login_as(instructor)
-      visit '/lti?ltik=ltik-abc'
+      launch_and_connect
 
       within('.container.narrow') do
         expect(page).to have_no_select('course_slug')
