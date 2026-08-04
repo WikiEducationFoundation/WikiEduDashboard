@@ -69,10 +69,8 @@ class ReprocessArticleCourseUserWikiTimeslices
     UpdateWikidataStatsTimeslice.new(@course).update_revisions_with_stats(live_revisions)
   end
 
-  # Marks the CWT for reaggregation and clears needs_update so the reaggregation pass picks it
-  # up. Reaggregation then rebuilds ACT, CUWT and CWT from ACUWT and re-derives needs_update
-  # from ACUWT state. The re-scored ACUWT rows are kept, so the rebuild covers every ACT and
-  # CUWT row of the period and there is nothing to delete first.
+  # Marks the CWT for the period as needing reaggregation, so that the re-scored ACUWT rows
+  # reach the derived caches (see TimesliceCleaner#mark_timeslices_for_reaggregation_from_acuwt).
   def mark_for_reaggregation(article_ids, ts_start)
     acuwt = ArticleCourseUserWikiTimeslice.where(
       course: @course, wiki: @wiki, start: ts_start, article_id: article_ids
