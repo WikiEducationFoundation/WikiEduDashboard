@@ -195,7 +195,7 @@ class SyncLtiGrades
     return false unless progress.score_given.to_f.zero?
     return true if line_item.instructor_graded?
 
-    !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
+    first_push?(line_item, context)
   end
 
   def post_score(context, line_item, progress)
@@ -230,8 +230,18 @@ class SyncLtiGrades
       comment: with_origin(progress.comment),
       activity_progress: 'Submitted',
       grading_progress: 'PendingManual',
-      submission_url: submission_launch_url(line_item)
+      submission_url: (submission_launch_url(line_item) if first_push?(line_item, context))
     )
+  end
+
+  # Whether this is the first thing we've ever reported for this (column, student).
+  # The submission extension rides along only then: Canvas stores the submission
+  # URL only when the score claims a new submission, and a new submission is a new
+  # attempt — so sending it every time would pile up attempts and push an
+  # already-graded submission back into the needs-grading queue. Once is enough;
+  # the URL persists on that attempt.
+  def first_push?(line_item, context)
+    !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
   end
 
   # The URL Canvas stores as the submission's own, so opening a student's
@@ -273,9 +283,8 @@ class SyncLtiGrades
   end
 
   def signature_unchanged?(line_item, context, signature)
-    LtiScoreSignature.where(lti_line_item_id: line_item.id,
-                            lti_context_id: context.id,
-                            signature:).exists?
+    LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id,
+                              signature:)
   end
 
   def record_signature(line_item, context, signature)

@@ -205,14 +205,30 @@ describe SyncLtiGrades do
         .with { |req| submission_claim(req).to_s.include?('Alice') }
     end
 
-    # A re-post is a state change the dedup let through, not new work: a fresh
-    # attempt each time would pile up history and push an already-graded
-    # submission back into the needs-grading queue.
-    it 'does not claim a new submission attempt' do
+    # Canvas stores the submission URL only when the score claims a new submission
+    # (verified on staging: with false, the submission existed with a nil url and
+    # the instructor still got "No Preview Available").
+    it 'claims a new submission on the first push, so Canvas keeps the URL' do
       described_class.new(binding)
 
       expect(WebMock).to have_requested(:post, %r{find-sources/scores})
-        .with { |req| submission_claim(req)['new_submission'] == false }
+        .with { |req| submission_claim(req)['new_submission'] == true }
+    end
+
+    # And only on the first: a new submission is a new attempt, so repeating it
+    # would pile up history and push an already-graded submission back into the
+    # needs-grading queue. The URL persists on the attempt it arrived with.
+    it 'sends no submission claim on a later push for the same student' do
+      described_class.new(binding)
+      line_item = LtiLineItem.find_by(lineitem_id: exercise_lineitem_url)
+      # A changed signature is what lets a second push through the dedup.
+      LtiScoreSignature.where(lti_line_item_id: line_item.id).update_all(signature: 'stale')
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+      expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req).any? }
     end
 
     # The mechanical columns are unaffected: there, completion IS the grade.

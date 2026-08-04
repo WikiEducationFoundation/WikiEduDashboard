@@ -138,12 +138,17 @@ class LtiServiceSession
   # (SCORE_SUBMISSION_TYPES, and submission_data becoming the submission URL).
   SUBMISSION_CLAIM = 'https://canvas.instructure.com/lti/submission'
 
-  # `new_submission: false` on purpose. Every push here is a state change the
-  # signature dedup let through, and a true would add a fresh attempt each time —
-  # piling up submission history and shoving an already-graded submission back
-  # into the needs-grading queue.
+  # `new_submission: true` is not optional, however much a re-post shouldn't be a
+  # new attempt: Canvas only stores `submission_data` when the score claims a new
+  # submission. Verified on staging — with false, the submission existed but its
+  # url was nil and an instructor still got "No Preview Available"; with true the
+  # url appeared and the attempt incremented.
+  #
+  # Which is why the caller sends this only on the FIRST push for a
+  # (column, student) — see SyncLtiGrades#post_for_grading. One attempt each,
+  # carrying the URL, and nothing to pile up afterwards.
   def submission_payload(url)
-    { new_submission: false, submission_type: 'basic_lti_launch', submission_data: url }
+    { new_submission: true, submission_type: 'basic_lti_launch', submission_data: url }
   end
 
   private
