@@ -8,7 +8,7 @@
 # Counts come from LtiPeerReviewProgress — the same calculation behind what's
 # reported to Canvas — so this view can't disagree with the gradebook.
 class PeerReviewAssignmentViewContext
-  Row = Struct.new(:name, :completed_count, :total_count, keyword_init: true) do
+  Row = Struct.new(:name, :completed_count, :total_count, :reviews, keyword_init: true) do
     def done?
       total_count.positive? && completed_count >= total_count
     end
@@ -52,27 +52,41 @@ class PeerReviewAssignmentViewContext
     progress_for(@user || student_contexts.first&.user)&.total_count.to_i
   end
 
-  # One row per connected student. A progress object each: the review statuses
-  # live in per-assignment `flags`, so there is no grouped query to batch them
-  # into — and a peer-review roster is one row per student, not per revision.
+  # One row per connected student, each listing the reviews that student was
+  # assigned — which articles they're reviewing, not merely how many they've
+  # finished. A count alone left the instructor unable to see the assignment
+  # itself, the way the article columns show each student's assigned article
+  # (operator decision 2026-08-04).
+  #
+  # A progress object each: the review statuses live in per-assignment `flags`,
+  # so there is no grouped query to batch them into — and this is one row per
+  # student, not per revision.
   def roster
-    student_contexts.map do |context|
-      progress = progress_for(context.user)
-      Row.new(name: context.user.username,
-              completed_count: progress.completed_count, total_count: progress.total_count)
-    end
+    student_contexts.map { |context| row_for(context.user) }
   end
 
   def student_panel
-    progress = progress_for(@user)
-    Row.new(name: @user.username, completed_count: progress.completed_count,
-            total_count: progress.total_count)
+    row_for(@user)
   end
 
-  # The launching student's own reviews: which article each is of, the page they
-  # write it on, and whether that page exists yet.
+  # The launching student's own reviews. Kept as its own name because the student
+  # view reads as "your reviews" rather than as a roster row.
   def viewer_review_rows
-    progress_for(@user).review_statuses.map do |assignment, completed|
+    review_rows_for(@user)
+  end
+
+  private
+
+  def row_for(user)
+    progress = progress_for(user)
+    Row.new(name: user.username, completed_count: progress.completed_count,
+            total_count: progress.total_count, reviews: review_rows_for(user))
+  end
+
+  # Which article each review is of, the page it belongs on, and whether that page
+  # exists yet.
+  def review_rows_for(user)
+    progress_for(user).review_statuses.map do |assignment, completed|
       ReviewRow.new(
         # Stored underscored; de-underscored for display like Article#full_title.
         article_title: assignment.article_title.tr('_', ' '),
@@ -82,8 +96,6 @@ class PeerReviewAssignmentViewContext
       )
     end
   end
-
-  private
 
   def progress_for(user)
     return if user.nil?

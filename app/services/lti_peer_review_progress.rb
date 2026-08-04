@@ -9,10 +9,11 @@
 # reviews it expects (operator decision 2026-08-03).
 #
 # `score_given` is the fraction of the course's expected reviews this student has
-# done. What counts as done is the review page existing: peer reviews are
-# `reviewing`-role Assignments, and CheckAssignmentStatus records whether each
-# one's `<sandbox>/<username>_Peer_Review` page has been created. Taking a review
-# is not doing it, which is why the assignment's existence isn't the measure.
+# done. Peer reviews are `reviewing`-role Assignments; what counts as one being
+# done is either the student marking the review complete or their review page
+# existing — see #completed?. Being *assigned* a review is not doing it, which is
+# why the assignment's existence isn't the measure (the random assigner hands them
+# out in bulk).
 #
 # Like the exercise columns, and unlike trainings or the account indicator, this
 # is NOT a grade: a peer review's quality is the instructor's to judge, so
@@ -79,9 +80,23 @@ class LtiPeerReviewProgress
     [completed_count.to_f / @expected, SCORE_MAXIMUM].min
   end
 
+  # Either signal counts, because they fail in opposite directions and both live in
+  # `flags[:review]` under different keys:
+  #
+  #   - `:status` reaching PEER_REVIEW_COMPLETED — the student's own progress
+  #     through the review steps (AssignmentsController#update_status). Immediate,
+  #     and for an instructor-graded column it's the right trigger: the student
+  #     saying they're finished is what asks the instructor to look.
+  #   - `:review`, the review page existing. The artifact, so it catches a student
+  #     who wrote the review without clicking through the steps — but it's written
+  #     only by CheckAssignmentStatus, which runs from the constant update cycle
+  #     (lib/data_cycle/constant_update.rb), so it trails the work by up to a
+  #     cycle. On the strength of that flag alone a finished review read as "0 of
+  #     2" until the cycle caught up (operator decision 2026-08-04).
   def completed?(review)
-    review.peer_review_sandbox_status !=
-      AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+    review.status == AssignmentPipeline::ReviewStatuses::PEER_REVIEW_COMPLETED ||
+      review.peer_review_sandbox_status !=
+        AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
   end
 
   def compute_comment

@@ -112,7 +112,8 @@ class LtiServiceSession
   # rubocop:disable Metrics/ParameterLists
   def post_score(lineitem_id:, user_lti_id:, score_given: nil, score_maximum: 1.0,
                  comment: nil, activity_progress: 'Completed',
-                 grading_progress: 'FullyGraded', timestamp: Time.current)
+                 grading_progress: 'FullyGraded', timestamp: Time.current,
+                 submission_url: nil)
     body = {
       userId: user_lti_id,
       activityProgress: activity_progress,
@@ -123,9 +124,27 @@ class LtiServiceSession
     # denominator for a grade that isn't being reported.
     body.merge!(scoreGiven: score_given, scoreMaximum: score_maximum) unless score_given.nil?
     body[:comment] = comment if comment.present?
+    body[SUBMISSION_CLAIM] = submission_payload(submission_url) if submission_url
     @client.post("/api/lineitems/#{CGI.escape(lineitem_id)}/scores", body)
   end
   # rubocop:enable Metrics/ParameterLists
+
+  # Canvas's own extension to the AGS Score payload. Without it a score arrives
+  # with no submitted artifact behind it, and Canvas answers an instructor who
+  # opens the student's submission with a bare "No Preview Available".
+  # `basic_lti_launch` + a URL is how a tool says "the work is here, launch me for
+  # it"; Canvas stores the URL as the submission's own and renders it in
+  # SpeedGrader. Verified field names against Canvas's scores_controller
+  # (SCORE_SUBMISSION_TYPES, and submission_data becoming the submission URL).
+  SUBMISSION_CLAIM = 'https://canvas.instructure.com/lti/submission'
+
+  # `new_submission: false` on purpose. Every push here is a state change the
+  # signature dedup let through, and a true would add a fresh attempt each time —
+  # piling up submission history and shoving an already-graded submission back
+  # into the needs-grading queue.
+  def submission_payload(url)
+    { new_submission: false, submission_type: 'basic_lti_launch', submission_data: url }
+  end
 
   private
 

@@ -11,21 +11,24 @@ describe LtiPeerReviewProgress do
     course.save!
   end
 
-  def assign_review(title, completed: false)
+  # `page:` is the artifact signal (CheckAssignmentStatus finding the review page);
+  # `marked:` is the student's own progress through the review steps. Either counts.
+  def assign_review(title, page: false, marked: false)
     assignment = Assignment.create!(course:, user: student, wiki: course.home_wiki,
                                     role: Assignment::Roles::REVIEWING_ROLE,
                                     article_title: title)
-    if completed
+    if page
       assignment.update_sandbox_status(
         :review, AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE
       )
     end
+    assignment.update_status(AssignmentPipeline::ReviewStatuses::PEER_REVIEW_COMPLETED) if marked
     assignment
   end
 
   it 'scores the fraction of expected reviews the student has written' do
     expect_reviews(2)
-    assign_review('First', completed: true)
+    assign_review('First', page: true)
     assign_review('Second')
 
     progress = described_class.new(course, student)
@@ -35,10 +38,43 @@ describe LtiPeerReviewProgress do
 
   it 'is complete once every expected review is written' do
     expect_reviews(2)
-    assign_review('First', completed: true)
-    assign_review('Second', completed: true)
+    assign_review('First', page: true)
+    assign_review('Second', page: true)
 
     expect(described_class.new(course, student).score_given).to eq(1.0)
+  end
+
+  # The student's own progress through the review steps. Immediate, unlike the page
+  # check, which waits for the constant update cycle — reading the page flag alone
+  # showed "0 of 2" for a review that was finished.
+  it 'counts a review the student has marked complete' do
+    expect_reviews(2)
+    assign_review('First', marked: true)
+
+    expect(described_class.new(course, student).completed_count).to eq(1)
+  end
+
+  it 'counts a review whose page exists even if the student never marked it' do
+    expect_reviews(2)
+    assign_review('First', page: true)
+
+    expect(described_class.new(course, student).completed_count).to eq(1)
+  end
+
+  it 'does not double-count a review carrying both signals' do
+    expect_reviews(2)
+    assign_review('First', page: true, marked: true)
+
+    expect(described_class.new(course, student).completed_count).to eq(1)
+  end
+
+  # An earlier stage of the review flow is not completion.
+  it 'does not count a review still in progress' do
+    expect_reviews(1)
+    review = assign_review('First')
+    review.update_status(AssignmentPipeline::ReviewStatuses::PROVIDING_FEEDBACK)
+
+    expect(described_class.new(course, student).completed_count).to eq(0)
   end
 
   # Taking a review is not doing it: the assignment exists as soon as the
@@ -62,14 +98,14 @@ describe LtiPeerReviewProgress do
   # A student who reviewed more than was asked of them is finished, not over 100%.
   it 'caps the score at the maximum' do
     expect_reviews(1)
-    assign_review('First', completed: true)
-    assign_review('Second', completed: true)
+    assign_review('First', page: true)
+    assign_review('Second', page: true)
 
     expect(described_class.new(course, student).score_given).to eq(1.0)
   end
 
   it 'falls back to one expected review when the course has no setting' do
-    assign_review('First', completed: true)
+    assign_review('First', page: true)
     expect(described_class.new(course, student).total_count).to eq(1)
     expect(described_class.new(course, student).score_given).to eq(1.0)
   end
@@ -83,7 +119,7 @@ describe LtiPeerReviewProgress do
 
   it 'reports the counts and comment the drill-down and gradebook share' do
     expect_reviews(3)
-    assign_review('First', completed: true)
+    assign_review('First', page: true)
 
     progress = described_class.new(course, student)
     expect(progress.completed_count).to eq(1)
@@ -93,7 +129,7 @@ describe LtiPeerReviewProgress do
 
   it 'exposes each review with its completion state, for the drill-down' do
     expect_reviews(2)
-    assign_review('Done one', completed: true)
+    assign_review('Done one', page: true)
     assign_review('Not yet')
 
     statuses = described_class.new(course, student).review_statuses
@@ -113,9 +149,9 @@ describe LtiPeerReviewProgress do
 
   it 'changes its signature when a review is written' do
     expect_reviews(2)
-    assign_review('First', completed: true)
+    assign_review('First', page: true)
     before = described_class.new(course, student).signature
-    assign_review('Second', completed: true)
+    assign_review('Second', page: true)
 
     expect(described_class.new(course, student).signature).not_to eq(before)
   end

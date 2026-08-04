@@ -1505,6 +1505,28 @@ describe LtiLaunchController, type: :request do
     context 'when not signed in (in-iframe launch, partitioned cookies)' do
       # The ltik authenticates the launch, so assignment drill-downs render
       # in the iframe with the viewer resolved from the LTI identity.
+      # The identity line names the account the page is ACTING AS. Reading
+      # current_user alone made every framed page claim nobody was signed in while
+      # showing that person's own roster and progress — the session cookie being
+      # partitioned away in the iframe is exactly why the views resolve the viewer
+      # from the LMS identity in the first place.
+      it 'names the connected account even with no session' do
+        student = create(:user, username: 'Stu Dent')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-user-1',
+                           lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
+                           linked_at: Time.current)
+
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body)
+          .to include(I18n.t('lti.identity.signed_in_as', username: 'Stu Dent'))
+        expect(response.body).not_to include(I18n.t('lti.identity.no_account'))
+      end
+
+      it 'says no account is connected when the launch identity is unlinked' do
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include(I18n.t('lti.identity.no_account'))
+      end
+
       it 'renders the instructor roster without a Rails session' do
         student = create(:user, username: 'Stu Dent')
         LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-stu',
@@ -1606,6 +1628,31 @@ describe LtiLaunchController, type: :request do
       end
     end
 
+    # Opening one student's submission in Canvas launches us at the URL posted with
+    # the score. There is no per-student submission view yet, and Canvas's own
+    # fallback is a bare "No Preview Available".
+    context 'when the launch comes from a student submission in Canvas' do
+      before { approve_identity_link }
+
+      it 'explains that submission views are not built yet, and points at the Dashboard' do
+        get '/lti', params: { ltik: 'ltik-abc', resource: "Block:#{block.id}",
+                              submission: '1' }
+
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/assignment_view_submission')
+        expect(response.body)
+          .to include(CGI.escapeHTML(I18n.t('lti.assignment_view.submission.explanation')))
+        expect(response.body).to include("/courses/#{course.slug}")
+      end
+
+      # Without the marker it's an ordinary assignment launch and must still reach
+      # the drill-down.
+      it 'leaves an ordinary assignment launch alone' do
+        get '/lti', params: { ltik: 'ltik-abc', resource: "Block:#{block.id}" }
+        expect(response).to render_template('lti_launch/assignment_view')
+      end
+    end
+
     # Peer review had no way into Canvas before this column: no exercise module
     # means DeepLinkableGradables never offered it.
     context 'when the launch resolves to the peer-review column' do
@@ -1628,6 +1675,33 @@ describe LtiLaunchController, type: :request do
       before do
         course.flags[:peer_review_count] = 2
         course.save!
+      end
+
+      # A count alone doesn't tell an instructor which articles a student was
+      # assigned to review, the way the article columns name each student's own
+      # article.
+      it 'lists the articles each student was assigned to review' do
+        student = create(:user, username: 'Rev Iewer')
+        LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: 'lti-rev',
+                           lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
+                           linked_at: Time.current)
+        Assignment.create!(course:, user: student, wiki: course.home_wiki,
+                           role: Assignment::Roles::REVIEWING_ROLE,
+                           article_title: 'Someone elses article')
+
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include('Someone elses article')
+        expect(response.body).to include('_Peer_Review')
+      end
+
+      it 'says so for a student with no reviews assigned' do
+        LtiContext.create!(user: create(:user, username: 'Unassigned'),
+                           lti_course_binding: binding, user_lti_id: 'lti-un',
+                           lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
+                           linked_at: Time.current)
+
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response.body).to include(I18n.t('lti.assignment_view.peer_review.none_yet'))
       end
 
       it 'renders the roster with each student’s reviews-done count' do

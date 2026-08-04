@@ -25,10 +25,6 @@ describe DeepLinkableGradables do
   # picker — and therefore couldn't become a Canvas column at all. The course's
   # expected-review count is what says the stage is part of the course.
   describe 'the peer-review stage' do
-    let(:peer_review_module) do
-      create(:training_module, slug: 'peer-review', name: 'Peer review', kind: 0)
-    end
-
     def expect_reviews(count)
       course.flags[:peer_review_count] = count
       course.save!
@@ -46,15 +42,40 @@ describe DeepLinkableGradables do
       expect(stage.gradable_id).to be_nil
     end
 
-    # The stage has no exercise, so its deadline comes from the timeline block
-    # that carries the peer-review training.
+    # The stage has no exercise and no assigned training, so it is identified by
+    # block title — the wizard's "Peer review two articles" and friends.
     it 'takes its due date from the peer-review timeline block' do
       expect_reviews(1)
-      block = create(:block, week:, order: 5, title: 'Peer review your classmates',
-                             training_module_ids: [peer_review_module.id])
+      block = create(:block, week:, order: 5, title: 'Peer review two articles')
 
       stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
       expect(stage.due_date).to eq(block.calculated_due_date)
+    end
+
+    # The stage spans the reviewing and the milestone that closes it; the deadline
+    # is the end of the stage, not its start.
+    it 'takes the last peer-review block when the stage spans several' do
+      expect_reviews(1)
+      create(:block, week:, order: 2, title: 'Peer review two articles')
+      last_week = create(:week, course:, order: 7)
+      milestone = create(:block, week: last_week, order: 0,
+                                 title: 'Peer reviews are complete')
+
+      stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
+      expect(stage.due_date).to eq(milestone.calculated_due_date)
+    end
+
+    # A real block on the wizard timeline, a week after the stage ends. Matching it
+    # would push the deadline out by a week.
+    it 'ignores a block that only mentions peer review later in its title' do
+      expect_reviews(1)
+      create(:block, week:, order: 2, title: 'Peer review two articles')
+      create(:block, week: create(:week, course:, order: 9), order: 0,
+                     title: 'Respond to your peer review')
+
+      stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
+      expect(stage.due_date).to eq(Block.find_by(title: 'Peer review two articles')
+                                        .calculated_due_date)
     end
 
     # A course can expect reviews without the timeline naming them; the column is
@@ -63,6 +84,36 @@ describe DeepLinkableGradables do
       expect_reviews(1)
       stage = gradables.find { |g| g.gradable_type == LtiLineItem::PEER_REVIEW_TYPE }
       expect(stage.due_date).to be_nil
+    end
+
+    # The picker's order is also the order Canvas creates the assignments in, so
+    # appending the stage after the exercises misrepresented the sequence twice:
+    # peer review read as the final assignment of the course.
+    it 'sits in timeline order rather than last' do
+      expect_reviews(1)
+      early_week = create(:week, course:, order: 1)
+      late_week = create(:week, course:, order: 9)
+      create(:block, week: early_week, order: 0, title: 'Early exercise',
+                     training_module_ids: [exercise_module.id])
+      create(:block, week: create(:week, course:, order: 5), order: 0,
+                     title: 'Peer review two articles')
+      late_exercise = create(:training_module, slug: 'late-ex', name: 'Late exercise', kind: 1)
+      create(:block, week: late_week, order: 0, title: 'Late exercise',
+                     training_module_ids: [late_exercise.id])
+
+      rollups = %w[WikipediaSetup TrainingProgress]
+      timeline = gradables.reject { |g| rollups.include?(g.gradable_type) }
+      expect(timeline.map(&:label))
+        .to eq(['Wk1 Early exercise', DeepLinkableGradables::PEER_REVIEW_LABEL,
+                'Wk9 Late exercise'])
+    end
+
+    it 'still goes last when the timeline has no peer-review block' do
+      expect_reviews(1)
+      create(:block, week: create(:week, course:, order: 9), order: 0, title: 'Late exercise',
+                     training_module_ids: [exercise_module.id])
+
+      expect(gradables.last.gradable_type).to eq(LtiLineItem::PEER_REVIEW_TYPE)
     end
   end
 

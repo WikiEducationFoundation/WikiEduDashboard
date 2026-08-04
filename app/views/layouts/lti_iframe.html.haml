@@ -23,11 +23,15 @@
       - # Which Dashboard account these pages are acting as, on every integration
       - # page, framed or not. A silent first-launch link connected the wrong
       - # account precisely because nothing on screen said which one was signed
-      - # in. `current_user` being absent is itself worth stating: inside the
-      - # Canvas iframe the session cookie is partitioned away, which is why the
-      - # anonymous landings ask the user to continue in a new tab.
+      - # in.
+      - #
+      - # Deliberately NOT current_user: in the Canvas iframe the session cookie is
+      - # partitioned away, and the views show the launching person's own data
+      - # resolved from their LMS identity instead. See
+      - # LtiLaunchHelper#lti_page_account.
+      - account = lti_page_account
       %p.lti-iframe__identity
-        - if current_user
-          = t('lti.identity.signed_in_as', username: current_user.username)
+        - if account
+          = t('lti.identity.signed_in_as', username: account.username)
         - else
-          = t('lti.identity.not_signed_in')
+          = t('lti.identity.no_account')

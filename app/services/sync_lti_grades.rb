@@ -229,8 +229,25 @@ class SyncLtiGrades
       user_lti_id: context.user_lti_id,
       comment: with_origin(progress.comment),
       activity_progress: 'Submitted',
-      grading_progress: 'PendingManual'
+      grading_progress: 'PendingManual',
+      submission_url: submission_launch_url(line_item)
     )
+  end
+
+  # The URL Canvas stores as the submission's own, so opening a student's
+  # submission launches us instead of showing Canvas's "No Preview Available".
+  # Carries the column's resource marker and a `submission` flag — and no
+  # identifier for the student, deliberately: this URL is persisted inside Canvas,
+  # where a Wikipedia username must not go (the same rule that keeps sandbox URLs
+  # out of score comments). The launch itself says who is looking.
+  #
+  # Only the instructor-graded columns get one; nothing grades the mechanical ones
+  # by hand, so there is no submission to open.
+  def submission_launch_url(line_item)
+    return if ENV['LTIAAS_DOMAIN'].blank?
+
+    "https://#{ENV['LTIAAS_DOMAIN']}/lti/launch" \
+      "?resource=#{CGI.escape(line_item.resource_marker)}&submission=1"
   end
 
   # AGS carries the state of the activity next to the score, and the platform is

@@ -2,6 +2,30 @@
 
 # View helpers for the in-Canvas LTI launch views.
 module LtiLaunchHelper
+  # The Dashboard account a page is acting as, for the identity line the
+  # lti_iframe layout renders on every page.
+  #
+  # NOT simply `current_user`. Inside the Canvas iframe the session cookie is
+  # partitioned away, so `current_user` is nil there — while the views are
+  # perfectly happy showing that person's roster, progress and sandboxes, having
+  # resolved them from the launch's LMS identity instead
+  # (LtiAssignmentViews#launch_viewer, LtiAnonymousLaunch). Reading `current_user`
+  # alone therefore made every framed page claim nobody was signed in while
+  # displaying the signed-in user's own data — the contradiction this line exists
+  # to prevent.
+  #
+  # Order: the session when there is one (a top-level tab), then whatever the
+  # launch already resolved, then the account connected to this launch's identity.
+  # nil only when no account is known at all, which is the state the anonymous
+  # landing is asking the user to fix.
+  def lti_page_account
+    return current_user if current_user
+    return @launch_viewer if @launch_viewer
+    return if @lti_session.nil? || @binding.nil?
+
+    LtiContext.connected_user(binding_id: @binding.id,
+                              user_lti_id: @lti_session.user_lti_id)
+  end
   # Maps a three-state progress value (:complete / :partial / :none) to the
   # status-pill CSS class, so a not-started or partially-done row is
   # visually distinct from a complete one.

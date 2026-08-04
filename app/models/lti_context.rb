@@ -53,6 +53,14 @@ class LtiContext < ApplicationRecord
   scope :linked, -> { where.not(user_id: nil) }
   scope :unlinked, -> { where(user_id: nil) }
 
+  # The Dashboard account connected to one LMS identity in one course, if any.
+  # The canonical lookup, because two callers need it and they must not drift:
+  # the launch resolving whose data to show, and the identity line naming the
+  # account a page is acting as.
+  def self.connected_user(binding_id:, user_lti_id:)
+    find_by(lti_course_binding_id: binding_id, user_lti_id:)&.user
+  end
+
   def linked?
     user_id.present?
   end

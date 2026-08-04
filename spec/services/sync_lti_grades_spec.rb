@@ -144,6 +144,10 @@ describe SyncLtiGrades do
       .with(body: hash_including(userId: 'lti-bob'))
   end
 
+  def submission_claim(request)
+    JSON.parse(request.body)['https://canvas.instructure.com/lti/submission'] || {}
+  end
+
   # Exercise work is the instructor's to evaluate; the Dashboard only knows the
   # student marked it done. Reporting that as 1/1 asserted a judgment nobody had
   # made. Submitted + PendingManual with no score is how AGS says "submitted,
@@ -174,6 +178,41 @@ describe SyncLtiGrades do
       described_class.new(binding)
       expect(WebMock).to have_requested(:post, %r{find-sources/scores})
         .with { |req| !JSON.parse(req.body).key?('scoreMaximum') }
+    end
+
+    # Without a submission behind the score, Canvas answers an instructor who
+    # opens the student's work with "No Preview Available". The extension hands it
+    # a launch URL to render instead.
+    it 'carries a submission launch URL for the instructor to open' do
+      described_class.new(binding)
+
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req)['submission_type'] == 'basic_lti_launch' }
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req)['submission_data'].include?('submission=1') }
+    end
+
+    # This URL is persisted inside Canvas, so it must not carry a Wikipedia
+    # username — the same rule that keeps sandbox URLs out of score comments. The
+    # launch says who is looking.
+    it 'identifies the column but never the student' do
+      described_class.new(binding)
+
+      marker = "Block%3A#{exercise_block.id}"
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req)['submission_data'].include?(marker) }
+      expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req).to_s.include?('Alice') }
+    end
+
+    # A re-post is a state change the dedup let through, not new work: a fresh
+    # attempt each time would pile up history and push an already-graded
+    # submission back into the needs-grading queue.
+    it 'does not claim a new submission attempt' do
+      described_class.new(binding)
+
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req)['new_submission'] == false }
     end
 
     # The mechanical columns are unaffected: there, completion IS the grade.

@@ -1,7 +1,8 @@
-- # In-Canvas drill-down for the peer-review column. Instructors get a
-- # per-student reviews-done count (the same numbers behind what's reported to
-- # Canvas); a student gets their own reviews, each linking to the article and to
-- # the page the review belongs on.
+- # In-Canvas drill-down for the peer-review column. Instructors get one row per
+- # student: how many reviews they've finished, and which articles they were
+- # assigned to review — the assignment itself, not just a count, matching how the
+- # article columns show each student's assigned article. A student sees their own
+- # reviews, each linking to the article and to the page the review belongs on.
 - #
 - # Peer review has no exercise module, so before this column existed the stage
 - # couldn't reach Canvas at all. What it does have is a course setting for how
@@ -20,6 +21,7 @@
             %tr
               %th= t('lti.assignment_view.roster.student')
               %th= t('lti.assignment_view.roster.status')
+              %th= t('lti.assignment_view.peer_review.reviews')
           %tbody
             - roster.each do |row|
               %tr
@@ -28,6 +30,7 @@
                   %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
                     = t('lti.assignment_view.peer_review.progress',
                         completed: row.completed_count, total: row.total_count)
+                %td= render 'lti_launch/peer_reviews', reviews: row.reviews
     = render 'lti_launch/grade_sync',
              binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
   - else
@@ -42,24 +45,6 @@
         - # yet, which is the instructor's step, not theirs.
         %p.lti-iframe__empty= t('lti.assignment_view.peer_review.none_assigned')
       - else
-        .lti-table-scroll
-          %table.lti-assignment-roster
-            %thead
-              %tr
-                %th= t('lti.assignment_view.peer_review.article')
-                %th= t('lti.assignment_view.roster.status')
-                %th= t('lti.assignment_view.peer_review.review_page')
-            %tbody
-              - reviews.each do |review|
-                %tr
-                  %td
-                    = link_to review.article_title, review.article_url,
-                              target: '_blank', rel: 'noopener'
-                  %td
-                    %span.lti-status{ class: review.completed? ? 'lti-status--done' : 'lti-status--pending' }
-                      = review.completed? ? t('lti.assignment_view.article_work.created') : t('lti.assignment_view.article_work.not_created_yet')
-                  %td
-                    = link_to review.review_url, target: '_blank', rel: 'noopener',
-                              class: 'lti-sandbox__link' do
-                      = t('lti.assignment_view.open_on_wikipedia')
-                      %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+        .lti-iframe__assigned-article
+          %h2= t('lti.assignment_view.peer_review.your_reviews')
+          = render 'lti_launch/peer_reviews', reviews: reviews

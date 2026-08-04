@@ -2384,32 +2384,21 @@ en:
     # write-once, so `wrong_account` — signing out and back in as the right
     # account — is the escape hatch that keeps a mistake from needing staff.
     connect_identity:
-      # [PLACEHOLDER - heading asking the user to connect their Dashboard account
-      # to this Canvas course]
+
       header: "Connect your Wikipedia account to this course"
-      # [PLACEHOLDER - explain that confirming connects the Wikipedia/Dashboard
-      # account %{username} to their Canvas account in %{course}, that their
-      # Dashboard progress will report to this course's gradebook, and that the
-      # connection can't be changed later without staff help]
       explanation: "Connecting will report your Wikipedia work in %{course} to this Canvas course, using your Wiki Education Dashboard account %{username}. This connection cannot be changed later without help from Wiki Education staff, so check that the account below is the one you want to use."
-      # [PLACEHOLDER - label for the Canvas course row]
       canvas_course: "Canvas course"
-      # [PLACEHOLDER - label for the signed-in Dashboard account row]
       dashboard_account: "Wikipedia account"
-      # [PLACEHOLDER - button label confirming the connection]
       confirm: "Connect this account"
-      # [PLACEHOLDER - link text for signing out to connect a different Dashboard
-      # account]
       wrong_account: "Use a different account"
     # Shown at the foot of every in-Canvas page so it's never a mystery which
-    # Dashboard account the integration is acting as.
+    # Dashboard account the integration is acting as. Note this is the account the
+    # page is ACTING AS, which inside the Canvas iframe is resolved from the launch
+    # rather than from a session — so the wording deliberately doesn't say "signed
+    # in", which would be false in the iframe even when the account is right.
     identity:
-      # [PLACEHOLDER - short line naming the signed-in Dashboard account,
-      # %{username}]
       signed_in_as: "Wikipedia account: %{username}"
-      # [PLACEHOLDER - short line saying no Dashboard account is signed in on this
-      # page]
-      not_signed_in: "No Wikipedia account signed in here"
+      no_account: "No Wikipedia account connected yet"
     enrollment_pending_approval:
       header: "This course is awaiting Wiki Education approval"
       explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
@@ -2440,15 +2429,7 @@ en:
         status: "Status"
         sandbox: "Sandbox"
         empty: "No students have connected Wikipedia accounts yet."
-        # Replaces the Status column on article-selection exercises, where which
-        # article the student took on is the useful thing to report.
-        # [PLACEHOLDER - column header for the article(s) a student is assigned to
-        # write]
         assigned_article: "Assigned article"
-      # Shown in place of the article list for a student who has not chosen an
-      # article yet — on the roster it's the state an instructor most needs to
-      # spot, and on the student's own panel it's their next step.
-      # [PLACEHOLDER - short line saying the student has not chosen an article yet]
       no_article_yet: "No article chosen yet"
       # The shared panel showing the whole state of a student's article work,
       # rendered at each stage of the writing process (choosing the article, the
@@ -2456,35 +2437,20 @@ en:
       # three userspace pages; the draft one is omitted for courses whose
       # students edit live articles instead of drafting.
       article_work:
-        # [PLACEHOLDER - heading over the panel showing the state of the student's
-        # article work]
         header: "Article work"
-        # [PLACEHOLDER - short note that the live article does not exist on
-        # Wikipedia yet]
         not_created: "This article does not exist on Wikipedia yet."
-        # [PLACEHOLDER - very short label meaning this page has been started]
         created: "Started"
-        # [PLACEHOLDER - very short label meaning this page does not exist yet]
         not_created_yet: "Not started"
-        # [PLACEHOLDER - label for characters the student added to the live
-        # article]
         characters: "Characters added"
-        # [PLACEHOLDER - label for references the student added]
         references: "References added"
-        # [PLACEHOLDER - label for the student's number of edits to the live
-        # article]
         revisions: "Edits"
         pages:
-          # [PLACEHOLDER - label for the bibliography page]
           bibliography: "Bibliography"
-          # [PLACEHOLDER - label for the outline page]
           outline: "Outline"
-          # [PLACEHOLDER - label for the draft sandbox]
           draft: "Draft sandbox"
       student:
         your_sandbox: "Your sandbox"
         # Heading over the student's own assigned article(s).
-        # [PLACEHOLDER - heading for the student's own assigned article(s)]
         your_article: "Your article"
         open_exercise: "Open exercise"
         launch_instructions: "Launch instructions"
@@ -2506,15 +2472,19 @@ en:
       # LtiPeerReviewProgress ("X of Y peer reviews completed"), the way the
       # trainings one mirrors its own service.
       peer_review:
-        # [PLACEHOLDER - '%{completed} of %{total}' phrasing for peer reviews
-        # completed]
         progress: "%{completed} of %{total} peer reviews completed"
-        # [PLACEHOLDER - column header for the article being reviewed]
         article: "Article to review"
-        # [PLACEHOLDER - column header for the page the review is written on]
         review_page: "Review page"
-        # [PLACEHOLDER - line telling a student no peer reviews have been assigned
-        # to them yet]
+        reviews: "Assigned reviews"
+        your_reviews: "Your peer reviews"
+        none_yet: "None assigned yet"
         none_assigned: "No peer reviews have been assigned to you yet."
       orphan:
         explanation: "There is no Dashboard content to show for this assignment."
+      # Shown when an instructor opens one student's submission in Canvas
+      # (SpeedGrader or the submission page). Canvas's own answer there is "No
+      # Preview Available", because a score posted over AGS carries no submitted
+      # artifact; this replaces it until per-student submission views exist.
+      submission:
+        explanation: "Viewing submissions for this assignment in Canvas hasn't been implemented yet. Please go to the Dashboard."
+        open_dashboard: "Open the Wiki Education Dashboard"

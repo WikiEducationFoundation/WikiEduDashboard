@@ -114,6 +114,15 @@ class LtiLineItem < ApplicationRecord
     MECHANICAL_TYPES.exclude?(gradable_type)
   end
 
+  # This column's deep-link resource marker: the string DeepLinkableGradables
+  # offers, Canvas carries as the line item's tag, and SyncLtiLineItems matches on
+  # — "Block:12" for a timeline block, the bare type for a sentinel column. NOT
+  # `gradable_key`, the generated column behind the unique index, which folds a
+  # null gradable_id into a trailing colon.
+  def resource_marker
+    gradable_id ? "#{gradable_type}:#{gradable_id}" : gradable_type
+  end
+
   def archived?
     archived_at.present?
   end

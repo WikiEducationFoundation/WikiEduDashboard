@@ -22,11 +22,25 @@ module LtiAssignmentViews
     # resolve explicitly and fall back to the launch binding when the context
     # isn't linked to a Dashboard course yet.
     binding = @lti_session.bound_binding || @binding
+    return render_submission_placeholder(binding) if params[:submission].present?
     line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
     template, @context = assignment_view_for(line_item)
     return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe' if template.nil?
 
     render "lti_launch/#{template}", layout: 'lti_iframe'
+  end
+
+  # A launch from a student's submission in Canvas — SpeedGrader or the submission
+  # page — rather than from the assignment itself. Marked by `submission` on the
+  # URL we hand Canvas as the submission's own (SyncLtiGrades#submission_launch_url),
+  # so it can't be confused with an ordinary assignment launch.
+  #
+  # There is no per-student submission view yet, and Canvas's fallback for an
+  # assignment whose grade arrived by AGS is a bare "No Preview Available". Say what
+  # is actually going on and point at the Dashboard instead.
+  def render_submission_placeholder(binding)
+    @submission_course = binding&.course
+    render 'lti_launch/assignment_view_submission', layout: 'lti_iframe'
   end
 
   # Template + view context for the resolved line item's gradable type.
@@ -52,14 +66,16 @@ module LtiAssignmentViews
   # to this launch's LTI identity (in-iframe, where session cookies are
   # partitioned away). Callers gate student views on this being present —
   # instructor rosters don't need it.
+  # Memoized because the identity line in the lti_iframe layout reads the same
+  # answer (see LtiLaunchHelper#lti_page_account) and shouldn't re-query for it.
   def launch_viewer
-    current_user || lti_linked_user
+    @launch_viewer ||= current_user || lti_linked_user
   end
 
   def lti_linked_user
     return if @binding.nil?
 
-    LtiContext.find_by(lti_course_binding_id: @binding.id,
-                       user_lti_id: @lti_session.user_lti_id)&.user
+    LtiContext.connected_user(binding_id: @binding.id,
+                              user_lti_id: @lti_session.user_lti_id)
   end
 end

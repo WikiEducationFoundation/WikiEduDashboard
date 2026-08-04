@@ -1,0 +1,18 @@
+- # What an instructor sees when they open one student's submission in Canvas
+- # (SpeedGrader, or the submission page). Canvas's own answer there is "No
+- # Preview Available", because an AGS score carries no submitted artifact — this
+- # says so in our own words and points at the Dashboard, where the work actually
+- # is.
+- #
+- # A placeholder in the honest sense: per-student submission views aren't built
+- # yet. When they are, this template is what they replace, and the launch URL that
+- # reaches it (see SyncLtiGrades#submission_launch_url) is already per-column.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h1.lti-iframe__title.lti-iframe__title--plain
+    = t('lti.assignment_view.submission.explanation')
+  - if @submission_course
+    = link_to "/courses/#{@submission_course.slug}", target: '_blank', rel: 'noopener',
+              class: 'button dark lti-iframe__button' do
+      = t('lti.assignment_view.submission.open_dashboard')
+      %span.icon.icon-z-external-link_white{ 'aria-hidden': 'true' }
