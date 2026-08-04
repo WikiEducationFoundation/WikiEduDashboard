@@ -762,6 +762,12 @@ qqq:
       {{Identical|View}}
     page: '{{Identical|Page}}'
     done: '{{Identical|Done}}'
+    exercise_sandbox_incomplete: Error shown when a student tries to mark an exercise
+      complete before creating the wiki page the exercise expects. %{pages} is a comma-separated
+      list of the expected page titles.
+    exercise_needs_assigned_article: Error shown when a student tries to mark an exercise
+      complete before assigning themselves an article, which the exercise's expected
+      page depends on
     invalid: Alert stating the slide does not exist
     wait: Alert to not leave the page as the training progress is being updated in
       the background
