@@ -17,9 +17,13 @@ require 'cgi'
 class ResolveAssignmentLineItem
   attr_reader :result
 
-  def initialize(binding:, lti_session:)
+  # `resource_marker` is the marker off the request URL (our own submission launch
+  # puts it there). Canvas echoes no content-item custom, so for those launches it
+  # is the only marker there is.
+  def initialize(binding:, lti_session:, resource_marker: nil)
     @binding = binding
     @lti_session = lti_session
+    @resource_marker = resource_marker
     @result = perform
   end
 
@@ -84,10 +88,17 @@ class ResolveAssignmentLineItem
   end
 
   def deep_link_gradable
-    resource = @lti_session.deep_link_resource
-    return if resource.blank?
+    resource_markers.each do |resource|
+      found = gradable_for_resource(resource) || gradable_for_resource(CGI.unescape(resource))
+      return found if found
+    end
+    nil
+  end
 
-    gradable_for_resource(resource) || gradable_for_resource(CGI.unescape(resource))
+  # The URL's marker first: a launch that carries one is a launch Canvas gave no
+  # claims for, so there is nothing else to resolve it by.
+  def resource_markers
+    [@resource_marker, @lti_session.deep_link_resource].compact_blank
   end
 
   # The bound course's gradable whose `resource` marker matches, if any. The

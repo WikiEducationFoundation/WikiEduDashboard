@@ -24,7 +24,8 @@ module LtiAssignmentViews
     binding = @lti_session.bound_binding || @binding
     # Before the contexts are built: a submission launch narrows them to one student.
     @focus_user = submission_focus_user(binding) if params[:submission].present?
-    line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
+    line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session,
+                                              resource_marker: params[:resource]).result
     template, @context = assignment_view_for(line_item)
     return render_submission_placeholder(binding) if submission_fallback?(template)
     return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe' if template.nil?

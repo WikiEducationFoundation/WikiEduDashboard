@@ -165,8 +165,21 @@ class LtiLaunchController < ApplicationController
   # lineItemId on the launch, and we don't set canvas_assignment_id on the content
   # item — so without the marker those launches fall through to the course page
   # instead of the roster. The course-navigation launch carries none of the three.
+  # The launch's own claims say "this came from an assignment" — except when they
+  # don't. A submission launch arrives through Canvas's `external_tools/retrieve`
+  # wrapper, which carries neither the AGS line-item claim nor the placement's
+  # `canvas_assignment_id` custom, so a claims-only test sent it to the
+  # course-navigation status view: the operator opened a student's submission in
+  # SpeedGrader and got a course-wide overview (2026-08-05).
+  #
+  # What does survive is the query string on the URL we handed Canvas as the
+  # submission's own — verified in the staging log, which shows `resource` and
+  # `submission` both arriving. Trust our own markers as well as the claims. They
+  # are not authorization: the marker is validated against the bound course's own
+  # gradables, and who may see what still comes from the launch identity.
   def assignment_launch?
-    @lti_session.deep_link_resource.present? ||
+    params[:submission].present? || params[:resource].present? ||
+      @lti_session.deep_link_resource.present? ||
       @lti_session.canvas_assignment_id.present? ||
       @lti_session.ags_lineitem_url.present?
   end

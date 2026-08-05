@@ -1695,6 +1695,33 @@ describe LtiLaunchController, type: :request do
         expect(response.body).not_to include('lti-grade-sync')
       end
 
+      # How a real SpeedGrader launch arrives: through Canvas's
+      # external_tools/retrieve wrapper, which carries NO AGS line-item claim and
+      # no canvas_assignment_id custom — only the query string from the URL we gave
+      # Canvas. Trusting claims alone sent this to the course-navigation status
+      # view, which is what the operator saw instead of a student's work.
+      context 'when the launch carries no claims, only our URL markers' do
+        let(:idtoken) { idtoken_for(role) }
+
+        it 'still resolves the column and narrows it to that student' do
+          get '/lti', params: { ltik: 'ltik-abc', resource: "Block%3A#{block.id}",
+                                submission: 'lti-sandy' }
+
+          expect(response).to render_template('lti_launch/assignment_view')
+          expect(response.body).to include('Sandy Sub')
+          expect(response.body).not_to include('Otto Other')
+        end
+
+        # The status view is the specific wrong answer this guards against: a
+        # course-wide overview in a view about one student's submission.
+        it 'does not fall back to the course-navigation status view' do
+          get '/lti', params: { ltik: 'ltik-abc', resource: "Block%3A#{block.id}",
+                                submission: 'lti-sandy' }
+
+          expect(response).not_to render_template('lti_launch/status')
+        end
+      end
+
       # `submission=1` is what Canvas stored for every score posted before the
       # marker named a student; those launches still have to land somewhere sane.
       it 'falls back to the placeholder when the marker names no student' do
