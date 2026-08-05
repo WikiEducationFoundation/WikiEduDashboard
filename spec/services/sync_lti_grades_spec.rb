@@ -237,6 +237,31 @@ describe SyncLtiGrades do
       expect(WebMock).to have_requested(:post, %r{setup/scores})
         .with(body: hash_including(scoreGiven: 1.0, gradingProgress: 'FullyGraded'))
     end
+
+    # An instructor who opens ANY column in SpeedGrader would otherwise meet
+    # Canvas's bare "No Preview Available" — including the mechanical ones, which
+    # is what the operator hit on the "Wikipedia account" column. Every column
+    # gets a launchable submission on its first push.
+    it 'carries a submission launch URL on the mechanical columns too' do
+      described_class.new(binding)
+
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
+        .with { |req| submission_claim(req)['submission_type'] == 'basic_lti_launch' }
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
+        .with { |req| submission_claim(req)['submission_data'].include?('WikipediaSetup') }
+    end
+
+    it 'still sends no submission claim on a later push for a mechanical column' do
+      described_class.new(binding)
+      line_item = LtiLineItem.find_by(lineitem_id: setup_lineitem_url)
+      LtiScoreSignature.where(lti_line_item_id: line_item.id).update_all(signature: 'stale')
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
+      expect(WebMock).not_to have_requested(:post, %r{setup/scores})
+        .with { |req| submission_claim(req).any? }
+    end
   end
 
   describe 'an exercise the student has not finished' do

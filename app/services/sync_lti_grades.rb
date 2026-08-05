@@ -198,84 +198,26 @@ class SyncLtiGrades
     first_push?(line_item, context)
   end
 
+  # What to report is LtiScorePayload's call — which columns the Dashboard may
+  # grade, what activity progress means, and whether a submission rides along.
   def post_score(context, line_item, progress)
-    return post_for_grading(context, line_item, progress) if line_item.instructor_graded?
-
-    @service.post_score(
-      lineitem_id: line_item.lineitem_id,
-      user_lti_id: context.user_lti_id,
-      score_given: progress.score_given,
-      score_maximum: progress.score_maximum,
-      comment: with_origin(progress.comment),
-      activity_progress: activity_progress(progress)
-    )
+    @service.post_score(**LtiScorePayload.new(
+      line_item:, context:, progress:, comment: with_origin(progress.comment),
+      first_push: first_push?(line_item, context)
+    ).to_h)
   end
 
-  # Exercise work is evaluated by the instructor; the Dashboard only knows the
-  # student said they finished it. Reporting that as 1/1 claimed a judgment
-  # nobody had made and pre-empted the instructor's (operator decision
-  # 2026-08-03). Submitted + PendingManual with NO score is the AGS way to say
-  # "this student has submitted; grade it": Canvas creates the submission, leaves
-  # it ungraded, and puts it in the needs-grading queue.
-  #
-  # Also non-destructive by construction, which matters because this can re-post:
-  # with no scoreGiven, Canvas skips grade submission entirely, so a grade the
-  # instructor has already entered survives. What a re-post CAN disturb is the
-  # needs-grading state, which is why the signature dedup below is load-bearing
-  # rather than merely an optimization.
-  def post_for_grading(context, line_item, progress)
-    @service.post_score(
-      lineitem_id: line_item.lineitem_id,
-      user_lti_id: context.user_lti_id,
-      comment: with_origin(progress.comment),
-      activity_progress: 'Submitted',
-      grading_progress: 'PendingManual',
-      submission_url: (submission_launch_url(line_item) if first_push?(line_item, context))
-    )
-  end
-
-  # Whether this is the first thing we've ever reported for this (column, student).
-  # The submission extension rides along only then: Canvas stores the submission
-  # URL only when the score claims a new submission, and a new submission is a new
-  # attempt — so sending it every time would pile up attempts and push an
-  # already-graded submission back into the needs-grading queue. Once is enough;
-  # the URL persists on that attempt.
+  # Whether this is the first thing ever reported for this (column, student).
+  # Also what decides whether the submission extension rides along; see
+  # LtiScorePayload.
   def first_push?(line_item, context)
     !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
   end
 
-  # The URL Canvas stores as the submission's own, so opening a student's
-  # submission launches us instead of showing Canvas's "No Preview Available".
-  # Carries the column's resource marker and a `submission` flag — and no
-  # identifier for the student, deliberately: this URL is persisted inside Canvas,
-  # where a Wikipedia username must not go (the same rule that keeps sandbox URLs
-  # out of score comments). The launch itself says who is looking.
-  #
-  # Only the instructor-graded columns get one; nothing grades the mechanical ones
-  # by hand, so there is no submission to open.
-  def submission_launch_url(line_item)
-    return if ENV['LTIAAS_DOMAIN'].blank?
-
-    "https://#{ENV['LTIAAS_DOMAIN']}/lti/launch" \
-      "?resource=#{CGI.escape(line_item.resource_marker)}&submission=1"
-  end
-
-  # AGS carries the state of the activity next to the score, and the platform is
-  # entitled to act on it — an activity reported `Completed` is finished work as
-  # far as Canvas is concerned. The trainings roll-up legitimately pushes
-  # fractions (1 of 4 modules done is 0.25), so the blanket `Completed` this
-  # replaces contradicted the score it travelled with. `gradingProgress` stays
-  # FullyGraded in both cases: what the student has done so far is fully graded,
-  # nothing is pending on our side. Instructor-graded columns don't come through
-  # here at all — see #post_for_grading.
-  def activity_progress(progress)
-    progress.score_given.to_f < progress.score_maximum.to_f ? 'InProgress' : 'Completed'
-  end
-
   # Append the Dashboard's origin to a score comment so Canvas's authorless
   # "- Someone" attribution (its Score API can't set the comment author) reads
-  # less mysteriously. Blank comments (most progress types emit none) stay
-  # blank — we don't post a bare attribution with no other content.
+  # less mysteriously. Blank comments (most progress types emit none) stay blank —
+  # we don't post a bare attribution with no other content.
   def with_origin(comment)
     return comment if comment.blank? || ENV['dashboard_url'].blank?
 
