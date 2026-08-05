@@ -17,6 +17,14 @@ describe Experiments::OptInController, type: :controller do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(student)
   end
 
+  def stub_common_js(content)
+    allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(content)
+  end
+
+  def opt_student_in
+    ExperimentCoursesUser.create!(experiment_slug: slug, courses_user:, status: :opted_in)
+  end
+
   describe 'GET #show' do
     it 'reports needs_response for a participating course' do
       create(:tag, course:, tag: "#{slug}_opted_in")
@@ -31,22 +39,64 @@ describe Experiments::OptInController, type: :controller do
       get :show, params: { course_id: course.id }
       expect(response.parsed_body['needs_response']).to be false
     end
+
+    it 'reports no userscript step for a student who has not opted in' do
+      create(:tag, course:, tag: "#{slug}_opted_in")
+      get :show, params: { course_id: course.id }
+      expect(response.parsed_body['userscript']).to be_nil
+    end
+
+    it 'reports the outstanding userscript step for an opted-in student' do
+      create(:tag, course:, tag: "#{slug}_opted_in")
+      opt_student_in
+      stub_common_js ''
+      get :show, params: { course_id: course.id }
+      expect(response.parsed_body['userscript']['install_url']).to be_present
+    end
+
+    it 'clears the userscript step and records the install once the line is on-wiki' do
+      create(:tag, course:, tag: "#{slug}_opted_in")
+      record = opt_student_in
+      stub_common_js "#{Fall2026ResearchExperiment.new.userscript_import_line}\n"
+      get :show, params: { course_id: course.id }
+      expect(response.parsed_body['userscript']).to be_nil
+      expect(record.reload.userscript_installed_at).to be_present
+    end
+
+    it 'does not re-read the wiki once the install is recorded' do
+      create(:tag, course:, tag: "#{slug}_opted_in")
+      opt_student_in.update!(userscript_installed_at: Time.zone.now)
+      expect_any_instance_of(WikiApi).not_to receive(:get_page_content)
+      get :show, params: { course_id: course.id }
+      expect(response.parsed_body['userscript']).to be_nil
+    end
   end
 
   describe 'POST #opt_in' do
     before { create(:tag, course:, tag: "#{slug}_opted_in") }
 
     it 'records the opt-in' do
+      stub_common_js ''
       post :opt_in, params: { experiment_slug: slug, course_id: course.id }
       record = ExperimentCoursesUser.find_by(courses_user:, experiment_slug: slug)
       expect(record.opted_in?).to be true
     end
 
-    it 'passes through a reauth_required result' do
-      allow_any_instance_of(InstallExperimentUserscript).to receive(:status)
-        .and_return(:reauth_required)
+    it 'returns a preloaded install link when the student has no common.js yet' do
+      stub_common_js ''
       post :opt_in, params: { experiment_slug: slug, course_id: course.id }
-      expect(response.parsed_body['reauth_required']).to be true
+      userscript = response.parsed_body['userscript']
+      expect(userscript['preload']).to be true
+      expect(userscript['install_url']).to include(CGI.escape(Fall2026ResearchExperiment::PRELOAD_PAGE))
+    end
+
+    it 'returns the import line to paste when common.js already has content' do
+      stub_common_js "// my own tweaks\n"
+      post :opt_in, params: { experiment_slug: slug, course_id: course.id }
+      userscript = response.parsed_body['userscript']
+      expect(userscript['preload']).to be false
+      expect(userscript['import_line']).to eq(Fall2026ResearchExperiment.new.userscript_import_line)
+      expect(userscript['install_url']).not_to include('preload')
     end
   end
 

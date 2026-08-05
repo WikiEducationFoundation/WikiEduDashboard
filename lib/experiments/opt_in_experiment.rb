@@ -5,12 +5,16 @@
 # An instructor opts a course in (or out) through a panel in the assignment
 # wizard, which records a Tag on the course. Enrolled students of a
 # participating course are then individually invited to opt in or out on the
-# course page; their choice is stored durably in an ExperimentCoursesUser row,
-# and opting in triggers a per-student `intervention`.
+# course page; their choice is stored durably in an ExperimentCoursesUser row.
 #
-# Concrete subclasses define `slug`, `eligible_course?`, and `intervention`.
-# They are registered via the require at the bottom of this file, so requiring
-# this file alone is enough to use the registry.
+# Opting in performs no action on the student's wiki account. An experiment that
+# needs a userscript installed directs the student to install it themselves and
+# then confirms it by reading their common.js, which requires no OAuth grant; see
+# CheckExperimentUserscript and the `userscript_*` methods on subclasses.
+#
+# Concrete subclasses define `slug`, `eligible_course?` and
+# `student_invitation_copy`. They are registered via the require at the bottom of
+# this file, so requiring this file alone is enough to use the registry.
 class OptInExperiment
   def self.active
     [Fall2026ResearchExperiment.new]
@@ -37,7 +41,9 @@ class OptInExperiment
   # en.yml) so this ephemeral experiment text stays out of the translation
   # pipeline; the controller hands it to the React component. Returns a hash
   # with keys: :title, :message, :consent_form, :opt_in, :opt_out,
-  # :reauth_message, :reauth_button (:message and :consent_form are Markdown).
+  # :install_title, :install_message, :install_message_manual, :install_button,
+  # :install_verify_button, :install_not_found (the :message, :consent_form and
+  # :install_message* values are Markdown).
   def student_invitation_copy
     raise NotImplementedError
   end
@@ -72,8 +78,7 @@ class OptInExperiment
   end
 
   def handle_student_opt_in(courses_user)
-    record = upsert_participation(courses_user, :opted_in)
-    intervention(record)
+    upsert_participation(courses_user, :opted_in)
   end
 
   def handle_student_opt_out(courses_user)
@@ -89,12 +94,6 @@ class OptInExperiment
     )
     record.update!(status:)
     record
-  end
-
-  # Override in subclasses that take an action when a student opts in. Returns
-  # a status symbol (e.g. :installed, :reauth_required, :error).
-  def intervention(_experiment_courses_user)
-    :none
   end
 end
 

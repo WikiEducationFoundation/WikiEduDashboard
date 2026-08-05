@@ -18,12 +18,12 @@
   only_if: 'eligible_for_active_research_experiment'
   description: |
     Wiki Education is working with researchers at Princeton University on a study of a tool
-    that gives students feedback while they edit Wikipedia (Princeton University IRB #XXXXX).
+    that gives students feedback while they edit Wikipedia (Princeton University IRB #19959).
     We are inviting instructors of WikiEdu courses to enroll their courses.
 
     The tool is a small add-on that students can enable on top of their Wikipedia experience.
-    It will be installed automatically by the Wiki Education Dashboard platform for students
-    who choose to participate. While a student edits, the tool may show short feedback about
+    Students who choose to participate will make a simple edit to enable the tool.
+    While a student edits, the tool may show short feedback about
     common problems, such as a sentence added without a citation or a bad source. We are studying
     whether this kind of in-editor feedback helps students write better-sourced content over time.
     Some enrolled courses receive a version of the tool that shows the feedback, and others

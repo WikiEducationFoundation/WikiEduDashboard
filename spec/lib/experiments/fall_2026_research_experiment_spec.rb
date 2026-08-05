@@ -45,15 +45,14 @@ describe Fall2026ResearchExperiment do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
-    before { allow(Features).to receive(:disable_wiki_output?).and_return(true) }
-
-    it 'records an opt-in and runs the intervention' do
-      status = experiment.handle_student_opt_in(courses_user)
-      expect(experiment.participation(courses_user).opted_in?).to be true
-      expect(status).to eq(:disabled) # the userscript edit is suppressed in test
+    it 'records an opt-in, leaving the userscript still to be installed' do
+      experiment.handle_student_opt_in(courses_user)
+      record = experiment.participation(courses_user)
+      expect(record.opted_in?).to be true
+      expect(record.userscript_installed_at).to be_nil
     end
 
-    it 'records an opt-out without running an intervention' do
+    it 'records an opt-out' do
       experiment.handle_student_opt_out(courses_user)
       expect(experiment.participation(courses_user).opted_out?).to be true
     end
@@ -63,6 +62,30 @@ describe Fall2026ResearchExperiment do
       expect(experiment.needs_response?(courses_user)).to be true
       experiment.handle_student_opt_in(courses_user)
       expect(experiment.needs_response?(courses_user)).to be false
+    end
+  end
+
+  describe '#userscript_install_url' do
+    let(:student) { create(:user, username: 'Ada Lovelace') }
+
+    it 'points at the student own common.js edit form with the preload page' do
+      url = experiment.userscript_install_url(student, preload: true)
+      expect(url).to start_with('https://en.wikipedia.org/w/index.php?')
+      expect(url).to include(CGI.escape('User:Ada Lovelace/common.js'))
+      expect(url).to include(CGI.escape(described_class::PRELOAD_PAGE))
+      expect(url).to include('action=edit')
+    end
+
+    it 'omits the preload page when the page already has content' do
+      url = experiment.userscript_install_url(student, preload: false)
+      expect(url).not_to include('preload')
+      expect(url).to include('action=edit')
+    end
+  end
+
+  describe '#userscript_marker' do
+    it 'is contained in the import line, so a saved line is detected' do
+      expect(experiment.userscript_import_line).to include(experiment.userscript_marker)
     end
   end
 

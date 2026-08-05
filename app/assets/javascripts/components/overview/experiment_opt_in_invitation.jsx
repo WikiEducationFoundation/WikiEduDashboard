@@ -8,27 +8,37 @@ const md = require('../../utils/markdown_it.js').default({ openLinksExternally: 
 
 // Invitation modal shown to enrolled students of a course participating in an
 // active opt-in research experiment. It presents the (long) invitation message
-// and the full consent form, then records the student's choice. Opting in
-// installs a userscript on the student's English Wikipedia account; if their
-// OAuth token lacks the required grant the server reports `reauth_required`,
-// and we prompt them to re-authorize and retry the install on return.
+// and the full consent form, then records the student's choice.
+//
+// Opting in installs nothing on the student's behalf: the Dashboard has no OAuth
+// grant to edit user JS pages. Instead the student gets a link to their own
+// English Wikipedia common.js, preloaded with the import line where MediaWiki
+// allows it, and saves it themselves. The server confirms the script is really
+// there by reading the page, so the install step reappears until it is.
 //
 // All copy is supplied by the server (`invitation.copy`, from the experiment's
 // Ruby definition), so this ephemeral text stays out of the i18n pipeline.
 const ExperimentOptInInvitation = ({ course, current_user }) => {
   const [invitation, setInvitation] = useState(null);
-  // hidden | choice | reauth | working
+  const [userscript, setUserscript] = useState(null);
+  // hidden | choice | install | working
   const [phase, setPhase] = useState('hidden');
+  const [checked, setChecked] = useState(false);
 
   const eligible = !!(course && course.id && course.eligible_for_active_research_experiment
     && current_user && current_user.isStudent);
 
-  const post = (slug, action) =>
-    request(`/experiments/${slug}/courses/${course.id}/${action}`, { method: 'POST' })
-      .then(res => res.json());
+  const fetchInvitation = async () => {
+    const res = await request(`/experiments/courses/${course.id}/invitation`);
+    if (!res.ok) return null;
+    return res.json();
+  };
 
+  // A `userscript` payload means the script is not on the student's common.js
+  // yet; its absence means we are done with them.
   const applyResult = (data) => {
-    setPhase(data && data.reauth_required ? 'reauth' : 'hidden');
+    setUserscript(data && data.userscript);
+    setPhase(data && data.userscript ? 'install' : 'hidden');
   };
 
   useEffect(() => {
@@ -36,16 +46,13 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
     let active = true;
     (async () => {
       try {
-        const res = await request(`/experiments/courses/${course.id}/invitation`);
-        if (!res.ok) return;
-        const data = await res.json();
-        if (!active || !data.experiment_slug) return;
+        const data = await fetchInvitation();
+        if (!active || !data || !data.experiment_slug) return;
         setInvitation(data);
         if (data.needs_response) {
           setPhase('choice');
-        } else if (data.userscript_pending) {
-          // Returning from re-authorization: retry the install once.
-          applyResult(await post(data.experiment_slug, 'opt_in'));
+        } else {
+          applyResult(data);
         }
       } catch (error) {
         logErrorMessage(error);
@@ -57,10 +64,32 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
   const choose = async (action) => {
     setPhase('working');
     try {
-      applyResult(await post(invitation.experiment_slug, action));
+      const res = await request(
+        `/experiments/${invitation.experiment_slug}/courses/${course.id}/${action}`,
+        { method: 'POST' }
+      );
+      applyResult(await res.json());
     } catch (error) {
       logErrorMessage(error);
       setPhase('hidden');
+    }
+  };
+
+  // Re-read the student's common.js. Once the line is there the server stops
+  // returning an install payload and the modal closes for good.
+  const recheck = async () => {
+    setPhase('working');
+    try {
+      const data = await fetchInvitation();
+      setChecked(true);
+      if (!data) {
+        setPhase('install');
+        return;
+      }
+      applyResult(data);
+    } catch (error) {
+      logErrorMessage(error);
+      setPhase('install');
     }
   };
 
@@ -68,16 +97,26 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
 
   const { copy } = invitation;
 
-  if (phase === 'reauth') {
-    const origin = encodeURIComponent(window.location.href);
+  if (phase === 'install') {
+    const instructions = userscript.preload ? copy.install_message : copy.install_message_manual;
     return (
-      <Modal modalClass="experiment-opt-in" ariaLabel={copy.title}>
+      <Modal modalClass="experiment-opt-in" ariaLabelledBy="experiment-opt-in-title">
         <div className="experiment-opt-in__panel">
-          <p>{copy.reauth_message}</p>
+          <h2 id="experiment-opt-in-title">{copy.install_title}</h2>
+          <div dangerouslySetInnerHTML={{ __html: md.render(instructions || '') }} />
+          {!userscript.preload
+            && <pre className="experiment-opt-in__snippet">{userscript.import_line}</pre>}
+          {checked && <p className="experiment-opt-in__not-found">{copy.install_not_found}</p>}
           <div className="experiment-opt-in__actions">
-            <a data-method="post" href={`/users/auth/mediawiki?origin=${origin}`} className="button dark">
-              {copy.reauth_button}
+            <a
+              href={userscript.install_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button dark"
+            >
+              {copy.install_button}
             </a>
+            <button className="button" onClick={recheck}>{copy.install_verify_button}</button>
           </div>
         </div>
       </Modal>

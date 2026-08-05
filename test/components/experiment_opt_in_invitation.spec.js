@@ -83,4 +83,86 @@ describe('ExperimentOptInInvitation', () => {
     const container = await renderComponent(eligibleCourse, student);
     expect(container.querySelector('.experiment-opt-in__panel')).toBeNull();
   });
+
+  const installCopy = {
+    install_title: 'Install the tool',
+    install_message: 'Press the button, then publish.',
+    install_message_manual: 'Paste this line yourself.',
+    install_button: 'Open my common.js',
+    install_verify_button: "I've saved it",
+    install_not_found: 'Not found yet.'
+  };
+
+  const installInvitation = userscript => ({
+    ok: true,
+    json: () => Promise.resolve({
+      experiment_slug: 'fall_2026_research',
+      needs_response: false,
+      userscript,
+      copy: installCopy
+    })
+  });
+
+  it('shows a preloaded edit link when the student still owes the install', async () => {
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit&preload=X',
+      import_line: "importScript('User:Sage_(Wiki_Ed)/fall2026experiment.js');",
+      preload: true
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    const link = container.querySelector('.experiment-opt-in__actions a');
+    expect(link.getAttribute('href')).toContain('preload=X');
+    expect(container.textContent).toContain('Press the button, then publish.');
+    // Nothing to paste by hand when the edit box is prefilled.
+    expect(container.querySelector('.experiment-opt-in__snippet')).toBeNull();
+  });
+
+  it('shows the import line to paste when common.js already has content', async () => {
+    const importLine = "importScript('User:Sage_(Wiki_Ed)/fall2026experiment.js');";
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: importLine,
+      preload: false
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    expect(container.querySelector('.experiment-opt-in__snippet').textContent).toEqual(importLine);
+    expect(container.textContent).toContain('Paste this line yourself.');
+  });
+
+  it('closes for good once a re-check finds the script installed', async () => {
+    request.mockResolvedValueOnce(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: 'importScript("x");',
+      preload: true
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    expect(container.querySelector('.experiment-opt-in__panel')).not.toBeNull();
+
+    // The server stops returning a userscript payload once the line is on-wiki.
+    request.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ experiment_slug: 'fall_2026_research', needs_response: false })
+    });
+    await act(async () => {
+      container.querySelector('.experiment-opt-in__actions button').click();
+    });
+    await flush();
+    expect(container.querySelector('.experiment-opt-in__panel')).toBeNull();
+  });
+
+  it('keeps the install step up and explains when the re-check comes up empty', async () => {
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: 'importScript("x");',
+      preload: true
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    await act(async () => {
+      container.querySelector('.experiment-opt-in__actions button').click();
+    });
+    await flush();
+    expect(container.querySelector('.experiment-opt-in__panel')).not.toBeNull();
+    expect(container.querySelector('.experiment-opt-in__not-found').textContent)
+      .toEqual('Not found yet.');
+  });
 });
