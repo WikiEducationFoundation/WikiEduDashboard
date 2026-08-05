@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import LanguagePicker from './language_picker.jsx';
-import NotificationsBell from './notifications_bell';
+import DownloadsBell from './downloads_bell';
 import ConsentBanner from './consent_banner';
 import NewsHandler from './news/news_handler.jsx';
 
@@ -143,7 +143,7 @@ const Nav = () => {
                       <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
                     </li>
                     <NewsHandler/>
-                    {ifAdmin && <NotificationsBell />}
+                    <DownloadsBell />
                     <li>
                       <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
                     </li>

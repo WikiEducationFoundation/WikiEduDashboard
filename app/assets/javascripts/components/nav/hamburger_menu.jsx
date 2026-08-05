@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import CustomLink from './CustomLink.jsx';
 import LanguagePicker from './language_picker.jsx';
+import DownloadsBell from './downloads_bell';
 
 const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl,
   helpDisabled, wikiEd, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
@@ -79,6 +80,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
                     <li>
                       <b><a href={`/users/${encodeURIComponent(currentUser)}`} className="current-user">{currentUser}</a></b>
                     </li>
+                    <DownloadsBell />
                     <li>
                       <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
                     </li>

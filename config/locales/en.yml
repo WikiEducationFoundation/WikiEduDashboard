@@ -541,6 +541,8 @@ en:
     course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
     course: Course
     course_data: course data
+    all_data: All
+    export: Export
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     course_removed_and_deleted: '"%{title}" has been deleted and removed from the "%{campaign_title}" campaign'
     course_removed_but_not_deleted: '"%{title}" has been removed from the "%{campaign_title}" but has not been deleted as it is present in other campaigns as well'
@@ -548,6 +550,7 @@ en:
     create_my_campaign: Create my Campaign!
     customize_passcode: a default passcode
     data_download_info: Download campaign data as CSVs
+    data_download_generating: The file is being generated. You will be notified when it is ready to download.
     data_courses: Course overview data
     data_courses_info: Basic metrics for each course/program
     data_articles: Pages edited
@@ -2228,6 +2231,18 @@ en:
     no_notifications: You have no new notifications.
     aria_label:
       bell: Notifications
+
+  downloads:
+    title: Downloads
+    none: You have no downloads yet.
+    generating: Generating…
+    ready: Ready
+    error: Failed
+    download: Download
+    dismiss: Dismiss
+    new_downloads: You have new downloads.
+    no_downloads: You have no new downloads.
+    aria_label: Downloads
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."

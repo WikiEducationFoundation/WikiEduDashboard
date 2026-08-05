@@ -11,13 +11,13 @@ class ReportsController < ApplicationController
   include CourseHelper
   before_action :require_signed_in,
                 only: %i[campaign_instructors_csv campaign_courses_csv campaign_articles_csv
-                         campaign_students_csv campaign_wikidata_csv course_csv
+                         campaign_students_csv campaign_all_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
                          course_wikidata_csv course_retention_csv all_courses_and_instructors_csv
                          system_csv system_daily_stats_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
-                                        campaign_students_csv campaign_instructors_csv
-                                        campaign_wikidata_csv]
+                                        campaign_students_csv campaign_all_csv
+                                        campaign_instructors_csv campaign_wikidata_csv]
   before_action :set_course, only: %i[course_csv course_uploads_csv
                                       course_students_csv course_articles_csv
                                       course_wikidata_csv course_retention_csv]
@@ -61,6 +61,10 @@ class ReportsController < ApplicationController
 
   def campaign_articles_csv
     csv_of('campaign_articles')
+  end
+
+  def campaign_all_csv
+    csv_of('campaign_all')
   end
 
   def campaign_wikidata_csv
@@ -172,6 +176,9 @@ class ReportsController < ApplicationController
   def build_filename(type)
     # Filename does not have to contain '/' char because it's interpreted as a route
     return "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-') if course_report?(type)
+    if type == 'campaign_all'
+      return "#{@campaign.slug}-campaign-data-#{Time.zone.today}.zip".tr('/', '-')
+    end
 
     include_course_segment = csv_params[:course] ? '-with_courses' : ''
     "#{@campaign.slug}-#{type}#{include_course_segment}-#{Time.zone.today}.csv".tr('/', '-')
