@@ -182,6 +182,52 @@ sk:
       max_likelihood: Maximálne rozdelenie pravdepodobnosti AI za deň
       overall_avg_likelihood: Celkové priemerné rozdelenie pravdepodobnosti AI
       overall_max_likelihood: Celkové maximálne rozdelenie pravdepodobnosti AI
+  system_stats:
+    title: Štatistiky systému a facilitátorov
+    kpis:
+      total_edits: Celkový počet úprav
+      article_views: Návštevnosť článkov
+      articles_created: Vytvorené články
+      articles_improved: Vylepšené články
+      characters_added: Pridané znaky
+      new_editors: Noví redaktori
+      active_programs: Aktívne programy
+      active_facilitators: Aktívni facilitátori
+    charts:
+      monthly_trends: Mesačné trendy aktivity
+      wiki_trends: Trendy wiki (Top 5)
+      plot_metric: 'Metrika grafu:'
+    tables:
+      wiki_breakdown: Rozpis štatistík wiki
+      wiki: Wiki
+      edits: Úpravy
+      programs: Programy
+      articles_created: Vytvorené články
+      new_editors: Noví redaktori
+    facilitators:
+      title: Rebríček facilitátorov
+      username: Používateľské meno
+      courses: Kurzy
+      active: Aktívny
+      students: Študenti
+      active_in_year: Aktívny za rok
+      "yes": Áno
+      "no": Nie
+    pagination:
+      previous: Predchádzajúce
+      next: Ďalšie
+    loading:
+      data: Načítavajú sa údaje zo servera...
+      facilitators: Načítavajú sa facilitátori...
+      wiki_stats: Načítavajú sa štatistiky wiki...
+      wiki_trends: Načítavajú sa trendy wiki...
+    empty:
+      no_trend_data: Nie sú k dispozícii žiadne údaje o trendoch.
+      no_wiki_trend_data: Nie sú k dispozícii žiadne údaje o trendoch wiki.
+      no_wiki_stats: Nie sú k dispozícii žiadne štatistiky projektov wiki.
+      no_facilitators: Nenašli sa žiadni facilitátori.
+    errors:
+      fetch_failed: Nepodarilo sa načítať údaje. Skúste obnoviť stránku.
   activity:
     all: Aktivita
     edited_by: Upravil(a)
@@ -1813,7 +1859,7 @@ sk:
       zdrojom, pretože môžu byť generované umelou inteligenciou. (Poznámka: článok
       sa mohol od pridania týchto tvrdení zmeniť.)'
     form:
-      step_find_source: 'Krok 3: Nájdite zdroj'
+      step_find_source: 'Nájdite zdroj'
       find_source_instructions: Teraz, keď ste si vybrali tvrdenie, dohľadajte citovaný
         zdroj. Pri hľadaní zdroja sa možno budete musieť poradiť so svojím vyučujúcim
         alebo knihovníkom.
@@ -1825,7 +1871,7 @@ sk:
         inaccessible: Nie, zdroj existuje, ale nepodarilo sa mi k nemu získať prístup.
       source_access_notes_label: 'Ak sa vám zdroj nepodarilo nájsť, povedzte nám o
         tom viac:'
-      step_verify: 'Krok 4: Overte tvrdenie'
+      step_verify: 'Overte tvrdenie'
       verify_instructions: Keď citovaný zdroj nájdete, dôkladne ho preskúmajte a posúďte,
         nakoľko podporuje tvrdenie, ktoré ste si vybrali. Ak nájdete presne to miesto,
         odkiaľ informácia pochádza, poznačte si, kde v dokumente ste ju našli. (Niektoré

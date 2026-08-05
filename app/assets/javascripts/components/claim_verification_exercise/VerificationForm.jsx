@@ -2,99 +2,103 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
+import markdownIt from '~/app/assets/javascripts/utils/markdown_it';
+import { formPropType, visibleQuestions, missingRequired } from './formDefinition';
 
-export const SOURCE_ACCESS_VALUES = ['accessed', 'nonexistent', 'inaccessible'];
-export const VERDICT_VALUES = [
-  'full_support', 'mostly_supports', 'partial_support', 'mostly_unsupported',
-  'unsupported', 'contradicted', 'undetermined'
-];
+// Step instructions are operator copy that may link out (eg to the Reliable
+// Sources policy), so they render as Markdown with bare URLs linkified and
+// opening in a new tab — the exercise itself stays in the tab behind.
+const md = markdownIt({ openLinksExternally: true });
 
-// One multiple-choice question as a fieldset of radios. All strings are
-// operator copy from the claim_verification.form locale namespace.
-const RadioQuestion = ({ name, question, optionsKey, values, value, onChange }) => (
+const StepInstructions = ({ instructions }) => (
+  <div
+    className="cv-form__step-instructions"
+    dangerouslySetInnerHTML={{ __html: md.render(instructions) }}
+  />
+);
+
+StepInstructions.propTypes = {
+  instructions: PropTypes.string.isRequired,
+};
+
+// One multiple-choice question as a fieldset of radios. Both the question and
+// its options are operator copy resolved server-side, so this knows none of it.
+const ChoiceQuestion = ({ question, value, onChange }) => (
   <fieldset className="cv-form__question">
-    <legend className="cv-form__question-label">{question}</legend>
-    {values.map(optionValue => (
-      <label key={optionValue} className="cv-form__option">
+    <legend className="cv-form__question-label">{question.label}</legend>
+    {question.options.map(option => (
+      <label key={option.value} className="cv-form__option">
         <input
           type="radio"
-          name={name}
-          value={optionValue}
-          checked={value === optionValue}
-          onChange={() => onChange(optionValue)}
+          name={question.id}
+          value={option.value}
+          checked={value === option.value}
+          onChange={() => onChange(option.value)}
         />
-        <span>{I18n.t(`claim_verification.form.${optionsKey}.${optionValue}`)}</span>
+        <span>{option.label}</span>
       </label>
     ))}
   </fieldset>
 );
 
-RadioQuestion.propTypes = {
-  name: PropTypes.string.isRequired,
-  question: PropTypes.string.isRequired,
-  optionsKey: PropTypes.string.isRequired,
-  values: PropTypes.arrayOf(PropTypes.string).isRequired,
+ChoiceQuestion.propTypes = {
+  question: PropTypes.object.isRequired,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
-const OpenQuestion = ({ name, label, value, onChange }) => (
+const TextQuestion = ({ question, value, onChange }) => (
   <div className="cv-form__question">
-    <label className="cv-form__question-label" htmlFor={`cv-form-${name}`}>{label}</label>
+    <label className="cv-form__question-label" htmlFor={`cv-form-${question.id}`}>
+      {question.label}
+    </label>
     <textarea
-      id={`cv-form-${name}`}
+      id={`cv-form-${question.id}`}
       className="cv-form__textarea"
       rows={3}
-      value={value}
+      value={value || ''}
       onChange={event => onChange(event.target.value)}
     />
   </div>
 );
 
-OpenQuestion.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+TextQuestion.propTypes = {
+  question: PropTypes.object.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
 
 /*
-  The verification form itself — the whole exercise now happens here in the
-  dashboard, not in a sandbox. Step 3 (find the source) is always asked; its
-  tell-us-more field appears only when the student couldn't get the source.
-  Step 4 (verify the claim) appears only when they could: its two open
-  questions are self-selecting by their own phrasing ("If you were able…",
-  "If you were unable…"), so both are always visible within the step. The
-  final catch-all comments field applies on every path. Submitting upserts,
-  so the same form serves both first submission and later edits (`initial`).
+  The verification form — the whole exercise happens here in the dashboard, not
+  in a sandbox. Which steps it asks, in what order, and what each question
+  accepts all come from `form`, the definition the server sends from
+  config/claim_verification_exercise.yml. So this component renders the exercise
+  without knowing what the exercise is: refining it is a change to that file and
+  its copy, not to this file.
+
+  Steps and questions can be gated on an earlier answer (`visible_when`), which
+  is how the verify-the-claim step waits until the student says they got the
+  source. Answers are held in one hash keyed by question id; the server drops
+  whatever the student's path didn't ask, so answers left behind by a changed
+  choice are harmless. Submitting upserts, so the same form serves both first
+  submission and later edits (`initial`).
 */
-const VerificationForm = ({ courseSlug, initial, onSaved, onCancel }) => {
-  const [sourceAccess, setSourceAccess] = useState(initial?.source_access || null);
-  const [sourceAccessNotes, setSourceAccessNotes] = useState(initial?.source_access_notes || '');
-  const [verdict, setVerdict] = useState(initial?.verdict || null);
-  const [claimLocation, setClaimLocation] = useState(initial?.claim_location || '');
-  const [verificationNotes, setVerificationNotes] = useState(initial?.verification_notes || '');
-  const [otherComments, setOtherComments] = useState(initial?.other_comments || '');
+const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel }) => {
+  const [answers, setAnswers] = useState(initial?.answers || {});
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
 
-  const sourceAccessed = sourceAccess === 'accessed';
-  // The multiple-choice answers are the only required ones; the server clears
-  // answers for steps that don't apply, so stale hidden fields are harmless.
-  const submittable = sourceAccess && (!sourceAccessed || verdict) && !saving;
+  const answer = (questionId, value) => (
+    setAnswers(current => ({ ...current, [questionId]: value }))
+  );
+
+  const submittable = !saving && missingRequired(form, answers).length === 0;
 
   const submit = (event) => {
     event.preventDefault();
     setSaving(true);
     setError(false);
-    new ClaimVerificationAPI({ courseSlug }).submitResponse({
-      source_access: sourceAccess,
-      source_access_notes: sourceAccessNotes,
-      verdict,
-      claim_location: claimLocation,
-      verification_notes: verificationNotes,
-      other_comments: otherComments,
-    }).then(({ response }) => {
+    new ClaimVerificationAPI({ courseSlug }).submitResponse(answers).then(({ response }) => {
       onSaved(response);
     }).catch(() => {
       setError(true);
@@ -104,62 +108,31 @@ const VerificationForm = ({ courseSlug, initial, onSaved, onCancel }) => {
 
   return (
     <form className="cv-form" onSubmit={submit}>
-      <section className="cv-form__step">
-        <h2 className="cv-form__step-heading">{I18n.t('claim_verification.form.step_find_source')}</h2>
-        <p className="cv-form__step-instructions">{I18n.t('claim_verification.form.find_source_instructions')}</p>
-        <RadioQuestion
-          name="source_access"
-          question={I18n.t('claim_verification.form.source_access_question')}
-          optionsKey="source_access_options"
-          values={SOURCE_ACCESS_VALUES}
-          value={sourceAccess}
-          onChange={setSourceAccess}
-        />
-        {sourceAccess && !sourceAccessed && (
-          <OpenQuestion
-            name="source_access_notes"
-            label={I18n.t('claim_verification.form.source_access_notes_label')}
-            value={sourceAccessNotes}
-            onChange={setSourceAccessNotes}
-          />
-        )}
-      </section>
-
-      {sourceAccessed && (
-        <section className="cv-form__step">
-          <h2 className="cv-form__step-heading">{I18n.t('claim_verification.form.step_verify')}</h2>
-          <p className="cv-form__step-instructions">{I18n.t('claim_verification.form.verify_instructions')}</p>
-          <RadioQuestion
-            name="verdict"
-            question={I18n.t('claim_verification.form.verdict_question')}
-            optionsKey="verdict_options"
-            values={VERDICT_VALUES}
-            value={verdict}
-            onChange={setVerdict}
-          />
-          <OpenQuestion
-            name="claim_location"
-            label={I18n.t('claim_verification.form.claim_location_label')}
-            value={claimLocation}
-            onChange={setClaimLocation}
-          />
-          <OpenQuestion
-            name="verification_notes"
-            label={I18n.t('claim_verification.form.verification_notes_label')}
-            value={verificationNotes}
-            onChange={setVerificationNotes}
-          />
-        </section>
-      )}
-
-      <section className="cv-form__step">
-        <OpenQuestion
-          name="other_comments"
-          label={I18n.t('claim_verification.form.other_comments_label')}
-          value={otherComments}
-          onChange={setOtherComments}
-        />
-      </section>
+      {form.steps.map(step => (
+        visibleQuestions(step, answers).length > 0 && (
+          <section className="cv-form__step" key={step.id}>
+            {step.heading && <h2 className="cv-form__step-heading">{step.heading}</h2>}
+            {step.instructions && <StepInstructions instructions={step.instructions} />}
+            {visibleQuestions(step, answers).map(question => (
+              question.type === 'choice' ? (
+                <ChoiceQuestion
+                  key={question.id}
+                  question={question}
+                  value={answers[question.id]}
+                  onChange={value => answer(question.id, value)}
+                />
+              ) : (
+                <TextQuestion
+                  key={question.id}
+                  question={question}
+                  value={answers[question.id]}
+                  onChange={value => answer(question.id, value)}
+                />
+              )
+            ))}
+          </section>
+        )
+      ))}
 
       {error && <p className="cv-form__error" role="alert">{I18n.t('claim_verification.form.submit_failed')}</p>}
 
@@ -179,6 +152,7 @@ const VerificationForm = ({ courseSlug, initial, onSaved, onCancel }) => {
 
 VerificationForm.propTypes = {
   courseSlug: PropTypes.string.isRequired,
+  form: formPropType.isRequired,
   // The already-submitted response when editing; null on first submission.
   initial: PropTypes.object,
   onSaved: PropTypes.func.isRequired,

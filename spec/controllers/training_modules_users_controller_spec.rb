@@ -71,4 +71,145 @@ describe TrainingModulesUsersController, type: :request do
       end
     end
   end
+
+  describe '#mark_exercise_complete' do
+    let(:course) { create(:course) }
+    let(:week) { create(:week, course:) }
+    let(:user) { create(:user, username: 'Ragesock') }
+    let(:training_module) { TrainingModule.find_by(slug: module_slug) }
+    let(:block) { create(:block, week:, training_module_ids: [training_module.id]) }
+    let(:request_params) do
+      { block_id: block.id, complete: true, module_id: training_module.slug }
+    end
+    let(:flags) { TrainingModulesUsers.last.flags[course.id] }
+
+    before do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    context 'when the exercise expects no page' do
+      let(:module_slug) { 'copyedit-exercise' }
+
+      before do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
+      end
+    end
+
+    context 'when the expected userpage sandbox exists' do
+      let(:module_slug) { 'choose-topic-exercise' }
+      let(:user) { create(:user, username: 'Kmblim') }
+
+      before do
+        VCR.use_cassette 'exercise_sandbox/user_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
+      end
+    end
+
+    context 'when the expected userpage sandbox does not exist' do
+      let(:module_slug) { 'choose-topic-exercise' }
+
+      before do
+        VCR.use_cassette 'exercise_sandbox/user_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'refuses the request' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'does not mark the exercise complete' do
+        expect(flags).to be_nil
+      end
+
+      it 'names the expected page' do
+        expect(response.parsed_body['message'])
+          .to include('User:Ragesock/Choose_an_Article')
+      end
+    end
+
+    context 'when the expected bibliography page does not exist' do
+      let(:module_slug) { 'bibliography-exercise' }
+
+      before do
+        create(:assignment, course:, user:, wiki_id: 1,
+                            role: Assignment::Roles::ASSIGNED_ROLE,
+                            sandbox_url: 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox')
+        VCR.use_cassette 'exercise_sandbox/assignment_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'refuses the request' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'names the expected page' do
+        expect(response.parsed_body['message'])
+          .to include('User:Ragesock/student_sandbox/Bibliography')
+      end
+    end
+
+    context 'when the expected bibliography page exists' do
+      let(:module_slug) { 'bibliography-exercise' }
+
+      before do
+        create(:assignment, course:, user:, wiki_id: 1,
+                            role: Assignment::Roles::ASSIGNED_ROLE,
+                            sandbox_url: 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox_empty')
+        VCR.use_cassette 'exercise_sandbox/assignment_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
+      end
+    end
+
+    context 'when unmarking an exercise whose expected page does not exist' do
+      let(:module_slug) { 'choose-topic-exercise' }
+      let(:request_params) do
+        { block_id: block.id, complete: false, module_id: training_module.slug }
+      end
+
+      before do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+
+      it 'marks the exercise incomplete' do
+        expect(flags[:marked_complete]).to eq(false)
+      end
+
+      it 'does not query the wiki' do
+        expect(WikiApi).not_to receive(:new)
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+    end
+
+    context 'when the student has not assigned themselves an article yet' do
+      let(:module_slug) { 'bibliography-exercise' }
+
+      before do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+
+      it 'refuses the request' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'does not mark the exercise complete' do
+        expect(flags).to be_nil
+      end
+    end
+  end
 end

@@ -143,9 +143,9 @@ qqq:
     sign_up_help: Instructions about how to log in via Wikipedia.
   alerts:
     ai_stats:
-      last_week: Button that filters the list of courses with AI edit alerts to
-        show only alerts from the previous week (the most recent 7 days), instead
-        of all-time totals. Here "last" means most recent, not final.
+      last_week: Button that filters the list of courses with AI edit alerts to show
+        only alerts from the previous week (the most recent 7 days), instead of all-time
+        totals. Here "last" means most recent, not final.
   activity:
     all: '{{Identical|Activity}}'
     edited_by: Column label for username of user who made an edit
@@ -762,6 +762,12 @@ qqq:
       {{Identical|View}}
     page: '{{Identical|Page}}'
     done: '{{Identical|Done}}'
+    exercise_sandbox_incomplete: Error shown when a student tries to mark an exercise
+      complete before creating the wiki page the exercise expects. %{pages} is a comma-separated
+      list of the expected page titles.
+    exercise_needs_assigned_article: Error shown when a student tries to mark an exercise
+      complete before assigning themselves an article, which the exercise's expected
+      page depends on
     invalid: Alert stating the slide does not exist
     wait: Alert to not leave the page as the training progress is being updated in
       the background

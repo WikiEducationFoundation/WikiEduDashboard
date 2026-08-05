@@ -1,15 +1,18 @@
 # frozen_string_literal: true
 
-# Records (or updates) a student's claim-verification exercise response for
-# their taken claim, then marks the exercise's training module complete for
-# the course. The module has no slides — the in-dashboard form *is* the whole
+require_dependency "#{Rails.root}/lib/claim_verification/exercise_form"
+
+# Records (or updates) a student's fact-verification exercise response for their
+# taken claim, then marks the exercise's training module complete for the
+# course. The module has no slides — the in-dashboard form *is* the whole
 # exercise — so submission is the completion event: it sets both the module's
 # `completed_at` and the per-course `marked_complete` flag that course views
 # read.
 #
-# Answers for steps that don't apply are cleared rather than trusted from the
-# client: the verify-the-claim step only exists when the source was accessed,
-# and the couldn't-find-the-source notes only when it wasn't.
+# What gets stored is what the exercise actually asked (see
+# ClaimVerification::ExerciseForm#applicable_answers): answers to questions the
+# student's path skipped are dropped rather than trusted from the client, so
+# abandoning a branch leaves nothing stale behind.
 class RecordVerificationClaimResponse
   attr_reader :response
 
@@ -20,8 +23,6 @@ class RecordVerificationClaimResponse
   end
 
   private
-
-  VERIFY_STEP_FIELDS = %i[verdict claim_location verification_notes].freeze
 
   def perform
     upsert_response
@@ -35,18 +36,8 @@ class RecordVerificationClaimResponse
       user: @assignment.user, course: @assignment.course,
       verification_claim: @assignment.verification_claim
     )
-    @response.assign_attributes(applicable_answers)
+    @response.answers = ClaimVerification::ExerciseForm.new.applicable_answers(@answers)
     @response.save
-  end
-
-  def applicable_answers
-    answers = @answers.to_h.symbolize_keys
-    if answers[:source_access] == 'accessed'
-      answers[:source_access_notes] = nil
-    else
-      VERIFY_STEP_FIELDS.each { |field| answers[field] = nil }
-    end
-    answers
   end
 
   # The exercise's module is identified by its launch path, not a hardcoded id.

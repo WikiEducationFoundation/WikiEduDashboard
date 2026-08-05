@@ -1,0 +1,90 @@
+# The fact-verification exercise's form: which steps it asks, in what order, and
+# what each question accepts. This file is the exercise's structure, and it is
+# the only place that defines it — the database stores whatever it names, as a
+# serialized hash on VerificationClaimResponse#answers, and the SPA renders both
+# the form and the submitted-answers summary from it. So refining the exercise
+# (adding a step, reordering questions, changing the options offered) is an edit
+# here plus the matching copy in config/locales/en.yml: no migration, no model
+# change, no JavaScript change.
+#
+# Copy lives in the locales so it stays translatable, and is looked up by
+# convention from the ids below, all under `claim_verification.form`:
+#
+#   step name              step_<step id>              (omitted when heading: false)
+#   step instructions      <step id>_instructions      (optional)
+#   choice question        <question id>_question
+#   choice option          <question id>_options.<value>
+#   text question          <question id>_label
+#
+# Step numbering is derived, not written into the copy, so reordering steps
+# renumbers them on its own. Steps 1 and 2 (select an article, select a claim)
+# happen before this form, hence first_step_number.
+first_step_number: 3
+
+# `visible_when` gates a step or a question on an earlier answer: it is asked
+# only when that answer is one of the listed values. Answers to questions that
+# end up hidden are dropped on submission rather than stored, so abandoning a
+# branch never leaves stale answers behind.
+#
+# `required: true` blocks submission until the question is answered. Only choice
+# questions are ever required; the free-text ones are always optional.
+steps:
+  # Judged from the citation alone — this step comes before the student tries to
+  # get hold of the source.
+  - id: evaluate_source
+    questions:
+      - id: source_appropriate
+        type: choice
+        required: true
+        options: [appropriate, depends_on_use, inappropriate, unsure]
+      - id: source_appropriate_notes
+        type: text
+      - id: meets_rs_policy
+        type: choice
+        required: true
+        options: [generally_reliable, context_dependent, not_reliable, unsure]
+      - id: meets_rs_policy_notes
+        type: text
+
+  - id: find_source
+    questions:
+      - id: source_access
+        type: choice
+        required: true
+        options: [accessed, nonexistent, inaccessible]
+      # Only asked of students who couldn't get the source.
+      - id: source_access_notes
+        type: text
+        visible_when:
+          source_access: [nonexistent, inaccessible]
+
+  # Verifying the claim only makes sense with the source in hand. The two open
+  # questions are self-selecting by their own phrasing ("If you were able…",
+  # "If you were unable…"), so both are asked whenever the step is.
+  - id: verify
+    visible_when:
+      source_access: [accessed]
+    questions:
+      - id: verdict
+        type: choice
+        required: true
+        options:
+          - full_support
+          - mostly_supports
+          - partial_support
+          - mostly_unsupported
+          - unsupported
+          - contradicted
+          - undetermined
+      - id: claim_location
+        type: text
+      - id: verification_notes
+        type: text
+
+  # The catch-all comment field: asked on every path, and not a numbered step of
+  # the exercise, so it has no heading of its own.
+  - id: comments
+    heading: false
+    questions:
+      - id: other_comments
+        type: text

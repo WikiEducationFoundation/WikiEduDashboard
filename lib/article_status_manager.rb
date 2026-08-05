@@ -26,7 +26,7 @@ class ArticleStatusManager
   def self.update_article_status_for_course(course)
     course.wikis.each do |wiki|
       # Retrieve articles based on ac timeslices to also include current untracked articles.
-      course.articles_from_timeslices(wiki.id)
+      course.articles_from_timeslices_legacy(wiki.id)
             # Updating only those articles which are updated more than 1 day ago
             .where('articles.updated_at < ?', 1.day.ago)
             .in_batches do |article_batch|
@@ -34,7 +34,7 @@ class ArticleStatusManager
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(course, wiki).update_status(article_batch)
-        # Touch through a fresh, non-distinct relation: `articles_from_timeslices`
+        # Touch through a fresh, non-distinct relation: `articles_from_timeslices_legacy`
         # applies `.distinct`, and combining `.distinct` with `update_all` is
         # deprecated in Rails 8.1 and will raise in 8.2. `update_status` above
         # has already loaded the batch (it iterates `articles.map(&:mw_page_id)`),

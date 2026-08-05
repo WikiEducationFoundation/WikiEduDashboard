@@ -67,6 +67,8 @@ es:
   application:
     back: Volver
     cancel: Cancelar
+    next: Siguiente
+    skip_to_main_content: Saltar al contenido principal
     cookie_consent: Este sitio utiliza cookies para mantener tu sesión activa y almacena
       información relacionada con tu cuenta de Wikipedia.
     cookie_consent_acknowledge: Entiendo
@@ -78,6 +80,8 @@ es:
     explore: Explorar
     field_required: Este campo es obligatorio
     field_invalid_characters: Este campo tiene caracteres no válidos
+    field_invalid_term: Hace falta que el término incluye el año (por ejemplo, "Primavera
+      2025").
     field_invalid_date: Este campo requiere una fecha en formato AAAA-MM-DD
     field_invalid_date_time: El fin tiene que ser después del inicio. (Las horas van
       de 0 a 23.)
@@ -90,6 +94,7 @@ es:
     log_in: Iniciar sesión
     log_out: Salir
     my_dashboard: Panel de control
+    okay: Aceptar
     recent_activity: Actividad reciente
     report_problem: Informar sobre un problema
     request_account: Solicitar una cuenta
@@ -115,6 +120,7 @@ es:
     opt_yes: sí
     opt_no: "no"
     print: Imprimir
+    sort: Ordenar
   article_statuses:
     not_yet_started: Primeros pasos
     in_progress: Trabajar en la zona de pruebas
@@ -174,6 +180,68 @@ es:
       crear una cuenta, contacta a dashboard@wikiedu.org.
   alerts:
     alert_label: Alertas
+    no_data: No se encontraron datos
+    ai_stats:
+      timestamp: Cronomarcador
+      title: Estadísticas de alertas de edición por IA para %{campaign_name}
+      total_alerts: Total de alertas de edición por IA
+      with_followup: Alertas de edición por IA con seguimiento
+      multiple_alerts_students: Estudiantes con múltiples alertas
+      multiple_alerts_pages: Páginas con múltiples alertas
+      pangram_url: URL de Pangram
+      go_to_pangram: Ir a Pangram
+      single_alert_view: Alerta
+      alerts_in_mainspace: Alertas en el espacio principal
+      users_involved: Usuarios involucrados
+      total: Total
+      last_week: Semana pasada
+      sections:
+        contents: Contenido de la página
+        general_stats: Estadísticas generales
+        name: Nombre
+        description: Descripción
+        courses_with_ai_alerts: Cursos con múltiples alertas de IA
+        recent_followup: Alertas con seguimiento reciente
+        multiple_alerts_students: Alertas recientes para estudiantes con múltiples
+          alertas
+        alerts_trend_over_time: Tendencias de las alertas de la IA a lo largo del
+          tiempo
+        descriptions:
+          courses_with_ai_alerts: Cursos con más de 3 alertas de IA durante todo el
+            período del curso (no necesariamente recientes).
+          recent_followup: Alertas con respuestas de seguimiento enviadas en los últimos
+            14 días, ordenadas por la fecha de la respuesta de seguimiento.
+          multiple_alerts_students: Alertas creadas en los últimos 14 días para estudiantes
+            con múltiples alertas, ordenadas por fecha de creación.
+          in_mainspace: Alertas creadas en los últimos 14 días para artículos en el
+            espacio principal, ordenadas por fecha de creación.
+  ai_scores_stats:
+    graphs:
+      daily_checks: Verificaciones diarias por espacio de nombres
+      avg_likelihood: Distribución de probabilidad promedio de la IA por día
+      max_likelihood: Distribución de máxima probabilidad de la IA por día
+      overall_avg_likelihood: Distribución general de probabilidad promedio de la
+        IA
+      overall_max_likelihood: Distribución general de máxima probabilidad de la IA
+  system_stats:
+    title: Estadísticas del sistema y facilitador
+    kpis:
+      total_edits: Ediciones totales
+      articles_created: Artículos creados
+      articles_improved: Artículos mejorados
+      new_editors: Editores nuevos
+      active_programs: Programas activos
+      active_facilitators: Facilitadores activos
+    charts:
+      monthly_trends: Tendencias mensuales de la actividad
+      wiki_trends: Tendencias Wiki (5 Mayores)
+    facilitators:
+      courses: Cursos
+      active: Activo
+      "yes": Sí
+      "no": "No"
+    pagination:
+      previous: Anterior
   activity:
     all: Actividad
     edited_by: Editado por
@@ -268,7 +336,9 @@ es:
       para ver los números exactos.
     view_on_wiki: Ver en la wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
+    article_size: Tamaño del artículo
     edit_size: Tamaño de edición
+    editor_other: Otros editores
     wiki: Wiki
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
@@ -410,6 +480,7 @@ es:
       %{url} válida de Wikipedia.
     mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
       no está en la misma wiki.
+    bibliography_label: Bibliografía
     warning_untracked_wiki: 'Por favor, ten en cuenta que el artículo que has elegido
       está en una wiki que no está rastreada por este curso. Para rastrear las contribuciones
       a este artículo, un instructor debe añadir el siguiente wiki a este curso: %{wiki}'
