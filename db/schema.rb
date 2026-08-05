@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_28_203000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -724,17 +724,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_203000) do
   end
 
   create_table "verification_claim_responses", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.text "claim_location"
+    t.text "answers"
     t.integer "course_id", null: false
     t.datetime "created_at", null: false
-    t.text "other_comments"
-    t.string "source_access", null: false
-    t.text "source_access_notes"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.string "verdict"
     t.integer "verification_claim_id", null: false
-    t.text "verification_notes"
     t.index ["course_id"], name: "index_verification_claim_responses_on_course_id"
     t.index ["verification_claim_id"], name: "index_verification_claim_responses_on_verification_claim_id"
     t.index ["user_id", "course_id", "verification_claim_id"], name: "index_verification_claim_responses_uniqueness", unique: true

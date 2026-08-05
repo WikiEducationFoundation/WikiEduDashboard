@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/claim_verification/exercise_form"
+
 # Data + entry for the student claim-verification exercise (issue #6910).
 # The exercise UI itself is the course SPA: `/courses/*id/verify_claim` falls
 # through to `courses#show` and React Router renders the exercise (article
@@ -30,6 +32,9 @@ class ClaimVerificationExercisesController < ApplicationController
       verification_claim: @assignment.verification_claim
     )
     @tiles = RelevantClaimRevisionsForCourse.new(@course).tiles
+    # The questions to ask: the SPA renders the form from this rather than
+    # knowing the exercise itself.
+    @form = ClaimVerification::ExerciseForm.new
     # renders state.json.jbuilder
   end
 

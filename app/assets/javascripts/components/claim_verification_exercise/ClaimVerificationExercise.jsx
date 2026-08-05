@@ -37,8 +37,12 @@ import InstructorResponses from './InstructorResponses.jsx';
   "choosing" is kept as local state rather than a second, competing query param.
 */
 const ClaimVerificationExercise = ({ course }) => {
-  const [state, setState] = useState(null); // { assignment, response, articles }
+  const [state, setState] = useState(null); // { assignment, response, form, articles }
   const [choosing, setChoosing] = useState(false);
+  // Bumped whenever we change ?showArticle= ourselves. The id is read fresh from
+  // the URL on each render rather than held in state (the viewer shell owns that
+  // param), so clearing it only takes effect once something re-renders us.
+  const [, urlChanged] = useState(0);
   const responsesPage = useLocation().pathname.endsWith('/responses');
   const dispatch = useDispatch();
 
@@ -46,7 +50,7 @@ const ClaimVerificationExercise = ({ course }) => {
     if (responsesPage) { return; }
     new ClaimVerificationAPI({ courseSlug: course.slug }).fetchState()
       .then(setState)
-      .catch(() => setState({ assignment: null, response: null, articles: [] }));
+      .catch(() => setState({ assignment: null, response: null, form: null, articles: [] }));
   }, [course.slug, responsesPage]);
 
   if (responsesPage) { return <InstructorResponses course={course} />; }
@@ -66,6 +70,16 @@ const ClaimVerificationExercise = ({ course }) => {
     setChoosing(false);
   };
 
+  // Leave the picker for the claim the student already has. Browsing the other
+  // candidates shouldn't cost them their claim (or, once they've answered, send
+  // them back to a blank form), so this undoes "choose a different claim" and
+  // also drops any ?showArticle= they arrived on.
+  const returnToClaim = () => {
+    window.history.replaceState(null, null, window.location.pathname);
+    setChoosing(false);
+    urlChanged(tick => tick + 1);
+  };
+
   const afterResponseSaved = (response) => {
     setState(prev => ({ ...prev, response }));
     // Submitting completed the exercise's training module; refresh the
@@ -78,6 +92,7 @@ const ClaimVerificationExercise = ({ course }) => {
     return (
       <TakenClaim
         assignment={state.assignment}
+        form={state.form}
         response={state.response}
         courseSlug={course.slug}
         onChooseDifferent={() => setChoosing(true)}
@@ -92,6 +107,7 @@ const ClaimVerificationExercise = ({ course }) => {
       course={course}
       onTaken={afterTaken}
       showArticleId={showArticleId}
+      onReturnToClaim={state.assignment ? returnToClaim : null}
     />
   );
 };

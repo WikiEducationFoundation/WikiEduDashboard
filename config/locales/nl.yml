@@ -1929,7 +1929,7 @@ nl:
       aan de hand van de geciteerde bronnen, omdat ze mogelijk door AI zijn gegenereerd.
       Let op: de pagina kan zijn gewijzigd sinds deze beweringen zijn toegevoegd.'
     form:
-      step_find_source: 'Stap 3: Zoek de bron'
+      step_find_source: 'Zoek de bron'
       find_source_instructions: Nu u uw bewerking hebt gekozen, gaat u op zoek naar
         de geciteerde bron. Mogelijk moet u uw docent of de bibliothecaris raadplegen
         om de bron te vinden.
@@ -1941,7 +1941,7 @@ nl:
         inaccessible: Nee, de bron bestaat wel, maar ik kon er geen toegang toe krijgen.
       source_access_notes_label: 'Als u de bron niet hebt kunnen vinden, vertel ons
         dan meer over uw ervaring:'
-      step_verify: 'Stap 4: Verifieer de bewering'
+      step_verify: 'Verifieer de bewering'
       verify_instructions: Zodra u de geciteerde bron hebt gevonden, onderzoek deze
         dan zorgvuldig om te bepalen in hoeverre deze uw gekozen bewering ondersteunt.
         Als u precies weet waar de informatie vandaan komt, noteer dan waar in het

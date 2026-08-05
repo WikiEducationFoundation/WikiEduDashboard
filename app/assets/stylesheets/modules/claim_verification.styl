@@ -91,17 +91,6 @@
     margin 14px 0 0 0
     font-size .9em
 
-  // "Switch claim" — a tertiary action below the exercise, kept low-emphasis
-  // so it doesn't compete with opening the source or the sandbox handoff.
-  &__switch
-    margin-top 22px
-    form
-      margin 0
-
-  &__switch-button
-    font-size 13px
-    padding 6px 16px
-
   // Article picker: a compact grid of title tiles. Tiles size to their content
   // and pack several per row so a long candidate list (up to 50) stays short.
   &__article-grid
@@ -214,9 +203,10 @@
     padding-top 18px
     border-top 1px solid $border_lt
 
-// The verification form (steps 3 and 4 of the exercise): each step is a card
-// in the same family as the claim/source cards above, with the questions
+// The verification form (every step after choosing the claim): each step is a
+// card in the same family as the claim/source cards above, with the questions
 // inside kept quiet so the operator-provided wording carries the structure.
+// Which steps there are comes from config/claim_verification_exercise.yml.
 .cv-form
   &__step
     border 1px solid $border_lt
@@ -229,10 +219,19 @@
     font-size 1.15em
     margin 0 0 10px 0
 
+  // Markdown-rendered operator copy, so the container owns the spacing its
+  // paragraphs would otherwise each add, and a long bare URL wraps inside the
+  // card instead of overflowing it.
   &__step-instructions
     color $text_med
     max-width 40em
     margin-bottom 20px
+    p
+      margin 0 0 10px 0
+      &:last-child
+        margin-bottom 0
+    a
+      overflow-wrap break-word
 
   &__question
     border 0
@@ -305,10 +304,11 @@
       line-height 1.5
       max-width 44em
 
-// Instructor view (/verify_claim/responses): heading row with the
-// open-the-exercise action, then one card per response (and per pending
-// student).
-.claim-verification-responses__header
+// A heading with its action alongside: the submissions page's "open the
+// exercise", and the taken claim's "choose a different claim". Wraps so the
+// action drops below the heading rather than crushing it on a narrow screen.
+.claim-verification-responses__header,
+.claim-verification-exercise__taken-header
   display flex
   align-items baseline
   justify-content space-between

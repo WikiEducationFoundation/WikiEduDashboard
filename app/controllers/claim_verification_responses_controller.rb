@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/claim_verification/exercise_form"
+
 # Student responses for the claim-verification exercise, which is done
 # entirely in the dashboard: the student answers the form on their taken
 # claim (`create`, an upsert — they may revise their answers), and `index`
@@ -32,14 +34,18 @@ class ClaimVerificationResponsesController < ApplicationController
                                           .includes(:user, verification_claim: :wiki)
                                           .order(:created_at)
     @pending = pending_assignments(scope)
+    # The questions each response answered, so the view can show them as asked.
+    @form = ClaimVerification::ExerciseForm.new
     # renders index.json.jbuilder
   end
 
   private
 
+  # Whatever the exercise currently asks — the question ids come from
+  # config/claim_verification_exercise.yml, so a new question needs no change
+  # here. Answers to questions the student's path skipped are dropped downstream.
   def answer_params
-    params.permit(:source_access, :source_access_notes, :verdict, :claim_location,
-                  :verification_notes, :other_comments)
+    params.permit(*ClaimVerification::ExerciseForm.new.answer_keys)
   end
 
   def render_validation_errors
