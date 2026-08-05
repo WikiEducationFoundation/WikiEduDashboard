@@ -19,18 +19,14 @@ describe CheckExperimentUserscript do
     allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(content)
   end
 
-  it 'reports the page as blank when common.js does not exist' do
+  it 'is not installed when common.js does not exist' do
     stub_common_js ''
-    service = described_class.new(record, experiment)
-    expect(service.page_state).to eq(:blank)
-    expect(service.status).to eq(:not_installed)
+    expect(described_class.new(record, experiment).status).to eq(:not_installed)
   end
 
-  it 'reports the page as existing when common.js has unrelated content' do
+  it 'is not installed when common.js has only unrelated content' do
     stub_common_js "importScript('User:Someone/other.js');\n"
-    service = described_class.new(record, experiment)
-    expect(service.page_state).to eq(:exists)
-    expect(service.status).to eq(:not_installed)
+    expect(described_class.new(record, experiment).status).to eq(:not_installed)
   end
 
   it 'records the install when the import line is present' do
@@ -52,12 +48,10 @@ describe CheckExperimentUserscript do
       .not_to(change { record.reload.userscript_installed_at })
   end
 
-  it 'falls back to :unknown without raising when the wiki cannot be read' do
+  it 'reports :not_installed without raising when the wiki cannot be read' do
     allow_any_instance_of(WikiApi).to receive(:get_page_content)
       .and_raise(WikiApi::PageFetchError.new('User:Student/common.js', 503))
     allow(Sentry).to receive(:capture_exception)
-    service = described_class.new(record, experiment)
-    expect(service.page_state).to eq(:unknown)
-    expect(service.status).to eq(:not_installed)
+    expect(described_class.new(record, experiment).status).to eq(:not_installed)
   end
 end

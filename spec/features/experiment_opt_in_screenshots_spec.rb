@@ -116,30 +116,19 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     shoot_element('.experiment-opt-in__panel', '02_student_consent_modal')
   end
 
-  it 'captures the install step, and the unverified state, for a blank common.js' do
+  it 'captures the install step, and the unverified state after a re-check' do
     join_participating_course
     stub_common_js ''
     visit "/courses/#{course.slug}"
     expect(page).to have_css('.experiment-opt-in__panel')
 
     click_button 'I consent'
-    expect(page).to have_button('Verify experiment script')
-    shoot_element('.experiment-opt-in__panel', '03_student_install_preloaded')
+    expect(page).to have_css('.experiment-opt-in__snippet')
+    shoot_element('.experiment-opt-in__panel', '03_student_install')
 
-    # common.js is still empty, so the re-check reports the script as missing.
+    # common.js still lacks the line, so the re-check reports it as missing.
     click_button 'Verify experiment script'
     expect(page).to have_css('.experiment-opt-in__not-found')
-    shoot_element('.experiment-opt-in__panel', '05_student_install_not_found')
-  end
-
-  it 'captures the paste-it-yourself install step when common.js has content' do
-    courses_user = join_participating_course
-    ExperimentCoursesUser.create!(experiment_slug: experiment.slug, courses_user:,
-                                  status: :opted_in)
-    stub_common_js "// My own gadgets\nimportScript('User:Jordan Reyes/refs.js');\n"
-
-    visit "/courses/#{course.slug}"
-    expect(page).to have_css('.experiment-opt-in__snippet')
-    shoot_element('.experiment-opt-in__panel', '04_student_install_manual')
+    shoot_element('.experiment-opt-in__panel', '04_student_install_not_found')
   end
 end

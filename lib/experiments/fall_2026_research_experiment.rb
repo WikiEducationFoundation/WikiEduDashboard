@@ -5,8 +5,8 @@ require_dependency "#{Rails.root}/lib/experiments/opt_in_experiment"
 # The Fall 2026 research study ("Ribeiro experiment").
 #
 # Eligible courses are ClassroomProgramCourses whose inferred term is Fall 2026,
-# on the Wiki Education dashboard. A student who opts in is handed a preloaded
-# edit to their own common.js so they can install the userscript themselves; the
+# on the Wiki Education dashboard. A student who opts in is shown the import line
+# and a link to their own common.js, and installs the userscript themselves; the
 # Dashboard confirms it afterwards (see CheckExperimentUserscript).
 class Fall2026ResearchExperiment < OptInExperiment
   SLUG = 'fall_2026_research'
@@ -16,20 +16,11 @@ class Fall2026ResearchExperiment < OptInExperiment
   # anyone else.
   USERSCRIPT_PAGE = 'User:Sage_(Wiki_Ed)/fall2026experiment.js'
 
-  # Page whose content MediaWiki preloads into the student's edit box. It must
-  # contain exactly USERSCRIPT_IMPORT_LINE and nothing else. A separate page is
-  # required because `preload` can only read text from a wiki page — no URL
-  # parameter injects literal text into an edit form.
-  PRELOAD_PAGE = 'User:Sage_(Wiki_Ed)/fall2026experiment-install.js'
-
-  # Quoting matches PRELOAD_PAGE's on-wiki content exactly, so a student who
-  # pastes this by hand ends up with the same line the preloaded edit inserts.
   USERSCRIPT_IMPORT_LINE = "importScript('#{USERSCRIPT_PAGE}');"
 
-  # Student-facing invitation copy, shown in a modal. `message`, `consent_form`,
-  # `install_message` and `install_message_manual` are rendered as Markdown. Kept
-  # here (not in en.yml) so this ephemeral experiment text stays out of the
-  # translation pipeline.
+  # Student-facing invitation copy, shown in a modal. `message`, `consent_form`
+  # and `install_message` are rendered as Markdown. Kept here (not in en.yml) so
+  # this ephemeral experiment text stays out of the translation pipeline.
   STUDENT_INVITATION_COPY = {
     title: 'Research Study',
     message: <<~MESSAGE,
@@ -46,12 +37,8 @@ class Fall2026ResearchExperiment < OptInExperiment
     opt_out: 'No',
     install_title: 'Install the experiment script',
     install_message: <<~INSTALL,
-      Clicking 'Install script' will open an edit window on Wikipedia that adds the experiment to your account.
-      In that edit window, you'll need to "Publish changes" to complete the installation.
-    INSTALL
-    install_message_manual: <<~INSTALL_MANUAL,
       To enable the experiment, copy the line below, click 'Install script', paste it to your common.js page, then "Publish changes".
-    INSTALL_MANUAL
+    INSTALL
     install_button: 'Install script',
     install_verify_button: 'Verify experiment script',
     install_not_found: "We couldn't find the expected experiment script installed on your account."
@@ -81,12 +68,13 @@ class Fall2026ResearchExperiment < OptInExperiment
     "User:#{user.username}/common.js"
   end
 
-  # Edit-form URL for the student's own common.js. `preload` fills the edit box
-  # with the import line, but MediaWiki honours it only when the page is empty,
-  # so the caller omits it when the page already has content.
-  def userscript_install_url(user, preload:)
+  # Edit-form URL for the student's own common.js. The edit box cannot be
+  # prefilled: MediaWiki's `preload` is gated on
+  # ContentHandler::supportsPreloadContent, which is false for the javascript
+  # content model (only wikitext and JSON support it). So the student is shown
+  # the import line and pastes it in themselves.
+  def userscript_install_url(user)
     query = { title: userscript_target_page(user), action: 'edit', summary: edit_summary }
-    query[:preload] = PRELOAD_PAGE if preload
     "#{en_wiki.base_url}/w/index.php?#{query.to_query}"
   end
 

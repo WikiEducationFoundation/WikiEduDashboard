@@ -82,20 +82,12 @@ describe Experiments::OptInController, type: :controller do
       expect(record.opted_in?).to be true
     end
 
-    it 'returns a preloaded install link when the student has no common.js yet' do
+    it 'returns the import line to paste and a link to the edit form' do
       stub_common_js ''
       post :opt_in, params: { experiment_slug: slug, course_id: course.id }
       userscript = response.parsed_body['userscript']
-      expect(userscript['preload']).to be true
-      expect(userscript['install_url']).to include(CGI.escape(Fall2026ResearchExperiment::PRELOAD_PAGE))
-    end
-
-    it 'returns the import line to paste when common.js already has content' do
-      stub_common_js "// my own tweaks\n"
-      post :opt_in, params: { experiment_slug: slug, course_id: course.id }
-      userscript = response.parsed_body['userscript']
-      expect(userscript['preload']).to be false
       expect(userscript['import_line']).to eq(Fall2026ResearchExperiment.new.userscript_import_line)
+      expect(userscript['install_url']).to include('action=edit')
       expect(userscript['install_url']).not_to include('preload')
     end
   end

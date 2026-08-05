@@ -7,25 +7,17 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # first time it is found.
 #
 # This is an unauthenticated read, so it needs no OAuth grant. Students install
-# the userscript themselves through a preloaded edit; the Dashboard confirms it
-# after the fact rather than making the edit on their behalf.
-#
-# `page_state` reports the shape of the student's common.js, which decides how
-# the install step is presented:
-#   :blank   - the page does not exist yet, so a preloaded edit will fill it in
-#   :exists  - the page already has content; MediaWiki ignores `preload` on a
-#              non-empty page, so the student must paste the import line in
-#   :unknown - the wiki could not be read; fall back to the manual instructions,
-#              which work either way
+# the userscript themselves by pasting the import line into their common.js; the
+# Dashboard confirms it after the fact rather than making the edit on their
+# behalf. A wiki that cannot be read simply reports :not_installed, which leaves
+# the install step showing — the safe direction to fail in.
 class CheckExperimentUserscript
-  attr_reader :status, :page_state
+  attr_reader :status
 
   def initialize(experiment_courses_user, experiment)
     @record = experiment_courses_user
     @experiment = experiment
     @user = experiment_courses_user.user
-    @content = fetch_common_js
-    @page_state = derive_page_state
     @status = derive_status
   end
 
@@ -41,12 +33,6 @@ class CheckExperimentUserscript
     nil
   end
 
-  def derive_page_state
-    return :unknown if @content.nil?
-
-    @content.strip.empty? ? :blank : :exists
-  end
-
   def derive_status
     return :not_installed unless installed?
 
@@ -58,7 +44,7 @@ class CheckExperimentUserscript
   # line, so a student who retypes it with different quoting or spacing still
   # counts as installed.
   def installed?
-    @content&.include?(@experiment.userscript_marker) || false
+    fetch_common_js&.include?(@experiment.userscript_marker) || false
   end
 
   def record_install

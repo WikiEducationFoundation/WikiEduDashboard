@@ -11,10 +11,11 @@ const md = require('../../utils/markdown_it.js').default({ openLinksExternally: 
 // and the full consent form, then records the student's choice.
 //
 // Opting in installs nothing on the student's behalf: the Dashboard has no OAuth
-// grant to edit user JS pages. Instead the student gets a link to their own
-// English Wikipedia common.js, preloaded with the import line where MediaWiki
-// allows it, and saves it themselves. The server confirms the script is really
-// there by reading the page, so the install step reappears until it is.
+// grant to edit user JS pages. Instead the student gets the import line plus a
+// link to their own English Wikipedia common.js, and pastes it in themselves.
+// (The edit box cannot be prefilled — MediaWiki's `preload` does not support the
+// javascript content model.) The server confirms the script is really there by
+// reading the page, so the install step reappears until it is.
 //
 // All copy is supplied by the server (`invitation.copy`, from the experiment's
 // Ruby definition), so this ephemeral text stays out of the i18n pipeline.
@@ -98,14 +99,12 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
   const { copy } = invitation;
 
   if (phase === 'install') {
-    const instructions = userscript.preload ? copy.install_message : copy.install_message_manual;
     return (
       <Modal modalClass="experiment-opt-in" ariaLabelledBy="experiment-opt-in-title">
         <div className="experiment-opt-in__panel">
           <h2 id="experiment-opt-in-title">{copy.install_title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: md.render(instructions || '') }} />
-          {!userscript.preload
-            && <pre className="experiment-opt-in__snippet">{userscript.import_line}</pre>}
+          <div dangerouslySetInnerHTML={{ __html: md.render(copy.install_message || '') }} />
+          <pre className="experiment-opt-in__snippet">{userscript.import_line}</pre>
           {checked && <p className="experiment-opt-in__not-found">{copy.install_not_found}</p>}
           <div className="experiment-opt-in__actions">
             <a

@@ -63,13 +63,10 @@ module Experiments
       record = pending_participation
       return nil unless record
 
-      check = CheckExperimentUserscript.new(record, @experiment)
-      return nil if check.status == :installed
+      return nil if CheckExperimentUserscript.new(record, @experiment).status == :installed
 
-      preload = check.page_state == :blank
-      { install_url: @experiment.userscript_install_url(@courses_user.user, preload:),
-        import_line: @experiment.userscript_import_line,
-        preload: }
+      { install_url: @experiment.userscript_install_url(@courses_user.user),
+        import_line: @experiment.userscript_import_line }
     end
 
     def pending_participation

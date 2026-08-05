@@ -22,8 +22,9 @@
     max-height 320px
     overflow-y auto
     padding 15px
-  // The import line students paste when their common.js already has content and
-  // MediaWiki therefore ignores the preloaded text.
+  // The import line students copy into their common.js. The edit box cannot be
+  // prefilled, since MediaWiki's `preload` does not support the javascript
+  // content model, so the line has to be shown for copying.
   .experiment-opt-in__snippet
     background-color #f8f8f8
     border 1px solid border_lt

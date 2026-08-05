@@ -68,18 +68,17 @@ describe Fall2026ResearchExperiment do
   describe '#userscript_install_url' do
     let(:student) { create(:user, username: 'Ada Lovelace') }
 
-    it 'points at the student own common.js edit form with the preload page' do
-      url = experiment.userscript_install_url(student, preload: true)
+    it 'points at the student own common.js edit form' do
+      url = experiment.userscript_install_url(student)
       expect(url).to start_with('https://en.wikipedia.org/w/index.php?')
       expect(url).to include(CGI.escape('User:Ada Lovelace/common.js'))
-      expect(url).to include(CGI.escape(described_class::PRELOAD_PAGE))
       expect(url).to include('action=edit')
     end
 
-    it 'omits the preload page when the page already has content' do
-      url = experiment.userscript_install_url(student, preload: false)
-      expect(url).not_to include('preload')
-      expect(url).to include('action=edit')
+    # MediaWiki's ContentHandler::supportsPreloadContent is false for the
+    # javascript content model, so a preload parameter would be ignored.
+    it 'does not try to preload the edit box' do
+      expect(experiment.userscript_install_url(student)).not_to include('preload')
     end
   end
 
