@@ -16,7 +16,7 @@
 # The absence of a record means the student has not yet responded; once a
 # record exists, the course-page invitation is no longer shown. An `opted_in`
 # record whose `userscript_installed_at` is nil still has its intervention
-# pending (e.g. awaiting OAuth re-authorization).
+# pending (e.g. awaiting the student's own userscript install).
 class ExperimentCoursesUser < ApplicationRecord
   belongs_to :courses_user, class_name: 'CoursesUsers'
   has_one :user, through: :courses_user
