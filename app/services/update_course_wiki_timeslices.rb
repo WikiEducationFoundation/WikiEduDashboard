@@ -202,7 +202,7 @@ class UpdateCourseWikiTimeslices
     return [] if @revision_updater.no_point_in_importing_revisions?
 
     revisions = @revisions[wiki]
-    timeslice = acuwt_timeslice_for(wiki, revisions)
+    timeslice = course_wiki_timeslice_for(wiki, revisions)
     @timeslice_cleaner.clean_timeslices_before_reprocessing(wiki, timeslice.start, timeslice.end,
                                                             revisions[:revisions])
   end
