@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 
 import VerificationForm from './VerificationForm.jsx';
 import ResponseSummary from './ResponseSummary.jsx';
+import { formPropType } from './formDefinition';
 
 /*
   The student's taken claim: the claim, its cited source, and the verification
-  form (steps 3 and 4 of the exercise) — the whole exercise happens here in the
-  dashboard. Once a response is submitted the form gives way to a summary of
-  their answers (editable, since submitting is an upsert). Responses are keyed
-  per claim, so choosing a different claim stays available even after
-  submitting — the summary belongs to this claim and survives a switch. The
-  claim and source values are data.
+  form (every step of the exercise after choosing the claim) — the whole exercise
+  happens here in the dashboard. Once a response is submitted the form gives way
+  to a summary of their answers (editable, since submitting is an upsert).
+  Responses are keyed per claim, so choosing a different claim stays available
+  even after submitting — the summary belongs to this claim and survives a
+  switch. The claim and source values are data.
 */
-export const TakenClaim = ({ assignment, response, courseSlug, onChooseDifferent, onResponseSaved }) => {
+export const TakenClaim = ({
+  assignment, form, response, courseSlug, onChooseDifferent, onResponseSaved
+}) => {
   const { claim } = assignment;
   const [editing, setEditing] = useState(false);
 
@@ -70,11 +73,12 @@ export const TakenClaim = ({ assignment, response, courseSlug, onChooseDifferent
           <h2 className="claim-verification-exercise__label">
             {I18n.t('claim_verification.form.submitted_heading')}
           </h2>
-          <ResponseSummary response={response} onEdit={() => setEditing(true)} />
+          <ResponseSummary form={form} response={response} onEdit={() => setEditing(true)} />
         </section>
       ) : (
         <VerificationForm
           courseSlug={courseSlug}
+          form={form}
           initial={response}
           onSaved={saved}
           onCancel={editing ? () => setEditing(false) : null}
@@ -98,6 +102,8 @@ TakenClaim.propTypes = {
   assignment: PropTypes.shape({
     claim: PropTypes.object.isRequired,
   }).isRequired,
+  // The questions the exercise asks, as sent by the server.
+  form: formPropType.isRequired,
   // The submitted response, if any.
   response: PropTypes.object,
   courseSlug: PropTypes.string.isRequired,

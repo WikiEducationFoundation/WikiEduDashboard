@@ -56,7 +56,7 @@ ClaimContext.propTypes = {
   a student.
 */
 const InstructorResponses = ({ course }) => {
-  const [data, setData] = useState(null); // { responses, pending }
+  const [data, setData] = useState(null); // { form, responses, pending }
   const [failed, setFailed] = useState(false);
   const studentFilter = new URLSearchParams(useLocation().search).get('student');
 
@@ -111,7 +111,7 @@ const InstructorResponses = ({ course }) => {
             </span>
           </header>
           <ClaimContext claim={response.claim} />
-          <ResponseSummary response={response} />
+          <ResponseSummary form={data.form} response={response} />
         </article>
       ))}
 

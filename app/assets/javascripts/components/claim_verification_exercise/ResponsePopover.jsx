@@ -45,7 +45,7 @@ const ResponsePopover = ({ student }) => {
     contents = responses.map(response => (
       <div className="cv-response-pop__item" key={response.id}>
         <blockquote>{response.claim.sentence}</blockquote>
-        <ResponseSummary response={response} />
+        <ResponseSummary form={data.form} response={response} />
       </div>
     ));
   }

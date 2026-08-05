@@ -37,7 +37,7 @@ import InstructorResponses from './InstructorResponses.jsx';
   "choosing" is kept as local state rather than a second, competing query param.
 */
 const ClaimVerificationExercise = ({ course }) => {
-  const [state, setState] = useState(null); // { assignment, response, articles }
+  const [state, setState] = useState(null); // { assignment, response, form, articles }
   const [choosing, setChoosing] = useState(false);
   const responsesPage = useLocation().pathname.endsWith('/responses');
   const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const ClaimVerificationExercise = ({ course }) => {
     if (responsesPage) { return; }
     new ClaimVerificationAPI({ courseSlug: course.slug }).fetchState()
       .then(setState)
-      .catch(() => setState({ assignment: null, response: null, articles: [] }));
+      .catch(() => setState({ assignment: null, response: null, form: null, articles: [] }));
   }, [course.slug, responsesPage]);
 
   if (responsesPage) { return <InstructorResponses course={course} />; }
@@ -78,6 +78,7 @@ const ClaimVerificationExercise = ({ course }) => {
     return (
       <TakenClaim
         assignment={state.assignment}
+        form={state.form}
         response={state.response}
         courseSlug={course.slug}
         onChooseDifferent={() => setChoosing(true)}

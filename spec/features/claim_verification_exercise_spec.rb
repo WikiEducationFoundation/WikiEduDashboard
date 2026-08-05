@@ -91,7 +91,17 @@ describe 'Claim verification exercise', type: :feature, js: true do
     assignment = VerificationClaimAssignment.find_by(user: student, course:)
     expect(assignment.verification_claim.sentence).to eq(sentence)
 
-    # Step 3: the student got the source, so step 4 (verify the claim) appears.
+    # The source-evaluation step comes first, judged from the citation alone.
+    expect(page).to have_content(I18n.t('claim_verification.form.step_evaluate_source'))
+    # Step instructions render as Markdown, so a URL in the operator copy is a
+    # link out of the exercise rather than inert text.
+    policy_link = find('.cv-form__step-instructions a', match: :first)
+    expect(policy_link[:href]).to include('Wikipedia:Reliable_sources')
+    expect(policy_link[:target]).to eq('_blank')
+    choose I18n.t('claim_verification.form.source_appropriate_options.appropriate')
+    choose I18n.t('claim_verification.form.meets_rs_policy_options.context_dependent')
+
+    # Then finding the source; saying they got it opens the verify-the-claim step.
     expect(page).to have_content(I18n.t('claim_verification.form.step_find_source'))
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))
@@ -109,8 +119,10 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_content(I18n.t('claim_verification.choose_different_claim'))
 
     response = VerificationClaimResponse.find_by(user: student, course:)
-    expect(response.verdict).to eq('partial_support')
-    expect(response.claim_location).to eq('p. 44')
+    expect(response.answer('source_appropriate')).to eq('appropriate')
+    expect(response.answer('meets_rs_policy')).to eq('context_dependent')
+    expect(response.answer('verdict')).to eq('partial_support')
+    expect(response.answer('claim_location')).to eq('p. 44')
     expect(response.verification_claim).to eq(assignment.verification_claim)
 
     # Navigating (client-side) back to the timeline shows the exercise as
@@ -130,12 +142,18 @@ describe 'Claim verification exercise', type: :feature, js: true do
     VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
     VerificationClaimResponse.create!(
       user: student, course:, verification_claim: claim,
-      source_access: 'accessed', verdict: 'mostly_supports', claim_location: 'chapter 3',
-      verification_notes: 'The chapter describes tool use at length, but the shellfish ' \
-                          'detail only appears in a figure caption, which took a while to ' \
-                          'find because the scanned copy has no searchable text at all.',
-      other_comments: 'Reference: https://example.com/very/long/unbroken/path/to/a/scanned/' \
-                      'document/section-3-2-1#page=44&highlight=sea-otters'
+      answers: {
+        'source_appropriate' => 'appropriate',
+        'meets_rs_policy' => 'generally_reliable',
+        'source_access' => 'accessed',
+        'verdict' => 'mostly_supports',
+        'claim_location' => 'chapter 3',
+        'verification_notes' => 'The chapter describes tool use at length, but the shellfish ' \
+                                'detail only appears in a figure caption, which took a while ' \
+                                'to find because the scanned copy has no searchable text.',
+        'other_comments' => 'Reference: https://example.com/very/long/unbroken/path/to/a/' \
+                            'scanned/document/section-3-2-1#page=44&highlight=sea-otters'
+      }
     )
     tmu = TrainingModulesUsers.create!(user: student, training_module_id: exercise_module.id,
                                        completed_at: Time.zone.now)
@@ -171,9 +189,13 @@ describe 'Claim verification exercise', type: :feature, js: true do
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     claim = VerificationClaim.find_by(sentence:)
     VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
-    VerificationClaimResponse.create!(user: student, course:, verification_claim: claim,
-                                      source_access: 'accessed', verdict: 'contradicted',
-                                      other_comments: 'The source says the opposite.')
+    VerificationClaimResponse.create!(
+      user: student, course:, verification_claim: claim,
+      answers: { 'source_appropriate' => 'appropriate',
+                 'meets_rs_policy' => 'generally_reliable',
+                 'source_access' => 'accessed', 'verdict' => 'contradicted',
+                 'other_comments' => 'The source says the opposite.' }
+    )
     # A second student who has taken a claim but not submitted.
     slow_student = create(:user, username: 'Slowpoke', onboarded: true)
     create(:courses_user, course:, user: slow_student, role: CoursesUsers::Roles::STUDENT_ROLE)
