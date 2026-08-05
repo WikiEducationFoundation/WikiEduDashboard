@@ -116,9 +116,14 @@ describe AssignmentViewContext do
   # "Completed" tells an instructor nothing on an article-selection exercise;
   # which article each student took on is the whole point of the stage.
   describe 'an article-selection exercise' do
+    # The slug is load-bearing (it is how an article-selection exercise is
+    # recognized), so it can't be randomized — and the real training library
+    # carries it. Adopt an existing row when the library has been loaded into the
+    # test DB by another spec rather than colliding with it on uniqueness.
     let(:exercise_module) do
-      create(:training_module, slug: 'choose-topic-from-list-exercise',
-                               name: 'Choose your article from a list', kind: 1)
+      TrainingModule.find_by(slug: 'choose-topic-from-list-exercise') ||
+        create(:training_module, slug: 'choose-topic-from-list-exercise',
+                                 name: 'Choose your article from a list', kind: 1)
     end
     let(:student) { create(:user, username: 'chooser') }
 
