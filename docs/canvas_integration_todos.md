@@ -982,8 +982,12 @@ comment.
   signature-discard callback, since those signatures describe the column being
   restored. Both adoption points clear the snapshot.
 - [x] **Fractional training progress claimed completion.** `activityProgress` is
-  derived from the score — `InProgress` below full, `Completed` at it —
-  instead of always `Completed`. `gradingProgress` stays `FullyGraded`.
+  derived from the score — `Submitted` below full, `Completed` at it — instead of
+  always `Completed`. `gradingProgress` stays `FullyGraded`. Below-full was
+  `InProgress` until 2026-08-05, when it turned out Canvas reads that as
+  nothing-submitted and stores no submission URL with the score: the trainings
+  roll-up was then the only column with no SpeedGrader preview, and would have
+  stayed that way for most of any term.
 - [x] **A refused deep-link selection was a blank panel.** Refusals render an
   in-frame explanation at the same 422. The old reasoning (a losing double-submit
   is unseen inside Canvas's modal) still holds; what it missed is a picker left
@@ -1268,9 +1272,14 @@ Canvas supports the wanted behaviour directly, verified against
     columns complete/incomplete and a posted 0 therefore reads as a failing 0%.
     For exercises that stops applying — nothing is posted as a score at all —
     though it still governs the mechanical columns.
-  - The `activityProgress` derivation added on 2026-08-03 (InProgress below full
-    score, Completed at it) stays for the mechanical columns and is superseded
-    for exercises by Submitted + PendingManual.
+  - The `activityProgress` derivation added on 2026-08-03 (below full score,
+    Completed at it) stays for the mechanical columns and is superseded for
+    exercises by Submitted + PendingManual. It originally sent InProgress below
+    full score, which had to change on 2026-08-05: Canvas reads InProgress as
+    nothing-submitted and silently stores no submission URL, so the trainings
+    roll-up was the one column with no SpeedGrader preview. Below full score is
+    now Submitted (verified on staging: the same score reported as Submitted or
+    Completed stores the URL; as InProgress it does not).
   - The student-facing story improves: an exercise reads "needs grading" in
     Canvas instead of asserting full marks the instructor never gave.
 

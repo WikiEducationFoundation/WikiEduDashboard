@@ -338,12 +338,24 @@ describe SyncLtiGrades do
                                    completed_at: 1.day.ago)
     end
 
-    it 'reports partial training progress as InProgress' do
+    # Submitted, not InProgress: Canvas reads InProgress as nothing-submitted and
+    # stores no submission URL, which left this column — partial for most of a
+    # term — permanently unpreviewable in SpeedGrader (verified on staging,
+    # 2026-08-05).
+    it 'reports partial training progress as Submitted, still fully graded' do
       described_class.new(binding)
       expect(WebMock).to have_requested(:post, %r{trainings/scores})
-        .with(body: hash_including(scoreGiven: 0.5, activityProgress: 'InProgress',
+        .with(body: hash_including(scoreGiven: 0.5, activityProgress: 'Submitted',
                                    gradingProgress: 'FullyGraded'))
       expect(second_training).to be_persisted
+    end
+
+    # The submission extension is the reason the value matters, so pin them
+    # together: a partial score must still carry a launchable submission.
+    it 'carries the submission launch URL on a partial score' do
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{trainings/scores})
+        .with { |req| submission_claim(req)['submission_type'] == 'basic_lti_launch' }
     end
 
     it 'still reports a full score as Completed' do

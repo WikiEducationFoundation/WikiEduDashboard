@@ -14,9 +14,10 @@
 #     instructor can judge, so it reports Submitted + PendingManual with NO score:
 #     Canvas creates the submission, leaves it ungraded, and queues it. Reporting
 #     1/1 for a ticked box claimed a judgment nobody had made.
-#   - `activityProgress` is derived from the score rather than always Completed.
-#     The trainings roll-up pushes fractions, so a blanket Completed contradicted
-#     the number beside it.
+#   - `activityProgress` is derived from the score rather than always Completed:
+#     the trainings roll-up pushes fractions, so a blanket Completed contradicted
+#     the number beside it. Below full score that's Submitted, never InProgress —
+#     Canvas treats InProgress as nothing-submitted and drops the submission URL.
 #   - The submission extension rides along until Canvas has one for a (column,
 #     student), and then never again — SyncLtiGrades#submission_pending? decides,
 #     from a persisted marker. Canvas stores the launch URL only when the score
@@ -56,8 +57,18 @@ class LtiScorePayload
       activity_progress: activity_progress }
   end
 
+  # Never InProgress, even below full score. Canvas reads InProgress as "nothing
+  # submitted yet" and silently stores no submission URL with the score, so the
+  # trainings roll-up — partial for most of a term — could never be previewed in
+  # SpeedGrader. Verified on staging (2026-08-05) by posting the identical score
+  # three ways: Completed and Submitted both store the URL, InProgress does not.
+  #
+  # Submitted is also the truer claim for a partial roll-up than either
+  # alternative: work has been submitted, and `gradingProgress: FullyGraded` says
+  # what's there is graded. Completed would assert the student had finished all
+  # their trainings.
   def activity_progress
-    @progress.score_given.to_f < @progress.score_maximum.to_f ? 'InProgress' : 'Completed'
+    @progress.score_given.to_f < @progress.score_maximum.to_f ? 'Submitted' : 'Completed'
   end
 
   # The URL Canvas stores as the submission's own, so opening a student's
