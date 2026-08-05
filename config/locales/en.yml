@@ -1718,6 +1718,7 @@ en:
     find_in_article: Find this in the article text
     show_surrounding: Show surrounding paragraph
     choose_different_claim: Choose a different claim
+    back_to_claim: Back to my claim
     no_online_source: This cited source doesn't include a URL.
     course_picker_heading: Choose course
     course_picker_no_courses: No courses

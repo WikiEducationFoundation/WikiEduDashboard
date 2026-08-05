@@ -27,8 +27,16 @@ export const TakenClaim = ({
 
   return (
     <div className="container narrow claim-verification-exercise">
-      <div className="claim-verification-exercise__intro">
+      <div className="claim-verification-exercise__intro claim-verification-exercise__taken-header">
         <h1>{I18n.t('claim_verification.your_selected_claim')}</h1>
+        {/*
+          Switching claims sits up here with the heading, not below the form:
+          a student decides their claim isn't the one they want while reading
+          it, and down at the foot of the form it was easy to miss entirely.
+        */}
+        <button type="button" className="button" onClick={onChooseDifferent}>
+          {I18n.t('claim_verification.choose_different_claim')}
+        </button>
       </div>
 
       <section className="claim-verification-exercise__claim">
@@ -84,16 +92,6 @@ export const TakenClaim = ({
           onCancel={editing ? () => setEditing(false) : null}
         />
       )}
-
-      <div className="claim-verification-exercise__switch">
-        <button
-          type="button"
-          className="claim-verification-exercise__switch-button"
-          onClick={onChooseDifferent}
-        >
-          {I18n.t('claim_verification.choose_different_claim')}
-        </button>
-      </div>
     </div>
   );
 };

@@ -118,6 +118,17 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_no_button(I18n.t('claim_verification.form.submit'))
     expect(page).to have_content(I18n.t('claim_verification.choose_different_claim'))
 
+    # Browsing the other candidates must not cost them the claim they answered
+    # for: the picker offers a way back, and returning restores their answers
+    # rather than a blank form.
+    click_button I18n.t('claim_verification.choose_different_claim')
+    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 10)
+    click_button "← #{I18n.t('claim_verification.back_to_claim')}"
+    expect(page).to have_content(I18n.t('claim_verification.your_selected_claim'), wait: 10)
+    expect(page).to have_content(
+      I18n.t('claim_verification.form.verdict_options.partial_support')
+    )
+
     response = VerificationClaimResponse.find_by(user: student, course:)
     expect(response.answer('source_appropriate')).to eq('appropriate')
     expect(response.answer('meets_rs_policy')).to eq('context_dependent')
@@ -225,6 +236,22 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_no_content('Slowpoke')
     click_link "← #{I18n.t('claim_verification.responses.heading')}"
     expect(page).to have_content('Slowpoke', wait: 10)
+  end
+
+  # Arriving on a shared ?showArticle= link forces the picker into view even when
+  # the student already has a claim, so the way back has to work from there too —
+  # and the open article id lives in the URL, not in component state.
+  it 'lets a student with a claim return from a ?showArticle= deep link' do
+    claim = VerificationClaim.find_by(sentence:)
+    VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
+
+    visit "/courses/#{course.slug}/verify_claim?showArticle=#{article.id}"
+    expect(page).to have_css('.article-viewer', wait: 20)
+    find('.article-viewer-button.icon-close', match: :first).click
+
+    click_button "← #{I18n.t('claim_verification.back_to_claim')}"
+    expect(page).to have_content(I18n.t('claim_verification.your_selected_claim'), wait: 10)
+    expect(page).to have_content(sentence)
   end
 
   it 'deep-links straight into an open article via ?showArticle=' do
