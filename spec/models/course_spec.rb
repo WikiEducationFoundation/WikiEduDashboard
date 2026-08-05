@@ -989,4 +989,41 @@ describe Course, type: :model do
       end
     end
   end
+
+  # Mirrors the client-side term inference in inferDefaultCampaign.js. Course
+  # eligibility for an opt-in research experiment is derived from this, so the
+  # month boundaries matter (see Fall2026ResearchExperiment#eligible_course?).
+  describe '#inferred_term' do
+    it 'returns nil when the course has no start date' do
+      expect(build(:course, start: nil).inferred_term).to be_nil
+    end
+
+    it 'infers spring from a January start' do
+      expect(build(:course, start: Date.new(2026, 1, 15)).inferred_term).to eq('spring_2026')
+    end
+
+    it 'infers spring from an April start' do
+      expect(build(:course, start: Date.new(2026, 4, 30)).inferred_term).to eq('spring_2026')
+    end
+
+    it 'infers summer from a May start' do
+      expect(build(:course, start: Date.new(2026, 5, 1)).inferred_term).to eq('summer_2026')
+    end
+
+    it 'infers summer from a July start' do
+      expect(build(:course, start: Date.new(2026, 7, 31)).inferred_term).to eq('summer_2026')
+    end
+
+    it 'infers fall from an August start' do
+      expect(build(:course, start: Date.new(2026, 8, 1)).inferred_term).to eq('fall_2026')
+    end
+
+    it 'infers fall from a November start' do
+      expect(build(:course, start: Date.new(2026, 11, 30)).inferred_term).to eq('fall_2026')
+    end
+
+    it 'infers the following spring from a December start' do
+      expect(build(:course, start: Date.new(2026, 12, 1)).inferred_term).to eq('spring_2027')
+    end
+  end
 end

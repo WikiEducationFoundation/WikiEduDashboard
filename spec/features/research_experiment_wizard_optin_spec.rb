@@ -74,6 +74,13 @@ describe 'research experiment wizard opt-in', type: :feature, js: true do
 
     expect(page).to have_content(panel_title)
     expect(page).to have_content('Yes, my class will participate')
+
+    # Neither option is selected by default, and the panel cannot be advanced
+    # past until one is, so no opt-in is ever recorded by default.
+    within('.wizard__panel.active') do
+      expect(page).to have_no_css('.wizard__option.selected')
+      expect(page).to have_css('button.dark[disabled]')
+    end
   end
 
   it 'skips the opt-in panel for a course that is not eligible' do

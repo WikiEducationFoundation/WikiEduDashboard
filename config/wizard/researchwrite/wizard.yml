@@ -35,11 +35,14 @@
 
   type: 1 # single choice
   minimum: 1
+  # Deliberately no `selected: true` default here, unlike other panels in this
+  # wizard: with `minimum: 1` and no default, the instructor cannot advance
+  # without answering, so every recorded opt-in tag reflects a choice someone
+  # actually made rather than a default they clicked past.
   options:
     -
       title: Yes, my class will participate
       tag: fall_2026_research_opted_in
-      selected: true # selected by default
     -
       title: No, I want to opt out
       tag: fall_2026_research_opted_out
