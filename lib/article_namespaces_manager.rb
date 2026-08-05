@@ -4,9 +4,8 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 
 ##= Resets articles whose tracked status changed during the course timeline, so
 # that they are included in or excluded from course stats as appropriate.
-# Resetting an article means marking its course wiki timeslices for reprocessing
-# and removing its articles_courses record and article course timeslices
-# (see ArticlesCoursesCleaner#reset).
+# Resetting an article means marking its course wiki timeslices for reprocessing,
+# and removing its articles_courses record (and timeslices too for non-acuwt courses).
 #
 # The following cases are handled for every course, including article scoped
 # programs (which never run ArticleStatusManager), as a best effort to
