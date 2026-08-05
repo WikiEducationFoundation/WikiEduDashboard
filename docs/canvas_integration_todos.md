@@ -1186,20 +1186,40 @@ its not-signed-in state; and the launch-path duplicate-link message.
     forgeable `params[:binding_id]` in `complete_setup`. An instructor may open any
     student on the roster; a student presenting someone else's marker gets the
     student-less placeholder, never another student's sandboxes.
-  - One attempt per (column, student), tracked by `submission_reported_at` on
-    `LtiScoreSignature`. Sending the extension on every push would pile up attempts
-    and shove already-graded submissions back into the needs-grading queue. This
-    was first inferred from "no signature row yet", which was wrong in a way worth
-    recording: every pair already syncing before the extension shipped has a
-    signature and no submission, so those courses could never get a URL — the
-    operator's own walkthrough course needed 11 signatures deleted by hand before
-    Canvas would store one. The persisted marker makes it retroactive, and a pair
-    still owed a URL is pushed once even when its score hasn't changed.
+  - The extension rides on EVERY push. Two wrong designs preceded that, both
+    recorded here because each looked right until measured. First it was sent on
+    the "first push", inferred from "no signature row yet" — but every pair already
+    syncing before the extension shipped has a signature and no submission, so
+    those courses could never get a URL (the operator's walkthrough course needed
+    11 signatures deleted by hand before Canvas would store one). That was fixed
+    with a persisted `submission_reported_at` marker on `LtiScoreSignature`, which
+    was still wrong: Canvas *discards* the stored URL when a later score arrives
+    without the extension, replacing the `basic_lti_launch` attempt with an
+    `external_tool` one carrying `url: ""`. Observed when a cron cycle pushed a
+    changed trainings fraction and that column went back to "No Preview Available"
+    while the untouched columns kept theirs. So one-per-pair only holds until the
+    grade next moves — which for a trainings roll-up is every completed training.
+    Attempt churn is bounded by the score signature instead: an unchanged score
+    isn't pushed at all, so attempts track real state changes, not cron cycles.
+    `submission_reported_at` is kept as a diagnostic record of the first URL.
 
-  Still open: the staging harness reaches this page by visiting the stored URL
-  directly, through Canvas's `external_tools/retrieve` wrapper. That is not
-  equivalent to SpeedGrader's own launch, so the harness gate is a weaker check
-  than the operator's manual confirmation.
+  - The launch had to be *recognized* as an assignment launch at all.
+    `assignment_launch?` tested only id_token claims, and a submission launch comes
+    through Canvas's `external_tools/retrieve` wrapper with no AGS claim and no
+    placement custom — so every SpeedGrader launch rendered the course-navigation
+    status view, and none of the per-student work above was reachable. The staging
+    log settled what two rounds of inference had not:
+    `Parameters: {"resource" => "Block%3A1199", "submission" => "c858fe49-...",
+    "ltik" => "[FILTERED]"}`. Our own URL markers arrive even when claims don't, so
+    they now count as an assignment launch, and `ResolveAssignmentLineItem` accepts
+    the marker off the URL. Note this also retires the old harness comment claiming
+    Canvas drops the query string through `retrieve` — it does not.
+
+  `staging_specs/speed_grader_preview_diagnostic_spec.rb` drives a real instructor
+  session through SpeedGrader and reports, per column, the iframe src and the text
+  inside the tool frame. It reports rather than asserts: its job is to say where a
+  gap is, and the guesses baked into earlier expectations are what cost the rounds
+  above.
 
 - [x] **Peer review is a gradable column now.** It was the one stage the picker
   could never offer: no exercise module means no Block to hang a gradable off, so

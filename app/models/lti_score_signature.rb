@@ -19,10 +19,11 @@
 # the LTIAAS POST whenever the stored signature matches the next one to
 # push, so the 30-min cron only emits POSTs for state changes.
 #
-# `submission_reported_at` records that Canvas has been handed a submission launch
-# URL for this pair (the AGS submission extension), so it is sent once and not once
-# per sync — and, being persisted rather than inferred from the row's existence,
-# still reaches pairs that were already syncing before that shipped.
+# `submission_reported_at` records when Canvas was first handed a submission launch
+# URL for this pair (the AGS submission extension). Diagnostic only: it briefly
+# gated the extension to one push per pair, until staging showed Canvas discards the
+# stored URL whenever a later score arrives without one, so every push now carries
+# it (see LtiScorePayload).
 class LtiScoreSignature < ApplicationRecord
   belongs_to :lti_line_item
   belongs_to :lti_context

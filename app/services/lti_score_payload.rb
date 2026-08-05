@@ -18,22 +18,23 @@
 #     the trainings roll-up pushes fractions, so a blanket Completed contradicted
 #     the number beside it. Below full score that's Submitted, never InProgress —
 #     Canvas treats InProgress as nothing-submitted and drops the submission URL.
-#   - The submission extension rides along until Canvas has one for a (column,
-#     student), and then never again — SyncLtiGrades#submission_pending? decides,
-#     from a persisted marker. Canvas stores the launch URL only when the score
-#     claims a new submission, and a new submission is a new attempt, so sending
-#     it every time would pile up attempts and shove an already-graded submission
-#     back into the needs-grading queue. Every column gets one, including the
-#     mechanical ones: an instructor who opens any column in SpeedGrader would
-#     otherwise meet Canvas's bare "No Preview Available" (operator decision
-#     2026-08-05).
+#   - The submission extension rides along on EVERY push. Canvas stores the launch
+#     URL only when the score claims a new submission, and it discards what it had
+#     when a later score arrives without one: observed on staging (2026-08-05) when
+#     a cron cycle pushed a changed trainings fraction and Canvas replaced the
+#     `basic_lti_launch` attempt with an `external_tool` one carrying `url: ""` —
+#     back to "No Preview Available". Sending it once per pair therefore only works
+#     until the grade next moves, which for a trainings roll-up is every completed
+#     training. The attempt-per-push that comes with this is the price; the score
+#     signature still suppresses pushes when nothing changed, so attempts track
+#     real state changes rather than cron cycles. Every column gets one, including
+#     the mechanical ones (operator decision 2026-08-05).
 class LtiScorePayload
-  def initialize(line_item:, context:, progress:, comment:, report_submission:)
+  def initialize(line_item:, context:, progress:, comment:)
     @line_item = line_item
     @context = context
     @progress = progress
     @comment = comment
-    @report_submission = report_submission
   end
 
   def to_h
@@ -81,7 +82,6 @@ class LtiScorePayload
   # inside Canvas (the same rule that keeps sandbox URLs out of score comments).
   # Canvas already knows this id; it learns nothing new from it.
   def submission_launch_url
-    return unless @report_submission
     return if ENV['LTIAAS_DOMAIN'].blank?
 
     "https://#{ENV['LTIAAS_DOMAIN']}/lti/launch" \

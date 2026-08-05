@@ -142,7 +142,7 @@ class SyncLtiGrades
     progress = compute_progress(line_item, context)
     return unless progress&.gradable?
     return if skip_zero?(progress, line_item, context)
-    return if unchanged_and_submitted?(line_item, context, progress.signature)
+    return if signature_unchanged?(line_item, context, progress.signature)
 
     reported = post_score(context, line_item, progress)
     record_signature(line_item, context, progress.signature, submission_reported: reported)
@@ -199,13 +199,12 @@ class SyncLtiGrades
   end
 
   # What to report is LtiScorePayload's call — which columns the Dashboard may
-  # grade, what activity progress means, and whether a submission rides along.
-  # Returns whether this push carried a submission URL, so the signature can
-  # record that Canvas now has one.
+  # grade, what activity progress means, and what rides along with the score.
+  # Returns whether this push carried a submission URL, which the signature
+  # records.
   def post_score(context, line_item, progress)
     payload = LtiScorePayload.new(
-      line_item:, context:, progress:, comment: with_origin(progress.comment),
-      report_submission: submission_pending?(line_item, context)
+      line_item:, context:, progress:, comment: with_origin(progress.comment)
     ).to_h
     @service.post_score(**payload)
     payload[:submission_url].present?
@@ -216,17 +215,6 @@ class SyncLtiGrades
     !LtiScoreSignature.exists?(lti_line_item_id: line_item.id, lti_context_id: context.id)
   end
 
-  # Whether Canvas still needs a submission launch URL for this pair. A separate
-  # question from first_push?, and the reason it's persisted rather than inferred:
-  # every pair pushed before the submission extension shipped has a signature but
-  # no submission, so keying on "no signature yet" left already-syncing courses
-  # permanently on Canvas's "No Preview Available" (found in the operator's
-  # walkthrough, 2026-08-05).
-  def submission_pending?(line_item, context)
-    !LtiScoreSignature.where(lti_line_item_id: line_item.id, lti_context_id: context.id)
-                      .where.not(submission_reported_at: nil).exists?
-  end
-
   # Append the Dashboard's origin to a score comment so Canvas's authorless
   # "- Someone" attribution (its Score API can't set the comment author) reads
   # less mysteriously. Blank comments (most progress types emit none) stay blank —
@@ -235,14 +223,6 @@ class SyncLtiGrades
     return comment if comment.blank? || ENV['dashboard_url'].blank?
 
     "#{comment} — #{ENV['dashboard_url']}"
-  end
-
-  # The dedup gate: nothing new to say, and nothing owed. A pair still owed a
-  # submission URL is pushed anyway — once — so that reaches Canvas even though the
-  # score itself hasn't moved since the last sync.
-  def unchanged_and_submitted?(line_item, context, signature)
-    signature_unchanged?(line_item, context, signature) &&
-      !submission_pending?(line_item, context)
   end
 
   def signature_unchanged?(line_item, context, signature)
