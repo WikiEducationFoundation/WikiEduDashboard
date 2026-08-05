@@ -7,6 +7,11 @@ QUERY_ROUTE="ROUTE_TO_QUERIES"
 DASHBOARD_URL="URL_TO_DASHBOARD"
 JSON_ENDPOINT="$DASHBOARD_URL/system/can_start_backup.json"
 
+# Give up after MAX_WAIT_ATTEMPTS * WAIT_INTERVAL_IN_SECONDS (two hours) instead of
+# polling forever, so a course update that never goes to sleep can't hang the script.
+WAIT_INTERVAL_IN_SECONDS=300
+MAX_WAIT_ATTEMPTS=24
+
 log() {
   printf '%s : %s\n' "$(date '+%m%d%Y %T')" "$1" >> "$LOG_FILE"
 }
@@ -28,11 +33,19 @@ check_app_is_ready_for_backup() {
 }
 
 wait_until_ready_for_backup() {
+  local attempts=0
   local status=$(check_app_is_ready_for_backup)
 
   while [ $status != 200 ];
   do
-      sleep 300
+      if [ $attempts -ge $MAX_WAIT_ATTEMPTS ]; then
+        log "Waiting for more than two hours. Aborting"
+        mysql < "$QUERY_ROUTE/failed.sql" || true
+        exit 1
+      fi
+
+      attempts=$((attempts + 1))
+      sleep $WAIT_INTERVAL_IN_SECONDS
       status=$(check_app_is_ready_for_backup)
   done
 }
