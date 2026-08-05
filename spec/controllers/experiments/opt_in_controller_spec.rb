@@ -14,6 +14,7 @@ describe Experiments::OptInController, type: :controller do
   before do
     allow(Features).to receive(:wiki_ed?).and_return(true)
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
+    allow(Features).to receive(:fall_2026_research_student_optin?).and_return(true)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(student)
   end
 
@@ -99,6 +100,30 @@ describe Experiments::OptInController, type: :controller do
       post :opt_out, params: { experiment_slug: slug, course_id: course.id }
       record = ExperimentCoursesUser.find_by(courses_user:, experiment_slug: slug)
       expect(record.opted_out?).to be true
+    end
+  end
+
+  context 'when the student side is held back by the feature flag' do
+    before do
+      allow(Features).to receive(:fall_2026_research_student_optin?).and_return(false)
+      create(:tag, course:, tag: "#{slug}_opted_in")
+    end
+
+    it 'does not ask the student to respond' do
+      get :show, params: { course_id: course.id }
+      expect(response.parsed_body['needs_response']).to be false
+    end
+
+    it 'refuses an opt-in' do
+      post :opt_in, params: { experiment_slug: slug, course_id: course.id }
+      expect(response).to have_http_status(422)
+      expect(ExperimentCoursesUser.count).to eq(0)
+    end
+
+    it 'reports no outstanding install step to a student who opted in earlier' do
+      opt_student_in
+      get :show, params: { course_id: course.id }
+      expect(response.parsed_body['userscript']).to be_nil
     end
   end
 

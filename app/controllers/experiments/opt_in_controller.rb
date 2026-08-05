@@ -71,13 +71,14 @@ module Experiments
 
     def pending_participation
       return nil unless @experiment && @courses_user
+      return nil unless @experiment.open_to_student?(@courses_user)
 
       record = @experiment.participation(@courses_user)
       record if record&.opted_in? && record.userscript_installed_at.nil?
     end
 
     def can_respond?
-      @experiment && @courses_user && @experiment.course_participating?(@course)
+      @experiment && @courses_user && @experiment.open_to_student?(@courses_user)
     end
 
     def render_not_eligible

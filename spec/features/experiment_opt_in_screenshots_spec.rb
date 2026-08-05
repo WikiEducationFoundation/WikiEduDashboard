@@ -37,6 +37,7 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     page.current_window.resize_to(1440, 1100)
     allow(Features).to receive(:wiki_ed?).and_return(true)
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
+    allow(Features).to receive(:fall_2026_research_student_optin?).and_return(true)
   end
 
   after { logout }

@@ -26,7 +26,7 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
   const [phase, setPhase] = useState('hidden');
   const [checked, setChecked] = useState(false);
 
-  const eligible = !!(course && course.id && course.eligible_for_active_research_experiment
+  const eligible = !!(course && course.id && course.research_experiment_open_to_students
     && current_user && current_user.isStudent);
 
   const fetchInvitation = async () => {
@@ -140,7 +140,7 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
 ExperimentOptInInvitation.propTypes = {
   course: PropTypes.shape({
     id: PropTypes.number,
-    eligible_for_active_research_experiment: PropTypes.bool
+    research_experiment_open_to_students: PropTypes.bool
   }).isRequired,
   current_user: PropTypes.shape({
     isStudent: PropTypes.bool

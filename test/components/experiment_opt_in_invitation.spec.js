@@ -16,7 +16,7 @@ const request = require('../../app/assets/javascripts/utils/request').default;
 
 const ExperimentOptInInvitation = require('../../app/assets/javascripts/components/overview/experiment_opt_in_invitation').default;
 
-const eligibleCourse = { id: 1, eligible_for_active_research_experiment: true };
+const eligibleCourse = { id: 1, research_experiment_open_to_students: true };
 const student = { isStudent: true };
 
 const flush = async () => {
@@ -47,7 +47,7 @@ describe('ExperimentOptInInvitation', () => {
   });
 
   it('renders nothing for a course not eligible for the experiment', async () => {
-    const course = { id: 1, eligible_for_active_research_experiment: false };
+    const course = { id: 1, research_experiment_open_to_students: false };
     const container = await renderComponent(course, student);
     expect(request).not.toHaveBeenCalled();
     expect(container.querySelector('.experiment-opt-in__panel')).toBeNull();

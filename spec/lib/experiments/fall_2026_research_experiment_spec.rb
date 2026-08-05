@@ -7,7 +7,10 @@ describe Fall2026ResearchExperiment do
   let(:experiment) { described_class.new }
   let(:fall_2026_course) { create(:course, start: Date.new(2026, 9, 1)) }
 
-  before { allow(Features).to receive(:wiki_ed?).and_return(true) }
+  before do
+    allow(Features).to receive(:wiki_ed?).and_return(true)
+    allow(Features).to receive(:fall_2026_research_student_optin?).and_return(true)
+  end
 
   describe '#eligible_course?' do
     it 'is true for a Fall 2026 ClassroomProgramCourse' do
@@ -62,6 +65,33 @@ describe Fall2026ResearchExperiment do
       expect(experiment.needs_response?(courses_user)).to be true
       experiment.handle_student_opt_in(courses_user)
       expect(experiment.needs_response?(courses_user)).to be false
+    end
+  end
+
+  describe 'holding back the student side' do
+    let(:student) { create(:user) }
+    let(:courses_user) do
+      create(:courses_user, course: fall_2026_course, user: student,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    before do
+      allow(Features).to receive(:fall_2026_research_student_optin?).and_return(false)
+      create(:tag, course: fall_2026_course, tag: experiment.opted_in_tag)
+    end
+
+    it 'still lets an instructor opt the course in' do
+      expect(fall_2026_course.eligible_for_active_research_experiment?).to be true
+      expect(experiment.course_participating?(fall_2026_course)).to be true
+    end
+
+    it 'does not invite enrolled students' do
+      expect(experiment.needs_response?(courses_user)).to be false
+      expect(experiment.open_to_student?(courses_user)).to be false
+    end
+
+    it 'keeps the course JSON from advertising the experiment to students' do
+      expect(fall_2026_course.research_experiment_open_to_students?).to be false
     end
   end
 

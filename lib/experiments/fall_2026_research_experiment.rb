@@ -55,6 +55,13 @@ class Fall2026ResearchExperiment < OptInExperiment
     course.inferred_term == 'fall_2026'
   end
 
+  # Held back until the userscript is ready to hand to students. Instructors can
+  # opt their courses in before then; those courses simply have no students
+  # invited yet.
+  def student_invitations_open?
+    Features.fall_2026_research_student_optin?
+  end
+
   def userscript_import_line
     USERSCRIPT_IMPORT_LINE
   end

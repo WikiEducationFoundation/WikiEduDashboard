@@ -665,9 +665,17 @@ class Course < ApplicationRecord
     end
   end
 
-  # Drives the `only_if` gate on the wizard's research-study opt-in panel.
+  # Drives the `only_if` gate on the wizard's research-study opt-in panel, which
+  # stays available even while the student-facing side is held back.
   def eligible_for_active_research_experiment?
     OptInExperiment.for_course(self).present?
+  end
+
+  # Whether enrolled students should be shown anything about an active research
+  # experiment. Serialized into the course JSON so the client can skip the
+  # invitation lookup entirely while the student side is not live.
+  def research_experiment_open_to_students?
+    OptInExperiment.for_course(self)&.student_invitations_open? || false
   end
 
   # Overridden for some course types

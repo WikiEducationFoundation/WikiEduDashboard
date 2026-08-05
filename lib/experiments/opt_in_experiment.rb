@@ -67,9 +67,22 @@ class OptInExperiment
     eligible_course?(course) && course.tag?(opted_in_tag)
   end
 
+  # Whether the student-facing side is live yet. An experiment can start
+  # collecting instructor opt-ins before students are invited; override in
+  # subclasses that need to stage the rollout that way.
+  def student_invitations_open?
+    true
+  end
+
+  # A student may be invited, and may respond, only once their course is
+  # participating and the student-facing side is live.
+  def open_to_student?(courses_user)
+    student_invitations_open? && course_participating?(courses_user.course)
+  end
+
   # Whether this enrolled student still needs to see the invitation.
   def needs_response?(courses_user)
-    return false unless course_participating?(courses_user.course)
+    return false unless open_to_student?(courses_user)
     participation(courses_user).nil?
   end
 
