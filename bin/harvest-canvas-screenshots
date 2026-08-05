@@ -216,11 +216,11 @@ CAPTIONS = {
     'Peer review as its own gradebook column — it has no exercise module, so until ' \
     'now the stage could not be imported into Canvas at all. The roster shows who is ' \
     'reviewing what, not just how many reviews each student has finished.',
-  '07-submission-placeholder' =>
-    "Opening one student's submission. Canvas's own answer here is \"No Preview " \
-    'Available\", because a score posted over AGS carries no submitted artifact; ' \
-    'this says so plainly and points at the Dashboard until per-student submission ' \
-    'views are built.',
+  '07-submission-view' =>
+    "Opening one student's submission — the view SpeedGrader shows, where Canvas's " \
+    'own answer is \"No Preview Available\" because a score posted over AGS carries ' \
+    "no submitted artifact. The column's drill-down, narrowed to the student the " \
+    'submission is about, named, and linked through to their Dashboard details.',
   '08-exercise-student-panel' =>
     "The same exercise as the student sees it: their status, a Launch instructions " \
     "button to the exercise's training module, and their sandbox.",

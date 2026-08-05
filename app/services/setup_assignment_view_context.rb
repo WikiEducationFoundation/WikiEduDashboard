@@ -12,14 +12,17 @@
 # the Canvas gradebook column itself, where they appear by Canvas's own names
 # with no score, so the view points there instead of printing opaque ids.
 class SetupAssignmentViewContext
+  include LtiRosterFocus
+
   Row = Struct.new(:name, :username, :removed_in_lms, keyword_init: true)
 
   attr_reader :line_item, :user
 
-  def initialize(line_item:, instructor:, user: nil)
+  def initialize(line_item:, instructor:, user: nil, focus_user: nil)
     @line_item = line_item
     @instructor = instructor
     @user = user
+    @focus_user = focus_user
     @binding = line_item.lti_course_binding
   end
 
@@ -81,7 +84,7 @@ class SetupAssignmentViewContext
   # Learners by LMS role, so the connected/not-connected counts don't include
   # staff or a Canvas observer (who is neither).
   def student_contexts
-    @student_contexts ||= @binding.lti_contexts.select(&:learner?)
+    @student_contexts ||= focused(@binding.lti_contexts.select(&:learner?))
   end
 
   def connected_contexts

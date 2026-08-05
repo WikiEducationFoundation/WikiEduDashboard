@@ -8,6 +8,8 @@
 # Counts come from LtiPeerReviewProgress — the same calculation behind what's
 # reported to Canvas — so this view can't disagree with the gradebook.
 class PeerReviewAssignmentViewContext
+  include LtiRosterFocus
+
   Row = Struct.new(:name, :completed_count, :total_count, :reviews, keyword_init: true) do
     def done?
       total_count.positive? && completed_count >= total_count
@@ -32,10 +34,11 @@ class PeerReviewAssignmentViewContext
 
   attr_reader :line_item, :course
 
-  def initialize(line_item:, user:, instructor:)
+  def initialize(line_item:, user:, instructor:, focus_user: nil)
     @line_item = line_item
     @user = user
     @instructor = instructor
+    @focus_user = focus_user
     @binding = line_item.lti_course_binding
     @course = @binding.course
   end
@@ -107,6 +110,7 @@ class PeerReviewAssignmentViewContext
   # Wikipedia-linked learners on this binding, ordered for a stable roster —
   # the same set every other drill-down lists.
   def student_contexts
-    @student_contexts ||= @binding.linked_student_contexts.sort_by { |c| c.user.username }
+    @student_contexts ||=
+      focused(@binding.linked_student_contexts.sort_by { |c| c.user.username })
   end
 end

@@ -9,9 +9,11 @@
 .lti-iframe__drilldown
   = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
   - if @context.instructor?
-    %p.lti-iframe__lead
-      = t('lti.assignment_view.setup.summary',
-          connected: @context.connected_count, total: @context.total_count)
+    - # Course-wide counts, so they stay out of a single-student submission view.
+    - if @focus_user.nil?
+      %p.lti-iframe__lead
+        = t('lti.assignment_view.setup.summary',
+            connected: @context.connected_count, total: @context.total_count)
     - if @context.total_count.zero?
       %p.lti-iframe__empty= t('lti.assignment_view.setup.empty')
     - else
@@ -35,7 +37,7 @@
                     - # (or not) is the instructor's call.
                     - if row.removed_in_lms
                       %span.lti-status.lti-status--removed= t('lti.assignment_view.status.removed_in_lms')
-      - if @context.pending_count.positive?
+      - if @context.pending_count.positive? && @focus_user.nil?
         .lti-iframe__next-step
           %p= t('lti.assignment_view.setup.pending', count: @context.pending_count)
     = render 'lti_launch/grade_sync',

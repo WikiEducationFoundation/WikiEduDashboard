@@ -2468,6 +2468,14 @@ en:
         progress: "%{completed} of %{total} trainings completed"
         module: "Training"
         due_date: "Due date"
+        # Heading over the instructor's list of the trainings this column covers.
+        # [PLACEHOLDER - heading for the list of trainings the column rolls up]
+        covered: "Trainings in this course"
+        # Per-training, how many of the course's connected students have completed
+        # it. Spelled out because the roster below carries a different fraction
+        # (trainings completed per student), and "0 / 1" beside a module name read
+        # as neither. Operator's own wording (2026-08-05), so no placeholder.
+        module_completion: "Completed by %{completed} of %{total} students"
       # The peer-review column. `progress` mirrors the comment phrasing in
       # LtiPeerReviewProgress ("X of Y peer reviews completed"), the way the
       # trainings one mirrors its own service.
@@ -2488,3 +2496,7 @@ en:
       submission:
         explanation: "Viewing submissions for this assignment in Canvas hasn't been implemented yet. Please go to the Dashboard."
         open_dashboard: "Open the Wiki Education Dashboard"
+        # [PLACEHOLDER - names the student whose submission a SpeedGrader launch is showing]
+        viewing: "Showing work by %{username}"
+        # [PLACEHOLDER - link from a submission view to that student's Dashboard details page]
+        details: "Open their student details"

@@ -5,6 +5,9 @@
 -# background), so the confirmation says it has started rather than showing a
 -# result inline. Locals: `binding` (the bound LtiCourseBinding that owns the
 -# line items), `ltik` (carried so the re-render re-authenticates the launch).
+-# Suppressed in a submission view: that launch is about grading one student, and
+-# a course-wide sync button there is both noise and a wrong-scope invitation.
+- return if @focus_user
 .lti-grade-sync
   %dl.lti-status-list
     .lti-status-list__row

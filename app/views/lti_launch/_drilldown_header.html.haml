@@ -12,3 +12,8 @@
               class: 'lti-iframe__course-link' do
       = course.title
       %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+- # A submission launch (SpeedGrader, or a submission page) is about one student, and
+- # the view below is narrowed to them. Name them, and give the instructor the way
+- # through to everything the iframe can't hold.
+- if @focus_user
+  = render 'lti_launch/submission_focus', user: @focus_user, course: course

@@ -9,13 +9,23 @@
   - if @context.instructor?
     - # What the roll-up covers: each module linked, with how many of the
     - # connected students have completed it.
-    .lti-iframe__description
-      %ul.lti-trainings-list
-        - @context.module_stats.each do |stat|
-          %li
-            = link_to stat.name, stat.training_url, target: '_blank', rel: 'noopener'
-            %span.lti-trainings-list__count
-              = "#{stat.completed_count} / #{stat.total_count}"
+    - #
+    - # Both numbers are spelled out rather than left as "0 / 1". This page carries
+    - # two different fractions — students-per-training here, trainings-per-student
+    - # in the roster below — and a bare pair of numbers next to a module name read
+    - # as neither of them (operator, 2026-08-05).
+    - # Course-wide, so it is left out of a single-student submission view, where
+    - # "Completed by 1 of 1 students" would read as a claim about the class.
+    - if @focus_user.nil?
+      .lti-iframe__description
+        %h2.lti-trainings-list__header= t('lti.assignment_view.trainings.covered')
+        %ul.lti-trainings-list
+          - @context.module_stats.each do |stat|
+            %li
+              = link_to stat.name, stat.training_url, target: '_blank', rel: 'noopener'
+              %span.lti-trainings-list__count
+                = t('lti.assignment_view.trainings.module_completion',
+                    completed: stat.completed_count, total: stat.total_count)
     - roster = @context.roster
     - if roster.empty?
       %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
@@ -34,6 +44,10 @@
                   %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
                     = t('lti.assignment_view.trainings.progress',
                         completed: row.completed_count, total: row.total_count)
+    - # Grading one student's trainings column takes knowing WHICH trainings are
+    - # done; the roster row carries only the count.
+    - if @focus_user
+      = render 'lti_launch/training_modules', rows: @context.viewer_training_rows
     = render 'lti_launch/grade_sync',
              binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
   - else
@@ -42,23 +56,4 @@
       %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
         = t('lti.assignment_view.trainings.progress',
             completed: row.completed_count, total: row.total_count)
-      .lti-table-scroll
-        %table.lti-assignment-roster
-          %thead
-            %tr
-              %th= t('lti.assignment_view.trainings.module')
-              %th= t('lti.assignment_view.trainings.due_date')
-              %th= t('lti.assignment_view.roster.status')
-          %tbody
-            - @context.viewer_training_rows.each do |training|
-              %tr
-                %td
-                  = link_to training.name, training.training_url,
-                            target: '_blank', rel: 'noopener'
-                %td= training.due_date&.strftime('%b %-d, %Y')
-                %td
-                  %span.lti-status{ class: training.completed? ? 'lti-status--done' : 'lti-status--pending' }
-                    = training.status
-                  - if training.completion_date
-                    %span.lti-trainings__completed-at
-                      = training.completion_date.strftime('%b %-d, %Y')
+      = render 'lti_launch/training_modules', rows: @context.viewer_training_rows

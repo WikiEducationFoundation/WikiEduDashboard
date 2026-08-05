@@ -1146,50 +1146,56 @@ its not-signed-in state; and the launch-path duplicate-link message.
   Existing specs missed it because the only sync_grades framing assertion was on
   the stale-ltik path, which calls `allow_iframe` directly.
 
-- [ ] **A tool-graded submission has no preview, in SpeedGrader or the submission
-  page.** Both show "No preview available" for an imported assignment with a
-  posted AGS score, so an instructor grading through the normal Canvas workflow
-  never reaches the per-student drill-down that already exists. Confirmed on
-  staging against a healthy assignment: `submission_types: ["external_tool"]`,
-  published, and the submission `graded` with score 1.0 and attempt 1. We post
-  scores with no submission-side data, so Canvas has a graded attempt with
-  nothing to render.
+- [x] **A tool-graded submission now previews as that student's drill-down.** Both
+  SpeedGrader and the submission page showed "No preview available" for an
+  imported assignment with a posted AGS score, so an instructor grading through
+  the normal Canvas workflow never reached the per-student drill-down that already
+  existed. We posted scores with no submission-side data, so Canvas had a graded
+  attempt with nothing to render.
 
-  The mechanism for fixing it, verified against Canvas's own source rather than
-  inferred: the AGS Score payload accepts a
-  `https://canvas.instructure.com/lti/submission` extension whose
-  `SCORE_SUBMISSION_TYPES` are `none`, `basic_lti_launch`, `online_text_entry`,
-  `online_url`, `external_tool`, `online_upload`. For `basic_lti_launch` and
-  `online_url`, `submission_data` becomes the submission's URL, which is what
-  SpeedGrader renders.
+  The mechanism, verified against Canvas's own source rather than inferred: the AGS
+  Score payload accepts a `https://canvas.instructure.com/lti/submission` extension
+  whose `SCORE_SUBMISSION_TYPES` are `none`, `basic_lti_launch`,
+  `online_text_entry`, `online_url`, `external_tool`, `online_upload`. For
+  `basic_lti_launch` and `online_url`, `submission_data` becomes the submission's
+  URL, which is what SpeedGrader renders. Canvas keeps that URL only when the score
+  also claims `new_submission: true` — verified both ways on staging: with `false`
+  the submission existed with a nil url and the instructor still got "No Preview
+  Available".
 
-  **Constraint, from the operator (2026-08-03): a submission URL must not encode
-  the student's Wikipedia username.** That rules out the otherwise obvious
-  choice — pointing `online_url` at the student's sandbox, which embeds
-  `User:<username>` and is exactly what score comments already exclude for this
-  reason (see `LtiBlockProgress`). What's left is `basic_lti_launch` pointed at
-  our own launch URL, which carries only a `resource` marker today.
+  What shipped:
 
-  Design notes for whoever builds it:
+  - `LtiScorePayload#submission_launch_url` sends `basic_lti_launch` pointed at our
+    own launch URL, carrying the column's `resource` marker and the student's LMS
+    `user_lti_id`. **The operator's constraint (2026-08-03) — a submission URL must
+    not encode the student's Wikipedia username** — rules out pointing `online_url`
+    at the sandbox, which embeds `User:<username>` and is exactly what score
+    comments already exclude for this reason (see `LtiBlockProgress`). The LMS id is
+    Canvas's own identifier for the student, so Canvas learns nothing new from it.
+  - The launch renders the column's existing drill-down narrowed to that one
+    student, via `LtiRosterFocus` on all four view contexts, with a banner naming
+    them and linking to their Dashboard student details page. A generic placeholder
+    that said only "not implemented yet" was the first attempt, and the operator's
+    verdict on seeing it in SpeedGrader (2026-08-05) was that a submission view
+    which can't say whose work it is has no more use than Canvas's own message.
+  - Authorization comes from the launch, not the marker — the same lesson as the
+    forgeable `params[:binding_id]` in `complete_setup`. An instructor may open any
+    student on the roster; a student presenting someone else's marker gets the
+    student-less placeholder, never another student's sandboxes.
+  - One attempt per (column, student), tracked by `submission_reported_at` on
+    `LtiScoreSignature`. Sending the extension on every push would pile up attempts
+    and shove already-graded submissions back into the needs-grading queue. This
+    was first inferred from "no signature row yet", which was wrong in a way worth
+    recording: every pair already syncing before the extension shipped has a
+    signature and no submission, so those courses could never get a URL — the
+    operator's own walkthrough course needed 11 signatures deleted by hand before
+    Canvas would store one. The persisted marker makes it retroactive, and a pair
+    still owed a URL is pushed once even when its score hasn't changed.
 
-  - SpeedGrader launches as the *instructor*, so a launch URL carrying only
-    `resource` renders the roster drill-down, not the student whose submission is
-    open. Showing the right student needs a per-student marker in the URL, and it
-    has to be an opaque one: the LMS `user_lti_id` (Canvas's own identifier,
-    already our context key) or the `LtiContext` id. Never a username.
-  - Authorization must come from the launch, not the marker — the same lesson as
-    the forgeable `params[:binding_id]` in `complete_setup`. An instructor may
-    open any student in their course; a student passing someone else's marker
-    must be refused.
-  - `new_submission` decides whether each post creates a new attempt. Grade sync
-    re-posts whenever a score changes, so sending `new_submission: true` every
-    time would pile up attempts in the submission history. The
-    `LtiScoreSignature` dedup already suppresses unchanged pushes; changed ones
-    still need a deliberate answer here.
-  - Whether this is worth doing at all is a product call: the drill-down is
-    reachable from the assignment page, and the alternative reading is that "no
-    preview" is simply honest — there is no submitted artifact, only Dashboard
-    progress.
+  Still open: the staging harness reaches this page by visiting the stored URL
+  directly, through Canvas's `external_tools/retrieve` wrapper. That is not
+  equivalent to SpeedGrader's own launch, so the harness gate is a weaker check
+  than the operator's manual confirmation.
 
 - [x] **Peer review is a gradable column now.** It was the one stage the picker
   could never offer: no exercise module means no Block to hang a gradable off, so

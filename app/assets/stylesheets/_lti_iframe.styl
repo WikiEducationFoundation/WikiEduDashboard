@@ -224,7 +224,13 @@ inline-external-icon()
   margin-left 8px
   color #4a5a6b
   font-size 13px
-  white-space nowrap
+
+// Heading over the trainings this column rolls up, so the list isn't an
+// unlabelled block above the roster table.
+.lti-trainings-list__header
+  margin 0 0 8px
+  font-size 15px
+  color #17212b
 
 // When a training is completed, the date sits after the status pill.
 .lti-trainings__completed-at
@@ -629,3 +635,22 @@ inline-external-icon()
 
   dt
     font-size 12px
+
+// Whose submission a SpeedGrader launch is showing. Sits directly under the
+// drill-down header, where the frame is narrow, so it stays on one line and wraps
+// as a unit rather than splitting the name from the link.
+.lti-submission-focus
+  display flex
+  flex-wrap wrap
+  align-items baseline
+  gap 0.5em
+  margin 0 0 1em
+  padding 0.5em 0.75em
+  border-left 3px solid #676eb4
+  background #f4f4fb
+
+  &__student
+    font-weight bold
+
+  &__link
+    font-size 0.9em

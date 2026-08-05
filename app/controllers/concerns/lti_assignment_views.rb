@@ -22,42 +22,75 @@ module LtiAssignmentViews
     # resolve explicitly and fall back to the launch binding when the context
     # isn't linked to a Dashboard course yet.
     binding = @lti_session.bound_binding || @binding
-    return render_submission_placeholder(binding) if params[:submission].present?
+    # Before the contexts are built: a submission launch narrows them to one student.
+    @focus_user = submission_focus_user(binding) if params[:submission].present?
     line_item = ResolveAssignmentLineItem.new(binding:, lti_session: @lti_session).result
     template, @context = assignment_view_for(line_item)
+    return render_submission_placeholder(binding) if submission_fallback?(template)
     return render 'lti_launch/assignment_view_orphan', layout: 'lti_iframe' if template.nil?
 
     render "lti_launch/#{template}", layout: 'lti_iframe'
   end
 
-  # A launch from a student's submission in Canvas — SpeedGrader or the submission
-  # page — rather than from the assignment itself. Marked by `submission` on the
-  # URL we hand Canvas as the submission's own (SyncLtiGrades#submission_launch_url),
-  # so it can't be confused with an ordinary assignment launch.
+  # A submission launch we can't render as one student's work: the marker named
+  # nobody we may show them, or the column itself didn't resolve. Either way the
+  # placeholder is a better answer than the orphan view, which talks about the
+  # assignment rather than the submission the instructor opened.
+  def submission_fallback?(template)
+    params[:submission].present? && (@focus_user.nil? || template.nil?)
+  end
+
+  # Which student a submission launch is about — the `submission` marker on the URL
+  # we hand Canvas as the submission's own (LtiScorePayload#submission_launch_url)
+  # carries their LMS user id.
   #
-  # There is no per-student submission view yet, and Canvas's fallback for an
-  # assignment whose grade arrived by AGS is a bare "No Preview Available". Say what
-  # is actually going on and point at the Dashboard instead.
+  # Instructors may be shown anyone on the roster; a student may only ever be shown
+  # their own work, so a marker naming somebody else resolves to nobody rather than
+  # opening another student's sandboxes. Nil also covers the URLs Canvas stored
+  # before the marker named a student (`submission=1`) and members who have since
+  # left the course; all three land on the student-less placeholder.
+  def submission_focus_user(binding)
+    return if binding.nil?
+
+    target = LtiContext.find_by(lti_course_binding_id: binding.id,
+                                user_lti_id: params[:submission])
+    return if target.nil? || target.user.nil?
+    return target.user if @lti_session.instructor?
+
+    target.user_lti_id == @lti_session.user_lti_id ? target.user : nil
+  end
+
+  # A launch from a student's submission in Canvas — SpeedGrader or the submission
+  # page — that we can't tie to a student on this roster. Canvas's own fallback for
+  # an assignment whose grade arrived by AGS is a bare "No Preview Available"; say
+  # what is actually going on and point at the Dashboard instead.
   def render_submission_placeholder(binding)
     @submission_course = binding&.course
     render 'lti_launch/assignment_view_submission', layout: 'lti_iframe'
   end
 
   # Template + view context for the resolved line item's gradable type.
+  #
+  # `focus_user` narrows the instructor roster to one student for a submission
+  # launch; it is nil for every other launch, which leaves the roster whole.
   def assignment_view_for(line_item)
     instructor = @lti_session.instructor?
-    user = launch_viewer
+    focus_user = @focus_user
+    # Per-student panels describe the student the submission is about; with no
+    # focus that's whoever launched.
+    user = focus_user || launch_viewer
     case line_item&.gradable_type
     when 'Block'
-      ['assignment_view', AssignmentViewContext.new(line_item:, user:, instructor:)]
+      ['assignment_view', AssignmentViewContext.new(line_item:, user:, instructor:, focus_user:)]
     when LtiLineItem::SETUP_TYPE
-      ['assignment_view_setup', SetupAssignmentViewContext.new(line_item:, instructor:, user:)]
+      ['assignment_view_setup',
+       SetupAssignmentViewContext.new(line_item:, instructor:, user:, focus_user:)]
     when LtiLineItem::TRAINING_PROGRESS_TYPE
       ['assignment_view_trainings',
-       TrainingsAssignmentViewContext.new(line_item:, user:, instructor:)]
+       TrainingsAssignmentViewContext.new(line_item:, user:, instructor:, focus_user:)]
     when LtiLineItem::PEER_REVIEW_TYPE
       ['assignment_view_peer_review',
-       PeerReviewAssignmentViewContext.new(line_item:, user:, instructor:)]
+       PeerReviewAssignmentViewContext.new(line_item:, user:, instructor:, focus_user:)]
     end
   end
 

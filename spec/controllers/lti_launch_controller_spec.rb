@@ -1606,6 +1606,29 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('lti-iframe__next-step')
       end
 
+      # This is the column the operator opened in SpeedGrader, where the generic
+      # placeholder was the whole finding: a submission view has to be about the
+      # student on screen. Course-wide counts aren't.
+      context 'when the launch comes from one student\'s submission' do
+        it 'shows that student\'s connection without the class-wide counts' do
+          linked_student = create(:user, username: 'LinkedStu')
+          LtiContext.create!(user: linked_student, lti_course_binding: binding,
+                             user_lti_id: 'lti-linked', lms_id: 'platform-x',
+                             roles: ['vocab/membership#Learner'], linked_at: Time.current)
+          LtiContext.create!(lti_course_binding: binding, user_lti_id: 'lti-pending-1',
+                             lms_id: 'platform-x', roles: ['vocab/membership#Learner'])
+
+          get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-linked' }
+
+          expect(response).to render_template('lti_launch/assignment_view_setup')
+          expect(response.body).to include('LinkedStu')
+          expect(response.body).not_to include(
+            CGI.escapeHTML(I18n.t('lti.assignment_view.setup.summary', connected: 1, total: 2))
+          )
+          expect(response.body).not_to include('lti-iframe__next-step')
+        end
+      end
+
       context 'as a student' do
         let(:role) { 'Learner' }
 
@@ -1629,12 +1652,52 @@ describe LtiLaunchController, type: :request do
     end
 
     # Opening one student's submission in Canvas launches us at the URL posted with
-    # the score. There is no per-student submission view yet, and Canvas's own
-    # fallback is a bare "No Preview Available".
+    # the score, which names the student. Canvas's own fallback there is a bare "No
+    # Preview Available"; ours is the column's drill-down narrowed to that student.
     context 'when the launch comes from a student submission in Canvas' do
-      before { approve_identity_link }
+      let(:submitting_student) { create(:user, username: 'Sandy Sub') }
+      let(:other_student) { create(:user, username: 'Otto Other') }
 
-      it 'explains that submission views are not built yet, and points at the Dashboard' do
+      before do
+        approve_identity_link
+        [[submitting_student, 'lti-sandy'], [other_student, 'lti-otto']].each do |student, lti_id|
+          LtiContext.create!(user: student, lti_course_binding: binding, user_lti_id: lti_id,
+                             lms_id: 'platform-x', roles: ['vocab/membership#Learner'],
+                             linked_at: Time.current)
+        end
+      end
+
+      it 'narrows the drill-down to the student the submission is about' do
+        get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-sandy' }
+
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/assignment_view')
+        expect(response.body).to include('Sandy Sub')
+        expect(response.body).not_to include('Otto Other')
+      end
+
+      # The whole point of the view: an instructor grading in SpeedGrader can see
+      # whose work this is and get to the rest of it.
+      it 'names the student and links to their Dashboard details' do
+        get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-sandy' }
+
+        expect(response.body).to include(
+          CGI.escapeHTML(I18n.t('lti.assignment_view.submission.viewing', username: 'Sandy Sub'))
+        )
+        expect(response.body)
+          .to include("/courses/#{course.slug}/students/articles/Sandy_Sub")
+      end
+
+      # Course-wide grade sync belongs to the assignment view, not to grading one
+      # student's submission.
+      it 'leaves the course-wide grade sync out of the single-student view' do
+        get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-sandy' }
+        expect(response.body).not_to include('lti-grade-sync')
+      end
+
+      # `submission=1` is what Canvas stored for every score posted before the
+      # marker named a student; those launches still have to land somewhere sane.
+      it 'falls back to the placeholder when the marker names no student' do
         get '/lti', params: { ltik: 'ltik-abc', resource: "Block:#{block.id}",
                               submission: '1' }
 
@@ -1643,6 +1706,28 @@ describe LtiLaunchController, type: :request do
         expect(response.body)
           .to include(CGI.escapeHTML(I18n.t('lti.assignment_view.submission.explanation')))
         expect(response.body).to include("/courses/#{course.slug}")
+      end
+
+      # The marker travels in a URL, so a student could put another student's id in
+      # it. Sandbox links and article work are visible to staff, not to classmates.
+      context 'when a student presents another student\'s marker' do
+        let(:role) { 'Learner' }
+
+        it 'shows them the placeholder instead of the other student' do
+          get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-sandy' }
+
+          expect(response).to render_template('lti_launch/assignment_view_submission')
+          expect(response.body).not_to include('Sandy Sub')
+        end
+
+        # Their own submission page in Canvas launches the same URL, and their own
+        # work is theirs to see.
+        it 'shows them their own submission' do
+          get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-user-1' }
+
+          expect(response).to render_template('lti_launch/assignment_view')
+          expect(response.body).to include(user.username)
+        end
       end
 
       # Without the marker it's an ordinary assignment launch and must still reach
@@ -1790,7 +1875,35 @@ describe LtiLaunchController, type: :request do
         expect(response.body).to include('Wiki intro')
         expect(response.body)
           .to include("/training/#{course.training_library_slug}/wiki-intro")
-        expect(response.body).to include('1 / 1')
+        # Spelled out, not "1 / 1": this page carries a second, different fraction
+        # (trainings per student, asserted above), and a bare pair of numbers beside
+        # a module name read as neither.
+        expect(response.body).to include(
+          CGI.escapeHTML(I18n.t('lti.assignment_view.trainings.module_completion',
+                                completed: 1, total: 1))
+        )
+        expect(response.body).to include(I18n.t('lti.assignment_view.trainings.covered'))
+      end
+
+      # A submission launch on this column is one student's trainings, so the
+      # class-wide fraction beside each module ("Completed by 1 of 1 students")
+      # would be a claim about the class made from a single row.
+      context 'when the launch comes from one student\'s submission' do
+        it 'shows which trainings that student has done, not the class counts' do
+          student = create(:user, username: 'Stu Dent')
+          LtiContext.create!(user: student, lti_course_binding: binding,
+                             user_lti_id: 'lti-stu', lms_id: 'platform-x',
+                             roles: ['vocab/membership#Learner'], linked_at: Time.current)
+          TrainingModulesUsers.create!(user: student, training_module: training_mod,
+                                       completed_at: 1.day.ago)
+
+          get '/lti', params: { ltik: 'ltik-abc', submission: 'lti-stu' }
+
+          expect(response).to render_template('lti_launch/assignment_view_trainings')
+          expect(response.body).to include('Stu Dent')
+          expect(response.body).to include('Wiki intro')
+          expect(response.body).not_to include(I18n.t('lti.assignment_view.trainings.covered'))
+        end
       end
 
       context 'as a student' do

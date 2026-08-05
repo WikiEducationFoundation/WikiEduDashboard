@@ -17,21 +17,22 @@
 #   - `activityProgress` is derived from the score rather than always Completed.
 #     The trainings roll-up pushes fractions, so a blanket Completed contradicted
 #     the number beside it.
-#   - The submission extension rides along on the FIRST push for a (column,
-#     student), and only then. Canvas stores the launch URL only when the score
-#     claims a new submission, and a new submission is a new attempt — so sending
+#   - The submission extension rides along until Canvas has one for a (column,
+#     student), and then never again — SyncLtiGrades#submission_pending? decides,
+#     from a persisted marker. Canvas stores the launch URL only when the score
+#     claims a new submission, and a new submission is a new attempt, so sending
 #     it every time would pile up attempts and shove an already-graded submission
 #     back into the needs-grading queue. Every column gets one, including the
 #     mechanical ones: an instructor who opens any column in SpeedGrader would
 #     otherwise meet Canvas's bare "No Preview Available" (operator decision
 #     2026-08-05).
 class LtiScorePayload
-  def initialize(line_item:, context:, progress:, comment:, first_push:)
+  def initialize(line_item:, context:, progress:, comment:, report_submission:)
     @line_item = line_item
     @context = context
     @progress = progress
     @comment = comment
-    @first_push = first_push
+    @report_submission = report_submission
   end
 
   def to_h
@@ -60,16 +61,20 @@ class LtiScorePayload
   end
 
   # The URL Canvas stores as the submission's own, so opening a student's
-  # submission launches us instead of showing "No Preview Available". Carries the
-  # column's resource marker and NO identifier for the student, deliberately: this
-  # URL is persisted inside Canvas, where a Wikipedia username must not go (the
-  # same rule that keeps sandbox URLs out of score comments). The launch itself
-  # says who is looking.
+  # submission launches us instead of showing "No Preview Available".
+  #
+  # It names the student it is about, because each score is posted per student and
+  # a submission view that can't say whose work it is shows the instructor nothing
+  # they didn't already know (operator, 2026-08-05). The identifier is the LMS's
+  # own opaque user id — never a Wikipedia username, which must not be persisted
+  # inside Canvas (the same rule that keeps sandbox URLs out of score comments).
+  # Canvas already knows this id; it learns nothing new from it.
   def submission_launch_url
-    return unless @first_push
+    return unless @report_submission
     return if ENV['LTIAAS_DOMAIN'].blank?
 
     "https://#{ENV['LTIAAS_DOMAIN']}/lti/launch" \
-      "?resource=#{CGI.escape(@line_item.resource_marker)}&submission=1"
+      "?resource=#{CGI.escape(@line_item.resource_marker)}" \
+      "&submission=#{CGI.escape(@context.user_lti_id)}"
   end
 end

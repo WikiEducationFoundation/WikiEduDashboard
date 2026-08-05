@@ -9,6 +9,8 @@
 # including "Evaluate Wikipedia". The sentinel columns have their own
 # contexts (SetupAssignmentViewContext, TrainingsAssignmentViewContext).
 class AssignmentViewContext
+  include LtiRosterFocus
+
   StudentRow = Struct.new(:name, :username, :progress_state, :sandbox_url,
                           :assigned_articles, keyword_init: true) do
     def completed?
@@ -40,10 +42,11 @@ class AssignmentViewContext
 
   attr_reader :line_item, :block, :course
 
-  def initialize(line_item:, user:, instructor:)
+  def initialize(line_item:, user:, instructor:, focus_user: nil)
     @line_item = line_item
     @user = user
     @instructor = instructor
+    @focus_user = focus_user
     @binding = line_item.lti_course_binding
     @course = @binding.course
     @block = resolve_block
@@ -213,8 +216,8 @@ class AssignmentViewContext
   # ordered by display name for a stable roster.
   def student_contexts
     @student_contexts ||=
-      @binding.linked_student_contexts
-              .select(&:user)
-              .sort_by { |context| context.user.username.downcase }
+      focused(@binding.linked_student_contexts
+                      .select(&:user)
+                      .sort_by { |context| context.user.username.downcase })
   end
 end

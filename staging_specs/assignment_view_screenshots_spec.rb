@@ -250,7 +250,7 @@ describe 'Assignment drill-down screenshots', :staging do
 
       capture_article_stage_instructor(canvas_id, assignments)
       capture_peer_review_instructor(canvas_id, assignments)
-      capture_submission_placeholder(canvas_id, assignments)
+      capture_submission_view(canvas_id, assignments)
     end
   end
 
@@ -281,29 +281,28 @@ describe 'Assignment drill-down screenshots', :staging do
     capture('06-peer-review-instructor')
   end
 
-  # What an instructor gets when they open one student's submission: Canvas's own
-  # answer is "No Preview Available", because an AGS score carries no artifact.
-  # Reached via the launch URL posted with the score, so this shot is of the same
-  # page SpeedGrader shows.
-  # Skips rather than fails, and says which way it fell short, because reaching
-  # this page depends on Canvas passing our launch URL's query string through its
-  # external_tools/retrieve wrapper — which it does NOT do for the URL it stores
-  # from the AGS submission extension: the marker is lost and the launch lands on
-  # the ordinary status view instead (observed 2026-08-04). SpeedGrader may launch
-  # a submission differently; until that's confirmed, one missing shot must not
-  # cost the eleven working ones in this flow.
-  def capture_submission_placeholder(canvas_id, assignments)
+  # What an instructor gets when they open one student's submission: the column's
+  # drill-down narrowed to that student, which the operator confirmed SpeedGrader
+  # renders (2026-08-05). Reached via the launch URL posted with the score.
+  #
+  # Skips rather than fails, and says which way it fell short. Two distinct
+  # failures are worth telling apart: no URL stored at all (the score predates the
+  # submission extension for that pair), versus a URL that lands on the
+  # student-less placeholder — which is what an old `submission=1` URL does, and
+  # also what a dropped query string through Canvas's external_tools/retrieve
+  # wrapper would look like. Neither should cost the working shots in this flow.
+  def capture_submission_view(canvas_id, assignments)
     submission = submission_launch_path(canvas_id, assignments[:exercise])
     return warn '  [skip] no submission URL stored for the exercise column' if submission.nil?
 
     visit submission
-    unless page.has_content?(t_lti('assignment_view.submission.explanation'), wait: 20)
-      return warn '  [skip] the stored submission URL did not reach the placeholder ' \
-                  '(Canvas dropped the launch query string)'
+    unless page.has_content?(t_lti('assignment_view.submission.details'), wait: 20)
+      return warn '  [skip] the stored submission URL did not resolve to a student ' \
+                  '(pre-marker URL, or Canvas dropped the launch query string)'
     end
 
     sleep 1
-    capture('07-submission-placeholder')
+    capture('07-submission-view')
   end
 
   # Canvas stores our launch URL as the submission's own, wrapped in its

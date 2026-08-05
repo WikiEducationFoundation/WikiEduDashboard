@@ -189,13 +189,15 @@ describe SyncLtiGrades do
       expect(WebMock).to have_requested(:post, %r{find-sources/scores})
         .with { |req| submission_claim(req)['submission_type'] == 'basic_lti_launch' }
       expect(WebMock).to have_requested(:post, %r{find-sources/scores})
-        .with { |req| submission_claim(req)['submission_data'].include?('submission=1') }
+        .with { |req| submission_claim(req)['submission_data'].include?('submission=lti-alice') }
     end
 
-    # This URL is persisted inside Canvas, so it must not carry a Wikipedia
-    # username — the same rule that keeps sandbox URLs out of score comments. The
-    # launch says who is looking.
-    it 'identifies the column but never the student' do
+    # The URL names the student, because the view it opens is about one student and
+    # a submission view that can't say whose work it is tells the instructor nothing.
+    # By LMS user id: this URL is persisted inside Canvas, where a Wikipedia
+    # username must not go — the same rule that keeps sandbox URLs out of score
+    # comments — and Canvas already knows its own id for the student.
+    it 'identifies the column and the student, never the Wikipedia username' do
       described_class.new(binding)
 
       marker = "Block%3A#{exercise_block.id}"
@@ -229,6 +231,32 @@ describe SyncLtiGrades do
       expect(WebMock).to have_requested(:post, %r{find-sources/scores})
       expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
         .with { |req| submission_claim(req).any? }
+    end
+
+    # Every course already running when this shipped has a signature for each pair
+    # and no submission behind it. Keying the extension on "nothing pushed yet" left
+    # those permanently on Canvas's "No Preview Available" — the marker is persisted
+    # so an unchanged score still gets one push to carry the URL.
+    it 'sends the submission claim for a pair that has never had one' do
+      described_class.new(binding)
+      LtiScoreSignature.update_all(submission_reported_at: nil)
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+        .with { |req| submission_claim(req)['submission_type'] == 'basic_lti_launch' }
+    end
+
+    # ...and having sent it, stops: the marker is what makes it one push and not one
+    # per sync cycle, forever.
+    it 'stops sending it once the marker records that Canvas has one' do
+      described_class.new(binding)
+      LtiScoreSignature.update_all(submission_reported_at: nil)
+      described_class.new(binding)
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
     end
 
     # The mechanical columns are unaffected: there, completion IS the grade.
