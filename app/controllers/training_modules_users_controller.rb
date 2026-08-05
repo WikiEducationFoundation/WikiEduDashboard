@@ -25,8 +25,8 @@ class TrainingModulesUsersController < ApplicationController
     set_training_module_user
     block = Block.find(params[:block_id])
     @course = block.course
-    verify_exercise_sandbox { return }
-    mark_completion_status(params[:complete], @course.id)
+    verify_exercise_sandbox { return } if marking_complete?
+    mark_completion_status(marking_complete?, @course.id)
 
     render 'courses/_block', locals: { block:, course: @course }
   end
@@ -79,13 +79,26 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.furthest_slide?(@slide.slug)
   end
 
-  def verify_exercise_sandbox
-    return if @training_module_user.eligible_for_completion?(@course.home_wiki)
+  # The sandbox check only guards against premature completion, so unmarking an
+  # exercise doesn't have to pass it.
+  def marking_complete?
+    ActiveModel::Type::Boolean.new.cast(params[:complete]) || false
+  end
 
-    error_message = "Please complete the exercise in your Exercise Sandbox (#{@training_module_user.exercise_sandbox_location}) before marking it complete" # rubocop:disable Layout/LineLength
-    render json: { message: error_message, status: 'incomplete' },
+  def verify_exercise_sandbox
+    check = CheckExerciseSandbox.new(training_module_user: @training_module_user,
+                                     course: @course)
+    return if check.eligible?
+
+    render json: { message: exercise_sandbox_error(check), status: 'incomplete' },
            status: :forbidden
     yield
+  end
+
+  def exercise_sandbox_error(check)
+    return t('training.exercise_needs_assigned_article') if check.awaiting_article_assignment?
+
+    t('training.exercise_sandbox_incomplete', pages: check.missing_pages.join(', '))
   end
 
   def mark_completion_status(value, course_id)

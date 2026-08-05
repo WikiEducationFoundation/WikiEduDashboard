@@ -143,7 +143,7 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
 
     article_ids = articles.pluck(:id)
     acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
-    TimesliceCleaner.new(@course).reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    TimesliceCleaner.new(@course).mark_timeslices_for_reaggregation_from_acuwt(acuwt)
     delete_article_course(article_ids)
   end
 

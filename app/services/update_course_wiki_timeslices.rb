@@ -251,19 +251,19 @@ class UpdateCourseWikiTimeslices
   end
 
   def update_article_course_user_wiki_timeslices_for_wiki(wiki, revisions)
-    timeslice = acuwt_timeslice_for(wiki, revisions)
+    timeslice = course_wiki_timeslice_for(wiki, revisions)
     ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
       @course, wiki, timeslice.start, timeslice.end, revisions[:revisions]
     )
   end
 
   def update_article_course_timeslices_from_acuwt_for_wiki(wiki, revisions)
-    timeslice = acuwt_timeslice_for(wiki, revisions)
+    timeslice = course_wiki_timeslice_for(wiki, revisions)
     ArticleCourseTimeslice.bulk_update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
   end
 
   def update_course_user_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
-    timeslice = acuwt_timeslice_for(wiki, revisions)
+    timeslice = course_wiki_timeslice_for(wiki, revisions)
     acuwt_user_ids(wiki, timeslice).each do |user_id|
       CourseUserWikiTimeslice.update_from_acuwt(@course, user_id, wiki,
                                                timeslice.start, timeslice.end)
@@ -280,7 +280,7 @@ class UpdateCourseWikiTimeslices
   end
 
   def update_course_wiki_timeslices_from_acuwt_for_wiki(wiki, revisions)
-    timeslice = acuwt_timeslice_for(wiki, revisions)
+    timeslice = course_wiki_timeslice_for(wiki, revisions)
     CourseWikiTimeslice.update_from_acuwt(@course, wiki, timeslice.start, timeslice.end)
   end
 
@@ -305,7 +305,7 @@ class UpdateCourseWikiTimeslices
     CourseWikiTimeslice.update_from_acuwt(@course, wiki, cwt.start, cwt.end)
   end
 
-  def acuwt_timeslice_for(wiki, revisions)
+  def course_wiki_timeslice_for(wiki, revisions)
     @course.course_wiki_timeslices.where(wiki:)
            .for_revisions_between(revisions[:start], revisions[:end]).first
   end

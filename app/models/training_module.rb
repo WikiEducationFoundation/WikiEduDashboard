@@ -154,6 +154,12 @@ class TrainingModule < ApplicationRecord
     settings['sandbox_location']
   end
 
+  # For an exercise whose expected page is a subpage of an assigned article's
+  # sandbox (eg 'Bibliography'), rather than a fixed page under the userpage.
+  def assignment_sandbox_location
+    settings['assignment_sandbox_location']
+  end
+
   def sandbox_preload
     settings['preload']
   end

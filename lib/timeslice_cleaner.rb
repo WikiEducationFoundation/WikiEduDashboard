@@ -137,9 +137,32 @@ class TimesliceCleaner
     delete_article_course_user_wiki_timeslices_after_date(@course.wikis, @course.end)
   end
 
+  # Marks CWT rows as needs_reaggregation for every (wiki, start) period covered by the given
+  # ACUWT records, without touching the ACT and CUWT rows for those periods. The reaggregation
+  # pass rebuilds one ACT row per article and one CUWT row per user holding an ACUWT row in the
+  # period, so as long as the caller keeps its ACUWT rows, every row that could be stale is
+  # rewritten in place and deleting it first would only turn an update into a delete plus an
+  # insert. Whatever changed (namespace, scope, tracked flag, re-scored values) is recomputed
+  # by the rebuild.
+  # Callers that delete the ACUWT rows themselves must use
+  # reset_timeslices_for_reaggregation_from_acuwt instead, since the rebuild no longer covers
+  # the rows those records would have produced.
+  # Takes an ActiveRecord::Relation of ArticleCourseUserWikiTimeslice records.
+  def mark_timeslices_for_reaggregation_from_acuwt(acuwt_records)
+    return if acuwt_records.empty?
+
+    wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
+    return if wikis_and_starts.empty?
+
+    mark_timeslices_for_reaggregation(wikis_and_starts)
+  end
+
   # Marks CWT rows as needs_reaggregation for every (wiki, start) period covered
   # by the given ACUWT records, and deletes the ACT and CUWT rows for those
   # periods so they are cleanly re-derived during the next reaggregation pass.
+  # Only for callers that delete the ACUWT records afterwards: the reaggregation pass derives
+  # the rows it rebuilds from the surviving ACUWT rows, so it would leave these ones behind.
+  # Every other caller wants mark_timeslices_for_reaggregation_from_acuwt.
   # Takes an ActiveRecord::Relation of ArticleCourseUserWikiTimeslice records.
   def reset_timeslices_for_reaggregation_from_acuwt(acuwt_records)
     return if acuwt_records.empty?

@@ -2231,7 +2231,7 @@ nl:
     form_errors: Controleer het formulier op fouten.
     invalid_assignment: Incorrecte opdracht
     invalid_date: '%{key} datum is onjuist'
-    invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
+    invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een pdf- of
       Word-document.
     oauth_invalid: Uw Wikipedia-autorisatie is verlopen. Meld u opnieuw aan.
     start_date_before_end_date: De begindatum moet voor de einddatum liggen
@@ -2366,8 +2366,8 @@ nl:
     completion_time: Voltooiingstijd
     late: Laat
     view: Weergeven
-    started: Begonnen
-    not_started: Niet begonnen
+    started: Gestart
+    not_started: Niet gestart
     due: vervalt %{due_date}
     assignment_status: Trainingsopdracht (%{status})
   multi_wiki:
