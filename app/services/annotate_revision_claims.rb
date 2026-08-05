@@ -33,28 +33,55 @@ class AnnotateRevisionClaims
     extractor = ClaimVerification::ClaimCitationExtractor.new(source_html)
     citations_by_ref_id = extractor.citations.index_by(&:ref_id)
     doc = Nokogiri::HTML.fragment(source_html)
+    # One span per pool claim: the same sentence can be reached through more than
+    # one of the extractor's claims (a sentence carrying several citations), and
+    # highlighting it twice would both nest the spans and inflate the claim count.
+    highlighted = Set.new
     extractor.claims.each do |claim|
       harvested = harvested_claims[normalize(claim.sentence)]
-      highlight(doc, claim, citations_by_ref_id, harvested) if harvested
+      next if harvested.nil? || highlighted.include?(harvested.id)
+      highlighted << harvested.id if highlight(doc, claim, citations_by_ref_id, harvested)
     end
     absolutize_links(doc)
     doc.to_html
   end
 
-  # Wrap the (added) claim's sentence at its citation marker. Markers are located
-  # by the ref ids extracted from this full revision; the span data comes from the
-  # stored pool claim. Falls back to tagging just the marker if the sentence can't
-  # be located in the prose.
+  # Wrap the (added) claim's sentence where that sentence actually appears in the
+  # prose; the span data comes from the stored pool claim. The citation marker is
+  # deliberately not used to place the highlight — see SentenceHighlighter — only
+  # to identify the source and to carry the fallback tag when the sentence can't
+  # be found in any paragraph.
   def highlight(doc, claim, citations_by_ref_id, harvested)
     ref_id = claim.ref_ids.find { |id| citations_by_ref_id.key?(id) }
-    return if ref_id.nil?
+    return false if ref_id.nil?
     data = data_for(harvested, ref_id)
-    markers = markers_for(doc, ref_id)
-    return if markers.empty?
-    wrapped = markers.any? do |marker|
-      ClaimVerification::SentenceHighlighter.new(marker:, sentence: claim.sentence, data:).wrap
+    return true if wrap_sentence(doc, claim.sentence, data)
+    marker = markers_for(doc, ref_id).first
+    return false if marker.nil?
+    tag(marker, data)
+    true
+  end
+
+  # The prose paragraph holding this sentence, wrapped. Paragraphs are searched in
+  # document order because a sentence occurs once in an article's prose in all but
+  # pathological cases; the highlighter itself refuses a sentence already inside
+  # another claim's span.
+  def wrap_sentence(doc, sentence, data)
+    prose_paragraphs(doc).any? do |paragraph|
+      ClaimVerification::SentenceHighlighter.new(paragraph:, sentence:, data:).wrap
     end
-    tag(markers.first, data) unless wrapped
+  end
+
+  # The paragraphs the segmenter drew its sentences from: article prose, not the
+  # contents of tables, figures or the reference list (which
+  # ClaimCitationExtractor drops before segmenting).
+  def prose_paragraphs(doc)
+    doc.css('p').reject do |paragraph|
+      paragraph.ancestors.any? do |ancestor|
+        %w[table figure].include?(ancestor.name) ||
+          ancestor['class'].to_s.split.include?('references')
+      end
+    end
   end
 
   # The citation markers (the <sup>) for this ref id. Matched by reading each
