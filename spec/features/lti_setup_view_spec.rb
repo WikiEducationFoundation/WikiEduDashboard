@@ -20,8 +20,13 @@ describe 'LTI instructor setup view', type: :feature, js: true do
   # at the approval step (LtiLaunchController#connect_identity). These examples
   # are about the setup view that follows, so they click through it; the approval
   # step has its own examples below.
+  # Waits for the consent page before clicking it. Clicking straight after `visit`
+  # raced the render on CI (the button simply wasn't there yet) while passing
+  # locally every time — the failure mode a bare click_button can't distinguish
+  # from a missing button.
   def launch_and_connect
     visit '/lti?ltik=ltik-abc'
+    expect(page).to have_content(I18n.t('lti.connect_identity.header'))
     click_button I18n.t('lti.connect_identity.confirm')
   end
 
