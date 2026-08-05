@@ -2469,7 +2469,6 @@ en:
         module: "Training"
         due_date: "Due date"
         # Heading over the instructor's list of the trainings this column covers.
-        # [PLACEHOLDER - heading for the list of trainings the column rolls up]
         covered: "Trainings in this course"
         # Per-training, how many of the course's connected students have completed
         # it. Spelled out because the roster below carries a different fraction
@@ -2489,14 +2488,8 @@ en:
         none_assigned: "No peer reviews have been assigned to you yet."
       orphan:
         explanation: "There is no Dashboard content to show for this assignment."
-      # Shown when an instructor opens one student's submission in Canvas
-      # (SpeedGrader or the submission page). Canvas's own answer there is "No
-      # Preview Available", because a score posted over AGS carries no submitted
-      # artifact; this replaces it until per-student submission views exist.
       submission:
-        explanation: "Viewing submissions for this assignment in Canvas hasn't been implemented yet. Please go to the Dashboard."
+        explanation: "There is no student work to show for this submission."
         open_dashboard: "Open the Wiki Education Dashboard"
-        # [PLACEHOLDER - names the student whose submission a SpeedGrader launch is showing]
         viewing: "Showing work by %{username}"
-        # [PLACEHOLDER - link from a submission view to that student's Dashboard details page]
-        details: "Open their student details"
+        details: "Open student details"

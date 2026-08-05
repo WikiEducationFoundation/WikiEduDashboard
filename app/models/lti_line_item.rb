@@ -104,7 +104,7 @@ class LtiLineItem < ApplicationRecord
   # student work whose quality only the instructor can assess — the exercise
   # Blocks, and peer review, where the Dashboard can see that a review page was
   # written but not whether the review is any good. Those report submission and
-  # leave the grade to the instructor (see SyncLtiGrades#post_for_grading).
+  # leave the grade to the instructor (see LtiScorePayload#for_grading).
   #
   # Keyed on gradable_type rather than a per-block flag: nothing to keep in step
   # with the timeline, and a new sentinel column has to pick a side explicitly.

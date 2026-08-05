@@ -144,9 +144,11 @@ class LtiServiceSession
   # url was nil and an instructor still got "No Preview Available"; with true the
   # url appeared and the attempt incremented.
   #
-  # Which is why the caller sends this only on the FIRST push for a
-  # (column, student) — see SyncLtiGrades#post_for_grading. One attempt each,
-  # carrying the URL, and nothing to pile up afterwards.
+  # Which is why the caller sends this on EVERY push, not once per
+  # (column, student) — see LtiScorePayload. Canvas discards the URL it was
+  # holding when a later score arrives without the claim, so sending it once only
+  # held until the grade next moved. An attempt per push is the cost; the score
+  # signature bounds it, since a push happens only when the reported state changed.
   def submission_payload(url)
     { new_submission: true, submission_type: 'basic_lti_launch', submission_data: url }
   end

@@ -1201,7 +1201,11 @@ its not-signed-in state; and the launch-path duplicate-link message.
     grade next moves — which for a trainings roll-up is every completed training.
     Attempt churn is bounded by the score signature instead: an unchanged score
     isn't pushed at all, so attempts track real state changes, not cron cycles.
-    `submission_reported_at` is kept as a diagnostic record of the first URL.
+    `submission_reported_at` is kept as a diagnostic record of the first URL —
+    written, never read, and gating nothing. Keeping a column that gates nothing is
+    the operator's call (2026-08-05): the ground under this behaviour has been
+    re-measured three times, and when the URL first reached a pair is worth a
+    nullable column the next time it has to be measured again.
 
   - The launch had to be *recognized* as an assignment launch at all.
     `assignment_launch?` tested only id_token claims, and a submission launch comes

@@ -1,8 +1,9 @@
 - # The fallback for a submission launch we can't tie to a student on the roster:
-- # a URL Canvas stored before the marker named a student, a member who has since
-- # left the course, or a student's marker presented by another student. Resolvable
-- # launches get the column's own view narrowed to that student instead
-- # (LtiAssignmentViews#submission_focus_user).
+- # a URL Canvas stored before the marker named a student, a member who has left
+- # the course or never connected a Wikipedia account, a student's marker presented
+- # by another student, or a column that didn't resolve. Resolvable launches get the
+- # column's own view narrowed to that student instead
+- # (LtiAssignmentViews#submission_focus_user, #submission_fallback?).
 - #
 - # Canvas's own answer here is "No Preview Available", because an AGS score carries
 - # no submitted artifact — this says so in our own words and points at the

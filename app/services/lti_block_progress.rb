@@ -9,7 +9,7 @@
 # Exercise work is evaluated by the instructor, so SyncLtiGrades reports a
 # complete block as Submitted + PendingManual with no score, and Canvas leaves
 # the submission ungraded in the needs-grading queue. The score here is read as
-# "did the student finish it" — see SyncLtiGrades#post_for_grading.
+# "did the student finish it" — see LtiScorePayload#for_grading.
 #
 # Only the block's *exercise* modules are considered. Its training-kind modules
 # are graded by the rolled-up "Wikipedia trainings" column, so requiring them
