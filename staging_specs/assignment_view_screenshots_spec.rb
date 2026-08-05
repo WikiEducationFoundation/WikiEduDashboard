@@ -281,42 +281,48 @@ describe 'Assignment drill-down screenshots', :staging do
     capture('06-peer-review-instructor')
   end
 
-  # What an instructor gets when they open one student's submission: the column's
-  # drill-down narrowed to that student, which the operator confirmed SpeedGrader
-  # renders (2026-08-05). Reached via the launch URL posted with the score.
+  # What an instructor gets when they open one student's submission — captured
+  # from SpeedGrader, which is where an instructor actually grades, rather than by
+  # visiting the stored submission URL directly.
   #
-  # Skips rather than fails, and says which way it fell short. Two distinct
-  # failures are worth telling apart: no URL stored at all (the score predates the
-  # submission extension for that pair), versus a URL that lands on the
-  # student-less placeholder — which is what an old `submission=1` URL does, and
-  # also what a dropped query string through Canvas's external_tools/retrieve
-  # wrapper would look like. Neither should cost the working shots in this flow.
+  # The direct visit is what the earlier version did, and it skipped: Canvas's
+  # `external_tools/retrieve` wrapper reached without SpeedGrader's own context
+  # doesn't land on a student-specific view. SpeedGrader does — verified in
+  # `speed_grader_preview_diagnostic_spec` — and it is the honest shot anyway,
+  # since it shows our view inside the grading UI the instructor is using.
+  #
+  # Skips with a reason rather than failing: this is one shot in a flow of twelve,
+  # and SpeedGrader is a heavy SPA to wait on.
   def capture_submission_view(canvas_id, assignments)
-    submission = submission_launch_path(canvas_id, assignments[:exercise])
-    return warn '  [skip] no submission URL stored for the exercise column' if submission.nil?
+    return warn '  [skip] no exercise column imported' unless assignments[:exercise]
 
-    visit submission
-    unless page.has_content?(t_lti('assignment_view.submission.details'), wait: 20)
-      return warn '  [skip] the stored submission URL did not resolve to a student ' \
-                  '(pre-marker URL, or Canvas dropped the launch query string)'
+    visit speed_grader_url(canvas_id, assignments[:exercise])
+    unless speed_grader_shows_student_view?
+      return warn '  [skip] SpeedGrader did not render the per-student view'
     end
 
     sleep 1
     capture('07-submission-view')
   end
 
-  # Canvas stores our launch URL as the submission's own, wrapped in its
-  # external_tools/retrieve. Read it back off the API rather than rebuilding it.
-  def submission_launch_path(canvas_id, assignment_id)
-    student_id = ENV.fetch('CANVAS_TEST_STUDENT_USER_ID')
-    submission = canvas_api.submission(course_id: canvas_id, assignment_id:,
-                                       user_id: student_id)
-    return submission['url'] if submission&.dig('url')
+  def speed_grader_url(canvas_id, assignment_id)
+    "https://canvas.wikiedu.org/courses/#{canvas_id}/gradebook/speed_grader" \
+      "?assignment_id=#{assignment_id}&student_id=#{ENV.fetch('CANVAS_TEST_STUDENT_USER_ID')}"
+  end
 
-    # Say what Canvas actually has, so a skip is diagnosable rather than mute.
-    warn "  [diagnostic] submission=#{submission&.slice('workflow_state', 'submission_type',
-                                                        'attempt', 'score').inspect}"
-    nil
+  # SpeedGrader loads its submission iframe well after the page, so this waits on
+  # the frame and then on our own copy inside it, reloading once in between.
+  def speed_grader_shows_student_view?
+    2.times do
+      frame = first('iframe#speedgrader_iframe', wait: 25)
+      if frame && within_frame(frame) { has_text?(t_lti('assignment_view.submission.details'),
+                                                 wait: 20) }
+        return true
+      end
+
+      page.refresh
+    end
+    false
   end
 
   def capture_student_views(canvas_id, assignments)

@@ -427,6 +427,14 @@ rescue Errno::ESRCH, Errno::ECHILD
   nil # already gone
 end
 
+# Every role with shots on disk, not just the ones this invocation harvested. A
+# single-role re-run refreshes that role's section; without this it rebuilt the
+# gallery from that role alone and silently dropped every other flow's shots,
+# which reads as "the gallery is complete" when it isn't.
+def roles_with_shots
+  ROLE_SPECS.keys.select { |role| Dir.glob(File.join(run_dir, role, '*.png')).any? }
+end
+
 def main
   base_url = pr_comment_flag
   FileUtils.mkdir_p(run_dir)
@@ -434,8 +442,12 @@ def main
   return puts(pr_comment_markdown(base_url, roles)) if base_url
 
   results = {}
-  with_optional_xephyr { results = roles.to_h { |role| [role, harvest(role)] } }
-  gallery = build_gallery(roles)
+  # BUILD_ONLY rebuilds the gallery from the shots already on disk — no browser,
+  # no staging traffic. For when a caption or the gallery layout changed.
+  unless ENV['BUILD_ONLY']
+    with_optional_xephyr { results = roles.to_h { |role| [role, harvest(role)] } }
+  end
+  gallery = build_gallery(roles_with_shots)
   warn "\nGallery: #{gallery}"
   failed = results.reject { |_, ok| ok }.keys
   warn "Roles that did not pass cleanly: #{failed.join(', ')}" if failed.any?
