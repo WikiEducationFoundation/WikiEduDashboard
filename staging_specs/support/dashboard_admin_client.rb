@@ -471,6 +471,88 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip == 'ok'
   end
 
+  # The binding's whole grade-push surface: its line items, the score signatures
+  # recorded against them, and the last sync's outcome. A push that doesn't reach
+  # Canvas can fail on our side (no line item for the column, an LTIAAS rejection
+  # counted into last_grade_sync_error) or on Canvas's, and the REST submission
+  # read alone can't tell those apart — so a spec whose push goes missing needs
+  # this to say which side to look at.
+  def lti_state(course_slug:)
+    script = <<~RUBY
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      binding = LtiCourseBinding.find_by!(course_id: course.id)
+      items = LtiLineItem.where(lti_course_binding_id: binding.id).map do |item|
+        { type: item.gradable_type, gradable_id: item.gradable_id, label: item.label,
+          lineitem_id: item.lineitem_id.to_s[-40..], archived: item.archived_at.present?,
+          canvas_assignment_id: item.canvas_assignment_id,
+          signatures: LtiScoreSignature.where(lti_line_item_id: item.id).map do |sig|
+            { context: sig.lti_context_id, signature: sig.signature[0, 10],
+              last_pushed_at: sig.last_pushed_at.to_s,
+              submission_reported_at: sig.submission_reported_at.to_s }
+          end }
+      end
+      puts({ last_grade_sync_at: binding.last_grade_sync_at.to_s,
+             last_grade_sync_error: binding.last_grade_sync_error.to_s,
+             contexts: LtiContext.where(lti_course_binding_id: binding.id)
+                                 .map { |c| { id: c.id, user_lti_id: c.user_lti_id,
+                                              linked: c.linked_at.present? } },
+             line_items: items }.to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
+  # How many peer reviews the course expects — `flags[:peer_review_count]`, which
+  # LtiPeerReviewProgress divides by and DeepLinkableGradables gates the column on.
+  # Set explicitly rather than inherited from the wizard so a spec that needs two
+  # distinct partial states (1 of 2, then 2 of 2) doesn't depend on wizard content.
+  def set_peer_review_count(course_slug:, count:)
+    script = <<~RUBY
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      course.flags[:peer_review_count] = #{count.to_i}
+      course.save!
+      puts course.reload.peer_review_count
+    RUBY
+    DashboardConsole.run(script).strip.to_i
+  end
+
+  # Mark one of a student's peer reviews complete. This sets the student-side
+  # signal — `flags[:review][:status]` reaching peer_review_completed, what
+  # AssignmentsController#update_status writes — rather than the review page
+  # existing, which only the constant update cycle can write and so can't be
+  # staged synchronously. Either satisfies LtiPeerReviewProgress#completed?.
+  # `article_title` picks which of the student's reviewing assignments to finish.
+  def mark_peer_review_complete(course_slug:, username:, article_title:)
+    script = <<~RUBY
+      require_dependency "\#{Rails.root}/lib/assignment_pipeline"
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      user = User.find_by!(username: #{username.inspect})
+      review = Assignment.find_by!(course:, user:,
+                                   role: Assignment::Roles::REVIEWING_ROLE,
+                                   article_title: #{article_title.inspect})
+      review.update_status(AssignmentPipeline::ReviewStatuses::PEER_REVIEW_COMPLETED)
+      puts review.reload.status
+    RUBY
+    DashboardConsole.run(script).strip
+  end
+
+  # What LtiPeerReviewProgress would report for this student right now, including
+  # the signature SyncLtiGrades dedups on. The signature is the whole mechanism
+  # behind the re-push question, so a diagnostic measuring the Canvas side has to
+  # be able to show it moved between two pushes rather than assuming it did.
+  def peer_review_progress(course_slug:, username:)
+    script = <<~RUBY
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      user = User.find_by!(username: #{username.inspect})
+      progress = LtiPeerReviewProgress.new(course, user)
+      puts({ gradable: progress.gradable?, expected: progress.expected,
+             completed: progress.completed_count, score: progress.score_given,
+             comment: progress.comment, signature: progress.signature }.to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
   # Mark an exercise-kind module complete for the student in this course's
   # context (sets flags[course_id][:marked_complete]), the signal
   # LtiBlockProgress counts for exercise modules.

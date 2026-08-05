@@ -222,16 +222,51 @@ describe SyncLtiGrades do
     # carrying an empty url — the preview is gone (observed on staging 2026-08-05,
     # when a cron cycle pushed a changed trainings fraction). Sending it once holds
     # only until the grade next moves.
+    #
+    # Asserted on the mechanical account column, because those are the ones that
+    # push more than once: an instructor-graded column reports a single time per
+    # pair (see the pair of examples below).
     it 'sends the submission claim again on a later push for the same student' do
       described_class.new(binding)
-      line_item = LtiLineItem.find_by(lineitem_id: exercise_lineitem_url)
+      line_item = LtiLineItem.find_by(lineitem_id: setup_lineitem_url)
       # A changed signature is what lets a second push through the dedup.
       LtiScoreSignature.where(lti_line_item_id: line_item.id).update_all(signature: 'stale')
       WebMock.reset_executed_requests!
 
       described_class.new(binding)
-      expect(WebMock).to have_requested(:post, %r{find-sources/scores})
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
         .with { |req| submission_claim(req)['submission_type'] == 'basic_lti_launch' }
+    end
+
+    # Measured on staging 2026-08-05: a second Submitted/PendingManual result with
+    # no score wipes the grade the instructor entered after the first one — 0.75
+    # became nil and the column returned to pending_review. Canvas's `reset_score?`
+    # firing on an already-graded submission. So an instructor-graded column is
+    # reported once per (column, student), even when its progress moves.
+    it 'does not push an instructor-graded column again once it has been reported' do
+      described_class.new(binding)
+      line_item = LtiLineItem.find_by(lineitem_id: exercise_lineitem_url)
+      # Exactly what a completed peer review does to the peer-review signature: the
+      # progress the sync would report next differs from what was reported before.
+      LtiScoreSignature.where(lti_line_item_id: line_item.id).update_all(signature: 'stale')
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).not_to have_requested(:post, %r{find-sources/scores})
+    end
+
+    # The suppression is about the column being instructor-graded, not about the
+    # signature having been seen before — a mechanical column with an identically
+    # stale signature still pushes, because there a changed score is a real
+    # correction the Dashboard owns.
+    it 'still pushes a mechanical column whose score has moved' do
+      described_class.new(binding)
+      line_item = LtiLineItem.find_by(lineitem_id: setup_lineitem_url)
+      LtiScoreSignature.where(lti_line_item_id: line_item.id).update_all(signature: 'stale')
+      WebMock.reset_executed_requests!
+
+      described_class.new(binding)
+      expect(WebMock).to have_requested(:post, %r{setup/scores})
     end
 
     # What keeps attempts from piling up is the score signature, not any special

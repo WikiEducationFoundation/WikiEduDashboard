@@ -29,6 +29,12 @@
 #     signature still suppresses pushes when nothing changed, so attempts track
 #     real state changes rather than cron cycles. Every column gets one, including
 #     the mechanical ones (operator decision 2026-08-05).
+#
+#     Only the mechanical columns push more than once, though — see
+#     SyncLtiGrades#already_reported?. An instructor-graded column reports once per
+#     (column, student), because a second no-score result wipes the instructor's
+#     grade. So "every push" is a rule about what a push carries, not a claim that
+#     every column keeps pushing.
 class LtiScorePayload
   def initialize(line_item:, context:, progress:, comment:)
     @line_item = line_item

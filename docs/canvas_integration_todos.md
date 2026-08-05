@@ -1207,6 +1207,47 @@ its not-signed-in state; and the launch-path duplicate-link message.
     re-measured three times, and when the URL first reached a pair is worth a
     nullable column the next time it has to be measured again.
 
+  - **A fourth wrong design, and the one that mattered: re-pushing an
+    instructor-graded column destroys the instructor's grade.** A review round
+    flagged the peer-review column as able to push more than once — its signature
+    folds in the fraction and the "N of M peer reviews completed" comment, both of
+    which move on each completed review — and asked for a measurement rather than
+    an argument. Measured 2026-08-05 on staging, end to end
+    (`staging_specs/peer_review_repush_diagnostic_spec.rb`):
+
+    | | score | grade | state | attempt |
+    |---|---|---|---|---|
+    | after push 1 | nil | nil | `pending_review` | 1 |
+    | instructor grades it | 0.75 | `"0.75"` | `graded` | 1 |
+    | after push 2 | **nil** | **nil** | **`pending_review`** | 2 |
+
+    The grade is gone. This is Canvas's own `reset_score?` — the behaviour the
+    *first* push relies on to arrive as "submitted, please grade" — firing a second
+    time on a submission that had since been graded. `graded_at` even stays
+    populated while the score is nil, so the submission reads as graded at a glance.
+    Not a state-confusion risk: silent destruction of instructor work, on the one
+    column where the grade is the instructor's entire contribution.
+
+    The same run answered a question nobody had asked: **Canvas stores no
+    submission comment for a no-score result.** `comments=0` at every step, though
+    `LtiScorePayload` puts `comment:` in the payload for instructor-graded columns
+    and `post_score` sends it. The only prior observation of AGS comments working
+    (see the "- Someone" note above, 2026-07-24) predates the 2026-08-03 switch to
+    Submitted/PendingManual, when these columns still carried a real score — so the
+    two had never been measured together. Which decided the fix: the later pushes
+    were achieving nothing except the damage, since the progress note they carried
+    was never reaching the gradebook it was written for.
+
+    Fixed by `SyncLtiGrades#already_reported?`: an instructor-graded column is
+    reported exactly once per (column, student), whatever its progress does
+    afterwards. The first push still creates the submission and stores the launch
+    URL, so SpeedGrader still previews the work; the live "N of M" count is still in
+    the in-Canvas drill-down, which reads it directly rather than through Canvas.
+    Exercise blocks already behaved this way by accident of a nil comment and a
+    binary score — this makes it the rule instead of a property of one progress
+    class. Mechanical columns are untouched: there the Dashboard owns the grade and
+    a downward correction is the point.
+
   - The launch had to be *recognized* as an assignment launch at all.
     `assignment_launch?` tested only id_token claims, and a submission launch comes
     through Canvas's `external_tools/retrieve` wrapper with no AGS claim and no

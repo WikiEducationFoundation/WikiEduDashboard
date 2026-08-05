@@ -149,6 +149,10 @@ class LtiServiceSession
   # holding when a later score arrives without the claim, so sending it once only
   # held until the grade next moved. An attempt per push is the cost; the score
   # signature bounds it, since a push happens only when the reported state changed.
+  #
+  # Which pairs only push once in the first place, for the instructor-graded
+  # columns: a second no-score result destroys the instructor's grade
+  # (SyncLtiGrades#already_reported?).
   def submission_payload(url)
     { new_submission: true, submission_type: 'basic_lti_launch', submission_data: url }
   end

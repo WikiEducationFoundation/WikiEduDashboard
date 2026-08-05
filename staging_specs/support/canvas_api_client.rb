@@ -116,10 +116,28 @@ class CanvasApiClient
 
   # A student's submission for one assignment, including the AGS score
   # and the score comment(s) carried alongside it. `user_id` is the
-  # Canvas user id of the student.
-  def submission(course_id:, assignment_id:, user_id:)
+  # Canvas user id of the student. `include` takes extra Canvas include
+  # values (e.g. 'submission_history') for callers that need the attempt
+  # trail rather than just the current state.
+  def submission(course_id:, assignment_id:, user_id:, include: [])
+    params = { 'include[]' => ['submission_comments', *include] }
     get("/api/v1/courses/#{course_id}/assignments/#{assignment_id}/submissions/#{user_id}",
-        'include[]' => 'submission_comments')
+        params)
+  end
+
+  # Grade one submission the way an instructor would in SpeedGrader. The
+  # question this exists for is what a later AGS PendingManual/no-score push
+  # does to a grade that is already in place, and what matters for that is the
+  # submission reaching workflow_state 'graded' with a score — which a REST
+  # grade does, without the flakiness of driving SpeedGrader's UI. Canvas
+  # records the token's owner as the grader either way.
+  def grade_submission(course_id:, assignment_id:, user_id:, grade:)
+    put("/api/v1/courses/#{course_id}/assignments/#{assignment_id}/submissions/#{user_id}",
+        'submission[posted_grade]' => grade)
+  end
+
+  def assignment(course_id:, assignment_id:)
+    get("/api/v1/courses/#{course_id}/assignments/#{assignment_id}")
   end
 
   # Show or hide the tool's tab in the course's Course Navigation. The

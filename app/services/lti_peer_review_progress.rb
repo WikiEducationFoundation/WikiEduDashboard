@@ -37,6 +37,12 @@ class LtiPeerReviewProgress
     @comment = compute_comment
   end
 
+  # Moves on every completed review, since both the fraction and the comment do.
+  # That made this the one instructor-graded column whose progress could push
+  # twice, which staging showed destroys the instructor's grade — so what limits
+  # the pushes now is SyncLtiGrades#already_reported?, not this hash. Left
+  # progress-sensitive deliberately: it describes what would be reported, and the
+  # decision about how often to report belongs to the sync.
   def signature
     @signature ||= Digest::SHA1.hexdigest("peer_review|#{@score_given}|#{@comment}")
   end

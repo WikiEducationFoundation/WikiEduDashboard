@@ -142,6 +142,7 @@ class SyncLtiGrades
     progress = compute_progress(line_item, context)
     return unless progress&.gradable?
     return if skip_zero?(progress, line_item, context)
+    return if already_reported?(line_item, context)
     return if signature_unchanged?(line_item, context, progress.signature)
 
     reported = post_score(context, line_item, progress)
@@ -208,6 +209,29 @@ class SyncLtiGrades
     ).to_h
     @service.post_score(**payload)
     payload[:submission_url].present?
+  end
+
+  # An instructor-graded column is reported exactly once per (column, student),
+  # however much its progress moves afterwards. Measured on staging 2026-08-05:
+  # a second Submitted/PendingManual result with no score DESTROYS the grade the
+  # instructor entered in the meantime — 0.75 became nil and the column went back
+  # to pending_review. That is Canvas's `reset_score?`, the same behaviour the
+  # first push depends on to arrive as "submitted, please grade", firing again on
+  # a submission that had since been graded.
+  #
+  # Peer review is the column that made this reachable: its signature folds in the
+  # fractional score and the "N of M peer reviews completed" comment, so it moved on
+  # every completed review. Nothing was gained by those later pushes — the same
+  # measurement showed Canvas stores NO submission_comment for a no-score result,
+  # so the progress note never reached the gradebook it was written for. The live
+  # count is still in the in-Canvas drill-down, which reads it directly.
+  #
+  # Exercise blocks already behaved this way, by accident of a nil comment and a
+  # binary score; this makes it the rule rather than a property of one progress
+  # class. Mechanical columns are untouched: there the Dashboard owns the grade, a
+  # re-push carries a real score, and correcting it downward is the point.
+  def already_reported?(line_item, context)
+    line_item.instructor_graded? && !first_push?(line_item, context)
   end
 
   # Whether this is the first thing ever reported for this (column, student).
