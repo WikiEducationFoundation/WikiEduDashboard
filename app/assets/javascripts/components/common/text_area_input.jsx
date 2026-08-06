@@ -79,6 +79,7 @@ const TextAreaInput = ({
             inline: true,
             convert_urls: false,
             plugins: 'lists link code',
+            extended_valid_elements: 'iframe[src|width|height|frameborder|allow|allowfullscreen|title|referrerpolicy]',
             toolbar: [
               'undo redo | styleselect | bold italic',
               'alignleft alignright',
