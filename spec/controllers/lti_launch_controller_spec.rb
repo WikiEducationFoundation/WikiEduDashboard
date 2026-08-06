@@ -1471,9 +1471,15 @@ describe LtiLaunchController, type: :request do
     # The stage's outcome is which article each student took on, so the roster
     # reports that instead of a completion pill it can't act on.
     context 'when the launch resolves to an article-selection exercise' do
+      # The slug is load-bearing — it is how an article-selection exercise is
+      # recognized — so it can't be randomized, and the real training library
+      # carries it. Adopt an existing row rather than colliding with it on
+      # uniqueness once any spec has committed the library to the test DB. Same
+      # guard as spec/services/assignment_view_context_spec.rb.
       let(:exercise_module) do
-        create(:training_module, slug: 'choose-topic-from-list-exercise',
-                                 name: 'Choose your article from a list', kind: 1)
+        TrainingModule.find_by(slug: 'choose-topic-from-list-exercise') ||
+          create(:training_module, slug: 'choose-topic-from-list-exercise',
+                                   name: 'Choose your article from a list', kind: 1)
       end
 
       it "lists each student's assigned article in place of the status" do
