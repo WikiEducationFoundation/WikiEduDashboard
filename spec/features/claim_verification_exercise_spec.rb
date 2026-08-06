@@ -25,6 +25,14 @@ describe 'Claim verification exercise', type: :feature, js: true do
   let(:flagged_rev) { 2_998_441 } # the first revision of en:Sea otter
   let(:sentence) { 'Sea otters use rocks as tools to break open shellfish.' }
 
+  # The exercise's step headings, composed the way the app composes them, so
+  # these pin the numbers rather than restating the copy. The two pre-form steps
+  # name their copy directly; the form's steps keep theirs under `form`.
+  def step_heading(number, name_key)
+    I18n.t('claim_verification.step_heading',
+           number:, name: I18n.t("claim_verification.#{name_key}"))
+  end
+
   let(:article_html) do
     <<~HTML
       <p>#{sentence}<sup class="reference"><a href="#cite_note-1">[1]</a></sup>
@@ -68,11 +76,16 @@ describe 'Claim verification exercise', type: :feature, js: true do
 
     # The article picker is the first sub-view (no claim taken yet). Mark the
     # window so we can prove the rest of the flow never triggers a reload.
-    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 20)
+    expect(page).to have_content(step_heading(1, 'step_select_article'), wait: 20)
     page.execute_script('window.cvSameDocument = true;')
     # Each article tile is itself the opener for its in-place viewer (a button,
     # not a link).
     click_on 'Sea otter'
+
+    # Choosing a claim is step 2, and the viewer's banner says so: the numbering
+    # runs on from the picker into the server-numbered form steps below.
+    expect(page).to have_css('.cv-pick-banner__heading',
+                             text: step_heading(2, 'step_select_claim'), wait: 20)
 
     # The viewer renders the flagged revision annotated with its harvested claims;
     # clicking the highlighted claim sentence opens the in-viewer panel.
@@ -91,8 +104,10 @@ describe 'Claim verification exercise', type: :feature, js: true do
     assignment = VerificationClaimAssignment.find_by(user: student, course:)
     expect(assignment.verification_claim.sentence).to eq(sentence)
 
-    # The source-evaluation step comes first, judged from the citation alone.
-    expect(page).to have_content(I18n.t('claim_verification.form.step_evaluate_source'))
+    # The source-evaluation step comes first, judged from the citation alone. It
+    # is step 3: the form's numbering (config's `first_step_number`) picks up
+    # where the two pre-form steps left off.
+    expect(page).to have_content(step_heading(3, 'form.step_evaluate_source'))
     # Step instructions render as Markdown, so a URL in the operator copy is a
     # link out of the exercise rather than inert text.
     policy_link = find('.cv-form__step-instructions a', match: :first)

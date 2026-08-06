@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ClaimVerificationViewer from '@components/common/ArticleViewer/containers/ClaimVerificationViewer.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
 import formatRevisionDate from '../../utils/format_revision_date';
+import { stepHeading } from './steps';
 
 // The article picker: each candidate is an (article, flagged-revision) tile from
 // the pre-harvested claim pool, and is its own ArticleViewer laid out in a compact
@@ -41,7 +42,7 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId, onRetu
         <p>{I18n.t('claim_verification.intro_p1')}</p>
         <p>{I18n.t('claim_verification.intro_p2')}</p>
         <p>{I18n.t('claim_verification.intro_p3')}</p>
-        <h1>{I18n.t('claim_verification.step_select_article')}</h1>
+        <h1>{stepHeading('select_article')}</h1>
       </div>
       {articles.length ? (
         <ul className="claim-verification-exercise__article-grid">

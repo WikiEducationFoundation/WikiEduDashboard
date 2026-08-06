@@ -26,9 +26,12 @@ module ClaimVerification
     end
 
     # "Step 4: Find the source" — the number is composed in, not part of the copy.
+    # The format string is shared with the two steps that come before the form
+    # (see app/assets/javascripts/components/claim_verification_exercise/steps.js),
+    # so every step of the exercise reads as one sequence.
     def heading
       return unless numbered?
-      I18n.t('claim_verification.form.step_heading',
+      I18n.t('claim_verification.step_heading',
              number:, name: I18n.t("claim_verification.form.step_#{id}"))
     end
 

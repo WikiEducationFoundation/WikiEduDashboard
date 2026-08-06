@@ -18,7 +18,9 @@
 #
 # Step numbering is derived, not written into the copy, so reordering steps
 # renumbers them on its own. Steps 1 and 2 (select an article, select a claim)
-# happen before this form, hence first_step_number.
+# happen before this form and are numbered client-side the same way — see
+# app/assets/javascripts/components/claim_verification_exercise/steps.js — so
+# this must be the next number after the steps listed there.
 first_step_number: 3
 
 # `visible_when` gates a step or a question on an earlier answer: it is asked
