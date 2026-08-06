@@ -116,10 +116,14 @@ describe 'Claim verification exercise', type: :feature, js: true do
     choose I18n.t('claim_verification.form.source_appropriate_options.appropriate')
     choose I18n.t('claim_verification.form.meets_rs_policy_options.context_dependent')
 
-    # Then finding the source; saying they got it opens the verify-the-claim step.
+    # Then finding the source. The closing comments field has no business being
+    # asked before the student has said whether they even got the source, so it
+    # waits on that answer too — and then arrives whichever way they answered.
     expect(page).to have_content(I18n.t('claim_verification.form.step_find_source'))
+    expect(page).to have_no_field(I18n.t('claim_verification.form.other_comments_label'))
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))
+    expect(page).to have_field(I18n.t('claim_verification.form.other_comments_label'))
     choose I18n.t('claim_verification.form.verdict_options.partial_support')
     fill_in I18n.t('claim_verification.form.claim_location_label'), with: 'p. 44'
     click_button I18n.t('claim_verification.form.submit')

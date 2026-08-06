@@ -67,6 +67,21 @@ describe ClaimVerification::ExerciseForm do
     it 'asks the ungated questions whatever the answers' do
       expect(form.applicable_questions({}).map(&:id)).to include('source_appropriate')
     end
+
+    it 'holds back the closing comments until the source-access answer is in' do
+      expect(form.applicable_questions({}).map(&:id)).not_to include('other_comments')
+    end
+
+    # Whichever way the student answers it — the point of gating on `true`
+    # rather than a list, so a new source_access option can't leave the comments
+    # behind. Derived from the declared options for the same reason.
+    it 'asks the closing comments on every source-access answer' do
+      source_access = form.questions.find { |question| question.id == 'source_access' }
+      asked = source_access.options.map do |option|
+        form.applicable_questions('source_access' => option).map(&:id)
+      end
+      expect(asked).to all(include('other_comments'))
+    end
   end
 
   describe '#applicable_answers' do
@@ -132,18 +147,20 @@ describe ClaimVerification::ExerciseForm do
             'questions' => [{ 'id' => 'colour', 'type' => 'choice', 'required' => true,
                               'options' => %w[red blue] }] },
           { 'id' => 'explain', 'visible_when' => { 'colour' => ['red'] },
-            'questions' => [{ 'id' => 'shade', 'type' => 'text' }] }
+            'questions' => [{ 'id' => 'shade', 'type' => 'text' }] },
+          { 'id' => 'note', 'visible_when' => { 'colour' => true },
+            'questions' => [{ 'id' => 'why', 'type' => 'text' }] }
         ] }
     end
 
     before { allow(described_class).to receive(:definition).and_return(declaration) }
 
     it 'asks whatever the declaration names' do
-      expect(form.answer_keys).to eq(%w[colour shade])
+      expect(form.answer_keys).to eq(%w[colour shade why])
     end
 
     it 'numbers from the declared first step number' do
-      expect(form.steps.map(&:number)).to eq([1, 2])
+      expect(form.steps.map(&:number)).to eq([1, 2, 3])
     end
 
     it 'validates a choice against the options the declaration gives it' do
@@ -152,11 +169,19 @@ describe ClaimVerification::ExerciseForm do
     end
 
     it 'gates a step on the answer the declaration names' do
-      expect(form.applicable_questions('colour' => 'blue').map(&:id)).to eq(['colour'])
+      expect(form.applicable_questions('colour' => 'blue').map(&:id)).not_to include('shade')
     end
 
     it 'opens the gated step on the answer that satisfies it' do
-      expect(form.applicable_questions('colour' => 'red').map(&:id)).to eq(%w[colour shade])
+      expect(form.applicable_questions('colour' => 'red').map(&:id)).to eq(%w[colour shade why])
+    end
+
+    it 'holds back a step gated on `true` while its question is unanswered' do
+      expect(form.applicable_questions({}).map(&:id)).to eq(['colour'])
+    end
+
+    it 'opens a step gated on `true` on any answer, not a named one' do
+      expect(form.applicable_questions('colour' => 'blue').map(&:id)).to eq(%w[colour why])
     end
   end
 end

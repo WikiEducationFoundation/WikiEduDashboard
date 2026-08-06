@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/claim_verification/answer_gate"
+
 module ClaimVerification
   # One step of the fact-verification exercise form: a heading, optional
   # instructions, and the questions asked under it. Declared in
@@ -22,7 +24,7 @@ module ClaimVerification
 
     # Whether the step is shown at all, given the answers so far.
     def applicable?(answers)
-      visible_when.all? { |question_id, values| values.include?(answers[question_id]) }
+      AnswerGate.open?(visible_when, answers)
     end
 
     # "Step 4: Find the source" — the number is composed in, not part of the copy.
