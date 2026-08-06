@@ -133,6 +133,12 @@ describe ArticlesCoursesCleaner do
         expect(ArticleCourseUserWikiTimeslice.where(course:, article: article1)).to be_empty
         expect(course.article_course_timeslices.where(article: article1)).to be_empty
       end
+
+      it 'removes articles courses records' do
+        described_class.reset_specific_articles(course, articles)
+
+        expect(course.articles_courses.where(article: article1)).to be_empty
+      end
     end
 
     context 'when the course does not use ACUWT' do

@@ -156,12 +156,17 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   # revisions re-attributed to the live copy, on the next update) and the ACUWT
   # rows for those periods (along with the ACT/CUWT rows derived from them) are
   # deleted so the re-fetch regenerates them cleanly, leaving no stale rows.
+  # The article course records are deleted too (as in the legacy reset), since the
+  # revisions are re-attributed to the live copy, so these articles keep no
+  # timeslices to refresh their caches from.
   # For non-ACUWT courses, it falls back to the legacy reset.
   def reset_specific_articles(articles)
     return reset_legacy(articles) unless @course.use_acuwt?
 
-    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: articles.map(&:id))
+    article_ids = articles.map(&:id)
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
     TimesliceCleaner.new(@course).reset_timeslices_for_update_from_acuwt(acuwt)
+    delete_article_course(article_ids)
   end
 
   private
