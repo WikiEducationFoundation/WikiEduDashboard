@@ -114,6 +114,12 @@ describe TimesliceCleaner do
       end: end_date)
       create(:article_course_timeslice, course:, article: article3, start: end_date,
       end: end_date + 1.day)
+      create(:article_course_user_wiki_timeslice, course:, wiki: wikidata, article: article2,
+      user_id: 1, start: start_date, end: end_date)
+      create(:article_course_user_wiki_timeslice, course:, wiki: wikidata, article: article3,
+      user_id: 1, start: end_date, end: end_date + 1.day)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki, article: article1,
+      user_id: 1, start: start_date, end: end_date)
       course.reload
     end
 
@@ -128,6 +134,17 @@ describe TimesliceCleaner do
       expect(course.course_wiki_timeslices.size).to eq(221)
       expect(course.course_user_wiki_timeslices.size).to eq(2)
       expect(course.article_course_timeslices.size).to eq(2)
+    end
+
+    it 'deletes article course user wiki timeslices for the given period and wikis only' do
+      expect(ArticleCourseUserWikiTimeslice.where(course:).count).to eq(3)
+
+      timeslice_cleaner.delete_timeslices_for_period([wikidata], start_date, end_date)
+
+      # The wikidata record for a later period, and the enwiki record for the same period,
+      # both remain
+      expect(ArticleCourseUserWikiTimeslice.where(course:, wiki: wikidata).count).to eq(1)
+      expect(ArticleCourseUserWikiTimeslice.where(course:, wiki: enwiki).count).to eq(1)
     end
   end
 

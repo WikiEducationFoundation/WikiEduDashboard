@@ -6,6 +6,10 @@
 # students tab identifies students to instructors.
 real_names = CoursesUsers.where(course: @course).pluck(:user_id, :real_name).to_h
 
+# The questions the exercise asks, so each response's answers can be shown as
+# the questions the student answered.
+json.form { json.partial! 'form', form: @form }
+
 json.responses @responses do |response|
   claim = response.verification_claim
   json.username response.user.username

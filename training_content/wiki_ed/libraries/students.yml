@@ -34,7 +34,7 @@ categories:
         name: Working live on Wikipedia
         description: How to work incrementally to improve a live article
       - slug: generative-ai
-        name: Using generative AI tools with Wikipedia
+        name: Using AI tools with Wikipedia
         description: Guidance for using AI tools while working on Wikipedia
 
   - title: Special topics

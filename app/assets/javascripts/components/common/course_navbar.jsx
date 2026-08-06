@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import GetHelpButton from './get_help_button.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
+// Resources blocks live in the timeline but render on the Resources tab. When the
+// timeline is disabled, those blocks are the only reason to keep the tab around.
+const hasResourcesBlock = weeks => weeks.some(
+  week => (week.blocks || []).some(block => block.kind === BLOCK_KIND_RESOURCES)
+);
 
-const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
+const CourseNavbar = ({ course, location, currentUser, courseLink, weeks = [] }) => {
   // ///////////////
   // Course title //
   // ///////////////
@@ -46,7 +52,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   }
 
   let resources;
-  if (course.timeline_enabled) {
+  if (course.timeline_enabled || hasResourcesBlock(weeks)) {
     const resourcesLink = `${courseLink}/resources`;
     resources = (
       <div className="nav__item" id="resources-link">
@@ -113,7 +119,8 @@ CourseNavbar.propTypes = {
   course: PropTypes.object,
   location: PropTypes.object,
   currentUser: PropTypes.object,
-  courseLink: PropTypes.string
+  courseLink: PropTypes.string,
+  weeks: PropTypes.array
 };
 
 export default CourseNavbar;

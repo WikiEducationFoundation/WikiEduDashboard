@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ClaimVerificationViewer from '@components/common/ArticleViewer/containers/ClaimVerificationViewer.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
 import formatRevisionDate from '../../utils/format_revision_date';
+import { stepHeading } from './steps';
 
 // The article picker: each candidate is an (article, flagged-revision) tile from
 // the pre-harvested claim pool, and is its own ArticleViewer laid out in a compact
@@ -20,17 +21,35 @@ import formatRevisionDate from '../../utils/format_revision_date';
 //
 // The shell's `?showArticle=` deep link is article-keyed; when one article has
 // several flagged-revision tiles we auto-open the first of them on a deep link.
-export const ArticlePicker = ({ articles, course, onTaken, showArticleId }) => {
+//
+// `onReturnToClaim` is given only when the student already has a claim, and is
+// the way back out of the picker without taking a different one — browsing the
+// candidates is not meant to cost them the claim they already have.
+export const ArticlePicker = ({ articles, course, onTaken, showArticleId, onReturnToClaim }) => {
   const showWiki = new Set(articles.map(toWikiDomain)).size > 1;
   const deepLinkedTile = articles.find(article => article.id === showArticleId);
 
   return (
     <div className="container narrow claim-verification-exercise claim-verification-exercise--articles">
+      {onReturnToClaim && (
+        <div className="cv-preview-return">
+          <button type="button" className="button" onClick={onReturnToClaim}>
+            ← {I18n.t('claim_verification.back_to_claim')}
+          </button>
+        </div>
+      )}
       <div className="claim-verification-exercise__intro">
+        {/*
+          The exercise's own title, so the page says what it is before it says
+          what to do. That makes it the page's h1, which demotes the step heading
+          below to an h2 — the level every other step of the exercise uses.
+        */}
+        <h1>{I18n.t('claim_verification.exercise_heading')}</h1>
         <p>{I18n.t('claim_verification.intro_p1')}</p>
         <p>{I18n.t('claim_verification.intro_p2')}</p>
         <p>{I18n.t('claim_verification.intro_p3')}</p>
-        <h1>{I18n.t('claim_verification.step_select_article')}</h1>
+        <h2>{stepHeading('select_article')}</h2>
+        <p>{I18n.t('claim_verification.select_article_instructions')}</p>
       </div>
       {articles.length ? (
         <ul className="claim-verification-exercise__article-grid">
@@ -88,6 +107,8 @@ ArticlePicker.propTypes = {
   onTaken: PropTypes.func.isRequired,
   // Article id from the ?showArticle= deep link, if any; auto-opens that tile.
   showArticleId: PropTypes.number,
+  // Present only when the student already has a claim to go back to.
+  onReturnToClaim: PropTypes.func,
 };
 
 export default ArticlePicker;

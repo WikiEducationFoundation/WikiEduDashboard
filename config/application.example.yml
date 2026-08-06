@@ -52,6 +52,15 @@
 # basis. See below.
   disable_wiki_output: 'true'
 
+# Setting fall_2026_research_student_optin to 'true' presents enrolled students
+# with the invitation for the Fall 2026 research experiment (see
+# Fall2026ResearchExperiment). Instructors can opt their courses in regardless;
+# this only controls the student-facing side, so the experiment can be deployed
+# and start collecting course opt-ins before the student side is ready to go
+# live. Anything other than 'true' — including leaving this out entirely — keeps
+# the student side off. Each experiment gets its own setting.
+  fall_2026_research_student_optin: 'false'
+
 # Projects with automatic edits enabled, add as edit_<language>.<project_url>
 # edit_en.wikipedia.org: "true"
 

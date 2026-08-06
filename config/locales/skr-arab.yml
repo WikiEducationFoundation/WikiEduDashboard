@@ -55,8 +55,15 @@ skr-arab:
   system_stats:
     tables:
       wiki: وکی
+      programs: پروگرام
     facilitators:
+      courses: کورسز
+      active: فعال
       "yes": جیا
+      "no": کو
+    pagination:
+      previous: پچھلا
+      next: اڳلا
   activity:
     all: سرگرمی
     edited_by: لکھݨ آلا

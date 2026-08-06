@@ -25,6 +25,14 @@ describe 'Claim verification exercise', type: :feature, js: true do
   let(:flagged_rev) { 2_998_441 } # the first revision of en:Sea otter
   let(:sentence) { 'Sea otters use rocks as tools to break open shellfish.' }
 
+  # The exercise's step headings, composed the way the app composes them, so
+  # these pin the numbers rather than restating the copy. The two pre-form steps
+  # name their copy directly; the form's steps keep theirs under `form`.
+  def step_heading(number, name_key)
+    I18n.t('claim_verification.step_heading',
+           number:, name: I18n.t("claim_verification.#{name_key}"))
+  end
+
   let(:article_html) do
     <<~HTML
       <p>#{sentence}<sup class="reference"><a href="#cite_note-1">[1]</a></sup>
@@ -66,13 +74,22 @@ describe 'Claim verification exercise', type: :feature, js: true do
 
     visit "/courses/#{course.slug}/verify_claim"
 
-    # The article picker is the first sub-view (no claim taken yet). Mark the
-    # window so we can prove the rest of the flow never triggers a reload.
-    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 20)
+    # The article picker is the first sub-view (no claim taken yet). The exercise
+    # names itself before it says what to do, so the title is the page's h1 and
+    # step 1 an h2 — the level every other step of the exercise uses.
+    expect(page).to have_css('h2', text: step_heading(1, 'step_select_article'), wait: 20)
+    expect(page).to have_css('h1', text: I18n.t('claim_verification.exercise_heading'))
+    expect(page).to have_content(I18n.t('claim_verification.select_article_instructions'))
+    # Mark the window so we can prove the rest of the flow never triggers a reload.
     page.execute_script('window.cvSameDocument = true;')
     # Each article tile is itself the opener for its in-place viewer (a button,
     # not a link).
     click_on 'Sea otter'
+
+    # Choosing a claim is step 2, and the viewer's banner says so: the numbering
+    # runs on from the picker into the server-numbered form steps below.
+    expect(page).to have_css('.cv-pick-banner__heading',
+                             text: step_heading(2, 'step_select_claim'), wait: 20)
 
     # The viewer renders the flagged revision annotated with its harvested claims;
     # clicking the highlighted claim sentence opens the in-viewer panel.
@@ -91,10 +108,26 @@ describe 'Claim verification exercise', type: :feature, js: true do
     assignment = VerificationClaimAssignment.find_by(user: student, course:)
     expect(assignment.verification_claim.sentence).to eq(sentence)
 
-    # Step 3: the student got the source, so step 4 (verify the claim) appears.
+    # The source-evaluation step comes first, judged from the citation alone. It
+    # is step 3: the form's numbering (config's `first_step_number`) picks up
+    # where the two pre-form steps left off.
+    expect(page).to have_content(step_heading(3, 'form.step_evaluate_source'))
+    # Step instructions render as Markdown, so a URL in the operator copy is a
+    # link out of the exercise rather than inert text.
+    policy_link = find('.cv-form__step-instructions a', match: :first)
+    expect(policy_link[:href]).to include('Wikipedia:Reliable_sources')
+    expect(policy_link[:target]).to eq('_blank')
+    choose I18n.t('claim_verification.form.source_appropriate_options.appropriate')
+    choose I18n.t('claim_verification.form.meets_rs_policy_options.context_dependent')
+
+    # Then finding the source. The closing comments field has no business being
+    # asked before the student has said whether they even got the source, so it
+    # waits on that answer too — and then arrives whichever way they answered.
     expect(page).to have_content(I18n.t('claim_verification.form.step_find_source'))
+    expect(page).to have_no_field(I18n.t('claim_verification.form.other_comments_label'))
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))
+    expect(page).to have_field(I18n.t('claim_verification.form.other_comments_label'))
     choose I18n.t('claim_verification.form.verdict_options.partial_support')
     fill_in I18n.t('claim_verification.form.claim_location_label'), with: 'p. 44'
     click_button I18n.t('claim_verification.form.submit')
@@ -108,9 +141,22 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_no_button(I18n.t('claim_verification.form.submit'))
     expect(page).to have_content(I18n.t('claim_verification.choose_different_claim'))
 
+    # Browsing the other candidates must not cost them the claim they answered
+    # for: the picker offers a way back, and returning restores their answers
+    # rather than a blank form.
+    click_button I18n.t('claim_verification.choose_different_claim')
+    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 10)
+    click_button "← #{I18n.t('claim_verification.back_to_claim')}"
+    expect(page).to have_content(I18n.t('claim_verification.your_selected_claim'), wait: 10)
+    expect(page).to have_content(
+      I18n.t('claim_verification.form.verdict_options.partial_support')
+    )
+
     response = VerificationClaimResponse.find_by(user: student, course:)
-    expect(response.verdict).to eq('partial_support')
-    expect(response.claim_location).to eq('p. 44')
+    expect(response.answer('source_appropriate')).to eq('appropriate')
+    expect(response.answer('meets_rs_policy')).to eq('context_dependent')
+    expect(response.answer('verdict')).to eq('partial_support')
+    expect(response.answer('claim_location')).to eq('p. 44')
     expect(response.verification_claim).to eq(assignment.verification_claim)
 
     # Navigating (client-side) back to the timeline shows the exercise as
@@ -130,12 +176,18 @@ describe 'Claim verification exercise', type: :feature, js: true do
     VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
     VerificationClaimResponse.create!(
       user: student, course:, verification_claim: claim,
-      source_access: 'accessed', verdict: 'mostly_supports', claim_location: 'chapter 3',
-      verification_notes: 'The chapter describes tool use at length, but the shellfish ' \
-                          'detail only appears in a figure caption, which took a while to ' \
-                          'find because the scanned copy has no searchable text at all.',
-      other_comments: 'Reference: https://example.com/very/long/unbroken/path/to/a/scanned/' \
-                      'document/section-3-2-1#page=44&highlight=sea-otters'
+      answers: {
+        'source_appropriate' => 'appropriate',
+        'meets_rs_policy' => 'generally_reliable',
+        'source_access' => 'accessed',
+        'verdict' => 'mostly_supports',
+        'claim_location' => 'chapter 3',
+        'verification_notes' => 'The chapter describes tool use at length, but the shellfish ' \
+                                'detail only appears in a figure caption, which took a while ' \
+                                'to find because the scanned copy has no searchable text.',
+        'other_comments' => 'Reference: https://example.com/very/long/unbroken/path/to/a/' \
+                            'scanned/document/section-3-2-1#page=44&highlight=sea-otters'
+      }
     )
     tmu = TrainingModulesUsers.create!(user: student, training_module_id: exercise_module.id,
                                        completed_at: Time.zone.now)
@@ -171,9 +223,13 @@ describe 'Claim verification exercise', type: :feature, js: true do
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     claim = VerificationClaim.find_by(sentence:)
     VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
-    VerificationClaimResponse.create!(user: student, course:, verification_claim: claim,
-                                      source_access: 'accessed', verdict: 'contradicted',
-                                      other_comments: 'The source says the opposite.')
+    VerificationClaimResponse.create!(
+      user: student, course:, verification_claim: claim,
+      answers: { 'source_appropriate' => 'appropriate',
+                 'meets_rs_policy' => 'generally_reliable',
+                 'source_access' => 'accessed', 'verdict' => 'contradicted',
+                 'other_comments' => 'The source says the opposite.' }
+    )
     # A second student who has taken a claim but not submitted.
     slow_student = create(:user, username: 'Slowpoke', onboarded: true)
     create(:courses_user, course:, user: slow_student, role: CoursesUsers::Roles::STUDENT_ROLE)
@@ -203,6 +259,22 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_no_content('Slowpoke')
     click_link "← #{I18n.t('claim_verification.responses.heading')}"
     expect(page).to have_content('Slowpoke', wait: 10)
+  end
+
+  # Arriving on a shared ?showArticle= link forces the picker into view even when
+  # the student already has a claim, so the way back has to work from there too —
+  # and the open article id lives in the URL, not in component state.
+  it 'lets a student with a claim return from a ?showArticle= deep link' do
+    claim = VerificationClaim.find_by(sentence:)
+    VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
+
+    visit "/courses/#{course.slug}/verify_claim?showArticle=#{article.id}"
+    expect(page).to have_css('.article-viewer', wait: 20)
+    find('.article-viewer-button.icon-close', match: :first).click
+
+    click_button "← #{I18n.t('claim_verification.back_to_claim')}"
+    expect(page).to have_content(I18n.t('claim_verification.your_selected_claim'), wait: 10)
+    expect(page).to have_content(sentence)
   end
 
   it 'deep-links straight into an open article via ?showArticle=' do

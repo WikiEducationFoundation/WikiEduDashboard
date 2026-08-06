@@ -62,10 +62,22 @@ describe 'Claim verification exercise', type: :request do
 
     it 'returns the submitted response alongside the taken claim' do
       VerificationClaimAssignment.create!(user: student, course:, verification_claim: pool_claim)
-      VerificationClaimResponse.create!(user: student, course:, verification_claim: pool_claim,
-                                        source_access: 'accessed', verdict: 'full_support')
+      VerificationClaimResponse.create!(
+        user: student, course:, verification_claim: pool_claim,
+        answers: { 'source_appropriate' => 'appropriate',
+                   'meets_rs_policy' => 'generally_reliable',
+                   'source_access' => 'accessed', 'verdict' => 'full_support' }
+      )
       get "/courses/#{course.slug}/verify_claim/state"
-      expect(response.parsed_body['response']['verdict']).to eq('full_support')
+      expect(response.parsed_body['response']['answers']['verdict']).to eq('full_support')
+    end
+
+    # The SPA renders the form from this rather than from anything it knows
+    # itself, so the state has to carry the questions.
+    it 'returns the questions the exercise asks' do
+      get "/courses/#{course.slug}/verify_claim/state"
+      steps = response.parsed_body['form']['steps']
+      expect(steps.pluck('id')).to include('evaluate_source', 'find_source', 'verify')
     end
 
     it 'is open to any signed-in user, even one not enrolled in the course' do

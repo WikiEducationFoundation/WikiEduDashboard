@@ -16,6 +16,9 @@ else
   json.response nil
 end
 
+# The questions to ask, so the SPA can render the form without knowing them.
+json.form { json.partial! 'claim_verification_responses/form', form: @form }
+
 json.articles @tiles do |tile|
   article = tile.article
   json.id article.id

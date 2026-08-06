@@ -89,6 +89,88 @@ describe AnnotateRevisionClaims do
     end
   end
 
+  # The bug this guards: a source cited on several sentences renders the same
+  # cite_note href at every one of them, and locating a claim by its marker
+  # attached each claim's data to the *first* of those sentences — so the
+  # highlighted text was not the claim that came up when you clicked it.
+  context 'when one source is cited on several sentences' do
+    # The first sentence is deliberately long: locating a claim by walking back
+    # from the first marker sharing its ref id then finds plenty of prose to
+    # consume, and so silently succeeds on the wrong sentence.
+    let(:revision_html) do
+      <<~HTML
+        <p>Otters were studied extensively throughout the twentieth century by many
+        researchers.<sup class="reference"><a href="#cite_note-shared-1">[1]</a></sup>
+        Otters eat urchins.<sup class="reference"><a href="#cite_note-shared-1">[1]</a></sup>
+        Otters have dense fur.<sup class="reference"><a href="#cite_note-shared-1">[1]</a></sup></p>
+        <ol class="references">
+          <li id="cite_note-shared-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/r">Riedman 1990</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    # Only the second and third sentences were added in this revision.
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-shared-1',
+                                sentence: 'Otters eat urchins.', cite_text: 'Riedman 1990',
+                                source_url: 'https://example.com/r')
+    end
+    let!(:other) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-shared-1',
+                                sentence: 'Otters have dense fur.', cite_text: 'Riedman 1990',
+                                source_url: 'https://example.com/r')
+    end
+
+    def span_for(html, claim)
+      Nokogiri::HTML.fragment(html).at_css(%(.cv-claim[data-claim-id="#{claim.id}"]))
+    end
+
+    it 'highlights the text of each claim, not the first sentence citing the source' do
+      html = annotate.html
+      expect(span_for(html, harvested).text).to include('Otters eat urchins.')
+      expect(span_for(html, other).text).to include('Otters have dense fur.')
+    end
+
+    it 'agrees with the claim data behind every highlight' do
+      spans = Nokogiri::HTML.fragment(annotate.html).css('.cv-claim')
+      expect(spans).not_to be_empty
+      spans.each do |span|
+        expect(span.text.gsub(/\[\d+\]|\s+/, ' ').squeeze(' ').strip)
+          .to include(span['data-sentence'])
+      end
+    end
+
+    it 'leaves the sentence that was not harvested unhighlighted' do
+      highlighted = Nokogiri::HTML.fragment(annotate.html).css('.cv-claim').map(&:text).join(' ')
+      expect(highlighted).not_to include('studied extensively')
+    end
+  end
+
+  # A citation can sit inside a sentence rather than at its end, which a
+  # marker-relative search could never cover: the sentence continues past it.
+  context 'when the citation sits mid-sentence' do
+    let(:revision_html) do
+      <<~HTML
+        <p>Otters use rocks<sup class="reference"><a href="#cite_note-r-1">[1]</a></sup>, and they eat urchins.</p>
+        <ol class="references">
+          <li id="cite_note-r-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/r">Riedman</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-r-1',
+                                sentence: 'Otters use rocks, and they eat urchins.',
+                                cite_text: 'Riedman', source_url: 'https://example.com/r')
+    end
+
+    it 'highlights the whole sentence, both sides of the citation' do
+      span = Nokogiri::HTML.fragment(annotate.html).at_css('.cv-claim')
+      expect(span.text).to include('Otters use rocks')
+      expect(span.text).to include('and they eat urchins.')
+    end
+  end
+
   context 'when the revision links to other pages' do
     let(:revision_html) do
       <<~HTML

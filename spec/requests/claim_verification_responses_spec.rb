@@ -15,8 +15,11 @@ describe 'Claim verification responses', type: :request do
                               source_url: 'https://example.com/otters')
   end
 
+  # A complete path through the exercise: every required question answered,
+  # taking the branch where the student got hold of the source.
   let(:accessed_answers) do
-    { source_access: 'accessed', verdict: 'partial_support',
+    { source_appropriate: 'appropriate', meets_rs_policy: 'generally_reliable',
+      source_access: 'accessed', verdict: 'partial_support',
       claim_location: 'p. 44', verification_notes: 'Only the tool use is there.',
       other_comments: 'Fun exercise.' }
   end
@@ -43,8 +46,8 @@ describe 'Claim verification responses', type: :request do
         expect(response.status).to eq(200)
         stored = VerificationClaimResponse.find_by(user: student, course:)
         expect(stored.verification_claim).to eq(claim)
-        expect(stored.verdict).to eq('partial_support')
-        expect(response.parsed_body['response']['claim_location']).to eq('p. 44')
+        expect(stored.answer('verdict')).to eq('partial_support')
+        expect(response.parsed_body['response']['answers']['claim_location']).to eq('p. 44')
       end
 
       it 'updates the existing response on resubmission' do
@@ -52,20 +55,20 @@ describe 'Claim verification responses', type: :request do
         post "/courses/#{course.slug}/verify_claim/response",
              params: accessed_answers.merge(verdict: 'contradicted')
         expect(VerificationClaimResponse.where(user: student, course:).count).to eq(1)
-        expect(VerificationClaimResponse.find_by(user: student, course:).verdict)
+        expect(VerificationClaimResponse.find_by(user: student, course:).answer('verdict'))
           .to eq('contradicted')
       end
 
-      it 'clears verify-step answers when the source was not accessed' do
+      it 'stores no answers for a step the student\'s path never asked' do
         post "/courses/#{course.slug}/verify_claim/response",
-             params: { source_access: 'inaccessible', verdict: 'full_support',
-                       claim_location: 'p. 44', source_access_notes: 'Paywalled.',
-                       other_comments: 'Frustrating.' }
+             params: accessed_answers.merge(source_access: 'inaccessible',
+                                            source_access_notes: 'Paywalled.')
         stored = VerificationClaimResponse.find_by(user: student, course:)
-        expect(stored.verdict).to be_nil
-        expect(stored.claim_location).to be_nil
-        expect(stored.source_access_notes).to eq('Paywalled.')
-        expect(stored.other_comments).to eq('Frustrating.')
+        # The verify-the-claim step is gated on having got the source, so its
+        # answers are dropped rather than trusted from the client.
+        expect(stored.answers.keys).not_to include('verdict', 'claim_location')
+        expect(stored.answer('source_access_notes')).to eq('Paywalled.')
+        expect(stored.answer('other_comments')).to eq('Fun exercise.')
       end
 
       it 'marks the exercise training module complete for the course' do
@@ -85,7 +88,7 @@ describe 'Claim verification responses', type: :request do
 
       it 'rejects invalid answers without storing anything' do
         post "/courses/#{course.slug}/verify_claim/response",
-             params: { source_access: 'accessed' } # missing verdict
+             params: accessed_answers.except(:verdict)
         expect(response.status).to eq(422)
         expect(VerificationClaimResponse.find_by(user: student, course:)).to be_nil
       end
@@ -97,7 +100,8 @@ describe 'Claim verification responses', type: :request do
              params: { verification_claim_id: other_claim.id }
         expect(response.status).to eq(200)
         post "/courses/#{course.slug}/verify_claim/response",
-             params: { source_access: 'nonexistent', source_access_notes: 'No trace.' }
+             params: accessed_answers.merge(source_access: 'nonexistent',
+                                            source_access_notes: 'No trace.')
         expect(VerificationClaimResponse.where(user: student, course:).count).to eq(2)
       end
 
@@ -105,7 +109,8 @@ describe 'Claim verification responses', type: :request do
         post "/courses/#{course.slug}/verify_claim/response", params: accessed_answers
         post "/courses/#{course.slug}/verify_claim/take",
              params: { verification_claim_id: claim.id }
-        expect(response.parsed_body['response']['verdict']).to eq('partial_support')
+        expect(response.parsed_body['response']['answers']['verdict'])
+          .to eq('partial_support')
       end
     end
 
@@ -125,7 +130,7 @@ describe 'Claim verification responses', type: :request do
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE, real_name: 'Ada Prof')
       VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
       VerificationClaimResponse.create!(user: student, course:, verification_claim: claim,
-                                        **accessed_answers)
+                                        answers: accessed_answers.stringify_keys)
       # A second student who has taken a claim but not submitted.
       pending_student = create(:user, username: 'Slowpoke')
       create(:courses_user, course:, user: pending_student,
@@ -141,9 +146,25 @@ describe 'Claim verification responses', type: :request do
       submitted = response.parsed_body['responses']
       expect(submitted.length).to eq(1)
       expect(submitted.first['username']).to eq('Otterfan')
-      expect(submitted.first['verdict']).to eq('partial_support')
+      expect(submitted.first['answers']['verdict']).to eq('partial_support')
       expect(submitted.first['claim']['sentence']).to eq(claim.sentence)
       expect(response.parsed_body['pending'].first['username']).to eq('Slowpoke')
+    end
+
+    # The instructor view renders each response as the questions the student
+    # answered, so the listing has to carry the questions themselves.
+    it 'sends the exercise questions alongside the responses' do
+      login_as instructor
+      get "/courses/#{course.slug}/verify_claim/responses.json"
+      questions = response.parsed_body['form']['steps'].flat_map { |step| step['questions'] }
+      expect(questions.pluck('id')).to include(*VerificationClaimResponse.last.answers.keys)
+    end
+
+    it 'resolves the question copy server-side' do
+      login_as instructor
+      get "/courses/#{course.slug}/verify_claim/responses.json"
+      first_step = response.parsed_body['form']['steps'].first
+      expect(first_step['heading']).to start_with('Step 3:')
     end
 
     it 'counts a student as pending again once they take a new claim' do

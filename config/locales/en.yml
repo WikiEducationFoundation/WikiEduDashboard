@@ -196,6 +196,24 @@ en:
       overall_max_likelihood: Overall max AI likelihood distribution
   system_stats:
     title: "System & Facilitator Stats"
+    filters:
+      campaign: "Campaign"
+      home_wiki: "Home Wiki"
+      start_date: "Start Date"
+      end_date: "End Date"
+      all_campaigns: "All Campaigns"
+      all_wikis: "All Wikis"
+      export_csv: "Export CSV"
+      generating: "Generating Export..."
+      generation_queued: "Your CSV export is being generated in the background. Retrying..."
+      still_processing: "Your CSV export is still generating in the background. Please check back shortly and click Export again."
+      fetch_error: "Could not generate CSV export. Please try again."
+      course_type: "Course Type"
+      status: "Status"
+      all_types: "All Types"
+      all_statuses: "All Statuses"
+      active: "Active"
+      archived: "Archived"
     kpis:
       total_edits: "Total Edits"
       article_views: "Article Views"
@@ -1687,6 +1705,8 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    exercise_sandbox_incomplete: Please complete the exercise in your Exercise Sandbox (%{pages}) before marking it complete
+    exercise_needs_assigned_article: You must assign yourself an article before you can complete this.
     open_exercise: Start Exercise
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
@@ -1716,18 +1736,45 @@ en:
     find_in_article: Find this in the article text
     show_surrounding: Show surrounding paragraph
     choose_different_claim: Choose a different claim
+    back_to_claim: Back to my claim
     no_online_source: This cited source doesn't include a URL.
     course_picker_heading: Choose course
     course_picker_no_courses: No courses
     take_not_enrolled: You must be enrolled in the course to do that.
     # Exercise copy (operator-provided; see claim_verification_instructions.txt).
+    exercise_heading: "Fact Verification Exercise"
     intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the author’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, and it’s one of the most critical policies behind Wikipedia’s credibility."
     intro_p2: "As AI tools become more widely used, it's more important than ever to learn how to verify information. AI-generated content often mismatches facts and sources — which is one of the major reasons why you cannot use it to add content to Wikipedia."
     intro_p3: "In this exercise, you’ll see verifiability in action. You’ll practice how to verify claims by trying to find a specific fact in a cited source."
-    step_select_article: "Step 1: Select an article."
+    # Every step's heading, across the whole exercise: the numbers are composed in
+    # rather than written into the copy (see config/claim_verification_exercise.yml),
+    # so every `step_*` name — here and under `form` — is just the name.
+    step_heading: "Step %{number}: %{name}"
+    # The two steps before the form: the article picker, then choosing a claim
+    # inside the article viewer.
+    step_select_article: "Select an article"
+    step_select_claim: "Choose claim to verify"
+    # What each of those two steps asks the student to do.
+    select_article_instructions: "Choose from the list of articles below to begin this exercise."
     select_claim_instructions: "The following claims need to be checked against the cited sources, because they may be AI-generated. (Note: the article may have changed since these claims were added.)"
     form:
-      step_find_source: "Step 3: Find the source"
+      step_evaluate_source: Evaluate the source
+      evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review Wikipedia's concept of 'Reliable sources': https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources"
+      source_appropriate_question: "Is this source appropriate for Wikipedia, for this particular article, and for the claim it supports?"
+      source_appropriate_options:
+        appropriate: "Yes, it's an appropriate source for the claim"
+        depends_on_use: "Somewhat, but it's not the best kind of source for this"
+        inappropriate: "No, this isn't the right kind of source to use here"
+        unsure: "Unsure"
+      source_appropriate_notes_label: "Why or why not? If not, what kind of source would be appropriate instead?"
+      meets_rs_policy_question: "Is it a reliable source?"
+      meets_rs_policy_options:
+        generally_reliable: "Yes, it clearly meets the definition of a reliable source in this context"
+        context_dependent: "Somewhat, but it has shortcomings"
+        not_reliable: "No, this clearly does not meet Wikipedia's definition of a reliable source"
+        unsure: "Unsure"
+      meets_rs_policy_notes_label: "What makes this a reliable source, or not?"
+      step_find_source: "Find the source"
       find_source_instructions: "Now that you’ve selected your claim, track down the cited source. You may need to consult your instructor or librarian to find the source."
       source_access_question: "Were you able to access the full text of the cited source for your claim?"
       source_access_options:
@@ -1735,7 +1782,7 @@ en:
         nonexistent: "No, the source does not exist."
         inaccessible: "No, the source exists but I could not get access to it."
       source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
-      step_verify: "Step 4: Verify the claim"
+      step_verify: "Verify the claim"
       verify_instructions: "Once you’ve found the cited source, examine it carefully to determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it. (Some citations are too imprecise for a reader to practically verify.)"
       verdict_question: "Does the source back up the claim?"
       verdict_options:

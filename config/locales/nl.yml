@@ -1929,7 +1929,7 @@ nl:
       aan de hand van de geciteerde bronnen, omdat ze mogelijk door AI zijn gegenereerd.
       Let op: de pagina kan zijn gewijzigd sinds deze beweringen zijn toegevoegd.'
     form:
-      step_find_source: 'Stap 3: Zoek de bron'
+      step_find_source: 'Zoek de bron'
       find_source_instructions: Nu u uw bewerking hebt gekozen, gaat u op zoek naar
         de geciteerde bron. Mogelijk moet u uw docent of de bibliothecaris raadplegen
         om de bron te vinden.
@@ -1941,7 +1941,7 @@ nl:
         inaccessible: Nee, de bron bestaat wel, maar ik kon er geen toegang toe krijgen.
       source_access_notes_label: 'Als u de bron niet hebt kunnen vinden, vertel ons
         dan meer over uw ervaring:'
-      step_verify: 'Stap 4: Verifieer de bewering'
+      step_verify: 'Verifieer de bewering'
       verify_instructions: Zodra u de geciteerde bron hebt gevonden, onderzoek deze
         dan zorgvuldig om te bepalen in hoeverre deze uw gekozen bewering ondersteunt.
         Als u precies weet waar de informatie vandaan komt, noteer dan waar in het
@@ -2231,7 +2231,7 @@ nl:
     form_errors: Controleer het formulier op fouten.
     invalid_assignment: Incorrecte opdracht
     invalid_date: '%{key} datum is onjuist'
-    invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een PDF- of
+    invalid_file_format: Het bestand kon niet worden opgeslagen. Upload een pdf- of
       Word-document.
     oauth_invalid: Uw Wikipedia-autorisatie is verlopen. Meld u opnieuw aan.
     start_date_before_end_date: De begindatum moet voor de einddatum liggen
@@ -2366,8 +2366,8 @@ nl:
     completion_time: Voltooiingstijd
     late: Laat
     view: Weergeven
-    started: Begonnen
-    not_started: Niet begonnen
+    started: Gestart
+    not_started: Niet gestart
     due: vervalt %{due_date}
     assignment_status: Trainingsopdracht (%{status})
   multi_wiki:

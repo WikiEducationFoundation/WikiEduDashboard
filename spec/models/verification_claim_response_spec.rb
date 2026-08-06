@@ -10,40 +10,51 @@ describe VerificationClaimResponse do
     VerificationClaim.create!(wiki:, sentence: 'Sea otters use rocks as tools.')
   end
 
-  let(:base_attributes) do
-    { user:, course:, verification_claim: claim, source_access: 'accessed',
-      verdict: 'full_support' }
+  # Every question the exercise currently requires, answered.
+  let(:complete_answers) do
+    { 'source_appropriate' => 'appropriate', 'meets_rs_policy' => 'generally_reliable',
+      'source_access' => 'accessed', 'verdict' => 'full_support' }
   end
 
-  it 'is valid with an accessed source and a verdict' do
+  let(:base_attributes) do
+    { user:, course:, verification_claim: claim, answers: complete_answers }
+  end
+
+  it 'is valid when every required question is answered' do
     expect(described_class.new(base_attributes)).to be_valid
   end
 
-  it 'rejects a source_access value outside the answer set' do
-    response = described_class.new(base_attributes.merge(source_access: 'maybe'))
-    expect(response).not_to be_valid
+  it 'reads one answer by question id' do
+    response = described_class.new(base_attributes)
+    expect(response.answer('verdict')).to eq('full_support')
   end
 
-  it 'requires a verdict when the source was accessed' do
-    response = described_class.new(base_attributes.merge(verdict: nil))
-    expect(response).not_to be_valid
+  it 'has no answer for a question the exercise did not ask' do
+    response = described_class.new(base_attributes)
+    expect(response.answer('claim_location')).to be_nil
   end
 
-  it 'rejects a verdict outside the answer set' do
-    response = described_class.new(base_attributes.merge(verdict: 'sort_of'))
-    expect(response).not_to be_valid
+  it 'rejects an answer outside the set its question offers' do
+    answers = complete_answers.merge('source_access' => 'maybe')
+    expect(described_class.new(base_attributes.merge(answers:))).not_to be_valid
   end
 
-  it 'rejects a verdict when the source could not be accessed' do
-    response = described_class.new(base_attributes.merge(source_access: 'inaccessible'))
-    expect(response).not_to be_valid
+  it 'rejects a required question left unanswered' do
+    answers = complete_answers.except('meets_rs_policy')
+    expect(described_class.new(base_attributes.merge(answers:))).not_to be_valid
   end
 
-  it 'allows a no-source response without a verdict' do
-    response = described_class.new(base_attributes.merge(source_access: 'nonexistent',
-                                                         verdict: nil,
-                                                         source_access_notes: 'No trace of it.'))
-    expect(response).to be_valid
+  it 'rejects a response with no answers at all' do
+    expect(described_class.new(base_attributes.merge(answers: {}))).not_to be_valid
+  end
+
+  # The verify-the-claim step is gated on having got the source, so its verdict
+  # isn't required of a student who couldn't.
+  it 'allows a no-source response without the verify-step answers' do
+    answers = complete_answers.except('verdict')
+                              .merge('source_access' => 'nonexistent',
+                                     'source_access_notes' => 'No trace of it.')
+    expect(described_class.new(base_attributes.merge(answers:))).to be_valid
   end
 
   it 'allows only one response per claim per student' do
