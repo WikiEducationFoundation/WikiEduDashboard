@@ -1,4 +1,4 @@
-import { RESET_SCOPING_METHODS, TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PAGEPILE_IDS, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES } from '../constants/scoping_methods';
+import { RESET_SCOPING_METHODS, TOGGLE_SCOPING_METHOD, UPDATE_CATEGORIES, UPDATE_CATEGORY_DEPTH, UPDATE_PAGEPILE_IDS, UPDATE_PETSCAN_IDS, UPDATE_TEMPLATES, UPDATE_TRACKED_CATEGORY_DEPTH } from '../constants/scoping_methods';
 
 const initialState = {
   selected: [],
@@ -47,6 +47,20 @@ export default function course(state = initialState, action) {
         categories: {
           ...state.categories,
           tracked: action.categories
+        }
+      };
+    }
+    // Each tracked category carries its own depth, editable after selection.
+    // `depth` above is only the starting value given to newly-selected ones.
+    case UPDATE_TRACKED_CATEGORY_DEPTH: {
+      return {
+        ...state,
+        categories: {
+          ...state.categories,
+          tracked: state.categories.tracked.map((category, index) => {
+            if (index !== action.index) return category;
+            return { ...category, value: { ...category.value, depth: action.depth } };
+          })
         }
       };
     }
