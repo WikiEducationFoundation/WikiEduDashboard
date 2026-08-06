@@ -116,6 +116,7 @@ const Course = withRouter((props) => {
             location={props.router.location}
             currentUser={props.currentUser}
             courseLink={_courseLinkParams()}
+            weeks={props.weeks}
           />
           <Notifications />
         </Affix>
