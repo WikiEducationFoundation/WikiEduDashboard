@@ -1,0 +1,169 @@
+# The articles students may pick from in the Fact Verification exercise.
+#
+# TEMPORARY. This is a hand-curated allow-list for the initial rollout, not
+# the intended long-term serving strategy. While it is present and non-empty,
+# RelevantClaimRevisionsForCourse serves only these revisions, to every course
+# — subject-tag and subject prioritization still order the tiles, but they
+# cannot reach outside this list. Emptying `revisions` or deleting this file
+# restores the full harvested pool, which is how you turn the gate off.
+#
+# Generated — do not hand-edit. Edit the verdicts in
+# docs/analytics_scripts/fact_verification_curation/fv_rollout_shortlist.csv
+# and re-run build_rollout_list.rb in that directory.
+#
+# Selection: the 468-article harvested pool was scored for source
+# accessibility and slop signals, the top 54 were reviewed by hand against
+# their diffs and fetched sources, and the 25 that came out `strong_candidate`
+# or `usable` are listed here, ranked. Four of them were flagged twice; only
+# the revision with more claims ships. See that directory's README.md.
+revisions:
+- article_id: 376975008
+  mw_rev_id: 1321874993
+  title: Surrogacy in India
+  tier: strong_candidate
+  topic_area: social sciences (law and public policy / reproductive health policy)
+  claim_count: 35
+- article_id: 50730658
+  mw_rev_id: 1341192982
+  title: Immunosenescence
+  tier: strong_candidate
+  topic_area: health
+  claim_count: 7
+- article_id: 985108653
+  mw_rev_id: 1325604815
+  title: Honolulu Courthouse riot
+  tier: strong_candidate
+  topic_area: humanities
+  claim_count: 39
+- article_id: 989847485
+  mw_rev_id: 1339774149
+  title: 2011 Italian census
+  tier: strong_candidate
+  topic_area: social sciences
+  claim_count: 17
+- article_id: 50900921
+  mw_rev_id: 1354407078
+  title: Community health centers in the United States
+  tier: strong_candidate
+  topic_area: health
+  claim_count: 15
+- article_id: 50891566
+  mw_rev_id: 1323409611
+  title: Diseases of poverty
+  tier: strong_candidate
+  topic_area: health
+  claim_count: 12
+- article_id: 701181941
+  mw_rev_id: 1328382686
+  title: Climate finance in the United States
+  tier: strong_candidate
+  topic_area: social sciences
+  claim_count: 40
+- article_id: 1001810019
+  mw_rev_id: 1347334965
+  title: CHRFAM7A
+  tier: strong_candidate
+  topic_area: sciences
+  claim_count: 95
+- article_id: 50875139
+  mw_rev_id: 1323139167
+  title: Dysthymia
+  tier: strong_candidate
+  topic_area: health
+  claim_count: 10
+- article_id: 990290807
+  mw_rev_id: 1351433962
+  title: Extensive farming
+  tier: strong_candidate
+  topic_area: sciences
+  claim_count: 71
+- article_id: 50912774
+  mw_rev_id: 1318272956
+  title: Psychology of art
+  tier: strong_candidate
+  topic_area: social sciences
+  claim_count: 18
+- article_id: 50922489
+  mw_rev_id: 1316526434
+  title: Solar desalination
+  tier: strong_candidate
+  topic_area: sciences
+  claim_count: 9
+- article_id: 1000416953
+  mw_rev_id: 1345648440
+  title: Climate of Armenia
+  tier: usable
+  topic_area: sciences
+  claim_count: 6
+- article_id: 1003575313
+  mw_rev_id: 1347254024
+  title: Hazardous energy
+  tier: usable
+  topic_area: health
+  claim_count: 7
+- article_id: 50916513
+  mw_rev_id: 1354912064
+  title: History of immigration and nationality law in the United States
+  tier: usable
+  topic_area: social sciences
+  claim_count: 14
+- article_id: 981009190
+  mw_rev_id: 1319336556
+  title: Helianthus californicus
+  tier: usable
+  topic_area: sciences
+  claim_count: 39
+- article_id: 964363372
+  mw_rev_id: 1307132068
+  title: Dynamical decoupling
+  tier: usable
+  topic_area: sciences (quantum information / condensed matter physics)
+  claim_count: 19
+- article_id: 50885417
+  mw_rev_id: 1344492040
+  title: Curly Girl Method
+  tier: usable
+  topic_area: social sciences
+  claim_count: 5
+- article_id: 981027757
+  mw_rev_id: 1319297342
+  title: American pika
+  tier: usable
+  topic_area: sciences (mammalogy / conservation ecology)
+  claim_count: 26
+- article_id: 1011275907
+  mw_rev_id: 1350942128
+  title: Graffiti in Los Angeles
+  tier: usable
+  topic_area: humanities
+  claim_count: 17
+- article_id: 982997186
+  mw_rev_id: 1324537581
+  title: Biodesign
+  tier: usable
+  topic_area: humanities
+  claim_count: 19
+- article_id: 275419178
+  mw_rev_id: 1354912472
+  title: Immigration policy of the United States
+  tier: usable
+  topic_area: social sciences
+  claim_count: 22
+- article_id: 51150531
+  mw_rev_id: 1351811708
+  title: Central Valley groundwater pollution
+  tier: usable
+  topic_area: health
+  claim_count: 16
+- article_id: 991544795
+  mw_rev_id: 1341761529
+  title: Bullerengue
+  tier: usable
+  topic_area: humanities
+  claim_count: 11
+- article_id: 995445466
+  mw_rev_id: 1351414249
+  title: Sharpfin houndshark
+  tier: usable
+  topic_area: sciences
+  claim_count: 11

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/claim_verification/rollout_list"
+
 # Lists the (article, flagged-revision) groups a student can choose from for the
 # claim-verification exercise, drawn from the pre-harvested pool of claims added
 # in mainspace AiEditAlert revisions. Groups are prioritized to the student's
@@ -7,13 +9,22 @@
 # `topics-*` wizard tags), then those matching the course's free-text subject,
 # then the general pool — topped up in that order until the tile limit is met, so
 # the picker is never empty when the pool has any entries. Pure DB query.
+#
+# Every one of those scopes is first narrowed to the curated rollout list
+# (config/claim_verification_rollout.yml) when one is configured, so
+# prioritization only ever reorders approved revisions and can never reach past
+# them. That list is temporary; with it absent or empty this serves the whole
+# pool, which is the behavior to expect once the rollout gate comes off.
 class RelevantClaimRevisionsForCourse
   Tile = Struct.new(:article, :mw_rev_id, :claim_count, :mw_rev_timestamp,
                     keyword_init: true)
 
   attr_reader :tiles
 
-  DEFAULT_LIMIT = 12
+  # Sized to the curated rollout list so a student can reach all of it. Revisit
+  # alongside the rollout gate: against the full harvested pool this is a
+  # display cap, and 25 tiles is a lot to scroll.
+  DEFAULT_LIMIT = 25
 
   def initialize(course, limit: DEFAULT_LIMIT)
     @course = course
@@ -54,8 +65,10 @@ class RelevantClaimRevisionsForCourse
   end
 
   def base
-    VerificationClaim.where.not(alert_id: nil)
-                     .where.not(article_id: nil).where.not(mw_rev_id: nil)
+    ClaimVerification::RolloutList.filter(
+      VerificationClaim.where.not(alert_id: nil)
+                       .where.not(article_id: nil).where.not(mw_rev_id: nil)
+    )
   end
 
   def subject_tag_scope
