@@ -73,6 +73,10 @@
     .selected-category__depth
       height 30px
       border-radius 4px
+      // The global rule for inputs and selects pads 10px on every side, which
+      // leaves a 30px-high select too little room for its own text. The
+      // right-hand padding still has to clear the dropdown arrow.
+      padding 2px 24px 2px 6px
 
     .selected-category__remove
       border none
