@@ -44,6 +44,44 @@
       border-radius: 4px
       height 38px
 
+.selected-categories
+  display flex
+  flex-direction column
+  gap .25em
+  margin .5em 0 0
+  padding 0
+  list-style none
+
+  .selected-category
+    display grid
+    grid-template-columns 1fr auto auto auto
+    align-items center
+    gap .5em
+    padding .35em .5em
+    border 1px solid #ccc
+    border-radius 4px
+    background #f7f7f7
+
+    .selected-category__name
+      overflow-wrap anywhere
+
+    .selected-category__depth-label
+      margin 0
+      white-space nowrap
+      font-size .85em
+
+    .selected-category__depth
+      height 30px
+      border-radius 4px
+
+    .selected-category__remove
+      border none
+      background none
+      cursor pointer
+      font-size 1.2em
+      line-height 1
+      padding 0 .25em
+
 .scoping-method-petscan
   display flex
   flex-direction column
