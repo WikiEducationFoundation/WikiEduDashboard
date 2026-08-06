@@ -74,9 +74,13 @@ describe 'Claim verification exercise', type: :feature, js: true do
 
     visit "/courses/#{course.slug}/verify_claim"
 
-    # The article picker is the first sub-view (no claim taken yet). Mark the
-    # window so we can prove the rest of the flow never triggers a reload.
-    expect(page).to have_content(step_heading(1, 'step_select_article'), wait: 20)
+    # The article picker is the first sub-view (no claim taken yet). The exercise
+    # names itself before it says what to do, so the title is the page's h1 and
+    # step 1 an h2 — the level every other step of the exercise uses.
+    expect(page).to have_css('h2', text: step_heading(1, 'step_select_article'), wait: 20)
+    expect(page).to have_css('h1', text: I18n.t('claim_verification.exercise_heading'))
+    expect(page).to have_content(I18n.t('claim_verification.select_article_instructions'))
+    # Mark the window so we can prove the rest of the flow never triggers a reload.
     page.execute_script('window.cvSameDocument = true;')
     # Each article tile is itself the opener for its in-place viewer (a button,
     # not a link).

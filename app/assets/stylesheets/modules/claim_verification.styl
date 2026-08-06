@@ -10,9 +10,18 @@
 
   &__intro
     margin-bottom 28px
+    // The exercise's title. Bigger than the step heading below it but well short
+    // of the global h1 scale, which would shout over the intro it introduces.
     h1
+      font-size 2em
+      margin-bottom 14px
+    // The step heading. Keeps the size it had while it was this block's h1 — the
+    // title above has taken that level, not its prominence in the layout. Sits
+    // clear of the intro copy above and close to its own instruction line below.
+    h2
       font-size 1.6em
-      margin-bottom 8px
+      margin-top 26px
+      margin-bottom 6px
     p
       color $text_med
       max-width 40em
