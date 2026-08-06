@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/claim_verification/answer_gate"
+
 module ClaimVerification
   # One question of the fact-verification exercise form, as declared in
   # config/claim_verification_exercise.yml. Its copy is looked up from the
@@ -10,8 +12,8 @@ module ClaimVerification
   # - type: 'choice' (one of `options`) or 'text' (free response)
   # - options: the accepted answers, for a choice question
   # - required: submission is blocked until this is answered
-  # - visible_when: { other question id => [answers] }; asked only when that
-  #   earlier answer is one of those (see #applicable?)
+  # - visible_when: { other question id => [answers] | true }; asked only when
+  #   that earlier answer is one of those, or any answer at all (see AnswerGate)
   FormQuestion = Data.define(:id, :type, :options, :required, :visible_when) do
     def self.from_config(config)
       new(id: config.fetch('id'), type: config.fetch('type'),
@@ -26,7 +28,7 @@ module ClaimVerification
     # Whether this question is asked at all, given the answers so far. A
     # question with no `visible_when` is always asked.
     def applicable?(answers)
-      visible_when.all? { |question_id, values| values.include?(answers[question_id]) }
+      AnswerGate.open?(visible_when, answers)
     end
 
     def label

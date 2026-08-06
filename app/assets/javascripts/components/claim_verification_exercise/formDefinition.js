@@ -10,10 +10,14 @@ import PropTypes from 'prop-types';
 */
 
 // A step or question may be gated on earlier answers (`visible_when`: question
-// id → the answers that open it). Ungated ones are always asked.
+// id → what opens it — the answers that do, or `true` for any answer at all).
+// Ungated ones are always asked. Mirrors ClaimVerification::AnswerGate, which
+// applies the same rules again on submission.
 const gateOpen = (visibleWhen, answers) => (
   Object.entries(visibleWhen || {}).every(
-    ([questionId, values]) => values.includes(answers[questionId])
+    ([questionId, opensOn]) => (
+      opensOn === true ? Boolean(answers[questionId]) : opensOn.includes(answers[questionId])
+    )
   )
 );
 

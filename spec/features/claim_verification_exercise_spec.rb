@@ -25,6 +25,14 @@ describe 'Claim verification exercise', type: :feature, js: true do
   let(:flagged_rev) { 2_998_441 } # the first revision of en:Sea otter
   let(:sentence) { 'Sea otters use rocks as tools to break open shellfish.' }
 
+  # The exercise's step headings, composed the way the app composes them, so
+  # these pin the numbers rather than restating the copy. The two pre-form steps
+  # name their copy directly; the form's steps keep theirs under `form`.
+  def step_heading(number, name_key)
+    I18n.t('claim_verification.step_heading',
+           number:, name: I18n.t("claim_verification.#{name_key}"))
+  end
+
   let(:article_html) do
     <<~HTML
       <p>#{sentence}<sup class="reference"><a href="#cite_note-1">[1]</a></sup>
@@ -66,13 +74,22 @@ describe 'Claim verification exercise', type: :feature, js: true do
 
     visit "/courses/#{course.slug}/verify_claim"
 
-    # The article picker is the first sub-view (no claim taken yet). Mark the
-    # window so we can prove the rest of the flow never triggers a reload.
-    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 20)
+    # The article picker is the first sub-view (no claim taken yet). The exercise
+    # names itself before it says what to do, so the title is the page's h1 and
+    # step 1 an h2 — the level every other step of the exercise uses.
+    expect(page).to have_css('h2', text: step_heading(1, 'step_select_article'), wait: 20)
+    expect(page).to have_css('h1', text: I18n.t('claim_verification.exercise_heading'))
+    expect(page).to have_content(I18n.t('claim_verification.select_article_instructions'))
+    # Mark the window so we can prove the rest of the flow never triggers a reload.
     page.execute_script('window.cvSameDocument = true;')
     # Each article tile is itself the opener for its in-place viewer (a button,
     # not a link).
     click_on 'Sea otter'
+
+    # Choosing a claim is step 2, and the viewer's banner says so: the numbering
+    # runs on from the picker into the server-numbered form steps below.
+    expect(page).to have_css('.cv-pick-banner__heading',
+                             text: step_heading(2, 'step_select_claim'), wait: 20)
 
     # The viewer renders the flagged revision annotated with its harvested claims;
     # clicking the highlighted claim sentence opens the in-viewer panel.
@@ -91,8 +108,10 @@ describe 'Claim verification exercise', type: :feature, js: true do
     assignment = VerificationClaimAssignment.find_by(user: student, course:)
     expect(assignment.verification_claim.sentence).to eq(sentence)
 
-    # The source-evaluation step comes first, judged from the citation alone.
-    expect(page).to have_content(I18n.t('claim_verification.form.step_evaluate_source'))
+    # The source-evaluation step comes first, judged from the citation alone. It
+    # is step 3: the form's numbering (config's `first_step_number`) picks up
+    # where the two pre-form steps left off.
+    expect(page).to have_content(step_heading(3, 'form.step_evaluate_source'))
     # Step instructions render as Markdown, so a URL in the operator copy is a
     # link out of the exercise rather than inert text.
     policy_link = find('.cv-form__step-instructions a', match: :first)
@@ -101,10 +120,14 @@ describe 'Claim verification exercise', type: :feature, js: true do
     choose I18n.t('claim_verification.form.source_appropriate_options.appropriate')
     choose I18n.t('claim_verification.form.meets_rs_policy_options.context_dependent')
 
-    # Then finding the source; saying they got it opens the verify-the-claim step.
+    # Then finding the source. The closing comments field has no business being
+    # asked before the student has said whether they even got the source, so it
+    # waits on that answer too — and then arrives whichever way they answered.
     expect(page).to have_content(I18n.t('claim_verification.form.step_find_source'))
+    expect(page).to have_no_field(I18n.t('claim_verification.form.other_comments_label'))
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))
+    expect(page).to have_field(I18n.t('claim_verification.form.other_comments_label'))
     choose I18n.t('claim_verification.form.verdict_options.partial_support')
     fill_in I18n.t('claim_verification.form.claim_location_label'), with: 'p. 44'
     click_button I18n.t('claim_verification.form.submit')

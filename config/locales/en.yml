@@ -1742,15 +1742,22 @@ en:
     course_picker_no_courses: No courses
     take_not_enrolled: You must be enrolled in the course to do that.
     # Exercise copy (operator-provided; see claim_verification_instructions.txt).
+    exercise_heading: "Fact Verification Exercise"
     intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the author’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, and it’s one of the most critical policies behind Wikipedia’s credibility."
     intro_p2: "As AI tools become more widely used, it's more important than ever to learn how to verify information. AI-generated content often mismatches facts and sources — which is one of the major reasons why you cannot use it to add content to Wikipedia."
     intro_p3: "In this exercise, you’ll see verifiability in action. You’ll practice how to verify claims by trying to find a specific fact in a cited source."
-    step_select_article: "Step 1: Select an article."
+    # Every step's heading, across the whole exercise: the numbers are composed in
+    # rather than written into the copy (see config/claim_verification_exercise.yml),
+    # so every `step_*` name — here and under `form` — is just the name.
+    step_heading: "Step %{number}: %{name}"
+    # The two steps before the form: the article picker, then choosing a claim
+    # inside the article viewer.
+    step_select_article: "Select an article"
+    step_select_claim: "Choose claim to verify"
+    # What each of those two steps asks the student to do.
+    select_article_instructions: "Choose from the list of articles below to begin this exercise."
     select_claim_instructions: "The following claims need to be checked against the cited sources, because they may be AI-generated. (Note: the article may have changed since these claims were added.)"
     form:
-      # Step numbering is composed in (see config/claim_verification_exercise.yml),
-      # so the `step_*` names below are just the names.
-      step_heading: "Step %{number}: %{name}"
       step_evaluate_source: Evaluate the source
       evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review Wikipedia's concept of 'Reliable sources': https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources"
       source_appropriate_question: "Is this source appropriate for Wikipedia, for this particular article, and for the claim it supports?"
