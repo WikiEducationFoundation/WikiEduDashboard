@@ -23,15 +23,6 @@ export class AuthorshipAPI extends ArticleViewerAPI {
     });
   }
 
-  generateWhocolorHtml() {
-    const url = this.builder.wikiwhoColorRevisionURL();
-    return fetch(`${url}&origin=*`, {
-      headers: {
-        'Content-Type': 'application/javascript'
-      }
-    }).then(response => this.__handleFetchResponse(response));
-  }
-
   fetchWhocolorHtml(lastRevisionId) {
     let attempts = 0;
     const MAX_RETRY_ATTEMPTS = 5;
@@ -81,7 +72,12 @@ export class AuthorshipAPI extends ArticleViewerAPI {
         // The shell's __processHtml does the relative-link rewriting; if the
         // WhoColor payload lacked HTML, surface a failure marker (as before).
         const processed = this.__processHtml(response.extended_html);
-        return processed || { whocolorFailed: true };
+        if (!processed) return { whocolorFailed: true };
+        // The payload's per-token authorship rides along with the HTML. It is the
+        // same data the rev_content endpoint would return, already scoped to the
+        // requested revision, so callers can tell "edits present but not
+        // highlightable" from "no edits here" without a second request.
+        return { ...processed, tokens: response.tokens };
       });
   }
 
@@ -92,23 +88,6 @@ export class AuthorshipAPI extends ArticleViewerAPI {
         'Content-Type': 'application/javascript'
       }
     }).then(response => this.__handleFetchResponse(response));
-  }
-
-  fetchWikitextMetaData() {
-    const url = this.builder.wikiwhoColorRevisionURL();
-    return fetch(`${url}&origin=*`, {
-      headers: {
-        'Content-Type': 'application/javascript'
-      }
-    }).then(response => this.__handleFetchResponse(response))
-      .then((response) => {
-        if (response.error) throw new Error(this.__setException({ status: 404 }));
-        const revisionId = 'revisions'; // Get the first (and presumably only) revision ID
-        const revisionData = response[revisionId]?.[0];
-        if (!revisionData) throw new Error('Invalid response data');
-        const { tokens } = Object.values(revisionData)[0];
-        return { tokensForRevision: tokens };
-      });
   }
 }
 
