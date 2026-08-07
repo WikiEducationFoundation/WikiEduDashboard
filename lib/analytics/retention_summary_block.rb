@@ -14,7 +14,12 @@
 #   * Everyone else is a first-course participant.
 #
 # Every aggregate is therefore reported twice, once per counted group. A group
-# with no members gets blanks rather than a column of zeros.
+# with no members gets blanks rather than a column of zeros, so an absent group
+# does not read as one that did no editing. The two participant-count rows are
+# the exception: they report a genuine zero, since how many people fell into a
+# group is a fact whether or not there were any. The excluded row is split the
+# same way as the rest, so it also says which column each excluded participant
+# would otherwise have been counted in.
 class RetentionSummaryBlock
   SURVIVAL_THRESHOLD = 5
 
@@ -32,8 +37,8 @@ class RetentionSummaryBlock
   ].freeze
 
   def initialize(stats)
-    @excluded = stats.select { |s| s[:long_term] }
-    counted = stats.reject { |s| s[:long_term] }
+    excluded, counted = stats.partition { |s| s[:long_term] }
+    @excluded_returning, @excluded_first_time = excluded.partition { |s| s[:returning] }
     @returning, @first_time = counted.partition { |s| s[:returning] }
   end
 
@@ -41,7 +46,7 @@ class RetentionSummaryBlock
     [
       HEADER,
       ['participants', @first_time.size, @returning.size],
-      [EXCLUDED_LABEL, @excluded.size],
+      [EXCLUDED_LABEL, @excluded_first_time.size, @excluded_returning.size],
       *metric_rows
     ]
   end

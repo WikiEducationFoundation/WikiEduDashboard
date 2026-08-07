@@ -251,8 +251,37 @@ describe RetentionPredictorsCsvBuilder do
       it 'leaves the aggregates blank rather than reporting a column of zeros' do
         expect(summary_value('participants')).to eq('0')
         expect(summary_value('long-term Wikipedians (excluded from all counts)')).to eq('2')
+        expect(returning_value('long-term Wikipedians (excluded from all counts)')).to eq('0')
         expect(summary_value('total editing sessions during course')).to be_nil
         expect(summary_value('participants with 1+ edits in days 60-90')).to be_nil
+      end
+    end
+
+    context 'when a participant is both long-term and returning' do
+      let(:earlier_course) do
+        create(:course, slug: 'School/Earlier_course_(2014)',
+                        start: 2.years.ago, end: 20.months.ago)
+      end
+
+      before do
+        create(:courses_user, course: earlier_course, user: user1,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+        e = course.end
+        stub_wiki(wiki1, { 'user1' => [e - 10.days], 'user2' => [e - 10.days] },
+                  { 'user1' => 1000 })
+      end
+
+      it 'excludes them from the returning column, not just the first-course one' do
+        # user2 has the identical timeline and is counted, so a returning column
+        # that still held user1 would report a session here instead of a blank.
+        expect(returning_value('participants')).to eq('0')
+        expect(returning_value('total editing sessions during course')).to be_nil
+        expect(summary_value('total editing sessions during course')).to eq('1')
+      end
+
+      it 'reports them in the returning column of the excluded row' do
+        expect(summary_row('long-term Wikipedians (excluded from all counts)'))
+          .to eq(['long-term Wikipedians (excluded from all counts)', '0', '1'])
       end
     end
   end
@@ -293,6 +322,24 @@ describe RetentionPredictorsCsvBuilder do
       expect(returning_value('participants')).to eq('1')
       expect(summary_value('total editing sessions during course')).to eq('1')
       expect(returning_value('total editing sessions during course')).to eq('2')
+    end
+
+    context 'when a participant has taken more than one earlier course' do
+      let(:earliest_course) do
+        create(:course, slug: 'School/Earliest_course_(2012)',
+                        start: 4.years.ago, end: 46.months.ago)
+      end
+
+      before do
+        create(:courses_user, course: earliest_course, user: user2,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      it 'counts them all and joins the slugs oldest first' do
+        expect(detail_row('user2')&.at(7)).to eq('2')
+        expect(detail_row('user2')&.at(8))
+          .to eq('School/Earliest_course_(2012); School/Earlier_course_(2014)')
+      end
     end
   end
 
