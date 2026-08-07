@@ -125,6 +125,12 @@ const useAuthorshipHighlighting = ({
         // Keep only the editor ids: the token list is large and nothing here needs
         // more than membership. Set before the html, so the [whoColorHtml] effect
         // that runs highlightAuthors always sees it.
+        //
+        // The payload's much smaller `present_editors` is not a substitute for the
+        // token list. WhoColor accumulates it while annotating the wikitext and skips
+        // any token it can't place, so it degrades in exactly the cases this fallback
+        // exists to describe. `tokens` comes straight from WikiWho, independent of
+        // that annotator.
         setWhoColorEditors(new Set((response.tokens || []).map(token => token[TOKEN_EDITOR_INDEX])));
         setWhoColorHtml(response.html);
       }).catch((error) => {
