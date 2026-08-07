@@ -6,8 +6,9 @@ require_dependency "#{Rails.root}/lib/analytics/system_csv_filter_validator"
 
 # Generates system-wide CSV exports with dynamic filter support.
 # This is a standalone builder designed for admin-only, async exports
-# across all non-private programs. It preloads associated data in memory-safe
-# batches (1,000 courses at a time) to keep RAM consumption low.
+# across all non-private programs. It streams rows directly into the CSV
+# output and fetches associated data in batches (500 courses at a time)
+# to keep RAM consumption low.
 #
 # Filters supported:
 #   campaign_slug  — Courses belonging to a specific campaign
@@ -30,13 +31,12 @@ class SystemCsvBuilder
   end
 
   def generate_csv
-    csv_data = [CourseCsvBuilder::CSV_HEADERS]
-
-    course_scope.find_in_batches(batch_size: BATCH_SIZE) do |batch|
-      csv_data.concat(build_batch_rows(batch))
+    CSV.generate do |csv|
+      csv << CourseCsvBuilder::CSV_HEADERS
+      course_scope.find_in_batches(batch_size: BATCH_SIZE) do |batch|
+        build_batch_rows(batch).each { |row| csv << row }
+      end
     end
-
-    CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
 
   # Returns the filtered course scope. Public so it can be tested directly.
