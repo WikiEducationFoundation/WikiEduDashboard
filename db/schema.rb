@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_07_193432) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -702,6 +702,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
 
   create_table "users", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "username"
+    t.text "access_token"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.boolean "trained", default: false
