@@ -10,6 +10,7 @@ import AuthorshipAPI from '@components/common/ArticleViewer/authorship/Authorshi
 
 // Constants
 import colors from '@components/common/ArticleViewer/authorship/colors';
+import { isWikiwhoSupported } from '@components/common/ArticleViewer/authorship/wikiwhoLanguages';
 
 /*
   WhoColor authorship-highlighting feature for the ArticleViewer shell.
@@ -41,12 +42,7 @@ const useAuthorshipHighlighting = ({
 
   const isFirstRevisionRender = useRef(true);
 
-  const isWhocolorLang = () => {
-    // Supported languages for https://wikiwho-api.wmcloud.org as of 2023-05-15
-    // See https://github.com/wikimedia/wikiwho_api/blob/main/wikiwho_api/settings_wmcloud.py#L21
-    const supported = ['ar', 'de', 'en', 'es', 'eu', 'fr', 'hu', 'id', 'it', 'ja', 'nl', 'pl', 'pt', 'tr'];
-    return supported.includes(article.language) && article.project === 'wikipedia';
-  };
+  const isWhocolorLang = () => isWikiwhoSupported(article);
 
   // This takes the extended_html from the whoColor API, and replaces the span
   // annotations with ones that are more convenient to style in React.
