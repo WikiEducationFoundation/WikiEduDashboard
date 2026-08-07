@@ -161,6 +161,11 @@ const useAuthorshipHighlighting = ({
       In this case, the users prop will be combined with an empty array.
      */
     const allUsers = union(assignedUsers || [], users);
+    if (!allUsers || !allUsers.length) {
+      setUsersState([]);
+      setUserIdsFetched(true);
+      return;
+    }
     const builder = new AuthorshipURLBuilder({ article, users: allUsers });
     const api = new AuthorshipAPI({ builder });
     api.fetchUserIds()
