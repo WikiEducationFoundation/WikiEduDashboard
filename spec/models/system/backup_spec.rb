@@ -29,19 +29,19 @@ describe Backup do
 
     it 'ignores a waiting backup older than FRESH_WINDOW' do
       create(:backup, status: 'waiting',
-                      created_at: 3.hours.ago, updated_at: 3.hours.ago)
+                      created_at: 6.hours.ago, updated_at: 6.hours.ago)
       expect(described_class.current_backup).to be_nil
     end
 
     it 'ignores a running backup older than FRESH_WINDOW' do
       create(:backup, status: 'running',
-                      created_at: 3.hours.ago, updated_at: 3.hours.ago)
+                      created_at: 6.hours.ago, updated_at: 6.hours.ago)
       expect(described_class.current_backup).to be_nil
     end
 
     it 'returns the fresh backup when a stale one is also present' do
       create(:backup, status: 'waiting',
-                      created_at: 3.hours.ago, updated_at: 3.hours.ago)
+                      created_at: 6.hours.ago, updated_at: 6.hours.ago)
       fresh = create(:backup, status: 'waiting')
       expect(described_class.current_backup).to eq(fresh)
     end

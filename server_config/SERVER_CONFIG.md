@@ -41,13 +41,20 @@ itself. The first task it performs is creating a new backup record with status
 set to *waiting*. This works as a way to let the backend app knowing that a
 backup is waiting to run.
 - From this point, all CourseDataUpdateWorker jobs that start the UpdateCourseStats
-in the background will be paused sleeping until the backup record leaves the *waiting*/*running*
-status. Already running CourseDataUpdateWorker jobs will continue until completion.
+in the background will be paused sleeping until: either 1) the backup record leaves the
+*waiting*/*running* status or 2) a maximum amount of time has passed since the current backup
+row was updated. This is to avoid an orphaned backup row caused by an expected error leaving
+the course update processes sleeping indefinitely. Already running CourseDataUpdateWorker
+jobs will continue until completion.
 - Some minutes later, the script running on the db server checks the `can_start_backup.json`
 endpoint to determine whether it's safe to start the backup. The criterion is that a backup
 can only run if all currently running CourseDataUpdateWorker jobs are in sleeping phase. If
 the response is 503 server unavailable, it waits for 2 minutes and retries until it receives
 a 200 OK response. Once it gets the 200 OK response, it sets the backup status to *running*.
+Note that, to avoid the backup process waiting indefinitely while a long course update is
+running (possibly for days), the backup process has a maximum number of retries to the
+`can_start_backup.json` endpoint. If it reaches that limit, it sets the backup status as *failed*
+and exits.
 - The backup script runs the backup itself.	
 - Once the backup finishes, the backup script updates the data table record status to *finished*.
 - CourseDataUpdateWorker jobs leaves the sleeping phase and woke up. The application returns
