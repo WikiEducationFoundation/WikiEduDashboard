@@ -4,8 +4,9 @@ require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
-# It iterates over article course timeslices to sync articles. This updates title,
-# namespace, deleted and mw_page_id fields.
+# It iterates over the articles derived from the course's timeslices to sync them
+# (ACUWT rows for ACUWT courses, article course timeslices otherwise). This updates
+# title, namespace, deleted and mw_page_id fields.
 # Resetting articles according to their new status (so they are included in or
 # excluded from course statistics) is mostly handled by ArticleNamespacesManager,
 # which runs after this class during the course update. The exception is articles
@@ -25,8 +26,10 @@ class ArticleStatusManager
 
   def self.update_article_status_for_course(course)
     course.wikis.each do |wiki|
-      # Retrieve articles based on ac timeslices to also include current untracked articles.
-      course.articles_from_timeslices_legacy(wiki.id)
+      # Retrieve articles based on timeslices to also include current untracked articles.
+      # For ACUWT courses this reads ACUWT rows (which exist for tracked and untracked
+      # articles alike); for legacy courses it falls back to the ACT-based query.
+      course.articles_from_timeslices(wiki.id)
             # Updating only those articles which are updated more than 1 day ago
             .where('articles.updated_at < ?', 1.day.ago)
             .in_batches do |article_batch|
@@ -34,7 +37,7 @@ class ArticleStatusManager
         # excuted in a single query, otherwise if we use find_in_batches, query for
         # each article for updating the same would be required
         new(course, wiki).update_status(article_batch)
-        # Touch through a fresh, non-distinct relation: `articles_from_timeslices_legacy`
+        # Touch through a fresh, non-distinct relation: `articles_from_timeslices`
         # applies `.distinct`, and combining `.distinct` with `update_all` is
         # deprecated in Rails 8.1 and will raise in 8.2. `update_status` above
         # has already loaded the batch (it iterates `articles.map(&:mw_page_id)`),
@@ -162,6 +165,18 @@ class ArticleStatusManager
     end
   end
 
+  # Resolves the case where our database holds two Article records for the same
+  # wiki page: the one passed here (a stale, deleted duplicate) and a separate
+  # live copy. This arises from on-wiki undeletions, history merges, or page
+  # moves. The articles.index_hash unique index only constrains non-deleted rows
+  # (it is NULL when deleted), so many deleted duplicates may coexist but only
+  # one live copy can.
+  #
+  # When a live copy exists, the stale copy's revisions still point at the wrong
+  # article_id, so we reprocess (full re-fetch of) its timeslices; on the next
+  # update those revisions are re-fetched under the live page and re-attributed
+  # to the live copy. When no live copy exists, this record IS the page and
+  # update_title_and_namespace has already undeleted it, so there is nothing to do.
   def handle_undeletion(article)
     # If there's already a non-deleted copy, we need to reprocess the timeslices for article
     nondeleted_article = Article.find_by(wiki_id: @wiki.id,
