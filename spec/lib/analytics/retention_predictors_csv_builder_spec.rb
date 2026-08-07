@@ -27,21 +27,48 @@ describe RetentionPredictorsCsvBuilder do
     end
   end
 
-  # Stubs WikiApi.new(wiki) so that usercontribs queries return the given
-  # per-username timestamps. `contribs_by_user` maps username => [Time, ...].
-  def stub_wiki(wiki, contribs_by_user)
+  # One page of a user's pre-course contributions, out of `total` of them.
+  # Pages at the real API's 500-per-page limit, so the builder's
+  # stop-counting-at-the-threshold pagination gets exercised for real.
+  def prior_edits_response(total, params)
+    offset = (params['uccontinue'] || params[:uccontinue]).to_i
+    remaining = total - offset
+    page = [remaining, 500].min
+    continue = remaining > page ? { 'uccontinue' => (offset + page).to_s } : nil
+    response_for([Time.zone.now] * page, continue:)
+  end
+
+  # Stubs WikiApi.new(wiki) for both queries the builder makes. The during-course
+  # timeline query is bounded by :ucend; the pre-course edit count query is not,
+  # which is how the stub tells them apart. `contribs_by_user` maps
+  # username => [Time, ...]; `prior_edits` maps username => edit count.
+  def stub_wiki(wiki, contribs_by_user, prior_edits = {})
     api = instance_double(WikiApi)
     allow(WikiApi).to receive(:new).with(wiki).and_return(api)
     allow(api).to receive(:query) do |params|
-      response_for(contribs_by_user.fetch(params[:ucuser], []))
+      if params.key?(:ucend)
+        response_for(contribs_by_user.fetch(params[:ucuser], []))
+      else
+        prior_edits_response(prior_edits.fetch(params[:ucuser], 0), params)
+      end
     end
   end
 
   let(:table) { CSV.parse(described_class.new(course).generate_csv) }
 
-  # value cell of a "label,value" summary row
+  # full "label,first course,returning participants" summary row
+  def summary_row(label)
+    table.find { |row| row[0] == label }
+  end
+
+  # first-course column of a summary row
   def summary_value(label)
-    table.find { |row| row[0] == label }&.at(1)
+    summary_row(label)&.at(1)
+  end
+
+  # returning-participant column of a summary row
+  def returning_value(label)
+    summary_row(label)&.at(2)
   end
 
   # full per-student detail row, keyed by username
@@ -67,11 +94,11 @@ describe RetentionPredictorsCsvBuilder do
       end
 
       it 'fills every per-student metric on the combined cross-wiki timeline' do
-        expect(detail_row('user1')).to eq(%w[user1 2 14 1 5])
+        expect(detail_row('user1')).to eq(['user1', '2', '14', '1', '5', '0', nil, '0', nil])
       end
 
       it 'defaults a non-returning student to a 30-day gap and zero counts' do
-        expect(detail_row('user2')).to eq(%w[user2 0 30 0 0])
+        expect(detail_row('user2')).to eq(['user2', '0', '30', '0', '0', '0', nil, '0', nil])
       end
 
       it 'aggregates the per-course summary block' do
@@ -99,7 +126,7 @@ describe RetentionPredictorsCsvBuilder do
       end
 
       it 'reports during-course sessions but leaves the post-course metrics blank' do
-        expect(detail_row('user1')).to eq(['user1', '1', nil, nil, nil])
+        expect(detail_row('user1')).to eq(['user1', '1', nil, nil, nil, '0', nil, '0', nil])
         expect(summary_value('total editing sessions during course')).to eq('1')
         expect(summary_value('avg days to first independent edit')).to be_nil
         expect(summary_value('avg editing sessions in 30 days after course')).to be_nil
@@ -124,8 +151,8 @@ describe RetentionPredictorsCsvBuilder do
       end
 
       it 'fills the 30-day metrics but leaves the 60-90-day metric blank' do
-        expect(detail_row('user1')).to eq(['user1', '1', '5', '1', nil])
-        expect(detail_row('user2')).to eq(['user2', '0', '30', '0', nil])
+        expect(detail_row('user1')).to eq(['user1', '1', '5', '1', nil, '0', nil, '0', nil])
+        expect(detail_row('user2')).to eq(['user2', '0', '30', '0', nil, '0', nil, '0', nil])
         expect(summary_value('avg days to first independent edit')).to eq('17.5')
         expect(summary_value('avg editing sessions in 30 days after course')).to eq('0.5')
         expect(summary_value('participants with 1+ edits in days 60-90')).to be_nil
@@ -159,21 +186,184 @@ describe RetentionPredictorsCsvBuilder do
     end
   end
 
+  describe 'long-term Wikipedians' do
+    let(:course) { create(:course, start: 130.days.ago, end: 100.days.ago) }
+
+    context 'when a participant edited 1000+ times before the course' do
+      before do
+        e = course.end
+        timeline = [e - 10.days, e + 5.days, e + 70.days]
+        stub_wiki(wiki1, { 'user1' => timeline, 'user2' => timeline },
+                  { 'user1' => 1000 })
+      end
+
+      it 'reports them in the detail block, flagged and capped at the threshold' do
+        expect(detail_row('user1'))
+          .to eq(['user1', '1', '5', '1', '1', '1000+', 'yes', '0', nil])
+      end
+
+      it 'leaves them out of every summary aggregate' do
+        # Both students have identical timelines, so any aggregate that still
+        # counted user1 would be doubled.
+        expect(summary_value('participants')).to eq('1')
+        expect(summary_value('long-term Wikipedians (excluded from all counts)')).to eq('1')
+        expect(summary_value('total editing sessions during course')).to eq('1')
+        expect(summary_value('participants who edited in 30 days after course')).to eq('1')
+        expect(summary_value('participants with 1+ edits in days 60-90')).to eq('1')
+      end
+    end
+
+    context 'when a participant edited just under 1000 times before the course' do
+      before do
+        stub_wiki(wiki1, { 'user1' => [] }, { 'user1' => 999 })
+      end
+
+      it 'reports the exact count and counts them as an ordinary participant' do
+        # 999 spans two pages of contributions, so the count is only right if
+        # pagination continued past the first page.
+        expect(detail_row('user1')&.at(5)).to eq('999')
+        expect(detail_row('user1')&.at(6)).to be_nil
+        expect(summary_value('participants')).to eq('2')
+        expect(summary_value('long-term Wikipedians (excluded from all counts)')).to eq('0')
+      end
+    end
+
+    context 'when prior edits are spread across more than one course wiki' do
+      let(:course_wikis) { [wiki1, wiki2] }
+
+      before do
+        stub_wiki(wiki1, { 'user1' => [] }, { 'user1' => 600 })
+        stub_wiki(wiki2, { 'user1' => [] }, { 'user1' => 500 })
+      end
+
+      it 'sums them across wikis to reach the threshold' do
+        expect(detail_row('user1')&.at(5)).to eq('1000+')
+        expect(detail_row('user1')&.at(6)).to eq('yes')
+      end
+    end
+
+    context 'when every participant is a long-term Wikipedian' do
+      before do
+        stub_wiki(wiki1, { 'user1' => [], 'user2' => [] },
+                  { 'user1' => 1000, 'user2' => 1000 })
+      end
+
+      it 'leaves the aggregates blank rather than reporting a column of zeros' do
+        expect(summary_value('participants')).to eq('0')
+        expect(summary_value('long-term Wikipedians (excluded from all counts)')).to eq('2')
+        expect(returning_value('long-term Wikipedians (excluded from all counts)')).to eq('0')
+        expect(summary_value('total editing sessions during course')).to be_nil
+        expect(summary_value('participants with 1+ edits in days 60-90')).to be_nil
+      end
+    end
+
+    context 'when a participant is both long-term and returning' do
+      let(:earlier_course) do
+        create(:course, slug: 'School/Earlier_course_(2014)',
+                        start: 2.years.ago, end: 20.months.ago)
+      end
+
+      before do
+        create(:courses_user, course: earlier_course, user: user1,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+        e = course.end
+        stub_wiki(wiki1, { 'user1' => [e - 10.days], 'user2' => [e - 10.days] },
+                  { 'user1' => 1000 })
+      end
+
+      it 'excludes them from the returning column, not just the first-course one' do
+        # user2 has the identical timeline and is counted, so a returning column
+        # that still held user1 would report a session here instead of a blank.
+        expect(returning_value('participants')).to eq('0')
+        expect(returning_value('total editing sessions during course')).to be_nil
+        expect(summary_value('total editing sessions during course')).to eq('1')
+      end
+
+      it 'reports them in the returning column of the excluded row' do
+        expect(summary_row('long-term Wikipedians (excluded from all counts)'))
+          .to eq(['long-term Wikipedians (excluded from all counts)', '0', '1'])
+      end
+    end
+  end
+
+  describe 'returning participants' do
+    let(:course) { create(:course, start: 130.days.ago, end: 100.days.ago) }
+    let(:earlier_course) do
+      create(:course, slug: 'School/Earlier_course_(2014)',
+                      start: 2.years.ago, end: 20.months.ago)
+    end
+    let(:later_course) do
+      create(:course, slug: 'School/Later_course_(2016)',
+                      start: 10.days.ago, end: 5.days.ago)
+    end
+
+    before do
+      create(:courses_user, course: earlier_course, user: user2,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      # user1 is also in a course that started later, which is not a prior course.
+      create(:courses_user, course: later_course, user: user1,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      e = course.end
+      stub_wiki(wiki1, 'user1' => [e - 10.days], 'user2' => [e - 10.days, e - 9.days])
+    end
+
+    it 'names the prior course in the detail block' do
+      expect(detail_row('user2')).to eq(['user2', '2', '30', '0', '0', '0', nil, '1',
+                                         'School/Earlier_course_(2014)'])
+    end
+
+    it 'treats a course that started later as no prior course at all' do
+      expect(detail_row('user1')).to eq(['user1', '1', '30', '0', '0', '0', nil, '0', nil])
+    end
+
+    it 'aggregates them in a column of their own' do
+      expect(summary_row('Summary')).to eq(['Summary', 'first course', 'returning participants'])
+      expect(summary_value('participants')).to eq('1')
+      expect(returning_value('participants')).to eq('1')
+      expect(summary_value('total editing sessions during course')).to eq('1')
+      expect(returning_value('total editing sessions during course')).to eq('2')
+    end
+
+    context 'when a participant has taken more than one earlier course' do
+      let(:earliest_course) do
+        create(:course, slug: 'School/Earliest_course_(2012)',
+                        start: 4.years.ago, end: 46.months.ago)
+      end
+
+      before do
+        create(:courses_user, course: earliest_course, user: user2,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      it 'counts them all and joins the slugs oldest first' do
+        expect(detail_row('user2')&.at(7)).to eq('2')
+        expect(detail_row('user2')&.at(8))
+          .to eq('School/Earliest_course_(2012); School/Earlier_course_(2014)')
+      end
+    end
+  end
+
   describe 'pagination' do
     let(:course) { create(:course, start: 130.days.ago, end: 100.days.ago) }
 
     before do
       e = course.end
-      first = response_for([e - 26.days], continue: { 'uccontinue' => 'x' })
-      second = response_for([e - 20.days])
+      pages = [response_for([e - 26.days], continue: { 'uccontinue' => 'x' }),
+               response_for([e - 20.days])]
       api1 = instance_double(WikiApi)
       allow(WikiApi).to receive(:new).with(wiki1).and_return(api1)
-      allow(api1).to receive(:query).and_return(first, second)
+      allow(api1).to receive(:query) do |params|
+        if !params.key?(:ucend) || params[:ucuser] != 'user1'
+          response_for([])
+        else
+          params['uccontinue'] ? pages[1] : pages[0]
+        end
+      end
     end
 
     it 'follows the continue token to fetch all pages of contributions' do
       # The two pages are days apart, so both must be fetched to count 2 sessions.
-      expect(detail_row('user1')).to eq(['user1', '2', '30', '0', '0'])
+      expect(detail_row('user1')).to eq(['user1', '2', '30', '0', '0', '0', nil, '0', nil])
     end
   end
 end
