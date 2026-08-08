@@ -1,0 +1,97 @@
+# frozen_string_literal: true
+
+# What to report to Canvas for one student on one gradebook column: the AGS score
+# payload, as keyword arguments for LtiServiceSession#post_score.
+#
+# Extracted from SyncLtiGrades because these are policy decisions, not sync
+# mechanics — which columns the Dashboard may grade, what an activity's progress
+# means, and when a submission rides along — and they had outgrown living inline.
+#
+# Three rules, each with a reason:
+#
+#   - Mechanical columns (an account is connected, a training is completed) carry
+#     a real score. Everything else is student work whose quality only the
+#     instructor can judge, so it reports Submitted + PendingManual with NO score:
+#     Canvas creates the submission, leaves it ungraded, and queues it. Reporting
+#     1/1 for a ticked box claimed a judgment nobody had made.
+#   - `activityProgress` is derived from the score rather than always Completed:
+#     the trainings roll-up pushes fractions, so a blanket Completed contradicted
+#     the number beside it. Below full score that's Submitted, never InProgress —
+#     Canvas treats InProgress as nothing-submitted and drops the submission URL.
+#   - The submission extension rides along on EVERY push. Canvas stores the launch
+#     URL only when the score claims a new submission, and it discards what it had
+#     when a later score arrives without one: observed on staging (2026-08-05) when
+#     a cron cycle pushed a changed trainings fraction and Canvas replaced the
+#     `basic_lti_launch` attempt with an `external_tool` one carrying `url: ""` —
+#     back to "No Preview Available". Sending it once per pair therefore only works
+#     until the grade next moves, which for a trainings roll-up is every completed
+#     training. The attempt-per-push that comes with this is the price; the score
+#     signature still suppresses pushes when nothing changed, so attempts track
+#     real state changes rather than cron cycles. Every column gets one, including
+#     the mechanical ones (operator decision 2026-08-05).
+#
+#     Only the mechanical columns push more than once, though — see
+#     SyncLtiGrades#already_reported?. An instructor-graded column reports once per
+#     (column, student), because a second no-score result wipes the instructor's
+#     grade. So "every push" is a rule about what a push carries, not a claim that
+#     every column keeps pushing.
+class LtiScorePayload
+  def initialize(line_item:, context:, progress:, comment:)
+    @line_item = line_item
+    @context = context
+    @progress = progress
+    @comment = comment
+  end
+
+  def to_h
+    base = { lineitem_id: @line_item.lineitem_id, user_lti_id: @context.user_lti_id,
+             comment: @comment, submission_url: submission_launch_url }
+    return base.merge(for_grading) if @line_item.instructor_graded?
+
+    base.merge(scored)
+  end
+
+  private
+
+  def for_grading
+    { activity_progress: 'Submitted', grading_progress: 'PendingManual' }
+  end
+
+  # `gradingProgress` stays FullyGraded either way: what the student has done so
+  # far is fully graded, nothing is pending on this side.
+  def scored
+    { score_given: @progress.score_given, score_maximum: @progress.score_maximum,
+      activity_progress: activity_progress }
+  end
+
+  # Never InProgress, even below full score. Canvas reads InProgress as "nothing
+  # submitted yet" and silently stores no submission URL with the score, so the
+  # trainings roll-up — partial for most of a term — could never be previewed in
+  # SpeedGrader. Verified on staging (2026-08-05) by posting the identical score
+  # three ways: Completed and Submitted both store the URL, InProgress does not.
+  #
+  # Submitted is also the truer claim for a partial roll-up than either
+  # alternative: work has been submitted, and `gradingProgress: FullyGraded` says
+  # what's there is graded. Completed would assert the student had finished all
+  # their trainings.
+  def activity_progress
+    @progress.score_given.to_f < @progress.score_maximum.to_f ? 'Submitted' : 'Completed'
+  end
+
+  # The URL Canvas stores as the submission's own, so opening a student's
+  # submission launches us instead of showing "No Preview Available".
+  #
+  # It names the student it is about, because each score is posted per student and
+  # a submission view that can't say whose work it is shows the instructor nothing
+  # they didn't already know (operator, 2026-08-05). The identifier is the LMS's
+  # own opaque user id — never a Wikipedia username, which must not be persisted
+  # inside Canvas (the same rule that keeps sandbox URLs out of score comments).
+  # Canvas already knows this id; it learns nothing new from it.
+  def submission_launch_url
+    return if ENV['LTIAAS_DOMAIN'].blank?
+
+    "https://#{ENV['LTIAAS_DOMAIN']}/lti/launch" \
+      "?resource=#{CGI.escape(@line_item.resource_marker)}" \
+      "&submission=#{CGI.escape(@context.user_lti_id)}"
+  end
+end

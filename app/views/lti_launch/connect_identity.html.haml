@@ -1,0 +1,32 @@
+- # The approval step before any Dashboard account is connected to an LMS
+- # identity. Reached whenever a launch arrives with a session but no link yet.
+- #
+- # It exists because linking used to be a silent side effect of launching, which
+- # connected whichever account the browser happened to be signed into — and the
+- # link is write-once, so the mistake needed staff to undo. Naming both sides and
+- # requiring a click is the whole point of the view; the sign-in-as-someone-else
+- # path matters as much as the confirm button.
+- #
+- # Both `course` and `username` are passed to the copy whether or not the
+- # operator's wording interpolates them.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h1.lti-iframe__title= t('lti.connect_identity.header')
+  %p
+    = t('lti.connect_identity.explanation',
+        course: @lti_session.context_title, username: current_user.username)
+  %dl.lti-status-list
+    .lti-status-list__row
+      %dt= t('lti.connect_identity.canvas_course')
+      %dd= @lti_session.context_title
+    .lti-status-list__row
+      %dt= t('lti.connect_identity.dashboard_account')
+      %dd= current_user.username
+  = form_with url: '/lti/connect_identity', method: :post, local: true do
+    = hidden_field_tag :ltik, params[:ltik]
+    %button.button.dark.lti-iframe__button{ type: 'submit' }= t('lti.connect_identity.confirm')
+  - # The full Dashboard keeps its SAMEORIGIN framing, so signing out has to
+  - # leave the iframe rather than blank it.
+  %p.lti-setup__alt-path
+    = link_to t('lti.connect_identity.wrong_account'), destroy_user_session_path,
+              target: '_blank', rel: 'noopener', class: 'lti-setup__alt-link'

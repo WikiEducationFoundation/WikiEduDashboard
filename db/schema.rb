@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -418,13 +418,73 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
 
   create_table "lti_contexts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "user_lti_id", null: false
-    t.string "context_id", null: false
+    t.string "context_id"
     t.string "lms_id", null: false
     t.string "lms_family"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lti_course_binding_id"
+    t.text "roles"
+    t.datetime "linked_at"
+    t.string "lms_membership_status"
+    t.index ["lti_course_binding_id", "user_id"], name: "index_lti_contexts_on_binding_and_user", unique: true
     t.index ["user_id"], name: "index_lti_contexts_on_user_id"
+    t.index ["user_lti_id", "lti_course_binding_id"], name: "index_lti_contexts_on_user_lti_id_and_binding", unique: true
+  end
+
+  create_table "lti_course_bindings", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id"
+    t.string "lms_id", null: false
+    t.string "lms_family"
+    t.string "lms_context_id", null: false
+    t.string "lms_resource_link_id", null: false
+    t.string "lms_context_title"
+    t.string "lms_platform_url"
+    t.text "ltiaas_service_credentials"
+    t.string "nrps_url"
+    t.string "ags_lineitems_url"
+    t.datetime "last_roster_sync_at"
+    t.text "last_roster_sync_error"
+    t.datetime "last_grade_sync_at"
+    t.text "last_grade_sync_error"
+    t.datetime "last_grade_sync_attempt_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true
+    t.index ["lms_id", "lms_context_id"], name: "index_lti_course_bindings_on_lms_context", unique: true
+  end
+
+  create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "lti_course_binding_id", null: false
+    t.string "gradable_type", null: false
+    t.integer "gradable_id"
+    t.virtual "gradable_key", type: :string, as: "concat(`gradable_type`,':',ifnull(`gradable_id`,''))", stored: true
+    t.string "lineitem_id", limit: 512
+    t.string "label"
+    t.decimal "score_maximum", precision: 10, scale: 4, default: "1.0", null: false
+    t.datetime "archived_at"
+    t.string "canvas_assignment_id"
+    t.text "reserved_prior_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lti_course_binding_id", "canvas_assignment_id"], name: "index_lti_line_items_on_binding_and_canvas_assignment", unique: true
+    t.index ["lti_course_binding_id", "gradable_key"], name: "index_lti_line_items_on_binding_and_gradable_key", unique: true
+    t.index ["lti_course_binding_id", "lineitem_id"], name: "index_lti_line_items_on_binding_and_lineitem", unique: true, length: { lineitem_id: 191 }
+    t.index ["lti_course_binding_id"], name: "index_lti_line_items_on_lti_course_binding_id"
+  end
+
+  create_table "lti_score_signatures", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "last_pushed_at", null: false
+    t.bigint "lti_context_id", null: false
+    t.integer "lti_line_item_id", null: false
+    t.string "signature", null: false
+    t.datetime "submission_reported_at"
+    t.datetime "updated_at", null: false
+    t.index ["lti_context_id"], name: "index_lti_score_signatures_on_lti_context_id"
+    t.index ["lti_line_item_id", "lti_context_id"], name: "index_lti_score_sigs_on_li_and_ctx", unique: true
+    t.index ["lti_line_item_id"], name: "index_lti_score_signatures_on_lti_line_item_id"
   end
 
   create_table "question_group_conditionals", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -801,5 +861,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_120000) do
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
   add_foreign_key "facilitator_stats", "users"
+  add_foreign_key "lti_contexts", "lti_course_bindings", on_delete: :cascade
   add_foreign_key "lti_contexts", "users", on_delete: :cascade
+  add_foreign_key "lti_course_bindings", "courses", on_delete: :cascade
+  add_foreign_key "lti_line_items", "lti_course_bindings", on_delete: :cascade
+  add_foreign_key "lti_score_signatures", "lti_contexts", on_delete: :cascade
+  add_foreign_key "lti_score_signatures", "lti_line_items", on_delete: :cascade
 end

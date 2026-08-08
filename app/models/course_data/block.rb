@@ -25,6 +25,16 @@ class Block < ApplicationRecord
   serialize :training_module_ids, type: Array
   default_scope { includes(:week, :course) }
 
+  # If this block belongs to a course bound to Canvas via LTIAAS, fire a
+  # debounced line-item sync so the Dashboard's own mapping keeps up with the
+  # timeline: a block that gains or loses an exercise becomes newly importable or
+  # gets its column archived, and a retitled block updates its local label. This
+  # pushes nothing to Canvas — the instructor named the assignment at import time
+  # and Canvas owns it from there. The 2-minute delay collapses bulk edits
+  # (e.g. wizard re-runs, manual rearrangements) under sidekiq-unique-jobs'
+  # :until_executed lock.
+  after_commit :enqueue_lti_line_item_sync, on: %i[create update destroy]
+
   KINDS = {
     'in_class'   => 0,
     'assignment' => 1,
@@ -50,5 +60,16 @@ class Block < ApplicationRecord
 
   def calculated_due_date
     date_manager.due_date
+  end
+
+  private
+
+  def enqueue_lti_line_item_sync
+    return unless Features.canvas_integration?
+
+    binding = LtiCourseBinding.find_by(course_id: course&.id)
+    return unless binding
+
+    LtiLineItemSyncWorker.perform_in(2.minutes, binding.id)
   end
 end

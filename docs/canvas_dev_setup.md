@@ -4,7 +4,7 @@ There is ongoing work to integrate the Dashboard with the widely-used **[Canvas 
 
 The dashboard has integrated the third-party **[LTIAAS API](https://docs.ltiaas.com/guides/introduction)** (see [LTIAAS Integration PR](https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/6201)) and is configured on the LTIAAS portal allowing the codebase act as a LTI 1.3 compliant learning tool.
 
-To use the tool, a Canvas admin installs the Dashboard's LTIAAS tool into their canvas environment / instance by [manual registration](https://docs.ltiaas.com/guides/lms/canvas#manual-registration).
+To use the tool, a Canvas admin installs the Dashboard's LTIAAS tool into their canvas environment / instance via [Dynamic Registration](https://docs.ltiaas.com/guides/api/dynamic-registration/) — pasting the tenant's registration URL into Canvas, as documented step by step in the [Canvas integration guide](./canvas_integration_guide.md).
 
 ## Basic LTI Launch
 Once a canvas dev environment is running locally and the LTIAAS tool is installed in it, the integration is successful if a basic LTI launch can be completed:
@@ -12,7 +12,7 @@ Once a canvas dev environment is running locally and the LTIAAS tool is installe
 1. User (student/admin/other role) logs into Canvas LMS
 2. User clicks on the tool link (displayed as a course assignment or as configured in Canvas)
 3. Canvas initiates login with LTIAAS using an OIDC flow; uses LTI protocol to confirm user identity (see: [LTI Launch Overview](https://developerdocs.instructure.com/services/canvas/external-tools/lti/file.lti_launch_overview))
-4. If successful, LTIAAS redirects user to Dashboard's lti route; currently just the home page
+4. If successful, LTIAAS redirects the user to the Dashboard's `/lti` route, which dispatches by role and placement (see the flows below)
 
 
 ## Table of Contents
@@ -29,6 +29,7 @@ Once a canvas dev environment is running locally and the LTIAAS tool is installe
    - [Install and configure Rich Content Editor API](#7-install-and-configure-rich-content-editor-api)
    - [Start Docker/Canvas on instance startup (optional)](#8-start-dockercanvas-on-instance-startup-optional)
    - [Configure Apache](#9-configure-apache)
+- [Upgrading the test Canvas](#upgrading-the-test-canvas)
 - [Self hosting with a tunneling service](#self-hosting-by-exposing-localhost-through-a-tunneling-service)
    - [Configure Canvas](#6-configuring-canvas)
    - [Install and configure Rich Content Editor API](#7-installing-and-configuring-rich-content-editor-api)
@@ -154,6 +155,62 @@ sudo systemctl restart apache2
 ```
 
 
+
+## Upgrading the test Canvas
+
+`canvas.wikiedu.org` is our own Docker-Compose Canvas at `/opt/canvas-lms`
+(bind-mounted into the `web` container, `RAILS_ENV: development`, started by
+`docker-compose-app.service` as the `emptycodes` user). Canvas ships fixes we
+need — the LTI deep-linking `module_name` claim, for instance, only started
+working in `8565b537` (2026-04-09) — so it needs bumping now and then.
+
+Done once, 2026-02-11 → 2026-05-20, in about 35 minutes of downtime. The
+sequence, and the traps:
+
+1. **Back up first.** Migrations are effectively one-way, so the dump *is* the
+   rollback: `docker exec canvas-lms-postgres-1 pg_dump -U postgres
+   canvas_development | gzip > …`. Note the live DB is `canvas_development`
+   (dev mode), not `canvas_production`. Also save `git rev-parse HEAD`, the
+   `docker images` IDs (old images aren't pruned, so they can be retagged to
+   roll back), and `git diff` — see the next point.
+2. **Preserve the local modifications.** The checkout carries two:
+   `config/environments/development.rb` forces `https` in generated URLs
+   (without it LTI launches break behind the TLS terminator) and
+   `docker-compose/rce-api.override.yml` sets the RCE `VIRTUAL_HOST`. Save
+   them as a patch, `git stash`, switch branch, then re-apply.
+3. **Work as `emptycodes`, not root**, or you leave root-owned files in the
+   tree. (Root also needs `git -c safe.directory=/opt/canvas-lms` to read the
+   repo at all.)
+4. `systemctl stop docker-compose-app`, fetch, `git checkout -B stable/<date>
+   origin/stable/<date>`, re-apply the patch, `docker compose build`.
+5. **Don't bother with `script/docker_dev_update.sh`** — it can't run
+   unattended. It dies on `tput` unless `TERM` is set, then blocks on a
+   `/dev/tty` prompt asking whether to rebuild images. Run its steps directly
+   instead (they're in `script/common/canvas/build_helpers.sh`):
+
+   ```bash
+   docker compose up -d
+   docker compose run --rm -T web bundle install
+   docker compose run --rm -T web bundle exec rake js:yarn_install
+   docker compose run --rm -T web bundle exec rake canvas:compile_assets_dev
+   docker compose run --rm -T web bundle exec rake db:migrate RAILS_ENV=development
+   docker compose run --rm -T web bundle exec rake db:migrate RAILS_ENV=test
+   ```
+
+   `db:migrate:status` will still show one `down` afterwards — the
+   `99999999999999999999 Ensure test db empty` sentinel never runs in
+   development. That's expected, not a failed migration.
+6. **Verify the LTI registration survived**: tool privacy still `anonymous`,
+   `course_navigation` still `default: disabled`, all placements present (see
+   the admin checks in the [end-to-end manual test](#0-admin--confirm-install--configuration)),
+   then run the staging screenshot harness.
+7. **Expect UI drift to break the harness.** The 2026-05 upgrade moved the
+   per-module kebabs ahead of the Modules-page settings kebab in the DOM, so
+   an unscoped `first('a.al-trigger')` opened the wrong menu, and Canvas's
+   new-user tutorial tray began floating over the header and intercepting
+   clicks. Fixes: scope to `.module_index_tools a.al-trigger`, and turn the
+   tray off for the harness user —
+   `PUT /api/v1/users/<id>/features/flags/new_user_tutorial_on_off?state=off`.
 
 ## Self hosting by exposing localhost through a tunneling service
 The default http://canvas.docker domain is used in this case. The instructions here differ from the parent guide in that no ssl is required and port numbers are changed to prevent conflict with other local applications that also use locahost.
@@ -315,9 +372,7 @@ At this stage, you should be able to access the canvas environment via the publi
 ## Integrate the Dashboard into Canvas
 
 ### Install the Dashboard's LTIAAS tool in your canvas environment
-The first step is installing the Dashboard's LTIAAS tool into the canvas environment / instance and then registering your canvas instance in LTIAAS.
-
-Detailed instructions can be found here: [Canvas manual registration](https://docs.ltiaas.com/guides/lms/canvas#manual-registration).
+The first step is registering your canvas instance with the Dashboard's LTIAAS tenant via Canvas's **Dynamic Registration** — the same one-URL flow institutions use, documented step by step in the [Canvas integration guide](./canvas_integration_guide.md). For the test Canvas, paste the **testing** tenant's URL (`https://wikiedu-testing.ltiaas.com/lti/register?privacyLevel=anonymous`) into **Admin → Developer Keys → + Developer Key → + LTI Registration**, then turn the key on, install via **View in Canvas Apps**, and make it available. The registration arrives **inactive** in LTIAAS and must be activated in the portal before launches work.
 
 
 ### Test launch
@@ -355,6 +410,288 @@ development:
 This is needed because the domain set here is what Canvas claims its identity is and uses for OAuth, the LTI flow, JWKS endpoints and absolute URL generation. `canvas.docker` fails here because it is http only and OAuth and LTI 1.3 require https.
 
 
+## Beyond a basic launch: NRPS roster + AGS grade passback
+
+Once a basic launch works, the integration adds three flows on top of the launch handshake:
+
+1. **Course binding** (`LtiCourseBinding`) — first instructor launch lands on a setup view at `/lti?ltik=...` where the instructor links the Canvas course to an existing Wiki Education dashboard course (or creates a new one in a separate tab and comes back). The integration is deep-link-first and has one gradebook layout: the instructor imports the columns they want via the Modules deep-link flow, and the Dashboard auto-creates nothing. (Two auto-creating layouts, selected by a `gradebook_granularity` column, existed during development and were removed before release along with the column.)
+2. **NRPS roster sync** — the Canvas course roster is pulled via LTIAAS Names and Roles Provisioning. New members appear as `LtiContext` rows, unlinked (`user_id` nil) — the anonymized roster carries only an opaque LMS id and role, no email to match on. Each links and enrolls when they personally launch from Canvas and complete Wikipedia OAuth — from the course-navigation tab or from any Wikipedia assignment, since a course may not have the tab enabled at all.
+3. **AGS grade passback** — training and exercise completion is pushed back to the Canvas gradebook every 30 minutes via LTIAAS Assignment and Grade Services. Score comments carry at most a progress note (the trainings roll-up's `<count> of <total> trainings completed`) and the Dashboard's origin; sandbox URLs are deliberately kept out of them, because they embed the student's Wikipedia username and gradebook comments are visible to everyone with gradebook access (see `LtiBlockProgress`). Instructors reach a student's sandbox through the role-gated in-Canvas drill-down instead.
+
+### Required LTIAAS scopes
+
+The LTIAAS tool registration must include:
+
+- **NRPS read** — to pull rosters
+- **AGS line items** — to create/update/list gradebook columns
+- **AGS scores** — to post per-student scores
+
+If any of these are missing, the relevant Sidekiq jobs will surface 4xx errors from LTIAAS into Sentry.
+
+### Placements
+
+The integration registers three Canvas placements, each with its own
+`target_link_uri`:
+
+| Placement | `target_link_uri` | Purpose |
+|---|---|---|
+| Course Navigation | `https://<domain>/lti` | The "Wiki Education Dashboard" tab in the course sidebar — a convenient entry point, and the home of the instructor's sync-status view. Optional: linking and student enrollment also happen from the deep-link and assignment launches, so a course with the tab off still works end to end. |
+| Assignment / Link Selection | `https://<domain>/lti/deep_link` | The deep-link picker, reached from the Modules page's ⋮ menu ("Import Wikipedia assignments"), that bulk-creates the Wikipedia gradebook columns (the account indicator, the trainings roll-up, and one per exercise). |
+| Assignment View | `https://<domain>/lti/assignment_view` | The per-milestone drill-down opened from a Wikipedia column's assignment: the instructor roster with inline sandbox previews, or the launching student's own panel. |
+
+Course Navigation config (`text: Wiki Education Dashboard`, `enabled: true`):
+
+- **`default: enabled`** — the tab appears in every course automatically.
+- **`default: disabled`** — the tool is installed but off; each instructor opts
+  in per course via **Settings → Navigation**. Switching between these is a
+  developer-key placement setting in Canvas; nothing in the codebase changes.
+
+The LTIAAS config does not set `default`, so a fresh registration comes out
+`enabled` — the tab appears in every course automatically. That is the beta
+posture, accepted rather than fixed, so the guide says nothing about
+instructors enabling the tab.
+
+`visibility` controls who sees the tab (`admins` / `members` / `public`).
+
+### Service authentication (background workers)
+
+LTIAAS issues a long-lived `serviceKey` per launch context, surfaced in `idtoken.services.serviceKey`. The dashboard captures this key on every launch and persists it on `LtiCourseBinding.ltiaas_service_credentials`. Background workers (NRPS roster sync, AGS line-item sync, AGS grade sync) authenticate with the `SERVICE-AUTH-V1 <api_key>:<service_key>` header — the `<api_key>` is the same `LTIAAS_API_KEY` used for launch-time LTIK auth.
+
+The serviceKey is refreshed on every launch in case the underlying NRPS/AGS endpoint URLs change (per LTIAAS docs).
+
+### Feature flag
+
+All Canvas-integration entry points (the `/lti` routes, the periodic workers, the Block / Wizard hooks that enqueue them) are gated behind:
+
+```
+canvas_integration_enabled: 'true'
+```
+
+in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
+
+## Institutional review: VPAT, HECVAT, and data flow
+
+Every install — the test Canvas included — goes through the same self-service
+Dynamic Registration flow the [Canvas integration guide](./canvas_integration_guide.md)
+documents: paste one URL at the **root account** (not Site Admin, which on
+Instructure-hosted Canvas belongs to Instructure), then Wiki Education
+activates the registration. What this section carries is the review material a
+university's Canvas admin works through before installing anything
+account-wide — the usual vendor due diligence:
+
+- **Canvas integration guide** — what the tool is (an LTI 1.3 tool fronted by
+  LTIAAS), what it does (course-navigation launch, NRPS roster sync, AGS grade
+  passback), and what it needs (a root-account install with specific scopes and
+  placements). See [the Canvas integration guide](./canvas_integration_guide.md).
+- **VPAT** (Voluntary Product Accessibility Template) — the Dashboard's
+  accessibility conformance report, which the university's accessibility office
+  will ask for: [VPAT 2.5, WCAG edition](https://dashboard.wikiedu.org/accessibility)
+  (evaluates against WCAG 2.1 A/AA).
+- **HECVAT** (Higher Education Community Vendor Assessment Toolkit) — the
+  security/privacy self-assessment for the university's vendor-risk review. See
+  the [HECVAT draft](./hecvat.md) in this repo (to be published at
+  dashboard.wikiedu.org/hecvat).
+- **Data flow** (for the security review): the tool is fronted by **LTIAAS**, a
+  third-party LTI service. Roster data (NRPS) and grade data (AGS) flow
+  Canvas ↔ LTIAAS ↔ Dashboard. The Dashboard requires and saves only an opaque
+  LMS user id, role, and enrollment status per member, so it stores just the
+  link between that id and the Dashboard account, and pushes fractional scores
+  back with comments that carry at most a progress note and the Dashboard's
+  origin — no sandbox links, no usernames. What Canvas actually *transmits*
+  depends on the installed tool's privacy level: under Anonymized it is only
+  the id, role, and status, and under a more permissive setting Canvas also
+  sends names and emails, which `LtiServiceSession#normalize_member` and
+  `LtiSession` discard on receipt. The admin's Anonymized choice in Canvas's
+  Register App dialog never reaches the installed tool, which is why the
+  registration URL carries the level itself (`?privacyLevel=anonymous`,
+  verified by `staging_specs/privacy_level_registration_spec.rb` — see §0's
+  admin check above).
+  See
+  [Beyond a basic launch](#beyond-a-basic-launch-nrps-roster--ags-grade-passback).
+
+## End-to-end manual test (live LTIAAS + Canvas)
+
+A full walkthrough of the four roles, in the order they happen. Staging pair:
+`canvas.wikiedu.org` ↔ `dashboard-testing.wikiedu.org`. You need an instructor
+and a student Canvas account enrolled in a test course, each able to connect a
+Wikipedia account.
+
+### 0. Admin — confirm install & configuration
+
+The tool is installed once per Canvas instance (see
+[Integrate the Dashboard into Canvas](#integrate-the-dashboard-into-canvas));
+on staging it already is. Confirm:
+
+- **Admin → Developer Keys**: the Dashboard LTI key is **ON**.
+- **Admin → Apps → Manage**: the tool shows **On / Up to date**.
+- The [placements](#placements) and [required LTIAAS scopes](#required-ltiaas-scopes)
+  are registered, and the Course Navigation `default` is set how you want it
+  (`enabled` = tab in every course, which is the beta posture; `disabled` =
+  instructors opt in per course).
+- **Privacy level is `anonymous` on the _installed_ tool.** What Canvas shares
+  (launch claims *and* the NRPS roster) is governed by the installed tool, and it
+  can differ from the developer key's `tool_configuration`. That's not a
+  hypothetical: registering by hand and choosing **Anonymized** in Canvas's
+  Register App dialog put `anonymous` on the key and left the installed tool
+  `public`, twice — so NRPS returned names and emails (the Dashboard discards
+  them, but they were being sent).
+
+  The registration URL now carries the level as a query parameter —
+  `?privacyLevel=anonymous`, camelCase — so the admin's dialog choice isn't what it
+  depends on any more, and the guide no longer asks them to make one. **Verified
+  2026-07-29** by `staging_specs/privacy_level_registration_spec.rb`, which registers
+  a fresh app with the parameter, deploys it, and asserts `anonymous` on both the
+  developer key's `tool_configuration` and the installed tool.
+
+  Note the spelling. LTIAAS first gave the parameter as `privacy_level`, which
+  Canvas passes along happily and LTIAAS ignores, so the registration silently comes
+  out at the tenant default (`public`) — indistinguishable from `anonymous` being
+  unsupported. The read-backs below are the cheap way to tell the difference.
+
+  ```bash
+  # what the installed tool actually uses
+  curl -H "Authorization: Bearer $TOKEN" \
+    "$CANVAS/api/v1/accounts/1/external_tools/<tool_id>" | jq .privacy_level
+  # what the developer key's config asks for
+  curl -H "Authorization: Bearer $TOKEN" \
+    "$CANVAS/api/lti/accounts/1/developer_keys/<key_id>/tool_configuration" \
+    | jq '.tool_configuration.settings.extensions[0].privacy_level'
+  # correct the installed tool, if a registration predates the URL parameter
+  curl -X PUT -H "Authorization: Bearer $TOKEN" \
+    "$CANVAS/api/v1/accounts/1/external_tools/<tool_id>" -d privacy_level=anonymous
+  ```
+- Dashboard side: `canvas_integration_enabled: 'true'` plus `LTIAAS_DOMAIN` /
+  `LTIAAS_API_KEY` in `config/application.yml`.
+
+### 1. Instructor — prepare the course
+
+Prereq: a Wiki Education dashboard course that is **created and approved** (in a
+campaign) to link. If you don't have one, create it on the dashboard first
+(instructor orientation → Create Course) and get it approved.
+
+1. **Enable the tab** (only if Course Navigation is `default: disabled`):
+   **Course → Settings → Navigation → enable "Wiki Education Dashboard" → Save.**
+2. Click the **Wiki Education Dashboard** tab. Inside the Canvas iframe is a
+   minimal landing (Wiki Ed wordmark + "Open the Wiki Education Dashboard").
+   The button opens `/lti/connect_course?ltik=...` in a new tab
+   (`target=_blank`), leaving Canvas in place. If you're not signed in you're
+   bounced through Wikipedia OAuth at top level and returned to the setup view
+   at `/lti?ltik=...`.
+3. **Bind the course**: in the setup view, pick your approved course from the
+   dropdown (or use the create-a-course link if you have none) and **Link this
+   course** — there's no gradebook-layout choice; the integration is
+   deep-link-first. Expect a redirect to `/courses/<slug>`; the course home's
+   "Canvas link" panel shows the linked course, last sync, and synced-students
+   count.
+4. **Import the assignments**: on the **Modules** page, open the **⋮ (options)**
+   menu at the top and choose **Wiki Education Dashboard** ("Import Wikipedia
+   assignments"). This deep-links every column at once — the "Wikipedia account"
+   indicator, the "Wikipedia trainings" roll-up, and one per exercise — and
+   Canvas creates a module with an assignment per column. They arrive
+   unpublished; publish them so students can open them.
+5. Open the Canvas **Gradebook** — expect **Wikipedia account**, **Wikipedia
+   trainings**, and a `Wk# <exercise>` column per imported exercise (short
+   labels, e.g. `Wk3 Bibliography`).
+
+Verify (Rails console): `LtiContext.where(lti_course_binding_id: <id>)` shows a
+row per Canvas member within seconds of the bind — unlinked (`user_id` nil)
+until each student connects a Wikipedia account by launching, since the
+anonymized roster carries no email to auto-enroll against.
+
+### 2. Student — do the assignments
+
+1. As a student, click the tab (or a deep-linked assignment). Same iframe
+   landing → top-level handoff → **Wikipedia OAuth on first launch** → redirect
+   to `/courses/<slug>`, enrolled. Later launches skip the OAuth step. (Before
+   the instructor links/approves, students see "…is being set up" or
+   "…awaiting Wiki Education approval".)
+2. On the course home, complete the **Wikipedia trainings** and the timeline
+   **exercises** (evaluate an article, create/edit the sandbox, bibliography,
+   …). Connecting marks "Wikipedia account"; each completed item marks its
+   column.
+
+### 3. Instructor — grade & review
+
+1. Progress syncs back automatically: roster within seconds of a launch;
+   **grades every 30 minutes** via AGS.
+2. Gradebook: **Wikipedia account** = 1 for connected students; **Wikipedia
+   trainings** pushes `completed_count / total_count` with a
+   `<count> of <total> trainings completed` score comment; each exercise column
+   = `1.0`, with no comment. Sandbox URLs never appear in a comment. Per-(student, line
+   item) dedup avoids redundant pushes when nothing changed.
+3. **Drill-down**: open a Wikipedia column's **assignment → Open the Wiki
+   Education Dashboard** → the per-milestone roster (each student's status +
+   sandbox; **Show** previews the sandbox inline, **Open on Wikipedia** opens
+   the page). A student opening the same assignment sees only their own panel.
+
+### "Refused to connect" in the Canvas frame — what it means
+
+Worth recognizing when supporting a launch, because the message is usually a
+symptom rather than the problem. The Dashboard sends Rails' default
+`X-Frame-Options: SAMEORIGIN` on everything, and `allow_iframe` strips it on
+exactly the launch endpoints (`launch`, `assignment_view`, `complete_setup`,
+`deep_link`, `deep_link_select`, `sync_grades`). Anything else the iframe lands
+on refuses to render. So the message means the frame is showing a Dashboard URL
+that isn't one of those — in practice:
+
+- **A launch that errored.** `config.exceptions_app = self.routes`, so error
+  pages render through `ErrorsController` and carry `SAMEORIGIN` — Canvas shows
+  "Refused to connect" *instead of* the error. A blank/missing `ltik` does the
+  same via `/errors/login_error`. Check the app logs (on staging, Apache's
+  `error.log`), not the browser.
+- **`canvas_integration_enabled` is not `'true'`.** The gate returns
+  `head :not_found`, and a halted `before_action` skips `after_action`, so the
+  404 keeps the header.
+- **The frame navigated to a normal Dashboard page** — course pages, sign-in,
+  training modules all refuse. In-iframe views link out with `target="_blank"`
+  precisely to avoid this; a link that loses it reintroduces the bug.
+- **Wikipedia OAuth in the frame.** Wikimedia refuses framing outright, which
+  is why account linking breaks out to a new tab via `connect_course` (itself
+  `SAMEORIGIN`, so loading it framed shows the message).
+
+Not to be confused with blocked third-party cookies, which never produce this
+message — a partitioned cookie jar makes the iframe read as logged-out, which
+`LtiAnonymousLaunch` handles by rendering read-only views from the `ltik`.
+
+## Production rollout checklist
+
+Before flipping `canvas_integration_enabled` to `'true'` in production:
+
+1. **LTIAAS prod tenant configured** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side. Note there is no "Wiki Education production Canvas" to register against: each institution registers the tool into **their own** Canvas (dynamic registration), and `canvas.wikiedu.org` exists only to develop and test the integration.
+   - **Tool Name reads "Wiki Education Dashboard"** in the LTIAAS portal's API
+     Settings. Blank per-placement Titles during registration fall back to it,
+     and the integration guide now promises admins that name — LTIAAS cannot
+     send per-placement titles, so the account-wide Tool Name is the only lever.
+   - **Activate registrations before instructors launch.** Dynamic registrations
+     arrive in LTIAAS **inactive**, and until someone activates the registration
+     every launch from that institution's Canvas shows a raw JSON error
+     (`UNREGISTERED_OR_INACTIVE_PLATFORM`) in the iframe — LTIAAS rejects the
+     launch before it reaches the Dashboard, and no custom error page can be
+     configured (checked 2026-07-30; the JSON error is LTIAAS's documented
+     behavior). So either activate promptly after an institution registers, and
+     tell the institution not to point instructors at the tool until Wiki
+     Education confirms activation — or close the window with one of LTIAAS's two
+     [documented mechanisms](https://docs.ltiaas.com/guides/api/dynamic-registration/),
+     both operator decisions: the portal's **Dynamic Registration
+     Auto-Activation** toggle (every dynamic registration activates on creation,
+     which also removes Wiki Education's chance to vet who registers), or the
+     **Pre-Approval flow** (the registering admin's iframe redirects to a Wiki
+     Education URL with `?registrationId=<id>`, and the registration is approved
+     programmatically via `POST /api/registrations/{id}/complete` with
+     `autoActivate: true` — keeps the vetting gate, removes the dead-end, and
+     doubles as real-time notification that a registration is pending, at the
+     cost of building the approval endpoint).
+2. **`config/application.yml`** on the prod box — `LTIAAS_DOMAIN`, `LTIAAS_API_KEY`, and `canvas_integration_enabled: 'true'` set.
+3. **Migrations applied** — three migrations from PR 1 (`create_lti_course_bindings`, `create_lti_line_items`, `add_binding_fields_to_lti_contexts`) plus `create_lti_score_signatures` from the dedup pass.
+4. **Sidekiq cron loaded** — confirm `LtiDailyRosterSyncWorker` and `LtiPeriodicGradeSyncWorker` appear in the cron list (check the sidekiq-cron dashboard at `/sidekiq/cron`).
+5. **Sentry monitoring** — confirm Sentry's `extra` filter doesn't drop fields named `binding_id`, `user_lti_id`, or `lineitem_id` (used by per-record error capture in the sync services).
+6. **Smoke test** against `dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org` first; only flip prod after the staging end-to-end checklist passes.
+
 ## Other Guides, References and Sources
 - [Troubleshooting error messages by LTIAAS](https://docs.ltiaas.com/guides/troubleshooting/troubleshooting_error_messages)
 - [Collection of LTI Related Links by LTI Bootcamp](https://github.com/1EdTech/ltibootcamp)
+- [LTIAAS authentication guide](https://docs.ltiaas.com/guides/api/authentication) (covers SERVICE-AUTH-V1 vs. LTIK-AUTH-V2)
+- [LTIAAS async API guide](https://docs.ltiaas.com/guides/api/async) (background-job patterns)
+- [LTIAAS NRPS / Names and Roles](https://docs.ltiaas.com/api/get-memberships/)
+- [LTIAAS AGS / Manipulating grade lines](https://docs.ltiaas.com/guides/api/manipulating-grade-lines/)
+- [LTIAAS AGS / Manipulating grades](https://docs.ltiaas.com/guides/api/manipulating-grades/)

@@ -1,0 +1,16 @@
+- # The `editing`-role articles for one student, shown in place of a completion
+- # pill on article-selection exercises (see AssignmentViewContext). Links go out
+- # to the live article on the wiki: no username in the URL, unlike a sandbox, so
+- # this is safe in every view including the instructor roster.
+- #
+- # A student who hasn't chosen yet is the state the instructor most needs to see,
+- # so it gets its own explicit line rather than an empty cell.
+- if articles.empty?
+  %span.lti-assigned-article__empty= t('lti.assignment_view.no_article_yet')
+- else
+  %ul.lti-assigned-articles
+    - articles.each do |article|
+      %li
+        = link_to article.url, target: '_blank', rel: 'noopener' do
+          = article.title
+          %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
