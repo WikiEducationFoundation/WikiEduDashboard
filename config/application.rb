@@ -80,5 +80,12 @@ module WikiEduDashboard
 
       end
     end
+
+    # Encryption keys for database attributes It enables transparent encryption
+    # and decryption of attributes when saving and retrieving data.
+    # Source: https://guides.rubyonrails.org/active_record_encryption.html
+    config.active_record.encryption.primary_key = ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"]
+    config.active_record.encryption.deterministic_key = ENV["ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY"]
+    config.active_record.encryption.key_derivation_salt = ENV["ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT"]
   end
 end
