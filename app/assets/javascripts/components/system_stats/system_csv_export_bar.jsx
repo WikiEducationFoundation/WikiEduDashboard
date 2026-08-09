@@ -11,13 +11,30 @@ const COURSE_TYPES = [
   { value: 'SingleUser', label: 'Single User' },
 ];
 
+const triggerDownload = (url) => {
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', url.split('/').pop());
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
+  const [activeTab, setActiveTab] = useState('courses');
+
+  // Course level filters
   const [campaignSlug, setCampaignSlug] = useState('');
   const [wikiDomain, setWikiDomain] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [courseType, setCourseType] = useState('');
   const [status, setStatus] = useState('');
+
+  // Daily stats filters
+  const [dailyStartDate, setDailyStartDate] = useState('');
+  const [dailyEndDate, setDailyEndDate] = useState('');
+
   const [exporting, setExporting] = useState(false);
   const [notice, setNotice] = useState(null);
 
@@ -29,35 +46,9 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     };
   }, []);
 
-  const triggerDownload = (url) => {
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', url.split('/').pop());
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const handleExport = () => {
-    if (exporting) return;
-
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setExporting(true);
-    setNotice(null);
-
-    const params = new URLSearchParams();
-    if (campaignSlug) params.append('campaign_slug', campaignSlug);
-    if (wikiDomain) params.append('wiki_domain', wikiDomain);
-    if (startDate) params.append('start_date', startDate);
-    if (endDate) params.append('end_date', endDate);
-    if (courseType) params.append('course_type', courseType);
-    if (status) params.append('status', status);
-
-    const queryString = params.toString();
-    const exportUrl = `/system_csv${queryString ? `?${queryString}` : ''}`;
-
+  const startExportPoll = (exportUrl) => {
     let attempts = 0;
-    const maxAttempts = 20; // 20 attempts x 6s = 120s (2 mins) polling window
+    const maxAttempts = 20;
 
     const stopExport = (noticeMsg = null) => {
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -74,19 +65,15 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
             stopExport(data.error || I18n.t('system_stats.filters.fetch_error'));
             return;
           }
-
           if (!resp.ok && resp.status !== 202) {
             stopExport(I18n.t('system_stats.filters.fetch_error'));
             return;
           }
-
           if (data.status === 'ready') {
             stopExport();
             triggerDownload(data.url);
             return;
           }
-
-          // status === 'generating' (202 Accepted)
           if (attempts < maxAttempts) {
             setNotice(I18n.t('system_stats.filters.generation_queued'));
             timerRef.current = setTimeout(poll, 6000);
@@ -103,126 +90,219 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     poll();
   };
 
+  const startExport = (buildUrlFn) => {
+    if (exporting) return;
+    if (timerRef.current) clearTimeout(timerRef.current);
+    setExporting(true);
+    setNotice(null);
+    startExportPoll(buildUrlFn());
+  };
+
+  const handleExportCourses = () => {
+    startExport(() => {
+      const params = new URLSearchParams();
+      if (campaignSlug) params.append('campaign_slug', campaignSlug);
+      if (wikiDomain) params.append('wiki_domain', wikiDomain);
+      if (startDate) params.append('start_date', startDate);
+      if (endDate) params.append('end_date', endDate);
+      if (courseType) params.append('course_type', courseType);
+      if (status) params.append('status', status);
+      const queryString = params.toString();
+      return `/system_csv${queryString ? `?${queryString}` : ''}`;
+    });
+  };
+
+  const handleExportDailyStats = () => {
+    startExport(() => {
+      const params = new URLSearchParams();
+      if (dailyStartDate) params.append('start_date', dailyStartDate);
+      if (dailyEndDate) params.append('end_date', dailyEndDate);
+      const queryString = params.toString();
+      return `/system_daily_stats_csv${queryString ? `?${queryString}` : ''}`;
+    });
+  };
+
   return (
     <div className="system-stats__filter-card">
+      {/* Unified Tab Header */}
+      <div className="system-stats__tab-header">
+        <button
+          type="button"
+          className={`system-stats__tab-button ${activeTab === 'courses' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('courses'); setNotice(null); }}
+        >
+          {I18n.t('system_stats.filters.course_csv_tab')}
+        </button>
+        <button
+          type="button"
+          className={`system-stats__tab-button ${activeTab === 'daily' ? 'active' : ''}`}
+          onClick={() => { setActiveTab('daily'); setNotice(null); }}
+        >
+          {I18n.t('system_stats.filters.daily_stats_tab')}
+        </button>
+      </div>
+
       {notice && (
         <div className="notification" role="status">
           <p>{notice}</p>
         </div>
       )}
 
-      <div className="system-stats__filter-row">
-        {/* Campaign Filter */}
-        <div className="system-stats__filter-group">
-          <label htmlFor="system-csv-campaign-select">
-            {I18n.t('system_stats.filters.campaign')}
-          </label>
-          <select
-            id="system-csv-campaign-select"
-            value={campaignSlug}
-            onChange={e => setCampaignSlug(e.target.value)}
+      {/* Tab 1: Course Exports */}
+      {activeTab === 'courses' && (
+        <div className="system-stats__filter-row">
+          {/* Campaign Filter */}
+          <div className="system-stats__filter-group">
+            <label htmlFor="system-csv-campaign-select">
+              {I18n.t('system_stats.filters.campaign')}
+            </label>
+            <select
+              id="system-csv-campaign-select"
+              value={campaignSlug}
+              onChange={e => setCampaignSlug(e.target.value)}
+            >
+              <option value="">{I18n.t('system_stats.filters.all_campaigns')}</option>
+              {campaigns.map(c => (
+                <option key={c.slug} value={c.slug}>
+                  {c.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Home Wiki Filter */}
+          <div className="system-stats__filter-group">
+            <label htmlFor="system-csv-wiki-select">
+              {I18n.t('system_stats.filters.home_wiki')}
+            </label>
+            <select
+              id="system-csv-wiki-select"
+              value={wikiDomain}
+              onChange={e => setWikiDomain(e.target.value)}
+            >
+              <option value="">{I18n.t('system_stats.filters.all_wikis')}</option>
+              {wikis.map(domain => (
+                <option key={domain} value={domain}>
+                  {domain}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Start Date */}
+          <div className="system-stats__filter-group">
+            <label htmlFor="system-csv-start-date">
+              {I18n.t('system_stats.filters.start_date')}
+            </label>
+            <input
+              id="system-csv-start-date"
+              type="date"
+              value={startDate}
+              onChange={e => setStartDate(e.target.value)}
+            />
+          </div>
+
+          {/* End Date */}
+          <div className="system-stats__filter-group">
+            <label htmlFor="system-csv-end-date">
+              {I18n.t('system_stats.filters.end_date')}
+            </label>
+            <input
+              id="system-csv-end-date"
+              type="date"
+              value={endDate}
+              onChange={e => setEndDate(e.target.value)}
+            />
+          </div>
+
+          {/* Course Type Filter */}
+          <div className="system-stats__filter-group">
+            <label htmlFor="system-csv-course-type-select">
+              {I18n.t('system_stats.filters.course_type')}
+            </label>
+            <select
+              id="system-csv-course-type-select"
+              value={courseType}
+              onChange={e => setCourseType(e.target.value)}
+            >
+              <option value="">{I18n.t('system_stats.filters.all_types')}</option>
+              {COURSE_TYPES.map(ct => (
+                <option key={ct.value} value={ct.value}>
+                  {ct.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Status Filter */}
+          <div className="system-stats__filter-group">
+            <label htmlFor="system-csv-status-select">
+              {I18n.t('system_stats.filters.status')}
+            </label>
+            <select
+              id="system-csv-status-select"
+              value={status}
+              onChange={e => setStatus(e.target.value)}
+            >
+              <option value="">{I18n.t('system_stats.filters.all_statuses')}</option>
+              <option value="active">{I18n.t('system_stats.filters.active')}</option>
+              <option value="archived">{I18n.t('system_stats.filters.archived')}</option>
+            </select>
+          </div>
+
+          {/* Export Button */}
+          <button
+            type="button"
+            className="system-stats__export-button"
+            onClick={handleExportCourses}
+            disabled={exporting}
           >
-            <option value="">{I18n.t('system_stats.filters.all_campaigns')}</option>
-            {campaigns.map(c => (
-              <option key={c.slug} value={c.slug}>
-                {c.title}
-              </option>
-            ))}
-          </select>
+            {exporting
+              ? I18n.t('system_stats.filters.generating')
+              : I18n.t('system_stats.filters.export_csv')}
+          </button>
         </div>
+      )}
 
-        {/* Home Wiki Filter */}
-        <div className="system-stats__filter-group">
-          <label htmlFor="system-csv-wiki-select">
-            {I18n.t('system_stats.filters.home_wiki')}
-          </label>
-          <select
-            id="system-csv-wiki-select"
-            value={wikiDomain}
-            onChange={e => setWikiDomain(e.target.value)}
+      {/* Tab 2: Daily System Snapshots */}
+      {activeTab === 'daily' && (
+        <div className="system-stats__filter-row">
+          <div className="system-stats__filter-group">
+            <label htmlFor="daily-csv-start-date">
+              {I18n.t('system_stats.filters.start_date')}
+            </label>
+            <input
+              id="daily-csv-start-date"
+              type="date"
+              value={dailyStartDate}
+              onChange={e => setDailyStartDate(e.target.value)}
+            />
+          </div>
+
+          <div className="system-stats__filter-group">
+            <label htmlFor="daily-csv-end-date">
+              {I18n.t('system_stats.filters.end_date')}
+            </label>
+            <input
+              id="daily-csv-end-date"
+              type="date"
+              value={dailyEndDate}
+              onChange={e => setDailyEndDate(e.target.value)}
+            />
+          </div>
+
+          <button
+            type="button"
+            className="system-stats__export-button"
+            onClick={handleExportDailyStats}
+            disabled={exporting}
           >
-            <option value="">{I18n.t('system_stats.filters.all_wikis')}</option>
-            {wikis.map(domain => (
-              <option key={domain} value={domain}>
-                {domain}
-              </option>
-            ))}
-          </select>
+            {exporting
+              ? I18n.t('system_stats.filters.generating')
+              : I18n.t('system_stats.filters.export_daily_csv')}
+          </button>
         </div>
-
-        {/* Start Date */}
-        <div className="system-stats__filter-group">
-          <label htmlFor="system-csv-start-date">
-            {I18n.t('system_stats.filters.start_date')}
-          </label>
-          <input
-            id="system-csv-start-date"
-            type="date"
-            value={startDate}
-            onChange={e => setStartDate(e.target.value)}
-          />
-        </div>
-
-        {/* End Date */}
-        <div className="system-stats__filter-group">
-          <label htmlFor="system-csv-end-date">
-            {I18n.t('system_stats.filters.end_date')}
-          </label>
-          <input
-            id="system-csv-end-date"
-            type="date"
-            value={endDate}
-            onChange={e => setEndDate(e.target.value)}
-          />
-        </div>
-
-        {/* Course Type Filter */}
-        <div className="system-stats__filter-group">
-          <label htmlFor="system-csv-course-type-select">
-            {I18n.t('system_stats.filters.course_type')}
-          </label>
-          <select
-            id="system-csv-course-type-select"
-            value={courseType}
-            onChange={e => setCourseType(e.target.value)}
-          >
-            <option value="">{I18n.t('system_stats.filters.all_types')}</option>
-            {COURSE_TYPES.map(ct => (
-              <option key={ct.value} value={ct.value}>
-                {ct.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Status Filter */}
-        <div className="system-stats__filter-group">
-          <label htmlFor="system-csv-status-select">
-            {I18n.t('system_stats.filters.status')}
-          </label>
-          <select
-            id="system-csv-status-select"
-            value={status}
-            onChange={e => setStatus(e.target.value)}
-          >
-            <option value="">{I18n.t('system_stats.filters.all_statuses')}</option>
-            <option value="active">{I18n.t('system_stats.filters.active')}</option>
-            <option value="archived">{I18n.t('system_stats.filters.archived')}</option>
-          </select>
-        </div>
-
-        {/* Export CSV Button */}
-        <button
-          type="button"
-          className="system-stats__export-button"
-          onClick={handleExport}
-          disabled={exporting}
-        >
-          {exporting
-            ? I18n.t('system_stats.filters.generating')
-            : I18n.t('system_stats.filters.export_csv')}
-        </button>
-      </div>
+      )}
     </div>
   );
 };

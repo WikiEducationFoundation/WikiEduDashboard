@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/app/workers/report_csv_worker"
 
 #= Controller for report CSV generation (asynchronously)
 # This is used for CSV reports that may be too heavy to be generated during a web request
+# rubocop:disable Metrics/ClassLength
 class ReportsController < ApplicationController
   include CourseHelper
   before_action :require_signed_in,
@@ -21,8 +22,10 @@ class ReportsController < ApplicationController
 
   before_action :set_sidekiq_job_context
   before_action :require_admin_permissions,
-                only: %i[all_courses_and_instructors_csv course_retention_csv system_csv]
+                only: %i[all_courses_and_instructors_csv course_retention_csv system_csv
+                         system_daily_stats_csv]
   before_action :validate_system_csv_filters!, only: [:system_csv]
+  before_action :validate_system_daily_stats_filters!, only: [:system_daily_stats_csv]
   before_action :require_fellows_cohort, only: [:course_retention_csv]
 
   #######################
@@ -118,6 +121,20 @@ class ReportsController < ApplicationController
     end
   end
 
+  # Admin-only daily system statistics CSV export.
+  def system_daily_stats_csv
+    filters = system_daily_stats_filters
+    filename = build_system_daily_stats_filename(filters)
+
+    if File.exist?("public#{CSV_PATH}/#{filename}")
+      render json: { status: 'ready', url: "#{CSV_PATH}/#{filename}" }
+    else
+      ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_daily_stats_csv',
+                                   include_course: nil, filters:)
+      render json: { status: 'generating' }, status: :accepted
+    end
+  end
+
   private
 
   def set_course
@@ -185,7 +202,47 @@ class ReportsController < ApplicationController
     "#{parts.join('-')}.csv".tr('/', '-')
   end
 
+  def system_daily_stats_filters
+    params.permit(:start_date, :end_date)
+          .to_h.symbolize_keys
+          .reject { |_, v| v.blank? }
+  end
+
+  def validate_system_daily_stats_filters!
+    filters = system_daily_stats_filters
+    errors = []
+    %i[start_date end_date].each do |key|
+      next unless filters[key].present?
+      begin
+        Date.parse(filters[key])
+      rescue Date::Error
+        errors << "Invalid #{key.to_s.tr('_', ' ')}: #{filters[key]}"
+      end
+    end
+    if filters[:start_date].present? && filters[:end_date].present?
+      begin
+        if Date.parse(filters[:start_date]) > Date.parse(filters[:end_date])
+          errors << 'start_date must be before end_date'
+        end
+      rescue Date::Error
+        # already caught above
+      end
+    end
+    return if errors.empty?
+    render json: { error: errors.join(', ') },
+           status: :unprocessable_content
+  end
+
+  def build_system_daily_stats_filename(filters)
+    parts = ['system-daily-stats']
+    parts << "from-#{filters[:start_date]}" if filters[:start_date].present?
+    parts << "to-#{filters[:end_date]}" if filters[:end_date].present?
+    parts << Time.zone.today.to_s
+    "#{parts.join('-')}.csv"
+  end
+
   def course_report?(type)
     type.start_with?('course')
   end
 end
+# rubocop:enable Metrics/ClassLength

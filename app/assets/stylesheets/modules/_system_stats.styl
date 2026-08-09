@@ -9,6 +9,31 @@
   margin-bottom 35px
   box-shadow 0 1px 3px rgba(0, 0, 0, 0.05)
 
+.system-stats__tab-header
+  display flex
+  gap 24px
+  border-bottom 1px solid #e2e8f0
+  margin-bottom 20px
+  padding-bottom 8px
+
+.system-stats__tab-button
+  background none
+  border none
+  font-size 14px
+  font-weight 600
+  color #718096
+  cursor pointer
+  padding 6px 0
+  border-bottom 2px solid transparent
+  transition color 0.2s, border-color 0.2s
+
+  &:hover
+    color #2d3748
+
+  &.active
+    color #676eb4
+    border-bottom-color #676eb4
+
 .system-stats__filter-row
   display flex
   flex-wrap wrap
@@ -43,10 +68,10 @@
 
     &:focus
       outline none
-      border-color #7e22ce
+      border-color #676eb4
 
 .system-stats__export-button
-  background-color #7e22ce
+  background-color #676eb4
   color #fff
   font-weight 600
   font-size 13px
@@ -59,7 +84,7 @@
   transition background-color 0.2s, opacity 0.2s
 
   &:hover
-    background-color #6b21a8
+    background-color #545b99
 
   &:disabled
     opacity 0.6
