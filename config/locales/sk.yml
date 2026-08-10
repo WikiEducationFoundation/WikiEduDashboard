@@ -1809,7 +1809,10 @@ sk:
     search_training_resources: Hľadať školiace zdroje
     no_training_resource_match_your_search: Vášmu vyhľadávaniu nezodpovedá žiadny
       školiaci zdroj
-    exercise_sandbox: Pieskovisko cvičenia
+    exercise_sandbox: Cvičné pieskovisko
+    exercise_sandbox_incomplete: Prosím dokončite cvičenie vo svojom cvičnom pieskovisku
+      (%{pages}) predtým, ako ho označíte ako dokončené
+    exercise_needs_assigned_article: Pred dokončením si musíte priradiť článok.
     open_exercise: Začať cvičenie
     remaining_exercise: Zostáva %{count} ďalších cvičení.
     view_all: Zobraziť všetky cvičenia
@@ -1859,7 +1862,7 @@ sk:
       zdrojom, pretože môžu byť generované umelou inteligenciou. (Poznámka: článok
       sa mohol od pridania týchto tvrdení zmeniť.)'
     form:
-      step_find_source: 'Nájdite zdroj'
+      step_find_source: Nájdite zdroj
       find_source_instructions: Teraz, keď ste si vybrali tvrdenie, dohľadajte citovaný
         zdroj. Pri hľadaní zdroja sa možno budete musieť poradiť so svojím vyučujúcim
         alebo knihovníkom.
@@ -1871,7 +1874,7 @@ sk:
         inaccessible: Nie, zdroj existuje, ale nepodarilo sa mi k nemu získať prístup.
       source_access_notes_label: 'Ak sa vám zdroj nepodarilo nájsť, povedzte nám o
         tom viac:'
-      step_verify: 'Overte tvrdenie'
+      step_verify: Overte tvrdenie
       verify_instructions: Keď citovaný zdroj nájdete, dôkladne ho preskúmajte a posúďte,
         nakoľko podporuje tvrdenie, ktoré ste si vybrali. Ak nájdete presne to miesto,
         odkiaľ informácia pochádza, poznačte si, kde v dokumente ste ju našli. (Niektoré

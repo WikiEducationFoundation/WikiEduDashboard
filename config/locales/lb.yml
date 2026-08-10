@@ -102,6 +102,15 @@ lb:
         name: Numm
         description: Beschreiwung
   system_stats:
+    filters:
+      campaign: Campagne
+      all_campaigns: All Campagnen
+      all_wikis: All Wikien
+      status: Status
+      all_types: All Typpen
+      all_statuses: All Statussen
+      active: Aktiv
+      archived: Archivéiert
     kpis:
       new_editors: Nei Editeuren
       active_programs: Aktiv Programmen
@@ -681,6 +690,7 @@ lb:
     close: ZOUMAACHEN
   claim_verification:
     no_articles: Keng Artikelen disponibel
+    step_heading: 'Schrëtt %{number}: %{name}'
     form:
       edit_response: Äntwert änneren
       submit_failed: Feeler! Är Äntwert gouf net gespäichert.

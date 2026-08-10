@@ -39,6 +39,7 @@
 # Author: Macofe
 # Author: MarcoAurelio
 # Author: Monicapozo03
+# Author: Ovruni
 # Author: Samthony
 # Author: SaraiSan-WMF
 # Author: Silverie04
@@ -235,13 +236,35 @@ es:
     charts:
       monthly_trends: Tendencias mensuales de la actividad
       wiki_trends: Tendencias Wiki (5 Mayores)
+    tables:
+      wiki: Wiki
+      edits: Ediciones
+      programs: Programas
+      articles_created: Artículos creados
+      new_editors: Editores nuevos
     facilitators:
+      username: Nombre de usuario
       courses: Cursos
       active: Activo
+      students: Estudiantes
       "yes": Sí
       "no": "No"
     pagination:
       previous: Anterior
+      next: Siguiente
+    loading:
+      data: Cargando datos desde el servidor...
+      facilitators: Cargando facilitadores...
+      wiki_stats: Cargando estadísticas de la wiki...
+      wiki_trends: Cargando tendencias de la wiki...
+    empty:
+      no_trend_data: No hay datos de tendencias disponibles.
+      no_wiki_trend_data: No hay datos de tendencias de la wiki disponibles.
+      no_wiki_stats: No hay estadísticas disponibles del proyecto wiki.
+      no_facilitators: No se encontraron facilitadores.
+    errors:
+      fetch_failed: No se pudieron cargar los datos. Por favor, intente actualizar
+        la página.
   activity:
     all: Actividad
     edited_by: Editado por
@@ -257,6 +280,7 @@ es:
     no_available: No hay artículos disponibles
     next: Siguiente
     page_info: Página %{current} de %{total_pages} (%{count} de %{total})
+    permalink: Enlace permanente
     previous: Anterior
     article_title: Título del artículo
     assigned_to: Asignado a
@@ -281,14 +305,19 @@ es:
       tracked: Rastreado
       untracked: No rastreado
       tracked_and_untracked: Rastreado y no rastreado
+      wiki_label: Wiki
+      tracked_label: Estado de seguimiento
     filter_text: 'Filtros:'
+    cumulative: Acumulativo
+    daily_avg: Promedio diario
     find: Buscar artículos
-    how_to_find: Cómo encontrar artículos
+    how_to_find: Cómo encontrar un artículo
     hide: Ocultar
     history: (historial)
     label: Artículos
     loading: Cargando artículos...
     mark_as_complete: Marcar como completo
+    mark_as_incomplete: Marcar como incompleto
     new: (nuevo)
     none: En este curso no se ha editado ningún artículo.
     preview: Breve vista previa del artículo
@@ -337,8 +366,11 @@ es:
     view_on_wiki: Ver en la wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     article_size: Tamaño del artículo
+    article_size_doc: Tamaño del wikitexto del artículo (en bytes) después de cada
+      edición.
     edit_size: Tamaño de edición
     editor_other: Otros editores
+    scoring_status: Obteniendo puntuaciones para %{count} ediciones
     wiki: Wiki
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
@@ -361,6 +393,8 @@ es:
     tracked_articles: Artículos rastreados
     view_articles: Ver artículos
     no_tracked_articles: Esta categoría no tiene ningún artículo rastreado
+    use_dashboard: Cómo usar el panel de control
+    evaluate_and_source: Evaluación de artículos y fuentes
   items:
     items: Elementos
     lexeme: Lexema
@@ -412,7 +446,9 @@ es:
     add_available_placeholder_wikidata: Añade un título de elemento o un URL por línea
     add_available_submit: Añadir artículos
     add_available_submit_wikidata: Añadir elementos
+    add_placeholder: Ingrese un título o URL del artículo
     assign_self: Asignarme un artículo
+    invalid_mainspace_article: Este debe ser un artículo válido del espacio principal.
     assign_self_wikidata: Asignarme un elemento
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
     assign_tooltip_wikidata: Un elemento asignado es un elemento que piensas crear
@@ -427,6 +463,7 @@ es:
     change_sandbox_url: Cambiar zona de pruebas
     group_members: Miembros del grupo
     label: Asignar
+    label_all: Asigna a todos
     loading: Cargando tareas...
     none_short: No hay artículos asignados
     none_short_wikidata: No hay elementos asignados
@@ -480,6 +517,15 @@ es:
       %{url} válida de Wikipedia.
     mismatched_wiki: No se puede actualizar la URL de la zona de pruebas. La URL %{url}
       no está en la misma wiki.
+    invalid_username: El nombre de usuario "%{username}" no es válido o el nombre
+      de usuario no existe.
+    username_label: Nombre de usuario de Wikipedia
+    username_placeholder: Introduce tu nombre de usuario (por ejemplo, TuNombreDeUsuario)
+    username_or_url_label: Nombre de usuario o URL de Wikipedia
+    username_or_url_placeholder: Introduce el nombre de usuario o la URL completa
+      de la zona de pruebas.
+    preview_label: 'Vista previa de las nuevas URL:'
+    sandbox_label: Zona de pruebas
     bibliography_label: Bibliografía
     warning_untracked_wiki: 'Por favor, ten en cuenta que el artículo que has elegido
       está en una wiki que no está rastreada por este curso. Para rastrear las contribuciones
@@ -731,6 +777,9 @@ es:
         clic en "Crear mi curso" para iniciar la construcción del cronograma para
         tu tarea en Wikipedia.
       no_class_holidays: Yo no tengo vacaciones de clases
+      role_description: Tu rol en el curso
+      role_description_options:
+      - Instructor
       role_description_placeholder: Instructor, profesor de apoyo, etc.
       save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio
@@ -816,15 +865,19 @@ es:
     nocourses: No participas de ningún curso.
     nocourse: no ha participado en ningún curso.
     none: Ninguno
+    not_permitted: No tienes permiso para editar este curso.
     notify_untrained_confirmation: Esto publicará un recordatorio en las páginas de
       discusión de todos los estudiantes que no hayan completado los módulos de capacitación
       asignados. ¿Estás seguro de que quieres hacer esto?
     no_available_actions: No hay acciones disponibles
+    online_volunteers_enabled: Voluntarios en línea habilitados
     ores_plot: ORES
+    ores_plot_refresh_data: Actualizar datos en caché
     overview: Inicio
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
     passcode_prompt: 'Escribe el código de acceso para unirte:'
+    please_log_in: Por favor, inicie sesión.
     private: Privado
     published: 'Se ha publicado tu curso. Los estudiantes podrán matricularse al visitar
       el URL siguiente:'
@@ -845,6 +898,7 @@ es:
     max_group_size: Tamaño máximo del grupo
     max_group_size_tooltip: Número máximo de estudiantes que pueden trabajar en el
       mismo artículo. Dejar en blanco para un número ilimitado.
+    student: Estudiante
     students: Estudiantes
     students_count: '# Estudiantes'
     student_editors: Editores estudiantiles
@@ -864,10 +918,20 @@ es:
     user_role: Oficio
     course_details: Detalles del curso
     subject: Asignatura
+    add_tags: 'Añadir etiquetas:'
+    add_campaigns: 'Añadir campañas:'
+    invalid_salesforce_id: El ID introducido no es válido.
+    approve_course: Aprobar el curso
     tag_select: Selecciona o crea una etiqueta
+    tags: 'Etiquetas:'
     term: Término
     timeline: Detalles de la tarea
+    timeline_enabled: Línea de tiempo habilitada
     timeline_link: Cronograma
+    timeline_tooltip: Al activar la línea de tiempo, podrá especificar las actividades
+      semanales y asignar módulos de capacitación. Resulta útil para cursos de programas
+      educativos y otros programas extensos y altamente estructurados.
+    timeline_nav: Ir a la línea de tiempo
     time_zone_message: Los tiempos de comienzo y finalización se muestran en tu huso
       horario local.
     title: Título
@@ -881,6 +945,9 @@ es:
     update_stats: Actualizar estadísticas
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    user_uploads_none: Este usuario no ha contribuido con imágenes u otros archivos
+      multimedia a Wikimedia Commons.
+    user_recent_uploads: Subidas recientes
     user_suggestions: 'Sugerencias de usuario:'
     user_suggestions_prompt: Tus sugerencias para los editores del artículo
     view_other: Ver otras campañas
@@ -896,6 +963,7 @@ es:
     warn_mirrored: Tras la presentación, este curso se enviará automáticamente a Wikipedia
       con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma
       se reflejarán en Wikipedia. ¿Estás seguro de que quieres hacer esto?
+    wiki_course_page_enabled: Página del curso Wiki habilitada
     wiki_staff: Personal de Wiki Ed
     withdrawn: No hizo los deberes
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
@@ -904,13 +972,28 @@ es:
     survey:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
+  course_instructor_notification:
+    notify_instructors_feature_description: Enviar un mensaje a los instructores por
+      correo electrónico.
+    send_notification_button_text: Enviar
+    notification_sent_success: Mensaje enviado a todos los instructores de %{courseTitle}
+    notification_send_error_no_internet: No se pudo enviar la solicitud. Compruebe
+      si está conectado a Internet.
+    notification_send_error_server: 'Error del servidor: No se pudo enviar la notificación
+      (%{status} %{statusText})'
+    notification_empty_message: El asunto o el mensaje no pueden estar vacíos.
+    confirm_send_notification: ¿Enviar a todos los instructores de este curso?
+    write_subject: Asunto
+    write_message_placeholder: Mensaje
   courses_generic:
     school_system: Sistema académico
     add_campaign: Añadir campaña
     all_courses: Todos los programas
     archived: Programas archivados
+    articles_i_am_reviewing: Artículos que estoy revisando
     assignment_headings:
       available_reviews: Disponibles para revisión
+      available_reviews_wikidata: Disponibles para revisión
     assignment_end: Final del evento
     assignments_none: Este proyecto no tiene artículos asignados.
     assignment_start: Comienzo del evento
@@ -925,6 +1008,7 @@ es:
       assignment_end_placeholder: AAAA-MM-DD
       assignment_start: Comienzo del evento
       assignment_start_placeholder: AAAA-MM-DD
+      cancel_course_clone: Cancelar clon del programa
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       choose_clone: Elige un programa para clonarlo.
       clone_previous: Clonar el programa previo
@@ -951,6 +1035,7 @@ es:
       scoping_methods:
         categories: Categorías
         templates: Plantillas
+        petscan: PetScan
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
     end: Final del seguimiento de actividades
@@ -974,6 +1059,7 @@ es:
     student_editors: Editores
     student: Editor
     students: Editores
+    students_taught: Editores totales
     students_none: Este proyecto no tiene editores inscriptos.
     students_short: Editores
     students_count: Número de participantes
@@ -984,7 +1070,7 @@ es:
     user_uploads_none: Los usuarios seleccionados no han contribuido con ninguna imagen
       u otro archivo multimedia a este proyecto.
     view_other: Ver otras campañas
-    view_page: Ver la página del programa
+    view_page: Ver página
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
       por los editores del programa durante el plazo de programa
     yourcourses: Tus programas
@@ -1006,6 +1092,8 @@ es:
       learn_more_button: Más información
     no_assignments: Este estudiante actualmente no tiene artículos asignados.
     can_assign_assignments: Puede asignar un artículo utilizando los botones de arriba.
+    select_student:
+      title: Seleccione %{prefix}
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -1043,14 +1131,18 @@ es:
       one: total de uso entre todos los idiomas
       other: total de usos entre todos los idiomas
     view_count_description: Visualizaciones del artículo
+    view_count_description_wikidata: Visualizador de elementos
+    view_data_unavailable: No hay datos de visualización disponibles
     view: Visualizaciones
+    wiki_ed_help: Utilice el botón 'Obtener ayuda' para informar de un problema.
     word_count: Palabras añadidas
     word_count_average: Promedio de recuento de palabras
     general: General
     total_revisions: Revisiones totales
     claims: Afirmaciones
     aliases: Alias
-    merged: Fusiones
+    merged: Fusionado a
+    merged_from: Fusionado desde
     created: Creaciones
     changed: Cambios
     removed: Eliminaciones
@@ -1071,6 +1163,8 @@ es:
     restorations_performed: Restauraciones realizadas
     reverts_performed: Reversiones realizadas
     language: Idioma
+    lexical_category: Categoría léxica
+    forms: Formas
   namespace:
     all: Todos
     main: Espacio principal
@@ -1096,6 +1190,9 @@ es:
     appendix: Apéndice
     portal: Portal
     school: Escuela
+    author: Autor
+    index: Índice
+    collection: Colección
   recent_activity:
     active_courses: El artículo está activo en
     article_title: Título
@@ -1142,6 +1239,12 @@ es:
     common_settings_components:
       headings:
         site_notice_preview: Vista previa en vivo
+      buttons:
+        add_admin_button: Añadir administrador
+        add_special_user_button: Añadir usuario especial
+        configure_site_notice:
+          enable_button: Activar
+          disable_button: Desactivar
     categories:
       other_settings: Otras configuraciones
       impact_stats: Estadísticas de impacto
@@ -1172,6 +1275,11 @@ es:
     special_users:
       new:
         form_placeholder: Nombre de usuario
+    disallowed_users:
+      none: No se han configurado usuarios no autorizados.
+      add_button: Añadir usuario
+      remove_button: Quitar
+    actions: Acciones
   suggestions:
     editing: Editar sugerencias
     suggestion_docs:
@@ -1529,4 +1637,23 @@ es:
     view: Ver
   multi_wiki:
     selector_placeholder: Empieza a escribir un dominio wiki
+  notes:
+    create_note: Crear nota
+    cancel_note_creation: Cancelar
+    post_note: Entrada
+    edit_note: Editar nota
+    cancel_edit_note: Cancelar
+    delete_note: Eliminar nota
+    admin:
+      aria_label:
+        note_details_focused: Detalles de la nota {{title}}
+        note_edit_button_focused: Edita los detalles de la nota {{title}}
+        note_edit_save_button_focused: Guarda la nota editada {{title}}
+        note_edit_cancel_button_focused: Cancelar edición de nota {{título}}
+        note_delete_button_focused: Eliminar la nota {{title}}
+  tagged_courses:
+    download_csv: Descargar CSV
+  form_search:
+    advanced_search: Búsqueda avanzada
+    clear: Limpiar
 ...
