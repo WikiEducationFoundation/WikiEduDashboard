@@ -7,10 +7,13 @@ QUERY_ROUTE="ROUTE_TO_QUERIES"
 DASHBOARD_URL="URL_TO_DASHBOARD"
 JSON_ENDPOINT="$DASHBOARD_URL/system/can_start_backup.json"
 
-# Give up after MAX_WAIT_ATTEMPTS * WAIT_INTERVAL_IN_SECONDS (two hours) instead of
-# polling forever, so a course update that never goes to sleep can't hang the script.
+# Give up once two hours have gone by, instead of polling forever, so a course update
+# that never goes to sleep can't hang the script. The settle sleep counts towards that
+# budget, so the script never spends more than MAX_WAIT_IN_SECONDS before the dump.
+MAX_WAIT_IN_SECONDS=7200
+SETTLE_SLEEP_IN_SECONDS=120
 WAIT_INTERVAL_IN_SECONDS=300
-MAX_WAIT_ATTEMPTS=24
+MAX_WAIT_ATTEMPTS=$(( (MAX_WAIT_IN_SECONDS - SETTLE_SLEEP_IN_SECONDS) / WAIT_INTERVAL_IN_SECONDS ))
 
 log() {
   printf '%s : %s\n' "$(date '+%m%d%Y %T')" "$1" >> "$LOG_FILE"
@@ -39,7 +42,7 @@ wait_until_ready_for_backup() {
   while [ $status != 200 ];
   do
       if [ $attempts -ge $MAX_WAIT_ATTEMPTS ]; then
-        log "Waiting for more than two hours. Aborting"
+        log "Waited two hours for the app to be ready. Aborting"
         mysql < "$QUERY_ROUTE/failed.sql" || true
         exit 1
       fi
@@ -93,8 +96,8 @@ fi
 # Create waiting backup record
 mysql < $QUERY_ROUTE/waiting.sql
 
-# Sleep two minutes to guarantee that all processes see the new data table record
-sleep 120
+# Sleep to guarantee that all processes see the new data table record
+sleep $SETTLE_SLEEP_IN_SECONDS
 
 wait_until_ready_for_backup
 
