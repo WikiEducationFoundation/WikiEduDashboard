@@ -43,13 +43,13 @@ backup is waiting to run.
 - From this point, all CourseDataUpdateWorker jobs that start the UpdateCourseStats
 in the background will be paused sleeping until: either 1) the backup record leaves the
 *waiting*/*running* status or 2) a maximum amount of time has passed since the current backup
-row was updated. This is to avoid an orphaned backup row caused by an expected error leaving
+row was created. This is to avoid an orphaned backup row caused by an unexpected error leaving
 the course update processes sleeping indefinitely. Already running CourseDataUpdateWorker
 jobs will continue until completion.
 - Some minutes later, the script running on the db server checks the `can_start_backup.json`
 endpoint to determine whether it's safe to start the backup. The criterion is that a backup
 can only run if all currently running CourseDataUpdateWorker jobs are in sleeping phase. If
-the response is 503 server unavailable, it waits for 2 minutes and retries until it receives
+the response is 503 server unavailable, it waits for 5 minutes and retries until it receives
 a 200 OK response. Once it gets the 200 OK response, it sets the backup status to *running*.
 Note that, to avoid the backup process waiting indefinitely while a long course update is
 running (possibly for days), the backup process has a maximum number of retries to the
@@ -75,5 +75,5 @@ To enable automatic backups, we did the following in peony db server and wiki ed
     ```
 3. Copy the script and queries to the server at ``/home/dbbackup/backup.sh``.
 4. Ensure *dbbackup* user is the owner of the script and it has execution permission.
-4. Update the script with the correct values for ``BACKUP_ROUTE``, ``QUERY_ROUTE`` and ``DASHBOARD_URL``. For the wiki-edu server the ``BACKUP_ROUTE`` is ``/home/dbbackup/dumps``. For peony server, it's ``/srv/dumps``. Note that the cinder volume is mounted on ``/srv``, so that's where we have free space.
-5. Add a cronjob to run the script weekly: run ``sudo crontab -u dbbackup -e`` and add ``0 20 * * SUN /home/dbbackup/backup.sh`` to the crontab.
+5. Update the script with the correct values for ``BACKUP_ROUTE``, ``QUERY_ROUTE`` and ``DASHBOARD_URL``. For the wiki-edu server the ``BACKUP_ROUTE`` is ``/home/dbbackup/dumps``. For peony server, it's ``/srv/dumps``. Note that the cinder volume is mounted on ``/srv``, so that's where we have free space.
+6. Add a cronjob to run the script weekly: run ``sudo crontab -u dbbackup -e`` and add ``0 20 * * SUN /home/dbbackup/backup.sh`` to the crontab.
