@@ -209,28 +209,33 @@ class ReportsController < ApplicationController
   end
 
   def validate_system_daily_stats_filters!
-    filters = system_daily_stats_filters
-    errors = []
-    %i[start_date end_date].each do |key|
-      next unless filters[key].present?
-      begin
-        Date.parse(filters[key])
-      rescue Date::Error
-        errors << "Invalid #{key.to_s.tr('_', ' ')}: #{filters[key]}"
-      end
-    end
-    if filters[:start_date].present? && filters[:end_date].present?
-      begin
-        if Date.parse(filters[:start_date]) > Date.parse(filters[:end_date])
-          errors << 'start_date must be before end_date'
-        end
-      rescue Date::Error
-        # already caught above
-      end
-    end
+    errors = daily_stats_filter_errors(system_daily_stats_filters)
     return if errors.empty?
     render json: { error: errors.join(', ') },
            status: :unprocessable_content
+  end
+
+  def daily_stats_filter_errors(filters)
+    errors = validate_daily_stats_date_formats(filters)
+    return errors if errors.any?
+    validate_daily_stats_date_range(filters, errors)
+    errors
+  end
+
+  def validate_daily_stats_date_formats(filters)
+    %i[start_date end_date].filter_map do |key|
+      next unless filters[key].present?
+      Date.parse(filters[key])
+      nil
+    rescue Date::Error
+      "Invalid #{key.to_s.tr('_', ' ')}: #{filters[key]}"
+    end
+  end
+
+  def validate_daily_stats_date_range(filters, errors)
+    return unless filters[:start_date].present? && filters[:end_date].present?
+    return if Date.parse(filters[:start_date]) <= Date.parse(filters[:end_date])
+    errors << 'start_date must be before end_date'
   end
 
   def build_system_daily_stats_filename(filters)
