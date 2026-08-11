@@ -152,7 +152,6 @@ class TimesliceCleaner
     return if acuwt_records.empty?
 
     wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
-    return if wikis_and_starts.empty?
 
     mark_timeslices_for_reaggregation(wikis_and_starts)
   end
@@ -168,7 +167,6 @@ class TimesliceCleaner
     return if acuwt_records.empty?
 
     wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
-    return if wikis_and_starts.empty?
 
     mark_timeslices_for_reaggregation(wikis_and_starts)
     delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
@@ -190,7 +188,6 @@ class TimesliceCleaner
     return if acuwt_records.empty?
 
     wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
-    return if wikis_and_starts.empty?
 
     mark_timeslices_for_update(wikis_and_starts)
     # ACT is only deleted for the passed articles (it has no wiki_id, so it can't
