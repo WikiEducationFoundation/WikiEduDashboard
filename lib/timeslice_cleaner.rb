@@ -263,49 +263,38 @@ class TimesliceCleaner
                                                            wiki_id: wiki_ids))
   end
 
-  def mark_timeslices_for_reaggregation(wikis_and_starts)
-    tuples = wikis_and_starts.map do |wiki_id, s|
-      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
+  # Course timeslices of the given model matching the given (id, start) pairs.
+  def timeslices_for_pairs(model, id_column, pairs)
+    tuples = pairs.map do |id, s|
+      "(#{id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
     end.join(', ')
-    CourseWikiTimeslice.where(course: @course)
-                       .where("(wiki_id, start) IN (#{tuples})")
-                       .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
+    model.where(course: @course).where("(#{id_column}, start) IN (#{tuples})")
+  end
+
+  def mark_timeslices_for_reaggregation(wikis_and_starts)
+    timeslices_for_pairs(CourseWikiTimeslice, :wiki_id, wikis_and_starts)
+      .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def mark_timeslices_for_update(wikis_and_starts)
-    tuples = wikis_and_starts.map do |wiki_id, s|
-      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
-    end.join(', ')
-    CourseWikiTimeslice.where(course: @course)
-                       .where("(wiki_id, start) IN (#{tuples})")
-                       .update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
+    timeslices_for_pairs(CourseWikiTimeslice, :wiki_id, wikis_and_starts)
+      .update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
     article_starts = acuwt_records.pluck(:article_id, :start).uniq
     return if article_starts.empty?
 
-    tuples = article_starts.map do |article_id, s|
-      "(#{article_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
-    end.join(', ')
-    delete_in_batches(ArticleCourseTimeslice.where(course: @course)
-                                            .where("(article_id, start) IN (#{tuples})"))
+    delete_in_batches(timeslices_for_pairs(ArticleCourseTimeslice, :article_id, article_starts))
   end
 
   def delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
-    tuples = wikis_and_starts.map do |wiki_id, s|
-      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
-    end.join(', ')
-    delete_in_batches(CourseUserWikiTimeslice.where(course: @course)
-                                             .where("(wiki_id, start) IN (#{tuples})"))
+    delete_in_batches(timeslices_for_pairs(CourseUserWikiTimeslice, :wiki_id, wikis_and_starts))
   end
 
   def delete_article_course_user_wiki_timeslices_for_pairs(wikis_and_starts)
-    tuples = wikis_and_starts.map do |wiki_id, s|
-      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
-    end.join(', ')
-    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course)
-                                                    .where("(wiki_id, start) IN (#{tuples})"))
+    delete_in_batches(timeslices_for_pairs(ArticleCourseUserWikiTimeslice, :wiki_id,
+                                           wikis_and_starts))
   end
 
   # Deletes existing article course timeslices for a collection of wiki ids
