@@ -174,9 +174,10 @@ class ArticleStatusManager
   #
   # When a live copy exists, the stale copy's revisions still point at the wrong
   # article_id, so we reprocess (full re-fetch of) its timeslices; on the next
-  # update those revisions are re-fetched under the live page and re-attributed
-  # to the live copy. When no live copy exists, this record IS the page and
-  # update_title_and_namespace has already undeleted it, so there is nothing to do.
+  # UpdateCourseWikiTimeslices run those revisions are re-fetched under the live
+  # page and re-attributed to the live copy. When no live copy exists, this record
+  # IS the page and update_title_and_namespace has already undeleted it, so there
+  # is nothing to do.
   def handle_undeletion(article)
     # If there's already a non-deleted copy, we need to reprocess the timeslices for article
     nondeleted_article = Article.find_by(wiki_id: @wiki.id,

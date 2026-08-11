@@ -153,9 +153,10 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
   # (reset_excluded).
   # For ACUWT courses, the covering periods are derived from the articles' ACUWT
   # rows: those CWTs are marked needs_update (so they are fully re-fetched, and the
-  # revisions re-attributed to the live copy, on the next update) and the ACUWT
-  # rows for those periods (along with the ACT/CUWT rows derived from them) are
-  # deleted so the re-fetch regenerates them cleanly, leaving no stale rows.
+  # revisions re-attributed to the live copy, the next time UpdateCourseWikiTimeslices
+  # runs) and the ACUWT rows for those periods (along with the ACT/CUWT rows
+  # derived from them) are deleted so the re-fetch regenerates them cleanly,
+  # leaving no stale rows.
   # The article course records are deleted too (as in the legacy reset), since the
   # revisions are re-attributed to the live copy, so these articles keep no
   # timeslices to refresh their caches from.
