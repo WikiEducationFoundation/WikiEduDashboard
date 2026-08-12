@@ -1,0 +1,17 @@
+= form_with url: "/lti/deep_link/submit", method: :post do
+
+  %ul.training-libraries.no-bullets.no-margin.action-card-text
+    - if @results.present?
+      - @results.each do |item|
+        %li
+          = radio_button_tag :selection, "#{item[:resource_type]}:#{item[:id]}"
+
+          %span
+            #{item[:resource_type]}:
+            %strong= item[:title]
+
+    - else
+      No results found
+
+  %br
+  %button{ type: "submit", class: ["button"]} Add to Canvas

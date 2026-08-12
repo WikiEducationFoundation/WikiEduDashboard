@@ -62,16 +62,22 @@ class LtiSession
     @cached_line_item_id ||= determine_line_item_id
   end
 
+  def resolve_user_from_lti_identity
+    return nil if @user_lti_id.blank?
+    LtiContext.find_by(user_lti_id: @user_lti_id)&.user
+  end
+
   def link_lti_user(current_user)
     # Checking if LTI User already exists.
     return unless LtiContext.find_by(user: current_user, user_lti_id:, lms_id:, context_id:).nil?
-    # Sending account created signal if user is a student.
-    # You can pass the User Wikipedia ID as parameter to this method to
-    #  generate a comment in the grade.
-    # Example: lti_session.send_account_created_signal(123)
-    send_account_created_signal(current_user.username) unless user_is_teacher?
     # Creating LTI User
-    LtiContext.create(user: current_user, user_lti_id:, lms_id:, lms_family:, context_id:)
+    @lti_record = LtiContext.create!(user: current_user, user_lti_id:, lms_id:, lms_family:,
+context_id:)
+      # Sending account created signal if user is a student.
+      # You can pass the User Wikipedia ID as parameter to this method to
+      #  generate a comment in the grade.
+      # Example: lti_session.send_account_created_signal(123)
+    send_account_created_signal(current_user.username) unless user_is_teacher?
   end
 
   private
@@ -109,7 +115,7 @@ class LtiSession
     return line_item_id unless line_item_id.nil? || line_item_id.empty?
 
     resource_link_id = @idtoken['launch']['resourceLink']['id']
-    line_items = make_get_request("/api/lineitems?resourceLinkId#{resource_link_id}")['lineItems']
+    line_items = make_get_request("/api/lineitems?resourceLinkId=#{resource_link_id}")['lineItems']
     return line_items.first['id'] unless line_items.empty?
 
     line_item = {
@@ -118,6 +124,35 @@ class LtiSession
       'scoreMaximum' => SCORE_MAXIMUM
     }
     return make_post_request('/api/lineitems', line_item)['id']
+  end
+
+  def build_and_submit_deep_link(resource)
+    content_item = build_content_item(resource)
+    create_deep_linking_form([content_item])
+  end
+
+  def build_content_item(resource)
+    {
+      type: "ltiResourceLink",
+      url: "#{ltiaas_launch_url}?resource_type=#{resource.class.name}&resource_id=#{resource.id}",
+      title: resource.title
+    }
+  end
+
+  def create_deep_linking_form(content_items)
+    unless @idtoken['services']['deepLinking']['available']
+      raise LtiDeepLinkingServiceUnavailable
+    end
+    unless user_is_teacher?
+      render status: :forbidden
+      raise LtiaasClientError
+    end
+
+    body = {
+      contentItems: content_items
+    }
+    response = make_post_request("/api/deeplinking/form", body)
+    response['form']
   end
 
   class LtiaasClientError < StandardError
@@ -131,4 +166,5 @@ class LtiSession
   end
 
   class LtiGradingServiceUnavailable < StandardError; end
+  class LtiDeepLinkingServiceUnavailable < StandardError; end
 end
