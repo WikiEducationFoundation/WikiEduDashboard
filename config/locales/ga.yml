@@ -185,6 +185,71 @@ ga:
       max_likelihood: Dáileadh dóchúlachta uasta AI in aghaidh an lae
       overall_avg_likelihood: Meándáileadh dóchúlachta AI foriomlán
       overall_max_likelihood: Dáileadh dóchúlachta uasta foriomlán AI
+  system_stats:
+    title: Staitisticí Córais & Éascaitheora
+    filters:
+      campaign: Feachtas
+      home_wiki: Vicí Baile
+      start_date: Dáta Tosaigh
+      end_date: Dáta Deiridh
+      all_campaigns: Gach Feachtas
+      all_wikis: Gach Vicipéid
+      export_csv: Easpórtáil CSV
+      generating: Ag Giniúint Easpórtála...
+      generation_queued: Tá d’easpórtáil CSV á giniúint sa chúlra. Ag iarraidh arís...
+      still_processing: Tá d’easpórtáil CSV fós á giniúint sa chúlra. Seiceáil ar
+        ais go luath agus cliceáil ar Easpórtáil arís.
+      fetch_error: Níorbh fhéidir easpórtáil CSV a ghiniúint. Déan iarracht arís.
+      course_type: Cineál Cúrsa
+      status: Stádas
+      all_types: Gach Cineál
+      all_statuses: Gach Stádas
+      active: Gníomhach
+      archived: Cartlannaithe
+    kpis:
+      total_edits: Líon Iomlán na nEagarthóireacht
+      article_views: Amharcanna Airteagal
+      articles_created: Ailt Cruthaithe
+      articles_improved: Airteagail Feabhsaithe
+      characters_added: Carachtair Cuireadh Leis
+      new_editors: Eagarthóirí Nua
+      active_programs: Cláir Ghníomhacha
+      active_facilitators: Éascaitheoirí Gníomhacha
+    charts:
+      monthly_trends: Treochtaí Gníomhaíochta Míosúla
+      wiki_trends: Treochtaí Vicí (Barr 5)
+      plot_metric: 'Méadracht phlota:'
+    tables:
+      wiki_breakdown: Miondealú Staitisticí Vicí
+      wiki: Vicí
+      edits: Eagarthóireacht
+      programs: Cláir
+      articles_created: Ailt Cruthaithe
+      new_editors: Eagarthóirí Nua
+    facilitators:
+      title: Clár Ceannaireachta Éascaitheora
+      username: Ainm úsáideora
+      courses: Cúrsaí
+      active: Gníomhach
+      students: Mic Léinn
+      active_in_year: Gníomhach sa Bhliain
+      "yes": Tá
+      "no": Níl
+    pagination:
+      previous: Roimhe Seo
+      next: Ar Aghaidh
+    loading:
+      data: Ag lódáil sonraí ón bhfreastalaí...
+      facilitators: Ag lódáil éascaitheoirí...
+      wiki_stats: Ag lódáil staitisticí vicí...
+      wiki_trends: Ag lódáil treochtaí vicí...
+    empty:
+      no_trend_data: Níl aon sonraí treochta ar fáil.
+      no_wiki_trend_data: Níl aon sonraí treochtaí vicí ar fáil.
+      no_wiki_stats: Níl aon staitisticí tionscadail vicí ar fáil.
+      no_facilitators: Níor aimsíodh aon éascaitheoirí.
+    errors:
+      fetch_failed: Theip ar an sonraí a lódáil. Déan iarracht an leathanach a athnuachan.
   activity:
     all: Gníomhaíocht
     edited_by: Arna Chur in Eagar ag
@@ -999,6 +1064,7 @@ ga:
     retain_available_articles_info_wikidata: Nuair a bhíonn sé cumasaithe, ní bhaintear
       Mír atá ar Fáil den liosta nuair a roghnaítear í, rud a ligeann do ghrúpa mac
       léinn an mhír chéanna a roghnú.
+    retention_predictors: Réamhinsintí coinneála
     review_timeline: 'Anois, déan athbhreithniú ar amlíne do thascanna, agus déan
       é a shaincheapadh chun freastal ar do chuid riachtanas. Nuair a bheidh tú sásta,
       is féidir leat é a chur isteach lena cheadú ag foireann Wiki Education. Nuair
@@ -1475,6 +1541,18 @@ ga:
       "Éileamh Athraithe" nó "Éileamh Cruthaithe" ina ionad.
     restorations_performed: Athchóirithe déanta
     reverts_performed: Aisíocaíochtaí déanta
+    lemmas: Léamaí
+    language: Teanga
+    lexical_category: Catagóir léacsach
+    forms: Foirmeacha
+    form_claims: Foirm éilimh
+    form_references: Tagairtí foirme
+    form_qualifiers: Cáilitheoirí foirme
+    senses: Céadfaí
+    glosses: Glóiseanna
+    sense_claims: Éilimh chiall
+    sense_references: Tagairtí céadfaí
+    sense_qualifiers: Cáilitheoirí ciall
   namespace:
     all: Uile
     main: Príomhspás
@@ -1650,6 +1728,11 @@ ga:
   status:
     active_jobs: Poist ghníomhacha
     active_jobs_doc: Líon na bpost atá á bpróiseáil faoi láthair.
+    acuwt_update: Nuashonrú ACUWT
+    acuwt_update_description: Nuashonraíonn ACUWT cúrsaí cláir atá faoi raon feidhme
+      alt an phróisis le mílte alt.
+    acuwt_update_doc: Láimhseáil nuashonruithe do chúrsaí cláir a bhfuil raon leathan
+      alt iontu.
     all_queues_operational: Gach Scuaine ag Oibriú
     all_queues_not_operational: Gach Scuaine ag Obair seachas
     constant_update: Nuashonrú leanúnach
@@ -1856,6 +1939,11 @@ ga:
     no_training_resource_match_your_search: Níl aon acmhainn oiliúna a oireann do
       do chuardach
     exercise_sandbox: Bosca Gainimh Aclaíochta
+    exercise_sandbox_incomplete: Comhlánaigh an cleachtadh i do Bhosca Gainimh Cleachtaí
+      (%{pages}) sula marcálann tú é mar chríochnaithe
+    exercise_needs_assigned_article: Ní mór duit alt a shannadh duit féin sula bhféadann
+      tú é seo a chríochnú.
+    open_exercise: Tosaigh ag Cleachtadh
     remaining_exercise: '%{count} cleachtadh breise fágtha.'
     view_all: Féach ar na cleachtaí go léir
     take_your_time: Glac do chuid ama le do thoil!
@@ -1864,6 +1952,146 @@ ga:
     close: DÚN
     loading: Ag lódáil…
     wiki_source: foinse vicí
+  claim_verification:
+    pick_instructions: Cliceáil ar éileamh atá aibhsithe chun sonraí an lua a fheiceáil.
+    revision_notice: Seo an t-alt ó %{date} nuair a cuireadh na héilimh leis.
+    tile_revision_date: ó %{date}
+    claims_highlighted:
+      one: '%{count} éileamh aibhsithe'
+      two: '%{count} éileamh aibhsithe'
+      few: '%{count} éileamh aibhsithe'
+      many: '%{count} éileamh aibhsithe'
+      other: '%{count} éileamh aibhsithe'
+    next_claim: An chéad éileamh eile
+    previous_claim: Éileamh roimhe seo
+    claim_position: Éileamh %{current} de %{total}
+    loading_claims: Ag lódáil éilimh…
+    claim: Éileamh
+    cited_source: Foinse luaite
+    source_url: URL Foinse
+    select_claim: Roghnaigh an t-éileamh seo le fíorú
+    no_articles: Níl aon ailt ar fáil
+    your_selected_claim: D'éileamh roghnaithe
+    find_in_article: Aimsigh é seo i dtéacs an ailt
+    show_surrounding: Taispeáin an mhír máguaird
+    choose_different_claim: Roghnaigh éileamh difriúil
+    back_to_claim: Ar ais chuig mo éileamh
+    no_online_source: Níl URL san fhoinse luaite seo.
+    course_picker_heading: Roghnaigh cúrsa
+    course_picker_no_courses: Gan aon chúrsaí
+    take_not_enrolled: Ní mór duit a bheith cláraithe sa chúrsa chun é sin a dhéanamh.
+    exercise_heading: Cleachtadh Fíoraithe Fíricí
+    intro_p1: Ba chóir go mbeadh foinse iontaofa mar thaca le gach fíric ar Vicipéid.
+      Agus tú ag dul i gcomhairle le Vicipéid le haghaidh eolais, níor cheart go mbeadh
+      ort glacadh le focal an údair; is féidir leat an fhoinse luaite a aimsiú agus
+      an fhaisnéis sin a léamh duit féin. Is é seo an rud a thugtar ar infhíoraitheacht,
+      agus tá sé ar cheann de na beartais is tábhachtaí taobh thiar de chreidiúnacht
+      Vicipéid.
+    intro_p2: De réir mar a úsáidtear uirlisí AI níos forleithne, tá sé níos tábhachtaí
+      ná riamh foghlaim conas faisnéis a fhíorú. Is minic nach dtagann ábhar a ghintear
+      le AI idir fíricí agus foinsí – agus sin ceann de na príomhchúiseanna nach féidir
+      leat é a úsáid chun ábhar a chur le Vicipéid.
+    intro_p3: Sa chleachtadh seo, feicfidh tú infhíoraitheacht i mbun gnímh. Cleachtaidh
+      tú conas éilimh a fhíorú trí iarracht a dhéanamh fíoras ar leith a aimsiú i
+      bhfoinse luaite.
+    step_heading: 'Céim %{number}: %{name}'
+    step_select_article: Roghnaigh alt
+    step_select_claim: Roghnaigh éileamh le fíorú
+    select_article_instructions: Roghnaigh ón liosta alt thíos chun an cleachtadh
+      seo a thosú.
+    select_claim_instructions: 'Ní mór na héilimh seo a leanas a sheiceáil i gcoinne
+      na bhfoinsí a luaitear, mar d’fhéadfadh siad a bheith ginte ag hintleacht shaorga.
+      (Nóta: d’fhéadfadh an t-alt a bheith athraithe ó cuireadh na héilimh seo leis.)'
+    form:
+      step_evaluate_source: Déan measúnú ar an bhfoinse
+      evaluate_source_instructions: 'Ar dtús, smaoinigh ar an bhfoinse féin: cibé
+        an bhfuil cuma iontaofa uirthi, agus cibé an bhfuil sí oiriúnach don ábhar.
+        B’fhéidir gur mhaith leat athbhreithniú a dhéanamh ar choincheap Vicipéid
+        maidir le ‘Foinsí Iontaofa’: https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources'
+      source_appropriate_question: An bhfuil an fhoinse seo oiriúnach do Vicipéid,
+        don alt seo, agus don éileamh a dtacaítear leis?
+      source_appropriate_options:
+        appropriate: Sea, is foinse oiriúnach í don éileamh
+        depends_on_use: Go pointe áirithe, ach ní hé an foinse is fearr chuige seo
+          é.
+        inappropriate: Ní hea, ní hé seo an cineál foinse ceart le húsáid anseo
+        unsure: Níl mé cinnte
+      source_appropriate_notes_label: Cén fáth nó cén fáth nach ea? Mura ea, cén cineál
+        foinse a bheadh ​​oiriúnach ina ionad?
+      meets_rs_policy_question: An foinse iontaofa í?
+      meets_rs_policy_options:
+        generally_reliable: Sea, is léir go gcomhlíonann sé an sainmhíniú ar fhoinse
+          iontaofa sa chomhthéacs seo.
+        context_dependent: Go pointe áirithe, ach tá easnaimh ann
+        not_reliable: Ní hea, ní chomhlíonann sé seo sainmhíniú Vicipéid ar fhoinse
+          iontaofa go soiléir.
+        unsure: Níl mé cinnte
+      meets_rs_policy_notes_label: Cad a fhágann gur foinse iontaofa í seo, nó nach
+        ea?
+      step_find_source: Aimsigh an fhoinse
+      find_source_instructions: Anois agus d’éileamh roghnaithe agat, déan cuardach
+        ar an bhfoinse a luaitear. B’fhéidir go mbeadh ort dul i gcomhairle le do
+        theagascóir nó le do leabharlannaí chun an fhoinse a aimsiú.
+      source_access_question: An raibh tú in ann rochtain a fháil ar théacs iomlán
+        na foinse a luadh le haghaidh d’éilimh?
+      source_access_options:
+        accessed: Sea, fuair mé an fhoinse.
+        nonexistent: Níl, níl an fhoinse ann.
+        inaccessible: Níl, tá an fhoinse ann ach ní raibh mé in ann rochtain a fháil
+          uirthi.
+      source_access_notes_label: 'Mura raibh tú in ann an fhoinse a aimsiú, inis dúinn
+        tuilleadh faoi do thaithí:'
+      step_verify: Fíoraigh an t-éileamh
+      verify_instructions: Nuair a bheidh an fhoinse luaite aimsithe agat, scrúdaigh
+        í go cúramach chun a fháil amach cé chomh maith agus a thacaíonn sí leis an
+        éileamh atá roghnaithe agat. Má fhaigheann tú amach go díreach cá as a tháinig
+        an fhaisnéis, tabhair faoi deara cá háit sa doiciméad a fuair tú í. (Bíonn
+        roinnt luanna ró-neamhchruinn le go bhféadfaidh léitheoir a fhíorú go praiticiúil.)
+      verdict_question: An dtacaíonn an fhoinse leis an éileamh?
+      verdict_options:
+        full_support: Sea — tacaíonn sé go sainráite leis an éileamh iomlán.
+        mostly_supports: Den chuid is mó tá — tagann croílár an éilimh ón bhfoinse
+          seo.
+        partial_support: Go páirteach — tagann roinnt eilimintí den éileamh ón bhfoinse
+          seo, ach ní thagann cuid shuntasach de.
+        mostly_unsupported: Den chuid is mó níl — tá an fhoinse ag luí leis an éileamh,
+          ach ní thacaíonn sé go díreach leis.
+        unsupported: Ní hea — ní chlúdaíonn an fhoinse a bhfuil á rá sa ráiteas.
+        contradicted: A mhalairt ar fad — tá an fhoinse ag teacht salach ar an éileamh
+          i ndáiríre.
+        undetermined: Ní raibh mé in ann a chinneadh an raibh an t-éileamh sa fhoinse
+          a luadh.
+      claim_location_label: Más féidir leat an t-éileamh a aimsiú, cá bhfuil sé le
+        fáil sa bhfoinse? (m.sh. uimhir leathanaigh, caibidil, srl…)
+      verification_notes_label: Mura raibh tú in ann an fhaisnéis a fhíorú, inis dúinn
+        tuilleadh faoi do thaithí. (m.sh. an raibh an fhoinse doiléir nó deacair a
+        léamh? An raibh baint ar bith ag an bhfoinse leis an éileamh? An raibh an
+        lua neamhchruinn agus an fhoinse rófhada le dul i gcomhairle go réasúnta?)
+      other_comments_label: Aon tuairimí eile faoin gcleachtadh seo?
+      submit: Cuir isteach
+      submitted_heading: Freagra curtha isteach
+      edit_response: Cuir an freagra in eagar
+      submit_failed: Earráid! Níor sábháladh do fhreagra.
+    responses:
+      heading: Freagraí na mac léinn
+      preview_exercise: Réamhamharc ar chleachtadh
+      submitted_at: '%{date} curtha isteach'
+      pending_heading: Ar siúl
+      taken_at: Éileamh glactha %{date}
+      none_yet: Níl éileamh roghnaithe ag aon mhac léinn go fóill.
+    admin:
+      loading: Ag lódáil…
+      heading: Fíorú éilimh
+      pool_size: 'Méid an linn snámha: %{count} éileamh'
+      last_run: 'An rith dheireanach %{time}: +%{harvested} éileamh ó %{processed}
+        foláirimh (%{skipped} scipeáilte%{rescan})'
+      full_rescan_note: ', athscanadh iomlán'
+      harvest: Linn éilimh fómhair
+      full_rescan: Athscanadh iomlán
+      status: 'Stádas: %{status}'
+      progress: ' — %{at} / %{total} foláirimh (%{pct}%)'
+      counts: '%{harvested} fómhair · %{processed} processed · %{skipped} scipeáilte
+        · %{errors} earráidí'
   update_username:
     header: Nuashonraigh ainm úsáideora athraithe
     not_found: Níor aimsíodh an t-úsáideoir don ainm úsáideora a iontráladh.
@@ -2099,9 +2327,8 @@ ga:
     assignment_type: Cad a chomhlánóidh daltaí dá gcuid tascanna Vicipéide?
     calendar_instructions: Roghnaigh dátaí le cur leis an sceideal nó le baint de
       (m.sh., laethanta saoire, gan scoil). Cuidíonn sé seo leis an uirlis chruthaithe
-      cúrsa spás cruinn a dhéanamh de do chuid tascanna. Cliceáil an dáta le hathrú
-      idir neamhroghnaithe, roghnaithe, agus stádas laethanta saoire. Mura bhfuil
-      aon laethanta saoire agat, seiceáil "Níl aon laethanta saoire ranga agam" thíos.
+      cúrsa spás cruinn a chur amach idir do chuid tascanna. Cliceáil ar an dáta le
+      hathrú idir neamhroghnaithe, roghnaithe, agus staid laethanta saoire.
     confirm_course_dates: Deimhnigh dátaí tosaithe agus deiridh an chúrsa.
     confirm_dates: Roghnaigh dátaí an chúrsa, cruinnithe seachtainiúla, agus laethanta
       saoire do do chúrsa.
