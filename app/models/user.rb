@@ -48,6 +48,12 @@ class User < ApplicationRecord
     in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR, Permissions::SUPER_ADMIN]
   }
 
+
+  ########################
+  # Encrypted Attributes #
+  ########################
+  encrypts :access_token
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :omniauthable, omniauth_providers: %i[mediawiki mediawiki_signup]
