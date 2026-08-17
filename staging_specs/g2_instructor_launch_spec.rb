@@ -64,6 +64,8 @@ describe 'G2: instructor first launch', :staging do
   end
 
   it 'walks the launch flow from Canvas through setup to /courses/<slug>' do
+    enable_course_nav_tab(provisioned[:canvas_course_id])
+
     in_canvas do
       ensure_canvas_logged_in_as_instructor
       visit_canvas_course(provisioned[:canvas_course_id])
@@ -74,6 +76,7 @@ describe 'G2: instructor first launch', :staging do
     # Now at top level in the new tab. The OAuth bounce should be silent
     # because the profile already has the Wikipedia OAuth grant.
     dismiss_consent_banner
+    approve_identity_connection
     complete_dashboard_setup(course_slug: provisioned[:dashboard_course_slug])
 
     expect(page.current_url).to include("/courses/#{provisioned[:dashboard_course_slug]}")
