@@ -33,6 +33,14 @@ class Features
     ENV['disable_wiki_output'] == 'true'
   end
 
+  # Gates the student-facing side of the Fall 2026 research experiment (see
+  # Fall2026ResearchExperiment). Off unless explicitly enabled, so the experiment
+  # can go live for instructor opt-in while the student-facing invitation is
+  # still held back. Each experiment gets its own setting.
+  def self.fall_2026_research_student_optin?
+    ENV['fall_2026_research_student_optin'] == 'true'
+  end
+
   def self.open_course_creation?
     ENV['wiki_education'] != 'true'
   end

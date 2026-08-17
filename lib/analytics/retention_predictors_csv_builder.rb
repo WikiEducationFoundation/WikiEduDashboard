@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/analytics/retention_participant_history"
+require_dependency "#{Rails.root}/lib/analytics/retention_summary_block"
 require 'csv'
 
 # Builds the "Retention predictors" CSV report for a course (currently the
@@ -23,6 +25,13 @@ require 'csv'
 # during the course, and the count of participants who edited in the 30 days
 # after it ended.
 #
+# Every participant is additionally classified by RetentionParticipantHistory as
+# a long-term Wikipedian (1000+ edits before the course), a returning participant
+# (had already taken an earlier course), or neither. That classification decides
+# how the summary block aggregates them; see RetentionSummaryBlock. The detail
+# block reports all three groups alike, so an excluded participant is still
+# visible as somebody who took part.
+#
 # Metrics are computed on each student's combined cross-wiki edit timeline, from
 # the live MediaWiki usercontribs API (all namespaces), which is why the report
 # has no dependency on stored revision data.
@@ -36,7 +45,6 @@ class RetentionPredictorsCsvBuilder
   RETURN_WINDOW_DAYS = 30
   SURVIVAL_START_DAY = 60
   SURVIVAL_END_DAY = 90
-  SURVIVAL_THRESHOLD = 5
   REPORTING_BUFFER_DAYS = 1
 
   def initialize(course)
@@ -49,7 +57,7 @@ class RetentionPredictorsCsvBuilder
   def generate_csv
     stats = @students.map { |student| student_stats(student) }
     CSV.generate do |csv|
-      summary_rows(stats).each { |row| csv << row }
+      RetentionSummaryBlock.new(stats).rows.each { |row| csv << row }
       csv << []
       detail_rows(stats).each { |row| csv << row }
     end
@@ -58,12 +66,19 @@ class RetentionPredictorsCsvBuilder
   private
 
   DETAIL_HEADERS = ['username', 'sessions during course', 'days to first independent edit',
-                    'sessions in 30 days after course', 'edits in days 60-90'].freeze
+                    'sessions in 30 days after course', 'edits in days 60-90',
+                    'edits before course', 'long-term Wikipedian (1000+ edits)',
+                    'prior courses', 'prior course slugs'].freeze
 
   def student_stats(student)
     times = combined_edit_times(student.username).sort
+    history = RetentionParticipantHistory.new(@course, student, @wikis)
+    edit_metrics(student.username, times).merge(history_columns(history))
+  end
+
+  def edit_metrics(username, times)
     {
-      username: student.username,
+      username:,
       sessions_during: count_sessions(times.select { |t| t <= @course.end }),
       days_to_return: days_to_return(times),
       sessions_after: sessions_after(times),
@@ -71,27 +86,20 @@ class RetentionPredictorsCsvBuilder
     }
   end
 
-  def summary_rows(stats)
-    during = stats.sum { |s| s[:sessions_during] }
-    avg_gap = average(stats.map { |s| s[:days_to_return] })
-    avg_after = average(stats.map { |s| s[:sessions_after] })
-    [
-      ['Summary'],
-      ['participants', @students.size],
-      ['total editing sessions during course', during],
-      ['participants with no editing sessions during course', zero_edit_participants(stats)],
-      ['avg days to first independent edit', avg_gap],
-      ['avg editing sessions in 30 days after course', avg_after],
-      ['participants who edited in 30 days after course', returning_participants(stats)],
-      ['participants with 1+ edits in days 60-90', edited_in_survival_window(stats, 1)],
-      ['participants with 5+ edits in days 60-90 (survivors)',
-       edited_in_survival_window(stats, SURVIVAL_THRESHOLD)]
-    ]
+  def history_columns(history)
+    {
+      prior_edits: history.prior_edit_count_label,
+      long_term: history.long_term_wikipedian?,
+      returning: history.returning?,
+      prior_courses: history.prior_courses.size,
+      prior_course_slugs: history.prior_course_slugs
+    }
   end
 
   def detail_rows(stats)
     rows = stats.map do |s|
-      [s[:username], s[:sessions_during], s[:days_to_return], s[:sessions_after], s[:edits_60_90]]
+      [s[:username], s[:sessions_during], s[:days_to_return], s[:sessions_after], s[:edits_60_90],
+       s[:prior_edits], (s[:long_term] ? 'yes' : nil), s[:prior_courses], s[:prior_course_slugs]]
     end
     [['Per-student detail'], DETAIL_HEADERS, *rows]
   end
@@ -133,35 +141,6 @@ class RetentionPredictorsCsvBuilder
 
   def survival_window_available?
     @now >= @course.end + (SURVIVAL_END_DAY + REPORTING_BUFFER_DAYS).days
-  end
-
-  # Mean over students, rounded to one decimal. Blank (nil) when the underlying
-  # metric is not yet available (its per-student values are all nil).
-  def average(values)
-    return nil if values.empty? || values.any?(&:nil?)
-    (values.sum.to_f / values.size).round(1)
-  end
-
-  # Participants with at least `threshold` edits in the 60-90-day survival
-  # window. Blank (nil) until that window has closed.
-  def edited_in_survival_window(stats, threshold)
-    counts = stats.map { |s| s[:edits_60_90] }
-    return nil if counts.any?(&:nil?)
-    counts.count { |count| count >= threshold }
-  end
-
-  # Participants with zero editing sessions during the course. Always available,
-  # since the during-course metric never depends on a not-yet-closed window.
-  def zero_edit_participants(stats)
-    stats.count { |s| s[:sessions_during].zero? }
-  end
-
-  # Participants who made at least one edit in the 30 days after the course.
-  # Blank (nil) until the return window has closed.
-  def returning_participants(stats)
-    counts = stats.map { |s| s[:sessions_after] }
-    return nil if counts.any?(&:nil?)
-    counts.count(&:positive?)
   end
 
   # Number of distinct editing sessions: a new session starts whenever the gap

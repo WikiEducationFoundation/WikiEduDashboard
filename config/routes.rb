@@ -336,6 +336,7 @@ Rails.application.routes.draw do
   get 'course_wikidata_csv' => 'reports#course_wikidata_csv'
   get 'course_retention_csv' => 'reports#course_retention_csv'
   get "all_courses_and_instructors_csv" => "reports#all_courses_and_instructors_csv"
+  get 'system_csv' => 'reports#system_csv'
 
   # Campaign reports
   get 'campaigns/:slug/students' => 'reports#campaign_students_csv'
@@ -561,6 +562,13 @@ Rails.application.routes.draw do
     get 'spring2018_cmu_experiment/:course_id/:email_code/opt_in' => 'spring2018_cmu_experiment#opt_in'
     get 'spring2018_cmu_experiment/:course_id/:email_code/opt_out' => 'spring2018_cmu_experiment#opt_out'
     get 'spring2018_cmu_experiment/course_list' => 'spring2018_cmu_experiment#course_list'
+
+    # Generic opt-in research experiments (e.g. the Fall 2026 study). The
+    # invitation lookup is slug-less (it discovers the active experiment for the
+    # course); opting in/out carries the experiment slug.
+    get 'courses/:course_id/invitation' => 'opt_in#show'
+    post ':experiment_slug/courses/:course_id/opt_in' => 'opt_in#opt_in'
+    post ':experiment_slug/courses/:course_id/opt_out' => 'opt_in#opt_out'
   end
 
   resources :admin

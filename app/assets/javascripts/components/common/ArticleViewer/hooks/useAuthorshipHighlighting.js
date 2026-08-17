@@ -10,6 +10,7 @@ import AuthorshipAPI from '@components/common/ArticleViewer/authorship/Authorshi
 
 // Constants
 import colors from '@components/common/ArticleViewer/authorship/colors';
+import { isWikiwhoSupported } from '@components/common/ArticleViewer/authorship/wikiwhoLanguages';
 
 /*
   WhoColor authorship-highlighting feature for the ArticleViewer shell.
@@ -26,12 +27,18 @@ import colors from '@components/common/ArticleViewer/authorship/colors';
   about authorship; a different feature (e.g. claim verification) can supply its own
   hook with the same contract.
 */
+// Position of the editor id inside a WhoColor token tuple:
+// [conflict_score, str, o_rev_id, in, out, editor, age]. For registered editors
+// that id is the MediaWiki user id; anonymous editors get a hashed stand-in.
+const TOKEN_EDITOR_INDEX = 5;
+
 const useAuthorshipHighlighting = ({
   article, users, assignedUsers, showArticleFinder,
   isOpen, revisionId, parsedSettle, fetchArticleDetails, requestTitleVerification,
 }) => {
   const [highlightedHtml, setHighlightedHtml] = useState(null);
   const [whoColorHtml, setWhoColorHtml] = useState(null);
+  const [whoColorEditors, setWhoColorEditors] = useState(null);
   const [usersState, setUsersState] = useState([]);
   const [userIdsFetched, setUserIdsFetched] = useState(false);
   const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
@@ -41,12 +48,7 @@ const useAuthorshipHighlighting = ({
 
   const isFirstRevisionRender = useRef(true);
 
-  const isWhocolorLang = () => {
-    // Supported languages for https://wikiwho-api.wmcloud.org as of 2023-05-15
-    // See https://github.com/wikimedia/wikiwho_api/blob/main/wikiwho_api/settings_wmcloud.py#L21
-    const supported = ['ar', 'de', 'en', 'es', 'eu', 'fr', 'hu', 'id', 'it', 'ja', 'nl', 'pl', 'pt', 'tr'];
-    return supported.includes(article.language) && article.project === 'wikipedia';
-  };
+  const isWhocolorLang = () => isWikiwhoSupported(article);
 
   // This takes the extended_html from the whoColor API, and replaces the span
   // annotations with ones that are more convenient to style in React.
@@ -91,37 +93,22 @@ const useAuthorshipHighlighting = ({
     setPending(false);
   };
 
-  // Function to check if contributions of unhighlighted editors exist in the wikitext metadata
+  // Function to check if contributions of unhighlighted editors exist in this revision.
+  // The answer is already in the WhoColor payload that produced the HTML, so this needs
+  // no request of its own — and it is necessarily scoped to the revision on screen,
+  // whether that is the current version or the one the revision toggle selected.
   const usersContributionExists = (usersID) => {
-    // Create a URL builder and API instance for fetching wikitext metadata
-    const builder = new AuthorshipURLBuilder({ article });
-    const api = new AuthorshipAPI({ builder });
-
-    // Fetch wikitext metadata for the current article revision
-    api.fetchWikitextMetaData()
-       .then((response) => {
-         // Extract the tokensForRevision data from the response
-         const { tokensForRevision } = response;
-
-         // Iterate through the list of user IDs whose contributions couldn't be highlighted
-         usersID.forEach((userID) => {
-          // Find a token in the metadata with a matching editor ID
-          const foundToken = tokensForRevision.find(token => token.editor === userID.toString());
-
-          // If a token with a matching editor ID is found, it means the user has a contribution
-          // in the current revision's wikitext
-          if (foundToken) {
-            // Add the user ID to the unhighlightedContributors state to display in the UI
-            setUnhighlightedContributors(x => [...x, userID]);
-          } else {
-            const status = `No Contributions Found in this current version for User ID', ${userID}`;
-            // If the user ID doesn't have a contribution in the current revision's wikitext,
-            // add a message to the unhighlightedContributors state to display in the UI
-            setUnhighlightedContributors(x => [...x, status]);
-          }
-        });
-      }).catch((error) => {
-      setFailureMessage(error.message);
+    // Iterate through the list of user IDs whose contributions couldn't be highlighted
+    usersID.forEach((userID) => {
+      // If the editor owns tokens in this revision, their work is present but
+      // wasn't highlightable; otherwise none of this revision's text is theirs.
+      if (whoColorEditors?.has(userID.toString())) {
+        // Add the user ID to the unhighlightedContributors state to display in the UI
+        setUnhighlightedContributors(x => [...x, userID]);
+      } else {
+        const status = `No contributions found in this version for user ID ${userID}`;
+        setUnhighlightedContributors(x => [...x, status]);
+      }
     });
   };
 
@@ -131,6 +118,16 @@ const useAuthorshipHighlighting = ({
     setPending(true);
     api.fetchWhocolorHtml(revisionId)
       .then((response) => {
+        // Keep only the editor ids: the token list is large and nothing here needs
+        // more than membership. Set before the html, so the [whoColorHtml] effect
+        // that runs highlightAuthors always sees it.
+        //
+        // The payload's much smaller `present_editors` is not a substitute for the
+        // token list. WhoColor accumulates it while annotating the wikitext and skips
+        // any token it can't place, so it degrades in exactly the cases this fallback
+        // exists to describe. `tokens` comes straight from WikiWho, independent of
+        // that annotator.
+        setWhoColorEditors(new Set((response.tokens || []).map(token => token[TOKEN_EDITOR_INDEX])));
         setWhoColorHtml(response.html);
       }).catch((error) => {
         setWhoColorFailed(true);
@@ -226,6 +223,7 @@ const useAuthorshipHighlighting = ({
     }
     setHighlightedHtml(null);
     setWhoColorHtml(null);
+    setWhoColorEditors(null);
     setUnhighlightedContributors([]);
   }, [revisionId]);
 

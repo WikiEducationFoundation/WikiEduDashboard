@@ -53,6 +53,13 @@ skr-arab:
       total: میزان
       last_week: پچھلا ہفتہ
   system_stats:
+    filters:
+      campaign: مہم
+      all_campaigns: ساریاں مہماں
+      all_wikis: ساریاں وکیاں
+      status: حیثیت
+      all_types: ساریاں قسماں
+      active: فعال
     tables:
       wiki: وکی
       programs: پروگرام

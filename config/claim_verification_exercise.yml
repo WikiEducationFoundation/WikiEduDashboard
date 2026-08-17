@@ -18,11 +18,14 @@
 #
 # Step numbering is derived, not written into the copy, so reordering steps
 # renumbers them on its own. Steps 1 and 2 (select an article, select a claim)
-# happen before this form, hence first_step_number.
+# happen before this form and are numbered client-side the same way — see
+# app/assets/javascripts/components/claim_verification_exercise/steps.js — so
+# this must be the next number after the steps listed there.
 first_step_number: 3
 
 # `visible_when` gates a step or a question on an earlier answer: it is asked
-# only when that answer is one of the listed values. Answers to questions that
+# only when that answer is one of the listed values, or — with `true` instead of
+# a list — once that question has any answer at all. Answers to questions that
 # end up hidden are dropped on submission rather than stored, so abandoning a
 # branch never leaves stale answers behind.
 #
@@ -82,9 +85,14 @@ steps:
         type: text
 
   # The catch-all comment field: asked on every path, and not a numbered step of
-  # the exercise, so it has no heading of its own.
+  # the exercise, so it has no heading of its own. It waits on the source-access
+  # answer all the same — either way it is answered, but not before — so that a
+  # student working down the form isn't invited to comment on an exercise they
+  # haven't done yet.
   - id: comments
     heading: false
+    visible_when:
+      source_access: true
     questions:
       - id: other_comments
         type: text

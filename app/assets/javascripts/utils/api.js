@@ -660,18 +660,19 @@ const API = {
     );
   },
 
-  async getTemplatesWithPrefix(wiki, search_term, depth, limit=10){
+  // Depth does not apply to templates, so it is always 0 for them.
+  async getTemplatesWithPrefix(wiki, search_term, limit=10){
     return this.searchForPages(
       wiki,
       search_term,
       10,
       (title)=>title.replace(/^[^:]+:/,'').trim(),
-      depth,
+      0,
       limit,
     );
   },
 
-  async searchForPages(wiki, search_term, namespace, map=(el)=>el, depth, limit=10){
+  async searchForPages(wiki, search_term, namespace, map=(el)=>el, depth=0, limit=10){
     let search_query;
     if(search_term.split(' ').length > 1){
       // if we have multiple words, search for the exact words
@@ -705,11 +706,12 @@ const API = {
         wiki,
       });
       return {
+        // `depth` here is only the starting value; it stays editable per
+        // category until the form is submitted.
         value: {
           title: map(category.title),
           wiki,
           depth,
-          label: `${label} - ${depth}`,
         },
         label,
       };

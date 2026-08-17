@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ClaimVerificationViewer from '@components/common/ArticleViewer/containers/ClaimVerificationViewer.jsx';
 import { toWikiDomain } from '../../utils/wiki_utils';
 import formatRevisionDate from '../../utils/format_revision_date';
+import { stepHeading } from './steps';
 
 // The article picker: each candidate is an (article, flagged-revision) tile from
 // the pre-harvested claim pool, and is its own ArticleViewer laid out in a compact
@@ -38,10 +39,17 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId, onRetu
         </div>
       )}
       <div className="claim-verification-exercise__intro">
+        {/*
+          The exercise's own title, so the page says what it is before it says
+          what to do. That makes it the page's h1, which demotes the step heading
+          below to an h2 — the level every other step of the exercise uses.
+        */}
+        <h1>{I18n.t('claim_verification.exercise_heading')}</h1>
         <p>{I18n.t('claim_verification.intro_p1')}</p>
         <p>{I18n.t('claim_verification.intro_p2')}</p>
         <p>{I18n.t('claim_verification.intro_p3')}</p>
-        <h1>{I18n.t('claim_verification.step_select_article')}</h1>
+        <h2>{stepHeading('select_article')}</h2>
+        <p>{I18n.t('claim_verification.select_article_instructions')}</p>
       </div>
       {articles.length ? (
         <ul className="claim-verification-exercise__article-grid">
