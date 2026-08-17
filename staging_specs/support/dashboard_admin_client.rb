@@ -471,6 +471,32 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip == 'ok'
   end
 
+  # Complete every training-kind module in the course's timeline for the
+  # student, and return how many there were.
+  #
+  # `completed_at` is per (user, module), not per course, so a spec that
+  # completes only one module gets a rolled-up score that depends on what
+  # earlier runs left behind — the module set recurs on every wizard-built
+  # timeline. Completing all of them makes 1.0 the answer regardless of
+  # history. The module set mirrors LtiTrainingProgress#collect_training_modules
+  # exactly, so the count matches its "N of N" comment.
+  def complete_all_trainings(course_slug:, username:)
+    script = <<~RUBY
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      user = User.find_by!(username: #{username.inspect})
+      ids = course.blocks.flat_map(&:training_module_ids).uniq
+      mods = TrainingModule.where(id: ids).to_a.reject(&:exercise?)
+      mods.each do |mod|
+        tmu = TrainingModulesUsers.find_or_create_by!(
+          user_id: user.id, training_module_id: mod.id
+        )
+        tmu.update!(completed_at: Time.current)
+      end
+      puts mods.size
+    RUBY
+    DashboardConsole.run(script).strip.to_i
+  end
+
   # The binding's whole grade-push surface: its line items, the score signatures
   # recorded against them, and the last sync's outcome. A push that doesn't reach
   # Canvas can fail on our side (no line item for the column, an LTIAAS rejection

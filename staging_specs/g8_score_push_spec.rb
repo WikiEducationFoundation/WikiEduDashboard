@@ -2,11 +2,18 @@
 
 require_relative 'spec_helper'
 
-# G8: training-completion score push. With a bound course carrying a
-# minimal timeline (one training module, one exercise module), completing
-# the training module for a linked student and running grade sync should
-# land a 1.0 on the "Wikipedia trainings" gradebook column in Canvas, with
-# an "X of Y trainings completed" comment (smoke-test step G8).
+# G8: training-completion score push. Completing the trainings for a linked
+# student and running grade sync should land a 1.0 on the "Wikipedia trainings"
+# gradebook column in Canvas, with an "N of N trainings completed" comment
+# (smoke-test step G8).
+#
+# That column is a roll-up over every training-kind module in the course's
+# timeline, and the timeline comes from the real `researchwrite` wizard, which
+# carries several — so reaching 1.0 means completing all of them, not one. This
+# spec completed a single module until 2026-08-17, back when the fixture built a
+# minimal hand-made timeline; against a wizard timeline that scores a fraction,
+# and because `completed_at` is per (user, module) rather than per course, the
+# fraction drifted upward as earlier runs left completions behind.
 #
 # Single browser persona (instructor). The student is enrolled on the
 # Canvas side via the REST API and linked via console — fabricating the
@@ -77,21 +84,31 @@ describe 'G8: training score push', :staging do
     timeline = provisioned[:timeline]
     bind_course_as_instructor(canvas_course_id: provisioned[:canvas_course_id], course_slug: slug)
 
+    # Deep-link-first: linking creates no columns, so seed the set the Modules
+    # import would create and let discovery bind them, exactly as a real import
+    # does — without driving the picker through a browser.
+    DashboardAdminClient.import_all_columns(course_slug: slug)
+
     binding = DashboardAdminClient.find_binding(course_slug: slug)
     DashboardAdminClient.run_roster_sync(binding_id: binding['id'])
     linked = DashboardAdminClient.link_student_context(course_slug: slug,
                                                        username: student_username)
     skip('student dashboard account not found; run G7 once to create it') if linked == 'no_user'
 
-    DashboardAdminClient.mark_training_complete(
-      username: student_username, training_module_id: timeline['training_module_id']
-    )
+    # The column is the rolled-up "Wikipedia trainings" one, so 1.0 means every
+    # training in the timeline is done — not just one. The wizard timeline
+    # carries several.
+    count = DashboardAdminClient.complete_all_trainings(course_slug: slug,
+                                                        username: student_username)
+    expect(count).to be > 0
+    DashboardAdminClient.run_line_item_sync(binding_id: binding['id'])
     DashboardAdminClient.run_grade_sync(binding_id: binding['id'])
 
-    submission = fetch_scored_submission(label: timeline['training_line_item_label'])
+    label = timeline['training_line_item_label']
+    submission = fetch_scored_submission(label:)
     expect(submission).not_to be_nil
     expect(submission['score'].to_f).to be_within(0.01).of(1.0)
-    expect(comment_text(submission)).to include('1 of 1 trainings completed')
+    expect(await_comment_text(label:)).to include("#{count} of #{count} trainings completed")
   end
 
   def fetch_scored_submission(label:)
@@ -104,6 +121,20 @@ describe 'G8: training score push', :staging do
                                   user_id: student_canvas_id)
       sub if sub && !sub['score'].nil?
     end
+  end
+
+  # Canvas creates the AGS comment a beat after it stores the score, so the
+  # response that first carried the score usually has no comments on it yet.
+  # Re-read until one lands instead of asserting against that first response.
+  def await_comment_text(label:)
+    course_id = provisioned[:canvas_course_id]
+    assignment = canvas_api.find_assignment(course_id:, name: label)
+    eventually(attempts: 15) do
+      sub = canvas_api.submission(course_id:, assignment_id: assignment['id'],
+                                  user_id: student_canvas_id)
+      text = sub ? comment_text(sub) : ''
+      text unless text.empty?
+    end.to_s
   end
 
   def comment_text(submission)
