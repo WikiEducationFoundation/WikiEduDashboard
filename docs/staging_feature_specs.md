@@ -149,11 +149,14 @@ bin/staging-feature-spec staging_specs/g9_exercise_sandbox_spec.rb
 - **g7** — the real student first-launch walk (two browser personas):
   the instructor binds the course, then the student completes Wikipedia
   OAuth in their own profile and is auto-enrolled as a `STUDENT`.
-- **g8** — completing a training module for a linked student pushes a
-  `1.0` to the "Wikipedia trainings" Canvas column with an
-  "X of Y trainings completed" comment.
-- **g9** — completing an exercise pushes a `1.0` to the exercise's
-  column with the student's sandbox URL in the comment.
+- **g8** — completing every training in the timeline for a linked student
+  pushes a `1.0` to the rolled-up "Wikipedia trainings" Canvas column with
+  an "N of N trainings completed" comment. The roll-up covers the whole
+  timeline, so completing one module scores a fraction, not `1.0`.
+- **g9** — completing an exercise registers the exercise's column as
+  submitted but **ungraded** (Submitted + PendingManual, no score), for the
+  instructor to grade, and the comment carries **no** sandbox URL or
+  username (FERPA).
 
 Every spec needs at least one real instructor launch (that's what
 captures the LTIAAS `service_key` the background sync jobs run on), so
