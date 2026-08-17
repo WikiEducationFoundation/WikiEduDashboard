@@ -119,8 +119,13 @@ class CanvasApiClient
   # Canvas user id of the student. `include` takes extra Canvas include
   # values (e.g. 'submission_history') for callers that need the attempt
   # trail rather than just the current state.
+  # The key is 'include', NOT 'include[]': Faraday's nested encoder adds the
+  # brackets for an array value, so 'include[]' went out as `include[][]=...`,
+  # which Canvas ignores. Every read through here came back with no
+  # `submission_comments` key at all — making score comments look like they had
+  # never reached Canvas when they were there the whole time.
   def submission(course_id:, assignment_id:, user_id:, include: [])
-    params = { 'include[]' => ['submission_comments', *include] }
+    params = { 'include' => ['submission_comments', *include] }
     get("/api/v1/courses/#{course_id}/assignments/#{assignment_id}/submissions/#{user_id}",
         params)
   end
