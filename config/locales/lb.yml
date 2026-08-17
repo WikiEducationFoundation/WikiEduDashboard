@@ -311,6 +311,8 @@ lb:
     campaign_articles: '%{title} Artikelen'
     campaign_courses: '%{title} Coursen'
     campaign_users: '%{title} Auteuren'
+    confirm_course_deletion: Sidd Dir sécher, datt Dir de Cours mam Titel %{title}
+      läsche wëllt? Wa jo, tippt den Titel vum Cours a fir virunzefueren.
     course: Cours
     course_type_label: 'Typ:'
     course_description: Coursen
