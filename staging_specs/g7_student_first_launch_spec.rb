@@ -88,6 +88,7 @@ describe 'G7: student first launch', :staging do
       # walk it like a real student would. No-ops on a returning student.
       walk_through_onboarding(real_name: 'LTI Test Student',
                               email: ENV.fetch('CANVAS_TEST_STUDENT_LOGIN'))
+      approve_identity_connection
       expect(page).to have_current_path(%r{/courses/StagingTest/}, url: true, wait: 30)
     end
 
