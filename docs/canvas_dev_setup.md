@@ -658,10 +658,14 @@ message — a partitioned cookie jar makes the iframe read as logged-out, which
 Before flipping `canvas_integration_enabled` to `'true'` in production:
 
 1. **LTIAAS prod tenant configured** with NRPS, AGS line items, and AGS scores scopes enabled. LTIAAS handles `iss` verification on every launch; the dashboard trusts the LTIAAS-issued idtoken JWT, so there is no `iss` value to configure on the dashboard side. Note there is no "Wiki Education production Canvas" to register against: each institution registers the tool into **their own** Canvas (dynamic registration), and `canvas.wikiedu.org` exists only to develop and test the integration.
-   - **Tool Name reads "Wiki Education Dashboard"** in the LTIAAS portal's API
-     Settings. Blank per-placement Titles during registration fall back to it,
-     and the integration guide now promises admins that name — LTIAAS cannot
-     send per-placement titles, so the account-wide Tool Name is the only lever.
+   - **The Tool Name in the LTIAAS portal's API Settings matches what
+     `docs/canvas_integration_guide.md` tells admins**, currently **wikiedu.org**
+     (operator decision 2026-08-17, for concision). Nothing in the app reads this
+     value — the coupling is only to the guide — but blank per-placement Titles
+     during registration fall back to it, and LTIAAS cannot send per-placement
+     titles, so this one account-wide setting labels every placement an
+     instructor and student sees: the course-nav item, the Modules import entry,
+     and each assignment. Change one, change the other.
    - **Activate registrations before instructors launch.** Dynamic registrations
      arrive in LTIAAS **inactive**, and until someone activates the registration
      every launch from that institution's Canvas shows a raw JSON error

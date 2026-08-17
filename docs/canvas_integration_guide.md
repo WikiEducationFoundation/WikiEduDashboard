@@ -102,7 +102,7 @@ with an app that exists but appears nowhere.
    automatically (endpoints, scopes, and placements). The registration dialog
    also shows optional **Title** and **Icon URL** fields for each placement.
    Leave them blank: each placement is then labeled with the tool's own name,
-   **Wiki Education Dashboard**, and its logo.
+   **wikiedu.org**, and its logo.
    Review the summary and click **Enable & Close**.
 2. **Turn the key on.** In the **Developer Keys** list, set the key's **State**
    to **ON**.
