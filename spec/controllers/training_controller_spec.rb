@@ -64,6 +64,27 @@ describe TrainingController, type: :request do
         expect(response.status).to eq(404)
       end
     end
+
+    # Links from the in-Canvas LTI iframe carry an explicit return_to,
+    # since their referer (the iframe launch URL) is not a sensible
+    # end-of-training destination.
+    context 'with an explicit relative return_to param' do
+      let(:request_params) { super().merge(return_to: '/courses/School/Course_(2026)') }
+
+      it 'stores it as the end-of-training return target' do
+        subject
+        expect(session[:training_return_to]).to eq('/courses/School/Course_(2026)')
+      end
+    end
+
+    context 'with a non-relative return_to param (potential open redirect)' do
+      let(:request_params) { super().merge(return_to: 'https://evil.example.com/') }
+
+      it 'ignores it' do
+        subject
+        expect(session[:training_return_to]).not_to eq('https://evil.example.com/')
+      end
+    end
   end
 
   describe 'add_library_breadcrumbs' do

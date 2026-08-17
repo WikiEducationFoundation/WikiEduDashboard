@@ -2315,3 +2315,228 @@ en:
     advanced_search: "Advanced Search"
     clear: "Clear"
     program_date: "Program Date"
+
+  lms_integration:
+    heading: "%{lms_name} link"
+    linked_to: "Course:"
+    last_sync: "Last sync:"
+    last_roster_sync_error: "There was an error syncing the roster."
+    last_sync_error: "Last sync error"
+    # Two distinct counts, shown together on both status surfaces. "Students
+    # synced" was one label over the connected-accounts number, so a course whose
+    # roster sync had just pulled in 30 students read "Students synced: 0".
+    roster_students: "Canvas roster"
+    connected_accounts: "Connected"
+    never_synced: "Not yet synced"
+    time_ago: "%{time_ago} ago"
+    my_account_link: "Your account:"
+    linked: "Linked"
+    not_linked: "Not linked"
+    my_last_sync: "Last sync"
+    no_grades_yet: "No synced progress yet"
+    not_yet_linked: "Your account hasn't been linked to Canvas for this course."
+
+  lti:
+    iframe_landing:
+      explanation: "Open dashboard.wikiedu.org in a new tab"
+      button: "Open the Wiki Education Dashboard"
+      not_linked: "This Canvas course is not yet linked to the Wiki Education Dashboard. Open the Dashboard to set up the integration."
+    oauth_redirect:
+      title: "Continuing to Wikipedia sign-in…"
+      button: "Continue"
+    setup:
+      header: "Set up the Wiki Education Dashboard for this Canvas course"
+      link_existing:
+        header: "Link an existing Wiki Education course"
+        label: "Course"
+      submit: "Link this course"
+      linked_notice: "Your course %{lms_course} is linked!"
+      already_linked: "Error: This course is already linked."
+      create_prompt: Create a course on the Dashboard
+      # Sits next to the course-creation link, which opens in a new tab because
+      # the full Dashboard can't be framed by Canvas. Tells the instructor how to
+      # get back to this step once the course exists.
+      create_return_note: "Course creation opens in a new tab. Reload once you have a Dashboard course."
+      no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
+      no_courses_yet: "You have no course on the Wiki Education Dashboard yet. Please create one first."
+      # Setup link failures are shown to the instructor running setup, so they
+      # must not reuse the student-facing "contact your instructor" copy.
+      link_conflict_error: "There was a conflict with linking your Canvas and Dashboard accounts. Please contact Wiki Education staff for help."
+      duplicate_link_error: "This Canvas user is already linked to a different Wikipedia account. Sign in to the Dashboard with the account that was connected before, then relaunch."
+    deep_link:
+      module_name: "Research and write a Wikipedia article"
+      header: "Choose Wikipedia task"
+      header_multiple: "Import Wikipedia assignments"
+      instruction: "Choose a Wikipedia task for this gradable item"
+      instruction_multiple: "Choose which items from the Wiki Education Dashboard timeline to import."
+      submit: "Add to course"
+      all_added: "All available items have been added."
+      no_gradables: "No gradable items found"
+      # Shown inside Canvas's import dialog to non-instructor roles (which
+      # roles count as instructors is set by LtiSession::INSTRUCTOR_ROLES).
+      forbidden_header: "Only instructors may do this."
+      forbidden_explanation: "Importing Dashboard assignments is only available to course instructors."
+      # Shown when a submitted selection can no longer be reserved — an import
+      # dialog left open past the reservation window, the same items already
+      # imported from another tab, or a replayed submission. The instructor's
+      # next step is to close and reopen the import dialog.
+      unavailable_header: Unavailable
+      unavailable_explanation: "These items are no longer available to import."
+    status:
+      header: "Wiki Education Dashboard"
+      linked: "Linked"
+      refresh: "Refresh"
+      roster_sync_label: "Roster sync"
+      grade_sync_label: "Grade sync"
+      sync_grades: "Sync grades"
+      grade_sync_started: "Grade sync started."
+      grade_sync_error: "There was an error syncing the grades."
+      roster_sync_error: "There was an error syncing the roster."
+      import_next_step:
+        header: "Import Wikipedia assignments from your Dashboard timeline"
+        instruction: "Go to Modules, open the ⋮ (options) menu, and choose wikiedu.org."
+      # Replaces the import step once anything has been imported. Canvas creates
+      # imported assignments and their module unpublished, and AGS gives us no
+      # way to tell whether the instructor has published them, so this stands as
+      # long as the course has imported columns.
+      publish_next_step:
+        header: "Wikipedia assignments imported"
+        instruction: "Don't forget to publish the module if you haven't already done so."
+    check_again: "Check again"
+    student_overview:
+      next_step: "Next step"
+      my_articles: "My articles"
+      trainings: "Trainings"
+      exercises: "Exercises"
+      # A student launching before the instructor has built the timeline. Reached
+      # in the ordinary setup order (the guide teaches linking the course first),
+      # so it has to explain itself rather than name the emptiness.
+      empty: "No Wikipedia activities"
+      role:
+        editing: "Editing"
+        reviewing: "Reviewing"
+    setup_pending:
+      header: "Wiki Education Dashboard is being set up"
+      explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
+    enrollment_error:
+      header: "Couldn't enroll you in the Wiki Education course"
+      explanation: "Something prevented enrollment. Please contact your instructor or Wiki Education staff for help; the issue has been logged for review."
+    launch_error:
+      header: "There was an error launching the Dashboard's Canvas integration."
+      explanation: "Try reloading the Canvas page. If the problem persists, contact Wiki Education staff."
+    # The approval step before a Dashboard account is connected to a Canvas
+    # identity. `explanation` receives %{course} (the Canvas course title) and
+    # %{username} (the signed-in Dashboard account) whether or not the wording
+    # uses them; the two are also listed on their own rows below it. The link is
+    # write-once, so `wrong_account` — signing out and back in as the right
+    # account — is the escape hatch that keeps a mistake from needing staff.
+    connect_identity:
+
+      header: "Connect your Wikipedia account to this course"
+      explanation: "Connecting will report your Wikipedia work in %{course} to this Canvas course, using your Wiki Education Dashboard account %{username}. This connection cannot be changed later without help from Wiki Education staff, so check that the account below is the one you want to use."
+      canvas_course: "Canvas course"
+      dashboard_account: "Wikipedia account"
+      confirm: "Connect this account"
+      wrong_account: "Use a different account"
+    # Shown at the foot of every in-Canvas page so it's never a mystery which
+    # Dashboard account the integration is acting as. Note this is the account the
+    # page is ACTING AS, which inside the Canvas iframe is resolved from the launch
+    # rather than from a session — so the wording deliberately doesn't say "signed
+    # in", which would be false in the iframe even when the account is right.
+    identity:
+      signed_in_as: "Wikipedia account: %{username}"
+      no_account: "No Wikipedia account connected yet"
+    enrollment_pending_approval:
+      header: "This course is awaiting Wiki Education approval"
+      explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
+      contact_hint: "If you have questions, contact your instructor or Wiki Education staff."
+    assignment_view:
+      # Short column/status labels. connected/not_connected mirror the
+      # operator-supplied gradebook comments in LtiSetupProgress.
+      status:
+        completed: "Completed"
+        in_progress: "In progress"
+        not_started: "Not started"
+        connected: "Connected"
+        not_connected: "Not connected"
+        removed_in_lms: "Not enrolled in Canvas"
+      open_on_wikipedia: "Open on Wikipedia"
+      show: "Show"
+      hide: "Hide"
+      # Relocated verbatim from the sandbox-preview inline script in
+      # assignment_view.html.haml (the lti_iframe layout loads no i18n JS
+      # bundle, so the view passes these in).
+      sandbox_preview:
+        loading: "…"
+        not_found: "No sandbox found"
+        error: "Sandbox failed to load"
+      roster:
+        student: "Student"
+        username: "Username"
+        status: "Status"
+        sandbox: "Sandbox"
+        empty: "No students have connected Wikipedia accounts yet."
+        assigned_article: "Assigned article"
+      no_article_yet: "No article chosen yet"
+      # The shared panel showing the whole state of a student's article work,
+      # rendered at each stage of the writing process (choosing the article, the
+      # bibliography, the outline, continuing to improve). `pages.*` label the
+      # three userspace pages; the draft one is omitted for courses whose
+      # students edit live articles instead of drafting.
+      article_work:
+        header: "Article work"
+        not_created: "This article does not exist on Wikipedia yet."
+        created: "Started"
+        not_created_yet: "Not started"
+        characters: "Characters added"
+        references: "References added"
+        revisions: "Edits"
+        pages:
+          bibliography: "Bibliography"
+          outline: "Outline"
+          draft: "Draft sandbox"
+      student:
+        your_sandbox: "Your sandbox"
+        # Heading over the student's own assigned article(s).
+        your_article: "Your article"
+        open_exercise: "Open exercise"
+        launch_instructions: "Launch instructions"
+      setup:
+        summary: "%{connected} of %{total} have connected a Wikipedia account."
+        empty: "The roster sync is pending. Check back shortly."
+        # Not-yet-connected students are counted here rather than listed: all
+        # the anonymized roster gives us for them is an opaque LMS user id.
+        # The same students are identifiable by name in the Canvas gradebook,
+        # where this column shows no score for them. %{count} is how many.
+        pending: "%{count} student(s) have not connected a Wikipedia account yet."
+      trainings:
+        # Mirrors the operator-supplied gradebook comment phrasing in
+        # LtiTrainingProgress ("X of Y trainings completed").
+        progress: "%{completed} of %{total} trainings completed"
+        module: "Training"
+        due_date: "Due date"
+        # Heading over the instructor's list of the trainings this column covers.
+        covered: "Trainings in this course"
+        # Per-training, how many of the course's connected students have completed
+        # it. Spelled out because the roster below carries a different fraction
+        # (trainings completed per student), and "0 / 1" beside a module name read
+        # as neither. Operator's own wording (2026-08-05), so no placeholder.
+        module_completion: "Completed by %{completed} of %{total} students"
+      # The peer-review column. `progress` mirrors the comment phrasing in
+      # LtiPeerReviewProgress ("X of Y peer reviews completed"), the way the
+      # trainings one mirrors its own service.
+      peer_review:
+        progress: "%{completed} of %{total} peer reviews completed"
+        article: "Article to review"
+        review_page: "Review page"
+        reviews: "Assigned reviews"
+        your_reviews: "Your peer reviews"
+        none_yet: "None assigned yet"
+        none_assigned: "No peer reviews have been assigned to you yet."
+      orphan:
+        explanation: "There is no Dashboard content to show for this assignment."
+      submission:
+        explanation: "There is no student work to show for this submission."
+        open_dashboard: "Open the Wiki Education Dashboard"
+        viewing: "Showing work by %{username}"
+        details: "Open student details"

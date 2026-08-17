@@ -41,6 +41,7 @@ module.exports = (env) => {
 
     surveys: [`${cssSource}/surveys.styl`],
     training: [`${cssSource}/training.styl`],
+    lti_iframe: [`${cssSource}/lti_iframe.styl`],
   };
 
   const output = {

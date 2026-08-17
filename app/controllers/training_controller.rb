@@ -29,8 +29,10 @@ class TrainingController < ApplicationController
     fail_if_entity_not_found(TrainingModule, params[:module_id])
     # Save the return-to source, typically a course page, so that
     # at the end of the training we can return the user to where they
-    # started from.
-    session[:training_return_to] = request.referer
+    # started from. An explicit `return_to` param wins over the referer:
+    # links from the in-Canvas LTI iframe carry one, because their referer
+    # is the iframe launch URL — not a sensible place to send anyone.
+    session[:training_return_to] = explicit_return_to || request.referer
     @pres = TrainingModulePresenter.new(current_user, params)
     add_training_root_breadcrumb
     add_library_breadcrumb
@@ -69,6 +71,13 @@ class TrainingController < ApplicationController
   end
 
   private
+
+  # Only site-relative paths ('/...', but not protocol-relative '//...'),
+  # so the end-of-training redirect can't become an open redirect.
+  def explicit_return_to
+    target = params[:return_to].to_s
+    target if target.start_with?('/') && !target.start_with?('//')
+  end
 
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path

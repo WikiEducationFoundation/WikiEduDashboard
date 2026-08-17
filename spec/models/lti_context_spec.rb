@@ -1,0 +1,135 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+describe LtiContext do
+  let(:binding) do
+    LtiCourseBinding.create!(
+      lms_id: 'platform-x',
+      lms_family: 'canvas',
+      lms_context_id: 'canvas-course-77',
+      lms_resource_link_id: 'rl-99'
+    )
+  end
+  let(:user) { create(:user) }
+
+  describe 'validations and associations' do
+    it 'requires user_lti_id and lms_id' do
+      ctx = described_class.new
+      expect(ctx).not_to be_valid
+      expect(ctx.errors[:user_lti_id]).to be_present
+      expect(ctx.errors[:lms_id]).to be_present
+    end
+
+    it 'permits nil user_id (NRPS-discovered, awaiting OAuth)' do
+      ctx = described_class.new(user_lti_id: 'u', lms_id: 'platform-x',
+                                lti_course_binding: binding)
+      expect(ctx).to be_valid
+    end
+  end
+
+  # The 1:1 identity map is scoped to a binding, and a binding is one LMS course.
+  # Worth pinning explicitly: if it were scoped any wider, the ordinary case of one
+  # person in two Canvas courses would break — an instructor teaching two sections,
+  # or a student enrolled in two Wikipedia assignments.
+  describe 'the (binding, user) uniqueness scope' do
+    let(:other_binding) do
+      LtiCourseBinding.create!(lms_id: 'platform-x', lms_family: 'canvas',
+                               lms_context_id: 'canvas-course-88',
+                               lms_resource_link_id: 'rl-88')
+    end
+
+    it 'lets one Dashboard user hold a context in two different courses' do
+      described_class.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                              lti_course_binding: binding, user:)
+      expect do
+        described_class.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                                lti_course_binding: other_binding, user:)
+      end.to change(described_class, :count).by(1)
+    end
+
+    # Same person, same Canvas account, two Canvas courses — so the same
+    # user_lti_id as well. Both indexes are binding-scoped, so this is fine.
+    it 'lets the same LMS identity appear in two different courses' do
+      described_class.create!(user_lti_id: 'lti-same', lms_id: 'platform-x',
+                              lti_course_binding: binding, user:)
+      other = described_class.create!(user_lti_id: 'lti-same', lms_id: 'platform-x',
+                                      lti_course_binding: other_binding, user:)
+      expect(other).to be_persisted
+    end
+
+    # What it does refuse: two LMS identities resolving to one Dashboard user
+    # inside the *same* course, which would post one student's progress at two
+    # gradebook rows.
+    it 'refuses two identities for one user within a single course' do
+      described_class.create!(user_lti_id: 'lti-1', lms_id: 'platform-x',
+                              lti_course_binding: binding, user:)
+      expect do
+        described_class.create!(user_lti_id: 'lti-2', lms_id: 'platform-x',
+                                lti_course_binding: binding, user:)
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
+    it 'still allows many not-yet-connected members in one course' do
+      3.times do |i|
+        described_class.create!(user_lti_id: "pending-#{i}", lms_id: 'platform-x',
+                                lti_course_binding: binding, user: nil)
+      end
+      expect(described_class.where(lti_course_binding: binding, user_id: nil).count).to eq(3)
+    end
+  end
+
+  describe 'roles serialization' do
+    it 'persists and reads back an array' do
+      ctx = described_class.create!(
+        user_lti_id: 'u',
+        lms_id: 'platform-x',
+        lti_course_binding: binding,
+        roles: %w[role1 role2]
+      )
+      expect(described_class.find(ctx.id).roles).to eq(%w[role1 role2])
+    end
+  end
+
+  describe 'linked / unlinked scopes' do
+    let!(:linked) do
+      described_class.create!(user: user, user_lti_id: 'u1',
+                              lms_id: 'platform-x',
+                              lti_course_binding: binding,
+                              linked_at: Time.current)
+    end
+    let!(:unlinked) do
+      described_class.create!(user_lti_id: 'u2', lms_id: 'platform-x',
+                              lti_course_binding: binding)
+    end
+
+    it 'partitions correctly' do
+      expect(described_class.linked).to include(linked)
+      expect(described_class.linked).not_to include(unlinked)
+      expect(described_class.unlinked).to include(unlinked)
+      expect(described_class.unlinked).not_to include(linked)
+      expect(linked).to be_linked
+      expect(unlinked).not_to be_linked
+    end
+  end
+
+  describe '#instructor?' do
+    it 'is true when a role matches an instructor suffix' do
+      ctx = described_class.new(
+        roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor']
+      )
+      expect(ctx).to be_instructor
+    end
+
+    it 'is false for a learner role' do
+      ctx = described_class.new(
+        roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+      )
+      expect(ctx).not_to be_instructor
+    end
+
+    it 'is false when no roles are recorded' do
+      expect(described_class.new).not_to be_instructor
+    end
+  end
+end

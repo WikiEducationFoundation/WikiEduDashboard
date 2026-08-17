@@ -1,0 +1,656 @@
+// Minimal styling for the in-iframe LTI launch views. No navbar/footer.
+// White background so the content sits seamlessly inside Canvas's white
+// pages — these views render in Canvas iframes, often the small default
+// assignment embed, so chrome and spacing stay minimal throughout.
+body.lti-iframe
+  background #fff
+  // Use the brand font, not `inherit` — inherit fell through to the browser
+  // default (serif) and made every in-iframe view look like a broken page.
+  font-family body-font
+  // Belt-and-suspenders against sideways scroll in the narrow Canvas embed;
+  // wide tables scroll within their own container instead (see below).
+  overflow-x hidden
+
+  *
+    box-sizing border-box
+
+// Block, not flex-centered: a flex row made each view a flex item with
+// min-width:auto, so content wider than the narrow Canvas iframe overflowed
+// sideways (and the vertical centering left short content floating in a tall
+// empty frame). Block layout + margin-auto children is responsive and
+// top-aligned, which fits the embed.
+.lti-iframe__main
+  padding 16px
+
+.lti-iframe__landing
+  text-align center
+  max-width 480px
+  margin 0 auto
+  padding 24px
+
+.lti-iframe__logo
+  display block
+  margin 0 auto 28px
+  max-width min(260px, 100%)
+  max-height 120px
+  width auto
+  height auto
+
+.lti-iframe__title
+  font-size 18px
+  font-weight normal
+  margin 0 0 24px
+  color #333
+
+// p → h1 retag (each page gets one h1, levels without gaps): these landing
+// titles were plain <p>s, so keep the body-text line-height/tracking they
+// had rather than picking up the base heading treatment.
+.lti-iframe__title--plain
+  line-height 1.56
+  letter-spacing normal
+
+// Link-state notice on the anonymous landing ("not yet linked"): the
+// substantive status line, given slightly more weight than the open-in-new-tab
+// hint below it so the actionable message leads.
+.lti-iframe__status
+  margin 0 0 16px
+  color #17212b
+  font-size 16px
+  font-weight 600
+
+// Quiet "check again" re-launch link on the waiting states (setup pending /
+// awaiting approval), so a student can re-check without knowing to reload.
+.lti-iframe__check-again
+  display inline-block
+  margin-top 8px
+  color $brand_primary
+
+.lti-iframe__button
+  display inline-block
+
+// Option list in the deep-link import picker: one option per row (bare inline
+// labels otherwise wrap into a horizontal jumble). Grid keeps the input in its
+// own column with the label text aligned beside it.
+.lti-deep-link-options
+  display flex
+  flex-direction column
+  gap 10px
+  margin 16px 0
+
+  label
+    display grid
+    grid-template-columns auto 1fr
+    column-gap 8px
+    align-items baseline
+    cursor pointer
+
+// h3 → h1 / h4 → h2 promotion on the setup and picker pages (each page gets
+// one h1, levels without gaps), same approach as _layout.styl's
+// section-header promotions: preserve the prior look. This partial is only
+// bundled for the lti_iframe layout, so these element selectors can't leak
+// into the main dashboard styles.
+.section-header h1
+  color body-color
+  font-size 1.563em
+
+.module h2
+  font-size 1.25em
+
+// Setup form: "Link this course" is a primary action that only makes sense
+// once a course is chosen, so JS disables it until then; dim it and swap the
+// cursor so the disabled state clearly reads as "not ready yet".
+.lti-setup__submit[disabled]
+  opacity .5
+  cursor not-allowed
+
+// Shown when the setup POST rejects the chosen course (e.g. it's already linked
+// to another Canvas course). The picker normally omits such courses, so this is
+// a rare fallback; make it read clearly as an error above the form.
+.lti-setup__error
+  margin 0 0 18px
+  padding 12px 16px
+  border-radius 6px
+  background #fdecea
+  border 1px solid #f5c6c2
+  color #8a1c13
+
+// Secondary path for instructors whose course isn't listed yet: a quiet line
+// under the form pointing them to their dashboard to set one up.
+.lti-setup__alt-path
+  margin-top 18px
+  color #5a6b7b
+  font-size 13px
+
+// Assignment_view drill-down (instructor roster / student panel) and the
+// instructor status view. Top-aligned plain content, no card chrome — the
+// default Canvas assignment iframe is small, and a bordered/padded card
+// wastes enough space to force scrolling.
+.lti-iframe__drilldown
+  width 100%
+  max-width 640px
+  margin 0 auto
+  text-align left
+
+// Header line: view title left, the bound course's title right (linking
+// out to the Dashboard course in a new tab).
+.lti-iframe__header
+  display flex
+  align-items baseline
+  justify-content space-between
+  gap 12px
+  margin 0 0 12px
+  padding-bottom 8px
+  border-bottom 2px solid #2a5db0
+
+.lti-iframe__drilldown-title
+  margin 0
+  font-size 18px
+  color #17212b
+
+// Small inline external-link icon treatment shared by the quiet links
+// (the shared icon class is padded/sized for buttons).
+inline-external-icon()
+  .icon-z-external-link
+    display inline-block
+    width 14px
+    height 14px
+    padding 0
+    background-size 12px
+    background-position center
+
+.lti-iframe__course-link
+  display inline-flex
+  align-items center
+  gap 6px
+  color $brand_primary
+  font-size 16px
+  font-weight 600
+  text-align right
+  // Underlined (not color-only) so the link is distinguishable without
+  // relying on color — the external-link icon reinforces "opens elsewhere".
+  text-decoration underline
+
+  inline-external-icon()
+
+// Wide content (rosters) scrolls within its own container rather than
+// forcing the whole embed sideways (body sets overflow-x: hidden).
+.lti-table-scroll
+  width 100%
+  overflow-x auto
+  margin 0 0 4px
+
+// Muted placeholder for an empty roster cell (e.g. an anonymized member with
+// no Dashboard name) so the row never reads as broken/missing data.
+.lti-muted
+  color #8a95a3
+
+.lti-iframe__empty
+  color #5a6b7b
+
+// Descriptive content rendered live from the Dashboard (block bodies, the
+// roll-up's training list): the assignment "description" lives here rather
+// than baked into Canvas, so it can't go stale.
+.lti-iframe__description
+  margin 0 0 16px
+  color #17212b
+  font-size 14px
+  line-height 1.5
+  overflow-wrap anywhere
+
+  img
+    max-width 100%
+    height auto
+
+  // Block bodies are instructor-authored HTML and can contain wide tables;
+  // let them scroll within the description rather than overflow the embed.
+  table
+    display block
+    max-width 100%
+    overflow-x auto
+
+.lti-trainings-list
+  margin 0
+  padding 0
+  list-style none
+  display flex
+  flex-direction column
+  gap 6px
+
+  .lti-status
+    margin-right 8px
+
+// Instructor list: students-completed count after each linked module name.
+.lti-trainings-list__count
+  margin-left 8px
+  color #4a5a6b
+  font-size 13px
+
+// Heading over the trainings this column rolls up, so the list isn't an
+// unlabelled block above the roster table.
+.lti-trainings-list__header
+  margin 0 0 8px
+  font-size 15px
+  color #17212b
+
+// When a training is completed, the date sits after the status pill.
+.lti-trainings__completed-at
+  margin-left 8px
+  color #4a5a6b
+  font-size 13px
+  white-space nowrap
+
+// Lead copy inside a drilldown (e.g. the setup view's connected-count
+// summary): quieter than the title, above the main content.
+.lti-iframe__lead
+  margin 0 0 12px
+  color #17212b
+
+// Next-step callout on the status view before any assignment is imported:
+// points the instructor at the Modules import path. Reads as a gentle prompt,
+// not an error.
+.lti-iframe__next-step
+  margin 16px 0 0
+  padding 14px 16px
+  border 1px solid #cdd8ea
+  border-left 4px solid $brand_primary
+  border-radius 8px
+  background #f3f5fb
+
+  // h4 → h2 retag (heading levels must not skip); keep the prior h4 size.
+  h2
+    margin 0 0 6px
+    color #17212b
+    font-size 1.25em
+
+  p
+    margin 0
+    color #3d4757
+
+// Green check beside the status-view heading: the linked-and-working signal.
+.lti-iframe__linked-check
+  margin-left 8px
+  color #1e7e34
+  font-weight 700
+
+// Post-link status list: label/value rows for course link, synced-student
+// count, and last sync time.
+.lti-status-list
+  margin 0
+  display flex
+  flex-direction column
+  gap 8px
+
+.lti-status-list__row
+  display flex
+  gap 8px
+
+  dt
+    font-weight 600
+    color #5a6b7b
+    min-width 140px
+
+  dd
+    margin 0
+    color #17212b
+
+.lti-status-list__link
+  color #2a5db0
+
+// Reloads the iframe (and with it, kicks a roster sync); quiet action
+// beside the last-sync value.
+.lti-status-list__refresh
+  margin-left 10px
+  color #2a5db0
+  font-size 13px
+
+// Grade-sync block: the last-grade-sync status row plus the instructor's
+// on-demand "sync grades" trigger. Shown on the status view and at the foot of
+// each instructor drill-down, separated from the content above by a hairline.
+.lti-grade-sync
+  margin-top 14px
+  padding-top 14px
+  border-top 1px solid #e6ebf0
+
+  .lti-status-list
+    margin-bottom 10px
+
+.lti-grade-sync__button
+  font-size 13px
+  padding 6px 12px
+
+.lti-grade-sync__started
+  margin 10px 0 0
+  color #2a6b2f
+  font-size 13px
+
+// Student progress overview: sectioned lists (articles / trainings / exercises)
+// on the nav-item launch, each row a status pill + link out to the Dashboard.
+.lti-overview-section
+  margin-top 18px
+
+  // h4 → h2 retag (heading levels must not skip); keep the prior h4 size.
+  h2
+    display flex
+    align-items baseline
+    gap 8px
+    margin 0 0 8px
+    font-size 1.25em
+
+.lti-overview-count
+  font-weight 400
+  color #5a6b7b
+  font-size 13px
+
+.lti-overview-list
+  list-style none
+  margin 0
+  padding 0
+  display flex
+  flex-direction column
+  gap 6px
+
+.lti-overview-item
+  display flex
+  align-items center
+  gap 8px
+  flex-wrap wrap
+
+.lti-overview-item__main
+  display flex
+  align-items center
+  gap 8px
+  flex-wrap wrap
+
+.lti-overview-role
+  font-size 12px
+  color #5a6b7b
+  text-transform uppercase
+  letter-spacing 0.03em
+
+.lti-overview-link
+  margin-left auto
+  color #2a5db0
+  font-size 13px
+
+.lti-iframe__panel
+  display flex
+  flex-direction column
+  align-items flex-start
+  gap 16px
+
+// Setup assignment, student branch: the Connected pill with the student's
+// username beside it, linking to their Dashboard details view.
+.lti-setup-connected
+  display flex
+  align-items center
+  gap 10px
+  margin 0
+
+.lti-setup-connected__user
+  display inline-flex
+  align-items center
+  gap 6px
+  color #2a5db0
+
+  inline-external-icon()
+
+.lti-assignment-roster
+  width 100%
+  border-collapse collapse
+  font-size 14px
+
+  th
+    text-align left
+    font-weight 600
+    color #5a6b7b
+    padding 6px 10px
+    border-bottom 2px solid #e3e8ee
+
+  td
+    padding 8px 10px
+    border-bottom 1px solid #eef1f5
+    color #17212b
+    vertical-align middle
+
+.lti-assignment-roster__link
+  color #2a5db0
+
+.lti-status
+  display inline-block
+  padding 2px 10px
+  border-radius 999px
+  font-size 12px
+  font-weight 600
+
+.lti-status--done
+  background #e6f4ea
+  color #1e7e34
+
+// Some progress but not complete (e.g. "3 of 5 trainings"): amber, so a
+// partially-done student is unmistakable from both complete (green) and
+// not-started (neutral) at a glance.
+.lti-status--partial
+  background #fdecd6
+  color #8a4b06
+
+.lti-status--pending
+  background #eef1f5
+  color #55606e
+
+// A connected student whose Canvas enrollment the LMS has since suspended or
+// deleted: error-red (same palette as .lti-setup__error) so the roster's one
+// reconcile-me state stands apart from the routine progress pills.
+.lti-status--removed
+  background #fdecea
+  color #8a1c13
+
+// Sandbox actions: the "Show" toggle reveals the lazily-fetched Wikipedia
+// content inline; the "Open on Wikipedia" link opens the sandbox in a new tab.
+.lti-sandbox__link
+  display inline-flex
+  align-items center
+  gap 4px
+  color #2a5db0
+  font-size 13px
+  text-decoration none
+
+  &:hover
+    text-decoration underline
+
+  // The shared external-link icon is a padded background image sized for
+  // buttons; shrink and re-center it to sit snugly after this smaller label.
+  .icon-z-external-link
+    display inline-block
+    width 13px
+    height 13px
+    padding 0
+    background-size 11px
+    background-position center
+
+.lti-sandbox__toggle
+  background none
+  border 1px solid #c3cddb
+  border-radius 4px
+  color #2a5db0
+  cursor pointer
+  font-size 13px
+  padding 2px 10px
+
+.lti-sandbox__toggle[aria-expanded='true']
+  background #eef2f8
+
+// In the instructor roster the "Show" toggle is the primary action — revealing
+// a student's work inline is the point of the view — so it reads as a filled
+// button, while "Open on Wikipedia" stays a quiet secondary link.
+.lti-assignment-roster
+  .lti-sandbox__toggle
+    background #2a5db0
+    border-color #2a5db0
+    color #fff
+    font-weight 600
+    padding 4px 14px
+
+    // A caret makes the open/closed state legible at a glance; it points down
+    // when collapsed and flips up when this row's preview is showing.
+    &::after
+      content ''
+      display inline-block
+      margin-left 8px
+      vertical-align middle
+      border-left 4px solid transparent
+      border-right 4px solid transparent
+      border-top 5px solid currentColor
+      transition transform .15s ease
+
+    &:hover
+      background #244f97
+      border-color #244f97
+
+    // Open row: invert to an outlined button and flip the caret, so the one
+    // currently showing its preview is unmistakable among the solid closed ones.
+    &[aria-expanded='true']
+      background #fff
+      color #2a5db0
+
+    &[aria-expanded='true']::after
+      transform rotate(180deg)
+
+.lti-sandbox__actions
+  display flex
+  flex-wrap wrap
+  align-items center
+  gap 12px
+
+.lti-sandbox__detail > td
+  padding 12px 16px
+  background #fbfcfe
+
+.lti-sandbox__content
+  color #5a6b7b
+  font-size 13px
+
+.lti-sandbox__content--rendered
+  max-height 460px
+  overflow-y auto
+  padding 16px
+  background #fff
+  border 1px solid #e3e8ee
+  border-radius 6px
+  color #17212b
+  font-size 14px
+  line-height 1.5
+
+  img
+    max-width 100%
+    height auto
+
+  table
+    display block
+    max-width 100%
+    overflow-x auto
+
+// Article-selection columns report which article each student took on instead of
+// a completion pill (see AssignmentViewContext#article_selection?). Inside a
+// roster cell a default <ul> would carry bullets and block margins, so the list
+// is stripped back to plain stacked lines.
+.lti-assigned-articles
+  margin 0
+  padding 0
+  list-style none
+
+  li + li
+    margin-top 4px
+
+  a
+    color #2a5db0
+
+.lti-assigned-article__empty
+  color #5a6b7b
+  font-size 13px
+  font-style italic
+
+// The student's own panel leads with their article rather than a status pill.
+.lti-iframe__assigned-article
+  margin-bottom 14px
+
+  h2
+    margin 0 0 6px
+    font-size 15px
+    color #17212b
+
+// Which Dashboard account the page is acting as, at the foot of every in-Canvas
+// view (see the lti_iframe layout). Quiet by design: it's a standing fact, not a
+// message — but it has to be legible, because a silent first-launch link
+// connected the wrong account precisely because nothing said which one.
+.lti-iframe__identity
+  margin 20px 0 0
+  padding-top 10px
+  border-top 1px solid #e3e8ee
+  color #5a6b7b
+  font-size 12px
+
+// The shared assigned-article panel: the whole state of one student's article
+// work, rendered at each stage of the writing process. Inside a roster row it
+// sits in a full-width cell, so it needs its own indent rather than the table's.
+.lti-article-work
+  padding 10px 0 4px
+
+  & + &
+    border-top 1px solid #e3e8ee
+    margin-top 10px
+
+.lti-article-work__title
+  margin 0 0 4px
+  font-size 14px
+
+  a
+    color #2a5db0
+
+.lti-article-work__not-live
+  display inline-block
+  margin-bottom 6px
+  color #8a6d3b
+  font-size 12px
+
+.lti-article-work__pages
+  margin 0 0 8px
+  padding 0
+  list-style none
+
+  li
+    display flex
+    align-items center
+    flex-wrap wrap
+    gap 8px
+    padding 3px 0
+
+.lti-article-work__page-label
+  min-width 96px
+  color #5a6b7b
+  font-size 13px
+  font-weight 600
+
+.lti-article-work__stats
+  margin-top 6px
+
+  dt
+    font-size 12px
+
+// Whose submission a SpeedGrader launch is showing. Sits directly under the
+// drill-down header, where the frame is narrow, so it stays on one line and wraps
+// as a unit rather than splitting the name from the link.
+.lti-submission-focus
+  display flex
+  flex-wrap wrap
+  align-items baseline
+  gap 0.5em
+  margin 0 0 1em
+  padding 0.5em 0.75em
+  border-left 3px solid #676eb4
+  background #f4f4fb
+
+  &__student
+    font-weight bold
+
+  &__link
+    font-size 0.9em

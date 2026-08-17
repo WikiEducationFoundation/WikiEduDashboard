@@ -26,4 +26,32 @@ describe AboutThisSiteController, type: :request do
       expect(response.status).to eq(404)
     end
   end
+
+  describe '#canvas_integration_guide' do
+    it 'renders the Canvas integration guide from the Markdown source' do
+      get '/lti/guide'
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Adding the Wiki Education Dashboard to your Canvas')
+    end
+
+    it 'is not served on the P&E Dashboard deployment' do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      get '/lti/guide'
+      expect(response.status).to eq(404)
+    end
+  end
+
+  describe '#hecvat' do
+    it 'renders the HECVAT from the Markdown source' do
+      get '/hecvat'
+      expect(response.status).to eq(200)
+      expect(response.body).to include('HECVAT 4.1.6 (Core)')
+    end
+
+    it 'is not served on the P&E Dashboard deployment' do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      get '/hecvat'
+      expect(response.status).to eq(404)
+    end
+  end
 end
