@@ -65,7 +65,10 @@ const StudentsTabHandler = createReactClass({
         <Routes>
           <Route path="overview/*" element={<Overview {...props} />} />
           <Route path="articles/*" element={<Articles {...props} />} />
-          <Route path="*" element={<Navigate replace to="overview"/>} />
+          <Route
+            path="*"
+            element={<Navigate replace to={`/courses/${this.props.course.slug}/students/overview`}/>}
+          />
         </Routes>
       </div>
     );

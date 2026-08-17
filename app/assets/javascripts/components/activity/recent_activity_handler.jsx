@@ -21,7 +21,7 @@ const RecentActivityHandler = () => (
     <div className="container">
       <Routes>
         <Route path="recent-uploads" element={<RecentUploadsHandler />} />
-        <Route path="*" element={<Navigate replace to="recent-uploads"/>}/>
+        <Route path="*" element={<Navigate replace to="/recent-activity/recent-uploads"/>}/>
       </Routes>
     </div>
   </div>
