@@ -62,16 +62,6 @@ These are notes from setting up a fresh web server on the newest Debian, July 2,
     - `PassengerMaxPoolSize` caps how many application processes run at once. Passenger's default is 6, which on a small VM can require more memory than the server has. Workers have been observed starting at ~265 MB and reaching ~1.6 GB after about three hours, so six mature workers would want ~9.7 GB. Choose a value such that (pool size × expected mature worker size) fits in RAM alongside Sidekiq and memcached.
     - `PassengerMaxRequests` recycles a worker after that many requests, reclaiming its memory before it bloats. Without this, worker memory only grows. Aim for recycling every 30–60 minutes under normal traffic, and lower the number if workers are still reaching a gigabyte.
     - Both settings were added after the incident in #6990, where their absence left the P&E Dashboard web server wedging every day or two.
-  - At the end of the apache.conf, add the following:
-```
-# Add header to incoming requests, timestamping them with time since the epoch in microseconds
-# This is required for New Relic's request queueing calculation
-RequestHeader set X-Request-Start "%t"
-```
-
-- Enable mod_headers:
-  - $ `sudo a2enmod headers`
-
 - Limit glibc malloc arenas for the Ruby processes Apache spawns
   - $ `sudo nano /etc/apache2/envvars`
   - add at the end: `export MALLOC_ARENA_MAX=2`
@@ -109,7 +99,7 @@ RequestHeader set X-Request-Start "%t"
 - Update or create the corresponding deployment file (eg, '/config/deploy/peony.rb') to point to your new wmcloud instance (and commit the changes and push to github, once it works),
 - Start the Capistrano deployment. Enter the app's directory, then:
   - $ `bundle exec cap peony deploy`
-  - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, secrets.yml, and newrelic.yml
+  - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, and secrets.yml
    - If it fails but you don't get a message about one of those files, try it again.
 - Copy the `config` and `public` directory contents on to the new server at the same location (`/var/www/dashboard/shared/`)
 - Create the tmp directory for pid files

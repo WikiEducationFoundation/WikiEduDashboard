@@ -80,7 +80,6 @@ gem 'i18n-js'
 gem 'sentry-ruby' # error reporting for both server-side Ruby and client-side JS
 gem 'sentry-rails' # Sentry extension for Rails
 gem 'sentry-sidekiq' # Sentry extension for Sidekiq
-gem 'newrelic_rpm' # performance monitoring
 
 ### Assorted conveniences and tools
 gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages

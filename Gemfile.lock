@@ -398,8 +398,6 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     netrc (0.11.0)
-    newrelic_rpm (10.2.0)
-      logger
     nio4r (2.7.5)
     nokogiri (1.19.4)
       mini_portile2 (~> 2.8.2)
@@ -762,7 +760,6 @@ DEPENDENCIES
   mediawiki_api!
   memory_profiler
   mysql2
-  newrelic_rpm
   nokogiri
   observer
   oj
