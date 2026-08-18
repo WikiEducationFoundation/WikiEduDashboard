@@ -66,5 +66,17 @@ describe SystemStatsCsvBuilder do
       # Should fall back to default 30-day range
       expect(csv).to include(stat_1.snapshot_date.to_s)
     end
+
+    it 'emits rows in snapshot_date order, not id order' do
+      # Create a row with a newer id but an older date to confirm ordering
+      # is by snapshot_date, not by primary key.
+      backfilled = create(:system_stat, snapshot_date: 5.days.ago.to_date, total_edits: 999)
+      builder = described_class.new(start_date: 15.days.ago.to_date.to_s,
+                                    end_date: Time.zone.today.to_s)
+      csv = builder.generate_csv
+      dates = CSV.parse(csv, headers: true).map { |row| row['snapshot_date'] }
+      expect(dates).to eq(dates.sort)
+      expect(dates).to include(backfilled.snapshot_date.to_s)
+    end
   end
 end

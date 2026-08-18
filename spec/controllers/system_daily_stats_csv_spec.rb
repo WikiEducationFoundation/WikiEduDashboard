@@ -94,5 +94,19 @@ describe ReportsController, '#system_daily_stats_csv', type: :request do
       json = response.parsed_body
       expect(json['error']).to include('start_date must be before end_date')
     end
+
+    it 'normalizes slash-delimited dates in the filename' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      get '/system_daily_stats_csv', params: { start_date: '2020/01/02' }
+      expect(response).to have_http_status(:accepted)
+
+      get '/system_daily_stats_csv', params: { start_date: '2020/01/02' }
+      expect(response).to have_http_status(:ok)
+      url = response.parsed_body['url']
+      # The URL should not contain raw slashes from the date param
+      filename = url.split('/').last
+      expect(filename).not_to include('2020/01/02')
+      expect(filename).to include('from-2020-01-02')
+    end
   end
 end

@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
                          campaign_students_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
                          course_wikidata_csv course_retention_csv all_courses_and_instructors_csv
-                         system_csv]
+                         system_csv system_daily_stats_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
