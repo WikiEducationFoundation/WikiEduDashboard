@@ -25,19 +25,8 @@ class SystemStatsCsvBuilder
   def generate_csv
     CSV.generate do |csv|
       csv << CSV_HEADERS
-      snapshots.find_each do |snapshot|
-        csv << [
-          snapshot.snapshot_date,
-          snapshot.total_edits,
-          snapshot.total_article_views,
-          snapshot.total_articles_created,
-          snapshot.total_articles_improved,
-          snapshot.total_characters_added,
-          snapshot.active_programs_count,
-          snapshot.archived_programs_count,
-          snapshot.new_editors_count_with_preregistration,
-          snapshot.active_facilitators_count
-        ]
+      snapshots.each do |snapshot|
+        csv << CSV_HEADERS.map { |header| snapshot.public_send(header) }
       end
     end
   end
@@ -46,6 +35,7 @@ class SystemStatsCsvBuilder
 
   def snapshots
     SystemStat.for_date_range(@start_date, @end_date)
+              .select(*CSV_HEADERS)
   end
 
   def parse_date(date_str)

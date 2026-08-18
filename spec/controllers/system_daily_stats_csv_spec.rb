@@ -82,7 +82,7 @@ describe ReportsController, '#system_daily_stats_csv', type: :request do
       }
       expect(response).to have_http_status(:unprocessable_content)
       json = response.parsed_body
-      expect(json['error']).to include('Invalid start date')
+      expect(json['error']).to include('Invalid start_date')
     end
 
     it 'returns 422 when start_date is after end_date' do

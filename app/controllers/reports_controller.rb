@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/app/workers/report_csv_worker"
+require_dependency "#{Rails.root}/lib/analytics/system_daily_stats_csv_filter_validator"
 
 #= Controller for report CSV generation (asynchronously)
 # This is used for CSV reports that may be too heavy to be generated during a web request
@@ -209,41 +210,20 @@ class ReportsController < ApplicationController
   end
 
   def validate_system_daily_stats_filters!
-    errors = daily_stats_filter_errors(system_daily_stats_filters)
+    errors = SystemDailyStatsCsvFilterValidator.new(system_daily_stats_filters).errors
     return if errors.empty?
     render json: { error: errors.join(', ') },
            status: :unprocessable_content
   end
 
-  def daily_stats_filter_errors(filters)
-    errors = validate_daily_stats_date_formats(filters)
-    return errors if errors.any?
-    validate_daily_stats_date_range(filters, errors)
-    errors
-  end
-
-  def validate_daily_stats_date_formats(filters)
-    %i[start_date end_date].filter_map do |key|
-      next unless filters[key].present?
-      Date.parse(filters[key])
-      nil
-    rescue Date::Error
-      "Invalid #{key.to_s.tr('_', ' ')}: #{filters[key]}"
-    end
-  end
-
-  def validate_daily_stats_date_range(filters, errors)
-    return unless filters[:start_date].present? && filters[:end_date].present?
-    return if Date.parse(filters[:start_date]) <= Date.parse(filters[:end_date])
-    errors << 'start_date must be before end_date'
-  end
-
+  # Build filename from parsed Date objects to normalize format (YYYY-MM-DD)
+  # and prevent slash-delimited dates from creating nested directory paths.
   def build_system_daily_stats_filename(filters)
     parts = ['system-daily-stats']
-    parts << "from-#{filters[:start_date]}" if filters[:start_date].present?
-    parts << "to-#{filters[:end_date]}" if filters[:end_date].present?
+    parts << "from-#{Date.parse(filters[:start_date])}" if filters[:start_date].present?
+    parts << "to-#{Date.parse(filters[:end_date])}" if filters[:end_date].present?
     parts << Time.zone.today.to_s
-    "#{parts.join('-')}.csv"
+    "#{parts.join('-')}.csv".tr('/', '-')
   end
 
   def course_report?(type)

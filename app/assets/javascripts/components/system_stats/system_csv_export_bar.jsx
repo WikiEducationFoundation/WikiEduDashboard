@@ -35,7 +35,8 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
   const [dailyStartDate, setDailyStartDate] = useState('');
   const [dailyEndDate, setDailyEndDate] = useState('');
 
-  const [exporting, setExporting] = useState(false);
+  // Track which tab started the export so the button label is scoped correctly
+  const [exportingTab, setExportingTab] = useState(null);
   const [notice, setNotice] = useState(null);
 
   const timerRef = useRef(null);
@@ -46,13 +47,16 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     };
   }, []);
 
+  const isExporting = exportingTab !== null;
+
   const startExportPoll = (exportUrl) => {
     let attempts = 0;
+    // 20 attempts × 6 s = 120 s (2 min) polling window
     const maxAttempts = 20;
 
     const stopExport = (noticeMsg = null) => {
       if (timerRef.current) clearTimeout(timerRef.current);
-      setExporting(false);
+      setExportingTab(null);
       setNotice(noticeMsg);
     };
 
@@ -90,53 +94,65 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
     poll();
   };
 
-  const startExport = (buildUrlFn) => {
-    if (exporting) return;
+  const startExport = (tab, exportUrl) => {
+    if (isExporting) return;
     if (timerRef.current) clearTimeout(timerRef.current);
-    setExporting(true);
+    setExportingTab(tab);
     setNotice(null);
-    startExportPoll(buildUrlFn());
+    startExportPoll(exportUrl);
   };
 
   const handleExportCourses = () => {
-    startExport(() => {
-      const params = new URLSearchParams();
-      if (campaignSlug) params.append('campaign_slug', campaignSlug);
-      if (wikiDomain) params.append('wiki_domain', wikiDomain);
-      if (startDate) params.append('start_date', startDate);
-      if (endDate) params.append('end_date', endDate);
-      if (courseType) params.append('course_type', courseType);
-      if (status) params.append('status', status);
-      const queryString = params.toString();
-      return `/system_csv${queryString ? `?${queryString}` : ''}`;
-    });
+    const params = new URLSearchParams();
+    if (campaignSlug) params.append('campaign_slug', campaignSlug);
+    if (wikiDomain) params.append('wiki_domain', wikiDomain);
+    if (startDate) params.append('start_date', startDate);
+    if (endDate) params.append('end_date', endDate);
+    if (courseType) params.append('course_type', courseType);
+    if (status) params.append('status', status);
+    const queryString = params.toString();
+    startExport('courses', `/system_csv${queryString ? `?${queryString}` : ''}`);
   };
 
   const handleExportDailyStats = () => {
-    startExport(() => {
-      const params = new URLSearchParams();
-      if (dailyStartDate) params.append('start_date', dailyStartDate);
-      if (dailyEndDate) params.append('end_date', dailyEndDate);
-      const queryString = params.toString();
-      return `/system_daily_stats_csv${queryString ? `?${queryString}` : ''}`;
-    });
+    const params = new URLSearchParams();
+    if (dailyStartDate) params.append('start_date', dailyStartDate);
+    if (dailyEndDate) params.append('end_date', dailyEndDate);
+    const queryString = params.toString();
+    startExport('daily', `/system_daily_stats_csv${queryString ? `?${queryString}` : ''}`);
+  };
+
+  const handleTabSwitch = (tab) => {
+    if (activeTab === tab) return;
+    setActiveTab(tab);
+    // Only clear the notice when no export is in flight; otherwise preserve it
+    // so users still see the "generating" message after switching tabs.
+    if (!isExporting) setNotice(null);
   };
 
   return (
     <div className="system-stats__filter-card">
-      {/* Unified Tab Header */}
-      <div className="system-stats__tab-header">
+      {/* Tab Header */}
+      <div className="system-stats__tab-header" role="tablist">
         <button
           type="button"
+          role="tab"
+          id="tab-courses"
+          aria-selected={activeTab === 'courses'}
+          aria-controls="tabpanel-courses"
           className={`system-stats__tab-button ${activeTab === 'courses' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('courses'); setNotice(null); }}
+          onClick={() => handleTabSwitch('courses')}
         >
           {I18n.t('system_stats.filters.course_csv_tab')}
         </button>
         <button
           type="button"
+          role="tab"
+          id="tab-daily"
+          aria-selected={activeTab === 'daily'}
+          aria-controls="tabpanel-daily"
           className={`system-stats__tab-button ${activeTab === 'daily' ? 'active' : ''}`}
-          onClick={() => { setActiveTab('daily'); setNotice(null); }}
+          onClick={() => handleTabSwitch('daily')}
         >
           {I18n.t('system_stats.filters.daily_stats_tab')}
         </button>
@@ -150,7 +166,7 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
 
       {/* Tab 1: Course Exports */}
       {activeTab === 'courses' && (
-        <div className="system-stats__filter-row">
+        <div className="system-stats__filter-row" role="tabpanel" id="tabpanel-courses" aria-labelledby="tab-courses">
           {/* Campaign Filter */}
           <div className="system-stats__filter-group">
             <label htmlFor="system-csv-campaign-select">
@@ -255,9 +271,9 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
             type="button"
             className="system-stats__export-button"
             onClick={handleExportCourses}
-            disabled={exporting}
+            disabled={isExporting}
           >
-            {exporting
+            {exportingTab === 'courses'
               ? I18n.t('system_stats.filters.generating')
               : I18n.t('system_stats.filters.export_csv')}
           </button>
@@ -266,7 +282,7 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
 
       {/* Tab 2: Daily System Snapshots */}
       {activeTab === 'daily' && (
-        <div className="system-stats__filter-row">
+        <div className="system-stats__filter-row" role="tabpanel" id="tabpanel-daily" aria-labelledby="tab-daily">
           <div className="system-stats__filter-group">
             <label htmlFor="daily-csv-start-date">
               {I18n.t('system_stats.filters.start_date')}
@@ -295,9 +311,9 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
             type="button"
             className="system-stats__export-button"
             onClick={handleExportDailyStats}
-            disabled={exporting}
+            disabled={isExporting}
           >
-            {exporting
+            {exportingTab === 'daily'
               ? I18n.t('system_stats.filters.generating')
               : I18n.t('system_stats.filters.export_daily_csv')}
           </button>
