@@ -11,7 +11,6 @@ if (typeof I18n !== 'undefined') {
   I18n.translations.en = I18n.translations.en || {};
   I18n.translations.en.users = I18n.translations.en.users || {};
   I18n.translations.en.users.scroll_to_users_edits = 'Scroll to Next Edit by %{username}';
-  I18n.translations.en.users.view_user_talk_page = "View %{username}'s talk page";
 }
 
 const React = require('react');
