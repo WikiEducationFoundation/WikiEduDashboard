@@ -68,7 +68,6 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
             onClick={handleScroll}
             aria-label={scrollAriaLabel}
           >
-            <span aria-hidden="false">{user.name}</span>
             <img className="user-legend-hover" style={{ color: 'transparent' }} src="/assets/images/arrow.svg" alt="" width="30px" height="20px" />
           </button>
         );
@@ -94,21 +93,6 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
           );
         }
 
-        // Separate link to user talk page for mouse / keyboard / SR users
-        const talkLink = (
-          <a
-            href={userLink}
-            title={realName || user.name}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="user-legend-talk-link"
-            aria-label={I18n.t('users.view_user_talk_page', { username: user.name })}
-          >
-            {/* Simple visual hint; marked aria-hidden so SR users rely on label */}
-            <span aria-hidden="true">↗</span>
-          </a>
-        );
-
         const plainUserLink = (
           <a href={userLink} title={realName || user.name} target="_blank" rel="noopener noreferrer">
             {user.name}
@@ -120,8 +104,8 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
             {tooltip}
             {isClickable ? (
               <>
+                {plainUserLink}
                 {scrollButton}
-                {talkLink}
               </>
             ) : (
               <>

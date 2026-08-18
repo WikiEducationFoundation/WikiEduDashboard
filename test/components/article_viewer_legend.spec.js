@@ -74,11 +74,11 @@ describe('ArticleViewerLegend', () => {
     expect(button.getAttribute('aria-label')).toBe('Scroll to Next Edit by TestEditor1');
   });
 
-  test('renders localized aria-label for user talk page links', () => {
+  test('renders user talk page link on username text', () => {
     const container = renderComponent();
-    const talkLink = container.querySelector('.user-legend-talk-link');
-    expect(talkLink).not.toBeNull();
-    expect(talkLink.getAttribute('aria-label')).toBe("View TestEditor1's talk page");
+    const link = container.querySelector('a[href^="https://en.wikipedia.org/wiki/User_talk:"]');
+    expect(link).not.toBeNull();
+    expect(link.textContent).toBe('TestEditor1');
   });
 
   test('scopes user-legend-name class to active revisions', () => {
