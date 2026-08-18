@@ -44,7 +44,7 @@ describe ReportsController, '#system_csv', type: :request do
     before { login_as admin }
 
     describe 'without filters' do
-      it 'handles full export lifecycle: enqueues job and returns ready status with downloadable URL' do
+      it 'handles full export lifecycle and returns ready status with URL' do
         expect(CsvCleanupWorker).to receive(:perform_at)
         get '/system_csv'
         expect(response).to have_http_status(:accepted)
