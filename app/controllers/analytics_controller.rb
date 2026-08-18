@@ -5,13 +5,16 @@ require_dependency "#{Rails.root}/lib/analytics/course_statistics"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
 require_dependency "#{Rails.root}/lib/analytics/tagged_courses_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/mentor_requests_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/mentor_volunteers_csv_builder"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
-  before_action :require_admin_permissions, only: :tagged_courses_csv
+  before_action :require_admin_permissions,
+                only: %i[tagged_courses_csv mentor_requests_csv mentor_volunteers_csv]
 
   ########################
   # Routing entry points #
@@ -54,6 +57,16 @@ class AnalyticsController < ApplicationController
               filename: "all_courses-#{Time.zone.today}.csv"
   end
 
+  def mentor_requests_csv
+    send_data MentorRequestsCsvBuilder.new(selected_campaign).generate_csv,
+              filename: "mentor_requests-#{selected_campaign.slug}-#{Time.zone.today}.csv"
+  end
+
+  def mentor_volunteers_csv
+    send_data MentorVolunteersCsvBuilder.new(selected_campaign).generate_csv,
+              filename: "mentor_volunteers-#{selected_campaign.slug}-#{Time.zone.today}.csv"
+  end
+
   #################
   # WMF Analytics #
   #################
@@ -77,6 +90,10 @@ class AnalyticsController < ApplicationController
   end
 
   private
+
+  def selected_campaign
+    @selected_campaign ||= Campaign.find(params[:campaign][:id])
+  end
 
   # Mirrors #all_courses (JSON): admins see every course, including private;
   # non-admins see only nonprivate courses.

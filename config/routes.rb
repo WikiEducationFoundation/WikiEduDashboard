@@ -320,6 +320,8 @@ Rails.application.routes.draw do
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
+  get 'mentor_requests_csv' => 'analytics#mentor_requests_csv'
+  get 'mentor_volunteers_csv' => 'analytics#mentor_volunteers_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
