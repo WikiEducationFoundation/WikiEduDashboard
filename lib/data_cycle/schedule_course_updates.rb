@@ -94,7 +94,6 @@ class ScheduleCourseUpdates
     #     "jid"=>"1e9eafe911dbd521ad2a2928",
     #     "created_at"=>1743516909.464536,
     #     "trace_propagation_headers"=>"{...},
-    #     "newrelic" => {},
     #     "lock_timeout"=>0,
     #     "lock_prefix"=>"uniquejobs",
     #     "lock_args"=>[31480],
