@@ -48,4 +48,23 @@ describe('useAuthorshipHighlighting hook', () => {
 
     document.body.removeChild(container);
   });
+
+  test('handles empty users list ([]) gracefully without crashing', () => {
+    const store = createStore(reducer, applyMiddleware(thunk));
+    const container = document.createElement('div');
+    document.body.appendChild(container);
+
+    const article = { language: 'en', project: 'wikipedia', title: 'Test' };
+
+    expect(() => {
+      act(() => {
+        createRoot(container).render(
+          React.createElement(Provider, { store },
+            React.createElement(TestComponent, { article, users: [], assignedUsers: [], isOpen: true }))
+        );
+      });
+    }).not.toThrow();
+
+    document.body.removeChild(container);
+  });
 });
