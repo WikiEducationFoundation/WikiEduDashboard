@@ -1,6 +1,6 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
-import request from './request';
+import request, { ensureOk } from './request';
 import { stringify } from 'query-string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
@@ -55,12 +55,7 @@ const API = {
       body: JSON.stringify({ feedback: { text: text, assignment_id: assignmentId, user_id: userId } })
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -69,24 +64,14 @@ const API = {
       method: 'DELETE',
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.text();
   },
 
   async fetchUserProfileStats(username) {
     const response = await request(`/user_stats.json?username=${username}`);
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -98,36 +83,21 @@ const API = {
       method: 'POST'
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
   async fetchArticleDetails(articleId, courseId) {
     const response = await request(`/articles/details.json?article_id=${articleId}&course_id=${courseId}`);
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
   async fetchRecentUploads(opts = {}) {
     const response = await request(`/revision_analytics/recent_uploads.json?scoped=${opts.scoped || false}`);
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -138,24 +108,14 @@ const API = {
       method: 'POST'
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
   async fetchUserCourses(userId) {
     const response = await request(`/courses_users.json?user_id=${userId}`);
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -165,12 +125,7 @@ const API = {
       method: 'DELETE'
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -180,12 +135,7 @@ const API = {
       method: 'POST'
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -195,12 +145,7 @@ const API = {
       method: 'POST'
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -291,10 +236,11 @@ const API = {
       body: JSON.stringify(req_data)
     });
 
-    if (!response.ok) {
-      const data = await response.text();
-      this.obj = data;
-      this.status = response.statusText;
+    try {
+      await ensureOk(response);
+    } catch (error) {
+      this.obj = error.responseText;
+      this.status = error.statusText;
       console.error('Couldn\'t save timeline!');
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
@@ -306,8 +252,7 @@ const API = {
           extra: SentryLogger
         });
       }
-      response.responseText = data;
-      throw response;
+      throw error;
     }
     return response.json();
   },
@@ -326,10 +271,11 @@ const API = {
       body: JSON.stringify(req_data)
     });
 
-    if (!response.ok) {
-      const data = await response.text();
-      this.obj = data;
-      this.status = response.statusText;
+    try {
+      await ensureOk(response);
+    } catch (error) {
+      this.obj = error.responseText;
+      this.status = error.statusText;
       SentryLogger.obj = this.obj;
       SentryLogger.status = this.status;
 
@@ -339,8 +285,7 @@ const API = {
           extra: SentryLogger
         });
       }
-      response.responseText = data;
-      throw response;
+      throw error;
     }
     return response.json();
   },
@@ -394,12 +339,7 @@ const API = {
     const response = await request(`/courses/${courseId}.json`, {
       method: 'DELETE'
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     const result = await response.json();
     window.location = '/';
     return result;
@@ -410,12 +350,7 @@ const API = {
       method: 'DELETE'
     });
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     const result = await response.json();
     window.location = '/';
     return result;
@@ -425,12 +360,7 @@ const API = {
     const response = await request(`/blocks/${block_id}.json`, {
       method: 'DELETE'
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return {block_id};
   },
 
@@ -438,12 +368,7 @@ const API = {
     const response = await request(`/weeks/${week_id}.json`, {
       method: 'DELETE'
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return { week_id };
   },
 
@@ -451,23 +376,13 @@ const API = {
     const response = await request(`/courses/${course_id}/delete_all_weeks.json`, {
       method: 'DELETE'
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.text();
   },
 
   async notifyOverdue(courseSlug) {
     const response = await request(`/courses/${courseSlug}/notify_untrained.json`);
-    if (!response.ok) {
-      logErrorMessage(response, 'Couldn\'t notify students! ');
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response, 'Couldn\'t notify students! ');
     alert('Students with overdue trainings notified!');
     return response.text();
   },
@@ -476,12 +391,7 @@ const API = {
     const response = await request(`/greeting?course_id=${courseId}`, {
       method: 'PUT',
     });
-    if (!response.ok) {
-      logErrorMessage(response, 'There was an error with the greetings! ');
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response, 'There was an error with the greetings! ');
     alert('Student greetings added to the queue.');
     return response.json();
   },
@@ -492,12 +402,7 @@ const API = {
       method: (add ? 'POST' : 'DELETE'),
       body: JSON.stringify(data)
     });
-    if (!response.ok) {
-      logErrorMessage(response, `${capitalize(model)} not ${verb}: `);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response, `${capitalize(model)} not ${verb}: `);
     return response.json();
   },
 
@@ -506,12 +411,7 @@ const API = {
       method: 'PUT',
       body: JSON.stringify( { survey_notification: { id, dismissed: true } })
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -529,12 +429,7 @@ const API = {
         'X-CSRF-Token': Rails.csrfToken()
       }
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -586,12 +481,7 @@ const API = {
       method: 'POST',
       body: JSON.stringify( { ...opts, alert_type })
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -602,23 +492,13 @@ const API = {
         { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow }
       )
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
   async enableAccountRequests(courseSlug) {
     const response = await request(`/requested_accounts/${courseSlug}/enable_account_requests`);
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.text();
   },
 
@@ -626,12 +506,7 @@ const API = {
     const response = await request(`/salesforce/link/${courseId}.json?salesforce_id=${salesforceId}`, {
       method: 'PUT'
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -639,12 +514,7 @@ const API = {
     const response = await request(`/salesforce/update/${courseId}.json`, {
       method: 'PUT'
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -722,12 +592,7 @@ const API = {
   // Fetches list of usernames blocked from enrolling in any course
   async fetchDisallowedUsers() {
     const response = await request('/settings/disallowed_users');
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -737,12 +602,7 @@ const API = {
       method: 'POST',
       body: JSON.stringify({ username })
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 
@@ -752,12 +612,7 @@ const API = {
       method: 'POST',
       body: JSON.stringify({ username })
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   }
 };

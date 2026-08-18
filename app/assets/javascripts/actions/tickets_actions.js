@@ -16,8 +16,7 @@ import {
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
-import request from '../utils/request';
-import logErrorMessage from '../utils/log_error_message';
+import request, { ensureOk } from '../utils/request';
 import { triggerNotificationsBellRefresh } from '../components/nav/notifications_bell';
 
 export const notifyOfMessage = body => async (dispatch) => {
@@ -171,12 +170,7 @@ export const deleteNotePromise = async (id) => {
   const response = await request(`/td/tickets/replies/${id}`, {
     method: 'DELETE'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

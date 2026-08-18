@@ -1,16 +1,10 @@
 import { RECEIVE_COURSE_CAMPAIGNS, SORT_CAMPAIGNS_WITH_STATS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN, RECEIVE_CAMPAIGNS_WITH_STATS, SET_FEATURED_CAMPAIGNS } from '../constants';
 import filterFeaturedCampaigns from '../utils/filter_featured_campaigns';
-import logErrorMessage from '../utils/log_error_message';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 
 const fetchCampaignsPromise = async (courseId) => {
   const response = await request(`/courses/${courseId}/campaigns.json`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -34,12 +28,7 @@ const removeCampaignsPromise = async (courseId, campaignId) => {
     method: 'DELETE',
     body: JSON.stringify({ campaign: { title: campaignId } })
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -61,12 +50,7 @@ const addCampaignsPromise = async (courseId, campaignId) => {
     method: 'POST',
     body: JSON.stringify({ campaign: { title: campaignId } })
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -85,12 +69,7 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
 
 const fetchAllCampaignsPromise = async () => {
   const response = await request('/lookups/campaign.json');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -110,12 +89,7 @@ export const fetchAllCampaigns = () => (dispatch) => {
 
 const fetchFeaturedCampaigns = async (dispatch) => {
   const response = await request('/campaigns/featured_campaigns');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   const response_data = await response.json();
   const featured_campaigns = response_data.featured_campaigns;
   dispatch({ type: SET_FEATURED_CAMPAIGNS, data: response_data });
@@ -129,12 +103,7 @@ const fetchCampaignStatisticsPromise = async (userOnly, dispatch) => {
   // it is set to false if there are featured campaigns listed
   const newest = !(featured_campaigns.length > 0);
   const response = await request(`/campaigns/statistics.json?user_only=${userOnly}&newest=${newest}`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   const response_data = await response.json();
   const campaigns = filterFeaturedCampaigns(response_data, featured_campaigns);
   return { campaigns };

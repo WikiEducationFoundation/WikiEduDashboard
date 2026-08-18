@@ -12,8 +12,7 @@ import {
   RECEIVE_REFERENCES_COURSE_SPECIFIC
 } from '../constants';
 import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
-import logErrorMessage from '../utils/log_error_message';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 import { fetchRevisionsFromUsers } from '../utils/mediawiki_revisions_utils';
 import { fetchRevisionsAndReferences } from './media_wiki_revisions_actions';
 import { sortRevisionsByDate } from '../utils/revision_utils';
@@ -22,12 +21,7 @@ import { STUDENT_ROLE } from '../constants/user_roles';
 
 const fetchAllArticles = async (course) => {
   const response = await request(`/courses/${course.slug}/articles.json?limit=${ARTICLE_FETCH_LIMIT}`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   const json = await response.json();
   return json.course.articles;
 };

@@ -2,7 +2,7 @@ import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 import { stringify } from 'query-string';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
@@ -14,13 +14,7 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     props: 'labels',
     languages: `${I18n.locale}|mul|en`
   };
-  const response = await request(`${wikidataApiBase}&${stringify(query)}`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  const response = await ensureOk(await request(`${wikidataApiBase}&${stringify(query)}`));
   return response.json();
 };
 
@@ -48,6 +42,12 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
           data: resp,
           language: I18n.locale
         });
+      })
+      .catch((error) => {
+        // Skip labels for this chunk rather than crashing the page —
+        // Wikidata lookups are supplementary and the rest of the page
+        // should still render if this request fails (e.g. rate limiting).
+        logErrorMessage(error);
       });
   });
 };

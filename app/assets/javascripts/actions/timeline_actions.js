@@ -17,18 +17,12 @@ import {
   RESTORE_TIMELINE,
   DELETE_ALL_WEEKS,
 } from '../constants';
-import logErrorMessage from '../utils/log_error_message';
 import { fetchCourse } from './course_actions';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 
 const fetchTimelinePromise = async (courseSlug) => {
   const response = await request(`/courses/${courseSlug}/timeline.json`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

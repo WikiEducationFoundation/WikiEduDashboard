@@ -3,7 +3,7 @@
 
 import { flatten, chunk } from 'lodash-es';
 import { stringify } from 'query-string';
-import request from './request';
+import request, { ensureOk } from './request';
 import { toWikiDomain } from './wiki_utils';
 import { toDate } from './date_utils';
 import { subDays, formatISO, subYears, isBefore } from 'date-fns';
@@ -24,9 +24,7 @@ const fetchAll = async (API_URL, params, continue_str) => {
     }
     try {
       response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-      if (!response.ok) {
-        throw response;
-      }
+      await ensureOk(response);
     } catch (e) {
       return allData;
     }
