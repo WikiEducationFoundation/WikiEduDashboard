@@ -10,6 +10,7 @@ require_dependency "#{Rails.root}/app/controllers/reports_controller"
 require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
 require_dependency "#{Rails.root}/lib/analytics/all_courses_and_instructors_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/system_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/system_stats_csv_builder"
 
 class ReportCsvWorker
   include Sidekiq::Worker
@@ -28,6 +29,8 @@ class ReportCsvWorker
         all_courses_and_instructors_csv
       elsif type == 'system_csv'
         to_system_csv(parsed_filters)
+      elsif type == 'system_daily_stats_csv'
+        to_system_daily_stats_csv(parsed_filters)
       elsif course_report?(type)
         to_course_csv(type, id)
       else
@@ -82,6 +85,13 @@ class ReportCsvWorker
   # Delegates to the standalone SystemCsvBuilder.
   def to_system_csv(filters)
     SystemCsvBuilder.new(filters:).generate_csv
+  end
+
+  def to_system_daily_stats_csv(filters)
+    SystemStatsCsvBuilder.new(
+      start_date: filters[:start_date],
+      end_date: filters[:end_date]
+    ).generate_csv
   end
 
   private
