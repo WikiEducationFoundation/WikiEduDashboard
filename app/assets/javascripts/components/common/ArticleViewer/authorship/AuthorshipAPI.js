@@ -1,4 +1,5 @@
 import ArticleViewerAPI from '@components/common/ArticleViewer/utils/ArticleViewerAPI';
+import { ensureOk } from '~/app/assets/javascripts/utils/request';
 
 // Simple in-memory cooldown cache to avoid hammering the WhoColor API when
 // data is not yet available. Keyed by language|title|revision.
@@ -18,7 +19,9 @@ export class AuthorshipAPI extends ArticleViewerAPI {
       const headers = { 'Content-Type': 'application/javascript' };
       setTimeout(() => {
         fetch(`${url}?origin=*`, { headers })
-          .then(response => (response.ok ? resolve(response) : reject(response)));
+          .then(ensureOk)
+          .then(resolve)
+          .catch(reject);
       }, timeout * 1000);
     });
   }

@@ -54,6 +54,29 @@ describe('AuthorshipAPI', () => {
 
       expect(await api.fetchWhocolorHtml(1253430861)).toEqual({ whocolorFailed: true });
     });
+
+    it('rejects with a real Error (not a raw Response) when the color API responds with a non-ok status', async () => {
+      fetchMock.mockImplementationOnce(() => Promise.resolve({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+        text: () => Promise.resolve('')
+      }));
+      const api = new AuthorshipAPI({ builder });
+
+      await expect(api.fetchWhocolorHtml(1253430861)).rejects.toMatchObject({
+        name: 'ApiError',
+        status: 404,
+        statusText: 'Not Found',
+      });
+    });
+
+    it('rejects rather than hanging forever when the fetch itself fails at the network level', async () => {
+      fetchMock.mockImplementationOnce(() => Promise.reject(new TypeError('Failed to fetch')));
+      const api = new AuthorshipAPI({ builder });
+
+      await expect(api.fetchWhocolorHtml(1253430861)).rejects.toThrow('Failed to fetch');
+    });
   });
 
   describe('.fetchUserIds()', () => {
