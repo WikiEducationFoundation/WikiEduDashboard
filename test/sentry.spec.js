@@ -1,40 +1,84 @@
 import '../app/assets/javascripts/sentry';
 
-describe('unhandledrejection safety net', () => {
-  test('wraps a non-Error rejection reason (e.g. a raw Response-like object) in a real Error', () => {
-    window.Sentry.captureException = jest.fn();
-    const event = new Event('unhandledrejection', { cancelable: true });
-    event.reason = { status: 403, statusText: 'Forbidden' };
+const buildEvent = (value = 'Non-Error exception captured') => ({
+  exception: {
+    values: [
+      { type: 'UnhandledRejection', value, mechanism: { type: 'onunhandledrejection', handled: false } },
+    ],
+  },
+});
 
-    window.dispatchEvent(event);
+describe('normalizeUnhandledRejection (Sentry beforeSend)', () => {
+  test('rewrites the message for a non-Error rejection reason (e.g. a Response-like object)', () => {
+    const event = buildEvent();
+    const hint = { originalException: { status: 403, statusText: 'Forbidden' } };
 
-    expect(event.defaultPrevented).toBe(true);
-    expect(window.Sentry.captureException).toHaveBeenCalledTimes(1);
-    const [error, context] = window.Sentry.captureException.mock.calls[0];
-    expect(error).toBeInstanceOf(Error);
-    expect(error.message).toBe('Unhandled rejection: Forbidden');
-    expect(context.extra.reason).toBe(event.reason);
-  });
+    const result = window.normalizeUnhandledRejection(event, hint);
 
-  test('leaves rejections that are already real Errors alone', () => {
-    window.Sentry.captureException = jest.fn();
-    const event = new Event('unhandledrejection', { cancelable: true });
-    event.reason = new Error('already a real error');
-
-    window.dispatchEvent(event);
-
-    expect(event.defaultPrevented).toBe(false);
-    expect(window.Sentry.captureException).not.toHaveBeenCalled();
+    expect(result.exception.values[0].value).toBe('Unhandled rejection: Forbidden');
+    expect(result.exception.values[0].type).toBe('UnhandledRejection');
   });
 
   test('falls back to a stringified reason when it has no status/statusText', () => {
-    window.Sentry.captureException = jest.fn();
+    const event = buildEvent();
+    const hint = { originalException: { foo: 'bar' } };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.exception.values[0].value).toBe('Unhandled rejection: {"foo":"bar"}');
+  });
+
+  test('leaves the event untouched when the rejection reason is already a real Error', () => {
+    const event = buildEvent('some message');
+    const hint = { originalException: new Error('already a real error') };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.exception.values[0].value).toBe('some message');
+  });
+
+  test('leaves the event untouched when the mechanism is not onunhandledrejection', () => {
+    const event = {
+      exception: {
+        values: [{ type: 'Error', value: 'some message', mechanism: { type: 'onerror', handled: false } }],
+      },
+    };
+    const hint = { originalException: { status: 500 } };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.exception.values[0].value).toBe('some message');
+  });
+
+  test('does not throw on an event with no exception values', () => {
+    const event = {};
+    expect(() => window.normalizeUnhandledRejection(event, {})).not.toThrow();
+    expect(window.normalizeUnhandledRejection(event, {})).toBe(event);
+  });
+});
+
+describe('against a real initialized Sentry client', () => {
+  test('a non-Error rejection produces exactly one event, with the readable message', () => {
+    const captured = [];
+
+    window.Sentry.init({
+      dsn: 'https://examplePublicKey@o0.ingest.sentry.io/0',
+      autoSessionTracking: false,
+      beforeSend: (event, hint) => {
+        const normalized = window.normalizeUnhandledRejection(event, hint);
+        captured.push(normalized.exception.values[0].value);
+        return null; // don't actually send
+      },
+    });
+
     const event = new Event('unhandledrejection', { cancelable: true });
-    event.reason = { foo: 'bar' };
+    event.reason = { status: 403, statusText: 'Forbidden' };
 
-    window.dispatchEvent(event);
+    // Sentry 7.x instruments window.onunhandledrejection (the property handler),
+    // not addEventListener — this is the only thing that fires, since sentry.js
+    // no longer registers its own addEventListener('unhandledrejection', ...).
+    window.onunhandledrejection(event);
 
-    const [error] = window.Sentry.captureException.mock.calls[0];
-    expect(error.message).toBe('Unhandled rejection: {"foo":"bar"}');
+    expect(captured).toEqual(['Unhandled rejection: Forbidden']);
   });
 });

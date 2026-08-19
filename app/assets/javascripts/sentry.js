@@ -1,13 +1,20 @@
 window.Sentry = require('@sentry/browser');
 
-// Safety net for promise rejections that aren't Error instances (e.g. a
-// bug throws a raw fetch Response or plain object). Sentry's default
-// unhandled-rejection handler reports those as an opaque, stack-less
-// "Non-Error exception captured" with a message like "[object Response]".
-// Wrap the reason in a real Error first so Sentry gets a real message.
-window.addEventListener('unhandledrejection', (event) => {
-  const reason = event.reason;
-  if (reason instanceof Error) return;
+// Normalizes non-Error promise rejections (e.g. a raw fetch Response, or a
+// plain object) into a readable message on the event Sentry already built,
+// instead of reporting them separately. Sentry's own unhandledrejection
+// instrumentation assigns window.onunhandledrejection directly and does not
+// check event.preventDefault(), so a parallel
+// addEventListener('unhandledrejection', ...) here would just produce a
+// second, duplicate Sentry event per rejection. This is wired in as
+// Sentry.init's beforeSend in _head.html.haml.
+window.normalizeUnhandledRejection = (event, hint) => {
+  const firstException = event.exception && event.exception.values && event.exception.values[0];
+  const mechanism = firstException && firstException.mechanism;
+  if (!mechanism || mechanism.type !== 'onunhandledrejection') return event;
+
+  const reason = hint && hint.originalException;
+  if (reason instanceof Error) return event;
 
   let message;
   if (reason && typeof reason === 'object' && 'status' in reason) {
@@ -20,13 +27,7 @@ window.addEventListener('unhandledrejection', (event) => {
     }
   }
 
-  const error = new Error(`Unhandled rejection: ${message}`);
-  error.name = 'UnhandledRejection';
-
-  event.preventDefault();
-  if (typeof Sentry !== 'undefined') {
-    Sentry.captureException(error, { extra: { reason } });
-  } else {
-    console.error(error, reason);
-  }
-});
+  firstException.type = 'UnhandledRejection';
+  firstException.value = `Unhandled rejection: ${message}`;
+  return event;
+};
