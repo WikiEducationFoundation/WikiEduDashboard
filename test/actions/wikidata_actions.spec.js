@@ -14,6 +14,7 @@ const flushPromises = async () => {
 describe('fetchWikidataLabels', () => {
   afterEach(() => {
     if (requestModule.default.restore) requestModule.default.restore();
+    delete global.Sentry;
   });
 
   test('dispatches RECEIVE_WIKIDATA_LABELS when the Wikidata request succeeds', async () => {
@@ -47,5 +48,23 @@ describe('fetchWikidataLabels', () => {
 
     // The chunk's labels are skipped rather than dispatched or thrown.
     expect(dispatch).not.toHaveBeenCalled();
+  });
+
+  test('reports the failure to Sentry, since this request has no other .catch() upstream', async () => {
+    sinon.stub(requestModule, 'default').resolves({
+      ok: false,
+      status: 403,
+      statusText: 'Forbidden',
+      text: () => Promise.resolve(''),
+    });
+    global.Sentry = { captureException: jest.fn() };
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+
+    expect(global.Sentry.captureException).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' })
+    );
   });
 });

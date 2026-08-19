@@ -1,6 +1,5 @@
 import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
-import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
 import request, { ensureOk } from '../utils/request';
 import { stringify } from 'query-string';
@@ -14,7 +13,8 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     props: 'labels',
     languages: `${I18n.locale}|mul|en`
   };
-  const response = await ensureOk(await request(`${wikidataApiBase}&${stringify(query)}`));
+  const response = await request(`${wikidataApiBase}&${stringify(query)}`);
+  await ensureOk(response);
   return response.json();
 };
 
@@ -44,10 +44,11 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
         });
       })
       .catch((error) => {
-        // Skip labels for this chunk rather than crashing the page —
-        // Wikidata lookups are supplementary and the rest of the page
-        // should still render if this request fails (e.g. rate limiting).
-        logErrorMessage(error);
+        // This request has no other .catch() upstream, so without an explicit
+        // report here, a failure here would be invisible to Sentry (ensureOk
+        // only console.logs) even though it's the dominant real-world source
+        // of this bug (see Sentry issue PEONY-2NS).
+        if (typeof Sentry !== 'undefined') Sentry.captureException(error);
       });
   });
 };
