@@ -546,6 +546,29 @@ describe UpdateCourseWikiTimeslices do
       end
     end
 
+    context 'when a full update runs (all_time)' do
+      it 'skips slices whose revisions vanished on-wiki, because the wipe already cleared them' do
+        # The all_time range starts at the course start, before the watermark,
+        # so a slice with recorded revisions sits mid-range. Its on-wiki
+        # revisions have all since been deleted: Replica reports nothing
+        # anywhere. Skipping it is safe only because recreate_timeslices has
+        # already deleted and recreated every timeslice — this example pins
+        # that invariant by asserting the recorded data is actually gone.
+        CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-05 00:00:00')
+                           .update(mw_rev_count: 5, revision_count: 5, character_sum: 1000,
+                                   last_mw_rev_datetime: '2018-11-05 12:00:00')
+        allow_any_instance_of(Replica).to receive(:get_revisions_raw).and_return([])
+        updater.run(all_time: true)
+        # Only the range's first slice gets fetched (via the reprocess loop);
+        # every later slice is fresh and empty, so the precheck skips it.
+        expect(fetched_slice_days).to eq(['2018-11-01'])
+        slice = CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-05 00:00:00')
+        expect(slice.last_mw_rev_datetime).to be_nil
+        expect(slice.character_sum).to eq(0)
+        expect(slice.revision_count).to eq(0)
+      end
+    end
+
     context 'when the scan range is within the threshold' do
       let(:watermark_day) { '2018-11-26' }
 

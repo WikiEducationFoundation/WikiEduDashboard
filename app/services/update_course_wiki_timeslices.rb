@@ -94,8 +94,11 @@ class UpdateCourseWikiTimeslices
   # revisions; processing them would be a no-op. The first timeslice is
   # always kept: it's the only one in the range that can already have recorded
   # revisions (it contains the ingestion watermark), so it must be re-fetched
-  # to detect on-wiki revision deletions and to re-ingest partial data. If the
-  # wide query fails, fall back to processing the full range.
+  # to detect on-wiki revision deletions and to re-ingest partial data. (In an
+  # all_time update the range instead starts at the course start, but there
+  # recreate_timeslices has already deleted and recreated every timeslice, so
+  # later slices hold no recorded data in that mode either.) If the wide query
+  # fails, fall back to processing the full range.
   def precheck_nonempty_timeslices(wiki, to_process)
     slices = to_process.to_a
     return slices if slices.size <= GAP_PRECHECK_THRESHOLD
