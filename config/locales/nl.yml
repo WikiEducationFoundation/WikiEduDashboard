@@ -210,6 +210,25 @@ nl:
       overall_max_likelihood: Algemene maximale AI-waarschijnlijkheidsverdeling
   system_stats:
     title: Systeem- en begeleidersstatistieken
+    filters:
+      campaign: Campagne
+      home_wiki: Thuiswiki
+      start_date: Begindatum
+      end_date: Einddatum
+      all_campaigns: Alle campagnes
+      all_wikis: Alle wiki's
+      export_csv: CSV exporteren
+      generating: Export genereren...
+      generation_queued: Uw CSV-export wordt op de achtergrond gemaakt. Opnieuw proberen...
+      still_processing: UW CSV-export wordt nog steeds op de achtergrond gemaakt.
+        Kom over een tijdje terug en klik dan opnieuw op Exporteren.
+      fetch_error: Het is niet gelukt om een CSV-export te maken. Probeer het opnieuw.
+      course_type: Cursustype
+      status: Status
+      all_types: Alle types
+      all_statuses: Alle statussen
+      active: Actief
+      archived: Gearchiveerd
     kpis:
       total_edits: Totaal bewerkingen
       article_views: Paginaweergaven
@@ -1877,6 +1896,10 @@ nl:
     no_training_resource_match_your_search: Geen trainingsbron komt overeen met uw
       zoekopdracht
     exercise_sandbox: Oefenkladblok
+    exercise_sandbox_incomplete: Voltooi de oefening in uw oefenomgeving (%{pages})
+      voordat u deze als voltooid markeert.
+    exercise_needs_assigned_article: U moet jezelf een pagina toewijzen voordat u
+      dit kunt voltooien.
     open_exercise: Met de oefening beginnen
     remaining_exercise: '%{count} aanvullende oefeningen resterend.'
     view_all: Alle oefeningen bekijken
@@ -1906,11 +1929,13 @@ nl:
     find_in_article: Zoek dit in de paginatekst.
     show_surrounding: Omringende alinea weergeven
     choose_different_claim: Kies een andere bewering
+    back_to_claim: Terug naar mijn bewering
     no_online_source: De geciteerde bron bevat geen url.
     course_picker_heading: Kies een cursus
     course_picker_no_courses: Geen cursussen
     take_not_enrolled: U moet wel ingeschreven zijn voor de cursus om dat te kunnen
       doen.
+    exercise_heading: Feitencontrole-oefening
     intro_p1: Elk feit op Wikipedia moet worden onderbouwd door een betrouwbare bron.
       Wanneer u Wikipedia raadpleegt voor informatie, hoeft u niet zomaar het woord
       van de auteur aan te nemen; u kunt de geciteerde bron opzoeken en de informatie
@@ -1924,11 +1949,16 @@ nl:
     intro_p3: In deze oefening ziet u hoe u beweringen kunt verifiëren. U oefent met
       het controleren van beweringen door te proberen een specifiek feit in een geciteerde
       bron te vinden.
+    step_heading: 'Stap %{number}: %{name}'
     step_select_article: Selecteer een pagina
+    step_select_claim: Kies de bewering om te verifiëren
+    select_article_instructions: Kies uit de onderstaande lijst met pagina's om met
+      deze oefening te beginnen.
     select_claim_instructions: 'De volgende beweringen moeten worden gecontroleerd
       aan de hand van de geciteerde bronnen, omdat ze mogelijk door AI zijn gegenereerd.
       Let op: de pagina kan zijn gewijzigd sinds deze beweringen zijn toegevoegd.'
     form:
+      step_evaluate_source: Evalueer de bron
       step_find_source: Zoek de bron
       find_source_instructions: Nu u uw bewerking hebt gekozen, gaat u op zoek naar
         de geciteerde bron. Mogelijk moet u uw docent of de bibliothecaris raadplegen

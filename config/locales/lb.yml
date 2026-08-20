@@ -885,4 +885,36 @@ lb:
     advanced_search: Erweidert Sich
     clear: Eidel maachen
     program_date: Programmdatum
+  lms_integration:
+    time_ago: viru(n) %{time_ago}
+    my_account_link: 'Äre Kont:'
+  lti:
+    deep_link:
+      unavailable_header: Net disponibel
+    student_overview:
+      my_articles: Meng Artikelen
+      empty: Keng Wikipedia-Aktivitéiten
+    connect_identity:
+      dashboard_account: Wikipedia-Kont
+    identity:
+      signed_in_as: 'Wikipedia-Kont: %{username}'
+    assignment_view:
+      open_on_wikipedia: Op Wikipedia opmaachen
+      hide: Verstoppen
+      sandbox_preview:
+        loading: …
+        not_found: Keng Sandkaul fonnt
+      roster:
+        username: Benotzernumm
+        status: Status
+        sandbox: Sandkaul
+      article_work:
+        characters: Zeechen derbäigesat
+        references: Referenzen derbäigesat
+        revisions: Ännerungen
+        pages:
+          bibliography: Bibliographie
+      student:
+        your_sandbox: Är Sandkaul
+        your_article: Ären Artikel
 ...
