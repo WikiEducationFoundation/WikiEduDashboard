@@ -127,8 +127,8 @@ class ReportsController < ApplicationController
     filters = system_daily_stats_filters
     filename = build_system_daily_stats_filename(filters)
 
-    if File.exist?("public#{CSV_PATH}/#{filename}")
-      render json: { status: 'ready', url: "#{CSV_PATH}/#{filename}" }
+    if ReportCsvStore.exists?(filename)
+      render json: { status: 'ready', url: ReportCsvStore.url_for(filename) }
     else
       ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_daily_stats_csv',
                                    include_course: nil, filters:)
