@@ -1,5 +1,5 @@
 import { forEach } from 'lodash-es';
-import logErrorMessage from './log_error_message';
+import { ensureOk } from './request';
 import fetchJsonp from 'fetch-jsonp';
 import { stringify } from 'query-string';
 import { toWikiDomain } from './wiki_utils';
@@ -12,12 +12,7 @@ export const queryUrl = async (url, query = {}) => {
   const queryString = `${hasParams ? '&' : '?'}${stringify(query)}`; // add the query string
 
   const response = await fetchJsonp(`${url}${queryString}`);
-  if (!response.ok) {
-    const data = await response.text();
-    response.responseText = data;
-    logErrorMessage(response);
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

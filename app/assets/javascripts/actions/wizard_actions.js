@@ -14,18 +14,11 @@ import {
 } from '../constants';
 import { fetchCourse } from './course_actions';
 import { fetchTimeline } from './timeline_actions';
-import request from '../utils/request';
-
-import logErrorMessage from '../utils/log_error_message';
+import request, { ensureOk } from '../utils/request';
 
 const fetchWizardIndexPromise = async () => {
   const response = await request('/wizards.json');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -40,12 +33,7 @@ export const fetchWizardIndex = () => (dispatch) => {
 
 const fetchWizardPanelsPromise = async (wizardId) => {
   const response = await request(`/wizards/${wizardId}.json`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -115,12 +103,7 @@ const submitWizardPromise = async (courseSlug, wizardId, wizardOutput) => {
     method: 'POST',
     body: JSON.stringify({ wizard_output: wizardOutput })
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

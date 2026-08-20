@@ -67,7 +67,8 @@
         // Telegram's in-app browser injects a Mini Apps SDK that throws
         // "Error invoking postEvent: Method not found" when its host client
         // doesn't recognize an event. Not our code, can't fix, drop it.
-        ignoreErrors: [/Error invoking postEvent/]
+        ignoreErrors: [/Error invoking postEvent/],
+        beforeSend: window.normalizeUnhandledRejection
       });
       Sentry.setContext(currentUser);
 

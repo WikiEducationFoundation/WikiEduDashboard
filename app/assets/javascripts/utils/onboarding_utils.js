@@ -1,5 +1,4 @@
-import logErrorMessage from './log_error_message';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 
 const OnboardAPI = {
   // /  GETTERS
@@ -9,11 +8,7 @@ const OnboardAPI = {
       method: 'PUT',
       body: JSON.stringify(args)
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      throw data;
-    }
+    await ensureOk(response);
     return response.text();
   },
 
@@ -22,11 +17,7 @@ const OnboardAPI = {
       method: 'PUT',
       body: JSON.stringify(args)
     });
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      throw data;
-    }
+    await ensureOk(response);
     return response.text();
   }
 };
