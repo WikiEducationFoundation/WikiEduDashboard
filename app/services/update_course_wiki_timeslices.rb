@@ -13,6 +13,15 @@ require_dependency "#{Rails.root}/lib/revision_scanner"
 # and, if the timeslice exceeds the threshold, recursively splits it until all
 # timeslices are within limits.
 class UpdateCourseWikiTimeslices
+  # When the range of timeslices to process is longer than this, a wide-window
+  # Replica query (one per chunk of users) determines which of them actually
+  # contain revisions, so that empty ones can be skipped instead of fetched one
+  # by one. Short ranges aren't worth the extra query: this covers active
+  # courses (typically a range of a day or two) with margin to spare, so that
+  # even a backlog from several days of queue latency doesn't push every
+  # course through the precheck branch.
+  GAP_PRECHECK_THRESHOLD = 30
+
   def initialize(course, debugger, update_service: nil)
     @course = course
     @timeslice_manager = TimesliceManager.new(@course)
@@ -67,6 +76,7 @@ class UpdateCourseWikiTimeslices
     to_process = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                     .where('start >= ?', first_start)
                                     .where('start <= ?', latest_start)
+    to_process = precheck_nonempty_timeslices(wiki, to_process)
     to_process.each do |t|
       # If the timeslice was reprocessed in this update, then skip it
       next if timeslice_reprocessed?(wiki.id, t.start)
@@ -80,6 +90,35 @@ class UpdateCourseWikiTimeslices
       end
     end
     @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
+  end
+
+  # Skips timeslices that a wide-window Replica query shows to contain no
+  # revisions; processing them would be a no-op. The first timeslice is
+  # always kept: it's the only one in the range that can already have recorded
+  # revisions (it contains the ingestion watermark), so it must be re-fetched
+  # to detect on-wiki revision deletions and to re-ingest partial data. (In an
+  # all_time update the range instead starts at the course start, but there
+  # recreate_timeslices has already deleted and recreated every timeslice, so
+  # later slices hold no recorded data in that mode either.) If the wide query
+  # fails, fall back to processing the full range.
+  def precheck_nonempty_timeslices(wiki, to_process)
+    slices = to_process.to_a
+    return slices if slices.size <= GAP_PRECHECK_THRESHOLD
+    nonempty = nonempty_slice_starts(wiki, slices)
+    return slices if nonempty.nil?
+    watermark_start = slices.map(&:start).min
+    slices.select { |t| t.start == watermark_start || nonempty.include?(t.start) }
+  end
+
+  # The starts of the timeslices that contain revisions, or nil if that couldn't
+  # be determined. When there's no point importing revisions for this course,
+  # every per-timeslice fetch would short-circuit before reaching Replica, so no
+  # timeslice can contain revisions and no query is needed — skipping the query
+  # keeps such courses from paying for a precheck they can't benefit from.
+  def nonempty_slice_starts(wiki, slices)
+    return Set.new if @revision_updater.no_point_in_importing_revisions?
+    FindTimeslicesWithRevisions.new(@course, wiki, slices,
+                                    update_service: @update_service).slice_starts
   end
 
   def fetch_data_and_reprocess_acuwt_timeslices(wiki)
