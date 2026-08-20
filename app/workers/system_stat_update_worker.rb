@@ -35,10 +35,22 @@ class SystemStatUpdateWorker
       archived_programs_count: courses.archived.count,
       new_editors_count: compute_new_editors_count,
       new_editors_count_with_preregistration: compute_new_editors_count_with_preregistration,
+      retained_new_editors_count: compute_retained_new_editors_count,
       active_facilitators_count: compute_active_facilitators_count,
       total_characters_added: courses.sum(:character_sum),
       wiki_stats: compute_wiki_stats(courses)
     }
+  end
+
+  def compute_retained_new_editors_count
+    CoursesUsers
+      .joins(:course, :user)
+      .where(courses: { private: false },
+             role: CoursesUsers::Roles::STUDENT_ROLE,
+             retained_after_course: true)
+      .where(NewEditorDateConditions::DURING_PROGRAM)
+      .distinct
+      .count('users.id')
   end
 
   # New editors (original definition): students who registered their
@@ -76,6 +88,7 @@ class SystemStatUpdateWorker
   def compute_wiki_stats(courses)
     wiki_data = fetch_wiki_aggregates(courses)
     new_editors_with_prereg_by_wiki = compute_new_editors_with_preregistration_by_wiki
+    retained_editors_by_wiki = compute_retained_editors_by_wiki
 
     wiki_ids = wiki_data.map { |wd| wd[0] }
     wikis_by_id = Wiki.where(id: wiki_ids).index_by(&:id)
@@ -89,7 +102,8 @@ class SystemStatUpdateWorker
         'edits' => edits.to_i,
         'programs' => programs.to_i,
         'articles_created' => articles_created.to_i,
-        'new_editors_with_preregistration' => new_editors_with_prereg_by_wiki[wiki_id] || 0
+        'new_editors_with_preregistration' => new_editors_with_prereg_by_wiki[wiki_id] || 0,
+        'retained_editors' => retained_editors_by_wiki[wiki_id] || 0
       }
     end
     wiki_stats
@@ -108,6 +122,18 @@ class SystemStatUpdateWorker
   def compute_new_editors_with_preregistration_by_wiki
     new_editor_base_scope
       .where(NewEditorDateConditions::WITH_PREREGISTRATION)
+      .group('courses.home_wiki_id')
+      .distinct
+      .count('users.id')
+  end
+
+  def compute_retained_editors_by_wiki
+    CoursesUsers
+      .joins(:course, :user)
+      .where(courses: { private: false },
+             role: CoursesUsers::Roles::STUDENT_ROLE,
+             retained_after_course: true)
+      .where(NewEditorDateConditions::DURING_PROGRAM)
       .group('courses.home_wiki_id')
       .distinct
       .count('users.id')

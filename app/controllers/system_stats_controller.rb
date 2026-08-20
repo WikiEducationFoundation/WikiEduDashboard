@@ -57,6 +57,7 @@ class SystemStatsController < ApplicationController
         edits: s.total_edits,
         students: s.total_students_count,
         newEditors: s.new_editors_count_with_preregistration,
+        retainedNewEditors: s.retained_new_editors_count || 0,
         activeInYear: s.active_in_last_year
       }
     end
@@ -71,6 +72,7 @@ class SystemStatsController < ApplicationController
       articlesImproved: latest_snapshot.total_articles_improved,
       charactersAdded: latest_snapshot.total_characters_added,
       newEditors: latest_snapshot.new_editors_count_with_preregistration,
+      retainedNewEditors: latest_snapshot.retained_new_editors_count || 0,
       activePrograms: latest_snapshot.active_programs_count,
       activeFacilitators: latest_snapshot.active_facilitators_count
     }
@@ -78,7 +80,7 @@ class SystemStatsController < ApplicationController
 
   def empty_kpis
     { edits: 0, articleViews: 0, articlesCreated: 0, articlesImproved: 0,
-      charactersAdded: 0, newEditors: 0, activePrograms: 0, activeFacilitators: 0 }
+      charactersAdded: 0, newEditors: 0, retainedNewEditors: 0, activePrograms: 0, activeFacilitators: 0 }
   end
 
   def trend_snapshots_range(snapshots)
@@ -110,6 +112,8 @@ class SystemStatsController < ApplicationController
       charactersAdded: calculate_delta(curr.total_characters_added, base&.total_characters_added),
       newEditors: calculate_delta(curr.new_editors_count_with_preregistration,
                                   base&.new_editors_count_with_preregistration),
+      retainedNewEditors: calculate_delta(curr.retained_new_editors_count,
+                                          base&.retained_new_editors_count),
       activePrograms: curr.active_programs_count,
       activeFacilitators: curr.active_facilitators_count
     }
@@ -126,7 +130,7 @@ class SystemStatsController < ApplicationController
 
     wiki_domains = snapshots.flat_map { |s| (s.wiki_stats || {}).keys }.uniq
     wiki_trends_data = wiki_domains.each_with_object({}) do |domain, hash|
-      hash[domain] = { edits: [], programs: [], articles_created: [], new_editors: [] }
+      hash[domain] = { edits: [], programs: [], articles_created: [], new_editors: [], retained_editors: [] }
     end
 
     populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
@@ -147,12 +151,15 @@ class SystemStatsController < ApplicationController
 
   def append_wiki_trend_metrics(trends, curr_data, prev_data, is_first)
     base_editors = is_first ? nil : prev_data['new_editors_with_preregistration']
+    base_retained = is_first ? nil : prev_data['retained_editors']
     trends[:edits] << calculate_delta(curr_data['edits'], is_first ? nil : prev_data['edits'])
     trends[:programs] << (curr_data['programs'] || 0)
     trends[:articles_created] << calculate_delta(curr_data['articles_created'],
                                                  is_first ? nil : prev_data['articles_created'])
     trends[:new_editors] << calculate_delta(curr_data['new_editors_with_preregistration'],
                                             base_editors)
+    trends[:retained_editors] << calculate_delta(curr_data['retained_editors'],
+                                                  base_retained)
   end
 
   def wiki_stats_for(latest_snapshot)
@@ -163,7 +170,8 @@ class SystemStatsController < ApplicationController
         edits: stats['edits'] || 0,
         programs: stats['programs'] || 0,
         articles_created: stats['articles_created'] || 0,
-        new_editors: stats['new_editors_with_preregistration'] || 0
+        new_editors: stats['new_editors_with_preregistration'] || 0,
+        retained_editors: stats['retained_editors'] || 0
       }
     end
     wiki_data.sort_by { |w| -w[:edits] }.first(100)

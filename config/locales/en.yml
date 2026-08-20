@@ -224,6 +224,7 @@ en:
       articles_improved: "Articles Improved"
       characters_added: "Characters Added"
       new_editors: "New Editors"
+      retained_new_editors: "Retained Editors"
       active_programs: "Active Programs"
       active_facilitators: "Active Facilitators"
     charts:
@@ -237,12 +238,14 @@ en:
       programs: "Programs"
       articles_created: "Articles Created"
       new_editors: "New Editors"
+      retained_new_editors: "Retained Editors"
     facilitators:
       title: "Facilitator Leaderboard"
       username: "Username"
       courses: "Courses"
       active: "Active"
       students: "Students"
+      retained_new_editors: "Retained Editors"
       active_in_year: "Active in Year"
       "yes": "Yes"
       "no": "No"
