@@ -13,10 +13,10 @@ require_dependency "#{Rails.root}/lib/revision_scanner"
 # and, if the timeslice exceeds the threshold, recursively splits it until all
 # timeslices are within limits.
 class UpdateCourseWikiTimeslices
-  # When the range of timeslices to process is longer than this, a single
-  # wide-window Replica query determines which of them actually contain
-  # revisions, so that empty ones can be skipped instead of fetched one by
-  # one. Short ranges (the common case for active courses) aren't worth the
+  # When the range of timeslices to process is longer than this, a wide-window
+  # Replica query (one per chunk of users) determines which of them actually
+  # contain revisions, so that empty ones can be skipped instead of fetched one
+  # by one. Short ranges (the common case for active courses) aren't worth the
   # extra query.
   GAP_PRECHECK_THRESHOLD = 7
 
@@ -90,20 +90,30 @@ class UpdateCourseWikiTimeslices
     @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
   end
 
-  # Skips timeslices that a single wide-window Replica query shows to contain
-  # no revisions; processing them would be a no-op. The first timeslice is
+  # Skips timeslices that a wide-window Replica query shows to contain no
+  # revisions; processing them would be a no-op. The first timeslice is
   # always kept: it's the only one in the range that can already have recorded
   # revisions (it contains the ingestion watermark), so it must be re-fetched
   # to detect on-wiki revision deletions and to re-ingest partial data. If the
   # wide query fails, fall back to processing the full range.
   def precheck_nonempty_timeslices(wiki, to_process)
-    return to_process if to_process.count <= GAP_PRECHECK_THRESHOLD
     slices = to_process.to_a
-    nonempty = FindTimeslicesWithRevisions.new(@course, wiki, slices,
-                                               update_service: @update_service).slice_starts
-    return to_process if nonempty.nil?
+    return slices if slices.size <= GAP_PRECHECK_THRESHOLD
+    nonempty = nonempty_slice_starts(wiki, slices)
+    return slices if nonempty.nil?
     watermark_start = slices.map(&:start).min
     slices.select { |t| t.start == watermark_start || nonempty.include?(t.start) }
+  end
+
+  # The starts of the timeslices that contain revisions, or nil if that couldn't
+  # be determined. When there's no point importing revisions for this course,
+  # every per-timeslice fetch would short-circuit before reaching Replica, so no
+  # timeslice can contain revisions and no query is needed — skipping the query
+  # keeps such courses from paying for a precheck they can't benefit from.
+  def nonempty_slice_starts(wiki, slices)
+    return Set.new if @revision_updater.no_point_in_importing_revisions?
+    FindTimeslicesWithRevisions.new(@course, wiki, slices,
+                                    update_service: @update_service).slice_starts
   end
 
   def fetch_data_and_reprocess_acuwt_timeslices(wiki)

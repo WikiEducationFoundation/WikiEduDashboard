@@ -485,6 +485,9 @@ describe UpdateCourseWikiTimeslices do
     before do
       stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
       travel_to Date.new(2018, 12, 1)
+      # Without a campaign the course isn't approved, the student can't join,
+      # and no_point_in_importing_revisions? would skip the precheck entirely.
+      course.campaigns << Campaign.first
       JoinCourse.new(course:, user:, role: 0)
       TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
       CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: "#{watermark_day} 00:00:00")
@@ -527,6 +530,19 @@ describe UpdateCourseWikiTimeslices do
         # 21 daily timeslices from 2018-11-10 through 2018-11-30
         expect(fetched_slice_days.count).to eq(21)
         expect(processed).to eq(21)
+      end
+    end
+
+    context 'when there is no point importing revisions for the course' do
+      it 'fetches only the watermark timeslice without a precheck query' do
+        # Every per-timeslice fetch short-circuits before reaching Replica, so
+        # the precheck can't find anything and shouldn't spend a query looking.
+        allow_any_instance_of(CourseRevisionUpdater)
+          .to receive(:no_point_in_importing_revisions?).and_return(true)
+        expect_any_instance_of(Replica).not_to receive(:get_revisions_raw)
+        processed, = updater.run(all_time: false)
+        expect(fetched_slice_days).to eq([watermark_day])
+        expect(processed).to eq(1)
       end
     end
 
