@@ -1,0 +1,21 @@
+# Short Canvas gradebook column names for exercise milestones, keyed by
+# exercise TrainingModule slug. SyncLtiLineItems#label_for_block prepends the
+# "Wk<n> " week prefix, so keep these to the exercise name alone (1-2 words —
+# Canvas truncates a gradebook column at ~15-20 characters). Any exercise slug
+# not listed here falls back to the block's full timeline title.
+#
+# Operator-supplied copy.
+evaluate-wikipedia-exercise: Evaluate WP
+choose-topic-exercise: Find articles
+choose-topic-from-list-exercise: Choose article
+bibliography-exercise: Bibliography
+finalize-topic-exercise: Bibliography
+outline-exercise: Outline
+continue-improving-exercise: Keep improving
+copyedit-exercise: Copyedit WP
+add-to-article-exercise: Add a fact
+cite-systematic-reviews-exercise: Cite a review
+did-you-know-exercise: DYK
+in-class-presentation-exercise: Presentation
+reflective-essay-exercise: Reflective essay
+fact-verification-exercise: Fact verification

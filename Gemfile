@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.4.8'
 
 ### Basic Framework
-gem 'rails', '8.1.3'
+gem 'rails', '8.1.3.1'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -81,7 +81,6 @@ gem 'i18n-js'
 gem 'sentry-ruby' # error reporting for both server-side Ruby and client-side JS
 gem 'sentry-rails' # Sentry extension for Rails
 gem 'sentry-sidekiq' # Sentry extension for Sidekiq
-gem 'newrelic_rpm' # performance monitoring
 
 ### Assorted conveniences and tools
 gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages
@@ -108,7 +107,6 @@ gem 'wikidata-diff-analyzer', git: 'https://github.com/WikiEducationFoundation/w
 # gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
 
 ### Performance
-gem 'rack-mini-profiler'
 gem 'stackprof'
 
 group :development do

@@ -13,7 +13,7 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 class RetentionParticipantHistory
   # At or above this many edits before the course started, a participant is
   # treated as an established Wikipedian rather than a retention subject.
-  LONG_TERM_EDIT_THRESHOLD = 1000
+  LONG_TERM_EDIT_THRESHOLD = 500
 
   attr_reader :prior_edit_count, :prior_courses
 
@@ -33,7 +33,7 @@ class RetentionParticipantHistory
     @prior_courses.any?
   end
 
-  # Exact below the threshold; "1000+" once counting stopped at it.
+  # Exact below the threshold; "500+" once counting stopped at it.
   def prior_edit_count_label
     long_term_wikipedian? ? "#{LONG_TERM_EDIT_THRESHOLD}+" : @prior_edit_count.to_s
   end
@@ -59,7 +59,7 @@ class RetentionParticipantHistory
 
   # Edits before the course start across every tracked wiki, summed. Counting
   # stops at the threshold: an editor with 50,000 prior edits costs no more API
-  # calls than one with exactly 1,000.
+  # calls than one with exactly 500.
   def count_prior_edits
     count = 0
     @wikis.each do |wiki|

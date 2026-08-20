@@ -42,6 +42,7 @@
       enableAdvancedFeatures: "#{ENV['ENABLE_ADVANCED_FEATURES']}",
       consentBanner: #{user_signed_in? && !Rails.env.test?},
       user_signed_in: #{user_signed_in?},
+      canvasIntegration: #{Features.canvas_integration?},
       open_course_creation: #{Features.open_course_creation?},
       default_course_string_prefix: "#{Features.default_course_string_prefix}",
       default_campaign_slug: "#{CampaignsPresenter.default_campaign_slug}",

@@ -1,7 +1,7 @@
 /config/application.yml
 /config/database.yml
-/config/newrelic.yml
 /config/secrets.yml
+/.env.staging-tests
 /dockerAuth.json
 /node_modules
 /js_coverage
@@ -66,3 +66,4 @@ stats.json
 !/fixtures/vcr_cassettes/cached/
 !/fixtures/vcr_cassettes/cached/*
 /backups/
+.ltiaas

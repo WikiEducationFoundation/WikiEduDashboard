@@ -1,7 +1,8 @@
-// Styles for the public /accessibility page (rendered VPAT).
-// The content is generated from docs/vpat_draft.md as Markdown, so
-// these rules target the plain element output rather than BEM classes.
-.accessibility-report
+// Styles for the public rendered-Markdown pages: /accessibility (the VPAT,
+// from docs/vpat.md), /lti/guide (the Canvas integration guide), and /hecvat
+// (the HECVAT, from docs/hecvat.md). The content is generated from Markdown,
+// so these rules target the plain element output rather than BEM classes.
+.accessibility-report, .canvas-integration-guide, .hecvat
   padding 20px 0 60px
   max-width 900px
 
@@ -46,3 +47,41 @@
     background-color $bg_light_gray
     padding 1px 4px
     border-radius 3px
+
+  // Blockquotes carry the notices on these pages — the draft banner and the
+  // AI-disclosure on /lti/guide. Unstyled they render as ordinary indented prose,
+  // which is exactly what a disclosure must not do: the reader skims past it as
+  // body text. Give them a left rule and a tinted ground so they read as set-aside
+  // notes.
+  blockquote
+    margin 1.5em 0
+    padding 12px 18px
+    border-left 4px solid $border_lt
+    background-color $bg_light_gray
+    color inherit
+
+    p
+      margin 0.4em 0
+
+    p:first-child
+      margin-top 0
+
+    p:last-child
+      margin-bottom 0
+
+  // A code block on these pages is something the reader is meant to copy —
+  // on /lti/guide it's the registration URL the whole install hinges on. Set
+  // it apart from the prose, size it up, and make one click select the lot.
+  pre
+    margin 1em 0
+    padding 12px 16px
+    background-color $bg_light_gray
+    border 1px solid $border_lt
+    border-radius 4px
+    overflow-x auto
+
+    code
+      background-color transparent
+      padding 0
+      font-size 1.2em
+      user-select all

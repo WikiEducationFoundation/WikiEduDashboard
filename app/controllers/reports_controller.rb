@@ -2,9 +2,11 @@
 
 require_dependency "#{Rails.root}/app/workers/report_csv_worker"
 require_dependency "#{Rails.root}/lib/analytics/report_csv_store"
+require_dependency "#{Rails.root}/lib/analytics/system_daily_stats_csv_filter_validator"
 
 #= Controller for report CSV generation (asynchronously)
 # This is used for CSV reports that may be too heavy to be generated during a web request
+# rubocop:disable Metrics/ClassLength
 class ReportsController < ApplicationController
   include CourseHelper
   before_action :require_signed_in,
@@ -12,7 +14,7 @@ class ReportsController < ApplicationController
                          campaign_students_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
                          course_wikidata_csv course_retention_csv all_courses_and_instructors_csv
-                         system_csv]
+                         system_csv system_daily_stats_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_instructors_csv
                                         campaign_wikidata_csv]
@@ -22,8 +24,10 @@ class ReportsController < ApplicationController
 
   before_action :set_sidekiq_job_context
   before_action :require_admin_permissions,
-                only: %i[all_courses_and_instructors_csv course_retention_csv system_csv]
+                only: %i[all_courses_and_instructors_csv course_retention_csv system_csv
+                         system_daily_stats_csv]
   before_action :validate_system_csv_filters!, only: [:system_csv]
+  before_action :validate_system_daily_stats_filters!, only: [:system_daily_stats_csv]
   before_action :require_fellows_cohort, only: [:course_retention_csv]
 
   #######################
@@ -118,6 +122,20 @@ class ReportsController < ApplicationController
     end
   end
 
+  # Admin-only daily system statistics CSV export.
+  def system_daily_stats_csv
+    filters = system_daily_stats_filters
+    filename = build_system_daily_stats_filename(filters)
+
+    if File.exist?("public#{CSV_PATH}/#{filename}")
+      render json: { status: 'ready', url: "#{CSV_PATH}/#{filename}" }
+    else
+      ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_daily_stats_csv',
+                                   include_course: nil, filters:)
+      render json: { status: 'generating' }, status: :accepted
+    end
+  end
+
   private
 
   def set_course
@@ -185,7 +203,31 @@ class ReportsController < ApplicationController
     "#{parts.join('-')}.csv".tr('/', '-')
   end
 
+  def system_daily_stats_filters
+    params.permit(:start_date, :end_date)
+          .to_h.symbolize_keys
+          .reject { |_, v| v.blank? }
+  end
+
+  def validate_system_daily_stats_filters!
+    errors = SystemDailyStatsCsvFilterValidator.new(system_daily_stats_filters).errors
+    return if errors.empty?
+    render json: { error: errors.join(', ') },
+           status: :unprocessable_content
+  end
+
+  # Build filename from parsed Date objects to normalize format (YYYY-MM-DD)
+  # and prevent slash-delimited dates from creating nested directory paths.
+  def build_system_daily_stats_filename(filters)
+    parts = ['system-daily-stats']
+    parts << "from-#{Date.parse(filters[:start_date])}" if filters[:start_date].present?
+    parts << "to-#{Date.parse(filters[:end_date])}" if filters[:end_date].present?
+    parts << Time.zone.today.to_s
+    "#{parts.join('-')}.csv".tr('/', '-')
+  end
+
   def course_report?(type)
     type.start_with?('course')
   end
 end
+# rubocop:enable Metrics/ClassLength

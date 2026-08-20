@@ -1,0 +1,57 @@
+- # The shared assigned-article panel: one student's whole state of work on their
+- # article, rendered in the drill-down for each stage of the writing process (see
+- # AssignmentViewContext::ARTICLE_PANEL_SLUGS). Each stage's own exercise column
+- # only knows whether a box was ticked; this is what the instructor actually
+- # wants to see.
+- #
+- # The links point at userspace sandboxes, which embed the student's Wikipedia
+- # username. That is fine here and only here: this view is role-gated and served
+- # from the Dashboard per request. The same URL must never be written INTO Canvas
+- # (score comments, submission URLs), where it would persist a username
+- # correlation — see LtiBlockProgress.
+- if articles.empty?
+  %span.lti-assigned-article__empty= t('lti.assignment_view.no_article_yet')
+- else
+  - articles.each_with_index do |article, article_index|
+    .lti-article-work
+      %h3.lti-article-work__title
+        = link_to article.url, target: '_blank', rel: 'noopener' do
+          = article.title
+          %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+      - unless article.live
+        %span.lti-article-work__not-live= t('lti.assignment_view.article_work.not_created')
+      %ul.lti-article-work__pages
+        - article.pages.each_with_index do |page, page_index|
+          - panel_id = "work-#{scope}-#{article_index}-#{page_index}"
+          %li
+            %span.lti-article-work__page-label
+              = t("lti.assignment_view.article_work.pages.#{page.kind}")
+            - if page.created
+              %span.lti-status.lti-status--complete= t('lti.assignment_view.article_work.created')
+              .lti-sandbox__actions
+                %button.lti-sandbox__toggle{ type: 'button', 'data-sandbox-url': page.url, 'aria-controls': panel_id, 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
+                  = t('lti.assignment_view.show')
+                = link_to page.url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link' do
+                  = t('lti.assignment_view.open_on_wikipedia')
+                  %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+              .lti-sandbox__detail{ id: panel_id, hidden: true }
+                .lti-sandbox__content
+            - else
+              - # Nothing to preview, but the link still points where the work
+              - # will live, which is what a student needs and what tells an
+              - # instructor the page is genuinely absent rather than missing.
+              %span.lti-status= t('lti.assignment_view.article_work.not_created_yet')
+              = link_to page.url, target: '_blank', rel: 'noopener', class: 'lti-sandbox__link' do
+                = t('lti.assignment_view.open_on_wikipedia')
+                %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+      - if article.live
+        %dl.lti-status-list.lti-article-work__stats
+          .lti-status-list__row
+            %dt= t('lti.assignment_view.article_work.characters')
+            %dd= number_with_delimiter(article.stats.characters)
+          .lti-status-list__row
+            %dt= t('lti.assignment_view.article_work.references')
+            %dd= number_with_delimiter(article.stats.references)
+          .lti-status-list__row
+            %dt= t('lti.assignment_view.article_work.revisions')
+            %dd= number_with_delimiter(article.stats.revisions)

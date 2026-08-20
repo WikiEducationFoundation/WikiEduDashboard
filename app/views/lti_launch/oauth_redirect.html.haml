@@ -1,0 +1,12 @@
+- # Top-level interstitial. Auto-submits a POST to Devise omniauth-
+- # mediawiki; the ltik was stashed in session by `connect_course`
+- # before this view renders, and the callback reads it back to resume
+- # the LTI launch. JS submits immediately so most users never see
+- # this page; the visible button is the no-JS fallback.
+.lti-iframe__landing
+  %h1.lti-iframe__title= t('lti.oauth_redirect.title')
+  = form_with url: '/users/auth/mediawiki', method: :post, local: true, id: 'lti-oauth-form' do
+    %button.button.dark.lti-iframe__button{ type: 'submit' }
+      = t('lti.oauth_redirect.button')
+:javascript
+  document.getElementById('lti-oauth-form').submit();

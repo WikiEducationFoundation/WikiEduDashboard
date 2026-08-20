@@ -41,7 +41,7 @@ To run analytics scripts that generate CSV data:
 ## Set up a new machine to build and deploy
 
 1. Clone the Dashboard repo (separately from any development version)
-2. Copy over the relevant config files that aren't checked in: `dockerAuth.json` and from the config directory `application.yml`, `database.yml`, `secrets.yml` and `newrelic.yml`.
+2. Copy over the relevant config files that aren't checked in: `dockerAuth.json` and from the config directory `application.yml`, `database.yml` and `secrets.yml`.
 3. Copy over the waypoint context from `~/.config/waypoint`.
 4. Verify that the context works: `waypoint context verify` should succeed, and `waypoint -v` should show both the client and server versions of waypoint.
 5. Log in to docker.wikiedu.org (as during the initial setup above)

@@ -29,6 +29,14 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
+  # The P&E Dashboard sits behind WMCloud's TLS-terminating proxy, which
+  # forwards plain HTTP to Apache. Rails relies on X-Forwarded-Proto to know the
+  # original request was HTTPS. If the proxy ever omits that header, force_ssl
+  # enters a redirect loop — this caused a 91-minute outage on 2026-08-17.
+  # assume_ssl makes request.ssl? unconditionally true, eliminating that mode.
+  # Only safe behind a TLS-terminating proxy; the Wiki Ed Dashboard terminates
+  # TLS directly and needs force_ssl to redirect plain HTTP.
+  config.assume_ssl = true if ENV['ASSUME_SSL']
 
   # Set to :debug to see everything in the log.
   config.logger = Logger.new(STDOUT)

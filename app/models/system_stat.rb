@@ -41,7 +41,12 @@ class SystemStat < ApplicationRecord
 
   # Returns the last N months of snapshots for trend charts.
   def self.recent_months(months = 12)
-    for_date_range(months.months.ago.to_date, Date.today)
+    # Date.current, not Date.today: the latter reads the server's system
+    # timezone rather than the app's, so a snapshot dated "today" in the app zone
+    # fell outside the range whenever the two disagreed — between 00:00 and
+    # 07:00 UTC on a machine set to US Pacific, which is what made the specs for
+    # this scope fail only late in the day.
+    for_date_range(months.months.ago.to_date, Date.current)
   end
 
   # Returns month-end snapshots for the last N months.

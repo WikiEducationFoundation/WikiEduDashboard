@@ -2,4 +2,4 @@ USE dashboard;
 
 UPDATE backups
 SET status = 'failed', end = NOW()
-WHERE status = 'running';
+WHERE status IN ('waiting', 'running');

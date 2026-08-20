@@ -1,0 +1,13 @@
+-# A compact done/not-done list of training or exercise items for the student
+-# overview. Each row is a status pill plus the item name (linked to its
+-# Dashboard page when a URL is available). Local: `items` (StudentStatusContext
+-# ItemRow list — name, done, url).
+%ul.lti-overview-list
+  - items.each do |item|
+    %li.lti-overview-item
+      %span.lti-status{ class: item.done ? 'lti-status--done' : 'lti-status--pending' }
+        = item.done ? t('lti.assignment_view.status.completed') : t('lti.assignment_view.status.not_started')
+      - if item.url
+        = link_to item.name, item.url, target: '_blank', rel: 'noopener'
+      - else
+        = item.name

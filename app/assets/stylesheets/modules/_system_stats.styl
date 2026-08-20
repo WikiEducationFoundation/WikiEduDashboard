@@ -3,11 +3,36 @@
 
 .system-stats__filter-card
   background #fff
-  border 1px solid #e2e8f0
+  border 1px solid $border_lt
   border-radius 4px
   padding 20px
   margin-bottom 35px
   box-shadow 0 1px 3px rgba(0, 0, 0, 0.05)
+
+.system-stats__tab-header
+  display flex
+  gap 24px
+  border-bottom 1px solid $border_lt
+  margin-bottom 20px
+  padding-bottom 8px
+
+.system-stats__tab-button
+  background none
+  border none
+  font-size 14px
+  font-weight 600
+  color $text_med
+  cursor pointer
+  padding 6px 0
+  border-bottom 2px solid transparent
+  transition color 0.2s, border-color 0.2s
+
+  &:hover
+    color $text_dk
+
+  &.active
+    color $brand_primary
+    border-bottom-color $brand_primary
 
 .system-stats__filter-row
   display flex
@@ -25,28 +50,28 @@
   label
     font-size 11px
     font-weight 700
-    color #718096
+    color $text_med
     letter-spacing 0.5px
     text-transform uppercase
     margin 0
 
   select, input[type="date"]
     padding 8px 12px
-    border 1px solid #cbd5e0
+    border 1px solid $border_med
     border-radius 4px
     font-size 13px
     background-color #fff
-    color #2d3748
+    color $text_dk
     height 38px
     width 100%
     box-sizing border-box
 
     &:focus
       outline none
-      border-color #7e22ce
+      border-color $brand_primary
 
 .system-stats__export-button
-  background-color #7e22ce
+  background-color $brand_primary
   color #fff
   font-weight 600
   font-size 13px
@@ -59,7 +84,7 @@
   transition background-color 0.2s, opacity 0.2s
 
   &:hover
-    background-color #6b21a8
+    background-color darken($brand_primary, 15%)
 
   &:disabled
     opacity 0.6
@@ -81,12 +106,12 @@ main header.system-stats-header
   label
     font-size 13px
     font-weight 600
-    color #666
+    color $text
     white-space nowrap
 
   select
     padding 6px 28px 6px 10px
-    border 1px solid #ddd
+    border 1px solid $border_lt
     border-radius 3px
     font-size 13px
     background-position calc(100% - 6px) 50%
@@ -124,7 +149,7 @@ main header.system-stats-header
 
 .system-stats__loading-text
   margin-top 15px
-  color #718096
+  color $text_med
 
 .system-stats__faded
   opacity 0.6
@@ -133,11 +158,11 @@ main header.system-stats-header
 .system-stats__empty-state
   padding 40px
   text-align center
-  color #a0aec0
+  color $contextual
 
 .system-stats__table-empty
   text-align center
-  color #a0aec0
+  color $contextual
 
 .system-stats__breakdown-table
   margin-top 20px

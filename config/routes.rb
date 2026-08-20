@@ -220,6 +220,8 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
+        constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -318,6 +320,8 @@ Rails.application.routes.draw do
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
+  get 'mentor_requests_csv' => 'analytics#mentor_requests_csv'
+  get 'mentor_volunteers_csv' => 'analytics#mentor_volunteers_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
@@ -335,6 +339,7 @@ Rails.application.routes.draw do
   get 'course_retention_csv' => 'reports#course_retention_csv'
   get "all_courses_and_instructors_csv" => "reports#all_courses_and_instructors_csv"
   get 'system_csv' => 'reports#system_csv'
+  get 'system_daily_stats_csv' => 'reports#system_daily_stats_csv'
 
   # Campaign reports
   get 'campaigns/:slug/students' => 'reports#campaign_students_csv'
@@ -460,7 +465,20 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
     # LTI
+  # Public installation guide (a rendered docs/ Markdown page, not part of the
+  # launch flow and not behind the canvas_integration feature gate).
+  get 'lti/guide' => 'about_this_site#canvas_integration_guide'
   get 'lti' => 'lti_launch#launch'
+  get 'lti/connect_course' => 'lti_launch#connect_course'
+  get 'lti/assignment_view' => 'lti_launch#assignment_view'
+  get 'lti/deep_link' => 'lti_launch#deep_link'
+  post 'lti/deep_link/select' => 'lti_launch#deep_link_select'
+  post 'lti/setup' => 'lti_launch#complete_setup'
+  post 'lti/sync_grades' => 'lti_launch#sync_grades'
+  # Connecting a Dashboard account to an LMS identity is a decision the user
+  # makes, not a side effect of arriving with a session — hence a POST of its own
+  # rather than something a launch does. See LtiLaunchController#connect_identity.
+  post 'lti/connect_identity' => 'lti_launch#connect_identity'
 
   # frequenty asked questions
   resources :faq do
@@ -608,6 +626,7 @@ Rails.application.routes.draw do
 
   get '/private_information' => 'about_this_site#private_information'
   get '/accessibility' => 'about_this_site#accessibility'
+  get '/hecvat' => 'about_this_site#hecvat'
   get '/styleguide' => 'styleguide#index'
 
   get '/status' => 'system_status#index'
