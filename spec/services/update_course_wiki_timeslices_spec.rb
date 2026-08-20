@@ -474,13 +474,13 @@ describe UpdateCourseWikiTimeslices do
     # weeks behind the end of the scan range, so the range exceeds
     # GAP_PRECHECK_THRESHOLD and the wide-window precheck kicks in.
     let(:course) do
-      create(:basic_course, start: '2018-11-01 00:00:00', end: '2018-11-30 23:55:00')
+      create(:basic_course, start: '2018-10-01 00:00:00', end: '2018-11-30 23:55:00')
     end
     let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:updater) { described_class.new(course, UpdateDebugger.new(course)) }
     let(:user) { create(:user, username: 'Ragesoss') }
     let(:fetched_slice_days) { [] }
-    let(:watermark_day) { '2018-11-10' }
+    let(:watermark_day) { '2018-10-10' }
 
     before do
       stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
@@ -527,9 +527,9 @@ describe UpdateCourseWikiTimeslices do
       it 'falls back to fetching every timeslice in the range' do
         allow_any_instance_of(Replica).to receive(:get_revisions_raw).and_return(nil)
         processed, = updater.run(all_time: false)
-        # 21 daily timeslices from 2018-11-10 through 2018-11-30
-        expect(fetched_slice_days.count).to eq(21)
-        expect(processed).to eq(21)
+        # 52 daily timeslices from 2018-10-10 through 2018-11-30
+        expect(fetched_slice_days.count).to eq(52)
+        expect(processed).to eq(52)
       end
     end
 
@@ -561,7 +561,7 @@ describe UpdateCourseWikiTimeslices do
         updater.run(all_time: true)
         # Only the range's first slice gets fetched (via the reprocess loop);
         # every later slice is fresh and empty, so the precheck skips it.
-        expect(fetched_slice_days).to eq(['2018-11-01'])
+        expect(fetched_slice_days).to eq(['2018-10-01'])
         slice = CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-05 00:00:00')
         expect(slice.last_mw_rev_datetime).to be_nil
         expect(slice.character_sum).to eq(0)
@@ -570,14 +570,16 @@ describe UpdateCourseWikiTimeslices do
     end
 
     context 'when the scan range is within the threshold' do
-      let(:watermark_day) { '2018-11-26' }
+      # A three-week backlog — e.g. from queue latency — stays under the
+      # threshold and on the plain per-timeslice path.
+      let(:watermark_day) { '2018-11-10' }
 
       it 'fetches every timeslice without a precheck query' do
         expect_any_instance_of(Replica).not_to receive(:get_revisions_raw)
         processed, = updater.run(all_time: false)
-        # 5 daily timeslices from 2018-11-26 through 2018-11-30
-        expect(fetched_slice_days.count).to eq(5)
-        expect(processed).to eq(5)
+        # 21 daily timeslices from 2018-11-10 through 2018-11-30
+        expect(fetched_slice_days.count).to eq(21)
+        expect(processed).to eq(21)
       end
     end
   end

@@ -16,9 +16,11 @@ class UpdateCourseWikiTimeslices
   # When the range of timeslices to process is longer than this, a wide-window
   # Replica query (one per chunk of users) determines which of them actually
   # contain revisions, so that empty ones can be skipped instead of fetched one
-  # by one. Short ranges (the common case for active courses) aren't worth the
-  # extra query.
-  GAP_PRECHECK_THRESHOLD = 7
+  # by one. Short ranges aren't worth the extra query: this covers active
+  # courses (typically a range of a day or two) with margin to spare, so that
+  # even a backlog from several days of queue latency doesn't push every
+  # course through the precheck branch.
+  GAP_PRECHECK_THRESHOLD = 30
 
   def initialize(course, debugger, update_service: nil)
     @course = course
