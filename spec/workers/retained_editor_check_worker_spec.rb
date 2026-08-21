@@ -150,7 +150,8 @@ describe RetainedEditorCheckWorker do
 
     context 'when already checked' do
       before do
-        cu_retained.update!(retained_after_course: true, retained_after_course_checked_at: 1.day.ago)
+        cu_retained.update!(retained_after_course: true,
+                            retained_after_course_checked_at: 1.day.ago)
         cu_not_retained.update!(retained_after_course: false,
                                 retained_after_course_checked_at: 1.day.ago)
       end
@@ -192,7 +193,8 @@ describe RetainedEditorCheckWorker do
         allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
           usernames = params[:ucuser] || []
           # Only even indexed users have edits
-          contribs = usernames.select { |u| u.split('_').last.to_i.even? }.map { |u| { 'user' => u } }
+          active_users = usernames.select { |u| u.split('_').last.to_i.even? }
+          contribs = active_users.map { |u| { 'user' => u } }
           mock_response(contribs)
         end
       end

@@ -15,7 +15,8 @@ namespace :retained_editors do
 
     eligible_course_ids = CoursesUsers
                           .joins(:course, :user)
-                          .where(role: CoursesUsers::Roles::STUDENT_ROLE, retained_after_course: nil)
+                          .where(role: CoursesUsers::Roles::STUDENT_ROLE,
+                                 retained_after_course: nil)
                           .where('courses.end <= ?', 30.days.ago)
                           .where(courses: { private: false })
                           .where(NewEditorDateConditions::DURING_PROGRAM)
@@ -36,7 +37,8 @@ namespace :retained_editors do
       total_records += count
 
       if ((index + 1) % 10).zero? || index + 1 == total_courses
-        puts "[#{index + 1}/#{total_courses} courses] Processed #{total_records} student records so far..."
+        msg = "[#{index + 1}/#{total_courses} courses] Processed #{total_records} records..."
+        puts msg
       end
 
       # Rate-limiting delay to respect MediaWiki API guidelines

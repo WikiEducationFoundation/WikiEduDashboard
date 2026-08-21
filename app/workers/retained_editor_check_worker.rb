@@ -29,7 +29,9 @@ class RetainedEditorCheckWorker
       total_checked += check_course_new_editors(course)
     end
 
-    Rails.logger.info { "RetainedEditorCheckWorker: finished check, processed #{total_checked} records" }
+    Rails.logger.info do
+      "RetainedEditorCheckWorker: finished, processed #{total_checked} records"
+    end
     total_checked
   end
 
@@ -97,32 +99,42 @@ class RetainedEditorCheckWorker
     continue_param = nil
 
     loop do
-      query = {
-        list: 'usercontribs',
-        ucuser: usernames,
-        ucnamespace: 0, # mainspace only
-        ucstart: threshold.strftime('%Y%m%d%H%M%S'),
-        uclimit: 500,
-        ucprop: '',
-        ucdir: 'newer'
-      }
-      query.merge!(continue_param) if continue_param
+      result = query_usercontribs(usernames, wiki, threshold, continue_param)
+      return nil unless result
 
-      response = WikiApi.new(wiki).query(query)
-      return nil unless response&.data&.key?('usercontribs')
-
-      contribs = response.data['usercontribs'] || []
-      contribs.each do |c|
-        active_usernames.add(c['user']) if c['user']
-      end
-
-      # Stop early if all batch users have been confirmed active
+      result[:users].each { |u| active_usernames.add(u) }
       break if active_usernames.superset?(target_users)
 
-      continue_param = response.data['continue']
-      break if continue_param.nil? || contribs.empty?
+      continue_param = result[:continue]
+      break if continue_param.nil?
     end
 
     active_usernames.to_a
+  end
+
+  def query_usercontribs(usernames, wiki, threshold, continue_param)
+    query = usercontribs_query(usernames, threshold)
+    query.merge!(continue_param) if continue_param
+
+    response = WikiApi.new(wiki).query(query)
+    return nil unless response&.data&.key?('usercontribs')
+
+    contribs = response.data['usercontribs'] || []
+    {
+      users: contribs.filter_map { |c| c['user'] },
+      continue: contribs.empty? ? nil : response.data['continue']
+    }
+  end
+
+  def usercontribs_query(usernames, threshold)
+    {
+      list: 'usercontribs',
+      ucuser: usernames,
+      ucnamespace: 0,
+      ucstart: threshold.strftime('%Y%m%d%H%M%S'),
+      uclimit: 500,
+      ucprop: '',
+      ucdir: 'newer'
+    }
   end
 end

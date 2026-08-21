@@ -262,7 +262,8 @@ describe SystemCsvBuilder do
 
     it 'aggregates retained new editors per course, excluding non-new editors' do
       builder = described_class.new(filters: {})
-      counts = builder.send(:fetch_retained_editor_counts, [active_en_course.id, archived_fr_course.id])
+      course_ids = [active_en_course.id, archived_fr_course.id]
+      counts = builder.send(:fetch_retained_editor_counts, course_ids)
       expect(counts[active_en_course.id]).to eq(1)
       expect(counts[archived_fr_course.id]).to be_nil
     end

@@ -87,26 +87,31 @@ class SystemStatUpdateWorker
   # Uses string keys for consistent serialization round-tripping.
   def compute_wiki_stats(courses)
     wiki_data = fetch_wiki_aggregates(courses)
-    new_editors_with_prereg_by_wiki = compute_new_editors_with_preregistration_by_wiki
-    retained_editors_by_wiki = compute_retained_editors_by_wiki
+    editors = compute_new_editors_with_preregistration_by_wiki
+    retained = compute_retained_editors_by_wiki
+    wikis_by_id = Wiki.where(id: wiki_data.map { |wd| wd[0] }).index_by(&:id)
 
-    wiki_ids = wiki_data.map { |wd| wd[0] }
-    wikis_by_id = Wiki.where(id: wiki_ids).index_by(&:id)
+    wiki_data.each_with_object({}) do |row, stats|
+      entry = build_wiki_entry(row, wikis_by_id, editors, retained)
+      stats[entry[:domain]] = entry[:data] if entry
+    end
+  end
 
-    wiki_stats = {}
-    wiki_data.each do |wiki_id, edits, programs, articles_created|
-      wiki = wikis_by_id[wiki_id]
-      next unless wiki
+  def build_wiki_entry(row, wikis_by_id, editors, retained)
+    wiki_id, edits, programs, articles_created = row
+    wiki = wikis_by_id[wiki_id]
+    return nil unless wiki
 
-      wiki_stats[wiki.domain] = {
+    {
+      domain: wiki.domain,
+      data: {
         'edits' => edits.to_i,
         'programs' => programs.to_i,
         'articles_created' => articles_created.to_i,
-        'new_editors_with_preregistration' => new_editors_with_prereg_by_wiki[wiki_id] || 0,
-        'retained_editors' => retained_editors_by_wiki[wiki_id] || 0
+        'new_editors_with_preregistration' => editors[wiki_id] || 0,
+        'retained_editors' => retained[wiki_id] || 0
       }
-    end
-    wiki_stats
+    }
   end
 
   def fetch_wiki_aggregates(courses)

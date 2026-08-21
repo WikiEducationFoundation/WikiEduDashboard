@@ -79,8 +79,10 @@ class SystemStatsController < ApplicationController
   end
 
   def empty_kpis
-    { edits: 0, articleViews: 0, articlesCreated: 0, articlesImproved: 0,
-      charactersAdded: 0, newEditors: 0, retainedNewEditors: 0, activePrograms: 0, activeFacilitators: 0 }
+    { edits: 0, articleViews: 0, articlesCreated: 0,
+      articlesImproved: 0, charactersAdded: 0, newEditors: 0,
+      retainedNewEditors: 0, activePrograms: 0,
+      activeFacilitators: 0 }
   end
 
   def trend_snapshots_range(snapshots)
@@ -90,9 +92,7 @@ class SystemStatsController < ApplicationController
 
   def trends_for(snapshots)
     return [] if snapshots.empty?
-
     prev = snapshots.first
-
     trend_snapshots_range(snapshots).map do |i|
       curr = snapshots[i]
       base = i.zero? ? nil : prev
@@ -104,6 +104,13 @@ class SystemStatsController < ApplicationController
   def snapshot_trend_point(curr, base)
     {
       month: curr.snapshot_date.to_s,
+      activePrograms: curr.active_programs_count,
+      activeFacilitators: curr.active_facilitators_count
+    }.merge(snapshot_trend_deltas(curr, base))
+  end
+
+  def snapshot_trend_deltas(curr, base)
+    {
       edits: calculate_delta(curr.total_edits, base&.total_edits),
       articleViews: calculate_delta(curr.total_article_views, base&.total_article_views),
       articlesCreated: calculate_delta(curr.total_articles_created, base&.total_articles_created),
@@ -113,9 +120,7 @@ class SystemStatsController < ApplicationController
       newEditors: calculate_delta(curr.new_editors_count_with_preregistration,
                                   base&.new_editors_count_with_preregistration),
       retainedNewEditors: calculate_delta(curr.retained_new_editors_count,
-                                          base&.retained_new_editors_count),
-      activePrograms: curr.active_programs_count,
-      activeFacilitators: curr.active_facilitators_count
+                                          base&.retained_new_editors_count)
     }
   end
 
@@ -130,9 +135,11 @@ class SystemStatsController < ApplicationController
 
     wiki_domains = snapshots.flat_map { |s| (s.wiki_stats || {}).keys }.uniq
     wiki_trends_data = wiki_domains.each_with_object({}) do |domain, hash|
-      hash[domain] = { edits: [], programs: [], articles_created: [], new_editors: [], retained_editors: [] }
+      hash[domain] = {
+        edits: [], programs: [], articles_created: [],
+        new_editors: [], retained_editors: []
+      }
     end
-
     populate_wiki_trends(snapshots, wiki_domains, wiki_trends_data)
     wiki_trends_data
   end
@@ -150,16 +157,23 @@ class SystemStatsController < ApplicationController
   end
 
   def append_wiki_trend_metrics(trends, curr_data, prev_data, is_first)
-    base_editors = is_first ? nil : prev_data['new_editors_with_preregistration']
-    base_retained = is_first ? nil : prev_data['retained_editors']
-    trends[:edits] << calculate_delta(curr_data['edits'], is_first ? nil : prev_data['edits'])
+    append_wiki_delta_metrics(trends, curr_data, prev_data, is_first)
     trends[:programs] << (curr_data['programs'] || 0)
-    trends[:articles_created] << calculate_delta(curr_data['articles_created'],
-                                                 is_first ? nil : prev_data['articles_created'])
-    trends[:new_editors] << calculate_delta(curr_data['new_editors_with_preregistration'],
-                                            base_editors)
-    trends[:retained_editors] << calculate_delta(curr_data['retained_editors'],
-                                                  base_retained)
+  end
+
+  def append_wiki_delta_metrics(trends, curr_data, prev_data, is_first)
+    prev = is_first ? {} : prev_data
+    trends[:edits] << calculate_delta(curr_data['edits'], prev['edits'])
+    trends[:articles_created] << calculate_delta(
+      curr_data['articles_created'], prev['articles_created']
+    )
+    trends[:new_editors] << calculate_delta(
+      curr_data['new_editors_with_preregistration'],
+      prev['new_editors_with_preregistration']
+    )
+    trends[:retained_editors] << calculate_delta(
+      curr_data['retained_editors'], prev['retained_editors']
+    )
   end
 
   def wiki_stats_for(latest_snapshot)
