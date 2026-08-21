@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/app/workers/report_csv_worker"
+require_dependency "#{Rails.root}/lib/analytics/report_csv_store"
 require_dependency "#{Rails.root}/lib/analytics/system_daily_stats_csv_filter_validator"
 
 #= Controller for report CSV generation (asynchronously)
@@ -33,7 +34,6 @@ class ReportsController < ApplicationController
   # CSV-related actions #
   #######################
 
-  CSV_PATH = '/system/analytics'
   SYSTEM_CSV_FILENAME_PREFIXES = {
     campaign_slug: 'campaign',
     start_date: 'from',
@@ -94,8 +94,8 @@ class ReportsController < ApplicationController
   def all_courses_and_instructors_csv
     filename = "all-courses-and-instructors-#{Time.zone.today}.csv"
 
-    if File.exist?("public#{CSV_PATH}/#{filename}")
-      redirect_to "#{CSV_PATH}/#{filename}"
+    if ReportCsvStore.exists?(filename)
+      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
     else
       ReportCsvWorker.generate_csv(
         source: nil,
@@ -113,8 +113,8 @@ class ReportsController < ApplicationController
     filters = system_csv_filters
     filename = build_system_csv_filename(filters)
 
-    if File.exist?("public#{CSV_PATH}/#{filename}")
-      render json: { status: 'ready', url: "#{CSV_PATH}/#{filename}" }
+    if ReportCsvStore.exists?(filename)
+      render json: { status: 'ready', url: ReportCsvStore.url_for(filename) }
     else
       ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_csv',
                                    include_course: nil, filters:)
@@ -127,8 +127,8 @@ class ReportsController < ApplicationController
     filters = system_daily_stats_filters
     filename = build_system_daily_stats_filename(filters)
 
-    if File.exist?("public#{CSV_PATH}/#{filename}")
-      render json: { status: 'ready', url: "#{CSV_PATH}/#{filename}" }
+    if ReportCsvStore.exists?(filename)
+      render json: { status: 'ready', url: ReportCsvStore.url_for(filename) }
     else
       ReportCsvWorker.generate_csv(source: nil, filename:, type: 'system_daily_stats_csv',
                                    include_course: nil, filters:)
@@ -158,8 +158,8 @@ class ReportsController < ApplicationController
 
   def csv_of(type)
     filename = build_filename(type)
-    if File.exist? "public#{CSV_PATH}/#{filename}"
-      redirect_to "#{CSV_PATH}/#{filename}"
+    if ReportCsvStore.exists?(filename)
+      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
     else
       ReportCsvWorker.generate_csv(source: @course || @campaign, filename:, type:,
                                    include_course: csv_params[:course])

@@ -155,3 +155,10 @@
 
 # Originality.ai API key
   originality_api_key: 'example_api_key'
+
+# Credentials for storing CSV exports in S3-compatible object storage.
+# report_csv_bucket: 'bucket-name'
+# report_csv_s3_endpoint: 'https://object.eqiad1.wikimediacloud.org'
+# report_csv_public_url: 'https://object.eqiad1.wikimediacloud.org/globaleducation:bucket-name'
+# report_csv_access_key: 'access-key'
+# report_csv_secret_key: 'secret-key'

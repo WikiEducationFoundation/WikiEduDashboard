@@ -30,6 +30,16 @@ describe ReportsController, type: :request do
       expect(csv).to include(course.title)
     end
 
+    # The suite uses the local store, so the off-host redirect that object storage
+    # relies on is only exercised by stubbing the store.
+    it '#course_csv redirects off-host when the report is in object storage' do
+      object_url = 'https://object.eqiad1.wikimediacloud.org/globaleducation:reports/r.csv'
+      allow(ReportCsvStore).to receive(:exists?).and_return(true)
+      allow(ReportCsvStore).to receive(:url_for).and_return(object_url)
+      get '/course_csv', params: { course: course.slug }
+      expect(response).to redirect_to(object_url)
+    end
+
     it '#course_uploads_csv returns a CSV' do
       expect(CsvCleanupWorker).to receive(:perform_at)
       get '/course_uploads_csv', params: { course: course.slug }

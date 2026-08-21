@@ -24,6 +24,13 @@ Capybara.register_driver :selenium do |app|
 end
 
 Rails.cache.clear
+
+# Figaro loads application.yml into ENV in the test environment too, so a developer who
+# has object storage configured locally would otherwise have the report CSV specs make
+# real requests to it. The suite always uses the local store; specs that need the object
+# storage behaviour stub ReportCsvStore instead.
+ENV.delete('report_csv_bucket')
+
 Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara::Screenshot.register_filename_prefix_formatter(:rspec) do |example|
   file_name = example.file_path.split('/').last.gsub('.rb', '')
