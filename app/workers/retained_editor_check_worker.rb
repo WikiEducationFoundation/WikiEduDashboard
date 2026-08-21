@@ -50,9 +50,7 @@ class RetainedEditorCheckWorker
     checked_count
   end
 
-  private
-
-  def eligible_course_ids
+  def self.eligible_course_ids
     CoursesUsers
       .joins(:course, :user)
       .where(role: CoursesUsers::Roles::STUDENT_ROLE, retained_after_course: nil)
@@ -61,6 +59,12 @@ class RetainedEditorCheckWorker
       .where(NewEditorDateConditions::DURING_PROGRAM)
       .distinct
       .pluck(:course_id)
+  end
+
+  private
+
+  def eligible_course_ids
+    self.class.eligible_course_ids
   end
 
   def eligible_candidates_for_course(course)
@@ -81,10 +85,20 @@ class RetainedEditorCheckWorker
     return 0 if active_usernames.nil?
 
     now = Time.zone.now
-    batch.each do |cu|
-      retained = active_usernames.include?(cu.username)
-      CoursesUsers.where(id: cu.id).update_all(
-        retained_after_course: retained,
+    retained_ids, not_retained_ids = batch.partition { |cu| active_usernames.include?(cu.username) }
+                                          .map { |group| group.map(&:id) }
+
+    if retained_ids.any?
+      CoursesUsers.where(id: retained_ids).update_all(
+        retained_after_course: true,
+        retained_after_course_checked_at: now,
+        updated_at: now
+      )
+    end
+
+    if not_retained_ids.any?
+      CoursesUsers.where(id: not_retained_ids).update_all(
+        retained_after_course: false,
         retained_after_course_checked_at: now,
         updated_at: now
       )

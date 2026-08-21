@@ -13,15 +13,7 @@ namespace :retained_editors do
   task backfill: :environment do
     puts 'Starting historical backfill for retained new editors...'
 
-    eligible_course_ids = CoursesUsers
-                          .joins(:course, :user)
-                          .where(role: CoursesUsers::Roles::STUDENT_ROLE,
-                                 retained_after_course: nil)
-                          .where('courses.end <= ?', 30.days.ago)
-                          .where(courses: { private: false })
-                          .where(NewEditorDateConditions::DURING_PROGRAM)
-                          .distinct
-                          .pluck(:course_id)
+    eligible_course_ids = RetainedEditorCheckWorker.eligible_course_ids
 
     total_courses = eligible_course_ids.size
     puts "Found #{total_courses} historical courses with unchecked new editors."
