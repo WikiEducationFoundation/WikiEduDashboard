@@ -25,6 +25,9 @@ class S3ReportCsvStore
     true
   rescue Aws::S3::Errors::NotFound
     false
+  rescue Aws::S3::Errors::ServiceError => e
+    Sentry.capture_exception(e, extra: { filename: })
+    false
   end
 
   def write(filename, data)

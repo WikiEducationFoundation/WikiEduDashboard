@@ -39,10 +39,12 @@ describe S3ReportCsvStore do
       expect(store.exists?(filename)).to eq(false)
     end
 
-    it 'lets other errors surface' do
+    it 'returns false and logs to sentry if other errors surface' do
       allow(client).to receive(:head_object)
         .and_raise(Aws::S3::Errors::AccessDenied.new(nil, 'Access Denied'))
-      expect { store.exists?(filename) }.to raise_error(Aws::S3::Errors::AccessDenied)
+      expect(Sentry).to receive(:capture_exception)
+        .with(instance_of(Aws::S3::Errors::AccessDenied), extra: { filename: })
+      expect(store.exists?(filename)).to eq(false)
     end
   end
 
