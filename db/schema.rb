@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_19_130000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -359,6 +359,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.string "role_description"
     t.integer "total_uploads"
     t.integer "references_count", default: 0
+    t.boolean "retained_after_course"
+    t.datetime "retained_after_course_checked_at"
     t.index ["course_id", "user_id", "role"], name: "index_courses_users_on_course_id_and_user_id_and_role", unique: true
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
@@ -393,6 +395,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.integer "total_edits", default: 0
     t.integer "new_editors_count", default: 0
     t.integer "new_editors_count_with_preregistration", default: 0
+    t.integer "retained_new_editors_count", default: 0
     t.integer "total_students_count", default: 0
     t.bigint "total_characters_added", default: 0
     t.boolean "active_in_last_year", default: false
@@ -644,6 +647,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.integer "archived_programs_count", default: 0
     t.integer "new_editors_count", default: 0
     t.integer "new_editors_count_with_preregistration", default: 0
+    t.integer "retained_new_editors_count", default: 0
     t.integer "active_facilitators_count", default: 0
     t.bigint "total_characters_added", default: 0
     t.text "wiki_stats"
