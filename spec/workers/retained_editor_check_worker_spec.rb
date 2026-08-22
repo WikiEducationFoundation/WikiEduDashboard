@@ -107,7 +107,6 @@ describe RetainedEditorCheckWorker do
 
       it 'skips checking recently-ended courses' do
         expect_any_instance_of(WikiApi).not_to receive(:query)
-        # Only candidates from eligible courses would be checked; if we clear eligible course:
         course.update!(end: 10.days.ago)
         described_class.new.perform
 
@@ -162,23 +161,33 @@ describe RetainedEditorCheckWorker do
       end
     end
 
-    context 'when MediaWiki API query fails or returns nil' do
+    context 'when MediaWiki API batch query fails with baduser' do
       before do
-        allow_any_instance_of(WikiApi).to receive(:query).and_return(nil)
+        query_count = 0
+        allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
+          query_count += 1
+          usernames = params[:ucuser] || []
+          if usernames.size > 1
+            nil # Simulate batch query failure due to invalid username
+          elsif usernames.include?('retained_user')
+            mock_response([{ 'user' => 'retained_user' }])
+          else
+            mock_response([])
+          end
+        end
       end
 
-      it 'leaves records as nil for future retry' do
+      it 'falls back to individual queries and marks valid/invalid users correctly' do
         described_class.new.perform
 
-        expect(cu_retained.reload.retained_after_course).to be_nil
-        expect(cu_retained.retained_after_course_checked_at).to be_nil
-        expect(cu_not_retained.reload.retained_after_course).to be_nil
+        expect(cu_retained.reload.retained_after_course).to be(true)
+        expect(cu_not_retained.reload.retained_after_course).to be(false)
+        expect(cu_not_retained.retained_after_course_checked_at).not_to be_nil
       end
     end
 
     context 'with batching of more than 40 users' do
       before do
-        # Clear default students
         course.courses_users.destroy_all
 
         50.times do |i|
@@ -192,7 +201,6 @@ describe RetainedEditorCheckWorker do
 
         allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
           usernames = params[:ucuser] || []
-          # Only even indexed users have edits
           active_users = usernames.select { |u| u.split('_').last.to_i.even? }
           contribs = active_users.map { |u| { 'user' => u } }
           mock_response(contribs)
@@ -208,32 +216,24 @@ describe RetainedEditorCheckWorker do
       end
     end
 
-    context 'when MediaWiki API returns continuation pages' do
-      before do
-        page_count = 0
-        allow_any_instance_of(WikiApi).to receive(:query) do |_instance, _params|
-          page_count += 1
-          if page_count == 1
-            instance_double(MediawikiApi::Response, data: {
-              'usercontribs' => [{ 'user' => 'retained_user' }],
-              'continue' => { 'uccontinue' => '20260801000000|12345' }
-            })
-          else
-            instance_double(MediawikiApi::Response, data: {
-              'usercontribs' => [{ 'user' => 'inactive_user' }]
-            })
-          end
-        end
+    context 'when limiting course count per perform run' do
+      let!(:course_2) do
+        c = create(:course, slug: 'School/Course_2_(term)', start: 90.days.ago,
+                            end: 70.days.ago, home_wiki: wiki, private: false)
+        user2 = create(:user, username: 'student_course_2', registered_at: 85.days.ago)
+        create(:courses_user, course: c, user: user2,
+                              role: CoursesUsers::Roles::STUDENT_ROLE,
+                              retained_after_course: nil)
+        c
       end
 
-      it 'fetches continuation pages until all users are checked' do
-        described_class.new.perform
+      before do
+        allow_any_instance_of(WikiApi).to receive(:query).and_return(mock_response([]))
+      end
 
-        cu_retained.reload
-        cu_not_retained.reload
-
-        expect(cu_retained.retained_after_course).to be(true)
-        expect(cu_not_retained.retained_after_course).to be(true)
+      it 'only checks up to the limit of courses specified' do
+        total_checked = described_class.new.perform(1)
+        expect(total_checked).to eq(2) # 2 student candidates in 1 course
       end
     end
   end

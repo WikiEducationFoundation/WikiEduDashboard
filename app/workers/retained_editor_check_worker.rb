@@ -17,12 +17,13 @@ class RetainedEditorCheckWorker
   DAYS_AFTER_END = 7
   OBSERVATION_DAYS = 30
   BATCH_SIZE = 40
+  DEFAULT_PERFORM_LIMIT = 50
 
-  def perform
+  def perform(limit = DEFAULT_PERFORM_LIMIT)
     Rails.logger.info { 'RetainedEditorCheckWorker: starting check for eligible new editors' }
     total_checked = 0
 
-    eligible_course_ids.each do |course_id|
+    eligible_course_ids(limit).each do |course_id|
       course = Course.find_by(id: course_id)
       next unless course
 
@@ -50,21 +51,23 @@ class RetainedEditorCheckWorker
     checked_count
   end
 
-  def self.eligible_course_ids
-    CoursesUsers
+  def self.eligible_course_ids(limit = nil)
+    scope = CoursesUsers
       .joins(:course, :user)
       .where(role: CoursesUsers::Roles::STUDENT_ROLE, retained_after_course: nil)
       .where('courses.end <= ?', OBSERVATION_DAYS.days.ago)
       .where(courses: { private: false })
       .where(NewEditorDateConditions::DURING_PROGRAM)
       .distinct
-      .pluck(:course_id)
+
+    scope = scope.limit(limit) if limit
+    scope.pluck(:course_id)
   end
 
   private
 
-  def eligible_course_ids
-    self.class.eligible_course_ids
+  def eligible_course_ids(limit = nil)
+    self.class.eligible_course_ids(limit)
   end
 
   def eligible_candidates_for_course(course)
@@ -84,46 +87,78 @@ class RetainedEditorCheckWorker
     active_usernames = fetch_active_usernames(usernames, wiki, threshold)
     return 0 if active_usernames.nil?
 
-    now = Time.zone.now
-    retained_ids, not_retained_ids = batch.partition { |cu| active_usernames.include?(cu.username) }
-                                          .map { |group| group.map(&:id) }
-
-    if retained_ids.any?
-      CoursesUsers.where(id: retained_ids).update_all(
-        retained_after_course: true,
-        retained_after_course_checked_at: now,
-        updated_at: now
-      )
-    end
-
-    if not_retained_ids.any?
-      CoursesUsers.where(id: not_retained_ids).update_all(
-        retained_after_course: false,
-        retained_after_course_checked_at: now,
-        updated_at: now
-      )
-    end
-
+    update_batch_retention(batch, active_usernames)
     batch.size
   end
 
+  def update_batch_retention(batch, active_usernames)
+    now = Time.zone.now
+    retained, not_retained = batch.partition { |cu| active_usernames.include?(cu.username) }
+
+    bulk_update(retained.map(&:id), true, now) if retained.any?
+    bulk_update(not_retained.map(&:id), false, now) if not_retained.any?
+  end
+
+  def bulk_update(ids, status, timestamp)
+    CoursesUsers.where(id: ids).update_all(
+      retained_after_course: status,
+      retained_after_course_checked_at: timestamp,
+      updated_at: timestamp
+    )
+  end
+
   def fetch_active_usernames(usernames, wiki, threshold)
+    active_set = fetch_batch_active_usernames(usernames, wiki, threshold)
+    return active_set if active_set
+
+    # Fallback to per-user queries if batch query failed (e.g. invalid username error)
+    fetch_individual_active_usernames(usernames, wiki, threshold)
+  end
+
+  def fetch_batch_active_usernames(usernames, wiki, threshold)
     active_usernames = Set.new
     target_users = usernames.to_set
+    pending = usernames.dup
     continue_param = nil
 
     loop do
-      result = query_usercontribs(usernames, wiki, threshold, continue_param)
+      result = query_usercontribs(pending, wiki, threshold, continue_param)
       return nil unless result
 
       result[:users].each { |u| active_usernames.add(u) }
-      break if active_usernames.superset?(target_users)
+      return active_usernames if active_usernames.superset?(target_users)
 
-      continue_param = result[:continue]
-      break if continue_param.nil?
+      pending, continue_param = next_pending_and_continue(
+        target_users, active_usernames, pending, result
+      )
+      break if batch_complete?(pending, target_users, active_usernames, continue_param)
     end
 
-    active_usernames.to_a
+    active_usernames
+  end
+
+  def batch_complete?(pending, target_users, active_usernames, continue_param)
+    pending.nil? || (pending == (target_users - active_usernames).to_a && continue_param.nil?)
+  end
+
+  def next_pending_and_continue(target_users, active_usernames, pending, result)
+    new_pending = (target_users - active_usernames).to_a
+    return [nil, nil] if new_pending.empty?
+
+    if new_pending.size < pending.size
+      [new_pending, nil]
+    else
+      [pending, result[:continue]]
+    end
+  end
+
+  def fetch_individual_active_usernames(usernames, wiki, threshold)
+    active_usernames = Set.new
+    usernames.each do |username|
+      result = query_usercontribs([username], wiki, threshold, nil)
+      active_usernames.add(username) if result && result[:users].any?
+    end
+    active_usernames
   end
 
   def query_usercontribs(usernames, wiki, threshold, continue_param)
