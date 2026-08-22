@@ -2,8 +2,9 @@ import { Node, mergeAttributes } from '@tiptap/core';
 
 // Allows YouTube <iframe> embeds to survive the editor round-trip. TipTap's
 // schema drops any element it has no node for, which is why embeds were being
-// stripped from Timeline blocks. Restricted to YouTube hosts to avoid allowing
-// arbitrary iframes in user-generated content.
+// stripped from Timeline blocks. Matches are restricted to YouTube embed
+// hosts to keep embed content consistent. Note this is a content-fidelity
+// rule, not a security boundary: source mode passes raw HTML through unparsed.
 const YOUTUBE_HOST = /^https:\/\/(www\.)?(youtube\.com|youtube-nocookie\.com)\/embed\//;
 
 export default Node.create({
@@ -15,10 +16,14 @@ export default Node.create({
   addAttributes() {
     return {
       src: { default: null },
-      width: { default: '560' },
-      height: { default: '315' },
-      frameborder: { default: '0' },
-      allowfullscreen: { default: 'true' },
+      width: { default: null },
+      height: { default: null },
+      frameborder: { default: null },
+      allowfullscreen: { default: null },
+      allow: { default: null },
+      title: { default: null },
+      class: { default: null },
+      referrerpolicy: { default: null },
     };
   },
 
