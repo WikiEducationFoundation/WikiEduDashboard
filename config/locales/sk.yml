@@ -192,6 +192,9 @@ sk:
       all_campaigns: Všetky kampane
       all_wikis: Všetky wiki
       export_csv: Exportovať CSV
+      export_daily_csv: Exportovať CSV s dennými štatistikami
+      course_csv_tab: Exporty na úrovni kurzov
+      daily_stats_tab: Denné snímky systému
       generating: Generuje sa export...
       generation_queued: Váš export CSV sa generuje na pozadí. Skúša sa znova...
       still_processing: Váš export CSV sa stále generuje na pozadí. Skúste to o chvíľu
@@ -2022,6 +2025,7 @@ sk:
     assigned_wikidata: Priradené položky
     assignees: Priradení
     loading_authorship_data: načítavajú sa údaje o autorstve
+    scroll_to_users_edits: Prejsť na ďalšiu úpravu používateľa %{username}
     authorship_data_not_fetched: Nepodarilo sa načítať údaje o autorstve
     character_doc: Celkové množstvo obsahu, ktoré používateľ pridal do tohto menného
       priestoru, vypočítané sčítaním pridaných znakov za všetky úpravy, ktoré zväčšili
@@ -2461,4 +2465,191 @@ sk:
     advanced_search: Rozšírené vyhľadávanie
     clear: Vymazať
     program_date: Dátum programu
+  lms_integration:
+    heading: Prepojenie s %{lms_name}
+    linked_to: 'Kurz:'
+    last_sync: 'Posledná synchronizácia:'
+    last_roster_sync_error: Pri synchronizácii zoznamu študentov nastala chyba.
+    last_sync_error: Posledná chyba synchronizácie
+    roster_students: Zoznam študentov v Canvase
+    connected_accounts: Prepojené
+    never_synced: Zatiaľ nesynchronizované
+    time_ago: pred %{time_ago}
+    my_account_link: 'Váš účet:'
+    linked: Prepojené
+    not_linked: Neprepojené
+    my_last_sync: Posledná synchronizácia
+    no_grades_yet: Zatiaľ nebol synchronizovaný žiadny pokrok
+    not_yet_linked: Váš účet zatiaľ nie je prepojený s Canvasom pre tento kurz.
+  lti:
+    iframe_landing:
+      explanation: Otvoriť dashboard.wikiedu.org na novej karte
+      button: Otvoriť Wiki Education Dashboard
+      not_linked: Tento kurz v Canvase zatiaľ nie je prepojený s Wiki Education Dashboardom.
+        Integráciu nastavíte otvorením Dashboardu.
+    oauth_redirect:
+      title: Pokračuje sa na prihlásenie do Wikipédie…
+      button: Pokračovať
+    setup:
+      header: Nastavte Wiki Education Dashboard pre tento kurz v Canvase
+      link_existing:
+        header: Prepojiť existujúci kurz Wiki Education
+        label: Kurz
+      submit: Prepojiť tento kurz
+      linked_notice: Váš kurz %{lms_course} je prepojený!
+      already_linked: 'Chyba: Tento kurz je už prepojený.'
+      create_prompt: Vytvoriť kurz v Dashboarde
+      create_return_note: Vytváranie kurzu sa otvorí na novej karte. Po vytvorení
+        kurzu v Dashboarde stránku obnovte.
+      no_approved_courses: Integrácia s Canvasom je dostupná až po tom, ako váš kurz
+        schvália zamestnanci Wiki Education.
+      no_courses_yet: Vo Wiki Education Dashboarde zatiaľ nemáte žiadny kurz. Najprv
+        si nejaký vytvorte.
+      link_conflict_error: Pri prepájaní vašich účtov Canvas a Dashboard došlo ku
+        konfliktu. Požiadajte o pomoc zamestnancov Wiki Education.
+      duplicate_link_error: Tento používateľ Canvasu je už prepojený s iným účtom
+        na Wikipédii. Prihláste sa do Dashboardu účtom, ktorý bol prepojený predtým,
+        a potom to spustite znova.
+    deep_link:
+      module_name: Naštudovať a napísať článok na Wikipédii
+      header: Vyberte úlohu pre Wikipédiu
+      header_multiple: Importovať zadania pre Wikipédiu
+      instruction: Vyberte úlohu pre Wikipédiu k tejto hodnotenej položke
+      instruction_multiple: Vyberte, ktoré položky z časovej osi Wiki Education Dashboardu
+        sa majú importovať.
+      submit: Pridať do kurzu
+      all_added: Všetky dostupné položky boli pridané.
+      no_gradables: Nenašli sa žiadne hodnotené položky
+      forbidden_header: Toto môžu robiť iba inštruktori.
+      forbidden_explanation: Import zadaní z Dashboardu je dostupný iba inštruktorom
+        kurzu.
+      unavailable_header: Nedostupné
+      unavailable_explanation: Tieto položky už nie je možné importovať.
+    status:
+      header: Wiki Education Dashboard
+      linked: Prepojené
+      refresh: Obnoviť
+      roster_sync_label: Synchronizácia zoznamu študentov
+      grade_sync_label: Synchronizácia známok
+      sync_grades: Synchronizovať známky
+      grade_sync_started: Synchronizácia známok sa spustila.
+      grade_sync_error: Pri synchronizácii známok nastala chyba.
+      roster_sync_error: Pri synchronizácii zoznamu študentov nastala chyba.
+      import_next_step:
+        header: Importujte zadania pre Wikipédiu z časovej osi Dashboardu
+        instruction: Prejdite do sekcie Moduly, otvorte ponuku ⋮ (možnosti) a vyberte
+          wikiedu.org.
+      publish_next_step:
+        header: Zadania pre Wikipédiu boli importované
+        instruction: Nezabudnite modul zverejniť, ak ste tak ešte neurobili.
+    check_again: Skontrolovať znova
+    student_overview:
+      next_step: Ďalší krok
+      my_articles: Moje články
+      trainings: Školenia
+      exercises: Cvičenia
+      empty: Žiadne aktivity na Wikipédii
+      role:
+        editing: Upravovanie
+        reviewing: Hodnotenie
+    setup_pending:
+      header: Wiki Education Dashboard sa práve nastavuje
+      explanation: Váš inštruktor ešte stále nastavuje zadanie pre Wikipédiu v tomto
+        kurze. Skúste to znova, keď skončí, prípadne sa obráťte na svojho inštruktora.
+    enrollment_error:
+      header: Nepodarilo sa vás zapísať do kurzu Wiki Education
+      explanation: Zápisu niečo zabránilo. Požiadajte o pomoc svojho inštruktora alebo
+        zamestnancov Wiki Education; problém bol zaznamenaný na preskúmanie.
+    launch_error:
+      header: Pri spúšťaní integrácie Dashboardu s Canvasom nastala chyba.
+      explanation: Skúste stránku v Canvase obnoviť. Ak problém pretrváva, obráťte
+        sa na zamestnancov Wiki Education.
+    connect_identity:
+      header: Prepojte svoj účet na Wikipédii s týmto kurzom
+      explanation: Prepojením sa vaša práca na Wikipédii v kurze %{course} bude vykazovať
+        v tomto kurze v Canvase, a to prostredníctvom vášho účtu vo Wiki Education
+        Dashboarde %{username}. Toto prepojenie už neskôr nebude možné zmeniť bez
+        pomoci zamestnancov Wiki Education, preto skontrolujte, či je účet uvedený
+        nižšie ten, ktorý chcete použiť.
+      canvas_course: Kurz v Canvase
+      dashboard_account: Účet na Wikipédii
+      confirm: Prepojiť tento účet
+      wrong_account: Použiť iný účet
+    identity:
+      signed_in_as: 'Účet na Wikipédii: %{username}'
+      no_account: Zatiaľ nie je prepojený žiadny účet na Wikipédii
+    enrollment_pending_approval:
+      header: Tento kurz čaká na schválenie zo strany Wiki Education
+      explanation: Váš inštruktor tento kurz Wiki Education nastavil, ale zamestnanci
+        Wiki Education ho ešte posudzujú. Po schválení (zvyčajne do niekoľkých dní)
+        sa vráťte na túto kartu v Canvase a budete zapísaní automaticky.
+      contact_hint: Ak máte otázky, obráťte sa na svojho inštruktora alebo na zamestnancov
+        Wiki Education.
+    assignment_view:
+      status:
+        completed: Dokončené
+        in_progress: Prebieha
+        not_started: Nezačaté
+        connected: Prepojené
+        not_connected: Neprepojené
+        removed_in_lms: Nezapísaný v Canvase
+      open_on_wikipedia: Otvoriť na Wikipédii
+      show: Zobraziť
+      hide: Skryť
+      sandbox_preview:
+        loading: …
+        not_found: Nenašlo sa žiadne pieskovisko
+        error: Pieskovisko sa nepodarilo načítať
+      roster:
+        student: Študent
+        username: Používateľské meno
+        status: Stav
+        sandbox: Pieskovisko
+        empty: Zatiaľ si žiadni študenti neprepojili účty na Wikipédii.
+        assigned_article: Zadaný článok
+      no_article_yet: Zatiaľ nie je vybraný žiadny článok
+      article_work:
+        header: Práca na článku
+        not_created: Tento článok na Wikipédii zatiaľ neexistuje.
+        created: Začaté
+        not_created_yet: Nezačaté
+        characters: Pridané znaky
+        references: Pridané referencie
+        revisions: Úpravy
+        pages:
+          bibliography: Bibliografia
+          outline: Osnova
+          draft: Pieskovisko s konceptom
+      student:
+        your_sandbox: Vaše pieskovisko
+        your_article: Váš článok
+        open_exercise: Otvoriť cvičenie
+        launch_instructions: Pokyny na spustenie
+      setup:
+        summary: Účet na Wikipédii si prepojilo %{connected} z %{total}.
+        empty: Synchronizácia zoznamu študentov čaká na spracovanie. Skúste to o chvíľu
+          znova.
+        pending: 'Počet študentov, ktorí si zatiaľ neprepojili účet na Wikipédii:
+          %{count}.'
+      trainings:
+        progress: 'Dokončených školení: %{completed} z %{total}'
+        module: Školenie
+        due_date: Termín
+        covered: Školenia v tomto kurze
+        module_completion: Dokončilo %{completed} z %{total} študentov
+      peer_review:
+        progress: 'Dokončených partnerských hodnotení: %{completed} z %{total}'
+        article: Článok na hodnotenie
+        review_page: Stránka hodnotenia
+        reviews: Zadané hodnotenia
+        your_reviews: Vaše partnerské hodnotenia
+        none_yet: Zatiaľ nebolo nič zadané
+        none_assigned: Zatiaľ vám neboli zadané žiadne partnerské hodnotenia.
+      orphan:
+        explanation: K tomuto zadaniu nie je možné zobraziť žiadny obsah z Dashboardu.
+      submission:
+        explanation: K tomuto odovzdaniu nie je možné zobraziť žiadnu prácu študenta.
+        open_dashboard: Otvoriť Wiki Education Dashboard
+        viewing: Zobrazuje sa práca používateľa %{username}
+        details: Otvoriť podrobnosti o študentovi
 ...
