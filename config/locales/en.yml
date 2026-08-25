@@ -1573,6 +1573,9 @@ en:
     purpose: Purpose
     queues_overview: Queues Overview
     queue: Queue
+    report_csv: Report CSV generation
+    report_csv_description: Specific queue for generating user-requested CSV reports.
+    report_csv_doc: Handles user-requested CSV reports.
     short_update: Short update
     short_update_description: Short updates process courses with fewer than 1,000 revisions.
     short_update_doc: Handles updates for small courses.
