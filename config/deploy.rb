@@ -148,6 +148,7 @@ namespace :deploy do
       'sidekiq-long', # data updates for long-running courses, which may have long queue latency
       'sidekiq-daily', # once-daily long-running data update tasks
       'sidekiq-constant', # frequently-run tasks like adding courses to the update queues
+      'sidekiq-report-csv', # user-requested CSV reports
     ]
   end
   set :sidekiq_roles, -> { :app }
