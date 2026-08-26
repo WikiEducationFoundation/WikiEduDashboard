@@ -271,7 +271,7 @@ describe AiEditAlert do
         expect(sandbox_alert_email.body.encoded).to include('drafted for Wikipedia in the course')
         expect(sandbox_advice_email.to).to contain_exactly('instructor@example.com',
                                                             'wiki_expert@example.com')
-        expect(sandbox_advice_email.body.encoded).to include("student's sandbox")
+        expect(sandbox_advice_email.body.encoded).to include('into their sandbox page')
       end
     end
 
