@@ -61,6 +61,13 @@
 # the student side off. Each experiment gets its own setting.
   fall_2026_research_student_optin: 'false'
 
+# Shared secret for announcing Fall 2026 experiment opt-ins to the study's
+# data collection server (see WickieApi); the value comes from the research
+# team and must match the server's WICKIE_ENROLL_SECRET. When left unset, no
+# enrollment notifications are sent at all — set it only on the environment
+# that is meant to feed the real study cohort.
+# wickie_enroll_secret: ''
+
 # Projects with automatic edits enabled, add as edit_<language>.<project_url>
 # edit_en.wikipedia.org: "true"
 

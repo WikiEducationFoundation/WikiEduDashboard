@@ -99,6 +99,11 @@ class OptInExperiment
     :opted_out
   end
 
+  # Announce a confirmed opt-in to the experiment's external data collection
+  # server, if it has one. Called asynchronously (ExperimentEnrollmentWorker)
+  # after the student opts in; must be safe to retry.
+  def report_enrollment(_experiment_courses_user); end
+
   private
 
   def upsert_participation(courses_user, status)

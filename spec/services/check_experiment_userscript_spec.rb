@@ -41,6 +41,12 @@ describe CheckExperimentUserscript do
     expect(described_class.new(record, experiment).status).to eq(:installed)
   end
 
+  it 'still counts the script as installed when the title uses spaces for underscores' do
+    spaced_title = Fall2026ResearchExperiment::USERSCRIPT_PAGE.tr('_', ' ')
+    stub_common_js "importScript('#{spaced_title}');\n"
+    expect(described_class.new(record, experiment).status).to eq(:installed)
+  end
+
   it 'leaves an existing install timestamp untouched' do
     record.update!(userscript_installed_at: 3.days.ago)
     stub_common_js "#{experiment.userscript_import_line}\n"

@@ -41,10 +41,14 @@ class CheckExperimentUserscript
   end
 
   # Matched on the imported script's page title rather than the whole import
-  # line, so a student who retypes it with different quoting or spacing still
-  # counts as installed.
+  # line, with underscores and spaces treated as equivalent (as MediaWiki
+  # treats them in titles), so a student who retypes it with different quoting,
+  # spacing, or title form still counts as installed.
   def installed?
-    fetch_common_js&.include?(@experiment.userscript_marker) || false
+    content = fetch_common_js
+    return false unless content
+
+    content.tr('_', ' ').include?(@experiment.userscript_marker.tr('_', ' '))
   end
 
   def record_install

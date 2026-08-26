@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/experiments/opt_in_experiment"
+require_dependency "#{Rails.root}/lib/experiments/wickie_api"
 
 # The Fall 2026 research study ("Ribeiro experiment").
 #
@@ -14,7 +15,7 @@ class Fall2026ResearchExperiment < OptInExperiment
   # The userscript students install. As a user JS page it is editable only by its
   # owner and interface admins, so the code participants run cannot be altered by
   # anyone else.
-  USERSCRIPT_PAGE = 'User:Sage_(Wiki_Ed)/fall2026experiment.js'
+  USERSCRIPT_PAGE = 'User:Sage_(Wiki_Ed)/wickie.js'
 
   USERSCRIPT_IMPORT_LINE = "importScript('#{USERSCRIPT_PAGE}');"
 
@@ -60,6 +61,20 @@ class Fall2026ResearchExperiment < OptInExperiment
   # invited yet.
   def student_invitations_open?
     Features.fall_2026_research_student_optin?
+  end
+
+  # The study's data collection server must learn of each enrollment before the
+  # student's userscript first runs: the script asks the server whether its user
+  # is a participant, and stays inert for anyone it doesn't recognize.
+  def handle_student_opt_in(courses_user)
+    record = super
+    ExperimentEnrollmentWorker.schedule(record)
+    record
+  end
+
+  def report_enrollment(experiment_courses_user)
+    WickieApi.new.enroll(username: experiment_courses_user.user.username,
+                         course_slug: experiment_courses_user.course.slug)
   end
 
   def userscript_import_line
