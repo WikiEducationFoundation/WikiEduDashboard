@@ -81,6 +81,13 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(content)
   end
 
+  # Full viewport, as the student actually sees the page (unlike shoot_element,
+  # which clips to one element after growing the viewport to fit it).
+  def shoot_page(name)
+    sleep 0.6
+    page.save_screenshot(screenshot_dir.join("#{name}.png").to_s)
+  end
+
   it 'captures the instructor wizard opt-in panel' do
     TrainingModule.load_all
     stub_oauth_edit
@@ -127,9 +134,50 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     expect(page).to have_css('.experiment-opt-in__snippet')
     shoot_element('.experiment-opt-in__panel', '03_student_install')
 
+    click_button 'Copy'
+    expect(page).to have_button('Copied!')
+    shoot_element('.experiment-opt-in__panel', '03b_student_install_copied')
+
     # common.js still lacks the line, so the re-check reports it as missing.
     click_button 'Verify experiment script'
     expect(page).to have_css('.experiment-opt-in__not-found')
     shoot_element('.experiment-opt-in__panel', '04_student_install_not_found')
+  end
+
+  it 'captures the consent modal in context, over the course overview' do
+    join_participating_course
+    visit "/courses/#{course.slug}"
+    expect(page).to have_css('.experiment-opt-in__panel')
+    shoot_page('02b_student_consent_in_context')
+  end
+
+  it 'captures the cleared course page once the script is verified on-wiki' do
+    join_participating_course
+    stub_common_js ''
+    visit "/courses/#{course.slug}"
+    expect(page).to have_css('.experiment-opt-in__panel')
+    click_button 'I consent'
+    expect(page).to have_css('.experiment-opt-in__snippet')
+
+    # The student has now saved the import line to their common.js, so the
+    # re-check finds it and the modal closes for good.
+    stub_common_js "#{experiment.userscript_import_line}\n"
+    click_button 'Verify experiment script'
+    expect(page).to have_no_css('.experiment-opt-in__panel')
+    shoot_page('05_student_verified_done')
+  end
+
+  it 'captures the course page after the student declines' do
+    join_participating_course
+    visit "/courses/#{course.slug}"
+    expect(page).to have_css('.experiment-opt-in__panel')
+    click_button 'No'
+    expect(page).to have_no_css('.experiment-opt-in__panel')
+    shoot_page('06_student_opted_out')
+
+    # The choice is durable: a return visit shows no invitation.
+    visit "/courses/#{course.slug}"
+    expect(page).to have_content(course.title)
+    expect(page).to have_no_css('.experiment-opt-in__panel')
   end
 end

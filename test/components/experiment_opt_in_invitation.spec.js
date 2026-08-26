@@ -88,6 +88,8 @@ describe('ExperimentOptInInvitation', () => {
     install_title: 'Install the tool',
     install_message: 'Paste this line into your common.js.',
     install_button: 'Open my common.js',
+    install_copy_button: 'Copy it',
+    install_copied: 'On your clipboard',
     install_verify_button: "I've saved it",
     install_not_found: 'Not found yet.'
   };
@@ -113,6 +115,26 @@ describe('ExperimentOptInInvitation', () => {
     expect(container.textContent).toContain('Paste this line into your common.js.');
     const link = container.querySelector('.experiment-opt-in__actions a');
     expect(link.getAttribute('href')).toContain('action=edit');
+  });
+
+  it('copies the import line to the clipboard and says so', async () => {
+    const importLine = "importScript('User:Sage_(Wiki_Ed)/wickie.js');";
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: importLine
+    }));
+    const writeText = jest.fn().mockResolvedValue();
+    global.navigator.clipboard = { writeText };
+
+    const container = await renderComponent(eligibleCourse, student);
+    const copyButton = container.querySelector('.experiment-opt-in__copy-button');
+    expect(copyButton.textContent).toEqual('Copy it');
+    await act(async () => { copyButton.click(); });
+    await flush();
+
+    expect(writeText).toHaveBeenCalledWith(importLine);
+    expect(copyButton.textContent).toEqual('On your clipboard');
+    delete global.navigator.clipboard;
   });
 
   it('closes for good once a re-check finds the script installed', async () => {

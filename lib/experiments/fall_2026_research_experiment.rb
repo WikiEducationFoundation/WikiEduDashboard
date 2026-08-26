@@ -41,6 +41,8 @@ class Fall2026ResearchExperiment < OptInExperiment
       To enable the experiment, copy the line below, click 'Install script', paste it to your common.js page, then "Publish changes".
     INSTALL
     install_button: 'Install script',
+    install_copy_button: 'Copy',
+    install_copied: 'Copied!',
     install_verify_button: 'Verify experiment script',
     install_not_found: "We couldn't find the expected experiment script installed on your account."
   }.freeze
