@@ -10,7 +10,7 @@ if (typeof I18n !== 'undefined') {
   I18n.translations.en = I18n.translations.en || {};
   I18n.translations.en.courses = I18n.translations.en.courses || {};
   I18n.translations.en.courses.controlled_by_event_center = 'Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.';
-  I18n.translations.en.courses.go_to_event_center = 'Go to Event Center to Register';
+  I18n.translations.en.courses.go_to_event_center = 'Go to Event Center to register';
 }
 
 const React = require('react');
@@ -48,7 +48,7 @@ describe('EnrollCard', () => {
     expect(link).not.toBeNull();
     expect(link.getAttribute('href')).toBe('https://meta.wikimedia.org/wiki/Special:EventDetails/98765');
     expect(link.getAttribute('target')).toBe('_blank');
-    expect(link.textContent).toContain('Go to Event Center to Register');
+    expect(link.textContent).toContain('Go to Event Center to register');
 
     document.body.removeChild(container);
   });
