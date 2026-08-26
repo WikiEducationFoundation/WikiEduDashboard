@@ -104,7 +104,47 @@ class OptInExperiment
   # after the student opts in; must be safe to retry.
   def report_enrollment(_experiment_courses_user); end
 
+  # Copy for the standalone instructor opt-in page reached from invitation
+  # emails (Experiments::InstructorOptInController). Lives here for the same
+  # reason as student_invitation_copy. Returns a hash with keys: :title,
+  # :description, :opt_in_label, :opt_out_label, :course_list_intro,
+  # :opted_in_flash, :opted_out_flash, :no_courses.
+  def instructor_invitation_copy
+    raise NotImplementedError
+  end
+
+  def eligible_instructed_courses(user)
+    user.instructed_courses.select { |course| eligible_course?(course) }
+  end
+
+  # The instructor's recorded choice for one course: :opted_in, :opted_out, or
+  # nil when they have not chosen yet.
+  def course_choice(course)
+    return :opted_in if course.tag?(opted_in_tag)
+    return :opted_out if course.tag?(opted_out_tag)
+    nil
+  end
+
+  # An instructor's choice from the standalone page applies to all their
+  # eligible courses at once, overwriting any earlier wizard choice: the tag
+  # upsert mirrors WizardTimelineManager#add_tags' exclusive-key semantics, so
+  # the two entry points remain interchangeable and the latest explicit choice
+  # always wins.
+  def handle_instructor_opt_in(user)
+    tag_instructed_courses(user, opted_in_tag)
+  end
+
+  def handle_instructor_opt_out(user)
+    tag_instructed_courses(user, opted_out_tag)
+  end
+
   private
+
+  def tag_instructed_courses(user, value)
+    eligible_instructed_courses(user).each do |course|
+      Tag.find_or_initialize_by(course:, key: tag_key).update!(tag: value)
+    end
+  end
 
   def upsert_participation(courses_user, status)
     record = ExperimentCoursesUser.find_or_initialize_by(

@@ -167,6 +167,27 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     shoot_page('05_student_verified_done')
   end
 
+  it 'captures the instructor email-link opt-in page, before and after opting in' do
+    create(:courses_user, user: instructor, course:,
+                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    second_course = create(:course, title: 'Media Literacy',
+                                    school: 'Northwestern University',
+                                    slug: 'Northwestern_University/Media_Literacy_(Fall_2026)',
+                                    start: Date.new(2026, 9, 1), end: Date.new(2026, 12, 15))
+    create(:courses_user, user: instructor, course: second_course,
+                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    create(:tag, course: second_course, key: experiment.tag_key, tag: experiment.opted_out_tag)
+    login_as(instructor, scope: :user)
+
+    visit "/experiments/#{experiment.slug}/instructor_optin"
+    expect(page).to have_content('research experiment')
+    shoot_page('07_instructor_email_link_page')
+
+    click_button 'Yes, my class will participate'
+    expect(page).to have_content('Thank you!')
+    shoot_page('08_instructor_email_link_opted_in')
+  end
+
   it 'captures the course page after the student declines' do
     join_participating_course
     visit "/courses/#{course.slug}"

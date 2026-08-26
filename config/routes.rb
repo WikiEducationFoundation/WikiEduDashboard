@@ -572,6 +572,13 @@ Rails.application.routes.draw do
     get 'courses/:course_id/invitation' => 'opt_in#show'
     post ':experiment_slug/courses/:course_id/opt_in' => 'opt_in#opt_in'
     post ':experiment_slug/courses/:course_id/opt_out' => 'opt_in#opt_out'
+
+    # Standalone instructor opt-in page, reached from invitation emails sent to
+    # instructors whose courses never went through the assignment wizard. The
+    # instructor's choice applies to all their eligible courses at once.
+    get ':experiment_slug/instructor_optin' => 'instructor_opt_in#show'
+    post ':experiment_slug/instructor_optin/opt_in' => 'instructor_opt_in#opt_in'
+    post ':experiment_slug/instructor_optin/opt_out' => 'instructor_opt_in#opt_out'
   end
 
   resources :admin

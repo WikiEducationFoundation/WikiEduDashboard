@@ -141,6 +141,21 @@ describe Fall2026ResearchExperiment do
     end
   end
 
+  describe '#instructor_invitation_copy' do
+    let(:wizard_panel) do
+      YAML.safe_load(File.read("#{Rails.root}/config/wizard/researchwrite/wizard.yml"))
+          .find { |panel| panel['key'] == 'fall_2026_research_optin' }
+    end
+
+    it 'reuses the wizard panel title, description and option labels verbatim' do
+      copy = experiment.instructor_invitation_copy
+      expect(copy[:title]).to eq(wizard_panel['title'])
+      expect(copy[:description]).to eq(wizard_panel['description'])
+      expect(wizard_panel['options'].map { |option| option['title'] })
+        .to contain_exactly(copy[:opt_in_label], copy[:opt_out_label])
+    end
+  end
+
   describe '#userscript_marker' do
     it 'is contained in the import line, so a saved line is detected' do
       expect(experiment.userscript_import_line).to include(experiment.userscript_marker)

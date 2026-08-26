@@ -47,8 +47,34 @@ class Fall2026ResearchExperiment < OptInExperiment
     install_not_found: "We couldn't find the expected experiment script installed on your account."
   }.freeze
 
+  # The assignment wizard panel that presents this experiment to instructors.
+  # The standalone instructor opt-in page (reached from invitation emails)
+  # reuses its title, description, and option labels so the two entry points
+  # cannot drift apart.
+  WIZARD_PANEL = YAML.safe_load(
+    File.read("#{Rails.root}/config/wizard/researchwrite/wizard.yml")
+  ).find { |panel| panel['key'] == 'fall_2026_research_optin' }.freeze
+
+  INSTRUCTOR_INVITATION_COPY = {
+    title: WIZARD_PANEL['title'],
+    description: WIZARD_PANEL['description'],
+    opt_in_label: WIZARD_PANEL['options']
+      .find { |option| option['tag'] == "#{SLUG}_opted_in" }['title'],
+    opt_out_label: WIZARD_PANEL['options']
+      .find { |option| option['tag'] == "#{SLUG}_opted_out" }['title'],
+    course_list_intro: 'Your choice will apply to all of your Fall 2026 courses:',
+    opted_in_flash: 'Thank you! Your Fall 2026 courses are opted in to the research experiment.',
+    opted_out_flash: 'You have opted out. No experiment invitations will be shown ' \
+                     'to your students.',
+    no_courses: "You don't have any Fall 2026 courses that are eligible for this experiment."
+  }.freeze
+
   def slug
     SLUG
+  end
+
+  def instructor_invitation_copy
+    INSTRUCTOR_INVITATION_COPY
   end
 
   def eligible_course?(course)
