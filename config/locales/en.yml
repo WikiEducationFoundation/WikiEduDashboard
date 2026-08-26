@@ -837,6 +837,9 @@ en:
       If enabled, the dashboard will post a template to the userpage and talk page of
       each editor who joins the program.
     event_sync: "Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event's integration."
+    event_center_link: Event Center Page
+    view_event_center_page: View page
+    go_to_event_center: Go to Event Center to register
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
