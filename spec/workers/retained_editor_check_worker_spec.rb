@@ -47,8 +47,10 @@ describe RetainedEditorCheckWorker do
            retained_after_course: nil)
   end
 
-  def mock_response(contribs)
-    instance_double(MediawikiApi::Response, data: { 'usercontribs' => contribs })
+  def mock_response(contribs, continue: nil)
+    data = { 'usercontribs' => contribs }
+    data['continue'] = continue if continue
+    instance_double(MediawikiApi::Response, data: data)
   end
 
   before do
@@ -61,7 +63,9 @@ describe RetainedEditorCheckWorker do
         allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
           usernames = params[:ucuser] || []
           contribs = []
-          contribs << { 'user' => 'retained_user' } if usernames.include?('retained_user')
+          if usernames.include?('retained_user')
+            contribs << { 'user' => 'retained_user' }
+          end
           mock_response(contribs)
         end
       end
@@ -116,7 +120,8 @@ describe RetainedEditorCheckWorker do
 
     context 'when student registered before the course started (not a new editor)' do
       let(:old_account_student) do
-        create(:user, username: 'old_account_user', registered_at: 200.days.ago)
+        create(:user, username: 'old_account_user',
+                      registered_at: 200.days.ago)
       end
       let!(:cu_old_account) do
         create(:courses_user,
@@ -127,7 +132,8 @@ describe RetainedEditorCheckWorker do
       end
 
       it 'does not check or update non-new editors' do
-        allow_any_instance_of(WikiApi).to receive(:query).and_return(mock_response([]))
+        allow_any_instance_of(WikiApi)
+          .to receive(:query).and_return(mock_response([]))
         described_class.new.perform
 
         expect(cu_old_account.reload.retained_after_course).to be_nil
@@ -151,8 +157,10 @@ describe RetainedEditorCheckWorker do
       before do
         cu_retained.update!(retained_after_course: true,
                             retained_after_course_checked_at: 1.day.ago)
-        cu_not_retained.update!(retained_after_course: false,
-                                retained_after_course_checked_at: 1.day.ago)
+        cu_not_retained.update!(
+          retained_after_course: false,
+          retained_after_course_checked_at: 1.day.ago
+        )
       end
 
       it 'does not re-query already checked records' do
@@ -163,12 +171,11 @@ describe RetainedEditorCheckWorker do
 
     context 'when MediaWiki API batch query fails with baduser' do
       before do
-        query_count = 0
-        allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
-          query_count += 1
+        allow_any_instance_of(WikiApi)
+          .to receive(:query) do |_instance, params|
           usernames = params[:ucuser] || []
           if usernames.size > 1
-            nil # Simulate batch query failure due to invalid username
+            nil # Simulate batch failure due to invalid username
           elsif usernames.include?('retained_user')
             mock_response([{ 'user' => 'retained_user' }])
           else
@@ -177,12 +184,123 @@ describe RetainedEditorCheckWorker do
         end
       end
 
-      it 'falls back to individual queries and marks valid/invalid users correctly' do
+      it 'falls back to individual queries and marks users correctly' do
         described_class.new.perform
 
         expect(cu_retained.reload.retained_after_course).to be(true)
         expect(cu_not_retained.reload.retained_after_course).to be(false)
-        expect(cu_not_retained.retained_after_course_checked_at).not_to be_nil
+        expect(cu_not_retained.retained_after_course_checked_at)
+          .not_to be_nil
+      end
+    end
+
+    context 'when narrowed re-query finds a user beyond page 1' do
+      # Issue A fix: when a prolific editor fills page 1, the narrowed
+      # re-query for remaining users must actually fire.
+      before do
+        allow_any_instance_of(WikiApi)
+          .to receive(:query) do |_instance, params|
+          usernames = params[:ucuser] || []
+          if usernames.sort == %w[inactive_user retained_user]
+            # Page 1: only the prolific user's edits, with a continue token
+            mock_response(
+              [{ 'user' => 'retained_user' }],
+              continue: { 'uccontinue' => 'actor|1|20260101|123' }
+            )
+          elsif usernames == ['inactive_user']
+            # Narrowed re-query: finds the second user's edits
+            mock_response([{ 'user' => 'inactive_user' }])
+          else
+            mock_response([])
+          end
+        end
+      end
+
+      it 're-queries with narrowed list and correctly marks both users' do
+        described_class.new.perform
+
+        expect(cu_retained.reload.retained_after_course).to be(true)
+        expect(cu_not_retained.reload.retained_after_course).to be(true)
+      end
+    end
+
+    context 'when continuation pages are followed for same pending set' do
+      # Multi-page: a user's edits span beyond page 1 and the second
+      # page reveals them.
+      before do
+        call_count = 0
+        allow_any_instance_of(WikiApi)
+          .to receive(:query) do |_instance, _params|
+          call_count += 1
+          if call_count == 1
+            # Page 1: no matching users yet, but more pages
+            mock_response(
+              [],
+              continue: { 'uccontinue' => 'actor|1|20260101|456' }
+            )
+          else
+            # Page 2: finds the retained user
+            mock_response([{ 'user' => 'retained_user' }])
+          end
+        end
+      end
+
+      it 'follows continue tokens and finds users on later pages' do
+        described_class.new.perform
+
+        expect(cu_retained.reload.retained_after_course).to be(true)
+        expect(cu_not_retained.reload.retained_after_course).to be(false)
+      end
+    end
+
+    context 'when transient API failure occurs during individual queries' do
+      # All queries fail (API outage) — leave everything nil for retry.
+      before do
+        allow_any_instance_of(WikiApi)
+          .to receive(:query).and_return(nil)
+      end
+
+      it 'leaves records fully nil for future retry' do
+        described_class.new.perform
+
+        cu_retained.reload
+        cu_not_retained.reload
+        expect(cu_retained.retained_after_course).to be_nil
+        expect(cu_retained.retained_after_course_checked_at).to be_nil
+        expect(cu_not_retained.retained_after_course).to be_nil
+        expect(cu_not_retained.retained_after_course_checked_at).to be_nil
+        expect(described_class.eligible_course_ids).to include(course.id)
+      end
+    end
+
+    context 'when partial API failure in individual fallback' do
+      # One user's query succeeds, another's fails. The failed user gets
+      # checked_at set (stops retries) but retained_after_course stays nil.
+      before do
+        allow_any_instance_of(WikiApi)
+          .to receive(:query) do |_instance, params|
+          usernames = params[:ucuser] || []
+          if usernames.size > 1
+            nil # batch fails
+          elsif usernames.include?('retained_user')
+            mock_response([{ 'user' => 'retained_user' }])
+          else
+            nil # permanent error for inactive_user
+          end
+        end
+      end
+
+      it 'sets checked_at for failed user but leaves status nil' do
+        described_class.new.perform
+
+        cu_retained.reload
+        cu_not_retained.reload
+        expect(cu_retained.retained_after_course).to be(true)
+        expect(cu_not_retained.retained_after_course).to be_nil
+        expect(cu_not_retained.retained_after_course_checked_at)
+          .not_to be_nil
+        # Course no longer eligible since all candidates have checked_at
+        expect(described_class.eligible_course_ids).not_to include(course.id)
       end
     end
 
@@ -191,7 +309,8 @@ describe RetainedEditorCheckWorker do
         course.courses_users.destroy_all
 
         50.times do |i|
-          user = create(:user, username: "student_batch_#{i}", registered_at: 80.days.ago)
+          user = create(:user, username: "student_batch_#{i}",
+                               registered_at: 80.days.ago)
           create(:courses_user,
                  course: course,
                  user: user,
@@ -199,10 +318,11 @@ describe RetainedEditorCheckWorker do
                  retained_after_course: nil)
         end
 
-        allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
+        allow_any_instance_of(WikiApi)
+          .to receive(:query) do |_instance, params|
           usernames = params[:ucuser] || []
-          active_users = usernames.select { |u| u.split('_').last.to_i.even? }
-          contribs = active_users.map { |u| { 'user' => u } }
+          active = usernames.select { |u| u.split('_').last.to_i.even? }
+          contribs = active.map { |u| { 'user' => u } }
           mock_response(contribs)
         end
       end
@@ -210,17 +330,28 @@ describe RetainedEditorCheckWorker do
       it 'processes all batches and correctly updates records' do
         described_class.new.perform
 
-        expect(course.courses_users.where(retained_after_course: true).count).to eq(25)
-        expect(course.courses_users.where(retained_after_course: false).count).to eq(25)
-        expect(course.courses_users.where(retained_after_course: nil).count).to eq(0)
+        retained = course.courses_users
+                         .where(retained_after_course: true).count
+        not_retained = course.courses_users
+                             .where(retained_after_course: false).count
+        unchecked = course.courses_users
+                          .where(retained_after_course: nil).count
+        expect(retained).to eq(25)
+        expect(not_retained).to eq(25)
+        expect(unchecked).to eq(0)
       end
     end
 
     context 'when limiting course count per perform run' do
       let!(:course_2) do
-        c = create(:course, slug: 'School/Course_2_(term)', start: 90.days.ago,
-                            end: 70.days.ago, home_wiki: wiki, private: false)
-        user2 = create(:user, username: 'student_course_2', registered_at: 85.days.ago)
+        c = create(:course,
+                   slug: 'School/Course_2_(term)',
+                   start: 90.days.ago,
+                   end: 70.days.ago,
+                   home_wiki: wiki,
+                   private: false)
+        user2 = create(:user, username: 'student_course_2',
+                              registered_at: 85.days.ago)
         create(:courses_user, course: c, user: user2,
                               role: CoursesUsers::Roles::STUDENT_ROLE,
                               retained_after_course: nil)
@@ -228,7 +359,8 @@ describe RetainedEditorCheckWorker do
       end
 
       before do
-        allow_any_instance_of(WikiApi).to receive(:query).and_return(mock_response([]))
+        allow_any_instance_of(WikiApi)
+          .to receive(:query).and_return(mock_response([]))
       end
 
       it 'only checks up to the limit of courses specified' do

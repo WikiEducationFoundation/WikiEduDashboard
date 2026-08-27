@@ -23,7 +23,7 @@ class RetainedEditorCheckWorker
     Rails.logger.info { 'RetainedEditorCheckWorker: starting check for eligible new editors' }
     total_checked = 0
 
-    eligible_course_ids(limit).each do |course_id|
+    self.class.eligible_course_ids(limit).each do |course_id|
       course = Course.find_by(id: course_id)
       next unless course
 
@@ -52,23 +52,22 @@ class RetainedEditorCheckWorker
   end
 
   def self.eligible_course_ids(limit = nil)
-    scope = CoursesUsers
+    ids = CoursesUsers
       .joins(:course, :user)
-      .where(role: CoursesUsers::Roles::STUDENT_ROLE, retained_after_course: nil)
+      .where(role: CoursesUsers::Roles::STUDENT_ROLE,
+             retained_after_course_checked_at: nil)
       .where('courses.end <= ?', OBSERVATION_DAYS.days.ago)
       .where(courses: { private: false })
       .where(NewEditorDateConditions::DURING_PROGRAM)
       .distinct
+      .pluck(:course_id)
 
-    scope = scope.limit(limit) if limit
-    scope.pluck(:course_id)
+    ordered = Course.where(id: ids).order(:end)
+    ordered = ordered.limit(limit) if limit
+    ordered.pluck(:id)
   end
 
   private
-
-  def eligible_course_ids(limit = nil)
-    self.class.eligible_course_ids(limit)
-  end
 
   def eligible_candidates_for_course(course)
     CoursesUsers
@@ -76,42 +75,41 @@ class RetainedEditorCheckWorker
       .where(
         course_id: course.id,
         role: CoursesUsers::Roles::STUDENT_ROLE,
-        retained_after_course: nil
+        retained_after_course_checked_at: nil
       )
       .where('users.registered_at >= ? AND users.registered_at <= ?', course.start, course.end)
       .select('courses_users.id, courses_users.user_id, users.username')
   end
 
   def process_batch(batch, wiki, threshold)
-    usernames = batch.map(&:username)
-    active_usernames = fetch_active_usernames(usernames, wiki, threshold)
-    return 0 if active_usernames.nil?
-
-    update_batch_retention(batch, active_usernames)
+    result = fetch_active_usernames(batch.map(&:username), wiki, threshold)
+    return 0 if result.nil?
+    active, queried = result
+    update_batch_retention(batch, active, queried)
+    # Mark unverifiable users (permanent API failures) as checked but nil status
+    unverifiable = batch.reject { |cu| queried.include?(cu.username) }
+    bulk_update(unverifiable.map(&:id), nil, Time.zone.now) if unverifiable.any?
     batch.size
   end
 
-  def update_batch_retention(batch, active_usernames)
+  def update_batch_retention(batch, active_usernames, queried_usernames)
     now = Time.zone.now
-    retained, not_retained = batch.partition { |cu| active_usernames.include?(cu.username) }
-
+    queryable = batch.select { |cu| queried_usernames.include?(cu.username) }
+    retained, not_retained = queryable.partition { |cu| active_usernames.include?(cu.username) }
     bulk_update(retained.map(&:id), true, now) if retained.any?
     bulk_update(not_retained.map(&:id), false, now) if not_retained.any?
   end
 
   def bulk_update(ids, status, timestamp)
-    CoursesUsers.where(id: ids).update_all(
-      retained_after_course: status,
-      retained_after_course_checked_at: timestamp,
-      updated_at: timestamp
-    )
+    attrs = { retained_after_course_checked_at: timestamp, updated_at: timestamp }
+    attrs[:retained_after_course] = status unless status.nil?
+    CoursesUsers.where(id: ids).update_all(attrs)
   end
 
   def fetch_active_usernames(usernames, wiki, threshold)
-    active_set = fetch_batch_active_usernames(usernames, wiki, threshold)
-    return active_set if active_set
-
-    # Fallback to per-user queries if batch query failed (e.g. invalid username error)
+    result = fetch_batch_active_usernames(usernames, wiki, threshold)
+    return result if result
+    # Batch failed (e.g. invalid username) — fall back to per-user queries
     fetch_individual_active_usernames(usernames, wiki, threshold)
   end
 
@@ -126,39 +124,40 @@ class RetainedEditorCheckWorker
       return nil unless result
 
       result[:users].each { |u| active_usernames.add(u) }
-      return active_usernames if active_usernames.superset?(target_users)
+      break if active_usernames.superset?(target_users)
 
-      pending, continue_param = next_pending_and_continue(
+      pending, continue_param = next_page_params(
         target_users, active_usernames, pending, result
       )
-      break if batch_complete?(pending, target_users, active_usernames, continue_param)
+      break unless pending
     end
 
-    active_usernames
+    [active_usernames, target_users]
   end
 
-  def batch_complete?(pending, target_users, active_usernames, continue_param)
-    pending.nil? || (pending == (target_users - active_usernames).to_a && continue_param.nil?)
-  end
-
-  def next_pending_and_continue(target_users, active_usernames, pending, result)
+  # Returns [pending_usernames, continue_param] for the next iteration,
+  # or nil when there are no more pages to query.
+  def next_page_params(target_users, active_usernames, pending, result)
     new_pending = (target_users - active_usernames).to_a
-    return [nil, nil] if new_pending.empty?
-
     if new_pending.size < pending.size
-      [new_pending, nil]
-    else
+      [new_pending, nil] # narrowed list, restart without continue
+    elsif result[:continue]
       [pending, result[:continue]]
     end
   end
 
   def fetch_individual_active_usernames(usernames, wiki, threshold)
     active_usernames = Set.new
+    queried_usernames = Set.new
     usernames.each do |username|
       result = query_usercontribs([username], wiki, threshold, nil)
-      active_usernames.add(username) if result && result[:users].any?
+      if result
+        queried_usernames.add(username)
+        active_usernames.add(username) if result[:users].any?
+      end
     end
-    active_usernames
+    return nil if queried_usernames.empty?
+    [active_usernames, queried_usernames]
   end
 
   def query_usercontribs(usernames, wiki, threshold, continue_param)
@@ -171,7 +170,7 @@ class RetainedEditorCheckWorker
     contribs = response.data['usercontribs'] || []
     {
       users: contribs.filter_map { |c| c['user'] },
-      continue: contribs.empty? ? nil : response.data['continue']
+      continue: response.data['continue']
     }
   end
 
