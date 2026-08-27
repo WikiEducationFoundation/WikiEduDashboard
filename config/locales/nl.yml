@@ -218,6 +218,9 @@ nl:
       all_campaigns: Alle campagnes
       all_wikis: Alle wiki's
       export_csv: CSV exporteren
+      export_daily_csv: Dagelijkse statistieken als CSV exporteren
+      course_csv_tab: Exports op cursusniveau
+      daily_stats_tab: Dagelijkse systeemmomentopnamen
       generating: Export genereren...
       generation_queued: Uw CSV-export wordt op de achtergrond gemaakt. Opnieuw proberen...
       still_processing: UW CSV-export wordt nog steeds op de achtergrond gemaakt.
@@ -452,11 +455,11 @@ nl:
     assign_other_wikidata: Een item toewijzen of verwijderen
     add_available: Beschikbare pagina's toevoegen
     add_available_wikidata: Beschikbare items toevoegen
-    add_available_placeholder: Voeg één paginanaam of URL toe per regel
-    add_available_placeholder_wikidata: Voeg één itemnaam of URL toe per regel
+    add_available_placeholder: Voeg één paginanaam of url toe per regel
+    add_available_placeholder_wikidata: Voeg één itemnaam of url toe per regel
     add_available_submit: Pagina's toevoegen
     add_available_submit_wikidata: Items toevoegen
-    add_placeholder: Voer een paginatitel of URL in
+    add_placeholder: Voer een paginatitel of url in
     assign_self: Wijs een pagina aan mezelf toe
     invalid_mainspace_article: Dit moet een geldige pagina uit de hoofdnaamruimte
       zijn.
@@ -527,15 +530,15 @@ nl:
       niet op dezelfde wiki.
     invalid_username: De gebruikersnaam "%{username}" is ongeldig of de gebruikersnaam
       bestaat niet.
-    change_sandbox_instructions: Voer een Wikipedia-gebruikersnaam in om de kladblok-URL's
+    change_sandbox_instructions: Voer een Wikipedia-gebruikersnaam in om de kladblok-url's
       voor deze opdracht bij te werken. Hierdoor wordt het kladblok gewijzigd van
       de huidige gebruikersnaam naar de door u opgegeven gebruikersnaam.
     username_label: Wikimedia-gebruikersnaam
     username_placeholder: Voer uw gebruikersnaam in (bijv. UwGebruikersnaam)
     username_or_url_label: Wikipedia-gebruikersnaam of -url
-    username_or_url_placeholder: Voer de gebruikersnaam of de volledige kladblok-URL
+    username_or_url_placeholder: Voer de gebruikersnaam of de volledige kladblok-url
       in.
-    preview_label: 'Voorbeeld van nieuwe URL''s:'
+    preview_label: 'Voorbeeld van nieuwe url''s:'
     sandbox_label: Kladblok
     bibliography_label: Bibliografie
     outline_label: Overzicht
@@ -925,6 +928,9 @@ nl:
     event_sync: 'Bewerken uitgeschakeld: dit veld kan niet worden gewijzigd omdat
       de cursus al is gekoppeld aan een evenement. Het wijzigen ervan zou de integratie
       van het evenement verstoren.'
+    event_center_link: Event Center-pagina
+    view_event_center_page: Pagina bekijken
+    go_to_event_center: Naar Event Center gaan om te registreren
     courses_enrolled: Ingeschreven cursussen
     error:
       exists: Die cursus bestaat al. Probeer het opnieuw met een andere naam, school
@@ -1249,7 +1255,7 @@ nl:
       create_short: Programma aanmaken
       end_date: Einde van activiteitenregistratie
       find: Programma zoeken
-      intro: De programmatitel en instelling vormen de URL van het programma. De thuiswiki
+      intro: De programmatitel en instelling vormen de url van het programma. De thuiswiki
         is de hoofdwiki waar deelnemers aan het werk zijn. Bewerkingen op deze wiki
         worden standaard bijgehouden. Omvat uw programma meerdere talen of projecten,
         dan worden de bijdragen ook bijgehouden voor elke wiki die is toegevoegd aan
@@ -1513,7 +1519,7 @@ nl:
     language: Taal
     lexical_category: Lexicale categorie
     forms: Vormen
-    form_claims: Beweringen over de form
+    form_claims: Beweringen over de vorm
     form_references: Referenties voor de vorm
     form_qualifiers: Kwalificaties over de vorm
     senses: Betekenissen
@@ -1697,7 +1703,7 @@ nl:
     acuwt_update: Bijwerken van ACUWT
     acuwt_update_description: ACUWT-updates werken cursussen met paginagerichte programma's
       bij met duizenden pagina's.
-    acuwt_update_doc: Beheer updates voor grote cursussen met paginagerichte programma's.
+    acuwt_update_doc: Beheerupdates voor grote cursussen met paginagerichte programma's.
     all_queues_operational: Alle wachtrijen operationeel
     all_queues_not_operational: Alle wachtrijen operationeel behalve
     constant_update: Constante update
@@ -1732,6 +1738,10 @@ nl:
     purpose: Doel
     queues_overview: Overzicht wachtrijen
     queue: Wachtrij
+    report_csv: CSV-rapport genereren
+    report_csv_description: Specifieke wachtrij voor het genereren van door gebruikers
+      aangevraagde CSV-rapporten.
+    report_csv_doc: Verwerkt door gebruikers aangevraagde CSV-rapporten.
     short_update: Korte update
     short_update_description: Korte updates verwerken cursussen met minder dan 1.000
       versies.
@@ -1959,6 +1969,27 @@ nl:
       Let op: de pagina kan zijn gewijzigd sinds deze beweringen zijn toegevoegd.'
     form:
       step_evaluate_source: Evalueer de bron
+      evaluate_source_instructions: 'Overweeg eerst de bron zelf: of deze betrouwbaar
+        lijkt en of deze goed past bij het onderwerp. U kunt de Wikipedia-definitie
+        van ''Betrouwbare bronnen'' raadplegen: https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources'
+      source_appropriate_question: Is deze bron geschikt voor Wikipedia, voor dit
+        specifieke artikel en voor de bewering die het ondersteunt?
+      source_appropriate_options:
+        appropriate: Ja, het is een geschikte bron voor de bewering
+        depends_on_use: Enigszins, maar het is niet het beste type bron hiervoor
+        inappropriate: Nee, dit is niet het juiste type bron om hier te gebruiken
+        unsure: Onzeker
+      source_appropriate_notes_label: Waarom wel of niet? Zo niet, welk type bron
+        zou dan geschikt zijn?
+      meets_rs_policy_question: Is het een betrouwbare bron?
+      meets_rs_policy_options:
+        generally_reliable: Ja, het voldoet duidelijk aan de definitie van een betrouwbare
+          bron in deze context
+        context_dependent: Enigszins, maar het heeft tekortkomingen
+        not_reliable: Nee, dit voldoet duidelijk niet aan de Wikipedia-definitie van
+          een betrouwbare bron
+        unsure: Onzeker
+      meets_rs_policy_notes_label: Wat maakt dit wel of geen betrouwbare bron?
       step_find_source: Zoek de bron
       find_source_instructions: Nu u uw bewerking hebt gekozen, gaat u op zoek naar
         de geciteerde bron. Mogelijk moet u uw docent of de bibliothecaris raadplegen
@@ -2073,6 +2104,7 @@ nl:
     assigned_wikidata: Toegewezen items
     assignees: Toegewezen aan
     loading_authorship_data: auteursgegevens laden
+    scroll_to_users_edits: Naar volgende bewerking van %{username} scrollen
     authorship_data_not_fetched: Kan auteursgegevens niet ophalen
     character_doc: De totale hoeveelheid inhoud die een gebruiker heeft toegevoegd
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
@@ -2280,8 +2312,8 @@ nl:
     explanation: U bent niet bevoegd om dit verzoek uit te voeren. Als u vindt dat
       deze foutmelding onterecht is, neem dan contact op met de beheerders van dit
       dashboard en stel ze op de hoogte van het probleem.
-    json_explanation: Het lijkt erop dat u bent uitgelogd. Vernieuw de pagina, log
-      in en probeer het opnieuw.
+    json_explanation: Het lijkt erop dat u bent afgemeld. Vernieuw de pagina, meld
+      u aan en probeer het opnieuw.
   error_incorrect_passcode:
     header: Onjuist wachtwoord. :-(
     explanation: De toegangscode voor het inschrijven in deze cursus is onjuist. Vraag
@@ -2517,4 +2549,196 @@ nl:
     advanced_search: Uitgebreid zoeken
     clear: Wissen
     program_date: Programmadatum
+  lms_integration:
+    heading: '%{lms_name}-koppeling'
+    linked_to: 'Cursus:'
+    last_sync: 'Laatste synchronisatie:'
+    last_roster_sync_error: Er is een fout opgetreden bij het synchroniseren van de
+      deelnemerslijst.
+    last_sync_error: Laatste synchronisatiefout
+    roster_students: Canvas-deelnemerslijst
+    connected_accounts: Verbonden
+    never_synced: Nog niet gesynchroniseerd
+    time_ago: '%{time_ago} geleden'
+    my_account_link: 'Uw account:'
+    linked: Gekoppeld
+    not_linked: Niet gekoppeld
+    my_last_sync: Laatste synchronisatie
+    no_grades_yet: Nog geen gesynchroniseerde voortgang
+    not_yet_linked: Uw account is nog niet gekoppeld aan Canvas voor deze cursus.
+  lti:
+    iframe_landing:
+      explanation: Open dashboard.wikiedu.org in een nieuw tabblad
+      button: Open het Wiki Education Dashboard
+      not_linked: Deze Canvas-cursus is nog niet gekoppeld aan het Wiki Education
+        Dashboard. Open het dashboard om de integratie in te stellen.
+    oauth_redirect:
+      title: Doorgaan naar Wikipedia-aanmelding…
+      button: Doorgaan
+    setup:
+      header: Stel het Wiki Education Dashboard in voor deze Canvas-cursus
+      link_existing:
+        header: Een bestaande Wiki Education-cursus koppelen
+        label: Cursus
+      submit: Deze cursus koppelen
+      linked_notice: Uw cursus %{lms_course} is gekoppeld!
+      already_linked: 'Fout: deze cursus is al gekoppeld.'
+      create_prompt: Een cursus aanmaken op het dashboard
+      create_return_note: Het aanmaken van een cursus opent in een nieuw tabblad.
+        Laad de pagina opnieuw zodra u een dashboardcursus hebt.
+      no_approved_courses: Canvas-integratie is alleen beschikbaar nadat uw cursus
+        is goedgekeurd door medewerkers van Wiki Education.
+      no_courses_yet: U hebt nog geen cursus op het Wiki Education Dashboard. Maak
+        er eerst een aan.
+      link_conflict_error: Er was een conflict bij het koppelen van uw Canvas- en
+        Dashboard-accounts. Neem contact op met medewerkers van Wiki Education voor
+        hulp.
+      duplicate_link_error: Deze Canvas-gebruiker is al gekoppeld aan een ander Wikipedia-account.
+        Meld u aan bij het dashboard met het account dat eerder was verbonden en start
+        opnieuw.
+    deep_link:
+      module_name: Een Wikipedia-artikel onderzoeken en schrijven
+      header: Wikipedia-taak kiezen
+      header_multiple: Wikipedia-opdrachten importeren
+      instruction: Kies een Wikipedia-taak voor dit beoordeelbare item
+      instruction_multiple: Kies welke items uit de tijdlijn van het Wiki Education
+        Dashboard u wilt importeren.
+      submit: Aan cursus toevoegen
+      all_added: Alle beschikbare items zijn toegevoegd.
+      no_gradables: Geen beoordeelbare items gevonden
+      forbidden_header: Alleen instructeurs mogen dit doen.
+      forbidden_explanation: Het importeren van Dashboard-opdrachten is alleen beschikbaar
+        voor cursusinstructeurs.
+      unavailable_header: Niet beschikbaar
+      unavailable_explanation: Deze items zijn niet meer beschikbaar om te importeren.
+    status:
+      header: Wiki Education Dashboard
+      linked: Gekoppeld
+      refresh: Vernieuwen
+      roster_sync_label: Deelnemerslijst synchroniseren
+      grade_sync_label: Cijfers synchroniseren
+      sync_grades: Cijfers synchroniseren
+      grade_sync_started: Synchronisatie van cijfers gestart.
+      grade_sync_error: Er is een fout opgetreden bij het synchroniseren van de cijfers.
+      roster_sync_error: Er is een fout opgetreden bij het synchroniseren van de deelnemerslijst.
+      import_next_step:
+        header: Wikipedia-opdrachten importeren vanuit uw Dashboard-tijdlijn
+        instruction: Ga naar Modules, open het menu ⋮ (opties) en kies wikiedu.org.
+      publish_next_step:
+        header: Wikipedia-opdrachten geïmporteerd
+        instruction: Vergeet niet de module te publiceren als u dat nog niet hebt
+          gedaan.
+    check_again: Opnieuw controleren
+    student_overview:
+      next_step: Volgende stap
+      my_articles: Mijn pagina's
+      trainings: Trainingen
+      exercises: Oefeningen
+      empty: Geen Wikipedia-activiteiten
+      role:
+        editing: Bewerken
+        reviewing: Beoordelen
+    setup_pending:
+      header: Wiki Education Dashboard wordt ingesteld
+      explanation: Uw instructeur is nog bezig met het instellen van de Wikipedia-opdracht
+        voor deze cursus. Kom terug nadat ze klaar zijn, of neem contact op met uw
+        instructeur.
+    enrollment_error:
+      header: U kon niet worden ingeschreven voor de Wiki Education-cursus
+      explanation: Er is iets misgegaan bij de inschrijving. Neem contact op met uw
+        instructeur of medewerkers van Wiki Education voor hulp; het probleem is geregistreerd
+        voor beoordeling.
+    launch_error:
+      header: Er is een fout opgetreden bij het starten van de Canvas-integratie van
+        het dashboard.
+      explanation: Probeer de Canvas-pagina opnieuw te laden. Als het probleem aanhoudt,
+        neem dan contact op met medewerkers van Wiki Education.
+    connect_identity:
+      header: Verbind uw Wikipedia-account met deze cursus
+      explanation: Door te verbinden wordt uw Wikipedia-werk in %{course} gerapporteerd
+        aan deze Canvas-cursus, via uw Wiki Education Dashboard-account %{username}.
+        Deze verbinding kan later niet worden gewijzigd zonder hulp van medewerkers
+        van Wiki Education, dus controleer of het onderstaande account het account
+        is dat u wilt gebruiken.
+      canvas_course: Canvas-cursus
+      dashboard_account: Wikipedia-account
+      confirm: Dit account verbinden
+      wrong_account: Een ander account gebruiken
+    identity:
+      signed_in_as: 'Wikipedia-account: %{username}'
+      no_account: Nog geen Wikipedia-account verbonden
+    enrollment_pending_approval:
+      header: Deze cursus wacht op goedkeuring van Wiki Education
+      explanation: Uw instructeur heeft deze Wiki Education-cursus ingesteld, maar
+        medewerkers van Wiki Education beoordelen deze nog. Zodra de cursus is goedgekeurd
+        (doorgaans binnen een paar dagen), kom dan terug naar dit Canvas-tabblad en
+        wordt u automatisch ingeschreven.
+      contact_hint: Als u vragen hebt, neem dan contact op met uw instructeur of medewerkers
+        van Wiki Education.
+    assignment_view:
+      status:
+        completed: Voltooid
+        in_progress: Bezig
+        not_started: Niet gestart
+        connected: Verbonden
+        not_connected: Niet verbonden
+        removed_in_lms: Niet ingeschreven in Canvas
+      open_on_wikipedia: Openen op Wikipedia
+      show: Weergeven
+      hide: Verbergen
+      sandbox_preview:
+        loading: …
+        not_found: Geen kladblok gevonden
+        error: Kladblok kon niet worden geladen
+      roster:
+        student: Student
+        username: Gebruikersnaam
+        status: Status
+        sandbox: Kladblok
+        empty: Nog geen studenten hebben Wikipedia-accounts verbonden.
+        assigned_article: Toegewezen pagina
+      no_article_yet: Nog geen pagina gekozen
+      article_work:
+        header: Paginawerk
+        not_created: Dit artikel bestaat nog niet op Wikipedia.
+        created: Gestart
+        not_created_yet: Niet gestart
+        characters: Tekens toegevoegd
+        references: Verwijzingen toegevoegd
+        revisions: Bewerkingen
+        pages:
+          bibliography: Bibliografie
+          outline: Overzicht
+          draft: Kladblokconcept
+      student:
+        your_sandbox: Uw kladblok
+        your_article: Uw pagina
+        open_exercise: Oefening openen
+        launch_instructions: Instructies starten
+      setup:
+        summary: '%{connected} van %{total} hebben een Wikipedia-account verbonden.'
+        empty: De synchronisatie van de deelnemerslijst is in behandeling. Kom binnenkort
+          terug.
+        pending: '%{count} student(en) hebben nog geen Wikipedia-account verbonden.'
+      trainings:
+        progress: '%{completed} van %{total} trainingen voltooid'
+        module: Training
+        due_date: Vervaldatum
+        covered: Trainingen in deze cursus
+        module_completion: Voltooid door %{completed} van %{total} studenten
+      peer_review:
+        progress: '%{completed} van %{total} peer reviews voltooid'
+        article: Te beoordelen pagina
+        review_page: Beoordelingspagina
+        reviews: Toegewezen beoordelingen
+        your_reviews: Uw peer reviews
+        none_yet: Nog niets toegewezen
+        none_assigned: Er zijn nog geen peer reviews aan u toegewezen.
+      orphan:
+        explanation: Er is geen Dashboard-inhoud om weer te geven voor deze opdracht.
+      submission:
+        explanation: Er is geen studentenwerk om weer te geven voor deze inzending.
+        open_dashboard: Open het Wiki Education Dashboard
+        viewing: Werk van %{username} weergeven
+        details: Studentdetails openen
 ...
