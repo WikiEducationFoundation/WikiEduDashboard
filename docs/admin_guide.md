@@ -42,8 +42,8 @@ Below is a breakdown of the key servers and their roles within the infrastructur
 
 2. **Sidekiq Servers**: These dedicated servers handle the other Sidekiq processes to isolate bottlenecks and failures:  
    - **`peony-sidekiq.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-long` for long-running course updates with higher queue latency, as well as `sidekiq-constant`.
-   - **`peony-sidekiq-medium.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-medium` for typical course updates.  
-   - **`peony-sidekiq-3.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.
+   - **`peony-sidekiq-medium.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-medium` for typical course updates, as well as `sidekiq-report-csv` for generating and deleting user-requested CSV reports.
+   - **`peony-sidekiq-short.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.
 
 3. **Database Server**  
    - **`peony-database.globaleducation.eqiad1.wikimedia.cloud`**: Stores program, user, and revision data. It supports the dashboard’s data queries and updates.

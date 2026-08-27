@@ -108,7 +108,7 @@ These are notes from setting up a fresh web server on the newest Debian, July 2,
 
 - Add systemd services for the app's sidekiq processes. Only the lightest queue belongs on the web server; the rest should be on separate Sidekiq servers.
   - `default` is light enough to share the web server, but note that it is load-bearing for the entire update pipeline: it runs `ScheduleCourseUpdatesWorker`, so if nothing is consuming the `default` queue, no course updates get scheduled on *any* server and every other Sidekiq host drains its queue and goes idle. When diagnosing a system-wide stall, check this first.
-  - Do **not** run `daily` on the web server. It carries the heaviest jobs in the system — `ImportRatingsWorker`, which sweeps all articles, and `ReportCsvWorker`, which builds campaign and system-wide CSV exports — and has been observed at over 1 GB resident while competing with the web application for the same RAM. See #6990.
+  - Do **not** run `daily` on the web server. It carries one of the heaviest jobs in the system — `ImportRatingsWorker`, which sweeps all articles — and has been observed at over 1 GB resident while competing with the web application for the same RAM. See #6990.
   - `constant` runs on a separate Sidekiq server in the current P&E Dashboard setup, notwithstanding what earlier versions of these notes said.
   - copy the .service files from `server_config/systemd` into the systemd directory ( `/etc/systemd/system` on Debian)
     - Change the user and group lines to match the user who owns the deployment process (and one of their groups)
