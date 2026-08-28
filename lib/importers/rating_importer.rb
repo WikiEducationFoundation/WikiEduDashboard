@@ -16,16 +16,22 @@ class RatingImporter
   # Minimum interval between on-demand rating refreshes for a single article.
   RATING_UPDATE_COOLDOWN = 5.minutes
 
-  def self.update_all_ratings
+  # How long a rating stays fresh before the daily update refetches it.
+  RATING_REFRESH_INTERVAL = 1.week
+
+  def self.update_outdated_ratings
     # Since the rating scraper is only based on the English Wikipedia 1.0 rating
     # system, we only include articles from en.wiki.
     # If we develop scrapers for other languages that also keep track of ratings
     # via talk page templates, this will need to be overhauled.
     wiki_id = en_wiki.id
-    articles = Article.current.live
-                      .namespace(0)
-                      .where(wiki_id:)
-                      .find_in_batches(batch_size: API_MAX_TITLES)
+    current_articles = Article.current.live
+                              .namespace(0)
+                              .where(wiki_id:)
+    articles = current_articles
+               .where(rating_updated_at: nil)
+               .or(current_articles.where(rating_updated_at: ...RATING_REFRESH_INTERVAL.ago))
+               .find_in_batches(batch_size: API_MAX_TITLES)
     update_ratings(articles)
   end
 
