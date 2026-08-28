@@ -13,10 +13,8 @@ class RatingImporter
   # visual mappings in ArticleHelper.
   SUPPORTED_LANGUAGES = %w[en ar fr hu tr zh].freeze
 
-  # Minimum interval between on-demand rating refreshes for a single article.
-  RATING_UPDATE_COOLDOWN = 5.minutes
-
-  # How long a rating stays fresh before the daily update refetches it.
+  # How long a rating stays fresh before it is fetched again, both by the daily
+  # update and by on-demand refreshes for a single article.
   RATING_REFRESH_INTERVAL = 1.week
 
   def self.update_outdated_ratings
@@ -55,7 +53,7 @@ class RatingImporter
 
     # Skip if the rating was refreshed very recently to avoid excessive load.
     if article.rating_updated_at.present? &&
-       article.rating_updated_at > RATING_UPDATE_COOLDOWN.ago
+       article.rating_updated_at > RATING_REFRESH_INTERVAL.ago
       return
     end
     update_ratings([[article]])
