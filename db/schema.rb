@@ -369,7 +369,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
     t.boolean "private", default: false
     t.boolean "withdrawn", default: false
     t.integer "references_count", default: 0
+    t.bigint "institution_id"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
+    t.index ["institution_id"], name: "index_courses_on_institution_id"
   end
 
   create_table "courses_users", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -446,6 +448,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
     t.text "body"
     t.integer "user_id"
     t.datetime "created_at", precision: nil
+  end
+
+  create_table "institutions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_institutions_on_name", unique: true
   end
 
   create_table "lti_consumer_keys", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -944,6 +953,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
   add_foreign_key "admin_course_notes", "courses", column: "courses_id"
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
+  add_foreign_key "courses", "institutions"
   add_foreign_key "facilitator_stats", "users"
   add_foreign_key "lti_consumer_keys", "courses", on_delete: :cascade
   add_foreign_key "lti_contexts", "lti_course_bindings", on_delete: :cascade
