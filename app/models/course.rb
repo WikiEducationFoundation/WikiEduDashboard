@@ -104,6 +104,7 @@ class Course < ApplicationRecord
   # Metadata #
   ############
   belongs_to :home_wiki, class_name: 'Wiki'
+  belongs_to :institution, optional: true
 
   has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns, through: :campaigns_courses
@@ -246,7 +247,7 @@ class Course < ApplicationRecord
   ###########
   # Aliases #
   ###########
-  alias_attribute :institution, :school
+
 
   ##################
   # Course content #
