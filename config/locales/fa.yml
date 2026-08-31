@@ -319,6 +319,9 @@ fa:
     end: پایان
     enroll: نام‌نویسی
     enrollment: نام‌نویسی
+    event_center_link: صفحهٔ مرکز رویداد
+    view_event_center_page: مشاهدهٔ صفحه
+    go_to_event_center: برای ثبت نام به مرکز رویداد بروید
     error:
       exists: آن دوره از پیش وجود داشت! لطفاً با عنوان، مدرسه/دانشگاه و ترم تحصیلی
         دیگری مجدداً امتحان کنید.
@@ -561,6 +564,7 @@ fa:
     active_jobs: کارهای فعال
     default: پیش‌فرض
     no_info: اطلاعاتی در دسترس نیست.
+    report_csv_description: صف مشخص برای تولید گزارش‌های CSV درخواستی کاربر.
     size: اندازه
     status: وضعیت
   tasks:

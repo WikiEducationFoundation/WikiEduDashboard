@@ -38,6 +38,9 @@ smn:
     print: Printtii
   home:
     log_in: Čáládât siisâ Wikipedia peht
+  system_stats:
+    pagination:
+      previous: Oovdeb
   articles:
     articles: Artikkâleh
     next: Čuávuvâš
@@ -141,6 +144,7 @@ smn:
     view: Čääiti
     next: Čuávuvâš sijđo
     page: Sijđo
+    previous: < Oovdeb
     kind:
       discussion: Savâstâllâm
   update_username:
