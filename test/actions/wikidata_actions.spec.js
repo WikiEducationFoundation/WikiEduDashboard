@@ -55,7 +55,8 @@ describe('fetchWikidataLabels', () => {
       ok: false,
       status: 403,
       statusText: 'Forbidden',
-      text: () => Promise.resolve(''),
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      text: () => Promise.resolve('blocked'),
     });
     global.Sentry = { captureException: jest.fn() };
     const dispatch = jest.fn();
@@ -64,7 +65,8 @@ describe('fetchWikidataLabels', () => {
     await flushPromises();
 
     expect(global.Sentry.captureException).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' })
+      expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' }),
+      { extra: { responseText: 'blocked', url: 'https://www.wikidata.org/w/api.php?action=wbgetentities' } }
     );
   });
 });
