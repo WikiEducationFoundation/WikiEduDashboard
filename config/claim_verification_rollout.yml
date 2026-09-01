@@ -267,3 +267,16 @@ excluded_claim_ids:
   - 4727  # Sharpfin houndshark, review claim 5
   - 4728  # Sharpfin houndshark, review claim 6
   - 4729  # Sharpfin houndshark, review claim 7
+  #
+  # Fall 2026 review, third pass: claims whose cited source is a book — the
+  # citation renders from the Cite book template, or is a book chapter cited
+  # via the generic Citation template (8 claims; 3 more book citations were
+  # already excluded above).
+  - 786   # American pika, review claim 1
+  - 796   # American pika, review claim 11
+  - 4824  # Extensive farming, review claim 17
+  - 4830  # Extensive farming, review claim 22
+  - 4875  # Extensive farming, review claim 64
+  - 4665  # Graffiti in Los Angeles, review claim 1
+  - 4679  # Graffiti in Los Angeles, review claim 11
+  - 5622  # Immigration policy of the United States, review claim 1
