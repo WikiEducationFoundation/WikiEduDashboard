@@ -1796,9 +1796,7 @@ en:
       verdict_question: "Does the source back up the claim?"
       verdict_options:
         full_support: "Yes — it explicitly supports the full claim."
-        mostly_supports: "Mostly yes — the core of the claim comes from this source."
         partial_support: "Partially — some elements of the claim come from this source, but a significant part does not."
-        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
         unsupported: "No — the source does not cover what the claim says."
         contradicted: "The opposite — the source actually contradicts the claim."
         undetermined: "I was unable to determine whether the claim was in the cited source."

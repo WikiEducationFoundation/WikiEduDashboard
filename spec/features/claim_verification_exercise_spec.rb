@@ -180,7 +180,7 @@ describe 'Claim verification exercise', type: :feature, js: true do
         'source_appropriate' => 'appropriate',
         'meets_rs_policy' => 'generally_reliable',
         'source_access' => 'accessed',
-        'verdict' => 'mostly_supports',
+        'verdict' => 'partial_support',
         'claim_location' => 'chapter 3',
         'verification_notes' => 'The chapter describes tool use at length, but the shellfish ' \
                                 'detail only appears in a figure caption, which took a while ' \
@@ -203,7 +203,7 @@ describe 'Claim verification exercise', type: :feature, js: true do
     within '.cv-response-pop' do
       expect(page).to have_content(sentence)
       expect(page).to have_content(
-        I18n.t('claim_verification.form.verdict_options.mostly_supports')
+        I18n.t('claim_verification.form.verdict_options.partial_support')
       )
       expect(page).to have_content('chapter 3')
     end

@@ -73,9 +73,7 @@ steps:
         required: true
         options:
           - full_support
-          - mostly_supports
           - partial_support
-          - mostly_unsupported
           - unsupported
           - contradicted
           - undetermined
