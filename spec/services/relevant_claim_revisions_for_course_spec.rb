@@ -119,5 +119,15 @@ describe RelevantClaimRevisionsForCourse do
       rollout_revisions(excluding: [excluded.id])
       expect(described_class.new(student_course).tiles).to be_empty
     end
+
+    # The viewer shows a multi-citation sentence once; its other pool rows must
+    # not keep a tile alive (or padded) once that sentence is excluded.
+    it 'leaves the other pool rows of an excluded sentence out too' do
+      otter = article('Otter')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles).to be_empty
+    end
   end
 end

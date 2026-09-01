@@ -6,8 +6,8 @@ require_dependency "#{Rails.root}/lib/claim_verification/rollout_list"
 describe ClaimVerification::RolloutList do
   let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
 
-  def claim(article_id:, mw_rev_id:)
-    VerificationClaim.create!(wiki:, article_id:, mw_rev_id:, sentence: 'A fact.')
+  def claim(article_id:, mw_rev_id:, sentence: 'A fact.')
+    VerificationClaim.create!(wiki:, article_id:, mw_rev_id:, sentence:)
   end
 
   describe '.filter' do
@@ -40,7 +40,7 @@ describe ClaimVerification::RolloutList do
 
     it 'drops claims curated out of a listed revision' do
       kept = claim(article_id: 1, mw_rev_id: 100)
-      excluded = claim(article_id: 1, mw_rev_id: 100)
+      excluded = claim(article_id: 1, mw_rev_id: 100, sentence: 'Another fact.')
       rollout_revisions([1, 100], excluding: [excluded.id])
       expect(described_class.filter(VerificationClaim.all)).to eq([kept])
     end
@@ -55,11 +55,32 @@ describe ClaimVerification::RolloutList do
     end
   end
 
-  describe '.excluded?' do
-    it 'is true only for a curated-out claim id' do
-      rollout_revisions(excluding: [42])
-      expect(described_class.excluded?(42)).to be true
-      expect(described_class.excluded?(43)).to be false
+  # A sentence with several citations is pooled once per citation; excluding
+  # the claim a student sees for it must take the sentence's other rows too.
+  describe '.without_excluded' do
+    def claim_with_sentence(sentence, article_id: 1, mw_rev_id: 100)
+      VerificationClaim.create!(wiki:, article_id:, mw_rev_id:, sentence:, ref_id: SecureRandom.hex)
+    end
+
+    it 'drops every pool row for an excluded claim\'s sentence in that revision' do
+      excluded = claim_with_sentence('Otters use tools.')
+      claim_with_sentence('Otters use tools.')
+      kept = claim_with_sentence('Otters eat urchins.')
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.without_excluded(VerificationClaim.all)).to eq([kept])
+    end
+
+    it 'keeps the same sentence pooled from another revision' do
+      excluded = claim_with_sentence('Otters use tools.')
+      elsewhere = claim_with_sentence('Otters use tools.', mw_rev_id: 200)
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.without_excluded(VerificationClaim.all)).to eq([elsewhere])
+    end
+
+    it 'hands back the scope untouched when nothing is excluded' do
+      rollout_revisions
+      scope = VerificationClaim.all
+      expect(described_class.without_excluded(scope).to_sql).to eq(scope.to_sql)
     end
   end
 

@@ -160,10 +160,11 @@ revisions:
 # production ids, which are also the "Claim ID" column of the team's Fall 2026
 # review spreadsheet (the "review claim N" in each comment is that
 # spreadsheet's "Claim #", the viewer's position at review time; it shifts as
-# claims are removed, the id does not). Excluding a claim removes its sentence
-# from the viewer: AnnotateRevisionClaims drops the sentence the claim stands
-# for rather than promoting another pool row (a different citation) for the
-# same text, and tile claim counts leave these out. The list is subtractive —
+# claims are removed, the id does not). Excluding a claim excludes its
+# sentence: every pool row for that sentence in that revision (one per
+# citation) leaves the viewer and the tile claim counts, rather than another
+# row — a different citation for the same text — taking its place. A revision
+# with nothing left gets no tile. The list is subtractive —
 # append ids as the review turns up more to remove — and keeps applying once
 # the revision list above is retired.
 #
@@ -280,3 +281,74 @@ excluded_claim_ids:
   - 4665  # Graffiti in Los Angeles, review claim 1
   - 4679  # Graffiti in Los Angeles, review claim 11
   - 5622  # Immigration policy of the United States, review claim 1
+  #
+  # TEMPORARY — Fall 2026 review, fourth pass: claims the team has not yet
+  # evaluated ("Source good?" still blank in the spreadsheet; 66 claims).
+  # Held out only until they are reviewed: delete this whole block, or the
+  # lines for claims that have since passed review, as the review catches up.
+  - 787   # American pika, review claim 2
+  - 809   # American pika, review claim 24
+  - 810   # American pika, review claim 25
+  - 811   # American pika, review claim 26
+  - 3623  # Bullerengue, review claim 2
+  - 3624  # Bullerengue, review claim 3
+  - 3625  # Bullerengue, review claim 4
+  - 3626  # Bullerengue, review claim 5
+  - 3627  # Bullerengue, review claim 6
+  - 3628  # Bullerengue, review claim 7
+  - 3629  # Bullerengue, review claim 8
+  - 3630  # Bullerengue, review claim 9
+  - 3178  # Climate finance in the United States, review claim 7
+  - 3183  # Climate finance in the United States, review claim 11
+  - 3186  # Climate finance in the United States, review claim 14
+  - 3198  # Climate finance in the United States, review claim 21
+  - 5586  # Community health centers in the United States, review claim 1
+  - 5587  # Community health centers in the United States, review claim 2
+  - 5588  # Community health centers in the United States, review claim 3
+  - 5589  # Community health centers in the United States, review claim 4
+  - 5590  # Community health centers in the United States, review claim 5
+  - 5591  # Community health centers in the United States, review claim 6
+  - 5592  # Community health centers in the United States, review claim 7
+  - 5593  # Community health centers in the United States, review claim 8
+  - 5594  # Community health centers in the United States, review claim 9
+  - 5595  # Community health centers in the United States, review claim 10
+  - 5596  # Community health centers in the United States, review claim 11
+  - 5597  # Community health centers in the United States, review claim 12
+  - 5598  # Community health centers in the United States, review claim 13
+  - 5599  # Community health centers in the United States, review claim 14
+  - 5600  # Community health centers in the United States, review claim 15
+  - 12    # Dynamical decoupling, review claim 4
+  - 15    # Dynamical decoupling, review claim 6
+  - 16    # Dynamical decoupling, review claim 7
+  - 17    # Dynamical decoupling, review claim 8
+  - 18    # Dynamical decoupling, review claim 9
+  - 19    # Dynamical decoupling, review claim 10
+  - 1273  # Dysthymia, review claim 4
+  - 4666  # Graffiti in Los Angeles, review claim 2
+  - 4669  # Graffiti in Los Angeles, review claim 4
+  - 4672  # Graffiti in Los Angeles, review claim 6
+  - 4673  # Graffiti in Los Angeles, review claim 7
+  - 4676  # Graffiti in Los Angeles, review claim 9
+  - 4680  # Graffiti in Los Angeles, review claim 12
+  - 4681  # Graffiti in Los Angeles, review claim 13
+  - 4047  # Hazardous energy, review claim 1
+  - 4048  # Hazardous energy, review claim 2
+  - 4049  # Hazardous energy, review claim 3
+  - 4052  # Hazardous energy, review claim 5
+  - 4053  # Hazardous energy, review claim 6
+  - 5623  # Immigration policy of the United States, review claim 2
+  - 5624  # Immigration policy of the United States, review claim 3
+  - 5625  # Immigration policy of the United States, review claim 4
+  - 5626  # Immigration policy of the United States, review claim 5
+  - 5627  # Immigration policy of the United States, review claim 6
+  - 5628  # Immigration policy of the United States, review claim 7
+  - 5629  # Immigration policy of the United States, review claim 8
+  - 5630  # Immigration policy of the United States, review claim 9
+  - 5631  # Immigration policy of the United States, review claim 10
+  - 5632  # Immigration policy of the United States, review claim 11
+  - 5633  # Immigration policy of the United States, review claim 12
+  - 5634  # Immigration policy of the United States, review claim 13
+  - 5635  # Immigration policy of the United States, review claim 14
+  - 5638  # Immigration policy of the United States, review claim 16
+  - 5642  # Immigration policy of the United States, review claim 18
+  - 5643  # Immigration policy of the United States, review claim 19

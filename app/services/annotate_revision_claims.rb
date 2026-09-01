@@ -128,16 +128,20 @@ class AnnotateRevisionClaims
 
   # The pool claims added in this revision, keyed by normalized sentence (first
   # wins when a sentence carries more than one citation), minus the claims
-  # curated out of the exercise. The exclusion is applied after each sentence's
-  # representative is picked, not in the query: a sentence with several
-  # citations has one pool row per citation, and excluding only the row the
-  # student sees would just promote the next one. What's excluded is the
-  # sentence as displayed — the thing the curators reviewed.
+  # curated out of the exercise. The exclusion removes every pool row for an
+  # excluded claim's sentence (see RolloutList.without_excluded), so excluding
+  # the row the student sees can't just promote the sentence's next row — a
+  # different citation for the same text.
   def harvested_claims
-    @harvested_claims ||= VerificationClaim.where(article_id: @article.id, mw_rev_id: @mw_rev_id)
-                                           .order(:id).each_with_object({}) do |claim, map|
+    @harvested_claims ||= ClaimVerification::RolloutList.without_excluded(pool_claims)
+                                                        .order(:id)
+                                                        .each_with_object({}) do |claim, map|
       map[normalize(claim.sentence)] ||= claim
-    end.reject { |_, claim| ClaimVerification::RolloutList.excluded?(claim.id) }
+    end
+  end
+
+  def pool_claims
+    VerificationClaim.where(article_id: @article.id, mw_rev_id: @mw_rev_id)
   end
 
   def normalize(text)

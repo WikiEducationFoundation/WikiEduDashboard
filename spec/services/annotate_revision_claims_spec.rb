@@ -66,6 +66,7 @@ describe AnnotateRevisionClaims do
   # config) has to remove the sentence the student would have seen, not just
   # the pool row behind it: a sentence with several citations has one pool row
   # per citation, and dropping only the displayed row would promote the next.
+  # (RolloutList.without_excluded drops the sentence's other rows as well.)
   context 'when a claim is curated out of the rollout' do
     let(:revision_html) do
       <<~HTML

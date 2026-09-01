@@ -31,9 +31,18 @@ module ClaimVerification
       def filter(scope)
         approved = pairs
         scope = scope.where(tuple_condition(approved)) if approved.any?
+        without_excluded(scope)
+      end
+
+      # The given scope minus the excluded claims — and minus every other pool
+      # row for the same sentence in the same revision. A sentence with several
+      # citations is pooled once per citation but shown once, so what the
+      # curators reviewed and excluded is the sentence: its other rows have to
+      # go too, or they would surface in the viewer and in the tile counts.
+      def without_excluded(scope)
         excluded = excluded_claim_ids
-        scope = scope.where.not(id: excluded.to_a) if excluded.any?
-        scope
+        return scope if excluded.empty?
+        scope.where.not(excluded_sentence_exists(excluded))
       end
 
       # [[article_id, mw_rev_id], ...]
@@ -44,10 +53,6 @@ module ClaimVerification
       # The VerificationClaim ids curated out of the exercise, as a Set.
       def excluded_claim_ids
         config[:excluded_claim_ids]
-      end
-
-      def excluded?(claim_id)
-        excluded_claim_ids.include?(claim_id)
       end
 
       private
@@ -72,6 +77,16 @@ module ClaimVerification
           mw_rev_id = revision['mw_rev_id']
           [article_id, mw_rev_id] if article_id.present? && mw_rev_id.present?
         end
+      end
+
+      # EXISTS (an excluded claim with this row's article, revision and sentence).
+      def excluded_sentence_exists(excluded)
+        VerificationClaim.from('verification_claims ex')
+                         .where(ex: { id: excluded.to_a })
+                         .where('ex.article_id = verification_claims.article_id')
+                         .where('ex.mw_rev_id = verification_claims.mw_rev_id')
+                         .where('ex.sentence = verification_claims.sentence')
+                         .arel.exists
       end
 
       def tuple_condition(approved)
