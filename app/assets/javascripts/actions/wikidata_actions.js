@@ -48,7 +48,17 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
         // report here, a failure here would be invisible to Sentry (ensureOk
         // only console.logs) even though it's the dominant real-world source
         // of this bug (see Sentry issue PEONY-2NS).
-        if (typeof Sentry !== 'undefined') Sentry.captureException(error);
+        // extra.responseText/url surface the actual response body (e.g. Wikidata's
+        // 403 message) since Sentry.captureException(error) alone does not
+        // serialize custom properties on the thrown ApiError (see PEONY-3BC).
+        if (typeof Sentry !== 'undefined') {
+          Sentry.captureException(error, {
+            extra: {
+              responseText: error.responseText,
+              url: error.url
+            }
+          });
+        }
       });
   });
 };
