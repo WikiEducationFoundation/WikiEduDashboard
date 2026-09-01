@@ -7,15 +7,20 @@
 # cannot reach outside this list. Emptying `revisions` or deleting this file
 # restores the full harvested pool, which is how you turn the gate off.
 #
-# Generated — do not hand-edit. Edit the verdicts in
-# docs/analytics_scripts/fact_verification_curation/fv_rollout_shortlist.csv
-# and re-run build_rollout_list.rb in that directory.
+# Originally generated from the verdicts in
+# docs/analytics_scripts/fact_verification_curation/fv_rollout_shortlist.csv by
+# build_rollout_list.rb in that directory, then hand-curated for Fall 2026 (see
+# below), so it no longer matches that script's output.
 #
 # Selection: the 468-article harvested pool was scored for source
 # accessibility and slop signals, the top 54 were reviewed by hand against
 # their diffs and fetched sources, and the 25 that came out `strong_candidate`
-# or `usable` are listed here, ranked. Four of them were flagged twice; only
+# or `usable` were listed here, ranked. Four of them were flagged twice; only
 # the revision with more claims ships. See that directory's README.md.
+#
+# Fall 2026 curation: after the team checked the claims of all 25 articles by
+# hand, three were removed — Honolulu Courthouse riot, CHRFAM7A and Climate of
+# Armenia — leaving 22.
 revisions:
 - article_id: 376975008
   mw_rev_id: 1321874993
@@ -29,12 +34,6 @@ revisions:
   tier: strong_candidate
   topic_area: health
   claim_count: 7
-- article_id: 985108653
-  mw_rev_id: 1325604815
-  title: Honolulu Courthouse riot
-  tier: strong_candidate
-  topic_area: humanities
-  claim_count: 39
 - article_id: 989847485
   mw_rev_id: 1339774149
   title: 2011 Italian census
@@ -59,12 +58,6 @@ revisions:
   tier: strong_candidate
   topic_area: social sciences
   claim_count: 40
-- article_id: 1001810019
-  mw_rev_id: 1347334965
-  title: CHRFAM7A
-  tier: strong_candidate
-  topic_area: sciences
-  claim_count: 95
 - article_id: 50875139
   mw_rev_id: 1323139167
   title: Dysthymia
@@ -89,12 +82,6 @@ revisions:
   tier: strong_candidate
   topic_area: sciences
   claim_count: 9
-- article_id: 1000416953
-  mw_rev_id: 1345648440
-  title: Climate of Armenia
-  tier: usable
-  topic_area: sciences
-  claim_count: 6
 - article_id: 1003575313
   mw_rev_id: 1347254024
   title: Hazardous energy

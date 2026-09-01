@@ -57,7 +57,7 @@ describe ClaimVerification::RolloutList do
     before { real_rollout_list }
 
     it 'parses to one (article, revision) pair per rollout article' do
-      expect(described_class.pairs.length).to eq(25)
+      expect(described_class.pairs.length).to eq(22)
       expect(described_class.pairs).to all(match([be_a(Integer), be_a(Integer)]))
     end
 
