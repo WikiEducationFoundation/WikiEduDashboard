@@ -19,7 +19,7 @@ describe DailyUpdate do
       worker_double = class_double(WikiDiscouragedArticleWorker)
       expect(UserImporter).to receive(:update_users)
       expect(AssignedArticleImporter).to receive(:import_articles_for_assignments)
-      expect(RatingImporter).to receive(:update_all_ratings)
+      expect(RatingImporter).to receive(:update_outdated_ratings)
       expect(UploadImporter).to receive(:find_deleted_files)
       expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect_any_instance_of(MainspaceAiFollowupManager).to receive(:generate_followup_alerts)
