@@ -1,19 +1,18 @@
 window.Sentry = require('@sentry/browser');
 
 // For an unhandled TypeError: Failed to fetch, finds the URL of the request
-// that failed from Sentry's own automatic "fetch" breadcrumb, and reports
-// whether it was cross-origin (third-party APIs like wikidata.org are far
-// more likely to be blocked by ad/privacy blockers than our own backend).
-const isCrossOriginFetchFailure = (event) => {
+// that failed from Sentry's own automatic "fetch" breadcrumb, plus whether
+// it was cross-origin (third-party APIs like wikidata.org are far more
+// likely to be blocked by ad/privacy blockers than our own backend).
+const failedFetchUrlInfo = (event) => {
   const breadcrumbs = event.breadcrumbs && event.breadcrumbs.values;
-  if (!breadcrumbs) return undefined;
-  const lastFetch = [...breadcrumbs].reverse().find(b => b.category === 'fetch');
+  const lastFetch = breadcrumbs && [...breadcrumbs].reverse().find(b => b.category === 'fetch');
   const url = lastFetch && lastFetch.data && lastFetch.data.url;
-  if (!url) return undefined;
+  if (!url) return { url: undefined, crossOrigin: undefined };
   try {
-    return new URL(url, window.location.origin).origin !== window.location.origin;
+    return { url, crossOrigin: new URL(url, window.location.origin).origin !== window.location.origin };
   } catch (urlError) {
-    return undefined;
+    return { url, crossOrigin: undefined };
   }
 };
 
@@ -43,8 +42,8 @@ window.normalizeUnhandledRejection = (event, hint) => {
       ...event.extra,
       onLine: navigator.onLine,
       visibilityState: document.visibilityState,
-      crossOrigin: isCrossOriginFetchFailure(event),
-      hasServiceWorkerController: !!navigator.serviceWorker?.controller
+      hasServiceWorkerController: !!navigator.serviceWorker?.controller,
+      ...failedFetchUrlInfo(event)
     };
     event.fingerprint = ['unhandled-failed-to-fetch'];
     return event;

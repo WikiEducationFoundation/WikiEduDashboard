@@ -69,7 +69,7 @@ describe('fetchWikidataLabels', () => {
     );
   });
 
-  test('reports onLine/visibilityState/hasServiceWorkerController for a network-level failure (e.g. Failed to fetch)', async () => {
+  test('reports url/onLine/visibilityState/hasServiceWorkerController for a network-level failure (e.g. Failed to fetch)', async () => {
     sinon.stub(requestModule, 'default').rejects(new TypeError('Failed to fetch'));
     global.Sentry = { captureException: jest.fn() };
     const dispatch = jest.fn();
@@ -81,6 +81,7 @@ describe('fetchWikidataLabels', () => {
       expect.objectContaining({ name: 'TypeError', message: 'Failed to fetch' }),
       {
         extra: {
+          url: expect.stringContaining('https://www.wikidata.org/w/api.php'),
           onLine: true,
           visibilityState: 'visible',
           hasServiceWorkerController: false,

@@ -69,6 +69,7 @@ describe('normalizeUnhandledRejection (Sentry beforeSend)', () => {
 
     expect(result.fingerprint).toEqual(['unhandled-failed-to-fetch']);
     expect(result.extra).toEqual(expect.objectContaining({
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
       crossOrigin: true,
       hasServiceWorkerController: false,
     }));

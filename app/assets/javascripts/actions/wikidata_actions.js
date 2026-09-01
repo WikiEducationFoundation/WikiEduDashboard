@@ -13,9 +13,16 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     props: 'labels',
     languages: `${I18n.locale}|mul|en`
   };
-  const response = await request(`${wikidataApiBase}&${stringify(query)}`);
-  await ensureOk(response);
-  return response.json();
+  const url = `${wikidataApiBase}&${stringify(query)}`;
+  try {
+    const response = await request(url);
+    await ensureOk(response);
+    return await response.json();
+  } catch (error) {
+    // A raw TypeError (network-level failure) has no .url, unlike ApiError.
+    error.url = error.url || url;
+    throw error;
+  }
 };
 
 // This takes a Wikidata page title and checks whether it looks like
@@ -48,12 +55,14 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
         // report here, a failure here would be invisible to Sentry (ensureOk
         // only console.logs) even though it's the dominant real-world source
         // of this bug (see Sentry issue PEONY-2NS).
-        // onLine/visibilityState/hasServiceWorkerController separate a dropped
-        // connection or backgrounded tab from an actually blocked/intercepted
-        // request, for the TypeError: Failed to fetch case (see PEONY-2P3, #7018).
+        // url/onLine/visibilityState/hasServiceWorkerController separate a
+        // dropped connection or backgrounded tab from an actually blocked or
+        // intercepted request, for the TypeError: Failed to fetch case (see
+        // PEONY-2P3, #7018).
         if (typeof Sentry !== 'undefined') {
           Sentry.captureException(error, {
             extra: {
+              url: error.url,
               onLine: navigator.onLine,
               visibilityState: document.visibilityState,
               hasServiceWorkerController: !!navigator.serviceWorker?.controller
