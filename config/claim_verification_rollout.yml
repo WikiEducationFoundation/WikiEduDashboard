@@ -7,15 +7,21 @@
 # cannot reach outside this list. Emptying `revisions` or deleting this file
 # restores the full harvested pool, which is how you turn the gate off.
 #
-# Generated — do not hand-edit. Edit the verdicts in
-# docs/analytics_scripts/fact_verification_curation/fv_rollout_shortlist.csv
-# and re-run build_rollout_list.rb in that directory.
+# Originally generated from the verdicts in
+# docs/analytics_scripts/fact_verification_curation/fv_rollout_shortlist.csv by
+# build_rollout_list.rb in that directory, then hand-curated for Fall 2026 (see
+# below), so it no longer matches that script's output.
 #
 # Selection: the 468-article harvested pool was scored for source
 # accessibility and slop signals, the top 54 were reviewed by hand against
 # their diffs and fetched sources, and the 25 that came out `strong_candidate`
-# or `usable` are listed here, ranked. Four of them were flagged twice; only
+# or `usable` were listed here, ranked. Four of them were flagged twice; only
 # the revision with more claims ships. See that directory's README.md.
+#
+# Fall 2026 curation: after the team checked the claims of all 25 articles by
+# hand, three were removed — Honolulu Courthouse riot, CHRFAM7A and Climate of
+# Armenia — leaving 22. Individual claims within them are then curated out via
+# `excluded_claim_ids` at the bottom of this file.
 revisions:
 - article_id: 376975008
   mw_rev_id: 1321874993
@@ -29,12 +35,6 @@ revisions:
   tier: strong_candidate
   topic_area: health
   claim_count: 7
-- article_id: 985108653
-  mw_rev_id: 1325604815
-  title: Honolulu Courthouse riot
-  tier: strong_candidate
-  topic_area: humanities
-  claim_count: 39
 - article_id: 989847485
   mw_rev_id: 1339774149
   title: 2011 Italian census
@@ -59,12 +59,6 @@ revisions:
   tier: strong_candidate
   topic_area: social sciences
   claim_count: 40
-- article_id: 1001810019
-  mw_rev_id: 1347334965
-  title: CHRFAM7A
-  tier: strong_candidate
-  topic_area: sciences
-  claim_count: 95
 - article_id: 50875139
   mw_rev_id: 1323139167
   title: Dysthymia
@@ -89,12 +83,6 @@ revisions:
   tier: strong_candidate
   topic_area: sciences
   claim_count: 9
-- article_id: 1000416953
-  mw_rev_id: 1345648440
-  title: Climate of Armenia
-  tier: usable
-  topic_area: sciences
-  claim_count: 6
 - article_id: 1003575313
   mw_rev_id: 1347254024
   title: Hazardous energy
@@ -167,3 +155,200 @@ revisions:
   tier: usable
   topic_area: sciences
   claim_count: 11
+
+# Individual claims curated out of the exercise, by VerificationClaim id — the
+# production ids, which are also the "Claim ID" column of the team's Fall 2026
+# review spreadsheet (the "review claim N" in each comment is that
+# spreadsheet's "Claim #", the viewer's position at review time; it shifts as
+# claims are removed, the id does not). Excluding a claim excludes its
+# sentence: every pool row for that sentence in that revision (one per
+# citation) leaves the viewer and the tile claim counts, rather than another
+# row — a different citation for the same text — taking its place. A revision
+# with nothing left gets no tile. The list is subtractive —
+# append ids as the review turns up more to remove — and keeps applying once
+# the revision list above is retired.
+#
+# Fall 2026 review, first pass: sentences carrying more than one citation
+# marker in the rendered revision (66 claims). The exercise shows a
+# single source per claim, so a student can't tell which of several is meant
+# to support it.
+excluded_claim_ids:
+  - 3412  # 2011 Italian census, review claim 2 (3 citations)
+  - 3416  # 2011 Italian census, review claim 4 (2 citations)
+  - 3418  # 2011 Italian census, review claim 5 (2 citations)
+  - 3420  # 2011 Italian census, review claim 6 (2 citations)
+  - 3422  # 2011 Italian census, review claim 7 (3 citations)
+  - 3425  # 2011 Italian census, review claim 8 (2 citations)
+  - 1557  # Biodesign, review claim 3 (2 citations)
+  - 1560  # Biodesign, review claim 5 (2 citations)
+  - 3631  # Bullerengue, review claim 10 (2 citations)
+  - 5065  # Central Valley groundwater pollution, review claim 5 (3 citations)
+  - 5071  # Central Valley groundwater pollution, review claim 9 (2 citations)
+  - 5075  # Central Valley groundwater pollution, review claim 12 (2 citations)
+  - 3167  # Climate finance in the United States, review claim 1 (2 citations)
+  - 3169  # Climate finance in the United States, review claim 2 (2 citations)
+  - 3171  # Climate finance in the United States, review claim 3 (2 citations)
+  - 3173  # Climate finance in the United States, review claim 4 (2 citations)
+  - 3175  # Climate finance in the United States, review claim 5 (2 citations)
+  - 3181  # Climate finance in the United States, review claim 10 (2 citations)
+  - 3189  # Climate finance in the United States, review claim 17 (2 citations)
+  - 3191  # Climate finance in the United States, review claim 18 (2 citations)
+  - 3193  # Climate finance in the United States, review claim 19 (4 citations)
+  - 3199  # Climate finance in the United States, review claim 22 (2 citations)
+  - 3205  # Climate finance in the United States, review claim 27 (2 citations)
+  - 1408  # Diseases of poverty, review claim 11 (2 citations)
+  - 1     # Dynamical decoupling, review claim 1 (2 citations)
+  - 3     # Dynamical decoupling, review claim 2 (6 citations)
+  - 9     # Dynamical decoupling, review claim 3 (3 citations)
+  - 13    # Dynamical decoupling, review claim 5 (2 citations)
+  - 1270  # Dysthymia, review claim 1 (2 citations)
+  - 1274  # Dysthymia, review claim 2 (2 citations)
+  - 4826  # Extensive farming, review claim 19 (2 citations)
+  - 4841  # Extensive farming, review claim 33 (2 citations)
+  - 4843  # Extensive farming, review claim 34 (2 citations)
+  - 4860  # Extensive farming, review claim 50 (2 citations)
+  - 4667  # Graffiti in Los Angeles, review claim 3 (2 citations)
+  - 4670  # Graffiti in Los Angeles, review claim 5 (2 citations)
+  - 4674  # Graffiti in Los Angeles, review claim 8 (2 citations)
+  - 4677  # Graffiti in Los Angeles, review claim 10 (2 citations)
+  - 4050  # Hazardous energy, review claim 4 (2 citations)
+  - 823   # Helianthus californicus, review claim 1 (3 citations)
+  - 826   # Helianthus californicus, review claim 2 (2 citations)
+  - 828   # Helianthus californicus, review claim 3 (2 citations)
+  - 830   # Helianthus californicus, review claim 4 (2 citations)
+  - 832   # Helianthus californicus, review claim 5 (4 citations)
+  - 837   # Helianthus californicus, review claim 7 (3 citations)
+  - 840   # Helianthus californicus, review claim 8 (2 citations)
+  - 843   # Helianthus californicus, review claim 10 (3 citations)
+  - 846   # Helianthus californicus, review claim 11 (2 citations)
+  - 848   # Helianthus californicus, review claim 12 (2 citations)
+  - 850   # Helianthus californicus, review claim 13 (2 citations)
+  - 852   # Helianthus californicus, review claim 14 (5 citations)
+  - 858   # Helianthus californicus, review claim 16 (3 citations)
+  - 5636  # Immigration policy of the United States, review claim 15 (2 citations)
+  - 5639  # Immigration policy of the United States, review claim 17 (3 citations)
+  - 3482  # Immunosenescence, review claim 1 (2 citations)
+  - 3486  # Immunosenescence, review claim 4 (2 citations)
+  - 579   # Psychology of art, review claim 6 (3 citations)
+  - 582   # Psychology of art, review claim 7 (2 citations)
+  - 584   # Psychology of art, review claim 8 (2 citations)
+  - 1063  # Surrogacy in India, review claim 4 (2 citations)
+  - 1067  # Surrogacy in India, review claim 7 (2 citations)
+  - 1070  # Surrogacy in India, review claim 9 (2 citations)
+  - 1074  # Surrogacy in India, review claim 12 (2 citations)
+  - 1079  # Surrogacy in India, review claim 16 (2 citations)
+  - 1085  # Surrogacy in India, review claim 21 (2 citations)
+  - 1087  # Surrogacy in India, review claim 22 (2 citations)
+  #
+  # Fall 2026 review, second pass: claims whose cited source the reviewers
+  # judged not to be a good source ("Source good?" = No in the spreadsheet;
+  # 25 claims — the other 7 marked No were already excluded above).
+  - 788   # American pika, review claim 3
+  - 789   # American pika, review claim 4
+  - 792   # American pika, review claim 7
+  - 802   # American pika, review claim 17
+  - 3177  # Climate finance in the United States, review claim 6
+  - 3187  # Climate finance in the United States, review claim 15
+  - 3832  # Curly Girl Method, review claim 1
+  - 3833  # Curly Girl Method, review claim 2
+  - 4808  # Extensive farming, review claim 1
+  - 4810  # Extensive farming, review claim 3
+  - 4812  # Extensive farming, review claim 5
+  - 4816  # Extensive farming, review claim 9
+  - 4817  # Extensive farming, review claim 10
+  - 4818  # Extensive farming, review claim 11
+  - 4819  # Extensive farming, review claim 12
+  - 4834  # Extensive farming, review claim 26
+  - 4836  # Extensive farming, review claim 28
+  - 4837  # Extensive farming, review claim 29
+  - 4845  # Extensive farming, review claim 35
+  - 4867  # Extensive farming, review claim 56
+  - 4868  # Extensive farming, review claim 57
+  - 857   # Helianthus californicus, review claim 15
+  - 4727  # Sharpfin houndshark, review claim 5
+  - 4728  # Sharpfin houndshark, review claim 6
+  - 4729  # Sharpfin houndshark, review claim 7
+  #
+  # Fall 2026 review, third pass: claims whose cited source is a book — the
+  # citation renders from the Cite book template, or is a book chapter cited
+  # via the generic Citation template (8 claims; 3 more book citations were
+  # already excluded above).
+  - 786   # American pika, review claim 1
+  - 796   # American pika, review claim 11
+  - 4824  # Extensive farming, review claim 17
+  - 4830  # Extensive farming, review claim 22
+  - 4875  # Extensive farming, review claim 64
+  - 4665  # Graffiti in Los Angeles, review claim 1
+  - 4679  # Graffiti in Los Angeles, review claim 11
+  - 5622  # Immigration policy of the United States, review claim 1
+  #
+  # TEMPORARY — Fall 2026 review, fourth pass: claims the team has not yet
+  # evaluated ("Source good?" still blank in the spreadsheet; 66 claims).
+  # Held out only until they are reviewed: delete this whole block, or the
+  # lines for claims that have since passed review, as the review catches up.
+  - 787   # American pika, review claim 2
+  - 809   # American pika, review claim 24
+  - 810   # American pika, review claim 25
+  - 811   # American pika, review claim 26
+  - 3623  # Bullerengue, review claim 2
+  - 3624  # Bullerengue, review claim 3
+  - 3625  # Bullerengue, review claim 4
+  - 3626  # Bullerengue, review claim 5
+  - 3627  # Bullerengue, review claim 6
+  - 3628  # Bullerengue, review claim 7
+  - 3629  # Bullerengue, review claim 8
+  - 3630  # Bullerengue, review claim 9
+  - 3178  # Climate finance in the United States, review claim 7
+  - 3183  # Climate finance in the United States, review claim 11
+  - 3186  # Climate finance in the United States, review claim 14
+  - 3198  # Climate finance in the United States, review claim 21
+  - 5586  # Community health centers in the United States, review claim 1
+  - 5587  # Community health centers in the United States, review claim 2
+  - 5588  # Community health centers in the United States, review claim 3
+  - 5589  # Community health centers in the United States, review claim 4
+  - 5590  # Community health centers in the United States, review claim 5
+  - 5591  # Community health centers in the United States, review claim 6
+  - 5592  # Community health centers in the United States, review claim 7
+  - 5593  # Community health centers in the United States, review claim 8
+  - 5594  # Community health centers in the United States, review claim 9
+  - 5595  # Community health centers in the United States, review claim 10
+  - 5596  # Community health centers in the United States, review claim 11
+  - 5597  # Community health centers in the United States, review claim 12
+  - 5598  # Community health centers in the United States, review claim 13
+  - 5599  # Community health centers in the United States, review claim 14
+  - 5600  # Community health centers in the United States, review claim 15
+  - 12    # Dynamical decoupling, review claim 4
+  - 15    # Dynamical decoupling, review claim 6
+  - 16    # Dynamical decoupling, review claim 7
+  - 17    # Dynamical decoupling, review claim 8
+  - 18    # Dynamical decoupling, review claim 9
+  - 19    # Dynamical decoupling, review claim 10
+  - 1273  # Dysthymia, review claim 4
+  - 4666  # Graffiti in Los Angeles, review claim 2
+  - 4669  # Graffiti in Los Angeles, review claim 4
+  - 4672  # Graffiti in Los Angeles, review claim 6
+  - 4673  # Graffiti in Los Angeles, review claim 7
+  - 4676  # Graffiti in Los Angeles, review claim 9
+  - 4680  # Graffiti in Los Angeles, review claim 12
+  - 4681  # Graffiti in Los Angeles, review claim 13
+  - 4047  # Hazardous energy, review claim 1
+  - 4048  # Hazardous energy, review claim 2
+  - 4049  # Hazardous energy, review claim 3
+  - 4052  # Hazardous energy, review claim 5
+  - 4053  # Hazardous energy, review claim 6
+  - 5623  # Immigration policy of the United States, review claim 2
+  - 5624  # Immigration policy of the United States, review claim 3
+  - 5625  # Immigration policy of the United States, review claim 4
+  - 5626  # Immigration policy of the United States, review claim 5
+  - 5627  # Immigration policy of the United States, review claim 6
+  - 5628  # Immigration policy of the United States, review claim 7
+  - 5629  # Immigration policy of the United States, review claim 8
+  - 5630  # Immigration policy of the United States, review claim 9
+  - 5631  # Immigration policy of the United States, review claim 10
+  - 5632  # Immigration policy of the United States, review claim 11
+  - 5633  # Immigration policy of the United States, review claim 12
+  - 5634  # Immigration policy of the United States, review claim 13
+  - 5635  # Immigration policy of the United States, review claim 14
+  - 5638  # Immigration policy of the United States, review claim 16
+  - 5642  # Immigration policy of the United States, review claim 18
+  - 5643  # Immigration policy of the United States, review claim 19
