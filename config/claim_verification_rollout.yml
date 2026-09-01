@@ -238,3 +238,32 @@ excluded_claim_ids:
   - 1079  # Surrogacy in India, review claim 16 (2 citations)
   - 1085  # Surrogacy in India, review claim 21 (2 citations)
   - 1087  # Surrogacy in India, review claim 22 (2 citations)
+  #
+  # Fall 2026 review, second pass: claims whose cited source the reviewers
+  # judged not to be a good source ("Source good?" = No in the spreadsheet;
+  # 25 claims — the other 7 marked No were already excluded above).
+  - 788   # American pika, review claim 3
+  - 789   # American pika, review claim 4
+  - 792   # American pika, review claim 7
+  - 802   # American pika, review claim 17
+  - 3177  # Climate finance in the United States, review claim 6
+  - 3187  # Climate finance in the United States, review claim 15
+  - 3832  # Curly Girl Method, review claim 1
+  - 3833  # Curly Girl Method, review claim 2
+  - 4808  # Extensive farming, review claim 1
+  - 4810  # Extensive farming, review claim 3
+  - 4812  # Extensive farming, review claim 5
+  - 4816  # Extensive farming, review claim 9
+  - 4817  # Extensive farming, review claim 10
+  - 4818  # Extensive farming, review claim 11
+  - 4819  # Extensive farming, review claim 12
+  - 4834  # Extensive farming, review claim 26
+  - 4836  # Extensive farming, review claim 28
+  - 4837  # Extensive farming, review claim 29
+  - 4845  # Extensive farming, review claim 35
+  - 4867  # Extensive farming, review claim 56
+  - 4868  # Extensive farming, review claim 57
+  - 857   # Helianthus californicus, review claim 15
+  - 4727  # Sharpfin houndshark, review claim 5
+  - 4728  # Sharpfin houndshark, review claim 6
+  - 4729  # Sharpfin houndshark, review claim 7
