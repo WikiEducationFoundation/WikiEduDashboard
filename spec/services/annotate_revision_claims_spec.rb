@@ -62,6 +62,63 @@ describe AnnotateRevisionClaims do
     expect(described_class.new(article:, mw_rev_id: 999).html).to be_nil
   end
 
+  # Curating a claim out of the exercise (excluded_claim_ids in the rollout
+  # config) has to remove the sentence the student would have seen, not just
+  # the pool row behind it: a sentence with several citations has one pool row
+  # per citation, and dropping only the displayed row would promote the next.
+  context 'when a claim is curated out of the rollout' do
+    let(:revision_html) do
+      <<~HTML
+        <p>Sea otters use rocks as tools.<sup class="reference"><a href="#cite_note-a-1">[1]</a></sup><sup class="reference"><a href="#cite_note-b-2">[2]</a></sup>
+        Otters eat urchins.<sup class="reference"><a href="#cite_note-a-1">[1]</a></sup></p>
+        <ol class="references">
+          <li id="cite_note-a-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/a">Riedman 1990</a></cite></span></li>
+          <li id="cite_note-b-2"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/b">Kenyon 1969</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-a-1',
+                                sentence: 'Sea otters use rocks as tools.',
+                                cite_text: 'Riedman 1990', source_url: 'https://example.com/a')
+    end
+    let!(:second_citation) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-b-2',
+                                sentence: 'Sea otters use rocks as tools.',
+                                cite_text: 'Kenyon 1969', source_url: 'https://example.com/b')
+    end
+    let!(:kept) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-a-1',
+                                sentence: 'Otters eat urchins.', cite_text: 'Riedman 1990',
+                                source_url: 'https://example.com/a')
+    end
+
+    before { rollout_revisions(excluding: [harvested.id]) }
+
+    def spans
+      Nokogiri::HTML.fragment(annotate.html).css('.cv-claim')
+    end
+
+    it 'still highlights the other claims' do
+      expect(spans.map { |span| span['data-claim-id'] }).to eq([kept.id.to_s])
+    end
+
+    it 'leaves the excluded sentence unhighlighted' do
+      expect(spans.map(&:text).join(' ')).not_to include('Sea otters use rocks as tools.')
+    end
+
+    it 'does not promote the same sentence under its other citation' do
+      expect(annotate.html).not_to include(%(data-claim-id="#{second_citation.id}"))
+    end
+
+    it 'returns no html when every claim of the revision is curated out' do
+      rollout_revisions(excluding: [harvested.id, kept.id])
+      expect(annotate.html).to be_nil
+    end
+  end
+
   # A named ref like <ref name="O'Brien 2020"> renders with the apostrophe kept in
   # the cite_note id, which used to break the interpolated CSS selector that
   # located the marker (Nokogiri::CSS::SyntaxError, 500ing the endpoint).

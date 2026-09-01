@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
 module ClaimVerification
-  # The hand-curated set of flagged revisions students may pick from, as
-  # declared in config/claim_verification_rollout.yml.
+  # The hand-curated set of flagged revisions students may pick from, and the
+  # individual claims curated out of them, as declared in
+  # config/claim_verification_rollout.yml.
   #
   # TEMPORARY. This is the initial rollout's allow-list, not the intended
   # serving strategy. While the config names any revisions, the exercise offers
   # only those, to every course; empty the list or delete the file and the full
-  # harvested pool comes back. Nothing else in the app knows the list exists —
-  # RelevantClaimRevisionsForCourse is the single point that consults it.
+  # harvested pool comes back. The per-claim exclusions are subtractive and
+  # independent of that gate, so they keep applying to the full pool once the
+  # revision list is retired. Nothing else in the app knows the list exists —
+  # RelevantClaimRevisionsForCourse (tiles and counts) and AnnotateRevisionClaims
+  # (which claims get highlighted) are the two points that consult it.
   #
-  # The unit is the (article_id, mw_rev_id) pair rather than the revision id
-  # alone: revision ids are unique within a wiki but not across them, and the
-  # pool spans wikis.
+  # The revision unit is the (article_id, mw_rev_id) pair rather than the
+  # revision id alone: revision ids are unique within a wiki but not across
+  # them, and the pool spans wikis.
   class RolloutList
     CONFIG_PATH = "#{Rails.root}/config/claim_verification_rollout.yml"
 
@@ -21,27 +25,48 @@ module ClaimVerification
         pairs.any?
       end
 
-      # The given VerificationClaim scope, narrowed to the rollout revisions —
-      # or returned untouched when no list is configured.
+      # The given VerificationClaim scope, narrowed to the rollout revisions and
+      # stripped of the excluded claims — or returned untouched when neither is
+      # configured.
       def filter(scope)
         approved = pairs
-        return scope if approved.empty?
-        scope.where(tuple_condition(approved))
+        scope = scope.where(tuple_condition(approved)) if approved.any?
+        excluded = excluded_claim_ids
+        scope = scope.where.not(id: excluded.to_a) if excluded.any?
+        scope
       end
 
       # [[article_id, mw_rev_id], ...]
       def pairs
-        # Reloaded every time outside production so curation changes land
-        # without a restart, matching ClaimVerification::ExerciseForm.
-        return load_pairs unless Rails.env.production?
-        @pairs ||= load_pairs
+        config[:pairs]
+      end
+
+      # The VerificationClaim ids curated out of the exercise, as a Set.
+      def excluded_claim_ids
+        config[:excluded_claim_ids]
+      end
+
+      def excluded?(claim_id)
+        excluded_claim_ids.include?(claim_id)
       end
 
       private
 
-      def load_pairs
-        return [] unless File.exist?(CONFIG_PATH)
-        revisions = YAML.load_file(CONFIG_PATH)['revisions'] || []
+      def config
+        # Reloaded every time outside production so curation changes land
+        # without a restart, matching ClaimVerification::ExerciseForm.
+        return load_config unless Rails.env.production?
+        @config ||= load_config
+      end
+
+      def load_config
+        return { pairs: [], excluded_claim_ids: Set.new } unless File.exist?(CONFIG_PATH)
+        yaml = YAML.load_file(CONFIG_PATH)
+        { pairs: load_pairs(yaml['revisions'] || []),
+          excluded_claim_ids: (yaml['excluded_claim_ids'] || []).map(&:to_i).to_set }
+      end
+
+      def load_pairs(revisions)
         revisions.filter_map do |revision|
           article_id = revision['article_id']
           mw_rev_id = revision['mw_rev_id']

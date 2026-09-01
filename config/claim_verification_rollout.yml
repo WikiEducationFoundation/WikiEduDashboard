@@ -20,7 +20,8 @@
 #
 # Fall 2026 curation: after the team checked the claims of all 25 articles by
 # hand, three were removed — Honolulu Courthouse riot, CHRFAM7A and Climate of
-# Armenia — leaving 22.
+# Armenia — leaving 22. Individual claims within them are then curated out via
+# `excluded_claim_ids` at the bottom of this file.
 revisions:
 - article_id: 376975008
   mw_rev_id: 1321874993
@@ -154,3 +155,86 @@ revisions:
   tier: usable
   topic_area: sciences
   claim_count: 11
+
+# Individual claims curated out of the exercise, by VerificationClaim id — the
+# production ids, which are also the "Claim ID" column of the team's Fall 2026
+# review spreadsheet (the "review claim N" in each comment is that
+# spreadsheet's "Claim #", the viewer's position at review time; it shifts as
+# claims are removed, the id does not). Excluding a claim removes its sentence
+# from the viewer: AnnotateRevisionClaims drops the sentence the claim stands
+# for rather than promoting another pool row (a different citation) for the
+# same text, and tile claim counts leave these out. The list is subtractive —
+# append ids as the review turns up more to remove — and keeps applying once
+# the revision list above is retired.
+#
+# Fall 2026 review, first pass: sentences carrying more than one citation
+# marker in the rendered revision (66 claims). The exercise shows a
+# single source per claim, so a student can't tell which of several is meant
+# to support it.
+excluded_claim_ids:
+  - 3412  # 2011 Italian census, review claim 2 (3 citations)
+  - 3416  # 2011 Italian census, review claim 4 (2 citations)
+  - 3418  # 2011 Italian census, review claim 5 (2 citations)
+  - 3420  # 2011 Italian census, review claim 6 (2 citations)
+  - 3422  # 2011 Italian census, review claim 7 (3 citations)
+  - 3425  # 2011 Italian census, review claim 8 (2 citations)
+  - 1557  # Biodesign, review claim 3 (2 citations)
+  - 1560  # Biodesign, review claim 5 (2 citations)
+  - 3631  # Bullerengue, review claim 10 (2 citations)
+  - 5065  # Central Valley groundwater pollution, review claim 5 (3 citations)
+  - 5071  # Central Valley groundwater pollution, review claim 9 (2 citations)
+  - 5075  # Central Valley groundwater pollution, review claim 12 (2 citations)
+  - 3167  # Climate finance in the United States, review claim 1 (2 citations)
+  - 3169  # Climate finance in the United States, review claim 2 (2 citations)
+  - 3171  # Climate finance in the United States, review claim 3 (2 citations)
+  - 3173  # Climate finance in the United States, review claim 4 (2 citations)
+  - 3175  # Climate finance in the United States, review claim 5 (2 citations)
+  - 3181  # Climate finance in the United States, review claim 10 (2 citations)
+  - 3189  # Climate finance in the United States, review claim 17 (2 citations)
+  - 3191  # Climate finance in the United States, review claim 18 (2 citations)
+  - 3193  # Climate finance in the United States, review claim 19 (4 citations)
+  - 3199  # Climate finance in the United States, review claim 22 (2 citations)
+  - 3205  # Climate finance in the United States, review claim 27 (2 citations)
+  - 1408  # Diseases of poverty, review claim 11 (2 citations)
+  - 1     # Dynamical decoupling, review claim 1 (2 citations)
+  - 3     # Dynamical decoupling, review claim 2 (6 citations)
+  - 9     # Dynamical decoupling, review claim 3 (3 citations)
+  - 13    # Dynamical decoupling, review claim 5 (2 citations)
+  - 1270  # Dysthymia, review claim 1 (2 citations)
+  - 1274  # Dysthymia, review claim 2 (2 citations)
+  - 4826  # Extensive farming, review claim 19 (2 citations)
+  - 4841  # Extensive farming, review claim 33 (2 citations)
+  - 4843  # Extensive farming, review claim 34 (2 citations)
+  - 4860  # Extensive farming, review claim 50 (2 citations)
+  - 4667  # Graffiti in Los Angeles, review claim 3 (2 citations)
+  - 4670  # Graffiti in Los Angeles, review claim 5 (2 citations)
+  - 4674  # Graffiti in Los Angeles, review claim 8 (2 citations)
+  - 4677  # Graffiti in Los Angeles, review claim 10 (2 citations)
+  - 4050  # Hazardous energy, review claim 4 (2 citations)
+  - 823   # Helianthus californicus, review claim 1 (3 citations)
+  - 826   # Helianthus californicus, review claim 2 (2 citations)
+  - 828   # Helianthus californicus, review claim 3 (2 citations)
+  - 830   # Helianthus californicus, review claim 4 (2 citations)
+  - 832   # Helianthus californicus, review claim 5 (4 citations)
+  - 837   # Helianthus californicus, review claim 7 (3 citations)
+  - 840   # Helianthus californicus, review claim 8 (2 citations)
+  - 843   # Helianthus californicus, review claim 10 (3 citations)
+  - 846   # Helianthus californicus, review claim 11 (2 citations)
+  - 848   # Helianthus californicus, review claim 12 (2 citations)
+  - 850   # Helianthus californicus, review claim 13 (2 citations)
+  - 852   # Helianthus californicus, review claim 14 (5 citations)
+  - 858   # Helianthus californicus, review claim 16 (3 citations)
+  - 5636  # Immigration policy of the United States, review claim 15 (2 citations)
+  - 5639  # Immigration policy of the United States, review claim 17 (3 citations)
+  - 3482  # Immunosenescence, review claim 1 (2 citations)
+  - 3486  # Immunosenescence, review claim 4 (2 citations)
+  - 579   # Psychology of art, review claim 6 (3 citations)
+  - 582   # Psychology of art, review claim 7 (2 citations)
+  - 584   # Psychology of art, review claim 8 (2 citations)
+  - 1063  # Surrogacy in India, review claim 4 (2 citations)
+  - 1067  # Surrogacy in India, review claim 7 (2 citations)
+  - 1070  # Surrogacy in India, review claim 9 (2 citations)
+  - 1074  # Surrogacy in India, review claim 12 (2 citations)
+  - 1079  # Surrogacy in India, review claim 16 (2 citations)
+  - 1085  # Surrogacy in India, review claim 21 (2 citations)
+  - 1087  # Surrogacy in India, review claim 22 (2 citations)
