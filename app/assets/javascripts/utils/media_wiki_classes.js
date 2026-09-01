@@ -1,6 +1,6 @@
 
 
-import request from './request';
+import request, { ensureOk } from './request';
 import { stringify } from 'query-string';
 import { chunk } from 'lodash-es';
 import { getAssessments } from './revision_utils';
@@ -50,9 +50,14 @@ const getClassesForArticles = async (API_URL, articles) => {
     pasubprojects: false,
     palimit: 500
   };
-  const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
-  const pages = (await response.json())?.query?.pages;
-  if (pages) {
-    return pages;
+  try {
+    const response = await request(`${API_URL}?${stringify(params)}&origin=*`);
+    await ensureOk(response);
+    const pages = (await response.json())?.query?.pages;
+    if (pages) {
+      return pages;
+    }
+  } catch {
+    // Skipped; see Sentry issue PEONY-2P5. Assessments for this chunk are omitted.
   }
 };
