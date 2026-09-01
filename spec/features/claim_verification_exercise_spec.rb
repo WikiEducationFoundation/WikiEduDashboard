@@ -180,7 +180,9 @@ describe 'Claim verification exercise', type: :feature, js: true do
         'source_appropriate' => 'appropriate',
         'meets_rs_policy' => 'generally_reliable',
         'source_access' => 'accessed',
-        'verdict' => 'partial_support',
+        # A retired verdict: no longer offered, but a response recorded with it
+        # must still read back with its label.
+        'verdict' => 'mostly_supports',
         'claim_location' => 'chapter 3',
         'verification_notes' => 'The chapter describes tool use at length, but the shellfish ' \
                                 'detail only appears in a figure caption, which took a while ' \
@@ -203,7 +205,7 @@ describe 'Claim verification exercise', type: :feature, js: true do
     within '.cv-response-pop' do
       expect(page).to have_content(sentence)
       expect(page).to have_content(
-        I18n.t('claim_verification.form.verdict_options.partial_support')
+        I18n.t('claim_verification.form.verdict_options.mostly_supports')
       )
       expect(page).to have_content('chapter 3')
     end

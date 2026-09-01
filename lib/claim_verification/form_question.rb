@@ -10,15 +10,18 @@ module ClaimVerification
   #
   # - id: also the key this question's answer is stored under
   # - type: 'choice' (one of `options`) or 'text' (free response)
-  # - options: the accepted answers, for a choice question
+  # - options: the answers offered, for a choice question
+  # - retired_options: answers no longer offered but still accepted, so a
+  #   response recorded with one keeps it and can still be edited
   # - required: submission is blocked until this is answered
   # - visible_when: { other question id => [answers] | true }; asked only when
   #   that earlier answer is one of those, or any answer at all (see AnswerGate)
-  FormQuestion = Data.define(:id, :type, :options, :required, :visible_when) do
+  FormQuestion = Data.define(:id, :type, :options, :retired_options, :required,
+                             :visible_when) do
     def self.from_config(config)
       new(id: config.fetch('id'), type: config.fetch('type'),
-          options: config['options'] || [], required: config['required'] || false,
-          visible_when: config['visible_when'] || {})
+          options: config['options'] || [], retired_options: config['retired_options'] || [],
+          required: config['required'] || false, visible_when: config['visible_when'] || {})
     end
 
     def choice?
@@ -35,9 +38,27 @@ module ClaimVerification
       I18n.t("claim_verification.form.#{choice? ? "#{id}_question" : "#{id}_label"}")
     end
 
+    # Whether a choice question takes this answer: one it offers, or a retired
+    # one still on record.
+    def accepts?(answer)
+      options.include?(answer) || retired_options.include?(answer)
+    end
+
     # The choice options as value/label pairs, in the order the form offers them.
     def option_labels
-      options.map do |value|
+      labelled(options)
+    end
+
+    # The retired options, labelled the same way, so the summary can still read
+    # an answer the form no longer offers.
+    def retired_option_labels
+      labelled(retired_options)
+    end
+
+    private
+
+    def labelled(values)
+      values.map do |value|
         { value:, label: I18n.t("claim_verification.form.#{id}_options.#{value}") }
       end
     end
