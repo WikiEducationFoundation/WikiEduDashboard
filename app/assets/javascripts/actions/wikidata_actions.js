@@ -48,7 +48,18 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
         // report here, a failure here would be invisible to Sentry (ensureOk
         // only console.logs) even though it's the dominant real-world source
         // of this bug (see Sentry issue PEONY-2NS).
-        if (typeof Sentry !== 'undefined') Sentry.captureException(error);
+        // onLine/visibilityState/hasServiceWorkerController separate a dropped
+        // connection or backgrounded tab from an actually blocked/intercepted
+        // request, for the TypeError: Failed to fetch case (see PEONY-2P3, #7018).
+        if (typeof Sentry !== 'undefined') {
+          Sentry.captureException(error, {
+            extra: {
+              onLine: navigator.onLine,
+              visibilityState: document.visibilityState,
+              hasServiceWorkerController: !!navigator.serviceWorker?.controller
+            }
+          });
+        }
       });
   });
 };

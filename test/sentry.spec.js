@@ -55,6 +55,42 @@ describe('normalizeUnhandledRejection (Sentry beforeSend)', () => {
     expect(() => window.normalizeUnhandledRejection(event, {})).not.toThrow();
     expect(window.normalizeUnhandledRejection(event, {})).toBe(event);
   });
+
+  test('enriches and aggregates an unhandled TypeError: Failed to fetch', () => {
+    const event = buildEvent('TypeError: Failed to fetch');
+    event.breadcrumbs = {
+      values: [
+        { category: 'fetch', data: { url: 'https://www.wikidata.org/w/api.php?action=wbgetentities' } },
+      ],
+    };
+    const hint = { originalException: new TypeError('Failed to fetch') };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.fingerprint).toEqual(['unhandled-failed-to-fetch']);
+    expect(result.extra).toEqual(expect.objectContaining({
+      crossOrigin: true,
+      hasServiceWorkerController: false,
+    }));
+    expect(typeof result.extra.onLine).toBe('boolean');
+    expect(typeof result.extra.visibilityState).toBe('string');
+    // The message itself is left alone -- only extra/fingerprint are added.
+    expect(result.exception.values[0].value).toBe('TypeError: Failed to fetch');
+  });
+
+  test('reports crossOrigin: false for a same-origin Failed to fetch', () => {
+    const event = buildEvent('TypeError: Failed to fetch');
+    event.breadcrumbs = {
+      values: [
+        { category: 'fetch', data: { url: `${window.location.origin}/stats_graphs.json` } },
+      ],
+    };
+    const hint = { originalException: new TypeError('Failed to fetch') };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.extra.crossOrigin).toBe(false);
+  });
 });
 
 describe('against a real initialized Sentry client', () => {

@@ -1,5 +1,22 @@
 window.Sentry = require('@sentry/browser');
 
+// For an unhandled TypeError: Failed to fetch, finds the URL of the request
+// that failed from Sentry's own automatic "fetch" breadcrumb, and reports
+// whether it was cross-origin (third-party APIs like wikidata.org are far
+// more likely to be blocked by ad/privacy blockers than our own backend).
+const isCrossOriginFetchFailure = (event) => {
+  const breadcrumbs = event.breadcrumbs && event.breadcrumbs.values;
+  if (!breadcrumbs) return undefined;
+  const lastFetch = [...breadcrumbs].reverse().find(b => b.category === 'fetch');
+  const url = lastFetch && lastFetch.data && lastFetch.data.url;
+  if (!url) return undefined;
+  try {
+    return new URL(url, window.location.origin).origin !== window.location.origin;
+  } catch (urlError) {
+    return undefined;
+  }
+};
+
 // Normalizes non-Error promise rejections (e.g. a raw fetch Response, or a
 // plain object) into a readable message on the event Sentry already built,
 // instead of reporting them separately. Sentry's own unhandledrejection
@@ -14,6 +31,25 @@ window.normalizeUnhandledRejection = (event, hint) => {
   if (!mechanism || mechanism.type !== 'onunhandledrejection') return event;
 
   const reason = hint && hint.originalException;
+
+  // Network-level fetch failures (no HTTP response at all) are real Error
+  // instances already, so they'd otherwise pass through the check below
+  // unmodified. Enrich them with context that separates a dropped connection
+  // or backgrounded tab from an actually blocked/intercepted request, and
+  // aggregate every call site's occurrences into one issue instead of letting
+  // them split by stack trace (see #7018).
+  if (reason instanceof TypeError && reason.message === 'Failed to fetch') {
+    event.extra = {
+      ...event.extra,
+      onLine: navigator.onLine,
+      visibilityState: document.visibilityState,
+      crossOrigin: isCrossOriginFetchFailure(event),
+      hasServiceWorkerController: !!navigator.serviceWorker?.controller
+    };
+    event.fingerprint = ['unhandled-failed-to-fetch'];
+    return event;
+  }
+
   if (reason instanceof Error) return event;
 
   let message;

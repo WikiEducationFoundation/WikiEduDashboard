@@ -64,7 +64,28 @@ describe('fetchWikidataLabels', () => {
     await flushPromises();
 
     expect(global.Sentry.captureException).toHaveBeenCalledWith(
-      expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' })
+      expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' }),
+      { extra: expect.objectContaining({ onLine: true, visibilityState: 'visible' }) }
+    );
+  });
+
+  test('reports onLine/visibilityState/hasServiceWorkerController for a network-level failure (e.g. Failed to fetch)', async () => {
+    sinon.stub(requestModule, 'default').rejects(new TypeError('Failed to fetch'));
+    global.Sentry = { captureException: jest.fn() };
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+
+    expect(global.Sentry.captureException).toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'TypeError', message: 'Failed to fetch' }),
+      {
+        extra: {
+          onLine: true,
+          visibilityState: 'visible',
+          hasServiceWorkerController: false,
+        },
+      }
     );
   });
 });
