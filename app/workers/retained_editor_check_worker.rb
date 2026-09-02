@@ -89,10 +89,10 @@ class RetainedEditorCheckWorker
   def process_batch(batch, wiki, threshold)
     result = fetch_active_usernames(batch.map(&:username), wiki, threshold)
     return nil if result.nil? # Signal API outage to caller
-    active, queried = result
+    active, queried, invalid = result
     update_batch_retention(batch, active, queried)
-    # Mark unverifiable users (permanent API failures) as checked but nil status
-    unverifiable = batch.reject { |cu| queried.include?(cu.username) }
+    # Mark unverifiable users (confirmed permanent API errors) as checked with nil status
+    unverifiable = batch.select { |cu| invalid&.include?(cu.username) }
     bulk_update(unverifiable.map(&:id), nil, Time.zone.now) if unverifiable.any?
     batch.size
   end
@@ -135,7 +135,7 @@ class RetainedEditorCheckWorker
       break unless pending
     end
 
-    [active_usernames, target_users]
+    [active_usernames, target_users, Set.new]
   end
 
   # Returns [pending_usernames, continue_param] for the next iteration,
@@ -150,31 +150,33 @@ class RetainedEditorCheckWorker
   end
 
   def fetch_individual_active_usernames(usernames, wiki, threshold)
-    active_usernames = Set.new
-    queried_usernames = Set.new
+    active = Set.new
+    queried = Set.new
+    invalid = Set.new
+
     usernames.each do |username|
-      result = query_usercontribs([username], wiki, threshold, nil)
-      if result
-        queried_usernames.add(username)
-        active_usernames.add(username) if result[:users].any?
+      res = query_usercontribs([username], wiki, threshold) { |e| e.is_a?(MediawikiApi::ApiError) }
+      if res
+        queried.add(username)
+        active.add(username) if res[:users].any?
       end
+    rescue MediawikiApi::ApiError
+      invalid.add(username)
     end
-    return nil if queried_usernames.empty?
-    [active_usernames, queried_usernames]
+
+    return nil if queried.empty? && invalid.empty?
+    [active, queried, invalid]
   end
 
-  def query_usercontribs(usernames, wiki, threshold, continue_param)
+  def query_usercontribs(usernames, wiki, threshold, continue_param = nil, &block)
     query = usercontribs_query(usernames, threshold)
     query.merge!(continue_param) if continue_param
 
-    response = WikiApi.new(wiki).query(query)
+    response = WikiApi.new(wiki).query(query, &block)
     return nil unless response&.data&.key?('usercontribs')
 
     contribs = response.data['usercontribs'] || []
-    {
-      users: contribs.filter_map { |c| c['user'] },
-      continue: response.data['continue']
-    }
+    { users: contribs.filter_map { |c| c['user'] }, continue: response.data['continue'] }
   end
 
   def usercontribs_query(usernames, threshold)

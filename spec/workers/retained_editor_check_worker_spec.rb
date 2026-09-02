@@ -308,34 +308,66 @@ describe RetainedEditorCheckWorker do
       end
     end
 
-    context 'when partial API failure in individual fallback' do
-      # One user's query succeeds, another's fails. The failed user gets
-      # checked_at set (stops retries) but retained_after_course stays nil.
+    context 'when MediawikiApi::ApiError occurs during individual fallback' do
+      # One user query succeeds, another raises MediawikiApi::ApiError (bad username).
+      # The invalid user gets checked_at set (stopping retries) with status nil.
       before do
         allow_any_instance_of(WikiApi)
-          .to receive(:query) do |_instance, params|
+          .to receive(:query) do |_instance, params, &block|
           usernames = params[:ucuser] || []
           if usernames.size > 1
-            nil # batch fails
+            nil # batch query fails
           elsif usernames.include?('retained_user')
             mock_response([{ 'user' => 'retained_user' }])
+          elsif block
+            err = MediawikiApi::ApiError.new(double(data: { 'code' => 'baduser' }))
+            block.call(err) # triggers error interception
+            raise err
           else
-            nil # permanent error for inactive_user
+            nil
           end
         end
       end
 
-      it 'sets checked_at for failed user but leaves status nil' do
+      it 'marks permanent API error user with checked_at but leaves status nil' do
         described_class.new.perform
 
         cu_retained.reload
         cu_not_retained.reload
         expect(cu_retained.retained_after_course).to be(true)
         expect(cu_not_retained.retained_after_course).to be_nil
-        expect(cu_not_retained.retained_after_course_checked_at)
-          .not_to be_nil
-        # Course no longer eligible since all candidates have checked_at
+        expect(cu_not_retained.retained_after_course_checked_at).not_to be_nil
         expect(described_class.eligible_course_ids).not_to include(course.id)
+      end
+    end
+
+    context 'when transient network error occurs during individual fallback' do
+      # Batch query fails, and individual query returns nil (network timeout).
+      # The timed-out user remains unchecked for retry.
+      before do
+        allow_any_instance_of(WikiApi)
+          .to receive(:query) do |_instance, params|
+          usernames = params[:ucuser] || []
+          if usernames.size > 1
+            nil # batch query fails
+          elsif usernames.include?('retained_user')
+            mock_response([{ 'user' => 'retained_user' }])
+          else
+            nil # transient network error for inactive_user
+          end
+        end
+      end
+
+      it 'leaves transient failure user completely unchecked for future retry' do
+        described_class.new.perform
+
+        cu_retained.reload
+        cu_not_retained.reload
+        expect(cu_retained.retained_after_course).to be(true)
+        expect(cu_not_retained.retained_after_course).to be_nil
+        expect(cu_not_retained.retained_after_course_checked_at).to be_nil
+        # Course remains eligible because inactive_user still needs checking
+        expect(described_class.eligible_course_ids).to include(course.id)
       end
     end
 
