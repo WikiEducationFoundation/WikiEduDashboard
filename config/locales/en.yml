@@ -137,7 +137,7 @@ en:
       Program now. If your event is part of something bigger, find or create the
       Campaign for it. Then you can create a new Program from the Campaign page.
     tooltip:
-      aria_label: More information
+      alt: More information
   home:
     explore: Explore
     log_in: Log in with Wikipedia
