@@ -11,8 +11,9 @@ describe 'retained_editors rake tasks' do
 
   describe 'retained_editors:check' do
     it 'invokes RetainedEditorCheckWorker#perform' do
-      expect_any_instance_of(RetainedEditorCheckWorker).to receive(:perform).and_return(5)
-      expect { Rake::Task['retained_editors:check'].invoke }.not_to raise_error
+      allow_any_instance_of(RetainedEditorCheckWorker).to receive(:perform).and_return(5)
+      expect { Rake::Task['retained_editors:check'].invoke }
+        .to output(/Processed 5 records/).to_stdout
       Rake::Task['retained_editors:check'].reenable
     end
   end
