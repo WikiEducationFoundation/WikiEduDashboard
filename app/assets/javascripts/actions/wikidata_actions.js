@@ -20,7 +20,9 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     return await response.json();
   } catch (error) {
     // A raw TypeError (network-level failure) has no .url, unlike ApiError.
-    error.url = error.url || url;
+    // Guard the mutation in case anything ever rejects with a non-object,
+    // which would otherwise throw here and mask the real error.
+    if (error && typeof error === 'object') error.url = error.url || url;
     throw error;
   }
 };
@@ -55,18 +57,23 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
         // report here, a failure here would be invisible to Sentry (ensureOk
         // only console.logs) even though it's the dominant real-world source
         // of this bug (see Sentry issue PEONY-2NS).
-        // url/onLine/visibilityState/hasServiceWorkerController separate a
+        // onLine/visibilityState/hasServiceWorkerController separate a
         // dropped connection or backgrounded tab from an actually blocked or
         // intercepted request, for the TypeError: Failed to fetch case (see
-        // PEONY-2P3, #7018).
+        // PEONY-2P3, #7018). They're low-cardinality, so they go in tags
+        // (searchable/aggregatable in Sentry, unlike extra).
         if (typeof Sentry !== 'undefined') {
           Sentry.captureException(error, {
-            extra: {
-              url: error.url,
-              responseText: error.responseText,
+            tags: {
               onLine: navigator.onLine,
               visibilityState: document.visibilityState,
               hasServiceWorkerController: !!navigator.serviceWorker?.controller
+            },
+            // requestUrl (not `url`, which is Sentry's own tag for the page
+            // URL) is high-cardinality, so it stays in extra.
+            extra: {
+              requestUrl: error.url,
+              responseText: error.responseText
             }
           });
         }

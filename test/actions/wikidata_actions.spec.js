@@ -66,11 +66,14 @@ describe('fetchWikidataLabels', () => {
 
     expect(global.Sentry.captureException).toHaveBeenCalledWith(
       expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' }),
-      { extra: expect.objectContaining({ onLine: true, visibilityState: 'visible' }) }
+      {
+        tags: { onLine: true, visibilityState: 'visible', hasServiceWorkerController: false },
+        extra: { requestUrl: 'https://www.wikidata.org/w/api.php?action=wbgetentities', responseText: 'blocked' },
+      }
     );
   });
 
-  test('reports url/onLine/visibilityState/hasServiceWorkerController for a network-level failure (e.g. Failed to fetch)', async () => {
+  test('reports requestUrl/onLine/visibilityState/hasServiceWorkerController for a network-level failure (e.g. Failed to fetch)', async () => {
     sinon.stub(requestModule, 'default').rejects(new TypeError('Failed to fetch'));
     global.Sentry = { captureException: jest.fn() };
     const dispatch = jest.fn();
@@ -81,12 +84,10 @@ describe('fetchWikidataLabels', () => {
     expect(global.Sentry.captureException).toHaveBeenCalledWith(
       expect.objectContaining({ name: 'TypeError', message: 'Failed to fetch' }),
       {
+        tags: { onLine: true, visibilityState: 'visible', hasServiceWorkerController: false },
         extra: {
-          url: expect.stringContaining('https://www.wikidata.org/w/api.php'),
+          requestUrl: expect.stringContaining('https://www.wikidata.org/w/api.php'),
           responseText: undefined,
-          onLine: true,
-          visibilityState: 'visible',
-          hasServiceWorkerController: false,
         },
       }
     );
