@@ -125,6 +125,12 @@ describe ClaimVerification::ExerciseForm do
         .to include(/not an accepted answer for verdict/)
     end
 
+    # An answer the exercise used to offer stays valid, so a response recorded
+    # with it can still be edited and re-saved.
+    it 'accepts a retired option as an answer' do
+      expect(form.errors_in(complete_answers.merge('verdict' => 'mostly_supports'))).to be_empty
+    end
+
     it 'does not require a question the path never asked' do
       answers = complete_answers.except('verdict').merge('source_access' => 'nonexistent')
       expect(form.errors_in(answers)).to be_empty
@@ -145,7 +151,7 @@ describe ClaimVerification::ExerciseForm do
         'steps' => [
           { 'id' => 'pick',
             'questions' => [{ 'id' => 'colour', 'type' => 'choice', 'required' => true,
-                              'options' => %w[red blue] }] },
+                              'options' => %w[red blue], 'retired_options' => %w[green] }] },
           { 'id' => 'explain', 'visible_when' => { 'colour' => ['red'] },
             'questions' => [{ 'id' => 'shade', 'type' => 'text' }] },
           { 'id' => 'note', 'visible_when' => { 'colour' => true },
@@ -164,8 +170,14 @@ describe ClaimVerification::ExerciseForm do
     end
 
     it 'validates a choice against the options the declaration gives it' do
-      expect(form.errors_in('colour' => 'green'))
+      expect(form.errors_in('colour' => 'purple'))
         .to include(/not an accepted answer for colour/)
+    end
+
+    it 'accepts a retired option without offering it' do
+      expect(form.errors_in('colour' => 'green')).to be_empty
+      expect(form.questions.first.options).not_to include('green')
+      expect(form.questions.first.retired_options).to eq(['green'])
     end
 
     it 'gates a step on the answer the declaration names' do

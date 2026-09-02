@@ -1796,12 +1796,13 @@ en:
       verdict_question: "Does the source back up the claim?"
       verdict_options:
         full_support: "Yes — it explicitly supports the full claim."
-        mostly_supports: "Mostly yes — the core of the claim comes from this source."
         partial_support: "Partially — some elements of the claim come from this source, but a significant part does not."
-        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
         unsupported: "No — the source does not cover what the claim says."
         contradicted: "The opposite — the source actually contradicts the claim."
         undetermined: "I was unable to determine whether the claim was in the cited source."
+        # Retired options: no longer offered, kept for responses recorded with them.
+        mostly_supports: "Mostly yes — the core of the claim comes from this source."
+        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
       claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
       verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
       other_comments_label: "Any other comments about this exercise?"

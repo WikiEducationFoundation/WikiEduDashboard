@@ -180,6 +180,8 @@ describe 'Claim verification exercise', type: :feature, js: true do
         'source_appropriate' => 'appropriate',
         'meets_rs_policy' => 'generally_reliable',
         'source_access' => 'accessed',
+        # A retired verdict: no longer offered, but a response recorded with it
+        # must still read back with its label.
         'verdict' => 'mostly_supports',
         'claim_location' => 'chapter 3',
         'verification_notes' => 'The chapter describes tool use at length, but the shellfish ' \
