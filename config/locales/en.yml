@@ -136,6 +136,8 @@ en:
       If you are running a single, independent event, you can create a
       Program now. If your event is part of something bigger, find or create the
       Campaign for it. Then you can create a new Program from the Campaign page.
+    tooltip:
+      aria_label: More information
   home:
     explore: Explore
     log_in: Log in with Wikipedia
