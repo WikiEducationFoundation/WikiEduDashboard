@@ -254,13 +254,14 @@ describe RetainedEditorCheckWorker do
     end
 
     context 'when transient API failure occurs during individual queries' do
-      # All queries fail (API outage) — leave everything nil for retry.
+      # All queries fail (API outage) — leave everything nil for retry,
+      # and the circuit breaker stops processing further courses.
       before do
         allow_any_instance_of(WikiApi)
           .to receive(:query).and_return(nil)
       end
 
-      it 'leaves records fully nil for future retry' do
+      it 'leaves records fully nil and stops the run early' do
         described_class.new.perform
 
         cu_retained.reload
@@ -270,6 +271,40 @@ describe RetainedEditorCheckWorker do
         expect(cu_not_retained.retained_after_course).to be_nil
         expect(cu_not_retained.retained_after_course_checked_at).to be_nil
         expect(described_class.eligible_course_ids).to include(course.id)
+      end
+    end
+
+    context 'when API is down across multiple courses (circuit breaker)' do
+      let!(:course_2) do
+        c = create(:course, slug: 'School/Course_2_(term)', start: 100.days.ago,
+                            end: 80.days.ago, home_wiki: wiki, private: false)
+        user2 = create(:user, username: 'student_course_2', registered_at: 95.days.ago)
+        create(:courses_user, course: c, user: user2,
+                              role: CoursesUsers::Roles::STUDENT_ROLE,
+                              retained_after_course: nil)
+        c
+      end
+
+      before do
+        allow_any_instance_of(WikiApi)
+          .to receive(:query).and_return(nil)
+      end
+
+      it 'stops after the first failed course instead of hammering the API' do
+        # Without circuit breaker: 1 batch + 40 individual queries per course = many calls.
+        # With circuit breaker: stops after first course's batch+individual queries fail.
+        # course_2 has 1 student → 1 batch query + 1 individual query = 2 calls total.
+        # The main course (2 students) is never attempted.
+        call_count = 0
+        allow_any_instance_of(WikiApi).to receive(:query) do
+          call_count += 1
+          nil
+        end
+
+        described_class.new.perform
+
+        expect(call_count).to eq(2)
+        expect(CoursesUsers.where.not(retained_after_course_checked_at: nil).count).to eq(0)
       end
     end
 
@@ -344,14 +379,16 @@ describe RetainedEditorCheckWorker do
 
     context 'when limiting course count per perform run' do
       let!(:course_2) do
+        # Ends earlier than the main course (80 vs 70 days ago), so it sorts
+        # first under order(:end, :id) and gets picked when limit is 1.
         c = create(:course,
                    slug: 'School/Course_2_(term)',
-                   start: 90.days.ago,
-                   end: 70.days.ago,
+                   start: 100.days.ago,
+                   end: 80.days.ago,
                    home_wiki: wiki,
                    private: false)
         user2 = create(:user, username: 'student_course_2',
-                              registered_at: 85.days.ago)
+                              registered_at: 95.days.ago)
         create(:courses_user, course: c, user: user2,
                               role: CoursesUsers::Roles::STUDENT_ROLE,
                               retained_after_course: nil)
@@ -365,7 +402,10 @@ describe RetainedEditorCheckWorker do
 
       it 'only checks up to the limit of courses specified' do
         total_checked = described_class.new.perform(1)
-        expect(total_checked).to eq(2) # 2 student candidates in 1 course
+        # Only course_2 (oldest end date) is checked; main course is skipped.
+        expect(total_checked).to eq(1)
+        expect(described_class.eligible_course_ids).to include(course.id)
+        expect(described_class.eligible_course_ids).not_to include(course_2.id)
       end
     end
   end

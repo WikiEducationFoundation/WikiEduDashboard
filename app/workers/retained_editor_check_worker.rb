@@ -10,6 +10,9 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # for mainspace contributions made after (course.end + 7 days).
 # Records retained_after_course (boolean) and retained_after_course_checked_at
 # on the courses_users record permanently.
+#
+# DEPLOY NOTE: run `rake retained_editors:backfill` once after deploy or the
+# 50-course daily budget will be spent entirely on historical courses.
 class RetainedEditorCheckWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'daily_update', lock: :until_executed
@@ -22,30 +25,32 @@ class RetainedEditorCheckWorker
   def perform(limit = DEFAULT_PERFORM_LIMIT)
     Rails.logger.info { 'RetainedEditorCheckWorker: starting check for eligible new editors' }
     total_checked = 0
-
     self.class.eligible_course_ids(limit).each do |course_id|
       course = Course.find_by(id: course_id)
       next unless course
-
-      total_checked += check_course_new_editors(course)
+      result = check_course_new_editors(course)
+      if result.nil?
+        Rails.logger.warn { 'RetainedEditorCheckWorker: MediaWiki API appears down, stopping run' }
+        break
+      end
+      total_checked += result
     end
 
-    Rails.logger.info do
-      "RetainedEditorCheckWorker: finished, processed #{total_checked} records"
-    end
+    Rails.logger.info { "RetainedEditorCheckWorker: finished, processed #{total_checked} records" }
     total_checked
   end
 
   def check_course_new_editors(course)
     candidates = eligible_candidates_for_course(course)
     return 0 if candidates.empty?
-
     wiki = course.home_wiki
     threshold = course.end + DAYS_AFTER_END.days
     checked_count = 0
 
     candidates.in_groups_of(BATCH_SIZE, false) do |batch|
-      checked_count += process_batch(batch, wiki, threshold)
+      result = process_batch(batch, wiki, threshold)
+      return nil if result.nil? # API is down — propagate to caller
+      checked_count += result
     end
 
     checked_count
@@ -62,7 +67,7 @@ class RetainedEditorCheckWorker
       .distinct
       .pluck(:course_id)
 
-    ordered = Course.where(id: ids).order(:end)
+    ordered = Course.where(id: ids).order(:end, :id)
     ordered = ordered.limit(limit) if limit
     ordered.pluck(:id)
   end
@@ -83,7 +88,7 @@ class RetainedEditorCheckWorker
 
   def process_batch(batch, wiki, threshold)
     result = fetch_active_usernames(batch.map(&:username), wiki, threshold)
-    return 0 if result.nil?
+    return nil if result.nil? # Signal API outage to caller
     active, queried = result
     update_batch_retention(batch, active, queried)
     # Mark unverifiable users (permanent API failures) as checked but nil status
@@ -126,9 +131,7 @@ class RetainedEditorCheckWorker
       result[:users].each { |u| active_usernames.add(u) }
       break if active_usernames.superset?(target_users)
 
-      pending, continue_param = next_page_params(
-        target_users, active_usernames, pending, result
-      )
+      pending, continue_param = next_page_params(target_users, active_usernames, pending, result)
       break unless pending
     end
 

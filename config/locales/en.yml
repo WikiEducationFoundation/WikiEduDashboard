@@ -223,7 +223,7 @@ en:
       articles_created: "Articles Created"
       articles_improved: "Articles Improved"
       characters_added: "Characters Added"
-      new_editors: "New Editors"
+      new_editors: "New Editors (60-day pre-registration)"
       retained_new_editors: "Retained Editors"
       active_programs: "Active Programs"
       active_facilitators: "Active Facilitators"
@@ -237,7 +237,7 @@ en:
       edits: "Edits"
       programs: "Programs"
       articles_created: "Articles Created"
-      new_editors: "New Editors"
+      new_editors: "New Editors (60-day pre-registration)"
       retained_new_editors: "Retained Editors"
     facilitators:
       title: "Facilitator Leaderboard"
