@@ -63,6 +63,7 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
           Sentry.captureException(error, {
             extra: {
               url: error.url,
+              responseText: error.responseText,
               onLine: navigator.onLine,
               visibilityState: document.visibilityState,
               hasServiceWorkerController: !!navigator.serviceWorker?.controller

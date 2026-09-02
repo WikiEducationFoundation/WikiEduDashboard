@@ -435,6 +435,8 @@ fi:
     ended: Kurssi on päättynyt.
     enroll: Ilmoittaudu
     enrollment: Lisää/poista opiskelijoita
+    view_event_center_page: Näytä sivu
+    go_to_event_center: Rekisteröidy tapahtumakeskuksessa
     courses_enrolled: Kaikki kurssit
     error:
       exists: Kurssi on jo olemassa! Yritä uudelleen eri nimellä, oppilaitoksella

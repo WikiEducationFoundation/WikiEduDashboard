@@ -55,7 +55,8 @@ describe('fetchWikidataLabels', () => {
       ok: false,
       status: 403,
       statusText: 'Forbidden',
-      text: () => Promise.resolve(''),
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      text: () => Promise.resolve('blocked'),
     });
     global.Sentry = { captureException: jest.fn() };
     const dispatch = jest.fn();
@@ -82,6 +83,7 @@ describe('fetchWikidataLabels', () => {
       {
         extra: {
           url: expect.stringContaining('https://www.wikidata.org/w/api.php'),
+          responseText: undefined,
           onLine: true,
           visibilityState: 'visible',
           hasServiceWorkerController: false,
