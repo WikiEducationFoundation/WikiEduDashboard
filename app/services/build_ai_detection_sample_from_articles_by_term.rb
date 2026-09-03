@@ -30,10 +30,9 @@ class BuildAiDetectionSampleFromArticlesByTerm < BuildAiDetectionSample
     article = articles_course.article
     return skip(article.title, 'no revisions during the course') unless target
 
-    add_revision_unit(wiki: article.wiki, **target,
+    add_revision_unit(wiki: article.wiki, **target, **self.class.term_attributes(campaign.slug),
                       article_id: article.id, course_id: articles_course.course_id,
                       campaign_slug: campaign.slug, namespace: article.namespace,
-                      ground_truth: self.class.ground_truth_for_term(campaign.slug),
                       metadata: { 'character_sum' => articles_course.character_sum,
                                   'new_article' => articles_course.new_article,
                                   'references_count' => articles_course.references_count })

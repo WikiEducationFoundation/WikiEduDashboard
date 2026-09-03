@@ -17,9 +17,20 @@ an exported CSV.
   analysis never depends on the vendor. Adding a detector is a client, a parser and one
   registry entry.
 - **Sample**: a named set of text units in `ai_detection_samples`, each holding the
-  exact text sent to detectors, where it came from (wiki, revision, diff), the term,
-  and a `ground_truth` label when we know how the text was produced
-  (`human_pre_llm`, `self_reported_ai`, `self_reported_no_ai`, `experiment_ai`).
+  exact text sent to detectors and where it came from (wiki, revision, diff, term), or
+  just the text for units that did not come from a wiki revision.
+- **Ground truth and provenance**: `ground_truth` is what we know about how the text was
+  produced (`human`, `ai`, `ai_assisted`, or blank for unknown); `provenance` is how we
+  know it (`pre_llm_term`, `staff_confirmed`, `experiment`, `synthetic`, `self_report`, or
+  any description an ad-hoc source needs). Student questionnaire answers are recorded as
+  `self_report` provenance with no ground truth: they are never treated as truth, only
+  used to surface cases worth confirming by hand. `notes` holds what makes a case
+  interesting.
+- **Factors**: named values on a unit (`topic`, `author`, `model`, `prompt`,
+  `post_processing`, anything) that link units sharing a value. A known-human article
+  and a synthetic article on the same subject share `topic`; exemplars generated the same
+  way share `model` and `prompt`. Pairs and groups are just units with equal factor
+  values, so no extra tables are needed. `unit.linked_by(:topic)` finds a unit's partners.
 - **Score**: a `revision_ai_scores` row with `check_origin = 'detector_comparison'`
   and `sample_id` set. Production alerting and the admin AI tools page are unaffected.
 
@@ -58,12 +69,31 @@ The March 2026 method, cumulative course diffs of substantial articles per term:
 BuildAiDetectionSampleFromArticlesByTerm.new(sample_name: 'terms_2026_09', terms: %w[spring_2022 fall_2025 spring_2026], per_term: 50, verbose: true).summary
 ```
 
-Any list of diff or revision URLs, or a CSV with a URL column:
+Any rows naming units by URL or by text, with whatever we know about them:
 
 ```ruby
-BuildAiDetectionSampleFromUrls.new(sample_name: 'curated', rows: [{ url: 'https://en.wikipedia.org/w/index.php?diff=1315039613&oldid=1310000000', ground_truth: 'experiment_ai' }])
-BuildAiDetectionSampleFromUrls.from_csv(sample_name: 'wvs_neu', path: 'docs/analytics_scripts/wvs_neu_ai_edits/dataset.csv', url_column: 'diff_url', ground_truth: 'experiment_ai', verbose: true)
+BuildAiDetectionSampleFromRows.new(sample_name: 'challenge', rows: [
+  { url: 'https://en.wikipedia.org/w/index.php?diff=1315039613&oldid=1310000000',
+    ground_truth: 'human', provenance: 'staff_confirmed', notes: 'instructor confirmed; Pangram 3 max 0.87 on 2026-04-12',
+    factors: { 'topic' => 'Urban beekeeping' } },
+  { text: File.read('/home/sage/exemplars/beekeeping_gpt5_naive.txt'), ground_truth: 'ai', provenance: 'synthetic',
+    factors: { 'topic' => 'Urban beekeeping', 'model' => 'gpt-5', 'prompt' => 'naive', 'post_processing' => 'none' } }
+])
 ```
+
+Or a CSV. `url_column` (default `url`) names a diff or revision; `text_column` (default
+`text`) holds the text itself and wins when present. Columns `ground_truth`, `provenance`,
+`notes` and `campaign_slug` become unit attributes; `factor_*` columns become factors;
+every other column is kept as metadata. Defaults apply to rows without their own value:
+
+```ruby
+BuildAiDetectionSampleFromRows.from_csv(sample_name: 'wvs_neu', path: 'docs/analytics_scripts/wvs_neu_ai_edits/dataset.csv', url_column: 'diff_url', ground_truth: 'ai', provenance: 'experiment', verbose: true)
+BuildAiDetectionSampleFromRows.from_csv(sample_name: 'exemplars_2026_09', path: '/home/sage/exemplars.csv', provenance: 'synthetic', verbose: true)
+```
+
+Fetching and preprocessing text from any particular source (another wiki, a dump, an
+AI-writing platform, our own generation runs) happens outside the Dashboard; the result
+is just rows in this shape.
 
 The March 2026 comparison CSV, with the Pangram 3, Originality Turbo and Originality
 Academic scores it already contains (copy the CSV to the server first):
@@ -103,6 +133,23 @@ the shared summary keys. Rows imported from the March CSV carry their summary
 directly; failed calls appear with an `error` column and no scores. Copy the file to
 your machine for analysis.
 
+## Exemplars and challenge cases
+
+The longitudinal sample answers "how do detectors behave on typical student work over
+time", with the pre-ChatGPT terms as a human baseline where the expected hit rate is zero.
+Challenge cases answer "how do they behave on cases we understand": known-human edits with
+high scores, known-AI text that was missed, text produced the way students might produce
+it. They accumulate opportunistically as a `challenge` sample built from rows, each with a
+real `ground_truth`, a `provenance` saying how we know, a note, and factors linking it to
+related units.
+
+Synthetic exemplars should vary along the dimensions students vary along, recorded as
+factors so recall can be reported per cell: `model` (frontier, free tier, older),
+`prompt` (one line; detailed with style and sourcing; "improve my draft", which yields
+`ai_assisted`), `post_processing` (none; an automated humanizer; light human edits), and
+`topic` shared with a known-human unit so the pair controls for subject. Keep Originality
+to a subset of exemplars; Pangram can run on all of them.
+
 ## 4. Analyze
 
 ```sh
@@ -113,13 +160,17 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 
 Options: `--threshold 0.9` (the production rule, max window score above the threshold,
 applied to every detector), `--rule vendor` (each vendor's own AI label instead),
-`--baseline human_pre_llm`, `--samples` and `--detectors` to filter.
+`--baseline-provenance pre_llm_term` (which human units form the false-positive baseline),
+`--samples` and `--detectors` to filter, `--group-by model prompt` (rates per factor
+value), `--pair-by topic` (human vs AI units sharing a factor value, as pairs).
 
 Output: positive rate and mean scores by term, score distributions split into the
-pre-LLM baseline and everything else, a threshold sweep (false-positive rate on the
-baseline against positive rate elsewhere), pairwise scatter plots with a CSV of
-disagreements linking to both vendors' reports, a wide CSV of max scores, and
-`summary.md` with the tables.
+baseline and everything else, a threshold sweep (false-positive rate on the baseline
+against positive rate elsewhere), pairwise scatter plots with a CSV of disagreements
+linking to both vendors' reports, a per-case report of challenge cases with each
+detector's verdict, a list of self-reported false positives a detector still flags (for
+a human to confirm, never taken as truth), a slope chart for `--pair-by`, a wide CSV of
+max scores, and `summary.md` with the tables.
 
 ## Adding a detector
 

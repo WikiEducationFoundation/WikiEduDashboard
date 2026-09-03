@@ -33,6 +33,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_03_120000) do
     t.string "campaign_slug"
     t.integer "namespace"
     t.string "ground_truth"
+    t.string "provenance"
+    t.text "notes"
+    t.text "factors"
     t.text "plain_text", size: :medium
     t.string "text_sha256", limit: 64
     t.integer "word_count"

@@ -9,24 +9,29 @@ require_dependency "#{Rails.root}/lib/ai/ai_detector"
 # Long format keeps the analysis side independent of which detectors exist.
 class ExportAiDetectionComparison
   UNIT_COLUMNS = %w[sample_name unit_id wiki rev_id from_rev_id diff_mode url campaign_slug
-                    namespace ground_truth word_count text_sha256 metadata].freeze
+                    namespace ground_truth provenance notes word_count text_sha256
+                    metadata].freeze
   SCORE_COLUMNS = %w[score_id scored_at error].freeze
+  FACTOR_PREFIX = 'factor_'
 
-  def self.headers
-    UNIT_COLUMNS + SCORE_COLUMNS + DetectorSummary::KEYS
-  end
-
-  attr_reader :rows
+  attr_reader :rows, :factor_names
 
   def initialize(sample_names: nil)
     units = AiDetectionSample.includes(:wiki, :revision_ai_scores).order(:id)
     units = units.where(sample_name: sample_names) if sample_names
+    @factor_names = units.flat_map { |unit| unit.factors.keys }.uniq.sort
     @rows = units.flat_map { |unit| unit_rows(unit) }
+  end
+
+  # Fixed columns, then one factor_<name> column per factor present in the
+  # exported units, then the DetectorSummary keys.
+  def headers
+    UNIT_COLUMNS + factor_names.map { |name| "#{FACTOR_PREFIX}#{name}" } +
+      SCORE_COLUMNS + DetectorSummary::KEYS
   end
 
   # Returns the CSV as a string, and writes it to path when one is given.
   def to_csv(path = nil)
-    headers = self.class.headers
     csv = CSV.generate do |out|
       out << headers
       rows.each { |row| out << headers.map { |header| row[header] } }
@@ -47,8 +52,10 @@ class ExportAiDetectionComparison
     { 'sample_name' => unit.sample_name, 'unit_id' => unit.id, 'wiki' => unit.wiki&.domain,
       'rev_id' => unit.rev_id, 'from_rev_id' => unit.from_rev_id, 'diff_mode' => unit.diff_mode,
       'url' => unit.url, 'campaign_slug' => unit.campaign_slug, 'namespace' => unit.namespace,
-      'ground_truth' => unit.ground_truth, 'word_count' => unit.word_count,
+      'ground_truth' => unit.ground_truth, 'provenance' => unit.provenance,
+      'notes' => unit.notes, 'word_count' => unit.word_count,
       'text_sha256' => unit.text_sha256, 'metadata' => unit.metadata.to_json }
+      .merge(unit.factors.transform_keys { |name| "#{FACTOR_PREFIX}#{name}" })
   end
 
   def score_columns(score)

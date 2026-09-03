@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
 # Builds a sample from AI edit alerts whose student answered the follow-up
-# questionnaire. The self-report becomes the unit's ground truth: a
-# 'false_positive' answer means the student disputed the alert, while
-# 'generate_text' or 'copyedit_text' means they acknowledged using AI.
+# questionnaire. The answers are recorded as provenance and metadata only:
+# a self-report is not trusted as ground truth, so ground_truth stays nil.
+# The analysis can still use these units to surface candidates worth
+# confirming by hand, e.g. disputed alerts with high scores.
 class BuildAiDetectionSampleFromAlertFollowups < BuildAiDetectionSample
-  AI_USE_ANSWERS = %w[generate_text copyedit_text].freeze
-
   def initialize(sample_name:, since: nil, verbose: false)
     super(sample_name:, verbose:)
     alerts = AiEditAlert.includes(:article, :user, course: :campaigns)
@@ -22,15 +21,10 @@ class BuildAiDetectionSampleFromAlertFollowups < BuildAiDetectionSample
                       article_id: alert.article_id, course_id: alert.course_id,
                       campaign_slug: alert.course&.campaigns&.first&.slug,
                       namespace: alert.article&.namespace,
-                      ground_truth: ground_truth_for(answers),
+                      provenance: AiDetectionSample::SELF_REPORT,
                       metadata: { 'alert_id' => alert.id, 'page_type' => alert.page_type.to_s,
-                                  'ai_how_used' => answers })
-  end
-
-  def ground_truth_for(answers)
-    return AiDetectionSample::SELF_REPORTED_NO_AI if answers.include?('false_positive')
-    return AiDetectionSample::SELF_REPORTED_AI if answers.intersect?(AI_USE_ANSWERS)
-
-    AiDetectionSample::UNKNOWN
+                                  'ai_how_used' => answers,
+                                  'self_reported_false_positive' =>
+                                    answers.include?('false_positive') })
   end
 end

@@ -2,17 +2,26 @@
 """Compare AI detectors on a long-format export from ExportAiDetectionComparison.
 
     python analyze.py export.csv --out results/ [--threshold 0.9] [--rule max|vendor]
-                     [--baseline human_pre_llm] [--samples NAME ...] [--detectors NAME ...]
+                     [--baseline-provenance pre_llm_term] [--samples NAME ...]
+                     [--detectors NAME ...] [--group-by FACTOR ...] [--pair-by FACTOR]
 
 One input row is one (sample unit, detector) result. The script writes PNG charts,
-a wide CSV of max scores, a CSV of pairwise disagreements, and summary.md.
+a wide CSV of max scores, a CSV of pairwise disagreements, a challenge-case report,
+a list of self-reported false positives worth confirming, and summary.md.
 
 The default positive rule is the production alerting rule, "max window score above
 the threshold", applied to every detector so vendors are compared on equal terms.
 --rule vendor uses each vendor's own label instead (label == "AI").
 
-Ground truth labels come from the export: units labeled with --baseline are treated
-as human-written, so any positive on them is a false positive.
+Ground truth comes from the export's ground_truth column (human, ai, ai_assisted or
+blank for unknown) and provenance says how we know it. The baseline is the set of
+human units with --baseline-provenance (pre-ChatGPT terms by default): any positive
+there is a false positive. Self-reported units never count as ground truth; they
+only feed the candidates list.
+
+Factors (factor_* columns) link units that share a value: --group-by reports rates
+per value of a factor (e.g. model, prompt), --pair-by compares human and AI units
+that share a value (e.g. topic) as pairs.
 """
 import argparse
 import itertools
@@ -61,8 +70,11 @@ def term_parts(slug):
     return (int(year), SEASONS[season]), f"{season.capitalize()} {year}"
 
 
-def load(path, samples, detectors, baseline, threshold, rule):
-    df = pd.read_csv(path)
+AI_LABELS = {"ai", "ai_assisted"}
+
+
+def load(path, samples, detectors, baseline_provenance, threshold, rule):
+    df = pd.read_csv(path, dtype={"ground_truth": "string", "provenance": "string", "notes": "string"})
     if samples:
         df = df[df["sample_name"].isin(samples)]
     if detectors:
@@ -75,12 +87,21 @@ def load(path, samples, detectors, baseline, threshold, rule):
     keys_labels = df["campaign_slug"].map(term_parts)
     df["term_key"] = keys_labels.map(lambda pair: pair[0])
     df["term"] = keys_labels.map(lambda pair: pair[1])
-    df["baseline"] = df["ground_truth"] == baseline
+    df["ground_truth"] = df["ground_truth"].fillna("")
+    df["provenance"] = df["provenance"].fillna("")
+    df["baseline"] = (df["ground_truth"] == "human") & (df["provenance"] == baseline_provenance)
+    df["known_ai"] = df["ground_truth"].isin(AI_LABELS)
+    # Challenge cases: units with a real label that is not just "written before ChatGPT".
+    df["challenge"] = (df["ground_truth"] != "") & ~df["baseline"]
     if rule == "vendor":
         df["positive"] = df["label"] == "AI"
     else:
         df["positive"] = df["max_score"] > threshold
     return df, int(failed.sum())
+
+
+def factor_columns(df):
+    return sorted(c for c in df.columns if c.startswith("factor_"))
 
 
 def detectors_in(df):
@@ -283,17 +304,115 @@ def detector_table(df):
 
 
 def ground_truth_table(df):
-    negatives = {"human_pre_llm", "self_reported_no_ai"}
-    positives = {"self_reported_ai", "experiment_ai"}
+    """Positive rate per detector, ground truth and provenance. Units with no label are omitted;
+    self-reported units have none, so they never appear here."""
     rows = []
-    for detector in detectors_in(df):
-        d = df[df["check_type"] == detector]
-        for truth in sorted(d["ground_truth"].dropna().unique()):
-            subset = d[d["ground_truth"] == truth]
-            kind = "should be negative" if truth in negatives else "should be positive" if truth in positives else "unlabeled"
-            rows.append({"detector": detector, "ground_truth": truth, "expectation": kind,
-                         "units": len(subset), "positive_rate": rate(subset["positive"])})
+    labeled = df[df["ground_truth"] != ""]
+    for detector in detectors_in(labeled):
+        d = labeled[labeled["check_type"] == detector]
+        for (truth, provenance), subset in d.groupby(["ground_truth", "provenance"], sort=True):
+            expectation = "should be negative" if truth == "human" else "should be positive"
+            rows.append({"detector": detector, "ground_truth": truth, "provenance": provenance,
+                         "expectation": expectation, "units": len(subset),
+                         "positive_rate": rate(subset["positive"]),
+                         "mean_max_score": round(float(subset["max_score"].mean()), 3)})
     return pd.DataFrame(rows)
+
+
+def challenge_report(df, threshold):
+    """One row per challenge case with every detector's max score and verdict."""
+    cases = df[df["challenge"]]
+    if cases.empty:
+        return pd.DataFrame()
+    wide = cases.pivot_table(index="unit_id", columns="check_type", values="max_score", aggfunc="first")
+    units = cases.drop_duplicates("unit_id").set_index("unit_id")
+    columns = ["ground_truth", "provenance", "notes", "url"] + factor_columns(cases)
+    report = units[columns].copy()
+    for detector in detectors_in(cases):
+        report[detector] = wide[detector].round(4)
+        expected = units["ground_truth"].isin(AI_LABELS)
+        flagged = wide[detector] > threshold
+        report[f"{detector} verdict"] = [
+            "" if pd.isna(score) else ("correct" if flag == exp else ("missed" if exp else "false positive"))
+            for score, flag, exp in zip(wide[detector], flagged, expected)
+        ]
+    return report.reset_index()
+
+
+def self_report_candidates(df, threshold):
+    """Disputed alerts (student answered 'false_positive') that a detector still flags: worth a
+    human look, since a confirmed case can be promoted to a real challenge case."""
+    rows = df[df["provenance"] == "self_report"]
+    if rows.empty:
+        return pd.DataFrame()
+    disputed = rows["metadata"].map(lambda m: '"self_reported_false_positive": true' in str(m))
+    flagged = rows[disputed & (rows["max_score"] > threshold)]
+    return flagged[["unit_id", "check_type", "max_score", "campaign_slug", "url", "report_url"]] \
+        .sort_values(["unit_id", "check_type"])
+
+
+def group_table(df, factor):
+    """Positive rate and mean max score per detector for each value of a factor."""
+    column = factor if factor.startswith("factor_") else f"factor_{factor}"
+    if column not in df.columns:
+        return pd.DataFrame()
+    rows = []
+    with_value = df.dropna(subset=[column])
+    for (detector, value), subset in with_value.groupby(["check_type", column], sort=True):
+        rows.append({"factor": column.removeprefix("factor_"), "value": value, "detector": detector,
+                     "units": len(subset), "positive_rate": rate(subset["positive"]),
+                     "mean_max_score": round(float(subset["max_score"].mean()), 3),
+                     "known_ai_units": int(subset["known_ai"].sum()),
+                     "known_ai_positive_rate": rate(subset[subset["known_ai"]]["positive"])})
+    return pd.DataFrame(rows)
+
+
+def pair_table(df, factor):
+    """Human vs AI units sharing a factor value, per detector: the paired score difference shows
+    whether a detector separates authorship when topic (or another shared factor) is held fixed."""
+    column = factor if factor.startswith("factor_") else f"factor_{factor}"
+    if column not in df.columns:
+        return pd.DataFrame()
+    rows = []
+    labeled = df[(df["ground_truth"] != "") & df[column].notna()]
+    for (detector, value), subset in labeled.groupby(["check_type", column], sort=True):
+        human = subset[subset["ground_truth"] == "human"]
+        ai = subset[subset["known_ai"]]
+        if human.empty or ai.empty:
+            continue
+        rows.append({"factor": column.removeprefix("factor_"), "value": value, "detector": detector,
+                     "human_units": len(human), "ai_units": len(ai),
+                     "human_max": round(float(human["max_score"].mean()), 3),
+                     "ai_max": round(float(ai["max_score"].mean()), 3),
+                     "difference": round(float(ai["max_score"].mean() - human["max_score"].mean()), 3),
+                     "human_flagged": rate(human["positive"]), "ai_flagged": rate(ai["positive"])})
+    return pd.DataFrame(rows)
+
+
+def chart_pairs(pairs, out):
+    """Slope chart: one line per shared-factor pair from the human unit's score to the AI unit's,
+    one panel per detector."""
+    detectors = sorted(pairs["detector"].unique(), key=lambda d: (DETECTOR_ORDER.index(d) if d in DETECTOR_ORDER else 99, d))
+    fig, axes = plt.subplots(1, len(detectors), figsize=(3.4 * len(detectors), 4.5), sharey=True,
+                             facecolor=SURFACE, squeeze=False)
+    for ax, detector in zip(axes[0], detectors):
+        rows = pairs[pairs["detector"] == detector]
+        for _, row in rows.iterrows():
+            ax.plot([0, 1], [row["human_max"], row["ai_max"]], color=color_for(detector), linewidth=2,
+                    alpha=0.8, marker="o", markersize=7, markeredgecolor=SURFACE, markeredgewidth=1.5)
+        ax.set_xticks([0, 1])
+        ax.set_xticklabels(["human", "AI"], color=INK_SOFT)
+        ax.set_xlim(-0.3, 1.3)
+        ax.set_ylim(0, 1.02)
+        ax.set_title(f"{detector} (n={len(rows)} pairs)", loc="left", fontsize=10, color=INK)
+        style(ax)
+    axes[0][0].set_ylabel("max window score", color=INK_SOFT)
+    factor = pairs["factor"].iloc[0]
+    fig.suptitle(f"Paired by {factor}: human vs AI units on the same {factor}", x=0.01, ha="left",
+                 color=INK, fontsize=12)
+    fig.tight_layout()
+    fig.savefig(out, dpi=150)
+    plt.close(fig)
 
 
 def rate(series):
@@ -312,14 +431,20 @@ def main():
     parser.add_argument("--out", default="results")
     parser.add_argument("--threshold", type=float, default=0.9)
     parser.add_argument("--rule", choices=["max", "vendor"], default="max")
-    parser.add_argument("--baseline", default="human_pre_llm")
+    parser.add_argument("--baseline-provenance", default="pre_llm_term",
+                        help="provenance whose human units form the false-positive baseline")
     parser.add_argument("--samples", nargs="*")
     parser.add_argument("--detectors", nargs="*")
+    parser.add_argument("--group-by", nargs="*", default=[], metavar="FACTOR",
+                        help="report rates per value of these factors (e.g. model prompt)")
+    parser.add_argument("--pair-by", metavar="FACTOR",
+                        help="compare human and AI units sharing this factor (e.g. topic)")
     args = parser.parse_args()
 
     out = pathlib.Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    df, failed = load(args.export_csv, args.samples, args.detectors, args.baseline, args.threshold, args.rule)
+    df, failed = load(args.export_csv, args.samples, args.detectors, args.baseline_provenance,
+                      args.threshold, args.rule)
     if df.empty:
         sys.exit("no scored rows after filtering")
 
@@ -342,16 +467,37 @@ def main():
 
     detectors = detector_table(df)
     truth = ground_truth_table(df)
+    challenge = challenge_report(df, args.threshold)
+    challenge.to_csv(out / "challenge_cases.csv", index=False)
+    candidates = self_report_candidates(df, args.threshold)
+    candidates.to_csv(out / "self_report_candidates.csv", index=False)
+    groups = pd.concat([group_table(df, f) for f in args.group_by], ignore_index=True) if args.group_by else pd.DataFrame()
+    pairs_by_factor = pair_table(df, args.pair_by) if args.pair_by else pd.DataFrame()
+    if not pairs_by_factor.empty:
+        chart_pairs(pairs_by_factor, out / f"pairs_by_{slug(args.pair_by)}.png")
+
     summary = [
         "# Detector comparison\n",
         f"Source: `{args.export_csv}`; rule: {args.rule} (threshold {args.threshold}); "
-        f"baseline label: `{args.baseline}`; scored rows: {len(df)}; failed rows dropped: {failed}.\n",
+        f"baseline: human units with provenance `{args.baseline_provenance}`; scored rows: {len(df)}; "
+        f"failed rows dropped: {failed}.\n",
         "\n## Per detector\n", markdown(detectors),
         "\n## Pairwise agreement\n", markdown(pairs),
-        "\n## By ground truth\n", markdown(truth),
-        "\nCharts: positive_rate_by_term.png, mean_max_score_by_term.png, mean_window_score_by_term.png, "
-        "score_distributions.png, threshold_sweep.png, scatter_*.png. Data: max_scores_wide.csv, disagreements.csv.\n",
+        "\n## By ground truth and provenance\n", markdown(truth),
+        "\n## Challenge cases\n",
+        f"{len(challenge)} labeled units beyond the baseline; per-case scores and verdicts in challenge_cases.csv.\n",
+        "\n## Self-reported false positives still flagged\n",
+        f"{len(candidates)} rows in self_report_candidates.csv (self-reports are not ground truth; "
+        "these are candidates for a human to confirm).\n",
     ]
+    if not groups.empty:
+        summary += ["\n## By factor\n", markdown(groups)]
+    if not pairs_by_factor.empty:
+        summary += [f"\n## Paired by {args.pair_by}\n", markdown(pairs_by_factor)]
+    summary.append(
+        "\nCharts: positive_rate_by_term.png, mean_max_score_by_term.png, mean_window_score_by_term.png, "
+        "score_distributions.png, threshold_sweep.png, scatter_*.png, pairs_by_*.png. "
+        "Data: max_scores_wide.csv, disagreements.csv, challenge_cases.csv, self_report_candidates.csv.\n")
     (out / "summary.md").write_text("".join(summary))
     print("\n".join(str(p) for p in sorted(out.iterdir())))
 

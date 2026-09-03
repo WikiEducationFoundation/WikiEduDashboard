@@ -44,10 +44,10 @@ class ImportDetectorComparisonCsv
       next if row['cumulative_diff'].blank?
 
       { url: row['cumulative_diff'], campaign_slug: row['term'],
-        ground_truth: BuildAiDetectionSample.ground_truth_for_term(row['term']),
+        **BuildAiDetectionSample.term_attributes(row['term']),
         metadata: { 'imported_from' => File.basename(@path) } }
     end
-    @builder = BuildAiDetectionSampleFromUrls.new(sample_name: @sample_name, rows:, verbose:)
+    @builder = BuildAiDetectionSampleFromRows.new(sample_name: @sample_name, rows:, verbose:)
   end
 
   def import_scores

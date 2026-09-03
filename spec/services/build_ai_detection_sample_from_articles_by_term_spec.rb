@@ -28,7 +28,8 @@ describe BuildAiDetectionSampleFromArticlesByTerm do
     unit = builder.created.first
     expect(unit).to have_attributes(rev_id: 500, from_rev_id: 400, diff_mode: true,
                                     article_id: article.id, course_id: course.id,
-                                    campaign_slug: 'spring_2021', ground_truth: 'human_pre_llm',
+                                    campaign_slug: 'spring_2021', ground_truth: 'human',
+                                    provenance: 'pre_llm_term',
                                     url: 'https://en.wikipedia.org/w/index.php?diff=500&oldid=400')
     expect(unit.metadata).to eq('character_sum' => 5000, 'new_article' => true,
                                 'references_count' => 7)
@@ -44,13 +45,14 @@ describe BuildAiDetectionSampleFromArticlesByTerm do
     expect(builder.skipped.first[:reason]).to eq('no revisions during the course')
   end
 
-  describe '.ground_truth_for_term' do
-    it 'treats terms before ChatGPT as human-written and later ones as unknown' do
-      expect(BuildAiDetectionSample.ground_truth_for_term('fall_2019')).to eq('human_pre_llm')
-      expect(BuildAiDetectionSample.ground_truth_for_term('spring_2022')).to eq('human_pre_llm')
-      expect(BuildAiDetectionSample.ground_truth_for_term('fall_2022')).to be_nil
-      expect(BuildAiDetectionSample.ground_truth_for_term('spring_2025')).to be_nil
-      expect(BuildAiDetectionSample.ground_truth_for_term('not_a_term')).to be_nil
+  describe '.term_attributes' do
+    it 'labels terms before ChatGPT as human-written and leaves later ones unknown' do
+      human = { ground_truth: 'human', provenance: 'pre_llm_term' }
+      expect(BuildAiDetectionSample.term_attributes('fall_2019')).to eq(human)
+      expect(BuildAiDetectionSample.term_attributes('spring_2022')).to eq(human)
+      expect(BuildAiDetectionSample.term_attributes('fall_2022')).to eq({})
+      expect(BuildAiDetectionSample.term_attributes('spring_2025')).to eq({})
+      expect(BuildAiDetectionSample.term_attributes('not_a_term')).to eq({})
     end
   end
 end

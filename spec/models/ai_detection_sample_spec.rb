@@ -17,11 +17,43 @@ describe AiDetectionSample do
     expect(described_class.new(sample_name: 'test')).not_to be_valid
   end
 
-  it 'only accepts known ground truth labels' do
+  it 'only accepts known ground truth labels, with nil meaning unknown' do
     unit = described_class.new(sample_name: 'test', plain_text: text, ground_truth: 'maybe')
     expect(unit).not_to be_valid
-    unit.ground_truth = AiDetectionSample::HUMAN_PRE_LLM
+    unit.ground_truth = AiDetectionSample::AI_ASSISTED
     expect(unit).to be_valid
+    unit.ground_truth = nil
+    expect(unit).to be_valid
+  end
+
+  it 'leaves provenance free-form' do
+    unit = described_class.new(sample_name: 'test', plain_text: text, provenance: 'agpedia dump')
+    expect(unit).to be_valid
+  end
+
+  it 'requires factors to be flat name-value pairs' do
+    unit = described_class.new(sample_name: 'test', plain_text: text,
+                               factors: { 'topic' => 'Bees', 'model' => 'gpt-5' })
+    expect(unit).to be_valid
+    unit.factors = { 'topic' => %w[Bees Wasps] }
+    expect(unit).not_to be_valid
+  end
+
+  describe '#linked_by' do
+    it 'finds the other units in the sample sharing a factor value' do
+      human = described_class.create!(sample_name: 'test', plain_text: text,
+                                      factors: { 'topic' => 'Bees', 'author' => 'student' })
+      ai = described_class.create!(sample_name: 'test', plain_text: "#{text} AI",
+                                   factors: { 'topic' => 'Bees', 'model' => 'gpt-5' })
+      described_class.create!(sample_name: 'test', plain_text: "#{text} other",
+                              factors: { 'topic' => 'Wasps' })
+      described_class.create!(sample_name: 'elsewhere', plain_text: "#{text} far",
+                              factors: { 'topic' => 'Bees' })
+
+      expect(human.linked_by(:topic)).to eq([ai])
+      expect(ai.linked_by('model')).to be_empty
+      expect(human.linked_by(:missing)).to be_empty
+    end
   end
 
   describe '#scored_with?' do

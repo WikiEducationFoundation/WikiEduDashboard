@@ -7,6 +7,11 @@
 # the revision is since deleted or plaintext extraction changes. Cumulative
 # course diffs regularly exceed the 64 KB of a TEXT column, hence MEDIUMTEXT.
 #
+# ground_truth is what we know about how the text was produced; provenance is
+# how we know it; factors are named attributes (topic, author, model, prompt…)
+# that link units sharing a value, so paired or grouped comparisons need no
+# extra tables.
+#
 # Scores for a sample unit are ordinary revision_ai_scores rows with
 # check_origin 'detector_comparison' and sample_id pointing here.
 class CreateAiDetectionSamples < ActiveRecord::Migration[8.1]
@@ -31,6 +36,9 @@ class CreateAiDetectionSamples < ActiveRecord::Migration[8.1]
       t.string :campaign_slug
       t.integer :namespace
       t.string :ground_truth
+      t.string :provenance
+      t.text :notes
+      t.text :factors
       t.text :plain_text, size: :medium
       t.string :text_sha256, limit: 64
       t.integer :word_count

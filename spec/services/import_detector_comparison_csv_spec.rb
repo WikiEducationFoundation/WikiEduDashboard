@@ -17,8 +17,8 @@ describe ImportDetectorComparisonCsv do
     expect(importer.builder.created.count).to eq(3)
     expect(importer.imported).to eq(6)
     unit = AiDetectionSample.find_by(rev_id: 1016458317)
-    expect(unit).to have_attributes(campaign_slug: 'spring_2021', ground_truth: 'human_pre_llm',
-                                    from_rev_id: 998714259)
+    expect(unit).to have_attributes(campaign_slug: 'spring_2021', ground_truth: 'human',
+                                    provenance: 'pre_llm_term', from_rev_id: 998714259)
     expect(unit.metadata).to eq('imported_from' => 'detector_comparison_march_2026.csv')
     expect(unit.revision_ai_scores.pluck(:check_type)).to contain_exactly(
       'Pangram 3', 'Originality Turbo', 'Originality Academic'

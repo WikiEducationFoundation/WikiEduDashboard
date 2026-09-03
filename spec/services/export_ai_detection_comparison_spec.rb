@@ -8,11 +8,15 @@ describe ExportAiDetectionComparison do
   let(:unit) do
     AiDetectionSample.create!(sample_name: 'march', plain_text: text, wiki_id: enwiki.id,
                               rev_id: 500, from_rev_id: 400, campaign_slug: 'spring_2021',
-                              ground_truth: 'human_pre_llm', namespace: 0,
+                              ground_truth: 'human', provenance: 'pre_llm_term', namespace: 0,
+                              notes: 'bibliography page', factors: { 'topic' => 'Bees' },
                               url: 'https://en.wikipedia.org/w/index.php?diff=500&oldid=400',
                               metadata: { 'character_sum' => 4000 })
   end
-  let(:other_unit) { AiDetectionSample.create!(sample_name: 'other', plain_text: text) }
+  let(:other_unit) do
+    AiDetectionSample.create!(sample_name: 'other', plain_text: text,
+                              factors: { 'topic' => 'Bees', 'model' => 'gpt-5' })
+  end
 
   before do
     unit.revision_ai_scores.create!(
@@ -48,8 +52,9 @@ describe ExportAiDetectionComparison do
     pangram = rows.find { |row| row['check_type'] == 'Pangram 4' }
     expect(pangram).to include('sample_name' => 'march', 'unit_id' => unit.id,
                                'wiki' => 'en.wikipedia.org', 'rev_id' => 500, 'from_rev_id' => 400,
-                               'ground_truth' => 'human_pre_llm', 'word_count' => 480,
-                               'metadata' => '{"character_sum":4000}',
+                               'ground_truth' => 'human', 'provenance' => 'pre_llm_term',
+                               'notes' => 'bibliography page', 'factor_topic' => 'Bees',
+                               'word_count' => 480, 'metadata' => '{"character_sum":4000}',
                                'vendor' => 'pangram', 'model_version' => '4.0', 'label' => 'Mixed',
                                'max_score' => 0.97, 'mean_window_score' => 0.6, 'window_count' => 2,
                                'windows_above_0_9' => 1, 'humanized_window_count' => 1)
@@ -65,15 +70,27 @@ describe ExportAiDetectionComparison do
     expect(failed['max_score']).to be_nil
   end
 
-  it 'writes a CSV with a fixed header for every sample when none are named' do
+  it 'writes a CSV for every sample when none are named, with a column per factor present' do
     path = Rails.root.join('tmp/detector_comparison_export_spec.csv')
-    csv = described_class.new.to_csv(path)
+    export = described_class.new
+    csv = export.to_csv(path)
 
     parsed = CSV.parse(csv, headers: true)
-    expect(parsed.headers).to eq(described_class.headers)
+    expect(parsed.headers).to eq(export.headers)
+    expect(export.headers).to include('factor_model', 'factor_topic')
+    expect(export.headers.index('factor_topic')).to be < export.headers.index('score_id')
     expect(parsed.count).to eq(4)
+    other = parsed.find { |row| row['sample_name'] == 'other' }
+    expect(other['factor_model']).to eq('gpt-5')
     expect(File.read(path)).to eq(csv)
   ensure
     FileUtils.rm_f(path)
+  end
+
+  it 'omits factor columns when no unit has factors' do
+    AiDetectionSample.update_all(factors: nil)
+
+    headers = described_class.new(sample_names: ['march']).headers
+    expect(headers).not_to include(a_string_starting_with('factor_'))
   end
 end
