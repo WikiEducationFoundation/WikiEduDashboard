@@ -2,17 +2,13 @@
 
 require 'rails_helper'
 
-describe ReportsController, type: :request do
+describe ReportsController, :report_csv_files, type: :request do
   let(:user) { create(:user) }
   let(:course) { create(:course, id: 1, slug: 'foo/bar_(baz)') }
   let(:campaign) { create(:campaign) }
 
   before do
     campaign.courses << course
-  end
-
-  after do
-    FileUtils.remove_dir('public/system/analytics') if File.directory?('public/system/analytics')
   end
 
   describe 'authenticated course CSV endpoints' do
