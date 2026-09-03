@@ -194,7 +194,11 @@ End the entire description with this exact line as its final line, after the
 Run `code tmp/pr_description.md` to open the file in VS Code and tell the user to press
 Ctrl+Shift+V to preview it with screenshots rendered locally.
 
-When ready to publish, run `bin/open-pr` once. It will:
+When ready to publish, run `bin/open-pr "<PR title>"` once, passing the title
+explicitly: the commit subject for a single-commit branch, otherwise a title you
+draft from the "What this PR does" section. (Without an argument the script
+prompts on a terminal, and falls back to the last commit subject when there is
+no terminal to prompt — agents never have one.) It will:
 
 1. Find each `screenshots/…` reference in `tmp/pr_description.md`.
 2. Build an orphan commit containing those files and force-push it to
