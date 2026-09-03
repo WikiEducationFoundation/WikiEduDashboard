@@ -111,6 +111,17 @@ describe WikiUrlParser do
       expect(target).to eq(rev_id: 1009773007, from_rev: nil, diff_mode: false)
     end
 
+    it 'targets the edit against its parent for diff=prev, not the whole article' do
+      url = 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 936368512, from_rev: nil, diff_mode: true)
+    end
+
+    it 'is nil for diff=next, which cannot be resolved without the API' do
+      url = 'https://en.wikipedia.org/w/index.php?title=Some_Title&diff=next&oldid=936368512'
+      expect(described_class.new(url).revision_target).to be_nil
+    end
+
     it 'is nil for a page title URL' do
       parser = described_class.new('https://en.wikipedia.org/wiki/Some_Title')
       expect(parser.revision_target).to be_nil

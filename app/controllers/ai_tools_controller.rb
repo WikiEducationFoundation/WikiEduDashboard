@@ -39,7 +39,7 @@ class AiToolsController < ApplicationController
 
   def detect_ai(detector, text)
     @results[detector.key] = detector.client.inference text
-  rescue PangramApi::Error, OriginalityApi::Error => e
+  rescue *AiDetector.recoverable_errors => e
     @errors[detector.key] = e.message
   end
 

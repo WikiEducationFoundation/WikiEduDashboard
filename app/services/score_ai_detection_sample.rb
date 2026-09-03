@@ -8,16 +8,13 @@ require_dependency "#{Rails.root}/lib/ai/ai_detector"
 # skipped, and a unit whose call failed (nil avg_ai_likelihood) is retried on
 # the next run, updating the failed row rather than adding another.
 #
-# Originality.ai credits are limited, so run with dry_run: true first: the
-# report then lists pending units, words and estimated credits per detector,
-# plus the current credit balance, without calling any detector.
+# Some vendors meter credits, so run with dry_run: true first: the report then
+# lists pending units, words and estimated credits per detector, plus the
+# current balance of every vendor that reports one, without calling any
+# detector. Vendor specifics (minimum input, billing, balance, error classes)
+# come from the AiDetector registry, so a new detector needs nothing here.
 class ScoreAiDetectionSample
   attr_reader :report
-
-  # Originality bills about one credit per 100 words per check, and an
-  # allowance scan appears to bill as an AI check plus an allowance check.
-  ORIGINALITY_WORDS_PER_CREDIT = 100
-  API_ERRORS = [PangramApi::Error, OriginalityApi::Error, Faraday::Error, JSON::ParserError].freeze
 
   def initialize(sample_name:, detectors:, dry_run: false, verbose: false, limit: nil)
     @units = AiDetectionSample.named(sample_name).order(:id)
@@ -36,33 +33,21 @@ class ScoreAiDetectionSample
     @units.reject { |unit| scored_ids.include?(unit.id) || too_short?(detector, unit) }
   end
 
-  # Originality refuses short texts; Pangram has no such floor.
+  # Some vendors refuse short texts.
   def too_short?(detector, unit)
-    !detector.pangram? && unit.word_count < OriginalityApi::MIN_WORDS
+    detector.min_words.present? && unit.word_count < detector.min_words
   end
 
   def plan
     @detectors.each do |detector|
       units = pending_units(detector)
+      word_counts = units.map(&:word_count)
       @report[detector.key] = { pending_units: units.count,
-                                pending_words: units.sum(&:word_count),
-                                estimated_credits: estimated_credits(detector, units) }
+                                pending_words: word_counts.sum,
+                                estimated_credits: detector.estimated_credits(word_counts) }
     end
-    @report['originality_credit_balance'] = credit_balance unless @detectors.all?(&:pangram?)
+    @report.merge!(AiDetector.credit_balances(@detectors))
     log @report
-  end
-
-  def estimated_credits(detector, units)
-    return if detector.pangram?
-
-    per_check = units.sum { |unit| unit.word_count.fdiv(ORIGINALITY_WORDS_PER_CREDIT).ceil }
-    detector.client.expected_model.start_with?('allowance') ? per_check * 2 : per_check
-  end
-
-  def credit_balance
-    OriginalityApi.credit_balance
-  rescue OriginalityApi::Error, Faraday::Error => e
-    e.message
   end
 
   def perform
@@ -78,7 +63,7 @@ class ScoreAiDetectionSample
                                details: parser.clean_result)
     stats[:scored] += 1
     log "#{detector.key}: unit #{unit.id} max #{parser.max_ai_likelihood.round(4)}"
-  rescue *API_ERRORS => e
+  rescue *AiDetector.recoverable_errors => e
     save_score(detector, unit, avg: nil, max: nil,
                                details: { 'error' => e.class.name, 'message' => e.message })
     stats[:failed] += 1

@@ -174,9 +174,15 @@ max scores, and `summary.md` with the tables.
 
 ## Adding a detector
 
-1. A client class in `lib/` with `#inference(text)` returning the parsed response.
+1. A client class in `lib/` with `#inference(text)` returning the parsed response, raising
+   a class listed in its vendor's `errors` when the call fails.
 2. A parser in `lib/ai/` including `DetectorSummary` and implementing `summary_values`,
    `max_ai_likelihood`, `average_ai_likelihood` and `clean_result`.
-3. A `check_type` constant on `RevisionAiScore` and one entry in `AiDetector::REGISTRY`.
+3. A `check_type` constant on `RevisionAiScore` and one entry in `AiDetector::REGISTRY`,
+   naming the vendor (and a per-detector credit estimator if billing differs from the
+   vendor's default, as it does for Originality's allowance scans).
 
-The admin AI tools page, the sample scorer and the export pick it up from the registry.
+For a new vendor, add an `AiDetector::Vendor` as well: the admin page partial that renders
+its raw result, its minimum input in words (nil if none), how it bills credits, how to read
+its balance, and its error classes. All of those may be nil. The admin AI tools page, the
+sample scorer and the export take everything from the registry; nothing else changes.

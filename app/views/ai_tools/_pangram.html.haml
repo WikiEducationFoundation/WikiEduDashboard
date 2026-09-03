@@ -1,15 +1,15 @@
 -# Renders one Pangram inference result. Pangram 4 adds per-window humanizer
 -# detection fields, which are shown only when the response includes them.
-- humanizer = pangram_result['windows'].any? { |window| window.key?('is_humanized') }
+- humanizer = result['windows'].any? { |window| window.key?('is_humanized') }
 %br
 %h4= "#{label} Result:"
 
-%p Model version: #{pangram_result['version']}
-%p Headline: #{pangram_result['headline']}
-%p Prediction: #{pangram_result['prediction']}
-%p Fraction human: #{pangram_result['fraction_human']}
-%p Fraction AI-assisted: #{pangram_result['fraction_ai_assisted']}
-%p Fraction AI: #{pangram_result['fraction_ai']}
+%p Model version: #{result['version']}
+%p Headline: #{result['headline']}
+%p Prediction: #{result['prediction']}
+%p Fraction human: #{result['fraction_human']}
+%p Fraction AI-assisted: #{result['fraction_ai_assisted']}
+%p Fraction AI: #{result['fraction_ai']}
 %table.table.table--striped
   %thead
     %tr
@@ -22,7 +22,7 @@
         %th Humanized
         %th Humanizer score
   %tbody
-    - pangram_result['windows'].each_with_index do |window, index|
+    - result['windows'].each_with_index do |window, index|
       %tr
         %td= index + 1
         %td= window['word_count']
@@ -32,5 +32,5 @@
         - if humanizer
           %td= window['is_humanized']
           %td= window['humanizer_score']&.round(4)
-%a.button{ href: pangram_result['dashboard_link'], target: '_blank' }= "#{label} Report"
+%a.button{ href: result['dashboard_link'], target: '_blank' }= "#{label} Report"
 %br

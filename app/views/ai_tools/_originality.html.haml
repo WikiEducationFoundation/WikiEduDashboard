@@ -1,6 +1,6 @@
 -# Renders one Originality.ai scan result. The block scores are read from
 -# results.ai for both classic models and AI Allowance mode.
-- ai = originality_result['results']['ai']
+- ai = result['results']['ai']
 %br
 %h4= "#{label} Result:"
 
@@ -25,5 +25,5 @@
         %td= index + 1
         %td= block['text'].to_s.split.size
         %td= block['result']['fake']&.round(4)
-%a.button{ href: originality_result['results']['properties']['publicLink'], target: '_blank' }= "#{label} Report"
+%a.button{ href: result['results']['properties']['publicLink'], target: '_blank' }= "#{label} Report"
 %br

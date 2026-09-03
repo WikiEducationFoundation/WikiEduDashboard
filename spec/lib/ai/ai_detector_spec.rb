@@ -29,7 +29,7 @@ describe AiDetector do
     it 'builds the matching client and vendor' do
       detector = described_class.for(RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_40_KEY)
 
-      expect(detector.vendor).to eq(:originality)
+      expect(detector.vendor.name).to eq(:originality)
       expect(detector).not_to be_pangram
       expect(detector.client).to be_a(OriginalityApi)
       expect(detector.client.expected_model).to eq('allowance-40%')
@@ -38,6 +38,49 @@ describe AiDetector do
     it 'marks the Pangram detectors' do
       expect(described_class.for(RevisionAiScore::PANGRAM_V4_KEY)).to be_pangram
       expect(described_class.for(RevisionAiScore::PANGRAM_V4_KEY).client).to be_a(PangramApi)
+    end
+  end
+
+  describe 'vendor policy' do
+    let(:pangram) { described_class.for(RevisionAiScore::PANGRAM_V4_KEY) }
+    let(:turbo) { described_class.for(RevisionAiScore::ORIGINALITY_TURBO_KEY) }
+    let(:allowance) { described_class.for(RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_15_KEY) }
+
+    it 'names the partial that renders each vendor' do
+      expect(pangram.partial).to eq('ai_tools/pangram')
+      expect(allowance.partial).to eq('ai_tools/originality')
+    end
+
+    it 'exposes the minimum input only for vendors that have one' do
+      expect(pangram.min_words).to be_nil
+      expect(turbo.min_words).to eq(50)
+    end
+
+    it 'estimates credits per vendor, doubled for allowance scans, and nil when unmetered' do
+      expect(pangram.estimated_credits([480, 30])).to be_nil
+      expect(turbo.estimated_credits([480, 30])).to eq(6)
+      expect(allowance.estimated_credits([480, 30])).to eq(12)
+    end
+
+    it 'lists every error class a detector call can recover from' do
+      expect(described_class.recoverable_errors)
+        .to include(Faraday::Error, JSON::ParserError, PangramApi::Error, OriginalityApi::Error)
+    end
+
+    it 'reads balances for the vendors present that report one' do
+      allow(OriginalityApi).to receive(:credit_balance).and_return(14_488)
+
+      expect(described_class.credit_balances([pangram])).to eq({})
+      expect(described_class.credit_balances([pangram, turbo, allowance]))
+        .to eq('originality_credit_balance' => 14_488)
+    end
+
+    it 'reports a failed balance lookup as its message' do
+      allow(OriginalityApi).to receive(:credit_balance)
+        .and_raise(OriginalityApi::RequestError.new(503, 'down'))
+
+      expect(described_class.credit_balances([turbo])['originality_credit_balance'])
+        .to include('HTTP 503')
     end
   end
 

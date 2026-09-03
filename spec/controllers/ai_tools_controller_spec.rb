@@ -168,6 +168,21 @@ describe AiToolsController, type: :request do
         expect(response.body).to include('Pangram 4 Result')
       end
 
+      it 'shows a notice when a detector fails at the transport level' do
+        allow(AiDetector.for(pangram_v3).client).to receive(:inference)
+          .and_raise(Faraday::TimeoutError, 'execution expired')
+
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:,
+                                                         article_or_diff_url: "",
+                                                         pangram_v3.to_sym => '1',
+                                                         pangram_v4.to_sym => '1' }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Pangram 3: execution expired')
+        expect(response.body).to include('Pangram 4 Result')
+        expect(RevisionAiScore.pluck(:check_type)).to eq(['Pangram 4'])
+      end
+
       it 'renders the Originality result with its model and block scores' do
         post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                          article_or_diff_url: "",
@@ -272,12 +287,12 @@ describe AiToolsController, type: :request do
     context 'when diff prev URL' do
       let(:url) { 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512' }
 
-      it 'calls GetRevisionPlaintext with diff_mode true and rev_id set' do
+      it 'calls GetRevisionPlaintext for the edit against its parent' do
         expect(GetRevisionPlaintext).to receive(:new).with(
           936368512,
           enwiki,
           diff_mode: true,
-          from_rev: 0
+          from_rev: nil
         )
 
         post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url }

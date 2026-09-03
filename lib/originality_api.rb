@@ -31,6 +31,7 @@ class OriginalityApi
   # Only the v1 path answers this; the v3 path returns HTML.
   CREDIT_BALANCE_URL = 'https://api.originality.ai/api/v1/account/credits/balance'
   MIN_WORDS = 50
+  WORDS_PER_CREDIT = 100 # roughly; observed 90 words → 1 credit, 135 words → 2 per check
   OPEN_TIMEOUT = 5 # seconds to establish a connection
   REQUEST_TIMEOUT = 60 # seconds per request
 

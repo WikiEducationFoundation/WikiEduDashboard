@@ -33,7 +33,7 @@
     - @selected_detectors&.each do |detector|
       - if @errors[detector.key]
         %p.notice= "#{detector.key}: #{@errors[detector.key]}"
-      - elsif detector.pangram?
-        = render 'pangram', pangram_result: @results[detector.key], label: detector.key
+      - elsif @results.key?(detector.key)
+        = render detector.partial, result: @results[detector.key], label: detector.key
       - else
-        = render 'originality', originality_result: @results[detector.key], label: detector.key
+        %p.notice= "#{detector.key}: no result"

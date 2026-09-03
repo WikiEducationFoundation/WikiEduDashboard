@@ -232,17 +232,32 @@ def wide_scores(df):
     return df.pivot_table(index="unit_id", columns="check_type", values="max_score", aggfunc="first")
 
 
+def wide_of(df, column):
+    """unit_id × detector table of one column; detectors with no values keep an all-blank column."""
+    return df.pivot_table(index="unit_id", columns="check_type", values=column, aggfunc="first", dropna=False)
+
+
+def cell(table, unit_id, column):
+    if column not in table.columns:
+        return None
+    value = table.at[unit_id, column]
+    return None if pd.isna(value) else value
+
+
 def pairwise(df, out_dir, threshold):
     wide = wide_scores(df)
+    positives = wide_of(df, "positive")
     units = df.drop_duplicates("unit_id").set_index("unit_id")
-    reports = df.pivot_table(index="unit_id", columns="check_type", values="report_url", aggfunc="first")
+    reports = wide_of(df, "report_url")
     rows = []
     disagreements = []
     for a, b in itertools.combinations(detectors_in(df), 2):
         both = wide[[a, b]].dropna()
         if both.empty:
             continue
-        pos_a, pos_b = both[a] > threshold, both[b] > threshold
+        # The positive rule was decided in load(); do not re-derive it from the threshold here.
+        pos_a = positives.loc[both.index, a].astype(bool)
+        pos_b = positives.loc[both.index, b].astype(bool)
         rows.append({"detector_a": a, "detector_b": b, "units": len(both),
                      "both_positive": int((pos_a & pos_b).sum()),
                      "only_a": int((pos_a & ~pos_b).sum()), "only_b": int((~pos_a & pos_b).sum()),
@@ -253,8 +268,8 @@ def pairwise(df, out_dir, threshold):
             disagreements.append({"unit_id": unit_id, "detector_a": a, "detector_b": b,
                                   "score_a": both.at[unit_id, a], "score_b": both.at[unit_id, b],
                                   "ground_truth": unit["ground_truth"], "campaign_slug": unit["campaign_slug"],
-                                  "url": unit["url"], "report_a": reports.at[unit_id, a],
-                                  "report_b": reports.at[unit_id, b]})
+                                  "url": unit["url"], "report_a": cell(reports, unit_id, a),
+                                  "report_b": cell(reports, unit_id, b)})
         chart_scatter(both, units, a, b, threshold, out_dir / f"scatter_{slug(a)}_vs_{slug(b)}.png")
     pd.DataFrame(disagreements).to_csv(out_dir / "disagreements.csv", index=False)
     return pd.DataFrame(rows)
@@ -324,17 +339,17 @@ def challenge_report(df, threshold):
     cases = df[df["challenge"]]
     if cases.empty:
         return pd.DataFrame()
-    wide = cases.pivot_table(index="unit_id", columns="check_type", values="max_score", aggfunc="first")
+    wide = wide_of(cases, "max_score")
+    flagged_wide = wide_of(cases, "positive")
     units = cases.drop_duplicates("unit_id").set_index("unit_id")
     columns = ["ground_truth", "provenance", "notes", "url"] + factor_columns(cases)
     report = units[columns].copy()
+    expected = units["ground_truth"].isin(AI_LABELS)
     for detector in detectors_in(cases):
         report[detector] = wide[detector].round(4)
-        expected = units["ground_truth"].isin(AI_LABELS)
-        flagged = wide[detector] > threshold
         report[f"{detector} verdict"] = [
-            "" if pd.isna(score) else ("correct" if flag == exp else ("missed" if exp else "false positive"))
-            for score, flag, exp in zip(wide[detector], flagged, expected)
+            "" if pd.isna(score) else ("correct" if bool(flag) == exp else ("missed" if exp else "false positive"))
+            for score, flag, exp in zip(wide[detector], flagged_wide[detector], expected)
         ]
     return report.reset_index()
 
@@ -346,7 +361,7 @@ def self_report_candidates(df, threshold):
     if rows.empty:
         return pd.DataFrame()
     disputed = rows["metadata"].map(lambda m: '"self_reported_false_positive": true' in str(m))
-    flagged = rows[disputed & (rows["max_score"] > threshold)]
+    flagged = rows[disputed & rows["positive"]]
     return flagged[["unit_id", "check_type", "max_score", "campaign_slug", "url", "report_url"]] \
         .sort_values(["unit_id", "check_type"])
 
