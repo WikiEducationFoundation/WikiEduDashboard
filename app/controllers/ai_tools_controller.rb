@@ -10,8 +10,11 @@ class AiToolsController < ApplicationController
   def show; end
 
   def compare_ai_detectors
-    detect_ai_from_multiple_resources extract_plain_text
-    create_revision_ai_scores_for_multiple_resources
+    text = extract_plain_text
+    if text
+      detect_ai_from_multiple_resources text
+      create_revision_ai_scores_for_multiple_resources
+    end
     render 'show'
   end
 
@@ -43,25 +46,35 @@ class AiToolsController < ApplicationController
     @errors[detector.key] = e.message
   end
 
+  # Returns false when the URL selects a revision we cannot resolve (diff=next),
+  # so that nothing unrelated gets scored in its place.
   def parse_url
     @url = params[:article_or_diff_url]
     parser = WikiUrlParser.new(@url)
     @wiki = parser.wiki
     @article_title = parser.title
 
+    target = parser.revision_target
+    if target.nil? && parser.revision_selector?
+      @url_error = "Unsupported URL: #{@url}"
+      return false
+    end
     # A URL with only a page title has no revision, so fetch the latest one.
     # Example: https://en.wikipedia.org/wiki/Greater_Cooch_Behar_People%27s_Association
-    target = parser.revision_target || { rev_id: latest_revision, from_rev: nil, diff_mode: false }
+    target ||= { rev_id: latest_revision, from_rev: nil, diff_mode: false }
     @rev_id = target[:rev_id]
     @from_rev = target[:from_rev]
     @diff_mode = target[:diff_mode]
+    true
   end
 
+  # The text to score, or nil when the URL could not be resolved.
   def extract_plain_text
     # If there is plain_text param, just return that
     return params[:plain_text] if params[:plain_text].present?
     # Get plain text from the url
-    parse_url
+    return unless parse_url
+
     GetRevisionPlaintext
       .new(@rev_id, @wiki, diff_mode: @diff_mode, from_rev: @from_rev)
       .plain_text

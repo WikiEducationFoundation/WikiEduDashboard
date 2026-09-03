@@ -57,7 +57,8 @@ builder = BuildAiDetectionSampleFromRecentScores.new(sample_name: 'recent_2026_0
 builder.summary
 ```
 
-Alerts whose student answered the follow-up questionnaire (self-report becomes ground truth):
+Alerts whose student answered the follow-up questionnaire. The answers are recorded as
+`self_report` provenance and metadata only; ground truth stays unset:
 
 ```ruby
 BuildAiDetectionSampleFromAlertFollowups.new(sample_name: 'followups', since: 1.year.ago, verbose: true).summary

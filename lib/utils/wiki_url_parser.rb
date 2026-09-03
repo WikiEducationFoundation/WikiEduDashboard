@@ -45,6 +45,13 @@ class WikiUrlParser
     @url.match?(/diff=next\b/)
   end
 
+  # True when the URL selects a revision or diff at all, as opposed to naming
+  # only a page. A selector that #revision_target cannot resolve (diff=next)
+  # must not be treated as a page URL.
+  def revision_selector?
+    !diff.nil? || !oldid.nil? || prev_diff? || next_diff?
+  end
+
   # The revision whose text an AI detector should see, following the AI tools
   # conventions: diff=X&oldid=Y means the text added between Y and X;
   # diff=X alone or diff=prev&oldid=X means X against its parent; oldid=X

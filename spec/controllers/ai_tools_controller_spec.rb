@@ -299,6 +299,23 @@ describe AiToolsController, type: :request do
       end
     end
 
+    context 'when diff next URL' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=next&oldid=936368512' }
+
+      it 'scores nothing and shows a notice instead of falling back to the latest revision' do
+        expect(GetRevisionPlaintext).not_to receive(:new)
+        expect(WikiApi::ArticleContent).not_to receive(:new)
+        expect(AiDetector.for(pangram_v4).client).not_to receive(:inference)
+
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url,
+                                                         pangram_v4.to_sym => '1' }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Unsupported URL')
+        expect(RevisionAiScore.count).to eq(0)
+      end
+    end
+
     context 'when diff range URL' do
       let(:url) { 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=1178859026&oldid=711811679' }
 

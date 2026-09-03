@@ -25,6 +25,7 @@ that share a value (e.g. topic) as pairs.
 """
 import argparse
 import itertools
+import json
 import math
 import pathlib
 import re
@@ -173,13 +174,13 @@ def ecdf(values):
     return values, [(i + 1) / len(values) for i in range(len(values))]
 
 
-def chart_distributions(df, out, threshold):
+def chart_distributions(df, out, threshold, baseline_label):
     detectors = detectors_in(df)
     fig, axes = plt.subplots(1, len(detectors), figsize=(4 * len(detectors), 4), sharey=True,
                              facecolor=SURFACE, squeeze=False)
     for ax, detector in zip(axes[0], detectors):
         rows = df[df["check_type"] == detector]
-        for is_baseline, color, dash, name in [(True, BASELINE_GRAY, "--", "pre-LLM baseline"),
+        for is_baseline, color, dash, name in [(True, BASELINE_GRAY, "--", baseline_label),
                                                 (False, color_for(detector), "-", "other units")]:
             subset = rows[rows["baseline"] == is_baseline]["max_score"]
             if subset.empty:
@@ -200,7 +201,7 @@ def chart_distributions(df, out, threshold):
     plt.close(fig)
 
 
-def chart_threshold_sweep(df, out, threshold):
+def chart_threshold_sweep(df, out, threshold, baseline_label):
     detectors = detectors_in(df)
     thresholds = [i / 100 for i in range(0, 100)]
     fig, axes = plt.subplots(1, len(detectors), figsize=(4 * len(detectors), 4), sharey=True,
@@ -211,7 +212,7 @@ def chart_threshold_sweep(df, out, threshold):
         rest = rows[~rows["baseline"]]["max_score"]
         if not base.empty:
             ax.plot(thresholds, [(base > t).mean() for t in thresholds], color=BASELINE_GRAY,
-                    linestyle="--", linewidth=2, label=f"false positive rate, baseline (n={len(base)})")
+                    linestyle="--", linewidth=2, label=f"false positive rate, {baseline_label} (n={len(base)})")
         if not rest.empty:
             ax.plot(thresholds, [(rest > t).mean() for t in thresholds], color=color_for(detector),
                     linewidth=2, label=f"positive rate, other units (n={len(rest)})")
@@ -244,7 +245,7 @@ def cell(table, unit_id, column):
     return None if pd.isna(value) else value
 
 
-def pairwise(df, out_dir, threshold):
+def pairwise(df, out_dir, threshold, baseline_label):
     wide = wide_scores(df)
     positives = wide_of(df, "positive")
     units = df.drop_duplicates("unit_id").set_index("unit_id")
@@ -270,15 +271,16 @@ def pairwise(df, out_dir, threshold):
                                   "ground_truth": unit["ground_truth"], "campaign_slug": unit["campaign_slug"],
                                   "url": unit["url"], "report_a": cell(reports, unit_id, a),
                                   "report_b": cell(reports, unit_id, b)})
-        chart_scatter(both, units, a, b, threshold, out_dir / f"scatter_{slug(a)}_vs_{slug(b)}.png")
+        chart_scatter(both, units, a, b, threshold, baseline_label,
+                      out_dir / f"scatter_{slug(a)}_vs_{slug(b)}.png")
     pd.DataFrame(disagreements).to_csv(out_dir / "disagreements.csv", index=False)
     return pd.DataFrame(rows)
 
 
-def chart_scatter(both, units, a, b, threshold, out):
+def chart_scatter(both, units, a, b, threshold, baseline_label, out):
     fig, ax = plt.subplots(figsize=(5.5, 5.5), facecolor=SURFACE)
     truth = units.loc[both.index, "baseline"]
-    for is_baseline, color, name in [(False, PALETTE[0], "other units"), (True, BASELINE_GRAY, "pre-LLM baseline")]:
+    for is_baseline, color, name in [(False, PALETTE[0], "other units"), (True, BASELINE_GRAY, baseline_label)]:
         subset = both[truth == is_baseline]
         if subset.empty:
             continue
@@ -341,17 +343,28 @@ def challenge_report(df, threshold):
         return pd.DataFrame()
     wide = wide_of(cases, "max_score")
     flagged_wide = wide_of(cases, "positive")
-    units = cases.drop_duplicates("unit_id").set_index("unit_id")
+    # Everything below is indexed by unit_id in wide's (sorted) order, so the
+    # per-detector columns and the labels stay attached to the same unit.
+    units = cases.drop_duplicates("unit_id").set_index("unit_id").loc[wide.index]
     columns = ["ground_truth", "provenance", "notes", "url"] + factor_columns(cases)
     report = units[columns].copy()
     expected = units["ground_truth"].isin(AI_LABELS)
     for detector in detectors_in(cases):
-        report[detector] = wide[detector].round(4)
+        scores = wide[detector]
+        flags = flagged_wide[detector]
+        report[detector] = scores.round(4)
         report[f"{detector} verdict"] = [
-            "" if pd.isna(score) else ("correct" if bool(flag) == exp else ("missed" if exp else "false positive"))
-            for score, flag, exp in zip(wide[detector], flagged_wide[detector], expected)
+            verdict(score, flag, exp) for score, flag, exp in zip(scores, flags, expected)
         ]
     return report.reset_index()
+
+
+def verdict(score, flagged, expected_positive):
+    if pd.isna(score):
+        return ""
+    if bool(flagged) == bool(expected_positive):
+        return "correct"
+    return "missed" if expected_positive else "false positive"
 
 
 def self_report_candidates(df, threshold):
@@ -360,10 +373,18 @@ def self_report_candidates(df, threshold):
     rows = df[df["provenance"] == "self_report"]
     if rows.empty:
         return pd.DataFrame()
-    disputed = rows["metadata"].map(lambda m: '"self_reported_false_positive": true' in str(m))
+    disputed = rows["metadata"].map(lambda m: metadata_flag(m, "self_reported_false_positive"))
     flagged = rows[disputed & rows["positive"]]
     return flagged[["unit_id", "check_type", "max_score", "campaign_slug", "url", "report_url"]] \
         .sort_values(["unit_id", "check_type"])
+
+
+def metadata_flag(metadata, key):
+    """Read one boolean out of the exported metadata JSON; anything unparsable counts as False."""
+    try:
+        return bool(json.loads(metadata).get(key, False))
+    except (TypeError, ValueError, AttributeError):
+        return False
 
 
 def group_table(df, factor):
@@ -475,9 +496,11 @@ def main():
                                 "mean_window_score", "Mean window score by term",
                                 "mean of per-unit mean window score", out / "mean_window_score_by_term.png",
                                 percent=False)
-    chart_distributions(df, out / "score_distributions.png", args.threshold)
-    chart_threshold_sweep(df, out / "threshold_sweep.png", args.threshold)
-    pairs = pairwise(df, out, args.threshold)
+    baseline_label = ("pre-LLM baseline" if args.baseline_provenance == "pre_llm_term"
+                      else f"baseline ({args.baseline_provenance})")
+    chart_distributions(df, out / "score_distributions.png", args.threshold, baseline_label)
+    chart_threshold_sweep(df, out / "threshold_sweep.png", args.threshold, baseline_label)
+    pairs = pairwise(df, out, args.threshold, baseline_label)
     wide_scores(df).to_csv(out / "max_scores_wide.csv")
 
     detectors = detector_table(df)

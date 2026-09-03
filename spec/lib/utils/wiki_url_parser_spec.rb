@@ -122,6 +122,15 @@ describe WikiUrlParser do
       expect(described_class.new(url).revision_target).to be_nil
     end
 
+    it 'distinguishes an unresolvable revision selector from a plain page URL' do
+      with_next = 'https://en.wikipedia.org/w/index.php?title=T&diff=next&oldid=5'
+      page_only = 'https://en.wikipedia.org/wiki/Some_Title'
+      oldid_only = 'https://en.wikipedia.org/w/index.php?oldid=5'
+      expect(described_class.new(with_next).revision_selector?).to be true
+      expect(described_class.new(page_only).revision_selector?).to be false
+      expect(described_class.new(oldid_only).revision_selector?).to be true
+    end
+
     it 'is nil for a page title URL' do
       parser = described_class.new('https://en.wikipedia.org/wiki/Some_Title')
       expect(parser.revision_target).to be_nil
