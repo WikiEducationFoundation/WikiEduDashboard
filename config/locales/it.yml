@@ -122,6 +122,8 @@ it:
       creare ora un Programma. Se il tuo evento è parte di qualcosa più grande, trova
       o crea la Campagna per esso; puoi quindi creare un Programma nuovo dalla pagina
       della Campagna.
+    tooltip:
+      alt: Ulteriori informazioni
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia

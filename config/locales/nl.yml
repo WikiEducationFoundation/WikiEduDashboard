@@ -143,6 +143,8 @@ nl:
       kunt u nu een programma maken. Maakt uw evenement deel uit van iets groters,
       dan zoekt of maakt u de campagne ervoor, en dan kunt u vanaf de campagnepagina
       een nieuw programma maken.
+    tooltip:
+      alt: Meer informatie
   home:
     explore: Verkennen
     log_in: Aanmelden met Wikipedia
@@ -2011,15 +2013,15 @@ nl:
       verdict_question: Wordt de bewering door de bron ondersteund?
       verdict_options:
         full_support: Ja, deze ondersteunt de volledige bewering expliciet.
-        mostly_supports: Grotendeels wel, de kern van de bewering komt uit deze bron.
         partial_support: Gedeeltelijk, sommige elementen van de bewering zijn afkomstig
           uit deze bron, maar een aanzienlijk deel niet.
-        mostly_unsupported: Meestal niet, de bron is weliswaar in overeenstemming
-          met de bewering, maar ondersteunt deze niet direct.
         unsupported: Nee, de bron dekt niet wat er beweerd wordt.
         contradicted: Het tegendeel, de bron weerspreekt de bewering.
         undetermined: Ik kon niet vaststellen of de bewering in de aangehaalde bron
           voorkwam.
+        mostly_supports: Grotendeels wel, de kern van de bewering komt uit deze bron.
+        mostly_unsupported: Meestal niet, de bron is weliswaar in overeenstemming
+          met de bewering, maar ondersteunt deze niet direct.
       claim_location_label: Als u de bewering hebt kunnen vinden, waar in de bron
         stond deze dan? (bijv. paginanummer, hoofdstuk, enz.)
       verification_notes_label: 'Als u de informatie niet kon verifiëren, vertel ons

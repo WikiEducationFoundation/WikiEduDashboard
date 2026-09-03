@@ -1932,14 +1932,14 @@ sk:
       verdict_question: Podporuje zdroj toto tvrdenie?
       verdict_options:
         full_support: Áno – výslovne podporuje celé tvrdenie.
-        mostly_supports: Väčšinou áno – jadro tvrdenia pochádza z tohto zdroja.
         partial_support: Čiastočne – niektoré prvky tvrdenia pochádzajú z tohto zdroja,
           no podstatná časť nie.
-        mostly_unsupported: Väčšinou nie – zdroj nie je s tvrdením v rozpore, ale
-          priamo ho nepodporuje.
         unsupported: Nie – zdroj sa tomu, čo tvrdenie hovorí, nevenuje.
         contradicted: Práve naopak – zdroj tvrdeniu v skutočnosti protirečí.
         undetermined: Nepodarilo sa mi zistiť, či sa tvrdenie v citovanom zdroji nachádza.
+        mostly_supports: Väčšinou áno – jadro tvrdenia pochádza z tohto zdroja.
+        mostly_unsupported: Väčšinou nie – zdroj nie je s tvrdením v rozpore, ale
+          priamo ho nepodporuje.
       claim_location_label: Ak sa vám tvrdenie podarilo nájsť, kde v zdroji sa nachádzalo?
         (napr. číslo strany, kapitola atď.)
       verification_notes_label: Ak sa vám informáciu nepodarilo overiť, povedzte nám

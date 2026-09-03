@@ -100,7 +100,7 @@ diq:
       new_and_existing: Newe u Mewcud
     hide: Bınımne
     history: (tarix)
-    label: Wesiqey
+    label: Meqaleyi
     loading: Meqaleyi bar benê...
     new: (Newe)
     rating: Sınıfe
@@ -110,7 +110,7 @@ diq:
     view: Meqale Bıvêne
     view_all: Pêrune bıvêne
     wiki: Wiki
-    articles_short: Meqaley
+    articles_short: Meqaleyi
   articles_wikidata:
     articles_short: Obcey
   articles_generic:
@@ -148,7 +148,7 @@ diq:
     school_system: Sistemo akademik
     activity: Fealiyet
     actions: Hereketi
-    articles: Wesiqey
+    articles: Meqaleyi
     calendar:
       legend: Kıtabek
     cancel: Bıtexelne

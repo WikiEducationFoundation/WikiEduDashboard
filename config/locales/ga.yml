@@ -2053,17 +2053,17 @@ ga:
       verdict_question: An dtacaíonn an fhoinse leis an éileamh?
       verdict_options:
         full_support: Sea — tacaíonn sé go sainráite leis an éileamh iomlán.
-        mostly_supports: Den chuid is mó tá — tagann croílár an éilimh ón bhfoinse
-          seo.
         partial_support: Go páirteach — tagann roinnt eilimintí den éileamh ón bhfoinse
           seo, ach ní thagann cuid shuntasach de.
-        mostly_unsupported: Den chuid is mó níl — tá an fhoinse ag luí leis an éileamh,
-          ach ní thacaíonn sé go díreach leis.
         unsupported: Ní hea — ní chlúdaíonn an fhoinse a bhfuil á rá sa ráiteas.
         contradicted: A mhalairt ar fad — tá an fhoinse ag teacht salach ar an éileamh
           i ndáiríre.
         undetermined: Ní raibh mé in ann a chinneadh an raibh an t-éileamh sa fhoinse
           a luadh.
+        mostly_supports: Den chuid is mó tá — tagann croílár an éilimh ón bhfoinse
+          seo.
+        mostly_unsupported: Den chuid is mó níl — tá an fhoinse ag luí leis an éileamh,
+          ach ní thacaíonn sé go díreach leis.
       claim_location_label: Más féidir leat an t-éileamh a aimsiú, cá bhfuil sé le
         fáil sa bhfoinse? (m.sh. uimhir leathanaigh, caibidil, srl…)
       verification_notes_label: Mura raibh tú in ann an fhaisnéis a fhíorú, inis dúinn

@@ -1877,14 +1877,14 @@ nb:
       verdict_question: Støtter kilden påstanden?
       verdict_options:
         full_support: Ja – den støtter tydelig hele påstanden.
-        mostly_supports: Stort sett ja – kjernen i påstanden kommer fra denne kilden.
         partial_support: Delvis – noen elementer av påstanden kommer fra denne kilden,
           men en betydelig del gjør ikke det.
-        mostly_unsupported: Stort sett nei – kilden er kompatibel med påstanden, men
-          støtter den ikke direkte.
         unsupported: Nei – kilden dekker ikke hva påstanden sier.
         contradicted: Det motsatte – kilden motsier faktisk påstanden.
         undetermined: Jeg klarte ikke å avgjøre om påstanden sto i den siterte kilden.
+        mostly_supports: Stort sett ja – kjernen i påstanden kommer fra denne kilden.
+        mostly_unsupported: Stort sett nei – kilden er kompatibel med påstanden, men
+          støtter den ikke direkte.
       claim_location_label: Hvis du klarte å finne påstanden, hvor i kilden sto den?
         (f.eks. sidetall, kapittel osv.)
       verification_notes_label: Hvis du ikke klarte å bekrefte informasjonen, fortell
