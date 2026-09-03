@@ -11,8 +11,9 @@
 # pass — no manual drag-and-drop step.
 #
 # Usage:
-#   bin/open-pr              # prompts for PR title on first run
-#   bin/open-pr "My title"   # pass title as argument
+#   bin/open-pr "My title"   # pass title as argument (recommended)
+#   bin/open-pr              # at a terminal, prompts for the title; otherwise
+#                            # (agents, CI, pipes) uses the last commit subject
 #
 # Authentication (tried in order):
 #   1. GITHUB_TOKEN env var
@@ -105,7 +106,8 @@ def api_patch(path, payload)
 end
 
 def find_existing_pr(branch)
-  results = api_get("/repos/#{OWNER}/#{REPO}/pulls?head=#{OWNER}:#{branch}&base=#{BASE_BRANCH}&state=open")
+  query = "head=#{OWNER}:#{branch}&base=#{BASE_BRANCH}&state=open"
+  results = api_get("/repos/#{OWNER}/#{REPO}/pulls?#{query}")
   results.first
 end
 
@@ -162,6 +164,20 @@ def capture_git(args, index_path)
   out
 end
 
+# Resolve the PR title before anything with side effects happens. Only prompt
+# when a human is at a terminal; a non-interactive caller (an agent, CI, a pipe)
+# has no stdin to answer with, so it gets the last commit subject.
+def resolve_title(arg)
+  return arg unless arg.nil? || arg.empty?
+
+  default = `git log -1 --pretty=%s`.strip
+  return default unless $stdin.tty?
+
+  print "PR title [#{default}]: "
+  input = $stdin.gets&.strip
+  input.nil? || input.empty? ? default : input
+end
+
 def rewrite_description(body, local_paths, branch)
   base = "https://raw.githubusercontent.com/#{OWNER}/#{REPO}/#{branch}"
   local_paths.each do |path|
@@ -183,6 +199,11 @@ abort 'Could not determine current branch.' if branch.empty?
 description = File.read(DESC_PATH)
 local_paths = extract_local_paths(description)
 
+# Settle the title (which may prompt) before pushing anything, so an aborted
+# run never leaves a half-finished state behind.
+existing_pr = find_existing_pr(branch)
+title = resolve_title(ARGV[0]) unless existing_pr
+
 if local_paths.any?
   screenshot_branch = "pr-screenshots/#{branch}"
   puts "Uploading #{local_paths.length} screenshot(s) to #{screenshot_branch}..."
@@ -191,8 +212,6 @@ if local_paths.any?
   puts "  → raw URLs: https://raw.githubusercontent.com/#{OWNER}/#{REPO}/#{screenshot_branch}/"
 end
 
-existing_pr = find_existing_pr(branch)
-
 if existing_pr
   pr_number = existing_pr['number']
   pr_url    = existing_pr['html_url']
@@ -200,14 +219,6 @@ if existing_pr
   api_patch("/repos/#{OWNER}/#{REPO}/pulls/#{pr_number}", { body: description })
   puts "  → #{pr_url}"
 else
-  title = ARGV[0]
-  if title.nil? || title.empty?
-    last_commit = `git log -1 --pretty=%s`.strip
-    print "PR title [#{last_commit}]: "
-    input = $stdin.gets&.strip
-    title = input.empty? ? last_commit : input
-  end
-
   puts "Creating draft PR on #{OWNER}/#{REPO} (#{branch} → #{BASE_BRANCH})..."
   _code, pr = api_post(
     "/repos/#{OWNER}/#{REPO}/pulls",
