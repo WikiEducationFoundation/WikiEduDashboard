@@ -10,8 +10,9 @@ describe AiToolsController, type: :request do
     let(:pangram_v4) { 'Pangram 4' }
     let(:turbo) { 'Originality Turbo' }
     let(:academic) { 'Originality Academic' }
-    let(:lite) { 'Originality Lite 1.0.0' }
-    let(:lite_beta) { 'Originality Lite 1.0.2' }
+    let(:lite_102) { 'Originality Lite 1.0.2' }
+    let(:allowance_15) { 'Originality AI Allowance 15' }
+    let(:allowance_40) { 'Originality AI Allowance 40' }
     let(:simplified_originality_response) do
       { 'results' => {
         'properties' => {
@@ -102,9 +103,9 @@ describe AiToolsController, type: :request do
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-      allow(AiToolsController::DETECTORS[pangram_v3]).to receive(:inference)
+      allow(AiDetector.for(pangram_v3).client).to receive(:inference)
         .and_return(simplified_pangram_response)
-      allow(AiToolsController::DETECTORS[pangram_v4]).to receive(:inference)
+      allow(AiDetector.for(pangram_v4).client).to receive(:inference)
         .and_return(simplified_pangram_v4_response)
       allow_any_instance_of(OriginalityApi).to receive(:inference)
                                            .and_return(simplified_originality_response)
@@ -148,9 +149,48 @@ describe AiToolsController, type: :request do
         expect(score.details['windows'].first).to include('is_humanized' => false)
         expect(score.details['windows'].first).not_to have_key('text')
 
-        expect(response.body).to include('Pangram v4 Result')
+        expect(response.body).to include('Pangram 4 Result')
         expect(response.body).to include('Humanizer score')
-        expect(response.body).not_to include('Pangram v3 Result')
+        expect(response.body).not_to include('Pangram 3 Result')
+      end
+
+      it 'shows a detector error instead of a result and stores no row for it' do
+        allow(AiDetector.for(allowance_40).client).to receive(:inference)
+          .and_raise(OriginalityApi::TextTooShort, '3 words; Originality requires 50')
+
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:,
+                                                         article_or_diff_url: "",
+                                                         pangram_v4.to_sym => '1',
+                                                         allowance_40.to_sym => '1' }
+
+        expect(RevisionAiScore.pluck(:check_type)).to eq(['Pangram 4'])
+        expect(response.body).to include('Originality requires 50')
+        expect(response.body).to include('Pangram 4 Result')
+      end
+
+      it 'renders the Originality result with its model and block scores' do
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:,
+                                                         article_or_diff_url: "",
+                                                         academic.to_sym => '1' }
+
+        expect(response.body).to include('Originality Academic Result')
+        expect(response.body).to include('Model: academic')
+        expect(response.body).to include('0.6722')
+        score = RevisionAiScore.find_by(check_type: academic)
+        expect(score.max_ai_likelihood).to be_within(0.0001).of(0.6722)
+        expect(score.avg_ai_likelihood).to eq(1)
+      end
+    end
+
+    context 'when showing the form' do
+      it 'ticks only the Pangram detectors by default' do
+        get '/ai_tools'
+
+        page = Nokogiri::HTML(response.body)
+        checked = page.css('input[type=checkbox][checked]').map { |box| box['name'] }
+        all = page.css('input[type=checkbox]').map { |box| box['name'] }
+        expect(checked).to eq([pangram_v3, pangram_v4])
+        expect(all).to eq(AiDetector.keys)
       end
     end
 
@@ -174,16 +214,17 @@ describe AiToolsController, type: :request do
                                                           article_or_diff_url: url,
                                                           pangram_v3.to_sym => '1',
                                                           pangram_v4.to_sym => '1',
+                                                          lite_102.to_sym => '1',
                                                           turbo.to_sym => '1',
                                                           academic.to_sym => '1',
-                                                          lite.to_sym => '1',
-                                                          lite_beta.to_sym => '1' }
+                                                          allowance_15.to_sym => '1',
+                                                          allowance_40.to_sym => '1' }
         end
 
-        expect(RevisionAiScore.count).to eq(6)
+        expect(RevisionAiScore.count).to eq(7)
         expect(RevisionAiScore.order(:id).pluck(:check_type)).to eq(
-          ['Pangram 3', 'Pangram 4', 'Originality Turbo', 'Originality Academic',
-           'Originality Lite 1.0.0', 'Originality Lite 1.0.2']
+          ['Pangram 3', 'Pangram 4', 'Originality Lite 1.0.2', 'Originality Turbo',
+           'Originality Academic', 'Originality AI Allowance 15', 'Originality AI Allowance 40']
         )
 
         RevisionAiScore.find_each do |score|

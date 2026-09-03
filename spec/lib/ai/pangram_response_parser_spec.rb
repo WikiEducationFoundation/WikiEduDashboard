@@ -122,6 +122,28 @@ describe PangramResponseParser do
     end
   end
 
+  describe '#summary' do
+    it 'fills every DetectorSummary key for a Pangram 3 response' do
+      summary = described_class.new(RevisionAiScore::PANGRAM_V3_KEY, v3_response).summary
+
+      expect(summary.keys).to eq(DetectorSummary::KEYS)
+      expect(summary).to include(
+        'check_type' => 'Pangram 3', 'vendor' => 'pangram', 'model_version' => '3.3.2',
+        'label' => 'AI', 'document_score' => nil, 'max_score' => 1.0, 'mean_window_score' => 0.75,
+        'window_count' => 3, 'windows_above_0_5' => 2, 'windows_above_0_9' => 2,
+        'fraction_ai' => 0.8, 'fraction_mixed' => 0.2, 'fraction_human' => 0.0,
+        'humanized_window_count' => nil, 'max_humanizer_score' => nil, 'report_url' => share_link
+      )
+    end
+
+    it 'includes the humanizer counts for a Pangram 4 response' do
+      summary = described_class.new(RevisionAiScore::PANGRAM_V4_KEY, v4_response).summary
+
+      expect(summary).to include('model_version' => '4.0', 'humanized_window_count' => 1,
+                                 'max_humanizer_score' => 0.97)
+    end
+  end
+
   describe 'version predicates' do
     it 'reports which model produced the response' do
       expect(described_class.new(RevisionAiScore::PANGRAM_V3_KEY, v3_response)).to be_pangram_v3

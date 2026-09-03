@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/ai/detector_summary"
+
 class PangramResponseParser
+  include DetectorSummary
+
   def initialize(version, response)
     @version = version
     @response = response
@@ -81,6 +85,7 @@ class PangramResponseParser
   def window_likelihoods
     windows.map { |window| window['ai_assistance_score'] }
   end
+  alias window_scores window_likelihoods
 
   def predicted_ai_window_count
     window_likelihoods.count { |likelihood| likelihood > 0.5 }
@@ -112,5 +117,21 @@ class PangramResponseParser
       result['windows'] = result['windows'].map { |w| w.except('text') }
     end
     result
+  end
+
+  private
+
+  def summary_values
+    { 'check_type' => @version, 'vendor' => 'pangram', 'model_version' => pangram_version,
+      'label' => @response['prediction_short'],
+      'max_score' => max_ai_likelihood, 'mean_window_score' => average_ai_likelihood,
+      'window_count' => windows.count,
+      'windows_above_0_5' => window_likelihoods.count { |score| score > 0.5 },
+      'windows_above_0_9' => window_likelihoods.count { |score| score > 0.9 },
+      'fraction_ai' => fraction_ai_content, 'fraction_mixed' => fraction_mixed_content,
+      'fraction_human' => fraction_human_content,
+      'humanized_window_count' => (humanized_window_count if humanizer_data?),
+      'max_humanizer_score' => (max_humanizer_score if humanizer_data?),
+      'report_url' => pangram_share_link }
   end
 end

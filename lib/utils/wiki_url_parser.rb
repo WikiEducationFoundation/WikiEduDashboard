@@ -34,4 +34,17 @@ class WikiUrlParser
     match = @url.match(/oldid=(?<oldid>\d+)/)
     match['oldid'].to_i if match
   end
+
+  # The revision whose text an AI detector should see, following the AI tools
+  # conventions: diff=X&oldid=Y means the text added between Y and X;
+  # diff=X alone means X against its parent; oldid=X alone means the whole
+  # revision X. Returns nil when the URL names only a page title.
+  def revision_target
+    if diff
+      revs = [oldid, diff].compact
+      { rev_id: revs.max, from_rev: (revs.min if revs.count == 2), diff_mode: true }
+    elsif oldid
+      { rev_id: oldid, from_rev: nil, diff_mode: false }
+    end
+  end
 end

@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/pangram_api"
-require_dependency "#{Rails.root}/lib/originality_api"
+require_dependency "#{Rails.root}/lib/ai/ai_detector"
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
-require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
-require_dependency "#{Rails.root}/lib/ai/originality_response_parser"
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 class AiToolsController < ApplicationController
@@ -22,38 +19,28 @@ class AiToolsController < ApplicationController
 
   MAX_CONCURRENCY = 6
 
-  DETECTORS = {
-    RevisionAiScore::PANGRAM_V3_KEY => PangramApi.v3,
-    RevisionAiScore::PANGRAM_V4_KEY => PangramApi.v4,
-    RevisionAiScore::ORIGINALITY_TURBO_KEY => OriginalityApi.turbo,
-    RevisionAiScore::ORIGINALITY_ACADEMIC_KEY => OriginalityApi.academic,
-    RevisionAiScore::ORIGINALITY_LITE_KEY => OriginalityApi.lite,
-    RevisionAiScore::ORIGINALITY_LITE_BETA_KEY => OriginalityApi.lite_beta
-  }.freeze
+  # The detectors whose checkbox was ticked, in registry order.
+  def selected_detectors
+    @selected_detectors ||= AiDetector.keys
+                                      .select { |key| params[key.to_sym] }
+                                      .map { |key| AiDetector.for(key) }
+  end
 
   def detect_ai_from_multiple_resources(text)
     pool = Concurrent::FixedThreadPool.new(MAX_CONCURRENCY)
     @results = Concurrent::Hash.new
+    @errors = Concurrent::Hash.new
 
-    DETECTORS.each do |key, detector|
-      pool.post { detect_ai(key, detector, text) } if params[key.to_sym]
+    selected_detectors.each do |detector|
+      pool.post { detect_ai(detector, text) }
     end
     pool.shutdown && pool.wait_for_termination
-
-    assign_results
   end
 
-  def assign_results
-    @pangram_v3_result = @results[RevisionAiScore::PANGRAM_V3_KEY]
-    @pangram_v4_result = @results[RevisionAiScore::PANGRAM_V4_KEY]
-    @originality_turbo_result = @results[RevisionAiScore::ORIGINALITY_TURBO_KEY]
-    @originality_academic_result = @results[RevisionAiScore::ORIGINALITY_ACADEMIC_KEY]
-    @originality_lite_result = @results[RevisionAiScore::ORIGINALITY_LITE_KEY]
-    @originality_lite_beta_result = @results[RevisionAiScore::ORIGINALITY_LITE_BETA_KEY]
-  end
-
-  def detect_ai(key, ai_detector, text)
-    @results[key] = ai_detector.inference text
+  def detect_ai(detector, text)
+    @results[detector.key] = detector.client.inference text
+  rescue PangramApi::Error, OriginalityApi::Error => e
+    @errors[detector.key] = e.message
   end
 
   def parse_url
@@ -62,18 +49,12 @@ class AiToolsController < ApplicationController
     @wiki = parser.wiki
     @article_title = parser.title
 
-    if parser.diff
-      revs = [parser.oldid, parser.diff].compact
-      @rev_id = revs.max
-      @from_rev = revs.min if revs.count == 2
-      @diff_mode = true
-    else
-      # If there is no diff revision in the url, it means it's just a single revision url.
-      @diff_mode = false
-      # If it does not contain an oldid either we have to manually fetch the latest revision.
-      # Example: https://en.wikipedia.org/wiki/Greater_Cooch_Behar_People%27s_Association
-      @rev_id = parser.oldid || latest_revision
-    end
+    # A URL with only a page title has no revision, so fetch the latest one.
+    # Example: https://en.wikipedia.org/wiki/Greater_Cooch_Behar_People%27s_Association
+    target = parser.revision_target || { rev_id: latest_revision, from_rev: nil, diff_mode: false }
+    @rev_id = target[:rev_id]
+    @from_rev = target[:from_rev]
+    @diff_mode = target[:diff_mode]
   end
 
   def extract_plain_text
@@ -91,21 +72,15 @@ class AiToolsController < ApplicationController
   end
 
   def create_revision_ai_scores_for_multiple_resources
-    RevisionAiScore::PANGRAM_KEYS.each do |key|
-      next unless params[key.to_sym]
-      parser = PangramResponseParser.new(key, @results[key])
-      create_revision_ai_score(key, parser)
-    end
+    selected_detectors.each do |detector|
+      next unless @results.key?(detector.key)
 
-    RevisionAiScore::ORIGINALITY_KEYS.each do |key|
-      next unless params[key.to_sym]
-      parser = OriginalityResponseParser.new(key, @results[key])
-      create_revision_ai_score(key, parser)
+      create_revision_ai_score(detector, detector.parse(@results[detector.key]))
     end
   end
 
   # Imports data into the RevisionAiScores table
-  def create_revision_ai_score(check_type, parser)
+  def create_revision_ai_score(detector, parser)
     wiki_id = @wiki.id if @wiki
     RevisionAiScore.create(revision_id: @rev_id,
                            wiki_id:,
@@ -114,7 +89,7 @@ class AiToolsController < ApplicationController
                            avg_ai_likelihood: parser.average_ai_likelihood,
                            max_ai_likelihood: parser.max_ai_likelihood,
                            details: parser.clean_result,
-                           check_type:,
+                           check_type: detector.key,
                            check_origin: RevisionAiScore::AI_TOOL_ORIGIN)
   end
 end

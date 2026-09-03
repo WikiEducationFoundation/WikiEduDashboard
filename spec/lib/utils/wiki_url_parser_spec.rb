@@ -91,4 +91,29 @@ describe WikiUrlParser do
     expect(parser.oldid).to be_nil
     expect(parser.diff).to be_nil
   end
+
+  describe '#revision_target' do
+    it 'targets the text added between the two revisions of a diff range' do
+      url = 'https://en.wikipedia.org/w/index.php?diff=1178859026&oldid=711811679'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 1178859026, from_rev: 711811679, diff_mode: true)
+    end
+
+    it 'targets a single edit against its parent when only diff is given' do
+      url = 'https://en.wikipedia.org/w/index.php?diff=1315039613'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 1315039613, from_rev: nil, diff_mode: true)
+    end
+
+    it 'targets the whole revision when only oldid is given' do
+      url = 'https://en.wikipedia.org/w/index.php?oldid=1009773007'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 1009773007, from_rev: nil, diff_mode: false)
+    end
+
+    it 'is nil for a page title URL' do
+      parser = described_class.new('https://en.wikipedia.org/wiki/Some_Title')
+      expect(parser.revision_target).to be_nil
+    end
+  end
 end
