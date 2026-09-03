@@ -116,6 +116,7 @@ const CopyAvailableArticles = ({ course, course_id, current_user }) => {
               id="copy-available-articles-source-select"
               inputId="copy-available-articles-source-select-input"
               styles={selectStyles}
+              placeholder={I18n.t('assignments.copy_available_select_placeholder')}
               options={options}
               value={selectedOption}
               onChange={onSelectChange}

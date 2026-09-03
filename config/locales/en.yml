@@ -436,6 +436,7 @@ en:
     confirm_deletion: Are you sure you want to delete this assignment?
     copy_available: Import from another course
     copy_available_url_placeholder: course URL
+    copy_available_select_placeholder: Select a course
     copy_available_include_student_assigned: Include assigned articles?
     delete: Remove and Delete
     editors: Assigned to
