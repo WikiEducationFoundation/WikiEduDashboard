@@ -55,6 +55,63 @@ describe('normalizeUnhandledRejection (Sentry beforeSend)', () => {
     expect(() => window.normalizeUnhandledRejection(event, {})).not.toThrow();
     expect(window.normalizeUnhandledRejection(event, {})).toBe(event);
   });
+
+  test('enriches and aggregates an unhandled TypeError: Failed to fetch', () => {
+    const event = buildEvent('TypeError: Failed to fetch');
+    event.breadcrumbs = {
+      values: [
+        { category: 'fetch', level: 'error', data: { url: 'https://www.wikidata.org/w/api.php?action=wbgetentities' } },
+      ],
+    };
+    const hint = { originalException: new TypeError('Failed to fetch') };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.fingerprint).toEqual(['unhandled-failed-to-fetch']);
+    expect(result.tags).toEqual(expect.objectContaining({
+      crossOrigin: true,
+      hasServiceWorkerController: false,
+    }));
+    expect(typeof result.tags.onLine).toBe('boolean');
+    expect(typeof result.tags.visibilityState).toBe('string');
+    expect(result.extra.failedUrl).toBe('https://www.wikidata.org/w/api.php?action=wbgetentities');
+    // The message itself is left alone -- only extra/tags/fingerprint are added.
+    expect(result.exception.values[0].value).toBe('TypeError: Failed to fetch');
+  });
+
+  test('reports crossOrigin: false for a same-origin Failed to fetch', () => {
+    const event = buildEvent('TypeError: Failed to fetch');
+    event.breadcrumbs = {
+      values: [
+        { category: 'fetch', level: 'error', data: { url: `${window.location.origin}/stats_graphs.json` } },
+      ],
+    };
+    const hint = { originalException: new TypeError('Failed to fetch') };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.tags.crossOrigin).toBe(false);
+  });
+
+  test('attributes the failed URL, not a later successful one settling after it', () => {
+    // Breadcrumbs land in settle order, not failure order, so an unrelated
+    // request settling after the failed one shouldn't win.
+    const event = buildEvent('TypeError: Failed to fetch');
+    event.breadcrumbs = {
+      values: [
+        // The request that actually failed.
+        { category: 'fetch', level: 'error', data: { url: 'https://www.wikidata.org/w/api.php' } },
+        // A same-origin request that merely settled afterwards.
+        { category: 'fetch', data: { url: `${window.location.origin}/articles.json`, status_code: 200 } },
+      ],
+    };
+    const hint = { originalException: new TypeError('Failed to fetch') };
+
+    const result = window.normalizeUnhandledRejection(event, hint);
+
+    expect(result.extra.failedUrl).toBe('https://www.wikidata.org/w/api.php');
+    expect(result.tags.crossOrigin).toBe(true);
+  });
 });
 
 describe('against a real initialized Sentry client', () => {

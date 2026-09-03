@@ -13,9 +13,18 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     props: 'labels',
     languages: `${I18n.locale}|mul|en`
   };
-  const response = await request(`${wikidataApiBase}&${stringify(query)}`);
-  await ensureOk(response);
-  return response.json();
+  const url = `${wikidataApiBase}&${stringify(query)}`;
+  try {
+    const response = await request(url);
+    await ensureOk(response);
+    return await response.json();
+  } catch (error) {
+    // A raw TypeError (network-level failure) has no .url, unlike ApiError.
+    // Guard the mutation in case anything ever rejects with a non-object,
+    // which would otherwise throw here and mask the real error.
+    if (error && typeof error === 'object') error.url = error.url || url;
+    throw error;
+  }
 };
 
 // This takes a Wikidata page title and checks whether it looks like
@@ -48,14 +57,23 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
         // report here, a failure here would be invisible to Sentry (ensureOk
         // only console.logs) even though it's the dominant real-world source
         // of this bug (see Sentry issue PEONY-2NS).
-        // extra.responseText/url surface the actual response body (e.g. Wikidata's
-        // 403 message) since Sentry.captureException(error) alone does not
-        // serialize custom properties on the thrown ApiError (see PEONY-3BC).
+        // onLine/visibilityState/hasServiceWorkerController separate a
+        // dropped connection or backgrounded tab from an actually blocked or
+        // intercepted request, for the TypeError: Failed to fetch case (see
+        // PEONY-2P3, #7018). They're low-cardinality, so they go in tags
+        // (searchable/aggregatable in Sentry, unlike extra).
         if (typeof Sentry !== 'undefined') {
           Sentry.captureException(error, {
+            tags: {
+              onLine: navigator.onLine,
+              visibilityState: document.visibilityState,
+              hasServiceWorkerController: !!navigator.serviceWorker?.controller
+            },
+            // requestUrl (not `url`, which is Sentry's own tag for the page
+            // URL) is high-cardinality, so it stays in extra.
             extra: {
-              responseText: error.responseText,
-              url: error.url
+              requestUrl: error.url,
+              responseText: error.responseText
             }
           });
         }
