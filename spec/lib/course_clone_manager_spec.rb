@@ -183,4 +183,24 @@ describe CourseCloneManager do
       expect(clone.wikis.include?(wikidata)).to be true
     end
   end
+  context 'when clone_assignments is true' do
+    before do
+      create(:assignment, course_id: 1, user_id: nil, role: 0, wiki_id: 1,
+                          article_title: 'Available_one', flags: { available_article: true })
+      create(:assignment, course_id: 1, user_id: 2, role: 0, wiki_id: 1,
+                          article_title: 'Claimed_one')
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: true).clone!
+    end
+
+    it 'copies the available articles as available articles' do
+      copied = clone.assignments.find_by(article_title: 'Available_one')
+      expect(copied.user_id).to be_nil
+      expect(copied.flags[:available_article]).to be(true)
+    end
+
+    it 'does not copy articles assigned to students' do
+      expect(clone.assignments.where(article_title: 'Claimed_one')).to be_empty
+    end
+  end
 end

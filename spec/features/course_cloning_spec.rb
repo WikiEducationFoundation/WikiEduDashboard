@@ -48,7 +48,8 @@ describe 'cloning a course', js: true do
   let!(:tag) { create(:tag, tag: 'cloneable', course_id: course.id) }
   let!(:assignment) do
     create(:assignment, course_id: course.id, user_id: user.id, id: 123)
-    create(:assignment, course_id: course.id, id: 12345)
+    # An Available Article: an editing assignment (role 0) with no user
+    create(:assignment, course_id: course.id, id: 12345, role: 0)
   end
 
   it 'copies relevant attributes of an existing course' do

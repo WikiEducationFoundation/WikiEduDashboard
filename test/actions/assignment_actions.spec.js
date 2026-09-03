@@ -1,5 +1,5 @@
 import '../testHelper';
-import { addAssignment, deleteAssignment } from '../../app/assets/javascripts/actions/assignment_actions.js';
+import { addAssignment, copyAvailableArticles, deleteAssignment } from '../../app/assets/javascripts/actions/assignment_actions.js';
 import * as requestModule from '../../app/assets/javascripts/utils/request';
 
 
@@ -32,6 +32,29 @@ describe('AssignmentActions', () => {
         .then(() => {
           const assignmentsAfterDelete = reduxStore.getState().assignments.assignments;
           expect(assignmentsAfterDelete.length).toBe(0);
+          done();
+        });
+    }
+  );
+
+  test(
+    '.copyAvailableArticles replaces the assignments list with the response',
+    (done) => {
+      const copyResponse = {
+        created: 2,
+        skipped: 1,
+        course: { assignments: [{ id: 7, article_title: 'Copied', user_id: null, role: 0 }] }
+      };
+      requestModule.default.restore();
+      sinon.stub(requestModule, 'default').resolves(
+        { status: 200, ok: true, json: sinon.fake.returns(copyResponse) }
+      );
+      const opts = { course_slug: 'School/Target_(Term)', source: 'School/Source_(Term)', include_student_assigned: false };
+      copyAvailableArticles(opts)(reduxStore.dispatch)
+        .then(() => {
+          const state = reduxStore.getState();
+          expect(state.assignments.assignments.map(a => a.article_title)).toEqual(['Copied']);
+          expect(state.assignments.loading).toBe(false);
           done();
         });
     }

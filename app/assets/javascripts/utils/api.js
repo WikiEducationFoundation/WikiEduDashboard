@@ -149,6 +149,26 @@ const API = {
     return response.json();
   },
 
+  // Reports how many Available Articles a copy from another course would add,
+  // without changing anything.
+  async previewCopyAvailableArticles(opts) {
+    const queryString = stringify(opts);
+    const response = await request(`/copy_available_articles/preview.json?${queryString}`);
+
+    await ensureOk(response);
+    return response.json();
+  },
+
+  async copyAvailableArticles(opts) {
+    const queryString = stringify(opts);
+    const response = await request(`/copy_available_articles.json?${queryString}`, {
+      method: 'POST'
+    });
+
+    await ensureOk(response);
+    return response.json();
+  },
+
   fetch(courseId, endpoint) {
     return request(`/courses/${courseId}/${endpoint}.json`, {
       credentials: "include"
