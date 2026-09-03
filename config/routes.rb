@@ -89,6 +89,8 @@ Rails.application.routes.draw do
   patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
+  get 'copy_available_articles/preview' => 'copy_available_articles#preview'
+  post 'copy_available_articles' => 'copy_available_articles#create'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }

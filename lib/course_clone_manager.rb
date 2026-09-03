@@ -70,15 +70,7 @@ class CourseCloneManager
   end
 
   def copy_assignments
-    @course.assignments.where(user_id: nil).each do |assignment|
-      Assignment.create(
-        role: 0,
-        article_title: assignment.article_title,
-        article_id: assignment.article_id,
-        wiki_id: assignment.wiki_id,
-        course_id: @clone.id
-      )
-    end
+    CopyAvailableArticles.new(source: @course, target: @clone)
   end
 
   def duplicate_timeline
