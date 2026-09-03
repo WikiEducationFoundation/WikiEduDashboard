@@ -87,7 +87,7 @@ class ArticlesCourses < ApplicationRecord
   end
 
   def self.update_required_caches_from_timeslices(course)
-    ArticlesCourses.where(article_id: articles_courses_to_update(course))
+    ArticlesCourses.where(course:, article_id: articles_courses_to_update(course))
                    .find_each(&:update_cache_from_timeslices)
   end
 
