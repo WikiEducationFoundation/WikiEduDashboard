@@ -7,6 +7,7 @@ describe AiToolsController, type: :request do
     let(:admin) { create(:admin) }
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
     let(:pangram_v3) { 'Pangram 3' }
+    let(:pangram_v4) { 'Pangram 4' }
     let(:turbo) { 'Originality Turbo' }
     let(:academic) { 'Originality Academic' }
     let(:lite) { 'Originality Lite 1.0.0' }
@@ -70,11 +71,41 @@ describe AiToolsController, type: :request do
         'dashboard_link' => 'https://www.pangram.com/history/7980768b-0b15-4d42-ad62-30ba8cf0e92f'
       }
     end
+    # Recorded from the live Pangram 4 task endpoint on 2026-09-03
+    let(:simplified_pangram_v4_response) do
+      { 'stage' => 'STAGE_SUCCESS',
+        'text' => 'example',
+        'version' => '4.0',
+        'prediction' => 'We believe that this entire text is AI.',
+        'prediction_short' => 'AI',
+        'fraction_ai' => 1.0,
+        'fraction_ai_assisted' => 0.0,
+        'fraction_human' => 0.0,
+        'headline' => 'AI Generated',
+        'num_ai_segments' => 1,
+        'num_ai_assisted_segments' => 0,
+        'num_human_segments' => 0,
+        'windows' =>
+          [{ 'text' => 'only window',
+             'label' => 'AI-Generated',
+             'ai_assistance_score' => 0.9999960660934448,
+             'confidence' => 'High',
+             'start_index' => 0,
+             'end_index' => 2281,
+             'word_count' => 313,
+             'token_length' => 392,
+             'is_humanized' => false,
+             'humanizer_score' => 0.004439877346158028 }],
+        'dashboard_link' => 'https://www.pangram.com/history/8b8e9ea2-3b4c-4773-afe5-93d8dae80736'
+      }
+    end
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-      allow_any_instance_of(PangramApi).to receive(:inference)
-                                           .and_return(simplified_pangram_response)
+      allow(AiToolsController::DETECTORS[pangram_v3]).to receive(:inference)
+        .and_return(simplified_pangram_response)
+      allow(AiToolsController::DETECTORS[pangram_v4]).to receive(:inference)
+        .and_return(simplified_pangram_v4_response)
       allow_any_instance_of(OriginalityApi).to receive(:inference)
                                            .and_return(simplified_originality_response)
     end
@@ -104,6 +135,23 @@ describe AiToolsController, type: :request do
         expect(RevisionAiScore.first.origin_user_id).to eq(admin.id)
         end
       end
+
+      it 'stores the Pangram 4 result including humanizer fields and renders it' do
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:,
+                                                         article_or_diff_url: "",
+                                                         pangram_v4.to_sym => '1' }
+
+        score = RevisionAiScore.find_by(check_type: 'Pangram 4')
+        expect(score.check_origin).to eq('ai_tool')
+        expect(score.max_ai_likelihood).to be_within(0.0001).of(0.99999)
+        expect(score.details['version']).to eq('4.0')
+        expect(score.details['windows'].first).to include('is_humanized' => false)
+        expect(score.details['windows'].first).not_to have_key('text')
+
+        expect(response.body).to include('Pangram v4 Result')
+        expect(response.body).to include('Humanizer score')
+        expect(response.body).not_to include('Pangram v3 Result')
+      end
     end
 
     context 'when revision title URL' do
@@ -125,48 +173,26 @@ describe AiToolsController, type: :request do
           post '/ai_tools/compare_ai_detectors', params: { plain_text: "",
                                                           article_or_diff_url: url,
                                                           pangram_v3.to_sym => '1',
+                                                          pangram_v4.to_sym => '1',
                                                           turbo.to_sym => '1',
                                                           academic.to_sym => '1',
                                                           lite.to_sym => '1',
                                                           lite_beta.to_sym => '1' }
         end
 
-        expect(RevisionAiScore.count).to eq(5)
+        expect(RevisionAiScore.count).to eq(6)
+        expect(RevisionAiScore.order(:id).pluck(:check_type)).to eq(
+          ['Pangram 3', 'Pangram 4', 'Originality Turbo', 'Originality Academic',
+           'Originality Lite 1.0.0', 'Originality Lite 1.0.2']
+        )
 
-        expect(RevisionAiScore.first.check_type).to eq('Pangram 3')
-        expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
-        expect(RevisionAiScore.first.revision_id).to eq(1276659876)
-        expect(RevisionAiScore.first.wiki_id).to eq(enwiki.id)
-        expect(RevisionAiScore.first.url).to eq(url)
-        expect(RevisionAiScore.first.origin_user_id).to eq(admin.id)
-
-        expect(RevisionAiScore.second.check_type).to eq('Originality Turbo')
-        expect(RevisionAiScore.second.check_origin).to eq('ai_tool')
-        expect(RevisionAiScore.second.revision_id).to eq(1276659876)
-        expect(RevisionAiScore.second.wiki_id).to eq(enwiki.id)
-        expect(RevisionAiScore.second.url).to eq(url)
-        expect(RevisionAiScore.second.origin_user_id).to eq(admin.id)
-
-        expect(RevisionAiScore.third.check_type).to eq('Originality Academic')
-        expect(RevisionAiScore.third.check_origin).to eq('ai_tool')
-        expect(RevisionAiScore.third.revision_id).to eq(1276659876)
-        expect(RevisionAiScore.third.wiki_id).to eq(enwiki.id)
-        expect(RevisionAiScore.third.url).to eq(url)
-        expect(RevisionAiScore.third.origin_user_id).to eq(admin.id)
-
-        expect(RevisionAiScore.fourth.check_type).to eq('Originality Lite 1.0.0')
-        expect(RevisionAiScore.fourth.check_origin).to eq('ai_tool')
-        expect(RevisionAiScore.fourth.revision_id).to eq(1276659876)
-        expect(RevisionAiScore.fourth.wiki_id).to eq(enwiki.id)
-        expect(RevisionAiScore.fourth.url).to eq(url)
-        expect(RevisionAiScore.fourth.origin_user_id).to eq(admin.id)
-
-        expect(RevisionAiScore.last.check_type).to eq('Originality Lite 1.0.2')
-        expect(RevisionAiScore.last.check_origin).to eq('ai_tool')
-        expect(RevisionAiScore.last.revision_id).to eq(1276659876)
-        expect(RevisionAiScore.last.wiki_id).to eq(enwiki.id)
-        expect(RevisionAiScore.last.url).to eq(url)
-        expect(RevisionAiScore.last.origin_user_id).to eq(admin.id)
+        RevisionAiScore.find_each do |score|
+          expect(score.check_origin).to eq('ai_tool')
+          expect(score.revision_id).to eq(1276659876)
+          expect(score.wiki_id).to eq(enwiki.id)
+          expect(score.url).to eq(url)
+          expect(score.origin_user_id).to eq(admin.id)
+        end
       end
     end
 

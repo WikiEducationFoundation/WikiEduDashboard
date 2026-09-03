@@ -20,10 +20,11 @@ class AiToolsController < ApplicationController
 
   private
 
-  MAX_CONCURRENCY = 5
+  MAX_CONCURRENCY = 6
 
   DETECTORS = {
     RevisionAiScore::PANGRAM_V3_KEY => PangramApi.v3,
+    RevisionAiScore::PANGRAM_V4_KEY => PangramApi.v4,
     RevisionAiScore::ORIGINALITY_TURBO_KEY => OriginalityApi.turbo,
     RevisionAiScore::ORIGINALITY_ACADEMIC_KEY => OriginalityApi.academic,
     RevisionAiScore::ORIGINALITY_LITE_KEY => OriginalityApi.lite,
@@ -39,7 +40,12 @@ class AiToolsController < ApplicationController
     end
     pool.shutdown && pool.wait_for_termination
 
+    assign_results
+  end
+
+  def assign_results
     @pangram_v3_result = @results[RevisionAiScore::PANGRAM_V3_KEY]
+    @pangram_v4_result = @results[RevisionAiScore::PANGRAM_V4_KEY]
     @originality_turbo_result = @results[RevisionAiScore::ORIGINALITY_TURBO_KEY]
     @originality_academic_result = @results[RevisionAiScore::ORIGINALITY_ACADEMIC_KEY]
     @originality_lite_result = @results[RevisionAiScore::ORIGINALITY_LITE_KEY]

@@ -31,7 +31,8 @@ class RevisionAiScore < ApplicationRecord
   include ArticleViewerLinker
 
   PANGRAM_V2_KEY = 'Pangram 2.0' # This version got deperecated on April, 1st, 2026
-  PANGRAM_V3_KEY = 'Pangram 3'
+  PANGRAM_V3_KEY = 'Pangram 3' # Synchronous API, scheduled for shutdown on September 30, 2026
+  PANGRAM_V4_KEY = 'Pangram 4'
   ORIGINALITY_TURBO_KEY = 'Originality Turbo'
   ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
   ORIGINALITY_LITE_KEY = 'Originality Lite 1.0.0'
@@ -41,7 +42,8 @@ class RevisionAiScore < ApplicationRecord
   AI_TOOL_ORIGIN = 'ai_tool'
 
   PANGRAM_KEYS = [
-    PANGRAM_V3_KEY
+    PANGRAM_V3_KEY,
+    PANGRAM_V4_KEY
   ]
 
   ORIGINALITY_KEYS = [
@@ -53,6 +55,7 @@ class RevisionAiScore < ApplicationRecord
 
   MODELS_KEY = [
     PANGRAM_V3_KEY,
+    PANGRAM_V4_KEY,
     ORIGINALITY_TURBO_KEY,
     ORIGINALITY_ACADEMIC_KEY,
     ORIGINALITY_LITE_KEY,
