@@ -3,6 +3,7 @@ import {
   FETCH_TICKETS,
   FILTER_TICKETS,
   EMPTY_LIST,
+  RECEIVE_TICKET,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -36,9 +37,13 @@ const SORT_DESCENDING = {
   updated_at: true
 };
 
+// `all` is the ticket index list, and it is only ever populated by RECEIVE_TICKETS.
+// Single-ticket updates must never insert into it: TicketsHandler treats a
+// non-empty list as "already loaded" and skips fetching, so a ticket that sneaks
+// in while `loading` is still true leaves the index spinning forever.
 const replaceTicket = (tickets, newTicket) => {
-  const ticket = tickets.find(tick => tick.id === newTicket.id);
-  const index = tickets.indexOf(ticket);
+  const index = tickets.findIndex(tick => tick.id === newTicket.id);
+  if (index === -1) return tickets;
 
   return [
     ...tickets.slice(0, index),
@@ -46,24 +51,8 @@ const replaceTicket = (tickets, newTicket) => {
     ...tickets.slice(index + 1)
   ];
 };
-const removeTicket = (tickets, id) => {
-  const ticket = tickets.find(tick => tick.id === id);
-  const index = tickets.indexOf(ticket);
 
-  return [
-    ...tickets.slice(0, index),
-    ...tickets.slice(index + 1)
-  ];
-};
-
-const removeNote = (notes, id) => {
-  const note = notes.find(item => item.id === id);
-  const index = notes.indexOf(note);
-  return [
-    ...notes.slice(0, index),
-    ...notes.slice(index + 1)
-  ];
-};
+const removeTicket = (tickets, id) => tickets.filter(ticket => ticket.id !== id);
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -76,11 +65,12 @@ export default function (state = initialState, action) {
       };
     }
     case MESSAGE_KIND_NOTE_DELETE: {
-      const all = removeNote(state.selected.messages, action.id);
-      state.selected.messages = all;
+      const messages = state.selected.messages.filter(message => message.id !== action.id);
+      const selected = { ...state.selected, messages };
       return {
         ...state,
-        all
+        all: replaceTicket(state.all, selected),
+        selected
       };
     }
     case FETCH_TICKETS:
@@ -93,6 +83,15 @@ export default function (state = initialState, action) {
       return {
         ...state,
         all: []
+      };
+    }
+    case RECEIVE_TICKET: {
+      // A freshly fetched ticket is the newest version we have, so it also
+      // refreshes the index row (e.g. the status after a reply resolves it).
+      return {
+        ...state,
+        all: replaceTicket(state.all, action.ticket),
+        selected: action.ticket
       };
     }
     case RECEIVE_TICKETS: {
@@ -130,13 +129,12 @@ export default function (state = initialState, action) {
       };
     }
     case UPDATE_TICKET: {
-      const selectedId = state.selected.id;
-      const all = replaceTicket(state.all, action.data.ticket);
-      const selected = selectedId ? all.find(ticket => ticket.id === selectedId) : {};
+      const updated = action.data.ticket;
+      const selected = state.selected.id === updated.id ? updated : state.selected;
 
       return {
         ...state,
-        all,
+        all: replaceTicket(state.all, updated),
         selected
       };
     }

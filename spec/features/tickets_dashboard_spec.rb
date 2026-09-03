@@ -238,5 +238,38 @@ describe 'ticket dashboard', type: :feature, js: true do
         expect(find_link(course.title).visible?).to be true
       end
     end
+
+    it 'lists tickets after returning from a ticket page that was loaded directly' do
+      ticket = TicketDispenser::Ticket.first
+      # A full page load, so the ticket page is the first thing the React
+      # store sees, as when following the link in a notification email.
+      visit "/tickets/dashboard/#{ticket.id}"
+      expect(page).to have_content 'Send a Reply'
+      # Opening the ticket marks its messages read. That update used to sneak
+      # the ticket into the (never fetched) index list, so the dashboard
+      # skipped loading and spun forever.
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        sleep 0.1 until ticket.messages.reload.all?(&:read)
+      end
+
+      click_link '← Ticketing Dashboard'
+      expect(page).to have_content 'A first subject'
+      expect(page).to have_content 'A second subject'
+    end
+
+    it 'shows a reply-and-resolve in the ticket list without a refresh' do
+      within('tr', text: 'A first subject') { click_link 'Show' }
+      within('form.tickets-reply') do
+        find('.wysiwyg-editor__content').click
+        find('.wysiwyg-editor__content').send_keys('All set now.')
+      end
+      click_button 'Send Reply and Resolve Ticket'
+      expect(page).to have_content 'Ticket is currently Resolved'
+
+      click_link '← Ticketing Dashboard'
+      # The default filter shows open tickets only, so the resolved one drops out.
+      expect(page).to have_content 'A second subject'
+      expect(page).to have_no_content 'A first subject'
+    end
   end
 end
