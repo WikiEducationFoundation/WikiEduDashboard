@@ -3,9 +3,11 @@
 require_dependency "#{Rails.root}/lib/cumulative_diff"
 
 # Builds a sample the way the March 2026 comparison did: for each term, a random
-# set of articles that gained substantial text during a course, taking the
-# cumulative diff from course start to course end as one unit. Terms before
-# ChatGPT's release are labeled as a human-written baseline.
+# set of Wikipedia articles that gained substantial text during a course,
+# taking the cumulative diff from course start to course end as one unit.
+# Articles on other projects (Wikidata items above all) are not sampled, so
+# every term fills its quota with prose. Terms before ChatGPT's release are
+# labeled as a human-written baseline.
 class BuildAiDetectionSampleFromArticlesByTerm < BuildAiDetectionSample
   def initialize(sample_name:, terms:, per_term: 100, min_characters: 3000, verbose: false)
     super(sample_name:, verbose:)
@@ -20,7 +22,8 @@ class BuildAiDetectionSampleFromArticlesByTerm < BuildAiDetectionSample
 
     ArticlesCourses.where(course: campaign.courses)
                    .where('character_sum > ?', min_characters)
-                   .includes(:course, article: :wiki)
+                   .joins(article: :wiki).where(wikis: { project: 'wikipedia' })
+                   .preload(:course, article: :wiki)
                    .order(Arel.sql('RAND()')).limit(per_term)
                    .each { |articles_course| add_articles_course(articles_course, campaign) }
   end

@@ -96,6 +96,29 @@ describe BuildAiDetectionSampleFromRows do
     expect(builder.skipped.first[:reason]).to include('MediawikiApi::ApiError')
   end
 
+  it 'skips revisions on wikis other than Wikipedia without fetching their text' do
+    Wiki.find_by(project: 'wikidata') ||
+      Wiki.new(language: nil, project: 'wikidata').save(validate: false)
+
+    wikidata_url = 'https://www.wikidata.org/w/index.php?oldid=123456'
+
+    builder = described_class.new(sample_name: 'march', rows: [{ url: wikidata_url }])
+
+    expect(builder.skipped.first[:reason]).to eq('www.wikidata.org is not a Wikipedia')
+    expect(GetRevisionPlaintext).not_to have_received(:new)
+    expect(AiDetectionSample.count).to eq(0)
+  end
+
+  it 'skips a revision id too large for the 4-byte column without fetching its text' do
+    oversized_url = 'https://en.wikipedia.org/w/index.php?oldid=2286888760'
+
+    builder = described_class.new(sample_name: 'march', rows: [{ url: oversized_url }])
+
+    expect(builder.skipped.first[:reason]).to include('2286888760')
+    expect(GetRevisionPlaintext).not_to have_received(:new)
+    expect(AiDetectionSample.count).to eq(0)
+  end
+
   describe '.from_csv' do
     let(:march_csv) { Rails.root.join('spec/fixtures/files/detector_comparison_march_2026.csv') }
 
