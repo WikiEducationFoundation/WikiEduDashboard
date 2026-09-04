@@ -80,18 +80,17 @@ describe UpdateCourseWikiTimeslices do
 
         # Check caches for mw_page_id 6901525
         article = Article.find_by(mw_page_id: 6901525)
-        # The article course exists
-        article_course = ArticlesCourses.find_by(article_id: article.id)
 
+        article_course_timeslices = ArticleCourseTimeslice.where(course:, article:)
         # Article course timeslice record was created for mw_page_id 6901525
         # timeslices for 2018-11-24 was created
-        expect(article_course.article_course_timeslices.count).to eq(1)
-        expect(article_course.article_course_timeslices.first.start).to eq('2018-11-24')
+        expect(article_course_timeslices.count).to eq(1)
+        expect(article_course_timeslices.first.start).to eq('2018-11-24')
         # Article course timeslices caches were updated
-        expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
-        expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
-        expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
-        expect(article_course.article_course_timeslices.first.first_revision)
+        expect(article_course_timeslices.first.character_sum).to eq(427)
+        expect(article_course_timeslices.first.references_count).to eq(-2)
+        expect(article_course_timeslices.first.user_ids).to eq([user.id])
+        expect(article_course_timeslices.first.first_revision)
           .to eq('2018-11-24 04:49:31')
       end
 
