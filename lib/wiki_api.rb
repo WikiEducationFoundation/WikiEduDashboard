@@ -154,12 +154,14 @@ class WikiApi
   end
 
   # Returns the integer seconds requested by the server's Retry-After header,
-  # or nil if the header is absent / unparseable / the gem version in use
-  # doesn't expose the response on HttpError. Wikimedia uses delay-seconds;
-  # HTTP-date form (RFC 7231) is not parsed.
+  # or nil if the header is absent / unparseable / the error's response object
+  # doesn't expose headers (e.g. MediawikiApi::ApiError wraps a Response that
+  # delegates only :status and :success?, not :headers).
+  # Wikimedia uses delay-seconds; HTTP-date form (RFC 7231) is not parsed.
   def retry_after_seconds(error)
-    return nil unless error.respond_to?(:response) && error.response
-    raw = error.response.headers['Retry-After']
+    response = error.try(:response)
+    return nil unless response.respond_to?(:headers)
+    raw = response.headers['Retry-After']
     Integer(raw) if raw.present?
   rescue ArgumentError, TypeError
     nil
