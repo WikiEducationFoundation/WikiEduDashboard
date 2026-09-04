@@ -1,0 +1,38 @@
+# Based on https://github.com/mperham/sidekiq/blob/master/examples/systemd/sidekiq.service
+#
+# A process dedicated to the report_csv queue: user-requested CSV reports and the
+# cleanup jobs that delete them a week later. These are the only user-facing jobs
+# in the system, so they get their own queue instead of waiting behind course
+# updates. (The host running this needs the report_csv_* env vars.)
+
+[Unit]
+Description=sidekiq-report-csv
+After=syslog.target network.target
+
+[Service]
+Type=simple
+# On the Capistrano-deployed hosts this is /var/www/dashboard/current instead,
+# with User=ragesoss and Group=project-globaleducation.
+WorkingDirectory=/home/ragesoss/WikiEduDashboard
+ExecStart=/home/ragesoss/.rvm/bin/rvm default do bundle exec sidekiq -e production --queue report_csv --concurrency 1
+User=root
+Group=root
+UMask=0002
+
+# Greatly reduce Ruby memory fragmentation and heap usage
+# https://www.mikeperham.com/2018/04/25/taming-rails-memory-bloat/
+Environment=MALLOC_ARENA_MAX=2
+
+# if we crash, restart
+RestartSec=1
+Restart=on-failure
+
+# output goes to /var/log/syslog
+StandardOutput=syslog
+StandardError=syslog
+
+# This will default to "bundler" if we don't specify it
+SyslogIdentifier=sidekiq-report-csv
+
+[Install]
+WantedBy=multi-user.target

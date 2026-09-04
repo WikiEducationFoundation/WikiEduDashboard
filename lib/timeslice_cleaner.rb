@@ -152,7 +152,6 @@ class TimesliceCleaner
     return if acuwt_records.empty?
 
     wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
-    return if wikis_and_starts.empty?
 
     mark_timeslices_for_reaggregation(wikis_and_starts)
   end
@@ -168,11 +167,38 @@ class TimesliceCleaner
     return if acuwt_records.empty?
 
     wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
-    return if wikis_and_starts.empty?
 
     mark_timeslices_for_reaggregation(wikis_and_starts)
     delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
     delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
+  end
+
+  # Marks CWT rows as needs_update for every (wiki, start) period covered by the
+  # given ACUWT records, and deletes the ACT, CUWT and ACUWT rows for those
+  # periods. Unlike reset_timeslices_for_reaggregation_from_acuwt, this triggers a
+  # real re-fetch (needed for history merges / undeleted duplicates, where
+  # revisions must be re-ingested and re-attributed): the full re-fetch
+  # regenerates the whole period from scratch, so the existing ACUWT rows (and the
+  # ACT/CUWT rows derived from them) are deleted up front to avoid stale rows for
+  # articles/users that no longer have revisions in the period. This is the
+  # opposite of the reaggregation primitive, which keeps ACUWT because it re-derives
+  # from those rows without re-fetching.
+  # Takes an ActiveRecord::Relation of ArticleCourseUserWikiTimeslice records.
+  def reset_timeslices_for_update_from_acuwt(acuwt_records)
+    return if acuwt_records.empty?
+
+    wikis_and_starts = acuwt_records.pluck(:wiki_id, :start).uniq
+
+    mark_timeslices_for_update(wikis_and_starts)
+    # ACT is only deleted for the passed articles (it has no wiki_id, so it can't
+    # be targeted by whole (wiki, start) period like ACUWT/CUWT below). This can
+    # leave stale ACT rows for other articles in the period that drop to zero
+    # revisions on re-fetch, mirroring how the legacy reset scoped ACT deletion.
+    # We accept it rather than widening the delete, since the ACT table is slated
+    # for removal soon.
+    delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
+    delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
+    delete_article_course_user_wiki_timeslices_for_pairs(wikis_and_starts)
   end
 
   # Deletes ACUWT records for users removed from the course.
@@ -234,32 +260,38 @@ class TimesliceCleaner
                                                            wiki_id: wiki_ids))
   end
 
-  def mark_timeslices_for_reaggregation(wikis_and_starts)
-    tuples = wikis_and_starts.map do |wiki_id, s|
-      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
+  # Course timeslices of the given model matching the given (id, start) pairs.
+  def timeslices_for_pairs(model, id_column, pairs)
+    tuples = pairs.map do |id, s|
+      "(#{id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
     end.join(', ')
-    CourseWikiTimeslice.where(course: @course)
-                       .where("(wiki_id, start) IN (#{tuples})")
-                       .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
+    model.where(course: @course).where("(#{id_column}, start) IN (#{tuples})")
+  end
+
+  def mark_timeslices_for_reaggregation(wikis_and_starts)
+    timeslices_for_pairs(CourseWikiTimeslice, :wiki_id, wikis_and_starts)
+      .update_all(needs_reaggregation: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def mark_timeslices_for_update(wikis_and_starts)
+    timeslices_for_pairs(CourseWikiTimeslice, :wiki_id, wikis_and_starts)
+      .update_all(needs_update: true) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def delete_article_course_timeslices_for_acuwt_pairs(acuwt_records)
     article_starts = acuwt_records.pluck(:article_id, :start).uniq
     return if article_starts.empty?
 
-    tuples = article_starts.map do |article_id, s|
-      "(#{article_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
-    end.join(', ')
-    delete_in_batches(ArticleCourseTimeslice.where(course: @course)
-                                            .where("(article_id, start) IN (#{tuples})"))
+    delete_in_batches(timeslices_for_pairs(ArticleCourseTimeslice, :article_id, article_starts))
   end
 
   def delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
-    tuples = wikis_and_starts.map do |wiki_id, s|
-      "(#{wiki_id}, '#{s.strftime('%Y-%m-%d %H:%M:%S')}')"
-    end.join(', ')
-    delete_in_batches(CourseUserWikiTimeslice.where(course: @course)
-                                             .where("(wiki_id, start) IN (#{tuples})"))
+    delete_in_batches(timeslices_for_pairs(CourseUserWikiTimeslice, :wiki_id, wikis_and_starts))
+  end
+
+  def delete_article_course_user_wiki_timeslices_for_pairs(wikis_and_starts)
+    delete_in_batches(timeslices_for_pairs(ArticleCourseUserWikiTimeslice, :wiki_id,
+                                           wikis_and_starts))
   end
 
   # Deletes existing article course timeslices for a collection of wiki ids

@@ -51,6 +51,15 @@ export const randomPeerAssignments = randomAssignments => (dispatch) => {
     .catch(response => dispatch({ type: types.API_FAIL, data: response }));
 };
 
+// Copies Available Articles from another course into this one. The response
+// carries the full refreshed assignments list, so it replaces the current one.
+export const copyAvailableArticles = opts => (dispatch) => {
+  dispatch({ type: types.LOADING_ASSIGNMENTS });
+  return API.copyAvailableArticles(opts)
+    .then(resp => dispatch({ type: types.RECEIVE_ASSIGNMENTS, data: resp }))
+    .catch(response => dispatch({ type: types.API_FAIL, data: response }));
+};
+
 export const deleteAssignment = assignment => (dispatch) => {
   return API.deleteAssignment(assignment)
     .then((resp) => {

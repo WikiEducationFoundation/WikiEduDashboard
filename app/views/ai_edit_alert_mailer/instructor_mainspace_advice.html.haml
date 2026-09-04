@@ -9,61 +9,68 @@
               %p.paragraph
                 = "Dear #{@greeted_users},"
               %p.paragraph
-                You've received a message with your student on copy that Pangram has
-                automatically detected that your student pasted a generative AI
-                chatbot output into a Wikipedia page, against Wiki Education's rules.
-                This message provides more details for you as the instructor. We
-                recommend keeping it in your inbox for future reference, as many
-                instructors receive multiple alerts throughout the term.
+                You’ve received a message with your student on copy that the Wiki
+                Education Dashboard has automatically detected that your student
+                may have pasted an AI chatbot output into a Wikipedia page that
+                requires further verification.
               %p.paragraph
-                The alert you received is about a mainspace edit, meaning it's visible to everyone.
-                %strong Please immediately revert the student's work if it hasn't yet been removed by Wiki Education staff or other Wikipedia editors.
-                (Their contribution will still be visible in the page history,
-                so this will just remove it from readers' views, not remove it entirely.) Please have a 1:1
-                conversation with the student to understand their perspective as soon as possible.
-              %h2.headline If your student used a generative AI tool
+                If you’d like your student to move their work live again, they need
+                to work with you to ensure the facts in their contribution can be
+                found in the sources they cite.
               %p.paragraph
-                Make sure the generative AI-written or -edited content is already out of the live Wikipedia
-                article. You may then allow the student to re-do the assignment without using AI, if that
-                fits into your course policies. Do not allow the student to move the AI content live again;
-                doing so will likely result in the student being blocked from editing.
-              %h2.headline If your student says they didn't use a generative AI tool
+                This message provides more details for you as the instructor. See
+                next steps below.
               %p.paragraph
-                Generative AI tools are particularly bad at creating text for Wikipedia that is verifiable.
-                Ideally, a reader should be able to quickly confirm the accuracy by checking the source. If
-                it's not straightforward to confirm where information came from, then the student should
-                rewrite their contribution to make the information easily verifiable (even if AI wasn't used).
-                We require the following steps to assess text if you believe your student has experienced a
-                false positive and would like to move the work live again:
-                %ol.paragraph
-                  %li Find the content your student edited. (If it's already been reverted, you can use the "View history" tab to see the last version from your student.)
-                  %li Identify a sentence or paragraph the student has cited to a source. Open the source in a separate window.
-                  %li Check the source, looking for the information from the sentence or paragraph the student cited it to.
-                  %li If you can easily verify the fact is true according to that source, move on to the next one. Plausible information that seems generally consistent with a cited source but doesn't seem like it actually came from there is a hallmark of AI-created Wikipedia content. (If the citations are not specific enough to easily verify, ask the student to add page numbers to the citations.)
-                  %li If all information the student has included is verifiable in the sources they have cited, they can move the work again. Please report this case to us as a false positive. (These are rare, so knowing when they occur helps us improve our detection).
-                  %li If any of the information fails verification, we recommend asking the student to rewrite their Wikipedia contribution in a sandbox without the help of generative AI.
+                The alert you received is about a mainspace edit, meaning it’s a
+                part of a Wikipedia article that’s visible to everyone.
+                %strong Remove the student’s work if it hasn’t been removed yet by Wiki Education staff or other Wikipedia editors.
+                (This will remove their contribution from readers’ views, but it
+                will still be accessible in the page history.)
               %p.paragraph
-                Text transformed by Grammarly and other AI copyediting tools can also trigger AI detection,
-                depending on how significantly it was transformed. Simple grammar fixes in Grammarly will not
-                typically trigger Pangram, but use of writing suggestions may. If the student says they "only
-                used Grammarly" please make sure they turn off anything but basic grammar fixes (and they
-                should ensure those don't change the meaning of the sentence, something critical for Wikipedia).
-                Other Wikipedia editors can easily improve the readability of the text if the facts are accurate
-                and precise, but AI copyediting introduces distortions in meaning, so it's untrustworthy for
-                the same reasons as chatbot output when it comes to Wikipedia.
+                Have a 1:1 conversation with the student to understand their
+                perspective as soon as possible, and to let them know their work
+                needs to be double checked for accuracy before it goes live.
+              %h2.headline Next steps
+              %ol.paragraph
+                %li
+                  Work directly with your student to ensure
+                  %u every sentence
+                  they’ve added is fully accurate and can be found in the sources they’re citing.
+                %li
+                  Locate your student’s wiki contribution. (If it’s already been
+                  removed, you will find their text in their drafting sandbox page
+                  or their outline sandbox page or you can use the "View history"
+                  tab to see the last version from your student. Reach out to your
+                  Wikipedia Expert if you have questions.)
+                %li
+                  Ask your student to identify a sentence or paragraph the student
+                  has cited to a source. Have them go to the cited source.
+                %li
+                  Ask your student to locate the information from the sentence or
+                  paragraph in the source.
+                %li
+                  If your student can easily show you the fact in the cited source,
+                  move on to the next one. (If the citations are not specific enough
+                  to easily fact-check, ask the student to add page numbers to the
+                  citations.)
+                %li
+                  Once all information the student has included is verifiable in the
+                  sources they have cited, they may move the work back to Wikipedia.
+                %li
+                  Notify your Wikipedia Expert that the work has been verified and
+                  will be added to the live article.
               %p.paragraph
-                Non-verifiable text may NOT be added back to Wikipedia; doing so will likely result in the
-                student being blocked from editing.
+                ** If any of the information cannot be found in the cited source, we
+                recommend asking the student to rewrite their Wikipedia contribution
+                in a sandbox without the help of AI. Non-verifiable text may NOT be
+                added back to Wikipedia.
+              %h2.headline About detection
               %p.paragraph
-                If you are able to verify the information the student has added, and you are confident as a
-                subject matter expert that they didn't use Grammarly or another tool that introduced
-                subtle errors in meaning, the student may move the work live again.
-                %strong
-                  Please communicate directly with the Wiki Expert assigned to your course to personally
-                  confirm your assessment that the text is accurate.
-                Your domain expertise in your course subject is critical input
-                for us, as our staff's expertise is in Wikipedia, not the content of the article your student
-                edited.
+                We use the AI detector Pangram to check Wikipedia edits for
+                AI-generated text. We use Pangram as a signal that a human must
+                verify that the information added to Wikipedia is accurate, can be
+                found in the cited source, and fully adheres to Wikipedia’s
+                verifiability policy.<sup>†</sup>
               %h2.headline Need more help?
               %p.paragraph
                 You're not alone in navigating these AI detection incidents — other instructors are also
@@ -79,6 +86,44 @@
                 %br
                 %em Wiki Education
 
+              %hr
+              %h2.info † About AI detection
+              %p.info
+                AI detectors are not foolproof, but Pangram is reliable enough to
+                catch many cases of AI-generated text (which should not be added to
+                Wikipedia).
+              %p.info
+                To view the Pangram report for this text, click below:
+              %p.info
+                %a.link{href: @alert.pangram_url} View Pangram report
+              %p.info
+                Is the Pangram report accurate? Was this a false positive? Help us
+                improve our AI detection system to get better at keeping
+                unverifiable, inaccurate AI-generated content off Wikipedia without
+                flagging authentic writing incorrectly.
+              %p.info
+                %a.link{href: @alert.followup_link} Submit feedback on Pangram report
+              %p.info
+                Plausible information that seems generally consistent with a cited
+                source but doesn’t seem like it actually came from there is a
+                hallmark of AI-created Wikipedia content. Text transformed by
+                Grammarly and other AI copyediting tools can also trigger AI
+                detection, depending on how significantly it was transformed. If the
+                student says they "only used Grammarly" please make sure they turn
+                it off. Other Wikipedia editors can easily improve the readability
+                of the text if the facts are accurate and precise, but AI
+                copyediting introduces distortions in meaning, so it’s untrustworthy
+                for the same reasons as chatbot output when it comes to Wikipedia.
+              %p.info
+                If you are able to verify the information the student has added, and
+                you are confident as a subject matter expert that they didn’t use
+                Grammarly or another tool that introduced subtle errors in meaning,
+                the student may move the work live again. Please communicate
+                directly with the Wiki Expert assigned to your course to personally
+                confirm your assessment that the text is accurate. Your domain
+                expertise in your course subject is critical input for us, as our
+                staff’s expertise is in Wikipedia, not the content of the article
+                your student edited.
 
 .hidden
   %p

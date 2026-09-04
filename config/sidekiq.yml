@@ -29,3 +29,4 @@ test:
  - constant_update
  - very_long_update
  - acuwt_update
+ - report_csv

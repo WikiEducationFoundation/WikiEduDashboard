@@ -195,6 +195,9 @@ ga:
       all_campaigns: Gach Feachtas
       all_wikis: Gach Vicipéid
       export_csv: Easpórtáil CSV
+      export_daily_csv: Easpórtáil Staitisticí Laethúla CSV
+      course_csv_tab: Onnmhairí Leibhéal an Chúrsa
+      daily_stats_tab: Pictiúir Laethúla den Chóras
       generating: Ag Giniúint Easpórtála...
       generation_queued: Tá d’easpórtáil CSV á giniúint sa chúlra. Ag iarraidh arís...
       still_processing: Tá d’easpórtáil CSV fós á giniúint sa chúlra. Seiceáil ar
@@ -2050,17 +2053,17 @@ ga:
       verdict_question: An dtacaíonn an fhoinse leis an éileamh?
       verdict_options:
         full_support: Sea — tacaíonn sé go sainráite leis an éileamh iomlán.
-        mostly_supports: Den chuid is mó tá — tagann croílár an éilimh ón bhfoinse
-          seo.
         partial_support: Go páirteach — tagann roinnt eilimintí den éileamh ón bhfoinse
           seo, ach ní thagann cuid shuntasach de.
-        mostly_unsupported: Den chuid is mó níl — tá an fhoinse ag luí leis an éileamh,
-          ach ní thacaíonn sé go díreach leis.
         unsupported: Ní hea — ní chlúdaíonn an fhoinse a bhfuil á rá sa ráiteas.
         contradicted: A mhalairt ar fad — tá an fhoinse ag teacht salach ar an éileamh
           i ndáiríre.
         undetermined: Ní raibh mé in ann a chinneadh an raibh an t-éileamh sa fhoinse
           a luadh.
+        mostly_supports: Den chuid is mó tá — tagann croílár an éilimh ón bhfoinse
+          seo.
+        mostly_unsupported: Den chuid is mó níl — tá an fhoinse ag luí leis an éileamh,
+          ach ní thacaíonn sé go díreach leis.
       claim_location_label: Más féidir leat an t-éileamh a aimsiú, cá bhfuil sé le
         fáil sa bhfoinse? (m.sh. uimhir leathanaigh, caibidil, srl…)
       verification_notes_label: Mura raibh tú in ann an fhaisnéis a fhíorú, inis dúinn
@@ -2143,6 +2146,7 @@ ga:
     assigned_wikidata: Míreanna Sannta
     assignees: Sannaí(í)
     loading_authorship_data: sonraí údair á lódáil
+    scroll_to_users_edits: Scrollaigh go dtí an chéad eagarthóireacht eile le %{username}
     authorship_data_not_fetched: Níorbh fhéidir sonraí údair a fháil
     character_doc: An méid iomlán ábhair atá curtha ag úsáideoir leis an ainmspás
       seo, arna ríomh trí na carachtair bhreise a chur le chéile do na heagarthóireacht
@@ -2615,4 +2619,194 @@ ga:
     advanced_search: Cuardach Casta
     clear: Glan
     program_date: Dáta an Chláir
+  lms_integration:
+    heading: '%{lms_name} nasc'
+    linked_to: 'Cúrsa:'
+    last_sync: 'Sioncrónú deireanach:'
+    last_roster_sync_error: Tharla earráid agus an clár á shioncronú.
+    last_sync_error: Earráid sioncrónaithe dheireanach
+    roster_students: Liosta Canbhás
+    connected_accounts: Ceangailte
+    never_synced: Níl sioncrónaithe fós
+    time_ago: '%{time_ago} ó shin'
+    my_account_link: 'Do chuntas:'
+    linked: Nasctha
+    not_linked: Gan nasc
+    my_last_sync: Sioncrónú deireanach
+    no_grades_yet: Gan aon dul chun cinn sioncronaithe fós
+    not_yet_linked: Níl do chuntas nasctha le Canvas don chúrsa seo.
+  lti:
+    iframe_landing:
+      explanation: Oscail dashboard.wikiedu.org i gcluaisín nua
+      button: Oscail Painéal Oideachais Vicí
+      not_linked: Níl an cúrsa Canvas seo nasctha le Painéal Oideachais Wiki go fóill.
+        Oscail an Painéal chun an comhtháthú a shocrú.
+    oauth_redirect:
+      title: Ag leanúint ar aghaidh le logáil isteach Vicipéid…
+      button: Lean ar aghaidh
+    setup:
+      header: Socraigh Painéal Oideachais Wiki don chúrsa Canbhás seo
+      link_existing:
+        header: Nasc cúrsa Wiki Education atá ann cheana féin
+        label: Cúrsa
+      submit: Nasc an cúrsa seo
+      linked_notice: Tá nasc idir do chúrsa %{lms_course}!
+      already_linked: 'Earráid: Tá an cúrsa seo nasctha cheana féin.'
+      create_prompt: Cruthaigh cúrsa ar an Deais
+      create_return_note: Osclaítear cruthú cúrsa i gcluaisín nua. Athlódáil nuair
+        a bheidh cúrsa Painéal Rialaithe agat.
+      no_approved_courses: Ní bheidh comhtháthú Canvas ar fáil ach amháin tar éis
+        do fhoireann Wiki Education do chúrsa a cheadú.
+      no_courses_yet: Níl aon chúrsa agat ar Painéal Oideachais Wiki go fóill. Cruthaigh
+        ceann ar dtús le do thoil.
+      link_conflict_error: Bhí coimhlint ann agus do chuntais Canvas agus Painéal
+        na dTrealamh á nascadh. Téigh i dteagmháil le foireann Wiki Education le haghaidh
+        cabhrach.
+      duplicate_link_error: Tá an t-úsáideoir Canvas seo nasctha le cuntas Vicipéide
+        eile cheana féin. Sínigh isteach sa Painéal leis an gcuntas a bhí ceangailte
+        roimhe seo, agus ansin athsheol é.
+    deep_link:
+      module_name: Taighde agus scríobh alt Vicipéide
+      header: Roghnaigh tasc Vicipéid
+      header_multiple: Iompórtáil sannadh Vicipéid
+      instruction: Roghnaigh tasc Vicipéid don mhír inghráid seo
+      instruction_multiple: Roghnaigh cé na míreanna ó amlíne Painéal Oideachais Wiki
+        le hallmhairiú.
+      submit: Cuir leis an gcúrsa
+      all_added: Tá na míreanna uile atá ar fáil curtha leis.
+      no_gradables: Níor aimsíodh aon mhíreanna inghrádaithe
+      forbidden_header: Ní féidir ach le teagascóirí é seo a dhéanamh.
+      forbidden_explanation: Ní féidir ach le teagascóirí cúrsa tascanna Painéil a
+        allmhairiú.
+      unavailable_header: Gan a bheith ar fáil
+      unavailable_explanation: Níl na míreanna seo ar fáil lena n-allmhairiú a thuilleadh.
+    status:
+      header: Painéal Oideachais Vicí
+      linked: Nasctha
+      refresh: Athnuachan
+      roster_sync_label: Sioncrónú an chláir
+      grade_sync_label: Sioncrónú grád
+      sync_grades: Sioncrónaigh gráid
+      grade_sync_started: Cuireadh tús le sioncrónú grád.
+      grade_sync_error: Tharla earráid agus na gráid á sioncrónú.
+      roster_sync_error: Tharla earráid agus an clár á shioncronú.
+      import_next_step:
+        header: Iompórtáil tascanna Vicipéid ó amlíne do Phainéal
+        instruction: Téigh go Modúil, oscail an roghchlár ⋮ (roghanna), agus roghnaigh
+          wikiedu.org.
+      publish_next_step:
+        header: Sannadh Vicipéid allmhairithe
+        instruction: Ná déan dearmad an modúl a fhoilsiú mura bhfuil sé sin déanta
+          agat cheana féin.
+    check_again: Seiceáil arís
+    student_overview:
+      next_step: An chéad chéim eile
+      my_articles: Mo chuid altanna
+      trainings: Traenáil
+      exercises: Cleachtaí
+      empty: Gan aon ghníomhaíochtaí Vicipéid
+      role:
+        editing: Eagarthóireacht
+        reviewing: Ag athbhreithniú
+    setup_pending:
+      header: Tá Painéal Oideachais Wiki á bhunú
+      explanation: Tá do theagascóir fós ag socrú an tasc Vicipéide don chúrsa seo.
+        Seiceáil ar ais tar éis dóibh a bheith críochnaithe, nó déan teagmháil le
+        do theagascóir.
+    enrollment_error:
+      header: Níorbh fhéidir tú a chlárú sa chúrsa Oideachais Vicí
+      explanation: Chuir rud éigin cosc ​​ar chlárú. Téigh i dteagmháil le do theagascóir
+        nó le foireann Wiki Education le haghaidh cabhrach; tá an cheist logáilte
+        le haghaidh athbhreithnithe.
+    launch_error:
+      header: Tharla earráid agus comhtháthú Canbhás an Painéil á sheoladh.
+      explanation: Bain triail as an leathanach Canbhás a athlódáil. Má leanann an
+        fhadhb, déan teagmháil le foireann Wiki Education.
+    connect_identity:
+      header: Ceangail do chuntas Vicipéid leis an gcúrsa seo
+      explanation: Trí nascadh, déanfar tuairisc ar d’obair Vicipéide i %{course}
+        leis an gcúrsa Canvas seo, ag baint úsáide as do chuntas Painéal Oideachais
+        Wiki %{username}. Ní féidir an nasc seo a athrú níos déanaí gan chabhair ó
+        fhoireann Oideachais Wiki, mar sin seiceáil gurb é an cuntas thíos an ceann
+        is mian leat a úsáid.
+      canvas_course: Cúrsa Canbhás
+      dashboard_account: Cuntas Vicipéid
+      confirm: Ceangail an cuntas seo
+      wrong_account: Úsáid cuntas difriúil
+    identity:
+      signed_in_as: 'Cuntas Vicipéide: %{username}'
+      no_account: Níl aon chuntas Vicipéid ceangailte fós
+    enrollment_pending_approval:
+      header: Tá an cúrsa seo ag fanacht le ceadú Wiki Education
+      explanation: Tá an cúrsa Wiki Education seo curtha ar bun ag do theagascóir,
+        ach tá foireann Wiki Education fós á athbhreithniú. Nuair a bheidh sé ceadaithe
+        (de ghnáth laistigh de chúpla lá), fill ar an táb Canbhás seo agus clárófar
+        go huathoibríoch thú.
+      contact_hint: Má tá ceisteanna agat, déan teagmháil le do theagascóir nó le
+        foireann Wiki Education.
+    assignment_view:
+      status:
+        completed: Críochnaithe
+        in_progress: Ar siúl
+        not_started: Níor tosaíodh
+        connected: Ceangailte
+        not_connected: Gan cheangal
+        removed_in_lms: Gan a bheith cláraithe i Canvas
+      open_on_wikipedia: Oscail ar Vicipéid
+      show: Taispeáin
+      hide: Folaigh
+      sandbox_preview:
+        loading: …
+        not_found: Níor aimsíodh aon bhosca gainimh
+        error: Theip ar luchtú an bhosca gainimh
+      roster:
+        student: Mac Léinn
+        username: Ainm úsáideora
+        status: Stádas
+        sandbox: Bosca gainimh
+        empty: Níl cuntais Vicipéid ceangailte ag aon mhac léinn go fóill.
+        assigned_article: Airteagal sannta
+      no_article_yet: Níl aon alt roghnaithe fós
+      article_work:
+        header: Obair alt
+        not_created: Níl an t-alt seo ar fáil ar Vicipéid go fóill.
+        created: Thosaigh
+        not_created_yet: Níor tosaíodh
+        characters: Carachtair curtha leis
+        references: Tagairtí curtha leis
+        revisions: Eagarthóireacht
+        pages:
+          bibliography: Leabharliosta
+          outline: Imlíne
+          draft: Dréachtbhosca gainimh
+      student:
+        your_sandbox: Do bhosca gainimh
+        your_article: D'alt
+        open_exercise: Cleachtadh oscailte
+        launch_instructions: Treoracha lainseála
+      setup:
+        summary: Tá %{connected} de %{total} tar éis cuntas Vicipéide a nascadh.
+        empty: Tá sioncrónú an chláir ar feitheamh. Seiceáil ar ais go luath.
+        pending: Níl cuntas Vicipéide ceangailte ag %{count} mac léinn/daltai go fóill.
+      trainings:
+        progress: '%{completed} de %{total} oiliúna críochnaithe'
+        module: Traenáil
+        due_date: Dáta dlite
+        covered: Oiliúint sa chúrsa seo
+        module_completion: Comhlánaithe ag %{completed} de %{total} mac léinn
+      peer_review:
+        progress: '%{completed} de %{total} athbhreithnithe piaraí críochnaithe'
+        article: Airteagal le hathbhreithniú
+        review_page: Leathanach athbhreithnithe
+        reviews: Léirmheasanna sannta
+        your_reviews: Do léirmheasanna piaraí
+        none_yet: Níl aon cheann sannta fós
+        none_assigned: Níl aon athbhreithnithe piaraí sannta duit go fóill.
+      orphan:
+        explanation: Níl aon ábhar Painéil le taispeáint don tasc seo.
+      submission:
+        explanation: Níl aon obair mhic léinn le taispeáint don aighneacht seo.
+        open_dashboard: Oscail Painéal Oideachais Vicí
+        viewing: Ag taispeáint saothar le %{username}
+        details: Oscail sonraí an mhic léinn
 ...

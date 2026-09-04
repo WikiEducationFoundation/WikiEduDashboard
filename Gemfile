@@ -10,6 +10,7 @@ gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
 gem 'csv' # CSV library (required for Ruby 3.4+ as it's no longer a default gem)
+gem 'aws-sdk-s3' # Client for S3-compatible object storage, used to store report CSVs
 gem 'observer' # Observer library (required for Ruby 3.1+ as it's no longer in standard library)
 
 ### Database and caching

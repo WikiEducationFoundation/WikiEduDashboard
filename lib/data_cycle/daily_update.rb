@@ -67,7 +67,7 @@ class DailyUpdate
     log_message 'Finding articles that match assignment titles'
     FindAssignmentsWorker.set(queue: QUEUE).perform_async
 
-    log_message 'Updating ratings for all articles'
+    log_message 'Updating outdated article ratings'
     ImportRatingsWorker.set(queue: QUEUE).perform_async
   end
 

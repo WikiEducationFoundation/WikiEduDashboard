@@ -20,6 +20,15 @@
   .message-body
     white-space pre-line
     overflow-x auto
+  // Messages composed in the WYSIWYG editor carry their own block markup, so
+  // they need normal whitespace handling rather than `pre-line`, and their
+  // paragraphs need the spacing that `.messages p` below otherwise removes.
+  .message-body.rich-text
+    white-space normal
+    p
+      margin-bottom 16px
+      &:last-child
+        margin-bottom 0
   .messages
     span(3/4)
     p

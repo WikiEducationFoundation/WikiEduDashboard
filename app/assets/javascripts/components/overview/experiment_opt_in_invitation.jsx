@@ -25,6 +25,7 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
   // hidden | choice | install | working
   const [phase, setPhase] = useState('hidden');
   const [checked, setChecked] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const eligible = !!(course && course.id && course.research_experiment_open_to_students
     && current_user && current_user.isStudent);
@@ -76,6 +77,16 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
     }
   };
 
+  // Put the import line on the clipboard, so the student only has to paste it
+  // on the common.js edit form. If the browser withholds clipboard access, the
+  // line is still there to copy by hand.
+  const copyImportLine = () => {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(userscript.import_line)
+      .then(() => setCopied(true))
+      .catch(logErrorMessage);
+  };
+
   // Re-read the student's common.js. Once the line is there the server stops
   // returning an install payload and the modal closes for good.
   const recheck = async () => {
@@ -104,7 +115,12 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
         <div className="experiment-opt-in__panel">
           <h2 id="experiment-opt-in-title">{copy.install_title}</h2>
           <div dangerouslySetInnerHTML={{ __html: md.render(copy.install_message || '') }} />
-          <pre className="experiment-opt-in__snippet">{userscript.import_line}</pre>
+          <div className="experiment-opt-in__snippet-row">
+            <pre className="experiment-opt-in__snippet">{userscript.import_line}</pre>
+            <button className="button experiment-opt-in__copy-button" onClick={copyImportLine}>
+              {copied ? copy.install_copied : copy.install_copy_button}
+            </button>
+          </div>
           {checked && <p className="experiment-opt-in__not-found">{copy.install_not_found}</p>}
           <div className="experiment-opt-in__actions">
             <a

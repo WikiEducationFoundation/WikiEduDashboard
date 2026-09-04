@@ -55,9 +55,20 @@ describe Fall2026ResearchExperiment do
       expect(record.userscript_installed_at).to be_nil
     end
 
+    it 'schedules the enrollment notification to the data collection server' do
+      expect(ExperimentEnrollmentWorker).to receive(:schedule)
+        .with(an_instance_of(ExperimentCoursesUser))
+      experiment.handle_student_opt_in(courses_user)
+    end
+
     it 'records an opt-out' do
       experiment.handle_student_opt_out(courses_user)
       expect(experiment.participation(courses_user).opted_out?).to be true
+    end
+
+    it 'does not notify the data collection server of an opt-out' do
+      expect(ExperimentEnrollmentWorker).not_to receive(:schedule)
+      experiment.handle_student_opt_out(courses_user)
     end
 
     it 'no longer needs a response once the student has responded' do
@@ -109,6 +120,39 @@ describe Fall2026ResearchExperiment do
     # javascript content model, so a preload parameter would be ignored.
     it 'does not try to preload the edit box' do
       expect(experiment.userscript_install_url(student)).not_to include('preload')
+    end
+  end
+
+  describe '#report_enrollment' do
+    let(:student) { create(:user, username: 'Jane Doe') }
+    let(:courses_user) do
+      create(:courses_user, course: fall_2026_course, user: student,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+    let(:record) do
+      ExperimentCoursesUser.create!(experiment_slug: experiment.slug, courses_user:,
+                                    status: :opted_in)
+    end
+
+    it 'enrolls the student on the data collection server by username and course slug' do
+      expect_any_instance_of(WickieApi).to receive(:enroll)
+        .with(username: 'Jane Doe', course_slug: fall_2026_course.slug)
+      experiment.report_enrollment(record)
+    end
+  end
+
+  describe '#instructor_invitation_copy' do
+    let(:wizard_panel) do
+      YAML.safe_load(File.read("#{Rails.root}/config/wizard/researchwrite/wizard.yml"))
+          .find { |panel| panel['key'] == 'fall_2026_research_optin' }
+    end
+
+    it 'reuses the wizard panel title, description and option labels verbatim' do
+      copy = experiment.instructor_invitation_copy
+      expect(copy[:title]).to eq(wizard_panel['title'])
+      expect(copy[:description]).to eq(wizard_panel['description'])
+      expect(wizard_panel['options'].map { |option| option['title'] })
+        .to contain_exactly(copy[:opt_in_label], copy[:opt_out_label])
     end
   end
 

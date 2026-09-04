@@ -26,7 +26,7 @@ require 'csv'
 # after it ended.
 #
 # Every participant is additionally classified by RetentionParticipantHistory as
-# a long-term Wikipedian (1000+ edits before the course), a returning participant
+# a long-term Wikipedian (500+ edits before the course), a returning participant
 # (had already taken an earlier course), or neither. That classification decides
 # how the summary block aggregates them; see RetentionSummaryBlock. The detail
 # block reports all three groups alike, so an excluded participant is still
@@ -67,7 +67,7 @@ class RetentionPredictorsCsvBuilder
 
   DETAIL_HEADERS = ['username', 'sessions during course', 'days to first independent edit',
                     'sessions in 30 days after course', 'edits in days 60-90',
-                    'edits before course', 'long-term Wikipedian (1000+ edits)',
+                    'edits before course', 'long-term Wikipedian (500+ edits)',
                     'prior courses', 'prior course slugs'].freeze
 
   def student_stats(student)

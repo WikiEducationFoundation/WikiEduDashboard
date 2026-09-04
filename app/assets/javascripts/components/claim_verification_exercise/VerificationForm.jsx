@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
 import markdownIt from '~/app/assets/javascripts/utils/markdown_it';
-import { formPropType, visibleQuestions, missingRequired } from './formDefinition';
+import { formPropType, visibleQuestions, missingRequired, retiredOptions } from './formDefinition';
 
 // Step instructions are operator copy that may link out (eg to the Reliable
 // Sources policy), so they render as Markdown with bare URLs linkified and
@@ -21,18 +21,30 @@ StepInstructions.propTypes = {
   instructions: PropTypes.string.isRequired,
 };
 
+// The options to show: those offered, plus — checked but disabled — a retired
+// one when it is the student's recorded answer, so a response saved before an
+// option was dropped still reads correctly while being edited. Picking an
+// offered option replaces it; it can't be chosen again.
+const shownOptions = (question, value) => [
+  ...question.options,
+  ...retiredOptions(question)
+    .filter(option => option.value === value)
+    .map(option => ({ ...option, retired: true })),
+];
+
 // One multiple-choice question as a fieldset of radios. Both the question and
 // its options are operator copy resolved server-side, so this knows none of it.
 const ChoiceQuestion = ({ question, value, onChange }) => (
   <fieldset className="cv-form__question">
     <legend className="cv-form__question-label">{question.label}</legend>
-    {question.options.map(option => (
+    {shownOptions(question, value).map(option => (
       <label key={option.value} className="cv-form__option">
         <input
           type="radio"
           name={question.id}
           value={option.value}
           checked={value === option.value}
+          disabled={option.retired}
           onChange={() => onChange(option.value)}
         />
         <span>{option.label}</span>

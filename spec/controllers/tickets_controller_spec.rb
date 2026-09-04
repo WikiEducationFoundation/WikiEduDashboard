@@ -68,6 +68,19 @@ describe TicketsController, type: :request do
       expect(delivery.text_part.body).to include('this is a reply')
     end
 
+    it 'keeps the paragraph breaks of a reply composed in the wysiwyg editor' do
+      message.update(content: '<p>First paragraph.</p><p>Second paragraph.</p>')
+      expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original
+      post '/tickets/reply', params: { message_id: message.id, sender_id: admin.id }
+
+      delivery = ActionMailer::Base.deliveries.first
+      # Premailer inlines CSS onto the paragraphs, so match the block boundary
+      # rather than the bare tags.
+      expect(delivery.html_part.body.to_s)
+        .to match(%r{First paragraph\.</p>\s*<p[^>]*>Second paragraph\.})
+      expect(delivery.text_part.body.to_s).to include("First paragraph.\n\nSecond paragraph.")
+    end
+
     it 'triggers an email reply even if there is no sender' do
       message.update(sender: nil, details: { sender_email: user.email })
       expect(TicketNotificationMailer).to receive(:notify_of_message).and_call_original

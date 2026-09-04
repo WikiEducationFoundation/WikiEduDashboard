@@ -722,6 +722,7 @@ ko:
     enrollment_edits_enabled_tooltip: 이 기능을 활성화하면 대시보드는 프로그램에 참여하는 각 편집자의 사용자 문서와
       토론 문서에 틀을 게시합니다.
     event_sync: '편집 비활성화됨: 이 필드는 과정이 이미 이벤트에 연결되어 있어 변경할 수 없습니다. 변경하면 이벤트 연동이 중단됩니다.'
+    view_event_center_page: 문서 보기
     courses_enrolled: 과정 등록됨
     error:
       exists: 해당 과정은 이미 존재합니다! 다른 제목이나 학교, 학기를 사용하여 다시 시도해 주세요.

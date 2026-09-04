@@ -102,4 +102,32 @@ describe RelevantClaimRevisionsForCourse do
       expect(described_class.new(student_course).tiles).to be_empty
     end
   end
+
+  # Claims curated out individually (excluded_claim_ids in the rollout config).
+  context 'when claims are curated out of the rollout' do
+    it 'leaves them out of the tile claim count' do
+      otter = article('Otter')
+      pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'Two.')
+      rollout_revisions([otter.id, 10], excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles.map(&:claim_count)).to eq([1])
+    end
+
+    it 'offers no tile for a revision with every claim curated out' do
+      otter = article('Otter')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course)
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles).to be_empty
+    end
+
+    # The viewer shows a multi-citation sentence once; its other pool rows must
+    # not keep a tile alive (or padded) once that sentence is excluded.
+    it 'leaves the other pool rows of an excluded sentence out too' do
+      otter = article('Otter')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles).to be_empty
+    end
+  end
 end

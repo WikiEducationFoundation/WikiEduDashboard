@@ -33,6 +33,17 @@
     padding 10px 12px
     white-space pre-wrap
     word-break break-all
+  // Row holding the import line and its copy button. The button gets a stable
+  // width so the label swap after copying does not shift the layout.
+  .experiment-opt-in__snippet-row
+    align-items center
+    display flex
+    gap 10px
+    .experiment-opt-in__snippet
+      flex 1
+    .experiment-opt-in__copy-button
+      flex-shrink 0
+      min-width 90px
   .experiment-opt-in__not-found
     font-weight bold
     margin-top 15px

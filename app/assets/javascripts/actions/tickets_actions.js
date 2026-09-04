@@ -4,6 +4,7 @@ import {
   FETCH_TICKETS,
   FILTER_TICKETS,
   MESSAGE_KIND_REPLY,
+  RECEIVE_TICKET,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -16,8 +17,7 @@ import {
 import { STATUSES } from '../components/tickets/util';
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants';
-import request from '../utils/request';
-import logErrorMessage from '../utils/log_error_message';
+import request, { ensureOk } from '../utils/request';
 import { triggerNotificationsBellRefresh } from '../components/nav/notifications_bell';
 
 export const notifyOfMessage = body => async (dispatch) => {
@@ -136,7 +136,7 @@ export const selectTicket = ticket => ({ type: SELECT_TICKET, ticket });
 export const fetchTicket = id => async (dispatch) => {
   const response = await request(`/td/tickets/${id}`);
   const data = await response.json();
-  dispatch(selectTicket(data.ticket));
+  dispatch({ type: RECEIVE_TICKET, ticket: data.ticket });
 };
 
 export const sortTickets = key => ({ type: SORT_TICKETS, key });
@@ -171,12 +171,7 @@ export const deleteNotePromise = async (id) => {
   const response = await request(`/td/tickets/replies/${id}`, {
     method: 'DELETE'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

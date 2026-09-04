@@ -136,6 +136,8 @@ en:
       If you are running a single, independent event, you can create a
       Program now. If your event is part of something bigger, find or create the
       Campaign for it. Then you can create a new Program from the Campaign page.
+    tooltip:
+      alt: More information
   home:
     explore: Explore
     log_in: Log in with Wikipedia
@@ -437,6 +439,10 @@ en:
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this assignment?
+    copy_available: Import from another course
+    copy_available_url_placeholder: course URL
+    copy_available_select_placeholder: Select a course
+    copy_available_include_student_assigned: Include assigned articles?
     delete: Remove and Delete
     editors: Assigned to
     change_sandbox_url: Change sandbox
@@ -840,6 +846,9 @@ en:
       If enabled, the dashboard will post a template to the userpage and talk page of
       each editor who joins the program.
     event_sync: "Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event's integration."
+    event_center_link: Event Center Page
+    view_event_center_page: View page
+    go_to_event_center: Go to Event Center to register
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -1576,6 +1585,9 @@ en:
     purpose: Purpose
     queues_overview: Queues Overview
     queue: Queue
+    report_csv: Report CSV generation
+    report_csv_description: Specific queue for generating user-requested CSV reports.
+    report_csv_doc: Handles user-requested CSV reports.
     short_update: Short update
     short_update_description: Short updates process courses with fewer than 1,000 revisions.
     short_update_doc: Handles updates for small courses.
@@ -1793,12 +1805,13 @@ en:
       verdict_question: "Does the source back up the claim?"
       verdict_options:
         full_support: "Yes — it explicitly supports the full claim."
-        mostly_supports: "Mostly yes — the core of the claim comes from this source."
         partial_support: "Partially — some elements of the claim come from this source, but a significant part does not."
-        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
         unsupported: "No — the source does not cover what the claim says."
         contradicted: "The opposite — the source actually contradicts the claim."
         undetermined: "I was unable to determine whether the claim was in the cited source."
+        # Retired options: no longer offered, kept for responses recorded with them.
+        mostly_supports: "Mostly yes — the core of the claim comes from this source."
+        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
       claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
       verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
       other_comments_label: "Any other comments about this exercise?"

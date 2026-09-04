@@ -43,6 +43,8 @@ class Assignment < ApplicationRecord
   validates :article_title, format: { with: SPECIAL_PAGE_MATCHER }
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }
+  # Available Articles: editing assignments not yet claimed by any user
+  scope :available, -> { where(role: 0, user_id: nil) }
 
   before_validation :set_defaults_and_normalize
   before_save :set_sandbox_url

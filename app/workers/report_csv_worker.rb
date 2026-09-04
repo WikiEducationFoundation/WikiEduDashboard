@@ -6,7 +6,7 @@ require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/retention_predictors_csv_builder"
-require_dependency "#{Rails.root}/app/controllers/reports_controller"
+require_dependency "#{Rails.root}/lib/analytics/report_csv_store"
 require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
 require_dependency "#{Rails.root}/lib/analytics/all_courses_and_instructors_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/system_csv_builder"
@@ -14,7 +14,7 @@ require_dependency "#{Rails.root}/lib/analytics/system_stats_csv_builder"
 
 class ReportCsvWorker
   include Sidekiq::Worker
-  sidekiq_options queue: 'daily_update', lock: :until_executed
+  sidekiq_options queue: 'report_csv', lock: :until_executed
 
   # Generate the csv for the given source (course or campaign)
   # if type is global, then can access source as nil
@@ -97,8 +97,7 @@ class ReportCsvWorker
   private
 
   def write_csv(filename, data)
-    FileUtils.mkdir_p "public#{ReportsController::CSV_PATH}"
-    File.write "public#{ReportsController::CSV_PATH}/#{filename}", data
+    ReportCsvStore.write(filename, data)
   end
 
   def course_report?(type)

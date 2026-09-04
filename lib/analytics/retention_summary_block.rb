@@ -5,7 +5,7 @@
 #
 # Participants are split into three groups:
 #
-#   * Long-term Wikipedians (1000+ edits before the course began) are listed in
+#   * Long-term Wikipedians (500+ edits before the course began) are listed in
 #     the per-student detail block but excluded from every aggregate here — the
 #     report only counts them so the reader knows how many there were.
 #   * Returning participants, who had already taken an earlier course, are

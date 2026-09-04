@@ -83,6 +83,12 @@ describe Experiments::OptInController, type: :controller do
       expect(record.opted_in?).to be true
     end
 
+    it 'schedules the enrollment notification to the data collection server' do
+      stub_common_js ''
+      expect(ExperimentEnrollmentWorker).to receive(:schedule)
+      post :opt_in, params: { experiment_slug: slug, course_id: course.id }
+    end
+
     it 'returns the import line to paste and a link to the edit form' do
       stub_common_js ''
       post :opt_in, params: { experiment_slug: slug, course_id: course.id }
@@ -100,6 +106,11 @@ describe Experiments::OptInController, type: :controller do
       post :opt_out, params: { experiment_slug: slug, course_id: course.id }
       record = ExperimentCoursesUser.find_by(courses_user:, experiment_slug: slug)
       expect(record.opted_out?).to be true
+    end
+
+    it 'does not notify the data collection server' do
+      expect(ExperimentEnrollmentWorker).not_to receive(:schedule)
+      post :opt_out, params: { experiment_slug: slug, course_id: course.id }
     end
   end
 

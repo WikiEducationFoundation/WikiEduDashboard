@@ -122,6 +122,8 @@ it:
       creare ora un Programma. Se il tuo evento è parte di qualcosa più grande, trova
       o crea la Campagna per esso; puoi quindi creare un Programma nuovo dalla pagina
       della Campagna.
+    tooltip:
+      alt: Ulteriori informazioni
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
@@ -575,6 +577,7 @@ it:
     enrollment_edits_enabled_tooltip: Se abilitato, la dashboard pubblicherà un template
       nella pagina utente e nella pagina di discussione di ciascun contributore che
       partecipa al programma.
+    view_event_center_page: Vedi pagina
     courses_enrolled: Corsi abilitati
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
@@ -929,6 +932,8 @@ it:
         not_found: '%{username} non è nell''elenco degli utenti non autorizzati.'
         confirm: Vuoi davvero rimuovere %{username} dall'elenco degli utenti non autorizzati?
     actions: Azioni
+  status:
+    report_csv_doc: Gestisce i report in formato CSV richiesti dagli utenti.
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.

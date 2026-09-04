@@ -1,17 +1,11 @@
 import API from '../utils/api.js';
-import request from '../utils/request';
-import logErrorMessage from '../utils/log_error_message';
+import request, { ensureOk } from '../utils/request';
 
 import { RECEIVE_INITIAL_CAMPAIGN, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
 
 const fetchCampaignPromise = async (slug) => {
   const response = await request(`/campaigns/${slug}.json`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

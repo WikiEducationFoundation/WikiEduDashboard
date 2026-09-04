@@ -8,6 +8,8 @@
 #
 # `visible_when` is passed through as declared — the client applies it live as
 # the student answers, and the server applies it again on submission.
+# `retired_options` are answers no longer offered, sent labelled so a response
+# recorded with one still reads correctly.
 json.steps form.steps do |step|
   json.id step.id
   json.heading step.heading
@@ -17,6 +19,9 @@ json.steps form.steps do |step|
   json.questions step.questions do |question|
     json.call(question, :id, :type, :required, :visible_when)
     json.label question.label
-    json.options question.option_labels if question.choice?
+    if question.choice?
+      json.options question.option_labels
+      json.retired_options question.retired_option_labels
+    end
   end
 end

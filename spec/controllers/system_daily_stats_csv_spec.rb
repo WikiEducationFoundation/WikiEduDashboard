@@ -2,17 +2,13 @@
 
 require 'rails_helper'
 
-describe ReportsController, '#system_daily_stats_csv', type: :request do
+describe ReportsController, '#system_daily_stats_csv', :report_csv_files, type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
 
   let!(:stat) do
     create(:system_stat, snapshot_date: 5.days.ago.to_date,
                          total_edits: 800)
-  end
-
-  after do
-    FileUtils.remove_dir('public/system/analytics') if File.directory?('public/system/analytics')
   end
 
   context 'when not signed in' do

@@ -4,29 +4,18 @@ import {
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
   EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
 } from '../constants';
-import request from '../utils/request';
-import logErrorMessage from '../utils/log_error_message';
+import request, { ensureOk } from '../utils/request';
 import { stringify } from 'query-string';
 
 const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
 const fetchTrainingModulePromise = async (opts) => {
   const response = await request(`/training_module.json?module_id=${opts.module_id}`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -39,12 +28,7 @@ const setSlideCompletedPromise = async (opts) => {
   const response = await request(`/training_modules_users.json?${stringify(params)}`, {
     method: 'POST'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

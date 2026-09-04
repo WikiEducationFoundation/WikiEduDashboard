@@ -18,6 +18,8 @@
 
 - _Withdrawing:_ You may withdraw at any time by uninstalling the tool or by contacting us, after which we collect no further data, with no penalty. Once data has been combined for analysis, it is no longer possible to remove individual records.
 
+- _Consequences:_ Your decision to participate or not to participate in this research will not affect in any way your course grade or your relationship with your school or instructor.
+
 - _Risks._ This study involves minimal risk. The editing you do is your normal coursework, and your edits to Wikipedia are public regardless of the study. The main risk is a loss of confidentiality with respect to the editing activity we record, which is not otherwise public. To reduce this risk, we do not collect your name or email, we store the recorded activity on secure servers available only to the research team, we report results only in aggregate, and we never share your individual data with your course instructor.
 
 - _Benefits._ You may not receive a direct benefit from taking part. If you receive a version of the tool that shows feedback, it may help you notice and correct common problems and learn skills such as citing sources and writing in a neutral style, though whether it helps is what the study examines. Your participation will help researchers understand how to use AI to support, rather than replace, student writing.

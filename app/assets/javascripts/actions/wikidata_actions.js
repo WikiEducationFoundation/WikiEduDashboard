@@ -1,8 +1,7 @@
 import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
-import logErrorMessage from '../utils/log_error_message';
 import CourseUtils from '../utils/course_utils';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 import { stringify } from 'query-string';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
@@ -14,14 +13,18 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     props: 'labels',
     languages: `${I18n.locale}|mul|en`
   };
-  const response = await request(`${wikidataApiBase}&${stringify(query)}`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
+  const url = `${wikidataApiBase}&${stringify(query)}`;
+  try {
+    const response = await request(url);
+    await ensureOk(response);
+    return await response.json();
+  } catch (error) {
+    // A raw TypeError (network-level failure) has no .url, unlike ApiError.
+    // Guard the mutation in case anything ever rejects with a non-object,
+    // which would otherwise throw here and mask the real error.
+    if (error && typeof error === 'object') error.url = error.url || url;
+    throw error;
   }
-  return response.json();
 };
 
 // This takes a Wikidata page title and checks whether it looks like
@@ -48,6 +51,32 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
           data: resp,
           language: I18n.locale
         });
+      })
+      .catch((error) => {
+        // This request has no other .catch() upstream, so without an explicit
+        // report here, a failure here would be invisible to Sentry (ensureOk
+        // only console.logs) even though it's the dominant real-world source
+        // of this bug (see Sentry issue PEONY-2NS).
+        // onLine/visibilityState/hasServiceWorkerController separate a
+        // dropped connection or backgrounded tab from an actually blocked or
+        // intercepted request, for the TypeError: Failed to fetch case (see
+        // PEONY-2P3, #7018). They're low-cardinality, so they go in tags
+        // (searchable/aggregatable in Sentry, unlike extra).
+        if (typeof Sentry !== 'undefined') {
+          Sentry.captureException(error, {
+            tags: {
+              onLine: navigator.onLine,
+              visibilityState: document.visibilityState,
+              hasServiceWorkerController: !!navigator.serviceWorker?.controller
+            },
+            // requestUrl (not `url`, which is Sentry's own tag for the page
+            // URL) is high-cardinality, so it stays in extra.
+            extra: {
+              requestUrl: error.url,
+              responseText: error.responseText
+            }
+          });
+        }
       });
   });
 };

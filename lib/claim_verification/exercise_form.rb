@@ -54,7 +54,8 @@ module ClaimVerification
     end
 
     # Why these answers aren't a valid submission: a required question left
-    # unanswered, or a choice answered with something the question doesn't offer.
+    # unanswered, or a choice answered with something the question doesn't take
+    # (an option it offers, or a retired one a response was recorded with).
     # Developer-facing — the client blocks invalid submissions itself.
     def errors_in(answers)
       applicable_questions(answers.to_h.stringify_keys).filter_map do |question|
@@ -67,8 +68,7 @@ module ClaimVerification
     def error_for(question, answer)
       return "#{question.id} is required" if question.required && answer.blank?
       return if answer.blank? || !question.choice?
-      "#{answer} is not an accepted answer for #{question.id}" unless
-        question.options.include?(answer)
+      "#{answer} is not an accepted answer for #{question.id}" unless question.accepts?(answer)
     end
 
     # Numbers are assigned here rather than written into the copy, counting only

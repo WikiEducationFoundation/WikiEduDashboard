@@ -39,12 +39,17 @@ export const missingRequired = (form, answers) => (
     .map(question => question.id)
 );
 
-// How to show one stored answer: a choice's option label, or the text as typed.
-// Falls back to the raw value so an answer whose option has since been renamed
-// still displays instead of vanishing.
+// A choice question's options no longer offered but still on record, so an
+// older response's answer can be read back (and shown while being edited).
+export const retiredOptions = question => question.retired_options || [];
+
+// How to show one stored answer: a choice's option label — offered or retired —
+// or the text as typed. Falls back to the raw value so an answer whose option
+// has since been renamed still displays instead of vanishing.
 const displayValue = (question, value) => {
   if (question.type !== 'choice') { return value; }
-  return question.options.find(option => option.value === value)?.label || value;
+  return [...question.options, ...retiredOptions(question)]
+    .find(option => option.value === value)?.label || value;
 };
 
 /*
@@ -71,6 +76,10 @@ const questionPropType = PropTypes.shape({
   required: PropTypes.bool,
   visible_when: PropTypes.object,
   options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string,
+  })),
+  retired_options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string,
   })),
