@@ -275,26 +275,39 @@ describe RetainedEditorCheckWorker do
     end
 
     context 'when API is down across multiple courses (circuit breaker)' do
+      # Create 3 courses that will all fail (enough to trip MAX_CONSECUTIVE_FAILURES)
+      # plus the main course (which should never be reached).
       let!(:course_2) do
-        c = create(:course, slug: 'School/Course_2_(term)', start: 100.days.ago,
-                            end: 80.days.ago, home_wiki: wiki, private: false)
-        user2 = create(:user, username: 'student_course_2', registered_at: 95.days.ago)
+        c = create(:course, slug: 'School/Course_2_(term)', start: 120.days.ago,
+                            end: 100.days.ago, home_wiki: wiki, private: false)
+        user2 = create(:user, username: 'student_course_2', registered_at: 115.days.ago)
         create(:courses_user, course: c, user: user2,
                               role: CoursesUsers::Roles::STUDENT_ROLE,
                               retained_after_course: nil)
         c
       end
 
-      before do
-        allow_any_instance_of(WikiApi)
-          .to receive(:query).and_return(nil)
+      let!(:course_3) do
+        c = create(:course, slug: 'School/Course_3_(term)', start: 110.days.ago,
+                            end: 90.days.ago, home_wiki: wiki, private: false)
+        user3 = create(:user, username: 'student_course_3', registered_at: 105.days.ago)
+        create(:courses_user, course: c, user: user3,
+                              role: CoursesUsers::Roles::STUDENT_ROLE,
+                              retained_after_course: nil)
+        c
       end
 
-      it 'stops after the first failed course instead of hammering the API' do
-        # Without circuit breaker: 1 batch + 40 individual queries per course = many calls.
-        # With circuit breaker: stops after first course's batch+individual queries fail.
-        # course_2 has 1 student → 1 batch query + 1 individual query = 2 calls total.
-        # The main course (2 students) is never attempted.
+      let!(:course_4) do
+        c = create(:course, slug: 'School/Course_4_(term)', start: 100.days.ago,
+                            end: 80.days.ago, home_wiki: wiki, private: false)
+        user4 = create(:user, username: 'student_course_4', registered_at: 95.days.ago)
+        create(:courses_user, course: c, user: user4,
+                              role: CoursesUsers::Roles::STUDENT_ROLE,
+                              retained_after_course: nil)
+        c
+      end
+
+      it 'stops after MAX_CONSECUTIVE_FAILURES failed courses' do
         call_count = 0
         allow_any_instance_of(WikiApi).to receive(:query) do
           call_count += 1
@@ -303,29 +316,35 @@ describe RetainedEditorCheckWorker do
 
         described_class.new.perform
 
-        expect(call_count).to eq(2)
+        # 3 courses attempted (each: 1 batch + 1 individual = 2 calls), 4th never reached.
+        expect(call_count).to eq(6)
         expect(CoursesUsers.where.not(retained_after_course_checked_at: nil).count).to eq(0)
       end
     end
 
     context 'when MediawikiApi::ApiError occurs during individual fallback' do
+      # Stubs MediawikiApi::Client#query (not WikiApi#query) so the real
+      # WikiApi#mediawiki `raise if caller_handles&.call(e)` path runs.
       # One user query succeeds, another raises MediawikiApi::ApiError (bad username).
       # The invalid user gets checked_at set (stopping retries) with status nil.
+      let(:baduser_error) do
+        body = { 'error' => { 'code' => 'baduser',
+                               'info' => 'Invalid value for user parameter "ucuser".' } }
+        faraday = Faraday::Response.new(status: 200, body: body.to_json,
+                                        response_headers: { 'mediawiki-api-error' => 'baduser' })
+        MediawikiApi::ApiError.new(MediawikiApi::Response.new(faraday, ['error']))
+      end
+
       before do
-        allow_any_instance_of(WikiApi)
-          .to receive(:query) do |_instance, params, &block|
-          usernames = params[:ucuser] || []
-          if usernames.size > 1
-            nil # batch query fails
-          elsif usernames.include?('retained_user')
-            mock_response([{ 'user' => 'retained_user' }])
-          elsif block
-            err = MediawikiApi::ApiError.new(double(data: { 'code' => 'baduser' }))
-            block.call(err) # triggers error interception
-            raise err
-          else
-            nil
-          end
+        allow_any_instance_of(MediawikiApi::Client)
+          .to receive(:query) do |_instance, params|
+          usernames = Array(params[:ucuser])
+          # Any query containing the bad username raises ApiError
+          raise baduser_error if usernames.include?('inactive_user')
+          # Good username returns normal response
+          body = { 'query' => { 'usercontribs' => [{ 'user' => 'retained_user' }] } }
+          faraday = Faraday::Response.new(status: 200, body: body.to_json, response_headers: {})
+          MediawikiApi::Response.new(faraday, %w[query])
         end
       end
 
@@ -342,19 +361,20 @@ describe RetainedEditorCheckWorker do
     end
 
     context 'when transient network error occurs during individual fallback' do
-      # Batch query fails, and individual query returns nil (network timeout).
-      # The timed-out user remains unchecked for retry.
+      # Stubs MediawikiApi::Client#query so the real WikiApi#mediawiki retry
+      # path runs. HttpError is NOT intercepted by caller_handles (only
+      # ApiError is), so it retries 3 times then returns nil.
       before do
-        allow_any_instance_of(WikiApi)
+        allow_any_instance_of(MediawikiApi::Client)
           .to receive(:query) do |_instance, params|
-          usernames = params[:ucuser] || []
-          if usernames.size > 1
-            nil # batch query fails
-          elsif usernames.include?('retained_user')
-            mock_response([{ 'user' => 'retained_user' }])
-          else
-            nil # transient network error for inactive_user
+          usernames = Array(params[:ucuser])
+          if usernames.include?('inactive_user')
+            raise MediawikiApi::HttpError, 503
           end
+          # Good username returns normal response
+          body = { 'query' => { 'usercontribs' => [{ 'user' => 'retained_user' }] } }
+          faraday = Faraday::Response.new(status: 200, body: body.to_json, response_headers: {})
+          MediawikiApi::Response.new(faraday, %w[query])
         end
       end
 

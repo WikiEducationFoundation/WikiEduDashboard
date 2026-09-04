@@ -26,6 +26,11 @@ namespace :retained_editors do
       next unless course
 
       count = worker.check_course_new_editors(course)
+      if count.nil?
+        puts 'MediaWiki API appears down, stopping backfill. ' \
+             'Re-run to resume.'
+        break
+      end
       total_records += count
 
       if ((index + 1) % 10).zero? || index + 1 == total_courses

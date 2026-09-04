@@ -35,5 +35,13 @@ describe 'retained_editors rake tasks' do
         .to output(/Historical backfill complete!/).to_stdout
       Rake::Task['retained_editors:backfill'].reenable
     end
+
+    it 'stops gracefully when the API is down (nil return)' do
+      allow_any_instance_of(RetainedEditorCheckWorker)
+        .to receive(:check_course_new_editors).and_return(nil)
+      expect { Rake::Task['retained_editors:backfill'].invoke }
+        .to output(/API appears down, stopping backfill/).to_stdout
+      Rake::Task['retained_editors:backfill'].reenable
+    end
   end
 end

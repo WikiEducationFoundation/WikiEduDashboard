@@ -3,16 +3,10 @@
 require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= RetainedEditorCheckWorker
-# Enqueued daily by DailyUpdate.
-# Checks new editors whose courses ended >= 30 days ago and whose
-# post-course retention has not yet been recorded.
-# Queries the MediaWiki usercontribs API in batches of 40 users to check
-# for mainspace contributions made after (course.end + 7 days).
-# Records retained_after_course (boolean) and retained_after_course_checked_at
-# on the courses_users record permanently.
-#
-# DEPLOY NOTE: run `rake retained_editors:backfill` once after deploy or the
-# 50-course daily budget will be spent entirely on historical courses.
+# Checks new editors whose courses ended >= 30 days ago for post-course
+# retention via the MediaWiki usercontribs API (batches of 40).
+# Records retained_after_course (boolean) and checked_at permanently.
+# DEPLOY NOTE: run `rake retained_editors:backfill` after first deploy.
 class RetainedEditorCheckWorker
   include Sidekiq::Worker
   sidekiq_options queue: 'daily_update', lock: :until_executed
@@ -21,22 +15,26 @@ class RetainedEditorCheckWorker
   OBSERVATION_DAYS = 30
   BATCH_SIZE = 40
   DEFAULT_PERFORM_LIMIT = 50
+  MAX_CONSECUTIVE_FAILURES = 3
 
   def perform(limit = DEFAULT_PERFORM_LIMIT)
-    Rails.logger.info { 'RetainedEditorCheckWorker: starting check for eligible new editors' }
     total_checked = 0
+    consecutive_failures = 0
+
     self.class.eligible_course_ids(limit).each do |course_id|
       course = Course.find_by(id: course_id)
       next unless course
-      result = check_course_new_editors(course)
-      if result.nil?
-        Rails.logger.warn { 'RetainedEditorCheckWorker: MediaWiki API appears down, stopping run' }
-        break
+      count = check_course_new_editors(course)
+      if count.nil?
+        consecutive_failures += 1
+        break if api_outage?(consecutive_failures)
+        next
       end
-      total_checked += result
+      consecutive_failures = 0
+      total_checked += count
     end
 
-    Rails.logger.info { "RetainedEditorCheckWorker: finished, processed #{total_checked} records" }
+    Rails.logger.info { "RetainedEditorCheckWorker: finished, #{total_checked} records" }
     total_checked
   end
 
@@ -57,16 +55,12 @@ class RetainedEditorCheckWorker
   end
 
   def self.eligible_course_ids(limit = nil)
-    ids = CoursesUsers
-      .joins(:course, :user)
-      .where(role: CoursesUsers::Roles::STUDENT_ROLE,
-             retained_after_course_checked_at: nil)
+    ids = CoursesUsers.joins(:course, :user)
+      .where(role: CoursesUsers::Roles::STUDENT_ROLE, retained_after_course_checked_at: nil)
       .where('courses.end <= ?', OBSERVATION_DAYS.days.ago)
       .where(courses: { private: false })
       .where(NewEditorDateConditions::DURING_PROGRAM)
-      .distinct
-      .pluck(:course_id)
-
+      .distinct.pluck(:course_id)
     ordered = Course.where(id: ids).order(:end, :id)
     ordered = ordered.limit(limit) if limit
     ordered.pluck(:id)
@@ -74,27 +68,29 @@ class RetainedEditorCheckWorker
 
   private
 
+  def api_outage?(consecutive_failures)
+    return false if consecutive_failures < MAX_CONSECUTIVE_FAILURES
+    Rails.logger.warn { 'RetainedEditorCheckWorker: API appears down, stopping' }
+    true
+  end
+
   def eligible_candidates_for_course(course)
-    CoursesUsers
-      .joins(:user)
-      .where(
-        course_id: course.id,
-        role: CoursesUsers::Roles::STUDENT_ROLE,
-        retained_after_course_checked_at: nil
-      )
-      .where('users.registered_at >= ? AND users.registered_at <= ?', course.start, course.end)
+    CoursesUsers.joins(:user)
+      .where(course_id: course.id, role: CoursesUsers::Roles::STUDENT_ROLE,
+             retained_after_course_checked_at: nil)
+      .where('users.registered_at >= ? AND users.registered_at <= ?',
+             course.start, course.end)
       .select('courses_users.id, courses_users.user_id, users.username')
   end
 
   def process_batch(batch, wiki, threshold)
     result = fetch_active_usernames(batch.map(&:username), wiki, threshold)
-    return nil if result.nil? # Signal API outage to caller
+    return nil if result.nil?
     active, queried, invalid = result
     update_batch_retention(batch, active, queried)
-    # Mark unverifiable users (confirmed permanent API errors) as checked with nil status
     unverifiable = batch.select { |cu| invalid&.include?(cu.username) }
     bulk_update(unverifiable.map(&:id), nil, Time.zone.now) if unverifiable.any?
-    batch.size
+    queried.size + unverifiable.size
   end
 
   def update_batch_retention(batch, active_usernames, queried_usernames)
@@ -114,7 +110,6 @@ class RetainedEditorCheckWorker
   def fetch_active_usernames(usernames, wiki, threshold)
     result = fetch_batch_active_usernames(usernames, wiki, threshold)
     return result if result
-    # Batch failed (e.g. invalid username) — fall back to per-user queries
     fetch_individual_active_usernames(usernames, wiki, threshold)
   end
 
@@ -123,23 +118,22 @@ class RetainedEditorCheckWorker
     target_users = usernames.to_set
     pending = usernames.dup
     continue_param = nil
+    intercept = ->(e) { e.is_a?(MediawikiApi::ApiError) }
 
     loop do
-      result = query_usercontribs(pending, wiki, threshold, continue_param)
+      result = query_usercontribs(pending, wiki, threshold, continue_param, &intercept)
       return nil unless result
-
       result[:users].each { |u| active_usernames.add(u) }
       break if active_usernames.superset?(target_users)
-
       pending, continue_param = next_page_params(target_users, active_usernames, pending, result)
       break unless pending
     end
 
     [active_usernames, target_users, Set.new]
+  rescue MediawikiApi::ApiError
+    nil
   end
 
-  # Returns [pending_usernames, continue_param] for the next iteration,
-  # or nil when there are no more pages to query.
   def next_page_params(target_users, active_usernames, pending, result)
     new_pending = (target_users - active_usernames).to_a
     if new_pending.size < pending.size
