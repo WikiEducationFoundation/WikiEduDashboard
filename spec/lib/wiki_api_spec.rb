@@ -384,4 +384,45 @@ describe WikiApi do
       end
     end
   end
+
+  describe '#query with a MediawikiApi::ApiError (no interception block)' do
+    before { stub_wiki_validation }
+
+    # MediawikiApi::Client#send_request raises ApiError for HTTP 200 responses
+    # that carry a mediawiki-api-error header (e.g. baduser, badtitle).
+    # ApiError#response is a MediawikiApi::Response, which does NOT delegate
+    # :headers — so retry_after_seconds must not call .headers on it.
+    def baduser_error
+      body = { 'error' => { 'code' => 'baduser',
+                             'info' => 'Invalid value for user parameter.' } }
+      faraday = Faraday::Response.new(
+        status: 200, body: body.to_json,
+        response_headers: { 'mediawiki-api-error' => 'baduser' }
+      )
+      MediawikiApi::ApiError.new(MediawikiApi::Response.new(faraday, ['error']))
+    end
+
+    it 'returns nil instead of raising NoMethodError' do
+      allow_any_instance_of(MediawikiApi::Client)
+        .to receive(:query) { raise baduser_error }
+      wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+      expect(described_class.new(wiki).query(list: 'usercontribs',
+                                             ucuser: %w[A B])).to be_nil
+    end
+  end
+
+  describe '#retry_after_seconds' do
+    before { stub_wiki_validation }
+
+    it 'parses Retry-After from a real HttpError' do
+      faraday = Faraday::Response.new(
+        status: 429, body: '{}',
+        response_headers: { 'Retry-After' => '7' }
+      )
+      wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+      api = described_class.new(wiki)
+      expect(api.send(:retry_after_seconds,
+                      MediawikiApi::HttpError.new(faraday))).to eq(7)
+    end
+  end
 end
