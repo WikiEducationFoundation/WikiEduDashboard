@@ -8,6 +8,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_aler
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/wiki_discouraged_article_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/mainspace_ai_followup_worker"
+require_dependency "#{Rails.root}/app/workers/retained_editor_check_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
@@ -38,6 +39,7 @@ class DailyUpdate
     generate_overdue_training_alerts if Features.wiki_ed?
     generate_mainspace_ai_followup_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
+    check_retained_editors
     enqueue_system_stat_update
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
@@ -106,6 +108,11 @@ class DailyUpdate
   ###############
   # Stats       #
   ###############
+  def check_retained_editors
+    log_message 'Checking retention for eligible new editors'
+    RetainedEditorCheckWorker.set(queue: QUEUE).perform_async
+  end
+
   def enqueue_system_stat_update
     log_message 'Enqueuing system stats snapshot'
     SystemStatUpdateWorker.set(queue: QUEUE).perform_async

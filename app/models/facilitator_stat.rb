@@ -12,6 +12,7 @@
 #  total_edits             :integer          default(0)
 #  new_editors_count       :integer          default(0)
 #  new_editors_count_with_preregistration :integer default(0)
+#  retained_new_editors_count :integer       default(0)
 #  total_students_count    :integer          default(0)
 #  total_characters_added  :bigint           default(0)
 #  active_in_last_year     :boolean          default(FALSE)
