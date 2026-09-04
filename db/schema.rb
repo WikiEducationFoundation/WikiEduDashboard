@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_19_130000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_04_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -19,6 +19,31 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_130000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["courses_id"], name: "index_admin_course_notes_on_courses_id"
+  end
+
+  create_table "ai_detection_samples", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "sample_name", null: false
+    t.integer "wiki_id"
+    t.integer "rev_id"
+    t.integer "from_rev_id"
+    t.boolean "diff_mode", default: true, null: false
+    t.string "url"
+    t.integer "article_id"
+    t.integer "course_id"
+    t.string "campaign_slug"
+    t.integer "namespace"
+    t.string "ground_truth"
+    t.string "provenance"
+    t.text "notes"
+    t.text "factors"
+    t.text "plain_text", size: :medium
+    t.string "text_sha256", limit: 64
+    t.integer "word_count"
+    t.text "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sample_name", "text_sha256"], name: "ai_detection_samples_by_text"
+    t.index ["sample_name"], name: "index_ai_detection_samples_on_sample_name"
   end
 
   create_table "alerts", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -571,6 +596,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_19_130000) do
     t.string "check_origin"
     t.integer "origin_user_id"
     t.string "url"
+    t.integer "sample_id"
+    t.index ["sample_id"], name: "index_revision_ai_scores_on_sample_id"
     t.index ["wiki_id", "revision_id"], name: "revision_ai_scores_by_wiki_rev"
   end
 

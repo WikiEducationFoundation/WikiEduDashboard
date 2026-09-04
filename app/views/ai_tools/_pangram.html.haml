@@ -1,0 +1,36 @@
+-# Renders one Pangram inference result. Pangram 4 adds per-window humanizer
+-# detection fields, which are shown only when the response includes them.
+- humanizer = result['windows'].any? { |window| window.key?('is_humanized') }
+%br
+%h4= "#{label} Result:"
+
+%p Model version: #{result['version']}
+%p Headline: #{result['headline']}
+%p Prediction: #{result['prediction']}
+%p Fraction human: #{result['fraction_human']}
+%p Fraction AI-assisted: #{result['fraction_ai_assisted']}
+%p Fraction AI: #{result['fraction_ai']}
+%table.table.table--striped
+  %thead
+    %tr
+      %th Window
+      %th Words
+      %th Label
+      %th AI assistance score
+      %th Confidence
+      - if humanizer
+        %th Humanized
+        %th Humanizer score
+  %tbody
+    - result['windows'].each_with_index do |window, index|
+      %tr
+        %td= index + 1
+        %td= window['word_count']
+        %td= window['label']
+        %td= window['ai_assistance_score']&.round(4)
+        %td= window['confidence']
+        - if humanizer
+          %td= window['is_humanized']
+          %td= window['humanizer_score']&.round(4)
+%a.button{ href: result['dashboard_link'], target: '_blank' }= "#{label} Report"
+%br
