@@ -100,6 +100,33 @@ describe ArticlesCourses, type: :model do
     end
   end
 
+  describe '.update_required_caches_from_timeslices' do
+    let(:other_course) do
+      create(:course, slug: 'Other/Course', start: '2024-06-16', end: '2024-08-16')
+    end
+
+    before do
+      create(:articles_course, article:, course:)
+      create(:articles_course, article:, course: other_course)
+      course.flags['update_logs'] = { 1 => { 'end_time' => '2024-07-10'.to_datetime } }
+      course.save
+      create(:article_course_timeslice, article:, course:,
+             start: '2024-07-11', end: '2024-07-12', character_sum: 500)
+      create(:article_course_timeslice, article:, course: other_course,
+             start: '2024-07-11', end: '2024-07-12', character_sum: 900)
+    end
+
+    it 'updates the caches for the given course' do
+      described_class.update_required_caches_from_timeslices(course)
+      expect(described_class.find_by(course:).character_sum).to eq(500)
+    end
+
+    it 'does not update the caches for other courses sharing the same article' do
+      described_class.update_required_caches_from_timeslices(course)
+      expect(described_class.find_by(course: other_course).character_sum).to eq(0)
+    end
+  end
+
   describe '.update_from_course_revisions' do
     let(:article2) { create(:article, title: 'Second Article', namespace: 0, wiki_id: 2) }
     let(:article3) { create(:article, title: 'Third Article', namespace: 0) }
