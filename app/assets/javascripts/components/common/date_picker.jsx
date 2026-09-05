@@ -8,7 +8,7 @@ import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes,
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
+import { formatDateWithoutTime, toDate, getUTCDate } from '../../utils/date_utils.js';
 import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const DatePicker = createReactClass({
@@ -45,7 +45,7 @@ const DatePicker = createReactClass({
 
   getInitialState() {
     if (this.props.value) {
-      const dateObj = toDate(this.props.value);
+      const dateObj = getUTCDate(toDate(this.props.value));
       return {
         value: formatDateWithoutTime(dateObj),
         hour: getHours(dateObj),
