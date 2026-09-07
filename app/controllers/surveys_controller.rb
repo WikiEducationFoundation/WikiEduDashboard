@@ -33,10 +33,12 @@ class SurveysController < ApplicationController
   def index
     @surveys = Survey.includes(:versions, :survey_assignments,
                                rapidfire_question_groups: :questions).all
+    @survey_avg_durations = SurveyDurationStats.batch_averages(@surveys)
   end
 
   def results_index
     @surveys = Survey.all
+    @survey_avg_durations = SurveyDurationStats.batch_averages(@surveys)
   end
 
   # GET /surveys/1

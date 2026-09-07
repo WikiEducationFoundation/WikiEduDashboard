@@ -78,6 +78,12 @@ const Survey = {
     this.initRangeSliders();
     this.setFormValidationSections();
     this.getNotificationId();
+
+    // If the survey has no intro screen, there is no "Start" button.
+    // Auto-start the survey session immediately.
+    if (this.$intro.length === 0) {
+      this.surveyStarted();
+    }
   },
 
   cacheSelectors() {
@@ -107,6 +113,20 @@ const Survey = {
       Sentry.captureMessage(`Survey ${SurveyDetails.id} started`, { level: 'info' });
     } catch (e) {
       // nothing
+    }
+
+    // Record survey start time for duration tracking
+    if (!this.previewMode) {
+      this.startPromise = request('/survey/start', {
+        method: 'POST',
+        body: JSON.stringify({
+          survey_id: SurveyDetails.id,
+          survey_notification_id: this.surveyNotificationId
+        })
+      })
+        .then(res => res.json())
+        .then((data) => { this.trackingId = data.tracking_id; })
+        .catch(() => { /* silently fail — don't block the survey */ });
     }
   },
 
@@ -232,7 +252,7 @@ const Survey = {
     e.preventDefault();
   },
 
-  submitAllQuestionGroups() {
+  async submitAllQuestionGroups() {
     try {
       Sentry.captureMessage(`Survey ${SurveyDetails.id} submitted`, { level: 'info' });
     } catch (e) {
@@ -243,6 +263,18 @@ const Survey = {
       this.updateSurveyNotification();
       this.$surveyForm.each(this.submitQuestionGroup.bind(this));
       this.submittedAll = true;
+
+      // Wait for the start request to resolve before sending completion,
+      // so fast users on slow networks don't silently skip the call.
+      if (this.startPromise) {
+        await this.startPromise;
+      }
+      if (this.trackingId) {
+        request('/survey/complete', {
+          method: 'PUT',
+          body: JSON.stringify({ tracking_id: this.trackingId })
+        }).catch(() => { /* silently fail */ });
+      }
     }
   },
 
