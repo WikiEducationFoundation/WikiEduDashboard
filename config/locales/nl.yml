@@ -473,6 +473,10 @@ nl:
     confirm_add_available: Weet u zeker dat u %{title} wilt toevoegen?
     confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
+    copy_available: Importeren vanuit een andere cursus
+    copy_available_url_placeholder: cursus-url
+    copy_available_select_placeholder: Selecteer een cursus
+    copy_available_include_student_assigned: Inclusief toegewezen pagina's?
     delete: Verwijderen
     editors: Toegewezen aan
     change_sandbox_url: Kladblok wijzigen

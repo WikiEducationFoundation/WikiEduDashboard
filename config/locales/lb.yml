@@ -85,6 +85,8 @@ lb:
     explore_examples: Beispiller entdecken
     review_orientation: Orientatioun nokucken
     blog_headline: Rezent Neiegkeete vu Wiki Education
+    tooltip:
+      alt: Méi Informatiounen
   home:
     explore: Entdecken
     log_in: Mat Wikipedia aloggen
