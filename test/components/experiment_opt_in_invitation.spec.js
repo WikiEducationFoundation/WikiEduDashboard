@@ -86,6 +86,7 @@ describe('ExperimentOptInInvitation', () => {
 
   const installCopy = {
     install_title: 'Install the tool',
+    install_explanation: 'This is **why** you are asked to do this.',
     install_message: 'Paste this line into your common.js.',
     install_button: 'Open my common.js',
     install_copy_button: 'Copy it',
@@ -115,6 +116,19 @@ describe('ExperimentOptInInvitation', () => {
     expect(container.textContent).toContain('Paste this line into your common.js.');
     const link = container.querySelector('.experiment-opt-in__actions a');
     expect(link.getAttribute('href')).toContain('action=edit');
+  });
+
+  it('explains the install step, as Markdown, above the instructions', async () => {
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: 'importScript("x");'
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    const explanation = container.querySelector('.experiment-opt-in__explanation');
+    expect(explanation.textContent).toContain('why you are asked to do this');
+    expect(explanation.querySelector('strong').textContent).toEqual('why');
+    const text = container.textContent;
+    expect(text.indexOf('why you are asked')).toBeLessThan(text.indexOf('Paste this line'));
   });
 
   it('copies the import line to the clipboard and says so', async () => {
