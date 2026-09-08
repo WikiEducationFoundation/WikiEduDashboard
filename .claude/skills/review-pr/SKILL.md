@@ -5,10 +5,12 @@ description: Walk through a structured PR review workflow. Use this skill when r
 
 # Review PR
 
-A structured workflow for reviewing pull requests. Claude surfaces
+A structured workflow for reviewing pull requests. The coding agent surfaces
 information and runs commands; the reviewer makes all judgments.
 
-Invoke as `/review-pr` (to list open PRs) or `/review-pr 6797` (specific PR).
+In clients with skill commands, invoke as `/review-pr` (to list open PRs) or
+`/review-pr 6797` (specific PR). In other clients, ask to use the `review-pr`
+workflow and provide the PR number when applicable.
 
 ---
 
@@ -545,7 +547,7 @@ Always wait for confirmation before running `gh pr review` or
 
 **Tone:** Impersonal and direct. No first-person ("I found..."). No
 chatbot pleasantries ("Nice work!", "Great PR!"). Use passive voice
-or refer to "the code", "the session", "Claude Code" where needed.
+or refer to "the code", "the session", or the current coding agent where needed.
 Frame findings as observations that warrant verification, not as
 authoritative conclusions — AI analysis is provisional and may be
 wrong.
@@ -553,7 +555,7 @@ wrong.
 **Attribution:** Every posted comment must end with an italicized
 attribution line that honestly characterizes the human involvement.
 Include: how much wall-clock time the reviewer spent, roughly how
-many interactions they had with Claude Code, what they actually
+many interactions they had with the coding agent, what they actually
 reviewed vs. what they approved without deep verification, and — if
 local verification happened — what specifically was verified ("ran X
 locally", "reproduced Y via a new spec", "checked production
@@ -561,15 +563,19 @@ state"). The goal is to let the PR author calibrate how much weight
 to give the feedback; named verifications calibrate more sharply
 than time and interaction counts alone. Examples:
 
-*Drafted in a Claude Code session (~30 min, ~15 interactions).
+*Drafted in a [agent name] session (~30 min, ~15 interactions).
 Sage directed the triage and code review phases, verified the
 `joins` bug independently, and reviewed the full comment before
 posting. Other findings were spot-checked but not all individually
 verified.*
 
-*Drafted in a Claude Code session (~5 min, 3 interactions). Sage
+*Drafted in a [agent name] session (~5 min, 3 interactions). Sage
 approved posting after a quick read-through but did not independently
 verify the findings.*
+
+Replace `[agent name]` with the current coding agent's actual product name
+(for example, `Claude Code` or `Codex`). Never attribute one agent's work to
+another.
 
 If the comment includes AI-generated code (such as an exploratory
 spec), say so explicitly and note whether the reviewer ran or

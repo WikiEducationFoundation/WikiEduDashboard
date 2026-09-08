@@ -1,4 +1,23 @@
-# WikiEduDashboard — Claude Code Instructions
+# WikiEduDashboard — AI Coding Agent Instructions
+
+This is the single canonical source of repository guidance for every AI coding
+agent. `AGENTS.md` points non-Claude agents here; keep substantive instructions
+and workflows in this file rather than duplicating them in agent-specific
+instruction files.
+
+## Shared workflows
+
+The canonical workflow skills are stored under `.claude/skills/`, with legacy
+session commands under `.claude/commands/`. Before doing a task that matches
+one of these workflows, read the corresponding file in full and follow it,
+even if the current client does not automatically discover that directory:
+
+- Commit changes: `.claude/skills/commit/SKILL.md`
+- Review or revisit a pull request: `.claude/skills/review-pr/SKILL.md`
+- Prepare a pull request: `.claude/skills/prepare-pr/SKILL.md`
+- Write browser-based feature specs: `.claude/skills/feature-spec/SKILL.md`
+- Investigate a slow or stuck course update: `.claude/skills/course-update-recon/SKILL.md`
+- Enter TDD mode for a session: `.claude/commands/tdd.md`
 
 ## Running tests and linting
 
@@ -147,18 +166,22 @@ full list of integrated Toolforge tools and third-party APIs.
 
 ## AI attribution on external communication
 
-Anything Claude publishes that another person reads as if a human wrote it
+Anything an AI coding agent publishes that another person reads as if a human wrote it
 must be explicitly marked as AI-generated. It must never be ambiguous or
 unstated when AI does things in this repo.
 
+Use the current agent's actual product name in every attribution marker (for
+example, `Claude Code` or `Codex`). Never attribute one agent's output to a
+different agent.
+
 - **PR / issue / review comments** posted via `gh pr comment`,
   `gh issue comment`, `gh pr review`, etc.: end the body with a blank line
-  and `(Comment written by Claude Code.)`.
+  and `(Comment written by <agent name>.)`.
 - **PR descriptions** created via `gh pr create`: end the body with
-  `(PR description written by Claude Code.)` (the `/prepare-pr` skill
-  already handles this — keep using it).
-- **Commit messages**: the `/commit` skill already adds
-  `(Commit message written by Claude Code.)` and the `Co-Authored-By:`
+  `(PR description written by <agent name>.)` (the `prepare-pr` skill
+  handles this — keep using it).
+- **Commit messages**: the `commit` skill adds
+  `(Commit message written by <agent name>.)` and the `Co-Authored-By:`
   trailer. Keep using it.
 - **Anything else published to humans** (Slack drafts, email drafts,
   public docs, etc.): add an equivalent trailer. When in doubt, add the
@@ -166,13 +189,14 @@ unstated when AI does things in this repo.
 
 ## PR review
 
-Always use the `/review-pr` skill when reviewing or revisiting a pull request.
-Load it immediately — do not gather PR data manually first.
+Always use the `review-pr` skill in `.claude/skills/review-pr/SKILL.md` when
+reviewing or revisiting a pull request. Load it immediately — do not gather PR
+data manually first.
 
 ## Commit messages
 
-Always use the `/commit` skill when creating commits. It handles staging,
-message format, and session accounting.
+Always use the `commit` skill in `.claude/skills/commit/SKILL.md` when creating
+commits. It handles staging, message format, and session accounting.
 
 While working, note anything that would otherwise be lost by commit time:
 pre-existing code the user brought in, abandoned approaches, or any context
