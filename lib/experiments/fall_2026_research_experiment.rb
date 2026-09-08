@@ -19,9 +19,10 @@ class Fall2026ResearchExperiment < OptInExperiment
 
   USERSCRIPT_IMPORT_LINE = "importScript('#{USERSCRIPT_PAGE}');"
 
-  # Student-facing invitation copy, shown in a modal. `message`, `consent_form`
-  # and `install_message` are rendered as Markdown. Kept here (not in en.yml) so
-  # this ephemeral experiment text stays out of the translation pipeline.
+  # Student-facing invitation copy, shown in a modal. `message`, `consent_form`,
+  # `install_explanation` and `install_message` are rendered as Markdown. Kept
+  # here (not in en.yml) so this ephemeral experiment text stays out of the
+  # translation pipeline.
   STUDENT_INVITATION_COPY = {
     title: 'Research Study',
     message: <<~MESSAGE,
@@ -37,6 +38,11 @@ class Fall2026ResearchExperiment < OptInExperiment
     opt_in: 'I consent',
     opt_out: 'No',
     install_title: 'Install the experiment script',
+    # Shown above the step-by-step instruction, to say what this step is for
+    # before the student is handed a line of JavaScript to paste.
+    install_explanation: <<~EXPLANATION,
+      Thank you for opting in to our research project! To enable the features we're studying, you'll need to install the `wickie.js` script for your Wikipedia account. (This is the only extra step you'll need to take.)
+    EXPLANATION
     install_message: <<~INSTALL,
       To enable the experiment, copy the line below, click 'Install script', paste it to your common.js page, then "Publish changes".
     INSTALL
