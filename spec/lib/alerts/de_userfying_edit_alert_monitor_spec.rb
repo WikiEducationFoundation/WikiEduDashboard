@@ -43,15 +43,40 @@ describe DeUserfyingEditAlertMonitor do
   end
 
   describe '.edits' do
-    it 'checks keys' do
-      VCR.use_cassette 'recent_changes' do
-        fedit = mntor.edits.first
-        expect(fedit.dig('logparams', 'target_title')).not_to be_nil
-        expect(fedit.dig('user')).not_to be_nil
-        expect(fedit.dig('revid')).not_to be_nil
-        expect(fedit.dig('pageid')).not_to be_nil
-        expect(fedit.dig('logid')).not_to be_nil
-        expect(fedit.dig('timestamp')).not_to be_nil
+    let(:api) { instance_double(WikiApi) }
+    let(:response) { OpenStruct.new(data: { 'recentchanges' => recentchanges }) }
+
+    before do
+      allow(WikiApi).to receive(:new).and_return(api)
+      allow(api).to receive(:query).and_return(response)
+    end
+
+    context 'when no recent change carries the de-userfying tag' do
+      let(:recentchanges) { [] }
+
+      it 'returns no edits' do
+        expect(mntor.edits).to be_empty
+      end
+    end
+
+    context 'when a page was moved out of user space' do
+      let(:recentchanges) do
+        [{ 'type' => 'log', 'ns' => 2, 'title' => 'User:Alice/sandbox',
+           'pageid' => 111, 'revid' => 12, 'logid' => 99, 'user' => 'Alice',
+           'timestamp' => '2026-09-01T12:00:00Z', 'tags' => ['de-userfying'],
+           'logparams' => { 'target_title' => 'my title 1' } }]
+      end
+
+      it 'keeps the keys the monitor relies on' do
+        expect(mntor.edits.first).to include(
+          'user' => 'Alice', 'revid' => 12, 'pageid' => 111, 'logid' => 99,
+          'timestamp' => '2026-09-01T12:00:00Z', 'title' => 'User:Alice/sandbox',
+          'logparams' => { 'target_title' => 'my title 1' }
+        )
+      end
+
+      it 'drops the keys the monitor does not use' do
+        expect(mntor.edits.first.keys).not_to include('type', 'ns', 'tags')
       end
     end
   end
