@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 /*
-  The worked example in the verify step of the fact-verification exercise: a
-  claim in its Wikipedia article next to the cited source, with the passage
-  found — so the student sees what "the source supports the claim" looks like
-  before giving their own verdict. Named as the `verification_example`
-  illustration in config/claim_verification_exercise.yml; the copy is under
-  claim_verification.form.verification_example.
+  The worked example in the verify step of the fact-verification exercise: two
+  cases, each a claim in its Wikipedia article next to the cited source. In the
+  first the passage is found; in the second a search of the source comes up
+  empty — so the student sees what "the source supports the claim" does and
+  doesn't look like before giving their own verdict. Named as the
+  `verification_example` illustration in config/claim_verification_exercise.yml;
+  the copy is under claim_verification.form.verification_example.
 
   The screenshots are static assets. At half the card's width they are
   thumbnails, so each links to itself full-size in a new tab.
@@ -45,6 +46,15 @@ const VerificationExample = () => (
         <Figure file="verified_example_source.webp" alt={t('verified_source_alt')} />
       </div>
       <p className="cv-example__conclusion">{t('verified_conclusion')}</p>
+    </section>
+
+    <section className="cv-example__case">
+      <h3 className="cv-example__case-heading">{t('failed_heading')}</h3>
+      <div className="cv-example__figures">
+        <Figure file="failed_example_article.webp" alt={t('failed_article_alt')} />
+        <Figure file="failed_example_source.webp" alt={t('failed_source_alt')} />
+      </div>
+      <p className="cv-example__conclusion">{t('failed_conclusion')}</p>
     </section>
   </div>
 );

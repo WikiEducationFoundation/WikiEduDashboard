@@ -1837,6 +1837,10 @@ en:
         verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
         verified_source_alt: "[PLACEHOLDER - alt text for the screenshot of the OC Weekly article with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign]"
         verified_conclusion: "You can see the OC Weekly source explicitly contains the information in the claim."
+        failed_heading: "[PLACEHOLDER - short heading for the example where the source does not verify the claim; the edits document marks this SCREENSHOT OF FAILED]"
+        failed_article_alt: "[PLACEHOLDER - alt text for the screenshot of the Wikipedia article Revolutionary Socialist Party (Zambia) with the claim sentence highlighted]"
+        failed_source_alt: "[PLACEHOLDER - alt text for the screenshot of the cited Burnell 2001 journal article open in a PDF viewer, with a search for “Revolutionary Socialist Party” returning no results]"
+        failed_conclusion: "Because you can’t find key words from the claim anywhere in the source text, this fails verification, so you would select “No — the source does not cover what the claim says.”"
       submit: Submit
       submitted_heading: "Submitted response"
       edit_response: Edit response
