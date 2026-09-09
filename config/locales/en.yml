@@ -1836,7 +1836,7 @@ en:
         lead: "Here’s an example:"
         verified_heading: "Example: The source backs up the claim"
         verified_article_alt: 'Screenshot of the Wikipedia article "The Bicycle Tree". The sentence with the example claim is highlighted.'
-        verified_claim: "Claim reads: “In 2013, The Bicycle Tree started a crowdfunding campaign to open a storefront.[1]”"
+        verified_claim: "Claim reads: “In 2013, The Bicycle Tree launched a crowdfunding campaign to open a storefront.[1]”"
         verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
         verified_source_alt: "Screenshot of an OC Weekly article, with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign"
         verified_conclusion: "You can see the OC Weekly source explicitly contains the information in the claim."
