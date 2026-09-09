@@ -32,6 +32,10 @@ describe Article, type: :model do
                      views_updated_at: '2014-12-31'.to_date)
     @sandbox = build(:article, namespace: 2, title: 'Ragesoss/sandbox')
     @draft = build(:article, namespace: 118, title: 'My_Awesome_Draft!!!')
+    @page_250 = build(:article,
+                      namespace: Article::Namespaces::PAGE_A,
+                      title: 'Example_Page',
+                      wiki: build(:wiki, language: 'pa', project: 'wikisource'))
   end
 
   describe '#url' do
@@ -40,6 +44,11 @@ describe Article, type: :model do
       expect(@sandbox.url).to eq('https://en.wikipedia.org/wiki/User:Ragesoss/sandbox')
       expect(@draft.url).to eq('https://en.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!')
     end
+
+    it 'handles namespace 250 with Page: prefix for wikisource' do
+      stub_wiki_validation
+      expect(@page_250.url).to eq('https://pa.wikisource.org/wiki/Page:Example_Page')
+    end
   end
 
   describe '#full_title' do
@@ -47,6 +56,11 @@ describe Article, type: :model do
       expect(@article.full_title).to eq('Selfie')
       expect(@sandbox.full_title).to eq('User:Ragesoss/sandbox')
       expect(@draft.full_title).to eq('Draft:My Awesome Draft!!!')
+    end
+
+    it 'handles namespace 250 with Page: prefix for wikisource' do
+      stub_wiki_validation
+      expect(@page_250.full_title).to eq('Page:Example Page')
     end
   end
 
@@ -57,6 +71,11 @@ describe Article, type: :model do
     it 'handles *.wikimedia.org wikis' do
       stub_wiki_validation
       expect(article.namespace_prefix).to eq('Incubator:')
+    end
+
+    it 'returns Page: prefix for namespace 250' do
+      stub_wiki_validation
+      expect(@page_250.namespace_prefix).to eq('Page:')
     end
   end
 end
