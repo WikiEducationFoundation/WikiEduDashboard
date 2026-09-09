@@ -11,10 +11,11 @@ import PropTypes from 'prop-types';
   the copy is under claim_verification.form.verification_example.
 
   The screenshots are static assets; each links to itself full-size in a new
-  tab. Under each, a link to what it shows: the article at the revision whose
-  text matches the screenshot (a permalink, since articles keep changing — the
-  Bicycle Tree sentence was reworded the day after this was written, and the
-  RSP article's claim was reverted), and the cited source itself.
+  tab. Each article screenshot links to the article at the revision whose text
+  matches it (a permalink, since articles keep changing — the Bicycle Tree
+  sentence was reworded the day after this was written, and the RSP article's
+  claim was reverted). The sources are linked inline from each case's
+  concluding sentence, where the copy names them.
 */
 const IMAGES = '/assets/images/claim_verification';
 
@@ -33,27 +34,42 @@ const Figure = ({ file, alt, link, linkLabel, children }) => (
     <a href={`${IMAGES}/${file}`} target="_blank" rel="noopener noreferrer">
       <img src={`${IMAGES}/${file}`} alt={alt} loading="lazy" />
     </a>
-    <figcaption>
-      {children}
-      <a className="cv-example__link" href={link} target="_blank" rel="noopener noreferrer">
-        {linkLabel}
-      </a>
-    </figcaption>
+    {(children || link) && (
+      <figcaption>
+        {children}
+        {link && (
+          <a className="cv-example__link" href={link} target="_blank" rel="noopener noreferrer">
+            {linkLabel}
+          </a>
+        )}
+      </figcaption>
+    )}
   </figure>
 );
 
 Figure.propTypes = {
   file: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-  // Where the screenshot was taken: the article permalink or the source.
-  link: PropTypes.string.isRequired,
-  linkLabel: PropTypes.string.isRequired,
+  // The article permalink the screenshot was taken from, if it has one.
+  link: PropTypes.string,
+  linkLabel: PropTypes.string,
   children: PropTypes.node,
 };
 
-// The two links reuse the taken-claim card's own labels for the same things.
+// The article link reuses the taken-claim card's label for the same thing.
 const articleLabel = () => I18n.t('claim_verification.find_in_article');
-const sourceLabel = () => I18n.t('claim_verification.source_url');
+
+// A case's concluding sentence, with the source it names linked inline: the
+// `_html` copy carries a %{source_link} slot, filled with the link text the
+// copy also provides.
+const conclusionHtml = (key, href) => I18n.t(
+  `claim_verification.form.verification_example.${key}_conclusion_html`,
+  {
+    source_link: `<a href="${href}" target="_blank" rel="noopener noreferrer">${
+      I18n.t(`claim_verification.form.verification_example.${key}_source_link_text`)
+    }</a>`,
+  }
+);
 
 const t = key => I18n.t(`claim_verification.form.verification_example.${key}`);
 
@@ -73,14 +89,12 @@ const VerificationExample = () => (
           <span className="cv-example__caption-line">{t('verified_claim')}</span>
           <span className="cv-example__caption-line">{t('verified_source')}</span>
         </Figure>
-        <Figure
-          file="verified_example_source.webp"
-          alt={t('verified_source_alt')}
-          link={LINKS.verifiedSource}
-          linkLabel={sourceLabel()}
-        />
+        <Figure file="verified_example_source.webp" alt={t('verified_source_alt')} />
       </div>
-      <p className="cv-example__conclusion">{t('verified_conclusion')}</p>
+      <p
+        className="cv-example__conclusion"
+        dangerouslySetInnerHTML={{ __html: conclusionHtml('verified', LINKS.verifiedSource) }}
+      />
     </section>
 
     <section className="cv-example__case">
@@ -92,14 +106,12 @@ const VerificationExample = () => (
           link={LINKS.failedArticle}
           linkLabel={articleLabel()}
         />
-        <Figure
-          file="failed_example_source.webp"
-          alt={t('failed_source_alt')}
-          link={LINKS.failedSource}
-          linkLabel={sourceLabel()}
-        />
+        <Figure file="failed_example_source.webp" alt={t('failed_source_alt')} />
       </div>
-      <p className="cv-example__conclusion">{t('failed_conclusion')}</p>
+      <p
+        className="cv-example__conclusion"
+        dangerouslySetInnerHTML={{ __html: conclusionHtml('failed', LINKS.failedSource) }}
+      />
     </section>
   </div>
 );

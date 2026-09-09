@@ -143,12 +143,16 @@ describe 'Claim verification exercise', type: :feature, js: true do
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))
     expect(page).to have_field(I18n.t('claim_verification.form.other_comments_label'))
-    # The worked example's screenshots each link to what they show: the article
-    # at the revision pictured (a permalink) and the cited source.
+    # The worked example's article screenshots link to the revision pictured
+    # (a permalink); each case's conclusion links the source it names inline.
     within '.cv-example' do
       expect(page).to have_link(I18n.t('claim_verification.find_in_article'), count: 2)
       expect(page).to have_css('a[href*="oldid="]', count: 2)
-      expect(page).to have_link(I18n.t('claim_verification.source_url'), count: 2)
+      example = 'claim_verification.form.verification_example'
+      expect(page).to have_link(I18n.t("#{example}.verified_source_link_text"),
+                                href: %r{ocweekly\.com/})
+      expect(page).to have_link(I18n.t("#{example}.failed_source_link_text"),
+                                href: %r{jstor\.org/stable/3518767})
     end
     choose I18n.t('claim_verification.form.verdict_options.partial_support')
     fill_in I18n.t('claim_verification.form.claim_location_label'), with: 'p. 44'
