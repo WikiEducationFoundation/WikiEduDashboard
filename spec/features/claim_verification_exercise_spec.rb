@@ -143,6 +143,13 @@ describe 'Claim verification exercise', type: :feature, js: true do
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))
     expect(page).to have_field(I18n.t('claim_verification.form.other_comments_label'))
+    # The worked example's screenshots each link to what they show: the article
+    # at the revision pictured (a permalink) and the cited source.
+    within '.cv-example' do
+      expect(page).to have_link(I18n.t('claim_verification.find_in_article'), count: 2)
+      expect(page).to have_css('a[href*="oldid="]', count: 2)
+      expect(page).to have_link(I18n.t('claim_verification.source_url'), count: 2)
+    end
     choose I18n.t('claim_verification.form.verdict_options.partial_support')
     fill_in I18n.t('claim_verification.form.claim_location_label'), with: 'p. 44'
     click_button I18n.t('claim_verification.form.submit')
