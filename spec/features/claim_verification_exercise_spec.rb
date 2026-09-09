@@ -113,9 +113,10 @@ describe 'Claim verification exercise', type: :feature, js: true do
     # where the two pre-form steps left off.
     expect(page).to have_content(step_heading(3, 'form.step_evaluate_source'))
     # Step instructions render as Markdown, so a URL in the operator copy is a
-    # link out of the exercise rather than inert text.
+    # link out of the exercise rather than inert text — here to the training
+    # slide on what makes a good source.
     policy_link = find('.cv-form__step-instructions a', match: :first)
-    expect(policy_link[:href]).to include('Wikipedia:Reliable_sources')
+    expect(policy_link[:href]).to include('what-is-a-good-source')
     expect(policy_link[:target]).to eq('_blank')
     choose I18n.t('claim_verification.form.source_appropriate_options.appropriate')
     choose I18n.t('claim_verification.form.meets_rs_policy_options.context_dependent')
