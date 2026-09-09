@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/ai/ai_detector"
 
 class CheckRevisionWithPangram
   # The detector used for production alerting. Changing this key is the cutover.
-  DETECTOR_KEY = RevisionAiScore::PANGRAM_V3_KEY
+  DETECTOR_KEY = RevisionAiScore::PANGRAM_V4_KEY
 
   def initialize(attrs)
     @wiki = Wiki.find attrs['wiki_id']
@@ -23,7 +23,8 @@ class CheckRevisionWithPangram
     # Skip the API call if the plain text is too short.
     return if @plain_text.nil?
     return if @plain_text.length < MIN_PLAIN_TEXT_LENGTH
-    fetch_pangram_inference
+    return unless fetch_pangram_inference
+
     parse_pangram_response
     create_revision_ai_score
 
@@ -43,11 +44,19 @@ class CheckRevisionWithPangram
   # where the details field is not nil.
   # A nil avg_ai_likelihood field may indicate an error occurred when calling the API, so we want
   # to retrieve it again.
+  # Only production rows count. Detector comparison samples and the admin AI tools page write
+  # rows for revisions production may not have checked yet, and without this filter such a row
+  # would suppress the production check and its alert. check_type is deliberately not filtered:
+  # a revision already scored with Pangram 3 stays checked and is not re-billed under Pangram 4.
+  # NULL is included because check_origin was added in March 2026 and never backfilled; every
+  # earlier row with an article_id came from a production check.
+  PRODUCTION_ORIGINS = [nil, RevisionAiScore::COURSE_UPDATE_ORIGIN].freeze
   def already_checked?
     RevisionAiScore.where(
       revision_id: @mw_rev_id,
       wiki_id: @wiki.id,
-      article_id: @article.id
+      article_id: @article.id,
+      check_origin: PRODUCTION_ORIGINS
     ).where.not(avg_ai_likelihood: nil).exists?
   end
 
@@ -55,8 +64,40 @@ class CheckRevisionWithPangram
     AiDetector.for(DETECTOR_KEY)
   end
 
+  # Returns the raw detector result, or nil when the call failed. Either way the
+  # attempt is recorded, as a row with nil avg_ai_likelihood, which already means
+  # "check this revision again" to already_checked?. A failure that a retry could
+  # clear is re-raised for Sidekiq to retry, bounded in AiDetectionWorker; one that
+  # a retry would only re-bill is swallowed here.
   def fetch_pangram_inference
     @pangram_result = detector.client.inference @plain_text
+  rescue *AiDetector.recoverable_errors => e
+    record_failed_check(e)
+    raise unless terminal_failure?(e)
+
+    nil
+  end
+
+  # A request the API refused (malformed, out of credit) and a task the API itself
+  # finished in a failed stage will fail the same way however often they are sent.
+  def terminal_failure?(error)
+    case error
+    when PangramApi::RequestError then error.status.to_i.between?(400, 499)
+    when PangramApi::TaskFailed then true
+    else false
+    end
+  end
+
+  # already_checked? guarantees no successful production row exists for this
+  # revision, so repeated failures update one row instead of accumulating.
+  def record_failed_check(error)
+    score = RevisionAiScore.find_or_initialize_by(
+      revision_id: @mw_rev_id, wiki_id: @wiki.id, article_id: @article.id,
+      check_type: DETECTOR_KEY, check_origin: RevisionAiScore::COURSE_UPDATE_ORIGIN
+    )
+    score.update(course_id: @course_id, user_id: @user_id, revision_datetime: @rev_datetime,
+                 avg_ai_likelihood: nil, max_ai_likelihood: nil,
+                 details: { 'error' => error.class.name, 'message' => error.message })
   end
 
   def parse_pangram_response

@@ -8,10 +8,11 @@ describe CheckRevisionWithPangram do
   let(:user) { create(:user) }
   # Based on https://en.wikipedia.org/w/index.php?title=User:100110Z/Five-a-side_football&oldid=1327139425
   let(:simplified_pangram_response) do
-    { 'text' => 'example',
-      'version' => '3.0',
-      'headline' => 'Fully AI Generated',
-      'prediction' => 'We are confident that this document is fully AI-generated',
+    { 'stage' => 'STAGE_SUCCESS',
+      'text' => 'example',
+      'version' => '4.0',
+      'headline' => 'AI Generated',
+      'prediction' => 'We believe that this entire text is AI.',
       'prediction_short' => 'AI',
       'fraction_ai' => 1.0,
       'fraction_ai_assisted' => 0.0,
@@ -27,7 +28,9 @@ describe CheckRevisionWithPangram do
            'start_index' => 0,
            'end_index' => 2281,
            'word_count' => 359,
-           'token_length' => 483 },
+           'token_length' => 483,
+           'is_humanized' => false,
+           'humanizer_score' => 0.00444 },
          { 'text' => 'second window',
            'label' => 'AI-Generated',
            'ai_assistance_score' => 0.9982278487261604,
@@ -35,7 +38,9 @@ describe CheckRevisionWithPangram do
            'start_index' => 2281,
            'end_index' => 4737,
            'word_count' => 358,
-           'token_length' => 476 },
+           'token_length' => 476,
+           'is_humanized' => false,
+           'humanizer_score' => 0.0021 },
          { 'text' => 'third window',
            'label' => 'AI-Generated',
            'ai_assistance_score' => 0.9959831237792969,
@@ -43,13 +48,16 @@ describe CheckRevisionWithPangram do
            'start_index' => 4737,
            'end_index' => 5202,
            'word_count' => 72,
-           'token_length' => 94 }],
+           'token_length' => 94,
+           'is_humanized' => false,
+           'humanizer_score' => 0.0 }],
       'dashboard_link' => 'https://www.pangram.com/history/7980768b-0b15-4d42-ad62-30ba8cf0e92f' }
   end
   let(:stored_simplified_pangram_response) do
-    { 'version' => '3.0',
-      'headline' => 'Fully AI Generated',
-      'prediction' => 'We are confident that this document is fully AI-generated',
+    { 'stage' => 'STAGE_SUCCESS',
+      'version' => '4.0',
+      'headline' => 'AI Generated',
+      'prediction' => 'We believe that this entire text is AI.',
       'prediction_short' => 'AI',
       'fraction_ai' => 1.0,
       'fraction_ai_assisted' => 0.0,
@@ -64,21 +72,27 @@ describe CheckRevisionWithPangram do
            'start_index' => 0,
            'end_index' => 2281,
            'word_count' => 359,
-           'token_length' => 483 },
+           'token_length' => 483,
+           'is_humanized' => false,
+           'humanizer_score' => 0.00444 },
          { 'label' => 'AI-Generated',
            'ai_assistance_score' => 0.9982278487261604,
            'confidence' => 'High',
            'start_index' => 2281,
            'end_index' => 4737,
            'word_count' => 358,
-           'token_length' => 476 },
+           'token_length' => 476,
+           'is_humanized' => false,
+           'humanizer_score' => 0.0021 },
          { 'label' => 'AI-Generated',
            'ai_assistance_score' => 0.9959831237792969,
            'confidence' => 'High',
            'start_index' => 4737,
            'end_index' => 5202,
            'word_count' => 72,
-           'token_length' => 94 }],
+           'token_length' => 94,
+           'is_humanized' => false,
+           'humanizer_score' => 0.0 }],
       'dashboard_link' => 'https://www.pangram.com/history/7980768b-0b15-4d42-ad62-30ba8cf0e92f' }
   end
   let(:timestamp) { 5.minutes.ago.to_i }
@@ -127,7 +141,7 @@ describe CheckRevisionWithPangram do
       expect(RevisionAiScore.count).to eq(1)
       expect(RevisionAiScore.last.article_id).to eq(sandbox_article.id)
       expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
-      expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+      expect(RevisionAiScore.last.check_type).to eq('Pangram 4')
       expect(RevisionAiScore.last.check_origin).to eq('course_update')
     end
   end
@@ -165,7 +179,7 @@ describe CheckRevisionWithPangram do
       expect(RevisionAiScore.last.avg_ai_likelihood).to be_between(0, 1)
       expect(RevisionAiScore.last.max_ai_likelihood).to eq(1.0)
       expect(RevisionAiScore.last.details).to eq(stored_simplified_pangram_response)
-      expect(RevisionAiScore.last.check_type).to eq('Pangram 3')
+      expect(RevisionAiScore.last.check_type).to eq('Pangram 4')
       expect(RevisionAiScore.last.check_origin).to eq('course_update')
     end
   end
@@ -244,7 +258,16 @@ describe CheckRevisionWithPangram do
     let!(:revision_ai_score) do
       create(:revision_ai_score, revision_id: live_article_revision_id,
              wiki_id: en_wiki.id, course:, user:, article: live_article,
-             details: stored_simplified_pangram_response, avg_ai_likelihood: 0.5)
+             details: stored_simplified_pangram_response, avg_ai_likelihood: 0.5,
+             check_origin: RevisionAiScore::COURSE_UPDATE_ORIGIN)
+    end
+    let(:attrs) do
+      { 'mw_rev_id' => live_article_revision_id,
+        'wiki_id' => en_wiki.id,
+        'article_id' => live_article.id,
+        'course_id' => course.id,
+        'user_id' => user.id,
+        'revision_timestamp' => timestamp }
     end
 
     it 'returns prematurely if the record is found' do
@@ -287,6 +310,131 @@ describe CheckRevisionWithPangram do
 
       expect(RevisionAiScore.count).to eq(2)
       expect(RevisionAiScore.last.avg_ai_likelihood).not_to be_nil
+    end
+
+    it 'still counts as checked when the row is from an earlier detector' do
+      revision_ai_score.update(check_type: RevisionAiScore::PANGRAM_V3_KEY)
+      expect_any_instance_of(described_class).not_to receive(:check)
+
+      described_class.new(attrs)
+    end
+
+    it 'still counts as checked when the row predates the check_origin field' do
+      revision_ai_score.update(check_origin: nil)
+      expect_any_instance_of(described_class).not_to receive(:check)
+
+      described_class.new(attrs)
+    end
+
+    it 'ignores a detector comparison row, which production never scored' do
+      revision_ai_score.update(check_origin: RevisionAiScore::DETECTOR_COMPARISON_ORIGIN)
+      expect_any_instance_of(described_class).to receive(:check)
+
+      described_class.new(attrs)
+    end
+
+    it 'ignores an admin AI tools row' do
+      revision_ai_score.update(check_origin: RevisionAiScore::AI_TOOL_ORIGIN)
+      expect_any_instance_of(described_class).to receive(:check)
+
+      described_class.new(attrs)
+    end
+  end
+
+  context 'when the detector call fails' do
+    let(:attrs) do
+      { 'mw_rev_id' => live_article_revision_id,
+        'wiki_id' => en_wiki.id,
+        'article_id' => live_article.id,
+        'course_id' => course.id,
+        'user_id' => user.id,
+        'revision_timestamp' => timestamp }
+    end
+
+    it 'records the failure without retrying a request the API refused' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(402, 'out of credit'))
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.not_to raise_error
+      end
+
+      score = RevisionAiScore.last
+      expect(score.avg_ai_likelihood).to be_nil
+      expect(score.check_type).to eq('Pangram 4')
+      expect(score.check_origin).to eq('course_update')
+      expect(score.details['error']).to eq('PangramApi::RequestError')
+    end
+
+    it 'records the failure without retrying a task the API failed' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::TaskFailed, 'task 1 failed')
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.not_to raise_error
+      end
+
+      expect(RevisionAiScore.last.details['error']).to eq('PangramApi::TaskFailed')
+    end
+
+    it 're-raises a timeout so the worker retries it' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::TaskTimeout, 'task 1 unfinished after 60s')
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.to raise_error(PangramApi::TaskTimeout)
+      end
+
+      expect(RevisionAiScore.last.avg_ai_likelihood).to be_nil
+    end
+
+    it 're-raises a server error so the worker retries it' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(503, 'unavailable'))
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.to raise_error(PangramApi::RequestError)
+      end
+
+      expect(RevisionAiScore.last.avg_ai_likelihood).to be_nil
+    end
+
+    it 'does not generate an alert' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(402, 'out of credit'))
+
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(attrs)
+      end
+
+      expect(AiEditAlert.count).to eq(0)
+    end
+
+    it 'updates the one failed row rather than adding another' do
+      allow_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(402, 'out of credit'))
+
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(attrs)
+        described_class.new(attrs)
+      end
+
+      expect(RevisionAiScore.count).to eq(1)
+    end
+
+    it 'leaves the revision open to a later successful check' do
+      allow_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(402, 'out of credit'))
+
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(attrs)
+
+        allow_any_instance_of(PangramApi).to receive(:inference)
+          .and_return(simplified_pangram_response)
+        described_class.new(attrs)
+      end
+
+      expect(RevisionAiScore.where.not(avg_ai_likelihood: nil).count).to eq(1)
     end
   end
 
