@@ -9,7 +9,11 @@ module ClaimVerification
   # described by its id, its type, and the answers it accepts.
   #
   # - id: also the key this question's answer is stored under
-  # - type: 'choice' (one of `options`) or 'text' (free response)
+  # - type: 'choice' (one of `options`), 'text' (free response), or 'prompt' —
+  #   not a question at all but a sentence shown among them, with an optional
+  #   `action` button; it takes no answer and stores nothing
+  # - action: for a prompt, the client-side action its button performs (eg
+  #   'choose_different_claim'); the SPA knows which actions exist
   # - options: the answers offered, for a choice question
   # - retired_options: answers no longer offered but still accepted, so a
   #   response recorded with one keeps it and can still be edited
@@ -17,15 +21,22 @@ module ClaimVerification
   # - visible_when: { other question id => [answers] | true }; asked only when
   #   that earlier answer is one of those, or any answer at all (see AnswerGate)
   FormQuestion = Data.define(:id, :type, :options, :retired_options, :required,
-                             :visible_when) do
+                             :visible_when, :action) do
     def self.from_config(config)
       new(id: config.fetch('id'), type: config.fetch('type'),
           options: config['options'] || [], retired_options: config['retired_options'] || [],
-          required: config['required'] || false, visible_when: config['visible_when'] || {})
+          required: config['required'] || false, visible_when: config['visible_when'] || {},
+          action: config['action'])
     end
 
     def choice?
       type == 'choice'
+    end
+
+    # Whether this item takes an answer at all — a prompt doesn't, so it has no
+    # answer key, is never required, and is skipped when answers are recorded.
+    def answerable?
+      type != 'prompt'
     end
 
     # Whether this question is asked at all, given the answers so far. A
@@ -35,7 +46,7 @@ module ClaimVerification
     end
 
     def label
-      I18n.t("claim_verification.form.#{choice? ? "#{id}_question" : "#{id}_label"}")
+      I18n.t("claim_verification.form.#{id}_#{label_suffix}")
     end
 
     # Whether a choice question takes this answer: one it offers, or a retired
@@ -56,6 +67,14 @@ module ClaimVerification
     end
 
     private
+
+    def label_suffix
+      case type
+      when 'choice' then 'question'
+      when 'prompt' then 'prompt'
+      else 'label'
+      end
+    end
 
     # An option may carry a description — a sentence explaining when it's the
     # right answer — shown under its label in the form but not in summaries of

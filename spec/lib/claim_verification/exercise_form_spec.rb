@@ -151,7 +151,10 @@ describe ClaimVerification::ExerciseForm do
         'steps' => [
           { 'id' => 'pick',
             'questions' => [{ 'id' => 'colour', 'type' => 'choice', 'required' => true,
-                              'options' => %w[red blue], 'retired_options' => %w[green] }] },
+                              'options' => %w[red blue], 'retired_options' => %w[green] },
+                            { 'id' => 'pick_another', 'type' => 'prompt',
+                              'action' => 'choose_different_claim',
+                              'visible_when' => { 'colour' => ['blue'] } }] },
           { 'id' => 'explain', 'visible_when' => { 'colour' => ['red'] },
             'illustration' => 'colour_wheel',
             'questions' => [{ 'id' => 'shade', 'type' => 'text' }] },
@@ -212,7 +215,24 @@ describe ClaimVerification::ExerciseForm do
     end
 
     it 'opens a step gated on `true` on any answer, not a named one' do
-      expect(form.applicable_questions('colour' => 'blue').map(&:id)).to eq(%w[colour why])
+      expect(form.applicable_questions('colour' => 'blue').map(&:id))
+        .to eq(%w[colour pick_another why])
+    end
+
+    # A prompt sits among the questions and is gated like one, but takes no
+    # answer: nothing to permit, store or require.
+    it 'shows a prompt on the answer that opens it, but never stores anything for it' do
+      expect(form.applicable_questions('colour' => 'red').map(&:id)).not_to include('pick_another')
+      expect(form.answer_keys).not_to include('pick_another')
+      expect(form.applicable_answers('colour' => 'blue', 'pick_another' => 'yes'))
+        .to eq('colour' => 'blue')
+      expect(form.errors_in('colour' => 'blue')).to be_empty
+    end
+
+    it 'names the action a prompt performs' do
+      prompt = form.questions.find { |question| question.id == 'pick_another' }
+      expect(prompt.action).to eq('choose_different_claim')
+      expect(prompt).not_to be_answerable
     end
   end
 end

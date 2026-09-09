@@ -98,6 +98,51 @@ TextQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+// A prompt: a sentence in the flow of questions (gated like one) with, when the
+// config names an `action`, a button that performs it. The actions a prompt
+// may name, each with the handler prop it calls and the label of its button.
+const ACTIONS = {
+  choose_different_claim: {
+    handlerProp: 'onChooseDifferent',
+    label: () => I18n.t('claim_verification.choose_different_claim'),
+  },
+};
+
+const PromptItem = ({ question, handlers }) => {
+  const action = ACTIONS[question.action];
+  const onAction = action && handlers[action.handlerProp];
+  return (
+    <div className="cv-form__prompt">
+      <p className="cv-form__prompt-text">{question.label}</p>
+      {onAction && (
+        <button type="button" className="button" onClick={onAction}>
+          {action.label()}
+        </button>
+      )}
+    </div>
+  );
+};
+
+PromptItem.propTypes = {
+  question: PropTypes.object.isRequired,
+  handlers: PropTypes.object.isRequired,
+};
+
+const renderItem = (question, answers, answer, handlers) => {
+  if (question.type === 'prompt') {
+    return <PromptItem key={question.id} question={question} handlers={handlers} />;
+  }
+  const Component = question.type === 'choice' ? ChoiceQuestion : TextQuestion;
+  return (
+    <Component
+      key={question.id}
+      question={question}
+      value={answers[question.id]}
+      onChange={value => answer(question.id, value)}
+    />
+  );
+};
+
 /*
   The verification form — the whole exercise happens here in the dashboard, not
   in a sandbox. Which steps it asks, in what order, and what each question
@@ -108,12 +153,14 @@ TextQuestion.propTypes = {
 
   Steps and questions can be gated on an earlier answer (`visible_when`), which
   is how the verify-the-claim step waits until the student says they got the
-  source. Answers are held in one hash keyed by question id; the server drops
+  source — and how a prompt to choose a different claim appears for students
+  who couldn't get it (`onChooseDifferent` is the same handler as the header
+  button's). Answers are held in one hash keyed by question id; the server drops
   whatever the student's path didn't ask, so answers left behind by a changed
   choice are harmless. Submitting upserts, so the same form serves both first
   submission and later edits (`initial`).
 */
-const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel }) => {
+const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel, onChooseDifferent }) => {
   const [answers, setAnswers] = useState(initial?.answers || {});
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
@@ -145,21 +192,7 @@ const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel }) => {
             {step.instructions && <StepInstructions instructions={step.instructions} />}
             {ILLUSTRATIONS[step.illustration] && React.createElement(ILLUSTRATIONS[step.illustration])}
             {visibleQuestions(step, answers).map(question => (
-              question.type === 'choice' ? (
-                <ChoiceQuestion
-                  key={question.id}
-                  question={question}
-                  value={answers[question.id]}
-                  onChange={value => answer(question.id, value)}
-                />
-              ) : (
-                <TextQuestion
-                  key={question.id}
-                  question={question}
-                  value={answers[question.id]}
-                  onChange={value => answer(question.id, value)}
-                />
-              )
+              renderItem(question, answers, answer, { onChooseDifferent })
             ))}
           </section>
         )
@@ -189,6 +222,8 @@ VerificationForm.propTypes = {
   onSaved: PropTypes.func.isRequired,
   // Present only when editing an existing response (returns to the summary).
   onCancel: PropTypes.func,
+  // Leaves this claim for the picker; a prompt's `choose_different_claim` action.
+  onChooseDifferent: PropTypes.func,
 };
 
 export default VerificationForm;

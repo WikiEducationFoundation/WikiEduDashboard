@@ -156,6 +156,12 @@ describe 'Fact verification exercise screenshots', type: :feature, js: true,
                   '02_taken_claim_form')
     shoot_element(form_step(1), '03_step_4_find_source')
 
+    # Saying they couldn't get the source brings up the prompt to choose
+    # another claim instead.
+    choose I18n.t('claim_verification.form.source_access_options.nonexistent')
+    expect(page).to have_css('.cv-form__prompt')
+    shoot_element(form_step(1), '03b_step_4_no_source')
+
     # Saying they got the source opens the verify step.
     choose I18n.t('claim_verification.form.source_access_options.accessed')
     expect(page).to have_content(I18n.t('claim_verification.form.step_verify'))

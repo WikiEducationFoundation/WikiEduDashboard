@@ -108,6 +108,20 @@ describe 'Claim verification exercise', type: :feature, js: true do
     assignment = VerificationClaimAssignment.find_by(user: student, course:)
     expect(assignment.verification_claim.sentence).to eq(sentence)
 
+    # A student who can't get the source isn't left to end the exercise here:
+    # saying so brings up a prompt with a second "choose a different claim"
+    # button (the header has the first), which goes back to the picker. Coming
+    # back keeps the claim; the form starts over.
+    choose I18n.t('claim_verification.form.source_access_options.nonexistent')
+    expect(page).to have_css('.cv-form__prompt')
+    expect(page).to have_button(I18n.t('claim_verification.choose_different_claim'), count: 2)
+    within('.cv-form__prompt') { click_button I18n.t('claim_verification.choose_different_claim') }
+    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 10)
+    click_button "← #{I18n.t('claim_verification.back_to_claim')}"
+    expect(page).to have_content(I18n.t('claim_verification.your_selected_claim'), wait: 10)
+    expect(page).to have_no_css('.cv-form__prompt')
+    expect(page).to have_button(I18n.t('claim_verification.choose_different_claim'), count: 1)
+
     # The source-evaluation step comes first, judged from the citation alone. It
     # is step 3: the form's numbering (config's `first_step_number`) picks up
     # where the two pre-form steps left off.

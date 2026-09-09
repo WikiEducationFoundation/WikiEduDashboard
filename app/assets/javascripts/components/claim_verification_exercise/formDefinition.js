@@ -71,8 +71,11 @@ export const answeredQuestions = (form, answers = {}) => (
 
 const questionPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['choice', 'text']).isRequired,
+  // A prompt is a sentence in the flow of questions, not a question: no answer.
+  type: PropTypes.oneOf(['choice', 'text', 'prompt']).isRequired,
   label: PropTypes.string,
+  // A prompt's button action, by name (see ACTIONS in VerificationForm.jsx).
+  action: PropTypes.string,
   required: PropTypes.bool,
   visible_when: PropTypes.object,
   options: PropTypes.arrayOf(PropTypes.shape({

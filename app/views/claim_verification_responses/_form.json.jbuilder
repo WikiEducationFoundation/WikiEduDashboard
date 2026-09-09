@@ -21,6 +21,7 @@ json.steps form.steps do |step|
   json.questions step.questions do |question|
     json.call(question, :id, :type, :required, :visible_when)
     json.label question.label
+    json.action question.action if question.action
     if question.choice?
       json.options question.option_labels
       json.retired_options question.retired_option_labels

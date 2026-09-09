@@ -292,6 +292,29 @@
     font-size .92em
     line-height 1.45
 
+  // A prompt in the flow of questions (eg "choose a different claim" for a
+  // student who couldn't get the source): a quiet band with its sentence and
+  // action button, so it reads as guidance rather than another question.
+  &__prompt
+    display flex
+    flex-wrap wrap
+    align-items center
+    gap 10px 18px
+    max-width 44em
+    margin 0 0 22px 0
+    padding 14px 18px
+    background $bg_light_gray
+    border-left 3px solid $brand_primary
+    border-radius 0 4px 4px 0
+    &:last-child
+      margin-bottom 0
+
+  &__prompt-text
+    flex 1 1 22em
+    margin 0
+    color $text_dk
+    line-height 1.45
+
   &__textarea
     display block
     width 100%
