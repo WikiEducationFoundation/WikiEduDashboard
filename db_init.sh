@@ -12,13 +12,12 @@ service mysql start
 sleep 5
 
 # Init DBs
-echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+      CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
       exit" | mysql && printf "$\n[DATABSE CREATED]\n"
 
 echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
-      GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
-      GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
+      GRANT ALL PRIVILEGES ON \`dashboard%\`.* TO 'wiki'@'localhost';
       exit" | mysql > /dev/null && printf "\n[USER CREATED]\n"
 
 # Migrate dev and test DBs

@@ -68,8 +68,10 @@ If you know your way around Rails, here's the very short version. Some additiona
 5. Now **login into your database**
       *  Either create a new user using `CREATE USER 'wiki'@localhost IDENTIFIED BY 'wikiedu';`. Verify you created a new user using the command `SELECT User FROM mysql.user;`
       *  or update `database.yml` with valid credentials to connect to the database
-6. Create a new database named as `dashboard` using the command `CREATE DATABASE dashboard;`
+6. Create a new database named as `dashboard` using the command `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;`
+      * The charset and collation must match `db/schema.rb`, which declares every table as `utf8mb4`/`utf8mb4_unicode_ci`.
       * To verify whether your database was created, use the command `SHOW DATABASES;`
+      * This bare-minimum path skips the test database and the privilege grants. See [Detailed instructions](#detailed-instructions) for the full SQL if you intend to run the test suite.
 7. Run `rake db:migrate` to migrate all database tables.
 8. Install yarn (modern)
 9. Run `yarn` to download the required javascript packages
@@ -120,14 +122,21 @@ If you know your way around Rails, here's the very short version. Some additiona
             (If you receive the error message: `Can't connect to local MySQL server through socket '/tmp/mysql.sock' (2)`
             You may have a permissions issue. Try executing: `sudo chown -R _mysql:mysql /usr/local/var/mysql` before restarting database server and logging in)
         - Windows: `C:\xampp\mysql\bin\mysql -u root`
-    - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
-    - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
-    - `CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';`
-    - `GRANT ALL PRIVILEGES ON dashboard.* TO 'wiki'@'localhost';`
-    - `GRANT ALL PRIVILEGES ON dashboard_testing.* TO 'wiki'@'localhost';`
-    - `FLUSH PRIVILEGES;` # reload privilege tables so the new user/permissions take effect
-    - `SELECT User, Host FROM mysql.user WHERE User = 'wiki';`
-    - `exit`
+    - Then run:
+
+      ```sql
+      CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+      CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+      CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
+      -- The `dashboard%` pattern also covers the numbered test databases
+      -- (dashboard_testing2, dashboard_testing3, ...) that parallel_tests
+      -- creates from TEST_ENV_NUMBER. Without it, `bin/full-suite` and the
+      -- CI `parallel_rspec` run fail when they try to create those.
+      GRANT ALL PRIVILEGES ON `dashboard%`.* TO 'wiki'@'localhost';
+      FLUSH PRIVILEGES;  -- reload privilege tables so the new permissions take effect
+      SELECT User, Host FROM mysql.user WHERE User = 'wiki';
+      exit
+      ```
 
 - Install Gems:
     - $ `gem install bundler`
@@ -153,6 +162,22 @@ If you know your way around Rails, here's the very short version. Some additiona
   - Debian: `sudo apt install redis-server`
   - OSX: `brew install redis`
   - Windows: Download [the Windows port](https://github.com/MSOpenTech/redis/releases) by the Microsoft Open Tech Group
+
+- Install Memcached:
+  - Debian: `sudo apt install memcached`
+  - OSX: `brew install memcached`
+  - `config/application.rb` sets the Rails cache to `:mem_cache_store` on
+    `localhost`, so development needs memcached running. The test environment
+    overrides this with `:null_store`, so the specs do not depend on it.
+
+- Install Google Chrome or Chromium:
+  - Debian: `sudo apt install chromium`
+  - OSX: `brew install --cask google-chrome`
+  - The Capybara feature specs in `spec/features` drive a real browser through
+    Selenium (see the driver registered in `spec/rails_helper.rb`), so a Chrome
+    or Chromium binary must be installed. You do not need to install
+    chromedriver yourself — selenium-webdriver's Selenium Manager downloads a
+    matching version on first use.
 
 - (Optional) Set up a [`post-merge`](https://git-scm.com/docs/githooks#_post_merge) hook to update all dependencies if `package.json` or `Gemfile` changes.
   - Copy `.git-hooks/pull-update-deps` to `.git/hooks/post-merge`
