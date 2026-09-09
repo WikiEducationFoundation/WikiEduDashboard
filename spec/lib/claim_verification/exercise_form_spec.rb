@@ -180,6 +180,18 @@ describe ClaimVerification::ExerciseForm do
       expect(form.questions.first.retired_options).to eq(['green'])
     end
 
+    # An option's description is looked up from the copy alongside its label,
+    # and is simply absent from options the copy says nothing more about.
+    it 'labels an option with a description only when the copy provides one' do
+      copy = { colour_options: { red: 'Red', blue: 'Blue' },
+               colour_option_descriptions: { red: 'Like a fire engine' } }
+      I18n.backend.store_translations(:en, claim_verification: { form: copy })
+      labels = form.questions.first.option_labels
+      expect(labels.find { |option| option[:value] == 'red' })
+        .to eq(value: 'red', label: 'Red', description: 'Like a fire engine')
+      expect(labels.find { |option| option[:value] == 'blue' }).to eq(value: 'blue', label: 'Blue')
+    end
+
     it 'gates a step on the answer the declaration names' do
       expect(form.applicable_questions('colour' => 'blue').map(&:id)).not_to include('shade')
     end

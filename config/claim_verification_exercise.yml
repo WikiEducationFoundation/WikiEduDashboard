@@ -14,6 +14,7 @@
 #   step instructions      <step id>_instructions      (optional)
 #   choice question        <question id>_question
 #   choice option          <question id>_options.<value>
+#   option description     <question id>_option_descriptions.<value>  (optional)
 #   text question          <question id>_label
 #
 # Step numbering is derived, not written into the copy, so reordering steps

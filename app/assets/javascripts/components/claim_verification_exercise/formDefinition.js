@@ -78,6 +78,8 @@ const questionPropType = PropTypes.shape({
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string,
+    // When this option is the right answer; shown in the form only.
+    description: PropTypes.string,
   })),
   retired_options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,

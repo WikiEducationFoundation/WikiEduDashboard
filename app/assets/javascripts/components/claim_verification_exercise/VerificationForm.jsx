@@ -34,6 +34,9 @@ const shownOptions = (question, value) => [
 
 // One multiple-choice question as a fieldset of radios. Both the question and
 // its options are operator copy resolved server-side, so this knows none of it.
+// An option may come with a description (when its answer applies), shown under
+// the label; it sits inside the <label> so it is part of the option's name and
+// of its click target.
 const ChoiceQuestion = ({ question, value, onChange }) => (
   <fieldset className="cv-form__question">
     <legend className="cv-form__question-label">{question.label}</legend>
@@ -47,7 +50,12 @@ const ChoiceQuestion = ({ question, value, onChange }) => (
           disabled={option.retired}
           onChange={() => onChange(option.value)}
         />
-        <span>{option.label}</span>
+        <span className="cv-form__option-text">
+          <span>{option.label}</span>
+          {option.description && (
+            <span className="cv-form__option-description">{option.description}</span>
+          )}
+        </span>
       </label>
     ))}
   </fieldset>

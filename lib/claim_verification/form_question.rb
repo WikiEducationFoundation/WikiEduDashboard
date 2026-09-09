@@ -57,9 +57,17 @@ module ClaimVerification
 
     private
 
+    # An option may carry a description — a sentence explaining when it's the
+    # right answer — shown under its label in the form but not in summaries of
+    # a response. Optional per option, so `description` is present only when
+    # the copy provides one.
     def labelled(values)
       values.map do |value|
-        { value:, label: I18n.t("claim_verification.form.#{id}_options.#{value}") }
+        option = { value:, label: I18n.t("claim_verification.form.#{id}_options.#{value}") }
+        description = I18n.t("claim_verification.form.#{id}_option_descriptions.#{value}",
+                             default: nil)
+        option[:description] = description if description.present?
+        option
       end
     end
   end

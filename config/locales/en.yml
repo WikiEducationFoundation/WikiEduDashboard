@@ -1809,6 +1809,12 @@ en:
         # Retired options: no longer offered, kept for responses recorded with them.
         mostly_supports: "Mostly yes — the core of the claim comes from this source."
         mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
+      # Shown under each verdict option in the form (not in summaries of a response).
+      verdict_option_descriptions:
+        full_support: "I can find all the facts of the claim in the cited source."
+        partial_support: "I can find some of the facts in the claim, but is information in the claim that I cannot find in the cited source."
+        unsupported: "I cannot find any of the facts from the claim in the cited source."
+        contradicted: "I found facts in the cited source that state the opposite of what is mentioned in the claim."
       claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
       verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
       other_comments_label: "Any other comments about this exercise?"
