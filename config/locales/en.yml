@@ -1798,7 +1798,7 @@ en:
         inaccessible: "No, the source exists but I could not get access to it."
       # Shown under the source-access question, with a "Choose a different claim"
       # button, when the student says they could not get the source.
-      choose_another_claim_prompt: "[PLACEHOLDER - one sentence telling a student who could not get hold of the source to choose a different claim rather than stopping here]"
+      choose_another_claim_prompt: "Since you can't access the cited source, please choose a different claim to complete this exercise."
       source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
       step_verify: "Verify the claim"
       # Markdown: the tips render as a bulleted list under the paragraph.
