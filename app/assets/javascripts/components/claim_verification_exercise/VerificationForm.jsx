@@ -4,6 +4,16 @@ import PropTypes from 'prop-types';
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
 import markdownIt from '~/app/assets/javascripts/utils/markdown_it';
 import { formPropType, visibleQuestions, missingRequired, retiredOptions } from './formDefinition';
+import VerificationExample from './VerificationExample.jsx';
+
+// The components a step may name as its `illustration` in
+// config/claim_verification_exercise.yml, shown between the step's
+// instructions and its questions. A worked example needs layout and images
+// that Markdown copy can't carry, so it is a component; the config still
+// decides which step shows it.
+const ILLUSTRATIONS = {
+  verification_example: VerificationExample,
+};
 
 // Step instructions are operator copy that may link out (eg to the Reliable
 // Sources policy), so they render as Markdown with bare URLs linkified and
@@ -34,6 +44,9 @@ const shownOptions = (question, value) => [
 
 // One multiple-choice question as a fieldset of radios. Both the question and
 // its options are operator copy resolved server-side, so this knows none of it.
+// An option may come with a description (when its answer applies), shown under
+// the label; it sits inside the <label> so it is part of the option's name and
+// of its click target.
 const ChoiceQuestion = ({ question, value, onChange }) => (
   <fieldset className="cv-form__question">
     <legend className="cv-form__question-label">{question.label}</legend>
@@ -47,7 +60,12 @@ const ChoiceQuestion = ({ question, value, onChange }) => (
           disabled={option.retired}
           onChange={() => onChange(option.value)}
         />
-        <span>{option.label}</span>
+        <span className="cv-form__option-text">
+          <span>{option.label}</span>
+          {option.description && (
+            <span className="cv-form__option-description">{option.description}</span>
+          )}
+        </span>
       </label>
     ))}
   </fieldset>
@@ -80,6 +98,51 @@ TextQuestion.propTypes = {
   onChange: PropTypes.func.isRequired,
 };
 
+// A prompt: a sentence in the flow of questions (gated like one) with, when the
+// config names an `action`, a button that performs it. The actions a prompt
+// may name, each with the handler prop it calls and the label of its button.
+const ACTIONS = {
+  choose_different_claim: {
+    handlerProp: 'onChooseDifferent',
+    label: () => I18n.t('claim_verification.choose_different_claim'),
+  },
+};
+
+const PromptItem = ({ question, handlers }) => {
+  const action = ACTIONS[question.action];
+  const onAction = action && handlers[action.handlerProp];
+  return (
+    <div className="cv-form__prompt">
+      <p className="cv-form__prompt-text">{question.label}</p>
+      {onAction && (
+        <button type="button" className="button" onClick={onAction}>
+          {action.label()}
+        </button>
+      )}
+    </div>
+  );
+};
+
+PromptItem.propTypes = {
+  question: PropTypes.object.isRequired,
+  handlers: PropTypes.object.isRequired,
+};
+
+const renderItem = (question, answers, answer, handlers) => {
+  if (question.type === 'prompt') {
+    return <PromptItem key={question.id} question={question} handlers={handlers} />;
+  }
+  const Component = question.type === 'choice' ? ChoiceQuestion : TextQuestion;
+  return (
+    <Component
+      key={question.id}
+      question={question}
+      value={answers[question.id]}
+      onChange={value => answer(question.id, value)}
+    />
+  );
+};
+
 /*
   The verification form — the whole exercise happens here in the dashboard, not
   in a sandbox. Which steps it asks, in what order, and what each question
@@ -90,12 +153,14 @@ TextQuestion.propTypes = {
 
   Steps and questions can be gated on an earlier answer (`visible_when`), which
   is how the verify-the-claim step waits until the student says they got the
-  source. Answers are held in one hash keyed by question id; the server drops
+  source — and how a prompt to choose a different claim appears for students
+  who couldn't get it (`onChooseDifferent` is the same handler as the header
+  button's). Answers are held in one hash keyed by question id; the server drops
   whatever the student's path didn't ask, so answers left behind by a changed
   choice are harmless. Submitting upserts, so the same form serves both first
   submission and later edits (`initial`).
 */
-const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel }) => {
+const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel, onChooseDifferent }) => {
   const [answers, setAnswers] = useState(initial?.answers || {});
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(false);
@@ -125,22 +190,9 @@ const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel }) => {
           <section className="cv-form__step" key={step.id}>
             {step.heading && <h2 className="cv-form__step-heading">{step.heading}</h2>}
             {step.instructions && <StepInstructions instructions={step.instructions} />}
+            {ILLUSTRATIONS[step.illustration] && React.createElement(ILLUSTRATIONS[step.illustration])}
             {visibleQuestions(step, answers).map(question => (
-              question.type === 'choice' ? (
-                <ChoiceQuestion
-                  key={question.id}
-                  question={question}
-                  value={answers[question.id]}
-                  onChange={value => answer(question.id, value)}
-                />
-              ) : (
-                <TextQuestion
-                  key={question.id}
-                  question={question}
-                  value={answers[question.id]}
-                  onChange={value => answer(question.id, value)}
-                />
-              )
+              renderItem(question, answers, answer, { onChooseDifferent })
             ))}
           </section>
         )
@@ -170,6 +222,8 @@ VerificationForm.propTypes = {
   onSaved: PropTypes.func.isRequired,
   // Present only when editing an existing response (returns to the summary).
   onCancel: PropTypes.func,
+  // Leaves this claim for the picker; a prompt's `choose_different_claim` action.
+  onChooseDifferent: PropTypes.func,
 };
 
 export default VerificationForm;

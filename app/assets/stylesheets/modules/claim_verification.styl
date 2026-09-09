@@ -239,6 +239,18 @@
       margin 0 0 10px 0
       &:last-child
         margin-bottom 0
+    // A bulleted list in the copy (the verify step's tips): indented under its
+    // lead-in line, with a little air between items.
+    ul
+      margin 0 0 10px 0
+      padding-left 1.4em
+      &:last-child
+        margin-bottom 0
+    li
+      margin-bottom 6px
+      line-height 1.5
+      &:last-child
+        margin-bottom 0
     a
       overflow-wrap break-word
 
@@ -269,6 +281,40 @@
       flex none
       cursor pointer
 
+  // The label and, under it, the option's description (when it has one).
+  &__option-text
+    display flex
+    flex-direction column
+    gap 2px
+
+  &__option-description
+    color $text_med
+    font-size .92em
+    line-height 1.45
+
+  // A prompt in the flow of questions (eg "choose a different claim" for a
+  // student who couldn't get the source): a quiet band with its sentence and
+  // action button, so it reads as guidance rather than another question.
+  &__prompt
+    display flex
+    flex-wrap wrap
+    align-items center
+    gap 10px 18px
+    max-width 44em
+    margin 0 0 22px 0
+    padding 14px 18px
+    background $bg_light_gray
+    border-left 3px solid $brand_primary
+    border-radius 0 4px 4px 0
+    &:last-child
+      margin-bottom 0
+
+  &__prompt-text
+    flex 1 1 22em
+    margin 0
+    color $text_dk
+    line-height 1.45
+
   &__textarea
     display block
     width 100%
@@ -289,6 +335,70 @@
   &__actions
     display flex
     gap 10px
+
+// A worked example inside a form step (the verify step's screenshot pairs):
+// a lead-in, then one section per case, each with its figures stacked and a
+// concluding line. The screenshots are cropped to the passage that makes the
+// point, so each shows at its natural size up to the card's width — legible
+// in place, rather than two-up thumbnails. Each still links to itself.
+.cv-example
+  margin 0 0 26px 0
+  color $text_med
+  line-height 1.45
+
+  // The prose keeps the form's measure; the figures may use the card's full
+  // width, since a cropped screenshot is only legible at its natural size.
+  &__lead,
+  &__case-heading,
+  &__conclusion,
+  figcaption
+    max-width 44em
+
+  &__lead
+    margin 0 0 12px 0
+
+  &__case
+    margin-bottom 22px
+    &:last-child
+      margin-bottom 0
+
+  &__case-heading
+    margin 0 0 10px 0
+    font-size 1em
+    font-weight 600
+    color $text_dk
+
+  &__figures
+    display grid
+    grid-template-columns minmax(0, 1fr)
+    gap 14px
+    margin-bottom 10px
+
+  &__figure
+    margin 0
+    img
+      display block
+      max-width 100%
+      height auto
+      border 1px solid $border_lt
+      border-radius 3px
+    figcaption
+      margin-top 6px
+      font-size .88em
+      line-height 1.45
+
+  &__caption-line
+    display block
+    margin-bottom 4px
+
+  // Where the screenshot came from: the article permalink or the source.
+  &__link
+    display inline-block
+    margin-top 2px
+    font-size .95em
+
+  &__conclusion
+    margin 0
 
 // A submitted response as question/answer pairs — the student's own summary
 // and the instructor cards share this.

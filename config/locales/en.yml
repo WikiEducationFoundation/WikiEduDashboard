@@ -1758,7 +1758,7 @@ en:
     take_not_enrolled: You must be enrolled in the course to do that.
     # Exercise copy (operator-provided; see claim_verification_instructions.txt).
     exercise_heading: "Fact Verification Exercise"
-    intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the author’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, and it’s one of the most critical policies behind Wikipedia’s credibility."
+    intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the editor’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, one of the most critical policies behind Wikipedia’s credibility."
     intro_p2: "As AI tools become more widely used, it's more important than ever to learn how to verify information. AI-generated content often mismatches facts and sources — which is one of the major reasons why you cannot use it to add content to Wikipedia."
     intro_p3: "In this exercise, you’ll see verifiability in action. You’ll practice how to verify claims by trying to find a specific fact in a cited source."
     # Every step's heading, across the whole exercise: the numbers are composed in
@@ -1774,7 +1774,7 @@ en:
     select_claim_instructions: "The following claims need to be checked against the cited sources, because they may be AI-generated. (Note: the article may have changed since these claims were added.)"
     form:
       step_evaluate_source: Evaluate the source
-      evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review Wikipedia's concept of 'Reliable sources': https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources"
+      evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review the [training on source evaluation](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source)."
       source_appropriate_question: "Is this source appropriate for Wikipedia, for this particular article, and for the claim it supports?"
       source_appropriate_options:
         appropriate: "Yes, it's an appropriate source for the claim"
@@ -1793,12 +1793,23 @@ en:
       find_source_instructions: "Now that you’ve selected your claim, track down the cited source. You may need to consult your instructor or librarian to find the source."
       source_access_question: "Were you able to access the full text of the cited source for your claim?"
       source_access_options:
-        accessed: "Yes, I got the source."
+        accessed: "Yes, I have access to the source."
         nonexistent: "No, the source does not exist."
         inaccessible: "No, the source exists but I could not get access to it."
+      # Shown under the source-access question, with a "Choose a different claim"
+      # button, when the student says they could not get the source.
+      choose_another_claim_prompt: "Since you can't access the cited source, please choose a different claim to complete this exercise."
       source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
       step_verify: "Verify the claim"
-      verify_instructions: "Once you’ve found the cited source, examine it carefully to determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it. (Some citations are too imprecise for a reader to practically verify.)"
+      # Markdown: the tips render as a bulleted list under the paragraph.
+      verify_instructions: |
+        Once you’ve found the cited source, determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it.
+
+        Tips for verification:
+
+        - Read the abstract and conclusion of the source. Does it cover the topic of the claim?
+        - Use the “find” function in your application. Search the source for key words from the claim, then read the surrounding text where they appear. If you cannot find the key words or synonyms of them in the text, the claim is likely unverifiable.
+        - Text created by generative AI sources will often make broad, general claims about a topic with a citation that is cited to a source that offers one small example of that claim. Is the claim extrapolating a general claim from a specific instance? If so, it’s unverifiable.
       verdict_question: "Does the source back up the claim?"
       verdict_options:
         full_support: "Yes — it explicitly supports the full claim."
@@ -1809,9 +1820,33 @@ en:
         # Retired options: no longer offered, kept for responses recorded with them.
         mostly_supports: "Mostly yes — the core of the claim comes from this source."
         mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
+      # Shown under each verdict option in the form (not in summaries of a response).
+      verdict_option_descriptions:
+        full_support: "I can find all the facts of the claim in the cited source."
+        partial_support: "I can find some of the facts in the claim, but there is information in the claim that I cannot find in the cited source."
+        unsupported: "I cannot find any of the facts from the claim in the cited source."
+        contradicted: "I found facts in the cited source that state the opposite of what is mentioned in the claim."
       claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
       verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
       other_comments_label: "Any other comments about this exercise?"
+      # The verify step's worked example (the `verification_example` illustration
+      # in config/claim_verification_exercise.yml): screenshots of a claim that
+      # verifies, with the caption and conclusion from the edits document.
+      verification_example:
+        lead: "Here’s an example:"
+        verified_heading: "Example: The source backs up the claim"
+        verified_article_alt: 'Screenshot of the Wikipedia article "The Bicycle Tree". The sentence with the example claim is highlighted.'
+        verified_claim: "Claim reads: “In 2013, The Bicycle Tree launched a crowdfunding campaign to open a storefront.[1]”"
+        verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
+        verified_source_alt: "Screenshot of an OC Weekly article, with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign"
+        # `%{source_link}` is the link text below, linked to the source (an `_html` string).
+        verified_conclusion_html: "You can see the %{source_link} explicitly contains the information in the claim."
+        verified_source_link_text: "OC Weekly source"
+        failed_heading: "Example: The claim can't be verified from the source"
+        failed_article_alt: 'Screenshot of the Wikipedia article "Revolutionary Socialist Party (Zambia)". The sentence with the example claim is highlighted.'
+        failed_source_alt: 'Screenshot of a PDF of the cited Burnell 2001 journal article. A search bar has no results for “Revolutionary Socialist Party".'
+        failed_conclusion_html: "Because you can’t find key words from the claim anywhere in the %{source_link}, this fails verification, so you would select “No — the source does not cover what the claim says.”"
+        failed_source_link_text: "source text"
       submit: Submit
       submitted_heading: "Submitted response"
       edit_response: Edit response
