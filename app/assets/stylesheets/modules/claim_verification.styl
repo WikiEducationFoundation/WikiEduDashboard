@@ -314,14 +314,22 @@
     gap 10px
 
 // A worked example inside a form step (the verify step's screenshot pairs):
-// a lead-in, then one section per case, each with its figures two-up and a
-// concluding line. Images link to themselves full-size, since at half the
-// card's width a screenshot is a thumbnail.
+// a lead-in, then one section per case, each with its figures stacked and a
+// concluding line. The screenshots are cropped to the passage that makes the
+// point, so each shows at its natural size up to the card's width — legible
+// in place, rather than two-up thumbnails. Each still links to itself.
 .cv-example
   margin 0 0 26px 0
-  max-width 44em
   color $text_med
   line-height 1.45
+
+  // The prose keeps the form's measure; the figures may use the card's full
+  // width, since a cropped screenshot is only legible at its natural size.
+  &__lead,
+  &__case-heading,
+  &__conclusion,
+  figcaption
+    max-width 44em
 
   &__lead
     margin 0 0 12px 0
@@ -339,7 +347,7 @@
 
   &__figures
     display grid
-    grid-template-columns repeat(2, minmax(0, 1fr))
+    grid-template-columns minmax(0, 1fr)
     gap 14px
     margin-bottom 10px
 
@@ -347,7 +355,7 @@
     margin 0
     img
       display block
-      width 100%
+      max-width 100%
       height auto
       border 1px solid $border_lt
       border-radius 3px
@@ -637,9 +645,6 @@
   .claim-verification-exercise__claim,
   .claim-verification-exercise__source
     padding 20px 22px
-
-  .cv-example__figures
-    grid-template-columns 1fr
 
   .claim-verification-exercise__claim-text
     font-size 1.4em
