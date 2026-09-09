@@ -9614,7 +9614,7 @@ __metadata:
   resolution: "list.js@https://github.com/WikiEducationFoundation/list.js.git#commit=3be71e3414d60e8a40b41a0ca8d582f2f40f9308"
   dependencies:
     string-natural-compare: ^2.0.2
-  checksum: ea0e976ceae4ddc2b7c78ec41214ceabc4e65368261cc635324b1ef0b7fb67cfca0de6f9af0eb6399da08f31480a5804a2927496ea3b238544b6317f2ad0f687
+  checksum: b853ac7141ebd1bf530ca6104950c0ec0f43b1b4d791db8488ba4523011c72301f62e344e1b8aaf060f69fbd93207826ab4ece0a40c99f6c1c929af417e2f9ec
   languageName: node
   linkType: hard
 
@@ -11454,16 +11454,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.21.0, prosemirror-model@npm:^1.25.4, prosemirror-model@npm:^1.25.8":
-  version: 1.25.9
-  resolution: "prosemirror-model@npm:1.25.9"
-  dependencies:
-    orderedmap: ^2.0.0
-  checksum: c86ca3b080df8359997120d6008c527b0ae6e4bd6cf01ea917635163f417d5947a29bf9c338f73a257bafd4fdd23dd235b4518db81c8627ff1699357999d3d74
-  languageName: node
-  linkType: hard
-
-"prosemirror-model@npm:^1.25.11":
+"prosemirror-model@npm:^1.0.0, prosemirror-model@npm:^1.21.0, prosemirror-model@npm:^1.25.11, prosemirror-model@npm:^1.25.4, prosemirror-model@npm:^1.25.8":
   version: 1.25.11
   resolution: "prosemirror-model@npm:1.25.11"
   dependencies:
@@ -11516,18 +11507,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prosemirror-view@npm:^1.0.0, prosemirror-view@npm:^1.1.0, prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0, prosemirror-view@npm:^1.41.4":
-  version: 1.41.9
-  resolution: "prosemirror-view@npm:1.41.9"
-  dependencies:
-    prosemirror-model: ^1.25.8
-    prosemirror-state: ^1.0.0
-    prosemirror-transform: ^1.1.0
-  checksum: c3c224e4addf5d6849548c6ec8671f546e56544325b17adc8a321142ecb74e69c25bed853cb7e29ad58c9023e6857ab79494e25909776e13db3fdb2817909449
-  languageName: node
-  linkType: hard
-
-"prosemirror-view@npm:^1.42.3":
+"prosemirror-view@npm:^1.0.0, prosemirror-view@npm:^1.1.0, prosemirror-view@npm:^1.27.0, prosemirror-view@npm:^1.31.0, prosemirror-view@npm:^1.41.4, prosemirror-view@npm:^1.42.3":
   version: 1.42.3
   resolution: "prosemirror-view@npm:1.42.3"
   dependencies:
@@ -12924,7 +12904,7 @@ __metadata:
   resolution: "slick-carousel@https://github.com/cfoehrdes/slick.git#commit=a4d85536c42951933e1d887bcc013615e25b03e7"
   dependencies:
     jquery: ">=1.7.2"
-  checksum: cfa2527b8425260101f0232d5f0aa4c20b8e9b3954ec82a5c006ddd0b3e682b82e696fa6180eff8c7076a07dc6be15f57168247a1383bd7a706d569385e0599e
+  checksum: 30b5f877b84b8edd48ea7bfb39813c95622cb8f0351956b2398b42b092eca5eeaf593482b904010d77360e04c7a2f5d76e06ba642847450e334368a01f100022
   languageName: node
   linkType: hard
 
