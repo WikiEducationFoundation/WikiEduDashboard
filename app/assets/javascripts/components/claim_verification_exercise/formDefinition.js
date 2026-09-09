@@ -92,6 +92,8 @@ export const formPropType = PropTypes.shape({
     id: PropTypes.string.isRequired,
     heading: PropTypes.string,
     instructions: PropTypes.string,
+    // Name of a component shown between the instructions and the questions.
+    illustration: PropTypes.string,
     visible_when: PropTypes.object,
     questions: PropTypes.arrayOf(questionPropType).isRequired,
   })).isRequired,

@@ -153,6 +153,7 @@ describe ClaimVerification::ExerciseForm do
             'questions' => [{ 'id' => 'colour', 'type' => 'choice', 'required' => true,
                               'options' => %w[red blue], 'retired_options' => %w[green] }] },
           { 'id' => 'explain', 'visible_when' => { 'colour' => ['red'] },
+            'illustration' => 'colour_wheel',
             'questions' => [{ 'id' => 'shade', 'type' => 'text' }] },
           { 'id' => 'note', 'visible_when' => { 'colour' => true },
             'questions' => [{ 'id' => 'why', 'type' => 'text' }] }
@@ -190,6 +191,12 @@ describe ClaimVerification::ExerciseForm do
       expect(labels.find { |option| option[:value] == 'red' })
         .to eq(value: 'red', label: 'Red', description: 'Like a fire engine')
       expect(labels.find { |option| option[:value] == 'blue' }).to eq(value: 'blue', label: 'Blue')
+    end
+
+    # The SPA knows which illustration components exist; the declaration just
+    # names one, and most steps name none.
+    it 'passes a step\'s illustration through as declared' do
+      expect(form.steps.map(&:illustration)).to eq([nil, 'colour_wheel', nil])
     end
 
     it 'gates a step on the answer the declaration names' do

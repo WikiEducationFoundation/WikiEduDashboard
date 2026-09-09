@@ -11,11 +11,17 @@ module ClaimVerification
   # `number` is assigned by ExerciseForm rather than written into the copy, so
   # reordering the steps renumbers them; an unnumbered step (`heading: false`)
   # has no number and no heading, like the closing comments field.
-  FormStep = Data.define(:id, :number, :questions, :visible_when) do
+  #
+  # `illustration` names a client-side component shown between the step's
+  # instructions and its questions (the verify step's worked example); nil for
+  # steps that have none. The name is passed through as declared — the SPA
+  # knows which components exist.
+  FormStep = Data.define(:id, :number, :questions, :visible_when, :illustration) do
     def self.from_config(config, number:)
       new(id: config.fetch('id'), number:,
           questions: (config['questions'] || []).map { |q| FormQuestion.from_config(q) },
-          visible_when: config['visible_when'] || {})
+          visible_when: config['visible_when'] || {},
+          illustration: config['illustration'])
     end
 
     def numbered?

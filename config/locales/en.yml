@@ -1826,6 +1826,17 @@ en:
       claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
       verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
       other_comments_label: "Any other comments about this exercise?"
+      # The verify step's worked example (the `verification_example` illustration
+      # in config/claim_verification_exercise.yml): screenshots of a claim that
+      # verifies, with the caption and conclusion from the edits document.
+      verification_example:
+        lead: "Here’s an example:"
+        verified_heading: "[PLACEHOLDER - short heading for the example where the source verifies the claim; the edits document marks this SCREENSHOT OF VERIFIED]"
+        verified_article_alt: "[PLACEHOLDER - alt text for the screenshot of the Wikipedia article The Bicycle Tree with the claim sentence highlighted]"
+        verified_claim: "Claim reads: “In 2013, The Bicycle Tree started a crowdfunding campaign to open a storefront.[1]”"
+        verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
+        verified_source_alt: "[PLACEHOLDER - alt text for the screenshot of the OC Weekly article with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign]"
+        verified_conclusion: "You can see the OC Weekly source explicitly contains the information in the claim."
       submit: Submit
       submitted_heading: "Submitted response"
       edit_response: Edit response

@@ -313,6 +313,58 @@
     display flex
     gap 10px
 
+// A worked example inside a form step (the verify step's screenshot pairs):
+// a lead-in, then one section per case, each with its figures two-up and a
+// concluding line. Images link to themselves full-size, since at half the
+// card's width a screenshot is a thumbnail.
+.cv-example
+  margin 0 0 26px 0
+  max-width 44em
+  color $text_med
+  line-height 1.45
+
+  &__lead
+    margin 0 0 12px 0
+
+  &__case
+    margin-bottom 22px
+    &:last-child
+      margin-bottom 0
+
+  &__case-heading
+    margin 0 0 10px 0
+    font-size 1em
+    font-weight 600
+    color $text_dk
+
+  &__figures
+    display grid
+    grid-template-columns repeat(2, minmax(0, 1fr))
+    gap 14px
+    margin-bottom 10px
+
+  &__figure
+    margin 0
+    img
+      display block
+      width 100%
+      height auto
+      border 1px solid $border_lt
+      border-radius 3px
+    figcaption
+      margin-top 6px
+      font-size .88em
+      line-height 1.45
+
+  &__caption-line
+    display block
+    margin-bottom 4px
+    &:last-child
+      margin-bottom 0
+
+  &__conclusion
+    margin 0
+
 // A submitted response as question/answer pairs — the student's own summary
 // and the instructor cards share this.
 .cv-response
@@ -585,6 +637,9 @@
   .claim-verification-exercise__claim,
   .claim-verification-exercise__source
     padding 20px 22px
+
+  .cv-example__figures
+    grid-template-columns 1fr
 
   .claim-verification-exercise__claim-text
     font-size 1.4em

@@ -4,6 +4,16 @@ import PropTypes from 'prop-types';
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
 import markdownIt from '~/app/assets/javascripts/utils/markdown_it';
 import { formPropType, visibleQuestions, missingRequired, retiredOptions } from './formDefinition';
+import VerificationExample from './VerificationExample.jsx';
+
+// The components a step may name as its `illustration` in
+// config/claim_verification_exercise.yml, shown between the step's
+// instructions and its questions. A worked example needs layout and images
+// that Markdown copy can't carry, so it is a component; the config still
+// decides which step shows it.
+const ILLUSTRATIONS = {
+  verification_example: VerificationExample,
+};
 
 // Step instructions are operator copy that may link out (eg to the Reliable
 // Sources policy), so they render as Markdown with bare URLs linkified and
@@ -133,6 +143,7 @@ const VerificationForm = ({ courseSlug, form, initial, onSaved, onCancel }) => {
           <section className="cv-form__step" key={step.id}>
             {step.heading && <h2 className="cv-form__step-heading">{step.heading}</h2>}
             {step.instructions && <StepInstructions instructions={step.instructions} />}
+            {ILLUSTRATIONS[step.illustration] && React.createElement(ILLUSTRATIONS[step.illustration])}
             {visibleQuestions(step, answers).map(question => (
               question.type === 'choice' ? (
                 <ChoiceQuestion
