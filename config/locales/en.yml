@@ -1798,7 +1798,15 @@ en:
         inaccessible: "No, the source exists but I could not get access to it."
       source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
       step_verify: "Verify the claim"
-      verify_instructions: "Once you’ve found the cited source, determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it."
+      # Markdown: the tips render as a bulleted list under the paragraph.
+      verify_instructions: |
+        Once you’ve found the cited source, determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it.
+
+        Tips for verification:
+
+        - Read the abstract and conclusion of the source. Does it cover the topic of the claim?
+        - Use the “find” function in your application. Search the source for key words from the claim, then read the surrounding text where they appear. If you cannot find the key words or synonyms of them in the text, the claim is likely unverifiable.
+        - Text created by generative AI sources will often make broad, general claims about a topic with a citation that is cited to a source that offers one small example of that claim. Is the claim extrapolating a general claim from a specific instance? If so, it’s unverifiable.
       verdict_question: "Does the source back up the claim?"
       verdict_options:
         full_support: "Yes — it explicitly supports the full claim."
