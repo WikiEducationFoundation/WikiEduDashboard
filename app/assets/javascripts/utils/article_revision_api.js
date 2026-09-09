@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import { toWikiDomain } from './wiki_utils';
 
 // Cap on how many revisions we fetch/plot, to keep the graph (and the wp10

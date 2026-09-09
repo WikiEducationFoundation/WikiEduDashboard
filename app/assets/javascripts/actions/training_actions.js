@@ -5,7 +5,7 @@ import {
   EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
 } from '../constants';
 import request, { ensureOk } from '../utils/request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 
 const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');

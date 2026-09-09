@@ -2,7 +2,7 @@
 
 
 import { flatten, chunk } from 'lodash-es';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import request, { ensureOk } from './request';
 import { toWikiDomain } from './wiki_utils';
 import { toDate } from './date_utils';

@@ -2,7 +2,7 @@ import { chunk, map, join, filter } from 'lodash-es';
 import * as types from '../constants';
 import CourseUtils from '../utils/course_utils';
 import request, { ensureOk } from '../utils/request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
 

@@ -6,7 +6,7 @@ import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleVi
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import Switch from 'react-switch';
 import { toWikiDomain } from '../../utils/wiki_utils.js';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import ArticleGraphs from './article_graphs.jsx';
 
 const Article = ({ article, index, course, fetchArticleDetails, updateArticleTrackedStatus, articleDetails, wikidataLabel,
