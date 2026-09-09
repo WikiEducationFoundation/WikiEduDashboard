@@ -1774,7 +1774,7 @@ en:
     select_claim_instructions: "The following claims need to be checked against the cited sources, because they may be AI-generated. (Note: the article may have changed since these claims were added.)"
     form:
       step_evaluate_source: Evaluate the source
-      evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review Wikipedia's concept of 'Reliable sources': https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source"
+      evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review the [training on source evaluation](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source)."
       source_appropriate_question: "Is this source appropriate for Wikipedia, for this particular article, and for the claim it supports?"
       source_appropriate_options:
         appropriate: "Yes, it's an appropriate source for the claim"
