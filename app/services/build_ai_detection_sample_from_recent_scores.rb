@@ -8,8 +8,10 @@
 class BuildAiDetectionSampleFromRecentScores < BuildAiDetectionSample
   BANDS = { 'low' => 0.0...0.5, 'mid' => 0.5...0.9, 'high' => 0.9..1.0 }.freeze
 
+  # check_type defaults to whichever detector production alerting currently uses,
+  # so the default follows a cutover instead of silently sampling the old one.
   def initialize(sample_name:, per_band: 40, since: 30.days.ago,
-                 check_type: RevisionAiScore::PANGRAM_V3_KEY, verbose: false)
+                 check_type: CheckRevisionWithPangram::DETECTOR_KEY, verbose: false)
     super(sample_name:, verbose:)
     BANDS.each do |band, range|
       candidates(range, since, check_type).limit(per_band).each { |score| add_score(score, band) }

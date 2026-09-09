@@ -173,6 +173,28 @@ detector's verdict, a list of self-reported false positives a detector still fla
 a human to confirm, never taken as truth), a slope chart for `--pair-by`, a wide CSV of
 max scores, and `summary.md` with the tables.
 
+### Cutover questions
+
+`pangram_cutover.py` answers what changes for production alerting if the detector behind
+`CheckRevisionWithPangram` moves from one registry key to another. It needs a sample built
+by `BuildAiDetectionSampleFromRecentScores` (its units carry the production score and band
+in `metadata`) and the production population per band, which defaults to the September
+2026 preflight counts:
+
+```sh
+.venv/bin/python pangram_cutover.py ~/detector_comparison_2026-09.csv --out ~/detector_results/cutover \
+    --old "Pangram 3" --new "Pangram 4" --recent-sample recent_2026_09 \
+    --population low=12558 mid=770 high=1305 --checks-per-month 2400
+```
+
+Output: positive rate per production band for both detectors, reweighted into a projected
+alert rate (and alerts per month when `--checks-per-month` is given); the old detector's
+fresh score against the stored production score, which measures run-to-run noise; threshold
+transitions (both positive, old only, new only, neither) per sample and old model version;
+humanized-window counts and the score distribution per document label; words per window for
+each detector; baseline false-positive rate per model version; and `cutover_summary.md`
+with the tables.
+
 ## Adding a detector
 
 1. A client class in `lib/` with `#inference(text)` returning the parsed response, raising
