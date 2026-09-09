@@ -1758,7 +1758,7 @@ en:
     take_not_enrolled: You must be enrolled in the course to do that.
     # Exercise copy (operator-provided; see claim_verification_instructions.txt).
     exercise_heading: "Fact Verification Exercise"
-    intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the author’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, and it’s one of the most critical policies behind Wikipedia’s credibility."
+    intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the author’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, one of the most critical policies behind Wikipedia’s credibility."
     intro_p2: "As AI tools become more widely used, it's more important than ever to learn how to verify information. AI-generated content often mismatches facts and sources — which is one of the major reasons why you cannot use it to add content to Wikipedia."
     intro_p3: "In this exercise, you’ll see verifiability in action. You’ll practice how to verify claims by trying to find a specific fact in a cited source."
     # Every step's heading, across the whole exercise: the numbers are composed in
@@ -1793,12 +1793,12 @@ en:
       find_source_instructions: "Now that you’ve selected your claim, track down the cited source. You may need to consult your instructor or librarian to find the source."
       source_access_question: "Were you able to access the full text of the cited source for your claim?"
       source_access_options:
-        accessed: "Yes, I got the source."
+        accessed: "Yes, I have access to the source."
         nonexistent: "No, the source does not exist."
         inaccessible: "No, the source exists but I could not get access to it."
       source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
       step_verify: "Verify the claim"
-      verify_instructions: "Once you’ve found the cited source, examine it carefully to determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it. (Some citations are too imprecise for a reader to practically verify.)"
+      verify_instructions: "Once you’ve found the cited source, determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it."
       verdict_question: "Does the source back up the claim?"
       verdict_options:
         full_support: "Yes — it explicitly supports the full claim."
