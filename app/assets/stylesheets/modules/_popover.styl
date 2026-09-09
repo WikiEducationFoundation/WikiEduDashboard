@@ -6,6 +6,7 @@
 
   .pop
     background white
+    font-size 15px
     border 1px solid mischka
     border-radius 3px
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
@@ -99,4 +100,28 @@
 
   textarea
     height 180px
+    
++below(desktop)
+  .pop__container
+    display flex !important
+    justify-content center !important
+    width 100% !important
 
+    .pop
+      left 50% !important
+      right auto !important
+      transform translateX(-50%) scale(.7, .7) !important
+      -webkit-transform translateX(-50%) scale(.7, .7) !important
+      width 90vw !important
+      max-width 360px !important
+
+      &.open
+        transform translateX(-50%) scale(1, 1) !important
+        -webkit-transform translateX(-50%) scale(1, 1) !important
+
+      &:before,
+      &.open:before,
+      &.right:before
+        left 50% !important
+        right auto !important
+        margin-left -6px !important
