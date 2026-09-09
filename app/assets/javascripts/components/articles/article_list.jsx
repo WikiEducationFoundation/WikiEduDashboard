@@ -10,7 +10,7 @@ import Article from './article.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import articleListKeys from './article_list_keys';
 import ArticleUtils from '../../utils/article_utils.js';
-import { parse, stringify } from 'query-string';
+import { parse, stringify } from '~/app/assets/javascripts/utils/query_string';
 import { PaginatedArticleControls } from './PaginatedArticleControls';
 import Select from 'react-select';
 import sortSelectStyles from '../../styles/sort_select';

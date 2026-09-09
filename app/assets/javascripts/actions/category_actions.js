@@ -1,6 +1,6 @@
 import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from '../constants';
 import request, { ensureOk } from '../utils/request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 
 const fetchCategoriesPromise = async (courseSlug) => {
   const response = await request(`/courses/${courseSlug}/categories.json`);

@@ -1,7 +1,7 @@
 
 
 import request, { ensureOk } from './request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import { chunk } from 'lodash-es';
 import { getAssessments } from './revision_utils';
 // this function takes in a wiki url and the revisions of that particular wiki
