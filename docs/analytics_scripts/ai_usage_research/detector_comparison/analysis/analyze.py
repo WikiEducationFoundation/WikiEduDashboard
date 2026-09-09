@@ -458,7 +458,9 @@ def rate(series):
 def markdown(table):
     if table is None or table.empty:
         return "_none_\n"
-    return table.to_markdown(index=False, floatfmt=".3f") + "\n"
+    # Object dtype keeps integer counts as integers; an all-numeric frame would otherwise
+    # reach tabulate as one float array and print 58 as 58.000.
+    return table.astype(object).to_markdown(index=False, floatfmt=".3f") + "\n"
 
 
 def main():

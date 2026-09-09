@@ -67,3 +67,8 @@ stats.json
 !/fixtures/vcr_cassettes/cached/*
 /backups/
 .ltiaas
+
+# Research data exports under docs/analytics_scripts stay local. Rows pair public
+# Wikipedia diff URLs with AI-detection scores, and this repo is public; the
+# scripts and their READMEs are committed, the data they read and write is not.
+docs/analytics_scripts/**/*.csv
