@@ -72,3 +72,5 @@ stats.json
 # Wikipedia diff URLs with AI-detection scores, and this repo is public; the
 # scripts and their READMEs are committed, the data they read and write is not.
 docs/analytics_scripts/**/*.csv
+# pangram_cutover.py imports analyze.py, so running it compiles a cache there.
+docs/analytics_scripts/**/__pycache__/

@@ -26,7 +26,7 @@ class CheckRevisionWithPangram
     return unless fetch_pangram_inference
 
     parse_pangram_response
-    create_revision_ai_score
+    record_successful_check
 
     generate_alert if ai_likely?
   end
@@ -68,36 +68,64 @@ class CheckRevisionWithPangram
   # attempt is recorded, as a row with nil avg_ai_likelihood, which already means
   # "check this revision again" to already_checked?. A failure that a retry could
   # clear is re-raised for Sidekiq to retry, bounded in AiDetectionWorker; one that
-  # a retry would only re-bill is swallowed here.
+  # a retry would only re-bill is swallowed here and reported to Sentry instead,
+  # since a swallowed failure leaves nothing in the Sidekiq dead set to notice.
   def fetch_pangram_inference
     @pangram_result = detector.client.inference @plain_text
   rescue *AiDetector.recoverable_errors => e
     record_failed_check(e)
     raise unless terminal_failure?(e)
 
+    report_terminal_failure(e)
     nil
   end
 
-  # A request the API refused (malformed, out of credit) and a task the API itself
-  # finished in a failed stage will fail the same way however often they are sent.
+  # 4xx statuses a later attempt could clear: the request itself was acceptable,
+  # it just arrived at a bad moment. Every other 4xx is a refusal — malformed
+  # request, bad key, exhausted credits, oversized text — that will repeat.
+  RETRYABLE_STATUSES = [408, 429].freeze
+
+  # A request the API refused and a task the API itself finished in a failed stage
+  # will fail the same way however often they are sent.
   def terminal_failure?(error)
     case error
-    when PangramApi::RequestError then error.status.to_i.between?(400, 499)
+    when PangramApi::RequestError then refused_status?(error.status.to_i)
     when PangramApi::TaskFailed then true
     else false
     end
   end
 
+  def refused_status?(status)
+    status.between?(400, 499) && RETRYABLE_STATUSES.exclude?(status)
+  end
+
+  # Nothing retries a terminal failure, so this is the only operator-facing signal
+  # that checks are failing. Exhausted credits stop production alerting entirely.
+  def report_terminal_failure(error)
+    Sentry.capture_exception(error, level: 'warning',
+                                    extra: { revision_id: @mw_rev_id,
+                                             course_id: @course_id,
+                                             detector: DETECTOR_KEY })
+  end
+
   # already_checked? guarantees no successful production row exists for this
   # revision, so repeated failures update one row instead of accumulating.
   def record_failed_check(error)
-    score = RevisionAiScore.find_or_initialize_by(
+    production_score.update!(
+      course_id: @course_id, user_id: @user_id, revision_datetime: @rev_datetime,
+      avg_ai_likelihood: nil, max_ai_likelihood: nil,
+      details: { 'error' => error.class.name, 'message' => error.message }
+    )
+  end
+
+  # The one production row for this revision under this detector. A retryable
+  # failure records itself here first, so a later success must update that row
+  # rather than add a second one alongside it.
+  def production_score
+    RevisionAiScore.find_or_initialize_by(
       revision_id: @mw_rev_id, wiki_id: @wiki.id, article_id: @article.id,
       check_type: DETECTOR_KEY, check_origin: RevisionAiScore::COURSE_UPDATE_ORIGIN
     )
-    score.update(course_id: @course_id, user_id: @user_id, revision_datetime: @rev_datetime,
-                 avg_ai_likelihood: nil, max_ai_likelihood: nil,
-                 details: { 'error' => error.class.name, 'message' => error.message })
   end
 
   def parse_pangram_response
@@ -129,18 +157,14 @@ class CheckRevisionWithPangram
     AiEditAlert.exists?(revision_id: @mw_rev_id)
   end
 
-  # Imports data into the RevisionAiScores table
-  def create_revision_ai_score
-    RevisionAiScore.create(revision_id: @mw_rev_id,
-                           wiki_id: @wiki.id,
-                           article_id:  @article.id,
-                           course_id: @course_id,
-                           user_id: @user_id,
-                           revision_datetime: @rev_datetime,
-                           avg_ai_likelihood: @parser.average_ai_likelihood,
-                           max_ai_likelihood: @parser.max_ai_likelihood,
-                           details: @parser.clean_result,
-                           check_type: DETECTOR_KEY,
-                           check_origin: RevisionAiScore::COURSE_UPDATE_ORIGIN)
+  # Imports the scored result into the RevisionAiScores table, over any failure row
+  # an earlier attempt at this revision left behind.
+  def record_successful_check
+    production_score.update!(course_id: @course_id,
+                             user_id: @user_id,
+                             revision_datetime: @rev_datetime,
+                             avg_ai_likelihood: @parser.average_ai_likelihood,
+                             max_ai_likelihood: @parser.max_ai_likelihood,
+                             details: @parser.clean_result)
   end
 end

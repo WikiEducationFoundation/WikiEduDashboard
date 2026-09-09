@@ -46,6 +46,7 @@ BANDS = ["low", "mid", "high"]
 BAND_LABELS = {"low": "low (< 0.5)", "mid": "mid (0.5–0.9)", "high": "high (≥ 0.9)"}
 # Production Pangram 3 checks since 2026-01-01 by band, from the 2026-09-04 preflight.
 DEFAULT_POPULATION = {"low": 12558, "mid": 770, "high": 1305}
+DEFAULT_POPULATION_DATE = "2026-09-04"
 # Document labels take the palette slots after the detectors so a label keeps its hue
 # across charts. The pink slot is under 3:1 on the light surface, so label lines are
 # always direct-labeled and every label chart has a table beside it in the summary.
@@ -64,14 +65,23 @@ def parse_metadata(value):
 
 
 def parse_population(items):
+    """Band counts and their shares, plus which bands came from --population.
+
+    Partial input is merged over DEFAULT_POPULATION, so a fresh count for one band
+    is combined with preflight counts for the others. The headline output of this
+    script is a rate reweighted by these shares, so the provenance of each band
+    travels with them and is printed in the summary.
+    """
     population = dict(DEFAULT_POPULATION)
+    given = set()
     for item in items or []:
         band, _, count = item.partition("=")
         if band not in BANDS or not count.isdigit():
             sys.exit(f"--population expects band=count with band in {BANDS}, got {item!r}")
         population[band] = int(count)
+        given.add(band)
     total = sum(population.values())
-    return population, {band: population[band] / total for band in BANDS}
+    return population, {band: population[band] / total for band in BANDS}, given
 
 
 def per_detector(df, detector):
@@ -363,7 +373,8 @@ def main():
     parser.add_argument("--recent-sample", default="recent_2026_09",
                         help="sample built by BuildAiDetectionSampleFromRecentScores (has band metadata)")
     parser.add_argument("--population", nargs="*", metavar="BAND=COUNT",
-                        help="production checks per band for reweighting; defaults to the 2026-09-04 preflight")
+                        help="production checks per band for reweighting; any band left out "
+                             "keeps its 2026-09-04 preflight count, marked [default] in the summary")
     parser.add_argument("--checks-per-month", type=float,
                         help="production checks per month, to express projected rates as alerts per month")
     parser.add_argument("--baseline-provenance", default="pre_llm_term")
@@ -377,7 +388,7 @@ def main():
     meta = df["metadata"].map(parse_metadata)
     df["band"] = meta.map(lambda m: m.get("band"))
     df["source_max"] = pd.to_numeric(meta.map(lambda m: m.get("source_max_ai_likelihood")), errors="coerce")
-    population, shares = parse_population(args.population)
+    population, shares, given_bands = parse_population(args.population)
     detectors = [args.old, args.new]
     recent = df[df["sample_name"] == args.recent_sample] if args.recent_sample else df[df["band"].notna()]
 
@@ -408,7 +419,13 @@ def main():
 
     baseline = baseline_by_version(df)
 
-    population_text = ", ".join(f"{b} {population[b]:,} ({shares[b]:.1%})" for b in BANDS)
+    population_text = ", ".join(
+        f"{b} {population[b]:,} ({shares[b]:.1%}){'' if b in given_bands else ' [default]'}"
+        for b in BANDS
+    )
+    if given_bands and given_bands != set(BANDS):
+        print(f"--population supplied for {sorted(given_bands)}; "
+              f"{sorted(set(BANDS) - given_bands)} use the {DEFAULT_POPULATION_DATE} preflight counts.")
     summary = [
         "# Detector cutover analysis\n",
         f"Source: `{args.export_csv}`; old detector: {args.old}; new detector: {args.new}; "

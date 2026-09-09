@@ -436,6 +436,61 @@ describe CheckRevisionWithPangram do
 
       expect(RevisionAiScore.where.not(avg_ai_likelihood: nil).count).to eq(1)
     end
+
+    it 'scores over the failure row rather than adding a second row' do
+      allow_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::TaskTimeout, 'task 1 unfinished after 60s')
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.to raise_error(PangramApi::TaskTimeout)
+
+        allow_any_instance_of(PangramApi).to receive(:inference)
+          .and_return(simplified_pangram_response)
+        described_class.new(attrs)
+      end
+
+      expect(RevisionAiScore.count).to eq(1)
+      expect(RevisionAiScore.last.avg_ai_likelihood).not_to be_nil
+    end
+
+    it 're-raises a rate limit so the worker retries it' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(429, 'too many requests'))
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.to raise_error(PangramApi::RequestError)
+      end
+    end
+
+    it 're-raises a request timeout so the worker retries it' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(408, 'request timeout'))
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.to raise_error(PangramApi::RequestError)
+      end
+    end
+
+    it 'reports a terminal failure to Sentry, which nothing else would surface' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(402, 'out of credit'))
+      expect(Sentry).to receive(:capture_exception)
+        .with(instance_of(PangramApi::RequestError), hash_including(level: 'warning'))
+
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(attrs)
+      end
+    end
+
+    it 'does not report a retryable failure to Sentry, which Sidekiq reports' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+        .and_raise(PangramApi::RequestError.new(503, 'unavailable'))
+      expect(Sentry).not_to receive(:capture_exception)
+
+      VCR.use_cassette 'pangram_2' do
+        expect { described_class.new(attrs) }.to raise_error(PangramApi::RequestError)
+      end
+    end
   end
 
   context 'when the revision has empty plain text' do
