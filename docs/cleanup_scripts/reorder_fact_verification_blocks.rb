@@ -34,9 +34,13 @@ def move_fact_verification_blocks(dry_run: true, only_unended: true)
     end
 
     week = fv.week
+    # Read the week fresh from the database rather than via `week.blocks`:
+    # candidates in the same week share one preloaded Week instance (Block
+    # default_scope), so its association cache would hand a second candidate
+    # the stale `order` values from before the first one was moved.
     # `order` is not unique within a week in real data, so break ties by id to
     # read the current sequence deterministically.
-    blocks = week.blocks.to_a.sort_by { |b| [b.order.to_i, b.id] }
+    blocks = Block.where(week_id: week.id).to_a.sort_by { |b| [b.order.to_i, b.id] }
     # First Evaluate block wins, in case a week somehow has more than one.
     eval_block = blocks.find { |b| (mods.call(b) & eval_modules).any? }
     next report[:not_same_week] << course.slug if eval_block.nil?
@@ -54,9 +58,9 @@ def move_fact_verification_blocks(dry_run: true, only_unended: true)
     # after a drag. update_column because `order` has no validations, nothing
     # derives a date from it (BlockDateManager keys off week.order), and it
     # skips the LTI line-item sync callback, which a pure reorder doesn't affect.
-    reordered.each_with_index do |b, i|
-      b.update_column(:order, i) unless b.order == i
-    end
+    # Every row is written unconditionally: `fv` itself may carry an in-memory
+    # `order` left stale by an earlier candidate in the same week.
+    reordered.each_with_index { |b, i| b.update_column(:order, i) }
   end
 
   puts dry_run ? "\n=== DRY RUN — nothing written ===" : "\n=== WROTE CHANGES ==="
