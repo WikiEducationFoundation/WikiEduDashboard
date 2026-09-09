@@ -1831,15 +1831,15 @@ en:
       # verifies, with the caption and conclusion from the edits document.
       verification_example:
         lead: "Here’s an example:"
-        verified_heading: "[PLACEHOLDER - short heading for the example where the source verifies the claim; the edits document marks this SCREENSHOT OF VERIFIED]"
-        verified_article_alt: "[PLACEHOLDER - alt text for the screenshot of the Wikipedia article The Bicycle Tree with the claim sentence highlighted]"
+        verified_heading: "Example: The source backs up the claim"
+        verified_article_alt: 'Screenshot of the Wikipedia article "The Bicycle Tree". The sentence with the example claim is highlighted.'
         verified_claim: "Claim reads: “In 2013, The Bicycle Tree started a crowdfunding campaign to open a storefront.[1]”"
         verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
-        verified_source_alt: "[PLACEHOLDER - alt text for the screenshot of the OC Weekly article with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign]"
+        verified_source_alt: "Screenshot of an OC Weekly article, with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign"
         verified_conclusion: "You can see the OC Weekly source explicitly contains the information in the claim."
-        failed_heading: "[PLACEHOLDER - short heading for the example where the source does not verify the claim; the edits document marks this SCREENSHOT OF FAILED]"
-        failed_article_alt: "[PLACEHOLDER - alt text for the screenshot of the Wikipedia article Revolutionary Socialist Party (Zambia) with the claim sentence highlighted]"
-        failed_source_alt: "[PLACEHOLDER - alt text for the screenshot of the cited Burnell 2001 journal article open in a PDF viewer, with a search for “Revolutionary Socialist Party” returning no results]"
+        failed_heading: "Example: The claim can't be verified from the source"
+        failed_article_alt: 'Screenshot of the Wikipedia article "Revolutionary Socialist Party (Zambia)". The sentence with the example claim is highlighted.'
+        failed_source_alt: 'Screenshot of a PDF of the cited Burnell 2001 journal article. A search bar has no results for “Revolutionary Socialist Party".'
         failed_conclusion: "Because you can’t find key words from the claim anywhere in the source text, this fails verification, so you would select “No — the source does not cover what the claim says.”"
       submit: Submit
       submitted_heading: "Submitted response"
