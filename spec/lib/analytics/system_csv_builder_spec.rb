@@ -198,6 +198,7 @@ describe SystemCsvBuilder do
       expect(csv).to include('course_slug')
       expect(csv).to include('title')
       expect(csv).to include('total_edits')
+      expect(csv).to include('retained_new_editors')
     end
 
     it 'handles empty search results gracefully without raising errors' do
@@ -237,6 +238,32 @@ describe SystemCsvBuilder do
     it 'only counts students registered during their course duration' do
       builder = described_class.new(filters: {})
       counts = builder.send(:fetch_new_editor_counts, [active_en_course.id, archived_fr_course.id])
+      expect(counts[active_en_course.id]).to eq(1)
+      expect(counts[archived_fr_course.id]).to be_nil
+    end
+  end
+
+  describe '#retained_editor_counts' do
+    let!(:retained_student) { create(:user, username: 'retained_s', registered_at: 1.month.ago) }
+    let!(:inactive_student) { create(:user, username: 'inactive_s', registered_at: 1.month.ago) }
+    let!(:non_new_editor)   { create(:user, username: 'old_s', registered_at: 1.year.ago) }
+
+    before do
+      create(:courses_user, course: active_en_course, user: retained_student,
+                            role: CoursesUsers::Roles::STUDENT_ROLE,
+                            retained_after_course: true)
+      create(:courses_user, course: active_en_course, user: inactive_student,
+                            role: CoursesUsers::Roles::STUDENT_ROLE,
+                            retained_after_course: false)
+      create(:courses_user, course: active_en_course, user: non_new_editor,
+                            role: CoursesUsers::Roles::STUDENT_ROLE,
+                            retained_after_course: true)
+    end
+
+    it 'aggregates retained new editors per course, excluding non-new editors' do
+      builder = described_class.new(filters: {})
+      course_ids = [active_en_course.id, archived_fr_course.id]
+      counts = builder.send(:fetch_retained_editor_counts, course_ids)
       expect(counts[active_en_course.id]).to eq(1)
       expect(counts[archived_fr_course.id]).to be_nil
     end

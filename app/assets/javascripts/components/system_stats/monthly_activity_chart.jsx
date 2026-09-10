@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 
 const METRIC_KEYS = [
   'edits', 'articleViews', 'articlesCreated', 'articlesImproved',
-  'charactersAdded', 'newEditors', 'activePrograms', 'activeFacilitators'
+  'charactersAdded', 'newEditors', 'retainedNewEditors', 'activePrograms', 'activeFacilitators'
 ];
 
 const METRIC_I18N_MAP = {
@@ -13,6 +13,7 @@ const METRIC_I18N_MAP = {
   articlesImproved: 'system_stats.kpis.articles_improved',
   charactersAdded: 'system_stats.kpis.characters_added',
   newEditors: 'system_stats.kpis.new_editors',
+  retainedNewEditors: 'system_stats.kpis.retained_new_editors',
   activePrograms: 'system_stats.kpis.active_programs',
   activeFacilitators: 'system_stats.kpis.active_facilitators'
 };
@@ -25,6 +26,7 @@ const METRIC_COLORS = {
   articlesImproved: { color: '#805ad5', bg: 'rgba(128, 90, 213, 0.1)' },
   charactersAdded: { color: '#dd6b20', bg: 'rgba(221, 107, 32, 0.1)' },
   newEditors: { color: '#319795', bg: 'rgba(49, 151, 149, 0.1)' },
+  retainedNewEditors: { color: '#008080', bg: 'rgba(0, 128, 128, 0.1)' },
   activePrograms: { color: '#d69e2e', bg: 'rgba(214, 158, 46, 0.1)' },
   activeFacilitators: { color: '#4a5568', bg: 'rgba(74, 85, 104, 0.1)' }
 };
