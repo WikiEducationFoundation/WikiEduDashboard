@@ -113,9 +113,18 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     }
     // If course is not published, show the 'delete' button to instructors and admins.
     if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
+      // Deleting a course that is linked to a Wikimedia Event Registration event
+      // would break registration for that event, so the server refuses it.
+      const linkedToEvent = Boolean(course.flags.event_sync);
+      let deleteTitle;
+      if (linkedToEvent) {
+        deleteTitle = I18n.t('courses.error.event_sync_delete');
+      } else if (Features.wikiEd) {
+        deleteTitle = I18n.t('courses.delete_course_instructions');
+      }
       controls.push((
-        <div title={Features.wikiEd ? I18n.t('courses.delete_course_instructions') : undefined} key="delete" className="available-action">
-          <button className="button danger" onClick={deleteCourseFunc}>
+        <div title={deleteTitle} key="delete" className="available-action">
+          <button className={linkedToEvent ? 'button danger disabled' : 'button danger'} onClick={deleteCourseFunc} disabled={linkedToEvent}>
             {CourseUtils.i18n('delete_course', course.string_prefix)}
           </button>
         </div>

@@ -142,6 +142,26 @@ describe JoinCourse do
     end
   end
 
+  context 'when a concurrent request enrolls the user first' do
+    let(:course) { editathon }
+
+    before do
+      # Simulate the race: both the enrollment check and the model's uniqueness
+      # validation ran before the other request committed, so only the database's
+      # unique index catches the duplicate.
+      create(:courses_user, course:, user: second_user, role: CoursesUsers::Roles::STUDENT_ROLE)
+      allow(CoursesUsers).to receive(:exists?).and_return(false)
+      allow_any_instance_of(CoursesUsers).to receive(:valid?).and_return(true)
+    end
+
+    it 'reports a repeat join instead of raising' do
+      result = described_class.new(course:, user: second_user,
+                                   role: CoursesUsers::Roles::STUDENT_ROLE).result
+      expect(result['failure']).to eq('cannot_join_twice')
+      expect(CoursesUsers.where(course:, user: second_user).count).to eq(1)
+    end
+  end
+
   context 'for a disallowed user' do
     let(:course) { basic_course }
     let(:disallowed_user) { create(:user, username: 'DisallowedBot') }
