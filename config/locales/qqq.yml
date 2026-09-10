@@ -540,6 +540,8 @@ qqq:
     training_nav: Link to go to the training page (Wiki Ed only)
     training_overdue: Training due date has passed for this course (Wiki Ed only)
     unsubmitted: Name for pseudo-campaign of unsubmitted courses (Wiki Ed only)
+    unsubmitted_show_all: Link on the unsubmitted courses page. By default the page only lists courses that started within the last three months or have not started yet; this link switches to the full list.
+    unsubmitted_show_recent: Link on the unsubmitted courses page that switches from the full list back to the default view (courses that started within the last three months or have not started yet).
     untrained: '{{Identical|Untrained}}'
     view: Label for link to a course page
     view_doc: Explanation of what 'article views' means
