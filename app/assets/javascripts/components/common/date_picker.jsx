@@ -46,7 +46,8 @@ const DatePicker = createReactClass({
   getInitialState() {
     if (this.props.value) {
       const parsed = toDate(this.props.value);
-      const dateObj = this.props.showTime ? parsed : getUTCDate(parsed);
+      const dateOnlyString = typeof this.props.value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(this.props.value);
+      const dateObj = (this.props.showTime || dateOnlyString) ? parsed : getUTCDate(parsed);
       return {
         value: formatDateWithoutTime(dateObj),
         hour: getHours(dateObj),
