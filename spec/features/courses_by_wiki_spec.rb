@@ -32,7 +32,8 @@ end
 describe 'unsubmitted courses page', type: :feature, js: true do
   before do
     stub_wiki_validation
-    create(:course, title: 'Draft course', submitted: false)
+    create(:course, title: 'Draft course', submitted: false,
+                    start: 1.week.ago, end: 1.year.from_now)
     login_as(create(:admin))
   end
 

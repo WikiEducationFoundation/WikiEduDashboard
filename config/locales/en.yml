@@ -1037,6 +1037,8 @@ en:
     training_nav: Go to training
     training_overdue: The training module "%{title}" is assigned for this course, and was due on %{date}.
     unsubmitted: Unsubmitted Courses
+    unsubmitted_show_all: Show all
+    unsubmitted_show_recent: Show recent
     untrained: Untrained
     update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
