@@ -214,6 +214,29 @@ describe WikimediaEventCenterController, type: :request do
       end
     end
 
+    context 'when an overlapping sync already enrolled a participant' do
+      let(:usernames) { ['RandomUser'] }
+
+      before do
+        JoinCourse.new(course:, user: non_organizer,
+                       role: CoursesUsers::Roles::STUDENT_ROLE, event_sync: true)
+        # Simulate the race: this request read the roster and ran the enrollment
+        # checks before the other request's insert committed, so only the
+        # database's unique index catches the duplicate.
+        allow_any_instance_of(Course).to receive(:students).and_return(User.none)
+        allow(CoursesUsers).to receive(:exists?).and_return(false)
+        allow_any_instance_of(CoursesUsers).to receive(:valid?).and_return(true)
+      end
+
+      it 'succeeds without duplicating the enrollment' do
+        subject
+        expect(response).to have_http_status(:ok)
+        enrollments = CoursesUsers.where(course:, user: non_organizer,
+                                         role: CoursesUsers::Roles::STUDENT_ROLE)
+        expect(enrollments.count).to eq(1)
+      end
+    end
+
     context 'when the course is already synced to another event' do
       let(:event_id) { '54321' }
       let(:usernames) { ['Ragesoss'] }

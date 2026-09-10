@@ -856,6 +856,8 @@ en:
       duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
       invalid_slug: Blank school/title for course.
       duplicate_slug: "Another program called %{slug} already exists."
+      event_sync_delete: This page is linked to Wikimedia Event Registration and cannot be deleted.
+      event_sync_rename: This page is linked to Wikimedia Event Registration and cannot be renamed.
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
     feedback: Feedback
