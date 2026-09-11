@@ -10,6 +10,12 @@ These files are the main web server configuration files:
 * `dashboard.conf` # apache config for dashboard.wikiedu.org (ie, production)
 * `dashboard-testing.conf` # apache config for dashboard-testing.wikiedu.org (ie, staging)
 
+## Network firewall
+
+Inbound traffic to the production and staging Linodes is filtered by an Akamai (Linode)
+Cloud Firewall. The rule set, the rollout runbook, and the change procedure are in
+[`firewall.md`](./firewall.md). Change the file first, then the live firewall.
+
 ## Database backup
 
 We've designed a system to perform automatic database backups periodically

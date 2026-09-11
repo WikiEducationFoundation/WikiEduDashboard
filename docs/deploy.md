@@ -48,6 +48,7 @@ Debian upgrade (about two and a half minutes for the 2.8 GB database).
    allowlists reference. Only build a new server if the Linode is gone.
 2. Set up a new production server. The production Apache configuration and a sanitized
    application.yml are checked in to this repo (see [`server_config/`](../server_config/SERVER_CONFIG.md)).
+   Attach the Cloud Firewall described in [`server_config/firewall.md`](../server_config/firewall.md).
 3. Obtain a TLS certificate from Let's Encrypt with certbot (production uses the certbot
    snap with the Apache authenticator, so port 80 must be reachable).
 4. If the server's IP addresses changed, update the Wikimedia-side allowlists that

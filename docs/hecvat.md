@@ -233,7 +233,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** The Dashboard runs on a single server (Linode, Fremont CA) that hosts the web application and the database together; as the public web server it has a publicly routable IP. The database is reached locally by the co-located application and is not exposed as a separate internet-facing service.
+**Notes:** The Dashboard runs on a single server (Linode, Fremont CA) that hosts the web application and the database together; as the public web server it has a publicly routable IP. The database is reached locally by the co-located application and is not exposed as a separate internet-facing service; a network firewall admits only SSH, HTTP/HTTPS, and ICMP to the server.
 
 **DATA-02** — Is the transport of sensitive data encrypted using security protocols/algorithms (e.g., system-to-client)?
 
@@ -338,15 +338,15 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **FIDP-01** — Are you utilizing a stateful packet inspection (SPI) firewall?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** No firewall is configured: the documented server setup (server_config/) does not include one, and Debian ships netfilter with no active rules by default.
+**Notes:** Inbound traffic to the production server is filtered by a stateful network firewall (Akamai/Linode Cloud Firewall) applied outside the server: the default inbound policy is drop, with only SSH, HTTP/HTTPS, and ICMP permitted; outbound traffic is unrestricted. The rule set and change procedure are published in the open-source repository (server_config/firewall.md). No separate host-based firewall is configured.
 
 **FIDP-02** — Do you have a documented policy for firewall change requests?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** No firewall, and no documented firewall-change policy.
+**Notes:** Firewall changes follow the procedure documented in server_config/firewall.md: the rule set is maintained in the repository, planned changes are reviewed there before being applied through the hosting provider's console, and emergency changes are recorded within one business day.
 
 **FIDP-03** — Have you implemented an intrusion detection system (network-based)?
 
@@ -362,9 +362,9 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **FIDP-05** — Are audit logs available for all changes to the network, firewall, IDS, and IPS systems?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** No firewall/IDS/IPS systems are in place (see FIDP-01/03/04), and no dedicated audit logging of network/firewall changes is configured.
+**Notes:** Every change to the network firewall (creation, rule updates, attaching or detaching a server, enabling or disabling) is recorded in the hosting account's event history with the acting user and timestamp, retained for 90 days; the intended rule set and its history are kept in the public repository. No IDS or IPS is deployed (see FIDP-03 and FIDP-04).
 
 
 ## Vulnerability Management
