@@ -110,7 +110,9 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **PPPR-01** — Do you have a documented patch management process?
 
-**Answer:** No
+**Answer:** Yes
+
+**Notes:** The process is documented in the open-source repository (docs/patch_management.md). Operating-system security updates from the Debian security suite are applied automatically each day; other package updates, dependency vulnerability alerts, and runtime versions are handled in a monthly cycle that ends with recorded post-change checks; operating-system release upgrades are carried out before the running release leaves security support; and critical vulnerabilities in internet-facing components are fixed out of band. The CTO owns the process.
 
 **PPPR-02** — Can your organization comply with institutional policies on privacy and data protection with regard to users of institutional systems, if required?
 

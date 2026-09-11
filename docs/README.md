@@ -14,6 +14,7 @@
 - [Deployment](deploy.md)
 - [Admin Guide](docs/admin_guide.md)
 - [Upgrading dependencies](upgrade_dependencies.md)
+- [Patch management](patch_management.md)
 - [Tools & Integrations](tools.md)
 - [Model diagram](../erd.pdf)
 - [Miscellaneous Credits](miscellaneous_credits.md)
