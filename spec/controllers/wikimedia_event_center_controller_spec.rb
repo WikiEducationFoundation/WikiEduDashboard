@@ -180,6 +180,22 @@ describe WikimediaEventCenterController, type: :request do
         expect(course.reload.flags[:event_sync]).to eq('12345')
       end
     end
+
+    context 'when the unlink cannot be saved' do
+      before do
+        allow_any_instance_of(Course).to receive(:save).and_return(false)
+        allow(Sentry).to receive(:capture_message)
+      end
+
+      it 'returns an error instead of reporting success' do
+        subject
+        expect(response).to have_http_status(:internal_server_error)
+        expect(JSON.parse(response.body)['error_code']).to eq('course_not_saved')
+        expect(course.reload.flags[:event_sync]).to eq('12345')
+        expect(Sentry).to have_received(:capture_message)
+          .with('Event Center sync failed: course_not_saved', hash_including(level: 'error'))
+      end
+    end
   end
 
   describe '#update_event_participants' do

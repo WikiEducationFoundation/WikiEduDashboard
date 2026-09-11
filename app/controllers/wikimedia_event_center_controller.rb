@@ -48,11 +48,12 @@ class WikimediaEventCenterController < ApplicationController
   #   invalid_secret - The shared secret doesn't match
   #   course_not_found - A Course with the provided slug doesn't exist
   #   sync_not_enabled - This Course isn't linked to the Event Center event (based on event_id)
+  #   course_not_saved - The unlink could not be saved, so the course is still linked to the event.
   def unsync_event
     verify_secret { return }
     set_course { return }
     verify_event_sync { return }
-    disable_event_sync
+    disable_event_sync { return }
     render json: { success: true }
   end
 
@@ -145,7 +146,13 @@ class WikimediaEventCenterController < ApplicationController
   def disable_event_sync
     return if params[:dry_run]
 
-    @course.remove_flag(:event_sync)
+    # Same reasoning as enable_event_sync: the extension drops its side of the
+    # link on success, so reporting success while the flag stays behind would
+    # leave the course permanently unlinkable.
+    raise CourseNotSavedError unless @course.remove_flag(:event_sync)
+  rescue CourseNotSavedError => e
+    render_failed_save(e)
+    yield
   end
 
   def verify_event_sync
