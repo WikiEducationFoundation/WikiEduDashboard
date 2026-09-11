@@ -113,7 +113,11 @@ describe CourseCloneManager do
     end
 
     it 'only carries over specific course flags' do
-      expect(clone.flags).to eq({ peer_review_count: 3 })
+      expect(clone.flags).to eq({ peer_review_count: 3, use_acuwt: true })
+    end
+
+    it 'uses the ACUWT update path' do
+      expect(clone.use_acuwt?).to eq(true)
     end
   end
 

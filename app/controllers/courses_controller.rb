@@ -429,6 +429,12 @@ class CoursesController < ApplicationController
     @course.save
   end
 
+  # New courses use the ACUWT update path; existing courses are migrated separately.
+  def update_use_acuwt
+    @course.flags[:use_acuwt] = true
+    @course.save
+  end
+
   def update_last_reviewed
     username = params.dig(:course, 'last_reviewed', 'username')
     timestamp = params.dig(:course, 'last_reviewed', 'timestamp')
@@ -454,6 +460,7 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_timeslice_duration
+    update_use_acuwt
   end
 
   def course_params

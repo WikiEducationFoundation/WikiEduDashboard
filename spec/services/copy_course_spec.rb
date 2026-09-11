@@ -388,6 +388,10 @@ describe CopyCourse do
       it 'exposes online_volunteers_enabled? through the model reader after copy' do
         expect(copied_course.online_volunteers_enabled?).to eq(true)
       end
+
+      it 'uses the ACUWT update path' do
+        expect(copied_course.use_acuwt?).to eq(true)
+      end
     end
 
     describe 'relative link rewriting' do

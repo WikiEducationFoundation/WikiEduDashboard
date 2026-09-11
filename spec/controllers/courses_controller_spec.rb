@@ -400,6 +400,11 @@ describe CoursesController, type: :request do
           post '/courses', params: { course: course_params }, as: :json
           expect(Course.last.passcode).to eq('passcode')
         end
+
+        it 'uses the ACUWT update path' do
+          post '/courses', params: { course: course_params }, as: :json
+          expect(Course.last.use_acuwt?).to eq(true)
+        end
       end
 
       context 'sets en empty passcode' do
