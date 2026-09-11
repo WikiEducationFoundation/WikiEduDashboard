@@ -62,9 +62,12 @@ module CourseQueueSorting
   end
 
   def update_longest_update_time(course)
-    return unless longest_recent_update_time(course).to_i >= longest_update_time(course).to_i
+    longest = longest_recent_update_time(course)
+    return unless longest.to_i >= longest_update_time(course).to_i
+    # This runs for every course on every scheduler pass and add_flag takes a
+    # row lock, so only write when the value actually changes.
+    return if longest == longest_update_time(course)
 
-    course.flags[:longest_update] = longest_recent_update_time(course)
-    course.save
+    course.add_flag(key: :longest_update, value: longest)
   end
 end
