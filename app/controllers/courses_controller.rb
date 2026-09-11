@@ -377,6 +377,7 @@ class CoursesController < ApplicationController
     update_course_format
     update_last_reviewed
     update_assignment_settings
+    @course.save
   end
 
   UPDATABLE_FLAGS = [
@@ -398,7 +399,6 @@ class CoursesController < ApplicationController
         @course.flags[flag] = false
       end
     end
-    @course.save
   end
 
   EDIT_SETTING_KEYS = %w[
@@ -410,29 +410,24 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
-    @course.save
   end
 
   def update_academic_system
     @course.flags['academic_system'] = params.dig(:course, 'academic_system')
-    @course.save
   end
 
   def update_course_format
     @course.flags['format'] = params.dig(:course, 'format')
-    @course.save
   end
 
   def update_timeslice_duration
     # Set the default timeslice_duration to the default value
     @course.flags[:timeslice_duration] = { default: TimesliceManager::TIMESLICE_DURATION }
-    @course.save
   end
 
   # New courses use the ACUWT update path; existing courses are migrated separately.
   def update_use_acuwt
     @course.flags[:use_acuwt] = true
-    @course.save
   end
 
   def update_last_reviewed
@@ -443,15 +438,12 @@ class CoursesController < ApplicationController
       'username' => username,
       'timestamp' => timestamp
     }
-    @course.save
   end
 
   def update_assignment_settings
     max_group_size = params.dig(:course, :flags, :max_group_size)
 
     @course.flags[:max_group_size] = max_group_size.to_i if max_group_size.present?
-
-    @course.save
   end
 
   def handle_post_course_creation_updates
@@ -461,6 +453,7 @@ class CoursesController < ApplicationController
     update_course_format
     update_timeslice_duration
     update_use_acuwt
+    @course.save
   end
 
   def course_params
