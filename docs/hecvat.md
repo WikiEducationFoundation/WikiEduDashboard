@@ -292,7 +292,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** The application runs on current, supported runtimes — Ruby 3.4.8 and Rails 8.1 — with maintained dependencies. The host OS is Debian 12 (bookworm), which is under Debian security support; the web server, database, and cache (Apache, MariaDB, Redis) run at supported releases from the Debian and Redis package repositories.
+**Notes:** The application runs on current, supported runtimes — Ruby 3.4.8 and Rails 8.1 — with maintained dependencies. The host OS is Debian 12 (bookworm), which is under Debian security support through June 2028; the web server, database, and cache (Apache, MariaDB, Redis) run at supported releases from the Debian and Redis package repositories.
 
 **APPL-04** — Does your application require access to location or GPS data?
 
