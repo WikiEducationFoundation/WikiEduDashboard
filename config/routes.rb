@@ -330,6 +330,9 @@ Rails.application.routes.draw do
   get 'system_stats' => 'system_stats#index'
   get 'system_stats/wiki_trends' => 'system_stats#wiki_trends'
   get 'system_stats/facilitators' => 'system_stats#facilitators'
+  # Scholars & Scientists report cards (admin-only, Wiki Education Dashboard only)
+  get 'report_cards' => 'report_cards#index'
+  get 'report_cards/:campaign_slug' => 'report_cards#show'
 
   # Reports generated in background
   # Course reports

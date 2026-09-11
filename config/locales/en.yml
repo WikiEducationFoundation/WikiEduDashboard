@@ -1422,6 +1422,41 @@ en:
       overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only
       track the namespaces that your program aims to improve.
 
+  report_cards:
+    title: Report cards
+    subtitle: Scholars & Scientists report card
+    campaign: Campaign
+    courses: Courses
+    download_csv: Download CSV
+    pending: pending
+    total: Total
+    empty: "no stats computed"
+    legend: "Long-term Wikipedians (500+ edits before the course) are counted under Participants but left out of every other figure. Cells marked pending fill in 31 and 91 days after a course ends."
+    groups:
+      general: General
+      during: During the course
+      after: After the course
+    columns:
+      number: "#"
+      title: Course
+      instructors: Instructor
+      participants: Participants
+      long_term_wikipedians: "…of which is a long-term Wikipedian (500+ edits)"
+      sessions_during: Editing sessions
+      avg_sessions_during: Average editing sessions per participant
+      zero_edit_participants: Participants with no edits
+      uploads: Total number of uploads
+      avg_uploads: Average number of uploads per participant
+      words: Total number of words added
+      avg_words: Average amount of words per participant
+      editors_after_course: Participants who edited in 30 days after course
+      pct_active_editors_after: Percentage of active participants who made 1+ edit within 30 days after course
+      avg_days_to_return: Days to first independent edit
+      avg_sessions_after: Average editing sessions 30 days after course
+      any_survival_edits: Participants with 1+ edits between days 60 and 90 after course end
+      any_survival_edits_returning: "…of which took a prior course"
+      survivors: Participants with 5+ edits between days 60 and 90 after course end
+      survivors_returning: "…of which took a prior course"
   recent_activity:
     active_courses: Article is active in
     article_title: Title

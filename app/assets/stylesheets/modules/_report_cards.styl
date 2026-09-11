@@ -1,0 +1,44 @@
+// Admin-only Scholars & Scientists report cards (/report_cards).
+.report-card
+  &__legend
+    max-width 800px
+
+  &__scroll
+    overflow-x auto
+    margin-bottom 40px
+
+  &__table
+    min-width 2200px
+
+    thead th,
+    tbody td
+      padding 8px 10px
+      font-size 13px
+
+    thead th
+      vertical-align bottom
+      min-width 90px
+      max-width 150px
+      white-space normal
+
+    th.report-card__group
+      text-align center
+      font-size 15px
+      border-bottom 2px solid #ddd
+
+  &__title
+    min-width 180px
+
+  &__number
+    text-align right
+
+  td.report-card__number
+    white-space nowrap
+
+  &__pending
+    color #999
+    font-style italic
+
+  &__totals td
+    font-weight bold
+    border-top 2px solid #ddd
