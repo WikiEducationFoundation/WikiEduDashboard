@@ -7,7 +7,7 @@
 > infrastructure details, then reviewed and confirmed by Wiki Education (Sage Ross,
 > Chief Technology Officer).
 >
-> **Last reviewed:** 2026-09-11, after the production server's operating-system upgrade.
+> **Last reviewed:** 2026-09-11.
 
 This is a Higher Education Community Vendor Assessment Toolkit (HECVAT) response for the Wiki Education Dashboard's Canvas (LTI 1.3) integration, covering the **critical ("Core") questions** — the asterisked subset EDUCAUSE recommends for a Lite-style review. (Full HECVAT 4 has 332 questions across seven tabs; this Core answers the critical and identification questions.) Answers use **Yes / No / N/A**; the Notes field is optional context.
 
@@ -67,7 +67,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** No
 
-**Notes:** Wiki Education maintains a disaster recovery plan (the recovery procedure in the open-source repository's deployment documentation, owned by the CTO), but does not test it on a fixed annual schedule. The database-restore step was most recently exercised on 2026-09-02, when the weekly backup was restored onto a clone of the production server while rehearsing the operating-system upgrade.
+**Notes:** Wiki Education maintains a disaster recovery plan (the recovery procedure in the open-source repository's deployment documentation, owned by the CTO), but does not test it on a fixed annual schedule.
 
 
 ## Assessment of Third Parties
@@ -292,7 +292,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** The application runs on current, supported runtimes — Ruby 3.4.8 and Rails 8.1 — with maintained dependencies. The host OS is Debian 12 (bookworm), upgraded in place from Debian 11 on 2026-09-04 and covered by Debian LTS security support through June 2028; the web server, database, and cache (Apache, MariaDB, Redis) run at supported releases from the Debian and Redis package repositories. A further in-place upgrade to Debian 13 (trixie, supported through 2030) is planned.
+**Notes:** The application runs on current, supported runtimes — Ruby 3.4.8 and Rails 8.1 — with maintained dependencies. The host OS is Debian 12 (bookworm), which is under Debian security support; the web server, database, and cache (Apache, MariaDB, Redis) run at supported releases from the Debian and Redis package repositories.
 
 **APPL-04** — Does your application require access to location or GPS data?
 
@@ -392,7 +392,7 @@ _Additional Information_
 
 **Answer:** Yes
 
-**Notes:** A VPAT 2.5 (WCAG edition), report date 2026-08-19, is published at https://dashboard.wikiedu.org/accessibility. It covers the Dashboard including the views served inside Canvas through the LTI integration.
+**Notes:** A VPAT 2.5 (WCAG edition) is published at https://dashboard.wikiedu.org/accessibility; it covers the Dashboard including the views served inside Canvas through the LTI integration.
 
 **ITAC-07** — Will your company agree to meet your stated accessibility standard or WCAG 2.1 AA as part of your contractual agreement for the solution?
 
