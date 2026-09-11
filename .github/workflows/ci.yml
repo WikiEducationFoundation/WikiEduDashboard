@@ -181,5 +181,10 @@ jobs:
       - name: Check whitespace
         run: git diff --check HEAD~1
 
+      # Fails the build when Gemfile.lock contains a gem with a published
+      # security advisory (ruby-advisory-db, refreshed on each run).
+      - name: Ruby dependency vulnerability audit
+        run: bundle exec bundle-audit check --update
+
       - name: Ruby linting
         run: bundle exec rubocop
