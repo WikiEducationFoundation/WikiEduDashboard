@@ -39,7 +39,20 @@ For detailed instructions on setting up a production server — specifically on 
 
 ## Recovery procedure
 
-1. Set up a new production server. Production apache conf and sanitized application.yml are checked in to this repo.
-2. Import SSL certs using sslmate.
-3. Create a new OAuth consumer on meta.wikimedia.org and ping a WMF developer to get it approved quickly. Add tokens to application.yml
-4. Import the lastest database backup. Recent backups are stored on the production server and also on wikiedubackups.globaleducation.eqiad.wmflabs (a virtual server on wmflabs.org).
+Owner: the CTO. The database-restore step was last exercised on 2026-09-02, when the
+weekly dump was restored onto a clone of the production server while rehearsing the
+Debian upgrade (about two and a half minutes for the 2.8 GB database).
+
+1. If the production Linode itself is intact, prefer restoring a Linode Backups snapshot
+   onto the **same** Linode: that keeps both the IPv4 and the SLAAC IPv6, which Wikimedia
+   allowlists reference. Only build a new server if the Linode is gone.
+2. Set up a new production server. The production Apache configuration and a sanitized
+   application.yml are checked in to this repo (see [`server_config/`](../server_config/SERVER_CONFIG.md)).
+3. Obtain a TLS certificate from Let's Encrypt with certbot (production uses the certbot
+   snap with the Apache authenticator, so port 80 must be reachable).
+4. If the server's IP addresses changed, update the Wikimedia-side allowlists that
+   reference them, and create a new OAuth consumer on meta.wikimedia.org if the old one
+   cannot be reused; ping a WMF developer to get it approved quickly. Add tokens to
+   application.yml.
+5. Import the latest database backup. Weekly dumps are kept on the production server in
+   `/home/dbbackup/dumps` (newest three), with off-site copies in Dropbox.
