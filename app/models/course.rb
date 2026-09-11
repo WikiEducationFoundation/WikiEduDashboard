@@ -494,9 +494,25 @@ class Course < ApplicationRecord
     word_count / user_count
   end
 
+  # Flags live in one serialized column, so every save rewrites the whole hash.
+  # A stale Course object that sets one flag and saves silently drops any flag
+  # another process wrote in the meantime; that is how an Event Center link can
+  # vanish minutes after it was confirmed (T437639). These two methods reload
+  # under a row lock before writing, so a single-flag change never clobbers the
+  # rest. They return the result of `save`, and raise if the receiver has
+  # unsaved changes, because `with_lock` refuses to reload over them.
   def add_flag(key:, value: true)
-    flags[key] = value
-    save
+    with_lock do
+      flags[key] = value
+      save
+    end
+  end
+
+  def remove_flag(key)
+    with_lock do
+      flags.delete(key)
+      save
+    end
   end
 
   # Overridden for some course types

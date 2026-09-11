@@ -78,6 +78,18 @@ describe WikimediaEventCenterController, type: :request do
         response_json = JSON.parse(response.body)
         expect(response_json['error_code']).to eq('course_not_found')
       end
+
+      it 'reports the failure to Sentry without any usernames' do
+        allow(Sentry).to receive(:capture_message)
+        subject
+        expect(Sentry).to have_received(:capture_message) do |message, options|
+          expect(message).to eq('Event Center sync failed: course_not_found')
+          expect(options[:level]).to eq('info')
+          expect(options[:extra]).to include(action: 'confirm_event_sync',
+                                             course_slug: 'not-a-course')
+          expect(options[:extra].to_s).not_to include(organizer.username)
+        end
+      end
     end
 
     context 'when the organizer is not part of the course' do
@@ -112,6 +124,22 @@ describe WikimediaEventCenterController, type: :request do
         subject
         response_json = JSON.parse(response.body)
         expect(response_json['error_code']).to eq('sync_already_enabled')
+      end
+    end
+
+    context 'when the link cannot be saved' do
+      before do
+        allow_any_instance_of(Course).to receive(:save).and_return(false)
+        allow(Sentry).to receive(:capture_message)
+      end
+
+      it 'returns an error instead of reporting success' do
+        subject
+        expect(response).to have_http_status(:internal_server_error)
+        expect(JSON.parse(response.body)['error_code']).to eq('course_not_saved')
+        expect(course.reload.flags[:event_sync]).to be_nil
+        expect(Sentry).to have_received(:capture_message)
+          .with('Event Center sync failed: course_not_saved', hash_including(level: 'error'))
       end
     end
   end
@@ -245,6 +273,21 @@ describe WikimediaEventCenterController, type: :request do
         subject
         response_json = JSON.parse(response.body)
         expect(response_json['error_code']).to eq('sync_not_enabled')
+      end
+
+      it 'reports both event IDs to Sentry without any usernames' do
+        allow(Sentry).to receive(:capture_message)
+        subject
+        expect(Sentry).to have_received(:capture_message) do |message, options|
+          expect(message).to eq('Event Center sync failed: sync_not_enabled')
+          expect(options[:level]).to eq('info')
+          expect(options[:extra]).to include(action: 'update_event_participants',
+                                             course_slug: course.slug,
+                                             event_id: '54321',
+                                             stored_event_id: '12345')
+          expect(options[:extra].to_s).not_to include('Ragesoss')
+          expect(options[:extra].to_s).not_to include(organizer.username)
+        end
       end
     end
   end
