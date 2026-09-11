@@ -19,11 +19,115 @@ body.training nav.top-nav
       content " > "
 
 .training__slide-header
-  padding 12px 0 16px 0
-  height auto
+  position relative
+  padding 16px 0
   background $training_primary
+  +below(desktop - 1)
+    margin-top 50px
+
+  .training__nav-container
+    display flex
+    align-items center
+    justify-content space-between
+    padding 0 40px
+    gap 30px
+
+    .training-btn
+      background-color #e5e7eb
+      color #1f2937
+
+    .training__breadcrumbs
+      flex 1
+      min-width 0
+
+      ol, ul, .breadcrumbs
+        margin 0
+        padding 0
+
+    .training__actions
+      display flex
+      align-items center
+      gap 230px
+
+  +below(desktop)
+    padding 8px 0 !important
+
+    /* 1. Stack all header containers vertically */
+    .training__nav-container,
+    .training__actions
+      display flex !important
+      flex-direction column !important
+      align-items center !important
+      justify-content center !important
+      width 100% !important
+      gap 8px !important
+      padding 0 !important
+      margin 0 auto !important
+
+    /* 3. Center Breadcrumbs */
+    .training__breadcrumbs
+      width 100% !important
+      text-align center !important
+      display flex !important
+      justify-content center !important
+
+    /* 4. Center Get Help Container */
+    .nav__button
+      position relative !important
+      display flex !important
+      justify-content center !important
+      align-items center !important
+      width 100% !important
+      margin 0 auto !important
+
+      button, a, .training-btn, #get-help-button
+        display inline-block !important
+        margin 0 auto !important
+        float none !important
+
+    /* 5. FIX: Force Navigation Label Container to exact center */
+    .hamburger-wrapper,
+    .training__slide__nav
+      position relative !important
+      display flex !important
+      justify-content center !important
+      align-items center !important
+      width 100% !important
+      max-width 100% !important
+      height auto !important
+      padding 0 !important
+      margin 0 auto !important
+      float none !important
+      left auto !important
+      right auto !important
+      gap 6px !important
+
+      /* Reset nested inline margins/widths pulling Page X of Y left */
+      > *,
+      .training__slide__page-label,
+      .hamburger
+        margin 0 !important
+        position static !important
+        float none !important
+
+      .training__slide__page-label
+        order 1 !important
+
+      .hamburger
+        order 2 !important
+
+    /* 7. Center Table of Contents dropdown on mobile viewports */
+    .slide__menu__nav__dropdown
+      position absolute !important
+      top 100% !important
+      left 50% !important
+      right auto !important
+      transform translateX(-50%) !important
+      width 90vw !important
+      max-width 360px !important
+      z-index 1000 !important
   ol.breadcrumbs
-    width 85%
+    display flex
     @extends .breadcrumbs
     color $breadcrumb_light_text
     text-align left
@@ -62,8 +166,6 @@ body.training nav.top-nav
       margin 70px 52px 0px 10px
       width 100%
 
-
-
 a.slide-nav
   max-width 45%
   display block
@@ -76,8 +178,8 @@ a.slide-nav
   cursor pointer
   display inline-block
   position absolute
-  right 0px
-  top -90px
+  right 70px
+  top 0px
   color #fff
   height 55px
   width 192px
@@ -108,7 +210,7 @@ a.slide-nav
 .slide__menu__nav__dropdown
   float left
   position absolute
-  top -90px
+  top 40px
   right 10px
   background $light_bg
   padding 5px 0

@@ -7,7 +7,7 @@ require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 class TrainingController < ApplicationController
   layout 'training'
   before_action :init_query_object, only: :index
-
+  include CourseHelper
   def index
     if @search
       @slides = @query_object.selected_slides_and_excerpt
@@ -41,13 +41,14 @@ class TrainingController < ApplicationController
 
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
+    @training_module_name = training_module.name
     raise ActionController::RoutingError, 'not found' if training_module.nil?
     if current_user
       @tmu = TrainingModulesUsers.find_or_create_by(
         user_id: current_user.id,
         training_module_id: training_module.id
       )
-      @training_module_name = training_module.name
+      find_recent_course
     end
     add_training_root_breadcrumb
     add_module_breadcrumb(training_module)
@@ -83,6 +84,23 @@ class TrainingController < ApplicationController
     add_breadcrumb I18n.t('training.training_library'), :training_path
   end
 
+  def find_recent_course
+    recent_course_object = current_user.get_recent_course
+    if recent_course_object.present?
+        @course_slug = recent_course_object.slug
+        @course = find_course_by_slug(@course_slug)
+      elsif session[:training_return_to].present? && 
+            session[:training_return_to].include?("/courses/")
+        url = URI.parse(session[:training_return_to])
+        _, _, course_school, course_title, = url.path.split('/')
+        @course_slug = "#{course_school}/#{course_title}"
+        @course = find_course_by_slug(@course_slug)
+      else
+        @course_slug = nil
+        @course = nil
+      end
+  end
+  
   def add_library_breadcrumb
     lib_id = params[:library_id]
     if Features.wiki_ed?
