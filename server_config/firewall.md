@@ -38,8 +38,7 @@ public and private interfaces but not to VLAN interfaces (we have none).
 
 ## Facts the design depends on
 
-Confirmed during the September 2026 OS upgrade (`.claude/debian_upgrade_plan-2026-09-01.md`
-inventory, and the live notes there) unless marked otherwise.
+Confirmed on the server during the September 2026 OS upgrade unless marked otherwise.
 
 | Fact | Consequence for the rules |
 |---|---|
@@ -176,7 +175,7 @@ reboot and no SSH.
    `permitrootlogin no` (or `prohibit-password`), `pubkeyauthentication yes`. If password
    authentication is on, turn it off first (`/etc/ssh/sshd_config.d/`, then
    `sudo systemctl reload ssh`) **from a session whose key login you have just tested**.
-3. **Record the address baseline** (from the upgrade plan, section 5.0):
+3. **Record the address baseline** (the same check used during the OS upgrade):
 
    ```bash
    ip -6 addr show scope global | grep -c 2600:3c01::f03c:93ff:fe24:db1b   # 1
@@ -243,7 +242,8 @@ allowlisted anywhere, so this is mostly a second data point). It stays attached.
 5. Within the next day: `sudo certbot renew --dry-run` (snap) succeeds, proving HTTP-01
    still reaches Apache; after the next Sunday, confirm the weekly dump landed in
    `/home/dbbackup/dumps`.
-6. Fill in the "Applied" section below and make the HECVAT and wiki updates listed there.
+6. Fill in the "Applied" section below and make the documentation updates listed under
+   "Documentation updates after go-live".
 
    **Result 2026-09-11:** attached at about 15:47 PDT. Probes from outside in the first
    seconds after the attach still saw unlisted ports *refused* (the packets reached the
@@ -295,33 +295,18 @@ This is the firewall change policy (HECVAT FIDP-02).
 - **Outbound restriction** to the enumerated dependencies. High effort, modest gain for a
   server whose job is to call many third-party APIs.
 
-## After it is live: documentation updates
+## Documentation updates after go-live
 
-Once Phase 4 is done and verified, make these edits so the public record matches reality:
+Phase 4 was verified on 2026-09-11, and the record was brought into line the same day:
 
-1. `docs/hecvat.md`:
-   - **FIDP-01** → Yes. Suggested note: "Inbound traffic to the production server is
-     filtered by a stateful network firewall (Akamai/Linode Cloud Firewall) applied
-     outside the server: the default inbound policy is drop, with only SSH, HTTP/HTTPS, and
-     ICMP permitted; outbound traffic is unrestricted. The rule set and change procedure
-     are published in the open-source repository (server_config/firewall.md). No separate
-     host-based firewall is configured."
-   - **FIDP-02** → Yes. Suggested note: "Firewall changes follow the procedure documented
-     in server_config/firewall.md: the rule set is maintained in the repository, planned
-     changes are reviewed there before being applied through the hosting provider's
-     console, and emergency changes are recorded within one business day."
-   - **FIDP-05** → Yes. Suggested note: "Every change to the network firewall (creation,
-     rule updates, attaching or detaching a server, enabling or disabling) is recorded in
-     the hosting account's event history with the acting user and timestamp, retained for
-     90 days; the intended rule set and its history are kept in the public repository. No
-     IDS or IPS is deployed (see FIDP-03 and FIDP-04)."
-   - **DATA-01** note, optionally append: "Inbound traffic is filtered by a network
-     firewall that admits only SSH, HTTP/HTTPS, and ICMP."
-   - Bump the **Last reviewed** date in the header.
-2. The security-status page on the office wiki: move "No firewall" from the gaps list to
+1. `docs/hecvat.md` (in the same pull request that added this document): **FIDP-01**,
+   **FIDP-02** and **FIDP-05** changed from No to Yes, with notes that point here; the
+   **DATA-01** note mentions the firewall; the **Last reviewed** date in the header was
+   bumped.
+2. `docs/deploy.md`, recovery procedure (same pull request): attaching the firewall is a
+   step in standing up a replacement server.
+3. The security-status page on the office wiki: "No firewall" moved from the gaps list to
    the in-place list.
-3. `docs/deploy.md`, recovery procedure: attaching the firewall is part of standing up a
-   replacement server.
 
 ## Applied
 

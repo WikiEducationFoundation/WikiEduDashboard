@@ -17,7 +17,7 @@ for the cadence being kept and for deciding exceptions.
 | Ruby gems and JavaScript packages | Rails, Sidekiq, React, build tooling | GitHub Dependabot alerts (alerts only, no automatic PRs); `bundler-audit` fails CI when a gem in the lockfile has a published advisory | Monthly triage to zero open alerts; a failing CI build is fixed before the affected change merges |
 | Language runtimes | Ruby (installed through RVM, so not covered by apt), Node.js | Manual, following [Upgrading dependencies](upgrade_dependencies.md) | Reviewed monthly; upgraded when a security release or end-of-life approaches |
 | Operating-system release | Debian 12 → 13 and later | A written, rehearsed runbook (the 2026 upgrade rehearsed on a clone of the production Linode first) | Before the running release leaves Debian security support |
-| The application itself | The Dashboard's own code | Continuous deployment from `master` via Capistrano after code review and a green CI build | Several times a week |
+| The application itself | The Dashboard's own code | Merged to `master` after code review and a green CI build, then deployed with Capistrano from the `production` branch (see [Deployment](deploy.md)) | Several times a week |
 
 ## Automatic security updates
 
@@ -81,7 +81,8 @@ Done by hand, at a quiet time, not on a Sunday evening (the weekly database back
 5. Post-change checks on each server: the site loads (including a database-backed page),
    `systemctl list-units --failed` is empty, `sudo ss -tulpn | grep -Ev '127\.0\.0\.1|\[::1\]'`
    lists only sshd (22) and Apache (80, 443), `systemctl is-enabled mariadb.socket` is
-   `disabled`, the IPv6 address check from the upgrade runbook passes, and Sentry is quiet.
+   `disabled`, the IPv6 address check from Phase 0 of
+   [`server_config/firewall.md`](../server_config/firewall.md) passes, and Sentry is quiet.
 
 ## Out-of-band fixes
 
