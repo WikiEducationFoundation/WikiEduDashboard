@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/analytics/retention_fetch_error"
 require_dependency "#{Rails.root}/lib/analytics/retention_participant_history"
 
 # Computes the per-student retention metrics for a course (currently the
@@ -32,6 +33,9 @@ require_dependency "#{Rails.root}/lib/analytics/retention_participant_history"
 # plus a one-day buffer: metrics 2 and 3 fill in 31 days after the course ends,
 # metric 4 fills in 91 days after. Until then they are nil, so every reported
 # value is final.
+#
+# A usercontribs request that fails after WikiApi's retries raises
+# RetentionFetchError rather than being read as "no edits".
 class RetentionStudentStats
   SESSION_GAP = 1.hour
   RETURN_WINDOW_DAYS = 30
@@ -149,14 +153,15 @@ class RetentionStudentStats
 
   # All of a user's edit timestamps on a wiki from the course start through the
   # end of the survival window, fetched from the usercontribs API and paginated
-  # until exhausted.
+  # until exhausted. WikiApi#query returns nil once its retries are exhausted;
+  # that is a failed fetch (of any page), not an empty timeline.
   def edit_times(username, wiki)
     api = WikiApi.new(wiki)
     times = []
     continue = {}
     loop do
       response = api.query(usercontribs_query(username).merge(continue))
-      break unless response
+      raise RetentionFetchError.new(username, wiki) unless response
       contribs = response.data['usercontribs'] || []
       times.concat(contribs.map { |c| Time.zone.parse(c['timestamp']) })
       continue = response['continue']

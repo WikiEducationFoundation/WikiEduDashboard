@@ -20,6 +20,11 @@ describe RetentionStat do
       expect(described_class.update_due?(course)).to be(true)
     end
 
+    it 'is not due for a course with no students, since there is nothing to store' do
+      course.courses_users.delete_all
+      expect(described_class.update_due?(course)).to be(false)
+    end
+
     it 'is due when a metric window has closed since the rows were computed' do
       # Computed 5 days after the end, before the 30-day return window closed.
       create(:retention_stat, course:, user: student, computed_at: 35.days.ago)

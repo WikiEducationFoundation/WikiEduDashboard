@@ -1429,6 +1429,7 @@ en:
     courses: Courses
     download_csv: Download CSV
     pending: pending
+    not_applicable: "—"
     total: Total
     empty: "no stats computed"
     legend: "Long-term Wikipedians (500+ edits before the course) are counted under Participants but left out of every other figure. Cells marked pending fill in 31 and 91 days after a course ends."

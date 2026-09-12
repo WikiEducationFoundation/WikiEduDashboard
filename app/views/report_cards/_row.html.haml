@@ -10,4 +10,4 @@
     - elsif column.format == :text
       %td= value
     - else
-      %td.report-card__number= report_card_cell(value, column.format)
+      %td.report-card__number= report_card_cell(row, column)

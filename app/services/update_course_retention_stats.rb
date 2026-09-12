@@ -19,8 +19,9 @@ class UpdateCourseRetentionStats
 
   private
 
-  # The metrics are all computed before anything is deleted, so an API failure
-  # leaves the previous rows in place. Deleting through the class rather than the
+  # The metrics are all computed before anything is deleted, so a failed fetch
+  # (RetentionFetchError, raised from the constructor) leaves the previous rows in
+  # place and the course still due. Deleting through the class rather than the
   # association keeps the course's association from being cached as empty.
   def store
     RetentionStat.transaction do

@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/analytics/retention_metrics"
+require_dependency "#{Rails.root}/lib/analytics/retention_student_stats"
 
 # One line of a RetentionReportCard: a single course, or the totals line over
 # every course in the campaign. Figures that come from the courses table
 # (participants, uploads, words) are summed over the courses; the retention
 # figures come from RetentionMetrics over the courses' stored RetentionStat
-# rows. Every column method returns nil where the figure is not available yet.
+# rows. Every column method returns nil where the figure is not available: not
+# computed yet, or nobody to count (see #reached?).
 class RetentionReportCardRow
   attr_reader :courses, :number
 
@@ -24,6 +26,15 @@ class RetentionReportCardRow
 
   def total?
     number.nil?
+  end
+
+  # Whether the figures that become final at `stage` (see
+  # RetentionStudentStats.stage) have been computed for at least one of the
+  # row's courses. A nil figure at a stage the row has reached is undefined
+  # (nobody edited during the course, or every participant is a long-term
+  # Wikipedian) rather than pending: it will not fill in later.
+  def reached?(stage)
+    courses.any? { |course| computed_stage(course) >= stage }
   end
 
   def course
@@ -60,15 +71,21 @@ class RetentionReportCardRow
   end
 
   def avg_words
-    per_participant(words)&.round
+    per_participant(words, precision: 0)
   end
 
   private
 
+  # The checkpoint a course's stored rows were computed at; 0 when there are none.
+  def computed_stage(course)
+    computed_at = course.retention_stats.map(&:computed_at).min
+    computed_at ? RetentionStudentStats.stage(course, computed_at) : 0
+  end
+
   # Uploads and words are course totals that include every student's work, so
   # they are spread over every participant, not just the counted ones.
-  def per_participant(total)
+  def per_participant(total, precision: 1)
     return nil if participants.zero?
-    (total.to_f / participants).round(1)
+    (total.to_f / participants).round(precision)
   end
 end

@@ -59,7 +59,9 @@ class RetentionMetrics
 
   # Editors after the course as a percentage of those who edited during it
   # (the spreadsheet's `M / (D − H)`), over the rows whose return window has
-  # closed. nil when nobody edited during the course.
+  # closed. nil when nobody edited during the course. The numerator is not
+  # limited to the denominator's editors, so a participant who edited only after
+  # the course can push this past 100%, as it does in the spreadsheet.
   def pct_active_editors_after
     rows = computed(:sessions_after)
     active = rows.count { |s| s.sessions_during.positive? }

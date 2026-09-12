@@ -14,8 +14,12 @@ namespace :retention_stats do
         puts "  skip  #{course.slug} (already current)"
         next
       end
-      UpdateCourseRetentionStats.new(course)
-      puts "  done  #{course.slug} (#{course.retention_stats.count} students)"
+      begin
+        UpdateCourseRetentionStats.new(course)
+        puts "  done  #{course.slug} (#{course.retention_stats.count} students)"
+      rescue RetentionFetchError => e
+        puts "  FAIL  #{course.slug}: #{e.message} (rerun the task to retry)"
+      end
     end
   end
 end

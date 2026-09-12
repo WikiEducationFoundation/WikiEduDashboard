@@ -15,9 +15,13 @@ describe 'Scholars & Scientists report cards', type: :feature, js: true do
     create(:course, type: 'FellowsCohort', slug: 'Wiki_Education/250_by_2026-12',
                     title: '250 by 2026-12', start: 80.days.ago, end: 20.days.ago, user_count: 16)
   end
+  let(:veterans) do
+    create(:course, type: 'FellowsCohort', slug: 'Wiki_Education/Veterans_Workshop',
+                    title: 'Veterans Workshop', start: 190.days.ago, end: 110.days.ago)
+  end
 
   before do
-    campaign.courses << [finished, pending]
+    campaign.courses << [finished, pending, veterans]
     create(:courses_user, course: finished, user: instructor,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     s1, s2 = %w[s1 s2].map { |name| create(:user, username: name) }
@@ -25,6 +29,10 @@ describe 'Scholars & Scientists report cards', type: :feature, js: true do
                             sessions_after: 1, edits_60_90: 8)
     create(:retention_stat, course: finished, user: s2, sessions_during: 0, days_to_return: 30,
                             sessions_after: 0, edits_60_90: 0)
+    # The only participant is a long-term Wikipedian, so nothing is left to count.
+    create(:retention_stat, course: veterans, user: create(:user, username: 'vet'),
+                            sessions_during: 9, days_to_return: 1, sessions_after: 4,
+                            edits_60_90: 30, long_term_wikipedian: true)
   end
 
   describe 'as an admin' do
@@ -46,8 +54,13 @@ describe 'Scholars & Scientists report cards', type: :feature, js: true do
         expect(page).to have_content '16'
         expect(page).to have_content 'pending'
       end
+      within('tbody tr', text: 'Veterans Workshop') do
+        expect(page).to have_css('td', exact_text: '1', count: 2) # participants, long-term
+        expect(page).to have_css('.report-card__not-applicable')
+        expect(page).not_to have_content 'pending'
+      end
       within('tbody tr', text: 'Total') do
-        expect(page).to have_content '18'
+        expect(page).to have_css('td', exact_text: '19') # participants across the courses
       end
       expect(page).to have_link 'Download CSV', href: '/report_cards/ss_2025_26.csv'
     end

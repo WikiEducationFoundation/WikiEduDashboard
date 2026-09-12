@@ -24,7 +24,18 @@ class UpdateRetentionStatsWorker
     now = Time.zone.now
     FellowsCohort.where(end: (now - LIFECYCLE)..now).find_each do |course|
       next unless RetentionStat.update_due?(course, now:)
-      UpdateCourseRetentionStats.new(course, now:)
+      update(course, now)
     end
+  end
+
+  private
+
+  # A course whose usercontribs fetch failed keeps whatever rows it had and is
+  # still due tomorrow, so the next daily run tries it again; the courses after
+  # it in the loop are not held up.
+  def update(course, now)
+    UpdateCourseRetentionStats.new(course, now:)
+  rescue RetentionFetchError => e
+    Sentry.capture_exception(e, extra: { course: course.slug })
   end
 end

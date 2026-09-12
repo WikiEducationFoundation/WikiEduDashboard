@@ -50,6 +50,39 @@ describe RetentionStudentStats do
                                      returning: false, prior_courses: 0)
     end
 
+    context 'when a usercontribs request fails' do
+      # WikiApi#query returns nil once its retries are exhausted.
+      def stub_failing_query(&fails)
+        api = instance_double(WikiApi)
+        allow(WikiApi).to receive(:new).with(wiki).and_return(api)
+        allow(api).to receive(:query) do |params|
+          fails.call(params) ? nil : response_for([])
+        end
+      end
+
+      it 'raises rather than reporting the student as somebody who never edited' do
+        stub_failing_query { |params| params.key?(:ucend) }
+        expect { described_class.new(course) }
+          .to raise_error(RetentionFetchError, /user1.*en\.wikipedia\.org/)
+      end
+
+      it 'raises when a continuation page fails' do
+        api = instance_double(WikiApi)
+        allow(WikiApi).to receive(:new).with(wiki).and_return(api)
+        first_page = response_for([course.end - 1.day], continue: { 'uccontinue' => 'x' })
+        allow(api).to receive(:query) do |params|
+          next response_for([]) unless params.key?(:ucend)
+          params['uccontinue'] ? nil : first_page
+        end
+        expect { described_class.new(course) }.to raise_error(RetentionFetchError)
+      end
+
+      it 'raises when the pre-course edit count cannot be fetched' do
+        stub_failing_query { |params| !params.key?(:ucend) }
+        expect { described_class.new(course) }.to raise_error(RetentionFetchError)
+      end
+    end
+
     context 'when fetching the edit timeline' do
       let(:queries) { [] }
 

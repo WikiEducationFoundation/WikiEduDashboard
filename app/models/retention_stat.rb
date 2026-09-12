@@ -32,17 +32,18 @@ class RetentionStat < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :course_id }
 
-  # Whether the course's rows lag behind what can be computed now: there are
-  # none yet, a metric window has closed since they were computed, or the
-  # roster has changed. Nothing is due before the first checkpoint, a day after
-  # the course ends.
+  # Whether the course's rows lag behind what can be computed now: a metric
+  # window has closed since they were computed, or they no longer match the
+  # roster (which is also what makes a course with students and no rows due, and
+  # a course with neither not due). Nothing is due before the first checkpoint,
+  # a day after the course ends.
   def self.update_due?(course, now: Time.zone.now)
     current_stage = RetentionStudentStats.stage(course, now)
     return false if current_stage.zero?
 
     rows = where(course_id: course.id)
-    return true if rows.none?
-    return true if RetentionStudentStats.stage(course, rows.minimum(:computed_at)) < current_stage
+    computed_at = rows.minimum(:computed_at)
+    return true if computed_at && RetentionStudentStats.stage(course, computed_at) < current_stage
 
     rows.pluck(:user_id).sort != course.students.pluck(:id).sort
   end

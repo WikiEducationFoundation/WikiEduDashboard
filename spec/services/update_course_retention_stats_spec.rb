@@ -46,6 +46,25 @@ describe UpdateCourseRetentionStats do
     expect(course.retention_stats.pluck(:computed_at).uniq).to eq([now])
   end
 
+  context 'when a usercontribs request fails' do
+    before do
+      create(:retention_stat, course:, user: user1, sessions_during: 7, computed_at: 1.day.ago)
+      api = instance_double(WikiApi)
+      allow(WikiApi).to receive(:new).with(wiki).and_return(api)
+      allow(api).to receive(:query).and_return(nil)
+    end
+
+    it 'raises and leaves the previous rows in place' do
+      expect { described_class.new(course, now:) }.to raise_error(RetentionFetchError)
+      expect(course.retention_stats.pluck(:user_id, :sessions_during)).to eq([[user1.id, 7]])
+    end
+
+    it 'leaves the course due for another attempt' do
+      expect { described_class.new(course, now:) }.to raise_error(RetentionFetchError)
+      expect(RetentionStat.update_due?(course, now:)).to be(true)
+    end
+  end
+
   it 'leaves nil the metrics whose windows have not closed' do
     described_class.new(course, now: course.end + 5.days)
     expect(course.retention_stats.find_by(user: user1))

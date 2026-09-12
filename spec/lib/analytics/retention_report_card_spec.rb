@@ -67,12 +67,20 @@ describe RetentionReportCard do
                                             editors_after_course: nil, avg_words: 0)
   end
 
+  it 'knows which checkpoints each course\'s stored rows have reached' do
+    expect(card.rows[0]).to be_reached(3)
+    expect(card.rows[1]).to be_reached(2)
+    expect(card.rows[1]).not_to be_reached(3)
+    expect(card.rows[2]).not_to be_reached(1)
+  end
+
   it 'totals the courses, aggregating each figure over the courses that have reached it' do
     expect(card.totals).to be_total
     expect(card.totals).to have_attributes(number: nil, instructors: nil, participants: 8,
                                            uploads: 10, words: 3000, sessions_during: 5,
                                            editors_after_course: 2, survivors: 1,
                                            avg_days_to_return: 15.0)
+    expect(card.totals).to be_reached(3)
   end
 
   it 'renders the same table as CSV, with blanks for pending figures' do
