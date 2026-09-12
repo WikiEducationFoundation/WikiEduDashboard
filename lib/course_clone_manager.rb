@@ -157,6 +157,9 @@ class CourseCloneManager
       next unless @course.flags.key? flag_key
       @clone.flags[flag_key] = @course.flags[flag_key]
     end
+    # A clone is a new course, so it uses the ACUWT update path even when the
+    # course it was cloned from does not.
+    @clone.flags[:use_acuwt] = true
     @clone.save
   end
 
