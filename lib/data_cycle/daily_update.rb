@@ -8,6 +8,7 @@ require_dependency "#{Rails.root}/app/workers/daily_update/overdue_training_aler
 require_dependency "#{Rails.root}/app/workers/daily_update/salesforce_sync_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/wiki_discouraged_article_worker"
 require_dependency "#{Rails.root}/app/workers/daily_update/mainspace_ai_followup_worker"
+require_dependency "#{Rails.root}/app/workers/daily_update/update_retention_stats_worker"
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/lib/automated_emails/term_recap_email_scheduler"
@@ -37,6 +38,7 @@ class DailyUpdate
     send_term_recap_emails if Features.wiki_ed?
     generate_overdue_training_alerts if Features.wiki_ed?
     generate_mainspace_ai_followup_alerts if Features.wiki_ed?
+    update_retention_stats if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
     enqueue_system_stat_update
     log_end_of_update 'Daily update finished.'
@@ -106,6 +108,11 @@ class DailyUpdate
   ###############
   # Stats       #
   ###############
+  def update_retention_stats
+    log_message 'Updating retention stats for recently ended Scholars & Scientists courses'
+    UpdateRetentionStatsWorker.set(queue: QUEUE).perform_async
+  end
+
   def enqueue_system_stat_update
     log_message 'Enqueuing system stats snapshot'
     SystemStatUpdateWorker.set(queue: QUEUE).perform_async

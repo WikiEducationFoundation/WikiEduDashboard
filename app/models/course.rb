@@ -82,6 +82,7 @@ class Course < ApplicationRecord
            foreign_key: 'project_id',
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
+  has_many :retention_stats, dependent: :destroy
 
   #########################
   # Activity by the users #

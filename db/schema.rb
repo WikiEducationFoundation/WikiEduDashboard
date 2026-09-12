@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -575,6 +575,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_120000) do
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+  end
+
+  create_table "retention_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.integer "sessions_during", default: 0, null: false
+    t.integer "days_to_return"
+    t.integer "sessions_after"
+    t.integer "edits_60_90"
+    t.integer "prior_edit_count", default: 0, null: false
+    t.boolean "long_term_wikipedian", default: false, null: false
+    t.integer "prior_course_count", default: 0, null: false
+    t.datetime "computed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "user_id"], name: "index_retention_stats_on_course_id_and_user_id", unique: true
   end
 
   create_table "revision_ai_scores", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

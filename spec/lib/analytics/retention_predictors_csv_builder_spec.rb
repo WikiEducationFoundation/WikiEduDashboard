@@ -4,6 +4,8 @@ require 'rails_helper'
 require "#{Rails.root}/lib/analytics/retention_predictors_csv_builder"
 
 describe RetentionPredictorsCsvBuilder do
+  include RetentionApiStubs
+
   let(:wiki1) { Wiki.find_or_create_by(language: 'en', project: 'wikipedia') }
   let(:wiki2) { Wiki.find_or_create_by(language: 'es', project: 'wikipedia') }
   let(:user1) { create(:user, username: 'user1') }
@@ -16,43 +18,6 @@ describe RetentionPredictorsCsvBuilder do
     course.wikis = course_wikis
     create(:courses_user, course:, user: user1, role: CoursesUsers::Roles::STUDENT_ROLE)
     create(:courses_user, course:, user: user2, role: CoursesUsers::Roles::STUDENT_ROLE)
-  end
-
-  # Builds a stub MediaWiki API response object for a list of edit Times.
-  def response_for(times, continue: nil)
-    contribs = times.map { |t| { 'timestamp' => t.utc.strftime('%Y-%m-%dT%H:%M:%SZ') } }
-    instance_double(MediawikiApi::Response).tap do |response|
-      allow(response).to receive(:data).and_return('usercontribs' => contribs)
-      allow(response).to receive(:[]).with('continue').and_return(continue)
-    end
-  end
-
-  # One page of a user's pre-course contributions, out of `total` of them.
-  # Pages at 250 per response (the API may return fewer than the requested
-  # max), so the builder's stop-counting-at-the-threshold pagination gets
-  # exercised for real.
-  def prior_edits_response(total, params)
-    offset = (params['uccontinue'] || params[:uccontinue]).to_i
-    remaining = total - offset
-    page = [remaining, 250].min
-    continue = remaining > page ? { 'uccontinue' => (offset + page).to_s } : nil
-    response_for([Time.zone.now] * page, continue:)
-  end
-
-  # Stubs WikiApi.new(wiki) for both queries the builder makes. The during-course
-  # timeline query is bounded by :ucend; the pre-course edit count query is not,
-  # which is how the stub tells them apart. `contribs_by_user` maps
-  # username => [Time, ...]; `prior_edits` maps username => edit count.
-  def stub_wiki(wiki, contribs_by_user, prior_edits = {})
-    api = instance_double(WikiApi)
-    allow(WikiApi).to receive(:new).with(wiki).and_return(api)
-    allow(api).to receive(:query) do |params|
-      if params.key?(:ucend)
-        response_for(contribs_by_user.fetch(params[:ucuser], []))
-      else
-        prior_edits_response(prior_edits.fetch(params[:ucuser], 0), params)
-      end
-    end
   end
 
   let(:table) { CSV.parse(described_class.new(course).generate_csv) }

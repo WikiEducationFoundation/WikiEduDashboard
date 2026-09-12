@@ -29,6 +29,10 @@ describe DailyUpdate do
       expect(WikiDiscouragedArticleWorker).to receive(:set).with(queue: described_class::QUEUE)
                                           .and_return(worker_double)
       expect(worker_double).to receive(:perform_async)
+      retention_double = class_double(UpdateRetentionStatsWorker)
+      expect(UpdateRetentionStatsWorker).to receive(:set).with(queue: described_class::QUEUE)
+                                         .and_return(retention_double)
+      expect(retention_double).to receive(:perform_async)
       update = described_class.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Pushing course data to Salesforce/).any?).to eq(true)

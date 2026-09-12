@@ -1,0 +1,20 @@
+- content_for :before_title, "#{t('report_cards.title')} — "
+
+%header.main-page
+  .container
+    %h1= t('report_cards.title')
+
+.container.report-cards
+  - if @campaigns.empty?
+    %p= t('report_cards.empty')
+  - else
+    %table.table
+      %thead
+        %tr
+          %th= t('report_cards.campaign')
+          %th= t('report_cards.courses')
+      %tbody
+        - @campaigns.each do |campaign|
+          %tr
+            %td= link_to campaign.title, "/report_cards/#{campaign.slug}"
+            %td= campaign.courses_count
