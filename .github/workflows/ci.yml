@@ -72,6 +72,13 @@ jobs:
            ruby-version: 3.4.8
            bundler-cache: true
 
+      # Fails the build when Gemfile.lock contains a gem with a published
+      # security advisory (ruby-advisory-db, refreshed on each run). Runs
+      # before the test suites so a new advisory surfaces in the first
+      # minutes of the build, and even when a later step fails.
+      - name: Ruby dependency vulnerability audit
+        run: bundle exec bundle-audit check --update
+
       - name: setup Node
         uses: actions/setup-node@v5
         with:

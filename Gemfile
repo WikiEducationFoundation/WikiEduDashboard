@@ -129,6 +129,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'bundler-audit', require: false
   gem 'pry-rails'
   gem 'byebug'
   gem 'rspec-rails', '6.1.0'

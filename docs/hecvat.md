@@ -6,6 +6,8 @@
 > with Claude Code, an AI assistant, from the public codebase and Wiki Education's
 > infrastructure details, then reviewed and confirmed by Wiki Education (Sage Ross,
 > Chief Technology Officer).
+>
+> **Last reviewed:** 2026-09-11.
 
 This is a Higher Education Community Vendor Assessment Toolkit (HECVAT) response for the Wiki Education Dashboard's Canvas (LTI 1.3) integration, covering the **critical ("Core") questions** — the asterisked subset EDUCAUSE recommends for a Lite-style review. (Full HECVAT 4 has 332 questions across seven tabs; this Core answers the critical and identification questions.) Answers use **Yes / No / N/A**; the Notes field is optional context.
 
@@ -65,7 +67,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** No
 
-**Notes:** Wiki Education maintains a disaster recovery plan, but it is not tested annually.
+**Notes:** Wiki Education maintains a disaster recovery plan (the recovery procedure in the open-source repository's deployment documentation, owned by the CTO), but does not test it on a fixed annual schedule.
 
 
 ## Assessment of Third Parties
@@ -108,7 +110,9 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **PPPR-01** — Do you have a documented patch management process?
 
-**Answer:** No
+**Answer:** Yes
+
+**Notes:** The process is documented in the open-source repository (docs/patch_management.md). Operating-system security updates from the Debian security suite are applied automatically each day; other package updates, dependency vulnerability alerts, and runtime versions are handled in a monthly cycle that ends with recorded post-change checks; operating-system release upgrades are carried out before the running release leaves security support; and critical vulnerabilities in internet-facing components are fixed out of band. The CTO owns the process.
 
 **PPPR-02** — Can your organization comply with institutional policies on privacy and data protection with regard to users of institutional systems, if required?
 
@@ -231,7 +235,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** The Dashboard runs on a single server (Linode, Fremont CA) that hosts the web application and the database together; as the public web server it has a publicly routable IP. The database is reached locally by the co-located application and is not exposed as a separate internet-facing service.
+**Notes:** The Dashboard runs on a single server (Linode, Fremont CA) that hosts the web application and the database together; as the public web server it has a publicly routable IP. The database is reached locally by the co-located application and is not exposed as a separate internet-facing service; a network firewall admits only SSH, HTTP/HTTPS, and ICMP to the server.
 
 **DATA-02** — Is the transport of sensitive data encrypted using security protocols/algorithms (e.g., system-to-client)?
 
@@ -290,7 +294,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** The application runs on current, supported runtimes — Ruby 3.4.8 and Rails 8.1.3 — with maintained dependencies. The host OS is Debian 11 (bullseye), currently under Debian LTS; note that Debian 11 LTS support ends around August 2026, so an upgrade to a newer Debian release is due to remain on a supported version.
+**Notes:** The application runs on current, supported runtimes — Ruby 3.4.8 and Rails 8.1 — with maintained dependencies. The host OS is Debian 12 (bookworm), which is under Debian security support through June 2028; the web server, database, and cache (Apache, MariaDB, Redis) run at supported releases from the Debian and Redis package repositories.
 
 **APPL-04** — Does your application require access to location or GPS data?
 
@@ -308,7 +312,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** Every CI build runs static code analysis — RuboCop (Ruby) and ESLint (JavaScript). These are code-quality/style analyzers; there is no dedicated security SAST (e.g., Brakeman) in the pipeline.
+**Notes:** Every CI build runs static code analysis — RuboCop (Ruby) and ESLint (JavaScript) — and a dependency-vulnerability audit (bundler-audit against the Ruby Advisory Database) that fails the build if any gem in use has a published security advisory. The static analyzers are code-quality/style tools; there is no dedicated security SAST (e.g., Brakeman) in the pipeline.
 
 **APPL-07** — Do you have software testing processes (dynamic or static) that are established and followed?
 
@@ -336,15 +340,15 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **FIDP-01** — Are you utilizing a stateful packet inspection (SPI) firewall?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** No firewall is configured: the documented server setup (server_config/) does not include one, and Debian ships netfilter with no active rules by default.
+**Notes:** Inbound traffic to the production server is filtered by a stateful network firewall (Akamai/Linode Cloud Firewall) applied outside the server: the default inbound policy is drop, with only SSH, HTTP/HTTPS, and ICMP permitted; outbound traffic is unrestricted. The rule set and change procedure are published in the open-source repository (server_config/firewall.md). No separate host-based firewall is configured.
 
 **FIDP-02** — Do you have a documented policy for firewall change requests?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** No firewall, and no documented firewall-change policy.
+**Notes:** Firewall changes follow the procedure documented in server_config/firewall.md: the rule set is maintained in the repository, planned changes are reviewed there before being applied through the hosting provider's console, and emergency changes are recorded within one business day.
 
 **FIDP-03** — Have you implemented an intrusion detection system (network-based)?
 
@@ -360,9 +364,9 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **FIDP-05** — Are audit logs available for all changes to the network, firewall, IDS, and IPS systems?
 
-**Answer:** No
+**Answer:** Yes
 
-**Notes:** No firewall/IDS/IPS systems are in place (see FIDP-01/03/04), and no dedicated audit logging of network/firewall changes is configured.
+**Notes:** Every change to the network firewall (creation, rule updates, attaching or detaching a server, enabling or disabling) is recorded in the hosting account's event history with the acting user and timestamp, retained for 90 days; the intended rule set and its history are kept in the public repository. No IDS or IPS is deployed (see FIDP-03 and FIDP-04).
 
 
 ## Vulnerability Management
@@ -371,7 +375,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** No
 
-**Notes:** Vulnerability scanning is not tied to the release process. Wiki Education does perform periodic security code audits and uses GitHub security alerts (Dependabot) to surface dependency vulnerabilities, but does not run authenticated vulnerability scans as a release gate.
+**Notes:** Vulnerability scanning is not tied to the release process. Wiki Education does perform periodic security code audits, uses GitHub security alerts (Dependabot) to surface dependency vulnerabilities, and blocks merges in CI when a gem with a published advisory is in use, but does not run authenticated vulnerability scans as a release gate.
 
 **VULN-02** — Will you provide results of application and system vulnerability scans to the institution?
 
@@ -390,7 +394,7 @@ _Additional Information_
 
 **Answer:** Yes
 
-**Notes:** A VPAT 2.5 (WCAG edition) is published at https://dashboard.wikiedu.org/accessibility.
+**Notes:** A VPAT 2.5 (WCAG edition) is published at https://dashboard.wikiedu.org/accessibility; it covers the Dashboard including the views served inside Canvas through the LTI integration.
 
 **ITAC-07** — Will your company agree to meet your stated accessibility standard or WCAG 2.1 AA as part of your contractual agreement for the solution?
 
