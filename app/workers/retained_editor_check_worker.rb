@@ -23,12 +23,14 @@ class RetainedEditorCheckWorker
     self.class.eligible_course_ids(limit).each do |course_id|
       course = Course.find_by(id: course_id)
       next unless course
+
       count = check_course_new_editors(course)
       if count.nil?
         consecutive_failures += 1
         break if api_outage?(consecutive_failures)
         next
       end
+
       consecutive_failures = 0
       total_checked += count
     end
@@ -39,10 +41,13 @@ class RetainedEditorCheckWorker
   def check_course_new_editors(course)
     candidates = eligible_candidates_for_course(course)
     return 0 if candidates.empty?
-    threshold = course.end + DAYS_AFTER_END.days; checked_count = 0
+
+    threshold = course.end + DAYS_AFTER_END.days
+    checked_count = 0
     candidates.in_groups_of(BATCH_SIZE, false) do |batch|
       result = process_batch(batch, course.home_wiki, threshold)
       return nil if result.nil?
+
       checked_count += result
     end
     checked_count
@@ -53,7 +58,8 @@ class RetainedEditorCheckWorker
       .where(role: CoursesUsers::Roles::STUDENT_ROLE, retained_after_course_checked_at: nil)
       .where('courses.end <= ?', OBSERVATION_DAYS.days.ago)
       .where(courses: { private: false })
-      .where(NewEditorDateConditions::DURING_PROGRAM).distinct.pluck(:course_id)
+      .where(NewEditorDateConditions::DURING_PROGRAM)
+      .distinct.pluck(:course_id)
     ordered = Course.where(id: ids).order(:end, :id)
     limit ? ordered.limit(limit).pluck(:id) : ordered.pluck(:id)
   end
@@ -62,6 +68,7 @@ class RetainedEditorCheckWorker
 
   def api_outage?(failures)
     return false if failures < MAX_CONSECUTIVE_FAILURES
+
     Rails.logger.warn { 'RetainedEditorCheckWorker: API appears down, stopping' }
     true
   end
@@ -77,6 +84,7 @@ class RetainedEditorCheckWorker
   def process_batch(batch, wiki, threshold)
     result = fetch_active_usernames(batch.map(&:username), wiki, threshold)
     return nil if result.nil?
+
     active, queried, invalid = result
     update_batch_retention(batch, active, queried)
     unverifiable = batch.select { |cu| invalid&.include?(cu.username) }
@@ -100,21 +108,25 @@ class RetainedEditorCheckWorker
 
   def fetch_active_usernames(usernames, wiki, threshold)
     fetch_batch_active_usernames(usernames, wiki, threshold) ||
-    fetch_individual_active_usernames(usernames, wiki, threshold)
+      fetch_individual_active_usernames(usernames, wiki, threshold)
   end
 
   def fetch_batch_active_usernames(usernames, wiki, threshold)
-    active_usernames = Set.new; target_users = usernames.to_set; pending = usernames.dup; continue_param = nil
+    active = Set.new
+    target = usernames.to_set
+    pending = usernames.dup
+    continue_param = nil
     intercept = ->(e) { e.is_a?(MediawikiApi::ApiError) }
-    loop do
-      result = query_usercontribs(pending, wiki, threshold, continue_param, &intercept)
-      return nil unless result
-      result[:users].each { |u| active_usernames.add(u) }
-      break if active_usernames.superset?(target_users)
-      pending, continue_param = next_page_params(target_users, active_usernames, pending, result)
-      break unless pending
+    while pending
+      res = query_usercontribs(pending, wiki, threshold, continue_param, &intercept)
+      return nil unless res
+
+      res[:users].each { |u| active.add(u) }
+      break if active.superset?(target)
+
+      pending, continue_param = next_page_params(target, active, pending, res)
     end
-    [active_usernames, target_users, Set.new]
+    [active, target, Set.new]
   rescue MediawikiApi::ApiError
     nil
   end
@@ -122,13 +134,18 @@ class RetainedEditorCheckWorker
   def next_page_params(target_users, active_usernames, pending, result)
     new_pending = (target_users - active_usernames).to_a
     return [new_pending, nil] if new_pending.size < pending.size
+
     [pending, result[:continue]] if result[:continue]
   end
 
   def fetch_individual_active_usernames(usernames, wiki, threshold)
-    active = Set.new; queried = Set.new; invalid = Set.new
+    active = Set.new
+    queried = Set.new
+    invalid = Set.new
     usernames.each do |username|
-      res = query_usercontribs([username], wiki, threshold) { |e| e.is_a?(MediawikiApi::ApiError) }
+      res = query_usercontribs([username], wiki, threshold) do |e|
+        e.is_a?(MediawikiApi::ApiError)
+      end
       if res
         queried.add(username)
         active.add(username) if res[:users].any?
@@ -141,10 +158,12 @@ class RetainedEditorCheckWorker
 
   def query_usercontribs(usernames, wiki, threshold, continue_param = nil, &block)
     query = { list: 'usercontribs', ucuser: usernames, ucnamespace: 0,
-              ucstart: threshold.strftime('%Y%m%d%H%M%S'), uclimit: 500, ucprop: '', ucdir: 'newer' }
+              ucstart: threshold.strftime('%Y%m%d%H%M%S'), uclimit: 500,
+              ucprop: '', ucdir: 'newer' }
     query.merge!(continue_param) if continue_param
     response = WikiApi.new(wiki).query(query, &block)
     return nil unless response&.data&.key?('usercontribs')
+
     contribs = response.data['usercontribs'] || []
     { users: contribs.filter_map { |c| c['user'] }, continue: response.data['continue'] }
   end
