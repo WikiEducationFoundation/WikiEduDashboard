@@ -90,13 +90,6 @@ essentials:
             Learn about Generative AI in the Wikipedia context and why you should NEVER copy and paste AI-generated text into Wikipedia.
           </p>
       -
-        if: fact_verification
-        title: Fact verification
-        kind: 1
-        training_module_ids: [86] # Exercise: Fact verification
-        content: |
-
-      -
         if: sources_and_plagiarism_discussion
         title: "Discussion"
         kind: 0
@@ -111,6 +104,13 @@ essentials:
         title: Evaluate Wikipedia
         kind: 1
         training_module_ids: [28,7,34] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia
+        content: |
+
+      -
+        if: fact_verification
+        title: Fact verification
+        kind: 1
+        training_module_ids: [86] # Exercise: Fact verification
         content: |
 
       -

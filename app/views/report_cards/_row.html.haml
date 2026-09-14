@@ -1,0 +1,13 @@
+%tr{class: (row.total? ? 'report-card__totals' : nil)}
+  - RetentionReportCard::COLUMNS.each do |column|
+    - value = row.public_send(column.key)
+    - if column.key == :title
+      %td.report-card__title
+        - if row.course
+          = link_to value, "/courses/#{row.course.slug}"
+        - else
+          = value
+    - elsif column.format == :text
+      %td= value
+    - else
+      %td.report-card__number= report_card_cell(row, column)

@@ -46,8 +46,13 @@ class Block < ApplicationRecord
 
   DEFAULT_POINTS = 10
 
+  # Preserves the order of training_module_ids, which is the order the
+  # instructor chose in the timeline editor. A bare `where` would come back in
+  # primary-key order. Ids with no matching module (a removed or renamed
+  # training) are skipped.
   def training_modules
-    TrainingModule.where(id: training_module_ids)
+    modules_by_id = TrainingModule.where(id: training_module_ids).index_by(&:id)
+    training_module_ids.filter_map { |id| modules_by_id[id] }
   end
 
   def date_manager

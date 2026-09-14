@@ -46,8 +46,9 @@ class CoursesController < ApplicationController
 
   def update
     validate
-    handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
+    reject_rename_of_event_synced_course { return }
+    handle_course_announcement(@course.instructors.first)
     @course.update update_params
     update_courses_wikis
     update_course_wiki_namespaces
@@ -63,6 +64,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    reject_deletion_of_event_synced_course { return }
     DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     render json: { success: true }
   end
@@ -313,6 +315,24 @@ class CoursesController < ApplicationController
     slug << "_(#{course[:term]})" if course[:term].present?
 
     course[:slug] = slug.tr(' ', '_')
+  end
+
+  # Courses linked to a Wikimedia Event Registration event are looked up by slug
+  # by the CampaignEvents extension, which has no way to learn that the course
+  # went away. Deleting or renaming one silently breaks registration for that
+  # event (see https://phabricator.wikimedia.org/T437639), so refuse until the
+  # organizer unlinks the event first.
+  def reject_deletion_of_event_synced_course
+    return unless @course.controlled_by_event_center?
+    render json: { message: I18n.t('courses.error.event_sync_delete') }, status: :conflict
+    yield
+  end
+
+  def reject_rename_of_event_synced_course
+    return unless @course.controlled_by_event_center?
+    return unless params[:course][:slug].present? && params[:course][:slug] != @course.slug
+    render json: { message: I18n.t('courses.error.event_sync_rename') }, status: :conflict
+    yield
   end
 
   def ensure_passcode_set

@@ -111,6 +111,17 @@ describe CoursesController, type: :request do
         expect(Course.find_by(slug: course.slug)).to be_nil
       end
     end
+
+    context 'when the course is linked to a Wikimedia Event Registration event' do
+      before { course.update!(flags: { event_sync: 4296 }) }
+
+      it 'refuses to delete the course' do
+        expect(DeleteCourseWorker).not_to receive(:schedule_deletion)
+        delete "/courses/#{course.slug}", params: { id: "#{course.slug}.json" }, as: :json
+        expect(response).to have_http_status(:conflict)
+        expect(Course.find_by(slug: course.slug)).to be_present
+      end
+    end
   end
 
   describe '#update' do
@@ -145,6 +156,25 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+    end
+
+    context 'when the course is linked to a Wikimedia Event Registration event' do
+      before { course.update!(flags: { event_sync: 4296 }) }
+
+      it 'refuses to change the slug' do
+        params = { id: course.slug, course: course_params }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(response).to have_http_status(:conflict)
+        expect(course.reload.slug).to eq(slug_params)
+        expect(course.description).not_to eq('New description')
+      end
+
+      it 'still saves other changes when the slug is unchanged' do
+        params = { id: course.slug, course: { description: 'New description' } }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.description).to eq('New description')
+      end
     end
 
     it 'does not post the details to the announcement page or the userpage' do

@@ -41,9 +41,10 @@ class OptInExperiment
   # en.yml) so this ephemeral experiment text stays out of the translation
   # pipeline; the controller hands it to the React component. Returns a hash
   # with keys: :title, :message, :consent_form, :opt_in, :opt_out,
-  # :install_title, :install_message, :install_button, :install_copy_button,
-  # :install_copied, :install_verify_button, :install_not_found (the :message,
-  # :consent_form and :install_message values are Markdown).
+  # :install_title, :install_explanation, :install_message, :install_button,
+  # :install_copy_button, :install_copied, :install_verify_button,
+  # :install_not_found (the :message, :consent_form, :install_explanation and
+  # :install_message values are Markdown).
   def student_invitation_copy
     raise NotImplementedError
   end

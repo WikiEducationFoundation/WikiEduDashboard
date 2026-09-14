@@ -8,6 +8,9 @@ class Courses::DeleteFromCampaignController < CoursesController
     if @course.campaigns.size > 1
       remove_course_from_campaign_but_not_deleted
     else
+      # Removing the only campaign deletes the course, which is refused for
+      # event-linked courses. See CoursesController#reject_deletion_of_event_synced_course.
+      reject_deletion_of_event_synced_course { return }
       remove_and_delete_course_from_campaign
     end
   end

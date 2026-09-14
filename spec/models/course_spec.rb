@@ -1026,4 +1026,35 @@ describe Course, type: :model do
       expect(build(:course, start: Date.new(2026, 12, 1)).inferred_term).to eq('spring_2027')
     end
   end
+
+  describe '#add_flag' do
+    let(:course) { create(:course, flags: { existing: true }) }
+
+    it 'keeps flags written by another process since the course was loaded' do
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :event_sync, value: 4563)
+      stale_copy.add_flag(key: :first_update, value: { queue_name: 'medium_update' })
+      expect(course.reload.flags).to include(existing: true,
+                                             event_sync: 4563,
+                                             first_update: { queue_name: 'medium_update' })
+    end
+
+    it 'returns false and writes nothing when the course is invalid' do
+      allow(course).to receive(:valid?).and_return(false)
+      expect(course.add_flag(key: :event_sync, value: 4563)).to be(false)
+      expect(course.reload.flags).not_to have_key(:event_sync)
+    end
+  end
+
+  describe '#remove_flag' do
+    let(:course) { create(:course, flags: { event_sync: 4563 }) }
+
+    it 'removes only the given flag, keeping flags written by another process' do
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :longest_update, value: 3)
+      stale_copy.remove_flag(:event_sync)
+      expect(course.reload.flags).to include(longest_update: 3)
+      expect(course.flags).not_to have_key(:event_sync)
+    end
+  end
 end

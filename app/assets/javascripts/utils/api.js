@@ -1,7 +1,7 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import request, { ensureOk } from './request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
 import { formatCategoryName } from '../components/util/scoping_methods';

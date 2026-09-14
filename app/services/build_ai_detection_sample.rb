@@ -20,6 +20,11 @@ class BuildAiDetectionSample
   # Same floor as production alerting; shorter text is not worth a detector call.
   MIN_PLAIN_TEXT_LENGTH = CheckRevisionWithPangram::MIN_PLAIN_TEXT_LENGTH
 
+  # rev_id, from_rev_id and revision_ai_scores.revision_id are 4-byte integer
+  # columns. Wikipedia revision ids are far below the limit (Wikidata's passed
+  # it in 2024); a stray larger id is skipped rather than crashing the build.
+  MAX_REVISION_ID = (2**31) - 1
+
   # Terms that ended before ChatGPT's release on 2022-11-30 are a human-written
   # baseline. Fall 2022 courses overlapped the release, so they are not.
   def self.term_attributes(slug)
@@ -56,6 +61,9 @@ class BuildAiDetectionSample
   end
 
   def add_revision_unit(wiki:, rev_id:, from_rev: nil, diff_mode: true, url: nil, **attrs)
+    reason = unusable_reason(wiki, rev_id, from_rev)
+    return skip(url || rev_id, reason) if reason
+
     unit = AiDetectionSample.find_by(sample_name:, wiki_id: wiki.id, rev_id:,
                                      from_rev_id: from_rev, diff_mode:)
     return remember(existing, unit) if unit
@@ -67,6 +75,15 @@ class BuildAiDetectionSample
                 url: url || unit_url(wiki, rev_id, from_rev, diff_mode), **attrs)
   rescue MediawikiApi::ApiError, Faraday::Error => e
     skip(url || rev_id, "#{e.class}: #{e.message}")
+  end
+
+  # AI detection is only meaningful on Wikipedia article prose; Wikidata and the
+  # other projects are out of scope for every sampling strategy.
+  def unusable_reason(wiki, rev_id, from_rev)
+    return "#{wiki.domain} is not a Wikipedia" unless wiki.project == 'wikipedia'
+
+    oversized = [rev_id, from_rev].compact.find { |id| id.to_i > MAX_REVISION_ID }
+    "revision id #{oversized} exceeds the 4-byte column" if oversized
   end
 
   # For text that did not come from a wiki revision: synthetic exemplars, text

@@ -114,6 +114,12 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
       <Modal modalClass="experiment-opt-in" ariaLabelledBy="experiment-opt-in-title">
         <div className="experiment-opt-in__panel">
           <h2 id="experiment-opt-in-title">{copy.install_title}</h2>
+          {copy.install_explanation && (
+            <div
+              className="experiment-opt-in__explanation"
+              dangerouslySetInnerHTML={{ __html: md.render(copy.install_explanation) }}
+            />
+          )}
           <div dangerouslySetInnerHTML={{ __html: md.render(copy.install_message || '') }} />
           <div className="experiment-opt-in__snippet-row">
             <pre className="experiment-opt-in__snippet">{userscript.import_line}</pre>

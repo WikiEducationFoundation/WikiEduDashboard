@@ -30,10 +30,10 @@ module ClaimVerification
       steps.flat_map(&:questions)
     end
 
-    # Every question id, whether or not it currently applies — what the
-    # controller permits from the client.
+    # Every answerable question's id, whether or not it currently applies — what
+    # the controller permits from the client. Prompts have no answer to permit.
     def answer_keys
-      questions.map(&:id)
+      questions.select(&:answerable?).map(&:id)
     end
 
     # The submitted answers, less anything the exercise didn't actually ask:
@@ -42,7 +42,8 @@ module ClaimVerification
     # abandoned branch from leaving stale answers behind.
     def applicable_answers(submitted)
       answers = submitted.to_h.stringify_keys
-      applicable_questions(answers).to_h { |question| [question.id, answers[question.id]] }
+      applicable_questions(answers).select(&:answerable?)
+                                   .to_h { |question| [question.id, answers[question.id]] }
                                    .compact_blank
     end
 
@@ -66,6 +67,7 @@ module ClaimVerification
     private
 
     def error_for(question, answer)
+      return unless question.answerable?
       return "#{question.id} is required" if question.required && answer.blank?
       return if answer.blank? || !question.choice?
       "#{answer} is not an accepted answer for #{question.id}" unless question.accepts?(answer)

@@ -90,6 +90,7 @@ export const TakenClaim = ({
           initial={response}
           onSaved={saved}
           onCancel={editing ? () => setEditing(false) : null}
+          onChooseDifferent={onChooseDifferent}
         />
       )}
     </div>

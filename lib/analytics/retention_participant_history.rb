@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/analytics/retention_fetch_error"
 
 # What a participant had already done before the course being reported on began:
 # how much they had edited, and whether they had already taken an earlier course.
@@ -70,14 +71,15 @@ class RetentionParticipantHistory
   end
 
   # Edits on one wiki before the course start, paginated until `limit` of them
-  # have been counted (or the user's contributions run out).
+  # have been counted (or the user's contributions run out). A nil response is a
+  # failed fetch, which must not pass for an editor with no history.
   def prior_edits_on(wiki, limit)
     api = WikiApi.new(wiki)
     count = 0
     continue = {}
     loop do
       response = api.query(prior_contribs_query.merge(continue))
-      break unless response
+      raise RetentionFetchError.new(@user.username, wiki) unless response
       count += (response.data['usercontribs'] || []).count
       break if count >= limit
       continue = response['continue']

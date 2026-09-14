@@ -473,6 +473,10 @@ nl:
     confirm_add_available: Weet u zeker dat u %{title} wilt toevoegen?
     confirm_addition: Weet u zeker dat u %{title} wilt toewijzen aan %{username}?
     confirm_deletion: Weet u zeker dat u deze toewijzing wilt verwijderen?
+    copy_available: Importeren vanuit een andere cursus
+    copy_available_url_placeholder: cursus-url
+    copy_available_select_placeholder: Selecteer een cursus
+    copy_available_include_student_assigned: Inclusief toegewezen pagina's?
     delete: Verwijderen
     editors: Toegewezen aan
     change_sandbox_url: Kladblok wijzigen
@@ -1950,8 +1954,8 @@ nl:
     exercise_heading: Feitencontrole-oefening
     intro_p1: Elk feit op Wikipedia moet worden onderbouwd door een betrouwbare bron.
       Wanneer u Wikipedia raadpleegt voor informatie, hoeft u niet zomaar het woord
-      van de auteur aan te nemen; u kunt de geciteerde bron opzoeken en de informatie
-      zelf controleren. Dit noemen we verifieerbaarheid, en het is een van de belangrijkste
+      van de bewerker aan te nemen; u kunt de geciteerde bron opzoeken en de informatie
+      zelf controleren. Dit noemen we verifieerbaarheid, een van de belangrijkste
       principes achter de geloofwaardigheid van Wikipedia.
     intro_p2: Naarmate AI-hulpmiddelen steeds vaker worden gebruikt, is het belangrijker
       dan ooit om te leren hoe u informatie kunt verifiëren. Door AI gegenereerde
@@ -1972,8 +1976,9 @@ nl:
     form:
       step_evaluate_source: Evalueer de bron
       evaluate_source_instructions: 'Overweeg eerst de bron zelf: of deze betrouwbaar
-        lijkt en of deze goed past bij het onderwerp. U kunt de Wikipedia-definitie
-        van ''Betrouwbare bronnen'' raadplegen: https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources'
+        lijkt en of deze goed past bij het onderwerp. U kunt de de [training over
+        bronevaluatie](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source)
+        bekijken.'
       source_appropriate_question: Is deze bron geschikt voor Wikipedia, voor dit
         specifieke artikel en voor de bewering die het ondersteunt?
       source_appropriate_options:
@@ -1999,17 +2004,20 @@ nl:
       source_access_question: Heeft u de volledige tekst van de aangehaalde bron voor
         uw bewering kunnen inzien?
       source_access_options:
-        accessed: Ja, ik heb de bron.
+        accessed: Ja, ik heb toegang tot de bron.
         nonexistent: Nee, de bron bestaat niet.
         inaccessible: Nee, de bron bestaat wel, maar ik kon er geen toegang toe krijgen.
       source_access_notes_label: 'Als u de bron niet hebt kunnen vinden, vertel ons
         dan meer over uw ervaring:'
       step_verify: Verifieer de bewering
-      verify_instructions: Zodra u de geciteerde bron hebt gevonden, onderzoek deze
-        dan zorgvuldig om te bepalen in hoeverre deze uw gekozen bewering ondersteunt.
-        Als u precies weet waar de informatie vandaan komt, noteer dan waar in het
-        document u deze hebt gevonden. Sommige citaten zijn te onnauwkeurig om door
-        een lezer in de praktijk te worden gecontroleerd.
+      verify_instructions: |-
+        Zodra u de geciteerde bron hebt gevonden, bepaal dan in hoeverre deze de door u gekozen bewering ondersteunt. Als u precies weet waar de informatie vandaan komt, noteer dan waar in het document u deze hebt gevonden.
+
+        Tips voor verificatie:
+
+        - Lees de samenvatting en de conclusie van de bron. Behandelt deze het onderwerp van de bewering?
+        - Gebruik de zoekfunctie in uw toepassing. Zoek in de bron naar trefwoorden uit de bewering en lees vervolgens de omringende tekst waar deze voorkomen. Als u de trefwoorden of synoniemen ervan niet in de tekst kunt vinden, is de bewering waarschijnlijk niet te verifiëren.
+        - Teksten die door generatieve AI-bronnen zijn gemaakt, bevatten vaak brede, algemene beweringen over een onderwerp met een verwijzing naar een bron die slechts één klein voorbeeld van die bewering biedt. Extrapoleert de bewering een algemene bewering uit een specifiek geval? Zo ja, dan is deze niet te verifiëren.
       verdict_question: Wordt de bewering door de bron ondersteund?
       verdict_options:
         full_support: Ja, deze ondersteunt de volledige bewering expliciet.

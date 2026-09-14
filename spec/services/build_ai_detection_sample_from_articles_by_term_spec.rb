@@ -36,6 +36,18 @@ describe BuildAiDetectionSampleFromArticlesByTerm do
     expect(builder.skipped).to eq([{ reference: 'fall_2026', reason: 'no such campaign' }])
   end
 
+  it 'samples only Wikipedia articles' do
+    wikidata = Wiki.find_by(project: 'wikidata') ||
+               Wiki.new(language: nil, project: 'wikidata').tap { |w| w.save(validate: false) }
+    create(:articles_course, article: create(:article, wiki_id: wikidata.id), course:,
+                             character_sum: 9000)
+
+    builder = described_class.new(sample_name: 'terms', terms: %w[spring_2021])
+
+    expect(builder.created.map(&:article_id)).to eq([article.id])
+    expect(builder.skipped).to be_empty
+  end
+
   it 'skips articles with no revisions during the course' do
     allow_any_instance_of(CumulativeDiff).to receive(:revision_target).and_return(nil)
 

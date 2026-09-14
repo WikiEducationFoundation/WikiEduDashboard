@@ -139,4 +139,28 @@ describe CourseQueueSorting do
       end
     end
   end
+
+  describe '#update_longest_update_time' do
+    let(:seven_second_log) do
+      { 1 => { 'start_time' => Time.zone.parse('2026-09-08 19:00:00'),
+               'end_time' => Time.zone.parse('2026-09-08 19:00:07') } }
+    end
+
+    it 'records the longest recent update without clobbering other flags' do
+      course = create(:course, flags: { 'update_logs' => seven_second_log })
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :event_sync, value: 4563)
+
+      subject.update_longest_update_time(stale_copy)
+
+      expect(course.reload.flags).to include(event_sync: 4563, longest_update: 7)
+    end
+
+    it 'does not save when the value is unchanged' do
+      course = create(:course, flags: { 'update_logs' => seven_second_log, longest_update: 7 })
+      expect(course).not_to receive(:save)
+
+      subject.update_longest_update_time(course)
+    end
+  end
 end
