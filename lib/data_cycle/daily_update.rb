@@ -114,7 +114,7 @@ class DailyUpdate
     log_message 'Checking retention for eligible new editors'
     RetainedEditorCheckWorker.set(queue: QUEUE).perform_async
   end
-  
+
   def update_retention_stats
     log_message 'Updating retention stats for recently ended Scholars & Scientists courses'
     UpdateRetentionStatsWorker.set(queue: QUEUE).perform_async
