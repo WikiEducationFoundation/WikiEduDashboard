@@ -631,9 +631,13 @@ page's screenshots (run with `CANVAS_TOOL_LABEL=wikiedu.org`, in the foreground 
 headless Chrome plus the spec trips the background-task memory watchdog). Two
 quirks of the test Canvas build are worked around there and worth knowing: its
 "Apps (New)" component crashes and remounts the settings route soon after any
-form change (so the dialog's fields are set in one DOM write), and its Add App
-dialog rejects a new tool whose `domain` matches an installed one, which is why
-the config XML declares no `domain`.
+form change (so the dialog's fields are set in one DOM write), and the dialog's
+Submit is refused (400) under automation while Canvas's API accepts the same
+install even with the dialog's uniqueness check — most likely the React form
+never registers values written from outside, so the spec falls back to the
+API's identical request for the remaining captures. The config XML declares no
+`domain` so a 1.1 install can never collide with a 1.3 one on the same LTIAAS
+domain.
 
 ## Institutional review: VPAT, HECVAT, and data flow
 

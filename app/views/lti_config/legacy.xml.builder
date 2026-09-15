@@ -33,10 +33,10 @@ xml.cartridge_basiclti_link(
     # Anonymous: Canvas sends an opaque user id and the course role, no name or
     # email — the same posture as the 1.3 registration's privacyLevel.
     xml.lticm :property, 'anonymous', name: 'privacy_level'
-    # No `domain` property on purpose. Canvas's Add App dialog rejects a new
-    # tool whose domain matches an installed one (its API path doesn't check),
-    # and the 1.3 tool shares the LTIAAS domain; a navigation-only tool
-    # doesn't need domain matching, which only serves module-item links.
+    # No `domain` property on purpose. A navigation-only tool doesn't need
+    # domain matching (it only serves module-item links), and Canvas's tool
+    # uniqueness check compares domains, so leaving it out keeps a 1.1 install
+    # from ever colliding with a 1.3 install on the same LTIAAS domain.
     xml.lticm :options, name: 'course_navigation' do
       xml.lticm :property, 'true', name: 'enabled'
       xml.lticm :property, 'enabled', name: 'default'

@@ -51,9 +51,9 @@ describe 'LTI 1.1 instructor install screenshots', :staging do
     end
     if provisioned[:restore_account_tool]
       canvas_api.save_account_external_tool(
-        name: 'wikiedu.org', consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
-        shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
-        config_type: 'by_url', config_url: config_url_real
+        { name: 'wikiedu.org', consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
+          shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
+          config_type: 'by_url', config_url: config_url_real }
       )
     end
   end
@@ -120,11 +120,12 @@ wait: 3)
       # capture. Confirmed through the API rather than the table, which can
       # keep its pre-submit contents after Canvas's settings page remounts.
       #
-      # Fallback: the same request through the API. Canvas's dialog checks the
-      # new tool for a domain collision with installed tools (the API path
-      # doesn't), and until the config XML stopped declaring the LTIAAS domain
-      # that check rejected it (400) because the 1.3 test tool shares that
-      # domain. The captures after this point look the same either way.
+      # Fallback: the same request through the API, with the dialog's own
+      # uniqueness check, which Canvas accepts — so the dialog's 400 is not a
+      # collision with the installed 1.3 tool. Its cause is unresolved; the
+      # likeliest is that the React form never registers values written from
+      # outside, so the dialog submits an empty form. A human typing is not
+      # affected, and the captures after this point look the same either way.
       open_add_app_dialog
       choose_configuration_type('By URL')
       expect(page).to have_field('Config URL', wait: 15)
@@ -143,10 +144,10 @@ wait: 3)
         warn '  [course tools] the dialog did not install it; installing through the API'
         canvas_api.install_external_tool(
           course_id:,
-          tool_config: { name: 'wikiedu.org',
-                         consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
+          tool_config: { name: 'wikiedu.org', consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
                          shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
-                         config_type: 'by_url', config_url: config_url_real }
+                         config_type: 'by_url', config_url: config_url_real,
+                         verify_uniqueness: true }
         )
         tool = eventually(attempts: 10, interval: 2) do
           canvas_api.course_external_tools(course_id:).find { |t| t['url'] == launch_url }
