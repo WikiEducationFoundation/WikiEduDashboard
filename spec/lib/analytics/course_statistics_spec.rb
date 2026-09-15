@@ -25,8 +25,9 @@ describe CourseStatistics do
       # Create timeslices
       create(:course_wiki_timeslice, course_id: id, wiki:, revision_count: id,
       start: 1.month.ago, end: 1.month.ago + 1.day)
-      create(:article_course_timeslice, course_id: id, article_id: id, revision_count: 1,
-      new_article: id == 1, start: 1.month.ago, end: 1.month.ago + 1.day)
+      create(:article_course_user_wiki_timeslice, course_id: id, article_id: id, user_id: id,
+      wiki:, revision_count: 1, new_article: id == 1, start: 1.month.ago,
+      end: 1.month.ago + 1.day)
       create(:articles_course, course_id: id, article_id: id, new_article: id == 1)
       create(:course_user_wiki_timeslice, course_id: id, user_id: id, wiki:, character_sum_ms: id,
       references_count: id, start: 1.month.ago, end: 1.month.ago + 1.day)
@@ -70,7 +71,7 @@ describe CourseStatistics do
     end
 
     it 'counts edited and created articles once the timeslices are purged' do
-      ArticleCourseTimeslice.delete_all
+      ArticleCourseUserWikiTimeslice.delete_all
       expect(subject[:articles_edited]).to eq(course_ids.count)
       expect(subject[:articles_created]).to eq(1)
     end

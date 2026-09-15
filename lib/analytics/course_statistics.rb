@@ -108,14 +108,14 @@ class CourseStatistics
   end
 
   # Deleted articles have no articles_courses records (see ArticleNamespacesManager),
-  # so they are found through their article course timeslices, which the purge keeps
+  # so they are found through their article course user wiki timeslices, which the purge keeps
   # for deleted articles. 'revision_count > 0' skips timeslices with only system
   # revisions.
   def deleted_new_article_ids
-    new_article_ids = ArticleCourseTimeslice.where(course_id: @course_ids, tracked: true,
-                                                   new_article: true)
-                                            .where('revision_count > 0')
-                                            .select(:article_id)
+    new_article_ids = ArticleCourseUserWikiTimeslice.where(course_id: @course_ids, tracked: true,
+                                                           new_article: true)
+                                                    .where('revision_count > 0')
+                                                    .select(:article_id)
     Article.where(namespace: Article::Namespaces::MAINSPACE, deleted: true,
                   id: new_article_ids).pluck(:id)
   end
