@@ -32,8 +32,6 @@
 #     from Canvas TAs not mapping to instructor here; that was wrong — Canvas
 #     sends the base Instructor role for TAEnrollments, so TAs do map.)
 class LtiMemberLinker
-  INSTRUCTOR_ROLE_SUFFIXES = LtiSession::INSTRUCTOR_ROLES
-
   # "Don't newly enroll this member" — see the definition on the model, where
   # the persisted status is also read back for the staff-facing roster flag.
   REMOVED_STATUSES = LtiContext::REMOVED_STATUSES
@@ -125,10 +123,10 @@ class LtiMemberLinker
   end
 
   def instructor_role?
-    LtiSession.role_match?(@member[:roles], INSTRUCTOR_ROLE_SUFFIXES)
+    LtiSession.instructor_role?(@member[:roles])
   end
 
   def learner_role?
-    LtiSession.role_match?(@member[:roles], LtiSession::LEARNER_ROLES)
+    LtiSession.learner_role?(@member[:roles])
   end
 end

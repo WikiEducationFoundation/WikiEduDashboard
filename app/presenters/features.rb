@@ -73,6 +73,15 @@ class Features
     ENV['canvas_integration_enabled'] == 'true'
   end
 
+  # Gates legacy (LTI 1.1) launches, on top of canvas_integration?. Under 1.1
+  # LTIAAS registers one global consumer key/secret for every LMS, so nothing on
+  # the LTIAAS side limits which institution can launch; this is the
+  # Dashboard-side opt-in, per deployment. Off by default: a legacy launch is
+  # refused until an operator turns it on (see LtiLaunchSession#build_lti_session).
+  def self.lti_legacy_launches?
+    ENV['lti_legacy_launches_enabled'] == 'true'
+  end
+
   def self.site_notice
     Rails.cache.fetch('site_notice') do
       site_notice = Setting.find_by(key: 'site_notice')&.value.presence || {}

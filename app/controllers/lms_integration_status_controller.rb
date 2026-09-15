@@ -45,9 +45,13 @@ class LmsIntegrationStatusController < ApplicationController
     end
   end
 
+  # `legacy` marks a launch-only LTI 1.1 binding: the sidebar drops the sync
+  # rows for it (no roster sync, no grade push ever happens), leaving the link
+  # and the connected-accounts count.
   def base
     {
       bound: true,
+      legacy: binding.legacy?,
       lms_name: binding.lms_display_name,
       course_title: binding.lms_context_title
     }

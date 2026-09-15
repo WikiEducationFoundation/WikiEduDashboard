@@ -81,6 +81,7 @@ describe LmsIntegrationStatusController, type: :request do
         get request_path
         body = JSON.parse(response.body)
         expect(body['bound']).to be true
+        expect(body['legacy']).to be false
         expect(body['lms_name']).to eq('Canvas')
         expect(body['course_title']).to eq('WRIT 2010')
         expect(body['course_url']).to eq(expected_course_url)
@@ -100,6 +101,15 @@ describe LmsIntegrationStatusController, type: :request do
         get request_path
         expect(JSON.parse(response.body)['course_url'])
           .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
+      end
+
+      # A launch-only LTI 1.1 binding: the sidebar reads the flag and drops the
+      # sync rows, which would otherwise show a sync that never happens as one
+      # that never succeeded.
+      it 'flags a legacy (LTI 1.1) binding' do
+        binding.update!(lti_version: '1.2.0')
+        get request_path
+        expect(JSON.parse(response.body)['legacy']).to be true
       end
 
       # The recorded error is exception class + message — diagnostic data the

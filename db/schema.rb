@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_15_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -474,6 +474,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
     t.datetime "last_grade_sync_at"
     t.text "last_grade_sync_error"
     t.datetime "last_grade_sync_attempt_at"
+    t.string "lti_version", default: "1.3.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true

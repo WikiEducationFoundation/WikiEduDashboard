@@ -18,6 +18,10 @@ module LtiLaunchSession
     # response to render prettily inside its iframe (this path skips the
     # allow_iframe after_action, so X-Frame-Options stays put — deliberately).
     rescue_from LtiSession::UnsupportedLmsError, with: :render_unsupported_lms
+    # Same treatment for a legacy (LTI 1.1) launch on a deployment that hasn't
+    # opted into them: fail closed at the boundary, before any binding or link
+    # is written for it.
+    rescue_from LtiSession::LegacyLaunchesDisabledError, with: :render_legacy_launches_disabled
     # Any LTIAAS refusal or outage mid-launch — most commonly an expired ltik
     # on a stale Canvas tab. Unrescued, these 500 with the default
     # X-Frame-Options, which the Canvas iframe shows as a blank "refused to
@@ -32,13 +36,23 @@ module LtiLaunchSession
 
   # Every launch-flow entry point — nav launch, anonymous launch, deep-link
   # picker, grade-sync trigger — builds its session here, so this is the one
-  # place the platform gate has to hold.
+  # place the platform gate and the legacy-launch gate have to hold.
+  #
+  # The legacy gate comes first: a launch kind the deployment hasn't opted into
+  # is refused whatever platform it names. Under 1.1 the platform gate then
+  # matters more, not less — LTIAAS's one global 1.1 registration accepts any
+  # LMS, so SUPPORTED_LMS_FAMILY is the only thing keeping this Canvas-only.
   def build_lti_session(ltik)
     session = LtiSession.new(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], ltik)
+    if session.legacy? && !Features.lti_legacy_launches?
+      raise LtiSession::LegacyLaunchesDisabledError,
+            "LTI #{session.lti_version} launch while legacy launches are disabled"
+    end
     return session if session.supported_lms?
 
     raise LtiSession::UnsupportedLmsError,
-          "launch from unsupported LMS family #{session.lms_family.inspect}"
+          "launch from unsupported LMS family #{session.lms_family.inspect} " \
+          "(LTI #{session.lti_version})"
   end
 
   # False means the launch authenticated fine but its LMS identity can't be
@@ -85,6 +99,7 @@ module LtiLaunchSession
   # relaunches don't enqueue redundant syncs.
   def schedule_first_link_grade_push(context)
     return unless @binding.course && context.previous_changes.key?('user_id')
+    return if @binding.legacy? # no gradebook to push to under LTI 1.1
 
     LtiGradeSyncWorker.perform_async(@binding.id)
   end
@@ -170,23 +185,40 @@ module LtiLaunchSession
     render 'lti_launch/enrollment_error', status: :forbidden
   end
 
-  # The tool is registered per-platform, so this should only ever fire if a
-  # non-Canvas platform was registered against the LTIAAS tenant — worth
-  # reporting rather than silently refusing.
+  # Under LTI 1.3 the tool is registered per-platform, so this should only ever
+  # fire if a non-Canvas platform was registered against the LTIAAS tenant.
+  # Under LTI 1.1 anyone holding the global consumer key/secret can launch from
+  # any LMS, so it is also the gate that keeps 1.1 Canvas-only. Either way it's
+  # worth reporting rather than silently refusing.
   def render_unsupported_lms(error)
     Sentry.capture_exception(error)
     head :forbidden
   end
 
+  # A legacy launch reached a deployment with `lti_legacy_launches_enabled` off.
+  # Reported, not just logged: once LTIAAS enables legacy launches on the
+  # account, an institution can install the 1.1 tool and start launching
+  # without anyone here knowing — this is how the operator finds out. Same
+  # bare 403 as the platform gate (framing deliberately left blocked).
+  def render_legacy_launches_disabled(error)
+    Sentry.capture_exception(error)
+    head :forbidden
+  end
+
   # Diagnostic, off unless LTI_LAUNCH_DEBUG is set. Logs the launch idtoken's
-  # top-level keys, the full `custom` object (Canvas ids + our resource
-  # marker — not PII), and the AGS service keys + lineItemId value (never the
-  # serviceKey value). Confirms what a deep-link-created resource link's
-  # launch actually carries on staging.
+  # top-level keys, its LTI version, the roles and platform claims (the two a
+  # legacy launch has to be checked for — how LTIAAS normalizes 1.1 roles and
+  # whether it fills productFamilyCode), the full `custom` object (Canvas ids +
+  # our resource marker — not PII), and the AGS service keys + lineItemId value
+  # (never the serviceKey value). Confirms what a deep-link-created resource
+  # link's launch, or a first legacy launch, actually carries on staging.
   def log_launch_claims
     idt = @lti_session.idtoken
     ags = idt.dig('services', 'assignmentAndGrades') || {}
-    Rails.logger.warn("[LTI launch] top=#{idt.keys.inspect} custom=#{idt['custom'].inspect} " \
+    Rails.logger.warn("[LTI launch] top=#{idt.keys.inspect} " \
+                      "version=#{idt['ltiVersion'].inspect} " \
+                      "roles=#{@lti_session.user_roles.inspect} " \
+                      "platform=#{idt['platform'].inspect} custom=#{idt['custom'].inspect} " \
                       "ags_keys=#{ags.keys.inspect} lineItemId=#{ags['lineItemId'].inspect}")
   end
 end

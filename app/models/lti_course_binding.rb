@@ -34,6 +34,11 @@
 #  lms_platform_url           :string(255)      - LMS base URL snapshot; used to
 #                                                 build a click-through link to
 #                                                 the LMS course view.
+#  lti_version                :string(255)      not null, default "1.3.0" - the
+#                                                 idtoken `ltiVersion` of the
+#                                                 latest launch ("1.2.0" is
+#                                                 LTIAAS's label for a legacy
+#                                                 LTI 1.1 launch); see #legacy?
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #
@@ -56,6 +61,13 @@
 # meant keeping auto-create and label-push branches, a second scheduling hook,
 # and AGS verbs nothing called.
 class LtiCourseBinding < ApplicationRecord
+  # The `ltiVersion` LTIAAS reports for an LTI 1.3 launch. Anything else is a
+  # legacy launch: LTIAAS labels LTI 1.1 (and 1.2) launches "1.2.0", so legacy
+  # is defined as "not 1.3" rather than by matching a "1.1" string. Only 1.3
+  # bindings have LTI services (NRPS roster sync, AGS line items and scores)
+  # behind them — see #legacy? and the `lti_1_3` scope.
+  LTI_1_3 = '1.3.0'
+
   # Human-readable LMS labels keyed by the LTI 1.3 `product_family_code`
   # values we expect to see. Unknown families fall back to a titleized
   # version of the family code in `lms_display_name`, so a new LMS
@@ -77,7 +89,13 @@ class LtiCourseBinding < ApplicationRecord
   after_save :sync_linked_course_flags, if: :saved_change_to_course_id?
   after_destroy :clear_flag_on_bound_course
 
-  validates :lms_id, :lms_context_id, :lms_resource_link_id, presence: true
+  validates :lms_id, :lms_context_id, :lms_resource_link_id, :lti_version, presence: true
+
+  # Bindings with LTI services behind them. The NRPS/AGS dispatchers select on
+  # this, by version, rather than on stored service credentials alone: a legacy
+  # binding must stay out of the roster and grade workers even if something
+  # someday persists its (per-user, outcomes-only) legacy service key.
+  scope :lti_1_3, -> { where(lti_version: LTI_1_3) }
   # A Dashboard course backs only one LMS course. There is a unique DB index on
   # course_id, but without this validation a duplicate surfaces as an uncaught
   # RecordNotUnique (500); the validation turns it into a handleable error.
@@ -91,6 +109,17 @@ class LtiCourseBinding < ApplicationRecord
 
   def lms_display_name
     LMS_DISPLAY_NAMES[lms_family] || lms_family.to_s.titleize
+  end
+
+  # A binding whose launches are legacy LTI 1.1 ("companion mode"): launch,
+  # identity linking and enrollment work, but there is no roster service, no
+  # gradebook line-item service and no grade passback. Every 1.3-only surface —
+  # the sync workers, the deep-link picker, the grade-sync trigger, the
+  # assignment drill-downs — checks this and refuses rather than reaching code
+  # that assumes those services exist. New integration capabilities are 1.3-only
+  # by default; supporting one under 1.1 is a deliberate addition.
+  def legacy?
+    lti_version != LTI_1_3
   end
 
   # Learner memberships that have linked a Wikipedia account — the set that sync

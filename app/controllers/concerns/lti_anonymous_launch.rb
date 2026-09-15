@@ -39,12 +39,13 @@ module LtiAnonymousLaunch
   end
 
   # nil on any failure (expired ltik, LTIAAS hiccup): the landing must keep
-  # rendering, just without launch-specific state. An unsupported platform is
-  # the exception — that one has to fail closed rather than degrade to a landing
-  # page, so it's re-raised for the controller's handler.
+  # rendering, just without launch-specific state. The two gates are the
+  # exception — an unsupported platform or a legacy launch the deployment
+  # hasn't enabled has to fail closed rather than degrade to a landing page, so
+  # those are re-raised for the controller's handlers.
   def anonymous_lti_session
     build_lti_session(params[:ltik])
-  rescue LtiSession::UnsupportedLmsError
+  rescue LtiSession::UnsupportedLmsError, LtiSession::LegacyLaunchesDisabledError
     raise
   rescue StandardError
     nil

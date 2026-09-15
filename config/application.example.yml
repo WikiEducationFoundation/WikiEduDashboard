@@ -156,6 +156,12 @@
 # passback. Leave default false until LTIAAS is registered against a live
 # Canvas instance for this environment.
   canvas_integration_enabled: 'false'
+# Set to 'true' to also accept legacy LTI 1.1 launches (launch-only "companion
+# mode": no roster sync, no assignment import, no grade passback). Requires
+# canvas_integration_enabled and LTIAAS legacy support on the account. LTIAAS
+# registers one global consumer key/secret for every 1.1 LMS, so this flag is
+# the Dashboard-side opt-in; leave it false unless an institution needs 1.1.
+  lti_legacy_launches_enabled: 'false'
 
 # Default timeslice duration (in seconds) used for processing course updates
   TIMESLICE_DURATION: '86400'

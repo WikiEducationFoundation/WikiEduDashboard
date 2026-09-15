@@ -44,6 +44,36 @@ Branch state, so a fresh session doesn't have to reconstruct it:
     ALTER TABLE lti_line_items MODIFY lineitem_id VARCHAR(512) NULL;
     ```
 
+## LTI 1.1 companion mode (2026-09-15)
+
+Implemented on branch `lti-11-companion-mode` per issue #7026 (launch-only:
+no roster sync, no assignment import, no grade passback). Developer notes and
+the first-launch verification checklist are in `docs/canvas_dev_setup.md`
+("LTI 1.1 legacy launches"). Still open:
+
+- **Guide copy.** The guide's LTI 1.1 section is two tables and one line;
+  no `[PLACEHOLDER]` markers remain anywhere (the legacy status view carries no
+  guidance text and the deep-link refusal reuses "Unavailable"). Expand or
+  reword once the install method is settled.
+- **Canvas launch point under 1.1.** A manual key/secret install has no
+  course-navigation placement; that needs an XML tool config we don't host yet.
+  Options: serve a static cartridge XML from the Dashboard, or document module
+  items / external-tool assignments as the launch point (see the dev-setup
+  checklist, item 6).
+- **A real legacy launch** from a Canvas test instance, once LTIAAS has enabled
+  legacy support on the account: settles the roles normalization, the
+  `productFamilyCode` gate, identity scoping under the one global 1.1
+  registration, and the `legacy-ltik` TTL (checklist in the dev-setup doc).
+- **Migration / schema on staging.** `lti_course_bindings.lti_version`
+  (`VARCHAR(255) NOT NULL DEFAULT '1.3.0'`) — deploys don't run this work's
+  migrations on staging; apply by hand as with the earlier columns.
+- **Shared-secret risk.** One consumer key/secret covers every 1.1 institution;
+  a leak anywhere lets any holder forge launches for any 1.1 platform/user.
+  Decide on rotation practice, and on per-binding pinning if the identity
+  scoping check above shows collisions are possible.
+- **Enablement.** Which LTIAAS account IDs to enable (staging first, or both),
+  and the pricing delta LTIAAS didn't mention.
+
 ### Which open items a real user can actually hit
 
 _(2026-07-30: all three user-reachable priorities below were addressed in a

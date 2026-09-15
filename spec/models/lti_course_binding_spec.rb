@@ -61,6 +61,33 @@ describe LtiCourseBinding do
     end
   end
 
+  # LTIAAS labels an LTI 1.1 launch "1.2.0", so legacy is "not 1.3". The
+  # column defaults to 1.3 for rows that predate legacy support.
+  describe '#legacy? and the lti_1_3 scope' do
+    it 'defaults new rows to LTI 1.3' do
+      binding = described_class.create!(base_attrs)
+      expect(binding.lti_version).to eq('1.3.0')
+      expect(binding).not_to be_legacy
+    end
+
+    it 'is legacy for any version other than 1.3' do
+      expect(described_class.new(base_attrs.merge(lti_version: '1.2.0'))).to be_legacy
+      expect(described_class.new(base_attrs.merge(lti_version: '1.1.0'))).to be_legacy
+    end
+
+    it 'scopes to the bindings with LTI services behind them' do
+      current = described_class.create!(base_attrs)
+      legacy = described_class.create!(base_attrs.merge(lms_context_id: 'canvas-course-88',
+                                                        lti_version: '1.2.0'))
+      expect(described_class.lti_1_3).to include(current)
+      expect(described_class.lti_1_3).not_to include(legacy)
+    end
+
+    it 'requires a version' do
+      expect(described_class.new(base_attrs.merge(lti_version: nil))).not_to be_valid
+    end
+  end
+
   describe '#lms_display_name' do
     it 'returns the configured label for known LMS families' do
       binding = described_class.new(base_attrs.merge(lms_family: 'canvas'))

@@ -37,6 +37,10 @@ module LtiGradeSyncTrigger
     # and this POST usually comes from inside the iframe — where the old
     # login-error redirect rendered as a blank frame on a stale tab.
     return render_launch_error_or_redirect unless @binding && @lti_session.instructor?
+    # No AGS under LTI 1.1 and no button that posts here from the legacy status
+    # view, so a POST that arrives anyway is refused rather than enqueuing a
+    # sync that would no-op.
+    return head :forbidden if @binding.legacy?
 
     LtiGradeSyncWorker.perform_async(@binding.id) if @binding.course
     @grade_sync_started = true

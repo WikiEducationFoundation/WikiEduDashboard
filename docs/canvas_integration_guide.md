@@ -146,6 +146,25 @@ Once the app is available in their course, the instructor:
 From then on, their students launch the Dashboard from Canvas, and their progress
 flows back to the gradebook.
 
+## LTI 1.1
+
+Launch-only, on request, for institutions that cannot install LTI 1.3 tools.
+
+| | LTI 1.3 | LTI 1.1 |
+|---|---|---|
+| Launch from Canvas | Yes | Yes |
+| Wikipedia account connection and automatic enrollment | Yes | Yes |
+| Roster sync (NRPS) | Yes | No |
+| Assignment import (Deep Linking) | Yes | No |
+| Gradebook passback (AGS) | Yes | No |
+
+| | |
+|---|---|
+| Configuration | Manual, with a consumer key and shared secret from Wiki Education |
+| Launch URL | `https://wikiedu.ltiaas.com/lti/legacy/launch` |
+| Privacy level | Anonymous |
+| Canvas data received | User ID and course role of each person who launches |
+
 ## Troubleshooting
 
 - **Nothing appears in any course after registering.** Registering, turning the

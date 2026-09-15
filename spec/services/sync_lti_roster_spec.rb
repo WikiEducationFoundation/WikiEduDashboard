@@ -45,6 +45,17 @@ describe SyncLtiRoster do
     expect(binding.reload.last_roster_sync_at).to be_present
   end
 
+  # No roster service under LTI 1.1. Guarded by version even with credentials
+  # present, so nothing here depends on the legacy key never being stored.
+  it 'is a no-op for a legacy (LTI 1.1) binding' do
+    binding.update!(lti_version: '1.2.0')
+    expect { described_class.new(binding) }
+      .not_to change(LtiContext, :count)
+    expect(binding.reload.last_roster_sync_at).to be_nil
+    expect(binding.last_roster_sync_error).to be_nil
+    expect(WebMock).not_to have_requested(:get, memberships_url)
+  end
+
   it 'is a no-op when the binding has no stored serviceKey' do
     binding.update!(ltiaas_service_credentials: nil)
     expect { described_class.new(binding) }

@@ -39,7 +39,7 @@ module LtiDeepLinking
 
     @ltik = params[:ltik]
     @lti_session = build_lti_session(@ltik)
-    return render_deep_link_forbidden unless @lti_session.instructor?
+    return if deep_link_refused?
 
     @binding = @lti_session.bound_binding
     # Not linked yet: render the same "not yet linked" landing the course-nav
@@ -61,7 +61,7 @@ module LtiDeepLinking
     return render_launch_error_or_redirect if params[:ltik].blank?
 
     @lti_session = build_lti_session(params[:ltik])
-    return render_deep_link_forbidden unless @lti_session.instructor?
+    return if deep_link_refused?
 
     binding = @lti_session.bound_binding
     gradables = chosen_gradables(binding)
@@ -77,6 +77,20 @@ module LtiDeepLinking
 
   private
 
+  # The two refusals both picker actions share, in-frame: a legacy launch (deep
+  # linking is 1.3-only) and a non-instructor role. Renders the refusal and
+  # returns true; false means the launch may reach the picker.
+  def deep_link_refused?
+    if @lti_session.legacy?
+      render_deep_link_legacy
+    elsif !@lti_session.instructor?
+      render_deep_link_forbidden
+    else
+      return false
+    end
+    true
+  end
+
   # The picker placements are reachable by non-instructor course roles too
   # (a Canvas observer or designer). Only INSTRUCTOR_ROLES may import, but a
   # bare `head :forbidden` renders as a blank page inside Canvas's picker
@@ -85,6 +99,16 @@ module LtiDeepLinking
   # policy, deliberately untouched here.
   def render_deep_link_forbidden
     render 'lti_launch/deep_link_forbidden', layout: 'lti_iframe', status: :forbidden
+  end
+
+  # Deep linking is LTI 1.3-only. Canvas offers the bulk Modules import to 1.3
+  # tools alone, and the 1.1 Content-Item flow (one assignment at a time, no
+  # points, no due date, no tag for discovery) has no gradebook to feed under the
+  # launch-only 1.1 mode anyway. Whether a 1.1 selection placement ever reaches
+  # this route depends on how LTIAAS forwards it; if it does, say so in-frame
+  # rather than reaching the picker, which would offer imports that can't work.
+  def render_deep_link_legacy
+    render 'lti_launch/deep_link_legacy', layout: 'lti_iframe', status: :forbidden
   end
 
   # Multi-select when the placement takes multiple content items. Gradables

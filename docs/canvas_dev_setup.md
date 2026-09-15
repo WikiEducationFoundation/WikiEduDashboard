@@ -469,6 +469,99 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
+## LTI 1.1 legacy launches ("companion mode")
+
+The integration also accepts legacy LTI 1.1 launches, as a deliberately reduced
+**launch-only** mode for institutions that cannot install LTI 1.3 tools (the
+pilot case: a FERPA review process with no path for 1.3 applications; see issue
+#7026). What survives is launch, identity linking, enrollment and the in-frame
+views; there is **no roster sync, no assignment import, and no grade passback**,
+because Canvas offers no LTI 1.1 equivalent of NRPS or the Modules bulk
+deep-linking placement, and Basic Outcomes can only post a score for a
+(student, assignment) pair after that student has launched the assignment —
+a second grading architecture that issue #7026 declines to build.
+
+### How a legacy launch arrives
+
+- **LTIAAS side.** Legacy support is unadvertised and enabled manually per
+  LTIAAS account (send them the account IDs). Registration is **one global
+  consumer key + shared secret for every 1.1 LMS** (LTIAAS portal → API
+  Settings → *Display OAuth Secrets*); there is no per-platform registration,
+  so the LMS-side config is just key, secret and the tool URL
+  `https://<subdomain>.ltiaas.com/lti/legacy/launch`.
+- **Token.** LTIAAS forwards the launch to our launch URL with `?legacy-ltik=`
+  instead of `?ltik=`. `LtiLaunchController#normalize_legacy_ltik` folds it into
+  `params[:ltik]` at the boundary; the idtoken API and the `LTIK-AUTH-V2` header
+  accept either kind, and our views re-emit it under the ordinary name.
+- **idtoken.** Same normalized shape, with `ltiVersion: "1.2.0"` (LTIAAS's label
+  for 1.1/1.2), `services.outcomes.available: true`, and a per-user
+  `services.legacyServiceKey` for Basic Outcomes. `LtiSession#legacy?` means
+  "`ltiVersion` is not 1.3.0"; a missing version reads as 1.3.
+
+### What the code does with it
+
+- **Gates.** `Features.lti_legacy_launches?` (`lti_legacy_launches_enabled:
+  'true'`, alongside `canvas_integration_enabled`) — off, a legacy launch is
+  refused with a bare 403 and reported to Sentry
+  (`LtiSession::LegacyLaunchesDisabledError`). `SUPPORTED_LMS_FAMILY` still
+  applies, and under the global 1.1 registration it is the *only* thing keeping
+  1.1 Canvas-only.
+- **Version on the binding.** `lti_course_bindings.lti_version` (default
+  `1.3.0`) is refreshed from every launch. `LtiCourseBinding#legacy?` and the
+  `lti_1_3` scope are what the 1.3-only surfaces check: the periodic grade and
+  daily roster dispatchers select `lti_1_3` by version (not merely by stored
+  credentials), the three sync services return early, and
+  `LtiServiceSession.new` raises `NoLtiServicesError` for a legacy binding.
+  A legacy launch persists nothing into `ltiaas_service_credentials`.
+- **Roles.** `LtiSession::LEGACY_INSTRUCTOR_ROLES` / `LEGACY_LEARNER_ROLES`
+  accept the 1.1 forms (bare `Instructor` / `Learner`, the
+  `urn:lti:role:ims/lis/…` context URNs, and the TA URN, which is all Canvas
+  sends for a 1.1 TaEnrollment) by exact match; institution-level
+  (`urn:lti:instrole:…`) and system-level roles, Mentor/Observer and
+  ContentDeveloper stay unsupported. The 1.3 suffix table still applies in case
+  LTIAAS normalizes.
+- **Dispatch.** Every legacy launch is the course-navigation launch
+  (`assignment_launch?` is false): a student gets the enrollment flow and
+  `student_status`; an instructor gets `instructor_status_legacy` (link
+  confirmation + connected-accounts count, no roster/sync/import rows, no
+  roster sync enqueued). Deep linking renders `deep_link_legacy` (403),
+  `sync_grades` refuses, binding a course enqueues no syncs, and the first-link
+  grade push is skipped. The course-page sidebar payload carries `legacy: true`
+  and drops the sync rows.
+- **Copy.** None of its own. The legacy status view carries no guidance text
+  (once linked, a 1.1 course has no further setup step), and the deep-link
+  refusal shows the existing one-word `lti.deep_link.unavailable_header`.
+
+### To verify on the first real legacy launch
+
+Set `LTI_LAUNCH_DEBUG=1` and read the `[LTI launch]` log line, which now includes
+`version`, `roles` and `platform`:
+
+1. **Roles.** Does LTIAAS hand through the raw 1.1 forms or normalize them to
+   1.3 URIs? Both are handled, but check a Canvas TA (TA URN only) and a Canvas
+   observer (`urn:lti:instrole:ims/lis/Observer` + `urn:lti:role:ims/lis/Mentor`
+   → must be `unsupported_role`).
+2. **`platform.productFamilyCode`.** If it isn't `canvas` on a 1.1 launch, the
+   platform gate refuses every legacy launch (`UnsupportedLmsError` in Sentry
+   with the family value) and needs a decision, not a silent widening.
+3. **Identity scoping.** What are `platform.id` and `user.id` on a 1.1 launch?
+   With one global registration, if every 1.1 consumer shares a `platform.id`
+   and ids are the raw per-consumer values, two institutions' courses or users
+   could collide in `(lms_id, lms_context_id)` / `(user_lti_id, binding)`.
+   Extra pinning (e.g. the consumer-instance GUID) is warranted if so.
+4. **`legacy-ltik` TTL / re-presentability** — assumed to match the 24h `ltik`.
+5. **The sunset path.** Canvas's NRPS returns `lti11LegacyUserId`; if a 1.1
+   launch's `user.id` is that same raw id, a course moving to 1.3 re-links its
+   contexts by backfill rather than re-enrollment.
+6. **The launch point in Canvas.** A manually configured 1.1 tool (key, secret,
+   launch URL) gets no course-navigation placement on its own; in Canvas that
+   needs an XML tool configuration with a `course_navigation` extension, which
+   LTIAAS's quick-start doesn't provide. Until one is hosted (the Dashboard
+   could serve a small static one pointing at the LTIAAS legacy launch URL),
+   the launch point is a module item or an external-tool assignment pointing at
+   the tool — both arrive as ordinary launches and are handled as the
+   course-navigation one. Decide which before writing install steps.
+
 ## Institutional review: VPAT, HECVAT, and data flow
 
 Every install — the test Canvas included — goes through the same self-service
